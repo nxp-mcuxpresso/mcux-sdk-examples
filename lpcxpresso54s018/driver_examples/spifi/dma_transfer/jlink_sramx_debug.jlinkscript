@@ -1,0 +1,349 @@
+/*********************************************************************
+*               (c) SEGGER Microcontroller GmbH & Co. KG             *
+*                        The Embedded Experts                        *
+*                           www.segger.com                           *
+**********************************************************************
+
+-------------------------- END-OF-HEADER -----------------------------
+
+File    : NXP_LPC540xx.JLinkScript.pc
+Purpose : Contains device specific handling for NXP LPC540xx series
+Literature:
+  [1]  J-Link User Guide
+
+Additional information:
+  For more information about public functions that can be implemented in order to customize J-Link actions, please refer to [1]
+*/
+
+/*********************************************************************
+*
+*       Constants (similar to defines)
+*
+**********************************************************************
+*/
+//
+// Private peripherals
+//
+__constant U32 _DWT_COMP0                     = 0xE0001020;
+__constant U32 _DWT_MASK0                     = 0xE0001024;
+__constant U32 _DWT_FUNC0                     = 0xE0001028;
+__constant U32 _FP_CTRL_ADDR                  = 0xE0002000;
+__constant U32 _FPCR_ADDR                     = 0xE0002008;
+
+//
+// SFR defines
+//
+__constant U32 _AIRCR_ADDR                    = 0xE000ED0C;
+__constant U32 _DHCSR_ADDR                    = 0xE000EDF0;
+__constant U32 _DCRSR_ADDR                    = 0xE000EDF4;
+__constant U32 _DCRDR_ADDR                    = 0xE000EDF8;
+
+__constant U32 _DEMCR_ADDR                    = 0xE000EDFC;
+__constant U32 _DAP_ACC_32BIT_AUTO_INC        = (1 << 29) | (1 << 25) | (1 << 24) | (1 << 4) | (2 << 0);  // HMASTER = DEBUG, Private access, Auto-increment, Access size: word;
+__constant U32 _DAP_ACC_8BIT_NO_AUTO_INC      = (1 << 29) | (1 << 25) | (1 << 24) | (0 << 4) | (0 << 0);  // HMASTER = DEBUG, Private access, no Auto-increment, Access size: byte;
+__constant U32 _DAP_ACC_16BIT_NO_AUTO_INC     = (1 << 29) | (1 << 25) | (1 << 24) | (0 << 4) | (1 << 0);  // HMASTER = DEBUG, Private access, no Auto-increment, Access size: half word;
+__constant U32 _DAP_ACC_32BIT_NO_AUTO_INC     = (1 << 29) | (1 << 25) | (1 << 24) | (0 << 4) | (2 << 0);  // HMASTER = DEBUG, Private access, no Auto-increment, Access size: word;
+__constant U32 _DP_CTRL_STAT_BIT_DBGPWRUPREQ  = (1 << 30);
+__constant U32 _DP_CTRL_STAT_BIT_SYSPWRUPREQ  = (1 << 28);
+__constant U32 _DP_CTRL_STAT_BIT_STICKYERR    = (1 <<  5);
+//
+// Generic defines
+//
+__constant U32 _ACCESS_DP                     = 0;
+__constant U32 _ACCESS_AP                     = 1;
+
+/*********************************************************************
+*
+*       Global variables
+*
+**********************************************************************
+*/
+U32 _ResetPinActive;
+  
+/*********************************************************************
+*
+*       Local functions
+*
+**********************************************************************
+*/
+/*********************************************************************
+*
+*       _WriteCPUReg
+*
+*  Function description
+*    Writes a CPU register such as R0-R15, SP, PC,...
+*
+*/
+static int _WriteCPUReg(int RegIndex, int Data) {
+  JLINK_CORESIGHT_WriteDAP(JLINK_CORESIGHT_DP_REG_SELECT, _ACCESS_DP, (0 << 4) | (0 << 24));       // Select AHB-AP bank 0
+  JLINK_CORESIGHT_WriteDAP(JLINK_CORESIGHT_AP_REG_ADDR,   _ACCESS_AP, _DHCSR_ADDR);                // Select DHCSR as base address for banked AHB-AP access 
+  JLINK_CORESIGHT_WriteDAP(JLINK_CORESIGHT_AP_REG_CTRL,   _ACCESS_AP, _DAP_ACC_32BIT_NO_AUTO_INC); 
+  JLINK_CORESIGHT_WriteDAP(JLINK_CORESIGHT_AP_REG_ADDR,   _ACCESS_AP, _DCRDR_ADDR);
+  JLINK_CORESIGHT_WriteDAP(JLINK_CORESIGHT_AP_REG_DATA,   _ACCESS_AP, Data);
+  JLINK_CORESIGHT_WriteDAP(JLINK_CORESIGHT_AP_REG_ADDR,   _ACCESS_AP, _DCRSR_ADDR);
+  JLINK_CORESIGHT_WriteDAP(JLINK_CORESIGHT_AP_REG_DATA,   _ACCESS_AP, RegIndex | (1 << 16));
+  return 0;
+}
+
+/*********************************************************************
+*
+*       _PrepDAP
+*
+*  Function description
+*    Prepares the DAP for further usage, meaning enabling the power for different domains, make sure that no sticky error flags are set etc.
+*/
+static void _PrepDAP(void) {
+  U32 v;
+  //
+  // The DP is slightly different for JTAG and SWD, especially regarding clearing sticky error bits
+  //
+  if (JLINK_ActiveTIF == JLINK_TIF_SWD) {
+    v = _DP_CTRL_STAT_BIT_DBGPWRUPREQ | _DP_CTRL_STAT_BIT_SYSPWRUPREQ;
+    JLINK_CORESIGHT_WriteDP(JLINK_CORESIGHT_DP_REG_ABORT, 0x1E);                          // Clear sticky error flags
+  } else {
+    v = _DP_CTRL_STAT_BIT_DBGPWRUPREQ | _DP_CTRL_STAT_BIT_SYSPWRUPREQ | _DP_CTRL_STAT_BIT_STICKYERR;   // Clear sticky error flag
+  }
+  JLINK_CORESIGHT_WriteDP(JLINK_CORESIGHT_DP_REG_CTRL_STAT, v);
+}
+
+/*********************************************************************
+*
+*       _IsHalted
+*
+*  Function description
+*    Prepares the DAP for further usage, meaning enabling the power for different domains, make sure that no sticky error flags are set etc.
+*/
+static int _IsHalted(void) {
+  U32 v;
+  
+  v = JLINK_MEM_ReadU32(_DHCSR_ADDR);
+  v = ((v >> 17) & 1);                     // Check if CPU is halted: S_Halt (Bit 17).
+  return v;
+}
+
+/*********************************************************************
+*
+*       _ResetViaSYSRESETREQ
+*
+*  Function description
+*    Issues a reset via the AIRCR.SYSRESETREQ bit
+*    Tries to halt CPU immediately after reset release via vector catch (VC_CORERESET)
+*    
+*/
+static int _ResetViaSYSRESETREQ(void) {
+  U32 v;
+  U32 v1;
+  int t;
+  
+  _PrepDAP();
+  //
+  // Halt the CPU
+  //
+  JLINK_MEM_WriteU32(_DHCSR_ADDR, 0xA05F0003);            // Data: Key + C_DEBUGEN + C_HALT
+  //
+  // Set vector catch on reset (to halt the CPU immediately after reset)
+  //
+  JLINK_MEM_WriteU32(_DEMCR_ADDR, 0x1 | (1 << 24));       // VC_CORERESET
+  //
+  // Issue reset request via SFR
+  //
+  JLINK_MEM_WriteU32(_AIRCR_ADDR, 0x05FA0004);            // Key + SYSRESETREQ
+  //
+  // Wait until CPU is halted or timeout occurred
+  //
+  t = JLINK_GetTime() + 200;
+  do {
+  v = _IsHalted();
+    if (v) {
+//      JLINK_SYS_Report("_TargetHalt: CPU halted");
+      break;
+    }
+    v = (t - JLINK_GetTime());
+    if (v < 0) {
+      JLINK_SYS_Report("_TargetHalt: CPU did not halt.");
+      return -1;
+    }
+  } while (1); 
+  JLINK_MEM_WriteU32(_DHCSR_ADDR, 0xA05F0003);    // Data: Key + C_DEBUGEN + C_HALT
+  JLINK_MEM_WriteU32(_DEMCR_ADDR, 0x0 | (1 << 24));
+  return 0;  
+}
+
+/*********************************************************************
+*
+*       _HaltAfterBootloader
+*
+*  Function description
+*    Executes the LPC54S018 bootloader
+*    
+*/
+static int _HaltAfterBootloader(void) {
+  int v;
+  int v1;
+  int v2;
+  int t;
+  U32 Addr;
+  U32 Ctrl;
+  //
+  // Save FP unit register
+  //
+  Ctrl = JLINK_MEM_ReadU32(_FP_CTRL_ADDR);
+  //
+  // Set breakpoint and clear all others
+  //
+  JLINK_MEM_WriteU32(_FP_CTRL_ADDR, 00000003);
+  Addr = 0x03008720;
+  v = (Addr & ~(3)) | 1 | (((Addr & 2) + 1) << 30);
+  JLINK_MEM_WriteU32(_FPCR_ADDR + 0, v);
+  //
+  // Start the CPU
+  //
+  JLINK_MEM_WriteU32(_DHCSR_ADDR, 0xA05F0001); // Data: Key + C_DEBUGEN
+  //
+  // Wait until CPU is halted or timeout occurred
+  //
+  t = JLINK_GetTime() + 200;
+  do {
+  v = _IsHalted();
+    if (v) {
+//        JLINK_SYS_Report("_TargetHalt: CPU halted");
+      break;
+    }
+    v = (t - JLINK_GetTime());
+    if (v < 0) {
+      JLINK_SYS_Report("_TargetHalt: CPU did not halt.");
+      return -1;
+    }
+  } while (1); 
+  v = JLINK_MEM_ReadU32(0x00000024);
+  if (v == 0xEDDC94BD) {
+    //
+    // Set breakpoint and clear all others
+    //
+    Addr = 0x03000164;
+    v = (Addr & ~(3)) | 1 | (((Addr & 2) + 1) << 30);
+    JLINK_MEM_WriteU32(_FP_CTRL_ADDR, 00000003);
+    JLINK_MEM_WriteU32(_FPCR_ADDR + 0, v);
+    //
+    // Start the CPU
+    //
+    JLINK_MEM_WriteU32(_DHCSR_ADDR, 0xA05F0001); // Data: Key + C_DEBUGEN
+    //
+    // Wait until CPU is halted or timeout occurred
+    //
+    t = JLINK_GetTime() + 200;
+    do {
+    v = _IsHalted();
+      if (v) {
+  //        JLINK_SYS_Report("_TargetHalt: CPU halted");
+        break;
+      }
+      v = (t - JLINK_GetTime());
+      if (v < 0) {
+        JLINK_SYS_Report("_TargetHalt: CPU did not halt.");
+        return -1;
+      }
+    } while (1); 
+  }
+  //
+  // Restore FP unit registers
+  //
+  JLINK_MEM_WriteU32(_FP_CTRL_ADDR, Ctrl);  
+  return 0;  
+}
+
+/*********************************************************************
+*
+*       Global functions
+*
+**********************************************************************
+*/
+
+/*********************************************************************
+*
+*       ResetTarget()
+*
+*  Function description
+*    Replaces selected reset strategy of J-Link software.
+*    No matter what reset type is selected, if this function is present, it will be called instead of the selected reset strategy
+*
+*  Return value
+*    >= 0  O.K.
+*    <  0  Error
+*
+*  Notes
+*    (1) DLL expects target CPU to be halted / in debug mode, when leaving this function
+*    (2) May use MEM_ API functions
+*/
+int ResetTarget(void) {
+  U32 v;
+  U32 Addr0;
+  U32 Addr1;
+  //
+  // It seems like the IAR EWARM *.mac function execUserReset() is executed too late
+  // We experienced the following behavior in IAR EWARM V8201:
+  //   1. Reset
+  //   2. Download application to RAM
+  //   3. Reset
+  //   4. IAR sets PC/SP (read memory @ 0x0 and 0x4 before). 
+  //   5. Execute "execUserReset()
+  //
+  // As the application loaded in step 2 to the SRAMX has been overwritten by the bootloader during reset (step 3), the following
+  // step 4 fails because the memory at 0x0 and 0x4 is 0xFFFFFFFF thus IAR complains about an incorrect PC and aborts the debug session.
+  // We do not see any other option to execute a *.mac file function between step 3. and step 4. 
+  // For us, it seems to be a bug in IAR EWARM as we would expect that "execUserReset" is called immediately after reset in order to
+  // allow to re-download the application (e.g. for RAM debug configurations) or to initialize the SPI flash if required.
+  //
+  // To work-around this, we make sure to keep the IDE happy (so that step 4. passes) by reading the memory at 0x0 and 0x4 before
+  // triggering the reset and restoring it afterwards. We do not have to restore the entire application because we re-download it
+  // as part of the execUserReset()
+  //
+  Addr0 = JLINK_MEM_ReadU32(0);
+  Addr1 = JLINK_MEM_ReadU32(4); 
+  //
+  // Perform the actual reset procedure
+  //
+  JLINK_SYS_Report("Performing ResetTarget()");
+  v = _ResetViaSYSRESETREQ();
+  if (v < 0) {
+    return -1;    
+  }
+  _HaltAfterBootloader();
+  //
+  // Restore the memory at 0x0 and 0x4
+  //  
+  JLINK_MEM_WriteU32(0x0, Addr0);
+  JLINK_MEM_WriteU32(0x4, Addr1);
+  return 0;
+}
+
+/*********************************************************************
+*                                                                     
+*       ConfigTargetSettings   
+*
+*  Function description
+*    Called before InitTarget(). Mainly used to set some global DLL variables to customize the
+*    normal  connect  procedure.  For  ARM  CoreSight  devices  this  may  be  specifying  the  base
+*    address of some CoreSight components (ETM, …) that cannot be auto-detected by J-Link
+*    due to erroneous ROM tables etc. May also be used to specify the device name in case
+*    debugger does not pass it to the DLL.                    
+*
+*  Notes
+*    (1) May not, under absolutely NO circumstances, call any API functions that perform target communication.
+*    (2) Should only set some global DLL variables
+*
+*  Return value
+*    >= 0  O.K.
+*     < 0  Error
+*      -1  Unspecified error
+**********************************************************************
+*/          
+int ConfigTargetSettings(void) {
+  //
+  // Enable erase for all flash banks (e.g. QSPI)
+  //
+  JLINK_SYS_Report("--EnableEraseAllFlashBanks--");
+  JLINK_ExecCommand("EnableEraseAllFlashBanks");
+  return 0;
+}
+
