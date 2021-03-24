@@ -175,7 +175,7 @@
       <files mask="MIMXRT1021xxxxx_flexspi_nor.icf"/>
       <files mask="MIMXRT1021xxxxx_flexspi_nor_sdram.icf"/>
     </source>
-    <source path="examples/evkmimxrt1020/demo_apps/hello_world/linker" project_relative_path="evkmimxrt1020/demo_apps/hello_world/linker" type="linker" toolchain="iar">
+    <source path="examples/evkmimxrt1020/demo_apps/hello_world/iar" project_relative_path="evkmimxrt1020/demo_apps/hello_world/linker" type="linker" toolchain="iar">
       <files mask="MIMXRT1021xxxxx_ram_0x1400.icf"/>
     </source>
     <source path="examples/evkmimxrt1020/demo_apps/hello_world/mdk" project_relative_path="MIMXRT1021/arm" type="linker" toolchain="mdk">
@@ -185,7 +185,7 @@
       <files mask="MIMXRT1021xxxxx_flexspi_nor.scf"/>
       <files mask="MIMXRT1021xxxxx_flexspi_nor_sdram.scf"/>
     </source>
-    <source path="examples/evkmimxrt1020/demo_apps/hello_world/linker" project_relative_path="evkmimxrt1020/demo_apps/hello_world/linker" type="linker" toolchain="mdk">
+    <source path="examples/evkmimxrt1020/demo_apps/hello_world/mdk" project_relative_path="evkmimxrt1020/demo_apps/hello_world/linker" type="linker" toolchain="mdk">
       <files mask="MIMXRT1021xxxxx_ram_0x1400.scf"/>
     </source>
     <source path="examples/evkmimxrt1020/demo_apps/hello_world/armgcc" project_relative_path="MIMXRT1021/gcc" type="linker" toolchain="armgcc">
@@ -209,7 +209,7 @@
     <source path="examples/evkmimxrt1020/demo_apps/hello_world" project_relative_path="." type="other">
       <files mask="hello_world.mex" hidden="true"/>
     </source>
-    <source path="core/boards/evkmimxrt1020/demo_apps/hello_world" project_relative_path="evkmimxrt1020/demo_apps/hello_world" type="binary">
+    <source path="examples/evkmimxrt1020/demo_apps/hello_world" project_relative_path="evkmimxrt1020/demo_apps/hello_world" type="binary">
       <files mask="hello_world.bin" hidden="true"/>
     </source>
     <source path="core/boards/evkmimxrt1020" project_relative_path="board" type="src">

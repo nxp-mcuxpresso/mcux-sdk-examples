@@ -125,19 +125,19 @@
       <files mask="build_flexspi_nor_release.bat"/>
       <files mask="build_flexspi_nor_release.sh"/>
     </source>
-    <source path="examples/evkmimxrt1064/driver_examples/flexram/ram_allocate/linker/iar" project_relative_path="evkmimxrt1064/driver_examples/flexram/ram_allocate/linker/iar" type="linker" toolchain="iar">
+    <source path="examples/evkmimxrt1064/driver_examples/flexram/ram_allocate/iar" project_relative_path="evkmimxrt1064/driver_examples/flexram/ram_allocate/linker/iar" type="linker" toolchain="iar">
       <files mask="evkmimxrt1064_flexram_ram_allocate.icf"/>
     </source>
     <source path="examples/evkmimxrt1064/driver_examples/flexram/ram_allocate/iar" project_relative_path="MIMXRT1064/iar" type="linker" toolchain="iar">
       <files mask="MIMXRT1064xxxxx_flexspi_nor_sdram.icf"/>
     </source>
-    <source path="examples/evkmimxrt1064/driver_examples/flexram/ram_allocate/linker/mdk" project_relative_path="evkmimxrt1064/driver_examples/flexram/ram_allocate/linker/mdk" type="linker" toolchain="mdk">
+    <source path="examples/evkmimxrt1064/driver_examples/flexram/ram_allocate/mdk" project_relative_path="evkmimxrt1064/driver_examples/flexram/ram_allocate/linker/mdk" type="linker" toolchain="mdk">
       <files mask="evkmimxrt1064_flexram_ram_allocate.scf"/>
     </source>
     <source path="examples/evkmimxrt1064/driver_examples/flexram/ram_allocate/mdk" project_relative_path="MIMXRT1064/arm" type="linker" toolchain="mdk">
       <files mask="MIMXRT1064xxxxx_flexspi_nor_sdram.scf"/>
     </source>
-    <source path="examples/evkmimxrt1064/driver_examples/flexram/ram_allocate/linker/armgcc" project_relative_path="evkmimxrt1064/driver_examples/flexram/ram_allocate/linker/armgcc" type="linker" toolchain="armgcc">
+    <source path="examples/evkmimxrt1064/driver_examples/flexram/ram_allocate/armgcc" project_relative_path="evkmimxrt1064/driver_examples/flexram/ram_allocate/linker/armgcc" type="linker" toolchain="armgcc">
       <files mask="evkmimxrt1064_flexram_ram_allocate.ld"/>
     </source>
     <source path="examples/evkmimxrt1064/driver_examples/flexram/ram_allocate/armgcc" project_relative_path="MIMXRT1064/gcc" type="linker" toolchain="armgcc">

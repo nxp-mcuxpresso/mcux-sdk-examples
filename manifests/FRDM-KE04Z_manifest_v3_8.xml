@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-03-09 13:42:37.414435-->
+  <!--Timestamp (UTC): 2021-03-23 11:41:36.531111-->
   <!--This manifest is generated based on sdk repo commit: b1eede1d406d3392a45a06abc2494c2b87a1853b-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -177,6 +177,11 @@ ${load}</script>
         <example id="frdmke04z_kbi" name="kbi" brief="The KBI Example project is a demonstration program that uses the KSDK software to usekeyboard interrupt.The example uses one KBI pin to generate a raising edge interrupt to show the example." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples" path="examples/frdmke04z/driver_examples/kbi">
           <external path="examples/frdmke04z/driver_examples/kbi" type="xml">
             <files mask="kbi_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_led_blinky_1" name="led_blinky_1" brief="The LED Blinky demo application provides a sanity check for the new SDK build environments and board bring up. The LED Blinky demo uses the systick interrupt to realize the function of timing delay. The example takes turns to shine the LED. The purpose of this demo is to provide a simple project for debugging and further development." toolchain="armgcc" compiler="compiler_gcc" category="demo_apps" path="examples/frdmke04z/demo_apps/led_blinky">
+          <external path="examples/frdmke04z/demo_apps/led_blinky" type="xml">
+            <files mask="led_blinky_1_v3_8.xml"/>
           </external>
         </example>
         <example id="frdmke04z_pflash_ftmr" name="pflash_ftmr" brief="The pflash example shows how to use flash driver to operate program flash:" toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/flash" path="examples/frdmke04z/driver_examples/flash/pflash">

@@ -257,7 +257,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_TXT_DEBUG " \
     muldefs \
     -Xlinker \
     -Map=output.map \
-    -T${ProjDirPath}/../linker/armgcc/evkmimxrt1064_flexram_ram_allocate.ld -static \
+    -T${ProjDirPath}/evkmimxrt1064_flexram_ram_allocate.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_TXT_RELEASE " \
     -mcpu=cortex-m7 \
@@ -283,7 +283,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_TXT_RELEASE " \
     muldefs \
     -Xlinker \
     -Map=output.map \
-    -T${ProjDirPath}/../linker/armgcc/evkmimxrt1064_flexram_ram_allocate.ld -static \
+    -T${ProjDirPath}/evkmimxrt1064_flexram_ram_allocate.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     -g \

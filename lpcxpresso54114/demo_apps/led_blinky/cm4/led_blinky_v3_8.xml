@@ -110,7 +110,7 @@
     <source path="examples/lpcxpresso54114/demo_apps/led_blinky/cm4" project_relative_path="." type="other">
       <files mask="led_blinky.mex" hidden="true"/>
     </source>
-    <source path="core/boards/lpcxpresso54114/demo_apps/led_blinky/cm4" project_relative_path="lpcxpresso54114/demo_apps/led_blinky/cm4" type="binary">
+    <source path="examples/lpcxpresso54114/demo_apps/led_blinky/cm4" project_relative_path="lpcxpresso54114/demo_apps/led_blinky/cm4" type="binary">
       <files mask="led_blinky.bin" hidden="true"/>
     </source>
     <source path="core/boards/lpcxpresso54114" project_relative_path="board" type="src">

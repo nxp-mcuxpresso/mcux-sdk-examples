@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<configuration name="MKE15Z256xxx7" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.8 http://mcuxpresso.nxp.com/XSD/mex_configuration_1.8.xsd" uuid="24bf6fca-da44-4d5b-a9ab-1ebdee2e9df6" version="1.8" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <common>
+      <processor>MKE15Z256xxx7</processor>
+      <package>MKE15Z256VLL7</package>
+      <board>FRDM-KE15Z</board>
+      <mcu_data>ksdk2_0</mcu_data>
+      <cores selected="core0">
+         <core name="Cortex-M0P" id="core0" description="M0P core"/>
+      </cores>
+      <description></description>
+   </common>
+   <preferences>
+      <validate_boot_init_only>true</validate_boot_init_only>
+      <generate_extended_information>false</generate_extended_information>
+      <generate_code_modified_registers_only>false</generate_code_modified_registers_only>
+   </preferences>
+   <tools>
+      <pins name="Pins" version="8.0" enabled="true" update_project_code="true">
+         <pins_profile>
+            <processor_version>0.8.5</processor_version>
+         </pins_profile>
+         <functions_list>
+            <function name="BOARD_InitPins">
+               <description>Configures pin routing and optionally pin electrical features.</description>
+               <options>
+                  <callFromInitBoot>true</callFromInitBoot>
+                  <prefix>BOARD_</prefix>
+                  <coreID>core0</coreID>
+                  <enableClock>true</enableClock>
+               </options>
+               <dependencies>
+                  <dependency resourceType="Peripheral" resourceId="LPUART1" description="Peripheral LPUART1 is not initialized" problem_level="1" source="Pins:BOARD_InitPins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="Peripheral" resourceId="LPI2C0" description="Peripheral LPI2C0 is not initialized" problem_level="1" source="Pins:BOARD_InitPins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.port" description="Pins initialization requires the PORT Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <pins>
+                  <pin peripheral="LPUART1" signal="RX" pin_num="81" pin_signal="ADC1_SE4/TSI0_CH15/PTC6/LPUART1_RX"/>
+                  <pin peripheral="LPUART1" signal="TX" pin_num="80" pin_signal="ADC1_SE5/TSI0_CH16/PTC7/LPUART1_TX"/>
+                  <pin peripheral="LPI2C0" signal="SCL" pin_num="72" pin_signal="ADC1_SE1/PTA3/LPI2C0_SCL/EWM_IN/LPUART0_TX"/>
+                  <pin peripheral="LPI2C0" signal="SDA" pin_num="73" pin_signal="ADC1_SE0/PTA2/LPI2C0_SDA/EWM_OUT_b/LPUART0_RX"/>
+                  <pin peripheral="GPIOB" signal="GPIO, 9" pin_num="76" pin_signal="PTB9/LPI2C0_SCLS"/>
+               </pins>
+            </function>
+         </functions_list>
+      </pins>
+      <clocks name="Clocks" version="7.0" enabled="true" update_project_code="true">
+         <clocks_profile>
+            <processor_version>0.8.5</processor_version>
+         </clocks_profile>
+         <clock_configurations>
+            <clock_configuration name="BOARD_BootClockRUN">
+               <description></description>
+               <options/>
+               <dependencies>
+                  <dependency resourceType="PinSignal" resourceId="SCG.EXTAL0" description="&apos;EXTAL0&apos; (Pins tool id: SCG.EXTAL0, Clocks tool id: SCG.EXTAL0) needs to be routed" problem_level="1" source="Clocks:BOARD_BootClockRUN">
+                     <feature name="routed" evaluation="">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PinSignal" resourceId="SCG.EXTAL0" description="&apos;EXTAL0&apos; (Pins tool id: SCG.EXTAL0, Clocks tool id: SCG.EXTAL0) needs to have &apos;INPUT&apos; direction" problem_level="1" source="Clocks:BOARD_BootClockRUN">
+                     <feature name="direction" evaluation="">
+                        <data>INPUT</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PinSignal" resourceId="SCG.XTAL0" description="&apos;XTAL0&apos; (Pins tool id: SCG.XTAL0, Clocks tool id: SCG.XTAL0) needs to be routed" problem_level="1" source="Clocks:BOARD_BootClockRUN">
+                     <feature name="routed" evaluation="">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PinSignal" resourceId="SCG.XTAL0" description="&apos;XTAL0&apos; (Pins tool id: SCG.XTAL0, Clocks tool id: SCG.XTAL0) needs to have &apos;OUTPUT&apos; direction" problem_level="1" source="Clocks:BOARD_BootClockRUN">
+                     <feature name="direction" evaluation="">
+                        <data>OUTPUT</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Clocks initialization requires the COMMON Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockRUN">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <clock_sources>
+                  <clock_source id="SCG.SOSC.outFreq" value="8 MHz" locked="false" enabled="true"/>
+               </clock_sources>
+               <clock_outputs>
+                  <clock_output id="Bus_clock.outFreq" value="8/3 MHz" locked="false" accuracy=""/>
+                  <clock_output id="Core_clock.outFreq" value="8 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLLDIV2_CLK.outFreq" value="36 MHz" locked="false" accuracy=""/>
+                  <clock_output id="Flash_clock.outFreq" value="8/3 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPO1KCLK.outFreq" value="1 kHz" locked="false" accuracy=""/>
+                  <clock_output id="LPO_clock.outFreq" value="128 kHz" locked="false" accuracy=""/>
+                  <clock_output id="PCC.PCC_LPI2C0_CLK.outFreq" value="8 MHz" locked="false" accuracy=""/>
+                  <clock_output id="PCC.PCC_LPIT0_CLK.outFreq" value="8 MHz" locked="true" accuracy="0.001"/>
+                  <clock_output id="SIRCDIV2_CLK.outFreq" value="8 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SIRC_CLK.outFreq" value="8 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SOSCDIV2_CLK.outFreq" value="8 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SOSC_CLK.outFreq" value="8 MHz" locked="false" accuracy=""/>
+                  <clock_output id="System_clock.outFreq" value="8 MHz" locked="false" accuracy=""/>
+               </clock_outputs>
+               <clock_settings>
+                  <setting id="SCGMode" value="SIRC" locked="false"/>
+                  <setting id="OSC32_CR_ROSCE_CFG" value="Enabled" locked="false"/>
+                  <setting id="PCC.PCC_LPI2C0_SEL.sel" value="SCG.SIRCDIV2_CLK" locked="false"/>
+                  <setting id="PCC.PCC_LPIT0_SEL.sel" value="SCG.SIRCDIV2_CLK" locked="false"/>
+                  <setting id="SCG.DIVCORE.scale" value="1" locked="true"/>
+                  <setting id="SCG.DIVSLOW.scale" value="3" locked="true"/>
+                  <setting id="SCG.FIRCDIV2.scale" value="0" locked="true"/>
+                  <setting id="SCG.LPFLLDIV2.scale" value="2" locked="false"/>
+                  <setting id="SCG.LPFLL_mul.scale" value="36" locked="true"/>
+                  <setting id="SCG.SCSSEL.sel" value="SCG.SIRC" locked="false"/>
+                  <setting id="SCG.SIRCDIV2.scale" value="1" locked="false"/>
+                  <setting id="SCG.SOSCDIV2.scale" value="1" locked="false"/>
+                  <setting id="SCG.TRIMDIV.scale" value="4" locked="false"/>
+                  <setting id="SCG_FIRCCSR_FIRCSTEN_CFG" value="Enabled" locked="false"/>
+                  <setting id="SCG_LPFLLCSR_LPFLLEN_CFG" value="Enabled" locked="false"/>
+                  <setting id="SCG_SIRCCSR_SIRCSTEN_CFG" value="Enabled" locked="false"/>
+                  <setting id="SCG_SOSCCFG_OSC_MODE_CFG" value="ModeOscLowPower" locked="false"/>
+                  <setting id="SCG_SOSCCFG_RANGE_CFG" value="Medium" locked="false"/>
+                  <setting id="SCG_SOSCCSR_SOSCEN_CFG" value="Enabled" locked="false"/>
+                  <setting id="SCG_SOSCCSR_SOSCLPEN_CFG" value="Enabled" locked="false"/>
+               </clock_settings>
+               <called_from_default_init>true</called_from_default_init>
+            </clock_configuration>
+            <clock_configuration name="BOARD_BootClockVLPR">
+               <description></description>
+               <options/>
+               <dependencies>
+                  <dependency resourceType="PinSignal" resourceId="SCG.EXTAL0" description="&apos;EXTAL0&apos; (Pins tool id: SCG.EXTAL0, Clocks tool id: SCG.EXTAL0) needs to be routed" problem_level="1" source="Clocks:BOARD_BootClockVLPR">
+                     <feature name="routed" evaluation="">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PinSignal" resourceId="SCG.EXTAL0" description="&apos;EXTAL0&apos; (Pins tool id: SCG.EXTAL0, Clocks tool id: SCG.EXTAL0) needs to have &apos;INPUT&apos; direction" problem_level="1" source="Clocks:BOARD_BootClockVLPR">
+                     <feature name="direction" evaluation="">
+                        <data>INPUT</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PinSignal" resourceId="SCG.XTAL0" description="&apos;XTAL0&apos; (Pins tool id: SCG.XTAL0, Clocks tool id: SCG.XTAL0) needs to be routed" problem_level="1" source="Clocks:BOARD_BootClockVLPR">
+                     <feature name="routed" evaluation="">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PinSignal" resourceId="SCG.XTAL0" description="&apos;XTAL0&apos; (Pins tool id: SCG.XTAL0, Clocks tool id: SCG.XTAL0) needs to have &apos;OUTPUT&apos; direction" problem_level="1" source="Clocks:BOARD_BootClockVLPR">
+                     <feature name="direction" evaluation="">
+                        <data>OUTPUT</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Clocks initialization requires the COMMON Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockVLPR">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.smc" description="Clocks initialization requires the SMC Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockVLPR">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <clock_sources>
+                  <clock_source id="SCG.SOSC.outFreq" value="8 MHz" locked="false" enabled="true"/>
+               </clock_sources>
+               <clock_outputs>
+                  <clock_output id="Bus_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
+                  <clock_output id="Core_clock.outFreq" value="4 MHz" locked="false" accuracy=""/>
+                  <clock_output id="Flash_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPO1KCLK.outFreq" value="1 kHz" locked="false" accuracy=""/>
+                  <clock_output id="LPO_clock.outFreq" value="128 kHz" locked="false" accuracy=""/>
+                  <clock_output id="SOSCDIV2_CLK.outFreq" value="8 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SOSC_CLK.outFreq" value="8 MHz" locked="false" accuracy=""/>
+                  <clock_output id="System_clock.outFreq" value="4 MHz" locked="false" accuracy=""/>
+               </clock_outputs>
+               <clock_settings>
+                  <setting id="SCGMode" value="SOSC" locked="false"/>
+                  <setting id="powerMode" value="VLPR" locked="false"/>
+                  <setting id="OSC32_CR_ROSCE_CFG" value="Enabled" locked="false"/>
+                  <setting id="SCG.DIVCORE.scale" value="2" locked="true"/>
+                  <setting id="SCG.DIVSLOW.scale" value="4" locked="true"/>
+                  <setting id="SCG.FIRCDIV2.scale" value="1" locked="false"/>
+                  <setting id="SCG.LPFLLDIV2.scale" value="2" locked="false"/>
+                  <setting id="SCG.LPFLL_mul.scale" value="36" locked="true"/>
+                  <setting id="SCG.SCSSEL.sel" value="SCG.SOSC" locked="false"/>
+                  <setting id="SCG.SIRCDIV2.scale" value="2" locked="false"/>
+                  <setting id="SCG.SOSCDIV2.scale" value="1" locked="false"/>
+                  <setting id="SCG.TRIMDIV.scale" value="4" locked="false"/>
+                  <setting id="SCG_LPFLLCSR_LPFLLEN_CFG" value="Enabled" locked="false"/>
+                  <setting id="SCG_SIRCCSR_SIRCLPEN_CFG" value="Disabled" locked="false"/>
+                  <setting id="SCG_SOSCCFG_OSC_MODE_CFG" value="ModeOscLowPower" locked="false"/>
+                  <setting id="SCG_SOSCCFG_RANGE_CFG" value="Medium" locked="false"/>
+                  <setting id="SCG_SOSCCSR_SOSCEN_CFG" value="Enabled" locked="false"/>
+                  <setting id="SCG_SOSCCSR_SOSCLPEN_CFG" value="Enabled" locked="false"/>
+               </clock_settings>
+               <called_from_default_init>false</called_from_default_init>
+            </clock_configuration>
+         </clock_configurations>
+      </clocks>
+      <dcdx name="DCDx" version="3.0" enabled="false" update_project_code="true">
+         <dcdx_profile>
+            <processor_version>N/A</processor_version>
+         </dcdx_profile>
+         <dcdx_configurations/>
+      </dcdx>
+      <periphs name="Peripherals" version="8.0" enabled="true" update_project_code="true">
+         <peripherals_profile>
+            <processor_version>0.8.5</processor_version>
+         </peripherals_profile>
+         <functional_groups>
+            <functional_group name="BOARD_InitPeripherals" uuid="0c7e5a4c-51f7-48eb-afa1-abb8c3a73e72" called_from_default_init="true" id_prefix="DEMO_" core="core0">
+               <description></description>
+               <options/>
+               <dependencies/>
+               <instances>
+                  <instance name="DMA" uuid="e7498d5c-0afc-44a7-8a66-5d53dd686874" type="edma" type_id="edma_6d0dd4e17e2f179c7d42d98767129ede" mode="basic" peripheral="DMA" enabled="true" comment="" custom_name_enabled="true">
+                     <config_set name="fsl_edma">
+                        <struct name="common_settings">
+                           <setting name="enableContinuousLinkMode" value="false"/>
+                           <setting name="enableHaltOnError" value="false"/>
+                           <setting name="enableRoundRobinArbitration" value="false"/>
+                           <setting name="enableDebugMode" value="false"/>
+                        </struct>
+                        <array name="dma_table">
+                           <struct name="0"/>
+                           <struct name="1"/>
+                        </array>
+                        <array name="edma_channels">
+                           <struct name="0">
+                              <setting name="apiMode" value="nontrans"/>
+                              <struct name="edma_channel">
+                                 <setting name="channel_prefix_id" value="CH0"/>
+                                 <setting name="eDMAn" value="0"/>
+                                 <setting name="eDMA_source" value="kDmaRequestMux0LPI2C0Tx"/>
+                                 <setting name="enableTriggerInput" value="false"/>
+                                 <setting name="init_channel_priority" value="false"/>
+                                 <struct name="edma_channel_Preemption">
+                                    <setting name="enableChannelPreemption" value="false"/>
+                                    <setting name="enablePreemptAbility" value="false"/>
+                                    <setting name="channelPriority" value="0"/>
+                                 </struct>
+                              </struct>
+                              <setting name="resetChannel" value="true"/>
+                              <setting name="enableChannelRequest" value="false"/>
+                              <setting name="enableAsyncRequest" value="true"/>
+                              <setting name="enableAutoStop" value="true"/>
+                              <setting name="enableMinorLoop" value="false"/>
+                              <struct name="minorLoopConfig">
+                                 <setting name="offsetType" value="disabled"/>
+                                 <setting name="mloff" value="0"/>
+                              </struct>
+                              <setting name="init_channel_link" value="false"/>
+                              <setting name="channel_link" value="kEDMA_LinkNone"/>
+                              <setting name="linkedChannel" value="0"/>
+                              <setting name="init_bandwidth" value="false"/>
+                              <setting name="bandwidth" value="kEDMA_BandwidthStallNone"/>
+                              <setting name="init_modulo" value="false"/>
+                              <setting name="s_mod" value="kEDMA_ModuloDisable"/>
+                              <setting name="d_mod" value="kEDMA_ModuloDisable"/>
+                              <setting name="nontransEnable" value="false"/>
+                              <struct name="nontrans_config">
+                                 <setting name="tcdID" value="CH0_transfer"/>
+                                 <setting name="saddr_expr" value=""/>
+                                 <setting name="saddr_def" value=""/>
+                                 <setting name="soff" value="0U"/>
+                                 <setting name="soff_def" value=""/>
+                                 <setting name="ssize" value="kEDMA_TransferSize1Bytes"/>
+                                 <setting name="daddr_expr" value=""/>
+                                 <setting name="daddr_def" value=""/>
+                                 <setting name="doff" value="0U"/>
+                                 <setting name="doff_def" value=""/>
+                                 <setting name="dsize" value="kEDMA_TransferSize1Bytes"/>
+                                 <setting name="nbytes" value="1"/>
+                              </struct>
+                              <set name="channel_enabled_interrupts">
+                                 <selected/>
+                              </set>
+                              <setting name="init_interruptsEnable" value="false"/>
+                              <struct name="interrupt_channel">
+                                 <setting name="IRQn" value="DMA0_04_IRQn"/>
+                                 <setting name="enable_interrrupt" value="enabled"/>
+                                 <setting name="enable_priority" value="false"/>
+                                 <setting name="priority" value="0"/>
+                                 <setting name="enable_custom_name" value="false"/>
+                              </struct>
+                           </struct>
+                           <struct name="1">
+                              <setting name="apiMode" value="nontrans"/>
+                              <struct name="edma_channel">
+                                 <setting name="channel_prefix_id" value="CH1"/>
+                                 <setting name="eDMAn" value="1"/>
+                                 <setting name="eDMA_source" value="kDmaRequestMux0LPI2C0Rx"/>
+                                 <setting name="enableTriggerInput" value="false"/>
+                                 <setting name="init_channel_priority" value="false"/>
+                                 <struct name="edma_channel_Preemption">
+                                    <setting name="enableChannelPreemption" value="false"/>
+                                    <setting name="enablePreemptAbility" value="false"/>
+                                    <setting name="channelPriority" value="0"/>
+                                 </struct>
+                              </struct>
+                              <setting name="resetChannel" value="true"/>
+                              <setting name="enableChannelRequest" value="false"/>
+                              <setting name="enableAsyncRequest" value="true"/>
+                              <setting name="enableAutoStop" value="true"/>
+                              <setting name="enableMinorLoop" value="false"/>
+                              <struct name="minorLoopConfig">
+                                 <setting name="offsetType" value="disabled"/>
+                                 <setting name="mloff" value="0"/>
+                              </struct>
+                              <setting name="init_channel_link" value="false"/>
+                              <setting name="channel_link" value="kEDMA_LinkNone"/>
+                              <setting name="linkedChannel" value="0"/>
+                              <setting name="init_bandwidth" value="false"/>
+                              <setting name="bandwidth" value="kEDMA_BandwidthStallNone"/>
+                              <setting name="init_modulo" value="false"/>
+                              <setting name="s_mod" value="kEDMA_ModuloDisable"/>
+                              <setting name="d_mod" value="kEDMA_ModuloDisable"/>
+                              <setting name="nontransEnable" value="false"/>
+                              <struct name="nontrans_config">
+                                 <setting name="tcdID" value="CH1_transfer"/>
+                                 <setting name="saddr_expr" value=""/>
+                                 <setting name="saddr_def" value=""/>
+                                 <setting name="soff" value="0U"/>
+                                 <setting name="soff_def" value=""/>
+                                 <setting name="ssize" value="kEDMA_TransferSize1Bytes"/>
+                                 <setting name="daddr_expr" value=""/>
+                                 <setting name="daddr_def" value=""/>
+                                 <setting name="doff" value="0U"/>
+                                 <setting name="doff_def" value=""/>
+                                 <setting name="dsize" value="kEDMA_TransferSize1Bytes"/>
+                                 <setting name="nbytes" value="1"/>
+                              </struct>
+                              <set name="channel_enabled_interrupts">
+                                 <selected/>
+                              </set>
+                              <setting name="init_interruptsEnable" value="false"/>
+                              <struct name="interrupt_channel">
+                                 <setting name="IRQn" value="DMA0_15_IRQn"/>
+                                 <setting name="enable_interrrupt" value="enabled"/>
+                                 <setting name="enable_priority" value="false"/>
+                                 <setting name="priority" value="0"/>
+                                 <setting name="enable_custom_name" value="false"/>
+                              </struct>
+                           </struct>
+                        </array>
+                        <struct name="errInterruptConfig">
+                           <setting name="enableErrInterrupt" value="false"/>
+                           <struct name="errorInterrupt">
+                              <setting name="IRQn" value="DMA_Error_IRQn"/>
+                              <setting name="enable_interrrupt" value="enabled"/>
+                              <setting name="enable_priority" value="false"/>
+                              <setting name="priority" value="0"/>
+                              <setting name="enable_custom_name" value="false"/>
+                           </struct>
+                        </struct>
+                     </config_set>
+                  </instance>
+                  <instance name="LPI2C" uuid="38ea996a-4c2b-4040-b5d0-a75f8ba3caf5" type="lpi2c" type_id="lpi2c_db68d4f4f06a22e25ab51fe9bd6db4d2" mode="master" peripheral="LPI2C0" enabled="true" comment="" custom_name_enabled="true">
+                     <config_set name="main" quick_selection="qs_interrupt">
+                        <setting name="clockSource" value="Lpi2cClock"/>
+                        <setting name="clockSourceFreq" value="GetIpFreq"/>
+                        <struct name="interrupt">
+                           <setting name="IRQn" value="LPI2C0_IRQn"/>
+                           <setting name="enable_interrrupt" value="enabled"/>
+                           <setting name="enable_priority" value="false"/>
+                           <setting name="priority" value="0"/>
+                           <setting name="enable_custom_name" value="false"/>
+                        </struct>
+                     </config_set>
+                     <config_set name="master">
+                        <setting name="mode" value="transfer"/>
+                        <struct name="config">
+                           <setting name="enableMaster" value="true"/>
+                           <setting name="enableDoze" value="true"/>
+                           <setting name="debugEnable" value="true"/>
+                           <setting name="ignoreAck" value="false"/>
+                           <setting name="pinConfig" value="kLPI2C_2PinOpenDrain"/>
+                           <setting name="baudRate_Hz" value="400000"/>
+                           <setting name="busIdleTimeout_ns" value="0"/>
+                           <setting name="pinLowTimeout_ns" value="0"/>
+                           <setting name="sdaGlitchFilterWidth_ns" value="0"/>
+                           <setting name="sclGlitchFilterWidth_ns" value="0"/>
+                           <struct name="hostRequest">
+                              <setting name="enable" value="false"/>
+                              <setting name="source" value="kLPI2C_HostRequestExternalPin"/>
+                              <setting name="polarity" value="kLPI2C_HostRequestPinActiveHigh"/>
+                           </struct>
+                           <set name="edmaRequestSources">
+                              <selected>
+                                 <id>enableRx</id>
+                                 <id>enableTx</id>
+                              </selected>
+                           </set>
+                        </struct>
+                        <struct name="transfer">
+                           <setting name="blocking" value="false"/>
+                           <set name="flags">
+                              <selected/>
+                           </set>
+                           <setting name="slaveAddress" value="0"/>
+                           <setting name="direction" value="kLPI2C_Write"/>
+                           <setting name="subaddress" value="0"/>
+                           <setting name="subaddressSize" value="1"/>
+                           <setting name="dataSize" value="1"/>
+                           <struct name="callback">
+                              <setting name="name" value="lpi2c_master_callback"/>
+                              <setting name="userData" value=""/>
+                           </struct>
+                        </struct>
+                     </config_set>
+                  </instance>
+                  <instance name="LPIT" uuid="6bfe1187-6a8c-4815-811c-ff97b658bc55" type="lpit" type_id="lpit_8e4186d834c8d9f4b6c0dadcc9dc2f05" mode="LPIT_GENERAL" peripheral="LPIT0" enabled="true" comment="" custom_name_enabled="true">
+                     <config_set name="fsl_lpit">
+                        <struct name="lpitConfig">
+                           <setting name="enableRunInDebug" value="true"/>
+                           <setting name="enableRunInDoze" value="true"/>
+                        </struct>
+                        <struct name="timingConfig">
+                           <setting name="clockSource" value="AsyncPeripheralClock"/>
+                           <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
+                        </struct>
+                        <array name="channels">
+                           <struct name="0">
+                              <setting name="lpitChannelPrefixID" value="Channel"/>
+                              <setting name="channelNumber" value="0"/>
+                              <setting name="enableChain" value="false"/>
+                              <setting name="timerMode" value="kLPIT_PeriodicCounter"/>
+                              <setting name="timerPeriod" value="500ms"/>
+                              <setting name="lpit_trigger_select_t" value="internal_trigger_0"/>
+                              <setting name="enableReloadOnTriggerBool" value="false"/>
+                              <setting name="enableStopOnTimeout" value="false"/>
+                              <setting name="enableStartOnTriggerBool" value="false"/>
+                              <setting name="startTimer" value="true"/>
+                              <setting name="enableInterrupt" value="true"/>
+                           </struct>
+                        </array>
+                        <setting name="enableSharedInterrupt" value="true"/>
+                        <struct name="sharedInterrupt">
+                           <setting name="IRQn" value="LPIT0_IRQn"/>
+                           <setting name="enable_interrrupt" value="enabled"/>
+                           <setting name="enable_priority" value="false"/>
+                           <setting name="priority" value="0"/>
+                           <setting name="enable_custom_name" value="true"/>
+                           <setting name="handler_custom_name" value="LPIT_IRQHandler"/>
+                        </struct>
+                     </config_set>
+                  </instance>
+               </instances>
+            </functional_group>
+         </functional_groups>
+         <components>
+            <component name="system" uuid="287830c3-7317-4512-a7d7-d616e693a2eb" type_id="system_54b53072540eeeb8f8e9343e71f28176">
+               <config_set_global name="global_system_definitions">
+                  <setting name="user_definitions" value=""/>
+                  <setting name="user_includes" value=""/>
+               </config_set_global>
+            </component>
+            <component name="msg" uuid="bdd0ff59-5e8a-4b98-80d6-e36924a25b15" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
+               <config_set_global name="global_messages"/>
+            </component>
+            <component name="generic_uart" uuid="ded2a23b-7b83-4dcb-a65c-d430e7e778c8" type_id="generic_uart_8cae00565451cf2346eb1b8c624e73a6">
+               <config_set_global name="global_uart"/>
+            </component>
+            <component name="generic_can" uuid="456d1d4e-df47-429b-b60b-80ddbc49cee9" type_id="generic_can_1bfdd78b1af214566c1f23cf6a582d80">
+               <config_set_global name="global_can"/>
+            </component>
+         </components>
+      </periphs>
+      <tee name="TEE" version="2.0" enabled="false" update_project_code="true">
+         <tee_profile>
+            <processor_version>N/A</processor_version>
+         </tee_profile>
+         <global_options/>
+         <user_memory_regions/>
+      </tee>
+   </tools>
+</configuration>

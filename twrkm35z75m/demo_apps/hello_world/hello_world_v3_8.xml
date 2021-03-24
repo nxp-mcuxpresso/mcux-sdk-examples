@@ -111,7 +111,7 @@
     <source path="examples/twrkm35z75m/demo_apps/hello_world" project_relative_path="." type="other">
       <files mask="hello_world.mex" hidden="true"/>
     </source>
-    <source path="core/boards/twrkm35z75m/demo_apps/hello_world" project_relative_path="twrkm35z75m/demo_apps/hello_world" type="binary">
+    <source path="examples/twrkm35z75m/demo_apps/hello_world" project_relative_path="twrkm35z75m/demo_apps/hello_world" type="binary">
       <files mask="hello_world.bin" hidden="true"/>
     </source>
     <source path="core/boards/twrkm35z75m" project_relative_path="board" type="src">

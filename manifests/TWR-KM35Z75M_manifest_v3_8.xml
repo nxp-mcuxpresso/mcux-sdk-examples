@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-03-09 13:42:33.122029-->
+  <!--Timestamp (UTC): 2021-03-23 11:41:31.731220-->
   <!--This manifest is generated based on sdk repo commit: b1eede1d406d3392a45a06abc2494c2b87a1853b-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -94,9 +94,29 @@ ${load}</script>
             <files mask="adc16_interrupt_v3_8.xml"/>
           </external>
         </example>
+        <example id="twrkm35z75m_adc16_low_power" name="adc16_low_power" brief="The ADC Low Power demo application demonstrates the usage of the ADC peripheral while in a low power mode. Themicrocontroller is first set to very low power stop (VLPS) mode. Every 500 ms, an interrupt wakes up the ADC module andreads the current temperature of the microcontroller. While the temperature remains within boundaries, both LEDs are on.If the core temperature is higher or lower than average, the LEDs change state respectively." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/twrkm35z75m/demo_apps/adc16_low_power">
+          <external path="examples/twrkm35z75m/demo_apps/adc16_low_power" type="xml">
+            <files mask="adc16_low_power_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="twrkm35z75m_adc16_low_power_async_dma" name="adc16_low_power_async_dma" brief="The ADC Low Power Async DMA demo application demonstrates the usage of the ADC and DMA peripheral while in a low power mode. Themicrocontroller is first set to very low power stop (VLPS) mode. Every 100 ms, low power timer trigger the ADC module convertvalue on ADC channel. After 16 times(1,6s) the DMA transfer finish interrupt wake up the CPU to process sampled data, print result touser and toggle LED." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/twrkm35z75m/demo_apps/adc16_low_power_async_dma">
+          <external path="examples/twrkm35z75m/demo_apps/adc16_low_power_async_dma" type="xml">
+            <files mask="adc16_low_power_async_dma_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="twrkm35z75m_adc16_low_power_peripheral" name="adc16_low_power_peripheral" brief="The ADC Low Power demo application demonstrates the usage of the ADC peripheral while in a low power mode. Themicrocontroller is first set to very low power stop (VLPS) mode. Every 500 ms, an interrupt wakes up the ADC module andreads the current temperature of the microcontroller. While the temperature remains within boundaries, both LEDs are on.If the core temperature is higher or lower than average, the LEDs change state respectively. You can open the mex file with MCUXpresso Config Tool to do further configuration of pin, clock and peripheral." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/twrkm35z75m/demo_apps/adc16_low_power_peripheral">
+          <external path="examples/twrkm35z75m/demo_apps/adc16_low_power_peripheral" type="xml">
+            <files mask="adc16_low_power_peripheral_v3_8.xml"/>
+          </external>
+        </example>
         <example id="twrkm35z75m_adc16_polling" name="adc16_polling" brief="The adc16_polling example shows the simplest way to use ADC16 driver.In this example, user should indicate a channel to provide a voltage signal (can be controlled by user) as the ADC16'ssample input. When running the project, typing any key into debug console would trigger the conversion. The execution would check the conversion completed flag in loop until the flag is asserted, which means the conversion is completed. Then read the conversion result value and print it to debug console.Note, the default setting of initialization for the ADC converter is just an available configuration. User can changethe configuration structure's setting in application to fit the special requirement.The auto-calibration is not essential but strongly recommended. It can help to adjust the converter itself and improvethe ADC16's performance." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc16" path="examples/twrkm35z75m/driver_examples/adc16/polling">
           <external path="examples/twrkm35z75m/driver_examples/adc16/polling" type="xml">
             <files mask="adc16_polling_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="twrkm35z75m_adc16_potentiometer" name="adc16_potentiometer" brief="The ADC potentiometer demo application demonstrates how to read the analog value from a hardware potentiometer via theADC peripheral." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/twrkm35z75m/demo_apps/adc16_potentiometer">
+          <external path="examples/twrkm35z75m/demo_apps/adc16_potentiometer" type="xml">
+            <files mask="adc16_potentiometer_v3_8.xml"/>
           </external>
         </example>
         <example id="twrkm35z75m_afe_interrupt" name="afe_interrupt" brief="The AFE Example project is a demonstration program that uses the KSDK software.In this example, the AFE module samples the voltage difference of the EXT_SD_ADP0 and EXT_SD_ADM0 pins." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/afe" path="examples/twrkm35z75m/driver_examples/afe/interrupt">
@@ -107,6 +127,11 @@ ${load}</script>
         <example id="twrkm35z75m_afe_polling" name="afe_polling" brief="The AFE Example project is a demonstration program that uses the KSDK software.In this example, the AFE module samples the voltage difference of the EXT_SD_ADP0 and EXT_SD_ADM0 pins." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/afe" path="examples/twrkm35z75m/driver_examples/afe/polling">
           <external path="examples/twrkm35z75m/driver_examples/afe/polling" type="xml">
             <files mask="afe_polling_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="twrkm35z75m_afe_qtimer" name="afe_qtimer" brief="The AFE Example project is a demonstration program that uses the KSDK software.In this case the example provide two functions. Measure the voltage difference two pin of thechannel 2 and 3. And monitor AC frequency on two pins of channel 2." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/twrkm35z75m/demo_apps/afe_qtimer">
+          <external path="examples/twrkm35z75m/demo_apps/afe_qtimer" type="xml">
+            <files mask="afe_qtimer_v3_8.xml"/>
           </external>
         </example>
         <example id="twrkm35z75m_cmp_interrupt" name="cmp_interrupt" brief="The CMP interrupt Example shows how to use interrupt with CMP driver.In this example, user should indicate an input channel to capture a voltage signal (can be controlled by user) as the CMP's positive channel input. On the negative side, the internal 6-bit DAC is used to generate the fixed voltage abouthalf value of reference voltage.When running the project, change the input voltage of user-defined channel, then the comparator's output would changebetween logic one and zero when the user-defined channel's voltage crosses the internal DAC's value. The change ofcomparator's output would generate the falling and rising edge events with their interrupts enabled. When any CMP interrupt happens, the CMP's ISR would turn on the LED light if detecting the output's rising edge, or turn off it whendetecting the output's falling edge." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/cmp" path="examples/twrkm35z75m/driver_examples/cmp/interrupt">
@@ -304,6 +329,16 @@ ${load}</script>
             <files mask="pit_v3_8.xml"/>
           </external>
         </example>
+        <example id="twrkm35z75m_power_manager" name="power_manager" brief="The Power manager demo application demonstrates the use of power modes in the KSDK. The demo use the notification mechanismand prints the power mode menu through the debug console, where the user can set the MCU to a specific power mode. The usercan also set the wakeup source by following the debug console prompts. The purpose of this demo is to demonstrate theimplementation of a power mode manager. The callback can be registered to the framework. If a power mode transition happens,the callback will be called and user can do something. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/twrkm35z75m/demo_apps/power_manager">
+          <external path="examples/twrkm35z75m/demo_apps/power_manager" type="xml">
+            <files mask="power_manager_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="twrkm35z75m_power_mode_switch" name="power_mode_switch" brief="The Power mode switch demo application demonstrates the use of power modes in the KSDK. The demo prints the power mode menuthrough the debug console, where the user can set the MCU to a specific power mode. The user can also set the wakeupsource by following the debug console prompts. The purpose of this demo is to show how to switch between different power modes, and how to configure a wakeup source and wakeup the MCU from low power modes. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - Debug pins(e.g SWD_DIO) would consume addtional power, had better to disable related pins or disconnect them. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/twrkm35z75m/demo_apps/power_mode_switch">
+          <external path="examples/twrkm35z75m/demo_apps/power_mode_switch" type="xml">
+            <files mask="power_mode_switch_v3_8.xml"/>
+          </external>
+        </example>
         <example id="twrkm35z75m_qtmr" name="qtmr" brief="The QTMR project is a simple demonstration program of the SDK QTMR driver.The quad-timer module provides four timer channels with a variety of controls affecting both individualand multi-channel features. Specific features include up/down count,cascading of counters, programmable modulo,count once/repeated, counter preload, compare registers with preload, shared use of input signals, prescaler controls,independent capture/compare, fault input control, programmable input filters, and multichannel synchronization." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/twrkm35z75m/driver_examples/qtmr">
           <external path="examples/twrkm35z75m/driver_examples/qtmr" type="xml">
             <files mask="qtmr_v3_8.xml"/>
@@ -314,9 +349,19 @@ ${load}</script>
             <files mask="rnga_random_v3_8.xml"/>
           </external>
         </example>
+        <example id="twrkm35z75m_shell" name="shell" brief="The Shell Demo application demonstrates to control Leds by commands." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/twrkm35z75m/demo_apps/shell">
+          <external path="examples/twrkm35z75m/demo_apps/shell" type="xml">
+            <files mask="shell_v3_8.xml"/>
+          </external>
+        </example>
         <example id="twrkm35z75m_slcd" name="slcd" brief="The SLCD example shows how to use SLCD driver." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/twrkm35z75m/driver_examples/slcd">
           <external path="examples/twrkm35z75m/driver_examples/slcd" type="xml">
             <files mask="slcd_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="twrkm35z75m_slcd_guessnum" name="slcd_guessnum" brief="The SLCD number guess demo application demonstrates the use of the SLCD peripheral and driver.The SLCD number guess demo has two demo displays:1. The first demo is a basic SLCD test, where all numbers and icons are shown one by one on the screen.2. The second demo is the &quot;Number Guess&quot; game. This demo asks the user to input a number. The demo then providesclues to the user to help the user guess the correct number.&quot;Great, xxx you has GOT it!&quot; will be shown on the console, and the victory will be displayed on the LCD screen when theuser successfully guesses the correct number." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/twrkm35z75m/demo_apps/slcd_guessnum">
+          <external path="examples/twrkm35z75m/demo_apps/slcd_guessnum" type="xml">
+            <files mask="slcd_guessnum_v3_8.xml"/>
           </external>
         </example>
         <example id="twrkm35z75m_spi_dma_b2b_transfer_master" name="spi_dma_b2b_transfer_master" brief="The spi_dma_board2board_master example shows how to use spi driver as master to do board to board transfer with DMA:In this example, one spi instance as master and another spi instance on othereboard as slave. Master sends a piece ofdata to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/twrkm35z75m/driver_examples/spi/dma_b2b_transfer/master">
@@ -1087,6 +1132,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_component_serial_manager.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_serial_manager_MKM35Z7.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1110,6 +1158,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_component_serial_port_uart.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_serial_manager_uart_MKM35Z7.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1492,6 +1543,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_llwu.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_llwu_MKM35Z7.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1610,6 +1664,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_pmc.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_pmc_MKM35Z7.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1986,6 +2043,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_assert.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_assert_MKM35Z7.cmake" hidden="true"/>
+      </source>
     </component>
     <component id="platform.utilities.assert_lite.MKM35Z7" name="assert_lite" brief="Utility assert_lite" version="1.0.0" full_name="Utility assert_lite" devices="MKM35Z256xxx7 MKM35Z512xxx7" device_cores="core0_MKM35Z256xxx7 core0_MKM35Z512xxx7" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
       <dependencies>
@@ -2017,6 +2077,9 @@ ${load}</script>
       <source relative_path="debug_console" project_relative_path="./" type="c_include">
         <files mask="fsl_debug_console.h"/>
         <files mask="fsl_debug_console_conf.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_debug_console_MKM35Z7.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="str" project_relative_path="./" type="c_include"/>
@@ -2053,6 +2116,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="fsl_notifier.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_notifier_MKM35Z7.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -2073,6 +2139,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="c_include">
         <files mask="fsl_shell.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_shell_MKM35Z7.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>

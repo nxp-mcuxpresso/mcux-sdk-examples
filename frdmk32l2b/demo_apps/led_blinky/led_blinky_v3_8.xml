@@ -102,7 +102,7 @@
     <source path="examples/frdmk32l2b/demo_apps/led_blinky" project_relative_path="." type="other">
       <files mask="led_blinky.mex" hidden="true"/>
     </source>
-    <source path="core/boards/frdmk32l2b/demo_apps/led_blinky" project_relative_path="frdmk32l2b/demo_apps/led_blinky" type="binary">
+    <source path="examples/frdmk32l2b/demo_apps/led_blinky" project_relative_path="frdmk32l2b/demo_apps/led_blinky" type="binary">
       <files mask="led_blinky.bin" hidden="true"/>
     </source>
     <source path="core/boards/frdmk32l2b" project_relative_path="board" type="src">

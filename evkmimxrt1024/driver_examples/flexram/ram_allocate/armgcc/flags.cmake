@@ -259,7 +259,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_TXT_DEBUG " \
     muldefs \
     -Xlinker \
     -Map=output.map \
-    -T${ProjDirPath}/../linker/armgcc/MIMXRT1024xxxxx_sdram_txt.ld -static \
+    -T${ProjDirPath}/MIMXRT1024xxxxx_sdram_txt.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_TXT_RELEASE " \
     -mcpu=cortex-m7 \
@@ -285,7 +285,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_TXT_RELEASE " \
     muldefs \
     -Xlinker \
     -Map=output.map \
-    -T${ProjDirPath}/../linker/armgcc/MIMXRT1024xxxxx_sdram_txt.ld -static \
+    -T${ProjDirPath}/MIMXRT1024xxxxx_sdram_txt.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -g \

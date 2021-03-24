@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-03-09 13:42:23.680043-->
+  <!--Timestamp (UTC): 2021-03-23 11:41:20.713025-->
   <!--This manifest is generated based on sdk repo commit: b1eede1d406d3392a45a06abc2494c2b87a1853b-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -192,6 +192,11 @@ ${load}</script>
         <example id="frdmke02z40m_kbi" name="kbi" brief="The KBI Example project is a demonstration program that uses the KSDK software to usekeyboard interrupt.The example uses one KBI pin to generate a raising edge interrupt to show the example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/frdmke02z40m/driver_examples/kbi">
           <external path="examples/frdmke02z40m/driver_examples/kbi" type="xml">
             <files mask="kbi_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmke02z40m_led_blinky_1" name="led_blinky_1" brief="The LED Blinky demo application provides a sanity check for the new SDK build environments and board bring up. The LED Blinky demo uses the systick interrupt to realize the function of timing delay. The example takes turns to shine the LED. The purpose of this demo is to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmke02z40m/demo_apps/led_blinky">
+          <external path="examples/frdmke02z40m/demo_apps/led_blinky" type="xml">
+            <files mask="led_blinky_1_v3_8.xml"/>
           </external>
         </example>
         <example id="frdmke02z40m_pflash_ftmr" name="pflash_ftmr" brief="The pflash example shows how to use flash driver to operate program flash:" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/flash" path="examples/frdmke02z40m/driver_examples/flash/pflash">
@@ -1106,6 +1111,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_component_serial_manager.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_serial_manager_MKE02Z4.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1126,6 +1134,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_component_serial_port_uart.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_serial_manager_uart_MKE02Z4.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1623,6 +1634,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_assert.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_assert_MKE02Z4.cmake" hidden="true"/>
+      </source>
     </component>
     <component id="platform.utilities.assert_lite.MKE02Z4" name="assert_lite" brief="Utility assert_lite" version="1.0.0" full_name="Utility assert_lite" devices="MKE02Z16xxx4 MKE02Z32xxx4 MKE02Z64xxx4" device_cores="core0_MKE02Z16xxx4 core0_MKE02Z32xxx4 core0_MKE02Z64xxx4" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
       <dependencies>
@@ -1654,6 +1668,9 @@ ${load}</script>
       <source relative_path="debug_console" project_relative_path="./" type="c_include">
         <files mask="fsl_debug_console.h"/>
         <files mask="fsl_debug_console_conf.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_debug_console_MKE02Z4.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="str" project_relative_path="./" type="c_include"/>

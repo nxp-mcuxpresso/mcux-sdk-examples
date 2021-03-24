@@ -138,13 +138,13 @@
     <source path="examples/evkmimxrt1010/driver_examples/otfad/keyblob/armgcc" project_relative_path="MIMXRT1011/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMXRT1011xxxxx_ram.ld"/>
     </source>
-    <source path="examples/evkmimxrt1010/driver_examples/otfad/keyblob/linker" project_relative_path="evkmimxrt1010/driver_examples/otfad/keyblob/linker" type="linker" toolchain="iar">
+    <source path="examples/evkmimxrt1010/driver_examples/otfad/keyblob/iar" project_relative_path="evkmimxrt1010/driver_examples/otfad/keyblob/linker" type="linker" toolchain="iar">
       <files mask="MIMXRT1011xxxxx_flexspi_nor.icf"/>
     </source>
-    <source path="examples/evkmimxrt1010/driver_examples/otfad/keyblob/linker" project_relative_path="evkmimxrt1010/driver_examples/otfad/keyblob/linker" type="linker" toolchain="mdk">
+    <source path="examples/evkmimxrt1010/driver_examples/otfad/keyblob/mdk" project_relative_path="evkmimxrt1010/driver_examples/otfad/keyblob/linker" type="linker" toolchain="mdk">
       <files mask="MIMXRT1011xxxxx_flexspi_nor.scf"/>
     </source>
-    <source path="examples/evkmimxrt1010/driver_examples/otfad/keyblob/linker" project_relative_path="evkmimxrt1010/driver_examples/otfad/keyblob/linker" type="linker" toolchain="armgcc">
+    <source path="examples/evkmimxrt1010/driver_examples/otfad/keyblob/armgcc" project_relative_path="evkmimxrt1010/driver_examples/otfad/keyblob/linker" type="linker" toolchain="armgcc">
       <files mask="MIMXRT1011xxxxx_flexspi_nor.ld"/>
     </source>
     <source path="examples/evkmimxrt1010/driver_examples/otfad/keyblob" project_relative_path="source" type="src">

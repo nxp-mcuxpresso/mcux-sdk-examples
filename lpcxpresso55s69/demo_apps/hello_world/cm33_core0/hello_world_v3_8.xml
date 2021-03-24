@@ -104,7 +104,7 @@
     <source path="examples/lpcxpresso55s69/demo_apps/hello_world/cm33_core0" project_relative_path="." type="other">
       <files mask="hello_world.mex" hidden="true"/>
     </source>
-    <source path="core/boards/lpcxpresso55s69/demo_apps/hello_world/cm33_core0" project_relative_path="lpcxpresso55s69/demo_apps/hello_world/cm33_core0" type="binary">
+    <source path="examples/lpcxpresso55s69/demo_apps/hello_world/cm33_core0" project_relative_path="lpcxpresso55s69/demo_apps/hello_world/cm33_core0" type="binary">
       <files mask="hello_world.bin" hidden="true"/>
     </source>
     <source path="core/boards/lpcxpresso55s69" project_relative_path="board" type="src">

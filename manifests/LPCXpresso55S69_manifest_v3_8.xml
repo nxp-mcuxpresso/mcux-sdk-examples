@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-03-09 13:42:35.044382-->
+  <!--Timestamp (UTC): 2021-03-23 11:41:33.888571-->
   <!--This manifest is generated based on sdk repo commit: b1eede1d406d3392a45a06abc2494c2b87a1853b-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -192,6 +192,11 @@ ${load}</script>
             <files mask="hello_world_v3_8.xml"/>
           </external>
         </example>
+        <example id="lpcxpresso55s69_hello_world_swo" name="hello_world_swo" brief="The Hello World SWO demo prints the &quot;SWO: Hello World&quot; string to the SWO viewer. The purpose of this demo is to show how to use the swo, and to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso55s69/demo_apps/hello_world_swo/cm33_core0">
+          <external path="examples/lpcxpresso55s69/demo_apps/hello_world_swo/cm33_core0" type="xml">
+            <files mask="hello_world_swo_v3_8.xml"/>
+          </external>
+        </example>
         <example id="lpcxpresso55s69_i2c_dma_b2b_transfer_master" name="i2c_dma_b2b_transfer_master" brief="The i2c_dma_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with DMA:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/lpcxpresso55s69/driver_examples/i2c/dma_b2b_transfer/master/cm33_core0">
           <external path="examples/lpcxpresso55s69/driver_examples/i2c/dma_b2b_transfer/master/cm33_core0" type="xml">
             <files mask="i2c_dma_b2b_transfer_master_v3_8.xml"/>
@@ -307,6 +312,11 @@ ${load}</script>
             <files mask="plu_combination_v3_8.xml"/>
           </external>
         </example>
+        <example id="lpcxpresso55s69_power_manager_lpc" name="power_manager_lpc" brief="The power_manager_lpc application shows the usage of normal power mode control APIs for entering the three kinds of low power mode: Sleep mode, Deep Sleep mode and Sleep Power Down mode. When the application runs to each low power mode, the device would cut off the power for specific modules to save energy. The device can be also waken up by prepared wakeup source from external event.&#10;Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - In order to meet typedef power consumption of DateSheet manual, Please configure MCU under the following conditions. 鈥?Configure all pins as GPIO with pull-up resistor disabled in the IOCON block. 鈥?Configure GPIO pins as outputs using the GPIO DIR register. 鈥?Write 1 to the GPIO CLR register to drive the outputs LOW. 鈥?All peripherals disabled." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso55s69/demo_apps/power_manager_lpc/cm33_core0">
+          <external path="examples/lpcxpresso55s69/demo_apps/power_manager_lpc/cm33_core0" type="xml">
+            <files mask="power_manager_lpc_v3_8.xml"/>
+          </external>
+        </example>
         <example id="lpcxpresso55s69_powerquad_benchmark_fft" name="powerquad_benchmark_fft" brief="This example shows the official CMSIS DSP function performance. It could be compared with the project powerquad_benckmark_fft to show the PowerQuad performance improvement." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_fft/cm33_core0">
           <external path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_fft/cm33_core0" type="xml">
             <files mask="powerquad_benchmark_fft_v3_8.xml"/>
@@ -392,6 +402,11 @@ ${load}</script>
             <files mask="puf_v3_8.xml"/>
           </external>
         </example>
+        <example id="lpcxpresso55s69_puf_hashcrypt_crypto" name="puf_hashcrypt_crypto" brief="This demo application demonstrates how to use PUF controller which provides a secure key storage and then sends secret key via dedicated HW bus directly to Hashcrypt, which uses this key to encrypt data." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso55s69/demo_apps/puf_hashcrypt_crypto/cm33_core0">
+          <external path="examples/lpcxpresso55s69/demo_apps/puf_hashcrypt_crypto/cm33_core0" type="xml">
+            <files mask="puf_hashcrypt_crypto_v3_8.xml"/>
+          </external>
+        </example>
         <example id="lpcxpresso55s69_rng_random" name="rng_random" brief="The RNG example project is a demonstration program that uses the KSDK software to generate random numbersand prints them to the terminal. 32 32-bit numbers are read and skipped per one 32-bit number read and used.This is to get a better entropy as suggested by user manual." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/rng" path="examples/lpcxpresso55s69/driver_examples/rng/random/cm33_core0">
           <external path="examples/lpcxpresso55s69/driver_examples/rng/random/cm33_core0" type="xml">
             <files mask="rng_random_v3_8.xml"/>
@@ -420,6 +435,11 @@ ${load}</script>
         <example id="lpcxpresso55s69_sctimer_simple_pwm" name="sctimer_simple_pwm" brief="The SCTimer project is a simple demonstration program of the SDK SCTimer's driver capabiltiy to generate PWM signals." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="examples/lpcxpresso55s69/driver_examples/sctimer/simple_pwm/cm33_core0">
           <external path="examples/lpcxpresso55s69/driver_examples/sctimer/simple_pwm/cm33_core0" type="xml">
             <files mask="sctimer_simple_pwm_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s69_shell" name="shell" brief="The Shell Demo application demonstrates to control Leds by commands." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso55s69/demo_apps/shell/cm33_core0">
+          <external path="examples/lpcxpresso55s69/demo_apps/shell/cm33_core0" type="xml">
+            <files mask="shell_v3_8.xml"/>
           </external>
         </example>
         <example id="lpcxpresso55s69_spi_HS_LSPI_dma_b2b_transfer_master" name="spi_HS_LSPI_dma_b2b_transfer_master" brief="The spi_HS_LSPI_dma_b2b_transfer_master example shows how to use driver API to transfer in DMA way.  In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checksif the data received from slave is correct. This example needs to work with spi_dma_b2b_transfer_slave example.Note: This example will run in master mode, please prepare another board for slave, and the slave       board should be started first.Project Infomation1.How to set the baudrate of SPI?  The baudrate of SPI is easy to set, just make sure the source clock of SPI." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpcxpresso55s69/driver_examples/spi/HS_LSPI_dma_b2b_transfer/master/cm33_core0">
@@ -510,6 +530,11 @@ ${load}</script>
         <example id="lpcxpresso55s69_usart_polling" name="usart_polling" brief="The uart_polling example shows how to use uart driver in polling way:In this example, one uart instance connect to PC through uart, the board will send back all characters that PCsend to the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpcxpresso55s69/driver_examples/usart/polling/cm33_core0">
           <external path="examples/lpcxpresso55s69/driver_examples/usart/polling/cm33_core0" type="xml">
             <files mask="usart_polling_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s69_utick_wakeup" name="utick_wakeup" brief="The purpose of this demo is to show wakeup from deep sleep mode using MicroTick timer.The demo sets the MicroTick Timer as a wake up source and puts the device in deep-sleep mode. The MicroTick timer wakes up the device. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso55s69/demo_apps/utick_wakeup/cm33_core0">
+          <external path="examples/lpcxpresso55s69/demo_apps/utick_wakeup/cm33_core0" type="xml">
+            <files mask="utick_wakeup_v3_8.xml"/>
           </external>
         </example>
         <example id="lpcxpresso55s69_wwdt_example" name="wwdt_example" brief="The WDOG Example project is to demonstrate usage of the KSDK wdog driver.In this example,quick test is first implemented to test the wdog.And then after 5 times of refreshing the watchdog, a timeout reset is generated." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/wwdt" path="examples/lpcxpresso55s69/driver_examples/wwdt/cm33_core0">
@@ -1525,6 +1550,9 @@ ${load}</script>
       <source condition="middleware.baremetal.LPC55S69" relative_path="./" type="src">
         <files mask="fsl_os_abstraction_bm.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
+        <files mask="component_osa_LPC55S69_cm33_core0.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1623,6 +1651,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_component_serial_port_swo.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
+        <files mask="component_serial_manager_swo_LPC55S69_cm33_core0.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2765,6 +2796,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="fsl_sdif.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
+        <files mask="driver_sdif_LPC55S69_cm33_core0.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -2812,6 +2846,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_utick.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
+        <files mask="driver_utick_LPC55S69_cm33_core0.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2876,6 +2913,9 @@ ${load}</script>
         <define name="FSL_RTOS_BM" value=""/>
         <define name="SDK_OS_BAREMETAL" value=""/>
       </defines>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
+        <files mask="middleware_baremetal_LPC55S69_cm33_core0.cmake" hidden="true"/>
+      </source>
     </component>
     <component id="middleware.usb.common_header.LPC55S69" name="USB Common Header" brief="Middleware usb common_header" version="2.7.0" full_name="USB Common Header" devices="LPC55S69" device_cores="cm33_core0_LPC55S69 cm33_core1_LPC55S69" slave_roles="M33SLAVE" category="USB/USB Common Header" user_visible="true" type="middleware" package_base_path="core/middleware/usb" project_base_path="usb">
       <dependencies>
@@ -2885,6 +2925,9 @@ ${load}</script>
         <files mask="usb.h"/>
         <files mask="usb_misc.h"/>
         <files mask="usb_spec.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
+        <files mask="middleware_usb_common_header_LPC55S69_cm33_core0.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="include" type="c_include"/>
@@ -2902,6 +2945,9 @@ ${load}</script>
       </source>
       <source relative_path="device" project_relative_path="device/source" type="c_include">
         <files mask="usb_device_dci.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
+        <files mask="middleware_usb_device_common_header_LPC55S69_cm33_core0.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="device" project_relative_path="device/include" type="c_include"/>
@@ -3033,6 +3079,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="c_include">
         <files mask="fsl_shell.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
+        <files mask="utility_shell_LPC55S69_cm33_core0.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>

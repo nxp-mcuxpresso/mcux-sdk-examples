@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-03-09 13:42:25.552325-->
+  <!--Timestamp (UTC): 2021-03-23 11:41:22.903319-->
   <!--This manifest is generated based on sdk repo commit: b1eede1d406d3392a45a06abc2494c2b87a1853b-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -99,9 +99,39 @@ ${load}</script>
             <files mask="adc16_interrupt_v3_8.xml"/>
           </external>
         </example>
+        <example id="frdmk28fa_adc16_low_power" name="adc16_low_power" brief="The ADC Low Power demo application demonstrates the usage of the ADC peripheral while in a low power mode. Themicrocontroller is first set to very low power stop (VLPS) mode. Every 500 ms, an interrupt wakes up the ADC module andreads the current temperature of the microcontroller. While the temperature remains within boundaries, both LEDs are on.If the core temperature is higher or lower than average, the LEDs change state respectively." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk28fa/demo_apps/adc16_low_power">
+          <external path="examples/frdmk28fa/demo_apps/adc16_low_power" type="xml">
+            <files mask="adc16_low_power_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk28fa_adc16_low_power_async_edma" name="adc16_low_power_async_edma" brief="The ADC Low Power Async DMA demo application demonstrates the usage of the ADC and DMA peripheral while in a low power mode. Themicrocontroller is first set to very low power stop (VLPS) mode. Every 100 ms, low power timer trigger the ADC module convertvalue on ADC channel. After 16 times(1,6s) the DMA transfer finish interrupt wake up the CPU to process sampled data, print result touser and toggle LED." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk28fa/demo_apps/adc16_low_power_async_edma">
+          <external path="examples/frdmk28fa/demo_apps/adc16_low_power_async_edma" type="xml">
+            <files mask="adc16_low_power_async_edma_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk28fa_adc16_low_power_async_edma_peripheral" name="adc16_low_power_async_edma_peripheral" brief="The ADC Low Power Async DMA demo application demonstrates the usage of the ADC and DMA peripheral while in a low power mode. Themicrocontroller is first set to very low power stop (VLPS) mode. Every 100 ms, low power timer trigger the ADC module convertvalue on ADC channel. After 16 times(1,6s) the DMA transfer finish interrupt wake up the CPU to process sampled data, print result touser and toggle LED." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk28fa/demo_apps/adc16_low_power_async_edma_peripheral">
+          <external path="examples/frdmk28fa/demo_apps/adc16_low_power_async_edma_peripheral" type="xml">
+            <files mask="adc16_low_power_async_edma_peripheral_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk28fa_adc16_low_power_peripheral" name="adc16_low_power_peripheral" brief="The ADC Low Power demo application demonstrates the usage of the ADC peripheral while in a low power mode. Themicrocontroller is first set to very low power stop (VLPS) mode. Every 500 ms, an interrupt wakes up the ADC module andreads the current temperature of the microcontroller. While the temperature remains within boundaries, both LEDs are on.If the core temperature is higher or lower than average, the LEDs change state respectively. You can open the mex file with MCUXpresso Config Tool to do further configuration of pin, clock and peripheral." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk28fa/demo_apps/adc16_low_power_peripheral">
+          <external path="examples/frdmk28fa/demo_apps/adc16_low_power_peripheral" type="xml">
+            <files mask="adc16_low_power_peripheral_v3_8.xml"/>
+          </external>
+        </example>
         <example id="frdmk28fa_adc16_polling" name="adc16_polling" brief="The adc16_polling example shows the simplest way to use ADC16 driver.In this example, user should indicate a channel to provide a voltage signal (can be controlled by user) as the ADC16'ssample input. When running the project, typing any key into debug console would trigger the conversion. The execution would check the conversion completed flag in loop until the flag is asserted, which means the conversion is completed. Then read the conversion result value and print it to debug console.Note, the default setting of initialization for the ADC converter is just an available configuration. User can changethe configuration structure's setting in application to fit the special requirement.The auto-calibration is not essential but strongly recommended. It can help to adjust the converter itself and improvethe ADC16's performance." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc16" path="examples/frdmk28fa/driver_examples/adc16/polling">
           <external path="examples/frdmk28fa/driver_examples/adc16/polling" type="xml">
             <files mask="adc16_polling_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk28fa_bubble" name="bubble" brief="The bubble level demo demonstrates basic usage of the on-board accelerometer to implement a bubble level. A bubble level utilizes two axes to visually show deviation from a level plane (0 degrees) on a given axis." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk28fa/demo_apps/bubble">
+          <external path="examples/frdmk28fa/demo_apps/bubble" type="xml">
+            <files mask="bubble_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk28fa_bubble_peripheral" name="bubble_peripheral" brief="The bubble level demo demonstrates basic usage of the on-board accelerometer to implement a bubble level. A bubble level utilizes two axes to visually show deviation from a level plane (0 degrees) on a given axis. You can open the mex file with MCUXpresso Config Tool to do further configuration of pin, clock and peripheral." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk28fa/demo_apps/bubble_peripheral">
+          <external path="examples/frdmk28fa/demo_apps/bubble_peripheral" type="xml">
+            <files mask="bubble_peripheral_v3_8.xml"/>
           </external>
         </example>
         <example id="frdmk28fa_cmp_interrupt" name="cmp_interrupt" brief="The CMP interrupt Example shows how to use interrupt with CMP driver.In this example, user should indicate an input channel to capture a voltage signal (can be controlled by user) as the CMP's positive channel input. On the negative side, the internal 6-bit DAC is used to generate the fixed voltage abouthalf value of reference voltage.When running the project, change the input voltage of user-defined channel, then the comparator's output would changebetween logic one and zero when the user-defined channel's voltage crosses the internal DAC's value. The change ofcomparator's output would generate the falling and rising edge events with their interrupts enabled. When any CMP interrupt happens, the CMP's ISR would turn on the LED light if detecting the output's rising edge, or turn off it whendetecting the output's falling edge." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/cmp" path="examples/frdmk28fa/driver_examples/cmp/interrupt">
@@ -117,6 +147,16 @@ ${load}</script>
         <example id="frdmk28fa_crc" name="crc" brief="The CRC Example project is a demonstration program that uses the KSDK software to generate checksumsfor an ASCII string. Several CRC protocols are implemented using the CRC driver API." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/frdmk28fa/driver_examples/crc">
           <external path="examples/frdmk28fa/driver_examples/crc" type="xml">
             <files mask="crc_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk28fa_dac_adc" name="dac_adc" brief="The DAC / ADC demo application demonstrates the use of the DAC and ADC peripherals. This application demonstrates how toconfigure the DAC and set the output on the DAC. This demo also demonstrates how to configure the ADC in 'Blocking Mode'and how to read ADC values." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk28fa/demo_apps/dac_adc">
+          <external path="examples/frdmk28fa/demo_apps/dac_adc" type="xml">
+            <files mask="dac_adc_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk28fa_dac_adc_peripheral" name="dac_adc_peripheral" brief="The DAC / ADC demo application demonstrates the use of the DAC and ADC peripherals. This application demonstrates how toconfigure the DAC and set the output on the DAC. This demo also demonstrates how to configure the ADC in 'Blocking Mode'and how to read ADC values." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk28fa/demo_apps/dac_adc_peripheral">
+          <external path="examples/frdmk28fa/demo_apps/dac_adc_peripheral" type="xml">
+            <files mask="dac_adc_peripheral_v3_8.xml"/>
           </external>
         </example>
         <example id="frdmk28fa_dac_basic" name="dac_basic" brief="The dac_basic example shows how to use DAC module simply as the general DAC converter.When the DAC's buffer feature is not enabled, the first item of the buffer is used as the DAC output data register.The converter would always output the value of the first item. In this example, it gets the value from terminal,outputs the DAC output voltage through DAC output pin." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dac" path="examples/frdmk28fa/driver_examples/dac/basic">
@@ -209,6 +249,16 @@ ${load}</script>
             <files mask="dspi_polling_b2b_transfer_slave_v3_8.xml"/>
           </external>
         </example>
+        <example id="frdmk28fa_ecompass" name="ecompass" brief="The E-Compass demo application demonstrates the use of the FXOS8700 sensor. The tilt-compensated algorithm calculatesall three angles (pitch, roll, and yaw or compass heading)." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk28fa/demo_apps/ecompass">
+          <external path="examples/frdmk28fa/demo_apps/ecompass" type="xml">
+            <files mask="ecompass_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk28fa_ecompass_peripheral" name="ecompass_peripheral" brief="The E-Compass demo application demonstrates the use of the FXOS8700 sensor. The tilt-compensated algorithm calculatesall three angles (pitch, roll, and yaw or compass heading). You can open the mex file with MCUXpresso Config Tool to do further configuration of pin, clock and peripheral." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk28fa/demo_apps/ecompass_peripheral">
+          <external path="examples/frdmk28fa/demo_apps/ecompass_peripheral" type="xml">
+            <files mask="ecompass_peripheral_v3_8.xml"/>
+          </external>
+        </example>
         <example id="frdmk28fa_edma_channel_link" name="edma_channel_link" brief="The EDMA memory to memory example is a simple demonstration program that uses the SDK software.It excuates one shot transfer from source buffer to destination buffer using the SDK EDMA drivers.The purpose of this example is to show how to use the EDMA and to provide a simple example fordebugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/edma" path="examples/frdmk28fa/driver_examples/edma/channel_link">
           <external path="examples/frdmk28fa/driver_examples/edma/channel_link" type="xml">
             <files mask="edma_channel_link_v3_8.xml"/>
@@ -247,6 +297,11 @@ ${load}</script>
         <example id="frdmk28fa_flexio_i2c_interrupt_i2c_transfer" name="flexio_i2c_interrupt_i2c_transfer" brief="The flexio_i2c_interrupt example shows how to use flexio i2c master driver in interrupt way:In this example, a flexio simulated i2c master connect to an I2C slave." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/flexio" path="examples/frdmk28fa/driver_examples/flexio/i2c/interrupt_i2c_transfer">
           <external path="examples/frdmk28fa/driver_examples/flexio/i2c/interrupt_i2c_transfer" type="xml">
             <files mask="flexio_i2c_interrupt_i2c_transfer_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk28fa_flexio_mcu_lcd" name="flexio_mcu_lcd" brief="The FlexIO MCU LCD demo application demonstrates how to use SDK FlexIO to driveMCU interface LCD.The example displays one picture and an arrow at the right bottom of the screen.When press the arrow, a new picture is shown.The project has provide the source code of the pictures (pictures.c), you canmodify and re-generate the pictures.bin. For example, the pictures.bin could begenerated using armgcc commands:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~arm-none-eabi-gcc -c pictures.c -DBUILD_PIC_BINarm-none-eabi-objdump -O binary pictures.o pictures.bin~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk28fa/component_examples/flexio_mcu_lcd">
+          <external path="examples/frdmk28fa/component_examples/flexio_mcu_lcd" type="xml">
+            <files mask="flexio_mcu_lcd_v3_8.xml"/>
           </external>
         </example>
         <example id="frdmk28fa_flexio_pwm" name="flexio_pwm" brief="This demo describes how to use SDK drivers to implement the PWM feature by FLEXIO IP module. It outputs the PWM singal with fixed frequency defined by &quot;DEMO_FLEXIO_FREQUENCY&quot; in source code and dynamic duty from 99 to 1 to one of the FLEXIO pin." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/flexio" path="examples/frdmk28fa/driver_examples/flexio/pwm">
@@ -319,6 +374,16 @@ ${load}</script>
             <files mask="ftm_pwm_twochannel_v3_8.xml"/>
           </external>
         </example>
+        <example id="frdmk28fa_ftm_quad_decoder" name="ftm_quad_decoder" brief="This demo describes the usage of Quad Decoder feature in FTM module, which can be used to count the position of decoder.An external decoder is used to generate the PHA and PHB's signal. These two signals are feed to the FTM pins with Quad Decoder feature (FTMx_QD_PHA and FTMx_QD_PHB). Then, the counter value and direction would be displayed in terminal window predically." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk28fa/demo_apps/ftm_quad_decoder">
+          <external path="examples/frdmk28fa/demo_apps/ftm_quad_decoder" type="xml">
+            <files mask="ftm_quad_decoder_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk28fa_ftm_quad_decoder_peripheral" name="ftm_quad_decoder_peripheral" brief="This demo describes the usage of Quad Decoder feature in FTM module, which can be used to count the position of decoder.An external decoder is used to generate the PHA and PHB's signal. These two signals are feed to the FTM pins with Quad Decoder feature (FTMx_QD_PHA and FTMx_QD_PHB). Then, the counter value and direction would be displayed in terminal window predically. You can open the mex file with MCUXpresso Config Tool to do further configuration of pin, clock and peripheral." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk28fa/demo_apps/ftm_quad_decoder_peripheral">
+          <external path="examples/frdmk28fa/demo_apps/ftm_quad_decoder_peripheral" type="xml">
+            <files mask="ftm_quad_decoder_peripheral_v3_8.xml"/>
+          </external>
+        </example>
         <example id="frdmk28fa_ftm_simple_pwm" name="ftm_simple_pwm" brief="The FTM project is a simple demonstration program of the SDK FTM driver. It sets up the FTMhardware block to output a center-aligned PWM signal. The PWM dutycycle is periodically updated.On boards that have an LED connected to the FTM pins, the user will see a change in LED brightness." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ftm" path="examples/frdmk28fa/driver_examples/ftm/simple_pwm">
           <external path="examples/frdmk28fa/driver_examples/ftm/simple_pwm" type="xml">
             <files mask="ftm_simple_pwm_v3_8.xml"/>
@@ -342,6 +407,16 @@ ${load}</script>
         <example id="frdmk28fa_hello_world" name="hello_world" brief="The HelloWorld demo prints the &quot;Hello World&quot; string to the terminal using the SDK UART drivers and repeat what user input. The purpose of this demo is to show how to use the UART, and to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk28fa/demo_apps/hello_world">
           <external path="examples/frdmk28fa/demo_apps/hello_world" type="xml">
             <files mask="hello_world_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk28fa_hello_world_qspi" name="hello_world_qspi" brief="The Hello World QSPI demo application provides a sanity check for new SDK build environments and board bring up. Itprints the &quot;Hello World&quot; string to the terminal using the SDK UART drivers. The purpose of this demo is to show how tocompile SDK applications to run and boot from QSPI flash or a QSPI alias region.This example can generate two different demos using a different linker file and a startup file:Program boot from QSPI region.Program boot from QSPI alias region (if the chip supports QSPI alias region)." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk28fa/demo_apps/hello_world_qspi">
+          <external path="examples/frdmk28fa/demo_apps/hello_world_qspi" type="xml">
+            <files mask="hello_world_qspi_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk28fa_hello_world_qspi_alias" name="hello_world_qspi_alias" brief="The Hello World QSPI demo application provides a sanity check for new SDK build environments and board bring up. Itprints the &quot;Hello World&quot; string to the terminal using the SDK UART drivers. The purpose of this demo is to show how tocompile SDK applications to run and boot from QSPI flash or a QSPI alias region.This example can generate two different demos using a different linker file and a startup file:Program boot from QSPI region.Program boot from QSPI alias region (if the chip supports QSPI alias region)." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk28fa/demo_apps/hello_world_qspi_alias">
+          <external path="examples/frdmk28fa/demo_apps/hello_world_qspi_alias" type="xml">
+            <files mask="hello_world_qspi_alias_v3_8.xml"/>
           </external>
         </example>
         <example id="frdmk28fa_i2c_edma_b2b_transfer_master" name="i2c_edma_b2b_transfer_master" brief="The i2c_edma_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with EDMA:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/frdmk28fa/driver_examples/i2c/edma_b2b_transfer/master">
@@ -474,6 +549,16 @@ ${load}</script>
             <files mask="pit_v3_8.xml"/>
           </external>
         </example>
+        <example id="frdmk28fa_power_manager" name="power_manager" brief="The Power manager demo application demonstrates the use of power modes in the KSDK. The demo use the notification mechanismand prints the power mode menu through the debug console, where the user can set the MCU to a specific power mode. The usercan also set the wakeup source by following the debug console prompts. The purpose of this demo is to demonstrate theimplementation of a power mode manager. The callback can be registered to the framework. If a power mode transition happens,the callback will be called and user can do something. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk28fa/demo_apps/power_manager">
+          <external path="examples/frdmk28fa/demo_apps/power_manager" type="xml">
+            <files mask="power_manager_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk28fa_power_mode_switch" name="power_mode_switch" brief="The Power mode switch demo application demonstrates the use of power modes in the KSDK. The demo prints the power mode menuthrough the debug console, where the user can set the MCU to a specific power mode. The user can also set the wakeupsource by following the debug console prompts. The purpose of this demo is to show how to switch between different power modes, and how to configure a wakeup source and wakeup the MCU from low power modes. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - Debug pins(e.g SWD_DIO) would consume addtional power, had better to disable related pins or disconnect them. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk28fa/demo_apps/power_mode_switch">
+          <external path="examples/frdmk28fa/demo_apps/power_mode_switch" type="xml">
+            <files mask="power_mode_switch_v3_8.xml"/>
+          </external>
+        </example>
         <example id="frdmk28fa_qspi_edma_transfer" name="qspi_edma_transfer" brief="The qspi_edma example shows how to use qspi driver with EDMA:In this example, qspi will send data and operate the external flash connected with QSPI. Some simple flash command willbe executed, such as Write Enable, Erase sector, Program page.Example will first erase the sector and programe a page into the flash, at last check if the data in flash is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/qspi" path="examples/frdmk28fa/driver_examples/qspi/edma_transfer">
           <external path="examples/frdmk28fa/driver_examples/qspi/edma_transfer" type="xml">
             <files mask="qspi_edma_transfer_v3_8.xml"/>
@@ -489,9 +574,24 @@ ${load}</script>
             <files mask="rtc_v3_8.xml"/>
           </external>
         </example>
+        <example id="frdmk28fa_rtc_func" name="rtc_func" brief="The RTC demo application demonstrates the important features of the RTC Module by using the RTC Peripheral Driver.The RTC demo supports the following features:- Calendar  + Get the current date time with Year, Month, Day, Hour, Minute, and Second.  + Set the current date time with Year, Month, Day, Hour, Minute, and Second.- Alarm  + Set the alarm based on the current time.  + Application prints a notification when the alarm expires.- Seconds interrupt  + Use second interrupt function to display a digital time blink every second." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk28fa/demo_apps/rtc_func">
+          <external path="examples/frdmk28fa/demo_apps/rtc_func" type="xml">
+            <files mask="rtc_func_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk28fa_rtc_func_peripheral" name="rtc_func_peripheral" brief="The RTC demo application demonstrates the important features of the RTC Module by using the RTC Peripheral Driver.The RTC demo supports the following features:- Calendar  + Get the current date time with Year, Month, Day, Hour, Minute, and Second.  + Set the current date time with Year, Month, Day, Hour, Minute, and Second.- Alarm  + Set the alarm based on the current time.  + Application prints a notification when the alarm expires.- Seconds interrupt  + Use second interrupt function to display a digital time blink every second." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk28fa/demo_apps/rtc_func_peripheral">
+          <external path="examples/frdmk28fa/demo_apps/rtc_func_peripheral" type="xml">
+            <files mask="rtc_func_peripheral_v3_8.xml"/>
+          </external>
+        </example>
         <example id="frdmk28fa_sdramc" name="sdramc" brief="The sdramc example shows how to use SDRAM controller driver to initialize the external SDRAM chip.After the SDRAM initialization, SDRAM address access is very simple." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/frdmk28fa/driver_examples/sdramc">
           <external path="examples/frdmk28fa/driver_examples/sdramc" type="xml">
             <files mask="sdramc_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk28fa_shell" name="shell" brief="The Shell Demo application demonstrates to control Leds by commands." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk28fa/demo_apps/shell">
+          <external path="examples/frdmk28fa/demo_apps/shell" type="xml">
+            <files mask="shell_v3_8.xml"/>
           </external>
         </example>
         <example id="frdmk28fa_sysmpu" name="sysmpu" brief="The SYSMPU example defines protected/unprotected memory region for the core access.First, the SYSMPU will capture the hardware information and show it on theterminal. Then, a memory region is configured as the non-writable region. Thebus fault interrupt is enabled to report the memory protection interrupt eventfor this non-writable region. If an operation writes to this region, the busfault interrupt happens. Then the bus fault interrupt handler provides aprevention alert by outputting a message on terminal, then the write rightswill be given to this region for core access. After the write access enabled,the writing to the region becomes successful. When the bus fault happen, thedetails of the error information will be captured and printed on the terminal.This example provides the terminal input control to give the example show for several regions access test. Just press any key to the terminal when theterminal show &quot;Press any key to continue&quot;." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/frdmk28fa/driver_examples/sysmpu">
@@ -1786,6 +1886,41 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="driver.dbi.MK28FA15" name="dbi" brief="Driver dbi" version="1.0.0" full_name="Driver dbi" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="abstraction_layer" package_base_path="core/components/video/display/dbi" project_base_path="video">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MK28FA15"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_dbi.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_dbi_MK28FA15.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.dbi_flexio_edma.MK28FA15" name="dbi_flexio_edma" brief="Driver dbi_flexio_edma" version="1.0.1" full_name="Driver dbi_flexio_edma" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="abstraction_layer" package_base_path="core/components/video/display/dbi/flexio" project_base_path="video">
+      <dependencies>
+        <all>
+          <component_dependency value="driver.dbi.MK28FA15"/>
+          <component_dependency value="platform.drivers.flexio_mculcd.MK28FA15"/>
+          <component_dependency value="platform.drivers.flexio_mculcd_edma.MK28FA15"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_dbi_flexio_edma.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_dbi_flexio_edma.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_dbi_flexio_edma_MK28FA15.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="platform.drivers.dmamux.MK28FA15" name="dmamux" brief="DMAMUX Driver" version="2.0.5" full_name="DMAMUX Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/dmamux" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MK28FA15"/>
@@ -2024,6 +2159,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="fsl_flexio_mculcd.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_flexio_mculcd_MK28FA15.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -2040,6 +2178,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="c_include">
         <files mask="fsl_flexio_mculcd_edma.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_flexio_mculcd_edma_MK28FA15.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2119,6 +2260,23 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="driver.ft5406.MK28FA15" name="ft5406" brief="Driver ft5406" version="1.0.0" full_name="Driver ft5406" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="false" type="board_component" package_base_path="core/components/ft5406" project_base_path="touchpanel">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MK28FA15"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_ft5406.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_ft5406.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_ft5406_MK28FA15.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="platform.drivers.ftm.MK28FA15" name="ftm" brief="FTM Driver" version="2.3.0" full_name="FTM Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/ftm" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MK28FA15"/>
@@ -2131,6 +2289,23 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="driver_ftm_MK28FA15.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.fxos8700cq.MK28FA15" name="fxos8700cq" brief="Driver fxos8700cq" version="1.0.0" full_name="Driver fxos8700cq" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="board_component" package_base_path="core/components/fxos8700cq" project_base_path="accel">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MK28FA15"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_fxos.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_fxos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_fxos8700cq_MK28FA15.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2199,6 +2374,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_llwu.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_llwu_MK28FA15.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2315,6 +2493,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_pmc.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_pmc_MK28FA15.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2496,6 +2677,23 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="driver_smc_MK28FA15.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.ssd1963.MK28FA15" name="ssd1963" brief="Driver ssd1963" version="1.1.2" full_name="Driver ssd1963" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="board_component" package_base_path="core/components/ssd1963" project_base_path="lcdc">
+      <dependencies>
+        <component_dependency value="driver.dbi.MK28FA15"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_ssd1963.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_ssd1963.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_ssd1963_MK28FA15.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2768,6 +2966,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="fsl_notifier.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_notifier_MK28FA15.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -2788,6 +2989,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="c_include">
         <files mask="fsl_shell.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_shell_MK28FA15.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>

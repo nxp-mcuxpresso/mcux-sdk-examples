@@ -143,13 +143,13 @@
       <files mask="MIMXRT1064xxxxx_ram.ld"/>
       <files mask="MIMXRT1064xxxxx_sdram.ld"/>
     </source>
-    <source path="examples/evkmimxrt1064/driver_examples/flexspi/hyper_flash/polling_transfer/linker" project_relative_path="evkmimxrt1064/driver_examples/flexspi/hyper_flash/polling_transfer/linker" type="linker" toolchain="iar">
+    <source path="examples/evkmimxrt1064/driver_examples/flexspi/hyper_flash/polling_transfer/iar" project_relative_path="evkmimxrt1064/driver_examples/flexspi/hyper_flash/polling_transfer/linker" type="linker" toolchain="iar">
       <files mask="MIMXRT1064xxxxx_flexspi_nor.icf"/>
     </source>
-    <source path="examples/evkmimxrt1064/driver_examples/flexspi/hyper_flash/polling_transfer/linker" project_relative_path="evkmimxrt1064/driver_examples/flexspi/hyper_flash/polling_transfer/linker" type="linker" toolchain="mdk">
+    <source path="examples/evkmimxrt1064/driver_examples/flexspi/hyper_flash/polling_transfer/mdk" project_relative_path="evkmimxrt1064/driver_examples/flexspi/hyper_flash/polling_transfer/linker" type="linker" toolchain="mdk">
       <files mask="MIMXRT1064xxxxx_flexspi_nor.scf"/>
     </source>
-    <source path="examples/evkmimxrt1064/driver_examples/flexspi/hyper_flash/polling_transfer/linker" project_relative_path="evkmimxrt1064/driver_examples/flexspi/hyper_flash/polling_transfer/linker" type="linker" toolchain="armgcc">
+    <source path="examples/evkmimxrt1064/driver_examples/flexspi/hyper_flash/polling_transfer/armgcc" project_relative_path="evkmimxrt1064/driver_examples/flexspi/hyper_flash/polling_transfer/linker" type="linker" toolchain="armgcc">
       <files mask="MIMXRT1064xxxxx_flexspi_nor.ld"/>
     </source>
     <source path="examples/evkmimxrt1064/driver_examples/flexspi/hyper_flash/polling_transfer" project_relative_path="source" type="src">

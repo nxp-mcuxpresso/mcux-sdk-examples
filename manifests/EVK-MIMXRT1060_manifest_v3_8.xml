@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-03-09 13:42:26.300837-->
+  <!--Timestamp (UTC): 2021-03-23 11:41:23.800293-->
   <!--This manifest is generated based on sdk repo commit: b1eede1d406d3392a45a06abc2494c2b87a1853b-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -118,6 +118,11 @@ ${load}</script>
         <example id="evkmimxrt1060_bee" name="bee" brief="This driver example should demonstrate how to setup BEE driver for on the fly decryption of data stored in QSPI memory region. The BEE is configuerd to decrypt all data starting from location 0x6000_0000 to 0x6001_0000 using AES ECB mode with user specified key. If the BEE_KEY_SEL fuse is programmed, then OTPMK key will be used instead.The example itself does not perform any data decryption operation over QSPI. It is used only as a BEE setup guide." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/bee" path="examples/evkmimxrt1060/driver_examples/bee">
           <external path="examples/evkmimxrt1060/driver_examples/bee" type="xml">
             <files mask="bee_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_bubble_peripheral" name="bubble_peripheral" brief="The bubble level demo demonstrates basic usage of the on-board accelerometer to implement a bubble level. A bubble level utilizes two axes to visually show deviation from a level plane (0 degrees) on a given axis. You can open the mex file with MCUXpresso Config Tool to do further configuration of pin, clock and peripheral." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/evkmimxrt1060/demo_apps/bubble_peripheral">
+          <external path="examples/evkmimxrt1060/demo_apps/bubble_peripheral" type="xml">
+            <files mask="bubble_peripheral_v3_8.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1060_cache" name="cache" brief="The cache example shows how to use memory cache driver.In this example, many memory (such as SDRAM, etc) and DMA will be used to show the example.Those memory is both accessible for cpu and DMA. For the memory data alignment, cache driver should be used rightly. For cache enabled case, the cache invalidate operation should be done before cpu access the memory. The cache clean opeartion should be done after CPU verify the memorymemory and before DMA access the memory." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/evkmimxrt1060/driver_examples/cache">
@@ -430,6 +435,11 @@ ${load}</script>
             <files mask="igpio_led_output_v3_8.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt1060_iled_blinky" name="iled_blinky" brief="The LED Blinky demo application provides a sanity check for the new SDK build environments and board bring up. The LED Blinky demo uses the systick interrupt to realize the function of timing delay. The example takes turns to shine the LED. The purpose of this demo is to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/evkmimxrt1060/demo_apps/led_blinky">
+          <external path="examples/evkmimxrt1060/demo_apps/led_blinky" type="xml">
+            <files mask="iled_blinky_v3_8.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt1060_kpp" name="kpp" brief="The KPP Example project is a demonstration program that uses the KSDK software to manipulate the Keypad MATRIX.The example is use the continuous column and rows as 4*4 or 8*8 matrix to show the example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/evkmimxrt1060/driver_examples/kpp">
           <external path="examples/evkmimxrt1060/driver_examples/kpp" type="xml">
             <files mask="kpp_v3_8.xml"/>
@@ -488,6 +498,11 @@ ${load}</script>
         <example id="evkmimxrt1060_lpspi_interrupt_b2b_slave" name="lpspi_interrupt_b2b_slave" brief="The lpspi_interrupt_b2b example shows how to use LPSPI driver in interrupt way:In this example , we need two boards , one board used as LPSPI master and another board used as LPSPI slave.The file 'dspi_interrupt_b2b_slave.c' includes the LPSPI slave code.This example does not use the transactional API in LPSPI driver. It's a demonstration that how to use the interrupt in KSDK driver.1. LPSPI master send/received data to/from LPSPI slave in interrupt . (LPSPI Slave using interrupt to receive/send the data)" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpspi" path="examples/evkmimxrt1060/driver_examples/lpspi/interrupt_b2b/slave">
           <external path="examples/evkmimxrt1060/driver_examples/lpspi/interrupt_b2b/slave" type="xml">
             <files mask="lpspi_interrupt_b2b_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_lpspi_loopback" name="lpspi_loopback" brief="The lpspi_loopback demo shows how the lpspi do a loopback transfer, LPSPImaster will transmit data to itself, so please connect the SOUT pin to SIN pin directly." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/evkmimxrt1060/demo_apps/lpspi_loopback">
+          <external path="examples/evkmimxrt1060/demo_apps/lpspi_loopback" type="xml">
+            <files mask="lpspi_loopback_v3_8.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1060_lpspi_polling_b2b_transfer_master" name="lpspi_polling_b2b_transfer_master" brief="The lpspi_polling_b2b_transfer example shows how to use LPSPI driver in polling way:In this example , we need two boards, one board used as LPSPI master and another board used as LPSPI slave.The file 'lpspi_polling_b2b_transfer_master.c' includes the LPSPI master code.1. LPSPI master send/received data to/from LPSPI slave in polling . (LPSPI Slave using interrupt to receive/send the data)" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpspi" path="examples/evkmimxrt1060/driver_examples/lpspi/polling_b2b_transfer/master">
@@ -555,9 +570,19 @@ ${load}</script>
             <files mask="pit_v3_8.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt1060_power_mode_switch_bm" name="power_mode_switch_bm" brief="The Power mode switch demo application demonstrates the use of power modes in the KSDK. The demo prints the power mode menuthrough the debug console, where the user can set the MCU to a specific power mode. The user can also set the wakeupsource by following the debug console prompts. The purpose of this demo is to show how to switch between different power modes, and how to configure a wakeup source and wakeup the MCU from low power modes. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - Debug pins(e.g SWD_DIO) would consume addtional power, had better to disable related pins or disconnect them. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/evkmimxrt1060/demo_apps/power_mode_switch/bm">
+          <external path="examples/evkmimxrt1060/demo_apps/power_mode_switch/bm" type="xml">
+            <files mask="power_mode_switch_bm_v3_8.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt1060_pwm" name="pwm" brief="The PWM project is a simple demonstration program of the SDK PWM driver.The pulse width modulator (PWM) module contains PWM submodules, each of which is set up to control a single half-bridge power stage.Fault channel support is provided. This PWM module can generate various switching patterns, including highly sophisticated waveforms.It can be used to control all known Switched Mode Power Supplies (SMPS) topologies." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/evkmimxrt1060/driver_examples/pwm">
           <external path="examples/evkmimxrt1060/driver_examples/pwm" type="xml">
             <files mask="pwm_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_pwm_fault" name="pwm_fault" brief="This demo application demonstrates the EflexPWM fault demo.This application demonstrates the pulse with modulation function of EflexPWM module. It outputs thePWM to control the intensity of the LED. PWM shut down when a fault signal is detected on the CMPoutput. One input of CMP, other input is from internal DAC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/evkmimxrt1060/demo_apps/pwm_fault">
+          <external path="examples/evkmimxrt1060/demo_apps/pwm_fault" type="xml">
+            <files mask="pwm_fault_v3_8.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1060_pxp_blend" name="pxp_blend" brief="The PXP blend project shows how to blend process surface and alpha surface usingPXP. If this example runs correctly, you will see two rectangles moving in thescreen. One rectangle is process surface output, and the other is alpha surfaceoutput, the overlay region color is OR'ed value of process surface and alpha surface." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/pxp" path="examples/evkmimxrt1060/driver_examples/pxp/blend">
@@ -655,6 +680,11 @@ ${load}</script>
             <files mask="semc_v3_8.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt1060_shell" name="shell" brief="The Shell Demo application demonstrates to control Leds by commands." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/evkmimxrt1060/demo_apps/shell">
+          <external path="examples/evkmimxrt1060/demo_apps/shell" type="xml">
+            <files mask="shell_v3_8.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt1060_snvs_hp_hac" name="snvs_hp_hac" brief="The SNVS HP HAC project shows how to use the High Assurance Counter (HAC) based on SDK SNVS HP driver. In this example, The HAC is enabled and set a initial value. Software fatal security violation is triggered, and the SSM switches to soft fail mode. In soft fail mode, software stops the HAC counter, and clear the HAC to make SSM switch to hard fail mode. The system resets when enters hard fail mode." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/snvs" path="examples/evkmimxrt1060/driver_examples/snvs/snvs_hp_hac">
           <external path="examples/evkmimxrt1060/driver_examples/snvs/snvs_hp_hac" type="xml">
             <files mask="snvs_hp_hac_v3_8.xml"/>
@@ -698,6 +728,16 @@ ${load}</script>
         <example id="evkmimxrt1060_wdog01" name="wdog01" brief="The WDOG Example project is to demonstrate usage of the KSDK wdog driver.In this example,implemented to test the wdog.And then after 10 times of refreshing the watchdog, a timeout reset is generated.We also try to refresh out of window to trigger reset after 10 times of refreshing.Please notice that because WDOG control registers are write-once only, so the WDOG_Init function and the WDOG_Disable function can be called only once after reset." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/wdog" path="examples/evkmimxrt1060/driver_examples/wdog">
           <external path="examples/evkmimxrt1060/driver_examples/wdog" type="xml">
             <files mask="wdog01_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_xbar_aoi" name="xbar_aoi" brief="The XBAR AOI demo application demonstrates the usage of the XBAR, AOI peripheral to combine interruptfrom CMP and PIT. If the button is pressed(CMP interrupt) and the PIT periodic interrupt occurs a message is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/evkmimxrt1060/demo_apps/xbar_aoi">
+          <external path="examples/evkmimxrt1060/demo_apps/xbar_aoi" type="xml">
+            <files mask="xbar_aoi_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_xbar_aoi_peripheral" name="xbar_aoi_peripheral" brief="The XBAR AOI demo application demonstrates the usage of the XBAR, AOI peripheral to combine interruptfrom CMP and PIT. If the button is pressed(CMP interrupt) and the PIT periodic interrupt occurs a message is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/evkmimxrt1060/demo_apps/xbar_aoi_peripheral">
+          <external path="examples/evkmimxrt1060/demo_apps/xbar_aoi_peripheral" type="xml">
+            <files mask="xbar_aoi_peripheral_v3_8.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1060_xbara" name="xbara" brief="The Xbara project is a simple demonstration program of the SDK Xbara driver.The intended applicationof this module is to provide a flexible crossbar switch function that allows any input to beconnected to any output under user control.It sets up the Xbara hardware block to trigger a periodicinterrupt after every 1 second. When the Xbar interrupt is triggered a message a printed on the UARTterminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/evkmimxrt1060/driver_examples/xbara">
@@ -1638,6 +1678,9 @@ ${load}</script>
       <source condition="middleware.baremetal.MIMXRT1062" relative_path="./" type="src">
         <files mask="fsl_os_abstraction_bm.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_osa_MIMXRT1062.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1656,6 +1699,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_os_abstraction_bm.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_osa_bm_MIMXRT1062.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2034,6 +2080,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_aoi.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_aoi_MIMXRT1062.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -2365,6 +2414,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="c_include">
         <files mask="fsl_dcdc.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_dcdc_1_MIMXRT1062.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2813,6 +2865,23 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="driver.fxos8700cq.MIMXRT1062" name="fxos8700cq" brief="Driver fxos8700cq" version="1.0.0" full_name="Driver fxos8700cq" devices="MIMXRT1062xxxxA" device_cores="core0_MIMXRT1062xxxxA" user_visible="true" type="board_component" package_base_path="core/components/fxos8700cq" project_base_path="accel">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_fxos.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_fxos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_fxos8700cq_MIMXRT1062.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="platform.drivers.gpc_1.MIMXRT1062" name="gpc" brief="GPC Driver" version="2.1.1" full_name="GPC Driver" devices="MIMXRT1062xxxxA" device_cores="core0_MIMXRT1062xxxxA" user_visible="true" type="driver" package_base_path="core/drivers/gpc_1" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MIMXRT1062"/>
@@ -2822,6 +2891,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="c_include">
         <files mask="fsl_gpc.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_gpc_1_MIMXRT1062.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3471,6 +3543,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="fsl_usdhc.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_usdhc_MIMXRT1062.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -3590,6 +3665,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_xbarb.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_xbarb_MIMXRT1062.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -3641,6 +3719,9 @@ ${load}</script>
         <define name="FSL_RTOS_BM" value=""/>
         <define name="SDK_OS_BAREMETAL" value=""/>
       </defines>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_baremetal_MIMXRT1062.cmake" hidden="true"/>
+      </source>
     </component>
     <component id="middleware.usb.common_header.MIMXRT1062" name="USB Common Header" brief="Middleware usb common_header" version="2.7.0" full_name="USB Common Header" devices="MIMXRT1062xxxxA" device_cores="core0_MIMXRT1062xxxxA" category="USB/USB Common Header" user_visible="true" type="middleware" package_base_path="core/middleware/usb" project_base_path="usb">
       <dependencies>
@@ -3650,6 +3731,9 @@ ${load}</script>
         <files mask="usb.h"/>
         <files mask="usb_misc.h"/>
         <files mask="usb_spec.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_usb_common_header_MIMXRT1062.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="include" type="c_include"/>
@@ -3667,6 +3751,9 @@ ${load}</script>
       </source>
       <source relative_path="device" project_relative_path="device/source" type="c_include">
         <files mask="usb_device_dci.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_usb_device_common_header_MIMXRT1062.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="device" project_relative_path="device/include" type="c_include"/>
@@ -3781,6 +3868,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="c_include">
         <files mask="fsl_shell.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_shell_MIMXRT1062.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>

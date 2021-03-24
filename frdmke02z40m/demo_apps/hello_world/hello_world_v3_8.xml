@@ -108,7 +108,7 @@
     <source path="examples/frdmke02z40m/demo_apps/hello_world" project_relative_path="." type="other">
       <files mask="hello_world.mex" hidden="true"/>
     </source>
-    <source path="core/boards/frdmke02z40m/demo_apps/hello_world" project_relative_path="frdmke02z40m/demo_apps/hello_world" type="binary">
+    <source path="examples/frdmke02z40m/demo_apps/hello_world" project_relative_path="frdmke02z40m/demo_apps/hello_world" type="binary">
       <files mask="hello_world.bin" hidden="true"/>
     </source>
     <source path="core/boards/frdmke02z40m" project_relative_path="board" type="src">

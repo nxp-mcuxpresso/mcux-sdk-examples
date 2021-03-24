@@ -201,7 +201,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     -Map=output.map \
     -Xlinker \
     --defsym=__ram_vector_table__=1 \
-    -T${ProjDirPath}/../../polling_transfer/linker/MIMXRT1011xxxxx_flexspi_nor.ld -static \
+    -T${ProjDirPath}/MIMXRT1011xxxxx_flexspi_nor.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -g \

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-03-09 13:42:33.588486-->
+  <!--Timestamp (UTC): 2021-03-23 11:41:32.234453-->
   <!--This manifest is generated based on sdk repo commit: b1eede1d406d3392a45a06abc2494c2b87a1853b-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -109,6 +109,11 @@ ${load}</script>
             <files mask="adc12_interrupt_v3_8.xml"/>
           </external>
         </example>
+        <example id="frdmke16z_adc12_low_power" name="adc12_low_power" brief="The ADC Low Power Demo project is a demonstration program that uses the KSDK software. Themicrocontroller is set to a very low power stop (VLPS) mode, and every 500 ms an interrupt wakes upthe ADC module and takes the current temperature sensor value of the microcontroller. While the temperature remains within boundaries, both LEDs are on. If the temperature is higher or lower thanaverage, a led comes off. This demo provides an example to show how ADC works during a VLPS mode anda simple debugging." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmke16z/demo_apps/adc12_low_power">
+          <external path="examples/frdmke16z/demo_apps/adc12_low_power" type="xml">
+            <files mask="adc12_low_power_v3_8.xml"/>
+          </external>
+        </example>
         <example id="frdmke16z_adc12_lpit_trgmux" name="adc12_lpit_trgmux" brief="The adc12_lpit_trgmux example shows how to use the LPIT and TRGMUX to generate a ADC trigger.In this example, user should indicate a channel to provide a voltage signal (can be controlled by user) as the ADC12'ssample input. When run the example, the ADC is triggered by TRGMUX and gets the ADC conversion result in the ADCConversion Complete (COCO) Interrupt. The LPIT is configured as periodic counter which will output pre-trigger andtigger signal to TRGMUX periodically." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc12" path="examples/frdmke16z/driver_examples/adc12/lpit_trgmux">
           <external path="examples/frdmke16z/driver_examples/adc12/lpit_trgmux" type="xml">
             <files mask="adc12_lpit_trgmux_v3_8.xml"/>
@@ -119,9 +124,19 @@ ${load}</script>
             <files mask="adc12_polling_v3_8.xml"/>
           </external>
         </example>
+        <example id="frdmke16z_bubble" name="bubble" brief="The bubble level demo demonstrates basic usage of the on-board accelerometer to implement a bubble level. A bubble level utilizes two axes to visually show deviation from a level plane (0 degrees) on a given axis." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmke16z/demo_apps/bubble">
+          <external path="examples/frdmke16z/demo_apps/bubble" type="xml">
+            <files mask="bubble_v3_8.xml"/>
+          </external>
+        </example>
         <example id="frdmke16z_crc" name="crc" brief="The CRC Example project is a demonstration program that uses the KSDK software to generate checksumsfor an ASCII string. Several CRC protocols are implemented using the CRC driver API." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/frdmke16z/driver_examples/crc">
           <external path="examples/frdmke16z/driver_examples/crc" type="xml">
             <files mask="crc_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmke16z_ecompass" name="ecompass" brief="The E-Compass demo application demonstrates the use of the FXOS8700 sensor. The tilt-compensated algorithm calculatesall three angles (pitch, roll, and yaw or compass heading)." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmke16z/demo_apps/ecompass">
+          <external path="examples/frdmke16z/demo_apps/ecompass" type="xml">
+            <files mask="ecompass_v3_8.xml"/>
           </external>
         </example>
         <example id="frdmke16z_ewm" name="ewm" brief="The EWM Example project is to demonstrate usage of the KSDK EWM driver.In the example, EWM counter is continuously refreshed until button is pressed.Once the button is pressed, EWM counter will expire and interrupt will be generated.After the first pressing, another interrupt can be triggered by pressing button again." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/frdmke16z/driver_examples/ewm">
@@ -147,6 +162,11 @@ ${load}</script>
         <example id="frdmke16z_ftm_output_compare" name="ftm_output_compare" brief="The FTM project is a demonstration program of the SDK FTM driver's output compare feature.It sets up one FTM channel to toggle the output when a match occurs with the channel value. The usershould probe the FTM output with a oscilloscope to see the signal toggling." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ftm" path="examples/frdmke16z/driver_examples/ftm/output_compare">
           <external path="examples/frdmke16z/driver_examples/ftm/output_compare" type="xml">
             <files mask="ftm_output_compare_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmke16z_ftm_pdb_adc12" name="ftm_pdb_adc12" brief="This application demonstrates how to use the trigger signal generated by FTM to trigger the ADCconversion through PDB module.For instance, the FTM0 is configured to work in PWM mode. And its channel 0 monitors the FTM counterand compares with the channel value. Once the FTM counter matches the channel value, an externaltrigger would be generated. TRGMUX would capture this trigger and route it to PDB module. When thePDB is triggered, the PDB counter increase. Once the PDB matches the ADC pre-trigger value, a triggersignal would generated and sent to ADC module. Finally, the ADC gets the trigger signal and start theconversion." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmke16z/demo_apps/ftm_pdb_adc12">
+          <external path="examples/frdmke16z/demo_apps/ftm_pdb_adc12" type="xml">
+            <files mask="ftm_pdb_adc12_v3_8.xml"/>
           </external>
         </example>
         <example id="frdmke16z_ftm_pwm_twochannel" name="ftm_pwm_twochannel" brief="The FTM pwm two channel Example project is a demonstration program that uses the KSDK software to generate a square pulse PWM on 2 channel to control the LED brightness.- FTM generates a PWM with the increasing and decreasing duty cycle.- LED brightness is increasing and then dimming. This is a continuous process." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ftm" path="examples/frdmke16z/driver_examples/ftm/pwm_twochannel">
@@ -319,6 +339,16 @@ ${load}</script>
             <files mask="pflash_v3_8.xml"/>
           </external>
         </example>
+        <example id="frdmke16z_power_manager" name="power_manager" brief="The Power manager demo application demonstrates the use of power modes in the KSDK. The demo use the notification mechanismand prints the power mode menu through the debug console, where the user can set the MCU to a specific power mode. The usercan also set the wakeup source by following the debug console prompts. The purpose of this demo is to demonstrate theimplementation of a power mode manager. The callback can be registered to the framework. If a power mode transition happens,the callback will be called and user can do something. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmke16z/demo_apps/power_manager">
+          <external path="examples/frdmke16z/demo_apps/power_manager" type="xml">
+            <files mask="power_manager_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmke16z_power_mode_switch" name="power_mode_switch" brief="The Power mode switch demo application demonstrates the use of power modes in the KSDK. The demo prints the power mode menuthrough the debug console, where the user can set the MCU to a specific power mode. The user can also set the wakeupsource by following the debug console prompts. The purpose of this demo is to show how to switch between different power modes, and how to configure a wakeup source and wakeup the MCU from low power modes. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - Debug pins(e.g SWD_DIO) would consume addtional power, had better to disable related pins or disconnect them. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmke16z/demo_apps/power_mode_switch">
+          <external path="examples/frdmke16z/demo_apps/power_mode_switch" type="xml">
+            <files mask="power_mode_switch_v3_8.xml"/>
+          </external>
+        </example>
         <example id="frdmke16z_pwt_example" name="pwt_example" brief="The PWT project is a simple demonstration program of the SDK PWT driver. It sets up the PWThardware block to edge detection, capture control part and detects measurement trigger edges andcontrols when and which pulse width register(s) will be updated. Once the input signal is received,this example will print overflow flag status, positive pulse width and negative pulse width." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/pwt" path="examples/frdmke16z/driver_examples/pwt">
           <external path="examples/frdmke16z/driver_examples/pwt" type="xml">
             <files mask="pwt_example_v3_8.xml"/>
@@ -329,9 +359,19 @@ ${load}</script>
             <files mask="rtc_v3_8.xml"/>
           </external>
         </example>
+        <example id="frdmke16z_rtc_func" name="rtc_func" brief="The RTC demo application demonstrates the important features of the RTC Module by using the RTC Peripheral Driver.The RTC demo supports the following features:- Calendar  + Get the current date time with Year, Month, Day, Hour, Minute, and Second.  + Set the current date time with Year, Month, Day, Hour, Minute, and Second.- Alarm  + Set the alarm based on the current time.  + Application prints a notification when the alarm expires.- Seconds interrupt  + Use second interrupt function to display a digital time blink every second." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmke16z/demo_apps/rtc_func">
+          <external path="examples/frdmke16z/demo_apps/rtc_func" type="xml">
+            <files mask="rtc_func_v3_8.xml"/>
+          </external>
+        </example>
         <example id="frdmke16z_scg" name="scg" brief="The SCG example shows how to use SCG driver: 1. How to setup the SCG clock source. 2. How to use SCG clock while power mode switch. 3. How to use SCG APIs to get clock frequency.This example prints the clock frequency through the terminal using the SDK driver." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/frdmke16z/driver_examples/scg">
           <external path="examples/frdmke16z/driver_examples/scg" type="xml">
             <files mask="scg_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmke16z_shell" name="shell" brief="The Shell Demo application demonstrates to control Leds by commands." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmke16z/demo_apps/shell">
+          <external path="examples/frdmke16z/demo_apps/shell" type="xml">
+            <files mask="shell_v3_8.xml"/>
           </external>
         </example>
         <example id="frdmke16z_trgmux_clone_pwm" name="trgmux_clone_pwm" brief="The TRGMUX project is a simple demonstration program of the SDK TRGMUX driver. It generatesa 10KHz PWM by LPIT0 CH0, and clone by TRGMUX to output this PWM to eight TRGMUX_OUTx pins." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/trgmux" path="examples/frdmke16z/driver_examples/trgmux/clone_pwm">
@@ -1237,6 +1277,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_component_serial_manager.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_serial_manager_MKE16Z4.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1257,6 +1300,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_component_serial_port_uart.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_serial_manager_uart_MKE16Z4.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1546,6 +1592,23 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="driver_ftm_MKE16Z4.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.fxos8700cq.MKE16Z4" name="fxos8700cq" brief="Driver fxos8700cq" version="1.0.0" full_name="Driver fxos8700cq" devices="MKE16Z32xxx4 MKE16Z64xxx4" device_cores="core0_MKE16Z32xxx4 core0_MKE16Z64xxx4" user_visible="true" type="board_component" package_base_path="core/components/fxos8700cq" project_base_path="accel">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKE16Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_fxos.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_fxos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_fxos8700cq_MKE16Z4.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1892,6 +1955,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_assert.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_assert_MKE16Z4.cmake" hidden="true"/>
+      </source>
     </component>
     <component id="platform.utilities.assert_lite.MKE16Z4" name="assert_lite" brief="Utility assert_lite" version="1.0.0" full_name="Utility assert_lite" devices="MKE16Z32xxx4 MKE16Z64xxx4" device_cores="core0_MKE16Z32xxx4 core0_MKE16Z64xxx4" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
       <dependencies>
@@ -1923,6 +1989,9 @@ ${load}</script>
       <source relative_path="debug_console" project_relative_path="./" type="c_include">
         <files mask="fsl_debug_console.h"/>
         <files mask="fsl_debug_console_conf.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_debug_console_MKE16Z4.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="str" project_relative_path="./" type="c_include"/>
@@ -1959,6 +2028,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="fsl_notifier.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_notifier_MKE16Z4.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1979,6 +2051,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="c_include">
         <files mask="fsl_shell.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_shell_MKE16Z4.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>

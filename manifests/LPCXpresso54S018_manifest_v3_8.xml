@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-03-09 13:42:31.227725-->
+  <!--Timestamp (UTC): 2021-03-23 11:41:29.497341-->
   <!--This manifest is generated based on sdk repo commit: b1eede1d406d3392a45a06abc2494c2b87a1853b-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -213,6 +213,11 @@ ${load}</script>
             <files mask="hello_world_v3_8.xml"/>
           </external>
         </example>
+        <example id="lpcxpresso54s018_hello_world_qspi_xip" name="hello_world_qspi_xip" brief="The Hello World demo application provides a sanity check for the new SDK build environments and board bring up. The HelloWorld demo prints the &quot;Hello World&quot; string to the terminal using the SDK UART drivers. The purpose of this demo is toshow how to use the UART, and to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso54s018/demo_apps/hello_world_qspi_xip">
+          <external path="examples/lpcxpresso54s018/demo_apps/hello_world_qspi_xip" type="xml">
+            <files mask="hello_world_qspi_xip_v3_8.xml"/>
+          </external>
+        </example>
         <example id="lpcxpresso54s018_i2c_dma_b2b_transfer_master" name="i2c_dma_b2b_transfer_master" brief="The i2c_dma_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with DMA:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/lpcxpresso54s018/driver_examples/i2c/dma_b2b_transfer/master">
           <external path="examples/lpcxpresso54s018/driver_examples/i2c/dma_b2b_transfer/master" type="xml">
             <files mask="i2c_dma_b2b_transfer_master_v3_8.xml"/>
@@ -333,6 +338,11 @@ ${load}</script>
             <files mask="pint_pin_interrupt_v3_8.xml"/>
           </external>
         </example>
+        <example id="lpcxpresso54s018_power_manager_lpc_xip" name="power_manager_lpc_xip" brief="The power_manager_lpc application shows the usage of normal power mode control APIs for entering the three kinds of low power mode: Sleep mode, Deep Sleep mode and Sleep Power Down mode. When the application runs to each low power mode, the device would cut off the power for specific modules to save energy. The device can be also waken up by prepared wakeup source from external event.&#10;Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - In order to meet typedef power consumption of DateSheet manual, Please configure MCU under the following conditions. 鈥?Configure all pins as GPIO with pull-up resistor disabled in the IOCON block. 鈥?Configure GPIO pins as outputs using the GPIO DIR register. 鈥?Write 1 to the GPIO CLR register to drive the outputs LOW. 鈥?All peripherals disabled." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso54s018/demo_apps/power_manager_lpc_xip">
+          <external path="examples/lpcxpresso54s018/demo_apps/power_manager_lpc_xip" type="xml">
+            <files mask="power_manager_lpc_xip_v3_8.xml"/>
+          </external>
+        </example>
         <example id="lpcxpresso54s018_puf" name="puf" brief="This driver example project demonstrates how to use driver for the PUF controller which provides a secure key storage." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/puf" path="examples/lpcxpresso54s018/driver_examples/puf">
           <external path="examples/lpcxpresso54s018/driver_examples/puf" type="xml">
             <files mask="puf_v3_8.xml"/>
@@ -376,6 +386,11 @@ ${load}</script>
         <example id="lpcxpresso54s018_sha" name="sha" brief="The SHA Example project is a demonstration program that uses the KSDK software to generate SHA checksums." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/lpcxpresso54s018/driver_examples/sha">
           <external path="examples/lpcxpresso54s018/driver_examples/sha" type="xml">
             <files mask="sha_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54s018_shell" name="shell" brief="The Shell Demo application demonstrates to control Leds by commands." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso54s018/demo_apps/shell">
+          <external path="examples/lpcxpresso54s018/demo_apps/shell" type="xml">
+            <files mask="shell_v3_8.xml"/>
           </external>
         </example>
         <example id="lpcxpresso54s018_spi_dma_transfer" name="spi_dma_transfer" brief="The spi_dma example shows how to use spi driver with DMA:In this example, one spi instance as master and another spi instance as slave. Master sends a piece of data to slave,and check if the data slave received is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpcxpresso54s018/driver_examples/spi/dma_transfer">
@@ -458,6 +473,11 @@ ${load}</script>
             <files mask="spifi_polling_transfer_v3_8.xml"/>
           </external>
         </example>
+        <example id="lpcxpresso54s018_touch_cursor" name="touch_cursor" brief="The touch_cursor demo shows how to use LCD hardware cursor and position it using touch panel.In this example, a 32x32 cursor is shown. The cursor's position is changed in reaction to detected touch." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso54s018/demo_apps/touch_cursor">
+          <external path="examples/lpcxpresso54s018/demo_apps/touch_cursor" type="xml">
+            <files mask="touch_cursor_v3_8.xml"/>
+          </external>
+        </example>
         <example id="lpcxpresso54s018_usart_9bit_interrupt_transfer" name="usart_9bit_interrupt_transfer" brief="The usart_9bit_interrupt_transfer example shows how to use usart driver in 9-bit mode in multi-slave system. Master can send data to slave with certain address specifically, and slave can only receive data when it is addressed. In this example, one usart instance is used with address configured. Its TX and RX pins are connected together. First it sends a piece of data out, then addresses itself, after that sends the other piece of data. Only data sent after the address can be received by itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/uart" path="examples/lpcxpresso54s018/driver_examples/usart/9bit_interrupt_transfer">
           <external path="examples/lpcxpresso54s018/driver_examples/usart/9bit_interrupt_transfer" type="xml">
             <files mask="usart_9bit_interrupt_transfer_v3_8.xml"/>
@@ -506,6 +526,16 @@ ${load}</script>
         <example id="lpcxpresso54s018_usart_sync_transfer_slave" name="usart_sync_transfer_slave" brief="The usart synchronous transfer example shows how to use usart driver in synchronous way." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpcxpresso54s018/driver_examples/usart/sync_transfer/slave">
           <external path="examples/lpcxpresso54s018/driver_examples/usart/sync_transfer/slave" type="xml">
             <files mask="usart_sync_transfer_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54s018_utick_wakeup_xip" name="utick_wakeup_xip" brief="The purpose of this demo is to show wakeup from deep sleep mode using MicroTick timer.The demo sets the MicroTick Timer as a wake up source and puts the device in deep-sleep mode. The MicroTick timer wakes up the device. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso54s018/demo_apps/utick_wakeup_xip">
+          <external path="examples/lpcxpresso54s018/demo_apps/utick_wakeup_xip" type="xml">
+            <files mask="utick_wakeup_xip_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54s018_utick_wakeup_xip_peripheral" name="utick_wakeup_xip_peripheral" brief="The purpose of this demo is to show wakeup from deep sleep mode using MicroTick timer.The demo sets the MicroTick Timer as a wake up source and puts the device in deep-sleep mode. The MicroTick timer wakes up the device. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso54s018/demo_apps/utick_wakeup_xip_peripheral">
+          <external path="examples/lpcxpresso54s018/demo_apps/utick_wakeup_xip_peripheral" type="xml">
+            <files mask="utick_wakeup_xip_peripheral_v3_8.xml"/>
           </external>
         </example>
         <example id="lpcxpresso54s018_wwdt_qspi_xip" name="wwdt_qspi_xip" brief="The WDOG Example project is to demonstrate usage of the KSDK wdog driver.In this example,quick test is first implemented to test the wdog.And then after 5 times of refreshing the watchdog, a timeout reset is generated." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/wwdt" path="examples/lpcxpresso54s018/driver_examples/wwdt">
@@ -1461,6 +1491,9 @@ ${load}</script>
       <source condition="middleware.baremetal.LPC54S018" relative_path="./" type="src">
         <files mask="fsl_os_abstraction_bm.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_osa_LPC54S018.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -2246,6 +2279,23 @@ ${load}</script>
         <include_path relative_path="drivers" type="c_include"/>
       </include_paths>
     </component>
+    <component id="driver.ft5406.LPC54S018" name="ft5406" brief="Driver ft5406" version="1.0.0" full_name="Driver ft5406" devices="LPC54S018" device_cores="core0_LPC54S018" user_visible="false" type="board_component" package_base_path="core/components/ft5406" project_base_path="touchpanel">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.LPC54S018"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_ft5406.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_ft5406.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_ft5406_LPC54S018.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="platform.drivers.gint.LPC54S018" name="gint" brief="GINT Driver" version="2.0.3" full_name="GINT Driver" devices="LPC54S018" device_cores="core0_LPC54S018" user_visible="true" type="driver" package_base_path="core/drivers/gint" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.LPC54S018"/>
@@ -2783,6 +2833,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_utick.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_utick_LPC54S018.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -2846,6 +2899,9 @@ ${load}</script>
         <define name="FSL_RTOS_BM" value=""/>
         <define name="SDK_OS_BAREMETAL" value=""/>
       </defines>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_baremetal_LPC54S018.cmake" hidden="true"/>
+      </source>
     </component>
     <component id="middleware.usb.common_header.LPC54S018" name="USB Common Header" brief="Middleware usb common_header" version="2.7.0" full_name="USB Common Header" devices="LPC54S018" device_cores="core0_LPC54S018" category="USB/USB Common Header" user_visible="true" type="middleware" package_base_path="core/middleware/usb" project_base_path="usb">
       <dependencies>
@@ -2855,6 +2911,9 @@ ${load}</script>
         <files mask="usb.h"/>
         <files mask="usb_misc.h"/>
         <files mask="usb_spec.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_usb_common_header_LPC54S018.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="include" type="c_include"/>
@@ -2872,6 +2931,9 @@ ${load}</script>
       </source>
       <source relative_path="device" project_relative_path="device/source" type="c_include">
         <files mask="usb_device_dci.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_usb_device_common_header_LPC54S018.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="device" project_relative_path="device/include" type="c_include"/>
@@ -2986,6 +3048,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="c_include">
         <files mask="fsl_shell.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_shell_LPC54S018.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>

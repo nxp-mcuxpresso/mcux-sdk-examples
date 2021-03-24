@@ -97,7 +97,7 @@
       <files mask="build_release.bat"/>
       <files mask="build_release.sh"/>
     </source>
-    <source path="examples/lpcxpresso54628/driver_examples/lcdc/lcdc_tft/linker" project_relative_path="lpcxpresso54628/driver_examples/lcdc/lcdc_tft/linker" type="linker" toolchain="iar">
+    <source path="examples/lpcxpresso54628/driver_examples/lcdc/lcdc_tft/iar" project_relative_path="lpcxpresso54628/driver_examples/lcdc/lcdc_tft/linker" type="linker" toolchain="iar">
       <files mask="LPC54608_flash.icf"/>
     </source>
     <source path="examples/lpcxpresso54628/driver_examples/lcdc/lcdc_tft/mdk" project_relative_path="LPC54628/arm" type="linker" toolchain="mdk">

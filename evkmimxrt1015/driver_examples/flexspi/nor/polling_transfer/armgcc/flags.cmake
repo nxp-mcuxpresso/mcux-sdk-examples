@@ -306,7 +306,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     muldefs \
     -Xlinker \
     -Map=output.map \
-    -T${ProjDirPath}/../linker/MIMXRT1015xxxxx_flexspi_nor.ld -static \
+    -T${ProjDirPath}/MIMXRT1015xxxxx_flexspi_nor.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     -mcpu=cortex-m7 \
@@ -332,5 +332,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     muldefs \
     -Xlinker \
     -Map=output.map \
-    -T${ProjDirPath}/../linker/MIMXRT1015xxxxx_flexspi_nor.ld -static \
+    -T${ProjDirPath}/MIMXRT1015xxxxx_flexspi_nor.ld -static \
 ")

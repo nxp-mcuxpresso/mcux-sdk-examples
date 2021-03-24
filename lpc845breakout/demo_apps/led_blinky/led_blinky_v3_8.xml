@@ -122,10 +122,10 @@
     <source path="examples/lpc845breakout/demo_apps/led_blinky" project_relative_path="board" type="c_include">
       <files mask="pin_mux.h"/>
     </source>
-    <source path="core/boards/lpc845breakout/demo_apps/led_blinky" project_relative_path="." type="binary">
+    <source path="examples/lpc845breakout/demo_apps/led_blinky" project_relative_path="." type="binary">
       <files mask="led_blinky.bin" hidden="true"/>
     </source>
-    <source path="core/boards/lpc845breakout/demo_apps/led_blinky" project_relative_path="." type="other">
+    <source path="examples/lpc845breakout/demo_apps/led_blinky" project_relative_path="." type="other">
       <files mask="led_blinky.mex" hidden="true"/>
     </source>
   </example>

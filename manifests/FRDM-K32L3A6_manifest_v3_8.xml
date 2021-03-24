@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-03-09 13:42:35.644337-->
+  <!--Timestamp (UTC): 2021-03-23 11:41:34.544422-->
   <!--This manifest is generated based on sdk repo commit: b1eede1d406d3392a45a06abc2494c2b87a1853b-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -92,6 +92,11 @@ ${load}</script>
         <files mask="frdmk32l3a6.png"/>
       </image>
       <examples>
+        <example id="frdmk32l3a6_bubble_cm0plus" name="bubble_cm0plus" brief="The bubble level demo demonstrates basic usage of the on-board accelerometer to implement a bubble level. A bubble level utilizes two axes to visually show deviation from a level plane (0 degrees) on a given axis." toolchain="armgcc" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk32l3a6/demo_apps/bubble/cm0plus">
+          <external path="examples/frdmk32l3a6/demo_apps/bubble/cm0plus" type="xml">
+            <files mask="bubble_cm0plus_v3_8.xml"/>
+          </external>
+        </example>
         <example id="frdmk32l3a6_cau3_cm0plus" name="cau3_cm0plus" brief="The CAU3 Example project is a demonstration program that uses the KSDK software implementseveral cryptography algorithms using the CAU3 software driver." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples" path="examples/frdmk32l3a6/driver_examples/cau3/cm0plus">
           <external path="examples/frdmk32l3a6/driver_examples/cau3/cm0plus" type="xml">
             <files mask="cau3_cm0plus_v3_8.xml"/>
@@ -392,9 +397,19 @@ ${load}</script>
             <files mask="rtc_cm0plus_v3_8.xml"/>
           </external>
         </example>
+        <example id="frdmk32l3a6_rtc_func_cm0plus" name="rtc_func_cm0plus" brief="The RTC demo application demonstrates the important features of the RTC Module by using the RTC Peripheral Driver.The RTC demo supports the following features:- Calendar  + Get the current date time with Year, Month, Day, Hour, Minute, and Second.  + Set the current date time with Year, Month, Day, Hour, Minute, and Second.- Alarm  + Set the alarm based on the current time.  + Application prints a notification when the alarm expires.- Seconds interrupt  + Use second interrupt function to display a digital time blink every second." toolchain="armgcc" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk32l3a6/demo_apps/rtc_func/cm0plus">
+          <external path="examples/frdmk32l3a6/demo_apps/rtc_func/cm0plus" type="xml">
+            <files mask="rtc_func_cm0plus_v3_8.xml"/>
+          </external>
+        </example>
         <example id="frdmk32l3a6_sema42_dual_core_core1" name="sema42_dual_core_core1" brief="The sema42 example shows how to use SEMA42 driver to lock and unlock a sema gate:In this example:1. Firstly, Core 0 turn on LED  and lock a sema gate then boot up Core 1 wake up.2. Core 1 must be wait until Core 0 unlocks this sema gate to lock it.3. After user press any key in terminal window, the sema gate will be unlocked by core 0,then core 1 will lock it and turn off the LEDIf the board does not have LED to show the status, then core 1 will send a flagto core 0 when core 1 has locked the sema gate. Core 0 outputs the success logafter it received the flag." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sema42" path="examples/frdmk32l3a6/driver_examples/sema42/dual_core/core1">
           <external path="examples/frdmk32l3a6/driver_examples/sema42/dual_core/core1" type="xml">
             <files mask="sema42_dual_core_core1_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_shell_cm0plus" name="shell_cm0plus" brief="The Shell Demo application demonstrates to control Leds by commands." toolchain="armgcc" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk32l3a6/demo_apps/shell/cm0plus">
+          <external path="examples/frdmk32l3a6/demo_apps/shell/cm0plus" type="xml">
+            <files mask="shell_cm0plus_v3_8.xml"/>
           </external>
         </example>
         <example id="frdmk32l3a6_tpm_combine_pwm_cm0plus" name="tpm_combine_pwm_cm0plus" brief="The TPM project is a demonstration program of generating a combined PWM signal by the SDK TPM driver. It sets up the TPMhardware block to output PWM signals on two TPM channels. The example also show's the complementary mode of operationand deadtime insertion.On boards that have 2 LEDs connected to the TPM pins, the user will seea change in LED brightness if user enter different values.And if the board do not support LEDs to show, the outputs can be observed by oscilloscope." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/tpm" path="examples/frdmk32l3a6/driver_examples/tpm/combine_pwm/cm0plus">
@@ -447,6 +462,11 @@ ${load}</script>
             <files mask="xrdc_cm0plus_v3_8.xml"/>
           </external>
         </example>
+        <example id="frdmk32l3a6_bubble_cm4" name="bubble_cm4" brief="The bubble level demo demonstrates basic usage of the on-board accelerometer to implement a bubble level. A bubble level utilizes two axes to visually show deviation from a level plane (0 degrees) on a given axis." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk32l3a6/demo_apps/bubble/cm4">
+          <external path="examples/frdmk32l3a6/demo_apps/bubble/cm4" type="xml">
+            <files mask="bubble_cm4_v3_8.xml"/>
+          </external>
+        </example>
         <example id="frdmk32l3a6_cau3_cm4" name="cau3_cm4" brief="The CAU3 Example project is a demonstration program that uses the KSDK software implementseveral cryptography algorithms using the CAU3 software driver." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/frdmk32l3a6/driver_examples/cau3/cm4">
           <external path="examples/frdmk32l3a6/driver_examples/cau3/cm4" type="xml">
             <files mask="cau3_cm4_v3_8.xml"/>
@@ -465,6 +485,11 @@ ${load}</script>
         <example id="frdmk32l3a6_dac_1_buffer_interrupt_cm4" name="dac_1_buffer_interrupt_cm4" brief="The dac_buffer_interrupt example shows how to use DAC FIFO interrupt.When the DAC FIFO empty interrupt is enabled firstly, the application would enter the DAC ISR immediately, since the FIFO is actually empty. Then the FIFO would be feed inside the ISR. Then the DAC interrupt could be restrained. Once the DAC FIFO is triggered in while loop, the data in FIFO is read out, then it becomes empty, so the FIFO would be feed again in DAC ISR. With this example, user can define the DAC output array to generate the different wave output. Also the software trigger can be called in some timer ISR so that the DAC would output the analog signal in indicated period. Or even use the hardware trigger to release the CPU." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dac" path="examples/frdmk32l3a6/driver_examples/dac/dac_buffer_interrupt/cm4">
           <external path="examples/frdmk32l3a6/driver_examples/dac/dac_buffer_interrupt/cm4" type="xml">
             <files mask="dac_1_buffer_interrupt_cm4_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dcdc_framework_cm4" name="dcdc_framework_cm4" brief="The SD JPEG Demo application reads the JPEG pictures from the SD card, decodesthem, and shows them in the LCD panel one by one." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk32l3a6/demo_apps/dcdc_framework/cm4">
+          <external path="examples/frdmk32l3a6/demo_apps/dcdc_framework/cm4" type="xml">
+            <files mask="dcdc_framework_cm4_v3_8.xml"/>
           </external>
         </example>
         <example id="frdmk32l3a6_edma_channel_link_cm4" name="edma_channel_link_cm4" brief="The EDMA memory to memory example is a simple demonstration program that uses the SDK software.It excuates one shot transfer from source buffer to destination buffer using the SDK EDMA drivers.The purpose of this example is to show how to use the EDMA and to provide a simple example fordebugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/edma" path="examples/frdmk32l3a6/driver_examples/edma/channel_link/cm4">
@@ -747,9 +772,19 @@ ${load}</script>
             <files mask="rtc_cm4_v3_8.xml"/>
           </external>
         </example>
+        <example id="frdmk32l3a6_rtc_func_cm4" name="rtc_func_cm4" brief="The RTC demo application demonstrates the important features of the RTC Module by using the RTC Peripheral Driver.The RTC demo supports the following features:- Calendar  + Get the current date time with Year, Month, Day, Hour, Minute, and Second.  + Set the current date time with Year, Month, Day, Hour, Minute, and Second.- Alarm  + Set the alarm based on the current time.  + Application prints a notification when the alarm expires.- Seconds interrupt  + Use second interrupt function to display a digital time blink every second." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk32l3a6/demo_apps/rtc_func/cm4">
+          <external path="examples/frdmk32l3a6/demo_apps/rtc_func/cm4" type="xml">
+            <files mask="rtc_func_cm4_v3_8.xml"/>
+          </external>
+        </example>
         <example id="frdmk32l3a6_sema42_dual_core_core0" name="sema42_dual_core_core0" brief="The sema42 example shows how to use SEMA42 driver to lock and unlock a sema gate:In this example:1. Firstly, Core 0 turn on LED  and lock a sema gate then boot up Core 1 wake up.2. Core 1 must be wait until Core 0 unlocks this sema gate to lock it.3. After user press any key in terminal window, the sema gate will be unlocked by core 0,then core 1 will lock it and turn off the LEDIf the board does not have LED to show the status, then core 1 will send a flagto core 0 when core 1 has locked the sema gate. Core 0 outputs the success logafter it received the flag." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sema42" linked_projects="frdmk32l3a6_sema42_dual_core_core1" path="examples/frdmk32l3a6/driver_examples/sema42/dual_core/core0">
           <external path="examples/frdmk32l3a6/driver_examples/sema42/dual_core/core0" type="xml">
             <files mask="sema42_dual_core_core0_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_shell_cm4" name="shell_cm4" brief="The Shell Demo application demonstrates to control Leds by commands." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk32l3a6/demo_apps/shell/cm4">
+          <external path="examples/frdmk32l3a6/demo_apps/shell/cm4" type="xml">
+            <files mask="shell_cm4_v3_8.xml"/>
           </external>
         </example>
         <example id="frdmk32l3a6_tpm_combine_pwm_cm4" name="tpm_combine_pwm_cm4" brief="The TPM project is a demonstration program of generating a combined PWM signal by the SDK TPM driver. It sets up the TPMhardware block to output PWM signals on two TPM channels. The example also show's the complementary mode of operationand deadtime insertion.On boards that have 2 LEDs connected to the TPM pins, the user will seea change in LED brightness if user enter different values.And if the board do not support LEDs to show, the outputs can be observed by oscilloscope." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/tpm" path="examples/frdmk32l3a6/driver_examples/tpm/combine_pwm/cm4">
@@ -1693,6 +1728,12 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_component_serial_manager.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_K32L3A60xxx">
+        <files mask="component_serial_manager_K32L3A60_cm0plus.cmake" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_K32L3A60xxx">
+        <files mask="component_serial_manager_K32L3A60_cm4.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1733,6 +1774,12 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_component_serial_port_uart.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_K32L3A60xxx">
+        <files mask="component_serial_manager_uart_K32L3A60_cm0plus.cmake" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_K32L3A60xxx">
+        <files mask="component_serial_manager_uart_K32L3A60_cm4.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2332,6 +2379,26 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="driver.fxos8700cq.K32L3A60" name="fxos8700cq" brief="Driver fxos8700cq" version="1.0.0" full_name="Driver fxos8700cq" devices="K32L3A60xxx" device_cores="cm0plus_K32L3A60xxx cm4_K32L3A60xxx" slave_roles="M0SLAVE" user_visible="true" type="board_component" package_base_path="core/components/fxos8700cq" project_base_path="accel">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.K32L3A60"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_fxos.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_fxos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_K32L3A60xxx">
+        <files mask="driver_fxos8700cq_K32L3A60_cm0plus.cmake" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_K32L3A60xxx">
+        <files mask="driver_fxos8700cq_K32L3A60_cm4.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="platform.drivers.gpio.K32L3A60" name="gpio" brief="GPIO Driver" version="2.5.1" full_name="GPIO Driver" devices="K32L3A60xxx" device_cores="cm0plus_K32L3A60xxx cm4_K32L3A60xxx" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/gpio" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.K32L3A60"/>
@@ -2787,6 +2854,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="fsl_spm.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_K32L3A60xxx">
+        <files mask="driver_spm_K32L3A60_cm4.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -2982,6 +3052,12 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_assert.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_K32L3A60xxx">
+        <files mask="utility_assert_K32L3A60_cm0plus.cmake" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_K32L3A60xxx">
+        <files mask="utility_assert_K32L3A60_cm4.cmake" hidden="true"/>
+      </source>
     </component>
     <component id="platform.utilities.assert_lite.K32L3A60" name="assert_lite" brief="Utility assert_lite" version="1.0.0" full_name="Utility assert_lite" devices="K32L3A60xxx" device_cores="cm0plus_K32L3A60xxx cm4_K32L3A60xxx" slave_roles="M0SLAVE" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
       <dependencies>
@@ -3016,6 +3092,12 @@ ${load}</script>
       <source relative_path="debug_console" project_relative_path="./" type="c_include">
         <files mask="fsl_debug_console.h"/>
         <files mask="fsl_debug_console_conf.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_K32L3A60xxx">
+        <files mask="utility_debug_console_K32L3A60_cm0plus.cmake" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_K32L3A60xxx">
+        <files mask="utility_debug_console_K32L3A60_cm4.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="str" project_relative_path="./" type="c_include"/>
@@ -3083,6 +3165,12 @@ ${load}</script>
       </source>
       <source relative_path="./" type="c_include">
         <files mask="fsl_shell.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_K32L3A60xxx">
+        <files mask="utility_shell_K32L3A60_cm0plus.cmake" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_K32L3A60xxx">
+        <files mask="utility_shell_K32L3A60_cm4.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>

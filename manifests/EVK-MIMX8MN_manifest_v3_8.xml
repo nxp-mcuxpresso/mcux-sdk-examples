@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-03-09 13:42:28.560035-->
+  <!--Timestamp (UTC): 2021-03-23 11:41:26.466029-->
   <!--This manifest is generated based on sdk repo commit: b1eede1d406d3392a45a06abc2494c2b87a1853b-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -794,6 +794,9 @@ ${load}</script>
         <files mask="fsl_wm8524_adapter.h"/>
         <files mask="fsl_codec_adapter.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_codec_wm8524_adapter_MIMX8MN6.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
         <include_path relative_path="./" type="c_include"/>
@@ -855,6 +858,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_component_serial_manager.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_serial_manager_MIMX8MN6.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -895,6 +901,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_component_serial_port_uart.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_serial_manager_uart_MIMX8MN6.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1152,6 +1161,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="fsl_gpc.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_gpc_2_MIMX8MN6.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1286,6 +1298,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_mu.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_mu_MIMX8MN6.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1431,6 +1446,58 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="driver.srtm.MIMX8MN6" name="srtm" brief="Driver srtm" version="1.0.0" full_name="Driver srtm" devices="MIMX8MN6xxxIZ MIMX8MN6xxxJZ" user_visible="true" type="software_component" package_base_path="core/components/srtm" project_base_path="srtm">
+      <source relative_path="include" type="c_include">
+        <files mask="srtm_channel.h"/>
+        <files mask="srtm_defs.h"/>
+        <files mask="srtm_dispatcher.h"/>
+        <files mask="srtm_message.h"/>
+        <files mask="srtm_peercore.h"/>
+        <files mask="srtm_service.h"/>
+      </source>
+      <source relative_path="srtm" type="src">
+        <files mask="srtm_channel.c"/>
+        <files mask="srtm_dispatcher.c"/>
+        <files mask="srtm_message.c"/>
+        <files mask="srtm_peercore.c"/>
+        <files mask="srtm_service.c"/>
+      </source>
+      <source relative_path="srtm" type="c_include">
+        <files mask="srtm_channel_struct.h"/>
+        <files mask="srtm_dispatcher_struct.h"/>
+        <files mask="srtm_message_struct.h"/>
+        <files mask="srtm_peercore_struct.h"/>
+        <files mask="srtm_service_struct.h"/>
+        <files mask="srtm_heap.h"/>
+        <files mask="srtm_message_pool.h"/>
+        <files mask="srtm_list.h"/>
+        <files mask="srtm_mutex.h"/>
+        <files mask="srtm_sem.h"/>
+      </source>
+      <source relative_path="port" type="src">
+        <files mask="srtm_message_pool.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_srtm_MIMX8MN6.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="include" type="c_include"/>
+        <include_path relative_path="srtm" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.srtm.freertos.MIMX8MN6" name="freertos" brief="Driver srtm freertos" version="1.0.0" full_name="Driver srtm freertos" devices="MIMX8MN6xxxIZ MIMX8MN6xxxJZ" user_visible="true" type="software_component" package_base_path="core/components/srtm/port" project_base_path="srtm/port">
+      <dependencies>
+        <component_dependency value="driver.srtm.MIMX8MN6"/>
+      </dependencies>
+      <source relative_path="./" type="src">
+        <files mask="srtm_heap_freertos.c"/>
+        <files mask="srtm_mutex_freertos.c"/>
+        <files mask="srtm_sem_freertos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_srtm_freertos_MIMX8MN6.cmake" hidden="true"/>
+      </source>
+    </component>
     <component id="platform.drivers.tmu_1.MIMX8MN6" name="tmu" brief="TMU Driver" version="2.1.1" full_name="TMU Driver" devices="MIMX8MN6xxxIZ MIMX8MN6xxxJZ" device_cores="cm7_MIMX8MN6xxxIZ cm7_MIMX8MN6xxxJZ" user_visible="true" type="driver" package_base_path="core/drivers/tmu_1" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MIMX8MN6"/>
@@ -1512,6 +1579,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_assert.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_assert_MIMX8MN6.cmake" hidden="true"/>
+      </source>
     </component>
     <component id="platform.utilities.assert_lite.MIMX8MN6" name="assert_lite" brief="Utility assert_lite" version="1.0.0" full_name="Utility assert_lite" devices="MIMX8MN6xxxIZ MIMX8MN6xxxJZ" device_cores="cm7_MIMX8MN6xxxIZ cm7_MIMX8MN6xxxJZ" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
       <dependencies>
@@ -1543,6 +1613,9 @@ ${load}</script>
       <source relative_path="debug_console" project_relative_path="./" type="c_include">
         <files mask="fsl_debug_console.h"/>
         <files mask="fsl_debug_console_conf.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_debug_console_MIMX8MN6.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="str" project_relative_path="./" type="c_include"/>

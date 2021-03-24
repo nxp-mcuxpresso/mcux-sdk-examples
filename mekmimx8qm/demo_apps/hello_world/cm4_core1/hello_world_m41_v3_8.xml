@@ -97,7 +97,7 @@
     <source path="examples/mekmimx8qm/demo_apps/hello_world/cm4_core1" project_relative_path="." type="other">
       <files mask="hello_world.mex" hidden="true"/>
     </source>
-    <source path="core/boards/mekmimx8qm/demo_apps/hello_world/cm4_core1" project_relative_path="mekmimx8qm/demo_apps/hello_world/cm4_core1" type="binary">
+    <source path="examples/mekmimx8qm/demo_apps/hello_world/cm4_core1" project_relative_path="mekmimx8qm/demo_apps/hello_world/cm4_core1" type="binary">
       <files mask="hello_world.bin" hidden="true"/>
     </source>
     <source path="core/boards/mekmimx8qm" project_relative_path="board" type="src">

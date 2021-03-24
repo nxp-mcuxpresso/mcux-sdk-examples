@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-03-09 13:42:29.240681-->
+  <!--Timestamp (UTC): 2021-03-23 11:41:27.283092-->
   <!--This manifest is generated based on sdk repo commit: b1eede1d406d3392a45a06abc2494c2b87a1853b-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -106,6 +106,11 @@ ${load}</script>
         <example id="hvpkv11z75m_crc" name="crc" brief="The CRC Example project is a demonstration program that uses the KSDK software to generate checksumsfor an ASCII string. Several CRC protocols are implemented using the CRC driver API." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/hvpkv11z75m/driver_examples/crc">
           <external path="examples/hvpkv11z75m/driver_examples/crc" type="xml">
             <files mask="crc_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="hvpkv11z75m_dac_adc" name="dac_adc" brief="The DAC / ADC demo application demonstrates the use of the DAC and ADC peripherals. This application demonstrates how toconfigure the DAC and set the output on the DAC. This demo also demonstrates how to configure the ADC in 'Blocking Mode'and how to read ADC values." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/hvpkv11z75m/demo_apps/dac_adc">
+          <external path="examples/hvpkv11z75m/demo_apps/dac_adc" type="xml">
+            <files mask="dac_adc_v3_8.xml"/>
           </external>
         </example>
         <example id="hvpkv11z75m_edma_channel_link" name="edma_channel_link" brief="The EDMA memory to memory example is a simple demonstration program that uses the SDK software.It excuates one shot transfer from source buffer to destination buffer using the SDK EDMA drivers.The purpose of this example is to show how to use the EDMA and to provide a simple example fordebugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/edma" path="examples/hvpkv11z75m/driver_examples/edma/channel_link">
@@ -1075,6 +1080,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_component_serial_manager.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_serial_manager_MKV11Z7.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1095,6 +1103,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_component_serial_port_uart.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_serial_manager_uart_MKV11Z7.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1537,6 +1548,23 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="driver.fxos8700cq.MKV11Z7" name="fxos8700cq" brief="Driver fxos8700cq" version="1.0.0" full_name="Driver fxos8700cq" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="board_component" package_base_path="core/components/fxos8700cq" project_base_path="accel">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKV11Z7"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_fxos.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_fxos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_fxos8700cq_MKV11Z7.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="platform.drivers.gpio.MKV11Z7" name="gpio" brief="GPIO Driver" version="2.5.1" full_name="GPIO Driver" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="driver" package_base_path="core/drivers/gpio" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MKV11Z7"/>
@@ -1597,6 +1625,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_llwu.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_llwu_MKV11Z7.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1662,6 +1693,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_pmc.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_pmc_MKV11Z7.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1807,6 +1841,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_assert.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_assert_MKV11Z7.cmake" hidden="true"/>
+      </source>
     </component>
     <component id="platform.utilities.assert_lite.MKV11Z7" name="assert_lite" brief="Utility assert_lite" version="1.0.0" full_name="Utility assert_lite" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
       <dependencies>
@@ -1838,6 +1875,9 @@ ${load}</script>
       <source relative_path="debug_console" project_relative_path="./" type="c_include">
         <files mask="fsl_debug_console.h"/>
         <files mask="fsl_debug_console_conf.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_debug_console_MKV11Z7.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="str" project_relative_path="./" type="c_include"/>
@@ -1874,6 +1914,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="fsl_notifier.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_notifier_MKV11Z7.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1894,6 +1937,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="c_include">
         <files mask="fsl_shell.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_shell_MKV11Z7.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>

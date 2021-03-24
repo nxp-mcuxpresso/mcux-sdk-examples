@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-03-09 13:42:28.793093-->
+  <!--Timestamp (UTC): 2021-03-23 11:41:26.782694-->
   <!--This manifest is generated based on sdk repo commit: b1eede1d406d3392a45a06abc2494c2b87a1853b-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -102,6 +102,11 @@ ${load}</script>
             <files mask="acmp_polling_print_v3_8.xml"/>
           </external>
         </example>
+        <example id="evkmcimx7ulp_bubble" name="bubble" brief="The bubble level demo demonstrates basic usage of the on-board accelerometer to implement a bubble level. A bubble level utilizes two axes to visually show deviation from a level plane (0 degrees) on a given axis." toolchain="armgcc" compiler="compiler_gcc" category="demo_apps" path="examples/evkmcimx7ulp/demo_apps/bubble">
+          <external path="examples/evkmcimx7ulp/demo_apps/bubble" type="xml">
+            <files mask="bubble_v3_8.xml"/>
+          </external>
+        </example>
         <example id="evkmcimx7ulp_crc" name="crc" brief="The CRC Example project is a demonstration program that uses the KSDK software to generate checksumsfor an ASCII string. Several CRC protocols are implemented using the CRC driver API." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples" path="examples/evkmcimx7ulp/driver_examples/crc">
           <external path="examples/evkmcimx7ulp/driver_examples/crc" type="xml">
             <files mask="crc_v3_8.xml"/>
@@ -115,6 +120,11 @@ ${load}</script>
         <example id="evkmcimx7ulp_dac12_fifo_interrupt" name="dac12_fifo_interrupt" brief="The dac12_fifo_interrupt example shows how to use DAC12 FIFO interrupt.When the DAC12 FIFO watermark interrupt is enabled firstly, the application would enter the DAC12 ISR immediately, since remaining FIFO data is less than the watermark. Then the FIFO would be feed inside the ISR. Then the DAC12 interrupt could be restrained. Once the DAC12 FIFO is triggered in while loop, the data in FIFO is read out, then it becomes less than the watermark, so the FIFO would be feed again in DAC12 ISR. With this example, user can define the DAC12 output array to generate the different wave output. Also the software trigger can be called in some timer ISR so that the DAC12 would output the analog signal in indicated period. Or even use the hardware trigger to release the CPU." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/dac12" path="examples/evkmcimx7ulp/driver_examples/dac12/fifo_interrupt">
           <external path="examples/evkmcimx7ulp/driver_examples/dac12/fifo_interrupt" type="xml">
             <files mask="dac12_fifo_interrupt_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmcimx7ulp_ecompass" name="ecompass" brief="The E-Compass demo application demonstrates the use of the FXOS8700 sensor. The tilt-compensated algorithm calculatesall three angles (pitch, roll, and yaw or compass heading)." toolchain="armgcc" compiler="compiler_gcc" category="demo_apps" path="examples/evkmcimx7ulp/demo_apps/ecompass">
+          <external path="examples/evkmcimx7ulp/demo_apps/ecompass" type="xml">
+            <files mask="ecompass_v3_8.xml"/>
           </external>
         </example>
         <example id="evkmcimx7ulp_edma_memory_to_memory" name="edma_memory_to_memory" brief="The EDMA memory to memory example is a simple demonstration program that uses the SDK software.It excuates one shot transfer from source buffer to destination buffer using the SDK EDMA drivers.The purpose of this example is to show how to use the EDMA and to provide a simple example fordebugging and further development." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/edma" path="examples/evkmcimx7ulp/driver_examples/edma/memory_to_memory">
@@ -252,6 +262,11 @@ ${load}</script>
             <files mask="lpi2c_read_accel_value_transfer_v3_8.xml"/>
           </external>
         </example>
+        <example id="evkmcimx7ulp_lpi2c_vlps" name="lpi2c_vlps" brief="This example describes how to use kinetis SDK drivers to implement LPI2C transmit and receive in the VLPS (very low power STOP mode) with async DMA.The LPI2C module is designed to have ability to work under low power module like STOP, VLPW and VLPS. It can use DMA to transmit the data from or to application user buffer without CPU interaction.It uses LPI2C to access the on board accelerometer sensor to read the Accelerometer X, Y, Z data every 500ms. CPU would keep in VLPS low power mode, except for some trigger events and data output to LPUART0." toolchain="armgcc" compiler="compiler_gcc" category="demo_apps" path="examples/evkmcimx7ulp/demo_apps/lpi2c_vlps">
+          <external path="examples/evkmcimx7ulp/demo_apps/lpi2c_vlps" type="xml">
+            <files mask="lpi2c_vlps_v3_8.xml"/>
+          </external>
+        </example>
         <example id="evkmcimx7ulp_lpit_single_channel" name="lpit_single_channel" brief="The LPIT single channel project is a simple example of the SDK LPIT driver. It sets up the LPIThardware block to trigger a periodic interrupt after every 1 second. When the LPIT interrupt is triggereda message a printed on the serial terminal and an LED is toggled on the board." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/lpit" path="examples/evkmcimx7ulp/driver_examples/lpit/single_channel">
           <external path="examples/evkmcimx7ulp/driver_examples/lpit/single_channel" type="xml">
             <files mask="lpit_single_channel_v3_8.xml"/>
@@ -375,6 +390,11 @@ ${load}</script>
         <example id="evkmcimx7ulp_sema42_uboot" name="sema42_uboot" brief="The sema42 uboot example shows how to use SEMA42 driver to lock and unlock a sema gate.This example should work together with uboot. This example runs on Cortex-M core,the uboot runs on the Cortex-A core." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/sema42" path="examples/evkmcimx7ulp/driver_examples/sema42/uboot">
           <external path="examples/evkmcimx7ulp/driver_examples/sema42/uboot" type="xml">
             <files mask="sema42_uboot_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmcimx7ulp_shell_mem" name="shell_mem" brief="The Shell Demo application demonstrates ram and flash memory access commands." toolchain="armgcc" compiler="compiler_gcc" category="demo_apps" path="examples/evkmcimx7ulp/demo_apps/shell_mem">
+          <external path="examples/evkmcimx7ulp/demo_apps/shell_mem" type="xml">
+            <files mask="shell_mem_v3_8.xml"/>
           </external>
         </example>
         <example id="evkmcimx7ulp_snvs_hp_rtc" name="snvs_hp_rtc" brief="The SNVS HP RTC project is a simple demonstration program of the SDK SNVS HP driver. The test will set up RTC date and time to a predefined value and starts the counter. RTC then triggers an alarm after a user specified time period. The alarm will be set with reference to this predefined date and time." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/snvs" path="examples/evkmcimx7ulp/driver_examples/snvs/snvs_hp_rtc">
@@ -629,6 +649,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="Driver_Common.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_Common_MCIMX7U5.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -695,6 +718,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="Driver_I2C.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_I2C_MCIMX7U5.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -738,6 +764,9 @@ ${load}</script>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_SPI.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_SPI_MCIMX7U5.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1373,6 +1402,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_component_serial_manager.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_serial_manager_MCIMX7U5.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1413,6 +1445,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_component_serial_port_uart.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_serial_manager_uart_MCIMX7U5.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1634,6 +1669,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="c_include">
         <files mask="fsl_cache.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_cache_lmem_MCIMX7U5.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2009,6 +2047,23 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="driver.fxos8700cq.MCIMX7U5" name="fxos8700cq" brief="Driver fxos8700cq" version="1.0.0" full_name="Driver fxos8700cq" devices="MCIMX7U5xxxxx" device_cores="m4_MCIMX7U5xxxxx" user_visible="true" type="board_component" package_base_path="core/components/fxos8700cq" project_base_path="accel">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MCIMX7U5"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_fxos.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_fxos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_fxos8700cq_MCIMX7U5.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="platform.drivers.gpio.MCIMX7U5" name="gpio" brief="GPIO Driver" version="2.5.1" full_name="GPIO Driver" devices="MCIMX7U5xxxxx" device_cores="m4_MCIMX7U5xxxxx" user_visible="true" type="driver" package_base_path="core/drivers/gpio" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MCIMX7U5"/>
@@ -2035,6 +2090,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_llwu.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_llwu_MCIMX7U5.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2266,6 +2324,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_mu.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_mu_MCIMX7U5.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -2292,6 +2353,9 @@ ${load}</script>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="fsl_pmc0.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_pmc0_MCIMX7U5.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2453,6 +2517,58 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="driver.srtm.MCIMX7U5" name="srtm" brief="Driver srtm" version="1.0.0" full_name="Driver srtm" devices="MCIMX7U5xxxxx" user_visible="true" type="software_component" package_base_path="core/components/srtm" project_base_path="srtm">
+      <source relative_path="include" type="c_include">
+        <files mask="srtm_channel.h"/>
+        <files mask="srtm_defs.h"/>
+        <files mask="srtm_dispatcher.h"/>
+        <files mask="srtm_message.h"/>
+        <files mask="srtm_peercore.h"/>
+        <files mask="srtm_service.h"/>
+      </source>
+      <source relative_path="srtm" type="src">
+        <files mask="srtm_channel.c"/>
+        <files mask="srtm_dispatcher.c"/>
+        <files mask="srtm_message.c"/>
+        <files mask="srtm_peercore.c"/>
+        <files mask="srtm_service.c"/>
+      </source>
+      <source relative_path="srtm" type="c_include">
+        <files mask="srtm_channel_struct.h"/>
+        <files mask="srtm_dispatcher_struct.h"/>
+        <files mask="srtm_message_struct.h"/>
+        <files mask="srtm_peercore_struct.h"/>
+        <files mask="srtm_service_struct.h"/>
+        <files mask="srtm_heap.h"/>
+        <files mask="srtm_message_pool.h"/>
+        <files mask="srtm_list.h"/>
+        <files mask="srtm_mutex.h"/>
+        <files mask="srtm_sem.h"/>
+      </source>
+      <source relative_path="port" type="src">
+        <files mask="srtm_message_pool.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_srtm_MCIMX7U5.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="include" type="c_include"/>
+        <include_path relative_path="srtm" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.srtm.freertos.MCIMX7U5" name="freertos" brief="Driver srtm freertos" version="1.0.0" full_name="Driver srtm freertos" devices="MCIMX7U5xxxxx" user_visible="true" type="software_component" package_base_path="core/components/srtm/port" project_base_path="srtm/port">
+      <dependencies>
+        <component_dependency value="driver.srtm.MCIMX7U5"/>
+      </dependencies>
+      <source relative_path="./" type="src">
+        <files mask="srtm_heap_freertos.c"/>
+        <files mask="srtm_mutex_freertos.c"/>
+        <files mask="srtm_sem_freertos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_srtm_freertos_MCIMX7U5.cmake" hidden="true"/>
+      </source>
+    </component>
     <component id="platform.drivers.tpm.MCIMX7U5" name="tpm" brief="TPM Driver" version="2.0.7" full_name="TPM Driver" devices="MCIMX7U5xxxxx" device_cores="m4_MCIMX7U5xxxxx" user_visible="true" type="driver" package_base_path="core/drivers/tpm" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MCIMX7U5"/>
@@ -2594,6 +2710,9 @@ ${load}</script>
       <source relative_path="algorithms/pedometer/include/libinclude" project_relative_path="./" type="c_include">
         <files mask="KeynetikPedometer.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_issdk_algorithms_pedometer_common_MCIMX7U5.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="algorithms/pedometer/include" project_relative_path="./" type="c_include"/>
         <include_path relative_path="algorithms/pedometer/include/libinclude" project_relative_path="./" type="c_include"/>
@@ -2602,6 +2721,9 @@ ${load}</script>
     <component id="middleware.issdk.algorithms.pedometer.lib_cm4.MCIMX7U5" name="pedometer_lib_cm4" brief="ISSDK Pedometer Algorithm Library for CM4" version="1.0.0" full_name="Middleware issdk algorithms pedometer lib_cm4" devices="MCIMX7U5xxxxx" user_visible="false" type="middleware" package_base_path="core/middleware/issdk" project_base_path="libs">
       <source relative_path="algorithms/pedometer/lib" project_relative_path="./" type="lib">
         <files mask="libpedometerm4.a"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_issdk_algorithms_pedometer_lib_cm4_MCIMX7U5.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.issdk.sensor.allregdefs.MCIMX7U5" name="issdk_allregdefs" brief="ISSDK Sensors RegDefs" version="1.7.0" full_name="Middleware issdk sensor allregdefs" devices="MCIMX7U5xxxxx" user_visible="true" type="middleware" package_base_path="core/middleware/issdk" project_base_path="sensors">
@@ -2625,6 +2747,9 @@ ${load}</script>
         <files mask="mma8491q.h"/>
         <files mask="mma9553.h"/>
         <files mask="diff_p.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_issdk_sensor_allregdefs_MCIMX7U5.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
@@ -2742,6 +2867,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_assert.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_assert_MCIMX7U5.cmake" hidden="true"/>
+      </source>
     </component>
     <component id="platform.utilities.assert_lite.MCIMX7U5" name="assert_lite" brief="Utility assert_lite" version="1.0.0" full_name="Utility assert_lite" devices="MCIMX7U5xxxxx" device_cores="m4_MCIMX7U5xxxxx" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
       <dependencies>
@@ -2773,6 +2901,9 @@ ${load}</script>
       <source relative_path="debug_console" project_relative_path="./" type="c_include">
         <files mask="fsl_debug_console.h"/>
         <files mask="fsl_debug_console_conf.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_debug_console_MCIMX7U5.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="str" project_relative_path="./" type="c_include"/>
@@ -2829,6 +2960,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="c_include">
         <files mask="fsl_shell.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_shell_MCIMX7U5.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>

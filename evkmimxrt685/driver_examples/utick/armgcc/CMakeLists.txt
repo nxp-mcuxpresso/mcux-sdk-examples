@@ -59,7 +59,7 @@ include(utility_debug_console_lite)
 
 include(utility_assert_lite_MIMXRT685S_cm33)
 
-include(driver_utick)
+include(driver_utick_MIMXRT685S_cm33)
 
 include(driver_common)
 

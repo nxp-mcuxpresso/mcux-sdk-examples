@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-03-09 13:42:35.314884-->
+  <!--Timestamp (UTC): 2021-03-23 11:41:34.153979-->
   <!--This manifest is generated based on sdk repo commit: b1eede1d406d3392a45a06abc2494c2b87a1853b-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -259,6 +259,11 @@ ${load}</script>
             <files mask="pint_pin_interrupt_v3_8.xml"/>
           </external>
         </example>
+        <example id="lpcxpresso51u68_power_manager_lpc" name="power_manager_lpc" brief="The power_manager_lpc application shows the usage of normal power mode control APIs for entering the three kinds of low power mode: Sleep mode, Deep Sleep mode and Sleep Power Down mode. When the application runs to each low power mode, the device would cut off the power for specific modules to save energy. The device can be also waken up by prepared wakeup source from external event.&#10;Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - In order to meet typedef power consumption of DateSheet manual, Please configure MCU under the following conditions. 鈥?Configure all pins as GPIO with pull-up resistor disabled in the IOCON block. 鈥?Configure GPIO pins as outputs using the GPIO DIR register. 鈥?Write 1 to the GPIO CLR register to drive the outputs LOW. 鈥?All peripherals disabled." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso51u68/demo_apps/power_manager_lpc">
+          <external path="examples/lpcxpresso51u68/demo_apps/power_manager_lpc" type="xml">
+            <files mask="power_manager_lpc_v3_8.xml"/>
+          </external>
+        </example>
         <example id="lpcxpresso51u68_rtc_example" name="rtc_example" brief="The RTC project is a simple demonstration program of the SDK RTC driver. It sets up the RTChardware block to trigger an alarm after a user specified time period. The test will set the currentdate and time to a predefined value. The alarm will be set with reference to this predefined dateand time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/rtc" path="examples/lpcxpresso51u68/driver_examples/rtc">
           <external path="examples/lpcxpresso51u68/driver_examples/rtc" type="xml">
             <files mask="rtc_example_v3_8.xml"/>
@@ -282,6 +287,11 @@ ${load}</script>
         <example id="lpcxpresso51u68_sctimer_simple_pwm" name="sctimer_simple_pwm" brief="The SCTimer project is a simple demonstration program of the SDK SCTimer's driver capabiltiy to generate PWM signals." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="examples/lpcxpresso51u68/driver_examples/sctimer/simple_pwm">
           <external path="examples/lpcxpresso51u68/driver_examples/sctimer/simple_pwm" type="xml">
             <files mask="sctimer_simple_pwm_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_shell" name="shell" brief="The Shell Demo application demonstrates to control Leds by commands." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso51u68/demo_apps/shell">
+          <external path="examples/lpcxpresso51u68/demo_apps/shell" type="xml">
+            <files mask="shell_v3_8.xml"/>
           </external>
         </example>
         <example id="lpcxpresso51u68_spi_dma_transfer" name="spi_dma_transfer" brief="The spi_dma example shows how to use spi driver with DMA:In this example, one spi instance as master and another spi instance as slave. Master sends a piece of data to slave,and check if the data slave received is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpcxpresso51u68/driver_examples/spi/dma_transfer">
@@ -387,6 +397,16 @@ ${load}</script>
         <example id="lpcxpresso51u68_usart_sync_transfer_slave" name="usart_sync_transfer_slave" brief="The usart synchronous transfer example shows how to use usart driver in synchronous way." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpcxpresso51u68/driver_examples/usart/sync_transfer/slave">
           <external path="examples/lpcxpresso51u68/driver_examples/usart/sync_transfer/slave" type="xml">
             <files mask="usart_sync_transfer_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_utick_wakeup" name="utick_wakeup" brief="The purpose of this demo is to show wakeup from deep sleep mode using MicroTick timer.The demo sets the MicroTick Timer as a wake up source and puts the device in deep-sleep mode. The MicroTick timer wakes up the device. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso51u68/demo_apps/utick_wakeup">
+          <external path="examples/lpcxpresso51u68/demo_apps/utick_wakeup" type="xml">
+            <files mask="utick_wakeup_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_utick_wakeup_peripheral" name="utick_wakeup_peripheral" brief="The purpose of this demo is to show wakeup from deep sleep mode using MicroTick timer.The demo sets the MicroTick Timer as a wake up source and puts the device in deep-sleep mode. The MicroTick timer wakes up the device. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso51u68/demo_apps/utick_wakeup_peripheral">
+          <external path="examples/lpcxpresso51u68/demo_apps/utick_wakeup_peripheral" type="xml">
+            <files mask="utick_wakeup_peripheral_v3_8.xml"/>
           </external>
         </example>
         <example id="lpcxpresso51u68_wwdt_example" name="wwdt_example" brief="The WDOG Example project is to demonstrate usage of the KSDK wdog driver.In this example,quick test is first implemented to test the wdog.And then after 5 times of refreshing the watchdog, a timeout reset is generated." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/wwdt" path="examples/lpcxpresso51u68/driver_examples/wwdt">
@@ -2266,6 +2286,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_utick.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_utick_LPC51U68.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -2469,6 +2492,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="c_include">
         <files mask="fsl_shell.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_shell_LPC51U68.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>

@@ -104,7 +104,7 @@
     <source path="examples/lpcxpresso824max/demo_apps/led_blinky" project_relative_path="." type="other">
       <files mask="led_blinky.mex" hidden="true"/>
     </source>
-    <source path="core/boards/lpcxpresso824max/demo_apps/led_blinky" project_relative_path="lpcxpresso824max/demo_apps/led_blinky" type="binary">
+    <source path="examples/lpcxpresso824max/demo_apps/led_blinky" project_relative_path="lpcxpresso824max/demo_apps/led_blinky" type="binary">
       <files mask="led_blinky.bin" hidden="true"/>
     </source>
     <source path="core/boards/lpcxpresso824max" project_relative_path="board" type="src">

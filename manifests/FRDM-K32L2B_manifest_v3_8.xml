@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-03-09 13:42:26.977208-->
+  <!--Timestamp (UTC): 2021-03-23 11:41:24.652556-->
   <!--This manifest is generated based on sdk repo commit: b1eede1d406d3392a45a06abc2494c2b87a1853b-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -99,9 +99,29 @@ ${load}</script>
             <files mask="adc16_interrupt_v3_8.xml"/>
           </external>
         </example>
+        <example id="frdmk32l2b_adc16_low_power" name="adc16_low_power" brief="The ADC Low Power demo application demonstrates the usage of the ADC peripheral while in a low power mode. Themicrocontroller is first set to very low power stop (VLPS) mode. Every 500 ms, an interrupt wakes up the ADC module andreads the current temperature of the microcontroller. While the temperature remains within boundaries, both LEDs are on.If the core temperature is higher or lower than average, the LEDs change state respectively." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk32l2b/demo_apps/adc16_low_power">
+          <external path="examples/frdmk32l2b/demo_apps/adc16_low_power" type="xml">
+            <files mask="adc16_low_power_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_adc16_low_power_async_dma" name="adc16_low_power_async_dma" brief="The ADC Low Power Async DMA demo application demonstrates the usage of the ADC and DMA peripheral while in a low power mode. Themicrocontroller is first set to very low power stop (VLPS) mode. Every 100 ms, low power timer trigger the ADC module convertvalue on ADC channel. After 16 times(1,6s) the DMA transfer finish interrupt wake up the CPU to process sampled data, print result touser and toggle LED." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk32l2b/demo_apps/adc16_low_power_async_dma">
+          <external path="examples/frdmk32l2b/demo_apps/adc16_low_power_async_dma" type="xml">
+            <files mask="adc16_low_power_async_dma_v3_8.xml"/>
+          </external>
+        </example>
         <example id="frdmk32l2b_adc16_polling" name="adc16_polling" brief="The adc16_polling example shows the simplest way to use ADC16 driver.In this example, user should indicate a channel to provide a voltage signal (can be controlled by user) as the ADC16'ssample input. When running the project, typing any key into debug console would trigger the conversion. The execution would check the conversion completed flag in loop until the flag is asserted, which means the conversion is completed. Then read the conversion result value and print it to debug console.Note, the default setting of initialization for the ADC converter is just an available configuration. User can changethe configuration structure's setting in application to fit the special requirement.The auto-calibration is not essential but strongly recommended. It can help to adjust the converter itself and improvethe ADC16's performance." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc16" path="examples/frdmk32l2b/driver_examples/adc16/polling">
           <external path="examples/frdmk32l2b/driver_examples/adc16/polling" type="xml">
             <files mask="adc16_polling_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_bubble" name="bubble" brief="The bubble level demo demonstrates basic usage of the on-board accelerometer to implement a bubble level. A bubble level utilizes two axes to visually show deviation from a level plane (0 degrees) on a given axis." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk32l2b/demo_apps/bubble">
+          <external path="examples/frdmk32l2b/demo_apps/bubble" type="xml">
+            <files mask="bubble_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_bubble_peripheral" name="bubble_peripheral" brief="The bubble level demo demonstrates basic usage of the on-board accelerometer to implement a bubble level. A bubble level utilizes two axes to visually show deviation from a level plane (0 degrees) on a given axis. You can open the mex file with MCUXpresso Config Tool to do further configuration of pin, clock and peripheral." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk32l2b/demo_apps/bubble_peripheral">
+          <external path="examples/frdmk32l2b/demo_apps/bubble_peripheral" type="xml">
+            <files mask="bubble_peripheral_v3_8.xml"/>
           </external>
         </example>
         <example id="frdmk32l2b_cmp_interrupt" name="cmp_interrupt" brief="The CMP interrupt Example shows how to use interrupt with CMP driver.In this example, user should indicate an input channel to capture a voltage signal (can be controlled by user) as the CMP's positive channel input. On the negative side, the internal 6-bit DAC is used to generate the fixed voltage abouthalf value of reference voltage.When running the project, change the input voltage of user-defined channel, then the comparator's output would changebetween logic one and zero when the user-defined channel's voltage crosses the internal DAC's value. The change ofcomparator's output would generate the falling and rising edge events with their interrupts enabled. When any CMP interrupt happens, the CMP's ISR would turn on the LED light if detecting the output's rising edge, or turn off it whendetecting the output's falling edge." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/cmp" path="examples/frdmk32l2b/driver_examples/cmp/interrupt">
@@ -117,6 +137,11 @@ ${load}</script>
         <example id="frdmk32l2b_cop" name="cop" brief="The COP Example project is to demonstrate usage of the KSDK cop driver.In this example, after 10 times of refreshing, a timeout reset is generated.Please notice that because COP control registers are write-once only, so the COP_Init function and the COP_Disable function can be called only once after reset.In SystemInit() function which is called in startup code, there is an operation to disable the watchdog if macro DISABLE_WDOG is defined as 0, and by default if the DISABLE_WDOG is not defined, the DISABLE_WDOG is defined as 1. So this example has a special project setting that defines the DISABLE_WDOG macro to 0 so the startup code will skip the disable COP WDOG operation." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/frdmk32l2b/driver_examples/cop">
           <external path="examples/frdmk32l2b/driver_examples/cop" type="xml">
             <files mask="cop_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_dac_adc" name="dac_adc" brief="The DAC / ADC demo application demonstrates the use of the DAC and ADC peripherals. This application demonstrates how toconfigure the DAC and set the output on the DAC. This demo also demonstrates how to configure the ADC in 'Blocking Mode'and how to read ADC values." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk32l2b/demo_apps/dac_adc">
+          <external path="examples/frdmk32l2b/demo_apps/dac_adc" type="xml">
+            <files mask="dac_adc_v3_8.xml"/>
           </external>
         </example>
         <example id="frdmk32l2b_dac_basic" name="dac_basic" brief="The dac_basic example shows how to use DAC module simply as the general DAC converter.When the DAC's buffer feature is not enabled, the first item of the buffer is used as the DAC output data register.The converter would always output the value of the first item. In this example, it gets the value from terminal,outputs the DAC output voltage through DAC output pin." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dac" path="examples/frdmk32l2b/driver_examples/dac/basic">
@@ -314,9 +339,29 @@ ${load}</script>
             <files mask="pit_v3_8.xml"/>
           </external>
         </example>
+        <example id="frdmk32l2b_power_manager" name="power_manager" brief="The Power manager demo application demonstrates the use of power modes in the KSDK. The demo use the notification mechanismand prints the power mode menu through the debug console, where the user can set the MCU to a specific power mode. The usercan also set the wakeup source by following the debug console prompts. The purpose of this demo is to demonstrate theimplementation of a power mode manager. The callback can be registered to the framework. If a power mode transition happens,the callback will be called and user can do something. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk32l2b/demo_apps/power_manager">
+          <external path="examples/frdmk32l2b/demo_apps/power_manager" type="xml">
+            <files mask="power_manager_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_power_mode_switch" name="power_mode_switch" brief="The Power mode switch demo application demonstrates the use of power modes in the KSDK. The demo prints the power mode menuthrough the debug console, where the user can set the MCU to a specific power mode. The user can also set the wakeupsource by following the debug console prompts. The purpose of this demo is to show how to switch between different power modes, and how to configure a wakeup source and wakeup the MCU from low power modes. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - Debug pins(e.g SWD_DIO) would consume addtional power, had better to disable related pins or disconnect them. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk32l2b/demo_apps/power_mode_switch">
+          <external path="examples/frdmk32l2b/demo_apps/power_mode_switch" type="xml">
+            <files mask="power_mode_switch_v3_8.xml"/>
+          </external>
+        </example>
         <example id="frdmk32l2b_rtc" name="rtc" brief="The RTC project is a simple demonstration program of the SDK RTC driver. It sets up the RTChardware block to trigger an alarm after a user specified time period. The test will set the currentdate and time to a predefined value. The alarm will be set with reference to this predefined dateand time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/frdmk32l2b/driver_examples/rtc">
           <external path="examples/frdmk32l2b/driver_examples/rtc" type="xml">
             <files mask="rtc_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_rtc_func" name="rtc_func" brief="The RTC demo application demonstrates the important features of the RTC Module by using the RTC Peripheral Driver.The RTC demo supports the following features:- Calendar  + Get the current date time with Year, Month, Day, Hour, Minute, and Second.  + Set the current date time with Year, Month, Day, Hour, Minute, and Second.- Alarm  + Set the alarm based on the current time.  + Application prints a notification when the alarm expires.- Seconds interrupt  + Use second interrupt function to display a digital time blink every second." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk32l2b/demo_apps/rtc_func">
+          <external path="examples/frdmk32l2b/demo_apps/rtc_func" type="xml">
+            <files mask="rtc_func_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_shell" name="shell" brief="The Shell Demo application demonstrates to control Leds by commands." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk32l2b/demo_apps/shell">
+          <external path="examples/frdmk32l2b/demo_apps/shell" type="xml">
+            <files mask="shell_v3_8.xml"/>
           </external>
         </example>
         <example id="frdmk32l2b_slcd" name="slcd" brief="The SLCD example shows how to use SLCD driver." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/frdmk32l2b/driver_examples/slcd">
@@ -1138,6 +1183,9 @@ ${load}</script>
       <source condition="middleware.baremetal.K32L2B31A" relative_path="./" type="src">
         <files mask="fsl_os_abstraction_bm.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_osa_K32L2B31A.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1230,6 +1278,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_component_serial_manager.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_serial_manager_K32L2B31A.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1253,6 +1304,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_component_serial_port_uart.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_serial_manager_uart_K32L2B31A.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1738,6 +1792,23 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="driver.fxos8700cq.K32L2B31A" name="fxos8700cq" brief="Driver fxos8700cq" version="1.0.0" full_name="Driver fxos8700cq" devices="K32L2B31xxxxA" device_cores="core0_K32L2B31xxxxA" user_visible="true" type="board_component" package_base_path="core/components/fxos8700cq" project_base_path="accel">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.K32L2B31A"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_fxos.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_fxos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_fxos8700cq_K32L2B31A.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="platform.drivers.gpio.K32L2B31A" name="gpio" brief="GPIO Driver" version="2.5.1" full_name="GPIO Driver" devices="K32L2B31xxxxA" device_cores="core0_K32L2B31xxxxA" user_visible="true" type="driver" package_base_path="core/drivers/gpio" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.K32L2B31A"/>
@@ -1801,6 +1872,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_llwu.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_llwu_K32L2B31A.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1886,6 +1960,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_pmc.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_pmc_K32L2B31A.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2135,6 +2212,9 @@ ${load}</script>
         <define name="FSL_RTOS_BM" value=""/>
         <define name="SDK_OS_BAREMETAL" value=""/>
       </defines>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_baremetal_K32L2B31A.cmake" hidden="true"/>
+      </source>
     </component>
     <component id="middleware.usb.common_header.K32L2B31A" name="USB Common Header" brief="Middleware usb common_header" version="2.7.0" full_name="USB Common Header" devices="K32L2B31xxxxA" device_cores="core0_K32L2B31xxxxA" category="USB/USB Common Header" user_visible="true" type="middleware" package_base_path="core/middleware/usb" project_base_path="usb">
       <dependencies>
@@ -2144,6 +2224,9 @@ ${load}</script>
         <files mask="usb.h"/>
         <files mask="usb_misc.h"/>
         <files mask="usb_spec.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_usb_common_header_K32L2B31A.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="include" type="c_include"/>
@@ -2161,6 +2244,9 @@ ${load}</script>
       </source>
       <source relative_path="device" project_relative_path="device/source" type="c_include">
         <files mask="usb_device_dci.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_usb_device_common_header_K32L2B31A.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="device" project_relative_path="device/include" type="c_include"/>
@@ -2181,6 +2267,9 @@ ${load}</script>
       </dependencies>
       <source relative_path="./" type="src">
         <files mask="fsl_assert.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_assert_K32L2B31A.cmake" hidden="true"/>
       </source>
     </component>
     <component id="platform.utilities.assert_lite.K32L2B31A" name="assert_lite" brief="Utility assert_lite" version="1.0.0" full_name="Utility assert_lite" devices="K32L2B31xxxxA" device_cores="core0_K32L2B31xxxxA" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
@@ -2213,6 +2302,9 @@ ${load}</script>
       <source relative_path="debug_console" project_relative_path="./" type="c_include">
         <files mask="fsl_debug_console.h"/>
         <files mask="fsl_debug_console_conf.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_debug_console_K32L2B31A.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="str" project_relative_path="./" type="c_include"/>
@@ -2249,6 +2341,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="fsl_notifier.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_notifier_K32L2B31A.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -2269,6 +2364,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="c_include">
         <files mask="fsl_shell.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_shell_K32L2B31A.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>

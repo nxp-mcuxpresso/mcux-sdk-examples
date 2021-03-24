@@ -132,10 +132,10 @@
     <source path="examples/evkmimxrt1015/demo_apps/hello_world" project_relative_path="board" type="c_include">
       <files mask="pin_mux.h"/>
     </source>
-    <source path="examples/evkmimxrt1015/demo_apps/hello_world/linker" project_relative_path="evkmimxrt1015/demo_apps/hello_world/linker" type="linker" toolchain="iar">
+    <source path="examples/evkmimxrt1015/demo_apps/hello_world/iar" project_relative_path="evkmimxrt1015/demo_apps/hello_world/linker" type="linker" toolchain="iar">
       <files mask="MIMXRT1015xxxxx_ram_0x1400.icf"/>
     </source>
-    <source path="examples/evkmimxrt1015/demo_apps/hello_world/linker" project_relative_path="evkmimxrt1015/demo_apps/hello_world/linker" type="linker" toolchain="mdk">
+    <source path="examples/evkmimxrt1015/demo_apps/hello_world/mdk" project_relative_path="evkmimxrt1015/demo_apps/hello_world/linker" type="linker" toolchain="mdk">
       <files mask="MIMXRT1015xxxxx_ram_0x1400.scf"/>
     </source>
     <source path="examples/evkmimxrt1015/demo_apps/hello_world/mdk" project_relative_path="evkmimxrt1015" type="configuration" toolchain="mdk">
@@ -146,7 +146,7 @@
     <source path="examples/evkmimxrt1015/demo_apps/hello_world" project_relative_path="." type="other">
       <files mask="hello_world.mex" hidden="true"/>
     </source>
-    <source path="core/boards/evkmimxrt1015/demo_apps/hello_world" project_relative_path="evkmimxrt1015/demo_apps/hello_world" type="binary">
+    <source path="examples/evkmimxrt1015/demo_apps/hello_world" project_relative_path="evkmimxrt1015/demo_apps/hello_world" type="binary">
       <files mask="hello_world.bin" hidden="true"/>
     </source>
     <source path="core/boards/evkmimxrt1015" project_relative_path="board" type="src">

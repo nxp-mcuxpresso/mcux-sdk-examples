@@ -93,7 +93,7 @@
       <files mask="hello_world.ewd"/>
       <files mask="hello_world.eww"/>
     </source>
-    <source path="core/boards/mekmimx8qx/demo_apps/hello_world" project_relative_path="mekmimx8qx/demo_apps/hello_world" type="binary">
+    <source path="examples/mekmimx8qx/demo_apps/hello_world" project_relative_path="mekmimx8qx/demo_apps/hello_world" type="binary">
       <files mask="hello_world_TCM.bin" hidden="true"/>
       <files mask="hello_world.bin" hidden="true"/>
     </source>

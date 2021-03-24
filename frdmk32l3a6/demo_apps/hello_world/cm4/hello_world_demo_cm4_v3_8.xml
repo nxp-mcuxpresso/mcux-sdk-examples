@@ -112,7 +112,7 @@
       <files mask="build_release.bat"/>
       <files mask="build_release.sh"/>
     </source>
-    <source path="core/boards/frdmk32l3a6/demo_apps/hello_world/cm4" project_relative_path="frdmk32l3a6/demo_apps/hello_world/cm4" type="binary">
+    <source path="examples/frdmk32l3a6/demo_apps/hello_world/cm4" project_relative_path="frdmk32l3a6/demo_apps/hello_world/cm4" type="binary">
       <files mask="hello_world_demo_cm4.bin" hidden="true"/>
     </source>
     <source path="examples/frdmk32l3a6/demo_apps/hello_world/cm4" project_relative_path="source" type="src">

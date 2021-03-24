@@ -311,7 +311,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     muldefs \
     -Xlinker \
     -Map=output.map \
-    -T${ProjDirPath}/../linker/MIMXRT1021xxxxx_flexspi_nor.ld -static \
+    -T${ProjDirPath}/MIMXRT1021xxxxx_flexspi_nor.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -g \

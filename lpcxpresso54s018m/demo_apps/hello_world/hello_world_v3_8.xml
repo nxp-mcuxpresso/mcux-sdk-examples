@@ -111,7 +111,7 @@
     <source path="examples/lpcxpresso54s018m/demo_apps/hello_world" project_relative_path="." type="other">
       <files mask="hello_world.mex" hidden="true"/>
     </source>
-    <source path="core/boards/lpcxpresso54s018m/demo_apps/hello_world" project_relative_path="lpcxpresso54s018m/demo_apps/hello_world" type="binary">
+    <source path="examples/lpcxpresso54s018m/demo_apps/hello_world" project_relative_path="lpcxpresso54s018m/demo_apps/hello_world" type="binary">
       <files mask="hello_world.bin" hidden="true"/>
     </source>
     <source path="core/boards/lpcxpresso54s018m" project_relative_path="board" type="src">

@@ -105,7 +105,7 @@
     <source path="examples/lpcxpresso845max/demo_apps/hello_world" project_relative_path="." type="other">
       <files mask="hello_world.mex" hidden="true"/>
     </source>
-    <source path="core/boards/lpcxpresso845max/demo_apps/hello_world" project_relative_path="lpcxpresso845max/demo_apps/hello_world" type="binary">
+    <source path="examples/lpcxpresso845max/demo_apps/hello_world" project_relative_path="lpcxpresso845max/demo_apps/hello_world" type="binary">
       <files mask="hello_world.bin" hidden="true"/>
     </source>
     <source path="core/boards/lpcxpresso845max" project_relative_path="board" type="src">

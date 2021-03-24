@@ -108,7 +108,7 @@
     <source path="examples/lpcxpresso55s28/driver_examples/clockout" project_relative_path="." type="other">
       <files mask="clockout.mex" hidden="true"/>
     </source>
-    <source path="core/boards/lpcxpresso55s28/driver_examples/clockout" project_relative_path="lpcxpresso55s28/driver_examples/clockout" type="binary">
+    <source path="examples/lpcxpresso55s28/driver_examples/clockout" project_relative_path="lpcxpresso55s28/driver_examples/clockout" type="binary">
       <files mask="syscon_clockout.bin" hidden="true"/>
     </source>
     <source path="core/boards/lpcxpresso55s28" project_relative_path="board" type="src">
