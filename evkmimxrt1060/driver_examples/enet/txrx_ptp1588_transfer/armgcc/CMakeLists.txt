@@ -65,11 +65,11 @@ include(driver_cache_armv7_m7)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MIMXRT1062)
+include(utility_assert_lite)
 
 include(driver_clock)
 
-include(driver_enet_MIMXRT1062)
+include(driver_enet)
 
 include(driver_common)
 

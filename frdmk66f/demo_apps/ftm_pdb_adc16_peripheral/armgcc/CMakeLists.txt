@@ -85,11 +85,11 @@ include(utility_debug_console)
 
 include(component_uart_adapter)
 
-include(component_serial_manager_MK66F18)
+include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart_MK66F18)
+include(component_serial_manager_uart)
 
 include(driver_uart)
 

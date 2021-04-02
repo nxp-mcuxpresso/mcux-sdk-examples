@@ -59,7 +59,7 @@ include(driver_reset)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_LPC54114_cm4)
+include(utility_assert_lite)
 
 include(driver_lpc_iocon)
 
@@ -69,7 +69,7 @@ include(driver_clock)
 
 include(driver_power)
 
-include(device_CMSIS_LPC54114_cm4)
+include(device_CMSIS)
 
 include(CMSIS_Include_core_cm4)
 

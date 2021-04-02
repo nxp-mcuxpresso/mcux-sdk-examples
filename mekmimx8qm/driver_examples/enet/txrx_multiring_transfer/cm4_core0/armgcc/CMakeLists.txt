@@ -68,11 +68,11 @@ include(driver_cache_lmem)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MIMX8QM6_cm4_core0)
+include(utility_assert_lite)
 
 include(driver_clock)
 
-include(driver_enet_MIMX8QM6_cm4_core0)
+include(driver_enet)
 
 include(driver_common)
 

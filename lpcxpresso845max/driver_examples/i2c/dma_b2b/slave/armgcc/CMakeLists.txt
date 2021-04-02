@@ -56,7 +56,7 @@ include(all_devices)
 # include modules
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_LPC845)
+include(utility_assert_lite)
 
 include(driver_lpc_i2c)
 

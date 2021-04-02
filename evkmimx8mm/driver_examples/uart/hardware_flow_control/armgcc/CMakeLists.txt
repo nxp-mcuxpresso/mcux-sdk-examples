@@ -71,11 +71,11 @@ include(utility_debug_console)
 
 include(component_iuart_adapter)
 
-include(component_serial_manager_MIMX8MM6)
+include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart_MIMX8MM6)
+include(component_serial_manager_uart)
 
 include(device_startup)
 

@@ -87,13 +87,13 @@ include(device_CMSIS)
 
 include(component_uart_adapter)
 
-include(component_serial_manager_MK64F12)
+include(component_serial_manager)
 
 include(driver_common)
 
 include(component_lists)
 
-include(component_serial_manager_uart_MK64F12)
+include(component_serial_manager_uart)
 
 include(device_startup)
 

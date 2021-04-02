@@ -59,7 +59,7 @@ include(driver_rng_1)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_LPC55S28)
+include(utility_assert_lite)
 
 include(driver_lpc_iocon)
 

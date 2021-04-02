@@ -61,7 +61,7 @@ include(driver_ctimer)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_LPC54628)
+include(utility_assert_lite)
 
 include(driver_flexcomm_usart_dma)
 

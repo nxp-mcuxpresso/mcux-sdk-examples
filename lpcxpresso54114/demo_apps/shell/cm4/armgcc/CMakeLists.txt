@@ -65,7 +65,7 @@ include(driver_power)
 
 include(driver_reset)
 
-include(device_CMSIS_LPC54114_cm4)
+include(device_CMSIS)
 
 include(CMSIS_Include_core_cm4)
 
@@ -85,11 +85,11 @@ include(utility_debug_console)
 
 include(component_usart_adapter)
 
-include(component_serial_manager_LPC54114_cm4)
+include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart_LPC54114_cm4)
+include(component_serial_manager_uart)
 
 include(utilities_misc_utilities)
 

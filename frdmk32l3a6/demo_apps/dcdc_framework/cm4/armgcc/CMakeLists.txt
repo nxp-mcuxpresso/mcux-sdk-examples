@@ -79,13 +79,13 @@ include(utility_debug_console)
 
 include(component_lpuart_adapter)
 
-include(component_serial_manager_K32L3A60_cm4)
+include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart_K32L3A60_cm4)
+include(component_serial_manager_uart)
 
-include(device_CMSIS_K32L3A60_cm4)
+include(device_CMSIS)
 
 include(CMSIS_Include_core_cm4)
 

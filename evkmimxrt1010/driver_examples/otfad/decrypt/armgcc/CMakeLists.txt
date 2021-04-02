@@ -60,7 +60,7 @@ include(driver_cache_armv7_m7)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MIMXRT1011)
+include(utility_assert_lite)
 
 include(driver_otfad)
 

@@ -65,7 +65,7 @@ include(driver_mma8451q)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MKL27Z644)
+include(utility_assert_lite)
 
 include(driver_gpio)
 

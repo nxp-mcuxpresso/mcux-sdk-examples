@@ -57,9 +57,9 @@ include(all_devices)
 # include modules
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_LPC54114_cm4)
+include(utility_assert_lite)
 
-include(driver_utick_LPC54114_cm4)
+include(driver_utick)
 
 include(driver_lpc_gpio)
 
@@ -73,7 +73,7 @@ include(driver_power)
 
 include(driver_reset)
 
-include(device_CMSIS_LPC54114_cm4)
+include(device_CMSIS)
 
 include(CMSIS_Include_core_cm4)
 

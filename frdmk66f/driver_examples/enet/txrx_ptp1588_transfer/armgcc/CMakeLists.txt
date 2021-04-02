@@ -61,7 +61,7 @@ include(driver_phy-device-ksz8081)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MK66F18)
+include(utility_assert_lite)
 
 include(driver_port)
 
@@ -73,7 +73,7 @@ include(driver_sim)
 
 include(driver_clock)
 
-include(driver_enet_MK66F18)
+include(driver_enet)
 
 include(driver_flash)
 

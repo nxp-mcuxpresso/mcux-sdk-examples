@@ -71,11 +71,11 @@ include(utility_debug_console)
 
 include(component_lpuart_adapter)
 
-include(component_serial_manager_MK28FA15)
+include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart_MK28FA15)
+include(component_serial_manager_uart)
 
 include(driver_lpuart)
 

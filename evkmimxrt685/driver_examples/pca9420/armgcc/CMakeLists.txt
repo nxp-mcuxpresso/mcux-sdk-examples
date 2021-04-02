@@ -59,7 +59,7 @@ include(driver_flexcomm_i2c)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MIMXRT685S_cm33)
+include(utility_assert_lite)
 
 include(driver_pca9420)
 

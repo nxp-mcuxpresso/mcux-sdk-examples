@@ -59,7 +59,7 @@ include(driver_pint)
 
 include(driver_inputmux)
 
-include(component_serial_manager_LPC55S28)
+include(component_serial_manager)
 
 include(driver_common)
 
@@ -91,7 +91,7 @@ include(utility_debug_console)
 
 include(component_usart_adapter)
 
-include(component_serial_manager_uart_LPC55S28)
+include(component_serial_manager_uart)
 
 include(CMSIS_Include_core_cm33)
 

@@ -76,7 +76,7 @@ include(component_miniusart_adapter)
 
 include(device_startup)
 
-include(utility_assert_lite_LPC845)
+include(utility_assert_lite)
 
 include(utility_debug_console_lite)
 

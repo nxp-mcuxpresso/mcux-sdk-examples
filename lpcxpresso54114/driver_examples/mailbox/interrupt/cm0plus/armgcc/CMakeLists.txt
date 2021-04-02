@@ -57,7 +57,7 @@ include(all_devices)
 # include modules
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_LPC54114_cm0plus)
+include(utility_assert_lite)
 
 include(driver_mailbox)
 
@@ -73,7 +73,7 @@ include(driver_lpc_gpio)
 
 include(driver_inputmux)
 
-include(device_CMSIS_LPC54114_cm0plus)
+include(device_CMSIS)
 
 include(CMSIS_Include_core_cm0plus)
 

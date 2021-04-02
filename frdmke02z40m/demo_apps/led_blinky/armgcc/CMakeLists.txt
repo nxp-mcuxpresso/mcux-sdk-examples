@@ -67,11 +67,11 @@ include(utility_debug_console)
 
 include(component_uart_adapter)
 
-include(component_serial_manager_MKE02Z4)
+include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart_MKE02Z4)
+include(component_serial_manager_uart)
 
 include(driver_uart)
 

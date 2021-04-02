@@ -67,7 +67,7 @@ include(driver_fxos8700cq)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MIMXRT1024)
+include(utility_assert_lite)
 
 include(driver_clock)
 

@@ -82,11 +82,11 @@ include(utility_debug_console)
 
 include(component_uart_adapter)
 
-include(component_serial_manager_MKV31F51212)
+include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart_MKV31F51212)
+include(component_serial_manager_uart)
 
 include(driver_uart)
 

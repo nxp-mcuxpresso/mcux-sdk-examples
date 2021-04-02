@@ -64,7 +64,7 @@ include(driver_wm8524)
 
 include(driver_igpio)
 
-include(driver_codec_MIMX8MQ6)
+include(driver_codec)
 
 include(driver_common)
 
@@ -72,7 +72,7 @@ include(component_wm8524_adapter)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MIMX8MQ6)
+include(utility_assert_lite)
 
 include(driver_clock)
 

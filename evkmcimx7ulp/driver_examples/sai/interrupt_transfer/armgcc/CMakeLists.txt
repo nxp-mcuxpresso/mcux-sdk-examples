@@ -62,7 +62,7 @@ include(driver_lpi2c)
 
 include(driver_wm8960)
 
-include(driver_codec_MCIMX7U5)
+include(driver_codec)
 
 include(driver_common)
 
@@ -74,7 +74,7 @@ include(component_lpi2c_adapter)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MCIMX7U5)
+include(utility_assert_lite)
 
 include(driver_port)
 

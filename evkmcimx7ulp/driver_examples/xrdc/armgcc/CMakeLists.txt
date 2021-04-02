@@ -61,7 +61,7 @@ include(driver_wdog32)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MCIMX7U5)
+include(utility_assert_lite)
 
 include(driver_port)
 

@@ -61,7 +61,7 @@ include(driver_dmamux)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MIMXRT1015)
+include(utility_assert_lite)
 
 include(driver_qtmr_1)
 

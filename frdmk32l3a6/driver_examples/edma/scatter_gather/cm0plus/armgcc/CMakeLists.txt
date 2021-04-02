@@ -57,7 +57,7 @@ include(all_devices)
 # include modules
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_K32L3A60_cm0plus)
+include(utility_assert_lite)
 
 include(driver_port)
 
@@ -81,7 +81,7 @@ include(component_lpuart_adapter)
 
 include(component_lists)
 
-include(device_CMSIS_K32L3A60_cm0plus)
+include(device_CMSIS)
 
 include(CMSIS_Include_core_cm0plus)
 

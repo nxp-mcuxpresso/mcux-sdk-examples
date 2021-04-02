@@ -61,7 +61,7 @@ include(driver_phy-device-lan8720a)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_LPC54S018M)
+include(utility_assert_lite)
 
 include(driver_lpc_enet)
 

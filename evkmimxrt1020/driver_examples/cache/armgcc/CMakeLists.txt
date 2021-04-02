@@ -65,7 +65,7 @@ include(driver_semc)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MIMXRT1021)
+include(utility_assert_lite)
 
 include(driver_dmamux)
 

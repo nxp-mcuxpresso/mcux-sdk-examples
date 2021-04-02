@@ -65,7 +65,7 @@ include(component_flexcomm_i2c_adapter)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MIMXRT685S_cm33)
+include(utility_assert_lite)
 
 include(driver_dmic)
 
@@ -81,7 +81,7 @@ include(driver_lpc_dma)
 
 include(driver_flexcomm_i2s_dma)
 
-include(driver_codec_MIMXRT685S_cm33)
+include(driver_codec)
 
 include(component_cs42888_adapter)
 

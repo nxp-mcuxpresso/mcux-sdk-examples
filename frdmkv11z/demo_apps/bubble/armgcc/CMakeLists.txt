@@ -63,7 +63,7 @@ include(driver_fxos8700cq)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MKV11Z7)
+include(utility_assert_lite)
 
 include(driver_gpio)
 

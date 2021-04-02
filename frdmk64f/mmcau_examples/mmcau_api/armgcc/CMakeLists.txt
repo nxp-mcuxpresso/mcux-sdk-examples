@@ -61,7 +61,7 @@ include(middleware_mmcau_cm4_cm7)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MK64F12)
+include(utility_assert_lite)
 
 include(driver_port)
 

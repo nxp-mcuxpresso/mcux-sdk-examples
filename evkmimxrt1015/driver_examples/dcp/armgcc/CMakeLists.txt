@@ -57,7 +57,7 @@ include(all_devices)
 # include modules
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MIMXRT1015)
+include(utility_assert_lite)
 
 include(driver_cache_armv7_m7)
 

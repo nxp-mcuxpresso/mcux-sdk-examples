@@ -59,7 +59,7 @@ include(driver_xbar)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MKM35Z7)
+include(utility_assert_lite)
 
 include(driver_port)
 

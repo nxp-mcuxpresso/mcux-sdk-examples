@@ -83,11 +83,11 @@ include(utility_debug_console)
 
 include(component_usart_adapter)
 
-include(component_serial_manager_LPC55S28)
+include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart_LPC55S28)
+include(component_serial_manager_uart)
 
 include(CMSIS_Include_core_cm33)
 

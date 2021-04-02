@@ -63,7 +63,7 @@ include(component_flexcomm_i2c_adapter)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_LPC54628)
+include(utility_assert_lite)
 
 include(driver_lpc_iocon)
 
@@ -83,7 +83,7 @@ include(driver_flexcomm_usart)
 
 include(driver_wm8904)
 
-include(driver_codec_LPC54628)
+include(driver_codec)
 
 include(component_wm8904_adapter)
 

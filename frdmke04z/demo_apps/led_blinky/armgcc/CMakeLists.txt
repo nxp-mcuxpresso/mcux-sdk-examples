@@ -74,7 +74,7 @@ include(driver_port_ke04)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MKE04Z4)
+include(utility_assert_lite)
 
 include(CMSIS_Include_core_cm0plus)
 

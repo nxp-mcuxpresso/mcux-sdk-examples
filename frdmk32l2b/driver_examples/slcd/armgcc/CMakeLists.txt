@@ -61,7 +61,7 @@ include(driver_slcd_lcd_s401m16kr)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_K32L2B31A)
+include(utility_assert_lite)
 
 include(driver_port)
 

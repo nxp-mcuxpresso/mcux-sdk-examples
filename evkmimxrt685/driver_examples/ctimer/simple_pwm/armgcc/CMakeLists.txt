@@ -83,11 +83,11 @@ include(driver_flexspi)
 
 include(driver_cache_cache64)
 
-include(component_serial_manager_MIMXRT685S_cm33)
+include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart_MIMXRT685S_cm33)
+include(component_serial_manager_uart)
 
 include(device_startup)
 

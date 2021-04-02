@@ -60,7 +60,7 @@ include(middleware_mmcau_cm4_cm7)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MIMX8QX6)
+include(utility_assert_lite)
 
 include(driver_clock)
 

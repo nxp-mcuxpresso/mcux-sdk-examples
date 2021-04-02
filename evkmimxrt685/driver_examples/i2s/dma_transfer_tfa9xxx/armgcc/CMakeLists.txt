@@ -66,7 +66,7 @@ include(component_i3c_adapter)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MIMXRT685S_cm33)
+include(utility_assert_lite)
 
 include(driver_flexcomm_i2c)
 
@@ -80,7 +80,7 @@ include(driver_flexcomm_usart)
 
 include(driver_tfa9xxx)
 
-include(driver_codec_MIMXRT685S_cm33)
+include(driver_codec)
 
 include(component_tfa9xxx_adapter)
 

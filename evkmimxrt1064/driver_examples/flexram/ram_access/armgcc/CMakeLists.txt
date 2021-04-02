@@ -61,7 +61,7 @@ include(driver_cache_armv7_m7)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MIMXRT1064)
+include(utility_assert_lite)
 
 include(driver_flexram)
 

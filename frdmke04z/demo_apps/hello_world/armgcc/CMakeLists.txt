@@ -74,7 +74,7 @@ include(driver_gpio_1)
 
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MKE04Z4)
+include(utility_assert_lite)
 
 include(utilities_misc_utilities)
 

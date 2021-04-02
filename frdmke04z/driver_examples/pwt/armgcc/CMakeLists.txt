@@ -56,7 +56,7 @@ include(all_devices)
 # include modules
 include(utility_debug_console_lite)
 
-include(utility_assert_lite_MKE04Z4)
+include(utility_assert_lite)
 
 include(driver_pwt_1)
 
