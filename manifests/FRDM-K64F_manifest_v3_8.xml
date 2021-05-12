@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-04-02 04:49:16.152534-->
-  <!--This manifest is generated based on sdk repo commit: b1eede1d406d3392a45a06abc2494c2b87a1853b-->
+  <!--Timestamp (UTC): 2021-05-13 07:17:49.790093-->
+  <!--This manifest is generated based on sdk repo commit: 242d157ba29afc4bbd1dac95f382a1491bc2daf5-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
@@ -292,6 +292,71 @@ ${load}</script>
             <files mask="flexcan_loopback_transfer_v3_8.xml"/>
           </external>
         </example>
+        <example id="frdmk64f_freertos_dspi" name="freertos_dspi" brief="The freertos_dspi example shows how to use DSPI driver in FreeRTOS:In this example , one dspi instance used as DSPI master with blocking and another dspi instance used as DSPI slave .1. DSPI master sends/receives data using task blocking calls to/from DSPI slave. (DSPI Slave uses interrupt to receive/send the data)" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/frdmk64f/rtos_examples/freertos_dspi">
+          <external path="examples/frdmk64f/rtos_examples/freertos_dspi" type="xml">
+            <files mask="freertos_dspi_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk64f_freertos_event" name="freertos_event" brief="This document explains the freertos_event example. It shows how task waits for an event (defined setof bits in event group). This event can be set by any other process or interrupt in the system.The example application creates three tasks. Two write tasks write_task_1 and write_task_2continuously setting event bit 0 and bit 1.Read_task is waiting for any event bit and printing actual state on console. Event bits areautomatically cleared after read task is entered.Three possible states can occurre:Both bits are set.zBit B0 is set.Bit B1 is set." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/frdmk64f/rtos_examples/freertos_event">
+          <external path="examples/frdmk64f/rtos_examples/freertos_event" type="xml">
+            <files mask="freertos_event_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk64f_freertos_generic" name="freertos_generic" brief="This document explains the freertos_generic example. It is based on code FreeRTOS documentation fromhttp://www.freertos.org/Hardware-independent-RTOS-example.html. It shows combination of severaltasks with queue, software timer, tick hook and semaphore.The example application creates three tasks. The prvQueueSendTask periodically sending data toxQueue queue. The prvQueueReceiveTask is waiting for incoming message and counting number ofreceived messages. Task prvEventSemaphoreTask is waiting for xEventSemaphore semaphore given fromvApplicationTickHook. Tick hook give semaphore every 500 ms.Other hook types used for RTOS and resource statistics are also demonstrated in example:* vApplicationIdleHook* vApplicationStackOverflowHook* vApplicationMallocFailedHook" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/frdmk64f/rtos_examples/freertos_generic">
+          <external path="examples/frdmk64f/rtos_examples/freertos_generic" type="xml">
+            <files mask="freertos_generic_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk64f_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART drivere incombination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/frdmk64f/rtos_examples/freertos_hello">
+          <external path="examples/frdmk64f/rtos_examples/freertos_hello" type="xml">
+            <files mask="freertos_hello_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk64f_freertos_i2c" name="freertos_i2c" brief="The freertos_i2c example shows an application using RTOS tasks with I2C driver:The example supports 2 different connections:On board connection and board to board connection.With one board connection, 2 I2C instances of the same board are used. One i2c instance used as I2C master and another I2C instance used as I2C slave .    Default settings in freertos_i2c.c (in folder boards/&lt;board&gt;/rtos_examples/freertos_i2c) is applied.    Two tasks are created. One task is associated with an I2C master operation and another task deals with I2C slave operation.    1. I2C master task sends data to I2C slave task.    2. I2C master task reads data sent back from I2C slave task.    The transmit data and the receive data of both I2C master task and I2C slave task are printed out on terminal.With board to board connection, one I2C instance on one board is used as I2C master and the I2C instance on other board is used as I2C slave. Tasks are created to run on each board to handle I2C communication.    File freertos_i2c.c should have following definitions:    #define EXAMPLE_CONNECT_I2C BOARD_TO_BOARD    For board used as I2C master:        #define I2C_MASTER_SLAVE isMASTER    For board used as I2C slave:        #define I2C_MASTER_SLAVE isSLAVE" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/frdmk64f/rtos_examples/freertos_i2c">
+          <external path="examples/frdmk64f/rtos_examples/freertos_i2c" type="xml">
+            <files mask="freertos_i2c_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk64f_freertos_mutex" name="freertos_mutex" brief="This document explains the freertos_mutex example. It shows how mutex manage access to commonresource (terminal output).The example application creates two identical instances of write_task. Each task will lock the mutexbefore printing and unlock it after printing to ensure that the outputs from tasks are not mixedtogether.The test_task accept output message during creation as function parameter. Output message have twoparts. If xMutex is unlocked, the write_task_1 acquire xMutex and print first part of message. Thenrescheduling is performed. In this moment scheduler check if some other task could run, but secondtask write_task+_2 is blocked because xMutex is already locked by first write task. The firstwrite_task_1 continue from last point by printing of second message part. Finaly the xMutex isunlocked and second instance of write_task_2 is executed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/frdmk64f/rtos_examples/freertos_mutex">
+          <external path="examples/frdmk64f/rtos_examples/freertos_mutex" type="xml">
+            <files mask="freertos_mutex_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk64f_freertos_queue" name="freertos_queue" brief="This document explains the freertos_queue example. This example introduce simple logging mechanismbased on message passing.Example could be devided in two parts. First part is logger. It contain three tasks:log_add().....Add new message into the log. Call xQueueSend function to pass new message into              message queue.log_init()....Initialize logger (create logging task and message queue log_queue).log_task()....Task responsible for printing of log output.Second part is application of this simple logging mechanism. Each of two tasks write_task_1 andwrite_task_2 print 5 messages into log." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/frdmk64f/rtos_examples/freertos_queue">
+          <external path="examples/frdmk64f/rtos_examples/freertos_queue" type="xml">
+            <files mask="freertos_queue_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk64f_freertos_segger_sysview" name="freertos_segger_sysview" brief="Segger Sysview demo shows the basic capabilities of Segger System Viewer tool.Required software:    - J-Link Software and Documentation Pack    - SystemView - Real-time analysis and visualization    - J-Link OpenSDA - Board-Specific Firmwarescan be downloaded from https://www.segger.com/downloads/jlinkDemo requires JLink connected. The JLink can be external probe or on board SDA debugger.In case of SDA debugger you have to change firmware to J-Link OpenSDA by holding board RESET button while power up board. The board is then detected as USB mass storage device and it's required to copy the .bin firmware to the device. When it's done you have to reset the board once more." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples/visualization" path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview">
+          <external path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview" type="xml">
+            <files mask="freertos_segger_sysview_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk64f_freertos_sem" name="freertos_sem" brief="This document explains the freertos_sem example, what to expect when running it and a briefintroduction to the API. The freertos_sem example code shows how semaphores works. Two differenttasks are synchronized in bilateral rendezvous model.The example uses four tasks. One producer_task and three consumer_tasks. The producer_task starts bycreating of two semaphores (xSemaphore_producer and xSemaphore_consumer). These semaphores controlaccess to virtual item. The synchronization is based on bilateral rendezvous pattern. Both ofconsumer and producer must be prepared to enable transaction." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/frdmk64f/rtos_examples/freertos_sem">
+          <external path="examples/frdmk64f/rtos_examples/freertos_sem" type="xml">
+            <files mask="freertos_sem_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk64f_freertos_sem_static" name="freertos_sem_static" brief="This document explains the freertos_sem example, what to expect when running it and a briefintroduction to the API. The freertos_sem example code shows how semaphores works. Two differenttasks are synchronized in bilateral rendezvous model.The example uses four tasks. One producer_task and three consumer_tasks. The producer_task starts bycreating of two semaphores (xSemaphore_producer and xSemaphore_consumer). These semaphores controlaccess to virtual item. The synchronization is based on bilateral rendezvous pattern. Both ofconsumer and producer must be prepared to enable transaction." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/frdmk64f/rtos_examples/freertos_sem_static">
+          <external path="examples/frdmk64f/rtos_examples/freertos_sem_static" type="xml">
+            <files mask="freertos_sem_static_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk64f_freertos_swtimer" name="freertos_swtimer" brief="This document explains the freertos_swtimer example. It shows usage of software timer and itscallback.The example application creates one software timer SwTimer. The timer's callback SwTimerCallback isperiodically executed and text &quot;Tick.&quot; is printed to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/frdmk64f/rtos_examples/freertos_swtimer">
+          <external path="examples/frdmk64f/rtos_examples/freertos_swtimer" type="xml">
+            <files mask="freertos_swtimer_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk64f_freertos_tickless" name="freertos_tickless" brief="This document explains the freertos_tickless example. It shows the CPU enter at sleep mode and then it is waked up by expired time delay that using GPT module." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/frdmk64f/rtos_examples/freertos_tickless">
+          <external path="examples/frdmk64f/rtos_examples/freertos_tickless" type="xml">
+            <files mask="freertos_tickless_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk64f_freertos_uart" name="freertos_uart" brief="The UART example for FreeRTOS demonstrates the possibility to use the UART driver in the RTOS.The example uses single instance of UART IP and writes string into, then reads back chars.After every 4B received, these are sent back on UART." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/frdmk64f/rtos_examples/freertos_uart">
+          <external path="examples/frdmk64f/rtos_examples/freertos_uart" type="xml">
+            <files mask="freertos_uart_v3_8.xml"/>
+          </external>
+        </example>
         <example id="frdmk64f_ftm_combine_pwm" name="ftm_combine_pwm" brief="The FTM project is a demonstration program of generating a combined PWM signal by the SDK FTM driver. It sets up the FTMhardware block to output PWM signals on two TPM channels. The example also shows the complementary mode of operationand deadtime insertion.On boards that have 2 LEDs connected to the FTM pins, the user will see a change in LED brightness.And if the board do not support LEDs to show, the outputs can be observed by oscilloscope." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ftm" path="examples/frdmk64f/driver_examples/ftm/combine_pwm">
           <external path="examples/frdmk64f/driver_examples/ftm/combine_pwm" type="xml">
             <files mask="ftm_combine_pwm_v3_8.xml"/>
@@ -495,6 +560,21 @@ ${load}</script>
         <example id="frdmk64f_rtc_func_peripheral" name="rtc_func_peripheral" brief="The RTC demo application demonstrates the important features of the RTC Module by using the RTC Peripheral Driver.The RTC demo supports the following features:- Calendar  + Get the current date time with Year, Month, Day, Hour, Minute, and Second.  + Set the current date time with Year, Month, Day, Hour, Minute, and Second.- Alarm  + Set the alarm based on the current time.  + Application prints a notification when the alarm expires.- Seconds interrupt  + Use second interrupt function to display a digital time blink every second." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk64f/demo_apps/rtc_func_peripheral">
           <external path="examples/frdmk64f/demo_apps/rtc_func_peripheral" type="xml">
             <files mask="rtc_func_peripheral_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk64f_sdcard_freertos" name="sdcard_freertos" brief="The SDCARD FreeRTOS project is a demonstration program that uses the SDK software. It reads/writes/erases the SD card continusly. The purpose of this example is to show how to use SDCARD driver with FreeRTOS in SDK software to access SD card.Note: If DATA3 is used as the card detect PIN, please make sure DATA3 is pull down, no matter internal or external, at the same time, make sure the card can pull DATA3 up, then host can detect card through DATA3.And SDHC do not support detect card through CD by host, card can be detected through DATA3 or GPIO.No matter detect card through host or gpio, make sure the pinmux configuration is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/sdcard_freertos" path="examples/frdmk64f/sdmmc_examples/sdcard_freertos">
+          <external path="examples/frdmk64f/sdmmc_examples/sdcard_freertos" type="xml">
+            <files mask="sdcard_freertos_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk64f_sdcard_interrupt" name="sdcard_interrupt" brief="The SDCARD Interrupt project is a demonstration program that uses the SDK software. It reads/writes/erases the SD card continusly. The purpose of this example is to show how to use SDCARD driver andshow how to use interrupt based transfer API in SDHC driver in SDK software to access SD card.Note: If DATA3 is used as the card detect PIN, please make sure DATA3 is pull down, no matter internal or external, at the same time, make sure the card can pull DATA3 up, then host can detect card through DATA3.And SDHC do not support detect card through CD by host, card can be detected through DATA3 or GPIO.No matter detect card through host or gpio, make sure the pinmux configuration is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/sdcard_interrupt" path="examples/frdmk64f/sdmmc_examples/sdcard_interrupt">
+          <external path="examples/frdmk64f/sdmmc_examples/sdcard_interrupt" type="xml">
+            <files mask="sdcard_interrupt_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk64f_sdcard_polling" name="sdcard_polling" brief="The SDCARD Polling project is a demonstration program that uses the SDK software. It reads/writes/erases the SD card continusly. The purpose of this example is to show how to use SDCARD driver andshow how to use polling based transfer API in SDHC driver in SDK software to access SD card.Note: If DATA3 is used as the card detect PIN, please make sure DATA3 is pull down, no matter internal or external, at the same time, make sure the card can pull DATA3 up, then host can detect card through DATA3.And SDHC do not support detect card through CD by host, card can be detected through DATA3 or GPIO.No matter detect card through host or gpio, make sure the pinmux configuration is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/sdcard_polling" path="examples/frdmk64f/sdmmc_examples/sdcard_polling">
+          <external path="examples/frdmk64f/sdmmc_examples/sdcard_polling" type="xml">
+            <files mask="sdcard_polling_v3_8.xml"/>
           </external>
         </example>
         <example id="frdmk64f_shell" name="shell" brief="The Shell Demo application demonstrates to control Leds by commands." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk64f/demo_apps/shell">
@@ -1405,6 +1485,12 @@ ${load}</script>
       <source condition="middleware.baremetal.MK64F12" relative_path="./" type="src">
         <files mask="fsl_os_abstraction_bm.c"/>
       </source>
+      <source condition="middleware.freertos-kernel.MK64F12" relative_path="./" type="c_include">
+        <files mask="fsl_os_abstraction_free_rtos.h"/>
+      </source>
+      <source condition="middleware.freertos-kernel.MK64F12" relative_path="./" type="src">
+        <files mask="fsl_os_abstraction_free_rtos.c"/>
+      </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="component_osa_MK64F12.cmake" hidden="true"/>
       </source>
@@ -1426,6 +1512,32 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_os_abstraction_bm.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_osa_bm_MK64F12.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.osa_free_rtos.MK64F12" name="osa_free_rtos" brief="Component osa_free_rtos" version="1.0.0" full_name="Component osa_free_rtos" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" user_visible="false" type="software_component" package_base_path="core/components/osa" project_base_path="component/osa">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.freertos-kernel.MK64F12"/>
+          <component_dependency value="platform.drivers.common.MK64F12"/>
+          <component_dependency value="component.lists.MK64F12"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_os_abstraction.h"/>
+        <files mask="fsl_os_abstraction_free_rtos.h"/>
+        <files mask="fsl_os_abstraction_config.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_os_abstraction_free_rtos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_osa_free_rtos_MK64F12.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1905,6 +2017,26 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="platform.drivers.dspi_freertos.MK64F12" name="dspi_freertos" brief="DSPI Driver" version="2.2.4" full_name="DSPI Freertos Driver" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" user_visible="true" type="driver" package_base_path="core/drivers/dspi" project_base_path="drivers/freertos">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.dspi.MK64F12"/>
+          <component_dependency value="middleware.freertos-kernel.MK64F12"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_dspi_freertos.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_dspi_freertos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_dspi_freertos_MK64F12.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="platform.drivers.edma.MK64F12" name="edma" brief="EDMA Driver" version="2.4.1" full_name="EDMA Driver" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" user_visible="true" type="driver" package_base_path="core/drivers/edma" project_base_path="drivers">
       <dependencies>
         <all>
@@ -2100,6 +2232,26 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="driver_i2c_edma_MK64F12.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.i2c_freertos.MK64F12" name="i2c_freertos" brief="I2C Driver" version="2.0.9" full_name="I2C FREERTOS Driver" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" user_visible="true" type="driver" package_base_path="core/drivers/i2c" project_base_path="drivers/freertos">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.i2c.MK64F12"/>
+          <component_dependency value="middleware.freertos-kernel.MK64F12"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_i2c_freertos.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_i2c_freertos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_i2c_freertos_MK64F12.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2361,6 +2513,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_sdhc.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_sdhc_MK64F12.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -2453,6 +2608,26 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="platform.drivers.uart_freertos.MK64F12" name="uart_freertos" brief="UART Driver" version="2.4.0" full_name="UART FREERTOS Driver" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" user_visible="true" type="driver" package_base_path="core/drivers/uart" project_base_path="drivers/freertos">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.uart.MK64F12"/>
+          <component_dependency value="middleware.freertos-kernel.MK64F12"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_uart_freertos.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_uart_freertos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_uart_freertos_MK64F12.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="platform.drivers.vref.MK64F12" name="vref" brief="VREF Driver" version="2.1.2" full_name="VREF Driver" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" user_visible="true" type="driver" package_base_path="core/drivers/vref" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MK64F12"/>
@@ -2494,6 +2669,260 @@ ${load}</script>
       </defines>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="middleware_baremetal_MK64F12.cmake" hidden="true"/>
+      </source>
+    </component>
+    <component id="middleware.freertos-kernel.MK64F12" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="202007.00.0" full_name="FreeRTOS kernel" devices="MK64FN1M0xxx12 MK64FX512xxx12" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <defines>
+        <define name="FSL_RTOS_FREE_RTOS" value=""/>
+        <define name="SDK_OS_FREE_RTOS" value=""/>
+      </defines>
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.freertos-kernel.extension.MK64F12"/>
+          <component_dependency value="middleware.freertos-kernel.template.MK64F12"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="src">
+        <files mask="event_groups.c"/>
+        <files mask="croutine.c"/>
+        <files mask="list.c"/>
+        <files mask="queue.c"/>
+        <files mask="stream_buffer.c"/>
+        <files mask="tasks.c"/>
+        <files mask="timers.c"/>
+      </source>
+      <source relative_path="include" type="c_include">
+        <files mask="croutine.h"/>
+        <files mask="StackMacros.h"/>
+        <files mask="atomic.h"/>
+        <files mask="deprecated_definitions.h"/>
+        <files mask="event_groups.h"/>
+        <files mask="FreeRTOS.h"/>
+        <files mask="list.h"/>
+        <files mask="message_buffer.h"/>
+        <files mask="mpu_prototypes.h"/>
+        <files mask="mpu_wrappers.h"/>
+        <files mask="portable.h"/>
+        <files mask="projdefs.h"/>
+        <files mask="queue.h"/>
+        <files mask="semphr.h"/>
+        <files mask="stack_macros.h"/>
+        <files mask="stream_buffer.h"/>
+        <files mask="task.h"/>
+        <files mask="timers.h"/>
+      </source>
+      <source toolchain="armgcc mcuxpresso" compiler="compiler_gcc" relative_path="portable/GCC/ARM_CM4F" type="src" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12">
+        <files mask="port.c"/>
+      </source>
+      <source toolchain="armgcc mcuxpresso" compiler="compiler_gcc" relative_path="portable/GCC/ARM_CM4F" type="c_include" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12">
+        <files mask="portmacro.h"/>
+      </source>
+      <source relative_path="portable/MemMang" type="other">
+        <files mask="ReadMe.url"/>
+      </source>
+      <source relative_path="portable" type="doc">
+        <files mask="readme.txt"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_freertos-kernel_MK64F12.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="include" type="c_include"/>
+        <include_path relative_path="portable/GCC/ARM_CM4F" toolchain="armgcc mcuxpresso" type="c_include" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12"/>
+      </include_paths>
+    </component>
+    <component id="middleware.freertos-kernel.armv8m.MK64F12" name="FreeRTOS port ARMv8M" brief="FreeRTOS port ARMv8M" version="202007.00.0" full_name="FreeRTOS port ARMv8M" devices="MK64FN1M0xxx12 MK64FX512xxx12" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <dependencies>
+        <component_dependency value="middleware.freertos-kernel.MK64F12"/>
+      </dependencies>
+      <source relative_path="portable/ARMv8M" type="script">
+        <files mask="copy_files.py"/>
+      </source>
+      <source relative_path="portable/ARMv8M/non_secure" type="src">
+        <files mask="port.c"/>
+      </source>
+      <source relative_path="portable/ARMv8M/non_secure/portable/GCC/ARM_CM33" type="src">
+        <files mask="portasm.c"/>
+      </source>
+      <source relative_path="portable/ARMv8M/non_secure/portable/GCC/ARM_CM33" type="c_include">
+        <files mask="portmacro.h"/>
+      </source>
+      <source relative_path="portable/ARMv8M/non_secure/portable/GCC/ARM_CM33_NTZ" type="src">
+        <files mask="portasm.c"/>
+      </source>
+      <source relative_path="portable/ARMv8M/non_secure/portable/GCC/ARM_CM33_NTZ" type="c_include">
+        <files mask="portmacro.h"/>
+      </source>
+      <source relative_path="portable/ARMv8M/non_secure/portable/IAR/ARM_CM33" type="asm_include">
+        <files mask="portasm.s"/>
+      </source>
+      <source relative_path="portable/ARMv8M/non_secure/portable/IAR/ARM_CM33" type="c_include">
+        <files mask="portmacro.h"/>
+      </source>
+      <source relative_path="portable/ARMv8M/non_secure/portable/IAR/ARM_CM33_NTZ" type="asm_include">
+        <files mask="portasm.s"/>
+      </source>
+      <source relative_path="portable/ARMv8M/non_secure/portable/IAR/ARM_CM33_NTZ" type="c_include">
+        <files mask="portmacro.h"/>
+      </source>
+      <source relative_path="portable/ARMv8M/non_secure" type="c_include">
+        <files mask="portasm.h"/>
+      </source>
+      <source relative_path="portable/ARMv8M/non_secure" type="doc">
+        <files mask="ReadMe.txt"/>
+      </source>
+      <source relative_path="portable/ARMv8M" type="doc">
+        <files mask="ReadMe.txt"/>
+      </source>
+      <source relative_path="portable/ARMv8M/secure/context/portable/GCC/ARM_CM33" type="src">
+        <files mask="secure_context_port.c"/>
+      </source>
+      <source relative_path="portable/ARMv8M/secure/context/portable/IAR/ARM_CM33" type="src">
+        <files mask="secure_context_port.c"/>
+      </source>
+      <source relative_path="portable/ARMv8M/secure/context/portable/IAR/ARM_CM33" type="asm_include">
+        <files mask="secure_context_port_asm.s"/>
+      </source>
+      <source relative_path="portable/ARMv8M/secure/context" type="src">
+        <files mask="secure_context.c"/>
+      </source>
+      <source relative_path="portable/ARMv8M/secure/context" type="c_include">
+        <files mask="secure_context.h"/>
+      </source>
+      <source relative_path="portable/ARMv8M/secure/heap" type="src">
+        <files mask="secure_heap.c"/>
+      </source>
+      <source relative_path="portable/ARMv8M/secure/heap" type="c_include">
+        <files mask="secure_heap.h"/>
+      </source>
+      <source relative_path="portable/ARMv8M/secure/init" type="src">
+        <files mask="secure_init.c"/>
+      </source>
+      <source relative_path="portable/ARMv8M/secure/init" type="c_include">
+        <files mask="secure_init.h"/>
+      </source>
+      <source relative_path="portable/ARMv8M/secure/macros" type="c_include">
+        <files mask="secure_port_macros.h"/>
+      </source>
+      <source relative_path="portable/ARMv8M/secure" type="doc">
+        <files mask="ReadMe.txt"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="portable/ARMv8M/non_secure/portable/GCC/ARM_CM33" type="c_include"/>
+        <include_path relative_path="portable/ARMv8M/non_secure/portable/GCC/ARM_CM33_NTZ" type="c_include"/>
+        <include_path relative_path="portable/ARMv8M/non_secure/portable/IAR/ARM_CM33" type="c_include"/>
+        <include_path relative_path="portable/ARMv8M/non_secure/portable/IAR/ARM_CM33_NTZ" type="c_include"/>
+        <include_path relative_path="portable/ARMv8M/non_secure" type="c_include"/>
+        <include_path relative_path="portable/ARMv8M/secure/context" type="c_include"/>
+        <include_path relative_path="portable/ARMv8M/secure/heap" type="c_include"/>
+        <include_path relative_path="portable/ARMv8M/secure/init" type="c_include"/>
+        <include_path relative_path="portable/ARMv8M/secure/macros" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.freertos-kernel.extension.MK64F12" name="FreeRTOS NXP extension" brief="FreeRTOS NXP extension" version="202007.00.0" full_name="FreeRTOS NXP extension" devices="MK64FN1M0xxx12 MK64FX512xxx12" category="Operating System/FreeRTOS kernel extensions" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <source relative_path="include" type="c_include">
+        <files mask="freertos_tasks_c_additions.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_freertos-kernel_extension_MK64F12.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="include" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.freertos-kernel.heap_1.MK64F12" name="FreeRTOS heap 1" brief="FreeRTOS heap 1" version="202007.00.0" full_name="FreeRTOS heap 1" devices="MK64FN1M0xxx12 MK64FX512xxx12" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <dependencies>
+        <component_dependency value="middleware.freertos-kernel.MK64F12"/>
+      </dependencies>
+      <source relative_path="portable/MemMang" type="src">
+        <files mask="heap_1.c"/>
+      </source>
+    </component>
+    <component id="middleware.freertos-kernel.heap_2.MK64F12" name="FreeRTOS heap 2" brief="FreeRTOS heap 2" version="202007.00.0" full_name="FreeRTOS heap 2" devices="MK64FN1M0xxx12 MK64FX512xxx12" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <dependencies>
+        <component_dependency value="middleware.freertos-kernel.MK64F12"/>
+      </dependencies>
+      <source relative_path="portable/MemMang" type="src">
+        <files mask="heap_2.c"/>
+      </source>
+    </component>
+    <component id="middleware.freertos-kernel.heap_3.MK64F12" name="FreeRTOS heap 3" brief="FreeRTOS heap 3" version="202007.00.0" full_name="FreeRTOS heap_3" devices="MK64FN1M0xxx12 MK64FX512xxx12" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <dependencies>
+        <component_dependency value="middleware.freertos-kernel.MK64F12"/>
+      </dependencies>
+      <source relative_path="portable/MemMang" type="src">
+        <files mask="heap_3.c"/>
+      </source>
+    </component>
+    <component id="middleware.freertos-kernel.heap_4.MK64F12" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="202007.00.0" full_name="FreeRTOS heap 4" devices="MK64FN1M0xxx12 MK64FX512xxx12" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <dependencies>
+        <component_dependency value="middleware.freertos-kernel.MK64F12"/>
+      </dependencies>
+      <source relative_path="portable/MemMang" type="src">
+        <files mask="heap_4.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_freertos-kernel_heap_4_MK64F12.cmake" hidden="true"/>
+      </source>
+    </component>
+    <component id="middleware.freertos-kernel.heap_5.MK64F12" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="202007.00.0" full_name="FreeRTOS heap 5" devices="MK64FN1M0xxx12 MK64FX512xxx12" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <dependencies>
+        <component_dependency value="middleware.freertos-kernel.MK64F12"/>
+      </dependencies>
+      <source relative_path="portable/MemMang" type="src">
+        <files mask="heap_5.c"/>
+      </source>
+    </component>
+    <component id="middleware.freertos-kernel.heap_newlib.MK64F12" name="FreeRTOS heap newlib" brief="FreeRTOS heap newlib" version="202007.00.0" full_name="FreeRTOS heap newlib" devices="MK64FN1M0xxx12 MK64FX512xxx12" category="Operating System/FreeRTOS kernel extensions" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <dependencies>
+        <component_dependency value="middleware.freertos-kernel.MK64F12"/>
+      </dependencies>
+      <source relative_path="portable/MemMang" type="src">
+        <files mask="heap_useNewlib.c"/>
+      </source>
+    </component>
+    <component id="middleware.freertos-kernel.mpu_wrappers.MK64F12" name="FreeRTOS MPU wrappers" brief="FreeRTOS MPU wrappers" version="202007.00.0" full_name="FreeRTOS MPU wrappers" devices="MK64FN1M0xxx12 MK64FX512xxx12" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <dependencies>
+        <component_dependency value="middleware.freertos-kernel.MK64F12"/>
+      </dependencies>
+      <source relative_path="portable/Common" type="src">
+        <files mask="mpu_wrappers.c"/>
+      </source>
+    </component>
+    <component id="middleware.freertos-kernel.template.MK64F12" name="FreeRTOS configuration template" brief="Template configuration file to be edited by user. Provides also memory allocator (heap_x), change variant if needed." version="202007.00.0" full_name="FreeRTOS configuration template" devices="MK64FN1M0xxx12 MK64FX512xxx12" category="Operating System/FreeRTOS kernel" user_visible="false" type="project_template" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <source relative_path="template/ARM_CM4F" type="c_include" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12">
+        <files mask="FreeRTOSConfig.h"/>
+      </source>
+      <source exclude="true" relative_path="portable/MemMang" type="src">
+        <files mask="heap_1.c"/>
+        <files mask="heap_2.c"/>
+        <files mask="heap_3.c"/>
+        <files mask="heap_5.c"/>
+        <files mask="heap_useNewlib.c"/>
+      </source>
+      <source relative_path="portable/MemMang" type="src">
+        <files mask="heap_4.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="template/ARM_CM4F" type="c_include" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12"/>
+      </include_paths>
+    </component>
+    <component id="middleware.freertos-kernel.unused.MK64F12" name="FreeRTOS unused" brief="FreeRTOS unused" version="202007.00.0" full_name="FreeRTOS unused" devices="MK64FN1M0xxx12 MK64FX512xxx12" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <source relative_path="./" type="doc">
+        <files mask="History.txt"/>
+        <files mask="readme.txt"/>
+      </source>
+      <source relative_path="./" type="other">
+        <files mask="Quick_Start_Guide.url"/>
+      </source>
+      <source relative_path="include" type="doc">
+        <files mask="stdint.readme"/>
+      </source>
+      <source relative_path="License" type="doc">
+        <files mask="license.txt"/>
+      </source>
+      <source relative_path="portable/ARMClang" type="doc">
+        <files mask="Use-the-GCC-ports.txt"/>
       </source>
     </component>
     <component id="middleware.mmcau.cm4_cm7.MK64F12" name="mmcau_cm4_cm7" brief="MMCAU library for ARM Cortex M4/M7 core" version="2.0.1" full_name="Kinetis MMCAU security function library for Arm Cortex-M4 and Cortex-M7" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" category="Security/MMCAU library" user_visible="true" type="middleware" package_base_path="core/middleware/mmcau" project_base_path="mmcau">
@@ -2553,7 +2982,233 @@ ${load}</script>
         <files mask="fsl_mmcau.dox" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.usb.common_header.MK64F12" name="USB Common Header" brief="Middleware usb common_header" version="2.7.0" full_name="USB Common Header" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" category="USB/USB Common Header" user_visible="true" type="middleware" package_base_path="core/middleware/usb" project_base_path="usb">
+    <component id="middleware.sdmmc.common.MK64F12" name="sdmmc_common" brief="Middleware sdmmc common" version="2.3.0" full_name="SDMMC common stack" devices="MK64FN1M0xxx12 MK64FX512xxx12" category="Memories/SDMMC Stack" user_visible="false" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
+      <source relative_path="common" project_relative_path="inc" type="c_include">
+        <files mask="fsl_sdmmc_spec.h"/>
+        <files mask="fsl_sdmmc_common.h"/>
+      </source>
+      <source relative_path="common" project_relative_path="src" type="src">
+        <files mask="fsl_sdmmc_common.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_sdmmc_common_MK64F12.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="common" project_relative_path="inc" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.sdmmc.host.sdhc.MK64F12" name="sdmmc_host_sdhc" brief="Middleware sdmmc host sdhc" version="2.3.1" full_name="Middleware sdmmc host sdhc" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" category="Memories/SDMMC Stack" user_visible="true" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
+      <dependencies>
+        <any_of>
+          <component_dependency value="middleware.sdmmc.host.sdhc.interrupt.MK64F12"/>
+          <component_dependency value="middleware.sdmmc.host.sdhc.polling.MK64F12"/>
+          <component_dependency value="middleware.sdmmc.host.sdhc.freertos.MK64F12"/>
+        </any_of>
+      </dependencies>
+      <source relative_path="host/sdhc" project_relative_path="host" type="c_include">
+        <files mask="fsl_sdmmc_host.h"/>
+      </source>
+      <source relative_path="host/sdhc" project_relative_path="host" type="doc">
+        <files mask="ChangeLogKSDK.txt"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_sdmmc_host_sdhc_MK64F12.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="host/sdhc" project_relative_path="host" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.sdmmc.host.sdhc.freertos.MK64F12" name="sdmmc_host_sdhc_freertos" brief="Middleware sdmmc host sdhc freertos" version="2.3.1" full_name="Middleware sdmmc host sdhc freertos" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" category="Memories/SDMMC Stack" user_visible="true" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.sdmmc.common.MK64F12"/>
+          <component_dependency value="middleware.sdmmc.osa.freertos.MK64F12"/>
+          <component_dependency value="platform.drivers.sdhc.MK64F12"/>
+        </all>
+      </dependencies>
+      <source relative_path="host/sdhc/non_blocking" project_relative_path="host" type="src">
+        <files mask="fsl_sdmmc_host.c"/>
+      </source>
+      <source relative_path="host/sdhc" project_relative_path="host" type="c_include">
+        <files mask="fsl_sdmmc_host.h"/>
+      </source>
+      <source relative_path="host/sdhc" project_relative_path="host" type="doc">
+        <files mask="ChangeLogKSDK.txt"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_sdmmc_host_sdhc_freertos_MK64F12.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="host/sdhc" project_relative_path="host" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.sdmmc.host.sdhc.interrupt.MK64F12" name="sdmmc_host_sdhc_inetrrupt" brief="Middleware sdmmc host sdhc interrupt" version="2.3.1" full_name="Middleware sdmmc host sdhc interrupt" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" category="Memories/SDMMC Stack" user_visible="true" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.sdmmc.common.MK64F12"/>
+          <component_dependency value="middleware.sdmmc.osa.bm.MK64F12"/>
+          <component_dependency value="platform.drivers.sdhc.MK64F12"/>
+        </all>
+      </dependencies>
+      <source relative_path="host/sdhc/non_blocking" project_relative_path="host" type="src">
+        <files mask="fsl_sdmmc_host.c"/>
+      </source>
+      <source relative_path="host/sdhc" project_relative_path="host" type="c_include">
+        <files mask="fsl_sdmmc_host.h"/>
+      </source>
+      <source relative_path="host/sdhc" project_relative_path="host" type="doc">
+        <files mask="ChangeLogKSDK.txt"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_sdmmc_host_sdhc_interrupt_MK64F12.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="host/sdhc" project_relative_path="host" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.sdmmc.host.sdhc.polling.MK64F12" name="sdmmc_host_sdhc_polling" brief="Middleware sdmmc host sdhc polling" version="2.3.1" full_name="Middleware sdmmc host sdhc polling" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" category="Memories/SDMMC Stack" user_visible="true" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.sdmmc.common.MK64F12"/>
+          <component_dependency value="middleware.sdmmc.osa.bm.MK64F12"/>
+          <component_dependency value="platform.drivers.sdhc.MK64F12"/>
+        </all>
+      </dependencies>
+      <source relative_path="host/sdhc/blocking" project_relative_path="host" type="src">
+        <files mask="fsl_sdmmc_host.c"/>
+      </source>
+      <source relative_path="host/sdhc" project_relative_path="host" type="c_include">
+        <files mask="fsl_sdmmc_host.h"/>
+      </source>
+      <source relative_path="host/sdhc" project_relative_path="host" type="doc">
+        <files mask="ChangeLogKSDK.txt"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_sdmmc_host_sdhc_polling_MK64F12.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="host/sdhc" project_relative_path="host" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.sdmmc.mmc.MK64F12" name="mmc" brief="Middleware sdmmc mmc" version="2.4.1" full_name="SDMMC mmc stack" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" category="Memories/SDMMC Stack" user_visible="true" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.sdmmc.common.MK64F12"/>
+          <component_dependency value="middleware.sdmmc.host.sdhc.MK64F12"/>
+        </all>
+      </dependencies>
+      <source relative_path="mmc" project_relative_path="src" type="src">
+        <files mask="fsl_mmc.c"/>
+      </source>
+      <source relative_path="mmc" project_relative_path="inc" type="c_include">
+        <files mask="fsl_mmc.h"/>
+      </source>
+      <source relative_path="mmc" project_relative_path="./mmc" type="doc">
+        <files mask="ChangeLogKSDK.txt"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="mmc" project_relative_path="inc" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.sdmmc.osa.bm.MK64F12" name="sdmmc_osa_bm" brief="Middleware sdmmc osa_bm" version="2.3.0" full_name="SDMMC common stack" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" category="Memories/SDMMC Stack" user_visible="true" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
+      <dependencies>
+        <component_dependency value="component.osa_bm.MK64F12"/>
+      </dependencies>
+      <source relative_path="osa" type="c_include">
+        <files mask="fsl_sdmmc_osa.h"/>
+      </source>
+      <source relative_path="osa" type="src">
+        <files mask="fsl_sdmmc_osa.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_sdmmc_osa_bm_MK64F12.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="osa" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.sdmmc.osa.freertos.MK64F12" name="sdmmc_osa_freertos" brief="Middleware sdmmc osa_freertos" version="2.3.0" full_name="SDMMC common stack" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" category="Memories/SDMMC Stack" user_visible="true" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
+      <dependencies>
+        <component_dependency value="component.osa_free_rtos.MK64F12"/>
+      </dependencies>
+      <source relative_path="osa" type="c_include">
+        <files mask="fsl_sdmmc_osa.h"/>
+      </source>
+      <source relative_path="osa" type="src">
+        <files mask="fsl_sdmmc_osa.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_sdmmc_osa_freertos_MK64F12.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="osa" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.sdmmc.sd.MK64F12" name="sd" brief="Middleware sdmmc sd" version="2.3.3" full_name="SDMMC sd stack" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" category="Memories/SDMMC Stack" user_visible="true" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.sdmmc.common.MK64F12"/>
+          <component_dependency value="middleware.sdmmc.host.sdhc.MK64F12"/>
+        </all>
+      </dependencies>
+      <source relative_path="sd" project_relative_path="src" type="src">
+        <files mask="fsl_sd.c"/>
+      </source>
+      <source relative_path="sd" project_relative_path="inc" type="c_include">
+        <files mask="fsl_sd.h"/>
+      </source>
+      <source relative_path="sd" project_relative_path="./sd" type="doc">
+        <files mask="ChangeLogKSDK.txt"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_sdmmc_sd_MK64F12.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="sd" project_relative_path="inc" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.sdmmc.sdio.MK64F12" name="sdio" brief="Middleware sdmmc sdio" version="2.3.2" full_name="SDMMC sdio stack" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" category="Memories/SDMMC Stack" user_visible="true" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.sdmmc.common.MK64F12"/>
+          <component_dependency value="middleware.sdmmc.host.sdhc.MK64F12"/>
+        </all>
+      </dependencies>
+      <source relative_path="sdio" project_relative_path="src" type="src">
+        <files mask="fsl_sdio.c"/>
+      </source>
+      <source relative_path="sdio" project_relative_path="inc" type="c_include">
+        <files mask="fsl_sdio.h"/>
+      </source>
+      <source relative_path="sdio" project_relative_path="./sdio" type="doc">
+        <files mask="ChangeLogKSDK.txt"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="sdio" project_relative_path="inc" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.sdmmc.sdspi.MK64F12" name="sdspi" brief="Middleware sdmmc sdspi" version="2.2.1" full_name="SDMMC sdspi stack" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" category="Memories/SDMMC Stack" user_visible="true" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
+      <dependencies>
+        <component_dependency value="platform.drivers.dspi.MK64F12"/>
+      </dependencies>
+      <source relative_path="sdspi" project_relative_path="src" type="src">
+        <files mask="fsl_sdspi.c"/>
+      </source>
+      <source relative_path="sdspi" project_relative_path="inc" type="c_include">
+        <files mask="fsl_sdspi.h"/>
+      </source>
+      <source relative_path="common" project_relative_path="inc" type="c_include">
+        <files mask="fsl_sdmmc_spec.h"/>
+      </source>
+      <source relative_path="sdspi" project_relative_path="./" type="doc">
+        <files mask="ChangeLogKSDK.txt"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="sdspi" project_relative_path="inc" type="c_include"/>
+        <include_path relative_path="common" project_relative_path="inc" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.usb.common_header.MK64F12" name="USB Common Header" brief="Middleware usb common_header" version="2.7.0" full_name="USB Common Header" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" category="USB/USB Common Header" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <component_dependency value="component.osa.MK64F12"/>
       </dependencies>
@@ -2569,7 +3224,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.common_header.MK64F12" name="USB Device Common Header" brief="Middleware usb device common_header" version="2.7.0" full_name="USB Device Common Header" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="core/middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.common_header.MK64F12" name="USB Device Common Header" brief="Middleware usb device common_header" version="2.7.0" full_name="USB Device Common Header" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.MK64F12"/>
@@ -2590,7 +3245,7 @@ ${load}</script>
         <include_path relative_path="device" project_relative_path="device/source" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.otg.common_header.MK64F12" name="USB OTG Common Header" brief="Middleware usb otg common_header" version="2.7.0" full_name="USB OTG Common Header" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" category="USB/USB OTG" user_visible="true" type="middleware" package_base_path="core/middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.otg.common_header.MK64F12" name="USB OTG Common Header" brief="Middleware usb otg common_header" version="2.7.0" full_name="USB OTG Common Header" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" category="USB/USB OTG" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.MK64F12"/>

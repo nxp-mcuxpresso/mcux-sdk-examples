@@ -1,0 +1,3 @@
+        <#if memory.name=="SRAM_ITC">
+        *fsl_lpspi.o(.text .text* .rodata .rodata*)
+        </#if>

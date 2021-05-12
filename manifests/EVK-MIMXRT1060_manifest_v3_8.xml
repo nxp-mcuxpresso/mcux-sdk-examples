@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-04-02 04:49:06.054350-->
-  <!--This manifest is generated based on sdk repo commit: b1eede1d406d3392a45a06abc2494c2b87a1853b-->
+  <!--Timestamp (UTC): 2021-05-13 07:17:35.815742-->
+  <!--This manifest is generated based on sdk repo commit: 242d157ba29afc4bbd1dac95f382a1491bc2daf5-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
@@ -405,6 +405,76 @@ ${load}</script>
             <files mask="flexspi_nor_polling_transfer_v3_8.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt1060_freertos_event" name="freertos_event" brief="This document explains the freertos_event example. It shows how task waits for an event (defined setof bits in event group). This event can be set by any other process or interrupt in the system.The example application creates three tasks. Two write tasks write_task_1 and write_task_2continuously setting event bit 0 and bit 1.Read_task is waiting for any event bit and printing actual state on console. Event bits areautomatically cleared after read task is entered.Three possible states can occurre:Both bits are set.zBit B0 is set.Bit B1 is set." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/evkmimxrt1060/rtos_examples/freertos_event">
+          <external path="examples/evkmimxrt1060/rtos_examples/freertos_event" type="xml">
+            <files mask="freertos_event_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_freertos_generic" name="freertos_generic" brief="This document explains the freertos_generic example. It is based on code FreeRTOS documentation fromhttp://www.freertos.org/Hardware-independent-RTOS-example.html. It shows combination of severaltasks with queue, software timer, tick hook and semaphore.The example application creates three tasks. The prvQueueSendTask periodically sending data toxQueue queue. The prvQueueReceiveTask is waiting for incoming message and counting number ofreceived messages. Task prvEventSemaphoreTask is waiting for xEventSemaphore semaphore given fromvApplicationTickHook. Tick hook give semaphore every 500 ms.Other hook types used for RTOS and resource statistics are also demonstrated in example:* vApplicationIdleHook* vApplicationStackOverflowHook* vApplicationMallocFailedHook" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/evkmimxrt1060/rtos_examples/freertos_generic">
+          <external path="examples/evkmimxrt1060/rtos_examples/freertos_generic" type="xml">
+            <files mask="freertos_generic_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART drivere incombination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/evkmimxrt1060/rtos_examples/freertos_hello">
+          <external path="examples/evkmimxrt1060/rtos_examples/freertos_hello" type="xml">
+            <files mask="freertos_hello_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_freertos_hello_flash_operation" name="freertos_hello_flash_operation" brief="The FreeRTOS hello world flash operation project is a simple demonstration program that uses the SDK UART drivere incombination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates two tasks called flash_operation_task and hello_task . First task operate flash and suspend itself, second task print &quot;Hello world.&quot;   message periodically via debug console utility." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/evkmimxrt1060/rtos_examples/freertos_hello_flash_operation">
+          <external path="examples/evkmimxrt1060/rtos_examples/freertos_hello_flash_operation" type="xml">
+            <files mask="freertos_hello_flash_operation_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_freertos_lpi2c" name="freertos_lpi2c" brief="The LPI2C Example project is a demonstration program that uses the KSDK software to manipulate the Low Power Inter-Integrated Circuit.The example uses two instances of LPI2C, one in configured as master and the other one as slave.The LPI2C master sends data to LPI2C slave. The slave will check the data it receives and shows the log." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/evkmimxrt1060/rtos_examples/freertos_lpi2c">
+          <external path="examples/evkmimxrt1060/rtos_examples/freertos_lpi2c" type="xml">
+            <files mask="freertos_lpi2c_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_freertos_lpspi_b2b_master" name="freertos_lpspi_b2b_master" brief="The freertos_lpspi_b2b_master example shows how to use LPSPI driver in FreeRTOS." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/evkmimxrt1060/rtos_examples/freertos_lpspi_b2b/master">
+          <external path="examples/evkmimxrt1060/rtos_examples/freertos_lpspi_b2b/master" type="xml">
+            <files mask="freertos_lpspi_b2b_master_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_freertos_lpspi_b2b_slave" name="freertos_lpspi_b2b_slave" brief="The freertos_lpspi_b2b_slave example shows how to use LPSPI driver in FreeRTOS." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/evkmimxrt1060/rtos_examples/freertos_lpspi_b2b/slave">
+          <external path="examples/evkmimxrt1060/rtos_examples/freertos_lpspi_b2b/slave" type="xml">
+            <files mask="freertos_lpspi_b2b_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_freertos_lpuart" name="freertos_lpuart" brief="The LPUART example for FreeRTOS demonstrates the possibility to use the LPUART driver in the RTOS.The example uses single instance of LPUART IP and writes string into, then reads back chars.After every 4B received, these are sent back on LPUART." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/evkmimxrt1060/rtos_examples/freertos_lpuart">
+          <external path="examples/evkmimxrt1060/rtos_examples/freertos_lpuart" type="xml">
+            <files mask="freertos_lpuart_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_freertos_mutex" name="freertos_mutex" brief="This document explains the freertos_mutex example. It shows how mutex manage access to commonresource (terminal output).The example application creates two identical instances of write_task. Each task will lock the mutexbefore printing and unlock it after printing to ensure that the outputs from tasks are not mixedtogether.The test_task accept output message during creation as function parameter. Output message have twoparts. If xMutex is unlocked, the write_task_1 acquire xMutex and print first part of message. Thenrescheduling is performed. In this moment scheduler check if some other task could run, but secondtask write_task+_2 is blocked because xMutex is already locked by first write task. The firstwrite_task_1 continue from last point by printing of second message part. Finaly the xMutex isunlocked and second instance of write_task_2 is executed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/evkmimxrt1060/rtos_examples/freertos_mutex">
+          <external path="examples/evkmimxrt1060/rtos_examples/freertos_mutex" type="xml">
+            <files mask="freertos_mutex_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_freertos_queue" name="freertos_queue" brief="This document explains the freertos_queue example. This example introduce simple logging mechanismbased on message passing.Example could be devided in two parts. First part is logger. It contain three tasks:log_add().....Add new message into the log. Call xQueueSend function to pass new message into              message queue.log_init()....Initialize logger (create logging task and message queue log_queue).log_task()....Task responsible for printing of log output.Second part is application of this simple logging mechanism. Each of two tasks write_task_1 andwrite_task_2 print 5 messages into log." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/evkmimxrt1060/rtos_examples/freertos_queue">
+          <external path="examples/evkmimxrt1060/rtos_examples/freertos_queue" type="xml">
+            <files mask="freertos_queue_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_freertos_sem" name="freertos_sem" brief="This document explains the freertos_sem example, what to expect when running it and a briefintroduction to the API. The freertos_sem example code shows how semaphores works. Two differenttasks are synchronized in bilateral rendezvous model.The example uses four tasks. One producer_task and three consumer_tasks. The producer_task starts bycreating of two semaphores (xSemaphore_producer and xSemaphore_consumer). These semaphores controlaccess to virtual item. The synchronization is based on bilateral rendezvous pattern. Both ofconsumer and producer must be prepared to enable transaction." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/evkmimxrt1060/rtos_examples/freertos_sem">
+          <external path="examples/evkmimxrt1060/rtos_examples/freertos_sem" type="xml">
+            <files mask="freertos_sem_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_freertos_sem_static" name="freertos_sem_static" brief="This document explains the freertos_sem example, what to expect when running it and a briefintroduction to the API. The freertos_sem example code shows how semaphores works. Two differenttasks are synchronized in bilateral rendezvous model.The example uses four tasks. One producer_task and three consumer_tasks. The producer_task starts bycreating of two semaphores (xSemaphore_producer and xSemaphore_consumer). These semaphores controlaccess to virtual item. The synchronization is based on bilateral rendezvous pattern. Both ofconsumer and producer must be prepared to enable transaction." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/evkmimxrt1060/rtos_examples/freertos_sem_static">
+          <external path="examples/evkmimxrt1060/rtos_examples/freertos_sem_static" type="xml">
+            <files mask="freertos_sem_static_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_freertos_swtimer" name="freertos_swtimer" brief="This document explains the freertos_swtimer example. It shows usage of software timer and itscallback.The example application creates one software timer SwTimer. The timer's callback SwTimerCallback isperiodically executed and text &quot;Tick.&quot; is printed to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/evkmimxrt1060/rtos_examples/freertos_swtimer">
+          <external path="examples/evkmimxrt1060/rtos_examples/freertos_swtimer" type="xml">
+            <files mask="freertos_swtimer_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_freertos_tickless" name="freertos_tickless" brief="This document explains the freertos_tickless example. It shows the CPU enter at sleep mode and then it is waked up by expired time delay that using GPT module." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="examples/evkmimxrt1060/rtos_examples/freertos_tickless">
+          <external path="examples/evkmimxrt1060/rtos_examples/freertos_tickless" type="xml">
+            <files mask="freertos_tickless_v3_8.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt1060_fsl_romapi" name="fsl_romapi" brief="The fsl_romapi example shows how to use flexspi rom api In this example, rom api will send data and operate the external Nor flash connected with FLEXSPI. Some simple flash command willbe executed, such as Write Enable, Erase sector, Program page.Example will first erase the sector and program a page into the flash, at last check if the data in flash is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/fsl_romapi" path="examples/evkmimxrt1060/driver_examples/fsl_romapi">
           <external path="examples/evkmimxrt1060/driver_examples/fsl_romapi" type="xml">
             <files mask="fsl_romapi_v3_8.xml"/>
@@ -560,6 +630,11 @@ ${load}</script>
             <files mask="lpuart_polling_seven_bits_v3_8.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt1060_mmccard_freertos" name="mmccard_freertos" brief="The MMCCARD FreeRTOS project is a demonstration program that uses the SDK software. It reads/writes/erases the MMC card continusly. The purpose of this example is to show how to use MMCCARD driverwith FreeRTOS in SDK software to access MMC card.Note:User can use MMC plus card or emmc(on board IC, but not recommand use emmc socket,due to high speed timing restriction)" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/mmccard_freertos" path="examples/evkmimxrt1060/sdmmc_examples/mmccard_freertos">
+          <external path="examples/evkmimxrt1060/sdmmc_examples/mmccard_freertos" type="xml">
+            <files mask="mmccard_freertos_v3_8.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt1060_ocotp_example" name="ocotp_example" brief="The ocotp driver example shows how to operation the OCOTP register with driver API." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ocotp" path="examples/evkmimxrt1060/driver_examples/ocotp">
           <external path="examples/evkmimxrt1060/driver_examples/ocotp" type="xml">
             <files mask="ocotp_example_v3_8.xml"/>
@@ -573,6 +648,11 @@ ${load}</script>
         <example id="evkmimxrt1060_power_mode_switch_bm" name="power_mode_switch_bm" brief="The Power mode switch demo application demonstrates the use of power modes in the KSDK. The demo prints the power mode menuthrough the debug console, where the user can set the MCU to a specific power mode. The user can also set the wakeupsource by following the debug console prompts. The purpose of this demo is to show how to switch between different power modes, and how to configure a wakeup source and wakeup the MCU from low power modes. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - Debug pins(e.g SWD_DIO) would consume addtional power, had better to disable related pins or disconnect them. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/evkmimxrt1060/demo_apps/power_mode_switch/bm">
           <external path="examples/evkmimxrt1060/demo_apps/power_mode_switch/bm" type="xml">
             <files mask="power_mode_switch_bm_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_power_mode_switch_rtos" name="power_mode_switch_rtos" brief="The Power mode switch demo application demonstrates the use of power modes in the KSDK. The demo prints the power mode menuthrough the debug console, where the user can set the MCU to a specific power mode. The user can also set the wakeupsource by following the debug console prompts. The purpose of this demo is to show how to switch between different power modes, and how to configure a wakeup source and wakeup the MCU from low power modes. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - Debug pins(e.g SWD_DIO) would consume addtional power, had better to disable related pins or disconnect them. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/evkmimxrt1060/demo_apps/power_mode_switch/rtos">
+          <external path="examples/evkmimxrt1060/demo_apps/power_mode_switch/rtos" type="xml">
+            <files mask="power_mode_switch_rtos_v3_8.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1060_pwm" name="pwm" brief="The PWM project is a simple demonstration program of the SDK PWM driver.The pulse width modulator (PWM) module contains PWM submodules, each of which is set up to control a single half-bridge power stage.Fault channel support is provided. This PWM module can generate various switching patterns, including highly sophisticated waveforms.It can be used to control all known Switched Mode Power Supplies (SMPS) topologies." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/evkmimxrt1060/driver_examples/pwm">
@@ -673,6 +753,21 @@ ${load}</script>
         <example id="evkmimxrt1060_sai_interrupt_transfer" name="sai_interrupt_transfer" brief="The sai_interrupt_transfer example shows how to use sai driver with interrupt:In this example, one sai instance playbacks the audio data stored in flash/SRAM using interrupt." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sai" path="examples/evkmimxrt1060/driver_examples/sai/interrupt_transfer">
           <external path="examples/evkmimxrt1060/driver_examples/sai/interrupt_transfer" type="xml">
             <files mask="sai_interrupt_transfer_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_sdcard_freertos" name="sdcard_freertos" brief="The SDCARD FreeRTOS project is a demonstration program that uses the SDK software. It reads/writes/erases the SD card continusly. The purpose of this example is to show how to use SDCARD driver with FreeRTOS in SDK software to access SD card.Note: If DATA3 is used as the card detect PIN, please make sure DATA3 is pull down, no matter internal or external, at the same time, make sure the card can pull DATA3 up, then host can detect card through DATA3.And SDHC do not support detect card through CD by host, card can be detected through DATA3 or GPIO.No matter detect card through host or gpio, make sure the pinmux configuration is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/sdcard_freertos" path="examples/evkmimxrt1060/sdmmc_examples/sdcard_freertos">
+          <external path="examples/evkmimxrt1060/sdmmc_examples/sdcard_freertos" type="xml">
+            <files mask="sdcard_freertos_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_sdcard_interrupt" name="sdcard_interrupt" brief="The SDCARD Interrupt project is a demonstration program that uses the SDK software. It reads/writes/erases the SD card continusly. The purpose of this example is to show how to use SDCARD driver andshow how to use interrupt based transfer API in SDHC driver in SDK software to access SD card.Note: If DATA3 is used as the card detect PIN, please make sure DATA3 is pull down, no matter internal or external, at the same time, make sure the card can pull DATA3 up, then host can detect card through DATA3.And SDHC do not support detect card through CD by host, card can be detected through DATA3 or GPIO.No matter detect card through host or gpio, make sure the pinmux configuration is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/sdcard_interrupt" path="examples/evkmimxrt1060/sdmmc_examples/sdcard_interrupt">
+          <external path="examples/evkmimxrt1060/sdmmc_examples/sdcard_interrupt" type="xml">
+            <files mask="sdcard_interrupt_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_sdcard_polling" name="sdcard_polling" brief="The SDCARD Polling project is a demonstration program that uses the SDK software. It reads/writes/erases the SD card continusly. The purpose of this example is to show how to use SDCARD driver andshow how to use polling based transfer API in SDHC driver in SDK software to access SD card.Note: If DATA3 is used as the card detect PIN, please make sure DATA3 is pull down, no matter internal or external, at the same time, make sure the card can pull DATA3 up, then host can detect card through DATA3.And SDHC do not support detect card through CD by host, card can be detected through DATA3 or GPIO.No matter detect card through host or gpio, make sure the pinmux configuration is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/sdcard_polling" path="examples/evkmimxrt1060/sdmmc_examples/sdcard_polling">
+          <external path="examples/evkmimxrt1060/sdmmc_examples/sdcard_polling" type="xml">
+            <files mask="sdcard_polling_v3_8.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1060_semc" name="semc" brief="The sdramc example shows how to use SEMC controller driver to initialize the external SDRAM chip." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/semc" path="examples/evkmimxrt1060/driver_examples/semc/sdram">
@@ -1678,6 +1773,12 @@ ${load}</script>
       <source condition="middleware.baremetal.MIMXRT1062" relative_path="./" type="src">
         <files mask="fsl_os_abstraction_bm.c"/>
       </source>
+      <source condition="middleware.freertos-kernel.MIMXRT1062" relative_path="./" type="c_include">
+        <files mask="fsl_os_abstraction_free_rtos.h"/>
+      </source>
+      <source condition="middleware.freertos-kernel.MIMXRT1062" relative_path="./" type="src">
+        <files mask="fsl_os_abstraction_free_rtos.c"/>
+      </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="component_osa_MIMXRT1062.cmake" hidden="true"/>
       </source>
@@ -1702,6 +1803,29 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="component_osa_bm_MIMXRT1062.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.osa_free_rtos.MIMXRT1062" name="osa_free_rtos" brief="Component osa_free_rtos" version="1.0.0" full_name="Component osa_free_rtos" devices="MIMXRT1062xxxxA" device_cores="core0_MIMXRT1062xxxxA" user_visible="false" type="software_component" package_base_path="core/components/osa" project_base_path="component/osa">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.freertos-kernel.MIMXRT1062"/>
+          <component_dependency value="platform.drivers.common.MIMXRT1062"/>
+          <component_dependency value="component.lists.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_os_abstraction.h"/>
+        <files mask="fsl_os_abstraction_free_rtos.h"/>
+        <files mask="fsl_os_abstraction_config.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_os_abstraction_free_rtos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_osa_free_rtos_MIMXRT1062.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3001,6 +3125,26 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="platform.drivers.lpi2c_freertos.MIMXRT1062" name="i2c_freertos" brief="LPI2C Driver" version="2.2.0" full_name="LPI2C Freerto Driver" devices="MIMXRT1062xxxxA" device_cores="core0_MIMXRT1062xxxxA" user_visible="true" type="driver" package_base_path="core/drivers/lpi2c" project_base_path="drivers/freertos">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.lpi2c.MIMXRT1062"/>
+          <component_dependency value="middleware.freertos-kernel.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_lpi2c_freertos.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_lpi2c_freertos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_lpi2c_freertos_MIMXRT1062.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="platform.drivers.lpspi.MIMXRT1062" name="lpspi" brief="LPSPI Driver" version="2.1.0" full_name="LPSPI Driver" devices="MIMXRT1062xxxxA" device_cores="core0_MIMXRT1062xxxxA" user_visible="true" type="driver" package_base_path="core/drivers/lpspi" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MIMXRT1062"/>
@@ -3038,6 +3182,26 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="platform.drivers.lpspi_freertos.MIMXRT1062" name="lpspi_freertos" brief="LPSPI Driver" version="2.0.5" full_name="LPSPI Freertos Driver" devices="MIMXRT1062xxxxA" device_cores="core0_MIMXRT1062xxxxA" user_visible="true" type="driver" package_base_path="core/drivers/lpspi" project_base_path="drivers/freertos">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.lpspi.MIMXRT1062"/>
+          <component_dependency value="middleware.freertos-kernel.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_lpspi_freertos.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_lpspi_freertos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_lpspi_freertos_MIMXRT1062.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="platform.drivers.lpuart.MIMXRT1062" name="lpuart" brief="LPUART Driver" version="2.4.1" full_name="LPUART Driver" devices="MIMXRT1062xxxxA" device_cores="core0_MIMXRT1062xxxxA" user_visible="true" type="driver" package_base_path="core/drivers/lpuart" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MIMXRT1062"/>
@@ -3070,6 +3234,26 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="driver_lpuart_edma_MIMXRT1062.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.lpuart_freertos.MIMXRT1062" name="lpuart_freertos" brief="LPUART Driver" version="2.4.0" full_name="LPUART Freertos Driver" devices="MIMXRT1062xxxxA" device_cores="core0_MIMXRT1062xxxxA" user_visible="true" type="driver" package_base_path="core/drivers/lpuart" project_base_path="drivers/freertos">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.lpuart.MIMXRT1062"/>
+          <component_dependency value="middleware.freertos-kernel.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_lpuart_freertos.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_lpuart_freertos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_lpuart_freertos_MIMXRT1062.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3723,7 +3907,469 @@ ${load}</script>
         <files mask="middleware_baremetal_MIMXRT1062.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.usb.common_header.MIMXRT1062" name="USB Common Header" brief="Middleware usb common_header" version="2.7.0" full_name="USB Common Header" devices="MIMXRT1062xxxxA" device_cores="core0_MIMXRT1062xxxxA" category="USB/USB Common Header" user_visible="true" type="middleware" package_base_path="core/middleware/usb" project_base_path="usb">
+    <component id="middleware.freertos-kernel.MIMXRT1062" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="202007.00.0" full_name="FreeRTOS kernel" devices="MIMXRT1062xxxxA" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <defines>
+        <define name="FSL_RTOS_FREE_RTOS" value=""/>
+        <define name="SDK_OS_FREE_RTOS" value=""/>
+      </defines>
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.freertos-kernel.extension.MIMXRT1062"/>
+          <component_dependency value="middleware.freertos-kernel.template.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="src">
+        <files mask="event_groups.c"/>
+        <files mask="croutine.c"/>
+        <files mask="list.c"/>
+        <files mask="queue.c"/>
+        <files mask="stream_buffer.c"/>
+        <files mask="tasks.c"/>
+        <files mask="timers.c"/>
+      </source>
+      <source relative_path="include" type="c_include">
+        <files mask="croutine.h"/>
+        <files mask="StackMacros.h"/>
+        <files mask="atomic.h"/>
+        <files mask="deprecated_definitions.h"/>
+        <files mask="event_groups.h"/>
+        <files mask="FreeRTOS.h"/>
+        <files mask="list.h"/>
+        <files mask="message_buffer.h"/>
+        <files mask="mpu_prototypes.h"/>
+        <files mask="mpu_wrappers.h"/>
+        <files mask="portable.h"/>
+        <files mask="projdefs.h"/>
+        <files mask="queue.h"/>
+        <files mask="semphr.h"/>
+        <files mask="stack_macros.h"/>
+        <files mask="stream_buffer.h"/>
+        <files mask="task.h"/>
+        <files mask="timers.h"/>
+      </source>
+      <source toolchain="armgcc mcuxpresso" compiler="compiler_gcc" relative_path="portable/GCC/ARM_CM4F" type="src" device_cores="core0_MIMXRT1062xxxxA">
+        <files mask="port.c"/>
+      </source>
+      <source toolchain="armgcc mcuxpresso" compiler="compiler_gcc" relative_path="portable/GCC/ARM_CM4F" type="c_include" device_cores="core0_MIMXRT1062xxxxA">
+        <files mask="portmacro.h"/>
+      </source>
+      <source relative_path="portable/MemMang" type="other">
+        <files mask="ReadMe.url"/>
+      </source>
+      <source relative_path="portable" type="doc">
+        <files mask="readme.txt"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_freertos-kernel_MIMXRT1062.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="include" type="c_include"/>
+        <include_path relative_path="portable/GCC/ARM_CM4F" toolchain="armgcc mcuxpresso" type="c_include" device_cores="core0_MIMXRT1062xxxxA"/>
+      </include_paths>
+    </component>
+    <component id="middleware.freertos-kernel.armv8m.MIMXRT1062" name="FreeRTOS port ARMv8M" brief="FreeRTOS port ARMv8M" version="202007.00.0" full_name="FreeRTOS port ARMv8M" devices="MIMXRT1062xxxxA" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <dependencies>
+        <component_dependency value="middleware.freertos-kernel.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="portable/ARMv8M" type="script">
+        <files mask="copy_files.py"/>
+      </source>
+      <source relative_path="portable/ARMv8M/non_secure" type="src">
+        <files mask="port.c"/>
+      </source>
+      <source relative_path="portable/ARMv8M/non_secure/portable/GCC/ARM_CM33" type="src">
+        <files mask="portasm.c"/>
+      </source>
+      <source relative_path="portable/ARMv8M/non_secure/portable/GCC/ARM_CM33" type="c_include">
+        <files mask="portmacro.h"/>
+      </source>
+      <source relative_path="portable/ARMv8M/non_secure/portable/GCC/ARM_CM33_NTZ" type="src">
+        <files mask="portasm.c"/>
+      </source>
+      <source relative_path="portable/ARMv8M/non_secure/portable/GCC/ARM_CM33_NTZ" type="c_include">
+        <files mask="portmacro.h"/>
+      </source>
+      <source relative_path="portable/ARMv8M/non_secure/portable/IAR/ARM_CM33" type="asm_include">
+        <files mask="portasm.s"/>
+      </source>
+      <source relative_path="portable/ARMv8M/non_secure/portable/IAR/ARM_CM33" type="c_include">
+        <files mask="portmacro.h"/>
+      </source>
+      <source relative_path="portable/ARMv8M/non_secure/portable/IAR/ARM_CM33_NTZ" type="asm_include">
+        <files mask="portasm.s"/>
+      </source>
+      <source relative_path="portable/ARMv8M/non_secure/portable/IAR/ARM_CM33_NTZ" type="c_include">
+        <files mask="portmacro.h"/>
+      </source>
+      <source relative_path="portable/ARMv8M/non_secure" type="c_include">
+        <files mask="portasm.h"/>
+      </source>
+      <source relative_path="portable/ARMv8M/non_secure" type="doc">
+        <files mask="ReadMe.txt"/>
+      </source>
+      <source relative_path="portable/ARMv8M" type="doc">
+        <files mask="ReadMe.txt"/>
+      </source>
+      <source relative_path="portable/ARMv8M/secure/context/portable/GCC/ARM_CM33" type="src">
+        <files mask="secure_context_port.c"/>
+      </source>
+      <source relative_path="portable/ARMv8M/secure/context/portable/IAR/ARM_CM33" type="src">
+        <files mask="secure_context_port.c"/>
+      </source>
+      <source relative_path="portable/ARMv8M/secure/context/portable/IAR/ARM_CM33" type="asm_include">
+        <files mask="secure_context_port_asm.s"/>
+      </source>
+      <source relative_path="portable/ARMv8M/secure/context" type="src">
+        <files mask="secure_context.c"/>
+      </source>
+      <source relative_path="portable/ARMv8M/secure/context" type="c_include">
+        <files mask="secure_context.h"/>
+      </source>
+      <source relative_path="portable/ARMv8M/secure/heap" type="src">
+        <files mask="secure_heap.c"/>
+      </source>
+      <source relative_path="portable/ARMv8M/secure/heap" type="c_include">
+        <files mask="secure_heap.h"/>
+      </source>
+      <source relative_path="portable/ARMv8M/secure/init" type="src">
+        <files mask="secure_init.c"/>
+      </source>
+      <source relative_path="portable/ARMv8M/secure/init" type="c_include">
+        <files mask="secure_init.h"/>
+      </source>
+      <source relative_path="portable/ARMv8M/secure/macros" type="c_include">
+        <files mask="secure_port_macros.h"/>
+      </source>
+      <source relative_path="portable/ARMv8M/secure" type="doc">
+        <files mask="ReadMe.txt"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="portable/ARMv8M/non_secure/portable/GCC/ARM_CM33" type="c_include"/>
+        <include_path relative_path="portable/ARMv8M/non_secure/portable/GCC/ARM_CM33_NTZ" type="c_include"/>
+        <include_path relative_path="portable/ARMv8M/non_secure/portable/IAR/ARM_CM33" type="c_include"/>
+        <include_path relative_path="portable/ARMv8M/non_secure/portable/IAR/ARM_CM33_NTZ" type="c_include"/>
+        <include_path relative_path="portable/ARMv8M/non_secure" type="c_include"/>
+        <include_path relative_path="portable/ARMv8M/secure/context" type="c_include"/>
+        <include_path relative_path="portable/ARMv8M/secure/heap" type="c_include"/>
+        <include_path relative_path="portable/ARMv8M/secure/init" type="c_include"/>
+        <include_path relative_path="portable/ARMv8M/secure/macros" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.freertos-kernel.extension.MIMXRT1062" name="FreeRTOS NXP extension" brief="FreeRTOS NXP extension" version="202007.00.0" full_name="FreeRTOS NXP extension" devices="MIMXRT1062xxxxA" category="Operating System/FreeRTOS kernel extensions" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <source relative_path="include" type="c_include">
+        <files mask="freertos_tasks_c_additions.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_freertos-kernel_extension_MIMXRT1062.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="include" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.freertos-kernel.heap_1.MIMXRT1062" name="FreeRTOS heap 1" brief="FreeRTOS heap 1" version="202007.00.0" full_name="FreeRTOS heap 1" devices="MIMXRT1062xxxxA" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <dependencies>
+        <component_dependency value="middleware.freertos-kernel.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="portable/MemMang" type="src">
+        <files mask="heap_1.c"/>
+      </source>
+    </component>
+    <component id="middleware.freertos-kernel.heap_2.MIMXRT1062" name="FreeRTOS heap 2" brief="FreeRTOS heap 2" version="202007.00.0" full_name="FreeRTOS heap 2" devices="MIMXRT1062xxxxA" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <dependencies>
+        <component_dependency value="middleware.freertos-kernel.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="portable/MemMang" type="src">
+        <files mask="heap_2.c"/>
+      </source>
+    </component>
+    <component id="middleware.freertos-kernel.heap_3.MIMXRT1062" name="FreeRTOS heap 3" brief="FreeRTOS heap 3" version="202007.00.0" full_name="FreeRTOS heap_3" devices="MIMXRT1062xxxxA" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <dependencies>
+        <component_dependency value="middleware.freertos-kernel.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="portable/MemMang" type="src">
+        <files mask="heap_3.c"/>
+      </source>
+    </component>
+    <component id="middleware.freertos-kernel.heap_4.MIMXRT1062" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="202007.00.0" full_name="FreeRTOS heap 4" devices="MIMXRT1062xxxxA" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <dependencies>
+        <component_dependency value="middleware.freertos-kernel.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="portable/MemMang" type="src">
+        <files mask="heap_4.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_freertos-kernel_heap_4_MIMXRT1062.cmake" hidden="true"/>
+      </source>
+    </component>
+    <component id="middleware.freertos-kernel.heap_5.MIMXRT1062" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="202007.00.0" full_name="FreeRTOS heap 5" devices="MIMXRT1062xxxxA" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <dependencies>
+        <component_dependency value="middleware.freertos-kernel.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="portable/MemMang" type="src">
+        <files mask="heap_5.c"/>
+      </source>
+    </component>
+    <component id="middleware.freertos-kernel.heap_newlib.MIMXRT1062" name="FreeRTOS heap newlib" brief="FreeRTOS heap newlib" version="202007.00.0" full_name="FreeRTOS heap newlib" devices="MIMXRT1062xxxxA" category="Operating System/FreeRTOS kernel extensions" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <dependencies>
+        <component_dependency value="middleware.freertos-kernel.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="portable/MemMang" type="src">
+        <files mask="heap_useNewlib.c"/>
+      </source>
+    </component>
+    <component id="middleware.freertos-kernel.mpu_wrappers.MIMXRT1062" name="FreeRTOS MPU wrappers" brief="FreeRTOS MPU wrappers" version="202007.00.0" full_name="FreeRTOS MPU wrappers" devices="MIMXRT1062xxxxA" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <dependencies>
+        <component_dependency value="middleware.freertos-kernel.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="portable/Common" type="src">
+        <files mask="mpu_wrappers.c"/>
+      </source>
+    </component>
+    <component id="middleware.freertos-kernel.template.MIMXRT1062" name="FreeRTOS configuration template" brief="Template configuration file to be edited by user. Provides also memory allocator (heap_x), change variant if needed." version="202007.00.0" full_name="FreeRTOS configuration template" devices="MIMXRT1062xxxxA" category="Operating System/FreeRTOS kernel" user_visible="false" type="project_template" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <source relative_path="template/ARM_CM4F" type="c_include" device_cores="core0_MIMXRT1062xxxxA">
+        <files mask="FreeRTOSConfig.h"/>
+      </source>
+      <source exclude="true" relative_path="portable/MemMang" type="src">
+        <files mask="heap_1.c"/>
+        <files mask="heap_2.c"/>
+        <files mask="heap_3.c"/>
+        <files mask="heap_5.c"/>
+        <files mask="heap_useNewlib.c"/>
+      </source>
+      <source relative_path="portable/MemMang" type="src">
+        <files mask="heap_4.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="template/ARM_CM4F" type="c_include" device_cores="core0_MIMXRT1062xxxxA"/>
+      </include_paths>
+    </component>
+    <component id="middleware.freertos-kernel.unused.MIMXRT1062" name="FreeRTOS unused" brief="FreeRTOS unused" version="202007.00.0" full_name="FreeRTOS unused" devices="MIMXRT1062xxxxA" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+      <source relative_path="./" type="doc">
+        <files mask="History.txt"/>
+        <files mask="readme.txt"/>
+      </source>
+      <source relative_path="./" type="other">
+        <files mask="Quick_Start_Guide.url"/>
+      </source>
+      <source relative_path="include" type="doc">
+        <files mask="stdint.readme"/>
+      </source>
+      <source relative_path="License" type="doc">
+        <files mask="license.txt"/>
+      </source>
+      <source relative_path="portable/ARMClang" type="doc">
+        <files mask="Use-the-GCC-ports.txt"/>
+      </source>
+    </component>
+    <component id="middleware.sdmmc.common.MIMXRT1062" name="sdmmc_common" brief="Middleware sdmmc common" version="2.3.0" full_name="SDMMC common stack" devices="MIMXRT1062xxxxA" category="Memories/SDMMC Stack" user_visible="false" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
+      <source relative_path="common" project_relative_path="inc" type="c_include">
+        <files mask="fsl_sdmmc_spec.h"/>
+        <files mask="fsl_sdmmc_common.h"/>
+      </source>
+      <source relative_path="common" project_relative_path="src" type="src">
+        <files mask="fsl_sdmmc_common.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_sdmmc_common_MIMXRT1062.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="common" project_relative_path="inc" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.sdmmc.host.usdhc.MIMXRT1062" name="sdmmc_host_usdhc" brief="Middleware sdmmc host usdhc" version="2.5.0" full_name="Middleware sdmmc host usdhc" devices="MIMXRT1062xxxxA" device_cores="core0_MIMXRT1062xxxxA" category="Memories/SDMMC Stack" user_visible="true" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
+      <dependencies>
+        <any_of>
+          <component_dependency value="middleware.sdmmc.host.usdhc.interrupt.MIMXRT1062"/>
+          <component_dependency value="middleware.sdmmc.host.usdhc.polling.MIMXRT1062"/>
+          <component_dependency value="middleware.sdmmc.host.usdhc.freertos.MIMXRT1062"/>
+        </any_of>
+      </dependencies>
+      <source relative_path="host/usdhc" project_relative_path="host" type="c_include">
+        <files mask="fsl_sdmmc_host.h"/>
+      </source>
+      <source relative_path="host/usdhc" project_relative_path="host" type="doc">
+        <files mask="ChangeLogKSDK.txt"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_sdmmc_host_usdhc_MIMXRT1062.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="host/usdhc" project_relative_path="host" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.sdmmc.host.usdhc.freertos.MIMXRT1062" name="sdmmc_host_usdhc_freertos" brief="Middleware sdmmc host usdhc freertos" version="2.5.0" full_name="Middleware sdmmc host usdhc freertos" devices="MIMXRT1062xxxxA" device_cores="core0_MIMXRT1062xxxxA" category="Memories/SDMMC Stack" user_visible="true" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.sdmmc.common.MIMXRT1062"/>
+          <component_dependency value="middleware.sdmmc.osa.freertos.MIMXRT1062"/>
+          <component_dependency value="platform.drivers.usdhc.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source relative_path="host/usdhc/non_blocking" project_relative_path="host" type="src">
+        <files mask="fsl_sdmmc_host.c"/>
+      </source>
+      <source relative_path="host/usdhc" project_relative_path="host" type="c_include">
+        <files mask="fsl_sdmmc_host.h"/>
+      </source>
+      <source relative_path="host/usdhc" project_relative_path="host" type="doc">
+        <files mask="ChangeLogKSDK.txt"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_sdmmc_host_usdhc_freertos_MIMXRT1062.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="host/usdhc" project_relative_path="host" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.sdmmc.host.usdhc.interrupt.MIMXRT1062" name="sdmmc_host_usdhc_interrupt" brief="Middleware sdmmc host usdhc interrupt" version="2.5.0" full_name="Middleware sdmmc host usdhc interrupt" devices="MIMXRT1062xxxxA" device_cores="core0_MIMXRT1062xxxxA" category="Memories/SDMMC Stack" user_visible="true" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.sdmmc.common.MIMXRT1062"/>
+          <component_dependency value="middleware.sdmmc.osa.bm.MIMXRT1062"/>
+          <component_dependency value="platform.drivers.usdhc.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source relative_path="host/usdhc/non_blocking" project_relative_path="host" type="src">
+        <files mask="fsl_sdmmc_host.c"/>
+      </source>
+      <source relative_path="host/usdhc" project_relative_path="host" type="c_include">
+        <files mask="fsl_sdmmc_host.h"/>
+      </source>
+      <source relative_path="host/usdhc" project_relative_path="host" type="doc">
+        <files mask="ChangeLogKSDK.txt"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_sdmmc_host_usdhc_interrupt_MIMXRT1062.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="host/usdhc" project_relative_path="host" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.sdmmc.host.usdhc.polling.MIMXRT1062" name="sdmmc_host_usdhc_polling" brief="Middleware sdmmc host usdhc polling" version="2.5.0" full_name="Middleware sdmmc host usdhc polling" devices="MIMXRT1062xxxxA" device_cores="core0_MIMXRT1062xxxxA" category="Memories/SDMMC Stack" user_visible="true" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.sdmmc.common.MIMXRT1062"/>
+          <component_dependency value="middleware.sdmmc.osa.bm.MIMXRT1062"/>
+          <component_dependency value="platform.drivers.usdhc.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source relative_path="host/usdhc/blocking" project_relative_path="host" type="src">
+        <files mask="fsl_sdmmc_host.c"/>
+      </source>
+      <source relative_path="host/usdhc" project_relative_path="host" type="c_include">
+        <files mask="fsl_sdmmc_host.h"/>
+      </source>
+      <source relative_path="host/usdhc" project_relative_path="host" type="doc">
+        <files mask="ChangeLogKSDK.txt"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_sdmmc_host_usdhc_polling_MIMXRT1062.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="host/usdhc" project_relative_path="host" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.sdmmc.mmc.MIMXRT1062" name="mmc" brief="Middleware sdmmc mmc" version="2.4.1" full_name="SDMMC mmc stack" devices="MIMXRT1062xxxxA" device_cores="core0_MIMXRT1062xxxxA" category="Memories/SDMMC Stack" user_visible="true" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.sdmmc.common.MIMXRT1062"/>
+          <component_dependency value="middleware.sdmmc.host.usdhc.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source relative_path="mmc" project_relative_path="src" type="src">
+        <files mask="fsl_mmc.c"/>
+      </source>
+      <source relative_path="mmc" project_relative_path="inc" type="c_include">
+        <files mask="fsl_mmc.h"/>
+      </source>
+      <source relative_path="mmc" project_relative_path="./mmc" type="doc">
+        <files mask="ChangeLogKSDK.txt"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_sdmmc_mmc_MIMXRT1062.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="mmc" project_relative_path="inc" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.sdmmc.osa.bm.MIMXRT1062" name="sdmmc_osa_bm" brief="Middleware sdmmc osa_bm" version="2.3.0" full_name="SDMMC common stack" devices="MIMXRT1062xxxxA" device_cores="core0_MIMXRT1062xxxxA" category="Memories/SDMMC Stack" user_visible="true" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
+      <dependencies>
+        <component_dependency value="component.osa_bm.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="osa" type="c_include">
+        <files mask="fsl_sdmmc_osa.h"/>
+      </source>
+      <source relative_path="osa" type="src">
+        <files mask="fsl_sdmmc_osa.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_sdmmc_osa_bm_MIMXRT1062.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="osa" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.sdmmc.osa.freertos.MIMXRT1062" name="sdmmc_osa_freertos" brief="Middleware sdmmc osa_freertos" version="2.3.0" full_name="SDMMC common stack" devices="MIMXRT1062xxxxA" device_cores="core0_MIMXRT1062xxxxA" category="Memories/SDMMC Stack" user_visible="true" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
+      <dependencies>
+        <component_dependency value="component.osa_free_rtos.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="osa" type="c_include">
+        <files mask="fsl_sdmmc_osa.h"/>
+      </source>
+      <source relative_path="osa" type="src">
+        <files mask="fsl_sdmmc_osa.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_sdmmc_osa_freertos_MIMXRT1062.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="osa" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.sdmmc.sd.MIMXRT1062" name="sd" brief="Middleware sdmmc sd" version="2.3.3" full_name="SDMMC sd stack" devices="MIMXRT1062xxxxA" device_cores="core0_MIMXRT1062xxxxA" category="Memories/SDMMC Stack" user_visible="true" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.sdmmc.common.MIMXRT1062"/>
+          <component_dependency value="middleware.sdmmc.host.usdhc.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source relative_path="sd" project_relative_path="src" type="src">
+        <files mask="fsl_sd.c"/>
+      </source>
+      <source relative_path="sd" project_relative_path="inc" type="c_include">
+        <files mask="fsl_sd.h"/>
+      </source>
+      <source relative_path="sd" project_relative_path="./sd" type="doc">
+        <files mask="ChangeLogKSDK.txt"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_sdmmc_sd_MIMXRT1062.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="sd" project_relative_path="inc" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.sdmmc.sdio.MIMXRT1062" name="sdio" brief="Middleware sdmmc sdio" version="2.3.2" full_name="SDMMC sdio stack" devices="MIMXRT1062xxxxA" device_cores="core0_MIMXRT1062xxxxA" category="Memories/SDMMC Stack" user_visible="true" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.sdmmc.common.MIMXRT1062"/>
+          <component_dependency value="middleware.sdmmc.host.usdhc.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source relative_path="sdio" project_relative_path="src" type="src">
+        <files mask="fsl_sdio.c"/>
+      </source>
+      <source relative_path="sdio" project_relative_path="inc" type="c_include">
+        <files mask="fsl_sdio.h"/>
+      </source>
+      <source relative_path="sdio" project_relative_path="./sdio" type="doc">
+        <files mask="ChangeLogKSDK.txt"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="sdio" project_relative_path="inc" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.usb.common_header.MIMXRT1062" name="USB Common Header" brief="Middleware usb common_header" version="2.7.0" full_name="USB Common Header" devices="MIMXRT1062xxxxA" device_cores="core0_MIMXRT1062xxxxA" category="USB/USB Common Header" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <component_dependency value="component.osa.MIMXRT1062"/>
       </dependencies>
@@ -3739,7 +4385,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.common_header.MIMXRT1062" name="USB Device Common Header" brief="Middleware usb device common_header" version="2.7.0" full_name="USB Device Common Header" devices="MIMXRT1062xxxxA" device_cores="core0_MIMXRT1062xxxxA" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="core/middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.common_header.MIMXRT1062" name="USB Device Common Header" brief="Middleware usb device common_header" version="2.7.0" full_name="USB Device Common Header" devices="MIMXRT1062xxxxA" device_cores="core0_MIMXRT1062xxxxA" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.MIMXRT1062"/>
