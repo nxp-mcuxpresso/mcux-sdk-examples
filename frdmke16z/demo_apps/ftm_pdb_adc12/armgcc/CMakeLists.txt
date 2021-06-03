@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/frdmke16z/demo_apps/ftm_pdb_adc12
+    ${ProjDirPath}/../../../../../examples/frdmke16z/demo_apps/ftm_pdb_adc12
     ${ProjDirPath}/../../../../../core/boards/frdmke16z
 )
 

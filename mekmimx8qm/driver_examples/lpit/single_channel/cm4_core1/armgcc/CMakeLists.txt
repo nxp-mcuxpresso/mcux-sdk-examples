@@ -41,7 +41,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../../../core/boards/mekmimx8qm/driver_examples/lpit/single_channel/cm4_core1
+    ${ProjDirPath}/../../../../../../../examples/mekmimx8qm/driver_examples/lpit/single_channel/cm4_core1
     ${ProjDirPath}/../../../../../../../core/boards/mekmimx8qm
     ${ProjDirPath}/..
 )

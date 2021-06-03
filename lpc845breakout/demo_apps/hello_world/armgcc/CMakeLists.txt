@@ -40,7 +40,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../core/boards/lpc845breakout/demo_apps/hello_world
+    ${ProjDirPath}/../../../../../examples/lpc845breakout/demo_apps/hello_world
     ${ProjDirPath}/../../../../../core/boards/lpc845breakout
     ${ProjDirPath}/..
 )

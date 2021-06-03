@@ -44,7 +44,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/frdmk66f/demo_apps/adc16_low_power_async_edma_peripheral
+    ${ProjDirPath}/../../../../../examples/frdmk66f/demo_apps/adc16_low_power_async_edma_peripheral
     ${ProjDirPath}/../../../../../core/boards/frdmk66f
 )
 

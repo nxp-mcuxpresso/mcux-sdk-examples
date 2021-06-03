@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/lpcxpresso54s018m/demo_apps/led_blinky
+    ${ProjDirPath}/../../../../../examples/lpcxpresso54s018m/demo_apps/led_blinky
     ${ProjDirPath}/../../../../../core/boards/lpcxpresso54s018m
 )
 

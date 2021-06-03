@@ -41,7 +41,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/lpcxpresso824max/driver_examples/usart/terminal
+    ${ProjDirPath}/../../../../../../examples/lpcxpresso824max/driver_examples/usart/terminal
     ${ProjDirPath}/../../../../../../core/boards/lpcxpresso824max
 )
 

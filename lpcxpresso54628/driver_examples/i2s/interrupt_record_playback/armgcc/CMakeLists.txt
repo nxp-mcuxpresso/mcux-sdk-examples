@@ -43,7 +43,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../..
-    ${ProjDirPath}/../../../../../../core/boards/lpcxpresso54628/driver_examples/i2s/interrupt_record_playback
+    ${ProjDirPath}/../../../../../../examples/lpcxpresso54628/driver_examples/i2s/interrupt_record_playback
     ${ProjDirPath}/../../../../../../core/boards/lpcxpresso54628
 )
 

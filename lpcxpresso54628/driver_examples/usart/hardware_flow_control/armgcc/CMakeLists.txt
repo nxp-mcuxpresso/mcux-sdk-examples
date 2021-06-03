@@ -41,7 +41,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../../core/boards/lpcxpresso54628/driver_examples/usart/hardware_flow_control
+    ${ProjDirPath}/../../../../../../examples/lpcxpresso54628/driver_examples/usart/hardware_flow_control
     ${ProjDirPath}/../../../../../../core/boards/lpcxpresso54628
 )
 

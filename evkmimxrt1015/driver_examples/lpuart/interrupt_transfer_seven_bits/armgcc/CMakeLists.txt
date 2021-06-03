@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/evkmimxrt1015/driver_examples/lpuart/interrupt_transfer_seven_bits
+    ${ProjDirPath}/../../../../../../examples/evkmimxrt1015/driver_examples/lpuart/interrupt_transfer_seven_bits
     ${ProjDirPath}/../../../../../../core/boards/evkmimxrt1015
 )
 

@@ -56,7 +56,7 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/.. flexspi_nor_debug
     ${ProjDirPath}/..
     ${ProjDirPath}/../../../../../../core/boards/evkbimxrt1050
-    ${ProjDirPath}/../../../../../../core/boards/evkbimxrt1050/demo_apps/power_mode_switch/rtos
+    ${ProjDirPath}/../../../../../../examples/evkbimxrt1050/demo_apps/power_mode_switch/rtos
 )
 
 #path for entry cmake

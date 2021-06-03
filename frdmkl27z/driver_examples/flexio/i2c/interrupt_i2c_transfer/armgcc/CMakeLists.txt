@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../../core/boards/frdmkl27z/driver_examples/flexio/i2c/interrupt_i2c_transfer
+    ${ProjDirPath}/../../../../../../../examples/frdmkl27z/driver_examples/flexio/i2c/interrupt_i2c_transfer
     ${ProjDirPath}/../../../../../../../core/boards/frdmkl27z
 )
 

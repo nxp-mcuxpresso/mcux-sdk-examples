@@ -43,7 +43,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${ProjDirPath}/../../../../../../core/boards/lpcxpresso51u68
-    ${ProjDirPath}/../../../../../../core/boards/lpcxpresso51u68/driver_examples/usart/polling
+    ${ProjDirPath}/../../../../../../examples/lpcxpresso51u68/driver_examples/usart/polling
 )
 
 #path for entry cmake

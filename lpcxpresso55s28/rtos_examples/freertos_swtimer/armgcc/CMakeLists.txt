@@ -45,7 +45,7 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/.. debug
     ${ProjDirPath}/..
     ${ProjDirPath}/../../../../../core/boards/lpcxpresso55s28
-    ${ProjDirPath}/../../../../../core/boards/lpcxpresso55s28/rtos_examples/freertos_swtimer
+    ${ProjDirPath}/../../../../../examples/lpcxpresso55s28/rtos_examples/freertos_swtimer
 )
 
 #path for entry cmake

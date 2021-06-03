@@ -45,7 +45,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/evkmimxrt1020/driver_examples/sai/interrupt
+    ${ProjDirPath}/../../../../../../examples/evkmimxrt1020/driver_examples/sai/interrupt
     ${ProjDirPath}/../../../../../../core/boards/evkmimxrt1020
 )
 

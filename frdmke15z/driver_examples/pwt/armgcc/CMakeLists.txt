@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/frdmke15z/driver_examples/pwt
+    ${ProjDirPath}/../../../../../examples/frdmke15z/driver_examples/pwt
     ${ProjDirPath}/../../../../../core/boards/frdmke15z
 )
 

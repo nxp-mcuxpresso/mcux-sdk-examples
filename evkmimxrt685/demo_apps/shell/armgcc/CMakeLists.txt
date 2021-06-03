@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/evkmimxrt685/demo_apps/shell
+    ${ProjDirPath}/../../../../../examples/evkmimxrt685/demo_apps/shell
     ${ProjDirPath}/../../../../../core/boards/evkmimxrt685
 )
 

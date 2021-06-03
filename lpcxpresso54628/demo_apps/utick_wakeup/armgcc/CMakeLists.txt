@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/lpcxpresso54628/demo_apps/utick_wakeup
+    ${ProjDirPath}/../../../../../examples/lpcxpresso54628/demo_apps/utick_wakeup
     ${ProjDirPath}/../../../../../core/boards/lpcxpresso54628
 )
 

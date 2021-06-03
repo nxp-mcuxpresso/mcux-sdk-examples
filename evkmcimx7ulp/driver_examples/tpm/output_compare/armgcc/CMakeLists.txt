@@ -44,7 +44,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/evkmcimx7ulp/driver_examples/tpm/output_compare
+    ${ProjDirPath}/../../../../../../examples/evkmcimx7ulp/driver_examples/tpm/output_compare
     ${ProjDirPath}/../../../../../../core/boards/evkmcimx7ulp
 )
 

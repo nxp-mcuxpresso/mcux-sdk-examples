@@ -48,7 +48,7 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../low_power_tickless
     ${ProjDirPath}/..
     ${ProjDirPath}/../../../../../core/boards/lpcxpresso55s28
-    ${ProjDirPath}/../../../../../core/boards/lpcxpresso55s28/rtos_examples/freertos_tickless
+    ${ProjDirPath}/../../../../../examples/lpcxpresso55s28/rtos_examples/freertos_tickless
 )
 
 #path for entry cmake

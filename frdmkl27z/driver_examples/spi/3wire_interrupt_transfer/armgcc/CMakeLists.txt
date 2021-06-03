@@ -41,7 +41,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../../core/boards/frdmkl27z/driver_examples/spi/3wire_interrupt_transfer
+    ${ProjDirPath}/../../../../../../examples/frdmkl27z/driver_examples/spi/3wire_interrupt_transfer
     ${ProjDirPath}/../../../../../../core/boards/frdmkl27z
 )
 

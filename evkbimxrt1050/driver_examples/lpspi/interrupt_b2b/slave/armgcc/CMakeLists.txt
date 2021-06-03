@@ -44,7 +44,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../../core/boards/evkbimxrt1050/driver_examples/lpspi/interrupt_b2b/slave
+    ${ProjDirPath}/../../../../../../../examples/evkbimxrt1050/driver_examples/lpspi/interrupt_b2b/slave
     ${ProjDirPath}/../../../../../../../core/boards/evkbimxrt1050
 )
 

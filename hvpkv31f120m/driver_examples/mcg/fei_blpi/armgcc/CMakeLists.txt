@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/hvpkv31f120m/driver_examples/mcg/fei_blpi
+    ${ProjDirPath}/../../../../../../examples/hvpkv31f120m/driver_examples/mcg/fei_blpi
     ${ProjDirPath}/../../../../../../core/boards/hvpkv31f120m
 )
 

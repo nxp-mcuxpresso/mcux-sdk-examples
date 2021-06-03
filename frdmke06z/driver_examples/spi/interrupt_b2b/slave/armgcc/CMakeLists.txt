@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../../core/boards/frdmke06z/driver_examples/spi/interrupt_b2b/slave
+    ${ProjDirPath}/../../../../../../../examples/frdmke06z/driver_examples/spi/interrupt_b2b/slave
     ${ProjDirPath}/../../../../../../../core/boards/frdmke06z
 )
 

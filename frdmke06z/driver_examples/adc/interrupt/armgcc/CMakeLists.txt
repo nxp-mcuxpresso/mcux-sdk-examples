@@ -41,7 +41,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../../core/boards/frdmke06z/driver_examples/adc/interrupt
+    ${ProjDirPath}/../../../../../../examples/frdmke06z/driver_examples/adc/interrupt
     ${ProjDirPath}/../../../../../../core/boards/frdmke06z
 )
 

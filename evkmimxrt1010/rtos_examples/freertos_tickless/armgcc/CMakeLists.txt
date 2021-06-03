@@ -47,7 +47,7 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/.. release
     ${ProjDirPath}/../low_power_tickless
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/evkmimxrt1010/rtos_examples/freertos_tickless
+    ${ProjDirPath}/../../../../../examples/evkmimxrt1010/rtos_examples/freertos_tickless
     ${ProjDirPath}/../../../../../core/boards/evkmimxrt1010
 )
 

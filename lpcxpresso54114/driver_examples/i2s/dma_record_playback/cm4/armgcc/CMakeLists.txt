@@ -44,7 +44,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../../../cm4
     ${ProjDirPath}/../../../../../../../core/boards/lpcxpresso54114
-    ${ProjDirPath}/../../../../../../../core/boards/lpcxpresso54114/driver_examples/i2s/dma_record_playback
+    ${ProjDirPath}/../../../../../../../examples/lpcxpresso54114/driver_examples/i2s/dma_record_playback
 )
 
 #path for entry cmake

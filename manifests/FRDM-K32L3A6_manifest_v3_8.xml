@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-05-13 07:17:49.113508-->
+  <!--Timestamp (UTC): 2021-06-03 10:11:56.631817-->
   <!--This manifest is generated based on sdk repo commit: 242d157ba29afc4bbd1dac95f382a1491bc2daf5-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -440,6 +440,11 @@ ${load}</script>
         <example id="frdmk32l3a6_pflash_cm0plus" name="pflash_cm0plus" brief="The pflash example shows how to use flash driver to operate program flash:" toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/flash" path="examples/frdmk32l3a6/driver_examples/flash/pflash/cm0plus">
           <external path="examples/frdmk32l3a6/driver_examples/flash/pflash/cm0plus" type="xml">
             <files mask="pflash_cm0plus_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_power_mode_switch_cm0plus" name="power_mode_switch_cm0plus" brief="The IEE IEER MMDC demo application demonstrates usage of the IEE and IEER driver. The Inline Encryption Engine (IEE) together with Inline Encryption Engine Router (IEER) provides a means to perform inline encryption and decryption of information transferred over external memory interfaces. In this demo application encrypted read and write is performed to external DDR Ram using MMDC. At first IEE is configured to perform AES XTS encryprion/decryption using KEY1 &amp; KEY2 for region 3 (highest priority region). Offset setting for region 3 is calculated using IEE_GetOffset() function. IEE uses offset to determine the physical address of the memory location that you are accessing. Offset is added to IEE address when performing read or write access to IEE. Then IEER is set to cover all its address space for region 3. Now all data written/read to/from IEE address will be encrypted/decrypted and written/read to/from physical DDR memory. Then test data are written over IEE to DDR. After the successful write, data are read directly from the DDR (without using IEE) to see that they are crypted. Then read using IEE is performed and the data are compared to written data in the begining of this demo." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk32l3a6/demo_apps/power_mode_switch/cm0plus">
+          <external path="examples/frdmk32l3a6/demo_apps/power_mode_switch/cm0plus" type="xml">
+            <files mask="power_mode_switch_cm0plus_v3_8.xml"/>
           </external>
         </example>
         <example id="frdmk32l3a6_rtc_cm0plus" name="rtc_cm0plus" brief="The RTC project is a simple demonstration program of the SDK RTC driver. It sets up the RTChardware block to trigger an alarm after a user specified time period. The test will set the currentdate and time to a predefined value. The alarm will be set with reference to this predefined dateand time." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples" path="examples/frdmk32l3a6/driver_examples/rtc/cm0plus">
@@ -905,6 +910,11 @@ ${load}</script>
         <example id="frdmk32l3a6_pflash_cm4" name="pflash_cm4" brief="The pflash example shows how to use flash driver to operate program flash:" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/flash" path="examples/frdmk32l3a6/driver_examples/flash/pflash/cm4">
           <external path="examples/frdmk32l3a6/driver_examples/flash/pflash/cm4" type="xml">
             <files mask="pflash_cm4_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_power_mode_switch_cm4" name="power_mode_switch_cm4" brief="The IEE IEER MMDC demo application demonstrates usage of the IEE and IEER driver. The Inline Encryption Engine (IEE) together with Inline Encryption Engine Router (IEER) provides a means to perform inline encryption and decryption of information transferred over external memory interfaces. In this demo application encrypted read and write is performed to external DDR Ram using MMDC. At first IEE is configured to perform AES XTS encryprion/decryption using KEY1 &amp; KEY2 for region 3 (highest priority region). Offset setting for region 3 is calculated using IEE_GetOffset() function. IEE uses offset to determine the physical address of the memory location that you are accessing. Offset is added to IEE address when performing read or write access to IEE. Then IEER is set to cover all its address space for region 3. Now all data written/read to/from IEE address will be encrypted/decrypted and written/read to/from physical DDR memory. Then test data are written over IEE to DDR. After the successful write, data are read directly from the DDR (without using IEE) to see that they are crypted. Then read using IEE is performed and the data are compared to written data in the begining of this demo." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" linked_projects="frdmk32l3a6_power_mode_switch_cm0plus" path="examples/frdmk32l3a6/demo_apps/power_mode_switch/cm4">
+          <external path="examples/frdmk32l3a6/demo_apps/power_mode_switch/cm4" type="xml">
+            <files mask="power_mode_switch_cm4_v3_8.xml"/>
           </external>
         </example>
         <example id="frdmk32l3a6_rtc_cm4" name="rtc_cm4" brief="The RTC project is a simple demonstration program of the SDK RTC driver. It sets up the RTChardware block to trigger an alarm after a user specified time period. The test will set the currentdate and time to a predefined value. The alarm will be set with reference to this predefined dateand time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/frdmk32l3a6/driver_examples/rtc/cm4">
@@ -2639,6 +2649,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_llwu.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_K32L3A60xxx">
+        <files mask="driver_llwu_K32L3A60_cm4.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -3267,6 +3280,12 @@ ${load}</script>
         <define name="FSL_RTOS_BM" value=""/>
         <define name="SDK_OS_BAREMETAL" value=""/>
       </defines>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_K32L3A60xxx">
+        <files mask="middleware_baremetal_K32L3A60_cm0plus.cmake" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_K32L3A60xxx">
+        <files mask="middleware_baremetal_K32L3A60_cm4.cmake" hidden="true"/>
+      </source>
     </component>
     <component id="middleware.freertos-kernel.K32L3A60" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="202007.00.0" full_name="FreeRTOS kernel" devices="K32L3A60xxx" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
       <defines>
@@ -3462,6 +3481,12 @@ ${load}</script>
       </dependencies>
       <source relative_path="portable/MemMang" type="src">
         <files mask="heap_3.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_K32L3A60xxx">
+        <files mask="middleware_freertos-kernel_heap_3_K32L3A60_cm0plus.cmake" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_K32L3A60xxx">
+        <files mask="middleware_freertos-kernel_heap_3_K32L3A60_cm4.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.freertos-kernel.heap_4.K32L3A60" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="202007.00.0" full_name="FreeRTOS heap 4" devices="K32L3A60xxx" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">

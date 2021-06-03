@@ -41,7 +41,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../../core/boards/frdmk64f/driver_examples/uart/hardware_flow_control
+    ${ProjDirPath}/../../../../../../examples/frdmk64f/driver_examples/uart/hardware_flow_control
     ${ProjDirPath}/../../../../../../core/boards/frdmk64f
 )
 

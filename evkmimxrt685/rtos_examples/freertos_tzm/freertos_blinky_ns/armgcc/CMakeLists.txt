@@ -47,7 +47,7 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../../freertos_blinky_s
     ${ProjDirPath}/../../../../../../rtos/freertos/freertos_kernel/portable/GCC/ARM_CM33/secure
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/evkmimxrt685/rtos_examples/freertos_tzm/freertos_blinky_ns
+    ${ProjDirPath}/../../../../../../examples/evkmimxrt685/rtos_examples/freertos_tzm/freertos_blinky_ns
     ${ProjDirPath}/../../../../../../core/boards/evkmimxrt685
 )
 

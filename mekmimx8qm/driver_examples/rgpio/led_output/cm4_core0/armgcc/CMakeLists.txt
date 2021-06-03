@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../../../core/boards/mekmimx8qm/driver_examples/rgpio/led_output/cm4_core0
+    ${ProjDirPath}/../../../../../../../examples/mekmimx8qm/driver_examples/rgpio/led_output/cm4_core0
     ${ProjDirPath}/../../../../../../../core/boards/mekmimx8qm
     ${ProjDirPath}/..
 )

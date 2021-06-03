@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../../../core/boards/frdmk64f/driver_examples/dspi/half_duplex_transfer/polling/slave
+    ${ProjDirPath}/../../../../../../../../examples/frdmk64f/driver_examples/dspi/half_duplex_transfer/polling/slave
     ${ProjDirPath}/../../../../../../../../core/boards/frdmk64f
 )
 

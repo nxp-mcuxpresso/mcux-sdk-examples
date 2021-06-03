@@ -48,7 +48,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../../core/boards/mekmimx8qx/driver_examples/isi/ci_pi/yuv422
+    ${ProjDirPath}/../../../../../../../examples/mekmimx8qx/driver_examples/isi/ci_pi/yuv422
     ${ProjDirPath}/../../../../../../../core/boards/mekmimx8qx
 )
 

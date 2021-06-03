@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-05-13 07:17:47.781214-->
+  <!--Timestamp (UTC): 2021-06-03 10:11:55.471534-->
   <!--This manifest is generated based on sdk repo commit: 242d157ba29afc4bbd1dac95f382a1491bc2daf5-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -634,9 +634,19 @@ ${load}</script>
             <files mask="tsi_v5_mutual_cap_v3_8.xml"/>
           </external>
         </example>
+        <example id="frdmke15z_tsi_v5_mutualmode" name="tsi_v5_mutualmode" brief="The tsi_v5_mutualmode demo shows how to use TSI_V5 driver in mutual-cap mode:In this example , available electrodes on FRDM-TOUCH board are used to show how to realize touch key.1. Firstly, get the non-touch calibration results as baseline electrode counter;2. Then, start the periodical Software-Trigger scan using polling method to detect finger touch;3. Wait for the electrodes touched and deal with the event." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps/tsi_v5" path="examples/frdmke15z/demo_apps/tsi_v5/tsi_v5_mutualmode">
+          <external path="examples/frdmke15z/demo_apps/tsi_v5/tsi_v5_mutualmode" type="xml">
+            <files mask="tsi_v5_mutualmode_v3_8.xml"/>
+          </external>
+        </example>
         <example id="frdmke15z_tsi_v5_self_cap" name="tsi_v5_self_cap" brief="The tsi_v5_self_cap example shows how to use TSI_V5 driver in self-cap mode:In this example , we make use of the available electrodes on board to show driver usage.1. Firstly, we get the non-touch calibration results as baseline electrode counter;2. Then, we start the Software-Trigger scan using polling method and interrupt method;3. Then, we start the Hardware-Trigger scan using interrupt method." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/tsi_v5" path="examples/frdmke15z/driver_examples/tsi_v5/self_cap">
           <external path="examples/frdmke15z/driver_examples/tsi_v5/self_cap" type="xml">
             <files mask="tsi_v5_self_cap_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmke15z_tsi_v5_selfmode" name="tsi_v5_selfmode" brief="The tsi_v5_selfmode demo shows how to use TSI_V5 driver in self-cap mode:In this example , available electrodes on board is used to show how to realize touch key.1. Firstly, get the non-touch calibration results as baseline electrode counter;2. Then, start the periodical Software-Trigger scan using polling method to detect finger touch;3. Wait for the electrodes touched and deal with the event." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps/tsi_v5" path="examples/frdmke15z/demo_apps/tsi_v5/tsi_v5_selfmode">
+          <external path="examples/frdmke15z/demo_apps/tsi_v5/tsi_v5_selfmode" type="xml">
+            <files mask="tsi_v5_selfmode_v3_8.xml"/>
           </external>
         </example>
         <example id="frdmke15z_wdog32" name="wdog32" brief="The WDOG32 Example project is to demonstrate usage of the KSDK wdog32 driver.In this example, fast testing is first implemented to test the wdog32.After this, refreshing the watchdog in None-window mode and window mode is executed.Note wdog32 is disabled in SystemInit function which means wdog32 is disabledafter chip emerges from reset." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/frdmke15z/driver_examples/wdog32">

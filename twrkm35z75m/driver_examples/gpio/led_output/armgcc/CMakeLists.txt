@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/twrkm35z75m/driver_examples/gpio/led_output
+    ${ProjDirPath}/../../../../../../examples/twrkm35z75m/driver_examples/gpio/led_output
     ${ProjDirPath}/../../../../../../core/boards/twrkm35z75m
 )
 

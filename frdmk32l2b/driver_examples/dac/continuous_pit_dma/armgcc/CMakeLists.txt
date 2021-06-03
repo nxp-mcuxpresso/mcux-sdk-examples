@@ -41,7 +41,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../../core/boards/frdmk32l2b/driver_examples/dac/continuous_pit_dma
+    ${ProjDirPath}/../../../../../../examples/frdmk32l2b/driver_examples/dac/continuous_pit_dma
     ${ProjDirPath}/../../../../../../core/boards/frdmk32l2b
 )
 

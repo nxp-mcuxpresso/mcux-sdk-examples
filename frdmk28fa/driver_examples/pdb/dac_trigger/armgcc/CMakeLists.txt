@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/frdmk28fa/driver_examples/pdb/dac_trigger
+    ${ProjDirPath}/../../../../../../examples/frdmk28fa/driver_examples/pdb/dac_trigger
     ${ProjDirPath}/../../../../../../core/boards/frdmk28fa
 )
 

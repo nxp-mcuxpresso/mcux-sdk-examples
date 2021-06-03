@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/frdmk32l2b/driver_examples/tpm/input_capture
+    ${ProjDirPath}/../../../../../../examples/frdmk32l2b/driver_examples/tpm/input_capture
     ${ProjDirPath}/../../../../../../core/boards/frdmk32l2b
 )
 

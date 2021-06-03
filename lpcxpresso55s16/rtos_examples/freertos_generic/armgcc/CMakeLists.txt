@@ -45,7 +45,7 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/.. debug
     ${ProjDirPath}/..
     ${ProjDirPath}/../../../../../core/boards/lpcxpresso55s16
-    ${ProjDirPath}/../../../../../core/boards/lpcxpresso55s16/rtos_examples/freertos_generic
+    ${ProjDirPath}/../../../../../examples/lpcxpresso55s16/rtos_examples/freertos_generic
 )
 
 #path for entry cmake

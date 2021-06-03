@@ -43,7 +43,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/mekmimx8qx/driver_examples/lpi2c/read_accel_value_transfer
+    ${ProjDirPath}/../../../../../../examples/mekmimx8qx/driver_examples/lpi2c/read_accel_value_transfer
     ${ProjDirPath}/../../../../../../core/boards/mekmimx8qx
 )
 

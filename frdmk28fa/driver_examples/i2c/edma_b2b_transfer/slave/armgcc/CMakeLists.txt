@@ -41,7 +41,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../../../core/boards/frdmk28fa/driver_examples/i2c/edma_b2b_transfer/slave
+    ${ProjDirPath}/../../../../../../../examples/frdmk28fa/driver_examples/i2c/edma_b2b_transfer/slave
     ${ProjDirPath}/../../../../../../../core/boards/frdmk28fa
 )
 

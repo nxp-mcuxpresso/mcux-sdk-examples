@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../../../../core/boards/lpcxpresso54114/driver_examples/spi/half_duplex_transfer/int/slave/cm4
+    ${ProjDirPath}/../../../../../../../../../examples/lpcxpresso54114/driver_examples/spi/half_duplex_transfer/int/slave/cm4
     ${ProjDirPath}/../../../../../../../../../core/boards/lpcxpresso54114
 )
 

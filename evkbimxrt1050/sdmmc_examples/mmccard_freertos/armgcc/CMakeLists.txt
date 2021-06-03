@@ -48,7 +48,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/.. sdram_debug
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/evkbimxrt1050/sdmmc_examples/mmccard_freertos
+    ${ProjDirPath}/../../../../../examples/evkbimxrt1050/sdmmc_examples/mmccard_freertos
     ${ProjDirPath}/../../../../../core/boards/evkbimxrt1050
 )
 

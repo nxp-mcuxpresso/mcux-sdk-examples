@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/evkmimxrt685/driver_examples/dma/memory_to_memory
+    ${ProjDirPath}/../../../../../../examples/evkmimxrt685/driver_examples/dma/memory_to_memory
     ${ProjDirPath}/../../../../../../core/boards/evkmimxrt685
 )
 

@@ -44,7 +44,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/evkmimx8mn/driver_examples/pdm/pdm_sai_interrupt_transfer
+    ${ProjDirPath}/../../../../../../examples/evkmimx8mn/driver_examples/pdm/pdm_sai_interrupt_transfer
     ${ProjDirPath}/../../../../../../core/boards/evkmimx8mn
 )
 

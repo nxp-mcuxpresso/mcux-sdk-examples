@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-05-13 07:17:50.905494-->
+  <!--Timestamp (UTC): 2021-06-03 10:11:58.197074-->
   <!--This manifest is generated based on sdk repo commit: 242d157ba29afc4bbd1dac95f382a1491bc2daf5-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -92,6 +92,11 @@ ${load}</script>
         <files mask="lpcxpresso54114.png"/>
       </image>
       <examples>
+        <example id="lpcxpresso54114_low_power_cm0plus" name="low_power_cm0plus" brief="The multicore Low Power demo application demonstrates how to leverage the auxiliary core for periodicdata collection from sensors and passing the data to the primary core for further processing.The data from sensors is read with frequency of about 50Hz (every 20ms) by secondary core and storedinto a buffer. When the buffer contains 50 samples from sensors, the secondary core sends an interruptto the primary core to process the data. The primary core computes average values from temperature andpressure and then prints them with last values from other sensors to the console.The reading of data from sensors takes about 3ms, the rest of the time the cores are in deep sleepmode to reduce power consumption. In order to switch to deep sleep mode, the Power APIPOWER_EnterDeepSleep() is used and to wake it up the interrupt from uTick timer is used.When both cores can't go to the deep sleep mode (the primary core processes data or the secondary corereads data from the sensors), the core which has nothing to do goes to sleep mode by WFI. Also, whenthe primary core is switched to the sleep mode, the flash memory is powered down by Power APIPOWER_PowerDownFlash() and before waking up the primary core it is powered on by POWER_PowerUpFlash().The demo is based on:A. Fuks, &quot;Sensor-hub sweet-spot analysis for ultra-low-power always-on operation,&quot; 2015 Symposium on VLSI Circuits (VLSI Circuits), Kyoto, 2015, pp. C154-C155.doi: 10.1109/VLSIC.2015.7231247URL: http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=7231247&amp;isnumber=7231231" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="multicore_examples" path="examples/lpcxpresso54114/multicore_examples/low_power/cm0plus">
+          <external path="examples/lpcxpresso54114/multicore_examples/low_power/cm0plus" type="xml">
+            <files mask="low_power_cm0plus_v3_8.xml"/>
+          </external>
+        </example>
         <example id="lpcxpresso54114_mailbox_interrupt_cm0plus" name="mailbox_interrupt_cm0plus" brief="The mailbox_interrupt example shows how to use mailbox to exchange message.In this example:The core 0(CM4) writes value to mailbox for Core 1(CM0+), it causes mailbox interrupton CM0+ side. CM0+ reads value from mailbox increments and writes it to mailbox registerfor CM4, it causes mailbox interrupt on CM4 side. CM4 reads value from mailbox incrementsand writes it to mailbox register for CM0 again." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/mailbox" path="examples/lpcxpresso54114/driver_examples/mailbox/interrupt/cm0plus">
           <external path="examples/lpcxpresso54114/driver_examples/mailbox/interrupt/cm0plus" type="xml">
             <files mask="mailbox_interrupt_cm0plus_v3_8.xml"/>
@@ -315,6 +320,11 @@ ${load}</script>
         <example id="lpcxpresso54114_led_blinky" name="led_blinky" brief="The LED Blinky demo application provides a sanity check for the new SDK build environments and board bring up. The LED Blinky demo uses the systick interrupt to realize the function of timing delay. The example takes turns to shine the LED. The purpose of this demo is to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso54114/demo_apps/led_blinky/cm4">
           <external path="examples/lpcxpresso54114/demo_apps/led_blinky/cm4" type="xml">
             <files mask="led_blinky_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54114_low_power_cm4" name="low_power_cm4" brief="The multicore Low Power demo application demonstrates how to leverage the auxiliary core for periodicdata collection from sensors and passing the data to the primary core for further processing.The data from sensors is read with frequency of about 50Hz (every 20ms) by secondary core and storedinto a buffer. When the buffer contains 50 samples from sensors, the secondary core sends an interruptto the primary core to process the data. The primary core computes average values from temperature andpressure and then prints them with last values from other sensors to the console.The reading of data from sensors takes about 3ms, the rest of the time the cores are in deep sleepmode to reduce power consumption. In order to switch to deep sleep mode, the Power APIPOWER_EnterDeepSleep() is used and to wake it up the interrupt from uTick timer is used.When both cores can't go to the deep sleep mode (the primary core processes data or the secondary corereads data from the sensors), the core which has nothing to do goes to sleep mode by WFI. Also, whenthe primary core is switched to the sleep mode, the flash memory is powered down by Power APIPOWER_PowerDownFlash() and before waking up the primary core it is powered on by POWER_PowerUpFlash().The demo is based on:A. Fuks, &quot;Sensor-hub sweet-spot analysis for ultra-low-power always-on operation,&quot; 2015 Symposium on VLSI Circuits (VLSI Circuits), Kyoto, 2015, pp. C154-C155.doi: 10.1109/VLSIC.2015.7231247URL: http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=7231247&amp;isnumber=7231231" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="multicore_examples" linked_projects="lpcxpresso54114_low_power_cm0plus" path="examples/lpcxpresso54114/multicore_examples/low_power/cm4">
+          <external path="examples/lpcxpresso54114/multicore_examples/low_power/cm4" type="xml">
+            <files mask="low_power_cm4_v3_8.xml"/>
           </external>
         </example>
         <example id="lpcxpresso54114_lpc_adc_basic" name="lpc_adc_basic" brief="The lpc_adc_basic example shows how to use LPC ADC driver in the simplest way.In this example, the internal temperature sensor is used to created the input analog signal. When user type in any key from the keyboard, the software trigger API is called to start the conversion. Then it polls the conversion sequence A's flag till the conversion is completed. When the conversion is completed, just print the conversion result to terminal.Project Information1.what are ADC conversion sequences?  A conversion sequence is a single pass through a series of A/D conversions performed on a selected set of  A/D channels. Software can set-up two independent conversion sequences, either of which can be triggered   by software or by a transition on one of the hardware triggers. Each sequence can be triggered by a different   hardware trigger. One of these conversion sequences is referred to as the A sequence and the other as the B  sequence. It is not necessary to employ both sequences. An optional single-step mode allows advancing through  the channels of a sequence one at a time on each successive occurrence of a trigger. The user can select whether  a trigger on the B sequence can interrupt an already-in-progress A sequence. The B sequence, however, can never be  interrupted by an A trigger.  2. How to use software-triggered conversion?   There are two ways that software can trigger a conversion sequence:      1. Start Bit: The first way to software-trigger an sequence is by setting the START bit in         the corresponding SEQn_CTRL register. The response to this is identical to         occurrence of a hardware trigger on that sequence. Specifically, one cycle of         conversions through that conversion sequence will be immediately triggered except         as indicated above. (In this example, we use this way.)      2. Burst Mode: The other way to initiate conversions is to set the BURST bit in the         SEQn_CTRL register. As long as this bit is 1 the designated conversion sequence will         be continuously and repetitively cycled through. Any new software or hardware trigger         on this sequence will be ignored.  Program Flow1.This example demonstrates how to configure the A sequences with polling, assigning one channel with software  trigger, you can configure channel via &quot;DEMO_ADC_SAMPLE_CHANNEL_NUMBER&quot;.  2.Before configuration of the ADC begins, the ADC is put through a self-calibration cycle.    3.After ADC channels are assigned to each of the sequences, the software trigger is chosen. Setting   SEQA_CTRL_START to '1' will trigger sequence A.  4.After ADC channels are assigned to each of the sequences, if the user enters any key via terminal, software trigger will start. 5.Read the corresponding DATAVALID field with polling to judge whether the conversion completes and the result is ready.  If the result is ready, the example will printf result information to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc" path="examples/lpcxpresso54114/driver_examples/adc/lpc_adc_basic/cm4">
@@ -1594,6 +1604,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_component_serial_manager.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
+        <files mask="component_serial_manager_LPC54114_cm0plus.cmake" hidden="true"/>
+      </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
         <files mask="component_serial_manager_LPC54114_cm4.cmake" hidden="true"/>
       </source>
@@ -1637,6 +1650,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_component_serial_port_uart.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
+        <files mask="component_serial_manager_uart_LPC54114_cm0plus.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
         <files mask="component_serial_manager_uart_LPC54114_cm4.cmake" hidden="true"/>
@@ -2141,6 +2157,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_i2c.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
+        <files mask="driver_flexcomm_i2c_LPC54114_cm0plus.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
         <files mask="driver_flexcomm_i2c_LPC54114_cm4.cmake" hidden="true"/>
@@ -2750,6 +2769,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_utick.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
+        <files mask="driver_utick_LPC54114_cm0plus.cmake" hidden="true"/>
+      </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
         <files mask="driver_utick_LPC54114_cm4.cmake" hidden="true"/>
       </source>
@@ -2816,6 +2838,9 @@ ${load}</script>
         <define name="FSL_RTOS_BM" value=""/>
         <define name="SDK_OS_BAREMETAL" value=""/>
       </defines>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
+        <files mask="middleware_baremetal_LPC54114_cm0plus.cmake" hidden="true"/>
+      </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
         <files mask="middleware_baremetal_LPC54114_cm4.cmake" hidden="true"/>
       </source>
@@ -2877,6 +2902,9 @@ ${load}</script>
       </source>
       <source relative_path="portable" type="doc">
         <files mask="readme.txt"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
+        <files mask="middleware_freertos-kernel_LPC54114_cm0plus.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
         <files mask="middleware_freertos-kernel_LPC54114_cm4.cmake" hidden="true"/>
@@ -2979,6 +3007,9 @@ ${load}</script>
       <source relative_path="include" type="c_include">
         <files mask="freertos_tasks_c_additions.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
+        <files mask="middleware_freertos-kernel_extension_LPC54114_cm0plus.cmake" hidden="true"/>
+      </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
         <files mask="middleware_freertos-kernel_extension_LPC54114_cm4.cmake" hidden="true"/>
       </source>
@@ -3008,6 +3039,12 @@ ${load}</script>
       </dependencies>
       <source relative_path="portable/MemMang" type="src">
         <files mask="heap_3.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
+        <files mask="middleware_freertos-kernel_heap_3_LPC54114_cm0plus.cmake" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
+        <files mask="middleware_freertos-kernel_heap_3_LPC54114_cm4.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.freertos-kernel.heap_4.LPC54114" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="202007.00.0" full_name="FreeRTOS heap 4" devices="LPC54114J256" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
@@ -3140,6 +3177,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_assert.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
+        <files mask="utility_assert_LPC54114_cm0plus.cmake" hidden="true"/>
+      </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
         <files mask="utility_assert_LPC54114_cm4.cmake" hidden="true"/>
       </source>
@@ -3177,6 +3217,9 @@ ${load}</script>
       <source relative_path="debug_console" project_relative_path="./" type="c_include">
         <files mask="fsl_debug_console.h"/>
         <files mask="fsl_debug_console_conf.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
+        <files mask="utility_debug_console_LPC54114_cm0plus.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
         <files mask="utility_debug_console_LPC54114_cm4.cmake" hidden="true"/>

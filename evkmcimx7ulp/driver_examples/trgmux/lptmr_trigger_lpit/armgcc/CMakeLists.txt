@@ -43,7 +43,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../../core/boards/evkmcimx7ulp/driver_examples/trgmux/lptmr_trigger_lpit
+    ${ProjDirPath}/../../../../../../examples/evkmcimx7ulp/driver_examples/trgmux/lptmr_trigger_lpit
     ${ProjDirPath}/../../../../../../core/boards/evkmcimx7ulp
     ${ProjDirPath}/..
 )

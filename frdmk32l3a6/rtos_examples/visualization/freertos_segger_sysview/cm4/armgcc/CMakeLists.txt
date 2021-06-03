@@ -59,7 +59,7 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../../SEGGER/cm4
     ${ProjDirPath}/../../Config/cm4
     ${ProjDirPath}/../../Sample/OS/cm4
-    ${ProjDirPath}/../../../../../../../core/boards/frdmk32l3a6/rtos_examples/visualization/freertos_segger_sysview/cm4
+    ${ProjDirPath}/../../../../../../../examples/frdmk32l3a6/rtos_examples/visualization/freertos_segger_sysview/cm4
     ${ProjDirPath}/../../../../../../../core/boards/frdmk32l3a6
 )
 

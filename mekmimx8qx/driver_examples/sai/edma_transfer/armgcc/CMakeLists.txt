@@ -44,7 +44,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/mekmimx8qx/driver_examples/sai/edma_transfer
+    ${ProjDirPath}/../../../../../../examples/mekmimx8qx/driver_examples/sai/edma_transfer
     ${ProjDirPath}/../../../../../../core/boards/mekmimx8qx
 )
 

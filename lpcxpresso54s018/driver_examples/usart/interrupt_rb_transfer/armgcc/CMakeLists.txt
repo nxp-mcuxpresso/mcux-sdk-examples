@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/lpcxpresso54s018/driver_examples/usart/interrupt_rb_transfer
+    ${ProjDirPath}/../../../../../../examples/lpcxpresso54s018/driver_examples/usart/interrupt_rb_transfer
     ${ProjDirPath}/../../../../../../core/boards/lpcxpresso54s018
 )
 

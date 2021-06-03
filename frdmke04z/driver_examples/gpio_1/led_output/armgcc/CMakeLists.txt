@@ -41,7 +41,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/frdmke04z/driver_examples/gpio_1/led_output
+    ${ProjDirPath}/../../../../../../examples/frdmke04z/driver_examples/gpio_1/led_output
     ${ProjDirPath}/../../../../../../core/boards/frdmke04z
 )
 

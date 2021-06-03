@@ -44,7 +44,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/frdmk66f/demo_apps/ecompass_peripheral
+    ${ProjDirPath}/../../../../../examples/frdmk66f/demo_apps/ecompass_peripheral
     ${ProjDirPath}/../../../../../core/boards/frdmk66f
 )
 

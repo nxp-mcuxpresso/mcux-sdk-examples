@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../../../core/boards/frdmk32l3a6/driver_examples/flexio/i2c/read_accel_value_transfer/cm0plus
+    ${ProjDirPath}/../../../../../../../../examples/frdmk32l3a6/driver_examples/flexio/i2c/read_accel_value_transfer/cm0plus
     ${ProjDirPath}/../../../../../../../../core/boards/frdmk32l3a6
 )
 

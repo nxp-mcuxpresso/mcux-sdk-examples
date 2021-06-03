@@ -45,7 +45,7 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../../../freertos_blinky_s/cm33_core0
     ${ProjDirPath}/../../../../../../../rtos/freertos/freertos_kernel/portable/GCC/ARM_CM33/secure
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../../core/boards/lpcxpresso55s69/rtos_examples/freertos_tzm/freertos_blinky_ns
+    ${ProjDirPath}/../../../../../../../examples/lpcxpresso55s69/rtos_examples/freertos_tzm/freertos_blinky_ns
 )
 
 #path for entry cmake

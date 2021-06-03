@@ -43,7 +43,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../../core/boards/evkbimxrt1050/driver_examples/gpio/led_output
+    ${ProjDirPath}/../../../../../../examples/evkbimxrt1050/driver_examples/gpio/led_output
     ${ProjDirPath}/../../../../../../core/boards/evkbimxrt1050
 )
 

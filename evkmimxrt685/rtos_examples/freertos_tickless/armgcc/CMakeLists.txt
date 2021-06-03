@@ -47,7 +47,7 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/.. debug
     ${ProjDirPath}/../low_power_tickless
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/evkmimxrt685/rtos_examples/freertos_tickless
+    ${ProjDirPath}/../../../../../examples/evkmimxrt685/rtos_examples/freertos_tickless
     ${ProjDirPath}/../../../../../core/boards/evkmimxrt685
 )
 

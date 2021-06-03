@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/hvpkv11z75m/driver_examples/uart/interrupt_transfer
+    ${ProjDirPath}/../../../../../../examples/hvpkv11z75m/driver_examples/uart/interrupt_transfer
     ${ProjDirPath}/../../../../../../core/boards/hvpkv11z75m
 )
 

@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/frdmk32l2a4s/driver_examples/edma/memory_to_memory
+    ${ProjDirPath}/../../../../../../examples/frdmk32l2a4s/driver_examples/edma/memory_to_memory
     ${ProjDirPath}/../../../../../../core/boards/frdmk32l2a4s
 )
 

@@ -46,7 +46,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/.. debug
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/frdmk32l3a6/sdmmc_examples/sdcard_freertos/cm4
+    ${ProjDirPath}/../../../../../../examples/frdmk32l3a6/sdmmc_examples/sdcard_freertos/cm4
     ${ProjDirPath}/../../../../../../core/boards/frdmk32l3a6
 )
 

@@ -46,7 +46,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/evkmimxrt1064/demo_apps/xbar_aoi_peripheral
+    ${ProjDirPath}/../../../../../examples/evkmimxrt1064/demo_apps/xbar_aoi_peripheral
     ${ProjDirPath}/../../../../../core/boards/evkmimxrt1064
 )
 

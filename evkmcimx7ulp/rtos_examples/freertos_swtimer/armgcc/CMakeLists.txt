@@ -46,7 +46,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/.. debug
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/evkmcimx7ulp/rtos_examples/freertos_swtimer
+    ${ProjDirPath}/../../../../../examples/evkmcimx7ulp/rtos_examples/freertos_swtimer
     ${ProjDirPath}/../../../../../core/boards/evkmcimx7ulp
 )
 

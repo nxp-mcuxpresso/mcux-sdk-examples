@@ -44,7 +44,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/lpcxpresso54s018m/demo_apps/utick_wakeup_xip_peripheral
+    ${ProjDirPath}/../../../../../examples/lpcxpresso54s018m/demo_apps/utick_wakeup_xip_peripheral
 )
 
 #path for entry cmake

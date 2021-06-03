@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/frdmkv31f/demo_apps/ftm_quad_decoder
+    ${ProjDirPath}/../../../../../examples/frdmkv31f/demo_apps/ftm_quad_decoder
     ${ProjDirPath}/../../../../../core/boards/frdmkv31f
 )
 

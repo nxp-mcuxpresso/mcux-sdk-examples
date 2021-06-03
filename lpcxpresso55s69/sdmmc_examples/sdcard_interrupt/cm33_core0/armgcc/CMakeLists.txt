@@ -45,7 +45,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${ProjDirPath}/../../../../../../core/boards/lpcxpresso55s69
-    ${ProjDirPath}/../../../../../../core/boards/lpcxpresso55s69/sdmmc_examples/sdcard_interrupt
+    ${ProjDirPath}/../../../../../../examples/lpcxpresso55s69/sdmmc_examples/sdcard_interrupt
 )
 
 #path for entry cmake

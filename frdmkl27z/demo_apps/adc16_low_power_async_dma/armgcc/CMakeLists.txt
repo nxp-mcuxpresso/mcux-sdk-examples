@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/frdmkl27z/demo_apps/adc16_low_power_async_dma
+    ${ProjDirPath}/../../../../../examples/frdmkl27z/demo_apps/adc16_low_power_async_dma
     ${ProjDirPath}/../../../../../core/boards/frdmkl27z
 )
 

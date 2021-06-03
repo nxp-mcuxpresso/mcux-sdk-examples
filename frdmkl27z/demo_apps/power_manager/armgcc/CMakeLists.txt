@@ -45,7 +45,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../core/boards/frdmkl27z/demo_apps/power_manager
+    ${ProjDirPath}/../../../../../examples/frdmkl27z/demo_apps/power_manager
     ${ProjDirPath}/../../../../../core/boards/frdmkl27z
 )
 

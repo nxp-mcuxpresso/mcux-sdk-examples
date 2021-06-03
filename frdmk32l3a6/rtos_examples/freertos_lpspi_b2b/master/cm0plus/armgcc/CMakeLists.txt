@@ -44,7 +44,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/.. debug
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../../core/boards/frdmk32l3a6/rtos_examples/freertos_lpspi_b2b/master/cm0plus
+    ${ProjDirPath}/../../../../../../../examples/frdmk32l3a6/rtos_examples/freertos_lpspi_b2b/master/cm0plus
     ${ProjDirPath}/../../../../../../../core/boards/frdmk32l3a6
 )
 

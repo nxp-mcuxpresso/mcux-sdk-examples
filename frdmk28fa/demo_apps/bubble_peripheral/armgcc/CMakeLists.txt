@@ -44,7 +44,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/frdmk28fa/demo_apps/bubble_peripheral
+    ${ProjDirPath}/../../../../../examples/frdmk28fa/demo_apps/bubble_peripheral
     ${ProjDirPath}/../../../../../core/boards/frdmk28fa
 )
 

@@ -44,7 +44,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/.. debug
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/lpcxpresso54628/rtos_examples/freertos_generic
+    ${ProjDirPath}/../../../../../examples/lpcxpresso54628/rtos_examples/freertos_generic
     ${ProjDirPath}/../../../../../core/boards/lpcxpresso54628
 )
 

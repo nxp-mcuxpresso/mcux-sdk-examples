@@ -44,9 +44,9 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../core/boards/frdmk28fa/demo_apps/hello_world_qspi/startup
+    ${ProjDirPath}/../../../../../examples/frdmk28fa/demo_apps/hello_world_qspi/startup
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/frdmk28fa/demo_apps/hello_world_qspi
+    ${ProjDirPath}/../../../../../examples/frdmk28fa/demo_apps/hello_world_qspi
     ${ProjDirPath}/../../../../../core/boards/frdmk28fa
 )
 

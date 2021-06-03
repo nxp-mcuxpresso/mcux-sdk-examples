@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/frdmk32l2b/driver_examples/lpuart/interrupt_rb_transfer
+    ${ProjDirPath}/../../../../../../examples/frdmk32l2b/driver_examples/lpuart/interrupt_rb_transfer
     ${ProjDirPath}/../../../../../../core/boards/frdmk32l2b
 )
 

@@ -44,7 +44,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/evkmimx8mq/driver_examples/tmu/tmu_monitor_report
+    ${ProjDirPath}/../../../../../../examples/evkmimx8mq/driver_examples/tmu/tmu_monitor_report
     ${ProjDirPath}/../../../../../../core/boards/evkmimx8mq
 )
 

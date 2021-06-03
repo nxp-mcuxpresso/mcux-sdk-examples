@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../../core/boards/frdmkv11z/driver_examples/dspi/edma_b2b_transfer/slave
+    ${ProjDirPath}/../../../../../../../examples/frdmkv11z/driver_examples/dspi/edma_b2b_transfer/slave
     ${ProjDirPath}/../../../../../../../core/boards/frdmkv11z
 )
 

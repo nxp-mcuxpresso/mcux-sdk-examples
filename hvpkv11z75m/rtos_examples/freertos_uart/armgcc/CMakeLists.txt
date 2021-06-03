@@ -44,7 +44,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/.. debug
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/hvpkv11z75m/rtos_examples/freertos_uart
+    ${ProjDirPath}/../../../../../examples/hvpkv11z75m/rtos_examples/freertos_uart
     ${ProjDirPath}/../../../../../core/boards/hvpkv11z75m
 )
 

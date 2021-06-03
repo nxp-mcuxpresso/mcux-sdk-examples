@@ -43,7 +43,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/twrkm35z75m/demo_apps/power_mode_switch
+    ${ProjDirPath}/../../../../../examples/twrkm35z75m/demo_apps/power_mode_switch
     ${ProjDirPath}/../../../../../core/boards/twrkm35z75m
 )
 

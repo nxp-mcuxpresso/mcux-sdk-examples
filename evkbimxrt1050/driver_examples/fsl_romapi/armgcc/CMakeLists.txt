@@ -46,7 +46,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${ProjDirPath}/../../../../../core/devices/MIMXRT1052/drivers
-    ${ProjDirPath}/../../../../../core/boards/evkbimxrt1050/driver_examples/fsl_romapi
+    ${ProjDirPath}/../../../../../examples/evkbimxrt1050/driver_examples/fsl_romapi
     ${ProjDirPath}/../../../../../core/boards/evkbimxrt1050
 )
 

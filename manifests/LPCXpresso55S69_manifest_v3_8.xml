@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-05-13 07:17:48.295327-->
+  <!--Timestamp (UTC): 2021-06-03 10:11:55.902418-->
   <!--This manifest is generated based on sdk repo commit: 242d157ba29afc4bbd1dac95f382a1491bc2daf5-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -1749,6 +1749,9 @@ ${load}</script>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
         <files mask="component_serial_manager_LPC55S69_cm33_core0.cmake" hidden="true"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core1_LPC55S69">
+        <files mask="component_serial_manager_LPC55S69_cm33_core1.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1795,6 +1798,9 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
         <files mask="component_serial_manager_uart_LPC55S69_cm33_core0.cmake" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core1_LPC55S69">
+        <files mask="component_serial_manager_uart_LPC55S69_cm33_core1.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3101,6 +3107,9 @@ ${load}</script>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
         <files mask="middleware_baremetal_LPC55S69_cm33_core0.cmake" hidden="true"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core1_LPC55S69">
+        <files mask="middleware_baremetal_LPC55S69_cm33_core1.cmake" hidden="true"/>
+      </source>
     </component>
     <component id="middleware.freertos-kernel.LPC55S69" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="202007.00.0" full_name="FreeRTOS kernel" devices="LPC55S69" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
       <defines>
@@ -3150,6 +3159,9 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
         <files mask="middleware_freertos-kernel_LPC55S69_cm33_core0.cmake" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core1_LPC55S69">
+        <files mask="middleware_freertos-kernel_LPC55S69_cm33_core1.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="include" type="c_include"/>
@@ -3261,6 +3273,9 @@ ${load}</script>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
         <files mask="middleware_freertos-kernel_cm33_nonsecure_port_LPC55S69_cm33_core0.cmake" hidden="true"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core1_LPC55S69">
+        <files mask="middleware_freertos-kernel_cm33_nonsecure_port_LPC55S69_cm33_core1.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="portable/GCC/ARM_CM33_NTZ/non_secure" toolchain="armgcc mcuxpresso" type="c_include" device_cores="cm33_core0_LPC55S69 cm33_core1_LPC55S69"/>
       </include_paths>
@@ -3295,6 +3310,9 @@ ${load}</script>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
         <files mask="middleware_freertos-kernel_extension_LPC55S69_cm33_core0.cmake" hidden="true"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core1_LPC55S69">
+        <files mask="middleware_freertos-kernel_extension_LPC55S69_cm33_core1.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
@@ -3321,6 +3339,12 @@ ${load}</script>
       </dependencies>
       <source relative_path="portable/MemMang" type="src">
         <files mask="heap_3.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
+        <files mask="middleware_freertos-kernel_heap_3_LPC55S69_cm33_core0.cmake" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core1_LPC55S69">
+        <files mask="middleware_freertos-kernel_heap_3_LPC55S69_cm33_core1.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.freertos-kernel.heap_4.LPC55S69" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="202007.00.0" full_name="FreeRTOS heap 4" devices="LPC55S69" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
@@ -3693,6 +3717,9 @@ ${load}</script>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
         <files mask="utility_assert_LPC55S69_cm33_core0.cmake" hidden="true"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core1_LPC55S69">
+        <files mask="utility_assert_LPC55S69_cm33_core1.cmake" hidden="true"/>
+      </source>
     </component>
     <component id="platform.utilities.assert_lite.LPC55S69" name="assert_lite" brief="Utility assert_lite" version="1.0.0" full_name="Utility assert_lite" devices="LPC55S69" device_cores="cm33_core0_LPC55S69 cm33_core1_LPC55S69" slave_roles="M33SLAVE" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
       <dependencies>
@@ -3730,6 +3757,9 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
         <files mask="utility_debug_console_LPC55S69_cm33_core0.cmake" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core1_LPC55S69">
+        <files mask="utility_debug_console_LPC55S69_cm33_core1.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="str" project_relative_path="./" type="c_include"/>

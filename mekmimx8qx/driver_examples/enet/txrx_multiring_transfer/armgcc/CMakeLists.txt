@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../../core/boards/mekmimx8qx/driver_examples/enet/txrx_multiring_transfer
+    ${ProjDirPath}/../../../../../../examples/mekmimx8qx/driver_examples/enet/txrx_multiring_transfer
     ${ProjDirPath}/../../../../../../core/boards/mekmimx8qx
 )
 

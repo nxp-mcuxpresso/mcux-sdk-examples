@@ -41,7 +41,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/lpcxpresso804/driver_examples/iap/iap_flash
+    ${ProjDirPath}/../../../../../../examples/lpcxpresso804/driver_examples/iap/iap_flash
     ${ProjDirPath}/../../../../../../core/boards/lpcxpresso804
 )
 

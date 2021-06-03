@@ -44,7 +44,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/evkmimxrt685/demo_apps/power_manager
+    ${ProjDirPath}/../../../../../examples/evkmimxrt685/demo_apps/power_manager
 )
 
 #path for entry cmake

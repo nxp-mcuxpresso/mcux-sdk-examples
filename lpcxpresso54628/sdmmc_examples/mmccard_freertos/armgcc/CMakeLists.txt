@@ -46,7 +46,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/.. debug
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/lpcxpresso54628/sdmmc_examples/mmccard_freertos
+    ${ProjDirPath}/../../../../../examples/lpcxpresso54628/sdmmc_examples/mmccard_freertos
     ${ProjDirPath}/../../../../../core/boards/lpcxpresso54628
 )
 

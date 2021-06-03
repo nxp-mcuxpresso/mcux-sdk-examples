@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/frdmk64f/driver_examples/ftm/output_compare
+    ${ProjDirPath}/../../../../../../examples/frdmk64f/driver_examples/ftm/output_compare
     ${ProjDirPath}/../../../../../../core/boards/frdmk64f
 )
 

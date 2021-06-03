@@ -44,7 +44,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/.. debug
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/frdmkv11z/rtos_examples/freertos_uart
+    ${ProjDirPath}/../../../../../examples/frdmkv11z/rtos_examples/freertos_uart
     ${ProjDirPath}/../../../../../core/boards/frdmkv11z
 )
 

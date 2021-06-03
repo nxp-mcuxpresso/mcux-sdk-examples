@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../../../../../../../../core/boards/mekmimx8qm
-    ${ProjDirPath}/../../../../../../../../core/boards/mekmimx8qm/driver_examples/lpi2c/interrupt_b2b_transfer/master/cm4_core1
+    ${ProjDirPath}/../../../../../../../../examples/mekmimx8qm/driver_examples/lpi2c/interrupt_b2b_transfer/master/cm4_core1
 )
 
 #path for entry cmake

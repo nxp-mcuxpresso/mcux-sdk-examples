@@ -46,7 +46,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/.. flexspi_nor_debug
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/evkmimxrt1060/rtos_examples/freertos_lpspi_b2b/master
+    ${ProjDirPath}/../../../../../../examples/evkmimxrt1060/rtos_examples/freertos_lpspi_b2b/master
     ${ProjDirPath}/../../../../../../core/boards/evkmimxrt1060
 )
 

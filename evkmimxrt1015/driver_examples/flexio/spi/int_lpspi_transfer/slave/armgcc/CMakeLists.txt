@@ -42,7 +42,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../../../core/boards/evkmimxrt1015/driver_examples/flexio/spi/int_lpspi_transfer/slave
+    ${ProjDirPath}/../../../../../../../../examples/evkmimxrt1015/driver_examples/flexio/spi/int_lpspi_transfer/slave
     ${ProjDirPath}/../../../../../../../../core/boards/evkmimxrt1015
 )
 

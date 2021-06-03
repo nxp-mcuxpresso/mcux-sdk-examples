@@ -44,7 +44,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/frdmk64f/sdmmc_examples/sdcard_interrupt
+    ${ProjDirPath}/../../../../../examples/frdmk64f/sdmmc_examples/sdcard_interrupt
     ${ProjDirPath}/../../../../../core/boards/frdmk64f
 )
 
