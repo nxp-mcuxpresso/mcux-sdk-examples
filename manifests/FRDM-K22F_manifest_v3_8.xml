@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-06-03 10:11:45.675523-->
+  <!--Timestamp (UTC): 2021-06-08 04:50:08.598592-->
   <!--This manifest is generated based on sdk repo commit: 242d157ba29afc4bbd1dac95f382a1491bc2daf5-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -2773,6 +2773,2546 @@ ${load}</script>
       <source relative_path="portable/ARMClang" type="doc">
         <files mask="Use-the-GCC-ports.txt"/>
       </source>
+    </component>
+    <component id="middleware.multicore.MK22F51212" name="multicore middleware" brief="Multicore SDK" version="2.9.0" full_name="Multicore Software Development Kit" devices="MK22FN512xxx12" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="multicore">
+      <source relative_path="./" type="doc">
+        <files mask="readme.txt" hidden="true"/>
+        <files mask="ChangeLogKSDK.txt" hidden="true"/>
+      </source>
+    </component>
+    <component id="middleware.multicore.erpc.MK22F51212" name="eRPC" brief="eRPC" version="1.8.0" full_name="Embedded Remote Procedure Call" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <source relative_path="erpc" project_relative_path="aux" type="project">
+        <files mask=".cproject" hidden="true"/>
+        <files mask=".project" hidden="true"/>
+      </source>
+      <source relative_path="erpc" project_relative_path="aux" type="other">
+        <files mask="Makefile" hidden="true"/>
+        <files mask="README.md" hidden="true"/>
+        <files mask="LICENSE" hidden="true"/>
+      </source>
+      <source relative_path="erpc/docs/eRPC_infrastructure/eRPC" project_relative_path="doc" type="other">
+        <files mask="classerpc_1_1_dspi_slave_transport__coll__graph.svg" hidden="true"/>
+        <files mask="erpc__config_8h__dep__incl.svg" hidden="true"/>
+        <files mask="classerpc_1_1_basic_codec__coll__graph.map" hidden="true"/>
+        <files mask="erpc__threading_8h__incl.md5" hidden="true"/>
+        <files mask="group___u_s_b___c_d_c__transport.svg" hidden="true"/>
+        <files mask="inherit_graph_20.md5" hidden="true"/>
+        <files mask="erpc__transport__setup_8h__incl.svg" hidden="true"/>
+        <files mask="classerpc_1_1_simple_server__coll__graph.map" hidden="true"/>
+        <files mask="erpc__basic__codec_8h__incl.md5" hidden="true"/>
+        <files mask="group__dspi__master__transport.map" hidden="true"/>
+        <files mask="erpc__serial_8h__incl.svg" hidden="true"/>
+        <files mask="inherit_graph_14.map" hidden="true"/>
+        <files mask="erpc__serial_8h__incl.map" hidden="true"/>
+        <files mask="erpc__client__server__common_8h__incl.map" hidden="true"/>
+        <files mask="group__infra__transport.map" hidden="true"/>
+        <files mask="erpc__manually__constructed_8h__incl.map" hidden="true"/>
+        <files mask="erpc__framed__transport_8h__dep__incl.map" hidden="true"/>
+        <files mask="erpc__crc16_8h__incl.map" hidden="true"/>
+        <files mask="classerpc_1_1_client_manager__coll__graph.map" hidden="true"/>
+        <files mask="group__itbp__transport.map" hidden="true"/>
+        <files mask="group__infra__transport.svg" hidden="true"/>
+        <files mask="inherit_graph_1.map" hidden="true"/>
+        <files mask="group__infra.map" hidden="true"/>
+        <files mask="erpc__threading_8h__incl.map" hidden="true"/>
+        <files mask="classerpc_1_1_client_server_common__inherit__graph.map" hidden="true"/>
+        <files mask="erpc__static__queue_8h__dep__incl.map" hidden="true"/>
+        <files mask="erpc__threading_8h__dep__incl.md5" hidden="true"/>
+        <files mask="group__server__setup.svg" hidden="true"/>
+        <files mask="classerpc_1_1_inter_thread_buffer_transport__coll__graph.svg" hidden="true"/>
+        <files mask="group___u_s_b___c_d_c__transport.md5" hidden="true"/>
+        <files mask="inherit_graph_14.svg" hidden="true"/>
+        <files mask="group__port__threads.svg" hidden="true"/>
+        <files mask="classerpc_1_1_transport_arbitrator__inherit__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_m_u_transport__coll__graph.md5" hidden="true"/>
+        <files mask="group__dspi__master__transport.md5" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_transport__coll__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_t_t_y_r_t_o_s_transport__inherit__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_serial_transport__inherit__graph.svg" hidden="true"/>
+        <files mask="group__spidev__master__transport.map" hidden="true"/>
+        <files mask="group__message__buffer__factory__setup.md5" hidden="true"/>
+        <files mask="group__infra__server.svg" hidden="true"/>
+        <files mask="erpc__static__queue_8h__dep__incl.md5" hidden="true"/>
+        <files mask="erpc__client__server__common_8h__incl.svg" hidden="true"/>
+        <files mask="classerpc_1_1_dspi_master_transport__inherit__graph.md5" hidden="true"/>
+        <files mask="group__tcp__transport.map" hidden="true"/>
+        <files mask="erpc__spidev__master__transport_8h__incl.map" hidden="true"/>
+        <files mask="group__server__setup.map" hidden="true"/>
+        <files mask="classerpc_1_1_spi_slave_transport__coll__graph.md5" hidden="true"/>
+        <files mask="erpc__simple__server_8h__incl.svg" hidden="true"/>
+        <files mask="inherit_graph_21.map" hidden="true"/>
+        <files mask="erpc__message__buffer_8h__dep__incl.svg" hidden="true"/>
+        <files mask="classerpc_1_1_spi_master_transport__coll__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_message_loggers__coll__graph.map" hidden="true"/>
+        <files mask="classerpc_1_1_uart_transport__inherit__graph.svg" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_r_t_o_s_transport__inherit__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_server__inherit__graph.svg" hidden="true"/>
+        <files mask="group__port__serial.map" hidden="true"/>
+        <files mask="erpc__pre__post__action_8h__incl.svg" hidden="true"/>
+        <files mask="inherit_graph_8.md5" hidden="true"/>
+        <files mask="erpc__tcp__transport_8h__incl.svg" hidden="true"/>
+        <files mask="classerpc_1_1_simple_server__coll__graph.svg" hidden="true"/>
+        <files mask="class_r_p_msg_message_buffer_factory__coll__graph.map" hidden="true"/>
+        <files mask="erpc__message__loggers_8h__incl.svg" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_linux_transport__coll__graph.svg" hidden="true"/>
+        <files mask="class_r_p_msg_t_t_y_message_buffer_factory__coll__graph.map" hidden="true"/>
+        <files mask="class_dynamic_message_buffer_factory__coll__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_message_logger__coll__graph.map" hidden="true"/>
+        <files mask="classerpc_1_1_transport__inherit__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_simple_server__inherit__graph.map" hidden="true"/>
+        <files mask="erpc__codec_8h__incl.map" hidden="true"/>
+        <files mask="erpc__arbitrated__client__manager_8h__incl.svg" hidden="true"/>
+        <files mask="erpc__spi__master__transport_8h__incl.map" hidden="true"/>
+        <files mask="group__spi__master__transport.md5" hidden="true"/>
+        <files mask="classerpc_1_1_arbitrated_client_manager__coll__graph.svg" hidden="true"/>
+        <files mask="group__serial__transport.map" hidden="true"/>
+        <files mask="erpc__server__setup_8h__incl.md5" hidden="true"/>
+        <files mask="inherit_graph_16.md5" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_t_t_y_r_t_o_s_transport__inherit__graph.map" hidden="true"/>
+        <files mask="group__infra__utility.md5" hidden="true"/>
+        <files mask="erpc__rpmsg__tty__rtos__transport_8h__incl.svg" hidden="true"/>
+        <files mask="erpc__simple__server_8h__incl.md5" hidden="true"/>
+        <files mask="group__message__buffer__factory__setup.svg" hidden="true"/>
+        <files mask="group__infra__server.map" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_linux_transport__inherit__graph.svg" hidden="true"/>
+        <files mask="dir_62e9b24ece508051f26d84717c79c815_dep.svg" hidden="true"/>
+        <files mask="classerpc_1_1_arbitrated_client_manager__inherit__graph.md5" hidden="true"/>
+        <files mask="group__rpmsg__lite__transport.md5" hidden="true"/>
+        <files mask="erpc__rpmsg__tty__rtos__transport_8h__incl.map" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_r_t_o_s_transport__inherit__graph.map" hidden="true"/>
+        <files mask="class_r_p_msg_message_buffer_factory__coll__graph.svg" hidden="true"/>
+        <files mask="erpc__client__server__common_8h__dep__incl.map" hidden="true"/>
+        <files mask="inherit_graph_7.map" hidden="true"/>
+        <files mask="classerpc_1_1_service__coll__graph.map" hidden="true"/>
+        <files mask="group__rpmsg__lite__rtos__transport.svg" hidden="true"/>
+        <files mask="inherit_graph_1.svg" hidden="true"/>
+        <files mask="erpc__rpmsg__lite__rtos__transport_8h__incl.map" hidden="true"/>
+        <files mask="inherit_graph_16.map" hidden="true"/>
+        <files mask="group__spidev__master__transport.svg" hidden="true"/>
+        <files mask="group__rpmsg__lite__transport.map" hidden="true"/>
+        <files mask="structerpc_1_1_transport_arbitrator_1_1_pending_client_info__coll__graph.svg" hidden="true"/>
+        <files mask="erpc__mu__transport_8h__incl.map" hidden="true"/>
+        <files mask="erpc__arbitrated__client__setup_8h__incl.md5" hidden="true"/>
+        <files mask="erpc__transport__setup_8h__dep__incl.map" hidden="true"/>
+        <files mask="classerpc_1_1_basic_codec_factory__coll__graph.map" hidden="true"/>
+        <files mask="classerpc_1_1_spidev_master_transport__inherit__graph.map" hidden="true"/>
+        <files mask="classerpc_1_1_usb_cdc_transport__coll__graph.map" hidden="true"/>
+        <files mask="class_r_p_msg_t_t_y_message_buffer_factory__inherit__graph.md5" hidden="true"/>
+        <files mask="group__spi__master__transport.svg" hidden="true"/>
+        <files mask="classerpc_1_1_usb_cdc_transport__coll__graph.md5" hidden="true"/>
+        <files mask="erpc__spi__slave__transport_8h__incl.svg" hidden="true"/>
+        <files mask="group__setup.map" hidden="true"/>
+        <files mask="inherit_graph_9.map" hidden="true"/>
+        <files mask="erpc__basic__codec_8h__incl.map" hidden="true"/>
+        <files mask="inherit_graph_10.svg" hidden="true"/>
+        <files mask="classerpc_1_1_spi_slave_transport__coll__graph.map" hidden="true"/>
+        <files mask="class_r_p_msg_message_buffer_factory__coll__graph.md5" hidden="true"/>
+        <files mask="group___u_s_b___c_d_c__transport.map" hidden="true"/>
+        <files mask="erpc__port_8h__incl.svg" hidden="true"/>
+        <files mask="erpc__tcp__transport_8h__incl.md5" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_r_t_o_s_transport__inherit__graph.svg" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_transport__coll__graph.svg" hidden="true"/>
+        <files mask="structerpc_1_1_transport_arbitrator_1_1_pending_client_info__coll__graph.map" hidden="true"/>
+        <files mask="group__port__setup__extensions.svg" hidden="true"/>
+        <files mask="classerpc_1_1_inter_thread_buffer_transport__coll__graph.map" hidden="true"/>
+        <files mask="classerpc_1_1_basic_codec_factory__coll__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_spidev_master_transport__inherit__graph.md5" hidden="true"/>
+        <files mask="erpc__dspi__master__transport_8h__incl.md5" hidden="true"/>
+        <files mask="group__mu__transport.svg" hidden="true"/>
+        <files mask="class_dynamic_message_buffer_factory__inherit__graph.svg" hidden="true"/>
+        <files mask="group__infra__transport.md5" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_t_t_y_r_t_o_s_transport__inherit__graph.svg" hidden="true"/>
+        <files mask="erpc__rpmsg__lite__transport_8h__incl.svg" hidden="true"/>
+        <files mask="erpc__usb__cdc__transport_8h__incl.md5" hidden="true"/>
+        <files mask="erpc__mbf__setup_8h__incl.md5" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_linux_transport__coll__graph.map" hidden="true"/>
+        <files mask="group__port__spidev.md5" hidden="true"/>
+        <files mask="group__itbp__transport.md5" hidden="true"/>
+        <files mask="group__message__buffer__factory__setup.map" hidden="true"/>
+        <files mask="inherit_graph_13.md5" hidden="true"/>
+        <files mask="group__port__threads.md5" hidden="true"/>
+        <files mask="classerpc_1_1_codec__inherit__graph.md5" hidden="true"/>
+        <files mask="erpc__framed__transport_8h__incl.map" hidden="true"/>
+        <files mask="dir_62e9b24ece508051f26d84717c79c815_dep.md5" hidden="true"/>
+        <files mask="erpc__codec_8h__dep__incl.svg" hidden="true"/>
+        <files mask="erpc__server_8h__incl.svg" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_transport__inherit__graph.map" hidden="true"/>
+        <files mask="classerpc_1_1_request_context__coll__graph.svg" hidden="true"/>
+        <files mask="classerpc_1_1_service__coll__graph.md5" hidden="true"/>
+        <files mask="inherit_graph_18.map" hidden="true"/>
+        <files mask="classerpc_1_1_spi_master_transport__inherit__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_t_t_y_r_t_o_s_transport__coll__graph.md5" hidden="true"/>
+        <files mask="erpc__mbf__setup_8h__incl.svg" hidden="true"/>
+        <files mask="erpc__mbf__setup_8h__dep__incl.svg" hidden="true"/>
+        <files mask="inherit_graph_0.map" hidden="true"/>
+        <files mask="inherit_graph_14.md5" hidden="true"/>
+        <files mask="group__infra.svg" hidden="true"/>
+        <files mask="classerpc_1_1_client_manager__inherit__graph.map" hidden="true"/>
+        <files mask="erpc__usb__cdc__transport_8h__incl.map" hidden="true"/>
+        <files mask="classerpc_1_1_request_context__coll__graph.map" hidden="true"/>
+        <files mask="inherit_graph_13.map" hidden="true"/>
+        <files mask="inherit_graph_10.md5" hidden="true"/>
+        <files mask="inherit_graph_17.map" hidden="true"/>
+        <files mask="classerpc_1_1_request_context__coll__graph.md5" hidden="true"/>
+        <files mask="erpc__transport__arbitrator_8h__incl.map" hidden="true"/>
+        <files mask="erpc__client__server__common_8h__dep__incl.svg" hidden="true"/>
+        <files mask="classerpc_1_1_transport_arbitrator__inherit__graph.svg" hidden="true"/>
+        <files mask="group__rpmsg__linux__transport.svg" hidden="true"/>
+        <files mask="classerpc_1_1_arbitrated_client_manager__coll__graph.map" hidden="true"/>
+        <files mask="class_static_message_buffer_factory__coll__graph.md5" hidden="true"/>
+        <files mask="class_dynamic_message_buffer_factory__inherit__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_m_u_transport__inherit__graph.md5" hidden="true"/>
+        <files mask="group__port__spidev.map" hidden="true"/>
+        <files mask="classerpc_1_1_t_c_p_transport__inherit__graph.md5" hidden="true"/>
+        <files mask="inherit_graph_6.md5" hidden="true"/>
+        <files mask="classerpc_1_1_framed_transport__inherit__graph.map" hidden="true"/>
+        <files mask="erpc__mbf__setup_8h__dep__incl.md5" hidden="true"/>
+        <files mask="group__tcp__transport.svg" hidden="true"/>
+        <files mask="classerpc_1_1_m_u_transport__coll__graph.map" hidden="true"/>
+        <files mask="classerpc_1_1_framed_transport__coll__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_client_manager__coll__graph.md5" hidden="true"/>
+        <files mask="group__transport__setup.md5" hidden="true"/>
+        <files mask="classerpc_1_1_dspi_slave_transport__inherit__graph.svg" hidden="true"/>
+        <files mask="classerpc_1_1_message_loggers__coll__graph.svg" hidden="true"/>
+        <files mask="erpc__uart__cmsis__transport_8h__incl.map" hidden="true"/>
+        <files mask="classerpc_1_1_simple_server__inherit__graph.svg" hidden="true"/>
+        <files mask="erpc__spi__slave__transport_8h__incl.md5" hidden="true"/>
+        <files mask="inherit_graph_8.svg" hidden="true"/>
+        <files mask="group__port__mem.svg" hidden="true"/>
+        <files mask="erpc__client__manager_8h__incl.svg" hidden="true"/>
+        <files mask="erpc__server_8h__dep__incl.map" hidden="true"/>
+        <files mask="group__spidev__master__transport.md5" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_r_t_o_s_transport__coll__graph.map" hidden="true"/>
+        <files mask="group__spi__master__transport.map" hidden="true"/>
+        <files mask="classerpc_1_1_codec__coll__graph.md5" hidden="true"/>
+        <files mask="inherit_graph_22.map" hidden="true"/>
+        <files mask="erpc__mu__transport_8h__incl.md5" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_linux_transport__coll__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_usb_cdc_transport__inherit__graph.svg" hidden="true"/>
+        <files mask="group__infra__client.svg" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_base_transport__coll__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_codec__coll__graph.svg" hidden="true"/>
+        <files mask="erpc__inter__thread__buffer__transport_8h__incl.svg" hidden="true"/>
+        <files mask="erpc__transport__setup_8h__incl.md5" hidden="true"/>
+        <files mask="erpc__server_8h__dep__incl.svg" hidden="true"/>
+        <files mask="erpc__static__queue_8h__dep__incl.svg" hidden="true"/>
+        <files mask="erpc__rpmsg__tty__rtos__transport_8h__incl.md5" hidden="true"/>
+        <files mask="classerpc_1_1_message_logger__coll__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_t_c_p_transport__inherit__graph.svg" hidden="true"/>
+        <files mask="classerpc_1_1_inter_thread_buffer_transport__inherit__graph.svg" hidden="true"/>
+        <files mask="class_r_p_msg_message_buffer_factory__inherit__graph.svg" hidden="true"/>
+        <files mask="erpc__tcp__transport_8h__incl.map" hidden="true"/>
+        <files mask="erpc__rpmsg__lite__transport_8h__incl.map" hidden="true"/>
+        <files mask="erpc__client__setup_8h__incl.map" hidden="true"/>
+        <files mask="group__mu__transport.md5" hidden="true"/>
+        <files mask="group__dspi__slave__transport.svg" hidden="true"/>
+        <files mask="group__port__mem.map" hidden="true"/>
+        <files mask="group__serial__transport.md5" hidden="true"/>
+        <files mask="inherit_graph_2.map" hidden="true"/>
+        <files mask="classerpc_1_1_inter_thread_buffer_transport__inherit__graph.map" hidden="true"/>
+        <files mask="inherit_graph_4.md5" hidden="true"/>
+        <files mask="group__rpmsg__linux__transport.map" hidden="true"/>
+        <files mask="classerpc_1_1_inter_thread_buffer_transport__coll__graph.md5" hidden="true"/>
+        <files mask="inherit_graph_9.md5" hidden="true"/>
+        <files mask="erpc__setup__extensions_8h__incl.md5" hidden="true"/>
+        <files mask="classerpc_1_1_arbitrated_client_manager__coll__graph.md5" hidden="true"/>
+        <files mask="inherit_graph_1.md5" hidden="true"/>
+        <files mask="erpc__threading_8h__dep__incl.map" hidden="true"/>
+        <files mask="group__uart__transport.map" hidden="true"/>
+        <files mask="inherit_graph_23.map" hidden="true"/>
+        <files mask="group__spi__slave__transport.md5" hidden="true"/>
+        <files mask="classerpc_1_1_message_buffer_factory__inherit__graph.svg" hidden="true"/>
+        <files mask="erpc__transport_8h__incl.map" hidden="true"/>
+        <files mask="structerpc_1_1_inter_thread_buffer_transport_1_1_shared_state__coll__graph.svg" hidden="true"/>
+        <files mask="erpc__codec_8h__dep__incl.md5" hidden="true"/>
+        <files mask="inherit_graph_7.svg" hidden="true"/>
+        <files mask="erpc__message__buffer_8h__incl.svg" hidden="true"/>
+        <files mask="classerpc_1_1_dspi_master_transport__coll__graph.map" hidden="true"/>
+        <files mask="classerpc_1_1_dspi_slave_transport__coll__graph.md5" hidden="true"/>
+        <files mask="erpc__port_8h__incl.md5" hidden="true"/>
+        <files mask="erpc__dspi__slave__transport_8h__incl.md5" hidden="true"/>
+        <files mask="inherit_graph_17.md5" hidden="true"/>
+        <files mask="class_static_message_buffer_factory__inherit__graph.md5" hidden="true"/>
+        <files mask="erpc__serial__transport_8h__incl.md5" hidden="true"/>
+        <files mask="erpc__client__manager_8h__dep__incl.map" hidden="true"/>
+        <files mask="erpc__spi__master__transport_8h__incl.md5" hidden="true"/>
+        <files mask="inherit_graph_18.svg" hidden="true"/>
+        <files mask="group__dspi__slave__transport.md5" hidden="true"/>
+        <files mask="classerpc_1_1_client_manager__coll__graph.svg" hidden="true"/>
+        <files mask="inherit_graph_3.map" hidden="true"/>
+        <files mask="classerpc_1_1_transport__inherit__graph.svg" hidden="true"/>
+        <files mask="classerpc_1_1_message_loggers__coll__graph.md5" hidden="true"/>
+        <files mask="group__infra__codec.map" hidden="true"/>
+        <files mask="inherit_graph_13.svg" hidden="true"/>
+        <files mask="erpc__port_8h__incl.map" hidden="true"/>
+        <files mask="erpc__client__server__common_8h__incl.md5" hidden="true"/>
+        <files mask="classerpc_1_1_basic_codec_factory__inherit__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_serial_transport__coll__graph.map" hidden="true"/>
+        <files mask="class_r_p_msg_t_t_y_message_buffer_factory__inherit__graph.svg" hidden="true"/>
+        <files mask="erpc__basic__codec_8h__incl.svg" hidden="true"/>
+        <files mask="classerpc_1_1_basic_codec__inherit__graph.map" hidden="true"/>
+        <files mask="group__rpmsg__linux__transport.md5" hidden="true"/>
+        <files mask="erpc__transport__arbitrator_8h__incl.md5" hidden="true"/>
+        <files mask="classerpc_1_1_basic_codec_factory__coll__graph.svg" hidden="true"/>
+        <files mask="class_r_p_msg_t_t_y_message_buffer_factory__coll__graph.md5" hidden="true"/>
+        <files mask="class_static_message_buffer_factory__inherit__graph.svg" hidden="true"/>
+        <files mask="erpc__transport_8h__incl.md5" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_transport__coll__graph.map" hidden="true"/>
+        <files mask="group__uart__transport.svg" hidden="true"/>
+        <files mask="inherit_graph_15.map" hidden="true"/>
+        <files mask="erpc__manually__constructed_8h__incl.svg" hidden="true"/>
+        <files mask="dir_ecce72d14eab190b8175cc3cd0696eeb_dep.svg" hidden="true"/>
+        <files mask="group__infra__client.md5" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_base_transport__inherit__graph.map" hidden="true"/>
+        <files mask="group__tcp__transport.md5" hidden="true"/>
+        <files mask="erpc__message__buffer_8h__dep__incl.map" hidden="true"/>
+        <files mask="inherit_graph_18.md5" hidden="true"/>
+        <files mask="inherit_graph_9.svg" hidden="true"/>
+        <files mask="structerpc_1_1_inter_thread_buffer_transport_1_1_shared_state__coll__graph.md5" hidden="true"/>
+        <files mask="inherit_graph_15.md5" hidden="true"/>
+        <files mask="inherit_graph_4.svg" hidden="true"/>
+        <files mask="classerpc_1_1_client_manager__inherit__graph.md5" hidden="true"/>
+        <files mask="erpc__crc16_8h__dep__incl.map" hidden="true"/>
+        <files mask="classerpc_1_1_message_buffer_factory__inherit__graph.map" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_r_t_o_s_transport__coll__graph.svg" hidden="true"/>
+        <files mask="classerpc_1_1_dspi_master_transport__inherit__graph.map" hidden="true"/>
+        <files mask="group__port__threads.map" hidden="true"/>
+        <files mask="classerpc_1_1_server__inherit__graph.md5" hidden="true"/>
+        <files mask="inherit_graph_2.svg" hidden="true"/>
+        <files mask="erpc__codec_8h__incl.md5" hidden="true"/>
+        <files mask="group__infra.md5" hidden="true"/>
+        <files mask="group__rpmsg__lite__rtos__transport.md5" hidden="true"/>
+        <files mask="erpc__arbitrated__client__manager_8h__incl.md5" hidden="true"/>
+        <files mask="group__port__sysgpio.map" hidden="true"/>
+        <files mask="inherit_graph_11.md5" hidden="true"/>
+        <files mask="erpc__message__loggers_8h__incl.md5" hidden="true"/>
+        <files mask="dir_4c1986dc9092ab2d1c997193a3634562_dep.md5" hidden="true"/>
+        <files mask="erpc__transport__setup_8h__dep__incl.md5" hidden="true"/>
+        <files mask="group__rpmsg__lite__rtos__transport.map" hidden="true"/>
+        <files mask="classerpc_1_1_dspi_slave_transport__inherit__graph.map" hidden="true"/>
+        <files mask="classerpc_1_1_transport_arbitrator__coll__graph.svg" hidden="true"/>
+        <files mask="erpc__crc16_8h__incl.svg" hidden="true"/>
+        <files mask="classerpc_1_1_serial_transport__coll__graph.svg" hidden="true"/>
+        <files mask="erpc__rpmsg__lite__base__transport_8h__dep__incl.md5" hidden="true"/>
+        <files mask="inherit_graph_5.md5" hidden="true"/>
+        <files mask="erpc__usb__cdc__transport_8h__incl.svg" hidden="true"/>
+        <files mask="group__port.svg" hidden="true"/>
+        <files mask="classerpc_1_1_t_c_p_transport__coll__graph.svg" hidden="true"/>
+        <files mask="erpc__client__manager_8h__dep__incl.svg" hidden="true"/>
+        <files mask="class_dynamic_message_buffer_factory__coll__graph.map" hidden="true"/>
+        <files mask="classerpc_1_1_transport__inherit__graph.map" hidden="true"/>
+        <files mask="classerpc_1_1_uart_transport__coll__graph.svg" hidden="true"/>
+        <files mask="classerpc_1_1_framed_transport__coll__graph.map" hidden="true"/>
+        <files mask="dir_65f3d2eaa0376abba9fa4e8a5e7d2f88_dep.svg" hidden="true"/>
+        <files mask="inherit_graph_10.map" hidden="true"/>
+        <files mask="erpc__rpmsg__lite__base__transport_8h__incl.map" hidden="true"/>
+        <files mask="erpc__client__manager_8h__dep__incl.md5" hidden="true"/>
+        <files mask="group__infra__utility.map" hidden="true"/>
+        <files mask="erpc__uart__cmsis__transport_8h__incl.svg" hidden="true"/>
+        <files mask="erpc__spidev__master__transport_8h__incl.svg" hidden="true"/>
+        <files mask="inherit_graph_21.md5" hidden="true"/>
+        <files mask="classerpc_1_1_t_c_p_transport__coll__graph.md5" hidden="true"/>
+        <files mask="graph_legend.md5" hidden="true"/>
+        <files mask="erpc__static__queue_8h__incl.map" hidden="true"/>
+        <files mask="erpc__message__loggers_8h__incl.map" hidden="true"/>
+        <files mask="group__port__setup__extensions.map" hidden="true"/>
+        <files mask="group__uart__transport.md5" hidden="true"/>
+        <files mask="inherit_graph_0.md5" hidden="true"/>
+        <files mask="classerpc_1_1_spi_master_transport__inherit__graph.map" hidden="true"/>
+        <files mask="classerpc_1_1_spidev_master_transport__coll__graph.svg" hidden="true"/>
+        <files mask="classerpc_1_1_simple_server__inherit__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_linux_transport__inherit__graph.map" hidden="true"/>
+        <files mask="erpc__transport_8h__dep__incl.svg" hidden="true"/>
+        <files mask="inherit_graph_6.map" hidden="true"/>
+        <files mask="classerpc_1_1_basic_codec_factory__inherit__graph.svg" hidden="true"/>
+        <files mask="erpc__transport_8h__incl.svg" hidden="true"/>
+        <files mask="class_static_message_buffer_factory__inherit__graph.map" hidden="true"/>
+        <files mask="classerpc_1_1_codec__inherit__graph.map" hidden="true"/>
+        <files mask="inherit_graph_3.md5" hidden="true"/>
+        <files mask="group__setup.md5" hidden="true"/>
+        <files mask="group__infra__server.md5" hidden="true"/>
+        <files mask="inherit_graph_5.map" hidden="true"/>
+        <files mask="class_static_message_buffer_factory__coll__graph.map" hidden="true"/>
+        <files mask="erpc__client__setup_8h__incl.svg" hidden="true"/>
+        <files mask="classerpc_1_1_transport_arbitrator__coll__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_arbitrated_client_manager__inherit__graph.map" hidden="true"/>
+        <files mask="inherit_graph_23.md5" hidden="true"/>
+        <files mask="classerpc_1_1_service__coll__graph.svg" hidden="true"/>
+        <files mask="group__transports.md5" hidden="true"/>
+        <files mask="classerpc_1_1_basic_codec__inherit__graph.svg" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_transport__inherit__graph.svg" hidden="true"/>
+        <files mask="dir_65f3d2eaa0376abba9fa4e8a5e7d2f88_dep.map" hidden="true"/>
+        <files mask="erpc__serial_8h__incl.md5" hidden="true"/>
+        <files mask="erpc__serial__transport_8h__incl.map" hidden="true"/>
+        <files mask="erpc__server__setup_8h__incl.svg" hidden="true"/>
+        <files mask="classerpc_1_1_client_manager__inherit__graph.svg" hidden="true"/>
+        <files mask="group__transport__setup.svg" hidden="true"/>
+        <files mask="classerpc_1_1_codec_factory__inherit__graph.map" hidden="true"/>
+        <files mask="inherit_graph_11.svg" hidden="true"/>
+        <files mask="classerpc_1_1_server__coll__graph.map" hidden="true"/>
+        <files mask="inherit_graph_5.svg" hidden="true"/>
+        <files mask="structerpc_1_1_transport_arbitrator_1_1_pending_client_info__coll__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_client_server_common__inherit__graph.md5" hidden="true"/>
+        <files mask="erpc__client__manager_8h__incl.md5" hidden="true"/>
+        <files mask="classerpc_1_1_spi_slave_transport__coll__graph.svg" hidden="true"/>
+        <files mask="dir_65f3d2eaa0376abba9fa4e8a5e7d2f88_dep.md5" hidden="true"/>
+        <files mask="classerpc_1_1_server__inherit__graph.map" hidden="true"/>
+        <files mask="classerpc_1_1_transport_arbitrator__coll__graph.map" hidden="true"/>
+        <files mask="inherit_graph_20.svg" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_base_transport__coll__graph.map" hidden="true"/>
+        <files mask="classerpc_1_1_spi_master_transport__inherit__graph.svg" hidden="true"/>
+        <files mask="classerpc_1_1_arbitrated_client_manager__inherit__graph.svg" hidden="true"/>
+        <files mask="erpc__client__setup_8h__incl.md5" hidden="true"/>
+        <files mask="classerpc_1_1_spi_master_transport__coll__graph.svg" hidden="true"/>
+        <files mask="group__port__sysgpio.md5" hidden="true"/>
+        <files mask="classerpc_1_1_spi_slave_transport__inherit__graph.md5" hidden="true"/>
+        <files mask="group__port__mem.md5" hidden="true"/>
+        <files mask="erpc__spi__master__transport_8h__incl.svg" hidden="true"/>
+        <files mask="classerpc_1_1_m_u_transport__inherit__graph.map" hidden="true"/>
+        <files mask="group__transports.svg" hidden="true"/>
+        <files mask="classerpc_1_1_simple_server__coll__graph.md5" hidden="true"/>
+        <files mask="group__transports.map" hidden="true"/>
+        <files mask="inherit_graph_22.md5" hidden="true"/>
+        <files mask="classerpc_1_1_t_c_p_transport__coll__graph.map" hidden="true"/>
+        <files mask="inherit_graph_23.svg" hidden="true"/>
+        <files mask="erpc__setup__extensions_8h__incl.map" hidden="true"/>
+        <files mask="class_r_p_msg_message_buffer_factory__inherit__graph.md5" hidden="true"/>
+        <files mask="erpc__transport__setup_8h__incl.map" hidden="true"/>
+        <files mask="dir_318b660cd76dff0271d6acfa47597bac_dep.svg" hidden="true"/>
+        <files mask="group__setup.svg" hidden="true"/>
+        <files mask="erpc__dspi__slave__transport_8h__incl.map" hidden="true"/>
+        <files mask="classerpc_1_1_uart_transport__inherit__graph.md5" hidden="true"/>
+        <files mask="erpc__server_8h__incl.md5" hidden="true"/>
+        <files mask="group__itbp__transport.svg" hidden="true"/>
+        <files mask="dir_318b660cd76dff0271d6acfa47597bac_dep.map" hidden="true"/>
+        <files mask="graph_legend.svg" hidden="true"/>
+        <files mask="inherit_graph_3.svg" hidden="true"/>
+        <files mask="inherit_graph_22.svg" hidden="true"/>
+        <files mask="group__infra__codec.svg" hidden="true"/>
+        <files mask="class_static_message_buffer_factory__coll__graph.svg" hidden="true"/>
+        <files mask="erpc__mu__transport_8h__incl.svg" hidden="true"/>
+        <files mask="erpc__transport__arbitrator_8h__incl.svg" hidden="true"/>
+        <files mask="classerpc_1_1_message_logger__coll__graph.svg" hidden="true"/>
+        <files mask="classerpc_1_1_framed_transport__inherit__graph.md5" hidden="true"/>
+        <files mask="inherit_graph_4.map" hidden="true"/>
+        <files mask="group__rpmsg__lite__transport.svg" hidden="true"/>
+        <files mask="erpc__mbf__setup_8h__incl.map" hidden="true"/>
+        <files mask="classerpc_1_1_transport_arbitrator__inherit__graph.map" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_transport__inherit__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_dspi_slave_transport__inherit__graph.md5" hidden="true"/>
+        <files mask="erpc__crc16_8h__dep__incl.svg" hidden="true"/>
+        <files mask="classerpc_1_1_client_server_common__inherit__graph.svg" hidden="true"/>
+        <files mask="erpc__uart__cmsis__transport_8h__incl.md5" hidden="true"/>
+        <files mask="classerpc_1_1_spidev_master_transport__coll__graph.map" hidden="true"/>
+        <files mask="dir_62e9b24ece508051f26d84717c79c815_dep.map" hidden="true"/>
+        <files mask="inherit_graph_19.map" hidden="true"/>
+        <files mask="group__client__setup.svg" hidden="true"/>
+        <files mask="classerpc_1_1_inter_thread_buffer_transport__inherit__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_dspi_master_transport__coll__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_codec_factory__inherit__graph.svg" hidden="true"/>
+        <files mask="erpc__message__buffer_8h__incl.md5" hidden="true"/>
+        <files mask="class_r_p_msg_message_buffer_factory__inherit__graph.map" hidden="true"/>
+        <files mask="erpc__static__queue_8h__incl.svg" hidden="true"/>
+        <files mask="group__server__setup.md5" hidden="true"/>
+        <files mask="classerpc_1_1_spidev_master_transport__coll__graph.md5" hidden="true"/>
+        <files mask="erpc__inter__thread__buffer__transport_8h__incl.map" hidden="true"/>
+        <files mask="inherit_graph_2.md5" hidden="true"/>
+        <files mask="classerpc_1_1_spidev_master_transport__inherit__graph.svg" hidden="true"/>
+        <files mask="erpc__inter__thread__buffer__transport_8h__incl.md5" hidden="true"/>
+        <files mask="inherit_graph_16.svg" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_r_t_o_s_transport__coll__graph.md5" hidden="true"/>
+        <files mask="group__spi__slave__transport.svg" hidden="true"/>
+        <files mask="erpc__mbf__setup_8h__dep__incl.map" hidden="true"/>
+        <files mask="classerpc_1_1_serial_transport__inherit__graph.map" hidden="true"/>
+        <files mask="erpc__simple__server_8h__incl.map" hidden="true"/>
+        <files mask="erpc__rpmsg__lite__base__transport_8h__incl.svg" hidden="true"/>
+        <files mask="group__rpmsg__tty__rtos__transport.svg" hidden="true"/>
+        <files mask="erpc__server_8h__dep__incl.md5" hidden="true"/>
+        <files mask="inherit_graph_21.svg" hidden="true"/>
+        <files mask="erpc__message__buffer_8h__dep__incl.md5" hidden="true"/>
+        <files mask="classerpc_1_1_server__coll__graph.svg" hidden="true"/>
+        <files mask="group__infra__codec.md5" hidden="true"/>
+        <files mask="inherit_graph_12.svg" hidden="true"/>
+        <files mask="classerpc_1_1_server__coll__graph.md5" hidden="true"/>
+        <files mask="group__rpmsg__tty__rtos__transport.map" hidden="true"/>
+        <files mask="erpc__codec_8h__incl.svg" hidden="true"/>
+        <files mask="inherit_graph_19.md5" hidden="true"/>
+        <files mask="dir_4c1986dc9092ab2d1c997193a3634562_dep.map" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_base_transport__coll__graph.svg" hidden="true"/>
+        <files mask="inherit_graph_11.map" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_base_transport__inherit__graph.svg" hidden="true"/>
+        <files mask="classerpc_1_1_basic_codec_factory__inherit__graph.map" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_linux_transport__inherit__graph.md5" hidden="true"/>
+        <files mask="group__rpmsg__tty__rtos__transport.md5" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_base_transport__inherit__graph.md5" hidden="true"/>
+        <files mask="group__dspi__master__transport.svg" hidden="true"/>
+        <files mask="class_dynamic_message_buffer_factory__inherit__graph.map" hidden="true"/>
+        <files mask="class_r_p_msg_t_t_y_message_buffer_factory__coll__graph.svg" hidden="true"/>
+        <files mask="classerpc_1_1_spi_slave_transport__inherit__graph.svg" hidden="true"/>
+        <files mask="erpc__dspi__slave__transport_8h__incl.svg" hidden="true"/>
+        <files mask="group__port.map" hidden="true"/>
+        <files mask="erpc__framed__transport_8h__incl.svg" hidden="true"/>
+        <files mask="classerpc_1_1_serial_transport__inherit__graph.md5" hidden="true"/>
+        <files mask="group__client__setup.map" hidden="true"/>
+        <files mask="classerpc_1_1_codec_factory__inherit__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_m_u_transport__coll__graph.svg" hidden="true"/>
+        <files mask="erpc__threading_8h__incl.svg" hidden="true"/>
+        <files mask="erpc__spidev__master__transport_8h__incl.md5" hidden="true"/>
+        <files mask="erpc__server_8h__incl.map" hidden="true"/>
+        <files mask="erpc__manually__constructed_8h__incl.md5" hidden="true"/>
+        <files mask="classerpc_1_1_basic_codec__coll__graph.md5" hidden="true"/>
+        <files mask="erpc__framed__transport_8h__dep__incl.svg" hidden="true"/>
+        <files mask="classerpc_1_1_framed_transport__coll__graph.svg" hidden="true"/>
+        <files mask="inherit_graph_17.svg" hidden="true"/>
+        <files mask="classerpc_1_1_m_u_transport__inherit__graph.svg" hidden="true"/>
+        <files mask="inherit_graph_7.md5" hidden="true"/>
+        <files mask="erpc__crc16_8h__incl.md5" hidden="true"/>
+        <files mask="classerpc_1_1_usb_cdc_transport__inherit__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_spi_master_transport__coll__graph.map" hidden="true"/>
+        <files mask="classerpc_1_1_uart_transport__inherit__graph.map" hidden="true"/>
+        <files mask="erpc__pre__post__action_8h__incl.map" hidden="true"/>
+        <files mask="group__port.md5" hidden="true"/>
+        <files mask="group__spi__slave__transport.map" hidden="true"/>
+        <files mask="classerpc_1_1_codec__coll__graph.map" hidden="true"/>
+        <files mask="erpc__rpmsg__lite__rtos__transport_8h__incl.svg" hidden="true"/>
+        <files mask="inherit_graph_8.map" hidden="true"/>
+        <files mask="erpc__crc16_8h__dep__incl.md5" hidden="true"/>
+        <files mask="classerpc_1_1_dspi_master_transport__inherit__graph.svg" hidden="true"/>
+        <files mask="group__port__sysgpio.svg" hidden="true"/>
+        <files mask="classerpc_1_1_message_buffer_factory__inherit__graph.md5" hidden="true"/>
+        <files mask="erpc__rpmsg__lite__base__transport_8h__dep__incl.svg" hidden="true"/>
+        <files mask="classerpc_1_1_serial_transport__coll__graph.md5" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_t_t_y_r_t_o_s_transport__coll__graph.svg" hidden="true"/>
+        <files mask="dir_318b660cd76dff0271d6acfa47597bac_dep.md5" hidden="true"/>
+        <files mask="class_dynamic_message_buffer_factory__coll__graph.svg" hidden="true"/>
+        <files mask="erpc__arbitrated__client__manager_8h__incl.map" hidden="true"/>
+        <files mask="dir_ecce72d14eab190b8175cc3cd0696eeb_dep.map" hidden="true"/>
+        <files mask="classerpc_1_1_spi_slave_transport__inherit__graph.map" hidden="true"/>
+        <files mask="erpc__message__buffer_8h__incl.map" hidden="true"/>
+        <files mask="erpc__client__server__common_8h__dep__incl.md5" hidden="true"/>
+        <files mask="erpc__server__setup_8h__incl.map" hidden="true"/>
+        <files mask="dir_ecce72d14eab190b8175cc3cd0696eeb_dep.md5" hidden="true"/>
+        <files mask="erpc__rpmsg__lite__transport_8h__incl.md5" hidden="true"/>
+        <files mask="inherit_graph_15.svg" hidden="true"/>
+        <files mask="erpc__config_8h__dep__incl.map" hidden="true"/>
+        <files mask="erpc__dspi__master__transport_8h__incl.map" hidden="true"/>
+        <files mask="erpc__dspi__master__transport_8h__incl.svg" hidden="true"/>
+        <files mask="erpc__rpmsg__lite__rtos__transport_8h__incl.md5" hidden="true"/>
+        <files mask="classerpc_1_1_uart_transport__coll__graph.map" hidden="true"/>
+        <files mask="inherit_graph_12.map" hidden="true"/>
+        <files mask="erpc__setup__extensions_8h__incl.svg" hidden="true"/>
+        <files mask="classerpc_1_1_dspi_master_transport__coll__graph.svg" hidden="true"/>
+        <files mask="classerpc_1_1_framed_transport__inherit__graph.svg" hidden="true"/>
+        <files mask="inherit_graph_6.svg" hidden="true"/>
+        <files mask="classerpc_1_1_basic_codec__coll__graph.svg" hidden="true"/>
+        <files mask="inherit_graph_12.md5" hidden="true"/>
+        <files mask="group__infra__client.map" hidden="true"/>
+        <files mask="classerpc_1_1_uart_transport__coll__graph.md5" hidden="true"/>
+        <files mask="group__transport__setup.map" hidden="true"/>
+        <files mask="erpc__rpmsg__lite__base__transport_8h__incl.md5" hidden="true"/>
+        <files mask="group__port__spidev.svg" hidden="true"/>
+        <files mask="erpc__rpmsg__lite__base__transport_8h__dep__incl.map" hidden="true"/>
+        <files mask="group__port__serial.md5" hidden="true"/>
+        <files mask="classerpc_1_1_codec__inherit__graph.svg" hidden="true"/>
+        <files mask="classerpc_1_1_basic_codec__inherit__graph.md5" hidden="true"/>
+        <files mask="erpc__framed__transport_8h__dep__incl.md5" hidden="true"/>
+        <files mask="group__infra__utility.svg" hidden="true"/>
+        <files mask="erpc__framed__transport_8h__incl.md5" hidden="true"/>
+        <files mask="erpc__pre__post__action_8h__incl.md5" hidden="true"/>
+        <files mask="inherit_graph_0.svg" hidden="true"/>
+        <files mask="erpc__transport_8h__dep__incl.map" hidden="true"/>
+        <files mask="group__port__setup__extensions.md5" hidden="true"/>
+        <files mask="erpc__arbitrated__client__setup_8h__incl.svg" hidden="true"/>
+        <files mask="erpc__transport__setup_8h__dep__incl.svg" hidden="true"/>
+        <files mask="classerpc_1_1_t_c_p_transport__inherit__graph.map" hidden="true"/>
+        <files mask="class_r_p_msg_t_t_y_message_buffer_factory__inherit__graph.map" hidden="true"/>
+        <files mask="classerpc_1_1_dspi_slave_transport__coll__graph.map" hidden="true"/>
+        <files mask="erpc__transport_8h__dep__incl.md5" hidden="true"/>
+        <files mask="classerpc_1_1_usb_cdc_transport__coll__graph.svg" hidden="true"/>
+        <files mask="erpc__config_8h__dep__incl.md5" hidden="true"/>
+        <files mask="group__mu__transport.map" hidden="true"/>
+        <files mask="group__serial__transport.svg" hidden="true"/>
+        <files mask="erpc__client__manager_8h__incl.map" hidden="true"/>
+        <files mask="erpc__arbitrated__client__setup_8h__incl.map" hidden="true"/>
+        <files mask="erpc__serial__transport_8h__incl.svg" hidden="true"/>
+        <files mask="group__dspi__slave__transport.map" hidden="true"/>
+        <files mask="inherit_graph_20.map" hidden="true"/>
+        <files mask="erpc__threading_8h__dep__incl.svg" hidden="true"/>
+        <files mask="structerpc_1_1_inter_thread_buffer_transport_1_1_shared_state__coll__graph.map" hidden="true"/>
+        <files mask="erpc__static__queue_8h__incl.md5" hidden="true"/>
+        <files mask="classerpc_1_1_usb_cdc_transport__inherit__graph.map" hidden="true"/>
+        <files mask="inherit_graph_19.svg" hidden="true"/>
+        <files mask="group__client__setup.md5" hidden="true"/>
+        <files mask="erpc__codec_8h__dep__incl.map" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_t_t_y_r_t_o_s_transport__coll__graph.map" hidden="true"/>
+        <files mask="erpc__spi__slave__transport_8h__incl.map" hidden="true"/>
+        <files mask="group__port__serial.svg" hidden="true"/>
+        <files mask="dir_4c1986dc9092ab2d1c997193a3634562_dep.svg" hidden="true"/>
+      </source>
+      <source relative_path="erpc/docs/eRPC_infrastructure/eRPC" project_relative_path="doc" type="doc">
+        <files mask="group__config.html" hidden="true"/>
+        <files mask="functions_func_v.html" hidden="true"/>
+        <files mask="classerpc_1_1_message_buffer_1_1_cursor.html" hidden="true"/>
+        <files mask="classerpc_1_1_service-members.html" hidden="true"/>
+        <files mask="classerpc_1_1_dspi_master_transport.html" hidden="true"/>
+        <files mask="erpc__rpmsg__lite__transport_8h.html" hidden="true"/>
+        <files mask="group__dspi__slave__transport.html" hidden="true"/>
+        <files mask="erpc__config_8h.html" hidden="true"/>
+        <files mask="functions_i.html" hidden="true"/>
+        <files mask="classerpc_1_1_transport_arbitrator-members.html" hidden="true"/>
+        <files mask="erpc__serial_8h.html" hidden="true"/>
+        <files mask="classerpc_1_1_server.html" hidden="true"/>
+        <files mask="classerpc_1_1_arbitrated_client_manager-members.html" hidden="true"/>
+        <files mask="group__client__setup.html" hidden="true"/>
+        <files mask="erpc__dspi__slave__transport_8h_source.html" hidden="true"/>
+        <files mask="classerpc_1_1_simple_server-members.html" hidden="true"/>
+        <files mask="group__serial__transport.html" hidden="true"/>
+        <files mask="functions_v.html" hidden="true"/>
+        <files mask="classerpc_1_1_message_logger-members.html" hidden="true"/>
+        <files mask="functions_func_o.html" hidden="true"/>
+        <files mask="group__port__spidev.html" hidden="true"/>
+        <files mask="erpc__port_8h_source.html" hidden="true"/>
+        <files mask="erpc__crc16_8h_source.html" hidden="true"/>
+        <files mask="classerpc_1_1_static_queue.html" hidden="true"/>
+        <files mask="dir_318b660cd76dff0271d6acfa47597bac.html" hidden="true"/>
+        <files mask="classerpc_1_1_codec_factory.html" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_base_transport.html" hidden="true"/>
+        <files mask="classerpc_1_1_mutex.html" hidden="true"/>
+        <files mask="functions_m.html" hidden="true"/>
+        <files mask="erpc__manually__constructed_8h_source.html" hidden="true"/>
+        <files mask="customdoxygen.css" hidden="true"/>
+        <files mask="classerpc_1_1_thread-members.html" hidden="true"/>
+        <files mask="classerpc_1_1_codec-members.html" hidden="true"/>
+        <files mask="group__mu__transport.html" hidden="true"/>
+        <files mask="functions_s.html" hidden="true"/>
+        <files mask="erpc__mu__transport_8h.html" hidden="true"/>
+        <files mask="erpc__dspi__slave__transport_8h.html" hidden="true"/>
+        <files mask="classerpc_1_1_server-members.html" hidden="true"/>
+        <files mask="erpc__sysgpio_8h_source.html" hidden="true"/>
+        <files mask="classerpc_1_1_crc16-members.html" hidden="true"/>
+        <files mask="functions_func_r.html" hidden="true"/>
+        <files mask="functions_t.html" hidden="true"/>
+        <files mask="erpc__spidev__master__transport_8h_source.html" hidden="true"/>
+        <files mask="erpc__spi__slave__transport_8h_source.html" hidden="true"/>
+        <files mask="classerpc_1_1_mutex-members.html" hidden="true"/>
+        <files mask="structerpc_1_1_transport_arbitrator_1_1_pending_client_info-members.html" hidden="true"/>
+        <files mask="dir_000004_000003.html" hidden="true"/>
+        <files mask="classerpc_1_1_manually_constructed.html" hidden="true"/>
+        <files mask="classerpc_1_1_transport_factory.html" hidden="true"/>
+        <files mask="dir_52949f44d4caf8ec53681e2fdb42569d.html" hidden="true"/>
+        <files mask="erpc__message__loggers_8h_source.html" hidden="true"/>
+        <files mask="classerpc_1_1_basic_codec_factory-members.html" hidden="true"/>
+        <files mask="erpc__usb__cdc__transport_8h.html" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_r_t_o_s_transport-members.html" hidden="true"/>
+        <files mask="annotated.html" hidden="true"/>
+        <files mask="erpc__mbf__setup_8h_source.html" hidden="true"/>
+        <files mask="tabs.css" hidden="true"/>
+        <files mask="erpc__framed__transport_8h.html" hidden="true"/>
+        <files mask="erpc__manually__constructed_8h.html" hidden="true"/>
+        <files mask="classerpc_1_1_spi_master_transport-members.html" hidden="true"/>
+        <files mask="classerpc_1_1_semaphore-members.html" hidden="true"/>
+        <files mask="erpc__arbitrated__client__setup_8h_source.html" hidden="true"/>
+        <files mask="dir_4c1986dc9092ab2d1c997193a3634562.html" hidden="true"/>
+        <files mask="classerpc_1_1_client_manager-members.html" hidden="true"/>
+        <files mask="erpc__usb__cdc__transport_8h_source.html" hidden="true"/>
+        <files mask="group__port__setup__extensions.html" hidden="true"/>
+        <files mask="erpc__static__queue_8h_source.html" hidden="true"/>
+        <files mask="group__rpmsg__linux__transport.html" hidden="true"/>
+        <files mask="erpc__rpmsg__lite__rtos__transport_8h_source.html" hidden="true"/>
+        <files mask="functions_c.html" hidden="true"/>
+        <files mask="erpc__serial__transport_8h_source.html" hidden="true"/>
+        <files mask="group__rpmsg__lite__transport.html" hidden="true"/>
+        <files mask="functions_w.html" hidden="true"/>
+        <files mask="classerpc_1_1_transport-members.html" hidden="true"/>
+        <files mask="erpc__codec_8h_source.html" hidden="true"/>
+        <files mask="classerpc_1_1_semaphore.html" hidden="true"/>
+        <files mask="erpc__config_8h_source.html" hidden="true"/>
+        <files mask="classes.html" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_t_t_y_r_t_o_s_transport.html" hidden="true"/>
+        <files mask="group__rpmsg__tty__rtos__transport.html" hidden="true"/>
+        <files mask="inherits.html" hidden="true"/>
+        <files mask="erpc__spi__master__transport_8h_source.html" hidden="true"/>
+        <files mask="classerpc_1_1_spidev_master_transport.html" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_r_t_o_s_transport.html" hidden="true"/>
+        <files mask="functions_vars.html" hidden="true"/>
+        <files mask="classerpc_1_1_m_u_transport.html" hidden="true"/>
+        <files mask="dir_62e9b24ece508051f26d84717c79c815.html" hidden="true"/>
+        <files mask="erpc__client__manager_8h_source.html" hidden="true"/>
+        <files mask="group__spi__master__transport.html" hidden="true"/>
+        <files mask="functions_func_0x7e.html" hidden="true"/>
+        <files mask="erpc__basic__codec_8h.html" hidden="true"/>
+        <files mask="functions_func_s.html" hidden="true"/>
+        <files mask="group__infra__utility.html" hidden="true"/>
+        <files mask="functions_p.html" hidden="true"/>
+        <files mask="index.html" hidden="true"/>
+        <files mask="classerpc_1_1_usb_cdc_transport-members.html" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_base_transport-members.html" hidden="true"/>
+        <files mask="erpc__serial__transport_8h.html" hidden="true"/>
+        <files mask="group__uart__transport.html" hidden="true"/>
+        <files mask="classerpc_1_1_message_buffer_1_1_cursor-members.html" hidden="true"/>
+        <files mask="classerpc_1_1_basic_codec_factory.html" hidden="true"/>
+        <files mask="erpc__transport__setup_8h.html" hidden="true"/>
+        <files mask="erpc__arbitrated__client__manager_8h_source.html" hidden="true"/>
+        <files mask="class_r_p_msg_message_buffer_factory-members.html" hidden="true"/>
+        <files mask="functions_func_f.html" hidden="true"/>
+        <files mask="erpc__spidev_8h_source.html" hidden="true"/>
+        <files mask="classerpc_1_1_uart_transport.html" hidden="true"/>
+        <files mask="classerpc_1_1_thread.html" hidden="true"/>
+        <files mask="class_static_message_buffer_factory.html" hidden="true"/>
+        <files mask="functions_type.html" hidden="true"/>
+        <files mask="classerpc_1_1_spi_master_transport.html" hidden="true"/>
+        <files mask="erpc__framed__transport_8h_source.html" hidden="true"/>
+        <files mask="functions_func_l.html" hidden="true"/>
+        <files mask="functions_g.html" hidden="true"/>
+        <files mask="erpc__rpmsg__tty__rtos__transport_8h_source.html" hidden="true"/>
+        <files mask="classerpc_1_1_static_queue-members.html" hidden="true"/>
+        <files mask="erpc__threading_8h.html" hidden="true"/>
+        <files mask="erpc__server__setup_8h_source.html" hidden="true"/>
+        <files mask="class_static_message_buffer_factory-members.html" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_linux_transport.html" hidden="true"/>
+        <files mask="files.html" hidden="true"/>
+        <files mask="erpc__dspi__master__transport_8h_source.html" hidden="true"/>
+        <files mask="functions_func_h.html" hidden="true"/>
+        <files mask="erpc__rpmsg__lite__base__transport_8h_source.html" hidden="true"/>
+        <files mask="erpc__client__server__common_8h.html" hidden="true"/>
+        <files mask="classerpc_1_1_transport_arbitrator.html" hidden="true"/>
+        <files mask="group__itbp__transport.html" hidden="true"/>
+        <files mask="group__rpmsg__lite__rtos__transport.html" hidden="true"/>
+        <files mask="dir_000002_000004.html" hidden="true"/>
+        <files mask="erpc__client__server__common_8h_source.html" hidden="true"/>
+        <files mask="erpc__message__loggers_8h.html" hidden="true"/>
+        <files mask="group__spi__slave__transport.html" hidden="true"/>
+        <files mask="functions_func_i.html" hidden="true"/>
+        <files mask="class_r_p_msg_t_t_y_message_buffer_factory-members.html" hidden="true"/>
+        <files mask="erpc__basic__codec_8h_source.html" hidden="true"/>
+        <files mask="group__spidev__master__transport.html" hidden="true"/>
+        <files mask="classerpc_1_1_message_loggers-members.html" hidden="true"/>
+        <files mask="hierarchy.html" hidden="true"/>
+        <files mask="functions_r.html" hidden="true"/>
+        <files mask="classerpc_1_1_usb_cdc_transport.html" hidden="true"/>
+        <files mask="classerpc_1_1_basic_codec.html" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_transport-members.html" hidden="true"/>
+        <files mask="classerpc_1_1_manually_constructed-members.html" hidden="true"/>
+        <files mask="group__tcp__transport.html" hidden="true"/>
+        <files mask="globals_type.html" hidden="true"/>
+        <files mask="group__port__threads.html" hidden="true"/>
+        <files mask="erpc__simple__server_8h.html" hidden="true"/>
+        <files mask="group__port__sysgpio.html" hidden="true"/>
+        <files mask="erpc__pre__post__action_8h.html" hidden="true"/>
+        <files mask="functions_func_c.html" hidden="true"/>
+        <files mask="functions_func_g.html" hidden="true"/>
+        <files mask="structerpc_1_1_transport_arbitrator_1_1_pending_client_info.html" hidden="true"/>
+        <files mask="group__port__serial.html" hidden="true"/>
+        <files mask="classerpc_1_1_arbitrated_client_manager.html" hidden="true"/>
+        <files mask="group__server__setup.html" hidden="true"/>
+        <files mask="classerpc_1_1_spidev_master_transport-members.html" hidden="true"/>
+        <files mask="functions_func_t.html" hidden="true"/>
+        <files mask="erpc__rpmsg__linux__transport_8h_source.html" hidden="true"/>
+        <files mask="dir_000002_000005.html" hidden="true"/>
+        <files mask="classerpc_1_1_client_manager.html" hidden="true"/>
+        <files mask="group__infra__client.html" hidden="true"/>
+        <files mask="classerpc_1_1_request_context.html" hidden="true"/>
+        <files mask="classerpc_1_1_transport.html" hidden="true"/>
+        <files mask="classerpc_1_1_inter_thread_buffer_transport.html" hidden="true"/>
+        <files mask="erpc__server_8h_source.html" hidden="true"/>
+        <files mask="group__infra.html" hidden="true"/>
+        <files mask="classerpc_1_1_service.html" hidden="true"/>
+        <files mask="classerpc_1_1_pre_post_action.html" hidden="true"/>
+        <files mask="classerpc_1_1_inter_thread_buffer_transport-members.html" hidden="true"/>
+        <files mask="classerpc_1_1_dspi_slave_transport-members.html" hidden="true"/>
+        <files mask="classerpc_1_1_message_buffer.html" hidden="true"/>
+        <files mask="classerpc_1_1_codec_factory-members.html" hidden="true"/>
+        <files mask="erpc__pre__post__action_8h_source.html" hidden="true"/>
+        <files mask="classerpc_1_1_dspi_master_transport-members.html" hidden="true"/>
+        <files mask="classerpc_1_1_message_loggers.html" hidden="true"/>
+        <files mask="erpc__server_8h.html" hidden="true"/>
+        <files mask="group__transport__setup.html" hidden="true"/>
+        <files mask="erpc__transport_8h.html" hidden="true"/>
+        <files mask="classerpc_1_1_serial_transport-members.html" hidden="true"/>
+        <files mask="dir_ecce72d14eab190b8175cc3cd0696eeb.html" hidden="true"/>
+        <files mask="erpc__mu__transport_8h_source.html" hidden="true"/>
+        <files mask="class_r_p_msg_message_buffer_factory.html" hidden="true"/>
+        <files mask="group__infra__server.html" hidden="true"/>
+        <files mask="functions_k.html" hidden="true"/>
+        <files mask="erpc__arbitrated__client__manager_8h.html" hidden="true"/>
+        <files mask="erpc__client__manager_8h.html" hidden="true"/>
+        <files mask="erpc__inter__thread__buffer__transport_8h.html" hidden="true"/>
+        <files mask="group__infra__transport.html" hidden="true"/>
+        <files mask="group__message__buffer__factory__setup.html" hidden="true"/>
+        <files mask="classerpc_1_1_message_buffer-members.html" hidden="true"/>
+        <files mask="dir_000005_000004.html" hidden="true"/>
+        <files mask="erpc__transport__arbitrator_8h_source.html" hidden="true"/>
+        <files mask="erpc__arbitrated__client__setup_8h.html" hidden="true"/>
+        <files mask="erpc__simple__server_8h_source.html" hidden="true"/>
+        <files mask="erpc__mbf__setup_8h.html" hidden="true"/>
+        <files mask="doxygen.css" hidden="true"/>
+        <files mask="classerpc_1_1_codec.html" hidden="true"/>
+        <files mask="erpc__transport__arbitrator_8h.html" hidden="true"/>
+        <files mask="erpc__port_8h.html" hidden="true"/>
+        <files mask="erpc__uart__cmsis__transport_8h.html" hidden="true"/>
+        <files mask="functions_h.html" hidden="true"/>
+        <files mask="group__setup.html" hidden="true"/>
+        <files mask="globals_defs.html" hidden="true"/>
+        <files mask="erpc__static__queue_8h.html" hidden="true"/>
+        <files mask="classerpc_1_1_client_server_common.html" hidden="true"/>
+        <files mask="erpc__uart__cmsis__transport_8h_source.html" hidden="true"/>
+        <files mask="functions_func_m.html" hidden="true"/>
+        <files mask="group__dspi__master__transport.html" hidden="true"/>
+        <files mask="dir_65f3d2eaa0376abba9fa4e8a5e7d2f88.html" hidden="true"/>
+        <files mask="dir_000005_000001.html" hidden="true"/>
+        <files mask="classerpc_1_1_basic_codec-members.html" hidden="true"/>
+        <files mask="erpc__config__internal_8h_source.html" hidden="true"/>
+        <files mask="erpc__rpmsg__lite__transport_8h_source.html" hidden="true"/>
+        <files mask="functions_d.html" hidden="true"/>
+        <files mask="erpc__setup__extensions_8h_source.html" hidden="true"/>
+        <files mask="functions_func_w.html" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_transport.html" hidden="true"/>
+        <files mask="classerpc_1_1_client_server_common-members.html" hidden="true"/>
+        <files mask="erpc__rpmsg__lite__base__transport_8h.html" hidden="true"/>
+        <files mask="erpc__transport__setup_8h_source.html" hidden="true"/>
+        <files mask="classerpc_1_1_transport_factory-members.html" hidden="true"/>
+        <files mask="functions_l.html" hidden="true"/>
+        <files mask="erpc__rpmsg__lite__rtos__transport_8h.html" hidden="true"/>
+        <files mask="erpc__transport_8h_source.html" hidden="true"/>
+        <files mask="classerpc_1_1_serial_transport.html" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_linux_transport-members.html" hidden="true"/>
+        <files mask="classerpc_1_1_spi_slave_transport.html" hidden="true"/>
+        <files mask="classerpc_1_1_simple_server.html" hidden="true"/>
+        <files mask="classerpc_1_1_framed_transport.html" hidden="true"/>
+        <files mask="functions_func_u.html" hidden="true"/>
+        <files mask="classerpc_1_1_spi_slave_transport-members.html" hidden="true"/>
+        <files mask="functions_o.html" hidden="true"/>
+        <files mask="globals_func.html" hidden="true"/>
+        <files mask="erpc__crc16_8h.html" hidden="true"/>
+        <files mask="erpc__spi__master__transport_8h.html" hidden="true"/>
+        <files mask="class_dynamic_message_buffer_factory.html" hidden="true"/>
+        <files mask="class_r_p_msg_t_t_y_message_buffer_factory.html" hidden="true"/>
+        <files mask="classerpc_1_1_m_u_transport-members.html" hidden="true"/>
+        <files mask="classerpc_1_1_t_c_p_transport-members.html" hidden="true"/>
+        <files mask="functions_f.html" hidden="true"/>
+        <files mask="erpc__spidev__master__transport_8h.html" hidden="true"/>
+        <files mask="functions_func_d.html" hidden="true"/>
+        <files mask="erpc__client__setup_8h.html" hidden="true"/>
+        <files mask="erpc__common_8h_source.html" hidden="true"/>
+        <files mask="erpc__codec_8h.html" hidden="true"/>
+        <files mask="globals.html" hidden="true"/>
+        <files mask="group___u_s_b___c_d_c__transport.html" hidden="true"/>
+        <files mask="erpc__rpmsg__tty__rtos__transport_8h.html" hidden="true"/>
+        <files mask="class_dynamic_message_buffer_factory-members.html" hidden="true"/>
+        <files mask="classerpc_1_1_mutex_1_1_guard-members.html" hidden="true"/>
+        <files mask="group__transports.html" hidden="true"/>
+        <files mask="erpc__client__setup_8h_source.html" hidden="true"/>
+        <files mask="navtree.css" hidden="true"/>
+        <files mask="erpc__tcp__transport_8h.html" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_t_t_y_r_t_o_s_transport-members.html" hidden="true"/>
+        <files mask="functions_u.html" hidden="true"/>
+        <files mask="erpc__message__buffer_8h.html" hidden="true"/>
+        <files mask="erpc__message__buffer_8h_source.html" hidden="true"/>
+        <files mask="erpc__tcp__transport_8h_source.html" hidden="true"/>
+        <files mask="erpc__version_8h_source.html" hidden="true"/>
+        <files mask="functions_0x7e.html" hidden="true"/>
+        <files mask="dir_000002_000001.html" hidden="true"/>
+        <files mask="classerpc_1_1_request_context-members.html" hidden="true"/>
+        <files mask="classerpc_1_1_framed_transport-members.html" hidden="true"/>
+        <files mask="graph_legend.html" hidden="true"/>
+        <files mask="functions_func_p.html" hidden="true"/>
+        <files mask="functions_func.html" hidden="true"/>
+        <files mask="erpc__setup__extensions_8h.html" hidden="true"/>
+        <files mask="group__port__mem.html" hidden="true"/>
+        <files mask="erpc__spi__slave__transport_8h.html" hidden="true"/>
+        <files mask="classerpc_1_1_message_buffer_factory.html" hidden="true"/>
+        <files mask="erpc__server__setup_8h.html" hidden="true"/>
+        <files mask="dir_000001_000004.html" hidden="true"/>
+        <files mask="classerpc_1_1_message_logger.html" hidden="true"/>
+        <files mask="classerpc_1_1_t_c_p_transport.html" hidden="true"/>
+        <files mask="classerpc_1_1_crc16.html" hidden="true"/>
+        <files mask="classerpc_1_1_pre_post_action-members.html" hidden="true"/>
+        <files mask="erpc__serial_8h_source.html" hidden="true"/>
+        <files mask="group__port.html" hidden="true"/>
+        <files mask="classerpc_1_1_uart_transport-members.html" hidden="true"/>
+        <files mask="classerpc_1_1_dspi_slave_transport.html" hidden="true"/>
+        <files mask="modules.html" hidden="true"/>
+        <files mask="classerpc_1_1_message_buffer_factory-members.html" hidden="true"/>
+        <files mask="erpc__inter__thread__buffer__transport_8h_source.html" hidden="true"/>
+        <files mask="group__infra__codec.html" hidden="true"/>
+        <files mask="erpc__threading_8h_source.html" hidden="true"/>
+        <files mask="erpc__dspi__master__transport_8h.html" hidden="true"/>
+        <files mask="functions.html" hidden="true"/>
+        <files mask="classerpc_1_1_mutex_1_1_guard.html" hidden="true"/>
+      </source>
+      <source relative_path="erpc/docs/eRPC_infrastructure/eRPC" project_relative_path="doc" type="script">
+        <files mask="group__server__setup.js" hidden="true"/>
+        <files mask="group__rpmsg__tty__rtos__transport.js" hidden="true"/>
+        <files mask="classerpc_1_1_message_buffer.js" hidden="true"/>
+        <files mask="classerpc_1_1_request_context.js" hidden="true"/>
+        <files mask="group__mu__transport.js" hidden="true"/>
+        <files mask="classerpc_1_1_uart_transport.js" hidden="true"/>
+        <files mask="erpc__serial_8h.js" hidden="true"/>
+        <files mask="group__infra__server.js" hidden="true"/>
+        <files mask="classerpc_1_1_dspi_master_transport.js" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_base_transport.js" hidden="true"/>
+        <files mask="erpc__pre__post__action_8h.js" hidden="true"/>
+        <files mask="navtreeindex0.js" hidden="true"/>
+        <files mask="group__port__setup__extensions.js" hidden="true"/>
+        <files mask="group__spidev__master__transport.js" hidden="true"/>
+        <files mask="classerpc_1_1_spi_slave_transport.js" hidden="true"/>
+        <files mask="classerpc_1_1_inter_thread_buffer_transport.js" hidden="true"/>
+        <files mask="classerpc_1_1_static_queue.js" hidden="true"/>
+        <files mask="erpc__server__setup_8h.js" hidden="true"/>
+        <files mask="group__port__mem.js" hidden="true"/>
+        <files mask="group__infra__transport.js" hidden="true"/>
+        <files mask="classerpc_1_1_basic_codec_factory.js" hidden="true"/>
+        <files mask="classerpc_1_1_dspi_slave_transport.js" hidden="true"/>
+        <files mask="classerpc_1_1_arbitrated_client_manager.js" hidden="true"/>
+        <files mask="classerpc_1_1_mutex.js" hidden="true"/>
+        <files mask="group__setup.js" hidden="true"/>
+        <files mask="classerpc_1_1_semaphore.js" hidden="true"/>
+        <files mask="erpc__codec_8h.js" hidden="true"/>
+        <files mask="group__tcp__transport.js" hidden="true"/>
+        <files mask="erpc__client__setup_8h.js" hidden="true"/>
+        <files mask="classerpc_1_1_t_c_p_transport.js" hidden="true"/>
+        <files mask="navtreedata.js" hidden="true"/>
+        <files mask="group__infra.js" hidden="true"/>
+        <files mask="class_static_message_buffer_factory.js" hidden="true"/>
+        <files mask="functions_dup.js" hidden="true"/>
+        <files mask="hierarchy.js" hidden="true"/>
+        <files mask="group__port__threads.js" hidden="true"/>
+        <files mask="group__config.js" hidden="true"/>
+        <files mask="functions_func.js" hidden="true"/>
+        <files mask="classerpc_1_1_spi_master_transport.js" hidden="true"/>
+        <files mask="class_dynamic_message_buffer_factory.js" hidden="true"/>
+        <files mask="group__client__setup.js" hidden="true"/>
+        <files mask="group__transport__setup.js" hidden="true"/>
+        <files mask="classerpc_1_1_codec.js" hidden="true"/>
+        <files mask="classerpc_1_1_pre_post_action.js" hidden="true"/>
+        <files mask="group__infra__utility.js" hidden="true"/>
+        <files mask="group__dspi__master__transport.js" hidden="true"/>
+        <files mask="classerpc_1_1_client_server_common.js" hidden="true"/>
+        <files mask="classerpc_1_1_message_buffer_1_1_cursor.js" hidden="true"/>
+        <files mask="classerpc_1_1_codec_factory.js" hidden="true"/>
+        <files mask="classerpc_1_1_transport.js" hidden="true"/>
+        <files mask="classerpc_1_1_simple_server.js" hidden="true"/>
+        <files mask="erpc__basic__codec_8h.js" hidden="true"/>
+        <files mask="classerpc_1_1_framed_transport.js" hidden="true"/>
+        <files mask="group__rpmsg__linux__transport.js" hidden="true"/>
+        <files mask="erpc__threading_8h.js" hidden="true"/>
+        <files mask="classerpc_1_1_basic_codec.js" hidden="true"/>
+        <files mask="group__uart__transport.js" hidden="true"/>
+        <files mask="group__spi__slave__transport.js" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_t_t_y_r_t_o_s_transport.js" hidden="true"/>
+        <files mask="erpc__mbf__setup_8h.js" hidden="true"/>
+        <files mask="erpc__transport__setup_8h.js" hidden="true"/>
+        <files mask="classerpc_1_1_crc16.js" hidden="true"/>
+        <files mask="classerpc_1_1_manually_constructed.js" hidden="true"/>
+        <files mask="classerpc_1_1_thread.js" hidden="true"/>
+        <files mask="classerpc_1_1_transport_factory.js" hidden="true"/>
+        <files mask="files.js" hidden="true"/>
+        <files mask="structerpc_1_1_transport_arbitrator_1_1_pending_client_info.js" hidden="true"/>
+        <files mask="group__itbp__transport.js" hidden="true"/>
+        <files mask="navtreeindex1.js" hidden="true"/>
+        <files mask="erpc__setup__extensions_8h.js" hidden="true"/>
+        <files mask="erpc__mu__transport_8h.js" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_transport.js" hidden="true"/>
+        <files mask="group__rpmsg__lite__transport.js" hidden="true"/>
+        <files mask="classerpc_1_1_message_logger.js" hidden="true"/>
+        <files mask="group__infra__client.js" hidden="true"/>
+        <files mask="modules.js" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_r_t_o_s_transport.js" hidden="true"/>
+        <files mask="group__port__serial.js" hidden="true"/>
+        <files mask="erpc__config_8h.js" hidden="true"/>
+        <files mask="resize.js" hidden="true"/>
+        <files mask="navtreeindex2.js" hidden="true"/>
+        <files mask="group__port.js" hidden="true"/>
+        <files mask="class_r_p_msg_t_t_y_message_buffer_factory.js" hidden="true"/>
+        <files mask="classerpc_1_1_message_buffer_factory.js" hidden="true"/>
+        <files mask="classerpc_1_1_client_manager.js" hidden="true"/>
+        <files mask="classerpc_1_1_m_u_transport.js" hidden="true"/>
+        <files mask="classerpc_1_1_server.js" hidden="true"/>
+        <files mask="classerpc_1_1_service.js" hidden="true"/>
+        <files mask="navtreeindex3.js" hidden="true"/>
+        <files mask="classerpc_1_1_r_p_msg_linux_transport.js" hidden="true"/>
+        <files mask="group__transports.js" hidden="true"/>
+        <files mask="dynsections.js" hidden="true"/>
+        <files mask="group___u_s_b___c_d_c__transport.js" hidden="true"/>
+        <files mask="classerpc_1_1_transport_arbitrator.js" hidden="true"/>
+        <files mask="class_r_p_msg_message_buffer_factory.js" hidden="true"/>
+        <files mask="group__infra__codec.js" hidden="true"/>
+        <files mask="classerpc_1_1_mutex_1_1_guard.js" hidden="true"/>
+        <files mask="classerpc_1_1_usb_cdc_transport.js" hidden="true"/>
+        <files mask="erpc__port_8h.js" hidden="true"/>
+        <files mask="classerpc_1_1_spidev_master_transport.js" hidden="true"/>
+        <files mask="group__message__buffer__factory__setup.js" hidden="true"/>
+        <files mask="erpc__client__manager_8h.js" hidden="true"/>
+        <files mask="annotated_dup.js" hidden="true"/>
+        <files mask="group__spi__master__transport.js" hidden="true"/>
+        <files mask="classerpc_1_1_serial_transport.js" hidden="true"/>
+        <files mask="erpc__arbitrated__client__setup_8h.js" hidden="true"/>
+        <files mask="group__dspi__slave__transport.js" hidden="true"/>
+        <files mask="classerpc_1_1_message_loggers.js" hidden="true"/>
+        <files mask="navtree.js" hidden="true"/>
+        <files mask="group__serial__transport.js" hidden="true"/>
+        <files mask="group__rpmsg__lite__rtos__transport.js" hidden="true"/>
+        <files mask="jquery.js" hidden="true"/>
+      </source>
+      <source relative_path="erpc/docs/eRPC_infrastructure/eRPC" project_relative_path="doc" type="image">
+        <files mask="tab_b.png" hidden="true"/>
+        <files mask="folderclosed.png" hidden="true"/>
+        <files mask="bc_s.png" hidden="true"/>
+        <files mask="nxp_logo_small.png" hidden="true"/>
+        <files mask="nav_h.png" hidden="true"/>
+        <files mask="tab_a.png" hidden="true"/>
+        <files mask="bdwn.png" hidden="true"/>
+        <files mask="sync_off.png" hidden="true"/>
+        <files mask="tab_s.png" hidden="true"/>
+        <files mask="open.png" hidden="true"/>
+        <files mask="arrowdown.png" hidden="true"/>
+        <files mask="splitbar.png" hidden="true"/>
+        <files mask="tab_h.png" hidden="true"/>
+        <files mask="rpc_block_diagram.png" hidden="true"/>
+        <files mask="closed.png" hidden="true"/>
+        <files mask="arrowright.png" hidden="true"/>
+        <files mask="nav_g.png" hidden="true"/>
+        <files mask="doc.png" hidden="true"/>
+        <files mask="sync_on.png" hidden="true"/>
+        <files mask="nav_f.png" hidden="true"/>
+        <files mask="doxygen.png" hidden="true"/>
+        <files mask="folderopen.png" hidden="true"/>
+      </source>
+      <source relative_path="erpc/docs/eRPC_infrastructure/eRPC/search" project_relative_path="doc" type="script">
+        <files mask="all_0.js" hidden="true"/>
+        <files mask="typedefs_3.js" hidden="true"/>
+        <files mask="classes_a.js" hidden="true"/>
+        <files mask="all_9.js" hidden="true"/>
+        <files mask="functions_2.js" hidden="true"/>
+        <files mask="functions_10.js" hidden="true"/>
+        <files mask="all_f.js" hidden="true"/>
+        <files mask="all_5.js" hidden="true"/>
+        <files mask="classes_1.js" hidden="true"/>
+        <files mask="enums_1.js" hidden="true"/>
+        <files mask="groups_0.js" hidden="true"/>
+        <files mask="classes_9.js" hidden="true"/>
+        <files mask="groups_3.js" hidden="true"/>
+        <files mask="all_8.js" hidden="true"/>
+        <files mask="typedefs_2.js" hidden="true"/>
+        <files mask="functions_6.js" hidden="true"/>
+        <files mask="search.js" hidden="true"/>
+        <files mask="classes_6.js" hidden="true"/>
+        <files mask="variables_1.js" hidden="true"/>
+        <files mask="enums_0.js" hidden="true"/>
+        <files mask="variables_2.js" hidden="true"/>
+        <files mask="functions_e.js" hidden="true"/>
+        <files mask="all_13.js" hidden="true"/>
+        <files mask="functions_11.js" hidden="true"/>
+        <files mask="classes_0.js" hidden="true"/>
+        <files mask="enumvalues_0.js" hidden="true"/>
+        <files mask="classes_3.js" hidden="true"/>
+        <files mask="functions_0.js" hidden="true"/>
+        <files mask="classes_4.js" hidden="true"/>
+        <files mask="all_14.js" hidden="true"/>
+        <files mask="groups_4.js" hidden="true"/>
+        <files mask="groups_9.js" hidden="true"/>
+        <files mask="all_d.js" hidden="true"/>
+        <files mask="searchdata.js" hidden="true"/>
+        <files mask="all_c.js" hidden="true"/>
+        <files mask="pages_0.js" hidden="true"/>
+        <files mask="all_6.js" hidden="true"/>
+        <files mask="classes_b.js" hidden="true"/>
+        <files mask="typedefs_0.js" hidden="true"/>
+        <files mask="classes_5.js" hidden="true"/>
+        <files mask="groups_2.js" hidden="true"/>
+        <files mask="functions_b.js" hidden="true"/>
+        <files mask="all_e.js" hidden="true"/>
+        <files mask="functions_8.js" hidden="true"/>
+        <files mask="all_3.js" hidden="true"/>
+        <files mask="all_10.js" hidden="true"/>
+        <files mask="functions_9.js" hidden="true"/>
+        <files mask="all_a.js" hidden="true"/>
+        <files mask="groups_5.js" hidden="true"/>
+        <files mask="functions_d.js" hidden="true"/>
+        <files mask="all_b.js" hidden="true"/>
+        <files mask="groups_1.js" hidden="true"/>
+        <files mask="classes_c.js" hidden="true"/>
+        <files mask="all_15.js" hidden="true"/>
+        <files mask="functions_3.js" hidden="true"/>
+        <files mask="functions_5.js" hidden="true"/>
+        <files mask="all_11.js" hidden="true"/>
+        <files mask="groups_7.js" hidden="true"/>
+        <files mask="all_7.js" hidden="true"/>
+        <files mask="all_2.js" hidden="true"/>
+        <files mask="all_12.js" hidden="true"/>
+        <files mask="classes_d.js" hidden="true"/>
+        <files mask="functions_f.js" hidden="true"/>
+        <files mask="functions_7.js" hidden="true"/>
+        <files mask="files_0.js" hidden="true"/>
+        <files mask="functions_12.js" hidden="true"/>
+        <files mask="classes_2.js" hidden="true"/>
+        <files mask="functions_c.js" hidden="true"/>
+        <files mask="typedefs_1.js" hidden="true"/>
+        <files mask="groups_6.js" hidden="true"/>
+        <files mask="all_1.js" hidden="true"/>
+        <files mask="functions_1.js" hidden="true"/>
+        <files mask="functions_a.js" hidden="true"/>
+        <files mask="groups_8.js" hidden="true"/>
+        <files mask="classes_8.js" hidden="true"/>
+        <files mask="variables_0.js" hidden="true"/>
+        <files mask="functions_4.js" hidden="true"/>
+        <files mask="all_4.js" hidden="true"/>
+        <files mask="classes_7.js" hidden="true"/>
+      </source>
+      <source relative_path="erpc/docs/eRPC_infrastructure/eRPC/search" project_relative_path="doc" type="doc">
+        <files mask="all_a.html" hidden="true"/>
+        <files mask="functions_10.html" hidden="true"/>
+        <files mask="variables_2.html" hidden="true"/>
+        <files mask="all_12.html" hidden="true"/>
+        <files mask="functions_4.html" hidden="true"/>
+        <files mask="all_9.html" hidden="true"/>
+        <files mask="functions_12.html" hidden="true"/>
+        <files mask="files_0.html" hidden="true"/>
+        <files mask="all_1.html" hidden="true"/>
+        <files mask="all_0.html" hidden="true"/>
+        <files mask="all_13.html" hidden="true"/>
+        <files mask="classes_b.html" hidden="true"/>
+        <files mask="functions_11.html" hidden="true"/>
+        <files mask="classes_d.html" hidden="true"/>
+        <files mask="enums_1.html" hidden="true"/>
+        <files mask="enums_0.html" hidden="true"/>
+        <files mask="all_14.html" hidden="true"/>
+        <files mask="all_2.html" hidden="true"/>
+        <files mask="all_c.html" hidden="true"/>
+        <files mask="all_11.html" hidden="true"/>
+        <files mask="functions_c.html" hidden="true"/>
+        <files mask="functions_9.html" hidden="true"/>
+        <files mask="classes_5.html" hidden="true"/>
+        <files mask="pages_0.html" hidden="true"/>
+        <files mask="search.css" hidden="true"/>
+        <files mask="functions_b.html" hidden="true"/>
+        <files mask="functions_5.html" hidden="true"/>
+        <files mask="groups_9.html" hidden="true"/>
+        <files mask="classes_9.html" hidden="true"/>
+        <files mask="functions_e.html" hidden="true"/>
+        <files mask="functions_0.html" hidden="true"/>
+        <files mask="all_3.html" hidden="true"/>
+        <files mask="groups_0.html" hidden="true"/>
+        <files mask="all_f.html" hidden="true"/>
+        <files mask="all_8.html" hidden="true"/>
+        <files mask="classes_7.html" hidden="true"/>
+        <files mask="classes_1.html" hidden="true"/>
+        <files mask="all_4.html" hidden="true"/>
+        <files mask="groups_8.html" hidden="true"/>
+        <files mask="typedefs_3.html" hidden="true"/>
+        <files mask="all_7.html" hidden="true"/>
+        <files mask="variables_0.html" hidden="true"/>
+        <files mask="groups_5.html" hidden="true"/>
+        <files mask="functions_2.html" hidden="true"/>
+        <files mask="functions_1.html" hidden="true"/>
+        <files mask="groups_1.html" hidden="true"/>
+        <files mask="groups_3.html" hidden="true"/>
+        <files mask="all_e.html" hidden="true"/>
+        <files mask="nomatches.html" hidden="true"/>
+        <files mask="functions_7.html" hidden="true"/>
+        <files mask="all_d.html" hidden="true"/>
+        <files mask="typedefs_2.html" hidden="true"/>
+        <files mask="all_15.html" hidden="true"/>
+        <files mask="classes_0.html" hidden="true"/>
+        <files mask="classes_6.html" hidden="true"/>
+        <files mask="all_10.html" hidden="true"/>
+        <files mask="all_6.html" hidden="true"/>
+        <files mask="functions_6.html" hidden="true"/>
+        <files mask="functions_8.html" hidden="true"/>
+        <files mask="classes_8.html" hidden="true"/>
+        <files mask="enumvalues_0.html" hidden="true"/>
+        <files mask="classes_3.html" hidden="true"/>
+        <files mask="all_5.html" hidden="true"/>
+        <files mask="functions_d.html" hidden="true"/>
+        <files mask="classes_c.html" hidden="true"/>
+        <files mask="typedefs_1.html" hidden="true"/>
+        <files mask="groups_6.html" hidden="true"/>
+        <files mask="classes_2.html" hidden="true"/>
+        <files mask="functions_f.html" hidden="true"/>
+        <files mask="classes_4.html" hidden="true"/>
+        <files mask="all_b.html" hidden="true"/>
+        <files mask="classes_a.html" hidden="true"/>
+        <files mask="groups_4.html" hidden="true"/>
+        <files mask="groups_2.html" hidden="true"/>
+        <files mask="functions_3.html" hidden="true"/>
+        <files mask="groups_7.html" hidden="true"/>
+        <files mask="typedefs_0.html" hidden="true"/>
+        <files mask="variables_1.html" hidden="true"/>
+        <files mask="functions_a.html" hidden="true"/>
+      </source>
+      <source relative_path="erpc/docs/eRPC_infrastructure/eRPC/search" project_relative_path="doc" type="image">
+        <files mask="search_r.png" hidden="true"/>
+        <files mask="search_l.png" hidden="true"/>
+        <files mask="mag_sel.png" hidden="true"/>
+        <files mask="close.png" hidden="true"/>
+        <files mask="search_m.png" hidden="true"/>
+      </source>
+      <source relative_path="erpc/docs/eRPC_infrastructure/erpcgen" project_relative_path="doc" type="doc">
+        <files mask="functions_func_v.html" hidden="true"/>
+        <files mask="classcpptempl_1_1_data-members.html" hidden="true"/>
+        <files mask="classcpptempl_1_1data__ptr.html" hidden="true"/>
+        <files mask="functions_i.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_function_base-members.html" hidden="true"/>
+        <files mask="_alias_type_8h_source.html" hidden="true"/>
+        <files mask="class_value-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_unique_id_checker.html" hidden="true"/>
+        <files mask="class_opt_iter_rwd-members.html" hidden="true"/>
+        <files mask="class_opt_iter-members.html" hidden="true"/>
+        <files mask="functions_v.html" hidden="true"/>
+        <files mask="_hex_values_8h_source.html" hidden="true"/>
+        <files mask="classerpcgen_1_1erpcgen_tool-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_union_case.html" hidden="true"/>
+        <files mask="_void_type_8h_source.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_array_type-members.html" hidden="true"/>
+        <files mask="functions_func_o.html" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_int-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1syntax__error2-members.html" hidden="true"/>
+        <files mask="class_options.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_interface_definition.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_ast_node-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1syntax__error-members.html" hidden="true"/>
+        <files mask="class_logger.html" hidden="true"/>
+        <files mask="classcpptempl_1_1_template_exception-members.html" hidden="true"/>
+        <files mask="_token_8h_source.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_group-members.html" hidden="true"/>
+        <files mask="class_opt_str_tok_iter.html" hidden="true"/>
+        <files mask="_const_type_8h_source.html" hidden="true"/>
+        <files mask="classerpcgen_1_1internal__error-members.html" hidden="true"/>
+        <files mask="smart__ptr_8h_source.html" hidden="true"/>
+        <files mask="functions_m.html" hidden="true"/>
+        <files mask="customdoxygen.css" hidden="true"/>
+        <files mask="functions_s.html" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_map-members.html" hidden="true"/>
+        <files mask="class_option_spec.html" hidden="true"/>
+        <files mask="class_integer_value-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_program.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_symbol-members.html" hidden="true"/>
+        <files mask="functions_func_r.html" hidden="true"/>
+        <files mask="functions_t.html" hidden="true"/>
+        <files mask="class_value.html" hidden="true"/>
+        <files mask="class_opt_argv_iter.html" hidden="true"/>
+        <files mask="classerpcgen_1_1erpc__error-members.html" hidden="true"/>
+        <files mask="class_stdout_logger-members.html" hidden="true"/>
+        <files mask="_ast_node_8h_source.html" hidden="true"/>
+        <files mask="_data_type_8h_source.html" hidden="true"/>
+        <files mask="dir_b0461de83f30261a836ec46318e22617.html" hidden="true"/>
+        <files mask="options_8h_source.html" hidden="true"/>
+        <files mask="_symbol_scope_8h_source.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_token.html" hidden="true"/>
+        <files mask="structerpcgen_1_1token__loc__t-members.html" hidden="true"/>
+        <files mask="_symbol_scanner_8h_source.html" hidden="true"/>
+        <files mask="annotated.html" hidden="true"/>
+        <files mask="class_opt_istream_iter.html" hidden="true"/>
+        <files mask="tabs.css" hidden="true"/>
+        <files mask="structsmart__ptr__delete.html" hidden="true"/>
+        <files mask="_function_8h_source.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_symbol.html" hidden="true"/>
+        <files mask="classerpcgen_1_1semantic__error.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_function_type.html" hidden="true"/>
+        <files mask="class_integer_value.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_symbol_scanner-members.html" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_value-members.html" hidden="true"/>
+        <files mask="functions_func_j.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_union_type.html" hidden="true"/>
+        <files mask="_interface_definition_8h_source.html" hidden="true"/>
+        <files mask="functions_c.html" hidden="true"/>
+        <files mask="_interface_8h_source.html" hidden="true"/>
+        <files mask="functions_w.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_ast_walker-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_enum_member.html" hidden="true"/>
+        <files mask="_unique_id_checker_8h_source.html" hidden="true"/>
+        <files mask="classes.html" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_bool-members.html" hidden="true"/>
+        <files mask="class_string_value-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_symbol_scope_1_1typed__iterator-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_builtin_type.html" hidden="true"/>
+        <files mask="functions_b.html" hidden="true"/>
+        <files mask="_symbol_8h_source.html" hidden="true"/>
+        <files mask="functions_enum.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_current_file_info-members.html" hidden="true"/>
+        <files mask="functions_vars.html" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_list-members.html" hidden="true"/>
+        <files mask="dir_61c3f993326311b905af09f643fec799.html" hidden="true"/>
+        <files mask="class_options-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_function-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_struct_type-members.html" hidden="true"/>
+        <files mask="functions_func_0x7e.html" hidden="true"/>
+        <files mask="classerpcgen_1_1syntax__error2.html" hidden="true"/>
+        <files mask="functions_func_s.html" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_list.html" hidden="true"/>
+        <files mask="functions_p.html" hidden="true"/>
+        <files mask="index.html" hidden="true"/>
+        <files mask="class_log.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_list_type-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_interface.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_ast_printer-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_ast_walker.html" hidden="true"/>
+        <files mask="_logging_8h_source.html" hidden="true"/>
+        <files mask="functions_e.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_unique_id_checker-members.html" hidden="true"/>
+        <files mask="classsmart__ptr.html" hidden="true"/>
+        <files mask="structsmart__ptr__free-members.html" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_map.html" hidden="true"/>
+        <files mask="classcpptempl_1_1data__map_1_1key__error.html" hidden="true"/>
+        <files mask="functions_func_f.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_union_type-members.html" hidden="true"/>
+        <files mask="structerpcgen_1_1token__loc__t.html" hidden="true"/>
+        <files mask="functions_func_y.html" hidden="true"/>
+        <files mask="structsmart__ptr__free.html" hidden="true"/>
+        <files mask="_list_type_8h_source.html" hidden="true"/>
+        <files mask="functions_type.html" hidden="true"/>
+        <files mask="_program_8h_source.html" hidden="true"/>
+        <files mask="functions_func_b.html" hidden="true"/>
+        <files mask="functions_func_l.html" hidden="true"/>
+        <files mask="functions_g.html" hidden="true"/>
+        <files mask="_union_type_8h_source.html" hidden="true"/>
+        <files mask="functions_q.html" hidden="true"/>
+        <files mask="class_log-members.html" hidden="true"/>
+        <files mask="_enum_member_8h_source.html" hidden="true"/>
+        <files mask="files.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_array_type.html" hidden="true"/>
+        <files mask="functions_func_h.html" hidden="true"/>
+        <files mask="classsmart__ptr-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_group.html" hidden="true"/>
+        <files mask="_erpc_lexer_8h_source.html" hidden="true"/>
+        <files mask="_function_type_8h_source.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_struct_member.html" hidden="true"/>
+        <files mask="class_float_value-members.html" hidden="true"/>
+        <files mask="functions_func_i.html" hidden="true"/>
+        <files mask="classcpptempl_1_1_data.html" hidden="true"/>
+        <files mask="classcpptempl_1_1data__map-members.html" hidden="true"/>
+        <files mask="_builtin_type_8h_source.html" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_int.html" hidden="true"/>
+        <files mask="_struct_type_8h_source.html" hidden="true"/>
+        <files mask="hierarchy.html" hidden="true"/>
+        <files mask="functions_r.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_struct_member-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_python_generator-members.html" hidden="true"/>
+        <files mask="_union_case_8h_source.html" hidden="true"/>
+        <files mask="functions_func_a.html" hidden="true"/>
+        <files mask="classerpcgen_1_1lexical__error-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_python_generator.html" hidden="true"/>
+        <files mask="functions_func_c.html" hidden="true"/>
+        <files mask="functions_func_g.html" hidden="true"/>
+        <files mask="class_opt_str_tok_iter-members.html" hidden="true"/>
+        <files mask="class_log_1_1_set_output_level.html" hidden="true"/>
+        <files mask="_parse_errors_8h_source.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_interface_definition-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_ast_printer.html" hidden="true"/>
+        <files mask="functions_func_t.html" hidden="true"/>
+        <files mask="class_string_value.html" hidden="true"/>
+        <files mask="classerpcgen_1_1lexical__error.html" hidden="true"/>
+        <files mask="class_opt_iter_rwd.html" hidden="true"/>
+        <files mask="class_opt_argv_iter-members.html" hidden="true"/>
+        <files mask="class_stdout_logger.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_function.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_annotation-members.html" hidden="true"/>
+        <files mask="functions_eval.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_symbol_scanner.html" hidden="true"/>
+        <files mask="_struct_member_8h_source.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_interface-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_token-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_enum_type-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_struct_type.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_erpc_lexer-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_generator-members.html" hidden="true"/>
+        <files mask="dir_acfaa839b8ffb0f73c7c3063e82240f2.html" hidden="true"/>
+        <files mask="annotations_8h_source.html" hidden="true"/>
+        <files mask="class_opt_iter.html" hidden="true"/>
+        <files mask="functions_k.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_union_case-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_const_type.html" hidden="true"/>
+        <files mask="_python_generator_8h_source.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_enum_member-members.html" hidden="true"/>
+        <files mask="class_logger-members.html" hidden="true"/>
+        <files mask="doxygen.css" hidden="true"/>
+        <files mask="classerpcgen_1_1_program-members.html" hidden="true"/>
+        <files mask="functions_y.html" hidden="true"/>
+        <files mask="classcpptempl_1_1data__map_1_1key__error-members.html" hidden="true"/>
+        <files mask="_enum_type_8h_source.html" hidden="true"/>
+        <files mask="functions_n.html" hidden="true"/>
+        <files mask="classerpcgen_1_1erpcgen_tool.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_list_type.html" hidden="true"/>
+        <files mask="functions_h.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_alias_type.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_function_type-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_current_file_info.html" hidden="true"/>
+        <files mask="functions_func_m.html" hidden="true"/>
+        <files mask="_ast_walker_8h_source.html" hidden="true"/>
+        <files mask="format__string_8h_source.html" hidden="true"/>
+        <files mask="structsmart__ptr__delete__array.html" hidden="true"/>
+        <files mask="_value_8h_source.html" hidden="true"/>
+        <files mask="_c_generator_8h_source.html" hidden="true"/>
+        <files mask="classerpcgen_1_1syntax__error.html" hidden="true"/>
+        <files mask="dir_5d74497626cd518006bfc4bb021f3cae.html" hidden="true"/>
+        <files mask="functions_d.html" hidden="true"/>
+        <files mask="functions_func_w.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_enum_type.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_void_type.html" hidden="true"/>
+        <files mask="class_float_value.html" hidden="true"/>
+        <files mask="functions_l.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_annotation.html" hidden="true"/>
+        <files mask="functions_func_u.html" hidden="true"/>
+        <files mask="functions_o.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_alias_type-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1internal__error.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_data_type-members.html" hidden="true"/>
+        <files mask="classcpptempl_1_1data__ptr-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_const_type-members.html" hidden="true"/>
+        <files mask="functions_f.html" hidden="true"/>
+        <files mask="functions_func_d.html" hidden="true"/>
+        <files mask="os__config_8h_source.html" hidden="true"/>
+        <files mask="structsmart__ptr__delete-members.html" hidden="true"/>
+        <files mask="_array_type_8h_source.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_symbol_scope-members.html" hidden="true"/>
+        <files mask="class_opt_istream_iter-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_function_base.html" hidden="true"/>
+        <files mask="class_log_1_1_set_output_level-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_data_type.html" hidden="true"/>
+        <files mask="classcpptempl_1_1_template_exception.html" hidden="true"/>
+        <files mask="classerpcgen_1_1semantic__error-members.html" hidden="true"/>
+        <files mask="_search_path_8h_source.html" hidden="true"/>
+        <files mask="navtree.css" hidden="true"/>
+        <files mask="functions_u.html" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_value.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_ast_node.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_c_generator.html" hidden="true"/>
+        <files mask="functions_0x7e.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_symbol_scope_1_1typed__iterator.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_builtin_type-members.html" hidden="true"/>
+        <files mask="_generator_8h_source.html" hidden="true"/>
+        <files mask="class_path_searcher.html" hidden="true"/>
+        <files mask="functions_func_p.html" hidden="true"/>
+        <files mask="functions_func.html" hidden="true"/>
+        <files mask="classcpptempl_1_1data__map.html" hidden="true"/>
+        <files mask="cpptempl_8h_source.html" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_template.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_c_generator-members.html" hidden="true"/>
+        <files mask="class_path_searcher-members.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_void_type-members.html" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_bool.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_symbol_scope.html" hidden="true"/>
+        <files mask="functions_func_n.html" hidden="true"/>
+        <files mask="_annotation_8h_source.html" hidden="true"/>
+        <files mask="functions_func_e.html" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_template-members.html" hidden="true"/>
+        <files mask="class_option_spec-members.html" hidden="true"/>
+        <files mask="_group_8h_source.html" hidden="true"/>
+        <files mask="classerpcgen_1_1erpc__error.html" hidden="true"/>
+        <files mask="functions_j.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_erpc_lexer.html" hidden="true"/>
+        <files mask="classerpcgen_1_1_generator.html" hidden="true"/>
+        <files mask="functions_a.html" hidden="true"/>
+        <files mask="structsmart__ptr__delete__array-members.html" hidden="true"/>
+        <files mask="functions.html" hidden="true"/>
+      </source>
+      <source relative_path="erpc/docs/eRPC_infrastructure/erpcgen" project_relative_path="doc" type="image">
+        <files mask="classerpcgen_1_1_list_type.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_symbol.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_function_type.png" hidden="true"/>
+        <files mask="classcpptempl_1_1data__map_1_1key__error.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_generator.png" hidden="true"/>
+        <files mask="tab_b.png" hidden="true"/>
+        <files mask="classerpcgen_1_1erpc__error.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_function.png" hidden="true"/>
+        <files mask="folderclosed.png" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_map.png" hidden="true"/>
+        <files mask="bc_s.png" hidden="true"/>
+        <files mask="class_stdout_logger.png" hidden="true"/>
+        <files mask="nxp_logo_small.png" hidden="true"/>
+        <files mask="class_opt_str_tok_iter.png" hidden="true"/>
+        <files mask="nav_h.png" hidden="true"/>
+        <files mask="class_string_value.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_symbol_scanner.png" hidden="true"/>
+        <files mask="class_logger.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_data_type.png" hidden="true"/>
+        <files mask="class_opt_argv_iter.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_function_base.png" hidden="true"/>
+        <files mask="tab_a.png" hidden="true"/>
+        <files mask="class_integer_value.png" hidden="true"/>
+        <files mask="class_opt_iter.png" hidden="true"/>
+        <files mask="bdwn.png" hidden="true"/>
+        <files mask="class_opt_istream_iter.png" hidden="true"/>
+        <files mask="classerpcgen_1_1lexical__error.png" hidden="true"/>
+        <files mask="sync_off.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_void_type.png" hidden="true"/>
+        <files mask="tab_s.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_program.png" hidden="true"/>
+        <files mask="classcpptempl_1_1_data.png" hidden="true"/>
+        <files mask="class_value.png" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_bool.png" hidden="true"/>
+        <files mask="open.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_c_generator.png" hidden="true"/>
+        <files mask="arrowdown.png" hidden="true"/>
+        <files mask="splitbar.png" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_template.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_python_generator.png" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_list.png" hidden="true"/>
+        <files mask="class_float_value.png" hidden="true"/>
+        <files mask="classerpcgen_1_1semantic__error.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_array_type.png" hidden="true"/>
+        <files mask="classcpptempl_1_1_template_exception.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_interface.png" hidden="true"/>
+        <files mask="tab_h.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_alias_type.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_union_type.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_builtin_type.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_struct_type.png" hidden="true"/>
+        <files mask="class_opt_iter_rwd.png" hidden="true"/>
+        <files mask="closed.png" hidden="true"/>
+        <files mask="classerpcgen_1_1internal__error.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_union_case.png" hidden="true"/>
+        <files mask="arrowright.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_struct_member.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_enum_member.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_const_type.png" hidden="true"/>
+        <files mask="classerpcgen_1_1syntax__error2.png" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_value.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_ast_walker.png" hidden="true"/>
+        <files mask="classerpcgen_1_1syntax__error.png" hidden="true"/>
+        <files mask="nav_g.png" hidden="true"/>
+        <files mask="doc.png" hidden="true"/>
+        <files mask="sync_on.png" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_int.png" hidden="true"/>
+        <files mask="nav_f.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_enum_type.png" hidden="true"/>
+        <files mask="doxygen.png" hidden="true"/>
+        <files mask="classerpcgen_1_1_erpc_lexer.png" hidden="true"/>
+        <files mask="folderopen.png" hidden="true"/>
+      </source>
+      <source relative_path="erpc/docs/eRPC_infrastructure/erpcgen" project_relative_path="doc" type="script">
+        <files mask="classcpptempl_1_1_data_list.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_void_type.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_symbol_scanner.js" hidden="true"/>
+        <files mask="class_logger.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_token.js" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_int.js" hidden="true"/>
+        <files mask="class_stdout_logger.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_function_type.js" hidden="true"/>
+        <files mask="class_opt_str_tok_iter.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_union_case.js" hidden="true"/>
+        <files mask="classerpcgen_1_1lexical__error.js" hidden="true"/>
+        <files mask="class_option_spec.js" hidden="true"/>
+        <files mask="navtreeindex0.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_enum_member.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_program.js" hidden="true"/>
+        <files mask="class_log.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_python_generator.js" hidden="true"/>
+        <files mask="classcpptempl_1_1data__map_1_1key__error.js" hidden="true"/>
+        <files mask="classsmart__ptr.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_builtin_type.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_generator.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_enum_type.js" hidden="true"/>
+        <files mask="navtreedata.js" hidden="true"/>
+        <files mask="functions_dup.js" hidden="true"/>
+        <files mask="hierarchy.js" hidden="true"/>
+        <files mask="functions_func.js" hidden="true"/>
+        <files mask="class_opt_iter.js" hidden="true"/>
+        <files mask="class_options.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_group.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_interface.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_data_type.js" hidden="true"/>
+        <files mask="classerpcgen_1_1erpc__error.js" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_value.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_struct_type.js" hidden="true"/>
+        <files mask="class_float_value.js" hidden="true"/>
+        <files mask="classerpcgen_1_1internal__error.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_struct_member.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_erpc_lexer.js" hidden="true"/>
+        <files mask="class_log_1_1_set_output_level.js" hidden="true"/>
+        <files mask="classerpcgen_1_1erpcgen_tool.js" hidden="true"/>
+        <files mask="navtreeindex4.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_current_file_info.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_ast_walker.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_array_type.js" hidden="true"/>
+        <files mask="class_string_value.js" hidden="true"/>
+        <files mask="classcpptempl_1_1_template_exception.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_alias_type.js" hidden="true"/>
+        <files mask="classerpcgen_1_1semantic__error.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_ast_node.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_interface_definition.js" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_map.js" hidden="true"/>
+        <files mask="files.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_unique_id_checker.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_annotation.js" hidden="true"/>
+        <files mask="navtreeindex1.js" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_bool.js" hidden="true"/>
+        <files mask="class_opt_argv_iter.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_symbol_scope_1_1typed__iterator.js" hidden="true"/>
+        <files mask="classcpptempl_1_1_data.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_c_generator.js" hidden="true"/>
+        <files mask="class_path_searcher.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_const_type.js" hidden="true"/>
+        <files mask="resize.js" hidden="true"/>
+        <files mask="navtreeindex2.js" hidden="true"/>
+        <files mask="structerpcgen_1_1token__loc__t.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_symbol_scope.js" hidden="true"/>
+        <files mask="class_integer_value.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_union_type.js" hidden="true"/>
+        <files mask="classcpptempl_1_1data__map.js" hidden="true"/>
+        <files mask="navtreeindex3.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_list_type.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_symbol.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_function.js" hidden="true"/>
+        <files mask="class_opt_iter_rwd.js" hidden="true"/>
+        <files mask="dynsections.js" hidden="true"/>
+        <files mask="classerpcgen_1_1syntax__error.js" hidden="true"/>
+        <files mask="class_value.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_function_base.js" hidden="true"/>
+        <files mask="class_opt_istream_iter.js" hidden="true"/>
+        <files mask="classcpptempl_1_1_data_template.js" hidden="true"/>
+        <files mask="classcpptempl_1_1data__ptr.js" hidden="true"/>
+        <files mask="annotated_dup.js" hidden="true"/>
+        <files mask="navtree.js" hidden="true"/>
+        <files mask="classerpcgen_1_1syntax__error2.js" hidden="true"/>
+        <files mask="jquery.js" hidden="true"/>
+        <files mask="classerpcgen_1_1_ast_printer.js" hidden="true"/>
+      </source>
+      <source relative_path="erpc/docs/eRPC_infrastructure/erpcgen/search" project_relative_path="doc" type="script">
+        <files mask="classes_f.js" hidden="true"/>
+        <files mask="all_16.js" hidden="true"/>
+        <files mask="all_0.js" hidden="true"/>
+        <files mask="typedefs_4.js" hidden="true"/>
+        <files mask="typedefs_3.js" hidden="true"/>
+        <files mask="classes_a.js" hidden="true"/>
+        <files mask="enumvalues_7.js" hidden="true"/>
+        <files mask="all_9.js" hidden="true"/>
+        <files mask="functions_2.js" hidden="true"/>
+        <files mask="functions_10.js" hidden="true"/>
+        <files mask="all_f.js" hidden="true"/>
+        <files mask="all_5.js" hidden="true"/>
+        <files mask="classes_1.js" hidden="true"/>
+        <files mask="enums_1.js" hidden="true"/>
+        <files mask="functions_13.js" hidden="true"/>
+        <files mask="enumvalues_1.js" hidden="true"/>
+        <files mask="classes_9.js" hidden="true"/>
+        <files mask="all_8.js" hidden="true"/>
+        <files mask="typedefs_2.js" hidden="true"/>
+        <files mask="functions_6.js" hidden="true"/>
+        <files mask="search.js" hidden="true"/>
+        <files mask="typedefs_6.js" hidden="true"/>
+        <files mask="classes_6.js" hidden="true"/>
+        <files mask="variables_1.js" hidden="true"/>
+        <files mask="enums_0.js" hidden="true"/>
+        <files mask="variables_2.js" hidden="true"/>
+        <files mask="functions_e.js" hidden="true"/>
+        <files mask="all_13.js" hidden="true"/>
+        <files mask="functions_11.js" hidden="true"/>
+        <files mask="classes_0.js" hidden="true"/>
+        <files mask="enumvalues_0.js" hidden="true"/>
+        <files mask="classes_3.js" hidden="true"/>
+        <files mask="functions_0.js" hidden="true"/>
+        <files mask="classes_4.js" hidden="true"/>
+        <files mask="enums_4.js" hidden="true"/>
+        <files mask="enumvalues_4.js" hidden="true"/>
+        <files mask="all_14.js" hidden="true"/>
+        <files mask="functions_17.js" hidden="true"/>
+        <files mask="all_d.js" hidden="true"/>
+        <files mask="typedefs_5.js" hidden="true"/>
+        <files mask="searchdata.js" hidden="true"/>
+        <files mask="all_c.js" hidden="true"/>
+        <files mask="pages_0.js" hidden="true"/>
+        <files mask="all_6.js" hidden="true"/>
+        <files mask="classes_b.js" hidden="true"/>
+        <files mask="typedefs_0.js" hidden="true"/>
+        <files mask="classes_5.js" hidden="true"/>
+        <files mask="functions_b.js" hidden="true"/>
+        <files mask="all_e.js" hidden="true"/>
+        <files mask="variables_3.js" hidden="true"/>
+        <files mask="functions_8.js" hidden="true"/>
+        <files mask="all_3.js" hidden="true"/>
+        <files mask="all_10.js" hidden="true"/>
+        <files mask="all_18.js" hidden="true"/>
+        <files mask="functions_9.js" hidden="true"/>
+        <files mask="all_a.js" hidden="true"/>
+        <files mask="enumvalues_6.js" hidden="true"/>
+        <files mask="functions_d.js" hidden="true"/>
+        <files mask="classes_e.js" hidden="true"/>
+        <files mask="all_b.js" hidden="true"/>
+        <files mask="classes_c.js" hidden="true"/>
+        <files mask="all_15.js" hidden="true"/>
+        <files mask="functions_3.js" hidden="true"/>
+        <files mask="all_17.js" hidden="true"/>
+        <files mask="functions_5.js" hidden="true"/>
+        <files mask="all_11.js" hidden="true"/>
+        <files mask="functions_14.js" hidden="true"/>
+        <files mask="enumvalues_3.js" hidden="true"/>
+        <files mask="all_7.js" hidden="true"/>
+        <files mask="all_2.js" hidden="true"/>
+        <files mask="all_12.js" hidden="true"/>
+        <files mask="functions_16.js" hidden="true"/>
+        <files mask="classes_d.js" hidden="true"/>
+        <files mask="functions_f.js" hidden="true"/>
+        <files mask="functions_7.js" hidden="true"/>
+        <files mask="functions_12.js" hidden="true"/>
+        <files mask="classes_2.js" hidden="true"/>
+        <files mask="functions_c.js" hidden="true"/>
+        <files mask="typedefs_1.js" hidden="true"/>
+        <files mask="all_1.js" hidden="true"/>
+        <files mask="functions_1.js" hidden="true"/>
+        <files mask="enumvalues_5.js" hidden="true"/>
+        <files mask="functions_a.js" hidden="true"/>
+        <files mask="all_19.js" hidden="true"/>
+        <files mask="enums_5.js" hidden="true"/>
+        <files mask="enumvalues_2.js" hidden="true"/>
+        <files mask="enums_2.js" hidden="true"/>
+        <files mask="enums_3.js" hidden="true"/>
+        <files mask="classes_8.js" hidden="true"/>
+        <files mask="variables_0.js" hidden="true"/>
+        <files mask="functions_15.js" hidden="true"/>
+        <files mask="functions_4.js" hidden="true"/>
+        <files mask="all_4.js" hidden="true"/>
+        <files mask="classes_7.js" hidden="true"/>
+      </source>
+      <source relative_path="erpc/docs/eRPC_infrastructure/erpcgen/search" project_relative_path="doc" type="doc">
+        <files mask="all_a.html" hidden="true"/>
+        <files mask="functions_10.html" hidden="true"/>
+        <files mask="variables_2.html" hidden="true"/>
+        <files mask="all_12.html" hidden="true"/>
+        <files mask="functions_4.html" hidden="true"/>
+        <files mask="classes_f.html" hidden="true"/>
+        <files mask="enumvalues_5.html" hidden="true"/>
+        <files mask="all_9.html" hidden="true"/>
+        <files mask="functions_14.html" hidden="true"/>
+        <files mask="functions_12.html" hidden="true"/>
+        <files mask="all_1.html" hidden="true"/>
+        <files mask="all_0.html" hidden="true"/>
+        <files mask="all_13.html" hidden="true"/>
+        <files mask="classes_b.html" hidden="true"/>
+        <files mask="variables_3.html" hidden="true"/>
+        <files mask="functions_11.html" hidden="true"/>
+        <files mask="classes_d.html" hidden="true"/>
+        <files mask="typedefs_4.html" hidden="true"/>
+        <files mask="enums_1.html" hidden="true"/>
+        <files mask="enums_0.html" hidden="true"/>
+        <files mask="all_14.html" hidden="true"/>
+        <files mask="all_2.html" hidden="true"/>
+        <files mask="all_c.html" hidden="true"/>
+        <files mask="all_11.html" hidden="true"/>
+        <files mask="functions_c.html" hidden="true"/>
+        <files mask="functions_9.html" hidden="true"/>
+        <files mask="classes_5.html" hidden="true"/>
+        <files mask="pages_0.html" hidden="true"/>
+        <files mask="search.css" hidden="true"/>
+        <files mask="functions_b.html" hidden="true"/>
+        <files mask="functions_5.html" hidden="true"/>
+        <files mask="classes_9.html" hidden="true"/>
+        <files mask="functions_e.html" hidden="true"/>
+        <files mask="functions_16.html" hidden="true"/>
+        <files mask="classes_e.html" hidden="true"/>
+        <files mask="enums_5.html" hidden="true"/>
+        <files mask="functions_0.html" hidden="true"/>
+        <files mask="all_19.html" hidden="true"/>
+        <files mask="all_3.html" hidden="true"/>
+        <files mask="typedefs_6.html" hidden="true"/>
+        <files mask="all_f.html" hidden="true"/>
+        <files mask="all_8.html" hidden="true"/>
+        <files mask="classes_7.html" hidden="true"/>
+        <files mask="classes_1.html" hidden="true"/>
+        <files mask="all_4.html" hidden="true"/>
+        <files mask="enumvalues_3.html" hidden="true"/>
+        <files mask="typedefs_3.html" hidden="true"/>
+        <files mask="all_7.html" hidden="true"/>
+        <files mask="all_16.html" hidden="true"/>
+        <files mask="variables_0.html" hidden="true"/>
+        <files mask="enumvalues_2.html" hidden="true"/>
+        <files mask="enums_4.html" hidden="true"/>
+        <files mask="functions_2.html" hidden="true"/>
+        <files mask="enumvalues_4.html" hidden="true"/>
+        <files mask="functions_1.html" hidden="true"/>
+        <files mask="all_e.html" hidden="true"/>
+        <files mask="enumvalues_6.html" hidden="true"/>
+        <files mask="typedefs_5.html" hidden="true"/>
+        <files mask="nomatches.html" hidden="true"/>
+        <files mask="functions_7.html" hidden="true"/>
+        <files mask="all_d.html" hidden="true"/>
+        <files mask="all_17.html" hidden="true"/>
+        <files mask="typedefs_2.html" hidden="true"/>
+        <files mask="all_15.html" hidden="true"/>
+        <files mask="classes_0.html" hidden="true"/>
+        <files mask="classes_6.html" hidden="true"/>
+        <files mask="all_10.html" hidden="true"/>
+        <files mask="all_18.html" hidden="true"/>
+        <files mask="all_6.html" hidden="true"/>
+        <files mask="functions_6.html" hidden="true"/>
+        <files mask="functions_8.html" hidden="true"/>
+        <files mask="classes_8.html" hidden="true"/>
+        <files mask="enumvalues_0.html" hidden="true"/>
+        <files mask="classes_3.html" hidden="true"/>
+        <files mask="all_5.html" hidden="true"/>
+        <files mask="functions_d.html" hidden="true"/>
+        <files mask="enums_2.html" hidden="true"/>
+        <files mask="classes_c.html" hidden="true"/>
+        <files mask="typedefs_1.html" hidden="true"/>
+        <files mask="classes_2.html" hidden="true"/>
+        <files mask="functions_f.html" hidden="true"/>
+        <files mask="classes_4.html" hidden="true"/>
+        <files mask="enumvalues_7.html" hidden="true"/>
+        <files mask="all_b.html" hidden="true"/>
+        <files mask="functions_17.html" hidden="true"/>
+        <files mask="classes_a.html" hidden="true"/>
+        <files mask="functions_15.html" hidden="true"/>
+        <files mask="functions_3.html" hidden="true"/>
+        <files mask="typedefs_0.html" hidden="true"/>
+        <files mask="enumvalues_1.html" hidden="true"/>
+        <files mask="variables_1.html" hidden="true"/>
+        <files mask="enums_3.html" hidden="true"/>
+        <files mask="functions_a.html" hidden="true"/>
+        <files mask="functions_13.html" hidden="true"/>
+      </source>
+      <source relative_path="erpc/docs/eRPC_infrastructure/erpcgen/search" project_relative_path="doc" type="image">
+        <files mask="search_r.png" hidden="true"/>
+        <files mask="search_l.png" hidden="true"/>
+        <files mask="mag_sel.png" hidden="true"/>
+        <files mask="close.png" hidden="true"/>
+        <files mask="search_m.png" hidden="true"/>
+      </source>
+      <source relative_path="erpc/docs/eRPC_infrastructure" project_relative_path="doc" type="doc">
+        <files mask="index.html" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpc_c" project_relative_path="aux" type="other">
+        <files mask="Makefile" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpc_c" project_relative_path="doc" type="doc">
+        <files mask="readme.txt" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpc_c/config" project_relative_path="aux" type="c_include">
+        <files mask="erpc_config.h" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpc_c/port" project_relative_path="aux" type="c_include">
+        <files mask="erpc_threading.h" hidden="true"/>
+        <files mask="erpc_serial.h" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpc_c/port" project_relative_path="aux" type="src">
+        <files mask="erpc_threading_pthreads.cpp" hidden="true"/>
+        <files mask="erpc_serial.cpp" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="aux" type="src">
+        <files mask="erpc_setup_mbf_static.cpp" hidden="true"/>
+        <files mask="erpc_setup_serial.cpp" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpc_c/transports" project_relative_path="aux" type="src">
+        <files mask="erpc_inter_thread_buffer_transport.cpp" hidden="true"/>
+        <files mask="erpc_serial_transport.cpp" hidden="true"/>
+        <files mask="erpc_tcp_transport.cpp" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpc_c/transports" project_relative_path="aux" type="c_include">
+        <files mask="erpc_inter_thread_buffer_transport.h" hidden="true"/>
+        <files mask="erpc_serial_transport.h" hidden="true"/>
+        <files mask="erpc_tcp_transport.h" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpc_python" project_relative_path="aux" type="script">
+        <files mask="setup.py" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpc_python" project_relative_path="aux" type="other">
+        <files mask="readme.md" hidden="true"/>
+        <files mask="README_Pypi.md" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpc_python/erpc" project_relative_path="aux" type="script">
+        <files mask="transport.py" hidden="true"/>
+        <files mask="arbitrator.py" hidden="true"/>
+        <files mask="erpc_version.py" hidden="true"/>
+        <files mask="client.py" hidden="true"/>
+        <files mask="simple_server.py" hidden="true"/>
+        <files mask="codec.py" hidden="true"/>
+        <files mask="basic_codec.py" hidden="true"/>
+        <files mask="__init__.py" hidden="true"/>
+        <files mask="server.py" hidden="true"/>
+        <files mask="crc16.py" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcgen" project_relative_path="aux" type="other">
+        <files mask="Makefile" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcgen" project_relative_path="aux" type="doc">
+        <files mask="readme.txt" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcgen/bin" project_relative_path="aux" type="script">
+        <files mask="txt_to_c.py" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcgen/embedded-rpc.xcodeproj" project_relative_path="aux" type="other">
+        <files mask="project.pbxproj" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcgen/embedded-rpc.xcodeproj/project.xcworkspace" project_relative_path="aux" type="other">
+        <files mask="contents.xcworkspacedata" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcgen/src" project_relative_path="aux" type="c_include">
+        <files mask="os_config.h" hidden="true"/>
+        <files mask="AstWalker.h" hidden="true"/>
+        <files mask="HexValues.h" hidden="true"/>
+        <files mask="Logging.h" hidden="true"/>
+        <files mask="smart_ptr.h" hidden="true"/>
+        <files mask="SearchPath.h" hidden="true"/>
+        <files mask="format_string.h" hidden="true"/>
+        <files mask="ParseErrors.h" hidden="true"/>
+        <files mask="options.h" hidden="true"/>
+        <files mask="AstNode.h" hidden="true"/>
+        <files mask="InterfaceDefinition.h" hidden="true"/>
+        <files mask="SymbolScanner.h" hidden="true"/>
+        <files mask="annotations.h" hidden="true"/>
+        <files mask="Generator.h" hidden="true"/>
+        <files mask="PythonGenerator.h" hidden="true"/>
+        <files mask="Token.h" hidden="true"/>
+        <files mask="ErpcLexer.h" hidden="true"/>
+        <files mask="CGenerator.h" hidden="true"/>
+        <files mask="UniqueIdChecker.h" hidden="true"/>
+        <files mask="Value.h" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcgen/src" project_relative_path="aux" type="src">
+        <files mask="Token.cpp" hidden="true"/>
+        <files mask="CGenerator.cpp" hidden="true"/>
+        <files mask="options.cpp" hidden="true"/>
+        <files mask="SearchPath.cpp" hidden="true"/>
+        <files mask="erpcgen.cpp" hidden="true"/>
+        <files mask="HexValues.cpp" hidden="true"/>
+        <files mask="UniqueIdChecker.cpp" hidden="true"/>
+        <files mask="InterfaceDefinition.cpp" hidden="true"/>
+        <files mask="Generator.cpp" hidden="true"/>
+        <files mask="ParseErrors.cpp" hidden="true"/>
+        <files mask="AstWalker.cpp" hidden="true"/>
+        <files mask="ErpcLexer.cpp" hidden="true"/>
+        <files mask="SymbolScanner.cpp" hidden="true"/>
+        <files mask="PythonGenerator.cpp" hidden="true"/>
+        <files mask="AstNode.cpp" hidden="true"/>
+        <files mask="Logging.cpp" hidden="true"/>
+        <files mask="format_string.cpp" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcgen/src" project_relative_path="aux" type="other">
+        <files mask="erpcgen_lexer.l" hidden="true"/>
+        <files mask="erpcgen_parser.y" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcgen/src/cpptemplate" project_relative_path="aux" type="c_include">
+        <files mask="cpptempl.h" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcgen/src/cpptemplate" project_relative_path="aux" type="src">
+        <files mask="cpptempl.cpp" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcgen/src/cpptemplate" project_relative_path="aux" type="other">
+        <files mask="README.rst" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcgen/src/cpptemplate" project_relative_path="aux" type="doc">
+        <files mask="LICENSE.txt" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcgen/src/templates" project_relative_path="aux" type="other">
+        <files mask="py_coders.template" hidden="true"/>
+        <files mask="c_client_source.template" hidden="true"/>
+        <files mask="c_server_source.template" hidden="true"/>
+        <files mask="py_init.template" hidden="true"/>
+        <files mask="py_client.template" hidden="true"/>
+        <files mask="py_common.template" hidden="true"/>
+        <files mask="c_crc.template" hidden="true"/>
+        <files mask="c_server_header.template" hidden="true"/>
+        <files mask="c_coders.template" hidden="true"/>
+        <files mask="py_server.template" hidden="true"/>
+        <files mask="c_common_functions.template" hidden="true"/>
+        <files mask="py_global_init.template" hidden="true"/>
+        <files mask="c_common_header.template" hidden="true"/>
+        <files mask="py_interface.template" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcgen/src/types" project_relative_path="aux" type="c_include">
+        <files mask="AliasType.h" hidden="true"/>
+        <files mask="Interface.h" hidden="true"/>
+        <files mask="Group.h" hidden="true"/>
+        <files mask="ConstType.h" hidden="true"/>
+        <files mask="StructMember.h" hidden="true"/>
+        <files mask="Function.h" hidden="true"/>
+        <files mask="Symbol.h" hidden="true"/>
+        <files mask="StructType.h" hidden="true"/>
+        <files mask="UnionCase.h" hidden="true"/>
+        <files mask="Program.h" hidden="true"/>
+        <files mask="Annotation.h" hidden="true"/>
+        <files mask="DataType.h" hidden="true"/>
+        <files mask="SymbolScope.h" hidden="true"/>
+        <files mask="VoidType.h" hidden="true"/>
+        <files mask="BuiltinType.h" hidden="true"/>
+        <files mask="EnumType.h" hidden="true"/>
+        <files mask="ArrayType.h" hidden="true"/>
+        <files mask="UnionType.h" hidden="true"/>
+        <files mask="EnumMember.h" hidden="true"/>
+        <files mask="ListType.h" hidden="true"/>
+        <files mask="FunctionType.h" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcgen/src/types" project_relative_path="aux" type="src">
+        <files mask="Type.cpp" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcgen/VisualStudio_v14" project_relative_path="aux" type="other">
+        <files mask="erpcgen.sln" hidden="true"/>
+        <files mask="erpcgen.vcxproj" hidden="true"/>
+        <files mask="erpcgen.vcxproj.filters" hidden="true"/>
+        <files mask="erpcgen.vcxproj.user" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcgen/VisualStudio_v14" project_relative_path="aux" type="doc">
+        <files mask="readme_erpcgen.txt" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcgen/VisualStudio_v14" project_relative_path="aux" type="src">
+        <files mask="stdafx.cpp" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcgen/VisualStudio_v14" project_relative_path="aux" type="c_include">
+        <files mask="stdafx.h" hidden="true"/>
+        <files mask="stdbool.h" hidden="true"/>
+        <files mask="targetver.h" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcsniffer" project_relative_path="aux" type="other">
+        <files mask="Makefile" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcsniffer" project_relative_path="aux" type="doc">
+        <files mask="readme.txt" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcsniffer/src" project_relative_path="aux" type="c_include">
+        <files mask="Sniffer.h" hidden="true"/>
+        <files mask="erpc_config.h" hidden="true"/>
+      </source>
+      <source relative_path="erpc/erpcsniffer/src" project_relative_path="aux" type="src">
+        <files mask="Sniffer.cpp" hidden="true"/>
+        <files mask="erpcsniffer.cpp" hidden="true"/>
+      </source>
+      <source relative_path="erpc/mk" project_relative_path="aux" type="script">
+        <files mask="paths.mk" hidden="true"/>
+        <files mask="subdirs.mk" hidden="true"/>
+        <files mask="flags.mk" hidden="true"/>
+        <files mask="common.mk" hidden="true"/>
+        <files mask="erpc_common.mk" hidden="true"/>
+        <files mask="targets.mk" hidden="true"/>
+      </source>
+      <source relative_path="erpc/utilities" project_relative_path="aux" type="doc">
+        <files mask="README.txt" hidden="true"/>
+      </source>
+      <source relative_path="erpc/utilities/styles" project_relative_path="aux" type="doc">
+        <files mask="README.txt" hidden="true"/>
+      </source>
+      <source relative_path="erpc/utilities/styles/NOTEPADpp" project_relative_path="aux" type="xml">
+        <files mask="IDl_default.xml" hidden="true"/>
+        <files mask="template_default.xml" hidden="true"/>
+        <files mask="template_deep_black.xml" hidden="true"/>
+        <files mask="IDl_deep_black.xml" hidden="true"/>
+      </source>
+      <source relative_path="erpc/utilities/styles/VSC" project_relative_path="aux" type="other">
+        <files mask="CHANGELOG.md" hidden="true"/>
+        <files mask=".vscodeignore" hidden="true"/>
+        <files mask="vsc-extension-quickstart.md" hidden="true"/>
+        <files mask="language-configuration.json" hidden="true"/>
+        <files mask="package.json" hidden="true"/>
+        <files mask="README.md" hidden="true"/>
+      </source>
+      <source relative_path="erpc/utilities/styles/VSC/.vscode" project_relative_path="aux" type="other">
+        <files mask="launch.json" hidden="true"/>
+      </source>
+      <source relative_path="erpc/utilities/styles/VSC/img" project_relative_path="aux" type="image">
+        <files mask="templatePic.png" hidden="true"/>
+        <files mask="erpcPic.png" hidden="true"/>
+      </source>
+      <source relative_path="erpc/utilities/styles/VSC/syntaxes" project_relative_path="aux" type="other">
+        <files mask="template.tmLanguage.json" hidden="true"/>
+        <files mask="erpc.tmLanguage.json" hidden="true"/>
+      </source>
+      <source relative_path="tools/erpcgen/Linux_x64" project_relative_path="aux" type="other">
+        <files mask="erpcgen" hidden="true"/>
+      </source>
+      <source relative_path="tools/erpcgen/Linux_x86" project_relative_path="aux" type="other">
+        <files mask="erpcgen" hidden="true"/>
+      </source>
+      <source relative_path="tools/erpcgen/Mac" project_relative_path="aux" type="other">
+        <files mask="erpcgen" hidden="true"/>
+      </source>
+      <source relative_path="tools/erpcgen/Windows" project_relative_path="aux" type="other">
+        <files mask="erpcgen.exe" hidden="true"/>
+      </source>
+      <source relative_path="tools/erpcsniffer/Linux_x64" project_relative_path="aux" type="other">
+        <files mask="erpcsniffer" hidden="true"/>
+      </source>
+      <source relative_path="tools/erpcsniffer/Linux_x86" project_relative_path="aux" type="other">
+        <files mask="erpcsniffer" hidden="true"/>
+      </source>
+    </component>
+    <component id="middleware.multicore.erpc.common.MK22F51212" name="eRPC_common" brief="eRPC" version="1.8.0" full_name="Embedded Remote Procedure Call" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <source relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include">
+        <files mask="erpc_version.h"/>
+        <files mask="erpc_codec.h"/>
+        <files mask="erpc_basic_codec.h"/>
+        <files mask="erpc_transport.h"/>
+        <files mask="erpc_message_buffer.h"/>
+        <files mask="erpc_message_loggers.h"/>
+        <files mask="erpc_common.h"/>
+        <files mask="erpc_manually_constructed.h"/>
+        <files mask="erpc_crc16.h"/>
+        <files mask="erpc_client_server_common.h"/>
+        <files mask="erpc_pre_post_action.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="c_include">
+        <files mask="erpc_transport_setup.h"/>
+        <files mask="erpc_mbf_setup.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="src">
+        <files mask="erpc_basic_codec.cpp"/>
+        <files mask="erpc_message_buffer.cpp"/>
+        <files mask="erpc_message_loggers.cpp"/>
+        <files mask="erpc_crc16.cpp"/>
+        <files mask="erpc_pre_post_action.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/port" project_relative_path="port" type="c_include">
+        <files mask="erpc_setup_extensions.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
+        <include_path relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="c_include"/>
+        <include_path relative_path="erpc/erpc_c/port" project_relative_path="port" type="c_include"/>
+        <include_path relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include"/>
+        <include_path relative_path="erpc/erpc_c" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.erpc.doc.MK22F51212" name="eRPC_port_stdlib" brief="erpc_doc" version="1.8.0" full_name="eRPC doc" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="false" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/docs" project_relative_path="doc" type="other">
+        <files mask="erpcgen.md" hidden="true"/>
+        <files mask="eRPC-infrastructure.md" hidden="true"/>
+        <files mask="erpcsniffer.md" hidden="true"/>
+        <files mask="eRPC-footprint.md" hidden="true"/>
+        <files mask="Home.md" hidden="true"/>
+        <files mask="IDL-Reference.md" hidden="true"/>
+        <files mask="Porting-Guide.md" hidden="true"/>
+        <files mask="Contributing.md" hidden="true"/>
+        <files mask="Getting-Started.md" hidden="true"/>
+        <files mask="_Sidebar.md" hidden="true"/>
+      </source>
+      <source relative_path="erpc/docs/images" project_relative_path="doc" type="image">
+        <files mask="sendingReceivingParameterValue.png" hidden="true"/>
+        <files mask="eRPCwith_erpc_server_run_function.png" hidden="true"/>
+        <files mask="eRPCusing_erpc_server_poll_function.png" hidden="true"/>
+        <files mask="eRPC_directory.png" hidden="true"/>
+        <files mask="client_side_flowchart.png" hidden="true"/>
+        <files mask="RPCblockDiagram.png" hidden="true"/>
+      </source>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_arbitrator.MK22F51212" name="eRPC_arbitrator" brief="eRPC_arbitrator" version="1.8.0" full_name="eRPC arbitrator" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include">
+        <files mask="erpc_arbitrated_client_manager.h"/>
+        <files mask="erpc_client_manager.h"/>
+        <files mask="erpc_simple_server.h"/>
+        <files mask="erpc_server.h"/>
+        <files mask="erpc_transport_arbitrator.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="src">
+        <files mask="erpc_arbitrated_client_manager.cpp"/>
+        <files mask="erpc_client_manager.cpp"/>
+        <files mask="erpc_simple_server.cpp"/>
+        <files mask="erpc_server.cpp"/>
+        <files mask="erpc_transport_arbitrator.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="c_include">
+        <files mask="erpc_arbitrated_client_setup.h"/>
+        <files mask="erpc_server_setup.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_arbitrated_client_setup.cpp"/>
+        <files mask="erpc_server_setup.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/port" project_relative_path="port" type="c_include">
+        <files mask="erpc_threading.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/port" project_relative_path="port" type="src">
+        <files mask="erpc_threading_freertos.cpp"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
+        <include_path relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="c_include"/>
+        <include_path relative_path="erpc/erpc_c/port" project_relative_path="port" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_client.MK22F51212" name="eRPC_client" brief="eRPC_client" version="1.8.0" full_name="eRPC client" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include">
+        <files mask="erpc_client_manager.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="src">
+        <files mask="erpc_client_manager.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="c_include">
+        <files mask="erpc_client_setup.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_client_setup.cpp"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
+        <include_path relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_dspi_master_c_wrapper.MK22F51212" name="eRPC_dspi_master_c_wrapper" brief="eRPC_dspi_master_c_wrapper" version="1.8.0" full_name="eRPC DSPI master C Wrapper" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_setup_dspi_master.cpp"/>
+      </source>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_dspi_master_transport.MK22F51212" name="eRPC_dspi_master_transport" brief="eRPC_dspi_master_transport" version="1.8.0" full_name="eRPC DSPI master transport layer" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include">
+        <files mask="erpc_dspi_master_transport.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="src">
+        <files mask="erpc_dspi_master_transport.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include">
+        <files mask="erpc_framed_transport.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="src">
+        <files mask="erpc_framed_transport.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_setup_mbf_dynamic.cpp"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include"/>
+        <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_dspi_slave_c_wrapper.MK22F51212" name="eRPC_dspi_slave_c_wrapper" brief="eRPC_dspi_slave_c_wrapper" version="1.8.0" full_name="eRPC DSPI slave C Wrapper" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_setup_dspi_slave.cpp"/>
+      </source>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_dspi_slave_transport.MK22F51212" name="eRPC_dspi_slave_transport" brief="eRPC_dspi_slave_transport" version="1.8.0" full_name="eRPC DSPI slave transport layer" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include">
+        <files mask="erpc_dspi_slave_transport.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="src">
+        <files mask="erpc_dspi_slave_transport.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include">
+        <files mask="erpc_framed_transport.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="src">
+        <files mask="erpc_framed_transport.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_setup_mbf_dynamic.cpp"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include"/>
+        <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_mu_c_wrapper.MK22F51212" name="eRPC_mu_c_wrapper" brief="eRPC_mu_c_wrapper" version="1.8.0" full_name="eRPC Messaging Unit C Wrapper" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_setup_mu.cpp"/>
+      </source>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_mu_rtos_transport.MK22F51212" name="eRPC_mu_rtos_transport" brief="eRPC_mu_rtos_transport" version="1.8.0" full_name="eRPC MU RTOS transport layer" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include">
+        <files mask="erpc_mu_transport.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="src">
+        <files mask="erpc_mu_transport.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/port" project_relative_path="port" type="c_include">
+        <files mask="erpc_threading.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/port" project_relative_path="port" type="src">
+        <files mask="erpc_threading_freertos.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_setup_mbf_dynamic.cpp"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include"/>
+        <include_path relative_path="erpc/erpc_c/port" project_relative_path="port" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_mu_transport.MK22F51212" name="eRPC_mu_transport" brief="eRPC_mu_transport" version="1.8.0" full_name="eRPC MU transport layer" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include">
+        <files mask="erpc_mu_transport.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="src">
+        <files mask="erpc_mu_transport.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_setup_mbf_dynamic.cpp"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_port_freertos.MK22F51212" name="eRPC_port_freertos" brief="eRPC_port_freertos" version="1.8.0" full_name="eRPC FreeRTOS port layer" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/port" project_relative_path="port" type="c_include">
+        <files mask="erpc_port.h"/>
+        <files mask="erpc_config_internal.h"/>
+        <files mask="erpc_threading.h"/>
+        <files mask="erpc_setup_extensions.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/port" project_relative_path="port" type="src">
+        <files mask="erpc_port_freertos.cpp"/>
+        <files mask="erpc_threading_freertos.cpp"/>
+        <files mask="erpc_setup_extensions_freertos.cpp"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="erpc/erpc_c/port" project_relative_path="port" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_port_stdlib.MK22F51212" name="eRPC_port_stdlib" brief="eRPC_port_stdlib" version="1.8.0" full_name="eRPC stdlib port layer" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/port" project_relative_path="port" type="c_include">
+        <files mask="erpc_port.h"/>
+        <files mask="erpc_config_internal.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/port" project_relative_path="port" type="src">
+        <files mask="erpc_port_stdlib.cpp"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="erpc/erpc_c/port" project_relative_path="port" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_rpmsg_lite_master_c_wrapper.MK22F51212" name="eRPC_rpmsg_lite_master_c_wrapper" brief="eRPC_rpmsg_lite_master_c_wrapper" version="1.8.0" full_name="eRPC RPMsg-Lite master C Wrapper" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_setup_rpmsg_lite_master.cpp"/>
+      </source>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_rpmsg_lite_remote_c_wrapper.MK22F51212" name="eRPC_rpmsg_lite_remote_c_wrapper" brief="eRPC_rpmsg_lite_remote_c_wrapper" version="1.8.0" full_name="eRPC RPMsg-Lite remote C Wrapper" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_setup_rpmsg_lite_remote.cpp"/>
+      </source>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_master_c_wrapper.MK22F51212" name="eRPC_rpmsg_lite_rtos_master_c_wrapper" brief="eRPC_rpmsg_lite_rtos_master_c_wrapper" version="1.8.0" full_name="eRPC RPMsg-Lite RTOS master C Wrapper" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_setup_rpmsg_lite_rtos_master.cpp"/>
+      </source>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_remote_c_wrapper.MK22F51212" name="eRPC_rpmsg_lite_rtos_remote_c_wrapper" brief="eRPC_rpmsg_lite_rtos_remote_c_wrapper" version="1.8.0" full_name="eRPC RPMsg-Lite RTOS remote C Wrapper" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_setup_rpmsg_lite_rtos_remote.cpp"/>
+      </source>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_transport.MK22F51212" name="eRPC_rpmsg_lite_rtos_transport" brief="eRPC_rpmsg_lite_rtos_transport" version="1.8.0" full_name="eRPC RPMsg-Lite RTOS transport layer" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include">
+        <files mask="erpc_rpmsg_lite_base_transport.h"/>
+        <files mask="erpc_rpmsg_lite_rtos_transport.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="src">
+        <files mask="erpc_rpmsg_lite_rtos_transport.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_setup_mbf_rpmsg.cpp"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_rpmsg_lite_transport.MK22F51212" name="eRPC_rpmsg_lite_transport" brief="eRPC_rpmsg_lite_transport" version="1.8.0" full_name="eRPC RPMsg-Lite transport layer" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include">
+        <files mask="erpc_rpmsg_lite_base_transport.h"/>
+        <files mask="erpc_rpmsg_lite_transport.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="src">
+        <files mask="erpc_rpmsg_lite_transport.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include">
+        <files mask="erpc_static_queue.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_setup_mbf_rpmsg.cpp"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include"/>
+        <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_rpmsg_tty_rtos_remote_c_wrapper.MK22F51212" name="eRPC_rpmsg_tty_rtos_remote_c_wrapper" brief="eRPC_rpmsg_tty_rtos_remote_c_wrapper" version="1.8.0" full_name="eRPC RPMsg-Lite remote TTY RTOS C Wrapper" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_setup_rpmsg_tty_rtos_remote.cpp"/>
+      </source>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_rpmsg_tty_rtos_transport.MK22F51212" name="eRPC_rpmsg_tty_rtos_transport" brief="eRPC_rpmsg_tty_rtos_transport" version="1.8.0" full_name="eRPC RPMsg-Lite TTY RTOS transport layer" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include">
+        <files mask="erpc_rpmsg_lite_base_transport.h"/>
+        <files mask="erpc_rpmsg_tty_rtos_transport.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="src">
+        <files mask="erpc_rpmsg_tty_rtos_transport.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_setup_mbf_rpmsg_tty.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/port" project_relative_path="port" type="c_include">
+        <files mask="erpc_threading.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/port" project_relative_path="port" type="src">
+        <files mask="erpc_threading_freertos.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include">
+        <files mask="erpc_framed_transport.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="src">
+        <files mask="erpc_framed_transport.cpp"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include"/>
+        <include_path relative_path="erpc/erpc_c/port" project_relative_path="port" type="c_include"/>
+        <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_server.MK22F51212" name="eRPC_server" brief="eRPC_server" version="1.8.0" full_name="eRPC server" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include">
+        <files mask="erpc_simple_server.h"/>
+        <files mask="erpc_server.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="src">
+        <files mask="erpc_simple_server.cpp"/>
+        <files mask="erpc_server.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="c_include">
+        <files mask="erpc_server_setup.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_server_setup.cpp"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
+        <include_path relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_spi_master_c_wrapper.MK22F51212" name="eRPC_spi_master_c_wrapper" brief="eRPC_spi_master_c_wrapper" version="1.8.0" full_name="eRPC SPI master C Wrapper" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_setup_spi_master.cpp"/>
+      </source>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_spi_master_transport.MK22F51212" name="eRPC_spi_master_transport" brief="eRPC_spi_master_transport" version="1.8.0" full_name="eRPC SPI master transport layer" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include">
+        <files mask="erpc_spi_master_transport.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="src">
+        <files mask="erpc_spi_master_transport.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include">
+        <files mask="erpc_framed_transport.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="src">
+        <files mask="erpc_framed_transport.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_setup_mbf_dynamic.cpp"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include"/>
+        <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_spi_slave_c_wrapper.MK22F51212" name="eRPC_spi_slave_c_wrapper" brief="eRPC_spi_slave_c_wrapper" version="1.8.0" full_name="eRPC SPI slave C Wrapper" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_setup_spi_slave.cpp"/>
+      </source>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_spi_slave_transport.MK22F51212" name="eRPC_spi_slave_transport" brief="eRPC_spi_slave_transport" version="1.8.0" full_name="eRPC SPI slave transport layer" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include">
+        <files mask="erpc_spi_slave_transport.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="src">
+        <files mask="erpc_spi_slave_transport.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include">
+        <files mask="erpc_framed_transport.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="src">
+        <files mask="erpc_framed_transport.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_setup_mbf_dynamic.cpp"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include"/>
+        <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.erpc.eRPC_uart_cmsis_transport.MK22F51212" name="eRPC_uart_cmsis_transport" brief="eRPC_uart_cmsis_transport" version="1.8.0" full_name="eRPC UART CMSIS transport layer" devices="MK22FN512xxx12" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
+      <dependencies>
+        <component_dependency value="middleware.multicore.erpc.common.MK22F51212"/>
+      </dependencies>
+      <source relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include">
+        <files mask="erpc_uart_cmsis_transport.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="src">
+        <files mask="erpc_uart_cmsis_transport.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include">
+        <files mask="erpc_framed_transport.h"/>
+      </source>
+      <source relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="src">
+        <files mask="erpc_framed_transport.cpp"/>
+      </source>
+      <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
+        <files mask="erpc_setup_uart_cmsis.cpp"/>
+        <files mask="erpc_setup_mbf_dynamic.cpp"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include"/>
+        <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
+      </include_paths>
     </component>
     <component id="middleware.sdmmc.common.MK22F51212" name="sdmmc_common" brief="Middleware sdmmc common" version="2.3.0" full_name="SDMMC common stack" devices="MK22FN512xxx12" category="Memories/SDMMC Stack" user_visible="false" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
       <source relative_path="common" project_relative_path="inc" type="c_include">

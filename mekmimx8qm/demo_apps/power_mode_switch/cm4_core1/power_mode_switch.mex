@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<configuration name="" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.8 http://mcuxpresso.nxp.com/XSD/mex_configuration_1.8.xsd" uuid="638eef15-6824-41c1-843e-0aa289d4407e" version="1.8" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <common>
+      <processor>MIMX8QM6xxxFF</processor>
+      <package>MIMX8QM6AVUFF</package>
+      <board>MIMX8QM-MEK-REV-B</board>
+      <mcu_data>ksdk2_0</mcu_data>
+      <cores selected="">
+         <core name="Cortex-A53(core #0)" id="ca53_0" description="A53 core0"/>
+         <core name="Cortex-A53(core #1)" id="ca53_1" description="A53 core1"/>
+         <core name="Cortex-A53(core #2)" id="ca53_2" description="A53 core2"/>
+         <core name="Cortex-A53(core #3)" id="ca53_3" description="A53 core3"/>
+         <core name="Cortex-A72(core #0)" id="ca72_0" description="A72 core0"/>
+         <core name="Cortex-A72(core #1)" id="ca72_1" description="A72 core1"/>
+         <core name="Cortex-M4F(core #0)" id="cm4_0" description="M4 core0"/>
+         <core name="Cortex-M4F(core #1)" id="cm4_1" description="M4 core1"/>
+      </cores>
+      <description></description>
+   </common>
+   <preferences>
+      <validate_boot_init_only>true</validate_boot_init_only>
+      <generate_extended_information>false</generate_extended_information>
+      <generate_code_modified_registers_only>false</generate_code_modified_registers_only>
+   </preferences>
+   <tools>
+      <pins name="Pins" version="8.0" enabled="true" update_project_code="true">
+         <pins_profile>
+            <processor_version>0.8.3</processor_version>
+            <power_domains/>
+         </pins_profile>
+         <functions_list>
+            <function name="BOARD_InitPins">
+               <description>Configures pin routing and optionally pin electrical features.</description>
+               <options>
+                  <callFromInitBoot>false</callFromInitBoot>
+                  <prefix>BOARD_</prefix>
+                  <coreID>cm4_1</coreID>
+               </options>
+               <dependencies/>
+               <pins>
+                  <pin peripheral="DMA__FLEXCAN0" signal="flexcan_rx" pin_num="C5" pin_signal="FLEXCAN0_RX"/>
+                  <pin peripheral="DMA__FLEXCAN0" signal="flexcan_tx" pin_num="H6" pin_signal="FLEXCAN0_TX"/>
+                  <pin peripheral="DMA__UART2" signal="uart_rx" pin_num="AU45" pin_signal="UART0_RTS_B"/>
+                  <pin peripheral="DMA__UART2" signal="uart_tx" pin_num="AW49" pin_signal="UART0_CTS_B"/>
+               </pins>
+            </function>
+            <function name="BOARD_I2C_ConfigurePins">
+               <description>Configures pin routing and optionally pin electrical features.</description>
+               <options>
+                  <callFromInitBoot>false</callFromInitBoot>
+                  <prefix>BOARD_</prefix>
+                  <coreID>cm4_1</coreID>
+               </options>
+               <dependencies/>
+               <pins>
+                  <pin peripheral="M41__I2C0" signal="i2c_scl" pin_num="AR45" pin_signal="M41_I2C0_SCL"/>
+                  <pin peripheral="M41__I2C0" signal="i2c_sda" pin_num="AU49" pin_signal="M41_I2C0_SDA"/>
+               </pins>
+            </function>
+            <function name="BOARD_GPIO_ConfigurePins">
+               <description>Configures pin routing and optionally pin electrical features.</description>
+               <options>
+                  <callFromInitBoot>false</callFromInitBoot>
+                  <prefix>BOARD_</prefix>
+                  <coreID>cm4_1</coreID>
+               </options>
+               <dependencies/>
+               <pins>
+                  <pin peripheral="M41__GPIO0" signal="gpio_io, 03" pin_num="AU49" pin_signal="M41_I2C0_SDA">
+                     <pin_features>
+                        <pin_feature name="identifier" value=""/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="M41__GPIO0" signal="gpio_io, 02" pin_num="AR45" pin_signal="M41_I2C0_SCL">
+                     <pin_features>
+                        <pin_feature name="identifier" value=""/>
+                     </pin_features>
+                  </pin>
+               </pins>
+            </function>
+         </functions_list>
+      </pins>
+      <ddr name="DDR" version="1.0" enabled="true" update_project_code="true">
+         <components/>
+      </ddr>
+   </tools>
+</configuration>

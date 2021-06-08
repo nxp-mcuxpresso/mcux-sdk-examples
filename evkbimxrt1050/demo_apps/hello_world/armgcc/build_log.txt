@@ -1,0 +1,21 @@
+Scanning dependencies of target hello_world.elf
+[  5%] Building C object CMakeFiles/hello_world.elf.dir/home/nxa07599/repos/github_release/mcuxsdk/examples/evkbimxrt1050/demo_apps/hello_world/pin_mux.c.obj
+[ 10%] Building C object CMakeFiles/hello_world.elf.dir/home/nxa07599/repos/github_release/mcuxsdk/core/boards/evkbimxrt1050/clock_config.c.obj
+[ 15%] Building C object CMakeFiles/hello_world.elf.dir/home/nxa07599/repos/github_release/mcuxsdk/core/boards/evkbimxrt1050/board.c.obj
+[ 21%] Building C object CMakeFiles/hello_world.elf.dir/home/nxa07599/repos/github_release/mcuxsdk/examples/evkbimxrt1050/demo_apps/hello_world/hello_world.c.obj
+[ 26%] Building C object CMakeFiles/hello_world.elf.dir/home/nxa07599/repos/github_release/mcuxsdk/core/boards/evkbimxrt1050/dcd.c.obj
+[ 31%] Building C object CMakeFiles/hello_world.elf.dir/home/nxa07599/repos/github_release/mcuxsdk/core/utilities/debug_console_lite/fsl_debug_console.c.obj
+[ 36%] Building C object CMakeFiles/hello_world.elf.dir/home/nxa07599/repos/github_release/mcuxsdk/core/components/uart/fsl_adapter_lpuart.c.obj
+[ 42%] Building C object CMakeFiles/hello_world.elf.dir/home/nxa07599/repos/github_release/mcuxsdk/core/devices/MIMXRT1052/drivers/fsl_clock.c.obj
+[ 47%] Building C object CMakeFiles/hello_world.elf.dir/home/nxa07599/repos/github_release/mcuxsdk/core/drivers/lpuart/fsl_lpuart.c.obj
+[ 52%] Building C object CMakeFiles/hello_world.elf.dir/home/nxa07599/repos/github_release/mcuxsdk/core/drivers/common/fsl_common.c.obj
+[ 57%] Building C object CMakeFiles/hello_world.elf.dir/home/nxa07599/repos/github_release/mcuxsdk/core/components/lists/fsl_component_generic_list.c.obj
+[ 63%] Building C object CMakeFiles/hello_world.elf.dir/home/nxa07599/repos/github_release/mcuxsdk/core/utilities/assert/fsl_assert.c.obj
+[ 68%] Building ASM object CMakeFiles/hello_world.elf.dir/home/nxa07599/repos/github_release/mcuxsdk/core/devices/MIMXRT1052/gcc/startup_MIMXRT1052.S.obj
+[ 73%] Building C object CMakeFiles/hello_world.elf.dir/home/nxa07599/repos/github_release/mcuxsdk/core/drivers/igpio/fsl_gpio.c.obj
+[ 78%] Building C object CMakeFiles/hello_world.elf.dir/home/nxa07599/repos/github_release/mcuxsdk/core/devices/MIMXRT1052/xip/fsl_flexspi_nor_boot.c.obj
+[ 84%] Building C object CMakeFiles/hello_world.elf.dir/home/nxa07599/repos/github_release/mcuxsdk/core/devices/MIMXRT1052/system_MIMXRT1052.c.obj
+[ 89%] Building C object CMakeFiles/hello_world.elf.dir/home/nxa07599/repos/github_release/mcuxsdk/core/boards/evkbimxrt1050/xip/evkbimxrt1050_flexspi_nor_config.c.obj
+[ 94%] Building C object CMakeFiles/hello_world.elf.dir/home/nxa07599/repos/github_release/mcuxsdk/core/utilities/misc_utilities/fsl_sbrk.c.obj
+[100%] Linking C executable release/hello_world.elf
+[100%] Built target hello_world.elf

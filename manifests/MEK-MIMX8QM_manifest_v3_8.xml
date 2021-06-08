@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-06-03 10:11:40.817928-->
+  <!--Timestamp (UTC): 2021-06-08 04:50:01.347792-->
   <!--This manifest is generated based on sdk repo commit: 242d157ba29afc4bbd1dac95f382a1491bc2daf5-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -382,9 +382,29 @@ ${load}</script>
             <files mask="mu_polling_core0_v3_8.xml"/>
           </external>
         </example>
+        <example id="mekmimx8qm_power_mode_switch_m40" name="power_mode_switch_m40" brief="The Power mode switch demo application demonstrates the use of power modes in the KSDK. The demo prints the power mode menuthrough the debug console, where the user can set the MCU to a specific power mode. The user can also set the wakeupsource by following the debug console prompts. The purpose of this demo is to show how to switch between different power modes, and how to configure a wakeup source and wakeup the MCU from low power modes. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - Debug pins(e.g SWD_DIO) would consume addtional power, had better to disable related pins or disconnect them. " toolchain="armgcc" compiler="compiler_gcc" category="demo_apps" path="examples/mekmimx8qm/demo_apps/power_mode_switch/cm4_core0">
+          <external path="examples/mekmimx8qm/demo_apps/power_mode_switch/cm4_core0" type="xml">
+            <files mask="power_mode_switch_m40_v3_8.xml"/>
+          </external>
+        </example>
         <example id="mekmimx8qm_rgpio_led_output_m40" name="rgpio_led_output_m40" brief="The RGPIO Example project is a demonstration program that uses the SDK software to manipulate the general-purposeoutputs.The example is supported by the set, clear, and toggle write-only registers for each port output data register. The example take turns to shine the LED." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/rgpio" path="examples/mekmimx8qm/driver_examples/rgpio/led_output/cm4_core0">
           <external path="examples/mekmimx8qm/driver_examples/rgpio/led_output/cm4_core0" type="xml">
             <files mask="rgpio_led_output_m40_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="mekmimx8qm_rpmsg_lite_pingpong_rtos_linux_remote_m40" name="rpmsg_lite_pingpong_rtos_linux_remote_m40" brief="The Multicore RPMsg-Lite pingpong RTOS project is a simple demonstration program that uses theMCUXpresso SDK software and the RPMsg-Lite library and shows how to implement the inter-corecommunicaton between cores of the multicore system. The primary core releases the secondary corefrom the reset and then the inter-core communication is established. Once the RPMsg is initializedand endpoints are created the message exchange starts, incrementing a virtual counter that is partof the message payload. The message pingpong finishes when the counter reaches the value of 100.Then the RPMsg-Lite is deinitialized and the procedure of the data exchange is repeated again.Shared memory usageThis multicore example uses the shared memory for data exchange. The shared memory region isdefined and the size can be adjustable in the linker file. The shared memory region start addressand the size have to be defined in linker file for each core equally. The shared memory startaddress is then exported from the linker to the application." toolchain="armgcc" compiler="compiler_gcc" category="multicore_examples" path="examples/mekmimx8qm/multicore_examples/rpmsg_lite_pingpong_rtos/linux_remote/cm4_core0">
+          <external path="examples/mekmimx8qm/multicore_examples/rpmsg_lite_pingpong_rtos/linux_remote/cm4_core0" type="xml">
+            <files mask="rpmsg_lite_pingpong_rtos_linux_remote_m40_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="mekmimx8qm_rpmsg_lite_pingpong_rtos_sdk_master" name="rpmsg_lite_pingpong_rtos_sdk_master" brief="The Multicore RPMsg-Lite pingpong RTOS project is a simple demonstration program that uses theMCUXpresso SDK software and the RPMsg-Lite library and shows how to implement the inter-corecommunicaton between cores of the multicore system. The primary core releases the secondary corefrom the reset and then the inter-core communication is established. Once the RPMsg is initializedand endpoints are created the message exchange starts, incrementing a virtual counter that is partof the message payload. The message pingpong finishes when the counter reaches the value of 100.Then the RPMsg-Lite is deinitialized and the procedure of the data exchange is repeated again.Shared memory usageThis multicore example uses the shared memory for data exchange. The shared memory region isdefined and the size can be adjustable in the linker file. The shared memory region start addressand the size have to be defined in linker file for each core equally. The shared memory startaddress is then exported from the linker to the application." toolchain="armgcc" compiler="compiler_gcc" category="multicore_examples" path="examples/mekmimx8qm/multicore_examples/rpmsg_lite_pingpong_rtos/sdk_master/cm4_core0">
+          <external path="examples/mekmimx8qm/multicore_examples/rpmsg_lite_pingpong_rtos/sdk_master/cm4_core0" type="xml">
+            <files mask="rpmsg_lite_pingpong_rtos_sdk_master_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="mekmimx8qm_rpmsg_lite_str_echo_rtos_imxcm4_m40" name="rpmsg_lite_str_echo_rtos_imxcm4_m40" brief="The Multicore RPMsg-Lite string echo project is a simple demonstration program that uses theMCUXpresso SDK software and the RPMsg-Lite library and shows how to implement the inter-corecommunicaton between cores of the multicore system.It works with Linux RPMsg master peer to transfer string content back and forth. The name servicehandshake is performed first to create the communication channels. Next, Linux OS waits for userinput to the RPMsg virtual tty. Anything which is received is sent to M4. M4 displays what isreceived, and echoes back the same message as an acknowledgement. The tty reader on the Linux sidecan get the message, and start another transaction. The demo demonstrates RPMsg’s ability to sendarbitrary content back and forth. Note: The maximum message length supported by RPMsg is now 496bytes. String longer than 496 will be divided by virtual tty into several messages.Shared memory usageThis multicore example uses the shared memory for data exchange. The shared memory region isdefined and the size can be adjustable in the linker file. The shared memory region start addressand the size have to be defined in linker file for each core equally. The shared memory startaddress is then exported from the linker to the application." toolchain="armgcc" compiler="compiler_gcc" category="multicore_examples" path="examples/mekmimx8qm/multicore_examples/rpmsg_lite_str_echo_rtos/cm4_core0">
+          <external path="examples/mekmimx8qm/multicore_examples/rpmsg_lite_str_echo_rtos/cm4_core0" type="xml">
+            <files mask="rpmsg_lite_str_echo_rtos_imxcm4_m40_v3_8.xml"/>
           </external>
         </example>
         <example id="mekmimx8qm_sai_edma_transfer_m40" name="sai_edma_transfer_m40" brief="The sai_edma_transfer example shows how to use sai driver with EDMA:In this example, one sai instance playbacks the audio data stored in flash/SRAM using EDMA channel." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/sai" path="examples/mekmimx8qm/driver_examples/sai/edma_transfer/cm4_core0">
@@ -775,6 +795,26 @@ ${load}</script>
         <example id="mekmimx8qm_mu_polling_core1" name="mu_polling_core1" brief="The mu_polling example shows how to use MU driver in polling way:In this example:1. Core 0 send message to Core 1 in polling mode via MU module.2. Core 1 send message back to Core 0 in polling mode.3. Core 0 receive message sent from Core 1 in polling mode." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/mu" path="examples/mekmimx8qm/driver_examples/mu/polling/core1">
           <external path="examples/mekmimx8qm/driver_examples/mu/polling/core1" type="xml">
             <files mask="mu_polling_core1_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="mekmimx8qm_power_mode_switch_m41" name="power_mode_switch_m41" brief="The Power mode switch demo application demonstrates the use of power modes in the KSDK. The demo prints the power mode menuthrough the debug console, where the user can set the MCU to a specific power mode. The user can also set the wakeupsource by following the debug console prompts. The purpose of this demo is to show how to switch between different power modes, and how to configure a wakeup source and wakeup the MCU from low power modes. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - Debug pins(e.g SWD_DIO) would consume addtional power, had better to disable related pins or disconnect them. " toolchain="armgcc" compiler="compiler_gcc" category="demo_apps" path="examples/mekmimx8qm/demo_apps/power_mode_switch/cm4_core1">
+          <external path="examples/mekmimx8qm/demo_apps/power_mode_switch/cm4_core1" type="xml">
+            <files mask="power_mode_switch_m41_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="mekmimx8qm_rpmsg_lite_pingpong_rtos_linux_remote_m41" name="rpmsg_lite_pingpong_rtos_linux_remote_m41" brief="The Multicore RPMsg-Lite pingpong RTOS project is a simple demonstration program that uses theMCUXpresso SDK software and the RPMsg-Lite library and shows how to implement the inter-corecommunicaton between cores of the multicore system. The primary core releases the secondary corefrom the reset and then the inter-core communication is established. Once the RPMsg is initializedand endpoints are created the message exchange starts, incrementing a virtual counter that is partof the message payload. The message pingpong finishes when the counter reaches the value of 100.Then the RPMsg-Lite is deinitialized and the procedure of the data exchange is repeated again.Shared memory usageThis multicore example uses the shared memory for data exchange. The shared memory region isdefined and the size can be adjustable in the linker file. The shared memory region start addressand the size have to be defined in linker file for each core equally. The shared memory startaddress is then exported from the linker to the application." toolchain="armgcc" compiler="compiler_gcc" category="multicore_examples" path="examples/mekmimx8qm/multicore_examples/rpmsg_lite_pingpong_rtos/linux_remote/cm4_core1">
+          <external path="examples/mekmimx8qm/multicore_examples/rpmsg_lite_pingpong_rtos/linux_remote/cm4_core1" type="xml">
+            <files mask="rpmsg_lite_pingpong_rtos_linux_remote_m41_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="mekmimx8qm_rpmsg_lite_pingpong_rtos_sdk_remote" name="rpmsg_lite_pingpong_rtos_sdk_remote" brief="The Multicore RPMsg-Lite pingpong RTOS project is a simple demonstration program that uses theMCUXpresso SDK software and the RPMsg-Lite library and shows how to implement the inter-corecommunicaton between cores of the multicore system. The primary core releases the secondary corefrom the reset and then the inter-core communication is established. Once the RPMsg is initializedand endpoints are created the message exchange starts, incrementing a virtual counter that is partof the message payload. The message pingpong finishes when the counter reaches the value of 100.Then the RPMsg-Lite is deinitialized and the procedure of the data exchange is repeated again.Shared memory usageThis multicore example uses the shared memory for data exchange. The shared memory region isdefined and the size can be adjustable in the linker file. The shared memory region start addressand the size have to be defined in linker file for each core equally. The shared memory startaddress is then exported from the linker to the application." toolchain="armgcc" compiler="compiler_gcc" category="multicore_examples" path="examples/mekmimx8qm/multicore_examples/rpmsg_lite_pingpong_rtos/sdk_remote/cm4_core1">
+          <external path="examples/mekmimx8qm/multicore_examples/rpmsg_lite_pingpong_rtos/sdk_remote/cm4_core1" type="xml">
+            <files mask="rpmsg_lite_pingpong_rtos_sdk_remote_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="mekmimx8qm_rpmsg_lite_str_echo_rtos_imxcm4_m41" name="rpmsg_lite_str_echo_rtos_imxcm4_m41" brief="The Multicore RPMsg-Lite string echo project is a simple demonstration program that uses theMCUXpresso SDK software and the RPMsg-Lite library and shows how to implement the inter-corecommunicaton between cores of the multicore system.It works with Linux RPMsg master peer to transfer string content back and forth. The name servicehandshake is performed first to create the communication channels. Next, Linux OS waits for userinput to the RPMsg virtual tty. Anything which is received is sent to M4. M4 displays what isreceived, and echoes back the same message as an acknowledgement. The tty reader on the Linux sidecan get the message, and start another transaction. The demo demonstrates RPMsg’s ability to sendarbitrary content back and forth. Note: The maximum message length supported by RPMsg is now 496bytes. String longer than 496 will be divided by virtual tty into several messages.Shared memory usageThis multicore example uses the shared memory for data exchange. The shared memory region isdefined and the size can be adjustable in the linker file. The shared memory region start addressand the size have to be defined in linker file for each core equally. The shared memory startaddress is then exported from the linker to the application." toolchain="armgcc" compiler="compiler_gcc" category="multicore_examples" path="examples/mekmimx8qm/multicore_examples/rpmsg_lite_str_echo_rtos/cm4_core1">
+          <external path="examples/mekmimx8qm/multicore_examples/rpmsg_lite_str_echo_rtos/cm4_core1" type="xml">
+            <files mask="rpmsg_lite_str_echo_rtos_imxcm4_m41_v3_8.xml"/>
           </external>
         </example>
         <example id="mekmimx8qm_sai_edma_transfer_m41" name="sai_edma_transfer_m41" brief="The sai_edma_transfer example shows how to use sai driver with EDMA:In this example, one sai instance playbacks the audio data stored in flash/SRAM using EDMA channel." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/sai" path="examples/mekmimx8qm/driver_examples/sai/edma_transfer/cm4_core1">
@@ -3997,6 +4037,12 @@ ${load}</script>
         <files mask="fsl_mmcau.dox" hidden="true"/>
       </source>
     </component>
+    <component id="middleware.multicore.MIMX8QM6" name="multicore middleware" brief="Multicore SDK" version="2.9.0" full_name="Multicore Software Development Kit" devices="MIMX8QM6xxxFF" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="multicore">
+      <source relative_path="./" type="doc">
+        <files mask="readme.txt" hidden="true"/>
+        <files mask="ChangeLogKSDK.txt" hidden="true"/>
+      </source>
+    </component>
     <component id="middleware.multicore.remoteproc.loadscript.MIMX8QM6" name="remoteproc_load_script" brief="remoteproc-load script" version="1.0.0" full_name="remoteproc-load script" devices="MIMX8QM6xxxFF" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="multicore">
       <source relative_path="tools/remoteproc-load" type="script">
         <files mask="load.sh"/>
@@ -4005,6 +4051,235 @@ ${load}</script>
         <files mask="Readme.md"/>
         <files mask="remote.cfg"/>
       </source>
+    </component>
+    <component id="middleware.multicore.rpmsg_lite.MIMX8QM6" name="rpmsg_lite" brief="RPMsg-Lite" version="3.1.1" full_name="Remote Procedure Messaging Lite library" devices="MIMX8QM6xxxFF" category="Multicore/RPMsg-Lite" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
+      <source relative_path="rpmsg_lite/lib/include" project_relative_path="./" type="c_include">
+        <files mask="rpmsg_lite.h"/>
+        <files mask="rpmsg_ns.h"/>
+        <files mask="llist.h"/>
+        <files mask="rpmsg_default_config.h"/>
+        <files mask="virtio_ring.h"/>
+        <files mask="virtqueue.h"/>
+        <files mask="rpmsg_compiler.h"/>
+        <files mask="rpmsg_env.h"/>
+      </source>
+      <source relative_path="rpmsg_lite/lib/common" project_relative_path="./" type="src">
+        <files mask="llist.c"/>
+      </source>
+      <source relative_path="rpmsg_lite/lib/rpmsg_lite" project_relative_path="./" type="src">
+        <files mask="rpmsg_lite.c"/>
+        <files mask="rpmsg_ns.c"/>
+      </source>
+      <source relative_path="rpmsg_lite/lib/virtio" project_relative_path="./" type="src">
+        <files mask="virtqueue.c"/>
+      </source>
+      <source relative_path="rpmsg_lite" project_relative_path="./" type="doc">
+        <files mask="readme.txt" hidden="true"/>
+      </source>
+      <source relative_path="rpmsg_lite/doc" project_relative_path="doc" type="doc">
+        <files mask="group__config.html" hidden="true"/>
+        <files mask="group__rpmsg__lite.html" hidden="true"/>
+        <files mask="dir_5a30104352ef4255dc24354b02eb2d20.html" hidden="true"/>
+        <files mask="customdoxygen.css" hidden="true"/>
+        <files mask="rpmsg__default__config_8h.html" hidden="true"/>
+        <files mask="group__rpmsg__ns.html" hidden="true"/>
+        <files mask="tabs.css" hidden="true"/>
+        <files mask="rpmsg__lite_8h_source.html" hidden="true"/>
+        <files mask="index.html" hidden="true"/>
+        <files mask="group__rpmsg__queue.html" hidden="true"/>
+        <files mask="rpmsg__ns_8h_source.html" hidden="true"/>
+        <files mask="rpmsg__default__config_8h_source.html" hidden="true"/>
+        <files mask="dir_97aefd0d527b934f1d99a682da8fe6a9.html" hidden="true"/>
+        <files mask="doxygen.css" hidden="true"/>
+        <files mask="rpmsg__queue_8h_source.html" hidden="true"/>
+        <files mask="navtree.css" hidden="true"/>
+        <files mask="modules.html" hidden="true"/>
+      </source>
+      <source relative_path="rpmsg_lite/doc" project_relative_path="doc" type="image">
+        <files mask="tab_b.png" hidden="true"/>
+        <files mask="folderclosed.png" hidden="true"/>
+        <files mask="bc_s.png" hidden="true"/>
+        <files mask="nxp_logo_small.png" hidden="true"/>
+        <files mask="nav_h.png" hidden="true"/>
+        <files mask="tab_a.png" hidden="true"/>
+        <files mask="rpmsg_lite_send_receive.png" hidden="true"/>
+        <files mask="bdwn.png" hidden="true"/>
+        <files mask="sync_off.png" hidden="true"/>
+        <files mask="rpmsg_isoosi.png" hidden="true"/>
+        <files mask="tab_s.png" hidden="true"/>
+        <files mask="open.png" hidden="true"/>
+        <files mask="arrowdown.png" hidden="true"/>
+        <files mask="splitbar.png" hidden="true"/>
+        <files mask="rpmsg_lite_arch.png" hidden="true"/>
+        <files mask="tab_h.png" hidden="true"/>
+        <files mask="closed.png" hidden="true"/>
+        <files mask="arrowright.png" hidden="true"/>
+        <files mask="nav_g.png" hidden="true"/>
+        <files mask="doc.png" hidden="true"/>
+        <files mask="sync_on.png" hidden="true"/>
+        <files mask="nav_f.png" hidden="true"/>
+        <files mask="doxygen.png" hidden="true"/>
+        <files mask="folderopen.png" hidden="true"/>
+      </source>
+      <source relative_path="rpmsg_lite/doc" project_relative_path="doc" type="script">
+        <files mask="navtreeindex0.js" hidden="true"/>
+        <files mask="navtreedata.js" hidden="true"/>
+        <files mask="group__config.js" hidden="true"/>
+        <files mask="modules.js" hidden="true"/>
+        <files mask="group__rpmsg__lite.js" hidden="true"/>
+        <files mask="resize.js" hidden="true"/>
+        <files mask="dynsections.js" hidden="true"/>
+        <files mask="group__rpmsg__ns.js" hidden="true"/>
+        <files mask="group__rpmsg__queue.js" hidden="true"/>
+        <files mask="navtree.js" hidden="true"/>
+        <files mask="jquery.js" hidden="true"/>
+      </source>
+      <source relative_path="rpmsg_lite/doc/search" project_relative_path="doc" type="script">
+        <files mask="all_0.js" hidden="true"/>
+        <files mask="variables_5.js" hidden="true"/>
+        <files mask="all_5.js" hidden="true"/>
+        <files mask="groups_0.js" hidden="true"/>
+        <files mask="search.js" hidden="true"/>
+        <files mask="variables_1.js" hidden="true"/>
+        <files mask="variables_2.js" hidden="true"/>
+        <files mask="classes_0.js" hidden="true"/>
+        <files mask="functions_0.js" hidden="true"/>
+        <files mask="searchdata.js" hidden="true"/>
+        <files mask="variables_7.js" hidden="true"/>
+        <files mask="pages_0.js" hidden="true"/>
+        <files mask="all_6.js" hidden="true"/>
+        <files mask="typedefs_0.js" hidden="true"/>
+        <files mask="variables_3.js" hidden="true"/>
+        <files mask="all_3.js" hidden="true"/>
+        <files mask="all_7.js" hidden="true"/>
+        <files mask="all_2.js" hidden="true"/>
+        <files mask="variables_6.js" hidden="true"/>
+        <files mask="files_0.js" hidden="true"/>
+        <files mask="variables_4.js" hidden="true"/>
+        <files mask="all_1.js" hidden="true"/>
+        <files mask="variables_0.js" hidden="true"/>
+        <files mask="all_4.js" hidden="true"/>
+      </source>
+      <source relative_path="rpmsg_lite/doc/search" project_relative_path="doc" type="doc">
+        <files mask="variables_2.html" hidden="true"/>
+        <files mask="files_0.html" hidden="true"/>
+        <files mask="variables_4.html" hidden="true"/>
+        <files mask="all_1.html" hidden="true"/>
+        <files mask="all_0.html" hidden="true"/>
+        <files mask="variables_3.html" hidden="true"/>
+        <files mask="all_2.html" hidden="true"/>
+        <files mask="pages_0.html" hidden="true"/>
+        <files mask="search.css" hidden="true"/>
+        <files mask="functions_0.html" hidden="true"/>
+        <files mask="all_3.html" hidden="true"/>
+        <files mask="groups_0.html" hidden="true"/>
+        <files mask="all_4.html" hidden="true"/>
+        <files mask="all_7.html" hidden="true"/>
+        <files mask="variables_0.html" hidden="true"/>
+        <files mask="variables_7.html" hidden="true"/>
+        <files mask="nomatches.html" hidden="true"/>
+        <files mask="classes_0.html" hidden="true"/>
+        <files mask="variables_5.html" hidden="true"/>
+        <files mask="all_6.html" hidden="true"/>
+        <files mask="all_5.html" hidden="true"/>
+        <files mask="variables_6.html" hidden="true"/>
+        <files mask="typedefs_0.html" hidden="true"/>
+        <files mask="variables_1.html" hidden="true"/>
+      </source>
+      <source relative_path="rpmsg_lite/doc/search" project_relative_path="doc" type="image">
+        <files mask="search_r.png" hidden="true"/>
+        <files mask="search_l.png" hidden="true"/>
+        <files mask="mag_sel.png" hidden="true"/>
+        <files mask="close.png" hidden="true"/>
+        <files mask="search_m.png" hidden="true"/>
+      </source>
+      <source condition="middleware.baremetal.MIMX8QM6" relative_path="rpmsg_lite/lib/rpmsg_lite/porting/environment" project_relative_path="env/bm" type="src">
+        <files mask="rpmsg_env_bm.c"/>
+      </source>
+      <source condition="middleware.freertos-kernel.MIMX8QM6" relative_path="rpmsg_lite/lib/rpmsg_lite/porting/environment" project_relative_path="env/freertos" type="src">
+        <files mask="rpmsg_env_freertos.c"/>
+      </source>
+      <source condition="middleware.freertos-kernel.MIMX8QM6" relative_path="rpmsg_lite/lib/include" project_relative_path="./" type="c_include">
+        <files mask="rpmsg_queue.h"/>
+      </source>
+      <source condition="middleware.freertos-kernel.MIMX8QM6" relative_path="rpmsg_lite/lib/rpmsg_lite" project_relative_path="env/freertos" type="src">
+        <files mask="rpmsg_queue.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_core0_MIMX8QM6xxxFF">
+        <files mask="middleware_multicore_rpmsg_lite_MIMX8QM6_cm4_core0.cmake" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_core1_MIMX8QM6xxxFF">
+        <files mask="middleware_multicore_rpmsg_lite_MIMX8QM6_cm4_core1.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="rpmsg_lite/lib/include" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.rpmsg_lite.bm.config.MIMX8QM6" name="rpmsg_lite_bm_config" brief="RPMsg-Lite baremetal application configuration" version="3.1.1" full_name="Remote Procedure Messaging Lite BM configuration" devices="MIMX8QM6xxxFF" category="Multicore/RPMsg-Lite BM" user_visible="true" type="middleware" package_base_path="middleware/multicore" project_base_path="source">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.multicore.rpmsg_lite.MIMX8QM6"/>
+          <component_dependency value="middleware.multicore.rpmsg_lite.imx8qm_m4_bm.MIMX8QM6"/>
+        </all>
+      </dependencies>
+      <source relative_path="rpmsg_lite/template_application" project_relative_path="./" type="c_include">
+        <files mask="rpmsg_config.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="rpmsg_lite/template_application" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.rpmsg_lite.freertos.config.MIMX8QM6" name="rpmsg_lite_freertos_config" brief="RPMsg-Lite FreeRTOS application configuration" version="3.1.1" full_name="Remote Procedure Messaging Lite FreeRTOS configuration" devices="MIMX8QM6xxxFF" category="Multicore/RPMsg-Lite FreeRTOS" user_visible="true" type="middleware" package_base_path="middleware/multicore" project_base_path="source">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.multicore.rpmsg_lite.MIMX8QM6"/>
+          <component_dependency value="middleware.multicore.rpmsg_lite.imx8qm_m4_freertos.MIMX8QM6"/>
+        </all>
+      </dependencies>
+      <source relative_path="rpmsg_lite/template_application" project_relative_path="./" type="c_include">
+        <files mask="rpmsg_config.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="rpmsg_lite/template_application" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.rpmsg_lite.imx8qm_m4_bm.MIMX8QM6" name="imx8qm_m4_bm" brief="RPMsg-Lite for MIMX8QM6 baremetal application" version="3.1.1" full_name="Remote Procedure Messaging Lite porting layer for MIMX8QM6 board" devices="MIMX8QM6xxxFF" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
+      <dependencies>
+        <component_dependency value="middleware.multicore.rpmsg_lite.MIMX8QM6"/>
+      </dependencies>
+      <source relative_path="rpmsg_lite/lib/include/platform/imx8qm_m4" project_relative_path="porting" type="c_include">
+        <files mask="rpmsg_platform.h"/>
+      </source>
+      <source relative_path="rpmsg_lite/lib/rpmsg_lite/porting/platform/imx8qm_m4" project_relative_path="porting" type="src">
+        <files mask="rpmsg_platform.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="rpmsg_lite/lib/include/platform/imx8qm_m4" project_relative_path="porting" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.rpmsg_lite.imx8qm_m4_freertos.MIMX8QM6" name="imx8qm_m4_freertos" brief="RPMsg-Lite for MIMX8QM6 FreeRTOS application" version="3.1.1" full_name="Remote Procedure Messaging Lite porting layer for MIMX8QM6 board" devices="MIMX8QM6xxxFF" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.multicore.rpmsg_lite.MIMX8QM6"/>
+          <component_dependency value="middleware.freertos-kernel.MIMX8QM6"/>
+          <component_dependency value="middleware.freertos-kernel.heap_4.MIMX8QM6"/>
+        </all>
+      </dependencies>
+      <source relative_path="rpmsg_lite/lib/include/platform/imx8qm_m4" project_relative_path="porting" type="c_include">
+        <files mask="rpmsg_platform.h"/>
+      </source>
+      <source relative_path="rpmsg_lite/lib/rpmsg_lite/porting/platform/imx8qm_m4" project_relative_path="porting" type="src">
+        <files mask="rpmsg_platform.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_core0_MIMX8QM6xxxFF">
+        <files mask="middleware_multicore_rpmsg_lite_imx8qm_m4_freertos_MIMX8QM6_cm4_core0.cmake" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_core1_MIMX8QM6xxxFF">
+        <files mask="middleware_multicore_rpmsg_lite_imx8qm_m4_freertos_MIMX8QM6_cm4_core1.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="rpmsg_lite/lib/include/platform/imx8qm_m4" project_relative_path="porting" type="c_include"/>
+      </include_paths>
     </component>
     <component id="platform.utilities.misc_utilities.MIMX8QM6" name="misc_utilities" brief="Utilities which is needed for particular toolchain like the SBRK function required to address limitation between HEAP and STACK in GCC toolchain library." version="1.0.0" full_name="Utilities miscellaneous" devices="MIMX8QM6xxxFF" user_visible="true" type="utilities" package_base_path="core/utilities/misc_utilities" project_base_path="utilities">
       <source toolchain="armgcc" relative_path="./" type="src">
