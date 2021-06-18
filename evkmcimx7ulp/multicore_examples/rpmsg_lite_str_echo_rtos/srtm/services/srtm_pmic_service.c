@@ -68,6 +68,7 @@ static srtm_status_t SRTM_PmicService_Request(srtm_service_t service, srtm_reque
     uint8_t command;
     uint32_t payloadLen;
     srtm_response_t response;
+    uint32_t tmpOutValue;
     struct _srtm_pmic_payload *pmicReq;
     struct _srtm_pmic_payload *pmicResp;
 
@@ -128,13 +129,15 @@ static srtm_status_t SRTM_PmicService_Request(srtm_service_t service, srtm_reque
                 break;
             case SRTM_PMIC_CMD_GET_VOLTAGE:
                 assert(adapter->getVoltage);
-                status = adapter->getVoltage(adapter, pmicReq->reg, (uint32_t *)&pmicResp->value);
+                status = adapter->getVoltage(adapter, pmicReq->reg, &tmpOutValue);
+                tmpOutValue = pmicResp->value;
                 pmicResp->retCode =
                     status == SRTM_Status_Success ? SRTM_PMIC_RETURN_CODE_SUCEESS : SRTM_PMIC_RETURN_CODE_FAIL;
                 break;
             case SRTM_PMIC_CMD_GET_REGISTER:
                 assert(adapter->getRegister);
-                status = adapter->getRegister(adapter, pmicReq->reg, (uint32_t *)&pmicResp->value);
+                status = adapter->getRegister(adapter, pmicReq->reg, &tmpOutValue);
+                tmpOutValue = pmicResp->value;
                 pmicResp->retCode =
                     status == SRTM_Status_Success ? SRTM_PMIC_RETURN_CODE_SUCEESS : SRTM_PMIC_RETURN_CODE_FAIL;
                 break;

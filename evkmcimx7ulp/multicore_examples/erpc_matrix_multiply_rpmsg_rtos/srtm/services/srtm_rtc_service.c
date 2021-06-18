@@ -75,6 +75,7 @@ static srtm_status_t SRTM_RtcService_Request(srtm_service_t service, srtm_reques
     uint8_t command;
     uint32_t payloadLen;
     srtm_response_t response;
+    uint32_t tmpOutSeconds;
     struct _srtm_rtc_payload *rtcReq;
     struct _srtm_rtc_payload *rtcResp;
 
@@ -120,7 +121,8 @@ static srtm_status_t SRTM_RtcService_Request(srtm_service_t service, srtm_reques
                 break;
             case SRTM_RTC_CMD_GET_TIME:
                 assert(adapter->getTime);
-                status = adapter->getTime(adapter, (uint32_t *)&rtcResp->alarm.seconds);
+                status = adapter->getTime(adapter, &tmpOutSeconds);
+                rtcResp->alarm.seconds = tmpOutSeconds;
                 rtcResp->retCode =
                     status == SRTM_Status_Success ? SRTM_RTC_RETURN_CODE_SUCEESS : SRTM_RTC_RETURN_CODE_FAIL;
                 break;
