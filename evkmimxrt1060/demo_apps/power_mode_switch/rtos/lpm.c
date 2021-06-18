@@ -54,6 +54,9 @@ uint32_t g_savedPrimask;
 
 #ifdef FSL_RTOS_FREE_RTOS
 static SemaphoreHandle_t s_mutex;
+#if configSUPPORT_STATIC_ALLOCATION
+static StaticSemaphore_t s_staticMutex;
+#endif
 static lpm_power_mode_listener_t *s_listenerHead;
 static lpm_power_mode_listener_t *s_listenerTail;
 #if (configUSE_TICKLESS_IDLE == 2)
@@ -212,7 +215,11 @@ bool LPM_Init(lpm_power_mode_t run_mode)
     uint32_t tmp_reg = 0;
 
 #ifdef FSL_RTOS_FREE_RTOS
+#if configSUPPORT_STATIC_ALLOCATION
+    s_mutex = xSemaphoreCreateMutexStatic(&s_staticMutex);
+#else
     s_mutex = xSemaphoreCreateMutex();
+#endif
 
     if (s_mutex == NULL)
     {
