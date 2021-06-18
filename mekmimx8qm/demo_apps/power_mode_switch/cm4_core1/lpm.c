@@ -85,6 +85,9 @@ struct _lpm_power_mode_listener
 typedef struct _lpm_power_mode_listener lpm_power_mode_listener_t;
 
 static SemaphoreHandle_t s_mutex;
+#if configSUPPORT_STATIC_ALLOCATION
+static StaticSemaphore_t s_staticMutex;
+#endif
 static lpm_power_mode_listener_t *s_listenerHead;
 static lpm_power_mode_listener_t *s_listenerTail;
 static uint32_t s_resumeTicks; /* Approximate ticks expired during LPM enter and resume. */
@@ -334,7 +337,11 @@ bool LPM_Init(void)
     asmc_power_state_t mode;
 
 #ifdef FSL_RTOS_FREE_RTOS
+#if configSUPPORT_STATIC_ALLOCATION
+    s_mutex = xSemaphoreCreateMutexStatic(&s_staticMutex);
+#else
     s_mutex = xSemaphoreCreateMutex();
+#endif
 
     if (s_mutex == NULL)
     {
