@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-06-08 04:50:21.454168-->
+  <!--Timestamp (UTC): 2021-06-22 08:56:30.839896-->
   <!--This manifest is generated based on sdk repo commit: 242d157ba29afc4bbd1dac95f382a1491bc2daf5-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -758,7 +758,7 @@ ${load}</script>
         <files mask="cmsis_iccarm.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_common_LPC845.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -776,7 +776,7 @@ ${load}</script>
         <files mask="mpu_armv7.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_core_cm0plus_LPC845.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_core_cm0plus.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -789,7 +789,7 @@ ${load}</script>
         <files mask="arm_math.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_dsp_LPC845.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_dsp.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1007,7 +1007,7 @@ ${load}</script>
         <files mask="fsl_adapter_miniusart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_miniusart_adapter_LPC845.cmake" hidden="true"/>
+        <files mask="component_miniusart_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1146,7 +1146,7 @@ ${load}</script>
         <files mask="LPC845_features.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="device_LPC845_CMSIS_LPC845.cmake" hidden="true"/>
+        <files mask="device_CMSIS.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1177,7 +1177,7 @@ ${load}</script>
         <files mask="startup_lpc845.cpp"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="device_LPC845_startup_LPC845.cmake" hidden="true"/>
+        <files mask="device_startup.cmake" hidden="true"/>
       </source>
     </component>
     <component id="device.LPC845_system.LPC845" name="LPC845_system" brief="Device LPC845_system" version="1.0.0" full_name="Device LPC845_system" devices="LPC845" device_cores="core0_LPC845" user_visible="true" type="CMSIS_Include" package_base_path="core/devices/LPC845" project_base_path="device">
@@ -1191,7 +1191,7 @@ ${load}</script>
         <files mask="system_LPC845.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="device_LPC845_system_LPC845.cmake" hidden="true"/>
+        <files mask="device_system.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1215,7 +1215,7 @@ ${load}</script>
         <files mask="fsl_capt.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_capt_LPC845.cmake" hidden="true"/>
+        <files mask="driver_capt.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1235,7 +1235,7 @@ ${load}</script>
         <files mask="fsl_clock.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_clock_LPC845.cmake" hidden="true"/>
+        <files mask="driver_clock.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1256,7 +1256,7 @@ ${load}</script>
         <files mask="fsl_common.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_common_LPC845.cmake" hidden="true"/>
+        <files mask="driver_common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1273,7 +1273,7 @@ ${load}</script>
         <files mask="fsl_ctimer.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_ctimer_LPC845.cmake" hidden="true"/>
+        <files mask="driver_ctimer.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1290,7 +1290,7 @@ ${load}</script>
         <files mask="fsl_iap.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_iap_LPC845.cmake" hidden="true"/>
+        <files mask="driver_iap.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1310,7 +1310,7 @@ ${load}</script>
         <files mask="fsl_inputmux.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_inputmux_LPC845.cmake" hidden="true"/>
+        <files mask="driver_inputmux.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1324,7 +1324,7 @@ ${load}</script>
         <files mask="fsl_inputmux_connections.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_inputmux_connections_LPC845.cmake" hidden="true"/>
+        <files mask="driver_inputmux_connections.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1341,7 +1341,7 @@ ${load}</script>
         <files mask="fsl_acomp.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_acomp_LPC845.cmake" hidden="true"/>
+        <files mask="driver_lpc_acomp.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1358,7 +1358,7 @@ ${load}</script>
         <files mask="fsl_adc.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_adc_LPC845.cmake" hidden="true"/>
+        <files mask="driver_lpc_adc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1375,7 +1375,7 @@ ${load}</script>
         <files mask="fsl_crc.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_crc_LPC845.cmake" hidden="true"/>
+        <files mask="driver_lpc_crc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1392,7 +1392,7 @@ ${load}</script>
         <files mask="fsl_dac.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_dac_LPC845.cmake" hidden="true"/>
+        <files mask="driver_lpc_dac.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1409,7 +1409,7 @@ ${load}</script>
         <files mask="fsl_dma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_dma_LPC845.cmake" hidden="true"/>
+        <files mask="driver_lpc_dma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1426,7 +1426,7 @@ ${load}</script>
         <files mask="fsl_gpio.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_gpio_LPC845.cmake" hidden="true"/>
+        <files mask="driver_lpc_gpio.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1443,7 +1443,7 @@ ${load}</script>
         <files mask="fsl_i2c.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_i2c_LPC845.cmake" hidden="true"/>
+        <files mask="driver_lpc_i2c.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1457,7 +1457,7 @@ ${load}</script>
         <files mask="fsl_iocon.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_iocon_lite_LPC845.cmake" hidden="true"/>
+        <files mask="driver_lpc_iocon_lite.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1474,7 +1474,7 @@ ${load}</script>
         <files mask="fsl_spi.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_minispi_LPC845.cmake" hidden="true"/>
+        <files mask="driver_lpc_minispi.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1491,7 +1491,7 @@ ${load}</script>
         <files mask="fsl_usart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_miniusart_LPC845.cmake" hidden="true"/>
+        <files mask="driver_lpc_miniusart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1508,7 +1508,7 @@ ${load}</script>
         <files mask="fsl_mrt.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_mrt_LPC845.cmake" hidden="true"/>
+        <files mask="driver_mrt.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1525,7 +1525,7 @@ ${load}</script>
         <files mask="fsl_pint.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_pint_LPC845.cmake" hidden="true"/>
+        <files mask="driver_pint.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1542,7 +1542,7 @@ ${load}</script>
         <files mask="fsl_power.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_power_no_lib_LPC845.cmake" hidden="true"/>
+        <files mask="driver_power_no_lib.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1559,7 +1559,7 @@ ${load}</script>
         <files mask="fsl_reset.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_reset_LPC845.cmake" hidden="true"/>
+        <files mask="driver_reset.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1576,7 +1576,7 @@ ${load}</script>
         <files mask="fsl_sctimer.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_sctimer_LPC845.cmake" hidden="true"/>
+        <files mask="driver_sctimer.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1596,7 +1596,7 @@ ${load}</script>
         <files mask="fsl_swm.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_swm_LPC845.cmake" hidden="true"/>
+        <files mask="driver_swm.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1610,7 +1610,7 @@ ${load}</script>
         <files mask="fsl_swm_connections.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_swm_connections_LPC845.cmake" hidden="true"/>
+        <files mask="driver_swm_connections.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1630,7 +1630,7 @@ ${load}</script>
         <files mask="fsl_syscon.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_syscon_LPC845.cmake" hidden="true"/>
+        <files mask="driver_syscon.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1644,7 +1644,7 @@ ${load}</script>
         <files mask="fsl_syscon_connections.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_syscon_connections_LPC845.cmake" hidden="true"/>
+        <files mask="driver_syscon_connections.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1661,7 +1661,7 @@ ${load}</script>
         <files mask="fsl_wkt.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_wkt_LPC845.cmake" hidden="true"/>
+        <files mask="driver_wkt.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1678,7 +1678,7 @@ ${load}</script>
         <files mask="fsl_wwdt.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_wwdt_LPC845.cmake" hidden="true"/>
+        <files mask="driver_wwdt.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1695,7 +1695,7 @@ ${load}</script>
         <files mask="fsl_sbrk.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utilities_misc_utilities_LPC845.cmake" hidden="true"/>
+        <files mask="utilities_misc_utilities.cmake" hidden="true"/>
       </source>
     </component>
     <component id="platform.utilities.assert_lite.LPC845" name="assert_lite" brief="Utility assert_lite" version="1.0.0" full_name="Utility assert_lite" devices="LPC845" device_cores="core0_LPC845" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
@@ -1709,7 +1709,7 @@ ${load}</script>
         <files mask="fsl_assert.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_assert_lite_LPC845.cmake" hidden="true"/>
+        <files mask="utility_assert_lite.cmake" hidden="true"/>
       </source>
     </component>
     <component id="utility.debug_console_lite.LPC845" name="debug_console_lite" brief="Utility debug_console_lite" version="1.0.0" full_name="Utility debug_console_lite" devices="LPC845" device_cores="core0_LPC845" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console_lite" project_base_path="utilities">
@@ -1726,7 +1726,7 @@ ${load}</script>
         <files mask="fsl_debug_console.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_debug_console_lite_LPC845.cmake" hidden="true"/>
+        <files mask="utility_debug_console_lite.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>

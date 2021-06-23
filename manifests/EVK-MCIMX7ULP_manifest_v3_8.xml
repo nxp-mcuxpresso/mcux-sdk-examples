@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-06-08 04:50:14.177697-->
+  <!--Timestamp (UTC): 2021-06-22 08:56:22.693132-->
   <!--This manifest is generated based on sdk repo commit: 242d157ba29afc4bbd1dac95f382a1491bc2daf5-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -745,7 +745,7 @@ ${load}</script>
         <files mask="Driver_Common.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Driver_Include_Common_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="CMSIS_Driver_Include_Common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -814,7 +814,7 @@ ${load}</script>
         <files mask="Driver_I2C.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Driver_Include_I2C_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="CMSIS_Driver_Include_I2C.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -861,7 +861,7 @@ ${load}</script>
         <files mask="Driver_SPI.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Driver_Include_SPI_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="CMSIS_Driver_Include_SPI.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -933,7 +933,7 @@ ${load}</script>
         <files mask="cmsis_iccarm.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_common_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -951,7 +951,7 @@ ${load}</script>
         <files mask="mpu_armv7.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_core_cm4_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_core_cm4.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -964,7 +964,7 @@ ${load}</script>
         <files mask="arm_math.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_dsp_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_dsp.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1237,7 +1237,7 @@ ${load}</script>
         <files mask="fsl_component_generic_list.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_lists_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="component_lists.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1310,7 +1310,7 @@ ${load}</script>
         <files mask="fsl_adapter_lpi2c.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_lpi2c_adapter_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="component_lpi2c_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1364,7 +1364,7 @@ ${load}</script>
         <files mask="fsl_adapter_lpuart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_lpuart_adapter_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="component_lpuart_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1524,7 +1524,7 @@ ${load}</script>
         <files mask="fsl_component_serial_manager.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_serial_manager_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="component_serial_manager.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1568,7 +1568,7 @@ ${load}</script>
         <files mask="fsl_component_serial_port_uart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_serial_manager_uart_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="component_serial_manager_uart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1710,7 +1710,7 @@ ${load}</script>
         <files mask="fsl_codec_adapter.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_wm8960_adapter_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="component_wm8960_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1732,7 +1732,7 @@ ${load}</script>
         <files mask="system_MCIMX7U5_cm4.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="device_MCIMX7U5_CMSIS_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="device_CMSIS.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1755,7 +1755,7 @@ ${load}</script>
         <files mask="startup_MCIMX7U5_cm4.S"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="device_MCIMX7U5_startup_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="device_startup.cmake" hidden="true"/>
       </source>
     </component>
     <component id="docs.MCIMX7U5.MCIMX7U5" name="MCIMX7U5" brief="Docs mcimx7u5" version="1.0.0" full_name="Docs mcimx7u5" devices="MCIMX7U5xxxxx" user_visible="true" type="documentation" package_base_path="core/docs" project_base_path="docs">
@@ -1775,7 +1775,7 @@ ${load}</script>
         <files mask="fsl_acmp.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_acmp_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_acmp.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1792,7 +1792,7 @@ ${load}</script>
         <files mask="fsl_cache.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_cache_lmem_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_cache_lmem.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1809,7 +1809,7 @@ ${load}</script>
         <files mask="fsl_clock.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_clock_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_clock.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1836,7 +1836,7 @@ ${load}</script>
         <files mask="fsl_codec_common.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_codec_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_codec.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1856,7 +1856,7 @@ ${load}</script>
         <files mask="fsl_common.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_common_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1873,7 +1873,7 @@ ${load}</script>
         <files mask="fsl_crc.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_crc_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_crc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1890,7 +1890,7 @@ ${load}</script>
         <files mask="fsl_dac12.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_dac12_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_dac12.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1924,7 +1924,7 @@ ${load}</script>
         <files mask="fsl_dmamux.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_dmamux_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_dmamux.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1944,7 +1944,7 @@ ${load}</script>
         <files mask="fsl_edma.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_edma_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1961,7 +1961,7 @@ ${load}</script>
         <files mask="fsl_ewm.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_ewm_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_ewm.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1978,7 +1978,7 @@ ${load}</script>
         <files mask="fsl_flexio.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexio_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_flexio.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2026,7 +2026,7 @@ ${load}</script>
         <files mask="fsl_flexio_i2c_master.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexio_i2c_master_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_flexio_i2c_master.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2105,7 +2105,7 @@ ${load}</script>
         <files mask="fsl_flexio_spi.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexio_spi_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_flexio_spi.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2125,7 +2125,7 @@ ${load}</script>
         <files mask="fsl_flexio_spi_edma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexio_spi_edma_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_flexio_spi_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2142,7 +2142,7 @@ ${load}</script>
         <files mask="fsl_flexio_uart.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexio_uart_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_flexio_uart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2162,7 +2162,7 @@ ${load}</script>
         <files mask="fsl_flexio_uart_edma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexio_uart_edma_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_flexio_uart_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2179,7 +2179,7 @@ ${load}</script>
         <files mask="fsl_fxos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_fxos8700cq_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_fxos8700cq.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2196,7 +2196,7 @@ ${load}</script>
         <files mask="fsl_gpio.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_gpio_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_gpio.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2213,7 +2213,7 @@ ${load}</script>
         <files mask="fsl_llwu.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_llwu_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_llwu.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2230,7 +2230,7 @@ ${load}</script>
         <files mask="fsl_lpadc.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpadc_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_lpadc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2247,7 +2247,7 @@ ${load}</script>
         <files mask="fsl_lpi2c.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpi2c_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_lpi2c.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2267,7 +2267,7 @@ ${load}</script>
         <files mask="fsl_lpi2c_edma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpi2c_edma_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_lpi2c_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2287,7 +2287,7 @@ ${load}</script>
         <files mask="fsl_lpi2c_freertos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpi2c_freertos_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_lpi2c_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2304,7 +2304,7 @@ ${load}</script>
         <files mask="fsl_lpit.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpit_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_lpit.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2321,7 +2321,7 @@ ${load}</script>
         <files mask="fsl_lpspi.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpspi_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_lpspi.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2341,7 +2341,7 @@ ${load}</script>
         <files mask="fsl_lpspi_edma.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpspi_edma_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_lpspi_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2361,7 +2361,7 @@ ${load}</script>
         <files mask="fsl_lpspi_freertos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpspi_freertos_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_lpspi_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2378,7 +2378,7 @@ ${load}</script>
         <files mask="fsl_lptmr.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lptmr_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_lptmr.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2395,7 +2395,7 @@ ${load}</script>
         <files mask="fsl_lpuart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpuart_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_lpuart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2415,7 +2415,7 @@ ${load}</script>
         <files mask="fsl_lpuart_edma.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpuart_edma_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_lpuart_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2435,7 +2435,7 @@ ${load}</script>
         <files mask="fsl_lpuart_freertos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpuart_freertos_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_lpuart_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2452,7 +2452,7 @@ ${load}</script>
         <files mask="fsl_ltc.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_ltc_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_ltc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2472,7 +2472,7 @@ ${load}</script>
         <files mask="fsl_ltc_edma.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_ltc_edma_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_ltc_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2489,7 +2489,7 @@ ${load}</script>
         <files mask="fsl_msmc.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_msmc_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_msmc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2506,7 +2506,7 @@ ${load}</script>
         <files mask="fsl_mu.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_mu_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_mu.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2522,7 +2522,7 @@ ${load}</script>
         <files mask="fsl_pf1550_charger.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_pf1550_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_pf1550.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2536,7 +2536,7 @@ ${load}</script>
         <files mask="fsl_pmc0.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_pmc0_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_pmc0.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2550,7 +2550,7 @@ ${load}</script>
         <files mask="fsl_port.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_port_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_port.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2567,7 +2567,7 @@ ${load}</script>
         <files mask="fsl_qspi.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_qspi_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_qspi.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2587,7 +2587,7 @@ ${load}</script>
         <files mask="fsl_qspi_edma.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_qspi_edma_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_qspi_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2604,7 +2604,7 @@ ${load}</script>
         <files mask="fsl_sai.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_sai_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_sai.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2624,7 +2624,7 @@ ${load}</script>
         <files mask="fsl_sai_edma.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_sai_edma_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_sai_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2641,7 +2641,7 @@ ${load}</script>
         <files mask="fsl_sema42.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_sema42_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_sema42.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2675,7 +2675,7 @@ ${load}</script>
         <files mask="fsl_snvs_hp.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_snvs_hp_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_snvs_hp.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2692,7 +2692,7 @@ ${load}</script>
         <files mask="fsl_snvs_lp.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_snvs_lp_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_snvs_lp.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2730,7 +2730,7 @@ ${load}</script>
         <files mask="srtm_message_pool.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_srtm_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_srtm.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="include" type="c_include"/>
@@ -2747,7 +2747,7 @@ ${load}</script>
         <files mask="srtm_sem_freertos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_srtm_freertos_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_srtm_freertos.cmake" hidden="true"/>
       </source>
     </component>
     <component id="platform.drivers.tpm.MCIMX7U5" name="tpm" brief="TPM Driver" version="2.0.7" full_name="TPM Driver" devices="MCIMX7U5xxxxx" device_cores="m4_MCIMX7U5xxxxx" user_visible="true" type="driver" package_base_path="core/drivers/tpm" project_base_path="drivers">
@@ -2761,7 +2761,7 @@ ${load}</script>
         <files mask="fsl_tpm.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_tpm_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_tpm.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2778,7 +2778,7 @@ ${load}</script>
         <files mask="fsl_trgmux.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_trgmux_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_trgmux.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2795,7 +2795,7 @@ ${load}</script>
         <files mask="fsl_trng.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_trng_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_trng.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2809,7 +2809,7 @@ ${load}</script>
         <files mask="fsl_tstmr.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_tstmr_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_tstmr.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2826,7 +2826,7 @@ ${load}</script>
         <files mask="fsl_wdog32.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_wdog32_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_wdog32.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2846,7 +2846,7 @@ ${load}</script>
         <files mask="fsl_wm8960.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_wm8960_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_wm8960.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2863,7 +2863,7 @@ ${load}</script>
         <files mask="fsl_xrdc.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_xrdc_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="driver_xrdc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3028,7 +3028,7 @@ ${load}</script>
         <files mask="freertos_tasks_c_additions.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_freertos-kernel_extension_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="middleware_freertos-kernel_extension.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="include" type="c_include"/>
@@ -3066,7 +3066,7 @@ ${load}</script>
         <files mask="heap_4.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_freertos-kernel_heap_4_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="middleware_freertos-kernel_heap_4.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.freertos-kernel.heap_5.MCIMX7U5" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="202007.00.0" full_name="FreeRTOS heap 5" devices="MCIMX7U5xxxxx" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
@@ -3146,7 +3146,7 @@ ${load}</script>
         <files mask="KeynetikPedometer.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_issdk_algorithms_pedometer_common_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="middleware_issdk_algorithms_pedometer_common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="algorithms/pedometer/include" project_relative_path="./" type="c_include"/>
@@ -3158,7 +3158,7 @@ ${load}</script>
         <files mask="libpedometerm4.a"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_issdk_algorithms_pedometer_lib_cm4_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="middleware_issdk_algorithms_pedometer_lib_cm4.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.issdk.sensor.allregdefs.MCIMX7U5" name="issdk_allregdefs" brief="ISSDK Sensors RegDefs" version="1.7.0" full_name="Middleware issdk sensor allregdefs" devices="MCIMX7U5xxxxx" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
@@ -3184,7 +3184,7 @@ ${load}</script>
         <files mask="diff_p.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_issdk_sensor_allregdefs_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="middleware_issdk_sensor_allregdefs.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
@@ -3202,7 +3202,7 @@ ${load}</script>
         <files mask="lib_mmcau.a"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_mmcau_cm4_cm7_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="middleware_mmcau_cm4_cm7.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3220,7 +3220,7 @@ ${load}</script>
         <files mask="fsl_mmcau.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_mmcau_common_files_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="middleware_mmcau_common_files.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -5325,7 +5325,7 @@ ${load}</script>
         <files mask="erpc_setup_extensions.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_multicore_erpc_common_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
@@ -5360,7 +5360,7 @@ ${load}</script>
         <files mask="RPCblockDiagram.png" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_multicore_erpc_doc_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_doc.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.multicore.erpc.eRPC_arbitrator.MCIMX7U5" name="eRPC_arbitrator" brief="eRPC_arbitrator" version="1.8.0" full_name="eRPC arbitrator" devices="MCIMX7U5xxxxx" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
@@ -5551,7 +5551,7 @@ ${load}</script>
         <files mask="erpc_setup_extensions_freertos.cpp"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_multicore_erpc_eRPC_port_freertos_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_eRPC_port_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="erpc/erpc_c/port" project_relative_path="port" type="c_include"/>
@@ -5652,7 +5652,7 @@ ${load}</script>
         <files mask="erpc_setup_rpmsg_tty_rtos_remote.cpp"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_multicore_erpc_eRPC_rpmsg_tty_rtos_remote_c_wrapper_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_eRPC_rpmsg_tty_rtos_remote_c_wrapper.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.multicore.erpc.eRPC_rpmsg_tty_rtos_transport.MCIMX7U5" name="eRPC_rpmsg_tty_rtos_transport" brief="eRPC_rpmsg_tty_rtos_transport" version="1.8.0" full_name="eRPC RPMsg-Lite TTY RTOS transport layer" devices="MCIMX7U5xxxxx" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
@@ -5682,7 +5682,7 @@ ${load}</script>
         <files mask="erpc_framed_transport.cpp"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_multicore_erpc_eRPC_rpmsg_tty_rtos_transport_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_eRPC_rpmsg_tty_rtos_transport.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include"/>
@@ -5709,7 +5709,7 @@ ${load}</script>
         <files mask="erpc_server_setup.cpp"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_multicore_erpc_eRPC_server_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_eRPC_server.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
@@ -5968,7 +5968,7 @@ ${load}</script>
         <files mask="rpmsg_queue.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_multicore_rpmsg_lite_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="middleware_multicore_rpmsg_lite.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="rpmsg_lite/lib/include" project_relative_path="./" type="c_include"/>
@@ -6031,7 +6031,7 @@ ${load}</script>
         <files mask="rpmsg_platform.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_multicore_rpmsg_lite_imx7ulp_m4_freertos_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="middleware_multicore_rpmsg_lite_imx7ulp_m4_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="rpmsg_lite/lib/include/platform/imx7ulp_m4" project_relative_path="porting" type="c_include"/>
@@ -6073,7 +6073,7 @@ ${load}</script>
         <files mask="fsl_sbrk.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utilities_misc_utilities_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="utilities_misc_utilities.cmake" hidden="true"/>
       </source>
     </component>
     <component id="platform.utilities.assert.MCIMX7U5" name="assert" brief="Utility assert" version="1.0.0" full_name="Utility assert" devices="MCIMX7U5xxxxx" device_cores="m4_MCIMX7U5xxxxx" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
@@ -6084,7 +6084,7 @@ ${load}</script>
         <files mask="fsl_assert.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_assert_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="utility_assert.cmake" hidden="true"/>
       </source>
     </component>
     <component id="platform.utilities.assert_lite.MCIMX7U5" name="assert_lite" brief="Utility assert_lite" version="1.0.0" full_name="Utility assert_lite" devices="MCIMX7U5xxxxx" device_cores="m4_MCIMX7U5xxxxx" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
@@ -6095,7 +6095,7 @@ ${load}</script>
         <files mask="fsl_assert.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_assert_lite_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="utility_assert_lite.cmake" hidden="true"/>
       </source>
     </component>
     <component id="utility.debug_console.MCIMX7U5" name="debug_console" brief="Utility debug_console" version="1.0.0" full_name="Utility debug_console" devices="MCIMX7U5xxxxx" device_cores="m4_MCIMX7U5xxxxx" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console" project_base_path="utilities">
@@ -6119,7 +6119,7 @@ ${load}</script>
         <files mask="fsl_debug_console_conf.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_debug_console_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="utility_debug_console.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="str" project_relative_path="./" type="c_include"/>
@@ -6140,7 +6140,7 @@ ${load}</script>
         <files mask="fsl_debug_console.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_debug_console_lite_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="utility_debug_console_lite.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -6178,7 +6178,7 @@ ${load}</script>
         <files mask="fsl_shell.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_shell_MCIMX7U5.cmake" hidden="true"/>
+        <files mask="utility_shell.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>

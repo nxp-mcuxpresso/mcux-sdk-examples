@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-06-08 04:50:17.198626-->
+  <!--Timestamp (UTC): 2021-06-22 08:56:25.954126-->
   <!--This manifest is generated based on sdk repo commit: 242d157ba29afc4bbd1dac95f382a1491bc2daf5-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -872,7 +872,7 @@ ${load}</script>
         <files mask="cmsis_iccarm.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_common_LPC55S16.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -891,7 +891,7 @@ ${load}</script>
         <files mask="mpu_armv8.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_core_cm33_LPC55S16.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_core_cm33.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -904,7 +904,7 @@ ${load}</script>
         <files mask="arm_math.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_dsp_LPC55S16.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_dsp.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1231,7 +1231,7 @@ ${load}</script>
         <files mask="fsl_adapter_flexcomm_i2c.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_flexcomm_i2c_adapter_LPC55S16.cmake" hidden="true"/>
+        <files mask="component_flexcomm_i2c_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1280,7 +1280,7 @@ ${load}</script>
         <files mask="fsl_component_generic_list.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_lists_LPC55S16.cmake" hidden="true"/>
+        <files mask="component_lists.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1449,7 +1449,7 @@ ${load}</script>
         <files mask="fsl_os_abstraction_free_rtos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_osa_LPC55S16.cmake" hidden="true"/>
+        <files mask="component_osa.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1548,7 +1548,7 @@ ${load}</script>
         <files mask="fsl_component_serial_manager.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_serial_manager_LPC55S16.cmake" hidden="true"/>
+        <files mask="component_serial_manager.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1571,7 +1571,7 @@ ${load}</script>
         <files mask="fsl_component_serial_port_swo.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_serial_manager_swo_LPC55S16.cmake" hidden="true"/>
+        <files mask="component_serial_manager_swo.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1595,7 +1595,7 @@ ${load}</script>
         <files mask="fsl_component_serial_port_uart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_serial_manager_uart_LPC55S16.cmake" hidden="true"/>
+        <files mask="component_serial_manager_uart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1703,7 +1703,7 @@ ${load}</script>
         <files mask="fsl_adapter_usart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_usart_adapter_LPC55S16.cmake" hidden="true"/>
+        <files mask="component_usart_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1723,7 +1723,7 @@ ${load}</script>
         <files mask="fsl_codec_adapter.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_wm8904_adapter_LPC55S16.cmake" hidden="true"/>
+        <files mask="component_wm8904_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1756,7 +1756,7 @@ ${load}</script>
         <files mask="LPC55S16_features.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="device_LPC55S16_CMSIS_LPC55S16.cmake" hidden="true"/>
+        <files mask="device_CMSIS.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1787,7 +1787,7 @@ ${load}</script>
         <files mask="startup_lpc55s16.cpp"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="device_LPC55S16_startup_LPC55S16.cmake" hidden="true"/>
+        <files mask="device_startup.cmake" hidden="true"/>
       </source>
     </component>
     <component id="device.LPC55S16_system.LPC55S16" name="LPC55S16_system" brief="Device LPC55S16_system" version="1.0.0" full_name="Device LPC55S16_system" devices="LPC55S16" device_cores="cm33_core0_LPC55S16" user_visible="true" type="CMSIS_Include" package_base_path="core/devices/LPC55S16" project_base_path="device">
@@ -1801,7 +1801,7 @@ ${load}</script>
         <files mask="system_LPC55S16.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="device_LPC55S16_system_LPC55S16.cmake" hidden="true"/>
+        <files mask="device_system.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1824,7 +1824,7 @@ ${load}</script>
         <files mask="fsl_anactrl.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_anactrl_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_anactrl.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1841,7 +1841,7 @@ ${load}</script>
         <files mask="fsl_casper.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_casper_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_casper.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1864,7 +1864,7 @@ ${load}</script>
         <files mask="fsl_clock.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_clock_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_clock.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1881,7 +1881,7 @@ ${load}</script>
         <files mask="fsl_cmp.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_cmp_1_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_cmp_1.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1912,7 +1912,7 @@ ${load}</script>
         <files mask="fsl_codec_common.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_codec_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_codec.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1933,7 +1933,7 @@ ${load}</script>
         <files mask="fsl_common.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_common_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1967,7 +1967,7 @@ ${load}</script>
         <files mask="fsl_ctimer.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_ctimer_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_ctimer.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1984,7 +1984,7 @@ ${load}</script>
         <files mask="fsl_cwt.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_cwt_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_cwt.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2018,7 +2018,7 @@ ${load}</script>
         <files mask="fsl_flexcomm.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexcomm_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_flexcomm.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2038,7 +2038,7 @@ ${load}</script>
         <files mask="fsl_i2c.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexcomm_i2c_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_i2c.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2060,7 +2060,7 @@ ${load}</script>
         <files mask="fsl_i2c_dma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexcomm_i2c_dma_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_i2c_dma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2082,7 +2082,7 @@ ${load}</script>
         <files mask="fsl_i2c_freertos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexcomm_i2c_freertos_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_i2c_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2102,7 +2102,7 @@ ${load}</script>
         <files mask="fsl_i2s.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexcomm_i2s_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_i2s.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2122,7 +2122,7 @@ ${load}</script>
         <files mask="fsl_i2s_dma.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexcomm_i2s_dma_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_i2s_dma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2142,7 +2142,7 @@ ${load}</script>
         <files mask="fsl_spi.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexcomm_spi_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_spi.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2163,7 +2163,7 @@ ${load}</script>
         <files mask="fsl_spi_dma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexcomm_spi_dma_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_spi_dma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2185,7 +2185,7 @@ ${load}</script>
         <files mask="fsl_spi_freertos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexcomm_spi_freertos_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_spi_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2202,7 +2202,7 @@ ${load}</script>
         <files mask="fsl_usart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexcomm_usart_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_usart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2223,7 +2223,7 @@ ${load}</script>
         <files mask="fsl_usart_dma.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexcomm_usart_dma_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_usart_dma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2244,7 +2244,7 @@ ${load}</script>
         <files mask="fsl_usart_freertos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexcomm_usart_freertos_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_usart_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2261,7 +2261,7 @@ ${load}</script>
         <files mask="fsl_gint.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_gint_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_gint.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2278,7 +2278,7 @@ ${load}</script>
         <files mask="fsl_hashcrypt.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_hashcrypt_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_hashcrypt.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2298,7 +2298,7 @@ ${load}</script>
         <files mask="fsl_iap.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_iap1_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_iap1.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2318,7 +2318,7 @@ ${load}</script>
         <files mask="fsl_inputmux.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_inputmux_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_inputmux.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2332,7 +2332,7 @@ ${load}</script>
         <files mask="fsl_inputmux_connections.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_inputmux_connections_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_inputmux_connections.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2349,7 +2349,7 @@ ${load}</script>
         <files mask="fsl_lpadc.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpadc_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_lpadc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2366,7 +2366,7 @@ ${load}</script>
         <files mask="fsl_crc.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_crc_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_lpc_crc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2383,7 +2383,7 @@ ${load}</script>
         <files mask="fsl_dma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_dma_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_lpc_dma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2400,7 +2400,7 @@ ${load}</script>
         <files mask="fsl_gpio.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_gpio_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_lpc_gpio.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2414,7 +2414,7 @@ ${load}</script>
         <files mask="fsl_iocon.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_iocon_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_lpc_iocon.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2431,7 +2431,7 @@ ${load}</script>
         <files mask="fsl_rtc.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_rtc_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_lpc_rtc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2448,7 +2448,7 @@ ${load}</script>
         <files mask="fsl_mcan.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_mcan_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_mcan.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2465,7 +2465,7 @@ ${load}</script>
         <files mask="fsl_mrt.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_mrt_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_mrt.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2490,7 +2490,7 @@ ${load}</script>
         <files mask="fsl_ostimer.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_ostimer_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_ostimer.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2507,7 +2507,7 @@ ${load}</script>
         <files mask="fsl_pint.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_pint_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_pint.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2550,7 +2550,7 @@ ${load}</script>
         <files mask="libpower_softabi.a" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_power_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_power.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="drivers" type="c_include"/>
@@ -2597,7 +2597,7 @@ ${load}</script>
         <files mask="fsl_prince.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_prince_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_prince.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2614,7 +2614,7 @@ ${load}</script>
         <files mask="fsl_puf.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_puf_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_puf.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2631,7 +2631,7 @@ ${load}</script>
         <files mask="fsl_reset.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_reset_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_reset.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2648,7 +2648,7 @@ ${load}</script>
         <files mask="fsl_rng.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_rng_1_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_rng_1.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2665,7 +2665,7 @@ ${load}</script>
         <files mask="fsl_sctimer.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_sctimer_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_sctimer.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2699,7 +2699,7 @@ ${load}</script>
         <files mask="fsl_sysctl.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_sysctl_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_sysctl.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2716,7 +2716,7 @@ ${load}</script>
         <files mask="fsl_utick.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_utick_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_utick.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2736,7 +2736,7 @@ ${load}</script>
         <files mask="fsl_wm8904.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_wm8904_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_wm8904.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2770,7 +2770,7 @@ ${load}</script>
         <files mask="fsl_wwdt.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_wwdt_LPC55S16.cmake" hidden="true"/>
+        <files mask="driver_wwdt.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2782,7 +2782,7 @@ ${load}</script>
         <define name="SDK_OS_BAREMETAL" value=""/>
       </defines>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_baremetal_LPC55S16.cmake" hidden="true"/>
+        <files mask="middleware_baremetal.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.freertos-kernel.LPC55S16" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="202007.00.0" full_name="FreeRTOS kernel" devices="LPC55S16" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
@@ -2942,7 +2942,7 @@ ${load}</script>
         <files mask="portasm.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_freertos-kernel_cm33_nonsecure_port_LPC55S16.cmake" hidden="true"/>
+        <files mask="middleware_freertos-kernel_cm33_nonsecure_port.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="portable/GCC/ARM_CM33_NTZ/non_secure" toolchain="armgcc mcuxpresso" type="c_include" device_cores="cm33_core0_LPC55S16"/>
@@ -2973,7 +2973,7 @@ ${load}</script>
         <files mask="freertos_tasks_c_additions.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_freertos-kernel_extension_LPC55S16.cmake" hidden="true"/>
+        <files mask="middleware_freertos-kernel_extension.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="include" type="c_include"/>
@@ -3011,7 +3011,7 @@ ${load}</script>
         <files mask="heap_4.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_freertos-kernel_heap_4_LPC55S16.cmake" hidden="true"/>
+        <files mask="middleware_freertos-kernel_heap_4.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.freertos-kernel.heap_5.LPC55S16" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="202007.00.0" full_name="FreeRTOS heap 5" devices="LPC55S16" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
@@ -3114,7 +3114,7 @@ ${load}</script>
         <files mask="usb_spec.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_usb_common_header_LPC55S16.cmake" hidden="true"/>
+        <files mask="middleware_usb_common_header.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="include" type="c_include"/>
@@ -3134,7 +3134,7 @@ ${load}</script>
         <files mask="usb_device_dci.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_usb_device_common_header_LPC55S16.cmake" hidden="true"/>
+        <files mask="middleware_usb_device_common_header.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="device" project_relative_path="device/include" type="c_include"/>
@@ -3146,7 +3146,7 @@ ${load}</script>
         <files mask="fsl_sbrk.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utilities_misc_utilities_LPC55S16.cmake" hidden="true"/>
+        <files mask="utilities_misc_utilities.cmake" hidden="true"/>
       </source>
     </component>
     <component id="platform.utilities.assert.LPC55S16" name="assert" brief="Utility assert" version="1.0.0" full_name="Utility assert" devices="LPC55S16" device_cores="cm33_core0_LPC55S16" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
@@ -3157,7 +3157,7 @@ ${load}</script>
         <files mask="fsl_assert.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_assert_LPC55S16.cmake" hidden="true"/>
+        <files mask="utility_assert.cmake" hidden="true"/>
       </source>
     </component>
     <component id="platform.utilities.assert_lite.LPC55S16" name="assert_lite" brief="Utility assert_lite" version="1.0.0" full_name="Utility assert_lite" devices="LPC55S16" device_cores="cm33_core0_LPC55S16" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
@@ -3168,7 +3168,7 @@ ${load}</script>
         <files mask="fsl_assert.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_assert_lite_LPC55S16.cmake" hidden="true"/>
+        <files mask="utility_assert_lite.cmake" hidden="true"/>
       </source>
     </component>
     <component id="utility.debug_console.LPC55S16" name="debug_console" brief="Utility debug_console" version="1.0.0" full_name="Utility debug_console" devices="LPC55S16" device_cores="cm33_core0_LPC55S16" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console" project_base_path="utilities">
@@ -3192,7 +3192,7 @@ ${load}</script>
         <files mask="fsl_debug_console_conf.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_debug_console_LPC55S16.cmake" hidden="true"/>
+        <files mask="utility_debug_console.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="str" project_relative_path="./" type="c_include"/>
@@ -3213,7 +3213,7 @@ ${load}</script>
         <files mask="fsl_debug_console.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_debug_console_lite_LPC55S16.cmake" hidden="true"/>
+        <files mask="utility_debug_console_lite.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3251,7 +3251,7 @@ ${load}</script>
         <files mask="fsl_shell.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_shell_LPC55S16.cmake" hidden="true"/>
+        <files mask="utility_shell.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>

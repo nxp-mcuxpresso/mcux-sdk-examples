@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-06-08 04:50:03.521804-->
+  <!--Timestamp (UTC): 2021-06-22 08:56:12.044681-->
   <!--This manifest is generated based on sdk repo commit: 242d157ba29afc4bbd1dac95f382a1491bc2daf5-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -1122,7 +1122,7 @@ ${load}</script>
         <files mask="cmsis_iccarm.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_common_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1140,7 +1140,7 @@ ${load}</script>
         <files mask="mpu_armv7.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_core_cm7_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_core_cm7.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1153,7 +1153,7 @@ ${load}</script>
         <files mask="arm_math.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_dsp_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_dsp.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1512,7 +1512,7 @@ ${load}</script>
         <files mask="fsl_component_generic_list.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_lists_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="component_lists.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1585,7 +1585,7 @@ ${load}</script>
         <files mask="fsl_adapter_lpi2c.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_lpi2c_adapter_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="component_lpi2c_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1605,7 +1605,7 @@ ${load}</script>
         <files mask="fsl_adapter_lpuart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_lpuart_adapter_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="component_lpuart_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1712,7 +1712,7 @@ ${load}</script>
         <files mask="fsl_os_abstraction_free_rtos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_osa_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="component_osa.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1734,7 +1734,7 @@ ${load}</script>
         <files mask="fsl_os_abstraction_bm.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_osa_bm_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="component_osa_bm.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1757,7 +1757,7 @@ ${load}</script>
         <files mask="fsl_os_abstraction_free_rtos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_osa_free_rtos_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="component_osa_free_rtos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1817,7 +1817,7 @@ ${load}</script>
         <files mask="fsl_component_serial_manager.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_serial_manager_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="component_serial_manager.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1861,7 +1861,7 @@ ${load}</script>
         <files mask="fsl_component_serial_port_uart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_serial_manager_uart_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="component_serial_manager_uart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2002,7 +2002,7 @@ ${load}</script>
         <files mask="fsl_codec_adapter.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_wm8960_adapter_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="component_wm8960_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2018,7 +2018,7 @@ ${load}</script>
         <files mask="MIMXRT1024_features.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="device_MIMXRT1024_CMSIS_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="device_CMSIS.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2052,7 +2052,7 @@ ${load}</script>
         <files mask="startup_mimxrt1024.cpp"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="device_MIMXRT1024_startup_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="device_startup.cmake" hidden="true"/>
       </source>
     </component>
     <component id="device.MIMXRT1024_system.MIMXRT1024" name="MIMXRT1024_system" brief="Device MIMXRT1024_system" version="1.0.0" full_name="Device MIMXRT1024_system" devices="MIMXRT1024xxxxx" device_cores="core0_MIMXRT1024xxxxx" user_visible="true" type="CMSIS_Include" package_base_path="core/devices/MIMXRT1024" project_base_path="device">
@@ -2066,7 +2066,7 @@ ${load}</script>
         <files mask="system_MIMXRT1024.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="device_MIMXRT1024_system_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="device_system.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2089,7 +2089,7 @@ ${load}</script>
         <files mask="fsl_adc.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_adc_12b1msps_sar_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_adc_12b1msps_sar.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2106,7 +2106,7 @@ ${load}</script>
         <files mask="fsl_adc_etc.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_adc_etc_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_adc_etc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2137,7 +2137,7 @@ ${load}</script>
         <files mask="fsl_aoi.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_aoi_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_aoi.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2154,7 +2154,7 @@ ${load}</script>
         <files mask="fsl_bee.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_bee_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_bee.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2171,7 +2171,7 @@ ${load}</script>
         <files mask="fsl_cache.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_cache_armv7_m7_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_cache_armv7_m7.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2188,7 +2188,7 @@ ${load}</script>
         <files mask="fsl_clock.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_clock_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_clock.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2205,7 +2205,7 @@ ${load}</script>
         <files mask="fsl_cmp.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_cmp_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_cmp.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2236,7 +2236,7 @@ ${load}</script>
         <files mask="fsl_codec_common.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_codec_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_codec.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2256,7 +2256,7 @@ ${load}</script>
         <files mask="fsl_common.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_common_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2290,7 +2290,7 @@ ${load}</script>
         <files mask="fsl_dcdc.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_dcdc_1_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_dcdc_1.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2310,7 +2310,7 @@ ${load}</script>
         <files mask="fsl_dcp.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_dcp_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_dcp.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2344,7 +2344,7 @@ ${load}</script>
         <files mask="fsl_dmamux.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_dmamux_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_dmamux.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2364,7 +2364,7 @@ ${load}</script>
         <files mask="fsl_edma.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_edma_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2381,7 +2381,7 @@ ${load}</script>
         <files mask="fsl_enc.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_enc_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_enc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2398,7 +2398,7 @@ ${load}</script>
         <files mask="fsl_enet.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_enet_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_enet.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2415,7 +2415,7 @@ ${load}</script>
         <files mask="fsl_ewm.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_ewm_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_ewm.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2432,7 +2432,7 @@ ${load}</script>
         <files mask="fsl_flexcan.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexcan_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_flexcan.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2449,7 +2449,7 @@ ${load}</script>
         <files mask="fsl_flexio.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexio_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_flexio.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2497,7 +2497,7 @@ ${load}</script>
         <files mask="fsl_flexio_i2c_master.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexio_i2c_master_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_flexio_i2c_master.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2514,7 +2514,7 @@ ${load}</script>
         <files mask="fsl_flexio_i2s.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexio_i2s_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_flexio_i2s.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2534,7 +2534,7 @@ ${load}</script>
         <files mask="fsl_flexio_i2s_edma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexio_i2s_edma_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_flexio_i2s_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2582,7 +2582,7 @@ ${load}</script>
         <files mask="fsl_flexio_spi.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexio_spi_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_flexio_spi.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2602,7 +2602,7 @@ ${load}</script>
         <files mask="fsl_flexio_spi_edma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexio_spi_edma_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_flexio_spi_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2619,7 +2619,7 @@ ${load}</script>
         <files mask="fsl_flexio_uart.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexio_uart_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_flexio_uart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2639,7 +2639,7 @@ ${load}</script>
         <files mask="fsl_flexio_uart_edma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexio_uart_edma_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_flexio_uart_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2659,7 +2659,7 @@ ${load}</script>
         <files mask="fsl_flexram.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexram_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_flexram.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2676,7 +2676,7 @@ ${load}</script>
         <files mask="fsl_flexspi.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexspi_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_flexspi.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2696,7 +2696,7 @@ ${load}</script>
         <files mask="fsl_flexspi_edma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexspi_edma_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_flexspi_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2713,7 +2713,7 @@ ${load}</script>
         <files mask="fsl_fxos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_fxos8700cq_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_fxos8700cq.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2730,7 +2730,7 @@ ${load}</script>
         <files mask="fsl_gpc.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_gpc_1_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_gpc_1.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2747,7 +2747,7 @@ ${load}</script>
         <files mask="fsl_gpt.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_gpt_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_gpt.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2764,7 +2764,7 @@ ${load}</script>
         <files mask="fsl_gpio.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_igpio_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_igpio.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2778,7 +2778,7 @@ ${load}</script>
         <files mask="fsl_iomuxc.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_iomuxc_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_iomuxc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2795,7 +2795,7 @@ ${load}</script>
         <files mask="fsl_kpp.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_kpp_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_kpp.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2812,7 +2812,7 @@ ${load}</script>
         <files mask="fsl_lpi2c.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpi2c_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_lpi2c.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2832,7 +2832,7 @@ ${load}</script>
         <files mask="fsl_lpi2c_edma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpi2c_edma_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_lpi2c_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2852,7 +2852,7 @@ ${load}</script>
         <files mask="fsl_lpi2c_freertos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpi2c_freertos_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_lpi2c_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2869,7 +2869,7 @@ ${load}</script>
         <files mask="fsl_lpspi.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpspi_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_lpspi.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2889,7 +2889,7 @@ ${load}</script>
         <files mask="fsl_lpspi_edma.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpspi_edma_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_lpspi_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2909,7 +2909,7 @@ ${load}</script>
         <files mask="fsl_lpspi_freertos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpspi_freertos_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_lpspi_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2926,7 +2926,7 @@ ${load}</script>
         <files mask="fsl_lpuart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpuart_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_lpuart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2946,7 +2946,7 @@ ${load}</script>
         <files mask="fsl_lpuart_edma.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpuart_edma_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_lpuart_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2966,7 +2966,7 @@ ${load}</script>
         <files mask="fsl_lpuart_freertos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpuart_freertos_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_lpuart_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2980,7 +2980,7 @@ ${load}</script>
         <files mask="fsl_mdio.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_mdio-common_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_mdio-common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3000,7 +3000,7 @@ ${load}</script>
         <files mask="fsl_enet_mdio.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_mdio-enet_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_mdio-enet.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3059,7 +3059,7 @@ ${load}</script>
         <files mask="fsl_ocotp.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_ocotp_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_ocotp.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3073,7 +3073,7 @@ ${load}</script>
         <files mask="fsl_phy.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_phy-common_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_phy-common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3090,7 +3090,7 @@ ${load}</script>
         <files mask="fsl_phyksz8081.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_phy-device-ksz8081_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_phy-device-ksz8081.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3107,7 +3107,7 @@ ${load}</script>
         <files mask="fsl_pit.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_pit_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_pit.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3138,7 +3138,7 @@ ${load}</script>
         <files mask="fsl_pwm.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_pwm_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_pwm.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3155,7 +3155,7 @@ ${load}</script>
         <files mask="fsl_qtmr.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_qtmr_1_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_qtmr_1.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3172,7 +3172,7 @@ ${load}</script>
         <files mask="fsl_romapi.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_romapi_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_romapi.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3189,7 +3189,7 @@ ${load}</script>
         <files mask="fsl_rtwdog.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_rtwatchdog_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_rtwatchdog.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3206,7 +3206,7 @@ ${load}</script>
         <files mask="fsl_sai.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_sai_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_sai.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3226,7 +3226,7 @@ ${load}</script>
         <files mask="fsl_sai_edma.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_sai_edma_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_sai_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3243,7 +3243,7 @@ ${load}</script>
         <files mask="fsl_semc.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_semc_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_semc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3277,7 +3277,7 @@ ${load}</script>
         <files mask="fsl_snvs_hp.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_snvs_hp_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_snvs_hp.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3294,7 +3294,7 @@ ${load}</script>
         <files mask="fsl_snvs_lp.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_snvs_lp_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_snvs_lp.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3311,7 +3311,7 @@ ${load}</script>
         <files mask="fsl_flexram_allocate.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_soc_flexram_allocate_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_soc_flexram_allocate.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3359,7 +3359,7 @@ ${load}</script>
         <files mask="fsl_src.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_src_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_src.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3376,7 +3376,7 @@ ${load}</script>
         <files mask="fsl_tempmon.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_tempmon_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_tempmon.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3393,7 +3393,7 @@ ${load}</script>
         <files mask="fsl_trng.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_trng_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_trng.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3410,7 +3410,7 @@ ${load}</script>
         <files mask="fsl_usdhc.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_usdhc_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_usdhc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3427,7 +3427,7 @@ ${load}</script>
         <files mask="fsl_wdog.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_wdog01_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_wdog01.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3464,7 +3464,7 @@ ${load}</script>
         <files mask="fsl_wm8960.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_wm8960_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_wm8960.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3481,7 +3481,7 @@ ${load}</script>
         <files mask="fsl_xbara.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_xbara_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_xbara.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3498,7 +3498,7 @@ ${load}</script>
         <files mask="fsl_xbarb.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_xbarb_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_xbarb.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3519,7 +3519,7 @@ ${load}</script>
         <files mask="evkmimxrt1024_flexspi_nor_config.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_xip_board_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_xip_board.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3540,7 +3540,7 @@ ${load}</script>
         <files mask="fsl_flexspi_nor_boot.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_xip_device_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="driver_xip_device.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3552,7 +3552,7 @@ ${load}</script>
         <define name="SDK_OS_BAREMETAL" value=""/>
       </defines>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_baremetal_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="middleware_baremetal.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.freertos-kernel.MIMXRT1024" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="202007.00.0" full_name="FreeRTOS kernel" devices="MIMXRT1024xxxxx" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
@@ -3708,7 +3708,7 @@ ${load}</script>
         <files mask="freertos_tasks_c_additions.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_freertos-kernel_extension_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="middleware_freertos-kernel_extension.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="include" type="c_include"/>
@@ -3746,7 +3746,7 @@ ${load}</script>
         <files mask="heap_4.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_freertos-kernel_heap_4_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="middleware_freertos-kernel_heap_4.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.freertos-kernel.heap_5.MIMXRT1024" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="202007.00.0" full_name="FreeRTOS heap 5" devices="MIMXRT1024xxxxx" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
@@ -3818,7 +3818,7 @@ ${load}</script>
         <files mask="fsl_sdmmc_common.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_sdmmc_common_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="middleware_sdmmc_common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="common" project_relative_path="inc" type="c_include"/>
@@ -3839,7 +3839,7 @@ ${load}</script>
         <files mask="ChangeLogKSDK.txt"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_sdmmc_host_usdhc_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="middleware_sdmmc_host_usdhc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="host/usdhc" project_relative_path="host" type="c_include"/>
@@ -3863,7 +3863,7 @@ ${load}</script>
         <files mask="ChangeLogKSDK.txt"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_sdmmc_host_usdhc_freertos_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="middleware_sdmmc_host_usdhc_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="host/usdhc" project_relative_path="host" type="c_include"/>
@@ -3887,7 +3887,7 @@ ${load}</script>
         <files mask="ChangeLogKSDK.txt"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_sdmmc_host_usdhc_interrupt_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="middleware_sdmmc_host_usdhc_interrupt.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="host/usdhc" project_relative_path="host" type="c_include"/>
@@ -3911,7 +3911,7 @@ ${load}</script>
         <files mask="ChangeLogKSDK.txt"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_sdmmc_host_usdhc_polling_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="middleware_sdmmc_host_usdhc_polling.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="host/usdhc" project_relative_path="host" type="c_include"/>
@@ -3934,7 +3934,7 @@ ${load}</script>
         <files mask="ChangeLogKSDK.txt"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_sdmmc_mmc_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="middleware_sdmmc_mmc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="mmc" project_relative_path="inc" type="c_include"/>
@@ -3951,7 +3951,7 @@ ${load}</script>
         <files mask="fsl_sdmmc_osa.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_sdmmc_osa_bm_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="middleware_sdmmc_osa_bm.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="osa" type="c_include"/>
@@ -3968,7 +3968,7 @@ ${load}</script>
         <files mask="fsl_sdmmc_osa.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_sdmmc_osa_freertos_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="middleware_sdmmc_osa_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="osa" type="c_include"/>
@@ -3991,7 +3991,7 @@ ${load}</script>
         <files mask="ChangeLogKSDK.txt"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_sdmmc_sd_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="middleware_sdmmc_sd.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="sd" project_relative_path="inc" type="c_include"/>
@@ -4027,7 +4027,7 @@ ${load}</script>
         <files mask="usb_spec.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_usb_common_header_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="middleware_usb_common_header.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="include" type="c_include"/>
@@ -4047,7 +4047,7 @@ ${load}</script>
         <files mask="usb_device_dci.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_usb_device_common_header_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="middleware_usb_device_common_header.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="device" project_relative_path="device/include" type="c_include"/>
@@ -4059,7 +4059,7 @@ ${load}</script>
         <files mask="fsl_sbrk.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utilities_misc_utilities_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="utilities_misc_utilities.cmake" hidden="true"/>
       </source>
     </component>
     <component id="platform.utilities.assert.MIMXRT1024" name="assert" brief="Utility assert" version="1.0.0" full_name="Utility assert" devices="MIMXRT1024xxxxx" device_cores="core0_MIMXRT1024xxxxx" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
@@ -4070,7 +4070,7 @@ ${load}</script>
         <files mask="fsl_assert.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_assert_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="utility_assert.cmake" hidden="true"/>
       </source>
     </component>
     <component id="platform.utilities.assert_lite.MIMXRT1024" name="assert_lite" brief="Utility assert_lite" version="1.0.0" full_name="Utility assert_lite" devices="MIMXRT1024xxxxx" device_cores="core0_MIMXRT1024xxxxx" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
@@ -4081,7 +4081,7 @@ ${load}</script>
         <files mask="fsl_assert.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_assert_lite_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="utility_assert_lite.cmake" hidden="true"/>
       </source>
     </component>
     <component id="utility.debug_console.MIMXRT1024" name="debug_console" brief="Utility debug_console" version="1.0.0" full_name="Utility debug_console" devices="MIMXRT1024xxxxx" device_cores="core0_MIMXRT1024xxxxx" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console" project_base_path="utilities">
@@ -4105,7 +4105,7 @@ ${load}</script>
         <files mask="fsl_debug_console_conf.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_debug_console_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="utility_debug_console.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="str" project_relative_path="./" type="c_include"/>
@@ -4126,7 +4126,7 @@ ${load}</script>
         <files mask="fsl_debug_console.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_debug_console_lite_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="utility_debug_console_lite.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -4164,7 +4164,7 @@ ${load}</script>
         <files mask="fsl_shell.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_shell_MIMXRT1024.cmake" hidden="true"/>
+        <files mask="utility_shell.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>

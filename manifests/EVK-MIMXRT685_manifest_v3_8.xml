@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-06-08 04:50:17.543951-->
+  <!--Timestamp (UTC): 2021-06-22 08:56:26.295778-->
   <!--This manifest is generated based on sdk repo commit: 242d157ba29afc4bbd1dac95f382a1491bc2daf5-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -1056,7 +1056,7 @@ ${load}</script>
         <files mask="cmsis_iccarm.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="CMSIS_Include_common_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1075,7 +1075,7 @@ ${load}</script>
         <files mask="mpu_armv8.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="CMSIS_Include_core_cm33_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_core_cm33.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1088,7 +1088,7 @@ ${load}</script>
         <files mask="arm_math.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="CMSIS_Include_dsp_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_dsp.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1324,7 +1324,7 @@ ${load}</script>
         <files mask="fsl_codec_adapter.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="component_cs42888_adapter_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="component_cs42888_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1361,7 +1361,7 @@ ${load}</script>
         <files mask="fsl_adapter_flexcomm_i2c.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="component_flexcomm_i2c_adapter_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="component_flexcomm_i2c_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1381,7 +1381,7 @@ ${load}</script>
         <files mask="fsl_adapter_i3c.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="component_i3c_adapter_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="component_i3c_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1416,7 +1416,7 @@ ${load}</script>
         <files mask="fsl_component_generic_list.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="component_lists_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="component_lists.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1628,7 +1628,7 @@ ${load}</script>
         <files mask="fsl_os_abstraction_free_rtos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="component_osa_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="component_osa.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1650,7 +1650,7 @@ ${load}</script>
         <files mask="fsl_os_abstraction_bm.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="component_osa_bm_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="component_osa_bm.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1673,7 +1673,7 @@ ${load}</script>
         <files mask="fsl_os_abstraction_free_rtos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="component_osa_free_rtos_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="component_osa_free_rtos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1747,7 +1747,7 @@ ${load}</script>
         <files mask="fsl_component_serial_manager.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="component_serial_manager_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="component_serial_manager.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1791,7 +1791,7 @@ ${load}</script>
         <files mask="fsl_component_serial_port_uart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="component_serial_manager_uart_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="component_serial_manager_uart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1860,7 +1860,7 @@ ${load}</script>
         <files mask="fsl_codec_adapter.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="component_tfa9xxx_adapter_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="component_tfa9xxx_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1919,7 +1919,7 @@ ${load}</script>
         <files mask="fsl_adapter_usart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="component_usart_adapter_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="component_usart_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1939,7 +1939,7 @@ ${load}</script>
         <files mask="fsl_codec_adapter.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="component_wm8904_adapter_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="component_wm8904_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1955,7 +1955,7 @@ ${load}</script>
         <files mask="MIMXRT685S_cm33_features.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="device_MIMXRT685S_CMSIS_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="device_CMSIS.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include" device_cores="cm33_MIMXRT685S"/>
@@ -2059,7 +2059,7 @@ ${load}</script>
         <files mask="startup_mimxrt685s.cpp"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="device_MIMXRT685S_startup_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="device_startup.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2083,7 +2083,7 @@ ${load}</script>
         <files mask="fsl_acmp.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_acmp_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_acmp.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2100,7 +2100,7 @@ ${load}</script>
         <files mask="fsl_cache.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_cache_cache64_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_cache_cache64.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2117,7 +2117,7 @@ ${load}</script>
         <files mask="fsl_casper.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_casper_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_casper.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2134,7 +2134,7 @@ ${load}</script>
         <files mask="fsl_clock.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_clock_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_clock.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2161,7 +2161,7 @@ ${load}</script>
         <files mask="fsl_codec_common.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_codec_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_codec.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2182,7 +2182,7 @@ ${load}</script>
         <files mask="fsl_common.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_common_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2202,7 +2202,7 @@ ${load}</script>
         <files mask="fsl_cs42888.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_cs42888_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_cs42888.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2219,7 +2219,7 @@ ${load}</script>
         <files mask="fsl_ctimer.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_ctimer_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_ctimer.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2236,7 +2236,7 @@ ${load}</script>
         <files mask="fsl_dmic.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_dmic_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_dmic.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2256,7 +2256,7 @@ ${load}</script>
         <files mask="fsl_dmic_dma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_dmic_dma_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_dmic_dma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2293,7 +2293,7 @@ ${load}</script>
         <files mask="flash_config.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_flash_config_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_flash_config.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2310,7 +2310,7 @@ ${load}</script>
         <files mask="fsl_flexcomm.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_flexcomm_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_flexcomm.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2330,7 +2330,7 @@ ${load}</script>
         <files mask="fsl_i2c.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_flexcomm_i2c_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_i2c.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2352,7 +2352,7 @@ ${load}</script>
         <files mask="fsl_i2c_dma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_flexcomm_i2c_dma_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_i2c_dma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2374,7 +2374,7 @@ ${load}</script>
         <files mask="fsl_i2c_freertos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_flexcomm_i2c_freertos_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_i2c_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2394,7 +2394,7 @@ ${load}</script>
         <files mask="fsl_i2s.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_flexcomm_i2s_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_i2s.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2414,7 +2414,7 @@ ${load}</script>
         <files mask="fsl_i2s_dma.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_flexcomm_i2s_dma_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_i2s_dma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2434,7 +2434,7 @@ ${load}</script>
         <files mask="fsl_spi.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_flexcomm_spi_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_spi.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2455,7 +2455,7 @@ ${load}</script>
         <files mask="fsl_spi_dma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_flexcomm_spi_dma_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_spi_dma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2477,7 +2477,7 @@ ${load}</script>
         <files mask="fsl_spi_freertos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_flexcomm_spi_freertos_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_spi_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2494,7 +2494,7 @@ ${load}</script>
         <files mask="fsl_usart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_flexcomm_usart_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_usart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2515,7 +2515,7 @@ ${load}</script>
         <files mask="fsl_usart_dma.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_flexcomm_usart_dma_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_usart_dma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2536,7 +2536,7 @@ ${load}</script>
         <files mask="fsl_usart_freertos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_flexcomm_usart_freertos_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_usart_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2553,7 +2553,7 @@ ${load}</script>
         <files mask="fsl_flexspi.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_flexspi_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_flexspi.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2573,7 +2573,7 @@ ${load}</script>
         <files mask="fsl_flexspi_dma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_flexspi_dma_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_flexspi_dma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2590,7 +2590,7 @@ ${load}</script>
         <files mask="fsl_fmeas.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_fmeas_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_fmeas.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2607,7 +2607,7 @@ ${load}</script>
         <files mask="fsl_hashcrypt.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_hashcrypt_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_hashcrypt.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2624,7 +2624,7 @@ ${load}</script>
         <files mask="fsl_i3c.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_i3c_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_i3c.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2658,7 +2658,7 @@ ${load}</script>
         <files mask="fsl_inputmux.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_inputmux_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_inputmux.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2672,7 +2672,7 @@ ${load}</script>
         <files mask="fsl_inputmux_connections.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_inputmux_connections_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_inputmux_connections.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2689,7 +2689,7 @@ ${load}</script>
         <files mask="fsl_lpadc.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_lpadc_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_lpadc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2706,7 +2706,7 @@ ${load}</script>
         <files mask="fsl_crc.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_lpc_crc_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_lpc_crc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2723,7 +2723,7 @@ ${load}</script>
         <files mask="fsl_dma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_lpc_dma_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_lpc_dma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2740,7 +2740,7 @@ ${load}</script>
         <files mask="fsl_gpio.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_lpc_gpio_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_lpc_gpio.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2754,7 +2754,7 @@ ${load}</script>
         <files mask="fsl_iopctl.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_lpc_iopctl_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_lpc_iopctl.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2771,7 +2771,7 @@ ${load}</script>
         <files mask="fsl_rtc.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_lpc_rtc_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_lpc_rtc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2788,7 +2788,7 @@ ${load}</script>
         <files mask="fsl_mrt.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_mrt_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_mrt.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2819,7 +2819,7 @@ ${load}</script>
         <files mask="fsl_ostimer.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_ostimer_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_ostimer.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2836,7 +2836,7 @@ ${load}</script>
         <files mask="fsl_otfad.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_otfad_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_otfad.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2853,7 +2853,7 @@ ${load}</script>
         <files mask="fsl_pca9420.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_pca9420_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_pca9420.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2870,7 +2870,7 @@ ${load}</script>
         <files mask="fsl_pint.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_pint_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_pint.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2887,7 +2887,7 @@ ${load}</script>
         <files mask="fsl_power.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_power_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_power.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2911,7 +2911,7 @@ ${load}</script>
         <files mask="fsl_powerquad_cmsis.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_powerquad_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_powerquad.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2928,7 +2928,7 @@ ${load}</script>
         <files mask="fsl_puf.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_puf_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_puf.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2945,7 +2945,7 @@ ${load}</script>
         <files mask="fsl_reset.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_reset_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_reset.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2962,7 +2962,7 @@ ${load}</script>
         <files mask="fsl_sctimer.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_sctimer_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_sctimer.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3019,7 +3019,7 @@ ${load}</script>
         <files mask="tfa_container_crc32.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_tfa9xxx_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_tfa9xxx.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3037,7 +3037,7 @@ ${load}</script>
         <files mask="fsl_trng.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_trng_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_trng.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3054,7 +3054,7 @@ ${load}</script>
         <files mask="fsl_usdhc.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_usdhc_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_usdhc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3074,7 +3074,7 @@ ${load}</script>
         <files mask="fsl_utick.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_utick_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_utick.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3094,7 +3094,7 @@ ${load}</script>
         <files mask="fsl_wm8904.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_wm8904_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_wm8904.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3111,7 +3111,7 @@ ${load}</script>
         <files mask="fsl_wwdt.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="driver_wwdt_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="driver_wwdt.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3123,7 +3123,7 @@ ${load}</script>
         <define name="SDK_OS_BAREMETAL" value=""/>
       </defines>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="middleware_baremetal_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_baremetal.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.freertos-kernel.MIMXRT685S" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="202007.00.0" full_name="FreeRTOS kernel" devices="MIMXRT685S" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
@@ -3283,7 +3283,7 @@ ${load}</script>
         <files mask="portasm.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="middleware_freertos-kernel_cm33_nonsecure_port_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_freertos-kernel_cm33_nonsecure_port.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="portable/GCC/ARM_CM33_NTZ/non_secure" toolchain="armgcc mcuxpresso" type="c_include" device_cores="cm33_MIMXRT685S"/>
@@ -3305,7 +3305,7 @@ ${load}</script>
         <files mask="portasm.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="middleware_freertos-kernel_cm33_secure_port_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_freertos-kernel_cm33_secure_port.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="portable/GCC/ARM_CM33/non_secure" toolchain="armgcc mcuxpresso" type="c_include" device_cores="cm33_MIMXRT685S"/>
@@ -3317,7 +3317,7 @@ ${load}</script>
         <files mask="freertos_tasks_c_additions.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="middleware_freertos-kernel_extension_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_freertos-kernel_extension.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="include" type="c_include"/>
@@ -3355,7 +3355,7 @@ ${load}</script>
         <files mask="heap_4.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="middleware_freertos-kernel_heap_4_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_freertos-kernel_heap_4.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.freertos-kernel.heap_5.MIMXRT685S" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="202007.00.0" full_name="FreeRTOS heap 5" devices="MIMXRT685S" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
@@ -3382,7 +3382,7 @@ ${load}</script>
         <files mask="mpu_wrappers.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="middleware_freertos-kernel_mpu_wrappers_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_freertos-kernel_mpu_wrappers.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.freertos-kernel.secure_context.MIMXRT685S" name="secure context" brief="FreeRTOS Secure Context" version="202007.00.0" full_name="FreeRTOS Secure Context" devices="MIMXRT685S" category="Operating System/FreeRTOS kernel" user_visible="true" type="middleware" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
@@ -3402,7 +3402,7 @@ ${load}</script>
         <files mask="secure_heap.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="middleware_freertos-kernel_secure_context_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_freertos-kernel_secure_context.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="portable/GCC/ARM_CM33/secure" toolchain="armgcc mcuxpresso" type="c_include"/>
@@ -3672,7 +3672,7 @@ ${load}</script>
         <files mask="fsl_sdmmc_common.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="middleware_sdmmc_common_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_sdmmc_common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="common" project_relative_path="inc" type="c_include"/>
@@ -3693,7 +3693,7 @@ ${load}</script>
         <files mask="ChangeLogKSDK.txt"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="middleware_sdmmc_host_usdhc_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_sdmmc_host_usdhc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="host/usdhc" project_relative_path="host" type="c_include"/>
@@ -3717,7 +3717,7 @@ ${load}</script>
         <files mask="ChangeLogKSDK.txt"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="middleware_sdmmc_host_usdhc_freertos_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_sdmmc_host_usdhc_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="host/usdhc" project_relative_path="host" type="c_include"/>
@@ -3741,7 +3741,7 @@ ${load}</script>
         <files mask="ChangeLogKSDK.txt"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="middleware_sdmmc_host_usdhc_interrupt_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_sdmmc_host_usdhc_interrupt.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="host/usdhc" project_relative_path="host" type="c_include"/>
@@ -3765,7 +3765,7 @@ ${load}</script>
         <files mask="ChangeLogKSDK.txt"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="middleware_sdmmc_host_usdhc_polling_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_sdmmc_host_usdhc_polling.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="host/usdhc" project_relative_path="host" type="c_include"/>
@@ -3802,7 +3802,7 @@ ${load}</script>
         <files mask="fsl_sdmmc_osa.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="middleware_sdmmc_osa_bm_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_sdmmc_osa_bm.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="osa" type="c_include"/>
@@ -3819,7 +3819,7 @@ ${load}</script>
         <files mask="fsl_sdmmc_osa.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="middleware_sdmmc_osa_freertos_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_sdmmc_osa_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="osa" type="c_include"/>
@@ -3842,7 +3842,7 @@ ${load}</script>
         <files mask="ChangeLogKSDK.txt"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="middleware_sdmmc_sd_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_sdmmc_sd.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="sd" project_relative_path="inc" type="c_include"/>
@@ -3865,7 +3865,7 @@ ${load}</script>
         <files mask="ChangeLogKSDK.txt"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="middleware_sdmmc_sdio_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_sdmmc_sdio.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="sdio" project_relative_path="inc" type="c_include"/>
@@ -3881,7 +3881,7 @@ ${load}</script>
         <files mask="usb_spec.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="middleware_usb_common_header_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_usb_common_header.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="include" type="c_include"/>
@@ -3901,7 +3901,7 @@ ${load}</script>
         <files mask="usb_device_dci.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="middleware_usb_device_common_header_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_usb_device_common_header.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="device" project_relative_path="device/include" type="c_include"/>
@@ -3913,7 +3913,7 @@ ${load}</script>
         <files mask="fsl_sbrk.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="utilities_misc_utilities_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="utilities_misc_utilities.cmake" hidden="true"/>
       </source>
     </component>
     <component id="platform.utilities.assert.MIMXRT685S" name="assert" brief="Utility assert" version="1.0.0" full_name="Utility assert" devices="MIMXRT685S" device_cores="cm33_MIMXRT685S" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
@@ -3924,7 +3924,7 @@ ${load}</script>
         <files mask="fsl_assert.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="utility_assert_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="utility_assert.cmake" hidden="true"/>
       </source>
     </component>
     <component id="platform.utilities.assert_lite.MIMXRT685S" name="assert_lite" brief="Utility assert_lite" version="1.0.0" full_name="Utility assert_lite" devices="MIMXRT685S" device_cores="cm33_MIMXRT685S" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
@@ -3935,7 +3935,7 @@ ${load}</script>
         <files mask="fsl_assert.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="utility_assert_lite_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="utility_assert_lite.cmake" hidden="true"/>
       </source>
     </component>
     <component id="utility.debug_console.MIMXRT685S" name="debug_console" brief="Utility debug_console" version="1.0.0" full_name="Utility debug_console" devices="MIMXRT685S" device_cores="cm33_MIMXRT685S" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console" project_base_path="utilities">
@@ -3959,7 +3959,7 @@ ${load}</script>
         <files mask="fsl_debug_console_conf.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="utility_debug_console_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="utility_debug_console.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="str" project_relative_path="./" type="c_include"/>
@@ -3980,7 +3980,7 @@ ${load}</script>
         <files mask="fsl_debug_console.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="utility_debug_console_lite_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="utility_debug_console_lite.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -4004,7 +4004,7 @@ ${load}</script>
         <files mask="fsl_shell.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT685S">
-        <files mask="utility_shell_MIMXRT685S_cm33.cmake" hidden="true"/>
+        <files mask="utility_shell.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>

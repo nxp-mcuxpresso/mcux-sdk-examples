@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-06-08 04:50:22.890999-->
+  <!--Timestamp (UTC): 2021-06-22 08:56:32.455253-->
   <!--This manifest is generated based on sdk repo commit: 242d157ba29afc4bbd1dac95f382a1491bc2daf5-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -1075,7 +1075,7 @@ ${load}</script>
         <files mask="cmsis_iccarm.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_common_MKE15Z7.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1093,7 +1093,7 @@ ${load}</script>
         <files mask="mpu_armv7.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_core_cm0plus_MKE15Z7.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_core_cm0plus.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1106,7 +1106,7 @@ ${load}</script>
         <files mask="arm_math.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_dsp_MKE15Z7.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_dsp.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1308,7 +1308,7 @@ ${load}</script>
         <files mask="fsl_component_generic_list.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_lists_MKE15Z7.cmake" hidden="true"/>
+        <files mask="component_lists.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1415,7 +1415,7 @@ ${load}</script>
         <files mask="fsl_adapter_lpuart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_lpuart_adapter_MKE15Z7.cmake" hidden="true"/>
+        <files mask="component_lpuart_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1574,7 +1574,7 @@ ${load}</script>
         <files mask="fsl_component_serial_manager.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_serial_manager_MKE15Z7.cmake" hidden="true"/>
+        <files mask="component_serial_manager.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1598,7 +1598,7 @@ ${load}</script>
         <files mask="fsl_component_serial_port_uart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_serial_manager_uart_MKE15Z7.cmake" hidden="true"/>
+        <files mask="component_serial_manager_uart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1685,7 +1685,7 @@ ${load}</script>
         <files mask="MKE15Z7_features.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="device_MKE15Z7_CMSIS_MKE15Z7.cmake" hidden="true"/>
+        <files mask="device_CMSIS.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1718,7 +1718,7 @@ ${load}</script>
         <files mask="startup_mke15z7.cpp"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="device_MKE15Z7_startup_MKE15Z7.cmake" hidden="true"/>
+        <files mask="device_startup.cmake" hidden="true"/>
       </source>
     </component>
     <component id="device.MKE15Z7_system.MKE15Z7" name="MKE15Z7_system" brief="Device MKE15Z7_system" version="1.0.0" full_name="Device MKE15Z7_system" devices="MKE15Z128xxx7 MKE15Z256xxx7" device_cores="core0_MKE15Z128xxx7 core0_MKE15Z256xxx7" user_visible="true" type="CMSIS_Include" package_base_path="core/devices/MKE15Z7" project_base_path="device">
@@ -1732,7 +1732,7 @@ ${load}</script>
         <files mask="system_MKE15Z7.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="device_MKE15Z7_system_MKE15Z7.cmake" hidden="true"/>
+        <files mask="device_system.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1755,7 +1755,7 @@ ${load}</script>
         <files mask="fsl_acmp.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_acmp_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_acmp.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1772,7 +1772,7 @@ ${load}</script>
         <files mask="fsl_adc12.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_adc12_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_adc12.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1789,7 +1789,7 @@ ${load}</script>
         <files mask="fsl_clock.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_clock_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_clock.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1809,7 +1809,7 @@ ${load}</script>
         <files mask="fsl_common.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_common_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1826,7 +1826,7 @@ ${load}</script>
         <files mask="fsl_crc.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_crc_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_crc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1843,7 +1843,7 @@ ${load}</script>
         <files mask="fsl_dmamux.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_dmamux_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_dmamux.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1863,7 +1863,7 @@ ${load}</script>
         <files mask="fsl_edma.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_edma_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1880,7 +1880,7 @@ ${load}</script>
         <files mask="fsl_ewm.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_ewm_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_ewm.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1907,7 +1907,7 @@ ${load}</script>
         <files mask="fsl_ftfx_flexnvm.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flash_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_flash.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1924,7 +1924,7 @@ ${load}</script>
         <files mask="fsl_flexio.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexio_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_flexio.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1941,7 +1941,7 @@ ${load}</script>
         <files mask="fsl_flexio_i2c_master.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexio_i2c_master_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_flexio_i2c_master.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1989,7 +1989,7 @@ ${load}</script>
         <files mask="fsl_flexio_spi.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexio_spi_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_flexio_spi.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2009,7 +2009,7 @@ ${load}</script>
         <files mask="fsl_flexio_spi_edma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexio_spi_edma_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_flexio_spi_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2026,7 +2026,7 @@ ${load}</script>
         <files mask="fsl_flexio_uart.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexio_uart_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_flexio_uart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2046,7 +2046,7 @@ ${load}</script>
         <files mask="fsl_flexio_uart_edma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_flexio_uart_edma_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_flexio_uart_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2063,7 +2063,7 @@ ${load}</script>
         <files mask="fsl_ftm.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_ftm_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_ftm.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2080,7 +2080,7 @@ ${load}</script>
         <files mask="fsl_fxos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_fxos8700cq_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_fxos8700cq.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2097,7 +2097,7 @@ ${load}</script>
         <files mask="fsl_gpio.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_gpio_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_gpio.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2114,7 +2114,7 @@ ${load}</script>
         <files mask="fsl_lpi2c.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpi2c_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_lpi2c.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2134,7 +2134,7 @@ ${load}</script>
         <files mask="fsl_lpi2c_edma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpi2c_edma_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_lpi2c_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2154,7 +2154,7 @@ ${load}</script>
         <files mask="fsl_lpi2c_freertos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpi2c_freertos_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_lpi2c_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2171,7 +2171,7 @@ ${load}</script>
         <files mask="fsl_lpit.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpit_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_lpit.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2188,7 +2188,7 @@ ${load}</script>
         <files mask="fsl_lpspi.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpspi_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_lpspi.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2208,7 +2208,7 @@ ${load}</script>
         <files mask="fsl_lpspi_edma.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpspi_edma_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_lpspi_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2228,7 +2228,7 @@ ${load}</script>
         <files mask="fsl_lpspi_freertos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpspi_freertos_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_lpspi_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2245,7 +2245,7 @@ ${load}</script>
         <files mask="fsl_lptmr.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lptmr_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_lptmr.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2262,7 +2262,7 @@ ${load}</script>
         <files mask="fsl_lpuart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpuart_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_lpuart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2282,7 +2282,7 @@ ${load}</script>
         <files mask="fsl_lpuart_edma.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpuart_edma_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_lpuart_edma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2302,7 +2302,7 @@ ${load}</script>
         <files mask="fsl_lpuart_freertos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpuart_freertos_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_lpuart_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2319,7 +2319,7 @@ ${load}</script>
         <files mask="fsl_mmdvsq.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_mmdvsq_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_mmdvsq.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2336,7 +2336,7 @@ ${load}</script>
         <files mask="fsl_pdb.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_pdb_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_pdb.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2353,7 +2353,7 @@ ${load}</script>
         <files mask="fsl_pmc.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_pmc_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_pmc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2367,7 +2367,7 @@ ${load}</script>
         <files mask="fsl_port.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_port_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_port.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2384,7 +2384,7 @@ ${load}</script>
         <files mask="fsl_pwt.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_pwt_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_pwt.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2401,7 +2401,7 @@ ${load}</script>
         <files mask="fsl_rcm.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_rcm_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_rcm.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2418,7 +2418,7 @@ ${load}</script>
         <files mask="fsl_rtc.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_rtc_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_rtc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2435,7 +2435,7 @@ ${load}</script>
         <files mask="fsl_sim.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_sim_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_sim.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2452,7 +2452,7 @@ ${load}</script>
         <files mask="fsl_smc.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_smc_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_smc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2469,7 +2469,7 @@ ${load}</script>
         <files mask="fsl_trgmux.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_trgmux_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_trgmux.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2486,7 +2486,7 @@ ${load}</script>
         <files mask="fsl_tsi_v5.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_tsi_v5_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_tsi_v5.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2503,7 +2503,7 @@ ${load}</script>
         <files mask="fsl_wdog32.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_wdog32_MKE15Z7.cmake" hidden="true"/>
+        <files mask="driver_wdog32.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2668,7 +2668,7 @@ ${load}</script>
         <files mask="freertos_tasks_c_additions.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_freertos-kernel_extension_MKE15Z7.cmake" hidden="true"/>
+        <files mask="middleware_freertos-kernel_extension.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="include" type="c_include"/>
@@ -2706,7 +2706,7 @@ ${load}</script>
         <files mask="heap_4.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_freertos-kernel_heap_4_MKE15Z7.cmake" hidden="true"/>
+        <files mask="middleware_freertos-kernel_heap_4.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.freertos-kernel.heap_5.MKE15Z7" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="202007.00.0" full_name="FreeRTOS heap 5" devices="MKE15Z128xxx7 MKE15Z256xxx7" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
@@ -2774,7 +2774,7 @@ ${load}</script>
         <files mask="fsl_sbrk.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utilities_misc_utilities_MKE15Z7.cmake" hidden="true"/>
+        <files mask="utilities_misc_utilities.cmake" hidden="true"/>
       </source>
     </component>
     <component id="platform.utilities.assert.MKE15Z7" name="assert" brief="Utility assert" version="1.0.0" full_name="Utility assert" devices="MKE15Z128xxx7 MKE15Z256xxx7" device_cores="core0_MKE15Z128xxx7 core0_MKE15Z256xxx7" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
@@ -2785,7 +2785,7 @@ ${load}</script>
         <files mask="fsl_assert.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_assert_MKE15Z7.cmake" hidden="true"/>
+        <files mask="utility_assert.cmake" hidden="true"/>
       </source>
     </component>
     <component id="platform.utilities.assert_lite.MKE15Z7" name="assert_lite" brief="Utility assert_lite" version="1.0.0" full_name="Utility assert_lite" devices="MKE15Z128xxx7 MKE15Z256xxx7" device_cores="core0_MKE15Z128xxx7 core0_MKE15Z256xxx7" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
@@ -2796,7 +2796,7 @@ ${load}</script>
         <files mask="fsl_assert.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_assert_lite_MKE15Z7.cmake" hidden="true"/>
+        <files mask="utility_assert_lite.cmake" hidden="true"/>
       </source>
     </component>
     <component id="utility.debug_console.MKE15Z7" name="debug_console" brief="Utility debug_console" version="1.0.0" full_name="Utility debug_console" devices="MKE15Z128xxx7 MKE15Z256xxx7" device_cores="core0_MKE15Z128xxx7 core0_MKE15Z256xxx7" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console" project_base_path="utilities">
@@ -2820,7 +2820,7 @@ ${load}</script>
         <files mask="fsl_debug_console_conf.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_debug_console_MKE15Z7.cmake" hidden="true"/>
+        <files mask="utility_debug_console.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="str" project_relative_path="./" type="c_include"/>
@@ -2841,7 +2841,7 @@ ${load}</script>
         <files mask="fsl_debug_console.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_debug_console_lite_MKE15Z7.cmake" hidden="true"/>
+        <files mask="utility_debug_console_lite.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2858,7 +2858,7 @@ ${load}</script>
         <files mask="fsl_notifier.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_notifier_MKE15Z7.cmake" hidden="true"/>
+        <files mask="utility_notifier.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2882,7 +2882,7 @@ ${load}</script>
         <files mask="fsl_shell.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_shell_MKE15Z7.cmake" hidden="true"/>
+        <files mask="utility_shell.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>

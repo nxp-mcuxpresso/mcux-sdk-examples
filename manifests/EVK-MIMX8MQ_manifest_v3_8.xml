@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-06-08 04:50:04.726146-->
+  <!--Timestamp (UTC): 2021-06-22 08:56:13.305250-->
   <!--This manifest is generated based on sdk repo commit: 242d157ba29afc4bbd1dac95f382a1491bc2daf5-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -674,7 +674,7 @@ ${load}</script>
         <files mask="cmsis_iccarm.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_common_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -692,7 +692,7 @@ ${load}</script>
         <files mask="mpu_armv7.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_core_cm4_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_core_cm4.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -705,7 +705,7 @@ ${load}</script>
         <files mask="arm_math.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_dsp_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_dsp.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -865,7 +865,7 @@ ${load}</script>
         <files mask="fsl_adapter_iuart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_iuart_adapter_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="component_iuart_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -900,7 +900,7 @@ ${load}</script>
         <files mask="fsl_component_generic_list.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_lists_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="component_lists.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1043,7 +1043,7 @@ ${load}</script>
         <files mask="fsl_component_serial_manager.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_serial_manager_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="component_serial_manager.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1087,7 +1087,7 @@ ${load}</script>
         <files mask="fsl_component_serial_port_uart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_serial_manager_uart_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="component_serial_manager_uart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1174,7 +1174,7 @@ ${load}</script>
         <files mask="fsl_codec_adapter.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_wm8524_adapter_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="component_wm8524_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1190,7 +1190,7 @@ ${load}</script>
         <files mask="MIMX8MQ6_cm4_features.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="device_MIMX8MQ6_CMSIS_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="device_CMSIS.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1223,7 +1223,7 @@ ${load}</script>
         <files mask="startup_MIMX8MQ6_cm4.cpp"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="device_MIMX8MQ6_startup_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="device_startup.cmake" hidden="true"/>
       </source>
     </component>
     <component id="device.MIMX8MQ6_system.MIMX8MQ6" name="MIMX8MQ6_system" brief="Device MIMX8MQ6_system" version="1.0.0" full_name="Device MIMX8MQ6_system" devices="MIMX8MQ6xxxHZ MIMX8MQ6xxxJZ" device_cores="cm4_MIMX8MQ6xxxHZ cm4_MIMX8MQ6xxxJZ" user_visible="true" type="CMSIS_Include" package_base_path="core/devices/MIMX8MQ6" project_base_path="device">
@@ -1237,7 +1237,7 @@ ${load}</script>
         <files mask="system_MIMX8MQ6_cm4.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="device_MIMX8MQ6_system_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="device_system.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1260,7 +1260,7 @@ ${load}</script>
         <files mask="fsl_cache.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_cache_lmem_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="driver_cache_lmem.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1277,7 +1277,7 @@ ${load}</script>
         <files mask="fsl_clock.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_clock_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="driver_clock.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1300,7 +1300,7 @@ ${load}</script>
         <files mask="fsl_codec_common.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_codec_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="driver_codec.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1320,7 +1320,7 @@ ${load}</script>
         <files mask="fsl_common.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_common_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="driver_common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1337,7 +1337,7 @@ ${load}</script>
         <files mask="fsl_ecspi.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_ecspi_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="driver_ecspi.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1357,7 +1357,7 @@ ${load}</script>
         <files mask="fsl_ecspi_freertos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_ecspi_freertos_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="driver_ecspi_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1374,7 +1374,7 @@ ${load}</script>
         <files mask="fsl_gpt.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_gpt_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="driver_gpt.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1391,7 +1391,7 @@ ${load}</script>
         <files mask="fsl_gpio.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_igpio_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="driver_igpio.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1405,7 +1405,7 @@ ${load}</script>
         <files mask="fsl_i2c.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_ii2c_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="driver_ii2c.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1425,7 +1425,7 @@ ${load}</script>
         <files mask="fsl_i2c_freertos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_ii2c_freertos_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="driver_ii2c_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1450,7 +1450,7 @@ ${load}</script>
         <files mask="fsl_pwm.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_ipwm_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="driver_ipwm.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1464,7 +1464,7 @@ ${load}</script>
         <files mask="fsl_uart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_iuart_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="driver_iuart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1484,7 +1484,7 @@ ${load}</script>
         <files mask="fsl_uart_freertos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_iuart_freertos_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="driver_iuart_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1501,7 +1501,7 @@ ${load}</script>
         <files mask="fsl_mu.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_mu_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="driver_mu.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1518,7 +1518,7 @@ ${load}</script>
         <files mask="fsl_qspi.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_qspi_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="driver_qspi.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1535,7 +1535,7 @@ ${load}</script>
         <files mask="fsl_rdc.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_rdc_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="driver_rdc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1549,7 +1549,7 @@ ${load}</script>
         <files mask="fsl_rdc_sema42.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_rdc_sema42_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="driver_rdc_sema42.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1566,7 +1566,7 @@ ${load}</script>
         <files mask="fsl_sai.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_sai_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="driver_sai.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1583,7 +1583,7 @@ ${load}</script>
         <files mask="fsl_sema4.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_sema4_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="driver_sema4.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1600,7 +1600,7 @@ ${load}</script>
         <files mask="fsl_tmu.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_tmu_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="driver_tmu.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1617,7 +1617,7 @@ ${load}</script>
         <files mask="fsl_wdog.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_wdog01_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="driver_wdog01.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1634,7 +1634,7 @@ ${load}</script>
         <files mask="fsl_wm8524.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_wm8524_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="driver_wm8524.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1799,7 +1799,7 @@ ${load}</script>
         <files mask="freertos_tasks_c_additions.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_freertos-kernel_extension_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="middleware_freertos-kernel_extension.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="include" type="c_include"/>
@@ -1837,7 +1837,7 @@ ${load}</script>
         <files mask="heap_4.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_freertos-kernel_heap_4_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="middleware_freertos-kernel_heap_4.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.freertos-kernel.heap_5.MIMX8MQ6" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="202007.00.0" full_name="FreeRTOS heap 5" devices="MIMX8MQ6xxxHZ MIMX8MQ6xxxJZ" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
@@ -2069,7 +2069,7 @@ ${load}</script>
         <files mask="rpmsg_queue.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_multicore_rpmsg_lite_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="middleware_multicore_rpmsg_lite.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="rpmsg_lite/lib/include" project_relative_path="./" type="c_include"/>
@@ -2131,7 +2131,7 @@ ${load}</script>
         <files mask="rpmsg_platform.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_multicore_rpmsg_lite_imx8mq_m4_freertos_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="middleware_multicore_rpmsg_lite_imx8mq_m4_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="rpmsg_lite/lib/include/platform/imx8mq_m4" project_relative_path="porting" type="c_include"/>
@@ -2173,7 +2173,7 @@ ${load}</script>
         <files mask="fsl_sbrk.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utilities_misc_utilities_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="utilities_misc_utilities.cmake" hidden="true"/>
       </source>
     </component>
     <component id="platform.utilities.assert.MIMX8MQ6" name="assert" brief="Utility assert" version="1.0.0" full_name="Utility assert" devices="MIMX8MQ6xxxHZ MIMX8MQ6xxxJZ" device_cores="cm4_MIMX8MQ6xxxHZ cm4_MIMX8MQ6xxxJZ" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
@@ -2184,7 +2184,7 @@ ${load}</script>
         <files mask="fsl_assert.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_assert_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="utility_assert.cmake" hidden="true"/>
       </source>
     </component>
     <component id="platform.utilities.assert_lite.MIMX8MQ6" name="assert_lite" brief="Utility assert_lite" version="1.0.0" full_name="Utility assert_lite" devices="MIMX8MQ6xxxHZ MIMX8MQ6xxxJZ" device_cores="cm4_MIMX8MQ6xxxHZ cm4_MIMX8MQ6xxxJZ" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
@@ -2195,7 +2195,7 @@ ${load}</script>
         <files mask="fsl_assert.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_assert_lite_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="utility_assert_lite.cmake" hidden="true"/>
       </source>
     </component>
     <component id="utility.debug_console.MIMX8MQ6" name="debug_console" brief="Utility debug_console" version="1.0.0" full_name="Utility debug_console" devices="MIMX8MQ6xxxHZ MIMX8MQ6xxxJZ" device_cores="cm4_MIMX8MQ6xxxHZ cm4_MIMX8MQ6xxxJZ" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console" project_base_path="utilities">
@@ -2219,7 +2219,7 @@ ${load}</script>
         <files mask="fsl_debug_console_conf.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_debug_console_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="utility_debug_console.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="str" project_relative_path="./" type="c_include"/>
@@ -2240,7 +2240,7 @@ ${load}</script>
         <files mask="fsl_debug_console.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_debug_console_lite_MIMX8MQ6.cmake" hidden="true"/>
+        <files mask="utility_debug_console_lite.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
