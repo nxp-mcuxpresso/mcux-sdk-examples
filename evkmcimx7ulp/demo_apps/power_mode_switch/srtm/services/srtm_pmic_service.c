@@ -130,14 +130,14 @@ static srtm_status_t SRTM_PmicService_Request(srtm_service_t service, srtm_reque
             case SRTM_PMIC_CMD_GET_VOLTAGE:
                 assert(adapter->getVoltage);
                 status = adapter->getVoltage(adapter, pmicReq->reg, &tmpOutValue);
-                tmpOutValue = pmicResp->value;
+                pmicResp->value = tmpOutValue;
                 pmicResp->retCode =
                     status == SRTM_Status_Success ? SRTM_PMIC_RETURN_CODE_SUCEESS : SRTM_PMIC_RETURN_CODE_FAIL;
                 break;
             case SRTM_PMIC_CMD_GET_REGISTER:
                 assert(adapter->getRegister);
                 status = adapter->getRegister(adapter, pmicReq->reg, &tmpOutValue);
-                tmpOutValue = pmicResp->value;
+                pmicResp->value = tmpOutValue;
                 pmicResp->retCode =
                     status == SRTM_Status_Success ? SRTM_PMIC_RETURN_CODE_SUCEESS : SRTM_PMIC_RETURN_CODE_FAIL;
                 break;
