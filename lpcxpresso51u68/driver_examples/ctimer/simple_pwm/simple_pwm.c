@@ -19,9 +19,9 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define CTIMER          CTIMER0         /* Timer 0 */
-#define CTIMER_MAT_OUT  kCTIMER_Match_1 /* Match output 1 */
-#define CTIMER_CLK_FREQ CLOCK_GetFreq(kCLOCK_BusClk)
+#define CTIMER          CTIMER0                      /* Timer 0 */
+#define CTIMER_MAT_OUT  kCTIMER_Match_1              /* Match output 1 */
+#define CTIMER_CLK_FREQ CLOCK_GetFreq(kCLOCK_BusClk) /* CTimer0 and CTimer1 use Sync APB clock(system clock) */
 #ifndef CTIMER_MAT_PWM_PERIOD_CHANNEL
 #define CTIMER_MAT_PWM_PERIOD_CHANNEL kCTIMER_Match_3
 #endif
@@ -63,14 +63,8 @@ int main(void)
     /* attach 12 MHz clock to FLEXCOMM0 (debug console) */
     CLOCK_AttachClk(BOARD_DEBUG_UART_CLK_ATTACH);
 
-    /* Enable the asynchronous bridge */
-    SYSCON->ASYNCAPBCTRL = 1;
-
-    /* Use 12 MHz clock for some of the Ctimers */
-    CLOCK_AttachClk(kFRO12M_to_ASYNC_APB);
-
-    BOARD_InitPins();
-    BOARD_BootClockPLL150M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* CTimer0 counter uses the AHB clock, some CTimer1 modules use the Aysnc clock */

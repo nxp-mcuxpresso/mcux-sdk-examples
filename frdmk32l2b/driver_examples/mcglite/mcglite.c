@@ -94,7 +94,7 @@ int main(void)
     mcgliteConfigLirc8M.hircEnableInNotHircMode = false;
 
     /* Init hardware */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitOsc0();
     /* Init using Led in Demo app */
     LED_INIT();

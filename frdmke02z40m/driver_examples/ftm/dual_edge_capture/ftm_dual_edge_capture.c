@@ -95,8 +95,8 @@ int main(void)
     float pulseWidth;
 
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Print a note to terminal */
@@ -117,7 +117,7 @@ int main(void)
     FTM_SetupDualEdgeCapture(DEMO_FTM_BASEADDR, BOARD_FTM_INPUT_CAPTURE_CHANNEL_PAIR, &edgeParam, 0);
 
     /* Set the timer to be in free-running mode */
-    DEMO_FTM_BASEADDR->MOD = 0xFFFF;
+    FTM_SetTimerPeriod(DEMO_FTM_BASEADDR, 0xFFFF);
 
     /* Enable first channel interrupt */
     FTM_EnableInterrupts(DEMO_FTM_BASEADDR, FTM_FIRST_CHANNEL_INTERRUPT_ENABLE);
@@ -149,8 +149,9 @@ int main(void)
     /* Disable overflow interrupt.*/
     FTM_DisableInterrupts(DEMO_FTM_BASEADDR, kFTM_TimeOverflowInterruptEnable);
 
-    capture1Val = DEMO_FTM_BASEADDR->CONTROLS[BOARD_FTM_INPUT_CAPTURE_CHANNEL_PAIR * 2].CnV;
-    capture2Val = DEMO_FTM_BASEADDR->CONTROLS[(BOARD_FTM_INPUT_CAPTURE_CHANNEL_PAIR * 2) + 1].CnV;
+    capture1Val = FTM_GetInputCaptureValue(DEMO_FTM_BASEADDR, (ftm_chnl_t)(BOARD_FTM_INPUT_CAPTURE_CHANNEL_PAIR * 2));
+    capture2Val =
+        FTM_GetInputCaptureValue(DEMO_FTM_BASEADDR, (ftm_chnl_t)(BOARD_FTM_INPUT_CAPTURE_CHANNEL_PAIR * 2 + 1));
     PRINTF("\r\nCapture value C(n)V=%x\r\n", capture1Val);
     PRINTF("\r\nCapture value C(n+1)V=%x\r\n", capture2Val);
 

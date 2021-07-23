@@ -58,7 +58,7 @@ int main(void)
     /* reset FLEXCOMM for I2C */
     RESET_PeripheralReset(kFC8_RST_SHIFT_RSTn);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockPLL180M();
     BOARD_InitDebugConsole();
 

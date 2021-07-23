@@ -31,23 +31,19 @@
 #define DEMO_SAI_TX_SYNC_MODE kSAI_ModeAsync
 #define DEMO_SAI_RX_SYNC_MODE kSAI_ModeSync
 #define DEMO_SAI_MCLK_OUTPUT  true
-#define DEMO_SAI_MASTER_SLAVE kSAI_Master
+#define DEMO_SAI_MASTER_SLAVE kSAI_Slave
 
 #define DEMO_AUDIO_DATA_CHANNEL (2U)
 #define DEMO_AUDIO_BIT_WIDTH    kSAI_WordWidth16bits
 #define DEMO_AUDIO_SAMPLE_RATE  (kSAI_SampleRate16KHz)
-#define DEMO_AUDIO_MASTER_CLOCK DEMO_SAI_CLK_FREQ
+#define DEMO_AUDIO_MASTER_CLOCK 12288000
 
 /* Select Audio/Video PLL (786.48 MHz) as sai1 clock source */
 #define DEMO_SAI1_CLOCK_SOURCE_SELECT (2U)
 /* Clock pre divider for sai1 clock source */
-#define DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER (1U)
+#define DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER (0U)
 /* Clock divider for sai1 clock source */
 #define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (63U)
-/* Get frequency of sai1 clock */
-#define DEMO_SAI_CLK_FREQ                                                        \
-    (CLOCK_GetFreq(kCLOCK_AudioPllClk) / (DEMO_SAI1_CLOCK_SOURCE_DIVIDER + 1U) / \
-     (DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER + 1U))
 
 /* I2C instance and clock */
 #define DEMO_I2C LPI2C1
@@ -71,6 +67,9 @@
 #define BUFFER_NUM  (2U)
 #ifndef DEMO_CODEC_INIT_DELAY_MS
 #define DEMO_CODEC_INIT_DELAY_MS (1000U)
+#endif
+#ifndef DEMO_CODEC_VOLUME
+#define DEMO_CODEC_VOLUME 100U
 #endif
 /*******************************************************************************
  * Prototypes
@@ -96,23 +95,29 @@ codec_handle_t codecHandle;
 wm8960_config_t wm8960Config = {
     .i2cConfig = {.codecI2CInstance = BOARD_CODEC_I2C_INSTANCE, .codecI2CSourceClock = BOARD_CODEC_I2C_CLOCK_FREQ},
     .route     = kWM8960_RoutePlaybackandRecord,
+    .leftInputSource  = kWM8960_InputDifferentialMicInput3,
     .rightInputSource = kWM8960_InputDifferentialMicInput2,
     .playSource       = kWM8960_PlaySourceDAC,
     .slaveAddress     = WM8960_I2C_ADDR,
     .bus              = kWM8960_BusI2S,
-    .format = {.mclk_HZ = 6144000U, .sampleRate = kWM8960_AudioSampleRate16KHz, .bitWidth = kWM8960_AudioBitWidth16bit},
-    .master_slave = false,
+    .format = {.mclk_HZ = 12000000, .sampleRate = kWM8960_AudioSampleRate16KHz, .bitWidth = kWM8960_AudioBitWidth16bit},
+    .master_slave = true,
+    .masterClock =
+        {
+            .sysclkSource = kWM8960_SysClkSourceInternalPLL,
+            .sysclkFreq   = DEMO_AUDIO_MASTER_CLOCK,
+        },
 };
 codec_config_t boardCodecConfig = {.codecDevType = kCODEC_WM8960, .codecDevConfig = &wm8960Config};
 /*
  * AUDIO PLL setting: Frequency = Fref * (DIV_SELECT + NUM / DENOM)
- *                              = 24 * (32 + 77/100)
- *                              = 786.48 MHz
+ *                              = 24 * (30 + 200/100)
+ *                              = 768 MHz
  */
 const clock_audio_pll_config_t audioPllConfig = {
-    .loopDivider = 32,  /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
+    .loopDivider = 30,  /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
     .postDivider = 1,   /* Divider after the PLL, should only be 1, 2, 4, 8, 16. */
-    .numerator   = 77,  /* 30 bit numerator of fractional loop divider. */
+    .numerator   = 200, /* 30 bit numerator of fractional loop divider. */
     .denominator = 100, /* 30 bit denominator of fractional loop divider */
 };
 
@@ -164,8 +169,8 @@ int main(void)
     sai_transceiver_t saiConfig;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     CLOCK_InitAudioPll(&audioPllConfig);
     BOARD_InitDebugConsole();
 
@@ -223,6 +228,11 @@ int main(void)
 
     /* Use default setting to init codec */
     if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
+    {
+        assert(false);
+    }
+    if (CODEC_SetVolume(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight,
+                        DEMO_CODEC_VOLUME) != kStatus_Success)
     {
         assert(false);
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -24,6 +24,13 @@
 
 #if defined(__cplusplus)
 extern "C" {
+#endif
+
+/* Define the PIO[ANAMODE] bit macro (SDK 2.6.x and older miss this bit macro definition) */
+#ifndef IOCON_PIO_ANAMODE_MASK
+#define IOCON_PIO_ANAMODE_MASK  (0x40U)
+#define IOCON_PIO_ANAMODE_SHIFT (6U)
+#define IOCON_PIO_ANAMODE(x)    (((uint32_t)(((uint32_t)(x)) << IOCON_PIO_ANAMODE_SHIFT)) & IOCON_PIO_ANAMODE_MASK)
 #endif
 
 /*!
@@ -54,6 +61,9 @@ void BOARD_InitBootPins(void);
  * @brief Standard mode, output slew rate control is enabled */
 #define IOCON_PIO_SLEW_STANDARD 0x00u
 /*!
+ * @brief Enables or disables analog mode.: Disable analog Mode. */
+#define PIO010_ANAMODE_DISABLED 0x01u
+/*!
  * @brief Select Analog/Digital mode.: Digital mode. */
 #define PIO010_DIGIMODE_DIGITAL 0x01u
 /*!
@@ -69,14 +79,21 @@ void BOARD_InitBootPins(void);
 
 /*! @name PIO2_2 (coord C3), J9[6]/LED3/P2_2-CT1MAT1-USR_LED3
   @{ */
-#define BOARD_LED3_GPIO GPIO /*!<@brief GPIO device name: GPIO */
-#define BOARD_LED3_PORT 2U   /*!<@brief PORT device name: 2U */
-#define BOARD_LED3_PIN 2U    /*!<@brief 2U pin index: 2 */
-                             /* @} */
 
-/*! @name SWO (coord P2), U16[12]/SWO_TRGT
+/* Symbols to be used with GPIO driver */
+#define BOARD_LED3_GPIO GPIO                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_LED3_GPIO_PIN_MASK (1U << 2U) /*!<@brief GPIO pin mask */
+#define BOARD_LED3_PORT 2U                  /*!<@brief PORT peripheral base pointer */
+#define BOARD_LED3_PIN 2U                   /*!<@brief PORT pin number */
+#define BOARD_LED3_PIN_MASK (1U << 2U)      /*!<@brief PORT pin mask */
+                                            /* @} */
+
+/*! @name PIO0_10 (coord P2), U16[12]/SWO_TRGT
   @{ */
-/* @} */
+#define BOARD_SWO_TRGT_PORT 0U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_SWO_TRGT_PIN 10U                   /*!<@brief PORT pin number */
+#define BOARD_SWO_TRGT_PIN_MASK (1U << 10U)      /*!<@brief PORT pin mask */
+                                                 /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

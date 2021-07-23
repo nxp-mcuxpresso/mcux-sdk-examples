@@ -38,7 +38,7 @@ int main()
     uint32_t shake_hand_value;
 
     /* Init board hardware.*/
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     /* Unlock the Very Low Power protection. */
     SMC_SetPowerModeProtection(APP_SMC, kSMC_AllowPowerModeAll);
 

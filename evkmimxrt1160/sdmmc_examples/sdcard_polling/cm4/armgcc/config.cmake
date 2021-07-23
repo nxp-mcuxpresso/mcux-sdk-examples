@@ -1,0 +1,5 @@
+# config to select component, the format is CONFIG_USE_${component}
+set(CONFIG_USE_middleware_sdmmc_host_usdhc true)
+set(CONFIG_USE_middleware_sdmmc_host_usdhc_polling_MIMXRT1166_cm4 true)
+set(CONFIG_USE_driver_lpuart true)
+set(MCUX_DEVICE "MIMXRT1166_cm4")

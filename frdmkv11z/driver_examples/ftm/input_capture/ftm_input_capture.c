@@ -60,8 +60,8 @@ int main(void)
     uint32_t captureVal;
 
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Print a note to terminal */
@@ -76,7 +76,7 @@ int main(void)
     FTM_SetupInputCapture(BOARD_FTM_BASEADDR, BOARD_FTM_INPUT_CAPTURE_CHANNEL, kFTM_FallingEdge, 0);
 
     /* Set the timer to be in free-running mode */
-    BOARD_FTM_BASEADDR->MOD = 0xFFFF;
+    FTM_SetTimerPeriod(BOARD_FTM_BASEADDR, 0xFFFF);
 
     /* Enable channel interrupt when the second edge is detected */
     FTM_EnableInterrupts(BOARD_FTM_BASEADDR, FTM_CHANNEL_INTERRUPT_ENABLE);
@@ -90,7 +90,7 @@ int main(void)
     {
     }
 
-    captureVal = BOARD_FTM_BASEADDR->CONTROLS[BOARD_FTM_INPUT_CAPTURE_CHANNEL].CnV;
+    captureVal = FTM_GetInputCaptureValue(BOARD_FTM_BASEADDR, BOARD_FTM_INPUT_CAPTURE_CHANNEL);
     PRINTF("\r\nCapture value C(n)V=%x\r\n", captureVal);
 
     while (1)

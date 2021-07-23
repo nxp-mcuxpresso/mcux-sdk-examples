@@ -99,11 +99,10 @@ int main(void)
 
     /* Board pin, clock, debug console init */
     BOARD_ConfigMPU();
-    BOARD_InitPins();
     BOARD_InitBootClocks();
-    BOARD_I2C_ConfigurePins();
+    BOARD_InitBootPins();
     BOARD_InitDebugConsole();
-    BOARD_InitPeripherals();
+    BOARD_InitBootPeripherals();
 
     /* Configure the I2C function */
     config.I2C_SendFunc    = BOARD_Accel_I2C_Send;

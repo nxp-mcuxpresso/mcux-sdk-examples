@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -44,24 +44,37 @@ void BOARD_InitBootPins(void);
 #define IOCON_PIO_OPENDRAIN_DI 0x00u  /*!<@brief Open drain is disabled */
 #define IOCON_PIO_SLEW_STANDARD 0x00u /*!<@brief Standard mode, output slew rate control is enabled */
 
-/*! @name FC0_TXD_SCL_MISO (coord A2), U24[12]/P0_30-ISP_FC0_TXD
+/*! @name PIO0_30 (coord A2), U24[12]/P0_30-ISP_FC0_TXD
   @{ */
-/* @} */
+#define BOARD_ISP_FC0_TXD_PORT 0U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_ISP_FC0_TXD_PIN 30U                   /*!<@brief PORT pin number */
+#define BOARD_ISP_FC0_TXD_PIN_MASK (1U << 30U)      /*!<@brief PORT pin mask */
+                                                    /* @} */
 
-/*! @name FC0_RXD_SDA_MOSI (coord B13), U24[13]/P0_29-ISP_FC0_RXD
+/*! @name PIO0_29 (coord B13), U24[13]/P0_29-ISP_FC0_RXD
   @{ */
-/* @} */
+#define BOARD_ISP_FC0_RXD_PORT 0U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_ISP_FC0_RXD_PIN 29U                   /*!<@brief PORT pin number */
+#define BOARD_ISP_FC0_RXD_PIN_MASK (1U << 29U)      /*!<@brief PORT pin mask */
+                                                    /* @} */
 
 /*! @name PIO2_2 (coord C3), J9[6]/LED3/P2_2-CT1MAT1-USR_LED3
   @{ */
-#define BOARD_LED3_GPIO GPIO /*!<@brief GPIO device name: GPIO */
-#define BOARD_LED3_PORT 2U   /*!<@brief PORT device name: 2U */
-#define BOARD_LED3_PIN 2U    /*!<@brief 2U pin index: 2 */
-                             /* @} */
 
-/*! @name SWO (coord P2), U16[12]/SWO_TRGT
+/* Symbols to be used with GPIO driver */
+#define BOARD_LED3_GPIO GPIO                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_LED3_GPIO_PIN_MASK (1U << 2U) /*!<@brief GPIO pin mask */
+#define BOARD_LED3_PORT 2U                  /*!<@brief PORT peripheral base pointer */
+#define BOARD_LED3_PIN 2U                   /*!<@brief PORT pin number */
+#define BOARD_LED3_PIN_MASK (1U << 2U)      /*!<@brief PORT pin mask */
+                                            /* @} */
+
+/*! @name PIO0_10 (coord P2), U16[12]/SWO_TRGT
   @{ */
-/* @} */
+#define BOARD_SWO_TRGT_PORT 0U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_SWO_TRGT_PIN 10U                   /*!<@brief PORT pin number */
+#define BOARD_SWO_TRGT_PIN_MASK (1U << 10U)      /*!<@brief PORT pin mask */
+                                                 /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

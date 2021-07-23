@@ -152,8 +152,8 @@ int main(void)
     pdb_dac_trigger_config_t pdbDacTriggerConfigStruct;
     uint8_t index = 0U;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     EnableIRQ(DEMO_PDB_IRQ_ID);
     EnableIRQ(DEMO_DAC_IRQ_ID);

@@ -16,9 +16,7 @@
     <definition extID="platform.drivers.lpc_miniusart.LPC845"/>
     <definition extID="platform.drivers.lpc_iocon_lite.LPC845"/>
     <definition extID="platform.drivers.inputmux_connections.LPC845"/>
-    <definition extID="platform.Include_core_cm0plus.LPC845"/>
-    <definition extID="platform.Include_common.LPC845"/>
-    <definition extID="platform.Include_dsp.LPC845"/>
+    <definition extID="CMSIS_Include_core_cm.LPC845"/>
     <definition extID="platform.drivers.reset.LPC845"/>
     <definition extID="platform.utilities.misc_utilities.LPC845"/>
     <definition extID="platform.drivers.swm_connections.LPC845"/>
@@ -30,7 +28,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso845max_gpio_led_output" name="gpio_led_output" dependency="utility.debug_console_lite.LPC845 platform.utilities.assert_lite.LPC845 platform.drivers.lpc_gpio.LPC845 platform.drivers.common.LPC845 platform.drivers.clock.LPC845 platform.drivers.power_no_lib.LPC845 platform.drivers.inputmux.LPC845 platform.drivers.swm.LPC845 platform.drivers.syscon.LPC845 device.LPC845_CMSIS.LPC845 component.miniusart_adapter.LPC845 device.LPC845_startup.LPC845 platform.drivers.lpc_miniusart.LPC845 platform.drivers.lpc_iocon_lite.LPC845 platform.drivers.inputmux_connections.LPC845 platform.Include_core_cm0plus.LPC845 platform.Include_common.LPC845 platform.Include_dsp.LPC845 platform.drivers.reset.LPC845 platform.utilities.misc_utilities.LPC845 platform.drivers.swm_connections.LPC845 platform.drivers.syscon_connections.LPC845 device.LPC845_system.LPC845" category="driver_examples/gpio">
+  <example id="lpcxpresso845max_gpio_led_output" name="gpio_led_output" dependency="utility.debug_console_lite.LPC845 platform.utilities.assert_lite.LPC845 platform.drivers.lpc_gpio.LPC845 platform.drivers.common.LPC845 platform.drivers.clock.LPC845 platform.drivers.power_no_lib.LPC845 platform.drivers.inputmux.LPC845 platform.drivers.swm.LPC845 platform.drivers.syscon.LPC845 device.LPC845_CMSIS.LPC845 component.miniusart_adapter.LPC845 device.LPC845_startup.LPC845 platform.drivers.lpc_miniusart.LPC845 platform.drivers.lpc_iocon_lite.LPC845 platform.drivers.inputmux_connections.LPC845 CMSIS_Include_core_cm.LPC845 platform.drivers.reset.LPC845 platform.utilities.misc_utilities.LPC845 platform.drivers.swm_connections.LPC845 platform.drivers.syscon_connections.LPC845 device.LPC845_system.LPC845" category="driver_examples/gpio">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -38,6 +36,7 @@
       <toolchainSetting id_refs="com.nxp.mcuxpresso">
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>CPU_LPC845M301JBD64</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.none</value>
@@ -112,12 +111,6 @@
     </source>
     <source path="examples/lpcxpresso845max/driver_examples/gpio/led_output" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/lpcxpresso845max/driver_examples/gpio/led_output/iar" project_relative_path="LPC845/iar" type="linker" toolchain="iar">
-      <files mask="LPC845_flash.icf"/>
-    </source>
-    <source path="examples/lpcxpresso845max/driver_examples/gpio/led_output/mdk" project_relative_path="LPC845/arm" type="linker" toolchain="mdk">
-      <files mask="LPC845_flash.scf"/>
     </source>
     <source path="examples/lpcxpresso845max/driver_examples/gpio/led_output/armgcc" project_relative_path="LPC845/gcc" type="linker" toolchain="armgcc">
       <files mask="LPC845_flash.ld"/>

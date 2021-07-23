@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2018 NXP
+ * Copyright 2016-2018,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -36,16 +36,18 @@ enum _tsi_scanmode
  *
  * This function is used to initiate TSI moudle,set charge current/voltage,
  * oscillator frequency, track TSI baseline through TSI calibration function.
+ * @param base     Pointer to the TSI param structure
  */
-void TSI_Init_SelfMode(void);
+void TSI_Init_SelfMode(TSI_Type *base);
 
 /*!
  * @brief Initiate TSI module to mutual-mode.
  *
  * This function is used to initiate TSI moudle,set charge current/voltage,
  * oscillator frequency, track TSI baseline through TSI calibration function.
+ * @param base    Pointer to the TSI param structure
  */
-void TSI_Init_MutualMode(void);
+void TSI_Init_MutualMode(TSI_Type *base);
 
 /*!
  * @brief: Detect self-mode/mutual-mode touch key

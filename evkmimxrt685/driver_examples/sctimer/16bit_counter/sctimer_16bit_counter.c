@@ -68,8 +68,8 @@ int main(void)
     sctimer_event_active_direction_t activeDirL, activeDirH;
 
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* attach FFRO clock to SCTimer input7 (48MHz / 1 = 48MHz). */

@@ -6,7 +6,7 @@ In this example, pdm wiil trigger sdma to transfer data when watermark value rea
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
+- GCC ARM Embedded  10.2.1
 
 Hardware requirements
 =====================

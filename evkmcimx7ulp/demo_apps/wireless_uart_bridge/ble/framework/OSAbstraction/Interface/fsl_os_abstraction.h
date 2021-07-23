@@ -94,13 +94,13 @@ typedef enum osaStatus_tag
 * Public macros
 *************************************************************************************
 ********************************************************************************** */
-#if defined(FSL_RTOS_MQX)
+#if defined(SDK_OS_MQX)
 #define USE_RTOS 1
-#elif defined(FSL_RTOS_FREE_RTOS)
+#elif defined(SDK_OS_FREE_RTOS)
 #define USE_RTOS 1
-#elif defined(FSL_RTOS_UCOSII)
+#elif defined(SDK_OS_UCOSII)
 #define USE_RTOS 1
-#elif defined(FSL_RTOS_UCOSIII)
+#elif defined(SDK_OS_UCOSIII)
 #define USE_RTOS 1
 #else
 #define USE_RTOS 0
@@ -133,13 +133,13 @@ typedef enum osaStatus_tag
  * \param         stackSz      stack size (in bytes) requirements for the thread function.
  * \param         useFloat
  */
-#if defined(FSL_RTOS_MQX)
+#if defined(SDK_OS_MQX)
 #define OSA_TASK_DEFINE(name, priority, instances, stackSz, useFloat)                                        \
     osaThreadLink_t osThreadLink_##name[instances]                                 = {0};                    \
     osThreadStackDef(name, stackSz, instances) osaThreadDef_t os_thread_def_##name = {                       \
         (name),           (priority), (instances), (stackSz), osThreadStackArray(name), osThreadLink_##name, \
         (uint8_t *)#name, (useFloat)}
-#elif defined(FSL_RTOS_UCOSII)
+#elif defined(SDK_OS_UCOSII)
 #if gTaskMultipleInstancesManagement_c
 #define OSA_TASK_DEFINE(name, priority, instances, stackSz, useFloat)                                        \
     osaThreadLink_t osThreadLink_##name[instances]                                 = {0};                    \

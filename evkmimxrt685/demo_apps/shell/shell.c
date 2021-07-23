@@ -147,8 +147,8 @@ int main(void)
     CLOCK_EnableClock(kCLOCK_HsGpio0);
     RESET_PeripheralReset(kHSGPIO0_RST_SHIFT_RSTn);
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Init led */

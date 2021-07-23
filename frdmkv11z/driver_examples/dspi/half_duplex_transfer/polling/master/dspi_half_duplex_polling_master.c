@@ -47,8 +47,8 @@ int main(void)
     dspi_half_duplex_transfer_t xfer = {0};
     dspi_master_config_t masterConfig;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("This is DSPI half-duplex polling transfer example!\r\n");

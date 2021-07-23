@@ -74,8 +74,8 @@ int main(void)
     size_t receivedBytes = 0U;
     uint32_t i;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     INTMUX_Init(INTMUX1);
     INTMUX_EnableInterrupt(INTMUX1, 0, LPUART0_IRQn);

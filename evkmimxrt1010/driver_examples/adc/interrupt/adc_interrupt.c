@@ -56,8 +56,8 @@ int main(void)
     adc_channel_config_t adcChannelConfigStruct;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     EnableIRQ(DEMO_ADC_IRQn);
 

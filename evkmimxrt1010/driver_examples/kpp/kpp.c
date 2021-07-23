@@ -75,8 +75,8 @@ int main(void)
     uint32_t index = 0;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\n KPP Driver Example Start.\r\n");

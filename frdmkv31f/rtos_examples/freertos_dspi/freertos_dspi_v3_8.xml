@@ -19,9 +19,7 @@
     <definition extID="platform.drivers.lpuart.MKV31F51212"/>
     <definition extID="platform.drivers.smc.MKV31F51212"/>
     <definition extID="platform.utilities.assert.MKV31F51212"/>
-    <definition extID="platform.Include_core_cm4.MKV31F51212"/>
-    <definition extID="platform.Include_common.MKV31F51212"/>
-    <definition extID="platform.Include_dsp.MKV31F51212"/>
+    <definition extID="CMSIS_Include_core_cm.MKV31F51212"/>
     <definition extID="middleware.freertos-kernel.MKV31F51212"/>
     <definition extID="middleware.freertos-kernel.extension.MKV31F51212"/>
     <definition extID="platform.utilities.misc_utilities.MKV31F51212"/>
@@ -32,7 +30,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="frdmkv31f_freertos_dspi" name="freertos_dspi" dependency="platform.drivers.port.MKV31F51212 platform.drivers.gpio.MKV31F51212 platform.drivers.clock.MKV31F51212 platform.drivers.dspi.MKV31F51212 platform.drivers.dspi_freertos.MKV31F51212 middleware.freertos-kernel.heap_4.MKV31F51212 platform.drivers.common.MKV31F51212 device.MKV31F51212_CMSIS.MKV31F51212 utility.debug_console.MKV31F51212 component.uart_adapter.MKV31F51212 component.serial_manager.MKV31F51212 component.lists.MKV31F51212 component.serial_manager_uart.MKV31F51212 platform.drivers.uart.MKV31F51212 device.MKV31F51212_startup.MKV31F51212 platform.drivers.lpuart.MKV31F51212 platform.drivers.smc.MKV31F51212 platform.utilities.assert.MKV31F51212 platform.Include_core_cm4.MKV31F51212 platform.Include_common.MKV31F51212 platform.Include_dsp.MKV31F51212 middleware.freertos-kernel.MKV31F51212 middleware.freertos-kernel.extension.MKV31F51212 platform.utilities.misc_utilities.MKV31F51212 device.MKV31F51212_system.MKV31F51212" category="rtos_examples">
+  <example id="frdmkv31f_freertos_dspi" name="freertos_dspi" dependency="platform.drivers.port.MKV31F51212 platform.drivers.gpio.MKV31F51212 platform.drivers.clock.MKV31F51212 platform.drivers.dspi.MKV31F51212 platform.drivers.dspi_freertos.MKV31F51212 middleware.freertos-kernel.heap_4.MKV31F51212 platform.drivers.common.MKV31F51212 device.MKV31F51212_CMSIS.MKV31F51212 utility.debug_console.MKV31F51212 component.uart_adapter.MKV31F51212 component.serial_manager.MKV31F51212 component.lists.MKV31F51212 component.serial_manager_uart.MKV31F51212 platform.drivers.uart.MKV31F51212 device.MKV31F51212_startup.MKV31F51212 platform.drivers.lpuart.MKV31F51212 platform.drivers.smc.MKV31F51212 platform.utilities.assert.MKV31F51212 CMSIS_Include_core_cm.MKV31F51212 middleware.freertos-kernel.MKV31F51212 middleware.freertos-kernel.extension.MKV31F51212 platform.utilities.misc_utilities.MKV31F51212 device.MKV31F51212_system.MKV31F51212" category="rtos_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -43,7 +41,8 @@
           <value>FRDM_KV31F</value>
           <value>FREEDOM</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
-          <value>FSL_RTOS_FREE_RTOS</value>
+          <value>SDK_OS_FREE_RTOS</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
@@ -124,12 +123,6 @@
     </source>
     <source path="examples/frdmkv31f/rtos_examples/freertos_dspi" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/frdmkv31f/rtos_examples/freertos_dspi/iar" project_relative_path="MKV31F51212/iar" type="linker" toolchain="iar">
-      <files mask="MKV31F512xxx12_flash.icf"/>
-    </source>
-    <source path="examples/frdmkv31f/rtos_examples/freertos_dspi/mdk" project_relative_path="MKV31F51212/arm" type="linker" toolchain="mdk">
-      <files mask="MKV31F512xxx12_flash.scf"/>
     </source>
     <source path="examples/frdmkv31f/rtos_examples/freertos_dspi/armgcc" project_relative_path="MKV31F51212/gcc" type="linker" toolchain="armgcc">
       <files mask="MKV31F512xxx12_flash.ld"/>

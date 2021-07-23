@@ -103,8 +103,8 @@ int main(void)
     edma_config_t config;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
 
     /* Clock setting for Flexio */
     CLOCK_SetMux(kCLOCK_Flexio1Mux, FLEXIO_CLOCK_SELECT);

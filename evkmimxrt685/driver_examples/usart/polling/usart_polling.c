@@ -39,8 +39,8 @@ int main(void)
     uint8_t ch;
     usart_config_t config;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     /*
      * config.baudRate_Bps = 115200U;

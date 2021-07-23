@@ -73,8 +73,8 @@ int main(void)
     size_t receivedBytes = 0U;
     uint32_t i;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     CLOCK_SetLpuart0Clock(0x1U);
 
     /*

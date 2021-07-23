@@ -41,8 +41,8 @@ int main(void)
     /* Board pin, clock, debug console init */
     RESET_PeripheralReset(kINPUTMUX_RST_SHIFT_RSTn);
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     sctimerClock = SCTIMER_CLK_FREQ;

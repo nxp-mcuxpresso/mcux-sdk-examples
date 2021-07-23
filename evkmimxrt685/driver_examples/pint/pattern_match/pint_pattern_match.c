@@ -48,8 +48,8 @@ int main(void)
     pint_pmatch_cfg_t pmcfg;
 
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Connect trigger sources to PINT */

@@ -93,8 +93,8 @@ void SPI_SlaveUserCallback(SPI_Type *base, spi_slave_handle_t *handle, status_t 
 
 int main(void)
 {
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     CLOCK_SetFlexio0Clock(1U);

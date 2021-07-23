@@ -164,8 +164,8 @@ int main(void)
     lpi2c_master_config_t masterConfig = {0};
     status_t reVal                     = kStatus_Fail;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_I2C_ConfigurePins();
     BOARD_InitDebugConsole();
 
@@ -174,12 +174,20 @@ int main(void)
 
     PRINTF("\r\nLPI2C example -- MasterFunctionalInterrupt_SlaveFunctionalInterrupt.\r\n");
 
-    /*  Enable master and slave NVIC interrupt. */
+    /* Enable master and slave NVIC interrupt. */
     EnableIRQ(LPI2C_MASTER_IRQ);
     EnableIRQ(LPI2C_SLAVE_IRQ);
 
     /* Set lpi2c slave interrupt priority higher. */
+#if defined(__CORTEX_M) && (__CORTEX_M == 0U) && defined(FSL_FEATURE_NUMBER_OF_LEVEL1_INT_VECTORS) && \
+    (FSL_FEATURE_NUMBER_OF_LEVEL1_INT_VECTORS > 0)
+    if (LPI2C_SLAVE_IRQ < FSL_FEATURE_NUMBER_OF_LEVEL1_INT_VECTORS)
+    {
+        NVIC_SetPriority(LPI2C_SLAVE_IRQ, 0);
+    }
+#else
     NVIC_SetPriority(LPI2C_SLAVE_IRQ, 0);
+#endif
     NVIC_SetPriority(LPI2C_MASTER_IRQ, 1);
 
     /* 1.Set up lpi2c slave first */

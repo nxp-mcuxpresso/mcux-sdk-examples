@@ -14,10 +14,8 @@
     <definition extID="platform.drivers.iomuxc.MIMXRT1021"/>
     <definition extID="platform.drivers.igpio.MIMXRT1021"/>
     <definition extID="platform.drivers.xip_device.MIMXRT1021"/>
-    <definition extID="platform.drivers.xip_board.MIMXRT1021"/>
-    <definition extID="platform.Include_core_cm7.MIMXRT1021"/>
-    <definition extID="platform.Include_common.MIMXRT1021"/>
-    <definition extID="platform.Include_dsp.MIMXRT1021"/>
+    <definition extID="platform.drivers.xip_board.evkmimxrt1020.MIMXRT1021"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT1021"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1021"/>
     <definition extID="device.MIMXRT1021_system.MIMXRT1021"/>
     <definition extID="iar"/>
@@ -28,7 +26,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1020_lpspi_polling_b2b_transfer_slave" name="lpspi_polling_b2b_transfer_slave" dependency="utility.debug_console_lite.MIMXRT1021 platform.utilities.assert_lite.MIMXRT1021 platform.drivers.lpspi.MIMXRT1021 platform.drivers.clock.MIMXRT1021 platform.drivers.common.MIMXRT1021 device.MIMXRT1021_CMSIS.MIMXRT1021 component.lpuart_adapter.MIMXRT1021 component.lists.MIMXRT1021 platform.drivers.lpuart.MIMXRT1021 device.MIMXRT1021_startup.MIMXRT1021 platform.drivers.iomuxc.MIMXRT1021 platform.drivers.igpio.MIMXRT1021 platform.drivers.xip_device.MIMXRT1021 platform.drivers.xip_board.MIMXRT1021 platform.Include_core_cm7.MIMXRT1021 platform.Include_common.MIMXRT1021 platform.Include_dsp.MIMXRT1021 platform.utilities.misc_utilities.MIMXRT1021 device.MIMXRT1021_system.MIMXRT1021" category="driver_examples/lpspi">
+  <example id="evkmimxrt1020_lpspi_polling_b2b_transfer_slave" name="lpspi_polling_b2b_transfer_slave" dependency="utility.debug_console_lite.MIMXRT1021 platform.utilities.assert_lite.MIMXRT1021 platform.drivers.lpspi.MIMXRT1021 platform.drivers.clock.MIMXRT1021 platform.drivers.common.MIMXRT1021 device.MIMXRT1021_CMSIS.MIMXRT1021 component.lpuart_adapter.MIMXRT1021 component.lists.MIMXRT1021 platform.drivers.lpuart.MIMXRT1021 device.MIMXRT1021_startup.MIMXRT1021 platform.drivers.iomuxc.MIMXRT1021 platform.drivers.igpio.MIMXRT1021 platform.drivers.xip_device.MIMXRT1021 platform.drivers.xip_board.evkmimxrt1020.MIMXRT1021 CMSIS_Include_core_cm.MIMXRT1021 platform.utilities.misc_utilities.MIMXRT1021 device.MIMXRT1021_system.MIMXRT1021" category="driver_examples/lpspi">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -47,6 +45,7 @@
           <value>SDK_DEBUGCONSOLE=1</value>
           <value>XIP_EXTERNAL_FLASH=1</value>
           <value>XIP_BOOT_HEADER_ENABLE=1</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv5dp.hard</value>
@@ -147,28 +146,10 @@
     <source path="examples/evkmimxrt1020/driver_examples/lpspi/polling_b2b_transfer/slave" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
     </source>
-    <source path="examples/evkmimxrt1020/driver_examples/lpspi/polling_b2b_transfer/slave/iar" project_relative_path="MIMXRT1021/iar" type="linker" toolchain="iar">
-      <files mask="MIMXRT1021xxxxx_ram.icf"/>
-      <files mask="MIMXRT1021xxxxx_sdram.icf"/>
-      <files mask="MIMXRT1021xxxxx_flexspi_nor.icf"/>
-    </source>
-    <source path="examples/evkmimxrt1020/driver_examples/lpspi/polling_b2b_transfer/slave/mdk" project_relative_path="MIMXRT1021/arm" type="linker" toolchain="mdk">
-      <files mask="MIMXRT1021xxxxx_ram.scf"/>
-      <files mask="MIMXRT1021xxxxx_sdram.scf"/>
-      <files mask="MIMXRT1021xxxxx_flexspi_nor.scf"/>
-    </source>
     <source path="examples/evkmimxrt1020/driver_examples/lpspi/polling_b2b_transfer/slave/armgcc" project_relative_path="MIMXRT1021/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMXRT1021xxxxx_ram.ld"/>
       <files mask="MIMXRT1021xxxxx_sdram.ld"/>
       <files mask="MIMXRT1021xxxxx_flexspi_nor.ld"/>
-    </source>
-    <source path="examples/evkmimxrt1020/driver_examples/lpspi/polling_b2b_transfer/slave/iar" project_relative_path="evkmimxrt1020" type="other" toolchain="iar">
-      <files mask="evkmimxrt1020_sdram_init.mac"/>
-    </source>
-    <source path="examples/evkmimxrt1020/driver_examples/lpspi/polling_b2b_transfer/slave/mdk" project_relative_path="evkmimxrt1020" type="configuration" toolchain="mdk">
-      <files mask="evkmimxrt1020_ram.ini"/>
-      <files mask="evkmimxrt1020_sdram_init.ini"/>
-      <files mask="evkmimxrt1020_flexspi_nor.ini"/>
     </source>
   </example>
 </ksdk:examples>

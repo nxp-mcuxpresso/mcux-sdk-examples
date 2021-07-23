@@ -69,7 +69,7 @@ int main(void)
     volatile uint32_t i;
     uint32_t sysFreq;
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
 
     /* Set clock divider to safe value to switch mode */
     CLOCK_SetSimSafeDivs();

@@ -42,8 +42,8 @@ int main(void)
     uint8_t touched_key_id = 0xFFU;
 
     /* Init board hardware. */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("TSI mutual mode demo.\r\n");

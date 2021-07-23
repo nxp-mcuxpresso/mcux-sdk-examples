@@ -61,6 +61,9 @@
 #ifndef DEMO_CODEC_INIT_DELAY_MS
 #define DEMO_CODEC_INIT_DELAY_MS (1000U)
 #endif
+#ifndef DEMO_CODEC_VOLUME
+#define DEMO_CODEC_VOLUME 100U
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -79,6 +82,7 @@ codec_handle_t codecHandle;
 wm8960_config_t wm8960Config = {
     .i2cConfig = {.codecI2CInstance = BOARD_CODEC_I2C_INSTANCE, .codecI2CSourceClock = BOARD_CODEC_I2C_CLOCK_FREQ},
     .route     = kWM8960_RoutePlaybackandRecord,
+    .leftInputSource  = kWM8960_InputDifferentialMicInput3,
     .rightInputSource = kWM8960_InputDifferentialMicInput2,
     .playSource       = kWM8960_PlaySourceDAC,
     .slaveAddress     = WM8960_I2C_ADDR,
@@ -134,8 +138,8 @@ int main(void)
     sai_transceiver_t saiConfig;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     CLOCK_InitAudioPll(&audioPllConfig);
     BOARD_InitDebugConsole();
 
@@ -170,11 +174,19 @@ int main(void)
     /* master clock configurations */
     BOARD_MASTER_CLOCK_CONFIG();
 
-    /* Use default setting to init codec */
+#if defined DEMO_BOARD_CODEC_INIT
+    DEMO_BOARD_CODEC_INIT();
+#else
     if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
     {
         assert(false);
     }
+    if (CODEC_SetVolume(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight,
+                        DEMO_CODEC_VOLUME) != kStatus_Success)
+    {
+        assert(false);
+    }
+#endif
     /* delay for codec output stable */
     DelayMS(DEMO_CODEC_INIT_DELAY_MS);
 

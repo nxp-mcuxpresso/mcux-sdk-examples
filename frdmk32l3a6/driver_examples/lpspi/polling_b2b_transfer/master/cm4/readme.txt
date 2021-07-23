@@ -9,8 +9,8 @@ The file 'lpspi_polling_b2b_transfer_master.c' includes the LPSPI master code.
 
 Toolchain supported
 ===================
-- MCUXpresso  11.3.0
-- GCC ARM Embedded  9.3.1
+- MCUXpresso  11.4.0
+- GCC ARM Embedded  10.2.1
 
 Hardware requirements
 =====================

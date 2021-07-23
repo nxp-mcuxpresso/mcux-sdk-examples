@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#ifdef FSL_RTOS_FREE_RTOS
+#ifdef SDK_OS_FREE_RTOS
 #include "FreeRTOS.h"
 #include "task.h"
 #include "semphr.h"
@@ -24,7 +24,7 @@
  ******************************************************************************/
 #define LPM_GPC_IMR_NUM (sizeof(GPC->IMR) / sizeof(GPC->IMR[0]))
 
-#ifdef FSL_RTOS_FREE_RTOS
+#ifdef SDK_OS_FREE_RTOS
 /* Define the counter clock of the systick (GPT). For accuracy purpose,
  * please make LPM_SYSTICK_COUNTER_FREQ divisible by 32768, and times of
  * configTICK_RATE_HZ.
@@ -52,8 +52,11 @@ typedef void (*freertos_tick_func_t)(void);
 static lpm_power_mode_t s_curMode;
 uint32_t g_savedPrimask;
 
-#ifdef FSL_RTOS_FREE_RTOS
+#ifdef SDK_OS_FREE_RTOS
 static SemaphoreHandle_t s_mutex;
+#if configSUPPORT_STATIC_ALLOCATION
+static StaticSemaphore_t s_staticMutex;
+#endif
 static lpm_power_mode_listener_t *s_listenerHead;
 static lpm_power_mode_listener_t *s_listenerTail;
 #if (configUSE_TICKLESS_IDLE == 2)
@@ -171,8 +174,14 @@ void ClockSelectXtalOsc(void)
     CLOCK_InitExternalClk(0);
     /* Switch clock source to external OSC. */
     CLOCK_SwitchOsc(kCLOCK_XtalOsc);
+    /*
+     * Some board will failed to wake up from suspend mode if rcosc is powered down when clock source switch from rcosc
+     * to external osc. Root cause is not found. Workaround: keep rcosc on.
+     */
+#ifndef KEEP_RCOSC_ON
     /* Power Down internal RC. */
     CLOCK_DeinitRcOsc24M();
+#endif
 }
 
 void ClockSelectRcOsc(void)
@@ -185,7 +194,7 @@ void ClockSelectRcOsc(void)
     CLOCK_DeinitExternalClk();
 }
 
-#ifdef FSL_RTOS_FREE_RTOS
+#ifdef SDK_OS_FREE_RTOS
 #if (configUSE_TICKLESS_IDLE == 2)
 void LPM_InitTicklessTimer(void)
 {
@@ -211,8 +220,12 @@ bool LPM_Init(lpm_power_mode_t run_mode)
     uint32_t i;
     uint32_t tmp_reg = 0;
 
-#ifdef FSL_RTOS_FREE_RTOS
+#ifdef SDK_OS_FREE_RTOS
+#if configSUPPORT_STATIC_ALLOCATION
+    s_mutex = xSemaphoreCreateMutexStatic(&s_staticMutex);
+#else
     s_mutex = xSemaphoreCreateMutex();
+#endif
 
     if (s_mutex == NULL)
     {
@@ -285,7 +298,7 @@ bool LPM_Init(lpm_power_mode_t run_mode)
 
 void LPM_Deinit(void)
 {
-#ifdef FSL_RTOS_FREE_RTOS
+#ifdef SDK_OS_FREE_RTOS
     if (s_mutex != NULL)
     {
         vSemaphoreDelete(s_mutex);
@@ -630,7 +643,7 @@ void LPM_EnterSNVS(void)
 
 bool LPM_SetPowerMode(lpm_power_mode_t mode)
 {
-#ifdef FSL_RTOS_FREE_RTOS /* Only FreeRTOS supports listener notification */
+#ifdef SDK_OS_FREE_RTOS /* Only FreeRTOS supports listener notification */
     lpm_power_mode_listener_t *l1, *l2;
 #endif
     bool ret = true;
@@ -640,10 +653,10 @@ bool LPM_SetPowerMode(lpm_power_mode_t mode)
         return ret;
     }
 
-#ifdef FSL_RTOS_FREE_RTOS /* Only FreeRTOS supports listener notification */
-                          /* Need to make sure the list of listeners is not changed
-                           * when traversing the list.
-                           */
+#ifdef SDK_OS_FREE_RTOS /* Only FreeRTOS supports listener notification */
+                        /* Need to make sure the list of listeners is not changed
+                         * when traversing the list.
+                         */
     if (xSemaphoreTake(s_mutex, portMAX_DELAY) == pdFALSE)
     {
         assert(0);
@@ -685,12 +698,12 @@ bool LPM_SetPowerMode(lpm_power_mode_t mode)
     xSemaphoreGive(s_mutex);
 #else
     s_curMode = mode;
-#endif /* FSL_RTOS_FREE_RTOS */
+#endif /* SDK_OS_FREE_RTOS */
 
     return ret;
 }
 
-#ifdef FSL_RTOS_FREE_RTOS /* Only FreeRTOS supports listener notification */
+#ifdef SDK_OS_FREE_RTOS /* Only FreeRTOS supports listener notification */
 void LPM_RegisterPowerListener(lpm_power_mode_callback_t callback, void *data)
 {
     lpm_power_mode_listener_t *l = (lpm_power_mode_listener_t *)pvPortMalloc(sizeof(lpm_power_mode_listener_t));
@@ -756,7 +769,7 @@ void LPM_UnregisterPowerListener(lpm_power_mode_callback_t callback, void *data)
 #endif
 
 /************ Internal public API start **************/
-#ifdef FSL_RTOS_FREE_RTOS
+#ifdef SDK_OS_FREE_RTOS
 #if (configUSE_TICKLESS_IDLE == 2)
 
 /*!

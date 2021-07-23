@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NXP
+ * Copyright 2018 ,2021 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -13,11 +13,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v4.1
+product: Pins v9.0
 processor: MKE16Z64xxx4
 package_id: MKE16Z64VLF4
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 9.0.0
 board: FRDM-KE16Z
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -58,7 +58,7 @@ BOARD_InitPins:
  * END ****************************************************************************************************************/
 void BOARD_InitPins(void)
 {
-    /* Clock Gate Control: 0x01u */
+    /* Clock Gate Control: Clock enabled. The current clock selection and divider options are locked. */
     CLOCK_EnableClock(kCLOCK_PortD);
 
     /* PORTD6 (pin 20) is configured as LPUART2_RX */

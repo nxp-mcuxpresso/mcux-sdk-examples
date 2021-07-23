@@ -63,8 +63,8 @@ int main(void)
     pitConfig.enableRunInDebug = false;
 
     /* Init board hardware. */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\nXBAR Peripheral Driver Example.");

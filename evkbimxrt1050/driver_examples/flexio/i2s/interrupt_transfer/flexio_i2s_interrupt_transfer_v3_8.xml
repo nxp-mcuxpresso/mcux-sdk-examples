@@ -22,10 +22,8 @@
     <definition extID="platform.drivers.iomuxc.MIMXRT1052"/>
     <definition extID="platform.drivers.igpio.MIMXRT1052"/>
     <definition extID="platform.drivers.xip_device.MIMXRT1052"/>
-    <definition extID="platform.drivers.xip_board.MIMXRT1052"/>
-    <definition extID="platform.Include_core_cm7.MIMXRT1052"/>
-    <definition extID="platform.Include_common.MIMXRT1052"/>
-    <definition extID="platform.Include_dsp.MIMXRT1052"/>
+    <definition extID="platform.drivers.xip_board.evkbimxrt1050.MIMXRT1052"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT1052"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1052"/>
     <definition extID="device.MIMXRT1052_system.MIMXRT1052"/>
     <definition extID="iar"/>
@@ -36,7 +34,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkbimxrt1050_flexio_i2s_interrupt_transfer" name="flexio_i2s_interrupt_transfer" dependency="platform.drivers.lpi2c.MIMXRT1052 platform.drivers.sai.MIMXRT1052 driver.wm8960.MIMXRT1052 driver.codec.MIMXRT1052 platform.drivers.common.MIMXRT1052 component.wm8960_adapter.MIMXRT1052 component.codec_i2c.MIMXRT1052 component.lpi2c_adapter.MIMXRT1052 utility.debug_console_lite.MIMXRT1052 platform.utilities.assert_lite.MIMXRT1052 platform.drivers.clock.MIMXRT1052 platform.drivers.flexio.MIMXRT1052 platform.drivers.flexio_i2s.MIMXRT1052 device.MIMXRT1052_CMSIS.MIMXRT1052 component.lpuart_adapter.MIMXRT1052 component.lists.MIMXRT1052 platform.drivers.lpuart.MIMXRT1052 device.MIMXRT1052_startup.MIMXRT1052 platform.drivers.iomuxc.MIMXRT1052 platform.drivers.igpio.MIMXRT1052 platform.drivers.xip_device.MIMXRT1052 platform.drivers.xip_board.MIMXRT1052 platform.Include_core_cm7.MIMXRT1052 platform.Include_common.MIMXRT1052 platform.Include_dsp.MIMXRT1052 platform.utilities.misc_utilities.MIMXRT1052 device.MIMXRT1052_system.MIMXRT1052" category="driver_examples/flexio">
+  <example id="evkbimxrt1050_flexio_i2s_interrupt_transfer" name="flexio_i2s_interrupt_transfer" dependency="platform.drivers.lpi2c.MIMXRT1052 platform.drivers.sai.MIMXRT1052 driver.wm8960.MIMXRT1052 driver.codec.MIMXRT1052 platform.drivers.common.MIMXRT1052 component.wm8960_adapter.MIMXRT1052 component.codec_i2c.MIMXRT1052 component.lpi2c_adapter.MIMXRT1052 utility.debug_console_lite.MIMXRT1052 platform.utilities.assert_lite.MIMXRT1052 platform.drivers.clock.MIMXRT1052 platform.drivers.flexio.MIMXRT1052 platform.drivers.flexio_i2s.MIMXRT1052 device.MIMXRT1052_CMSIS.MIMXRT1052 component.lpuart_adapter.MIMXRT1052 component.lists.MIMXRT1052 platform.drivers.lpuart.MIMXRT1052 device.MIMXRT1052_startup.MIMXRT1052 platform.drivers.iomuxc.MIMXRT1052 platform.drivers.igpio.MIMXRT1052 platform.drivers.xip_device.MIMXRT1052 platform.drivers.xip_board.evkbimxrt1050.MIMXRT1052 CMSIS_Include_core_cm.MIMXRT1052 platform.utilities.misc_utilities.MIMXRT1052 device.MIMXRT1052_system.MIMXRT1052" category="driver_examples/flexio">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -58,6 +56,7 @@
           <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
           <value>BOARD_USE_CODEC=1</value>
           <value>CODEC_WM8960_ENABLE</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv5dp.hard</value>
@@ -158,29 +157,10 @@
     <source path="examples/evkbimxrt1050/driver_examples/flexio/i2s/interrupt_transfer" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
     </source>
-    <source path="examples/evkbimxrt1050/driver_examples/flexio/i2s/interrupt_transfer/iar" project_relative_path="MIMXRT1052/iar" type="linker" toolchain="iar">
-      <files mask="MIMXRT1052xxxxx_ram.icf"/>
-      <files mask="MIMXRT1052xxxxx_sdram.icf"/>
-      <files mask="MIMXRT1052xxxxx_flexspi_nor.icf"/>
-    </source>
-    <source path="examples/evkbimxrt1050/driver_examples/flexio/i2s/interrupt_transfer/mdk" project_relative_path="MIMXRT1052/arm" type="linker" toolchain="mdk">
-      <files mask="MIMXRT1052xxxxx_ram.scf"/>
-      <files mask="MIMXRT1052xxxxx_sdram.scf"/>
-      <files mask="MIMXRT1052xxxxx_flexspi_nor.scf"/>
-    </source>
     <source path="examples/evkbimxrt1050/driver_examples/flexio/i2s/interrupt_transfer/armgcc" project_relative_path="MIMXRT1052/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMXRT1052xxxxx_ram.ld"/>
       <files mask="MIMXRT1052xxxxx_sdram.ld"/>
       <files mask="MIMXRT1052xxxxx_flexspi_nor.ld"/>
-    </source>
-    <source path="examples/evkbimxrt1050/driver_examples/flexio/i2s/interrupt_transfer/iar" project_relative_path="evkbimxrt1050" type="other" toolchain="iar">
-      <files mask="evkbimxrt1050.mac"/>
-      <files mask="evkbimxrt1050_sdram_init.mac"/>
-    </source>
-    <source path="examples/evkbimxrt1050/driver_examples/flexio/i2s/interrupt_transfer/mdk" project_relative_path="evkbimxrt1050" type="configuration" toolchain="mdk">
-      <files mask="evkbimxrt1050_ram.ini"/>
-      <files mask="evkbimxrt1050_sdram_init.ini"/>
-      <files mask="evkbimxrt1050_flexspi_nor.ini"/>
     </source>
   </example>
 </ksdk:examples>

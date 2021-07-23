@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -13,11 +13,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v8.0
+product: Pins v9.0
 processor: MIMXRT1024xxxxx
 package_id: MIMXRT1024DAG5A
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 9.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -134,7 +134,7 @@ void BOARD_InitPins(void) {
       IOMUXC_GPIO_AD_B0_04_GPIO1_IO04,        /* GPIO_AD_B0_04 PAD functional properties : */
       0xB0A9U);                               /* Slew Rate Field: Fast Slew Rate
                                                  Drive Strength Field: R0/5
-                                                 Speed Field: medium(100MHz)
+                                                 Speed Field: 100MHz - 150MHz
                                                  Open Drain Enable Field: Open Drain Disabled
                                                  Pull / Keep Enable Field: Pull/Keeper Enabled
                                                  Pull / Keep Select Field: Pull
@@ -144,7 +144,7 @@ void BOARD_InitPins(void) {
       IOMUXC_GPIO_AD_B0_06_LPUART1_TX,        /* GPIO_AD_B0_06 PAD functional properties : */
       0x10B0U);                               /* Slew Rate Field: Slow Slew Rate
                                                  Drive Strength Field: R0/6
-                                                 Speed Field: medium(100MHz)
+                                                 Speed Field: 100MHz - 150MHz
                                                  Open Drain Enable Field: Open Drain Disabled
                                                  Pull / Keep Enable Field: Pull/Keeper Enabled
                                                  Pull / Keep Select Field: Keeper
@@ -154,7 +154,7 @@ void BOARD_InitPins(void) {
       IOMUXC_GPIO_AD_B0_07_LPUART1_RX,        /* GPIO_AD_B0_07 PAD functional properties : */
       0x10B0U);                               /* Slew Rate Field: Slow Slew Rate
                                                  Drive Strength Field: R0/6
-                                                 Speed Field: medium(100MHz)
+                                                 Speed Field: 100MHz - 150MHz
                                                  Open Drain Enable Field: Open Drain Disabled
                                                  Pull / Keep Enable Field: Pull/Keeper Enabled
                                                  Pull / Keep Select Field: Keeper
@@ -164,7 +164,7 @@ void BOARD_InitPins(void) {
       IOMUXC_GPIO_AD_B0_08_ENET_REF_CLK1,     /* GPIO_AD_B0_08 PAD functional properties : */
       0xB0E9U);                               /* Slew Rate Field: Fast Slew Rate
                                                  Drive Strength Field: R0/5
-                                                 Speed Field: max(200MHz)
+                                                 Speed Field: 150MHz - 200MHz
                                                  Open Drain Enable Field: Open Drain Disabled
                                                  Pull / Keep Enable Field: Pull/Keeper Enabled
                                                  Pull / Keep Select Field: Pull
@@ -174,7 +174,7 @@ void BOARD_InitPins(void) {
       IOMUXC_GPIO_AD_B0_09_ENET_RDATA01,      /* GPIO_AD_B0_09 PAD functional properties : */
       0xB0E9U);                               /* Slew Rate Field: Fast Slew Rate
                                                  Drive Strength Field: R0/5
-                                                 Speed Field: max(200MHz)
+                                                 Speed Field: 150MHz - 200MHz
                                                  Open Drain Enable Field: Open Drain Disabled
                                                  Pull / Keep Enable Field: Pull/Keeper Enabled
                                                  Pull / Keep Select Field: Pull
@@ -184,7 +184,7 @@ void BOARD_InitPins(void) {
       IOMUXC_GPIO_AD_B0_10_ENET_RDATA00,      /* GPIO_AD_B0_10 PAD functional properties : */
       0xB0E9U);                               /* Slew Rate Field: Fast Slew Rate
                                                  Drive Strength Field: R0/5
-                                                 Speed Field: max(200MHz)
+                                                 Speed Field: 150MHz - 200MHz
                                                  Open Drain Enable Field: Open Drain Disabled
                                                  Pull / Keep Enable Field: Pull/Keeper Enabled
                                                  Pull / Keep Select Field: Pull
@@ -194,7 +194,7 @@ void BOARD_InitPins(void) {
       IOMUXC_GPIO_AD_B0_11_ENET_RX_EN,        /* GPIO_AD_B0_11 PAD functional properties : */
       0xB0E9U);                               /* Slew Rate Field: Fast Slew Rate
                                                  Drive Strength Field: R0/5
-                                                 Speed Field: max(200MHz)
+                                                 Speed Field: 150MHz - 200MHz
                                                  Open Drain Enable Field: Open Drain Disabled
                                                  Pull / Keep Enable Field: Pull/Keeper Enabled
                                                  Pull / Keep Select Field: Pull
@@ -204,7 +204,7 @@ void BOARD_InitPins(void) {
       IOMUXC_GPIO_AD_B0_12_ENET_RX_ER,        /* GPIO_AD_B0_12 PAD functional properties : */
       0xB0E9U);                               /* Slew Rate Field: Fast Slew Rate
                                                  Drive Strength Field: R0/5
-                                                 Speed Field: max(200MHz)
+                                                 Speed Field: 150MHz - 200MHz
                                                  Open Drain Enable Field: Open Drain Disabled
                                                  Pull / Keep Enable Field: Pull/Keeper Enabled
                                                  Pull / Keep Select Field: Pull
@@ -214,7 +214,7 @@ void BOARD_InitPins(void) {
       IOMUXC_GPIO_AD_B0_13_ENET_TX_EN,        /* GPIO_AD_B0_13 PAD functional properties : */
       0xB0E9U);                               /* Slew Rate Field: Fast Slew Rate
                                                  Drive Strength Field: R0/5
-                                                 Speed Field: max(200MHz)
+                                                 Speed Field: 150MHz - 200MHz
                                                  Open Drain Enable Field: Open Drain Disabled
                                                  Pull / Keep Enable Field: Pull/Keeper Enabled
                                                  Pull / Keep Select Field: Pull
@@ -224,7 +224,7 @@ void BOARD_InitPins(void) {
       IOMUXC_GPIO_AD_B0_14_ENET_TDATA00,      /* GPIO_AD_B0_14 PAD functional properties : */
       0xB0E9U);                               /* Slew Rate Field: Fast Slew Rate
                                                  Drive Strength Field: R0/5
-                                                 Speed Field: max(200MHz)
+                                                 Speed Field: 150MHz - 200MHz
                                                  Open Drain Enable Field: Open Drain Disabled
                                                  Pull / Keep Enable Field: Pull/Keeper Enabled
                                                  Pull / Keep Select Field: Pull
@@ -234,7 +234,7 @@ void BOARD_InitPins(void) {
       IOMUXC_GPIO_AD_B0_15_ENET_TDATA01,      /* GPIO_AD_B0_15 PAD functional properties : */
       0xB0E9U);                               /* Slew Rate Field: Fast Slew Rate
                                                  Drive Strength Field: R0/5
-                                                 Speed Field: max(200MHz)
+                                                 Speed Field: 150MHz - 200MHz
                                                  Open Drain Enable Field: Open Drain Disabled
                                                  Pull / Keep Enable Field: Pull/Keeper Enabled
                                                  Pull / Keep Select Field: Pull
@@ -244,7 +244,7 @@ void BOARD_InitPins(void) {
       IOMUXC_GPIO_AD_B1_06_GPIO1_IO22,        /* GPIO_AD_B1_06 PAD functional properties : */
       0xB0A9U);                               /* Slew Rate Field: Fast Slew Rate
                                                  Drive Strength Field: R0/5
-                                                 Speed Field: medium(100MHz)
+                                                 Speed Field: 100MHz - 150MHz
                                                  Open Drain Enable Field: Open Drain Disabled
                                                  Pull / Keep Enable Field: Pull/Keeper Enabled
                                                  Pull / Keep Select Field: Pull
@@ -254,7 +254,7 @@ void BOARD_InitPins(void) {
       IOMUXC_GPIO_EMC_40_ENET_MDIO,           /* GPIO_EMC_40 PAD functional properties : */
       0xB0E9U);                               /* Slew Rate Field: Fast Slew Rate
                                                  Drive Strength Field: R0/5
-                                                 Speed Field: max(200MHz)
+                                                 Speed Field: 150MHz - 200MHz
                                                  Open Drain Enable Field: Open Drain Disabled
                                                  Pull / Keep Enable Field: Pull/Keeper Enabled
                                                  Pull / Keep Select Field: Pull
@@ -264,7 +264,7 @@ void BOARD_InitPins(void) {
       IOMUXC_GPIO_EMC_41_ENET_MDC,            /* GPIO_EMC_41 PAD functional properties : */
       0xB0E9U);                               /* Slew Rate Field: Fast Slew Rate
                                                  Drive Strength Field: R0/5
-                                                 Speed Field: max(200MHz)
+                                                 Speed Field: 150MHz - 200MHz
                                                  Open Drain Enable Field: Open Drain Disabled
                                                  Pull / Keep Enable Field: Pull/Keeper Enabled
                                                  Pull / Keep Select Field: Pull

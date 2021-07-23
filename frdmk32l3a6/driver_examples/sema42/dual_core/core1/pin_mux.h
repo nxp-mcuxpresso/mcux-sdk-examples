@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -36,7 +36,7 @@ void BOARD_InitBootPins(void);
  * @brief Configures pin routing and optionally pin electrical features.
  *
  */
-void BOARD_InitPins_Core1(void);
+void BOARD_InitPins_Core1(void); /* Function assigned for the Cortex-M0P */
 
 #if defined(__cplusplus)
 }

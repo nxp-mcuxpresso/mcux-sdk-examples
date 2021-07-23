@@ -66,8 +66,8 @@ int main(void)
     mscan_config_t mscanConfig;
 
     /* Initialize board hardware. */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\n==MSCAN loopback example -- Start.==\r\n\r\n");

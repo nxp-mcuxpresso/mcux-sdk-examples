@@ -17,9 +17,7 @@
     <definition extID="device.K32L2B31A_startup.K32L2B31A"/>
     <definition extID="platform.drivers.uart.K32L2B31A"/>
     <definition extID="platform.drivers.smc.K32L2B31A"/>
-    <definition extID="platform.Include_core_cm0plus.K32L2B31A"/>
-    <definition extID="platform.Include_common.K32L2B31A"/>
-    <definition extID="platform.Include_dsp.K32L2B31A"/>
+    <definition extID="CMSIS_Include_core_cm.K32L2B31A"/>
     <definition extID="platform.utilities.misc_utilities.K32L2B31A"/>
     <definition extID="device.K32L2B31A_system.K32L2B31A"/>
     <definition extID="iar"/>
@@ -28,7 +26,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="frdmk32l2b_adc16_low_power" name="adc16_low_power" dependency="utility.debug_console_lite.K32L2B31A platform.utilities.assert_lite.K32L2B31A platform.drivers.port.K32L2B31A platform.drivers.lptmr.K32L2B31A platform.drivers.gpio.K32L2B31A platform.drivers.clock.K32L2B31A platform.drivers.adc16.K32L2B31A platform.drivers.pmc.K32L2B31A platform.drivers.common.K32L2B31A device.K32L2B31A_CMSIS.K32L2B31A component.lpuart_adapter.K32L2B31A component.lists.K32L2B31A platform.drivers.lpuart.K32L2B31A device.K32L2B31A_startup.K32L2B31A platform.drivers.uart.K32L2B31A platform.drivers.smc.K32L2B31A platform.Include_core_cm0plus.K32L2B31A platform.Include_common.K32L2B31A platform.Include_dsp.K32L2B31A platform.utilities.misc_utilities.K32L2B31A device.K32L2B31A_system.K32L2B31A" category="demo_apps">
+  <example id="frdmk32l2b_adc16_low_power" name="adc16_low_power" dependency="utility.debug_console_lite.K32L2B31A platform.utilities.assert_lite.K32L2B31A platform.drivers.port.K32L2B31A platform.drivers.lptmr.K32L2B31A platform.drivers.gpio.K32L2B31A platform.drivers.clock.K32L2B31A platform.drivers.adc16.K32L2B31A platform.drivers.pmc.K32L2B31A platform.drivers.common.K32L2B31A device.K32L2B31A_CMSIS.K32L2B31A component.lpuart_adapter.K32L2B31A component.lists.K32L2B31A platform.drivers.lpuart.K32L2B31A device.K32L2B31A_startup.K32L2B31A platform.drivers.uart.K32L2B31A platform.drivers.smc.K32L2B31A CMSIS_Include_core_cm.K32L2B31A platform.utilities.misc_utilities.K32L2B31A device.K32L2B31A_system.K32L2B31A" category="demo_apps">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -38,6 +36,7 @@
           <value>CPU_K32L2B31VLH0A</value>
           <value>FRDM_K32L2B</value>
           <value>FREEDOM</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.none</value>
@@ -119,17 +118,8 @@
     <source path="examples/frdmk32l2b/demo_apps/adc16_low_power" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
     </source>
-    <source path="examples/frdmk32l2b/demo_apps/adc16_low_power/iar" project_relative_path="K32L2B31A/iar" type="linker" toolchain="iar">
-      <files mask="K32L2B31xxxxA_flash.icf"/>
-    </source>
-    <source path="examples/frdmk32l2b/demo_apps/adc16_low_power/mdk" project_relative_path="K32L2B31A/arm" type="linker" toolchain="mdk">
-      <files mask="K32L2B31xxxxA_flash.scf"/>
-    </source>
     <source path="examples/frdmk32l2b/demo_apps/adc16_low_power/armgcc" project_relative_path="K32L2B31A/gcc" type="linker" toolchain="armgcc">
       <files mask="K32L2B31xxxxA_flash.ld"/>
-    </source>
-    <source path="examples/frdmk32l2b/demo_apps/adc16_low_power/iar" project_relative_path="frdmk32l2b" type="configuration" toolchain="iar">
-      <files mask="FlashKLxx256KROM_with_config_write_enabled.board"/>
     </source>
   </example>
 </ksdk:examples>

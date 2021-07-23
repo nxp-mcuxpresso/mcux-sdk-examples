@@ -15,9 +15,7 @@
     <definition extID="component.miniusart_adapter.LPC824"/>
     <definition extID="device.LPC824_startup.LPC824"/>
     <definition extID="platform.drivers.lpc_iocon_lite.LPC824"/>
-    <definition extID="platform.Include_core_cm0plus.LPC824"/>
-    <definition extID="platform.Include_common.LPC824"/>
-    <definition extID="platform.Include_dsp.LPC824"/>
+    <definition extID="CMSIS_Include_core_cm.LPC824"/>
     <definition extID="platform.drivers.reset.LPC824"/>
     <definition extID="platform.drivers.inputmux_connections.LPC824"/>
     <definition extID="platform.utilities.misc_utilities.LPC824"/>
@@ -30,7 +28,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso824max_usart_transfer_ring_buffer" name="usart_transfer_ring_buffer" dependency="utility.debug_console_lite.LPC824 platform.utilities.assert_lite.LPC824 platform.drivers.lpc_miniusart.LPC824 platform.drivers.common.LPC824 platform.drivers.clock.LPC824 platform.drivers.power_no_lib.LPC824 platform.drivers.lpc_gpio.LPC824 platform.drivers.inputmux.LPC824 platform.drivers.swm.LPC824 platform.drivers.syscon.LPC824 device.LPC824_CMSIS.LPC824 component.miniusart_adapter.LPC824 device.LPC824_startup.LPC824 platform.drivers.lpc_iocon_lite.LPC824 platform.Include_core_cm0plus.LPC824 platform.Include_common.LPC824 platform.Include_dsp.LPC824 platform.drivers.reset.LPC824 platform.drivers.inputmux_connections.LPC824 platform.utilities.misc_utilities.LPC824 platform.drivers.swm_connections.LPC824 platform.drivers.syscon_connections.LPC824 device.LPC824_system.LPC824" category="driver_examples/usart">
+  <example id="lpcxpresso824max_usart_transfer_ring_buffer" name="usart_transfer_ring_buffer" dependency="utility.debug_console_lite.LPC824 platform.utilities.assert_lite.LPC824 platform.drivers.lpc_miniusart.LPC824 platform.drivers.common.LPC824 platform.drivers.clock.LPC824 platform.drivers.power_no_lib.LPC824 platform.drivers.lpc_gpio.LPC824 platform.drivers.inputmux.LPC824 platform.drivers.swm.LPC824 platform.drivers.syscon.LPC824 device.LPC824_CMSIS.LPC824 component.miniusart_adapter.LPC824 device.LPC824_startup.LPC824 platform.drivers.lpc_iocon_lite.LPC824 CMSIS_Include_core_cm.LPC824 platform.drivers.reset.LPC824 platform.drivers.inputmux_connections.LPC824 platform.utilities.misc_utilities.LPC824 platform.drivers.swm_connections.LPC824 platform.drivers.syscon_connections.LPC824 device.LPC824_system.LPC824" category="driver_examples/usart">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -39,6 +37,7 @@
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>CPU_LPC824</value>
           <value>CPU_LPC824M201JHI33</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.none</value>
@@ -113,12 +112,6 @@
     </source>
     <source path="examples/lpcxpresso824max/driver_examples/usart/transfer_ring_buffer" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/lpcxpresso824max/driver_examples/usart/transfer_ring_buffer/iar" project_relative_path="LPC824/iar" type="linker" toolchain="iar">
-      <files mask="LPC824_flash.icf"/>
-    </source>
-    <source path="examples/lpcxpresso824max/driver_examples/usart/transfer_ring_buffer/mdk" project_relative_path="LPC824/arm" type="linker" toolchain="mdk">
-      <files mask="LPC824_flash.scf"/>
     </source>
     <source path="examples/lpcxpresso824max/driver_examples/usart/transfer_ring_buffer/armgcc" project_relative_path="LPC824/gcc" type="linker" toolchain="armgcc">
       <files mask="LPC824_flash.ld"/>

@@ -17,9 +17,7 @@
     <definition extID="platform.drivers.uart.K32L2B31A"/>
     <definition extID="platform.drivers.smc.K32L2B31A"/>
     <definition extID="platform.utilities.assert.K32L2B31A"/>
-    <definition extID="platform.Include_core_cm0plus.K32L2B31A"/>
-    <definition extID="platform.Include_common.K32L2B31A"/>
-    <definition extID="platform.Include_dsp.K32L2B31A"/>
+    <definition extID="CMSIS_Include_core_cm.K32L2B31A"/>
     <definition extID="middleware.freertos-kernel.K32L2B31A"/>
     <definition extID="middleware.freertos-kernel.extension.K32L2B31A"/>
     <definition extID="platform.utilities.misc_utilities.K32L2B31A"/>
@@ -30,7 +28,7 @@
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="mdk"/>
   </externalDefinitions>
-  <example id="frdmk32l2b_freertos_segger_sysview" name="freertos_segger_sysview" dependency="platform.drivers.port.K32L2B31A platform.drivers.gpio.K32L2B31A platform.drivers.clock.K32L2B31A middleware.freertos-kernel.heap_4.K32L2B31A platform.drivers.common.K32L2B31A device.K32L2B31A_CMSIS.K32L2B31A utility.debug_console.K32L2B31A component.lpuart_adapter.K32L2B31A component.serial_manager.K32L2B31A component.lists.K32L2B31A component.serial_manager_uart.K32L2B31A platform.drivers.lpuart.K32L2B31A device.K32L2B31A_startup.K32L2B31A platform.drivers.uart.K32L2B31A platform.drivers.smc.K32L2B31A platform.utilities.assert.K32L2B31A platform.Include_core_cm0plus.K32L2B31A platform.Include_common.K32L2B31A platform.Include_dsp.K32L2B31A middleware.freertos-kernel.K32L2B31A middleware.freertos-kernel.extension.K32L2B31A platform.utilities.misc_utilities.K32L2B31A device.K32L2B31A_system.K32L2B31A" category="rtos_examples/visualization">
+  <example id="frdmk32l2b_freertos_segger_sysview" name="freertos_segger_sysview" dependency="platform.drivers.port.K32L2B31A platform.drivers.gpio.K32L2B31A platform.drivers.clock.K32L2B31A middleware.freertos-kernel.heap_4.K32L2B31A platform.drivers.common.K32L2B31A device.K32L2B31A_CMSIS.K32L2B31A utility.debug_console.K32L2B31A component.lpuart_adapter.K32L2B31A component.serial_manager.K32L2B31A component.lists.K32L2B31A component.serial_manager_uart.K32L2B31A platform.drivers.lpuart.K32L2B31A device.K32L2B31A_startup.K32L2B31A platform.drivers.uart.K32L2B31A platform.drivers.smc.K32L2B31A platform.utilities.assert.K32L2B31A CMSIS_Include_core_cm.K32L2B31A middleware.freertos-kernel.K32L2B31A middleware.freertos-kernel.extension.K32L2B31A platform.utilities.misc_utilities.K32L2B31A device.K32L2B31A_system.K32L2B31A" category="rtos_examples/visualization">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -41,7 +39,8 @@
           <value>FRDM_K32L2B</value>
           <value>FREEDOM</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
-          <value>FSL_RTOS_FREE_RTOS</value>
+          <value>SDK_OS_FREE_RTOS</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.none</value>
@@ -73,11 +72,13 @@
       <include_path path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview" project_relative_path="source" type="c_include"/>
       <include_path path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview/SEGGER" project_relative_path="segger_sysview" type="c_include"/>
       <include_path path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview/Config" project_relative_path="segger_sysview" type="c_include"/>
-      <include_path path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview/Sample/OS" project_relative_path="segger_sysview" type="c_include"/>
-      <include_path path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview/Sample/OS" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview/Sample/FreeRTOSV10" project_relative_path="segger_sysview" type="c_include"/>
+      <include_path path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview/Sample/FreeRTOSV10" project_relative_path="board" type="c_include"/>
       <include_path path="boards/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview" project_relative_path="frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview" type="c_include"/>
       <include_path path="boards/frdmk32l2b" project_relative_path="board" type="c_include"/>
       <include_path path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview" project_relative_path="source" type="asm_include"/>
+      <include_path path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview/SEGGER" project_relative_path="segger_sysview" type="asm_include"/>
+      <include_path path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview/Config" project_relative_path="segger_sysview" type="asm_include"/>
     </include_paths>
     <source path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="freertos_segger_sysview.ewd"/>
@@ -117,21 +118,24 @@
       <files mask="SEGGER_RTT.c"/>
       <files mask="SEGGER_SYSVIEW.c"/>
     </source>
+    <source path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview/SEGGER" project_relative_path="segger_sysview" type="asm_include">
+      <files mask="SEGGER_RTT_ASM_ARMv7M.S"/>
+    </source>
     <source path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview/Config" project_relative_path="segger_sysview" type="c_include">
       <files mask="Global.h"/>
       <files mask="SEGGER_RTT_Conf.h"/>
       <files mask="SEGGER_SYSVIEW_Conf.h"/>
     </source>
-    <source path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview/Sample/OS" project_relative_path="segger_sysview" type="src">
+    <source path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview/Sample/FreeRTOSV10" project_relative_path="segger_sysview" type="src">
       <files mask="SEGGER_SYSVIEW_FreeRTOS.c"/>
     </source>
-    <source path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview/Sample/OS" project_relative_path="segger_sysview" type="c_include">
+    <source path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview/Sample/FreeRTOSV10" project_relative_path="segger_sysview" type="c_include">
       <files mask="SEGGER_SYSVIEW_FreeRTOS.h"/>
     </source>
-    <source path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview/Sample/OS" project_relative_path="board" type="src">
+    <source path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview" project_relative_path="board" type="src">
       <files mask="pin_mux.c"/>
     </source>
-    <source path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview/Sample/OS" project_relative_path="board" type="c_include">
+    <source path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview" project_relative_path="board" type="c_include">
       <files mask="pin_mux.h"/>
     </source>
     <source path="core/boards/frdmk32l2b" project_relative_path="board" type="src">
@@ -145,14 +149,8 @@
     <source path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
     </source>
-    <source path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview/iar" project_relative_path="K32L2B31A/iar" type="linker" toolchain="iar">
-      <files mask="K32L2B31xxxxA_flash.icf"/>
-    </source>
     <source path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview/armgcc" project_relative_path="K32L2B31A/gcc" type="linker" toolchain="armgcc">
       <files mask="K32L2B31xxxxA_flash.ld"/>
-    </source>
-    <source path="examples/frdmk32l2b/rtos_examples/visualization/freertos_segger_sysview/iar" project_relative_path="frdmk32l2b" type="configuration" toolchain="iar">
-      <files mask="FlashKLxx256KROM_with_config_write_enabled.board"/>
     </source>
   </example>
 </ksdk:examples>

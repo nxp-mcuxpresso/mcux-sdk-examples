@@ -1,6 +1,6 @@
 # CROSS COMPILER SETTING
 SET(CMAKE_SYSTEM_NAME Generic)
-CMAKE_MINIMUM_REQUIRED (VERSION 3.1.1)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
 SET (Tutorial_VERSION_MAJOR 1)
@@ -43,7 +43,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/.. debug
     ${ProjDirPath}/..
     ${ProjDirPath}/../../../../../../examples/frdmk32l3a6/multicore_examples/rpmsg_lite_pingpong_rtos/cm0plus
     ${ProjDirPath}/../../../../../../core/boards/frdmk32l3a6
@@ -70,6 +69,12 @@ include(driver_clock)
 
 include(driver_mu)
 
+include(middleware_freertos-kernel_K32L3A60_cm0plus)
+
+include(middleware_multicore_mcmgr)
+
+include(middleware_freertos-kernel_heap_4)
+
 include(driver_common)
 
 include(driver_msmc)
@@ -90,25 +95,15 @@ include(component_serial_manager_uart)
 
 include(device_CMSIS)
 
-include(CMSIS_Include_core_cm0plus)
-
 include(device_startup_K32L3A60_cm0plus)
 
-include(middleware_multicore_mcmgr)
+include(CMSIS_Include_core_cm)
 
 include(middleware_multicore_rpmsg_lite)
 
-include(middleware_freertos-kernel_K32L3A60_cm0plus)
-
 include(middleware_freertos-kernel_extension)
 
-include(middleware_freertos-kernel_heap_3)
-
 include(utilities_misc_utilities)
-
-include(CMSIS_Include_common)
-
-include(CMSIS_Include_dsp)
 
 include(device_system_K32L3A60_cm0plus)
 

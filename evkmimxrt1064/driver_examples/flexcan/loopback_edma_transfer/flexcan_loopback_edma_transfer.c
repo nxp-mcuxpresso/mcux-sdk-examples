@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2019 NXP
+ * Copyright 2016-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -36,11 +36,13 @@
 /* Clock divider for master flexcan clock source */
 #define FLEXCAN_CLOCK_SOURCE_DIVIDER (2U)
 /* Get frequency of flexcan clock */
-#define EXAMPLE_CAN_CLK_FREQ    ((CLOCK_GetFreq(kCLOCK_Usb1PllClk) / 8) / (FLEXCAN_CLOCK_SOURCE_DIVIDER + 1U))
-#define EXAMPLE_CAN_DMA         DMA0
-#define EXAMPLE_CAN_DMA_CHANNEL 0
-#define EXAMPLE_CAN_DMA_REQUEST kDmaRequestMuxCAN3
-#define EXAMPLE_CAN_DMAMUX      DMAMUX
+#define EXAMPLE_CAN_CLK_FREQ ((CLOCK_GetFreq(kCLOCK_Usb1PllClk) / 8) / (FLEXCAN_CLOCK_SOURCE_DIVIDER + 1U))
+/* Set USE_IMPROVED_TIMING_CONFIG macro to use api to calculates the improved CAN / CAN FD timing values. */
+#define USE_IMPROVED_TIMING_CONFIG (1U)
+#define EXAMPLE_CAN_DMA            DMA0
+#define EXAMPLE_CAN_DMA_CHANNEL    0
+#define EXAMPLE_CAN_DMA_REQUEST    kDmaRequestMuxCAN3
+#define EXAMPLE_CAN_DMAMUX         DMAMUX
 /* Fix MISRA_C-2012 Rule 17.7. */
 #define LOG_INFO (void)PRINTF
 /*******************************************************************************
@@ -67,7 +69,7 @@ AT_NONCACHEABLE_SECTION(flexcan_frame_t rxFrame);
 /*!
  * @brief FlexCAN Call Back function
  */
-static void flexcan_callback(CAN_Type *base, flexcan_handle_t *handle, status_t status, uint32_t result, void *userData)
+static FLEXCAN_CALLBACK(flexcan_callback)
 {
     /* Process FlexCAN Tx event. */
     if ((kStatus_FLEXCAN_TxIdle == status) && (TX_MESSAGE_BUFFER_NUM == result))
@@ -103,8 +105,8 @@ int main(void)
 
     /* Initialize board hardware. */
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /*Clock setting for FLEXCAN*/
@@ -137,7 +139,8 @@ int main(void)
 #if (defined(USE_IMPROVED_TIMING_CONFIG) && USE_IMPROVED_TIMING_CONFIG)
     flexcan_timing_config_t timing_config;
     memset(&timing_config, 0, sizeof(flexcan_timing_config_t));
-    if (FLEXCAN_CalculateImprovedTimingValues(flexcanConfig.baudRate, EXAMPLE_CAN_CLK_FREQ, &timing_config))
+    if (FLEXCAN_CalculateImprovedTimingValues(EXAMPLE_CAN, flexcanConfig.baudRate, EXAMPLE_CAN_CLK_FREQ,
+                                              &timing_config))
     {
         /* Update the improved timing configuration*/
         memcpy(&(flexcanConfig.timingConfig), &timing_config, sizeof(flexcan_timing_config_t));
@@ -168,6 +171,9 @@ int main(void)
 
     /* Create EDMA handle. */
     EDMA_CreateHandle(&flexcanRxFifoEdmaHandle, EXAMPLE_CAN_DMA, EXAMPLE_CAN_DMA_CHANNEL);
+#if defined(FSL_FEATURE_EDMA_HAS_CHANNEL_MUX) && FSL_FEATURE_EDMA_HAS_CHANNEL_MUX
+    EDMA_SetChannelMux(EXAMPLE_CAN_DMA, EXAMPLE_CAN_DMA_CHANNEL, FLEXCAN_DMA_REQUEST_SOURCE);
+#endif
 
     /* Setup Tx Message Buffer. */
     FLEXCAN_SetTxMbConfig(EXAMPLE_CAN, TX_MESSAGE_BUFFER_NUM, true);

@@ -53,8 +53,8 @@ int main(void)
     uint8_t deviceAddress = 0x01U;
     size_t txCount        = 0xFFU;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     CLOCK_SetIpSrc(kCLOCK_Lpi2c1, kCLOCK_IpSrcFircAsync);

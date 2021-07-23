@@ -105,13 +105,13 @@ static void APP_InitCamera(void)
 int main(void)
 {
     BOARD_ConfigMPU();
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitDEBUG_UARTPins();
     BOARD_InitSDRAMPins();
     BOARD_EarlyPrepareCamera();
     BOARD_InitCSIPins();
     BOARD_InitLCDPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("CSI CCIR656 example start...\r\n");

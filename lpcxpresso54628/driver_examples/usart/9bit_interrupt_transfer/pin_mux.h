@@ -1,0 +1,81 @@
+/*
+ * Copyright 2021 NXP
+ * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+#ifndef _PIN_MUX_H_
+#define _PIN_MUX_H_
+
+/*!
+ * @addtogroup pin_mux
+ * @{
+ */
+
+/***********************************************************************************************************************
+ * API
+ **********************************************************************************************************************/
+
+#if defined(__cplusplus)
+extern "C" {
+#endif
+
+/*!
+ * @brief Calls initialization functions.
+ *
+ */
+void BOARD_InitBootPins(void);
+
+#define IOCON_PIO_DIGITAL_EN 0x0100u  /*!<@brief Enables digital function */
+#define IOCON_PIO_FUNC1 0x01u         /*!<@brief Selects pin function 1 */
+#define IOCON_PIO_FUNC6 0x06u         /*!<@brief Selects pin function 6 */
+#define IOCON_PIO_INPFILT_OFF 0x0200u /*!<@brief Input filter disabled */
+#define IOCON_PIO_INV_DI 0x00u        /*!<@brief Input function is not inverted */
+#define IOCON_PIO_MODE_INACT 0x00u    /*!<@brief No addition pin function */
+#define IOCON_PIO_OPENDRAIN_DI 0x00u  /*!<@brief Open drain is disabled */
+#define IOCON_PIO_SLEW_STANDARD 0x00u /*!<@brief Standard mode, output slew rate control is enabled */
+#define PIO118_DIGIMODE_DIGITAL 0x01u /*!<@brief Select Analog/Digital mode.: Digital mode. */
+#define PIO118_FUNC_ALT2 0x02u        /*!<@brief Selects pin function.: Alternative connection 2. */
+#define PIO316_DIGIMODE_DIGITAL 0x01u /*!<@brief Select Analog/Digital mode.: Digital mode. */
+#define PIO316_FUNC_ALT1 0x01u        /*!<@brief Selects pin function.: Alternative connection 1. */
+
+/*! @name PIO0_29 (coord B13), U24[13]/P0_29-ISP_FC0_RXD
+  @{ */
+#define BOARD_ISP_FC0_RXD_PORT 0U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_ISP_FC0_RXD_PIN 29U                   /*!<@brief PORT pin number */
+#define BOARD_ISP_FC0_RXD_PIN_MASK (1U << 29U)      /*!<@brief PORT pin mask */
+                                                    /* @} */
+
+/*! @name PIO0_30 (coord A2), U24[12]/P0_30-ISP_FC0_TXD
+  @{ */
+#define BOARD_ISP_FC0_TXD_PORT 0U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_ISP_FC0_TXD_PIN 30U                   /*!<@brief PORT pin number */
+#define BOARD_ISP_FC0_TXD_PIN_MASK (1U << 30U)      /*!<@brief PORT pin mask */
+                                                    /* @} */
+
+/*! @name PIO0_10 (coord P2), U16[12]/SWO_TRGT
+  @{ */
+#define BOARD_SWO_TRGT_PORT 0U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_SWO_TRGT_PIN 10U                   /*!<@brief PORT pin number */
+#define BOARD_SWO_TRGT_PIN_MASK (1U << 10U)      /*!<@brief PORT pin mask */
+                                                 /* @} */
+
+/*!
+ * @brief Configures pin routing and optionally pin electrical features.
+ *
+ */
+void BOARD_InitPins(void); /* Function assigned for the Cortex-M4F */
+
+#if defined(__cplusplus)
+}
+#endif
+
+/*!
+ * @}
+ */
+#endif /* _PIN_MUX_H_ */
+
+/***********************************************************************************************************************
+ * EOF
+ **********************************************************************************************************************/

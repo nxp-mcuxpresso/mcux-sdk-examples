@@ -67,8 +67,8 @@ int main(void)
     edma_config_t userConfig;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     /* Print source buffer */
     PRINTF("EDMA ping pong transfer example begin.\r\n\r\n");

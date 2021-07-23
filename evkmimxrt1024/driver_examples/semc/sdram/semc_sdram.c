@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 NXP
+ * Copyright 2017-2020 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -63,7 +63,7 @@ status_t BOARD_InitSEMC(void)
     sdramconfig.casLatency          = kSEMC_LatencyThree;
     sdramconfig.tPrecharge2Act_Ns   = 18; /* Trp 18ns */
     sdramconfig.tAct2ReadWrite_Ns   = 18; /* Trcd 18ns */
-    sdramconfig.tRefreshRecovery_Ns = (60 + 67);
+    sdramconfig.tRefreshRecovery_Ns = 67; /* Use the maximum of the (Trfc , Txsr). */
     sdramconfig.tWriteRecovery_Ns   = 12; /* 12ns */
     sdramconfig.tCkeOff_Ns =
         42; /* The minimum cycle of SDRAM CLK off state. CKE is off in self refresh at a minimum period tRAS.*/
@@ -78,6 +78,9 @@ status_t BOARD_InitSEMC(void)
     return SEMC_ConfigureSDRAM(SEMC, kSEMC_SDRAM_CS0, &sdramconfig, clockFrq);
 }
 
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+#include "fsl_cache.h"
+#endif
 
 /*!
  * @brief Main function
@@ -86,13 +89,13 @@ int main(void)
 {
     /* Hardware initialize. */
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
 
-    CLOCK_InitSysPfd(kCLOCK_Pfd2, 29);
-    /* Set semc clock to 163.86 MHz */
+    CLOCK_InitSysPfd(kCLOCK_Pfd2, 24);
+    /* Set semc clock to 132 MHz */
     CLOCK_SetMux(kCLOCK_SemcMux, 1);
-    CLOCK_SetDiv(kCLOCK_SemcDiv, 1);
+    CLOCK_SetDiv(kCLOCK_SemcDiv, 2);
     BOARD_InitDebugConsole();
 
     PRINTF("\r\n SEMC SDRAM Example Start!\r\n");
@@ -129,6 +132,11 @@ void SEMC_SDRAMReadWrite32Bit(void)
     }
 
     PRINTF("\r\n SEMC SDRAM Read 32 bit Data Start, Start Address 0x%x, Data Length %d !\r\n", sdram, datalen);
+
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    DCACHE_InvalidateByRange(EXAMPLE_SEMC_START_ADDRESS, 4U * SEMC_EXAMPLE_DATALEN);
+#endif
+
     /* Read data from the SDRAM. */
     for (index = 0; index < datalen; index++)
     {
@@ -176,6 +184,11 @@ static void SEMC_SDRAMReadWrite16Bit(void)
     }
 
     PRINTF("\r\n SEMC SDRAM Read 16 bit Data Start, Start Address 0x%x, Data Length %d !\r\n", sdram, datalen);
+
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    DCACHE_InvalidateByRange(EXAMPLE_SEMC_START_ADDRESS, 4U * SEMC_EXAMPLE_DATALEN);
+#endif
+
     /* Read data from the SDRAM. */
     for (index = 0; index < datalen; index++)
     {
@@ -223,6 +236,11 @@ static void SEMC_SDRAMReadWrite8Bit(void)
     }
 
     PRINTF("\r\n SEMC SDRAM Read 8 bit Data Start, Start Address 0x%x, Data Length %d !\r\n", sdram, datalen);
+
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    DCACHE_InvalidateByRange(EXAMPLE_SEMC_START_ADDRESS, 4U * SEMC_EXAMPLE_DATALEN);
+#endif
+
     /* Read data from the SDRAM. */
     for (index = 0; index < datalen; index++)
     {

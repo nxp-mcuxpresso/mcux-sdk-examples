@@ -1,5 +1,5 @@
 /*
- * Copyright  2018 NXP
+ * Copyright  2018 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v4.1
+product: Pins v9.0
 processor: LPC804
 package_id: LPC804M101JDH24
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 9.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -74,7 +74,7 @@ void BOARD_InitPins(void)
                                                 IOCON_PIO_INV_DI |
                                                 /* Enables Open-drain function */
                                                 IOCON_PIO_OD_EN);
-    /* PORT1 PIN1 (coords: ) is configured as  */
+    /* PIO0 PIN1 (coords: 15) is configured as ACMP, ACMP_IN2. */
     IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_1, IOCON_INDEX_PIO0_1_config);
 
     /* USART0_TXD connect to P0_4 */

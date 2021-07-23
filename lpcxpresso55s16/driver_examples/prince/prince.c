@@ -33,7 +33,7 @@
  * Variables
  ******************************************************************************/
 
-
+uint8_t flash_data[8192] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}; /* Dummy data with size 0x2000 */
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -45,6 +45,7 @@ int main(void)
     uint32_t prince_region_base_address            = 0;
     uint32_t prince_subregion                      = 0;
     uint8_t prince_iv_code[FLASH_FFR_IV_CODE_SIZE] = {0};
+    uint8_t read_buff[16]                          = {0};
     status_t status;
     flash_config_t flashInstance;
     uint8_t keyCode[PUF_GET_KEY_CODE_SIZE_FOR_KEY_SIZE(PUF_INTRINSIC_KEY_SIZE)] = {0};
@@ -56,7 +57,7 @@ int main(void)
     /* attach main clock divide to FLEXCOMM0 (debug console) */
     CLOCK_AttachClk(BOARD_DEBUG_UART_CLK_ATTACH);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     /* Do not use other clock, otherwise the Flash driver is not working correctly */
     BOARD_BootClockFRO12M();
     BOARD_InitDebugConsole();
@@ -172,9 +173,14 @@ int main(void)
         {
             PRINTF("\r\nErasing PRINCE encrypted region(s) failed\r\n");
         }
-        /* prince_iv_code start address used as the pointer to the source buffer of data that is to be programmed
-           into the flash (dummy data), normally it will be a pointer to the user defined data / binary image */
-        status = PRINCE_FlashProgramWithChecker(&flashInstance, APP_ENCRYPTION_START_ADDR, (uint8_t *)prince_iv_code,
+
+        /* Enable PRINCE after Erase */
+        PRINCE_EncryptEnable(PRINCE);
+
+        PRINTF("\r\nProgram data to FLASH at address: 0x%x\r\n", APP_ENCRYPTION_START_ADDR);
+        /* Data to be programmed into the flash (dummy data), normally it will be a pointer to the user defined data /
+         * binary image */
+        status = PRINCE_FlashProgramWithChecker(&flashInstance, APP_ENCRYPTION_START_ADDR, (uint8_t *)flash_data,
                                                 APP_ENCRYPTION_LENGTH);
         if (status != kStatus_Success)
         {
@@ -184,6 +190,23 @@ int main(void)
         /* Disable data encryption */
         PRINCE_EncryptDisable(PRINCE);
     }
+
+    PRINTF("\r\nRead decrypted data form address: 0x%x\r\n", APP_ENCRYPTION_START_ADDR);
+    /* Check of first 16 bytes of decrypted data */
+    for (int i = 0; i < 16U; i++)
+    {
+        read_buff[i] = *(volatile uint8_t *)(APP_ENCRYPTION_START_ADDR + i);
+    }
+
+    if (memcmp(read_buff, flash_data, sizeof(read_buff)) != 0U)
+    {
+        PRINTF("Error while reading decrypted data!!\r\n");
+    }
+    else
+    {
+        PRINTF("\r\nDecrypted data read successfully!!\r\n");
+    }
+
     PRINTF("\r\nExample end.\r\n");
 
     while (1)

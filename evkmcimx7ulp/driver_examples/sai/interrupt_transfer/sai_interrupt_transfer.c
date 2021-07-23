@@ -14,9 +14,9 @@
 #include "music.h"
 #include "fsl_codec_common.h"
 
-#include "fsl_wm8960.h"
 #include "fsl_gpio.h"
 #include "fsl_iomuxc.h"
+#include "fsl_wm8960.h"
 #include "fsl_codec_adapter.h"
 /*******************************************************************************
  * Definitions
@@ -49,6 +49,9 @@
 #define BOARD_SAI_RXCONFIG(config, mode)
 #ifndef DEMO_CODEC_INIT_DELAY_MS
 #define DEMO_CODEC_INIT_DELAY_MS (1000U)
+#endif
+#ifndef DEMO_CODEC_VOLUME
+#define DEMO_CODEC_VOLUME 100U
 #endif
 /*******************************************************************************
  * Prototypes
@@ -183,11 +186,19 @@ int main(void)
     /* master clock configurations */
     BOARD_MASTER_CLOCK_CONFIG();
 
-    /* Use default setting to init codec */
+#if defined DEMO_BOARD_CODEC_INIT
+    DEMO_BOARD_CODEC_INIT();
+#else
     if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
     {
         assert(false);
     }
+    if (CODEC_SetVolume(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight,
+                        DEMO_CODEC_VOLUME) != kStatus_Success)
+    {
+        assert(false);
+    }
+#endif
     /* delay for codec output stable */
     DelayMS(DEMO_CODEC_INIT_DELAY_MS);
 

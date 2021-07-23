@@ -174,8 +174,8 @@ int main(void)
     uint8_t array_addr_size = 0;
 
     /* Init board hardware. */
-    CLOCK_EnableClock(kCLOCK_Rgpio1);
-    BOARD_InitPins();
+    CLOCK_EnableClock(kCLOCK_GpioE);
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_I2C_ReleaseBus();
     BOARD_I2C_ConfigurePins();

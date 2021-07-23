@@ -5,12 +5,13 @@ with a EDMA master:
 
 In this example, one lpi2c instance as slave and another lpi2c instance on the other board as master. Master sends a 
 piece of data to slave, and receive a piece of data from slave. This example checks if the data received from 
-slave is correct.
+slave is correct. LPI2C slave works as supporting board to help demonstrate master EDMA trasnfer, actually uses interrupt
+way. 
 
 Toolchain supported
 ===================
-- MCUXpresso  11.3.0
-- GCC ARM Embedded  9.3.1
+- MCUXpresso  11.4.0
+- GCC ARM Embedded  10.2.1
 
 Hardware requirements
 =====================

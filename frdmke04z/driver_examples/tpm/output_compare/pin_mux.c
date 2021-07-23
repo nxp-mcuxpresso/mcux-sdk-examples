@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 NXP
+ * Copyright 2017 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -10,21 +10,35 @@
  * will be overwritten if the respective MCUXpresso Config Tools is used to update this file.
  **********************************************************************************************************************/
 
+/* clang-format off */
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v4.0
+product: Pins v9.0
 processor: MKE04Z8xxx4
 package_id: MKE04Z8VFK4
 mcu_data: ksdk2_0
-processor_version: 0.0.4
+processor_version: 9.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
+/* clang-format on */
 
 #include "fsl_common.h"
 #include "fsl_port.h"
 #include "pin_mux.h"
 
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_InitBootPins
+ * Description   : Calls initialization functions.
+ *
+ * END ****************************************************************************************************************/
+void BOARD_InitBootPins(void)
+{
+    BOARD_InitPins();
+}
+
+/* clang-format off */
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitPins:
@@ -35,18 +49,28 @@ BOARD_InitPins:
   - {pin_num: '14', peripheral: FTM0, signal: 'CH, 0', pin_signal: PTB2/KBI0_P6/SPI0_SCK/FTM0_CH0/ACMP0_IN0/ADC0_SE6}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
+/* clang-format on */
 
-/*FUNCTION**********************************************************************
+/* FUNCTION ************************************************************************************************************
  *
  * Function Name : BOARD_InitPins
  * Description   : Configures pin routing and optionally pin electrical features.
  *
- *END**************************************************************************/
-void BOARD_InitPins(void) {
-  PORT_SetPinSelect(kPORT_UART0, kPORT_UART0_RXPTB0_TXPTB1);  /* pin 16,15 is configured as UART0_RX, UART0_TX */
-  PORT_SetPinSelect(kPORT_FTM0CH0, kPORT_FTM0_CH0_PTB2);     /* pin 14 is configured as FTM0_CH0 */
-}
+ * END ****************************************************************************************************************/
+void BOARD_InitPins(void)
+{
+    /* pin 16,15 is configured as UART0_RX, UART0_TX */
+    PORT_SetPinSelect(kPORT_UART0, kPORT_UART0_RXPTB0_TXPTB1);
+    /* pin 14 is configured as FTM0_CH0 */
+    PORT_SetPinSelect(kPORT_FTM0CH0, kPORT_FTM0_CH0_PTB2);
 
-/*******************************************************************************
+    SIM->SOPT = ((SIM->SOPT &
+                  /* Mask bits to zero which are setting */
+                  (~(SIM_SOPT_FTMIC_MASK)))
+
+                 /* FTM0CH0 Input Capture Source: FTM0_CH0 pin. */
+                 | SIM_SOPT_FTMIC(SOPT_FTMIC_0b00));
+}
+/***********************************************************************************************************************
  * EOF
- ******************************************************************************/
+ **********************************************************************************************************************/

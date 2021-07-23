@@ -231,7 +231,7 @@ int main(void)
     uint8_t array_addr_size = 0;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 

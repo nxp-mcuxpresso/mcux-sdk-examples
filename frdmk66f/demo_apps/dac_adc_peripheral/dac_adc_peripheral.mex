@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding= "UTF-8" ?>
-<configuration name="MK66FN2M0xxx18" version="1.5" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.5 http://mcuxpresso.nxp.com/XSD/mex_configuration_1.5.xsd" uuid="219b4530-8be9-4d3c-ba93-e79c976d9a3c" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<configuration name="" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_10 http://mcuxpresso.nxp.com/XSD/mex_configuration_10.xsd" uuid="51b1fec6-0a91-4a02-8e61-f59d4e405841" version="10" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_10" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <common>
       <processor>MK66FN2M0xxx18</processor>
       <package>MK66FN2M0VMD18</package>
@@ -8,22 +8,24 @@
       <cores selected="core0">
          <core name="Cortex-M4F" id="core0" description="M4 core"/>
       </cores>
-      <description>Configuration imported from D:\NPI_REPO\mcu-sdk-2.0\boards\frdmk66f\demo_apps\dac_adc_peripheral\armgcc</description>
+      <description></description>
    </common>
    <preferences>
       <validate_boot_init_only>true</validate_boot_init_only>
       <generate_extended_information>false</generate_extended_information>
+      <generate_code_modified_registers_only>false</generate_code_modified_registers_only>
    </preferences>
    <tools>
-      <pins name="Pins" version="5.0" enabled="true" update_project_code="true">
+      <pins name="Pins" version="9.0" enabled="true" update_project_code="true">
          <pins_profile>
-            <processor_version>0.0.19</processor_version>
+            <processor_version>0.10.4</processor_version>
          </pins_profile>
          <functions_list>
             <function name="BOARD_InitPins">
                <description>Configures pin routing and optionally pin electrical features.</description>
                <options>
                   <callFromInitBoot>true</callFromInitBoot>
+                  <prefix>BOARD_</prefix>
                   <coreID>core0</coreID>
                   <enableClock>true</enableClock>
                </options>
@@ -64,9 +66,9 @@
             </function>
          </functions_list>
       </pins>
-      <clocks name="Clocks" version="5.0" enabled="true" update_project_code="true">
+      <clocks name="Clocks" version="7.0" enabled="true" update_project_code="true">
          <clocks_profile>
-            <processor_version>0.0.19</processor_version>
+            <processor_version>0.10.4</processor_version>
          </clocks_profile>
          <clock_configurations>
             <clock_configuration name="BOARD_BootClockHSRUN">
@@ -291,34 +293,40 @@
             </clock_configuration>
          </clock_configurations>
       </clocks>
-      <periphs name="Peripherals" version="5.0" enabled="true" update_project_code="true">
+      <dcdx name="DCDx" version="3.0" enabled="false" update_project_code="true">
+         <dcdx_profile>
+            <processor_version>N/A</processor_version>
+         </dcdx_profile>
+         <dcdx_configurations/>
+      </dcdx>
+      <periphs name="Peripherals" version="9.0" enabled="true" update_project_code="true">
          <dependencies>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.dac" description="DAC Driver not found in the toolchain/IDE project." problem_level="2" source="Peripherals">
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.dac" description="DAC Driver not found in the toolchain/IDE project. Project will not compile!" problem_level="2" source="Peripherals">
                <feature name="enabled" evaluation="equal">
                   <data type="Boolean">true</data>
                </feature>
             </dependency>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.dac" description="Unsupported version of the DAC Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}." problem_level="1" source="Peripherals">
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.dac" description="Unsupported version of the DAC Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. Project might not compile correctly." problem_level="1" source="Peripherals">
                <feature name="version" evaluation="equivalent">
                   <data type="Version">2.0.1</data>
                </feature>
             </dependency>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.adc16" description="ADC16 Driver not found in the toolchain/IDE project." problem_level="2" source="Peripherals">
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.adc16" description="ADC16 Driver not found in the toolchain/IDE project. Project will not compile!" problem_level="2" source="Peripherals">
                <feature name="enabled" evaluation="equal">
                   <data type="Boolean">true</data>
                </feature>
             </dependency>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.adc16" description="Unsupported version of the ADC16 Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}." problem_level="1" source="Peripherals">
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.adc16" description="Unsupported version of the ADC16 Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. Project might not compile correctly." problem_level="1" source="Peripherals">
                <feature name="version" evaluation="equivalent">
                   <data type="Version">2.0.0</data>
                </feature>
             </dependency>
          </dependencies>
          <peripherals_profile>
-            <processor_version>0.0.19</processor_version>
+            <processor_version>0.10.4</processor_version>
          </peripherals_profile>
          <functional_groups>
-            <functional_group name="BOARD_InitPeripherals" uuid="aa881e7c-38c2-4ca8-8f3b-b47f557ec78e" called_from_default_init="true" id_prefix="" core="core0">
+            <functional_group name="BOARD_InitPeripherals" uuid="5f1e162d-b94b-4e40-bb39-48946db0862d" called_from_default_init="true" id_prefix="BOARD_" core="core0">
                <description></description>
                <options/>
                <dependencies>
@@ -339,7 +347,7 @@
                   </dependency>
                </dependencies>
                <instances>
-                  <instance name="DAC" type="dac" type_id="dac_a54f338a6fa6fd273bc89d61f5a3b85e" mode="basic" peripheral="DAC0" enabled="true">
+                  <instance name="DAC" uuid="939771c7-aabb-42de-baaa-84ffd1b4bde1" type="dac" type_id="dac_a54f338a6fa6fd273bc89d61f5a3b85e" mode="basic" peripheral="DAC0" enabled="true" comment="" custom_name_enabled="true" editing_lock="false">
                      <config_set name="fsl_dac" quick_selection="QS_DAC_1">
                         <struct name="dac_config">
                            <setting name="referenceVoltageSource" value="kDAC_ReferenceVoltageSourceVref2"/>
@@ -349,7 +357,7 @@
                         <setting name="dac_value" value="0"/>
                      </config_set>
                   </instance>
-                  <instance name="ADC16" type="adc16" type_id="adc16_7d827be2dc433dc756d94a7ce88cbcc5" mode="ADC" peripheral="ADC0" enabled="true">
+                  <instance name="ADC16" uuid="da0bb6e4-ea36-476e-82c0-c02ed6440db5" type="adc16" type_id="adc16_7d827be2dc433dc756d94a7ce88cbcc5" mode="ADC" peripheral="ADC0" enabled="true" comment="" custom_name_enabled="true" editing_lock="false">
                      <config_set name="fsl_adc16">
                         <struct name="adc16_config">
                            <setting name="referenceVoltageSource" value="kADC16_ReferenceVoltageSourceVref"/>
@@ -367,32 +375,67 @@
                            <setting name="hardwareCompareModeEnable" value="false"/>
                         </struct>
                         <setting name="doAutoCalibration" value="false"/>
+                        <setting name="offset" value="0"/>
                         <setting name="trigger" value="false"/>
                         <setting name="hardwareAverageConfiguration" value="kADC16_HardwareAverageDisabled"/>
+                        <setting name="enable_dma" value="false"/>
                         <setting name="enable_irq" value="true"/>
                         <struct name="adc_interrupt">
                            <setting name="IRQn" value="ADC0_IRQn"/>
+                           <setting name="enable_interrrupt" value="enabled"/>
                            <setting name="enable_priority" value="false"/>
+                           <setting name="priority" value="0"/>
                            <setting name="enable_custom_name" value="true"/>
                            <setting name="handler_custom_name" value="BOARD_ADC16_IRQ_HANDLER_FUNC"/>
                         </struct>
                         <array name="adc16_channels_config">
                            <struct name="0">
+                              <setting name="channelName" value=""/>
                               <setting name="enableDifferentialConversion" value="false"/>
                               <setting name="channelNumber" value="SE.12"/>
                               <setting name="enableInterruptOnConversionCompleted" value="true"/>
+                              <setting name="channelGroup" value="0"/>
+                              <setting name="initializeChannel" value="false"/>
                            </struct>
                         </array>
+                     </config_set>
+                  </instance>
+                  <instance name="NVIC" uuid="36937df5-2204-4613-abd3-8371b9069877" type="nvic" type_id="nvic_57b5eef3774cc60acaede6f5b8bddc67" mode="general" peripheral="NVIC" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="nvic">
+                        <array name="interrupt_table">
+                           <struct name="0"/>
+                        </array>
+                        <array name="interrupts"/>
                      </config_set>
                   </instance>
                </instances>
             </functional_group>
          </functional_groups>
          <components>
-            <component name="system" type_id="system_54b53072540eeeb8f8e9343e71f28176">
-               <config_set_global name="global_system_definitions"/>
+            <component name="system" uuid="bc045c70-22b2-4bc5-bf82-8c0f4f5cacaf" type_id="system_54b53072540eeeb8f8e9343e71f28176">
+               <config_set_global name="global_system_definitions">
+                  <setting name="user_definitions" value=""/>
+                  <setting name="user_includes" value=""/>
+               </config_set_global>
+            </component>
+            <component name="msg" uuid="51c366a3-7d5f-4e9c-810d-ebbbc1150681" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
+               <config_set_global name="global_messages"/>
+            </component>
+            <component name="generic_uart" uuid="42f0026e-2e9b-4e2e-b411-032da1cfca1f" type_id="generic_uart_8cae00565451cf2346eb1b8c624e73a6">
+               <config_set_global name="global_uart"/>
+            </component>
+            <component name="generic_enet" uuid="a0bbc3ff-fa37-4711-aebc-65cfcf264a18" type_id="generic_enet_74db5c914f0ddbe47d86af40cb77a619">
+               <config_set_global name="global_enet"/>
+            </component>
+            <component name="generic_can" uuid="84826593-e6b8-43d6-b793-fa4cb370fac6" type_id="generic_can_1bfdd78b1af214566c1f23cf6a582d80">
+               <config_set_global name="global_can"/>
             </component>
          </components>
       </periphs>
+      <tee name="TEE" version="3.0" enabled="false" update_project_code="true">
+         <tee_profile>
+            <processor_version>N/A</processor_version>
+         </tee_profile>
+      </tee>
    </tools>
 </configuration>

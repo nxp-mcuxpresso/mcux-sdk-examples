@@ -48,8 +48,8 @@ void SysTick_Handler(void)
 
 int main(void)
 {
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("DSPI board to board polling example.\r\n");

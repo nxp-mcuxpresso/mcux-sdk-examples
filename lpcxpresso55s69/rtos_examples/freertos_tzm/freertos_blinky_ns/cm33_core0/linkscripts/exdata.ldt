@@ -1,0 +1,27 @@
+    /*
+     * for exception handling/unwind - some Newlib functions (in common
+     * with C++ and STDC++) use this.
+     */
+    .ARM.extab : ALIGN(${text_align})
+    {
+        *(.ARM.extab* .gnu.linkonce.armextab.*)
+<#if (PLAIN_LOAD_IMAGE) >
+    } > ${CODEX} AT> ${CODE}
+<#else>
+    } > ${CODE}
+</#if>
+
+    __exidx_start = .;
+
+    .ARM.exidx : ALIGN(${text_align})
+    {
+        *(.ARM.exidx* .gnu.linkonce.armexidx.*)
+<#if (PLAIN_LOAD_IMAGE) >
+    } > ${CODEX} AT> ${CODE}
+<#else>
+    } > ${CODE}
+</#if>
+    __exidx_end = .;
+
+       . = ALIGN(32);
+       __unprivileged_flash_end__ = (. - 1);

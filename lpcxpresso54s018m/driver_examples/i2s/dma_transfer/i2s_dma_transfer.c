@@ -139,7 +139,7 @@ int main(void)
     EnableIRQ(FLEXCOMM7_IRQn);
 
     /* Initialize the rest */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockPLL180M();
     BOARD_InitDebugConsole();
 

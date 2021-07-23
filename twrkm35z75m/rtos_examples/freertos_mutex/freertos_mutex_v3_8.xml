@@ -18,9 +18,7 @@
     <definition extID="platform.drivers.irtc.MKM35Z7"/>
     <definition extID="platform.drivers.smc.MKM35Z7"/>
     <definition extID="platform.utilities.assert.MKM35Z7"/>
-    <definition extID="platform.Include_core_cm0plus.MKM35Z7"/>
-    <definition extID="platform.Include_common.MKM35Z7"/>
-    <definition extID="platform.Include_dsp.MKM35Z7"/>
+    <definition extID="CMSIS_Include_core_cm.MKM35Z7"/>
     <definition extID="middleware.freertos-kernel.MKM35Z7"/>
     <definition extID="middleware.freertos-kernel.extension.MKM35Z7"/>
     <definition extID="platform.utilities.misc_utilities.MKM35Z7"/>
@@ -31,7 +29,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="twrkm35z75m_freertos_mutex" name="freertos_mutex" dependency="platform.drivers.port.MKM35Z7 platform.drivers.gpio.MKM35Z7 platform.drivers.clock.MKM35Z7 middleware.freertos-kernel.heap_4.MKM35Z7 platform.drivers.common.MKM35Z7 device.MKM35Z7_CMSIS.MKM35Z7 utility.debug_console.MKM35Z7 component.uart_adapter.MKM35Z7 component.serial_manager.MKM35Z7 component.lists.MKM35Z7 component.serial_manager_uart.MKM35Z7 platform.drivers.uart.MKM35Z7 device.MKM35Z7_startup.MKM35Z7 platform.drivers.lpuart.MKM35Z7 platform.drivers.irtc.MKM35Z7 platform.drivers.smc.MKM35Z7 platform.utilities.assert.MKM35Z7 platform.Include_core_cm0plus.MKM35Z7 platform.Include_common.MKM35Z7 platform.Include_dsp.MKM35Z7 middleware.freertos-kernel.MKM35Z7 middleware.freertos-kernel.extension.MKM35Z7 platform.utilities.misc_utilities.MKM35Z7 device.MKM35Z7_system.MKM35Z7" category="rtos_examples">
+  <example id="twrkm35z75m_freertos_mutex" name="freertos_mutex" dependency="platform.drivers.port.MKM35Z7 platform.drivers.gpio.MKM35Z7 platform.drivers.clock.MKM35Z7 middleware.freertos-kernel.heap_4.MKM35Z7 platform.drivers.common.MKM35Z7 device.MKM35Z7_CMSIS.MKM35Z7 utility.debug_console.MKM35Z7 component.uart_adapter.MKM35Z7 component.serial_manager.MKM35Z7 component.lists.MKM35Z7 component.serial_manager_uart.MKM35Z7 platform.drivers.uart.MKM35Z7 device.MKM35Z7_startup.MKM35Z7 platform.drivers.lpuart.MKM35Z7 platform.drivers.irtc.MKM35Z7 platform.drivers.smc.MKM35Z7 platform.utilities.assert.MKM35Z7 CMSIS_Include_core_cm.MKM35Z7 middleware.freertos-kernel.MKM35Z7 middleware.freertos-kernel.extension.MKM35Z7 platform.utilities.misc_utilities.MKM35Z7 device.MKM35Z7_system.MKM35Z7" category="rtos_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -42,7 +40,8 @@
           <value>TWR_KM35Z75M</value>
           <value>TOWER</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
-          <value>FSL_RTOS_FREE_RTOS</value>
+          <value>SDK_OS_FREE_RTOS</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.none</value>
@@ -126,12 +125,6 @@
     </source>
     <source path="examples/twrkm35z75m/rtos_examples/freertos_mutex" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/twrkm35z75m/rtos_examples/freertos_mutex/iar" project_relative_path="MKM35Z7/iar" type="linker" toolchain="iar">
-      <files mask="MKM35Z512xxx7_flash.icf"/>
-    </source>
-    <source path="examples/twrkm35z75m/rtos_examples/freertos_mutex/mdk" project_relative_path="MKM35Z7/arm" type="linker" toolchain="mdk">
-      <files mask="MKM35Z512xxx7_flash.scf"/>
     </source>
     <source path="examples/twrkm35z75m/rtos_examples/freertos_mutex/armgcc" project_relative_path="MKM35Z7/gcc" type="linker" toolchain="armgcc">
       <files mask="MKM35Z512xxx7_flash.ld"/>

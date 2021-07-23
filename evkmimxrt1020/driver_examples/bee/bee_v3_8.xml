@@ -13,9 +13,7 @@
     <definition extID="device.MIMXRT1021_startup.MIMXRT1021"/>
     <definition extID="platform.drivers.iomuxc.MIMXRT1021"/>
     <definition extID="platform.drivers.igpio.MIMXRT1021"/>
-    <definition extID="platform.Include_core_cm7.MIMXRT1021"/>
-    <definition extID="platform.Include_common.MIMXRT1021"/>
-    <definition extID="platform.Include_dsp.MIMXRT1021"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT1021"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1021"/>
     <definition extID="device.MIMXRT1021_system.MIMXRT1021"/>
     <definition extID="mcuxpresso"/>
@@ -24,7 +22,7 @@
     <definition extID="armgcc"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="evkmimxrt1020_bee" name="bee" dependency="utility.debug_console_lite.MIMXRT1021 platform.utilities.assert_lite.MIMXRT1021 platform.drivers.bee.MIMXRT1021 platform.drivers.clock.MIMXRT1021 platform.drivers.common.MIMXRT1021 device.MIMXRT1021_CMSIS.MIMXRT1021 component.lpuart_adapter.MIMXRT1021 component.lists.MIMXRT1021 platform.drivers.lpuart.MIMXRT1021 device.MIMXRT1021_startup.MIMXRT1021 platform.drivers.iomuxc.MIMXRT1021 platform.drivers.igpio.MIMXRT1021 platform.Include_core_cm7.MIMXRT1021 platform.Include_common.MIMXRT1021 platform.Include_dsp.MIMXRT1021 platform.utilities.misc_utilities.MIMXRT1021 device.MIMXRT1021_system.MIMXRT1021" category="driver_examples/bee">
+  <example id="evkmimxrt1020_bee" name="bee" dependency="utility.debug_console_lite.MIMXRT1021 platform.utilities.assert_lite.MIMXRT1021 platform.drivers.bee.MIMXRT1021 platform.drivers.clock.MIMXRT1021 platform.drivers.common.MIMXRT1021 device.MIMXRT1021_CMSIS.MIMXRT1021 component.lpuart_adapter.MIMXRT1021 component.lists.MIMXRT1021 platform.drivers.lpuart.MIMXRT1021 device.MIMXRT1021_startup.MIMXRT1021 platform.drivers.iomuxc.MIMXRT1021 platform.drivers.igpio.MIMXRT1021 CMSIS_Include_core_cm.MIMXRT1021 platform.utilities.misc_utilities.MIMXRT1021 device.MIMXRT1021_system.MIMXRT1021" category="driver_examples/bee">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -130,24 +128,9 @@
     <source path="examples/evkmimxrt1020/driver_examples/bee" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
     </source>
-    <source path="examples/evkmimxrt1020/driver_examples/bee/iar" project_relative_path="MIMXRT1021/iar" type="linker" toolchain="iar">
-      <files mask="MIMXRT1021xxxxx_ram.icf"/>
-      <files mask="MIMXRT1021xxxxx_sdram.icf"/>
-    </source>
-    <source path="examples/evkmimxrt1020/driver_examples/bee/mdk" project_relative_path="MIMXRT1021/arm" type="linker" toolchain="mdk">
-      <files mask="MIMXRT1021xxxxx_ram.scf"/>
-      <files mask="MIMXRT1021xxxxx_sdram.scf"/>
-    </source>
     <source path="examples/evkmimxrt1020/driver_examples/bee/armgcc" project_relative_path="MIMXRT1021/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMXRT1021xxxxx_ram.ld"/>
       <files mask="MIMXRT1021xxxxx_sdram.ld"/>
-    </source>
-    <source path="examples/evkmimxrt1020/driver_examples/bee/iar" project_relative_path="evkmimxrt1020" type="other" toolchain="iar">
-      <files mask="evkmimxrt1020_sdram_init.mac"/>
-    </source>
-    <source path="examples/evkmimxrt1020/driver_examples/bee/mdk" project_relative_path="evkmimxrt1020" type="configuration" toolchain="mdk">
-      <files mask="evkmimxrt1020_ram.ini"/>
-      <files mask="evkmimxrt1020_sdram_init.ini"/>
     </source>
   </example>
 </ksdk:examples>

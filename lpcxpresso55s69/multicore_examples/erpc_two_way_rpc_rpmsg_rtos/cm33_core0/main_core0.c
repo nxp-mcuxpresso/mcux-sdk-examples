@@ -18,17 +18,13 @@
 #include "task.h"
 #include "mcmgr.h"
 
+#include "fsl_gpio.h"
 #include "fsl_common.h"
 #include "fsl_power.h"
-#include "fsl_gpio.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
 #define ERPC_TRANSPORT_RPMSG_LITE_LINK_ID (RL_PLATFORM_LPC55S69_M33_M33_LINK_ID)
-
-#define BUTTON_INIT()       GPIO_PinInit(GPIO, BOARD_SW3_GPIO_PORT, BOARD_SW3_GPIO_PIN, &button_config)
-#define IS_BUTTON_PRESSED() (0U == GPIO_PinRead(GPIO, BOARD_SW3_GPIO_PORT, BOARD_SW3_GPIO_PIN))
-#define BUTTON_NAME         BOARD_SW3_NAME
 
 /* Address of RAM, where the image for core1 should be copied */
 #define CORE1_BOOT_ADDRESS 0x20033000
@@ -143,7 +139,10 @@ static void client_task(void *param)
     (void)PRINTF("\r\nPrimary core started\r\n");
 
 #ifdef CORE1_IMAGE_COPY_TO_RAM
-    /* Calculate size of the image */
+    /* This section ensures the secondary core image is copied from flash location to the target RAM memory.
+       It consists of several steps: image size calculation and image copying.
+       These steps are not required on MCUXpresso IDE which copies the secondary core image to the target memory during
+       startup automatically. */
     uint32_t core1_image_size;
     core1_image_size = get_core1_image_size();
     (void)PRINTF("Copy CORE1 image to address: 0x%x, size: %d\r\n", (void *)(char *)CORE1_BOOT_ADDRESS,

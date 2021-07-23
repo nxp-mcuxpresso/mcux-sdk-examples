@@ -121,8 +121,8 @@ void EXAMPLE_LPSPI_MASTER_IRQHandler(void)
 int main(void)
 {
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /*Set clock source for LPSPI*/

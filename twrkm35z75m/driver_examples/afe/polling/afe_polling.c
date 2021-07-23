@@ -65,8 +65,8 @@ int main(void)
     int32_t result0;
 
     /* Init board hardware. */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Select clkSrc for AFEclk */

@@ -56,8 +56,8 @@ int main(void)
         0,
     };
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Initialize for the output gpio signal. */

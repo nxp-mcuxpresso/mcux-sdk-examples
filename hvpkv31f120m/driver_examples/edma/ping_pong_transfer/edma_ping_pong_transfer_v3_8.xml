@@ -17,9 +17,7 @@
     <definition extID="platform.drivers.lpuart.MKV31F51212"/>
     <definition extID="platform.drivers.smc.MKV31F51212"/>
     <definition extID="platform.drivers.gpio.MKV31F51212"/>
-    <definition extID="platform.Include_core_cm4.MKV31F51212"/>
-    <definition extID="platform.Include_common.MKV31F51212"/>
-    <definition extID="platform.Include_dsp.MKV31F51212"/>
+    <definition extID="CMSIS_Include_core_cm.MKV31F51212"/>
     <definition extID="platform.utilities.misc_utilities.MKV31F51212"/>
     <definition extID="device.MKV31F51212_system.MKV31F51212"/>
     <definition extID="iar"/>
@@ -28,7 +26,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="hvpkv31f120m_edma_ping_pong_transfer" name="edma_ping_pong_transfer" dependency="utility.debug_console_lite.MKV31F51212 platform.utilities.assert_lite.MKV31F51212 platform.drivers.port.MKV31F51212 platform.drivers.sim.MKV31F51212 platform.drivers.clock.MKV31F51212 platform.drivers.edma.MKV31F51212 platform.drivers.dmamux.MKV31F51212 platform.drivers.common.MKV31F51212 device.MKV31F51212_CMSIS.MKV31F51212 component.uart_adapter.MKV31F51212 component.lists.MKV31F51212 platform.drivers.uart.MKV31F51212 device.MKV31F51212_startup.MKV31F51212 platform.drivers.lpuart.MKV31F51212 platform.drivers.smc.MKV31F51212 platform.drivers.gpio.MKV31F51212 platform.Include_core_cm4.MKV31F51212 platform.Include_common.MKV31F51212 platform.Include_dsp.MKV31F51212 platform.utilities.misc_utilities.MKV31F51212 device.MKV31F51212_system.MKV31F51212" category="driver_examples/edma">
+  <example id="hvpkv31f120m_edma_ping_pong_transfer" name="edma_ping_pong_transfer" dependency="utility.debug_console_lite.MKV31F51212 platform.utilities.assert_lite.MKV31F51212 platform.drivers.port.MKV31F51212 platform.drivers.sim.MKV31F51212 platform.drivers.clock.MKV31F51212 platform.drivers.edma.MKV31F51212 platform.drivers.dmamux.MKV31F51212 platform.drivers.common.MKV31F51212 device.MKV31F51212_CMSIS.MKV31F51212 component.uart_adapter.MKV31F51212 component.lists.MKV31F51212 platform.drivers.uart.MKV31F51212 device.MKV31F51212_startup.MKV31F51212 platform.drivers.lpuart.MKV31F51212 platform.drivers.smc.MKV31F51212 platform.drivers.gpio.MKV31F51212 CMSIS_Include_core_cm.MKV31F51212 platform.utilities.misc_utilities.MKV31F51212 device.MKV31F51212_system.MKV31F51212" category="driver_examples/edma">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -36,6 +34,7 @@
       <toolchainSetting id_refs="com.nxp.mcuxpresso">
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>CPU_MKV31F512VLL12</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
@@ -111,12 +110,6 @@
     </source>
     <source path="examples/hvpkv31f120m/driver_examples/edma/ping_pong_transfer" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/hvpkv31f120m/driver_examples/edma/ping_pong_transfer/iar" project_relative_path="MKV31F51212/iar" type="linker" toolchain="iar">
-      <files mask="MKV31F512xxx12_flash.icf"/>
-    </source>
-    <source path="examples/hvpkv31f120m/driver_examples/edma/ping_pong_transfer/mdk" project_relative_path="MKV31F51212/arm" type="linker" toolchain="mdk">
-      <files mask="MKV31F512xxx12_flash.scf"/>
     </source>
     <source path="examples/hvpkv31f120m/driver_examples/edma/ping_pong_transfer/armgcc" project_relative_path="MKV31F51212/gcc" type="linker" toolchain="armgcc">
       <files mask="MKV31F512xxx12_flash.ld"/>

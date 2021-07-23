@@ -16,9 +16,7 @@
     <definition extID="device.MKE16Z4_startup.MKE16Z4"/>
     <definition extID="platform.drivers.smc.MKE16Z4"/>
     <definition extID="platform.drivers.gpio.MKE16Z4"/>
-    <definition extID="platform.Include_core_cm0plus.MKE16Z4"/>
-    <definition extID="platform.Include_common.MKE16Z4"/>
-    <definition extID="platform.Include_dsp.MKE16Z4"/>
+    <definition extID="CMSIS_Include_core_cm.MKE16Z4"/>
     <definition extID="platform.utilities.misc_utilities.MKE16Z4"/>
     <definition extID="device.MKE16Z4_system.MKE16Z4"/>
     <definition extID="iar"/>
@@ -27,7 +25,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="frdmke16z_adc12_lpit_trgmux" name="adc12_lpit_trgmux" dependency="utility.debug_console_lite.MKE16Z4 platform.utilities.assert_lite.MKE16Z4 platform.drivers.clock.MKE16Z4 platform.drivers.port.MKE16Z4 platform.drivers.adc12.MKE16Z4 platform.drivers.trgmux.MKE16Z4 platform.drivers.lpit.MKE16Z4 platform.drivers.common.MKE16Z4 device.MKE16Z4_CMSIS.MKE16Z4 component.lpuart_adapter.MKE16Z4 component.lists.MKE16Z4 platform.drivers.lpuart.MKE16Z4 device.MKE16Z4_startup.MKE16Z4 platform.drivers.smc.MKE16Z4 platform.drivers.gpio.MKE16Z4 platform.Include_core_cm0plus.MKE16Z4 platform.Include_common.MKE16Z4 platform.Include_dsp.MKE16Z4 platform.utilities.misc_utilities.MKE16Z4 device.MKE16Z4_system.MKE16Z4" category="driver_examples/adc12">
+  <example id="frdmke16z_adc12_lpit_trgmux" name="adc12_lpit_trgmux" dependency="utility.debug_console_lite.MKE16Z4 platform.utilities.assert_lite.MKE16Z4 platform.drivers.clock.MKE16Z4 platform.drivers.port.MKE16Z4 platform.drivers.adc12.MKE16Z4 platform.drivers.trgmux.MKE16Z4 platform.drivers.lpit.MKE16Z4 platform.drivers.common.MKE16Z4 device.MKE16Z4_CMSIS.MKE16Z4 component.lpuart_adapter.MKE16Z4 component.lists.MKE16Z4 platform.drivers.lpuart.MKE16Z4 device.MKE16Z4_startup.MKE16Z4 platform.drivers.smc.MKE16Z4 platform.drivers.gpio.MKE16Z4 CMSIS_Include_core_cm.MKE16Z4 platform.utilities.misc_utilities.MKE16Z4 device.MKE16Z4_system.MKE16Z4" category="driver_examples/adc12">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -37,6 +35,7 @@
           <value>CPU_MKE16Z64VLF4</value>
           <value>FRDM_KE16Z</value>
           <value>FREEDOM</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.none</value>
@@ -115,12 +114,6 @@
     </source>
     <source path="examples/frdmke16z/driver_examples/adc12/lpit_trgmux" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/frdmke16z/driver_examples/adc12/lpit_trgmux/iar" project_relative_path="MKE16Z4/iar" type="linker" toolchain="iar">
-      <files mask="MKE16Z64xxx4_flash.icf"/>
-    </source>
-    <source path="examples/frdmke16z/driver_examples/adc12/lpit_trgmux/mdk" project_relative_path="MKE16Z4/arm" type="linker" toolchain="mdk">
-      <files mask="MKE16Z64xxx4_flash.scf"/>
     </source>
     <source path="examples/frdmke16z/driver_examples/adc12/lpit_trgmux/armgcc" project_relative_path="MKE16Z4/gcc" type="linker" toolchain="armgcc">
       <files mask="MKE16Z64xxx4_flash.ld"/>

@@ -11,7 +11,7 @@ the messages will be displayed on board UART terminal or the text area of the mo
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
+- GCC ARM Embedded  10.2.1
 
 Hardware requirements
 =====================

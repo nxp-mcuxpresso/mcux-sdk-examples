@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -12,18 +12,6 @@
 
 #ifndef _PIN_MUX_H_
 #define _PIN_MUX_H_
-
-/***********************************************************************************************************************
- * Definitions
- **********************************************************************************************************************/
-
-/*! @brief Direction type  */
-typedef enum _pin_mux_direction
-{
-    kPIN_MUX_DirectionInput = 0U,        /* Input direction */
-    kPIN_MUX_DirectionOutput = 1U,       /* Output direction */
-    kPIN_MUX_DirectionInputOrOutput = 2U /* Input or output direction */
-} pin_mux_direction_t;
 
 /*!
  * @addtogroup pin_mux
@@ -53,39 +41,17 @@ void BOARD_InitBootPins(void);
 
 /*! @name PIO0_18 (number 31), P3[21]/J2[4]/U2[32]/TARGET_RX-P0_18
   @{ */
-/*!
- * @brief Device name: USART0 */
-#define BOARD_DEBUG_UART_RX_PERIPHERAL USART0
-/*!
- * @brief USART0 signal: RXD */
-#define BOARD_DEBUG_UART_RX_SIGNAL RXD
-/*!
- * @brief PORT device name: 0U */
-#define BOARD_DEBUG_UART_RX_PORT 0U
-/*!
- * @brief 0U pin index: 18 */
-#define BOARD_DEBUG_UART_RX_PIN 18U
-/*!
- * @brief Pin name */
-#define BOARD_DEBUG_UART_RX_PIN_NAME PIO0_18
-/*!
- * @brief Label */
-#define BOARD_DEBUG_UART_RX_LABEL "P3[21]/J2[4]/U2[32]/TARGET_RX-P0_18"
-/*!
- * @brief Identifier name */
-#define BOARD_DEBUG_UART_RX_NAME "DEBUG_UART_RX"
-/* @} */
+#define BOARD_DEBUG_UART_RX_PORT 0U                   /*!<@brief PORT device index: 0 */
+#define BOARD_DEBUG_UART_RX_PIN 18U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_RX_PIN_MASK (1U << 18U)      /*!<@brief PORT pin mask */
+                                                      /* @} */
 
 /*! @name PIO0_7 (number 22), P3[14]/U2[31]/TARGET_TX-P0_7
   @{ */
-#define BOARD_DEBUG_UART_TX_PERIPHERAL USART0                    /*!<@brief Device name: USART0 */
-#define BOARD_DEBUG_UART_TX_SIGNAL TXD                           /*!<@brief USART0 signal: TXD */
-#define BOARD_DEBUG_UART_TX_PORT 0U                              /*!<@brief PORT device name: 0U */
-#define BOARD_DEBUG_UART_TX_PIN 7U                               /*!<@brief 0U pin index: 7 */
-#define BOARD_DEBUG_UART_TX_PIN_NAME PIO0_7                      /*!<@brief Pin name */
-#define BOARD_DEBUG_UART_TX_LABEL "P3[14]/U2[31]/TARGET_TX-P0_7" /*!<@brief Label */
-#define BOARD_DEBUG_UART_TX_NAME "DEBUG_UART_TX"                 /*!<@brief Identifier name */
-                                                                 /* @} */
+#define BOARD_DEBUG_UART_TX_PORT 0U                  /*!<@brief PORT device index: 0 */
+#define BOARD_DEBUG_UART_TX_PIN 7U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_TX_PIN_MASK (1U << 7U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

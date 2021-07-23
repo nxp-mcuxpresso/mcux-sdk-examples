@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding= "UTF-8" ?>
-<configuration name="LPC55S16" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.8 http://mcuxpresso.nxp.com/XSD/mex_configuration_1.8.xsd" uuid="2ad4cd9a-a374-46d0-8a9c-723247f13f72" version="1.8" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<configuration name="LPC55S16" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_10 http://mcuxpresso.nxp.com/XSD/mex_configuration_10.xsd" uuid="2ad4cd9a-a374-46d0-8a9c-723247f13f72" version="10" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_10" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <common>
       <processor>LPC55S16</processor>
       <package>LPC55S16JBD100</package>
       <board>LPCXpresso55S16</board>
       <mcu_data>ksdk2_0</mcu_data>
-      <cores selected="core0">
-         <core name="Cortex-M33" id="core0" description="M33 core"/>
+      <cores selected="cm33_core0">
+         <core name="Cortex-M33" id="cm33_core0" description="M33 core"/>
       </cores>
       <description></description>
    </common>
@@ -16,9 +16,9 @@
       <generate_code_modified_registers_only>false</generate_code_modified_registers_only>
    </preferences>
    <tools>
-      <pins name="Pins" version="8.0" enabled="true" update_project_code="true">
+      <pins name="Pins" version="9.0" enabled="true" update_project_code="true">
          <pins_profile>
-            <processor_version>0.8.1</processor_version>
+            <processor_version>0.10.3</processor_version>
          </pins_profile>
          <functions_list>
             <function name="BOARD_InitPins">
@@ -26,7 +26,7 @@
                <options>
                   <callFromInitBoot>true</callFromInitBoot>
                   <prefix>BOARD_</prefix>
-                  <coreID>core0</coreID>
+                  <coreID>cm33_core0</coreID>
                   <enableClock>true</enableClock>
                </options>
                <dependencies>
@@ -36,17 +36,17 @@
                      </feature>
                   </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
-                     <feature name="enabled" evaluation="equal" configuration="core0">
+                     <feature name="enabled" evaluation="equal" configuration="cm33_core0">
                         <data>true</data>
                      </feature>
                   </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.lpc_gpio" description="Pins initialization requires the LPC_GPIO Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
-                     <feature name="enabled" evaluation="equal" configuration="core0">
+                     <feature name="enabled" evaluation="equal" configuration="cm33_core0">
                         <data>true</data>
                      </feature>
                   </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.lpc_iocon" description="Pins initialization requires the LPC_IOCON Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
-                     <feature name="enabled" evaluation="equal" configuration="core0">
+                     <feature name="enabled" evaluation="equal" configuration="cm33_core0">
                         <data>true</data>
                      </feature>
                   </dependency>
@@ -76,7 +76,7 @@
       </pins>
       <clocks name="Clocks" version="7.0" enabled="true" update_project_code="true">
          <clocks_profile>
-            <processor_version>0.8.1</processor_version>
+            <processor_version>0.10.3</processor_version>
          </clocks_profile>
          <clock_configurations>
             <clock_configuration name="BOARD_BootClockFRO12M">
@@ -84,17 +84,17 @@
                <options/>
                <dependencies>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Clocks initialization requires the COMMON Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockFRO12M">
-                     <feature name="enabled" evaluation="equal" configuration="core0">
+                     <feature name="enabled" evaluation="equal" configuration="cm33_core0">
                         <data>true</data>
                      </feature>
                   </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.power" description="Clocks initialization requires the POWER Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockFRO12M">
-                     <feature name="enabled" evaluation="equal" configuration="core0">
+                     <feature name="enabled" evaluation="equal" configuration="cm33_core0">
                         <data>true</data>
                      </feature>
                   </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.clock" description="Clocks initialization requires the CLOCK Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockFRO12M">
-                     <feature name="enabled" evaluation="equal" configuration="core0">
+                     <feature name="enabled" evaluation="equal" configuration="cm33_core0">
                         <data>true</data>
                      </feature>
                   </dependency>
@@ -116,17 +116,17 @@
                <options/>
                <dependencies>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Clocks initialization requires the COMMON Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockFROHF96M">
-                     <feature name="enabled" evaluation="equal" configuration="core0">
+                     <feature name="enabled" evaluation="equal" configuration="cm33_core0">
                         <data>true</data>
                      </feature>
                   </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.power" description="Clocks initialization requires the POWER Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockFROHF96M">
-                     <feature name="enabled" evaluation="equal" configuration="core0">
+                     <feature name="enabled" evaluation="equal" configuration="cm33_core0">
                         <data>true</data>
                      </feature>
                   </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.clock" description="Clocks initialization requires the CLOCK Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockFROHF96M">
-                     <feature name="enabled" evaluation="equal" configuration="core0">
+                     <feature name="enabled" evaluation="equal" configuration="cm33_core0">
                         <data>true</data>
                      </feature>
                   </dependency>
@@ -169,17 +169,17 @@
                      </feature>
                   </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Clocks initialization requires the COMMON Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockPLL100M">
-                     <feature name="enabled" evaluation="equal" configuration="core0">
+                     <feature name="enabled" evaluation="equal" configuration="cm33_core0">
                         <data>true</data>
                      </feature>
                   </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.power" description="Clocks initialization requires the POWER Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockPLL100M">
-                     <feature name="enabled" evaluation="equal" configuration="core0">
+                     <feature name="enabled" evaluation="equal" configuration="cm33_core0">
                         <data>true</data>
                      </feature>
                   </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.clock" description="Clocks initialization requires the CLOCK Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockPLL100M">
-                     <feature name="enabled" evaluation="equal" configuration="core0">
+                     <feature name="enabled" evaluation="equal" configuration="cm33_core0">
                         <data>true</data>
                      </feature>
                   </dependency>
@@ -189,7 +189,6 @@
                   <clock_source id="SYSCON.XTAL32M.outFreq" value="16 MHz" locked="false" enabled="true"/>
                </clock_sources>
                <clock_outputs>
-                  <clock_output id="CLKOUT_clock.outFreq" value="16 MHz" locked="false" accuracy=""/>
                   <clock_output id="FRO_12MHz_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
                   <clock_output id="System_clock.outFreq" value="100 MHz" locked="false" accuracy=""/>
                </clock_outputs>
@@ -231,17 +230,17 @@
                      </feature>
                   </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Clocks initialization requires the COMMON Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockPLL150M">
-                     <feature name="enabled" evaluation="equal" configuration="core0">
+                     <feature name="enabled" evaluation="equal" configuration="cm33_core0">
                         <data>true</data>
                      </feature>
                   </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.power" description="Clocks initialization requires the POWER Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockPLL150M">
-                     <feature name="enabled" evaluation="equal" configuration="core0">
+                     <feature name="enabled" evaluation="equal" configuration="cm33_core0">
                         <data>true</data>
                      </feature>
                   </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.clock" description="Clocks initialization requires the CLOCK Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockPLL150M">
-                     <feature name="enabled" evaluation="equal" configuration="core0">
+                     <feature name="enabled" evaluation="equal" configuration="cm33_core0">
                         <data>true</data>
                      </feature>
                   </dependency>
@@ -250,7 +249,6 @@
                   <clock_source id="SYSCON.XTAL32M.outFreq" value="16 MHz" locked="false" enabled="true"/>
                </clock_sources>
                <clock_outputs>
-                  <clock_output id="CLKOUT_clock.outFreq" value="16 MHz" locked="false" accuracy=""/>
                   <clock_output id="FRO_12MHz_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
                   <clock_output id="System_clock.outFreq" value="150 MHz" locked="false" accuracy=""/>
                </clock_outputs>
@@ -291,17 +289,17 @@
                      </feature>
                   </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Clocks initialization requires the COMMON Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockPLL1_150M">
-                     <feature name="enabled" evaluation="equal" configuration="core0">
+                     <feature name="enabled" evaluation="equal" configuration="cm33_core0">
                         <data>true</data>
                      </feature>
                   </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.power" description="Clocks initialization requires the POWER Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockPLL1_150M">
-                     <feature name="enabled" evaluation="equal" configuration="core0">
+                     <feature name="enabled" evaluation="equal" configuration="cm33_core0">
                         <data>true</data>
                      </feature>
                   </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.clock" description="Clocks initialization requires the CLOCK Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockPLL1_150M">
-                     <feature name="enabled" evaluation="equal" configuration="core0">
+                     <feature name="enabled" evaluation="equal" configuration="cm33_core0">
                         <data>true</data>
                      </feature>
                   </dependency>
@@ -310,7 +308,6 @@
                   <clock_source id="SYSCON.XTAL32M.outFreq" value="16 MHz" locked="false" enabled="true"/>
                </clock_sources>
                <clock_outputs>
-                  <clock_output id="CLKOUT_clock.outFreq" value="16 MHz" locked="false" accuracy=""/>
                   <clock_output id="FRO_12MHz_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
                   <clock_output id="System_clock.outFreq" value="150 MHz" locked="false" accuracy=""/>
                </clock_outputs>
@@ -334,19 +331,50 @@
          </dcdx_profile>
          <dcdx_configurations/>
       </dcdx>
-      <periphs name="Peripherals" version="8.0" enabled="false" update_project_code="true">
+      <periphs name="Peripherals" version="9.0" enabled="false" update_project_code="true">
          <peripherals_profile>
-            <processor_version>N/A</processor_version>
+            <processor_version>0.10.3</processor_version>
          </peripherals_profile>
-         <functional_groups/>
-         <components/>
+         <functional_groups>
+            <functional_group name="BOARD_InitPeripherals" uuid="4e38e9cd-b48d-46de-be3d-948905787879" called_from_default_init="true" id_prefix="" core="cm33_core0">
+               <description></description>
+               <options/>
+               <dependencies/>
+               <instances>
+                  <instance name="NVIC" uuid="ed91d33b-7376-4179-bf5e-2cd897725f28" type="nvic" type_id="nvic_57b5eef3774cc60acaede6f5b8bddc67" mode="general" peripheral="NVIC" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="nvic">
+                        <array name="interrupt_table"/>
+                        <array name="interrupts"/>
+                     </config_set>
+                  </instance>
+               </instances>
+            </functional_group>
+         </functional_groups>
+         <components>
+            <component name="system" uuid="48a499f6-3ac6-47d1-b6ff-4bb670156097" type_id="system_54b53072540eeeb8f8e9343e71f28176">
+               <config_set_global name="global_system_definitions">
+                  <setting name="user_definitions" value=""/>
+                  <setting name="user_includes" value=""/>
+               </config_set_global>
+            </component>
+            <component name="msg" uuid="3cf63899-794b-4ced-8b8a-e6e061891438" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
+               <config_set_global name="global_messages"/>
+            </component>
+            <component name="generic_uart" uuid="07b251c9-0af1-40ca-9ca5-9ef8277e17f8" type_id="generic_uart_8cae00565451cf2346eb1b8c624e73a6">
+               <config_set_global name="global_uart"/>
+            </component>
+            <component name="generic_enet" uuid="6e83539c-0b77-4054-b7bc-dd946fa99605" type_id="generic_enet_74db5c914f0ddbe47d86af40cb77a619">
+               <config_set_global name="global_enet"/>
+            </component>
+            <component name="generic_can" uuid="1ad25de1-812e-41a3-91a4-d0b015a845e7" type_id="generic_can_1bfdd78b1af214566c1f23cf6a582d80">
+               <config_set_global name="global_can"/>
+            </component>
+         </components>
       </periphs>
       <tee name="TEE" version="2.0" enabled="false" update_project_code="true">
          <tee_profile>
             <processor_version>N/A</processor_version>
          </tee_profile>
-         <global_options/>
-         <user_memory_regions/>
       </tee>
    </tools>
 </configuration>

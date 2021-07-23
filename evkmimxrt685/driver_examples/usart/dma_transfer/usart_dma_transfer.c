@@ -78,8 +78,8 @@ int main(void)
     usart_transfer_t sendXfer;
     usart_transfer_t receiveXfer;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Initialize the UART. */

@@ -57,8 +57,8 @@ int main(void)
     tpmParam[1].dutyCyclePercent = updatedDutycycle;
 
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     /* TPM known issue of KL81, enable clock of TPM2 to use other TPM module */
     CLOCK_EnableClock(kCLOCK_Tpm2);

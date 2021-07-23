@@ -427,7 +427,7 @@ int main(void)
     gpio_pin_config_t pin_config;
     uint32_t i;
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     APP_BootClockRUN();
     APP_InitDebugConsole();
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -12,18 +12,6 @@
 
 #ifndef _PIN_MUX_H_
 #define _PIN_MUX_H_
-
-/***********************************************************************************************************************
- * Definitions
- **********************************************************************************************************************/
-
-/*! @brief Direction type  */
-typedef enum _pin_mux_direction
-{
-    kPIN_MUX_DirectionInput = 0U,        /* Input direction */
-    kPIN_MUX_DirectionOutput = 1U,       /* Output direction */
-    kPIN_MUX_DirectionInputOrOutput = 2U /* Input or output direction */
-} pin_mux_direction_t;
 
 /*!
  * @addtogroup pin_mux
@@ -46,14 +34,10 @@ void BOARD_InitBootPins(void);
 
 /*! @name PIO0_4 (number 7), CN6[7]/CN8[7]/CN5[5]/JP24/PIO0_4
   @{ */
-#define BOARD_DEBUG_UART_TX_PERIPHERAL USART0                        /*!<@brief Device name: USART0 */
-#define BOARD_DEBUG_UART_TX_SIGNAL TXD                               /*!<@brief USART0 signal: TXD */
-#define BOARD_DEBUG_UART_TX_PORT 0U                                  /*!<@brief PORT device name: 0U */
-#define BOARD_DEBUG_UART_TX_PIN 4U                                   /*!<@brief 0U pin index: 4 */
-#define BOARD_DEBUG_UART_TX_PIN_NAME PIO0_4                          /*!<@brief Pin name */
-#define BOARD_DEBUG_UART_TX_LABEL "CN6[7]/CN8[7]/CN5[5]/JP24/PIO0_4" /*!<@brief Label */
-#define BOARD_DEBUG_UART_TX_NAME "DEBUG_UART_TX"                     /*!<@brief Identifier name */
-                                                                     /* @} */
+#define BOARD_DEBUG_UART_TX_PORT 0U                  /*!<@brief PORT device index: 0 */
+#define BOARD_DEBUG_UART_TX_PIN 4U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_TX_PIN_MASK (1U << 4U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

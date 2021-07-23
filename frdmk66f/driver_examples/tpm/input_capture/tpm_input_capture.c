@@ -61,8 +61,8 @@ int main(void)
     uint32_t captureVal = 0;
 
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     /* TPM known issue of KL81, enable clock of TPM0 to use other TPM module */
     CLOCK_EnableClock(kCLOCK_Tpm2);

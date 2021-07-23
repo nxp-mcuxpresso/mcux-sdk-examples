@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v6.0
+product: Pins v9.0
 processor: K32L2A41xxxxA
 package_id: K32L2A41VLL1A
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 9.0.0
 board: FRDM-K32L2A4S
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -63,10 +63,10 @@ void BOARD_InitPins(void)
     CLOCK_EnableClock(kCLOCK_PortB);
 
     /* PORTB16 (pin 62) is configured as LPUART0_RX */
-    PORT_SetPinMux(PORTB, 16U, kPORT_MuxAlt3);
+    PORT_SetPinMux(BOARD_DEBUG_UART_RX_PORT, BOARD_DEBUG_UART_RX_PIN, kPORT_MuxAlt3);
 
     /* PORTB17 (pin 63) is configured as LPUART0_TX */
-    PORT_SetPinMux(PORTB, 17U, kPORT_MuxAlt3);
+    PORT_SetPinMux(BOARD_DEBUG_UART_TX_PORT, BOARD_DEBUG_UART_TX_PIN, kPORT_MuxAlt3);
 }
 /***********************************************************************************************************************
  * EOF

@@ -6,7 +6,7 @@ and dynamic duty from 99 to 1 to one of the FLEXIO pin.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
+- GCC ARM Embedded  10.2.1
 
 Hardware requirements
 =====================

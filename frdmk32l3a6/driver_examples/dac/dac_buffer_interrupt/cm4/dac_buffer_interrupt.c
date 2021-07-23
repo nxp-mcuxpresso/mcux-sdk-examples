@@ -47,8 +47,8 @@ int main(void)
 {
     dac_config_t dacConfigStruct;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     EnableIRQ(DEMO_DAC_IRQ_ID); /* Enable interrupt in NVIC. */

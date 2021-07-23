@@ -61,8 +61,8 @@ int main(void)
     uint32_t captureVal = 0;
 
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Select the clock source for the TPM counter as kCLOCK_McgIrc48MClk */

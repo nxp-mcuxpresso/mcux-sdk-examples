@@ -83,8 +83,8 @@ int main(void)
     uint16_t tmprxIndex = rxIndex;
     uint16_t tmptxIndex = txIndex;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     INTMUX_Init(INTMUX1);
     INTMUX_EnableInterrupt(INTMUX1, 0, LPUART0_IRQn);

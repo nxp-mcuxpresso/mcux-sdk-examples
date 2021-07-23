@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -12,18 +12,6 @@
 
 #ifndef _PIN_MUX_H_
 #define _PIN_MUX_H_
-
-/***********************************************************************************************************************
- * Definitions
- **********************************************************************************************************************/
-
-/*! @brief Direction type  */
-typedef enum _pin_mux_direction
-{
-    kPIN_MUX_DirectionInput = 0U,        /* Input direction */
-    kPIN_MUX_DirectionOutput = 1U,       /* Output direction */
-    kPIN_MUX_DirectionInputOrOutput = 2U /* Input or output direction */
-} pin_mux_direction_t;
 
 /*!
  * @addtogroup pin_mux
@@ -46,40 +34,14 @@ void BOARD_InitBootPins(void);
 
 /*! @name PIO0_7 (number 17), CN5[4]/CN3[27]/CN6[2]/LD17/LD18/PIO0_7_GPIO3-LED
   @{ */
-/*!
- * @brief Device name: GPIO */
-#define BOARD_USER_LED_PERIPHERAL GPIO
-/*!
- * @brief GPIO signal: PIO0 */
-#define BOARD_USER_LED_SIGNAL PIO0
-/*!
- * @brief GPIO device name: GPIO */
-#define BOARD_USER_LED_GPIO GPIO
-/*!
- * @brief PIO0 pin index: 7 */
-#define BOARD_USER_LED_GPIO_PIN 7U
-/*!
- * @brief PORT device name: 0U */
-#define BOARD_USER_LED_PORT 0U
-/*!
- * @brief 0U pin index: 7 */
-#define BOARD_USER_LED_PIN 7U
-/*!
- * @brief GPIO PIO0 channel: 7 */
-#define BOARD_USER_LED_CHANNEL 7
-/*!
- * @brief Pin name */
-#define BOARD_USER_LED_PIN_NAME PIO0_7
-/*!
- * @brief Label */
-#define BOARD_USER_LED_LABEL "CN5[4]/CN3[27]/CN6[2]/LD17/LD18/PIO0_7_GPIO3-LED"
-/*!
- * @brief Identifier name */
-#define BOARD_USER_LED_NAME "USER_LED"
-/*!
- * @brief Direction */
-#define BOARD_USER_LED_DIRECTION kPIN_MUX_DirectionOutput
-/* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_USER_LED_GPIO GPIO                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_USER_LED_GPIO_PIN_MASK (1U << 7U) /*!<@brief GPIO pin mask */
+#define BOARD_USER_LED_PORT 0U                  /*!<@brief PORT device index: 0 */
+#define BOARD_USER_LED_PIN 7U                   /*!<@brief PORT pin number */
+#define BOARD_USER_LED_PIN_MASK (1U << 7U)      /*!<@brief PORT pin mask */
+                                                /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

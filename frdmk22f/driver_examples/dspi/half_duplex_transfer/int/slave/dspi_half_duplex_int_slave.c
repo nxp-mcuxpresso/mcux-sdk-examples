@@ -50,8 +50,8 @@ int main(void)
     dspi_transfer_t xfer = {0};
     dspi_slave_config_t slaveConfig;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     PRINTF("\r\nThis is slave example for DSPI half-duplex interrupt transfer.\r\n");
     PRINTF("Slave is working....\r\n");

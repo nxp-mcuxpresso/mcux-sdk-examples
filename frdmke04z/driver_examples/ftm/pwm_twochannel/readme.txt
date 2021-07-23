@@ -7,7 +7,7 @@ pulse PWM on 2 channel to control the LED brightness.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
+- GCC ARM Embedded  10.2.1
 
 Hardware requirements
 =====================

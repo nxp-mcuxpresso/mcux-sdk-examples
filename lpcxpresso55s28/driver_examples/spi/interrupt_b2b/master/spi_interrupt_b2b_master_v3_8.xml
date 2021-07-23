@@ -16,9 +16,7 @@
     <definition extID="platform.drivers.flexcomm.LPC55S28"/>
     <definition extID="component.usart_adapter.LPC55S28"/>
     <definition extID="component.lists.LPC55S28"/>
-    <definition extID="platform.Include_core_cm33.LPC55S28"/>
-    <definition extID="platform.Include_common.LPC55S28"/>
-    <definition extID="platform.Include_dsp.LPC55S28"/>
+    <definition extID="CMSIS_Include_core_cm.LPC55S28"/>
     <definition extID="platform.drivers.reset.LPC55S28"/>
     <definition extID="platform.drivers.inputmux_connections.LPC55S28"/>
     <definition extID="platform.utilities.misc_utilities.LPC55S28"/>
@@ -29,7 +27,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso55s28_spi_interrupt_b2b_master" name="spi_interrupt_b2b_master" dependency="utility.debug_console_lite.LPC55S28 platform.utilities.assert_lite.LPC55S28 platform.drivers.flexcomm_spi.LPC55S28 platform.drivers.common.LPC55S28 platform.drivers.clock.LPC55S28 platform.drivers.power.LPC55S28 platform.drivers.lpc_iocon.LPC55S28 platform.drivers.lpc_gpio.LPC55S28 platform.drivers.inputmux.LPC55S28 device.LPC55S28_CMSIS.LPC55S28 device.LPC55S28_startup.LPC55S28 platform.drivers.flexcomm_usart.LPC55S28 platform.drivers.flexcomm.LPC55S28 component.usart_adapter.LPC55S28 component.lists.LPC55S28 platform.Include_core_cm33.LPC55S28 platform.Include_common.LPC55S28 platform.Include_dsp.LPC55S28 platform.drivers.reset.LPC55S28 platform.drivers.inputmux_connections.LPC55S28 platform.utilities.misc_utilities.LPC55S28 device.LPC55S28_system.LPC55S28" category="driver_examples/spi">
+  <example id="lpcxpresso55s28_spi_interrupt_b2b_master" name="spi_interrupt_b2b_master" dependency="utility.debug_console_lite.LPC55S28 platform.utilities.assert_lite.LPC55S28 platform.drivers.flexcomm_spi.LPC55S28 platform.drivers.common.LPC55S28 platform.drivers.clock.LPC55S28 platform.drivers.power.LPC55S28 platform.drivers.lpc_iocon.LPC55S28 platform.drivers.lpc_gpio.LPC55S28 platform.drivers.inputmux.LPC55S28 device.LPC55S28_CMSIS.LPC55S28 device.LPC55S28_startup.LPC55S28 platform.drivers.flexcomm_usart.LPC55S28 platform.drivers.flexcomm.LPC55S28 component.usart_adapter.LPC55S28 component.lists.LPC55S28 CMSIS_Include_core_cm.LPC55S28 platform.drivers.reset.LPC55S28 platform.drivers.inputmux_connections.LPC55S28 platform.utilities.misc_utilities.LPC55S28 device.LPC55S28_system.LPC55S28" category="driver_examples/spi">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -37,6 +35,7 @@
       <toolchainSetting id_refs="com.nxp.mcuxpresso">
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>CPU_LPC55S28JBD100</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
@@ -113,12 +112,6 @@
     </source>
     <source path="examples/lpcxpresso55s28/driver_examples/spi/interrupt_b2b/master" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/lpcxpresso55s28/driver_examples/spi/interrupt_b2b/master/iar" project_relative_path="LPC55S28/iar" type="linker" toolchain="iar">
-      <files mask="LPC55S28_flash.icf"/>
-    </source>
-    <source path="examples/lpcxpresso55s28/driver_examples/spi/interrupt_b2b/master/mdk" project_relative_path="LPC55S28/arm" type="linker" toolchain="mdk">
-      <files mask="LPC55S28_flash.scf"/>
     </source>
     <source path="examples/lpcxpresso55s28/driver_examples/spi/interrupt_b2b/master/armgcc" project_relative_path="LPC55S28/gcc" type="linker" toolchain="armgcc">
       <files mask="LPC55S28_flash.ld"/>

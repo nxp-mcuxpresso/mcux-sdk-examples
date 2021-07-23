@@ -97,6 +97,64 @@ codec_handle_t codecHandle;
 /*******************************************************************************
  * Code
  ******************************************************************************/
+static void i2c_release_bus_delay(void)
+{
+    uint32_t i = 0;
+    for (i = 0; i < 100; i++)
+    {
+        __NOP();
+    }
+}
+
+void BOARD_I3C_ReleaseBus(void)
+{
+    uint8_t i = 0;
+
+    GPIO_PortInit(BOARD_INITI3CPINSASGPIO_I3C0_SDA_PERIPHERAL, BOARD_INITI3CPINSASGPIO_I3C0_SDA_PORT);
+    GPIO_PortInit(BOARD_INITI3CPINSASGPIO_I3C0_SCL_PERIPHERAL, BOARD_INITI3CPINSASGPIO_I3C0_SCL_PORT);
+
+    BOARD_InitI3CPinsAsGPIO();
+
+    /* Drive SDA low first to simulate a start */
+    GPIO_PinWrite(BOARD_INITI3CPINSASGPIO_I3C0_SDA_PERIPHERAL, BOARD_INITI3CPINSASGPIO_I3C0_SDA_PORT,
+                  BOARD_INITI3CPINSASGPIO_I3C0_SDA_PIN, 0U);
+    i2c_release_bus_delay();
+
+    /* Send 9 pulses on SCL */
+    for (i = 0; i < 9; i++)
+    {
+        GPIO_PinWrite(BOARD_INITI3CPINSASGPIO_I3C0_SCL_PERIPHERAL, BOARD_INITI3CPINSASGPIO_I3C0_SCL_PORT,
+                      BOARD_INITI3CPINSASGPIO_I3C0_SCL_PIN, 0U);
+        i2c_release_bus_delay();
+
+        GPIO_PinWrite(BOARD_INITI3CPINSASGPIO_I3C0_SDA_PERIPHERAL, BOARD_INITI3CPINSASGPIO_I3C0_SDA_PORT,
+                      BOARD_INITI3CPINSASGPIO_I3C0_SDA_PIN, 1U);
+        i2c_release_bus_delay();
+
+        GPIO_PinWrite(BOARD_INITI3CPINSASGPIO_I3C0_SCL_PERIPHERAL, BOARD_INITI3CPINSASGPIO_I3C0_SCL_PORT,
+                      BOARD_INITI3CPINSASGPIO_I3C0_SCL_PIN, 1U);
+        i2c_release_bus_delay();
+        i2c_release_bus_delay();
+    }
+
+    /* Send stop */
+    GPIO_PinWrite(BOARD_INITI3CPINSASGPIO_I3C0_SCL_PERIPHERAL, BOARD_INITI3CPINSASGPIO_I3C0_SCL_PORT,
+                  BOARD_INITI3CPINSASGPIO_I3C0_SCL_PIN, 0U);
+    i2c_release_bus_delay();
+
+    GPIO_PinWrite(BOARD_INITI3CPINSASGPIO_I3C0_SDA_PERIPHERAL, BOARD_INITI3CPINSASGPIO_I3C0_SDA_PORT,
+                  BOARD_INITI3CPINSASGPIO_I3C0_SDA_PIN, 0U);
+    i2c_release_bus_delay();
+
+    GPIO_PinWrite(BOARD_INITI3CPINSASGPIO_I3C0_SCL_PERIPHERAL, BOARD_INITI3CPINSASGPIO_I3C0_SCL_PORT,
+                  BOARD_INITI3CPINSASGPIO_I3C0_SCL_PIN, 1U);
+    i2c_release_bus_delay();
+
+    GPIO_PinWrite(BOARD_INITI3CPINSASGPIO_I3C0_SDA_PERIPHERAL, BOARD_INITI3CPINSASGPIO_I3C0_SDA_PORT,
+                  BOARD_INITI3CPINSASGPIO_I3C0_SDA_PIN, 1U);
+    i2c_release_bus_delay();
+}
+
 
 void dmic_Callback(DMIC_Type *base, dmic_dma_handle_t *handle, status_t status, void *userData)
 {
@@ -124,9 +182,11 @@ int main(void)
     i2s_transfer_t i2sTxTransfer;
 
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
+    BOARD_I3C_ReleaseBus();
+    BOARD_InitI3CPins();
 
     CLOCK_EnableClock(kCLOCK_InputMux);
 

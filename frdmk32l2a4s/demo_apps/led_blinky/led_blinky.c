@@ -48,8 +48,8 @@ void SysTick_DelayTicks(uint32_t n)
 int main(void)
 {
     /* Board pin init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     BOARD_LED_GPIO->PDDR |= (1U << BOARD_LED_GPIO_PIN);

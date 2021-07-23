@@ -120,8 +120,8 @@ void FLEXIO_SPI_SlaveUserCallback(FLEXIO_SPI_Type *base,
 int main(void)
 {
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Clock setting for Flexio */

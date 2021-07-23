@@ -89,8 +89,8 @@ int main(void)
     ewm_config_t config;
 
     /* Init hardware*/
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     INTMUX_Init(INTMUX1);

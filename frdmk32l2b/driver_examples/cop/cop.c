@@ -40,8 +40,8 @@ int main(void)
     cop_config_t configCop;
 
     /* Init hardware */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /*

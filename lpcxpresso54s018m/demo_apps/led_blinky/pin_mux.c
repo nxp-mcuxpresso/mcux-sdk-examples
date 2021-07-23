@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v6.0
+product: Pins v9.0
 processor: LPC54S018J4M
 package_id: LPC54S018J4MET180
 mcu_data: ksdk2_0
-processor_version: 6.0.1
+processor_version: 9.0.0
 board: LPCXpresso54S018M
 pin_labels:
 - {pin_num: C3, pin_signal: PIO2_2/ENET_CRS/FC3_SSEL3/SCT0_OUT6/CTIMER1_MAT1, label: LED, identifier: LED;USER_LED}

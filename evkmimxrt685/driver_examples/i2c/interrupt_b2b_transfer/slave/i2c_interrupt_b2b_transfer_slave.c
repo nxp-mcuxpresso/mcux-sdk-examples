@@ -85,8 +85,8 @@ int main(void)
     /* Use 16 MHz clock for the FLEXCOMM4 */
     CLOCK_AttachClk(kSFRO_to_FLEXCOMM4);
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\nI2C board2board interrupt example -- Slave transfer.\r\n\r\n");

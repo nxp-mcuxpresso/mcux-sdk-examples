@@ -1,4 +1,5 @@
 SET(CMAKE_ASM_FLAGS_DEBUG " \
+    ${CMAKE_ASM_FLAGS_DEBUG} \
     -DDEBUG \
     -D__STARTUP_CLEAR_BSS \
     -DNO_CRP \
@@ -19,6 +20,7 @@ SET(CMAKE_ASM_FLAGS_DEBUG " \
     -std=gnu99 \
 ")
 SET(CMAKE_ASM_FLAGS_RELEASE " \
+    ${CMAKE_ASM_FLAGS_RELEASE} \
     -DNDEBUG \
     -D__STARTUP_CLEAR_BSS \
     -DNO_CRP \
@@ -38,6 +40,7 @@ SET(CMAKE_ASM_FLAGS_RELEASE " \
     -std=gnu99 \
 ")
 SET(CMAKE_C_FLAGS_DEBUG " \
+    ${CMAKE_C_FLAGS_DEBUG} \
     -DDEBUG \
     -DCPU_MIMX8MN6DVTJZ \
     -DSDK_DELAY_USE_DWT \
@@ -45,10 +48,12 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DSRTM_DEBUG_VERBOSE_LEVEL=SRTM_DEBUG_VERBOSE_WARN \
     -DNOT_CONFIG_CLK_ROOT=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
+    -DCODEC_MULTI_ADAPTERS=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8524_ENABLE \
-    -DFSL_RTOS_FREE_RTOS \
+    -DSDK_OS_FREE_RTOS \
+    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -68,6 +73,7 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -std=gnu99 \
 ")
 SET(CMAKE_C_FLAGS_RELEASE " \
+    ${CMAKE_C_FLAGS_RELEASE} \
     -DNDEBUG \
     -DCPU_MIMX8MN6DVTJZ \
     -DSDK_DELAY_USE_DWT \
@@ -75,10 +81,12 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DSRTM_DEBUG_VERBOSE_LEVEL=SRTM_DEBUG_VERBOSE_WARN \
     -DNOT_CONFIG_CLK_ROOT=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
+    -DCODEC_MULTI_ADAPTERS=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8524_ENABLE \
-    -DFSL_RTOS_FREE_RTOS \
+    -DSDK_OS_FREE_RTOS \
+    -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
@@ -97,9 +105,11 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -std=gnu99 \
 ")
 SET(CMAKE_CXX_FLAGS_DEBUG " \
+    ${CMAKE_CXX_FLAGS_DEBUG} \
     -DDEBUG \
     -DCPU_MIMX8MN6DVTJZ \
     -DSERIAL_PORT_TYPE_UART=1 \
+    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -120,9 +130,11 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     -fno-exceptions \
 ")
 SET(CMAKE_CXX_FLAGS_RELEASE " \
+    ${CMAKE_CXX_FLAGS_RELEASE} \
     -DNDEBUG \
     -DCPU_MIMX8MN6DVTJZ \
     -DSERIAL_PORT_TYPE_UART=1 \
+    -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
@@ -142,11 +154,13 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -fno-exceptions \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
+    ${CMAKE_EXE_LINKER_FLAGS_DEBUG} \
     -g \
     -mcpu=cortex-m7 \
     -Wall \
     -mfloat-abi=hard \
     -mfpu=fpv5-sp-d16 \
+    -Wl,--print-memory-usage \
     --specs=nano.specs \
     --specs=nosys.specs \
     -fno-common \
@@ -169,10 +183,12 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -T${ProjDirPath}/MIMX8MN6xxxxx_cm7_lpa_ram.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
+    ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
     -mcpu=cortex-m7 \
     -Wall \
     -mfloat-abi=hard \
     -mfpu=fpv5-sp-d16 \
+    -Wl,--print-memory-usage \
     --specs=nano.specs \
     --specs=nosys.specs \
     -fno-common \

@@ -171,8 +171,8 @@ void edma_modulo_wrap(void)
  */
 int main(void)
 {
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     /* Print source buffer */
     PRINTF("EDMA wrap transfer example.\r\n");

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v6.0
+product: Pins v9.0
 processor: K32L2B31xxxxA
 package_id: K32L2B31VLH0A
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 9.0.0
 board: FRDM-K32L2B
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -67,23 +67,23 @@ void BOARD_InitPins(void)
     CLOCK_EnableClock(kCLOCK_PortC);
 
     /* PORTA1 (pin 23) is configured as LPUART0_RX */
-    PORT_SetPinMux(PORTA, 1U, kPORT_MuxAlt2);
+    PORT_SetPinMux(BOARD_DEBUG_UART0_RX_PORT, BOARD_DEBUG_UART0_RX_PIN, kPORT_MuxAlt2);
 
     /* PORTA2 (pin 24) is configured as LPUART0_TX */
-    PORT_SetPinMux(PORTA, 2U, kPORT_MuxAlt2);
+    PORT_SetPinMux(BOARD_DEBUG_UART0_TX_PORT, BOARD_DEBUG_UART0_TX_PIN, kPORT_MuxAlt2);
 
-    const port_pin_config_t portc3_pin46_config = {/* Internal pull-up resistor is enabled */
-                                                   kPORT_PullUp,
-                                                   /* Fast slew rate is configured */
-                                                   kPORT_FastSlewRate,
-                                                   /* Passive filter is disabled */
-                                                   kPORT_PassiveFilterDisable,
-                                                   /* Low drive strength is configured */
-                                                   kPORT_LowDriveStrength,
-                                                   /* Pin is configured as PTC3 */
-                                                   kPORT_MuxAsGpio};
+    const port_pin_config_t SW3 = {/* Internal pull-up resistor is enabled */
+                                   kPORT_PullUp,
+                                   /* Fast slew rate is configured */
+                                   kPORT_FastSlewRate,
+                                   /* Passive filter is disabled */
+                                   kPORT_PassiveFilterDisable,
+                                   /* Low drive strength is configured */
+                                   kPORT_LowDriveStrength,
+                                   /* Pin is configured as PTC3 */
+                                   kPORT_MuxAsGpio};
     /* PORTC3 (pin 46) is configured as PTC3 */
-    PORT_SetPinConfig(PORTC, 3U, &portc3_pin46_config);
+    PORT_SetPinConfig(BOARD_SW3_PORT, BOARD_SW3_PIN, &SW3);
 
     SIM->SOPT5 = ((SIM->SOPT5 &
                    /* Mask bits to zero which are setting */

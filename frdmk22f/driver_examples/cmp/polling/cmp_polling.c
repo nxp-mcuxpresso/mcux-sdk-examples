@@ -44,8 +44,8 @@ int main(void)
     cmp_dac_config_t mCmpDacConfigStruct;
 
     /* Initialize hardware */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\nCMP polling Example.\r\n");

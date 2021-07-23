@@ -47,8 +47,8 @@ int main(void)
     uint32_t i       = 0;
     uint32_t srcFreq = 0;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     PRINTF("\n\rMaster Start...\n\r");
     /*

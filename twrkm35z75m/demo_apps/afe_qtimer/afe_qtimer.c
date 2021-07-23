@@ -193,8 +193,8 @@ int main(void)
     uint32_t measureCounter = 0;
 
     /* Initialize board hardware. */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Select clkSrc for AFEclk */

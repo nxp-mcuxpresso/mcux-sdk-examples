@@ -19,10 +19,8 @@
     <definition extID="platform.drivers.iomuxc.MIMXRT1052"/>
     <definition extID="platform.utilities.assert.MIMXRT1052"/>
     <definition extID="platform.drivers.xip_device.MIMXRT1052"/>
-    <definition extID="platform.drivers.xip_board.MIMXRT1052"/>
-    <definition extID="platform.Include_core_cm7.MIMXRT1052"/>
-    <definition extID="platform.Include_common.MIMXRT1052"/>
-    <definition extID="platform.Include_dsp.MIMXRT1052"/>
+    <definition extID="platform.drivers.xip_board.evkbimxrt1050.MIMXRT1052"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT1052"/>
     <definition extID="middleware.freertos-kernel.MIMXRT1052"/>
     <definition extID="middleware.freertos-kernel.extension.MIMXRT1052"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1052"/>
@@ -35,7 +33,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkbimxrt1050_power_mode_switch_rtos" name="power_mode_switch_rtos" dependency="platform.drivers.gpc_1.MIMXRT1052 platform.drivers.gpt.MIMXRT1052 platform.drivers.igpio.MIMXRT1052 platform.drivers.dcdc_1.MIMXRT1052 middleware.freertos-kernel.heap_4.MIMXRT1052 platform.drivers.clock.MIMXRT1052 platform.drivers.common.MIMXRT1052 device.MIMXRT1052_CMSIS.MIMXRT1052 utility.debug_console.MIMXRT1052 component.lpuart_adapter.MIMXRT1052 component.serial_manager.MIMXRT1052 component.lists.MIMXRT1052 component.serial_manager_uart.MIMXRT1052 platform.drivers.lpuart.MIMXRT1052 device.MIMXRT1052_startup.MIMXRT1052 platform.drivers.iomuxc.MIMXRT1052 platform.utilities.assert.MIMXRT1052 platform.drivers.xip_device.MIMXRT1052 platform.drivers.xip_board.MIMXRT1052 platform.Include_core_cm7.MIMXRT1052 platform.Include_common.MIMXRT1052 platform.Include_dsp.MIMXRT1052 middleware.freertos-kernel.MIMXRT1052 middleware.freertos-kernel.extension.MIMXRT1052 platform.utilities.misc_utilities.MIMXRT1052 device.MIMXRT1052_system.MIMXRT1052" category="demo_apps">
+  <example id="evkbimxrt1050_power_mode_switch_rtos" name="power_mode_switch_rtos" dependency="platform.drivers.gpc_1.MIMXRT1052 platform.drivers.gpt.MIMXRT1052 platform.drivers.igpio.MIMXRT1052 platform.drivers.dcdc_1.MIMXRT1052 middleware.freertos-kernel.heap_4.MIMXRT1052 platform.drivers.clock.MIMXRT1052 platform.drivers.common.MIMXRT1052 device.MIMXRT1052_CMSIS.MIMXRT1052 utility.debug_console.MIMXRT1052 component.lpuart_adapter.MIMXRT1052 component.serial_manager.MIMXRT1052 component.lists.MIMXRT1052 component.serial_manager_uart.MIMXRT1052 platform.drivers.lpuart.MIMXRT1052 device.MIMXRT1052_startup.MIMXRT1052 platform.drivers.iomuxc.MIMXRT1052 platform.utilities.assert.MIMXRT1052 platform.drivers.xip_device.MIMXRT1052 platform.drivers.xip_board.evkbimxrt1050.MIMXRT1052 CMSIS_Include_core_cm.MIMXRT1052 middleware.freertos-kernel.MIMXRT1052 middleware.freertos-kernel.extension.MIMXRT1052 platform.utilities.misc_utilities.MIMXRT1052 device.MIMXRT1052_system.MIMXRT1052" category="demo_apps">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -56,7 +54,8 @@
           <value>XIP_EXTERNAL_FLASH=1</value>
           <value>XIP_BOOT_HEADER_ENABLE=1</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
-          <value>FSL_RTOS_FREE_RTOS</value>
+          <value>SDK_OS_FREE_RTOS</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.link.memory.sections" type="stringList">
           <value>isd=KEEP(*(CodeQuickAccess));region=SRAM_ITC;type=.data</value>
@@ -135,18 +134,6 @@
       <files mask="build_release.bat"/>
       <files mask="build_release.sh"/>
     </source>
-    <source path="examples/evkbimxrt1050/demo_apps/power_mode_switch/rtos/iar" project_relative_path="MIMXRT1052/iar" type="linker" toolchain="iar">
-      <files mask="MIMXRT1052xxxxx_flexspi_nor_ramfunc.icf"/>
-      <files mask="MIMXRT1052xxxxx_ram.icf"/>
-    </source>
-    <source path="examples/evkbimxrt1050/demo_apps/power_mode_switch/rtos/mdk" project_relative_path="MIMXRT1052/arm" type="linker" toolchain="mdk">
-      <files mask="MIMXRT1052xxxxx_flexspi_nor_ramfunc.scf"/>
-      <files mask="MIMXRT1052xxxxx_ram.scf"/>
-    </source>
-    <source path="examples/evkbimxrt1050/demo_apps/power_mode_switch/rtos/armgcc" project_relative_path="MIMXRT1052/gcc" type="linker" toolchain="armgcc">
-      <files mask="MIMXRT1052xxxxx_flexspi_nor_ramfunc.ld"/>
-      <files mask="MIMXRT1052xxxxx_ram.ld"/>
-    </source>
     <source path="examples/evkbimxrt1050/demo_apps/power_mode_switch/rtos" project_relative_path="source" type="src">
       <files mask="power_mode_switch.c"/>
       <files mask="lpm.c"/>
@@ -193,12 +180,9 @@
     <source path="examples/evkbimxrt1050/demo_apps/power_mode_switch/rtos" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
     </source>
-    <source path="examples/evkbimxrt1050/demo_apps/power_mode_switch/rtos/iar" project_relative_path="evkbimxrt1050" type="other" toolchain="iar">
-      <files mask="evkbimxrt1050.mac"/>
-    </source>
-    <source path="examples/evkbimxrt1050/demo_apps/power_mode_switch/rtos/mdk" project_relative_path="evkbimxrt1050" type="configuration" toolchain="mdk">
-      <files mask="evkbimxrt1050_ram.ini"/>
-      <files mask="evkbimxrt1050_flexspi_nor.ini"/>
+    <source path="examples/evkbimxrt1050/demo_apps/power_mode_switch/rtos/armgcc" project_relative_path="MIMXRT1052/gcc" type="linker" toolchain="armgcc">
+      <files mask="MIMXRT1052xxxxx_ram.ld"/>
+      <files mask="MIMXRT1052xxxxx_flexspi_nor.ld"/>
     </source>
   </example>
 </ksdk:examples>

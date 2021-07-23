@@ -38,6 +38,7 @@
 <#include "extrasections_text.ldt">
 <#include "main_text.ldt" >
 <#include "extrasections_rodata.ldt">
+<#include "freertos_debugconfig.ldt">
 <#include "main_rodata.ldt" >
 
 <#include "cpp_info.ldt" >

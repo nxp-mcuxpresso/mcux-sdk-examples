@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -12,18 +12,6 @@
 
 #ifndef _PIN_MUX_H_
 #define _PIN_MUX_H_
-
-/***********************************************************************************************************************
- * Definitions
- **********************************************************************************************************************/
-
-/*! @brief Direction type  */
-typedef enum _pin_mux_direction
-{
-    kPIN_MUX_DirectionInput = 0U,        /* Input direction */
-    kPIN_MUX_DirectionOutput = 1U,       /* Output direction */
-    kPIN_MUX_DirectionInputOrOutput = 2U /* Input or output direction */
-} pin_mux_direction_t;
 
 /*!
  * @addtogroup pin_mux
@@ -46,18 +34,14 @@ void BOARD_InitBootPins(void);
 
 /*! @name PIO0_13 (number 4), S1/CN8[4]/CN6[4]/D2/M_PIO0_13/PIO0_13
   @{ */
-#define BOARD_LED_RED_PERIPHERAL GPIO                               /*!<@brief Device name: GPIO */
-#define BOARD_LED_RED_SIGNAL PIO0                                   /*!<@brief GPIO signal: PIO0 */
-#define BOARD_LED_RED_GPIO GPIO                                     /*!<@brief GPIO device name: GPIO */
-#define BOARD_LED_RED_GPIO_PIN 13U                                  /*!<@brief PIO0 pin index: 13 */
-#define BOARD_LED_RED_PORT 0U                                       /*!<@brief PORT device name: 0U */
-#define BOARD_LED_RED_PIN 13U                                       /*!<@brief 0U pin index: 13 */
-#define BOARD_LED_RED_CHANNEL 13                                    /*!<@brief GPIO PIO0 channel: 13 */
-#define BOARD_LED_RED_PIN_NAME PIO0_13                              /*!<@brief Pin name */
-#define BOARD_LED_RED_LABEL "S1/CN8[4]/CN6[4]/D2/M_PIO0_13/PIO0_13" /*!<@brief Label */
-#define BOARD_LED_RED_NAME "LED_RED"                                /*!<@brief Identifier name */
-#define BOARD_LED_RED_DIRECTION kPIN_MUX_DirectionOutput            /*!<@brief Direction */
-                                                                    /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_LED_RED_GPIO GPIO                 /*!<@brief GPIO peripheral base pointer */
+#define BOARD_LED_RED_GPIO_PIN_MASK (1U << 13U) /*!<@brief GPIO pin mask */
+#define BOARD_LED_RED_PORT 0U                   /*!<@brief PORT device index: 0 */
+#define BOARD_LED_RED_PIN 13U                   /*!<@brief PORT pin number */
+#define BOARD_LED_RED_PIN_MASK (1U << 13U)      /*!<@brief PORT pin mask */
+                                                /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

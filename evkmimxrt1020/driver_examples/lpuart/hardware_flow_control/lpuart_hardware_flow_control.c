@@ -56,8 +56,8 @@ int main(void)
     lpuart_transfer_t sendXfer;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     PRINTF("This is LPUART hardware flow control example on one board.\r\n");
     PRINTF("This example will send data to itself and will use hardware flow control to avoid the overflow.\r\n");

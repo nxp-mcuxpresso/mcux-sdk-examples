@@ -74,8 +74,8 @@ uint16_t g_dacDataArray[DEMO_DAC_USED_BUFFER_SIZE] = {
 int main(void)
 {
     /* Initialize hardware. */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     TRGMUX_SetTriggerSource(TRGMUX0, kTRGMUX_Trgmux0Dac0, kTRGMUX_TriggerInput0, kTRGMUX_SourceLptmr0Trg);

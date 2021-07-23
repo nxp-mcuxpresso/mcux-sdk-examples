@@ -11,8 +11,8 @@
 #include "board.h"
 #include "fsl_debug_console.h"
 
-#include "fsl_common.h"
 #include "fsl_dmamux.h"
+#include "fsl_common.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -84,8 +84,8 @@ int main(void)
     edma_config_t config;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Clock setting for Flexio */

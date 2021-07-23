@@ -338,7 +338,7 @@ int main(void)
 
     /* Init board hardware. */
     BOARD_ConfigMPU();
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
 
     /* When wakeup from suspend, peripheral's doze & stop requests won't be cleared, need to clear them manually */
@@ -372,7 +372,7 @@ int main(void)
     {
         freq = CLOCK_GetFreq(kCLOCK_CpuClk);
 
-        PRINTF("\r\n########## Power Mode Switch Demo (build %s) ###########\n\r\n", __DATE__);
+        PRINTF("\r\n########## Power Mode Switch Demo ###########\n\r\n");
         PRINTF("    Core Clock = %dHz \r\n", freq);
 
         APP_ShowPowerMode(s_curRunMode);

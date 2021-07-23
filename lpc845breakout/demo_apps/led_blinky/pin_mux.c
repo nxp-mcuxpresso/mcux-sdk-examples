@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v6.0
+product: Pins v9.0
 processor: LPC845
 package_id: LPC845M301JBD48
 mcu_data: ksdk2_0
-processor_version: 6.0.1
+processor_version: 9.0.0
 board: LPC845BREAKOUT
 pin_labels:
 - {pin_num: '11', pin_signal: PIO1_0/CAPT_X1, label: 'LD1[3]/CN1[31]/PIO1_0/CAPT_X1', identifier: LED_GREEN}
@@ -30,7 +30,7 @@ pin_labels:
 - {pin_num: '4', pin_signal: PIO0_12, label: 'K1/CN1[25]/PIO0_12', identifier: K1}
 - {pin_num: '5', pin_signal: RESETN/PIO0_5, label: 'K2/CN3[10]/CN1[9]/CN1[34]/RESET/PIO0_5', identifier: K2}
 - {pin_num: '6', pin_signal: PIO0_4/ADC_11, label: 'K3/CN1[35]/PIO0_4/ADC_11/TRSTN/WAKEUP', identifier: K3}
-- {pin_num: '7', pin_signal: PIO0_28, label: 'CN1[14]/PIO0_28/WKTCLKIN'}
+- {pin_num: '7', pin_signal: PIO0_28/WKTCLKIN, label: 'CN1[14]/PIO0_28/WKTCLKIN'}
 - {pin_num: '8', pin_signal: SWCLK/PIO0_3, label: 'CN3[4]/CN1[36]/SWCLK/PIO0_3/TCK'}
 - {pin_num: '9', pin_signal: PIO0_31/CAPT_X0, label: S1/PIO0_31/CAPT_X0, identifier: CAPX}
 - {pin_num: '10', pin_signal: SWDIO/PIO0_2, label: 'CN3[2]/CN1[37]/SWDIO/PIO0_2/TMS'}
@@ -74,6 +74,7 @@ pin_labels:
 /* clang-format on */
 
 #include "fsl_common.h"
+#include "fsl_gpio.h"
 #include "fsl_iocon.h"
 #include "pin_mux.h"
 
@@ -114,28 +115,27 @@ void BOARD_InitPins(void)
     /* Enables the clock for the GPIO1 module */
     CLOCK_EnableClock(kCLOCK_Gpio1);
 
-    GPIO->DIR[1] = ((GPIO->DIR[1] &
-                     /* Mask bits to zero which are setting */
-                     (~(GPIO_DIR_DIRP_MASK)))
+    gpio_pin_config_t LED_RED_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 0U,
+    };
+    /* Initialize GPIO functionality on pin PIO1_2 (pin 16)  */
+    GPIO_PinInit(BOARD_LED_RED_GPIO, BOARD_LED_RED_PORT, BOARD_LED_RED_PIN, &LED_RED_config);
 
-                    /* Selects pin direction for pin PIOm_n (bit 0 = PIOn_0, bit 1 = PIOn_1, etc.). Supported pins
-                     * depends on the specific device and package. 0 = input. 1 = output.: 0x04u */
-                    | GPIO_DIR_DIRP(0x04u));
-
-    const uint32_t IOCON_INDEX_PIO1_2_config = (/* Selects pull-up function */
-                                                IOCON_PIO_MODE_PULLUP |
-                                                /* Enable hysteresis */
-                                                IOCON_PIO_HYS_EN |
-                                                /* Input not invert */
-                                                IOCON_PIO_INV_DI |
-                                                /* Disables Open-drain function */
-                                                IOCON_PIO_OD_DI |
-                                                /* Bypass input filter */
-                                                IOCON_PIO_SMODE_BYPASS |
-                                                /* IOCONCLKDIV0 */
-                                                IOCON_PIO_CLKDIV0);
-    /* PORT1 PIN2 (coords: ) is configured as  */
-    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO1_2, IOCON_INDEX_PIO1_2_config);
+    const uint32_t LED_RED = (/* Selects pull-up function */
+                              IOCON_PIO_MODE_PULLUP |
+                              /* Enable hysteresis */
+                              IOCON_PIO_HYS_EN |
+                              /* Input not invert */
+                              IOCON_PIO_INV_DI |
+                              /* Disables Open-drain function */
+                              IOCON_PIO_OD_DI |
+                              /* Bypass input filter */
+                              IOCON_PIO_SMODE_BYPASS |
+                              /* IOCONCLKDIV0 */
+                              IOCON_PIO_CLKDIV0);
+    /* PIO1 PIN2 (coords: 16) is configured as GPIO, PIO1, 2. */
+    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO1_2, LED_RED);
 }
 /***********************************************************************************************************************
  * EOF

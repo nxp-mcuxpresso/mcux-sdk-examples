@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2019 NXP
+ * Copyright 2017-2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -32,7 +32,7 @@ extern "C" {
  */
 void BOARD_InitBootPins(void);
 
-#define IOCON_PIO_ASW_DIS_DI 0x00u    /*!<@brief Analog switch is disabled */
+#define IOCON_PIO_ASW_DI 0x00u        /*!<@brief Analog switch is open (disabled) */
 #define IOCON_PIO_DIGITAL_EN 0x0100u  /*!<@brief Enables digital function */
 #define IOCON_PIO_FUNC1 0x01u         /*!<@brief Selects pin function 1 */
 #define IOCON_PIO_FUNC6 0x06u         /*!<@brief Selects pin function 6 */

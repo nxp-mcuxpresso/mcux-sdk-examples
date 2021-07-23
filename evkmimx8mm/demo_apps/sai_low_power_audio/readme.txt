@@ -9,7 +9,7 @@ If there is no audio palyback, M core will enter the STOP mode, and the whole SO
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
+- GCC ARM Embedded  10.2.1
 
 Hardware requirements
 =====================
@@ -48,6 +48,9 @@ NOTE
     but please note that only one codec can be used at the same time which is determained by the macro "APP_SRTM_CODEC_WM8524_USED" and "APP_SRTM_CODEC_AK4497_USED" in app_srtm.h.
 3.  Since the  DSD files are typically large, users could create a new large size patition in the SD card to place the music files.
 4.  After M core running, please boot the linux kernel to create the rpmsg channel between A core and M core.
+    Make sure the FDT file is correctly set before booting the linux kernel. The following command can be used to set FDT file in uboot console:
+    u-boot=>setenv fdtfile imx8mm-evk-rpmsg.dtb
+    u-boot=>saveenv
 5.  Please make sure here exists xxx.wav file in the SD card.
     If the music file is placed at the Windows FAT32 paritions, after the linux kernel boot up and logged as root,
     using the "mount /dev/mmcblk1p1 /mnt" and then go to "/mnt" folder to playabck the music using the playback command.
@@ -81,6 +84,7 @@ When playback the .wav file:
       "aplay -Dhw:3 --buffer-time=xxx --period-time=xxx xxx.wav -N &".
     E.g: aplay -Dhw:3 --period-time=500000 --buffer-time=10000000 xxx.wav -N &
     Now please use "echo mem > /sys/power/state" command to make A core enter suspend mode and the playabck work normally.
+    Note, make sure the A core has enough time to fill the audio buffer before going into suspend mode.
 
     
 When playback the .dsd/.dff file (only supported by AK4497 codec): 

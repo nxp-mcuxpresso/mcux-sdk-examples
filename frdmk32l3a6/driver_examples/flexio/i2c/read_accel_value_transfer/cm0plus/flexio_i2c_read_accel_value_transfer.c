@@ -275,8 +275,8 @@ int main(void)
     i2cDev.timerIndex[1]   = 1U;
     i2cDev.timerIndex[2]   = 2U;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     INTMUX_Init(INTMUX1);
     INTMUX_EnableInterrupt(INTMUX1, 0, FLEXIO0_IRQn);

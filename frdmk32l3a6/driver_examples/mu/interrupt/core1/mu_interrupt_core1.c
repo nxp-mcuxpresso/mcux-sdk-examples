@@ -101,7 +101,7 @@ void APP_MU_IRQHandler(void)
 int main(void)
 {
     /* Init board hardware.*/
-    BOARD_InitPins_Core1();
+    BOARD_InitBootPins();
     NVIC_EnableIRQ(MUB_IRQn);
     /* Initialize LED */
     LED_INIT();

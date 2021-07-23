@@ -22,12 +22,10 @@
     <definition extID="component.lpuart_adapter.K32L3A60"/>
     <definition extID="component.lists.K32L3A60"/>
     <definition extID="platform.devices.K32L3A60_CMSIS.K32L3A60"/>
-    <definition extID="platform.Include_core_cm0plus.K32L3A60"/>
     <definition extID="platform.devices.K32L3A60_startup.K32L3A60"/>
+    <definition extID="CMSIS_Include_core_cm.K32L3A60"/>
     <definition extID="middleware.multicore.erpc.common.K32L3A60"/>
     <definition extID="platform.utilities.misc_utilities.K32L3A60"/>
-    <definition extID="platform.Include_common.K32L3A60"/>
-    <definition extID="platform.Include_dsp.K32L3A60"/>
     <definition extID="platform.devices.K32L3A60_system.K32L3A60"/>
     <definition extID="iar"/>
     <definition extID="mdk"/>
@@ -37,7 +35,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="frdmk32l3a6_erpc_matrix_multiply_mu_cm0plus" name="erpc_matrix_multiply_mu_cm0plus" device_core="cm0plus_K32L3A60xxx" dependency="middleware.multicore.mcmgr.k32l3a6.K32L3A60 utility.debug_console_lite.K32L3A60 platform.utilities.assert_lite.K32L3A60 platform.drivers.gpio.K32L3A60 platform.drivers.port.K32L3A60 platform.drivers.clock.K32L3A60 platform.drivers.mu.K32L3A60 middleware.multicore.erpc.eRPC_server.K32L3A60 middleware.multicore.erpc.eRPC_mu_c_wrapper.K32L3A60 middleware.multicore.erpc.eRPC_mu_transport.K32L3A60 middleware.multicore.erpc.eRPC_port_stdlib.K32L3A60 middleware.multicore.mcmgr.K32L3A60 middleware.multicore.erpc.doc.K32L3A60 middleware.baremetal.K32L3A60 platform.drivers.common.K32L3A60 platform.drivers.msmc.K32L3A60 platform.drivers.lpuart.K32L3A60 component.lpuart_adapter.K32L3A60 component.lists.K32L3A60 platform.devices.K32L3A60_CMSIS.K32L3A60 platform.Include_core_cm0plus.K32L3A60 platform.devices.K32L3A60_startup.K32L3A60 middleware.multicore.erpc.common.K32L3A60 platform.utilities.misc_utilities.K32L3A60 platform.Include_common.K32L3A60 platform.Include_dsp.K32L3A60 platform.devices.K32L3A60_system.K32L3A60" category="multicore_examples">
+  <example id="frdmk32l3a6_erpc_matrix_multiply_mu_cm0plus" name="erpc_matrix_multiply_mu_cm0plus" device_core="cm0plus_K32L3A60xxx" dependency="middleware.multicore.mcmgr.k32l3a6.K32L3A60 utility.debug_console_lite.K32L3A60 platform.utilities.assert_lite.K32L3A60 platform.drivers.gpio.K32L3A60 platform.drivers.port.K32L3A60 platform.drivers.clock.K32L3A60 platform.drivers.mu.K32L3A60 middleware.multicore.erpc.eRPC_server.K32L3A60 middleware.multicore.erpc.eRPC_mu_c_wrapper.K32L3A60 middleware.multicore.erpc.eRPC_mu_transport.K32L3A60 middleware.multicore.erpc.eRPC_port_stdlib.K32L3A60 middleware.multicore.mcmgr.K32L3A60 middleware.multicore.erpc.doc.K32L3A60 middleware.baremetal.K32L3A60 platform.drivers.common.K32L3A60 platform.drivers.msmc.K32L3A60 platform.drivers.lpuart.K32L3A60 component.lpuart_adapter.K32L3A60 component.lists.K32L3A60 platform.devices.K32L3A60_CMSIS.K32L3A60 platform.devices.K32L3A60_startup.K32L3A60 CMSIS_Include_core_cm.K32L3A60 middleware.multicore.erpc.common.K32L3A60 platform.utilities.misc_utilities.K32L3A60 platform.devices.K32L3A60_system.K32L3A60" category="multicore_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.ccnature"/>
     </projects>
@@ -51,8 +49,11 @@
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>CPU_K32L3A60VPJ1A_cm0plus</value>
           <value>MULTICORE_APP=1</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
-        <option id="gnu.cpp.compiler.option.preprocessor.def" type="stringList"/>
+        <option id="gnu.cpp.compiler.option.preprocessor.def" type="stringList">
+          <value>MCUXPRESSO_SDK</value>
+        </option>
         <option id="com.crt.advproject.link.cpp.multicore.slave" type="string">
           <value>M0SLAVE</value>
         </option>
@@ -200,12 +201,6 @@
     </source>
     <source path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_mu/cm0plus" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_mu/cm0plus/iar" project_relative_path="K32L3A60/iar" type="linker" toolchain="iar">
-      <files mask="K32L3A60xxx_cm0plus_flash.icf"/>
-    </source>
-    <source path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_mu/cm0plus/mdk" project_relative_path="K32L3A60/arm" type="linker" toolchain="mdk">
-      <files mask="K32L3A60xxx_cm0plus_flash.scf"/>
     </source>
     <source path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_mu/cm0plus/armgcc" project_relative_path="K32L3A60/gcc" type="linker" toolchain="armgcc">
       <files mask="K32L3A60xxx_cm0plus_flash.ld"/>

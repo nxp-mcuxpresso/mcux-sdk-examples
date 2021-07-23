@@ -122,7 +122,7 @@ int main(void)
     RESET_PeripheralReset(kFC7_RST_SHIFT_RSTn);
 
     /* Initialize the rest */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockFROHF48M();
     BOARD_InitDebugConsole();
 

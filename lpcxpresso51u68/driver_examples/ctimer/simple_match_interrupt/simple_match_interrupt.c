@@ -19,10 +19,10 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define CTIMER          CTIMER0         /* Timer 0 */
-#define CTIMER_MAT0_OUT kCTIMER_Match_0 /* Match output 3 */
-#define CTIMER_MAT1_OUT kCTIMER_Match_3 /* Match output 3 */
-#define CTIMER_CLK_FREQ CLOCK_GetFreq(kCLOCK_BusClk)
+#define CTIMER          CTIMER0                      /* Timer 0 */
+#define CTIMER_MAT0_OUT kCTIMER_Match_0              /* Match output 3 */
+#define CTIMER_MAT1_OUT kCTIMER_Match_3              /* Match output 3 */
+#define CTIMER_CLK_FREQ CLOCK_GetFreq(kCLOCK_BusClk) /* CTimer0 and CTimer1 use Sync APB clock(system clock) */
 
 /*******************************************************************************
  * Prototypes
@@ -65,8 +65,8 @@ void ctimer_match1_callback(uint32_t flags)
     }
 #if defined(BOARD_HAS_NO_CTIMER_OUTPUT_PIN_CONNECTED_TO_LED)
     /* No timer match output pin connected to a LED
-    * toggle LED manually according to match status
-    */
+     * toggle LED manually according to match status
+     */
     if (CTIMER_GetOutputMatchStatus(CTIMER, CTIMER_EMT1_OUT))
     {
         LED_RED2_ON();
@@ -97,8 +97,8 @@ void ctimer_match0_callback(uint32_t flags)
     }
 #if defined(BOARD_HAS_NO_CTIMER_OUTPUT_PIN_CONNECTED_TO_LED)
     /* No timer match output pin connected to a LED
-    * toggle LED manually according to match status
-    */
+     * toggle LED manually according to match status
+     */
     if (CTIMER_GetOutputMatchStatus(CTIMER, CTIMER_EMT0_OUT))
     {
         LED_RED1_ON();
@@ -121,14 +121,8 @@ int main(void)
     /* attach 12 MHz clock to FLEXCOMM0 (debug console) */
     CLOCK_AttachClk(BOARD_DEBUG_UART_CLK_ATTACH);
 
-    /* Enable the asynchronous bridge */
-    SYSCON->ASYNCAPBCTRL = 1;
-
-    /* Use 12 MHz clock for some of the Ctimers */
-    CLOCK_AttachClk(kFRO12M_to_ASYNC_APB);
-
-    BOARD_InitPins();
-    BOARD_BootClockPLL150M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
 #if defined(BOARD_HAS_NO_CTIMER_OUTPUT_PIN_CONNECTED_TO_LED)

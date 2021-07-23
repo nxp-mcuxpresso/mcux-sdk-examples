@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v5.0
+product: Pins v9.0
 processor: K32L3A60xxx
 package_id: K32L3A60VPJ1A
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 9.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -44,8 +44,8 @@ void BOARD_InitBootPins(void)
 BOARD_InitPins:
 - options: {callFromInitBoot: 'true', coreID: cm4, enableClock: 'true'}
 - pin_list:
-  - {pin_num: N8, peripheral: FLEXIO0, signal: 'D, 24', pin_signal: PTD4/SDHC0_D5/LPSPI2_PCS1/EMVSIM0_SRST/FXIO0_D24}
-  - {pin_num: N10, peripheral: FLEXIO0, signal: 'D, 25', pin_signal: ADC0_SE8/PTD5/SDHC0_D4/LPSPI2_PCS3/EMVSIM0_VCCEN/FXIO0_D25}
+  - {pin_num: N8, peripheral: FLEXIO0, signal: 'D, 24', pin_signal: PTD4/SDHC0_D5/LPSPI2_PCS1/EMVSIM0_RST/FXIO0_D24}
+  - {pin_num: N10, peripheral: FLEXIO0, signal: 'D, 25', pin_signal: LPADC0_SE8/PTD5/SDHC0_D4/LPSPI2_PCS3/EMVSIM0_VCCEN/FXIO0_D25}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -56,6 +56,7 @@ BOARD_InitPins:
  * Description   : Configures pin routing and optionally pin electrical features.
  *
  * END ****************************************************************************************************************/
+/* Function assigned for the Cortex-M4F */
 void BOARD_InitPins(void)
 {
     /* Clock Gate Control: Clock enabled. The current clock selection and divider options are locked. */

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2017,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -20,6 +20,7 @@
  ******************************************************************************/
 #define ACCEL_I2C_CLK_SRC  I2C0_CLK_SRC
 #define ACCEL_I2C_CLK_FREQ CLOCK_GetFreq(I2C0_CLK_SRC)
+#define I2C_BAUDRATE       100000
 
 #define I2C_RELEASE_SDA_PORT  PORTB
 #define I2C_RELEASE_SCL_PORT  PORTB
@@ -28,24 +29,27 @@
 #define I2C_RELEASE_SCL_GPIO  GPIOB
 #define I2C_RELEASE_SCL_PIN   2U
 #define I2C_RELEASE_BUS_COUNT 100U
-#define I2C_BAUDRATE       100000U
+/* MMA8491 does not have WHO_AM_I, DATA_CFG amd CTRL registers */
+#if !(defined(I2C_ACCEL_MMA8491) && I2C_ACCEL_MMA8491)
 #define FXOS8700_WHOAMI    0xC7U
 #define MMA8451_WHOAMI     0x1AU
 #define MMA8652_WHOAMI     0x4AU
-#define ACCEL_STATUS       0x00U
 #define ACCEL_XYZ_DATA_CFG 0x0EU
 #define ACCEL_CTRL_REG1    0x2AU
 /* FXOS8700 and MMA8451 have the same who_am_i register address. */
 #define ACCEL_WHOAMI_REG 0x0DU
+#endif
+#define ACCEL_STATUS     0x00U
 #define ACCEL_READ_TIMES 10U
 
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
 void BOARD_I2C_ReleaseBus(void);
-
+#if !(defined(I2C_ACCEL_MMA8491) && I2C_ACCEL_MMA8491)
 static bool I2C_ReadAccelWhoAmI(void);
 static bool I2C_WriteAccelReg(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t value);
+#endif
 static bool I2C_ReadAccelRegs(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t *rxBuff, uint32_t rxSize);
 
 /*******************************************************************************
@@ -54,12 +58,14 @@ static bool I2C_ReadAccelRegs(I2C_Type *base, uint8_t device_addr, uint8_t reg_a
 
 uint8_t MSBshift = 8U;
 uint8_t LSBshift = 2U;
+#if defined(I2C_ACCEL_MMA8491) && I2C_ACCEL_MMA8491
+uint8_t g_mma8491_addr = 0x55U;
+#else
 /* FXOS8700, MMA8652 and MMA8451 device address */
 const uint8_t g_accel_address[] = {0x1CU, 0x1DU, 0x1EU, 0x1FU};
-
-i2c_master_handle_t g_m_handle;
-
+#endif
 uint8_t g_accel_addr_found = 0x00;
+i2c_master_handle_t g_m_handle;
 
 volatile bool completionFlag = false;
 volatile bool nakFlag        = false;
@@ -142,6 +148,24 @@ static void i2c_master_callback(I2C_Type *base, i2c_master_handle_t *handle, sta
     }
 }
 
+static void I2C_InitModule(void)
+{
+    i2c_master_config_t masterConfig;
+    uint32_t sourceClock = 0;
+
+    /*
+     * masterConfig.baudRate_Bps = 100000U;
+     * masterConfig.enableStopHold = false;
+     * masterConfig.glitchFilterWidth = 0U;
+     * masterConfig.enableMaster = true;
+     */
+    I2C_MasterGetDefaultConfig(&masterConfig);
+    masterConfig.baudRate_Bps = I2C_BAUDRATE;
+    sourceClock               = ACCEL_I2C_CLK_FREQ;
+    I2C_MasterInit(BOARD_ACCEL_I2C_BASEADDR, &masterConfig, sourceClock);
+}
+
+#if !(defined(I2C_ACCEL_MMA8491) && I2C_ACCEL_MMA8491)
 static bool I2C_ReadAccelWhoAmI(void)
 {
     /*
@@ -154,23 +178,8 @@ static bool I2C_ReadAccelWhoAmI(void)
     uint8_t accel_addr_array_size = 0x00;
     bool find_device              = false;
     uint8_t i                     = 0;
-    uint32_t sourceClock          = 0;
 
-    i2c_master_config_t masterConfig;
-
-    /*
-     * masterConfig.baudRate_Bps = 100000U;
-     * masterConfig.enableStopHold = false;
-     * masterConfig.glitchFilterWidth = 0U;
-     * masterConfig.enableMaster = true;
-     */
-    I2C_MasterGetDefaultConfig(&masterConfig);
-
-    masterConfig.baudRate_Bps = I2C_BAUDRATE;
-
-    sourceClock = ACCEL_I2C_CLK_FREQ;
-
-    I2C_MasterInit(BOARD_ACCEL_I2C_BASEADDR, &masterConfig, sourceClock);
+    I2C_InitModule();
 
     i2c_master_transfer_t masterXfer;
     memset(&masterXfer, 0, sizeof(masterXfer));
@@ -300,6 +309,7 @@ static bool I2C_WriteAccelReg(I2C_Type *base, uint8_t device_addr, uint8_t reg_a
         return false;
     }
 }
+#endif
 
 static bool I2C_ReadAccelRegs(I2C_Type *base, uint8_t device_addr, uint8_t reg_addr, uint8_t *rxBuff, uint32_t rxSize)
 {
@@ -342,8 +352,8 @@ static bool I2C_ReadAccelRegs(I2C_Type *base, uint8_t device_addr, uint8_t reg_a
 int main(void)
 {
     bool isThereAccel = false;
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_I2C_ReleaseBus();
     BOARD_I2C_ConfigurePins();
     BOARD_InitDebugConsole();
@@ -351,17 +361,40 @@ int main(void)
     PRINTF("\r\nI2C example -- Read Accelerometer Value\r\n");
 
     I2C_MasterTransferCreateHandle(BOARD_ACCEL_I2C_BASEADDR, &g_m_handle, i2c_master_callback, NULL);
+#if defined(I2C_ACCEL_MMA8491) && I2C_ACCEL_MMA8491
+    uint8_t status0_value                = 0;
+    gpio_pin_config_t tilt_enable_config = {.pinDirection = kGPIO_DigitalOutput, .outputLogic = 0U};
+
+    /* Enable sensor */
+    GPIO_PinInit(BOARD_TILT_ENABLE_GPIO, BOARD_TILT_ENABLE_GPIO_PIN, &tilt_enable_config);
+
+    I2C_InitModule();
+
+    /* If using MMA8491, then perform get status operation to g_mma8491_addr to check whether it is welded on board. */
+    isThereAccel = I2C_ReadAccelRegs(BOARD_ACCEL_I2C_BASEADDR, g_mma8491_addr, ACCEL_STATUS, &status0_value, 1);
+    if (isThereAccel)
+    {
+        PRINTF("Found MMA8491 on board, the device address is 0x%x. \r\n", g_mma8491_addr);
+        g_accel_addr_found = g_mma8491_addr;
+    }
+    else
+    {
+        PRINTF("\r\nDo not find an accelerometer device ! \r\n");
+    }
+#else
+    /* For other sensors, check the type of the sensor */
     isThereAccel = I2C_ReadAccelWhoAmI();
+#endif
 
     /*  read the accel xyz value if there is accel device on board */
     if (true == isThereAccel)
     {
-        uint8_t databyte  = 0;
-        uint8_t write_reg = 0;
+        uint32_t i = 0U;
         uint8_t readBuff[7];
         int16_t x, y, z;
-        uint8_t status0_value = 0;
-        uint32_t i            = 0U;
+#if !(defined(I2C_ACCEL_MMA8491) && I2C_ACCEL_MMA8491)
+        uint8_t databyte  = 0;
+        uint8_t write_reg = 0;
 
         /*  please refer to the "example FXOS8700CQ Driver Code" in FXOS8700 datasheet. */
         /*  write 0000 0000 = 0x00 to accelerometer control register 1 */
@@ -395,12 +428,21 @@ int main(void)
         write_reg = ACCEL_CTRL_REG1;
         databyte  = 0x0d;
         I2C_WriteAccelReg(BOARD_ACCEL_I2C_BASEADDR, g_accel_addr_found, write_reg, databyte);
+#endif
         PRINTF("The accel values:\r\n");
         for (i = 0; i < ACCEL_READ_TIMES; i++)
         {
-            status0_value = 0;
             /*  wait for new data are ready. */
-            while (status0_value != 0xff)
+#if defined(I2C_ACCEL_MMA8491) && I2C_ACCEL_MMA8491
+            /* Disable and re-enable sensor to get another reading */
+            GPIO_PortToggle(BOARD_TILT_ENABLE_GPIO, 1U << BOARD_TILT_ENABLE_GPIO_PIN);
+            GPIO_PortToggle(BOARD_TILT_ENABLE_GPIO, 1U << BOARD_TILT_ENABLE_GPIO_PIN);
+            status0_value = 0;
+            while (status0_value != 0xfU)
+#else
+            uint8_t status0_value = 0;
+            while (status0_value != 0xffU)
+#endif
             {
                 I2C_ReadAccelRegs(BOARD_ACCEL_I2C_BASEADDR, g_accel_addr_found, ACCEL_STATUS, &status0_value, 1);
             }

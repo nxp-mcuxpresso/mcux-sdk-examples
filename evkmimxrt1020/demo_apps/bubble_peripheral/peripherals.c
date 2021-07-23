@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -13,14 +13,14 @@
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Peripherals v5.0
+product: Peripherals v8.0
 processor: MIMXRT1021xxxxx
 package_id: MIMXRT1021DAG5A
 mcu_data: ksdk2_0
-processor_version: 5.0.2
-board: MIMXRT1020-EVK
+processor_version: 0.9.6
 functionalGroups:
 - name: BOARD_InitPeripherals
+  UUID: 048d4862-b4f4-4ec2-8de5-91b15e85ea30
   called_from_default_init: true
   selectedCore: core0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
@@ -29,7 +29,9 @@ functionalGroups:
 component:
 - type: 'system'
 - type_id: 'system_54b53072540eeeb8f8e9343e71f28176'
-- global_system_definitions: []
+- global_system_definitions:
+  - user_definitions: ''
+  - user_includes: ''
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 
@@ -50,6 +52,7 @@ instance:
 - name: 'TIMER'
 - type: 'qtmr'
 - mode: 'general'
+- custom_name_enabled: 'true'
 - type_id: 'qtmr_460dd7aa3f3371843c2548acd54252b0'
 - functional_group: 'BOARD_InitPeripherals'
 - peripheral: 'TMR1'
@@ -80,32 +83,34 @@ instance:
       - enable_irq: 'true'
       - interrupt:
         - IRQn: 'TMR1_IRQn'
+        - enable_interrrupt: 'enabled'
         - enable_priority: 'false'
+        - priority: '0'
         - enable_custom_name: 'true'
         - handler_custom_name: 'TIMER_IRQ_HANDLER'
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
-const qtmr_config_t TIMER_Channel_0_config = {.primarySource       = kQTMR_ClockDivide_128,
-                                              .secondarySource     = kQTMR_Counter0InputPin,
-                                              .enableMasterMode    = false,
-                                              .enableExternalForce = false,
-                                              .faultFilterCount    = 0,
-                                              .faultFilterPeriod   = 0,
-                                              .debugMode           = kQTMR_RunNormalInDebug};
+const qtmr_config_t TIMER_Channel_0_config = {
+  .primarySource = kQTMR_ClockDivide_128,
+  .secondarySource = kQTMR_Counter0InputPin,
+  .enableMasterMode = false,
+  .enableExternalForce = false,
+  .faultFilterCount = 0,
+  .faultFilterPeriod = 0,
+  .debugMode = kQTMR_RunNormalInDebug
+};
 
-void TIMER_init(void)
-{
-    /* Quad timer channel Channel_0 peripheral initialization */
-    QTMR_Init(TIMER_PERIPHERAL, TIMER_CHANNEL_0_CHANNEL, &TIMER_Channel_0_config);
-    /* Setup the PWM mode of the timer channel */
-    QTMR_SetupPwm(TIMER_PERIPHERAL, TIMER_CHANNEL_0_CHANNEL, 48828UL, 50U, false, TIMER_CHANNEL_0_CLOCK_SOURCE);
-    /* Enable interrupt requests of the timer channel */
-    QTMR_EnableInterrupts(TIMER_PERIPHERAL, TIMER_CHANNEL_0_CHANNEL,
-                          kQTMR_Compare1InterruptEnable | kQTMR_Compare2InterruptEnable);
-    /* Enable interrupt TMR1_IRQn request in the NVIC */
-    EnableIRQ(TIMER_IRQN);
-    /* Start the timer - select the timer counting mode */
-    QTMR_StartTimer(TIMER_PERIPHERAL, TIMER_CHANNEL_0_CHANNEL, kQTMR_PriSrcRiseEdge);
+static void TIMER_init(void) {
+  /* Quad timer channel Channel_0 peripheral initialization */
+  QTMR_Init(TIMER_PERIPHERAL, TIMER_CHANNEL_0_CHANNEL, &TIMER_Channel_0_config);
+  /* Setup the PWM mode of the timer channel */
+  QTMR_SetupPwm(TIMER_PERIPHERAL, TIMER_CHANNEL_0_CHANNEL, 48828UL, 50U, false, TIMER_CHANNEL_0_CLOCK_SOURCE);
+  /* Enable interrupt requests of the timer channel */
+  QTMR_EnableInterrupts(TIMER_PERIPHERAL, TIMER_CHANNEL_0_CHANNEL, kQTMR_Compare1InterruptEnable | kQTMR_Compare2InterruptEnable);
+  /* Enable interrupt TMR1_IRQn request in the NVIC. */
+  EnableIRQ(TIMER_IRQN);
+  /* Start the timer - select the timer counting mode */
+  QTMR_StartTimer(TIMER_PERIPHERAL, TIMER_CHANNEL_0_CHANNEL, kQTMR_PriSrcRiseEdge);
 }
 
 /***********************************************************************************************************************
@@ -117,6 +122,7 @@ instance:
 - name: 'ACCEL_I2C'
 - type: 'lpi2c'
 - mode: 'master'
+- custom_name_enabled: 'true'
 - type_id: 'lpi2c_db68d4f4f06a22e25ab51fe9bd6db4d2'
 - functional_group: 'BOARD_InitPeripherals'
 - peripheral: 'LPI2C4'
@@ -126,7 +132,9 @@ instance:
     - clockSourceFreq: 'BOARD_BootClockRUN'
     - interrupt:
       - IRQn: 'LPI2C4_IRQn'
+      - enable_interrrupt: 'enabled'
       - enable_priority: 'false'
+      - priority: '0'
       - enable_custom_name: 'false'
     - quick_selection: 'qs_interrupt'
   - master:
@@ -146,6 +154,7 @@ instance:
         - enable: 'false'
         - source: 'kLPI2C_HostRequestExternalPin'
         - polarity: 'kLPI2C_HostRequestPinActiveHigh'
+      - edmaRequestSources: ''
     - transfer:
       - blocking: 'false'
       - flags: ''
@@ -161,32 +170,37 @@ instance:
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 const lpi2c_master_config_t ACCEL_I2C_masterConfig = {
-    .enableMaster            = true,
-    .enableDoze              = true,
-    .debugEnable             = false,
-    .ignoreAck               = false,
-    .pinConfig               = kLPI2C_2PinOpenDrain,
-    .baudRate_Hz             = 100000,
-    .busIdleTimeout_ns       = 0,
-    .pinLowTimeout_ns        = 0,
-    .sdaGlitchFilterWidth_ns = 0,
-    .sclGlitchFilterWidth_ns = 0,
-    .hostRequest             = {
-        .enable = false, .source = kLPI2C_HostRequestExternalPin, .polarity = kLPI2C_HostRequestPinActiveHigh}};
-lpi2c_master_transfer_t ACCEL_I2C_masterTransfer = {.flags          = kLPI2C_TransferDefaultFlag,
-                                                    .slaveAddress   = 0,
-                                                    .direction      = kLPI2C_Write,
-                                                    .subaddress     = 0,
-                                                    .subaddressSize = 1,
-                                                    .data           = ACCEL_I2C_masterBuffer,
-                                                    .dataSize       = 1};
+  .enableMaster = true,
+  .enableDoze = true,
+  .debugEnable = false,
+  .ignoreAck = false,
+  .pinConfig = kLPI2C_2PinOpenDrain,
+  .baudRate_Hz = 100000UL,
+  .busIdleTimeout_ns = 0UL,
+  .pinLowTimeout_ns = 0UL,
+  .sdaGlitchFilterWidth_ns = 0U,
+  .sclGlitchFilterWidth_ns = 0U,
+  .hostRequest = {
+    .enable = false,
+    .source = kLPI2C_HostRequestExternalPin,
+    .polarity = kLPI2C_HostRequestPinActiveHigh
+  }
+};
+lpi2c_master_transfer_t ACCEL_I2C_masterTransfer = {
+  .flags = kLPI2C_TransferDefaultFlag,
+  .slaveAddress = 0,
+  .direction = kLPI2C_Write,
+  .subaddress = 0,
+  .subaddressSize = 1,
+  .data = ACCEL_I2C_masterBuffer,
+  .dataSize = 1
+};
 lpi2c_master_handle_t ACCEL_I2C_masterHandle;
 uint8_t ACCEL_I2C_masterBuffer[ACCEL_I2C_MASTER_BUFFER_SIZE];
 
-void ACCEL_I2C_init(void)
-{
-    LPI2C_MasterInit(ACCEL_I2C_PERIPHERAL, &ACCEL_I2C_masterConfig, ACCEL_I2C_CLOCK_FREQ);
-    LPI2C_MasterTransferCreateHandle(ACCEL_I2C_PERIPHERAL, &ACCEL_I2C_masterHandle, NULL, NULL);
+static void ACCEL_I2C_init(void) {
+  LPI2C_MasterInit(ACCEL_I2C_PERIPHERAL, &ACCEL_I2C_masterConfig, ACCEL_I2C_CLOCK_FREQ);
+  LPI2C_MasterTransferCreateHandle(ACCEL_I2C_PERIPHERAL, &ACCEL_I2C_masterHandle, NULL, NULL);
 }
 
 /***********************************************************************************************************************
@@ -194,9 +208,9 @@ void ACCEL_I2C_init(void)
  **********************************************************************************************************************/
 void BOARD_InitPeripherals(void)
 {
-    /* Initialize components */
-    TIMER_init();
-    ACCEL_I2C_init();
+  /* Initialize components */
+  TIMER_init();
+  ACCEL_I2C_init();
 }
 
 /***********************************************************************************************************************
@@ -204,5 +218,5 @@ void BOARD_InitPeripherals(void)
  **********************************************************************************************************************/
 void BOARD_InitBootPeripherals(void)
 {
-    BOARD_InitPeripherals();
+  BOARD_InitPeripherals();
 }

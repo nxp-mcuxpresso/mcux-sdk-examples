@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2019 NXP
+ * Copyright 2017-2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,16 +14,17 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v6.0
+product: Pins v9.0
 processor: LPC55S28
 package_id: LPC55S28JBD100
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 9.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
 
 #include "fsl_common.h"
+#include "fsl_gpio.h"
 #include "fsl_iocon.h"
 #include "pin_mux.h"
 
@@ -65,6 +66,16 @@ void BOARD_InitPins(void)
 {
     /* Enables the clock for the I/O controller.: Enable Clock. */
     CLOCK_EnableClock(kCLOCK_Iocon);
+
+    /* Enables the clock for the GPIO0 module */
+    CLOCK_EnableClock(kCLOCK_Gpio0);
+
+    gpio_pin_config_t gpio0_pin20_config = {
+        .pinDirection = kGPIO_DigitalInput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PIO0_23 (pin 20)  */
+    GPIO_PinInit(GPIO, 0U, 23U, &gpio0_pin20_config);
 
     const uint32_t port0_pin23_config = (/* Pin is configured as ADC0_0 */
                                          IOCON_PIO_FUNC0 |

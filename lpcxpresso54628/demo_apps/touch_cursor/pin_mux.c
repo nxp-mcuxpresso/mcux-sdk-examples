@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v6.0
+product: Pins v9.0
 processor: LPC54628J512
 package_id: LPC54628J512ET180
 mcu_data: ksdk2_0
-processor_version: 6.0.1
+processor_version: 9.0.0
 board: LPCXpresso54628
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -115,224 +115,224 @@ void BOARD_InitPins(void)
     /* Enables the clock for the IOCON block. 0 = Disable; 1 = Enable.: 0x01u */
     CLOCK_EnableClock(kCLOCK_Iocon);
 
-    const uint32_t port0_pin10_config = (/* Pin is configured as SWO */
-                                         IOCON_PIO_FUNC6 |
-                                         /* No addition pin function */
-                                         IOCON_PIO_MODE_INACT |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t SWO_TRGT = (/* Pin is configured as SWO */
+                               IOCON_PIO_FUNC6 |
+                               /* No addition pin function */
+                               IOCON_PIO_MODE_INACT |
+                               /* Input function is not inverted */
+                               IOCON_PIO_INV_DI |
+                               /* Enables digital function */
+                               IOCON_PIO_DIGITAL_EN |
+                               /* Input filter disabled */
+                               IOCON_PIO_INPFILT_OFF |
+                               /* Open drain is disabled */
+                               IOCON_PIO_OPENDRAIN_DI);
     /* PORT0 PIN10 (coords: P2) is configured as SWO */
-    IOCON_PinMuxSet(IOCON, 0U, 10U, port0_pin10_config);
+    IOCON_PinMuxSet(IOCON, BOARD_SWO_TRGT_PORT, BOARD_SWO_TRGT_PIN, SWO_TRGT);
 
-    const uint32_t port0_pin29_config = (/* Pin is configured as FC0_RXD_SDA_MOSI */
-                                         IOCON_PIO_FUNC1 |
-                                         /* No addition pin function */
-                                         IOCON_PIO_MODE_INACT |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Standard mode, output slew rate control is enabled */
-                                         IOCON_PIO_SLEW_STANDARD |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t ISP_FC0_RXD = (/* Pin is configured as FC0_RXD_SDA_MOSI */
+                                  IOCON_PIO_FUNC1 |
+                                  /* No addition pin function */
+                                  IOCON_PIO_MODE_INACT |
+                                  /* Input function is not inverted */
+                                  IOCON_PIO_INV_DI |
+                                  /* Enables digital function */
+                                  IOCON_PIO_DIGITAL_EN |
+                                  /* Input filter disabled */
+                                  IOCON_PIO_INPFILT_OFF |
+                                  /* Standard mode, output slew rate control is enabled */
+                                  IOCON_PIO_SLEW_STANDARD |
+                                  /* Open drain is disabled */
+                                  IOCON_PIO_OPENDRAIN_DI);
     /* PORT0 PIN29 (coords: B13) is configured as FC0_RXD_SDA_MOSI */
-    IOCON_PinMuxSet(IOCON, 0U, 29U, port0_pin29_config);
+    IOCON_PinMuxSet(IOCON, BOARD_ISP_FC0_RXD_PORT, BOARD_ISP_FC0_RXD_PIN, ISP_FC0_RXD);
 
-    const uint32_t port0_pin30_config = (/* Pin is configured as FC0_TXD_SCL_MISO */
-                                         IOCON_PIO_FUNC1 |
-                                         /* No addition pin function */
-                                         IOCON_PIO_MODE_INACT |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Standard mode, output slew rate control is enabled */
-                                         IOCON_PIO_SLEW_STANDARD |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t ISP_FC0_TXD = (/* Pin is configured as FC0_TXD_SCL_MISO */
+                                  IOCON_PIO_FUNC1 |
+                                  /* No addition pin function */
+                                  IOCON_PIO_MODE_INACT |
+                                  /* Input function is not inverted */
+                                  IOCON_PIO_INV_DI |
+                                  /* Enables digital function */
+                                  IOCON_PIO_DIGITAL_EN |
+                                  /* Input filter disabled */
+                                  IOCON_PIO_INPFILT_OFF |
+                                  /* Standard mode, output slew rate control is enabled */
+                                  IOCON_PIO_SLEW_STANDARD |
+                                  /* Open drain is disabled */
+                                  IOCON_PIO_OPENDRAIN_DI);
     /* PORT0 PIN30 (coords: A2) is configured as FC0_TXD_SCL_MISO */
-    IOCON_PinMuxSet(IOCON, 0U, 30U, port0_pin30_config);
+    IOCON_PinMuxSet(IOCON, BOARD_ISP_FC0_TXD_PORT, BOARD_ISP_FC0_TXD_PIN, ISP_FC0_TXD);
 
-    const uint32_t port2_pin11_config = (/* Pin is configured as LCD_PWR */
-                                         IOCON_PIO_FUNC1 |
-                                         /* No addition pin function */
-                                         IOCON_PIO_MODE_INACT |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Standard mode, output slew rate control is enabled */
-                                         IOCON_PIO_SLEW_STANDARD |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t LCD_PWR = (/* Pin is configured as LCD_PWR */
+                              IOCON_PIO_FUNC1 |
+                              /* No addition pin function */
+                              IOCON_PIO_MODE_INACT |
+                              /* Input function is not inverted */
+                              IOCON_PIO_INV_DI |
+                              /* Enables digital function */
+                              IOCON_PIO_DIGITAL_EN |
+                              /* Input filter disabled */
+                              IOCON_PIO_INPFILT_OFF |
+                              /* Standard mode, output slew rate control is enabled */
+                              IOCON_PIO_SLEW_STANDARD |
+                              /* Open drain is disabled */
+                              IOCON_PIO_OPENDRAIN_DI);
     /* PORT2 PIN11 (coords: K3) is configured as LCD_PWR */
-    IOCON_PinMuxSet(IOCON, 2U, 11U, port2_pin11_config);
+    IOCON_PinMuxSet(IOCON, BOARD_LCD_PWR_PORT, BOARD_LCD_PWR_PIN, LCD_PWR);
 
-    const uint32_t port2_pin13_config = (/* Pin is configured as LCD_DCLK */
-                                         IOCON_PIO_FUNC1 |
-                                         /* No addition pin function */
-                                         IOCON_PIO_MODE_INACT |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Standard mode, output slew rate control is enabled */
-                                         IOCON_PIO_SLEW_STANDARD |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t LCD_DCLK = (/* Pin is configured as LCD_DCLK */
+                               IOCON_PIO_FUNC1 |
+                               /* No addition pin function */
+                               IOCON_PIO_MODE_INACT |
+                               /* Input function is not inverted */
+                               IOCON_PIO_INV_DI |
+                               /* Enables digital function */
+                               IOCON_PIO_DIGITAL_EN |
+                               /* Input filter disabled */
+                               IOCON_PIO_INPFILT_OFF |
+                               /* Standard mode, output slew rate control is enabled */
+                               IOCON_PIO_SLEW_STANDARD |
+                               /* Open drain is disabled */
+                               IOCON_PIO_OPENDRAIN_DI);
     /* PORT2 PIN13 (coords: P7) is configured as LCD_DCLK */
-    IOCON_PinMuxSet(IOCON, 2U, 13U, port2_pin13_config);
+    IOCON_PinMuxSet(IOCON, BOARD_LCD_DCLK_PORT, BOARD_LCD_DCLK_PIN, LCD_DCLK);
 
-    const uint32_t port2_pin14_config = (/* Pin is configured as LCD_FP */
-                                         IOCON_PIO_FUNC1 |
-                                         /* No addition pin function */
-                                         IOCON_PIO_MODE_INACT |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Standard mode, output slew rate control is enabled */
-                                         IOCON_PIO_SLEW_STANDARD |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t LCD_FP = (/* Pin is configured as LCD_FP */
+                             IOCON_PIO_FUNC1 |
+                             /* No addition pin function */
+                             IOCON_PIO_MODE_INACT |
+                             /* Input function is not inverted */
+                             IOCON_PIO_INV_DI |
+                             /* Enables digital function */
+                             IOCON_PIO_DIGITAL_EN |
+                             /* Input filter disabled */
+                             IOCON_PIO_INPFILT_OFF |
+                             /* Standard mode, output slew rate control is enabled */
+                             IOCON_PIO_SLEW_STANDARD |
+                             /* Open drain is disabled */
+                             IOCON_PIO_OPENDRAIN_DI);
     /* PORT2 PIN14 (coords: L7) is configured as LCD_FP */
-    IOCON_PinMuxSet(IOCON, 2U, 14U, port2_pin14_config);
+    IOCON_PinMuxSet(IOCON, BOARD_LCD_FP_PORT, BOARD_LCD_FP_PIN, LCD_FP);
 
-    const uint32_t port2_pin15_config = (/* Pin is configured as LCD_AC */
-                                         IOCON_PIO_FUNC1 |
-                                         /* No addition pin function */
-                                         IOCON_PIO_MODE_INACT |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Standard mode, output slew rate control is enabled */
-                                         IOCON_PIO_SLEW_STANDARD |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t LCD_AC_ENAB_M = (/* Pin is configured as LCD_AC */
+                                    IOCON_PIO_FUNC1 |
+                                    /* No addition pin function */
+                                    IOCON_PIO_MODE_INACT |
+                                    /* Input function is not inverted */
+                                    IOCON_PIO_INV_DI |
+                                    /* Enables digital function */
+                                    IOCON_PIO_DIGITAL_EN |
+                                    /* Input filter disabled */
+                                    IOCON_PIO_INPFILT_OFF |
+                                    /* Standard mode, output slew rate control is enabled */
+                                    IOCON_PIO_SLEW_STANDARD |
+                                    /* Open drain is disabled */
+                                    IOCON_PIO_OPENDRAIN_DI);
     /* PORT2 PIN15 (coords: M8) is configured as LCD_AC */
-    IOCON_PinMuxSet(IOCON, 2U, 15U, port2_pin15_config);
+    IOCON_PinMuxSet(IOCON, BOARD_LCD_AC_ENAB_M_PORT, BOARD_LCD_AC_ENAB_M_PIN, LCD_AC_ENAB_M);
 
-    const uint32_t port2_pin16_config = (/* Pin is configured as LCD_LP */
-                                         IOCON_PIO_FUNC1 |
-                                         /* No addition pin function */
-                                         IOCON_PIO_MODE_INACT |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Standard mode, output slew rate control is enabled */
-                                         IOCON_PIO_SLEW_STANDARD |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t LCD_LP = (/* Pin is configured as LCD_LP */
+                             IOCON_PIO_FUNC1 |
+                             /* No addition pin function */
+                             IOCON_PIO_MODE_INACT |
+                             /* Input function is not inverted */
+                             IOCON_PIO_INV_DI |
+                             /* Enables digital function */
+                             IOCON_PIO_DIGITAL_EN |
+                             /* Input filter disabled */
+                             IOCON_PIO_INPFILT_OFF |
+                             /* Standard mode, output slew rate control is enabled */
+                             IOCON_PIO_SLEW_STANDARD |
+                             /* Open drain is disabled */
+                             IOCON_PIO_OPENDRAIN_DI);
     /* PORT2 PIN16 (coords: L8) is configured as LCD_LP */
-    IOCON_PinMuxSet(IOCON, 2U, 16U, port2_pin16_config);
+    IOCON_PinMuxSet(IOCON, BOARD_LCD_LP_PORT, BOARD_LCD_LP_PIN, LCD_LP);
 
-    const uint32_t port2_pin21_config = (/* Pin is configured as LCD_VD(3) */
-                                         IOCON_PIO_FUNC1 |
-                                         /* No addition pin function */
-                                         IOCON_PIO_MODE_INACT |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Standard mode, output slew rate control is enabled */
-                                         IOCON_PIO_SLEW_STANDARD |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t LCD_VD3 = (/* Pin is configured as LCD_VD(3) */
+                              IOCON_PIO_FUNC1 |
+                              /* No addition pin function */
+                              IOCON_PIO_MODE_INACT |
+                              /* Input function is not inverted */
+                              IOCON_PIO_INV_DI |
+                              /* Enables digital function */
+                              IOCON_PIO_DIGITAL_EN |
+                              /* Input filter disabled */
+                              IOCON_PIO_INPFILT_OFF |
+                              /* Standard mode, output slew rate control is enabled */
+                              IOCON_PIO_SLEW_STANDARD |
+                              /* Open drain is disabled */
+                              IOCON_PIO_OPENDRAIN_DI);
     /* PORT2 PIN21 (coords: L10) is configured as LCD_VD(3) */
-    IOCON_PinMuxSet(IOCON, 2U, 21U, port2_pin21_config);
+    IOCON_PinMuxSet(IOCON, BOARD_LCD_VD3_PORT, BOARD_LCD_VD3_PIN, LCD_VD3);
 
-    const uint32_t port2_pin22_config = (/* Pin is configured as LCD_VD(4) */
-                                         IOCON_PIO_FUNC1 |
-                                         /* No addition pin function */
-                                         IOCON_PIO_MODE_INACT |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Standard mode, output slew rate control is enabled */
-                                         IOCON_PIO_SLEW_STANDARD |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t LCD_VD4 = (/* Pin is configured as LCD_VD(4) */
+                              IOCON_PIO_FUNC1 |
+                              /* No addition pin function */
+                              IOCON_PIO_MODE_INACT |
+                              /* Input function is not inverted */
+                              IOCON_PIO_INV_DI |
+                              /* Enables digital function */
+                              IOCON_PIO_DIGITAL_EN |
+                              /* Input filter disabled */
+                              IOCON_PIO_INPFILT_OFF |
+                              /* Standard mode, output slew rate control is enabled */
+                              IOCON_PIO_SLEW_STANDARD |
+                              /* Open drain is disabled */
+                              IOCON_PIO_OPENDRAIN_DI);
     /* PORT2 PIN22 (coords: K10) is configured as LCD_VD(4) */
-    IOCON_PinMuxSet(IOCON, 2U, 22U, port2_pin22_config);
+    IOCON_PinMuxSet(IOCON, BOARD_LCD_VD4_PORT, BOARD_LCD_VD4_PIN, LCD_VD4);
 
-    const uint32_t port2_pin23_config = (/* Pin is configured as LCD_VD(5) */
-                                         IOCON_PIO_FUNC1 |
-                                         /* No addition pin function */
-                                         IOCON_PIO_MODE_INACT |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Standard mode, output slew rate control is enabled */
-                                         IOCON_PIO_SLEW_STANDARD |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t LCD_VD5 = (/* Pin is configured as LCD_VD(5) */
+                              IOCON_PIO_FUNC1 |
+                              /* No addition pin function */
+                              IOCON_PIO_MODE_INACT |
+                              /* Input function is not inverted */
+                              IOCON_PIO_INV_DI |
+                              /* Enables digital function */
+                              IOCON_PIO_DIGITAL_EN |
+                              /* Input filter disabled */
+                              IOCON_PIO_INPFILT_OFF |
+                              /* Standard mode, output slew rate control is enabled */
+                              IOCON_PIO_SLEW_STANDARD |
+                              /* Open drain is disabled */
+                              IOCON_PIO_OPENDRAIN_DI);
     /* PORT2 PIN23 (coords: M14) is configured as LCD_VD(5) */
-    IOCON_PinMuxSet(IOCON, 2U, 23U, port2_pin23_config);
+    IOCON_PinMuxSet(IOCON, BOARD_LCD_VD5_PORT, BOARD_LCD_VD5_PIN, LCD_VD5);
 
-    const uint32_t port2_pin24_config = (/* Pin is configured as LCD_VD(6) */
-                                         IOCON_PIO_FUNC1 |
-                                         /* No addition pin function */
-                                         IOCON_PIO_MODE_INACT |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Standard mode, output slew rate control is enabled */
-                                         IOCON_PIO_SLEW_STANDARD |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t LCD_VD6 = (/* Pin is configured as LCD_VD(6) */
+                              IOCON_PIO_FUNC1 |
+                              /* No addition pin function */
+                              IOCON_PIO_MODE_INACT |
+                              /* Input function is not inverted */
+                              IOCON_PIO_INV_DI |
+                              /* Enables digital function */
+                              IOCON_PIO_DIGITAL_EN |
+                              /* Input filter disabled */
+                              IOCON_PIO_INPFILT_OFF |
+                              /* Standard mode, output slew rate control is enabled */
+                              IOCON_PIO_SLEW_STANDARD |
+                              /* Open drain is disabled */
+                              IOCON_PIO_OPENDRAIN_DI);
     /* PORT2 PIN24 (coords: K14) is configured as LCD_VD(6) */
-    IOCON_PinMuxSet(IOCON, 2U, 24U, port2_pin24_config);
+    IOCON_PinMuxSet(IOCON, BOARD_LCD_VD6_PORT, BOARD_LCD_VD6_PIN, LCD_VD6);
 
-    const uint32_t port2_pin25_config = (/* Pin is configured as LCD_VD(7) */
-                                         IOCON_PIO_FUNC1 |
-                                         /* No addition pin function */
-                                         IOCON_PIO_MODE_INACT |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Standard mode, output slew rate control is enabled */
-                                         IOCON_PIO_SLEW_STANDARD |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t LCD_VD7 = (/* Pin is configured as LCD_VD(7) */
+                              IOCON_PIO_FUNC1 |
+                              /* No addition pin function */
+                              IOCON_PIO_MODE_INACT |
+                              /* Input function is not inverted */
+                              IOCON_PIO_INV_DI |
+                              /* Enables digital function */
+                              IOCON_PIO_DIGITAL_EN |
+                              /* Input filter disabled */
+                              IOCON_PIO_INPFILT_OFF |
+                              /* Standard mode, output slew rate control is enabled */
+                              IOCON_PIO_SLEW_STANDARD |
+                              /* Open drain is disabled */
+                              IOCON_PIO_OPENDRAIN_DI);
     /* PORT2 PIN25 (coords: J11) is configured as LCD_VD(7) */
-    IOCON_PinMuxSet(IOCON, 2U, 25U, port2_pin25_config);
+    IOCON_PinMuxSet(IOCON, BOARD_LCD_VD7_PORT, BOARD_LCD_VD7_PIN, LCD_VD7);
 
     const uint32_t port2_pin27_config = (/* Pin is configured as PIO2_27 */
                                          IOCON_PIO_FUNC0 |
@@ -351,226 +351,226 @@ void BOARD_InitPins(void)
     /* PORT2 PIN27 (coords: H14) is configured as PIO2_27 */
     IOCON_PinMuxSet(IOCON, 2U, 27U, port2_pin27_config);
 
-    const uint32_t port2_pin28_config = (/* Pin is configured as LCD_VD(10) */
-                                         IOCON_PIO_FUNC1 |
-                                         /* No addition pin function */
-                                         IOCON_PIO_MODE_INACT |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Standard mode, output slew rate control is enabled */
-                                         IOCON_PIO_SLEW_STANDARD |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t LCD_VD10 = (/* Pin is configured as LCD_VD(10) */
+                               IOCON_PIO_FUNC1 |
+                               /* No addition pin function */
+                               IOCON_PIO_MODE_INACT |
+                               /* Input function is not inverted */
+                               IOCON_PIO_INV_DI |
+                               /* Enables digital function */
+                               IOCON_PIO_DIGITAL_EN |
+                               /* Input filter disabled */
+                               IOCON_PIO_INPFILT_OFF |
+                               /* Standard mode, output slew rate control is enabled */
+                               IOCON_PIO_SLEW_STANDARD |
+                               /* Open drain is disabled */
+                               IOCON_PIO_OPENDRAIN_DI);
     /* PORT2 PIN28 (coords: G13) is configured as LCD_VD(10) */
-    IOCON_PinMuxSet(IOCON, 2U, 28U, port2_pin28_config);
+    IOCON_PinMuxSet(IOCON, BOARD_LCD_VD10_PORT, BOARD_LCD_VD10_PIN, LCD_VD10);
 
-    const uint32_t port2_pin29_config = (/* Pin is configured as LCD_VD(11) */
-                                         IOCON_PIO_FUNC1 |
-                                         /* No addition pin function */
-                                         IOCON_PIO_MODE_INACT |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Standard mode, output slew rate control is enabled */
-                                         IOCON_PIO_SLEW_STANDARD |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t LCD_VD11 = (/* Pin is configured as LCD_VD(11) */
+                               IOCON_PIO_FUNC1 |
+                               /* No addition pin function */
+                               IOCON_PIO_MODE_INACT |
+                               /* Input function is not inverted */
+                               IOCON_PIO_INV_DI |
+                               /* Enables digital function */
+                               IOCON_PIO_DIGITAL_EN |
+                               /* Input filter disabled */
+                               IOCON_PIO_INPFILT_OFF |
+                               /* Standard mode, output slew rate control is enabled */
+                               IOCON_PIO_SLEW_STANDARD |
+                               /* Open drain is disabled */
+                               IOCON_PIO_OPENDRAIN_DI);
     /* PORT2 PIN29 (coords: G11) is configured as LCD_VD(11) */
-    IOCON_PinMuxSet(IOCON, 2U, 29U, port2_pin29_config);
+    IOCON_PinMuxSet(IOCON, BOARD_LCD_VD11_PORT, BOARD_LCD_VD11_PIN, LCD_VD11);
 
-    const uint32_t port2_pin30_config = (/* Pin is configured as LCD_VD(12) */
-                                         IOCON_PIO_FUNC1 |
-                                         /* No addition pin function */
-                                         IOCON_PIO_MODE_INACT |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Standard mode, output slew rate control is enabled */
-                                         IOCON_PIO_SLEW_STANDARD |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t LCD_VD12 = (/* Pin is configured as LCD_VD(12) */
+                               IOCON_PIO_FUNC1 |
+                               /* No addition pin function */
+                               IOCON_PIO_MODE_INACT |
+                               /* Input function is not inverted */
+                               IOCON_PIO_INV_DI |
+                               /* Enables digital function */
+                               IOCON_PIO_DIGITAL_EN |
+                               /* Input filter disabled */
+                               IOCON_PIO_INPFILT_OFF |
+                               /* Standard mode, output slew rate control is enabled */
+                               IOCON_PIO_SLEW_STANDARD |
+                               /* Open drain is disabled */
+                               IOCON_PIO_OPENDRAIN_DI);
     /* PORT2 PIN30 (coords: F12) is configured as LCD_VD(12) */
-    IOCON_PinMuxSet(IOCON, 2U, 30U, port2_pin30_config);
+    IOCON_PinMuxSet(IOCON, BOARD_LCD_VD12_PORT, BOARD_LCD_VD12_PIN, LCD_VD12);
 
-    const uint32_t port2_pin31_config = (/* Pin is configured as LCD_VD(13) */
-                                         IOCON_PIO_FUNC1 |
-                                         /* No addition pin function */
-                                         IOCON_PIO_MODE_INACT |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Standard mode, output slew rate control is enabled */
-                                         IOCON_PIO_SLEW_STANDARD |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t LCD_VD13 = (/* Pin is configured as LCD_VD(13) */
+                               IOCON_PIO_FUNC1 |
+                               /* No addition pin function */
+                               IOCON_PIO_MODE_INACT |
+                               /* Input function is not inverted */
+                               IOCON_PIO_INV_DI |
+                               /* Enables digital function */
+                               IOCON_PIO_DIGITAL_EN |
+                               /* Input filter disabled */
+                               IOCON_PIO_INPFILT_OFF |
+                               /* Standard mode, output slew rate control is enabled */
+                               IOCON_PIO_SLEW_STANDARD |
+                               /* Open drain is disabled */
+                               IOCON_PIO_OPENDRAIN_DI);
     /* PORT2 PIN31 (coords: D14) is configured as LCD_VD(13) */
-    IOCON_PinMuxSet(IOCON, 2U, 31U, port2_pin31_config);
+    IOCON_PinMuxSet(IOCON, BOARD_LCD_VD13_PORT, BOARD_LCD_VD13_PIN, LCD_VD13);
 
-    const uint32_t port3_pin0_config = (/* Pin is configured as LCD_VD(14) */
-                                        IOCON_PIO_FUNC1 |
-                                        /* No addition pin function */
-                                        IOCON_PIO_MODE_INACT |
-                                        /* Input function is not inverted */
-                                        IOCON_PIO_INV_DI |
-                                        /* Enables digital function */
-                                        IOCON_PIO_DIGITAL_EN |
-                                        /* Input filter disabled */
-                                        IOCON_PIO_INPFILT_OFF |
-                                        /* Standard mode, output slew rate control is enabled */
-                                        IOCON_PIO_SLEW_STANDARD |
-                                        /* Open drain is disabled */
-                                        IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t LCD_VD14 = (/* Pin is configured as LCD_VD(14) */
+                               IOCON_PIO_FUNC1 |
+                               /* No addition pin function */
+                               IOCON_PIO_MODE_INACT |
+                               /* Input function is not inverted */
+                               IOCON_PIO_INV_DI |
+                               /* Enables digital function */
+                               IOCON_PIO_DIGITAL_EN |
+                               /* Input filter disabled */
+                               IOCON_PIO_INPFILT_OFF |
+                               /* Standard mode, output slew rate control is enabled */
+                               IOCON_PIO_SLEW_STANDARD |
+                               /* Open drain is disabled */
+                               IOCON_PIO_OPENDRAIN_DI);
     /* PORT3 PIN0 (coords: D12) is configured as LCD_VD(14) */
-    IOCON_PinMuxSet(IOCON, 3U, 0U, port3_pin0_config);
+    IOCON_PinMuxSet(IOCON, BOARD_LCD_VD14_PORT, BOARD_LCD_VD14_PIN, LCD_VD14);
 
-    const uint32_t port3_pin1_config = (/* Pin is configured as LCD_VD(15) */
-                                        IOCON_PIO_FUNC1 |
-                                        /* No addition pin function */
-                                        IOCON_PIO_MODE_INACT |
-                                        /* Input function is not inverted */
-                                        IOCON_PIO_INV_DI |
-                                        /* Enables digital function */
-                                        IOCON_PIO_DIGITAL_EN |
-                                        /* Input filter disabled */
-                                        IOCON_PIO_INPFILT_OFF |
-                                        /* Standard mode, output slew rate control is enabled */
-                                        IOCON_PIO_SLEW_STANDARD |
-                                        /* Open drain is disabled */
-                                        IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t LCD_VD15 = (/* Pin is configured as LCD_VD(15) */
+                               IOCON_PIO_FUNC1 |
+                               /* No addition pin function */
+                               IOCON_PIO_MODE_INACT |
+                               /* Input function is not inverted */
+                               IOCON_PIO_INV_DI |
+                               /* Enables digital function */
+                               IOCON_PIO_DIGITAL_EN |
+                               /* Input filter disabled */
+                               IOCON_PIO_INPFILT_OFF |
+                               /* Standard mode, output slew rate control is enabled */
+                               IOCON_PIO_SLEW_STANDARD |
+                               /* Open drain is disabled */
+                               IOCON_PIO_OPENDRAIN_DI);
     /* PORT3 PIN1 (coords: D11) is configured as LCD_VD(15) */
-    IOCON_PinMuxSet(IOCON, 3U, 1U, port3_pin1_config);
+    IOCON_PinMuxSet(IOCON, BOARD_LCD_VD15_PORT, BOARD_LCD_VD15_PIN, LCD_VD15);
 
-    const uint32_t port3_pin23_config = (/* Pin is configured as FC2_CTS_SDA_SSEL0 */
-                                         IOCON_PIO_FUNC1 |
-                                         /* I2C mode */
-                                         IOCON_PIO_I2CSLEW_I2C |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* High drive: 20 mA */
-                                         IOCON_PIO_I2CDRIVE_HIGH |
-                                         /* I2C 50 ns glitch filter enabled */
-                                         IOCON_PIO_I2CFILTER_EN);
+    const uint32_t FC2_SDAX = (/* Pin is configured as FC2_CTS_SDA_SSEL0 */
+                               IOCON_PIO_FUNC1 |
+                               /* I2C mode */
+                               IOCON_PIO_I2CSLEW_I2C |
+                               /* Input function is not inverted */
+                               IOCON_PIO_INV_DI |
+                               /* Enables digital function */
+                               IOCON_PIO_DIGITAL_EN |
+                               /* Input filter disabled */
+                               IOCON_PIO_INPFILT_OFF |
+                               /* High drive: 20 mA */
+                               IOCON_PIO_I2CDRIVE_HIGH |
+                               /* I2C 50 ns glitch filter enabled */
+                               IOCON_PIO_I2CFILTER_EN);
     /* PORT3 PIN23 (coords: C2) is configured as FC2_CTS_SDA_SSEL0 */
-    IOCON_PinMuxSet(IOCON, 3U, 23U, port3_pin23_config);
+    IOCON_PinMuxSet(IOCON, BOARD_FC2_SDAX_PORT, BOARD_FC2_SDAX_PIN, FC2_SDAX);
 
-    const uint32_t port3_pin24_config = (/* Pin is configured as FC2_RTS_SCL_SSEL1 */
-                                         IOCON_PIO_FUNC1 |
-                                         /* I2C mode */
-                                         IOCON_PIO_I2CSLEW_I2C |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* High drive: 20 mA */
-                                         IOCON_PIO_I2CDRIVE_HIGH |
-                                         /* I2C 50 ns glitch filter enabled */
-                                         IOCON_PIO_I2CFILTER_EN);
+    const uint32_t FC2_SCLX = (/* Pin is configured as FC2_RTS_SCL_SSEL1 */
+                               IOCON_PIO_FUNC1 |
+                               /* I2C mode */
+                               IOCON_PIO_I2CSLEW_I2C |
+                               /* Input function is not inverted */
+                               IOCON_PIO_INV_DI |
+                               /* Enables digital function */
+                               IOCON_PIO_DIGITAL_EN |
+                               /* Input filter disabled */
+                               IOCON_PIO_INPFILT_OFF |
+                               /* High drive: 20 mA */
+                               IOCON_PIO_I2CDRIVE_HIGH |
+                               /* I2C 50 ns glitch filter enabled */
+                               IOCON_PIO_I2CFILTER_EN);
     /* PORT3 PIN24 (coords: E2) is configured as FC2_RTS_SCL_SSEL1 */
-    IOCON_PinMuxSet(IOCON, 3U, 24U, port3_pin24_config);
+    IOCON_PinMuxSet(IOCON, BOARD_FC2_SCLX_PORT, BOARD_FC2_SCLX_PIN, FC2_SCLX);
 
-    const uint32_t port3_pin5_config = (/* Pin is configured as LCD_VD(19) */
-                                        IOCON_PIO_FUNC1 |
-                                        /* No addition pin function */
-                                        IOCON_PIO_MODE_INACT |
-                                        /* Input function is not inverted */
-                                        IOCON_PIO_INV_DI |
-                                        /* Enables digital function */
-                                        IOCON_PIO_DIGITAL_EN |
-                                        /* Input filter disabled */
-                                        IOCON_PIO_INPFILT_OFF |
-                                        /* Standard mode, output slew rate control is enabled */
-                                        IOCON_PIO_SLEW_STANDARD |
-                                        /* Open drain is disabled */
-                                        IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t LCD_VD19 = (/* Pin is configured as LCD_VD(19) */
+                               IOCON_PIO_FUNC1 |
+                               /* No addition pin function */
+                               IOCON_PIO_MODE_INACT |
+                               /* Input function is not inverted */
+                               IOCON_PIO_INV_DI |
+                               /* Enables digital function */
+                               IOCON_PIO_DIGITAL_EN |
+                               /* Input filter disabled */
+                               IOCON_PIO_INPFILT_OFF |
+                               /* Standard mode, output slew rate control is enabled */
+                               IOCON_PIO_SLEW_STANDARD |
+                               /* Open drain is disabled */
+                               IOCON_PIO_OPENDRAIN_DI);
     /* PORT3 PIN5 (coords: B10) is configured as LCD_VD(19) */
-    IOCON_PinMuxSet(IOCON, 3U, 5U, port3_pin5_config);
+    IOCON_PinMuxSet(IOCON, BOARD_LCD_VD19_PORT, BOARD_LCD_VD19_PIN, LCD_VD19);
 
-    const uint32_t port3_pin6_config = (/* Pin is configured as LCD_VD(20) */
-                                        IOCON_PIO_FUNC1 |
-                                        /* No addition pin function */
-                                        IOCON_PIO_MODE_INACT |
-                                        /* Input function is not inverted */
-                                        IOCON_PIO_INV_DI |
-                                        /* Enables digital function */
-                                        IOCON_PIO_DIGITAL_EN |
-                                        /* Input filter disabled */
-                                        IOCON_PIO_INPFILT_OFF |
-                                        /* Standard mode, output slew rate control is enabled */
-                                        IOCON_PIO_SLEW_STANDARD |
-                                        /* Open drain is disabled */
-                                        IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t LCD_VD20 = (/* Pin is configured as LCD_VD(20) */
+                               IOCON_PIO_FUNC1 |
+                               /* No addition pin function */
+                               IOCON_PIO_MODE_INACT |
+                               /* Input function is not inverted */
+                               IOCON_PIO_INV_DI |
+                               /* Enables digital function */
+                               IOCON_PIO_DIGITAL_EN |
+                               /* Input filter disabled */
+                               IOCON_PIO_INPFILT_OFF |
+                               /* Standard mode, output slew rate control is enabled */
+                               IOCON_PIO_SLEW_STANDARD |
+                               /* Open drain is disabled */
+                               IOCON_PIO_OPENDRAIN_DI);
     /* PORT3 PIN6 (coords: C9) is configured as LCD_VD(20) */
-    IOCON_PinMuxSet(IOCON, 3U, 6U, port3_pin6_config);
+    IOCON_PinMuxSet(IOCON, BOARD_LCD_VD20_PORT, BOARD_LCD_VD20_PIN, LCD_VD20);
 
-    const uint32_t port3_pin7_config = (/* Pin is configured as LCD_VD(21) */
-                                        IOCON_PIO_FUNC1 |
-                                        /* No addition pin function */
-                                        IOCON_PIO_MODE_INACT |
-                                        /* Input function is not inverted */
-                                        IOCON_PIO_INV_DI |
-                                        /* Enables digital function */
-                                        IOCON_PIO_DIGITAL_EN |
-                                        /* Input filter disabled */
-                                        IOCON_PIO_INPFILT_OFF |
-                                        /* Standard mode, output slew rate control is enabled */
-                                        IOCON_PIO_SLEW_STANDARD |
-                                        /* Open drain is disabled */
-                                        IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t LCD_VD21 = (/* Pin is configured as LCD_VD(21) */
+                               IOCON_PIO_FUNC1 |
+                               /* No addition pin function */
+                               IOCON_PIO_MODE_INACT |
+                               /* Input function is not inverted */
+                               IOCON_PIO_INV_DI |
+                               /* Enables digital function */
+                               IOCON_PIO_DIGITAL_EN |
+                               /* Input filter disabled */
+                               IOCON_PIO_INPFILT_OFF |
+                               /* Standard mode, output slew rate control is enabled */
+                               IOCON_PIO_SLEW_STANDARD |
+                               /* Open drain is disabled */
+                               IOCON_PIO_OPENDRAIN_DI);
     /* PORT3 PIN7 (coords: B8) is configured as LCD_VD(21) */
-    IOCON_PinMuxSet(IOCON, 3U, 7U, port3_pin7_config);
+    IOCON_PinMuxSet(IOCON, BOARD_LCD_VD21_PORT, BOARD_LCD_VD21_PIN, LCD_VD21);
 
-    const uint32_t port3_pin8_config = (/* Pin is configured as LCD_VD(22) */
-                                        IOCON_PIO_FUNC1 |
-                                        /* No addition pin function */
-                                        IOCON_PIO_MODE_INACT |
-                                        /* Input function is not inverted */
-                                        IOCON_PIO_INV_DI |
-                                        /* Enables digital function */
-                                        IOCON_PIO_DIGITAL_EN |
-                                        /* Input filter disabled */
-                                        IOCON_PIO_INPFILT_OFF |
-                                        /* Standard mode, output slew rate control is enabled */
-                                        IOCON_PIO_SLEW_STANDARD |
-                                        /* Open drain is disabled */
-                                        IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t LCD_VD22 = (/* Pin is configured as LCD_VD(22) */
+                               IOCON_PIO_FUNC1 |
+                               /* No addition pin function */
+                               IOCON_PIO_MODE_INACT |
+                               /* Input function is not inverted */
+                               IOCON_PIO_INV_DI |
+                               /* Enables digital function */
+                               IOCON_PIO_DIGITAL_EN |
+                               /* Input filter disabled */
+                               IOCON_PIO_INPFILT_OFF |
+                               /* Standard mode, output slew rate control is enabled */
+                               IOCON_PIO_SLEW_STANDARD |
+                               /* Open drain is disabled */
+                               IOCON_PIO_OPENDRAIN_DI);
     /* PORT3 PIN8 (coords: A7) is configured as LCD_VD(22) */
-    IOCON_PinMuxSet(IOCON, 3U, 8U, port3_pin8_config);
+    IOCON_PinMuxSet(IOCON, BOARD_LCD_VD22_PORT, BOARD_LCD_VD22_PIN, LCD_VD22);
 
-    const uint32_t port3_pin9_config = (/* Pin is configured as LCD_VD(23) */
-                                        IOCON_PIO_FUNC1 |
-                                        /* No addition pin function */
-                                        IOCON_PIO_MODE_INACT |
-                                        /* Input function is not inverted */
-                                        IOCON_PIO_INV_DI |
-                                        /* Enables digital function */
-                                        IOCON_PIO_DIGITAL_EN |
-                                        /* Input filter disabled */
-                                        IOCON_PIO_INPFILT_OFF |
-                                        /* Standard mode, output slew rate control is enabled */
-                                        IOCON_PIO_SLEW_STANDARD |
-                                        /* Open drain is disabled */
-                                        IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t LCD_VD23 = (/* Pin is configured as LCD_VD(23) */
+                               IOCON_PIO_FUNC1 |
+                               /* No addition pin function */
+                               IOCON_PIO_MODE_INACT |
+                               /* Input function is not inverted */
+                               IOCON_PIO_INV_DI |
+                               /* Enables digital function */
+                               IOCON_PIO_DIGITAL_EN |
+                               /* Input filter disabled */
+                               IOCON_PIO_INPFILT_OFF |
+                               /* Standard mode, output slew rate control is enabled */
+                               IOCON_PIO_SLEW_STANDARD |
+                               /* Open drain is disabled */
+                               IOCON_PIO_OPENDRAIN_DI);
     /* PORT3 PIN9 (coords: C7) is configured as LCD_VD(23) */
-    IOCON_PinMuxSet(IOCON, 3U, 9U, port3_pin9_config);
+    IOCON_PinMuxSet(IOCON, BOARD_LCD_VD23_PORT, BOARD_LCD_VD23_PIN, LCD_VD23);
 }
 /***********************************************************************************************************************
  * EOF

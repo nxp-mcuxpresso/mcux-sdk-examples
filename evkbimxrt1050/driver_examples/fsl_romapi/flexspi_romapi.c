@@ -9,10 +9,6 @@
 #include "fsl_debug_console.h"
 #include "fsl_cache.h"
 
-#include "pin_mux.h"
-#include "clock_config.h"
-#include "board.h"
-#include "fsl_common.h"
 /*${header:start}*/
 /*******************************************************************************
  * Definitions
@@ -24,6 +20,10 @@
 #define FLASH_PAGE_SIZE           512UL       /* 512Bytes */
 #define FLASH_SECTOR_SIZE         0x40000UL   /* 256KBytes */
 #define FLASH_BLOCK_SIZE          0x40000UL   /* 256KBytes */
+#include "pin_mux.h"
+#include "clock_config.h"
+#include "board.h"
+#include "fsl_common.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -32,6 +32,9 @@
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
+#if !(defined(XIP_EXTERNAL_FLASH) && (XIP_EXTERNAL_FLASH == 1))
+void BOARD_SetupFlexSpiClock(void);
+#endif
 /* Get FlexSPI NOR Configuration Block */
 void FLEXSPI_NorFlash_GetConfig(flexspi_nor_config_t *config);
 void error_trap(void);
@@ -233,6 +236,31 @@ void FLEXSPI_NorFlash_GetConfig(flexspi_nor_config_t *config)
     config->memConfig.lutCustomSeq[NOR_CMD_INDEX_CHIPERASE].seqNum   = 4U;
     config->memConfig.lutCustomSeq[NOR_CMD_INDEX_CHIPERASE].seqId    = NOR_CMD_LUT_SEQ_IDX_CHIPERASE;
 }
+#if !(defined(XIP_EXTERNAL_FLASH) && (XIP_EXTERNAL_FLASH == 1))
+/* Configure clock for FlexSPI peripheral */
+void BOARD_SetupFlexSpiClock(void)
+{
+    /* Disable FlexSPI peripheral */
+    FLEXSPI->MCR0 |= FLEXSPI_MCR0_MDIS_MASK;
+    CLOCK_DisableClock(kCLOCK_FlexSpi);
+
+    /* Init Usb1 PLL3 to 480MHZ. */
+    CLOCK_InitUsb1Pll(&usb1PllConfig_BOARD_BootClockRUN);
+    /* Init Usb1 PLL3->pfd0 360MHZ. */
+    CLOCK_InitUsb1Pfd(kCLOCK_Pfd0, 24);
+    /* Enable Usb1 PLL output for USBPHY1. */
+    CCM_ANALOG->PLL_USB1 |= CCM_ANALOG_PLL_USB1_EN_USB_CLKS_MASK;
+
+    /* Set FLEXSPI_PODF, FlexSPI out clock is 60MHZ. */
+    CLOCK_SetDiv(kCLOCK_FlexspiDiv, 5);
+    /* Set flexspi clock source to PLL3->pfd0 */
+    CLOCK_SetMux(kCLOCK_FlexspiMux, 3);
+
+    CLOCK_EnableClock(kCLOCK_FlexSpi);
+    /* Enable FlexSPI peripheral */
+    FLEXSPI->MCR0 &= ~FLEXSPI_MCR0_MDIS_MASK;
+}
+#endif
 
 
 /*
@@ -273,8 +301,11 @@ int main(void)
     uint32_t serialNorPageSize;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
+#if !(defined(XIP_EXTERNAL_FLASH) && (XIP_EXTERNAL_FLASH == 1))
+    BOARD_SetupFlexSpiClock();
+#endif
     BOARD_InitDebugConsole();
 
     PRINTF("\r\n FLEXSPI NOR example started!\r\n");

@@ -54,7 +54,7 @@ static void EXAMPLE_UserCallback(USART_Type *base, usart_handle_t *handle, statu
  */
 int main(void)
 {
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 

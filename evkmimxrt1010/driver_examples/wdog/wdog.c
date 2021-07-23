@@ -56,8 +56,8 @@ int main(void)
     uint16_t resetFlag = 0U;
     wdog_config_t config;
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\n******** System Start ********\r\n");

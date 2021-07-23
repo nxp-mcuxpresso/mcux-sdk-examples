@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -32,7 +32,7 @@ extern "C" {
  */
 void BOARD_InitBootPins(void);
 
-#define IOCON_PIO_ASW_DIS_DI 0x00u    /*!<@brief Analog switch is disabled */
+#define IOCON_PIO_ASW_DI 0x00u        /*!<@brief Analog switch is open (disabled) */
 #define IOCON_PIO_DIGITAL_EN 0x0100u  /*!<@brief Enables digital function */
 #define IOCON_PIO_FUNC0 0x00u         /*!<@brief Selects pin function 0 */
 #define IOCON_PIO_FUNC6 0x06u         /*!<@brief Selects pin function 6 */
@@ -44,10 +44,14 @@ void BOARD_InitBootPins(void);
 
 /*! @name PIO1_4 (number 1), R78/P18[5]/LEDR/PWM_ARD
   @{ */
-#define BOARD_LED_BULE_GPIO GPIO /*!<@brief GPIO device name: GPIO */
-#define BOARD_LED_BULE_PORT 1U   /*!<@brief PORT device name: 1U */
-#define BOARD_LED_BULE_PIN 4U    /*!<@brief 1U pin index: 4 */
-                                 /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_LED_BULE_GPIO GPIO                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_LED_BULE_GPIO_PIN_MASK (1U << 4U) /*!<@brief GPIO pin mask */
+#define BOARD_LED_BULE_PORT 1U                  /*!<@brief PORT peripheral base pointer */
+#define BOARD_LED_BULE_PIN 4U                   /*!<@brief PORT pin number */
+#define BOARD_LED_BULE_PIN_MASK (1U << 4U)      /*!<@brief PORT pin mask */
+                                                /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

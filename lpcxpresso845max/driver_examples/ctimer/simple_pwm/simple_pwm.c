@@ -60,7 +60,7 @@ int main(void)
     uint32_t timerClock;
 
     /* Init hardware*/
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockFRO30M();
     BOARD_InitDebugConsole();
 

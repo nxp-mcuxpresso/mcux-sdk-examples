@@ -14,10 +14,8 @@
     <definition extID="platform.drivers.iomuxc.MIMXRT1064"/>
     <definition extID="platform.drivers.igpio.MIMXRT1064"/>
     <definition extID="platform.drivers.xip_device.MIMXRT1064"/>
-    <definition extID="platform.drivers.xip_board.MIMXRT1064"/>
-    <definition extID="platform.Include_core_cm7.MIMXRT1064"/>
-    <definition extID="platform.Include_common.MIMXRT1064"/>
-    <definition extID="platform.Include_dsp.MIMXRT1064"/>
+    <definition extID="platform.drivers.xip_board.evkmimxrt1064.MIMXRT1064"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT1064"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1064"/>
     <definition extID="device.MIMXRT1064_system.MIMXRT1064"/>
     <definition extID="iar"/>
@@ -28,7 +26,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1064_trng_random" name="trng_random" dependency="utility.debug_console_lite.MIMXRT1064 platform.utilities.assert_lite.MIMXRT1064 platform.drivers.trng.MIMXRT1064 platform.drivers.clock.MIMXRT1064 platform.drivers.common.MIMXRT1064 device.MIMXRT1064_CMSIS.MIMXRT1064 component.lpuart_adapter.MIMXRT1064 component.lists.MIMXRT1064 platform.drivers.lpuart.MIMXRT1064 device.MIMXRT1064_startup.MIMXRT1064 platform.drivers.iomuxc.MIMXRT1064 platform.drivers.igpio.MIMXRT1064 platform.drivers.xip_device.MIMXRT1064 platform.drivers.xip_board.MIMXRT1064 platform.Include_core_cm7.MIMXRT1064 platform.Include_common.MIMXRT1064 platform.Include_dsp.MIMXRT1064 platform.utilities.misc_utilities.MIMXRT1064 device.MIMXRT1064_system.MIMXRT1064" category="driver_examples/trng">
+  <example id="evkmimxrt1064_trng_random" name="trng_random" dependency="utility.debug_console_lite.MIMXRT1064 platform.utilities.assert_lite.MIMXRT1064 platform.drivers.trng.MIMXRT1064 platform.drivers.clock.MIMXRT1064 platform.drivers.common.MIMXRT1064 device.MIMXRT1064_CMSIS.MIMXRT1064 component.lpuart_adapter.MIMXRT1064 component.lists.MIMXRT1064 platform.drivers.lpuart.MIMXRT1064 device.MIMXRT1064_startup.MIMXRT1064 platform.drivers.iomuxc.MIMXRT1064 platform.drivers.igpio.MIMXRT1064 platform.drivers.xip_device.MIMXRT1064 platform.drivers.xip_board.evkmimxrt1064.MIMXRT1064 CMSIS_Include_core_cm.MIMXRT1064 platform.utilities.misc_utilities.MIMXRT1064 device.MIMXRT1064_system.MIMXRT1064" category="driver_examples/trng">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -47,6 +45,7 @@
           <value>SDK_DEBUGCONSOLE=1</value>
           <value>XIP_EXTERNAL_FLASH=1</value>
           <value>XIP_BOOT_HEADER_ENABLE=1</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv5dp.hard</value>
@@ -147,29 +146,10 @@
     <source path="examples/evkmimxrt1064/driver_examples/trng/random" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
     </source>
-    <source path="examples/evkmimxrt1064/driver_examples/trng/random/iar" project_relative_path="MIMXRT1064/iar" type="linker" toolchain="iar">
-      <files mask="MIMXRT1064xxxxx_ram.icf"/>
-      <files mask="MIMXRT1064xxxxx_sdram.icf"/>
-      <files mask="MIMXRT1064xxxxx_flexspi_nor.icf"/>
-    </source>
-    <source path="examples/evkmimxrt1064/driver_examples/trng/random/mdk" project_relative_path="MIMXRT1064/arm" type="linker" toolchain="mdk">
-      <files mask="MIMXRT1064xxxxx_ram.scf"/>
-      <files mask="MIMXRT1064xxxxx_sdram.scf"/>
-      <files mask="MIMXRT1064xxxxx_flexspi_nor.scf"/>
-    </source>
     <source path="examples/evkmimxrt1064/driver_examples/trng/random/armgcc" project_relative_path="MIMXRT1064/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMXRT1064xxxxx_ram.ld"/>
       <files mask="MIMXRT1064xxxxx_sdram.ld"/>
       <files mask="MIMXRT1064xxxxx_flexspi_nor.ld"/>
-    </source>
-    <source path="examples/evkmimxrt1064/driver_examples/trng/random/iar" project_relative_path="evkmimxrt1064" type="other" toolchain="iar">
-      <files mask="evkmimxrt1064.mac"/>
-      <files mask="evkmimxrt1064_sdram_init.mac"/>
-    </source>
-    <source path="examples/evkmimxrt1064/driver_examples/trng/random/mdk" project_relative_path="evkmimxrt1064" type="configuration" toolchain="mdk">
-      <files mask="evkmimxrt1064_ram.ini"/>
-      <files mask="evkmimxrt1064_sdram_init.ini"/>
-      <files mask="evkmimxrt1064_flexspi_nor.ini"/>
     </source>
   </example>
 </ksdk:examples>

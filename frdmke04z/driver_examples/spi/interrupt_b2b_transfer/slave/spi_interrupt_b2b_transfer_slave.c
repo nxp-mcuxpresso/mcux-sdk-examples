@@ -48,8 +48,8 @@ int main(void)
 
     /* If PTB4 is selected as MISO, the NMIE bit must be cleared. */
     SIM->SOPT &= ~SIM_SOPT_NMIE_MASK;
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     PRINTF("\n\rSlave is working....\n\r");
 

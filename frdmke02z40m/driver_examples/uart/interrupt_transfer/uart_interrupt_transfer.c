@@ -74,8 +74,8 @@ int main(void)
     uart_transfer_t sendXfer;
     uart_transfer_t receiveXfer;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
 
     /*
      * config.baudRate_Bps = 115200U;

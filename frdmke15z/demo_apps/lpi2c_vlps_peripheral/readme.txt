@@ -7,8 +7,8 @@ It uses LPI2C to access the on board accelerometer sensor to read the Accelerome
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
-- MCUXpresso  11.3.0
+- GCC ARM Embedded  10.2.1
+- MCUXpresso  11.4.0
 
 Hardware requirements
 =====================

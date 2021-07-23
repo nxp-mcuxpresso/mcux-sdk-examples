@@ -110,8 +110,8 @@ int main(void)
     uint16_t i      = 0U;
     uint32_t pwmVal = 4U;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Set the PWM Fault inputs to CMP0 output pin */

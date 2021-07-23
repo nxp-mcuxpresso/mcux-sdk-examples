@@ -57,8 +57,8 @@ int main(void)
      * RESET_PeripheralReset(kRNG_RST_SHIFT_RSTn);
      */
 
-    BOARD_InitPins();
-    BOARD_BootClockPLL180M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("RNG Peripheral Driver Example\r\n\r\n");

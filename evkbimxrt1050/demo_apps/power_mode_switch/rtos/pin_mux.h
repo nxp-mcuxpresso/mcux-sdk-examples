@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 NXP
+ * Copyright 2019-2020 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -45,21 +45,33 @@ extern "C" {
 void BOARD_InitBootPins(void);
 
 /* GPIO_AD_B0_13 (coord L14), UART1_RXD */
-#define BOARD_UART1_RXD_PERIPHERAL                                       LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_UART1_RXD_SIGNAL                                                RX   /*!< LPUART1 signal: RX */
+/* Routed pin properties */
+#define BOARD_UART1_RXD_PERIPHERAL                                       LPUART1   /*!< Peripheral name */
+#define BOARD_UART1_RXD_SIGNAL                                                RX   /*!< Signal name */
 
 /* GPIO_AD_B0_12 (coord K14), UART1_TXD */
-#define BOARD_UART1_TXD_PERIPHERAL                                       LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_UART1_TXD_SIGNAL                                                TX   /*!< LPUART1 signal: TX */
+/* Routed pin properties */
+#define BOARD_UART1_TXD_PERIPHERAL                                       LPUART1   /*!< Peripheral name */
+#define BOARD_UART1_TXD_SIGNAL                                                TX   /*!< Signal name */
 
 /* WAKEUP (coord L6), SD_PWREN */
-#define BOARD_SD_PWREN_GPIO                                                GPIO5   /*!< GPIO device name: GPIO5 */
-#define BOARD_SD_PWREN_PORT                                                GPIO5   /*!< PORT device name: GPIO5 */
-#define BOARD_SD_PWREN_PIN                                                    0U   /*!< GPIO5 pin index: 0 */
+/* Routed pin properties */
+#define BOARD_SD_PWREN_PERIPHERAL                                          GPIO5   /*!< Peripheral name */
+#define BOARD_SD_PWREN_SIGNAL                                            gpio_io   /*!< Signal name */
+#define BOARD_SD_PWREN_CHANNEL                                                0U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_SD_PWREN_GPIO                                                GPIO5   /*!< GPIO peripheral base pointer */
+#define BOARD_SD_PWREN_GPIO_PIN                                               0U   /*!< GPIO pin number */
+#define BOARD_SD_PWREN_GPIO_PIN_MASK                                  (1U << 0U)   /*!< GPIO pin mask */
+#define BOARD_SD_PWREN_PORT                                                GPIO5   /*!< PORT peripheral base pointer */
+#define BOARD_SD_PWREN_PIN                                                    0U   /*!< PORT pin number */
+#define BOARD_SD_PWREN_PIN_MASK                                       (1U << 0U)   /*!< PORT pin mask */
 
 /* GPIO_B0_13 (coord D10), LCDIF_D9/BT_CFG[9] */
-#define BOARD_LCDIF_D9_PERIPHERAL                                            ARM   /*!< Device name: ARM */
-#define BOARD_LCDIF_D9_SIGNAL                                      arm_trace_swo   /*!< ARM signal: arm_trace_swo */
+/* Routed pin properties */
+#define BOARD_LCDIF_D9_PERIPHERAL                                            ARM   /*!< Peripheral name */
+#define BOARD_LCDIF_D9_SIGNAL                                      arm_trace_swo   /*!< Signal name */
 
 
 /*!
@@ -69,9 +81,18 @@ void BOARD_InitBootPins(void);
 void BOARD_InitPins(void);
 
 /* PMIC_STBY_REQ (coord L7), PERI_PWREN */
-#define BOARD_PERI_PWREN_GPIO                                              GPIO5   /*!< GPIO device name: GPIO5 */
-#define BOARD_PERI_PWREN_PORT                                              GPIO5   /*!< PORT device name: GPIO5 */
-#define BOARD_PERI_PWREN_PIN                                                  2U   /*!< GPIO5 pin index: 2 */
+/* Routed pin properties */
+#define BOARD_PERI_PWREN_PERIPHERAL                                        GPIO5   /*!< Peripheral name */
+#define BOARD_PERI_PWREN_SIGNAL                                          gpio_io   /*!< Signal name */
+#define BOARD_PERI_PWREN_CHANNEL                                              2U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_PERI_PWREN_GPIO                                              GPIO5   /*!< GPIO peripheral base pointer */
+#define BOARD_PERI_PWREN_GPIO_PIN                                             2U   /*!< GPIO pin number */
+#define BOARD_PERI_PWREN_GPIO_PIN_MASK                                (1U << 2U)   /*!< GPIO pin mask */
+#define BOARD_PERI_PWREN_PORT                                              GPIO5   /*!< PORT peripheral base pointer */
+#define BOARD_PERI_PWREN_PIN                                                  2U   /*!< PORT pin number */
+#define BOARD_PERI_PWREN_PIN_MASK                                     (1U << 2U)   /*!< PORT pin mask */
 
 
 /*!

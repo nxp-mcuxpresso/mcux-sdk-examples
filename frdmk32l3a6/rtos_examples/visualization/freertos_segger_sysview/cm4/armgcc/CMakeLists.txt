@@ -1,6 +1,6 @@
 # CROSS COMPILER SETTING
 SET(CMAKE_SYSTEM_NAME Generic)
-CMAKE_MINIMUM_REQUIRED (VERSION 3.1.1)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
 SET (Tutorial_VERSION_MAJOR 1)
@@ -38,15 +38,16 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../../SEGGER/cm4/SEGGER_RTT.h"
 "${ProjDirPath}/../../SEGGER/cm4/SEGGER_SYSVIEW.c"
 "${ProjDirPath}/../../SEGGER/cm4/SEGGER_SYSVIEW.h"
+"${ProjDirPath}/../../SEGGER/cm4/SEGGER_RTT_ASM_ARMv7M.S"
 "${ProjDirPath}/../../SEGGER/cm4/SEGGER_SYSVIEW_ConfDefaults.h"
 "${ProjDirPath}/../../SEGGER/cm4/SEGGER_SYSVIEW_Int.h"
 "${ProjDirPath}/../../Config/cm4/Global.h"
 "${ProjDirPath}/../../Config/cm4/SEGGER_RTT_Conf.h"
 "${ProjDirPath}/../../Config/cm4/SEGGER_SYSVIEW_Conf.h"
-"${ProjDirPath}/../../Sample/OS/cm4/SEGGER_SYSVIEW_FreeRTOS.c"
-"${ProjDirPath}/../../Sample/OS/cm4/SEGGER_SYSVIEW_FreeRTOS.h"
-"${ProjDirPath}/../../Sample/OS/cm4/pin_mux.c"
-"${ProjDirPath}/../../Sample/OS/cm4/pin_mux.h"
+"${ProjDirPath}/../../Sample/FreeRTOSV10/cm4/SEGGER_SYSVIEW_FreeRTOS.c"
+"${ProjDirPath}/../../Sample/FreeRTOSV10/cm4/SEGGER_SYSVIEW_FreeRTOS.h"
+"${ProjDirPath}/../pin_mux.c"
+"${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../../../../../../../core/boards/frdmk32l3a6/board.c"
 "${ProjDirPath}/../../../../../../../core/boards/frdmk32l3a6/board.h"
 "${ProjDirPath}/../../../../../../../core/boards/frdmk32l3a6/clock_config.c"
@@ -54,11 +55,10 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/.. debug
     ${ProjDirPath}/..
     ${ProjDirPath}/../../SEGGER/cm4
     ${ProjDirPath}/../../Config/cm4
-    ${ProjDirPath}/../../Sample/OS/cm4
+    ${ProjDirPath}/../../Sample/FreeRTOSV10/cm4
     ${ProjDirPath}/../../../../../../../examples/frdmk32l3a6/rtos_examples/visualization/freertos_segger_sysview/cm4
     ${ProjDirPath}/../../../../../../../core/boards/frdmk32l3a6
 )
@@ -100,19 +100,15 @@ include(component_serial_manager_uart)
 
 include(device_CMSIS)
 
-include(CMSIS_Include_core_cm4)
-
 include(device_startup_K32L3A60_cm4)
+
+include(CMSIS_Include_core_cm)
 
 include(middleware_freertos-kernel_K32L3A60_cm4)
 
 include(middleware_freertos-kernel_extension)
 
 include(utilities_misc_utilities)
-
-include(CMSIS_Include_common)
-
-include(CMSIS_Include_dsp)
 
 include(device_system_K32L3A60_cm4)
 

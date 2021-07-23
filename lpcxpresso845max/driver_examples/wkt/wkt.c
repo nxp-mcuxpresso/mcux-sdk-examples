@@ -51,7 +51,7 @@ int main(void)
     /* Attach main clock to USART0 (debug console) */
     CLOCK_Select(kUART0_Clk_From_MainClk);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockFRO30M();
     BOARD_InitDebugConsole();
 

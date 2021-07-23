@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 NXP
+ * Copyright 2019-2020 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -45,17 +45,19 @@ extern "C" {
 void BOARD_InitBootPins(void);
 
 /* GPIO_09 (number 3), LPUART1_RXD */
-#define BOARD_LPUART1_RXD_PERIPHERAL                                     LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_LPUART1_RXD_SIGNAL                                             RXD   /*!< LPUART1 signal: RXD */
+/* Routed pin properties */
+#define BOARD_LPUART1_RXD_PERIPHERAL                                     LPUART1   /*!< Peripheral name */
+#define BOARD_LPUART1_RXD_SIGNAL                                             RXD   /*!< Signal name */
 
 /* GPIO_10 (number 2), LPUART1_TXD */
-#define BOARD_LPUART1_TXD_PERIPHERAL                                     LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_LPUART1_TXD_SIGNAL                                             TXD   /*!< LPUART1 signal: TXD */
+/* Routed pin properties */
+#define BOARD_LPUART1_TXD_PERIPHERAL                                     LPUART1   /*!< Peripheral name */
+#define BOARD_LPUART1_TXD_SIGNAL                                             TXD   /*!< Signal name */
 
 /* GPIO_AD_09 (number 48), ADC12_4/JTAG_TDO/J55[6]/J26[4] */
-#define BOARD_ADC12_4_PERIPHERAL                                             ARM   /*!< Device name: ARM */
-#define BOARD_ADC12_4_SIGNAL                                       arm_trace_swo   /*!< ARM signal: arm_trace_swo */
-
+/* Routed pin properties */
+#define BOARD_ADC12_4_PERIPHERAL                                             ARM   /*!< Peripheral name */
+#define BOARD_ADC12_4_SIGNAL                                       arm_trace_swo   /*!< Signal name */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

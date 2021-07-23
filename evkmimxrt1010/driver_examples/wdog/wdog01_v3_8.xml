@@ -14,10 +14,8 @@
     <definition extID="platform.drivers.iomuxc.MIMXRT1011"/>
     <definition extID="platform.drivers.igpio.MIMXRT1011"/>
     <definition extID="platform.drivers.xip_device.MIMXRT1011"/>
-    <definition extID="platform.drivers.xip_board.MIMXRT1011"/>
-    <definition extID="platform.Include_core_cm7.MIMXRT1011"/>
-    <definition extID="platform.Include_common.MIMXRT1011"/>
-    <definition extID="platform.Include_dsp.MIMXRT1011"/>
+    <definition extID="platform.drivers.xip_board.evkmimxrt1010.MIMXRT1011"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT1011"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1011"/>
     <definition extID="device.MIMXRT1011_system.MIMXRT1011"/>
     <definition extID="iar"/>
@@ -28,7 +26,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1010_wdog01" name="wdog01" dependency="utility.debug_console_lite.MIMXRT1011 platform.utilities.assert_lite.MIMXRT1011 platform.drivers.wdog01.MIMXRT1011 platform.drivers.clock.MIMXRT1011 platform.drivers.common.MIMXRT1011 device.MIMXRT1011_CMSIS.MIMXRT1011 component.lpuart_adapter.MIMXRT1011 component.lists.MIMXRT1011 platform.drivers.lpuart.MIMXRT1011 device.MIMXRT1011_startup.MIMXRT1011 platform.drivers.iomuxc.MIMXRT1011 platform.drivers.igpio.MIMXRT1011 platform.drivers.xip_device.MIMXRT1011 platform.drivers.xip_board.MIMXRT1011 platform.Include_core_cm7.MIMXRT1011 platform.Include_common.MIMXRT1011 platform.Include_dsp.MIMXRT1011 platform.utilities.misc_utilities.MIMXRT1011 device.MIMXRT1011_system.MIMXRT1011" category="driver_examples/wdog">
+  <example id="evkmimxrt1010_wdog01" name="wdog01" dependency="utility.debug_console_lite.MIMXRT1011 platform.utilities.assert_lite.MIMXRT1011 platform.drivers.wdog01.MIMXRT1011 platform.drivers.clock.MIMXRT1011 platform.drivers.common.MIMXRT1011 device.MIMXRT1011_CMSIS.MIMXRT1011 component.lpuart_adapter.MIMXRT1011 component.lists.MIMXRT1011 platform.drivers.lpuart.MIMXRT1011 device.MIMXRT1011_startup.MIMXRT1011 platform.drivers.iomuxc.MIMXRT1011 platform.drivers.igpio.MIMXRT1011 platform.drivers.xip_device.MIMXRT1011 platform.drivers.xip_board.evkmimxrt1010.MIMXRT1011 CMSIS_Include_core_cm.MIMXRT1011 platform.utilities.misc_utilities.MIMXRT1011 device.MIMXRT1011_system.MIMXRT1011" category="driver_examples/wdog">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -46,6 +44,7 @@
           <value>SDK_DEBUGCONSOLE=1</value>
           <value>XIP_EXTERNAL_FLASH=1</value>
           <value>XIP_BOOT_HEADER_ENABLE=1</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
@@ -136,17 +135,8 @@
     <source path="examples/evkmimxrt1010/driver_examples/wdog" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
     </source>
-    <source path="examples/evkmimxrt1010/driver_examples/wdog/iar" project_relative_path="MIMXRT1011/iar" type="linker" toolchain="iar">
-      <files mask="MIMXRT1011xxxxx_flexspi_nor.icf"/>
-    </source>
-    <source path="examples/evkmimxrt1010/driver_examples/wdog/mdk" project_relative_path="MIMXRT1011/arm" type="linker" toolchain="mdk">
-      <files mask="MIMXRT1011xxxxx_flexspi_nor.scf"/>
-    </source>
     <source path="examples/evkmimxrt1010/driver_examples/wdog/armgcc" project_relative_path="MIMXRT1011/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMXRT1011xxxxx_flexspi_nor.ld"/>
-    </source>
-    <source path="examples/evkmimxrt1010/driver_examples/wdog/mdk" project_relative_path="evkmimxrt1010" type="configuration" toolchain="mdk">
-      <files mask="evkmimxrt1010_flexspi_nor.ini"/>
     </source>
   </example>
 </ksdk:examples>

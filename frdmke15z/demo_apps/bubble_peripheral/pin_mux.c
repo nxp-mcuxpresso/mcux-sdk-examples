@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v6.0
+product: Pins v9.0
 processor: MKE15Z256xxx7
 package_id: MKE15Z256VLL7
 mcu_data: ksdk2_0
-processor_version: 6.0.1
+processor_version: 9.0.0
 board: FRDM-KE15Z
 pin_labels:
 - {pin_num: '76', pin_signal: PTB9/LPI2C0_SCLS, label: 'U1[3]/FXOS_RST', identifier: ACCEL_RESET}

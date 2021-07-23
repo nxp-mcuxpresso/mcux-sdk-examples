@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -38,6 +38,8 @@
 /* Define LPTMR microseconds count value */
 #define LPTMR_USEC_COUNT (220000U)
 
+#define TSI_TRGMUX_REG_INDEX kTRGMUX_Tsi
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -48,24 +50,27 @@
 /* The array stores the un-touched sample counter for mutual-cap pad */
 uint16_t mutualCalibratedData[1] = {0U}; /* This example demo only 1 mutual-cap pad usage */
 /* Array of TSI peripheral base address. */
-static TSI_Type *const s_tsiBases[] = TSI_BASE_PTRS;
+#if defined(TSI0)
+#define APP_TSI TSI0
+#elif defined(TSI)
+#define APP_TSI TSI
+#endif
 
 /*******************************************************************************
  * Code
  ******************************************************************************/
 void TSI0_IRQHandler(void)
 {
-    if (TSI_GetRxMutualCapMeasuredChannel(s_tsiBases[0]) ==
-        (tsi_mutual_rx_channel_t)(BOARD_TSI_MUTUAL_RX_ELECTRODE_1 - 6U))
+    if (TSI_GetRxMutualCapMeasuredChannel(APP_TSI) == (tsi_mutual_rx_channel_t)(BOARD_TSI_MUTUAL_RX_ELECTRODE_1 - 6U))
     {
-        if (TSI_GetCounter(s_tsiBases[0]) > (uint16_t)(mutualCalibratedData[0] + TOUCH_DELTA_VALUE))
+        if (TSI_GetCounter(APP_TSI) > (uint16_t)(mutualCalibratedData[0] + TOUCH_DELTA_VALUE))
         {
             LED1_TOGGLE(); /* Toggle the touch event indicating LED */
         }
     }
 
     /* Clear endOfScan flag */
-    TSI_ClearStatusFlags(s_tsiBases[0], kTSI_EndOfScanFlag);
+    TSI_ClearStatusFlags(APP_TSI, kTSI_EndOfScanFlag);
     SDK_ISR_EXIT_BARRIER;
 }
 
@@ -79,8 +84,8 @@ int main(void)
     memset((void *)&lptmrConfig, 0, sizeof(lptmrConfig));
 
     /* Initialize standard SDK demo application pins */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* CLOCK_EnableClock(kCLOCK_Intmux0); */
@@ -96,76 +101,74 @@ int main(void)
     /* Initialize the LPTMR */
     LPTMR_Init(LPTMR0, &lptmrConfig);
     /* Initialize the TSI */
-    TSI_InitMutualCapMode(s_tsiBases[0], &tsiConfig_mutualCap);
+    TSI_InitMutualCapMode(APP_TSI, &tsiConfig_mutualCap);
 
     /* Set timer period */
     LPTMR_SetTimerPeriod(LPTMR0, USEC_TO_COUNT(LPTMR_USEC_COUNT, LPTMR_SOURCE_CLOCK));
 
     NVIC_EnableIRQ(TSI0_IRQn);
-    TSI_EnableModule(s_tsiBases[0], true); /* Enable module */
+    TSI_EnableModule(APP_TSI, true); /* Enable module */
 
     PRINTF("\r\nTSI_V5 Mutual-Cap mode Example Start!\r\n");
     /*********  CALIBRATION PROCESS ************/
     PRINTF("\r\nPlease do not touch pad %s when in calibration process!\r\n", PAD_TSI_MUTUAL_CAP_1_NAME);
-    TSI_EnableHardwareTriggerScan(s_tsiBases[0], false); /* Enable software trigger scan */
-    TSI_DisableInterrupts(s_tsiBases[0], kTSI_EndOfScanInterruptEnable);
-    TSI_ClearStatusFlags(s_tsiBases[0], kTSI_EndOfScanFlag);
+    TSI_EnableHardwareTriggerScan(APP_TSI, false); /* Enable software trigger scan */
+    TSI_DisableInterrupts(APP_TSI, kTSI_EndOfScanInterruptEnable);
+    TSI_ClearStatusFlags(APP_TSI, kTSI_EndOfScanFlag);
     /* Select one mutual-cap pad as detecting pad. */
-    TSI_SetMutualCapTxChannel(s_tsiBases[0], (tsi_mutual_tx_channel_t)BOARD_TSI_MUTUAL_TX_ELECTRODE_1);
-    TSI_SetMutualCapRxChannel(s_tsiBases[0], (tsi_mutual_rx_channel_t)(BOARD_TSI_MUTUAL_RX_ELECTRODE_1 - 6U));
-    TSI_StartSoftwareTrigger(s_tsiBases[0]);
-    while (!(TSI_GetStatusFlags(s_tsiBases[0]) & kTSI_EndOfScanFlag))
+    TSI_SetMutualCapTxChannel(APP_TSI, (tsi_mutual_tx_channel_t)BOARD_TSI_MUTUAL_TX_ELECTRODE_1);
+    TSI_SetMutualCapRxChannel(APP_TSI, (tsi_mutual_rx_channel_t)(BOARD_TSI_MUTUAL_RX_ELECTRODE_1 - 6U));
+    TSI_StartSoftwareTrigger(APP_TSI);
+    while (!(TSI_GetStatusFlags(APP_TSI) & kTSI_EndOfScanFlag))
     {
     }
-    mutualCalibratedData[0] = TSI_GetCounter(s_tsiBases[0]);
+    mutualCalibratedData[0] = TSI_GetCounter(APP_TSI);
     PRINTF("Calibrated counters for mutual-cap pad %s is: %d \r\n", PAD_TSI_MUTUAL_CAP_1_NAME, mutualCalibratedData[0]);
 
     /********** SOFTWARE TRIGGER SCAN USING POLLING METHOD ********/
     PRINTF("\r\nNOW, comes to the software trigger scan using polling method!\r\n");
-    TSI_EnableHardwareTriggerScan(s_tsiBases[0], false); /* Enable software trigger scan */
-    TSI_DisableInterrupts(s_tsiBases[0], kTSI_EndOfScanInterruptEnable);
-    TSI_ClearStatusFlags(s_tsiBases[0], kTSI_EndOfScanFlag);
+    TSI_EnableHardwareTriggerScan(APP_TSI, false); /* Enable software trigger scan */
+    TSI_DisableInterrupts(APP_TSI, kTSI_EndOfScanInterruptEnable);
+    TSI_ClearStatusFlags(APP_TSI, kTSI_EndOfScanFlag);
     /* Select one mutual-cap pad as detecting pad. */
-    TSI_SetMutualCapTxChannel(s_tsiBases[0], (tsi_mutual_tx_channel_t)BOARD_TSI_MUTUAL_TX_ELECTRODE_1);
-    TSI_SetMutualCapRxChannel(s_tsiBases[0], (tsi_mutual_rx_channel_t)(BOARD_TSI_MUTUAL_RX_ELECTRODE_1 - 6U));
-    TSI_StartSoftwareTrigger(s_tsiBases[0]);
-    while (!(TSI_GetStatusFlags(s_tsiBases[0]) & kTSI_EndOfScanFlag))
+    TSI_SetMutualCapTxChannel(APP_TSI, (tsi_mutual_tx_channel_t)BOARD_TSI_MUTUAL_TX_ELECTRODE_1);
+    TSI_SetMutualCapRxChannel(APP_TSI, (tsi_mutual_rx_channel_t)(BOARD_TSI_MUTUAL_RX_ELECTRODE_1 - 6U));
+    TSI_StartSoftwareTrigger(APP_TSI);
+    while (!(TSI_GetStatusFlags(APP_TSI) & kTSI_EndOfScanFlag))
     {
     }
-    PRINTF("Mutual-cap pad %s Normal mode counter is: %d \r\n", PAD_TSI_MUTUAL_CAP_1_NAME,
-           TSI_GetCounter(s_tsiBases[0]));
-    TSI_ClearStatusFlags(s_tsiBases[0], kTSI_EndOfScanFlag);
-    TSI_ClearStatusFlags(s_tsiBases[0], (uint32_t)kTSI_OutOfRangeFlag);
+    PRINTF("Mutual-cap pad %s Normal mode counter is: %d \r\n", PAD_TSI_MUTUAL_CAP_1_NAME, TSI_GetCounter(APP_TSI));
+    TSI_ClearStatusFlags(APP_TSI, kTSI_EndOfScanFlag);
+    TSI_ClearStatusFlags(APP_TSI, (uint32_t)kTSI_OutOfRangeFlag);
 
     /********** SOFTWARE TRIGGER SCAN USING INTERRUPT METHOD ********/
     PRINTF("\r\nNOW, comes to the software trigger scan using interrupt method!\r\n");
-    TSI_EnableInterrupts(s_tsiBases[0], kTSI_GlobalInterruptEnable);
-    TSI_EnableInterrupts(s_tsiBases[0], kTSI_EndOfScanInterruptEnable);
-    TSI_ClearStatusFlags(s_tsiBases[0], kTSI_EndOfScanFlag);
+    TSI_EnableInterrupts(APP_TSI, kTSI_GlobalInterruptEnable);
+    TSI_EnableInterrupts(APP_TSI, kTSI_EndOfScanInterruptEnable);
+    TSI_ClearStatusFlags(APP_TSI, kTSI_EndOfScanFlag);
     /* Select one mutual-cap pad as detecting pad. */
-    TSI_SetMutualCapTxChannel(s_tsiBases[0], (tsi_mutual_tx_channel_t)BOARD_TSI_MUTUAL_TX_ELECTRODE_1);
-    TSI_SetMutualCapRxChannel(s_tsiBases[0], (tsi_mutual_rx_channel_t)(BOARD_TSI_MUTUAL_RX_ELECTRODE_1 - 6U));
-    TSI_StartSoftwareTrigger(s_tsiBases[0]);
-    while (TSI_IsScanInProgress(s_tsiBases[0]))
+    TSI_SetMutualCapTxChannel(APP_TSI, (tsi_mutual_tx_channel_t)BOARD_TSI_MUTUAL_TX_ELECTRODE_1);
+    TSI_SetMutualCapRxChannel(APP_TSI, (tsi_mutual_rx_channel_t)(BOARD_TSI_MUTUAL_RX_ELECTRODE_1 - 6U));
+    TSI_StartSoftwareTrigger(APP_TSI);
+    while (TSI_IsScanInProgress(APP_TSI))
     {
     }
-    PRINTF("Mutual-cap pad %s Normal mode counter is: %d \r\n", PAD_TSI_MUTUAL_CAP_1_NAME,
-           TSI_GetCounter(s_tsiBases[0]));
+    PRINTF("Mutual-cap pad %s Normal mode counter is: %d \r\n", PAD_TSI_MUTUAL_CAP_1_NAME, TSI_GetCounter(APP_TSI));
 
     /********** HARDWARE TRIGGER SCAN ********/
     PRINTF("\r\nNOW, comes to the hardware trigger scan method!\r\n");
     PRINTF("After running, touch pad %s each time, you will see LED toggles.\r\n", PAD_TSI_MUTUAL_CAP_1_NAME);
-    TSI_EnableModule(s_tsiBases[0], false);
-    TSI_EnableHardwareTriggerScan(s_tsiBases[0], true);
-    TSI_EnableInterrupts(s_tsiBases[0], kTSI_GlobalInterruptEnable);
-    TSI_EnableInterrupts(s_tsiBases[0], kTSI_EndOfScanInterruptEnable);
-    TSI_ClearStatusFlags(s_tsiBases[0], kTSI_EndOfScanFlag);
+    TSI_EnableModule(APP_TSI, false);
+    TSI_EnableHardwareTriggerScan(APP_TSI, true);
+    TSI_EnableInterrupts(APP_TSI, kTSI_GlobalInterruptEnable);
+    TSI_EnableInterrupts(APP_TSI, kTSI_EndOfScanInterruptEnable);
+    TSI_ClearStatusFlags(APP_TSI, kTSI_EndOfScanFlag);
 
     /* Select one mutual-cap pad as detecting pad. */
-    TSI_SetMutualCapTxChannel(s_tsiBases[0], (tsi_mutual_tx_channel_t)BOARD_TSI_MUTUAL_TX_ELECTRODE_1);
-    TSI_SetMutualCapRxChannel(s_tsiBases[0], (tsi_mutual_rx_channel_t)(BOARD_TSI_MUTUAL_RX_ELECTRODE_1 - 6U));
-    TSI_EnableModule(s_tsiBases[0], true);
-    TRGMUX_SetTriggerSource(TRGMUX0, kTRGMUX_Tsi, kTRGMUX_TriggerInput0, kTRGMUX_SourceLptmr0);
+    TSI_SetMutualCapTxChannel(APP_TSI, (tsi_mutual_tx_channel_t)BOARD_TSI_MUTUAL_TX_ELECTRODE_1);
+    TSI_SetMutualCapRxChannel(APP_TSI, (tsi_mutual_rx_channel_t)(BOARD_TSI_MUTUAL_RX_ELECTRODE_1 - 6U));
+    TSI_EnableModule(APP_TSI, true);
+    TRGMUX_SetTriggerSource(TRGMUX0, TSI_TRGMUX_REG_INDEX, kTRGMUX_TriggerInput0, kTRGMUX_SourceLptmr0);
     LPTMR_StartTimer(LPTMR0); /* Start LPTMR triggering */
 
     while (1)

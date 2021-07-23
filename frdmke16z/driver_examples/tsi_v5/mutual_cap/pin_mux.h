@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NXP
+ * Copyright 2018 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -34,29 +34,49 @@ void BOARD_InitBootPins(void);
 
 /*! @name PORTB1 (number 26), UART0_TX_TGTMCU
   @{ */
-#define BOARD_DEBUG_UART_TX_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_DEBUG_UART_TX_PIN 1U     /*!<@brief PORTB pin index: 1 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_TX_PORT PORTB               /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_TX_PIN 1U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_TX_PIN_MASK (1U << 1U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*! @name PORTB0 (number 27), UART0_RX_TGTMCU
   @{ */
-#define BOARD_DEBUG_UART_RX_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_DEBUG_UART_RX_PIN 0U     /*!<@brief PORTB pin index: 0 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_RX_PORT PORTB               /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_RX_PIN 0U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_RX_PIN_MASK (1U << 0U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*! @name PORTB5 (number 15), D4[1]/RGB_RED
   @{ */
-#define BOARD_LED_RED_GPIO GPIOB /*!<@brief GPIO device name: GPIOB */
-#define BOARD_LED_RED_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_LED_RED_PIN 5U     /*!<@brief PORTB pin index: 5 */
-                                 /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_LED_RED_FGPIO FGPIOB             /*!<@brief FGPIO peripheral base pointer */
+#define BOARD_LED_RED_GPIO GPIOB               /*!<@brief GPIO peripheral base pointer */
+#define BOARD_LED_RED_GPIO_PIN_MASK (1U << 5U) /*!<@brief GPIO pin mask */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_LED_RED_PORT PORTB               /*!<@brief PORT peripheral base pointer */
+#define BOARD_LED_RED_PIN 5U                   /*!<@brief PORT pin number */
+#define BOARD_LED_RED_PIN_MASK (1U << 5U)      /*!<@brief PORT pin mask */
+                                               /* @} */
 
 /*! @name PORTD1 (number 1), D4[3]/RGB_BLUE
   @{ */
-#define BOARD_LED_BLUE_GPIO GPIOD /*!<@brief GPIO device name: GPIOD */
-#define BOARD_LED_BLUE_PORT PORTD /*!<@brief PORT device name: PORTD */
-#define BOARD_LED_BLUE_PIN 1U     /*!<@brief PORTD pin index: 1 */
-                                  /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_LED_BLUE_FGPIO FGPIOD             /*!<@brief FGPIO peripheral base pointer */
+#define BOARD_LED_BLUE_GPIO GPIOD               /*!<@brief GPIO peripheral base pointer */
+#define BOARD_LED_BLUE_GPIO_PIN_MASK (1U << 1U) /*!<@brief GPIO pin mask */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_LED_BLUE_PORT PORTD               /*!<@brief PORT peripheral base pointer */
+#define BOARD_LED_BLUE_PIN 1U                   /*!<@brief PORT pin number */
+#define BOARD_LED_BLUE_PIN_MASK (1U << 1U)      /*!<@brief PORT pin mask */
+                                                /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

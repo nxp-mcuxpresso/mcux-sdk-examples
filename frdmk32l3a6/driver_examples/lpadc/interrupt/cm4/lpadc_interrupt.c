@@ -66,8 +66,8 @@ int main(void)
     lpadc_conv_trigger_config_t mLpadcTriggerConfigStruct;
     lpadc_conv_command_config_t mLpadcCommandConfigStruct;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     CLOCK_SetIpSrcDiv(kCLOCK_Lpadc0, kCLOCK_IpSrcFircAsync, 2U, 0U);

@@ -284,8 +284,8 @@ int main(void)
     i2cDev.timerIndex[2]   = 2U;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Clock setting for Flexio */

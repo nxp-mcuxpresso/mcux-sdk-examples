@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 NXP
+ * Copyright 2019-2020 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -45,21 +45,33 @@ extern "C" {
 void BOARD_InitBootPins(void);
 
 /* GPIO_AD_B0_07 (number 101), UART1_RXD/J17[4] */
-#define BOARD_UART1_RXD_PERIPHERAL                                       LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_UART1_RXD_SIGNAL                                                RX   /*!< LPUART1 signal: RX */
+/* Routed pin properties */
+#define BOARD_UART1_RXD_PERIPHERAL                                       LPUART1   /*!< Peripheral name */
+#define BOARD_UART1_RXD_SIGNAL                                                RX   /*!< Signal name */
 
 /* GPIO_AD_B0_06 (number 105), UART1_TXD/J17[6] */
-#define BOARD_UART1_TXD_PERIPHERAL                                       LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_UART1_TXD_SIGNAL                                                TX   /*!< LPUART1 signal: TX */
+/* Routed pin properties */
+#define BOARD_UART1_TXD_PERIPHERAL                                       LPUART1   /*!< Peripheral name */
+#define BOARD_UART1_TXD_SIGNAL                                                TX   /*!< Signal name */
 
 /* GPIO_AD_B0_05 (number 106), JTAG_nTRST/J16[3]/USER_LED/J17[5] */
-#define BOARD_USER_LED_GPIO                                                GPIO1   /*!< GPIO device name: GPIO1 */
-#define BOARD_USER_LED_PORT                                                GPIO1   /*!< PORT device name: GPIO1 */
-#define BOARD_USER_LED_PIN                                                    5U   /*!< GPIO1 pin index: 5 */
+/* Routed pin properties */
+#define BOARD_USER_LED_PERIPHERAL                                          GPIO1   /*!< Peripheral name */
+#define BOARD_USER_LED_SIGNAL                                            gpio_io   /*!< Signal name */
+#define BOARD_USER_LED_CHANNEL                                                5U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_USER_LED_GPIO                                                GPIO1   /*!< GPIO peripheral base pointer */
+#define BOARD_USER_LED_GPIO_PIN                                               5U   /*!< GPIO pin number */
+#define BOARD_USER_LED_GPIO_PIN_MASK                                  (1U << 5U)   /*!< GPIO pin mask */
+#define BOARD_USER_LED_PORT                                                GPIO1   /*!< PORT peripheral base pointer */
+#define BOARD_USER_LED_PIN                                                    5U   /*!< PORT pin number */
+#define BOARD_USER_LED_PIN_MASK                                       (1U << 5U)   /*!< PORT pin mask */
 
 /* GPIO_AD_B0_11 (number 97), ENET_CRS_DV/U11[18]/J19[3] */
-#define BOARD_ENET_CRS_DV_PERIPHERAL                                         ARM   /*!< Device name: ARM */
-#define BOARD_ENET_CRS_DV_SIGNAL                                   arm_trace_swo   /*!< ARM signal: arm_trace_swo */
+/* Routed pin properties */
+#define BOARD_ENET_CRS_DV_PERIPHERAL                                         ARM   /*!< Peripheral name */
+#define BOARD_ENET_CRS_DV_SIGNAL                                   arm_trace_swo   /*!< Signal name */
 
 
 /*!

@@ -103,7 +103,7 @@ void USART0_IRQHandler(void)
 int main(void)
 {
     /* Initialize the pins. */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
 
     /* Enable clock to 30MHz. */
     BOARD_BootClockFRO30M();

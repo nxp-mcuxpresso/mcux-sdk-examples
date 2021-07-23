@@ -84,8 +84,8 @@ int main(void)
 
     /* Board pin, clock, debug console init */
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     CLOCK_SetDiv(kCLOCK_AhbDiv, 0x2); /* Set AHB PODF to 2, divide by 3 */
@@ -131,8 +131,9 @@ int main(void)
         return 1;
     }
 
-    /* Initialize submodule 1 */
+    /* Initialize submodule 1, make it use same counter clock as submodule 0. */
     pwmConfig.clockSource           = kPWM_Submodule0Clock;
+    pwmConfig.prescale              = kPWM_Prescale_Divide_1;
     pwmConfig.initializationControl = kPWM_Initialize_MasterSync;
     if (PWM_Init(BOARD_PWM_BASEADDR, kPWM_Module_1, &pwmConfig) == kStatus_Fail)
     {

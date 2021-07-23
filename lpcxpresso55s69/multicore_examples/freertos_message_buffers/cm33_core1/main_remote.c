@@ -15,9 +15,9 @@
 #include "message_buffer.h"
 #include "task.h"
 
+#include "mcmgr.h"
 #include "fsl_common.h"
 #include "fsl_power.h"
-#include "mcmgr.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

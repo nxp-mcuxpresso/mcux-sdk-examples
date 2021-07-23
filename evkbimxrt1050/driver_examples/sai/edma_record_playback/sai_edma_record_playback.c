@@ -21,14 +21,15 @@
  ******************************************************************************/
 /* SAI instance and clock */
 #define DEMO_CODEC_WM8960
-#define DEMO_SAI              SAI1
-#define DEMO_SAI_CHANNEL      (0)
-#define DEMO_SAI_IRQ          SAI1_IRQn
-#define DEMO_SAITxIRQHandler  SAI1_IRQHandler
-#define DEMO_SAI_TX_SYNC_MODE kSAI_ModeAsync
-#define DEMO_SAI_RX_SYNC_MODE kSAI_ModeSync
-#define DEMO_SAI_MCLK_OUTPUT  true
-#define DEMO_SAI_MASTER_SLAVE kSAI_Master
+#define DEMO_SAI                       SAI1
+#define DEMO_SAI_CHANNEL               (0)
+#define DEMO_SAI_IRQ                   SAI1_IRQn
+#define DEMO_SAITxIRQHandler           SAI1_IRQHandler
+#define DEMO_SAI_TX_SYNC_MODE          kSAI_ModeAsync
+#define DEMO_SAI_RX_SYNC_MODE          kSAI_ModeSync
+#define DEMO_SAI_TX_BIT_CLOCK_POLARITY kSAI_PolarityActiveLow
+#define DEMO_SAI_MCLK_OUTPUT           true
+#define DEMO_SAI_MASTER_SLAVE          kSAI_Slave
 
 #define DEMO_AUDIO_DATA_CHANNEL (2U)
 #define DEMO_AUDIO_BIT_WIDTH    kSAI_WordWidth16bits
@@ -71,6 +72,9 @@
 #define BOARD_MASTER_CLOCK_CONFIG()
 #define BUFFER_SIZE   (1024U)
 #define BUFFER_NUMBER (4U)
+#ifndef DEMO_CODEC_VOLUME
+#define DEMO_CODEC_VOLUME 100U
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -81,12 +85,15 @@
 wm8960_config_t wm8960Config = {
     .i2cConfig = {.codecI2CInstance = BOARD_CODEC_I2C_INSTANCE, .codecI2CSourceClock = BOARD_CODEC_I2C_CLOCK_FREQ},
     .route     = kWM8960_RoutePlaybackandRecord,
+    .leftInputSource  = kWM8960_InputDifferentialMicInput3,
     .rightInputSource = kWM8960_InputDifferentialMicInput2,
     .playSource       = kWM8960_PlaySourceDAC,
     .slaveAddress     = WM8960_I2C_ADDR,
     .bus              = kWM8960_BusI2S,
-    .format = {.mclk_HZ = 6144000U, .sampleRate = kWM8960_AudioSampleRate16KHz, .bitWidth = kWM8960_AudioBitWidth16bit},
-    .master_slave = false,
+    .format           = {.mclk_HZ    = 6144000U * 2,
+               .sampleRate = kWM8960_AudioSampleRate16KHz,
+               .bitWidth   = kWM8960_AudioBitWidth16bit},
+    .master_slave     = true,
 };
 codec_config_t boardCodecConfig = {.codecDevType = kCODEC_WM8960, .codecDevConfig = &wm8960Config};
 /*
@@ -158,8 +165,8 @@ int main(void)
     sai_transceiver_t saiConfig;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     CLOCK_InitAudioPll(&audioPllConfig);
     BOARD_InitDebugConsole();
 
@@ -202,8 +209,9 @@ int main(void)
 
     /* I2S mode configurations */
     SAI_GetClassicI2SConfig(&saiConfig, DEMO_AUDIO_BIT_WIDTH, kSAI_Stereo, 1U << DEMO_SAI_CHANNEL);
-    saiConfig.syncMode    = DEMO_SAI_TX_SYNC_MODE;
-    saiConfig.masterSlave = DEMO_SAI_MASTER_SLAVE;
+    saiConfig.syncMode              = DEMO_SAI_TX_SYNC_MODE;
+    saiConfig.bitClock.bclkPolarity = DEMO_SAI_TX_BIT_CLOCK_POLARITY;
+    saiConfig.masterSlave           = DEMO_SAI_MASTER_SLAVE;
     SAI_TransferTxSetConfigEDMA(DEMO_SAI, &txHandle, &saiConfig);
     saiConfig.syncMode = DEMO_SAI_RX_SYNC_MODE;
     SAI_TransferRxSetConfigEDMA(DEMO_SAI, &rxHandle, &saiConfig);
@@ -222,7 +230,11 @@ int main(void)
     {
         assert(false);
     }
-
+    if (CODEC_SetVolume(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight,
+                        DEMO_CODEC_VOLUME) != kStatus_Success)
+    {
+        assert(false);
+    }
     while (1)
     {
         if (emptyBlock > 0)

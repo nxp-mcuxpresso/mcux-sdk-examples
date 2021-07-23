@@ -45,31 +45,36 @@ void Peripheral_RdcSetting(void)
     rdc_periph_access_config_t periphConfig;
 
     assignment.domainId = BOARD_DOMAIN_ID;
-    RDC_SetMasterDomainAssignment(RDC, kRDC_Master_SDMA3_PERIPH, &assignment);
-    RDC_SetMasterDomainAssignment(RDC, kRDC_Master_SDMA3_BURST, &assignment);
-    RDC_SetMasterDomainAssignment(RDC, kRDC_Master_SDMA3_SPBA2, &assignment);
 
-    RDC_GetDefaultPeriphAccessConfig(&periphConfig);
-    /* Do not allow the A53 domain(domain0) to access the following peripherals. */
-    periphConfig.policy = RDC_DISABLE_A53_ACCESS;
-    periphConfig.periph = kRDC_Periph_SAI1;
-    RDC_SetPeriphAccessConfig(RDC, &periphConfig);
-    periphConfig.periph = kRDC_Periph_UART4;
-    RDC_SetPeriphAccessConfig(RDC, &periphConfig);
-    periphConfig.periph = kRDC_Periph_I2C3;
-    RDC_SetPeriphAccessConfig(RDC, &periphConfig);
-    periphConfig.periph = kRDC_Periph_GPT1;
-    RDC_SetPeriphAccessConfig(RDC, &periphConfig);
-    /* For SAI3, both kRDC_Periph_SAI3_ACCESS and kRDC_Periph_SAI3_LPM registers need set.*/
-    periphConfig.periph = kRDC_Periph_SAI3_ACCESS;
-    RDC_SetPeriphAccessConfig(RDC, &periphConfig);
-    periphConfig.periph = kRDC_Periph_SAI3_LPM;
-    RDC_SetPeriphAccessConfig(RDC, &periphConfig);
-    /* Remove the SAI2 power control in RDC from M4 to avoid A53 hang when it touches SAI2 under M core enters STOP
-     * mode.*/
-    periphConfig.policy = RDC_DISABLE_M4_ACCESS;
-    periphConfig.periph = kRDC_Periph_SAI2_LPM;
-    RDC_SetPeriphAccessConfig(RDC, &periphConfig);
+    /* Only configure the RDC if the RDC peripheral write access is allowed. */
+    if ((0x1U & RDC_GetPeriphAccessPolicy(RDC, kRDC_Periph_RDC, assignment.domainId)) != 0U)
+    {
+        RDC_SetMasterDomainAssignment(RDC, kRDC_Master_SDMA3_PERIPH, &assignment);
+        RDC_SetMasterDomainAssignment(RDC, kRDC_Master_SDMA3_BURST, &assignment);
+        RDC_SetMasterDomainAssignment(RDC, kRDC_Master_SDMA3_SPBA2, &assignment);
+
+        RDC_GetDefaultPeriphAccessConfig(&periphConfig);
+        /* Do not allow the A53 domain(domain0) to access the following peripherals. */
+        periphConfig.policy = RDC_DISABLE_A53_ACCESS;
+        periphConfig.periph = kRDC_Periph_SAI1;
+        RDC_SetPeriphAccessConfig(RDC, &periphConfig);
+        periphConfig.periph = kRDC_Periph_UART4;
+        RDC_SetPeriphAccessConfig(RDC, &periphConfig);
+        periphConfig.periph = kRDC_Periph_I2C3;
+        RDC_SetPeriphAccessConfig(RDC, &periphConfig);
+        periphConfig.periph = kRDC_Periph_GPT1;
+        RDC_SetPeriphAccessConfig(RDC, &periphConfig);
+        /* For SAI3, both kRDC_Periph_SAI3_ACCESS and kRDC_Periph_SAI3_LPM registers need set.*/
+        periphConfig.periph = kRDC_Periph_SAI3_ACCESS;
+        RDC_SetPeriphAccessConfig(RDC, &periphConfig);
+        periphConfig.periph = kRDC_Periph_SAI3_LPM;
+        RDC_SetPeriphAccessConfig(RDC, &periphConfig);
+        /* Remove the SAI2 power control in RDC from M4 to avoid A53 hang when it touches SAI2 under M core enters STOP
+         * mode.*/
+        periphConfig.policy = RDC_DISABLE_M4_ACCESS;
+        periphConfig.periph = kRDC_Periph_SAI2_LPM;
+        RDC_SetPeriphAccessConfig(RDC, &periphConfig);
+    }
 }
 void LPM_MCORE_ChangeM4Clock(LPM_M4_CLOCK_SPEED target)
 {
@@ -257,7 +262,7 @@ int main(void)
 
     BOARD_RdcInit();
     Peripheral_RdcSetting();
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockRUN();
     BOARD_InitDebugConsole();
     BOARD_InitMemory();

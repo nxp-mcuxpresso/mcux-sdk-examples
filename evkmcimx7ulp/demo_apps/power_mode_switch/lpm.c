@@ -68,6 +68,9 @@ static uint32_t s_spllcsr;
 static uint32_t s_apllcsr;
 
 static SemaphoreHandle_t s_mutex;
+#if configSUPPORT_STATIC_ALLOCATION
+static StaticSemaphore_t s_staticMutex;
+#endif
 static lpm_power_mode_listener_t *s_listenerHead;
 static lpm_power_mode_listener_t *s_listenerTail;
 
@@ -343,7 +346,11 @@ static void LPM_ExitTicklessIdle(uint32_t timeoutTicks, uint64_t timeoutCounter)
 bool LPM_Init(void)
 {
     smc_power_state_t mode;
+#if configSUPPORT_STATIC_ALLOCATION
+    s_mutex = xSemaphoreCreateMutexStatic(&s_staticMutex);
+#else
     s_mutex = xSemaphoreCreateMutex();
+#endif
 
     if (s_mutex == NULL)
     {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v6.0
+product: Pins v9.0
 processor: LPC54S018
 package_id: LPC54S018JET180
 mcu_data: ksdk2_0
-processor_version: 6.0.1
+processor_version: 9.0.0
 board: LPCXpresso54S018
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -74,22 +74,27 @@ void BOARD_InitPins(void)
     /* Initialize GPIO functionality on pin PIO2_2 (pin C3)  */
     GPIO_PinInit(BOARD_LED3_GPIO, BOARD_LED3_PORT, BOARD_LED3_PIN, &LED3_config);
 
-    IOCON->PIO[0][10] = ((IOCON->PIO[0][10] &
-                          /* Mask bits to zero which are setting */
-                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_DIGIMODE_MASK)))
+    IOCON->PIO[0][10] =
+        ((IOCON->PIO[0][10] &
+          /* Mask bits to zero which are setting */
+          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_ANAMODE_MASK | IOCON_PIO_DIGIMODE_MASK)))
 
-                         /* Selects pin function.
-                          * : PORT010 (pin P2) is configured as SWO. */
-                         | IOCON_PIO_FUNC(PIO010_FUNC_ALT6)
+         /* Selects pin function.
+          * : PORT010 (pin P2) is configured as SWO. */
+         | IOCON_PIO_FUNC(PIO010_FUNC_ALT6)
 
-                         /* Selects function mode (on-chip pull-up/pull-down resistor control).
-                          * : Inactive.
-                          * Inactive (no pull-down/pull-up resistor enabled). */
-                         | IOCON_PIO_MODE(PIO010_MODE_INACTIVE)
+         /* Selects function mode (on-chip pull-up/pull-down resistor control).
+          * : Inactive.
+          * Inactive (no pull-down/pull-up resistor enabled). */
+         | IOCON_PIO_MODE(PIO010_MODE_INACTIVE)
 
-                         /* Select Analog/Digital mode.
-                          * : Digital mode. */
-                         | IOCON_PIO_DIGIMODE(PIO010_DIGIMODE_DIGITAL));
+         /* Enables or disables analog mode.
+          * : Disable analog Mode. */
+         | IOCON_PIO_ANAMODE(PIO010_ANAMODE_DISABLED)
+
+         /* Select Analog/Digital mode.
+          * : Digital mode. */
+         | IOCON_PIO_DIGIMODE(PIO010_DIGIMODE_DIGITAL));
 
     const uint32_t LED3 = (/* Pin is configured as PIO2_2 */
                            IOCON_PIO_FUNC0 |

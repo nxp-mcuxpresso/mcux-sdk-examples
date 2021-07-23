@@ -72,8 +72,12 @@ void BOARD_SDCardDetectInit(sd_cd_t cd, void *userData)
     /* Card detection pin will generate interrupt on either eage */
     PORT_SetPinInterruptConfig(BOARD_SDMMC_SD_CD_PORT_BASE, BOARD_SDMMC_SD_CD_GPIO_PIN,
                                BOARD_SDMMC_SD_CD_INTTERUPT_TYPE);
+
+#if __CORTEX_M == 4
     /* set IRQ priority */
     NVIC_SetPriority(BOARD_SDMMC_SD_CD_PORT_IRQ, BOARD_SDMMC_SD_CD_IRQ_PRIORITY);
+#endif
+
     /* Open card detection pin NVIC. */
     EnableIRQ(BOARD_SDMMC_SD_CD_PORT_IRQ);
 
@@ -118,6 +122,9 @@ void BOARD_SD_Config(void *card, sd_cd_t cd, uint32_t hostIRQPriority, void *use
 
     /* config INTMUX for USDHC/PORTC */
     BOARD_SDCardDetectInit(cd, userData);
+
+#if __CORTEX_M == 4
     NVIC_SetPriority(BOARD_SDMMC_SD_HOST_IRQ, hostIRQPriority);
+#endif
 }
 #endif

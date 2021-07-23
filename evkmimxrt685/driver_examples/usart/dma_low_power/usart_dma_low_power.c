@@ -124,8 +124,8 @@ int main(void)
     usart_transfer_t receiveXfer;
     uint32_t irqMask;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
 
     /* Enable OSC32K clock for FLEXCOMM0 */
     CLOCK_EnableOsc32K(true);

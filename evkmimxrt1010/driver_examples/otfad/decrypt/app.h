@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019-2021 NXP
  * All rights reserved.
  *
  *
@@ -48,9 +48,25 @@
  * If cache is enabled, this example should maintain the cache to make sure
  * CPU core accesses the memory, not cache only.
  */
-#define APP_USING_CACHE 1
+#define CACHE_MAINTAIN 1
 
 /*${macro:end}*/
+
+/*******************************************************************************
+ * Variables
+ ******************************************************************************/
+/*${variable:start}*/
+typedef struct _flexspi_cache_status
+{
+#if (defined __CORTEX_M) && (__CORTEX_M == 7U)
+    volatile bool DCacheEnableFlag;
+    volatile bool ICacheEnableFlag;
+#elif (defined __CORTEX_M) && (__CORTEX_M == 4U)
+    volatile bool codeCacheEnableFlag;
+    volatile bool systemCacheEnableFlag;
+#endif
+} flexspi_cache_status_t;
+/*${variable:end}*/
 
 /*******************************************************************************
  * Prototypes

@@ -7,8 +7,8 @@ to the CODEC, then the audio data will be output to Lineout of CODEC.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
-- MCUXpresso  11.3.0
+- GCC ARM Embedded  10.2.1
+- MCUXpresso  11.4.0
 
 Hardware requirements
 =====================
@@ -21,7 +21,8 @@ Board settings
 ==============
 
 To make example work, connections needed to be as follows:
-  JP7-1        <-->        JP8-2
+  JP7-1        <-->        JP7-2
+  JP8-1        <-->        JP8-2
 
 Prepare the Demo
 ================

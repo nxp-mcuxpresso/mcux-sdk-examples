@@ -111,8 +111,8 @@ int main(void)
     uint32_t pwmVal = 4U;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Set the PWM Fault inputs to CMP1 output pin */

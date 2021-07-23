@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -26,6 +26,13 @@
 extern "C" {
 #endif
 
+/* Define the PIO[ANAMODE] bit macro (SDK 2.6.x and older miss this bit macro definition) */
+#ifndef IOCON_PIO_ANAMODE_MASK
+#define IOCON_PIO_ANAMODE_MASK  (0x40U)
+#define IOCON_PIO_ANAMODE_SHIFT (6U)
+#define IOCON_PIO_ANAMODE(x)    (((uint32_t)(((uint32_t)(x)) << IOCON_PIO_ANAMODE_SHIFT)) & IOCON_PIO_ANAMODE_MASK)
+#endif
+
 /*!
  * @brief Calls initialization functions.
  *
@@ -42,10 +49,14 @@ void BOARD_InitBootPins(void);
 
 /*! @name PIO2_2 (coord C3), LED
   @{ */
-#define BOARD_USER_LED_GPIO GPIO /*!<@brief GPIO device name: GPIO */
-#define BOARD_USER_LED_PORT 2U   /*!<@brief PORT device name: 2U */
-#define BOARD_USER_LED_PIN 2U    /*!<@brief 2U pin index: 2 */
-                                 /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_USER_LED_GPIO GPIO                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_USER_LED_GPIO_PIN_MASK (1U << 2U) /*!<@brief GPIO pin mask */
+#define BOARD_USER_LED_PORT 2U                  /*!<@brief PORT peripheral base pointer */
+#define BOARD_USER_LED_PIN 2U                   /*!<@brief PORT pin number */
+#define BOARD_USER_LED_PIN_MASK (1U << 2U)      /*!<@brief PORT pin mask */
+                                                /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

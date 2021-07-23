@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2017, 2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -17,11 +17,6 @@
  * Definitions
  ******************************************************************************/
 
-
-#define CPU_REG_NVIC_SHCSR              (*((uint32_t *)(0xE000ED24U)))
-#define CPU_REG_NVIC_SHCSR_BUSFAULTENA  (0x00020000U)
-#define CPU_REG_SCnSCB_ACTLR            (*((uint32_t *)(0xE000E008U)))
-#define CPU_REG_SCnSCB_ACTLR_DISDEFWBUF (0x00000002U)
 
 /* Region actual end/start address is computed by the following equation. */
 #define ACTUAL_REGION_END_ADDR(x)   ((uint32_t)(x) | (0x1FU))
@@ -53,7 +48,9 @@ uint32_t g_count = 0;
  */
 void EnableBusFaultIrq(void)
 {
-    CPU_REG_NVIC_SHCSR |= CPU_REG_NVIC_SHCSR_BUSFAULTENA;
+#if defined(SCB_SHCSR_BUSFAULTENA_Msk)
+    SCB->SHCSR |= SCB_SHCSR_BUSFAULTENA_Msk;
+#endif
 }
 
 /*!
@@ -61,7 +58,9 @@ void EnableBusFaultIrq(void)
  */
 void DisableWritebuffer(void)
 {
-    CPU_REG_SCnSCB_ACTLR |= CPU_REG_SCnSCB_ACTLR_DISDEFWBUF;
+#if defined(SCnSCB_ACTLR_DISDEFWBUF_Msk)
+    SCnSCB->ACTLR |= SCnSCB_ACTLR_DISDEFWBUF_Msk;
+#endif
 }
 
 /*!
@@ -69,13 +68,17 @@ void DisableWritebuffer(void)
  */
 void EnableWritebuffer(void)
 {
-    CPU_REG_SCnSCB_ACTLR &= ~CPU_REG_SCnSCB_ACTLR_DISDEFWBUF;
+#if defined(SCnSCB_ACTLR_DISDEFWBUF_Msk)
+    SCnSCB->ACTLR &= ~SCnSCB_ACTLR_DISDEFWBUF_Msk;
+#endif
 }
 
 /*!
  * @brief BusFault IRQ Handler
+ *
+ * For CM0+, BusFault is always escalated to HardFault.
  */
-#if defined(KM34Z7_SERIES) || defined(KM35Z7_SERIES) || defined(KL81Z7_SERIES) || defined(KL82Z7_SERIES)
+#if (defined(__CORTEX_M) && (__CORTEX_M == 0U))
 void HardFault_Handler(void)
 #else
 void BusFault_Handler(void)
@@ -160,8 +163,8 @@ int main(void)
     userConfig2.next                          = NULL;
 
     /* Hardware Initialization. */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
 #if defined(KV58F24_SERIES) || defined(KV56F24_SERIES)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NXP
+ * Copyright 2018 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -44,13 +44,11 @@ extern "C" {
  */
 void BOARD_InitBootPins(void);
 
-
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
  */
 void BOARD_InitPins(void);
-
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
@@ -58,13 +56,11 @@ void BOARD_InitPins(void);
  */
 void BOARD_I2C_ConfigurePins(void);
 
-
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
  */
 void BOARD_FLEXIO_ConfigurePins(void);
-
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

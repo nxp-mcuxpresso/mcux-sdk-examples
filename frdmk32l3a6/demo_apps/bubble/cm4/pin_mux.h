@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -36,13 +36,13 @@ void BOARD_InitBootPins(void);
  * @brief Configures pin routing and optionally pin electrical features.
  *
  */
-void BOARD_InitPins(void);
+void BOARD_InitPins(void); /* Function assigned for the Cortex-M4F */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
  */
-void BOARD_I2C_ConfigurePins(void);
+void BOARD_I2C_ConfigurePins(void); /* Function assigned for the Cortex-M4F */
 
 #if defined(__cplusplus)
 }

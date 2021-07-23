@@ -40,8 +40,8 @@ int main(void)
 
     /* Board pin, clock, debug console init */
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Print a note to terminal. */

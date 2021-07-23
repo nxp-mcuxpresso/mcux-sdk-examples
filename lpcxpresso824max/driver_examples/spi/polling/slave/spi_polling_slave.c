@@ -53,8 +53,8 @@ int main(void)
     /* Enable clock of spi0. */
     CLOCK_EnableClock(kCLOCK_Spi0);
 
-    BOARD_InitPins();
-    BOARD_BootClockIRC12M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("This is SPI polling transfer slave example.\n\r");

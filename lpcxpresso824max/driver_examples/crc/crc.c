@@ -115,7 +115,7 @@ int main(void)
     /* Ser DIV of uart0. */
     CLOCK_SetClkDivider(kCLOCK_DivUsartClk, 1U);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 

@@ -184,7 +184,7 @@ int main(void)
     /* attach 12 MHz clock to FLEXCOMM0 (debug console) */
     CLOCK_AttachClk(BOARD_DEBUG_UART_CLK_ATTACH);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     manage_evk_io_optimization();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();

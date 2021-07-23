@@ -88,10 +88,10 @@ Connect pins of SPI master and slave(on another board) as below:
 
     Master - SPI0                  Slave - SPI0   
 Pin Name   Board Location      Pin Name   Board Location            
-MISO       J2 pin 6            MISO       J2 pin 6                     
-MOSI       J2 pin 7            MOSI       J2 pin 7                
-SCK        J2 pin 5            SCK        J2 pin 5                 
-SSEL0      J2 pin 8            SSEL0      J2 pin 8
+MISO       J2 pin 24           MISO       J2 pin 24                     
+MOSI       J2 pin 25           MOSI       J2 pin 25                
+SCK        J2 pin 21           SCK        J2 pin 21                 
+SSEL0      J2 pin 20           SSEL0      J2 pin 20
 GND        J1 pin 4            GND        J1 pin 4
 
 ## Run the Project

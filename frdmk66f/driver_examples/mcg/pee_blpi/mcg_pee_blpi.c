@@ -177,7 +177,7 @@ int main(void)
     oscConfig.workMode               = kOSC_ModeOscLowPower;
     oscConfig.oscerConfig.enableMode = kOSC_ErClkEnable;
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     CLOCK_InitOsc0(&oscConfig);
 
     CLOCK_SetXtal0Freq(BOARD_XTAL0_CLK_HZ);

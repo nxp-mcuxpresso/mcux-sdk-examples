@@ -113,8 +113,8 @@ int main(void)
     /* Enable clock of i2c0. */
     CLOCK_EnableClock(kCLOCK_I2c0);
 
-    BOARD_InitPins();
-    BOARD_BootClockIRC12M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     DMA_Init(EXAMPLE_DMA);

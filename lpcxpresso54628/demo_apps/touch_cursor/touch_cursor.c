@@ -278,7 +278,7 @@ int main(void)
 
     CLOCK_SetClkDiv(kCLOCK_DivLcdClk, 1, true);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 

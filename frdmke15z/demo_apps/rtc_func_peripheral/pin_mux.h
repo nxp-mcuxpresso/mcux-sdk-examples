@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -34,15 +34,21 @@ void BOARD_InitBootPins(void);
 
 /*! @name PORTC6 (number 81), UART1_RX_TGTMCU
   @{ */
-#define BOARD_DEBUG_UART_RX_PORT PORTC /*!<@brief PORT device name: PORTC */
-#define BOARD_DEBUG_UART_RX_PIN 6U     /*!<@brief PORTC pin index: 6 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_RX_PORT PORTC               /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_RX_PIN 6U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_RX_PIN_MASK (1U << 6U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*! @name PORTC7 (number 80), UART1_TX_TGTMCU
   @{ */
-#define BOARD_DEBUG_UART_TX_PORT PORTC /*!<@brief PORT device name: PORTC */
-#define BOARD_DEBUG_UART_TX_PIN 7U     /*!<@brief PORTC pin index: 7 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_TX_PORT PORTC               /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_TX_PIN 7U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_TX_PIN_MASK (1U << 7U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

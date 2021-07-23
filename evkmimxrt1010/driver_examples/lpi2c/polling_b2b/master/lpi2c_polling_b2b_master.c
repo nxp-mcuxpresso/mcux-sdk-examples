@@ -62,8 +62,8 @@ int main(void)
     size_t txCount        = 0xFFU;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /*Clock setting for LPI2C*/

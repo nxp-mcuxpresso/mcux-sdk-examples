@@ -61,8 +61,8 @@ int main(void)
     acmp_config_t acmpConfigStruct;
     acmp_dac_config_t dacConfigStruct;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     LED_INIT();
     LED_OFF();

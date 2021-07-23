@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -36,27 +36,39 @@ void BOARD_InitBootPins(void);
 
 /*! @name PORTB16 (coord E10), U7[4]/UART0_RX
   @{ */
-#define BOARD_DEBUG_UART_RX_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_DEBUG_UART_RX_PIN 16U    /*!<@brief PORTB pin index: 16 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_RX_PORT PORTB                /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_RX_PIN 16U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_RX_PIN_MASK (1U << 16U)      /*!<@brief PORT pin mask */
+                                                      /* @} */
 
 /*! @name PORTB17 (coord E9), U10[1]/UART0_TX
   @{ */
-#define BOARD_DEBUG_UART_TX_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_DEBUG_UART_TX_PIN 17U    /*!<@brief PORTB pin index: 17 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_TX_PORT PORTB                /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_TX_PIN 17U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_TX_PIN_MASK (1U << 17U)      /*!<@brief PORT pin mask */
+                                                      /* @} */
 
 /*! @name PORTE6 (coord E1), LED_GREEN
   @{ */
-#define BOARD_LED_GREEN_PORT PORTE /*!<@brief PORT device name: PORTE */
-#define BOARD_LED_GREEN_PIN 6U     /*!<@brief PORTE pin index: 6 */
-                                   /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_LED_GREEN_PORT PORTE               /*!<@brief PORT peripheral base pointer */
+#define BOARD_LED_GREEN_PIN 6U                   /*!<@brief PORT pin number */
+#define BOARD_LED_GREEN_PIN_MASK (1U << 6U)      /*!<@brief PORT pin mask */
+                                                 /* @} */
 
 /*! @name PORTC9 (coord D7), LED_RED
   @{ */
-#define BOARD_LED_RED_PORT PORTC /*!<@brief PORT device name: PORTC */
-#define BOARD_LED_RED_PIN 9U     /*!<@brief PORTC pin index: 9 */
-                                 /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_LED_RED_PORT PORTC               /*!<@brief PORT peripheral base pointer */
+#define BOARD_LED_RED_PIN 9U                   /*!<@brief PORT pin number */
+#define BOARD_LED_RED_PIN_MASK (1U << 9U)      /*!<@brief PORT pin mask */
+                                               /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
@@ -75,17 +87,29 @@ void BOARD_I2C_ConfigurePins(void);
 
 /*! @name PORTD8 (coord C9), U8[4]/U19[11]/I2C0_SCL
   @{ */
-#define BOARD_ACCEL_I2C_SCL_GPIO GPIOD /*!<@brief GPIO device name: GPIOD */
-#define BOARD_ACCEL_I2C_SCL_PORT PORTD /*!<@brief PORT device name: PORTD */
-#define BOARD_ACCEL_I2C_SCL_PIN 8U     /*!<@brief PORTD pin index: 8 */
-                                       /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_ACCEL_I2C_SCL_GPIO GPIOD               /*!<@brief GPIO peripheral base pointer */
+#define BOARD_ACCEL_I2C_SCL_GPIO_PIN_MASK (1U << 8U) /*!<@brief GPIO pin mask */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_ACCEL_I2C_SCL_PORT PORTD               /*!<@brief PORT peripheral base pointer */
+#define BOARD_ACCEL_I2C_SCL_PIN 8U                   /*!<@brief PORT pin number */
+#define BOARD_ACCEL_I2C_SCL_PIN_MASK (1U << 8U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*! @name PORTD9 (coord B9), U8[6]/U19[12]/I2C0_SDA
   @{ */
-#define BOARD_ACCEL_I2C_SDA_GPIO GPIOD /*!<@brief GPIO device name: GPIOD */
-#define BOARD_ACCEL_I2C_SDA_PORT PORTD /*!<@brief PORT device name: PORTD */
-#define BOARD_ACCEL_I2C_SDA_PIN 9U     /*!<@brief PORTD pin index: 9 */
-                                       /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_ACCEL_I2C_SDA_GPIO GPIOD               /*!<@brief GPIO peripheral base pointer */
+#define BOARD_ACCEL_I2C_SDA_GPIO_PIN_MASK (1U << 9U) /*!<@brief GPIO pin mask */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_ACCEL_I2C_SDA_PORT PORTD               /*!<@brief PORT peripheral base pointer */
+#define BOARD_ACCEL_I2C_SDA_PIN 9U                   /*!<@brief PORT pin number */
+#define BOARD_ACCEL_I2C_SDA_PIN_MASK (1U << 9U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

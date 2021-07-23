@@ -1,5 +1,5 @@
 /*
- * Copyright 2017, NXP
+ * Copyright 2017, ,2021 NXP
  * All rights reserved.
  *
  *
@@ -16,11 +16,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v5.0
+product: Pins v9.0
 processor: LPC54S018J4M
 package_id: LPC54S018J4MET180
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 9.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */

@@ -46,8 +46,8 @@ int main(void)
     lpcmp_dac_config_t mLpcmpDacConfigStruct;
 
     /* Initialize hardware. */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("LPCMP polling Example.\r\n");

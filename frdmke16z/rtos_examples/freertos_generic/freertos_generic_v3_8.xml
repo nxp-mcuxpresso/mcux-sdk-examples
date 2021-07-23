@@ -16,9 +16,7 @@
     <definition extID="device.MKE16Z4_startup.MKE16Z4"/>
     <definition extID="platform.drivers.smc.MKE16Z4"/>
     <definition extID="platform.utilities.assert.MKE16Z4"/>
-    <definition extID="platform.Include_core_cm0plus.MKE16Z4"/>
-    <definition extID="platform.Include_common.MKE16Z4"/>
-    <definition extID="platform.Include_dsp.MKE16Z4"/>
+    <definition extID="CMSIS_Include_core_cm.MKE16Z4"/>
     <definition extID="middleware.freertos-kernel.MKE16Z4"/>
     <definition extID="middleware.freertos-kernel.extension.MKE16Z4"/>
     <definition extID="platform.utilities.misc_utilities.MKE16Z4"/>
@@ -29,7 +27,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="frdmke16z_freertos_generic" name="freertos_generic" dependency="platform.drivers.port.MKE16Z4 platform.drivers.gpio.MKE16Z4 platform.drivers.clock.MKE16Z4 middleware.freertos-kernel.heap_4.MKE16Z4 platform.drivers.common.MKE16Z4 device.MKE16Z4_CMSIS.MKE16Z4 utility.debug_console.MKE16Z4 component.lpuart_adapter.MKE16Z4 component.serial_manager.MKE16Z4 component.lists.MKE16Z4 component.serial_manager_uart.MKE16Z4 platform.drivers.lpuart.MKE16Z4 device.MKE16Z4_startup.MKE16Z4 platform.drivers.smc.MKE16Z4 platform.utilities.assert.MKE16Z4 platform.Include_core_cm0plus.MKE16Z4 platform.Include_common.MKE16Z4 platform.Include_dsp.MKE16Z4 middleware.freertos-kernel.MKE16Z4 middleware.freertos-kernel.extension.MKE16Z4 platform.utilities.misc_utilities.MKE16Z4 device.MKE16Z4_system.MKE16Z4" category="rtos_examples">
+  <example id="frdmke16z_freertos_generic" name="freertos_generic" dependency="platform.drivers.port.MKE16Z4 platform.drivers.gpio.MKE16Z4 platform.drivers.clock.MKE16Z4 middleware.freertos-kernel.heap_4.MKE16Z4 platform.drivers.common.MKE16Z4 device.MKE16Z4_CMSIS.MKE16Z4 utility.debug_console.MKE16Z4 component.lpuart_adapter.MKE16Z4 component.serial_manager.MKE16Z4 component.lists.MKE16Z4 component.serial_manager_uart.MKE16Z4 platform.drivers.lpuart.MKE16Z4 device.MKE16Z4_startup.MKE16Z4 platform.drivers.smc.MKE16Z4 platform.utilities.assert.MKE16Z4 CMSIS_Include_core_cm.MKE16Z4 middleware.freertos-kernel.MKE16Z4 middleware.freertos-kernel.extension.MKE16Z4 platform.utilities.misc_utilities.MKE16Z4 device.MKE16Z4_system.MKE16Z4" category="rtos_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -40,7 +38,8 @@
           <value>FRDM_KE16Z</value>
           <value>FREEDOM</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
-          <value>FSL_RTOS_FREE_RTOS</value>
+          <value>SDK_OS_FREE_RTOS</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.none</value>
@@ -124,12 +123,6 @@
     </source>
     <source path="examples/frdmke16z/rtos_examples/freertos_generic" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/frdmke16z/rtos_examples/freertos_generic/iar" project_relative_path="MKE16Z4/iar" type="linker" toolchain="iar">
-      <files mask="MKE16Z64xxx4_flash.icf"/>
-    </source>
-    <source path="examples/frdmke16z/rtos_examples/freertos_generic/mdk" project_relative_path="MKE16Z4/arm" type="linker" toolchain="mdk">
-      <files mask="MKE16Z64xxx4_flash.scf"/>
     </source>
     <source path="examples/frdmke16z/rtos_examples/freertos_generic/armgcc" project_relative_path="MKE16Z4/gcc" type="linker" toolchain="armgcc">
       <files mask="MKE16Z64xxx4_flash.ld"/>

@@ -1,6 +1,6 @@
 # CROSS COMPILER SETTING
 SET(CMAKE_SYSTEM_NAME Generic)
-CMAKE_MINIMUM_REQUIRED (VERSION 3.1.1)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
 SET (Tutorial_VERSION_MAJOR 1)
@@ -44,7 +44,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/.. debug
     ${ProjDirPath}/..
     ${ProjDirPath}/../../../../../examples/evkmimxrt1024/rtos_examples/freertos_event
     ${ProjDirPath}/../../../../../core/boards/evkmimxrt1024
@@ -89,7 +88,7 @@ include(driver_igpio)
 
 include(driver_xip_device)
 
-include(driver_xip_board)
+include(driver_xip_board_evkmimxrt1024)
 
 include(middleware_freertos-kernel_MIMXRT1024)
 
@@ -97,11 +96,7 @@ include(middleware_freertos-kernel_extension)
 
 include(utilities_misc_utilities)
 
-include(CMSIS_Include_core_cm7)
-
-include(CMSIS_Include_common)
-
-include(CMSIS_Include_dsp)
+include(CMSIS_Include_core_cm)
 
 include(device_system)
 

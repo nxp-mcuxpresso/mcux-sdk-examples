@@ -51,8 +51,8 @@ int main(void)
     uint32_t sourceClock;
     i2c_master_transfer_t masterXfer;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\nI2C board2board polling example -- Master transfer.\r\n");

@@ -90,8 +90,8 @@ int main(void)
 
     /* Init hardware*/
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\nPress anykey to start the example...\r\n");

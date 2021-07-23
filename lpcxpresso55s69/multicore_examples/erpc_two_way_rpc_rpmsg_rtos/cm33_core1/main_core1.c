@@ -17,9 +17,9 @@
 #include "task.h"
 #include "fsl_debug_console.h"
 
+#include "mcmgr.h"
 #include "fsl_common.h"
 #include "fsl_power.h"
-#include "mcmgr.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

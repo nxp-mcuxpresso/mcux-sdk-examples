@@ -139,8 +139,8 @@ int main(void)
     EnableIRQ(FLEXCOMM7_IRQn);
 
     /* Initialize the rest */
-    BOARD_InitPins();
-    BOARD_BootClockPLL180M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("Configure WM8904 codec\r\n");

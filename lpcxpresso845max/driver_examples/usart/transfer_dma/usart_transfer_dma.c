@@ -79,7 +79,7 @@ __attribute__((aligned(16))) dma_descriptor_t g_pingpong_desc[2] = {0};
 int main(void)
 {
     /* Initialize the pins. */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
 
     /* Enable clock to 30MHz. */
     BOARD_BootClockFRO30M();

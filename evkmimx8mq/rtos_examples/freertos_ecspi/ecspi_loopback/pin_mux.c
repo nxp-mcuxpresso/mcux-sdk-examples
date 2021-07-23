@@ -1,9 +1,8 @@
 /*
- * Copyright 2017-2018 NXP
+ * Copyright 2017-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
- *
  */
 
 
@@ -15,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v7.0
+product: Pins v9.0
 processor: MIMX8MQ6xxxJZ
 package_id: MIMX8MQ6DVAJZ
 mcu_data: ksdk2_0
-processor_version: 0.7.8
+processor_version: 9.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -56,12 +55,12 @@ BOARD_InitPins:
  * END ****************************************************************************************************************/
 void BOARD_InitPins(void) {                                /*!< Function assigned for the core: Cortex-M4[m4] */
     IOMUXC_SetPinMux(IOMUXC_UART2_RXD_UART2_RX, 0U);
-    IOMUXC_SetPinConfig(IOMUXC_UART2_RXD_UART2_RX,
+    IOMUXC_SetPinConfig(IOMUXC_UART2_RXD_UART2_RX, 
                         IOMUXC_SW_PAD_CTL_PAD_DSE(6U) |
                         IOMUXC_SW_PAD_CTL_PAD_SRE(1U) |
                         IOMUXC_SW_PAD_CTL_PAD_PUE_MASK);
     IOMUXC_SetPinMux(IOMUXC_UART2_TXD_UART2_TX, 0U);
-    IOMUXC_SetPinConfig(IOMUXC_UART2_TXD_UART2_TX,
+    IOMUXC_SetPinConfig(IOMUXC_UART2_TXD_UART2_TX, 
                         IOMUXC_SW_PAD_CTL_PAD_DSE(6U) |
                         IOMUXC_SW_PAD_CTL_PAD_SRE(1U) |
                         IOMUXC_SW_PAD_CTL_PAD_PUE_MASK);

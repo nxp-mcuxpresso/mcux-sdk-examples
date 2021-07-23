@@ -97,7 +97,7 @@ int main(void)
 
     /* Board pin, clock, debug console init */
     BOARD_ConfigMPU();
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_I2C_ConfigurePins();
     BOARD_InitDebugConsole();

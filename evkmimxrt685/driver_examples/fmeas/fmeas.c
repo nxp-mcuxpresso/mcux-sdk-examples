@@ -84,8 +84,8 @@ static uint32_t MeasureDisplay(char *srcName, inputmux_connection_t target, uint
 int main(void)
 {
     /* Init board hardware. */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     CLOCK_EnableClock(kCLOCK_InputMux);

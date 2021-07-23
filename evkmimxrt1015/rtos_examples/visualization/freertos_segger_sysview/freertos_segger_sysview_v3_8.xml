@@ -16,13 +16,11 @@
     <definition extID="platform.utilities.assert.MIMXRT1015"/>
     <definition extID="platform.drivers.igpio.MIMXRT1015"/>
     <definition extID="platform.drivers.xip_device.MIMXRT1015"/>
-    <definition extID="platform.drivers.xip_board.MIMXRT1015"/>
+    <definition extID="platform.drivers.xip_board.evkmimxrt1015.MIMXRT1015"/>
     <definition extID="middleware.freertos-kernel.MIMXRT1015"/>
     <definition extID="middleware.freertos-kernel.extension.MIMXRT1015"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1015"/>
-    <definition extID="platform.Include_core_cm7.MIMXRT1015"/>
-    <definition extID="platform.Include_common.MIMXRT1015"/>
-    <definition extID="platform.Include_dsp.MIMXRT1015"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT1015"/>
     <definition extID="device.MIMXRT1015_system.MIMXRT1015"/>
     <definition extID="armgcc"/>
     <definition extID="iar"/>
@@ -32,7 +30,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1015_freertos_segger_sysview" name="freertos_segger_sysview" dependency="platform.drivers.clock.MIMXRT1015 middleware.freertos-kernel.heap_4.MIMXRT1015 platform.drivers.common.MIMXRT1015 device.MIMXRT1015_CMSIS.MIMXRT1015 utility.debug_console.MIMXRT1015 component.lpuart_adapter.MIMXRT1015 component.serial_manager.MIMXRT1015 component.lists.MIMXRT1015 component.serial_manager_uart.MIMXRT1015 platform.drivers.lpuart.MIMXRT1015 device.MIMXRT1015_startup.MIMXRT1015 platform.drivers.iomuxc.MIMXRT1015 platform.utilities.assert.MIMXRT1015 platform.drivers.igpio.MIMXRT1015 platform.drivers.xip_device.MIMXRT1015 platform.drivers.xip_board.MIMXRT1015 middleware.freertos-kernel.MIMXRT1015 middleware.freertos-kernel.extension.MIMXRT1015 platform.utilities.misc_utilities.MIMXRT1015 platform.Include_core_cm7.MIMXRT1015 platform.Include_common.MIMXRT1015 platform.Include_dsp.MIMXRT1015 device.MIMXRT1015_system.MIMXRT1015" category="rtos_examples/visualization">
+  <example id="evkmimxrt1015_freertos_segger_sysview" name="freertos_segger_sysview" dependency="platform.drivers.clock.MIMXRT1015 middleware.freertos-kernel.heap_4.MIMXRT1015 platform.drivers.common.MIMXRT1015 device.MIMXRT1015_CMSIS.MIMXRT1015 utility.debug_console.MIMXRT1015 component.lpuart_adapter.MIMXRT1015 component.serial_manager.MIMXRT1015 component.lists.MIMXRT1015 component.serial_manager_uart.MIMXRT1015 platform.drivers.lpuart.MIMXRT1015 device.MIMXRT1015_startup.MIMXRT1015 platform.drivers.iomuxc.MIMXRT1015 platform.utilities.assert.MIMXRT1015 platform.drivers.igpio.MIMXRT1015 platform.drivers.xip_device.MIMXRT1015 platform.drivers.xip_board.evkmimxrt1015.MIMXRT1015 middleware.freertos-kernel.MIMXRT1015 middleware.freertos-kernel.extension.MIMXRT1015 platform.utilities.misc_utilities.MIMXRT1015 CMSIS_Include_core_cm.MIMXRT1015 device.MIMXRT1015_system.MIMXRT1015" category="rtos_examples/visualization">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -51,7 +49,8 @@
           <value>XIP_EXTERNAL_FLASH=1</value>
           <value>XIP_BOOT_HEADER_ENABLE=1</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
-          <value>FSL_RTOS_FREE_RTOS</value>
+          <value>SDK_OS_FREE_RTOS</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv5dp.hard</value>
@@ -98,11 +97,13 @@
       <include_path path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview" project_relative_path="source" type="c_include"/>
       <include_path path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview/SEGGER" project_relative_path="segger_sysview" type="c_include"/>
       <include_path path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview/Config" project_relative_path="segger_sysview" type="c_include"/>
-      <include_path path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview/Sample/OS" project_relative_path="segger_sysview" type="c_include"/>
-      <include_path path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview/Sample/OS" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview/Sample/FreeRTOSV10" project_relative_path="segger_sysview" type="c_include"/>
+      <include_path path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview/Sample/FreeRTOSV10" project_relative_path="board" type="c_include"/>
       <include_path path="boards/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview" project_relative_path="evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview" type="c_include"/>
       <include_path path="boards/evkmimxrt1015" project_relative_path="board" type="c_include"/>
       <include_path path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview" project_relative_path="source" type="asm_include"/>
+      <include_path path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview/SEGGER" project_relative_path="segger_sysview" type="asm_include"/>
+      <include_path path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview/Config" project_relative_path="segger_sysview" type="asm_include"/>
     </include_paths>
     <source path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview/armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
       <files mask="build_all.bat"/>
@@ -149,21 +150,24 @@
       <files mask="SEGGER_RTT.c"/>
       <files mask="SEGGER_SYSVIEW.c"/>
     </source>
+    <source path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview/SEGGER" project_relative_path="segger_sysview" type="asm_include">
+      <files mask="SEGGER_RTT_ASM_ARMv7M.S"/>
+    </source>
     <source path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview/Config" project_relative_path="segger_sysview" type="c_include">
       <files mask="Global.h"/>
       <files mask="SEGGER_RTT_Conf.h"/>
       <files mask="SEGGER_SYSVIEW_Conf.h"/>
     </source>
-    <source path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview/Sample/OS" project_relative_path="segger_sysview" type="src">
+    <source path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview/Sample/FreeRTOSV10" project_relative_path="segger_sysview" type="src">
       <files mask="SEGGER_SYSVIEW_FreeRTOS.c"/>
     </source>
-    <source path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview/Sample/OS" project_relative_path="segger_sysview" type="c_include">
+    <source path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview/Sample/FreeRTOSV10" project_relative_path="segger_sysview" type="c_include">
       <files mask="SEGGER_SYSVIEW_FreeRTOS.h"/>
     </source>
-    <source path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview/Sample/OS" project_relative_path="board" type="src">
+    <source path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview" project_relative_path="board" type="src">
       <files mask="pin_mux.c"/>
     </source>
-    <source path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview/Sample/OS" project_relative_path="board" type="c_include">
+    <source path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview" project_relative_path="board" type="c_include">
       <files mask="pin_mux.h"/>
     </source>
     <source path="core/boards/evkmimxrt1015" project_relative_path="board" type="src">
@@ -177,21 +181,9 @@
     <source path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
     </source>
-    <source path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview/iar" project_relative_path="MIMXRT1015/iar" type="linker" toolchain="iar">
-      <files mask="MIMXRT1015xxxxx_ram.icf"/>
-      <files mask="MIMXRT1015xxxxx_flexspi_nor.icf"/>
-    </source>
-    <source path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview/mdk" project_relative_path="MIMXRT1015/arm" type="linker" toolchain="mdk">
-      <files mask="MIMXRT1015xxxxx_ram.scf"/>
-      <files mask="MIMXRT1015xxxxx_flexspi_nor.scf"/>
-    </source>
     <source path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview/armgcc" project_relative_path="MIMXRT1015/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMXRT1015xxxxx_ram.ld"/>
       <files mask="MIMXRT1015xxxxx_flexspi_nor.ld"/>
-    </source>
-    <source path="examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview/mdk" project_relative_path="evkmimxrt1015" type="configuration" toolchain="mdk">
-      <files mask="evkmimxrt1015_ram.ini"/>
-      <files mask="evkmimxrt1015_flexspi_nor.ini"/>
     </source>
   </example>
 </ksdk:examples>

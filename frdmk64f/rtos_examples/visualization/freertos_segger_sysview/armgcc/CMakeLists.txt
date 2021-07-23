@@ -1,6 +1,6 @@
 # CROSS COMPILER SETTING
 SET(CMAKE_SYSTEM_NAME Generic)
-CMAKE_MINIMUM_REQUIRED (VERSION 3.1.1)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
 SET (Tutorial_VERSION_MAJOR 1)
@@ -38,15 +38,16 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../SEGGER/SEGGER_RTT.h"
 "${ProjDirPath}/../SEGGER/SEGGER_SYSVIEW.c"
 "${ProjDirPath}/../SEGGER/SEGGER_SYSVIEW.h"
+"${ProjDirPath}/../SEGGER/SEGGER_RTT_ASM_ARMv7M.S"
 "${ProjDirPath}/../SEGGER/SEGGER_SYSVIEW_ConfDefaults.h"
 "${ProjDirPath}/../SEGGER/SEGGER_SYSVIEW_Int.h"
 "${ProjDirPath}/../Config/Global.h"
 "${ProjDirPath}/../Config/SEGGER_RTT_Conf.h"
 "${ProjDirPath}/../Config/SEGGER_SYSVIEW_Conf.h"
-"${ProjDirPath}/../Sample/OS/SEGGER_SYSVIEW_FreeRTOS.c"
-"${ProjDirPath}/../Sample/OS/SEGGER_SYSVIEW_FreeRTOS.h"
-"${ProjDirPath}/../Sample/OS/pin_mux.c"
-"${ProjDirPath}/../Sample/OS/pin_mux.h"
+"${ProjDirPath}/../Sample/FreeRTOSV10/SEGGER_SYSVIEW_FreeRTOS.c"
+"${ProjDirPath}/../Sample/FreeRTOSV10/SEGGER_SYSVIEW_FreeRTOS.h"
+"${ProjDirPath}/../pin_mux.c"
+"${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../../../../../../core/boards/frdmk64f/board.c"
 "${ProjDirPath}/../../../../../../core/boards/frdmk64f/board.h"
 "${ProjDirPath}/../../../../../../core/boards/frdmk64f/clock_config.c"
@@ -54,11 +55,10 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/.. debug
     ${ProjDirPath}/..
     ${ProjDirPath}/../SEGGER
     ${ProjDirPath}/../Config
-    ${ProjDirPath}/../Sample/OS
+    ${ProjDirPath}/../Sample/FreeRTOSV10
     ${ProjDirPath}/../../../../../../examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview
     ${ProjDirPath}/../../../../../../core/boards/frdmk64f
 )
@@ -104,11 +104,7 @@ include(device_startup)
 
 include(utility_assert)
 
-include(CMSIS_Include_core_cm4)
-
-include(CMSIS_Include_common)
-
-include(CMSIS_Include_dsp)
+include(CMSIS_Include_core_cm)
 
 include(middleware_freertos-kernel_MK64F12)
 

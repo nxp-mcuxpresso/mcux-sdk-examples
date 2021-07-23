@@ -306,8 +306,8 @@ int main(void)
     i2cDev.timerIndex[1]   = 1U;
     i2cDev.timerIndex[2]   = 2U;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_ACCEL_Reset();
     BOARD_I2C_ConfigurePins();
     BOARD_InitDebugConsole();

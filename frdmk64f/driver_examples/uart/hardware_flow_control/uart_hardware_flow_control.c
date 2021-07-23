@@ -57,8 +57,8 @@ int main(void)
     uart_config_t config;
     uart_transfer_t sendXfer;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
 
     BOARD_InitDebugConsole();
     PRINTF("This is UART hardware flow control example on one board.\r\n");

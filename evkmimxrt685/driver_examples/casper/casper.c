@@ -99,8 +99,8 @@ static uint8_t plaintext[2048 / 8];
 int main(void)
 {
     /* Init hardware */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     /*Make sure casper ram buffer has power up*/
     POWER_DisablePD(kPDRUNCFG_APD_CASPER_SRAM);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NXP
+ * Copyright 2018 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -34,22 +34,35 @@ void BOARD_InitBootPins(void);
 
 /*! @name PORTB1 (number 26), UART0_TX_TGTMCU
   @{ */
-#define BOARD_DEBUG_UART_TX_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_DEBUG_UART_TX_PIN 1U     /*!<@brief PORTB pin index: 1 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_TX_PORT PORTB               /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_TX_PIN 1U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_TX_PIN_MASK (1U << 1U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*! @name PORTD2 (number 34), J1[6]/BUTTON_1/SW3/Arduino_D2
   @{ */
-#define BOARD_SW3_GPIO GPIOD /*!<@brief GPIO device name: GPIOD */
-#define BOARD_SW3_PORT PORTD /*!<@brief PORT device name: PORTD */
-#define BOARD_SW3_PIN 2U     /*!<@brief PORTD pin index: 2 */
-                             /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_SW3_FGPIO FGPIOD             /*!<@brief FGPIO peripheral base pointer */
+#define BOARD_SW3_GPIO GPIOD               /*!<@brief GPIO peripheral base pointer */
+#define BOARD_SW3_GPIO_PIN_MASK (1U << 2U) /*!<@brief GPIO pin mask */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_SW3_PORT PORTD               /*!<@brief PORT peripheral base pointer */
+#define BOARD_SW3_PIN 2U                   /*!<@brief PORT pin number */
+#define BOARD_SW3_PIN_MASK (1U << 2U)      /*!<@brief PORT pin mask */
+                                           /* @} */
 
 /*! @name PORTB0 (number 27), UART0_RX_TGTMCU
   @{ */
-#define BOARD_DEBUG_UART_RX_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_DEBUG_UART_RX_PIN 0U     /*!<@brief PORTB pin index: 0 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_RX_PORT PORTB               /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_RX_PIN 0U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_RX_PIN_MASK (1U << 0U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

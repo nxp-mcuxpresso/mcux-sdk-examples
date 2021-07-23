@@ -1,6 +1,6 @@
 # CROSS COMPILER SETTING
 SET(CMAKE_SYSTEM_NAME Generic)
-CMAKE_MINIMUM_REQUIRED (VERSION 3.1.1)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
 SET (Tutorial_VERSION_MAJOR 1)
@@ -44,9 +44,8 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/.. debug
-    ${ProjDirPath}/../low_power_tickless
     ${ProjDirPath}/..
+    ${ProjDirPath}/../low_power_tickless
     ${ProjDirPath}/../../../../../../examples/frdmk32l3a6/rtos_examples/freertos_tickless/cm4
     ${ProjDirPath}/../../../../../../core/boards/frdmk32l3a6
 )
@@ -90,19 +89,15 @@ include(component_serial_manager_uart)
 
 include(device_CMSIS)
 
-include(CMSIS_Include_core_cm4)
-
 include(device_startup_K32L3A60_cm4)
+
+include(CMSIS_Include_core_cm)
 
 include(middleware_freertos-kernel_K32L3A60_cm4)
 
 include(middleware_freertos-kernel_extension)
 
 include(utilities_misc_utilities)
-
-include(CMSIS_Include_common)
-
-include(CMSIS_Include_dsp)
 
 include(device_system_K32L3A60_cm4)
 

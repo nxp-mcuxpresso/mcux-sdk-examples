@@ -179,8 +179,8 @@ void edma_minor_loop_interleave(void)
  */
 int main(void)
 {
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     /* Print source buffer */
     PRINTF("EDMA interleave transfer example.\r\n");

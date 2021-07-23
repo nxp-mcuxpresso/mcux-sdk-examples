@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 - 2021 NXP
  * All rights reserved.
  *
  *
@@ -92,8 +92,8 @@ int main(void)
     uint32_t EEpromSectorSize = 0;
 
     /* Init hardware */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Clean up Flash driver Structure*/
@@ -164,13 +164,11 @@ SECTOR_INDEX_FROM_END = 2 means (the last sector - 1) ...
         s_buffer[i] = i;
     }
     /* Program user buffer into eeprom*/
-    for (uint32_t i = 0; i < (sizeof(s_buffer) / 4); i++)
+
+    result = FLASH_EepromWrite(&s_flashDriver, destAdrss, s_buffer, sizeof(s_buffer));
+    if (kStatus_FLASH_Success != result)
     {
-        result = FLASH_EepromWrite(&s_flashDriver, destAdrss + i * 4, (uint8_t *)(&s_buffer[0] + i * 4), 4);
-        if (kStatus_FLASH_Success != result)
-        {
-            error_trap();
-        }
+        error_trap();
     }
 
 #if defined(__DCACHE_PRESENT) && __DCACHE_PRESENT

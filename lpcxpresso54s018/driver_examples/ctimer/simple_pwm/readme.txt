@@ -5,8 +5,8 @@ In this example, CTimer is used to generate a PWM signal.
 
 Toolchain supported
 ===================
-- MCUXpresso  11.3.0
-- GCC ARM Embedded  9.3.1
+- MCUXpresso  11.4.0
+- GCC ARM Embedded  10.2.1
 
 Hardware requirements
 =====================

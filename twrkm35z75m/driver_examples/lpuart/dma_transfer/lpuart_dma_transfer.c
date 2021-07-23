@@ -79,8 +79,8 @@ int main(void)
     lpuart_transfer_t sendXfer;
     lpuart_transfer_t receiveXfer;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     CLOCK_SetLpuartClock(1U);
 
     /* Initialize the LPUART. */

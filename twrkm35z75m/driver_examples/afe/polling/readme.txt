@@ -5,8 +5,8 @@ In this example, the AFE module samples the voltage difference of the EXT_SD_ADP
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
-- MCUXpresso  11.3.0
+- GCC ARM Embedded  10.2.1
+- MCUXpresso  11.4.0
 
 Hardware requirements
 =====================

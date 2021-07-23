@@ -17,9 +17,7 @@
     <definition extID="device.LPC54S018_startup.LPC54S018"/>
     <definition extID="platform.drivers.flexcomm.LPC54S018"/>
     <definition extID="platform.drivers.emc.LPC54S018"/>
-    <definition extID="platform.Include_core_cm4.LPC54S018"/>
-    <definition extID="platform.Include_common.LPC54S018"/>
-    <definition extID="platform.Include_dsp.LPC54S018"/>
+    <definition extID="CMSIS_Include_core_cm.LPC54S018"/>
     <definition extID="platform.drivers.reset.LPC54S018"/>
     <definition extID="platform.drivers.inputmux_connections.LPC54S018"/>
     <definition extID="platform.utilities.misc_utilities.LPC54S018"/>
@@ -32,17 +30,19 @@
     <definition extID="com.nxp.mcuxpresso.core.debug.support.segger.debug"/>
     <definition extID="com.nxp.mcuxpresso.core.debug.support.segger.release"/>
   </externalDefinitions>
-  <example id="lpcxpresso54s018_spifi_polling_transfer" name="spifi_polling_transfer" dependency="utility.debug_console_lite.LPC54S018 platform.utilities.assert_lite.LPC54S018 platform.drivers.spifi.LPC54S018 platform.drivers.flexcomm_usart.LPC54S018 platform.drivers.common.LPC54S018 platform.drivers.clock.LPC54S018 platform.drivers.power.LPC54S018 platform.drivers.lpc_iocon.LPC54S018 platform.drivers.lpc_gpio.LPC54S018 platform.drivers.inputmux.LPC54S018 device.LPC54S018_CMSIS.LPC54S018 component.usart_adapter.LPC54S018 component.lists.LPC54S018 device.LPC54S018_startup.LPC54S018 platform.drivers.flexcomm.LPC54S018 platform.drivers.emc.LPC54S018 platform.Include_core_cm4.LPC54S018 platform.Include_common.LPC54S018 platform.Include_dsp.LPC54S018 platform.drivers.reset.LPC54S018 platform.drivers.inputmux_connections.LPC54S018 platform.utilities.misc_utilities.LPC54S018 device.LPC54S018_system.LPC54S018" category="driver_examples/spifi">
+  <example id="lpcxpresso54s018_spifi_polling_transfer" name="spifi_polling_transfer" dependency="utility.debug_console_lite.LPC54S018 platform.utilities.assert_lite.LPC54S018 platform.drivers.spifi.LPC54S018 platform.drivers.flexcomm_usart.LPC54S018 platform.drivers.common.LPC54S018 platform.drivers.clock.LPC54S018 platform.drivers.power.LPC54S018 platform.drivers.lpc_iocon.LPC54S018 platform.drivers.lpc_gpio.LPC54S018 platform.drivers.inputmux.LPC54S018 device.LPC54S018_CMSIS.LPC54S018 component.usart_adapter.LPC54S018 component.lists.LPC54S018 device.LPC54S018_startup.LPC54S018 platform.drivers.flexcomm.LPC54S018 platform.drivers.emc.LPC54S018 CMSIS_Include_core_cm.LPC54S018 platform.drivers.reset.LPC54S018 platform.drivers.inputmux_connections.LPC54S018 platform.utilities.misc_utilities.LPC54S018 device.LPC54S018_system.LPC54S018" category="driver_examples/spifi">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
     <toolchainSettings>
       <toolchainSetting id_refs="com.nxp.mcuxpresso">
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>IMG_BAUDRATE=96000000</value>
           <value>CPU_LPC54S018</value>
           <value>__USE_CMSIS</value>
           <value>W25Q128JVFM</value>
           <value>CPU_LPC54S018JET180=1</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
@@ -125,17 +125,8 @@
       <files mask="JLinkSettings.ini"/>
       <files mask="spifi_polling_transfer.uvmpw"/>
     </source>
-    <source path="examples/lpcxpresso54s018/driver_examples/spifi/polling_transfer/iar" project_relative_path="LPC54S018/iar" type="linker" toolchain="iar">
-      <files mask="LPC54S018_ram.icf"/>
-    </source>
     <source path="examples/lpcxpresso54s018/driver_examples/spifi/polling_transfer/armgcc" project_relative_path="LPC54S018/gcc" type="linker" toolchain="armgcc">
       <files mask="LPC54S018_ram.ld"/>
-    </source>
-    <source path="examples/lpcxpresso54s018/driver_examples/spifi/polling_transfer/mdk" project_relative_path="LPC54S018/arm" type="linker" toolchain="mdk">
-      <files mask="LPC54S018_ram.scf"/>
-    </source>
-    <source path="examples/lpcxpresso54s018/driver_examples/spifi/polling_transfer/iar" project_relative_path="lpcxpresso54s018" type="other" toolchain="iar">
-      <files mask="jlink_sramx_debug.mac"/>
     </source>
     <source path="examples/lpcxpresso54s018/driver_examples/spifi/polling_transfer" project_relative_path="source" type="src">
       <files mask="spifi_polling_transfer.c"/>
@@ -156,9 +147,6 @@
     </source>
     <source path="examples/lpcxpresso54s018/driver_examples/spifi/polling_transfer" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/lpcxpresso54s018/driver_examples/spifi/polling_transfer/mdk" project_relative_path="lpcxpresso54s018" type="configuration" toolchain="mdk">
-      <files mask="jlink_sramx_debug.ini"/>
     </source>
   </example>
 </ksdk:examples>

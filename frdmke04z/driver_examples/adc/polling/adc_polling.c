@@ -39,8 +39,8 @@ int main(void)
     adc_config_t adcConfigStrcut;
     adc_channel_config_t adcChannelConfigStruct;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\nADC polling Example.\r\n");

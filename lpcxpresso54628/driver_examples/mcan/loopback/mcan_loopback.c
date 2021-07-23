@@ -94,8 +94,8 @@ int main(void)
     /* Set MCAN clock 220Mhz/11=20MHz. */
     CLOCK_SetClkDiv(kCLOCK_DivCan0Clk, 11U, true);
 
-    BOARD_InitPins();
-    BOARD_BootClockPLL220M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\n==MCAN loopback functional example -- Start.==\r\n\r\n");

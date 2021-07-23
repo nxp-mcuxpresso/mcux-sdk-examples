@@ -17,9 +17,7 @@
     <definition extID="device.LPC54S018M_startup.LPC54S018M"/>
     <definition extID="platform.drivers.flexcomm.LPC54S018M"/>
     <definition extID="platform.drivers.emc.LPC54S018M"/>
-    <definition extID="platform.Include_core_cm4.LPC54S018M"/>
-    <definition extID="platform.Include_common.LPC54S018M"/>
-    <definition extID="platform.Include_dsp.LPC54S018M"/>
+    <definition extID="CMSIS_Include_core_cm.LPC54S018M"/>
     <definition extID="platform.drivers.reset.LPC54S018M"/>
     <definition extID="platform.drivers.inputmux_connections.LPC54S018M"/>
     <definition extID="platform.utilities.misc_utilities.LPC54S018M"/>
@@ -30,16 +28,17 @@
     <definition extID="armgcc"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso54s018m_rtc_example" name="rtc_example" dependency="utility.debug_console_lite.LPC54S018M platform.utilities.assert_lite.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M platform.drivers.lpc_rtc.LPC54S018M platform.drivers.common.LPC54S018M platform.drivers.clock.LPC54S018M platform.drivers.power.LPC54S018M platform.drivers.lpc_iocon.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.inputmux.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M component.usart_adapter.LPC54S018M component.lists.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.emc.LPC54S018M platform.Include_core_cm4.LPC54S018M platform.Include_common.LPC54S018M platform.Include_dsp.LPC54S018M platform.drivers.reset.LPC54S018M platform.drivers.inputmux_connections.LPC54S018M platform.utilities.misc_utilities.LPC54S018M device.LPC54S018M_system.LPC54S018M" category="driver_examples/rtc">
+  <example id="lpcxpresso54s018m_rtc_example" name="rtc_example" dependency="utility.debug_console_lite.LPC54S018M platform.utilities.assert_lite.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M platform.drivers.lpc_rtc.LPC54S018M platform.drivers.common.LPC54S018M platform.drivers.clock.LPC54S018M platform.drivers.power.LPC54S018M platform.drivers.lpc_iocon.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.inputmux.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M component.usart_adapter.LPC54S018M component.lists.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.emc.LPC54S018M CMSIS_Include_core_cm.LPC54S018M platform.drivers.reset.LPC54S018M platform.drivers.inputmux_connections.LPC54S018M platform.utilities.misc_utilities.LPC54S018M device.LPC54S018M_system.LPC54S018M" category="driver_examples/rtc">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
     <toolchainSettings>
       <toolchainSetting id_refs="com.nxp.mcuxpresso">
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
-          <value>CPU_LPC54S018M</value>
+          <value>CPU_LPC54S018J4M</value>
           <value>__USE_CMSIS</value>
           <value>CPU_LPC54S018J4MET180=1</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
@@ -122,20 +121,8 @@
     <source path="examples/lpcxpresso54s018m/driver_examples/rtc" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
     </source>
-    <source path="examples/lpcxpresso54s018m/driver_examples/rtc/iar" project_relative_path="LPC54S018M/iar" type="linker" toolchain="iar">
-      <files mask="LPC54S018J4M_spifi_flash.icf"/>
-    </source>
-    <source path="examples/lpcxpresso54s018m/driver_examples/rtc/mdk" project_relative_path="LPC54S018M/arm" type="linker" toolchain="mdk">
-      <files mask="LPC54S018J4M_spifi_flash.scf"/>
-    </source>
     <source path="examples/lpcxpresso54s018m/driver_examples/rtc/armgcc" project_relative_path="LPC54S018M/gcc" type="linker" toolchain="armgcc">
       <files mask="LPC54S018J4M_spifi_flash.ld"/>
-    </source>
-    <source path="examples/lpcxpresso54s018m/driver_examples/rtc/mdk" project_relative_path="lpcxpresso54s018m" type="configuration" toolchain="mdk">
-      <files mask="jlink_sramx_debug.ini"/>
-    </source>
-    <source path="examples/lpcxpresso54s018m/driver_examples/rtc/iar" project_relative_path="lpcxpresso54s018m" type="other" toolchain="iar">
-      <files mask="jlink_qspi_plain_load.mac"/>
     </source>
   </example>
 </ksdk:examples>

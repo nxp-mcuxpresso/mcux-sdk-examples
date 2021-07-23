@@ -45,8 +45,8 @@ int main(void)
     spi_transfer_t xfer = {0};
     spi_slave_config_t userConfig;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     PRINTF("\n\rSlave is working....\n\r");
 

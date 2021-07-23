@@ -74,8 +74,8 @@ int main(void)
     uint16_t pulseWidth = 0;
 
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\nPWT example: input signal whose pulse width needs to be measured\r\n");

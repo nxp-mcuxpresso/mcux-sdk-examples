@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2020 ,2021 NXP
  * All rights reserved.
  *
  *
@@ -44,7 +44,6 @@ extern "C" {
  *
  */
 void BOARD_InitBootPins(void);
-
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

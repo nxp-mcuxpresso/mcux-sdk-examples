@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2018 NXP
+ * Copyright 2016-2018,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -90,6 +90,7 @@ typedef enum _slider_event
 
 typedef struct _key_tsi_mapping
 {
+    TSI_Type *TSI_base;
     union
     {
         uint8_t TSI_channel;    /* TSI channel for self mode */

@@ -7,8 +7,8 @@ We also try to refresh out of window to trigger reset after 10 times of refreshi
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
-- MCUXpresso  11.3.0
+- GCC ARM Embedded  10.2.1
+- MCUXpresso  11.4.0
 
 Hardware requirements
 =====================

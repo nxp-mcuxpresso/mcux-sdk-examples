@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NXP
+ * Copyright 2018 ,2021 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -33,21 +33,30 @@ void BOARD_InitBootPins(void);
 
 /*! @name PORTB1 (number 26), UART0_TX_TGTMCU
   @{ */
-#define BOARD_DEBUG_UART_TX_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_DEBUG_UART_TX_PIN 1U     /*!<@brief PORTB pin index: 1 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_TX_PORT PORTB               /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_TX_PIN 1U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_TX_PIN_MASK (1U << 1U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*! @name PORTB0 (number 27), UART0_RX_TGTMCU
   @{ */
-#define BOARD_DEBUG_UART_RX_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_DEBUG_UART_RX_PIN 0U     /*!<@brief PORTB pin index: 0 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_RX_PORT PORTB               /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_RX_PIN 0U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_RX_PIN_MASK (1U << 0U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*! @name PORTD1 (number 1), D4[3]/RGB_BLUE
   @{ */
-#define BOARD_LED_BLUE_PORT PORTD /*!<@brief PORT device name: PORTD */
-#define BOARD_LED_BLUE_PIN 1U     /*!<@brief PORTD pin index: 1 */
-                                  /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_LED_BLUE_PORT PORTD               /*!<@brief PORT peripheral base pointer */
+#define BOARD_LED_BLUE_PIN 1U                   /*!<@brief PORT pin number */
+#define BOARD_LED_BLUE_PIN_MASK (1U << 1U)      /*!<@brief PORT pin mask */
+                                                /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2019 NXP
+ * Copyright 2017-2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -41,13 +41,6 @@ void BOARD_InitBootPins(void);
 #define IOCON_PIO_MODE_INACT 0x00u    /*!<@brief No addition pin function */
 #define IOCON_PIO_OPENDRAIN_DI 0x00u  /*!<@brief Open drain is disabled */
 #define IOCON_PIO_SLEW_STANDARD 0x00u /*!<@brief Standard mode, output slew rate control is enabled */
-
-/*! @name PIO1_7 (number 9), LEDG
-  @{ */
-#define BOARD_INITPINS_LEDG_GPIO GPIO /*!<@brief GPIO device name: GPIO */
-#define BOARD_INITPINS_LEDG_PORT 1U   /*!<@brief PORT device name: 1U */
-#define BOARD_INITPINS_LEDG_PIN 7U    /*!<@brief 1U pin index: 7 */
-                                      /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

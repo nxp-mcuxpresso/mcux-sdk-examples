@@ -1,5 +1,5 @@
 /*
- * Copyright  2018 NXP
+ * Copyright  2018 ,2021 NXP
  * All rights reserved.
  *
  *
@@ -13,18 +13,6 @@
 
 #ifndef _PIN_MUX_H_
 #define _PIN_MUX_H_
-
-/***********************************************************************************************************************
- * Definitions
- **********************************************************************************************************************/
-
-/*! @brief Direction type  */
-typedef enum _pin_mux_direction
-{
-    kPIN_MUX_DirectionInput = 0U,        /* Input direction */
-    kPIN_MUX_DirectionOutput = 1U,       /* Output direction */
-    kPIN_MUX_DirectionInputOrOutput = 2U /* Input or output direction */
-} pin_mux_direction_t;
 
 /*!
  * @addtogroup pin_mux
@@ -67,14 +55,20 @@ void BOARD_InitBootPins(void);
  * @brief Bypass input filter */
 #define IOCON_PIO_SMODE_BYPASS 0x00u
 /*!
+ * @brief Select peripheral clock divider for input filter sampling clock. Value 0x7 is reserved.: IOCONCLKDIV0 */
+#define PIO0_12_CLK_DIV_0b000 0x00u
+/*!
  * @brief Invert input: Input not inverted (HIGH on pin reads as 1; LOW on pin reads as 0). */
-#define PIO2_INV_NOT_INVERTED 0x00u
+#define PIO0_12_INV_NOT_INVERTED 0x00u
 /*!
  * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
-#define PIO2_MODE_PULL_UP 0x02u
+#define PIO0_12_MODE_PULL_UP 0x02u
 /*!
  * @brief Open-drain mode.: Disable. */
-#define PIO2_OD_DISABLE 0x00u
+#define PIO0_12_OD_DISABLE 0x00u
+/*!
+ * @brief Digital filter sample mode.: Bypass input filter. */
+#define PIO0_12_S_MODE_0b00 0x00u
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

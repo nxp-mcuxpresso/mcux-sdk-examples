@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-06-08 04:50:21.454168-->
-  <!--This manifest is generated based on sdk repo commit: 242d157ba29afc4bbd1dac95f382a1491bc2daf5-->
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.10.0 SuperSet" brief="This is SDK version 2.10.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
+  <!--Timestamp (UTC): 2021-07-22 12:49:55.144015-->
+  <!--This manifest is generated based on sdk repo commit: a40647dd23698fa812ab2e267466ae159e1a5d45-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
@@ -10,12 +10,12 @@
   <externalDefinitions>
     <definition extID="lpc845breakout"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK290" name="MCUXpressoSDK290" version="2.9.0"/>
+  <ksdk id="MCUXpressoSDK2100" name="MCUXpressoSDK2100" version="2.10.0"/>
   <compilers>
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
   </compilers>
   <toolchainSettings>
-    <toolchainSetting id="com.nxp.mcuxpresso" name="mcuxpresso" version="11.3.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" toolchain="mcuxpresso">
+    <toolchainSetting id="com.nxp.mcuxpresso" name="mcuxpresso" version="11.4.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" toolchain="mcuxpresso">
       <option id="gnu.cpp.compiler.option.optimization.flags" type="string" user_name="">
         <value>-fno-common</value>
       </option>
@@ -37,8 +37,8 @@
     </toolchainSetting>
   </toolchainSettings>
   <toolchains>
-    <toolchain id="armgcc" name="GCC_ARM_Embedded" version="9.3.1" full_name="GCC ARM Embedded" compiler="compiler_gcc" type="armgcc" vendor="GCC ARM Embedded" vendor_url="http://launchpad.net/gcc-arm-embedded"/>
-    <toolchain id="mcuxpresso" name="MCUXpresso_IDE" version="11.3.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" type="mcuxpresso" vendor="NXP Semiconductors" vendor_url="http://www.nxp.com">
+    <toolchain id="armgcc" name="GCC_ARM_Embedded" version="10.2.1" full_name="GCC ARM Embedded" compiler="compiler_gcc" type="armgcc" vendor="GCC ARM Embedded" vendor_url="http://launchpad.net/gcc-arm-embedded"/>
+    <toolchain id="mcuxpresso" name="MCUXpresso_IDE" version="11.4.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" type="mcuxpresso" vendor="NXP Semiconductors" vendor_url="http://www.nxp.com">
       <debug>
         <debug_configuration id="com.crt.advproject.config.exe.release" name="Release Configuration" probe="LinkServer">
           <scripts>
@@ -102,7 +102,7 @@ ${load}</script>
             <files mask="acomp_interrupt_v3_8.xml"/>
           </external>
         </example>
-        <example id="lpcxpresso845max_crc" name="crc" brief="The CRC Example project is a demonstration program that uses the KSDK software to generate checksumsfor an ASCII string. Several CRC protocols are implemented using the CRC driver API." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/lpcxpresso845max/driver_examples/crc">
+        <example id="lpcxpresso845max_crc" name="crc" brief="The CRC Example project is a demonstration program that uses the KSDK software to generate checksumsfor an ASCII string. Several CRC protocols are implemented using the CRC driver API." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/crc" path="examples/lpcxpresso845max/driver_examples/crc">
           <external path="examples/lpcxpresso845max/driver_examples/crc" type="xml">
             <files mask="crc_v3_8.xml"/>
           </external>
@@ -167,17 +167,17 @@ ${load}</script>
             <files mask="hello_world_v3_8.xml"/>
           </external>
         </example>
-        <example id="lpcxpresso845max_iap_basic" name="iap_basic" brief="The IAP project is a simple demonstration program of the SDK IAP driver. It reads part id, boot code version, unique id and reinvoke ISP. A message a printed on the UART terminal as various bascial iap operations are performed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/lpcxpresso845max/driver_examples/iap/iap_basic">
+        <example id="lpcxpresso845max_iap_basic" name="iap_basic" brief="The IAP project is a simple demonstration program of the SDK IAP driver. It reads part id, boot code version, unique id and reinvoke ISP. A message a printed on the UART terminal as various bascial iap operations are performed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/iap" path="examples/lpcxpresso845max/driver_examples/iap/iap_basic">
           <external path="examples/lpcxpresso845max/driver_examples/iap/iap_basic" type="xml">
             <files mask="iap_basic_v3_8.xml"/>
           </external>
         </example>
-        <example id="lpcxpresso845max_iap_faim" name="iap_faim" brief="The IAP FAIM project is a simple demonstration program of the SDK IAP driver. It writes and reads the FAIM page. A message a printed on the UART terminal as FAIM read and write operations are performed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/lpcxpresso845max/driver_examples/iap/iap_faim">
+        <example id="lpcxpresso845max_iap_faim" name="iap_faim" brief="The IAP FAIM project is a simple demonstration program of the SDK IAP driver. It writes and reads the FAIM page. A message a printed on the UART terminal as FAIM read and write operations are performed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/iap" path="examples/lpcxpresso845max/driver_examples/iap/iap_faim">
           <external path="examples/lpcxpresso845max/driver_examples/iap/iap_faim" type="xml">
             <files mask="iap_faim_v3_8.xml"/>
           </external>
         </example>
-        <example id="lpcxpresso845max_iap_flash" name="iap_flash" brief="The IAP Flash project is a simple demonstration program of the SDK IAP driver. It erases and programs a portion of on-chip flash memory. A message a printed on the UART terminal as various operations on flash memory are performed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/lpcxpresso845max/driver_examples/iap/iap_flash">
+        <example id="lpcxpresso845max_iap_flash" name="iap_flash" brief="The IAP Flash project is a simple demonstration program of the SDK IAP driver. It erases and programs a portion of on-chip flash memory. A message a printed on the UART terminal as various operations on flash memory are performed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/iap" path="examples/lpcxpresso845max/driver_examples/iap/iap_flash">
           <external path="examples/lpcxpresso845max/driver_examples/iap/iap_flash" type="xml">
             <files mask="iap_flash_v3_8.xml"/>
           </external>
@@ -482,90 +482,25 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS.LPC845" name="CMSIS" brief="Cmsis" version="5.6.0" full_name="Cmsis" devices="LPC845" user_visible="true" type="CMSIS" package_base_path="core/CMSIS" project_base_path="./">
-      <dependencies>
-        <all>
-          <component_dependency value="platform.Include_common.LPC845"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.LPC845"/>
-          <component_dependency value="platform.CMSIS_Driver"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.CAN_CMSISInclude.LPC845"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.Ethernet_CMSISInclude.LPC845"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.Ethernet_MAC_CMSISInclude.LPC845"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.Ethernet_PHY_CMSISInclude.LPC845"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.Flash_CMSISInclude.LPC845"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.I2C_CMSISInclude.LPC845"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.MCI_CMSISInclude.LPC845"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.NAND_CMSISInclude.LPC845"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.SAI_CMSISInclude.LPC845"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.SPI_CMSISInclude.LPC845"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.USART_CMSISInclude.LPC845"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.USB_CMSISInclude.LPC845"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.USB_Device_CMSISInclude.LPC845"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.USB_Host_CMSISInclude.LPC845"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.WiFi_CMSISInclude.LPC845"/>
-          <component_dependency value="platform.Include_dsp.LPC845"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.GPIO_CMSISInclude.LPC845"/>
-        </all>
-      </dependencies>
-      <source relative_path="./" project_relative_path="CMSIS" type="doc">
-        <files mask="LICENSE.txt"/>
-      </source>
-      <source relative_path="Include" type="c_include">
-        <files mask="cmsis_compiler.h"/>
-        <files mask="arm_math.h"/>
-        <files mask="core_cm35p.h"/>
-        <files mask="core_cm4.h"/>
-        <files mask="core_cm0plus.h"/>
-        <files mask="mpu_armv8.h"/>
-        <files mask="arm_common_tables.h"/>
-        <files mask="core_dsp.h"/>
-        <files mask="core_cm1.h"/>
-        <files mask="arm_const_structs.h"/>
-        <files mask="core_cm7.h"/>
-        <files mask="tz_context.h"/>
-        <files mask="cmsis_armcc.h"/>
-        <files mask="core_sc000.h"/>
-        <files mask="core_armv8mml.h"/>
-        <files mask="core_sc300.h"/>
-        <files mask="cmsis_armclang.h"/>
-        <files mask="cmsis_iccarm.h"/>
-        <files mask="core_cm0.h"/>
-        <files mask="core_armv8mbl.h"/>
-        <files mask="core_cm33.h"/>
-        <files mask="mpu_armv7.h"/>
-        <files mask="core_armv81mml.h"/>
-        <files mask="cmsis_gcc.h"/>
-        <files mask="core_cm3.h"/>
-        <files mask="cmsis_version.h"/>
-        <files mask="core_cm23.h"/>
-        <files mask="cmsis_armclang_ltm.h"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="Include" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="platform.CMSIS_Driver" name="CMSIS_Driver" brief="Cmsis_driver" version="2.7.1" full_name="Cmsis_driver" user_visible="true" type="CMSIS" package_base_path="core/CMSIS/Driver/DriverTemplates" project_base_path="Driver/DriverTemplates">
-      <source relative_path="./" type="src">
-        <files mask="Driver_SPI.c"/>
-        <files mask="Driver_Flash.c"/>
-        <files mask="Driver_USART.c"/>
-        <files mask="Driver_SAI.c"/>
-        <files mask="Driver_Storage.c"/>
-        <files mask="Driver_I2C.c"/>
-        <files mask="Driver_ETH_PHY.c"/>
-        <files mask="Driver_ETH_MAC.c"/>
-        <files mask="Driver_CAN.c"/>
-        <files mask="Driver_MCI.c"/>
-        <files mask="Driver_USBH.c"/>
-        <files mask="Driver_USBD.c"/>
+    <component id="CMSIS_Device_API_OSTick.LPC845" name="CMSIS_Device_API_OSTick" brief="Device interrupt controller interface" version="1.0.1" full_name="CMSIS Device API OSTick" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/RTOS2/Include" project_base_path="CMSIS/RTOS2/Include">
+      <source relative_path="./" type="c_include">
+        <files mask="os_tick.h"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.CAN_CMSISInclude.LPC845" name="CAN" brief="Cmsis_driver_include can" version="1.2.0" full_name="Cmsis_driver_include can" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Device_API_RTOS2.LPC845" name="CMSIS_Device_API_RTOS2" brief="CMSIS-RTOS API for Cortex-M, SC000, and SC300" version="2.1.3" full_name="CMSIS Device API RTOS2" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/RTOS2/Include" project_base_path="CMSIS/RTOS2/Include">
+      <source relative_path="./" type="c_include">
+        <files mask="cmsis_os2.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_Driver_Include.CAN.LPC845" name="CMSIS_Driver_CAN" brief="Access to #include Driver_CAN.h file for custom implementation" version="1.2.0" full_name="CMSIS Driver CAN" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.LPC845"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.LPC845"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_CAN.h"/>
@@ -574,7 +509,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.Common_CMSISInclude.LPC845" name="Common" brief="Cmsis_driver_include common" version="2.7.1" full_name="Cmsis_driver_include common" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.Common.LPC845" name="CMSIS_Driver_Common" brief="Access to #include Driver_Common.h file for custom implementation" version="2.3.0" full_name="CMSIS Driver Common" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <source relative_path="./" type="c_include">
         <files mask="Driver_Common.h"/>
       </source>
@@ -582,9 +517,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.Ethernet_CMSISInclude.LPC845" name="Ethernet" brief="Cmsis_driver_include ethernet" version="2.1.0" full_name="Cmsis_driver_include ethernet" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.Ethernet.LPC845" name="CMSIS_Driver_Ethernet_Common" brief="Access to #include Driver_ETH.h file for custom implementation" version="2.1.0" full_name="CMSIS Driver Ethernet Common" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.LPC845"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.LPC845"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_ETH.h"/>
@@ -593,9 +528,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.Ethernet_MAC_CMSISInclude.LPC845" name="Ethernet_MAC" brief="Cmsis_driver_include ethernet_mac" version="2.1.0" full_name="Cmsis_driver_include ethernet_mac" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.Ethernet_MAC.LPC845" name="CMSIS_Driver_Ethernet_MAC" brief="Access to #include Driver_ETH_MAC.h file for custom implementation" version="2.1.0" full_name="CMSIS Driver Ethernet MAC" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Ethernet_CMSISInclude.LPC845"/>
+        <component_dependency value="CMSIS_Driver_Include.Ethernet.LPC845"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_ETH_MAC.h"/>
@@ -604,9 +539,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.Ethernet_PHY_CMSISInclude.LPC845" name="Ethernet_PHY" brief="Cmsis_driver_include ethernet_phy" version="2.1.0" full_name="Cmsis_driver_include ethernet_phy" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.Ethernet_PHY.LPC845" name="CMSIS_Driver_Ethernet_PHY" brief="Access to #include Driver_ETH_PHY.h file for custom implementation" version="2.1.0" full_name="CMSIS Driver Ethernet PHY" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Ethernet_CMSISInclude.LPC845"/>
+        <component_dependency value="CMSIS_Driver_Include.Ethernet.LPC845"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_ETH_PHY.h"/>
@@ -615,9 +550,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.Flash_CMSISInclude.LPC845" name="Flash" brief="Cmsis_driver_include flash" version="2.2.0" full_name="Cmsis_driver_include flash" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.Flash.LPC845" name="CMSIS_Driver_Flash" brief="Access to #include Driver_Flash.h file for custom implementation" version="2.2.0" full_name="CMSIS Driver Flash" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.LPC845"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.LPC845"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_Flash.h"/>
@@ -626,9 +561,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.GPIO_CMSISInclude.LPC845" name="GPIO" brief="Cmsis_driver_include gpio" version="2.0.0" full_name="Cmsis_driver_include gpio" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.GPIO.LPC845" name="NXP_CMSIS_Driver_GPIO" brief="NXP Standardized GPIO Driver aligned with CMSIS style." version="2.0.0" full_name="NXP CMSIS Driver GPIO" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.LPC845"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.LPC845"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_GPIO.h"/>
@@ -637,9 +572,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.I2C_CMSISInclude.LPC845" name="I2C" brief="Cmsis_driver_include i2c" version="2.3.0" full_name="Cmsis_driver_include i2c" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.I2C.LPC845" name="CMSIS_Driver_I2C" brief="Access to #include Driver_I2C.h file for custom implementation" version="2.3.0" full_name="CMSIS Driver I2C" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.LPC845"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.LPC845"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_I2C.h"/>
@@ -648,9 +583,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.MCI_CMSISInclude.LPC845" name="MCI" brief="Cmsis_driver_include mci" version="2.3.0" full_name="Cmsis_driver_include mci" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.MCI.LPC845" name="CMSIS_Driver_MCI" brief="Access to #include Driver_MCI.h file for custom implementation" version="2.3.0" full_name="CMSIS Driver MCI" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.LPC845"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.LPC845"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_MCI.h"/>
@@ -659,9 +594,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.NAND_CMSISInclude.LPC845" name="NAND" brief="Cmsis_driver_include nand" version="2.3.0" full_name="Cmsis_driver_include nand" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.NAND.LPC845" name="CMSIS_Driver_NAND" brief="Access to #include Driver_NAND.h file for custom implementation" version="2.3.0" full_name="CMSIS Driver NAND" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.LPC845"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.LPC845"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_NAND.h"/>
@@ -670,9 +605,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.SAI_CMSISInclude.LPC845" name="SAI" brief="Cmsis_driver_include sai" version="1.1.0" full_name="Cmsis_driver_include sai" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.SAI.LPC845" name="CMSIS_Driver_SAI" brief="Access to #include Driver_SAI.h file for custom implementation" version="1.1.0" full_name="CMSIS Driver SAI" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.LPC845"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.LPC845"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_SAI.h"/>
@@ -681,9 +616,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.SPI_CMSISInclude.LPC845" name="SPI" brief="Cmsis_driver_include spi" version="2.2.0" full_name="Cmsis_driver_include spi" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.SPI.LPC845" name="CMSIS_Driver_SPI" brief="Access to #include Driver_SPI.h file for custom implementation" version="2.2.0" full_name="CMSIS Driver SPI" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.LPC845"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.LPC845"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_SPI.h"/>
@@ -692,9 +627,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.USART_CMSISInclude.LPC845" name="USART" brief="Cmsis_driver_include usart" version="2.3.0" full_name="Cmsis_driver_include usart" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.USART.LPC845" name="CMSIS_Driver_USART" brief="Access to #include Driver_USART.h file for custom implementation" version="2.3.0" full_name="CMSIS Driver USART" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.LPC845"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.LPC845"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_USART.h"/>
@@ -703,9 +638,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.USB_CMSISInclude.LPC845" name="USB" brief="Cmsis_driver_include usb" version="2.2.0" full_name="Cmsis_driver_include usb" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.USB.LPC845" name="CMSIS_Driver_USB_Common" brief="Access to #include Driver_USB.h file for custom implementation" version="2.2.0" full_name="CMSIS Driver USB Common" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.LPC845"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.LPC845"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_USB.h"/>
@@ -714,9 +649,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.USB_Device_CMSISInclude.LPC845" name="USB_Device" brief="Cmsis_driver_include usb_device" version="2.2.0" full_name="Cmsis_driver_include usb_device" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.USB_Device.LPC845" name="CMSIS_Driver_USB_Device" brief="Access to #include Driver_USBD.h file for custom implementation" version="2.2.0" full_name="CMSIS Driver USB Device" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.USB_CMSISInclude.LPC845"/>
+        <component_dependency value="CMSIS_Driver_Include.USB.LPC845"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_USBD.h"/>
@@ -725,9 +660,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.USB_Host_CMSISInclude.LPC845" name="USB_Host" brief="Cmsis_driver_include usb_host" version="2.2.0" full_name="Cmsis_driver_include usb_host" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.USB_Host.LPC845" name="CMSIS_Driver_USB_Host" brief="Access to #include Driver_USBH.h file for custom implementation" version="2.2.0" full_name="CMSIS Driver USB Host" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.USB_CMSISInclude.LPC845"/>
+        <component_dependency value="CMSIS_Driver_Include.USB.LPC845"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_USBH.h"/>
@@ -736,9 +671,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.WiFi_CMSISInclude.LPC845" name="WiFi" brief="Cmsis_driver_include wifi" version="1.0.0" full_name="Cmsis_driver_include wifi" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.WiFi.LPC845" name="CMSIS_Driver_WiFi" brief="Access to #include Driver_WiFi.h file" version="1.0.0" full_name="CMSIS Driver WiFi" devices="LPC845" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.LPC845"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.LPC845"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_WiFi.h"/>
@@ -747,54 +682,408 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.Include_common.LPC845" name="CMSIS_Include_common" brief="Cmsis_include_common" version="5.3.0" full_name="Cmsis_include_common" devices="LPC845" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Include" project_base_path="CMSIS">
+    <component id="CMSIS_Include_core_cm.LPC845" name="CMSIS_Include_CM" brief="CMSIS-CORE for Cortex-M, ARMv8-M, ARMv8.1-M" version="5.3.0" full_name="CMSIS Include For Cortex-M, ARMv8-M, ARMv8.1-M" devices="LPC845" device_cores="core0_LPC845" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Core/Include" project_base_path="CMSIS">
       <source relative_path="./" type="c_include">
         <files mask="cmsis_armcc.h"/>
         <files mask="cmsis_armclang.h"/>
         <files mask="cmsis_armclang_ltm.h"/>
-        <files mask="cmsis_gcc.h"/>
         <files mask="cmsis_compiler.h"/>
-        <files mask="cmsis_version.h"/>
+        <files mask="cmsis_gcc.h"/>
         <files mask="cmsis_iccarm.h"/>
+        <files mask="cmsis_version.h"/>
       </source>
-      <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_common_LPC845.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="./" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="platform.Include_core_cm0plus.LPC845" name="CMSIS_Include_core_cm0plus" brief="Cmsis_include_core_cm0plus" version="5.3.0" full_name="Cmsis_include_core_cm0plus" devices="LPC845" device_cores="core0_LPC845" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Include" project_base_path="CMSIS">
-      <dependencies>
-        <all>
-          <component_dependency value="platform.Include_common.LPC845"/>
-          <component_dependency value="platform.Include_dsp.LPC845"/>
-        </all>
-      </dependencies>
-      <source relative_path="./" type="c_include">
+      <source relative_path="./" type="c_include" device_cores="core0_LPC845">
         <files mask="core_cm0plus.h"/>
         <files mask="mpu_armv7.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_core_cm0plus_LPC845.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_core_cm.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.Include_dsp.LPC845" name="CMSIS_Include_dsp" brief="Cmsis_include_dsp" version="1.7.0" full_name="Cmsis_include_dsp" devices="LPC845" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Include" project_base_path="CMSIS">
-      <source relative_path="./" type="c_include">
-        <files mask="arm_common_tables.h"/>
-        <files mask="arm_const_structs.h"/>
-        <files mask="arm_math.h"/>
-      </source>
-      <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_dsp_LPC845.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="./" type="c_include"/>
-      </include_paths>
-    </component>
+    <!--<component id="CMSIS_files.LPC845" name="CMSIS" brief="CMSIS (Cortex Microcontroller Software Interface Standard)" version="5.6.0" full_name="CMSIS" devices="LPC845" user_visible="false" type="container" package_base_path="core/CMSIS" project_base_path="CMSIS">
+  <source relative_path="Driver/Include" type="c_include">
+    <files mask="Driver_Storage.h"/>
+    <files mask="Driver_USART.h"/>
+    <files mask="Driver_USBD.h"/>
+    <files mask="Driver_I2C.h"/>
+    <files mask="Driver_SPI.h"/>
+    <files mask="Driver_USB.h"/>
+    <files mask="Driver_WiFi.h"/>
+    <files mask="Driver_SAI.h"/>
+    <files mask="Driver_Common.h"/>
+    <files mask="Driver_NAND.h"/>
+    <files mask="Driver_CAN.h"/>
+    <files mask="Driver_MCI.h"/>
+    <files mask="Driver_ETH_MAC.h"/>
+    <files mask="Driver_Flash.h"/>
+    <files mask="Driver_USBH.h"/>
+    <files mask="Driver_ETH_PHY.h"/>
+    <files mask="Driver_ETH.h"/>
+    <files mask="Driver_GPIO.h"/>
+  </source>
+  <source relative_path="Driver/DriverTemplates" type="src">
+    <files mask="Driver_SPI.c"/>
+    <files mask="Driver_Flash.c"/>
+    <files mask="Driver_USART.c"/>
+    <files mask="Driver_SAI.c"/>
+    <files mask="Driver_Storage.c"/>
+    <files mask="Driver_I2C.c"/>
+    <files mask="Driver_ETH_PHY.c"/>
+    <files mask="Driver_ETH_MAC.c"/>
+    <files mask="Driver_CAN.c"/>
+    <files mask="Driver_MCI.c"/>
+    <files mask="Driver_USBH.c"/>
+    <files mask="Driver_USBD.c"/>
+  </source>
+  <source relative_path="./" type="other">
+    <files mask="CMSIS.yml"/>
+    <files mask="CMSIS_v2.yml"/>
+  </source>
+  <source relative_path="./" type="doc">
+    <files mask="LICENSE.txt"/>
+  </source>
+  <source relative_path="DSP/Source/StatisticsFunctions" type="src">
+    <files mask="arm_var_q15.c"/>
+    <files mask="arm_min_q31.c"/>
+    <files mask="arm_mean_f32.c"/>
+    <files mask="arm_max_q7.c"/>
+    <files mask="arm_max_f32.c"/>
+    <files mask="arm_var_f32.c"/>
+    <files mask="arm_power_q7.c"/>
+    <files mask="arm_rms_f32.c"/>
+    <files mask="arm_max_q31.c"/>
+    <files mask="arm_max_q15.c"/>
+    <files mask="arm_mean_q7.c"/>
+    <files mask="arm_power_f32.c"/>
+    <files mask="arm_min_q7.c"/>
+    <files mask="arm_std_q15.c"/>
+    <files mask="arm_min_f32.c"/>
+    <files mask="arm_min_q15.c"/>
+    <files mask="StatisticsFunctions.c"/>
+    <files mask="arm_std_q31.c"/>
+    <files mask="arm_rms_q31.c"/>
+    <files mask="arm_mean_q15.c"/>
+    <files mask="arm_std_f32.c"/>
+    <files mask="arm_power_q15.c"/>
+    <files mask="arm_mean_q31.c"/>
+    <files mask="arm_rms_q15.c"/>
+    <files mask="arm_power_q31.c"/>
+    <files mask="arm_var_q31.c"/>
+  </source>
+  <source relative_path="DSP/Source/StatisticsFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/FastMathFunctions" type="src">
+    <files mask="arm_cos_q31.c"/>
+    <files mask="FastMathFunctions.c"/>
+    <files mask="arm_sin_q31.c"/>
+    <files mask="arm_sqrt_q15.c"/>
+    <files mask="arm_cos_q15.c"/>
+    <files mask="arm_sin_f32.c"/>
+    <files mask="arm_sin_q15.c"/>
+    <files mask="arm_cos_f32.c"/>
+    <files mask="arm_sqrt_q31.c"/>
+  </source>
+  <source relative_path="DSP/Source/FastMathFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/TransformFunctions" type="src">
+    <files mask="arm_cfft_radix2_f32.c"/>
+    <files mask="arm_cfft_radix8_f32.c"/>
+    <files mask="arm_cfft_radix2_q15.c"/>
+    <files mask="arm_cfft_radix4_init_f32.c"/>
+    <files mask="arm_cfft_radix4_init_q15.c"/>
+    <files mask="arm_cfft_radix2_init_q15.c"/>
+    <files mask="arm_rfft_init_f32.c"/>
+    <files mask="arm_rfft_fast_f32.c"/>
+    <files mask="arm_rfft_init_q31.c"/>
+    <files mask="arm_dct4_q15.c"/>
+    <files mask="arm_dct4_init_q31.c"/>
+    <files mask="arm_cfft_radix2_init_f32.c"/>
+    <files mask="arm_dct4_init_q15.c"/>
+    <files mask="arm_dct4_q31.c"/>
+    <files mask="arm_rfft_q15.c"/>
+    <files mask="arm_cfft_radix4_q31.c"/>
+    <files mask="arm_cfft_radix2_init_q31.c"/>
+    <files mask="TransformFunctions.c"/>
+    <files mask="arm_cfft_radix4_q15.c"/>
+    <files mask="arm_bitreversal.c"/>
+    <files mask="arm_rfft_init_q15.c"/>
+    <files mask="arm_rfft_q31.c"/>
+    <files mask="arm_bitreversal2.c"/>
+    <files mask="arm_rfft_fast_init_f32.c"/>
+    <files mask="arm_cfft_radix2_q31.c"/>
+    <files mask="arm_dct4_f32.c"/>
+    <files mask="arm_cfft_f32.c"/>
+    <files mask="arm_rfft_f32.c"/>
+    <files mask="arm_cfft_radix4_init_q31.c"/>
+    <files mask="arm_cfft_q31.c"/>
+    <files mask="arm_cfft_q15.c"/>
+    <files mask="arm_cfft_radix4_f32.c"/>
+    <files mask="arm_dct4_init_f32.c"/>
+  </source>
+  <source relative_path="DSP/Source/TransformFunctions" type="asm_include">
+    <files mask="arm_bitreversal2.S"/>
+  </source>
+  <source relative_path="DSP/Source/TransformFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/FilteringFunctions" type="src">
+    <files mask="arm_iir_lattice_q15.c"/>
+    <files mask="arm_iir_lattice_init_q15.c"/>
+    <files mask="arm_fir_interpolate_q15.c"/>
+    <files mask="arm_correlate_fast_q15.c"/>
+    <files mask="arm_lms_norm_init_q15.c"/>
+    <files mask="arm_fir_sparse_f32.c"/>
+    <files mask="arm_fir_interpolate_f32.c"/>
+    <files mask="arm_biquad_cascade_df1_fast_q15.c"/>
+    <files mask="arm_iir_lattice_init_q31.c"/>
+    <files mask="arm_fir_decimate_q31.c"/>
+    <files mask="arm_fir_interpolate_q31.c"/>
+    <files mask="arm_fir_decimate_init_f32.c"/>
+    <files mask="arm_correlate_fast_opt_q15.c"/>
+    <files mask="arm_lms_q31.c"/>
+    <files mask="arm_lms_init_f32.c"/>
+    <files mask="arm_fir_sparse_q7.c"/>
+    <files mask="arm_conv_fast_opt_q15.c"/>
+    <files mask="arm_biquad_cascade_stereo_df2T_init_f32.c"/>
+    <files mask="arm_biquad_cascade_df1_init_q31.c"/>
+    <files mask="arm_biquad_cascade_df2T_init_f64.c"/>
+    <files mask="arm_iir_lattice_f32.c"/>
+    <files mask="arm_fir_lattice_f32.c"/>
+    <files mask="arm_conv_partial_opt_q15.c"/>
+    <files mask="arm_iir_lattice_q31.c"/>
+    <files mask="arm_correlate_fast_q31.c"/>
+    <files mask="arm_biquad_cascade_stereo_df2T_f32.c"/>
+    <files mask="arm_conv_f32.c"/>
+    <files mask="arm_fir_sparse_q15.c"/>
+    <files mask="arm_fir_sparse_init_q7.c"/>
+    <files mask="arm_biquad_cascade_df1_fast_q31.c"/>
+    <files mask="arm_biquad_cascade_df1_init_f32.c"/>
+    <files mask="arm_fir_sparse_init_q31.c"/>
+    <files mask="arm_fir_sparse_init_q15.c"/>
+    <files mask="arm_fir_interpolate_init_q15.c"/>
+    <files mask="arm_fir_lattice_q15.c"/>
+    <files mask="arm_fir_decimate_init_q15.c"/>
+    <files mask="arm_conv_partial_fast_opt_q15.c"/>
+    <files mask="arm_fir_q31.c"/>
+    <files mask="arm_biquad_cascade_df2T_init_f32.c"/>
+    <files mask="arm_conv_fast_q15.c"/>
+    <files mask="arm_fir_fast_q15.c"/>
+    <files mask="arm_conv_q7.c"/>
+    <files mask="arm_fir_q15.c"/>
+    <files mask="arm_correlate_q15.c"/>
+    <files mask="arm_lms_init_q15.c"/>
+    <files mask="arm_conv_q15.c"/>
+    <files mask="arm_conv_partial_q7.c"/>
+    <files mask="arm_lms_f32.c"/>
+    <files mask="arm_lms_norm_q15.c"/>
+    <files mask="arm_fir_sparse_init_f32.c"/>
+    <files mask="arm_lms_norm_init_q31.c"/>
+    <files mask="arm_biquad_cascade_df1_init_q15.c"/>
+    <files mask="arm_conv_partial_fast_q15.c"/>
+    <files mask="arm_fir_init_f32.c"/>
+    <files mask="arm_fir_decimate_f32.c"/>
+    <files mask="arm_fir_lattice_init_q15.c"/>
+    <files mask="arm_correlate_opt_q15.c"/>
+    <files mask="arm_fir_sparse_q31.c"/>
+    <files mask="arm_biquad_cascade_df2T_f32.c"/>
+    <files mask="arm_fir_init_q7.c"/>
+    <files mask="arm_fir_init_q15.c"/>
+    <files mask="arm_fir_interpolate_init_f32.c"/>
+    <files mask="arm_conv_opt_q7.c"/>
+    <files mask="arm_lms_init_q31.c"/>
+    <files mask="arm_fir_fast_q31.c"/>
+    <files mask="arm_conv_partial_f32.c"/>
+    <files mask="arm_biquad_cascade_df1_q15.c"/>
+    <files mask="arm_biquad_cascade_df1_32x64_init_q31.c"/>
+    <files mask="arm_lms_norm_q31.c"/>
+    <files mask="arm_conv_partial_q15.c"/>
+    <files mask="arm_conv_opt_q15.c"/>
+    <files mask="arm_fir_decimate_q15.c"/>
+    <files mask="arm_iir_lattice_init_f32.c"/>
+    <files mask="arm_fir_lattice_init_f32.c"/>
+    <files mask="arm_fir_decimate_fast_q31.c"/>
+    <files mask="arm_fir_f32.c"/>
+    <files mask="arm_fir_decimate_init_q31.c"/>
+    <files mask="arm_conv_q31.c"/>
+    <files mask="arm_lms_norm_f32.c"/>
+    <files mask="arm_conv_partial_fast_q31.c"/>
+    <files mask="arm_fir_lattice_init_q31.c"/>
+    <files mask="arm_fir_init_q31.c"/>
+    <files mask="arm_lms_norm_init_f32.c"/>
+    <files mask="arm_correlate_opt_q7.c"/>
+    <files mask="arm_fir_lattice_q31.c"/>
+    <files mask="arm_conv_partial_q31.c"/>
+    <files mask="arm_biquad_cascade_df2T_f64.c"/>
+    <files mask="arm_biquad_cascade_df1_f32.c"/>
+    <files mask="arm_lms_q15.c"/>
+    <files mask="arm_correlate_q31.c"/>
+    <files mask="arm_correlate_q7.c"/>
+    <files mask="arm_fir_q7.c"/>
+    <files mask="arm_conv_fast_q31.c"/>
+    <files mask="arm_conv_partial_opt_q7.c"/>
+    <files mask="arm_fir_decimate_fast_q15.c"/>
+    <files mask="arm_fir_interpolate_init_q31.c"/>
+    <files mask="arm_biquad_cascade_df1_q31.c"/>
+    <files mask="FilteringFunctions.c"/>
+    <files mask="arm_correlate_f32.c"/>
+    <files mask="arm_biquad_cascade_df1_32x64_q31.c"/>
+  </source>
+  <source relative_path="DSP/Source/FilteringFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/ControllerFunctions" type="src">
+    <files mask="arm_sin_cos_f32.c"/>
+    <files mask="ControllerFunctions.c"/>
+    <files mask="arm_pid_reset_q31.c"/>
+    <files mask="arm_pid_init_q15.c"/>
+    <files mask="arm_sin_cos_q31.c"/>
+    <files mask="arm_pid_reset_f32.c"/>
+    <files mask="arm_pid_reset_q15.c"/>
+    <files mask="arm_pid_init_f32.c"/>
+    <files mask="arm_pid_init_q31.c"/>
+  </source>
+  <source relative_path="DSP/Source/ControllerFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/MatrixFunctions" type="src">
+    <files mask="arm_mat_mult_f32.c"/>
+    <files mask="arm_mat_mult_fast_q31.c"/>
+    <files mask="arm_mat_init_q15.c"/>
+    <files mask="arm_mat_mult_fast_q15.c"/>
+    <files mask="arm_mat_trans_q15.c"/>
+    <files mask="arm_mat_cmplx_mult_q31.c"/>
+    <files mask="arm_mat_mult_q31.c"/>
+    <files mask="arm_mat_init_f32.c"/>
+    <files mask="arm_mat_inverse_f32.c"/>
+    <files mask="arm_mat_scale_q31.c"/>
+    <files mask="arm_mat_cmplx_mult_f32.c"/>
+    <files mask="arm_mat_sub_q15.c"/>
+    <files mask="arm_mat_scale_f32.c"/>
+    <files mask="arm_mat_sub_f32.c"/>
+    <files mask="arm_mat_add_q31.c"/>
+    <files mask="arm_mat_add_f32.c"/>
+    <files mask="MatrixFunctions.c"/>
+    <files mask="arm_mat_mult_q15.c"/>
+    <files mask="arm_mat_trans_q31.c"/>
+    <files mask="arm_mat_scale_q15.c"/>
+    <files mask="arm_mat_sub_q31.c"/>
+    <files mask="arm_mat_inverse_f64.c"/>
+    <files mask="arm_mat_init_q31.c"/>
+    <files mask="arm_mat_trans_f32.c"/>
+    <files mask="arm_mat_cmplx_mult_q15.c"/>
+    <files mask="arm_mat_add_q15.c"/>
+  </source>
+  <source relative_path="DSP/Source/MatrixFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/CommonTables" type="src">
+    <files mask="CommonTables.c"/>
+    <files mask="arm_common_tables.c"/>
+    <files mask="arm_const_structs.c"/>
+  </source>
+  <source relative_path="DSP/Source/CommonTables" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/SupportFunctions" type="src">
+    <files mask="SupportFunctions.c"/>
+    <files mask="arm_fill_q7.c"/>
+    <files mask="arm_q15_to_q7.c"/>
+    <files mask="arm_copy_q15.c"/>
+    <files mask="arm_copy_f32.c"/>
+    <files mask="arm_q7_to_q15.c"/>
+    <files mask="arm_q31_to_q15.c"/>
+    <files mask="arm_copy_q7.c"/>
+    <files mask="arm_q15_to_float.c"/>
+    <files mask="arm_q7_to_float.c"/>
+    <files mask="arm_float_to_q15.c"/>
+    <files mask="arm_q15_to_q31.c"/>
+    <files mask="arm_fill_f32.c"/>
+    <files mask="arm_float_to_q7.c"/>
+    <files mask="arm_fill_q31.c"/>
+    <files mask="arm_q7_to_q31.c"/>
+    <files mask="arm_q31_to_float.c"/>
+    <files mask="arm_copy_q31.c"/>
+    <files mask="arm_fill_q15.c"/>
+    <files mask="arm_q31_to_q7.c"/>
+    <files mask="arm_float_to_q31.c"/>
+  </source>
+  <source relative_path="DSP/Source/SupportFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/ComplexMathFunctions" type="src">
+    <files mask="arm_cmplx_mag_squared_f32.c"/>
+    <files mask="arm_cmplx_conj_f32.c"/>
+    <files mask="arm_cmplx_mag_q31.c"/>
+    <files mask="arm_cmplx_conj_q31.c"/>
+    <files mask="arm_cmplx_dot_prod_f32.c"/>
+    <files mask="arm_cmplx_mag_q15.c"/>
+    <files mask="arm_cmplx_mag_f32.c"/>
+    <files mask="arm_cmplx_dot_prod_q31.c"/>
+    <files mask="arm_cmplx_dot_prod_q15.c"/>
+    <files mask="arm_cmplx_mult_cmplx_q15.c"/>
+    <files mask="arm_cmplx_mag_squared_q15.c"/>
+    <files mask="arm_cmplx_conj_q15.c"/>
+    <files mask="arm_cmplx_mult_real_q31.c"/>
+    <files mask="arm_cmplx_mult_cmplx_f32.c"/>
+    <files mask="ComplexMathFunctions.c"/>
+    <files mask="arm_cmplx_mag_squared_q31.c"/>
+    <files mask="arm_cmplx_mult_real_q15.c"/>
+    <files mask="arm_cmplx_mult_cmplx_q31.c"/>
+    <files mask="arm_cmplx_mult_real_f32.c"/>
+  </source>
+  <source relative_path="DSP/Source/ComplexMathFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/BasicMathFunctions" type="src">
+    <files mask="arm_mult_f32.c"/>
+    <files mask="arm_dot_prod_q31.c"/>
+    <files mask="arm_sub_f32.c"/>
+    <files mask="arm_sub_q15.c"/>
+    <files mask="arm_shift_q7.c"/>
+    <files mask="arm_abs_q7.c"/>
+    <files mask="arm_abs_q31.c"/>
+    <files mask="arm_mult_q31.c"/>
+    <files mask="arm_dot_prod_f32.c"/>
+    <files mask="arm_offset_q31.c"/>
+    <files mask="arm_shift_q15.c"/>
+    <files mask="arm_shift_q31.c"/>
+    <files mask="arm_negate_q7.c"/>
+    <files mask="arm_add_q15.c"/>
+    <files mask="arm_add_q7.c"/>
+    <files mask="arm_offset_f32.c"/>
+    <files mask="arm_dot_prod_q15.c"/>
+    <files mask="arm_mult_q7.c"/>
+    <files mask="arm_dot_prod_q7.c"/>
+    <files mask="arm_abs_f32.c"/>
+    <files mask="arm_negate_q15.c"/>
+    <files mask="arm_scale_q15.c"/>
+    <files mask="arm_mult_q15.c"/>
+    <files mask="arm_add_q31.c"/>
+    <files mask="arm_scale_q7.c"/>
+    <files mask="arm_offset_q7.c"/>
+    <files mask="BasicMathFunctions.c"/>
+    <files mask="arm_sub_q31.c"/>
+    <files mask="arm_sub_q7.c"/>
+    <files mask="arm_negate_f32.c"/>
+    <files mask="arm_abs_q15.c"/>
+    <files mask="arm_scale_f32.c"/>
+    <files mask="arm_add_f32.c"/>
+    <files mask="arm_offset_q15.c"/>
+    <files mask="arm_negate_q31.c"/>
+    <files mask="arm_scale_q31.c"/>
+  </source>
+  <source relative_path="DSP/Source/BasicMathFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+</component>-->
     <component id="COPY_BSD_License.LPC845" name="COPY_BSD_License" brief="COPY of BSD-3-Clause license" version="1.0.0" full_name="COPY of BSD-3-Clause license" devices="LPC845" user_visible="true" type="other" package_base_path="core/./" project_base_path="src">
       <source relative_path="./" type="other">
         <files mask="COPYING-BSD-3"/>
@@ -836,6 +1125,7 @@ ${load}</script>
       <source relative_path="./" type="script">
         <files mask="armgcc.cmake"/>
         <files mask="xcc.cmake"/>
+        <files mask="xclang.cmake"/>
         <files mask="armgcc_force_cpp.cmake"/>
       </source>
     </component>
@@ -1007,7 +1297,7 @@ ${load}</script>
         <files mask="fsl_adapter_miniusart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_miniusart_adapter_LPC845.cmake" hidden="true"/>
+        <files mask="component_miniusart_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1065,6 +1355,25 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_os_abstraction_bm.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.osa_thread.LPC845" name="osa thread" brief="Component osa thread" version="1.0.0" full_name="Component osa thread" devices="LPC845" device_cores="core0_LPC845" user_visible="false" type="software_component" package_base_path="core/components/osa" project_base_path="component/osa">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.common.LPC845"/>
+          <component_dependency value="component.lists.LPC845"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_os_abstraction.h"/>
+        <files mask="fsl_os_abstraction_config.h"/>
+        <files mask="fsl_os_abstraction_threadx.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_os_abstraction_threadx.c"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1138,7 +1447,7 @@ ${load}</script>
     </component>
     <component id="device.LPC845_CMSIS.LPC845" name="LPC845_CMSIS" brief="Device LPC845_cmsis" version="1.0.0" full_name="Device LPC845_cmsis" devices="LPC845" device_cores="core0_LPC845" user_visible="true" type="CMSIS_Include" package_base_path="core/devices/LPC845" project_base_path="device">
       <dependencies>
-        <component_dependency value="platform.Include_core_cm0plus.LPC845"/>
+        <component_dependency value="CMSIS_Include_core_cm.LPC845"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="fsl_device_registers.h"/>
@@ -1146,7 +1455,7 @@ ${load}</script>
         <files mask="LPC845_features.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="device_LPC845_CMSIS_LPC845.cmake" hidden="true"/>
+        <files mask="device_CMSIS.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1177,7 +1486,7 @@ ${load}</script>
         <files mask="startup_lpc845.cpp"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="device_LPC845_startup_LPC845.cmake" hidden="true"/>
+        <files mask="device_startup.cmake" hidden="true"/>
       </source>
     </component>
     <component id="device.LPC845_system.LPC845" name="LPC845_system" brief="Device LPC845_system" version="1.0.0" full_name="Device LPC845_system" devices="LPC845" device_cores="core0_LPC845" user_visible="true" type="CMSIS_Include" package_base_path="core/devices/LPC845" project_base_path="device">
@@ -1191,7 +1500,7 @@ ${load}</script>
         <files mask="system_LPC845.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="device_LPC845_system_LPC845.cmake" hidden="true"/>
+        <files mask="device_system.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1215,7 +1524,7 @@ ${load}</script>
         <files mask="fsl_capt.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_capt_LPC845.cmake" hidden="true"/>
+        <files mask="driver_capt.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1235,13 +1544,13 @@ ${load}</script>
         <files mask="fsl_clock.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_clock_LPC845.cmake" hidden="true"/>
+        <files mask="driver_clock.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.common.LPC845" name="common" brief="COMMON Driver" version="2.2.9" full_name="COMMON Driver" devices="LPC845" device_cores="core0_LPC845" user_visible="true" type="driver" package_base_path="core/drivers/common" project_base_path="drivers">
+    <component id="platform.drivers.common.LPC845" name="common" brief="COMMON Driver" version="2.3.0" full_name="COMMON Driver" devices="LPC845" device_cores="core0_LPC845" user_visible="true" type="driver" package_base_path="core/drivers/common" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.clock.LPC845"/>
@@ -1255,8 +1564,14 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_common.c"/>
       </source>
+      <source relative_path="./" type="src" device_cores="core0_LPC845">
+        <files mask="fsl_common_arm.c"/>
+      </source>
+      <source relative_path="./" type="c_include" device_cores="core0_LPC845">
+        <files mask="fsl_common_arm.h"/>
+      </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_common_LPC845.cmake" hidden="true"/>
+        <files mask="driver_common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1273,7 +1588,7 @@ ${load}</script>
         <files mask="fsl_ctimer.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_ctimer_LPC845.cmake" hidden="true"/>
+        <files mask="driver_ctimer.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1290,13 +1605,13 @@ ${load}</script>
         <files mask="fsl_iap.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_iap_LPC845.cmake" hidden="true"/>
+        <files mask="driver_iap.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.inputmux.LPC845" name="inputmux" brief="INPUTMUX Driver" version="2.0.3" full_name="INPUTMUX Driver" devices="LPC845" device_cores="core0_LPC845" user_visible="true" type="driver" package_base_path="core/drivers/inputmux" project_base_path="drivers">
+    <component id="platform.drivers.inputmux.LPC845" name="inputmux" brief="INPUTMUX Driver" version="2.0.4" full_name="INPUTMUX Driver" devices="LPC845" device_cores="core0_LPC845" user_visible="true" type="driver" package_base_path="core/drivers/inputmux" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.common.LPC845"/>
@@ -1310,7 +1625,7 @@ ${load}</script>
         <files mask="fsl_inputmux.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_inputmux_LPC845.cmake" hidden="true"/>
+        <files mask="driver_inputmux.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1324,7 +1639,7 @@ ${load}</script>
         <files mask="fsl_inputmux_connections.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_inputmux_connections_LPC845.cmake" hidden="true"/>
+        <files mask="driver_inputmux_connections.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1341,7 +1656,7 @@ ${load}</script>
         <files mask="fsl_acomp.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_acomp_LPC845.cmake" hidden="true"/>
+        <files mask="driver_lpc_acomp.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1358,7 +1673,7 @@ ${load}</script>
         <files mask="fsl_adc.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_adc_LPC845.cmake" hidden="true"/>
+        <files mask="driver_lpc_adc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1375,7 +1690,7 @@ ${load}</script>
         <files mask="fsl_crc.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_crc_LPC845.cmake" hidden="true"/>
+        <files mask="driver_lpc_crc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1392,7 +1707,7 @@ ${load}</script>
         <files mask="fsl_dac.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_dac_LPC845.cmake" hidden="true"/>
+        <files mask="driver_lpc_dac.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1409,7 +1724,7 @@ ${load}</script>
         <files mask="fsl_dma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_dma_LPC845.cmake" hidden="true"/>
+        <files mask="driver_lpc_dma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1426,7 +1741,7 @@ ${load}</script>
         <files mask="fsl_gpio.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_gpio_LPC845.cmake" hidden="true"/>
+        <files mask="driver_lpc_gpio.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1443,13 +1758,13 @@ ${load}</script>
         <files mask="fsl_i2c.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_i2c_LPC845.cmake" hidden="true"/>
+        <files mask="driver_lpc_i2c.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.lpc_iocon_lite.LPC845" name="iocon" brief="IOCON Driver" version="2.0.0" full_name="IOCON Driver" devices="LPC845" device_cores="core0_LPC845" user_visible="true" type="driver" package_base_path="core/drivers/lpc_iocon_lite" project_base_path="drivers">
+    <component id="platform.drivers.lpc_iocon_lite.LPC845" name="iocon" brief="IOCON Driver" version="2.0.1" full_name="IOCON Driver" devices="LPC845" device_cores="core0_LPC845" user_visible="true" type="driver" package_base_path="core/drivers/lpc_iocon_lite" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.LPC845"/>
       </dependencies>
@@ -1457,7 +1772,7 @@ ${load}</script>
         <files mask="fsl_iocon.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_iocon_lite_LPC845.cmake" hidden="true"/>
+        <files mask="driver_lpc_iocon_lite.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1474,13 +1789,13 @@ ${load}</script>
         <files mask="fsl_spi.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_minispi_LPC845.cmake" hidden="true"/>
+        <files mask="driver_lpc_minispi.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.lpc_miniusart.LPC845" name="usart" brief="USART Driver" version="2.3.0" full_name="Usart Driver" devices="LPC845" device_cores="core0_LPC845" user_visible="true" type="driver" package_base_path="core/drivers/lpc_miniusart" project_base_path="drivers">
+    <component id="platform.drivers.lpc_miniusart.LPC845" name="usart" brief="USART Driver" version="2.4.0" full_name="Usart Driver" devices="LPC845" device_cores="core0_LPC845" user_visible="true" type="driver" package_base_path="core/drivers/lpc_miniusart" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.LPC845"/>
       </dependencies>
@@ -1491,7 +1806,7 @@ ${load}</script>
         <files mask="fsl_usart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_lpc_miniusart_LPC845.cmake" hidden="true"/>
+        <files mask="driver_lpc_miniusart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1508,7 +1823,7 @@ ${load}</script>
         <files mask="fsl_mrt.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_mrt_LPC845.cmake" hidden="true"/>
+        <files mask="driver_mrt.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1525,7 +1840,7 @@ ${load}</script>
         <files mask="fsl_pint.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_pint_LPC845.cmake" hidden="true"/>
+        <files mask="driver_pint.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1542,7 +1857,7 @@ ${load}</script>
         <files mask="fsl_power.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_power_no_lib_LPC845.cmake" hidden="true"/>
+        <files mask="driver_power_no_lib.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1559,13 +1874,13 @@ ${load}</script>
         <files mask="fsl_reset.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_reset_LPC845.cmake" hidden="true"/>
+        <files mask="driver_reset.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.sctimer.LPC845" name="sctimer" brief="SCT Driver" version="2.3.0" full_name="SCT Driver" devices="LPC845" device_cores="core0_LPC845" user_visible="true" type="driver" package_base_path="core/drivers/sctimer" project_base_path="drivers">
+    <component id="platform.drivers.sctimer.LPC845" name="sctimer" brief="SCT Driver" version="2.4.0" full_name="SCT Driver" devices="LPC845" device_cores="core0_LPC845" user_visible="true" type="driver" package_base_path="core/drivers/sctimer" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.LPC845"/>
       </dependencies>
@@ -1576,7 +1891,7 @@ ${load}</script>
         <files mask="fsl_sctimer.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_sctimer_LPC845.cmake" hidden="true"/>
+        <files mask="driver_sctimer.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1596,7 +1911,7 @@ ${load}</script>
         <files mask="fsl_swm.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_swm_LPC845.cmake" hidden="true"/>
+        <files mask="driver_swm.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1610,7 +1925,7 @@ ${load}</script>
         <files mask="fsl_swm_connections.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_swm_connections_LPC845.cmake" hidden="true"/>
+        <files mask="driver_swm_connections.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1630,7 +1945,7 @@ ${load}</script>
         <files mask="fsl_syscon.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_syscon_LPC845.cmake" hidden="true"/>
+        <files mask="driver_syscon.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1644,7 +1959,7 @@ ${load}</script>
         <files mask="fsl_syscon_connections.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_syscon_connections_LPC845.cmake" hidden="true"/>
+        <files mask="driver_syscon_connections.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1661,7 +1976,7 @@ ${load}</script>
         <files mask="fsl_wkt.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_wkt_LPC845.cmake" hidden="true"/>
+        <files mask="driver_wkt.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1678,7 +1993,7 @@ ${load}</script>
         <files mask="fsl_wwdt.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_wwdt_LPC845.cmake" hidden="true"/>
+        <files mask="driver_wwdt.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1686,7 +2001,6 @@ ${load}</script>
     </component>
     <component id="middleware.baremetal.LPC845" name="baremetal" brief="Middleware baremetal" version="1.0.0" full_name="Baremetal" devices="LPC845" user_visible="true" type="OS" package_base_path="core/middleware" project_base_path="middleware">
       <defines>
-        <define name="FSL_RTOS_BM" value=""/>
         <define name="SDK_OS_BAREMETAL" value=""/>
       </defines>
     </component>
@@ -1695,7 +2009,7 @@ ${load}</script>
         <files mask="fsl_sbrk.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utilities_misc_utilities_LPC845.cmake" hidden="true"/>
+        <files mask="utilities_misc_utilities.cmake" hidden="true"/>
       </source>
     </component>
     <component id="platform.utilities.assert_lite.LPC845" name="assert_lite" brief="Utility assert_lite" version="1.0.0" full_name="Utility assert_lite" devices="LPC845" device_cores="core0_LPC845" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
@@ -1709,7 +2023,7 @@ ${load}</script>
         <files mask="fsl_assert.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_assert_lite_LPC845.cmake" hidden="true"/>
+        <files mask="utility_assert_lite.cmake" hidden="true"/>
       </source>
     </component>
     <component id="utility.debug_console_lite.LPC845" name="debug_console_lite" brief="Utility debug_console_lite" version="1.0.0" full_name="Utility debug_console_lite" devices="LPC845" device_cores="core0_LPC845" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console_lite" project_base_path="utilities">
@@ -1726,7 +2040,7 @@ ${load}</script>
         <files mask="fsl_debug_console.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utility_debug_console_lite_LPC845.cmake" hidden="true"/>
+        <files mask="utility_debug_console_lite.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>

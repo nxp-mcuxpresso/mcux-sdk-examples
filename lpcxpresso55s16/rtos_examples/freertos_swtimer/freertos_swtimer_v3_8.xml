@@ -20,9 +20,7 @@
     <definition extID="component.serial_manager_uart.LPC55S16"/>
     <definition extID="middleware.freertos-kernel.LPC55S16"/>
     <definition extID="middleware.freertos-kernel.extension.LPC55S16"/>
-    <definition extID="platform.Include_core_cm33.LPC55S16"/>
-    <definition extID="platform.Include_common.LPC55S16"/>
-    <definition extID="platform.Include_dsp.LPC55S16"/>
+    <definition extID="CMSIS_Include_core_cm.LPC55S16"/>
     <definition extID="platform.drivers.reset.LPC55S16"/>
     <definition extID="platform.utilities.misc_utilities.LPC55S16"/>
     <definition extID="device.LPC55S16_system.LPC55S16"/>
@@ -32,7 +30,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso55s16_freertos_swtimer" name="freertos_swtimer" dependency="middleware.freertos-kernel.cm33_nonsecure_port.LPC55S16 middleware.freertos-kernel.heap_4.LPC55S16 platform.drivers.common.LPC55S16 platform.drivers.power.LPC55S16 platform.drivers.clock.LPC55S16 device.LPC55S16_CMSIS.LPC55S16 device.LPC55S16_startup.LPC55S16 platform.drivers.flexcomm_usart.LPC55S16 platform.drivers.flexcomm.LPC55S16 platform.drivers.lpc_iocon.LPC55S16 platform.drivers.lpc_gpio.LPC55S16 platform.utilities.assert.LPC55S16 utility.debug_console.LPC55S16 component.usart_adapter.LPC55S16 component.serial_manager.LPC55S16 component.lists.LPC55S16 component.serial_manager_uart.LPC55S16 middleware.freertos-kernel.LPC55S16 middleware.freertos-kernel.extension.LPC55S16 platform.Include_core_cm33.LPC55S16 platform.Include_common.LPC55S16 platform.Include_dsp.LPC55S16 platform.drivers.reset.LPC55S16 platform.utilities.misc_utilities.LPC55S16 device.LPC55S16_system.LPC55S16" category="rtos_examples">
+  <example id="lpcxpresso55s16_freertos_swtimer" name="freertos_swtimer" dependency="middleware.freertos-kernel.cm33_nonsecure_port.LPC55S16 middleware.freertos-kernel.heap_4.LPC55S16 platform.drivers.common.LPC55S16 platform.drivers.power.LPC55S16 platform.drivers.clock.LPC55S16 device.LPC55S16_CMSIS.LPC55S16 device.LPC55S16_startup.LPC55S16 platform.drivers.flexcomm_usart.LPC55S16 platform.drivers.flexcomm.LPC55S16 platform.drivers.lpc_iocon.LPC55S16 platform.drivers.lpc_gpio.LPC55S16 platform.utilities.assert.LPC55S16 utility.debug_console.LPC55S16 component.usart_adapter.LPC55S16 component.serial_manager.LPC55S16 component.lists.LPC55S16 component.serial_manager_uart.LPC55S16 middleware.freertos-kernel.LPC55S16 middleware.freertos-kernel.extension.LPC55S16 CMSIS_Include_core_cm.LPC55S16 platform.drivers.reset.LPC55S16 platform.utilities.misc_utilities.LPC55S16 device.LPC55S16_system.LPC55S16" category="rtos_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -41,7 +39,8 @@
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>CPU_LPC55S16JBD100</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
-          <value>FSL_RTOS_FREE_RTOS</value>
+          <value>SDK_OS_FREE_RTOS</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
@@ -123,12 +122,6 @@
     </source>
     <source path="examples/lpcxpresso55s16/rtos_examples/freertos_swtimer" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/lpcxpresso55s16/rtos_examples/freertos_swtimer/iar" project_relative_path="LPC55S16/iar" type="linker" toolchain="iar">
-      <files mask="LPC55S16_flash.icf"/>
-    </source>
-    <source path="examples/lpcxpresso55s16/rtos_examples/freertos_swtimer/mdk" project_relative_path="LPC55S16/arm" type="linker" toolchain="mdk">
-      <files mask="LPC55S16_flash.scf"/>
     </source>
     <source path="examples/lpcxpresso55s16/rtos_examples/freertos_swtimer/armgcc" project_relative_path="LPC55S16/gcc" type="linker" toolchain="armgcc">
       <files mask="LPC55S16_flash.ld"/>

@@ -7,8 +7,8 @@ wakeup the MCU from low power modes.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
-- MCUXpresso  11.3.0
+- GCC ARM Embedded  10.2.1
+- MCUXpresso  11.4.0
 
 Hardware requirements
 =====================
@@ -72,7 +72,7 @@ VIDEOPLL:        24000000 Hz
 ***********************************************************
 
 
-########## Power Mode Switch Demo (build Apr 22 2019) ###########
+########## Power Mode Switch Demo ###########
 
     Core Clock = 600000000Hz 
     Power mode: Over RUN

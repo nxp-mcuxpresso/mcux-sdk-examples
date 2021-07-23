@@ -57,8 +57,8 @@ int main(void)
     tpmParam[1].dutyCyclePercent = updatedDutycycle;
 
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     /* Select the clock source for the TPM counter as  slow internal RC oscillator */
     CLOCK_SetIpSrc(kCLOCK_Tpm0, kCLOCK_IpSrcSircAsync);

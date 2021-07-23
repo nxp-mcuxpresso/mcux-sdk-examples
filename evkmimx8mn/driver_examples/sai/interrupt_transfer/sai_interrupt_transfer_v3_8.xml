@@ -16,9 +16,7 @@
     <definition extID="component.lists.MIMX8MN6"/>
     <definition extID="platform.drivers.iuart.MIMX8MN6"/>
     <definition extID="device.MIMX8MN6_startup.MIMX8MN6"/>
-    <definition extID="platform.Include_core_cm7.MIMX8MN6"/>
-    <definition extID="platform.Include_common.MIMX8MN6"/>
-    <definition extID="platform.Include_dsp.MIMX8MN6"/>
+    <definition extID="CMSIS_Include_core_cm.MIMX8MN6"/>
     <definition extID="platform.utilities.misc_utilities.MIMX8MN6"/>
     <definition extID="device.MIMX8MN6_system.MIMX8MN6"/>
     <definition extID="iar"/>
@@ -27,7 +25,7 @@
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="mdk"/>
   </externalDefinitions>
-  <example id="evkmimx8mn_sai_interrupt_transfer" name="sai_interrupt_transfer" dependency="driver.wm8524.MIMX8MN6 platform.drivers.igpio.MIMX8MN6 driver.codec.MIMX8MN6 platform.drivers.common.MIMX8MN6 component.wm8524_adapter.MIMX8MN6 utility.debug_console_lite.MIMX8MN6 platform.utilities.assert_lite.MIMX8MN6 platform.drivers.clock.MIMX8MN6 platform.drivers.sai.MIMX8MN6 platform.drivers.rdc.MIMX8MN6 device.MIMX8MN6_CMSIS.MIMX8MN6 component.iuart_adapter.MIMX8MN6 component.lists.MIMX8MN6 platform.drivers.iuart.MIMX8MN6 device.MIMX8MN6_startup.MIMX8MN6 platform.Include_core_cm7.MIMX8MN6 platform.Include_common.MIMX8MN6 platform.Include_dsp.MIMX8MN6 platform.utilities.misc_utilities.MIMX8MN6 device.MIMX8MN6_system.MIMX8MN6" category="driver_examples/sai">
+  <example id="evkmimx8mn_sai_interrupt_transfer" name="sai_interrupt_transfer" dependency="driver.wm8524.MIMX8MN6 platform.drivers.igpio.MIMX8MN6 driver.codec.MIMX8MN6 platform.drivers.common.MIMX8MN6 component.wm8524_adapter.MIMX8MN6 utility.debug_console_lite.MIMX8MN6 platform.utilities.assert_lite.MIMX8MN6 platform.drivers.clock.MIMX8MN6 platform.drivers.sai.MIMX8MN6 platform.drivers.rdc.MIMX8MN6 device.MIMX8MN6_CMSIS.MIMX8MN6 component.iuart_adapter.MIMX8MN6 component.lists.MIMX8MN6 platform.drivers.iuart.MIMX8MN6 device.MIMX8MN6_startup.MIMX8MN6 CMSIS_Include_core_cm.MIMX8MN6 platform.utilities.misc_utilities.MIMX8MN6 device.MIMX8MN6_system.MIMX8MN6" category="driver_examples/sai">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -38,6 +36,7 @@
           <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
           <value>BOARD_USE_CODEC=1</value>
           <value>CODEC_WM8524_ENABLE</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
@@ -97,7 +96,7 @@
       <files mask="build_flash_release.bat"/>
       <files mask="build_flash_release.sh"/>
     </source>
-    <source path="examples/evkmimx8mn/driver_examples/sai/interrupt_transfer" project_relative_path="source_transfer" type="src">
+    <source path="examples/evkmimx8mn/driver_examples/sai/interrupt_transfer" project_relative_path="source" type="src">
       <files mask="sai_interrupt_transfer.c"/>
     </source>
     <source path="examples/evkmimx8mn/driver_examples/sai/interrupt_transfer" project_relative_path="board" type="src">
@@ -122,11 +121,6 @@
     </source>
     <source path="examples/evkmimx8mn/driver_examples/sai/interrupt_transfer" project_relative_path="doc" type="doc" toolchain="iar mdk armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/evkmimx8mn/driver_examples/sai/interrupt_transfer/iar" project_relative_path="MIMX8MN6/iar" type="linker" toolchain="iar">
-      <files mask="MIMX8MN6xxxxx_cm7_ram.icf"/>
-      <files mask="MIMX8MN6xxxxx_cm7_ddr_ram.icf"/>
-      <files mask="MIMX8MN6xxxxx_cm7_flash.icf"/>
     </source>
     <source path="examples/evkmimx8mn/driver_examples/sai/interrupt_transfer/armgcc" project_relative_path="MIMX8MN6/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMX8MN6xxxxx_cm7_ram.ld"/>

@@ -33,7 +33,7 @@ int main(void)
     char ch;
 
     /* Init board hardware. */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 

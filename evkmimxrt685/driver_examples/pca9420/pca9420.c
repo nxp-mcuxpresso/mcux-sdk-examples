@@ -364,8 +364,8 @@ int main(void)
     /* Use 16 MHz clock for the FLEXCOMM15 */
     CLOCK_AttachClk(kSFRO_to_FLEXCOMM15);
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     /* Init PMIC I2C. */
     BOARD_PMIC_I2C_Init();

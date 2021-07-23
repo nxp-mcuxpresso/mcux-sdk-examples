@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2020 NXP
+ * Copyright 2016-2021 NXP
  * All rights reserved.
  *
  *
@@ -9,6 +9,9 @@
 
 #include "fsl_flexspi.h"
 #include "app.h"
+#if (defined CACHE_MAINTAIN) && (CACHE_MAINTAIN == 1)
+#include "fsl_cache.h"
+#endif
 
 /*******************************************************************************
  * Definitions
@@ -23,9 +26,80 @@
  *****************************************************************************/
 extern flexspi_device_config_t deviceconfig;
 extern const uint32_t customLUT[CUSTOM_LUT_LENGTH];
+
 /*******************************************************************************
  * Code
  ******************************************************************************/
+void flexspi_nor_disable_cache(flexspi_cache_status_t *cacheStatus)
+{
+#if (defined __CORTEX_M) && (__CORTEX_M == 7U)
+#if defined(__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
+    /* Disable D cache. */
+    if (SCB_CCR_DC_Msk == (SCB_CCR_DC_Msk & SCB->CCR))
+    {
+        SCB_DisableDCache();
+        cacheStatus->DCacheEnableFlag = true;
+    }
+#endif /* __DCACHE_PRESENT */
+
+#if defined(__ICACHE_PRESENT) && (__ICACHE_PRESENT == 1U)
+    /* Disable I cache. */
+    if (SCB_CCR_IC_Msk == (SCB_CCR_IC_Msk & SCB->CCR))
+    {
+        SCB_DisableICache();
+        cacheStatus->ICacheEnableFlag = true;
+    }
+#endif /* __ICACHE_PRESENT */
+
+#elif (defined __CORTEX_M) && (__CORTEX_M == 4U)
+    /* Disable code bus cache and system bus cache */
+    if (LMEM_PCCCR_ENCACHE_MASK == (LMEM_PCCCR_ENCACHE_MASK & LMEM->PCCCR))
+    {
+        L1CACHE_DisableCodeCache();
+        cacheStatus->codeCacheEnableFlag = true;
+    }
+    if (LMEM_PSCCR_ENCACHE_MASK == (LMEM_PSCCR_ENCACHE_MASK & LMEM->PSCCR))
+    {
+        L1CACHE_DisableSystemCache();
+        cacheStatus->systemCacheEnableFlag = true;
+    }
+#endif
+}
+
+void flexspi_nor_enable_cache(flexspi_cache_status_t cacheStatus)
+{
+#if (defined __CORTEX_M) && (__CORTEX_M == 7U)
+#if defined(__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
+    if (cacheStatus.DCacheEnableFlag)
+    {
+        /* Enable D cache. */
+        SCB_EnableDCache();
+    }
+#endif /* __DCACHE_PRESENT */
+
+#if defined(__ICACHE_PRESENT) && (__ICACHE_PRESENT == 1U)
+    if (cacheStatus.ICacheEnableFlag)
+    {
+        /* Enable I cache. */
+        SCB_EnableICache();
+    }
+#endif /* __ICACHE_PRESENT */
+
+#elif (defined __CORTEX_M) && (__CORTEX_M == 4U)
+    if (cacheStatus.codeCacheEnableFlag)
+    {
+        /* Enable code cache. */
+        L1CACHE_EnableCodeCache();
+    }
+
+    if (cacheStatus.systemCacheEnableFlag)
+    {
+        /* Enable system cache. */
+        L1CACHE_EnableSystemCache();
+    }
+#endif
+}
+
 status_t flexspi_nor_write_enable(FLEXSPI_Type *base, uint32_t baseAddr)
 {
     flexspi_transfer_t flashXfer;
@@ -101,6 +175,11 @@ status_t flexspi_nor_enable_quad_mode(FLEXSPI_Type *base)
     status_t status;
     uint32_t writeValue = FLASH_QUAD_ENABLE;
 
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    flexspi_cache_status_t cacheStatus;
+    flexspi_nor_disable_cache(&cacheStatus);
+#endif
+
     /* Write enable */
     status = flexspi_nor_write_enable(base, 0);
 
@@ -129,6 +208,10 @@ status_t flexspi_nor_enable_quad_mode(FLEXSPI_Type *base)
     /* Do software reset. */
     FLEXSPI_SoftwareReset(base);
 
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    flexspi_nor_enable_cache(cacheStatus);
+#endif
+
     return status;
 }
 
@@ -136,6 +219,11 @@ status_t flexspi_nor_flash_erase_sector(FLEXSPI_Type *base, uint32_t address)
 {
     status_t status;
     flexspi_transfer_t flashXfer;
+
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    flexspi_cache_status_t cacheStatus;
+    flexspi_nor_disable_cache(&cacheStatus);
+#endif
 
     /* Write enable */
     flashXfer.deviceAddress = address;
@@ -168,6 +256,10 @@ status_t flexspi_nor_flash_erase_sector(FLEXSPI_Type *base, uint32_t address)
     /* Do software reset. */
     FLEXSPI_SoftwareReset(base);
 
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    flexspi_nor_enable_cache(cacheStatus);
+#endif
+
     return status;
 }
 
@@ -175,6 +267,11 @@ status_t flexspi_nor_flash_program(FLEXSPI_Type *base, uint32_t dstAddr, const u
 {
     status_t status;
     flexspi_transfer_t flashXfer;
+
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    flexspi_cache_status_t cacheStatus;
+    flexspi_nor_disable_cache(&cacheStatus);
+#endif
 
     /* Write enable */
     status = flexspi_nor_write_enable(base, dstAddr);
@@ -201,12 +298,17 @@ status_t flexspi_nor_flash_program(FLEXSPI_Type *base, uint32_t dstAddr, const u
 
     status = flexspi_nor_wait_bus_busy(base);
 
-    /* Do software reset. */
-#if defined(FSL_FEATURE_SOC_OTFAD_COUNT) && defined(FLEXSPI_AHBCR_CLRAHBRXBUF_MASK)
+    /* Do software reset or clear AHB buffer directly. */
+#if defined(FSL_FEATURE_SOC_OTFAD_COUNT) && defined(FLEXSPI_AHBCR_CLRAHBRXBUF_MASK) && \
+    defined(FLEXSPI_AHBCR_CLRAHBTXBUF_MASK)
     base->AHBCR |= FLEXSPI_AHBCR_CLRAHBRXBUF_MASK | FLEXSPI_AHBCR_CLRAHBTXBUF_MASK;
     base->AHBCR &= ~(FLEXSPI_AHBCR_CLRAHBRXBUF_MASK | FLEXSPI_AHBCR_CLRAHBTXBUF_MASK);
 #else
     FLEXSPI_SoftwareReset(base);
+#endif
+
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    flexspi_nor_enable_cache(cacheStatus);
 #endif
 
     return status;
@@ -216,6 +318,11 @@ status_t flexspi_nor_flash_page_program(FLEXSPI_Type *base, uint32_t dstAddr, co
 {
     status_t status;
     flexspi_transfer_t flashXfer;
+
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    flexspi_cache_status_t cacheStatus;
+    flexspi_nor_disable_cache(&cacheStatus);
+#endif
 
     /* To make sure external flash be in idle status, added wait for busy before program data for
         an external flash without RWW(read while write) attribute.*/
@@ -251,12 +358,17 @@ status_t flexspi_nor_flash_page_program(FLEXSPI_Type *base, uint32_t dstAddr, co
 
     status = flexspi_nor_wait_bus_busy(base);
 
-    /* Do software reset. */
-#if defined(FSL_FEATURE_SOC_OTFAD_COUNT) && defined(FLEXSPI_AHBCR_CLRAHBRXBUF_MASK)
+    /* Do software reset or clear AHB buffer directly. */
+#if defined(FSL_FEATURE_SOC_OTFAD_COUNT) && defined(FLEXSPI_AHBCR_CLRAHBRXBUF_MASK) && \
+    defined(FLEXSPI_AHBCR_CLRAHBTXBUF_MASK)
     base->AHBCR |= FLEXSPI_AHBCR_CLRAHBRXBUF_MASK | FLEXSPI_AHBCR_CLRAHBTXBUF_MASK;
     base->AHBCR &= ~(FLEXSPI_AHBCR_CLRAHBRXBUF_MASK | FLEXSPI_AHBCR_CLRAHBTXBUF_MASK);
 #else
     FLEXSPI_SoftwareReset(base);
+#endif
+
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    flexspi_nor_enable_cache(cacheStatus);
 #endif
 
     return status;
@@ -278,8 +390,9 @@ status_t flexspi_nor_get_vendor_id(FLEXSPI_Type *base, uint8_t *vendorId)
 
     *vendorId = temp;
 
-    /* Do software reset. */
-#if defined(FSL_FEATURE_SOC_OTFAD_COUNT) && defined(FLEXSPI_AHBCR_CLRAHBRXBUF_MASK)
+    /* Do software reset or clear AHB buffer directly. */
+#if defined(FSL_FEATURE_SOC_OTFAD_COUNT) && defined(FLEXSPI_AHBCR_CLRAHBRXBUF_MASK) && \
+    defined(FLEXSPI_AHBCR_CLRAHBTXBUF_MASK)
     base->AHBCR |= FLEXSPI_AHBCR_CLRAHBRXBUF_MASK | FLEXSPI_AHBCR_CLRAHBTXBUF_MASK;
     base->AHBCR &= ~(FLEXSPI_AHBCR_CLRAHBRXBUF_MASK | FLEXSPI_AHBCR_CLRAHBTXBUF_MASK);
 #else
@@ -293,6 +406,11 @@ status_t flexspi_nor_erase_chip(FLEXSPI_Type *base)
 {
     status_t status;
     flexspi_transfer_t flashXfer;
+
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    flexspi_cache_status_t cacheStatus;
+    flexspi_nor_disable_cache(&cacheStatus);
+#endif
 
     /* Write enable */
     status = flexspi_nor_write_enable(base, 0);
@@ -317,6 +435,10 @@ status_t flexspi_nor_erase_chip(FLEXSPI_Type *base)
 
     status = flexspi_nor_wait_bus_busy(base);
 
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    flexspi_nor_enable_cache(cacheStatus);
+#endif
+
     return status;
 }
 
@@ -324,25 +446,10 @@ void flexspi_nor_flash_init(FLEXSPI_Type *base)
 {
     flexspi_config_t config;
 
-#if defined(__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
-    bool DCacheEnableFlag = false;
-    /* Disable D cache. */
-    if (SCB_CCR_DC_Msk == (SCB_CCR_DC_Msk & SCB->CCR))
-    {
-        SCB_DisableDCache();
-        DCacheEnableFlag = true;
-    }
-#endif /* __DCACHE_PRESENT */
-
-#if defined(__ICACHE_PRESENT) && (__ICACHE_PRESENT == 1U)
-    volatile bool ICacheEnableFlag = false;
-    /* Disable I cache. */
-    if (SCB_CCR_IC_Msk == (SCB_CCR_IC_Msk & SCB->CCR))
-    {
-        SCB_DisableICache();
-        ICacheEnableFlag = true;
-    }
-#endif /* __ICACHE_PRESENT */
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    flexspi_cache_status_t cacheStatus;
+    flexspi_nor_disable_cache(&cacheStatus);
+#endif
 
     flexspi_clock_init();
 
@@ -366,20 +473,7 @@ void flexspi_nor_flash_init(FLEXSPI_Type *base)
     /* Do software reset. */
     FLEXSPI_SoftwareReset(base);
 
-#if defined(__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
-    if (DCacheEnableFlag)
-    {
-        /* Enable D cache. */
-        SCB_EnableDCache();
-    }
-#endif /* __DCACHE_PRESENT */
-
-#if defined(__ICACHE_PRESENT) && (__ICACHE_PRESENT == 1U)
-    if (ICacheEnableFlag)
-    {
-        /* Enable I cache. */
-        SCB_EnableICache();
-        ICacheEnableFlag = false;
-    }
-#endif /* __ICACHE_PRESENT */
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    flexspi_nor_enable_cache(cacheStatus);
+#endif
 }

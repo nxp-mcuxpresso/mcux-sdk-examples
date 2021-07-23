@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v6.0
+product: Pins v9.0
 processor: LPC54S018J4M
 package_id: LPC54S018J4MET180
 mcu_data: ksdk2_0
-processor_version: 6.0.1
+processor_version: 9.0.0
 board: LPCXpresso54S018M
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -75,6 +75,8 @@ void BOARD_InitPins(void)
                                          IOCON_PIO_FUNC6 |
                                          /* No addition pin function */
                                          IOCON_PIO_MODE_INACT |
+                                         /* Disable analog Mode */
+                                         IOCON_PIO_ANAMODE_DI |
                                          /* Input function is not inverted */
                                          IOCON_PIO_INV_DI |
                                          /* Enables digital function */

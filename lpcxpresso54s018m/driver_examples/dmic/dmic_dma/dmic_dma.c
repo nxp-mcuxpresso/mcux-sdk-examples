@@ -88,7 +88,7 @@ int main(void)
     /*12MHz divided by 15 = 800 KHz PDM clock --> gives 16kHz sample rate */
     CLOCK_SetClkDiv(kCLOCK_DivDmicClk, 14, false);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockPLL180M();
     BOARD_InitDebugConsole();
 

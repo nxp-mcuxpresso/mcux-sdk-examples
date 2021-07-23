@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NXP
+ * Copyright 2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -11,13 +11,13 @@
  */
 key_tsi_mapping_t key_TSI[] = {
     /* TSI allocation for Mutual Key (2 TSI channels are connected to 1 mutual-key)*/
-    {{kTSI_Chnl_2}, kTSI_Chnl_6, 40U, 0U, 0U, 0U, 0U, 0U}, /* KEY 0 */
-    {{kTSI_Chnl_2}, kTSI_Chnl_7, 40U, 0U, 0U, 0U, 0U, 0U}, /* KEY 1 */
-    {{kTSI_Chnl_3}, kTSI_Chnl_6, 40U, 0U, 0U, 0U, 0U, 0U}, /* KEY 2 */
-    {{kTSI_Chnl_3}, kTSI_Chnl_7, 40U, 0U, 0U, 0U, 0U, 0U}, /* KEY 3 */
+    {TSI, {kTSI_Chnl_2}, kTSI_Chnl_6, 40U, 0U, 0U, 0U, 0U, 0U}, /* KEY 0 */
+    {TSI, {kTSI_Chnl_2}, kTSI_Chnl_7, 40U, 0U, 0U, 0U, 0U, 0U}, /* KEY 1 */
+    {TSI, {kTSI_Chnl_3}, kTSI_Chnl_6, 40U, 0U, 0U, 0U, 0U, 0U}, /* KEY 2 */
+    {TSI, {kTSI_Chnl_3}, kTSI_Chnl_7, 40U, 0U, 0U, 0U, 0U, 0U}, /* KEY 3 */
 
     /* Do NOT move {0xFFU, 0xFFU, 0xFFU, 0xFFU} which indicates the end of the array */
-    {{0xFFU}, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU} /* The end of the array */
+    {TSI, {0xFFU}, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU} /* The end of the array */
 };
 
 /* If slider not needed, please fill 0xFFU */

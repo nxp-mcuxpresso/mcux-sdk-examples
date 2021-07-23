@@ -49,7 +49,7 @@ static uint8_t s_nor_read_buffer[256];
  ******************************************************************************/
 extern void DMA0_DriverIRQHandler(void);
 flexspi_device_config_t deviceconfig = {
-    .flexspiRootClk       = 99000000,
+    .flexspiRootClk       = 49500000,
     .flashSize            = FLASH_SIZE,
     .CSIntervalUnit       = kFLEXSPI_CsIntervalUnit1SckCycle,
     .CSInterval           = 2,
@@ -142,9 +142,8 @@ int main(void)
     status_t status;
     uint8_t vendorID = 0;
 
-    BOARD_InitPins();
-    BOARD_InitFlexSPI0BPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Define the init structure for the reset pin*/
@@ -163,7 +162,7 @@ int main(void)
     POWER_ApplyPD();
 #endif
     /* Attach AUX0_PLL clock to flexspi withe divider 4*/
-    BOARD_SetFlexspiClock(2, 4);
+    BOARD_SetFlexspiClock(2, 8);
     /* Configure DMAMUX. */
     RESET_PeripheralReset(kINPUTMUX_RST_SHIFT_RSTn);
 

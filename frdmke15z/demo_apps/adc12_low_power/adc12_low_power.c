@@ -275,7 +275,7 @@ int main(void)
     lowPowerAdcBoundaries_t boundaries;
 
     /* Init hardware */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     APP_BootClockRUN();
     BOARD_InitDebugConsole();
 

@@ -72,8 +72,6 @@ lpspi_slave_handle_t g_s_handle;
 volatile bool isSlaveTransferCompleted  = false;
 volatile bool isMasterTransferCompleted = false;
 
-bool isSlaveIrqInIntmux = false;
-
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -109,8 +107,8 @@ void LPSPI_SlaveUserCallback(LPSPI_Type *base, lpspi_slave_handle_t *handle, sta
 
 int main(void)
 {
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /*Set clock source for LPSPI and FlexIO*/
@@ -122,7 +120,8 @@ int main(void)
     INTMUX_EnableInterrupt(INTMUX1, EXAMPLE_LPSPI_INTMUX_CHANNLE, SLAVE_LPSPI_IRQN);
     INTMUX_SetChannelMode(INTMUX1, EXAMPLE_FLEXIO_INTMUX_CHANNEL, kINTMUX_ChannelLogicOR);
     INTMUX_EnableInterrupt(INTMUX1, EXAMPLE_FLEXIO_INTMUX_CHANNEL, MASTER_FLEXIO_SPI_IRQ);
-    NVIC_SetPriority(INTMUX1_0_IRQn, 0);
+    NVIC_SetPriority(INTMUX1_0_IRQn, 0U);
+    NVIC_SetPriority(INTMUX1_1_IRQn, 1U);
 
     PRINTF("FLEXIO Master - LPSPI Slave interrupt example start.\r\n");
     PRINTF("This example use one flexio spi as master and one lpspi instance as slave on one board.\r\n");
@@ -171,21 +170,21 @@ int main(void)
 
     LPSPI_SlaveInit(SLAVE_LPSPI_BASEADDR, &slaveConfig);
 
-#if ((defined FSL_FEATURE_SOC_INTMUX_COUNT) && (FSL_FEATURE_SOC_INTMUX_COUNT))
-
-    if (SLAVE_LPSPI_IRQN > FSL_FEATURE_INTERRUPT_IRQ_MAX)
-    {
-        isSlaveIrqInIntmux = true;
-    }
-#endif
-
     /* Set lpspi slave interrupt priority higher. */
-    NVIC_SetPriority(MASTER_FLEXIO_SPI_IRQ, 1U);
-
-    if (!isSlaveIrqInIntmux)
+#if defined(__CORTEX_M) && (__CORTEX_M == 0U) && defined(FSL_FEATURE_NUMBER_OF_LEVEL1_INT_VECTORS) && \
+    (FSL_FEATURE_NUMBER_OF_LEVEL1_INT_VECTORS > 0)
+    if (SLAVE_LPSPI_IRQN < FSL_FEATURE_NUMBER_OF_LEVEL1_INT_VECTORS)
     {
-        NVIC_SetPriority(SLAVE_LPSPI_IRQN, 0);
+        NVIC_SetPriority(SLAVE_LPSPI_IRQN, 0U);
     }
+    if (MASTER_FLEXIO_SPI_IRQ < FSL_FEATURE_NUMBER_OF_LEVEL1_INT_VECTORS)
+    {
+        NVIC_SetPriority(MASTER_FLEXIO_SPI_IRQ, 1U);
+    }
+#else
+    NVIC_SetPriority(SLAVE_LPSPI_IRQN, 0U);
+    NVIC_SetPriority(MASTER_FLEXIO_SPI_IRQ, 1U);
+#endif
 
     /* Set up the transfer data */
     for (i = 0U; i < TRANSFER_SIZE; i++)

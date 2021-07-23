@@ -54,7 +54,7 @@ int main(void)
 
     CLOCK_EnableClock(kCLOCK_Gpio3);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockPLL180M();
     BOARD_InitDebugConsole();
 

@@ -63,13 +63,13 @@ static dc_fb_info_t fbInfo;
 int main(void)
 {
     BOARD_ConfigMPU();
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitDEBUG_UARTPins();
     BOARD_InitSDRAMPins();
     BOARD_EarlyPrepareCamera();
     BOARD_InitCSIPins();
     BOARD_InitLCDPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("CSI RGB565 example start...\r\n");

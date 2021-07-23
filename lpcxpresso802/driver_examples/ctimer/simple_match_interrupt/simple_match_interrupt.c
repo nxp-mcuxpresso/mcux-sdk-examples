@@ -65,8 +65,8 @@ void ctimer_match1_callback(uint32_t flags)
     }
 #if defined(BOARD_HAS_NO_CTIMER_OUTPUT_PIN_CONNECTED_TO_LED)
     /* No timer match output pin connected to a LED
-    * toggle LED manually according to match status
-    */
+     * toggle LED manually according to match status
+     */
     if (CTIMER_GetOutputMatchStatus(CTIMER, CTIMER_EMT1_OUT))
     {
         LED_RED2_ON();
@@ -97,8 +97,8 @@ void ctimer_match0_callback(uint32_t flags)
     }
 #if defined(BOARD_HAS_NO_CTIMER_OUTPUT_PIN_CONNECTED_TO_LED)
     /* No timer match output pin connected to a LED
-    * toggle LED manually according to match status
-    */
+     * toggle LED manually according to match status
+     */
     if (CTIMER_GetOutputMatchStatus(CTIMER, CTIMER_EMT0_OUT))
     {
         LED_RED1_ON();

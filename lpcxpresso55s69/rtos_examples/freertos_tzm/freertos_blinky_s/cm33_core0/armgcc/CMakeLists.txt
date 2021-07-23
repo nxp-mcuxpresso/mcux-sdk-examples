@@ -1,6 +1,6 @@
 # CROSS COMPILER SETTING
 SET(CMAKE_SYSTEM_NAME Generic)
-CMAKE_MINIMUM_REQUIRED (VERSION 3.1.1)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
 SET (Tutorial_VERSION_MAJOR 1)
@@ -46,7 +46,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/.. debug
     ${ProjDirPath}/..
     ${ProjDirPath}/../../../../../../../examples/lpcxpresso55s69/rtos_examples/freertos_tzm/freertos_blinky_s
     ${ProjDirPath}/../../../../../../../core/boards/lpcxpresso55s69
@@ -93,11 +92,7 @@ include(component_lists)
 
 include(component_serial_manager_uart)
 
-include(CMSIS_Include_core_cm33)
-
-include(CMSIS_Include_common)
-
-include(CMSIS_Include_dsp)
+include(CMSIS_Include_core_cm)
 
 include(driver_reset)
 
@@ -118,11 +113,11 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
 
 if(CMAKE_BUILD_TYPE STREQUAL debug)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../../core/devices/LPC55S69/gcc/libpower_hardabi_s.a)
-endif()
+endif(CMAKE_BUILD_TYPE STREQUAL debug)
 
 if(CMAKE_BUILD_TYPE STREQUAL release)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../../core/devices/LPC55S69/gcc/libpower_hardabi_s.a)
-endif()
+endif(CMAKE_BUILD_TYPE STREQUAL release)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

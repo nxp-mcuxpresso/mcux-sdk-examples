@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 NXP
+ * Copyright 2019-2020 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -45,22 +45,25 @@ extern "C" {
 void BOARD_InitBootPins(void);
 
 /* GPIO_09 (number 3), LPUART1_RXD */
-#define BOARD_INITPINS_LPUART1_RXD_PERIPHERAL                            LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_INITPINS_LPUART1_RXD_SIGNAL                                    RXD   /*!< LPUART1 signal: RXD */
+/* Routed pin properties */
+#define BOARD_INITPINS_LPUART1_RXD_PERIPHERAL                            LPUART1   /*!< Peripheral name */
+#define BOARD_INITPINS_LPUART1_RXD_SIGNAL                                    RXD   /*!< Signal name */
 
 /* GPIO_10 (number 2), LPUART1_TXD */
-#define BOARD_INITPINS_LPUART1_TXD_PERIPHERAL                            LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_INITPINS_LPUART1_TXD_SIGNAL                                    TXD   /*!< LPUART1 signal: TXD */
+/* Routed pin properties */
+#define BOARD_INITPINS_LPUART1_TXD_PERIPHERAL                            LPUART1   /*!< Peripheral name */
+#define BOARD_INITPINS_LPUART1_TXD_SIGNAL                                    TXD   /*!< Signal name */
 
 /* GPIO_11 (number 1), GPIO_11 */
-#define BOARD_INITPINS_GPIO_11_PERIPHERAL                                  GPIO1   /*!< Device name: GPIO1 */
-#define BOARD_INITPINS_GPIO_11_SIGNAL                                 gpiomux_io   /*!< GPIO1 signal: gpiomux_io */
-#define BOARD_INITPINS_GPIO_11_CHANNEL                                       11U   /*!< GPIO1 gpiomux_io channel: 11 */
+/* Routed pin properties */
+#define BOARD_INITPINS_GPIO_11_PERIPHERAL                                  GPIO1   /*!< Peripheral name */
+#define BOARD_INITPINS_GPIO_11_SIGNAL                                 gpiomux_io   /*!< Signal name */
+#define BOARD_INITPINS_GPIO_11_CHANNEL                                       11U   /*!< Signal channel */
 
 /* GPIO_AD_09 (number 48), ADC12_4/JTAG_TDO/J55[6]/J26[4] */
-#define BOARD_INITPINS_ADC12_4_PERIPHERAL                                    ARM   /*!< Device name: ARM */
-#define BOARD_INITPINS_ADC12_4_SIGNAL                              arm_trace_swo   /*!< ARM signal: arm_trace_swo */
-
+/* Routed pin properties */
+#define BOARD_INITPINS_ADC12_4_PERIPHERAL                                    ARM   /*!< Peripheral name */
+#define BOARD_INITPINS_ADC12_4_SIGNAL                              arm_trace_swo   /*!< Signal name */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
@@ -69,13 +72,14 @@ void BOARD_InitBootPins(void);
 void BOARD_InitPins(void);
 
 /* GPIO_02 (number 11), I2C1_SCL/U10[17]/J57[20]/U26[4] */
-#define BOARD_I2C_CONFIGUREPINS_I2C1_SCL_PERIPHERAL                       LPI2C1   /*!< Device name: LPI2C1 */
-#define BOARD_I2C_CONFIGUREPINS_I2C1_SCL_SIGNAL                              SCL   /*!< LPI2C1 signal: SCL */
+/* Routed pin properties */
+#define BOARD_I2C_CONFIGUREPINS_I2C1_SCL_PERIPHERAL                       LPI2C1   /*!< Peripheral name */
+#define BOARD_I2C_CONFIGUREPINS_I2C1_SCL_SIGNAL                              SCL   /*!< Signal name */
 
 /* GPIO_01 (number 12), I2C1_SDA/U10[18]/J57[18]/U26[6] */
-#define BOARD_I2C_CONFIGUREPINS_I2C1_SDA_PERIPHERAL                       LPI2C1   /*!< Device name: LPI2C1 */
-#define BOARD_I2C_CONFIGUREPINS_I2C1_SDA_SIGNAL                              SDA   /*!< LPI2C1 signal: SDA */
-
+/* Routed pin properties */
+#define BOARD_I2C_CONFIGUREPINS_I2C1_SDA_PERIPHERAL                       LPI2C1   /*!< Peripheral name */
+#define BOARD_I2C_CONFIGUREPINS_I2C1_SDA_SIGNAL                              SDA   /*!< Signal name */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

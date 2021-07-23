@@ -52,7 +52,7 @@ int main(void)
     /* reset FLEXCOMM for SPI */
     RESET_PeripheralReset(kFC9_RST_SHIFT_RSTn);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     //    BOARD_BootClockPLL180M();
     BOARD_InitDebugConsole();
     PRINTF("\n\rMaster Start...\n\r");

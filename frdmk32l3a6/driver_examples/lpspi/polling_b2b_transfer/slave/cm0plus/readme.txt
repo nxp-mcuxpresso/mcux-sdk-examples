@@ -9,7 +9,7 @@ The file 'lpspi_polling_b2b_transfer_slave.c' includes the LPSPI slave code.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
+- GCC ARM Embedded  10.2.1
 
 Hardware requirements
 =====================

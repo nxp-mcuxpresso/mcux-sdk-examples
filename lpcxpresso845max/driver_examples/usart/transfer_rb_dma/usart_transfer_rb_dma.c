@@ -193,7 +193,7 @@ int main(void)
     uint32_t i       = 0U;
 
     /* Initialize the pins. */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
 
     /* Enable clock to 30MHz. */
     BOARD_BootClockFRO30M();

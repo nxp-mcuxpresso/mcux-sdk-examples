@@ -18,9 +18,7 @@
     <definition extID="component.lists.MIMX8MM6"/>
     <definition extID="platform.drivers.iuart.MIMX8MM6"/>
     <definition extID="device.MIMX8MM6_startup.MIMX8MM6"/>
-    <definition extID="platform.Include_core_cm4.MIMX8MM6"/>
-    <definition extID="platform.Include_common.MIMX8MM6"/>
-    <definition extID="platform.Include_dsp.MIMX8MM6"/>
+    <definition extID="CMSIS_Include_core_cm.MIMX8MM6"/>
     <definition extID="platform.drivers.memory.MIMX8MM6"/>
     <definition extID="platform.utilities.misc_utilities.MIMX8MM6"/>
     <definition extID="device.MIMX8MM6_system.MIMX8MM6"/>
@@ -30,7 +28,7 @@
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="mdk"/>
   </externalDefinitions>
-  <example id="evkmimx8mm_sai_sdma_transfer" name="sai_sdma_transfer" dependency="driver.wm8524.MIMX8MM6 platform.drivers.igpio.MIMX8MM6 driver.codec.MIMX8MM6 platform.drivers.common.MIMX8MM6 component.wm8524_adapter.MIMX8MM6 utility.debug_console_lite.MIMX8MM6 platform.utilities.assert_lite.MIMX8MM6 platform.drivers.clock.MIMX8MM6 platform.drivers.sai.MIMX8MM6 platform.drivers.sai_sdma.MIMX8MM6 platform.drivers.sdma.MIMX8MM6 platform.drivers.rdc.MIMX8MM6 device.MIMX8MM6_CMSIS.MIMX8MM6 component.iuart_adapter.MIMX8MM6 component.lists.MIMX8MM6 platform.drivers.iuart.MIMX8MM6 device.MIMX8MM6_startup.MIMX8MM6 platform.Include_core_cm4.MIMX8MM6 platform.Include_common.MIMX8MM6 platform.Include_dsp.MIMX8MM6 platform.drivers.memory.MIMX8MM6 platform.utilities.misc_utilities.MIMX8MM6 device.MIMX8MM6_system.MIMX8MM6" category="driver_examples/sai">
+  <example id="evkmimx8mm_sai_sdma_transfer" name="sai_sdma_transfer" dependency="driver.wm8524.MIMX8MM6 platform.drivers.igpio.MIMX8MM6 driver.codec.MIMX8MM6 platform.drivers.common.MIMX8MM6 component.wm8524_adapter.MIMX8MM6 utility.debug_console_lite.MIMX8MM6 platform.utilities.assert_lite.MIMX8MM6 platform.drivers.clock.MIMX8MM6 platform.drivers.sai.MIMX8MM6 platform.drivers.sai_sdma.MIMX8MM6 platform.drivers.sdma.MIMX8MM6 platform.drivers.rdc.MIMX8MM6 device.MIMX8MM6_CMSIS.MIMX8MM6 component.iuart_adapter.MIMX8MM6 component.lists.MIMX8MM6 platform.drivers.iuart.MIMX8MM6 device.MIMX8MM6_startup.MIMX8MM6 CMSIS_Include_core_cm.MIMX8MM6 platform.drivers.memory.MIMX8MM6 platform.utilities.misc_utilities.MIMX8MM6 device.MIMX8MM6_system.MIMX8MM6" category="driver_examples/sai">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -41,6 +39,7 @@
           <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
           <value>BOARD_USE_CODEC=1</value>
           <value>CODEC_WM8524_ENABLE</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
@@ -121,10 +120,6 @@
     </source>
     <source path="examples/evkmimx8mm/driver_examples/sai/sdma_transfer" project_relative_path="doc" type="doc" toolchain="iar mdk armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/evkmimx8mm/driver_examples/sai/sdma_transfer/iar" project_relative_path="MIMX8MM6/iar" type="linker" toolchain="iar">
-      <files mask="MIMX8MM6xxxxx_cm4_ram.icf"/>
-      <files mask="MIMX8MM6xxxxx_cm4_ddr_ram.icf"/>
     </source>
     <source path="examples/evkmimx8mm/driver_examples/sai/sdma_transfer/armgcc" project_relative_path="MIMX8MM6/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMX8MM6xxxxx_cm4_ram.ld"/>

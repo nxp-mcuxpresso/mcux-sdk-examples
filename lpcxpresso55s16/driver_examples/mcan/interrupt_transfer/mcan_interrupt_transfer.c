@@ -124,8 +124,8 @@ int main(void)
     CLOCK_SetClkDiv(kCLOCK_DivCanClk, 5U, true);
     CLOCK_AttachClk(kMCAN_DIV_to_MCAN);
 
-    BOARD_InitPins();
-    BOARD_BootClockPLL150M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     do

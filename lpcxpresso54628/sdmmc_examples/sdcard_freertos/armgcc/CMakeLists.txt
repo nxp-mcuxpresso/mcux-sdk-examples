@@ -1,6 +1,6 @@
 # CROSS COMPILER SETTING
 SET(CMAKE_SYSTEM_NAME Generic)
-CMAKE_MINIMUM_REQUIRED (VERSION 3.1.1)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
 SET (Tutorial_VERSION_MAJOR 1)
@@ -44,7 +44,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/.. debug
     ${ProjDirPath}/..
     ${ProjDirPath}/../../../../../examples/lpcxpresso54628/sdmmc_examples/sdcard_freertos
     ${ProjDirPath}/../../../../../core/boards/lpcxpresso54628
@@ -105,11 +104,7 @@ include(utility_assert)
 
 include(driver_power)
 
-include(CMSIS_Include_core_cm4)
-
-include(CMSIS_Include_common)
-
-include(CMSIS_Include_dsp)
+include(CMSIS_Include_core_cm)
 
 include(driver_reset)
 
@@ -136,11 +131,11 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
 
 if(CMAKE_BUILD_TYPE STREQUAL debug)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../core/devices/LPC54628/gcc/libpower_hardabi.a)
-endif()
+endif(CMAKE_BUILD_TYPE STREQUAL debug)
 
 if(CMAKE_BUILD_TYPE STREQUAL release)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../core/devices/LPC54628/gcc/libpower_hardabi.a)
-endif()
+endif(CMAKE_BUILD_TYPE STREQUAL release)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

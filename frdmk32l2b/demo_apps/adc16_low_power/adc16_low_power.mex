@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding= "UTF-8" ?>
 <configuration name="" version="1.6" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.6 http://mcuxpresso.nxp.com/XSD/mex_configuration_1.6.xsd" uuid="989b0ca1-6cd7-482b-980a-6b289fb5cdc4" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <common>
-      <processor>K32L2B31xxxA</processor>
+      <processor>K32L2B31xxxxA</processor>
       <package>K32L2B31VLH0A</package>
       <board>FRDM-K32L2B</board>
       <mcu_data>ksdk2_0</mcu_data>

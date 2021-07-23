@@ -72,8 +72,8 @@ void LPSPI_MasterUserCallback(LPSPI_Type *base, lpspi_master_handle_t *handle, s
 int main(void)
 {
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /*Set clock source for LPSPI*/

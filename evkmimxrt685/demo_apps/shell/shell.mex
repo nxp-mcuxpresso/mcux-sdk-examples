@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding= "UTF-8" ?>
-<configuration name="MIMXRT685S" version="1.6" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.7 http://mcuxpresso.nxp.com/XSD/mex_configuration_1.7.xsd" uuid="9a2e073e-43a3-4b59-b64e-a6d6231dcb47" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.7" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<configuration name="" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.9 http://mcuxpresso.nxp.com/XSD/mex_configuration_1.9.xsd" uuid="348221d8-5df5-4481-8f2d-6c23509d5e74" version="1.9" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <common>
       <processor>MIMXRT685S</processor>
       <package>MIMXRT685SFVKB</package>
@@ -16,9 +16,9 @@
       <generate_code_modified_registers_only>false</generate_code_modified_registers_only>
    </preferences>
    <tools>
-      <pins name="Pins" version="7.0" enabled="true" update_project_code="true">
+      <pins name="Pins" version="9.0" enabled="true" update_project_code="true">
          <pins_profile>
-            <processor_version>0.0.3</processor_version>
+            <processor_version>0.9.5</processor_version>
          </pins_profile>
          <functions_list>
             <function name="BOARD_InitPins">
@@ -103,8 +103,8 @@
                   </pin>
                   <pin peripheral="SWD" signal="SWO" pin_num="L16" pin_signal="PIO2_24/SWO/GPIO_INT_BMAT">
                      <pin_features>
-                        <pin_feature name="pupdena" value="disabled"/>
-                        <pin_feature name="pupdsel" value="pullDown"/>
+                        <pin_feature name="pupdena" value="enabled"/>
+                        <pin_feature name="pupdsel" value="pullUp"/>
                         <pin_feature name="ibena" value="disabled"/>
                         <pin_feature name="slew_rate" value="normal"/>
                         <pin_feature name="drive" value="normal"/>
@@ -119,7 +119,7 @@
       </pins>
       <clocks name="Clocks" version="7.0" enabled="true" update_project_code="true">
          <clocks_profile>
-            <processor_version>0.0.3</processor_version>
+            <processor_version>0.9.5</processor_version>
          </clocks_profile>
          <clock_configurations>
             <clock_configuration name="BOARD_BootClockRUN">
@@ -166,7 +166,7 @@
                   <clock_source id="SYSCON.XTAL.outFreq" value="24 MHz" locked="false" enabled="true"/>
                </clock_sources>
                <clock_outputs>
-                  <clock_output id="FLEXSPI_clock.outFreq" value="1900.8/19 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXSPI_clock.outFreq" value="1056/19 MHz" locked="false" accuracy=""/>
                   <clock_output id="LPOSC1M_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
                   <clock_output id="OSTIMER_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
                   <clock_output id="System_clock.outFreq" value="4752/19 MHz" locked="false" accuracy=""/>
@@ -182,7 +182,7 @@
                   <setting id="SYSCON.AUDIOPLL0_PFD0_DIV.scale" value="26" locked="true"/>
                   <setting id="SYSCON.AUDIOPLLCLKDIV.scale" value="15" locked="true"/>
                   <setting id="SYSCON.AUDIO_PLL0_PFD0_MUL.scale" value="18" locked="true"/>
-                  <setting id="SYSCON.FLEXSPIFCLKDIV.scale" value="5" locked="true"/>
+                  <setting id="SYSCON.FLEXSPIFCLKDIV.scale" value="9" locked="true"/>
                   <setting id="SYSCON.FLEXSPIFCLKSEL.sel" value="SYSCON.MAINPLLCLKDIV" locked="false"/>
                   <setting id="SYSCON.FRGPLLCLKDIV.scale" value="12" locked="true"/>
                   <setting id="SYSCON.MAINCLKSELB.sel" value="SYSCON.MAINPLLCLKDIV" locked="false"/>
@@ -209,40 +209,50 @@
             </clock_configuration>
          </clock_configurations>
       </clocks>
-      <dcdx name="DCDx" version="2.0" enabled="false" update_project_code="true">
-         <dcdx_profile>
-            <processor_version>N/A</processor_version>
-         </dcdx_profile>
-         <dcdx_configurations/>
-      </dcdx>
-      <periphs name="Peripherals" version="7.0" enabled="true" update_project_code="true">
+      <periphs name="Peripherals" version="9.0" enabled="true" update_project_code="true">
          <peripherals_profile>
-            <processor_version>0.0.3</processor_version>
+            <processor_version>0.9.5</processor_version>
          </peripherals_profile>
          <functional_groups>
-            <functional_group name="BOARD_InitPeripherals" uuid="7f48048f-f82c-4d70-9175-cf34e4bd8402" called_from_default_init="true" id_prefix="" core="cm33">
+            <functional_group name="BOARD_InitPeripherals" uuid="905e7074-87eb-4cec-bf61-0bf0b6814e63" called_from_default_init="true" id_prefix="" core="cm33">
                <description></description>
                <options/>
                <dependencies/>
-               <instances/>
+               <instances>
+                  <instance name="NVIC" uuid="c8bcba73-d6d2-44fb-95c0-b4e5cb78b341" type="nvic" type_id="nvic_57b5eef3774cc60acaede6f5b8bddc67" mode="general" peripheral="NVIC" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="nvic">
+                        <array name="interrupt_table"/>
+                        <array name="interrupts"/>
+                     </config_set>
+                  </instance>
+               </instances>
             </functional_group>
          </functional_groups>
          <components>
-            <component name="system" uuid="fa4c442d-c374-4bb0-83fb-3405d1ff4ed7" type_id="system_54b53072540eeeb8f8e9343e71f28176">
-               <config_set_global name="global_system_definitions"/>
+            <component name="system" uuid="5ac8dffa-248d-40ac-98d2-47fce4ec8427" type_id="system_54b53072540eeeb8f8e9343e71f28176">
+               <config_set_global name="global_system_definitions">
+                  <setting name="user_definitions" value=""/>
+                  <setting name="user_includes" value=""/>
+               </config_set_global>
             </component>
-            <component name="msg" uuid="a5c462b1-11db-41d3-bd7f-67b69f5681a8" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
+            <component name="msg" uuid="56c592a9-2a07-49ea-a805-dac1505bb005" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
                <config_set_global name="global_messages"/>
+            </component>
+            <component name="generic_uart" uuid="7ed0632f-194c-4c1a-812f-4d8cc2a4e653" type_id="generic_uart_8cae00565451cf2346eb1b8c624e73a6">
+               <config_set_global name="global_uart"/>
+            </component>
+            <component name="generic_can" uuid="d19a7f11-67b2-40c5-8cde-2bdbddd5df48" type_id="generic_can_1bfdd78b1af214566c1f23cf6a582d80">
+               <config_set_global name="global_can"/>
             </component>
          </components>
       </periphs>
-      <tee name="TEE" version="1.0" enabled="true" update_project_code="true">
+      <tee name="TEE" version="3.0" enabled="true" update_project_code="true">
          <tee_profile>
-            <processor_version>0.0.3</processor_version>
+            <processor_version>0.9.5</processor_version>
          </tee_profile>
          <ahb>
-            <relative_region start="0" size="131072" security="ns_user" memory="BootROM"/>
-            <relative_region start="0" size="67108864" security="ns_user" memory="FLEXSPI_FLASH"/>
+            <relative_region start="0" size="262144" security="ns_user" memory="BootROM"/>
+            <relative_region start="0" size="134217728" security="ns_user" memory="FLEXSPI_FLASH"/>
             <relative_region start="0" size="131072" security="ns_user" memory="SRAM_ROM"/>
             <relative_region start="0" size="393216" security="ns_user" memory="SRAM_SHARED"/>
             <relative_region start="0" size="1572864" security="ns_user" memory="SRAM"/>
@@ -295,6 +305,7 @@
                <peripheral id="MUB" security="ns_user"/>
                <peripheral id="OSTIMER0" security="ns_user"/>
                <peripheral id="OSTIMER1" security="ns_user"/>
+               <peripheral id="PINT" security="ns_user"/>
                <peripheral id="POWERQUAD" security="ns_user"/>
                <peripheral id="PUF" security="ns_user"/>
                <peripheral id="RSTCTL0" security="ns_user"/>
@@ -358,7 +369,6 @@
                   <interrupt id="DMA1_IRQn" secure="Secure"/>
                   <interrupt id="DMIC0_IRQn" secure="Secure"/>
                   <interrupt id="DSPWAKE_IRQn" secure="Secure"/>
-                  <interrupt id="ESPI_IRQn" secure="Secure"/>
                   <interrupt id="FLEXCOMM0_IRQn" secure="Secure"/>
                   <interrupt id="FLEXCOMM14_IRQn" secure="Secure"/>
                   <interrupt id="FLEXCOMM15_IRQn" secure="Secure"/>
@@ -387,6 +397,7 @@
                   <interrupt id="PIN_INT5_IRQn" secure="Secure"/>
                   <interrupt id="PIN_INT6_IRQn" secure="Secure"/>
                   <interrupt id="PIN_INT7_IRQn" secure="Secure"/>
+                  <interrupt id="PMC_PMIC_IRQn" secure="Secure"/>
                   <interrupt id="POWERQUAD_IRQn" secure="Secure"/>
                   <interrupt id="PUF_IRQn" secure="Secure"/>
                   <interrupt id="RNG_IRQn" secure="Secure"/>
@@ -508,22 +519,17 @@
                   <pin_mask id="8" masked="Non-masked"/>
                   <pin_mask id="9" masked="Non-masked"/>
                </port>
-               <port id="pio3"/>
-               <port id="pio4"/>
-               <port id="pio5"/>
-               <port id="pio6"/>
-               <port id="pio7"/>
             </pins_masks>
          </ahb>
          <sau enabled="false" all_non_secure="false" generate_code_for_disabled_regions="false">
-            <region start="0" size="32" security="ns" index="0" enabled="false"/>
-            <region start="0" size="32" security="ns" index="1" enabled="false"/>
-            <region start="0" size="32" security="ns" index="2" enabled="false"/>
-            <region start="0" size="32" security="ns" index="3" enabled="false"/>
-            <region start="0" size="32" security="ns" index="4" enabled="false"/>
-            <region start="0" size="32" security="ns" index="5" enabled="false"/>
-            <region start="0" size="32" security="ns" index="6" enabled="false"/>
-            <region start="0" size="32" security="ns" index="7" enabled="false"/>
+            <region start="0" size="32" security="ns" enabled="false" index="0"/>
+            <region start="0" size="32" security="ns" enabled="false" index="1"/>
+            <region start="0" size="32" security="ns" enabled="false" index="2"/>
+            <region start="0" size="32" security="ns" enabled="false" index="3"/>
+            <region start="0" size="32" security="ns" enabled="false" index="4"/>
+            <region start="0" size="32" security="ns" enabled="false" index="5"/>
+            <region start="0" size="32" security="ns" enabled="false" index="6"/>
+            <region start="0" size="32" security="ns" enabled="false" index="7"/>
          </sau>
          <global_options>
             <option id="AIRCR_PRIS" value="no"/>
@@ -580,8 +586,56 @@
             <option id="AHB_MISC_CTRL_REG_DISABLE_SMART_MASTER_STRICT_MODE" value="no"/>
             <option id="AHB_MISC_CTRL_REG_IDAU_ALL_NS" value="no"/>
             <option id="AHB_MISC_CTRL_REG_WRITE_LOCK" value="no"/>
+            <option id="_output_type_" value="c_code"/>
+            <option id="_legacy_source_names_" value="no"/>
          </global_options>
          <user_memory_regions/>
+         <mpus>
+            <mpu enabled="false" priv_default_map="false" handler_enabled="false" id="s" generate_code_for_disabled_regions="false">
+               <attributes>
+                  <group index="0" id="0" memory_type="device" device="nGnRE"/>
+                  <group index="1" id="1" memory_type="device" device="nGnRE"/>
+                  <group index="2" id="2" memory_type="device" device="nGnRE"/>
+                  <group index="3" id="3" memory_type="device" device="nGnRE"/>
+                  <group index="4" id="4" memory_type="device" device="nGnRE"/>
+                  <group index="5" id="5" memory_type="device" device="nGnRE"/>
+                  <group index="6" id="6" memory_type="device" device="nGnRE"/>
+                  <group index="7" id="7" memory_type="device" device="nGnRE"/>
+               </attributes>
+               <regions>
+                  <region start="0" size="32" security="priv" enabled="false" index="0" executable="false" read_only="false" attributes_index="0"/>
+                  <region start="0" size="32" security="priv" enabled="false" index="1" executable="false" read_only="false" attributes_index="0"/>
+                  <region start="0" size="32" security="priv" enabled="false" index="2" executable="false" read_only="false" attributes_index="0"/>
+                  <region start="0" size="32" security="priv" enabled="false" index="3" executable="false" read_only="false" attributes_index="0"/>
+                  <region start="0" size="32" security="priv" enabled="false" index="4" executable="false" read_only="false" attributes_index="0"/>
+                  <region start="0" size="32" security="priv" enabled="false" index="5" executable="false" read_only="false" attributes_index="0"/>
+                  <region start="0" size="32" security="priv" enabled="false" index="6" executable="false" read_only="false" attributes_index="0"/>
+                  <region start="0" size="32" security="priv" enabled="false" index="7" executable="false" read_only="false" attributes_index="0"/>
+               </regions>
+            </mpu>
+            <mpu enabled="false" priv_default_map="false" handler_enabled="false" id="ns" generate_code_for_disabled_regions="false">
+               <attributes>
+                  <group index="0" id="0" memory_type="device" device="nGnRE"/>
+                  <group index="1" id="1" memory_type="device" device="nGnRE"/>
+                  <group index="2" id="2" memory_type="device" device="nGnRE"/>
+                  <group index="3" id="3" memory_type="device" device="nGnRE"/>
+                  <group index="4" id="4" memory_type="device" device="nGnRE"/>
+                  <group index="5" id="5" memory_type="device" device="nGnRE"/>
+                  <group index="6" id="6" memory_type="device" device="nGnRE"/>
+                  <group index="7" id="7" memory_type="device" device="nGnRE"/>
+               </attributes>
+               <regions>
+                  <region start="0" size="32" security="priv" enabled="false" index="0" executable="false" read_only="false" attributes_index="0"/>
+                  <region start="0" size="32" security="priv" enabled="false" index="1" executable="false" read_only="false" attributes_index="0"/>
+                  <region start="0" size="32" security="priv" enabled="false" index="2" executable="false" read_only="false" attributes_index="0"/>
+                  <region start="0" size="32" security="priv" enabled="false" index="3" executable="false" read_only="false" attributes_index="0"/>
+                  <region start="0" size="32" security="priv" enabled="false" index="4" executable="false" read_only="false" attributes_index="0"/>
+                  <region start="0" size="32" security="priv" enabled="false" index="5" executable="false" read_only="false" attributes_index="0"/>
+                  <region start="0" size="32" security="priv" enabled="false" index="6" executable="false" read_only="false" attributes_index="0"/>
+                  <region start="0" size="32" security="priv" enabled="false" index="7" executable="false" read_only="false" attributes_index="0"/>
+               </regions>
+            </mpu>
+         </mpus>
       </tee>
    </tools>
 </configuration>

@@ -158,8 +158,8 @@ int main(void)
     uint32_t checksum32;
 
     /* Init hardware*/
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("CRC Peripheral Driver Example\r\n\r\n");

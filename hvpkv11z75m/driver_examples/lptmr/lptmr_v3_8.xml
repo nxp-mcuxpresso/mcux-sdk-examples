@@ -14,9 +14,7 @@
     <definition extID="platform.drivers.uart.MKV11Z7"/>
     <definition extID="device.MKV11Z7_startup.MKV11Z7"/>
     <definition extID="platform.drivers.smc.MKV11Z7"/>
-    <definition extID="platform.Include_core_cm0plus.MKV11Z7"/>
-    <definition extID="platform.Include_common.MKV11Z7"/>
-    <definition extID="platform.Include_dsp.MKV11Z7"/>
+    <definition extID="CMSIS_Include_core_cm.MKV11Z7"/>
     <definition extID="platform.utilities.misc_utilities.MKV11Z7"/>
     <definition extID="device.MKV11Z7_system.MKV11Z7"/>
     <definition extID="iar"/>
@@ -25,7 +23,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="hvpkv11z75m_lptmr" name="lptmr" dependency="utility.debug_console_lite.MKV11Z7 platform.utilities.assert_lite.MKV11Z7 platform.drivers.port.MKV11Z7 platform.drivers.lptmr.MKV11Z7 platform.drivers.gpio.MKV11Z7 platform.drivers.clock.MKV11Z7 platform.drivers.common.MKV11Z7 device.MKV11Z7_CMSIS.MKV11Z7 component.uart_adapter.MKV11Z7 component.lists.MKV11Z7 platform.drivers.uart.MKV11Z7 device.MKV11Z7_startup.MKV11Z7 platform.drivers.smc.MKV11Z7 platform.Include_core_cm0plus.MKV11Z7 platform.Include_common.MKV11Z7 platform.Include_dsp.MKV11Z7 platform.utilities.misc_utilities.MKV11Z7 device.MKV11Z7_system.MKV11Z7" category="driver_examples">
+  <example id="hvpkv11z75m_lptmr" name="lptmr" dependency="utility.debug_console_lite.MKV11Z7 platform.utilities.assert_lite.MKV11Z7 platform.drivers.port.MKV11Z7 platform.drivers.lptmr.MKV11Z7 platform.drivers.gpio.MKV11Z7 platform.drivers.clock.MKV11Z7 platform.drivers.common.MKV11Z7 device.MKV11Z7_CMSIS.MKV11Z7 component.uart_adapter.MKV11Z7 component.lists.MKV11Z7 platform.drivers.uart.MKV11Z7 device.MKV11Z7_startup.MKV11Z7 platform.drivers.smc.MKV11Z7 CMSIS_Include_core_cm.MKV11Z7 platform.utilities.misc_utilities.MKV11Z7 device.MKV11Z7_system.MKV11Z7" category="driver_examples/lptmr">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -33,6 +31,7 @@
       <toolchainSetting id_refs="com.nxp.mcuxpresso">
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>CPU_MKV11Z128VLF7</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.none</value>
@@ -107,12 +106,6 @@
     </source>
     <source path="examples/hvpkv11z75m/driver_examples/lptmr" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/hvpkv11z75m/driver_examples/lptmr/iar" project_relative_path="MKV11Z7/iar" type="linker" toolchain="iar">
-      <files mask="MKV11Z128xxx7_flash.icf"/>
-    </source>
-    <source path="examples/hvpkv11z75m/driver_examples/lptmr/mdk" project_relative_path="MKV11Z7/arm" type="linker" toolchain="mdk">
-      <files mask="MKV11Z128xxx7_flash.scf"/>
     </source>
     <source path="examples/hvpkv11z75m/driver_examples/lptmr/armgcc" project_relative_path="MKV11Z7/gcc" type="linker" toolchain="armgcc">
       <files mask="MKV11Z128xxx7_flash.ld"/>

@@ -594,7 +594,7 @@ int main(void)
                           NULL);
 
     /* Must configure pins before PMC_ClearPeriphIOIsolationFlag */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
 
     /* Power related. */
     SMC_SetPowerModeProtection(SMC, kSMC_AllowPowerModeAll);
@@ -604,7 +604,7 @@ int main(void)
         NVIC_ClearPendingIRQ(LLWU_IRQn);
     }
 
-    BOARD_BootClockRUN();
+    BOARD_InitBootClocks();
     APP_InitDefaultDebugConsole();
 
     /* Setup LPTMR. */

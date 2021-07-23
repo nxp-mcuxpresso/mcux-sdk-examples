@@ -100,8 +100,8 @@ int main(void)
     RESET_PeripheralReset(kFC5_RST_SHIFT_RSTn);
     RESET_PeripheralReset(kFC3_RST_SHIFT_RSTn);
 
-    BOARD_InitPins();
-    BOARD_BootClockPLL150M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("SPI dma example start.\r\n");

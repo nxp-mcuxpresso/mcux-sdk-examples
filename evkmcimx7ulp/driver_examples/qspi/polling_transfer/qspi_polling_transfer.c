@@ -10,7 +10,6 @@
 #include "board.h"
 #include "fsl_debug_console.h"
 #include "fsl_qspi.h"
-
 #include "fsl_common.h"
 /*******************************************************************************
  * Definitions
@@ -33,14 +32,6 @@ extern void program_page(uint32_t dest_addr, uint32_t *src_addr);
 extern void BOARD_SetQspiClock(QuadSPI_Type *qspi, uint32_t qspiClockSrc, uint32_t divider);
 /*******************************************************************************
  * Variables
- ******************************************************************************/
-static uint32_t buff[64]; /* Test data */
-#if !defined(FSL_FEATURE_QSPI_CLOCK_CONTROL_EXTERNAL) || (!FSL_FEATURE_QSPI_CLOCK_CONTROL_EXTERNAL)
-static bool isDivNeedRestore = false;
-#endif
-
-/*******************************************************************************
- * Code
  ******************************************************************************/
 uint32_t lut[FSL_FEATURE_QSPI_LUT_DEPTH] =
     {/* Seq0 :Quad Read */
@@ -131,6 +122,14 @@ qspi_flash_config_t single_config = {.flashA1Size = FLASH_SIZE, /* 4MB */
                                      .endian            = kQSPI_64LittleEndian,
                                      .enableWordAddress = false};
 
+static uint32_t buff[64]; /* Test data */
+#if !defined(FSL_FEATURE_QSPI_CLOCK_CONTROL_EXTERNAL) || (!FSL_FEATURE_QSPI_CLOCK_CONTROL_EXTERNAL)
+static bool isDivNeedRestore = false;
+#endif
+
+/*******************************************************************************
+ * Code
+ ******************************************************************************/
 /* Use QSPI polling way to program serial flash */
 void qspi_polling(void)
 {

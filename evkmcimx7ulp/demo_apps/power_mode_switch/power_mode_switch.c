@@ -482,23 +482,43 @@ static void APP_ShowPowerMode(smc_power_state_t powerMode)
 /* Get input from user about wakeup timeout. */
 static uint8_t APP_GetWakeupTimeout(void)
 {
-    uint8_t timeout;
+    uint8_t timeout = 0U;
+    uint8_t c;
 
     while (1)
     {
         PRINTF("Select the wake up timeout in seconds.\r\n");
-        PRINTF("The allowed range is 1s ~ 9s.\r\n");
+        PRINTF("The allowed range is 1s ~ 999s.\r\n");
         PRINTF("Eg. enter 5 to wake up in 5 seconds.\r\n");
         PRINTF("\r\nWaiting for input timeout value...\r\n\r\n");
 
-        timeout = GETCHAR();
-        PRINTF("%c\r\n", timeout);
-        if ((timeout > '0') && (timeout <= '9'))
+        do
         {
-            return timeout - '0';
+            c = GETCHAR();
+            if ((c >= '0') && (c <= '9'))
+            {
+                PRINTF("%c", c);
+                timeout = timeout * 10U + c - '0';
+            }
+            else if ((c == '\r') || (c == '\n'))
+            {
+                break;
+            }
+            else
+            {
+                PRINTF("%c\r\nWrong value!\r\n", c);
+                timeout = 0U;
+            }
+        } while (timeout != 0U && timeout < 100U);
+
+        if (timeout > 0U)
+        {
+            PRINTF("\r\n");
+            break;
         }
-        PRINTF("Wrong value!\r\n");
     }
+
+    return timeout;
 }
 
 /* Get wakeup source by user input. */
@@ -558,7 +578,7 @@ static void APP_SetWakeupConfig(lpm_power_mode_t targetMode)
 {
     if (kAPP_WakeupSourceLptmr == s_wakeupSource)
     {
-        LPTMR_SetTimerPeriod(LPTMR1, (1000U * s_wakeupTimeout));
+        LPTMR_SetTimerPeriod(LPTMR1, (1000UL * s_wakeupTimeout / 16U));
         LPTMR_StartTimer(LPTMR1);
         LPTMR_EnableInterrupts(LPTMR1, kLPTMR_TimerInterruptEnable);
     }
@@ -915,7 +935,8 @@ void PowerModeSwitchTask(void *pvParameters)
     /* Setup LPTMR. */
     LPTMR_GetDefaultConfig(&lptmrConfig);
     lptmrConfig.prescalerClockSource = kLPTMR_PrescalerClock_1; /* Use LPO 1KHz as clock source. */
-    lptmrConfig.bypassPrescaler      = true;
+    lptmrConfig.bypassPrescaler      = false;
+    lptmrConfig.value                = kLPTMR_Prescale_Glitch_3; /* Divide clock source by 16. */
     LPTMR_Init(LPTMR1, &lptmrConfig);
     NVIC_SetPriority(LPTMR1_IRQn, APP_LPTMR1_IRQ_PRIO);
 
@@ -955,7 +976,11 @@ void PowerModeSwitchTask(void *pvParameters)
         PRINTF("\r\nWaiting for power mode select..\r\n\r\n");
 
         /* Wait for user response */
-        ch = GETCHAR();
+        do
+        {
+            ch = GETCHAR();
+        } while ((ch == '\r') || (ch == '\n'));
+
         if ((ch >= 'a') && (ch <= 'z'))
         {
             ch -= 'a' - 'A';

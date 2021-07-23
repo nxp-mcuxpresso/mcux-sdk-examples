@@ -9,7 +9,7 @@ With this example, user can define the DAC12 output array to generate the differ
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
+- GCC ARM Embedded  10.2.1
 
 Hardware requirements
 =====================

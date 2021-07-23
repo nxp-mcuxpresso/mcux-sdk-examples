@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NXP
+ * Copyright 2018 ,2021 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -13,11 +13,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v4.1
+product: Pins v9.0
 processor: MKE16Z64xxx4
 package_id: MKE16Z64VLF4
 mcu_data: ksdk2_0
-processor_version: 0.0.2
+processor_version: 9.0.0
 board: FRDM-KE16Z
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -36,7 +36,6 @@ board: FRDM-KE16Z
 void BOARD_InitBootPins(void)
 {
     BOARD_InitPins();
-    BOARD_I2C_ConfigurePins();
 }
 
 /* clang-format off */
@@ -60,9 +59,9 @@ BOARD_InitPins:
  * END ****************************************************************************************************************/
 void BOARD_InitPins(void)
 {
-    /* Clock Gate Control: 0x01u */
+    /* Clock Gate Control: Clock enabled. The current clock selection and divider options are locked. */
     CLOCK_EnableClock(kCLOCK_PortB);
-    /* Clock Gate Control: 0x01u */
+    /* Clock Gate Control: Clock enabled. The current clock selection and divider options are locked. */
     CLOCK_EnableClock(kCLOCK_PortE);
 
     /* PORTB0 (pin 27) is configured as LPUART0_RX */
@@ -79,7 +78,7 @@ void BOARD_InitPins(void)
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_I2C_ConfigurePins:
-- options: {callFromInitBoot: 'true', prefix: BOARD_, coreID: core0, enableClock: 'true'}
+- options: {callFromInitBoot: 'false', prefix: BOARD_, coreID: core0, enableClock: 'true'}
 - pin_list:
   - {pin_num: '35', peripheral: LPI2C0, signal: SCL, pin_signal: PTA3/LPI2C0_SCL/EWM_IN/LPUART0_TX}
   - {pin_num: '36', peripheral: LPI2C0, signal: SDA, pin_signal: PTA2/LPI2C0_SDA/EWM_OUT_b/LPUART0_RX}
@@ -95,7 +94,7 @@ BOARD_I2C_ConfigurePins:
  * END ****************************************************************************************************************/
 void BOARD_I2C_ConfigurePins(void)
 {
-    /* Clock Gate Control: 0x01u */
+    /* Clock Gate Control: Clock enabled. The current clock selection and divider options are locked. */
     CLOCK_EnableClock(kCLOCK_PortA);
 
     /* PORTA2 (pin 36) is configured as LPI2C0_SDA */
@@ -107,4 +106,3 @@ void BOARD_I2C_ConfigurePins(void)
 /***********************************************************************************************************************
  * EOF
  **********************************************************************************************************************/
-

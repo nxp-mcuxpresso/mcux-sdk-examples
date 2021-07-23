@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -34,10 +34,16 @@ void BOARD_InitBootPins(void);
 
 /*! @name PORTB22 (number 68), D12[1]/LEDRGB_RED
   @{ */
-#define BOARD_LED_RED_GPIO GPIOB /*!<@brief GPIO device name: GPIOB */
-#define BOARD_LED_RED_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_LED_RED_PIN 22U    /*!<@brief PORTB pin index: 22 */
-                                 /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_LED_RED_GPIO GPIOB                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_LED_RED_GPIO_PIN_MASK (1U << 22U) /*!<@brief GPIO pin mask */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_LED_RED_PORT PORTB                /*!<@brief PORT peripheral base pointer */
+#define BOARD_LED_RED_PIN 22U                   /*!<@brief PORT pin number */
+#define BOARD_LED_RED_PIN_MASK (1U << 22U)      /*!<@brief PORT pin mask */
+                                                /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

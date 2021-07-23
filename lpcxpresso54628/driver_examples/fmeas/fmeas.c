@@ -117,8 +117,8 @@ int main(void)
     /* power up watchdog */
     POWER_DisablePD(kPDRUNCFG_PD_WDT_OSC);
 
-    BOARD_InitPins();
-    BOARD_BootClockPLL220M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     uint32_t freqRef = EXAMPLE_REFERENCE_CLOCK_FREQUENCY;

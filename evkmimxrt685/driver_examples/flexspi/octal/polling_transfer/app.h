@@ -53,16 +53,16 @@
 #define FLASH_ERROR_STATUS_MASK  0x0e
 #define FLASH_ENABLE_OCTAL_CMD   0x02
 #define CACHE_MAINTAIN           1
-#define EXAMPLE_FLASH_RESET_CONFIG()                                      \
-    do                                                                    \
-    {                                                                     \
-        GPIO->B[2][12] = 0;                                               \
-        for (uint64_t i = 0; i < USEC_TO_COUNT(20, SystemCoreClock); i++) \
-        {                                                                 \
-            __NOP();                                                      \
-        }                                                                 \
-        GPIO->B[2][12] = 1;                                               \
-        flexspi_nor_enable_octal_mode(base);                              \
+#define EXAMPLE_FLASH_RESET_CONFIG()           \
+    do                                         \
+    {                                          \
+        GPIO->B[2][12] = 0;                    \
+        for (uint32_t i = 0; i < 10000UL; i++) \
+        {                                      \
+            __NOP();                           \
+        }                                      \
+        GPIO->B[2][12] = 1;                    \
+        flexspi_nor_enable_octal_mode(base);   \
     } while (0)
 
 /*${macro:end}*/
@@ -72,17 +72,6 @@
  ******************************************************************************/
 /*${prototype:start}*/
 void BOARD_InitHardware(void);
-
-// AT_QUICKACCESS_SECTION_CODE(static inline void flash_reset(void))
-//{
-//    GPIO->B[2][12] = 0;
-//    for (uint64_t i = 0; i < USEC_TO_COUNT(20, SystemCoreClock); i++)
-//    {
-//        __NOP();
-//    }
-//    GPIO->B[2][12] = 1;
-//}
-
 /*${prototype:end}*/
 
 #endif /* _APP_H_ */

@@ -81,8 +81,8 @@ int main(void)
     adc12_channel_config_t adcChnConfig;
 
     /* Initialize board hardware. */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Set ADC12's clock source to be Slow IRC async clock. */

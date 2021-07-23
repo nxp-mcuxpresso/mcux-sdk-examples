@@ -107,8 +107,8 @@ int main(void)
     /* Ser DIV of uart0. */
     CLOCK_SetClkDivider(kCLOCK_DivUsartClk, 1U);
 
-    BOARD_InitPins();
-    BOARD_BootClockIRC12M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Initialize the USART instance with configuration, and enable receive ready interrupt. */

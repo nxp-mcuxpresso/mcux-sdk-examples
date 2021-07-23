@@ -21,7 +21,7 @@
 #define DEMO_LPADC_USER_CHANNEL     0U
 #define DEMO_LPADC_USER_CMDID       1U /* The available command number are 1-15 */
 #define DEMO_LPADC_RESFIFO_REG_ADDR (uint32_t)(&(ADC0->RESFIFO))
-#define DEMO_RESULT_FIFO_READY_FLAG  kLPADC_ResultFIFOReadyFlag
+#define DEMO_RESULT_FIFO_READY_FLAG kLPADC_ResultFIFOReadyFlag
 
 #define DEMO_DMA_BASE             DMA0
 #define DEMO_DMA_ADC_CHANNEL      0U
@@ -84,8 +84,8 @@ void DEMO_DMA_Callback(dma_handle_t *handle, void *param, bool transferDone, uin
 int main(void)
 {
     /* Initialize board hardware. */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     SYSCTL0->PDRUNCFG0_CLR = SYSCTL0_PDRUNCFG0_ADC_PD_MASK;

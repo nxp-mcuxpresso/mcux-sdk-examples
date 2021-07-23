@@ -14,8 +14,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <stdbool.h>
 #include "fsl_power.h"
+#include <stdbool.h>
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -71,15 +71,14 @@ void DMIC0_HWVAD_Callback(void)
 int main(void)
 {
     dmic_channel_config_t dmic_channel_cfg;
-    unsigned int i;
     /* Define the init structure for the output LED pin*/
     gpio_pin_config_t led_config = {
         kGPIO_DigitalOutput,
         0,
     };
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     CLOCK_EnableClock(kCLOCK_InputMux);
@@ -133,18 +132,18 @@ int main(void)
     DMIC_SetInputGainHwvad(DMIC0, 0x04U);
 
     DisableDeepSleepIRQ(HWVAD0_IRQn);
-    DMIC_HwvadEnableIntCallback(DMIC0, DMIC0_HWVAD_Callback);
+    DisableIRQ(HWVAD0_IRQn);
     DMIC_EnableChannnel(DMIC0, (DMIC_CHANEN_EN_CH0(1) | DMIC_CHANEN_EN_CH1(1)));
 
+    DMIC_FilterResetHwvad(DMIC0, true);
+    DMIC_FilterResetHwvad(DMIC0, false);
     /* reset hwvad internal interrupt */
     DMIC_CtrlClrIntrHwvad(DMIC0, true);
-    /* To clear first spurious interrupt */
-    for (i = 0; i < 0xFFFFU; i++)
-    {
-    }
+    /* Delay to clear first spurious interrupt and let the filter converge */
+    SDK_DelayAtLeastUs(20000, SystemCoreClock);
     /*HWVAD Normal operation */
     DMIC_CtrlClrIntrHwvad(DMIC0, false);
-    NVIC_ClearPendingIRQ(HWVAD0_IRQn);
+    DMIC_HwvadEnableIntCallback(DMIC0, DMIC0_HWVAD_Callback);
     EnableDeepSleepIRQ(HWVAD0_IRQn);
 
     while (1)

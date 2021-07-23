@@ -110,6 +110,9 @@ static void app_task(void *param)
     my_queue  = rpmsg_queue_create(my_rpmsg);
     my_ept    = rpmsg_lite_create_ept(my_rpmsg, LOCAL_EPT_ADDR, rpmsg_queue_rx_cb, my_queue);
     ns_handle = rpmsg_ns_bind(my_rpmsg, app_nameservice_isr_cb, ((void *)0));
+    /* Introduce some delay to avoid NS announce message not being captured by the master side.
+       This could happen when the remote side execution is too fast and the NS announce message is triggered
+       before the nameservice_isr_cb is registered on the master side. */
     SDK_DelayAtLeastUs(1000000U, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
     (void)rpmsg_ns_announce(my_rpmsg, my_ept, RPMSG_LITE_NS_ANNOUNCE_STRING, (uint32_t)RL_NS_CREATE);
     (void)PRINTF("Nameservice announce sent.\r\n");

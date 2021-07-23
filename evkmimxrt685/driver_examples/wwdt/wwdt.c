@@ -98,8 +98,8 @@ int main(void)
     /* Config OTP SHADOW register to enable ROM code QSPI reset function. (Reset PIN is P2_12)*/
     OCOTP->OTP_SHADOW[97] = (uint32_t)((1 << 14) | (2 << 15) | (12 << 18));
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Set Red LED to initially be high */

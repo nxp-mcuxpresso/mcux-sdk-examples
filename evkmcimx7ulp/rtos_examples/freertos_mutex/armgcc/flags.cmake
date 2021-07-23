@@ -1,4 +1,5 @@
 SET(CMAKE_ASM_FLAGS_DEBUG " \
+    ${CMAKE_ASM_FLAGS_DEBUG} \
     -DDEBUG \
     -D__STARTUP_CLEAR_BSS \
     -g \
@@ -17,6 +18,7 @@ SET(CMAKE_ASM_FLAGS_DEBUG " \
     -std=gnu99 \
 ")
 SET(CMAKE_ASM_FLAGS_RELEASE " \
+    ${CMAKE_ASM_FLAGS_RELEASE} \
     -DNDEBUG \
     -D__STARTUP_CLEAR_BSS \
     -mcpu=cortex-m4 \
@@ -34,6 +36,7 @@ SET(CMAKE_ASM_FLAGS_RELEASE " \
     -std=gnu99 \
 ")
 SET(CMAKE_ASM_FLAGS_FLASH_DEBUG " \
+    ${CMAKE_ASM_FLAGS_FLASH_DEBUG} \
     -DDEBUG \
     -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
     -DENABLE_RAM_VECTOR_TABLE \
@@ -54,6 +57,7 @@ SET(CMAKE_ASM_FLAGS_FLASH_DEBUG " \
     -std=gnu99 \
 ")
 SET(CMAKE_ASM_FLAGS_FLASH_RELEASE " \
+    ${CMAKE_ASM_FLAGS_FLASH_RELEASE} \
     -DNDEBUG \
     -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
     -DENABLE_RAM_VECTOR_TABLE \
@@ -73,11 +77,13 @@ SET(CMAKE_ASM_FLAGS_FLASH_RELEASE " \
     -std=gnu99 \
 ")
 SET(CMAKE_C_FLAGS_DEBUG " \
+    ${CMAKE_C_FLAGS_DEBUG} \
     -DDEBUG \
     -DCPU_MCIMX7U5DVP07 \
     -DCPU_MCIMX7U5DVP07_cm4 \
     -DSERIAL_PORT_TYPE_UART=1 \
-    -DFSL_RTOS_FREE_RTOS \
+    -DSDK_OS_FREE_RTOS \
+    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
     -mcpu=cortex-m4 \
@@ -97,11 +103,13 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -std=gnu99 \
 ")
 SET(CMAKE_C_FLAGS_RELEASE " \
+    ${CMAKE_C_FLAGS_RELEASE} \
     -DNDEBUG \
     -DCPU_MCIMX7U5DVP07 \
     -DCPU_MCIMX7U5DVP07_cm4 \
     -DSERIAL_PORT_TYPE_UART=1 \
-    -DFSL_RTOS_FREE_RTOS \
+    -DSDK_OS_FREE_RTOS \
+    -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m4 \
     -Wall \
@@ -120,13 +128,15 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -std=gnu99 \
 ")
 SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
+    ${CMAKE_C_FLAGS_FLASH_DEBUG} \
     -DDEBUG \
     -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
     -DENABLE_RAM_VECTOR_TABLE \
     -DCPU_MCIMX7U5DVP07 \
     -DCPU_MCIMX7U5DVP07_cm4 \
     -DSERIAL_PORT_TYPE_UART=1 \
-    -DFSL_RTOS_FREE_RTOS \
+    -DSDK_OS_FREE_RTOS \
+    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
     -mcpu=cortex-m4 \
@@ -146,13 +156,15 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -std=gnu99 \
 ")
 SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
+    ${CMAKE_C_FLAGS_FLASH_RELEASE} \
     -DNDEBUG \
     -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
     -DENABLE_RAM_VECTOR_TABLE \
     -DCPU_MCIMX7U5DVP07 \
     -DCPU_MCIMX7U5DVP07_cm4 \
     -DSERIAL_PORT_TYPE_UART=1 \
-    -DFSL_RTOS_FREE_RTOS \
+    -DSDK_OS_FREE_RTOS \
+    -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m4 \
     -Wall \
@@ -171,10 +183,12 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -std=gnu99 \
 ")
 SET(CMAKE_CXX_FLAGS_DEBUG " \
+    ${CMAKE_CXX_FLAGS_DEBUG} \
     -DDEBUG \
     -DCPU_MCIMX7U5DVP07 \
     -DCPU_MCIMX7U5DVP07_cm4 \
     -DSERIAL_PORT_TYPE_UART=1 \
+    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
     -mcpu=cortex-m4 \
@@ -195,10 +209,12 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     -fno-exceptions \
 ")
 SET(CMAKE_CXX_FLAGS_RELEASE " \
+    ${CMAKE_CXX_FLAGS_RELEASE} \
     -DNDEBUG \
     -DCPU_MCIMX7U5DVP07 \
     -DCPU_MCIMX7U5DVP07_cm4 \
     -DSERIAL_PORT_TYPE_UART=1 \
+    -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m4 \
     -Wall \
@@ -218,12 +234,14 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -fno-exceptions \
 ")
 SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
+    ${CMAKE_CXX_FLAGS_FLASH_DEBUG} \
     -DDEBUG \
     -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
     -DENABLE_RAM_VECTOR_TABLE \
     -DCPU_MCIMX7U5DVP07 \
     -DCPU_MCIMX7U5DVP07_cm4 \
     -DSERIAL_PORT_TYPE_UART=1 \
+    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
     -mcpu=cortex-m4 \
@@ -244,12 +262,14 @@ SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
     -fno-exceptions \
 ")
 SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
+    ${CMAKE_CXX_FLAGS_FLASH_RELEASE} \
     -DNDEBUG \
     -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
     -DENABLE_RAM_VECTOR_TABLE \
     -DCPU_MCIMX7U5DVP07 \
     -DCPU_MCIMX7U5DVP07_cm4 \
     -DSERIAL_PORT_TYPE_UART=1 \
+    -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m4 \
     -Wall \
@@ -269,11 +289,13 @@ SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
     -fno-exceptions \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
+    ${CMAKE_EXE_LINKER_FLAGS_DEBUG} \
     -g \
     -mcpu=cortex-m4 \
     -Wall \
     -mfloat-abi=hard \
     -mfpu=fpv4-sp-d16 \
+    -Wl,--print-memory-usage \
     --specs=nano.specs \
     --specs=nosys.specs \
     -fno-common \
@@ -296,10 +318,12 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -T${ProjDirPath}/MCIMX7U5xxxxx_cm4_ram.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
+    ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
     -mcpu=cortex-m4 \
     -Wall \
     -mfloat-abi=hard \
     -mfpu=fpv4-sp-d16 \
+    -Wl,--print-memory-usage \
     --specs=nano.specs \
     --specs=nosys.specs \
     -fno-common \
@@ -322,11 +346,13 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -T${ProjDirPath}/MCIMX7U5xxxxx_cm4_ram.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
+    ${CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG} \
     -g \
     -mcpu=cortex-m4 \
     -Wall \
     -mfloat-abi=hard \
     -mfpu=fpv4-sp-d16 \
+    -Wl,--print-memory-usage \
     --specs=nano.specs \
     --specs=nosys.specs \
     -fno-common \
@@ -351,10 +377,12 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     -T${ProjDirPath}/MCIMX7U5xxxxx_cm4_flash.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
+    ${CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE} \
     -mcpu=cortex-m4 \
     -Wall \
     -mfloat-abi=hard \
     -mfpu=fpv4-sp-d16 \
+    -Wl,--print-memory-usage \
     --specs=nano.specs \
     --specs=nosys.specs \
     -fno-common \

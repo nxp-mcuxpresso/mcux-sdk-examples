@@ -88,8 +88,8 @@ int main(void)
     /* reset FLEXCOMM for I2C */
     RESET_PeripheralReset(kFC4_RST_SHIFT_RSTn);
 
-    BOARD_InitPins();
-    BOARD_BootClockPLL150M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\nI2C board2board DMA example -- Slave transfer.\r\n\r\n");

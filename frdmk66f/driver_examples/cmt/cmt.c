@@ -134,8 +134,8 @@ int main(void)
     cmt_config_t config;
     cmt_modulate_config_t modulateConfig;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\nCMT Example Start.\r\n");

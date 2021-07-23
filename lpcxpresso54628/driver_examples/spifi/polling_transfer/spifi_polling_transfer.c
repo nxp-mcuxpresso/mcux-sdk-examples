@@ -110,9 +110,9 @@ int main(void)
     /* attach 12 MHz clock to SPI3 */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM9);
 
-    BOARD_InitPins();
-    BOARD_BootClockPLL220M(); /* Boot up FROHF96M for SPIFI to use*/
-    BOARD_BootClockPLL220M(); /* Core clock boot to 220Mhz*/
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks(); /* Boot up FROHF96M for SPIFI to use*/
+    BOARD_InitBootClocks(); /* Core clock boot to 220Mhz*/
     BOARD_InitDebugConsole();
     PRINTF("SPIFI flash polling example started \r\n");
     /* Set SPIFI clock source */

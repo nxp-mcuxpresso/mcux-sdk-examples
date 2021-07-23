@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v5.0
+product: Pins v9.0
 processor: K32L3A60xxx
 package_id: K32L3A60VPJ1A
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 9.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -57,14 +57,22 @@ BOARD_InitPins:
  * Description   : Configures pin routing and optionally pin electrical features.
  *
  * END ****************************************************************************************************************/
+/* Function assigned for the Cortex-M4F */
 void BOARD_InitPins(void)
 {
-    CLOCK_EnableClock(kCLOCK_PortA);                           /* Clock Gate Control: 0x01u */
-    CLOCK_EnableClock(kCLOCK_PortC);                           /* Clock Gate Control: 0x01u */
+    /* Clock Gate Control: Clock enabled. The current clock selection and divider options are locked. */
+    CLOCK_EnableClock(kCLOCK_PortA);
+    /* Clock Gate Control: Clock enabled. The current clock selection and divider options are locked. */
+    CLOCK_EnableClock(kCLOCK_PortC);
 
-    PORT_SetPinMux(PORTA, 24U, kPORT_MuxAsGpio);         /* PORTA24 (pin D6) is configured as PTA24 */
-    PORT_SetPinMux(PORTC, 7U, kPORT_MuxAlt3);            /* PORTC7 (pin N2) is configured as LPUART0_RX */
-    PORT_SetPinMux(PORTC, 8U, kPORT_MuxAlt3);            /* PORTC8 (pin P3) is configured as LPUART0_TX */
+    /* PORTA24 (pin D6) is configured as PTA24 */
+    PORT_SetPinMux(PORTA, 24U, kPORT_MuxAsGpio);
+
+    /* PORTC7 (pin N2) is configured as LPUART0_RX */
+    PORT_SetPinMux(PORTC, 7U, kPORT_MuxAlt3);
+
+    /* PORTC8 (pin P3) is configured as LPUART0_TX */
+    PORT_SetPinMux(PORTC, 8U, kPORT_MuxAlt3);
 }
 /***********************************************************************************************************************
  * EOF

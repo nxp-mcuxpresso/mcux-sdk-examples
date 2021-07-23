@@ -29,7 +29,7 @@
 /* Entry Point */
 ENTRY(Reset_Handler)
 
-HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x2000;
+HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x0400;
 STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x400;
 RPMSG_SHMEM_SIZE = DEFINED(__use_shmem__) ? 0x1800 : 0;
 
@@ -37,8 +37,8 @@ RPMSG_SHMEM_SIZE = DEFINED(__use_shmem__) ? 0x1800 : 0;
 MEMORY
 {
   m_interrupts          (RX)  : ORIGIN = 0x20033000, LENGTH = 0x00000200
-  m_text                (RX)  : ORIGIN = 0x20033200, LENGTH = 0x0000C600
-  m_data                (RW)  : ORIGIN = 0x2003F800, LENGTH = 0x00004800
+  m_text                (RX)  : ORIGIN = 0x20033200, LENGTH = 0x0000CE00
+  m_data                (RW)  : ORIGIN = 0x20040000, LENGTH = 0x00004000
   rpmsg_sh_mem          (RW)  : ORIGIN = 0x20033000 - RPMSG_SHMEM_SIZE, LENGTH = RPMSG_SHMEM_SIZE
   m_usb_sram            (RW)  : ORIGIN = 0x40100000, LENGTH = 0x00004000
 }

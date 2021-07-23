@@ -195,8 +195,8 @@ int main(void)
     bool errorFlag = false;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("FLEXSPI hyperflash example started!\r\n");

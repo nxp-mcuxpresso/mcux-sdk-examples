@@ -55,12 +55,25 @@ int main(void)
     spi_transfer_t xfer = {0};
     spi_slave_config_t userConfig;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     PRINTF("\n\rSlave is working....\n\r");
 
     /* Init DMAMUX */
+#if FSL_FEATURE_DMA_MODULE_CHANNEL != FSL_FEATURE_DMAMUX_MODULE_CHANNEL
+    DMAMUX_Init(EXAMPLE_TX_DMAMUX);
+    DMAMUX_Init(EXAMPLE_RX_DMAMUX);
+    DMAMUX_SetSource(EXAMPLE_TX_DMAMUX, EXAMPLE_SPI_TX_DMAMUX_CHANNEL, EXAMPLE_SPI_TX_SOURCE);
+    DMAMUX_SetSource(EXAMPLE_RX_DMAMUX, EXAMPLE_SPI_RX_DMAMUX_CHANNEL, EXAMPLE_SPI_RX_SOURCE);
+    DMAMUX_EnableChannel(EXAMPLE_TX_DMAMUX, EXAMPLE_SPI_TX_DMAMUX_CHANNEL);
+    DMAMUX_EnableChannel(EXAMPLE_RX_DMAMUX, EXAMPLE_SPI_RX_DMAMUX_CHANNEL);
+
+    /* Init the DMA module */
+    DMA_Init(EXAMPLE_DMA);
+    DMA_CreateHandle(&txHandle, EXAMPLE_DMA, EXAMPLE_SPI_TX_DMA_CHANNEL);
+    DMA_CreateHandle(&rxHandle, EXAMPLE_DMA, EXAMPLE_SPI_RX_DMA_CHANNEL);
+#else
     DMAMUX_Init(EXAMPLE_DMAMUX);
     DMAMUX_SetSource(EXAMPLE_DMAMUX, EXAMPLE_SPI_TX_CHANNEL, EXAMPLE_SPI_TX_SOURCE);
     DMAMUX_SetSource(EXAMPLE_DMAMUX, EXAMPLE_SPI_RX_CHANNEL, EXAMPLE_SPI_RX_SOURCE);
@@ -71,6 +84,7 @@ int main(void)
     DMA_Init(EXAMPLE_DMA);
     DMA_CreateHandle(&txHandle, EXAMPLE_DMA, EXAMPLE_SPI_TX_CHANNEL);
     DMA_CreateHandle(&rxHandle, EXAMPLE_DMA, EXAMPLE_SPI_RX_CHANNEL);
+#endif
 
     /* Init the SPI slave */
     /*

@@ -21,9 +21,7 @@
     <definition extID="platform.drivers.flexcomm.MIMXRT685S"/>
     <definition extID="platform.drivers.lpc_iopctl.MIMXRT685S"/>
     <definition extID="platform.drivers.reset.MIMXRT685S"/>
-    <definition extID="platform.Include_core_cm33.MIMXRT685S"/>
-    <definition extID="platform.Include_common.MIMXRT685S"/>
-    <definition extID="platform.Include_dsp.MIMXRT685S"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT685S"/>
     <definition extID="platform.drivers.inputmux_connections.MIMXRT685S"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT685S"/>
     <definition extID="iar"/>
@@ -34,7 +32,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt685_i2c_interrupt_b2b_transfer_slave" name="i2c_interrupt_b2b_transfer_slave" device_core="cm33_MIMXRT685S" dependency="utility.debug_console_lite.MIMXRT685S platform.utilities.assert_lite.MIMXRT685S platform.drivers.flexcomm_i2c.MIMXRT685S platform.drivers.common.MIMXRT685S platform.drivers.clock.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.lpc_gpio.MIMXRT685S platform.drivers.inputmux.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S component.usart_adapter.MIMXRT685S platform.drivers.flash_config.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S component.lists.MIMXRT685S platform.drivers.flexcomm_usart.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S platform.drivers.reset.MIMXRT685S platform.Include_core_cm33.MIMXRT685S platform.Include_common.MIMXRT685S platform.Include_dsp.MIMXRT685S platform.drivers.inputmux_connections.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S" category="driver_examples/i2c">
+  <example id="evkmimxrt685_i2c_interrupt_b2b_transfer_slave" name="i2c_interrupt_b2b_transfer_slave" device_core="cm33_MIMXRT685S" dependency="utility.debug_console_lite.MIMXRT685S platform.utilities.assert_lite.MIMXRT685S platform.drivers.flexcomm_i2c.MIMXRT685S platform.drivers.common.MIMXRT685S platform.drivers.clock.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.lpc_gpio.MIMXRT685S platform.drivers.inputmux.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S component.usart_adapter.MIMXRT685S platform.drivers.flash_config.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S component.lists.MIMXRT685S platform.drivers.flexcomm_usart.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S platform.drivers.reset.MIMXRT685S CMSIS_Include_core_cm.MIMXRT685S platform.drivers.inputmux_connections.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S" category="driver_examples/i2c">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -49,6 +47,7 @@
           <value>CPU_MIMXRT685SFVKB_cm33</value>
           <value>BOOT_HEADER_ENABLE=1</value>
           <value>FSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
@@ -141,20 +140,9 @@
     <source path="examples/evkmimxrt685/driver_examples/i2c/interrupt_b2b_transfer/slave" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
     </source>
-    <source path="examples/evkmimxrt685/driver_examples/i2c/interrupt_b2b_transfer/slave/iar" project_relative_path="MIMXRT685S/iar" type="linker" toolchain="iar">
-      <files mask="MIMXRT685Sxxxx_cm33_ram.icf"/>
-      <files mask="MIMXRT685Sxxxx_cm33_flash.icf"/>
-    </source>
-    <source path="examples/evkmimxrt685/driver_examples/i2c/interrupt_b2b_transfer/slave/mdk" project_relative_path="MIMXRT685S/arm" type="linker" toolchain="mdk">
-      <files mask="MIMXRT685Sxxxx_cm33_ram.scf"/>
-      <files mask="MIMXRT685Sxxxx_cm33_flash.scf"/>
-    </source>
     <source path="examples/evkmimxrt685/driver_examples/i2c/interrupt_b2b_transfer/slave/armgcc" project_relative_path="MIMXRT685S/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMXRT685Sxxxx_cm33_ram.ld"/>
       <files mask="MIMXRT685Sxxxx_cm33_flash.ld"/>
-    </source>
-    <source path="examples/evkmimxrt685/driver_examples/i2c/interrupt_b2b_transfer/slave/mdk" project_relative_path="evkmimxrt685" type="configuration" toolchain="mdk">
-      <files mask="evkmimxrt685_flash.ini"/>
     </source>
   </example>
 </ksdk:examples>

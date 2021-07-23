@@ -119,8 +119,8 @@ int main(void)
     uint8_t msg = ' ';
     float voltRead;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     EnableIRQ(DEMO_ADC16_IRQn);
     PRINTF("\r\nDAC ADC Demo!\r\n");

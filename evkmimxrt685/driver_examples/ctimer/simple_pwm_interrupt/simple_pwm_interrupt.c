@@ -98,8 +98,8 @@ int main(void)
     /* Use 16 MHz clock for the Ctimer0 */
     CLOCK_AttachClk(kSFRO_to_CTIMER0);
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* CTimer0 counter uses the AHB clock, some CTimer1 modules use the Aysnc clock */

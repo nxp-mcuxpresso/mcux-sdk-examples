@@ -16,9 +16,7 @@
     <definition extID="platform.drivers.flexcomm_usart.LPC51U68"/>
     <definition extID="device.LPC51U68_startup.LPC51U68"/>
     <definition extID="platform.drivers.flexcomm.LPC51U68"/>
-    <definition extID="platform.Include_core_cm0plus.LPC51U68"/>
-    <definition extID="platform.Include_common.LPC51U68"/>
-    <definition extID="platform.Include_dsp.LPC51U68"/>
+    <definition extID="CMSIS_Include_core_cm.LPC51U68"/>
     <definition extID="platform.drivers.reset.LPC51U68"/>
     <definition extID="platform.drivers.inputmux_connections.LPC51U68"/>
     <definition extID="platform.utilities.misc_utilities.LPC51U68"/>
@@ -29,7 +27,7 @@
     <definition extID="armgcc"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso51u68_i2c_interrupt_b2b_transfer_master" name="i2c_interrupt_b2b_transfer_master" dependency="utility.debug_console_lite.LPC51U68 platform.utilities.assert_lite.LPC51U68 platform.drivers.flexcomm_i2c.LPC51U68 platform.drivers.common.LPC51U68 platform.drivers.clock.LPC51U68 platform.drivers.power.LPC51U68 platform.drivers.lpc_iocon.LPC51U68 platform.drivers.lpc_gpio.LPC51U68 platform.drivers.inputmux.LPC51U68 device.LPC51U68_CMSIS.LPC51U68 component.usart_adapter.LPC51U68 component.lists.LPC51U68 platform.drivers.flexcomm_usart.LPC51U68 device.LPC51U68_startup.LPC51U68 platform.drivers.flexcomm.LPC51U68 platform.Include_core_cm0plus.LPC51U68 platform.Include_common.LPC51U68 platform.Include_dsp.LPC51U68 platform.drivers.reset.LPC51U68 platform.drivers.inputmux_connections.LPC51U68 platform.utilities.misc_utilities.LPC51U68 device.LPC51U68_system.LPC51U68" category="driver_examples/i2c">
+  <example id="lpcxpresso51u68_i2c_interrupt_b2b_transfer_master" name="i2c_interrupt_b2b_transfer_master" dependency="utility.debug_console_lite.LPC51U68 platform.utilities.assert_lite.LPC51U68 platform.drivers.flexcomm_i2c.LPC51U68 platform.drivers.common.LPC51U68 platform.drivers.clock.LPC51U68 platform.drivers.power.LPC51U68 platform.drivers.lpc_iocon.LPC51U68 platform.drivers.lpc_gpio.LPC51U68 platform.drivers.inputmux.LPC51U68 device.LPC51U68_CMSIS.LPC51U68 component.usart_adapter.LPC51U68 component.lists.LPC51U68 platform.drivers.flexcomm_usart.LPC51U68 device.LPC51U68_startup.LPC51U68 platform.drivers.flexcomm.LPC51U68 CMSIS_Include_core_cm.LPC51U68 platform.drivers.reset.LPC51U68 platform.drivers.inputmux_connections.LPC51U68 platform.utilities.misc_utilities.LPC51U68 device.LPC51U68_system.LPC51U68" category="driver_examples/i2c">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -39,6 +37,7 @@
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>CORE_M0PLUS</value>
           <value>CPU_LPC51U68JBD64</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.none</value>
@@ -113,12 +112,6 @@
     </source>
     <source path="examples/lpcxpresso51u68/driver_examples/i2c/interrupt_b2b_transfer/master" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/lpcxpresso51u68/driver_examples/i2c/interrupt_b2b_transfer/master/iar" project_relative_path="LPC51U68/iar" type="linker" toolchain="iar">
-      <files mask="LPC51U68_flash.icf"/>
-    </source>
-    <source path="examples/lpcxpresso51u68/driver_examples/i2c/interrupt_b2b_transfer/master/mdk" project_relative_path="LPC51U68/arm" type="linker" toolchain="mdk">
-      <files mask="LPC51U68_flash.scf"/>
     </source>
     <source path="examples/lpcxpresso51u68/driver_examples/i2c/interrupt_b2b_transfer/master/armgcc" project_relative_path="LPC51U68/gcc" type="linker" toolchain="armgcc">
       <files mask="LPC51U68_flash.ld"/>

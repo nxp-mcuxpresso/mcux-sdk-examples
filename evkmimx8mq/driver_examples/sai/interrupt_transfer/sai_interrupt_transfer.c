@@ -14,9 +14,9 @@
 #include "music.h"
 #include "fsl_codec_common.h"
 
-#include "fsl_wm8524.h"
 #include "fsl_common.h"
 #include "fsl_gpio.h"
+#include "fsl_wm8524.h"
 #include "fsl_codec_adapter.h"
 /*******************************************************************************
  * Definitions
@@ -45,13 +45,20 @@
 
 #define BOARD_MASTER_CLOCK_CONFIG()
 #define BOARD_SAI_RXCONFIG(config, mode)
+
+#define DEMO_BOARD_CODEC_INIT BOARD_Codec_Init
+
 #ifndef DEMO_CODEC_INIT_DELAY_MS
 #define DEMO_CODEC_INIT_DELAY_MS (1000U)
+#endif
+#ifndef DEMO_CODEC_VOLUME
+#define DEMO_CODEC_VOLUME 100U
 #endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
 void BOARD_WM8524_Mute_GPIO(uint32_t output);
+void BOARD_Codec_Init(void);
 extern void BOARD_SAI_RXConfig(sai_transceiver_t *config, sai_sync_mode_t sync);
 /*******************************************************************************
  * Variables
@@ -62,7 +69,7 @@ static wm8524_config_t wm8524Config = {
     .protocol    = kWM8524_ProtocolI2S,
 };
 codec_config_t boardCodecConfig = {.codecDevType = kCODEC_WM8524, .codecDevConfig = &wm8524Config};
-
+extern codec_handle_t codecHandle;
 sai_handle_t txHandle           = {0};
 static volatile bool isFinished = false;
 extern codec_config_t boardCodecConfig;
@@ -77,6 +84,13 @@ void BOARD_WM8524_Mute_GPIO(uint32_t output)
     GPIO_PinWrite(DEMO_CODEC_MUTE_PIN, DEMO_CODEC_MUTE_PIN_NUM, output);
 }
 
+void BOARD_Codec_Init(void)
+{
+    if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
+    {
+        assert(false);
+    }
+}
 static void callback(I2S_Type *base, sai_handle_t *handle, status_t status, void *userData)
 {
     isFinished = true;
@@ -102,7 +116,7 @@ int main(void)
     /* Board specific RDC settings */
     BOARD_RdcInit();
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockRUN();
     BOARD_InitDebugConsole();
     BOARD_InitMemory();
@@ -133,11 +147,19 @@ int main(void)
     /* master clock configurations */
     BOARD_MASTER_CLOCK_CONFIG();
 
-    /* Use default setting to init codec */
+#if defined DEMO_BOARD_CODEC_INIT
+    DEMO_BOARD_CODEC_INIT();
+#else
     if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
     {
         assert(false);
     }
+    if (CODEC_SetVolume(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight,
+                        DEMO_CODEC_VOLUME) != kStatus_Success)
+    {
+        assert(false);
+    }
+#endif
     /* delay for codec output stable */
     DelayMS(DEMO_CODEC_INIT_DELAY_MS);
 

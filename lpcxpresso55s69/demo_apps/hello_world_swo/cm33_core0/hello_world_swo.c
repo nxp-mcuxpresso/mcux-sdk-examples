@@ -87,7 +87,7 @@ int main(void)
     /*!< Switch TRACE to TRACE_DIV */
     CLOCK_AttachClk(kTRACE_DIV_to_TRACE);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockFRO12M();
     BOARD_InitDebugConsole();
     BOARD_InitKey();

@@ -184,10 +184,40 @@ int main(void)
     /* attach 12 MHz clock to FLEXCOMM0 (debug console) */
     CLOCK_AttachClk(BOARD_DEBUG_UART_CLK_ATTACH);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     manage_evk_io_optimization();
-    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
+
+    /* disabled all auto clock gate bits. */
+    SYSCON->AUTOCLKGATEOVERRIDE = 0xC0DE0000;
+
+    /* All the peripherals, if not used, can be shut off to save power. Flexcomm 0 is used for interactive user
+   interface, analog ctrl is needed for PMC, some GPIO pins, PIN interrupt or GINT interrupts will be needed when they
+   are used as wake up source. */
+    SYSCON->AHBCLKCTRLX[1] = SYSCON_AHBCLKCTRL1_FC0_MASK;
+    SYSCON->AHBCLKCTRLX[2] = SYSCON_AHBCLKCTRL2_ANALOG_CTRL_MASK;
+
+    /* Disable BoD VBAT and Core Resets. */
+    PMC->RESETCTRL &= ~0xF00000F0;
+
+    /* Shut off part peripherals. */
+    PMC->PDRUNCFGSET0 = kPDRUNCFG_PD_XTAL32M | kPDRUNCFG_PD_LDOXO32M | kPDRUNCFG_PD_USB1_PHY | kPDRUNCFG_PD_LDOUSBHS |
+                        kPDRUNCFG_PD_RNG | kPDRUNCFG_PD_PLL0_SSCG | kPDRUNCFG_PD_ROM;
+
+    /* Turned off Flexcomms and peripherals to save power. */
+    CLOCK_AttachClk(kNONE_to_FLEXCOMM1);
+    CLOCK_AttachClk(kNONE_to_FLEXCOMM2);
+    CLOCK_AttachClk(kNONE_to_FLEXCOMM3);
+    CLOCK_AttachClk(kNONE_to_FLEXCOMM4);
+    CLOCK_AttachClk(kNONE_to_FLEXCOMM5);
+    CLOCK_AttachClk(kNONE_to_FLEXCOMM6);
+    CLOCK_AttachClk(kNONE_to_FLEXCOMM7);
+    CLOCK_AttachClk(kNONE_to_HSLSPI);
+    CLOCK_AttachClk(kNONE_to_TRACE);
+    CLOCK_AttachClk(kNONE_to_SYSTICK0);
+    CLOCK_AttachClk(kNONE_to_USB0_CLK);
+    CLOCK_AttachClk(kNONE_to_PLL1);
+    CLOCK_AttachClk(kNONE_to_SYS_CLKOUT);
 
     /* Running 12 MHz to Core*/
     APP_RUNNING_INTERNAL_CLOCK;

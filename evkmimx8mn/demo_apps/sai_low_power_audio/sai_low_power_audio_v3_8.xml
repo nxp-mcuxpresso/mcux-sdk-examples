@@ -7,7 +7,8 @@
     <definition extID="platform.drivers.gpt.MIMX8MN6"/>
     <definition extID="driver.codec.MIMX8MN6"/>
     <definition extID="platform.drivers.common.MIMX8MN6"/>
-    <definition extID="component.codec_wm8524_adapter.MIMX8MN6"/>
+    <definition extID="component.codec_adapters.MIMX8MN6"/>
+    <definition extID="component.wm8524_adapter.MIMX8MN6"/>
     <definition extID="platform.drivers.clock.MIMX8MN6"/>
     <definition extID="platform.drivers.sai.MIMX8MN6"/>
     <definition extID="platform.drivers.sai_sdma.MIMX8MN6"/>
@@ -20,9 +21,7 @@
     <definition extID="component.serial_manager_uart.MIMX8MN6"/>
     <definition extID="device.MIMX8MN6_startup.MIMX8MN6"/>
     <definition extID="platform.utilities.assert.MIMX8MN6"/>
-    <definition extID="platform.Include_core_cm7.MIMX8MN6"/>
-    <definition extID="platform.Include_common.MIMX8MN6"/>
-    <definition extID="platform.Include_dsp.MIMX8MN6"/>
+    <definition extID="CMSIS_Include_core_cm.MIMX8MN6"/>
     <definition extID="platform.drivers.sdma.MIMX8MN6"/>
     <definition extID="platform.drivers.memory.MIMX8MN6"/>
     <definition extID="platform.drivers.mu.MIMX8MN6"/>
@@ -42,7 +41,7 @@
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="mdk"/>
   </externalDefinitions>
-  <example id="evkmimx8mn_sai_low_power_audio" name="sai_low_power_audio" dependency="platform.drivers.igpio.MIMX8MN6 platform.drivers.iuart.MIMX8MN6 platform.drivers.gpc_2.MIMX8MN6 platform.drivers.gpt.MIMX8MN6 driver.codec.MIMX8MN6 platform.drivers.common.MIMX8MN6 component.codec_wm8524_adapter.MIMX8MN6 platform.drivers.clock.MIMX8MN6 platform.drivers.sai.MIMX8MN6 platform.drivers.sai_sdma.MIMX8MN6 platform.drivers.rdc.MIMX8MN6 device.MIMX8MN6_CMSIS.MIMX8MN6 utility.debug_console.MIMX8MN6 component.iuart_adapter.MIMX8MN6 component.serial_manager.MIMX8MN6 component.lists.MIMX8MN6 component.serial_manager_uart.MIMX8MN6 device.MIMX8MN6_startup.MIMX8MN6 platform.utilities.assert.MIMX8MN6 platform.Include_core_cm7.MIMX8MN6 platform.Include_common.MIMX8MN6 platform.Include_dsp.MIMX8MN6 platform.drivers.sdma.MIMX8MN6 platform.drivers.memory.MIMX8MN6 platform.drivers.mu.MIMX8MN6 driver.wm8524.MIMX8MN6 driver.srtm.freertos.MIMX8MN6 driver.srtm.MIMX8MN6 middleware.multicore.rpmsg_lite.imx8mn_m7_freertos.MIMX8MN6 middleware.multicore.rpmsg_lite.MIMX8MN6 middleware.freertos-kernel.MIMX8MN6 middleware.freertos-kernel.extension.MIMX8MN6 middleware.freertos-kernel.heap_4.MIMX8MN6 platform.utilities.misc_utilities.MIMX8MN6 device.MIMX8MN6_system.MIMX8MN6" category="demo_apps">
+  <example id="evkmimx8mn_sai_low_power_audio" name="sai_low_power_audio" dependency="platform.drivers.igpio.MIMX8MN6 platform.drivers.iuart.MIMX8MN6 platform.drivers.gpc_2.MIMX8MN6 platform.drivers.gpt.MIMX8MN6 driver.codec.MIMX8MN6 platform.drivers.common.MIMX8MN6 component.codec_adapters.MIMX8MN6 component.wm8524_adapter.MIMX8MN6 platform.drivers.clock.MIMX8MN6 platform.drivers.sai.MIMX8MN6 platform.drivers.sai_sdma.MIMX8MN6 platform.drivers.rdc.MIMX8MN6 device.MIMX8MN6_CMSIS.MIMX8MN6 utility.debug_console.MIMX8MN6 component.iuart_adapter.MIMX8MN6 component.serial_manager.MIMX8MN6 component.lists.MIMX8MN6 component.serial_manager_uart.MIMX8MN6 device.MIMX8MN6_startup.MIMX8MN6 platform.utilities.assert.MIMX8MN6 CMSIS_Include_core_cm.MIMX8MN6 platform.drivers.sdma.MIMX8MN6 platform.drivers.memory.MIMX8MN6 platform.drivers.mu.MIMX8MN6 driver.wm8524.MIMX8MN6 driver.srtm.freertos.MIMX8MN6 driver.srtm.MIMX8MN6 middleware.multicore.rpmsg_lite.imx8mn_m7_freertos.MIMX8MN6 middleware.multicore.rpmsg_lite.MIMX8MN6 middleware.freertos-kernel.MIMX8MN6 middleware.freertos-kernel.extension.MIMX8MN6 middleware.freertos-kernel.heap_4.MIMX8MN6 platform.utilities.misc_utilities.MIMX8MN6 device.MIMX8MN6_system.MIMX8MN6" category="demo_apps">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -54,10 +53,12 @@
           <value>SRTM_DEBUG_VERBOSE_LEVEL=SRTM_DEBUG_VERBOSE_WARN</value>
           <value>NOT_CONFIG_CLK_ROOT=1</value>
           <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
+          <value>CODEC_MULTI_ADAPTERS=1</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
           <value>BOARD_USE_CODEC=1</value>
           <value>CODEC_WM8524_ENABLE</value>
-          <value>FSL_RTOS_FREE_RTOS</value>
+          <value>SDK_OS_FREE_RTOS</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
@@ -119,6 +120,8 @@
     </source>
     <source path="examples/evkmimx8mn/demo_apps/sai_low_power_audio" project_relative_path="source" type="c_include">
       <files mask="FreeRTOSConfig.h"/>
+    </source>
+    <source path="examples/evkmimx8mn/demo_apps/sai_low_power_audio" project_relative_path="source" type="c_include">
       <files mask="rpmsg_config.h"/>
       <files mask="lpm.h"/>
       <files mask="sai_low_power_audio.h"/>
@@ -129,9 +132,6 @@
     </source>
     <source path="examples/evkmimx8mn/demo_apps/sai_low_power_audio/armgcc" project_relative_path="evkmimx8mn/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMX8MN6xxxxx_cm7_lpa_ram.ld"/>
-    </source>
-    <source path="examples/evkmimx8mn/demo_apps/sai_low_power_audio/iar" project_relative_path="evkmimx8mn/iar" type="linker" toolchain="iar">
-      <files mask="MIMX8MN6xxxxx_cm7_lpa_ram.icf"/>
     </source>
     <source path="examples/evkmimx8mn/demo_apps/sai_low_power_audio" project_relative_path="board" type="src">
       <files mask="pin_mux.c"/>

@@ -82,8 +82,8 @@ int main(void)
     uint16_t tmprxIndex = rxIndex;
     uint16_t tmptxIndex = txIndex;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     CLOCK_SetLpuartClock(1U);
     ;
 

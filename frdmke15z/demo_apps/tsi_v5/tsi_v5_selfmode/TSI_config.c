@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2018 NXP
+ * Copyright 2016-2018,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -17,11 +17,11 @@ key_tsi_mapping_t key_TSI[] = {
     /* Note: .TSI_channel_rx = 0xFF, indicates it's selfmode */
 
     /* config key in self mode */
-    {{kTSI_Chnl_22}, 0xFFU, 1000U, 0U, 0U, 0U, 0U, 0U}, /* KEY 0 */
-    {{kTSI_Chnl_23}, 0xFFU, 1000U, 0U, 0U, 0U, 0U, 0U}, /* KEY 1 */
+    {TSI, {kTSI_Chnl_22}, 0xFFU, 1000U, 0U, 0U, 0U, 0U, 0U}, /* KEY 0 */
+    {TSI, {kTSI_Chnl_23}, 0xFFU, 1000U, 0U, 0U, 0U, 0U, 0U}, /* KEY 1 */
 
     /* Do NOT move {0xFFU, 0xFFU, 0xFFU, 0xFFU} which indicates the end of the array */
-    {{0xFFU}, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU} /* the end of the array */
+    {TSI, {0xFFU}, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU} /* the end of the array */
 };
 
 /* If slider not needed, please fill 0xFF */

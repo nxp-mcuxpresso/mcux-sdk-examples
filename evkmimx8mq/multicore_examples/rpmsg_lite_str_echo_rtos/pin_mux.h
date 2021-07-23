@@ -1,10 +1,10 @@
 /*
- * Copyright 2017-2020 NXP
+ * Copyright 2017-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
- * 
  */
+
 
 #ifndef _PIN_MUX_H_
 #define _PIN_MUX_H_

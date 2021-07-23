@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 NXP
+ * Copyright 2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -13,11 +13,12 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v7.0
+product: Pins v9.0
 processor: MIMXRT685S
 package_id: MIMXRT685SFVKB
 mcu_data: ksdk2_0
-processor_version: 0.0.6
+processor_version: 0.9.4
+board: MIMXRT685-EVK
 pin_labels:
 - {pin_num: B1, pin_signal: PIO1_9/FC5_SSEL3/SCT0_GPI7/UTICK_CAP1/CTIMER1_MAT3/ADC0_12, label: WL_REG_ON, identifier: BOARD_INITPINS_WL_REG_ON;WL_REG_ON}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
@@ -25,6 +26,7 @@ pin_labels:
 /* clang-format on */
 
 #include "fsl_common.h"
+#include "fsl_gpio.h"
 #include "fsl_iopctl.h"
 #include "pin_mux.h"
 
@@ -59,12 +61,6 @@ BOARD_InitPins:
     pupdsel: pullDown, ibena: enabled, slew_rate: normal, drive: full, amena: disabled, odena: disabled, iiena: disabled}
   - {pin_num: C9, peripheral: FLEXCOMM3, signal: RXD_SDA_MOSI_DATA, pin_signal: PIO0_23/FC3_RXD_SDA_MOSI_DATA/CTIMER3_MAT2/TRACEDATA(1)/SEC_PIO0_23, pupdsel: pullDown,
     ibena: enabled, slew_rate: normal, drive: full, amena: disabled, odena: disabled, iiena: disabled}
-  - {pin_num: B6, peripheral: I3C, signal: PUR, pin_signal: PIO2_31/I3C0_PUR/SCT0_OUT7/UTICK_CAP3/CTIMER_INP15/SWO/CMP0_B, pupdena: disabled, pupdsel: pullDown, ibena: disabled,
-    slew_rate: slow, drive: normal, amena: disabled, odena: disabled, iiena: disabled}
-  - {pin_num: N17, peripheral: I3C, signal: SCL, pin_signal: PIO2_29/I3C0_SCL/SCT0_OUT0/CLKOUT, pupdena: enabled, pupdsel: pullUp, ibena: enabled, slew_rate: slow,
-    drive: normal, amena: disabled, odena: disabled, iiena: disabled}
-  - {pin_num: P16, peripheral: I3C, signal: SDA, pin_signal: PIO2_30/I3C0_SDA/SCT0_OUT3/CLKIN/CMP0_OUT, pupdena: enabled, pupdsel: pullUp, ibena: enabled, slew_rate: slow,
-    drive: normal, amena: disabled, odena: disabled, iiena: disabled}
   - {pin_num: R1, peripheral: DMIC0, signal: 'CLK, 0_1', pin_signal: PIO2_16/PDM_CLK01, pupdena: disabled, pupdsel: pullDown, ibena: enabled, slew_rate: normal, drive: normal,
     amena: disabled, odena: disabled, iiena: disabled}
   - {pin_num: U2, peripheral: DMIC0, signal: 'DATA, 0_1', pin_signal: PIO2_20/PDM_DATA01, pupdena: disabled, pupdsel: pullDown, ibena: enabled, slew_rate: normal,
@@ -271,6 +267,117 @@ void BOARD_InitPins(void)
                                          IOPCTL_PIO_INV_DI);
     /* PORT2 PIN20 (coords: U2) is configured as PDM_DATA01 */
     IOPCTL_PinMuxSet(IOPCTL, 2U, 20U, port2_pin20_config);
+}
+
+/* clang-format off */
+/*
+ * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+BOARD_InitI3CPinsAsGPIO:
+- options: {callFromInitBoot: 'false', coreID: cm33, enableClock: 'true'}
+- pin_list:
+  - {pin_num: P16, peripheral: GPIO, signal: 'PIO2, 30', pin_signal: PIO2_30/I3C0_SDA/SCT0_OUT3/CLKIN/CMP0_OUT, direction: OUTPUT, pupdena: enabled, pupdsel: pullUp,
+    ibena: enabled, slew_rate: slow}
+  - {pin_num: N17, peripheral: GPIO, signal: 'PIO2, 29', pin_signal: PIO2_29/I3C0_SCL/SCT0_OUT0/CLKOUT, direction: OUTPUT, pupdena: enabled, pupdsel: pullUp, ibena: enabled,
+    slew_rate: slow}
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
+ */
+/* clang-format on */
+
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_InitI3CPinsAsGPIO
+ * Description   : Configures pin routing and optionally pin electrical features.
+ *
+ * END ****************************************************************************************************************/
+/* Function assigned for the Cortex-M33 */
+void BOARD_InitI3CPinsAsGPIO(void)
+{
+
+    /* Enables the clock for the GPIO2 module */
+    CLOCK_EnableClock(kCLOCK_HsGpio2);
+
+    gpio_pin_config_t I3C0_SCL_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PIO2_29 (pin N17)  */
+    GPIO_PinInit(BOARD_INITI3CPINSASGPIO_I3C0_SCL_GPIO, BOARD_INITI3CPINSASGPIO_I3C0_SCL_PORT, BOARD_INITI3CPINSASGPIO_I3C0_SCL_PIN, &I3C0_SCL_config);
+
+    gpio_pin_config_t I3C0_SDA_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PIO2_30 (pin P16)  */
+    GPIO_PinInit(BOARD_INITI3CPINSASGPIO_I3C0_SDA_GPIO, BOARD_INITI3CPINSASGPIO_I3C0_SDA_PORT, BOARD_INITI3CPINSASGPIO_I3C0_SDA_PIN, &I3C0_SDA_config);
+
+    const uint32_t I3C0_SCL = (/* Pin is configured as PIO2_29 */
+                               IOPCTL_PIO_FUNC0 |
+                               /* Enable pull-up / pull-down function */
+                               IOPCTL_PIO_PUPD_EN |
+                               /* Enable pull-up function */
+                               IOPCTL_PIO_PULLUP_EN |
+                               /* Enables input buffer function */
+                               IOPCTL_PIO_INBUF_EN |
+                               /* Slow mode */
+                               IOPCTL_PIO_SLEW_RATE_SLOW |
+                               /* Normal drive */
+                               IOPCTL_PIO_FULLDRIVE_DI |
+                               /* Analog mux is disabled */
+                               IOPCTL_PIO_ANAMUX_DI |
+                               /* Pseudo Output Drain is disabled */
+                               IOPCTL_PIO_PSEDRAIN_DI |
+                               /* Input function is not inverted */
+                               IOPCTL_PIO_INV_DI);
+    /* PORT2 PIN29 (coords: N17) is configured as PIO2_29 */
+    IOPCTL_PinMuxSet(IOPCTL, BOARD_INITI3CPINSASGPIO_I3C0_SCL_PORT, BOARD_INITI3CPINSASGPIO_I3C0_SCL_PIN, I3C0_SCL);
+
+    const uint32_t I3C0_SDA = (/* Pin is configured as PIO2_30 */
+                               IOPCTL_PIO_FUNC0 |
+                               /* Enable pull-up / pull-down function */
+                               IOPCTL_PIO_PUPD_EN |
+                               /* Enable pull-up function */
+                               IOPCTL_PIO_PULLUP_EN |
+                               /* Enables input buffer function */
+                               IOPCTL_PIO_INBUF_EN |
+                               /* Slow mode */
+                               IOPCTL_PIO_SLEW_RATE_SLOW |
+                               /* Normal drive */
+                               IOPCTL_PIO_FULLDRIVE_DI |
+                               /* Analog mux is disabled */
+                               IOPCTL_PIO_ANAMUX_DI |
+                               /* Pseudo Output Drain is disabled */
+                               IOPCTL_PIO_PSEDRAIN_DI |
+                               /* Input function is not inverted */
+                               IOPCTL_PIO_INV_DI);
+    /* PORT2 PIN30 (coords: P16) is configured as PIO2_30 */
+    IOPCTL_PinMuxSet(IOPCTL, BOARD_INITI3CPINSASGPIO_I3C0_SDA_PORT, BOARD_INITI3CPINSASGPIO_I3C0_SDA_PIN, I3C0_SDA);
+}
+
+/* clang-format off */
+/*
+ * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+BOARD_InitI3CPins:
+- options: {callFromInitBoot: 'false', coreID: cm33, enableClock: 'true'}
+- pin_list:
+  - {pin_num: B6, peripheral: I3C, signal: PUR, pin_signal: PIO2_31/I3C0_PUR/SCT0_OUT7/UTICK_CAP3/CTIMER_INP15/SWO/CMP0_B, pupdena: disabled, pupdsel: pullDown, ibena: disabled,
+    slew_rate: slow, drive: normal, amena: disabled, odena: disabled, iiena: disabled}
+  - {pin_num: N17, peripheral: I3C, signal: SCL, pin_signal: PIO2_29/I3C0_SCL/SCT0_OUT0/CLKOUT, pupdena: enabled, pupdsel: pullUp, ibena: enabled, slew_rate: slow,
+    drive: normal, amena: disabled, odena: disabled, iiena: disabled}
+  - {pin_num: P16, peripheral: I3C, signal: SDA, pin_signal: PIO2_30/I3C0_SDA/SCT0_OUT3/CLKIN/CMP0_OUT, pupdena: enabled, pupdsel: pullUp, ibena: enabled, slew_rate: slow,
+    drive: normal, amena: disabled, odena: disabled, iiena: disabled}
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
+ */
+/* clang-format on */
+
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_InitI3CPins
+ * Description   : Configures pin routing and optionally pin electrical features.
+ *
+ * END ****************************************************************************************************************/
+/* Function assigned for the Cortex-M33 */
+void BOARD_InitI3CPins(void)
+{
 
     const uint32_t port2_pin29_config = (/* Pin is configured as I3C0_SCL */
                                          IOPCTL_PIO_FUNC1 |

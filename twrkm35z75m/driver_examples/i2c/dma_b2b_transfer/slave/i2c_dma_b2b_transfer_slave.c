@@ -24,7 +24,10 @@
 #define I2C_SLAVE_CLK_FREQ         CLOCK_GetFreq(I2C0_CLK_SRC)
 
 #define I2C_MASTER_SLAVE_ADDR_7BIT 0x7EU
-#define I2C_DATA_LENGTH            34U
+/* Set default SCL stop hold time to 4us for 100kHz baudrate according to spec. For 400kHz and 1mHz the hold time is
+   0.6us and 0.26us. */
+#define I2C_SLAVE_HOLD_TIME_NS 4000U
+#define I2C_DATA_LENGTH        34U
 
 /*******************************************************************************
  * Prototypes
@@ -92,8 +95,8 @@ int main(void)
 {
     i2c_slave_config_t slaveConfig;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\nI2C board2board DMA example -- Slave transfer.\r\n\r\n");
@@ -105,12 +108,14 @@ int main(void)
      * slaveConfig->enableWakeUp = false;
      * slaveConfig->enableBaudRateCtl = false;
      * slaveConfig->enableSlave = true;
+     * slaveConfig->sclStopHoldTime_ns = 4000;
      */
     I2C_SlaveGetDefaultConfig(&slaveConfig);
 
-    slaveConfig.addressingMode = kI2C_Address7bit;
-    slaveConfig.slaveAddress   = I2C_MASTER_SLAVE_ADDR_7BIT;
-    slaveConfig.upperAddress   = 0; /*  not used for this example */
+    slaveConfig.addressingMode     = kI2C_Address7bit;
+    slaveConfig.slaveAddress       = I2C_MASTER_SLAVE_ADDR_7BIT;
+    slaveConfig.upperAddress       = 0; /*  not used for this example */
+    slaveConfig.sclStopHoldTime_ns = I2C_SLAVE_HOLD_TIME_NS;
 
     I2C_SlaveInit(EXAMPLE_I2C_SLAVE_BASEADDR, &slaveConfig, I2C_SLAVE_CLK_FREQ);
 

@@ -88,7 +88,7 @@ int main(void)
     status_t result          = kStatus_Fail;
 
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_ACCEL_Reset();
     BOARD_I2C_ConfigurePins();
@@ -97,7 +97,7 @@ int main(void)
     CLOCK_SetIpSrc(kCLOCK_Lpi2c0, kCLOCK_IpSrcFircAsync);
     /* Select the clock source for the FTM counter as fast internal RC oscillator */
     CLOCK_SetIpSrc(kCLOCK_Ftm0, kCLOCK_IpSrcFircAsync);
-    BOARD_InitPeripherals();
+    BOARD_InitBootPeripherals();
 
     /* Configure the I2C function */
     config.I2C_SendFunc    = BOARD_Accel_I2C_Send;

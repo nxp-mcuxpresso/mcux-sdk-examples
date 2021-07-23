@@ -75,8 +75,8 @@ int main(void)
     uint16_t dacValue;
     uint32_t mask;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     INTMUX_Init(INTMUX0);

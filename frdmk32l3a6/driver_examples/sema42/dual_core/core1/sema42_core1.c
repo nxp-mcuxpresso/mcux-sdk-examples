@@ -76,7 +76,7 @@ int main(void)
 {
     uint8_t domainId;
 
-    BOARD_InitPins_Core1();
+    BOARD_InitBootPins();
 
 #if !CORE0_BOOT_CORE1
     APP_InitCore1Domain();

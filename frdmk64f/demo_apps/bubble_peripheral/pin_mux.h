@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -36,29 +36,47 @@ void BOARD_InitBootPins(void);
 
 /*! @name PORTB16 (number 62), U7[4]/UART0_RX
   @{ */
-#define BOARD_DEBUG_UART_RX_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_DEBUG_UART_RX_PIN 16U    /*!<@brief PORTB pin index: 16 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_RX_PORT PORTB                /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_RX_PIN 16U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_RX_PIN_MASK (1U << 16U)      /*!<@brief PORT pin mask */
+                                                      /* @} */
 
 /*! @name PORTB17 (number 63), U10[1]/UART0_TX
   @{ */
-#define BOARD_DEBUG_UART_TX_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_DEBUG_UART_TX_PIN 17U    /*!<@brief PORTB pin index: 17 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_TX_PORT PORTB                /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_TX_PIN 17U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_TX_PIN_MASK (1U << 17U)      /*!<@brief PORT pin mask */
+                                                      /* @} */
 
 /*! @name PORTB22 (number 68), D12[1]/LEDRGB_RED
   @{ */
-#define BOARD_LED_RED_GPIO GPIOB /*!<@brief GPIO device name: GPIOB */
-#define BOARD_LED_RED_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_LED_RED_PIN 22U    /*!<@brief PORTB pin index: 22 */
-                                 /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_LED_RED_GPIO GPIOB                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_LED_RED_GPIO_PIN_MASK (1U << 22U) /*!<@brief GPIO pin mask */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_LED_RED_PORT PORTB                /*!<@brief PORT peripheral base pointer */
+#define BOARD_LED_RED_PIN 22U                   /*!<@brief PORT pin number */
+#define BOARD_LED_RED_PIN_MASK (1U << 22U)      /*!<@brief PORT pin mask */
+                                                /* @} */
 
 /*! @name PORTE26 (number 33), J2[1]/D12[4]/LEDRGB_GREEN
   @{ */
-#define BOARD_LED_GREEN_GPIO GPIOE /*!<@brief GPIO device name: GPIOE */
-#define BOARD_LED_GREEN_PORT PORTE /*!<@brief PORT device name: PORTE */
-#define BOARD_LED_GREEN_PIN 26U    /*!<@brief PORTE pin index: 26 */
-                                   /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_LED_GREEN_GPIO GPIOE                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_LED_GREEN_GPIO_PIN_MASK (1U << 26U) /*!<@brief GPIO pin mask */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_LED_GREEN_PORT PORTE                /*!<@brief PORT peripheral base pointer */
+#define BOARD_LED_GREEN_PIN 26U                   /*!<@brief PORT pin number */
+#define BOARD_LED_GREEN_PIN_MASK (1U << 26U)      /*!<@brief PORT pin mask */
+                                                  /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
@@ -74,17 +92,29 @@ void BOARD_I2C_ConfigurePins(void);
 
 /*! @name PORTE24 (number 31), J2[20]/U8[4]/I2C0_SCL
   @{ */
-#define BOARD_ACCEL_I2C_SCL_GPIO GPIOE /*!<@brief GPIO device name: GPIOE */
-#define BOARD_ACCEL_I2C_SCL_PORT PORTE /*!<@brief PORT device name: PORTE */
-#define BOARD_ACCEL_I2C_SCL_PIN 24U    /*!<@brief PORTE pin index: 24 */
-                                       /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_ACCEL_I2C_SCL_GPIO GPIOE                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_ACCEL_I2C_SCL_GPIO_PIN_MASK (1U << 24U) /*!<@brief GPIO pin mask */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_ACCEL_I2C_SCL_PORT PORTE                /*!<@brief PORT peripheral base pointer */
+#define BOARD_ACCEL_I2C_SCL_PIN 24U                   /*!<@brief PORT pin number */
+#define BOARD_ACCEL_I2C_SCL_PIN_MASK (1U << 24U)      /*!<@brief PORT pin mask */
+                                                      /* @} */
 
 /*! @name PORTE25 (number 32), J2[18]/U8[6]/I2C0_SDA
   @{ */
-#define BOARD_ACCEL_I2C_SDA_GPIO GPIOE /*!<@brief GPIO device name: GPIOE */
-#define BOARD_ACCEL_I2C_SDA_PORT PORTE /*!<@brief PORT device name: PORTE */
-#define BOARD_ACCEL_I2C_SDA_PIN 25U    /*!<@brief PORTE pin index: 25 */
-                                       /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_ACCEL_I2C_SDA_GPIO GPIOE                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_ACCEL_I2C_SDA_GPIO_PIN_MASK (1U << 25U) /*!<@brief GPIO pin mask */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_ACCEL_I2C_SDA_PORT PORTE                /*!<@brief PORT peripheral base pointer */
+#define BOARD_ACCEL_I2C_SDA_PIN 25U                   /*!<@brief PORT pin number */
+#define BOARD_ACCEL_I2C_SDA_PIN_MASK (1U << 25U)      /*!<@brief PORT pin mask */
+                                                      /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

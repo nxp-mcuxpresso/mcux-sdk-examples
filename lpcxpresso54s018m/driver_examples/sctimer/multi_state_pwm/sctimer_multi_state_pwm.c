@@ -49,7 +49,7 @@ int main(void)
     INPUTMUX_Init(INPUTMUX);
     INPUTMUX_AttachSignal(INPUTMUX, 1U, kINPUTMUX_SctGpi6ToSct0);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockPLL180M();
     BOARD_InitDebugConsole();
 

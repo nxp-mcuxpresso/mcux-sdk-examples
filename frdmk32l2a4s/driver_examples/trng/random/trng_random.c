@@ -45,8 +45,8 @@ int main(void)
     uint32_t data[TRNG_EXAMPLE_RANDOM_NUMBER];
 
     /* Init hardware*/
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     CLOCK_SetIpSrc(kCLOCK_Trng0, kCLOCK_IpSrcSircAsync);

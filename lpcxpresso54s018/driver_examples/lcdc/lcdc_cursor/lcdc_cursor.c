@@ -219,8 +219,8 @@ int main(void)
 
     CLOCK_SetClkDiv(kCLOCK_DivLcdClk, 1, true);
 
-    BOARD_InitPins();
-    BOARD_BootClockPLL180M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
 
     /* Set the back light PWM. */
     BOARD_InitPWM();

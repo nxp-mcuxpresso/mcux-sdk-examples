@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 NXP
+ * Copyright 2017 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -10,21 +10,35 @@
  * will be overwritten if the respective MCUXpresso Config Tools is used to update this file.
  **********************************************************************************************************************/
 
+/* clang-format off */
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v4.0
+product: Pins v9.0
 processor: MKE06Z128xxx4
 package_id: MKE06Z128VLK4
 mcu_data: ksdk2_0
-processor_version: 0.0.4
+processor_version: 9.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
+/* clang-format on */
 
 #include "fsl_common.h"
 #include "fsl_port.h"
 #include "pin_mux.h"
 
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_InitBootPins
+ * Description   : Calls initialization functions.
+ *
+ * END ****************************************************************************************************************/
+void BOARD_InitBootPins(void)
+{
+    BOARD_InitPins();
+}
+
+/* clang-format off */
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitPins:
@@ -38,18 +52,21 @@ BOARD_InitPins:
   - {pin_num: '76', peripheral: SPI0, signal: SCK, pin_signal: PTE0/KBI1_P0/SPI0_SCK/TCLK1/I2C1_SDA}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
+/* clang-format on */
 
-/*FUNCTION**********************************************************************
+/* FUNCTION ************************************************************************************************************
  *
  * Function Name : BOARD_InitPins
  * Description   : Configures pin routing and optionally pin electrical features.
  *
- *END**************************************************************************/
-void BOARD_InitPins(void) {
-  PORT_SetPinSelect(kPORT_SPI0, kPORT_SPI0_SCKPTE0_MOSIPTE1_MISOPTE2_PCSPTE3);  /* pin 76,75,68,67 is configured as SPI0_SCK, SPI0_MOSI, SPI0_MISO, SPI0_PCS */
-  PORT_SetPinSelect(kPORT_UART1, kPORT_UART1_RXPTC7_TXPTC6);  /* pin 64,63 is configured as UART1_RX, UART1_TX */
+ * END ****************************************************************************************************************/
+void BOARD_InitPins(void)
+{
+    /* pin 68,75,67,76 is configured as SPI0_MISO, SPI0_MOSI, SPI0_PCS, SPI0_SCK */
+    PORT_SetPinSelect(kPORT_SPI0, kPORT_SPI0_SCKPTE0_MOSIPTE1_MISOPTE2_PCSPTE3);
+    /* pin 64,63 is configured as UART1_RX, UART1_TX */
+    PORT_SetPinSelect(kPORT_UART1, kPORT_UART1_RXPTC7_TXPTC6);
 }
-
-/*******************************************************************************
+/***********************************************************************************************************************
  * EOF
- ******************************************************************************/
+ **********************************************************************************************************************/

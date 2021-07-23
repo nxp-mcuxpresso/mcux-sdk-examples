@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 NXP
+ * Copyright 2018-2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -44,10 +44,14 @@ void BOARD_InitBootPins(void);
 
 /*! @name PIO1_7 (number 9), LEDG
   @{ */
-#define BOARD_INITPINS_LEDG_GPIO GPIO /*!<@brief GPIO device name: GPIO */
-#define BOARD_INITPINS_LEDG_PORT 1U   /*!<@brief PORT device name: 1U */
-#define BOARD_INITPINS_LEDG_PIN 7U    /*!<@brief 1U pin index: 7 */
-                                      /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_LEDG_GPIO GPIO                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_INITPINS_LEDG_GPIO_PIN_MASK (1U << 7U) /*!<@brief GPIO pin mask */
+#define BOARD_INITPINS_LEDG_PORT 1U                  /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_LEDG_PIN 7U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_LEDG_PIN_MASK (1U << 7U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

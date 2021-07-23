@@ -4,7 +4,7 @@
       <processor>K32L3A60xxx</processor>
       <package>K32L3A60VPJ1A</package>
       <mcu_data>ksdk2_0</mcu_data>
-      <cores selected="">
+      <cores selected="cm4">
          <core name="Cortex-M0P" id="cm0plus" description=""/>
          <core name="Cortex-M4F" id="cm4" description=""/>
       </cores>

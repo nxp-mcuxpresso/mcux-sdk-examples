@@ -12,9 +12,7 @@
     <definition extID="component.lists.MIMX8MM6"/>
     <definition extID="platform.drivers.iuart.MIMX8MM6"/>
     <definition extID="device.MIMX8MM6_startup.MIMX8MM6"/>
-    <definition extID="platform.Include_core_cm4.MIMX8MM6"/>
-    <definition extID="platform.Include_common.MIMX8MM6"/>
-    <definition extID="platform.Include_dsp.MIMX8MM6"/>
+    <definition extID="CMSIS_Include_core_cm.MIMX8MM6"/>
     <definition extID="platform.utilities.misc_utilities.MIMX8MM6"/>
     <definition extID="device.MIMX8MM6_system.MIMX8MM6"/>
     <definition extID="iar"/>
@@ -23,7 +21,7 @@
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="mdk"/>
   </externalDefinitions>
-  <example id="evkmimx8mm_ii2c_polling_b2b_transfer_slave" name="ii2c_polling_b2b_transfer_slave" dependency="utility.debug_console_lite.MIMX8MM6 platform.utilities.assert_lite.MIMX8MM6 platform.drivers.ii2c.MIMX8MM6 platform.drivers.clock.MIMX8MM6 platform.drivers.common.MIMX8MM6 platform.drivers.rdc.MIMX8MM6 device.MIMX8MM6_CMSIS.MIMX8MM6 component.iuart_adapter.MIMX8MM6 component.lists.MIMX8MM6 platform.drivers.iuart.MIMX8MM6 device.MIMX8MM6_startup.MIMX8MM6 platform.Include_core_cm4.MIMX8MM6 platform.Include_common.MIMX8MM6 platform.Include_dsp.MIMX8MM6 platform.utilities.misc_utilities.MIMX8MM6 device.MIMX8MM6_system.MIMX8MM6" category="driver_examples/i2c">
+  <example id="evkmimx8mm_ii2c_polling_b2b_transfer_slave" name="ii2c_polling_b2b_transfer_slave" dependency="utility.debug_console_lite.MIMX8MM6 platform.utilities.assert_lite.MIMX8MM6 platform.drivers.ii2c.MIMX8MM6 platform.drivers.clock.MIMX8MM6 platform.drivers.common.MIMX8MM6 platform.drivers.rdc.MIMX8MM6 device.MIMX8MM6_CMSIS.MIMX8MM6 component.iuart_adapter.MIMX8MM6 component.lists.MIMX8MM6 platform.drivers.iuart.MIMX8MM6 device.MIMX8MM6_startup.MIMX8MM6 CMSIS_Include_core_cm.MIMX8MM6 platform.utilities.misc_utilities.MIMX8MM6 device.MIMX8MM6_system.MIMX8MM6" category="driver_examples/i2c">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -31,6 +29,7 @@
       <toolchainSetting id_refs="com.nxp.mcuxpresso">
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>CPU_MIMX8MM6DVTLZ</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
@@ -111,11 +110,6 @@
     </source>
     <source path="examples/evkmimx8mm/driver_examples/i2c/polling_b2b_transfer/slave" project_relative_path="doc" type="doc" toolchain="iar mdk armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/evkmimx8mm/driver_examples/i2c/polling_b2b_transfer/slave/iar" project_relative_path="MIMX8MM6/iar" type="linker" toolchain="iar">
-      <files mask="MIMX8MM6xxxxx_cm4_ram.icf"/>
-      <files mask="MIMX8MM6xxxxx_cm4_ddr_ram.icf"/>
-      <files mask="MIMX8MM6xxxxx_cm4_flash.icf"/>
     </source>
     <source path="examples/evkmimx8mm/driver_examples/i2c/polling_b2b_transfer/slave/armgcc" project_relative_path="MIMX8MM6/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMX8MM6xxxxx_cm4_ram.ld"/>

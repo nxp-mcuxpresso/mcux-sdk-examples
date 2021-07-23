@@ -59,8 +59,8 @@ int main(void)
     /* reset FLEXCOMM for SPI */
     RESET_PeripheralReset(kFC7_RST_SHIFT_RSTn);
 
-    BOARD_InitPins();
-    BOARD_BootClockPLL150M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     PRINTF("\n\rSlave is working....\n\r");
 

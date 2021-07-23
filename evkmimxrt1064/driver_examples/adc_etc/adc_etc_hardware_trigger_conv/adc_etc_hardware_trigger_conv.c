@@ -81,8 +81,8 @@ int main(void)
     adc_etc_trigger_chain_config_t adcEtcTriggerChainConfig;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Set PERCLK_CLK source to OSC_CLK*/

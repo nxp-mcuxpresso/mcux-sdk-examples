@@ -97,8 +97,8 @@ int main(void)
     uint32_t timeout_i = 0U;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /*Clock setting for LPI2C*/

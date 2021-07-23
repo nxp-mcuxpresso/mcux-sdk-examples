@@ -94,7 +94,7 @@ int main(void)
     /* Set MCAN clock 180/6=30MHz. */
     CLOCK_SetClkDiv(kCLOCK_DivCan0Clk, 6U, true);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockPLL180M();
     BOARD_InitDebugConsole();
 

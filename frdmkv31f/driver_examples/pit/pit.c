@@ -58,8 +58,8 @@ int main(void)
     pit_config_t pitConfig;
 
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Initialize and enable LED */

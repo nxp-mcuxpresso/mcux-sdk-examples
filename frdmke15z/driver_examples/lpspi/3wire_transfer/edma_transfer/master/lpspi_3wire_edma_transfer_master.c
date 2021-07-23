@@ -68,8 +68,8 @@ void LPSPI_MasterUserCallback(LPSPI_Type *base, lpspi_master_edma_handle_t *hand
  */
 int main(void)
 {
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /*Set clock source for LPSPI and get master clock source*/

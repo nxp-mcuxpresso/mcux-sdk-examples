@@ -98,7 +98,7 @@ int main(void)
     CLOCK_SetClkDiv(kCLOCK_DivI3cClk, 4);
 
     BOARD_InitBootPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\nI3C board2board polling example -- Slave transfer.\r\n\r\n");

@@ -187,8 +187,8 @@ void HardFault_Handler(void)
 int main(void)
 {
     /* Init board hardware.*/
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Print the initial banner */

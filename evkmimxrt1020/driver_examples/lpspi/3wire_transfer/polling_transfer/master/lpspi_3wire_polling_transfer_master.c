@@ -54,8 +54,8 @@ uint8_t masterTxData[TRANSFER_SIZE] = {0U};
 int main(void)
 {
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /*Set clock source for LPSPI*/

@@ -73,8 +73,8 @@ int main(void)
     lpuart_transfer_t receiveXfer;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
 
     /*
      * config.baudRate_Bps = 115200U;

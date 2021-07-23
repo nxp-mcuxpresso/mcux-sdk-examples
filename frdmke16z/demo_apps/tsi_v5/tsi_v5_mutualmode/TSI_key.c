@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2018 NXP
+ * Copyright 2016-2018,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -30,8 +30,9 @@ uint8_t g_key_baseline_freq     = BASELINE_UPDATE_FREQ;
  *
  * This function is used to initiate TSI moudle,set charge current/voltage,
  * oscillator frequency, track TSI baseline through TSI calibration function.
+ * @param base    Pointer to the TSI param structure
  */
-void TSI_Init_SelfMode(void)
+void TSI_Init_SelfMode(TSI_Type *base)
 {
     tsi_selfCap_config_t config;
 
@@ -59,9 +60,9 @@ void TSI_Init_SelfMode(void)
     config.chargeCurrent     = kTSI_CurrentMultipleChargeValue_1; /* Charge/Discharge current multiple */
 
     /* If the TSI moudle has been enabled before, the TSI_InitXxxMode will disable the moudle and re-config TSI IP. */
-    TSI_InitSelfCapMode(TSI, &config);
+    TSI_InitSelfCapMode(base, &config);
 
-    TSI_EnableModule(TSI, true);
+    TSI_EnableModule(base, true);
 }
 
 /*!
@@ -69,8 +70,9 @@ void TSI_Init_SelfMode(void)
  *
  * This function is used to initiate TSI moudle,set charge current/voltage,
  * oscillator frequency, track TSI baseline through TSI calibration function.
+ * @param base    Pointer to the TSI param structure
  */
-void TSI_Init_MutualMode(void)
+void TSI_Init_MutualMode(TSI_Type *base)
 {
     tsi_mutualCap_config_t config;
 
@@ -101,9 +103,9 @@ void TSI_Init_MutualMode(void)
     config.pmosRightCurrent = kTSI_MutualPmosCurrentMirrorRight_1;
     config.nmosCurrent      = kTSI_MutualNmosCurrentMirror_1;
 
-    TSI_InitMutualCapMode(TSI, &config);
+    TSI_InitMutualCapMode(base, &config);
 
-    TSI_EnableModule(TSI, true);
+    TSI_EnableModule(base, true);
 }
 
 /*!
@@ -149,15 +151,16 @@ uint8_t TSI_KeyDetect(uint8_t *current_key_id)
     key_state_debounce_temp = key->key_state_debounce;
     key_baseline_temp       = key->key_baseline;
     key_value_sum_temp      = key->key_value_sum;
+    TSI_Type *base          = key->TSI_base;
 
     /* TSI_channel_rx = 0xFF indicates TSI self mode */
     if (key->TSI_channel_rx == 0xFFU)
     {
-        TSI_Init_SelfMode();
-        TSI_SetSelfCapMeasuredChannel(TSI, TSI_channel);
-        TSI_StartSoftwareTrigger(TSI);
+        TSI_Init_SelfMode(base);
+        TSI_SetSelfCapMeasuredChannel(base, TSI_channel);
+        TSI_StartSoftwareTrigger(base);
 
-        while (!(TSI_GetStatusFlags(TSI) & kTSI_EndOfScanFlag))
+        while (!(TSI_GetStatusFlags(base) & kTSI_EndOfScanFlag))
         {
             /* Start time-out counter */
             delay_j++;
@@ -174,23 +177,23 @@ uint8_t TSI_KeyDetect(uint8_t *current_key_id)
             }
         }
 
-        TSI_sampleResult = 0xFFFFU - TSI_GetCounter(TSI);
+        TSI_sampleResult = 0xFFFFU - TSI_GetCounter(base);
         key_value_sum_temp += TSI_sampleResult;
-        TSI_ClearStatusFlags(TSI, kTSI_EndOfScanFlag);
+        TSI_ClearStatusFlags(base, kTSI_EndOfScanFlag);
     }
     else
     {
         /* TSI mutual mode */
-        TSI_Init_MutualMode();
+        TSI_Init_MutualMode(base);
 
         TSI_channel    = key->TSI_CH.TSI_channel_tx - kTSI_Chnl_0;
         TSI_channel_rx = key->TSI_channel_rx - kTSI_Chnl_6;
 
-        TSI_SetMutualCapTxChannel(TSI, (tsi_mutual_tx_channel_t)TSI_channel);
-        TSI_SetMutualCapRxChannel(TSI, (tsi_mutual_rx_channel_t)TSI_channel_rx);
-        TSI_StartSoftwareTrigger(TSI);
+        TSI_SetMutualCapTxChannel(base, (tsi_mutual_tx_channel_t)TSI_channel);
+        TSI_SetMutualCapRxChannel(base, (tsi_mutual_rx_channel_t)TSI_channel_rx);
+        TSI_StartSoftwareTrigger(base);
 
-        while (!(TSI_GetStatusFlags(TSI) & kTSI_EndOfScanFlag))
+        while (!(TSI_GetStatusFlags(base) & kTSI_EndOfScanFlag))
         {
             /* Start time-out counter */
             delay_j++;
@@ -207,9 +210,9 @@ uint8_t TSI_KeyDetect(uint8_t *current_key_id)
             }
         }
 
-        TSI_sampleResult = TSI_GetCounter(TSI);
+        TSI_sampleResult = TSI_GetCounter(base);
         key_value_sum_temp += TSI_sampleResult;
-        TSI_ClearStatusFlags(TSI, kTSI_EndOfScanFlag);
+        TSI_ClearStatusFlags(base, kTSI_EndOfScanFlag);
     }
 
     if (g_tsi_sample_cnt % g_key_baseline_freq == 0)
@@ -320,6 +323,7 @@ uint8_t TSI_KeyDetect(uint8_t *current_key_id)
 void TSI_KeyInit(void)
 {
     uint8_t key_id = 0U;
+    TSI_Type *base = NULL;
 
     uint8_t tsi_sample_cnt, max_tsi_sample_cnt = 8;
     uint32_t tsi_sample_result, tsi_sample_result_sum;
@@ -339,19 +343,20 @@ void TSI_KeyInit(void)
 
         for (tsi_sample_cnt = 0; tsi_sample_cnt < max_tsi_sample_cnt; tsi_sample_cnt++)
         {
+            base = key_TSI[key_id].TSI_base;
             if (key_TSI[key_id].TSI_channel_rx == 0xFFU) /* TSI_channel_rx=0xFF indicates the key is self mode */
             {
-                TSI_Init_SelfMode();
-                TSI_SetSelfCapMeasuredChannel(TSI, key_TSI[key_id].TSI_CH.TSI_channel);
-                TSI_StartSoftwareTrigger(TSI);
+                TSI_Init_SelfMode(base);
+                TSI_SetSelfCapMeasuredChannel(base, key_TSI[key_id].TSI_CH.TSI_channel);
+                TSI_StartSoftwareTrigger(base);
 
-                while (!(TSI_GetStatusFlags(TSI) & kTSI_EndOfScanFlag))
+                while (!(TSI_GetStatusFlags(base) & kTSI_EndOfScanFlag))
                 {
                 }
 
-                tsi_sample_result = 0xFFFFU - TSI_GetCounter(TSI);
+                tsi_sample_result = 0xFFFFU - TSI_GetCounter(base);
                 tsi_sample_result_sum += tsi_sample_result;
-                TSI_ClearStatusFlags(TSI, kTSI_EndOfScanFlag);
+                TSI_ClearStatusFlags(base, kTSI_EndOfScanFlag);
             }
             else
             {
@@ -359,19 +364,20 @@ void TSI_KeyInit(void)
                 assert((key_TSI[key_id].TSI_CH.TSI_channel_tx <= kTSI_Chnl_5) &&
                        (key_TSI[key_id].TSI_channel_rx >= kTSI_Chnl_6) &&
                        (key_TSI[key_id].TSI_channel_rx <= kTSI_Chnl_11));
-                TSI_Init_MutualMode();
+                TSI_Init_MutualMode(base);
                 TSI_SetMutualCapTxChannel(
-                    TSI, (tsi_mutual_tx_channel_t)(key_TSI[key_id].TSI_CH.TSI_channel_tx - kTSI_Chnl_0));
-                TSI_SetMutualCapRxChannel(TSI, (tsi_mutual_rx_channel_t)(key_TSI[key_id].TSI_channel_rx - kTSI_Chnl_6));
-                TSI_StartSoftwareTrigger(TSI);
+                    base, (tsi_mutual_tx_channel_t)(key_TSI[key_id].TSI_CH.TSI_channel_tx - kTSI_Chnl_0));
+                TSI_SetMutualCapRxChannel(base,
+                                          (tsi_mutual_rx_channel_t)(key_TSI[key_id].TSI_channel_rx - kTSI_Chnl_6));
+                TSI_StartSoftwareTrigger(base);
 
-                while (!(TSI_GetStatusFlags(TSI) & kTSI_EndOfScanFlag))
+                while (!(TSI_GetStatusFlags(base) & kTSI_EndOfScanFlag))
                 {
                 }
 
-                tsi_sample_result = TSI_GetCounter(TSI);
+                tsi_sample_result = TSI_GetCounter(base);
                 tsi_sample_result_sum += tsi_sample_result;
-                TSI_ClearStatusFlags(TSI, kTSI_EndOfScanFlag);
+                TSI_ClearStatusFlags(base, kTSI_EndOfScanFlag);
             }
         }
 

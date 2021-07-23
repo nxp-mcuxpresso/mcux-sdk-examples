@@ -56,8 +56,8 @@ int main(void)
     edma_transfer_config_t transferConfig;
     edma_config_t userConfig;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     /* Print source buffer */
     PRINTF("EDMA memory to memory transfer example begin.\r\n\r\n");

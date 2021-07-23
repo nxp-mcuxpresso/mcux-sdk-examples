@@ -61,7 +61,7 @@ int main(void)
     uint8_t divider;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
@@ -75,6 +75,7 @@ int main(void)
     CLOCK_EnableClock(kCLOCK_LcdPixel);
     CLOCK_EnableClock(kCLOCK_Can2S);
     CLOCK_EnableClock(kCLOCK_Pit);
+    CLOCK_EnableClock(kCLOCK_Lpi2c1);
 
     PRINTF("\r\nClock Output Driver Example.\r\n");
 

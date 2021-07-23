@@ -192,8 +192,8 @@ int main(void)
     bool isMasterIrqInIntmux = false;
     bool isSlaveIrqInIntmux  = false;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /*Set clock source for LPSPI and get master clock source*/

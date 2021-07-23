@@ -15,9 +15,7 @@
     <definition extID="device.LPC802_startup.LPC802"/>
     <definition extID="platform.drivers.lpc_iocon_lite.LPC802"/>
     <definition extID="platform.drivers.rom_api.LPC802"/>
-    <definition extID="platform.Include_core_cm0plus.LPC802"/>
-    <definition extID="platform.Include_common.LPC802"/>
-    <definition extID="platform.Include_dsp.LPC802"/>
+    <definition extID="CMSIS_Include_core_cm.LPC802"/>
     <definition extID="platform.drivers.reset.LPC802"/>
     <definition extID="platform.utilities.misc_utilities.LPC802"/>
     <definition extID="platform.drivers.swm_connections.LPC802"/>
@@ -29,7 +27,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso802_usart_transfer_sync_b2b_slave" name="usart_transfer_sync_b2b_slave" dependency="utility.debug_console_lite.LPC802 platform.utilities.assert_lite.LPC802 platform.drivers.lpc_miniusart.LPC802 platform.drivers.common.LPC802 platform.drivers.clock.LPC802 platform.drivers.power_no_lib.LPC802 platform.drivers.lpc_gpio.LPC802 platform.drivers.swm.LPC802 platform.drivers.syscon.LPC802 device.LPC802_CMSIS.LPC802 component.miniusart_adapter.LPC802 device.LPC802_startup.LPC802 platform.drivers.lpc_iocon_lite.LPC802 platform.drivers.rom_api.LPC802 platform.Include_core_cm0plus.LPC802 platform.Include_common.LPC802 platform.Include_dsp.LPC802 platform.drivers.reset.LPC802 platform.utilities.misc_utilities.LPC802 platform.drivers.swm_connections.LPC802 platform.drivers.syscon_connections.LPC802 device.LPC802_system.LPC802" category="driver_examples/usart">
+  <example id="lpcxpresso802_usart_transfer_sync_b2b_slave" name="usart_transfer_sync_b2b_slave" dependency="utility.debug_console_lite.LPC802 platform.utilities.assert_lite.LPC802 platform.drivers.lpc_miniusart.LPC802 platform.drivers.common.LPC802 platform.drivers.clock.LPC802 platform.drivers.power_no_lib.LPC802 platform.drivers.lpc_gpio.LPC802 platform.drivers.swm.LPC802 platform.drivers.syscon.LPC802 device.LPC802_CMSIS.LPC802 component.miniusart_adapter.LPC802 device.LPC802_startup.LPC802 platform.drivers.lpc_iocon_lite.LPC802 platform.drivers.rom_api.LPC802 CMSIS_Include_core_cm.LPC802 platform.drivers.reset.LPC802 platform.utilities.misc_utilities.LPC802 platform.drivers.swm_connections.LPC802 platform.drivers.syscon_connections.LPC802 device.LPC802_system.LPC802" category="driver_examples/usart">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -38,6 +36,7 @@
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>CPU_LPC802</value>
           <value>CPU_LPC802M001JDH20</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.none</value>
@@ -112,12 +111,6 @@
     </source>
     <source path="examples/lpcxpresso802/driver_examples/usart/transfer_sync_b2b/slave" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/lpcxpresso802/driver_examples/usart/transfer_sync_b2b/slave/iar" project_relative_path="LPC802/iar" type="linker" toolchain="iar">
-      <files mask="LPC802_flash.icf"/>
-    </source>
-    <source path="examples/lpcxpresso802/driver_examples/usart/transfer_sync_b2b/slave/mdk" project_relative_path="LPC802/arm" type="linker" toolchain="mdk">
-      <files mask="LPC802_flash.scf"/>
     </source>
     <source path="examples/lpcxpresso802/driver_examples/usart/transfer_sync_b2b/slave/armgcc" project_relative_path="LPC802/gcc" type="linker" toolchain="armgcc">
       <files mask="LPC802_flash.ld"/>

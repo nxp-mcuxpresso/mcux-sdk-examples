@@ -256,8 +256,8 @@ void DEMO_DMA_IRQ_HANDLER_FUNC(void)
 int main(void)
 {
     /* Initialize hardware */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     /* Initialize Led */
     LED_INIT();

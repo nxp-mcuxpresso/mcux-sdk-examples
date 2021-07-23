@@ -14,8 +14,8 @@
 #include "fsl_codec_common.h"
 
 #include "fsl_wm8960.h"
-#include "fsl_sai.h"
 #include "fsl_codec_adapter.h"
+#include "fsl_sai.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -84,6 +84,7 @@
 wm8960_config_t wm8960Config = {
     .i2cConfig = {.codecI2CInstance = BOARD_CODEC_I2C_INSTANCE, .codecI2CSourceClock = BOARD_CODEC_I2C_CLOCK_FREQ},
     .route     = kWM8960_RoutePlaybackandRecord,
+    .leftInputSource  = kWM8960_InputDifferentialMicInput3,
     .rightInputSource = kWM8960_InputDifferentialMicInput2,
     .playSource       = kWM8960_PlaySourceDAC,
     .slaveAddress     = WM8960_I2C_ADDR,
@@ -186,10 +187,10 @@ int main(void)
     uint8_t txIndex = 0, rxIndex = 0;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_I2C_ConfigurePins();
     BOARD_FLEXIO_ConfigurePins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     BOARD_SAI_ConfigurePins();
     CLOCK_InitAudioPll(&audioPllConfig);

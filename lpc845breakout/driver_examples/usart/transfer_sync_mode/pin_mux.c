@@ -1,5 +1,5 @@
 /*
- * Copyright  2019 NXP
+ * Copyright  2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v5.0
+product: Pins v9.0
 processor: LPC845
 package_id: LPC845M301JBD48
 mcu_data: ksdk2_0
-processor_version: 5.0.0
+processor_version: 9.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -91,7 +91,7 @@ void BOARD_InitPins(void)
                                                  IOCON_PIO_SMODE_BYPASS |
                                                  /* IOCONCLKDIV0 */
                                                  IOCON_PIO_CLKDIV0);
-    /* PORT0 PIN20 (coords: ) is configured as  */
+    /* PIO0 PIN20 (coords: 45) is configured as USART1, TXD. */
     IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_20, IOCON_INDEX_PIO0_20_config);
 
     const uint32_t IOCON_INDEX_PIO0_21_config = (/* Selects pull-up function */
@@ -106,7 +106,7 @@ void BOARD_InitPins(void)
                                                  IOCON_PIO_SMODE_BYPASS |
                                                  /* IOCONCLKDIV0 */
                                                  IOCON_PIO_CLKDIV0);
-    /* PORT0 PIN21 (coords: ) is configured as  */
+    /* PIO0 PIN21 (coords: 44) is configured as USART1, RXD. */
     IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_21, IOCON_INDEX_PIO0_21_config);
 
     const uint32_t IOCON_INDEX_PIO0_24_config = (/* Selects pull-up function */
@@ -121,7 +121,7 @@ void BOARD_InitPins(void)
                                                  IOCON_PIO_SMODE_BYPASS |
                                                  /* IOCONCLKDIV0 */
                                                  IOCON_PIO_CLKDIV0);
-    /* PORT0 PIN24 (coords: ) is configured as  */
+    /* PIO0 PIN24 (coords: 20) is configured as USART0, RXD. */
     IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_24, IOCON_INDEX_PIO0_24_config);
 
     const uint32_t IOCON_INDEX_PIO0_25_config = (/* Selects pull-up function */
@@ -136,7 +136,7 @@ void BOARD_InitPins(void)
                                                  IOCON_PIO_SMODE_BYPASS |
                                                  /* IOCONCLKDIV0 */
                                                  IOCON_PIO_CLKDIV0);
-    /* PORT0 PIN25 (coords: ) is configured as  */
+    /* PIO0 PIN25 (coords: 19) is configured as USART0, TXD. */
     IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_25, IOCON_INDEX_PIO0_25_config);
 
     const uint32_t IOCON_INDEX_PIO0_26_config = (/* Selects pull-up function */
@@ -151,7 +151,7 @@ void BOARD_InitPins(void)
                                                  IOCON_PIO_SMODE_BYPASS |
                                                  /* IOCONCLKDIV0 */
                                                  IOCON_PIO_CLKDIV0);
-    /* PORT0 PIN26 (coords: ) is configured as  */
+    /* PIO0 PIN26 (coords: 18) is configured as USART1, SCLK. */
     IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_26, IOCON_INDEX_PIO0_26_config);
 
     const uint32_t IOCON_INDEX_PIO0_27_config = (/* Selects pull-up function */
@@ -166,7 +166,7 @@ void BOARD_InitPins(void)
                                                  IOCON_PIO_SMODE_BYPASS |
                                                  /* IOCONCLKDIV0 */
                                                  IOCON_PIO_CLKDIV0);
-    /* PORT0 PIN27 (coords: ) is configured as  */
+    /* PIO0 PIN27 (coords: 17) is configured as USART2, SCLK. */
     IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_27, IOCON_INDEX_PIO0_27_config);
 
     /* USART0_TXD connect to P0_25 */

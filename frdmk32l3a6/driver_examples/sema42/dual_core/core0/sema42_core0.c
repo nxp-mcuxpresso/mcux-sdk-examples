@@ -220,8 +220,8 @@ int main(void)
 {
     uint8_t domainId;
     /* Init board hardware.*/
-    BOARD_InitPins_Core0();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     BOARD_InitLedPin();
 #if APP_BOARD_HAS_LED

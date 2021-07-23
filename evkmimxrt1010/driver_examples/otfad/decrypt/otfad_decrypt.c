@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019-2021 NXP
  * All rights reserved.
  *
  *
@@ -10,6 +10,9 @@
 #include "app.h"
 #include "fsl_debug_console.h"
 #include "fsl_otfad.h"
+#if CACHE_MAINTAIN
+#include "fsl_cache.h"
+#endif
 
 #include "pin_mux.h"
 #include "clock_config.h"
@@ -34,6 +37,8 @@ extern status_t flexspi_nor_flash_program(FLEXSPI_Type *base, uint32_t dstAddr, 
 extern status_t flexspi_nor_enable_quad_mode(FLEXSPI_Type *base);
 extern status_t flexspi_nor_erase_chip(FLEXSPI_Type *base);
 extern void flexspi_nor_flash_init(FLEXSPI_Type *base);
+extern void flexspi_nor_disable_cache(flexspi_cache_status_t *cacheStatus);
+extern void flexspi_nor_enable_cache(flexspi_cache_status_t cacheStatus);
 
 void OTFAD_GetEncryptedCounter(uint8_t *counter);
 void OTFAD_EncryptData(uint8_t *counter, uint8_t *plainText, uint8_t *cipherText);
@@ -119,10 +124,6 @@ const uint32_t customLUT[CUSTOM_LUT_LENGTH] = {
         FLEXSPI_LUT_SEQ(kFLEXSPI_Command_SDR, kFLEXSPI_1PAD, 0xC7, kFLEXSPI_Command_STOP, kFLEXSPI_1PAD, 0),
 };
 
-#if APP_USING_CACHE
-#include "fsl_cache.h"
-#endif
-
 int main(void)
 {
     uint32_t i      = 0;
@@ -134,8 +135,8 @@ int main(void)
     uint8_t contextHit;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /*
@@ -225,27 +226,8 @@ int main(void)
 
     PRINTF("Erasing Serial NOR over FlexSPI...\r\n");
 
-    /* Disable I cache to avoid cache pre-fatch instruction with branch prediction from flash
-       and application operate flash synchronously in multi-tasks. */
-#if defined(__ICACHE_PRESENT) && (__ICACHE_PRESENT == 1U)
-    volatile bool ICacheEnableFlag = false;
-    /* Disable I cache. */
-    if (SCB_CCR_IC_Msk == (SCB_CCR_IC_Msk & SCB->CCR))
-    {
-        SCB_DisableICache();
-        ICacheEnableFlag = true;
-    }
-#endif /* __ICACHE_PRESENT */
     /* Erase sectors. */
     status = flexspi_nor_flash_erase_sector(EXAMPLE_FLEXSPI, EXAMPLE_SECTOR * SECTOR_SIZE);
-#if defined(__ICACHE_PRESENT) && (__ICACHE_PRESENT == 1U)
-    if (ICacheEnableFlag)
-    {
-        /* Enable I cache. */
-        SCB_EnableICache();
-        ICacheEnableFlag = false;
-    }
-#endif /* __ICACHE_PRESENT */
 
     if (status != kStatus_Success)
     {
@@ -268,32 +250,17 @@ int main(void)
     /* Encrypt data with encrypted counter */
     OTFAD_EncryptData(encryptedCounter, s_plain_text, s_cipher_text);
 
-#if defined(__ICACHE_PRESENT) && (__ICACHE_PRESENT == 1U)
-    /* Disable I cache. */
-    if (SCB_CCR_IC_Msk == (SCB_CCR_IC_Msk & SCB->CCR))
-    {
-        SCB_DisableICache();
-        ICacheEnableFlag = true;
-    }
-#endif /* __ICACHE_PRESENT */
     /* Write ciphertext into external memory */
     status = flexspi_nor_flash_program(EXAMPLE_FLEXSPI, EXAMPLE_SECTOR * SECTOR_SIZE, (void *)s_cipher_text,
                                        sizeof(s_cipher_text));
-#if defined(__ICACHE_PRESENT) && (__ICACHE_PRESENT == 1U)
-    if (ICacheEnableFlag)
-    {
-        /* Enable I cache. */
-        SCB_EnableICache();
-        ICacheEnableFlag = false;
-    }
-#endif /* __ICACHE_PRESENT */
+
     if (status != kStatus_Success)
     {
         PRINTF("Ciphertext program failure !\r\n");
         return -1;
     }
 
-#if APP_USING_CACHE
+#if CACHE_MAINTAIN
     /*
      * Invalidate the cache, so new read will read from memory directly.
      */
@@ -332,34 +299,13 @@ void OTFAD_GetEncryptedCounter(uint8_t *counter)
 
     status = OTFAD_HitDetermination(EXAMPLE_OTFAD, sysAddress, &contextHit);
 
-    /* Disable I cache to avoid cache pre-fatch instruction with branch prediction from flash
-       and application operate flash synchronously in multi-tasks. */
-#if defined(__ICACHE_PRESENT) && (__ICACHE_PRESENT == 1U)
-    volatile bool ICacheEnableFlag = false;
-    /* Disable I cache. */
-    if (SCB_CCR_IC_Msk == (SCB_CCR_IC_Msk & SCB->CCR))
-    {
-        SCB_DisableICache();
-        ICacheEnableFlag = true;
-    }
-#endif /* __ICACHE_PRESENT */
-
     if (status == kStatus_Success)
     {
         /* Erase sector */
         status = flexspi_nor_flash_erase_sector(EXAMPLE_FLEXSPI, EXAMPLE_SECTOR * SECTOR_SIZE);
     }
 
-#if defined(__ICACHE_PRESENT) && (__ICACHE_PRESENT == 1U)
-    if (ICacheEnableFlag)
-    {
-        /* Enable I cache. */
-        SCB_EnableICache();
-        ICacheEnableFlag = false;
-    }
-#endif /* __ICACHE_PRESENT */
-
-#if APP_USING_CACHE
+#if CACHE_MAINTAIN
     /*
      * Invalidate the cache, so new read will read from memory directly.
      */
