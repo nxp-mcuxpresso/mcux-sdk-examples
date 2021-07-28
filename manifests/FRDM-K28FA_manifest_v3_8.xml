@@ -1794,7 +1794,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="device.MK28FA15_debugger.MK28FA15" name="MK28FA15_debugger" brief="Device MK28FA15_debugger" version="1.0.0" full_name="Device MK28FA15_debugger" devices="MK28FN2M0Axxx15" user_visible="true" type="debugger" package_base_path="core/devices/MK28FA15" project_base_path="MK28FA15">
+    <component id="device.MK28FA15_debugger.MK28FA15" name="MK28FA15_debugger" brief="Device MK28FA15_debugger" version="1.0.0" full_name="Device MK28FA15_debugger" devices="MK28FN2M0Axxx15" user_visible="true" type="debugger" package_base_path="svd/MK28FA15" project_base_path="MK28FA15">
       <source relative_path="./" type="xml">
         <files mask="MK28FA15.xml"/>
       </source>

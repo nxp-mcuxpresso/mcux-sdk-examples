@@ -1919,7 +1919,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include" device_cores="cm4_LPC54114J256"/>
       </include_paths>
     </component>
-    <component id="platform.devices.LPC54114_debugger.LPC54114" name="LPC54114_debugger" brief="Device LPC54114_debugger" version="1.0.0" full_name="Device LPC54114_debugger" devices="LPC54114J256" user_visible="true" type="debugger" package_base_path="core/devices/LPC54114" project_base_path="LPC54114">
+    <component id="platform.devices.LPC54114_debugger.LPC54114" name="LPC54114_debugger" brief="Device LPC54114_debugger" version="1.0.0" full_name="Device LPC54114_debugger" devices="LPC54114J256" user_visible="true" type="debugger" package_base_path="svd/LPC54114" project_base_path="LPC54114">
       <source relative_path="./" type="xml" device_cores="cm0plus_LPC54114J256">
         <files mask="LPC54114_cm0plus.xml"/>
       </source>

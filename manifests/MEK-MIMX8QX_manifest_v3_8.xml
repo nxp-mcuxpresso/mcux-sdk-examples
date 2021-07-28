@@ -1661,7 +1661,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="device.MIMX8QX6_debugger.MIMX8QX6" name="MIMX8QX6_debugger" brief="Device MIMX8QX6_debugger" version="1.0.0" full_name="Device MIMX8QX6_debugger" devices="MIMX8QX6xxxDZ MIMX8QX6xxxFZ" user_visible="true" type="debugger" package_base_path="core/devices/MIMX8QX6" project_base_path="MIMX8QX6">
+    <component id="device.MIMX8QX6_debugger.MIMX8QX6" name="MIMX8QX6_debugger" brief="Device MIMX8QX6_debugger" version="1.0.0" full_name="Device MIMX8QX6_debugger" devices="MIMX8QX6xxxDZ MIMX8QX6xxxFZ" user_visible="true" type="debugger" package_base_path="svd/MIMX8QX6" project_base_path="MIMX8QX6">
       <source relative_path="./" type="xml">
         <files mask="MIMX8QX6_cm4.xml"/>
       </source>

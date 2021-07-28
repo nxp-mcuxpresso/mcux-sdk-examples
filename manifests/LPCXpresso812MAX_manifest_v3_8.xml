@@ -911,7 +911,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="device.LPC812_debugger.LPC812" name="LPC812_debugger" brief="Device LPC812_debugger" version="1.0.0" full_name="Device LPC812_debugger" devices="LPC812" user_visible="true" type="debugger" package_base_path="core/devices/LPC812" project_base_path="LPC812">
+    <component id="device.LPC812_debugger.LPC812" name="LPC812_debugger" brief="Device LPC812_debugger" version="1.0.0" full_name="Device LPC812_debugger" devices="LPC812" user_visible="true" type="debugger" package_base_path="svd/LPC812" project_base_path="LPC812">
       <source relative_path="./" type="xml">
         <files mask="LPC812.xml"/>
       </source>

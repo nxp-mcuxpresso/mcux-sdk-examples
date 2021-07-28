@@ -2442,7 +2442,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="device.MK64F12_debugger.MK64F12" name="MK64F12_debugger" brief="Device MK64F12_debugger" version="1.0.0" full_name="Device MK64F12_debugger" devices="MK64FN1M0xxx12 MK64FX512xxx12" user_visible="true" type="debugger" package_base_path="core/devices/MK64F12" project_base_path="MK64F12">
+    <component id="device.MK64F12_debugger.MK64F12" name="MK64F12_debugger" brief="Device MK64F12_debugger" version="1.0.0" full_name="Device MK64F12_debugger" devices="MK64FN1M0xxx12 MK64FX512xxx12" user_visible="true" type="debugger" package_base_path="svd/MK64F12" project_base_path="MK64F12">
       <source relative_path="./" type="xml">
         <files mask="MK64F12.xml"/>
       </source>
