@@ -62,8 +62,8 @@ int main(void)
 {
     uint32_t i;
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     PRINTF(
         "LPUART 9-bit mode example begins\r\nLPUART is configured with address, only data sent to itself after matched "

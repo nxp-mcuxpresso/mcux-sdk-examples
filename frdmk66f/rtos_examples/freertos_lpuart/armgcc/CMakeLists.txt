@@ -1,6 +1,6 @@
 # CROSS COMPILER SETTING
 SET(CMAKE_SYSTEM_NAME Generic)
-CMAKE_MINIMUM_REQUIRED (VERSION 3.1.1)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
 SET (Tutorial_VERSION_MAJOR 1)
@@ -42,7 +42,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/.. debug
     ${ProjDirPath}/..
     ${ProjDirPath}/../../../../../examples/frdmk66f/rtos_examples/freertos_lpuart
     ${ProjDirPath}/../../../../../core/boards/frdmk66f
@@ -93,11 +92,7 @@ include(driver_smc)
 
 include(utility_assert)
 
-include(CMSIS_Include_core_cm4)
-
-include(CMSIS_Include_common)
-
-include(CMSIS_Include_dsp)
+include(CMSIS_Include_core_cm)
 
 include(middleware_freertos-kernel_MK66F18)
 

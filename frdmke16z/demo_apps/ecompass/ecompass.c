@@ -256,8 +256,8 @@ int main(void)
     double By               = 0;
     uint8_t array_addr_size = 0;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_ACCEL_Reset();
     BOARD_I2C_ConfigurePins();
     BOARD_InitDebugConsole();

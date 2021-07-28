@@ -15,16 +15,16 @@
 #if defined(FSL_FEATURE_MEMORY_HAS_ADDRESS_OFFSET) && FSL_FEATURE_MEMORY_HAS_ADDRESS_OFFSET
 #include "fsl_memory.h"
 #endif
-#include "fsl_sysmpu.h"
 #include "fsl_enet_mdio.h"
 #include "fsl_phyksz8081.h"
+#include "fsl_sysmpu.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
 /* ENET base address */
-#define EXAMPLE_ENET          ENET
-#define EXAMPLE_PHY_ADDRESS   0x00U
-#define PTP_CLK_FREQ          CLOCK_GetFreq(kCLOCK_Osc0ErClk)
+#define EXAMPLE_ENET        ENET
+#define EXAMPLE_PHY_ADDRESS 0x00U
+#define PTP_CLK_FREQ        CLOCK_GetFreq(kCLOCK_Osc0ErClk)
 
 /* MDIO operations. */
 #define EXAMPLE_MDIO_OPS enet_ops
@@ -151,8 +151,8 @@ int main(void)
     uint8_t mGAddr[6] = {0x01, 0x00, 0x5e, 0x01, 0x01, 0x1};
 
     /* Hardware Initialization. */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Disable SYSMPU. */

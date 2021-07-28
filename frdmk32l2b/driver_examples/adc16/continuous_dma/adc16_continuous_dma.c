@@ -79,8 +79,8 @@ int main(void)
     adc16_channel_config_t adcChnConfig;
 
     /* Init board hardware. */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("ADC16 CONTINUOUS DMA DEMO\r\n");

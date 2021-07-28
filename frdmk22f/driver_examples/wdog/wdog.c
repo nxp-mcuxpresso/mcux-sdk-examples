@@ -68,8 +68,8 @@ int main(void)
     wdog_config_t config;
 
     /* Init hardware*/
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /*If not wdog reset*/

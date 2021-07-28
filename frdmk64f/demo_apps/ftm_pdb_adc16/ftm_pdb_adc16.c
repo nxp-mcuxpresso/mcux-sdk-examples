@@ -256,7 +256,7 @@ int main(void)
 {
     uint32_t i = 0U;
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     PRINTF("\r\nRun pdb trig adc with flextimer demo.\r\n");

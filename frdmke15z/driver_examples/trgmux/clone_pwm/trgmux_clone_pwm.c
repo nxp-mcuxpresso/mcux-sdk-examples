@@ -57,8 +57,8 @@ int main(void)
     lpit_chnl_params_t lpitChannelConfig;
 
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Set the source for the LPIT module */

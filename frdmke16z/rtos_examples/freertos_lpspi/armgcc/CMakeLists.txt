@@ -1,6 +1,6 @@
 # CROSS COMPILER SETTING
 SET(CMAKE_SYSTEM_NAME Generic)
-CMAKE_MINIMUM_REQUIRED (VERSION 3.1.1)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
 SET (Tutorial_VERSION_MAJOR 1)
@@ -42,7 +42,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/.. debug
     ${ProjDirPath}/..
     ${ProjDirPath}/../../../../../examples/frdmke16z/rtos_examples/freertos_lpspi
     ${ProjDirPath}/../../../../../core/boards/frdmke16z
@@ -95,11 +94,7 @@ include(middleware_freertos-kernel_MKE16Z4)
 
 include(middleware_freertos-kernel_extension)
 
-include(CMSIS_Include_core_cm0plus)
-
-include(CMSIS_Include_common)
-
-include(CMSIS_Include_dsp)
+include(CMSIS_Include_core_cm)
 
 include(utilities_misc_utilities)
 

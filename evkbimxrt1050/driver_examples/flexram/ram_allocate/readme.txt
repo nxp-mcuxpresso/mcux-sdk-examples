@@ -4,8 +4,8 @@ The FLEXRAM project is a simple demonstration program of the SDK FLEXRAM driver.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
-- MCUXpresso  11.3.0
+- GCC ARM Embedded  10.2.1
+- MCUXpresso  11.4.0
 
 Hardware requirements
 =====================
@@ -50,5 +50,9 @@ Allocate on-chip ram success
 
 OCRAM access to 0x20220000 boundary.
 
-FLEXRAM ram allocate example finish
+DTCM access to nearly 0x20020000 boundary.
+
+ITCM access to nearly 0x40000 boundary.
+
+FLEXRAM ram allocate example finish.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

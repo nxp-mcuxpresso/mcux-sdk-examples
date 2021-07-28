@@ -26,12 +26,18 @@
 /*${macro:end}*/
 
 /*******************************************************************************
- * Prototypes
+ * Variables
  ******************************************************************************/
-/*${prototype:start}*/
+/*${variable:start}*/
 extern uint32_t lut[FSL_FEATURE_QSPI_LUT_DEPTH];
 extern qspi_flash_config_t single_config;
 
+/*${variable:end}*/
+
+/*******************************************************************************
+ * Prototypes
+ ******************************************************************************/
+/*${prototype:start}*/
 void BOARD_InitHardware(void);
 
 /*${prototype:end}*/

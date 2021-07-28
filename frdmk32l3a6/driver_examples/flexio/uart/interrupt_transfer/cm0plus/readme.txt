@@ -7,7 +7,7 @@ that PC send to the board. Note: two queued transfer in this example, so please 
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
+- GCC ARM Embedded  10.2.1
 
 Hardware requirements
 =====================

@@ -100,8 +100,8 @@ int main(void)
     uint32_t pulseWidth          = 0;
 
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Set PCC TPM0 selection */

@@ -73,8 +73,8 @@ int main(void)
     memset((void *)&lptmrConfig, 0, sizeof(lptmrConfig));
 
     /* Initialize standard SDK demo application pins */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     INTMUX_Init(INTMUX0);

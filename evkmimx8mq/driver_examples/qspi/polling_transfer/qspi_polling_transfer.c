@@ -10,7 +10,6 @@
 #include "board.h"
 #include "fsl_debug_console.h"
 #include "fsl_qspi.h"
-
 #include "fsl_common.h"
 /*******************************************************************************
  * Definitions
@@ -106,7 +105,6 @@ qspi_flash_config_t single_config = {.flashA1Size = FLASH_SIZE, /* 4MB */
                                      .dataLearnValue    = 0,
                                      .endian            = kQSPI_64LittleEndian,
                                      .enableWordAddress = false};
-
 /* Use QSPI polling way to program serial flash */
 void qspi_polling(void)
 {
@@ -188,7 +186,7 @@ int main(void)
     /* Board specific RDC settings */
     BOARD_RdcInit();
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockRUN();
     BOARD_InitDebugConsole();
     BOARD_InitMemory();

@@ -257,7 +257,7 @@ static void Edma_Callback(edma_handle_t *handle, void *userData, bool transferDo
 int main(void)
 {
     /* Initialize hardware */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     /* Initialize Led */

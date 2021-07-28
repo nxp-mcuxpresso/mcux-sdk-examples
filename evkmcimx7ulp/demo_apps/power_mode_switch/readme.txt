@@ -16,7 +16,7 @@ source by following the debug console prompts. The purpose of this demo is to sh
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
+- GCC ARM Embedded  10.2.1
 
 Hardware requirements
 =====================
@@ -64,8 +64,7 @@ Task 1 is working now
 MCU wakeup source 0x6...
 
 ####################  Power Mode Switch Task ####################
-
-    Build Time: Feb 22 2018--15:36:23
+    Build Time: Apr  9 2021--15:24:08
     Core Clock: 115200000Hz
     Power mode: RUN
 
@@ -87,6 +86,7 @@ Press  U for shutdown CA7 core.
 Press  V for boot CA7 core.
 Press  R for read PF1550 Register.
 Press  S for set PF1550 Register.
+Press  Z for enhanced power configuration.
 
 Waiting for power mode select..
 ~~~~~~~~~~~~~~~~~~~~~

@@ -50,8 +50,8 @@ int main(void)
 
     CLOCK_AttachClk(kSFRO_to_FLEXCOMM5);
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     PRINTF("\n\rSlave is working....\n\r");
 

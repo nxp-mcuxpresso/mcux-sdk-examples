@@ -40,8 +40,8 @@ int main(void)
     uint32_t data[RNGA_EXAMPLE_RANDOM_NUMBER];
 
     /* Init hardware*/
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("RNGA Peripheral Driver Example\r\n");

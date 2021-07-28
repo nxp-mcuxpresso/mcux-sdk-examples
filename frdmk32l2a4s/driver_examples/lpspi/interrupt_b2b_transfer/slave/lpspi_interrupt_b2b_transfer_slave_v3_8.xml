@@ -14,9 +14,7 @@
     <definition extID="device.K32L2A41A_startup.K32L2A41A"/>
     <definition extID="platform.drivers.smc.K32L2A41A"/>
     <definition extID="platform.drivers.gpio.K32L2A41A"/>
-    <definition extID="platform.Include_core_cm0plus.K32L2A41A"/>
-    <definition extID="platform.Include_common.K32L2A41A"/>
-    <definition extID="platform.Include_dsp.K32L2A41A"/>
+    <definition extID="CMSIS_Include_core_cm.K32L2A41A"/>
     <definition extID="platform.utilities.misc_utilities.K32L2A41A"/>
     <definition extID="device.K32L2A41A_system.K32L2A41A"/>
     <definition extID="iar"/>
@@ -25,7 +23,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="frdmk32l2a4s_lpspi_interrupt_b2b_transfer_slave" name="lpspi_interrupt_b2b_transfer_slave" dependency="utility.debug_console_lite.K32L2A41A platform.utilities.assert_lite.K32L2A41A platform.drivers.port.K32L2A41A platform.drivers.lpspi.K32L2A41A platform.drivers.clock.K32L2A41A platform.drivers.common.K32L2A41A device.K32L2A41A_CMSIS.K32L2A41A component.lpuart_adapter.K32L2A41A component.lists.K32L2A41A platform.drivers.lpuart.K32L2A41A device.K32L2A41A_startup.K32L2A41A platform.drivers.smc.K32L2A41A platform.drivers.gpio.K32L2A41A platform.Include_core_cm0plus.K32L2A41A platform.Include_common.K32L2A41A platform.Include_dsp.K32L2A41A platform.utilities.misc_utilities.K32L2A41A device.K32L2A41A_system.K32L2A41A" category="driver_examples/lpspi">
+  <example id="frdmk32l2a4s_lpspi_interrupt_b2b_transfer_slave" name="lpspi_interrupt_b2b_transfer_slave" dependency="utility.debug_console_lite.K32L2A41A platform.utilities.assert_lite.K32L2A41A platform.drivers.port.K32L2A41A platform.drivers.lpspi.K32L2A41A platform.drivers.clock.K32L2A41A platform.drivers.common.K32L2A41A device.K32L2A41A_CMSIS.K32L2A41A component.lpuart_adapter.K32L2A41A component.lists.K32L2A41A platform.drivers.lpuart.K32L2A41A device.K32L2A41A_startup.K32L2A41A platform.drivers.smc.K32L2A41A platform.drivers.gpio.K32L2A41A CMSIS_Include_core_cm.K32L2A41A platform.utilities.misc_utilities.K32L2A41A device.K32L2A41A_system.K32L2A41A" category="driver_examples/lpspi">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -35,6 +33,7 @@
           <value>CPU_K32L2A41VLL1A</value>
           <value>FRDM_K32L2A4S</value>
           <value>FREEDOM</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.none</value>
@@ -109,12 +108,6 @@
     </source>
     <source path="examples/frdmk32l2a4s/driver_examples/lpspi/interrupt_b2b_transfer/slave" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/frdmk32l2a4s/driver_examples/lpspi/interrupt_b2b_transfer/slave/iar" project_relative_path="K32L2A41A/iar" type="linker" toolchain="iar">
-      <files mask="K32L2A41xxxxA_flash.icf"/>
-    </source>
-    <source path="examples/frdmk32l2a4s/driver_examples/lpspi/interrupt_b2b_transfer/slave/mdk" project_relative_path="K32L2A41A/arm" type="linker" toolchain="mdk">
-      <files mask="K32L2A41xxxxA_flash.scf"/>
     </source>
     <source path="examples/frdmk32l2a4s/driver_examples/lpspi/interrupt_b2b_transfer/slave/armgcc" project_relative_path="K32L2A41A/gcc" type="linker" toolchain="armgcc">
       <files mask="K32L2A41xxxxA_flash.ld"/>

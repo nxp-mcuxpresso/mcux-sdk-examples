@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 NXP
+ * Copyright 2019-2020 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -45,20 +45,24 @@ extern "C" {
 void BOARD_InitBootPins(void);
 
 /* GPIO_AD_B0_15 (number 60), ADC12_2/J17[8] */
-#define BOARD_INITPINS_ADC12_2_PERIPHERAL                                LPUART3   /*!< Device name: LPUART3 */
-#define BOARD_INITPINS_ADC12_2_SIGNAL                                         RX   /*!< LPUART3 signal: RX */
+/* Routed pin properties */
+#define BOARD_INITPINS_ADC12_2_PERIPHERAL                                LPUART3   /*!< Peripheral name */
+#define BOARD_INITPINS_ADC12_2_SIGNAL                                         RX   /*!< Signal name */
 
 /* GPIO_AD_B0_14 (number 61), ADC12_1/J18[2] */
-#define BOARD_INITPINS_ADC12_1_PERIPHERAL                                LPUART3   /*!< Device name: LPUART3 */
-#define BOARD_INITPINS_ADC12_1_SIGNAL                                         TX   /*!< LPUART3 signal: TX */
+/* Routed pin properties */
+#define BOARD_INITPINS_ADC12_1_PERIPHERAL                                LPUART3   /*!< Peripheral name */
+#define BOARD_INITPINS_ADC12_1_SIGNAL                                         TX   /*!< Signal name */
 
 /* GPIO_AD_B0_07 (number 68), LPUART1_RXD */
-#define BOARD_INITPINS_UART1_RXD_PERIPHERAL                              LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_INITPINS_UART1_RXD_SIGNAL                                       RX   /*!< LPUART1 signal: RX */
+/* Routed pin properties */
+#define BOARD_INITPINS_UART1_RXD_PERIPHERAL                              LPUART1   /*!< Peripheral name */
+#define BOARD_INITPINS_UART1_RXD_SIGNAL                                       RX   /*!< Signal name */
 
 /* GPIO_AD_B0_06 (number 72), LPUART1_TXD */
-#define BOARD_INITPINS_UART1_TXD_PERIPHERAL                              LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_INITPINS_UART1_TXD_SIGNAL                                       TX   /*!< LPUART1 signal: TX */
+/* Routed pin properties */
+#define BOARD_INITPINS_UART1_TXD_PERIPHERAL                              LPUART1   /*!< Peripheral name */
+#define BOARD_INITPINS_UART1_TXD_SIGNAL                                       TX   /*!< Signal name */
 
 
 /*!

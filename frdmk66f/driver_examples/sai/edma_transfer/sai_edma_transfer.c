@@ -16,11 +16,11 @@
 #include "fsl_debug_console.h"
 #include "fsl_sai_edma.h"
 #include "fsl_codec_common.h"
-#include "fsl_dialog7212.h"
-#include "fsl_sai.h"
 #include "fsl_gpio.h"
 #include "fsl_port.h"
 #include "fsl_codec_adapter.h"
+#include "fsl_dialog7212.h"
+#include "fsl_sai.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -63,6 +63,9 @@
 #define BUFFER_NUM  (2U)
 #ifndef DEMO_CODEC_INIT_DELAY_MS
 #define DEMO_CODEC_INIT_DELAY_MS (1000U)
+#endif
+#ifndef DEMO_CODEC_VOLUME
+#define DEMO_CODEC_VOLUME 100U
 #endif
 /*******************************************************************************
  * Prototypes
@@ -150,8 +153,8 @@ int main(void)
     uint32_t cpy_index = 0U, tx_index = 0U;
     sai_transceiver_t saiConfig;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Init DMAMUX */
@@ -196,6 +199,11 @@ int main(void)
 
     /* Use default setting to init codec */
     if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
+    {
+        assert(false);
+    }
+    if (CODEC_SetVolume(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight,
+                        DEMO_CODEC_VOLUME) != kStatus_Success)
     {
         assert(false);
     }

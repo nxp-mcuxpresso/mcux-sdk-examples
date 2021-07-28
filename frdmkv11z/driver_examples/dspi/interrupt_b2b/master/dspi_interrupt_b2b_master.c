@@ -108,8 +108,8 @@ void EXAMPLE_DSPI_MASTER_IRQHandler(void)
  */
 int main(void)
 {
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("dspi_functional_interrupt_board2board_master start.\r\n");

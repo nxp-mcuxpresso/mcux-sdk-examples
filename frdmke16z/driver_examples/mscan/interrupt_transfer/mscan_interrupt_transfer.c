@@ -67,8 +67,8 @@ int main(void)
     uint8_t node_type;
 
     /* Initialize board hardware. */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("********* MSCAN Interrupt EXAMPLE *********\r\n");

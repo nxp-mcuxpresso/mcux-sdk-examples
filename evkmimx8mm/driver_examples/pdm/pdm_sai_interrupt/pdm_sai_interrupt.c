@@ -46,13 +46,20 @@
 #define DEMO_AUDIO_MASTER_CLOCK DEMO_SAI_CLK_FREQ
 #define DEMO_AUDIO_DATA_CHANNEL (2U)
 #define DEMO_AUDIO_BIT_WIDTH    kSAI_WordWidth16bits
+
+#define DEMO_BOARD_CODEC_INIT BOARD_Codec_Init
+
 #define BUFFER_SIZE   (DEMO_PDM_FIFO_WATERMARK * FSL_FEATURE_PDM_FIFO_WIDTH * 2U)
 #define BUFFER_NUMBER (256U)
+#ifndef DEMO_CODEC_VOLUME
+#define DEMO_CODEC_VOLUME 100U
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
 void BOARD_WM8524_Mute_GPIO(uint32_t output);
 void BOARD_MasterClockConfig(void);
+void BOARD_Codec_Init(void);
 
 static void saiCallback(I2S_Type *base, sai_handle_t *handle, status_t status, void *userData);
 /*******************************************************************************
@@ -65,6 +72,7 @@ static wm8524_config_t wm8524Config = {
 };
 sai_master_clock_t mclkConfig;
 codec_config_t boardCodecConfig = {.codecDevType = kCODEC_WM8524, .codecDevConfig = &wm8524Config};
+extern codec_handle_t codecHandle;
 sai_handle_t s_saiTxHandle         = {0};
 static volatile bool isSaiFinished = false;
 SDK_ALIGN(static uint8_t txBuff[BUFFER_SIZE * BUFFER_NUMBER], 4);
@@ -97,6 +105,14 @@ void BOARD_MasterClockConfig(void)
     mclkConfig.mclkOutputEnable = true, mclkConfig.mclkHz = DEMO_AUDIO_MASTER_CLOCK;
     mclkConfig.mclkSourceClkHz = DEMO_SAI_CLK_FREQ;
     SAI_SetMasterClockConfig(DEMO_SAI, &mclkConfig);
+}
+
+void BOARD_Codec_Init(void)
+{
+    if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
+    {
+        assert(false);
+    }
 }
 static void saiCallback(I2S_Type *base, sai_handle_t *handle, status_t status, void *userData)
 {
@@ -178,7 +194,7 @@ int main(void)
     /* Board specific RDC settings */
     BOARD_RdcInit();
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockRUN();
     BOARD_InitDebugConsole();
     BOARD_InitMemory();
@@ -212,12 +228,19 @@ int main(void)
 
     /* master clock configurations */
     BOARD_MasterClockConfig();
-
+#if defined DEMO_BOARD_CODEC_INIT
+    DEMO_BOARD_CODEC_INIT();
+#else
     if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
     {
         assert(false);
     }
-
+    if (CODEC_SetVolume(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight,
+                        DEMO_CODEC_VOLUME) != kStatus_Success)
+    {
+        assert(false);
+    }
+#endif
     /* Set up pdm */
     PDM_Init(DEMO_PDM, &pdmConfig);
     PDM_SetChannelConfig(DEMO_PDM, DEMO_PDM_ENABLE_CHANNEL_LEFT, &channelConfig);

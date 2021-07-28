@@ -10,8 +10,8 @@ event will be captured.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
-- MCUXpresso  11.3.0
+- GCC ARM Embedded  10.2.1
+- MCUXpresso  11.4.0
 
 Hardware requirements
 =====================
@@ -21,7 +21,7 @@ Hardware requirements
 
 Board settings
 ==============
-Make sure J15 and J30 are shorted.
+Make sure JP15 and JP30 are shorted.
 
 Prepare the Demo
 ================

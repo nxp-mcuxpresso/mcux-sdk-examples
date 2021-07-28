@@ -65,8 +65,8 @@ int main(void)
     /* Use 16 MHz clock for the FLEXCOMM4 */
     CLOCK_AttachClk(kSFRO_to_FLEXCOMM4);
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     DMA_Init(EXAMPLE_DMA);

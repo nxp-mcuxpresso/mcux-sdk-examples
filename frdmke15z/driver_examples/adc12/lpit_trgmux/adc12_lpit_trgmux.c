@@ -112,8 +112,8 @@ int main(void)
     adc12_config_t adc12ConfigStruct;
     adc12_channel_config_t adc12ChannelConfigStruct;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Set the source for the ADC module */

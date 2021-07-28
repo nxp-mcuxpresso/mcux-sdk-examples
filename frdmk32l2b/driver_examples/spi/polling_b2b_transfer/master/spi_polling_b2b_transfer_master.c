@@ -41,8 +41,8 @@ int main(void)
     uint32_t err                   = 0;
     spi_transfer_t xfer            = {0};
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     PRINTF("\n\rMaster Start...\n\r");
     /*

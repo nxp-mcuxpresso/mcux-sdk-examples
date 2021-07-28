@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2019 NXP
+ * Copyright 2017-2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -26,6 +26,13 @@
 extern "C" {
 #endif
 
+/* Define the PIO[ANAMODE] bit macro (SDK 2.6.x and older miss this bit macro definition) */
+#ifndef IOCON_PIO_ANAMODE_MASK
+#define IOCON_PIO_ANAMODE_MASK  (0x40U)
+#define IOCON_PIO_ANAMODE_SHIFT (6U)
+#define IOCON_PIO_ANAMODE(x)    (((uint32_t)(((uint32_t)(x)) << IOCON_PIO_ANAMODE_SHIFT)) & IOCON_PIO_ANAMODE_MASK)
+#endif
+
 /*!
  * @brief Calls initialization functions.
  *
@@ -33,6 +40,7 @@ extern "C" {
 void BOARD_InitBootPins(void);
 
 #define IOCON_PIO_ANALOG_EN 0x00u     /*!<@brief Enables analog function */
+#define IOCON_PIO_ANAMODE_EN 0x00u    /*!<@brief Enable analog Mode */
 #define IOCON_PIO_DIGITAL_EN 0x0100u  /*!<@brief Enables digital function */
 #define IOCON_PIO_FUNC0 0x00u         /*!<@brief Selects pin function 0 */
 #define IOCON_PIO_FUNC1 0x01u         /*!<@brief Selects pin function 1 */

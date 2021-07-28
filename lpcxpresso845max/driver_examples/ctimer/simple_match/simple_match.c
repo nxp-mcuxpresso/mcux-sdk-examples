@@ -44,7 +44,7 @@ int main(void)
     ctimer_match_config_t matchConfig;
 
     /* Init hardware*/
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockFRO30M();
     BOARD_InitDebugConsole();
 
@@ -71,8 +71,8 @@ int main(void)
     {
 #if defined(BOARD_HAS_NO_CTIMER_OUTPUT_PIN_CONNECTED_TO_LED)
         /* No timer match output pin connected to a LED
-        * toggle LED manually according to match status
-        */
+         * toggle LED manually according to match status
+         */
         if (CTIMER_GetOutputMatchStatus(CTIMER, CTIMER_EMT_OUT))
         {
             LED_RED1_ON();

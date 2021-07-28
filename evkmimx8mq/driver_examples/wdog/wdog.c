@@ -16,8 +16,8 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define DEMO_WDOG_BASE                      WDOG1
-#define DEMO_WDOG_IRQHandler                WDOG1_IRQHandler
+#define DEMO_WDOG_BASE                      WDOG3
+#define DEMO_WDOG_IRQHandler                WDOG3_IRQHandler
 #define EXAMPLE_DISABLE_WDOG_RESET_FUNCTION 1
 
 /*******************************************************************************
@@ -59,7 +59,7 @@ int main(void)
     /* Board specific RDC settings */
     BOARD_RdcInit();
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockRUN();
     BOARD_InitDebugConsole();
     BOARD_InitMemory();

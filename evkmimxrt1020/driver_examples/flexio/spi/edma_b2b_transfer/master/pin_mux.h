@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -45,17 +45,20 @@ extern "C" {
 void BOARD_InitBootPins(void);
 
 /* GPIO_AD_B0_07 (number 101), UART1_RXD/J17[4] */
-#define BOARD_INITPINS_UART1_RXD_PERIPHERAL                              LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_INITPINS_UART1_RXD_SIGNAL                                       RX   /*!< LPUART1 signal: RX */
+/* Routed pin properties */
+#define BOARD_INITPINS_UART1_RXD_PERIPHERAL                              LPUART1   /*!< Peripheral name */
+#define BOARD_INITPINS_UART1_RXD_SIGNAL                                       RX   /*!< Signal name */
 
 /* GPIO_AD_B0_06 (number 105), UART1_TXD/J17[6] */
-#define BOARD_INITPINS_UART1_TXD_PERIPHERAL                              LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_INITPINS_UART1_TXD_SIGNAL                                       TX   /*!< LPUART1 signal: TX */
+/* Routed pin properties */
+#define BOARD_INITPINS_UART1_TXD_PERIPHERAL                              LPUART1   /*!< Peripheral name */
+#define BOARD_INITPINS_UART1_TXD_SIGNAL                                       TX   /*!< Signal name */
 
 /* GPIO_AD_B1_13 (number 76), CAN_STBY/J18[4] */
-#define BOARD_INITPINS_CAN_STBY_PERIPHERAL                               FLEXIO1   /*!< Device name: FLEXIO1 */
-#define BOARD_INITPINS_CAN_STBY_SIGNAL                                        IO   /*!< FLEXIO1 signal: IO */
-#define BOARD_INITPINS_CAN_STBY_CHANNEL                                       2U   /*!< FLEXIO1 IO channel: 02 */
+/* Routed pin properties */
+#define BOARD_INITPINS_CAN_STBY_PERIPHERAL                               FLEXIO1   /*!< Peripheral name */
+#define BOARD_INITPINS_CAN_STBY_SIGNAL                                        IO   /*!< Signal name */
+#define BOARD_INITPINS_CAN_STBY_CHANNEL                                       2U   /*!< Signal channel */
 
 
 /*!

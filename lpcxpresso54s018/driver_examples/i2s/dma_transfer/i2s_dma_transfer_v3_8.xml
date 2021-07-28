@@ -25,9 +25,7 @@
     <definition extID="device.LPC54S018_startup.LPC54S018"/>
     <definition extID="platform.drivers.flexcomm.LPC54S018"/>
     <definition extID="platform.drivers.emc.LPC54S018"/>
-    <definition extID="platform.Include_core_cm4.LPC54S018"/>
-    <definition extID="platform.Include_common.LPC54S018"/>
-    <definition extID="platform.Include_dsp.LPC54S018"/>
+    <definition extID="CMSIS_Include_core_cm.LPC54S018"/>
     <definition extID="platform.drivers.reset.LPC54S018"/>
     <definition extID="platform.drivers.inputmux_connections.LPC54S018"/>
     <definition extID="platform.utilities.misc_utilities.LPC54S018"/>
@@ -38,13 +36,14 @@
     <definition extID="armgcc"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso54s018_i2s_dma_transfer" name="i2s_dma_transfer" dependency="component.codec_i2c.LPC54S018 platform.drivers.common.LPC54S018 component.flexcomm_i2c_adapter.LPC54S018 utility.debug_console_lite.LPC54S018 platform.utilities.assert_lite.LPC54S018 platform.drivers.lpc_iocon.LPC54S018 platform.drivers.flexcomm_i2c.LPC54S018 platform.drivers.flexcomm_i2s.LPC54S018 platform.drivers.flexcomm_i2s_dma.LPC54S018 platform.drivers.lpc_dma.LPC54S018 platform.drivers.flexcomm_usart.LPC54S018 driver.wm8904.LPC54S018 driver.codec.LPC54S018 component.wm8904_adapter.LPC54S018 platform.drivers.clock.LPC54S018 platform.drivers.power.LPC54S018 platform.drivers.lpc_gpio.LPC54S018 platform.drivers.inputmux.LPC54S018 device.LPC54S018_CMSIS.LPC54S018 component.usart_adapter.LPC54S018 component.lists.LPC54S018 device.LPC54S018_startup.LPC54S018 platform.drivers.flexcomm.LPC54S018 platform.drivers.emc.LPC54S018 platform.Include_core_cm4.LPC54S018 platform.Include_common.LPC54S018 platform.Include_dsp.LPC54S018 platform.drivers.reset.LPC54S018 platform.drivers.inputmux_connections.LPC54S018 platform.utilities.misc_utilities.LPC54S018 device.LPC54S018_system.LPC54S018" category="driver_examples/i2s">
+  <example id="lpcxpresso54s018_i2s_dma_transfer" name="i2s_dma_transfer" dependency="component.codec_i2c.LPC54S018 platform.drivers.common.LPC54S018 component.flexcomm_i2c_adapter.LPC54S018 utility.debug_console_lite.LPC54S018 platform.utilities.assert_lite.LPC54S018 platform.drivers.lpc_iocon.LPC54S018 platform.drivers.flexcomm_i2c.LPC54S018 platform.drivers.flexcomm_i2s.LPC54S018 platform.drivers.flexcomm_i2s_dma.LPC54S018 platform.drivers.lpc_dma.LPC54S018 platform.drivers.flexcomm_usart.LPC54S018 driver.wm8904.LPC54S018 driver.codec.LPC54S018 component.wm8904_adapter.LPC54S018 platform.drivers.clock.LPC54S018 platform.drivers.power.LPC54S018 platform.drivers.lpc_gpio.LPC54S018 platform.drivers.inputmux.LPC54S018 device.LPC54S018_CMSIS.LPC54S018 component.usart_adapter.LPC54S018 component.lists.LPC54S018 device.LPC54S018_startup.LPC54S018 platform.drivers.flexcomm.LPC54S018 platform.drivers.emc.LPC54S018 CMSIS_Include_core_cm.LPC54S018 platform.drivers.reset.LPC54S018 platform.drivers.inputmux_connections.LPC54S018 platform.utilities.misc_utilities.LPC54S018 device.LPC54S018_system.LPC54S018" category="driver_examples/i2s">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
     <toolchainSettings>
       <toolchainSetting id_refs="com.nxp.mcuxpresso">
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>IMG_BAUDRATE=96000000</value>
           <value>CPU_LPC54S018</value>
           <value>__USE_CMSIS</value>
           <value>W25Q128JVFM</value>
@@ -52,6 +51,7 @@
           <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
           <value>BOARD_USE_CODEC=1</value>
           <value>CODEC_WM8904_ENABLE</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
@@ -121,10 +121,10 @@
     <source path="examples/lpcxpresso54s018/driver_examples/i2s" project_relative_path="source" type="c_include">
       <files mask="music.h"/>
     </source>
-    <source path="examples/lpcxpresso54s018/driver_examples/i2s" project_relative_path="board" type="src">
+    <source path="examples/lpcxpresso54s018/driver_examples/i2s/dma_transfer" project_relative_path="board" type="src">
       <files mask="pin_mux.c"/>
     </source>
-    <source path="examples/lpcxpresso54s018/driver_examples/i2s" project_relative_path="board" type="c_include">
+    <source path="examples/lpcxpresso54s018/driver_examples/i2s/dma_transfer" project_relative_path="board" type="c_include">
       <files mask="pin_mux.h"/>
     </source>
     <source path="core/boards/lpcxpresso54s018" project_relative_path="board" type="src">
@@ -138,20 +138,8 @@
     <source path="examples/lpcxpresso54s018/driver_examples/i2s/dma_transfer" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
     </source>
-    <source path="examples/lpcxpresso54s018/driver_examples/i2s/dma_transfer/iar" project_relative_path="LPC54S018/iar" type="linker" toolchain="iar">
-      <files mask="LPC54S018_spifi_flash.icf"/>
-    </source>
-    <source path="examples/lpcxpresso54s018/driver_examples/i2s/dma_transfer/mdk" project_relative_path="LPC54S018/arm" type="linker" toolchain="mdk">
-      <files mask="LPC54S018_spifi_flash.scf"/>
-    </source>
     <source path="examples/lpcxpresso54s018/driver_examples/i2s/dma_transfer/armgcc" project_relative_path="LPC54S018/gcc" type="linker" toolchain="armgcc">
       <files mask="LPC54S018_spifi_flash.ld"/>
-    </source>
-    <source path="examples/lpcxpresso54s018/driver_examples/i2s/dma_transfer/mdk" project_relative_path="lpcxpresso54s018" type="configuration" toolchain="mdk">
-      <files mask="jlink_sramx_debug.ini"/>
-    </source>
-    <source path="examples/lpcxpresso54s018/driver_examples/i2s/dma_transfer/iar" project_relative_path="lpcxpresso54s018" type="other" toolchain="iar">
-      <files mask="jlink_qspi_plain_load.mac"/>
     </source>
   </example>
 </ksdk:examples>

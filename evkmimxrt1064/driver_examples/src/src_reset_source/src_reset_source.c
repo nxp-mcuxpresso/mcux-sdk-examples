@@ -39,8 +39,8 @@ int main(void)
     uint32_t flags;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("Example: SRC Reset Soruce.\r\n");

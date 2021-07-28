@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -31,6 +31,51 @@ extern "C" {
  *
  */
 void BOARD_InitBootPins(void);
+
+/*! @name PORTA4 (number 38), BUTTON2
+  @{ */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_SW2_PORT PORTA               /*!<@brief PORT peripheral base pointer */
+#define BOARD_SW2_PIN 4U                   /*!<@brief PORT pin number */
+#define BOARD_SW2_PIN_MASK (1U << 4U)      /*!<@brief PORT pin mask */
+                                           /* @} */
+
+/*! @name PORTC4 (number 76), LEDRGB_GREEN
+  @{ */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_LED_GREEN_PORT PORTC               /*!<@brief PORT peripheral base pointer */
+#define BOARD_LED_GREEN_PIN 4U                   /*!<@brief PORT pin number */
+#define BOARD_LED_GREEN_PIN_MASK (1U << 4U)      /*!<@brief PORT pin mask */
+                                                 /* @} */
+
+/*! @name PORTE29 (number 26), LEDRGB_RED
+  @{ */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_LED_RED_PORT PORTE                /*!<@brief PORT peripheral base pointer */
+#define BOARD_LED_RED_PIN 29U                   /*!<@brief PORT pin number */
+#define BOARD_LED_RED_PIN_MASK (1U << 29U)      /*!<@brief PORT pin mask */
+                                                /* @} */
+
+/*! @name PORTB16 (number 62), J1[2]/U7[25]/D0/UART0_RX/FXIO_D16/UART1_RX_TGTMCU
+  @{ */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_RX_PORT PORTB                /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_RX_PIN 16U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_RX_PIN_MASK (1U << 16U)      /*!<@brief PORT pin mask */
+                                                      /* @} */
+
+/*! @name PORTB17 (number 63), J1[4]/U7[24]/D1/UART0_TX/FXIO_D17/UART1_TX_TGTMCU
+  @{ */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_TX_PORT PORTB                /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_TX_PIN 17U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_TX_PIN_MASK (1U << 17U)      /*!<@brief PORT pin mask */
+                                                      /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

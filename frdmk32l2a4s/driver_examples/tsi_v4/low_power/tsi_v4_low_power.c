@@ -145,8 +145,8 @@ int main(void)
 #endif /* FSL_FEATURE_SMC_HAS_VERY_LOW_LEAKAGE_STOP_MODE */
 
     /* Initialize standard SDK demo application pins */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     INTMUX_Init(INTMUX0);

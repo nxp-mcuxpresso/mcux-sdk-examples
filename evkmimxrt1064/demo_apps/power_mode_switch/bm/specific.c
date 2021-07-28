@@ -115,6 +115,11 @@ void SwitchSystemClocks(lpm_power_mode_t power_mode)
     {
     }
     LPM_ExitCritical();
+    /* Invalidate I-cache after flexspi clock changed. */
+    if (SCB_CCR_IC_Msk == (SCB_CCR_IC_Msk & SCB->CCR))
+    {
+        SCB_InvalidateICache();
+    }
 #endif
 }
 

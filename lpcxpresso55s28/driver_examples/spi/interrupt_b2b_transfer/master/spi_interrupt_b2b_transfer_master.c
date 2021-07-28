@@ -59,8 +59,8 @@ int main(void)
     /* attach 12 MHz clock to SPI9 */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM7);
 
-    BOARD_InitPins();
-    BOARD_BootClockPLL150M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     PRINTF("\n\rMaster Start...\n\r");
     /*

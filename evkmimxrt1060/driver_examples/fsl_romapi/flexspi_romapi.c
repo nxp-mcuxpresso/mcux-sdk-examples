@@ -116,8 +116,8 @@ int main(void)
     uint32_t serialNorPageSize;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\n FLEXSPI NOR example started!\r\n");

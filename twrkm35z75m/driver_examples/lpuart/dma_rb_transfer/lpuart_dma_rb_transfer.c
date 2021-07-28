@@ -207,6 +207,7 @@ void EXAMPLE_LPUART_IRQHandler(void)
         EXAMPLE_LPUART_DMA_BASEADDR->DMA[LPUART_RX_DMA_CHANNEL].DSR_BCR =
             DMA_DSR_BCR_BCR(EXAMPLE_DMA_TRANSFER_MAX_SIZE);
     }
+    LPUART_TransferDMAHandleIRQ(EXAMPLE_LPUART, &g_lpuartDmaHandle);
     SDK_ISR_EXIT_BARRIER;
 }
 
@@ -228,8 +229,8 @@ int main(void)
 {
     lpuart_transfer_t sendXfer;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     CLOCK_SetLpuartClock(1U);
 
     /* Initialize the LPUART module. */

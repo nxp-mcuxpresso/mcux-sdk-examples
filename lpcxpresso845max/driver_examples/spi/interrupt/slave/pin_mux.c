@@ -1,5 +1,5 @@
 /*
- * Copyright  2018 NXP
+ * Copyright  2018 ,2021 NXP
  * All rights reserved.
  *
  *
@@ -15,11 +15,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v4.1
+product: Pins v9.0
 processor: LPC845
 package_id: LPC845M301JBD64
 mcu_data: ksdk2_0
-processor_version: 0.0.1
+processor_version: 9.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -54,8 +54,9 @@ BOARD_InitPins:
     clkdiv: div0}
   - {pin_num: '27', peripheral: SPI0, signal: MOSI, pin_signal: PIO0_25, mode: pullUp, invert: disabled, hysteresis: enabled, opendrain: disabled, smode: bypass,
     clkdiv: div0}
-  - {pin_num: '57', peripheral: SPI0, signal: SCK, pin_signal: PIO0_21, mode: pullUp, invert: disabled, hysteresis: enabled, opendrain: disabled, smode: bypass, clkdiv: div0}
-  - {pin_num: '58', peripheral: SPI0, signal: SSEL0, pin_signal: PIO0_20, mode: pullUp, invert: disabled, hysteresis: enabled, opendrain: disabled, smode: bypass,
+  - {pin_num: '57', peripheral: SPI0, signal: SCK, pin_signal: PIO0_21/ADC_5, mode: pullUp, invert: disabled, hysteresis: enabled, opendrain: disabled, smode: bypass,
+    clkdiv: div0}
+  - {pin_num: '58', peripheral: SPI0, signal: SSEL0, pin_signal: PIO0_20/ADC_6, mode: pullUp, invert: disabled, hysteresis: enabled, opendrain: disabled, smode: bypass,
     clkdiv: div0}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -75,95 +76,95 @@ void BOARD_InitPins(void)
     /* Enables clock for switch matrix.: enable */
     CLOCK_EnableClock(kCLOCK_Swm);
 
-    const uint32_t pio23_config = (/* Selects pull-up function */
-                                   IOCON_PIO_MODE_PULLUP |
-                                   /* Enable hysteresis */
-                                   IOCON_PIO_HYS_EN |
-                                   /* Input not invert */
-                                   IOCON_PIO_INV_DI |
-                                   /* Disables Open-drain function */
-                                   IOCON_PIO_OD_DI |
-                                   /* Bypass input filter */
-                                   IOCON_PIO_SMODE_BYPASS |
-                                   /* IOCONCLKDIV0 */
-                                   IOCON_PIO_CLKDIV0);
-    /* PORT2 PIN3 (coords: ) is configured as  */
-    IOCON_PinMuxSet(IOCON, 23, pio23_config);
+    const uint32_t IOCON_INDEX_PIO0_20_config = (/* Selects pull-up function */
+                                                 IOCON_PIO_MODE_PULLUP |
+                                                 /* Enable hysteresis */
+                                                 IOCON_PIO_HYS_EN |
+                                                 /* Input not invert */
+                                                 IOCON_PIO_INV_DI |
+                                                 /* Disables Open-drain function */
+                                                 IOCON_PIO_OD_DI |
+                                                 /* Bypass input filter */
+                                                 IOCON_PIO_SMODE_BYPASS |
+                                                 /* IOCONCLKDIV0 */
+                                                 IOCON_PIO_CLKDIV0);
+    /* PIO0 PIN20 (coords: 58) is configured as SPI0, SSEL0. */
+    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_20, IOCON_INDEX_PIO0_20_config);
 
-    const uint32_t pio24_config = (/* Selects pull-up function */
-                                   IOCON_PIO_MODE_PULLUP |
-                                   /* Enable hysteresis */
-                                   IOCON_PIO_HYS_EN |
-                                   /* Input not invert */
-                                   IOCON_PIO_INV_DI |
-                                   /* Disables Open-drain function */
-                                   IOCON_PIO_OD_DI |
-                                   /* Bypass input filter */
-                                   IOCON_PIO_SMODE_BYPASS |
-                                   /* IOCONCLKDIV0 */
-                                   IOCON_PIO_CLKDIV0);
-    /* PORT2 PIN4 (coords: ) is configured as  */
-    IOCON_PinMuxSet(IOCON, 24, pio24_config);
+    const uint32_t IOCON_INDEX_PIO0_21_config = (/* Selects pull-up function */
+                                                 IOCON_PIO_MODE_PULLUP |
+                                                 /* Enable hysteresis */
+                                                 IOCON_PIO_HYS_EN |
+                                                 /* Input not invert */
+                                                 IOCON_PIO_INV_DI |
+                                                 /* Disables Open-drain function */
+                                                 IOCON_PIO_OD_DI |
+                                                 /* Bypass input filter */
+                                                 IOCON_PIO_SMODE_BYPASS |
+                                                 /* IOCONCLKDIV0 */
+                                                 IOCON_PIO_CLKDIV0);
+    /* PIO0 PIN21 (coords: 57) is configured as SPI0, SCK. */
+    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_21, IOCON_INDEX_PIO0_21_config);
 
-    const uint32_t pio27_config = (/* Selects pull-up function */
-                                   IOCON_PIO_MODE_PULLUP |
-                                   /* Enable hysteresis */
-                                   IOCON_PIO_HYS_EN |
-                                   /* Input not invert */
-                                   IOCON_PIO_INV_DI |
-                                   /* Disables Open-drain function */
-                                   IOCON_PIO_OD_DI |
-                                   /* Bypass input filter */
-                                   IOCON_PIO_SMODE_BYPASS |
-                                   /* IOCONCLKDIV0 */
-                                   IOCON_PIO_CLKDIV0);
-    /* PORT2 PIN7 (coords: ) is configured as  */
-    IOCON_PinMuxSet(IOCON, 27, pio27_config);
+    const uint32_t IOCON_INDEX_PIO0_24_config = (/* Selects pull-up function */
+                                                 IOCON_PIO_MODE_PULLUP |
+                                                 /* Enable hysteresis */
+                                                 IOCON_PIO_HYS_EN |
+                                                 /* Input not invert */
+                                                 IOCON_PIO_INV_DI |
+                                                 /* Disables Open-drain function */
+                                                 IOCON_PIO_OD_DI |
+                                                 /* Bypass input filter */
+                                                 IOCON_PIO_SMODE_BYPASS |
+                                                 /* IOCONCLKDIV0 */
+                                                 IOCON_PIO_CLKDIV0);
+    /* PIO0 PIN24 (coords: 28) is configured as SPI0, MISO. */
+    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_24, IOCON_INDEX_PIO0_24_config);
 
-    const uint32_t pio28_config = (/* Selects pull-up function */
-                                   IOCON_PIO_MODE_PULLUP |
-                                   /* Enable hysteresis */
-                                   IOCON_PIO_HYS_EN |
-                                   /* Input not invert */
-                                   IOCON_PIO_INV_DI |
-                                   /* Disables Open-drain function */
-                                   IOCON_PIO_OD_DI |
-                                   /* Bypass input filter */
-                                   IOCON_PIO_SMODE_BYPASS |
-                                   /* IOCONCLKDIV0 */
-                                   IOCON_PIO_CLKDIV0);
-    /* PORT2 PIN8 (coords: ) is configured as  */
-    IOCON_PinMuxSet(IOCON, 28, pio28_config);
+    const uint32_t IOCON_INDEX_PIO0_25_config = (/* Selects pull-up function */
+                                                 IOCON_PIO_MODE_PULLUP |
+                                                 /* Enable hysteresis */
+                                                 IOCON_PIO_HYS_EN |
+                                                 /* Input not invert */
+                                                 IOCON_PIO_INV_DI |
+                                                 /* Disables Open-drain function */
+                                                 IOCON_PIO_OD_DI |
+                                                 /* Bypass input filter */
+                                                 IOCON_PIO_SMODE_BYPASS |
+                                                 /* IOCONCLKDIV0 */
+                                                 IOCON_PIO_CLKDIV0);
+    /* PIO0 PIN25 (coords: 27) is configured as SPI0, MOSI. */
+    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_25, IOCON_INDEX_PIO0_25_config);
 
-    const uint32_t pio44_config = (/* Selects pull-up function */
-                                   IOCON_PIO_MODE_PULLUP |
-                                   /* Enable hysteresis */
-                                   IOCON_PIO_HYS_EN |
-                                   /* Input not invert */
-                                   IOCON_PIO_INV_DI |
-                                   /* Disables Open-drain function */
-                                   IOCON_PIO_OD_DI |
-                                   /* Bypass input filter */
-                                   IOCON_PIO_SMODE_BYPASS |
-                                   /* IOCONCLKDIV0 */
-                                   IOCON_PIO_CLKDIV0);
-    /* PORT4 PIN4 (coords: ) is configured as  */
-    IOCON_PinMuxSet(IOCON, 44, pio44_config);
+    const uint32_t IOCON_INDEX_PIO1_16_config = (/* Selects pull-up function */
+                                                 IOCON_PIO_MODE_PULLUP |
+                                                 /* Enable hysteresis */
+                                                 IOCON_PIO_HYS_EN |
+                                                 /* Input not invert */
+                                                 IOCON_PIO_INV_DI |
+                                                 /* Disables Open-drain function */
+                                                 IOCON_PIO_OD_DI |
+                                                 /* Bypass input filter */
+                                                 IOCON_PIO_SMODE_BYPASS |
+                                                 /* IOCONCLKDIV0 */
+                                                 IOCON_PIO_CLKDIV0);
+    /* PIO1 PIN16 (coords: 36) is configured as USART0, RXD. */
+    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO1_16, IOCON_INDEX_PIO1_16_config);
 
-    const uint32_t pio45_config = (/* Selects pull-up function */
-                                   IOCON_PIO_MODE_PULLUP |
-                                   /* Enable hysteresis */
-                                   IOCON_PIO_HYS_EN |
-                                   /* Input not invert */
-                                   IOCON_PIO_INV_DI |
-                                   /* Disables Open-drain function */
-                                   IOCON_PIO_OD_DI |
-                                   /* Bypass input filter */
-                                   IOCON_PIO_SMODE_BYPASS |
-                                   /* IOCONCLKDIV0 */
-                                   IOCON_PIO_CLKDIV0);
-    /* PORT4 PIN5 (coords: ) is configured as  */
-    IOCON_PinMuxSet(IOCON, 45, pio45_config);
+    const uint32_t IOCON_INDEX_PIO1_17_config = (/* Selects pull-up function */
+                                                 IOCON_PIO_MODE_PULLUP |
+                                                 /* Enable hysteresis */
+                                                 IOCON_PIO_HYS_EN |
+                                                 /* Input not invert */
+                                                 IOCON_PIO_INV_DI |
+                                                 /* Disables Open-drain function */
+                                                 IOCON_PIO_OD_DI |
+                                                 /* Bypass input filter */
+                                                 IOCON_PIO_SMODE_BYPASS |
+                                                 /* IOCONCLKDIV0 */
+                                                 IOCON_PIO_CLKDIV0);
+    /* PIO1 PIN17 (coords: 37) is configured as USART0, TXD. */
+    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO1_17, IOCON_INDEX_PIO1_17_config);
 
     /* USART0_TXD connect to P1_17 */
     SWM_SetMovablePinSelect(SWM0, kSWM_USART0_TXD, kSWM_PortPin_P1_17);

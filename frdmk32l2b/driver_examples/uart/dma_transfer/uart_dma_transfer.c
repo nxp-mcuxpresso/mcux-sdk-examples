@@ -51,6 +51,11 @@ volatile bool rxOnGoing                = false;
 /*******************************************************************************
  * Code
  ******************************************************************************/
+
+void UART2_FLEXIO_IRQHandler(void)
+{
+    UART_TransferDMAHandleIRQ(UART2, &g_uartDmaHandle);
+}
 /* UART user callback */
 void UART_UserCallback(UART_Type *base, uart_dma_handle_t *handle, status_t status, void *userData)
 {
@@ -79,8 +84,8 @@ int main(void)
     uart_transfer_t sendXfer;
     uart_transfer_t receiveXfer;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
 
     /* Initialize the UART. */
     /*
@@ -99,6 +104,17 @@ int main(void)
 
     UART_Init(DEMO_UART, &config, DEMO_UART_CLK_FREQ);
 
+#if FSL_FEATURE_DMA_MODULE_CHANNEL != FSL_FEATURE_DMAMUX_MODULE_CHANNEL
+    /* Init DMAMUX */
+    DMAMUX_Init(EXAMPLE_UART_TX_DMAMUX_BASEADDR);
+    DMAMUX_Init(EXAMPLE_UART_RX_DMAMUX_BASEADDR);
+
+    /* Set channel for FLEXIO_UART */
+    DMAMUX_SetSource(EXAMPLE_UART_TX_DMAMUX_BASEADDR, UART_TX_DMAMUX_CHANNEL, UART_TX_DMA_REQUEST);
+    DMAMUX_SetSource(EXAMPLE_UART_RX_DMAMUX_BASEADDR, UART_RX_DMAMUX_CHANNEL, UART_RX_DMA_REQUEST);
+    DMAMUX_EnableChannel(EXAMPLE_UART_TX_DMAMUX_BASEADDR, UART_TX_DMAMUX_CHANNEL);
+    DMAMUX_EnableChannel(EXAMPLE_UART_RX_DMAMUX_BASEADDR, UART_RX_DMAMUX_CHANNEL);
+#else
     /* Init DMAMUX */
     DMAMUX_Init(EXAMPLE_UART_DMAMUX_BASEADDR);
 
@@ -107,6 +123,7 @@ int main(void)
     DMAMUX_SetSource(EXAMPLE_UART_DMAMUX_BASEADDR, UART_RX_DMA_CHANNEL, UART_RX_DMA_REQUEST);
     DMAMUX_EnableChannel(EXAMPLE_UART_DMAMUX_BASEADDR, UART_TX_DMA_CHANNEL);
     DMAMUX_EnableChannel(EXAMPLE_UART_DMAMUX_BASEADDR, UART_RX_DMA_CHANNEL);
+#endif
 
     /* Init the DMA module */
     DMA_Init(EXAMPLE_UART_DMA_BASEADDR);

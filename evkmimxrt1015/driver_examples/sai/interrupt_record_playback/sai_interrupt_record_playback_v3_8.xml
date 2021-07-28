@@ -20,21 +20,19 @@
     <definition extID="platform.drivers.iomuxc.MIMXRT1015"/>
     <definition extID="platform.drivers.igpio.MIMXRT1015"/>
     <definition extID="platform.drivers.xip_device.MIMXRT1015"/>
-    <definition extID="platform.drivers.xip_board.MIMXRT1015"/>
-    <definition extID="platform.Include_core_cm7.MIMXRT1015"/>
-    <definition extID="platform.Include_common.MIMXRT1015"/>
-    <definition extID="platform.Include_dsp.MIMXRT1015"/>
+    <definition extID="platform.drivers.xip_board.evkmimxrt1015.MIMXRT1015"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT1015"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1015"/>
     <definition extID="device.MIMXRT1015_system.MIMXRT1015"/>
     <definition extID="armgcc"/>
-    <definition extID="iar"/>
     <definition extID="mdk"/>
+    <definition extID="iar"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1015_sai_interrupt_record_playback" name="sai_interrupt_record_playback" dependency="platform.drivers.lpi2c.MIMXRT1015 driver.wm8960.MIMXRT1015 driver.codec.MIMXRT1015 platform.drivers.common.MIMXRT1015 component.wm8960_adapter.MIMXRT1015 component.codec_i2c.MIMXRT1015 component.lpi2c_adapter.MIMXRT1015 utility.debug_console_lite.MIMXRT1015 platform.utilities.assert_lite.MIMXRT1015 platform.drivers.clock.MIMXRT1015 platform.drivers.sai.MIMXRT1015 device.MIMXRT1015_CMSIS.MIMXRT1015 component.lpuart_adapter.MIMXRT1015 component.lists.MIMXRT1015 platform.drivers.lpuart.MIMXRT1015 device.MIMXRT1015_startup.MIMXRT1015 platform.drivers.iomuxc.MIMXRT1015 platform.drivers.igpio.MIMXRT1015 platform.drivers.xip_device.MIMXRT1015 platform.drivers.xip_board.MIMXRT1015 platform.Include_core_cm7.MIMXRT1015 platform.Include_common.MIMXRT1015 platform.Include_dsp.MIMXRT1015 platform.utilities.misc_utilities.MIMXRT1015 device.MIMXRT1015_system.MIMXRT1015" category="driver_examples/sai">
+  <example id="evkmimxrt1015_sai_interrupt_record_playback" name="sai_interrupt_record_playback" dependency="platform.drivers.lpi2c.MIMXRT1015 driver.wm8960.MIMXRT1015 driver.codec.MIMXRT1015 platform.drivers.common.MIMXRT1015 component.wm8960_adapter.MIMXRT1015 component.codec_i2c.MIMXRT1015 component.lpi2c_adapter.MIMXRT1015 utility.debug_console_lite.MIMXRT1015 platform.utilities.assert_lite.MIMXRT1015 platform.drivers.clock.MIMXRT1015 platform.drivers.sai.MIMXRT1015 device.MIMXRT1015_CMSIS.MIMXRT1015 component.lpuart_adapter.MIMXRT1015 component.lists.MIMXRT1015 platform.drivers.lpuart.MIMXRT1015 device.MIMXRT1015_startup.MIMXRT1015 platform.drivers.iomuxc.MIMXRT1015 platform.drivers.igpio.MIMXRT1015 platform.drivers.xip_device.MIMXRT1015 platform.drivers.xip_board.evkmimxrt1015.MIMXRT1015 CMSIS_Include_core_cm.MIMXRT1015 platform.utilities.misc_utilities.MIMXRT1015 device.MIMXRT1015_system.MIMXRT1015" category="driver_examples/sai">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -55,6 +53,7 @@
           <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
           <value>BOARD_USE_CODEC=1</value>
           <value>CODEC_WM8960_ENABLE</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv5dp.hard</value>
@@ -117,17 +116,17 @@
       <files mask="build_flexspi_nor_release.bat"/>
       <files mask="build_flexspi_nor_release.sh"/>
     </source>
-    <source path="examples/evkmimxrt1015/driver_examples/sai/interrupt_record_playback/iar" project_relative_path="./" type="workspace" toolchain="iar">
-      <files mask="sai_interrupt_record_playback.ewd"/>
-      <files mask="sai_interrupt_record_playback.ewp"/>
-      <files mask="sai_interrupt_record_playback.eww"/>
-    </source>
     <source path="examples/evkmimxrt1015/driver_examples/sai/interrupt_record_playback/mdk" project_relative_path="./" type="workspace" toolchain="mdk">
       <files mask="sai_interrupt_record_playback.uvprojx"/>
       <files mask="sai_interrupt_record_playback.uvoptx"/>
       <files mask="sai_interrupt_record_playback.uvmpw"/>
     </source>
-    <source path="examples/evkmimxrt1015/driver_examples/sai/interrupt_record_playback" project_relative_path="source_transfer" type="src">
+    <source path="examples/evkmimxrt1015/driver_examples/sai/interrupt_record_playback/iar" project_relative_path="./" type="workspace" toolchain="iar">
+      <files mask="sai_interrupt_record_playback.ewd"/>
+      <files mask="sai_interrupt_record_playback.ewp"/>
+      <files mask="sai_interrupt_record_playback.eww"/>
+    </source>
+    <source path="examples/evkmimxrt1015/driver_examples/sai/interrupt_record_playback" project_relative_path="source" type="src">
       <files mask="sai_interrupt_record_playback.c"/>
     </source>
     <source path="examples/evkmimxrt1015/driver_examples/sai/interrupt_record_playback" project_relative_path="board" type="src">
@@ -147,21 +146,9 @@
     <source path="examples/evkmimxrt1015/driver_examples/sai/interrupt_record_playback" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
     </source>
-    <source path="examples/evkmimxrt1015/driver_examples/sai/interrupt_record_playback/iar" project_relative_path="MIMXRT1015/iar" type="linker" toolchain="iar">
-      <files mask="MIMXRT1015xxxxx_ram.icf"/>
-      <files mask="MIMXRT1015xxxxx_flexspi_nor.icf"/>
-    </source>
-    <source path="examples/evkmimxrt1015/driver_examples/sai/interrupt_record_playback/mdk" project_relative_path="MIMXRT1015/arm" type="linker" toolchain="mdk">
-      <files mask="MIMXRT1015xxxxx_ram.scf"/>
-      <files mask="MIMXRT1015xxxxx_flexspi_nor.scf"/>
-    </source>
     <source path="examples/evkmimxrt1015/driver_examples/sai/interrupt_record_playback/armgcc" project_relative_path="MIMXRT1015/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMXRT1015xxxxx_ram.ld"/>
       <files mask="MIMXRT1015xxxxx_flexspi_nor.ld"/>
-    </source>
-    <source path="examples/evkmimxrt1015/driver_examples/sai/interrupt_record_playback/mdk" project_relative_path="evkmimxrt1015" type="configuration" toolchain="mdk">
-      <files mask="evkmimxrt1015_ram.ini"/>
-      <files mask="evkmimxrt1015_flexspi_nor.ini"/>
     </source>
   </example>
 </ksdk:examples>

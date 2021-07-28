@@ -13,10 +13,10 @@
 #include "fsl_debug_console.h"
 #include "fsl_sai_edma.h"
 #include "fsl_codec_common.h"
-#include "fsl_dialog7212.h"
 #include "fsl_gpio.h"
 #include "fsl_port.h"
 #include "fsl_codec_adapter.h"
+#include "fsl_dialog7212.h"
 #include "fsl_sai.h"
 #include "fsl_dmamux.h"
 /*******************************************************************************
@@ -24,16 +24,17 @@
  ******************************************************************************/
 /* SAI and I2C instance and clock */
 #define DEMO_CODEC_DA7212
-#define DEMO_SAI              I2S0
-#define DEMO_SAI_CHANNEL      (0)
-#define DEMO_SAI_CLKSRC       kCLOCK_CoreSysClk
-#define DEMO_SAI_CLK_FREQ     CLOCK_GetFreq(kCLOCK_CoreSysClk)
-#define DEMO_SAI_IRQ          I2S0_Tx_IRQn
-#define DEMO_SAITxIRQHandler  I2S0_Tx_IRQHandler
-#define DEMO_SAI_TX_SYNC_MODE kSAI_ModeAsync
-#define DEMO_SAI_RX_SYNC_MODE kSAI_ModeSync
-#define DEMO_SAI_MCLK_OUTPUT  true
-#define DEMO_SAI_MASTER_SLAVE kSAI_Master
+#define DEMO_SAI                       I2S0
+#define DEMO_SAI_CHANNEL               (0)
+#define DEMO_SAI_CLKSRC                kCLOCK_CoreSysClk
+#define DEMO_SAI_CLK_FREQ              CLOCK_GetFreq(kCLOCK_CoreSysClk)
+#define DEMO_SAI_IRQ                   I2S0_Tx_IRQn
+#define DEMO_SAITxIRQHandler           I2S0_Tx_IRQHandler
+#define DEMO_SAI_TX_SYNC_MODE          kSAI_ModeAsync
+#define DEMO_SAI_RX_SYNC_MODE          kSAI_ModeSync
+#define DEMO_SAI_TX_BIT_CLOCK_POLARITY kSAI_PolarityActiveLow
+#define DEMO_SAI_MCLK_OUTPUT           true
+#define DEMO_SAI_MASTER_SLAVE          kSAI_Master
 
 #define DEMO_DMA             DMA0
 #define DEMO_EDMA_CHANNEL    (0)
@@ -62,6 +63,9 @@
 #define BOARD_MASTER_CLOCK_CONFIG BOARD_MasterClockConfig
 #define BUFFER_SIZE   (1024U)
 #define BUFFER_NUMBER (4U)
+#ifndef DEMO_CODEC_VOLUME
+#define DEMO_CODEC_VOLUME 100U
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -135,8 +139,8 @@ int main(void)
     edma_config_t dmaConfig = {0};
     sai_transceiver_t saiConfig;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Init DMAMUX */
@@ -166,8 +170,9 @@ int main(void)
 
     /* I2S mode configurations */
     SAI_GetClassicI2SConfig(&saiConfig, DEMO_AUDIO_BIT_WIDTH, kSAI_Stereo, 1U << DEMO_SAI_CHANNEL);
-    saiConfig.syncMode    = DEMO_SAI_TX_SYNC_MODE;
-    saiConfig.masterSlave = DEMO_SAI_MASTER_SLAVE;
+    saiConfig.syncMode              = DEMO_SAI_TX_SYNC_MODE;
+    saiConfig.bitClock.bclkPolarity = DEMO_SAI_TX_BIT_CLOCK_POLARITY;
+    saiConfig.masterSlave           = DEMO_SAI_MASTER_SLAVE;
     SAI_TransferTxSetConfigEDMA(DEMO_SAI, &txHandle, &saiConfig);
     saiConfig.syncMode = DEMO_SAI_RX_SYNC_MODE;
     SAI_TransferRxSetConfigEDMA(DEMO_SAI, &rxHandle, &saiConfig);
@@ -186,7 +191,11 @@ int main(void)
     {
         assert(false);
     }
-
+    if (CODEC_SetVolume(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight,
+                        DEMO_CODEC_VOLUME) != kStatus_Success)
+    {
+        assert(false);
+    }
     while (1)
     {
         if (emptyBlock > 0)

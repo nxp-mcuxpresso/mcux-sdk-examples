@@ -50,8 +50,8 @@ int main(void)
     uint32_t i = 0;
     dma_channel_config_t transferConfig;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     /* Print source buffer */
     PRINTF("DMA memory to memory transfer example begin.\r\n\r\n");

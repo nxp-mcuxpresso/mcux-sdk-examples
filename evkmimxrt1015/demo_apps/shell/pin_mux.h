@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -45,17 +45,28 @@ extern "C" {
 void BOARD_InitBootPins(void);
 
 /* GPIO_AD_B0_07 (number 68), LPUART1_RXD */
-#define BOARD_UART1_RXD_PERIPHERAL                                       LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_UART1_RXD_SIGNAL                                                RX   /*!< LPUART1 signal: RX */
+/* Routed pin properties */
+#define BOARD_UART1_RXD_PERIPHERAL                                       LPUART1   /*!< Peripheral name */
+#define BOARD_UART1_RXD_SIGNAL                                                RX   /*!< Signal name */
 
 /* GPIO_AD_B0_06 (number 72), LPUART1_TXD */
-#define BOARD_UART1_TXD_PERIPHERAL                                       LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_UART1_TXD_SIGNAL                                                TX   /*!< LPUART1 signal: TX */
+/* Routed pin properties */
+#define BOARD_UART1_TXD_PERIPHERAL                                       LPUART1   /*!< Peripheral name */
+#define BOARD_UART1_TXD_SIGNAL                                                TX   /*!< Signal name */
 
 /* GPIO_SD_B1_01 (number 21), GPIO SD_B1_01 */
-#define BOARD_USER_LED_GPIO                                                GPIO3   /*!< GPIO device name: GPIO3 */
-#define BOARD_USER_LED_PORT                                                GPIO3   /*!< PORT device name: GPIO3 */
-#define BOARD_USER_LED_PIN                                                   21U   /*!< GPIO3 pin index: 21 */
+/* Routed pin properties */
+#define BOARD_USER_LED_PERIPHERAL                                          GPIO3   /*!< Peripheral name */
+#define BOARD_USER_LED_SIGNAL                                            gpio_io   /*!< Signal name */
+#define BOARD_USER_LED_CHANNEL                                               21U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_USER_LED_GPIO                                                GPIO3   /*!< GPIO peripheral base pointer */
+#define BOARD_USER_LED_GPIO_PIN                                              21U   /*!< GPIO pin number */
+#define BOARD_USER_LED_GPIO_PIN_MASK                                 (1U << 21U)   /*!< GPIO pin mask */
+#define BOARD_USER_LED_PORT                                                GPIO3   /*!< PORT peripheral base pointer */
+#define BOARD_USER_LED_PIN                                                   21U   /*!< PORT pin number */
+#define BOARD_USER_LED_PIN_MASK                                      (1U << 21U)   /*!< PORT pin mask */
 
 
 /*!

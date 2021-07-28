@@ -65,8 +65,8 @@ int main(void)
 
     /* hardware initialiize, include IOMUX, Uart debug initialize */
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     PRINTF("GPIO Driver example.\r\n");
 

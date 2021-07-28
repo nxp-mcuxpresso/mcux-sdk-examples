@@ -48,8 +48,8 @@ int main(void)
     /* Configure the PTA5 pin not as /RESET */
     SIM->SOPT &= ~SIM_SOPT_RSTPE_MASK;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\n IRQ Driver Example Start.\r\n");

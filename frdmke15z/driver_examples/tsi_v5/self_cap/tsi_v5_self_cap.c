@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -21,6 +21,9 @@
 /* Available PAD names on board */
 #define PAD_TSI_ELECTRODE_1_NAME "E1"
 
+/* Enable ELECTRODE_2 */
+#define PAD_TSI_ELECTRODE_2_ENABLED 1U
+
 /* IRQ related redefinitions for specific SOC */
 #define TSI0_IRQHandler TSI_IRQHandler
 #define TSI0_IRQn       TSI_IRQn
@@ -37,6 +40,9 @@
 /* Define LPTMR microseconds count value */
 #define LPTMR_USEC_COUNT (260000U)
 
+/* Define the index of the TRGMUX register for TSI trigger */
+#define TSI_TRGMUX_REG_INDEX kTRGMUX_Tsi
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -46,24 +52,27 @@
  ******************************************************************************/
 tsi_calibration_data_t buffer;
 /* Array of TSI peripheral base address. */
-static TSI_Type *const s_tsiBases[] = TSI_BASE_PTRS;
+#if defined(TSI0)
+#define APP_TSI TSI0
+#elif defined(TSI)
+#define APP_TSI TSI
+#endif
 
 /*******************************************************************************
  * Code
  ******************************************************************************/
 void TSI0_IRQHandler(void)
 {
-    if (TSI_GetSelfCapMeasuredChannel(s_tsiBases[0]) == BOARD_TSI_ELECTRODE_1)
+    if (TSI_GetSelfCapMeasuredChannel(APP_TSI) == BOARD_TSI_ELECTRODE_1)
     {
-        if (TSI_GetCounter(s_tsiBases[0]) <
-            (uint16_t)(buffer.calibratedData[BOARD_TSI_ELECTRODE_1] - TOUCH_DELTA_VALUE))
+        if (TSI_GetCounter(APP_TSI) < (uint16_t)(buffer.calibratedData[BOARD_TSI_ELECTRODE_1] - TOUCH_DELTA_VALUE))
         {
             LED1_TOGGLE(); /* Toggle the touch event indicating LED */
         }
     }
 
     /* Clear endOfScan flag */
-    TSI_ClearStatusFlags(s_tsiBases[0], kTSI_EndOfScanFlag);
+    TSI_ClearStatusFlags(APP_TSI, kTSI_EndOfScanFlag);
     SDK_ISR_EXIT_BARRIER;
 }
 
@@ -78,8 +87,8 @@ int main(void)
     memset((void *)&lptmrConfig, 0, sizeof(lptmrConfig));
 
     /* Initialize standard SDK demo application pins */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* CLOCK_EnableClock(kCLOCK_Intmux0); */
@@ -94,20 +103,20 @@ int main(void)
     /* Initialize the LPTMR */
     LPTMR_Init(LPTMR0, &lptmrConfig);
     /* Initialize the TSI */
-    TSI_InitSelfCapMode(s_tsiBases[0], &tsiConfig_selfCap);
+    TSI_InitSelfCapMode(APP_TSI, &tsiConfig_selfCap);
     /* Enable noise cancellation function */
-    TSI_EnableNoiseCancellation(s_tsiBases[0], true);
+    TSI_EnableNoiseCancellation(APP_TSI, true);
 
     /* Set timer period */
     LPTMR_SetTimerPeriod(LPTMR0, USEC_TO_COUNT(LPTMR_USEC_COUNT, LPTMR_SOURCE_CLOCK));
 
     NVIC_EnableIRQ(TSI0_IRQn);
-    TSI_EnableModule(s_tsiBases[0], true); /* Enable module */
+    TSI_EnableModule(APP_TSI, true); /* Enable module */
 
     PRINTF("\r\nTSI_V5 Self-Cap mode Example Start!\r\n");
     /*********  CALIBRATION PROCESS ************/
     memset((void *)&buffer, 0, sizeof(buffer));
-    TSI_SelfCapCalibrate(s_tsiBases[0], &buffer);
+    TSI_SelfCapCalibrate(APP_TSI, &buffer);
     /* Print calibrated counter values */
     for (i = 0U; i < FSL_FEATURE_TSI_CHANNEL_COUNT; i++)
     {
@@ -116,57 +125,58 @@ int main(void)
 
     /********** SOFTWARE TRIGGER SCAN USING POLLING METHOD ********/
     PRINTF("\r\nNOW, comes to the software trigger scan using polling method!\r\n");
-    TSI_EnableHardwareTriggerScan(s_tsiBases[0], false); /* Enable software trigger scan */
-    TSI_DisableInterrupts(s_tsiBases[0], kTSI_EndOfScanInterruptEnable);
-    TSI_ClearStatusFlags(s_tsiBases[0], kTSI_EndOfScanFlag);
-    TSI_SetSelfCapMeasuredChannel(s_tsiBases[0], BOARD_TSI_ELECTRODE_1);
-    TSI_StartSoftwareTrigger(s_tsiBases[0]);
-    while (!(TSI_GetStatusFlags(s_tsiBases[0]) & kTSI_EndOfScanFlag))
+    TSI_EnableHardwareTriggerScan(APP_TSI, false); /* Enable software trigger scan */
+    TSI_DisableInterrupts(APP_TSI, kTSI_EndOfScanInterruptEnable);
+    TSI_ClearStatusFlags(APP_TSI, kTSI_EndOfScanFlag);
+    TSI_SetSelfCapMeasuredChannel(APP_TSI, BOARD_TSI_ELECTRODE_1);
+    TSI_StartSoftwareTrigger(APP_TSI);
+    while (!(TSI_GetStatusFlags(APP_TSI) & kTSI_EndOfScanFlag))
     {
     }
-    PRINTF("Channel %d Normal mode counter is: %d \r\n", BOARD_TSI_ELECTRODE_1, TSI_GetCounter(s_tsiBases[0]));
-
-    TSI_ClearStatusFlags(s_tsiBases[0], kTSI_EndOfScanFlag);
-    TSI_SetSelfCapMeasuredChannel(s_tsiBases[0], BOARD_TSI_ELECTRODE_2);
-    TSI_StartSoftwareTrigger(s_tsiBases[0]);
-    while (!(TSI_GetStatusFlags(s_tsiBases[0]) & kTSI_EndOfScanFlag))
+    PRINTF("Channel %d Normal mode counter is: %d \r\n", BOARD_TSI_ELECTRODE_1, TSI_GetCounter(APP_TSI));
+#if (defined(PAD_TSI_ELECTRODE_2_ENABLED) && PAD_TSI_ELECTRODE_2_ENABLED)
+    TSI_ClearStatusFlags(APP_TSI, kTSI_EndOfScanFlag);
+    TSI_SetSelfCapMeasuredChannel(APP_TSI, BOARD_TSI_ELECTRODE_2);
+    TSI_StartSoftwareTrigger(APP_TSI);
+    while (!(TSI_GetStatusFlags(APP_TSI) & kTSI_EndOfScanFlag))
     {
     }
-    PRINTF("Channel %d Normal mode counter is: %d \r\n", BOARD_TSI_ELECTRODE_2, TSI_GetCounter(s_tsiBases[0]));
-    TSI_ClearStatusFlags(s_tsiBases[0], kTSI_EndOfScanFlag | kTSI_OutOfRangeFlag);
+    PRINTF("Channel %d Normal mode counter is: %d \r\n", BOARD_TSI_ELECTRODE_2, TSI_GetCounter(APP_TSI));
+#endif
+    TSI_ClearStatusFlags(APP_TSI, kTSI_EndOfScanFlag | kTSI_OutOfRangeFlag);
 
     /********** SOFTWARE TRIGGER SCAN USING INTERRUPT METHOD ********/
     PRINTF("\r\nNOW, comes to the software trigger scan using interrupt method!\r\n");
-    TSI_EnableInterrupts(s_tsiBases[0], kTSI_GlobalInterruptEnable);
-    TSI_EnableInterrupts(s_tsiBases[0], kTSI_EndOfScanInterruptEnable);
-    TSI_ClearStatusFlags(s_tsiBases[0], kTSI_EndOfScanFlag);
-    TSI_SetSelfCapMeasuredChannel(s_tsiBases[0], BOARD_TSI_ELECTRODE_1);
-    TSI_StartSoftwareTrigger(s_tsiBases[0]);
-    while (TSI_IsScanInProgress(s_tsiBases[0]))
+    TSI_EnableInterrupts(APP_TSI, kTSI_GlobalInterruptEnable);
+    TSI_EnableInterrupts(APP_TSI, kTSI_EndOfScanInterruptEnable);
+    TSI_ClearStatusFlags(APP_TSI, kTSI_EndOfScanFlag);
+    TSI_SetSelfCapMeasuredChannel(APP_TSI, BOARD_TSI_ELECTRODE_1);
+    TSI_StartSoftwareTrigger(APP_TSI);
+    while (TSI_IsScanInProgress(APP_TSI))
     {
     }
-    PRINTF("Channel %d Normal mode counter is: %d \r\n", BOARD_TSI_ELECTRODE_1, TSI_GetCounter(s_tsiBases[0]));
-
-    TSI_SetSelfCapMeasuredChannel(s_tsiBases[0], BOARD_TSI_ELECTRODE_2);
-    TSI_StartSoftwareTrigger(s_tsiBases[0]);
-    while (TSI_IsScanInProgress(s_tsiBases[0]))
+    PRINTF("Channel %d Normal mode counter is: %d \r\n", BOARD_TSI_ELECTRODE_1, TSI_GetCounter(APP_TSI));
+#if (defined(PAD_TSI_ELECTRODE_2_ENABLED) && PAD_TSI_ELECTRODE_2_ENABLED)
+    TSI_SetSelfCapMeasuredChannel(APP_TSI, BOARD_TSI_ELECTRODE_2);
+    TSI_StartSoftwareTrigger(APP_TSI);
+    while (TSI_IsScanInProgress(APP_TSI))
     {
     }
-    PRINTF("Channel %d Normal mode counter is: %d \r\n", BOARD_TSI_ELECTRODE_2, TSI_GetCounter(s_tsiBases[0]));
-
+    PRINTF("Channel %d Normal mode counter is: %d \r\n", BOARD_TSI_ELECTRODE_2, TSI_GetCounter(APP_TSI));
+#endif
     /********** HARDWARE TRIGGER SCAN ********/
     PRINTF("\r\nNOW, comes to the hardware trigger scan method!\r\n");
     PRINTF("After running, touch pad %s each time, you will see LED toggles.\r\n", PAD_TSI_ELECTRODE_1_NAME);
-    TSI_EnableModule(s_tsiBases[0], false);
-    TSI_EnableHardwareTriggerScan(s_tsiBases[0], true);
-    TSI_EnableInterrupts(s_tsiBases[0], kTSI_GlobalInterruptEnable);
-    TSI_EnableInterrupts(s_tsiBases[0], kTSI_EndOfScanInterruptEnable);
-    TSI_ClearStatusFlags(s_tsiBases[0], kTSI_EndOfScanFlag);
+    TSI_EnableModule(APP_TSI, false);
+    TSI_EnableHardwareTriggerScan(APP_TSI, true);
+    TSI_EnableInterrupts(APP_TSI, kTSI_GlobalInterruptEnable);
+    TSI_EnableInterrupts(APP_TSI, kTSI_EndOfScanInterruptEnable);
+    TSI_ClearStatusFlags(APP_TSI, kTSI_EndOfScanFlag);
 
-    TSI_SetSelfCapMeasuredChannel(s_tsiBases[0],
+    TSI_SetSelfCapMeasuredChannel(APP_TSI,
                                   BOARD_TSI_ELECTRODE_1); /* Select BOARD_TSI_ELECTRODE_1 as detecting electrode. */
-    TSI_EnableModule(s_tsiBases[0], true);
-    TRGMUX_SetTriggerSource(TRGMUX0, kTRGMUX_Tsi, kTRGMUX_TriggerInput0, kTRGMUX_SourceLptmr0);
+    TSI_EnableModule(APP_TSI, true);
+    TRGMUX_SetTriggerSource(TRGMUX0, TSI_TRGMUX_REG_INDEX, kTRGMUX_TriggerInput0, kTRGMUX_SourceLptmr0);
     LPTMR_StartTimer(LPTMR0); /* Start LPTMR triggering */
 
     while (1)

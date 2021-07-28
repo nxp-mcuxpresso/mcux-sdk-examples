@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 NXP
+ * Copyright 2018-2019,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -13,14 +13,15 @@
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Peripherals v5.0
+product: Peripherals v8.0
 processor: MKE15Z256xxx7
 package_id: MKE15Z256VLL7
 mcu_data: ksdk2_0
-processor_version: 0.0.19
+processor_version: 0.9.0
 board: FRDM-KE15Z
 functionalGroups:
 - name: BOARD_InitPeripherals
+  UUID: 0a8d0a7a-bf14-4629-ae3b-052b483c2d16
   called_from_default_init: true
   id_prefix: BOARD_
   selectedCore: core0
@@ -30,7 +31,9 @@ functionalGroups:
 component:
 - type: 'system'
 - type_id: 'system_54b53072540eeeb8f8e9343e71f28176'
-- global_system_definitions: []
+- global_system_definitions:
+  - user_definitions: ''
+  - user_includes: ''
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 
@@ -51,6 +54,7 @@ instance:
 - name: 'TIMER'
 - type: 'ftm'
 - mode: 'EdgeAligned'
+- custom_name_enabled: 'true'
 - type_id: 'ftm_5e037045c21cf6f361184c371dbbbab2'
 - functional_group: 'BOARD_InitPeripherals'
 - peripheral: 'FTM0'
@@ -76,7 +80,9 @@ instance:
     - enable_irq: 'false'
     - ftm_interrupt:
       - IRQn: 'FTM0_IRQn'
+      - enable_interrrupt: 'enabled'
       - enable_priority: 'false'
+      - priority: '0'
       - enable_custom_name: 'false'
     - EnableTimerInInit: 'false'
   - ftm_edge_aligned_mode:
@@ -97,29 +103,37 @@ instance:
           - enable_chan_irq: 'false'
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
-const ftm_config_t BOARD_TIMER_config = {.prescale          = kFTM_Prescale_Divide_1,
-                                         .bdmMode           = kFTM_BdmMode_0,
-                                         .pwmSyncMode       = kFTM_SoftwareTrigger,
-                                         .reloadPoints      = 0,
-                                         .faultMode         = kFTM_Fault_Disable,
-                                         .faultFilterValue  = 0,
-                                         .deadTimePrescale  = kFTM_Deadtime_Prescale_1,
-                                         .deadTimeValue     = 0,
-                                         .extTriggers       = 0,
-                                         .chnlInitState     = 0,
-                                         .chnlPolarity      = 0,
-                                         .useGlobalTimeBase = false};
+const ftm_config_t BOARD_TIMER_config = {
+  .prescale = kFTM_Prescale_Divide_1,
+  .bdmMode = kFTM_BdmMode_0,
+  .pwmSyncMode = kFTM_SoftwareTrigger,
+  .reloadPoints = 0,
+  .faultMode = kFTM_Fault_Disable,
+  .faultFilterValue = 0U,
+  .deadTimePrescale = kFTM_Deadtime_Prescale_1,
+  .deadTimeValue = 0UL,
+  .extTriggers = 0,
+  .chnlInitState = 0,
+  .chnlPolarity = 0,
+  .useGlobalTimeBase = false
+};
 
-const ftm_chnl_pwm_signal_param_t BOARD_TIMER_pwmSignalParams[] = {
-    {.chnlNumber = kFTM_Chnl_2, .level = kFTM_LowTrue, .dutyCyclePercent = 0},
-    {.chnlNumber = kFTM_Chnl_1, .level = kFTM_LowTrue, .dutyCyclePercent = 0}};
+const ftm_chnl_pwm_signal_param_t BOARD_TIMER_pwmSignalParams[] = { 
+  {
+    .chnlNumber = kFTM_Chnl_2,
+    .level = kFTM_LowTrue,
+    .dutyCyclePercent = 0U
+  },
+  {
+    .chnlNumber = kFTM_Chnl_1,
+    .level = kFTM_LowTrue,
+    .dutyCyclePercent = 0U
+  }
+};
 
-void BOARD_TIMER_init(void)
-{
-    FTM_Init(BOARD_TIMER_PERIPHERAL, &BOARD_TIMER_config);
-    FTM_SetupPwm(BOARD_TIMER_PERIPHERAL, BOARD_TIMER_pwmSignalParams,
-                 sizeof(BOARD_TIMER_pwmSignalParams) / sizeof(ftm_chnl_pwm_signal_param_t), kFTM_EdgeAlignedPwm, 24000U,
-                 BOARD_TIMER_CLOCK_SOURCE);
+static void BOARD_TIMER_init(void) {
+  FTM_Init(BOARD_TIMER_PERIPHERAL, &BOARD_TIMER_config);
+  FTM_SetupPwm(BOARD_TIMER_PERIPHERAL, BOARD_TIMER_pwmSignalParams, sizeof(BOARD_TIMER_pwmSignalParams) / sizeof(ftm_chnl_pwm_signal_param_t), kFTM_EdgeAlignedPwm, 24000U, BOARD_TIMER_CLOCK_SOURCE);
 }
 
 /***********************************************************************************************************************
@@ -131,6 +145,7 @@ instance:
 - name: 'ACCEL_I2C'
 - type: 'lpi2c'
 - mode: 'master'
+- custom_name_enabled: 'true'
 - type_id: 'lpi2c_540b08a1d4a23952ca7a6ac43c82d1e6'
 - functional_group: 'BOARD_InitPeripherals'
 - peripheral: 'LPI2C0'
@@ -140,7 +155,9 @@ instance:
     - clockSourceFreq: 'GetIpFreq'
     - interrupt:
       - IRQn: 'LPI2C0_IRQn'
+      - enable_interrrupt: 'enabled'
       - enable_priority: 'false'
+      - priority: '0'
       - enable_custom_name: 'false'
     - quick_selection: 'qs_interrupt'
   - master:
@@ -160,6 +177,7 @@ instance:
         - enable: 'false'
         - source: 'kLPI2C_HostRequestExternalPin'
         - polarity: 'kLPI2C_HostRequestPinActiveHigh'
+      - edmaRequestSources: ''
     - transfer:
       - blocking: 'true'
       - flags: ''
@@ -171,30 +189,35 @@ instance:
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 const lpi2c_master_config_t BOARD_ACCEL_I2C_masterConfig = {
-    .enableMaster            = true,
-    .enableDoze              = true,
-    .debugEnable             = false,
-    .ignoreAck               = false,
-    .pinConfig               = kLPI2C_2PinOpenDrain,
-    .baudRate_Hz             = 100000,
-    .busIdleTimeout_ns       = 0,
-    .pinLowTimeout_ns        = 0,
-    .sdaGlitchFilterWidth_ns = 0,
-    .sclGlitchFilterWidth_ns = 0,
-    .hostRequest             = {
-        .enable = false, .source = kLPI2C_HostRequestExternalPin, .polarity = kLPI2C_HostRequestPinActiveHigh}};
-lpi2c_master_transfer_t BOARD_ACCEL_I2C_masterTransfer = {.flags          = kLPI2C_TransferDefaultFlag,
-                                                          .slaveAddress   = 0,
-                                                          .direction      = kLPI2C_Write,
-                                                          .subaddress     = 0,
-                                                          .subaddressSize = 1,
-                                                          .data           = BOARD_ACCEL_I2C_masterBuffer,
-                                                          .dataSize       = 1};
+  .enableMaster = true,
+  .enableDoze = true,
+  .debugEnable = false,
+  .ignoreAck = false,
+  .pinConfig = kLPI2C_2PinOpenDrain,
+  .baudRate_Hz = 100000UL,
+  .busIdleTimeout_ns = 0UL,
+  .pinLowTimeout_ns = 0UL,
+  .sdaGlitchFilterWidth_ns = 0U,
+  .sclGlitchFilterWidth_ns = 0U,
+  .hostRequest = {
+    .enable = false,
+    .source = kLPI2C_HostRequestExternalPin,
+    .polarity = kLPI2C_HostRequestPinActiveHigh
+  }
+};
+lpi2c_master_transfer_t BOARD_ACCEL_I2C_masterTransfer = {
+  .flags = kLPI2C_TransferDefaultFlag,
+  .slaveAddress = 0,
+  .direction = kLPI2C_Write,
+  .subaddress = 0,
+  .subaddressSize = 1,
+  .data = BOARD_ACCEL_I2C_masterBuffer,
+  .dataSize = 1
+};
 uint8_t BOARD_ACCEL_I2C_masterBuffer[BOARD_ACCEL_I2C_MASTER_BUFFER_SIZE];
 
-void BOARD_ACCEL_I2C_init(void)
-{
-    LPI2C_MasterInit(BOARD_ACCEL_I2C_PERIPHERAL, &BOARD_ACCEL_I2C_masterConfig, BOARD_ACCEL_I2C_CLOCK_FREQ);
+static void BOARD_ACCEL_I2C_init(void) {
+  LPI2C_MasterInit(BOARD_ACCEL_I2C_PERIPHERAL, &BOARD_ACCEL_I2C_masterConfig, BOARD_ACCEL_I2C_CLOCK_FREQ);
 }
 
 /***********************************************************************************************************************
@@ -202,9 +225,9 @@ void BOARD_ACCEL_I2C_init(void)
  **********************************************************************************************************************/
 void BOARD_InitPeripherals(void)
 {
-    /* Initialize components */
-    BOARD_TIMER_init();
-    BOARD_ACCEL_I2C_init();
+  /* Initialize components */
+  BOARD_TIMER_init();
+  BOARD_ACCEL_I2C_init();
 }
 
 /***********************************************************************************************************************
@@ -212,5 +235,5 @@ void BOARD_InitPeripherals(void)
  **********************************************************************************************************************/
 void BOARD_InitBootPeripherals(void)
 {
-    BOARD_InitPeripherals();
+  BOARD_InitPeripherals();
 }

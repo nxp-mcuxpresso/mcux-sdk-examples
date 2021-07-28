@@ -211,7 +211,7 @@ int main(void)
     rtc_datetime_t date;
 
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitBootPeripherals();
     BOARD_InitDebugConsole();

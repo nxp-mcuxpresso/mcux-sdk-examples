@@ -1,6 +1,6 @@
 # CROSS COMPILER SETTING
 SET(CMAKE_SYSTEM_NAME Generic)
-CMAKE_MINIMUM_REQUIRED (VERSION 3.1.1)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
 SET (Tutorial_VERSION_MAJOR 1)
@@ -79,15 +79,11 @@ include(component_lists)
 
 include(device_CMSIS)
 
-include(CMSIS_Include_core_cm4)
-
 include(device_startup_K32L3A60_cm4)
 
+include(CMSIS_Include_core_cm)
+
 include(utilities_misc_utilities)
-
-include(CMSIS_Include_common)
-
-include(CMSIS_Include_dsp)
 
 include(device_system_K32L3A60_cm4)
 

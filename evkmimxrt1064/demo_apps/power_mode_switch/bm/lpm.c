@@ -129,8 +129,14 @@ void ClockSelectXtalOsc(void)
     CLOCK_InitExternalClk(0);
     /* Switch clock source to external OSC. */
     CLOCK_SwitchOsc(kCLOCK_XtalOsc);
+    /*
+     * Some board will failed to wake up from suspend mode if rcosc is powered down when clock source switch from rcosc
+     * to external osc. Root cause is not found. Workaround: keep rcosc on.
+     */
+#ifndef KEEP_RCOSC_ON
     /* Power Down internal RC. */
     CLOCK_DeinitRcOsc24M();
+#endif
 }
 
 void ClockSelectRcOsc(void)

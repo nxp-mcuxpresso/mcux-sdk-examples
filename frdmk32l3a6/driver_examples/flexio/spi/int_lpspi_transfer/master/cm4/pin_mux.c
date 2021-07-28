@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v5.0
+product: Pins v9.0
 processor: K32L3A60xxx
 package_id: K32L3A60VPJ1A
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 0.10.3
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -46,14 +46,14 @@ BOARD_InitPins:
 - pin_list:
   - {pin_num: N2, peripheral: LPUART0, signal: RX, pin_signal: LPCMP0_IN0/PTC7/LLWU_P15/LPSPI0_PCS3/LPUART0_RX/LPI2C1_HREQ/TPM0_CH0/LPTMR1_ALT1}
   - {pin_num: P3, peripheral: LPUART0, signal: TX, pin_signal: LPCMP0_IN1/PTC8/LPSPI0_SCK/LPUART0_TX/LPI2C0_HREQ/TPM0_CH1}
-  - {pin_num: N17, peripheral: FLEXIO0, signal: 'D, 3', pin_signal: PTE13/SAI0_TX_BCLK/LPI2C3_SCLS/TPM3_CH0/FXIO0_D3}
-  - {pin_num: R3, peripheral: LPSPI0, signal: PCS0, pin_signal: ADC0_SE7/PTC12/LLWU_P18/LPSPI0_PCS0/LPI2C1_SCL/LPI2C0_SCLS/TPM0_CH5/EWM_OUT_b}
-  - {pin_num: T1, peripheral: LPSPI0, signal: IN, pin_signal: ADC0_SE6/PTC11/LLWU_P17/LPSPI0_SIN/LPI2C1_SDA/LPI2C0_SDAS/TPM0_CH4/EWM_IN}
+  - {pin_num: R3, peripheral: LPSPI0, signal: PCS0, pin_signal: LPADC0_SE7/PTC12/LLWU_P18/LPSPI0_PCS0/LPI2C1_SCL/LPI2C0_SCLS/TPM0_CH5/EWM_OUT_b}
   - {pin_num: R7, peripheral: LPSPI0, signal: SCK, pin_signal: PTC30/LPUART1_TX/LPSPI0_SCK/TPM0_CH1/FXIO0_D19}
-  - {pin_num: J17, peripheral: FLEXIO0, signal: 'D, 10', pin_signal: PTE21/SAI0_TX_D1/USB0_SOF_OUT/TPM2_CH4/FXIO0_D10}
-  - {pin_num: K16, peripheral: FLEXIO0, signal: 'D, 9', pin_signal: PTE19/SAI0_MCLK/TPM2_CH3/FXIO0_D9}
-  - {pin_num: R1, peripheral: LPSPI0, signal: OUT, pin_signal: ADC0_SE4/LPCMP0_IN2/PTC9/LLWU_P16/LPSPI0_SOUT/LPUART0_CTS_b/LPI2C0_SDA/TPM0_CH2/LPTMR0_ALT2}
+  - {pin_num: T1, peripheral: LPSPI0, signal: SIN, pin_signal: LPADC0_SE6/PTC11/LLWU_P17/LPSPI0_SIN/LPI2C1_SDA/LPI2C0_SDAS/TPM0_CH4/EWM_IN}
+  - {pin_num: R1, peripheral: LPSPI0, signal: SOUT, pin_signal: LPADC0_SE4/LPCMP0_IN2/PTC9/LLWU_P16/LPSPI0_SOUT/LPUART0_CTS/LPI2C0_SDA/TPM0_CH2/LPTMR0_ALT2}
+  - {pin_num: N17, peripheral: FLEXIO0, signal: 'D, 3', pin_signal: PTE13/I2S0_TX_BCLK/LPI2C3_SCLS/TPM3_CH0/FXIO0_D3}
   - {pin_num: G1, peripheral: FLEXIO0, signal: 'D, 5', pin_signal: PTB15/LPI2C1_HREQ/LPI2C3_SCL/FB_CS5_b/FB_TSIZ1/FB_BE23_16_b/TPM0_CLKIN/FXIO0_D5}
+  - {pin_num: K16, peripheral: FLEXIO0, signal: 'D, 9', pin_signal: PTE19/I2S0_MCLK/TPM2_CH3/FXIO0_D9}
+  - {pin_num: J17, peripheral: FLEXIO0, signal: 'D, 10', pin_signal: PTE21/I2S0_TX_D1/USB0_SOF_OUT/TPM2_CH4/FXIO0_D10}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -64,6 +64,7 @@ BOARD_InitPins:
  * Description   : Configures pin routing and optionally pin electrical features.
  *
  * END ****************************************************************************************************************/
+/* Function assigned for the Cortex-M4F */
 void BOARD_InitPins(void)
 {
     /* Clock Gate Control: Clock enabled. The current clock selection and divider options are locked. */

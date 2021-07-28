@@ -50,8 +50,8 @@ int main(void)
 {
     pdb_config_t pdbConfigStruct;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     EnableIRQ(DEMO_PDB_IRQ_ID);
 

@@ -82,8 +82,8 @@ int main(void)
     uint16_t tmptxIndex = txIndex;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
 
     /*
      * config.baudRate_Bps = 115200U;

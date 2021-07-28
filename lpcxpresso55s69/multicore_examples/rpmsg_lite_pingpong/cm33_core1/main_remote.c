@@ -13,9 +13,9 @@
 #include "pin_mux.h"
 #include "board.h"
 
+#include "mcmgr.h"
 #include "fsl_common.h"
 #include "fsl_power.h"
-#include "mcmgr.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

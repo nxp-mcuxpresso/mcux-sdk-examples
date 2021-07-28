@@ -228,7 +228,7 @@ int main(void)
 
     /* TODO: Use SMC functions. */
     SMC->PMPROT = 0xAAU;
-    BOARD_InitPins();
+    BOARD_InitBootPins();
 
     CLOCK_SetIpSrc(kCLOCK_Lpuart1, kCLOCK_IpSrcSircAsync);
 

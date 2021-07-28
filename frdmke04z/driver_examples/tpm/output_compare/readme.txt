@@ -6,7 +6,7 @@ should probe the TPM output with a oscilloscope to see the signal toggling.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
+- GCC ARM Embedded  10.2.1
 
 Hardware requirements
 =====================

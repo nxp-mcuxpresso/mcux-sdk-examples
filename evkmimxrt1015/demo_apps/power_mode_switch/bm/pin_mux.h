@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 NXP
+ * Copyright 2019-2020 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -45,17 +45,28 @@ extern "C" {
 void BOARD_InitBootPins(void);
 
 /* GPIO_AD_B0_07 (number 68), LPUART1_RXD */
-#define BOARD_UART1_RXD_PERIPHERAL                                       LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_UART1_RXD_SIGNAL                                                RX   /*!< LPUART1 signal: RX */
+/* Routed pin properties */
+#define BOARD_UART1_RXD_PERIPHERAL                                       LPUART1   /*!< Peripheral name */
+#define BOARD_UART1_RXD_SIGNAL                                                RX   /*!< Signal name */
 
 /* GPIO_AD_B0_06 (number 72), LPUART1_TXD */
-#define BOARD_UART1_TXD_PERIPHERAL                                       LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_UART1_TXD_SIGNAL                                                TX   /*!< LPUART1 signal: TX */
+/* Routed pin properties */
+#define BOARD_UART1_TXD_PERIPHERAL                                       LPUART1   /*!< Peripheral name */
+#define BOARD_UART1_TXD_SIGNAL                                                TX   /*!< Signal name */
 
 /* GPIO_EMC_09 (number 1), USER_BUTTON */
-#define BOARD_USER_BUTTON_GPIO                                             GPIO2   /*!< GPIO device name: GPIO2 */
-#define BOARD_USER_BUTTON_PORT                                             GPIO2   /*!< PORT device name: GPIO2 */
-#define BOARD_USER_BUTTON_PIN                                                 9U   /*!< GPIO2 pin index: 9 */
+/* Routed pin properties */
+#define BOARD_USER_BUTTON_PERIPHERAL                                       GPIO2   /*!< Peripheral name */
+#define BOARD_USER_BUTTON_SIGNAL                                         gpio_io   /*!< Signal name */
+#define BOARD_USER_BUTTON_CHANNEL                                             9U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_USER_BUTTON_GPIO                                             GPIO2   /*!< GPIO peripheral base pointer */
+#define BOARD_USER_BUTTON_GPIO_PIN                                            9U   /*!< GPIO pin number */
+#define BOARD_USER_BUTTON_GPIO_PIN_MASK                               (1U << 9U)   /*!< GPIO pin mask */
+#define BOARD_USER_BUTTON_PORT                                             GPIO2   /*!< PORT peripheral base pointer */
+#define BOARD_USER_BUTTON_PIN                                                 9U   /*!< PORT pin number */
+#define BOARD_USER_BUTTON_PIN_MASK                                    (1U << 9U)   /*!< PORT pin mask */
 
 
 /*!

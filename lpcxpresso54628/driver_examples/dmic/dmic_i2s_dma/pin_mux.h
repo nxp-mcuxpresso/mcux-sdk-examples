@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NXP
+ * Copyright 2018 ,2021 NXP
  * All rights reserved.
  * 
  * SPDX-License-Identifier: BSD-3-Clause
@@ -48,57 +48,96 @@ void BOARD_InitBootPins(void);
 #define IOCON_PIO_SLEW_FAST 0x0400u     /*!<@brief Fast mode, slew rate control is disabled */
 #define IOCON_PIO_SLEW_STANDARD 0x00u   /*!<@brief Standard mode, output slew rate control is enabled */
 
-/*! @name FC0_RXD_SDA_MOSI (coord B13), U24[13]/P0_29-ISP_FC0_RXD
+/*! @name PIO0_29 (coord B13), U24[13]/P0_29-ISP_FC0_RXD
   @{ */
-/* @} */
+#define BOARD_INITPINS_ISP_FC0_RXD_PORT 0U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_ISP_FC0_RXD_PIN 29U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_ISP_FC0_RXD_PIN_MASK (1U << 29U)      /*!<@brief PORT pin mask */
+                                                             /* @} */
 
-/*! @name FC0_TXD_SCL_MISO (coord A2), U24[12]/P0_30-ISP_FC0_TXD
+/*! @name PIO0_30 (coord A2), U24[12]/P0_30-ISP_FC0_TXD
   @{ */
-/* @} */
+#define BOARD_INITPINS_ISP_FC0_TXD_PORT 0U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_ISP_FC0_TXD_PIN 30U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_ISP_FC0_TXD_PIN_MASK (1U << 30U)      /*!<@brief PORT pin mask */
+                                                             /* @} */
 
-/*! @name PDM1_CLK (coord L14), J13[18]/JS25[3]/DMIC1[4]/P1_2-PDM1_CLK
+/*! @name PIO1_2 (coord L14), J13[18]/JS25[3]/DMIC1[4]/P1_2-PDM1_CLK
   @{ */
-/* @} */
+#define BOARD_INITPINS_PDM1_CLK_PORT 1U                  /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_PDM1_CLK_PIN 2U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_PDM1_CLK_PIN_MASK (1U << 2U)      /*!<@brief PORT pin mask */
+                                                         /* @} */
 
-/*! @name PDM1_DATA (coord J13), JS26[3]/DMIC1[1]/P1_3-PDM1_DATA
+/*! @name PIO1_3 (coord J13), JS26[3]/DMIC1[1]/P1_3-PDM1_DATA
   @{ */
-/* @} */
+#define BOARD_INITPINS_PDM1_DATA_PORT 1U                  /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_PDM1_DATA_PIN 3U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_PDM1_DATA_PIN_MASK (1U << 3U)      /*!<@brief PORT pin mask */
+                                                          /* @} */
 
-/*! @name FC7_SCK (coord N10), U10[29]/J9[16]/P2_18-FC7_I2S_RX_SCK
+/*! @name PIO2_18 (coord N10), U10[29]/J9[16]/P2_18-FC7_I2S_RX_SCK
   @{ */
-/* @} */
+#define BOARD_INITPINS_FC7_I2S_RX_SCK_PORT 2U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_FC7_I2S_RX_SCK_PIN 18U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_FC7_I2S_RX_SCK_PIN_MASK (1U << 18U)      /*!<@brief PORT pin mask */
+                                                                /* @} */
 
-/*! @name FC7_RXD_SDA_MOSI_DATA (coord P12), U10[31]/J9[20]/P2_19-FC7_I2S_RX_DAT
+/*! @name PIO2_19 (coord P12), U10[31]/J9[20]/P2_19-FC7_I2S_RX_DAT
   @{ */
-/* @} */
+#define BOARD_INITPINS_FC7_I2S_RX_DAT_PORT 2U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_FC7_I2S_RX_DAT_PIN 19U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_FC7_I2S_RX_DAT_PIN_MASK (1U << 19U)      /*!<@brief PORT pin mask */
+                                                                /* @} */
 
-/*! @name FC7_TXD_SCL_MISO_WS (coord P13), U10[30]/J9[18]/P2_20-FC7_I2S_RX_WS
+/*! @name PIO2_20 (coord P13), U10[30]/J9[18]/P2_20-FC7_I2S_RX_WS
   @{ */
-/* @} */
+#define BOARD_INITPINS_FC7_I2S_RX_WS_PORT 2U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_FC7_I2S_RX_WS_PIN 20U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_FC7_I2S_RX_WS_PIN_MASK (1U << 20U)      /*!<@brief PORT pin mask */
+                                                               /* @} */
 
-/*! @name MCLK (coord B2), J11[8]/J12[7]/P3_11-MCLK-PMOD2_GPIO
+/*! @name PIO3_11 (coord B2), J11[8]/J12[7]/P3_11-MCLK-PMOD2_GPIO
   @{ */
-/* @} */
+#define BOARD_INITPINS_MCLK_PORT 3U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_MCLK_PIN 11U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_MCLK_PIN_MASK (1U << 11U)      /*!<@brief PORT pin mask */
+                                                      /* @} */
 
-/*! @name FC2_CTS_SDA_SSEL0 (coord C2), J11[10]/J9[3]/U10[3]/J17[5]/U19[10]/P3_23-FC2_SDAX
+/*! @name PIO3_23 (coord C2), J11[10]/J9[3]/U10[3]/J17[5]/U19[10]/P3_23-FC2_SDAX
   @{ */
-/* @} */
+#define BOARD_INITPINS_FC2_SDAX_PORT 3U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_FC2_SDAX_PIN 23U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_FC2_SDAX_PIN_MASK (1U << 23U)      /*!<@brief PORT pin mask */
+                                                          /* @} */
 
-/*! @name FC2_RTS_SCL_SSEL1 (coord E2), J11[9]/J9[1]/U10[2]/J17[4]/U19[2]/P3_24-FC2_SCLX
+/*! @name PIO3_24 (coord E2), J11[9]/J9[1]/U10[2]/J17[4]/U19[2]/P3_24-FC2_SCLX
   @{ */
-/* @} */
+#define BOARD_INITPINS_FC2_SCLX_PORT 3U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_FC2_SCLX_PIN 24U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_FC2_SCLX_PIN_MASK (1U << 24U)      /*!<@brief PORT pin mask */
+                                                          /* @} */
 
-/*! @name FC6_SCK (coord G14), U10[29]/J9[14]/P4_1-FC6_I2S_TX_SCK
+/*! @name PIO4_1 (coord G14), U10[29]/J9[14]/P4_1-FC6_I2S_TX_SCK
   @{ */
-/* @} */
+#define BOARD_INITPINS_FC6_I2S_TX_SCK_PORT 4U                  /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_FC6_I2S_TX_SCK_PIN 1U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_FC6_I2S_TX_SCK_PIN_MASK (1U << 1U)      /*!<@brief PORT pin mask */
+                                                               /* @} */
 
-/*! @name FC6_RXD_SDA_MOSI_DATA (coord F14), U10[32]/J9[10]/P4_2-FC6_I2S_TX_DATA
+/*! @name PIO4_2 (coord F14), U10[32]/J9[10]/P4_2-FC6_I2S_TX_DATA
   @{ */
-/* @} */
+#define BOARD_INITPINS_FC6_I2S_TX_DATA_PORT 4U                  /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_FC6_I2S_TX_DATA_PIN 2U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_FC6_I2S_TX_DATA_PIN_MASK (1U << 2U)      /*!<@brief PORT pin mask */
+                                                                /* @} */
 
-/*! @name FC6_TXD_SCL_MISO_WS (coord F13), U10[30]/J9[12]/P4_3-FC6_I2S_TX_WS
+/*! @name PIO4_3 (coord F13), U10[30]/J9[12]/P4_3-FC6_I2S_TX_WS
   @{ */
-/* @} */
+#define BOARD_INITPINS_FC6_I2S_TX_WS_PORT 4U                  /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_FC6_I2S_TX_WS_PIN 3U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_FC6_I2S_TX_WS_PIN_MASK (1U << 3U)      /*!<@brief PORT pin mask */
+                                                              /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

@@ -36,8 +36,8 @@ int main(void)
     uint64_t ts;
 
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     ts = TSTMR_ReadTimeStamp(EXAMPLE_TSTMR);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v6.0
+product: Pins v9.0
 processor: LPC845
 package_id: LPC845M301JBD64
 mcu_data: ksdk2_0
-processor_version: 6.0.1
+processor_version: 9.0.0
 board: LPCXpresso845
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -68,35 +68,35 @@ void BOARD_InitPins(void)
     /* Enables clock for switch matrix.: enable */
     CLOCK_EnableClock(kCLOCK_Swm);
 
-    const uint32_t IOCON_INDEX_PIO1_16_config = (/* Selects pull-up function */
-                                                 IOCON_PIO_MODE_PULLUP |
-                                                 /* Enable hysteresis */
-                                                 IOCON_PIO_HYS_EN |
-                                                 /* Input not invert */
-                                                 IOCON_PIO_INV_DI |
-                                                 /* Disables Open-drain function */
-                                                 IOCON_PIO_OD_DI |
-                                                 /* Bypass input filter */
-                                                 IOCON_PIO_SMODE_BYPASS |
-                                                 /* IOCONCLKDIV0 */
-                                                 IOCON_PIO_CLKDIV0);
-    /* PORT1 PIN16 (coords: ) is configured as  */
-    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO1_16, IOCON_INDEX_PIO1_16_config);
+    const uint32_t DEBUG_UART_RX = (/* Selects pull-up function */
+                                    IOCON_PIO_MODE_PULLUP |
+                                    /* Enable hysteresis */
+                                    IOCON_PIO_HYS_EN |
+                                    /* Input not invert */
+                                    IOCON_PIO_INV_DI |
+                                    /* Disables Open-drain function */
+                                    IOCON_PIO_OD_DI |
+                                    /* Bypass input filter */
+                                    IOCON_PIO_SMODE_BYPASS |
+                                    /* IOCONCLKDIV0 */
+                                    IOCON_PIO_CLKDIV0);
+    /* PIO1 PIN16 (coords: 36) is configured as USART0, RXD. */
+    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO1_16, DEBUG_UART_RX);
 
-    const uint32_t IOCON_INDEX_PIO1_17_config = (/* Selects pull-up function */
-                                                 IOCON_PIO_MODE_PULLUP |
-                                                 /* Enable hysteresis */
-                                                 IOCON_PIO_HYS_EN |
-                                                 /* Input not invert */
-                                                 IOCON_PIO_INV_DI |
-                                                 /* Disables Open-drain function */
-                                                 IOCON_PIO_OD_DI |
-                                                 /* Bypass input filter */
-                                                 IOCON_PIO_SMODE_BYPASS |
-                                                 /* IOCONCLKDIV0 */
-                                                 IOCON_PIO_CLKDIV0);
-    /* PORT1 PIN17 (coords: ) is configured as  */
-    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO1_17, IOCON_INDEX_PIO1_17_config);
+    const uint32_t DEBUG_UART_TX = (/* Selects pull-up function */
+                                    IOCON_PIO_MODE_PULLUP |
+                                    /* Enable hysteresis */
+                                    IOCON_PIO_HYS_EN |
+                                    /* Input not invert */
+                                    IOCON_PIO_INV_DI |
+                                    /* Disables Open-drain function */
+                                    IOCON_PIO_OD_DI |
+                                    /* Bypass input filter */
+                                    IOCON_PIO_SMODE_BYPASS |
+                                    /* IOCONCLKDIV0 */
+                                    IOCON_PIO_CLKDIV0);
+    /* PIO1 PIN17 (coords: 37) is configured as USART0, TXD. */
+    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO1_17, DEBUG_UART_TX);
 
     /* USART0_TXD connect to P1_17 */
     SWM_SetMovablePinSelect(SWM0, kSWM_USART0_TXD, kSWM_PortPin_P1_17);

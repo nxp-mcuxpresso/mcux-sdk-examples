@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v6.0
+product: Pins v9.0
 processor: MKE02Z64xxx4
 package_id: MKE02Z64VQH4
 mcu_data: ksdk2_0
-processor_version: 6.0.1
+processor_version: 9.0.0
 board: FRDM-KE02Z40M
 pin_labels:
 - {pin_num: '14', pin_signal: PTH1/FTM2_CH1, label: 'D4[1]/LEDRGB_RED', identifier: PTH1_RED;LED_RED}

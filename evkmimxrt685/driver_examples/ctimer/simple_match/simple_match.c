@@ -47,8 +47,8 @@ int main(void)
     /* Use 16 MHz clock for the Ctimer2 */
     CLOCK_AttachClk(kSFRO_to_CTIMER2);
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
 #if defined(BOARD_HAS_NO_CTIMER_OUTPUT_PIN_CONNECTED_TO_LED)
@@ -74,8 +74,8 @@ int main(void)
     {
 #if defined(BOARD_HAS_NO_CTIMER_OUTPUT_PIN_CONNECTED_TO_LED)
         /* No timer match output pin connected to a LED
-        * toggle LED manually according to match status
-        */
+         * toggle LED manually according to match status
+         */
         if (CTIMER_GetOutputMatchStatus(CTIMER, CTIMER_EMT_OUT))
         {
             LED_RED1_ON();

@@ -17,8 +17,8 @@
 #include <stdlib.h>
 #include "mcmgr.h"
 
-#include "fsl_common.h"
 #include "fsl_gpio.h"
+#include "fsl_common.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -112,7 +112,10 @@ static void app_task(void *param)
     (void)PRINTF("\r\nPrimary core started\r\n");
 
 #ifdef CORE1_IMAGE_COPY_TO_RAM
-    /* Calculate size of the image */
+    /* This section ensures the secondary core image is copied from flash location to the target RAM memory.
+       It consists of several steps: image size calculation and image copying.
+       These steps are not required on MCUXpresso IDE which copies the secondary core image to the target memory during
+       startup automatically. */
     uint32_t core1_image_size;
     core1_image_size = get_core1_image_size();
     (void)PRINTF("Copy CORE1 image to address: 0x%x, size: %d\r\n", (void *)(char *)CORE1_BOOT_ADDRESS,
@@ -183,7 +186,7 @@ static void app_task(void *param)
 
         (void)PRINTF("\r\nPress the %s button to initiate the next matrix multiplication\r\n", BUTTON_NAME);
         /* Check for SWx button push. Pin is grounded when button is pushed. */
-        while (IS_BUTTON_PRESSED())
+        while (!IS_BUTTON_PRESSED())
         {
         }
 

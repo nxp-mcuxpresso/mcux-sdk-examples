@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2019 NXP
+ * Copyright 2017-2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v6.0
+product: Pins v9.0
 processor: LPC55S28
 package_id: LPC55S28JBD100
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 9.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -69,15 +69,25 @@ void BOARD_InitPins(void)
     /* Enables the clock for the I/O controller.: Enable Clock. */
     CLOCK_EnableClock(kCLOCK_Iocon);
 
+    /* Enables the clock for the GPIO0 module */
+    CLOCK_EnableClock(kCLOCK_Gpio0);
+
     /* Enables the clock for the GPIO1 module */
     CLOCK_EnableClock(kCLOCK_Gpio1);
 
-    gpio_pin_config_t LEDG_config = {
+    gpio_pin_config_t gpio0_pin54_config = {
+        .pinDirection = kGPIO_DigitalInput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PIO0_0 (pin 54)  */
+    GPIO_PinInit(GPIO, 0U, 0U, &gpio0_pin54_config);
+
+    gpio_pin_config_t gpio1_pin9_config = {
         .pinDirection = kGPIO_DigitalOutput,
         .outputLogic = 1U
     };
     /* Initialize GPIO functionality on pin PIO1_7 (pin 9)  */
-    GPIO_PinInit(BOARD_INITPINS_LEDG_GPIO, BOARD_INITPINS_LEDG_PORT, BOARD_INITPINS_LEDG_PIN, &LEDG_config);
+    GPIO_PinInit(GPIO, 1U, 7U, &gpio1_pin9_config);
 
     const uint32_t port0_pin0_config = (/* Pin is configured as ACMP0_A */
                                         IOCON_PIO_FUNC0 |
@@ -126,20 +136,20 @@ void BOARD_InitPins(void)
     /* PORT0 PIN30 (coords: 94) is configured as FC0_TXD_SCL_MISO_WS */
     IOCON_PinMuxSet(IOCON, 0U, 30U, port0_pin30_config);
 
-    const uint32_t LEDG = (/* Pin is configured as PIO1_7 */
-                           IOCON_PIO_FUNC0 |
-                           /* No addition pin function */
-                           IOCON_PIO_MODE_INACT |
-                           /* Standard mode, output slew rate control is enabled */
-                           IOCON_PIO_SLEW_STANDARD |
-                           /* Input function is not inverted */
-                           IOCON_PIO_INV_DI |
-                           /* Enables digital function */
-                           IOCON_PIO_DIGITAL_EN |
-                           /* Open drain is disabled */
-                           IOCON_PIO_OPENDRAIN_DI);
+    const uint32_t port1_pin7_config = (/* Pin is configured as PIO1_7 */
+                                        IOCON_PIO_FUNC0 |
+                                        /* No addition pin function */
+                                        IOCON_PIO_MODE_INACT |
+                                        /* Standard mode, output slew rate control is enabled */
+                                        IOCON_PIO_SLEW_STANDARD |
+                                        /* Input function is not inverted */
+                                        IOCON_PIO_INV_DI |
+                                        /* Enables digital function */
+                                        IOCON_PIO_DIGITAL_EN |
+                                        /* Open drain is disabled */
+                                        IOCON_PIO_OPENDRAIN_DI);
     /* PORT1 PIN7 (coords: 9) is configured as PIO1_7 */
-    IOCON_PinMuxSet(IOCON, BOARD_INITPINS_LEDG_PORT, BOARD_INITPINS_LEDG_PIN, LEDG);
+    IOCON_PinMuxSet(IOCON, 1U, 7U, port1_pin7_config);
 }
 /***********************************************************************************************************************
  * EOF

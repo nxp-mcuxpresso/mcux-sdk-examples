@@ -198,7 +198,7 @@ static void PLU_Configuration(void)
 int main(void)
 {
     /* Board pin, clock */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 

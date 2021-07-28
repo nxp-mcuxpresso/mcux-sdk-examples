@@ -61,7 +61,7 @@ void GPIOx_Configuration(void);
 int main(void)
 {
     /* Init board hardware. */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
 
     /* Set the clock source for LPADC0. */

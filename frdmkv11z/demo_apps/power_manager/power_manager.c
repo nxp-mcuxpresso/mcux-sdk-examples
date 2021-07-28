@@ -609,7 +609,7 @@ int main(void)
                           NULL);
 
     /* Must configure pins before PMC_ClearPeriphIOIsolationFlag */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
 
     /* Power related. */
     SMC_SetPowerModeProtection(SMC, kSMC_AllowPowerModeAll);

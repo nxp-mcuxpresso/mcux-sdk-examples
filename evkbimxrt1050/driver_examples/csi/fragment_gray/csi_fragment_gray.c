@@ -430,14 +430,14 @@ int main(void)
     };
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitDEBUG_UARTPins();
 #if (DEMO_CAMERA_TYPE != DEMO_CAMERA_OV7725)
     BOARD_I2C_ReleaseBus();
 #endif
     BOARD_InitCSIPins();
     BOARD_InitLCDPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootClocks();
     BOARD_InitLcdifPixClock();
     BOARD_InitDebugConsole();
     BOARD_InitLcd();

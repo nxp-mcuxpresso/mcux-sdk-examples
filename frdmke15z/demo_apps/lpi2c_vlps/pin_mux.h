@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -34,34 +34,53 @@ void BOARD_InitBootPins(void);
 
 /*! @name PORTC6 (number 81), UART1_RX_TGTMCU
   @{ */
-#define BOARD_DEBUG_UART_RX_PORT PORTC /*!<@brief PORT device name: PORTC */
-#define BOARD_DEBUG_UART_RX_PIN 6U     /*!<@brief PORTC pin index: 6 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_RX_PORT PORTC               /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_RX_PIN 6U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_RX_PIN_MASK (1U << 6U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*! @name PORTC7 (number 80), UART1_TX_TGTMCU
   @{ */
-#define BOARD_DEBUG_UART_TX_PORT PORTC /*!<@brief PORT device name: PORTC */
-#define BOARD_DEBUG_UART_TX_PIN 7U     /*!<@brief PORTC pin index: 7 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_TX_PORT PORTC               /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_TX_PIN 7U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_TX_PIN_MASK (1U << 7U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*! @name PORTA3 (number 72), J4[12]/Arduino_A5_ADC1_SE1/FXOS_SCL
   @{ */
-#define BOARD_ACCEL_I2C_SCL_PORT PORTA /*!<@brief PORT device name: PORTA */
-#define BOARD_ACCEL_I2C_SCL_PIN 3U     /*!<@brief PORTA pin index: 3 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_ACCEL_I2C_SCL_PORT PORTA               /*!<@brief PORT peripheral base pointer */
+#define BOARD_ACCEL_I2C_SCL_PIN 3U                   /*!<@brief PORT pin number */
+#define BOARD_ACCEL_I2C_SCL_PIN_MASK (1U << 3U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*! @name PORTA2 (number 73), J4[10]/Arduino_A4_ADC1_SE0/FXOS_SDA
   @{ */
-#define BOARD_ACCEL_I2C_SDA_PORT PORTA /*!<@brief PORT device name: PORTA */
-#define BOARD_ACCEL_I2C_SDA_PIN 2U     /*!<@brief PORTA pin index: 2 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_ACCEL_I2C_SDA_PORT PORTA               /*!<@brief PORT peripheral base pointer */
+#define BOARD_ACCEL_I2C_SDA_PIN 2U                   /*!<@brief PORT pin number */
+#define BOARD_ACCEL_I2C_SDA_PIN_MASK (1U << 2U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*! @name PORTB9 (number 76), U1[3]/FXOS_RST
   @{ */
-#define BOARD_ACCEL_RST_GPIO GPIOB /*!<@brief GPIO device name: GPIOB */
-#define BOARD_ACCEL_RST_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_ACCEL_RST_PIN 9U     /*!<@brief PORTB pin index: 9 */
-                                   /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_ACCEL_RST_FGPIO FGPIOB             /*!<@brief FGPIO peripheral base pointer */
+#define BOARD_ACCEL_RST_GPIO GPIOB               /*!<@brief GPIO peripheral base pointer */
+#define BOARD_ACCEL_RST_GPIO_PIN_MASK (1U << 9U) /*!<@brief GPIO pin mask */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_ACCEL_RST_PORT PORTB               /*!<@brief PORT peripheral base pointer */
+#define BOARD_ACCEL_RST_PIN 9U                   /*!<@brief PORT pin number */
+#define BOARD_ACCEL_RST_PIN_MASK (1U << 9U)      /*!<@brief PORT pin mask */
+                                                 /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

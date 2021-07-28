@@ -104,7 +104,7 @@ int main(void)
     /* Use 12 MHz clock for some of the Ctimers */
     CLOCK_AttachClk(kFRO12M_to_ASYNC_APB);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockPLL180M();
     BOARD_InitDebugConsole();
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v5.0
+product: Pins v9.0
 processor: K32L3A60xxx
 package_id: K32L3A60VPJ1A
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 9.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -46,8 +46,8 @@ BOARD_InitPins:
 - pin_list:
   - {pin_num: N2, peripheral: LPUART0, signal: RX, pin_signal: LPCMP0_IN0/PTC7/LLWU_P15/LPSPI0_PCS3/LPUART0_RX/LPI2C1_HREQ/TPM0_CH0/LPTMR1_ALT1}
   - {pin_num: P3, peripheral: LPUART0, signal: TX, pin_signal: LPCMP0_IN1/PTC8/LPSPI0_SCK/LPUART0_TX/LPI2C0_HREQ/TPM0_CH1}
-  - {pin_num: B1, peripheral: TPM0, signal: 'CH, 0', pin_signal: PTB2/LLWU_P5/LPSPI0_PCS1/LPUART1_RX/SAI0_TX_D0/FB_AD11/TPM0_CH0}
-  - {pin_num: G3, peripheral: TPM3, signal: 'CH, 0', pin_signal: PTB13/LPUART2_CTS_b/LPI2C1_SDA/LPI2C0_SDAS/FB_AD25/TPM3_CH0/FXIO0_D3}
+  - {pin_num: B1, peripheral: TPM0, signal: 'CH, 0', pin_signal: PTB2/LLWU_P5/LPSPI0_PCS1/LPUART1_RX/I2S0_TX_D0/FB_AD11/TPM0_CH0}
+  - {pin_num: G3, peripheral: TPM3, signal: 'CH, 0', pin_signal: PTB13/LPUART2_CTS/LPI2C1_SDA/LPI2C0_SDAS/FB_AD25/TPM3_CH0/FXIO0_D3}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -58,6 +58,7 @@ BOARD_InitPins:
  * Description   : Configures pin routing and optionally pin electrical features.
  *
  * END ****************************************************************************************************************/
+/* Function assigned for the Cortex-M4F */
 void BOARD_InitPins(void)
 {
     /* Clock Gate Control: Clock enabled. The current clock selection and divider options are locked. */

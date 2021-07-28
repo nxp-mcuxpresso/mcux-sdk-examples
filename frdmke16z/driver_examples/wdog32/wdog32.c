@@ -286,8 +286,8 @@ void Wdog32RefreshTest(void)
 int main(void)
 {
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     NVIC_EnableIRQ(WDOG_EWM_IRQn);
 

@@ -9,9 +9,9 @@
 #include "board.h"
 #include "mcmgr.h"
 
+#include "fsl_gpio.h"
 #include "fsl_common.h"
 #include "fsl_power.h"
-#include "fsl_gpio.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

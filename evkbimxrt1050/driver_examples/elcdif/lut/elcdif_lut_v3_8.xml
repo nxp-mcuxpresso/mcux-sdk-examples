@@ -14,10 +14,8 @@
     <definition extID="device.MIMXRT1052_startup.MIMXRT1052"/>
     <definition extID="platform.drivers.iomuxc.MIMXRT1052"/>
     <definition extID="platform.drivers.xip_device.MIMXRT1052"/>
-    <definition extID="platform.drivers.xip_board.MIMXRT1052"/>
-    <definition extID="platform.Include_core_cm7.MIMXRT1052"/>
-    <definition extID="platform.Include_common.MIMXRT1052"/>
-    <definition extID="platform.Include_dsp.MIMXRT1052"/>
+    <definition extID="platform.drivers.xip_board.evkbimxrt1050.MIMXRT1052"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT1052"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1052"/>
     <definition extID="device.MIMXRT1052_system.MIMXRT1052"/>
     <definition extID="iar"/>
@@ -30,7 +28,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkbimxrt1050_elcdif_lut" name="elcdif_lut" dependency="utility.debug_console_lite.MIMXRT1052 platform.utilities.assert_lite.MIMXRT1052 platform.drivers.igpio.MIMXRT1052 platform.drivers.elcdif.MIMXRT1052 platform.drivers.clock.MIMXRT1052 platform.drivers.common.MIMXRT1052 device.MIMXRT1052_CMSIS.MIMXRT1052 component.lpuart_adapter.MIMXRT1052 component.lists.MIMXRT1052 platform.drivers.lpuart.MIMXRT1052 device.MIMXRT1052_startup.MIMXRT1052 platform.drivers.iomuxc.MIMXRT1052 platform.drivers.xip_device.MIMXRT1052 platform.drivers.xip_board.MIMXRT1052 platform.Include_core_cm7.MIMXRT1052 platform.Include_common.MIMXRT1052 platform.Include_dsp.MIMXRT1052 platform.utilities.misc_utilities.MIMXRT1052 device.MIMXRT1052_system.MIMXRT1052" category="driver_examples/elcdif/lut">
+  <example id="evkbimxrt1050_elcdif_lut" name="elcdif_lut" dependency="utility.debug_console_lite.MIMXRT1052 platform.utilities.assert_lite.MIMXRT1052 platform.drivers.igpio.MIMXRT1052 platform.drivers.elcdif.MIMXRT1052 platform.drivers.clock.MIMXRT1052 platform.drivers.common.MIMXRT1052 device.MIMXRT1052_CMSIS.MIMXRT1052 component.lpuart_adapter.MIMXRT1052 component.lists.MIMXRT1052 platform.drivers.lpuart.MIMXRT1052 device.MIMXRT1052_startup.MIMXRT1052 platform.drivers.iomuxc.MIMXRT1052 platform.drivers.xip_device.MIMXRT1052 platform.drivers.xip_board.evkbimxrt1050.MIMXRT1052 CMSIS_Include_core_cm.MIMXRT1052 platform.utilities.misc_utilities.MIMXRT1052 device.MIMXRT1052_system.MIMXRT1052" category="driver_examples/elcdif/lut">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -52,6 +50,7 @@
           <value>SDK_DEBUGCONSOLE=1</value>
           <value>XIP_EXTERNAL_FLASH=1</value>
           <value>XIP_BOOT_HEADER_ENABLE=1</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv5dp.hard</value>
@@ -166,24 +165,9 @@
     <source path="examples/evkbimxrt1050/driver_examples/elcdif/lut" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
     </source>
-    <source path="examples/evkbimxrt1050/driver_examples/elcdif/lut/iar" project_relative_path="MIMXRT1052/iar" type="linker" toolchain="iar">
-      <files mask="MIMXRT1052xxxxx_sdram.icf"/>
-      <files mask="MIMXRT1052xxxxx_flexspi_nor_sdram.icf"/>
-    </source>
-    <source path="examples/evkbimxrt1050/driver_examples/elcdif/lut/mdk" project_relative_path="MIMXRT1052/arm" type="linker" toolchain="mdk">
-      <files mask="MIMXRT1052xxxxx_sdram.scf"/>
-      <files mask="MIMXRT1052xxxxx_flexspi_nor_sdram.scf"/>
-    </source>
     <source path="examples/evkbimxrt1050/driver_examples/elcdif/lut/armgcc" project_relative_path="MIMXRT1052/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMXRT1052xxxxx_sdram.ld"/>
       <files mask="MIMXRT1052xxxxx_flexspi_nor_sdram.ld"/>
-    </source>
-    <source path="examples/evkbimxrt1050/driver_examples/elcdif/lut/iar" project_relative_path="evkbimxrt1050" type="other" toolchain="iar">
-      <files mask="evkbimxrt1050_sdram_init.mac"/>
-    </source>
-    <source path="examples/evkbimxrt1050/driver_examples/elcdif/lut/mdk" project_relative_path="evkbimxrt1050" type="configuration" toolchain="mdk">
-      <files mask="evkbimxrt1050_sdram_init.ini"/>
-      <files mask="evkbimxrt1050_flexspi_nor_sdram.ini"/>
     </source>
   </example>
 </ksdk:examples>

@@ -77,7 +77,7 @@ int main(void)
 
     /* Initialize the hardware. */
     /* Initialize the pins. */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     /* Enable clock. */
     BOARD_InitBootClocks();
     /* Select the main clock as source clock of USART0. */

@@ -1,6 +1,6 @@
 # CROSS COMPILER SETTING
 SET(CMAKE_SYSTEM_NAME Generic)
-CMAKE_MINIMUM_REQUIRED (VERSION 3.1.1)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
 SET (Tutorial_VERSION_MAJOR 1)
@@ -62,10 +62,8 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../examples/evkmimx8mm/demo_apps/sai_low_power_audio debug
-    ${ProjDirPath}/../../../../../core/boards/evkmimx8mm debug
-    ${ProjDirPath}/../../../../../core/boards/evkmimx8mm
     ${ProjDirPath}/../../../../../examples/evkmimx8mm/demo_apps/sai_low_power_audio
+    ${ProjDirPath}/../../../../../core/boards/evkmimx8mm
     ${ProjDirPath}/..
     ${ProjDirPath}/../../../../../core/components/srtm/channels
     ${ProjDirPath}/../../../../../core/components/srtm/services
@@ -92,13 +90,15 @@ include(driver_codec)
 
 include(driver_common)
 
-include(component_codec_ak4497_adapter)
+include(component_codec_adapters)
 
 include(component_codec_i2c_MIMX8MM6)
 
 include(component_ii2c_adapter)
 
-include(component_codec_wm8524_adapter)
+include(component_ak4497_adapter)
+
+include(component_wm8524_adapter)
 
 include(driver_clock)
 
@@ -124,11 +124,7 @@ include(device_startup)
 
 include(utility_assert)
 
-include(CMSIS_Include_core_cm4)
-
-include(CMSIS_Include_common)
-
-include(CMSIS_Include_dsp)
+include(CMSIS_Include_core_cm)
 
 include(driver_sdma)
 
@@ -140,7 +136,7 @@ include(driver_ak4497)
 
 include(driver_srtm_freertos)
 
-include(driver_srtm)
+include(driver_srtm_MIMX8MM6)
 
 include(driver_ii2c_freertos)
 

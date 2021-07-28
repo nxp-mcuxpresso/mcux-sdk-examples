@@ -46,14 +46,14 @@ BOARD_InitPins:
 - pin_list:
   - {pin_num: N2, peripheral: LPUART0, signal: RX, pin_signal: LPCMP0_IN0/PTC7/LLWU_P15/LPSPI0_PCS3/LPUART0_RX/LPI2C1_HREQ/TPM0_CH0/LPTMR1_ALT1}
   - {pin_num: P3, peripheral: LPUART0, signal: TX, pin_signal: LPCMP0_IN1/PTC8/LPSPI0_SCK/LPUART0_TX/LPI2C0_HREQ/TPM0_CH1}
-  - {pin_num: E2, peripheral: LPSPI0, signal: IN, pin_signal: ADC0_SE2/PTB7/LLWU_P8/LPSPI0_SIN/LPI2C1_SDAS/SAI0_RX_FS/FB_AD6/TPM0_CH5}
-  - {pin_num: E1, peripheral: LPSPI0, signal: PCS2, pin_signal: PTB6/LLWU_P7/LPSPI0_PCS2/LPI2C1_SDA/SAI0_RX_BCLK/FB_AD7/TPM0_CH4}
-  - {pin_num: C2, peripheral: LPSPI0, signal: SCK, pin_signal: ADC0_SE1/PTB4/LLWU_P6/LPSPI0_SCK/LPUART1_CTS_b/SAI0_TX_BCLK/FB_AD9/TPM0_CH2}
-  - {pin_num: A3, peripheral: LPSPI3, signal: IN, pin_signal: PTA27/LPUART1_CTS_b/LPSPI3_SIN/FB_AD29}
-  - {pin_num: B5, peripheral: LPSPI3, signal: OUT, pin_signal: PTA25/LPUART1_RX/LPSPI3_SOUT/LPI2C2_SDAS/FB_AD31}
+  - {pin_num: E1, peripheral: LPSPI0, signal: PCS2, pin_signal: PTB6/LLWU_P7/LPSPI0_PCS2/LPI2C1_SDA/I2S0_RX_BCLK/FB_AD7/TPM0_CH4}
+  - {pin_num: C2, peripheral: LPSPI0, signal: SCK, pin_signal: LPADC0_SE1/PTB4/LLWU_P6/LPSPI0_SCK/LPUART1_CTS/I2S0_TX_BCLK/FB_AD9/TPM0_CH2}
   - {pin_num: F7, peripheral: LPSPI3, signal: PCS1, pin_signal: PTA17/LPI2C2_HREQ/LPSPI3_PCS1/EMVSIM0_CLK/FB_AD21}
   - {pin_num: D7, peripheral: LPSPI3, signal: SCK, pin_signal: PTA19/LPSPI2_PCS3/LPSPI3_SCK/EMVSIM0_VCCEN/FB_AD19/TPM2_CH5}
-  - {pin_num: D2, peripheral: LPSPI0, signal: OUT, pin_signal: PTB5/LPSPI0_SOUT/LPUART1_RTS_b/SAI0_MCLK/FB_AD8/TPM0_CH3}
+  - {pin_num: B5, peripheral: LPSPI3, signal: SOUT, pin_signal: PTA25/LPUART1_RX/LPSPI3_SOUT/LPI2C2_SDAS/FB_AD31}
+  - {pin_num: A3, peripheral: LPSPI3, signal: SIN, pin_signal: PTA27/LPUART1_CTS/LPSPI3_SIN/FB_AD29}
+  - {pin_num: E2, peripheral: LPSPI0, signal: SIN, pin_signal: LPADC0_SE2/PTB7/LLWU_P8/LPSPI0_SIN/LPI2C1_SDAS/I2S0_RX_FS/FB_AD6/TPM0_CH5}
+  - {pin_num: D2, peripheral: LPSPI0, signal: SOUT, pin_signal: PTB5/LPSPI0_SOUT/LPUART1_RTS/I2S0_MCLK/FB_AD8/TPM0_CH3}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -64,6 +64,7 @@ BOARD_InitPins:
  * Description   : Configures pin routing and optionally pin electrical features.
  *
  * END ****************************************************************************************************************/
+/* Function assigned for the Cortex-M4F */
 void BOARD_InitPins(void)
 {
     /* Clock Gate Control: Clock enabled. The current clock selection and divider options are locked. */

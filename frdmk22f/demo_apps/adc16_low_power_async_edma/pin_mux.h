@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -36,16 +36,25 @@ void BOARD_InitBootPins(void);
 
 /*! @name PORTE1 (number 2), J2[20]/UART1_RX_TGTMCU
   @{ */
-#define BOARD_DEBUG_UART_RX_PORT PORTE /*!<@brief PORT device name: PORTE */
-#define BOARD_DEBUG_UART_RX_PIN 1U     /*!<@brief PORTE pin index: 1 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_RX_PORT PORTE               /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_RX_PIN 1U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_RX_PIN_MASK (1U << 1U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*! @name PORTA1 (number 23), J2[4]/RED_LED
   @{ */
-#define BOARD_LEDRGB_RED_GPIO GPIOA /*!<@brief GPIO device name: GPIOA */
-#define BOARD_LEDRGB_RED_PORT PORTA /*!<@brief PORT device name: PORTA */
-#define BOARD_LEDRGB_RED_PIN 1U     /*!<@brief PORTA pin index: 1 */
-                                    /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_LEDRGB_RED_GPIO GPIOA               /*!<@brief GPIO peripheral base pointer */
+#define BOARD_LEDRGB_RED_GPIO_PIN_MASK (1U << 1U) /*!<@brief GPIO pin mask */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_LEDRGB_RED_PORT PORTA               /*!<@brief PORT peripheral base pointer */
+#define BOARD_LEDRGB_RED_PIN 1U                   /*!<@brief PORT pin number */
+#define BOARD_LEDRGB_RED_PIN_MASK (1U << 1U)      /*!<@brief PORT pin mask */
+                                                  /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

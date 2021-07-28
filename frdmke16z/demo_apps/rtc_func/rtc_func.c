@@ -212,8 +212,8 @@ int main(void)
     rtc_datetime_t date;
 
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Config RTC32K clock comes from LPO 32kHZ output */

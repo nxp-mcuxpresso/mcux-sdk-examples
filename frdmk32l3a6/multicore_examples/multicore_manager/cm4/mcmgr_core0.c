@@ -75,7 +75,7 @@ int main(void)
     (void)MCMGR_Init();
 
     /* Init board hardware.*/
-    CLOCK_EnableClock(kCLOCK_Rgpio1);
+    CLOCK_EnableClock(kCLOCK_GpioE);
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
@@ -89,8 +89,10 @@ int main(void)
     (void)PRINTF("\r\nHello World from the Primary Core!\r\n\n");
 
 #ifdef CORE1_IMAGE_COPY_TO_RAM
-    /* Calculate size of the image  - not required on MCUXpresso IDE. MCUXpresso copies the secondary core
-       image to the target memory during startup automatically */
+    /* This section ensures the secondary core image is copied from flash location to the target RAM memory.
+       It consists of several steps: image size calculation and image copying.
+       These steps are not required on MCUXpresso IDE which copies the secondary core image to the target memory during
+       startup automatically. */
     uint32_t core1_image_size;
     core1_image_size = get_core1_image_size();
     (void)PRINTF("Copy Secondary core image to address: 0x%x, size: %d\r\n", (void *)(char *)CORE1_BOOT_ADDRESS,

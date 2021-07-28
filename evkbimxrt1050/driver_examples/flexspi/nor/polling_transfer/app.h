@@ -44,6 +44,22 @@
 /*${macro:end}*/
 
 /*******************************************************************************
+ * Variables
+ ******************************************************************************/
+/*${variable:start}*/
+typedef struct _flexspi_cache_status
+{
+#if (defined __CORTEX_M) && (__CORTEX_M == 7U)
+    volatile bool DCacheEnableFlag;
+    volatile bool ICacheEnableFlag;
+#elif (defined __CORTEX_M) && (__CORTEX_M == 4U)
+    volatile bool codeCacheEnableFlag;
+    volatile bool systemCacheEnableFlag;
+#endif
+} flexspi_cache_status_t;
+/*${variable:end}*/
+
+/*******************************************************************************
  * Prototypes
  ******************************************************************************/
 /*${prototype:start}*/

@@ -68,8 +68,8 @@ int main(void)
     /* Initialzie board setting. */
     CLOCK_AttachClk(kSFRO_to_FLEXCOMM5);
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Print project information. */

@@ -61,7 +61,7 @@ int main(void)
     uint8_t divider;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
@@ -76,6 +76,7 @@ int main(void)
     CLOCK_EnableClock(kCLOCK_Lpspi1);
     CLOCK_EnableClock(kCLOCK_Trace);
     CLOCK_EnableClock(kCLOCK_Pit);
+    CLOCK_EnableClock(kCLOCK_Lpi2c1);
 
     /* Set Spdif clock source. */
     CLOCK_SetMux(kCLOCK_SpdifMux, 0);

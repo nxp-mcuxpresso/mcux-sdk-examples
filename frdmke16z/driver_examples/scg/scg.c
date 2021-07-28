@@ -227,7 +227,7 @@ int main(void)
     }
 
     SMC_SetPowerModeProtection(SMC, kSMC_AllowPowerModeAll);
-    BOARD_InitPins();
+    BOARD_InitBootPins();
 
     CLOCK_SetIpSrc(kCLOCK_Lpuart0, kCLOCK_IpSrcSircAsync);
 

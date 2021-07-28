@@ -1,0 +1,3 @@
+        *startup_*.o (.text.*)
+        *system_*.o (.text.*)
+        *.o (.xip_section*)

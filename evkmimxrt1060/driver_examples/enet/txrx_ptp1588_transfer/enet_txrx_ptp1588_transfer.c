@@ -16,16 +16,16 @@
 #if defined(FSL_FEATURE_MEMORY_HAS_ADDRESS_OFFSET) && FSL_FEATURE_MEMORY_HAS_ADDRESS_OFFSET
 #include "fsl_memory.h"
 #endif
-#include "fsl_gpio.h"
-#include "fsl_iomuxc.h"
 #include "fsl_enet_mdio.h"
 #include "fsl_phyksz8081.h"
+#include "fsl_gpio.h"
+#include "fsl_iomuxc.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
 #define EXAMPLE_ENET        ENET
 #define EXAMPLE_PHY_ADDRESS 0x02U
-#define PTP_CLK_FREQ        50000000U
+#define PTP_CLK_FREQ        25000000U
 
 /* MDIO operations. */
 #define EXAMPLE_MDIO_OPS enet_ops
@@ -92,8 +92,12 @@ static phy_handle_t phyHandle   = {.phyAddr = EXAMPLE_PHY_ADDRESS, .mdioHandle =
  ******************************************************************************/
 void BOARD_InitModuleClock(void)
 {
+    /* Set 50MHz output clock required by PHY, set PTP clock 25MHz. */
     const clock_enet_pll_config_t config = {.enableClkOutput = true, .enableClkOutput25M = true, .loopDivider = 1};
     CLOCK_InitEnetPll(&config);
+
+    /* Output 50MHz clock to PHY. */
+    IOMUXC_EnableMode(IOMUXC_GPR, kIOMUXC_GPR_ENET1TxClkOutputDir, true);
 }
 
 
@@ -162,16 +166,14 @@ int main(void)
     gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     BOARD_InitModuleClock();
 
-    IOMUXC_EnableMode(IOMUXC_GPR, kIOMUXC_GPR_ENET1TxClkOutputDir, true);
-
     GPIO_PinInit(GPIO1, 9, &gpio_config);
     GPIO_PinInit(GPIO1, 10, &gpio_config);
-    /* pull up the ENET_INT before RESET. */
+    /* Pull up the ENET_INT before RESET. */
     GPIO_WritePinOutput(GPIO1, 10, 1);
     GPIO_WritePinOutput(GPIO1, 9, 0);
     SDK_DelayAtLeastUs(1000000, CLOCK_GetFreq(kCLOCK_CpuClk));

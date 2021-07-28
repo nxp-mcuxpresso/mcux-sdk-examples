@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NXP
+ * Copyright 2018 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -34,27 +34,39 @@ void BOARD_InitBootPins(void);
 
 /*! @name PORTB1 (number 26), UART0_TX_TGTMCU
   @{ */
-#define BOARD_DEBUG_UART_TX_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_DEBUG_UART_TX_PIN 1U     /*!<@brief PORTB pin index: 1 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_TX_PORT PORTB               /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_TX_PIN 1U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_TX_PIN_MASK (1U << 1U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*! @name PORTB0 (number 27), UART0_RX_TGTMCU
   @{ */
-#define BOARD_DEBUG_UART_RX_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_DEBUG_UART_RX_PIN 0U     /*!<@brief PORTB pin index: 0 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_RX_PORT PORTB               /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_RX_PIN 0U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_RX_PIN_MASK (1U << 0U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*! @name PORTA3 (number 35), J2[20]/U12[2]/FXOS_SCL/Arduino_D15
   @{ */
-#define BOARD_ACCEL_SCL_PORT PORTA /*!<@brief PORT device name: PORTA */
-#define BOARD_ACCEL_SCL_PIN 3U     /*!<@brief PORTA pin index: 3 */
-                                   /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_ACCEL_SCL_PORT PORTA               /*!<@brief PORT peripheral base pointer */
+#define BOARD_ACCEL_SCL_PIN 3U                   /*!<@brief PORT pin number */
+#define BOARD_ACCEL_SCL_PIN_MASK (1U << 3U)      /*!<@brief PORT pin mask */
+                                                 /* @} */
 
 /*! @name PORTA2 (number 36), J2[18]/U12[3]/FXOS_SDA/Arduino_D14
   @{ */
-#define BOARD_ACCEL_SDA_PORT PORTA /*!<@brief PORT device name: PORTA */
-#define BOARD_ACCEL_SDA_PIN 2U     /*!<@brief PORTA pin index: 2 */
-                                   /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_ACCEL_SDA_PORT PORTA               /*!<@brief PORT peripheral base pointer */
+#define BOARD_ACCEL_SDA_PIN 2U                   /*!<@brief PORT pin number */
+#define BOARD_ACCEL_SDA_PIN_MASK (1U << 2U)      /*!<@brief PORT pin mask */
+                                                 /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

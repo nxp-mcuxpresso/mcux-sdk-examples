@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019-2021 NXP
  * All rights reserved.
  *
  *
@@ -11,6 +11,9 @@
 #include "fsl_debug_console.h"
 #include "fsl_otfad.h"
 #include "fsl_common.h"
+#if CACHE_MAINTAIN
+#include "fsl_cache.h"
+#endif
 
 #include "pin_mux.h"
 #include "clock_config.h"
@@ -18,6 +21,7 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -26,6 +30,8 @@ extern status_t flexspi_nor_flash_program(FLEXSPI_Type *base, uint32_t dstAddr, 
 extern status_t flexspi_nor_enable_quad_mode(FLEXSPI_Type *base);
 extern status_t flexspi_nor_erase_chip(FLEXSPI_Type *base);
 extern void flexspi_nor_flash_init(FLEXSPI_Type *base);
+extern void flexspi_nor_disable_cache(flexspi_cache_status_t *cacheStatus);
+extern void flexspi_nor_enable_cache(flexspi_cache_status_t cacheStatus);
 
 void OTFAD_GetEncryptedCounter(uint8_t *counter);
 void OTFAD_EncryptData(uint8_t *counter, uint8_t *plainText, uint8_t *cipherText);
@@ -191,10 +197,6 @@ const uint32_t customLUT[CUSTOM_LUT_LENGTH] = {
         FLEXSPI_LUT_SEQ(kFLEXSPI_Command_SDR, kFLEXSPI_1PAD, 0xC7, kFLEXSPI_Command_STOP, kFLEXSPI_1PAD, 0),
 };
 
-#if APP_USING_CACHE
-#include "fsl_cache.h"
-#endif
-
 int main(void)
 {
     status_t status = kStatus_Success;
@@ -203,8 +205,8 @@ int main(void)
     uint8_t contextHit;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Initialize FlexSPI */
@@ -236,7 +238,9 @@ int main(void)
 
     /* Erase sectors. */
     PRINTF("Erasing Serial NOR over FlexSPI...\r\n");
+
     status = flexspi_nor_flash_erase_sector(EXAMPLE_FLEXSPI, EXAMPLE_SECTOR * SECTOR_SIZE);
+
     if (status != kStatus_Success)
     {
         PRINTF("Erase sector failure !\r\n");
@@ -254,7 +258,9 @@ int main(void)
      * Context 2 key blob @ SPI_BASE_ADDRESS + 0x80
      * Context 3 key blob @ SPI_BASE_ADDRESS + 0xC0
      */
+
     status = flexspi_nor_flash_program(EXAMPLE_FLEXSPI, 0U, (void *)keyBlob, sizeof(keyBlob));
+
     if (status != kStatus_Success)
     {
         PRINTF("KeyBlob program failure !\r\n");
@@ -283,8 +289,17 @@ int main(void)
     /* Flexspi base address */
     config.flexspiBaseAddr = EXAMPLE_FLEXSPI;
 
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    flexspi_cache_status_t cacheStatus;
+    flexspi_nor_disable_cache(&cacheStatus);
+#endif
+
     /* Initialize OTFAD and it will do keyblob process. */
     OTFAD_Init(EXAMPLE_OTFAD, &config);
+
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    flexspi_nor_enable_cache(cacheStatus);
+#endif
 
     status = OTFAD_HitDetermination(EXAMPLE_OTFAD, sysAddress, &contextHit);
     if (status != kStatus_Success)
@@ -306,7 +321,7 @@ int main(void)
         return -1;
     }
 
-#if APP_USING_CACHE
+#if CACHE_MAINTAIN
     /*
      * Invalidate the cache, so new read will read from memory directly.
      */
@@ -353,7 +368,7 @@ void OTFAD_GetEncryptedCounter(uint8_t *counter)
         status = flexspi_nor_flash_erase_sector(EXAMPLE_FLEXSPI, EXAMPLE_SECTOR * SECTOR_SIZE);
     }
 
-#if APP_USING_CACHE
+#if CACHE_MAINTAIN
     /*
      * Invalidate the cache, so new read will read from memory directly.
      */

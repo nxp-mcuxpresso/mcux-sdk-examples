@@ -202,6 +202,7 @@ void DEMO_UART_IRQHandler(void)
         rxIdleLineDetected = true;
         UART_ClearStatusFlags(EXAMPLE_UART, (uint32_t)kUART_IdleLineFlag);
     }
+    UART_TransferDMAHandleIRQ(EXAMPLE_UART, &g_uartDmaHandle);
     SDK_ISR_EXIT_BARRIER;
 }
 
@@ -215,8 +216,8 @@ int main(void)
     uint32_t length = 0U;
 
     /* Initialzie the hardware. */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
 
     /* Initialize the UART configurations. */
     EXAMPLE_InitUART();

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_SUPER" name="SDKVersion 2.9.0 SuperSet" brief="This is SDK version 2.9.0 manifest file." format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-06-22 08:56:31.993353-->
-  <!--This manifest is generated based on sdk repo commit: 242d157ba29afc4bbd1dac95f382a1491bc2daf5-->
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_FRDM-KE06Z" name="FRDM-KE06Z" brief="This is SDK version 2.10.0 manifest file. It describes the content of the FRDM-KE06Z and additional settings for tools that support SDK version 2.10.0" format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
+  <!--Timestamp (UTC): 2021-07-22 12:49:55.581987-->
+  <!--This manifest is generated based on sdk repo commit: a40647dd23698fa812ab2e267466ae159e1a5d45-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
     <define name="CPU_$|package|_$|core_name|" value=""/>
   </defines>
-  <ksdk id="MCUXpressoSDK290" name="MCUXpressoSDK290" version="2.9.0"/>
+  <ksdk id="MCUXpressoSDK2100" name="MCUXpressoSDK2100" version="2.10.0"/>
   <compilers>
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
   </compilers>
   <toolchainSettings>
-    <toolchainSetting id="com.nxp.mcuxpresso" name="mcuxpresso" version="11.3.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" toolchain="mcuxpresso">
+    <toolchainSetting id="com.nxp.mcuxpresso" name="mcuxpresso" version="11.4.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" toolchain="mcuxpresso">
       <option id="gnu.cpp.compiler.option.optimization.flags" type="string" user_name="">
         <value>-fno-common</value>
       </option>
@@ -34,8 +34,8 @@
     </toolchainSetting>
   </toolchainSettings>
   <toolchains>
-    <toolchain id="armgcc" name="GCC_ARM_Embedded" version="9.3.1" full_name="GCC ARM Embedded" compiler="compiler_gcc" type="armgcc" vendor="GCC ARM Embedded" vendor_url="http://launchpad.net/gcc-arm-embedded"/>
-    <toolchain id="mcuxpresso" name="MCUXpresso_IDE" version="11.3.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" type="mcuxpresso" vendor="NXP Semiconductors" vendor_url="http://www.nxp.com">
+    <toolchain id="armgcc" name="GCC_ARM_Embedded" version="10.2.1" full_name="GCC ARM Embedded" compiler="compiler_gcc" type="armgcc" vendor="GCC ARM Embedded" vendor_url="http://launchpad.net/gcc-arm-embedded"/>
+    <toolchain id="mcuxpresso" name="MCUXpresso_IDE" version="11.4.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" type="mcuxpresso" vendor="NXP Semiconductors" vendor_url="http://www.nxp.com">
       <debug>
         <debug_configuration id="com.crt.advproject.config.exe.release" name="Release Configuration" probe="LinkServer">
           <scripts>
@@ -184,12 +184,12 @@ ${load}</script>
             <files mask="i2c_read_accel_value_transfer_v3_8.xml"/>
           </external>
         </example>
-        <example id="frdmke06z_irq" name="irq" brief="The IRQ Example project is a demonstration program that uses the MCUXpresso SDK software to useIRQ pin interrupt.The example uses the IRQ pin to generate a falling edge interrupt to show the example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/frdmke06z/driver_examples/irq">
+        <example id="frdmke06z_irq" name="irq" brief="The IRQ Example project is a demonstration program that uses the MCUXpresso SDK software to useIRQ pin interrupt.The example uses the IRQ pin to generate a falling edge interrupt to show the example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/irq" path="examples/frdmke06z/driver_examples/irq">
           <external path="examples/frdmke06z/driver_examples/irq" type="xml">
             <files mask="irq_v3_8.xml"/>
           </external>
         </example>
-        <example id="frdmke06z_kbi" name="kbi" brief="The KBI Example project is a demonstration program that uses the KSDK software to usekeyboard interrupt.The example uses one KBI pin to generate a raising edge interrupt to show the example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/frdmke06z/driver_examples/kbi">
+        <example id="frdmke06z_kbi" name="kbi" brief="The KBI Example project is a demonstration program that uses the KSDK software to usekeyboard interrupt.The example uses one KBI pin to generate a raising edge interrupt to show the example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/kbi" path="examples/frdmke06z/driver_examples/kbi">
           <external path="examples/frdmke06z/driver_examples/kbi" type="xml">
             <files mask="kbi_v3_8.xml"/>
           </external>
@@ -214,17 +214,17 @@ ${load}</script>
             <files mask="pflash_ftmr_v3_8.xml"/>
           </external>
         </example>
-        <example id="frdmke06z_pit" name="pit" brief="The PIT project is a simple demonstration program of the SDK PIT driver. It sets up the PIThardware block to trigger a periodic interrupt after every 1 second. When the PIT interrupt is triggereda message a printed on the UART terminal and an LED is toggled on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/frdmke06z/driver_examples/pit">
+        <example id="frdmke06z_pit" name="pit" brief="The PIT project is a simple demonstration program of the SDK PIT driver. It sets up the PIThardware block to trigger a periodic interrupt after every 1 second. When the PIT interrupt is triggereda message a printed on the UART terminal and an LED is toggled on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/pit" path="examples/frdmke06z/driver_examples/pit">
           <external path="examples/frdmke06z/driver_examples/pit" type="xml">
             <files mask="pit_v3_8.xml"/>
           </external>
         </example>
-        <example id="frdmke06z_pwt" name="pwt" brief="The PWT project is a simple demonstration program of the SDK PWT driver. It sets up the PWThardware block to edge detection, capture control part and detects measurement trigger edges andcontrols when and which pulse width register(s) will be updated. Once the input signal is received,this example will print overflow, positive pulse width and negative pulse width." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/frdmke06z/driver_examples/pwt">
+        <example id="frdmke06z_pwt" name="pwt" brief="The PWT project is a simple demonstration program of the SDK PWT driver. It sets up the PWThardware block to edge detection, capture control part and detects measurement trigger edges andcontrols when and which pulse width register(s) will be updated. Once the input signal is received,this example will print overflow, positive pulse width and negative pulse width." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/pwt" path="examples/frdmke06z/driver_examples/pwt">
           <external path="examples/frdmke06z/driver_examples/pwt" type="xml">
             <files mask="pwt_v3_8.xml"/>
           </external>
         </example>
-        <example id="frdmke06z_rtc_1" name="rtc_1" brief="The RTC project is a simple demonstration program of the SDK RTC driver. It sets up the RTChardware block to trigger an alarm after a user specified time period. The test will set the currentdate and time to a predefined value. The alarm will be set with reference to this predefined dateand time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/frdmke06z/driver_examples/rtc">
+        <example id="frdmke06z_rtc_1" name="rtc_1" brief="The RTC project is a simple demonstration program of the SDK RTC driver. It sets up the RTChardware block to trigger an alarm after a user specified time period. The test will set the currentdate and time to a predefined value. The alarm will be set with reference to this predefined dateand time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/rtc" path="examples/frdmke06z/driver_examples/rtc">
           <external path="examples/frdmke06z/driver_examples/rtc" type="xml">
             <files mask="rtc_1_v3_8.xml"/>
           </external>
@@ -294,7 +294,7 @@ ${load}</script>
             <files mask="uart_polling_v3_8.xml"/>
           </external>
         </example>
-        <example id="frdmke06z_wdog8" name="wdog8" brief="The WDOG8 Example project is to demonstrate usage of the wdog8 driver.In this example, fast testing is first implemented to test the wdog8.After this, refreshing the watchdog in None-window mode and window mode is executed.Note wdog8 is disabled in SystemInit function which means wdog8 is disabledafter chip emerges from reset." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="examples/frdmke06z/driver_examples/wdog8">
+        <example id="frdmke06z_wdog8" name="wdog8" brief="The WDOG8 Example project is to demonstrate usage of the wdog8 driver.In this example, fast testing is first implemented to test the wdog8.After this, refreshing the watchdog in None-window mode and window mode is executed.Note wdog8 is disabled in SystemInit function which means wdog8 is disabledafter chip emerges from reset." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/wdog8" path="examples/frdmke06z/driver_examples/wdog8">
           <external path="examples/frdmke06z/driver_examples/wdog8" type="xml">
             <files mask="wdog8_v3_8.xml"/>
           </external>
@@ -442,90 +442,25 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS.MKE06Z4" name="CMSIS" brief="Cmsis" version="5.6.0" full_name="Cmsis" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="true" type="CMSIS" package_base_path="core/CMSIS" project_base_path="./">
-      <dependencies>
-        <all>
-          <component_dependency value="platform.Include_common.MKE06Z4"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.MKE06Z4"/>
-          <component_dependency value="platform.CMSIS_Driver"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.CAN_CMSISInclude.MKE06Z4"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.Ethernet_CMSISInclude.MKE06Z4"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.Ethernet_MAC_CMSISInclude.MKE06Z4"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.Ethernet_PHY_CMSISInclude.MKE06Z4"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.Flash_CMSISInclude.MKE06Z4"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.I2C_CMSISInclude.MKE06Z4"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.MCI_CMSISInclude.MKE06Z4"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.NAND_CMSISInclude.MKE06Z4"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.SAI_CMSISInclude.MKE06Z4"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.SPI_CMSISInclude.MKE06Z4"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.USART_CMSISInclude.MKE06Z4"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.USB_CMSISInclude.MKE06Z4"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.USB_Device_CMSISInclude.MKE06Z4"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.USB_Host_CMSISInclude.MKE06Z4"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.WiFi_CMSISInclude.MKE06Z4"/>
-          <component_dependency value="platform.Include_dsp.MKE06Z4"/>
-          <component_dependency value="platform.CMSIS_Driver_Include.GPIO_CMSISInclude.MKE06Z4"/>
-        </all>
-      </dependencies>
-      <source relative_path="./" project_relative_path="CMSIS" type="doc">
-        <files mask="LICENSE.txt"/>
-      </source>
-      <source relative_path="Include" type="c_include">
-        <files mask="cmsis_compiler.h"/>
-        <files mask="arm_math.h"/>
-        <files mask="core_cm35p.h"/>
-        <files mask="core_cm4.h"/>
-        <files mask="core_cm0plus.h"/>
-        <files mask="mpu_armv8.h"/>
-        <files mask="arm_common_tables.h"/>
-        <files mask="core_dsp.h"/>
-        <files mask="core_cm1.h"/>
-        <files mask="arm_const_structs.h"/>
-        <files mask="core_cm7.h"/>
-        <files mask="tz_context.h"/>
-        <files mask="cmsis_armcc.h"/>
-        <files mask="core_sc000.h"/>
-        <files mask="core_armv8mml.h"/>
-        <files mask="core_sc300.h"/>
-        <files mask="cmsis_armclang.h"/>
-        <files mask="cmsis_iccarm.h"/>
-        <files mask="core_cm0.h"/>
-        <files mask="core_armv8mbl.h"/>
-        <files mask="core_cm33.h"/>
-        <files mask="mpu_armv7.h"/>
-        <files mask="core_armv81mml.h"/>
-        <files mask="cmsis_gcc.h"/>
-        <files mask="core_cm3.h"/>
-        <files mask="cmsis_version.h"/>
-        <files mask="core_cm23.h"/>
-        <files mask="cmsis_armclang_ltm.h"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="Include" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="platform.CMSIS_Driver" name="CMSIS_Driver" brief="Cmsis_driver" version="2.7.1" full_name="Cmsis_driver" user_visible="true" type="CMSIS" package_base_path="core/CMSIS/Driver/DriverTemplates" project_base_path="Driver/DriverTemplates">
-      <source relative_path="./" type="src">
-        <files mask="Driver_SPI.c"/>
-        <files mask="Driver_Flash.c"/>
-        <files mask="Driver_USART.c"/>
-        <files mask="Driver_SAI.c"/>
-        <files mask="Driver_Storage.c"/>
-        <files mask="Driver_I2C.c"/>
-        <files mask="Driver_ETH_PHY.c"/>
-        <files mask="Driver_ETH_MAC.c"/>
-        <files mask="Driver_CAN.c"/>
-        <files mask="Driver_MCI.c"/>
-        <files mask="Driver_USBH.c"/>
-        <files mask="Driver_USBD.c"/>
+    <component id="CMSIS_Device_API_OSTick.MKE06Z4" name="CMSIS_Device_API_OSTick" brief="Device interrupt controller interface" version="1.0.1" full_name="CMSIS Device API OSTick" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/RTOS2/Include" project_base_path="CMSIS/RTOS2/Include">
+      <source relative_path="./" type="c_include">
+        <files mask="os_tick.h"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.CAN_CMSISInclude.MKE06Z4" name="CAN" brief="Cmsis_driver_include can" version="1.2.0" full_name="Cmsis_driver_include can" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Device_API_RTOS2.MKE06Z4" name="CMSIS_Device_API_RTOS2" brief="CMSIS-RTOS API for Cortex-M, SC000, and SC300" version="2.1.3" full_name="CMSIS Device API RTOS2" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/RTOS2/Include" project_base_path="CMSIS/RTOS2/Include">
+      <source relative_path="./" type="c_include">
+        <files mask="cmsis_os2.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_Driver_Include.CAN.MKE06Z4" name="CMSIS_Driver_CAN" brief="Access to #include Driver_CAN.h file for custom implementation" version="1.2.0" full_name="CMSIS Driver CAN" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.MKE06Z4"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE06Z4"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_CAN.h"/>
@@ -534,7 +469,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.Common_CMSISInclude.MKE06Z4" name="Common" brief="Cmsis_driver_include common" version="2.7.1" full_name="Cmsis_driver_include common" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.Common.MKE06Z4" name="CMSIS_Driver_Common" brief="Access to #include Driver_Common.h file for custom implementation" version="2.3.0" full_name="CMSIS Driver Common" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <source relative_path="./" type="c_include">
         <files mask="Driver_Common.h"/>
       </source>
@@ -542,9 +477,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.Ethernet_CMSISInclude.MKE06Z4" name="Ethernet" brief="Cmsis_driver_include ethernet" version="2.1.0" full_name="Cmsis_driver_include ethernet" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.Ethernet.MKE06Z4" name="CMSIS_Driver_Ethernet_Common" brief="Access to #include Driver_ETH.h file for custom implementation" version="2.1.0" full_name="CMSIS Driver Ethernet Common" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.MKE06Z4"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE06Z4"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_ETH.h"/>
@@ -553,9 +488,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.Ethernet_MAC_CMSISInclude.MKE06Z4" name="Ethernet_MAC" brief="Cmsis_driver_include ethernet_mac" version="2.1.0" full_name="Cmsis_driver_include ethernet_mac" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.Ethernet_MAC.MKE06Z4" name="CMSIS_Driver_Ethernet_MAC" brief="Access to #include Driver_ETH_MAC.h file for custom implementation" version="2.1.0" full_name="CMSIS Driver Ethernet MAC" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Ethernet_CMSISInclude.MKE06Z4"/>
+        <component_dependency value="CMSIS_Driver_Include.Ethernet.MKE06Z4"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_ETH_MAC.h"/>
@@ -564,9 +499,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.Ethernet_PHY_CMSISInclude.MKE06Z4" name="Ethernet_PHY" brief="Cmsis_driver_include ethernet_phy" version="2.1.0" full_name="Cmsis_driver_include ethernet_phy" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.Ethernet_PHY.MKE06Z4" name="CMSIS_Driver_Ethernet_PHY" brief="Access to #include Driver_ETH_PHY.h file for custom implementation" version="2.1.0" full_name="CMSIS Driver Ethernet PHY" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Ethernet_CMSISInclude.MKE06Z4"/>
+        <component_dependency value="CMSIS_Driver_Include.Ethernet.MKE06Z4"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_ETH_PHY.h"/>
@@ -575,9 +510,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.Flash_CMSISInclude.MKE06Z4" name="Flash" brief="Cmsis_driver_include flash" version="2.2.0" full_name="Cmsis_driver_include flash" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.Flash.MKE06Z4" name="CMSIS_Driver_Flash" brief="Access to #include Driver_Flash.h file for custom implementation" version="2.2.0" full_name="CMSIS Driver Flash" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.MKE06Z4"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE06Z4"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_Flash.h"/>
@@ -586,9 +521,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.GPIO_CMSISInclude.MKE06Z4" name="GPIO" brief="Cmsis_driver_include gpio" version="2.0.0" full_name="Cmsis_driver_include gpio" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.GPIO.MKE06Z4" name="NXP_CMSIS_Driver_GPIO" brief="NXP Standardized GPIO Driver aligned with CMSIS style." version="2.0.0" full_name="NXP CMSIS Driver GPIO" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.MKE06Z4"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE06Z4"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_GPIO.h"/>
@@ -597,9 +532,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.I2C_CMSISInclude.MKE06Z4" name="I2C" brief="Cmsis_driver_include i2c" version="2.3.0" full_name="Cmsis_driver_include i2c" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.I2C.MKE06Z4" name="CMSIS_Driver_I2C" brief="Access to #include Driver_I2C.h file for custom implementation" version="2.3.0" full_name="CMSIS Driver I2C" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.MKE06Z4"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE06Z4"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_I2C.h"/>
@@ -608,9 +543,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.MCI_CMSISInclude.MKE06Z4" name="MCI" brief="Cmsis_driver_include mci" version="2.3.0" full_name="Cmsis_driver_include mci" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.MCI.MKE06Z4" name="CMSIS_Driver_MCI" brief="Access to #include Driver_MCI.h file for custom implementation" version="2.3.0" full_name="CMSIS Driver MCI" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.MKE06Z4"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE06Z4"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_MCI.h"/>
@@ -619,9 +554,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.NAND_CMSISInclude.MKE06Z4" name="NAND" brief="Cmsis_driver_include nand" version="2.3.0" full_name="Cmsis_driver_include nand" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.NAND.MKE06Z4" name="CMSIS_Driver_NAND" brief="Access to #include Driver_NAND.h file for custom implementation" version="2.3.0" full_name="CMSIS Driver NAND" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.MKE06Z4"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE06Z4"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_NAND.h"/>
@@ -630,9 +565,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.SAI_CMSISInclude.MKE06Z4" name="SAI" brief="Cmsis_driver_include sai" version="1.1.0" full_name="Cmsis_driver_include sai" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.SAI.MKE06Z4" name="CMSIS_Driver_SAI" brief="Access to #include Driver_SAI.h file for custom implementation" version="1.1.0" full_name="CMSIS Driver SAI" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.MKE06Z4"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE06Z4"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_SAI.h"/>
@@ -641,9 +576,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.SPI_CMSISInclude.MKE06Z4" name="SPI" brief="Cmsis_driver_include spi" version="2.2.0" full_name="Cmsis_driver_include spi" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.SPI.MKE06Z4" name="CMSIS_Driver_SPI" brief="Access to #include Driver_SPI.h file for custom implementation" version="2.2.0" full_name="CMSIS Driver SPI" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.MKE06Z4"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE06Z4"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_SPI.h"/>
@@ -652,9 +587,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.USART_CMSISInclude.MKE06Z4" name="USART" brief="Cmsis_driver_include usart" version="2.3.0" full_name="Cmsis_driver_include usart" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.USART.MKE06Z4" name="CMSIS_Driver_USART" brief="Access to #include Driver_USART.h file for custom implementation" version="2.3.0" full_name="CMSIS Driver USART" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.MKE06Z4"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE06Z4"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_USART.h"/>
@@ -663,9 +598,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.USB_CMSISInclude.MKE06Z4" name="USB" brief="Cmsis_driver_include usb" version="2.2.0" full_name="Cmsis_driver_include usb" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.USB.MKE06Z4" name="CMSIS_Driver_USB_Common" brief="Access to #include Driver_USB.h file for custom implementation" version="2.2.0" full_name="CMSIS Driver USB Common" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.MKE06Z4"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE06Z4"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_USB.h"/>
@@ -674,9 +609,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.USB_Device_CMSISInclude.MKE06Z4" name="USB_Device" brief="Cmsis_driver_include usb_device" version="2.2.0" full_name="Cmsis_driver_include usb_device" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.USB_Device.MKE06Z4" name="CMSIS_Driver_USB_Device" brief="Access to #include Driver_USBD.h file for custom implementation" version="2.2.0" full_name="CMSIS Driver USB Device" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.USB_CMSISInclude.MKE06Z4"/>
+        <component_dependency value="CMSIS_Driver_Include.USB.MKE06Z4"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_USBD.h"/>
@@ -685,9 +620,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.USB_Host_CMSISInclude.MKE06Z4" name="USB_Host" brief="Cmsis_driver_include usb_host" version="2.2.0" full_name="Cmsis_driver_include usb_host" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.USB_Host.MKE06Z4" name="CMSIS_Driver_USB_Host" brief="Access to #include Driver_USBH.h file for custom implementation" version="2.2.0" full_name="CMSIS Driver USB Host" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.USB_CMSISInclude.MKE06Z4"/>
+        <component_dependency value="CMSIS_Driver_Include.USB.MKE06Z4"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_USBH.h"/>
@@ -696,9 +631,9 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.CMSIS_Driver_Include.WiFi_CMSISInclude.MKE06Z4" name="WiFi" brief="Cmsis_driver_include wifi" version="1.0.0" full_name="Cmsis_driver_include wifi" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="CMSIS_Driver_Include.WiFi.MKE06Z4" name="CMSIS_Driver_WiFi" brief="Access to #include Driver_WiFi.h file" version="1.0.0" full_name="CMSIS Driver WiFi" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <dependencies>
-        <component_dependency value="platform.CMSIS_Driver_Include.Common_CMSISInclude.MKE06Z4"/>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE06Z4"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_WiFi.h"/>
@@ -707,54 +642,408 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.Include_common.MKE06Z4" name="CMSIS_Include_common" brief="Cmsis_include_common" version="5.3.0" full_name="Cmsis_include_common" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Include" project_base_path="CMSIS">
+    <component id="CMSIS_Include_core_cm.MKE06Z4" name="CMSIS_Include_CM" brief="CMSIS-CORE for Cortex-M, ARMv8-M, ARMv8.1-M" version="5.3.0" full_name="CMSIS Include For Cortex-M, ARMv8-M, ARMv8.1-M" devices="MKE06Z128xxx4 MKE06Z64xxx4" device_cores="core0_MKE06Z128xxx4 core0_MKE06Z64xxx4" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Core/Include" project_base_path="CMSIS">
       <source relative_path="./" type="c_include">
         <files mask="cmsis_armcc.h"/>
         <files mask="cmsis_armclang.h"/>
         <files mask="cmsis_armclang_ltm.h"/>
-        <files mask="cmsis_gcc.h"/>
         <files mask="cmsis_compiler.h"/>
-        <files mask="cmsis_version.h"/>
+        <files mask="cmsis_gcc.h"/>
         <files mask="cmsis_iccarm.h"/>
+        <files mask="cmsis_version.h"/>
       </source>
-      <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_common.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="./" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="platform.Include_core_cm0plus.MKE06Z4" name="CMSIS_Include_core_cm0plus" brief="Cmsis_include_core_cm0plus" version="5.3.0" full_name="Cmsis_include_core_cm0plus" devices="MKE06Z128xxx4 MKE06Z64xxx4" device_cores="core0_MKE06Z128xxx4 core0_MKE06Z64xxx4" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Include" project_base_path="CMSIS">
-      <dependencies>
-        <all>
-          <component_dependency value="platform.Include_common.MKE06Z4"/>
-          <component_dependency value="platform.Include_dsp.MKE06Z4"/>
-        </all>
-      </dependencies>
-      <source relative_path="./" type="c_include">
+      <source relative_path="./" type="c_include" device_cores="core0_MKE06Z64xxx4 core0_MKE06Z128xxx4">
         <files mask="core_cm0plus.h"/>
         <files mask="mpu_armv7.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_core_cm0plus.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_core_cm.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.Include_dsp.MKE06Z4" name="CMSIS_Include_dsp" brief="Cmsis_include_dsp" version="1.7.0" full_name="Cmsis_include_dsp" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Include" project_base_path="CMSIS">
-      <source relative_path="./" type="c_include">
-        <files mask="arm_common_tables.h"/>
-        <files mask="arm_const_structs.h"/>
-        <files mask="arm_math.h"/>
-      </source>
-      <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="CMSIS_Include_dsp.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="./" type="c_include"/>
-      </include_paths>
-    </component>
+    <!--<component id="CMSIS_files.MKE06Z4" name="CMSIS" brief="CMSIS (Cortex Microcontroller Software Interface Standard)" version="5.6.0" full_name="CMSIS" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="false" type="container" package_base_path="core/CMSIS" project_base_path="CMSIS">
+  <source relative_path="Driver/Include" type="c_include">
+    <files mask="Driver_Storage.h"/>
+    <files mask="Driver_USART.h"/>
+    <files mask="Driver_USBD.h"/>
+    <files mask="Driver_I2C.h"/>
+    <files mask="Driver_SPI.h"/>
+    <files mask="Driver_USB.h"/>
+    <files mask="Driver_WiFi.h"/>
+    <files mask="Driver_SAI.h"/>
+    <files mask="Driver_Common.h"/>
+    <files mask="Driver_NAND.h"/>
+    <files mask="Driver_CAN.h"/>
+    <files mask="Driver_MCI.h"/>
+    <files mask="Driver_ETH_MAC.h"/>
+    <files mask="Driver_Flash.h"/>
+    <files mask="Driver_USBH.h"/>
+    <files mask="Driver_ETH_PHY.h"/>
+    <files mask="Driver_ETH.h"/>
+    <files mask="Driver_GPIO.h"/>
+  </source>
+  <source relative_path="Driver/DriverTemplates" type="src">
+    <files mask="Driver_SPI.c"/>
+    <files mask="Driver_Flash.c"/>
+    <files mask="Driver_USART.c"/>
+    <files mask="Driver_SAI.c"/>
+    <files mask="Driver_Storage.c"/>
+    <files mask="Driver_I2C.c"/>
+    <files mask="Driver_ETH_PHY.c"/>
+    <files mask="Driver_ETH_MAC.c"/>
+    <files mask="Driver_CAN.c"/>
+    <files mask="Driver_MCI.c"/>
+    <files mask="Driver_USBH.c"/>
+    <files mask="Driver_USBD.c"/>
+  </source>
+  <source relative_path="./" type="other">
+    <files mask="CMSIS.yml"/>
+    <files mask="CMSIS_v2.yml"/>
+  </source>
+  <source relative_path="./" type="doc">
+    <files mask="LICENSE.txt"/>
+  </source>
+  <source relative_path="DSP/Source/StatisticsFunctions" type="src">
+    <files mask="arm_var_q15.c"/>
+    <files mask="arm_min_q31.c"/>
+    <files mask="arm_mean_f32.c"/>
+    <files mask="arm_max_q7.c"/>
+    <files mask="arm_max_f32.c"/>
+    <files mask="arm_var_f32.c"/>
+    <files mask="arm_power_q7.c"/>
+    <files mask="arm_rms_f32.c"/>
+    <files mask="arm_max_q31.c"/>
+    <files mask="arm_max_q15.c"/>
+    <files mask="arm_mean_q7.c"/>
+    <files mask="arm_power_f32.c"/>
+    <files mask="arm_min_q7.c"/>
+    <files mask="arm_std_q15.c"/>
+    <files mask="arm_min_f32.c"/>
+    <files mask="arm_min_q15.c"/>
+    <files mask="StatisticsFunctions.c"/>
+    <files mask="arm_std_q31.c"/>
+    <files mask="arm_rms_q31.c"/>
+    <files mask="arm_mean_q15.c"/>
+    <files mask="arm_std_f32.c"/>
+    <files mask="arm_power_q15.c"/>
+    <files mask="arm_mean_q31.c"/>
+    <files mask="arm_rms_q15.c"/>
+    <files mask="arm_power_q31.c"/>
+    <files mask="arm_var_q31.c"/>
+  </source>
+  <source relative_path="DSP/Source/StatisticsFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/FastMathFunctions" type="src">
+    <files mask="arm_cos_q31.c"/>
+    <files mask="FastMathFunctions.c"/>
+    <files mask="arm_sin_q31.c"/>
+    <files mask="arm_sqrt_q15.c"/>
+    <files mask="arm_cos_q15.c"/>
+    <files mask="arm_sin_f32.c"/>
+    <files mask="arm_sin_q15.c"/>
+    <files mask="arm_cos_f32.c"/>
+    <files mask="arm_sqrt_q31.c"/>
+  </source>
+  <source relative_path="DSP/Source/FastMathFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/TransformFunctions" type="src">
+    <files mask="arm_cfft_radix2_f32.c"/>
+    <files mask="arm_cfft_radix8_f32.c"/>
+    <files mask="arm_cfft_radix2_q15.c"/>
+    <files mask="arm_cfft_radix4_init_f32.c"/>
+    <files mask="arm_cfft_radix4_init_q15.c"/>
+    <files mask="arm_cfft_radix2_init_q15.c"/>
+    <files mask="arm_rfft_init_f32.c"/>
+    <files mask="arm_rfft_fast_f32.c"/>
+    <files mask="arm_rfft_init_q31.c"/>
+    <files mask="arm_dct4_q15.c"/>
+    <files mask="arm_dct4_init_q31.c"/>
+    <files mask="arm_cfft_radix2_init_f32.c"/>
+    <files mask="arm_dct4_init_q15.c"/>
+    <files mask="arm_dct4_q31.c"/>
+    <files mask="arm_rfft_q15.c"/>
+    <files mask="arm_cfft_radix4_q31.c"/>
+    <files mask="arm_cfft_radix2_init_q31.c"/>
+    <files mask="TransformFunctions.c"/>
+    <files mask="arm_cfft_radix4_q15.c"/>
+    <files mask="arm_bitreversal.c"/>
+    <files mask="arm_rfft_init_q15.c"/>
+    <files mask="arm_rfft_q31.c"/>
+    <files mask="arm_bitreversal2.c"/>
+    <files mask="arm_rfft_fast_init_f32.c"/>
+    <files mask="arm_cfft_radix2_q31.c"/>
+    <files mask="arm_dct4_f32.c"/>
+    <files mask="arm_cfft_f32.c"/>
+    <files mask="arm_rfft_f32.c"/>
+    <files mask="arm_cfft_radix4_init_q31.c"/>
+    <files mask="arm_cfft_q31.c"/>
+    <files mask="arm_cfft_q15.c"/>
+    <files mask="arm_cfft_radix4_f32.c"/>
+    <files mask="arm_dct4_init_f32.c"/>
+  </source>
+  <source relative_path="DSP/Source/TransformFunctions" type="asm_include">
+    <files mask="arm_bitreversal2.S"/>
+  </source>
+  <source relative_path="DSP/Source/TransformFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/FilteringFunctions" type="src">
+    <files mask="arm_iir_lattice_q15.c"/>
+    <files mask="arm_iir_lattice_init_q15.c"/>
+    <files mask="arm_fir_interpolate_q15.c"/>
+    <files mask="arm_correlate_fast_q15.c"/>
+    <files mask="arm_lms_norm_init_q15.c"/>
+    <files mask="arm_fir_sparse_f32.c"/>
+    <files mask="arm_fir_interpolate_f32.c"/>
+    <files mask="arm_biquad_cascade_df1_fast_q15.c"/>
+    <files mask="arm_iir_lattice_init_q31.c"/>
+    <files mask="arm_fir_decimate_q31.c"/>
+    <files mask="arm_fir_interpolate_q31.c"/>
+    <files mask="arm_fir_decimate_init_f32.c"/>
+    <files mask="arm_correlate_fast_opt_q15.c"/>
+    <files mask="arm_lms_q31.c"/>
+    <files mask="arm_lms_init_f32.c"/>
+    <files mask="arm_fir_sparse_q7.c"/>
+    <files mask="arm_conv_fast_opt_q15.c"/>
+    <files mask="arm_biquad_cascade_stereo_df2T_init_f32.c"/>
+    <files mask="arm_biquad_cascade_df1_init_q31.c"/>
+    <files mask="arm_biquad_cascade_df2T_init_f64.c"/>
+    <files mask="arm_iir_lattice_f32.c"/>
+    <files mask="arm_fir_lattice_f32.c"/>
+    <files mask="arm_conv_partial_opt_q15.c"/>
+    <files mask="arm_iir_lattice_q31.c"/>
+    <files mask="arm_correlate_fast_q31.c"/>
+    <files mask="arm_biquad_cascade_stereo_df2T_f32.c"/>
+    <files mask="arm_conv_f32.c"/>
+    <files mask="arm_fir_sparse_q15.c"/>
+    <files mask="arm_fir_sparse_init_q7.c"/>
+    <files mask="arm_biquad_cascade_df1_fast_q31.c"/>
+    <files mask="arm_biquad_cascade_df1_init_f32.c"/>
+    <files mask="arm_fir_sparse_init_q31.c"/>
+    <files mask="arm_fir_sparse_init_q15.c"/>
+    <files mask="arm_fir_interpolate_init_q15.c"/>
+    <files mask="arm_fir_lattice_q15.c"/>
+    <files mask="arm_fir_decimate_init_q15.c"/>
+    <files mask="arm_conv_partial_fast_opt_q15.c"/>
+    <files mask="arm_fir_q31.c"/>
+    <files mask="arm_biquad_cascade_df2T_init_f32.c"/>
+    <files mask="arm_conv_fast_q15.c"/>
+    <files mask="arm_fir_fast_q15.c"/>
+    <files mask="arm_conv_q7.c"/>
+    <files mask="arm_fir_q15.c"/>
+    <files mask="arm_correlate_q15.c"/>
+    <files mask="arm_lms_init_q15.c"/>
+    <files mask="arm_conv_q15.c"/>
+    <files mask="arm_conv_partial_q7.c"/>
+    <files mask="arm_lms_f32.c"/>
+    <files mask="arm_lms_norm_q15.c"/>
+    <files mask="arm_fir_sparse_init_f32.c"/>
+    <files mask="arm_lms_norm_init_q31.c"/>
+    <files mask="arm_biquad_cascade_df1_init_q15.c"/>
+    <files mask="arm_conv_partial_fast_q15.c"/>
+    <files mask="arm_fir_init_f32.c"/>
+    <files mask="arm_fir_decimate_f32.c"/>
+    <files mask="arm_fir_lattice_init_q15.c"/>
+    <files mask="arm_correlate_opt_q15.c"/>
+    <files mask="arm_fir_sparse_q31.c"/>
+    <files mask="arm_biquad_cascade_df2T_f32.c"/>
+    <files mask="arm_fir_init_q7.c"/>
+    <files mask="arm_fir_init_q15.c"/>
+    <files mask="arm_fir_interpolate_init_f32.c"/>
+    <files mask="arm_conv_opt_q7.c"/>
+    <files mask="arm_lms_init_q31.c"/>
+    <files mask="arm_fir_fast_q31.c"/>
+    <files mask="arm_conv_partial_f32.c"/>
+    <files mask="arm_biquad_cascade_df1_q15.c"/>
+    <files mask="arm_biquad_cascade_df1_32x64_init_q31.c"/>
+    <files mask="arm_lms_norm_q31.c"/>
+    <files mask="arm_conv_partial_q15.c"/>
+    <files mask="arm_conv_opt_q15.c"/>
+    <files mask="arm_fir_decimate_q15.c"/>
+    <files mask="arm_iir_lattice_init_f32.c"/>
+    <files mask="arm_fir_lattice_init_f32.c"/>
+    <files mask="arm_fir_decimate_fast_q31.c"/>
+    <files mask="arm_fir_f32.c"/>
+    <files mask="arm_fir_decimate_init_q31.c"/>
+    <files mask="arm_conv_q31.c"/>
+    <files mask="arm_lms_norm_f32.c"/>
+    <files mask="arm_conv_partial_fast_q31.c"/>
+    <files mask="arm_fir_lattice_init_q31.c"/>
+    <files mask="arm_fir_init_q31.c"/>
+    <files mask="arm_lms_norm_init_f32.c"/>
+    <files mask="arm_correlate_opt_q7.c"/>
+    <files mask="arm_fir_lattice_q31.c"/>
+    <files mask="arm_conv_partial_q31.c"/>
+    <files mask="arm_biquad_cascade_df2T_f64.c"/>
+    <files mask="arm_biquad_cascade_df1_f32.c"/>
+    <files mask="arm_lms_q15.c"/>
+    <files mask="arm_correlate_q31.c"/>
+    <files mask="arm_correlate_q7.c"/>
+    <files mask="arm_fir_q7.c"/>
+    <files mask="arm_conv_fast_q31.c"/>
+    <files mask="arm_conv_partial_opt_q7.c"/>
+    <files mask="arm_fir_decimate_fast_q15.c"/>
+    <files mask="arm_fir_interpolate_init_q31.c"/>
+    <files mask="arm_biquad_cascade_df1_q31.c"/>
+    <files mask="FilteringFunctions.c"/>
+    <files mask="arm_correlate_f32.c"/>
+    <files mask="arm_biquad_cascade_df1_32x64_q31.c"/>
+  </source>
+  <source relative_path="DSP/Source/FilteringFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/ControllerFunctions" type="src">
+    <files mask="arm_sin_cos_f32.c"/>
+    <files mask="ControllerFunctions.c"/>
+    <files mask="arm_pid_reset_q31.c"/>
+    <files mask="arm_pid_init_q15.c"/>
+    <files mask="arm_sin_cos_q31.c"/>
+    <files mask="arm_pid_reset_f32.c"/>
+    <files mask="arm_pid_reset_q15.c"/>
+    <files mask="arm_pid_init_f32.c"/>
+    <files mask="arm_pid_init_q31.c"/>
+  </source>
+  <source relative_path="DSP/Source/ControllerFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/MatrixFunctions" type="src">
+    <files mask="arm_mat_mult_f32.c"/>
+    <files mask="arm_mat_mult_fast_q31.c"/>
+    <files mask="arm_mat_init_q15.c"/>
+    <files mask="arm_mat_mult_fast_q15.c"/>
+    <files mask="arm_mat_trans_q15.c"/>
+    <files mask="arm_mat_cmplx_mult_q31.c"/>
+    <files mask="arm_mat_mult_q31.c"/>
+    <files mask="arm_mat_init_f32.c"/>
+    <files mask="arm_mat_inverse_f32.c"/>
+    <files mask="arm_mat_scale_q31.c"/>
+    <files mask="arm_mat_cmplx_mult_f32.c"/>
+    <files mask="arm_mat_sub_q15.c"/>
+    <files mask="arm_mat_scale_f32.c"/>
+    <files mask="arm_mat_sub_f32.c"/>
+    <files mask="arm_mat_add_q31.c"/>
+    <files mask="arm_mat_add_f32.c"/>
+    <files mask="MatrixFunctions.c"/>
+    <files mask="arm_mat_mult_q15.c"/>
+    <files mask="arm_mat_trans_q31.c"/>
+    <files mask="arm_mat_scale_q15.c"/>
+    <files mask="arm_mat_sub_q31.c"/>
+    <files mask="arm_mat_inverse_f64.c"/>
+    <files mask="arm_mat_init_q31.c"/>
+    <files mask="arm_mat_trans_f32.c"/>
+    <files mask="arm_mat_cmplx_mult_q15.c"/>
+    <files mask="arm_mat_add_q15.c"/>
+  </source>
+  <source relative_path="DSP/Source/MatrixFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/CommonTables" type="src">
+    <files mask="CommonTables.c"/>
+    <files mask="arm_common_tables.c"/>
+    <files mask="arm_const_structs.c"/>
+  </source>
+  <source relative_path="DSP/Source/CommonTables" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/SupportFunctions" type="src">
+    <files mask="SupportFunctions.c"/>
+    <files mask="arm_fill_q7.c"/>
+    <files mask="arm_q15_to_q7.c"/>
+    <files mask="arm_copy_q15.c"/>
+    <files mask="arm_copy_f32.c"/>
+    <files mask="arm_q7_to_q15.c"/>
+    <files mask="arm_q31_to_q15.c"/>
+    <files mask="arm_copy_q7.c"/>
+    <files mask="arm_q15_to_float.c"/>
+    <files mask="arm_q7_to_float.c"/>
+    <files mask="arm_float_to_q15.c"/>
+    <files mask="arm_q15_to_q31.c"/>
+    <files mask="arm_fill_f32.c"/>
+    <files mask="arm_float_to_q7.c"/>
+    <files mask="arm_fill_q31.c"/>
+    <files mask="arm_q7_to_q31.c"/>
+    <files mask="arm_q31_to_float.c"/>
+    <files mask="arm_copy_q31.c"/>
+    <files mask="arm_fill_q15.c"/>
+    <files mask="arm_q31_to_q7.c"/>
+    <files mask="arm_float_to_q31.c"/>
+  </source>
+  <source relative_path="DSP/Source/SupportFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/ComplexMathFunctions" type="src">
+    <files mask="arm_cmplx_mag_squared_f32.c"/>
+    <files mask="arm_cmplx_conj_f32.c"/>
+    <files mask="arm_cmplx_mag_q31.c"/>
+    <files mask="arm_cmplx_conj_q31.c"/>
+    <files mask="arm_cmplx_dot_prod_f32.c"/>
+    <files mask="arm_cmplx_mag_q15.c"/>
+    <files mask="arm_cmplx_mag_f32.c"/>
+    <files mask="arm_cmplx_dot_prod_q31.c"/>
+    <files mask="arm_cmplx_dot_prod_q15.c"/>
+    <files mask="arm_cmplx_mult_cmplx_q15.c"/>
+    <files mask="arm_cmplx_mag_squared_q15.c"/>
+    <files mask="arm_cmplx_conj_q15.c"/>
+    <files mask="arm_cmplx_mult_real_q31.c"/>
+    <files mask="arm_cmplx_mult_cmplx_f32.c"/>
+    <files mask="ComplexMathFunctions.c"/>
+    <files mask="arm_cmplx_mag_squared_q31.c"/>
+    <files mask="arm_cmplx_mult_real_q15.c"/>
+    <files mask="arm_cmplx_mult_cmplx_q31.c"/>
+    <files mask="arm_cmplx_mult_real_f32.c"/>
+  </source>
+  <source relative_path="DSP/Source/ComplexMathFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/BasicMathFunctions" type="src">
+    <files mask="arm_mult_f32.c"/>
+    <files mask="arm_dot_prod_q31.c"/>
+    <files mask="arm_sub_f32.c"/>
+    <files mask="arm_sub_q15.c"/>
+    <files mask="arm_shift_q7.c"/>
+    <files mask="arm_abs_q7.c"/>
+    <files mask="arm_abs_q31.c"/>
+    <files mask="arm_mult_q31.c"/>
+    <files mask="arm_dot_prod_f32.c"/>
+    <files mask="arm_offset_q31.c"/>
+    <files mask="arm_shift_q15.c"/>
+    <files mask="arm_shift_q31.c"/>
+    <files mask="arm_negate_q7.c"/>
+    <files mask="arm_add_q15.c"/>
+    <files mask="arm_add_q7.c"/>
+    <files mask="arm_offset_f32.c"/>
+    <files mask="arm_dot_prod_q15.c"/>
+    <files mask="arm_mult_q7.c"/>
+    <files mask="arm_dot_prod_q7.c"/>
+    <files mask="arm_abs_f32.c"/>
+    <files mask="arm_negate_q15.c"/>
+    <files mask="arm_scale_q15.c"/>
+    <files mask="arm_mult_q15.c"/>
+    <files mask="arm_add_q31.c"/>
+    <files mask="arm_scale_q7.c"/>
+    <files mask="arm_offset_q7.c"/>
+    <files mask="BasicMathFunctions.c"/>
+    <files mask="arm_sub_q31.c"/>
+    <files mask="arm_sub_q7.c"/>
+    <files mask="arm_negate_f32.c"/>
+    <files mask="arm_abs_q15.c"/>
+    <files mask="arm_scale_f32.c"/>
+    <files mask="arm_add_f32.c"/>
+    <files mask="arm_offset_q15.c"/>
+    <files mask="arm_negate_q31.c"/>
+    <files mask="arm_scale_q31.c"/>
+  </source>
+  <source relative_path="DSP/Source/BasicMathFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+</component>-->
     <component id="COPY_BSD_License.MKE06Z4" name="COPY_BSD_License" brief="COPY of BSD-3-Clause license" version="1.0.0" full_name="COPY of BSD-3-Clause license" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="true" type="other" package_base_path="core/./" project_base_path="src">
       <source relative_path="./" type="other">
         <files mask="COPYING-BSD-3"/>
@@ -807,6 +1096,7 @@ ${load}</script>
       <source relative_path="./" type="script">
         <files mask="armgcc.cmake"/>
         <files mask="xcc.cmake"/>
+        <files mask="xclang.cmake"/>
         <files mask="armgcc_force_cpp.cmake"/>
       </source>
     </component>
@@ -988,6 +1278,25 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="component.osa_thread.MKE06Z4" name="osa thread" brief="Component osa thread" version="1.0.0" full_name="Component osa thread" devices="MKE06Z128xxx4 MKE06Z64xxx4" device_cores="core0_MKE06Z128xxx4 core0_MKE06Z64xxx4" user_visible="false" type="software_component" package_base_path="core/components/osa" project_base_path="component/osa">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.common.MKE06Z4"/>
+          <component_dependency value="component.lists.MKE06Z4"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_os_abstraction.h"/>
+        <files mask="fsl_os_abstraction_config.h"/>
+        <files mask="fsl_os_abstraction_threadx.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_os_abstraction_threadx.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="component.panic.MKE06Z4" name="panic" brief="Component panic" version="1.0.0" full_name="Component panic" devices="MKE06Z128xxx4 MKE06Z64xxx4" device_cores="core0_MKE06Z128xxx4 core0_MKE06Z64xxx4" user_visible="true" type="software_component" package_base_path="core/components/panic" project_base_path="component/panic">
       <dependencies>
         <all>
@@ -1056,7 +1365,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="component.serial_manager.MKE06Z4" name="serial_manager" brief="Component serial_manager" version="1.0.0" full_name="Serial Manager" devices="MKE06Z128xxx4 MKE06Z64xxx4" device_cores="core0_MKE06Z128xxx4 core0_MKE06Z64xxx4" user_visible="true" type="utilities" package_base_path="core/components/serial_manager" project_base_path="component/serial_manager">
+    <component id="component.serial_manager.MKE06Z4" name="serial_manager" brief="Component serial_manager" version="1.0.1" full_name="Serial Manager" devices="MKE06Z128xxx4 MKE06Z64xxx4" device_cores="core0_MKE06Z128xxx4 core0_MKE06Z64xxx4" user_visible="true" type="utilities" package_base_path="core/components/serial_manager" project_base_path="component/serial_manager">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.common.MKE06Z4"/>
@@ -1215,7 +1524,7 @@ ${load}</script>
     </component>
     <component id="device.MKE06Z4_CMSIS.MKE06Z4" name="MKE06Z4_CMSIS" brief="Device MKE06Z4_cmsis" version="1.0.0" full_name="Device MKE06Z4_cmsis" devices="MKE06Z128xxx4 MKE06Z64xxx4" device_cores="core0_MKE06Z128xxx4 core0_MKE06Z64xxx4" user_visible="true" type="CMSIS_Include" package_base_path="core/devices/MKE06Z4" project_base_path="device">
       <dependencies>
-        <component_dependency value="platform.Include_core_cm0plus.MKE06Z4"/>
+        <component_dependency value="CMSIS_Include_core_cm.MKE06Z4"/>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="fsl_device_registers.h"/>
@@ -1299,7 +1608,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.adc.MKE06Z4" name="adc" brief="ADC12 Driver" version="2.0.2" full_name="ADC12 Driver" devices="MKE06Z128xxx4 MKE06Z64xxx4" device_cores="core0_MKE06Z128xxx4 core0_MKE06Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/adc_5v12b_ll18_015" project_base_path="drivers">
+    <component id="platform.drivers.adc.MKE06Z4" name="adc" brief="ADC12 Driver" version="2.1.0" full_name="ADC12 Driver" devices="MKE06Z128xxx4 MKE06Z64xxx4" device_cores="core0_MKE06Z128xxx4 core0_MKE06Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/adc_5v12b_ll18_015" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MKE06Z4"/>
       </dependencies>
@@ -1333,7 +1642,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.common.MKE06Z4" name="common" brief="COMMON Driver" version="2.2.9" full_name="COMMON Driver" devices="MKE06Z128xxx4 MKE06Z64xxx4" device_cores="core0_MKE06Z128xxx4 core0_MKE06Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/common" project_base_path="drivers">
+    <component id="platform.drivers.common.MKE06Z4" name="common" brief="COMMON Driver" version="2.3.0" full_name="COMMON Driver" devices="MKE06Z128xxx4 MKE06Z64xxx4" device_cores="core0_MKE06Z128xxx4 core0_MKE06Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/common" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.clock.MKE06Z4"/>
@@ -1345,6 +1654,12 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_common.c"/>
+      </source>
+      <source relative_path="./" type="src" device_cores="core0_MKE06Z64xxx4 core0_MKE06Z128xxx4">
+        <files mask="fsl_common_arm.c"/>
+      </source>
+      <source relative_path="./" type="c_include" device_cores="core0_MKE06Z64xxx4 core0_MKE06Z128xxx4">
+        <files mask="fsl_common_arm.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="driver_common.cmake" hidden="true"/>
@@ -1370,7 +1685,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.ftm.MKE06Z4" name="ftm" brief="FTM Driver" version="2.3.0" full_name="FTM Driver" devices="MKE06Z128xxx4 MKE06Z64xxx4" device_cores="core0_MKE06Z128xxx4 core0_MKE06Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/ftm" project_base_path="drivers">
+    <component id="platform.drivers.ftm.MKE06Z4" name="ftm" brief="FTM Driver" version="2.4.1" full_name="FTM Driver" devices="MKE06Z128xxx4 MKE06Z64xxx4" device_cores="core0_MKE06Z128xxx4 core0_MKE06Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/ftm" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MKE06Z4"/>
       </dependencies>
@@ -1455,7 +1770,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.mscan.MKE06Z4" name="mscan" brief="MSCAN Driver" version="2.0.6" full_name="MSCAN Driver" devices="MKE06Z128xxx4 MKE06Z64xxx4" device_cores="core0_MKE06Z128xxx4 core0_MKE06Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/mscan" project_base_path="drivers">
+    <component id="platform.drivers.mscan.MKE06Z4" name="mscan" brief="MSCAN Driver" version="2.0.7" full_name="MSCAN Driver" devices="MKE06Z128xxx4 MKE06Z64xxx4" device_cores="core0_MKE06Z128xxx4 core0_MKE06Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/mscan" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MKE06Z4"/>
       </dependencies>
@@ -1574,7 +1889,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.uart.MKE06Z4" name="uart" brief="UART Driver" version="2.4.0" full_name="UART Driver" devices="MKE06Z128xxx4 MKE06Z64xxx4" device_cores="core0_MKE06Z128xxx4 core0_MKE06Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/uart" project_base_path="drivers">
+    <component id="platform.drivers.uart.MKE06Z4" name="uart" brief="UART Driver" version="2.5.1" full_name="UART Driver" devices="MKE06Z128xxx4 MKE06Z64xxx4" device_cores="core0_MKE06Z128xxx4 core0_MKE06Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/uart" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MKE06Z4"/>
       </dependencies>
@@ -1610,7 +1925,6 @@ ${load}</script>
     </component>
     <component id="middleware.baremetal.MKE06Z4" name="baremetal" brief="Middleware baremetal" version="1.0.0" full_name="Baremetal" devices="MKE06Z128xxx4 MKE06Z64xxx4" user_visible="true" type="OS" package_base_path="core/middleware" project_base_path="middleware">
       <defines>
-        <define name="FSL_RTOS_BM" value=""/>
         <define name="SDK_OS_BAREMETAL" value=""/>
       </defines>
     </component>

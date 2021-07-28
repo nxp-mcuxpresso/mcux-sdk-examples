@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="utility.debug_console_lite.LPC5506CPXXXX"/>
+    <definition extID="platform.utilities.assert_lite.LPC5506CPXXXX"/>
+    <definition extID="platform.drivers.flexcomm_spi.LPC5506CPXXXX"/>
+    <definition extID="platform.drivers.common.LPC5506CPXXXX"/>
+    <definition extID="platform.drivers.clock.LPC5506CPXXXX"/>
+    <definition extID="platform.drivers.power.LPC5506CPXXXX"/>
+    <definition extID="platform.drivers.lpc_iocon.LPC5506CPXXXX"/>
+    <definition extID="platform.drivers.lpc_gpio.LPC5506CPXXXX"/>
+    <definition extID="platform.drivers.inputmux.LPC5506CPXXXX"/>
+    <definition extID="device.LPC5506CPXXXX_CMSIS.LPC5506CPXXXX"/>
+    <definition extID="device.LPC5506CPXXXX_startup.LPC5506CPXXXX"/>
+    <definition extID="platform.drivers.flexcomm_usart.LPC5506CPXXXX"/>
+    <definition extID="platform.drivers.flexcomm.LPC5506CPXXXX"/>
+    <definition extID="component.usart_adapter.LPC5506CPXXXX"/>
+    <definition extID="component.lists.LPC5506CPXXXX"/>
+    <definition extID="CMSIS_Include_core_cm.LPC5506CPXXXX"/>
+    <definition extID="platform.drivers.reset.LPC5506CPXXXX"/>
+    <definition extID="platform.drivers.inputmux_connections.LPC5506CPXXXX"/>
+    <definition extID="platform.utilities.misc_utilities.LPC5506CPXXXX"/>
+    <definition extID="device.LPC5506CPXXXX_system.LPC5506CPXXXX"/>
+    <definition extID="iar"/>
+    <definition extID="mdk"/>
+    <definition extID="armgcc"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+  </externalDefinitions>
+  <example id="lpcxpresso55s06cp_spi_polling_b2b_transfer_slave" name="spi_polling_b2b_transfer_slave" dependency="utility.debug_console_lite.LPC5506CPXXXX platform.utilities.assert_lite.LPC5506CPXXXX platform.drivers.flexcomm_spi.LPC5506CPXXXX platform.drivers.common.LPC5506CPXXXX platform.drivers.clock.LPC5506CPXXXX platform.drivers.power.LPC5506CPXXXX platform.drivers.lpc_iocon.LPC5506CPXXXX platform.drivers.lpc_gpio.LPC5506CPXXXX platform.drivers.inputmux.LPC5506CPXXXX device.LPC5506CPXXXX_CMSIS.LPC5506CPXXXX device.LPC5506CPXXXX_startup.LPC5506CPXXXX platform.drivers.flexcomm_usart.LPC5506CPXXXX platform.drivers.flexcomm.LPC5506CPXXXX component.usart_adapter.LPC5506CPXXXX component.lists.LPC5506CPXXXX CMSIS_Include_core_cm.LPC5506CPXXXX platform.drivers.reset.LPC5506CPXXXX platform.drivers.inputmux_connections.LPC5506CPXXXX platform.utilities.misc_utilities.LPC5506CPXXXX device.LPC5506CPXXXX_system.LPC5506CPXXXX" category="driver_examples/spi">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>CPU_LPC5506JHI48</value>
+          <value>CPU_LPC5506JHI48CPXXXX</value>
+          <value>MCUXPRESSO_SDK</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <include_paths>
+      <include_path path="examples/lpcxpresso55s06cp/driver_examples/spi/polling_b2b_transfer/slave" project_relative_path="board" type="c_include"/>
+      <include_path path="boards/lpcxpresso55s06cp" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso55s06cp/driver_examples/spi/polling_b2b_transfer/slave" project_relative_path="." type="c_include"/>
+    </include_paths>
+    <source path="examples/lpcxpresso55s06cp/driver_examples/spi/polling_b2b_transfer/slave/iar" project_relative_path="./" type="workspace" toolchain="iar">
+      <files mask="spi_polling_b2b_transfer_slave.ewd"/>
+      <files mask="spi_polling_b2b_transfer_slave.ewp"/>
+      <files mask="spi_polling_b2b_transfer_slave.eww"/>
+    </source>
+    <source path="examples/lpcxpresso55s06cp/driver_examples/spi/polling_b2b_transfer/slave/mdk" project_relative_path="./" type="workspace" toolchain="mdk">
+      <files mask="spi_polling_b2b_transfer_slave.uvprojx"/>
+      <files mask="spi_polling_b2b_transfer_slave.uvoptx"/>
+      <files mask="JLinkSettings.JLinkScript"/>
+      <files mask="JLinkSettings.ini"/>
+      <files mask="spi_polling_b2b_transfer_slave.uvmpw"/>
+    </source>
+    <source path="examples/lpcxpresso55s06cp/driver_examples/spi/polling_b2b_transfer/slave/armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_debug.bat"/>
+      <files mask="build_debug.sh"/>
+      <files mask="build_release.bat"/>
+      <files mask="build_release.sh"/>
+    </source>
+    <source path="examples/lpcxpresso55s06cp/driver_examples/spi/polling_b2b_transfer/slave" project_relative_path="source" type="src">
+      <files mask="spi_polling_b2b_transfer_slave.c"/>
+    </source>
+    <source path="examples/lpcxpresso55s06cp/driver_examples/spi/polling_b2b_transfer/slave" project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="examples/lpcxpresso55s06cp/driver_examples/spi/polling_b2b_transfer/slave" project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="core/boards/lpcxpresso55s06cp" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="core/boards/lpcxpresso55s06cp" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="examples/lpcxpresso55s06cp/driver_examples/spi/polling_b2b_transfer/slave" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
+      <files mask="readme.txt"/>
+    </source>
+    <source path="examples/lpcxpresso55s06cp/driver_examples/spi/polling_b2b_transfer/slave/armgcc" project_relative_path="LPC5506CPXXXX/arm" type="linker" toolchain="armgcc">
+      <files mask="LPC5506CPXXXX_flash.ld"/>
+    </source>
+  </example>
+</ksdk:examples>

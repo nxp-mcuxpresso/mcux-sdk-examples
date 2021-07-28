@@ -137,9 +137,8 @@ int main(void)
     otfad_encryption_config_t encryptionConfig;
     uint8_t contextHit;
 
-    BOARD_InitPins();
-    BOARD_InitFlexSPI0BPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Define the init structure for the reset pin*/

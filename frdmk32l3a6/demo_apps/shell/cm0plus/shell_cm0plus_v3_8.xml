@@ -16,11 +16,9 @@
     <definition extID="component.lists.K32L3A60"/>
     <definition extID="component.serial_manager_uart.K32L3A60"/>
     <definition extID="platform.devices.K32L3A60_CMSIS.K32L3A60"/>
-    <definition extID="platform.Include_core_cm0plus.K32L3A60"/>
     <definition extID="platform.devices.K32L3A60_startup.K32L3A60"/>
+    <definition extID="CMSIS_Include_core_cm.K32L3A60"/>
     <definition extID="platform.utilities.misc_utilities.K32L3A60"/>
-    <definition extID="platform.Include_common.K32L3A60"/>
-    <definition extID="platform.Include_dsp.K32L3A60"/>
     <definition extID="platform.devices.K32L3A60_system.K32L3A60"/>
     <definition extID="mcuxpresso"/>
     <definition extID="iar"/>
@@ -30,7 +28,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="frdmk32l3a6_shell_cm0plus" name="shell_cm0plus" device_core="cm0plus_K32L3A60xxx" dependency="platform.drivers.port.K32L3A60 utility.shell.K32L3A60 platform.drivers.gpio.K32L3A60 platform.drivers.clock.K32L3A60 platform.drivers.common.K32L3A60 platform.drivers.msmc.K32L3A60 platform.drivers.lpuart.K32L3A60 platform.utilities.assert.K32L3A60 utility.debug_console.K32L3A60 component.lpuart_adapter.K32L3A60 component.serial_manager.K32L3A60 component.lists.K32L3A60 component.serial_manager_uart.K32L3A60 platform.devices.K32L3A60_CMSIS.K32L3A60 platform.Include_core_cm0plus.K32L3A60 platform.devices.K32L3A60_startup.K32L3A60 platform.utilities.misc_utilities.K32L3A60 platform.Include_common.K32L3A60 platform.Include_dsp.K32L3A60 platform.devices.K32L3A60_system.K32L3A60" category="demo_apps">
+  <example id="frdmk32l3a6_shell_cm0plus" name="shell_cm0plus" device_core="cm0plus_K32L3A60xxx" dependency="platform.drivers.port.K32L3A60 utility.shell.K32L3A60 platform.drivers.gpio.K32L3A60 platform.drivers.clock.K32L3A60 platform.drivers.common.K32L3A60 platform.drivers.msmc.K32L3A60 platform.drivers.lpuart.K32L3A60 platform.utilities.assert.K32L3A60 utility.debug_console.K32L3A60 component.lpuart_adapter.K32L3A60 component.serial_manager.K32L3A60 component.lists.K32L3A60 component.serial_manager_uart.K32L3A60 platform.devices.K32L3A60_CMSIS.K32L3A60 platform.devices.K32L3A60_startup.K32L3A60 CMSIS_Include_core_cm.K32L3A60 platform.utilities.misc_utilities.K32L3A60 platform.devices.K32L3A60_system.K32L3A60" category="demo_apps">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -46,6 +44,7 @@
           <value>CPU_K32L3A60VPJ1A_cm0plus</value>
           <value>DEBUG_CONSOLE_RX_ENABLE=0</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.none</value>
@@ -121,9 +120,6 @@
     <source path="examples/frdmk32l3a6/demo_apps/shell/cm0plus" project_relative_path="board" type="c_include">
       <files mask="pin_mux.h"/>
     </source>
-    <source path="examples/frdmk32l3a6/demo_apps/shell/cm0plus" project_relative_path="." type="other">
-      <files mask="shell.mex" hidden="true"/>
-    </source>
     <source path="core/boards/frdmk32l3a6" project_relative_path="board" type="src">
       <files mask="board.c"/>
       <files mask="clock_config.c"/>
@@ -134,12 +130,6 @@
     </source>
     <source path="examples/frdmk32l3a6/demo_apps/shell/cm0plus" project_relative_path="doc" type="doc" toolchain="iar mdk armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/frdmk32l3a6/demo_apps/shell/cm0plus/iar" project_relative_path="K32L3A60/iar" type="linker" toolchain="iar">
-      <files mask="K32L3A60xxx_cm0plus_flash.icf"/>
-    </source>
-    <source path="examples/frdmk32l3a6/demo_apps/shell/cm0plus/mdk" project_relative_path="K32L3A60/arm" type="linker" toolchain="mdk">
-      <files mask="K32L3A60xxx_cm0plus_flash.scf"/>
     </source>
     <source path="examples/frdmk32l3a6/demo_apps/shell/cm0plus/armgcc" project_relative_path="K32L3A60/gcc" type="linker" toolchain="armgcc">
       <files mask="K32L3A60xxx_cm0plus_flash.ld"/>

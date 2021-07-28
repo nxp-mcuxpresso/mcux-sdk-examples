@@ -121,8 +121,8 @@ int main(void)
     pdb_config_t pdbConfigStruct;
     pdb_adc_pretrigger_config_t pdbAdcPreTriggerConfigStruct;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     EnableIRQ(DEMO_PDB_IRQ_ID);
     EnableIRQ(DEMO_ADC_IRQ_ID);

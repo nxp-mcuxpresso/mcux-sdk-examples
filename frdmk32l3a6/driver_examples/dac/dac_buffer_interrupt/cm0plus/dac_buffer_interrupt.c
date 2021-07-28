@@ -48,8 +48,8 @@ int main(void)
 {
     dac_config_t dacConfigStruct;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     INTMUX_Init(INTMUX1);

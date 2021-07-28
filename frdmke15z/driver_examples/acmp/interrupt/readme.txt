@@ -11,8 +11,8 @@ is not enabled, offset level is level 0, hysteresis level is level 0.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
-- MCUXpresso  11.3.0
+- GCC ARM Embedded  10.2.1
+- MCUXpresso  11.4.0
 
 Hardware requirements
 =====================
@@ -51,12 +51,8 @@ When the demo runs successfully, following information can be seen on the termin
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 The example compares analog input to the reference DAC output(CMP positive port).
-
-The terminal will print CMP's output value when press any key.
-
-Please press any key to get CMP's output value.
-
+The LED will be turned ON/OFF when the analog input is LOWER/HIGHER than the DAC output.
+Change the analog input voltage to see the LED status.
 The analog input is LOWER than DAC output
-
 The analog input is HIGHER than DAC output
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

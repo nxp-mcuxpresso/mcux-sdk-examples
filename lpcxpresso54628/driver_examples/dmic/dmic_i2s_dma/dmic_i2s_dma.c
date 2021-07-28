@@ -171,7 +171,7 @@ int main(void)
     RESET_PeripheralReset(kFC6_RST_SHIFT_RSTn);
     RESET_PeripheralReset(kFC7_RST_SHIFT_RSTn);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockPLL180M();
     BOARD_InitDebugConsole();
 

@@ -1,6 +1,6 @@
 # CROSS COMPILER SETTING
 SET(CMAKE_SYSTEM_NAME Generic)
-CMAKE_MINIMUM_REQUIRED (VERSION 3.1.1)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
 SET (Tutorial_VERSION_MAJOR 1)
@@ -33,8 +33,8 @@ include(${ProjDirPath}/config.cmake)
 add_executable(${MCUX_SDK_PROJECT_NAME} 
 "${ProjDirPath}/../i2s_interrupt_transfer.c"
 "${ProjDirPath}/../../music.h"
-"${ProjDirPath}/../../pin_mux.c"
-"${ProjDirPath}/../../pin_mux.h"
+"${ProjDirPath}/../pin_mux.c"
+"${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../../../../../../core/boards/evkmimxrt685/board.c"
 "${ProjDirPath}/../../../../../../core/boards/evkmimxrt685/board.h"
 "${ProjDirPath}/../../../../../../core/boards/evkmimxrt685/clock_config.c"
@@ -112,11 +112,7 @@ include(driver_lpc_iopctl)
 
 include(driver_reset)
 
-include(CMSIS_Include_core_cm33)
-
-include(CMSIS_Include_common)
-
-include(CMSIS_Include_dsp)
+include(CMSIS_Include_core_cm)
 
 include(driver_inputmux_connections)
 

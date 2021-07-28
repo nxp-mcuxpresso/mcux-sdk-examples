@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2019 NXP
+ * Copyright 2017-2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -155,71 +155,113 @@ void BOARD_InitBootPins(void);
  * @brief Selects pin function.: Alternative connection 0. */
 #define PIO1_9_FUNC_ALT0 0x00u
 
-/*! @name PLU_IN3 (number 56), PLU_IN3
+/*! @name PIO0_18 (number 56), PLU_IN3
   @{ */
-/* @} */
+#define BOARD_INITPINS_PLU_IN3_PORT 0U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_PLU_IN3_PIN 18U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_PLU_IN3_PIN_MASK (1U << 18U)      /*!<@brief PORT pin mask */
+                                                         /* @} */
 
-/*! @name PLU_IN4 (number 90), PLU_IN4
+/*! @name PIO0_19 (number 90), PLU_IN4
   @{ */
-/* @} */
+#define BOARD_INITPINS_PLU_IN4_PORT 0U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_PLU_IN4_PIN 19U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_PLU_IN4_PIN_MASK (1U << 19U)      /*!<@brief PORT pin mask */
+                                                         /* @} */
 
-/*! @name PLU_IN5 (number 74), PLU_IN5
+/*! @name PIO0_20 (number 74), PLU_IN5
   @{ */
-/* @} */
+#define BOARD_INITPINS_PLU_IN5_PORT 0U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_PLU_IN5_PIN 20U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_PLU_IN5_PIN_MASK (1U << 20U)      /*!<@brief PORT pin mask */
+                                                         /* @} */
 
-/*! @name PLU_OUT0 (number 64), PLU_OUT0
+/*! @name PIO1_18 (number 64), PLU_OUT0
   @{ */
-/* @} */
+#define BOARD_INITPINS_PLU_OUT0_PORT 1U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_PLU_OUT0_PIN 18U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_PLU_OUT0_PIN_MASK (1U << 18U)      /*!<@brief PORT pin mask */
+                                                          /* @} */
 
-/*! @name PLU_OUT1 (number 58), PLU_OUT1
+/*! @name PIO1_19 (number 58), PLU_OUT1
   @{ */
-/* @} */
+#define BOARD_INITPINS_PLU_OUT1_PORT 1U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_PLU_OUT1_PIN 19U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_PLU_OUT1_PIN_MASK (1U << 19U)      /*!<@brief PORT pin mask */
+                                                          /* @} */
 
-/*! @name PLU_OUT2 (number 4), PLU_OUT2
+/*! @name PIO1_20 (number 4), PLU_OUT2
   @{ */
-/* @} */
+#define BOARD_INITPINS_PLU_OUT2_PORT 1U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_PLU_OUT2_PIN 20U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_PLU_OUT2_PIN_MASK (1U << 20U)      /*!<@brief PORT pin mask */
+                                                          /* @} */
 
 /*! @name PIO1_8 (number 24), GPIO_PLU_IN3
   @{ */
-#define BOARD_INITPINS_GPIO_PLU_IN3_GPIO GPIO /*!<@brief GPIO device name: GPIO */
-#define BOARD_INITPINS_GPIO_PLU_IN3_PORT 1U   /*!<@brief PORT device name: 1U */
-#define BOARD_INITPINS_GPIO_PLU_IN3_PIN 8U    /*!<@brief 1U pin index: 8 */
-                                              /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_GPIO_PLU_IN3_GPIO GPIO                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_INITPINS_GPIO_PLU_IN3_GPIO_PIN_MASK (1U << 8U) /*!<@brief GPIO pin mask */
+#define BOARD_INITPINS_GPIO_PLU_IN3_PORT 1U                  /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_GPIO_PLU_IN3_PIN 8U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_GPIO_PLU_IN3_PIN_MASK (1U << 8U)      /*!<@brief PORT pin mask */
+                                                             /* @} */
 
 /*! @name PIO1_9 (number 10), GPIO_PLU_IN4
   @{ */
-#define BOARD_INITPINS_GPIO_PLU_IN4_GPIO GPIO /*!<@brief GPIO device name: GPIO */
-#define BOARD_INITPINS_GPIO_PLU_IN4_PORT 1U   /*!<@brief PORT device name: 1U */
-#define BOARD_INITPINS_GPIO_PLU_IN4_PIN 9U    /*!<@brief 1U pin index: 9 */
-                                              /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_GPIO_PLU_IN4_GPIO GPIO                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_INITPINS_GPIO_PLU_IN4_GPIO_PIN_MASK (1U << 9U) /*!<@brief GPIO pin mask */
+#define BOARD_INITPINS_GPIO_PLU_IN4_PORT 1U                  /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_GPIO_PLU_IN4_PIN 9U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_GPIO_PLU_IN4_PIN_MASK (1U << 9U)      /*!<@brief PORT pin mask */
+                                                             /* @} */
 
 /*! @name PIO1_10 (number 40), GPIO_PLU_IN5
   @{ */
-#define BOARD_INITPINS_GPIO_PLU_IN5_GPIO GPIO /*!<@brief GPIO device name: GPIO */
-#define BOARD_INITPINS_GPIO_PLU_IN5_PORT 1U   /*!<@brief PORT device name: 1U */
-#define BOARD_INITPINS_GPIO_PLU_IN5_PIN 10U   /*!<@brief 1U pin index: 10 */
-                                              /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_GPIO_PLU_IN5_GPIO GPIO                 /*!<@brief GPIO peripheral base pointer */
+#define BOARD_INITPINS_GPIO_PLU_IN5_GPIO_PIN_MASK (1U << 10U) /*!<@brief GPIO pin mask */
+#define BOARD_INITPINS_GPIO_PLU_IN5_PORT 1U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_GPIO_PLU_IN5_PIN 10U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_GPIO_PLU_IN5_PIN_MASK (1U << 10U)      /*!<@brief PORT pin mask */
+                                                              /* @} */
 
 /*! @name PIO1_4 (number 1), LEDB
   @{ */
-#define BOARD_INITPINS_LEDB_GPIO GPIO /*!<@brief GPIO device name: GPIO */
-#define BOARD_INITPINS_LEDB_PORT 1U   /*!<@brief PORT device name: 1U */
-#define BOARD_INITPINS_LEDB_PIN 4U    /*!<@brief 1U pin index: 4 */
-                                      /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_LEDB_GPIO GPIO                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_INITPINS_LEDB_GPIO_PIN_MASK (1U << 4U) /*!<@brief GPIO pin mask */
+#define BOARD_INITPINS_LEDB_PORT 1U                  /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_LEDB_PIN 4U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_LEDB_PIN_MASK (1U << 4U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*! @name PIO1_6 (number 5), LEDR
   @{ */
-#define BOARD_INITPINS_LEDR_GPIO GPIO /*!<@brief GPIO device name: GPIO */
-#define BOARD_INITPINS_LEDR_PORT 1U   /*!<@brief PORT device name: 1U */
-#define BOARD_INITPINS_LEDR_PIN 6U    /*!<@brief 1U pin index: 6 */
-                                      /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_LEDR_GPIO GPIO                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_INITPINS_LEDR_GPIO_PIN_MASK (1U << 6U) /*!<@brief GPIO pin mask */
+#define BOARD_INITPINS_LEDR_PORT 1U                  /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_LEDR_PIN 6U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_LEDR_PIN_MASK (1U << 6U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*! @name PIO1_7 (number 9), LEDG
   @{ */
-#define BOARD_INITPINS_LEDG_GPIO GPIO /*!<@brief GPIO device name: GPIO */
-#define BOARD_INITPINS_LEDG_PORT 1U   /*!<@brief PORT device name: 1U */
-#define BOARD_INITPINS_LEDG_PIN 7U    /*!<@brief 1U pin index: 7 */
-                                      /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_LEDG_GPIO GPIO                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_INITPINS_LEDG_GPIO_PIN_MASK (1U << 7U) /*!<@brief GPIO pin mask */
+#define BOARD_INITPINS_LEDG_PORT 1U                  /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_LEDG_PIN 7U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_LEDG_PIN_MASK (1U << 7U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

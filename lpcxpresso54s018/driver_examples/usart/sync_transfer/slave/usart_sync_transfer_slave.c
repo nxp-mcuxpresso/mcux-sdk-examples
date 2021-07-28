@@ -56,8 +56,8 @@ int main(void)
     /* attach 12 MHz clock to FLEXCOMM9. */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM9);
 
-    BOARD_InitPins();
-    BOARD_BootClockPLL180M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("This is USART synchronous transfer slave example.\r\n");

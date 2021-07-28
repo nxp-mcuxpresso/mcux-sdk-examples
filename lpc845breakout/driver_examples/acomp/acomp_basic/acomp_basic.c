@@ -42,7 +42,7 @@ int main(void)
     /* Attach 12 MHz clock to USART0 (debug console) */
     CLOCK_Select(BOARD_DEBUG_USART_CLK_ATTACH);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockFRO30M();
     BOARD_InitDebugConsole();
 

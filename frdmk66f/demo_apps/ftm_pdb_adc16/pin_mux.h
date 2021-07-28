@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -36,51 +36,75 @@ void BOARD_InitBootPins(void);
 
 /*! @name PORTB17 (coord E9), U10[1]/UART0_TX
   @{ */
-#define BOARD_DEBUG_UART_TX_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_DEBUG_UART_TX_PIN 17U    /*!<@brief PORTB pin index: 17 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_TX_PORT PORTB                /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_TX_PIN 17U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_TX_PIN_MASK (1U << 17U)      /*!<@brief PORT pin mask */
+                                                      /* @} */
 
 /*! @name PORTB16 (coord E10), U7[4]/UART0_RX
   @{ */
-#define BOARD_DEBUG_UART_RX_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_DEBUG_UART_RX_PIN 16U    /*!<@brief PORTB pin index: 16 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_RX_PORT PORTB                /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_RX_PIN 16U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_RX_PIN_MASK (1U << 16U)      /*!<@brief PORT pin mask */
+                                                      /* @} */
 
 /*! @name PORTC1 (coord B11), J1[5]/U20[C5]/I2S_TXD
   @{ */
-#define BOARD_I2S_TXD_PORT PORTC /*!<@brief PORT device name: PORTC */
-#define BOARD_I2S_TXD_PIN 1U     /*!<@brief PORTC pin index: 1 */
-                                 /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_I2S_TXD_PORT PORTC               /*!<@brief PORT peripheral base pointer */
+#define BOARD_I2S_TXD_PIN 1U                   /*!<@brief PORT pin number */
+#define BOARD_I2S_TXD_PIN_MASK (1U << 1U)      /*!<@brief PORT pin mask */
+                                               /* @} */
 
 /*! @name PORTC2 (coord A12), J1[14]/FTM0_CH1/CMP1_IN0/FB_AD12
   @{ */
-#define BOARD_FTM0_CH1_PORT PORTC /*!<@brief PORT device name: PORTC */
-#define BOARD_FTM0_CH1_PIN 2U     /*!<@brief PORTC pin index: 2 */
-                                  /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_FTM0_CH1_PORT PORTC               /*!<@brief PORT peripheral base pointer */
+#define BOARD_FTM0_CH1_PIN 2U                   /*!<@brief PORT pin number */
+#define BOARD_FTM0_CH1_PIN_MASK (1U << 2U)      /*!<@brief PORT pin mask */
+                                                /* @} */
 
 /*! @name PORTC3 (coord A11), J1[2]/UART1_RX/FTM0_CH2/CLKOUT
   @{ */
-#define BOARD_UART1_RX_PORT PORTC /*!<@brief PORT device name: PORTC */
-#define BOARD_UART1_RX_PIN 3U     /*!<@brief PORTC pin index: 3 */
-                                  /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_UART1_RX_PORT PORTC               /*!<@brief PORT peripheral base pointer */
+#define BOARD_UART1_RX_PIN 3U                   /*!<@brief PORT pin number */
+#define BOARD_UART1_RX_PIN_MASK (1U << 3U)      /*!<@brief PORT pin mask */
+                                                /* @} */
 
 /*! @name PORTA6 (coord J7), J3[7]/CLKOUT
   @{ */
-#define BOARD_CLKOUT_PORT PORTA /*!<@brief PORT device name: PORTA */
-#define BOARD_CLKOUT_PIN 6U     /*!<@brief PORTA pin index: 6 */
-                                /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_CLKOUT_PORT PORTA               /*!<@brief PORT peripheral base pointer */
+#define BOARD_CLKOUT_PIN 6U                   /*!<@brief PORT pin number */
+#define BOARD_CLKOUT_PIN_MASK (1U << 6U)      /*!<@brief PORT pin mask */
+                                              /* @} */
 
 /*! @name PORTA7 (coord J8), J3[9]/FTM0_CH4/TRACE_D3
   @{ */
-#define BOARD_FTM0_CH4_PORT PORTA /*!<@brief PORT device name: PORTA */
-#define BOARD_FTM0_CH4_PIN 7U     /*!<@brief PORTA pin index: 7 */
-                                  /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_FTM0_CH4_PORT PORTA               /*!<@brief PORT peripheral base pointer */
+#define BOARD_FTM0_CH4_PIN 7U                   /*!<@brief PORT pin number */
+#define BOARD_FTM0_CH4_PIN_MASK (1U << 7U)      /*!<@brief PORT pin mask */
+                                                /* @} */
 
 /*! @name PORTA2 (coord K6), J9[6]/JTAG_TDO/TRACE_SWO/EZP_DO
   @{ */
-#define BOARD_TRACE_SWO_PORT PORTA /*!<@brief PORT device name: PORTA */
-#define BOARD_TRACE_SWO_PIN 2U     /*!<@brief PORTA pin index: 2 */
-                                   /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_TRACE_SWO_PORT PORTA               /*!<@brief PORT peripheral base pointer */
+#define BOARD_TRACE_SWO_PIN 2U                   /*!<@brief PORT pin number */
+#define BOARD_TRACE_SWO_PIN_MASK (1U << 2U)      /*!<@brief PORT pin mask */
+                                                 /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

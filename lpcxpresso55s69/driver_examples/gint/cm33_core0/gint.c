@@ -68,7 +68,7 @@ int main(void)
     CLOCK_AttachClk(BOARD_DEBUG_UART_CLK_ATTACH);
 
     BOARD_InitBootPins();
-    BOARD_BootClockPLL150M();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Clear screen*/

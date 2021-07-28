@@ -78,8 +78,8 @@ int main(void)
 {
     uart_config_t config;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
 
     /*
      * config.baudRate_Bps = 115200U;

@@ -240,9 +240,9 @@ int main(void)
     uint32_t frameToWait = 0;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitSemcPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootClocks();
     BOARD_InitLcdifPixelClock();
     BOARD_InitDebugConsole();
     BOARD_InitLcd();

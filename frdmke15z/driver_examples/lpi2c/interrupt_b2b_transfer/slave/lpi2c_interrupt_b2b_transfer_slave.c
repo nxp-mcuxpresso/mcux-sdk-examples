@@ -87,8 +87,8 @@ int main(void)
     status_t reVal     = kStatus_Fail;
     uint32_t timeout_i = 0U;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     CLOCK_SetIpSrc(kCLOCK_Lpi2c0, kCLOCK_IpSrcFircAsync);

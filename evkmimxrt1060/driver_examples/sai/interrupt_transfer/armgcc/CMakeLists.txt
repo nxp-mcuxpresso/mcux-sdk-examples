@@ -1,6 +1,6 @@
 # CROSS COMPILER SETTING
 SET(CMAKE_SYSTEM_NAME Generic)
-CMAKE_MINIMUM_REQUIRED (VERSION 3.1.1)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
 SET (Tutorial_VERSION_MAJOR 1)
@@ -31,22 +31,22 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${ProjDirPath}/../sai_interrupt_transfer.c"
-"${ProjDirPath}/../pin_mux.c"
-"${ProjDirPath}/../pin_mux.h"
-"${ProjDirPath}/../music.h"
 "${ProjDirPath}/../../../../../../core/boards/evkmimxrt1060/board.c"
 "${ProjDirPath}/../../../../../../core/boards/evkmimxrt1060/board.h"
 "${ProjDirPath}/../../../../../../core/boards/evkmimxrt1060/clock_config.c"
 "${ProjDirPath}/../../../../../../core/boards/evkmimxrt1060/clock_config.h"
 "${ProjDirPath}/../../../../../../core/boards/evkmimxrt1060/dcd.c"
 "${ProjDirPath}/../../../../../../core/boards/evkmimxrt1060/dcd.h"
+"${ProjDirPath}/../sai_interrupt_transfer.c"
+"${ProjDirPath}/../pin_mux.c"
+"${ProjDirPath}/../pin_mux.h"
+"${ProjDirPath}/../music.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/..
     ${ProjDirPath}/../../../../../../examples/evkmimxrt1060/driver_examples/sai/interrupt_transfer
     ${ProjDirPath}/../../../../../../core/boards/evkmimxrt1060
+    ${ProjDirPath}/..
 )
 
 #path for entry cmake
@@ -96,13 +96,9 @@ include(driver_igpio)
 
 include(driver_xip_device)
 
-include(driver_xip_board)
+include(driver_xip_board_evkmimxrt1060)
 
-include(CMSIS_Include_core_cm7)
-
-include(CMSIS_Include_common)
-
-include(CMSIS_Include_dsp)
+include(CMSIS_Include_core_cm)
 
 include(utilities_misc_utilities)
 

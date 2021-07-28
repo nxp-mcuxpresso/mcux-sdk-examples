@@ -39,7 +39,7 @@ int main(void)
     usart_config_t config;
 
     /* Initialize the pins. */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     /* Enable clock to 30MHz. */
     BOARD_BootClockFRO30M();
     /* Select the main clock as source clock of USART0. */

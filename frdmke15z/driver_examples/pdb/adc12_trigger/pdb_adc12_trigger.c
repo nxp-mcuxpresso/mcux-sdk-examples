@@ -96,8 +96,8 @@ int main(void)
     pdb_config_t pdbConfigStruct;
     pdb_adc_pretrigger_config_t pdbAdcPreTriggerConfigStruct;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     CLOCK_SetIpSrc(kCLOCK_Adc0, kCLOCK_IpSrcFircAsync);

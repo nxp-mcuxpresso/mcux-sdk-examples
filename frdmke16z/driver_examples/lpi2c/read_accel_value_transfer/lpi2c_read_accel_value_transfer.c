@@ -151,12 +151,12 @@ static bool LPI2C_ReadAccelWhoAmI(void)
         }
 
         /* Delay at least one clock cycle to make sure the bus is idle. */
-        SDK_DelayAtLeastUs(1000000UL / I2C_BAUDRATE, SystemCoreClock); 
+        SDK_DelayAtLeastUs(1000000UL / I2C_BAUDRATE, SystemCoreClock);
     }
 
     if (completionFlag)
     {
-        completionFlag     = false;
+        completionFlag = false;
         if (who_am_i_value == FXOS8700_WHOAMI)
         {
             PRINTF("Found an FXOS8700 on board , the device address is 0x%x . \r\n", masterXfer.slaveAddress);
@@ -271,8 +271,8 @@ int main(void)
     bool isThereAccel = false;
     lpi2c_master_config_t masterConfig;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_ACCEL_Reset();
     BOARD_I2C_ConfigurePins();
     BOARD_InitDebugConsole();

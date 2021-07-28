@@ -69,8 +69,8 @@ int main(void)
     /* Use 12 MHz clock for some of the Ctimers */
     CLOCK_AttachClk(kFRO12M_to_ASYNC_APB);
 
-    BOARD_InitPins();
-    BOARD_BootClockPLL220M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* CTimer0 counter uses the AHB clock, some CTimer1 modules use the Aysnc clock */

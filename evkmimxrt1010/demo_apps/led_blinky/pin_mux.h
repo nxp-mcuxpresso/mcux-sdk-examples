@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 NXP
+ * Copyright 2019-2020 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -44,15 +44,18 @@ extern "C" {
  */
 void BOARD_InitBootPins(void);
 
+#define BOARD_INITPINS_IOMUXC_GPR_GPR26_GPIO_SEL_MASK 0x0800U /*!< Select GPIO1 or GPIO2: affected bits mask */
+
 /* GPIO_11 (number 1), GPIO_11 */
-#define BOARD_GPIO_11_PERIPHERAL                                           GPIO1   /*!< Device name: GPIO1 */
-#define BOARD_GPIO_11_SIGNAL                                          gpiomux_io   /*!< GPIO1 signal: gpiomux_io */
-#define BOARD_GPIO_11_CHANNEL                                                11U   /*!< GPIO1 gpiomux_io channel: 11 */
+/* Routed pin properties */
+#define BOARD_GPIO_11_PERIPHERAL                                           GPIO1   /*!< Peripheral name */
+#define BOARD_GPIO_11_SIGNAL                                          gpiomux_io   /*!< Signal name */
+#define BOARD_GPIO_11_CHANNEL                                                11U   /*!< Signal channel */
 
 /* GPIO_AD_09 (number 48), ADC12_4/JTAG_TDO/J55[6]/J26[4] */
-#define BOARD_ADC12_4_PERIPHERAL                                             ARM   /*!< Device name: ARM */
-#define BOARD_ADC12_4_SIGNAL                                       arm_trace_swo   /*!< ARM signal: arm_trace_swo */
-
+/* Routed pin properties */
+#define BOARD_ADC12_4_PERIPHERAL                                             ARM   /*!< Peripheral name */
+#define BOARD_ADC12_4_SIGNAL                                       arm_trace_swo   /*!< Signal name */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

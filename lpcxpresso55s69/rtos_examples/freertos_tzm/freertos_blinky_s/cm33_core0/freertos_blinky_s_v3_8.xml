@@ -19,9 +19,7 @@
     <definition extID="component.serial_manager.LPC55S69"/>
     <definition extID="component.lists.LPC55S69"/>
     <definition extID="component.serial_manager_uart.LPC55S69"/>
-    <definition extID="platform.Include_core_cm33.LPC55S69"/>
-    <definition extID="platform.Include_common.LPC55S69"/>
-    <definition extID="platform.Include_dsp.LPC55S69"/>
+    <definition extID="CMSIS_Include_core_cm.LPC55S69"/>
     <definition extID="platform.drivers.reset.LPC55S69"/>
     <definition extID="platform.utilities.misc_utilities.LPC55S69"/>
     <definition extID="platform.devices.LPC55S69_system.LPC55S69"/>
@@ -33,7 +31,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="lpcxpresso55s69_freertos_blinky_s" name="freertos_blinky_s" device_core="cm33_core0_LPC55S69" dependency="platform.drivers.clock.LPC55S69 platform.drivers.power_s.LPC55S69 platform.drivers.common.LPC55S69 middleware.freertos-kernel.secure_context.LPC55S69 platform.devices.LPC55S69_CMSIS.LPC55S69 platform.devices.LPC55S69_startup.LPC55S69 platform.drivers.flexcomm_usart.LPC55S69 platform.drivers.flexcomm.LPC55S69 platform.drivers.lpc_iocon.LPC55S69 platform.drivers.lpc_gpio.LPC55S69 platform.utilities.assert.LPC55S69 utility.debug_console.LPC55S69 component.usart_adapter.LPC55S69 component.serial_manager.LPC55S69 component.lists.LPC55S69 component.serial_manager_uart.LPC55S69 platform.Include_core_cm33.LPC55S69 platform.Include_common.LPC55S69 platform.Include_dsp.LPC55S69 platform.drivers.reset.LPC55S69 platform.utilities.misc_utilities.LPC55S69 platform.devices.LPC55S69_system.LPC55S69" linked_projects="lpcxpresso55s69_freertos_blinky_ns" category="rtos_examples">
+  <example id="lpcxpresso55s69_freertos_blinky_s" name="freertos_blinky_s" device_core="cm33_core0_LPC55S69" dependency="platform.drivers.clock.LPC55S69 platform.drivers.power_s.LPC55S69 platform.drivers.common.LPC55S69 middleware.freertos-kernel.secure_context.LPC55S69 platform.devices.LPC55S69_CMSIS.LPC55S69 platform.devices.LPC55S69_startup.LPC55S69 platform.drivers.flexcomm_usart.LPC55S69 platform.drivers.flexcomm.LPC55S69 platform.drivers.lpc_iocon.LPC55S69 platform.drivers.lpc_gpio.LPC55S69 platform.utilities.assert.LPC55S69 utility.debug_console.LPC55S69 component.usart_adapter.LPC55S69 component.serial_manager.LPC55S69 component.lists.LPC55S69 component.serial_manager_uart.LPC55S69 CMSIS_Include_core_cm.LPC55S69 platform.drivers.reset.LPC55S69 platform.utilities.misc_utilities.LPC55S69 platform.devices.LPC55S69_system.LPC55S69" linked_projects="lpcxpresso55s69_freertos_blinky_ns" category="rtos_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -51,6 +49,7 @@
           <value>DEMO_CODE_START_NS=65536</value>
           <value>CPU_LPC55S69JBD100_cm33_core0</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gcc.securestate" type="enum">
           <value>com.crt.advproject.gcc.securestate.secure</value>
@@ -145,14 +144,8 @@
       <files mask="freertos_blinky_s.eww"/>
       <files mask="freertos_tzm.eww"/>
     </source>
-    <source path="examples/lpcxpresso55s69/rtos_examples/freertos_tzm/freertos_blinky_s/cm33_core0/mdk" project_relative_path="lpcxpresso55s69/rtos_examples/freertos_tzm/freertos_blinky_s" type="configuration" toolchain="mdk">
-      <files mask="freertos_tzm_flashdebug.ini"/>
-    </source>
     <source path="examples/lpcxpresso55s69/rtos_examples/freertos_tzm/freertos_blinky_s/cm33_core0" project_relative_path="source" type="src">
       <files mask="main_s.c"/>
-    </source>
-    <source path="examples/lpcxpresso55s69/rtos_examples/freertos_tzm/freertos_blinky_s/cm33_core0" project_relative_path="source" type="asm_include" toolchain="iar">
-      <files mask="main_s_asm.s"/>
     </source>
     <source path="examples/lpcxpresso55s69/rtos_examples/freertos_tzm/freertos_blinky_s/cm33_core0" project_relative_path="board" type="src">
       <files mask="pin_mux.c"/>
@@ -181,12 +174,6 @@
     </source>
     <source path="examples/lpcxpresso55s69/rtos_examples/freertos_tzm/freertos_blinky_s/cm33_core0" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/lpcxpresso55s69/rtos_examples/freertos_tzm/freertos_blinky_s/cm33_core0/iar" project_relative_path="LPC55S69/iar" type="linker" toolchain="iar">
-      <files mask="LPC55S69_cm33_core0_flash_s.icf"/>
-    </source>
-    <source path="examples/lpcxpresso55s69/rtos_examples/freertos_tzm/freertos_blinky_s/cm33_core0/mdk" project_relative_path="LPC55S69/arm" type="linker" toolchain="mdk">
-      <files mask="LPC55S69_cm33_core0_flash_s.scf"/>
     </source>
     <source path="examples/lpcxpresso55s69/rtos_examples/freertos_tzm/freertos_blinky_s/cm33_core0/armgcc" project_relative_path="LPC55S69/gcc" type="linker" toolchain="armgcc">
       <files mask="LPC55S69_cm33_core0_flash_s.ld"/>

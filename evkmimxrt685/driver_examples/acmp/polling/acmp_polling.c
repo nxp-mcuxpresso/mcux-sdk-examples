@@ -42,8 +42,8 @@ int main(void)
     acmp_discrete_mode_config_t acmpDiscreteconfig;
     uint32_t statusFlags;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Let acmp run on main clock with divider 2 (250Mhz). */

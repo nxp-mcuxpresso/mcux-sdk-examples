@@ -127,7 +127,7 @@ bool LPM_SetPowerMode(lpm_power_mode_t mode);
  */
 void LPM_WaitForInterrupt(uint32_t timeoutMilliSec);
 
-#ifdef FSL_RTOS_FREE_RTOS
+#ifdef SDK_OS_FREE_RTOS
 /* Register power mode switch listener. When LPM_SetPowerMode()
  * is called, all the registered listeners will be invoked. The
  * listener returns true if it allows the power mode switch,

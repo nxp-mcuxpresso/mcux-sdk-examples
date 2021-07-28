@@ -24,9 +24,7 @@
     <definition extID="platform.drivers.lpc_gpio.LPC55S69"/>
     <definition extID="component.usart_adapter.LPC55S69"/>
     <definition extID="component.lists.LPC55S69"/>
-    <definition extID="platform.Include_core_cm33.LPC55S69"/>
-    <definition extID="platform.Include_common.LPC55S69"/>
-    <definition extID="platform.Include_dsp.LPC55S69"/>
+    <definition extID="CMSIS_Include_core_cm.LPC55S69"/>
     <definition extID="middleware.multicore.rpmsg_lite.LPC55S69"/>
     <definition extID="platform.utilities.misc_utilities.LPC55S69"/>
     <definition extID="platform.devices.LPC55S69_system.LPC55S69"/>
@@ -38,7 +36,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="lpcxpresso55s69_rpmsg_lite_pingpong_tzm_cm33_core0_s" name="rpmsg_lite_pingpong_tzm_cm33_core0_s" device_core="cm33_core0_LPC55S69" dependency="middleware.multicore.mcmgr.lpc55s69.LPC55S69 middleware.multicore.rpmsg_lite.lpcxpresso55s69_bm.LPC55S69 platform.drivers.clock.LPC55S69 platform.drivers.power_s.LPC55S69 platform.drivers.common.LPC55S69 utility.debug_console_lite.LPC55S69 platform.utilities.assert_lite.LPC55S69 platform.drivers.lpc_iocon.LPC55S69 platform.drivers.mailbox.LPC55S69 middleware.baremetal.LPC55S69 middleware.multicore.mcmgr.LPC55S69 utility.incbin.LPC55S69 platform.drivers.reset.LPC55S69 platform.devices.LPC55S69_CMSIS.LPC55S69 platform.devices.LPC55S69_startup.LPC55S69 platform.drivers.flexcomm_usart.LPC55S69 platform.drivers.flexcomm.LPC55S69 platform.drivers.lpc_gpio.LPC55S69 component.usart_adapter.LPC55S69 component.lists.LPC55S69 platform.Include_core_cm33.LPC55S69 platform.Include_common.LPC55S69 platform.Include_dsp.LPC55S69 middleware.multicore.rpmsg_lite.LPC55S69 platform.utilities.misc_utilities.LPC55S69 platform.devices.LPC55S69_system.LPC55S69" linked_projects="lpcxpresso55s69_rpmsg_lite_pingpong_tzm_cm33_core0_ns lpcxpresso55s69_rpmsg_lite_pingpong_tzm_cm33_core1_s" category="multicore_examples">
+  <example id="lpcxpresso55s69_rpmsg_lite_pingpong_tzm_cm33_core0_s" name="rpmsg_lite_pingpong_tzm_cm33_core0_s" device_core="cm33_core0_LPC55S69" dependency="middleware.multicore.mcmgr.lpc55s69.LPC55S69 middleware.multicore.rpmsg_lite.lpcxpresso55s69_bm.LPC55S69 platform.drivers.clock.LPC55S69 platform.drivers.power_s.LPC55S69 platform.drivers.common.LPC55S69 utility.debug_console_lite.LPC55S69 platform.utilities.assert_lite.LPC55S69 platform.drivers.lpc_iocon.LPC55S69 platform.drivers.mailbox.LPC55S69 middleware.baremetal.LPC55S69 middleware.multicore.mcmgr.LPC55S69 utility.incbin.LPC55S69 platform.drivers.reset.LPC55S69 platform.devices.LPC55S69_CMSIS.LPC55S69 platform.devices.LPC55S69_startup.LPC55S69 platform.drivers.flexcomm_usart.LPC55S69 platform.drivers.flexcomm.LPC55S69 platform.drivers.lpc_gpio.LPC55S69 component.usart_adapter.LPC55S69 component.lists.LPC55S69 CMSIS_Include_core_cm.LPC55S69 middleware.multicore.rpmsg_lite.LPC55S69 platform.utilities.misc_utilities.LPC55S69 platform.devices.LPC55S69_system.LPC55S69" linked_projects="lpcxpresso55s69_rpmsg_lite_pingpong_tzm_cm33_core0_ns lpcxpresso55s69_rpmsg_lite_pingpong_tzm_cm33_core1_s" category="multicore_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -57,6 +55,7 @@
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>CPU_LPC55S69JBD100_cm33_core0</value>
           <value>MULTICORE_APP=1</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gcc.securestate" type="enum">
           <value>com.crt.advproject.gcc.securestate.secure</value>
@@ -200,12 +199,6 @@
     </source>
     <source path="examples/lpcxpresso55s69/multicore_examples/rpmsg_lite_pingpong_tzm/cm33_core0/s" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/lpcxpresso55s69/multicore_examples/rpmsg_lite_pingpong_tzm/cm33_core0/s/iar" project_relative_path="LPC55S69/iar" type="linker" toolchain="iar">
-      <files mask="LPC55S69_cm33_core0_flash_s.icf"/>
-    </source>
-    <source path="examples/lpcxpresso55s69/multicore_examples/rpmsg_lite_pingpong_tzm/cm33_core0/s/mdk" project_relative_path="LPC55S69/arm" type="linker" toolchain="mdk">
-      <files mask="LPC55S69_cm33_core0_flash_s.scf"/>
     </source>
     <source path="examples/lpcxpresso55s69/multicore_examples/rpmsg_lite_pingpong_tzm/cm33_core0/s/armgcc" project_relative_path="LPC55S69/gcc" type="linker" toolchain="armgcc">
       <files mask="LPC55S69_cm33_core0_flash_s.ld"/>

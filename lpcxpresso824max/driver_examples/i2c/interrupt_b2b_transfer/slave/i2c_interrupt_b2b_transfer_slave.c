@@ -88,8 +88,8 @@ int main(void)
     /* Enable clock of i2c0. */
     CLOCK_EnableClock(kCLOCK_I2c0);
 
-    BOARD_InitPins();
-    BOARD_BootClockIRC12M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\nI2C board2board interrupt example -- Slave transfer.\r\n\r\n");

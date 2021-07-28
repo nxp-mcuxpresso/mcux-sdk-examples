@@ -113,41 +113,6 @@ static void APP_SRTM_PcmSaiSet(void)
     IOMUXC_SetPinMux(IOMUXC_SAI1_RXD7_SAI1_TX_SYNC, 0U);
 }
 #endif
-static uint32_t APP_SRTM_SaiClockSet(mclk_type_t type)
-{
-    uint32_t sai_source_clk = 0;
-    if (type == SRTM_CLK22M)
-    {
-#if APP_SRTM_CODEC_AK4497_USED
-        CLOCK_SetRootMux(kCLOCK_RootSai1,
-                         kCLOCK_SaiRootmuxAudioPll2); /* Set SAI source to Audio PLL2 361267200Hz to get 22.5792MHz */
-        sai_source_clk = APP_AUDIO_PLL2_FREQ / (CLOCK_GetRootPreDivider(kCLOCK_RootSai1)) /
-                         (CLOCK_GetRootPostDivider(kCLOCK_RootSai1));
-#endif
-#if APP_SRTM_CODEC_WM8524_USED
-        CLOCK_SetRootMux(kCLOCK_RootSai3,
-                         kCLOCK_SaiRootmuxAudioPll2); /* Set SAI source to Audio PLL2 361267200Hz to get 22.5792MHz */
-        sai_source_clk = APP_AUDIO_PLL2_FREQ / (CLOCK_GetRootPreDivider(kCLOCK_RootSai3)) /
-                         (CLOCK_GetRootPostDivider(kCLOCK_RootSai3));
-#endif
-    }
-    else
-    {
-#if APP_SRTM_CODEC_AK4497_USED
-        CLOCK_SetRootMux(kCLOCK_RootSai1,
-                         kCLOCK_SaiRootmuxAudioPll1); /* Set SAI source to Audio PLL1 393216000Hz to get 49.152Mhz*/
-        sai_source_clk = APP_AUDIO_PLL1_FREQ / (CLOCK_GetRootPreDivider(kCLOCK_RootSai1)) /
-                         (CLOCK_GetRootPostDivider(kCLOCK_RootSai1));
-#endif
-#if APP_SRTM_CODEC_WM8524_USED
-        CLOCK_SetRootMux(kCLOCK_RootSai3,
-                         kCLOCK_SaiRootmuxAudioPll1); /* Set SAI source to Audio PLL1 393216000Hz to get 24.576Mhz*/
-        sai_source_clk = APP_AUDIO_PLL1_FREQ / (CLOCK_GetRootPreDivider(kCLOCK_RootSai3)) /
-                         (CLOCK_GetRootPostDivider(kCLOCK_RootSai3));
-#endif
-    }
-    return sai_source_clk;
-}
 
 static void APP_SRTM_ClockGateControl(bool isEnable)
 {
@@ -185,6 +150,47 @@ static void APP_SRTM_ClockGateControl(bool isEnable)
             *&(CCM_ANALOG->AUDIO_PLL2_GEN_CTRL) &= ~CCM_ANALOG_AUDIO_PLL2_GEN_CTRL_PLL_CLKE_MASK;
         }
     }
+}
+
+static uint32_t APP_SRTM_SaiClockSet(mclk_type_t type)
+{
+    uint32_t sai_source_clk = 0;
+#if APP_SRTM_CODEC_WM8524_USED
+    /* Due to A core supports AK4497 playback by default, so when using the WM8524 to playback, M core needs to ensure
+     * the AUDIO PLL1/2 are alive. */
+    APP_SRTM_ClockGateControl(true);
+#endif
+    if (type == SRTM_CLK22M)
+    {
+#if APP_SRTM_CODEC_AK4497_USED
+        CLOCK_SetRootMux(kCLOCK_RootSai1,
+                         kCLOCK_SaiRootmuxAudioPll2); /* Set SAI source to Audio PLL2 361267200Hz to get 22.5792MHz */
+        sai_source_clk = APP_AUDIO_PLL2_FREQ / (CLOCK_GetRootPreDivider(kCLOCK_RootSai1)) /
+                         (CLOCK_GetRootPostDivider(kCLOCK_RootSai1));
+#endif
+#if APP_SRTM_CODEC_WM8524_USED
+        CLOCK_SetRootMux(kCLOCK_RootSai3,
+                         kCLOCK_SaiRootmuxAudioPll2); /* Set SAI source to Audio PLL2 361267200Hz to get 22.5792MHz */
+        sai_source_clk = APP_AUDIO_PLL2_FREQ / (CLOCK_GetRootPreDivider(kCLOCK_RootSai3)) /
+                         (CLOCK_GetRootPostDivider(kCLOCK_RootSai3));
+#endif
+    }
+    else
+    {
+#if APP_SRTM_CODEC_AK4497_USED
+        CLOCK_SetRootMux(kCLOCK_RootSai1,
+                         kCLOCK_SaiRootmuxAudioPll1); /* Set SAI source to Audio PLL1 393216000Hz to get 49.152Mhz*/
+        sai_source_clk = APP_AUDIO_PLL1_FREQ / (CLOCK_GetRootPreDivider(kCLOCK_RootSai1)) /
+                         (CLOCK_GetRootPostDivider(kCLOCK_RootSai1));
+#endif
+#if APP_SRTM_CODEC_WM8524_USED
+        CLOCK_SetRootMux(kCLOCK_RootSai3,
+                         kCLOCK_SaiRootmuxAudioPll1); /* Set SAI source to Audio PLL1 393216000Hz to get 24.576Mhz*/
+        sai_source_clk = APP_AUDIO_PLL1_FREQ / (CLOCK_GetRootPreDivider(kCLOCK_RootSai3)) /
+                         (CLOCK_GetRootPostDivider(kCLOCK_RootSai3));
+#endif
+    }
+    return sai_source_clk;
 }
 
 #if APP_SRTM_CODEC_AK4497_USED
@@ -292,11 +298,6 @@ static void APP_SRTM_InitI2C(I2C_Type *base, uint32_t baudrate, uint32_t clockra
     NVIC_SetPriority(APP_SRTM_I2C_IRQn, APP_SRTM_I2C_IRQ_PRIO);
 
     I2C_MasterInit(base, &masterConfig, clockrate);
-}
-
-static void APP_SRTM_DeinitI2C()
-{
-    I2C_MasterDeinit(APP_SRTM_I2C);
 }
 
 static status_t APP_SRTM_ReadCodecRegMap(void *handle, uint32_t reg, uint32_t *val)
@@ -430,9 +431,6 @@ static void APP_SRTM_InitAudioDevice(bool enable)
     }
     else
     {
-#if APP_SRTM_CODEC_AK4497_USED
-        APP_SRTM_DeinitI2C();
-#endif
         SDMA_Deinit(APP_SRTM_DMA);
     }
 }
@@ -465,10 +463,7 @@ static void APP_SRTM_InitAudioService(void)
     saiTxConfig.extendConfig.dsdSaiSetting = APP_SRTM_DsdSaiSet;
     saiTxConfig.extendConfig.pcmSaiSetting = APP_SRTM_PcmSaiSet;
 #endif
-#if APP_SRTM_CODEC_WM8524_USED
-    saiTxConfig.extendConfig.dsdSaiSetting = NULL;
-    saiTxConfig.extendConfig.pcmSaiSetting = NULL;
-#endif
+
     saiTxConfig.extendConfig.clkSetting = APP_SRTM_SaiClockSet;
     saiTxConfig.extendConfig.clkGate    = APP_SRTM_ClockGateControl;
 

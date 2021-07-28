@@ -7,7 +7,7 @@ this example will print the capture values and period of the input signal on the
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
+- GCC ARM Embedded  10.2.1
 
 Hardware requirements
 =====================

@@ -40,8 +40,8 @@ int main(void)
     adc16_config_t adc16ConfigStruct;
     adc16_channel_config_t adc16ChannelConfigStruct;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\nADC16 polling Example.\r\n");

@@ -66,7 +66,7 @@ int main(void)
     /* Set root clock to 80MHZ/ 1= 80MHZ */
     CLOCK_SetRootDivider(kCLOCK_RootUart3, 1U, 1U);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockRUN();
     BOARD_InitDebugConsole();
     BOARD_InitMemory();

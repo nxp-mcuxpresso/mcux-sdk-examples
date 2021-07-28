@@ -256,7 +256,7 @@ int main(void)
 {
     uint32_t i = 0U;
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     /* Enable divider 5 */
     SIM->CLKDIV1 |= SIM_CLKDIV1_OUTDIV5EN(1U);

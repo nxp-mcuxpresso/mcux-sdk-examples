@@ -99,7 +99,7 @@ int main(void)
     ftm_phase_params_t phaseParamsConfigStruct;
 
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 

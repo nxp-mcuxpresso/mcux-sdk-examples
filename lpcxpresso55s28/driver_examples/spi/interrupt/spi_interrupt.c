@@ -121,8 +121,8 @@ int main(void)
     RESET_PeripheralReset(kFC7_RST_SHIFT_RSTn);
     RESET_PeripheralReset(kFC2_RST_SHIFT_RSTn);
 
-    BOARD_InitPins();
-    BOARD_BootClockPLL150M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\nSPI one board interrupt example started!\r\n");

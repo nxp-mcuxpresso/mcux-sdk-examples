@@ -16,11 +16,9 @@
     <definition extID="component.lpuart_adapter.K32L3A60"/>
     <definition extID="component.lists.K32L3A60"/>
     <definition extID="platform.devices.K32L3A60_CMSIS.K32L3A60"/>
-    <definition extID="platform.Include_core_cm4.K32L3A60"/>
     <definition extID="platform.devices.K32L3A60_startup.K32L3A60"/>
+    <definition extID="CMSIS_Include_core_cm.K32L3A60"/>
     <definition extID="platform.utilities.misc_utilities.K32L3A60"/>
-    <definition extID="platform.Include_common.K32L3A60"/>
-    <definition extID="platform.Include_dsp.K32L3A60"/>
     <definition extID="platform.devices.K32L3A60_system.K32L3A60"/>
     <definition extID="iar"/>
     <definition extID="mdk"/>
@@ -30,7 +28,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="frdmk32l3a6_edma_ping_pong_transfer_cm4" name="edma_ping_pong_transfer_cm4" device_core="cm4_K32L3A60xxx" dependency="utility.debug_console_lite.K32L3A60 platform.utilities.assert_lite.K32L3A60 platform.drivers.port.K32L3A60 platform.drivers.sim.K32L3A60 platform.drivers.clock.K32L3A60 platform.drivers.edma.K32L3A60 platform.drivers.dmamux.K32L3A60 platform.drivers.common.K32L3A60 platform.drivers.msmc.K32L3A60 platform.drivers.lpuart.K32L3A60 platform.drivers.gpio.K32L3A60 component.lpuart_adapter.K32L3A60 component.lists.K32L3A60 platform.devices.K32L3A60_CMSIS.K32L3A60 platform.Include_core_cm4.K32L3A60 platform.devices.K32L3A60_startup.K32L3A60 platform.utilities.misc_utilities.K32L3A60 platform.Include_common.K32L3A60 platform.Include_dsp.K32L3A60 platform.devices.K32L3A60_system.K32L3A60" category="driver_examples/edma">
+  <example id="frdmk32l3a6_edma_ping_pong_transfer_cm4" name="edma_ping_pong_transfer_cm4" device_core="cm4_K32L3A60xxx" dependency="utility.debug_console_lite.K32L3A60 platform.utilities.assert_lite.K32L3A60 platform.drivers.port.K32L3A60 platform.drivers.sim.K32L3A60 platform.drivers.clock.K32L3A60 platform.drivers.edma.K32L3A60 platform.drivers.dmamux.K32L3A60 platform.drivers.common.K32L3A60 platform.drivers.msmc.K32L3A60 platform.drivers.lpuart.K32L3A60 platform.drivers.gpio.K32L3A60 component.lpuart_adapter.K32L3A60 component.lists.K32L3A60 platform.devices.K32L3A60_CMSIS.K32L3A60 platform.devices.K32L3A60_startup.K32L3A60 CMSIS_Include_core_cm.K32L3A60 platform.utilities.misc_utilities.K32L3A60 platform.devices.K32L3A60_system.K32L3A60" category="driver_examples/edma">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -45,6 +43,7 @@
       <toolchainSetting id_refs="com.nxp.mcuxpresso">
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>CPU_K32L3A60VPJ1A_cm4</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
@@ -130,12 +129,6 @@
     </source>
     <source path="examples/frdmk32l3a6/driver_examples/edma/ping_pong_transfer/cm4" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/frdmk32l3a6/driver_examples/edma/ping_pong_transfer/cm4/iar" project_relative_path="K32L3A60/iar" type="linker" toolchain="iar">
-      <files mask="K32L3A60xxx_cm4_flash.icf"/>
-    </source>
-    <source path="examples/frdmk32l3a6/driver_examples/edma/ping_pong_transfer/cm4/mdk" project_relative_path="K32L3A60/arm" type="linker" toolchain="mdk">
-      <files mask="K32L3A60xxx_cm4_flash.scf"/>
     </source>
     <source path="examples/frdmk32l3a6/driver_examples/edma/ping_pong_transfer/cm4/armgcc" project_relative_path="K32L3A60/gcc" type="linker" toolchain="armgcc">
       <files mask="K32L3A60xxx_cm4_flash.ld"/>

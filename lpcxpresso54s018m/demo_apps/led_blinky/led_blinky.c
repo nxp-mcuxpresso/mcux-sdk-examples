@@ -51,7 +51,7 @@ int main(void)
     /* Init output LED GPIO. */
     GPIO_PortInit(GPIO, BOARD_LED_PORT);
     /* Board pin init */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
 
     /* Set systick reload value to generate 1ms interrupt */

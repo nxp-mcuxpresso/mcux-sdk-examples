@@ -14,10 +14,8 @@
     <definition extID="platform.drivers.iomuxc.MIMXRT1024"/>
     <definition extID="platform.drivers.igpio.MIMXRT1024"/>
     <definition extID="platform.drivers.xip_device.MIMXRT1024"/>
-    <definition extID="platform.drivers.xip_board.MIMXRT1024"/>
-    <definition extID="platform.Include_core_cm7.MIMXRT1024"/>
-    <definition extID="platform.Include_common.MIMXRT1024"/>
-    <definition extID="platform.Include_dsp.MIMXRT1024"/>
+    <definition extID="platform.drivers.xip_board.evkmimxrt1024.MIMXRT1024"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT1024"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1024"/>
     <definition extID="device.MIMXRT1024_system.MIMXRT1024"/>
     <definition extID="iar"/>
@@ -28,7 +26,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1024_flexcan_loopback" name="flexcan_loopback" dependency="utility.debug_console_lite.MIMXRT1024 platform.utilities.assert_lite.MIMXRT1024 platform.drivers.flexcan.MIMXRT1024 platform.drivers.clock.MIMXRT1024 platform.drivers.common.MIMXRT1024 device.MIMXRT1024_CMSIS.MIMXRT1024 component.lpuart_adapter.MIMXRT1024 component.lists.MIMXRT1024 platform.drivers.lpuart.MIMXRT1024 device.MIMXRT1024_startup.MIMXRT1024 platform.drivers.iomuxc.MIMXRT1024 platform.drivers.igpio.MIMXRT1024 platform.drivers.xip_device.MIMXRT1024 platform.drivers.xip_board.MIMXRT1024 platform.Include_core_cm7.MIMXRT1024 platform.Include_common.MIMXRT1024 platform.Include_dsp.MIMXRT1024 platform.utilities.misc_utilities.MIMXRT1024 device.MIMXRT1024_system.MIMXRT1024" category="driver_examples/flexcan">
+  <example id="evkmimxrt1024_flexcan_loopback" name="flexcan_loopback" dependency="utility.debug_console_lite.MIMXRT1024 platform.utilities.assert_lite.MIMXRT1024 platform.drivers.flexcan.MIMXRT1024 platform.drivers.clock.MIMXRT1024 platform.drivers.common.MIMXRT1024 device.MIMXRT1024_CMSIS.MIMXRT1024 component.lpuart_adapter.MIMXRT1024 component.lists.MIMXRT1024 platform.drivers.lpuart.MIMXRT1024 device.MIMXRT1024_startup.MIMXRT1024 platform.drivers.iomuxc.MIMXRT1024 platform.drivers.igpio.MIMXRT1024 platform.drivers.xip_device.MIMXRT1024 platform.drivers.xip_board.evkmimxrt1024.MIMXRT1024 CMSIS_Include_core_cm.MIMXRT1024 platform.utilities.misc_utilities.MIMXRT1024 device.MIMXRT1024_system.MIMXRT1024" category="driver_examples/flexcan">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -48,6 +46,7 @@
           <value>XIP_EXTERNAL_FLASH=1</value>
           <value>XIP_BOOT_HEADER_ENABLE=1</value>
           <value>FLEXCAN_WAIT_TIMEOUT=1000</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv5dp.hard</value>
@@ -148,28 +147,10 @@
     <source path="examples/evkmimxrt1024/driver_examples/flexcan/loopback" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
     </source>
-    <source path="examples/evkmimxrt1024/driver_examples/flexcan/loopback/iar" project_relative_path="MIMXRT1024/iar" type="linker" toolchain="iar">
-      <files mask="MIMXRT1024xxxxx_ram.icf"/>
-      <files mask="MIMXRT1024xxxxx_sdram.icf"/>
-      <files mask="MIMXRT1024xxxxx_flexspi_nor.icf"/>
-    </source>
-    <source path="examples/evkmimxrt1024/driver_examples/flexcan/loopback/mdk" project_relative_path="MIMXRT1024/arm" type="linker" toolchain="mdk">
-      <files mask="MIMXRT1024xxxxx_ram.scf"/>
-      <files mask="MIMXRT1024xxxxx_sdram.scf"/>
-      <files mask="MIMXRT1024xxxxx_flexspi_nor.scf"/>
-    </source>
     <source path="examples/evkmimxrt1024/driver_examples/flexcan/loopback/armgcc" project_relative_path="MIMXRT1024/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMXRT1024xxxxx_ram.ld"/>
       <files mask="MIMXRT1024xxxxx_sdram.ld"/>
       <files mask="MIMXRT1024xxxxx_flexspi_nor.ld"/>
-    </source>
-    <source path="examples/evkmimxrt1024/driver_examples/flexcan/loopback/iar" project_relative_path="evkmimxrt1024" type="other" toolchain="iar">
-      <files mask="evkmimxrt1024_sdram_init.mac"/>
-    </source>
-    <source path="examples/evkmimxrt1024/driver_examples/flexcan/loopback/mdk" project_relative_path="evkmimxrt1024" type="configuration" toolchain="mdk">
-      <files mask="evkmimxrt1024_ram.ini"/>
-      <files mask="evkmimxrt1024_sdram_init.ini"/>
-      <files mask="evkmimxrt1024_flexspi_nor.ini"/>
     </source>
   </example>
 </ksdk:examples>

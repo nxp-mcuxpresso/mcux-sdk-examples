@@ -6,7 +6,7 @@ The example uses the IRQ pin to generate a falling edge interrupt to show the ex
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
+- GCC ARM Embedded  10.2.1
 
 Hardware requirements
 =====================

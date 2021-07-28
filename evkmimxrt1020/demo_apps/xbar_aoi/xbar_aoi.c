@@ -111,10 +111,12 @@ static void CMP_Configuration(void)
     dacConfigStruct.referenceVoltageSource = kACMP_VrefSourceVin2;
 #else
     dacConfigStruct.referenceVoltageSource = kACMP_VrefSourceVin1;
-#endif                                    /* DEMO_ACMP_USE_ALT_VREF */
-    dacConfigStruct.DACValue     = 0x7FU; /* Half of referene voltage. */
+#endif                                /* DEMO_ACMP_USE_ALT_VREF */
+    dacConfigStruct.DACValue = 0x7FU; /* Half of referene voltage. */
+#if defined(FSL_FEATURE_ACMP_HAS_C1_DACOE_BIT) && (FSL_FEATURE_ACMP_HAS_C1_DACOE_BIT == 1U)
     dacConfigStruct.enableOutput = false;
-    dacConfigStruct.workMode     = kACMP_DACWorkLowSpeedMode;
+#endif
+    dacConfigStruct.workMode = kACMP_DACWorkLowSpeedMode;
     ACMP_SetDACConfig(DEMO_CMP_BASEADDR, &dacConfigStruct);
 
     ACMP_Enable(DEMO_CMP_BASEADDR, true);
@@ -209,7 +211,7 @@ void DEMO_XBARA_IRQ_HANDLER_FUNC(void)
 int main(void)
 {
     /* Init board hardware */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     /* Init PIT timer */

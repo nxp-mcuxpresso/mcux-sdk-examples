@@ -50,7 +50,7 @@ int main()
     CLOCK_EnableClock(kCLOCK_Gpio0);
     CLOCK_EnableClock(kCLOCK_Gpio1);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockFROHF96M();
     BOARD_InitDebugConsole();
 

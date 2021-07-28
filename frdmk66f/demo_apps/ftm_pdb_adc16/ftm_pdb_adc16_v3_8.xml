@@ -21,9 +21,7 @@
     <definition extID="device.MK66F18_startup.MK66F18"/>
     <definition extID="platform.drivers.lpuart.MK66F18"/>
     <definition extID="platform.drivers.smc.MK66F18"/>
-    <definition extID="platform.Include_core_cm4.MK66F18"/>
-    <definition extID="platform.Include_common.MK66F18"/>
-    <definition extID="platform.Include_dsp.MK66F18"/>
+    <definition extID="CMSIS_Include_core_cm.MK66F18"/>
     <definition extID="platform.utilities.misc_utilities.MK66F18"/>
     <definition extID="device.MK66F18_system.MK66F18"/>
     <definition extID="iar"/>
@@ -32,7 +30,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="frdmk66f_ftm_pdb_adc16" name="ftm_pdb_adc16" dependency="utility.debug_console_lite.MK66F18 platform.utilities.assert_lite.MK66F18 platform.drivers.port.MK66F18 platform.drivers.pdb.MK66F18 platform.drivers.ftm.MK66F18 platform.drivers.lptmr.MK66F18 platform.drivers.gpio.MK66F18 platform.drivers.clock.MK66F18 platform.drivers.adc16.MK66F18 platform.drivers.sim.MK66F18 platform.drivers.pmc.MK66F18 platform.drivers.flash.MK66F18 platform.drivers.common.MK66F18 device.MK66F18_CMSIS.MK66F18 component.uart_adapter.MK66F18 component.lists.MK66F18 platform.drivers.uart.MK66F18 device.MK66F18_startup.MK66F18 platform.drivers.lpuart.MK66F18 platform.drivers.smc.MK66F18 platform.Include_core_cm4.MK66F18 platform.Include_common.MK66F18 platform.Include_dsp.MK66F18 platform.utilities.misc_utilities.MK66F18 device.MK66F18_system.MK66F18" category="demo_apps">
+  <example id="frdmk66f_ftm_pdb_adc16" name="ftm_pdb_adc16" dependency="utility.debug_console_lite.MK66F18 platform.utilities.assert_lite.MK66F18 platform.drivers.port.MK66F18 platform.drivers.pdb.MK66F18 platform.drivers.ftm.MK66F18 platform.drivers.lptmr.MK66F18 platform.drivers.gpio.MK66F18 platform.drivers.clock.MK66F18 platform.drivers.adc16.MK66F18 platform.drivers.sim.MK66F18 platform.drivers.pmc.MK66F18 platform.drivers.flash.MK66F18 platform.drivers.common.MK66F18 device.MK66F18_CMSIS.MK66F18 component.uart_adapter.MK66F18 component.lists.MK66F18 platform.drivers.uart.MK66F18 device.MK66F18_startup.MK66F18 platform.drivers.lpuart.MK66F18 platform.drivers.smc.MK66F18 CMSIS_Include_core_cm.MK66F18 platform.utilities.misc_utilities.MK66F18 device.MK66F18_system.MK66F18" category="demo_apps">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -42,6 +40,7 @@
           <value>CPU_MK66FN2M0VMD18</value>
           <value>FRDM_K66F</value>
           <value>FREEDOM</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
@@ -126,12 +125,6 @@
     </source>
     <source path="examples/frdmk66f/demo_apps/ftm_pdb_adc16" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/frdmk66f/demo_apps/ftm_pdb_adc16/iar" project_relative_path="MK66F18/iar" type="linker" toolchain="iar">
-      <files mask="MK66FN2M0xxx18_flash.icf"/>
-    </source>
-    <source path="examples/frdmk66f/demo_apps/ftm_pdb_adc16/mdk" project_relative_path="MK66F18/arm" type="linker" toolchain="mdk">
-      <files mask="MK66FN2M0xxx18_flash.scf"/>
     </source>
     <source path="examples/frdmk66f/demo_apps/ftm_pdb_adc16/armgcc" project_relative_path="MK66F18/gcc" type="linker" toolchain="armgcc">
       <files mask="MK66FN2M0xxx18_flash.ld"/>

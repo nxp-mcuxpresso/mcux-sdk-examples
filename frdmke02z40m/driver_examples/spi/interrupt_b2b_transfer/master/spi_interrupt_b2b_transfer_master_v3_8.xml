@@ -13,9 +13,7 @@
     <definition extID="device.MKE02Z4_startup.MKE02Z4"/>
     <definition extID="platform.drivers.port_ke02.MKE02Z4"/>
     <definition extID="platform.drivers.gpio_1.MKE02Z4"/>
-    <definition extID="platform.Include_core_cm0plus.MKE02Z4"/>
-    <definition extID="platform.Include_common.MKE02Z4"/>
-    <definition extID="platform.Include_dsp.MKE02Z4"/>
+    <definition extID="CMSIS_Include_core_cm.MKE02Z4"/>
     <definition extID="platform.utilities.misc_utilities.MKE02Z4"/>
     <definition extID="device.MKE02Z4_system.MKE02Z4"/>
     <definition extID="iar"/>
@@ -24,7 +22,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="frdmke02z40m_spi_interrupt_b2b_transfer_master" name="spi_interrupt_b2b_transfer_master" dependency="utility.debug_console_lite.MKE02Z4 platform.utilities.assert_lite.MKE02Z4 platform.drivers.spi.MKE02Z4 platform.drivers.clock.MKE02Z4 platform.drivers.common.MKE02Z4 device.MKE02Z4_CMSIS.MKE02Z4 component.uart_adapter.MKE02Z4 component.lists.MKE02Z4 platform.drivers.uart.MKE02Z4 device.MKE02Z4_startup.MKE02Z4 platform.drivers.port_ke02.MKE02Z4 platform.drivers.gpio_1.MKE02Z4 platform.Include_core_cm0plus.MKE02Z4 platform.Include_common.MKE02Z4 platform.Include_dsp.MKE02Z4 platform.utilities.misc_utilities.MKE02Z4 device.MKE02Z4_system.MKE02Z4" category="driver_examples/spi">
+  <example id="frdmke02z40m_spi_interrupt_b2b_transfer_master" name="spi_interrupt_b2b_transfer_master" dependency="utility.debug_console_lite.MKE02Z4 platform.utilities.assert_lite.MKE02Z4 platform.drivers.spi.MKE02Z4 platform.drivers.clock.MKE02Z4 platform.drivers.common.MKE02Z4 device.MKE02Z4_CMSIS.MKE02Z4 component.uart_adapter.MKE02Z4 component.lists.MKE02Z4 platform.drivers.uart.MKE02Z4 device.MKE02Z4_startup.MKE02Z4 platform.drivers.port_ke02.MKE02Z4 platform.drivers.gpio_1.MKE02Z4 CMSIS_Include_core_cm.MKE02Z4 platform.utilities.misc_utilities.MKE02Z4 device.MKE02Z4_system.MKE02Z4" category="driver_examples/spi">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -34,6 +32,7 @@
           <value>CPU_MKE02Z64VQH4</value>
           <value>FRDM_KE02Z40M</value>
           <value>FREEDOM</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.none</value>
@@ -112,12 +111,6 @@
     </source>
     <source path="examples/frdmke02z40m/driver_examples/spi/interrupt_b2b_transfer/master" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/frdmke02z40m/driver_examples/spi/interrupt_b2b_transfer/master/iar" project_relative_path="MKE02Z4/iar" type="linker" toolchain="iar">
-      <files mask="MKE02Z64xxx4_flash.icf"/>
-    </source>
-    <source path="examples/frdmke02z40m/driver_examples/spi/interrupt_b2b_transfer/master/mdk" project_relative_path="MKE02Z4/arm" type="linker" toolchain="mdk">
-      <files mask="MKE02Z64xxx4_flash.scf"/>
     </source>
     <source path="examples/frdmke02z40m/driver_examples/spi/interrupt_b2b_transfer/master/armgcc" project_relative_path="MKE02Z4/gcc" type="linker" toolchain="armgcc">
       <files mask="MKE02Z64xxx4_flash.ld"/>

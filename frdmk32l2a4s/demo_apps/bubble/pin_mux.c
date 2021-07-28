@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v6.0
+product: Pins v9.0
 processor: K32L2A41xxxxA
 package_id: K32L2A41VLL1A
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 9.0.0
 board: FRDM-K32L2A4S
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -72,19 +72,19 @@ void BOARD_InitPins(void)
     CLOCK_EnableClock(kCLOCK_PortE);
 
     /* PORTA4 (pin 38) is configured as TSI0_CH5 */
-    PORT_SetPinMux(PORTA, 4U, kPORT_PinDisabledOrAnalog);
+    PORT_SetPinMux(BOARD_SW2_PORT, BOARD_SW2_PIN, kPORT_PinDisabledOrAnalog);
 
     /* PORTB16 (pin 62) is configured as LPUART0_RX */
-    PORT_SetPinMux(PORTB, 16U, kPORT_MuxAlt3);
+    PORT_SetPinMux(BOARD_DEBUG_UART_RX_PORT, BOARD_DEBUG_UART_RX_PIN, kPORT_MuxAlt3);
 
     /* PORTB17 (pin 63) is configured as LPUART0_TX */
-    PORT_SetPinMux(PORTB, 17U, kPORT_MuxAlt3);
+    PORT_SetPinMux(BOARD_DEBUG_UART_TX_PORT, BOARD_DEBUG_UART_TX_PIN, kPORT_MuxAlt3);
 
     /* PORTC4 (pin 76) is configured as TPM0_CH3 */
-    PORT_SetPinMux(PORTC, 4U, kPORT_MuxAlt4);
+    PORT_SetPinMux(BOARD_LED_GREEN_PORT, BOARD_LED_GREEN_PIN, kPORT_MuxAlt4);
 
     /* PORTE29 (pin 26) is configured as TPM0_CH2 */
-    PORT_SetPinMux(PORTE, 29U, kPORT_MuxAlt3);
+    PORT_SetPinMux(BOARD_LED_RED_PORT, BOARD_LED_RED_PIN, kPORT_MuxAlt3);
 }
 
 /* clang-format off */

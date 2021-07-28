@@ -50,7 +50,7 @@ int main(void)
     CLOCK_EnableClock(kCLOCK_Otp);
     RESET_PeripheralReset(kOTP_RST_SHIFT_RSTn);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
 
     /* main clock needs to be set to 12 MHz in order to use OTP */
     BOARD_BootClockFRO12M();

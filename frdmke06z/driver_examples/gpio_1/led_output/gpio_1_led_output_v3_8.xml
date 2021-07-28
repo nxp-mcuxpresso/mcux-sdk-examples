@@ -12,9 +12,7 @@
     <definition extID="platform.drivers.uart.MKE06Z4"/>
     <definition extID="device.MKE06Z4_startup.MKE06Z4"/>
     <definition extID="platform.drivers.port_ke06.MKE06Z4"/>
-    <definition extID="platform.Include_core_cm0plus.MKE06Z4"/>
-    <definition extID="platform.Include_common.MKE06Z4"/>
-    <definition extID="platform.Include_dsp.MKE06Z4"/>
+    <definition extID="CMSIS_Include_core_cm.MKE06Z4"/>
     <definition extID="platform.utilities.misc_utilities.MKE06Z4"/>
     <definition extID="device.MKE06Z4_system.MKE06Z4"/>
     <definition extID="iar"/>
@@ -23,7 +21,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="frdmke06z_gpio_1_led_output" name="gpio_1_led_output" dependency="utility.debug_console_lite.MKE06Z4 platform.utilities.assert_lite.MKE06Z4 platform.drivers.gpio_1.MKE06Z4 platform.drivers.clock.MKE06Z4 platform.drivers.common.MKE06Z4 device.MKE06Z4_CMSIS.MKE06Z4 component.uart_adapter.MKE06Z4 component.lists.MKE06Z4 platform.drivers.uart.MKE06Z4 device.MKE06Z4_startup.MKE06Z4 platform.drivers.port_ke06.MKE06Z4 platform.Include_core_cm0plus.MKE06Z4 platform.Include_common.MKE06Z4 platform.Include_dsp.MKE06Z4 platform.utilities.misc_utilities.MKE06Z4 device.MKE06Z4_system.MKE06Z4" category="driver_examples/gpio_1">
+  <example id="frdmke06z_gpio_1_led_output" name="gpio_1_led_output" dependency="utility.debug_console_lite.MKE06Z4 platform.utilities.assert_lite.MKE06Z4 platform.drivers.gpio_1.MKE06Z4 platform.drivers.clock.MKE06Z4 platform.drivers.common.MKE06Z4 device.MKE06Z4_CMSIS.MKE06Z4 component.uart_adapter.MKE06Z4 component.lists.MKE06Z4 platform.drivers.uart.MKE06Z4 device.MKE06Z4_startup.MKE06Z4 platform.drivers.port_ke06.MKE06Z4 CMSIS_Include_core_cm.MKE06Z4 platform.utilities.misc_utilities.MKE06Z4 device.MKE06Z4_system.MKE06Z4" category="driver_examples/gpio_1">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -33,6 +31,7 @@
           <value>CPU_MKE06Z128VLK4</value>
           <value>FRDM_KE06Z</value>
           <value>FREEDOM</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.none</value>
@@ -111,12 +110,6 @@
     </source>
     <source path="examples/frdmke06z/driver_examples/gpio_1/led_output" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/frdmke06z/driver_examples/gpio_1/led_output/iar" project_relative_path="MKE06Z4/iar" type="linker" toolchain="iar">
-      <files mask="MKE06Z128xxx4_flash.icf"/>
-    </source>
-    <source path="examples/frdmke06z/driver_examples/gpio_1/led_output/mdk" project_relative_path="MKE06Z4/arm" type="linker" toolchain="mdk">
-      <files mask="MKE06Z128xxx4_flash.scf"/>
     </source>
     <source path="examples/frdmke06z/driver_examples/gpio_1/led_output/armgcc" project_relative_path="MKE06Z4/gcc" type="linker" toolchain="armgcc">
       <files mask="MKE06Z128xxx4_flash.ld"/>

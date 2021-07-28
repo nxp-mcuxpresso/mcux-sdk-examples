@@ -54,8 +54,8 @@ int main(void)
     INPUTMUX_Init(INPUTMUX);
     INPUTMUX_AttachSignal(INPUTMUX, 1U, kINPUTMUX_SctGpi5ToSct0);
 
-    BOARD_InitPins();
-    BOARD_BootClockPLL150M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     sctimerClock = SCTIMER_CLK_FREQ;

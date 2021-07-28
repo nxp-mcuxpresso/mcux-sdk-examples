@@ -86,7 +86,7 @@ int main(void)
     /* Select the main clock as source clock of I2C0. */
     CLOCK_Select(kI2C0_Clk_From_MainClk);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 

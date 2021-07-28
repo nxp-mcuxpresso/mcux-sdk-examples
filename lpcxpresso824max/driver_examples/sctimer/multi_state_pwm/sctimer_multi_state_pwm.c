@@ -48,8 +48,8 @@ int main(void)
     INPUTMUX_Init(INPUTMUX);
     INPUTMUX_AttachSignal(INPUTMUX, 1U, kINPUTMUX_SctPin0ToSct0);
 
-    BOARD_InitPins();
-    BOARD_BootClockIRC12M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Enable clock of sct. */

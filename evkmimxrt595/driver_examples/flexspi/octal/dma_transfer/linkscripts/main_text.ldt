@@ -1,0 +1,1 @@
+        *(EXCLUDE_FILE(*flexspi_octal_flash_ops.o *fsl_flexspi.o *fsl_flexspi_dma.o *fsl_dma.o) .text*)

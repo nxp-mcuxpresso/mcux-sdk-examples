@@ -11,7 +11,8 @@
 
 #include "fsl_clock.h"
 
-#if defined(MIMXRT1176_cm7_SERIES) || defined(MIMXRT1176_cm4_SERIES)
+#if defined(MIMXRT1176_cm7_SERIES) || defined(MIMXRT1176_cm4_SERIES) || defined(MIMXRT1166_cm7_SERIES) || \
+    defined(MIMXRT1166_cm4_SERIES)
 #define configGPT_CLOCK_HZ (CLOCK_GetFreq(kCLOCK_OscRc48MDiv2))
 #elif defined(IMX8MSCALE_SERIES)
 #define configGPT_CLOCK_HZ                                                                  \

@@ -127,8 +127,8 @@ int main(void)
     status_t result; /* Return code from each flash driver function */
 
     /* Init hardware */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Clean up Flash driver Structure*/

@@ -53,7 +53,7 @@ int main(void)
     /* Board pin init */
     /* set BOD VBAT level to 1.65V */
     POWER_SetBodVbatLevel(kPOWER_BodVbatLevel1650mv, kPOWER_BodHystLevel50mv, false);
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     SystemCoreClockUpdate();
 
     /* Set systick reload value to generate 1ms interrupt */

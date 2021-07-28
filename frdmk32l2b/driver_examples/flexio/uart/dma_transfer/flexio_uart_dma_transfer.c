@@ -92,8 +92,8 @@ int main(void)
     dma_request_source_t dma_request_source_rx;
     status_t result = kStatus_Success;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
 
     CLOCK_SetFlexio0Clock(1U);
 

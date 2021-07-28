@@ -17,9 +17,7 @@
     <definition extID="middleware.freertos-kernel.MIMX8MQ6"/>
     <definition extID="middleware.freertos-kernel.extension.MIMX8MQ6"/>
     <definition extID="platform.utilities.misc_utilities.MIMX8MQ6"/>
-    <definition extID="platform.Include_core_cm4.MIMX8MQ6"/>
-    <definition extID="platform.Include_common.MIMX8MQ6"/>
-    <definition extID="platform.Include_dsp.MIMX8MQ6"/>
+    <definition extID="CMSIS_Include_core_cm.MIMX8MQ6"/>
     <definition extID="device.MIMX8MQ6_system.MIMX8MQ6"/>
     <definition extID="iar"/>
     <definition extID="mcuxpresso"/>
@@ -27,7 +25,7 @@
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="mdk"/>
   </externalDefinitions>
-  <example id="evkmimx8mq_freertos_queue" name="freertos_queue" dependency="platform.drivers.clock.MIMX8MQ6 middleware.freertos-kernel.heap_4.MIMX8MQ6 platform.drivers.common.MIMX8MQ6 platform.drivers.rdc.MIMX8MQ6 device.MIMX8MQ6_CMSIS.MIMX8MQ6 utility.debug_console.MIMX8MQ6 component.iuart_adapter.MIMX8MQ6 component.serial_manager.MIMX8MQ6 component.lists.MIMX8MQ6 component.serial_manager_uart.MIMX8MQ6 platform.drivers.iuart.MIMX8MQ6 device.MIMX8MQ6_startup.MIMX8MQ6 platform.utilities.assert.MIMX8MQ6 middleware.freertos-kernel.MIMX8MQ6 middleware.freertos-kernel.extension.MIMX8MQ6 platform.utilities.misc_utilities.MIMX8MQ6 platform.Include_core_cm4.MIMX8MQ6 platform.Include_common.MIMX8MQ6 platform.Include_dsp.MIMX8MQ6 device.MIMX8MQ6_system.MIMX8MQ6" category="rtos_examples">
+  <example id="evkmimx8mq_freertos_queue" name="freertos_queue" dependency="platform.drivers.clock.MIMX8MQ6 middleware.freertos-kernel.heap_4.MIMX8MQ6 platform.drivers.common.MIMX8MQ6 platform.drivers.rdc.MIMX8MQ6 device.MIMX8MQ6_CMSIS.MIMX8MQ6 utility.debug_console.MIMX8MQ6 component.iuart_adapter.MIMX8MQ6 component.serial_manager.MIMX8MQ6 component.lists.MIMX8MQ6 component.serial_manager_uart.MIMX8MQ6 platform.drivers.iuart.MIMX8MQ6 device.MIMX8MQ6_startup.MIMX8MQ6 platform.utilities.assert.MIMX8MQ6 middleware.freertos-kernel.MIMX8MQ6 middleware.freertos-kernel.extension.MIMX8MQ6 platform.utilities.misc_utilities.MIMX8MQ6 CMSIS_Include_core_cm.MIMX8MQ6 device.MIMX8MQ6_system.MIMX8MQ6" category="rtos_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -36,7 +34,8 @@
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>CPU_MIMX8MQ6DVAJZ</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
-          <value>FSL_RTOS_FREE_RTOS</value>
+          <value>SDK_OS_FREE_RTOS</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
@@ -118,10 +117,6 @@
     </source>
     <source path="examples/evkmimx8mq/rtos_examples/freertos_queue" project_relative_path="doc" type="doc" toolchain="iar mdk armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/evkmimx8mq/rtos_examples/freertos_queue/iar" project_relative_path="MIMX8MQ6/iar" type="linker" toolchain="iar">
-      <files mask="MIMX8MQ6xxxJZ_cm4_ram.icf"/>
-      <files mask="MIMX8MQ6xxxJZ_cm4_ddr_ram.icf"/>
     </source>
     <source path="examples/evkmimx8mq/rtos_examples/freertos_queue/armgcc" project_relative_path="MIMX8MQ6/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMX8MQ6xxxJZ_cm4_ram.ld"/>

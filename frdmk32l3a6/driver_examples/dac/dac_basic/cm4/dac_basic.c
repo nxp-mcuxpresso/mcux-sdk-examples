@@ -35,8 +35,8 @@ int main(void)
     dac_config_t dacConfigStruct;
     uint32_t dacValue;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\nDAC Basic Example.\r\n");

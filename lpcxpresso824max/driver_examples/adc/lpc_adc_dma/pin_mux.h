@@ -1,5 +1,5 @@
 /*
- * Copyright  2018 NXP
+ * Copyright  2018 ,2021 NXP
  * All rights reserved.
  *
  *
@@ -13,18 +13,6 @@
 
 #ifndef _PIN_MUX_H_
 #define _PIN_MUX_H_
-
-/***********************************************************************************************************************
- * Definitions
- **********************************************************************************************************************/
-
-/*! @brief Direction type  */
-typedef enum _pin_mux_direction
-{
-    kPIN_MUX_DirectionInput = 0U,        /* Input direction */
-    kPIN_MUX_DirectionOutput = 1U,       /* Output direction */
-    kPIN_MUX_DirectionInputOrOutput = 2U /* Input or output direction */
-} pin_mux_direction_t;
 
 /*!
  * @addtogroup pin_mux
@@ -46,12 +34,11 @@ extern "C" {
 void BOARD_InitBootPins(void);
 
 #define IOCON_PIO_CLKDIV0 0x00u      /*!<@brief IOCONCLKDIV0 */
-#define IOCON_PIO_HYS_EN 0x20u       /*!<@brief Enable hysteresis */
+#define IOCON_PIO_HYS_DI 0x00u       /*!<@brief Disable hysteresis */
 #define IOCON_PIO_INV_DI 0x00u       /*!<@brief Input not invert */
 #define IOCON_PIO_MODE_PULLUP 0x10u  /*!<@brief Selects pull-up function */
 #define IOCON_PIO_OD_DI 0x00u        /*!<@brief Disables Open-drain function */
 #define IOCON_PIO_SMODE_BYPASS 0x00u /*!<@brief Bypass input filter */
-#define IOCON_PIO_HYS_DI 0x00u       /*!<@brief Disable hysteresis */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

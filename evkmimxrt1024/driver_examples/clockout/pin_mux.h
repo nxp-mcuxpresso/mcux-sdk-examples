@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -16,6 +16,14 @@
 /***********************************************************************************************************************
  * Definitions
  **********************************************************************************************************************/
+
+/* Define the flexspi macro. Note that it can't be modified here */
+#define IOMUXC_GPIO_AD_B1_00_FLEXSPI_A_DATA03 0x401F80FCU, 0x1U, 0x401F8374U, 0x1U, 0x401F8270U
+#define IOMUXC_GPIO_AD_B1_01_FLEXSPI_A_SCLK 0x401F8100U, 0x1U, 0x401F8378U, 0x1U, 0x401F8274U
+#define IOMUXC_GPIO_AD_B1_02_FLEXSPI_A_DATA00 0x401F8104U, 0x1U, 0x401F8368U, 0x1U, 0x401F8278U
+#define IOMUXC_GPIO_AD_B1_03_FLEXSPI_A_DATA02 0x401F8108U, 0x1U, 0x401F8370U, 0x1U, 0x401F827CU
+#define IOMUXC_GPIO_AD_B1_04_FLEXSPI_A_DATA01 0x401F810CU, 0x1U, 0x401F836CU, 0x1U, 0x401F8280U
+#define IOMUXC_GPIO_AD_B1_05_FLEXSPI_A_SS0_B 0x401F8110U, 0x1U, 0, 0, 0x401F8284U
 
 /*! @brief Direction type  */
 typedef enum _pin_mux_direction
@@ -44,15 +52,13 @@ extern "C" {
  */
 void BOARD_InitBootPins(void);
 
-/* GPIO_AD_B0_07 (number 101), UART1_RXD/J17[4] */
-/* Routed pin properties */
-#define BOARD_INITPINS_UART1_RXD_PERIPHERAL                              LPUART1   /*!< Peripheral name */
-#define BOARD_INITPINS_UART1_RXD_SIGNAL                                       RX   /*!< Signal name */
+/* GPIO_AD_B0_07 (number 101), UART1_RXD/J17[8] */
+#define BOARD_INITPINS_UART1_RXD_PERIPHERAL                              LPUART1   /*!< Device name: LPUART1 */
+#define BOARD_INITPINS_UART1_RXD_SIGNAL                                       RX   /*!< LPUART1 signal: RX */
 
-/* GPIO_AD_B0_06 (number 105), UART1_TXD/J17[6] */
-/* Routed pin properties */
-#define BOARD_INITPINS_UART1_TXD_PERIPHERAL                              LPUART1   /*!< Peripheral name */
-#define BOARD_INITPINS_UART1_TXD_SIGNAL                                       TX   /*!< Signal name */
+/* GPIO_AD_B0_06 (number 105), UART1_TXD/J17[12] */
+#define BOARD_INITPINS_UART1_TXD_PERIPHERAL                              LPUART1   /*!< Device name: LPUART1 */
+#define BOARD_INITPINS_UART1_TXD_SIGNAL                                       TX   /*!< LPUART1 signal: TX */
 
 
 /*!

@@ -642,7 +642,7 @@ int main(void)
     bool needSetWakeup; /* Need to set wakeup. */
 
     /* Must configure pins before PMC_ClearPeriphIOIsolationFlag */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
 
     /* Power related. */
     SMC_SetPowerModeProtection(SMC, kSMC_AllowPowerModeAll);

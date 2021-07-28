@@ -140,8 +140,8 @@ int main(void)
     uint32_t i;
 
     /* Init board hardware.*/
-    BOARD_InitPins_Core0();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     BOARD_InitLedPin();
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -34,11 +34,18 @@ void BOARD_InitBootPins(void);
 
 /*! @name PORTH1 (number 14), D4[1]/LEDRGB_RED
   @{ */
-#define BOARD_LED_RED_GPIO GPIOB            /*!<@brief GPIO device name: GPIOB */
-#define BOARD_LED_RED_GPIO_PORT kGPIO_PORTH /*!<@brief PORTB GPIO port: PORTB */
-#define BOARD_LED_RED_PORT PORTH            /*!<@brief PORT device name: PORTH */
-#define BOARD_LED_RED_PIN 1U                /*!<@brief PORTH pin index: 1 */
-                                            /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_LED_RED_FGPIO FGPIOB             /*!<@brief FGPIO peripheral base pointer */
+#define BOARD_LED_RED_GPIO GPIOB               /*!<@brief GPIO peripheral base pointer */
+#define BOARD_LED_RED_GPIO_PORT kGPIO_PORTH    /*!<@brief PORTB GPIO port: PORTB */
+#define BOARD_LED_RED_GPIO_PIN_MASK (1U << 25U) /*!<@brief GPIO pin mask */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_LED_RED_PORT PORTH               /*!<@brief PORT peripheral base pointer */
+#define BOARD_LED_RED_PIN 1U                   /*!<@brief PORT pin number */
+#define BOARD_LED_RED_PIN_MASK (1U << 1U)      /*!<@brief PORT pin mask */
+                                               /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

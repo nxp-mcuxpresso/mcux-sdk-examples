@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2019 NXP
+ * Copyright 2016-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -15,19 +15,13 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define EXAMPLE_CAN            CAN0
-#define EXAMPLE_CAN_CLK_SOURCE (kFLEXCAN_ClkSrc0)
-#define EXAMPLE_CAN_CLK_FREQ   CLOCK_GetFreq(kCLOCK_Osc0ErClk)
-#define RX_MESSAGE_BUFFER_NUM  (9)
-#define TX_MESSAGE_BUFFER_NUM  (8)
-#define DLC                    (8)
-
-/* The CAN clock prescaler = CAN source clock/(baud rate * quantum), and the prescaler must be an integer.
-   The quantum default value is set to 10=(3+2+1)+4, because for most platforms the CAN clock frequency is
-   a multiple of 10. e.g. 120M CAN source clock/(1M baud rate * 10) is an integer. If the CAN clock frequency
-   is not a multiple of 10, users need to set SET_CAN_QUANTUM and define the PSEG1/PSEG2/PROPSEG (classical CAN)
-   and FPSEG1/FPSEG2/FPROPSEG (CANFD) vaule. Or can set USE_IMPROVED_TIMING_CONFIG macro to use driver api to
-   calculates the improved timing values. */
+#define EXAMPLE_CAN          CAN0
+#define EXAMPLE_CAN_CLK_FREQ CLOCK_GetFreq(kCLOCK_Osc0ErClk)
+/* Set USE_IMPROVED_TIMING_CONFIG macro to use api to calculates the improved CAN / CAN FD timing values. */
+#define USE_IMPROVED_TIMING_CONFIG (1U)
+#define RX_MESSAGE_BUFFER_NUM      (9)
+#define TX_MESSAGE_BUFFER_NUM      (8)
+#define DLC                        (8)
 
 /* Fix MISRA_C-2012 Rule 17.7. */
 #define LOG_INFO (void)PRINTF
@@ -54,7 +48,7 @@ flexcan_frame_t txFrame, rxFrame;
 /*!
  * @brief FlexCAN Call Back function
  */
-static void flexcan_callback(CAN_Type *base, flexcan_handle_t *handle, status_t status, uint32_t result, void *userData)
+static FLEXCAN_CALLBACK(flexcan_callback)
 {
     switch (status)
     {
@@ -88,8 +82,8 @@ int main(void)
     flexcan_rx_mb_config_t mbConfig;
 
     /* Initialize board hardware. */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     LOG_INFO("\r\n==FlexCAN loopback example -- Start.==\r\n\r\n");
@@ -119,8 +113,8 @@ int main(void)
     flexcan_timing_config_t timing_config;
     memset(&timing_config, 0, sizeof(flexcan_timing_config_t));
 #if (defined(USE_CANFD) && USE_CANFD)
-    if (FLEXCAN_FDCalculateImprovedTimingValues(flexcanConfig.baudRate, flexcanConfig.baudRateFD, EXAMPLE_CAN_CLK_FREQ,
-                                                &timing_config))
+    if (FLEXCAN_FDCalculateImprovedTimingValues(EXAMPLE_CAN, flexcanConfig.baudRate, flexcanConfig.baudRateFD,
+                                                EXAMPLE_CAN_CLK_FREQ, &timing_config))
     {
         /* Update the improved timing configuration*/
         memcpy(&(flexcanConfig.timingConfig), &timing_config, sizeof(flexcan_timing_config_t));
@@ -130,7 +124,8 @@ int main(void)
         LOG_INFO("No found Improved Timing Configuration. Just used default configuration\r\n\r\n");
     }
 #else
-    if (FLEXCAN_CalculateImprovedTimingValues(flexcanConfig.baudRate, EXAMPLE_CAN_CLK_FREQ, &timing_config))
+    if (FLEXCAN_CalculateImprovedTimingValues(EXAMPLE_CAN, flexcanConfig.baudRate, EXAMPLE_CAN_CLK_FREQ,
+                                              &timing_config))
     {
         /* Update the improved timing configuration*/
         memcpy(&(flexcanConfig.timingConfig), &timing_config, sizeof(flexcan_timing_config_t));
@@ -143,7 +138,7 @@ int main(void)
 #endif
 
 #if (defined(USE_CANFD) && USE_CANFD)
-    FLEXCAN_FDInit(EXAMPLE_CAN, &flexcanConfig, EXAMPLE_CAN_CLK_FREQ, BYTES_IN_MB, false);
+    FLEXCAN_FDInit(EXAMPLE_CAN, &flexcanConfig, EXAMPLE_CAN_CLK_FREQ, BYTES_IN_MB, true);
 #else
     FLEXCAN_Init(EXAMPLE_CAN, &flexcanConfig, EXAMPLE_CAN_CLK_FREQ);
 #endif

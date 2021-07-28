@@ -12,9 +12,7 @@
     <definition extID="device.MKE04Z4_startup.MKE04Z4"/>
     <definition extID="platform.drivers.port_ke04.MKE04Z4"/>
     <definition extID="platform.drivers.gpio_1.MKE04Z4"/>
-    <definition extID="platform.Include_core_cm0plus.MKE04Z4"/>
-    <definition extID="platform.Include_common.MKE04Z4"/>
-    <definition extID="platform.Include_dsp.MKE04Z4"/>
+    <definition extID="CMSIS_Include_core_cm.MKE04Z4"/>
     <definition extID="platform.utilities.misc_utilities.MKE04Z4"/>
     <definition extID="device.MKE04Z4_system.MKE04Z4"/>
     <definition extID="iar"/>
@@ -23,7 +21,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="frdmke04z_uart_polling" name="uart_polling" dependency="utility.debug_console_lite.MKE04Z4 platform.utilities.assert_lite.MKE04Z4 platform.drivers.uart.MKE04Z4 platform.drivers.clock.MKE04Z4 platform.drivers.common.MKE04Z4 device.MKE04Z4_CMSIS.MKE04Z4 component.uart_adapter.MKE04Z4 component.lists.MKE04Z4 device.MKE04Z4_startup.MKE04Z4 platform.drivers.port_ke04.MKE04Z4 platform.drivers.gpio_1.MKE04Z4 platform.Include_core_cm0plus.MKE04Z4 platform.Include_common.MKE04Z4 platform.Include_dsp.MKE04Z4 platform.utilities.misc_utilities.MKE04Z4 device.MKE04Z4_system.MKE04Z4" category="driver_examples/uart">
+  <example id="frdmke04z_uart_polling" name="uart_polling" dependency="utility.debug_console_lite.MKE04Z4 platform.utilities.assert_lite.MKE04Z4 platform.drivers.uart.MKE04Z4 platform.drivers.clock.MKE04Z4 platform.drivers.common.MKE04Z4 device.MKE04Z4_CMSIS.MKE04Z4 component.uart_adapter.MKE04Z4 component.lists.MKE04Z4 device.MKE04Z4_startup.MKE04Z4 platform.drivers.port_ke04.MKE04Z4 platform.drivers.gpio_1.MKE04Z4 CMSIS_Include_core_cm.MKE04Z4 platform.utilities.misc_utilities.MKE04Z4 device.MKE04Z4_system.MKE04Z4" category="driver_examples/uart">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -33,6 +31,7 @@
           <value>CPU_MKE04Z8VFK4</value>
           <value>FRDM_KE04Z</value>
           <value>FREEDOM</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.none</value>
@@ -108,12 +107,6 @@
     </source>
     <source path="examples/frdmke04z/driver_examples/uart/polling" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/frdmke04z/driver_examples/uart/polling/iar" project_relative_path="MKE04Z4/iar" type="linker" toolchain="iar">
-      <files mask="MKE04Z8xxx4_flash.icf"/>
-    </source>
-    <source path="examples/frdmke04z/driver_examples/uart/polling/mdk" project_relative_path="MKE04Z4/arm" type="linker" toolchain="mdk">
-      <files mask="MKE04Z8xxx4_flash.scf"/>
     </source>
     <source path="examples/frdmke04z/driver_examples/uart/polling/armgcc" project_relative_path="MKE04Z4/gcc" type="linker" toolchain="armgcc">
       <files mask="MKE04Z8xxx4_flash.ld"/>

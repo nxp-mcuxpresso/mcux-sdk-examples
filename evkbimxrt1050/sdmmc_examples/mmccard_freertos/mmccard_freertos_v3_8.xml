@@ -22,10 +22,8 @@
     <definition extID="platform.drivers.iomuxc.MIMXRT1052"/>
     <definition extID="platform.utilities.assert.MIMXRT1052"/>
     <definition extID="platform.drivers.xip_device.MIMXRT1052"/>
-    <definition extID="platform.drivers.xip_board.MIMXRT1052"/>
-    <definition extID="platform.Include_core_cm7.MIMXRT1052"/>
-    <definition extID="platform.Include_common.MIMXRT1052"/>
-    <definition extID="platform.Include_dsp.MIMXRT1052"/>
+    <definition extID="platform.drivers.xip_board.evkbimxrt1050.MIMXRT1052"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT1052"/>
     <definition extID="middleware.sdmmc.osa.freertos.MIMXRT1052"/>
     <definition extID="component.osa_free_rtos.MIMXRT1052"/>
     <definition extID="middleware.freertos-kernel.extension.MIMXRT1052"/>
@@ -40,7 +38,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkbimxrt1050_mmccard_freertos" name="mmccard_freertos" dependency="platform.drivers.igpio.MIMXRT1052 platform.drivers.cache_armv7_m7.MIMXRT1052 middleware.sdmmc.mmc.MIMXRT1052 middleware.sdmmc.common.MIMXRT1052 middleware.sdmmc.host.usdhc.MIMXRT1052 middleware.sdmmc.host.usdhc.freertos.MIMXRT1052 middleware.freertos-kernel.MIMXRT1052 middleware.freertos-kernel.heap_4.MIMXRT1052 platform.drivers.clock.MIMXRT1052 platform.drivers.common.MIMXRT1052 device.MIMXRT1052_CMSIS.MIMXRT1052 utility.debug_console.MIMXRT1052 component.lpuart_adapter.MIMXRT1052 component.serial_manager.MIMXRT1052 component.lists.MIMXRT1052 component.serial_manager_uart.MIMXRT1052 platform.drivers.lpuart.MIMXRT1052 device.MIMXRT1052_startup.MIMXRT1052 platform.drivers.iomuxc.MIMXRT1052 platform.utilities.assert.MIMXRT1052 platform.drivers.xip_device.MIMXRT1052 platform.drivers.xip_board.MIMXRT1052 platform.Include_core_cm7.MIMXRT1052 platform.Include_common.MIMXRT1052 platform.Include_dsp.MIMXRT1052 middleware.sdmmc.osa.freertos.MIMXRT1052 component.osa_free_rtos.MIMXRT1052 middleware.freertos-kernel.extension.MIMXRT1052 platform.drivers.usdhc.MIMXRT1052 platform.utilities.misc_utilities.MIMXRT1052 device.MIMXRT1052_system.MIMXRT1052" category="sdmmc_examples/mmccard_freertos">
+  <example id="evkbimxrt1050_mmccard_freertos" name="mmccard_freertos" dependency="platform.drivers.igpio.MIMXRT1052 platform.drivers.cache_armv7_m7.MIMXRT1052 middleware.sdmmc.mmc.MIMXRT1052 middleware.sdmmc.common.MIMXRT1052 middleware.sdmmc.host.usdhc.MIMXRT1052 middleware.sdmmc.host.usdhc.freertos.MIMXRT1052 middleware.freertos-kernel.MIMXRT1052 middleware.freertos-kernel.heap_4.MIMXRT1052 platform.drivers.clock.MIMXRT1052 platform.drivers.common.MIMXRT1052 device.MIMXRT1052_CMSIS.MIMXRT1052 utility.debug_console.MIMXRT1052 component.lpuart_adapter.MIMXRT1052 component.serial_manager.MIMXRT1052 component.lists.MIMXRT1052 component.serial_manager_uart.MIMXRT1052 platform.drivers.lpuart.MIMXRT1052 device.MIMXRT1052_startup.MIMXRT1052 platform.drivers.iomuxc.MIMXRT1052 platform.utilities.assert.MIMXRT1052 platform.drivers.xip_device.MIMXRT1052 platform.drivers.xip_board.evkbimxrt1050.MIMXRT1052 CMSIS_Include_core_cm.MIMXRT1052 middleware.sdmmc.osa.freertos.MIMXRT1052 component.osa_free_rtos.MIMXRT1052 middleware.freertos-kernel.extension.MIMXRT1052 platform.drivers.usdhc.MIMXRT1052 platform.utilities.misc_utilities.MIMXRT1052 device.MIMXRT1052_system.MIMXRT1052" category="sdmmc_examples/mmccard_freertos">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -60,8 +58,9 @@
           <value>XIP_EXTERNAL_FLASH=1</value>
           <value>XIP_BOOT_HEADER_ENABLE=1</value>
           <value>MMC_ENABLED</value>
-          <value>FSL_RTOS_FREE_RTOS</value>
+          <value>SDK_OS_FREE_RTOS</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv5dp.hard</value>
@@ -173,29 +172,10 @@
     <source path="examples/evkbimxrt1050/sdmmc_examples/mmccard_freertos" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
     </source>
-    <source path="examples/evkbimxrt1050/sdmmc_examples/mmccard_freertos/iar" project_relative_path="MIMXRT1052/iar" type="linker" toolchain="iar">
-      <files mask="MIMXRT1052xxxxx_ram.icf"/>
-      <files mask="MIMXRT1052xxxxx_sdram.icf"/>
-      <files mask="MIMXRT1052xxxxx_flexspi_nor.icf"/>
-    </source>
-    <source path="examples/evkbimxrt1050/sdmmc_examples/mmccard_freertos/mdk" project_relative_path="MIMXRT1052/arm" type="linker" toolchain="mdk">
-      <files mask="MIMXRT1052xxxxx_ram.scf"/>
-      <files mask="MIMXRT1052xxxxx_sdram.scf"/>
-      <files mask="MIMXRT1052xxxxx_flexspi_nor.scf"/>
-    </source>
     <source path="examples/evkbimxrt1050/sdmmc_examples/mmccard_freertos/armgcc" project_relative_path="MIMXRT1052/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMXRT1052xxxxx_ram.ld"/>
       <files mask="MIMXRT1052xxxxx_sdram.ld"/>
       <files mask="MIMXRT1052xxxxx_flexspi_nor.ld"/>
-    </source>
-    <source path="examples/evkbimxrt1050/sdmmc_examples/mmccard_freertos/iar" project_relative_path="evkbimxrt1050" type="other" toolchain="iar">
-      <files mask="evkbimxrt1050.mac"/>
-      <files mask="evkbimxrt1050_sdram_init.mac"/>
-    </source>
-    <source path="examples/evkbimxrt1050/sdmmc_examples/mmccard_freertos/mdk" project_relative_path="evkbimxrt1050" type="configuration" toolchain="mdk">
-      <files mask="evkbimxrt1050_ram.ini"/>
-      <files mask="evkbimxrt1050_sdram_init.ini"/>
-      <files mask="evkbimxrt1050_flexspi_nor.ini"/>
     </source>
   </example>
 </ksdk:examples>

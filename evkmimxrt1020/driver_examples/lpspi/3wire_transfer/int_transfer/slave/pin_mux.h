@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -45,24 +45,29 @@ extern "C" {
 void BOARD_InitBootPins(void);
 
 /* GPIO_AD_B0_07 (number 101), UART1_RXD/J17[4] */
-#define BOARD_INITPINS_UART1_RXD_PERIPHERAL                              LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_INITPINS_UART1_RXD_SIGNAL                                       RX   /*!< LPUART1 signal: RX */
+/* Routed pin properties */
+#define BOARD_INITPINS_UART1_RXD_PERIPHERAL                              LPUART1   /*!< Peripheral name */
+#define BOARD_INITPINS_UART1_RXD_SIGNAL                                       RX   /*!< Signal name */
 
 /* GPIO_AD_B0_06 (number 105), UART1_TXD/J17[6] */
-#define BOARD_INITPINS_UART1_TXD_PERIPHERAL                              LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_INITPINS_UART1_TXD_SIGNAL                                       TX   /*!< LPUART1 signal: TX */
+/* Routed pin properties */
+#define BOARD_INITPINS_UART1_TXD_PERIPHERAL                              LPUART1   /*!< Peripheral name */
+#define BOARD_INITPINS_UART1_TXD_SIGNAL                                       TX   /*!< Signal name */
 
 /* GPIO_AD_B0_11 (number 97), ENET_CRS_DV/U11[18]/J19[3] */
-#define BOARD_INITPINS_ENET_CRS_DV_PERIPHERAL                             LPSPI1   /*!< Device name: LPSPI1 */
-#define BOARD_INITPINS_ENET_CRS_DV_SIGNAL                                   PCS0   /*!< LPSPI1 signal: PCS0 */
+/* Routed pin properties */
+#define BOARD_INITPINS_ENET_CRS_DV_PERIPHERAL                             LPSPI1   /*!< Peripheral name */
+#define BOARD_INITPINS_ENET_CRS_DV_SIGNAL                                   PCS0   /*!< Signal name */
 
 /* GPIO_AD_B0_10 (number 98), ENET_RXD0/U11[16]/J19[6] */
-#define BOARD_INITPINS_ENET_RXD0_PERIPHERAL                               LPSPI1   /*!< Device name: LPSPI1 */
-#define BOARD_INITPINS_ENET_RXD0_SIGNAL                                      SCK   /*!< LPSPI1 signal: SCK */
+/* Routed pin properties */
+#define BOARD_INITPINS_ENET_RXD0_PERIPHERAL                               LPSPI1   /*!< Peripheral name */
+#define BOARD_INITPINS_ENET_RXD0_SIGNAL                                      SCK   /*!< Signal name */
 
 /* GPIO_AD_B0_13 (number 95), ENET_TXEN/U11[23]/J19[5] */
-#define BOARD_INITPINS_ENET_TXEN_PERIPHERAL                               LPSPI1   /*!< Device name: LPSPI1 */
-#define BOARD_INITPINS_ENET_TXEN_SIGNAL                                      SDI   /*!< LPSPI1 signal: SDI */
+/* Routed pin properties */
+#define BOARD_INITPINS_ENET_TXEN_PERIPHERAL                               LPSPI1   /*!< Peripheral name */
+#define BOARD_INITPINS_ENET_TXEN_SIGNAL                                      SDI   /*!< Signal name */
 
 
 /*!

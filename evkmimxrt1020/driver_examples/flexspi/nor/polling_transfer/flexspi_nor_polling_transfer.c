@@ -135,8 +135,8 @@ int main(void)
     uint8_t vendorID = 0;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     flexspi_nor_flash_init(EXAMPLE_FLEXSPI);

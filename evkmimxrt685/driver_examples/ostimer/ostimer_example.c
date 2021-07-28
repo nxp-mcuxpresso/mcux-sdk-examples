@@ -79,8 +79,8 @@ static status_t EXAMPLE_SetMatchInterruptTime(OSTIMER_Type *base, uint32_t ms, u
 int main(void)
 {
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     CLOCK_AttachClk(kLPOSC_to_OSTIMER_CLK);

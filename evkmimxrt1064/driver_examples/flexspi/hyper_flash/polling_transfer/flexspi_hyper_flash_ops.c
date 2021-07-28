@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2020 NXP
+ * Copyright 2016-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -42,10 +42,15 @@ void flexspi_hyper_flash_init(void)
     }
 #endif /* __DCACHE_PRESENT */
 
-    /* Wait for bus to be idle before changing flash configuration. */
-    while (false == FLEXSPI_GetBusIdleStatus(EXAMPLE_FLEXSPI))
+#if defined(XIP_EXTERNAL_FLASH) && (XIP_EXTERNAL_FLASH == 1)
+    if (EXAMPLE_BOOT_FLEXSPI == EXAMPLE_FLEXSPI)
     {
+        /* Wait for bus to be idle before changing flash configuration. */
+        while (false == FLEXSPI_GetBusIdleStatus(EXAMPLE_FLEXSPI))
+        {
+        }
     }
+#endif
 
     flexspi_clock_init();
 
@@ -61,7 +66,9 @@ void flexspi_hyper_flash_init(void)
     /* enable diff clock and DQS */
     config.enableSckBDiffOpt = true;
     config.rxSampleClock     = kFLEXSPI_ReadSampleClkExternalInputFromDqsPad;
+#if !(defined(FSL_FEATURE_FLEXSPI_HAS_NO_MCR0_COMBINATIONEN) && FSL_FEATURE_FLEXSPI_HAS_NO_MCR0_COMBINATIONEN)
     config.enableCombination = true;
+#endif
     FLEXSPI_Init(EXAMPLE_FLEXSPI, &config);
 
     /* Set flexspi root clock. */

@@ -67,8 +67,8 @@ int main(void)
     uint32_t err                   = 0U;
 
     /* Init the boards */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\nSPI board to board interrupt slave example started!\r\n");

@@ -79,8 +79,8 @@ int main(void)
     uint32_t i;
     status_t result = kStatus_Success;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     INTMUX_Init(INTMUX1);
     INTMUX_EnableInterrupt(INTMUX1, 0, FLEXIO0_IRQn);
     /* Set PCC FLEXIO0 selection */

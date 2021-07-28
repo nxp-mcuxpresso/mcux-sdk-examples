@@ -74,8 +74,8 @@ int main(void)
     /* attach 12 MHz clock to FLEXCOMM0 (debug console) */
     CLOCK_AttachClk(BOARD_DEBUG_UART_CLK_ATTACH);
 
-    BOARD_InitPins();
-    BOARD_BootClockPLL150M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     CLOCK_SetClkDiv(kCLOCK_DivPll0Clk, 0U, true);
@@ -120,9 +120,13 @@ static void EXAMPLE_MasterInit(void)
     srcClock_Hz = EXAMPLE_SPI_MASTER_CLK_FREQ;
 
     SPI_MasterGetDefaultConfig(&masterConfig);
-    masterConfig.sselNum      = (spi_ssel_t)EXAMPLE_SPI_SSEL;
-    masterConfig.sselPol      = (spi_spol_t)EXAMPLE_MASTER_SPI_SPOL;
+    masterConfig.sselNum = (spi_ssel_t)EXAMPLE_SPI_SSEL;
+    masterConfig.sselPol = (spi_spol_t)EXAMPLE_MASTER_SPI_SPOL;
+#if defined(EXAMPLE_SPI_BAUDRATE)
+    masterConfig.baudRate_Bps = EXAMPLE_SPI_BAUDRATE;
+#else
     masterConfig.baudRate_Bps = 25000000U;
+#endif
     SPI_MasterInit(EXAMPLE_SPI_MASTER, &masterConfig, srcClock_Hz);
 }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -18,7 +18,9 @@
 #define DMAMUX0 DMAMUX
 #define BUFF_LENGTH 4
 #define DMA_CHANNEL 0
-#define DMA_SOURCE  63
+#ifndef DMA_SOURCE
+#define DMA_SOURCE 63
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -46,8 +48,8 @@ int main(void)
     uint32_t i = 0;
     dma_transfer_config_t transferConfig;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     /* Print source buffer */
     PRINTF("DMA wrap transfer example begin.\r\n\r\n");

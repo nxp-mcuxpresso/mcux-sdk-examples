@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v6.0
+product: Pins v9.0
 processor: LPC845
 package_id: LPC845M301JBD64
 mcu_data: ksdk2_0
-processor_version: 0.0.15
+processor_version: 9.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -79,7 +79,7 @@ void BOARD_InitPins(void)
                                                  IOCON_PIO_SMODE_BYPASS |
                                                  /* IOCONCLKDIV0 */
                                                  IOCON_PIO_CLKDIV0);
-    /* PORT1 PIN16 (coords: ) is configured as  */
+    /* PIO1 PIN16 (coords: 36) is configured as USART0, RXD. */
     IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO1_16, IOCON_INDEX_PIO1_16_config);
 
     const uint32_t IOCON_INDEX_PIO1_17_config = (/* Selects pull-up function */
@@ -94,7 +94,7 @@ void BOARD_InitPins(void)
                                                  IOCON_PIO_SMODE_BYPASS |
                                                  /* IOCONCLKDIV0 */
                                                  IOCON_PIO_CLKDIV0);
-    /* PORT1 PIN17 (coords: ) is configured as  */
+    /* PIO1 PIN17 (coords: 37) is configured as USART0, TXD. */
     IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO1_17, IOCON_INDEX_PIO1_17_config);
 
     /* USART0_TXD connect to P1_17 */

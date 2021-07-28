@@ -6,8 +6,8 @@ In this example, one sai instance record the audio data from input and playbacks
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
-- MCUXpresso  11.3.0
+- GCC ARM Embedded  10.2.1
+- MCUXpresso  11.4.0
 
 Hardware requirements
 =====================
@@ -39,10 +39,10 @@ Note: This demo uses both headphone mic and board main mic(P1) as input source. 
 channel data, and main mic (P1) provides right channel data. If users found there is noise while do record operation,
 most probably it is the headphone standard issue (OMTP and CTIA standard difference). You should use the OMTP
 standard headphone. You can disable the left channel by using an headphone without microphone feature.
+This demo uses codec master mode(external mclk mode).
 
 When the demo runs successfully, you can hear the tone and the log would be seen on the OpenSDA terminal like:
 
 ~~~~~~~~~~~~~~~~~~~
 SAI example started!
-SAI example finished!
- ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~

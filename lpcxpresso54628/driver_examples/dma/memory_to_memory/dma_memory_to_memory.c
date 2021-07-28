@@ -53,8 +53,8 @@ int main(void)
     /* attach 12 MHz clock to FLEXCOMM0 (debug console) */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM0);
 
-    BOARD_InitPins();
-    BOARD_BootClockPLL220M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     /* Print source buffer */
     PRINTF("DMA memory to memory transfer example begin.\r\n\r\n");

@@ -17,9 +17,7 @@
     <definition extID="component.serial_manager_uart.MK64F12"/>
     <definition extID="device.MK64F12_startup.MK64F12"/>
     <definition extID="platform.utilities.assert.MK64F12"/>
-    <definition extID="platform.Include_core_cm4.MK64F12"/>
-    <definition extID="platform.Include_common.MK64F12"/>
-    <definition extID="platform.Include_dsp.MK64F12"/>
+    <definition extID="CMSIS_Include_core_cm.MK64F12"/>
     <definition extID="middleware.freertos-kernel.MK64F12"/>
     <definition extID="middleware.freertos-kernel.extension.MK64F12"/>
     <definition extID="platform.utilities.misc_utilities.MK64F12"/>
@@ -30,7 +28,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="frdmk64f_freertos_segger_sysview" name="freertos_segger_sysview" dependency="platform.drivers.port.MK64F12 platform.drivers.gpio.MK64F12 platform.drivers.clock.MK64F12 middleware.freertos-kernel.heap_4.MK64F12 platform.drivers.flash.MK64F12 utility.debug_console.MK64F12 platform.drivers.uart.MK64F12 platform.drivers.smc.MK64F12 device.MK64F12_CMSIS.MK64F12 component.uart_adapter.MK64F12 component.serial_manager.MK64F12 platform.drivers.common.MK64F12 component.lists.MK64F12 component.serial_manager_uart.MK64F12 device.MK64F12_startup.MK64F12 platform.utilities.assert.MK64F12 platform.Include_core_cm4.MK64F12 platform.Include_common.MK64F12 platform.Include_dsp.MK64F12 middleware.freertos-kernel.MK64F12 middleware.freertos-kernel.extension.MK64F12 platform.utilities.misc_utilities.MK64F12 device.MK64F12_system.MK64F12" category="rtos_examples/visualization">
+  <example id="frdmk64f_freertos_segger_sysview" name="freertos_segger_sysview" dependency="platform.drivers.port.MK64F12 platform.drivers.gpio.MK64F12 platform.drivers.clock.MK64F12 middleware.freertos-kernel.heap_4.MK64F12 platform.drivers.flash.MK64F12 utility.debug_console.MK64F12 platform.drivers.uart.MK64F12 platform.drivers.smc.MK64F12 device.MK64F12_CMSIS.MK64F12 component.uart_adapter.MK64F12 component.serial_manager.MK64F12 platform.drivers.common.MK64F12 component.lists.MK64F12 component.serial_manager_uart.MK64F12 device.MK64F12_startup.MK64F12 platform.utilities.assert.MK64F12 CMSIS_Include_core_cm.MK64F12 middleware.freertos-kernel.MK64F12 middleware.freertos-kernel.extension.MK64F12 platform.utilities.misc_utilities.MK64F12 device.MK64F12_system.MK64F12" category="rtos_examples/visualization">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -41,7 +39,8 @@
           <value>FRDM_K64F</value>
           <value>FREEDOM</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
-          <value>FSL_RTOS_FREE_RTOS</value>
+          <value>SDK_OS_FREE_RTOS</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
@@ -73,11 +72,13 @@
       <include_path path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview" project_relative_path="source" type="c_include"/>
       <include_path path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview/SEGGER" project_relative_path="segger_sysview" type="c_include"/>
       <include_path path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview/Config" project_relative_path="segger_sysview" type="c_include"/>
-      <include_path path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview/Sample/OS" project_relative_path="segger_sysview" type="c_include"/>
-      <include_path path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview/Sample/OS" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview/Sample/FreeRTOSV10" project_relative_path="segger_sysview" type="c_include"/>
+      <include_path path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview/Sample/FreeRTOSV10" project_relative_path="board" type="c_include"/>
       <include_path path="boards/frdmk64f/rtos_examples/visualization/freertos_segger_sysview" project_relative_path="frdmk64f/rtos_examples/visualization/freertos_segger_sysview" type="c_include"/>
       <include_path path="boards/frdmk64f" project_relative_path="board" type="c_include"/>
       <include_path path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview" project_relative_path="source" type="asm_include"/>
+      <include_path path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview/SEGGER" project_relative_path="segger_sysview" type="asm_include"/>
+      <include_path path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview/Config" project_relative_path="segger_sysview" type="asm_include"/>
     </include_paths>
     <source path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="freertos_segger_sysview.ewd"/>
@@ -123,21 +124,24 @@
       <files mask="SEGGER_RTT.c"/>
       <files mask="SEGGER_SYSVIEW.c"/>
     </source>
+    <source path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview/SEGGER" project_relative_path="segger_sysview" type="asm_include">
+      <files mask="SEGGER_RTT_ASM_ARMv7M.S"/>
+    </source>
     <source path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview/Config" project_relative_path="segger_sysview" type="c_include">
       <files mask="Global.h"/>
       <files mask="SEGGER_RTT_Conf.h"/>
       <files mask="SEGGER_SYSVIEW_Conf.h"/>
     </source>
-    <source path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview/Sample/OS" project_relative_path="segger_sysview" type="src">
+    <source path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview/Sample/FreeRTOSV10" project_relative_path="segger_sysview" type="src">
       <files mask="SEGGER_SYSVIEW_FreeRTOS.c"/>
     </source>
-    <source path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview/Sample/OS" project_relative_path="segger_sysview" type="c_include">
+    <source path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview/Sample/FreeRTOSV10" project_relative_path="segger_sysview" type="c_include">
       <files mask="SEGGER_SYSVIEW_FreeRTOS.h"/>
     </source>
-    <source path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview/Sample/OS" project_relative_path="board" type="src">
+    <source path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview" project_relative_path="board" type="src">
       <files mask="pin_mux.c"/>
     </source>
-    <source path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview/Sample/OS" project_relative_path="board" type="c_include">
+    <source path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview" project_relative_path="board" type="c_include">
       <files mask="pin_mux.h"/>
     </source>
     <source path="core/boards/frdmk64f" project_relative_path="board" type="src">
@@ -150,12 +154,6 @@
     </source>
     <source path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview/iar" project_relative_path="MK64F12/iar" type="linker" toolchain="iar">
-      <files mask="MK64FN1M0xxx12_flash.icf"/>
-    </source>
-    <source path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview/mdk" project_relative_path="MK64F12/arm" type="linker" toolchain="mdk">
-      <files mask="MK64FN1M0xxx12_flash.scf"/>
     </source>
     <source path="examples/frdmk64f/rtos_examples/visualization/freertos_segger_sysview/armgcc" project_relative_path="MK64F12/gcc" type="linker" toolchain="armgcc">
       <files mask="MK64FN1M0xxx12_flash.ld"/>

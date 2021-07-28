@@ -67,8 +67,8 @@ int main(void)
     /* reset FLEXCOMM for SPI */
     RESET_PeripheralReset(kFC9_RST_SHIFT_RSTn);
 
-    BOARD_InitPins();
-    BOARD_BootClockPLL220M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("This is SPI half-duplex dma transfer example!\r\n");

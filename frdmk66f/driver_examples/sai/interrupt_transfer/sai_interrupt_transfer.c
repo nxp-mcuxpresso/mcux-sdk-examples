@@ -14,10 +14,10 @@
 #include "music.h"
 #include "fsl_codec_common.h"
 
-#include "fsl_dialog7212.h"
 #include "fsl_gpio.h"
 #include "fsl_port.h"
 #include "fsl_codec_adapter.h"
+#include "fsl_dialog7212.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -54,6 +54,9 @@
 #define BOARD_SAI_RXCONFIG(config, mode) BOARD_SAI_RXConfig(config, mode);
 #ifndef DEMO_CODEC_INIT_DELAY_MS
 #define DEMO_CODEC_INIT_DELAY_MS (1000U)
+#endif
+#ifndef DEMO_CODEC_VOLUME
+#define DEMO_CODEC_VOLUME 100U
 #endif
 /*******************************************************************************
  * Prototypes
@@ -122,8 +125,8 @@ int main(void)
     uint32_t temp = 0;
     sai_transceiver_t saiConfig;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("SAI example started!\n\r");
@@ -145,11 +148,19 @@ int main(void)
     /* master clock configurations */
     BOARD_MASTER_CLOCK_CONFIG();
 
-    /* Use default setting to init codec */
+#if defined DEMO_BOARD_CODEC_INIT
+    DEMO_BOARD_CODEC_INIT();
+#else
     if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
     {
         assert(false);
     }
+    if (CODEC_SetVolume(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight,
+                        DEMO_CODEC_VOLUME) != kStatus_Success)
+    {
+        assert(false);
+    }
+#endif
     /* delay for codec output stable */
     DelayMS(DEMO_CODEC_INIT_DELAY_MS);
 

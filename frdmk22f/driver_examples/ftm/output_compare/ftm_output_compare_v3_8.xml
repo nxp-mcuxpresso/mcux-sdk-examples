@@ -15,9 +15,7 @@
     <definition extID="platform.drivers.lpuart.MK22F51212"/>
     <definition extID="platform.drivers.smc.MK22F51212"/>
     <definition extID="platform.drivers.gpio.MK22F51212"/>
-    <definition extID="platform.Include_core_cm4.MK22F51212"/>
-    <definition extID="platform.Include_common.MK22F51212"/>
-    <definition extID="platform.Include_dsp.MK22F51212"/>
+    <definition extID="CMSIS_Include_core_cm.MK22F51212"/>
     <definition extID="platform.utilities.misc_utilities.MK22F51212"/>
     <definition extID="device.MK22F51212_system.MK22F51212"/>
     <definition extID="iar"/>
@@ -26,7 +24,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="frdmk22f_ftm_output_compare" name="ftm_output_compare" dependency="utility.debug_console_lite.MK22F51212 platform.utilities.assert_lite.MK22F51212 platform.drivers.port.MK22F51212 platform.drivers.ftm.MK22F51212 platform.drivers.clock.MK22F51212 platform.drivers.common.MK22F51212 device.MK22F51212_CMSIS.MK22F51212 component.uart_adapter.MK22F51212 component.lists.MK22F51212 platform.drivers.uart.MK22F51212 device.MK22F51212_startup.MK22F51212 platform.drivers.lpuart.MK22F51212 platform.drivers.smc.MK22F51212 platform.drivers.gpio.MK22F51212 platform.Include_core_cm4.MK22F51212 platform.Include_common.MK22F51212 platform.Include_dsp.MK22F51212 platform.utilities.misc_utilities.MK22F51212 device.MK22F51212_system.MK22F51212" category="driver_examples/ftm">
+  <example id="frdmk22f_ftm_output_compare" name="ftm_output_compare" dependency="utility.debug_console_lite.MK22F51212 platform.utilities.assert_lite.MK22F51212 platform.drivers.port.MK22F51212 platform.drivers.ftm.MK22F51212 platform.drivers.clock.MK22F51212 platform.drivers.common.MK22F51212 device.MK22F51212_CMSIS.MK22F51212 component.uart_adapter.MK22F51212 component.lists.MK22F51212 platform.drivers.uart.MK22F51212 device.MK22F51212_startup.MK22F51212 platform.drivers.lpuart.MK22F51212 platform.drivers.smc.MK22F51212 platform.drivers.gpio.MK22F51212 CMSIS_Include_core_cm.MK22F51212 platform.utilities.misc_utilities.MK22F51212 device.MK22F51212_system.MK22F51212" category="driver_examples/ftm">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -36,6 +34,7 @@
           <value>CPU_MK22FN512VLH12</value>
           <value>FRDM_K22F</value>
           <value>FREEDOM</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
@@ -110,12 +109,6 @@
     </source>
     <source path="examples/frdmk22f/driver_examples/ftm/output_compare" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/frdmk22f/driver_examples/ftm/output_compare/iar" project_relative_path="MK22F51212/iar" type="linker" toolchain="iar">
-      <files mask="MK22FN512xxx12_flash.icf"/>
-    </source>
-    <source path="examples/frdmk22f/driver_examples/ftm/output_compare/mdk" project_relative_path="MK22F51212/arm" type="linker" toolchain="mdk">
-      <files mask="MK22FN512xxx12_flash.scf"/>
     </source>
     <source path="examples/frdmk22f/driver_examples/ftm/output_compare/armgcc" project_relative_path="MK22F51212/gcc" type="linker" toolchain="armgcc">
       <files mask="MK22FN512xxx12_flash.ld"/>

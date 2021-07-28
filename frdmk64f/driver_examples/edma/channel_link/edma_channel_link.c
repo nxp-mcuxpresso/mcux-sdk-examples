@@ -234,8 +234,8 @@ void EDMA_Minor_Loop_Link(void)
  */
 int main(void)
 {
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     /* Print source buffer */
     PRINTF("EDMA channel link example.\r\n\r\n");

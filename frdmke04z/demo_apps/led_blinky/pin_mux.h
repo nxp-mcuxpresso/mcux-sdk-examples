@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -36,11 +36,18 @@ void BOARD_InitBootPins(void);
 
 /*! @name PORTC5 (number 1), J1[12]/D4[1]/PTC5_RED
   @{ */
-#define BOARD_LED_RED_GPIO GPIOA            /*!<@brief GPIO device name: GPIOA */
-#define BOARD_LED_RED_GPIO_PORT kGPIO_PORTC /*!<@brief PORTA GPIO port: PORTA */
-#define BOARD_LED_RED_PORT PORTC            /*!<@brief PORT device name: PORTC */
-#define BOARD_LED_RED_PIN 5U                /*!<@brief PORTC pin index: 5 */
-                                            /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_LED_RED_FGPIO FGPIOA             /*!<@brief FGPIO peripheral base pointer */
+#define BOARD_LED_RED_GPIO GPIOA               /*!<@brief GPIO peripheral base pointer */
+#define BOARD_LED_RED_GPIO_PORT kGPIO_PORTC    /*!<@brief PORTA GPIO port: PORTA */
+#define BOARD_LED_RED_GPIO_PIN_MASK (1U << 21U) /*!<@brief GPIO pin mask */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_LED_RED_PORT PORTC               /*!<@brief PORT peripheral base pointer */
+#define BOARD_LED_RED_PIN 5U                   /*!<@brief PORT pin number */
+#define BOARD_LED_RED_PIN_MASK (1U << 5U)      /*!<@brief PORT pin mask */
+                                               /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

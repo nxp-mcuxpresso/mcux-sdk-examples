@@ -63,8 +63,8 @@ int main(void)
     gpio_interrupt_config_t config = {kGPIO_PinIntEnableEdge, kGPIO_PinIntEnableLowOrFall};
 
     /* hardware initialiize, include IOMUX, Uart debug initialize */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     PRINTF("GPIO Driver example.\r\n");
 

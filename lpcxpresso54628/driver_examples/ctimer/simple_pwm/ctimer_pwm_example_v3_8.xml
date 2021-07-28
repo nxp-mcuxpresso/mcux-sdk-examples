@@ -19,9 +19,7 @@
     <definition extID="platform.drivers.flexcomm.LPC54628"/>
     <definition extID="platform.drivers.emc.LPC54628"/>
     <definition extID="platform.utilities.assert.LPC54628"/>
-    <definition extID="platform.Include_core_cm4.LPC54628"/>
-    <definition extID="platform.Include_common.LPC54628"/>
-    <definition extID="platform.Include_dsp.LPC54628"/>
+    <definition extID="CMSIS_Include_core_cm.LPC54628"/>
     <definition extID="platform.drivers.reset.LPC54628"/>
     <definition extID="platform.drivers.inputmux_connections.LPC54628"/>
     <definition extID="platform.utilities.misc_utilities.LPC54628"/>
@@ -32,7 +30,7 @@
     <definition extID="armgcc"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso54628_ctimer_pwm_example" name="ctimer_pwm_example" dependency="platform.drivers.flexcomm_usart.LPC54628 platform.drivers.ctimer.LPC54628 platform.drivers.common.LPC54628 platform.drivers.clock.LPC54628 platform.drivers.power.LPC54628 platform.drivers.lpc_iocon.LPC54628 platform.drivers.lpc_gpio.LPC54628 platform.drivers.inputmux.LPC54628 device.LPC54628_CMSIS.LPC54628 utility.debug_console.LPC54628 component.usart_adapter.LPC54628 component.serial_manager.LPC54628 component.lists.LPC54628 component.serial_manager_uart.LPC54628 device.LPC54628_startup.LPC54628 platform.drivers.flexcomm.LPC54628 platform.drivers.emc.LPC54628 platform.utilities.assert.LPC54628 platform.Include_core_cm4.LPC54628 platform.Include_common.LPC54628 platform.Include_dsp.LPC54628 platform.drivers.reset.LPC54628 platform.drivers.inputmux_connections.LPC54628 platform.utilities.misc_utilities.LPC54628 device.LPC54628_system.LPC54628" category="driver_examples/ctimer">
+  <example id="lpcxpresso54628_ctimer_pwm_example" name="ctimer_pwm_example" dependency="platform.drivers.flexcomm_usart.LPC54628 platform.drivers.ctimer.LPC54628 platform.drivers.common.LPC54628 platform.drivers.clock.LPC54628 platform.drivers.power.LPC54628 platform.drivers.lpc_iocon.LPC54628 platform.drivers.lpc_gpio.LPC54628 platform.drivers.inputmux.LPC54628 device.LPC54628_CMSIS.LPC54628 utility.debug_console.LPC54628 component.usart_adapter.LPC54628 component.serial_manager.LPC54628 component.lists.LPC54628 component.serial_manager_uart.LPC54628 device.LPC54628_startup.LPC54628 platform.drivers.flexcomm.LPC54628 platform.drivers.emc.LPC54628 platform.utilities.assert.LPC54628 CMSIS_Include_core_cm.LPC54628 platform.drivers.reset.LPC54628 platform.drivers.inputmux_connections.LPC54628 platform.utilities.misc_utilities.LPC54628 device.LPC54628_system.LPC54628" category="driver_examples/ctimer">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -43,6 +41,7 @@
           <value>__USE_CMSIS</value>
           <value>CPU_LPC54628J512ET180=1</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
@@ -118,12 +117,6 @@
     </source>
     <source path="examples/lpcxpresso54628/driver_examples/ctimer/simple_pwm" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/lpcxpresso54628/driver_examples/ctimer/simple_pwm/iar" project_relative_path="LPC54628/iar" type="linker" toolchain="iar">
-      <files mask="LPC54628J512_flash.icf"/>
-    </source>
-    <source path="examples/lpcxpresso54628/driver_examples/ctimer/simple_pwm/mdk" project_relative_path="LPC54628/arm" type="linker" toolchain="mdk">
-      <files mask="LPC54628J512_flash.scf"/>
     </source>
     <source path="examples/lpcxpresso54628/driver_examples/ctimer/simple_pwm/armgcc" project_relative_path="LPC54628/gcc" type="linker" toolchain="armgcc">
       <files mask="LPC54628J512_flash.ld"/>

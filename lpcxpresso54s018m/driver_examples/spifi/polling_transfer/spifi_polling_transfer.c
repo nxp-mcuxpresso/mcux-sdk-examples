@@ -116,7 +116,7 @@ int main(void)
     */
     RESET_PeripheralReset(kSPIFI_RST_SHIFT_RSTn);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockPLL180M();
     BOARD_InitDebugConsole();
     PRINTF("SPIFI flash polling example started \r\n");

@@ -192,8 +192,8 @@ int main(void)
     /* Use 16 MHz clock for the FLEXCOMM2 */
     CLOCK_AttachClk(kSFRO_to_FLEXCOMM2);
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\nI2C example -- Accelerometer Event Trigger\r\n");

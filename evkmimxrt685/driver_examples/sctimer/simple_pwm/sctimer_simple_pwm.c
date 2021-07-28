@@ -43,8 +43,8 @@ int main(void)
     uint32_t sctimerClock;
 
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     sctimerClock = SCTIMER_CLK_FREQ;

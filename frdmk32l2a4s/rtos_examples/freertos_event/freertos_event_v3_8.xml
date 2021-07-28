@@ -16,9 +16,7 @@
     <definition extID="device.K32L2A41A_startup.K32L2A41A"/>
     <definition extID="platform.drivers.smc.K32L2A41A"/>
     <definition extID="platform.utilities.assert.K32L2A41A"/>
-    <definition extID="platform.Include_core_cm0plus.K32L2A41A"/>
-    <definition extID="platform.Include_common.K32L2A41A"/>
-    <definition extID="platform.Include_dsp.K32L2A41A"/>
+    <definition extID="CMSIS_Include_core_cm.K32L2A41A"/>
     <definition extID="middleware.freertos-kernel.K32L2A41A"/>
     <definition extID="middleware.freertos-kernel.extension.K32L2A41A"/>
     <definition extID="platform.utilities.misc_utilities.K32L2A41A"/>
@@ -29,7 +27,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="frdmk32l2a4s_freertos_event" name="freertos_event" dependency="platform.drivers.port.K32L2A41A platform.drivers.gpio.K32L2A41A platform.drivers.clock.K32L2A41A middleware.freertos-kernel.heap_4.K32L2A41A platform.drivers.common.K32L2A41A device.K32L2A41A_CMSIS.K32L2A41A utility.debug_console.K32L2A41A component.lpuart_adapter.K32L2A41A component.serial_manager.K32L2A41A component.lists.K32L2A41A component.serial_manager_uart.K32L2A41A platform.drivers.lpuart.K32L2A41A device.K32L2A41A_startup.K32L2A41A platform.drivers.smc.K32L2A41A platform.utilities.assert.K32L2A41A platform.Include_core_cm0plus.K32L2A41A platform.Include_common.K32L2A41A platform.Include_dsp.K32L2A41A middleware.freertos-kernel.K32L2A41A middleware.freertos-kernel.extension.K32L2A41A platform.utilities.misc_utilities.K32L2A41A device.K32L2A41A_system.K32L2A41A" category="rtos_examples">
+  <example id="frdmk32l2a4s_freertos_event" name="freertos_event" dependency="platform.drivers.port.K32L2A41A platform.drivers.gpio.K32L2A41A platform.drivers.clock.K32L2A41A middleware.freertos-kernel.heap_4.K32L2A41A platform.drivers.common.K32L2A41A device.K32L2A41A_CMSIS.K32L2A41A utility.debug_console.K32L2A41A component.lpuart_adapter.K32L2A41A component.serial_manager.K32L2A41A component.lists.K32L2A41A component.serial_manager_uart.K32L2A41A platform.drivers.lpuart.K32L2A41A device.K32L2A41A_startup.K32L2A41A platform.drivers.smc.K32L2A41A platform.utilities.assert.K32L2A41A CMSIS_Include_core_cm.K32L2A41A middleware.freertos-kernel.K32L2A41A middleware.freertos-kernel.extension.K32L2A41A platform.utilities.misc_utilities.K32L2A41A device.K32L2A41A_system.K32L2A41A" category="rtos_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -40,7 +38,8 @@
           <value>FRDM_K32L2A4S</value>
           <value>FREEDOM</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
-          <value>FSL_RTOS_FREE_RTOS</value>
+          <value>SDK_OS_FREE_RTOS</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.none</value>
@@ -120,12 +119,6 @@
     </source>
     <source path="examples/frdmk32l2a4s/rtos_examples/freertos_event" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/frdmk32l2a4s/rtos_examples/freertos_event/iar" project_relative_path="K32L2A41A/iar" type="linker" toolchain="iar">
-      <files mask="K32L2A41xxxxA_flash.icf"/>
-    </source>
-    <source path="examples/frdmk32l2a4s/rtos_examples/freertos_event/mdk" project_relative_path="K32L2A41A/arm" type="linker" toolchain="mdk">
-      <files mask="K32L2A41xxxxA_flash.scf"/>
     </source>
     <source path="examples/frdmk32l2a4s/rtos_examples/freertos_event/armgcc" project_relative_path="K32L2A41A/gcc" type="linker" toolchain="armgcc">
       <files mask="K32L2A41xxxxA_flash.ld"/>

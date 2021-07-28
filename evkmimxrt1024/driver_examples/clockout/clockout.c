@@ -30,7 +30,7 @@
 
 #define APP_OUTPUT2_CLOCK_NAME_ARRAY                                                                       \
     {                                                                                                      \
-        "Usdhc1 Clock Root", "IPI2C Clock Root", "OSC Clock", "LPSPI Clock Root", "Usdhc2 Clock Root",     \
+        "Usdhc1 Clock Root", "LPI2C Clock Root", "OSC Clock", "LPSPI Clock Root", "Usdhc2 Clock Root",     \
             "SAI1 Clock Root", "SAI2 Clock Root", "SAI3 Clock Root", "Trace Clock Root", "Can Clock Root", \
             "Flexspi Clock Root", "UART Clock Root", "Spdif0 Clock Root",                                  \
     }
@@ -61,8 +61,8 @@ int main(void)
     uint8_t divider;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     CLOCK_EnableClock(kCLOCK_Usdhc1);
@@ -76,6 +76,7 @@ int main(void)
     CLOCK_EnableClock(kCLOCK_Lpspi1);
     CLOCK_EnableClock(kCLOCK_Trace);
     CLOCK_EnableClock(kCLOCK_Pit);
+    CLOCK_EnableClock(kCLOCK_Lpi2c1);
 
     /* Set Spdif clock source. */
     CLOCK_SetMux(kCLOCK_SpdifMux, 0);

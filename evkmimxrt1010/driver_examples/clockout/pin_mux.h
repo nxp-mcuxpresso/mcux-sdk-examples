@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -63,7 +63,6 @@ void BOARD_InitBootPins(void);
 /* Routed pin properties */
 #define BOARD_INITPINS_GPIO_SD_01_PERIPHERAL                                 CCM   /*!< Peripheral name */
 #define BOARD_INITPINS_GPIO_SD_01_SIGNAL                                   CLKO2   /*!< Signal name */
-
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

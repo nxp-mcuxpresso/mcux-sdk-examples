@@ -112,8 +112,8 @@ int main(void)
     uint32_t trimVal = 0;
     uint32_t i       = 0;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     PRINTF("\r\nVREF example\r\n");
 

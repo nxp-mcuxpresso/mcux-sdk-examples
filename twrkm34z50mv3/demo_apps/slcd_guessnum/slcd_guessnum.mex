@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<configuration name="MKM34Z128Axxx5" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.9 http://mcuxpresso.nxp.com/XSD/mex_configuration_1.9.xsd" uuid="80bb8dce-414c-47f3-a772-152786185e7b" version="1.9" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <common>
+      <processor>MKM34Z128Axxx5</processor>
+      <package>MKM34Z128ACLL5</package>
+      <mcu_data>ksdk2_0</mcu_data>
+      <cores selected="core0">
+         <core name="Cortex-M0P" id="core0" description="M0P core"/>
+      </cores>
+      <description></description>
+   </common>
+   <preferences>
+      <validate_boot_init_only>true</validate_boot_init_only>
+      <generate_extended_information>false</generate_extended_information>
+      <generate_code_modified_registers_only>false</generate_code_modified_registers_only>
+   </preferences>
+   <tools>
+      <pins name="Pins" version="9.0" enabled="true" update_project_code="true">
+         <pins_profile>
+            <processor_version>0.9.0</processor_version>
+         </pins_profile>
+         <functions_list>
+            <function name="BOARD_InitPins">
+               <description>Configures pin routing and optionally pin electrical features.</description>
+               <options>
+                  <callFromInitBoot>true</callFromInitBoot>
+                  <coreID>core0</coreID>
+                  <enableClock>true</enableClock>
+               </options>
+               <dependencies>
+                  <dependency resourceType="Peripheral" resourceId="LCD" description="Peripheral LCD is not initialized" problem_level="1" source="Pins:BOARD_InitPins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="Peripheral" resourceId="UART1" description="Peripheral UART1 is not initialized" problem_level="1" source="Pins:BOARD_InitPins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.port" description="Pins initialization requires the PORT Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <pins>
+                  <pin peripheral="LCD" signal="P, 23" pin_num="1" pin_signal="LCD23/PTA0"/>
+                  <pin peripheral="LCD" signal="P, 24" pin_num="2" pin_signal="LCD24/PTA1"/>
+                  <pin peripheral="LCD" signal="P, 25" pin_num="3" pin_signal="LCD25/PTA2"/>
+                  <pin peripheral="LCD" signal="P, 26" pin_num="4" pin_signal="LCD26/PTA3"/>
+                  <pin peripheral="LCD" signal="P, 27" pin_num="5" pin_signal="LCD27/PTA4/LLWU_P15/NMI_B"/>
+                  <pin peripheral="LCD" signal="P, 28" pin_num="6" pin_signal="LCD28/PTA5"/>
+                  <pin peripheral="LCD" signal="P, 31" pin_num="9" pin_signal="LCD31/PTB0"/>
+                  <pin peripheral="LCD" signal="P, 32" pin_num="12" pin_signal="LCD32/PTB1"/>
+                  <pin peripheral="LCD" signal="P, 33" pin_num="13" pin_signal="LCD33/PTB2"/>
+                  <pin peripheral="LCD" signal="P, 34" pin_num="14" pin_signal="LCD34/PTB3"/>
+                  <pin peripheral="LCD" signal="P, 35" pin_num="15" pin_signal="LCD35/PTB4"/>
+                  <pin peripheral="LCD" signal="P, 36" pin_num="16" pin_signal="LCD36/PTB5"/>
+                  <pin peripheral="LCD" signal="P, 37" pin_num="17" pin_signal="LCD37/CMP1P0/PTB6"/>
+                  <pin peripheral="LCD" signal="P, 43" pin_num="23" pin_signal="LCD43/PTC4"/>
+                  <pin peripheral="LCD" signal="P, 9" pin_num="77" pin_signal="LCD9/AD11/PTG2/SPI0_SS_B/LLWU_P1"/>
+                  <pin peripheral="LCD" signal="P, 10" pin_num="78" pin_signal="LCD10/PTG3/SPI0_SCK/I2C0_SCL"/>
+                  <pin peripheral="LCD" signal="P, 11" pin_num="79" pin_signal="LCD11/PTG4/SPI0_MOSI/I2C0_SDA"/>
+                  <pin peripheral="LCD" signal="P, 12" pin_num="80" pin_signal="LCD12/PTG5/SPI0_MISO/LPTIM1"/>
+                  <pin peripheral="LCD" signal="P, 13" pin_num="81" pin_signal="LCD13/PTG6/LLWU_P0/LPTIM2"/>
+                  <pin peripheral="LCD" signal="P, 14" pin_num="82" pin_signal="LCD14/PTG7"/>
+                  <pin peripheral="LCD" signal="P, 15" pin_num="83" pin_signal="LCD15/PTH0"/>
+                  <pin peripheral="LCD" signal="P, 16" pin_num="84" pin_signal="LCD16/PTH1"/>
+                  <pin peripheral="LCD" signal="P, 17" pin_num="85" pin_signal="LCD17/PTH2"/>
+                  <pin peripheral="LCD" signal="P, 18" pin_num="86" pin_signal="LCD18/PTH3"/>
+                  <pin peripheral="LCD" signal="P, 19" pin_num="87" pin_signal="LCD19/PTH4"/>
+                  <pin peripheral="LCD" signal="P, 20" pin_num="88" pin_signal="LCD20/PTH5"/>
+                  <pin peripheral="LCD" signal="P, 21" pin_num="93" pin_signal="LCD21/PTI2"/>
+                  <pin peripheral="LCD" signal="P, 22" pin_num="94" pin_signal="LCD22/PTI3"/>
+                  <pin peripheral="UART1" signal="RX" pin_num="91" pin_signal="CMP0P5/PTI0/SCI1_RxD/PXBAR_IN8/SPI1_MISO/SPI1_MOSI"/>
+                  <pin peripheral="UART1" signal="TX" pin_num="92" pin_signal="PTI1/SCI1_TxD/PXBAR_OUT8/SPI1_MOSI/SPI1_MISO"/>
+               </pins>
+            </function>
+         </functions_list>
+      </pins>
+      <clocks name="Clocks" version="7.0" enabled="true" update_project_code="true">
+         <clocks_profile>
+            <processor_version>0.9.0</processor_version>
+         </clocks_profile>
+         <clock_configurations>
+            <clock_configuration name="BOARD_BootClockRUN">
+               <description></description>
+               <options/>
+               <dependencies>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Clocks initialization requires the COMMON Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockRUN">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <clock_sources/>
+               <clock_outputs>
+                  <clock_output id="Bus_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
+                  <clock_output id="Core_clock.outFreq" value="2 MHz" locked="false" accuracy=""/>
+                  <clock_output id="Flash_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPO_clock.outFreq" value="1 kHz" locked="false" accuracy=""/>
+                  <clock_output id="System_clock.outFreq" value="2 MHz" locked="false" accuracy=""/>
+               </clock_outputs>
+               <clock_settings/>
+               <called_from_default_init>true</called_from_default_init>
+            </clock_configuration>
+         </clock_configurations>
+      </clocks>
+      <dcdx name="DCDx" version="3.0" enabled="false" update_project_code="true">
+         <dcdx_profile>
+            <processor_version>N/A</processor_version>
+         </dcdx_profile>
+         <dcdx_configurations/>
+      </dcdx>
+      <periphs name="Peripherals" version="9.0" enabled="true" update_project_code="true">
+         <peripherals_profile>
+            <processor_version>0.9.0</processor_version>
+         </peripherals_profile>
+         <functional_groups>
+            <functional_group name="BOARD_InitPeripherals" uuid="e6de9842-0e30-4209-8f76-25e3162aebae" called_from_default_init="true" id_prefix="" core="core0">
+               <description></description>
+               <options/>
+               <dependencies/>
+               <instances/>
+            </functional_group>
+         </functional_groups>
+         <components>
+            <component name="system" uuid="f3308ae6-7713-4685-a48a-745b9d490662" type_id="system_54b53072540eeeb8f8e9343e71f28176">
+               <config_set_global name="global_system_definitions">
+                  <setting name="user_definitions" value=""/>
+                  <setting name="user_includes" value=""/>
+               </config_set_global>
+            </component>
+            <component name="msg" uuid="117a7d42-0c0f-44eb-9050-1e165a79a976" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
+               <config_set_global name="global_messages"/>
+            </component>
+            <component name="generic_uart" uuid="88e21f49-40ba-4021-8fe7-27b120edbd55" type_id="generic_uart_8cae00565451cf2346eb1b8c624e73a6">
+               <config_set_global name="global_uart"/>
+            </component>
+            <component name="generic_can" uuid="62f484aa-ef82-4ef4-9723-df5a49ea11b8" type_id="generic_can_1bfdd78b1af214566c1f23cf6a582d80">
+               <config_set_global name="global_can"/>
+            </component>
+         </components>
+      </periphs>
+      <tee name="TEE" version="3.0" enabled="false" update_project_code="true">
+         <tee_profile>
+            <processor_version>N/A</processor_version>
+         </tee_profile>
+         <global_options/>
+         <user_memory_regions/>
+      </tee>
+   </tools>
+</configuration>

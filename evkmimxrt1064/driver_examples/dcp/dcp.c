@@ -341,8 +341,8 @@ int main(void)
 
     /* Init hardware*/
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Note: When DCACHE is enabled input and output buffers should be in non-cached memory

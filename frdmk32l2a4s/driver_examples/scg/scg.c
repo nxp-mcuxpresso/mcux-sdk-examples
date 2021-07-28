@@ -229,7 +229,7 @@ int main(void)
     uint32_t uartClkSrcFreq;
 
     SMC_SetPowerModeProtection(SMC, kSMC_AllowPowerModeAll);
-    BOARD_InitPins();
+    BOARD_InitBootPins();
 
     CLOCK_SetIpSrc(kCLOCK_Lpuart0, kCLOCK_IpSrcSircAsync);
     uartClkSrcFreq = CLOCK_GetIpFreq(kCLOCK_Lpuart0);

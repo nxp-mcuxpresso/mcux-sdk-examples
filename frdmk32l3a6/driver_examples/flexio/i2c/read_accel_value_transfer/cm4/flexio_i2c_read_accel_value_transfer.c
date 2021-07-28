@@ -274,8 +274,8 @@ int main(void)
     i2cDev.timerIndex[1]   = 1U;
     i2cDev.timerIndex[2]   = 2U;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     CLOCK_SetIpSrc(kCLOCK_Flexio0, kCLOCK_IpSrcFircAsync);

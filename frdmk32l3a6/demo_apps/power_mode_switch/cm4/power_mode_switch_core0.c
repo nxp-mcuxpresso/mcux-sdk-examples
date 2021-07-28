@@ -136,7 +136,7 @@ int main()
     {
         SPM_ClearPeriphIOIsolationFlag(SPM);
     }
-    BOARD_InitPins_Core0();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     /* BOARD_InitDebugConsole(); */
     BOARD_InitDebugConsoleWithSirc();

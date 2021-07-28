@@ -93,9 +93,9 @@ int main(void)
 {
     uint32_t i = 0;
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitPsRamPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     status_t status = BOARD_InitPsRam();

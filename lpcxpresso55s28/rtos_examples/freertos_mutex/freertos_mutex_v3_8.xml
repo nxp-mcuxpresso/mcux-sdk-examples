@@ -20,9 +20,7 @@
     <definition extID="component.serial_manager_uart.LPC55S28"/>
     <definition extID="middleware.freertos-kernel.LPC55S28"/>
     <definition extID="middleware.freertos-kernel.extension.LPC55S28"/>
-    <definition extID="platform.Include_core_cm33.LPC55S28"/>
-    <definition extID="platform.Include_common.LPC55S28"/>
-    <definition extID="platform.Include_dsp.LPC55S28"/>
+    <definition extID="CMSIS_Include_core_cm.LPC55S28"/>
     <definition extID="platform.drivers.reset.LPC55S28"/>
     <definition extID="platform.utilities.misc_utilities.LPC55S28"/>
     <definition extID="device.LPC55S28_system.LPC55S28"/>
@@ -32,7 +30,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso55s28_freertos_mutex" name="freertos_mutex" dependency="middleware.freertos-kernel.cm33_nonsecure_port.LPC55S28 platform.drivers.clock.LPC55S28 middleware.freertos-kernel.heap_4.LPC55S28 platform.drivers.common.LPC55S28 platform.drivers.power.LPC55S28 device.LPC55S28_CMSIS.LPC55S28 device.LPC55S28_startup.LPC55S28 platform.drivers.flexcomm_usart.LPC55S28 platform.drivers.flexcomm.LPC55S28 platform.drivers.lpc_iocon.LPC55S28 platform.drivers.lpc_gpio.LPC55S28 platform.utilities.assert.LPC55S28 utility.debug_console.LPC55S28 component.usart_adapter.LPC55S28 component.serial_manager.LPC55S28 component.lists.LPC55S28 component.serial_manager_uart.LPC55S28 middleware.freertos-kernel.LPC55S28 middleware.freertos-kernel.extension.LPC55S28 platform.Include_core_cm33.LPC55S28 platform.Include_common.LPC55S28 platform.Include_dsp.LPC55S28 platform.drivers.reset.LPC55S28 platform.utilities.misc_utilities.LPC55S28 device.LPC55S28_system.LPC55S28" category="rtos_examples">
+  <example id="lpcxpresso55s28_freertos_mutex" name="freertos_mutex" dependency="middleware.freertos-kernel.cm33_nonsecure_port.LPC55S28 platform.drivers.clock.LPC55S28 middleware.freertos-kernel.heap_4.LPC55S28 platform.drivers.common.LPC55S28 platform.drivers.power.LPC55S28 device.LPC55S28_CMSIS.LPC55S28 device.LPC55S28_startup.LPC55S28 platform.drivers.flexcomm_usart.LPC55S28 platform.drivers.flexcomm.LPC55S28 platform.drivers.lpc_iocon.LPC55S28 platform.drivers.lpc_gpio.LPC55S28 platform.utilities.assert.LPC55S28 utility.debug_console.LPC55S28 component.usart_adapter.LPC55S28 component.serial_manager.LPC55S28 component.lists.LPC55S28 component.serial_manager_uart.LPC55S28 middleware.freertos-kernel.LPC55S28 middleware.freertos-kernel.extension.LPC55S28 CMSIS_Include_core_cm.LPC55S28 platform.drivers.reset.LPC55S28 platform.utilities.misc_utilities.LPC55S28 device.LPC55S28_system.LPC55S28" category="rtos_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -41,7 +39,8 @@
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>CPU_LPC55S28JBD100</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
-          <value>FSL_RTOS_FREE_RTOS</value>
+          <value>SDK_OS_FREE_RTOS</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
@@ -123,12 +122,6 @@
     </source>
     <source path="examples/lpcxpresso55s28/rtos_examples/freertos_mutex" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/lpcxpresso55s28/rtos_examples/freertos_mutex/iar" project_relative_path="LPC55S28/iar" type="linker" toolchain="iar">
-      <files mask="LPC55S28_flash.icf"/>
-    </source>
-    <source path="examples/lpcxpresso55s28/rtos_examples/freertos_mutex/mdk" project_relative_path="LPC55S28/arm" type="linker" toolchain="mdk">
-      <files mask="LPC55S28_flash.scf"/>
     </source>
     <source path="examples/lpcxpresso55s28/rtos_examples/freertos_mutex/armgcc" project_relative_path="LPC55S28/gcc" type="linker" toolchain="armgcc">
       <files mask="LPC55S28_flash.ld"/>

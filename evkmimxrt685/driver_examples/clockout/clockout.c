@@ -44,8 +44,8 @@ int main(void)
     uint8_t divideValue;
     uint32_t dividedFreq;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     CLOCK_InitSysPfd(kCLOCK_Pfd1, 19U); /* Enable DSP PLL clock */

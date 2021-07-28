@@ -46,8 +46,8 @@ int main(void)
 
     /* Init hardware*/
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("TRNG Peripheral Driver Example\r\n");

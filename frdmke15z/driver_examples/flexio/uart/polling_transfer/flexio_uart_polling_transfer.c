@@ -41,8 +41,8 @@ int main(void)
     flexio_uart_config_t config;
     status_t result = kStatus_Success;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
 
     CLOCK_SetIpSrc(kCLOCK_Flexio0, kCLOCK_IpSrcFircAsync);
 

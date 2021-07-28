@@ -31,9 +31,7 @@
     <definition extID="platform.drivers.flexcomm.MIMXRT685S"/>
     <definition extID="platform.drivers.lpc_iopctl.MIMXRT685S"/>
     <definition extID="platform.drivers.reset.MIMXRT685S"/>
-    <definition extID="platform.Include_core_cm33.MIMXRT685S"/>
-    <definition extID="platform.Include_common.MIMXRT685S"/>
-    <definition extID="platform.Include_dsp.MIMXRT685S"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT685S"/>
     <definition extID="platform.drivers.inputmux_connections.MIMXRT685S"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT685S"/>
     <definition extID="mcuxpresso"/>
@@ -42,7 +40,7 @@
     <definition extID="armgcc"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="evkmimxrt685_dmic_multi_channel" name="dmic_multi_channel" device_core="cm33_MIMXRT685S" dependency="platform.drivers.flexcomm_i2c.MIMXRT685S component.codec_i2c.MIMXRT685S platform.drivers.common.MIMXRT685S component.flexcomm_i2c_adapter.MIMXRT685S utility.debug_console_lite.MIMXRT685S platform.utilities.assert_lite.MIMXRT685S platform.drivers.dmic.MIMXRT685S platform.drivers.flexcomm_i2s.MIMXRT685S platform.drivers.flexcomm_usart.MIMXRT685S driver.cs42888.MIMXRT685S platform.drivers.dmic_dma.MIMXRT685S platform.drivers.lpc_dma.MIMXRT685S platform.drivers.flexcomm_i2s_dma.MIMXRT685S driver.codec.MIMXRT685S component.cs42888_adapter.MIMXRT685S platform.drivers.clock.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.lpc_gpio.MIMXRT685S platform.drivers.inputmux.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S component.usart_adapter.MIMXRT685S platform.drivers.flash_config.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S component.lists.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S platform.drivers.reset.MIMXRT685S platform.Include_core_cm33.MIMXRT685S platform.Include_common.MIMXRT685S platform.Include_dsp.MIMXRT685S platform.drivers.inputmux_connections.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S" category="driver_examples/dmic">
+  <example id="evkmimxrt685_dmic_multi_channel" name="dmic_multi_channel" device_core="cm33_MIMXRT685S" dependency="platform.drivers.flexcomm_i2c.MIMXRT685S component.codec_i2c.MIMXRT685S platform.drivers.common.MIMXRT685S component.flexcomm_i2c_adapter.MIMXRT685S utility.debug_console_lite.MIMXRT685S platform.utilities.assert_lite.MIMXRT685S platform.drivers.dmic.MIMXRT685S platform.drivers.flexcomm_i2s.MIMXRT685S platform.drivers.flexcomm_usart.MIMXRT685S driver.cs42888.MIMXRT685S platform.drivers.dmic_dma.MIMXRT685S platform.drivers.lpc_dma.MIMXRT685S platform.drivers.flexcomm_i2s_dma.MIMXRT685S driver.codec.MIMXRT685S component.cs42888_adapter.MIMXRT685S platform.drivers.clock.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.lpc_gpio.MIMXRT685S platform.drivers.inputmux.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S component.usart_adapter.MIMXRT685S platform.drivers.flash_config.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S component.lists.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S platform.drivers.reset.MIMXRT685S CMSIS_Include_core_cm.MIMXRT685S platform.drivers.inputmux_connections.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S" category="driver_examples/dmic">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -59,6 +57,7 @@
           <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
           <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
           <value>CODEC_CS42888_ENABLE</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
@@ -135,15 +134,6 @@
     </source>
     <source path="examples/evkmimxrt685/driver_examples/dmic/dmic_multi_channel" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/evkmimxrt685/driver_examples/dmic/dmic_multi_channel/mdk" project_relative_path="evkmimxrt685" type="configuration" toolchain="mdk">
-      <files mask="evkmimxrt685_flash.ini"/>
-    </source>
-    <source path="examples/evkmimxrt685/driver_examples/dmic/dmic_multi_channel/iar" project_relative_path="MIMXRT685S/iar" type="linker" toolchain="iar">
-      <files mask="MIMXRT685Sxxxx_cm33_ram.icf"/>
-    </source>
-    <source path="examples/evkmimxrt685/driver_examples/dmic/dmic_multi_channel/mdk" project_relative_path="evkmimxrt685/driver_examples/dmic/dmic_multi_channel/linkscripts" type="linker" toolchain="mdk">
-      <files mask="MIMXRT685Sxxxx_cm33_ram.scf"/>
     </source>
     <source path="examples/evkmimxrt685/driver_examples/dmic/dmic_multi_channel/armgcc" project_relative_path="evkmimxrt685/driver_examples/dmic/dmic_multi_channel/linkscripts" type="linker" toolchain="armgcc">
       <files mask="MIMXRT685Sxxxx_cm33_ram.ld"/>

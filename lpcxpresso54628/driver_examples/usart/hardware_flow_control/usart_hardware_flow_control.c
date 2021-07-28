@@ -60,8 +60,8 @@ int main(void)
     CLOCK_AttachClk(BOARD_DEBUG_UART_CLK_ATTACH);
     CLOCK_AttachClk(DEMO_USART_CLK_ATTACH);
 
-    BOARD_InitPins();
-    BOARD_BootClockPLL220M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     PRINTF("This is USART hardware flow control example on one board.\r\n");
     PRINTF("This example will send data to itself and will use hardware flow control to avoid the overflow.\r\n");
@@ -80,9 +80,9 @@ int main(void)
      * config.enableHardwareFlowControl = false;
      */
     USART_GetDefaultConfig(&config);
-    config.baudRate_Bps           = BOARD_DEBUG_UART_BAUDRATE;
-    config.enableTx               = true;
-    config.enableRx               = true;
+    config.baudRate_Bps              = BOARD_DEBUG_UART_BAUDRATE;
+    config.enableTx                  = true;
+    config.enableRx                  = true;
     config.enableHardwareFlowControl = true;
 
     USART_Init(DEMO_USART, &config, DEMO_USART_CLK_FREQ);

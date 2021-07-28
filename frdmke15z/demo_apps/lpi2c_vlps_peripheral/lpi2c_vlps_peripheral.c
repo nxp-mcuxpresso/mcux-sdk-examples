@@ -16,8 +16,8 @@
 #include "pin_mux.h"
 #include "peripherals.h"
 #include "board.h"
-#include "fsl_common.h"
 #include "fsl_smc.h"
+#include "fsl_common.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -30,17 +30,17 @@
 #define ACCEL_RESET_GPIO (GPIOB)
 #define ACCEL_RESET_PIN  (9U)
 /* FXOS8700 and MMA8451 have the same register address */
-#define ACCEL_REG_OUT_X_MSB 0x01
-#define ACCEL_REG_WHO_AM_I 0x0D
-#define ACCEL_REG_CTRL1 0x2A
-#define ACCEL_REG_CTRL2 0x2B
+#define ACCEL_REG_OUT_X_MSB    0x01
+#define ACCEL_REG_WHO_AM_I     0x0D
+#define ACCEL_REG_CTRL1        0x2A
+#define ACCEL_REG_CTRL2        0x2B
 #define ACCEL_REG_XYZ_DATA_CFG 0x0E
 
-#define LPI2C_READ 1
-#define LPI2C_WRITE 0
-#define LPI2C_CMD_TX 0
-#define LPI2C_CMD_RX 1
-#define LPI2C_CMD_STOP 2
+#define LPI2C_READ           1
+#define LPI2C_WRITE          0
+#define LPI2C_CMD_TX         0
+#define LPI2C_CMD_RX         1
+#define LPI2C_CMD_STOP       2
 #define LPI2C_CMD_START_SEND 4
 
 /*******************************************************************************
@@ -50,10 +50,7 @@ static void DEMO_ACCEL_Init(void);
 static void DEMO_ACCEL_WriteReg(uint8_t reg, uint8_t value);
 static void DEMO_ACCEL_ReadData(void);
 
-void lpi2c_master_callback(LPI2C_Type *base,
-                                  lpi2c_master_handle_t *handle,
-                                  status_t completionStatus,
-                                  void *param);
+void lpi2c_master_callback(LPI2C_Type *base, lpi2c_master_handle_t *handle, status_t completionStatus, void *param);
 /*******************************************************************************
  * Variables
  *******************************************************************************/
@@ -87,10 +84,7 @@ void DEMO_InitDebugConsole(void)
     DbgConsole_Init(BOARD_DEBUG_UART_INSTANCE, BOARD_DEBUG_UART_BAUDRATE, BOARD_DEBUG_UART_TYPE, uartClkSrcFreq);
 }
 
-void lpi2c_master_callback(LPI2C_Type *base,
-                                  lpi2c_master_handle_t *handle,
-                                  status_t completionStatus,
-                                  void *param)
+void lpi2c_master_callback(LPI2C_Type *base, lpi2c_master_handle_t *handle, status_t completionStatus, void *param)
 {
     /* Signal transfer success when received success status. */
     if (completionStatus == kStatus_Success)

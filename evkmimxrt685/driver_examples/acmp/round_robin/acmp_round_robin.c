@@ -121,8 +121,8 @@ int main(void)
     acmp_round_robin_config_t roundRobinConfigStruct;
     uint8_t ch;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Let acmp run on main clock with divider 2 (250Mhz). */

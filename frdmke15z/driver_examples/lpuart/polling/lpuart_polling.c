@@ -41,8 +41,8 @@ int main(void)
     uint8_t ch;
     lpuart_config_t config;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     CLOCK_SetIpSrc(kCLOCK_Lpuart1, kCLOCK_IpSrcSysOscAsync);
 
     /*

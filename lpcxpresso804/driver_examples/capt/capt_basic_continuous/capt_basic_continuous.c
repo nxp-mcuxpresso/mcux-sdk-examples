@@ -80,7 +80,7 @@ int main(void)
     CLOCK_Select(kCAPT_Clk_From_Fro);
     POWER_DisablePD(kPDRUNCFG_PD_ACMP);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 

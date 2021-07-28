@@ -4,8 +4,8 @@ The SNVS HP RTC project is a simple demonstration program of the SDK SNVS HP dri
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
-- MCUXpresso  11.3.0
+- GCC ARM Embedded  10.2.1
+- MCUXpresso  11.4.0
 
 Hardware requirements
 =====================

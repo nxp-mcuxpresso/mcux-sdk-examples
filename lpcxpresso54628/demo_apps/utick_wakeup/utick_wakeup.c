@@ -61,7 +61,7 @@ int main(void)
     /* enable clock for GPIO*/
     CLOCK_EnableClock(kCLOCK_Gpio2);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 

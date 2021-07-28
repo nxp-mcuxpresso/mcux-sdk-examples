@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -36,15 +36,21 @@ void BOARD_InitBootPins(void);
 
 /*! @name PORTE1 (number 2), DEBUG_UART_RX
   @{ */
-#define BOARD_DEBUG_UART_RX_PORT PORTE /*!<@brief PORT device name: PORTE */
-#define BOARD_DEBUG_UART_RX_PIN 1U     /*!<@brief PORTE pin index: 1 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_RX_PORT PORTE               /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_RX_PIN 1U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_RX_PIN_MASK (1U << 1U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*! @name PORTE0 (number 1), DEBUG_UART_TX
   @{ */
-#define BOARD_DEBUG_UART_TX_PORT PORTE /*!<@brief PORT device name: PORTE */
-#define BOARD_DEBUG_UART_TX_PIN 0U     /*!<@brief PORTE pin index: 0 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_TX_PORT PORTE               /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_TX_PIN 0U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_TX_PIN_MASK (1U << 0U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
@@ -54,15 +60,21 @@ void BOARD_InitPins(void);
 
 /*! @name PORTB2 (number 37), ACCEL_SCL
   @{ */
-#define BOARD_I2C_ACCEL_SCL_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_I2C_ACCEL_SCL_PIN 2U     /*!<@brief PORTB pin index: 2 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_I2C_ACCEL_SCL_PORT PORTB               /*!<@brief PORT peripheral base pointer */
+#define BOARD_I2C_ACCEL_SCL_PIN 2U                   /*!<@brief PORT pin number */
+#define BOARD_I2C_ACCEL_SCL_PIN_MASK (1U << 2U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*! @name PORTB3 (number 38), ACCEL_SDA
   @{ */
-#define BOARD_I2C_ACCEL_SDA_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_I2C_ACCEL_SDA_PIN 3U     /*!<@brief PORTB pin index: 3 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_I2C_ACCEL_SDA_PORT PORTB               /*!<@brief PORT peripheral base pointer */
+#define BOARD_I2C_ACCEL_SDA_PIN 3U                   /*!<@brief PORT pin number */
+#define BOARD_I2C_ACCEL_SDA_PIN_MASK (1U << 3U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
@@ -72,17 +84,29 @@ void BOARD_I2C_ConfigurePins(void);
 
 /*! @name PORTB2 (number 37), ACCEL_SCL
   @{ */
-#define BOARD_GPIO_ACCEL_SCL_GPIO GPIOB /*!<@brief GPIO device name: GPIOB */
-#define BOARD_GPIO_ACCEL_SCL_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_GPIO_ACCEL_SCL_PIN 2U     /*!<@brief PORTB pin index: 2 */
-                                        /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_GPIO_ACCEL_SCL_GPIO GPIOB               /*!<@brief GPIO peripheral base pointer */
+#define BOARD_GPIO_ACCEL_SCL_GPIO_PIN_MASK (1U << 2U) /*!<@brief GPIO pin mask */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_GPIO_ACCEL_SCL_PORT PORTB               /*!<@brief PORT peripheral base pointer */
+#define BOARD_GPIO_ACCEL_SCL_PIN 2U                   /*!<@brief PORT pin number */
+#define BOARD_GPIO_ACCEL_SCL_PIN_MASK (1U << 2U)      /*!<@brief PORT pin mask */
+                                                      /* @} */
 
 /*! @name PORTB3 (number 38), ACCEL_SDA
   @{ */
-#define BOARD_GPIO_ACCEL_SDA_GPIO GPIOB /*!<@brief GPIO device name: GPIOB */
-#define BOARD_GPIO_ACCEL_SDA_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_GPIO_ACCEL_SDA_PIN 3U     /*!<@brief PORTB pin index: 3 */
-                                        /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_GPIO_ACCEL_SDA_GPIO GPIOB               /*!<@brief GPIO peripheral base pointer */
+#define BOARD_GPIO_ACCEL_SDA_GPIO_PIN_MASK (1U << 3U) /*!<@brief GPIO pin mask */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_GPIO_ACCEL_SDA_PORT PORTB               /*!<@brief PORT peripheral base pointer */
+#define BOARD_GPIO_ACCEL_SDA_PIN 3U                   /*!<@brief PORT pin number */
+#define BOARD_GPIO_ACCEL_SDA_PIN_MASK (1U << 3U)      /*!<@brief PORT pin mask */
+                                                      /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

@@ -57,8 +57,8 @@ int main(void)
     adc_etc_trigger_chain_config_t adcEtcTriggerChainConfig;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("ADC_ETC_Software_Trigger_Conv Example Start!\r\n");

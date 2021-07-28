@@ -63,7 +63,6 @@ flexio_spi_slave_handle_t g_s_handle;
 
 volatile bool isSlaveTransferCompleted  = false;
 volatile bool isMasterTransferCompleted = false;
-bool isMasterIrqInIntmux                = false;
 
 /*******************************************************************************
  * Code
@@ -95,8 +94,8 @@ void FLEXIO_SPI_SlaveUserCallback(FLEXIO_SPI_Type *base,
 
 int main(void)
 {
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /*Set clock source for LPSPI and FlexIO*/
@@ -153,11 +152,20 @@ int main(void)
     FLEXIO_SPI_SlaveInit(&spiDev, &slaveConfig);
 
     /* Set slave interrupt priority higher. */
-    if (!isMasterIrqInIntmux)
+#if defined(__CORTEX_M) && (__CORTEX_M == 0U) && defined(FSL_FEATURE_NUMBER_OF_LEVEL1_INT_VECTORS) && \
+    (FSL_FEATURE_NUMBER_OF_LEVEL1_INT_VECTORS > 0)
+    if (SLAVE_FLEXIO_SPI_IRQ < FSL_FEATURE_NUMBER_OF_LEVEL1_INT_VECTORS)
+    {
+        NVIC_SetPriority(SLAVE_FLEXIO_SPI_IRQ, 0U);
+    }
+    if (MASTER_LPSPI_IRQN < FSL_FEATURE_NUMBER_OF_LEVEL1_INT_VECTORS)
     {
         NVIC_SetPriority(MASTER_LPSPI_IRQN, 1U);
     }
+#else
     NVIC_SetPriority(SLAVE_FLEXIO_SPI_IRQ, 0U);
+    NVIC_SetPriority(MASTER_LPSPI_IRQN, 1U);
+#endif
 
     /* Set up the transfer data */
     for (i = 0U; i < TRANSFER_SIZE; i++)

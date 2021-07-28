@@ -92,8 +92,8 @@ int main(void)
     uint32_t pflashSectorSize = 0;
 
     /* Init hardware */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Clean up Flash driver Structure*/

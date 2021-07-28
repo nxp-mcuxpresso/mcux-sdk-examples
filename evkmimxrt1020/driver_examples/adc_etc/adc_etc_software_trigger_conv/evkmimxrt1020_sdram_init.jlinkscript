@@ -30,15 +30,15 @@ void Clock_Init()
   // Disable bypass of SYS PLL
   MEM_WriteU32(0x400D8030,0x00002001);
 
+  // PFD2_FRAC: 24, PLL2 PFD2=528*18/PFD2_FRAC=396
   // Ungate SYS PLL PFD2
-  reg = MEM_ReadU32(0x400D8100);
-  reg &= ~0x00800000;
-  MEM_WriteU32(0x400D8100, reg);  
+  MEM_WriteU32(0x400D8100, 0x00180000);
 
   //   SEMC_ALT_CLK_SEL: 0 PLL2 (SYS PLL) PFD2
   //   SEMC_CLK_SEL: 1 SEMC_ALT_CLK
   //   SEMC_PODF: 2 divide by 3
   reg = MEM_ReadU32(0x400FC014);
+  reg &= ~0x700C0;
   reg |= 0x20040;
   MEM_WriteU32(0x400FC014, reg);    
 

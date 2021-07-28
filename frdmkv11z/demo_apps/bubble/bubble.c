@@ -168,7 +168,7 @@ int main(void)
     uint8_t array_addr_size = 0;
 
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_I2C_ReleaseBus();
     BOARD_I2C_ConfigurePins();

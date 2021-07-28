@@ -72,7 +72,7 @@ static void EXAMPLE_USARTUserCallback(USART_Type *base, usart_handle_t *handle, 
 int main(void)
 {
     /* Initialize the pins. */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
 
     /* Enable clock to 30MHz. */
     BOARD_BootClockFRO30M();

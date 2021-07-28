@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 NXP
+ * Copyright 2019-2020 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -44,23 +44,36 @@ extern "C" {
  */
 void BOARD_InitBootPins(void);
 
+#define BOARD_INITPINS_IOMUXC_GPR_GPR26_GPIO_MUX1_GPIO_SEL_MASK 0x0200U /*!< GPIO1 and GPIO6 share same IO MUX function, GPIO_MUX1 selects one GPIO function: affected bits mask */
+
 /* GPIO_AD_B0_13 (coord L14), UART1_RXD */
-#define BOARD_UART1_RXD_PERIPHERAL                                       LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_UART1_RXD_SIGNAL                                                RX   /*!< LPUART1 signal: RX */
+/* Routed pin properties */
+#define BOARD_UART1_RXD_PERIPHERAL                                       LPUART1   /*!< Peripheral name */
+#define BOARD_UART1_RXD_SIGNAL                                                RX   /*!< Signal name */
 
 /* GPIO_AD_B0_12 (coord K14), UART1_TXD */
-#define BOARD_UART1_TXD_PERIPHERAL                                       LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_UART1_TXD_SIGNAL                                                TX   /*!< LPUART1 signal: TX */
+/* Routed pin properties */
+#define BOARD_UART1_TXD_PERIPHERAL                                       LPUART1   /*!< Peripheral name */
+#define BOARD_UART1_TXD_SIGNAL                                                TX   /*!< Signal name */
 
 /* GPIO_AD_B0_09 (coord F14), JTAG_TDI/J21[5]/ENET_RST/J22[5]/USER_LED */
-#define BOARD_USER_LED_GPIO                                                GPIO1   /*!< GPIO device name: GPIO1 */
-#define BOARD_USER_LED_PORT                                                GPIO1   /*!< PORT device name: GPIO1 */
-#define BOARD_USER_LED_PIN                                                    9U   /*!< GPIO1 pin index: 9 */
+/* Routed pin properties */
+#define BOARD_USER_LED_PERIPHERAL                                          GPIO1   /*!< Peripheral name */
+#define BOARD_USER_LED_SIGNAL                                            gpio_io   /*!< Signal name */
+#define BOARD_USER_LED_CHANNEL                                                9U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_USER_LED_GPIO                                                GPIO1   /*!< GPIO peripheral base pointer */
+#define BOARD_USER_LED_GPIO_PIN                                               9U   /*!< GPIO pin number */
+#define BOARD_USER_LED_GPIO_PIN_MASK                                  (1U << 9U)   /*!< GPIO pin mask */
+#define BOARD_USER_LED_PORT                                                GPIO1   /*!< PORT peripheral base pointer */
+#define BOARD_USER_LED_PIN                                                    9U   /*!< PORT pin number */
+#define BOARD_USER_LED_PIN_MASK                                       (1U << 9U)   /*!< PORT pin mask */
 
 /* GPIO_AD_B0_10 (coord G13), JTAG_TDO/J21[13]/INT1_COMBO/ENET_INT/J22[6]/U32[11] */
-#define BOARD_INT1_COMBO_PERIPHERAL                                          ARM   /*!< Device name: ARM */
-#define BOARD_INT1_COMBO_SIGNAL                                    arm_trace_swo   /*!< ARM signal: arm_trace_swo */
-
+/* Routed pin properties */
+#define BOARD_INT1_COMBO_PERIPHERAL                                          ARM   /*!< Peripheral name */
+#define BOARD_INT1_COMBO_SIGNAL                                    arm_trace_swo   /*!< Signal name */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
@@ -69,13 +82,14 @@ void BOARD_InitBootPins(void);
 void BOARD_InitPins(void);
 
 /* GPIO_AD_B1_00 (coord J11), I2C1_SCL/CSI_I2C_SCL/J35[20]/J23[6]/U13[17]/U32[4] */
-#define BOARD_I2C1_SCL_PERIPHERAL                                         LPI2C1   /*!< Device name: LPI2C1 */
-#define BOARD_I2C1_SCL_SIGNAL                                                SCL   /*!< LPI2C1 signal: SCL */
+/* Routed pin properties */
+#define BOARD_I2C1_SCL_PERIPHERAL                                         LPI2C1   /*!< Peripheral name */
+#define BOARD_I2C1_SCL_SIGNAL                                                SCL   /*!< Signal name */
 
 /* GPIO_AD_B1_01 (coord K11), I2C1_SDA/CSI_I2C_SDA/J35[22]/J23[5]/U13[18]/U32[6] */
-#define BOARD_I2C1_SDA_PERIPHERAL                                         LPI2C1   /*!< Device name: LPI2C1 */
-#define BOARD_I2C1_SDA_SIGNAL                                                SDA   /*!< LPI2C1 signal: SDA */
-
+/* Routed pin properties */
+#define BOARD_I2C1_SDA_PERIPHERAL                                         LPI2C1   /*!< Peripheral name */
+#define BOARD_I2C1_SDA_SIGNAL                                                SDA   /*!< Signal name */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

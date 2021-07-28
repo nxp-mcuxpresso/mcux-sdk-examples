@@ -81,8 +81,8 @@ static const porter_duff_mode_name_t s_porterDuffModeNameTable[] = {
 int main(void)
 {
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\nPXP Porter Duff example start...\r\n");

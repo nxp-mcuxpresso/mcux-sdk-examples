@@ -82,8 +82,8 @@ void EXAMPLE_DSPI_SLAVE_IRQHandler(void)
  */
 int main(void)
 {
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("DSPI board to board functional interrupt example.\r\n");

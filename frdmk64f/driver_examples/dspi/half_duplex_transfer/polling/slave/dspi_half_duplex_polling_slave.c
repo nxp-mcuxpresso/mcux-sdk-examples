@@ -49,8 +49,8 @@ int main(void)
     dspi_transfer_t xfer = {0};
     dspi_slave_config_t slaveConfig;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     PRINTF("\n\rThis is slave example for DSPI half-duplex polling transfer.");
     PRINTF("\n\rSlave is working....\r\n");

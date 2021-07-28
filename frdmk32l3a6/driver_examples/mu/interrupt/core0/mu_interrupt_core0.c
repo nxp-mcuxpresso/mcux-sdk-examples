@@ -169,8 +169,8 @@ static void APP_CopyCore1Image(void)
 int main(void)
 {
     /* Init board hardware.*/
-    BOARD_InitPins_Core0();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     BOARD_InitLedPin();
     NVIC_EnableIRQ(MUA_IRQn);

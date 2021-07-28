@@ -68,8 +68,8 @@ AT_NONCACHEABLE_SECTION(static pixel_t s_outputBuf[OUTPUT_BUF_HEIGHT][OUTPUT_BUF
 int main(void)
 {
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\nPXP picture copy example start...\r\n");

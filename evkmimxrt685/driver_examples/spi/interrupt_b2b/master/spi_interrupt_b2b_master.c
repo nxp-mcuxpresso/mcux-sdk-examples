@@ -82,8 +82,8 @@ int main(void)
     /* Init the boards */
     CLOCK_AttachClk(kSFRO_to_FLEXCOMM5);
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\nSPI board to board interrupt master example started!\r\n");

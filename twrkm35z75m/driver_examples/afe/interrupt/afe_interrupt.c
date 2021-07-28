@@ -81,8 +81,8 @@ int main(void)
     afe_channel_config_t afeChnExampleStruct;
 
     /* Init board hardware. */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Select clkSrc for AFEclk */

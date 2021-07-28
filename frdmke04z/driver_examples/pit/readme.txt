@@ -6,7 +6,7 @@ a message a printed on the UART terminal and an LED is toggled on the board.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
+- GCC ARM Embedded  10.2.1
 
 Hardware requirements
 =====================

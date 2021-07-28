@@ -69,6 +69,64 @@ codec_handle_t codecHandle;
 /*******************************************************************************
  * Code
  ******************************************************************************/
+static void i2c_release_bus_delay(void)
+{
+    uint32_t i = 0;
+    for (i = 0; i < 100; i++)
+    {
+        __NOP();
+    }
+}
+
+void BOARD_I3C_ReleaseBus(void)
+{
+    uint8_t i = 0;
+
+    GPIO_PortInit(BOARD_INITI3CPINSASGPIO_I3C0_SDA_PERIPHERAL, BOARD_INITI3CPINSASGPIO_I3C0_SDA_PORT);
+    GPIO_PortInit(BOARD_INITI3CPINSASGPIO_I3C0_SCL_PERIPHERAL, BOARD_INITI3CPINSASGPIO_I3C0_SCL_PORT);
+
+    BOARD_InitI3CPinsAsGPIO();
+
+    /* Drive SDA low first to simulate a start */
+    GPIO_PinWrite(BOARD_INITI3CPINSASGPIO_I3C0_SDA_PERIPHERAL, BOARD_INITI3CPINSASGPIO_I3C0_SDA_PORT,
+                  BOARD_INITI3CPINSASGPIO_I3C0_SDA_PIN, 0U);
+    i2c_release_bus_delay();
+
+    /* Send 9 pulses on SCL */
+    for (i = 0; i < 9; i++)
+    {
+        GPIO_PinWrite(BOARD_INITI3CPINSASGPIO_I3C0_SCL_PERIPHERAL, BOARD_INITI3CPINSASGPIO_I3C0_SCL_PORT,
+                      BOARD_INITI3CPINSASGPIO_I3C0_SCL_PIN, 0U);
+        i2c_release_bus_delay();
+
+        GPIO_PinWrite(BOARD_INITI3CPINSASGPIO_I3C0_SDA_PERIPHERAL, BOARD_INITI3CPINSASGPIO_I3C0_SDA_PORT,
+                      BOARD_INITI3CPINSASGPIO_I3C0_SDA_PIN, 1U);
+        i2c_release_bus_delay();
+
+        GPIO_PinWrite(BOARD_INITI3CPINSASGPIO_I3C0_SCL_PERIPHERAL, BOARD_INITI3CPINSASGPIO_I3C0_SCL_PORT,
+                      BOARD_INITI3CPINSASGPIO_I3C0_SCL_PIN, 1U);
+        i2c_release_bus_delay();
+        i2c_release_bus_delay();
+    }
+
+    /* Send stop */
+    GPIO_PinWrite(BOARD_INITI3CPINSASGPIO_I3C0_SCL_PERIPHERAL, BOARD_INITI3CPINSASGPIO_I3C0_SCL_PORT,
+                  BOARD_INITI3CPINSASGPIO_I3C0_SCL_PIN, 0U);
+    i2c_release_bus_delay();
+
+    GPIO_PinWrite(BOARD_INITI3CPINSASGPIO_I3C0_SDA_PERIPHERAL, BOARD_INITI3CPINSASGPIO_I3C0_SDA_PORT,
+                  BOARD_INITI3CPINSASGPIO_I3C0_SDA_PIN, 0U);
+    i2c_release_bus_delay();
+
+    GPIO_PinWrite(BOARD_INITI3CPINSASGPIO_I3C0_SCL_PERIPHERAL, BOARD_INITI3CPINSASGPIO_I3C0_SCL_PORT,
+                  BOARD_INITI3CPINSASGPIO_I3C0_SCL_PIN, 1U);
+    i2c_release_bus_delay();
+
+    GPIO_PinWrite(BOARD_INITI3CPINSASGPIO_I3C0_SDA_PERIPHERAL, BOARD_INITI3CPINSASGPIO_I3C0_SDA_PORT,
+                  BOARD_INITI3CPINSASGPIO_I3C0_SDA_PIN, 1U);
+    i2c_release_bus_delay();
+}
+
 
 /*!
  * @brief Call back for DMIC0 Interrupt
@@ -87,9 +145,11 @@ int main(void)
     dmic_channel_config_t dmic_channel_cfg;
 
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
+    BOARD_I3C_ReleaseBus();
+    BOARD_InitI3CPins();
 
     CLOCK_EnableClock(kCLOCK_InputMux);
 
@@ -116,11 +176,11 @@ int main(void)
 
     /* Set shared signal set 0: SCK, WS from Flexcomm1 */
     SYSCTL1->SHAREDCTRLSET[0] = SYSCTL1_SHAREDCTRLSET_SHAREDSCKSEL(1) | SYSCTL1_SHAREDCTRLSET_SHAREDWSSEL(1) |
-                                SYSCTL1_SHAREDCTRLSET_FC0DATAOUTEN(1) | SYSCTL1_SHAREDCTRLSET_FC1DATAOUTEN(1);
+                                SYSCTL1_SHAREDCTRLSET_FC0DATAOUTEN(1) | SYSCTL1_SHAREDCTRLSET_FC3DATAOUTEN(1);
     /* Set flexcomm3 SCK, WS from shared signal set 0 */
     SYSCTL1->FCCTRLSEL[0] = SYSCTL1_FCCTRLSEL_SCKINSEL(1) | SYSCTL1_FCCTRLSEL_WSINSEL(1);
-    /* Set flexcomm1 data out from shared signal set 0 */
-    SYSCTL1->FCCTRLSEL[1] = SYSCTL1_FCCTRLSEL_DATAOUTSEL(1);
+    /* Set flexcomm3 data out from shared signal set 0 */
+    SYSCTL1->FCCTRLSEL[3] = SYSCTL1_FCCTRLSEL_DATAOUTSEL(1);
 
     PRINTF("Configure WM8904 codec\r\n");
 

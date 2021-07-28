@@ -78,8 +78,8 @@ int main(void)
     lpspi_transfer_t slaveXfer;
     edma_config_t userConfig;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /*Set clock source for LPSPI*/

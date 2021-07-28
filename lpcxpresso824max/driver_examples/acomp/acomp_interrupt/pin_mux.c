@@ -1,5 +1,5 @@
 /*
- * Copyright  2018 NXP
+ * Copyright  2018 ,2021 NXP
  * All rights reserved.
  *
  *
@@ -15,11 +15,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v4.1
+product: Pins v9.0
 processor: LPC824
 package_id: LPC824M201JHI33
 mcu_data: ksdk2_0
-processor_version: 0.0.1
+processor_version: 9.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -46,12 +46,12 @@ void BOARD_InitBootPins(void)
 BOARD_InitPins:
 - options: {callFromInitBoot: 'true', coreID: core0, enableClock: 'true'}
 - pin_list:
-  - {pin_num: '22', peripheral: USART0, signal: TXD, pin_signal: PIO0_7, mode: pullUp, invert: disabled, hysteresis: enabled, opendrain: disabled, smode: bypass,
+  - {pin_num: '22', peripheral: USART0, signal: TXD, pin_signal: PIO0_7/ADC_0, mode: pullUp, invert: disabled, hysteresis: enabled, opendrain: disabled, smode: bypass,
     clkdiv: div0}
-  - {pin_num: '31', peripheral: USART0, signal: RXD, pin_signal: PIO0_18, mode: pullUp, invert: disabled, hysteresis: enabled, opendrain: disabled, smode: bypass,
+  - {pin_num: '31', peripheral: USART0, signal: RXD, pin_signal: PIO0_18/ADC_8, mode: pullUp, invert: disabled, hysteresis: enabled, opendrain: disabled, smode: bypass,
     clkdiv: div0}
-  - {pin_num: '25', peripheral: ACMP, signal: ACMP_IN3, pin_signal: PIO0_14, mode: inactive, invert: disabled, hysteresis: enabled, opendrain: disabled, smode: bypass,
-    clkdiv: div0}
+  - {pin_num: '25', peripheral: ACMP, signal: ACMP_IN3, pin_signal: PIO0_14/ACMP_I3/ADC_2, mode: inactive, invert: disabled, hysteresis: enabled, opendrain: disabled,
+    smode: bypass, clkdiv: div0}
   - {pin_num: '2', peripheral: GPIO, signal: 'PIO0, 12', pin_signal: PIO0_12, mode: pullUp, invert: disabled, opendrain: disabled, smode: bypass, clkdiv: div0}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -66,40 +66,10 @@ BOARD_InitPins:
 /* Function assigned for the Cortex-M0P */
 void BOARD_InitPins(void)
 {
-    /* Enables clock for IOCON block.: 0x01u */
+    /* Enables clock for IOCON block.: Enable. */
     CLOCK_EnableClock(kCLOCK_Iocon);
-    /* Enables clock for switch matrix.: 0x01u */
+    /* Enables clock for switch matrix.: Enable. */
     CLOCK_EnableClock(kCLOCK_Swm);
-
-    const uint32_t pio15_config = (/* Selects pull-up function */
-                                   IOCON_PIO_MODE_PULLUP |
-                                   /* Enable hysteresis */
-                                   IOCON_PIO_HYS_EN |
-                                   /* Input not invert */
-                                   IOCON_PIO_INV_DI |
-                                   /* Disables Open-drain function */
-                                   IOCON_PIO_OD_DI |
-                                   /* Bypass input filter */
-                                   IOCON_PIO_SMODE_BYPASS |
-                                   /* IOCONCLKDIV0 */
-                                   IOCON_PIO_CLKDIV0);
-    /* PORT1 PIN5 (coords: ) is configured as  */
-    IOCON_PinMuxSet(IOCON, 15, pio15_config);
-
-    const uint32_t pio18_config = (/* No addition pin function */
-                                   IOCON_PIO_MODE_INACT |
-                                   /* Enable hysteresis */
-                                   IOCON_PIO_HYS_EN |
-                                   /* Input not invert */
-                                   IOCON_PIO_INV_DI |
-                                   /* Disables Open-drain function */
-                                   IOCON_PIO_OD_DI |
-                                   /* Bypass input filter */
-                                   IOCON_PIO_SMODE_BYPASS |
-                                   /* IOCONCLKDIV0 */
-                                   IOCON_PIO_CLKDIV0);
-    /* PORT1 PIN8 (coords: ) is configured as  */
-    IOCON_PinMuxSet(IOCON, 18, pio18_config);
 
     IOCON->PIO[2] =
         ((IOCON->PIO[2] &
@@ -107,34 +77,64 @@ void BOARD_InitPins(void)
           (~(IOCON_PIO_MODE_MASK | IOCON_PIO_INV_MASK | IOCON_PIO_OD_MASK | IOCON_PIO_S_MODE_MASK | IOCON_PIO_CLK_DIV_MASK)))
 
          /* Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
-         | IOCON_PIO_MODE(PIO2_MODE_PULL_UP)
+         | IOCON_PIO_MODE(PIO0_12_MODE_PULL_UP)
 
          /* Invert input: Input not inverted (HIGH on pin reads as 1; LOW on pin reads as 0). */
-         | IOCON_PIO_INV(PIO2_INV_NOT_INVERTED)
+         | IOCON_PIO_INV(PIO0_12_INV_NOT_INVERTED)
 
          /* Open-drain mode.: Disable. */
-         | IOCON_PIO_OD(PIO2_OD_DISABLE)
+         | IOCON_PIO_OD(PIO0_12_OD_DISABLE)
 
-         /* Digital filter sample mode.: 0x00u */
-         | IOCON_PIO_S_MODE(0x00u)
+         /* Digital filter sample mode.: Bypass input filter. */
+         | IOCON_PIO_S_MODE(PIO0_12_S_MODE_0b00)
 
-         /* Select peripheral clock divider for input filter sampling clock. Value 0x7 is reserved.: 0x00u */
-         | IOCON_PIO_CLK_DIV(0x00u));
+         /* Select peripheral clock divider for input filter sampling clock. Value 0x7 is reserved.: IOCONCLKDIV0 */
+         | IOCON_PIO_CLK_DIV(PIO0_12_CLK_DIV_0b000));
 
-    const uint32_t pio30_config = (/* Selects pull-up function */
-                                   IOCON_PIO_MODE_PULLUP |
-                                   /* Enable hysteresis */
-                                   IOCON_PIO_HYS_EN |
-                                   /* Input not invert */
-                                   IOCON_PIO_INV_DI |
-                                   /* Disables Open-drain function */
-                                   IOCON_PIO_OD_DI |
-                                   /* Bypass input filter */
-                                   IOCON_PIO_SMODE_BYPASS |
-                                   /* IOCONCLKDIV0 */
-                                   IOCON_PIO_CLKDIV0);
-    /* PORT3 PIN0 (coords: ) is configured as  */
-    IOCON_PinMuxSet(IOCON, 30, pio30_config);
+    const uint32_t IOCON_INDEX_PIO0_14_config = (/* No addition pin function */
+                                                 IOCON_PIO_MODE_INACT |
+                                                 /* Enable hysteresis */
+                                                 IOCON_PIO_HYS_EN |
+                                                 /* Input not invert */
+                                                 IOCON_PIO_INV_DI |
+                                                 /* Disables Open-drain function */
+                                                 IOCON_PIO_OD_DI |
+                                                 /* Bypass input filter */
+                                                 IOCON_PIO_SMODE_BYPASS |
+                                                 /* IOCONCLKDIV0 */
+                                                 IOCON_PIO_CLKDIV0);
+    /* PIO0 PIN14 (coords: 25) is configured as ACMP, ACMP_IN3. */
+    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_14, IOCON_INDEX_PIO0_14_config);
+
+    const uint32_t IOCON_INDEX_PIO0_18_config = (/* Selects pull-up function */
+                                                 IOCON_PIO_MODE_PULLUP |
+                                                 /* Enable hysteresis */
+                                                 IOCON_PIO_HYS_EN |
+                                                 /* Input not invert */
+                                                 IOCON_PIO_INV_DI |
+                                                 /* Disables Open-drain function */
+                                                 IOCON_PIO_OD_DI |
+                                                 /* Bypass input filter */
+                                                 IOCON_PIO_SMODE_BYPASS |
+                                                 /* IOCONCLKDIV0 */
+                                                 IOCON_PIO_CLKDIV0);
+    /* PIO0 PIN18 (coords: 31) is configured as USART0, RXD. */
+    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_18, IOCON_INDEX_PIO0_18_config);
+
+    const uint32_t IOCON_INDEX_PIO0_7_config = (/* Selects pull-up function */
+                                                IOCON_PIO_MODE_PULLUP |
+                                                /* Enable hysteresis */
+                                                IOCON_PIO_HYS_EN |
+                                                /* Input not invert */
+                                                IOCON_PIO_INV_DI |
+                                                /* Disables Open-drain function */
+                                                IOCON_PIO_OD_DI |
+                                                /* Bypass input filter */
+                                                IOCON_PIO_SMODE_BYPASS |
+                                                /* IOCONCLKDIV0 */
+                                                IOCON_PIO_CLKDIV0);
+    /* PIO0 PIN7 (coords: 22) is configured as USART0, TXD. */
+    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_7, IOCON_INDEX_PIO0_7_config);
 
     /* USART0_TXD connect to P0_7 */
     SWM_SetMovablePinSelect(SWM0, kSWM_USART0_TXD, kSWM_PortPin_P0_7);

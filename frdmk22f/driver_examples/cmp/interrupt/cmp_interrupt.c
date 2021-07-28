@@ -69,8 +69,8 @@ int main(void)
     cmp_dac_config_t mCmpDacConfigStruct;
 
     /* Initialize hardware */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     EnableIRQ(DEMO_CMP_IRQ_ID);
 

@@ -161,7 +161,7 @@ static void DEMO_Init_FTM(void)
  */
 int main(void)
 {
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 

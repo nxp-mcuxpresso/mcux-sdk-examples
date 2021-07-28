@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 NXP
+ * Copyright 2019-2020 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -45,21 +45,33 @@ extern "C" {
 void BOARD_InitBootPins(void);
 
 /* GPIO_AD_B0_07 (number 101), UART1_RXD/J17[4] */
-#define BOARD_UART1_RXD_PERIPHERAL                                       LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_UART1_RXD_SIGNAL                                                RX   /*!< LPUART1 signal: RX */
+/* Routed pin properties */
+#define BOARD_UART1_RXD_PERIPHERAL                                       LPUART1   /*!< Peripheral name */
+#define BOARD_UART1_RXD_SIGNAL                                                RX   /*!< Signal name */
 
 /* GPIO_AD_B0_06 (number 105), UART1_TXD/J17[6] */
-#define BOARD_UART1_TXD_PERIPHERAL                                       LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_UART1_TXD_SIGNAL                                                TX   /*!< LPUART1 signal: TX */
+/* Routed pin properties */
+#define BOARD_UART1_TXD_PERIPHERAL                                       LPUART1   /*!< Peripheral name */
+#define BOARD_UART1_TXD_SIGNAL                                                TX   /*!< Signal name */
 
 /* WAKEUP (number 52), USER_BUTTON */
-#define BOARD_USER_BUTTON_GPIO                                             GPIO5   /*!< GPIO device name: GPIO5 */
-#define BOARD_USER_BUTTON_PORT                                             GPIO5   /*!< PORT device name: GPIO5 */
-#define BOARD_USER_BUTTON_PIN                                                 0U   /*!< GPIO5 pin index: 0 */
+/* Routed pin properties */
+#define BOARD_USER_BUTTON_PERIPHERAL                                       GPIO5   /*!< Peripheral name */
+#define BOARD_USER_BUTTON_SIGNAL                                         gpio_io   /*!< Signal name */
+#define BOARD_USER_BUTTON_CHANNEL                                             0U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_USER_BUTTON_GPIO                                             GPIO5   /*!< GPIO peripheral base pointer */
+#define BOARD_USER_BUTTON_GPIO_PIN                                            0U   /*!< GPIO pin number */
+#define BOARD_USER_BUTTON_GPIO_PIN_MASK                               (1U << 0U)   /*!< GPIO pin mask */
+#define BOARD_USER_BUTTON_PORT                                             GPIO5   /*!< PORT peripheral base pointer */
+#define BOARD_USER_BUTTON_PIN                                                 0U   /*!< PORT pin number */
+#define BOARD_USER_BUTTON_PIN_MASK                                    (1U << 0U)   /*!< PORT pin mask */
 
 /* GPIO_AD_B0_11 (number 97), ENET_CRS_DV/U11[18]/J19[3] */
-#define BOARD_ENET_CRS_DV_PERIPHERAL                                         ARM   /*!< Device name: ARM */
-#define BOARD_ENET_CRS_DV_SIGNAL                                   arm_trace_swo   /*!< ARM signal: arm_trace_swo */
+/* Routed pin properties */
+#define BOARD_ENET_CRS_DV_PERIPHERAL                                         ARM   /*!< Peripheral name */
+#define BOARD_ENET_CRS_DV_SIGNAL                                   arm_trace_swo   /*!< Signal name */
 
 
 /*!

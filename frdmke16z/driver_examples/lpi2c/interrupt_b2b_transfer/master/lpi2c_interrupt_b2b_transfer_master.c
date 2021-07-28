@@ -69,8 +69,8 @@ int main(void)
     lpi2c_master_transfer_t masterXfer = {0};
     status_t reVal                     = kStatus_Fail;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     CLOCK_SetIpSrc(kCLOCK_Lpi2c0, kCLOCK_IpSrcFircAsync);

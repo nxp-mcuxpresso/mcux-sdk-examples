@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -36,15 +36,21 @@ void BOARD_InitBootPins(void);
 
 /*! @name PORTB16 (number 62), U2[24]/U6[13]/TxD_sda/UART_TX_TGTMCU
   @{ */
-#define BOARD_UART_TX_TGTMCU_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_UART_TX_TGTMCU_PIN 16U    /*!<@brief PORTB pin index: 16 */
-                                        /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_UART_TX_TGTMCU_PORT PORTB                /*!<@brief PORT peripheral base pointer */
+#define BOARD_UART_TX_TGTMCU_PIN 16U                   /*!<@brief PORT pin number */
+#define BOARD_UART_TX_TGTMCU_PIN_MASK (1U << 16U)      /*!<@brief PORT pin mask */
+                                                       /* @} */
 
 /*! @name PORTB17 (number 63), U2[25]/U6[14]/RxD_sda/UART_RX_TGTMCU
   @{ */
-#define BOARD_UART_RX_TGTMCU_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_UART_RX_TGTMCU_PIN 17U    /*!<@brief PORTB pin index: 17 */
-                                        /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_UART_RX_TGTMCU_PORT PORTB                /*!<@brief PORT peripheral base pointer */
+#define BOARD_UART_RX_TGTMCU_PIN 17U                   /*!<@brief PORT pin number */
+#define BOARD_UART_RX_TGTMCU_PIN_MASK (1U << 17U)      /*!<@brief PORT pin mask */
+                                                       /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

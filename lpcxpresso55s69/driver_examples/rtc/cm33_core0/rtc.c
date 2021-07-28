@@ -68,8 +68,8 @@ int main(void)
     /* Enable the RTC 32K Oscillator */
     //  SYSCON->RTCOSCCTRL |= SYSCON_RTCOSCCTRL_EN_MASK;
 
-    BOARD_InitPins();
-    BOARD_BootClockPLL150M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Init RTC */

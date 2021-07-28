@@ -77,6 +77,7 @@ void DEMO_UART_IRQHandler(uint32_t giccIar, void *param)
         UART_DisableInterrupts(DEMO_UART, kUART_WakeEnable);
         UART_ClearStatusFlag(DEMO_UART, kUART_WakeFlag);
     }
+    UART_TransferSdmaHandleIRQ(DEMO_UART, &g_uartSdmaHandle);
     __DSB();
 }
 
@@ -120,15 +121,19 @@ int main(void)
     uart_transfer_t xfer;
     status_t status;
 
-    /*set SDMA1 PERIPH to M4 Domain(DID=1),due to UART not be accessible by DID=0 by default*/
-    rdc_domain_assignment_t assignment = {0};
-    assignment.domainId                = BOARD_DOMAIN_ID;
-    RDC_SetMasterDomainAssignment(RDC, kRDC_Master_SDMA1_PERIPH, &assignment);
+    /* Only configure the RDC if RDC peripheral write access is allowed. */
+    if ((0x1U & RDC_GetPeriphAccessPolicy(RDC, kRDC_Periph_RDC, RDC_GetCurrentMasterDomainId(RDC))) != 0U)
+    {
+        /*set SDMA1 PERIPH to M4 Domain(DID=1),due to UART not be accessible by DID=0 by default*/
+        rdc_domain_assignment_t assignment = {0};
+        assignment.domainId                = BOARD_DOMAIN_ID;
+        RDC_SetMasterDomainAssignment(RDC, kRDC_Master_SDMA1_PERIPH, &assignment);
+    }
 
     /* Board specific RDC settings */
     BOARD_RdcInit();
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockRUN();
     BOARD_InitMemory();
 

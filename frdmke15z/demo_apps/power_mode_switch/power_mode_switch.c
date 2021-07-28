@@ -400,7 +400,7 @@ int main(void)
     /* Power related. */
     SMC_SetPowerModeProtection(SMC, kSMC_AllowPowerModeAll);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     APP_InitClock();
     APP_InitDebugConsole();
     BOARD_InitBootPeripherals();

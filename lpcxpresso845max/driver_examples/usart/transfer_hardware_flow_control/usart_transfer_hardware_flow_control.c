@@ -60,7 +60,7 @@ int main(void)
     /* Select the main clock as source clock of USART2 (demo instance) */
     CLOCK_Select(kUART2_Clk_From_MainClk);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockFRO30M();
     BOARD_InitDebugConsole();
     PRINTF("This is USART hardware flow control example on one board.\r\n");

@@ -69,8 +69,8 @@ uint16_t g_dacDataArray[DEMO_DAC_USED_BUFFER_SIZE] = {
 int main(void)
 {
     /* Initialize hardware. */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("DAC CONTINUOUS PIT DMA DEMO\r\n");

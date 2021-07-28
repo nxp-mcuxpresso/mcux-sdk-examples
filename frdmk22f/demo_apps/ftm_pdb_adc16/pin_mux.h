@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -36,45 +36,66 @@ void BOARD_InitBootPins(void);
 
 /*! @name PORTE1 (number 2), J2[20]/UART1_RX_TGTMCU
   @{ */
-#define BOARD_DEBUG_UART_RX_PORT PORTE /*!<@brief PORT device name: PORTE */
-#define BOARD_DEBUG_UART_RX_PIN 1U     /*!<@brief PORTE pin index: 1 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_RX_PORT PORTE               /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_RX_PIN 1U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_RX_PIN_MASK (1U << 1U)      /*!<@brief PORT pin mask */
+                                                     /* @} */
 
 /*! @name PORTC1 (number 44), J24[6]/LLWU_P6/ADC0_SE15/PUSH_BUTTON2
   @{ */
-#define BOARD_SW2_PORT PORTC /*!<@brief PORT device name: PORTC */
-#define BOARD_SW2_PIN 1U     /*!<@brief PORTC pin index: 1 */
-                             /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_SW2_PORT PORTC               /*!<@brief PORT peripheral base pointer */
+#define BOARD_SW2_PIN 1U                   /*!<@brief PORT pin number */
+#define BOARD_SW2_PIN_MASK (1U << 1U)      /*!<@brief PORT pin mask */
+                                           /* @} */
 
 /*! @name PORTC3 (number 46), J1[14]
   @{ */
-#define BOARD_CLKOUT_PORT PORTC /*!<@brief PORT device name: PORTC */
-#define BOARD_CLKOUT_PIN 3U     /*!<@brief PORTC pin index: 3 */
-                                /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_CLKOUT_PORT PORTC               /*!<@brief PORT peripheral base pointer */
+#define BOARD_CLKOUT_PIN 3U                   /*!<@brief PORT pin number */
+#define BOARD_CLKOUT_PIN_MASK (1U << 3U)      /*!<@brief PORT pin mask */
+                                              /* @} */
 
 /*! @name PORTC4 (number 49), J8[P2]/J24[9]/uSD_card_CS
   @{ */
-#define BOARD_SD_CARD_DAT3_PORT PORTC /*!<@brief PORT device name: PORTC */
-#define BOARD_SD_CARD_DAT3_PIN 4U     /*!<@brief PORTC pin index: 4 */
-                                      /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_SD_CARD_DAT3_PORT PORTC               /*!<@brief PORT peripheral base pointer */
+#define BOARD_SD_CARD_DAT3_PIN 4U                   /*!<@brief PORT pin number */
+#define BOARD_SD_CARD_DAT3_PIN_MASK (1U << 4U)      /*!<@brief PORT pin mask */
+                                                    /* @} */
 
 /*! @name PORTD4 (number 61), J2[6]/SPI0_PCS1/LLWU_P14
   @{ */
-#define BOARD_RF_CS_PORT PORTD /*!<@brief PORT device name: PORTD */
-#define BOARD_RF_CS_PIN 4U     /*!<@brief PORTD pin index: 4 */
-                               /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_RF_CS_PORT PORTD               /*!<@brief PORT peripheral base pointer */
+#define BOARD_RF_CS_PIN 4U                   /*!<@brief PORT pin number */
+#define BOARD_RF_CS_PIN_MASK (1U << 4U)      /*!<@brief PORT pin mask */
+                                             /* @} */
 
 /*! @name PORTD5 (number 62), J2[12]/BLUE_LED
   @{ */
-#define BOARD_LEDRGB_BLUE_PORT PORTD /*!<@brief PORT device name: PORTD */
-#define BOARD_LEDRGB_BLUE_PIN 5U     /*!<@brief PORTD pin index: 5 */
-                                     /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_LEDRGB_BLUE_PORT PORTD               /*!<@brief PORT peripheral base pointer */
+#define BOARD_LEDRGB_BLUE_PIN 5U                   /*!<@brief PORT pin number */
+#define BOARD_LEDRGB_BLUE_PIN_MASK (1U << 5U)      /*!<@brief PORT pin mask */
+                                                   /* @} */
 
 /*! @name PORTA2 (number 24), J1[8]/GREEN_LED
   @{ */
-#define BOARD_LEDRGB_GREEN_PORT PORTA /*!<@brief PORT device name: PORTA */
-#define BOARD_LEDRGB_GREEN_PIN 2U     /*!<@brief PORTA pin index: 2 */
-                                      /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_LEDRGB_GREEN_PORT PORTA               /*!<@brief PORT peripheral base pointer */
+#define BOARD_LEDRGB_GREEN_PIN 2U                   /*!<@brief PORT pin number */
+#define BOARD_LEDRGB_GREEN_PIN_MASK (1U << 2U)      /*!<@brief PORT pin mask */
+                                                    /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

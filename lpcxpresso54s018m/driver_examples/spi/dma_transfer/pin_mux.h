@@ -1,5 +1,5 @@
 /*
- * Copyright 2017, NXP
+ * Copyright 2017, ,2021 NXP
  * All rights reserved.
  *
  *
@@ -28,12 +28,20 @@
 extern "C" {
 #endif
 
+/* Define the PIO[ANAMODE] bit macro (SDK 2.6.x and older miss this bit macro definition) */
+#ifndef IOCON_PIO_ANAMODE_MASK
+#define IOCON_PIO_ANAMODE_MASK  (0x40U)
+#define IOCON_PIO_ANAMODE_SHIFT (6U)
+#define IOCON_PIO_ANAMODE(x)    (((uint32_t)(((uint32_t)(x)) << IOCON_PIO_ANAMODE_SHIFT)) & IOCON_PIO_ANAMODE_MASK)
+#endif
+
 /*!
  * @brief Calls initialization functions.
  *
  */
 void BOARD_InitBootPins(void);
 
+#define IOCON_PIO_ANAMODE_DI 0x40u    /*!<@brief Disable analog Mode */
 #define IOCON_PIO_DIGITAL_EN 0x0100u  /*!<@brief Enables digital function */
 #define IOCON_PIO_FUNC1 0x01u         /*!<@brief Selects pin function 1 */
 #define IOCON_PIO_FUNC2 0x02u         /*!<@brief Selects pin function 2 */

@@ -117,7 +117,7 @@ int main(void)
     /* power up watchdog */
     POWER_DisablePD(kPDRUNCFG_PD_WDT_OSC);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockPLL180M();
     BOARD_InitDebugConsole();
 

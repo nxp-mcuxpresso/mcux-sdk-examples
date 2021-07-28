@@ -84,8 +84,8 @@ int main(void)
     flexio_i2c_master_transfer_t masterXfer;
     IRQn_Type flexio_irqs[] = FLEXIO_IRQS;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     CLOCK_SetFlexio0Clock(1U);

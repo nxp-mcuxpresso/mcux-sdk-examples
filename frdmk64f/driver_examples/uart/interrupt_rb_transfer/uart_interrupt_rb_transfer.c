@@ -76,8 +76,8 @@ int main(void)
     size_t receivedBytes;
     uint32_t i;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
 
     /*
      * config.baudRate_Bps = 115200U;

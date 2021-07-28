@@ -76,7 +76,7 @@ int main(void)
     CLOCK_AttachClk(kMAIN_CLK_to_SCT_CLK);
     CLOCK_SetClkDiv(kCLOCK_DivSctClk, 2U, true);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockPLL180M();
     BOARD_InitDebugConsole();
 

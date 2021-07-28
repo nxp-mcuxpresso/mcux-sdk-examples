@@ -159,8 +159,8 @@ void TestModMul(void)
 int main(void)
 {
     /* Init hardware*/
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("CAU3 Driver Example\r\n\r\n");

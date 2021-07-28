@@ -67,7 +67,7 @@ void DEMO_PIT_0_IRQHANDLER(void)
 int main(void)
 {
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     BOARD_InitBootPeripherals();

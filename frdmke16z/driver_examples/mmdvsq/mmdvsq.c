@@ -40,8 +40,8 @@ int main(void)
     int32_t dsorval;      /* divisor value */
 
     /* Initialize standard SDK demo application pins */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     /* Print the initial banner */
     PRINTF("\r\nStart MMDVSQ Example\r\n");

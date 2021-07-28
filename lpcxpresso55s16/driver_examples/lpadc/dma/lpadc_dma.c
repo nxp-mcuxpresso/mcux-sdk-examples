@@ -25,7 +25,7 @@
 #define DEMO_LPADC_DO_OFFSET_CALIBRATION true
 #define DEMO_LPADC_USE_HIGH_RESOLUTION   true
 #define DEMO_LPADC_RESFIFO_REG_ADDR      (uint32_t)(&(ADC0->RESFIFO[0]))
-#define DEMO_RESULT_FIFO_READY_FLAG  kLPADC_ResultFIFO0ReadyFlag
+#define DEMO_RESULT_FIFO_READY_FLAG      kLPADC_ResultFIFO0ReadyFlag
 
 #define DEMO_DMA_BASE          DMA0
 #define DEMO_DMA_ADC_CHANNEL   21U
@@ -90,8 +90,8 @@ int main(void)
     /* attach main clock divide to FLEXCOMM0 (debug console) */
     CLOCK_AttachClk(BOARD_DEBUG_UART_CLK_ATTACH);
 
-    BOARD_InitPins();
-    BOARD_BootClockPLL150M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Set clock source for ADC0 */

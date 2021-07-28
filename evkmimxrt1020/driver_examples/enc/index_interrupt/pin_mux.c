@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NXP
+ * Copyright 2018 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -13,11 +13,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v4.1
+product: Pins v9.0
 processor: MIMXRT1021xxxxx
 package_id: MIMXRT1021DAG5A
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 9.0.1
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -61,83 +61,28 @@ BOARD_InitPins:
  *
  * END ****************************************************************************************************************/
 void BOARD_InitPins(void) {
-  CLOCK_EnableClock(kCLOCK_Iomuxc);           /* iomuxc clock (iomuxc_clk_enable): 0x03u */
-  CLOCK_EnableClock(kCLOCK_Xbar1);            /* xbar1 clock (xbar1_clk_enable): 0x03u */
+  CLOCK_EnableClock(kCLOCK_Iomuxc);           
+  CLOCK_EnableClock(kCLOCK_Xbar1);            
 
-  IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B0_06_LPUART1_TX,        /* GPIO_AD_B0_06 is configured as LPUART1_TX */
-      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
-  IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B0_07_LPUART1_RX,        /* GPIO_AD_B0_07 is configured as LPUART1_RX */
-      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
-  IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B1_08_XBAR1_INOUT12,     /* GPIO_AD_B1_08 is configured as XBAR1_INOUT12 */
-      1U);                                    /* Software Input On Field: Force input path of pad GPIO_AD_B1_08 */
-  IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B1_09_XBAR1_INOUT13,     /* GPIO_AD_B1_09 is configured as XBAR1_INOUT13 */
-      1U);                                    /* Software Input On Field: Force input path of pad GPIO_AD_B1_09 */
-  IOMUXC_SetPinMux(
-      IOMUXC_GPIO_SD_B0_02_XBAR1_INOUT16,     /* GPIO_SD_B0_02 is configured as XBAR1_INOUT16 */
-      1U);                                    /* Software Input On Field: Force input path of pad GPIO_SD_B0_02 */
+  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_06_LPUART1_TX, 0U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_07_LPUART1_RX, 0U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B1_08_XBAR1_INOUT12, 1U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B1_09_XBAR1_INOUT13, 1U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_SD_B0_02_XBAR1_INOUT16, 1U); 
   IOMUXC_GPR->GPR6 = ((IOMUXC_GPR->GPR6 &
-    (~(IOMUXC_GPR_GPR6_IOMUXC_XBAR_DIR_SEL_12_MASK | IOMUXC_GPR_GPR6_IOMUXC_XBAR_DIR_SEL_13_MASK | IOMUXC_GPR_GPR6_IOMUXC_XBAR_DIR_SEL_16_MASK))) /* Mask bits to zero which are setting */
-      | IOMUXC_GPR_GPR6_IOMUXC_XBAR_DIR_SEL_12(0x00u) /* IOMUXC XBAR_INOUT12 function direction select: 0x00u */
-      | IOMUXC_GPR_GPR6_IOMUXC_XBAR_DIR_SEL_13(0x00u) /* IOMUXC XBAR_INOUT13 function direction select: 0x00u */
-      | IOMUXC_GPR_GPR6_IOMUXC_XBAR_DIR_SEL_16(0x00u) /* IOMUXC XBAR_INOUT16 function direction select: 0x00u */
+    (~(IOMUXC_GPR_GPR6_IOMUXC_XBAR_DIR_SEL_12_MASK | IOMUXC_GPR_GPR6_IOMUXC_XBAR_DIR_SEL_13_MASK | IOMUXC_GPR_GPR6_IOMUXC_XBAR_DIR_SEL_16_MASK))) 
+      | IOMUXC_GPR_GPR6_IOMUXC_XBAR_DIR_SEL_12(0x00U) 
+      | IOMUXC_GPR_GPR6_IOMUXC_XBAR_DIR_SEL_13(0x00U) 
+      | IOMUXC_GPR_GPR6_IOMUXC_XBAR_DIR_SEL_16(0x00U) 
     );
-  XBARA_SetSignalsConnection(XBARA, kXBARA1_InputIomuxXbarInout12, kXBARA1_OutputEnc1PhaseAInput); /* IOMUX_XBAR_INOUT12 output assigned to XBARA_IN12 input is connected to XBARA_OUT66 output assigned to ENC1_PHASE_A_INPUT */
-  XBARA_SetSignalsConnection(XBARA, kXBARA1_InputIomuxXbarInout13, kXBARA1_OutputEnc1PhaseBInput); /* IOMUX_XBAR_INOUT13 output assigned to XBARA_IN13 input is connected to XBARA_OUT67 output assigned to ENC1_PHASE_B_INPUT */
-  XBARA_SetSignalsConnection(XBARA, kXBARA1_InputIomuxXbarInout16, kXBARA1_OutputEnc1Index); /* IOMUX_XBAR_INOUT16 output assigned to XBARA_IN16 input is connected to XBARA_OUT68 output assigned to ENC1_INDEX */
-  IOMUXC_SetPinConfig(
-      IOMUXC_GPIO_AD_B0_06_LPUART1_TX,        /* GPIO_AD_B0_06 PAD functional properties : */
-      0x10B0u);                               /* Slew Rate Field: Slow Slew Rate
-                                                 Drive Strength Field: R0/6
-                                                 Speed Field: medium(100MHz)
-                                                 Open Drain Enable Field: Open Drain Disabled
-                                                 Pull / Keep Enable Field: Pull/Keeper Enabled
-                                                 Pull / Keep Select Field: Keeper
-                                                 Pull Up / Down Config. Field: 100K Ohm Pull Down
-                                                 Hyst. Enable Field: Hysteresis Disabled */
-  IOMUXC_SetPinConfig(
-      IOMUXC_GPIO_AD_B0_07_LPUART1_RX,        /* GPIO_AD_B0_07 PAD functional properties : */
-      0x10B0u);                               /* Slew Rate Field: Slow Slew Rate
-                                                 Drive Strength Field: R0/6
-                                                 Speed Field: medium(100MHz)
-                                                 Open Drain Enable Field: Open Drain Disabled
-                                                 Pull / Keep Enable Field: Pull/Keeper Enabled
-                                                 Pull / Keep Select Field: Keeper
-                                                 Pull Up / Down Config. Field: 100K Ohm Pull Down
-                                                 Hyst. Enable Field: Hysteresis Disabled */
-  IOMUXC_SetPinConfig(
-      IOMUXC_GPIO_AD_B1_08_XBAR1_INOUT12,     /* GPIO_AD_B1_08 PAD functional properties : */
-      0x10B0u);                               /* Slew Rate Field: Slow Slew Rate
-                                                 Drive Strength Field: R0/6
-                                                 Speed Field: medium(100MHz)
-                                                 Open Drain Enable Field: Open Drain Disabled
-                                                 Pull / Keep Enable Field: Pull/Keeper Enabled
-                                                 Pull / Keep Select Field: Keeper
-                                                 Pull Up / Down Config. Field: 100K Ohm Pull Down
-                                                 Hyst. Enable Field: Hysteresis Disabled */
-  IOMUXC_SetPinConfig(
-      IOMUXC_GPIO_AD_B1_09_XBAR1_INOUT13,     /* GPIO_AD_B1_09 PAD functional properties : */
-      0x10B0u);                               /* Slew Rate Field: Slow Slew Rate
-                                                 Drive Strength Field: R0/6
-                                                 Speed Field: medium(100MHz)
-                                                 Open Drain Enable Field: Open Drain Disabled
-                                                 Pull / Keep Enable Field: Pull/Keeper Enabled
-                                                 Pull / Keep Select Field: Keeper
-                                                 Pull Up / Down Config. Field: 100K Ohm Pull Down
-                                                 Hyst. Enable Field: Hysteresis Disabled */
-  IOMUXC_SetPinConfig(
-      IOMUXC_GPIO_SD_B0_02_XBAR1_INOUT16,     /* GPIO_SD_B0_02 PAD functional properties : */
-      0x10B0u);                               /* Slew Rate Field: Slow Slew Rate
-                                                 Drive Strength Field: R0/6
-                                                 Speed Field: medium(100MHz)
-                                                 Open Drain Enable Field: Open Drain Disabled
-                                                 Pull / Keep Enable Field: Pull/Keeper Enabled
-                                                 Pull / Keep Select Field: Keeper
-                                                 Pull Up / Down Config. Field: 100K Ohm Pull Down
-                                                 Hyst. Enable Field: Hysteresis Disabled */
+  XBARA_SetSignalsConnection(XBARA, kXBARA1_InputIomuxXbarInout12, kXBARA1_OutputEnc1PhaseAInput); 
+  XBARA_SetSignalsConnection(XBARA, kXBARA1_InputIomuxXbarInout13, kXBARA1_OutputEnc1PhaseBInput); 
+  XBARA_SetSignalsConnection(XBARA, kXBARA1_InputIomuxXbarInout16, kXBARA1_OutputEnc1Index); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B0_06_LPUART1_TX, 0x10B0U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B0_07_LPUART1_RX, 0x10B0U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B1_08_XBAR1_INOUT12, 0x10B0U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B1_09_XBAR1_INOUT13, 0x10B0U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_SD_B0_02_XBAR1_INOUT16, 0x10B0U); 
 }
 
 /***********************************************************************************************************************

@@ -11,16 +11,16 @@
 #include "fsl_enet.h"
 #include "fsl_phy.h"
 
-#include "fsl_enet_mdio.h"
-#include "fsl_phylan8720a.h"
 #include "pin_mux.h"
 #include "board.h"
 #include <stdbool.h>
+#include "fsl_enet_mdio.h"
+#include "fsl_phylan8720a.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define EXAMPLE_ENET_BASE    ENET
-#define EXAMPLE_PHY_ADDRESS  (0x00U)
+#define EXAMPLE_ENET_BASE   ENET
+#define EXAMPLE_PHY_ADDRESS (0x00U)
 
 /* MDIO operations. */
 #define EXAMPLE_MDIO_OPS lpc_enet_ops
@@ -155,7 +155,7 @@ int main(void)
     /* attach 12 MHz clock to FLEXCOMM0 (debug console) */
     CLOCK_AttachClk(BOARD_DEBUG_UART_CLK_ATTACH);
 
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockPLL180M();
     BOARD_InitDebugConsole();
 

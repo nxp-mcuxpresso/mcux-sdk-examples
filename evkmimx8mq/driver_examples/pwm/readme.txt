@@ -9,7 +9,7 @@ The outputs can be observed by oscilloscope.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
+- GCC ARM Embedded  10.2.1
 
 Hardware requirements
 =====================

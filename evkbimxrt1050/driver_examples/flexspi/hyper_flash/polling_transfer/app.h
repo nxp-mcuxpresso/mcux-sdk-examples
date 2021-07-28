@@ -18,6 +18,7 @@
  ******************************************************************************/
 /*${macro:start}*/
 #define EXAMPLE_FLEXSPI                        FLEXSPI
+#define EXAMPLE_BOOT_FLEXSPI                   FLEXSPI
 #define FLASH_SIZE                             0x10000U /* 64*1024 Kbyte */
 #define EXAMPLE_FLEXSPI_AMBA_BASE              FlexSPI_AMBA_BASE
 #define FLASH_PAGE_SIZE                        512U

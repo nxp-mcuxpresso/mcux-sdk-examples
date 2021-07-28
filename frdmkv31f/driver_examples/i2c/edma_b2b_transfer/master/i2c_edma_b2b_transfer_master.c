@@ -71,8 +71,8 @@ int main(void)
     i2c_master_transfer_t masterXfer;
     edma_config_t config;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /*Init EDMA for example*/

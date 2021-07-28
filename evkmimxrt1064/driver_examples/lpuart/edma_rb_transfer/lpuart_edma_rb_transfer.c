@@ -212,6 +212,7 @@ void EXAMPLE_LPUART_IRQHandler(void)
             __NOP();
         }
     }
+    LPUART_TransferEdmaHandleIRQ(EXAMPLE_LPUART, &g_lpuartEdmaHandle);
     SDK_ISR_EXIT_BARRIER;
 }
 
@@ -243,8 +244,8 @@ int main(void)
     lpuart_transfer_t sendXfer;
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
 
     /* Initialize the LPUART module. */
     EXAMPLE_InitLPUART();

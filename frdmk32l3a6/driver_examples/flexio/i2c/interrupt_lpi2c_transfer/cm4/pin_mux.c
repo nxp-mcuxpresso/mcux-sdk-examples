@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v5.0
+product: Pins v9.0
 processor: K32L3A60xxx
 package_id: K32L3A60VPJ1A
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 9.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -44,17 +44,17 @@ void BOARD_InitBootPins(void)
 BOARD_InitPins:
 - options: {callFromInitBoot: 'true', coreID: cm4, enableClock: 'true'}
 - pin_list:
-  - {pin_num: N17, peripheral: FLEXIO0, signal: 'D, 3', pin_signal: PTE13/SAI0_TX_BCLK/LPI2C3_SCLS/TPM3_CH0/FXIO0_D3, slew_rate: fast, open_drain: enable, pull_select: up,
+  - {pin_num: N17, peripheral: FLEXIO0, signal: 'D, 3', pin_signal: PTE13/I2S0_TX_BCLK/LPI2C3_SCLS/TPM3_CH0/FXIO0_D3, slew_rate: fast, open_drain: enable, pull_select: up,
     pull_enable: enable}
   - {pin_num: P3, peripheral: LPUART0, signal: TX, pin_signal: LPCMP0_IN1/PTC8/LPSPI0_SCK/LPUART0_TX/LPI2C0_HREQ/TPM0_CH1}
   - {pin_num: N2, peripheral: LPUART0, signal: RX, pin_signal: LPCMP0_IN0/PTC7/LLWU_P15/LPSPI0_PCS3/LPUART0_RX/LPI2C1_HREQ/TPM0_CH0/LPTMR1_ALT1}
-  - {pin_num: L16, peripheral: FLEXIO0, signal: 'D, 4', pin_signal: PTE14/SAI0_TX_FS/LPI2C3_HREQ/TPM3_CH1/FXIO0_D4, slew_rate: fast, open_drain: enable, pull_select: up,
+  - {pin_num: L16, peripheral: FLEXIO0, signal: 'D, 4', pin_signal: PTE14/I2S0_TX_FS/LPI2C3_HREQ/TPM3_CH1/FXIO0_D4, slew_rate: fast, open_drain: enable, pull_select: up,
     pull_enable: enable}
-  - {pin_num: R2, peripheral: LPI2C0, signal: SCL, pin_signal: ADC0_SE5/PTC10/LPSPI0_PCS2/LPUART0_RTS_b/LPI2C0_SCL/TPM0_CH3, slew_rate: fast, open_drain: enable,
+  - {pin_num: R2, peripheral: LPI2C0, signal: SCL, pin_signal: LPADC0_SE5/PTC10/LPSPI0_PCS2/LPUART0_RTS/LPI2C0_SCL/TPM0_CH3, slew_rate: fast, open_drain: enable,
     pull_select: up, pull_enable: enable}
-  - {pin_num: R1, peripheral: LPI2C0, signal: SDA, pin_signal: ADC0_SE4/LPCMP0_IN2/PTC9/LLWU_P16/LPSPI0_SOUT/LPUART0_CTS_b/LPI2C0_SDA/TPM0_CH2/LPTMR0_ALT2, slew_rate: fast,
+  - {pin_num: R1, peripheral: LPI2C0, signal: SDA, pin_signal: LPADC0_SE4/LPCMP0_IN2/PTC9/LLWU_P16/LPSPI0_SOUT/LPUART0_CTS/LPI2C0_SDA/TPM0_CH2/LPTMR0_ALT2, slew_rate: fast,
     open_drain: enable, pull_select: up, pull_enable: enable}
-  - {pin_num: H5, peripheral: LPI2C3, signal: SDA, pin_signal: PTB16/LLWU_P10/LPUART3_CTS_b/LPI2C3_SDA/FB_CS4_b/FB_TSIZ0/FB_BE31_24_b/FXIO0_D6, slew_rate: fast, open_drain: enable,
+  - {pin_num: H5, peripheral: LPI2C3, signal: SDA, pin_signal: PTB16/LLWU_P10/LPUART3_CTS/LPI2C3_SDA/FB_CS4_b/FB_TSIZ0/FB_BE31_24_b/FXIO0_D6, slew_rate: fast, open_drain: enable,
     pull_select: up, pull_enable: enable}
   - {pin_num: G1, peripheral: LPI2C3, signal: SCL, pin_signal: PTB15/LPI2C1_HREQ/LPI2C3_SCL/FB_CS5_b/FB_TSIZ1/FB_BE23_16_b/TPM0_CLKIN/FXIO0_D5, slew_rate: fast, open_drain: enable,
     pull_select: up, pull_enable: enable}
@@ -68,6 +68,7 @@ BOARD_InitPins:
  * Description   : Configures pin routing and optionally pin electrical features.
  *
  * END ****************************************************************************************************************/
+/* Function assigned for the Cortex-M4F */
 void BOARD_InitPins(void)
 {
     /* Clock Gate Control: Clock enabled. The current clock selection and divider options are locked. */
@@ -129,7 +130,7 @@ void BOARD_InitPins(void)
 
          /* Open Drain Enable: Open drain output is enabled on the corresponding pin, if the pin is configured as
           * a digital output. */
-         | PORT_PCR_ODE(kPORT_OpenDrainDisable));
+         | PORT_PCR_ODE(kPORT_OpenDrainEnable));
 
     /* PORTC7 (pin N2) is configured as LPUART0_RX */
     PORT_SetPinMux(PORTC, 7U, kPORT_MuxAlt3);
@@ -155,7 +156,7 @@ void BOARD_InitPins(void)
 
          /* Open Drain Enable: Open drain output is enabled on the corresponding pin, if the pin is configured as
           * a digital output. */
-         | PORT_PCR_ODE(kPORT_OpenDrainDisable));
+         | PORT_PCR_ODE(kPORT_OpenDrainEnable));
 
     const port_pin_config_t porte13_pinN17_config = {/* Internal pull-up resistor is enabled */
                                                      kPORT_PullUp,

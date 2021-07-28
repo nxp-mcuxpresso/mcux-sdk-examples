@@ -1,0 +1,51 @@
+Overview
+========
+The usart_wakeup_deepsleep example shows how to use usart driver in 32kHz clocking mode
+to wake up soc from deep sleep.
+
+In this example, one usart instance is connected to PC, the board will enter into deep
+sleep mode and wake up according to user input.
+
+Toolchain supported
+===================
+- MCUXpresso  11.4.0
+- GCC ARM Embedded  10.2.1
+
+Hardware requirements
+=====================
+- Micro USB cable
+- LPCXpresso51U68 board
+- Personal Computer
+
+Board settings
+==============
+No special is needed.
+
+Prepare the Demo
+================
+1.  Connect a micro USB cable between the PC host and the CMSIS DAP USB port (J6) on the board
+2.  Open a serial terminal with the following settings (See Appendix A in Getting started guide for description how to determine serial port number):
+    - 115200 baud rate
+    - 8 data bits
+    - No parity
+    - One stop bit
+    - No flow control
+3.  Download the program to the target board.
+4.  Reset the SoC and run the project.
+
+Running the demo
+================
+When the demo runs successfully, the log would be seen on the CMSIS DAP terminal like:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Usart waking up soc from deep sleep example, please note USART can only work at 9600 baudrate in deep sleep mode
+
+Press 1 to enter deep sleep
+Press any other key to wake up soc
+/* Type in '1' into UART terminal */
+Received 1
+Entering deep sleep mode, please change the baudrate setting of your local terminal to 9600
+/* Type in '2' into UART terminal */
+Received 2
+Waking up from deep sleep, please change the baudrate setting of your local terminal back to 115200
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

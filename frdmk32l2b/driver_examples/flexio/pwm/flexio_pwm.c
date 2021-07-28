@@ -108,8 +108,8 @@ int main(void)
     flexio_config_t fxioUserConfig;
 
     /* Init board hardware */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     CLOCK_SetFlexio0Clock(1U);

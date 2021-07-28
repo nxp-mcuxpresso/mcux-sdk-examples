@@ -10,7 +10,7 @@ In this example , one lpspi instance used as LPSPI master and another lpspi inst
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
+- GCC ARM Embedded  10.2.1
 
 Hardware requirements
 =====================

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2018, NXP
+ * Copyright 2017-2021, NXP
  * All rights reserved.
  *
  *
@@ -65,7 +65,8 @@ typedef struct _srtm_sai_edma_runtime
     srtm_sai_edma_local_buf_t localBuf;
     struct _srtm_sai_edma_local_runtime localRtm; /* buffer set by application. */
 #endif
-    bool freeRun;               /* flag to indicate that no periodReady will be sent by audio client. */
+    bool freeRun; /* flag to indicate that no periodReady will be sent by audio client. */
+    bool stoppedOnSuspend;
     uint32_t finishedBufOffset; /* offset from bufAddr where the data transfer has completed. */
 } * srtm_sai_edma_runtime_t;
 
@@ -127,7 +128,7 @@ static void SRTM_SaiEdmaAdaptor_ResetLocalBuf(srtm_sai_edma_runtime_t rtm)
 
     if (rtm->localBuf.buf)
     {
-        memset(&rtm->localRtm.bufRtm, 0, sizeof(struct _srtm_sai_edma_buf_runtime));
+        (void)memset(&rtm->localRtm.bufRtm, 0, sizeof(struct _srtm_sai_edma_buf_runtime));
         rtm->localRtm.periodSize =
             (rtm->localBuf.bufSize / rtm->localBuf.periods) & (~SRTM_SAI_EDMA_MAX_LOCAL_PERIOD_ALIGNMENT_MASK);
         /* Calculate how many local periods each remote period */
@@ -230,7 +231,7 @@ static void SRTM_SaiEdmaAdapter_CopyData(srtm_sai_edma_adapter_t handle)
         srcSize = rtm->periodSize - srcRtm->offset;
         dstSize = rtm->localRtm.periodSize - dstRtm->offset;
         size    = MIN(srcSize, dstSize);
-        memcpy(dst + dstRtm->offset, src + srcRtm->offset, size);
+        (void)memcpy(dst + dstRtm->offset, src + srcRtm->offset, size);
 
         srcRtm->offset += size;
         dstRtm->offset += size;
@@ -840,7 +841,8 @@ static srtm_status_t SRTM_SaiEdmaAdapter_Suspend(srtm_sai_adapter_t adapter, srt
 
     if (thisRtm->state == SRTM_AudioStateStarted && thisCfg->stopOnSuspend)
     {
-        status = SRTM_SaiEdmaAdapter_End(adapter, dir, index, false);
+        thisRtm->stoppedOnSuspend = true;
+        status                    = SRTM_SaiEdmaAdapter_End(adapter, dir, index, false);
     }
 
     return status;
@@ -851,24 +853,22 @@ static srtm_status_t SRTM_SaiEdmaAdapter_Resume(srtm_sai_adapter_t adapter, srtm
     srtm_status_t status           = SRTM_Status_Success;
     srtm_sai_edma_adapter_t handle = (srtm_sai_edma_adapter_t)(void *)adapter;
     srtm_sai_edma_runtime_t thisRtm;
-    srtm_sai_edma_config_t *thisCfg;
 
     SRTM_DEBUG_MESSAGE(SRTM_DEBUG_VERBOSE_INFO, "%s: %s%d\r\n", __func__, saiDirection[dir], index);
 
     if (dir == SRTM_AudioDirTx)
     {
         thisRtm = &handle->txRtm;
-        thisCfg = &handle->txConfig;
     }
     else
     {
         thisRtm = &handle->rxRtm;
-        thisCfg = &handle->rxConfig;
     }
 
-    if (thisRtm->state == SRTM_AudioStateStarted && thisCfg->stopOnSuspend)
+    if (thisRtm->stoppedOnSuspend)
     {
-        status = SRTM_SaiEdmaAdapter_Start(adapter, dir, index);
+        thisRtm->stoppedOnSuspend = false;
+        status                    = SRTM_SaiEdmaAdapter_Start(adapter, dir, index);
     }
 
     return status;
@@ -1004,7 +1004,7 @@ void SRTM_SaiEdmaAdapter_SetTxLocalBuf(srtm_sai_adapter_t adapter, srtm_sai_edma
     if (localBuf)
     {
         assert(localBuf->periods <= SRTM_SAI_EDMA_MAX_LOCAL_BUF_PERIODS);
-        memcpy(&handle->txRtm.localBuf, localBuf, sizeof(srtm_sai_edma_local_buf_t));
+        (void)memcpy(&handle->txRtm.localBuf, localBuf, sizeof(srtm_sai_edma_local_buf_t));
     }
     else
     {

@@ -61,7 +61,7 @@ void UART_UserCallback(UART_Type *base, uart_handle_t *handle, status_t status, 
 int main(void)
 {
     uint32_t i;
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     PRINTF(

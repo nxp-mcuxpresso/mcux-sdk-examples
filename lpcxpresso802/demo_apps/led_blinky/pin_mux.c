@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v6.0
+product: Pins v9.0
 processor: LPC802
 package_id: LPC802M001JDH20
 mcu_data: ksdk2_0
-processor_version: 6.0.1
+processor_version: 9.0.0
 board: LPCXpresso802
 pin_labels:
 - {pin_num: '17', pin_signal: PIO0_7/ADC_1/ACMPVREF, label: 'CN5[4]/CN3[27]/CN6[2]/LD17/LD18/PIO0_7_GPIO3-LED', identifier: LED;USER_LED}
@@ -27,6 +27,7 @@ pin_labels:
 /* clang-format on */
 
 #include "fsl_common.h"
+#include "fsl_gpio.h"
 #include "pin_mux.h"
 
 /* FUNCTION ************************************************************************************************************
@@ -63,13 +64,12 @@ void BOARD_InitPins(void)
     /* Enables the clock for the GPIO0 module */
     CLOCK_EnableClock(kCLOCK_Gpio0);
 
-    GPIO->DIR[0] = ((GPIO->DIR[0] &
-                     /* Mask bits to zero which are setting */
-                     (~(GPIO_DIR_DIRP_MASK)))
-
-                    /* Selects pin direction for pin PIOm_n (bit 0 = PIOn_0, bit 1 = PIOn_1, etc.). Supported pins
-                     * depends on the specific device and package. 0 = input. 1 = output.: 0x80u */
-                    | GPIO_DIR_DIRP(0x80u));
+    gpio_pin_config_t USER_LED_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 0U,
+    };
+    /* Initialize GPIO functionality on pin PIO0_7 (pin 17)  */
+    GPIO_PinInit(BOARD_USER_LED_GPIO, BOARD_USER_LED_PORT, BOARD_USER_LED_PIN, &USER_LED_config);
 }
 /***********************************************************************************************************************
  * EOF

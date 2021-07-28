@@ -137,8 +137,8 @@ int main(void)
     uint8_t array_addr_size = 0;
 
     /* Init board hardware. */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_ACCEL_Reset();
     BOARD_I2C_ConfigurePins();
     BOARD_InitDebugConsole();

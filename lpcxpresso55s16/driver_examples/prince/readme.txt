@@ -6,8 +6,8 @@ The example also shows how to correctly perform PRINCE region erase and write op
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  9.3.1
-- MCUXpresso  11.3.0
+- GCC ARM Embedded  10.2.1
+- MCUXpresso  11.4.0
 
 Hardware requirements
 =====================
@@ -73,5 +73,12 @@ PRINCE region 1 SR enable mask: 0x1000000
 PRINCE region 2 base address: 0x0
 PRINCE region 2 SR enable mask: 0x0
 
+Program data to FLASH at address: 0x30000
+
+Read decrypted data form address: 0x30000
+
+Decrypted data read successfully!!
+
 Example end.
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

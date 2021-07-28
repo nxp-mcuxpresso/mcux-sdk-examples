@@ -57,8 +57,8 @@ int main(void)
     uint8_t intrinsicKey[16] = {0};
 
     /* Init hardware */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Initialize random number generator used to generate key mask for HW key */

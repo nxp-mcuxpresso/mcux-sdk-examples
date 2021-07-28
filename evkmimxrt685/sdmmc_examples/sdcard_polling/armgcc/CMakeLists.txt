@@ -1,6 +1,6 @@
 # CROSS COMPILER SETTING
 SET(CMAKE_SYSTEM_NAME Generic)
-CMAKE_MINIMUM_REQUIRED (VERSION 3.1.1)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
 SET (Tutorial_VERSION_MAJOR 1)
@@ -67,7 +67,7 @@ include(middleware_sdmmc_common)
 
 include(middleware_sdmmc_host_usdhc)
 
-include(middleware_sdmmc_host_usdhc_polling)
+include(middleware_sdmmc_host_usdhc_polling_MIMXRT685S_cm33)
 
 include(driver_flexcomm_i2c)
 
@@ -105,11 +105,7 @@ include(driver_lpc_iopctl)
 
 include(driver_reset)
 
-include(CMSIS_Include_core_cm33)
-
-include(CMSIS_Include_common)
-
-include(CMSIS_Include_dsp)
+include(CMSIS_Include_core_cm)
 
 include(middleware_sdmmc_osa_bm)
 

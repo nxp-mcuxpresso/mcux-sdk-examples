@@ -73,8 +73,8 @@ int main(void)
     lpuart_transfer_t sendXfer;
     lpuart_transfer_t receiveXfer;
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     INTMUX_Init(INTMUX1);
     INTMUX_EnableInterrupt(INTMUX1, 0, LPUART0_IRQn);

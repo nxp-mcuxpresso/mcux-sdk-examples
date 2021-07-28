@@ -79,8 +79,8 @@ static void pint_intr_callback(pint_pin_int_t pintr, uint32_t pmatch_status);
  * Code
  ******************************************************************************/
 /*PLL status*/
-extern const clock_sys_pll_config_t g_sysPllConfig_BOARD_BootClockRUN;
-extern const clock_audio_pll_config_t g_audioPllConfig_BOARD_BootClockRUN;
+extern const clock_sys_pll_config_t g_sysPllConfig_BOARD_InitBootClocks;
+extern const clock_audio_pll_config_t g_audioPllConfig_BOARD_InitBootClocks;
 AT_QUICKACCESS_SECTION_CODE(void BOARD_SetFlexspiClock(uint32_t src, uint32_t divider));
 
 
@@ -109,7 +109,7 @@ void BOARD_ConfigPMICModes(pca9420_modecfg_t *cfg, uint32_t num)
 void BOARD_DisablePll(void)
 {
     /* Let FlexSPI run on FRO. */
-    BOARD_SetFlexspiClock(CLKCTL0_FLEXSPIFCLKSEL_SEL(3), 1);
+    BOARD_SetFlexspiClock(3U, 1U);
     /* Let CPU run on ffro before power down SYS PLL. */
     CLOCK_AttachClk(kFFRO_to_MAIN_CLK);
     /* Disable the PFD clock output first. */
@@ -127,18 +127,18 @@ void BOARD_RestorePll(void)
 {
     /* Power on SysOsc */
     POWER_DisablePD(kPDRUNCFG_PD_SYSXTAL);
-    CLOCK_EnableSysOscClk(true, BOARD_SYSOSC_SETTLING_US);
+    CLOCK_EnableSysOscClk(true, true, BOARD_SYSOSC_SETTLING_US);
     /*Restore PLL*/
-    CLOCK_InitSysPll(&g_sysPllConfig_BOARD_BootClockRUN);
-    CLOCK_InitAudioPll(&g_audioPllConfig_BOARD_BootClockRUN);
+    CLOCK_InitSysPll(&g_sysPllConfig_BOARD_InitBootClocks);
+    CLOCK_InitAudioPll(&g_audioPllConfig_BOARD_InitBootClocks);
     /*Restore PFD*/
     CLOCK_InitSysPfd(kCLOCK_Pfd0, 19);   /* Enable main PLL clock 500MHz. */
     CLOCK_InitSysPfd(kCLOCK_Pfd2, 24);   /* Enable aux0 PLL clock 396MHz for SDIO */
     CLOCK_InitAudioPfd(kCLOCK_Pfd0, 26); /* Configure audio_pll_clk to 24.576Mhz */
     /* Let CPU run on SYS PLL PFD0 with divider 2 (250Mhz). */
     CLOCK_AttachClk(kMAIN_PLL_to_MAIN_CLK);
-    /* Move FlexSPI clock source from FRO clock to Main clock. */
-    BOARD_SetFlexspiClock(CLKCTL0_FLEXSPIFCLKSEL_SEL(0), 2);
+    /* Move FlexSPI clock source from FRO clock to Main PLL clock. */
+    BOARD_SetFlexspiClock(1U, 5U);
 }
 #endif /* POWER_DOWN_PLL_BEFORE_DEEP_SLEEP */
 
@@ -158,8 +158,8 @@ int main(void)
                                  /* SD0 voltage is switchable, but in power_manager demo, it's fixed 3.3V. */
                                  .Vdde2Range = kPadVol_300_360};
 
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* PMIC PCA9420 */

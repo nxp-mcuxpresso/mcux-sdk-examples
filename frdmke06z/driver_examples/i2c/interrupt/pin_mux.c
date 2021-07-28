@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 NXP
+ * Copyright 2017 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -10,21 +10,35 @@
  * will be overwritten if the respective MCUXpresso Config Tools is used to update this file.
  **********************************************************************************************************************/
 
+/* clang-format off */
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v4.0
+product: Pins v9.0
 processor: MKE06Z128xxx4
 package_id: MKE06Z128VLK4
 mcu_data: ksdk2_0
-processor_version: 0.0.4
+processor_version: 9.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
+/* clang-format on */
 
 #include "fsl_common.h"
 #include "fsl_port.h"
 #include "pin_mux.h"
 
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_InitBootPins
+ * Description   : Calls initialization functions.
+ *
+ * END ****************************************************************************************************************/
+void BOARD_InitBootPins(void)
+{
+    BOARD_InitPins();
+}
+
+/* clang-format off */
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitPins:
@@ -38,23 +52,31 @@ BOARD_InitPins:
   - {pin_num: '76', peripheral: I2C1, signal: SDA, pin_signal: PTE0/KBI1_P0/SPI0_SCK/TCLK1/I2C1_SDA, pullup_enable: enable}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
+/* clang-format on */
 
-/*FUNCTION**********************************************************************
+/* FUNCTION ************************************************************************************************************
  *
  * Function Name : BOARD_InitPins
  * Description   : Configures pin routing and optionally pin electrical features.
  *
- *END**************************************************************************/
-void BOARD_InitPins(void) {
-  PORT_SetPinPullUpEnable(PORT, kPORT_PTA, 2, 1);  /* Pull Enable for Port A Bit 2: 0x01u */
-  PORT_SetPinPullUpEnable(PORT, kPORT_PTA, 3, 1);  /* Pull Enable for Port A Bit 3: 0x01u */
-  PORT_SetPinPullUpEnable(PORT, kPORT_PTE, 0, 1);  /* Pull Enable for Port E Bit 0: 0x01u */
-  PORT_SetPinPullUpEnable(PORT, kPORT_PTE, 1, 1);  /* Pull Enable for Port E Bit 1: 0x01u */
-  PORT_SetPinSelect(kPORT_I2C0, kPORT_I2C0_SCLPTA3_SDAPTA2);  /* pin 59,60 is configured as I2C0_SCL, I2C0_SDA */
-  PORT_SetPinSelect(kPORT_I2C1, kPORT_I2C1_SCLPTE1_SDAPTE0);  /* pin 76,75 is configured as I2C1_SDA, I2C1_SCL */
-  PORT_SetPinSelect(kPORT_UART1, kPORT_UART1_RXPTC7_TXPTC6);  /* pin 64,63 is configured as UART1_RX, UART1_TX */
+ * END ****************************************************************************************************************/
+void BOARD_InitPins(void)
+{
+    /* Pull Enable for Port A Bit 2: 0x01u */
+    PORT_SetPinPullUpEnable(PORT, kPORT_PTA, 2U, true);
+    /* Pull Enable for Port A Bit 3: 0x01u */
+    PORT_SetPinPullUpEnable(PORT, kPORT_PTA, 3U, true);
+    /* Pull Enable for Port E Bit 0: 0x01u */
+    PORT_SetPinPullUpEnable(PORT, kPORT_PTE, 0U, true);
+    /* Pull Enable for Port E Bit 1: 0x01u */
+    PORT_SetPinPullUpEnable(PORT, kPORT_PTE, 1U, true);
+    /* pin 59,60 is configured as I2C0_SCL, I2C0_SDA */
+    PORT_SetPinSelect(kPORT_I2C0, kPORT_I2C0_SCLPTA3_SDAPTA2);
+    /* pin 75,76 is configured as I2C1_SCL, I2C1_SDA */
+    PORT_SetPinSelect(kPORT_I2C1, kPORT_I2C1_SCLPTE1_SDAPTE0);
+    /* pin 64,63 is configured as UART1_RX, UART1_TX */
+    PORT_SetPinSelect(kPORT_UART1, kPORT_UART1_RXPTC7_TXPTC6);
 }
-
-/*******************************************************************************
+/***********************************************************************************************************************
  * EOF
- ******************************************************************************/
+ **********************************************************************************************************************/

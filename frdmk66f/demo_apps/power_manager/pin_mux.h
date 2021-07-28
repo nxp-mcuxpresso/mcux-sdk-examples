@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019 ,2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -36,28 +36,43 @@ void BOARD_InitBootPins(void);
 
 /*! @name PORTB16 (coord E10), U7[4]/UART0_RX
   @{ */
-#define BOARD_DEBUG_UART_RX_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_DEBUG_UART_RX_PIN 16U    /*!<@brief PORTB pin index: 16 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_RX_PORT PORTB                /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_RX_PIN 16U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_RX_PIN_MASK (1U << 16U)      /*!<@brief PORT pin mask */
+                                                      /* @} */
 
 /*! @name PORTB17 (coord E9), U10[1]/UART0_TX
   @{ */
-#define BOARD_DEBUG_UART_TX_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_DEBUG_UART_TX_PIN 17U    /*!<@brief PORTB pin index: 17 */
-                                       /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_DEBUG_UART_TX_PORT PORTB                /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEBUG_UART_TX_PIN 17U                   /*!<@brief PORT pin number */
+#define BOARD_DEBUG_UART_TX_PIN_MASK (1U << 17U)      /*!<@brief PORT pin mask */
+                                                      /* @} */
 
 /*! @name PORTA10 (coord M9), SW3
   @{ */
-#define BOARD_SW3_GPIO GPIOA /*!<@brief GPIO device name: GPIOA */
-#define BOARD_SW3_PORT PORTA /*!<@brief PORT device name: PORTA */
-#define BOARD_SW3_PIN 10U    /*!<@brief PORTA pin index: 10 */
-                             /* @} */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_SW3_GPIO GPIOA                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_SW3_GPIO_PIN_MASK (1U << 10U) /*!<@brief GPIO pin mask */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_SW3_PORT PORTA                /*!<@brief PORT peripheral base pointer */
+#define BOARD_SW3_PIN 10U                   /*!<@brief PORT pin number */
+#define BOARD_SW3_PIN_MASK (1U << 10U)      /*!<@brief PORT pin mask */
+                                            /* @} */
 
 /*! @name PORTA2 (coord K6), J9[6]/JTAG_TDO/TRACE_SWO/EZP_DO
   @{ */
-#define BOARD_TRACE_SWO_PORT PORTA /*!<@brief PORT device name: PORTA */
-#define BOARD_TRACE_SWO_PIN 2U     /*!<@brief PORTA pin index: 2 */
-                                   /* @} */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_TRACE_SWO_PORT PORTA               /*!<@brief PORT peripheral base pointer */
+#define BOARD_TRACE_SWO_PIN 2U                   /*!<@brief PORT pin number */
+#define BOARD_TRACE_SWO_PIN_MASK (1U << 2U)      /*!<@brief PORT pin mask */
+                                                 /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
