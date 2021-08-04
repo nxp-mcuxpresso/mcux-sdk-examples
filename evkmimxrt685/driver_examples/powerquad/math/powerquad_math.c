@@ -290,8 +290,8 @@ static void PQ_Vector32CosFX(int32_t *pSrc, int32_t *pDst)
 int main(void)
 {
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Power up PQ RAM. */

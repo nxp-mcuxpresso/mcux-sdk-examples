@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_LPCXpresso55S69" name="LPCXpresso55S69" brief="This is SDK version 2.10.0 manifest file. It describes the content of the LPCXpresso55S69 and additional settings for tools that support SDK version 2.10.0" format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-07-22 12:49:57.352868-->
+  <!--Timestamp (UTC): 2021-08-03 13:05:13.116068-->
   <!--This manifest is generated based on sdk repo commit: a40647dd23698fa812ab2e267466ae159e1a5d45-->
   <defines>
     <define name="CPU_$|package|" value=""/>
@@ -422,6 +422,81 @@ ${load}</script>
             <files mask="power_manager_lpc_v3_8.xml"/>
           </external>
         </example>
+        <example id="lpcxpresso55s69_powerquad_benchmark_fft" name="powerquad_benchmark_fft" brief="This example shows the official CMSIS DSP function performance. It could be compared with the project powerquad_benckmark_fft to show the PowerQuad performance improvement." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_fft/cm33_core0">
+          <external path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_fft/cm33_core0" type="xml">
+            <files mask="powerquad_benchmark_fft_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s69_powerquad_benchmark_filter" name="powerquad_benchmark_filter" brief="This example shows the PowerQuad based CMSIS DSP function performance. It could be compared with the project powerquad_benckmark_sw_filter to show the PowerQuad performance improvement." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_filter/cm33_core0">
+          <external path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_filter/cm33_core0" type="xml">
+            <files mask="powerquad_benchmark_filter_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s69_powerquad_benchmark_math" name="powerquad_benchmark_math" brief="This example shows the PowerQuad based CMSIS DSP function performance. It could be compared with the project powerquad_benckmark_sw_math to show the PowerQuad performance improvement." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_math/cm33_core0">
+          <external path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_math/cm33_core0" type="xml">
+            <files mask="powerquad_benchmark_math_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s69_powerquad_benchmark_matrix" name="powerquad_benchmark_matrix" brief="This example shows the PowerQuad based CMSIS DSP function performance. It could be compared with the project powerquad_benckmark_sw_matrix to show the PowerQuad performance improvement." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_matrix/cm33_core0">
+          <external path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_matrix/cm33_core0" type="xml">
+            <files mask="powerquad_benchmark_matrix_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s69_powerquad_benchmark_sw_fft" name="powerquad_benchmark_sw_fft" brief="This example shows the official CMSIS DSP function performance. It could be compared with the project powerquad_benckmark_fft to show the PowerQuad performance improvement." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_sw_fft/cm33_core0">
+          <external path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_sw_fft/cm33_core0" type="xml">
+            <files mask="powerquad_benchmark_sw_fft_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s69_powerquad_benchmark_sw_filter" name="powerquad_benchmark_sw_filter" brief="This example shows the official CMSIS DSP function performance. It could be compared with the project powerquad_benckmark_filter to show the PowerQuad performance improvement." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_sw_filter/cm33_core0">
+          <external path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_sw_filter/cm33_core0" type="xml">
+            <files mask="powerquad_benchmark_sw_filter_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s69_powerquad_benchmark_sw_math" name="powerquad_benchmark_sw_math" brief="This example shows the official CMSIS DSP function performance. It could be compared with the project powerquad_benckmark_math to show the PowerQuad performance improvement." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_sw_math/cm33_core0">
+          <external path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_sw_math/cm33_core0" type="xml">
+            <files mask="powerquad_benchmark_sw_math_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s69_powerquad_benchmark_sw_matrix" name="powerquad_benchmark_sw_matrix" brief="This example shows the official CMSIS DSP function performance. It could be compared with the project powerquad_benckmark_matrix to show the PowerQuad performance improvement." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_sw_matrix/cm33_core0">
+          <external path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_sw_matrix/cm33_core0" type="xml">
+            <files mask="powerquad_benchmark_sw_matrix_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s69_powerquad_benchmark_vector" name="powerquad_benchmark_vector" brief="This example shows the PowerQuad based CMSIS DSP function performance." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_vector/cm33_core0">
+          <external path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_vector/cm33_core0" type="xml">
+            <files mask="powerquad_benchmark_vector_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s69_powerquad_cmsis" name="powerquad_cmsis" brief="This example shows how to use powerquad driver CMSIS DSP compatible functions." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/lpcxpresso55s69/driver_examples/powerquad/cmsis/cm33_core0">
+          <external path="examples/lpcxpresso55s69/driver_examples/powerquad/cmsis/cm33_core0" type="xml">
+            <files mask="powerquad_cmsis_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s69_powerquad_filter" name="powerquad_filter" brief="This example shows how to use powerquad driver filter functions." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/lpcxpresso55s69/driver_examples/powerquad/filter/cm33_core0">
+          <external path="examples/lpcxpresso55s69/driver_examples/powerquad/filter/cm33_core0" type="xml">
+            <files mask="powerquad_filter_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s69_powerquad_fir_fast" name="powerquad_fir_fast" brief="The PowerQuad fetches data from system RAM and private RAM through different path, for the calcutations which need data from two parts of memory, such as FIR, convolve, correlate, and some matrix operations, place the input data B in private RAM improves the performance. PowerQuad private RAM starts from address 0xe0000000, the first 4KByte is used by PowerQuad driver, the RAM starts from 0xe0001000 could be used by user for optimization. In this example, the FIR taps, convolve input data B, and correlate input data B are not changed, so they are converted to float format and saved to private RAM at the beginning. If the example runs successfully, the performance using optimized method is better than the nornal method." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/lpcxpresso55s69/driver_examples/powerquad/fir_fast/cm33_core0">
+          <external path="examples/lpcxpresso55s69/driver_examples/powerquad/fir_fast/cm33_core0" type="xml">
+            <files mask="powerquad_fir_fast_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s69_powerquad_math" name="powerquad_math" brief="This example project shows how to use the powerquad driver math functions." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/lpcxpresso55s69/driver_examples/powerquad/math/cm33_core0">
+          <external path="examples/lpcxpresso55s69/driver_examples/powerquad/math/cm33_core0" type="xml">
+            <files mask="powerquad_math_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s69_powerquad_matrix" name="powerquad_matrix" brief="This example shows how to use powerquad driver matrix functions." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/lpcxpresso55s69/driver_examples/powerquad/matrix/cm33_core0">
+          <external path="examples/lpcxpresso55s69/driver_examples/powerquad/matrix/cm33_core0" type="xml">
+            <files mask="powerquad_matrix_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s69_powerquad_transform" name="powerquad_transform" brief="This example shows how to use powerquad driver transform functions." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/lpcxpresso55s69/driver_examples/powerquad/transform/cm33_core0">
+          <external path="examples/lpcxpresso55s69/driver_examples/powerquad/transform/cm33_core0" type="xml">
+            <files mask="powerquad_transform_v3_8.xml"/>
+          </external>
+        </example>
         <example id="lpcxpresso55s69_prince" name="prince" brief="This driver example demonstrates how to setup PRINCE driver for the on-the-fly encryption/decryption of data stored in the internal flash memory. It shows how to enable encryption/decryption for specified flash memory address range, how to generate new IV code and how to load the IV code into the PRINCE bus encryption engine. The example also shows how to correctly perform PRINCE region erase and write operations with dummy data." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/prince" path="examples/lpcxpresso55s69/driver_examples/prince/cm33_core0">
           <external path="examples/lpcxpresso55s69/driver_examples/prince/cm33_core0" type="xml">
             <files mask="prince_v3_8.xml"/>
@@ -763,6 +838,357 @@ ${load}</script>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
         <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_DSP_Library.LPC55S69" name="CMSIS_DSP_Library" brief="CMSIS-DSP Library for Cortex-M, SC000, and SC300" version="1.7.0" full_name="CMSIS DSP Library" devices="LPC55S69" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/DSP" project_base_path="CMSIS/DSP">
+      <source relative_path="Include" type="c_include">
+        <files mask="arm_common_tables.h"/>
+        <files mask="arm_const_structs.h"/>
+        <files mask="arm_math.h"/>
+      </source>
+      <source toolchain="armgcc mcuxpresso" relative_path="Lib/GCC" project_relative_path="./" type="lib" device_cores="cm33_core1_LPC55S69">
+        <files mask="libarm_ARMv8MMLl_math.a"/>
+      </source>
+      <source toolchain="armgcc mcuxpresso" relative_path="Lib/GCC" project_relative_path="./" type="lib" device_cores="cm33_core0_LPC55S69">
+        <files mask="libarm_ARMv8MMLldfsp_math.a"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
+        <files mask="CMSIS_DSP_Library.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="Include" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_DSP_Source.LPC55S69" name="CMSIS_DSP_Library_Source" brief="CMSIS-DSP Library for Cortex-M, SC000, and SC300" version="1.7.0" full_name="CMSIS DSP Library Source" devices="LPC55S69" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/DSP" project_base_path="CMSIS/DSP">
+      <source relative_path="Include" type="c_include">
+        <files mask="arm_common_tables.h"/>
+        <files mask="arm_const_structs.h"/>
+        <files mask="arm_math.h"/>
+      </source>
+      <source relative_path="Source/BasicMathFunctions" type="src">
+        <files mask="BasicMathFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/BasicMathFunctions" type="src">
+        <files mask="arm_abs_f32.c" hidden="true"/>
+        <files mask="arm_abs_q15.c" hidden="true"/>
+        <files mask="arm_abs_q31.c" hidden="true"/>
+        <files mask="arm_abs_q7.c" hidden="true"/>
+        <files mask="arm_add_f32.c" hidden="true"/>
+        <files mask="arm_add_q15.c" hidden="true"/>
+        <files mask="arm_add_q31.c" hidden="true"/>
+        <files mask="arm_add_q7.c" hidden="true"/>
+        <files mask="arm_dot_prod_f32.c" hidden="true"/>
+        <files mask="arm_dot_prod_q15.c" hidden="true"/>
+        <files mask="arm_dot_prod_q31.c" hidden="true"/>
+        <files mask="arm_dot_prod_q7.c" hidden="true"/>
+        <files mask="arm_mult_f32.c" hidden="true"/>
+        <files mask="arm_mult_q15.c" hidden="true"/>
+        <files mask="arm_mult_q31.c" hidden="true"/>
+        <files mask="arm_mult_q7.c" hidden="true"/>
+        <files mask="arm_negate_f32.c" hidden="true"/>
+        <files mask="arm_negate_q15.c" hidden="true"/>
+        <files mask="arm_negate_q31.c" hidden="true"/>
+        <files mask="arm_negate_q7.c" hidden="true"/>
+        <files mask="arm_offset_f32.c" hidden="true"/>
+        <files mask="arm_offset_q15.c" hidden="true"/>
+        <files mask="arm_offset_q31.c" hidden="true"/>
+        <files mask="arm_offset_q7.c" hidden="true"/>
+        <files mask="arm_scale_f32.c" hidden="true"/>
+        <files mask="arm_scale_q15.c" hidden="true"/>
+        <files mask="arm_scale_q31.c" hidden="true"/>
+        <files mask="arm_scale_q7.c" hidden="true"/>
+        <files mask="arm_shift_q15.c" hidden="true"/>
+        <files mask="arm_shift_q31.c" hidden="true"/>
+        <files mask="arm_shift_q7.c" hidden="true"/>
+        <files mask="arm_sub_f32.c" hidden="true"/>
+        <files mask="arm_sub_q15.c" hidden="true"/>
+        <files mask="arm_sub_q31.c" hidden="true"/>
+        <files mask="arm_sub_q7.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/CommonTables" type="src">
+        <files mask="CommonTables.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/CommonTables" type="src">
+        <files mask="arm_common_tables.c" hidden="true"/>
+        <files mask="arm_const_structs.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/ComplexMathFunctions" type="src">
+        <files mask="ComplexMathFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/ComplexMathFunctions" type="src">
+        <files mask="arm_cmplx_conj_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_conj_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_conj_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_dot_prod_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_dot_prod_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_dot_prod_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_squared_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_squared_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_squared_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_cmplx_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_cmplx_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_cmplx_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_real_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_real_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_real_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/ControllerFunctions" type="src">
+        <files mask="ControllerFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/ControllerFunctions" type="src">
+        <files mask="arm_pid_init_f32.c" hidden="true"/>
+        <files mask="arm_pid_init_q15.c" hidden="true"/>
+        <files mask="arm_pid_init_q31.c" hidden="true"/>
+        <files mask="arm_pid_reset_f32.c" hidden="true"/>
+        <files mask="arm_pid_reset_q15.c" hidden="true"/>
+        <files mask="arm_pid_reset_q31.c" hidden="true"/>
+        <files mask="arm_sin_cos_f32.c" hidden="true"/>
+        <files mask="arm_sin_cos_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/FastMathFunctions" type="src">
+        <files mask="FastMathFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/FastMathFunctions" type="src">
+        <files mask="arm_cos_f32.c" hidden="true"/>
+        <files mask="arm_cos_q15.c" hidden="true"/>
+        <files mask="arm_cos_q31.c" hidden="true"/>
+        <files mask="arm_sin_f32.c" hidden="true"/>
+        <files mask="arm_sin_q15.c" hidden="true"/>
+        <files mask="arm_sin_q31.c" hidden="true"/>
+        <files mask="arm_sqrt_q15.c" hidden="true"/>
+        <files mask="arm_sqrt_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/FilteringFunctions" type="src">
+        <files mask="FilteringFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/FilteringFunctions" type="src">
+        <files mask="arm_biquad_cascade_df1_32x64_init_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_32x64_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_fast_q15.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_fast_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_init_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_init_q15.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_init_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_q15.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df2T_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df2T_f64.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df2T_init_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df2T_init_f64.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_stereo_df2T_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_stereo_df2T_init_f32.c" hidden="true"/>
+        <files mask="arm_conv_f32.c" hidden="true"/>
+        <files mask="arm_conv_fast_opt_q15.c" hidden="true"/>
+        <files mask="arm_conv_fast_q15.c" hidden="true"/>
+        <files mask="arm_conv_fast_q31.c" hidden="true"/>
+        <files mask="arm_conv_opt_q15.c" hidden="true"/>
+        <files mask="arm_conv_opt_q7.c" hidden="true"/>
+        <files mask="arm_conv_partial_f32.c" hidden="true"/>
+        <files mask="arm_conv_partial_fast_opt_q15.c" hidden="true"/>
+        <files mask="arm_conv_partial_fast_q15.c" hidden="true"/>
+        <files mask="arm_conv_partial_fast_q31.c" hidden="true"/>
+        <files mask="arm_conv_partial_opt_q15.c" hidden="true"/>
+        <files mask="arm_conv_partial_opt_q7.c" hidden="true"/>
+        <files mask="arm_conv_partial_q15.c" hidden="true"/>
+        <files mask="arm_conv_partial_q31.c" hidden="true"/>
+        <files mask="arm_conv_partial_q7.c" hidden="true"/>
+        <files mask="arm_conv_q15.c" hidden="true"/>
+        <files mask="arm_conv_q31.c" hidden="true"/>
+        <files mask="arm_conv_q7.c" hidden="true"/>
+        <files mask="arm_correlate_f32.c" hidden="true"/>
+        <files mask="arm_correlate_fast_opt_q15.c" hidden="true"/>
+        <files mask="arm_correlate_fast_q15.c" hidden="true"/>
+        <files mask="arm_correlate_fast_q31.c" hidden="true"/>
+        <files mask="arm_correlate_opt_q15.c" hidden="true"/>
+        <files mask="arm_correlate_opt_q7.c" hidden="true"/>
+        <files mask="arm_correlate_q15.c" hidden="true"/>
+        <files mask="arm_correlate_q31.c" hidden="true"/>
+        <files mask="arm_correlate_q7.c" hidden="true"/>
+        <files mask="arm_fir_decimate_f32.c" hidden="true"/>
+        <files mask="arm_fir_decimate_fast_q15.c" hidden="true"/>
+        <files mask="arm_fir_decimate_fast_q31.c" hidden="true"/>
+        <files mask="arm_fir_decimate_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_decimate_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_decimate_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_decimate_q15.c" hidden="true"/>
+        <files mask="arm_fir_decimate_q31.c" hidden="true"/>
+        <files mask="arm_fir_f32.c" hidden="true"/>
+        <files mask="arm_fir_fast_q15.c" hidden="true"/>
+        <files mask="arm_fir_fast_q31.c" hidden="true"/>
+        <files mask="arm_fir_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_init_q7.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_f32.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_q15.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_q31.c" hidden="true"/>
+        <files mask="arm_fir_lattice_f32.c" hidden="true"/>
+        <files mask="arm_fir_lattice_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_lattice_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_lattice_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_lattice_q15.c" hidden="true"/>
+        <files mask="arm_fir_lattice_q31.c" hidden="true"/>
+        <files mask="arm_fir_q15.c" hidden="true"/>
+        <files mask="arm_fir_q31.c" hidden="true"/>
+        <files mask="arm_fir_q7.c" hidden="true"/>
+        <files mask="arm_fir_sparse_f32.c" hidden="true"/>
+        <files mask="arm_fir_sparse_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_sparse_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_sparse_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_sparse_init_q7.c" hidden="true"/>
+        <files mask="arm_fir_sparse_q15.c" hidden="true"/>
+        <files mask="arm_fir_sparse_q31.c" hidden="true"/>
+        <files mask="arm_fir_sparse_q7.c" hidden="true"/>
+        <files mask="arm_iir_lattice_f32.c" hidden="true"/>
+        <files mask="arm_iir_lattice_init_f32.c" hidden="true"/>
+        <files mask="arm_iir_lattice_init_q15.c" hidden="true"/>
+        <files mask="arm_iir_lattice_init_q31.c" hidden="true"/>
+        <files mask="arm_iir_lattice_q15.c" hidden="true"/>
+        <files mask="arm_iir_lattice_q31.c" hidden="true"/>
+        <files mask="arm_lms_f32.c" hidden="true"/>
+        <files mask="arm_lms_init_f32.c" hidden="true"/>
+        <files mask="arm_lms_init_q15.c" hidden="true"/>
+        <files mask="arm_lms_init_q31.c" hidden="true"/>
+        <files mask="arm_lms_norm_f32.c" hidden="true"/>
+        <files mask="arm_lms_norm_init_f32.c" hidden="true"/>
+        <files mask="arm_lms_norm_init_q15.c" hidden="true"/>
+        <files mask="arm_lms_norm_init_q31.c" hidden="true"/>
+        <files mask="arm_lms_norm_q15.c" hidden="true"/>
+        <files mask="arm_lms_norm_q31.c" hidden="true"/>
+        <files mask="arm_lms_q15.c" hidden="true"/>
+        <files mask="arm_lms_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/MatrixFunctions" type="src">
+        <files mask="MatrixFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/MatrixFunctions" type="src">
+        <files mask="arm_mat_add_f32.c" hidden="true"/>
+        <files mask="arm_mat_add_q15.c" hidden="true"/>
+        <files mask="arm_mat_add_q31.c" hidden="true"/>
+        <files mask="arm_mat_cmplx_mult_f32.c" hidden="true"/>
+        <files mask="arm_mat_cmplx_mult_q15.c" hidden="true"/>
+        <files mask="arm_mat_cmplx_mult_q31.c" hidden="true"/>
+        <files mask="arm_mat_init_f32.c" hidden="true"/>
+        <files mask="arm_mat_init_q15.c" hidden="true"/>
+        <files mask="arm_mat_init_q31.c" hidden="true"/>
+        <files mask="arm_mat_inverse_f32.c" hidden="true"/>
+        <files mask="arm_mat_inverse_f64.c" hidden="true"/>
+        <files mask="arm_mat_mult_f32.c" hidden="true"/>
+        <files mask="arm_mat_mult_fast_q15.c" hidden="true"/>
+        <files mask="arm_mat_mult_fast_q31.c" hidden="true"/>
+        <files mask="arm_mat_mult_q15.c" hidden="true"/>
+        <files mask="arm_mat_mult_q31.c" hidden="true"/>
+        <files mask="arm_mat_scale_f32.c" hidden="true"/>
+        <files mask="arm_mat_scale_q15.c" hidden="true"/>
+        <files mask="arm_mat_scale_q31.c" hidden="true"/>
+        <files mask="arm_mat_sub_f32.c" hidden="true"/>
+        <files mask="arm_mat_sub_q15.c" hidden="true"/>
+        <files mask="arm_mat_sub_q31.c" hidden="true"/>
+        <files mask="arm_mat_trans_f32.c" hidden="true"/>
+        <files mask="arm_mat_trans_q15.c" hidden="true"/>
+        <files mask="arm_mat_trans_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/StatisticsFunctions" type="src">
+        <files mask="StatisticsFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/StatisticsFunctions" type="src">
+        <files mask="arm_max_f32.c" hidden="true"/>
+        <files mask="arm_max_q15.c" hidden="true"/>
+        <files mask="arm_max_q31.c" hidden="true"/>
+        <files mask="arm_max_q7.c" hidden="true"/>
+        <files mask="arm_mean_f32.c" hidden="true"/>
+        <files mask="arm_mean_q15.c" hidden="true"/>
+        <files mask="arm_mean_q31.c" hidden="true"/>
+        <files mask="arm_mean_q7.c" hidden="true"/>
+        <files mask="arm_min_f32.c" hidden="true"/>
+        <files mask="arm_min_q15.c" hidden="true"/>
+        <files mask="arm_min_q31.c" hidden="true"/>
+        <files mask="arm_min_q7.c" hidden="true"/>
+        <files mask="arm_power_f32.c" hidden="true"/>
+        <files mask="arm_power_q15.c" hidden="true"/>
+        <files mask="arm_power_q31.c" hidden="true"/>
+        <files mask="arm_power_q7.c" hidden="true"/>
+        <files mask="arm_rms_f32.c" hidden="true"/>
+        <files mask="arm_rms_q15.c" hidden="true"/>
+        <files mask="arm_rms_q31.c" hidden="true"/>
+        <files mask="arm_std_f32.c" hidden="true"/>
+        <files mask="arm_std_q15.c" hidden="true"/>
+        <files mask="arm_std_q31.c" hidden="true"/>
+        <files mask="arm_var_f32.c" hidden="true"/>
+        <files mask="arm_var_q15.c" hidden="true"/>
+        <files mask="arm_var_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/SupportFunctions" type="src">
+        <files mask="SupportFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/SupportFunctions" type="src">
+        <files mask="arm_copy_f32.c" hidden="true"/>
+        <files mask="arm_copy_q15.c" hidden="true"/>
+        <files mask="arm_copy_q31.c" hidden="true"/>
+        <files mask="arm_copy_q7.c" hidden="true"/>
+        <files mask="arm_fill_f32.c" hidden="true"/>
+        <files mask="arm_fill_q15.c" hidden="true"/>
+        <files mask="arm_fill_q31.c" hidden="true"/>
+        <files mask="arm_fill_q7.c" hidden="true"/>
+        <files mask="arm_float_to_q15.c" hidden="true"/>
+        <files mask="arm_float_to_q31.c" hidden="true"/>
+        <files mask="arm_float_to_q7.c" hidden="true"/>
+        <files mask="arm_q15_to_float.c" hidden="true"/>
+        <files mask="arm_q15_to_q31.c" hidden="true"/>
+        <files mask="arm_q15_to_q7.c" hidden="true"/>
+        <files mask="arm_q31_to_float.c" hidden="true"/>
+        <files mask="arm_q31_to_q15.c" hidden="true"/>
+        <files mask="arm_q31_to_q7.c" hidden="true"/>
+        <files mask="arm_q7_to_float.c" hidden="true"/>
+        <files mask="arm_q7_to_q15.c" hidden="true"/>
+        <files mask="arm_q7_to_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/TransformFunctions" type="src">
+        <files mask="TransformFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/TransformFunctions" type="src">
+        <files mask="arm_bitreversal.c" hidden="true"/>
+        <files mask="arm_bitreversal2.c" hidden="true"/>
+        <files mask="arm_cfft_f32.c" hidden="true"/>
+        <files mask="arm_cfft_q15.c" hidden="true"/>
+        <files mask="arm_cfft_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_f32.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_init_f32.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_init_q15.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_init_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_q15.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_f32.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_init_f32.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_init_q15.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_init_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_q15.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix8_f32.c" hidden="true"/>
+        <files mask="arm_dct4_f32.c" hidden="true"/>
+        <files mask="arm_dct4_init_f32.c" hidden="true"/>
+        <files mask="arm_dct4_init_q15.c" hidden="true"/>
+        <files mask="arm_dct4_init_q31.c" hidden="true"/>
+        <files mask="arm_dct4_q15.c" hidden="true"/>
+        <files mask="arm_dct4_q31.c" hidden="true"/>
+        <files mask="arm_rfft_f32.c" hidden="true"/>
+        <files mask="arm_rfft_fast_f32.c" hidden="true"/>
+        <files mask="arm_rfft_fast_init_f32.c" hidden="true"/>
+        <files mask="arm_rfft_init_f32.c" hidden="true"/>
+        <files mask="arm_rfft_init_q15.c" hidden="true"/>
+        <files mask="arm_rfft_init_q31.c" hidden="true"/>
+        <files mask="arm_rfft_q15.c" hidden="true"/>
+        <files mask="arm_rfft_q31.c" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="Include" type="c_include"/>
       </include_paths>
     </component>
     <component id="CMSIS_Device_API_OSTick.LPC55S69" name="CMSIS_Device_API_OSTick" brief="Device interrupt controller interface" version="1.0.1" full_name="CMSIS Device API OSTick" devices="LPC55S69" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/RTOS2/Include" project_base_path="CMSIS/RTOS2/Include">
@@ -3185,6 +3611,33 @@ ${load}</script>
       </source>
       <include_paths>
         <include_path relative_path="drivers" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.powerquad.LPC55S69" name="powerquad" brief="POWERQUAD Driver" version="2.0.3" full_name="POWERQUAD Driver" devices="LPC55S69" device_cores="cm33_core0_LPC55S69 cm33_core1_LPC55S69" slave_roles="M33SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/powerquad" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.common.LPC55S69"/>
+          <component_dependency value="CMSIS_DSP_Library.LPC55S69"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_powerquad_data.h"/>
+        <files mask="fsl_powerquad.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_powerquad_data.c"/>
+        <files mask="fsl_powerquad_basic.c"/>
+        <files mask="fsl_powerquad_math.c"/>
+        <files mask="fsl_powerquad_matrix.c"/>
+        <files mask="fsl_powerquad_filter.c"/>
+        <files mask="fsl_powerquad_transform.c"/>
+        <files mask="fsl_powerquad_cmsis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
+        <files mask="driver_powerquad.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
     <component id="platform.drivers.prince.LPC55S69" name="PRINCE" brief="PRINCE Driver" version="2.3.2" full_name="PRINCE Driver" devices="LPC55S69" device_cores="cm33_core0_LPC55S69 cm33_core1_LPC55S69" slave_roles="M33SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/prince" project_base_path="drivers">

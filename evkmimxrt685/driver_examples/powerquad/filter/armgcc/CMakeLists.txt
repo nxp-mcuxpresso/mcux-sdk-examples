@@ -1,6 +1,6 @@
 # CROSS COMPILER SETTING
 SET(CMAKE_SYSTEM_NAME Generic)
-CMAKE_MINIMUM_REQUIRED (VERSION 3.1.1)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
 SET (Tutorial_VERSION_MAJOR 1)
@@ -93,11 +93,9 @@ include(driver_lpc_iopctl)
 
 include(driver_reset)
 
-include(CMSIS_Include_core_cm33)
+include(CMSIS_Include_core_cm)
 
-include(CMSIS_Include_common)
-
-include(CMSIS_Include_dsp)
+include(CMSIS_DSP_Library)
 
 include(driver_inputmux_connections)
 
@@ -113,6 +111,22 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
 
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+
+if(CMAKE_BUILD_TYPE STREQUAL debug)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../core/CMSIS/DSP/Lib/GCC/libarm_ARMv8MMLldfsp_math.a)
+endif(CMAKE_BUILD_TYPE STREQUAL debug)
+
+if(CMAKE_BUILD_TYPE STREQUAL release)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../core/CMSIS/DSP/Lib/GCC/libarm_ARMv8MMLldfsp_math.a)
+endif(CMAKE_BUILD_TYPE STREQUAL release)
+
+if(CMAKE_BUILD_TYPE STREQUAL flash_debug)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../core/CMSIS/DSP/Lib/GCC/libarm_ARMv8MMLldfsp_math.a)
+endif(CMAKE_BUILD_TYPE STREQUAL flash_debug)
+
+if(CMAKE_BUILD_TYPE STREQUAL flash_release)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../core/CMSIS/DSP/Lib/GCC/libarm_ARMv8MMLldfsp_math.a)
+endif(CMAKE_BUILD_TYPE STREQUAL flash_release)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

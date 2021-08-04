@@ -74,8 +74,8 @@ static uint32_t s_matrixInvTmp[1024];
 int main(void)
 {
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Power up PQ RAM. */
