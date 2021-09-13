@@ -21,7 +21,7 @@ extern "C"
 #include "erpc_matrix_multiply.h"
 }
 
-#if 10800 != ERPC_VERSION_NUMBER
+#if 10801 != ERPC_VERSION_NUMBER
 #error "The generated shim code version is different to the rest of eRPC code."
 #endif
 
