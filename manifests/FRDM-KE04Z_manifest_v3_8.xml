@@ -280,7 +280,7 @@ ${load}</script>
       </metadataSet>
       <core id="core0_MKE04Z8xxx4" name="core0" fpu="false" type="cm0plus"/>
       <memory>
-        <memoryBlock id="PROGRAM_FLASH_MKE04Z8xxx4" name="PROGRAM_FLASH" addr="00000000" size="00004000" type="Flash" access="RO"/>
+        <memoryBlock id="PROGRAM_FLASH_MKE04Z8xxx4" name="PROGRAM_FLASH" addr="00000000" size="00002000" type="Flash" access="RO"/>
         <memoryBlock id="SRAM_MKE04Z8xxx4" name="SRAM" addr="1fffff00" size="00000400" type="RAM" access="RW"/>
       </memory>
       <total_memory flash_size_kb="8" ram_size_kb="1"/>
