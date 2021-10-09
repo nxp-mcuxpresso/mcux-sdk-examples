@@ -2627,6 +2627,7 @@ ${load}</script>
     <component id="platform.drivers.mipi_dsi.MIMX8QX6" name="mipi_dsi" brief="MIPI DSI Driver" version="2.0.5" full_name="MIPI DSI Driver" devices="MIMX8QX6xxxDZ MIMX8QX6xxxFZ" device_cores="cm4_MIMX8QX6xxxDZ cm4_MIMX8QX6xxxFZ" user_visible="true" type="driver" package_base_path="core/drivers/mipi_dsi" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MIMX8QX6"/>
+        <component_dependency value="platform.drivers.soc_mipi_dsi.MIMX8QX6"/>
       </dependencies>
       <source relative_path="./" type="src">
         <files mask="fsl_mipi_dsi.c"/>
@@ -2636,6 +2637,20 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="driver_mipi_dsi_MIMX8QX6.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.soc_mipi_dsi.MIMX8QX6" name="soc_mipi_dsi" brief="SOC MIPI DSI Driver" version="2.0.0" full_name="SOC MIPI DSI Driver" devices="MIMX8QX6xxxDZ MIMX8QX6xxxFZ" device_cores="cm4_MIMX8QX6xxxDZ cm4_MIMX8QX6xxxFZ" user_visible="true" type="driver" package_base_path="core/devices/MIMX8QX6/drivers" project_base_path="drivers">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MIMX8QX6"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_soc_mipi_dsi.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_soc_mipi_dsi.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3499,7 +3514,7 @@ ${load}</script>
         <include_path relative_path="rpmsg_lite/lib/include" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.multicore.rpmsg_lite.imx8qx_m4_bm.MIMX8QX6" name="rpmsg_lite_imx8qx_m4_bm" brief="RPMsg-Lite for MIMX8QM6 baremetal application" version="3.1.1" full_name="Remote Procedure Messaging Lite porting layer for MIMX8QM6 board" devices="MIMX8QX6xxxDZ MIMX8QX6xxxFZ" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
+    <component id="middleware.multicore.rpmsg_lite.imx8qx_m4_bm.MIMX8QX6" name="rpmsg_lite_imx8qx_m4_bm" brief="RPMsg-Lite for MIMX8QX6 baremetal application" version="3.1.1" full_name="Remote Procedure Messaging Lite porting layer for MIMX8QX6 board" devices="MIMX8QX6xxxDZ MIMX8QX6xxxFZ" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
       <dependencies>
         <component_dependency value="middleware.multicore.rpmsg_lite.MIMX8QX6"/>
       </dependencies>
@@ -3513,7 +3528,7 @@ ${load}</script>
         <include_path relative_path="rpmsg_lite/lib/include/platform/imx8qx_cm4" project_relative_path="porting" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.multicore.rpmsg_lite.imx8qx_m4_freertos.MIMX8QX6" name="rpmsg_lite_imx8qx_m4_freertos" brief="RPMsg-Lite for MIMX8QM6 FreeRTOS application" version="3.1.1" full_name="Remote Procedure Messaging Lite porting layer for MIMX8QM6 board" devices="MIMX8QX6xxxDZ MIMX8QX6xxxFZ" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
+    <component id="middleware.multicore.rpmsg_lite.imx8qx_m4_freertos.MIMX8QX6" name="rpmsg_lite_imx8qx_m4_freertos" brief="RPMsg-Lite for MIMX8QX6 FreeRTOS application" version="3.1.1" full_name="Remote Procedure Messaging Lite porting layer for MIMX8QX6 board" devices="MIMX8QX6xxxDZ MIMX8QX6xxxFZ" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
       <dependencies>
         <all>
           <component_dependency value="middleware.multicore.rpmsg_lite.MIMX8QX6"/>

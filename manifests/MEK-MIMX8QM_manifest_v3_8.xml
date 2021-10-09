@@ -3237,6 +3237,7 @@ ${load}</script>
     <component id="platform.drivers.mipi_dsi.MIMX8QM6" name="mipi_dsi" brief="MIPI DSI Driver" version="2.0.5" full_name="MIPI DSI Driver" devices="MIMX8QM6xxxFF" device_cores="cm4_core0_MIMX8QM6xxxFF cm4_core1_MIMX8QM6xxxFF" user_visible="true" type="driver" package_base_path="core/drivers/mipi_dsi" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MIMX8QM6"/>
+        <component_dependency value="platform.drivers.soc_mipi_dsi.MIMX8QM6"/>
       </dependencies>
       <source relative_path="./" type="src">
         <files mask="fsl_mipi_dsi.c"/>
@@ -3246,6 +3247,20 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_core1_MIMX8QM6xxxFF">
         <files mask="driver_mipi_dsi_MIMX8QM6_cm4_core1.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.soc_mipi_dsi.MIMX8QM6" name="soc_mipi_dsi" brief="SOC MIPI DSI Driver" version="2.0.0" full_name="SOC MIPI DSI Driver" devices="MIMX8QM6xxxFF" device_cores="cm4_core0_MIMX8QM6xxxFF cm4_core1_MIMX8QM6xxxFF" user_visible="true" type="driver" package_base_path="core/devices/MIMX8QM6/drivers" project_base_path="drivers">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MIMX8QM6"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_soc_mipi_dsi.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_core1_MIMX8QM6xxxFF">
+        <files mask="driver_soc_mipi_dsi.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
