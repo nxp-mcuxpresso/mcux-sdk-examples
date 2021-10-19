@@ -2626,8 +2626,10 @@ ${load}</script>
     </component>
     <component id="platform.drivers.mipi_dsi.MIMX8QX6" name="mipi_dsi" brief="MIPI DSI Driver" version="2.0.5" full_name="MIPI DSI Driver" devices="MIMX8QX6xxxDZ MIMX8QX6xxxFZ" device_cores="cm4_MIMX8QX6xxxDZ cm4_MIMX8QX6xxxFZ" user_visible="true" type="driver" package_base_path="core/drivers/mipi_dsi" project_base_path="drivers">
       <dependencies>
-        <component_dependency value="platform.drivers.common.MIMX8QX6"/>
-        <component_dependency value="platform.drivers.soc_mipi_dsi.MIMX8QX6"/>
+        <all>
+          <component_dependency value="platform.drivers.common.MIMX8QX6"/>
+          <component_dependency value="platform.drivers.soc_mipi_dsi.MIMX8QX6"/>
+        </all>
       </dependencies>
       <source relative_path="./" type="src">
         <files mask="fsl_mipi_dsi.c"/>
