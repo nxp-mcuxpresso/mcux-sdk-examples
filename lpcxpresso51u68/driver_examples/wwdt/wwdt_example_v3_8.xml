@@ -67,8 +67,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/lpcxpresso51u68/driver_examples/wwdt" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso51u68" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso51u68/driver_examples/wwdt" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso51u68" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso51u68/driver_examples/wwdt" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso51u68/driver_examples/wwdt/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="wwdt_example.ewd"/>

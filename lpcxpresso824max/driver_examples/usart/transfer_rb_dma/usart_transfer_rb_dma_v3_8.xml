@@ -68,8 +68,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/lpcxpresso824max/driver_examples/usart/transfer_rb_dma" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso824max/driver_examples/usart/transfer_rb_dma" project_relative_path="lpcxpresso824max/driver_examples/usart/transfer_rb_dma" type="c_include"/>
-      <include_path path="boards/lpcxpresso824max" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso824max/driver_examples/usart/transfer_rb_dma" project_relative_path="lpcxpresso824max/driver_examples/usart/transfer_rb_dma" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso824max" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso824max/driver_examples/usart/transfer_rb_dma/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="usart_transfer_rb_dma.ewd"/>

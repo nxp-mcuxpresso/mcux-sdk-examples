@@ -68,8 +68,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/lpc845breakout/driver_examples/spi/transfer_dma/slave" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpc845breakout/driver_examples/spi/transfer_dma/slave" project_relative_path="lpc845breakout/driver_examples/spi/transfer_dma/slave" type="c_include"/>
-      <include_path path="boards/lpc845breakout" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpc845breakout/driver_examples/spi/transfer_dma/slave" project_relative_path="lpc845breakout/driver_examples/spi/transfer_dma/slave" type="c_include"/>
+      <include_path path="core/boards/lpc845breakout" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpc845breakout/driver_examples/spi/transfer_dma/slave/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="spi_transfer_dma_slave.ewd"/>

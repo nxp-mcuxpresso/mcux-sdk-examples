@@ -101,8 +101,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_filter/cm33_core0" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso55s69" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso55s69/driver_examples/powerquad/benchmark_filter" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso55s69" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_filter" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_filter/cm33_core0/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="powerquad_benchmark_filter.ewd"/>

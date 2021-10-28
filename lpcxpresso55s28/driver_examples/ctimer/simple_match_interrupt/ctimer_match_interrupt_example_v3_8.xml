@@ -68,8 +68,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/lpcxpresso55s28/driver_examples/ctimer/simple_match_interrupt" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso55s28" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso55s28/driver_examples/ctimer/simple_match_interrupt" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso55s28" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso55s28/driver_examples/ctimer/simple_match_interrupt" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso55s28/driver_examples/ctimer/simple_match_interrupt/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="ctimer_match_interrupt_example.ewd"/>

@@ -60,8 +60,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/evkmimx8mp/driver_examples/gpt/timer" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimx8mp/driver_examples/gpt/timer" project_relative_path="evkmimx8mp/driver_examples/gpt/timer" type="c_include"/>
-      <include_path path="boards/evkmimx8mp" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimx8mp/driver_examples/gpt/timer" project_relative_path="evkmimx8mp/driver_examples/gpt/timer" type="c_include"/>
+      <include_path path="core/boards/evkmimx8mp" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimx8mp/driver_examples/gpt/timer/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="gpt_timer.ewp"/>

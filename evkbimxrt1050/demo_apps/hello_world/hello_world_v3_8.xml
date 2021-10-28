@@ -116,8 +116,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/evkbimxrt1050/demo_apps/hello_world" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkbimxrt1050/demo_apps/hello_world" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkbimxrt1050" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkbimxrt1050/demo_apps/hello_world" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/evkbimxrt1050" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkbimxrt1050/demo_apps/hello_world/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="hello_world.ewd"/>

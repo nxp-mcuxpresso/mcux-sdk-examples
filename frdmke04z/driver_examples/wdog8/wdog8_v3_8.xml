@@ -62,8 +62,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmke04z/driver_examples/wdog8" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmke04z/driver_examples/wdog8" project_relative_path="frdmke04z/driver_examples/wdog8" type="c_include"/>
-      <include_path path="boards/frdmke04z" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmke04z/driver_examples/wdog8" project_relative_path="frdmke04z/driver_examples/wdog8" type="c_include"/>
+      <include_path path="core/boards/frdmke04z" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmke04z/driver_examples/wdog8/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="wdog8.ewd"/>

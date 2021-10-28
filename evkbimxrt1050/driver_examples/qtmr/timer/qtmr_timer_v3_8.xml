@@ -90,8 +90,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/evkbimxrt1050/driver_examples/qtmr/timer" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkbimxrt1050/driver_examples/qtmr/timer" project_relative_path="evkbimxrt1050/driver_examples/qtmr/timer" type="c_include"/>
-      <include_path path="boards/evkbimxrt1050" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkbimxrt1050/driver_examples/qtmr/timer" project_relative_path="evkbimxrt1050/driver_examples/qtmr/timer" type="c_include"/>
+      <include_path path="core/boards/evkbimxrt1050" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkbimxrt1050/driver_examples/qtmr/timer/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="qtmr_timer.ewd"/>

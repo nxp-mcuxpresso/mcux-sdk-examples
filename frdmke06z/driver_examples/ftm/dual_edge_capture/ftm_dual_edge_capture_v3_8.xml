@@ -63,8 +63,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmke06z/driver_examples/ftm/dual_edge_capture" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmke06z/driver_examples/ftm/dual_edge_capture" project_relative_path="frdmke06z/driver_examples/ftm/dual_edge_capture" type="c_include"/>
-      <include_path path="boards/frdmke06z" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmke06z/driver_examples/ftm/dual_edge_capture" project_relative_path="frdmke06z/driver_examples/ftm/dual_edge_capture" type="c_include"/>
+      <include_path path="core/boards/frdmke06z" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmke06z/driver_examples/ftm/dual_edge_capture/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="ftm_dual_edge_capture.ewd"/>

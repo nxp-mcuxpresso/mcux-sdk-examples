@@ -69,8 +69,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmk66f/driver_examples/dspi/interrupt_b2b/master" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmk66f/driver_examples/dspi/interrupt_b2b/master" project_relative_path="frdmk66f/driver_examples/dspi/interrupt_b2b/master" type="c_include"/>
-      <include_path path="boards/frdmk66f" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmk66f/driver_examples/dspi/interrupt_b2b/master" project_relative_path="frdmk66f/driver_examples/dspi/interrupt_b2b/master" type="c_include"/>
+      <include_path path="core/boards/frdmk66f" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmk66f/driver_examples/dspi/interrupt_b2b/master/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="dspi_interrupt_b2b_master.ewd"/>

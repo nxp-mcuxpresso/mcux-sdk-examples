@@ -61,9 +61,9 @@
       </toolchainSetting>
     </toolchainSettings>
     <include_paths>
-      <include_path path="boards/frdmke06z/driver_examples/acmp/interrupt" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmke06z/driver_examples/acmp/interrupt" project_relative_path="frdmke06z/driver_examples/acmp/interrupt" type="c_include"/>
-      <include_path path="boards/frdmke06z" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmke06z/driver_examples/acmp/interrupt" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmke06z/driver_examples/acmp/interrupt" project_relative_path="frdmke06z/driver_examples/acmp/interrupt" type="c_include"/>
+      <include_path path="core/boards/frdmke06z" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmke06z/driver_examples/acmp/interrupt/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="acmp_1_interrupt.ewd"/>

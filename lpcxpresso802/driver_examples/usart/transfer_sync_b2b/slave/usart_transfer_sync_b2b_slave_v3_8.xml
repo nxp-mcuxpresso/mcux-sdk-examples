@@ -66,8 +66,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/lpcxpresso802/driver_examples/usart/transfer_sync_b2b/slave" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso802/driver_examples/usart/transfer_sync_b2b/slave" project_relative_path="lpcxpresso802/driver_examples/usart/transfer_sync_b2b/slave" type="c_include"/>
-      <include_path path="boards/lpcxpresso802" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso802/driver_examples/usart/transfer_sync_b2b/slave" project_relative_path="lpcxpresso802/driver_examples/usart/transfer_sync_b2b/slave" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso802" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso802/driver_examples/usart/transfer_sync_b2b/slave/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="usart_transfer_sync_b2b_slave.ewd"/>

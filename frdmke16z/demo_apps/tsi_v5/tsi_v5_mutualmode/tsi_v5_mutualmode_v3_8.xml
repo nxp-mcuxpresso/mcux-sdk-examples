@@ -67,8 +67,8 @@
     <include_paths>
       <include_path path="examples/frdmke16z/demo_apps/tsi_v5/tsi_v5_mutualmode" project_relative_path="source" type="c_include"/>
       <include_path path="examples/frdmke16z/demo_apps/tsi_v5/tsi_v5_mutualmode" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmke16z/demo_apps/tsi_v5/tsi_v5_mutualmode" project_relative_path="frdmke16z/demo_apps/tsi_v5/tsi_v5_mutualmode" type="c_include"/>
-      <include_path path="boards/frdmke16z" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmke16z/demo_apps/tsi_v5/tsi_v5_mutualmode" project_relative_path="frdmke16z/demo_apps/tsi_v5/tsi_v5_mutualmode" type="c_include"/>
+      <include_path path="core/boards/frdmke16z" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmke16z/demo_apps/tsi_v5/tsi_v5_mutualmode/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="tsi_v5_mutualmode.ewd"/>

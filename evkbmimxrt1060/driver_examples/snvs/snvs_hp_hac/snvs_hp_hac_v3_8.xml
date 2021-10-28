@@ -93,8 +93,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/evkbmimxrt1060/driver_examples/snvs/snvs_hp_hac" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkbmimxrt1060/driver_examples/snvs/snvs_hp_hac" project_relative_path="evkbmimxrt1060/driver_examples/snvs/snvs_hp_hac" type="c_include"/>
-      <include_path path="boards/evkbmimxrt1060" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkbmimxrt1060/driver_examples/snvs/snvs_hp_hac" project_relative_path="evkbmimxrt1060/driver_examples/snvs/snvs_hp_hac" type="c_include"/>
+      <include_path path="core/boards/evkbmimxrt1060" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkbmimxrt1060/driver_examples/snvs/snvs_hp_hac/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="snvs_hp_hac.ewd"/>

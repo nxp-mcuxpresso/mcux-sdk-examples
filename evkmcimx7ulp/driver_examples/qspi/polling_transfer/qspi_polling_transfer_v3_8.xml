@@ -62,7 +62,7 @@
     <include_paths>
       <include_path path="examples/evkmcimx7ulp/driver_examples/qspi/polling_transfer" project_relative_path="source" type="c_include"/>
       <include_path path="examples/evkmcimx7ulp/driver_examples/qspi/polling_transfer" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/evkmcimx7ulp" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmcimx7ulp/driver_examples/qspi/polling_transfer/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="qspi_polling_transfer.ewd"/>

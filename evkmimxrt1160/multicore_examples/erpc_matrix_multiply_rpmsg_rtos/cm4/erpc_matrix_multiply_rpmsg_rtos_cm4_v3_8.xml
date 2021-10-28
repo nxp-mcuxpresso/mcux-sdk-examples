@@ -170,10 +170,10 @@
       <include_path path="examples/evkmimxrt1160/multicore_examples/erpc_common" project_relative_path="source" type="c_include"/>
       <include_path path="examples/evkmimxrt1160/multicore_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="erpc/service" type="c_include"/>
       <include_path path="examples/evkmimxrt1160/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimxrt1160/multicore_examples/erpc_matrix_multiply_rpmsg_rtos" project_relative_path="source" type="c_include"/>
+      <include_path path="examples/evkmimxrt1160/multicore_examples/erpc_matrix_multiply_rpmsg_rtos" project_relative_path="source" type="c_include"/>
       <include_path path="examples/evkmimxrt1160/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4" project_relative_path="source" type="c_include"/>
-      <include_path path="boards/evkmimxrt1160/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4" project_relative_path="evkmimxrt1160/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4" type="c_include"/>
-      <include_path path="boards/evkmimxrt1160" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt1160/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4" project_relative_path="evkmimxrt1160/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt1160" project_relative_path="board" type="c_include"/>
       <include_path path="examples/evkmimxrt1160/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4" project_relative_path="source" type="asm_include"/>
     </include_paths>
     <source path="examples/evkmimxrt1160/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4/iar" project_relative_path="./" type="workspace" toolchain="iar">

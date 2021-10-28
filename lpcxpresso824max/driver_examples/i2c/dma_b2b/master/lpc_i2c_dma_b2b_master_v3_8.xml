@@ -69,8 +69,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/lpcxpresso824max/driver_examples/i2c/dma_b2b/master" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso824max/driver_examples/i2c/dma_b2b/master" project_relative_path="lpcxpresso824max/driver_examples/i2c/dma_b2b/master" type="c_include"/>
-      <include_path path="boards/lpcxpresso824max" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso824max/driver_examples/i2c/dma_b2b/master" project_relative_path="lpcxpresso824max/driver_examples/i2c/dma_b2b/master" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso824max" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso824max/driver_examples/i2c/dma_b2b/master/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="lpc_i2c_dma_b2b_master.ewd"/>

@@ -63,8 +63,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmke16z/driver_examples/lpi2c/interrupt_b2b_transfer/slave" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmke16z/driver_examples/lpi2c/interrupt_b2b_transfer/slave" project_relative_path="frdmke16z/driver_examples/lpi2c/interrupt_b2b_transfer/slave" type="c_include"/>
-      <include_path path="boards/frdmke16z" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmke16z/driver_examples/lpi2c/interrupt_b2b_transfer/slave" project_relative_path="frdmke16z/driver_examples/lpi2c/interrupt_b2b_transfer/slave" type="c_include"/>
+      <include_path path="core/boards/frdmke16z" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmke16z/driver_examples/lpi2c/interrupt_b2b_transfer/slave/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="lpi2c_interrupt_b2b_transfer_slave.ewd"/>

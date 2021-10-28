@@ -78,8 +78,8 @@
     <include_paths>
       <include_path path="examples/lpcxpresso55s16/driver_examples/i2s" project_relative_path="source" type="c_include"/>
       <include_path path="examples/lpcxpresso55s16/driver_examples/i2s" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso55s16" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso55s16/driver_examples/i2s/dma_transfer" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso55s16" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso55s16/driver_examples/i2s/dma_transfer" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso55s16/driver_examples/i2s/dma_transfer/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="i2s_dma_transfer.ewd"/>

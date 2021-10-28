@@ -70,11 +70,11 @@
       </toolchainSetting>
     </toolchainSettings>
     <include_paths>
-      <include_path path="boards/evkmimx8mnddr3l" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/evkmimx8mnddr3l" project_relative_path="board" type="c_include"/>
       <include_path path="examples/evkmimx8mnddr3l/multicore_examples/rpmsg_lite_str_echo_rtos" project_relative_path="board" type="c_include"/>
       <include_path path="examples/evkmimx8mnddr3l/multicore_examples/rpmsg_lite_str_echo_rtos" project_relative_path="source" type="c_include"/>
       <include_path path="examples/evkmimx8mnddr3l/multicore_examples/rpmsg_lite_str_echo_rtos" project_relative_path="remoteproc" type="c_include"/>
-      <include_path path="boards/evkmimx8mn/multicore_examples/rpmsg_lite_str_echo_rtos" project_relative_path="evkmimx8mnddr3l/multicore_examples/rpmsg_lite_str_echo_rtos" type="c_include"/>
+      <include_path path="examples/evkmimx8mn/multicore_examples/rpmsg_lite_str_echo_rtos" project_relative_path="evkmimx8mnddr3l/multicore_examples/rpmsg_lite_str_echo_rtos" type="c_include"/>
       <include_path path="examples/evkmimx8mnddr3l/multicore_examples/rpmsg_lite_str_echo_rtos" project_relative_path="source" type="asm_include"/>
       <include_path path="examples/evkmimx8mnddr3l/multicore_examples/rpmsg_lite_str_echo_rtos" project_relative_path="board" type="asm_include"/>
     </include_paths>

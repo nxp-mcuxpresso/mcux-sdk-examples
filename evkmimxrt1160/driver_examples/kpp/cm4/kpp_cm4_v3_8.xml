@@ -118,8 +118,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/evkmimxrt1160/driver_examples/kpp/cm4" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimxrt1160/driver_examples/kpp/cm4" project_relative_path="evkmimxrt1160/driver_examples/kpp/cm4" type="c_include"/>
-      <include_path path="boards/evkmimxrt1160" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt1160/driver_examples/kpp/cm4" project_relative_path="evkmimxrt1160/driver_examples/kpp/cm4" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt1160" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimxrt1160/driver_examples/kpp/cm4/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="kpp_cm4.ewd"/>

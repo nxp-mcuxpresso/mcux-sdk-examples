@@ -68,8 +68,8 @@
     <include_paths>
       <include_path path="examples/hvpkv11z75m/rtos_examples/freertos_swtimer" project_relative_path="board" type="c_include"/>
       <include_path path="examples/hvpkv11z75m/rtos_examples/freertos_swtimer" project_relative_path="source" type="c_include"/>
-      <include_path path="boards/hvpkv11z75m/rtos_examples/freertos_swtimer" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/hvpkv11z75m" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/hvpkv11z75m/rtos_examples/freertos_swtimer" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/hvpkv11z75m" project_relative_path="board" type="c_include"/>
       <include_path path="examples/hvpkv11z75m/rtos_examples/freertos_swtimer" project_relative_path="source" type="asm_include"/>
     </include_paths>
     <source path="examples/hvpkv11z75m/rtos_examples/freertos_swtimer/iar" project_relative_path="./" type="workspace" toolchain="iar">

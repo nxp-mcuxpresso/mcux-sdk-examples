@@ -146,10 +146,10 @@
       <include_path path="examples/evkmimxrt1170/multicore_examples/erpc_common" project_relative_path="source" type="c_include"/>
       <include_path path="examples/evkmimxrt1170/multicore_examples/erpc_common/erpc_two_way_rpc/service" project_relative_path="erpc/service" type="c_include"/>
       <include_path path="examples/evkmimxrt1170/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm7" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimxrt1170/multicore_examples/erpc_two_way_rpc_rpmsg_rtos" project_relative_path="source" type="c_include"/>
+      <include_path path="examples/evkmimxrt1170/multicore_examples/erpc_two_way_rpc_rpmsg_rtos" project_relative_path="source" type="c_include"/>
       <include_path path="examples/evkmimxrt1170/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm7" project_relative_path="source" type="c_include"/>
-      <include_path path="boards/evkmimxrt1170/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm7" project_relative_path="evkmimxrt1170/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm7" type="c_include"/>
-      <include_path path="boards/evkmimxrt1170" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt1170/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm7" project_relative_path="evkmimxrt1170/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm7" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt1170" project_relative_path="board" type="c_include"/>
       <include_path path="examples/evkmimxrt1170/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm7" project_relative_path="source" type="asm_include"/>
     </include_paths>
     <source path="examples/evkmimxrt1170/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm7/armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">

@@ -65,8 +65,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmkv31f/driver_examples/pdb/dac_trigger" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmkv31f/driver_examples/pdb/dac_trigger" project_relative_path="frdmkv31f/driver_examples/pdb/dac_trigger" type="c_include"/>
-      <include_path path="boards/frdmkv31f" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmkv31f/driver_examples/pdb/dac_trigger" project_relative_path="frdmkv31f/driver_examples/pdb/dac_trigger" type="c_include"/>
+      <include_path path="core/boards/frdmkv31f" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmkv31f/driver_examples/pdb/dac_trigger/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="pdb_dac_trigger.ewd"/>

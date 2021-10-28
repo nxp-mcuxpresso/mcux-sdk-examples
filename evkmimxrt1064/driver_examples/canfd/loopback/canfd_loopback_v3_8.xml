@@ -91,8 +91,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/evkmimxrt1064/driver_examples/canfd/loopback" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimxrt1064/driver_examples/canfd/loopback" project_relative_path="evkmimxrt1064/driver_examples/canfd/loopback" type="c_include"/>
-      <include_path path="boards/evkmimxrt1064" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt1064/driver_examples/canfd/loopback" project_relative_path="evkmimxrt1064/driver_examples/canfd/loopback" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt1064" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimxrt1064/driver_examples/canfd/loopback/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="canfd_loopback.ewd"/>

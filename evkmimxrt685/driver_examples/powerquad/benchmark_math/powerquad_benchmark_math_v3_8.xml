@@ -107,8 +107,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/evkmimxrt685/driver_examples/powerquad/benchmark_math" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimxrt685/driver_examples/powerquad/benchmark_math" project_relative_path="evkmimxrt685/driver_examples/powerquad/benchmark_math" type="c_include"/>
-      <include_path path="boards/evkmimxrt685" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt685/driver_examples/powerquad/benchmark_math" project_relative_path="evkmimxrt685/driver_examples/powerquad/benchmark_math" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt685" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimxrt685/driver_examples/powerquad/benchmark_math/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="powerquad_benchmark_math.ewd"/>

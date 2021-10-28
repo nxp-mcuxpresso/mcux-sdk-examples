@@ -61,9 +61,9 @@
       </toolchainSetting>
     </toolchainSettings>
     <include_paths>
-      <include_path path="boards/frdmke02z40m/driver_examples/adc/interrupt" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmke02z40m/driver_examples/adc/interrupt" project_relative_path="frdmke02z40m/driver_examples/adc/interrupt" type="c_include"/>
-      <include_path path="boards/frdmke02z40m" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmke02z40m/driver_examples/adc/interrupt" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmke02z40m/driver_examples/adc/interrupt" project_relative_path="frdmke02z40m/driver_examples/adc/interrupt" type="c_include"/>
+      <include_path path="core/boards/frdmke02z40m" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmke02z40m/driver_examples/adc/interrupt/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="adc_5v12b_ll18_015_interrupt.ewd"/>

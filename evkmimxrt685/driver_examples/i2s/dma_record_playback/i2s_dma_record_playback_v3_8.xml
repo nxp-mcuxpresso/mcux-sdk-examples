@@ -101,8 +101,8 @@
     <include_paths>
       <include_path path="examples/evkmimxrt685/driver_examples/i2s" project_relative_path="source" type="c_include"/>
       <include_path path="examples/evkmimxrt685/driver_examples/i2s" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimxrt685/driver_examples/i2s/dma_record_playback" project_relative_path="evkmimxrt685/driver_examples/i2s/dma_record_playback" type="c_include"/>
-      <include_path path="boards/evkmimxrt685" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt685/driver_examples/i2s/dma_record_playback" project_relative_path="evkmimxrt685/driver_examples/i2s/dma_record_playback" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt685" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimxrt685/driver_examples/i2s/dma_record_playback/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="i2s_dma_record_playback.ewd"/>

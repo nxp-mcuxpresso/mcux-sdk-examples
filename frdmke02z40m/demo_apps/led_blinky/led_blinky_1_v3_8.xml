@@ -64,8 +64,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmke02z40m/demo_apps/led_blinky" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmke02z40m/demo_apps/led_blinky" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmke02z40m" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmke02z40m/demo_apps/led_blinky" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/frdmke02z40m" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmke02z40m/demo_apps/led_blinky/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="led_blinky_1.ewd"/>

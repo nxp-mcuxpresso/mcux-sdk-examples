@@ -66,8 +66,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmk22f/driver_examples/edma/ping_pong_transfer" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmk22f/driver_examples/edma/ping_pong_transfer" project_relative_path="frdmk22f/driver_examples/edma/ping_pong_transfer" type="c_include"/>
-      <include_path path="boards/frdmk22f" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmk22f/driver_examples/edma/ping_pong_transfer" project_relative_path="frdmk22f/driver_examples/edma/ping_pong_transfer" type="c_include"/>
+      <include_path path="core/boards/frdmk22f" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmk22f/driver_examples/edma/ping_pong_transfer/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="edma_ping_pong_transfer.ewd"/>

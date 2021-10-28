@@ -72,8 +72,8 @@
     <include_paths>
       <include_path path="examples/lpcxpresso51u68/rtos_examples/freertos_sem" project_relative_path="board" type="c_include"/>
       <include_path path="examples/lpcxpresso51u68/rtos_examples/freertos_sem" project_relative_path="source" type="c_include"/>
-      <include_path path="boards/lpcxpresso51u68" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso51u68/rtos_examples/freertos_sem" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso51u68" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso51u68/rtos_examples/freertos_sem" project_relative_path="board" type="c_include"/>
       <include_path path="examples/lpcxpresso51u68/rtos_examples/freertos_sem" project_relative_path="source" type="asm_include"/>
     </include_paths>
     <source path="examples/lpcxpresso51u68/rtos_examples/freertos_sem/iar" project_relative_path="./" type="workspace" toolchain="iar">
