@@ -73,8 +73,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmk66f/driver_examples/dspi/half_duplex_transfer/edma/master" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmk66f/driver_examples/dspi/half_duplex_transfer/edma/master" project_relative_path="frdmk66f/driver_examples/dspi/half_duplex_transfer/edma/master" type="c_include"/>
-      <include_path path="boards/frdmk66f" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmk66f/driver_examples/dspi/half_duplex_transfer/edma/master" project_relative_path="frdmk66f/driver_examples/dspi/half_duplex_transfer/edma/master" type="c_include"/>
+      <include_path path="core/boards/frdmk66f" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmk66f/driver_examples/dspi/half_duplex_transfer/edma/master/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="dspi_half_duplex_edma_master.ewd"/>

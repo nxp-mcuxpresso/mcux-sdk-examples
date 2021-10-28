@@ -144,14 +144,14 @@
       </toolchainSetting>
     </toolchainSettings>
     <include_paths>
-      <include_path path="boards/evkmcimx7ulp/multicore_examples/erpc_matrix_multiply_rpmsg_rtos" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/multicore_examples/erpc_matrix_multiply_rpmsg_rtos" project_relative_path="source" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/multicore_examples/erpc_matrix_multiply_rpmsg_rtos" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/multicore_examples/erpc_matrix_multiply_rpmsg_rtos" project_relative_path="source" type="c_include"/>
       <include_path path="examples/evkmcimx7ulp/multicore_examples/erpc_common" project_relative_path="source" type="c_include"/>
       <include_path path="examples/evkmcimx7ulp/multicore_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="erpc/service" type="c_include"/>
       <include_path path="examples/evkmcimx7ulp/multicore_examples/erpc_matrix_multiply_rpmsg_rtos" project_relative_path="source" type="c_include"/>
       <include_path path="examples/evkmcimx7ulp/multicore_examples/erpc_matrix_multiply_rpmsg_rtos" project_relative_path="remoteproc" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/multicore_examples/erpc_matrix_multiply_rpmsg_rtos" project_relative_path="evkmcimx7ulp/multicore_examples/erpc_matrix_multiply_rpmsg_rtos" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/multicore_examples/erpc_matrix_multiply_rpmsg_rtos" project_relative_path="evkmcimx7ulp/multicore_examples/erpc_matrix_multiply_rpmsg_rtos" type="c_include"/>
+      <include_path path="core/boards/evkmcimx7ulp" project_relative_path="board" type="c_include"/>
       <include_path path="examples/evkmcimx7ulp/multicore_examples/erpc_matrix_multiply_rpmsg_rtos" project_relative_path="board" type="c_include"/>
       <include_path path="examples/evkmcimx7ulp/multicore_examples/erpc_matrix_multiply_rpmsg_rtos" project_relative_path="evkmcimx7ulp" type="c_include"/>
       <include_path path="examples/evkmcimx7ulp/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/srtm/channels" project_relative_path="srtm/channels" type="c_include"/>

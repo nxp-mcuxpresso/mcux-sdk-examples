@@ -92,8 +92,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/evkmimxrt595/driver_examples/spi/dma_b2b_transfer/master" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimxrt595/driver_examples/spi/dma_b2b_transfer/master" project_relative_path="evkmimxrt595/driver_examples/spi/dma_b2b_transfer/master" type="c_include"/>
-      <include_path path="boards/evkmimxrt595" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt595/driver_examples/spi/dma_b2b_transfer/master" project_relative_path="evkmimxrt595/driver_examples/spi/dma_b2b_transfer/master" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt595" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimxrt595/driver_examples/spi/dma_b2b_transfer/master/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="spi_dma_b2b_transfer_master.ewd"/>

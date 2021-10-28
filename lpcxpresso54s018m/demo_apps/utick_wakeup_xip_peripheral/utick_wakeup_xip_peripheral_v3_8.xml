@@ -69,7 +69,7 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/lpcxpresso54s018m/demo_apps/utick_wakeup_xip_peripheral" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso54s018m/demo_apps/utick_wakeup_xip_peripheral" project_relative_path="lpcxpresso54s018m/demo_apps/utick_wakeup_xip_peripheral" type="c_include"/>
+      <include_path path="examples/lpcxpresso54s018m/demo_apps/utick_wakeup_xip_peripheral" project_relative_path="lpcxpresso54s018m/demo_apps/utick_wakeup_xip_peripheral" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso54s018m/demo_apps/utick_wakeup_xip_peripheral/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="utick_wakeup_xip_peripheral.ewd"/>

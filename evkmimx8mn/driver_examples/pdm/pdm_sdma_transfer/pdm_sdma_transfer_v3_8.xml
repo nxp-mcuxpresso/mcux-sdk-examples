@@ -63,8 +63,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/evkmimx8mn/driver_examples/pdm/pdm_sdma_transfer" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimx8mn/driver_examples/pdm/pdm_sdma_transfer" project_relative_path="evkmimx8mn/driver_examples/pdm/pdm_sdma_transfer" type="c_include"/>
-      <include_path path="boards/evkmimx8mn" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimx8mn/driver_examples/pdm/pdm_sdma_transfer" project_relative_path="evkmimx8mn/driver_examples/pdm/pdm_sdma_transfer" type="c_include"/>
+      <include_path path="core/boards/evkmimx8mn" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimx8mn/driver_examples/pdm/pdm_sdma_transfer/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="pdm_sdma_transfer.ewp"/>

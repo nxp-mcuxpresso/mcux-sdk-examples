@@ -67,8 +67,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmke15z/driver_examples/tsi_v5/self_cap" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmke15z/driver_examples/tsi_v5/self_cap" project_relative_path="frdmke15z/driver_examples/tsi_v5/self_cap" type="c_include"/>
-      <include_path path="boards/frdmke15z" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmke15z/driver_examples/tsi_v5/self_cap" project_relative_path="frdmke15z/driver_examples/tsi_v5/self_cap" type="c_include"/>
+      <include_path path="core/boards/frdmke15z" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmke15z/driver_examples/tsi_v5/self_cap/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="tsi_v5_self_cap.ewd"/>

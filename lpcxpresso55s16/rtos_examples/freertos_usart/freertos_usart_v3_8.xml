@@ -72,8 +72,8 @@
     <include_paths>
       <include_path path="examples/lpcxpresso55s16/rtos_examples/freertos_usart" project_relative_path="board" type="c_include"/>
       <include_path path="examples/lpcxpresso55s16/rtos_examples/freertos_usart" project_relative_path="source" type="c_include"/>
-      <include_path path="boards/lpcxpresso55s16" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso55s16/rtos_examples/freertos_usart" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso55s16" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso55s16/rtos_examples/freertos_usart" project_relative_path="board" type="c_include"/>
       <include_path path="examples/lpcxpresso55s16/rtos_examples/freertos_usart" project_relative_path="source" type="asm_include"/>
     </include_paths>
     <source path="examples/lpcxpresso55s16/rtos_examples/freertos_usart/iar" project_relative_path="./" type="workspace" toolchain="iar">

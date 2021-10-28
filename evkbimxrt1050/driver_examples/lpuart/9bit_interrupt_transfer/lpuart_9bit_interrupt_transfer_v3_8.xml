@@ -89,8 +89,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/evkbimxrt1050/driver_examples/lpuart/9bit_interrupt_transfer" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkbimxrt1050/driver_examples/lpuart/9bit_interrupt_transfer" project_relative_path="evkbimxrt1050/driver_examples/lpuart/9bit_interrupt_transfer" type="c_include"/>
-      <include_path path="boards/evkbimxrt1050" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkbimxrt1050/driver_examples/lpuart/9bit_interrupt_transfer" project_relative_path="evkbimxrt1050/driver_examples/lpuart/9bit_interrupt_transfer" type="c_include"/>
+      <include_path path="core/boards/evkbimxrt1050" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkbimxrt1050/driver_examples/lpuart/9bit_interrupt_transfer/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="lpuart_9bit_interrupt_transfer.ewd"/>

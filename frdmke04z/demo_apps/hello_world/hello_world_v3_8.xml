@@ -81,8 +81,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmke04z/demo_apps/hello_world" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmke04z/demo_apps/hello_world" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmke04z" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmke04z/demo_apps/hello_world" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/frdmke04z" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmke04z/demo_apps/hello_world/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="hello_world.ewd"/>

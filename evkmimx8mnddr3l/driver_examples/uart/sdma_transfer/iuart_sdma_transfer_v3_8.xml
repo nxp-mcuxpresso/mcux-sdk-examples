@@ -60,9 +60,9 @@
       </toolchainSetting>
     </toolchainSettings>
     <include_paths>
-      <include_path path="boards/evkmimx8mnddr3l" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/evkmimx8mnddr3l" project_relative_path="board" type="c_include"/>
       <include_path path="examples/evkmimx8mnddr3l/driver_examples/uart/sdma_transfer" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimx8mn/driver_examples/uart/sdma_transfer" project_relative_path="evkmimx8mnddr3l/driver_examples/uart/sdma_transfer" type="c_include"/>
+      <include_path path="examples/evkmimx8mn/driver_examples/uart/sdma_transfer" project_relative_path="evkmimx8mnddr3l/driver_examples/uart/sdma_transfer" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimx8mnddr3l/driver_examples/uart/sdma_transfer/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="iuart_sdma_transfer.ewp"/>

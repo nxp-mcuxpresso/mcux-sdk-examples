@@ -69,9 +69,9 @@
       </toolchainSetting>
     </toolchainSettings>
     <include_paths>
-      <include_path path="boards/lpcxpresso54628/driver_examples/usart/hardware_flow_control" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso54628/driver_examples/usart/hardware_flow_control" project_relative_path="lpcxpresso54628/driver_examples/usart/hardware_flow_control" type="c_include"/>
-      <include_path path="boards/lpcxpresso54628" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso54628/driver_examples/usart/hardware_flow_control" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso54628/driver_examples/usart/hardware_flow_control" project_relative_path="lpcxpresso54628/driver_examples/usart/hardware_flow_control" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso54628" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso54628/driver_examples/usart/hardware_flow_control/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="usart_hardware_flow_control.ewd"/>

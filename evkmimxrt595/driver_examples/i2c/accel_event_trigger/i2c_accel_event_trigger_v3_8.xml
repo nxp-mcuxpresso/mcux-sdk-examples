@@ -92,8 +92,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/evkmimxrt595/driver_examples/i2c/accel_event_trigger" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimxrt595/driver_examples/i2c/accel_event_trigger" project_relative_path="evkmimxrt595/driver_examples/i2c/accel_event_trigger" type="c_include"/>
-      <include_path path="boards/evkmimxrt595" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt595/driver_examples/i2c/accel_event_trigger" project_relative_path="evkmimxrt595/driver_examples/i2c/accel_event_trigger" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt595" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimxrt595/driver_examples/i2c/accel_event_trigger/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="i2c_accel_event_trigger.ewd"/>

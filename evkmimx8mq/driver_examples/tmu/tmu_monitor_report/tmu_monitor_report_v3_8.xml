@@ -59,8 +59,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/evkmimx8mq/driver_examples/tmu/tmu_monitor_report" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimx8mq/driver_examples/tmu/tmu_monitor_report" project_relative_path="evkmimx8mq/driver_examples/tmu/tmu_monitor_report" type="c_include"/>
-      <include_path path="boards/evkmimx8mq" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimx8mq/driver_examples/tmu/tmu_monitor_report" project_relative_path="evkmimx8mq/driver_examples/tmu/tmu_monitor_report" type="c_include"/>
+      <include_path path="core/boards/evkmimx8mq" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimx8mq/driver_examples/tmu/tmu_monitor_report/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="tmu_monitor_report.ewp"/>

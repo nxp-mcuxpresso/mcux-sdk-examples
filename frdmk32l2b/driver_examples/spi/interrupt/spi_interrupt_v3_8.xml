@@ -64,8 +64,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmk32l2b/driver_examples/spi/interrupt" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmk32l2b/driver_examples/spi/interrupt" project_relative_path="frdmk32l2b/driver_examples/spi/interrupt" type="c_include"/>
-      <include_path path="boards/frdmk32l2b" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmk32l2b/driver_examples/spi/interrupt" project_relative_path="frdmk32l2b/driver_examples/spi/interrupt" type="c_include"/>
+      <include_path path="core/boards/frdmk32l2b" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmk32l2b/driver_examples/spi/interrupt/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="spi_interrupt.ewd"/>

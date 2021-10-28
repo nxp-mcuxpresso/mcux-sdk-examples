@@ -67,10 +67,10 @@
       </toolchainSetting>
     </toolchainSettings>
     <include_paths>
-      <include_path path="boards/frdmk32l2b/demo_apps/power_manager" project_relative_path="source" type="c_include"/>
-      <include_path path="boards/frdmk32l2b/demo_apps/power_manager" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmk32l2b/demo_apps/power_manager" project_relative_path="frdmk32l2b/demo_apps/power_manager" type="c_include"/>
-      <include_path path="boards/frdmk32l2b" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmk32l2b/demo_apps/power_manager" project_relative_path="source" type="c_include"/>
+      <include_path path="examples/frdmk32l2b/demo_apps/power_manager" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmk32l2b/demo_apps/power_manager" project_relative_path="frdmk32l2b/demo_apps/power_manager" type="c_include"/>
+      <include_path path="core/boards/frdmk32l2b" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmk32l2b/demo_apps/power_manager/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="power_manager.ewd"/>

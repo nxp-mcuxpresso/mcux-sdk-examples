@@ -64,8 +64,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/twrkm34z75m/driver_examples/irtc" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/twrkm34z75m/driver_examples/irtc" project_relative_path="twrkm34z75m/driver_examples/irtc" type="c_include"/>
-      <include_path path="boards/twrkm34z75m" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/twrkm34z75m/driver_examples/irtc" project_relative_path="twrkm34z75m/driver_examples/irtc" type="c_include"/>
+      <include_path path="core/boards/twrkm34z75m" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/twrkm34z75m/driver_examples/irtc/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="irtc.ewd"/>

@@ -101,8 +101,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/evkmimxrt1170/driver_examples/cache/cm4" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimxrt1170/driver_examples/cache/cm4" project_relative_path="evkmimxrt1170/driver_examples/cache/cm4" type="c_include"/>
-      <include_path path="boards/evkmimxrt1170" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt1170/driver_examples/cache/cm4" project_relative_path="evkmimxrt1170/driver_examples/cache/cm4" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt1170" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimxrt1170/driver_examples/cache/cm4/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="cache_cm4.ewd"/>

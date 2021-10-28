@@ -114,8 +114,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/evkbimxrt1050/driver_examples/pxp/lcdif_handshake" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkbimxrt1050/driver_examples/pxp/lcdif_handshake" project_relative_path="evkbimxrt1050/driver_examples/pxp/lcdif_handshake" type="c_include"/>
-      <include_path path="boards/evkbimxrt1050" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkbimxrt1050/driver_examples/pxp/lcdif_handshake" project_relative_path="evkbimxrt1050/driver_examples/pxp/lcdif_handshake" type="c_include"/>
+      <include_path path="core/boards/evkbimxrt1050" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkbimxrt1050/driver_examples/pxp/lcdif_handshake/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="pxp_lcdif_handshake.ewd"/>

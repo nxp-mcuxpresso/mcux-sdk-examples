@@ -97,8 +97,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/evkmimxrt1160/driver_examples/canfd/interrupt_transfer/cm7" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimxrt1160/driver_examples/canfd/interrupt_transfer/cm7" project_relative_path="evkmimxrt1160/driver_examples/canfd/interrupt_transfer/cm7" type="c_include"/>
-      <include_path path="boards/evkmimxrt1160" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt1160/driver_examples/canfd/interrupt_transfer/cm7" project_relative_path="evkmimxrt1160/driver_examples/canfd/interrupt_transfer/cm7" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt1160" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimxrt1160/driver_examples/canfd/interrupt_transfer/cm7/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="canfd_interrupt_transfer_cm7.ewd"/>

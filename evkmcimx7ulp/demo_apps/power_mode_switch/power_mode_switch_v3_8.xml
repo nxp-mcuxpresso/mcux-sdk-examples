@@ -105,10 +105,10 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/evkmcimx7ulp/demo_apps/power_mode_switch" project_relative_path="source" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/power_mode_switch" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/power_mode_switch" project_relative_path="board" type="c_include"/>
       <include_path path="examples/evkmcimx7ulp/demo_apps/power_mode_switch" project_relative_path="remoteproc" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/power_mode_switch" project_relative_path="evkmcimx7ulp/demo_apps/power_mode_switch" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/power_mode_switch" project_relative_path="evkmcimx7ulp/demo_apps/power_mode_switch" type="c_include"/>
+      <include_path path="core/boards/evkmcimx7ulp" project_relative_path="board" type="c_include"/>
       <include_path path="examples/evkmcimx7ulp/demo_apps/power_mode_switch" project_relative_path="board" type="c_include"/>
       <include_path path="examples/evkmcimx7ulp/demo_apps/power_mode_switch" project_relative_path="evkmcimx7ulp" type="c_include"/>
       <include_path path="examples/evkmcimx7ulp/demo_apps/power_mode_switch/srtm/channels" project_relative_path="srtm/channels" type="c_include"/>

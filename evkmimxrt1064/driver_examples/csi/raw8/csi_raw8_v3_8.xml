@@ -106,8 +106,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/evkmimxrt1064/driver_examples/csi/raw8" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimxrt1064/driver_examples/csi/raw8" project_relative_path="evkmimxrt1064/driver_examples/csi/raw8" type="c_include"/>
-      <include_path path="boards/evkmimxrt1064" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt1064/driver_examples/csi/raw8" project_relative_path="evkmimxrt1064/driver_examples/csi/raw8" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt1064" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimxrt1064/driver_examples/csi/raw8/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="csi_raw8.ewd"/>

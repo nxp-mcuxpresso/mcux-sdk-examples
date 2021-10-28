@@ -63,8 +63,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmke16z/driver_examples/mscan/loopback" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmke16z/driver_examples/mscan/loopback" project_relative_path="frdmke16z/driver_examples/mscan/loopback" type="c_include"/>
-      <include_path path="boards/frdmke16z" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmke16z/driver_examples/mscan/loopback" project_relative_path="frdmke16z/driver_examples/mscan/loopback" type="c_include"/>
+      <include_path path="core/boards/frdmke16z" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmke16z/driver_examples/mscan/loopback/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="mscan_loopback.ewd"/>

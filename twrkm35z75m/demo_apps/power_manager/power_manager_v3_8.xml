@@ -68,10 +68,10 @@
       </toolchainSetting>
     </toolchainSettings>
     <include_paths>
-      <include_path path="boards/twrkm35z75m/demo_apps/power_manager" project_relative_path="source" type="c_include"/>
-      <include_path path="boards/twrkm35z75m/demo_apps/power_manager" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/twrkm35z75m/demo_apps/power_manager" project_relative_path="twrkm35z75m/demo_apps/power_manager" type="c_include"/>
-      <include_path path="boards/twrkm35z75m" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/twrkm35z75m/demo_apps/power_manager" project_relative_path="source" type="c_include"/>
+      <include_path path="examples/twrkm35z75m/demo_apps/power_manager" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/twrkm35z75m/demo_apps/power_manager" project_relative_path="twrkm35z75m/demo_apps/power_manager" type="c_include"/>
+      <include_path path="core/boards/twrkm35z75m" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/twrkm35z75m/demo_apps/power_manager/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="power_manager.ewd"/>

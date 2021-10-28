@@ -89,9 +89,9 @@
     <include_paths>
       <include_path path="examples/evkmimx8mnddr3l" project_relative_path="source" type="c_include"/>
       <include_path path="examples/evkmimx8mnddr3l/demo_apps/sai_low_power_audio" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimx8mnddr3l/demo_apps/sai_low_power_audio" project_relative_path="evkmimx8mnddr3l/demo_apps/sai_low_power_audio" type="c_include"/>
+      <include_path path="examples/evkmimx8mnddr3l/demo_apps/sai_low_power_audio" project_relative_path="evkmimx8mnddr3l/demo_apps/sai_low_power_audio" type="c_include"/>
       <include_path path="examples/evkmimx8mnddr3l/demo_apps/sai_low_power_audio" project_relative_path="remoteproc" type="c_include"/>
-      <include_path path="boards/evkmimx8mnddr3l" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/evkmimx8mnddr3l" project_relative_path="board" type="c_include"/>
       <include_path path="examples/evkmimx8mnddr3l/demo_apps/sai_low_power_audio" project_relative_path="evkmimx8mnddr3l" type="c_include"/>
       <include_path path="components/srtm/channels" project_relative_path="srtm/channels" type="c_include"/>
       <include_path path="components/srtm/services" project_relative_path="srtm/services" type="c_include"/>

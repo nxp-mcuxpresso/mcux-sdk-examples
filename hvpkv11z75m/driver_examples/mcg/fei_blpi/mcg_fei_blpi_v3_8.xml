@@ -60,8 +60,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/hvpkv11z75m/driver_examples/mcg/fei_blpi" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/hvpkv11z75m/driver_examples/mcg/fei_blpi" project_relative_path="hvpkv11z75m/driver_examples/mcg/fei_blpi" type="c_include"/>
-      <include_path path="boards/hvpkv11z75m" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/hvpkv11z75m/driver_examples/mcg/fei_blpi" project_relative_path="hvpkv11z75m/driver_examples/mcg/fei_blpi" type="c_include"/>
+      <include_path path="core/boards/hvpkv11z75m" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/hvpkv11z75m/driver_examples/mcg/fei_blpi/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="mcg_fei_blpi.ewd"/>

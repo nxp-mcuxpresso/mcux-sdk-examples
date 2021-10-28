@@ -94,8 +94,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/evkbimxrt1050/demo_apps/lpspi_loopback" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkbimxrt1050/demo_apps/lpspi_loopback" project_relative_path="evkbimxrt1050/demo_apps/lpspi_loopback" type="c_include"/>
-      <include_path path="boards/evkbimxrt1050" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkbimxrt1050/demo_apps/lpspi_loopback" project_relative_path="evkbimxrt1050/demo_apps/lpspi_loopback" type="c_include"/>
+      <include_path path="core/boards/evkbimxrt1050" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkbimxrt1050/demo_apps/lpspi_loopback/armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
       <files mask="build_all.bat"/>

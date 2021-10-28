@@ -100,8 +100,8 @@
     <include_paths>
       <include_path path="examples/evkmimxrt1064/driver_examples/sai/interrupt" project_relative_path="board" type="c_include"/>
       <include_path path="examples/evkmimxrt1064/driver_examples/sai/interrupt" project_relative_path="source" type="c_include"/>
-      <include_path path="boards/evkmimxrt1064/driver_examples/sai/interrupt" project_relative_path="evkmimxrt1064/driver_examples/sai/interrupt" type="c_include"/>
-      <include_path path="boards/evkmimxrt1064" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt1064/driver_examples/sai/interrupt" project_relative_path="evkmimxrt1064/driver_examples/sai/interrupt" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt1064" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimxrt1064/driver_examples/sai/interrupt/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="sai_interrupt.ewd"/>

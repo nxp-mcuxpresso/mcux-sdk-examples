@@ -67,8 +67,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/lpcxpresso55s28/demo_apps/power_manager_lpc" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso55s28" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso55s28/demo_apps/power_manager_lpc" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso55s28" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso55s28/demo_apps/power_manager_lpc" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso55s28/demo_apps/power_manager_lpc/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="power_manager_lpc.ewd"/>
