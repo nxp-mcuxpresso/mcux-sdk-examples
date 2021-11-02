@@ -112,9 +112,9 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/evkmimxrt1015/demo_apps/sai_peripheral" project_relative_path="source" type="c_include"/>
-      <include_path path="boards/evkmimxrt1015/demo_apps/sai_peripheral" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimxrt1015/demo_apps/sai_peripheral" project_relative_path="evkmimxrt1015/demo_apps/sai_peripheral" type="c_include"/>
-      <include_path path="boards/evkmimxrt1015" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt1015/demo_apps/sai_peripheral" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt1015/demo_apps/sai_peripheral" project_relative_path="evkmimxrt1015/demo_apps/sai_peripheral" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt1015" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimxrt1015/demo_apps/sai_peripheral/mdk" project_relative_path="./" type="workspace" toolchain="mdk">
       <files mask="sai_peripheral.uvprojx"/>

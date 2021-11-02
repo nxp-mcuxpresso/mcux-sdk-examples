@@ -109,8 +109,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/evkmimxrt595/driver_examples/powerquad/benchmark_sw_fft" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimxrt595/driver_examples/powerquad/benchmark_sw_fft" project_relative_path="evkmimxrt595/driver_examples/powerquad/benchmark_sw_fft" type="c_include"/>
-      <include_path path="boards/evkmimxrt595" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt595/driver_examples/powerquad/benchmark_sw_fft" project_relative_path="evkmimxrt595/driver_examples/powerquad/benchmark_sw_fft" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt595" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimxrt595/driver_examples/powerquad/benchmark_sw_fft/mdk" project_relative_path="./" type="workspace" toolchain="mdk">
       <files mask="powerquad_benchmark_sw_fft.uvoptx"/>
