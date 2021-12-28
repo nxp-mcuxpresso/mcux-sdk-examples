@@ -86,10 +86,10 @@ ${load}</script>
     </toolchain>
   </toolchains>
   <boards>
-    <board id="evkbmimxrt1060" name="MIMXRT1060-EVKB" href="" version="1.0.0" package="MIMXRT1062DVL6A">
+    <board id="evkbmimxrt1060" name="MIMXRT1060-EVKB" href="https://www.nxp.com/pip/MIMXRT1060-EVK" version="1.0.0" package="MIMXRT1062DVL6A">
       <description>i.MX RT1060 Evaluation Kit</description>
-      <image path="." type="image">
-        <files mask=""/>
+      <image path="core/boards/evkbmimxrt1060" type="image">
+        <files mask="evkbmimxrt1060.png"/>
       </image>
       <memory>
         <memoryBlock id="BOARD_FLASH_evkbmimxrt1060" name="BOARD_FLASH" addr="60000000" size="00800000" type="ExtFlash" access="RO"/>
