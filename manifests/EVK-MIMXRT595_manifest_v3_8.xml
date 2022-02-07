@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_EVK-MIMXRT595" name="EVK-MIMXRT595" brief="This is SDK version 2.10.0 manifest file. It describes the content of the EVK-MIMXRT595 and additional settings for tools that support SDK version 2.10.0" format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-08-03 13:04:52.489238-->
-  <!--This manifest is generated based on sdk repo commit: a40647dd23698fa812ab2e267466ae159e1a5d45-->
+  <!--Timestamp (UTC): 2022-01-26 08:51:24.037817-->
+  <!--This manifest is generated based on sdk repo commit: 04124c9a3d8bee40269a5fff2c12f59654c36812-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
     <define name="CPU_$|package|_$|core_name|" value=""/>
   </defines>
+  <externalDefinitions>
+    <definition extID="fusionf1_MIMXRT595S"/>
+  </externalDefinitions>
   <ksdk id="MCUXpressoSDK2100" name="MCUXpressoSDK2100" version="2.10.0"/>
   <compilers>
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
@@ -112,6 +115,56 @@ ${load}</script>
             <files mask="casper_v3_8.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt595_cmsis_i2c_dma_b2b_transfer_master" name="cmsis_i2c_dma_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_i2c_dma_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with DMA:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/evkmimxrt595/cmsis_driver_examples/i2c/dma_b2b_transfer/master">
+          <external path="examples/evkmimxrt595/cmsis_driver_examples/i2c/dma_b2b_transfer/master" type="xml">
+            <files mask="cmsis_i2c_dma_b2b_transfer_master_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_cmsis_i2c_dma_b2b_transfer_slave" name="cmsis_i2c_dma_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_i2c_dma_b2b_transfer_slave example shows how to use i2c driver as slave to do board to board transfer with a DMA master:In this example, one i2c instance as slave and another i2c instance on the other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/evkmimxrt595/cmsis_driver_examples/i2c/dma_b2b_transfer/slave">
+          <external path="examples/evkmimxrt595/cmsis_driver_examples/i2c/dma_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_i2c_dma_b2b_transfer_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_cmsis_i2c_int_b2b_transfer_master" name="cmsis_i2c_int_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The i2c_interrupt_b2b_transfer_master example shows how to use CMSIS i2c driver as master to do board to board transfer with interrupt:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/evkmimxrt595/cmsis_driver_examples/i2c/int_b2b_transfer/master">
+          <external path="examples/evkmimxrt595/cmsis_driver_examples/i2c/int_b2b_transfer/master" type="xml">
+            <files mask="cmsis_i2c_int_b2b_transfer_master_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_cmsis_i2c_int_b2b_transfer_slave" name="cmsis_i2c_int_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The i2c_interrupt_b2b_transfer_master example shows how to use CMSIS i2c driver as master to do board to board transfer with interrupt:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/evkmimxrt595/cmsis_driver_examples/i2c/int_b2b_transfer/slave">
+          <external path="examples/evkmimxrt595/cmsis_driver_examples/i2c/int_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_i2c_int_b2b_transfer_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_cmsis_spi_dma_b2b_transfer_master" name="cmsis_spi_dma_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_spi_dma_b2b_transfer_master example shows how to use spi driver as master to do board to board transfer with DMA:In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/evkmimxrt595/cmsis_driver_examples/spi/dma_b2b_transfer/master">
+          <external path="examples/evkmimxrt595/cmsis_driver_examples/spi/dma_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_dma_b2b_transfer_master_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_cmsis_spi_dma_b2b_transfer_slave" name="cmsis_spi_dma_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_spi_dma_b2b_transfer_slave example shows how to use spi driver as master to do board to board transfer with DMA:In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/evkmimxrt595/cmsis_driver_examples/spi/dma_b2b_transfer/slave">
+          <external path="examples/evkmimxrt595/cmsis_driver_examples/spi/dma_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_dma_b2b_transfer_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_cmsis_spi_int_b2b_transfer_master" name="cmsis_spi_int_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_spi_interrupt_b2b_transfer_master example shows how to use CMSIS spi driver as master to do board to board transfer with interrupt:In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/evkmimxrt595/cmsis_driver_examples/spi/int_b2b_transfer/master">
+          <external path="examples/evkmimxrt595/cmsis_driver_examples/spi/int_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_int_b2b_transfer_master_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_cmsis_spi_int_b2b_transfer_slave" name="cmsis_spi_int_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_spi_interrupt_b2b_transfer_slave example shows how to use CMSIS spi driver as master to do board to board transfer with interrupt:In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/evkmimxrt595/cmsis_driver_examples/spi/int_b2b_transfer/slave">
+          <external path="examples/evkmimxrt595/cmsis_driver_examples/spi/int_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_int_b2b_transfer_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_cmsis_usart_dma_transfer" name="cmsis_usart_dma_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_uart_edma_transfer example shows how to use uart cmsis  driver with EDMA:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/usart" path="examples/evkmimxrt595/cmsis_driver_examples/usart/dma_transfer">
+          <external path="examples/evkmimxrt595/cmsis_driver_examples/usart/dma_transfer" type="xml">
+            <files mask="cmsis_usart_dma_transfer_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_cmsis_usart_interrupt_transfer" name="cmsis_usart_interrupt_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_uart_interrupt_transfer example shows how to use uart cmsis driver in interrupt way:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/usart" path="examples/evkmimxrt595/cmsis_driver_examples/usart/interrupt_transfer">
+          <external path="examples/evkmimxrt595/cmsis_driver_examples/usart/interrupt_transfer" type="xml">
+            <files mask="cmsis_usart_interrupt_transfer_v3_8.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt595_crc" name="crc" brief="The CRC Example project is a demonstration program that uses the KSDK software to generate checksumsfor an ASCII string. Several CRC protocols are implemented using the CRC driver API." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/crc" path="examples/evkmimxrt595/driver_examples/crc">
           <external path="examples/evkmimxrt595/driver_examples/crc" type="xml">
             <files mask="crc_v3_8.xml"/>
@@ -180,6 +233,51 @@ ${load}</script>
         <example id="evkmimxrt595_dmic_multi_channel" name="dmic_multi_channel" brief="Demonstrates the DMIC multi channel working with I2S. Audio is converted to samples in the DMIC module.Then, the data is placed memory buffer. Last, it is send data to the I2S buffer and send to the CODEC, then the audio data will be output to Lineout of CODEC.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dmic" path="examples/evkmimxrt595/driver_examples/dmic/dmic_multi_channel">
           <external path="examples/evkmimxrt595/driver_examples/dmic/dmic_multi_channel" type="xml">
             <files mask="dmic_multi_channel_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_dsp_audio_demo_bm_cm33" name="dsp_audio_demo_bm_cm33" brief="The dsp_audio_demo_bm demo application demonstrates starting DSP core with DSP image." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="dsp_examples" path="examples/evkmimxrt595/dsp_examples/audio_demo_bm/cm33">
+          <external path="examples/evkmimxrt595/dsp_examples/audio_demo_bm/cm33" type="xml">
+            <files mask="dsp_audio_demo_bm_cm33_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_dsp_hello_world_usart_cm33" name="dsp_hello_world_usart_cm33" brief="The dsp_hello_world_usart demo application demonstrates starting DSP core with DSP image." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="dsp_examples" path="examples/evkmimxrt595/dsp_examples/hello_world_usart/cm33">
+          <external path="examples/evkmimxrt595/dsp_examples/hello_world_usart/cm33" type="xml">
+            <files mask="dsp_hello_world_usart_cm33_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_dsp_mu_interrupt_cm33" name="dsp_mu_interrupt_cm33" brief="The dsp_mu_interrupt demo application demonstrates starting DSP core with DSP image." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="dsp_examples" path="examples/evkmimxrt595/dsp_examples/mu_interrupt/cm33">
+          <external path="examples/evkmimxrt595/dsp_examples/mu_interrupt/cm33" type="xml">
+            <files mask="dsp_mu_interrupt_cm33_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_dsp_mu_polling_cm33" name="dsp_mu_polling_cm33" brief="The dsp_mu_polling demo application demonstrates starting DSP core with DSP image." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="dsp_examples" path="examples/evkmimxrt595/dsp_examples/mu_polling/cm33">
+          <external path="examples/evkmimxrt595/dsp_examples/mu_polling/cm33" type="xml">
+            <files mask="dsp_mu_polling_cm33_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_dsp_naturedsp_cm33" name="dsp_naturedsp_cm33" brief="The dsp_naturedsp demo application demonstrates starting DSP core with DSP image which contains NatureDSP functions calls." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="dsp_examples" path="examples/evkmimxrt595/dsp_examples/naturedsp/cm33">
+          <external path="examples/evkmimxrt595/dsp_examples/naturedsp/cm33" type="xml">
+            <files mask="dsp_naturedsp_cm33_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_dsp_sema42_cm33" name="dsp_sema42_cm33" brief="The dsp_sema42 demo application demonstrates starting DSP core with DSP image." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="dsp_examples" path="examples/evkmimxrt595/dsp_examples/sema42/cm33">
+          <external path="examples/evkmimxrt595/dsp_examples/sema42/cm33" type="xml">
+            <files mask="dsp_sema42_cm33_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_dsp_xaf_demo_cm33" name="dsp_xaf_demo_cm33" brief="The dsp_xaf_demo demo application demonstrates starting DSP core with DSP image." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="dsp_examples" path="examples/evkmimxrt595/dsp_examples/xaf_demo/cm33">
+          <external path="examples/evkmimxrt595/dsp_examples/xaf_demo/cm33" type="xml">
+            <files mask="dsp_xaf_demo_cm33_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_fbdev_freertos" name="fbdev_freertos" brief="This example shows how to use the fbdev component. The fbdev masks the difference of LCD controllers and provides a unified APIs for upper layers. At the same time, the frame buffers are managed by the FBDEV. When the example runs, you can see a rectangle moving in the screen, and its color changes when reached the border." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="display_examples" path="examples/evkmimxrt595/display_examples/fbdev_freertos">
+          <external path="examples/evkmimxrt595/display_examples/fbdev_freertos" type="xml">
+            <files mask="fbdev_freertos_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_flash_component_octal" name="flash_component_octal" brief="octal flash demo shows the use of nor flash component to erase, program, and read an external serial nor flash device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples/flash_component/flexspi_octal" path="examples/evkmimxrt595/component_examples/flash_component/flexspi_octal">
+          <external path="examples/evkmimxrt595/component_examples/flash_component/flexspi_octal" type="xml">
+            <files mask="flash_component_octal_v3_8.xml"/>
           </external>
         </example>
         <example id="evkmimxrt595_flexio_i2c_interrupt_flexcomm_i2c_transfer" name="flexio_i2c_interrupt_flexcomm_i2c_transfer" brief="The flexio_i2c_interrupt example shows how to use flexio i2c master driver in interrupt way:In this example, a flexio simulated i2c master connect to an flexcomm I2C slave." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/flexio" path="examples/evkmimxrt595/driver_examples/flexio/i2c/interrupt_i2c_transfer">
@@ -332,6 +430,16 @@ ${load}</script>
             <files mask="hello_world_hybrid_v3_8.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt595_hello_world_ns" name="hello_world_ns" brief="The Hello World demo application provides a sanity check for the new SDK build environments and board bring up. This demo application also utilizes TrustZone, so it demonstrates basic techniques for TrustZone applications development. This is non-secure part of the application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="trustzone_examples" linked_projects="evkmimxrt595_hello_world_s" path="examples/evkmimxrt595/trustzone_examples/hello_world/hello_world_ns">
+          <external path="examples/evkmimxrt595/trustzone_examples/hello_world/hello_world_ns" type="xml">
+            <files mask="hello_world_ns_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_hello_world_s" name="hello_world_s" brief="The Hello World demo application provides a sanity check for the new SDK build environments and board bring up. This demo application also utilizes TrustZone, so it demonstrates basic techniques for TrustZone applications development. This is secure part of the application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="trustzone_examples" linked_projects="evkmimxrt595_hello_world_ns" path="examples/evkmimxrt595/trustzone_examples/hello_world/hello_world_s">
+          <external path="examples/evkmimxrt595/trustzone_examples/hello_world/hello_world_s" type="xml">
+            <files mask="hello_world_s_v3_8.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt595_i2c_accel_event_trigger" name="i2c_accel_event_trigger" brief="This example demonstrate how to wake up main device in low power mode with accelerometer trigger event. The accelerometer can keep working while the main device is in low power mode (or deep sleep mode). Only when the configured event was captured, the accelerometer will trigger the interrupt to wake up the main device. This example uses I2C to configure the accelerometer to work in 800Hz data rate with low noise mode. And when the tap event is triggered, it will wake up the main device. And 32 samples around the trigger event will be captured." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/evkmimxrt595/driver_examples/i2c/accel_event_trigger">
           <external path="examples/evkmimxrt595/driver_examples/i2c/accel_event_trigger" type="xml">
             <files mask="i2c_accel_event_trigger_v3_8.xml"/>
@@ -397,6 +505,16 @@ ${load}</script>
             <files mask="i2s_interrupt_transfer_v3_8.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt595_i3c_bus_master" name="i3c_bus_master" brief="The i3c_bus_master example shows how to use i3c_bus component to create I3C bus and i3c master on bus." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i3c" path="examples/evkmimxrt595/component_examples/i3c_bus/master">
+          <external path="examples/evkmimxrt595/component_examples/i3c_bus/master" type="xml">
+            <files mask="i3c_bus_master_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_i3c_bus_slave" name="i3c_bus_slave" brief="The i3c_bus_slave example shows how to use i3c_bus component to work as i3c bus slave." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i3c" path="examples/evkmimxrt595/component_examples/i3c_bus/slave">
+          <external path="examples/evkmimxrt595/component_examples/i3c_bus/slave" type="xml">
+            <files mask="i3c_bus_slave_v3_8.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt595_i3c_polling_b2b_transfer_master" name="i3c_polling_b2b_transfer_master" brief="The i3c_polling_b2b_transfer_master example shows how to use i3c driver as master to do board to board transfer using polling method:In this example, one i3c instance as master and another i3c instance on the other board as slave. Master will assign dynamic address to slave, then sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i3c" path="examples/evkmimxrt595/driver_examples/i3c/polling_b2b_transfer/master">
           <external path="examples/evkmimxrt595/driver_examples/i3c/polling_b2b_transfer/master" type="xml">
             <files mask="i3c_polling_b2b_transfer_master_v3_8.xml"/>
@@ -407,9 +525,24 @@ ${load}</script>
             <files mask="i3c_polling_b2b_transfer_slave_v3_8.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt595_iap_boot" name="iap_boot" brief="The IAP project is a simple demonstration program of the SDK IAP driver. It invokes into ROM with user specified parameter." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/iap3" path="examples/evkmimxrt595/driver_examples/iap/iap_boot">
+          <external path="examples/evkmimxrt595/driver_examples/iap/iap_boot" type="xml">
+            <files mask="iap_boot_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_iap_flash" name="iap_flash" brief="The IAP flash project is a simple demonstration program of the SDK IAP driver. It provides some flash operations with ROM API, such as automatically detect flash configuration, erase sectors and program pages. All operations are followed by flash memory check to ensure the data operated are successful." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/iap3" path="examples/evkmimxrt595/driver_examples/iap/iap_flash">
+          <external path="examples/evkmimxrt595/driver_examples/iap/iap_flash" type="xml">
+            <files mask="iap_flash_v3_8.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt595_iap_flash_fcb" name="iap_flash_fcb" brief="The IAP flash project is a simple demonstration program of the SDK IAP driver. It provides some flash operations with ROM API, such as using a complete FlexSPI NOR Configuration Block to configure the flash, erasing sectors and programing pages. All operations are followed by flash memory check to ensure the data operated are successful." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/iap3" path="examples/evkmimxrt595/driver_examples/iap/flash_fcb">
           <external path="examples/evkmimxrt595/driver_examples/iap/flash_fcb" type="xml">
             <files mask="iap_flash_fcb_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_iap_otp" name="iap_otp" brief="The IAP project is a simple demonstration program of the SDK IAP driver. It reads fuse word with input index. A message a printed on the UART terminal as fuse read iap operations are performed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/iap3" path="examples/evkmimxrt595/driver_examples/iap/iap_otp">
+          <external path="examples/evkmimxrt595/driver_examples/iap/iap_otp" type="xml">
+            <files mask="iap_otp_v3_8.xml"/>
           </external>
         </example>
         <example id="evkmimxrt595_lcdif_cursor_argb" name="lcdif_cursor_argb" brief="This example demonstrates how to use the LCDIF cursor in ARGB8888 mode. In this exapmle, the screen is devided into two parts: red and blue. A cursor is moving in the screen, the cursor alpha value changes during moving." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lcdif" path="examples/evkmimxrt595/driver_examples/lcdif/cursor_argb">
@@ -432,6 +565,16 @@ ${load}</script>
             <files mask="lcdif_rgb565_v3_8.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt595_log_bm" name="log_bm" brief="The log demo is used to demonstrate how to use log component. The main function of the demo is to prompt the LOG level string according to the user input log level command." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="examples/evkmimxrt595/component_examples/log/bm">
+          <external path="examples/evkmimxrt595/component_examples/log/bm" type="xml">
+            <files mask="log_bm_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_log_freertos" name="log_freertos" brief="The log demo is used to demonstrate how to use log component. The main function of the demo is to prompt the LOG level string according to the user input log level command." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="examples/evkmimxrt595/component_examples/log/freertos">
+          <external path="examples/evkmimxrt595/component_examples/log/freertos" type="xml">
+            <files mask="log_freertos_v3_8.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt595_lpadc_dma" name="lpadc_dma" brief="The lpdc_dma example shows how to use ADC to trigger a DMA transfer. In this example, user should indicate a channel to provide a voltage signal (can be controlled by user) as the LPADC's sample input. When running the project, typing any key into debug console would trigger the conversion, the software trigger API is called to start the conversion. When the ADC conversion is completed, it would trigger the DMA in ping-pong transfer mode to move the ADC conversion result from ADC conversion data register to user indicated memory. Then the main loop waits for the transfer to be done and print the result to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpadc" path="examples/evkmimxrt595/driver_examples/lpadc/dma">
           <external path="examples/evkmimxrt595/driver_examples/lpadc/dma" type="xml">
             <files mask="lpadc_dma_v3_8.xml"/>
@@ -452,6 +595,16 @@ ${load}</script>
             <files mask="lpadc_temperature_measurement_v3_8.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt595_mmccard_fatfs" name="mmccard_fatfs" brief="The MMCCARD FATFS project is a demonstration program that uses the SDK software. Tt mounts a file system based on a MMC card then does &quot;creat directory/read directory/create file/write file/read file&quot; operation. The file sdhc_config.h has default SDHC configuration which can be adjusted to letcard driver has different performance. The purpose of this example is to show how to use MMCCARD driver based FATFS disk in SDK software.Note:User can use MMC plus card or emmc(on board IC, but not recommand use emmc socket,due to high speed timing restriction)" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/mmccard_fatfs" path="examples/evkmimxrt595/sdmmc_examples/mmccard_fatfs">
+          <external path="examples/evkmimxrt595/sdmmc_examples/mmccard_fatfs" type="xml">
+            <files mask="mmccard_fatfs_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_mmccard_fatfs_freertos" name="mmccard_fatfs_freertos" brief="The mmccard FATFS FREERTOS project is a demonstration program that uses the SDK software. The purpose of this example is to show how to use mmccard with fatfs and freertos." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/mmccard_fatfs_freertos" path="examples/evkmimxrt595/sdmmc_examples/mmccard_fatfs_freertos">
+          <external path="examples/evkmimxrt595/sdmmc_examples/mmccard_fatfs_freertos" type="xml">
+            <files mask="mmccard_fatfs_freertos_v3_8.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt595_mmccard_freertos" name="mmccard_freertos" brief="The MMCCARD FreeRTOS project is a demonstration program that uses the SDK software. It reads/writes/erases the MMC card continusly. The purpose of this example is to show how to use MMCCARD driverwith FreeRTOS in SDK software to access MMC card.Note:User can use MMC plus card or emmc(on board IC, but not recommand use emmc socket,due to high speed timing restriction)" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/mmccard_freertos" path="examples/evkmimxrt595/sdmmc_examples/mmccard_freertos">
           <external path="examples/evkmimxrt595/sdmmc_examples/mmccard_freertos" type="xml">
             <files mask="mmccard_freertos_v3_8.xml"/>
@@ -465,6 +618,21 @@ ${load}</script>
         <example id="evkmimxrt595_mmccard_polling" name="mmccard_polling" brief="The MMCCARD Polling project is a demonstration program that uses the SDK software. It reads/writes/erases the MMC card continusly. The purpose of this example is to show how to use MMCCARD driver andshow how to use polling based transfer API in SDK software driver to access MMC card.Note:User can use MMC plus card or emmc(on board IC, but not recommand use emmc socket,due to high speed timing restriction)" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/mmccard" path="examples/evkmimxrt595/sdmmc_examples/mmccard_polling">
           <external path="examples/evkmimxrt595/sdmmc_examples/mmccard_polling" type="xml">
             <files mask="mmccard_polling_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_mpi_loader_dsp_hello_world" name="mpi_loader_dsp_hello_world" brief="The mpi_loader_dsp_hello_world demo application demonstrates multicore packed image loader to load DSP image to execution place and kick off it. The multicore packed image is created by elftosb tool." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="examples/evkmimxrt595/component_examples/mpi_loader/dsp_hello_world">
+          <external path="examples/evkmimxrt595/component_examples/mpi_loader/dsp_hello_world" type="xml">
+            <files mask="mpi_loader_dsp_hello_world_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_mpi_loader_extram_hello_world" name="mpi_loader_extram_hello_world" brief="The mpi_loader_extram_hello_world example demonstrates an application running in external RAM, and being loaded by mpi_loader_extram_loader. The application binary need to be built together with the mpi_loader_extram_loader binary with elftosb tool." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="examples/evkmimxrt595/component_examples/mpi_loader/extram_hello_world">
+          <external path="examples/evkmimxrt595/component_examples/mpi_loader/extram_hello_world" type="xml">
+            <files mask="mpi_loader_extram_hello_world_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_mpi_loader_extram_loader" name="mpi_loader_extram_loader" brief="The mpi_loader_extram_loader demo application demonstrates multicore packed image loader to initialize external RAM first and then load the external RAM image to execute. The multicore packed image is created by elftosb tool." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="examples/evkmimxrt595/component_examples/mpi_loader/extram_loader">
+          <external path="examples/evkmimxrt595/component_examples/mpi_loader/extram_loader" type="xml">
+            <files mask="mpi_loader_extram_loader_v3_8.xml"/>
           </external>
         </example>
         <example id="evkmimxrt595_mrt_example" name="mrt_example" brief="The MRT project is a simple demonstration program of the SDK MRT driver. It sets up the MRThardware block to trigger a periodic interrupt after every 250 milliseconds. When the PIT interrupt is triggereda message a printed on the UART terminal and an LED is toggled on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/mrt" path="examples/evkmimxrt595/driver_examples/mrt">
@@ -495,6 +663,11 @@ ${load}</script>
         <example id="evkmimxrt595_pint_pin_interrupt" name="pint_pin_interrupt" brief="This example shows how to use SDK drivers to use the Pin interrupt &amp; pattern match peripheral." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/pint" path="examples/evkmimxrt595/driver_examples/pint/pin_interrupt">
           <external path="examples/evkmimxrt595/driver_examples/pint/pin_interrupt" type="xml">
             <files mask="pint_pin_interrupt_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_pmc_temperature_sensor" name="pmc_temperature_sensor" brief="The demo shows how to measure the temperature within the PMC module." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/evkmimxrt595/demo_apps/pmc_temperature_sensor">
+          <external path="examples/evkmimxrt595/demo_apps/pmc_temperature_sensor" type="xml">
+            <files mask="pmc_temperature_sensor_v3_8.xml"/>
           </external>
         </example>
         <example id="evkmimxrt595_power_manager" name="power_manager" brief="The power_manager application shows the usage of normal power mode control APIs for entering the four kinds of low power mode: Sleep mode, Deep Sleep mode, Deep Power Down mode and Full Deep Power Down mode. When the application runs to each low power mode, the device would cut off the power for specific modules to save power. The device can be also waken up by prepared wakeup source from external event. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin circuit would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - In order to meet typedef power consumption of DateSheet manual, Please configure MCU under the following conditions. 1. Configure all pins as GPIO with pull-up resistor disabled in the IOCON block. 2. Configure GPIO pins as outputs using the GPIO DIR register. 3. Write 1 to the GPIO CLR register to drive the outputs LOW. 4. All peripherals disabled." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/evkmimxrt595/demo_apps/power_manager">
@@ -607,6 +780,16 @@ ${load}</script>
             <files mask="sctimer_simple_pwm_v3_8.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt595_sdcard_fatfs" name="sdcard_fatfs" brief="The SDCARD FATFS project is a demonstration program that uses the SDK software. Tt mounts a file system based on a SD card then does &quot;creat directory/read directory/create file/write file/read file&quot;operation. The file sdhc_config.h has default SDHC configuration which can be adjusted to let carddriver has different performance. The purpose of this example is to show how to use SDCARD driver based FATFS disk in SDK software." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/sdcard_fatfs" path="examples/evkmimxrt595/sdmmc_examples/sdcard_fatfs">
+          <external path="examples/evkmimxrt595/sdmmc_examples/sdcard_fatfs" type="xml">
+            <files mask="sdcard_fatfs_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_sdcard_fatfs_freertos" name="sdcard_fatfs_freertos" brief="The SDCARD FATFS FREERTOS project is a demonstration program that uses the SDK software. The purpose of this example is to show how to use SDCARD with fatfs and freertos." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/sdcard_fatfs_freertos" path="examples/evkmimxrt595/sdmmc_examples/sdcard_fatfs_freertos">
+          <external path="examples/evkmimxrt595/sdmmc_examples/sdcard_fatfs_freertos" type="xml">
+            <files mask="sdcard_fatfs_freertos_v3_8.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt595_sdcard_freertos" name="sdcard_freertos" brief="The SDCARD FreeRTOS project is a demonstration program that uses the SDK software. It reads/writes/erases the SD card continusly. The purpose of this example is to show how to use SDCARD driver with FreeRTOS in SDK software to access SD card.Note: If DATA3 is used as the card detect PIN, please make sure DATA3 is pull down, no matter internal or external, at the same time, make sure the card can pull DATA3 up, then host can detect card through DATA3.And SDHC do not support detect card through CD by host, card can be detected through DATA3 or GPIO.No matter detect card through host or gpio, make sure the pinmux configuration is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/sdcard_freertos" path="examples/evkmimxrt595/sdmmc_examples/sdcard_freertos">
           <external path="examples/evkmimxrt595/sdmmc_examples/sdcard_freertos" type="xml">
             <files mask="sdcard_freertos_v3_8.xml"/>
@@ -630,6 +813,26 @@ ${load}</script>
         <example id="evkmimxrt595_sdio_freertos" name="sdio_freertos" brief="The SDIO FREERTOS project is a demonstration program that uses the SDK software. It reads/writes the SDIO card reigister. The purpose of this example is to show how to use SDio driver with freertos." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/sdio_freertos" path="examples/evkmimxrt595/sdmmc_examples/sdio_freertos">
           <external path="examples/evkmimxrt595/sdmmc_examples/sdio_freertos" type="xml">
             <files mask="sdio_freertos_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_secure_faults_ns" name="secure_faults_ns" brief="The Secure Faults demo application demonstrates handling of different secure faults. This application is based on application Hello World. In addition, user can invoke different secure faults by setting testCaseNumber variable (see source code). This is non-secure part of the application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="trustzone_examples" linked_projects="evkmimxrt595_secure_faults_s" path="examples/evkmimxrt595/trustzone_examples/secure_faults/secure_faults_ns">
+          <external path="examples/evkmimxrt595/trustzone_examples/secure_faults/secure_faults_ns" type="xml">
+            <files mask="secure_faults_ns_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_secure_faults_s" name="secure_faults_s" brief="The Secure Faults demo application demonstrates handling of different secure faults. This application is based on application Hello World. In addition, user can invoke different secure faults by setting testCaseNumber variable (see source code). This is secure part of the application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="trustzone_examples" linked_projects="evkmimxrt595_secure_faults_ns" path="examples/evkmimxrt595/trustzone_examples/secure_faults/secure_faults_s">
+          <external path="examples/evkmimxrt595/trustzone_examples/secure_faults/secure_faults_s" type="xml">
+            <files mask="secure_faults_s_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_secure_gpio_ns" name="secure_gpio_ns" brief="The Secure GPIO demo application demonstrates using of secure GPIO peripheral and GPIO mask feature in AHB secure controller. This is non-secure part of the application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="trustzone_examples" linked_projects="evkmimxrt595_secure_gpio_s" path="examples/evkmimxrt595/trustzone_examples/secure_gpio/secure_gpio_ns">
+          <external path="examples/evkmimxrt595/trustzone_examples/secure_gpio/secure_gpio_ns" type="xml">
+            <files mask="secure_gpio_ns_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_secure_gpio_s" name="secure_gpio_s" brief="The Secure GPIO demo application demonstrates using of secure GPIO peripheral and GPIO mask feature in AHB secure controller. This is secure part of the application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="trustzone_examples" linked_projects="evkmimxrt595_secure_gpio_ns" path="examples/evkmimxrt595/trustzone_examples/secure_gpio/secure_gpio_s">
+          <external path="examples/evkmimxrt595/trustzone_examples/secure_gpio/secure_gpio_s" type="xml">
+            <files mask="secure_gpio_s_v3_8.xml"/>
           </external>
         </example>
         <example id="evkmimxrt595_shell" name="shell" brief="The Shell Demo application demonstrates to control Leds by commands." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/evkmimxrt595/demo_apps/shell">
@@ -680,6 +883,36 @@ ${load}</script>
         <example id="evkmimxrt595_clockout" name="clockout" brief="The syscon_clockout driver example shows how to output the internal clock signal. In this driver example, users can choose the clock signal to be outputted, and the divider of the output clock signal. By probe the output pin, users can observe the selected internal clock signal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/syscon" path="examples/evkmimxrt595/driver_examples/clockout">
           <external path="examples/evkmimxrt595/driver_examples/clockout" type="xml">
             <files mask="clockout_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_tensorflow_lite_micro_cifar10_cm33" name="tensorflow_lite_micro_cifar10_cm33" brief="CIFAR-10 example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt595/eiq_examples/tensorflow_lite_micro_cifar10_cm33">
+          <external path="examples/evkmimxrt595/eiq_examples/tensorflow_lite_micro_cifar10_cm33" type="xml">
+            <files mask="tensorflow_lite_micro_cifar10_cm33_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_tensorflow_lite_micro_cifar10_fusionf1_cm33" name="tensorflow_lite_micro_cifar10_fusionf1_cm33" brief="CIFAR-10 example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt595/eiq_examples/tensorflow_lite_micro_cifar10_fusionf1/cm33">
+          <external path="examples/evkmimxrt595/eiq_examples/tensorflow_lite_micro_cifar10_fusionf1/cm33" type="xml">
+            <files mask="tensorflow_lite_micro_cifar10_fusionf1_cm33_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_tensorflow_lite_micro_kws_cm33" name="tensorflow_lite_micro_kws_cm33" brief="Keyword spotting example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt595/eiq_examples/tensorflow_lite_micro_kws_cm33">
+          <external path="examples/evkmimxrt595/eiq_examples/tensorflow_lite_micro_kws_cm33" type="xml">
+            <files mask="tensorflow_lite_micro_kws_cm33_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_tensorflow_lite_micro_kws_fusionf1_cm33" name="tensorflow_lite_micro_kws_fusionf1_cm33" brief="Keyword spotting example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt595/eiq_examples/tensorflow_lite_micro_kws_fusionf1/cm33">
+          <external path="examples/evkmimxrt595/eiq_examples/tensorflow_lite_micro_kws_fusionf1/cm33" type="xml">
+            <files mask="tensorflow_lite_micro_kws_fusionf1_cm33_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_tensorflow_lite_micro_label_image_cm33" name="tensorflow_lite_micro_label_image_cm33" brief="Label image example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt595/eiq_examples/tensorflow_lite_micro_label_image_cm33">
+          <external path="examples/evkmimxrt595/eiq_examples/tensorflow_lite_micro_label_image_cm33" type="xml">
+            <files mask="tensorflow_lite_micro_label_image_cm33_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_tensorflow_lite_micro_label_image_fusionf1_cm33" name="tensorflow_lite_micro_label_image_fusionf1_cm33" brief="Label image example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt595/eiq_examples/tensorflow_lite_micro_label_image_fusionf1/cm33">
+          <external path="examples/evkmimxrt595/eiq_examples/tensorflow_lite_micro_label_image_fusionf1/cm33" type="xml">
+            <files mask="tensorflow_lite_micro_label_image_fusionf1_cm33_v3_8.xml"/>
           </external>
         </example>
         <example id="evkmimxrt595_trng_random" name="trng_random" brief="The True Random Number Generator (TRNG) is a hardware accelerator module that generates a 512-bitentropy as needed by an entropy consuming module or by other post processing functions. The TRNGExample project is a demonstration program that uses the KSDK software to generate random numbersand prints them to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/trng" path="examples/evkmimxrt595/driver_examples/trng/random">
@@ -1192,6 +1425,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="os_tick.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="CMSIS_Device_API_OSTick.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1199,6 +1435,9 @@ ${load}</script>
     <component id="CMSIS_Device_API_RTOS2.MIMXRT595S" name="CMSIS_Device_API_RTOS2" brief="CMSIS-RTOS API for Cortex-M, SC000, and SC300" version="2.1.3" full_name="CMSIS Device API RTOS2" devices="MIMXRT595S" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/RTOS2/Include" project_base_path="CMSIS/RTOS2/Include">
       <source relative_path="./" type="c_include">
         <files mask="cmsis_os2.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="CMSIS_Device_API_RTOS2.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1218,6 +1457,9 @@ ${load}</script>
     <component id="CMSIS_Driver_Include.Common.MIMXRT595S" name="CMSIS_Driver_Common" brief="Access to #include Driver_Common.h file for custom implementation" version="2.3.0" full_name="CMSIS Driver Common" devices="MIMXRT595S" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <source relative_path="./" type="c_include">
         <files mask="Driver_Common.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="CMSIS_Driver_Include_Common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1285,6 +1527,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="Driver_I2C.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="CMSIS_Driver_Include_I2C.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1329,6 +1574,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="Driver_SPI.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="CMSIS_Driver_Include_SPI.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1339,6 +1587,9 @@ ${load}</script>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_USART.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="CMSIS_Driver_Include_USART.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1436,6 +1687,9 @@ ${load}</script>
       <source relative_path="RTX/Config" type="c_include">
         <files mask="RTX_Config.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="CMSIS_RTOS2_Common.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="RTX/Source" type="c_include"/>
         <include_path relative_path="RTX/Include" type="c_include"/>
@@ -1448,6 +1702,9 @@ ${load}</script>
       </dependencies>
       <source toolchain="armgcc mcuxpresso" relative_path="GCC" project_relative_path="./" type="lib" device_cores="cm33_MIMXRT595S">
         <files mask="libRTX_V8MMFN.a"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="CMSIS_RTOS2_NonSecure.cmake" hidden="true"/>
       </source>
     </component>
     <!--<component id="CMSIS_files.MIMXRT595S" name="CMSIS" brief="CMSIS (Cortex Microcontroller Software Interface Standard)" version="5.6.0" full_name="CMSIS" devices="MIMXRT595S" user_visible="false" type="container" package_base_path="core/CMSIS" project_base_path="CMSIS">
@@ -2061,6 +2318,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_component_i3c.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="component_i3c_bus.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -2077,6 +2337,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_component_i3c_adapter.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="component_i3c_bus_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2131,6 +2394,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_component_log.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="component_log.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -2149,6 +2415,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="fsl_component_log_backend_debugconsole.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="component_log_backend_debugconsole.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -2165,6 +2434,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="c_include">
         <files mask="fsl_component_log_backend_ringbuffer.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="component_log_backend_ringbuffer.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2243,6 +2515,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="mflash_common.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="component_mflash_common.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -2261,6 +2536,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="mflash_drv.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="component_mflash_rt595.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -2278,6 +2556,9 @@ ${load}</script>
       <source relative_path="./" type="doc">
         <files mask="readme.txt" hidden="true"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="component_mflash_file.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -2294,6 +2575,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_adapter_mrt.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="component_mrt_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2406,6 +2690,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_component_panic.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="component_panic.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -2436,6 +2723,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_adapter_rt_gpio.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="component_rt_gpio_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2709,7 +2999,7 @@ ${load}</script>
       </include_paths>
     </component>
     <component id="device.MIMXRT595S_DSP.MIMXRT595S" name="MIMXRT595S_DSP" brief="Device MIMXRT595S_dsp" version="1.0.0" full_name="Device MIMXRT595S_dsp" devices="MIMXRT595S" user_visible="true" type="other" package_base_path="core/devices/MIMXRT595S" project_base_path="device"/>
-    <component id="platform.devices.MIMXRT595S_debugger.MIMXRT595S" name="MIMXRT595S_debugger" brief="Device MIMXRT595S_debugger" version="1.0.0" full_name="Device MIMXRT595S_debugger" devices="MIMXRT595S" user_visible="true" type="debugger" package_base_path="svd/MIMXRT595S" project_base_path="MIMXRT595S">
+    <component id="platform.devices.MIMXRT595S_debugger.MIMXRT595S" name="MIMXRT595S_debugger" brief="Device MIMXRT595S_debugger" version="1.0.0" full_name="Device MIMXRT595S_debugger" devices="MIMXRT595S" user_visible="true" type="debugger" package_base_path="core/devices/MIMXRT595S" project_base_path="MIMXRT595S">
       <source relative_path="./" type="xml" device_cores="cm33_MIMXRT595S">
         <files mask="MIMXRT595S_cm33.xml"/>
       </source>
@@ -2743,6 +3033,12 @@ ${load}</script>
         <files mask="Getting Started with MCUXpresso SDK for EVK-MIMXRT595.pdf"/>
         <files mask="MCUXpresso SDK Release Notes for EVK-MIMXRT595.pdf"/>
         <files mask="Getting Started with Xplorer for EVK-MIMXRT595.pdf"/>
+      </source>
+    </component>
+    <component id="docs.eiq.MIMXRT595S" name="eiq" brief="Docs eiq" version="1.0.0" full_name="Docs eiq" devices="MIMXRT595S" user_visible="true" type="documentation" package_base_path="core/docs/EIQ" project_base_path="EIQ">
+      <source relative_path="./" type="doc">
+        <files mask="eIQ Glow Ahead of Time User Guide.pdf"/>
+        <files mask="eIQ TensorFlow Lite Library User's Guide.pdf"/>
       </source>
     </component>
     <component id="platform.drivers.acmp.MIMXRT595S" name="acmp" brief="ACMP Driver" version="2.0.6" full_name="ACMP Driver" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="true" type="driver" package_base_path="core/drivers/acmp" project_base_path="drivers">
@@ -2808,6 +3104,69 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
         <files mask="driver_clock.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.flexcomm_i2c_cmsis.MIMXRT595S" name="i2c_cmsis" brief="I2C CMSIS Driver" version="2.2.0" full_name="I2C CMSIS Driver" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/flexcomm" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.flexcomm_i2c_dma.MIMXRT595S"/>
+          <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT595S"/>
+          <component_dependency value="RTE_Device.MIMXRT595S"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_i2c_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_i2c_cmsis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_cmsis_flexcomm_i2c.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.flexcomm_spi_cmsis.MIMXRT595S" name="spi_cmsis" brief="SPI CMSIS Driver" version="2.4.0" full_name="SPI CMSIS Driver" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/flexcomm" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.flexcomm_spi_dma.MIMXRT595S"/>
+          <component_dependency value="CMSIS_Driver_Include.SPI.MIMXRT595S"/>
+          <component_dependency value="RTE_Device.MIMXRT595S"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_spi_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_spi_cmsis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_cmsis_flexcomm_spi.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.flexcomm_usart_cmsis.MIMXRT595S" name="usart_cmsis" brief="USART CMSIS Driver" version="2.2.0" full_name="USART CMSIS Driver" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/flexcomm" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.flexcomm_usart_dma.MIMXRT595S"/>
+          <component_dependency value="CMSIS_Driver_Include.USART.MIMXRT595S"/>
+          <component_dependency value="RTE_Device.MIMXRT595S"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_usart_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_usart_cmsis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_cmsis_flexcomm_usart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2902,6 +3261,116 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="driver.dbi.MIMXRT595S" name="dbi" brief="Driver dbi" version="1.0.0" full_name="Driver dbi" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="true" type="abstraction_layer" package_base_path="core/components/video/display/dbi" project_base_path="video">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MIMXRT595S"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_dbi.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_dbi.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.dbi_flexio_smartdma.MIMXRT595S" name="dbi_flexio_smartdma" brief="Driver dbi_flexio_smartdma" version="1.0.1" full_name="Driver dbi_flexio_smartdma" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="true" type="abstraction_layer" package_base_path="core/components/video/display/dbi/flexio" project_base_path="video">
+      <dependencies>
+        <all>
+          <component_dependency value="driver.dbi.MIMXRT595S"/>
+          <component_dependency value="platform.drivers.flexio_mculcd.MIMXRT595S"/>
+          <component_dependency value="platform.drivers.flexio_mculcd_smartdma.MIMXRT595S"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_dbi_flexio_smartdma.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_dbi_flexio_smartdma.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_dbi_flexio_smartdma.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.dc-fb-common.MIMXRT595S" name="dc-fb-common" brief="Driver dc-fb-common" version="1.0.0" full_name="Driver dc-fb-common" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="true" type="abstraction_layer" package_base_path="core/components/video/display/dc" project_base_path="video">
+      <dependencies>
+        <component_dependency value="driver.video-common.MIMXRT595S"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_dc_fb.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_dc-fb-common.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.dc-fb-dsi-cmd.MIMXRT595S" name="dc-fb-dsi-cmd" brief="Driver dc-fb-dsi-cmd" version="1.1.1" full_name="Driver dc-fb-dsi-cmd" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="true" type="abstraction_layer" package_base_path="core/components/video/display/dc/dsi_cmd" project_base_path="video">
+      <dependencies>
+        <all>
+          <component_dependency value="driver.dc-fb-common.MIMXRT595S"/>
+          <component_dependency value="driver.display-common.MIMXRT595S"/>
+          <component_dependency value="driver.display-mipi-dsi-cmd.MIMXRT595S"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_dc_fb_dsi_cmd.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_dc_fb_dsi_cmd.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_dc-fb-dsi-cmd.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.dc-fb-lcdif.MIMXRT595S" name="dc-fb-lcdif" brief="Driver dc-fb-lcdif" version="1.0.1" full_name="Driver dc-fb-lcdif" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="true" type="abstraction_layer" package_base_path="core/components/video/display/dc/lcdif" project_base_path="video">
+      <dependencies>
+        <all>
+          <component_dependency value="driver.dc-fb-common.MIMXRT595S"/>
+          <component_dependency value="platform.drivers.lcdif.MIMXRT595S"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_dc_fb_lcdif.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_dc_fb_lcdif.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_dc-fb-lcdif.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.dc-fb-ssd1963.MIMXRT595S" name="dc-fb-ssd1963" brief="Driver dc-fb-ssd1963" version="1.0.2" full_name="Driver dc-fb-ssd1963" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="true" type="abstraction_layer" package_base_path="core/components/video/display/dc/ssd1963" project_base_path="video">
+      <dependencies>
+        <all>
+          <component_dependency value="driver.dc-fb-common.MIMXRT595S"/>
+          <component_dependency value="driver.ssd1963.MIMXRT595S"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_dc_fb_ssd1963.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_dc_fb_ssd1963.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_dc-fb-ssd1963.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="driver.display-common.MIMXRT595S" name="display-common" brief="Driver display-common" version="1.0.0" full_name="Driver display-common" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="true" type="abstraction_layer" package_base_path="core/components/video/display" project_base_path="video">
       <dependencies>
         <component_dependency value="driver.video-common.MIMXRT595S"/>
@@ -2931,6 +3400,26 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
         <files mask="driver_display-mipi-dsi-cmd.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.display-rm67162.MIMXRT595S" name="display-rm67162" brief="Driver display-rm67162" version="1.0.2" full_name="Driver display-rm67162" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="true" type="board_component" package_base_path="core/components/video/display/rm67162" project_base_path="video">
+      <dependencies>
+        <all>
+          <component_dependency value="driver.display-common.MIMXRT595S"/>
+          <component_dependency value="driver.display-mipi-dsi-cmd.MIMXRT595S"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_rm67162.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_rm67162.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_display-rm67162.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3025,6 +3514,29 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_dsp.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_dsp.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.fbdev.MIMXRT595S" name="fbdev" brief="Driver fbdev" version="1.0.2" full_name="Driver fbdev" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="true" type="software_component" package_base_path="core/components/video/display/fbdev" project_base_path="video">
+      <dependencies>
+        <all>
+          <component_dependency value="driver.dc-fb-common.MIMXRT595S"/>
+          <component_dependency value="middleware.freertos-kernel.MIMXRT595S"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_fbdev.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_fbdev.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_fbdev.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3351,6 +3863,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="fsl_flexio_mculcd.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_flexio_mculcd.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -3367,6 +3882,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="c_include">
         <files mask="fsl_flexio_mculcd_smartdma.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_flexio_mculcd_smartdma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3455,6 +3973,74 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
         <files mask="driver_fmeas.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.ft3267.MIMXRT595S" name="ft3267" brief="Touch panel controller FT3267 driver" version="1.0.1" full_name="Driver ft3267" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="false" type="board_component" package_base_path="core/components/ft3267" project_base_path="touchpanel">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MIMXRT595S"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_ft3267.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_ft3267.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_ft3267.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.ft5406.MIMXRT595S" name="ft5406" brief="Driver ft5406" version="1.0.0" full_name="Driver ft5406" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="false" type="board_component" package_base_path="core/components/ft5406" project_base_path="touchpanel">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MIMXRT595S"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_ft5406.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_ft5406.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_ft5406.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.fxos8700cq.MIMXRT595S" name="fxos8700cq" brief="Driver fxos8700cq" version="1.0.0" full_name="Driver fxos8700cq" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="true" type="board_component" package_base_path="core/components/fxos8700cq" project_base_path="accel">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MIMXRT595S"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_fxos.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_fxos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_fxos8700cq.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.gt911.MIMXRT595S" name="gt911" brief="Driver gt911" version="1.0.3" full_name="Driver gt911" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="false" type="board_component" package_base_path="core/components/gt911" project_base_path="touchpanel">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MIMXRT595S"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_gt911.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_gt911.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_gt911.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3672,6 +4258,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_smartdma.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_lpc_smartdma.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -3720,6 +4309,26 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="fsl_mipi_dsi_smartdma.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_mipi_dsi_smartdma.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.mpi_loader.MIMXRT595S" name="mpi_loader" brief="Driver mpi_loader" version="1.0.0" full_name="Driver mpi_loader" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="true" type="software_component" package_base_path="core/components/mpi_loader" project_base_path="mpi_loader">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MIMXRT595S"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_mpi_loader.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_mpi_loader.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_mpi_loader.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -3751,6 +4360,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_mu.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_mu.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -3775,6 +4387,37 @@ ${load}</script>
       </source>
       <source relative_path="./" type="c_include">
         <files mask="fsl_flexspi_nand_flash.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.nor_flash-common.MIMXRT595S" name="nor_flash-common" brief="Driver nor_flash-common" version="1.0.0" full_name="Driver nor_flash-common" devices="MIMXRT595S" user_visible="true" type="abstraction_layer" package_base_path="core/components/flash/nor" project_base_path="nor_flash">
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_nor_flash.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_nor_flash-common.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.nor_flash-controller-flexspi.MIMXRT595S" name="nor_flash-controller-flexspi" brief="Driver nor_flash-controller-flexspi" version="1.0.0" full_name="Driver nor_flash-controller-flexspi" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="true" type="abstraction_layer" package_base_path="core/components/flash/nor/flexspi" project_base_path="nor_flash">
+      <dependencies>
+        <all>
+          <component_dependency value="driver.nor_flash-common.MIMXRT595S"/>
+          <component_dependency value="platform.drivers.flexspi.MIMXRT595S"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="src">
+        <files mask="fsl_flexspi_nor_flash.c"/>
+      </source>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_flexspi_nor_flash.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_nor_flash-controller-flexspi.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3953,6 +4596,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_sema42.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_sema42.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -3966,6 +4612,23 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
         <files mask="driver_soc_mipi_dsi.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.ssd1963.MIMXRT595S" name="ssd1963" brief="Driver ssd1963" version="1.1.2" full_name="Driver ssd1963" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="true" type="board_component" package_base_path="core/components/ssd1963" project_base_path="lcdc">
+      <dependencies>
+        <component_dependency value="driver.dbi.MIMXRT595S"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_ssd1963.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_ssd1963.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="driver_ssd1963.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -4110,6 +4773,1068 @@ ${load}</script>
       </defines>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
         <files mask="middleware_baremetal.cmake" hidden="true"/>
+      </source>
+    </component>
+    <component id="middleware.eiq.gui.printf.MIMXRT595S" name="eiq_GuiPrintf" brief="Video capture and display abstract layer" version="1.0.0" full_name="eiq_GuiPrintf" devices="MIMXRT595S" user_visible="false" type="middleware" package_base_path="middleware/eiq" project_base_path="source">
+      <dependencies>
+        <component_dependency value="middleware.eiq.worker.MIMXRT595S"/>
+      </dependencies>
+      <source relative_path="common/gprintf" project_relative_path="gprintf" type="src">
+        <files mask="chgui.c"/>
+      </source>
+      <source relative_path="common/gprintf" project_relative_path="gprintf" type="c_include">
+        <files mask="chgui.h"/>
+        <files mask="font.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="common/gprintf" project_relative_path="gprintf" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.eiq.tensorflow_lite_micro.MIMXRT595S" name="TensorFlow Lite Micro" brief="TensorFlow Lite Micro library" version="2.4.1" full_name="TensorFlow Lite Micro library" devices="MIMXRT595S" category="Machine Learning/eIQ" user_visible="false" type="middleware" package_base_path="middleware/eiq" project_base_path="eiq">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.eiq.tensorflow_lite_micro.third_party.flatbuffers.MIMXRT595S"/>
+          <component_dependency value="middleware.eiq.tensorflow_lite_micro.third_party.gemmlowp.MIMXRT595S"/>
+          <component_dependency value="middleware.eiq.tensorflow_lite_micro.third_party.ruy.MIMXRT595S"/>
+        </all>
+      </dependencies>
+      <source relative_path="tensorflow-lite/tensorflow/core/public" type="c_include">
+        <files mask="version.h"/>
+      </source>
+      <source relative_path="tensorflow-lite/tensorflow/lite" type="c_include">
+        <files mask="portable_type_to_tflitetype.h"/>
+        <files mask="version.h"/>
+      </source>
+      <source relative_path="tensorflow-lite/tensorflow/lite/c" type="c_include">
+        <files mask="common.h"/>
+        <files mask="builtin_op_data.h"/>
+      </source>
+      <source relative_path="tensorflow-lite/tensorflow/lite/c" type="src">
+        <files mask="common.c"/>
+      </source>
+      <source relative_path="tensorflow-lite/tensorflow/lite/core/api" type="c_include">
+        <files mask="error_reporter.h"/>
+        <files mask="flatbuffer_conversions.h"/>
+        <files mask="op_resolver.h"/>
+        <files mask="profiler.h"/>
+        <files mask="tensor_utils.h"/>
+      </source>
+      <source relative_path="tensorflow-lite/tensorflow/lite/core/api" type="src">
+        <files mask="error_reporter.cpp"/>
+        <files mask="flatbuffer_conversions.cpp"/>
+        <files mask="op_resolver.cpp"/>
+        <files mask="tensor_utils.cpp"/>
+      </source>
+      <source relative_path="tensorflow-lite/tensorflow/lite/kernels" type="c_include">
+        <files mask="kernel_util.h"/>
+        <files mask="op_macros.h"/>
+        <files mask="padding.h"/>
+      </source>
+      <source relative_path="tensorflow-lite/tensorflow/lite/kernels" type="src">
+        <files mask="kernel_utils.cpp"/>
+      </source>
+      <source relative_path="tensorflow-lite/tensorflow/lite/kernels/internal" type="c_include">
+        <files mask="common.h"/>
+        <files mask="compatibility.h"/>
+        <files mask="cppmath.h"/>
+        <files mask="max.h"/>
+        <files mask="min.h"/>
+        <files mask="portable_tensor.h"/>
+        <files mask="quantization_util.h"/>
+        <files mask="strided_slice_logic.h"/>
+        <files mask="tensor_ctypes.h"/>
+        <files mask="types.h"/>
+      </source>
+      <source relative_path="tensorflow-lite/tensorflow/lite/kernels/internal" type="src">
+        <files mask="quantization_util.cpp"/>
+      </source>
+      <source relative_path="tensorflow-lite/tensorflow/lite/kernels/internal/optimized" type="c_include">
+        <files mask="neon_check.h"/>
+      </source>
+      <source relative_path="tensorflow-lite/tensorflow/lite/kernels/internal/reference" type="c_include">
+        <files mask="add.h"/>
+        <files mask="arg_min_max.h"/>
+        <files mask="binary_function.h"/>
+        <files mask="ceil.h"/>
+        <files mask="comparisons.h"/>
+        <files mask="concatenation.h"/>
+        <files mask="conv.h"/>
+        <files mask="depthwiseconv_float.h"/>
+        <files mask="depthwiseconv_uint8.h"/>
+        <files mask="dequantize.h"/>
+        <files mask="floor.h"/>
+        <files mask="fully_connected.h"/>
+        <files mask="hard_swish.h"/>
+        <files mask="l2normalization.h"/>
+        <files mask="logistic.h"/>
+        <files mask="maximum_minimum.h"/>
+        <files mask="mul.h"/>
+        <files mask="neg.h"/>
+        <files mask="pad.h"/>
+        <files mask="pooling.h"/>
+        <files mask="prelu.h"/>
+        <files mask="process_broadcast_shapes.h"/>
+        <files mask="quantize.h"/>
+        <files mask="reduce.h"/>
+        <files mask="requantize.h"/>
+        <files mask="resize_nearest_neighbor.h"/>
+        <files mask="round.h"/>
+        <files mask="softmax.h"/>
+        <files mask="strided_slice.h"/>
+        <files mask="sub.h"/>
+        <files mask="tanh.h"/>
+      </source>
+      <source relative_path="tensorflow-lite/tensorflow/lite/kernels/internal/reference/integer_ops" type="c_include">
+        <files mask="add.h"/>
+        <files mask="conv.h"/>
+        <files mask="depthwise_conv.h"/>
+        <files mask="fully_connected.h"/>
+        <files mask="l2normalization.h"/>
+        <files mask="logistic.h"/>
+        <files mask="mean.h"/>
+        <files mask="mul.h"/>
+        <files mask="pooling.h"/>
+        <files mask="tanh.h"/>
+      </source>
+      <source relative_path="tensorflow-lite/tensorflow/lite/micro" type="src">
+        <files mask="all_ops_resolver.cpp"/>
+        <files mask="debug_log.cpp"/>
+        <files mask="memory_helpers.cpp"/>
+        <files mask="micro_allocator.cpp"/>
+        <files mask="micro_error_reporter.cpp"/>
+        <files mask="micro_interpreter.cpp"/>
+        <files mask="micro_profiler.cpp"/>
+        <files mask="micro_string.cpp"/>
+        <files mask="micro_time.cpp"/>
+        <files mask="micro_utils.cpp"/>
+        <files mask="recording_micro_allocator.cpp"/>
+        <files mask="recording_simple_memory_allocator.cpp"/>
+        <files mask="simple_memory_allocator.cpp"/>
+      </source>
+      <source relative_path="tensorflow-lite/tensorflow/lite/micro" type="c_include">
+        <files mask="all_ops_resolver.h"/>
+        <files mask="compatibility.h"/>
+        <files mask="debug_log.h"/>
+        <files mask="memory_helpers.h"/>
+        <files mask="micro_allocator.h"/>
+        <files mask="micro_error_reporter.h"/>
+        <files mask="micro_interpreter.h"/>
+        <files mask="micro_mutable_op_resolver.h"/>
+        <files mask="micro_op_resolver.h"/>
+        <files mask="micro_profiler.h"/>
+        <files mask="micro_string.h"/>
+        <files mask="micro_time.h"/>
+        <files mask="micro_utils.h"/>
+        <files mask="recording_micro_allocator.h"/>
+        <files mask="recording_micro_interpreter.h"/>
+        <files mask="recording_simple_memory_allocator.h"/>
+        <files mask="simple_memory_allocator.h"/>
+      </source>
+      <source relative_path="tensorflow-lite/tensorflow/lite/micro/kernels" type="c_include">
+        <files mask="activation_utils.h"/>
+        <files mask="fully_connected.h"/>
+        <files mask="kernel_runner.h"/>
+        <files mask="kernel_util.h"/>
+        <files mask="micro_ops.h"/>
+        <files mask="micro_utils.h"/>
+      </source>
+      <source relative_path="tensorflow-lite/tensorflow/lite/micro/kernels" type="src">
+        <files mask="arg_min_max.cpp"/>
+        <files mask="ceil.cpp"/>
+        <files mask="circular_buffer.cpp"/>
+        <files mask="comparisons.cpp"/>
+        <files mask="concatenation.cpp"/>
+        <files mask="dequantize.cpp"/>
+        <files mask="elementwise.cpp"/>
+        <files mask="ethosu.cpp"/>
+        <files mask="hard_swish.cpp"/>
+        <files mask="kernel_runner.cpp"/>
+        <files mask="kernel_util.cpp"/>
+        <files mask="l2norm.cpp"/>
+        <files mask="logical.cpp"/>
+        <files mask="maximum_minimum.cpp"/>
+        <files mask="neg.cpp"/>
+        <files mask="pack.cpp"/>
+        <files mask="pad.cpp"/>
+        <files mask="prelu.cpp"/>
+        <files mask="quantize.cpp"/>
+        <files mask="reduce.cpp"/>
+        <files mask="reshape.cpp"/>
+        <files mask="resize_nearest_neighbor.cpp"/>
+        <files mask="round.cpp"/>
+        <files mask="shape.cpp"/>
+        <files mask="split.cpp"/>
+        <files mask="split_v.cpp"/>
+        <files mask="strided_slice.cpp"/>
+        <files mask="sub.cpp"/>
+        <files mask="tanh.cpp"/>
+        <files mask="unpack.cpp"/>
+      </source>
+      <source relative_path="tensorflow-lite/tensorflow/lite/micro/memory_planner" type="c_include">
+        <files mask="greedy_memory_planner.h"/>
+        <files mask="linear_memory_planner.h"/>
+        <files mask="memory_planner.h"/>
+      </source>
+      <source relative_path="tensorflow-lite/tensorflow/lite/micro/memory_planner" type="src">
+        <files mask="greedy_memory_planner.cpp"/>
+        <files mask="linear_memory_planner.cpp"/>
+      </source>
+      <source relative_path="tensorflow-lite/tensorflow/lite/schema" type="src">
+        <files mask="schema_utils.cpp"/>
+      </source>
+      <source relative_path="tensorflow-lite/tensorflow/lite/schema" type="c_include">
+        <files mask="schema_generated.h"/>
+        <files mask="schema_utils.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="middleware_eiq_tensorflow_lite_micro.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="tensorflow-lite" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.eiq.tensorflow_lite_micro.cmsis_nn.MIMXRT595S" name="TensorFlow Lite Micro with CMSIS-NN kernels" brief="TensorFlow Lite Micro library with CMSIS-NN kernel implementations" version="2.4.1" full_name="TensorFlow Lite Micro library with CMSIS-NN kernel implementations" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" category="Machine Learning/eIQ" user_visible="true" type="middleware" package_base_path="middleware/eiq" project_base_path="eiq">
+      <defines>
+        <define name="CMSIS_NN" value=""/>
+      </defines>
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.eiq.tensorflow_lite_micro.MIMXRT595S"/>
+          <component_dependency value="middleware.eiq.tensorflow_lite_micro.third_party.cmsis_nn.MIMXRT595S"/>
+          <component_dependency value="CMSIS_DSP_Library.MIMXRT595S"/>
+        </all>
+      </dependencies>
+      <source relative_path="tensorflow-lite/tensorflow/lite/micro/kernels/cmsis-nn" type="src">
+        <files mask="add.cpp"/>
+        <files mask="conv.cpp"/>
+        <files mask="depthwise_conv.cpp"/>
+        <files mask="fully_connected.cpp"/>
+        <files mask="mul.cpp"/>
+        <files mask="pooling.cpp"/>
+        <files mask="softmax.cpp"/>
+        <files mask="svdf.cpp"/>
+      </source>
+      <source relative_path="tensorflow-lite/tensorflow/lite/micro/kernels" type="src">
+        <files mask="activations.cpp"/>
+        <files mask="floor.cpp"/>
+        <files mask="logistic.cpp"/>
+      </source>
+      <source exclude="true" relative_path="tensorflow-lite/tensorflow/lite/micro/kernels" type="src">
+        <files mask="add.cpp"/>
+        <files mask="conv.cpp"/>
+        <files mask="depthwise_conv.cpp"/>
+        <files mask="fully_connected.cpp"/>
+        <files mask="mul.cpp"/>
+        <files mask="softmax.cpp"/>
+        <files mask="pooling.cpp"/>
+        <files mask="svdf.cpp"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="middleware_eiq_tensorflow_lite_micro_cmsis_nn.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="tensorflow-lite" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.eiq.tensorflow_lite_micro.hifi4_nn.MIMXRT595S" name="TensorFlow Lite Micro with Xtensa HiFi4 DSP kernels" brief="TensorFlow Lite Micro library with Xtensa HiFi4 DSP kernel implementations" version="2.4.1" full_name="TensorFlow Lite Micro library with Xtensa HiFi4 DSP kernel implementations" devices="MIMXRT595S" device_cores="fusionf1_MIMXRT595S" category="Machine Learning/eIQ" user_visible="false" type="middleware" package_base_path="middleware/eiq" project_base_path="eiq">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.eiq.tensorflow_lite_micro.MIMXRT595S"/>
+          <component_dependency value="middleware.eiq.tensorflow_lite_micro.third_party.hifi4_nn.MIMXRT595S"/>
+        </all>
+      </dependencies>
+      <source relative_path="tensorflow-lite/tensorflow/lite/micro/kernels/xtensa_hifi" type="src">
+        <files mask="activations.cpp"/>
+        <files mask="add.cpp"/>
+        <files mask="conv.cpp"/>
+        <files mask="depthwise_conv.cpp"/>
+        <files mask="floor.cpp"/>
+        <files mask="fully_connected.cpp"/>
+        <files mask="logistic.cpp"/>
+        <files mask="mul.cpp"/>
+        <files mask="pooling.cpp"/>
+        <files mask="softmax.cpp"/>
+        <files mask="svdf.cpp"/>
+      </source>
+      <source relative_path="tensorflow-lite/tensorflow/lite/micro/kernels/xtensa_hifi" type="c_include">
+        <files mask="xtensa_tf_micro_common.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="tensorflow-lite" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.eiq.tensorflow_lite_micro.reference.MIMXRT595S" name="TensorFlow Lite Micro with reference kernels" brief="TensorFlow Lite Micro library with reference kernel implementations" version="2.4.1" full_name="TensorFlow Lite Micro library with reference kernel implementations" devices="MIMXRT595S" category="Machine Learning/eIQ" user_visible="true" type="middleware" package_base_path="middleware/eiq" project_base_path="eiq">
+      <dependencies>
+        <component_dependency value="middleware.eiq.tensorflow_lite_micro.MIMXRT595S"/>
+      </dependencies>
+      <source relative_path="tensorflow-lite/tensorflow/lite/micro/kernels" type="src">
+        <files mask="activations.cpp"/>
+        <files mask="add.cpp"/>
+        <files mask="conv.cpp"/>
+        <files mask="depthwise_conv.cpp"/>
+        <files mask="floor.cpp"/>
+        <files mask="fully_connected.cpp"/>
+        <files mask="logistic.cpp"/>
+        <files mask="mul.cpp"/>
+        <files mask="pooling.cpp"/>
+        <files mask="svdf.cpp"/>
+        <files mask="softmax.cpp"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="tensorflow-lite" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.eiq.tensorflow_lite_micro.third_party.cmsis_nn.MIMXRT595S" name="CMSIS-NN" brief="CMSIS-NN library" version="1.3.0" full_name="CMSIS-NN library" devices="MIMXRT595S" category="Machine Learning/eIQ" user_visible="false" type="middleware" package_base_path="middleware/eiq" project_base_path="eiq">
+      <source relative_path="tensorflow-lite/third_party/cmsis/CMSIS/Core/Include" type="c_include">
+        <files mask="cachel1_armv7.h"/>
+        <files mask="cmsis_armcc.h"/>
+        <files mask="cmsis_armclang.h"/>
+        <files mask="cmsis_armclang_ltm.h"/>
+        <files mask="cmsis_compiler.h"/>
+        <files mask="cmsis_gcc.h"/>
+        <files mask="cmsis_iccarm.h"/>
+        <files mask="cmsis_version.h"/>
+        <files mask="core_armv81mml.h"/>
+        <files mask="core_armv8mbl.h"/>
+        <files mask="core_armv8mml.h"/>
+        <files mask="core_cm0.h"/>
+        <files mask="core_cm0plus.h"/>
+        <files mask="core_cm1.h"/>
+        <files mask="core_cm23.h"/>
+        <files mask="core_cm3.h"/>
+        <files mask="core_cm33.h"/>
+        <files mask="core_cm35p.h"/>
+        <files mask="core_cm4.h"/>
+        <files mask="core_cm55.h"/>
+        <files mask="core_cm7.h"/>
+        <files mask="core_sc000.h"/>
+        <files mask="core_sc300.h"/>
+        <files mask="mpu_armv7.h"/>
+        <files mask="mpu_armv8.h"/>
+        <files mask="pmu_armv8.h"/>
+        <files mask="tz_context.h"/>
+      </source>
+      <source relative_path="tensorflow-lite/third_party/cmsis/CMSIS/DSP/Include" type="c_include">
+        <files mask="arm_common_tables.h"/>
+        <files mask="arm_math.h"/>
+        <files mask="arm_math_memory.h"/>
+        <files mask="arm_math_types.h"/>
+      </source>
+      <source relative_path="tensorflow-lite/third_party/cmsis/CMSIS/DSP/Include/dsp" type="c_include">
+        <files mask="basic_math_functions.h"/>
+        <files mask="bayes_functions.h"/>
+        <files mask="complex_math_functions.h"/>
+        <files mask="controller_functions.h"/>
+        <files mask="distance_functions.h"/>
+        <files mask="fast_math_functions.h"/>
+        <files mask="filtering_functions.h"/>
+        <files mask="interpolation_functions.h"/>
+        <files mask="matrix_functions.h"/>
+        <files mask="none.h"/>
+        <files mask="statistics_functions.h"/>
+        <files mask="support_functions.h"/>
+        <files mask="svm_defines.h"/>
+        <files mask="svm_functions.h"/>
+        <files mask="transform_functions.h"/>
+        <files mask="utils.h"/>
+      </source>
+      <source relative_path="tensorflow-lite/third_party/cmsis/CMSIS/NN/Include" type="c_include">
+        <files mask="arm_nn_tables.h"/>
+        <files mask="arm_nn_types.h"/>
+        <files mask="arm_nnfunctions.h"/>
+        <files mask="arm_nnsupportfunctions.h"/>
+      </source>
+      <source relative_path="tensorflow-lite/third_party/cmsis/CMSIS/NN/Source/ActivationFunctions" type="src">
+        <files mask="arm_nn_activations_q15.c"/>
+        <files mask="arm_nn_activations_q7.c"/>
+        <files mask="arm_relu6_s8.c"/>
+        <files mask="arm_relu_q15.c"/>
+        <files mask="arm_relu_q7.c"/>
+      </source>
+      <source relative_path="tensorflow-lite/third_party/cmsis/CMSIS/NN/Source/BasicMathFunctions" type="src">
+        <files mask="arm_elementwise_add_s8.c"/>
+        <files mask="arm_elementwise_mul_s8.c"/>
+      </source>
+      <source relative_path="tensorflow-lite/third_party/cmsis/CMSIS/NN/Source/ConcatenationFunctions" type="src">
+        <files mask="arm_concatenation_s8_w.c"/>
+        <files mask="arm_concatenation_s8_x.c"/>
+        <files mask="arm_concatenation_s8_y.c"/>
+        <files mask="arm_concatenation_s8_z.c"/>
+      </source>
+      <source relative_path="tensorflow-lite/third_party/cmsis/CMSIS/NN/Source/ConvolutionFunctions" type="src">
+        <files mask="arm_convolve_1_x_n_s8.c"/>
+        <files mask="arm_convolve_1x1_HWC_q7_fast_nonsquare.c"/>
+        <files mask="arm_convolve_1x1_s8_fast.c"/>
+        <files mask="arm_convolve_HWC_q15_basic.c"/>
+        <files mask="arm_convolve_HWC_q15_fast.c"/>
+        <files mask="arm_convolve_HWC_q15_fast_nonsquare.c"/>
+        <files mask="arm_convolve_HWC_q7_RGB.c"/>
+        <files mask="arm_convolve_HWC_q7_basic.c"/>
+        <files mask="arm_convolve_HWC_q7_basic_nonsquare.c"/>
+        <files mask="arm_convolve_HWC_q7_fast.c"/>
+        <files mask="arm_convolve_HWC_q7_fast_nonsquare.c"/>
+        <files mask="arm_convolve_s8.c"/>
+        <files mask="arm_convolve_wrapper_s8.c"/>
+        <files mask="arm_depthwise_conv_3x3_s8.c"/>
+        <files mask="arm_depthwise_conv_s8.c"/>
+        <files mask="arm_depthwise_conv_s8_opt.c"/>
+        <files mask="arm_depthwise_conv_u8_basic_ver1.c"/>
+        <files mask="arm_depthwise_conv_wrapper_s8.c"/>
+        <files mask="arm_depthwise_separable_conv_HWC_q7.c"/>
+        <files mask="arm_depthwise_separable_conv_HWC_q7_nonsquare.c"/>
+        <files mask="arm_nn_depthwise_conv_s8_core.c"/>
+        <files mask="arm_nn_mat_mult_kernel_q7_q15.c"/>
+        <files mask="arm_nn_mat_mult_kernel_q7_q15_reordered.c"/>
+        <files mask="arm_nn_mat_mult_kernel_s8_s16.c"/>
+        <files mask="arm_nn_mat_mult_kernel_s8_s16_reordered.c"/>
+        <files mask="arm_nn_mat_mult_s8.c"/>
+      </source>
+      <source relative_path="tensorflow-lite/third_party/cmsis/CMSIS/NN/Source/FullyConnectedFunctions" type="src">
+        <files mask="arm_fully_connected_mat_q7_vec_q15.c"/>
+        <files mask="arm_fully_connected_mat_q7_vec_q15_opt.c"/>
+        <files mask="arm_fully_connected_q15.c"/>
+        <files mask="arm_fully_connected_q15_opt.c"/>
+        <files mask="arm_fully_connected_q7.c"/>
+        <files mask="arm_fully_connected_q7_opt.c"/>
+        <files mask="arm_fully_connected_s8.c"/>
+      </source>
+      <source relative_path="tensorflow-lite/third_party/cmsis/CMSIS/NN/Source/NNSupportFunctions" type="src">
+        <files mask="arm_nn_accumulate_q7_to_q15.c"/>
+        <files mask="arm_nn_add_q7.c"/>
+        <files mask="arm_nn_depthwise_conv_nt_t_padded_s8.c"/>
+        <files mask="arm_nn_depthwise_conv_nt_t_s8.c"/>
+        <files mask="arm_nn_mat_mul_core_1x_s8.c"/>
+        <files mask="arm_nn_mat_mul_core_4x_s8.c"/>
+        <files mask="arm_nn_mat_mult_nt_t_s8.c"/>
+        <files mask="arm_nn_mult_q15.c"/>
+        <files mask="arm_nn_mult_q7.c"/>
+        <files mask="arm_nn_vec_mat_mult_t_s8.c"/>
+        <files mask="arm_nntables.c"/>
+        <files mask="arm_q7_to_q15_no_shift.c"/>
+        <files mask="arm_q7_to_q15_reordered_no_shift.c"/>
+        <files mask="arm_q7_to_q15_reordered_with_offset.c"/>
+        <files mask="arm_q7_to_q15_with_offset.c"/>
+      </source>
+      <source relative_path="tensorflow-lite/third_party/cmsis/CMSIS/NN/Source/PoolingFunctions" type="src">
+        <files mask="arm_avgpool_s8.c"/>
+        <files mask="arm_max_pool_s8.c"/>
+        <files mask="arm_pool_q7_HWC.c"/>
+      </source>
+      <source relative_path="tensorflow-lite/third_party/cmsis/CMSIS/NN/Source/ReshapeFunctions" type="src">
+        <files mask="arm_reshape_s8.c"/>
+      </source>
+      <source relative_path="tensorflow-lite/third_party/cmsis/CMSIS/NN/Source/SVDFunctions" type="src">
+        <files mask="arm_svdf_s8.c"/>
+      </source>
+      <source relative_path="tensorflow-lite/third_party/cmsis/CMSIS/NN/Source/SoftmaxFunctions" type="src">
+        <files mask="arm_softmax_q15.c"/>
+        <files mask="arm_softmax_q7.c"/>
+        <files mask="arm_softmax_s8.c"/>
+        <files mask="arm_softmax_u8.c"/>
+        <files mask="arm_softmax_with_batch_q7.c"/>
+      </source>
+      <source relative_path="tensorflow-lite/third_party/cmsis" type="doc">
+        <files mask="LICENSE.txt"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="middleware_eiq_tensorflow_lite_micro_third_party_cmsis_nn.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="tensorflow-lite/third_party" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.eiq.tensorflow_lite_micro.third_party.fft2d.MIMXRT595S" name="FFT2D" brief="General Purpose FFT (Fast Fourier/Cosine/Sine Transform) Package" version="1.0.0" full_name="FFT2D library" devices="MIMXRT595S" category="Machine Learning/eIQ" user_visible="false" type="middleware" package_base_path="middleware/eiq" project_base_path="eiq/tensorflow-lite">
+      <source relative_path="tensorflow-lite/third_party/fft2d" project_relative_path="third_party/fft2d" type="src">
+        <files mask="fftsg.c"/>
+      </source>
+      <source relative_path="tensorflow-lite/third_party/fft2d" project_relative_path="third_party/fft2d" type="c_include">
+        <files mask="fft.h"/>
+        <files mask="fft2d.h"/>
+      </source>
+      <source relative_path="tensorflow-lite/third_party/fft2d" project_relative_path="third_party/fft2d" type="doc">
+        <files mask="readme.txt"/>
+        <files mask="LICENSE"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="tensorflow-lite/third_party/fft2d" project_relative_path="third_party/fft2d" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.eiq.tensorflow_lite_micro.third_party.flatbuffers.MIMXRT595S" name="Flatbuffers" brief="Flatbuffers library" version="1.12.0" full_name="Flatbuffers library" devices="MIMXRT595S" category="Machine Learning/eIQ" user_visible="false" type="middleware" package_base_path="middleware/eiq" project_base_path="eiq/tensorflow-lite">
+      <source relative_path="tensorflow-lite/third_party/flatbuffers" project_relative_path="third_party/flatbuffers" type="doc">
+        <files mask="readme.md"/>
+        <files mask="LICENSE.txt"/>
+      </source>
+      <source relative_path="tensorflow-lite/third_party/flatbuffers/include/flatbuffers" project_relative_path="third_party/flatbuffers/include/flatbuffers" type="c_include">
+        <files mask="base.h"/>
+        <files mask="flatbuffers.h"/>
+        <files mask="stl_emulation.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="middleware_eiq_tensorflow_lite_micro_third_party_flatbuffers.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="tensorflow-lite/third_party/flatbuffers/include" project_relative_path="third_party/flatbuffers/include" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.eiq.tensorflow_lite_micro.third_party.gemmlowp.MIMXRT595S" name="Gemmlowp" brief="Gemmlowp library" version="1.0.0" full_name="Gemmlowp library" devices="MIMXRT595S" category="Machine Learning/eIQ" user_visible="false" type="middleware" package_base_path="middleware/eiq" project_base_path="eiq/tensorflow-lite">
+      <source relative_path="tensorflow-lite/third_party/gemmlowp" project_relative_path="third_party/gemmlowp" type="doc">
+        <files mask="LICENSE"/>
+        <files mask="README.md"/>
+      </source>
+      <source relative_path="tensorflow-lite/third_party/gemmlowp/fixedpoint" project_relative_path="third_party/gemmlowp/fixedpoint" type="c_include">
+        <files mask="fixedpoint.h"/>
+      </source>
+      <source relative_path="tensorflow-lite/third_party/gemmlowp/internal" project_relative_path="third_party/gemmlowp/internal" type="c_include">
+        <files mask="detect_platform.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="middleware_eiq_tensorflow_lite_micro_third_party_gemmlowp.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="tensorflow-lite/third_party/gemmlowp" project_relative_path="third_party/gemmlowp" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.eiq.tensorflow_lite_micro.third_party.hifi4_nn.MIMXRT595S" name="Xtensa HiFi4 NN" brief="Xtensa HiFi4 NN library" version="2.2.0" full_name="Xtensa HiFi4 NN library" devices="MIMXRT595S" category="Machine Learning/eIQ" user_visible="false" type="middleware" package_base_path="middleware/eiq/tensorflow-lite/third_party/xa_nnlib_hifi4" project_base_path="eiq/tensorflow-lite/third_party/xa_nnlib_hifi4">
+      <source relative_path="algo/common/include" type="c_include">
+        <files mask="xa_api_defs.h"/>
+        <files mask="xa_nnlib_common.h"/>
+        <files mask="xa_nnlib_common_macros.h"/>
+        <files mask="xa_nnlib_definitions.h"/>
+        <files mask="xa_nnlib_err_chk.h"/>
+        <files mask="xa_nnlib_hifi_isa_compat.h"/>
+      </source>
+      <source relative_path="algo/common/src" type="src">
+        <files mask="xa_nnlib_common_api.c"/>
+      </source>
+      <source relative_path="algo/kernels/activations/hifi4" type="src">
+        <files mask="xa_nn_activations_16_16.c"/>
+        <files mask="xa_nn_activations_32_16.c"/>
+        <files mask="xa_nn_activations_32_32.c"/>
+        <files mask="xa_nn_activations_32_8.c"/>
+        <files mask="xa_nn_activations_8_8.c"/>
+        <files mask="xa_nn_activations_asym8_asym8.c"/>
+        <files mask="xa_nn_activations_f32_f32.c"/>
+        <files mask="xa_nn_softmax_asym8_asym8.c"/>
+      </source>
+      <source relative_path="algo/kernels/basic/hifi4" type="src">
+        <files mask="xa_nn_elm_add_f32.c"/>
+        <files mask="xa_nn_elm_add_quant8.c"/>
+        <files mask="xa_nn_elm_div_f32.c"/>
+        <files mask="xa_nn_elm_mul_16x16.c"/>
+        <files mask="xa_nn_elm_mul_acc_f32.c"/>
+        <files mask="xa_nn_elm_mul_f32.c"/>
+        <files mask="xa_nn_elm_mul_quant8.c"/>
+        <files mask="xa_nn_elm_sub_f32.c"/>
+        <files mask="xa_nn_floor_f32.c"/>
+        <files mask="xa_nn_vec_interpolation_q15.c"/>
+      </source>
+      <source relative_path="algo/kernels/basic/hifi4" type="c_include">
+        <files mask="xa_nn_basic_state.h"/>
+      </source>
+      <source relative_path="algo/kernels/cnn/hifi4" type="src">
+        <files mask="xa_nn_circ_buf.c"/>
+        <files mask="xa_nn_conv1d_std_16x16.c"/>
+        <files mask="xa_nn_conv1d_std_8x16.c"/>
+        <files mask="xa_nn_conv1d_std_8x8.c"/>
+        <files mask="xa_nn_conv1d_std_asym8xasym8.c"/>
+        <files mask="xa_nn_conv1d_std_circ_buf.c"/>
+        <files mask="xa_nn_conv1d_std_f32.c"/>
+        <files mask="xa_nn_conv2d_depthwise.c"/>
+        <files mask="xa_nn_conv2d_depthwise_16x16.c"/>
+        <files mask="xa_nn_conv2d_depthwise_8x16.c"/>
+        <files mask="xa_nn_conv2d_depthwise_8x8.c"/>
+        <files mask="xa_nn_conv2d_depthwise_asym8xasym8.c"/>
+        <files mask="xa_nn_conv2d_depthwise_f32.c"/>
+        <files mask="xa_nn_conv2d_pointwise_16x16.c"/>
+        <files mask="xa_nn_conv2d_pointwise_8x16.c"/>
+        <files mask="xa_nn_conv2d_pointwise_8x8.c"/>
+        <files mask="xa_nn_conv2d_pointwise_asym8xasym8.c"/>
+        <files mask="xa_nn_conv2d_pointwise_f32.c"/>
+        <files mask="xa_nn_conv2d_std_16x16.c"/>
+        <files mask="xa_nn_conv2d_std_8x16.c"/>
+        <files mask="xa_nn_conv2d_std_8x8.c"/>
+        <files mask="xa_nn_conv2d_std_asym8xasym8.c"/>
+        <files mask="xa_nn_conv2d_std_circ_buf.c"/>
+        <files mask="xa_nn_conv2d_std_f32.c"/>
+        <files mask="xa_nn_matXvec_16x16_16_circ.c"/>
+        <files mask="xa_nn_matXvec_16x16_16_circ_nb.c"/>
+        <files mask="xa_nn_matXvec_8x16_16_circ.c"/>
+        <files mask="xa_nn_matXvec_8x16_16_circ_nb.c"/>
+        <files mask="xa_nn_matXvec_8x8_8_circ.c"/>
+        <files mask="xa_nn_matXvec_8x8_8_circ_nb.c"/>
+        <files mask="xa_nn_matXvec_asym8xasym8_asym8_circ.c"/>
+        <files mask="xa_nn_matXvec_asym8xasym8_asym8_circ_nb.c"/>
+        <files mask="xa_nn_matXvec_f32_circ.c"/>
+        <files mask="xa_nn_matXvec_f32_circ_nb.c"/>
+      </source>
+      <source relative_path="algo/kernels/cnn/hifi4" type="c_include">
+        <files mask="xa_nn_circ_buf.h"/>
+        <files mask="xa_nn_conv1d_std_state.h"/>
+        <files mask="xa_nn_conv2d_depthwise_state.h"/>
+        <files mask="xa_nn_conv2d_std_state.h"/>
+      </source>
+      <source relative_path="algo/kernels/fc/hifi4" type="src">
+        <files mask="xa_nn_fully_connected.c"/>
+      </source>
+      <source relative_path="algo/kernels/matXvec/hifi4" type="src">
+        <files mask="xa_nn_matXvec_16x16.c"/>
+        <files mask="xa_nn_matXvec_16x16_batch.c"/>
+        <files mask="xa_nn_matXvec_16x8.c"/>
+        <files mask="xa_nn_matXvec_8x16.c"/>
+        <files mask="xa_nn_matXvec_8x16_batch.c"/>
+        <files mask="xa_nn_matXvec_8x8.c"/>
+        <files mask="xa_nn_matXvec_8x8_batch.c"/>
+        <files mask="xa_nn_matXvec_asym8xasym8.c"/>
+        <files mask="xa_nn_matXvec_asym8xasym8_batch.c"/>
+        <files mask="xa_nn_matXvec_f32.c"/>
+        <files mask="xa_nn_matXvec_f32_batch.c"/>
+        <files mask="xa_nn_matmul_16x16.c"/>
+        <files mask="xa_nn_matmul_8x16.c"/>
+        <files mask="xa_nn_matmul_8x8.c"/>
+        <files mask="xa_nn_matmul_asym8xasym8.c"/>
+        <files mask="xa_nn_matmul_f32.c"/>
+      </source>
+      <source relative_path="algo/kernels/norm/hifi4" type="src">
+        <files mask="xa_nn_l2_norm_f32.c"/>
+      </source>
+      <source relative_path="algo/kernels/pool/hifi4" type="src">
+        <files mask="xa_nn_avgpool.c"/>
+        <files mask="xa_nn_avgpool_16.c"/>
+        <files mask="xa_nn_avgpool_16_nhwc.c"/>
+        <files mask="xa_nn_avgpool_8.c"/>
+        <files mask="xa_nn_avgpool_8_nhwc.c"/>
+        <files mask="xa_nn_avgpool_asym8.c"/>
+        <files mask="xa_nn_avgpool_asym8_nhwc.c"/>
+        <files mask="xa_nn_avgpool_f32.c"/>
+        <files mask="xa_nn_avgpool_f32_nhwc.c"/>
+        <files mask="xa_nn_inv_256_tbl.c"/>
+        <files mask="xa_nn_maxpool.c"/>
+        <files mask="xa_nn_maxpool_16.c"/>
+        <files mask="xa_nn_maxpool_16_nhwc.c"/>
+        <files mask="xa_nn_maxpool_8.c"/>
+        <files mask="xa_nn_maxpool_8_nhwc.c"/>
+        <files mask="xa_nn_maxpool_asym8.c"/>
+        <files mask="xa_nn_maxpool_asym8_nhwc.c"/>
+        <files mask="xa_nn_maxpool_f32.c"/>
+        <files mask="xa_nn_maxpool_f32_nhwc.c"/>
+      </source>
+      <source relative_path="algo/kernels/pool/hifi4" type="c_include">
+        <files mask="xa_nn_avgpool_state.h"/>
+        <files mask="xa_nn_maxpool_state.h"/>
+      </source>
+      <source relative_path="algo/layers/cnn/src" type="src">
+        <files mask="xa_nn_cnn_api.c"/>
+      </source>
+      <source relative_path="algo/layers/gru/src" type="src">
+        <files mask="xa_nn_gru_api.c"/>
+      </source>
+      <source relative_path="algo/layers/lstm/src" type="src">
+        <files mask="xa_nn_lstm_api.c"/>
+      </source>
+      <source relative_path="algo/ndsp/hifi4/include" type="c_include">
+        <files mask="NatureDSP_Signal_math.h"/>
+        <files mask="NatureDSP_Signal_matop.h"/>
+        <files mask="NatureDSP_types.h"/>
+        <files mask="common.h"/>
+        <files mask="common_fpu.h"/>
+        <files mask="expf_tbl.h"/>
+        <files mask="inff_tbl.h"/>
+        <files mask="nan_tbl.h"/>
+        <files mask="nanf_tbl.h"/>
+        <files mask="pow2f_tbl.h"/>
+        <files mask="tanhf_tbl.h"/>
+      </source>
+      <source relative_path="algo/ndsp/hifi4/src" type="src">
+        <files mask="expf_tbl.c"/>
+        <files mask="inff_tbl.c"/>
+        <files mask="nanf_tbl.c"/>
+        <files mask="pow2f_tbl.c"/>
+        <files mask="scl_sigmoidf_hifi4.c"/>
+        <files mask="scl_tanhf_hifi4.c"/>
+        <files mask="tanhf_tbl.c"/>
+        <files mask="vec_alognf_hifi4.c"/>
+        <files mask="vec_relu32x32_hifi4.c"/>
+        <files mask="vec_reluf_hifi4.c"/>
+        <files mask="vec_sigmoid32x32_hifi4.c"/>
+        <files mask="vec_sigmoidf_hifi4.c"/>
+        <files mask="vec_softmax32x32_hifi4.c"/>
+        <files mask="vec_softmaxf_hifi4.c"/>
+        <files mask="vec_tanh32x32_hifi4.c"/>
+        <files mask="vec_tanhf_hifi4.c"/>
+      </source>
+      <source relative_path="include" type="c_include">
+        <files mask="xa_type_def.h"/>
+      </source>
+      <source relative_path="include/nnlib" type="c_include">
+        <files mask="xa_nnlib_api.h"/>
+        <files mask="xa_nnlib_cnn_api.h"/>
+        <files mask="xa_nnlib_gru_api.h"/>
+        <files mask="xa_nnlib_kernels_api.h"/>
+        <files mask="xa_nnlib_lstm_api.h"/>
+        <files mask="xa_nnlib_standards.h"/>
+      </source>
+      <source relative_path="./" type="doc">
+        <files mask="README"/>
+        <files mask="license.txt"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="algo/common/include" type="c_include"/>
+        <include_path relative_path="algo/kernels/basic/hifi4" type="c_include"/>
+        <include_path relative_path="algo/kernels/cnn/hifi4" type="c_include"/>
+        <include_path relative_path="algo/kernels/pool/hifi4" type="c_include"/>
+        <include_path relative_path="algo/ndsp/hifi4/include" type="c_include"/>
+        <include_path relative_path="include" type="c_include"/>
+        <include_path relative_path="include/nnlib" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.eiq.tensorflow_lite_micro.third_party.ruy.MIMXRT595S" name="Ruy" brief="Ruy library" version="1.0.0" full_name="Ruy library" devices="MIMXRT595S" category="Machine Learning/eIQ" user_visible="false" type="middleware" package_base_path="middleware/eiq" project_base_path="eiq/tensorflow-lite">
+      <source relative_path="tensorflow-lite/third_party/ruy" project_relative_path="third_party/ruy" type="doc">
+        <files mask="LICENSE"/>
+        <files mask="README.md"/>
+      </source>
+      <source relative_path="tensorflow-lite/third_party/ruy/ruy/profiler" project_relative_path="third_party/ruy/ruy/profiler" type="c_include">
+        <files mask="instrumentation.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="middleware_eiq_tensorflow_lite_micro_third_party_ruy.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="tensorflow-lite/third_party/ruy" project_relative_path="third_party/ruy" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.eiq.worker.MIMXRT595S" name="eiq_IWorker" brief="Video and audio interface layer" version="1.0.0" full_name="eiq_IWorker" devices="MIMXRT595S" user_visible="false" type="middleware" package_base_path="middleware/eiq" project_base_path="source">
+      <source relative_path="common" project_relative_path="./" type="c_include">
+        <files mask="eiq_common.h"/>
+        <files mask="eiq_iui.h"/>
+        <files mask="eiq_iworker.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="middleware_eiq_worker.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="common" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.eiq.worker.audio.MIMXRT595S" name="eiq_AudioWorker" brief="Audio capture and play abstract layer" version="1.0.0" full_name="eiq_AudioWorker" devices="MIMXRT595S" user_visible="false" type="middleware" package_base_path="middleware/eiq" project_base_path="source">
+      <dependencies>
+        <component_dependency value="middleware.eiq.worker.MIMXRT595S"/>
+      </dependencies>
+      <source relative_path="common/audio" project_relative_path="audio" type="src">
+        <files mask="eiq_audio_worker.c"/>
+        <files mask="eiq_micro.c"/>
+        <files mask="eiq_speaker.c"/>
+        <files mask="eiq_speaker_conf.c"/>
+      </source>
+      <source relative_path="common/audio" project_relative_path="audio" type="c_include">
+        <files mask="audio.h"/>
+        <files mask="eiq_audio_worker.h"/>
+        <files mask="eiq_micro.h"/>
+        <files mask="eiq_micro_conf.h"/>
+        <files mask="eiq_speaker.h"/>
+        <files mask="eiq_speaker_conf.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="common/audio" project_relative_path="audio" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.eiq.worker.sensor.MIMXRT595S" name="eiq_Sensor" brief="Sensor capture abstract layer" version="1.0.0" full_name="eiq_Sensor" devices="MIMXRT595S" user_visible="false" type="middleware" package_base_path="middleware/eiq" project_base_path="source">
+      <source relative_path="common/sensor" project_relative_path="sensor" type="src">
+        <files mask="sensor_capture.c"/>
+        <files mask="sensor_raw.c"/>
+      </source>
+      <source relative_path="common/sensor" project_relative_path="sensor" type="c_include">
+        <files mask="sensor.h"/>
+        <files mask="sensor_raw.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="common/sensor" project_relative_path="sensor" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.eiq.worker.video.MIMXRT595S" name="eiq_VideoWorker" brief="Video capture and display abstract layer" version="1.0.0" full_name="eiq_VideoWorker" devices="MIMXRT595S" user_visible="false" type="middleware" package_base_path="middleware/eiq" project_base_path="source">
+      <dependencies>
+        <component_dependency value="middleware.eiq.worker.MIMXRT595S"/>
+      </dependencies>
+      <source relative_path="common/video" project_relative_path="video" type="src">
+        <files mask="eiq_camera.c"/>
+        <files mask="eiq_display.c"/>
+        <files mask="eiq_pxp.c"/>
+        <files mask="eiq_video_worker.c"/>
+      </source>
+      <source relative_path="common/video" project_relative_path="video" type="c_include">
+        <files mask="eiq_camera.h"/>
+        <files mask="eiq_camera_conf.h"/>
+        <files mask="eiq_display.h"/>
+        <files mask="eiq_display_conf.h"/>
+        <files mask="eiq_pxp.h"/>
+        <files mask="eiq_video_worker.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="common/video" project_relative_path="video" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.MIMXRT595S" name="fatfs" brief="FatFs" version="0.14" full_name="FAT File System stack" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" category="File System/FAT File System" user_visible="true" type="middleware" package_base_path="middleware/fatfs" project_base_path="fatfs">
+      <dependencies>
+        <any_of>
+          <all>
+            <component_dependency value="middleware.fatfs.template_ram.MIMXRT595S"/>
+            <component_dependency value="middleware.fatfs.ram.MIMXRT595S"/>
+          </all>
+          <all>
+            <component_dependency value="middleware.fatfs.template_nand.MIMXRT595S"/>
+            <component_dependency value="middleware.fatfs.nand.MIMXRT595S"/>
+          </all>
+          <all>
+            <component_dependency value="middleware.fatfs.template_mmc.MIMXRT595S"/>
+            <component_dependency value="middleware.fatfs.mmc.MIMXRT595S"/>
+          </all>
+          <all>
+            <component_dependency value="middleware.fatfs.template_sd.MIMXRT595S"/>
+            <component_dependency value="middleware.fatfs.sd.MIMXRT595S"/>
+          </all>
+        </any_of>
+      </dependencies>
+      <source relative_path="source" type="src">
+        <files mask="diskio.c"/>
+        <files mask="ff.c"/>
+        <files mask="ffsystem.c"/>
+        <files mask="ffunicode.c"/>
+      </source>
+      <source relative_path="source" type="c_include">
+        <files mask="diskio.h"/>
+        <files mask="ff.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="middleware_fatfs.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="source" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.mmc.MIMXRT595S" name="mmc" brief="FatFs_MMC" version="0.14" full_name="Fatfs MMC layer" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" category="File System/FAT File System" user_visible="true" type="middleware" package_base_path="middleware/fatfs" project_base_path="fatfs">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.fatfs.MIMXRT595S"/>
+          <component_dependency value="middleware.fatfs.template_mmc.MIMXRT595S"/>
+          <component_dependency value="middleware.sdmmc.mmc.MIMXRT595S"/>
+        </all>
+      </dependencies>
+      <source relative_path="source/fsl_mmc_disk" type="src">
+        <files mask="fsl_mmc_disk.c"/>
+      </source>
+      <source relative_path="source/fsl_mmc_disk" type="c_include">
+        <files mask="fsl_mmc_disk.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="middleware_fatfs_mmc.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="source/fsl_mmc_disk" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.nand.MIMXRT595S" name="nand" brief="FatFs_NAND" version="0.14" full_name="Fatfs NAND layer" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" category="File System/FAT File System" user_visible="true" type="middleware" package_base_path="middleware/fatfs" project_base_path="fatfs">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.fatfs.MIMXRT595S"/>
+          <component_dependency value="middleware.fatfs.template_nand.MIMXRT595S"/>
+          <component_dependency value="driver.nand_flash-controller-flexspi.MIMXRT595S"/>
+        </all>
+      </dependencies>
+      <source relative_path="source/fsl_nand_disk" type="src">
+        <files mask="fsl_nand_disk.c"/>
+      </source>
+      <source relative_path="source/fsl_nand_disk" type="c_include">
+        <files mask="fsl_nand_disk.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="source/fsl_nand_disk" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.ram.MIMXRT595S" name="ram" brief="FatFs_RAM" version="0.14" full_name="Fatfs RAM layer" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" category="File System/FAT File System" user_visible="true" type="middleware" package_base_path="middleware/fatfs" project_base_path="fatfs">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.fatfs.MIMXRT595S"/>
+          <component_dependency value="middleware.fatfs.template_ram.MIMXRT595S"/>
+          <component_dependency value="platform.drivers.common.MIMXRT595S"/>
+        </all>
+      </dependencies>
+      <source relative_path="source/fsl_ram_disk" type="src">
+        <files mask="fsl_ram_disk.c"/>
+      </source>
+      <source relative_path="source/fsl_ram_disk" type="c_include">
+        <files mask="fsl_ram_disk.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="source/fsl_ram_disk" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.sd.MIMXRT595S" name="sd" brief="FatFs_SD" version="0.14" full_name="Fatfs SD layer" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" category="File System/FAT File System" user_visible="true" type="middleware" package_base_path="middleware/fatfs" project_base_path="fatfs">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.fatfs.MIMXRT595S"/>
+          <component_dependency value="middleware.fatfs.template_sd.MIMXRT595S"/>
+          <component_dependency value="middleware.sdmmc.sd.MIMXRT595S"/>
+        </all>
+      </dependencies>
+      <source relative_path="source/fsl_sd_disk" type="src">
+        <files mask="fsl_sd_disk.c"/>
+      </source>
+      <source relative_path="source/fsl_sd_disk" type="c_include">
+        <files mask="fsl_sd_disk.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="middleware_fatfs_sd.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="source/fsl_sd_disk" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.template_mmc.MIMXRT595S" name="fatfs_mmc" brief="FatFs template MMC" version="0.14" full_name="FatFs template configuration for MMC disk" devices="MIMXRT595S" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
+      <source relative_path="template/mmc" project_relative_path="./" type="c_include">
+        <files mask="ffconf.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="template/mmc" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.template_nand.MIMXRT595S" name="fatfs_nand" brief="FatFs template NAND" version="0.14" full_name="FatFs template configuration for NAND disk" devices="MIMXRT595S" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
+      <source relative_path="template/nand" project_relative_path="./" type="c_include">
+        <files mask="ffconf.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="template/nand" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.template_ram.MIMXRT595S" name="fatfs_ram" brief="FatFs template RAM" version="0.14" full_name="FatFs template configuration for RAM disk" devices="MIMXRT595S" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
+      <source relative_path="template/ram" project_relative_path="./" type="c_include">
+        <files mask="ffconf.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="template/ram" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.template_sd.MIMXRT595S" name="fatfs_sd" brief="FatFs template SD" version="0.14" full_name="FatFs template configuration for SD disk" devices="MIMXRT595S" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/sd/fatfs" project_base_path="source">
+      <include_paths>
+        <include_path relative_path="template/sd" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.template_sdspi.MIMXRT595S" name="fatfs_sdspi" brief="FatFs template SDSPI" version="0.14" full_name="FatFs template configuration for SDSPI disk" devices="MIMXRT595S" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
+      <source relative_path="template/sdspi" project_relative_path="./" type="c_include">
+        <files mask="ffconf.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="template/sdspi" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.template_usb.MIMXRT595S" name="fatfs_usb" brief="FatFs template USB" version="0.14" full_name="FatFs template configuration for USB disk" devices="MIMXRT595S" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
+      <source relative_path="template/usb" project_relative_path="./" type="c_include">
+        <files mask="ffconf.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="template/usb" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.unused_files.MIMXRT595S" name="unused_files" brief="fatfs files unused by projects" version="0.14" full_name="fatfs unused" devices="MIMXRT595S" user_visible="false" type="other" package_base_path="middleware/fatfs" project_base_path="fatfs">
+      <source exclude="true" relative_path="./" type="doc">
+        <files mask="ChangeLogKSDK.txt" hidden="true"/>
+        <files mask="LICENSE.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="documents" type="doc">
+        <files mask="00index_e.html" hidden="true"/>
+        <files mask="css_e.css" hidden="true"/>
+        <files mask="updates.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="documents/doc" type="doc">
+        <files mask="appnote.html" hidden="true"/>
+        <files mask="chdir.html" hidden="true"/>
+        <files mask="chdrive.html" hidden="true"/>
+        <files mask="chmod.html" hidden="true"/>
+        <files mask="close.html" hidden="true"/>
+        <files mask="closedir.html" hidden="true"/>
+        <files mask="config.html" hidden="true"/>
+        <files mask="dinit.html" hidden="true"/>
+        <files mask="dioctl.html" hidden="true"/>
+        <files mask="dread.html" hidden="true"/>
+        <files mask="dstat.html" hidden="true"/>
+        <files mask="dwrite.html" hidden="true"/>
+        <files mask="eof.html" hidden="true"/>
+        <files mask="error.html" hidden="true"/>
+        <files mask="expand.html" hidden="true"/>
+        <files mask="fattime.html" hidden="true"/>
+        <files mask="fdisk.html" hidden="true"/>
+        <files mask="filename.html" hidden="true"/>
+        <files mask="findfirst.html" hidden="true"/>
+        <files mask="findnext.html" hidden="true"/>
+        <files mask="forward.html" hidden="true"/>
+        <files mask="getcwd.html" hidden="true"/>
+        <files mask="getfree.html" hidden="true"/>
+        <files mask="getlabel.html" hidden="true"/>
+        <files mask="gets.html" hidden="true"/>
+        <files mask="lseek.html" hidden="true"/>
+        <files mask="mkdir.html" hidden="true"/>
+        <files mask="mkfs.html" hidden="true"/>
+        <files mask="mount.html" hidden="true"/>
+        <files mask="open.html" hidden="true"/>
+        <files mask="opendir.html" hidden="true"/>
+        <files mask="printf.html" hidden="true"/>
+        <files mask="putc.html" hidden="true"/>
+        <files mask="puts.html" hidden="true"/>
+        <files mask="rc.html" hidden="true"/>
+        <files mask="read.html" hidden="true"/>
+        <files mask="readdir.html" hidden="true"/>
+        <files mask="rename.html" hidden="true"/>
+        <files mask="sdir.html" hidden="true"/>
+        <files mask="setcp.html" hidden="true"/>
+        <files mask="setlabel.html" hidden="true"/>
+        <files mask="sfatfs.html" hidden="true"/>
+        <files mask="sfile.html" hidden="true"/>
+        <files mask="sfileinfo.html" hidden="true"/>
+        <files mask="size.html" hidden="true"/>
+        <files mask="stat.html" hidden="true"/>
+        <files mask="sync.html" hidden="true"/>
+        <files mask="tell.html" hidden="true"/>
+        <files mask="truncate.html" hidden="true"/>
+        <files mask="unlink.html" hidden="true"/>
+        <files mask="utime.html" hidden="true"/>
+        <files mask="write.html" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="documents/res" type="src">
+        <files mask="app1.c" hidden="true"/>
+        <files mask="app2.c" hidden="true"/>
+        <files mask="app3.c" hidden="true"/>
+        <files mask="app4.c" hidden="true"/>
+        <files mask="app5.c" hidden="true"/>
+        <files mask="app6.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="documents/res" type="image">
+        <files mask="f1.png" hidden="true"/>
+        <files mask="f2.png" hidden="true"/>
+        <files mask="f3.png" hidden="true"/>
+        <files mask="f4.png" hidden="true"/>
+        <files mask="f5.png" hidden="true"/>
+        <files mask="f6.png" hidden="true"/>
+        <files mask="f7.png" hidden="true"/>
+        <files mask="funcs.png" hidden="true"/>
+        <files mask="layers.png" hidden="true"/>
+        <files mask="layers1.png" hidden="true"/>
+        <files mask="layers2.png" hidden="true"/>
+        <files mask="layers3.png" hidden="true"/>
+        <files mask="modules.png" hidden="true"/>
+        <files mask="rwtest1.png" hidden="true"/>
+        <files mask="rwtest2.png" hidden="true"/>
+        <files mask="rwtest3.png" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="documents/res" type="archive">
+        <files mask="mkfatimg.zip" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="documents/res" type="other">
+        <files mask="mkfs.xlsx" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="source" type="doc">
+        <files mask="00history.txt" hidden="true"/>
+        <files mask="00readme.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="source" type="c_include">
+        <files mask="ffconf_template.h" hidden="true"/>
       </source>
     </component>
     <component id="middleware.freertos-kernel.MIMXRT595S" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="202012.00.0" full_name="FreeRTOS kernel" devices="MIMXRT595S" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
@@ -4411,6 +6136,9 @@ ${load}</script>
       <source relative_path="portable/MemMang" type="src">
         <files mask="heap_3.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="middleware_freertos-kernel_heap_3.cmake" hidden="true"/>
+      </source>
     </component>
     <component id="middleware.freertos-kernel.heap_4.MIMXRT595S" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="202012.00.0" full_name="FreeRTOS heap 4" devices="MIMXRT595S" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
       <dependencies>
@@ -4665,6 +6393,9 @@ ${load}</script>
       <source condition="middleware.freertos-kernel.MIMXRT595S" relative_path="rpmsg_lite/lib/rpmsg_lite" project_relative_path="env/freertos" type="src">
         <files mask="rpmsg_queue.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="middleware_multicore_rpmsg_lite.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="rpmsg_lite/lib/include" project_relative_path="./" type="c_include"/>
       </include_paths>
@@ -4696,6 +6427,9 @@ ${load}</script>
       </source>
       <source relative_path="rpmsg_lite/lib/rpmsg_lite/porting/platform/imxrt500_m33" project_relative_path="porting" type="src">
         <files mask="rpmsg_platform.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="middleware_multicore_rpmsg_lite_evkmimxrt595_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="rpmsg_lite/lib/include/platform/imxrt500_m33" project_relative_path="porting" type="c_include"/>

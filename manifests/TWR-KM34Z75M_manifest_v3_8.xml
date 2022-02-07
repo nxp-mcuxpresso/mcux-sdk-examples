@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_TWR-KM34Z75M" name="TWR-KM34Z75M" brief="This is SDK version 2.10.0 manifest file. It describes the content of the TWR-KM34Z75M and additional settings for tools that support SDK version 2.10.0" format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-08-03 13:04:47.749366-->
-  <!--This manifest is generated based on sdk repo commit: a40647dd23698fa812ab2e267466ae159e1a5d45-->
+  <!--Timestamp (UTC): 2022-01-26 08:51:18.115838-->
+  <!--This manifest is generated based on sdk repo commit: 04124c9a3d8bee40269a5fff2c12f59654c36812-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
@@ -137,6 +137,41 @@ ${load}</script>
         <example id="twrkm34z75m_cmp_polling" name="cmp_polling" brief="The CMP polling Example shows the simplest way to use CMP driver and help user with a quick start.In this example, user should indicate an input channel to capture a voltage signal (can be controlled by user) as the CMP's positive channel input. On the negative side, the internal 6-bit DAC is used to generate the fixed voltage abouthalf value of reference voltage.When running the project, change the input voltage of user-defined channel, then the comparator's output would changebetween logic one and zero when the user's voltage crosses the internal DAC's value. The endless loop in main() functionwould detect the logic value of comparator's output, and change the LED. The LED would be turned on when the compareoutput is logic one, or turned off when zero." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/cmp" path="examples/twrkm34z75m/driver_examples/cmp/polling">
           <external path="examples/twrkm34z75m/driver_examples/cmp/polling" type="xml">
             <files mask="cmp_polling_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z75m_cmsis_i2c_read_accel_value_transfer" name="cmsis_i2c_read_accel_value_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_i2c_read_accel_value example shows how to use CMSIS I2C driver to communicate with an i2c device: 1. How to use the i2c driver to read a i2c device who_am_I register. 2. How to use the i2c driver to write/read the device registers.In this example, the values of three-axis accelerometer print to the serial terminal on PC throughthe virtual serial port on board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/twrkm34z75m/cmsis_driver_examples/i2c/read_accel_value_transfer">
+          <external path="examples/twrkm34z75m/cmsis_driver_examples/i2c/read_accel_value_transfer" type="xml">
+            <files mask="cmsis_i2c_read_accel_value_transfer_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z75m_cmsis_spi_dma_b2b_transfer_master" name="cmsis_spi_dma_b2b_transfer_master" brief="The spi_dma_b2b_transfer example shows how to use SPI CMSIS driver in dma way:In this example , we need two boards, one board used as SPI master and another board used as SPI slave.The file 'spi_dma_b2b_transfer_master.c' includes the SPI master code.1. SPI master send/received data to/from SPI slave in dma . " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/twrkm34z75m/cmsis_driver_examples/spi/dma_b2b_transfer/master">
+          <external path="examples/twrkm34z75m/cmsis_driver_examples/spi/dma_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_dma_b2b_transfer_master_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z75m_cmsis_spi_dma_b2b_transfer_slave" name="cmsis_spi_dma_b2b_transfer_slave" brief="The spi_dma_b2b_transfer example shows how to use SPI CMSIS driver in dma way:In this example , we need two boards, one board used as SPI master and another board used as SPI slave.The file 'spi_dma_b2b_transfer_slave.c' includes the SPI slave code.1. SPI master send/received data to/from SPI slave in dma . " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/twrkm34z75m/cmsis_driver_examples/spi/dma_b2b_transfer/slave">
+          <external path="examples/twrkm34z75m/cmsis_driver_examples/spi/dma_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_dma_b2b_transfer_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z75m_cmsis_spi_interrupt_b2b_transfer_master" name="cmsis_spi_interrupt_b2b_transfer_master" brief="The spi_interrupt_b2b_transfer example shows how to use spi CMSIS driver in interrupt way:In this example , we need two boards, one board used as spi master and another board used as spi slave.The file 'spi_interrupt_b2b_transfer_master.c' includes the spi master code.This example uses the transactional API in spi driver.1. spi master send/received data to/from spi slave in interrupt . " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/twrkm34z75m/cmsis_driver_examples/spi/interrupt_b2b_transfer/master">
+          <external path="examples/twrkm34z75m/cmsis_driver_examples/spi/interrupt_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_interrupt_b2b_transfer_master_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z75m_cmsis_spi_interrupt_b2b_transfer_slave" name="cmsis_spi_interrupt_b2b_transfer_slave" brief="The spi_interrupt_b2b_transfer example shows how to use SPI CMSIS driver in interrupt way:In this example , we need two boards, one board used as SPI master and another board used as SPI slave.The file 'spi_interrupt_b2b_transfer_slave.c' includes the SPI slave code.This example uses the transactional API in SPI driver.1. SPI master send/received data to/from SPI slave in interrupt . " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/twrkm34z75m/cmsis_driver_examples/spi/interrupt_b2b_transfer/slave">
+          <external path="examples/twrkm34z75m/cmsis_driver_examples/spi/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_interrupt_b2b_transfer_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z75m_cmsis_uart_dma_transfer" name="cmsis_uart_dma_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_uart_edma_transfer example shows how to use uart cmsis  driver with EDMA:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/uart" path="examples/twrkm34z75m/cmsis_driver_examples/uart/dma_transfer">
+          <external path="examples/twrkm34z75m/cmsis_driver_examples/uart/dma_transfer" type="xml">
+            <files mask="cmsis_uart_dma_transfer_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z75m_cmsis_uart_interrupt_transfer" name="cmsis_uart_interrupt_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_uart_interrupt_transfer example shows how to use uart cmsis driver in interrupt way:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/uart" path="examples/twrkm34z75m/cmsis_driver_examples/uart/interrupt_transfer">
+          <external path="examples/twrkm34z75m/cmsis_driver_examples/uart/interrupt_transfer" type="xml">
+            <files mask="cmsis_uart_interrupt_transfer_v3_8.xml"/>
           </external>
         </example>
         <example id="twrkm34z75m_crc" name="crc" brief="The CRC Example project is a demonstration program that uses the KSDK software to generate checksumsfor an ASCII string. Several CRC protocols are implemented using the CRC driver API." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/crc" path="examples/twrkm34z75m/driver_examples/crc">
@@ -282,6 +317,16 @@ ${load}</script>
         <example id="twrkm34z75m_irtc" name="irtc" brief="The IRTC project is a simple demonstration program of the SDK IRTC driver.This example is a low power module that provides time keeping and calendaring functions and additionally providesprotection against tampering, protection against spurious memory/register updates and battery operation." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/irtc" path="examples/twrkm34z75m/driver_examples/irtc">
           <external path="examples/twrkm34z75m/driver_examples/irtc" type="xml">
             <files mask="irtc_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z75m_log_bm" name="log_bm" brief="The log demo is used to demonstrate how to use log component. The main function of the demo is to prompt the LOG level string according to the user input log level command." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="examples/twrkm34z75m/component_examples/log/bm">
+          <external path="examples/twrkm34z75m/component_examples/log/bm" type="xml">
+            <files mask="log_bm_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z75m_log_freertos" name="log_freertos" brief="The log demo is used to demonstrate how to use log component. The main function of the demo is to prompt the LOG level string according to the user input log level command." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="examples/twrkm34z75m/component_examples/log/freertos">
+          <external path="examples/twrkm34z75m/component_examples/log/freertos" type="xml">
+            <files mask="log_freertos_v3_8.xml"/>
           </external>
         </example>
         <example id="twrkm34z75m_lptmr" name="lptmr" brief="The LPTMR project is a simple demonstration program of the SDK LPTMR driver. It sets up the LPTMRhardware block to trigger a periodic interrupt after every 1 second. When the LPTMR interrupt is triggereda message a printed on the UART terminal and an LED is toggled on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lptmr" path="examples/twrkm34z75m/driver_examples/lptmr">
@@ -968,6 +1013,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="Driver_Common.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_Common.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1034,6 +1082,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="Driver_I2C.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_I2C.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1078,6 +1129,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="Driver_SPI.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_SPI.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1088,6 +1142,9 @@ ${load}</script>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_USART.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_USART.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1651,6 +1708,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_component_log.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_log.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1669,6 +1729,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="fsl_component_log_backend_debugconsole.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_log_backend_debugconsole.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1685,6 +1748,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="c_include">
         <files mask="fsl_component_log_backend_ringbuffer.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_log_backend_ringbuffer.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1850,7 +1916,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="device.MKM34Z7_debugger.MKM34Z7" name="MKM34Z7_debugger" brief="Device MKM34Z7_debugger" version="1.0.0" full_name="Device MKM34Z7_debugger" devices="MKM34Z256xxx7" user_visible="true" type="debugger" package_base_path="svd/MKM34Z7" project_base_path="MKM34Z7">
+    <component id="device.MKM34Z7_debugger.MKM34Z7" name="MKM34Z7_debugger" brief="Device MKM34Z7_debugger" version="1.0.0" full_name="Device MKM34Z7_debugger" devices="MKM34Z256xxx7" user_visible="true" type="debugger" package_base_path="core/devices/MKM34Z7" project_base_path="MKM34Z7">
       <source relative_path="./" type="xml">
         <files mask="MKM34Z7.xml"/>
       </source>
@@ -1964,6 +2030,72 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="driver_cmp.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.i2c_cmsis.MKM34Z7" name="i2c_cmsis" brief="I2C CMSIS Driver" version="2.2.0" full_name="I2C CMSIS Driver" devices="MKM34Z256xxx7" device_cores="core0_MKM34Z256xxx7" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/i2c" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.i2c_dma.MKM34Z7"/>
+          <component_dependency value="platform.drivers.i2c.MKM34Z7"/>
+          <component_dependency value="CMSIS_Driver_Include.I2C.MKM34Z7"/>
+          <component_dependency value="RTE_Device.MKM34Z7"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_i2c_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_i2c_cmsis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_cmsis_i2c.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.spi_cmsis.MKM34Z7" name="spi_cmsis" brief="SPI CMSIS Driver" version="2.3.0" full_name="SPI CMSIS Driver" devices="MKM34Z256xxx7" device_cores="core0_MKM34Z256xxx7" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/spi" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.spi_dma.MKM34Z7"/>
+          <component_dependency value="platform.drivers.spi.MKM34Z7"/>
+          <component_dependency value="CMSIS_Driver_Include.SPI.MKM34Z7"/>
+          <component_dependency value="RTE_Device.MKM34Z7"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_spi_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_spi_cmsis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_cmsis_spi.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.uart_cmsis.MKM34Z7" name="uart_cmsis" brief="UART CMSIS Driver" version="2.1.0" full_name="UART CMSIS Driver" devices="MKM34Z256xxx7" device_cores="core0_MKM34Z256xxx7" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/uart" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.uart_dma.MKM34Z7"/>
+          <component_dependency value="platform.drivers.uart.MKM34Z7"/>
+          <component_dependency value="CMSIS_Driver_Include.USART.MKM34Z7"/>
+          <component_dependency value="RTE_Device.MKM34Z7"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_uart_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_uart_cmsis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_cmsis_uart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3057,6 +3189,246 @@ ${load}</script>
       <source exclude="true" relative_path="doxygen" type="other">
         <files mask="fsl_mmcau.dox" hidden="true"/>
       </source>
+    </component>
+    <component id="middleware.rtcesl.cm0p.MKM34Z7" name="rtcesl" brief="Real Time Control Embedded Software Library for CM0 core" version="1.1.0" full_name="Middleware rtcesl cm0" devices="MKM34Z256xxx7" device_cores="core0_MKM34Z256xxx7" user_visible="true" type="middleware" package_base_path="middleware/rtcesl" project_base_path="rtcesl">
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/AMCLIB/Include" type="c_include">
+        <files mask="amclib.h"/>
+        <files mask="AMCLIB_AngleTrackObsrv_F32.h"/>
+        <files mask="AMCLIB_CtrlFluxWkng_A32.h"/>
+        <files mask="AMCLIB_PMSMBemfObsrvDQ_A32.h"/>
+        <files mask="AMCLIB_PMSMBemfObsrvDQHw_A32.h"/>
+        <files mask="AMCLIB_PMSMBemfObsrvAB_A32.h"/>
+        <files mask="AMCLIB_PMSMBemfObsrvABHw_A32.h"/>
+        <files mask="AMCLIB_TrackObsrv_F32.h"/>
+        <files mask="amclib_types.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/GDFLIB/Include" type="c_include">
+        <files mask="gdflib.h"/>
+        <files mask="GDFLIB_FilterExp_F32.h"/>
+        <files mask="GDFLIB_FilterIIR1_F32.h"/>
+        <files mask="GDFLIB_FilterIIR2_F32.h"/>
+        <files mask="GDFLIB_FilterMA_A32.h"/>
+        <files mask="GDFLIB_FilterMA_A32_Asmi.h"/>
+        <files mask="gdflib_types.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/GFLIB/Include" type="c_include">
+        <files mask="gflib.h"/>
+        <files mask="GFLIB_Atan_F32.h"/>
+        <files mask="GFLIB_AtanYX_F32.h"/>
+        <files mask="GFLIB_AtanYXHw_F32.h"/>
+        <files mask="GFLIB_CtrlBetaIPp_A32.h"/>
+        <files mask="GFLIB_CtrlPIp_A32.h"/>
+        <files mask="GFLIB_DFlexRamp_A32.h"/>
+        <files mask="GFLIB_DFlexRampHw_A32.h"/>
+        <files mask="GFLIB_DRamp_F16.h"/>
+        <files mask="GFLIB_DRamp_F32.h"/>
+        <files mask="GFLIB_FlexRamp_A32.h"/>
+        <files mask="GFLIB_FlexRampHw_A32.h"/>
+        <files mask="GFLIB_Hyst_F16_Asmi.h"/>
+        <files mask="GFLIB_Integrator_A32.h"/>
+        <files mask="GFLIB_Limit_F16.h"/>
+        <files mask="GFLIB_Limit_F32.h"/>
+        <files mask="GFLIB_LowerLimit_F16.h"/>
+        <files mask="GFLIB_LowerLimit_F32.h"/>
+        <files mask="GFLIB_Lut_F16_Asmi.h"/>
+        <files mask="GFLIB_Lut_F32.h"/>
+        <files mask="GFLIB_LutPer_F16_Asmi.h"/>
+        <files mask="GFLIB_LutPer_F32.h"/>
+        <files mask="GFLIB_Ramp_F16.h"/>
+        <files mask="GFLIB_Ramp_F16_Asmi.h"/>
+        <files mask="GFLIB_Ramp_F32.h"/>
+        <files mask="GFLIB_Ramp_F32_Asmi.h"/>
+        <files mask="GFLIB_SinCos_A32.h"/>
+        <files mask="GFLIB_Sqrt_F16.h"/>
+        <files mask="GFLIB_Sqrt_F32.h"/>
+        <files mask="GFLIB_SqrtHw_F16.h"/>
+        <files mask="GFLIB_SqrtHw_F16_Asmi.h"/>
+        <files mask="GFLIB_SqrtHw_F32.h"/>
+        <files mask="GFLIB_SqrtHw_F32_Asmi.h"/>
+        <files mask="gflib_types.h"/>
+        <files mask="GFLIB_UpperLimit_F16.h"/>
+        <files mask="GFLIB_UpperLimit_F32.h"/>
+        <files mask="GFLIB_VectorLimit1_F16.h"/>
+        <files mask="GFLIB_VectorLimit1Hw_F16.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/GMCLIB/Include" type="c_include">
+        <files mask="gmclib.h"/>
+        <files mask="GMCLIB_Clark_F16_Asmi.h"/>
+        <files mask="GMCLIB_Decoupling_A32.h"/>
+        <files mask="GMCLIB_ElimDcBusRip_A32.h"/>
+        <files mask="GMCLIB_ElimDcBusRip_F16.h"/>
+        <files mask="GMCLIB_ElimDcBusRipHw_A32.h"/>
+        <files mask="GMCLIB_ElimDcBusRipHw_F16.h"/>
+        <files mask="GMCLIB_Park_F16_Asmi.h"/>
+        <files mask="GMCLIB_Svm_F16.h"/>
+        <files mask="gmclib_types.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/MLIB/Include" type="c_include">
+        <files mask="asm_mac.h"/>
+        <files mask="mlib.h"/>
+        <files mask="MLIB_Abs_F16.h"/>
+        <files mask="MLIB_Abs_F16_Asmi.h"/>
+        <files mask="MLIB_Abs_F32.h"/>
+        <files mask="MLIB_Abs_F32_Asmi.h"/>
+        <files mask="MLIB_Add_A32.h"/>
+        <files mask="MLIB_Add_A32_Asmi.h"/>
+        <files mask="MLIB_Add_F16.h"/>
+        <files mask="MLIB_Add_F16_Asmi.h"/>
+        <files mask="MLIB_Add_F32.h"/>
+        <files mask="MLIB_Add_F32_Asmi.h"/>
+        <files mask="MLIB_Add4_F16.h"/>
+        <files mask="MLIB_Add4_F16_Asmi.h"/>
+        <files mask="MLIB_Add4_F32.h"/>
+        <files mask="MLIB_Add4_F32_Asmi.h"/>
+        <files mask="MLIB_BiShift_F16.h"/>
+        <files mask="MLIB_BiShift_F16_Asmi.h"/>
+        <files mask="MLIB_BiShift_F32.h"/>
+        <files mask="MLIB_BiShift_F32_Asmi.h"/>
+        <files mask="MLIB_Clb_F16_Asmi.h"/>
+        <files mask="MLIB_Clb_F32_Asmi.h"/>
+        <files mask="MLIB_Conv_F32.h"/>
+        <files mask="MLIB_Div_A32_Asm.h"/>
+        <files mask="MLIB_Div_F16_Asm.h"/>
+        <files mask="MLIB_Div_F32_Asm.h"/>
+        <files mask="MLIB_Div1Q_A32_Asm.h"/>
+        <files mask="MLIB_Div1Q_F16_Asm.h"/>
+        <files mask="MLIB_Div1Q_F32_Asm.h"/>
+        <files mask="MLIB_DivHw_A32_Asm.h"/>
+        <files mask="MLIB_DivHw_F16_Asm.h"/>
+        <files mask="MLIB_DivHw_F32.h"/>
+        <files mask="MLIB_DivHw_F32_Asm.h"/>
+        <files mask="MLIB_DivHw1Q_A32_Asm.h"/>
+        <files mask="MLIB_DivHw1Q_F16_Asm.h"/>
+        <files mask="MLIB_DivHw1Q_F32_Asm.h"/>
+        <files mask="MLIB_Log2_U16_Asmi.h"/>
+        <files mask="MLIB_Mac_A32.h"/>
+        <files mask="MLIB_Mac_F16.h"/>
+        <files mask="MLIB_Mac_F16_Asmi.h"/>
+        <files mask="MLIB_Mac_F32.h"/>
+        <files mask="MLIB_Mac_F32_Asmi.h"/>
+        <files mask="MLIB_Mac4_F32.h"/>
+        <files mask="MLIB_Mac4Rnd_F16.h"/>
+        <files mask="MLIB_Mac4Rnd_F16_Asmi.h"/>
+        <files mask="MLIB_Mac4Rnd_F32_Asm.h"/>
+        <files mask="MLIB_MacRnd_A32.h"/>
+        <files mask="MLIB_MacRnd_A32_Asmi.h"/>
+        <files mask="MLIB_MacRnd_F16.h"/>
+        <files mask="MLIB_MacRnd_F16_Asmi.h"/>
+        <files mask="MLIB_MacRnd_F32.h"/>
+        <files mask="MLIB_MacRnd_F32_Asmi.h"/>
+        <files mask="MLIB_MMDVSQ.h"/>
+        <files mask="MLIB_Mnac_A32.h"/>
+        <files mask="MLIB_Mnac_F16.h"/>
+        <files mask="MLIB_Mnac_F16_Asmi.h"/>
+        <files mask="MLIB_Mnac_F32.h"/>
+        <files mask="MLIB_Mnac_F32_Asmi.h"/>
+        <files mask="MLIB_MnacRnd_A32.h"/>
+        <files mask="MLIB_MnacRnd_A32_Asmi.h"/>
+        <files mask="MLIB_MnacRnd_F16.h"/>
+        <files mask="MLIB_MnacRnd_F16_Asmi.h"/>
+        <files mask="MLIB_MnacRnd_F32.h"/>
+        <files mask="MLIB_MnacRnd_F32_Asmi.h"/>
+        <files mask="MLIB_Msu_A32.h"/>
+        <files mask="MLIB_Msu_F16.h"/>
+        <files mask="MLIB_Msu_F16_Asmi.h"/>
+        <files mask="MLIB_Msu_F32.h"/>
+        <files mask="MLIB_Msu_F32_Asmi.h"/>
+        <files mask="MLIB_Msu4_F32.h"/>
+        <files mask="MLIB_Msu4Rnd_F16.h"/>
+        <files mask="MLIB_Msu4Rnd_F16_Asmi.h"/>
+        <files mask="MLIB_Msu4Rnd_F32_Asm.h"/>
+        <files mask="MLIB_MsuRnd_A32.h"/>
+        <files mask="MLIB_MsuRnd_A32_Asmi.h"/>
+        <files mask="MLIB_MsuRnd_F16.h"/>
+        <files mask="MLIB_MsuRnd_F16_Asmi.h"/>
+        <files mask="MLIB_MsuRnd_F32.h"/>
+        <files mask="MLIB_MsuRnd_F32_Asmi.h"/>
+        <files mask="MLIB_Mul_A32.h"/>
+        <files mask="MLIB_Mul_A32_Asmi.h"/>
+        <files mask="MLIB_Mul_F16.h"/>
+        <files mask="MLIB_Mul_F16_Asmi.h"/>
+        <files mask="MLIB_Mul_F32.h"/>
+        <files mask="MLIB_Mul_F32_Asmi.h"/>
+        <files mask="MLIB_MulRnd_A32.h"/>
+        <files mask="MLIB_MulRnd_A32_Asmi.h"/>
+        <files mask="MLIB_MulRnd_F16.h"/>
+        <files mask="MLIB_MulRnd_F16_Asmi.h"/>
+        <files mask="MLIB_MulRnd_F32.h"/>
+        <files mask="MLIB_MulRnd_F32_Asmi.h"/>
+        <files mask="MLIB_Neg_F16.h"/>
+        <files mask="MLIB_Neg_F16_Asmi.h"/>
+        <files mask="MLIB_Neg_F32.h"/>
+        <files mask="MLIB_Neg_F32_Asmi.h"/>
+        <files mask="MLIB_Rcp_A32_Asm.h"/>
+        <files mask="MLIB_Rcp1Q_A32_Asm.h"/>
+        <files mask="MLIB_RcpHw_A32_Asm.h"/>
+        <files mask="MLIB_RcpHw1Q_A32_Asmi.h"/>
+        <files mask="MLIB_Rnd_F32.h"/>
+        <files mask="MLIB_Rnd_F32_Asmi.h"/>
+        <files mask="MLIB_Sat_A32.h"/>
+        <files mask="MLIB_Sat_A32_Asmi.h"/>
+        <files mask="MLIB_Shift_F16.h"/>
+        <files mask="MLIB_Shift_F16_Asmi.h"/>
+        <files mask="MLIB_Shift_F32.h"/>
+        <files mask="MLIB_Shift_F32_Asmi.h"/>
+        <files mask="MLIB_Sign_F16_Asmi.h"/>
+        <files mask="MLIB_Sign_F32_Asmi.h"/>
+        <files mask="MLIB_Sub_A32.h"/>
+        <files mask="MLIB_Sub_A32_Asmi.h"/>
+        <files mask="MLIB_Sub_F16.h"/>
+        <files mask="MLIB_Sub_F16_Asmi.h"/>
+        <files mask="MLIB_Sub_F32.h"/>
+        <files mask="MLIB_Sub_F32_Asmi.h"/>
+        <files mask="MLIB_Sub4_F16.h"/>
+        <files mask="MLIB_Sub4_F16_Asmi.h"/>
+        <files mask="MLIB_Sub4_F32.h"/>
+        <files mask="MLIB_Sub4_F32_Asmi.h"/>
+        <files mask="mlib_types.h"/>
+        <files mask="RTCESL_cfg.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/PCLIB/Include" type="c_include">
+        <files mask="pclib.h"/>
+        <files mask="PCLIB_Ctrl2P2Z_F16.h"/>
+        <files mask="PCLIB_Ctrl3P3Z_F16.h"/>
+        <files mask="PCLIB_CtrlPI_F16.h"/>
+        <files mask="PCLIB_CtrlPIandLPFilter_F16.h"/>
+        <files mask="PCLIB_CtrlPID_F16.h"/>
+        <files mask="pclib_types.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/AMCLIB" type="lib">
+        <files mask="libAMCLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/GFLIB" type="lib">
+        <files mask="libGFLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/GDFLIB" type="lib">
+        <files mask="libGDFLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/GMCLIB" type="lib">
+        <files mask="libGMCLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/MLIB" type="lib">
+        <files mask="libMLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/PCLIB" type="lib">
+        <files mask="libPCLIB.a"/>
+      </source>
+      <source relative_path="CM0_RTCESL_4.6.2_doc" type="doc">
+        <files mask="CM0AMCLIBUG.pdf" hidden="true"/>
+        <files mask="CM0GDFLIBUG.pdf" hidden="true"/>
+        <files mask="CM0GFLIBUG.pdf" hidden="true"/>
+        <files mask="CM0GMCLIBUG.pdf" hidden="true"/>
+        <files mask="CM0MLIBUG.pdf" hidden="true"/>
+        <files mask="CM0PCLIBUG.pdf" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="CM0_RTCESL_4.6.2_MCUX/AMCLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM0_RTCESL_4.6.2_MCUX/GDFLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM0_RTCESL_4.6.2_MCUX/GFLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM0_RTCESL_4.6.2_MCUX/GMCLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM0_RTCESL_4.6.2_MCUX/MLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM0_RTCESL_4.6.2_MCUX/PCLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+      </include_paths>
     </component>
     <component id="platform.utilities.misc_utilities.MKM34Z7" name="misc_utilities" brief="Utilities which is needed for particular toolchain like the SBRK function required to address limitation between HEAP and STACK in GCC toolchain library." version="1.0.0" full_name="Utilities miscellaneous" devices="MKM34Z256xxx7" user_visible="true" type="utilities" package_base_path="core/utilities/misc_utilities" project_base_path="utilities">
       <source toolchain="armgcc" relative_path="./" type="src">

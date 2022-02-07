@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_EVK-MIMXRT1010" name="EVK-MIMXRT1010" brief="This is SDK version 2.10.0 manifest file. It describes the content of the EVK-MIMXRT1010 and additional settings for tools that support SDK version 2.10.0" format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-08-03 13:04:50.747482-->
-  <!--This manifest is generated based on sdk repo commit: a40647dd23698fa812ab2e267466ae159e1a5d45-->
+  <!--Timestamp (UTC): 2022-01-26 08:51:21.735145-->
+  <!--This manifest is generated based on sdk repo commit: 04124c9a3d8bee40269a5fff2c12f59654c36812-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
@@ -126,6 +126,56 @@ ${load}</script>
         <example id="evkmimxrt1010_ccm_clockout" name="ccm_clockout" brief="The ccm_clockout driver example shows how to output the internal clock signal. In this driver example, users can choose the clock signal to be outputted, and the divider of the output clock signal. By probing the output pin, users can observe the selected internal clock signal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ccm" path="examples/evkmimxrt1010/driver_examples/clockout">
           <external path="examples/evkmimxrt1010/driver_examples/clockout" type="xml">
             <files mask="ccm_clockout_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1010_cmsis_lpi2c_edma_b2b_transfer_master" name="cmsis_lpi2c_edma_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_i2c_edma_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with EDMA:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/lpi2c" path="examples/evkmimxrt1010/cmsis_driver_examples/lpi2c/edma_b2b_transfer/master">
+          <external path="examples/evkmimxrt1010/cmsis_driver_examples/lpi2c/edma_b2b_transfer/master" type="xml">
+            <files mask="cmsis_lpi2c_edma_b2b_transfer_master_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1010_cmsis_lpi2c_edma_b2b_transfer_slave" name="cmsis_lpi2c_edma_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_i2c_edma_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with EDMA:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/lpi2c" path="examples/evkmimxrt1010/cmsis_driver_examples/lpi2c/edma_b2b_transfer/slave">
+          <external path="examples/evkmimxrt1010/cmsis_driver_examples/lpi2c/edma_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_lpi2c_edma_b2b_transfer_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1010_cmsis_lpi2c_int_b2b_transfer_master" name="cmsis_lpi2c_int_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The lpi2c_int_b2b_transfer_master example shows how to use CMSIS i2c driver as master to do board to board transfer with interrupt:In this example, one lpi2c instance as master and another lpi2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/lpi2c" path="examples/evkmimxrt1010/cmsis_driver_examples/lpi2c/int_b2b_transfer/master">
+          <external path="examples/evkmimxrt1010/cmsis_driver_examples/lpi2c/int_b2b_transfer/master" type="xml">
+            <files mask="cmsis_lpi2c_int_b2b_transfer_master_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1010_cmsis_lpi2c_int_b2b_transfer_slave" name="cmsis_lpi2c_int_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The lpi2c_int_b2b_transfer_master example shows how to use CMSIS i2c driver as master to do board to board transfer with interrupt:In this example, one lpi2c instance as master and another lpi2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/lpi2c" path="examples/evkmimxrt1010/cmsis_driver_examples/lpi2c/int_b2b_transfer/slave">
+          <external path="examples/evkmimxrt1010/cmsis_driver_examples/lpi2c/int_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_lpi2c_int_b2b_transfer_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1010_cmsis_lpspi_edma_b2b_transfer_master" name="cmsis_lpspi_edma_b2b_transfer_master" brief="The cmsis_lpspi_edma_b2b_transfer example shows how to use LPSPI CMSIS driver in edma way:In this example , we need two boards, one board used as LPSPI master and another board used as LPSPI slave.The file 'cmsis_lpspi_edma_b2b_transfer_master.c' includes the LPSPI master code.1. LPSPI master send/received data to/from LPSPI slave in edma . " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/lpspi" path="examples/evkmimxrt1010/cmsis_driver_examples/lpspi/edma_b2b_transfer/master">
+          <external path="examples/evkmimxrt1010/cmsis_driver_examples/lpspi/edma_b2b_transfer/master" type="xml">
+            <files mask="cmsis_lpspi_edma_b2b_transfer_master_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1010_cmsis_lpspi_edma_b2b_transfer_slave" name="cmsis_lpspi_edma_b2b_transfer_slave" brief="The cmsis_lpspi_edma_b2b_transfer example shows how to use LPSPI CMSIS driver in edma way:In this example , we need two boards, one board used as LPSPI master and another board used as LPSPI slave.The file 'cmsis_lpspi_edma_b2b_transfer_slave.c' includes the LPSPI slave code.1. LPSPI master send/received data to/from LPSPI slave in edma . " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/lpspi" path="examples/evkmimxrt1010/cmsis_driver_examples/lpspi/edma_b2b_transfer/slave">
+          <external path="examples/evkmimxrt1010/cmsis_driver_examples/lpspi/edma_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_lpspi_edma_b2b_transfer_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1010_cmsis_lpspi_int_b2b_transfer_master" name="cmsis_lpspi_int_b2b_transfer_master" brief="The cmsis_lpspi_int_b2b_transfer example shows how to use LPSPI CMSIS driver in interrupt way:In this example , we need two boards, one board used as LPSPI master and another board used as LPSPI slave.The file 'cmsis_lpspi_int_b2b_transfer_master.c' includes the LPSPI master code.This example uses the transactional API in LPSPI driver.1. LPSPI master send/received data to/from LPSPI slave in interrupt . " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/lpspi" path="examples/evkmimxrt1010/cmsis_driver_examples/lpspi/int_b2b_transfer/master">
+          <external path="examples/evkmimxrt1010/cmsis_driver_examples/lpspi/int_b2b_transfer/master" type="xml">
+            <files mask="cmsis_lpspi_int_b2b_transfer_master_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1010_cmsis_lpspi_int_b2b_transfer_slave" name="cmsis_lpspi_int_b2b_transfer_slave" brief="The lpspi_int_b2b_transfer example shows how to use LPSPI CMSIS driver in interrupt way:In this example , we need two boards, one board used as LPSPI master and another board used as LPSPI slave.The file 'cmsis_lpspi_int_b2b_transfer_slave.c' includes the LPSPI slave code.This example uses the transactional API in LPSPI driver.1. LPSPI master send/received data to/from LPSPI slave in interrupt . " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/lpspi" path="examples/evkmimxrt1010/cmsis_driver_examples/lpspi/int_b2b_transfer/slave">
+          <external path="examples/evkmimxrt1010/cmsis_driver_examples/lpspi/int_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_lpspi_int_b2b_transfer_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1010_cmsis_lpuart_edma_transfer" name="cmsis_lpuart_edma_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_uart_edma_transfer example shows how to use uart cmsis  driver with EDMA:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/lpuart" path="examples/evkmimxrt1010/cmsis_driver_examples/lpuart/edma_transfer">
+          <external path="examples/evkmimxrt1010/cmsis_driver_examples/lpuart/edma_transfer" type="xml">
+            <files mask="cmsis_lpuart_edma_transfer_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1010_cmsis_lpuart_interrupt_transfer" name="cmsis_lpuart_interrupt_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_uart_interrupt_transfer example shows how to use uart cmsis driver in interrupt way:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/lpuart" path="examples/evkmimxrt1010/cmsis_driver_examples/lpuart/interrupt_transfer">
+          <external path="examples/evkmimxrt1010/cmsis_driver_examples/lpuart/interrupt_transfer" type="xml">
+            <files mask="cmsis_lpuart_interrupt_transfer_v3_8.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1010_dcp" name="dcp" brief="The DCP Example project is a demonstration program that uses the KSDK software implementseveral cryptography algorithms using the DCP software driver." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dcp" path="examples/evkmimxrt1010/driver_examples/dcp">
@@ -346,6 +396,16 @@ ${load}</script>
         <example id="evkmimxrt1010_kpp" name="kpp" brief="The KPP Example project is a demonstration program that uses the KSDK software to manipulate the Keypad MATRIX.The example is use the continuous column and rows as 4*4 or 8*8 matrix to show the example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/kpp" path="examples/evkmimxrt1010/driver_examples/kpp">
           <external path="examples/evkmimxrt1010/driver_examples/kpp" type="xml">
             <files mask="kpp_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1010_log_bm" name="log_bm" brief="The log demo is used to demonstrate how to use log component. The main function of the demo is to prompt the LOG level string according to the user input log level command." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="examples/evkmimxrt1010/component_examples/log/bm">
+          <external path="examples/evkmimxrt1010/component_examples/log/bm" type="xml">
+            <files mask="log_bm_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1010_log_freertos" name="log_freertos" brief="The log demo is used to demonstrate how to use log component. The main function of the demo is to prompt the LOG level string according to the user input log level command." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="examples/evkmimxrt1010/component_examples/log/freertos">
+          <external path="examples/evkmimxrt1010/component_examples/log/freertos" type="xml">
+            <files mask="log_freertos_v3_8.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1010_lpi2c_edma_b2b_transfer_master" name="lpi2c_edma_b2b_transfer_master" brief="The lpi2c_edma_b2b_transfer_master example shows how to use lpi2c driver as master to do board to board transfer with EDMA:In this example, one lpi2c instance as master and another lpi2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpi2c" path="examples/evkmimxrt1010/driver_examples/lpi2c/edma_b2b_transfer/master">
@@ -1052,6 +1112,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="Driver_Common.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_Common.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1118,6 +1181,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="Driver_I2C.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_I2C.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1162,6 +1228,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="Driver_SPI.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_SPI.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1172,6 +1241,9 @@ ${load}</script>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_USART.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_USART.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1883,6 +1955,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_component_log.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_log.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1901,6 +1976,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="fsl_component_log_backend_debugconsole.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_log_backend_debugconsole.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1917,6 +1995,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="c_include">
         <files mask="fsl_component_log_backend_ringbuffer.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_log_backend_ringbuffer.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2062,6 +2143,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_os_abstraction_bm.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_osa_bm.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -2081,6 +2165,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_os_abstraction_free_rtos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_osa_free_rtos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2118,6 +2205,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_component_panic.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_panic.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -2134,6 +2224,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_adapter_pit.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_pit_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2378,7 +2471,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="device.MIMXRT1011_debugger.MIMXRT1011" name="MIMXRT1011_debugger" brief="Device MIMXRT1011_debugger" version="1.0.0" full_name="Device MIMXRT1011_debugger" devices="MIMXRT1011xxxxx" user_visible="true" type="debugger" package_base_path="svd/MIMXRT1011" project_base_path="MIMXRT1011">
+    <component id="device.MIMXRT1011_debugger.MIMXRT1011" name="MIMXRT1011_debugger" brief="Device MIMXRT1011_debugger" version="1.0.0" full_name="Device MIMXRT1011_debugger" devices="MIMXRT1011xxxxx" user_visible="true" type="debugger" package_base_path="core/devices/MIMXRT1011" project_base_path="MIMXRT1011">
       <source relative_path="./" type="xml">
         <files mask="MIMXRT1011.xml"/>
       </source>
@@ -2520,6 +2613,72 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="driver_clock.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.lpi2c_cmsis.MIMXRT1011" name="lpi2c_cmsis" brief="LPI2C CMSIS Driver" version="2.1.0" full_name="LPI2C CMSIS Driver" devices="MIMXRT1011xxxxx" device_cores="core0_MIMXRT1011xxxxx" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/lpi2c" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.lpi2c_edma.MIMXRT1011"/>
+          <component_dependency value="platform.drivers.lpi2c.MIMXRT1011"/>
+          <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT1011"/>
+          <component_dependency value="RTE_Device.MIMXRT1011"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_lpi2c_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_lpi2c_cmsis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_cmsis_lpi2c.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.lpspi_cmsis.MIMXRT1011" name="lpspi_cmsis" brief="LPSPI CMSIS Driver" version="2.4.0" full_name="LPSPI CMSIS Driver" devices="MIMXRT1011xxxxx" device_cores="core0_MIMXRT1011xxxxx" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/lpspi" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.lpspi_edma.MIMXRT1011"/>
+          <component_dependency value="platform.drivers.lpspi.MIMXRT1011"/>
+          <component_dependency value="CMSIS_Driver_Include.SPI.MIMXRT1011"/>
+          <component_dependency value="RTE_Device.MIMXRT1011"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_lpspi_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_lpspi_cmsis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_cmsis_lpspi.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.lpuart_cmsis.MIMXRT1011" name="lpuart_cmsis" brief="LPUART CMSIS Driver" version="2.2.0" full_name="LPUART CMSIS Driver" devices="MIMXRT1011xxxxx" device_cores="core0_MIMXRT1011xxxxx" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/lpuart" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.lpuart_edma.MIMXRT1011"/>
+          <component_dependency value="platform.drivers.lpuart.MIMXRT1011"/>
+          <component_dependency value="CMSIS_Driver_Include.USART.MIMXRT1011"/>
+          <component_dependency value="RTE_Device.MIMXRT1011"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_lpuart_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_lpuart_cmsis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_cmsis_lpuart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2967,6 +3126,23 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="driver.ft6x06.MIMXRT1011" name="ft6x06" brief="Driver ft6x06" version="1.0.0" full_name="Driver ft6x06" devices="MIMXRT1011xxxxx" user_visible="false" type="board_component" package_base_path="core/components/ft6x06" project_base_path="touchpanel">
+      <dependencies>
+        <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT1011"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_ft6x06.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_ft6x06.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_ft6x06.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="driver.fxos8700cq.MIMXRT1011" name="fxos8700cq" brief="Driver fxos8700cq" version="1.0.0" full_name="Driver fxos8700cq" devices="MIMXRT1011xxxxx" device_cores="core0_MIMXRT1011xxxxx" user_visible="true" type="board_component" package_base_path="core/components/fxos8700cq" project_base_path="accel">
       <dependencies>
         <component_dependency value="platform.drivers.common.MIMXRT1011"/>
@@ -3030,6 +3206,23 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="driver_igpio.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.ili9341.MIMXRT1011" name="ili9341" brief="Driver ili9341" version="1.0.1" full_name="Driver ili9341" devices="MIMXRT1011xxxxx" device_cores="core0_MIMXRT1011xxxxx" user_visible="true" type="board_component" package_base_path="core/components/ili9341" project_base_path="lcd">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MIMXRT1011"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_ili9341.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_ili9341.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_ili9341.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -3647,6 +3840,197 @@ ${load}</script>
       </defines>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="middleware_baremetal.cmake" hidden="true"/>
+      </source>
+    </component>
+    <component id="middleware.fatfs.MIMXRT1011" name="fatfs" brief="FatFs" version="0.14" full_name="FAT File System stack" devices="MIMXRT1011xxxxx" device_cores="core0_MIMXRT1011xxxxx" category="File System/FAT File System" user_visible="true" type="middleware" package_base_path="middleware/fatfs" project_base_path="fatfs">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.fatfs.template_ram.MIMXRT1011"/>
+          <component_dependency value="middleware.fatfs.ram.MIMXRT1011"/>
+        </all>
+      </dependencies>
+      <source relative_path="source" type="src">
+        <files mask="diskio.c"/>
+        <files mask="ff.c"/>
+        <files mask="ffsystem.c"/>
+        <files mask="ffunicode.c"/>
+      </source>
+      <source relative_path="source" type="c_include">
+        <files mask="diskio.h"/>
+        <files mask="ff.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_fatfs.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="source" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.ram.MIMXRT1011" name="ram" brief="FatFs_RAM" version="0.14" full_name="Fatfs RAM layer" devices="MIMXRT1011xxxxx" device_cores="core0_MIMXRT1011xxxxx" category="File System/FAT File System" user_visible="true" type="middleware" package_base_path="middleware/fatfs" project_base_path="fatfs">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.fatfs.MIMXRT1011"/>
+          <component_dependency value="middleware.fatfs.template_ram.MIMXRT1011"/>
+          <component_dependency value="platform.drivers.common.MIMXRT1011"/>
+        </all>
+      </dependencies>
+      <source relative_path="source/fsl_ram_disk" type="src">
+        <files mask="fsl_ram_disk.c"/>
+      </source>
+      <source relative_path="source/fsl_ram_disk" type="c_include">
+        <files mask="fsl_ram_disk.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="source/fsl_ram_disk" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.template_mmc.MIMXRT1011" name="fatfs_mmc" brief="FatFs template MMC" version="0.14" full_name="FatFs template configuration for MMC disk" devices="MIMXRT1011xxxxx" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
+      <source relative_path="template/mmc" project_relative_path="./" type="c_include">
+        <files mask="ffconf.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="template/mmc" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.template_nand.MIMXRT1011" name="fatfs_nand" brief="FatFs template NAND" version="0.14" full_name="FatFs template configuration for NAND disk" devices="MIMXRT1011xxxxx" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
+      <source relative_path="template/nand" project_relative_path="./" type="c_include">
+        <files mask="ffconf.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="template/nand" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.template_ram.MIMXRT1011" name="fatfs_ram" brief="FatFs template RAM" version="0.14" full_name="FatFs template configuration for RAM disk" devices="MIMXRT1011xxxxx" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
+      <source relative_path="template/ram" project_relative_path="./" type="c_include">
+        <files mask="ffconf.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="template/ram" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.template_sd.MIMXRT1011" name="fatfs_sd" brief="FatFs template SD" version="0.14" full_name="FatFs template configuration for SD disk" devices="MIMXRT1011xxxxx" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/sd/fatfs" project_base_path="source">
+      <include_paths>
+        <include_path relative_path="template/sd" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.template_sdspi.MIMXRT1011" name="fatfs_sdspi" brief="FatFs template SDSPI" version="0.14" full_name="FatFs template configuration for SDSPI disk" devices="MIMXRT1011xxxxx" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
+      <source relative_path="template/sdspi" project_relative_path="./" type="c_include">
+        <files mask="ffconf.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="template/sdspi" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.template_usb.MIMXRT1011" name="fatfs_usb" brief="FatFs template USB" version="0.14" full_name="FatFs template configuration for USB disk" devices="MIMXRT1011xxxxx" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
+      <source relative_path="template/usb" project_relative_path="./" type="c_include">
+        <files mask="ffconf.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="template/usb" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.unused_files.MIMXRT1011" name="unused_files" brief="fatfs files unused by projects" version="0.14" full_name="fatfs unused" devices="MIMXRT1011xxxxx" user_visible="false" type="other" package_base_path="middleware/fatfs" project_base_path="fatfs">
+      <source exclude="true" relative_path="./" type="doc">
+        <files mask="ChangeLogKSDK.txt" hidden="true"/>
+        <files mask="LICENSE.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="documents" type="doc">
+        <files mask="00index_e.html" hidden="true"/>
+        <files mask="css_e.css" hidden="true"/>
+        <files mask="updates.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="documents/doc" type="doc">
+        <files mask="appnote.html" hidden="true"/>
+        <files mask="chdir.html" hidden="true"/>
+        <files mask="chdrive.html" hidden="true"/>
+        <files mask="chmod.html" hidden="true"/>
+        <files mask="close.html" hidden="true"/>
+        <files mask="closedir.html" hidden="true"/>
+        <files mask="config.html" hidden="true"/>
+        <files mask="dinit.html" hidden="true"/>
+        <files mask="dioctl.html" hidden="true"/>
+        <files mask="dread.html" hidden="true"/>
+        <files mask="dstat.html" hidden="true"/>
+        <files mask="dwrite.html" hidden="true"/>
+        <files mask="eof.html" hidden="true"/>
+        <files mask="error.html" hidden="true"/>
+        <files mask="expand.html" hidden="true"/>
+        <files mask="fattime.html" hidden="true"/>
+        <files mask="fdisk.html" hidden="true"/>
+        <files mask="filename.html" hidden="true"/>
+        <files mask="findfirst.html" hidden="true"/>
+        <files mask="findnext.html" hidden="true"/>
+        <files mask="forward.html" hidden="true"/>
+        <files mask="getcwd.html" hidden="true"/>
+        <files mask="getfree.html" hidden="true"/>
+        <files mask="getlabel.html" hidden="true"/>
+        <files mask="gets.html" hidden="true"/>
+        <files mask="lseek.html" hidden="true"/>
+        <files mask="mkdir.html" hidden="true"/>
+        <files mask="mkfs.html" hidden="true"/>
+        <files mask="mount.html" hidden="true"/>
+        <files mask="open.html" hidden="true"/>
+        <files mask="opendir.html" hidden="true"/>
+        <files mask="printf.html" hidden="true"/>
+        <files mask="putc.html" hidden="true"/>
+        <files mask="puts.html" hidden="true"/>
+        <files mask="rc.html" hidden="true"/>
+        <files mask="read.html" hidden="true"/>
+        <files mask="readdir.html" hidden="true"/>
+        <files mask="rename.html" hidden="true"/>
+        <files mask="sdir.html" hidden="true"/>
+        <files mask="setcp.html" hidden="true"/>
+        <files mask="setlabel.html" hidden="true"/>
+        <files mask="sfatfs.html" hidden="true"/>
+        <files mask="sfile.html" hidden="true"/>
+        <files mask="sfileinfo.html" hidden="true"/>
+        <files mask="size.html" hidden="true"/>
+        <files mask="stat.html" hidden="true"/>
+        <files mask="sync.html" hidden="true"/>
+        <files mask="tell.html" hidden="true"/>
+        <files mask="truncate.html" hidden="true"/>
+        <files mask="unlink.html" hidden="true"/>
+        <files mask="utime.html" hidden="true"/>
+        <files mask="write.html" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="documents/res" type="src">
+        <files mask="app1.c" hidden="true"/>
+        <files mask="app2.c" hidden="true"/>
+        <files mask="app3.c" hidden="true"/>
+        <files mask="app4.c" hidden="true"/>
+        <files mask="app5.c" hidden="true"/>
+        <files mask="app6.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="documents/res" type="image">
+        <files mask="f1.png" hidden="true"/>
+        <files mask="f2.png" hidden="true"/>
+        <files mask="f3.png" hidden="true"/>
+        <files mask="f4.png" hidden="true"/>
+        <files mask="f5.png" hidden="true"/>
+        <files mask="f6.png" hidden="true"/>
+        <files mask="f7.png" hidden="true"/>
+        <files mask="funcs.png" hidden="true"/>
+        <files mask="layers.png" hidden="true"/>
+        <files mask="layers1.png" hidden="true"/>
+        <files mask="layers2.png" hidden="true"/>
+        <files mask="layers3.png" hidden="true"/>
+        <files mask="modules.png" hidden="true"/>
+        <files mask="rwtest1.png" hidden="true"/>
+        <files mask="rwtest2.png" hidden="true"/>
+        <files mask="rwtest3.png" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="documents/res" type="archive">
+        <files mask="mkfatimg.zip" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="documents/res" type="other">
+        <files mask="mkfs.xlsx" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="source" type="doc">
+        <files mask="00history.txt" hidden="true"/>
+        <files mask="00readme.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="source" type="c_include">
+        <files mask="ffconf_template.h" hidden="true"/>
       </source>
     </component>
     <component id="middleware.freertos-kernel.MIMXRT1011" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="202012.00.0" full_name="FreeRTOS kernel" devices="MIMXRT1011xxxxx" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">

@@ -1,0 +1,36 @@
+//Copyright below will be added into all generated files.
+/*!
+ * Copyright (c) 2014-2016, Freescale Semiconductor, Inc.
+ * Copyright 2016 NXP
+ * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+program erpc_dac_adc
+
+const uint8 StringMaxSize = 11
+
+struct AdcConfig {
+    float vref
+    float atomicSteps
+}
+
+struct Vector {
+    int16 A_x
+    int16 A_y
+    int16 A_z
+    int16 M_x
+    int16 M_y
+    int16 M_z
+}
+
+interface dac_adc {
+    adc_get_config(out AdcConfig config) -> void
+    convert_dac_adc(in uint32 numberToConvert, out uint32 result) -> void
+    set_led(in uint8 whichLed) -> void
+    read_senzor_mag_accel(out Vector results) -> void
+    board_get_name(out string name @max_length(StringMaxSize)) -> void
+}
+
+
