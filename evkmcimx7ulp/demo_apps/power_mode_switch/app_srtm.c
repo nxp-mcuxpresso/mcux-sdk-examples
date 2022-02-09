@@ -1288,12 +1288,8 @@ static void APP_SuspendTimerCallback(TimerHandle_t xTimer)
 
 static void APP_HeartBeatTimerCallback(TimerHandle_t xTimer)
 {
-    srtm_procedure_t proc = SRTM_Procedure_Create(APP_SRTM_ControlCA7, (void *)APP_SRTM_StateReboot, NULL);
     PRINTF("Heart Beat timeout\r\n");
-    if (proc)
-    {
-        SRTM_Dispatcher_PostProc(disp, proc);
-    }
+    APP_SRTM_RebootCA7();
 }
 
 static void APP_SRTM_PollLinkup(srtm_dispatcher_t dispatcher, void *param1, void *param2)
