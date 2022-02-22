@@ -96,7 +96,7 @@
 #define APP_PEDOMETER_SAMPLE_WINDOW      (1000U / APP_PEDOMETER_SAMPLE_RATE) /* sample every 20ms. */
 #define APP_PEDOMETER_SENSOR_SAMPLE_RATE (FXOS8700_CTRL_REG1_DR_SINGLE_50_HZ)
 
-#define APP_GPIO_IDX(ioId) ((uint8_t)(((uint16_t)ioId) >> 8U))
+#define APP_GPIO_IDX(ioId) ((uint8_t)(((uint16_t)(ioId)) >> 8U))
 #define APP_PIN_IDX(ioId)  ((uint8_t)ioId)
 
 typedef void (*app_rpmsg_monitor_t)(struct rpmsg_lite_instance *rpmsgHandle, bool ready, void *param);
