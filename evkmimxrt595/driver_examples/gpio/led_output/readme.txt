@@ -9,7 +9,7 @@ clear, and toggle).
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================
@@ -47,4 +47,4 @@ The log below shows the output in the terminal window:
  Port state: 100000
  ...
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-When press SW2 the LED RED will turn to shine.
+Press the SW2 will toggle the LED RED state.

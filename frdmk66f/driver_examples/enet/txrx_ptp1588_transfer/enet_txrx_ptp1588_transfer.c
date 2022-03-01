@@ -49,6 +49,12 @@
 #define PHY_STABILITY_DELAY_US (0U)
 #endif
 
+/* @TEST_ANCHOR */
+
+#ifndef MAC_ADDRESS
+#define MAC_ADDRESS {0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60}
+#endif
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -77,7 +83,7 @@ uint32_t g_testTxNum = 0;
 enet_frame_info_t txFrameInfoArray[ENET_TXBD_NUM];
 
 /* The MAC address for ENET device. */
-uint8_t g_macAddr[6] = {0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60};
+uint8_t g_macAddr[6] = MAC_ADDRESS;
 
 static volatile bool tx_frame_over   = false;
 static enet_frame_info_t txFrameInfo = {0};

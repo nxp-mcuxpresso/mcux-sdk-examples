@@ -11,7 +11,6 @@
 #include "board.h"
 
 #include "fsl_lptmr.h"
-#include "fsl_gpio.h"
 
 #include "fsl_common.h"
 /*******************************************************************************

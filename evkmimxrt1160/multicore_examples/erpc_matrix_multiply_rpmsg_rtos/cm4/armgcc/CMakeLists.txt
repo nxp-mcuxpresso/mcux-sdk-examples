@@ -31,6 +31,10 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
+"${ProjDirPath}/../board.c"
+"${ProjDirPath}/../board.h"
+"${ProjDirPath}/../clock_config.c"
+"${ProjDirPath}/../clock_config.h"
 "${ProjDirPath}/../../../erpc_common/erpc_error_handler.h"
 "${ProjDirPath}/../../../erpc_common/erpc_error_handler.cpp"
 "${ProjDirPath}/../../../erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.erpc"
@@ -43,10 +47,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../../rpmsg_config.h"
 "${ProjDirPath}/../../erpc_config.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1160/board.c"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1160/board.h"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1160/clock_config.c"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1160/clock_config.h"
 "${ProjDirPath}/../../../../../../core/boards/evkmimxrt1160/dcd.c"
 "${ProjDirPath}/../../../../../../core/boards/evkmimxrt1160/dcd.h"
 "${ProjDirPath}/../evkmimxrt1160_connect_cm4_cm4side.jlinkscript"
@@ -54,11 +54,11 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
+    ${ProjDirPath}/../../../../../../core/boards/evkmimxrt1160
     ${ProjDirPath}/../../../erpc_common
     ${ProjDirPath}/../../../erpc_common/erpc_matrix_multiply/service
     ${ProjDirPath}/../../../../../../examples/evkmimxrt1160/multicore_examples/erpc_matrix_multiply_rpmsg_rtos
     ${ProjDirPath}/../../../../../../examples/evkmimxrt1160/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4
-    ${ProjDirPath}/../../../../../../core/boards/evkmimxrt1160
 )
 
 #path for entry cmake
@@ -73,6 +73,10 @@ include(all_devices)
 include(middleware_multicore_mcmgr_imxrt1160)
 
 include(middleware_multicore_rpmsg_lite_imxrt1160_freertos)
+
+include(middleware_multicore_rpmsg_lite_MIMXRT1166_cm4)
+
+include(middleware_multicore_rpmsg_lite_freertos)
 
 include(driver_clock)
 
@@ -131,8 +135,6 @@ include(driver_cache_lmem)
 include(driver_anatop_ai)
 
 include(CMSIS_Include_core_cm)
-
-include(middleware_multicore_rpmsg_lite)
 
 include(middleware_freertos-kernel_extension)
 

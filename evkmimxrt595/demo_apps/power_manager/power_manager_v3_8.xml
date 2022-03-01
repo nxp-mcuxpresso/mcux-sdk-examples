@@ -92,7 +92,7 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/evkmimxrt595/demo_apps/power_manager" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimxrt595/demo_apps/power_manager" project_relative_path="evkmimxrt595/demo_apps/power_manager" type="c_include"/>
+      <include_path path="examples/evkmimxrt595/demo_apps/power_manager" project_relative_path="evkmimxrt595/demo_apps/power_manager" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimxrt595/demo_apps/power_manager/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="power_manager.ewd"/>

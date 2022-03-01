@@ -11,7 +11,7 @@ In this example , available electrodes on FRDM-TOUCH board are used to show how 
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================

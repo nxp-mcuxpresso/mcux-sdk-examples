@@ -98,8 +98,8 @@ static volatile uint32_t s_timeMs;
  */
 int main(void)
 {
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Power up PQ RAM. */

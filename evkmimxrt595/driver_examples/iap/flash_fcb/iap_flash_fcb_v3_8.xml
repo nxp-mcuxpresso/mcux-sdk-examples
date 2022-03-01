@@ -88,8 +88,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/evkmimxrt595/driver_examples/iap/flash_fcb" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimxrt595/driver_examples/iap/flash_fcb" project_relative_path="evkmimxrt595/driver_examples/iap/flash_fcb" type="c_include"/>
-      <include_path path="boards/evkmimxrt595" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt595/driver_examples/iap/flash_fcb" project_relative_path="evkmimxrt595/driver_examples/iap/flash_fcb" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt595" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimxrt595/driver_examples/iap/flash_fcb/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="iap_flash_fcb.ewd"/>

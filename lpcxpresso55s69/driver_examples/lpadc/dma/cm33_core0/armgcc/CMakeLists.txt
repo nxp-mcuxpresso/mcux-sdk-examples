@@ -59,6 +59,8 @@ include(utility_debug_console_lite)
 
 include(utility_assert_lite)
 
+include(driver_anactrl)
+
 include(driver_lpadc)
 
 include(driver_lpc_dma)
@@ -89,9 +91,9 @@ include(component_usart_adapter)
 
 include(component_lists)
 
-include(CMSIS_Include_core_cm)
-
 include(driver_reset)
+
+include(CMSIS_Include_core_cm)
 
 include(utilities_misc_utilities)
 
@@ -107,14 +109,6 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
 
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
-
-if(CMAKE_BUILD_TYPE STREQUAL debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../../core/devices/LPC55S69/gcc/libpower_hardabi.a)
-endif(CMAKE_BUILD_TYPE STREQUAL debug)
-
-if(CMAKE_BUILD_TYPE STREQUAL release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../../core/devices/LPC55S69/gcc/libpower_hardabi.a)
-endif(CMAKE_BUILD_TYPE STREQUAL release)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

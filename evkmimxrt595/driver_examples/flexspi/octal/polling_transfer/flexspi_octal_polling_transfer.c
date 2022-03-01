@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 NXP
+ * Copyright 2018-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -22,7 +22,7 @@
  * Prototypes
  ******************************************************************************/
 extern status_t flexspi_nor_flash_erase_sector(FLEXSPI_Type *base, uint32_t address);
-status_t flexspi_nor_flash_page_program(FLEXSPI_Type *base, uint32_t dstAddr, const uint32_t *src);
+extern status_t flexspi_nor_flash_page_program(FLEXSPI_Type *base, uint32_t dstAddr, const uint32_t *src);
 extern status_t flexspi_nor_get_vendor_id(FLEXSPI_Type *base, uint8_t *vendorId);
 extern status_t flexspi_nor_enable_octal_mode(FLEXSPI_Type *base);
 extern void flexspi_nor_flash_init(FLEXSPI_Type *base);
@@ -54,7 +54,7 @@ flexspi_device_config_t deviceconfig = {
     .AHBWriteWaitInterval = 0,
 };
 
-const uint32_t customLUT[CUSTOM_LUT_LENGTH] = {
+const uint32_t customLUTOctalMode[CUSTOM_LUT_LENGTH] = {
 
     /*  OPI DDR read */
     [4 * NOR_CMD_LUT_SEQ_IDX_READ + 0] =
@@ -143,6 +143,24 @@ int main(void)
 
     PRINTF("\r\nFLEXSPI example started!\r\n");
 
+    /* Adesto's octal flash has an limitation for read ID, which is that the Read Manufacturer and Device ID command is
+     * limited to a maximum clock frequency of fCLK. */
+#if defined(FLASH_ADESTO) && FLASH_ADESTO
+    /* Get vendor ID. */
+    status = flexspi_nor_get_vendor_id(EXAMPLE_FLEXSPI, &vendorID);
+    if (status != kStatus_Success)
+    {
+        return status;
+    }
+    PRINTF("Vendor ID: 0x%x\r\n", vendorID);
+
+    /* Enter quad mode. */
+    status = flexspi_nor_enable_octal_mode(EXAMPLE_FLEXSPI);
+    if (status != kStatus_Success)
+    {
+        return status;
+    }
+#else
     /* Enter quad mode. */
     status = flexspi_nor_enable_octal_mode(EXAMPLE_FLEXSPI);
     if (status != kStatus_Success)
@@ -157,6 +175,7 @@ int main(void)
         return status;
     }
     PRINTF("Vendor ID: 0x%x\r\n", vendorID);
+#endif
 
     /* Erase sectors. */
     PRINTF("Erasing Serial NOR over FlexSPI...\r\n");

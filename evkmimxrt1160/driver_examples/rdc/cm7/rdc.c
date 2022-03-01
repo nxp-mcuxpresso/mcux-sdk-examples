@@ -205,6 +205,7 @@ void BusFault_Handler(void)
  */
 int main(void)
 {
+    BOARD_ConfigMPU();
     BOARD_InitPins();
     BOARD_BootClockRUN();
     BOARD_InitDebugConsole();

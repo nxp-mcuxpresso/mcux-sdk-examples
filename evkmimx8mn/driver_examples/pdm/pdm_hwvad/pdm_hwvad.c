@@ -44,8 +44,12 @@ static const pdm_config_t pdmConfig    = {
 };
 
 static const pdm_channel_config_t channelConfig = {
-    .cutOffFreq = kPDM_DcRemoverCutOff83Hz,
-    .gain       = kPDM_DfOutputGain7,
+#if (defined(FSL_FEATURE_PDM_HAS_DC_OUT_CTRL) && (FSL_FEATURE_PDM_HAS_DC_OUT_CTRL))
+    .outputCutOffFreq = kPDM_DcRemoverCutOff40Hz,
+#else
+    .cutOffFreq = kPDM_DcRemoverCutOff152Hz,
+#endif
+    .gain = kPDM_DfOutputGain7,
 };
 
 static const pdm_hwvad_config_t hwvadConfig = {

@@ -1794,7 +1794,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="device.MK28FA15_debugger.MK28FA15" name="MK28FA15_debugger" brief="Device MK28FA15_debugger" version="1.0.0" full_name="Device MK28FA15_debugger" devices="MK28FN2M0Axxx15" user_visible="true" type="debugger" package_base_path="core/devices/MK28FA15" project_base_path="MK28FA15">
+    <component id="device.MK28FA15_debugger.MK28FA15" name="MK28FA15_debugger" brief="Device MK28FA15_debugger" version="1.0.0" full_name="Device MK28FA15_debugger" devices="MK28FN2M0Axxx15" user_visible="true" type="debugger" package_base_path="svd/MK28FA15" project_base_path="MK28FA15">
       <source relative_path="./" type="xml">
         <files mask="MK28FA15.xml"/>
       </source>
@@ -1956,6 +1956,12 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_common.c"/>
+      </source>
+      <source relative_path="./" type="src" device_cores="core0_MK28FN2M0Axxx15">
+        <files mask="fsl_common_arm.c"/>
+      </source>
+      <source relative_path="./" type="c_include" device_cores="core0_MK28FN2M0Axxx15">
+        <files mask="fsl_common_arm.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="driver_common_MK28FA15.cmake" hidden="true"/>

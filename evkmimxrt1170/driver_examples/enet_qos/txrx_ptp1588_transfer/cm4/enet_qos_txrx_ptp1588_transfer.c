@@ -12,10 +12,7 @@
 #include "fsl_phy.h"
 
 #include "pin_mux.h"
-#include "clock_config.h"
 #include "board.h"
-#include "fsl_gpio.h"
-#include "fsl_iomuxc.h"
 #include "fsl_enet_qos_mdio.h"
 #include "fsl_phyrtl8211f.h"
 /*******************************************************************************
@@ -56,6 +53,16 @@
 #ifndef PHY_STABILITY_DELAY_US
 #define PHY_STABILITY_DELAY_US (500000U)
 #endif
+
+/* @TEST_ANCHOR */
+
+#ifndef MAC_ADDRESS
+#define MAC_ADDRESS {0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60}
+#endif
+
+#ifndef MAC_ADDRESS2
+#define MAC_ADDRESS2 {0x01, 0x00, 0x5e, 0x00, 0x01, 0x81}
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -71,8 +78,8 @@ enet_qos_frame_info_t g_txDirty[ENET_QOS_RXBD_NUM];
 
 enet_qos_handle_t g_handle = {0};
 /* The MAC address for ENET device. */
-uint8_t g_macAddr[6]       = {0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60};
-uint8_t g_multicastAddr[6] = {0x01, 0x00, 0x5e, 0x00, 0x01, 0x81};
+uint8_t g_macAddr[6]       = MAC_ADDRESS;
+uint8_t g_multicastAddr[6] = MAC_ADDRESS2;
 uint8_t g_frame[ENET_QOS_EXAMPLE_PACKAGETYPE][ENET_QOS_EXAMPLE_FRAME_SIZE];
 uint8_t *g_txbuff[ENET_QOS_TXBD_NUM];
 uint32_t g_txIdx     = 0;
@@ -84,14 +91,11 @@ extern phy_handle_t phyHandle;
 /*******************************************************************************
  * Code
  ******************************************************************************/
-
 mdio_handle_t mdioHandle = {.resource = {.base = ENET_QOS}, .ops = &enet_qos_ops};
 phy_handle_t phyHandle   = {.phyAddr = EXAMPLE_PHY_ADDR, .mdioHandle = &mdioHandle, .ops = &phyrtl8211f_ops};
 
 void BOARD_InitModuleClock(void)
 {
-    /* Select syspll2pfd3, 528*18/24 = 396M */
-    CLOCK_InitPfd(kCLOCK_PllSys2, kCLOCK_Pfd3, 24);
     const clock_sys_pll1_config_t sysPll1Config = {
         .pllDiv2En = true,
     };
@@ -101,10 +105,7 @@ void BOARD_InitModuleClock(void)
     rootCfg.div = 10;
     CLOCK_SetRootClock(kCLOCK_Root_Enet_Timer3, &rootCfg); /* Generate 50M PTP REF clock. */
 
-    rootCfg.mux = 7;
-    rootCfg.div = 2;
-    CLOCK_SetRootClock(kCLOCK_Root_Bus, &rootCfg); /* Generate 198M bus clock. */
-    mdioHandle.resource.csrClock_Hz = CLOCK_GetRootClockFreq(kCLOCK_Root_Bus);
+    mdioHandle.resource.csrClock_Hz = CORE_CLK_FREQ;
 }
 
 void BOARD_UpdateENETModuleClock(enet_qos_mii_speed_t miiSpeed)

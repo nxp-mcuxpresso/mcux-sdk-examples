@@ -84,6 +84,8 @@ include(utility_debug_console_lite)
 
 include(utility_assert_lite)
 
+include(driver_display-hx8394)
+
 include(driver_lcdif)
 
 include(device_CMSIS)
@@ -98,7 +100,7 @@ include(component_lists)
 
 include(driver_flexcomm_usart)
 
-include(driver_flash_config)
+include(driver_flash_config_evkmimxrt595)
 
 include(device_startup)
 

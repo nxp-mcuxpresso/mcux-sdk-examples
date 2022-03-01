@@ -68,7 +68,7 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmke15z/demo_apps/lpi2c_vlps_peripheral" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmke15z/demo_apps/lpi2c_vlps_peripheral" project_relative_path="frdmke15z/demo_apps/lpi2c_vlps_peripheral" type="c_include"/>
+      <include_path path="examples/frdmke15z/demo_apps/lpi2c_vlps_peripheral" project_relative_path="frdmke15z/demo_apps/lpi2c_vlps_peripheral" type="c_include"/>
     </include_paths>
     <source path="examples/frdmke15z/demo_apps/lpi2c_vlps_peripheral/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="lpi2c_vlps_peripheral.ewd"/>

@@ -72,11 +72,9 @@ include(middleware_multicore_mcmgr_lpc55s69)
 
 include(middleware_multicore_rpmsg_lite_lpcxpresso55s69_bm)
 
-include(driver_clock)
+include(middleware_multicore_rpmsg_lite_LPC55S69_cm33_core0)
 
-include(driver_power_s)
-
-include(driver_common)
+include(middleware_multicore_rpmsg_lite_bm)
 
 include(utility_debug_console_lite)
 
@@ -92,7 +90,13 @@ include(middleware_multicore_mcmgr)
 
 include(utility_incbin)
 
+include(driver_common)
+
+include(driver_power)
+
 include(driver_reset)
+
+include(driver_clock)
 
 include(device_CMSIS)
 
@@ -110,8 +114,6 @@ include(component_lists)
 
 include(CMSIS_Include_core_cm)
 
-include(middleware_multicore_rpmsg_lite)
-
 include(utilities_misc_utilities)
 
 include(device_system_LPC55S69_cm33_core0)
@@ -126,14 +128,6 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
 
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
-
-if(CMAKE_BUILD_TYPE STREQUAL debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../../core/devices/LPC55S69/gcc/libpower_hardabi_s.a)
-endif(CMAKE_BUILD_TYPE STREQUAL debug)
-
-if(CMAKE_BUILD_TYPE STREQUAL release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../../core/devices/LPC55S69/gcc/libpower_hardabi_s.a)
-endif(CMAKE_BUILD_TYPE STREQUAL release)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

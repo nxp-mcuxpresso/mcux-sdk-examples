@@ -9,7 +9,7 @@ In this example, a flexio simulated master connect to a lpspi slave .
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Board settings
 ==============
@@ -18,8 +18,8 @@ To make the example work, connections needed to be as follows:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         SLAVE           connect to      MASTER
 Pin Name   Board Location     Pin Name    Board Location
-SOUT       J57-10                SIN       J26-6
-SIN        J57-8                 SOUT      J26-4
+SOUT       J57-8                 SIN       J26-6
+SIN        J57-10                SOUT      J26-4
 SCK        J57-12                SCK       J26-8
 PCS0       J57-6                 PCS0      J56-10
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

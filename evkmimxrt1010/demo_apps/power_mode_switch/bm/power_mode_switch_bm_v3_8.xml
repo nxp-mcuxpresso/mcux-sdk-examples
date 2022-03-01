@@ -97,8 +97,8 @@
     <include_paths>
       <include_path path="examples/evkmimxrt1010/demo_apps/power_mode_switch/bm" project_relative_path="source" type="c_include"/>
       <include_path path="examples/evkmimxrt1010/demo_apps/power_mode_switch/bm" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimxrt1010/demo_apps/power_mode_switch/bm" project_relative_path="evkmimxrt1010/demo_apps/power_mode_switch/bm" type="c_include"/>
-      <include_path path="boards/evkmimxrt1010" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt1010/demo_apps/power_mode_switch/bm" project_relative_path="evkmimxrt1010/demo_apps/power_mode_switch/bm" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt1010" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimxrt1010/demo_apps/power_mode_switch/bm/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="power_mode_switch_bm.ewd"/>

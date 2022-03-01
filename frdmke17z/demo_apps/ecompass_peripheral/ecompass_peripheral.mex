@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<configuration name="MKE17Z256xxx7" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_10 http://mcuxpresso.nxp.com/XSD/mex_configuration_10.xsd" uuid="220c5608-ddc8-4531-a680-ccae0d00eb9c" version="10" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_10" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <common>
+      <processor>MKE17Z256xxx7</processor>
+      <package>MKE17Z256VLL7</package>
+      <board>FRDM-KE17Z</board>
+      <mcu_data>ksdk2_0</mcu_data>
+      <cores selected="core0">
+         <core name="Cortex-M0P" id="core0" description="M0P core"/>
+      </cores>
+      <description></description>
+   </common>
+   <preferences>
+      <validate_boot_init_only>false</validate_boot_init_only>
+      <generate_extended_information>false</generate_extended_information>
+      <generate_code_modified_registers_only>false</generate_code_modified_registers_only>
+      <update_include_paths>true</update_include_paths>
+   </preferences>
+   <tools>
+      <pins name="Pins" version="10.0" enabled="true" update_project_code="true">
+         <pins_profile>
+            <processor_version>0.10.1</processor_version>
+         </pins_profile>
+         <functions_list>
+            <function name="BOARD_InitPins">
+               <description>Configures pin routing and optionally pin electrical features.</description>
+               <options>
+                  <callFromInitBoot>true</callFromInitBoot>
+                  <prefix>BOARD_</prefix>
+                  <coreID>core0</coreID>
+                  <enableClock>true</enableClock>
+               </options>
+               <dependencies>
+                  <dependency resourceType="Peripheral" resourceId="LPUART0" description="Peripheral LPUART0 is not initialized" problem_level="1" source="Pins:BOARD_InitPins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.port" description="Pins initialization requires the PORT Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <pins>
+                  <pin peripheral="LPUART0" signal="RX" pin_num="54" pin_signal="TSI1_CH15/PTB0/LPUART0_RX/LPSPI0_PCS0/LPTMR0_ALT3/PWT_IN3"/>
+                  <pin peripheral="LPUART0" signal="TX" pin_num="53" pin_signal="TSI1_CH16/PTB1/LPUART0_TX/LPSPI0_SOUT/TCLK0"/>
+               </pins>
+            </function>
+            <function name="BOARD_I2C_ConfigurePins">
+               <description>Configures pin routing and optionally pin electrical features.</description>
+               <options>
+                  <callFromInitBoot>false</callFromInitBoot>
+                  <prefix>BOARD_</prefix>
+                  <coreID>core0</coreID>
+                  <enableClock>true</enableClock>
+               </options>
+               <dependencies>
+                  <dependency resourceType="Peripheral" resourceId="LPI2C0" description="Peripheral LPI2C0 is not initialized" problem_level="1" source="Pins:BOARD_I2C_ConfigurePins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_I2C_ConfigurePins">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.port" description="Pins initialization requires the PORT Driver in the project." problem_level="2" source="Pins:BOARD_I2C_ConfigurePins">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <pins>
+                  <pin peripheral="LPI2C0" signal="SCL" pin_num="77" pin_signal="PTB8/LPI2C0_SCL/FXIO_D4"/>
+                  <pin peripheral="LPI2C0" signal="SDA" pin_num="82" pin_signal="PTA16/FTM1_CH3/LPI2C0_SDA"/>
+               </pins>
+            </function>
+            <function name="BOARD_Init_ACCEL_Reset">
+               <description>Configures pin routing and optionally pin electrical features.</description>
+               <options>
+                  <callFromInitBoot>false</callFromInitBoot>
+                  <prefix>BOARD_</prefix>
+                  <coreID>core0</coreID>
+                  <enableClock>true</enableClock>
+               </options>
+               <dependencies>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_Init_ACCEL_Reset">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.port" description="Pins initialization requires the PORT Driver in the project." problem_level="2" source="Pins:BOARD_Init_ACCEL_Reset">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.gpio" description="Pins initialization requires the GPIO Driver in the project." problem_level="2" source="Pins:BOARD_Init_ACCEL_Reset">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <pins>
+                  <pin peripheral="GPIOB" signal="GPIO, 9" pin_num="76" pin_signal="PTB9/LPI2C0_SCLS/FXIO_D5">
+                     <pin_features>
+                        <pin_feature name="direction" value="OUTPUT"/>
+                        <pin_feature name="gpio_init_state" value="true"/>
+                     </pin_features>
+                  </pin>
+               </pins>
+            </function>
+         </functions_list>
+      </pins>
+      <clocks name="Clocks" version="8.0" enabled="true" update_project_code="true">
+         <clocks_profile>
+            <processor_version>0.10.1</processor_version>
+         </clocks_profile>
+         <clock_configurations>
+            <clock_configuration name="BOARD_BootClockRUN">
+               <description></description>
+               <options/>
+               <dependencies>
+                  <dependency resourceType="PinSignal" resourceId="SCG.EXTAL0" description="&apos;EXTAL0&apos; (Pins tool id: SCG.EXTAL0, Clocks tool id: SCG.EXTAL0) needs to be routed" problem_level="1" source="Clocks:BOARD_BootClockRUN">
+                     <feature name="routed" evaluation="">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PinSignal" resourceId="SCG.EXTAL0" description="&apos;EXTAL0&apos; (Pins tool id: SCG.EXTAL0, Clocks tool id: SCG.EXTAL0) needs to have &apos;INPUT&apos; direction" problem_level="1" source="Clocks:BOARD_BootClockRUN">
+                     <feature name="direction" evaluation="">
+                        <data>INPUT</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PinSignal" resourceId="SCG.XTAL0" description="&apos;XTAL0&apos; (Pins tool id: SCG.XTAL0, Clocks tool id: SCG.XTAL0) needs to be routed" problem_level="1" source="Clocks:BOARD_BootClockRUN">
+                     <feature name="routed" evaluation="">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PinSignal" resourceId="SCG.XTAL0" description="&apos;XTAL0&apos; (Pins tool id: SCG.XTAL0, Clocks tool id: SCG.XTAL0) needs to have &apos;OUTPUT&apos; direction" problem_level="1" source="Clocks:BOARD_BootClockRUN">
+                     <feature name="direction" evaluation="">
+                        <data>OUTPUT</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Clocks initialization requires the COMMON Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockRUN">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <clock_sources>
+                  <clock_source id="SCG.SOSC.outFreq" value="8 MHz" locked="false" enabled="true"/>
+               </clock_sources>
+               <clock_outputs>
+                  <clock_output id="Bus_clock.outFreq" value="24 MHz" locked="false" accuracy=""/>
+                  <clock_output id="Core_clock.outFreq" value="72 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FIRCDIV2_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLLDIV2_CLK.outFreq" value="36 MHz" locked="false" accuracy=""/>
+                  <clock_output id="Flash_clock.outFreq" value="24 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPO_clock.outFreq" value="128 kHz" locked="false" accuracy=""/>
+                  <clock_output id="SIRCDIV2_CLK.outFreq" value="4 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SIRC_CLK.outFreq" value="8 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SOSCDIV2_CLK.outFreq" value="8 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SOSC_CLK.outFreq" value="8 MHz" locked="false" accuracy=""/>
+                  <clock_output id="System_clock.outFreq" value="72 MHz" locked="false" accuracy=""/>
+               </clock_outputs>
+               <clock_settings>
+                  <setting id="SCGMode" value="LPFLL" locked="false"/>
+                  <setting id="SCG.DIVCORE.scale" value="1" locked="true"/>
+                  <setting id="SCG.DIVSLOW.scale" value="3" locked="true"/>
+                  <setting id="SCG.FIRCDIV2.scale" value="1" locked="false"/>
+                  <setting id="SCG.LPFLLDIV2.scale" value="2" locked="false"/>
+                  <setting id="SCG.LPFLL_mul.scale" value="36" locked="true"/>
+                  <setting id="SCG.SCSSEL.sel" value="SCG.LPFLL" locked="false"/>
+                  <setting id="SCG.SIRCDIV2.scale" value="2" locked="false"/>
+                  <setting id="SCG.SOSCDIV2.scale" value="1" locked="false"/>
+                  <setting id="SCG.TRIMDIV.scale" value="4" locked="false"/>
+                  <setting id="SCG_LPFLLCSR_LPFLLEN_CFG" value="Enabled" locked="false"/>
+                  <setting id="SCG_SIRCCSR_SIRCLPEN_CFG" value="Disabled" locked="false"/>
+                  <setting id="SCG_SOSCCFG_OSC_MODE_CFG" value="ModeOscLowPower" locked="false"/>
+                  <setting id="SCG_SOSCCFG_RANGE_CFG" value="Medium" locked="false"/>
+                  <setting id="SCG_SOSCCSR_SOSCEN_CFG" value="Enabled" locked="false"/>
+                  <setting id="SCG_SOSCCSR_SOSCLPEN_CFG" value="Enabled" locked="false"/>
+               </clock_settings>
+               <called_from_default_init>true</called_from_default_init>
+            </clock_configuration>
+            <clock_configuration name="BOARD_BootClockVLPR">
+               <description></description>
+               <options/>
+               <dependencies>
+                  <dependency resourceType="PinSignal" resourceId="SCG.EXTAL0" description="&apos;EXTAL0&apos; (Pins tool id: SCG.EXTAL0, Clocks tool id: SCG.EXTAL0) needs to be routed" problem_level="1" source="Clocks:BOARD_BootClockVLPR">
+                     <feature name="routed" evaluation="">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PinSignal" resourceId="SCG.EXTAL0" description="&apos;EXTAL0&apos; (Pins tool id: SCG.EXTAL0, Clocks tool id: SCG.EXTAL0) needs to have &apos;INPUT&apos; direction" problem_level="1" source="Clocks:BOARD_BootClockVLPR">
+                     <feature name="direction" evaluation="">
+                        <data>INPUT</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PinSignal" resourceId="SCG.XTAL0" description="&apos;XTAL0&apos; (Pins tool id: SCG.XTAL0, Clocks tool id: SCG.XTAL0) needs to be routed" problem_level="1" source="Clocks:BOARD_BootClockVLPR">
+                     <feature name="routed" evaluation="">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PinSignal" resourceId="SCG.XTAL0" description="&apos;XTAL0&apos; (Pins tool id: SCG.XTAL0, Clocks tool id: SCG.XTAL0) needs to have &apos;OUTPUT&apos; direction" problem_level="1" source="Clocks:BOARD_BootClockVLPR">
+                     <feature name="direction" evaluation="">
+                        <data>OUTPUT</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Clocks initialization requires the COMMON Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockVLPR">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.smc" description="Clocks initialization requires the SMC Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockVLPR">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <clock_sources>
+                  <clock_source id="SCG.SOSC.outFreq" value="8 MHz" locked="false" enabled="true"/>
+               </clock_sources>
+               <clock_outputs>
+                  <clock_output id="Bus_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
+                  <clock_output id="Core_clock.outFreq" value="4 MHz" locked="false" accuracy=""/>
+                  <clock_output id="Flash_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPO_clock.outFreq" value="128 kHz" locked="false" accuracy=""/>
+                  <clock_output id="SOSCDIV2_CLK.outFreq" value="8 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SOSC_CLK.outFreq" value="8 MHz" locked="false" accuracy=""/>
+                  <clock_output id="System_clock.outFreq" value="4 MHz" locked="false" accuracy=""/>
+               </clock_outputs>
+               <clock_settings>
+                  <setting id="SCGMode" value="SOSC" locked="false"/>
+                  <setting id="powerMode" value="VLPR" locked="false"/>
+                  <setting id="SCG.DIVCORE.scale" value="2" locked="true"/>
+                  <setting id="SCG.DIVSLOW.scale" value="4" locked="true"/>
+                  <setting id="SCG.FIRCDIV2.scale" value="1" locked="false"/>
+                  <setting id="SCG.LPFLLDIV2.scale" value="2" locked="false"/>
+                  <setting id="SCG.LPFLL_mul.scale" value="36" locked="true"/>
+                  <setting id="SCG.SCSSEL.sel" value="SCG.SOSC" locked="false"/>
+                  <setting id="SCG.SIRCDIV2.scale" value="2" locked="false"/>
+                  <setting id="SCG.SOSCDIV2.scale" value="1" locked="false"/>
+                  <setting id="SCG.TRIMDIV.scale" value="4" locked="false"/>
+                  <setting id="SCG_LPFLLCSR_LPFLLEN_CFG" value="Enabled" locked="false"/>
+                  <setting id="SCG_SIRCCSR_SIRCLPEN_CFG" value="Disabled" locked="false"/>
+                  <setting id="SCG_SOSCCFG_OSC_MODE_CFG" value="ModeOscLowPower" locked="false"/>
+                  <setting id="SCG_SOSCCFG_RANGE_CFG" value="Medium" locked="false"/>
+                  <setting id="SCG_SOSCCSR_SOSCEN_CFG" value="Enabled" locked="false"/>
+                  <setting id="SCG_SOSCCSR_SOSCLPEN_CFG" value="Enabled" locked="false"/>
+               </clock_settings>
+               <called_from_default_init>false</called_from_default_init>
+            </clock_configuration>
+         </clock_configurations>
+      </clocks>
+      <dcdx name="DCDx" version="3.0" enabled="false" update_project_code="true">
+         <dcdx_profile>
+            <processor_version>N/A</processor_version>
+         </dcdx_profile>
+         <dcdx_configurations/>
+      </dcdx>
+      <periphs name="Peripherals" version="10.0" enabled="true" update_project_code="true">
+         <dependencies>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpi2c" description="LPI2C Driver not found in the toolchain/IDE project. Project will not compile!" problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data type="Boolean">true</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpi2c" description="Unsupported version of the LPI2C Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. Project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="greaterOrEqual">
+                  <data type="Version">2.2.0</data>
+               </feature>
+            </dependency>
+         </dependencies>
+         <peripherals_profile>
+            <processor_version>0.10.1</processor_version>
+         </peripherals_profile>
+         <functional_groups>
+            <functional_group name="BOARD_InitPeripherals" uuid="9cdb0ab1-a0c5-4f8f-92f8-261199ba2423" called_from_default_init="true" id_prefix="BOARD_" core="core0">
+               <description></description>
+               <options/>
+               <dependencies>
+                  <dependency resourceType="ClockOutput" resourceId="PCC.PCC_LPI2C0_CLK" description="LPI2C0 clock is inactive." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="frequency" evaluation="greaterThan">
+                        <data type="Frequency" unit="Hz">0</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPI2C0.lpi2c_scl" description="Signal serial clock of the peripheral LPI2C0 is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="routed" evaluation="">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPI2C0.lpi2c_sda" description="Signal serial data of the peripheral LPI2C0 is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="routed" evaluation="">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <instances>
+                  <instance name="ACCEL_I2C" uuid="4c1b128d-b928-4708-a17b-c10a3f235e4e" type="lpi2c" type_id="lpi2c_6b71962515c3208facfccd030afebc98" mode="master" peripheral="LPI2C0" enabled="true" comment="" custom_name_enabled="true" editing_lock="false">
+                     <config_set name="main">
+                        <setting name="clockSource" value="Lpi2cClock"/>
+                        <setting name="clockSourceFreq" value="GetIpFreq"/>
+                     </config_set>
+                     <config_set name="interrupt_vector"/>
+                     <config_set name="master">
+                        <setting name="mode" value="transfer"/>
+                        <struct name="config">
+                           <setting name="enableMaster" value="true"/>
+                           <setting name="enableDoze" value="true"/>
+                           <setting name="debugEnable" value="false"/>
+                           <setting name="ignoreAck" value="false"/>
+                           <setting name="pinConfig" value="kLPI2C_2PinOpenDrain"/>
+                           <setting name="baudRate_Hz" value="100000"/>
+                           <setting name="busIdleTimeout_ns" value="0"/>
+                           <setting name="pinLowTimeout_ns" value="0"/>
+                           <setting name="sdaGlitchFilterWidth_ns" value="0"/>
+                           <setting name="sclGlitchFilterWidth_ns" value="0"/>
+                           <struct name="hostRequest">
+                              <setting name="enable" value="false"/>
+                              <setting name="source" value="kLPI2C_HostRequestExternalPin"/>
+                              <setting name="polarity" value="kLPI2C_HostRequestPinActiveHigh"/>
+                           </struct>
+                           <set name="edmaRequestSources">
+                              <selected/>
+                           </set>
+                        </struct>
+                        <struct name="transfer">
+                           <setting name="blocking" value="true"/>
+                           <set name="flags">
+                              <selected/>
+                           </set>
+                           <setting name="slaveAddress" value="0"/>
+                           <setting name="direction" value="kLPI2C_Write"/>
+                           <setting name="subaddress" value="0"/>
+                           <setting name="subaddressSize" value="1"/>
+                           <setting name="blocking_buffer" value="false"/>
+                           <setting name="enable_custom_buffer" value="false"/>
+                           <setting name="dataSize" value="1"/>
+                        </struct>
+                     </config_set>
+                  </instance>
+                  <instance name="NVIC" uuid="4860621b-0695-47a5-8c19-7de628a15b5d" type="nvic" type_id="nvic_57b5eef3774cc60acaede6f5b8bddc67" mode="general" peripheral="NVIC" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="nvic">
+                        <array name="interrupt_table"/>
+                        <array name="interrupts"/>
+                     </config_set>
+                  </instance>
+               </instances>
+            </functional_group>
+         </functional_groups>
+         <components>
+            <component name="system" uuid="8bbd28d1-90ca-41c1-89a7-28e0c4a725b2" type_id="system_54b53072540eeeb8f8e9343e71f28176">
+               <config_set_global name="global_system_definitions">
+                  <setting name="user_definitions" value=""/>
+                  <setting name="user_includes" value=""/>
+               </config_set_global>
+            </component>
+            <component name="uart_cmsis_common" uuid="62147a38-649c-48e0-972f-f7149e3c4a0e" type_id="uart_cmsis_common_9cb8e302497aa696fdbb5a4fd622c2a8">
+               <config_set_global name="global_USART_CMSIS_common" quick_selection="default"/>
+            </component>
+            <component name="msg" uuid="d32e70f4-7c63-41f3-8d5c-ead999bea17a" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
+               <config_set_global name="global_messages"/>
+            </component>
+            <component name="generic_uart" uuid="54e6dfea-aad8-46f8-9347-8a9f57051a12" type_id="generic_uart_8cae00565451cf2346eb1b8c624e73a6">
+               <config_set_global name="global_uart"/>
+            </component>
+            <component name="generic_enet" uuid="3122241c-ea9b-4c0b-89c9-eeb43c6781ef" type_id="generic_enet_74db5c914f0ddbe47d86af40cb77a619">
+               <config_set_global name="global_enet"/>
+            </component>
+            <component name="generic_can" uuid="f82bb1d9-7c6e-406d-a970-26d9b5b96147" type_id="generic_can_1bfdd78b1af214566c1f23cf6a582d80">
+               <config_set_global name="global_can"/>
+            </component>
+         </components>
+      </periphs>
+      <tee name="TEE" version="4.0" enabled="false" update_project_code="true">
+         <tee_profile>
+            <processor_version>N/A</processor_version>
+         </tee_profile>
+      </tee>
+   </tools>
+</configuration>

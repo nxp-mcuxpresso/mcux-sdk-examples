@@ -40,6 +40,11 @@
  * @brief Start address of non-secure application.
  */
 #define mainNONSECURE_APP_START_ADDRESS DEMO_CODE_START_NS
+#if (DEMO_CODE_START_NS == 0x08100000U)
+#define BOARD_InitTrustZone XIP_BOARD_InitTrustZone
+#else
+#define BOARD_InitTrustZone RAM_BOARD_InitTrustZone
+#endif
 
 /* Start address of non-secure application */
 #define mainNONSECURE_APP_START_ADDRESS DEMO_CODE_START_NS

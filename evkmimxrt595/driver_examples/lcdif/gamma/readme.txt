@@ -9,18 +9,18 @@ picture and the inverted picture.
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================
 - Micro USB cable
 - EVK-MIMXRT595 board
 - Personal Computer
-- RK055AHD091 panel
+- RK055AHD091 panel or RK055MHD091 panel
 
 Board settings
 ==============
-Connect the RK055AHD091 panel to EVK-MIMXRT595 board J44.
+Connect the MIPI panel to EVK-MIMXRT595 board J44.
 
 Prepare the Demo
 ================
@@ -31,8 +31,11 @@ Prepare the Demo
     - No parity
     - One stop bit
     - No flow control
-3.  Download the program to the target board.
-4.  Launch the debugger in your IDE to begin running the demo.
+3.  Build the project, this project uses RK055MHD091 panel by default, to use the RK055AHD091 panel,
+    change #define USE_MIPI_PANEL MIPI_PANEL_RK055MHD091 to #define USE_MIPI_PANEL MIPI_PANEL_RK055AHD091
+    in lcdif_support.h.
+4.  Download the program to the target board.
+5.  Launch the debugger in your IDE to begin running the demo.
 
 Running the demo
 ================

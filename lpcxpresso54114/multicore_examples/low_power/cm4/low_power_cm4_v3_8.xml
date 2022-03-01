@@ -109,8 +109,8 @@
       <include_path path="examples/lpcxpresso54114/multicore_examples/low_power/cm4" project_relative_path="source" type="c_include"/>
       <include_path path="examples/lpcxpresso54114/multicore_examples/low_power/sensors" project_relative_path="sensors" type="c_include"/>
       <include_path path="examples/lpcxpresso54114/multicore_examples/low_power/cm4" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso54114/multicore_examples/low_power/cm4" project_relative_path="lpcxpresso54114/multicore_examples/low_power/cm4" type="c_include"/>
-      <include_path path="boards/lpcxpresso54114" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso54114/multicore_examples/low_power/cm4" project_relative_path="lpcxpresso54114/multicore_examples/low_power/cm4" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso54114" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso54114/multicore_examples/low_power/cm4/armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
       <files mask="build_all.bat"/>

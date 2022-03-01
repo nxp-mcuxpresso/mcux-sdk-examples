@@ -60,7 +60,7 @@ flexspi_device_config_t deviceconfig = {
     .AHBWriteWaitInterval = 0,
 };
 
-const uint32_t customLUT[CUSTOM_LUT_LENGTH] = {
+const uint32_t customLUTOctalMode[CUSTOM_LUT_LENGTH] = {
 
     /*  OPI DDR read */
     [4 * NOR_CMD_LUT_SEQ_IDX_READ + 0] =

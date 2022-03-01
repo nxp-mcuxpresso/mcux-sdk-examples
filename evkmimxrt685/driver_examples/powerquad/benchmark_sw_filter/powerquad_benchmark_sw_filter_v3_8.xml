@@ -5,6 +5,7 @@
     <definition extID="utility.debug_console_lite.MIMXRT685S"/>
     <definition extID="platform.utilities.assert_lite.MIMXRT685S"/>
     <definition extID="platform.drivers.clock.MIMXRT685S"/>
+    <definition extID="CMSIS_DSP_Library.MIMXRT685S"/>
     <definition extID="platform.drivers.common.MIMXRT685S"/>
     <definition extID="platform.drivers.power.MIMXRT685S"/>
     <definition extID="platform.drivers.lpc_gpio.MIMXRT685S"/>
@@ -20,9 +21,7 @@
     <definition extID="platform.drivers.flexcomm.MIMXRT685S"/>
     <definition extID="platform.drivers.lpc_iopctl.MIMXRT685S"/>
     <definition extID="platform.drivers.reset.MIMXRT685S"/>
-    <definition extID="platform.Include_core_cm33.MIMXRT685S"/>
-    <definition extID="platform.Include_common.MIMXRT685S"/>
-    <definition extID="platform.Include_dsp.MIMXRT685S"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT685S"/>
     <definition extID="platform.drivers.inputmux_connections.MIMXRT685S"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT685S"/>
     <definition extID="mcuxpresso"/>
@@ -33,7 +32,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt685_powerquad_benchmark_sw_filter" name="powerquad_benchmark_sw_filter" device_core="cm33_MIMXRT685S" dependency="utility.debug_console_lite.MIMXRT685S platform.utilities.assert_lite.MIMXRT685S platform.drivers.clock.MIMXRT685S platform.drivers.common.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.lpc_gpio.MIMXRT685S platform.drivers.inputmux.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S component.usart_adapter.MIMXRT685S platform.drivers.flash_config.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S component.lists.MIMXRT685S platform.drivers.flexcomm_usart.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S platform.drivers.reset.MIMXRT685S platform.Include_core_cm33.MIMXRT685S platform.Include_common.MIMXRT685S platform.Include_dsp.MIMXRT685S platform.drivers.inputmux_connections.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S" category="driver_examples/powerquad">
+  <example id="evkmimxrt685_powerquad_benchmark_sw_filter" name="powerquad_benchmark_sw_filter" device_core="cm33_MIMXRT685S" dependency="utility.debug_console_lite.MIMXRT685S platform.utilities.assert_lite.MIMXRT685S platform.drivers.clock.MIMXRT685S CMSIS_DSP_Library.MIMXRT685S platform.drivers.common.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.lpc_gpio.MIMXRT685S platform.drivers.inputmux.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S component.usart_adapter.MIMXRT685S platform.drivers.flash_config.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S component.lists.MIMXRT685S platform.drivers.flexcomm_usart.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S platform.drivers.reset.MIMXRT685S CMSIS_Include_core_cm.MIMXRT685S platform.drivers.inputmux_connections.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S" category="driver_examples/powerquad">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -50,6 +49,7 @@
           <value>FSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1</value>
           <value>__FPU_PRESENT=1</value>
           <value>__DSP_PRESENT=1</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.hdrlib" type="enum">
           <value>com.crt.advproject.gas.hdrlib.newlibnano</value>
@@ -108,8 +108,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/evkmimxrt685/driver_examples/powerquad/benchmark_sw_filter" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimxrt685/driver_examples/powerquad/benchmark_sw_filter" project_relative_path="evkmimxrt685/driver_examples/powerquad/benchmark_sw_filter" type="c_include"/>
-      <include_path path="boards/evkmimxrt685" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt685/driver_examples/powerquad/benchmark_sw_filter" project_relative_path="evkmimxrt685/driver_examples/powerquad/benchmark_sw_filter" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt685" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimxrt685/driver_examples/powerquad/benchmark_sw_filter/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="powerquad_benchmark_sw_filter.ewd"/>
@@ -140,28 +140,6 @@
       <files mask="build_flash_release.bat"/>
       <files mask="build_flash_release.sh"/>
     </source>
-    <source path="core/CMSIS/DSP/Source/TransformFunctions" project_relative_path="CMSIS" type="src">
-      <files mask="arm_bitreversal.c"/>
-      <files mask="arm_bitreversal2.c"/>
-      <files mask="arm_cfft_radix2_q31.c"/>
-      <files mask="arm_cfft_radix2_init_q31.c"/>
-      <files mask="arm_cfft_radix4_q31.c"/>
-      <files mask="arm_cfft_radix4_init_q31.c"/>
-      <files mask="arm_cfft_radix2_q15.c"/>
-      <files mask="arm_cfft_radix2_init_q15.c"/>
-      <files mask="arm_cfft_radix4_q15.c"/>
-      <files mask="arm_cfft_radix4_init_q15.c"/>
-      <files mask="arm_rfft_q15.c"/>
-      <files mask="arm_rfft_init_q15.c"/>
-      <files mask="arm_rfft_q31.c"/>
-      <files mask="arm_rfft_init_q31.c"/>
-      <files mask="arm_cfft_q15.c"/>
-      <files mask="arm_cfft_q31.c"/>
-      <files mask="arm_dct4_q15.c"/>
-      <files mask="arm_dct4_init_q15.c"/>
-      <files mask="arm_dct4_q31.c"/>
-      <files mask="arm_dct4_init_q31.c"/>
-    </source>
     <source path="examples/evkmimxrt685/driver_examples/powerquad/benchmark_sw_filter" project_relative_path="source" type="src">
       <files mask="powerquad_benchmark_sw_filter.c"/>
     </source>
@@ -170,67 +148,6 @@
     </source>
     <source path="examples/evkmimxrt685/driver_examples/powerquad/benchmark_sw_filter" project_relative_path="board" type="c_include">
       <files mask="pin_mux.h"/>
-    </source>
-    <source path="core/CMSIS/DSP/Source/BasicMathFunctions" project_relative_path="CMSIS" type="src">
-      <files mask="arm_mult_q31.c"/>
-      <files mask="arm_shift_q31.c"/>
-      <files mask="arm_mult_q15.c"/>
-      <files mask="arm_shift_q15.c"/>
-    </source>
-    <source path="core/CMSIS/DSP/Source/ComplexMathFunctions" project_relative_path="CMSIS" type="src">
-      <files mask="arm_cmplx_mult_cmplx_q31.c"/>
-      <files mask="arm_cmplx_mult_cmplx_q15.c"/>
-    </source>
-    <source path="core/CMSIS/DSP/Source/MatrixFunctions" project_relative_path="CMSIS" type="src">
-      <files mask="arm_mat_add_q15.c"/>
-      <files mask="arm_mat_add_q31.c"/>
-      <files mask="arm_mat_add_f32.c"/>
-      <files mask="arm_mat_sub_q15.c"/>
-      <files mask="arm_mat_sub_q31.c"/>
-      <files mask="arm_mat_sub_f32.c"/>
-      <files mask="arm_mat_mult_q15.c"/>
-      <files mask="arm_mat_mult_q31.c"/>
-      <files mask="arm_mat_mult_f32.c"/>
-      <files mask="arm_mat_inverse_f32.c"/>
-      <files mask="arm_mat_trans_q15.c"/>
-      <files mask="arm_mat_trans_q31.c"/>
-      <files mask="arm_mat_trans_f32.c"/>
-      <files mask="arm_mat_scale_q15.c"/>
-      <files mask="arm_mat_scale_q31.c"/>
-      <files mask="arm_mat_scale_f32.c"/>
-      <files mask="arm_mat_init_f32.c"/>
-      <files mask="arm_mat_init_q31.c"/>
-      <files mask="arm_mat_init_q15.c"/>
-    </source>
-    <source path="core/CMSIS/DSP/Source/FastMathFunctions" project_relative_path="CMSIS" type="src">
-      <files mask="arm_sqrt_q15.c"/>
-      <files mask="arm_sqrt_q31.c"/>
-      <files mask="arm_sin_q15.c"/>
-      <files mask="arm_sin_q31.c"/>
-      <files mask="arm_sin_f32.c"/>
-      <files mask="arm_cos_q15.c"/>
-      <files mask="arm_cos_q31.c"/>
-      <files mask="arm_cos_f32.c"/>
-    </source>
-    <source path="core/CMSIS/DSP/Source/FilteringFunctions" project_relative_path="CMSIS" type="src">
-      <files mask="arm_fir_q15.c"/>
-      <files mask="arm_fir_init_q15.c"/>
-      <files mask="arm_fir_q31.c"/>
-      <files mask="arm_fir_init_q31.c"/>
-      <files mask="arm_fir_f32.c"/>
-      <files mask="arm_fir_init_f32.c"/>
-      <files mask="arm_conv_q15.c"/>
-      <files mask="arm_conv_q31.c"/>
-      <files mask="arm_conv_f32.c"/>
-      <files mask="arm_correlate_q15.c"/>
-      <files mask="arm_correlate_q31.c"/>
-      <files mask="arm_correlate_f32.c"/>
-      <files mask="arm_biquad_cascade_df2T_init_f32.c"/>
-      <files mask="arm_biquad_cascade_df2T_f32.c"/>
-    </source>
-    <source path="core/CMSIS/DSP/Source/CommonTables" project_relative_path="CMSIS" type="src">
-      <files mask="arm_common_tables.c"/>
-      <files mask="arm_const_structs.c"/>
     </source>
     <source path="core/boards/evkmimxrt685" project_relative_path="board" type="src">
       <files mask="board.c"/>
@@ -243,20 +160,9 @@
     <source path="examples/evkmimxrt685/driver_examples/powerquad/benchmark_sw_filter" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
     </source>
-    <source path="examples/evkmimxrt685/driver_examples/powerquad/benchmark_sw_filter/iar" project_relative_path="MIMXRT685S/iar" type="linker" toolchain="iar">
-      <files mask="MIMXRT685Sxxxx_cm33_ram.icf"/>
-      <files mask="MIMXRT685Sxxxx_cm33_flash.icf"/>
-    </source>
-    <source path="examples/evkmimxrt685/driver_examples/powerquad/benchmark_sw_filter/mdk" project_relative_path="MIMXRT685S/arm" type="linker" toolchain="mdk">
-      <files mask="MIMXRT685Sxxxx_cm33_ram.scf"/>
-      <files mask="MIMXRT685Sxxxx_cm33_flash.scf"/>
-    </source>
     <source path="examples/evkmimxrt685/driver_examples/powerquad/benchmark_sw_filter/armgcc" project_relative_path="MIMXRT685S/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMXRT685Sxxxx_cm33_ram.ld"/>
       <files mask="MIMXRT685Sxxxx_cm33_flash.ld"/>
-    </source>
-    <source path="examples/evkmimxrt685/driver_examples/powerquad/benchmark_sw_filter/mdk" project_relative_path="evkmimxrt685" type="configuration" toolchain="mdk">
-      <files mask="evkmimxrt685_flash.ini"/>
     </source>
   </example>
 </ksdk:examples>

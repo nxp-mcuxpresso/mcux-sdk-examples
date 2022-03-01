@@ -27,8 +27,12 @@
  * Definitions
  ******************************************************************************/
 /* SAI instance and clock */
+#ifndef DEMO_CODEC_WM8960
 #define DEMO_CODEC_WM8960  1
+#endif
+#ifndef DEMO_CODEC_CS42448
 #define DEMO_CODEC_CS42448 0
+#endif
 #if DEMO_CODEC_WM8960 && DEMO_CODEC_CS42448
 #error "Duplicate codec defined"
 #endif
@@ -157,8 +161,8 @@ const clock_audio_pll_config_t audioPllConfig = {
 #error "no codec enabled, please check."
 #endif
 
-AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle) = {0};
-edma_handle_t g_dmaHandle                                = {0};
+AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t txHandle);
+edma_handle_t g_dmaHandle = {0};
 extern codec_config_t boardCodecConfig;
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t buffer[BUFFER_NUM * BUFFER_SIZE], 4);
 volatile bool isFinished      = false;

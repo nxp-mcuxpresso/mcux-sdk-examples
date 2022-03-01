@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="platform.drivers.igpio.MIMXRT1052"/>
+    <definition extID="middleware.eiq.deepviewrt.MIMXRT1052"/>
+    <definition extID="component.lists.MIMXRT1052"/>
+    <definition extID="component.lpuart_adapter.MIMXRT1052"/>
+    <definition extID="component.serial_manager.MIMXRT1052"/>
+    <definition extID="platform.drivers.common.MIMXRT1052"/>
+    <definition extID="component.serial_manager_uart.MIMXRT1052"/>
+    <definition extID="platform.drivers.lpuart.MIMXRT1052"/>
+    <definition extID="utility.debug_console.MIMXRT1052"/>
+    <definition extID="device.MIMXRT1052_CMSIS.MIMXRT1052"/>
+    <definition extID="device.MIMXRT1052_startup.MIMXRT1052"/>
+    <definition extID="platform.drivers.clock.MIMXRT1052"/>
+    <definition extID="platform.drivers.iomuxc.MIMXRT1052"/>
+    <definition extID="platform.drivers.xip_device.MIMXRT1052"/>
+    <definition extID="platform.drivers.xip_board.evkbimxrt1050.MIMXRT1052"/>
+    <definition extID="platform.drivers.lpi2c.MIMXRT1052"/>
+    <definition extID="platform.utilities.assert.MIMXRT1052"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT1052"/>
+    <definition extID="device.MIMXRT1052_system.MIMXRT1052"/>
+    <definition extID="platform.utilities.misc_utilities.MIMXRT1052"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="iar"/>
+    <definition extID="mdk"/>
+    <definition extID="armgcc"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso.core.debug.support.segger.debug"/>
+    <definition extID="com.nxp.mcuxpresso.core.debug.support.segger.release"/>
+    <definition extID="com.crt.advproject.config.exe.debug"/>
+    <definition extID="com.crt.advproject.config.exe.release"/>
+  </externalDefinitions>
+  <example id="evkbimxrt1050_deepviewrt_image_detection" name="deepviewrt_image_detection" dependency="platform.drivers.igpio.MIMXRT1052 middleware.eiq.deepviewrt.MIMXRT1052 component.lists.MIMXRT1052 component.lpuart_adapter.MIMXRT1052 component.serial_manager.MIMXRT1052 platform.drivers.common.MIMXRT1052 component.serial_manager_uart.MIMXRT1052 platform.drivers.lpuart.MIMXRT1052 utility.debug_console.MIMXRT1052 device.MIMXRT1052_CMSIS.MIMXRT1052 device.MIMXRT1052_startup.MIMXRT1052 platform.drivers.clock.MIMXRT1052 platform.drivers.iomuxc.MIMXRT1052 platform.drivers.xip_device.MIMXRT1052 platform.drivers.xip_board.evkbimxrt1050.MIMXRT1052 platform.drivers.lpi2c.MIMXRT1052 platform.utilities.assert.MIMXRT1052 CMSIS_Include_core_cm.MIMXRT1052 device.MIMXRT1052_system.MIMXRT1052 platform.utilities.misc_utilities.MIMXRT1052" category="eiq_examples">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.ccnature"/>
+    </projects>
+    <memory>
+      <memoryBlock id="BOARD_FLASH_evkbimxrt1050" name="BOARD_FLASH" addr="60000000" size="04000000" type="ExtFlash" access="RO"/>
+      <memoryBlock id="BOARD_SDRAM_evkbimxrt1050" name="BOARD_SDRAM" addr="80000000" size="01E00000" type="RAM" access="RW"/>
+      <memoryBlock id="NCACHE_REGION_evkbimxrt1050" name="NCACHE_REGION" addr="81E00000" size="00200000" type="RAM" access="RW"/>
+      <memoryBlock id="SRAM_DTC_evkbimxrt1050" name="SRAM_DTC" addr="20000000" size="00020000" type="RAM" access="RW"/>
+      <memoryBlock id="SRAM_ITC_evkbimxrt1050" name="SRAM_ITC" addr="00000000" size="00020000" type="RAM" access="RW"/>
+      <memoryBlock id="SRAM_OC_evkbimxrt1050" name="SRAM_OC" addr="20200000" size="00040000" type="RAM" access="RW"/>
+    </memory>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="com.crt.advproject.gcc.exe.release.option.optimization.level" type="enum">
+          <value>gnu.c.optimization.level.more</value>
+          <value>gnu.c.optimization.level.most</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5dp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+        </option>
+        <option id="com.crt.advproject.cpp.exe.release.option.optimization.level" type="enum">
+          <value>gnu.cpp.compiler.optimization.level.more</value>
+          <value>gnu.cpp.compiler.optimization.level.most</value>
+        </option>
+        <option id="com.crt.advproject.cpp.fpu" type="enum">
+          <value>com.crt.advproject.cpp.fpu.fpv5dp.hard</value>
+        </option>
+        <option id="gnu.cpp.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.cpp.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnupp11</value>
+        </option>
+        <option id="gnu.cpp.compiler.option.other.other" type="string">
+          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin -fno-rtti -fno-exceptions</value>
+        </option>
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>CPU_MIMXRT1052DVL6B</value>
+          <value>SDK_DEBUGCONSOLE=1</value>
+          <value>XIP_EXTERNAL_FLASH=1</value>
+          <value>XIP_BOOT_HEADER_ENABLE=1</value>
+          <value>XIP_BOOT_HEADER_DCD_ENABLE=1</value>
+          <value>SKIP_SYSCLK_INIT</value>
+          <value>DATA_SECTION_IS_CACHEABLE=1</value>
+          <value>_POSIX_C_SOURCE=200809L</value>
+          <value>ARM_MATH_CM7</value>
+          <value>__FPU_PRESENT=1</value>
+          <value>SDK_DEBUGCONSOLE_UART</value>
+          <value>PRINTF_FLOAT_ENABLE=1</value>
+          <value>PRINTF_ADVANCED_ENABLE=1</value>
+          <value>XIP_EXTERNAL_FLASH=1</value>
+          <value>XIP_BOOT_HEADER_ENABLE=1</value>
+          <value>XIP_BOOT_HEADER_DCD_ENABLE=1</value>
+          <value>SDK_DEBUGCONSOLE=1</value>
+          <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>MCUXPRESSO_SDK</value>
+        </option>
+        <option id="gnu.cpp.compiler.option.preprocessor.def" type="stringList">
+          <value>CPU_MIMXRT1052DVL6B</value>
+          <value>ARM_MATH_CM7</value>
+          <value>__FPU_PRESENT=1</value>
+          <value>SDK_DEBUGCONSOLE_UART</value>
+          <value>PRINTF_FLOAT_ENABLE=1</value>
+          <value>PRINTF_ADVANCED_ENABLE=1</value>
+          <value>XIP_EXTERNAL_FLASH=1</value>
+          <value>XIP_BOOT_HEADER_ENABLE=1</value>
+          <value>XIP_BOOT_HEADER_DCD_ENABLE=1</value>
+          <value>SDK_DEBUGCONSOLE=1</value>
+          <value>SKIP_SYSCLK_INIT</value>
+          <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>MCUXPRESSO_SDK</value>
+        </option>
+        <option id="com.crt.advproject.gas.hdrlib" type="enum">
+          <value>com.crt.advproject.gas.hdrlib.newlib</value>
+        </option>
+        <option id="com.crt.advproject.gas.specs" type="enum">
+          <value>com.crt.advproject.gas.specs.newlib</value>
+        </option>
+        <option id="com.crt.advproject.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.hdrlib.newlib</value>
+        </option>
+        <option id="com.crt.advproject.gcc.specs" type="enum">
+          <value>com.crt.advproject.gcc.specs.newlib</value>
+        </option>
+        <option id="com.crt.advproject.cpp.hdrlib" type="enum">
+          <value>com.crt.advproject.cpp.hdrlib.newlib</value>
+        </option>
+        <option id="com.crt.advproject.cpp.specs" type="enum">
+          <value>com.crt.advproject.cpp.specs.newlib</value>
+        </option>
+        <option id="com.crt.advproject.link.cpp.hdrlib" type="enum">
+          <value>com.crt.advproject.cpp.link.hdrlib.newlib.nohost</value>
+        </option>
+        <option id="com.crt.advproject.link.cpp.fpu" type="enum">
+          <value>com.crt.advproject.link.cpp.fpu.fpv5dp.hard</value>
+        </option>
+        <option id="gnu.cpp.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.sections.cpp" type="stringList">
+          <value>isd=*(NonCacheable.init);region=NCACHE_REGION;type=.data</value>
+          <value>isd=*(NonCacheable);region=NCACHE_REGION;type=.bss</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.heapAndStack.cpp" type="string">
+          <value>&amp;Heap:BOARD_SDRAM;Post Data;0x1000000&amp;Stack:BOARD_SDRAM;End;0x10000</value>
+        </option>
+        <option id="gnu.cpp.link.option.other" type="stringList">
+          <value>--no-wchar-size-warning</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5dp.hard</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <debug_configurations>
+      <debug_configuration id_refs="com.nxp.mcuxpresso.core.debug.support.segger.debug">
+        <scripts>
+          <script type="segger_script">
+            <source path="examples/evkbimxrt1050/eiq_examples/deepviewrt_image_detection" project_relative_path="script" type="script">
+              <files mask="evkbimxrt1050_sdram_init.jlinkscript"/>
+            </source>
+          </script>
+        </scripts>
+      </debug_configuration>
+      <debug_configuration id_refs="com.nxp.mcuxpresso.core.debug.support.segger.release">
+        <scripts>
+          <script type="segger_script">
+            <source path="examples/evkbimxrt1050/eiq_examples/deepviewrt_image_detection" project_relative_path="script" type="script">
+              <files mask="evkbimxrt1050_sdram_init.jlinkscript"/>
+            </source>
+          </script>
+        </scripts>
+      </debug_configuration>
+      <debug_configuration id_refs="com.crt.advproject.config.exe.debug com.crt.advproject.config.exe.release">
+        <drivers>
+          <driver id_refs="BOARD_FLASH_evkbimxrt1050">
+            <driverBinary path="devices/MIMXRT1052/mcuxpresso" project_relative_path="binary" type="binary">
+              <files mask="MIMXRT1050-EVK_S26KS512S.cfx"/>
+            </driverBinary>
+          </driver>
+        </drivers>
+      </debug_configuration>
+    </debug_configurations>
+    <include_paths>
+      <include_path path="examples/evkbimxrt1050/eiq_examples/deepviewrt_image_detection/source" project_relative_path="source" type="c_include"/>
+      <include_path path="examples/evkbimxrt1050/eiq_examples/deepviewrt_image_detection" project_relative_path="source" type="c_include"/>
+      <include_path path="examples/evkbimxrt1050/eiq_examples/deepviewrt_image_detection" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkbimxrt1050/eiq_examples/deepviewrt_image_detection/source" project_relative_path="source" type="asm_include"/>
+    </include_paths>
+    <source path="examples/evkbimxrt1050/eiq_examples/deepviewrt_image_detection/iar" project_relative_path="./" type="workspace" toolchain="iar">
+      <files mask="deepviewrt_image_detection.ewd"/>
+      <files mask="deepviewrt_image_detection.ewp"/>
+      <files mask="deepviewrt_image_detection.eww"/>
+    </source>
+    <source path="examples/evkbimxrt1050/eiq_examples/deepviewrt_image_detection/mdk" project_relative_path="./" type="workspace" toolchain="mdk">
+      <files mask="deepviewrt_image_detection.uvprojx"/>
+      <files mask="deepviewrt_image_detection.uvoptx"/>
+      <files mask="deepviewrt_image_detection.uvmpw"/>
+    </source>
+    <source path="examples/evkbimxrt1050/eiq_examples/deepviewrt_image_detection/armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_flexspi_nor_sdram_debug.bat"/>
+      <files mask="build_flexspi_nor_sdram_debug.sh"/>
+      <files mask="build_flexspi_nor_sdram_release.bat"/>
+      <files mask="build_flexspi_nor_sdram_release.sh"/>
+    </source>
+    <source path="examples/evkbimxrt1050/eiq_examples/deepviewrt_image_detection" project_relative_path="source" type="src">
+      <files mask="main.c"/>
+    </source>
+    <source path="examples/evkbimxrt1050/eiq_examples/deepviewrt_image_detection" project_relative_path="source" type="src" toolchain="mcuxpresso mdk armgcc">
+      <files mask="model.S"/>
+    </source>
+    <source path="examples/evkbimxrt1050/eiq_examples/deepviewrt_image_detection/source/data" project_relative_path="source/data" type="src">
+      <files mask="horse.jpg"/>
+    </source>
+    <source path="examples/evkbimxrt1050/eiq_examples/deepviewrt_image_detection/source/models" project_relative_path="source/models" type="src">
+      <files mask="mobilenet_ssd_v1_1.00_trimmed_quant_anchors.rtm"/>
+      <files mask="mobilenet_ssd_v2_lite_quant_anchors.rtm"/>
+    </source>
+    <source path="examples/evkbimxrt1050/eiq_examples/deepviewrt_image_detection" project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+      <files mask="cr_section_macros.h"/>
+    </source>
+    <source path="examples/evkbimxrt1050/eiq_examples/deepviewrt_image_detection" project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+      <files mask="board_init.c"/>
+    </source>
+    <source path="examples/evkbimxrt1050/eiq_examples/deepviewrt_image_detection/doc" project_relative_path="doc" type="doc">
+      <files mask="readme.txt"/>
+    </source>
+    <source path="examples/evkbimxrt1050/eiq_examples/deepviewrt_image_detection" project_relative_path="board" type="c_include">
+      <files mask="board_init.h"/>
+    </source>
+    <source path="examples/evkbimxrt1050/eiq_examples/deepviewrt_image_detection" project_relative_path="board" type="src">
+      <files mask="clock_config.c"/>
+      <files mask="dcd.c"/>
+      <files mask="board.c"/>
+    </source>
+    <source path="examples/evkbimxrt1050/eiq_examples/deepviewrt_image_detection" project_relative_path="board" type="c_include">
+      <files mask="clock_config.h"/>
+      <files mask="dcd.h"/>
+      <files mask="board.h"/>
+    </source>
+    <source path="examples/evkbimxrt1050/eiq_examples/deepviewrt_image_detection/armgcc" project_relative_path="MIMXRT1052/gcc" type="linker" toolchain="armgcc">
+      <files mask="MIMXRT1052xxxxx_flexspi_nor_sdram.ld"/>
+    </source>
+  </example>
+</ksdk:examples>

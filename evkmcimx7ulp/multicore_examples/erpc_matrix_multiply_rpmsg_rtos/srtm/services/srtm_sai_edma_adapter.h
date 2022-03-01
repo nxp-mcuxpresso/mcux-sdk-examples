@@ -32,11 +32,8 @@
 
 typedef struct _srtm_sai_edma_config
 {
-    sai_config_t config;
-    uint8_t dataLine;  /* SAI data line number for transaction */
-    uint8_t watermark; /* SAI DMA hardware watermark */
+    sai_transceiver_t config;
     uint32_t mclk;
-    uint32_t bclk;
     uint32_t dmaChannel;
     bool stopOnSuspend;
     uint32_t threshold; /* threshold period number: under which will trigger periodDone notification. */

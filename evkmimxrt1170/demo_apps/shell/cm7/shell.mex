@@ -87,7 +87,7 @@
                         <pin_feature name="slew_rate" value="Slow"/>
                      </pin_features>
                   </pin>
-                  <pin peripheral="ARM" signal="arm_trace_swo" pin_num="D6" pin_signal="GPIO_DISP_B2_07">
+                  <pin peripheral="ARM" signal="arm_trace_swo" pin_num="T5" pin_signal="GPIO_LPSR_11">
                      <pin_features>
                         <pin_feature name="software_input_on" value="Disable"/>
                         <pin_feature name="pull_up_down_config" value="Pull_Down"/>

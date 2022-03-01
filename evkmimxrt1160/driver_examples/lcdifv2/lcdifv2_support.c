@@ -10,6 +10,7 @@
 #include "fsl_mipi_dsi.h"
 #include "fsl_rm68191.h"
 #include "fsl_rm68200.h"
+#include "fsl_hx8394.h"
 #include "lcdifv2_support.h"
 
 uint32_t mipiDsiTxEscClkFreq_Hz;
@@ -76,6 +77,24 @@ static display_handle_t rm68200Handle = {
     .ops      = &rm68200_ops,
 };
 
+#elif (USE_MIPI_PANEL == MIPI_PANEL_RK055MHD091)
+
+static mipi_dsi_device_t dsiDevice = {
+    .virtualChannel = 0,
+    .xferFunc       = PANEL_DSI_Transfer,
+};
+
+static const hx8394_resource_t hx8394Resource = {
+    .dsiDevice    = &dsiDevice,
+    .pullResetPin = PANEL_PullResetPin,
+    .pullPowerPin = PANEL_PullPowerPin,
+};
+
+static display_handle_t hx8394Handle = {
+    .resource = &hx8394Resource,
+    .ops      = &hx8394_ops,
+};
+
 #else
 
 static mipi_dsi_device_t dsiDevice = {
@@ -108,7 +127,7 @@ void BOARD_InitLcdifClock(void)
     const clock_root_config_t lcdifv2ClockConfig = {
         .clockOff = false,
         .mux      = 4, /*!< PLL_528. */
-#if (USE_MIPI_PANEL == MIPI_PANEL_RK055AHD091)
+#if (USE_MIPI_PANEL == MIPI_PANEL_RK055AHD091) || (USE_MIPI_PANEL == MIPI_PANEL_RK055MHD091)
         .div = 9,
 #else
         .div = 15,
@@ -144,6 +163,8 @@ static status_t BOARD_InitLcdPanel(void)
 
 #if (USE_MIPI_PANEL == MIPI_PANEL_RK055AHD091)
     status = RM68200_Init(&rm68200Handle, &displayConfig);
+#elif (USE_MIPI_PANEL == MIPI_PANEL_RK055MHD091)
+    status = HX8394_Init(&hx8394Handle, &displayConfig);
 #else
     status = RM68191_Init(&rm68191Handle, &displayConfig);
 #endif

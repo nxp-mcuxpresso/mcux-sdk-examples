@@ -7,7 +7,7 @@ to trigger the interrupt while the timer count tick reach the match value about 
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================
@@ -31,6 +31,8 @@ Prepare the Demo
 4.  Launch the debugger in your IDE to begin running the demo.
 The log below shows the output of the ostimer example in the terminal window:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Press any key to start example.
+
 Board will enter power deep sleep mode, and then wakeup by OS timer after about 5 seconds.
 After Board wakeup, the OS timer will trigger the match interrupt about every 2 seconds.
 Board wakeup from deep sleep mode.

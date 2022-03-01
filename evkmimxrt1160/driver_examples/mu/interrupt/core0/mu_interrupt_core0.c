@@ -43,7 +43,7 @@ extern int core1_image_size;
 #define BOOT_FLAG 0x01U
 
 /* Channel transmit and receive register */
-#define CHN_MU_REG_NUM 0U
+#define CHN_MU_REG_NUM kMU_MsgReg0
 
 /* How many message is used to test message sending */
 #define MSG_LENGTH 32U

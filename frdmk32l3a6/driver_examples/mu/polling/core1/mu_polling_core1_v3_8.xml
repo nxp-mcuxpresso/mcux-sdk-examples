@@ -83,8 +83,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/frdmk32l3a6/driver_examples/mu/polling/core1" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmk32l3a6/driver_examples/mu/polling/core1" project_relative_path="frdmk32l3a6/driver_examples/mu/polling/core1" type="c_include"/>
-      <include_path path="boards/frdmk32l3a6" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmk32l3a6/driver_examples/mu/polling/core1" project_relative_path="frdmk32l3a6/driver_examples/mu/polling/core1" type="c_include"/>
+      <include_path path="core/boards/frdmk32l3a6" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmk32l3a6/driver_examples/mu/polling/core1/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="mu_polling_core1.ewd"/>

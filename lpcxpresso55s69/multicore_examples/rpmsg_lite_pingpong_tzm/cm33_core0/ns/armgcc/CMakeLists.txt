@@ -61,6 +61,10 @@ include(middleware_multicore_mcmgr_lpc55s69)
 
 include(middleware_multicore_rpmsg_lite_lpcxpresso55s69_bm)
 
+include(middleware_multicore_rpmsg_lite_LPC55S69_cm33_core0)
+
+include(middleware_multicore_rpmsg_lite_bm)
+
 include(utility_debug_console_lite)
 
 include(utility_assert_lite)
@@ -97,8 +101,6 @@ include(component_lists)
 
 include(CMSIS_Include_core_cm)
 
-include(middleware_multicore_rpmsg_lite)
-
 include(utilities_misc_utilities)
 
 include(device_system_LPC55S69_cm33_core0)
@@ -118,16 +120,8 @@ if(CMAKE_BUILD_TYPE STREQUAL debug)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../s/armgcc/debug/rpmsg_lite_pingpong_tzm_s_CMSE_lib.o)
 endif(CMAKE_BUILD_TYPE STREQUAL debug)
 
-if(CMAKE_BUILD_TYPE STREQUAL debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../../core/devices/LPC55S69/gcc/libpower_hardabi.a)
-endif(CMAKE_BUILD_TYPE STREQUAL debug)
-
 if(CMAKE_BUILD_TYPE STREQUAL release)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../s/armgcc/release/rpmsg_lite_pingpong_tzm_s_CMSE_lib.o)
-endif(CMAKE_BUILD_TYPE STREQUAL release)
-
-if(CMAKE_BUILD_TYPE STREQUAL release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../../core/devices/LPC55S69/gcc/libpower_hardabi.a)
 endif(CMAKE_BUILD_TYPE STREQUAL release)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)

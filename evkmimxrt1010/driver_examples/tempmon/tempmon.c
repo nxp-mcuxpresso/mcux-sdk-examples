@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NXP
+ * Copyright 2018-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -95,7 +95,7 @@ int main(void)
                        temperature);
                 PRINTF("The chip throttling back core frequency to waiting a desired cool down temperature . \r\n");
 
-                /* Set the core frequency into 62.5MHz. */
+                /* Set the core frequency into a lower frequency. */
                 CLOCK_SetDiv(DEMO_CLOCK_DIV, 0x07);
 
                 coreFrequency = CLOCK_GetFreq(DEMO_CLOCK_SOURCE);
@@ -118,7 +118,7 @@ int main(void)
                        temperature);
                 PRINTF("The chip will return to the normal process . \r\n");
 
-                /* Set the core frequency into 500MHz. */
+                /* Set the core frequency into a higher frequency. */
                 CLOCK_SetDiv(DEMO_CLOCK_DIV, 0x0);
 
                 coreFrequency = CLOCK_GetFreq(DEMO_CLOCK_SOURCE);

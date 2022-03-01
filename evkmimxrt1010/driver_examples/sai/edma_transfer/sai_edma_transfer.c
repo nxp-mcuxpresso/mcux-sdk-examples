@@ -79,8 +79,8 @@ extern void BOARD_SAI_RXConfig(sai_transceiver_t *config, sai_sync_mode_t sync);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle) = {0};
-edma_handle_t g_dmaHandle                                = {0};
+AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t txHandle);
+edma_handle_t g_dmaHandle = {0};
 extern codec_config_t boardCodecConfig;
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t buffer[BUFFER_NUM * BUFFER_SIZE], 4);
 volatile bool isFinished      = false;

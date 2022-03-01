@@ -7,7 +7,7 @@ the system can then use this module to monitor the on-die temperature and take a
 
 Toolchain supported
 ===================
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 - GCC ARM Embedded  10.2.1
 
 Board settings

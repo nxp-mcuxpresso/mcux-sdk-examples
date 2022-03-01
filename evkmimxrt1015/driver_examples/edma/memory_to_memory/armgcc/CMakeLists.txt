@@ -61,7 +61,7 @@ include(utility_assert_lite)
 
 include(driver_clock)
 
-include(driver_edma)
+include(driver_edma_MIMXRT1015)
 
 include(driver_dmamux)
 

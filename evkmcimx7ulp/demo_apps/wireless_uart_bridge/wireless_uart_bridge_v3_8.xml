@@ -98,30 +98,30 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge" project_relative_path="source" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/wireless_uart_bridge" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble" project_relative_path="ble" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/framework/Common" project_relative_path="ble/framework/Common" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/framework/FSCI/Interface" project_relative_path="ble/framework/fsci" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/framework/FSCI/Source" project_relative_path="ble/framework/fsci" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/framework/FunctionLib" project_relative_path="ble/framework/FunctionLib" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/framework/Lists" project_relative_path="ble/framework/Lists" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/framework/MemManager/Interface" project_relative_path="ble/framework/MemManager" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/framework/Messaging/Interface" project_relative_path="ble/framework/Messaging" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/framework/OSAbstraction/Interface" project_relative_path="ble/framework/OSA" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/framework/Panic/Interface" project_relative_path="ble/framework/Panic" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/framework/SerialManager/Interface" project_relative_path="ble/framework/SerialManager" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/framework/SerialManager/Source" project_relative_path="ble/framework/SerialManager" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/gatt_db" project_relative_path="ble/gatt_db" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/fsci_host/fsci" project_relative_path="ble/fsci_host/fsci" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/fsci_host/host" project_relative_path="ble/fsci_host/host" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/fsci_host/host/config" project_relative_path="ble/fsci_host/host" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/fsci_host/host/interface" project_relative_path="ble/fsci_host/host" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/profiles/device_info" project_relative_path="ble/profiles" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/profiles/wireless_uart" project_relative_path="ble/profiles" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/profiles/battery" project_relative_path="ble/profiles" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble" project_relative_path="ble" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/framework/Common" project_relative_path="ble/framework/Common" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/framework/FSCI/Interface" project_relative_path="ble/framework/fsci" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/framework/FSCI/Source" project_relative_path="ble/framework/fsci" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/framework/FunctionLib" project_relative_path="ble/framework/FunctionLib" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/framework/Lists" project_relative_path="ble/framework/Lists" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/framework/MemManager/Interface" project_relative_path="ble/framework/MemManager" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/framework/Messaging/Interface" project_relative_path="ble/framework/Messaging" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/framework/OSAbstraction/Interface" project_relative_path="ble/framework/OSA" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/framework/Panic/Interface" project_relative_path="ble/framework/Panic" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/framework/SerialManager/Interface" project_relative_path="ble/framework/SerialManager" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/framework/SerialManager/Source" project_relative_path="ble/framework/SerialManager" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/gatt_db" project_relative_path="ble/gatt_db" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/fsci_host/fsci" project_relative_path="ble/fsci_host/fsci" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/fsci_host/host" project_relative_path="ble/fsci_host/host" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/fsci_host/host/config" project_relative_path="ble/fsci_host/host" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/fsci_host/host/interface" project_relative_path="ble/fsci_host/host" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/profiles/device_info" project_relative_path="ble/profiles" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/profiles/wireless_uart" project_relative_path="ble/profiles" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge/ble/profiles/battery" project_relative_path="ble/profiles" type="c_include"/>
       <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge" project_relative_path="remoteproc" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/demo_apps/wireless_uart_bridge" project_relative_path="evkmcimx7ulp/demo_apps/wireless_uart_bridge" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge" project_relative_path="evkmcimx7ulp/demo_apps/wireless_uart_bridge" type="c_include"/>
+      <include_path path="core/boards/evkmcimx7ulp" project_relative_path="board" type="c_include"/>
       <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge" project_relative_path="board" type="c_include"/>
       <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge" project_relative_path="evkmcimx7ulp" type="c_include"/>
       <include_path path="examples/evkmcimx7ulp/demo_apps/wireless_uart_bridge/srtm/channels" project_relative_path="srtm/channels" type="c_include"/>

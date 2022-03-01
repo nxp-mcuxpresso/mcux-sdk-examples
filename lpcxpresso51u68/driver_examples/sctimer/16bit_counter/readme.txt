@@ -6,7 +6,7 @@ The example toggles an output per counter when a match occurs.
 
 Toolchain supported
 ===================
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 - GCC ARM Embedded  10.2.1
 
 Hardware requirements
@@ -39,3 +39,4 @@ SCTimer example to use it in 16-bit mode
 
 The example shows both 16-bit counters running and toggling an output periodically
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Probe oscilloscope at J2-5(5Hz) and J8-8(2.5Hz) to see output signal.

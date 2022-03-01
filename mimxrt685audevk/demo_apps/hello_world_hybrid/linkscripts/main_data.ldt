@@ -1,0 +1,4 @@
+        *(.text*)
+        *(.rodata .rodata.* .constdata .constdata.*)
+        . = ALIGN(${text_align});
+        *(.data*)

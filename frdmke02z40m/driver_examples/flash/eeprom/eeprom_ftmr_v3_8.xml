@@ -62,8 +62,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmke02z40m/driver_examples/flash/eeprom" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmke02z40m/driver_examples/flash/eeprom" project_relative_path="frdmke02z40m/driver_examples/flash/eeprom" type="c_include"/>
-      <include_path path="boards/frdmke02z40m" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmke02z40m/driver_examples/flash/eeprom" project_relative_path="frdmke02z40m/driver_examples/flash/eeprom" type="c_include"/>
+      <include_path path="core/boards/frdmke02z40m" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmke02z40m/driver_examples/flash/eeprom/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="eeprom_ftmr.ewd"/>

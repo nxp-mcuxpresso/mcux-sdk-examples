@@ -16,11 +16,11 @@
 #include "board.h"
 #include "fsl_i2c.h"
 #include "fsl_i2s.h"
-#include "fsl_wm8904.h"
 #include "music.h"
 #include "fsl_codec_common.h"
 #include <stdbool.h>
 #include "fsl_codec_adapter.h"
+#include "fsl_wm8904.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -33,7 +33,9 @@
 #define DEMO_I2S_CLOCK_DIVIDER          16
 #define DEMO_I2S_TX_MODE                kI2S_MasterSlaveNormalSlave
 #define DEMO_I2S_RX_MODE                kI2S_MasterSlaveNormalMaster
-
+#ifndef DEMO_CODEC_VOLUME
+#define DEMO_CODEC_VOLUME 30U
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -167,7 +169,7 @@ int main(void)
     /* Set flexcomm3 SCK, WS from shared signal set 0 */
     SYSCTL1->FCCTRLSEL[3] = SYSCTL1_FCCTRLSEL_SCKINSEL(1) | SYSCTL1_FCCTRLSEL_WSINSEL(1);
 
-    PRINTF("Configure WM8904 codec\r\n");
+    PRINTF("Configure codec\r\n");
 
     /* protocol: i2s
      * sampleRate: 48K
@@ -175,15 +177,15 @@ int main(void)
      */
     if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
     {
-        PRINTF("WM8904_Init failed!\r\n");
+        PRINTF("codec_Init failed!\r\n");
         assert(false);
     }
 
     /* Initial volume kept low for hearing safety.
      * Adjust it to your needs, 0-100, 0 for mute, 100 for maximum volume.
      */
-    if (CODEC_SetVolume(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight, 30U) !=
-        kStatus_Success)
+    if (CODEC_SetVolume(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight,
+                        DEMO_CODEC_VOLUME) != kStatus_Success)
     {
         assert(false);
     }
@@ -229,7 +231,7 @@ int main(void)
      * pack48 = false;
      */
     I2S_RxGetDefaultConfig(&s_RxConfig);
-    s_TxConfig.divider     = DEMO_I2S_CLOCK_DIVIDER;
+    s_RxConfig.divider     = DEMO_I2S_CLOCK_DIVIDER;
     s_RxConfig.masterSlave = DEMO_I2S_RX_MODE;
 
     I2S_TxInit(DEMO_I2S_TX, &s_TxConfig);

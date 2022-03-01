@@ -1021,10 +1021,10 @@ ${load}</script>
         <files mask="cmsis_iccarm.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="CMSIS_Include_common_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_common.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="CMSIS_Include_common_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1042,7 +1042,7 @@ ${load}</script>
         <files mask="mpu_armv7.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="CMSIS_Include_core_cm0plus_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_core_cm0plus.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1060,7 +1060,7 @@ ${load}</script>
         <files mask="mpu_armv7.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="CMSIS_Include_core_cm4_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_core_cm4.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1073,10 +1073,10 @@ ${load}</script>
         <files mask="arm_math.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="CMSIS_Include_dsp_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_dsp.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="CMSIS_Include_dsp_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="CMSIS_Include_dsp.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1160,44 +1160,24 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="component.codec_cs42888_adapter.LPC54114" name="codecs_cs42888_adapter" brief="Component cs42888 adapter for multi codecs" version="2.2.1" full_name="Component codec_cs42888_adapter" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="abstraction_layer" package_base_path="core/components/codec/port" project_base_path="codec">
+    <component id="component.codec_adapters.LPC54114" name="codec_adapters" brief="Component codec adapters for multi codec" version="2.2.0" full_name="Component codec_adapters" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="abstraction_layer" package_base_path="core/components/codec/" project_base_path="codec">
       <dependencies>
         <all>
-          <component_dependency value="driver.cs42888.LPC54114"/>
           <component_dependency value="driver.codec.LPC54114"/>
+          <any_of>
+            <component_dependency value="component.wm8904_adapter.LPC54114"/>
+            <component_dependency value="component.cs42888_adapter.LPC54114"/>
+            <component_dependency value="component.da7212_adapter.LPC54114"/>
+            <component_dependency value="component.sgtl_adapter.LPC54114"/>
+            <component_dependency value="component.wm8960_adapter.LPC54114"/>
+          </any_of>
         </all>
       </dependencies>
-      <source relative_path="./" type="src">
-        <files mask="fsl_cs42888_adapter.c"/>
+      <source relative_path="port" type="src">
         <files mask="fsl_codec_adapter.c"/>
       </source>
-      <source relative_path="./" type="c_include">
-        <files mask="fsl_cs42888_adapter.h"/>
-        <files mask="fsl_codec_adapter.h"/>
-      </source>
       <include_paths>
-        <include_path relative_path="./" type="c_include"/>
-        <include_path relative_path="./" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="component.codec_da7212_adapter.LPC54114" name="codecs_da7212_adapter" brief="Component da7212 adapter for multi codecs" version="2.2.0" full_name="Component codec_da7212_adapter" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="abstraction_layer" package_base_path="core/components/codec/port" project_base_path="codec">
-      <dependencies>
-        <all>
-          <component_dependency value="driver.dialog7212.LPC54114"/>
-          <component_dependency value="driver.codec.LPC54114"/>
-        </all>
-      </dependencies>
-      <source relative_path="./" type="src">
-        <files mask="fsl_da7212_adapter.c"/>
-        <files mask="fsl_codec_adapter.c"/>
-      </source>
-      <source relative_path="./" type="c_include">
-        <files mask="fsl_da7212_adapter.h"/>
-        <files mask="fsl_codec_adapter.h"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="./" type="c_include"/>
-        <include_path relative_path="./" type="c_include"/>
+        <include_path relative_path="./port" type="c_include"/>
       </include_paths>
     </component>
     <component id="component.codec_i2c.LPC54114" name="codec_i2c" brief="Component codec_i2c" version="2.1.0" full_name="Component codec_i2c" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="software_component" package_base_path="core/components/codec/i2c" project_base_path="codec">
@@ -1220,66 +1200,6 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="component.codec_sgtl_adapter.LPC54114" name="codecs_sgtl_adapter" brief="Component sgtl5000 adapter for multi codecs" version="2.2.0" full_name="Component codec_sgtl_adapter" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="abstraction_layer" package_base_path="core/components/codec/port" project_base_path="codec">
-      <dependencies>
-        <all>
-          <component_dependency value="driver.sgtl5000.LPC54114"/>
-          <component_dependency value="driver.codec.LPC54114"/>
-        </all>
-      </dependencies>
-      <source relative_path="./" type="src">
-        <files mask="fsl_sgtl_adapter.c"/>
-        <files mask="fsl_codec_adapter.c"/>
-      </source>
-      <source relative_path="./" type="c_include">
-        <files mask="fsl_sgtl_adapter.h"/>
-        <files mask="fsl_codec_adapter.h"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="./" type="c_include"/>
-        <include_path relative_path="./" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="component.codec_wm8904_adapter.LPC54114" name="codecs_wm8904_adapter" brief="Component wm8904 adapter for multi codecs" version="2.2.0" full_name="Component codec_wm8904_adapter" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="abstraction_layer" package_base_path="core/components/codec/port" project_base_path="codec">
-      <dependencies>
-        <all>
-          <component_dependency value="driver.wm8904.LPC54114"/>
-          <component_dependency value="driver.codec.LPC54114"/>
-        </all>
-      </dependencies>
-      <source relative_path="./" type="src">
-        <files mask="fsl_wm8904_adapter.c"/>
-        <files mask="fsl_codec_adapter.c"/>
-      </source>
-      <source relative_path="./" type="c_include">
-        <files mask="fsl_wm8904_adapter.h"/>
-        <files mask="fsl_codec_adapter.h"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="./" type="c_include"/>
-        <include_path relative_path="./" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="component.codec_wm8960_adapter.LPC54114" name="codecs_wm8960_adapter" brief="Component wm8960 adapter for multi codecs" version="2.2.0" full_name="Component codec_wm8960_adapter" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="abstraction_layer" package_base_path="core/components/codec/port" project_base_path="codec">
-      <dependencies>
-        <all>
-          <component_dependency value="driver.wm8960.LPC54114"/>
-          <component_dependency value="driver.codec.LPC54114"/>
-        </all>
-      </dependencies>
-      <source relative_path="./" type="src">
-        <files mask="fsl_wm8960_adapter.c"/>
-        <files mask="fsl_codec_adapter.c"/>
-      </source>
-      <source relative_path="./" type="c_include">
-        <files mask="fsl_wm8960_adapter.h"/>
-        <files mask="fsl_codec_adapter.h"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="./" type="c_include"/>
-        <include_path relative_path="./" type="c_include"/>
-      </include_paths>
-    </component>
     <component id="component.common_task.LPC54114" name="common_task" brief="Component common_task" version="1.0.0" full_name="Component common_task" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="software_component" package_base_path="core/components/common_task" project_base_path="component/common_task">
       <dependencies>
         <all>
@@ -1297,21 +1217,25 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="component.cs42888_adapter.LPC54114" name="codec_cs42888_adapter" brief="Component cs42888 adapter for single codec" version="2.2.1" full_name="Component cs42888_adapter" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="abstraction_layer" package_base_path="core/components/codec/port/cs42888" project_base_path="codec">
+    <component id="component.cs42888_adapter.LPC54114" name="codec_cs42888_adapter" brief="Component cs42888 adapter for single codec" version="2.2.1" full_name="Component cs42888_adapter" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="abstraction_layer" package_base_path="core/components/codec" project_base_path="codec">
       <dependencies>
         <all>
           <component_dependency value="driver.cs42888.LPC54114"/>
           <component_dependency value="driver.codec.LPC54114"/>
         </all>
       </dependencies>
-      <source relative_path="./" type="src">
-        <files mask="fsl_codec_adapter.c"/>
+      <source relative_path="port/cs42888" type="src">
+        <files mask="fsl_codec_cs42888_adapter.c"/>
       </source>
-      <source relative_path="./" type="c_include">
+      <source relative_path="port/cs42888" type="c_include">
+        <files mask="fsl_codec_cs42888_adapter.h"/>
+      </source>
+      <source relative_path="port" type="c_include">
         <files mask="fsl_codec_adapter.h"/>
       </source>
       <include_paths>
-        <include_path relative_path="./" type="c_include"/>
+        <include_path relative_path="./port/cs42888" type="c_include"/>
+        <include_path relative_path="./port/" type="c_include"/>
       </include_paths>
     </component>
     <component id="component.ctimer_adapter.LPC54114" name="ctimer_adapter" brief="Component ctimer_adapter" version="1.0.0" full_name="Component ctimer_adapter" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="abstraction_layer" package_base_path="core/components/timer" project_base_path="component/timer">
@@ -1328,27 +1252,31 @@ ${load}</script>
         <files mask="fsl_adapter_ctimer.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="component_ctimer_adapter_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="component_ctimer_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="component.da7212_adapter.LPC54114" name="codec_da7212_adapter" brief="Component da7212 adapter for single codec" version="2.2.0" full_name="Component da7212_adapter" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="abstraction_layer" package_base_path="core/components/codec/port/da7212" project_base_path="codec">
+    <component id="component.da7212_adapter.LPC54114" name="codec_da7212_adapter" brief="Component da7212 adapter for single codec" version="2.2.0" full_name="Component da7212_adapter" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="abstraction_layer" package_base_path="core/components/codec" project_base_path="codec">
       <dependencies>
         <all>
           <component_dependency value="driver.dialog7212.LPC54114"/>
           <component_dependency value="driver.codec.LPC54114"/>
         </all>
       </dependencies>
-      <source relative_path="./" type="src">
-        <files mask="fsl_codec_adapter.c"/>
+      <source relative_path="port/da7212" type="src">
+        <files mask="fsl_codec_da7212_adapter.c"/>
       </source>
-      <source relative_path="./" type="c_include">
+      <source relative_path="port/da7212" type="c_include">
+        <files mask="fsl_codec_da7212_adapter.h"/>
+      </source>
+      <source relative_path="port" type="c_include">
         <files mask="fsl_codec_adapter.h"/>
       </source>
       <include_paths>
-        <include_path relative_path="./" type="c_include"/>
+        <include_path relative_path="./port/da7212" type="c_include"/>
+        <include_path relative_path="./port" type="c_include"/>
       </include_paths>
     </component>
     <component id="component.flexcomm_i2c_adapter.LPC54114" name="flexcomm_i2c_adapter" brief="Component flexcomm_i2c_adapter" version="1.0.0" full_name="Component flexcomm_i2c_adapter" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="abstraction_layer" package_base_path="core/components/i2c" project_base_path="component/i2c">
@@ -1365,7 +1293,7 @@ ${load}</script>
         <files mask="fsl_adapter_flexcomm_i2c.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="component_flexcomm_i2c_adapter_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="component_flexcomm_i2c_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1414,10 +1342,10 @@ ${load}</script>
         <files mask="fsl_component_generic_list.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="component_lists_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="component_lists.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="component_lists_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="component_lists.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1586,7 +1514,7 @@ ${load}</script>
         <files mask="fsl_os_abstraction_free_rtos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="component_osa_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="component_osa.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1685,10 +1613,10 @@ ${load}</script>
         <files mask="fsl_component_serial_manager.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="component_serial_manager_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="component_serial_manager.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="component_serial_manager_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="component_serial_manager.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1732,10 +1660,10 @@ ${load}</script>
         <files mask="fsl_component_serial_port_uart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="component_serial_manager_uart_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="component_serial_manager_uart.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="component_serial_manager_uart_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="component_serial_manager_uart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1762,21 +1690,25 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="component.sgtl_adapter.LPC54114" name="codec_sgtl_adapter" brief="Component sgtl5000 adapter for single codec" version="2.2.0" full_name="Component sgtl_adapter" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="abstraction_layer" package_base_path="core/components/codec/port/sgtl5000" project_base_path="codec">
+    <component id="component.sgtl_adapter.LPC54114" name="codec_sgtl_adapter" brief="Component sgtl5000 adapter for single codec" version="2.2.0" full_name="Component sgtl_adapter" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="abstraction_layer" package_base_path="core/components/codec" project_base_path="codec">
       <dependencies>
         <all>
           <component_dependency value="driver.sgtl5000.LPC54114"/>
           <component_dependency value="driver.codec.LPC54114"/>
         </all>
       </dependencies>
-      <source relative_path="./" type="src">
-        <files mask="fsl_codec_adapter.c"/>
+      <source relative_path="port/sgtl5000" type="src">
+        <files mask="fsl_codec_sgtl_adapter.c"/>
       </source>
-      <source relative_path="./" type="c_include">
+      <source relative_path="port/sgtl5000" type="c_include">
+        <files mask="fsl_codec_sgtl_adapter.h"/>
+      </source>
+      <source relative_path="port" type="c_include">
         <files mask="fsl_codec_adapter.h"/>
       </source>
       <include_paths>
-        <include_path relative_path="./" type="c_include"/>
+        <include_path relative_path="./port/sgtl5000" type="c_include"/>
+        <include_path relative_path="./port/" type="c_include"/>
       </include_paths>
     </component>
     <component id="component.software_crc_adapter.LPC54114" name="software_crc_adapter" brief="Component software_crc_adapter" version="1.0.0" full_name="Component software_crc_adapter" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="abstraction_layer" package_base_path="core/components/crc" project_base_path="component/crc">
@@ -1843,50 +1775,58 @@ ${load}</script>
         <files mask="fsl_adapter_usart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="component_usart_adapter_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="component_usart_adapter.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="component_usart_adapter_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="component_usart_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="component.wm8904_adapter.LPC54114" name="codec_wm8904_adapter" brief="Component wm8904 adapter for single codec" version="2.2.0" full_name="Component wm8904_adapter" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="abstraction_layer" package_base_path="core/components/codec/port/wm8904" project_base_path="codec">
+    <component id="component.wm8904_adapter.LPC54114" name="codec_wm8904_adapter" brief="Component wm8904 adapter for single codec" version="2.2.0" full_name="Component wm8904_adapter" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="abstraction_layer" package_base_path="core/components/codec/" project_base_path="codec">
       <dependencies>
         <all>
           <component_dependency value="driver.wm8904.LPC54114"/>
           <component_dependency value="driver.codec.LPC54114"/>
         </all>
       </dependencies>
-      <source relative_path="./" type="src">
-        <files mask="fsl_codec_adapter.c"/>
+      <source relative_path="port/wm8904" type="src">
+        <files mask="fsl_codec_wm8904_adapter.c"/>
       </source>
-      <source relative_path="./" type="c_include">
+      <source relative_path="port/wm8904" type="c_include">
+        <files mask="fsl_codec_wm8904_adapter.h"/>
+      </source>
+      <source relative_path="port" type="c_include">
         <files mask="fsl_codec_adapter.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="component_wm8904_adapter_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="component_wm8904_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
-        <include_path relative_path="./" type="c_include"/>
+        <include_path relative_path="./port/wm8904" type="c_include"/>
+        <include_path relative_path="./port" type="c_include"/>
       </include_paths>
     </component>
-    <component id="component.wm8960_adapter.LPC54114" name="codec_wm8960_adapter" brief="Component wm8960 adapter for single codecs" version="2.2.0" full_name="Component wm8960_adapter" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="abstraction_layer" package_base_path="core/components/codec/port/wm8960" project_base_path="codec">
+    <component id="component.wm8960_adapter.LPC54114" name="codec_wm8960_adapter" brief="Component wm8960 adapter for single codecs" version="2.2.0" full_name="Component wm8960_adapter" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="abstraction_layer" package_base_path="core/components/codec/" project_base_path="codec">
       <dependencies>
         <all>
           <component_dependency value="driver.wm8960.LPC54114"/>
           <component_dependency value="driver.codec.LPC54114"/>
         </all>
       </dependencies>
-      <source relative_path="./" type="src">
-        <files mask="fsl_codec_adapter.c"/>
+      <source relative_path="port/wm8960" type="src">
+        <files mask="fsl_codec_wm8960_adapter.c"/>
       </source>
-      <source relative_path="./" type="c_include">
+      <source relative_path="port/wm8960" type="c_include">
+        <files mask="fsl_codec_wm8960_adapter.h"/>
+      </source>
+      <source relative_path="port" type="c_include">
         <files mask="fsl_codec_adapter.h"/>
       </source>
       <include_paths>
-        <include_path relative_path="./" type="c_include"/>
+        <include_path relative_path="./port/wm8960" type="c_include"/>
+        <include_path relative_path="./port/" type="c_include"/>
       </include_paths>
     </component>
     <component id="platform.devices.LPC54114_CMSIS.LPC54114" name="LPC54114_CMSIS" brief="Device LPC54114_cmsis" version="1.0.0" full_name="Device LPC54114_cmsis" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="CMSIS_Include" package_base_path="core/devices/LPC54114" project_base_path="device">
@@ -1908,10 +1848,10 @@ ${load}</script>
         <files mask="LPC54114_cm4_features.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="device_LPC54114_CMSIS_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="device_CMSIS.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="device_LPC54114_CMSIS_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="device_CMSIS.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1919,7 +1859,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include" device_cores="cm4_LPC54114J256"/>
       </include_paths>
     </component>
-    <component id="platform.devices.LPC54114_debugger.LPC54114" name="LPC54114_debugger" brief="Device LPC54114_debugger" version="1.0.0" full_name="Device LPC54114_debugger" devices="LPC54114J256" user_visible="true" type="debugger" package_base_path="core/devices/LPC54114" project_base_path="LPC54114">
+    <component id="platform.devices.LPC54114_debugger.LPC54114" name="LPC54114_debugger" brief="Device LPC54114_debugger" version="1.0.0" full_name="Device LPC54114_debugger" devices="LPC54114J256" user_visible="true" type="debugger" package_base_path="svd/LPC54114" project_base_path="LPC54114">
       <source relative_path="./" type="xml" device_cores="cm0plus_LPC54114J256">
         <files mask="LPC54114_cm0plus.xml"/>
       </source>
@@ -1960,10 +1900,10 @@ ${load}</script>
         <files mask="boot_multicore_slave.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="device_LPC54114_startup_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="device_startup_LPC54114_cm0plus.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="device_LPC54114_startup_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="device_startup_LPC54114_cm4.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="mcuxpresso" project_relative_path="./" toolchain="mcuxpresso" type="c_include"/>
@@ -1986,10 +1926,10 @@ ${load}</script>
         <files mask="system_LPC54114_cm4.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="device_LPC54114_system_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="device_system_LPC54114_cm0plus.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="device_LPC54114_system_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="device_system_LPC54114_cm4.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include" device_cores="cm0plus_LPC54114J256"/>
@@ -2016,26 +1956,22 @@ ${load}</script>
         <files mask="fsl_clock.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="driver_clock_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="driver_clock.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_clock_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_clock.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="driver.codec.LPC54114" name="codec" brief="Driver codec" version="2.2.1" full_name="Driver codec" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="abstraction_layer" package_base_path="core/components/codec" project_base_path="codec">
+    <component id="driver.codec.LPC54114" name="codec" brief="Driver codec" version="2.2.2" full_name="Driver codec" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="abstraction_layer" package_base_path="core/components/codec" project_base_path="codec">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.common.LPC54114"/>
           <any_of>
             <component_dependency value="component.wm8904_adapter.LPC54114"/>
-            <component_dependency value="component.codec_cs42888_adapter.LPC54114"/>
-            <component_dependency value="component.codec_da7212_adapter.LPC54114"/>
-            <component_dependency value="component.codec_sgtl_adapter.LPC54114"/>
-            <component_dependency value="component.codec_wm8960_adapter.LPC54114"/>
-            <component_dependency value="component.codec_wm8904_adapter.LPC54114"/>
+            <component_dependency value="component.codec_adapters.LPC54114"/>
             <component_dependency value="component.cs42888_adapter.LPC54114"/>
             <component_dependency value="component.da7212_adapter.LPC54114"/>
             <component_dependency value="component.sgtl_adapter.LPC54114"/>
@@ -2050,7 +1986,7 @@ ${load}</script>
         <files mask="fsl_codec_common.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_codec_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_codec.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2070,11 +2006,17 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_common.c"/>
       </source>
+      <source relative_path="./" type="src" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256">
+        <files mask="fsl_common_arm.c"/>
+      </source>
+      <source relative_path="./" type="c_include" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256">
+        <files mask="fsl_common_arm.h"/>
+      </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="driver_common_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="driver_common.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_common_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2108,7 +2050,7 @@ ${load}</script>
         <files mask="fsl_ctimer.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_ctimer_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_ctimer.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2142,7 +2084,7 @@ ${load}</script>
         <files mask="fsl_dmic.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_dmic_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_dmic.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2162,7 +2104,7 @@ ${load}</script>
         <files mask="fsl_dmic_dma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_dmic_dma_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_dmic_dma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2182,7 +2124,7 @@ ${load}</script>
         <files mask="fsl_dmic.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_dmic_hwvad_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_dmic_hwvad.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2199,7 +2141,7 @@ ${load}</script>
         <files mask="fsl_flashiap.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_flashiap_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_flashiap.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2216,10 +2158,10 @@ ${load}</script>
         <files mask="fsl_flexcomm.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="driver_flexcomm_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="driver_flexcomm.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_flexcomm_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_flexcomm.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2239,10 +2181,10 @@ ${load}</script>
         <files mask="fsl_i2c.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="driver_flexcomm_i2c_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_i2c.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_flexcomm_i2c_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_i2c.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2264,7 +2206,7 @@ ${load}</script>
         <files mask="fsl_i2c_dma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_flexcomm_i2c_dma_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_i2c_dma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2286,7 +2228,7 @@ ${load}</script>
         <files mask="fsl_i2c_freertos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_flexcomm_i2c_freertos_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_i2c_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2306,7 +2248,7 @@ ${load}</script>
         <files mask="fsl_i2s.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_flexcomm_i2s_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_i2s.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2326,7 +2268,7 @@ ${load}</script>
         <files mask="fsl_i2s_dma.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_flexcomm_i2s_dma_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_i2s_dma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2346,7 +2288,7 @@ ${load}</script>
         <files mask="fsl_spi.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_flexcomm_spi_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_spi.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2367,7 +2309,7 @@ ${load}</script>
         <files mask="fsl_spi_dma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_flexcomm_spi_dma_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_spi_dma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2389,7 +2331,7 @@ ${load}</script>
         <files mask="fsl_spi_freertos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_flexcomm_spi_freertos_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_spi_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2406,10 +2348,10 @@ ${load}</script>
         <files mask="fsl_usart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="driver_flexcomm_usart_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_usart.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_flexcomm_usart_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_usart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2430,7 +2372,7 @@ ${load}</script>
         <files mask="fsl_usart_dma.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_flexcomm_usart_dma_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_usart_dma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2451,7 +2393,7 @@ ${load}</script>
         <files mask="fsl_usart_freertos.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_flexcomm_usart_freertos_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_flexcomm_usart_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2468,7 +2410,7 @@ ${load}</script>
         <files mask="fsl_fmeas.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_fmeas_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_fmeas.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2514,7 +2456,7 @@ ${load}</script>
         <files mask="fsl_gint.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_gint_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_gint.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2531,7 +2473,7 @@ ${load}</script>
         <files mask="fsl_iap.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_iap_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_iap.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2551,10 +2493,10 @@ ${load}</script>
         <files mask="fsl_inputmux.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="driver_inputmux_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="driver_inputmux.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_inputmux_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_inputmux.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2568,10 +2510,10 @@ ${load}</script>
         <files mask="fsl_inputmux_connections.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="driver_inputmux_connections_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="driver_inputmux_connections.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_inputmux_connections_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_inputmux_connections.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2588,7 +2530,7 @@ ${load}</script>
         <files mask="fsl_adc.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_lpc_adc_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_lpc_adc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2605,7 +2547,7 @@ ${load}</script>
         <files mask="fsl_crc.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_lpc_crc_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_lpc_crc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2622,7 +2564,7 @@ ${load}</script>
         <files mask="fsl_dma.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_lpc_dma_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_lpc_dma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2639,10 +2581,10 @@ ${load}</script>
         <files mask="fsl_gpio.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="driver_lpc_gpio_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="driver_lpc_gpio.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_lpc_gpio_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_lpc_gpio.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2656,10 +2598,10 @@ ${load}</script>
         <files mask="fsl_iocon.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="driver_lpc_iocon_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="driver_lpc_iocon.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_lpc_iocon_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_lpc_iocon.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2676,7 +2618,7 @@ ${load}</script>
         <files mask="fsl_rtc.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_lpc_rtc_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_lpc_rtc.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2690,10 +2632,10 @@ ${load}</script>
         <files mask="fsl_mailbox.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="driver_mailbox_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="driver_mailbox.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_mailbox_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_mailbox.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2710,7 +2652,7 @@ ${load}</script>
         <files mask="fsl_mrt.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_mrt_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_mrt.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2724,7 +2666,7 @@ ${load}</script>
         <files mask="mx25r_flash.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_mx25r_flash_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_mx25r_flash.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2741,7 +2683,7 @@ ${load}</script>
         <files mask="fsl_pint.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_pint_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_pint.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2776,10 +2718,10 @@ ${load}</script>
         <files mask="libpower_cm4_softabi.a" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="driver_power_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="driver_power.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_power_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_power.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="drivers" type="c_include"/>
@@ -2796,10 +2738,10 @@ ${load}</script>
         <files mask="fsl_reset.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="driver_reset_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="driver_reset.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_reset_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_reset.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2816,7 +2758,7 @@ ${load}</script>
         <files mask="fsl_sctimer.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_sctimer_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_sctimer.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2850,10 +2792,10 @@ ${load}</script>
         <files mask="fsl_utick.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="driver_utick_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="driver_utick.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_utick_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_utick.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2873,7 +2815,7 @@ ${load}</script>
         <files mask="fsl_wm8904.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_wm8904_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_wm8904.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2907,7 +2849,7 @@ ${load}</script>
         <files mask="fsl_wwdt.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="driver_wwdt_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="driver_wwdt.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2915,19 +2857,17 @@ ${load}</script>
     </component>
     <component id="middleware.baremetal.LPC54114" name="baremetal" brief="Middleware baremetal" version="1.0.0" full_name="Baremetal" devices="LPC54114J256" user_visible="true" type="OS" package_base_path="core/middleware" project_base_path="middleware">
       <defines>
-        <define name="FSL_RTOS_BM" value=""/>
         <define name="SDK_OS_BAREMETAL" value=""/>
       </defines>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="middleware_baremetal_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="middleware_baremetal.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="middleware_baremetal_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="middleware_baremetal.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.freertos-kernel.LPC54114" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="202007.00.0" full_name="FreeRTOS kernel" devices="LPC54114J256" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
       <defines>
-        <define name="FSL_RTOS_FREE_RTOS" value=""/>
         <define name="SDK_OS_FREE_RTOS" value=""/>
       </defines>
       <dependencies>
@@ -3088,10 +3028,10 @@ ${load}</script>
         <files mask="freertos_tasks_c_additions.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="middleware_freertos-kernel_extension_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="middleware_freertos-kernel_extension.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="middleware_freertos-kernel_extension_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="middleware_freertos-kernel_extension.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="include" type="c_include"/>
@@ -3121,10 +3061,10 @@ ${load}</script>
         <files mask="heap_3.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="middleware_freertos-kernel_heap_3_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="middleware_freertos-kernel_heap_3.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="middleware_freertos-kernel_heap_3_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="middleware_freertos-kernel_heap_3.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.freertos-kernel.heap_4.LPC54114" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="202007.00.0" full_name="FreeRTOS heap 4" devices="LPC54114J256" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
@@ -3135,7 +3075,7 @@ ${load}</script>
         <files mask="heap_4.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="middleware_freertos-kernel_heap_4_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="middleware_freertos-kernel_heap_4.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.freertos-kernel.heap_5.LPC54114" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="202007.00.0" full_name="FreeRTOS heap 5" devices="LPC54114J256" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
@@ -5280,10 +5220,10 @@ ${load}</script>
         <files mask="erpc_setup_extensions.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="middleware_multicore_erpc_common_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_common.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="middleware_multicore_erpc_common_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
@@ -5318,10 +5258,10 @@ ${load}</script>
         <files mask="RPCblockDiagram.png" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="middleware_multicore_erpc_doc_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_doc.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="middleware_multicore_erpc_doc_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_doc.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.multicore.erpc.eRPC_arbitrator.LPC54114" name="eRPC_arbitrator" brief="eRPC_arbitrator" version="1.8.0" full_name="eRPC arbitrator" devices="LPC54114J256" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
@@ -5357,10 +5297,10 @@ ${load}</script>
         <files mask="erpc_threading_freertos.cpp"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="middleware_multicore_erpc_eRPC_arbitrator_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_eRPC_arbitrator.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="middleware_multicore_erpc_eRPC_arbitrator_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_eRPC_arbitrator.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
@@ -5385,7 +5325,7 @@ ${load}</script>
         <files mask="erpc_client_setup.cpp"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="middleware_multicore_erpc_eRPC_client_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_eRPC_client.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
@@ -5521,10 +5461,10 @@ ${load}</script>
         <files mask="erpc_setup_extensions_freertos.cpp"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="middleware_multicore_erpc_eRPC_port_freertos_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_eRPC_port_freertos.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="middleware_multicore_erpc_eRPC_port_freertos_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_eRPC_port_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="erpc/erpc_c/port" project_relative_path="port" type="c_include"/>
@@ -5542,10 +5482,10 @@ ${load}</script>
         <files mask="erpc_port_stdlib.cpp"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="middleware_multicore_erpc_eRPC_port_stdlib_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_eRPC_port_stdlib.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="middleware_multicore_erpc_eRPC_port_stdlib_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_eRPC_port_stdlib.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="erpc/erpc_c/port" project_relative_path="port" type="c_include"/>
@@ -5559,7 +5499,7 @@ ${load}</script>
         <files mask="erpc_setup_rpmsg_lite_master.cpp"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="middleware_multicore_erpc_eRPC_rpmsg_lite_master_c_wrapper_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_eRPC_rpmsg_lite_master_c_wrapper.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.multicore.erpc.eRPC_rpmsg_lite_remote_c_wrapper.LPC54114" name="eRPC_rpmsg_lite_remote_c_wrapper" brief="eRPC_rpmsg_lite_remote_c_wrapper" version="1.8.0" full_name="eRPC RPMsg-Lite remote C Wrapper" devices="LPC54114J256" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
@@ -5570,7 +5510,7 @@ ${load}</script>
         <files mask="erpc_setup_rpmsg_lite_remote.cpp"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="middleware_multicore_erpc_eRPC_rpmsg_lite_remote_c_wrapper_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_eRPC_rpmsg_lite_remote_c_wrapper.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_master_c_wrapper.LPC54114" name="eRPC_rpmsg_lite_rtos_master_c_wrapper" brief="eRPC_rpmsg_lite_rtos_master_c_wrapper" version="1.8.0" full_name="eRPC RPMsg-Lite RTOS master C Wrapper" devices="LPC54114J256" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
@@ -5581,7 +5521,7 @@ ${load}</script>
         <files mask="erpc_setup_rpmsg_lite_rtos_master.cpp"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="middleware_multicore_erpc_eRPC_rpmsg_lite_rtos_master_c_wrapper_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_eRPC_rpmsg_lite_rtos_master_c_wrapper.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_remote_c_wrapper.LPC54114" name="eRPC_rpmsg_lite_rtos_remote_c_wrapper" brief="eRPC_rpmsg_lite_rtos_remote_c_wrapper" version="1.8.0" full_name="eRPC RPMsg-Lite RTOS remote C Wrapper" devices="LPC54114J256" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
@@ -5592,7 +5532,7 @@ ${load}</script>
         <files mask="erpc_setup_rpmsg_lite_rtos_remote.cpp"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="middleware_multicore_erpc_eRPC_rpmsg_lite_rtos_remote_c_wrapper_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_eRPC_rpmsg_lite_rtos_remote_c_wrapper.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_transport.LPC54114" name="eRPC_rpmsg_lite_rtos_transport" brief="eRPC_rpmsg_lite_rtos_transport" version="1.8.0" full_name="eRPC RPMsg-Lite RTOS transport layer" devices="LPC54114J256" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
@@ -5610,10 +5550,10 @@ ${load}</script>
         <files mask="erpc_setup_mbf_rpmsg.cpp"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="middleware_multicore_erpc_eRPC_rpmsg_lite_rtos_transport_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_eRPC_rpmsg_lite_rtos_transport.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="middleware_multicore_erpc_eRPC_rpmsg_lite_rtos_transport_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_eRPC_rpmsg_lite_rtos_transport.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include"/>
@@ -5637,10 +5577,10 @@ ${load}</script>
         <files mask="erpc_setup_mbf_rpmsg.cpp"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="middleware_multicore_erpc_eRPC_rpmsg_lite_transport_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_eRPC_rpmsg_lite_transport.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="middleware_multicore_erpc_eRPC_rpmsg_lite_transport_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_eRPC_rpmsg_lite_transport.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include"/>
@@ -5706,7 +5646,7 @@ ${load}</script>
         <files mask="erpc_server_setup.cpp"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="middleware_multicore_erpc_eRPC_server_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="middleware_multicore_erpc_eRPC_server.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
@@ -5895,10 +5835,10 @@ ${load}</script>
         <files mask="typedefs_0.html" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="middleware_multicore_mcmgr_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="middleware_multicore_mcmgr.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="middleware_multicore_mcmgr_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="middleware_multicore_mcmgr.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="mcmgr/src" project_relative_path="./" type="c_include"/>
@@ -5915,10 +5855,10 @@ ${load}</script>
         <files mask="mcmgr_internal_core_api_lpc54114.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="middleware_multicore_mcmgr_lpc54114_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="middleware_multicore_mcmgr_lpc54114.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="middleware_multicore_mcmgr_lpc54114_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="middleware_multicore_mcmgr_lpc54114.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.multicore.rpmsg_lite.LPC54114" name="rpmsg_lite" brief="RPMsg-Lite" version="3.1.1" full_name="Remote Procedure Messaging Lite library" devices="LPC54114J256" category="Multicore/RPMsg-Lite" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
@@ -6075,10 +6015,10 @@ ${load}</script>
         <files mask="rpmsg_queue.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="middleware_multicore_rpmsg_lite_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="middleware_multicore_rpmsg_lite.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="middleware_multicore_rpmsg_lite_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="middleware_multicore_rpmsg_lite.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="rpmsg_lite/lib/include" project_relative_path="./" type="c_include"/>
@@ -6125,10 +6065,10 @@ ${load}</script>
         <files mask="rpmsg_platform.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="middleware_multicore_rpmsg_lite_lpc5411x_bm_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="middleware_multicore_rpmsg_lite_lpc5411x_bm.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="middleware_multicore_rpmsg_lite_lpc5411x_bm_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="middleware_multicore_rpmsg_lite_lpc5411x_bm.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="rpmsg_lite/lib/include/platform/lpc5411x" project_relative_path="porting" type="c_include"/>
@@ -6149,10 +6089,10 @@ ${load}</script>
         <files mask="rpmsg_platform.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="middleware_multicore_rpmsg_lite_lpc5411x_freertos_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="middleware_multicore_rpmsg_lite_lpc5411x_freertos.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="middleware_multicore_rpmsg_lite_lpc5411x_freertos_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="middleware_multicore_rpmsg_lite_lpc5411x_freertos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="rpmsg_lite/lib/include/platform/lpc5411x" project_relative_path="porting" type="c_include"/>
@@ -6200,10 +6140,10 @@ ${load}</script>
         <files mask="fsl_sbrk.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="utilities_misc_utilities_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="utilities_misc_utilities.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="utilities_misc_utilities_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="utilities_misc_utilities.cmake" hidden="true"/>
       </source>
     </component>
     <component id="platform.utilities.assert.LPC54114" name="assert" brief="Utility assert" version="1.0.0" full_name="Utility assert" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
@@ -6214,10 +6154,10 @@ ${load}</script>
         <files mask="fsl_assert.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="utility_assert_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="utility_assert.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="utility_assert_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="utility_assert.cmake" hidden="true"/>
       </source>
     </component>
     <component id="platform.utilities.assert_lite.LPC54114" name="assert_lite" brief="Utility assert_lite" version="1.0.0" full_name="Utility assert_lite" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
@@ -6228,10 +6168,10 @@ ${load}</script>
         <files mask="fsl_assert.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="utility_assert_lite_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="utility_assert_lite.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="utility_assert_lite_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="utility_assert_lite.cmake" hidden="true"/>
       </source>
     </component>
     <component id="utility.debug_console.LPC54114" name="debug_console" brief="Utility debug_console" version="1.0.0" full_name="Utility debug_console" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console" project_base_path="utilities">
@@ -6255,10 +6195,10 @@ ${load}</script>
         <files mask="fsl_debug_console_conf.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="utility_debug_console_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="utility_debug_console.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="utility_debug_console_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="utility_debug_console.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="str" project_relative_path="./" type="c_include"/>
@@ -6279,10 +6219,10 @@ ${load}</script>
         <files mask="fsl_debug_console.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
-        <files mask="utility_debug_console_lite_LPC54114_cm0plus.cmake" hidden="true"/>
+        <files mask="utility_debug_console_lite.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="utility_debug_console_lite_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="utility_debug_console_lite.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -6293,7 +6233,7 @@ ${load}</script>
         <files mask="fsl_incbin.S"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="utility_incbin_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="utility_incbin.cmake" hidden="true"/>
       </source>
     </component>
     <component id="platform.utilities.notifier.LPC54114" name="notifier" brief="Utility notifier" version="1.0.0" full_name="Utility notifier" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="utilities" package_base_path="core/devices/LPC54114/utilities" project_base_path="utilities/utilities">
@@ -6328,7 +6268,7 @@ ${load}</script>
         <files mask="fsl_shell.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
-        <files mask="utility_shell_LPC54114_cm4.cmake" hidden="true"/>
+        <files mask="utility_shell.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>

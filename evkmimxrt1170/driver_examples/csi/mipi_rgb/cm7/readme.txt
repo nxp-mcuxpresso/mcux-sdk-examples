@@ -9,14 +9,14 @@ is used to convert the XRGB8888 to RGB565 and shown in the LCD panel.
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================
 - Mini/micro USB cable
 - MIMXRT1170-EVK board
 - Personal Computer
-- RK055AHD091 panel
+- RK055AHD091 panel or RK055MHD091 panel
 - OV5640 camera
 
 Board settings
@@ -34,9 +34,11 @@ Prepare the Demo
     - No parity
     - One stop bit
     - No flow control
-3.  Build the project.
-3.  Download the program to the target board.
-4.  Either press the reset button on your board or launch the debugger in your IDE to begin running the demo.
+3.  Build the project, this project uses RK055MHD091 panel by default, to use the RK055AHD091 panel,
+    change #define DEMO_PANEL DEMO_PANEL_RK055MHD091 to #define DEMO_PANEL DEMO_PANEL_RK055AHD091
+    in display_support.h.
+4.  Download the program to the target board.
+5.  Either press the reset button on your board or launch the debugger in your IDE to begin running the demo.
 
 Running the demo
 ================

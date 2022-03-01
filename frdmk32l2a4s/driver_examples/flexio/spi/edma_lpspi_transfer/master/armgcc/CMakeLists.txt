@@ -63,7 +63,7 @@ include(utility_assert_lite)
 
 include(driver_dmamux)
 
-include(driver_edma)
+include(driver_edma_K32L2A41A)
 
 include(driver_port)
 

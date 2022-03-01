@@ -101,8 +101,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/evkmimxrt685/driver_examples/dmic/dmic_i2s_codec" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimxrt685/driver_examples/dmic/dmic_i2s_codec" project_relative_path="evkmimxrt685/driver_examples/dmic/dmic_i2s_codec" type="c_include"/>
-      <include_path path="boards/evkmimxrt685" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt685/driver_examples/dmic/dmic_i2s_codec" project_relative_path="evkmimxrt685/driver_examples/dmic/dmic_i2s_codec" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt685" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimxrt685/driver_examples/dmic/dmic_i2s_codec/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="dmic_i2s_codec.ewd"/>

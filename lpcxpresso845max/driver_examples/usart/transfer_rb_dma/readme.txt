@@ -12,7 +12,7 @@ While data in the ring buffer reach 8 characters, routine will send them out usi
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================

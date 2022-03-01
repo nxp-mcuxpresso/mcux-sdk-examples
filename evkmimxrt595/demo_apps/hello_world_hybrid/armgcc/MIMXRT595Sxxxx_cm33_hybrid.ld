@@ -5,8 +5,8 @@
 **
 **     Compiler:            GNU C Compiler
 **     Reference manual:    iMXRT500RM Rev.0, 01/2021
-**     Version:             rev. 4.0, 2020-05-12
-**     Build:               b210303
+**     Version:             rev. 5.0, 2021-07-28
+**     Build:               b210728
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -38,9 +38,9 @@ STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0400;
 MEMORY
 {
   m_flash               (RX)  : ORIGIN = 0x08000000, LENGTH = 0x00300000
-  m_interrupts          (RX)  : ORIGIN = 0x00080000, LENGTH = 0x00000180
-  m_text                (RX)  : ORIGIN = 0x00080180, LENGTH = 0x0013FE80
-  m_data                (RW)  : ORIGIN = 0x201C0000, LENGTH = 0x00140000
+  m_interrupts          (RX)  : ORIGIN = 0x00280000, LENGTH = 0x00000180
+  m_text                (RX)  : ORIGIN = 0x00280180, LENGTH = 0x0013FE80
+  m_data                (RW)  : ORIGIN = 0x203C0000, LENGTH = 0x00140000
   m_usb_sram            (RW)  : ORIGIN = 0x40140000, LENGTH = 0x00004000
 }
 

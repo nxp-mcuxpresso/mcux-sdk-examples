@@ -7,7 +7,7 @@ and another I2S interface to playback the buffer to output - digital loopback.
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================
@@ -40,7 +40,7 @@ Running the demo
 ================
 If the demo running successfully, you will hear the line in audio from line out and terminal window will show:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Configure WM8904 codec
+Configure codec
 Configure I2S
 Setup digital loopback
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

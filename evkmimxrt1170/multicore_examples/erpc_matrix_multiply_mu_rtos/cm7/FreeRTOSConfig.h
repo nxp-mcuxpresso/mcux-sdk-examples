@@ -90,12 +90,13 @@ header file. */
 
 #if defined(__ICCARM__)||defined(__CC_ARM)||defined(__GNUC__)
     /* in Kinetis SDK, this contains the system core clock frequency */
+    #include <stdint.h>
     extern uint32_t SystemCoreClock;
 #endif
 
 /* Interrupt nesting behaviour configuration. Cortex-M specific. */
 #ifdef __NVIC_PRIO_BITS
-/* __BVIC_PRIO_BITS will be specified when CMSIS is being used. */
+/* __NVIC_PRIO_BITS will be specified when CMSIS is being used. */
 #define configPRIO_BITS __NVIC_PRIO_BITS
 #else
 #define configPRIO_BITS 4 /* 15 priority levels */

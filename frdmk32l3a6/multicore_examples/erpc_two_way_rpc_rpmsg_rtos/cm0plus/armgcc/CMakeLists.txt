@@ -73,6 +73,10 @@ include(middleware_multicore_mcmgr_k32l3a6)
 
 include(middleware_multicore_rpmsg_lite_k32l3a6_freertos)
 
+include(middleware_multicore_rpmsg_lite_K32L3A60_cm0plus)
+
+include(middleware_multicore_rpmsg_lite_freertos)
+
 include(driver_port)
 
 include(driver_clock)
@@ -120,8 +124,6 @@ include(device_CMSIS)
 include(device_startup_K32L3A60_cm0plus)
 
 include(CMSIS_Include_core_cm)
-
-include(middleware_multicore_rpmsg_lite)
 
 include(middleware_freertos-kernel_extension)
 

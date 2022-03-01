@@ -16,6 +16,7 @@
  ******************************************************************************/
 /*${macro:start}*/
 #define EXAMPLE_FLEXSPI                 FLEXSPI
+#define EXAMPLE_CACHE                   CACHE64
 #define FLASH_SIZE                      0x10000 /* 512Mb/KByte */
 #define EXAMPLE_FLEXSPI_AMBA_BASE       FlexSPI_AMBA_BASE
 #define FLASH_PAGE_SIZE                 256
@@ -62,10 +63,19 @@
             __NOP();                           \
         }                                      \
         GPIO->B[2][12] = 1;                    \
-        flexspi_nor_enable_octal_mode(base);   \
     } while (0)
 
 /*${macro:end}*/
+
+/*******************************************************************************
+ * Variables
+ ******************************************************************************/
+/*${variable:start}*/
+typedef struct _flexspi_cache_status
+{
+    volatile bool CacheEnableFlag;
+} flexspi_cache_status_t;
+/*${variable:end}*/
 
 /*******************************************************************************
  * Prototypes

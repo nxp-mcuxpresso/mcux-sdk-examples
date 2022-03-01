@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2020 NXP
+ * Copyright 2016-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -59,6 +59,22 @@
 #endif
 #endif
 #endif
+
+/* @TEST_ANCHOR */
+
+#ifndef MAC_ADDRESS
+#define MAC_ADDRESS                        \
+    {                                      \
+        0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60 \
+    }
+#endif
+
+#ifndef MAC_ADDRESS2
+#define MAC_ADDRESS2                       \
+    {                                      \
+        0x01, 0x00, 0x5e, 0x00, 0x01, 0x81 \
+    }
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -77,15 +93,16 @@ __ALIGN_BEGIN enet_rx_bd_struct_t g_rxBuffDescrip[ENET_RXBD_NUM] __ALIGN_END;
 #endif
 __ALIGN_BEGIN enet_tx_bd_struct_t g_txBuffDescrip[ENET_TXBD_NUM] __ALIGN_END;
 
-enet_handle_t g_handle = {0};
+static enet_handle_t g_handle = {0};
+static enet_tx_reclaim_info_t g_txDirty[ENET_TXBD_NUM];
+static volatile bool tx_frame_over = false;
+
 /* The MAC address for ENET device. */
-uint8_t g_macAddr[6]     = {0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60};
-uint8_t multicastAddr[6] = {0x01, 0x00, 0x5e, 0x00, 0x01, 0x81};
+uint8_t g_macAddr[6]     = MAC_ADDRESS;
+uint8_t multicastAddr[6] = MAC_ADDRESS2;
 uint8_t g_frame[ENET_EXAMPLE_PACKAGETYPE][ENET_EXAMPLE_FRAME_SIZE];
 uint8_t *g_txbuff[ENET_TXBD_NUM];
 uint32_t g_txIdx      = 0;
-uint8_t g_txbuffIdx   = 0;
-uint8_t g_txCosumIdx  = 0;
 uint32_t g_testIdx    = 0;
 uint32_t g_rxIndex    = 0;
 uint32_t g_rxCheckIdx = 0;
@@ -98,14 +115,23 @@ static phy_handle_t phyHandle   = {.phyAddr = EXAMPLE_PHY_ADDRESS, .mdioHandle =
  * Code
  ******************************************************************************/
 
-void ENET_IntCallback(ENET_Type *base, enet_handle_t *handle, enet_event_t event, uint8_t channel, void *param)
+void ENET_IntCallback(ENET_Type *base,
+                      enet_handle_t *handle,
+                      enet_event_t event,
+                      uint8_t channel,
+                      enet_tx_reclaim_info_t *txReclaimInfo,
+                      void *param)
 {
     switch (event)
     {
         case kENET_TxIntEvent:
-            /* Free tx buffers. */
-            free(g_txbuff[g_txCosumIdx]);
-            g_txCosumIdx = (g_txCosumIdx + 1) % ENET_TXBD_NUM;
+            /* Get frame info after whole frame transmits out */
+            if (txReclaimInfo != NULL)
+            {
+                /* Free tx buffers. */
+                free((*txReclaimInfo).context);
+                tx_frame_over = true;
+            }
             break;
         case kENET_RxIntEvent:
             ENET_RXIRQHandler(channel);
@@ -149,6 +175,7 @@ int main(void)
         ENET_TXBD_NUM,
         &g_txBuffDescrip[0],
         &g_txBuffDescrip[0],
+        &g_txDirty[0],
         &g_rxBuffDescrip[0],
         &g_rxBuffDescrip[ENET_RXBD_NUM],
         &rxbuffer[0],
@@ -204,12 +231,10 @@ int main(void)
     PHY_GetLinkSpeedDuplex(&phyHandle, &speed, &duplex);
     config.miiSpeed  = (enet_mii_speed_t)speed;
     config.miiDuplex = (enet_mii_duplex_t)duplex;
+    config.interrupt = (kENET_DmaRx) | (kENET_DmaTx);
 
     /* Initialize ENET. */
     ENET_Init(EXAMPLE_ENET_BASE, &config, &g_macAddr[0], refClock);
-
-    /* Enable the rx interrupt. */
-    ENET_EnableInterrupts(EXAMPLE_ENET_BASE, (kENET_DmaRx));
 
     /* Initialize Descriptor. */
     ENET_DescriptorInit(EXAMPLE_ENET_BASE, &config, &buffConfig[0]);
@@ -248,20 +273,34 @@ int main(void)
                 {
                     memcpy(buffer, &g_frame[g_txIdx], ENET_EXAMPLE_FRAME_SIZE);
 
-                    status = ENET_SendFrame(EXAMPLE_ENET_BASE, &g_handle, buffer, ENET_EXAMPLE_FRAME_SIZE);
+                    enet_buffer_struct_t txBuff;
+                    enet_tx_frame_struct_t txFrame = {0};
+
+                    txBuff.buffer              = buffer;
+                    txBuff.length              = ENET_EXAMPLE_FRAME_SIZE;
+                    txFrame.txBuffArray        = &txBuff;
+                    txFrame.txBuffNum          = 1;
+                    txFrame.txConfig.intEnable = true;
+                    txFrame.txConfig.tsEnable  = true;
+                    txFrame.context            = buffer;
+
+                    tx_frame_over = false;
+                    status        = ENET_SendFrame(EXAMPLE_ENET_BASE, &g_handle, &txFrame, 0);
                     while (status == kStatus_ENET_TxFrameBusy)
                     {
-                        status = ENET_SendFrame(EXAMPLE_ENET_BASE, &g_handle, buffer, ENET_EXAMPLE_FRAME_SIZE);
+                        status = ENET_SendFrame(EXAMPLE_ENET_BASE, &g_handle, &txFrame, 0);
                     }
 
                     if (kStatus_Success == status)
                     {
+                        /* Wait for Tx over then check timestamp */
+                        while (!tx_frame_over)
+                        {
+                        }
+
                         g_testIdx++;
                         /* Make each transmit different.*/
                         g_txIdx = (g_txIdx + 1) % ENET_EXAMPLE_PACKAGETYPE;
-                        /* Store the buffer for mem free.*/
-                        g_txbuff[g_txbuffIdx] = buffer;
-                        g_txbuffIdx           = (g_txbuffIdx + 1) % ENET_TXBD_NUM;
                         PRINTF("The %d frame transmitted success!\r\n", g_testIdx);
                     }
                 }
@@ -323,7 +362,7 @@ static void ENET_RXIRQHandler(uint8_t channel)
             uint8_t *data = (uint8_t *)malloc(length);
             if (data)
             {
-                status = ENET_ReadFrame(EXAMPLE_ENET_BASE, &g_handle, data, length, channel);
+                status = ENET_ReadFrame(EXAMPLE_ENET_BASE, &g_handle, data, length, channel, NULL);
                 if (status == kStatus_Success)
                 {
                     /* Increase the received frame numbers. */
@@ -338,13 +377,13 @@ static void ENET_RXIRQHandler(uint8_t channel)
             else
             {
                 /* discard due to the lack of the buffers.*/
-                ENET_ReadFrame(EXAMPLE_ENET_BASE, &g_handle, NULL, 0, channel);
+                ENET_ReadFrame(EXAMPLE_ENET_BASE, &g_handle, NULL, 0, channel, NULL);
             }
         }
         else if (status == kStatus_ENET_RxFrameError)
         {
             /* update the receive buffer. */
-            ENET_ReadFrame(EXAMPLE_ENET_BASE, &g_handle, NULL, 0, channel);
+            ENET_ReadFrame(EXAMPLE_ENET_BASE, &g_handle, NULL, 0, channel, NULL);
         }
     } while (status != kStatus_ENET_RxFrameEmpty);
     SDK_ISR_EXIT_BARRIER;

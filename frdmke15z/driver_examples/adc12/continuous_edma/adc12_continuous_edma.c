@@ -69,7 +69,7 @@ static uint32_t g_avgADCValue = 0U;                              /* Average ADC 
 edma_handle_t g_EDMA_Handle;                                     /* Edma handler. */
 edma_transfer_config_t g_transferConfig;
 const uint32_t g_Adc12_12bitFullRange = 4096U;
-SDK_ALIGN(edma_tcd_t g_edmaTcd[2], 32U);
+AT_QUICKACCESS_SECTION_DATA_ALIGN(edma_tcd_t g_edmaTcd[2], 32U);
 /*******************************************************************************
  * Code
  ******************************************************************************/

@@ -73,8 +73,6 @@ include(driver_flexcomm_i2s)
 
 include(driver_flexcomm_usart)
 
-include(driver_cs42888)
-
 include(driver_dmic_dma)
 
 include(driver_lpc_dma)
@@ -83,7 +81,7 @@ include(driver_flexcomm_i2s_dma)
 
 include(driver_codec)
 
-include(component_cs42888_adapter)
+include(component_cs42448_adapter)
 
 include(driver_clock)
 
@@ -97,7 +95,7 @@ include(device_CMSIS)
 
 include(component_usart_adapter)
 
-include(driver_flash_config)
+include(driver_flash_config_evkmimxrt685)
 
 include(driver_flexspi)
 
@@ -114,6 +112,8 @@ include(driver_lpc_iopctl)
 include(driver_reset)
 
 include(CMSIS_Include_core_cm)
+
+include(driver_cs42448)
 
 include(driver_inputmux_connections)
 

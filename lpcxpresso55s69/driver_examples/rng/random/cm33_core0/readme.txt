@@ -2,13 +2,12 @@ Overview
 ========
 
 The RNG example project is a demonstration program that uses the KSDK software to generate random numbers
-and prints them to the terminal. 32 32-bit numbers are read and skipped per one 32-bit number read and used.
-This is to get a better entropy as suggested by user manual.
+and prints them to the terminal.
 
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================

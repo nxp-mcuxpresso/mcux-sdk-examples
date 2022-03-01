@@ -10,6 +10,7 @@
 #include "fsl_mipi_dsi.h"
 #include "fsl_rm68191.h"
 #include "fsl_rm68200.h"
+#include "fsl_hx8394.h"
 #include "elcdif_support.h"
 
 uint32_t mipiDsiTxEscClkFreq_Hz;
@@ -18,7 +19,7 @@ uint32_t mipiDsiDphyRefClkFreq_Hz;
 uint32_t mipiDsiDpiClkFreq_Hz;
 extern void APP_LCDIF_IRQHandler(void);
 
-MIPI_DSI_Type g_mipiDsi = {
+const MIPI_DSI_Type g_mipiDsi = {
     .host = DSI_HOST,
     .apb  = DSI_HOST_APB_PKT_IF,
     .dpi  = DSI_HOST_DPI_INTFC,
@@ -71,6 +72,24 @@ static const rm68200_resource_t rm68200Resource = {
 static display_handle_t rm68200Handle = {
     .resource = &rm68200Resource,
     .ops      = &rm68200_ops,
+};
+
+#elif (USE_MIPI_PANEL == MIPI_PANEL_RK055MHD091)
+
+static mipi_dsi_device_t dsiDevice = {
+    .virtualChannel = 0,
+    .xferFunc       = PANEL_DSI_Transfer,
+};
+
+static const hx8394_resource_t hx8394Resource = {
+    .dsiDevice    = &dsiDevice,
+    .pullResetPin = PANEL_PullResetPin,
+    .pullPowerPin = PANEL_PullPowerPin,
+};
+
+static display_handle_t hx8394Handle = {
+    .resource = &hx8394Resource,
+    .ops      = &hx8394_ops,
 };
 
 #else
@@ -139,6 +158,8 @@ static status_t BOARD_InitLcdPanel(void)
 
 #if (USE_MIPI_PANEL == MIPI_PANEL_RK055AHD091)
     status = RM68200_Init(&rm68200Handle, &displayConfig);
+#elif (USE_MIPI_PANEL == MIPI_PANEL_RK055MHD091)
+    status = HX8394_Init(&hx8394Handle, &displayConfig);
 #else
     status = RM68191_Init(&rm68191Handle, &displayConfig);
 #endif

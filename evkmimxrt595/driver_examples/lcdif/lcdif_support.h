@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -17,9 +17,10 @@
 
 #define MIPI_PANEL_RK055AHD091 0 /* 720 * 1280 */
 #define MIPI_PANEL_RK055IQH091 1 /* 540 * 960 */
+#define MIPI_PANEL_RK055MHD091 2 /* 720 * 1280 */
 
 #ifndef USE_MIPI_PANEL
-#define USE_MIPI_PANEL MIPI_PANEL_RK055AHD091
+#define USE_MIPI_PANEL MIPI_PANEL_RK055MHD091
 #endif
 
 #if (USE_MIPI_PANEL == MIPI_PANEL_RK055AHD091)
@@ -28,6 +29,15 @@
 #define DEMO_HSW          8
 #define DEMO_HFP          32
 #define DEMO_HBP          32
+#define DEMO_VSW          2
+#define DEMO_VFP          16
+#define DEMO_VBP          14
+#elif (USE_MIPI_PANEL == MIPI_PANEL_RK055MHD091)
+#define DEMO_PANEL_HEIGHT 1280
+#define DEMO_PANEL_WIDTH  720
+#define DEMO_HSW          6
+#define DEMO_HFP          12
+#define DEMO_HBP          24
 #define DEMO_VSW          2
 #define DEMO_VFP          16
 #define DEMO_VBP          14

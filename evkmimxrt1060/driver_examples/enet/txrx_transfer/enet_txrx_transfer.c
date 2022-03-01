@@ -48,6 +48,12 @@
 #define PHY_STABILITY_DELAY_US (0U)
 #endif
 
+/* @TEST_ANCHOR */
+
+#ifndef MAC_ADDRESS
+#define MAC_ADDRESS {0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60}
+#endif
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -74,7 +80,7 @@ enet_handle_t g_handle;
 uint8_t g_frame[ENET_DATA_LENGTH + 14];
 
 /*! @brief The MAC address for ENET device. */
-uint8_t g_macAddr[6] = {0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60};
+uint8_t g_macAddr[6] = MAC_ADDRESS;
 
 /*! @brief Enet PHY and MDIO interface handler. */
 static mdio_handle_t mdioHandle = {.ops = &EXAMPLE_MDIO_OPS};

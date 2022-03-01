@@ -21,8 +21,9 @@
  * Definitions
  ******************************************************************************/
 
-#define RNG_EXAMPLE_RANDOM_NUMBERS     (4)
-#define RNG_EXAMPLE_RANDOM_NUMBER_BITS (RNG_EXAMPLE_RANDOM_NUMBERS * 8 * sizeof(uint32_t))
+#define RNG_EXAMPLE_RANDOM_NUMBERS     (4U)
+#define RNG_EXAMPLE_RANDOM_BYTES       (16U)
+#define RNG_EXAMPLE_RANDOM_NUMBER_BITS (RNG_EXAMPLE_RANDOM_NUMBERS * 8U * sizeof(uint32_t))
 
 /*******************************************************************************
  * Prototypes
@@ -42,9 +43,9 @@
 
 int main(void)
 {
-    uint32_t number;
-    uint32_t skip;
+    uint32_t i;
     uint32_t data[RNG_EXAMPLE_RANDOM_NUMBERS];
+    status_t status = kStatus_Fail;
 
     /* Init hardware*/
     /* attach 12 MHz clock to FLEXCOMM0 (debug console) */
@@ -68,24 +69,22 @@ int main(void)
         PRINTF("Generate %u-bit random number: \r\n", RNG_EXAMPLE_RANDOM_NUMBER_BITS);
 
         /* Get Random data */
-        for (number = 0; number < RNG_EXAMPLE_RANDOM_NUMBERS; number++)
-        {
-            data[number] = RNG_GetRandomData();
 
-            /* Skip next 32 random numbers for better entropy */
-            for (skip = 0; skip < 32; skip++)
+        status = RNG_GetRandomData(&data, RNG_EXAMPLE_RANDOM_BYTES);
+        if (status == kStatus_Success)
+        {
+            /* Print data */
+            PRINTF("0x");
+            for (i = 0; i < RNG_EXAMPLE_RANDOM_NUMBERS; i++)
             {
-                RNG_GetRandomData();
+                PRINTF("%08X", data[i]);
             }
+            PRINTF("\r\n");
         }
-
-        /* Print data */
-        PRINTF("0x");
-        for (number = 0; number < RNG_EXAMPLE_RANDOM_NUMBERS; number++)
+        else
         {
-            PRINTF("%08X", data[number]);
+            PRINTF("RNG failed!\r\n");
         }
-        PRINTF("\r\n");
 
         /* Print a note */
         PRINTF(" Press any key to continue... \r\n\r\n");

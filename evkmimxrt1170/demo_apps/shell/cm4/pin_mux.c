@@ -49,7 +49,7 @@ BOARD_InitPins:
     open_drain: Disable, drive_strength: High, slew_rate: Slow}
   - {pin_num: M13, peripheral: GPIO9, signal: 'gpio_io, 03', pin_signal: GPIO_AD_04, direction: OUTPUT, gpio_init_state: 'false', software_input_on: Disable, pull_up_down_config: Pull_Down,
     pull_keeper_select: Keeper, open_drain: Disable, drive_strength: High, slew_rate: Slow}
-  - {pin_num: D6, peripheral: ARM, signal: arm_trace_swo, pin_signal: GPIO_DISP_B2_07, software_input_on: Disable, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper,
+  - {pin_num: T5, peripheral: ARM, signal: arm_trace_swo, pin_signal: GPIO_LPSR_11, software_input_on: Disable, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper,
     open_drain: Disable, drive_strength: High, slew_rate: Slow}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -62,6 +62,7 @@ BOARD_InitPins:
  * END ****************************************************************************************************************/
 void BOARD_InitPins(void) {
   CLOCK_EnableClock(kCLOCK_Iomuxc);           /* LPCG on: LPCG is ON. */
+  CLOCK_EnableClock(kCLOCK_Iomuxc_Lpsr);      /* LPCG on: LPCG is ON. */
 
   /* GPIO configuration of USER_LED on GPIO_AD_04 (pin M13) */
   gpio_pin_config_t USER_LED_config = {
@@ -82,7 +83,7 @@ void BOARD_InitPins(void) {
       IOMUXC_GPIO_AD_25_LPUART1_RXD,          /* GPIO_AD_25 is configured as LPUART1_RXD */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_DISP_B2_07_ARM_TRACE_SWO,   /* GPIO_DISP_B2_07 is configured as ARM_TRACE_SWO */
+      IOMUXC_GPIO_LPSR_11_ARM_TRACE_SWO,      /* GPIO_LPSR_11 is configured as ARM_TRACE_SWO */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinConfig(
       IOMUXC_GPIO_AD_04_GPIO9_IO03,           /* GPIO_AD_04 PAD functional properties : */
@@ -112,12 +113,12 @@ void BOARD_InitPins(void) {
                                                  Domain write protection: Both cores are allowed
                                                  Domain write protection lock: Neither of DWP bits is locked */
   IOMUXC_SetPinConfig(
-      IOMUXC_GPIO_DISP_B2_07_ARM_TRACE_SWO,   /* GPIO_DISP_B2_07 PAD functional properties : */
+      IOMUXC_GPIO_LPSR_11_ARM_TRACE_SWO,      /* GPIO_LPSR_11 PAD functional properties : */
       0x02U);                                 /* Slew Rate Field: Slow Slew Rate
-                                                 Drive Strength Field: high drive strength
-                                                 Pull / Keep Select Field: Pull Disable, Highz
+                                                 Drive Strength Field: high driver
+                                                 Pull / Keep Select Field: Pull Disable
                                                  Pull Up / Down Config. Field: Weak pull down
-                                                 Open Drain Field: Disabled
+                                                 Open Drain LPSR Field: Disabled
                                                  Domain write protection: Both cores are allowed
                                                  Domain write protection lock: Neither of DWP bits is locked */
 }

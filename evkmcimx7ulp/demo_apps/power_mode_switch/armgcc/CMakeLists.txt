@@ -104,6 +104,10 @@ include(driver_codec)
 
 include(component_wm8960_adapter)
 
+include(middleware_multicore_rpmsg_lite_MCIMX7U5)
+
+include(middleware_multicore_rpmsg_lite_freertos)
+
 include(driver_port)
 
 include(driver_llwu)
@@ -138,7 +142,7 @@ include(driver_dmamux)
 
 include(CMSIS_Include_core_cm)
 
-include(driver_edma)
+include(driver_edma_MCIMX7U5)
 
 include(driver_lpi2c)
 
@@ -167,8 +171,6 @@ include(driver_srtm_freertos)
 include(driver_srtm_MCIMX7U5)
 
 include(middleware_multicore_rpmsg_lite_imx7ulp_m4_freertos)
-
-include(middleware_multicore_rpmsg_lite)
 
 include(middleware_freertos-kernel_heap_4)
 

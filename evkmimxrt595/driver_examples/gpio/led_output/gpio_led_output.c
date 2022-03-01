@@ -19,6 +19,10 @@
 #define APP_BOARD_TEST_LED_PIN  14U
 #define APP_SW_PORT             0U
 #define APP_SW_PIN              10U
+#define APP_SW_STATE_RELEASED        0U
+#define APP_SW_STATE_CONFIRM_PRESSED 1U
+#define APP_SW_STATE_PRESSED         2U
+#define APP_SW_FILTER_PERIOD         5
 
 /*******************************************************************************
  * Prototypes
@@ -28,6 +32,8 @@
  * Variables
  ******************************************************************************/
 volatile uint32_t g_systickCounter;
+uint8_t swState = APP_SW_STATE_RELEASED;
+int8_t filter   = -1;
 
 /*******************************************************************************
  * Code
@@ -95,12 +101,46 @@ int main(void)
     while (1)
     {
         port_state = GPIO_PortRead(GPIO, APP_SW_PORT);
-        if (!(port_state & (1 << APP_SW_PIN)))
+
+        switch (swState)
         {
-            PRINTF("\r\n Port state: %x\r\n", port_state);
-            GPIO_PortToggle(GPIO, APP_BOARD_TEST_LED_PORT, 1u << APP_BOARD_TEST_LED_PIN);
+            case APP_SW_STATE_RELEASED:
+                if (!(port_state & (1 << APP_SW_PIN)))
+                {
+                    swState = APP_SW_STATE_CONFIRM_PRESSED;
+                    filter  = APP_SW_FILTER_PERIOD;
+                }
+                break;
+            case APP_SW_STATE_CONFIRM_PRESSED:
+                if (!(port_state & (1 << APP_SW_PIN)))
+                {
+                    if (filter == 0)
+                    {
+                        PRINTF("\r\n Port state: %x\r\n", port_state);
+                        GPIO_PortToggle(GPIO, APP_BOARD_TEST_LED_PORT, 1u << APP_BOARD_TEST_LED_PIN);
+                        swState = APP_SW_STATE_PRESSED;
+                    }
+                    else
+                    {
+                        filter--;
+                    }
+                }
+                else
+                {
+                    swState = APP_SW_STATE_RELEASED;
+                }
+                break;
+            case APP_SW_STATE_PRESSED:
+                if ((port_state & (1 << APP_SW_PIN)))
+                {
+                    swState = APP_SW_STATE_RELEASED;
+                }
+                break;
+
+            default:
+                swState = APP_SW_STATE_RELEASED;
+                break;
         }
-        /* Delay 1000 ms */
-        SysTick_DelayTicks(1000U);
+        SysTick_DelayTicks(1U);
     }
 }

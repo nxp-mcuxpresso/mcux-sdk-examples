@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2020 NXP
+ * Copyright 2016-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -60,6 +60,22 @@
 #endif
 #endif
 #endif
+
+/* @TEST_ANCHOR */
+
+#ifndef MAC_ADDRESS
+#define MAC_ADDRESS                        \
+    {                                      \
+        0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60 \
+    }
+#endif
+
+#ifndef MAC_ADDRESS2
+#define MAC_ADDRESS2                       \
+    {                                      \
+        0x01, 0x00, 0x5e, 0x00, 0x01, 0x81 \
+    }
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -77,20 +93,16 @@ __ALIGN_BEGIN enet_rx_bd_struct_t g_rxBuffDescrip[ENET_RXBD_NUM] __ALIGN_END;
 #endif
 __ALIGN_BEGIN enet_tx_bd_struct_t g_txBuffDescrip[ENET_TXBD_NUM] __ALIGN_END;
 
-/* Buffers for store receive and transmit timestamp. */
-enet_ptp_time_data_t g_rxPtpTsBuff[ENET_RXBD_NUM];
-enet_ptp_time_data_t g_txPtpTsBuff[ENET_TXBD_NUM];
+static enet_handle_t g_handle = {0};
+static enet_tx_reclaim_info_t g_txDirty[ENET_TXBD_NUM];
+static enet_tx_reclaim_info_t txFrameInfo = {0};
+static volatile bool tx_frame_over        = false;
 
-enet_handle_t g_handle = {0};
 /* The MAC address for ENET device. */
-uint8_t g_macAddr[6]     = {0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60};
-uint8_t multicastAddr[6] = {0x01, 0x00, 0x5e, 0x00, 0x01, 0x81};
+uint8_t g_macAddr[6]     = MAC_ADDRESS;
+uint8_t multicastAddr[6] = MAC_ADDRESS2;
 uint8_t g_frame[ENET_EXAMPLE_PACKAGETYPE][ENET_EXAMPLE_FRAME_SIZE];
-uint8_t *g_txbuff[ENET_TXBD_NUM];
-uint32_t g_txIdx     = 0;
-uint8_t g_txbuffIdx  = 0;
-uint8_t g_txCosumIdx = 0;
-uint32_t g_testIdx   = 0;
+uint32_t g_txIdx = 0;
 
 /*! @brief Enet PHY and MDIO interface handler. */
 static mdio_handle_t mdioHandle = {.ops = &EXAMPLE_MDIO_OPS};
@@ -127,14 +139,24 @@ static void ENET_BuildPtpEventFrame(void)
     }
 }
 
-void ENET_IntCallback(ENET_Type *base, enet_handle_t *handle, enet_event_t event, uint8_t channel, void *param)
+void ENET_IntCallback(ENET_Type *base,
+                      enet_handle_t *handle,
+                      enet_event_t event,
+                      uint8_t channel,
+                      enet_tx_reclaim_info_t *txReclaimInfo,
+                      void *param)
 {
     switch (event)
     {
         case kENET_TxIntEvent:
-            /* Free tx buffers. */
-            free(g_txbuff[g_txCosumIdx]);
-            g_txCosumIdx = (g_txCosumIdx + 1) % ENET_TXBD_NUM;
+            /* Get frame info after whole frame transmits out */
+            if (txReclaimInfo != NULL)
+            {
+                txFrameInfo = *txReclaimInfo;
+                free(txFrameInfo.context);
+            }
+            /* Tx over. */
+            tx_frame_over = true;
             break;
         default:
             break;
@@ -155,17 +177,17 @@ int main(void)
     uint32_t length = 0;
     uint8_t *buffer;
     uint32_t count = 0;
-    uint32_t timedelay;
     status_t status;
     uint64_t second;
     uint32_t nanosecond;
-    enet_ptp_time_data_t ptpData;
     bool link     = false;
     bool autonego = false;
+    enet_ptp_time_t timestamp;
+    uint32_t testTxNum = 0;
 
     for (index = 0; index < ENET_RXBD_NUM; index++)
     {
-        /* This is for rx buffers, static alloc and dynamic alloc both ok. use as your wish. */
+        /* This is for Rx buffers, static alloc and dynamic alloc both ok. use as your wish. */
         buff = malloc(ENET_RXBUFF_SIZE);
         if (buff)
         {
@@ -177,20 +199,17 @@ int main(void)
         }
     }
 
-    /* prepare the buffer configuration. */
+    /* Prepare the buffer configuration. */
     enet_buffer_config_t buffConfig[1] = {{
         ENET_RXBD_NUM,
         ENET_TXBD_NUM,
         &g_txBuffDescrip[0],
         &g_txBuffDescrip[0],
+        &g_txDirty[0],
         &g_rxBuffDescrip[0],
         &g_rxBuffDescrip[ENET_RXBD_NUM],
         &rxbuffer[0],
         ENET_BuffSizeAlign(ENET_RXBUFF_SIZE),
-        ENET_RXBD_NUM,
-        ENET_TXBD_NUM,
-        &g_rxPtpTsBuff[0],
-        &g_txPtpTsBuff[0],
     }};
 
     /* Hardware Initialization. */
@@ -255,6 +274,7 @@ int main(void)
 
     /* Create the handler. */
     ENET_CreateHandler(EXAMPLE_ENET_BASE, &g_handle, &config, &buffConfig[0], ENET_IntCallback, NULL);
+
     /* Active TX/RX. */
     ENET_StartRxTx(EXAMPLE_ENET_BASE, 1, 1);
 
@@ -267,9 +287,7 @@ int main(void)
         PRINTF(" Get the %d-th time", index);
         PRINTF(" %d second,", (uint32_t)second);
         PRINTF(" %d nanosecond  \r\n", nanosecond);
-        for (timedelay = 0; timedelay < 0xFFFFFU; timedelay++)
-        {
-        }
+        SDK_DelayAtLeastUs(200000, CLOCK_GetFreq(kCLOCK_CoreSysClk));
     }
 
     PRINTF("\r\nTransmission start now!\r\n");
@@ -282,21 +300,16 @@ int main(void)
         /* Call ENET_ReadFrame when there is a received frame. */
         if ((status == kStatus_Success) && (length != 0))
         {
-            /* Received valid frame. Deliver the rx buffer with the size equal to length. */
+            /* Received valid frame. Deliver the Rx buffer with the size equal to length. */
             uint8_t *data = (uint8_t *)malloc(length);
             if (data)
             {
-                status = ENET_ReadFrame(EXAMPLE_ENET_BASE, &g_handle, data, length, 0);
+                status = ENET_ReadFrame(EXAMPLE_ENET_BASE, &g_handle, data, length, 0, &timestamp);
                 if (status == kStatus_Success)
                 {
                     PRINTF(" One frame received. the length %d \r\n", length);
-                    memset((void *)&ptpData, 0, sizeof(enet_ptp_time_data_t));
-                    ptpData.messageType = ENET_PTP_SYNC_MSG;
-                    if (ENET_GetRxFrameTime(&g_handle, &ptpData) == kStatus_Success)
-                    {
-                        PRINTF(" the timestamp is %d second,", (uint32_t)ptpData.timeStamp.second);
-                        PRINTF(" %d nanosecond  \r\n", ptpData.timeStamp.nanosecond);
-                    }
+                    PRINTF(" the timestamp is %d second,", (uint32_t)timestamp.second);
+                    PRINTF(" %d nanosecond  \r\n", timestamp.nanosecond);
                 }
 
                 free(data);
@@ -304,17 +317,17 @@ int main(void)
             else
             {
                 /* Discard due to the lack of buffers. */
-                ENET_ReadFrame(EXAMPLE_ENET_BASE, &g_handle, NULL, 0, 0);
+                ENET_ReadFrame(EXAMPLE_ENET_BASE, &g_handle, NULL, 0, 0, NULL);
                 PRINTF("No availabe memory.\r\n");
             }
         }
         else if (status == kStatus_ENET_RxFrameError)
         {
             /* update the receive buffer. */
-            ENET_ReadFrame(EXAMPLE_ENET_BASE, &g_handle, NULL, 0, 0);
+            ENET_ReadFrame(EXAMPLE_ENET_BASE, &g_handle, NULL, 0, 0, NULL);
         }
 
-        if (g_testIdx < ENET_EXAMPLE_SEND_COUNT)
+        if (testTxNum < ENET_EXAMPLE_SEND_COUNT)
         {
             /* Send a multicast frame when the PHY is link up. */
             PHY_GetLinkStatus(&phyHandle, &link);
@@ -327,27 +340,38 @@ int main(void)
                     memcpy(buffer, &g_frame[g_txIdx], ENET_EXAMPLE_FRAME_SIZE);
                     /* Make each transmit different.*/
                     g_txIdx = (g_txIdx + 1) % ENET_EXAMPLE_PACKAGETYPE;
-                    /* Store the buffer for mem free.*/
-                    g_txbuff[g_txbuffIdx] = buffer;
-                    g_txbuffIdx           = (g_txbuffIdx + 1) % ENET_TXBD_NUM;
 
-                    if (kStatus_Success ==
-                        ENET_SendFrame(EXAMPLE_ENET_BASE, &g_handle, buffer, ENET_EXAMPLE_FRAME_SIZE))
+                    enet_buffer_struct_t txBuff;
+                    enet_tx_frame_struct_t txFrame = {0};
+
+                    txBuff.buffer              = buffer;
+                    txBuff.length              = ENET_EXAMPLE_FRAME_SIZE;
+                    txFrame.txBuffArray        = &txBuff;
+                    txFrame.txBuffNum          = 1;
+                    txFrame.txConfig.intEnable = true;
+                    txFrame.txConfig.tsEnable  = true;
+                    txFrame.context            = buffer;
+
+                    tx_frame_over = false;
+                    if (kStatus_Success == ENET_SendFrame(EXAMPLE_ENET_BASE, &g_handle, &txFrame, 0))
                     {
-                        g_testIdx++;
-                        PRINTF("The %d frame transmitted success!\r\n", g_testIdx);
-                        memset((void *)&ptpData, 0, sizeof(enet_ptp_time_data_t));
-                        ptpData.messageType = ENET_PTP_SYNC_MSG;
-                        if (ENET_GetTxFrameTime(&g_handle, &ptpData) == kStatus_Success)
+                        testTxNum++;
+                        /* Wait for Tx over then check timestamp */
+                        while (!tx_frame_over)
                         {
-                            PRINTF(" the timestamp is %d second,", (uint32_t)ptpData.timeStamp.second);
-                            PRINTF(" %d nanosecond  \r\n", ptpData.timeStamp.nanosecond);
+                        }
+                        PRINTF("The %d frame transmitted success!\r\n", testTxNum);
+
+                        if (txFrameInfo.isTsAvail)
+                        {
+                            PRINTF(" the timestamp is %d second,", (uint32_t)txFrameInfo.timeStamp.second);
+                            PRINTF(" %d nanosecond  \r\n", txFrameInfo.timeStamp.nanosecond);
                         }
                     }
                 }
                 else
                 {
-                    PRINTF("No avail tx buffers\r\n");
+                    PRINTF("No avail Tx buffers\r\n");
                 }
             }
             else

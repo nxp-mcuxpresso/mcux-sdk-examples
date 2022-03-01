@@ -9,7 +9,7 @@ The file 'lpspi_edma_b2b_transfer_master.c' includes the LPSPI master code.
 
 Toolchain supported
 ===================
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 - GCC ARM Embedded  10.2.1
 
 Hardware requirements
@@ -20,7 +20,7 @@ Hardware requirements
 
 Board settings
 ==============
-Remove 0Ω resistors R404,R406,R408.
+Remove 0Ω resistors R200,R404,R406,R408.
 
 SPI one board:
 Transfer data from one board instance to another board's instance.

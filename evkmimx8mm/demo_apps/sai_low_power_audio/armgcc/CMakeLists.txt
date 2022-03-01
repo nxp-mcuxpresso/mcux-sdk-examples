@@ -55,6 +55,8 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../../../../../core/components/srtm/services/srtm_audio_service.c"
 "${ProjDirPath}/../../../../../core/components/srtm/services/srtm_sai_sdma_adapter.h"
 "${ProjDirPath}/../../../../../core/components/srtm/services/srtm_sai_sdma_adapter.c"
+"${ProjDirPath}/../../../../../core/components/srtm/services/srtm_pdm_sdma_adapter.h"
+"${ProjDirPath}/../../../../../core/components/srtm/services/srtm_pdm_sdma_adapter.c"
 "${ProjDirPath}/../../../../../core/components/srtm/services/srtm_i2c_codec_adapter.h"
 "${ProjDirPath}/../../../../../core/components/srtm/services/srtm_i2c_codec_adapter.c"
 "${ProjDirPath}/../../../../../core/components/srtm/services/srtm_wm8524_adapter.h"
@@ -63,8 +65,8 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../../../../../examples/evkmimx8mm/demo_apps/sai_low_power_audio
-    ${ProjDirPath}/../../../../../core/boards/evkmimx8mm
     ${ProjDirPath}/..
+    ${ProjDirPath}/../../../../../core/boards/evkmimx8mm
     ${ProjDirPath}/../../../../../core/components/srtm/channels
     ${ProjDirPath}/../../../../../core/components/srtm/services
 )
@@ -92,6 +94,8 @@ include(driver_common)
 
 include(component_codec_adapters)
 
+include(driver_pdm_sdma)
+
 include(component_codec_i2c_MIMX8MM6)
 
 include(component_ii2c_adapter)
@@ -99,6 +103,10 @@ include(component_ii2c_adapter)
 include(component_ak4497_adapter)
 
 include(component_wm8524_adapter)
+
+include(middleware_multicore_rpmsg_lite_MIMX8MM6)
+
+include(middleware_multicore_rpmsg_lite_freertos)
 
 include(driver_clock)
 
@@ -148,9 +156,9 @@ include(middleware_freertos-kernel_extension)
 
 include(middleware_multicore_rpmsg_lite_imx8mm_m4_freertos)
 
-include(middleware_multicore_rpmsg_lite)
-
 include(middleware_freertos-kernel_heap_4)
+
+include(driver_pdm)
 
 include(driver_wm8524)
 

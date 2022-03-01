@@ -66,8 +66,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/lpcxpresso845max/driver_examples/usart/transfer_hardware_flow_control" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso845max/driver_examples/usart/transfer_hardware_flow_control" project_relative_path="lpcxpresso845max/driver_examples/usart/transfer_hardware_flow_control" type="c_include"/>
-      <include_path path="boards/lpcxpresso845max" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso845max/driver_examples/usart/transfer_hardware_flow_control" project_relative_path="lpcxpresso845max/driver_examples/usart/transfer_hardware_flow_control" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso845max" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso845max/driver_examples/usart/transfer_hardware_flow_control/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="usart_transfer_hardware_flow_control.ewd"/>

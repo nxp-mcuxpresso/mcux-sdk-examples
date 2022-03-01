@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -24,8 +24,11 @@
 #define BOARD_FTM_HANDLER FTM2_IRQHandler
 
 /* Get source clock for FTM driver */
-#define FTM_SOURCE_CLOCK (CLOCK_GetFreq(kCLOCK_TimerClk) / 4)
-
+#define FTM_SOURCE_CLOCK (CLOCK_GetFreq(kCLOCK_TimerClk))
+#ifndef DEMO_TIMER_PERIOD_US
+/* Set counter period to 1ms */
+#define DEMO_TIMER_PERIOD_US (1000U)
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -56,18 +59,19 @@ int main(void)
     PRINTF("\r\nFTM example to simulate a timer\r\n");
     PRINTF("\r\nYou will see a \"-\" or \"|\" in terminal every 1 second:\r\n");
 
+    /* Fill in the FTM config struct with the default settings */
     FTM_GetDefaultConfig(&ftmInfo);
-
-    /* Divide FTM clock by 4 */
-    ftmInfo.prescale = kFTM_Prescale_Divide_4;
+    /* Calculate the clock division based on the timer period frequency to be obtained */
+    ftmInfo.prescale =
+        FTM_CalculateCounterClkDiv(BOARD_FTM_BASEADDR, 1000000U / DEMO_TIMER_PERIOD_US, FTM_SOURCE_CLOCK);
+    ;
 
     /* Initialize FTM module */
     FTM_Init(BOARD_FTM_BASEADDR, &ftmInfo);
 
-    /*
-     * Set timer period.
-     */
-    FTM_SetTimerPeriod(BOARD_FTM_BASEADDR, USEC_TO_COUNT(1000U, FTM_SOURCE_CLOCK));
+    /* Set timer period */
+    FTM_SetTimerPeriod(BOARD_FTM_BASEADDR,
+                       USEC_TO_COUNT(DEMO_TIMER_PERIOD_US, FTM_SOURCE_CLOCK / (1U << ftmInfo.prescale)));
 
     FTM_EnableInterrupts(BOARD_FTM_BASEADDR, kFTM_TimeOverflowInterruptEnable);
 

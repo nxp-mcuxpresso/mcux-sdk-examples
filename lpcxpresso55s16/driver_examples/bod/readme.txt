@@ -9,7 +9,7 @@ will be asserted.
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================
@@ -19,7 +19,7 @@ Hardware requirements
 
 Board settings
 ==============
-Remove jumper for JP1, connect the external input voltage to JP1_2.
+Remove jumper for JP22, connect the external input voltage to JP22_2.
 
 Prepare the Demo
 ================

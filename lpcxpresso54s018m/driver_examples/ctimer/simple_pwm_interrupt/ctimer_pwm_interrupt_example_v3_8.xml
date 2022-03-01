@@ -77,8 +77,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/lpcxpresso54s018m/driver_examples/ctimer/simple_pwm_interrupt" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso54s018m/driver_examples/ctimer/simple_pwm_interrupt" project_relative_path="lpcxpresso54s018m/driver_examples/ctimer/simple_pwm_interrupt" type="c_include"/>
-      <include_path path="boards/lpcxpresso54s018m" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso54s018m/driver_examples/ctimer/simple_pwm_interrupt" project_relative_path="lpcxpresso54s018m/driver_examples/ctimer/simple_pwm_interrupt" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso54s018m" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso54s018m/driver_examples/ctimer/simple_pwm_interrupt/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="ctimer_pwm_interrupt_example.ewd"/>

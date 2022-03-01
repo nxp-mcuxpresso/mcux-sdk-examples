@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_LPCXpresso51U68" name="LPCXpresso51U68" brief="This is SDK version 2.10.0 manifest file. It describes the content of the LPCXpresso51U68 and additional settings for tools that support SDK version 2.10.0" format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-07-22 12:49:57.877917-->
-  <!--This manifest is generated based on sdk repo commit: a40647dd23698fa812ab2e267466ae159e1a5d45-->
+  <!--Timestamp (UTC): 2022-01-26 08:51:49.643537-->
+  <!--This manifest is generated based on sdk repo commit: 04124c9a3d8bee40269a5fff2c12f59654c36812-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
@@ -89,6 +89,61 @@ ${load}</script>
         <files mask="lpcxpresso51u68.png"/>
       </image>
       <examples>
+        <example id="lpcxpresso51u68_cmsis_gpio_button_toggle_led" name="cmsis_gpio_button_toggle_led" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. cmsis_gpio_button_toggle_led example shows how to use gpio driver to operation gpio input as Button in interrupt way and output as LED." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/gpio" path="examples/lpcxpresso51u68/cmsis_driver_examples/gpio/button_toggle_led">
+          <external path="examples/lpcxpresso51u68/cmsis_driver_examples/gpio/button_toggle_led" type="xml">
+            <files mask="cmsis_gpio_button_toggle_led_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_cmsis_i2c_dma_b2b_transfer_master" name="cmsis_i2c_dma_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_i2c_dma_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with DMA:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/lpcxpresso51u68/cmsis_driver_examples/i2c/dma_b2b_transfer/master">
+          <external path="examples/lpcxpresso51u68/cmsis_driver_examples/i2c/dma_b2b_transfer/master" type="xml">
+            <files mask="cmsis_i2c_dma_b2b_transfer_master_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_cmsis_i2c_dma_b2b_transfer_slave" name="cmsis_i2c_dma_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_i2c_dma_b2b_transfer_slave example shows how to use i2c driver as slave to do board to board transfer with a DMA master:In this example, one i2c instance as slave and another i2c instance on the other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/lpcxpresso51u68/cmsis_driver_examples/i2c/dma_b2b_transfer/slave">
+          <external path="examples/lpcxpresso51u68/cmsis_driver_examples/i2c/dma_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_i2c_dma_b2b_transfer_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_cmsis_i2c_int_b2b_transfer_master" name="cmsis_i2c_int_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The i2c_interrupt_b2b_transfer_master example shows how to use CMSIS i2c driver as master to do board to board transfer with interrupt:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/lpcxpresso51u68/cmsis_driver_examples/i2c/int_b2b_transfer/master">
+          <external path="examples/lpcxpresso51u68/cmsis_driver_examples/i2c/int_b2b_transfer/master" type="xml">
+            <files mask="cmsis_i2c_int_b2b_transfer_master_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_cmsis_i2c_int_b2b_transfer_slave" name="cmsis_i2c_int_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The i2c_interrupt_b2b_transfer_master example shows how to use CMSIS i2c driver as master to do board to board transfer with interrupt:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/lpcxpresso51u68/cmsis_driver_examples/i2c/int_b2b_transfer/slave">
+          <external path="examples/lpcxpresso51u68/cmsis_driver_examples/i2c/int_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_i2c_int_b2b_transfer_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_cmsis_spi_dma_b2b_transfer_master" name="cmsis_spi_dma_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_spi_dma_b2b_transfer_master example shows how to use spi driver as master to do board to board transfer with DMA:In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/lpcxpresso51u68/cmsis_driver_examples/spi/dma_b2b_transfer/master">
+          <external path="examples/lpcxpresso51u68/cmsis_driver_examples/spi/dma_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_dma_b2b_transfer_master_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_cmsis_spi_dma_b2b_transfer_slave" name="cmsis_spi_dma_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_spi_dma_b2b_transfer_slave example shows how to use spi driver as master to do board to board transfer with DMA:In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/lpcxpresso51u68/cmsis_driver_examples/spi/dma_b2b_transfer/slave">
+          <external path="examples/lpcxpresso51u68/cmsis_driver_examples/spi/dma_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_dma_b2b_transfer_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_cmsis_spi_int_b2b_transfer_master" name="cmsis_spi_int_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_spi_interrupt_b2b_transfer_master example shows how to use CMSIS spi driver as master to do board to board transfer with interrupt:In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/lpcxpresso51u68/cmsis_driver_examples/spi/int_b2b_transfer/master">
+          <external path="examples/lpcxpresso51u68/cmsis_driver_examples/spi/int_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_int_b2b_transfer_master_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_cmsis_spi_int_b2b_transfer_slave" name="cmsis_spi_int_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_spi_interrupt_b2b_transfer_slave example shows how to use CMSIS spi driver as master to do board to board transfer with interrupt:In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/lpcxpresso51u68/cmsis_driver_examples/spi/int_b2b_transfer/slave">
+          <external path="examples/lpcxpresso51u68/cmsis_driver_examples/spi/int_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_int_b2b_transfer_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_cmsis_usart_dma_transfer" name="cmsis_usart_dma_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_uart_edma_transfer example shows how to use uart cmsis  driver with EDMA:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/usart" path="examples/lpcxpresso51u68/cmsis_driver_examples/usart/dma_transfer">
+          <external path="examples/lpcxpresso51u68/cmsis_driver_examples/usart/dma_transfer" type="xml">
+            <files mask="cmsis_usart_dma_transfer_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_cmsis_usart_interrupt_transfer" name="cmsis_usart_interrupt_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_uart_interrupt_transfer example shows how to use uart cmsis driver in interrupt way:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/usart" path="examples/lpcxpresso51u68/cmsis_driver_examples/usart/interrupt_transfer">
+          <external path="examples/lpcxpresso51u68/cmsis_driver_examples/usart/interrupt_transfer" type="xml">
+            <files mask="cmsis_usart_interrupt_transfer_v3_8.xml"/>
+          </external>
+        </example>
         <example id="lpcxpresso51u68_crc" name="crc" brief="The CRC Example project is a demonstration program that uses the KSDK software to generate checksumsfor an ASCII string. Several CRC protocols are implemented using the CRC driver API." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/crc" path="examples/lpcxpresso51u68/driver_examples/crc">
           <external path="examples/lpcxpresso51u68/driver_examples/crc" type="xml">
             <files mask="crc_v3_8.xml"/>
@@ -277,6 +332,16 @@ ${load}</script>
         <example id="lpcxpresso51u68_iap_flash" name="iap_flash" brief="The IAP Flash project is a simple demonstration program of the SDK IAP driver. It erases and programs a portion of on-chip flash memory. A message a printed on the UART terminal as various operations on flash memory are performed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/iap" path="examples/lpcxpresso51u68/driver_examples/iap/iap_flash">
           <external path="examples/lpcxpresso51u68/driver_examples/iap/iap_flash" type="xml">
             <files mask="iap_flash_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_log_bm" name="log_bm" brief="The log demo is used to demonstrate how to use log component. The main function of the demo is to prompt the LOG level string according to the user input log level command." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="examples/lpcxpresso51u68/component_examples/log/bm">
+          <external path="examples/lpcxpresso51u68/component_examples/log/bm" type="xml">
+            <files mask="log_bm_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_log_freertos" name="log_freertos" brief="The log demo is used to demonstrate how to use log component. The main function of the demo is to prompt the LOG level string according to the user input log level command." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="examples/lpcxpresso51u68/component_examples/log/freertos">
+          <external path="examples/lpcxpresso51u68/component_examples/log/freertos" type="xml">
+            <files mask="log_freertos_v3_8.xml"/>
           </external>
         </example>
         <example id="lpcxpresso51u68_lpc_adc_basic" name="lpc_adc_basic" brief="The lpc_adc_basic example shows how to use LPC ADC driver in the simplest way.In this example, the internal temperature sensor is used to created the input analog signal. When user type in any key from the keyboard, the software trigger API is called to start the conversion. Then it polls the conversion sequence A's flag till the conversion is completed. When the conversion is completed, just print the conversion result to terminal.Project Information1.what are ADC conversion sequences?  A conversion sequence is a single pass through a series of A/D conversions performed on a selected set of  A/D channels. Software can set-up two independent conversion sequences, either of which can be triggered   by software or by a transition on one of the hardware triggers. Each sequence can be triggered by a different   hardware trigger. One of these conversion sequences is referred to as the A sequence and the other as the B  sequence. It is not necessary to employ both sequences. An optional single-step mode allows advancing through  the channels of a sequence one at a time on each successive occurrence of a trigger. The user can select whether  a trigger on the B sequence can interrupt an already-in-progress A sequence. The B sequence, however, can never be  interrupted by an A trigger.  2. How to use software-triggered conversion?   There are two ways that software can trigger a conversion sequence:      1. Start Bit: The first way to software-trigger an sequence is by setting the START bit in         the corresponding SEQn_CTRL register. The response to this is identical to         occurrence of a hardware trigger on that sequence. Specifically, one cycle of         conversions through that conversion sequence will be immediately triggered except         as indicated above. (In this example, we use this way.)      2. Burst Mode: The other way to initiate conversions is to set the BURST bit in the         SEQn_CTRL register. As long as this bit is 1 the designated conversion sequence will         be continuously and repetitively cycled through. Any new software or hardware trigger         on this sequence will be ignored.  Program Flow1.This example demonstrates how to configure the A sequences with polling, assigning one channel with software  trigger, you can configure channel via &quot;DEMO_ADC_SAMPLE_CHANNEL_NUMBER&quot;.  2.Before configuration of the ADC begins, the ADC is put through a self-calibration cycle.    3.After ADC channels are assigned to each of the sequences, the software trigger is chosen. Setting   SEQA_CTRL_START to '1' will trigger sequence A.  4.After ADC channels are assigned to each of the sequences, if the user enters any key via terminal, software trigger will start. 5.Read the corresponding DATAVALID field with polling to judge whether the conversion completes and the result is ready.  If the result is ready, the example will printf result information to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc" path="examples/lpcxpresso51u68/driver_examples/adc/lpc_adc_basic">
@@ -585,6 +650,351 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="CMSIS_DSP_Library.LPC51U68" name="CMSIS_DSP_Library" brief="CMSIS-DSP Library for Cortex-M, SC000, and SC300" version="1.7.0" full_name="CMSIS DSP Library" devices="LPC51U68" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/DSP" project_base_path="CMSIS/DSP">
+      <source relative_path="Include" type="c_include">
+        <files mask="arm_common_tables.h"/>
+        <files mask="arm_const_structs.h"/>
+        <files mask="arm_math.h"/>
+      </source>
+      <source toolchain="armgcc mcuxpresso" relative_path="Lib/GCC" project_relative_path="./" type="lib" device_cores="core0_LPC51U68">
+        <files mask="libarm_cortexM0l_math.a"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="Include" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_DSP_Source.LPC51U68" name="CMSIS_DSP_Library_Source" brief="CMSIS-DSP Library for Cortex-M, SC000, and SC300" version="1.7.0" full_name="CMSIS DSP Library Source" devices="LPC51U68" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/DSP" project_base_path="CMSIS/DSP">
+      <source relative_path="Include" type="c_include">
+        <files mask="arm_common_tables.h"/>
+        <files mask="arm_const_structs.h"/>
+        <files mask="arm_math.h"/>
+      </source>
+      <source relative_path="Source/BasicMathFunctions" type="src">
+        <files mask="BasicMathFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/BasicMathFunctions" type="src">
+        <files mask="arm_abs_f32.c" hidden="true"/>
+        <files mask="arm_abs_q15.c" hidden="true"/>
+        <files mask="arm_abs_q31.c" hidden="true"/>
+        <files mask="arm_abs_q7.c" hidden="true"/>
+        <files mask="arm_add_f32.c" hidden="true"/>
+        <files mask="arm_add_q15.c" hidden="true"/>
+        <files mask="arm_add_q31.c" hidden="true"/>
+        <files mask="arm_add_q7.c" hidden="true"/>
+        <files mask="arm_dot_prod_f32.c" hidden="true"/>
+        <files mask="arm_dot_prod_q15.c" hidden="true"/>
+        <files mask="arm_dot_prod_q31.c" hidden="true"/>
+        <files mask="arm_dot_prod_q7.c" hidden="true"/>
+        <files mask="arm_mult_f32.c" hidden="true"/>
+        <files mask="arm_mult_q15.c" hidden="true"/>
+        <files mask="arm_mult_q31.c" hidden="true"/>
+        <files mask="arm_mult_q7.c" hidden="true"/>
+        <files mask="arm_negate_f32.c" hidden="true"/>
+        <files mask="arm_negate_q15.c" hidden="true"/>
+        <files mask="arm_negate_q31.c" hidden="true"/>
+        <files mask="arm_negate_q7.c" hidden="true"/>
+        <files mask="arm_offset_f32.c" hidden="true"/>
+        <files mask="arm_offset_q15.c" hidden="true"/>
+        <files mask="arm_offset_q31.c" hidden="true"/>
+        <files mask="arm_offset_q7.c" hidden="true"/>
+        <files mask="arm_scale_f32.c" hidden="true"/>
+        <files mask="arm_scale_q15.c" hidden="true"/>
+        <files mask="arm_scale_q31.c" hidden="true"/>
+        <files mask="arm_scale_q7.c" hidden="true"/>
+        <files mask="arm_shift_q15.c" hidden="true"/>
+        <files mask="arm_shift_q31.c" hidden="true"/>
+        <files mask="arm_shift_q7.c" hidden="true"/>
+        <files mask="arm_sub_f32.c" hidden="true"/>
+        <files mask="arm_sub_q15.c" hidden="true"/>
+        <files mask="arm_sub_q31.c" hidden="true"/>
+        <files mask="arm_sub_q7.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/CommonTables" type="src">
+        <files mask="CommonTables.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/CommonTables" type="src">
+        <files mask="arm_common_tables.c" hidden="true"/>
+        <files mask="arm_const_structs.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/ComplexMathFunctions" type="src">
+        <files mask="ComplexMathFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/ComplexMathFunctions" type="src">
+        <files mask="arm_cmplx_conj_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_conj_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_conj_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_dot_prod_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_dot_prod_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_dot_prod_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_squared_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_squared_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_squared_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_cmplx_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_cmplx_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_cmplx_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_real_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_real_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_real_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/ControllerFunctions" type="src">
+        <files mask="ControllerFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/ControllerFunctions" type="src">
+        <files mask="arm_pid_init_f32.c" hidden="true"/>
+        <files mask="arm_pid_init_q15.c" hidden="true"/>
+        <files mask="arm_pid_init_q31.c" hidden="true"/>
+        <files mask="arm_pid_reset_f32.c" hidden="true"/>
+        <files mask="arm_pid_reset_q15.c" hidden="true"/>
+        <files mask="arm_pid_reset_q31.c" hidden="true"/>
+        <files mask="arm_sin_cos_f32.c" hidden="true"/>
+        <files mask="arm_sin_cos_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/FastMathFunctions" type="src">
+        <files mask="FastMathFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/FastMathFunctions" type="src">
+        <files mask="arm_cos_f32.c" hidden="true"/>
+        <files mask="arm_cos_q15.c" hidden="true"/>
+        <files mask="arm_cos_q31.c" hidden="true"/>
+        <files mask="arm_sin_f32.c" hidden="true"/>
+        <files mask="arm_sin_q15.c" hidden="true"/>
+        <files mask="arm_sin_q31.c" hidden="true"/>
+        <files mask="arm_sqrt_q15.c" hidden="true"/>
+        <files mask="arm_sqrt_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/FilteringFunctions" type="src">
+        <files mask="FilteringFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/FilteringFunctions" type="src">
+        <files mask="arm_biquad_cascade_df1_32x64_init_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_32x64_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_fast_q15.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_fast_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_init_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_init_q15.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_init_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_q15.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df2T_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df2T_f64.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df2T_init_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df2T_init_f64.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_stereo_df2T_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_stereo_df2T_init_f32.c" hidden="true"/>
+        <files mask="arm_conv_f32.c" hidden="true"/>
+        <files mask="arm_conv_fast_opt_q15.c" hidden="true"/>
+        <files mask="arm_conv_fast_q15.c" hidden="true"/>
+        <files mask="arm_conv_fast_q31.c" hidden="true"/>
+        <files mask="arm_conv_opt_q15.c" hidden="true"/>
+        <files mask="arm_conv_opt_q7.c" hidden="true"/>
+        <files mask="arm_conv_partial_f32.c" hidden="true"/>
+        <files mask="arm_conv_partial_fast_opt_q15.c" hidden="true"/>
+        <files mask="arm_conv_partial_fast_q15.c" hidden="true"/>
+        <files mask="arm_conv_partial_fast_q31.c" hidden="true"/>
+        <files mask="arm_conv_partial_opt_q15.c" hidden="true"/>
+        <files mask="arm_conv_partial_opt_q7.c" hidden="true"/>
+        <files mask="arm_conv_partial_q15.c" hidden="true"/>
+        <files mask="arm_conv_partial_q31.c" hidden="true"/>
+        <files mask="arm_conv_partial_q7.c" hidden="true"/>
+        <files mask="arm_conv_q15.c" hidden="true"/>
+        <files mask="arm_conv_q31.c" hidden="true"/>
+        <files mask="arm_conv_q7.c" hidden="true"/>
+        <files mask="arm_correlate_f32.c" hidden="true"/>
+        <files mask="arm_correlate_fast_opt_q15.c" hidden="true"/>
+        <files mask="arm_correlate_fast_q15.c" hidden="true"/>
+        <files mask="arm_correlate_fast_q31.c" hidden="true"/>
+        <files mask="arm_correlate_opt_q15.c" hidden="true"/>
+        <files mask="arm_correlate_opt_q7.c" hidden="true"/>
+        <files mask="arm_correlate_q15.c" hidden="true"/>
+        <files mask="arm_correlate_q31.c" hidden="true"/>
+        <files mask="arm_correlate_q7.c" hidden="true"/>
+        <files mask="arm_fir_decimate_f32.c" hidden="true"/>
+        <files mask="arm_fir_decimate_fast_q15.c" hidden="true"/>
+        <files mask="arm_fir_decimate_fast_q31.c" hidden="true"/>
+        <files mask="arm_fir_decimate_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_decimate_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_decimate_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_decimate_q15.c" hidden="true"/>
+        <files mask="arm_fir_decimate_q31.c" hidden="true"/>
+        <files mask="arm_fir_f32.c" hidden="true"/>
+        <files mask="arm_fir_fast_q15.c" hidden="true"/>
+        <files mask="arm_fir_fast_q31.c" hidden="true"/>
+        <files mask="arm_fir_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_init_q7.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_f32.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_q15.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_q31.c" hidden="true"/>
+        <files mask="arm_fir_lattice_f32.c" hidden="true"/>
+        <files mask="arm_fir_lattice_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_lattice_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_lattice_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_lattice_q15.c" hidden="true"/>
+        <files mask="arm_fir_lattice_q31.c" hidden="true"/>
+        <files mask="arm_fir_q15.c" hidden="true"/>
+        <files mask="arm_fir_q31.c" hidden="true"/>
+        <files mask="arm_fir_q7.c" hidden="true"/>
+        <files mask="arm_fir_sparse_f32.c" hidden="true"/>
+        <files mask="arm_fir_sparse_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_sparse_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_sparse_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_sparse_init_q7.c" hidden="true"/>
+        <files mask="arm_fir_sparse_q15.c" hidden="true"/>
+        <files mask="arm_fir_sparse_q31.c" hidden="true"/>
+        <files mask="arm_fir_sparse_q7.c" hidden="true"/>
+        <files mask="arm_iir_lattice_f32.c" hidden="true"/>
+        <files mask="arm_iir_lattice_init_f32.c" hidden="true"/>
+        <files mask="arm_iir_lattice_init_q15.c" hidden="true"/>
+        <files mask="arm_iir_lattice_init_q31.c" hidden="true"/>
+        <files mask="arm_iir_lattice_q15.c" hidden="true"/>
+        <files mask="arm_iir_lattice_q31.c" hidden="true"/>
+        <files mask="arm_lms_f32.c" hidden="true"/>
+        <files mask="arm_lms_init_f32.c" hidden="true"/>
+        <files mask="arm_lms_init_q15.c" hidden="true"/>
+        <files mask="arm_lms_init_q31.c" hidden="true"/>
+        <files mask="arm_lms_norm_f32.c" hidden="true"/>
+        <files mask="arm_lms_norm_init_f32.c" hidden="true"/>
+        <files mask="arm_lms_norm_init_q15.c" hidden="true"/>
+        <files mask="arm_lms_norm_init_q31.c" hidden="true"/>
+        <files mask="arm_lms_norm_q15.c" hidden="true"/>
+        <files mask="arm_lms_norm_q31.c" hidden="true"/>
+        <files mask="arm_lms_q15.c" hidden="true"/>
+        <files mask="arm_lms_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/MatrixFunctions" type="src">
+        <files mask="MatrixFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/MatrixFunctions" type="src">
+        <files mask="arm_mat_add_f32.c" hidden="true"/>
+        <files mask="arm_mat_add_q15.c" hidden="true"/>
+        <files mask="arm_mat_add_q31.c" hidden="true"/>
+        <files mask="arm_mat_cmplx_mult_f32.c" hidden="true"/>
+        <files mask="arm_mat_cmplx_mult_q15.c" hidden="true"/>
+        <files mask="arm_mat_cmplx_mult_q31.c" hidden="true"/>
+        <files mask="arm_mat_init_f32.c" hidden="true"/>
+        <files mask="arm_mat_init_q15.c" hidden="true"/>
+        <files mask="arm_mat_init_q31.c" hidden="true"/>
+        <files mask="arm_mat_inverse_f32.c" hidden="true"/>
+        <files mask="arm_mat_inverse_f64.c" hidden="true"/>
+        <files mask="arm_mat_mult_f32.c" hidden="true"/>
+        <files mask="arm_mat_mult_fast_q15.c" hidden="true"/>
+        <files mask="arm_mat_mult_fast_q31.c" hidden="true"/>
+        <files mask="arm_mat_mult_q15.c" hidden="true"/>
+        <files mask="arm_mat_mult_q31.c" hidden="true"/>
+        <files mask="arm_mat_scale_f32.c" hidden="true"/>
+        <files mask="arm_mat_scale_q15.c" hidden="true"/>
+        <files mask="arm_mat_scale_q31.c" hidden="true"/>
+        <files mask="arm_mat_sub_f32.c" hidden="true"/>
+        <files mask="arm_mat_sub_q15.c" hidden="true"/>
+        <files mask="arm_mat_sub_q31.c" hidden="true"/>
+        <files mask="arm_mat_trans_f32.c" hidden="true"/>
+        <files mask="arm_mat_trans_q15.c" hidden="true"/>
+        <files mask="arm_mat_trans_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/StatisticsFunctions" type="src">
+        <files mask="StatisticsFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/StatisticsFunctions" type="src">
+        <files mask="arm_max_f32.c" hidden="true"/>
+        <files mask="arm_max_q15.c" hidden="true"/>
+        <files mask="arm_max_q31.c" hidden="true"/>
+        <files mask="arm_max_q7.c" hidden="true"/>
+        <files mask="arm_mean_f32.c" hidden="true"/>
+        <files mask="arm_mean_q15.c" hidden="true"/>
+        <files mask="arm_mean_q31.c" hidden="true"/>
+        <files mask="arm_mean_q7.c" hidden="true"/>
+        <files mask="arm_min_f32.c" hidden="true"/>
+        <files mask="arm_min_q15.c" hidden="true"/>
+        <files mask="arm_min_q31.c" hidden="true"/>
+        <files mask="arm_min_q7.c" hidden="true"/>
+        <files mask="arm_power_f32.c" hidden="true"/>
+        <files mask="arm_power_q15.c" hidden="true"/>
+        <files mask="arm_power_q31.c" hidden="true"/>
+        <files mask="arm_power_q7.c" hidden="true"/>
+        <files mask="arm_rms_f32.c" hidden="true"/>
+        <files mask="arm_rms_q15.c" hidden="true"/>
+        <files mask="arm_rms_q31.c" hidden="true"/>
+        <files mask="arm_std_f32.c" hidden="true"/>
+        <files mask="arm_std_q15.c" hidden="true"/>
+        <files mask="arm_std_q31.c" hidden="true"/>
+        <files mask="arm_var_f32.c" hidden="true"/>
+        <files mask="arm_var_q15.c" hidden="true"/>
+        <files mask="arm_var_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/SupportFunctions" type="src">
+        <files mask="SupportFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/SupportFunctions" type="src">
+        <files mask="arm_copy_f32.c" hidden="true"/>
+        <files mask="arm_copy_q15.c" hidden="true"/>
+        <files mask="arm_copy_q31.c" hidden="true"/>
+        <files mask="arm_copy_q7.c" hidden="true"/>
+        <files mask="arm_fill_f32.c" hidden="true"/>
+        <files mask="arm_fill_q15.c" hidden="true"/>
+        <files mask="arm_fill_q31.c" hidden="true"/>
+        <files mask="arm_fill_q7.c" hidden="true"/>
+        <files mask="arm_float_to_q15.c" hidden="true"/>
+        <files mask="arm_float_to_q31.c" hidden="true"/>
+        <files mask="arm_float_to_q7.c" hidden="true"/>
+        <files mask="arm_q15_to_float.c" hidden="true"/>
+        <files mask="arm_q15_to_q31.c" hidden="true"/>
+        <files mask="arm_q15_to_q7.c" hidden="true"/>
+        <files mask="arm_q31_to_float.c" hidden="true"/>
+        <files mask="arm_q31_to_q15.c" hidden="true"/>
+        <files mask="arm_q31_to_q7.c" hidden="true"/>
+        <files mask="arm_q7_to_float.c" hidden="true"/>
+        <files mask="arm_q7_to_q15.c" hidden="true"/>
+        <files mask="arm_q7_to_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/TransformFunctions" type="src">
+        <files mask="TransformFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/TransformFunctions" type="src">
+        <files mask="arm_bitreversal.c" hidden="true"/>
+        <files mask="arm_bitreversal2.c" hidden="true"/>
+        <files mask="arm_cfft_f32.c" hidden="true"/>
+        <files mask="arm_cfft_q15.c" hidden="true"/>
+        <files mask="arm_cfft_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_f32.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_init_f32.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_init_q15.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_init_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_q15.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_f32.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_init_f32.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_init_q15.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_init_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_q15.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix8_f32.c" hidden="true"/>
+        <files mask="arm_dct4_f32.c" hidden="true"/>
+        <files mask="arm_dct4_init_f32.c" hidden="true"/>
+        <files mask="arm_dct4_init_q15.c" hidden="true"/>
+        <files mask="arm_dct4_init_q31.c" hidden="true"/>
+        <files mask="arm_dct4_q15.c" hidden="true"/>
+        <files mask="arm_dct4_q31.c" hidden="true"/>
+        <files mask="arm_rfft_f32.c" hidden="true"/>
+        <files mask="arm_rfft_fast_f32.c" hidden="true"/>
+        <files mask="arm_rfft_fast_init_f32.c" hidden="true"/>
+        <files mask="arm_rfft_init_f32.c" hidden="true"/>
+        <files mask="arm_rfft_init_q15.c" hidden="true"/>
+        <files mask="arm_rfft_init_q31.c" hidden="true"/>
+        <files mask="arm_rfft_q15.c" hidden="true"/>
+        <files mask="arm_rfft_q31.c" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="Include" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="CMSIS_Device_API_OSTick.LPC51U68" name="CMSIS_Device_API_OSTick" brief="Device interrupt controller interface" version="1.0.1" full_name="CMSIS Device API OSTick" devices="LPC51U68" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/RTOS2/Include" project_base_path="CMSIS/RTOS2/Include">
       <source relative_path="./" type="c_include">
         <files mask="os_tick.h"/>
@@ -615,6 +1025,9 @@ ${load}</script>
     <component id="CMSIS_Driver_Include.Common.LPC51U68" name="CMSIS_Driver_Common" brief="Access to #include Driver_Common.h file for custom implementation" version="2.3.0" full_name="CMSIS Driver Common" devices="LPC51U68" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <source relative_path="./" type="c_include">
         <files mask="Driver_Common.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_Common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -671,6 +1084,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="Driver_GPIO.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_GPIO.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -681,6 +1097,9 @@ ${load}</script>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_I2C.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_I2C.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -726,6 +1145,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="Driver_SPI.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_SPI.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -736,6 +1158,9 @@ ${load}</script>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_USART.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_USART.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1472,6 +1897,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_component_log.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_log.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1490,6 +1918,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="fsl_component_log_backend_debugconsole.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_log_backend_debugconsole.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1506,6 +1937,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="c_include">
         <files mask="fsl_component_log_backend_ringbuffer.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_log_backend_ringbuffer.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1620,6 +2054,9 @@ ${load}</script>
       <source condition="middleware.freertos-kernel.LPC51U68" relative_path="./" type="src">
         <files mask="fsl_os_abstraction_free_rtos.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_osa.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1638,6 +2075,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_os_abstraction_bm.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_osa_bm.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1658,6 +2098,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_os_abstraction_free_rtos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_osa_free_rtos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1694,6 +2137,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_component_panic.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_panic.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1959,7 +2405,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="device.LPC51U68_debugger.LPC51U68" name="LPC51U68_debugger" brief="Device LPC51U68_debugger" version="1.0.0" full_name="Device LPC51U68_debugger" devices="LPC51U68" user_visible="true" type="debugger" package_base_path="core/devices/LPC51U68" project_base_path="LPC51U68">
+    <component id="device.LPC51U68_debugger.LPC51U68" name="LPC51U68_debugger" brief="Device LPC51U68_debugger" version="1.0.0" full_name="Device LPC51U68_debugger" devices="LPC51U68" user_visible="true" type="debugger" package_base_path="svd/LPC51U68" project_base_path="LPC51U68">
       <source relative_path="./" type="xml">
         <files mask="LPC51U68.xml"/>
       </source>
@@ -2025,6 +2471,91 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="driver_clock.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.flexcomm_i2c_cmsis.LPC51U68" name="i2c_cmsis" brief="I2C CMSIS Driver" version="2.2.0" full_name="I2C CMSIS Driver" devices="LPC51U68" device_cores="core0_LPC51U68" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/flexcomm" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.flexcomm_i2c_dma.LPC51U68"/>
+          <component_dependency value="CMSIS_Driver_Include.I2C.LPC51U68"/>
+          <component_dependency value="RTE_Device.LPC51U68"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_i2c_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_i2c_cmsis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_cmsis_flexcomm_i2c.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.flexcomm_spi_cmsis.LPC51U68" name="spi_cmsis" brief="SPI CMSIS Driver" version="2.4.0" full_name="SPI CMSIS Driver" devices="LPC51U68" device_cores="core0_LPC51U68" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/flexcomm" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.flexcomm_spi_dma.LPC51U68"/>
+          <component_dependency value="CMSIS_Driver_Include.SPI.LPC51U68"/>
+          <component_dependency value="RTE_Device.LPC51U68"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_spi_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_spi_cmsis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_cmsis_flexcomm_spi.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.flexcomm_usart_cmsis.LPC51U68" name="usart_cmsis" brief="USART CMSIS Driver" version="2.2.0" full_name="USART CMSIS Driver" devices="LPC51U68" device_cores="core0_LPC51U68" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/flexcomm" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.flexcomm_usart_dma.LPC51U68"/>
+          <component_dependency value="CMSIS_Driver_Include.USART.LPC51U68"/>
+          <component_dependency value="RTE_Device.LPC51U68"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_usart_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_usart_cmsis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_cmsis_flexcomm_usart.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.lpc_gpio_cmsis.LPC51U68" name="gpio_cmsis" brief="GPIO CMSIS Driver" version="2.0.0" full_name="GPIO CMSIS Driver" devices="LPC51U68" device_cores="core0_LPC51U68" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/lpc_gpio" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.lpc_gpio.LPC51U68"/>
+          <component_dependency value="platform.drivers.pint.LPC51U68"/>
+          <component_dependency value="CMSIS_Driver_Include.GPIO.LPC51U68"/>
+          <component_dependency value="RTE_Device.LPC51U68"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_gpio_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_gpio_cmsis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_cmsis_lpc_gpio.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2425,8 +2956,28 @@ ${load}</script>
       <source toolchain="armgcc" relative_path="gcc" type="lib">
         <files mask="libfro_calib.a"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_fro_calib.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="drivers" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.ft6x06.LPC51U68" name="ft6x06" brief="Driver ft6x06" version="1.0.0" full_name="Driver ft6x06" devices="LPC51U68" user_visible="false" type="board_component" package_base_path="core/components/ft6x06" project_base_path="touchpanel">
+      <dependencies>
+        <component_dependency value="CMSIS_Driver_Include.I2C.LPC51U68"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_ft6x06.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_ft6x06.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_ft6x06.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
     <component id="platform.drivers.gint.LPC51U68" name="gint" brief="GINT Driver" version="2.0.3" full_name="GINT Driver" devices="LPC51U68" device_cores="core0_LPC51U68" user_visible="true" type="driver" package_base_path="core/drivers/gint" project_base_path="drivers">
@@ -2458,6 +3009,23 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="driver_iap.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.ili9341.LPC51U68" name="ili9341" brief="Driver ili9341" version="1.0.1" full_name="Driver ili9341" devices="LPC51U68" device_cores="core0_LPC51U68" user_visible="true" type="board_component" package_base_path="core/components/ili9341" project_base_path="lcd">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.LPC51U68"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_ili9341.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_ili9341.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_ili9341.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2779,6 +3347,9 @@ ${load}</script>
       <defines>
         <define name="SDK_OS_BAREMETAL" value=""/>
       </defines>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_baremetal.cmake" hidden="true"/>
+      </source>
     </component>
     <component id="middleware.freertos-kernel.LPC51U68" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="202012.00.0" full_name="FreeRTOS kernel" devices="LPC51U68" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
       <defines>
@@ -3099,6 +3670,246 @@ ${load}</script>
       <source relative_path="portable/ARMClang" type="doc">
         <files mask="Use-the-GCC-ports.txt"/>
       </source>
+    </component>
+    <component id="middleware.rtcesl.cm0p.LPC51U68" name="rtcesl" brief="Real Time Control Embedded Software Library for CM0 core" version="1.1.0" full_name="Middleware rtcesl cm0" devices="LPC51U68" device_cores="core0_LPC51U68" user_visible="true" type="middleware" package_base_path="middleware/rtcesl" project_base_path="rtcesl">
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/AMCLIB/Include" type="c_include">
+        <files mask="amclib.h"/>
+        <files mask="AMCLIB_AngleTrackObsrv_F32.h"/>
+        <files mask="AMCLIB_CtrlFluxWkng_A32.h"/>
+        <files mask="AMCLIB_PMSMBemfObsrvDQ_A32.h"/>
+        <files mask="AMCLIB_PMSMBemfObsrvDQHw_A32.h"/>
+        <files mask="AMCLIB_PMSMBemfObsrvAB_A32.h"/>
+        <files mask="AMCLIB_PMSMBemfObsrvABHw_A32.h"/>
+        <files mask="AMCLIB_TrackObsrv_F32.h"/>
+        <files mask="amclib_types.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/GDFLIB/Include" type="c_include">
+        <files mask="gdflib.h"/>
+        <files mask="GDFLIB_FilterExp_F32.h"/>
+        <files mask="GDFLIB_FilterIIR1_F32.h"/>
+        <files mask="GDFLIB_FilterIIR2_F32.h"/>
+        <files mask="GDFLIB_FilterMA_A32.h"/>
+        <files mask="GDFLIB_FilterMA_A32_Asmi.h"/>
+        <files mask="gdflib_types.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/GFLIB/Include" type="c_include">
+        <files mask="gflib.h"/>
+        <files mask="GFLIB_Atan_F32.h"/>
+        <files mask="GFLIB_AtanYX_F32.h"/>
+        <files mask="GFLIB_AtanYXHw_F32.h"/>
+        <files mask="GFLIB_CtrlBetaIPp_A32.h"/>
+        <files mask="GFLIB_CtrlPIp_A32.h"/>
+        <files mask="GFLIB_DFlexRamp_A32.h"/>
+        <files mask="GFLIB_DFlexRampHw_A32.h"/>
+        <files mask="GFLIB_DRamp_F16.h"/>
+        <files mask="GFLIB_DRamp_F32.h"/>
+        <files mask="GFLIB_FlexRamp_A32.h"/>
+        <files mask="GFLIB_FlexRampHw_A32.h"/>
+        <files mask="GFLIB_Hyst_F16_Asmi.h"/>
+        <files mask="GFLIB_Integrator_A32.h"/>
+        <files mask="GFLIB_Limit_F16.h"/>
+        <files mask="GFLIB_Limit_F32.h"/>
+        <files mask="GFLIB_LowerLimit_F16.h"/>
+        <files mask="GFLIB_LowerLimit_F32.h"/>
+        <files mask="GFLIB_Lut_F16_Asmi.h"/>
+        <files mask="GFLIB_Lut_F32.h"/>
+        <files mask="GFLIB_LutPer_F16_Asmi.h"/>
+        <files mask="GFLIB_LutPer_F32.h"/>
+        <files mask="GFLIB_Ramp_F16.h"/>
+        <files mask="GFLIB_Ramp_F16_Asmi.h"/>
+        <files mask="GFLIB_Ramp_F32.h"/>
+        <files mask="GFLIB_Ramp_F32_Asmi.h"/>
+        <files mask="GFLIB_SinCos_A32.h"/>
+        <files mask="GFLIB_Sqrt_F16.h"/>
+        <files mask="GFLIB_Sqrt_F32.h"/>
+        <files mask="GFLIB_SqrtHw_F16.h"/>
+        <files mask="GFLIB_SqrtHw_F16_Asmi.h"/>
+        <files mask="GFLIB_SqrtHw_F32.h"/>
+        <files mask="GFLIB_SqrtHw_F32_Asmi.h"/>
+        <files mask="gflib_types.h"/>
+        <files mask="GFLIB_UpperLimit_F16.h"/>
+        <files mask="GFLIB_UpperLimit_F32.h"/>
+        <files mask="GFLIB_VectorLimit1_F16.h"/>
+        <files mask="GFLIB_VectorLimit1Hw_F16.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/GMCLIB/Include" type="c_include">
+        <files mask="gmclib.h"/>
+        <files mask="GMCLIB_Clark_F16_Asmi.h"/>
+        <files mask="GMCLIB_Decoupling_A32.h"/>
+        <files mask="GMCLIB_ElimDcBusRip_A32.h"/>
+        <files mask="GMCLIB_ElimDcBusRip_F16.h"/>
+        <files mask="GMCLIB_ElimDcBusRipHw_A32.h"/>
+        <files mask="GMCLIB_ElimDcBusRipHw_F16.h"/>
+        <files mask="GMCLIB_Park_F16_Asmi.h"/>
+        <files mask="GMCLIB_Svm_F16.h"/>
+        <files mask="gmclib_types.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/MLIB/Include" type="c_include">
+        <files mask="asm_mac.h"/>
+        <files mask="mlib.h"/>
+        <files mask="MLIB_Abs_F16.h"/>
+        <files mask="MLIB_Abs_F16_Asmi.h"/>
+        <files mask="MLIB_Abs_F32.h"/>
+        <files mask="MLIB_Abs_F32_Asmi.h"/>
+        <files mask="MLIB_Add_A32.h"/>
+        <files mask="MLIB_Add_A32_Asmi.h"/>
+        <files mask="MLIB_Add_F16.h"/>
+        <files mask="MLIB_Add_F16_Asmi.h"/>
+        <files mask="MLIB_Add_F32.h"/>
+        <files mask="MLIB_Add_F32_Asmi.h"/>
+        <files mask="MLIB_Add4_F16.h"/>
+        <files mask="MLIB_Add4_F16_Asmi.h"/>
+        <files mask="MLIB_Add4_F32.h"/>
+        <files mask="MLIB_Add4_F32_Asmi.h"/>
+        <files mask="MLIB_BiShift_F16.h"/>
+        <files mask="MLIB_BiShift_F16_Asmi.h"/>
+        <files mask="MLIB_BiShift_F32.h"/>
+        <files mask="MLIB_BiShift_F32_Asmi.h"/>
+        <files mask="MLIB_Clb_F16_Asmi.h"/>
+        <files mask="MLIB_Clb_F32_Asmi.h"/>
+        <files mask="MLIB_Conv_F32.h"/>
+        <files mask="MLIB_Div_A32_Asm.h"/>
+        <files mask="MLIB_Div_F16_Asm.h"/>
+        <files mask="MLIB_Div_F32_Asm.h"/>
+        <files mask="MLIB_Div1Q_A32_Asm.h"/>
+        <files mask="MLIB_Div1Q_F16_Asm.h"/>
+        <files mask="MLIB_Div1Q_F32_Asm.h"/>
+        <files mask="MLIB_DivHw_A32_Asm.h"/>
+        <files mask="MLIB_DivHw_F16_Asm.h"/>
+        <files mask="MLIB_DivHw_F32.h"/>
+        <files mask="MLIB_DivHw_F32_Asm.h"/>
+        <files mask="MLIB_DivHw1Q_A32_Asm.h"/>
+        <files mask="MLIB_DivHw1Q_F16_Asm.h"/>
+        <files mask="MLIB_DivHw1Q_F32_Asm.h"/>
+        <files mask="MLIB_Log2_U16_Asmi.h"/>
+        <files mask="MLIB_Mac_A32.h"/>
+        <files mask="MLIB_Mac_F16.h"/>
+        <files mask="MLIB_Mac_F16_Asmi.h"/>
+        <files mask="MLIB_Mac_F32.h"/>
+        <files mask="MLIB_Mac_F32_Asmi.h"/>
+        <files mask="MLIB_Mac4_F32.h"/>
+        <files mask="MLIB_Mac4Rnd_F16.h"/>
+        <files mask="MLIB_Mac4Rnd_F16_Asmi.h"/>
+        <files mask="MLIB_Mac4Rnd_F32_Asm.h"/>
+        <files mask="MLIB_MacRnd_A32.h"/>
+        <files mask="MLIB_MacRnd_A32_Asmi.h"/>
+        <files mask="MLIB_MacRnd_F16.h"/>
+        <files mask="MLIB_MacRnd_F16_Asmi.h"/>
+        <files mask="MLIB_MacRnd_F32.h"/>
+        <files mask="MLIB_MacRnd_F32_Asmi.h"/>
+        <files mask="MLIB_MMDVSQ.h"/>
+        <files mask="MLIB_Mnac_A32.h"/>
+        <files mask="MLIB_Mnac_F16.h"/>
+        <files mask="MLIB_Mnac_F16_Asmi.h"/>
+        <files mask="MLIB_Mnac_F32.h"/>
+        <files mask="MLIB_Mnac_F32_Asmi.h"/>
+        <files mask="MLIB_MnacRnd_A32.h"/>
+        <files mask="MLIB_MnacRnd_A32_Asmi.h"/>
+        <files mask="MLIB_MnacRnd_F16.h"/>
+        <files mask="MLIB_MnacRnd_F16_Asmi.h"/>
+        <files mask="MLIB_MnacRnd_F32.h"/>
+        <files mask="MLIB_MnacRnd_F32_Asmi.h"/>
+        <files mask="MLIB_Msu_A32.h"/>
+        <files mask="MLIB_Msu_F16.h"/>
+        <files mask="MLIB_Msu_F16_Asmi.h"/>
+        <files mask="MLIB_Msu_F32.h"/>
+        <files mask="MLIB_Msu_F32_Asmi.h"/>
+        <files mask="MLIB_Msu4_F32.h"/>
+        <files mask="MLIB_Msu4Rnd_F16.h"/>
+        <files mask="MLIB_Msu4Rnd_F16_Asmi.h"/>
+        <files mask="MLIB_Msu4Rnd_F32_Asm.h"/>
+        <files mask="MLIB_MsuRnd_A32.h"/>
+        <files mask="MLIB_MsuRnd_A32_Asmi.h"/>
+        <files mask="MLIB_MsuRnd_F16.h"/>
+        <files mask="MLIB_MsuRnd_F16_Asmi.h"/>
+        <files mask="MLIB_MsuRnd_F32.h"/>
+        <files mask="MLIB_MsuRnd_F32_Asmi.h"/>
+        <files mask="MLIB_Mul_A32.h"/>
+        <files mask="MLIB_Mul_A32_Asmi.h"/>
+        <files mask="MLIB_Mul_F16.h"/>
+        <files mask="MLIB_Mul_F16_Asmi.h"/>
+        <files mask="MLIB_Mul_F32.h"/>
+        <files mask="MLIB_Mul_F32_Asmi.h"/>
+        <files mask="MLIB_MulRnd_A32.h"/>
+        <files mask="MLIB_MulRnd_A32_Asmi.h"/>
+        <files mask="MLIB_MulRnd_F16.h"/>
+        <files mask="MLIB_MulRnd_F16_Asmi.h"/>
+        <files mask="MLIB_MulRnd_F32.h"/>
+        <files mask="MLIB_MulRnd_F32_Asmi.h"/>
+        <files mask="MLIB_Neg_F16.h"/>
+        <files mask="MLIB_Neg_F16_Asmi.h"/>
+        <files mask="MLIB_Neg_F32.h"/>
+        <files mask="MLIB_Neg_F32_Asmi.h"/>
+        <files mask="MLIB_Rcp_A32_Asm.h"/>
+        <files mask="MLIB_Rcp1Q_A32_Asm.h"/>
+        <files mask="MLIB_RcpHw_A32_Asm.h"/>
+        <files mask="MLIB_RcpHw1Q_A32_Asmi.h"/>
+        <files mask="MLIB_Rnd_F32.h"/>
+        <files mask="MLIB_Rnd_F32_Asmi.h"/>
+        <files mask="MLIB_Sat_A32.h"/>
+        <files mask="MLIB_Sat_A32_Asmi.h"/>
+        <files mask="MLIB_Shift_F16.h"/>
+        <files mask="MLIB_Shift_F16_Asmi.h"/>
+        <files mask="MLIB_Shift_F32.h"/>
+        <files mask="MLIB_Shift_F32_Asmi.h"/>
+        <files mask="MLIB_Sign_F16_Asmi.h"/>
+        <files mask="MLIB_Sign_F32_Asmi.h"/>
+        <files mask="MLIB_Sub_A32.h"/>
+        <files mask="MLIB_Sub_A32_Asmi.h"/>
+        <files mask="MLIB_Sub_F16.h"/>
+        <files mask="MLIB_Sub_F16_Asmi.h"/>
+        <files mask="MLIB_Sub_F32.h"/>
+        <files mask="MLIB_Sub_F32_Asmi.h"/>
+        <files mask="MLIB_Sub4_F16.h"/>
+        <files mask="MLIB_Sub4_F16_Asmi.h"/>
+        <files mask="MLIB_Sub4_F32.h"/>
+        <files mask="MLIB_Sub4_F32_Asmi.h"/>
+        <files mask="mlib_types.h"/>
+        <files mask="RTCESL_cfg.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/PCLIB/Include" type="c_include">
+        <files mask="pclib.h"/>
+        <files mask="PCLIB_Ctrl2P2Z_F16.h"/>
+        <files mask="PCLIB_Ctrl3P3Z_F16.h"/>
+        <files mask="PCLIB_CtrlPI_F16.h"/>
+        <files mask="PCLIB_CtrlPIandLPFilter_F16.h"/>
+        <files mask="PCLIB_CtrlPID_F16.h"/>
+        <files mask="pclib_types.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/AMCLIB" type="lib">
+        <files mask="libAMCLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/GFLIB" type="lib">
+        <files mask="libGFLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/GDFLIB" type="lib">
+        <files mask="libGDFLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/GMCLIB" type="lib">
+        <files mask="libGMCLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/MLIB" type="lib">
+        <files mask="libMLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/PCLIB" type="lib">
+        <files mask="libPCLIB.a"/>
+      </source>
+      <source relative_path="CM0_RTCESL_4.6.2_doc" type="doc">
+        <files mask="CM0AMCLIBUG.pdf" hidden="true"/>
+        <files mask="CM0GDFLIBUG.pdf" hidden="true"/>
+        <files mask="CM0GFLIBUG.pdf" hidden="true"/>
+        <files mask="CM0GMCLIBUG.pdf" hidden="true"/>
+        <files mask="CM0MLIBUG.pdf" hidden="true"/>
+        <files mask="CM0PCLIBUG.pdf" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="CM0_RTCESL_4.6.2_MCUX/AMCLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM0_RTCESL_4.6.2_MCUX/GDFLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM0_RTCESL_4.6.2_MCUX/GFLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM0_RTCESL_4.6.2_MCUX/GMCLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM0_RTCESL_4.6.2_MCUX/MLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM0_RTCESL_4.6.2_MCUX/PCLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+      </include_paths>
     </component>
     <component id="platform.utilities.misc_utilities.LPC51U68" name="misc_utilities" brief="Utilities which is needed for particular toolchain like the SBRK function required to address limitation between HEAP and STACK in GCC toolchain library." version="1.0.0" full_name="Utilities miscellaneous" devices="LPC51U68" user_visible="true" type="utilities" package_base_path="core/utilities/misc_utilities" project_base_path="utilities">
       <source toolchain="armgcc" relative_path="./" type="src">

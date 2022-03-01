@@ -1,0 +1,20 @@
+{
+    "family": "rt5xx",
+    "inputImageFile": "./workspace/input_images/extram_loader.bin",
+	"multicoreImages": [
+		{"address": "0x28000000", "file": "./workspace/input_images/extram_hello_world.bin"}
+	],
+    "imageLinkAddress": "0x280000",
+    "outputImageExecutionTarget": "RAM",
+    "outputImageAuthenticationType": "CRC",
+    "enableTrustZone": false,
+	"deviceKeySource": "",
+	"outputImageEncryptionKeyFile": "",
+    "trustZonePresetFile": "",
+    "rootCertificate0File": "",
+    "rootCertificate1File": "",
+    "rootCertificate2File": "",
+    "rootCertificate3File": "",
+    "mainCertPrivateKeyFile": "",
+    "masterBootOutputFile": "./workspace/output_images/mpi_loader_extram_hello_world.bin"
+}

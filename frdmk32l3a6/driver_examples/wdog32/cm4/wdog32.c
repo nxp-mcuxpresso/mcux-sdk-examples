@@ -11,15 +11,7 @@
 #include "clock_config.h"
 #include "board.h"
 #include "fsl_wdog32.h"
-#if defined(FSL_FEATURE_SOC_RCM_COUNT) && (FSL_FEATURE_SOC_RCM_COUNT)
-#include "fsl_rcm.h"
-#elif defined(FSL_FEATURE_SOC_SMC_COUNT) && (FSL_FEATURE_SOC_SMC_COUNT > 1) /* MSMC */
-#include "fsl_msmc.h"
-#elif defined(FSL_FEATURE_SOC_ASMC_COUNT) && (FSL_FEATURE_SOC_ASMC_COUNT) /* ASMC */
-#include "fsl_asmc.h"
-#elif defined(FSL_FEATURE_SOC_CMC_COUNT) && (FSL_FEATURE_SOC_CMC_COUNT) /* CMC */
-#include "fsl_cmc.h"
-#endif
+
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -31,6 +23,17 @@
 #define EXAMPLE_MSMC_BASE      SMC0
 #define DELAY_TIME             100000U
 #define WDOG_IRQHandler        WDOG0_IRQHandler
+#ifndef APP_WDOG_RESET_FLAG_SET
+#if defined(FSL_FEATURE_SOC_RCM_COUNT) && (FSL_FEATURE_SOC_RCM_COUNT)
+#include "fsl_rcm.h"
+#elif defined(FSL_FEATURE_SOC_SMC_COUNT) && (FSL_FEATURE_SOC_SMC_COUNT > 1) /* MSMC */
+#include "fsl_msmc.h"
+#elif defined(FSL_FEATURE_SOC_ASMC_COUNT) && (FSL_FEATURE_SOC_ASMC_COUNT) /* ASMC */
+#include "fsl_asmc.h"
+#elif defined(FSL_FEATURE_SOC_CMC_COUNT) && (FSL_FEATURE_SOC_CMC_COUNT) /* CMC */
+#include "fsl_cmc.h"
+#endif
+#endif
 
 /*******************************************************************************
  * Prototypes
@@ -132,6 +135,7 @@ void Wdog32FastTesting(void)
     else if (current_test_mode == kWDOG32_LowByteTest)
     {
         if ((RESET_CHECK_FLAG != (RESET_CHECK_INIT_VALUE + 1))
+#ifndef APP_WDOG_RESET_FLAG_SET
 #if defined(FSL_FEATURE_SOC_RCM_COUNT) && (FSL_FEATURE_SOC_RCM_COUNT)
             || ((RCM_GetPreviousResetSources(rcm_base) & kRCM_SourceWdog) == 0)
 #elif defined(FSL_FEATURE_SOC_SMC_COUNT) && (FSL_FEATURE_SOC_SMC_COUNT > 1) /* MSMC */
@@ -140,6 +144,9 @@ void Wdog32FastTesting(void)
             || ((ASMC_GetSystemResetStatusFlags(EXAMPLE_ASMC_BASE) & kASMC_WatchdogResetFlag) == 0)
 #elif defined(FSL_FEATURE_SOC_CMC_COUNT) && (FSL_FEATURE_SOC_CMC_COUNT)     /* CMC */
             || ((CMC_GetSystemResetStatus(EXAMPLE_CMC_BASE) & kCMC_Watchdog0Reset) == 0)
+#endif
+#else
+            || !APP_WDOG_RESET_FLAG_SET()
 #endif
         )
         {
@@ -161,6 +168,7 @@ void Wdog32FastTesting(void)
     else if (current_test_mode == kWDOG32_HighByteTest)
     {
         if ((RESET_CHECK_FLAG != (RESET_CHECK_INIT_VALUE + 2))
+#ifndef APP_WDOG_RESET_FLAG_SET
 #if defined(FSL_FEATURE_SOC_RCM_COUNT) && (FSL_FEATURE_SOC_RCM_COUNT)
             || ((RCM_GetPreviousResetSources(rcm_base) & kRCM_SourceWdog) == 0)
 #elif defined(FSL_FEATURE_SOC_SMC_COUNT) && (FSL_FEATURE_SOC_SMC_COUNT > 1) /* MSMC */
@@ -169,6 +177,9 @@ void Wdog32FastTesting(void)
             || ((ASMC_GetSystemResetStatusFlags(EXAMPLE_ASMC_BASE) & kASMC_WatchdogResetFlag) == 0)
 #elif defined(FSL_FEATURE_SOC_CMC_COUNT) && (FSL_FEATURE_SOC_CMC_COUNT)     /* CMC */
             || ((CMC_GetSystemResetStatus(EXAMPLE_CMC_BASE) & kCMC_Watchdog0Reset) == 0)
+#endif
+#else
+            || !APP_WDOG_RESET_FLAG_SET()
 #endif
         )
         {
@@ -290,6 +301,7 @@ int main(void)
     BOARD_InitDebugConsole();
     EnableIRQ(WDOG0_IRQn);
 
+#ifndef APP_WDOG_RESET_FLAG_SET
 #if defined(FSL_FEATURE_SOC_ASMC_COUNT) && (FSL_FEATURE_SOC_ASMC_COUNT)
     if ((ASMC_GetSystemResetStatusFlags(EXAMPLE_ASMC_BASE) & kASMC_WatchdogResetFlag))
     {
@@ -300,6 +312,7 @@ int main(void)
     {
         RESET_CHECK_FLAG++;
     }
+#endif
 #endif
 
     Wdog32FastTesting();

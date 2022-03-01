@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020-2021 NXP
  * All rights reserved.
  *
  *
@@ -17,8 +17,8 @@
  ******************************************************************************/
 typedef enum _app_wakeup_source
 {
-    kAPP_WakeupSourceGPT, /*!< Wakeup by PIT.        */
-    kAPP_WakeupSourcePin, /*!< Wakeup by external pin. */
+    kAPP_WakeupSourceTimer, /*!< Wakeup by Timer.        */
+    kAPP_WakeupSourcePin,   /*!< Wakeup by external pin. */
 } app_wakeup_source_t;
 
 #if defined(__cplusplus)

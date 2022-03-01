@@ -80,8 +80,8 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8960_ENABLE \
     -DMCUXPRESSO_SDK \
+    -O1 \
     -g \
-    -O0 \
     -mcpu=cortex-m7 \
     -Wall \
     -mfloat-abi=hard \

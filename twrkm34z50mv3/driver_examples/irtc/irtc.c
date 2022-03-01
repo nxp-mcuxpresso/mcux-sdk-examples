@@ -12,9 +12,7 @@
 #include "fsl_debug_console.h"
 #include "pin_mux.h"
 #include "board.h"
-
 #include "fsl_irtc.h"
-
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -76,28 +74,29 @@ int main(void)
     alarmDatetime.second  = 33;
     alarmDatetime.weekDay = 0; /* Don't care for alarm, however this should be set to a valid value */
 
+    /* Board pin, clock, debug console init */
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
+    BOARD_InitDebugConsole();
+
     /* Init the IRTC module */
     /*
      * irtcConfig.wakeupSelect = true;
      * irtcConfig.timerStdMask = false;
      * irtcConfig.alrmMatch = kRTC_MatchSecMinHr;
      */
+
     IRTC_GetDefaultConfig(&irtcConfig);
     if (IRTC_Init(RTC, &irtcConfig) == kStatus_Fail)
     {
         return 1;
     }
 
-    /* Board pin, clock, debug console init */
-    BOARD_InitBootPins();
-    BOARD_InitBootClocks();
-    BOARD_InitDebugConsole();
-
     /* Enable the RTC 32KHz oscillator at CFG0 by writing a 0 */
-    RTC->GP_DATA_REG &= ~1U;
+    IRTC_Enable32kClkDuringRegisterWrite(RTC, true);
 
     /* Clear all Tamper events by writing a 1 to the bits */
-    RTC->TAMPER_SCR |= RTC_TAMPER_SCR_TMPR_STS_MASK;
+    IRTC_ClearTamperStatusFlag(RTC);
 
     PRINTF("RTC Example START:\r\n");
 

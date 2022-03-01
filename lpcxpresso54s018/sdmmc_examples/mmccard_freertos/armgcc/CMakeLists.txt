@@ -106,9 +106,9 @@ include(driver_power)
 
 include(middleware_freertos-kernel_extension)
 
-include(CMSIS_Include_core_cm)
-
 include(driver_reset)
+
+include(CMSIS_Include_core_cm)
 
 include(middleware_sdmmc_osa_freertos)
 

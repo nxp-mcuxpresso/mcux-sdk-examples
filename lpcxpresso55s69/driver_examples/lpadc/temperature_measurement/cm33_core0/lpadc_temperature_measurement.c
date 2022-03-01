@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 NXP
+ * Copyright 2019-2021 NXP
  * All rights reserved.
  *
  *
@@ -14,6 +14,7 @@
 
 #include "fsl_inputmux.h"
 #include "fsl_power.h"
+#include "fsl_anactrl.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -142,6 +143,9 @@ int main(void)
     /* Disable Temperature sensor power down. */
     POWER_DisablePD(kPDRUNCFG_PD_TEMPSENS);
 
+    ANACTRL_Init(ANACTRL);
+    ANACTRL_EnableVref1V(ANACTRL, true);
+
     PRINTF("LPADC Temperature Measurement Example\r\n");
 
     ADC_Configuration();
@@ -163,6 +167,7 @@ int main(void)
     while (1)
     {
         GETCHAR();
+        g_LpadcConversionCompletedFlag = false;
         LPADC_DoSoftwareTrigger(DEMO_LPADC_BASE, 1U); /* 1U is trigger0 mask. */
         while (false == g_LpadcConversionCompletedFlag)
         {

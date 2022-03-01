@@ -87,8 +87,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/lpcxpresso54s018/driver_examples/enet/txrx_rxpoll" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso54s018/driver_examples/enet/txrx_rxpoll" project_relative_path="lpcxpresso54s018/driver_examples/enet/txrx_rxpoll" type="c_include"/>
-      <include_path path="boards/lpcxpresso54s018" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso54s018/driver_examples/enet/txrx_rxpoll" project_relative_path="lpcxpresso54s018/driver_examples/enet/txrx_rxpoll" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso54s018" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso54s018/driver_examples/enet/txrx_rxpoll/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="enet_txrx_rxpoll.ewd"/>

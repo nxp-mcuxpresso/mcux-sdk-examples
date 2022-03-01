@@ -8,7 +8,7 @@ data to slave, and receive a piece of data from slave. This example checks if th
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================

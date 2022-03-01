@@ -45,7 +45,7 @@ uint8_t masterTxData[TRANSFER_SIZE] = {0U};
 volatile uint32_t masterTxCount;
 volatile uint32_t masterRxCount;
 volatile uint8_t g_masterRxWatermark;
-uint8_t g_masterFifoSize;
+volatile uint8_t g_masterFifoSize;
 
 volatile bool isMasterTransferCompleted = false;
 
@@ -55,11 +55,12 @@ volatile bool isMasterTransferCompleted = false;
 
 void EXAMPLE_LPSPI_MASTER_IRQHandler(void)
 {
+    /* While reading out the RX FIFO as more data may be coming into the RX FIFO. We'll
+     * re-enable the interrupts after reading out the FIFO.
+     */
+    LPSPI_DisableInterrupts(EXAMPLE_LPSPI_MASTER_BASEADDR, kLPSPI_RxInterruptEnable);
     if (masterRxCount < TRANSFER_SIZE)
     {
-        /* While reading out the RX FIFO as more data may be coming into the RX FIFO. We'll
-         * re-enable the interrupts after reading out the FIFO.
-         */
         while (LPSPI_GetRxFifoCount(EXAMPLE_LPSPI_MASTER_BASEADDR))
         {
             /* Read out the data. */
@@ -68,7 +69,6 @@ void EXAMPLE_LPSPI_MASTER_IRQHandler(void)
 
             if (masterRxCount == TRANSFER_SIZE)
             {
-                LPSPI_DisableInterrupts(EXAMPLE_LPSPI_MASTER_BASEADDR, kLPSPI_RxInterruptEnable);
                 break;
             }
         }
@@ -94,6 +94,11 @@ void EXAMPLE_LPSPI_MASTER_IRQHandler(void)
 
             if (masterTxCount == TRANSFER_SIZE)
             {
+                /* Operation on the TCR register also occupies the tx FIFO,
+                   make sure there is still room */
+                while ((uint32_t)g_masterFifoSize == LPSPI_GetTxFifoCount(EXAMPLE_LPSPI_MASTER_BASEADDR))
+                {
+                }
                 /* Set the PCS back to uncontinuous to finish the transfer. */
                 LPSPI_SetPCSContinous(EXAMPLE_LPSPI_MASTER_BASEADDR, false);
                 break;
@@ -106,6 +111,11 @@ void EXAMPLE_LPSPI_MASTER_IRQHandler(void)
     {
         /* Complete the transfer. */
         isMasterTransferCompleted = true;
+    }
+
+    if (masterRxCount < TRANSFER_SIZE)
+    {
+        LPSPI_EnableInterrupts(EXAMPLE_LPSPI_MASTER_BASEADDR, kLPSPI_RxInterruptEnable);
     }
     SDK_ISR_EXIT_BARRIER;
 }

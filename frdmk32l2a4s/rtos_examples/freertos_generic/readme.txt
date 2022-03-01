@@ -20,7 +20,7 @@ Other hook types used for RTOS and resource statistics are also demonstrated in 
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================

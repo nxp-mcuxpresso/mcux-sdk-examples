@@ -265,9 +265,7 @@ int main(void)
     {
         CCM->PLL_CTRL[i].PLL_CTRL = kCLOCK_ClockNeededRun;
     }
-    CLOCK_SetRootMux(kCLOCK_RootSai3, kCLOCK_SaiRootmuxAudioPll1); /* Set SAI source to Audio PLL1 393215996HZ */
-    CLOCK_SetRootDivider(kCLOCK_RootSai3, 1U, 16U);                /* Set root clock to 393215996HZ / 16 = 24.576MHZ */
-    CLOCK_SetRootMux(kCLOCK_RootGpt1, kCLOCK_GptRootmuxOsc24M);    /* Set GPT source to Osc24 MHZ */
+    CLOCK_SetRootMux(kCLOCK_RootGpt1, kCLOCK_GptRootmuxOsc24M); /* Set GPT source to Osc24 MHZ */
     CLOCK_SetRootDivider(kCLOCK_RootGpt1, 1U, 1U);
 
     /* gpio initialization */

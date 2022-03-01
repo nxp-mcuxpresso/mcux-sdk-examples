@@ -69,8 +69,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmke15z/driver_examples/flexio/spi/edma_lpspi_transfer/master" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmke15z/driver_examples/flexio/spi/edma_lpspi_transfer/master" project_relative_path="frdmke15z/driver_examples/flexio/spi/edma_lpspi_transfer/master" type="c_include"/>
-      <include_path path="boards/frdmke15z" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmke15z/driver_examples/flexio/spi/edma_lpspi_transfer/master" project_relative_path="frdmke15z/driver_examples/flexio/spi/edma_lpspi_transfer/master" type="c_include"/>
+      <include_path path="core/boards/frdmke15z" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmke15z/driver_examples/flexio/spi/edma_lpspi_transfer/master/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="flexio_spi_edma_lpspi_transfer_master.ewd"/>

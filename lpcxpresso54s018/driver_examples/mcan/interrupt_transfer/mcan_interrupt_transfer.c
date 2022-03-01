@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2019 NXP
+ * Copyright 2016-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -66,7 +66,18 @@ mcan_fifo_transfer_t rxXfer;
 uint32_t txIdentifier;
 uint32_t rxIdentifier;
 #ifndef MSG_RAM_BASE
-SDK_ALIGN(uint8_t msgRam[MSG_RAM_SIZE], 1U << CAN_MRBA_BA_SHIFT);
+/* The MCAN IP stipulates that the Message RAM start address must align with 0x10000, but in some devices, the single
+ * available RAM block size is less than this value, so we must try to place the Message RAM variables at the start of
+ * the RAM block to avoid memory overflow during link application. By default, the data section is before of the bss
+ * section, so adds the initial value for Message RAM variables to confirm it be placed in the data section, and it must
+ * be initialized with 0 before used. */
+#if defined(__CC_ARM) || defined(__ARMCC_VERSION)
+/* The KEIL --sort=algorithm only impacts code sections, and the data sections is sorted by name, so by specifying the
+ * memory as .data to ensure that it is put in the first place of RAM. */
+__attribute__((aligned(1U << CAN_MRBA_BA_SHIFT), section(".data"))) uint8_t msgRam[MSG_RAM_SIZE] = {1U};
+#else
+SDK_ALIGN(uint8_t msgRam[MSG_RAM_SIZE], 1U << CAN_MRBA_BA_SHIFT) = {1U};
+#endif
 #else
 #define msgRam MSG_RAM_BASE
 #endif
@@ -145,9 +156,20 @@ int main(void)
         rxIdentifier = 0x321U;
     }
 
+    /* Get MCAN module default Configuration. */
+    /*
+     * mcanConfig.baudRate               = 500000U;
+     * mcanConfig.baudRateFD             = 2000000U;
+     * mcanConfig.enableCanfdNormal      = false;
+     * mcanConfig.enableCanfdSwitch      = false;
+     * mcanConfig.enableLoopBackInt      = false;
+     * mcanConfig.enableLoopBackExt      = false;
+     * mcanConfig.enableBusMon           = false;
+     */
     MCAN_GetDefaultConfig(&mcanConfig);
 #if (defined(USE_CANFD) && USE_CANFD)
-    mcanConfig.enableCanfdNormal = true;
+    /* Enable Bit Rate Switch to make baudRateD make sense.*/
+    mcanConfig.enableCanfdSwitch = true;
 #endif
 
 #if (defined(USE_IMPROVED_TIMING_CONFIG) && USE_IMPROVED_TIMING_CONFIG)

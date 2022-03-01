@@ -44,12 +44,40 @@ static char app_buf[512]; /* Each RPMSG buffer can carry less than 512 payload *
  ******************************************************************************/
 static TaskHandle_t app_task_handle = NULL;
 
-static void app_task(void *param)
+static struct rpmsg_lite_instance *volatile my_rpmsg = NULL;
+
+static struct rpmsg_lite_endpoint *volatile my_ept = NULL;
+static volatile rpmsg_queue_handle my_queue        = NULL;
+void app_destroy_task(void)
+{
+    if (app_task_handle)
+    {
+        vTaskDelete(app_task_handle);
+        app_task_handle = NULL;
+    }
+
+    if (my_ept)
+    {
+        rpmsg_lite_destroy_ept(my_rpmsg, my_ept);
+        my_ept = NULL;
+    }
+
+    if (my_queue)
+    {
+        rpmsg_queue_destroy(my_rpmsg, my_queue);
+        my_queue = NULL;
+    }
+
+    if (my_rpmsg)
+    {
+        rpmsg_lite_deinit(my_rpmsg);
+        my_rpmsg = NULL;
+    }
+}
+
+void app_task(void *param)
 {
     volatile uint32_t remote_addr;
-    struct rpmsg_lite_endpoint *volatile my_ept;
-    volatile rpmsg_queue_handle my_queue;
-    struct rpmsg_lite_instance *volatile my_rpmsg;
     void *rx_buf;
     uint32_t len;
     int32_t result;
@@ -122,6 +150,16 @@ static void app_task(void *param)
     }
 }
 
+void app_create_task(void)
+{
+    if (xTaskCreate(app_task, "APP_TASK", APP_TASK_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, &app_task_handle) != pdPASS)
+    {
+        PRINTF("\r\nFailed to create application task\r\n");
+        for (;;)
+            ;
+    }
+}
+
 /*!
  * @brief Main function
  */
@@ -143,13 +181,7 @@ int main(void)
     (void)MCMGR_Init();
 #endif /* MCMGR_USED */
 
-    if (xTaskCreate(app_task, "APP_TASK", APP_TASK_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, &app_task_handle) != pdPASS)
-    {
-        PRINTF("\r\nFailed to create application task\r\n");
-        for (;;)
-            ;
-    }
-
+    app_create_task();
     vTaskStartScheduler();
 
     PRINTF("Failed to start FreeRTOS on core0.\n");

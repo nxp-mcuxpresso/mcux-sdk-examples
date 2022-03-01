@@ -76,8 +76,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/lpcxpresso54s018/driver_examples/sctimer/pwm_with_dutycyle_change" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso54s018/driver_examples/sctimer/pwm_with_dutycyle_change" project_relative_path="lpcxpresso54s018/driver_examples/sctimer/pwm_with_dutycyle_change" type="c_include"/>
-      <include_path path="boards/lpcxpresso54s018" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso54s018/driver_examples/sctimer/pwm_with_dutycyle_change" project_relative_path="lpcxpresso54s018/driver_examples/sctimer/pwm_with_dutycyle_change" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso54s018" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso54s018/driver_examples/sctimer/pwm_with_dutycyle_change/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="sctimer_pwm_with_dutycyle_change.ewd"/>

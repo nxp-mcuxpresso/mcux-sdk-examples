@@ -96,9 +96,9 @@ include(middleware_freertos-kernel_extension)
 
 include(middleware_freertos-kernel_mpu_wrappers)
 
-include(CMSIS_Include_core_cm)
-
 include(driver_reset)
+
+include(CMSIS_Include_core_cm)
 
 include(utilities_misc_utilities)
 
@@ -119,16 +119,8 @@ if(CMAKE_BUILD_TYPE STREQUAL debug)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../freertos_mpu_s/cm33_core0/armgcc/debug/freertos_mpu_s_CMSE_lib.o)
 endif(CMAKE_BUILD_TYPE STREQUAL debug)
 
-if(CMAKE_BUILD_TYPE STREQUAL debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../../core/devices/LPC55S69/gcc/libpower_hardabi.a)
-endif(CMAKE_BUILD_TYPE STREQUAL debug)
-
 if(CMAKE_BUILD_TYPE STREQUAL release)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../freertos_mpu_s/cm33_core0/armgcc/release/freertos_mpu_s_CMSE_lib.o)
-endif(CMAKE_BUILD_TYPE STREQUAL release)
-
-if(CMAKE_BUILD_TYPE STREQUAL release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../../core/devices/LPC55S69/gcc/libpower_hardabi.a)
 endif(CMAKE_BUILD_TYPE STREQUAL release)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)

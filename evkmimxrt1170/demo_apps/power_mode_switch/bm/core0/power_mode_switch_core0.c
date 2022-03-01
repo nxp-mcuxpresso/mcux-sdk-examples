@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -24,6 +24,9 @@
 #define APP_WAKEUP_BUTTON_IRQ         BOARD_USER_BUTTON_IRQ
 #define APP_WAKEUP_BUTTON_IRQ_HANDLER BOARD_USER_BUTTON_IRQ_HANDLER
 #define APP_WAKEUP_BUTTON_NAME        BOARD_USER_BUTTON_NAME
+
+#define APP_WAKEUP_SNVS_IRQ         SNVS_HP_NON_TZ_IRQn
+#define APP_WAKEUP_SNVS_IRQ_HANDLER SNVS_HP_NON_TZ_IRQHandler
 
 /* Address of memory, from which the secondary core will boot */
 #define CORE1_BOOT_ADDRESS 0x20200000
@@ -131,18 +134,137 @@ void APP_WAKEUP_BUTTON_IRQ_HANDLER(void)
     SDK_ISR_EXIT_BARRIER;
 }
 
-static void APP_SetWakeupConfig(void)
+void APP_WAKEUP_SNVS_IRQ_HANDLER(void)
+{
+    /* Clear SRTC alarm interrupt. */
+    SNVS->LPSR |= SNVS_LPSR_LPTA_MASK;
+    /* Disable SRTC alarm interrupt */
+    SNVS->LPCR &= ~SNVS_LPCR_LPTA_EN_MASK;
+    /* Stop SRTC time counter */
+    SNVS->LPCR &= ~SNVS_LPCR_SRTC_ENV_MASK;
+    GPC_DisableWakeupSource(APP_WAKEUP_SNVS_IRQ);
+    SDK_ISR_EXIT_BARRIER;
+}
+
+static void APP_SetButtonWakeupConfig(void)
 {
     PRINTF("Press button %s to wake up system.\r\n", APP_WAKEUP_BUTTON_NAME);
     GPIO_ClearPinsInterruptFlags(APP_WAKEUP_BUTTON_GPIO, 1U << APP_WAKEUP_BUTTON_GPIO_PIN);
     /* Enable GPIO pin interrupt */
     GPIO_EnableInterrupts(APP_WAKEUP_BUTTON_GPIO, 1U << APP_WAKEUP_BUTTON_GPIO_PIN);
+    NVIC_ClearPendingIRQ(APP_WAKEUP_BUTTON_IRQ);
     /* Enable the Interrupt */
     EnableIRQ(APP_WAKEUP_BUTTON_IRQ);
     /* Mask all interrupt first */
     GPC_DisableAllWakeupSource(GPC_CPU_MODE_CTRL);
     /* Enable GPC interrupt */
     GPC_EnableWakeupSource(APP_WAKEUP_BUTTON_IRQ);
+}
+
+static void APP_SetSrtcWakeupConfig(uint8_t wakeupTimeout)
+{
+    /* Stop SRTC time counter */
+    SNVS->LPCR &= ~SNVS_LPCR_SRTC_ENV_MASK;
+    while ((SNVS->LPCR & SNVS_LPCR_SRTC_ENV_MASK))
+    {
+    }
+    /* Disable SRTC alarm interrupt */
+    SNVS->LPCR &= ~SNVS_LPCR_LPTA_EN_MASK;
+    while ((SNVS->LPCR & SNVS_LPCR_LPTA_EN_MASK))
+    {
+    }
+
+    SNVS->LPSRTCMR = 0x00;
+    SNVS->LPSRTCLR = 0x00;
+    /* Set alarm in seconds*/
+    SNVS->LPTAR = wakeupTimeout;
+    EnableIRQ(APP_WAKEUP_SNVS_IRQ);
+    /* Enable SRTC time counter and alarm interrupt */
+    SNVS->LPCR |= SNVS_LPCR_SRTC_ENV_MASK | SNVS_LPCR_LPTA_EN_MASK;
+    while (!(SNVS->LPCR & SNVS_LPCR_LPTA_EN_MASK))
+    {
+    }
+
+    /* Mask all interrupt first */
+    GPC_DisableAllWakeupSource(GPC_CPU_MODE_CTRL);
+    GPC_EnableWakeupSource(APP_WAKEUP_SNVS_IRQ);
+}
+
+/*!
+ * @brief Get input from user about wakeup timeout
+ */
+static uint8_t APP_GetWakeupTimeout(void)
+{
+    uint8_t timeout;
+
+    while (1)
+    {
+        PRINTF("Select the wake up timeout in seconds.\r\n");
+        PRINTF("The allowed range is 1s ~ 9s.\r\n");
+        PRINTF("Eg. enter 5 to wake up in 5 seconds.\r\n");
+        PRINTF("\r\nWaiting for input timeout value...\r\n\r\n");
+
+        timeout = GETCHAR();
+        PRINTF("%c\r\n", timeout);
+        if ((timeout > '0') && (timeout <= '9'))
+        {
+            return timeout - '0';
+        }
+        PRINTF("Wrong value!\r\n");
+    }
+}
+
+/* Get wakeup source by user input. */
+static app_wakeup_source_t APP_GetWakeupSource(void)
+{
+    uint8_t ch;
+
+    while (1)
+    {
+        PRINTF("Select the wake up source:\r\n");
+        PRINTF("Press T for Timer\r\n");
+        PRINTF("Press S for switch/button %s. \r\n", APP_WAKEUP_BUTTON_NAME);
+
+        PRINTF("\r\nWaiting for key press..\r\n\r\n");
+
+        ch = GETCHAR();
+
+        if ((ch >= 'a') && (ch <= 'z'))
+        {
+            ch -= 'a' - 'A';
+        }
+
+        if (ch == 'T')
+        {
+            return kAPP_WakeupSourceTimer;
+        }
+        else if (ch == 'S')
+        {
+            return kAPP_WakeupSourcePin;
+        }
+        else
+        {
+            PRINTF("Wrong value!\r\n");
+        }
+    }
+}
+
+static void APP_SetWakeupConfig(void)
+{
+    uint8_t wakeupTimeout;
+    /* Get wakeup source by user input. */
+    if (kAPP_WakeupSourceTimer == APP_GetWakeupSource())
+    {
+        /* Wakeup source is timer, user should input wakeup timeout value. */
+        wakeupTimeout = APP_GetWakeupTimeout();
+        PRINTF("Will wake up in %d seconds.\r\n", wakeupTimeout);
+        /* Set timer timeout value. */
+        APP_SetSrtcWakeupConfig(wakeupTimeout);
+    }
+    else
+    {
+        APP_SetButtonWakeupConfig();
+    }
 }
 
 /*!
@@ -292,7 +414,7 @@ void CpuModeSwitchInSetPoint(uint8_t setpoint)
             cpuMode = (gpc_cpu_mode_t)target;
             if (cpuMode != kGPC_RunMode)
             {
-                APP_SetWakeupConfig();
+                APP_SetButtonWakeupConfig();
                 PRINTF("Target CPU mode is %s\r\n", GET_CPU_MODE_NAME(cpuMode));
                 PRINTF("Go...\r\n");
                 if (cpuMode == kGPC_SuspendMode)
@@ -409,7 +531,7 @@ void TypicalSetPointTransition(void)
             }
             if (cpuMode != kGPC_RunMode)
             {
-                APP_SetWakeupConfig();
+                APP_SetButtonWakeupConfig();
                 PRINTF("Target CPU mode is %s\r\n", GET_CPU_MODE_NAME(cpuMode));
                 PRINTF("Target setpoint in sleep mode is %d\r\n", targetSp);
                 if (wakeupSel == kGPC_CM_WakeupSetpoint)
@@ -483,6 +605,11 @@ int main(void)
     /* Workaround: Disable interrupt which might be enabled by ROM. */
     GPIO_DisableInterrupts(GPIO3, 1U << 24);
     GPIO_ClearPinsInterruptFlags(GPIO3, 1U << 24);
+
+    /* Interrupt flags can't be cleared when wake up from SNVS mode, clear srtc and gpio interrupts here. */
+    SNVS->LPSR |= SNVS_LPSR_LPTA_MASK;
+    GPIO_ClearPinsInterruptFlags(APP_WAKEUP_BUTTON_GPIO, 1U << APP_WAKEUP_BUTTON_GPIO_PIN);
+
     BOARD_InitPins();
 
     rootCfg.mux = kCLOCK_LPUART1_ClockRoot_MuxOscRc16M;
@@ -549,6 +676,7 @@ int main(void)
         PRINTF("\r\nPlease select the desired operation:\r\n");
         PRINTF("Press  %c to demonstrate typical set point transition.\r\n", (uint8_t)'A');
         PRINTF("Press  %c to demonstrate cpu mode switch in setpoint 0.\r\n", (uint8_t)'B');
+        PRINTF("Press  %c to enter SNVS mode.\r\n", (uint8_t)'C');
         PRINTF("\r\nWaiting for select...\r\n");
 
         /* Wait for user response */
@@ -570,6 +698,14 @@ int main(void)
                 break;
             case 'B':
                 CpuModeSwitchInSetPoint(0);
+                break;
+            case 'C':
+                APP_SetWakeupConfig();
+                PRINTF("Now shutting down the system...\r\n");
+                /* Turn off system power. */
+                SNVS->LPCR |= SNVS_LPCR_TOP_MASK;
+                while (1)
+                    ;
                 break;
             default:
                 break;

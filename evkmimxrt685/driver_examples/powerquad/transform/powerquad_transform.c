@@ -74,8 +74,8 @@ static void PQ_IDCTFixed32Example(void);
 int main(void)
 {
     /* Board pin, clock, debug console init */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Power up PQ RAM. */

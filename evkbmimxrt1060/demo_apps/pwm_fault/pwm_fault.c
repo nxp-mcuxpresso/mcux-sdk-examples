@@ -110,6 +110,7 @@ int main(void)
     uint16_t i      = 0U;
     uint32_t pwmVal = 4U;
 
+    BOARD_ConfigMPU();
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();

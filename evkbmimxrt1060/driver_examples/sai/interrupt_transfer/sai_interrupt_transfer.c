@@ -24,9 +24,16 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+
+/* @TEST_ANCHOR */
+
 /* SAI instance and clock */
+#ifndef DEMO_CODEC_WM8960
 #define DEMO_CODEC_WM8960  1
+#endif
+#ifndef DEMO_CODEC_CS42448
 #define DEMO_CODEC_CS42448 0
+#endif
 #if DEMO_CODEC_WM8960 && DEMO_CODEC_CS42448
 #error "Duplicate codec defined"
 #endif

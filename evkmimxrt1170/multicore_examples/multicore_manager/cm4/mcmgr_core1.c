@@ -57,7 +57,6 @@ int main(void)
     /* Init board hardware.*/
     BOARD_ConfigMPU();
     BOARD_InitPins();
-    BOARD_BootClockRUN();
 
     /* Enable entry to thread mode when unaligned accesses happens */
     SCB->CCR |= (SCB_CCR_UNALIGN_TRP_Msk);

@@ -54,6 +54,38 @@ static char helloMsg[13];
 
 static TaskHandle_t app_task_handle = NULL;
 
+static struct rpmsg_lite_instance *volatile my_rpmsg = NULL;
+
+static struct rpmsg_lite_endpoint *volatile my_ept = NULL;
+static volatile rpmsg_queue_handle my_queue        = NULL;
+
+void app_destroy_task(void)
+{
+    if (app_task_handle)
+    {
+        vTaskDelete(app_task_handle);
+        app_task_handle = NULL;
+    }
+
+    if (my_ept)
+    {
+        rpmsg_lite_destroy_ept(my_rpmsg, my_ept);
+        my_ept = NULL;
+    }
+
+    if (my_queue)
+    {
+        rpmsg_queue_destroy(my_rpmsg, my_queue);
+        my_queue = NULL;
+    }
+
+    if (my_rpmsg)
+    {
+        rpmsg_lite_deinit(my_rpmsg);
+        my_rpmsg = NULL;
+    }
+}
+
 static void app_nameservice_isr_cb(uint32_t new_ept, const char *new_ept_name, uint32_t flags, void *user_data)
 {
 }
@@ -75,9 +107,6 @@ void SystemInitHook(void)
 static void app_task(void *param)
 {
     volatile uint32_t remote_addr;
-    struct rpmsg_lite_endpoint *volatile my_ept;
-    volatile rpmsg_queue_handle my_queue;
-    struct rpmsg_lite_instance *volatile my_rpmsg;
     volatile rpmsg_ns_handle ns_handle;
 
     /* Print the initial banner */
@@ -140,6 +169,7 @@ static void app_task(void *param)
     my_queue = ((void *)0);
     (void)rpmsg_ns_unbind(my_rpmsg, ns_handle);
     (void)rpmsg_lite_deinit(my_rpmsg);
+    my_rpmsg = ((void *)0);
     msg.DATA = 0U;
 
     (void)PRINTF("Looping forever...\r\n");
@@ -147,6 +177,16 @@ static void app_task(void *param)
     /* End of the example */
     for (;;)
     {
+    }
+}
+
+void app_create_task(void)
+{
+    if (xTaskCreate(app_task, "APP_TASK", APP_TASK_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, &app_task_handle) != pdPASS)
+    {
+        PRINTF("\r\nFailed to create application task\r\n");
+        for (;;)
+            ;
     }
 }
 
@@ -181,14 +221,7 @@ int main(void)
     (void)MCMGR_Init();
 #endif /* MCMGR_USED */
 
-    if (xTaskCreate(app_task, "APP_TASK", APP_TASK_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1U, &app_task_handle) != pdPASS)
-    {
-        (void)PRINTF("\r\nFailed to create application task\r\n");
-        for (;;)
-        {
-        }
-    }
-
+    app_create_task();
     vTaskStartScheduler();
 
     (void)PRINTF("Failed to start FreeRTOS on core0.\r\n");

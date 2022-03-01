@@ -66,8 +66,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmk32l2b/driver_examples/flexio/uart/polling_transfer" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmk32l2b/driver_examples/flexio/uart/polling_transfer" project_relative_path="frdmk32l2b/driver_examples/flexio/uart/polling_transfer" type="c_include"/>
-      <include_path path="boards/frdmk32l2b" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmk32l2b/driver_examples/flexio/uart/polling_transfer" project_relative_path="frdmk32l2b/driver_examples/flexio/uart/polling_transfer" type="c_include"/>
+      <include_path path="core/boards/frdmk32l2b" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmk32l2b/driver_examples/flexio/uart/polling_transfer/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="flexio_uart_polling_transfer.ewd"/>

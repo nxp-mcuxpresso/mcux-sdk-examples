@@ -81,7 +81,7 @@ include(driver_cache_cache64)
 
 include(component_lists)
 
-include(driver_flash_config)
+include(driver_flash_config_evkmimxrt595)
 
 include(device_startup)
 

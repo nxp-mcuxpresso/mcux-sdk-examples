@@ -65,9 +65,9 @@
       </toolchainSetting>
     </toolchainSettings>
     <include_paths>
-      <include_path path="boards/frdmkv11z/driver_examples/dac/continuous_pdb_edma" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmkv11z/driver_examples/dac/continuous_pdb_edma" project_relative_path="frdmkv11z/driver_examples/dac/continuous_pdb_edma" type="c_include"/>
-      <include_path path="boards/frdmkv11z" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmkv11z/driver_examples/dac/continuous_pdb_edma" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmkv11z/driver_examples/dac/continuous_pdb_edma" project_relative_path="frdmkv11z/driver_examples/dac/continuous_pdb_edma" type="c_include"/>
+      <include_path path="core/boards/frdmkv11z" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmkv11z/driver_examples/dac/continuous_pdb_edma/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="dac_continuous_pdb_edma.ewd"/>

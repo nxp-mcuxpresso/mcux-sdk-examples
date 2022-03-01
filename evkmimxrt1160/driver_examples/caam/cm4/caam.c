@@ -214,7 +214,7 @@ static const unsigned char s_ShaExpected[] = {0x63, 0x76, 0xea, 0xcc, 0xc9, 0xa2
                                               0x60, 0xef, 0x59, 0x7b, 0xd9, 0x1c, 0xac, 0xaa, 0x31, 0xf7};
 
 /*! @brief Output buffer for SHA. */
-uint8_t AT_NONCACHEABLE_SECTION(sha_output[20U]);
+uint8_t AT_NONCACHEABLE_SECTION(sha_output[32U]);
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -227,6 +227,10 @@ static void EncryptDecryptCbc(
 static void RunAesGcmExamples(CAAM_Type *base, caam_handle_t *handle);
 
 static void EncryptDecryptGcm(CAAM_Type *base, caam_handle_t *handle);
+
+static void EncryptDecryptDesCbc(CAAM_Type *base, caam_handle_t *handle);
+
+static void EncryptDecryptDES3Cbc(CAAM_Type *base, caam_handle_t *handle);
 
 /*******************************************************************************
  * Code
@@ -357,6 +361,155 @@ static void EncryptDecryptGcm(CAAM_Type *base, caam_handle_t *handle)
 }
 
 /*!
+ * @brief Executes examples for DES and DES3 encryption and decryption in CBC mode.
+ */
+static void RunDesExamples(CAAM_Type *base, caam_handle_t *handle)
+{
+    EncryptDecryptDesCbc(base, handle);
+    EncryptDecryptDES3Cbc(base, handle);
+}
+
+/*!
+ * @brief Encrypts and decrypts in DES CBC mode.
+ */
+static void EncryptDecryptDesCbc(CAAM_Type *base, caam_handle_t *handle)
+{
+    status_t status = kStatus_Fail;
+
+    uint8_t DesKey[8] = {0x70, 0x61, 0x73, 0x73, 0x77, 0x6F, 0x72, 0x64};
+    /*initialization vector: 8 bytes: "mysecret"*/
+    uint8_t DesIve[8] = {0x6d, 0x79, 0x73, 0x65, 0x63, 0x72, 0x65, 0x74};
+
+    static const uint8_t des_test_short[]    = "Once upon a midn";
+    static const uint8_t des_encrypted_cbc[] = {0xfa, 0xfe, 0xcd, 0xd1, 0x13, 0x6e, 0x68, 0xf2};
+    uint8_t cipher[8]                        = {0};
+    uint8_t plaintext[8]                     = {0};
+
+    PRINTF("DES CBC: encrypting ");
+
+    status = CAAM_DES_EncryptCbc(base, handle, des_test_short, cipher, sizeof(cipher), DesIve, DesKey);
+    if (status != kStatus_Success)
+    {
+        PRINTF("- failed to encrypt!\r\n\r\n");
+        return;
+    }
+
+    if (memcmp(cipher, des_encrypted_cbc, sizeof(des_encrypted_cbc)) == 0)
+    {
+        PRINTF("done successfully.\r\n");
+    }
+    else
+    {
+        PRINTF("- encrypted text mismatch!\r\n\r\n");
+        return;
+    }
+
+    PRINTF("DES CBC: decrypting back ");
+
+    status = CAAM_DES_DecryptCbc(base, handle, cipher, plaintext, sizeof(plaintext), DesIve, DesKey);
+    if (status != kStatus_Success)
+    {
+        PRINTF("- failed to decrypt!\r\n\r\n");
+        return;
+    }
+
+    if (memcmp(plaintext, des_test_short, sizeof(plaintext)) == 0)
+    {
+        PRINTF("done successfully.\r\n\r\n");
+    }
+    else
+    {
+        PRINTF("- decrypted text mismatch!\r\n\r\n");
+    }
+}
+
+/*!
+ * @brief Encrypts and decrypts in 3DES CBC mode.
+ */
+static void EncryptDecryptDES3Cbc(CAAM_Type *base, caam_handle_t *handle)
+{
+    status_t status = kStatus_Fail;
+
+    /*24 bytes key: "verynicepassword12345678"*/
+    uint8_t key1[8] = {0x76, 0x65, 0x72, 0x79, 0x6e, 0x69, 0x63, 0x65};
+    uint8_t key2[8] = {0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64};
+    uint8_t key3[8] = {0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38};
+    /*initialization vector: 8 bytes: "mysecret"*/
+    uint8_t DesIve[8] = {0x6d, 0x79, 0x73, 0x65, 0x63, 0x72, 0x65, 0x74};
+
+    /*8-byte multiple*/
+    static const uint8_t des3_test[] =
+        "And the raven, never flitting, still is sitting, still is sitting"
+        "On the pallid bust of Pallas just above my chamber door;"
+        "And his eyes have all the seeming of a demons that is dreaming,"
+        "And the lamp-light oer him streaming throws his shadow on the floor;"
+        "And my soul from out that shadow that lies floating on the floor"
+        "Shall be lifted - nevermore!";
+
+    static const uint8_t des3_encrypted_cbc[] = {
+        0xb9, 0x30, 0x3f, 0xda, 0x4d, 0x82, 0xc5, 0xe7, 0x27, 0x6b, 0x91, 0xf2, 0x84, 0x15, 0xf9, 0x74, 0xd0, 0xe5,
+        0x5f, 0x4b, 0x95, 0xe1, 0x35, 0xac, 0x5d, 0xbe, 0xa8, 0x83, 0x6d, 0xd5, 0x71, 0x0d, 0xde, 0x86, 0x71, 0x61,
+        0x58, 0x23, 0xe8, 0x4a, 0x3c, 0x99, 0x96, 0x98, 0x00, 0x1a, 0xe7, 0x42, 0xd4, 0x72, 0xf2, 0xf9, 0xc5, 0x50,
+        0xa9, 0x7f, 0xe7, 0xab, 0xee, 0x5a, 0x3b, 0x5b, 0x43, 0x67, 0x59, 0x30, 0xec, 0x37, 0xe5, 0x2f, 0xc6, 0x5c,
+        0x45, 0x02, 0x55, 0xe6, 0x75, 0x11, 0x7c, 0x9d, 0x05, 0xa9, 0xe2, 0x97, 0xc8, 0xe3, 0x6a, 0x65, 0x76, 0xce,
+        0xc3, 0x56, 0xea, 0xd4, 0x30, 0x0d, 0xe4, 0x4c, 0x9a, 0xee, 0x9c, 0x5e, 0x48, 0xa3, 0x85, 0x85, 0x5f, 0x59,
+        0x3b, 0x34, 0xee, 0x32, 0x54, 0xd9, 0x91, 0x9f, 0x97, 0x7c, 0xce, 0x1d, 0x9e, 0xe8, 0xb8, 0x86, 0xbc, 0x3a,
+        0x1e, 0x52, 0xe1, 0x35, 0xe3, 0x92, 0xa2, 0xa3, 0xa6, 0xbd, 0x3f, 0x66, 0x76, 0xf3, 0x47, 0x37, 0x61, 0xb8,
+        0x12, 0x35, 0xa1, 0x7e, 0xb3, 0xd1, 0x79, 0xfd, 0xb3, 0x69, 0xbc, 0x68, 0x4c, 0xd2, 0x24, 0xdc, 0x04, 0xae,
+        0x82, 0x0e, 0x54, 0x4b, 0xcf, 0xa8, 0x40, 0xde, 0x72, 0x4c, 0x23, 0xfc, 0xc9, 0x86, 0x78, 0xc3, 0x50, 0xf0,
+        0x1d, 0x62, 0x61, 0x7d, 0xbb, 0xc9, 0x83, 0x6f, 0x21, 0x3f, 0x6f, 0x2a, 0xb1, 0x7e, 0x9f, 0x24, 0xee, 0xe7,
+        0x5b, 0x1d, 0xca, 0xb5, 0xd0, 0x31, 0xdc, 0xc5, 0x95, 0xcf, 0x8e, 0x5c, 0xf0, 0xbf, 0xb2, 0x15, 0xfb, 0x68,
+        0x65, 0xc7, 0x5d, 0x77, 0x17, 0xc2, 0xf2, 0xd7, 0x19, 0x29, 0xcb, 0x49, 0x62, 0xf3, 0xa1, 0xd0, 0x18, 0xc1,
+        0xed, 0x77, 0x9f, 0x4d, 0x28, 0xce, 0x66, 0x62, 0x7d, 0x56, 0xe7, 0x11, 0x5f, 0xf1, 0x7a, 0xca, 0xf4, 0x2d,
+        0xeb, 0x6d, 0xca, 0x47, 0xf3, 0x39, 0xfc, 0x2e, 0x81, 0x73, 0x70, 0xe1, 0x4c, 0x37, 0xf8, 0xda, 0x91, 0x79,
+        0x7c, 0x4b, 0xa0, 0xb4, 0x0e, 0x1e, 0xcf, 0x7b, 0xb1, 0xba, 0x9c, 0xe8, 0x8b, 0xcf, 0xe0, 0x7b, 0x07, 0x13,
+        0x17, 0x0d, 0x55, 0xbf, 0x3d, 0x24, 0x6e, 0xfe, 0x61, 0x68, 0x41, 0xaf, 0x23, 0xf4, 0xd6, 0xd7, 0xf3, 0xab,
+        0x78, 0x9c, 0xbf, 0xd3, 0xde, 0x37, 0xe1, 0x0c, 0x02, 0x88, 0xa5, 0xd4, 0x43, 0xf9, 0x08, 0x2d, 0x53, 0xce,
+        0x2e, 0x43, 0xdc, 0x25, 0x26, 0xe1, 0x39, 0x17, 0x60, 0x10, 0x2d, 0x07, 0xa5, 0x9e, 0x1c, 0xa6, 0x90, 0x46,
+        0x68, 0x14};
+
+    uint32_t length        = sizeof(des3_test) - 1U;
+    uint8_t cipher[344]    = {0};
+    uint8_t plaintext[344] = {0};
+
+    PRINTF("DES3 CBC: encrypting ");
+
+    status = CAAM_DES3_EncryptCbc(base, handle, des3_test, cipher, length, DesIve, key1, key2, key3);
+    if (status != kStatus_Success)
+    {
+        PRINTF("- failed to encrypt!\r\n\r\n");
+        return;
+    }
+
+    if (memcmp(cipher, des3_encrypted_cbc, sizeof(des3_encrypted_cbc)) == 0)
+    {
+        PRINTF("done successfully.\r\n");
+    }
+    else
+    {
+        PRINTF("- encrypted text mismatch!\r\n\r\n");
+        return;
+    }
+
+    PRINTF("DES3 CBC: decrypting back ");
+
+    status = CAAM_DES3_DecryptCbc(base, handle, cipher, plaintext, sizeof(plaintext), DesIve, key1, key2, key3);
+    if (status != kStatus_Success)
+    {
+        PRINTF("- failed to decrypt!\r\n\r\n");
+        return;
+    }
+
+    if (memcmp(plaintext, des3_test, sizeof(plaintext)) == 0)
+    {
+        PRINTF("done successfully.\r\n\r\n");
+    }
+    else
+    {
+        PRINTF("- decrypted text mismatch!\r\n\r\n");
+    }
+}
+/*!
  * @brief Executes example for SHA.
  */
 static void RunShaExamples(CAAM_Type *base, caam_handle_t *handle)
@@ -399,6 +552,42 @@ static void RunShaExamples(CAAM_Type *base, caam_handle_t *handle)
     }
 
     PRINTF("done successfully.\r\n\r\n");
+}
+
+/*!
+ * @brief Executes example for RNG.
+ */
+static void RunRngExample(CAAM_Type *base, caam_handle_t *handle)
+{
+#define RNG_EXAMPLE_RANDOM_NUMBERS     (4U)
+#define RNG_EXAMPLE_RANDOM_BYTES       (16U)
+#define RNG_EXAMPLE_RANDOM_NUMBER_BITS (RNG_EXAMPLE_RANDOM_NUMBERS * 8U * sizeof(uint32_t))
+
+    status_t status = kStatus_Fail;
+    uint32_t number;
+    uint32_t data[RNG_EXAMPLE_RANDOM_NUMBERS] = {0};
+
+    PRINTF("RNG : ");
+
+    PRINTF("Generate %u-bit random number: ", RNG_EXAMPLE_RANDOM_NUMBER_BITS);
+    status = CAAM_RNG_GetRandomData(base, handle, kCAAM_RngStateHandle0, &data, RNG_EXAMPLE_RANDOM_BYTES,
+                                    kCAAM_RngDataAny, NULL);
+
+    if (status != kStatus_Success)
+    {
+        PRINTF("- failed to get random data !\r\n\r\n");
+        return;
+    }
+
+    /* Print data */
+    PRINTF("0x");
+    for (number = 0; number < RNG_EXAMPLE_RANDOM_NUMBERS; number++)
+    {
+        PRINTF("%08X", data[number]);
+    }
+    PRINTF("\r\n");
+
+    PRINTF("RNG : Random number generated successfully.\r\n\r\n");
 }
 
 /*!
@@ -467,6 +656,12 @@ int main(void)
 
     /* Example of AES GCM */
     RunAesGcmExamples(base, &caamHandle);
+
+    /* Example of DES and DES3 */
+    RunDesExamples(base, &caamHandle);
+
+    /* Example of RNG */
+    RunRngExample(base, &caamHandle);
 
     /* Deinit RNG */
     caamHandle.jobRing = kCAAM_JobRing0;

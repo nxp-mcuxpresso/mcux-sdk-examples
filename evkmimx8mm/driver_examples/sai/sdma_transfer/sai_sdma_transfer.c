@@ -31,7 +31,7 @@
 #define DEMO_CODEC_MUTE_PIN     (GPIO5)
 #define DEMO_CODEC_MUTE_PIN_NUM (21)
 #define DEMO_IRQn               I2S3_IRQn
-#define EXAMPLE_DMA             SDMAARM2
+#define EXAMPLE_DMA             SDMAARM3
 #define EXAMPLE_CHANNEL         (1)
 #define SAI_TX_SOURCE           (5)
 /*set Bclk source to Mclk clock*/

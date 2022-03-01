@@ -103,7 +103,7 @@
       <include_path path="examples/lpcxpresso55s69/rtos_examples/freertos_tzm/freertos_blinky_s/cm33_core0" project_relative_path="nsc_functions" type="c_include"/>
       <include_path path="rtos/freertos/freertos_kernel/portable/GCC/ARM_CM33/secure" project_relative_path="freertos/secure_context" toolchain="armgcc mcuxpresso mdk" type="c_include"/>
       <include_path path="examples/lpcxpresso55s69/rtos_examples/freertos_tzm/freertos_blinky_ns/cm33_core0" project_relative_path="source" type="c_include"/>
-      <include_path path="boards/lpcxpresso55s69/rtos_examples/freertos_tzm/freertos_blinky_ns" project_relative_path="lpcxpresso55s69/rtos_examples/freertos_tzm/freertos_blinky_ns" type="c_include"/>
+      <include_path path="examples/lpcxpresso55s69/rtos_examples/freertos_tzm/freertos_blinky_ns" project_relative_path="lpcxpresso55s69/rtos_examples/freertos_tzm/freertos_blinky_ns" type="c_include"/>
       <include_path path="examples/lpcxpresso55s69/rtos_examples/freertos_tzm/freertos_blinky_ns/cm33_core0" project_relative_path="board" type="c_include"/>
       <include_path path="examples/lpcxpresso55s69/rtos_examples/freertos_tzm/freertos_blinky_ns/cm33_core0" project_relative_path="source" type="asm_include"/>
     </include_paths>

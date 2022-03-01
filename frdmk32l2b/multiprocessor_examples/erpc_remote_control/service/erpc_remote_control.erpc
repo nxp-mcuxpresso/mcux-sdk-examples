@@ -1,0 +1,59 @@
+//Copyright below will be added into all generated files.
+/*!
+ * Copyright (c) 2014-2016, Freescale Semiconductor, Inc.
+ * Copyright 2016 NXP
+ * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+@types_header("erpc_remote_control.h")
+program erpc_remote_control
+
+//! Which peripherals are available on used board
+struct BoardConfig {
+    bool DAC;
+    bool MAG;
+    bool[3] RGB;
+}
+
+//! ADC peripheral configuration
+struct AdcConfig {
+    float vref
+    float atomicSteps
+}
+
+//! Struct for accelerometer and magnetometer peripherals
+struct Vector {
+    int16 A_x
+    int16 A_y
+    int16 A_z
+    int16 M_x
+    int16 M_y
+    int16 M_z
+}
+
+//! App 0: client part is on the PC, server on the board
+@group("app_0")
+interface remote_control_app_0 {
+    //! Get board configuration
+    get_board_config(out BoardConfig config) -> void
+
+    //! Get configuration for ADC
+    get_adc_config(out AdcConfig config) -> void
+
+    //! Convert number through DAC
+    convert_dac_adc(in uint32 numberToConvert, out uint32 result) -> void
+
+    //! Read magnetometer and accelerometer data
+    read_mag_accel(out Vector results, out bool status) -> void
+
+    //! Turn on selected LED
+    oneway set_led(in uint8 whichLed)
+}
+
+@group("app_1")
+interface remote_control_app_1 {
+    //! Return which button was pressed
+    oneway button_pressed(uint32 which)
+}

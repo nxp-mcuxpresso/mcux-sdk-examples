@@ -69,7 +69,7 @@ include(driver_clock)
 
 include(driver_adc16)
 
-include(driver_edma)
+include(driver_edma_MKV31F51212)
 
 include(driver_dmamux)
 

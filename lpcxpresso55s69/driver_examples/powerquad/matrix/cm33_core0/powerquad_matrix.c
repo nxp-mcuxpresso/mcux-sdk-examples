@@ -81,8 +81,8 @@ int main(void)
     /* attach main clock divide to FLEXCOMM0 (debug console) */
     CLOCK_AttachClk(BOARD_DEBUG_UART_CLK_ATTACH);
 
-    BOARD_InitPins();
-    BOARD_BootClockPLL150M();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("POWERQUAD matrix example started\r\n");

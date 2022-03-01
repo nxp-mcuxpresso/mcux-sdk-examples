@@ -65,7 +65,6 @@ int main(void)
     /* Init board hardware.*/
     BOARD_ConfigMPU();
     BOARD_InitPins();
-    BOARD_BootClockRUN();
 
     /* Initialize MCMGR, install generic event handlers */
     (void)MCMGR_Init();

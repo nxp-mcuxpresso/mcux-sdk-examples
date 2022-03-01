@@ -70,7 +70,7 @@ volatile uint32_t ringBufferIndex                                          = 0U;
 /* allocate ring buffer section. */
 AT_NONCACHEABLE_SECTION_INIT(uint8_t g_ringBuffer[EXAMPLE_RING_BUFFER_SIZE]) = {0};
 /* Allocate TCD memory poll with ring buffer used. */
-AT_NONCACHEABLE_SECTION_ALIGN(static edma_tcd_t tcdMemoryPoolPtr[1], sizeof(edma_tcd_t));
+AT_QUICKACCESS_SECTION_DATA_ALIGN(static edma_tcd_t tcdMemoryPoolPtr[1], sizeof(edma_tcd_t));
 
 /*******************************************************************************
  * Code

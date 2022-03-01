@@ -67,8 +67,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/lpcxpresso802/driver_examples/wkt" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso802/driver_examples/wkt" project_relative_path="lpcxpresso802/driver_examples/wkt" type="c_include"/>
-      <include_path path="boards/lpcxpresso802" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso802/driver_examples/wkt" project_relative_path="lpcxpresso802/driver_examples/wkt" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso802" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso802/driver_examples/wkt/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="wkt_example.ewd"/>

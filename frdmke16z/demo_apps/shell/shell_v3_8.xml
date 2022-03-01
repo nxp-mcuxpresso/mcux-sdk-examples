@@ -67,8 +67,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmke16z/demo_apps/shell" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmke16z/demo_apps/shell" project_relative_path="frdmke16z/demo_apps/shell" type="c_include"/>
-      <include_path path="boards/frdmke16z" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmke16z/demo_apps/shell" project_relative_path="frdmke16z/demo_apps/shell" type="c_include"/>
+      <include_path path="core/boards/frdmke16z" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmke16z/demo_apps/shell/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="shell.ewd"/>

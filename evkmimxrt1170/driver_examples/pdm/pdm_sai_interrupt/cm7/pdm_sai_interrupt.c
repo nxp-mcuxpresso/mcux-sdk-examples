@@ -66,8 +66,12 @@ static const pdm_config_t pdmConfig         = {
     .cicOverSampleRate = DEMO_PDM_CIC_OVERSAMPLE_RATE,
 };
 static pdm_channel_config_t channelConfig = {
+#if (defined(FSL_FEATURE_PDM_HAS_DC_OUT_CTRL) && (FSL_FEATURE_PDM_HAS_DC_OUT_CTRL))
+    .outputCutOffFreq = kPDM_DcRemoverCutOff40Hz,
+#else
     .cutOffFreq = kPDM_DcRemoverCutOff152Hz,
-    .gain       = kPDM_DfOutputGain7,
+#endif
+    .gain = kPDM_DfOutputGain7,
 };
 codec_handle_t codecHandle;
 extern codec_config_t boardCodecConfig;
@@ -120,10 +124,13 @@ static void saiCallback(I2S_Type *base, sai_handle_t *handle, status_t status, v
 static void pdm_error_irqHandler(void)
 {
     uint32_t status = 0U;
+
+#if (defined(FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ) && (FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ == 1U))
     if (PDM_GetStatus(DEMO_PDM) & PDM_STAT_LOWFREQF_MASK)
     {
         PDM_ClearStatus(DEMO_PDM, PDM_STAT_LOWFREQF_MASK);
     }
+#endif
 
     status = PDM_GetFifoStatus(DEMO_PDM);
     if (status != 0U)
@@ -216,12 +223,18 @@ int main(void)
     /* I2S mode configurations */
     SAI_GetClassicI2SConfig(&config, DEMO_AUDIO_BIT_WIDTH, kSAI_Stereo, 1U << DEMO_SAI_CHANNEL);
     config.bitClock.bclkSource = DEMO_SAI_CLOCK_SOURCE;
-    config.masterSlave         = DEMO_SAI_MASTER_SLAVE;
+#if defined BOARD_SAI_RXCONFIG
+    config.syncMode = DEMO_SAI_TX_SYNC_MODE;
+#endif
+    config.masterSlave = DEMO_SAI_MASTER_SLAVE;
     SAI_TransferTxSetConfig(DEMO_SAI, &s_saiTxHandle, &config);
 
     /* set bit clock divider */
     SAI_TxSetBitClockRate(DEMO_SAI, DEMO_AUDIO_MASTER_CLOCK, DEMO_AUDIO_SAMPLE_RATE, DEMO_AUDIO_BIT_WIDTH,
                           DEMO_AUDIO_DATA_CHANNEL);
+#if defined BOARD_SAI_RXCONFIG
+    BOARD_SAI_RXCONFIG(&config, DEMO_SAI_RX_SYNC_MODE);
+#endif
 
     /* master clock configurations */
     BOARD_MasterClockConfig();

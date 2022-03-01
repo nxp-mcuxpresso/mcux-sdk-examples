@@ -71,8 +71,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmkl27z/driver_examples/flexio/spi/dma_spi_transfer/slave" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmkl27z/driver_examples/flexio/spi/dma_spi_transfer/slave" project_relative_path="frdmkl27z/driver_examples/flexio/spi/dma_spi_transfer/slave" type="c_include"/>
-      <include_path path="boards/frdmkl27z" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmkl27z/driver_examples/flexio/spi/dma_spi_transfer/slave" project_relative_path="frdmkl27z/driver_examples/flexio/spi/dma_spi_transfer/slave" type="c_include"/>
+      <include_path path="core/boards/frdmkl27z" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmkl27z/driver_examples/flexio/spi/dma_spi_transfer/slave/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="flexio_spi_dma_spi_transfer_slave.ewd"/>

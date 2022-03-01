@@ -85,7 +85,7 @@ include(driver_sai)
 
 include(driver_asrc)
 
-include(driver_edma)
+include(driver_edma_MIMXRT1176_cm7)
 
 include(driver_asrc_edma)
 
@@ -118,6 +118,8 @@ include(driver_cache_armv7_m7)
 include(driver_anatop_ai)
 
 include(CMSIS_Include_core_cm)
+
+include(driver_memory)
 
 include(utilities_misc_utilities)
 

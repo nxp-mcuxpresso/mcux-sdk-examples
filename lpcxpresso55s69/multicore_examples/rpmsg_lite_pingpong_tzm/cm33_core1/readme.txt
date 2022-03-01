@@ -26,7 +26,7 @@ The shared memory assignment to the secure domain is done in the BOARD_InitTrust
 
 Toolchain supported
 ===================
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 - GCC ARM Embedded  10.2.1
 
 Hardware requirements

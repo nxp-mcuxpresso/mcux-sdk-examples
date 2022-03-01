@@ -23,6 +23,7 @@ typedef enum
 
 #define APP_SRTM_SAI      (I2S3)
 #define APP_SRTM_SAI_IRQn I2S3_IRQn
+#define APP_SRTM_PDM      (PDM)
 #define APP_SRTM_DMA      SDMAARM3
 #define APP_SRTM_DMA_IRQn SDMA3_IRQn
 
@@ -46,13 +47,18 @@ typedef enum
 #define APP_SAI_TX_DMA_CHANNEL_PRIORITY (2U)
 #define APP_SAI_RX_DMA_CHANNEL_PRIORITY (2U)
 
+#define APP_PDM_RX_DMA_CHANNEL          (3U)
+#define APP_PDM_RX_DMA_SOURCE           (24U)
+#define APP_PDM_RX_DMA_CHANNEL_PRIORITY (2U)
+#define APP_PDM_QUALITY_MODE            (kPDM_QualityModeHigh)
+#define APP_PDM_CICOVERSAMPLE_RATE      (0U)
+#define APP_PDM_CHANNEL_GAIN            (kPDM_DfOutputGain4)
+#define APP_PDM_CHANNEL_CUTOFF_FREQ     (kPDM_DcRemoverCutOff152Hz)
+
 #define APP_I2C_SWITCH_NONE (1U) /* MAX SWITCH in this board is 1 */
 #define APP_I2C_SWITCH_ADDR (0x71)
 #define APP_I2C_BAUDRATE    (400000U)
 
-/* SAI and SDMA clock gate bit field in the AUDIOMIX */
-#define APP_SAI_GATE  (3 << 8U)  /* SAI3 and SAI3_MCLK1 Must be both enabled in the AUDIOMIX */
-#define APP_SDMA_GATE (1 << 27U) /* SDMA3 gate bit in the AUDIOMIX*/
 /* Define the timeout ms to polling the CA7 link up status */
 #define APP_LINKUP_TIMER_PERIOD_MS (10U)
 
@@ -60,6 +66,7 @@ typedef enum
 #define RPMSG_LITE_SRTM_LINK_ID    (0U)
 
 #define APP_SRTM_AUDIO_CHANNEL_NAME "rpmsg-audio-channel"
+#define APP_SRTM_PDM_CHANNEL_NAME   "rpmsg-micfil-channel"
 #define APP_SRTM_I2C_CHANNEL_NAME   "rpmsg-i2c-channel"
 
 typedef void (*app_rpmsg_monitor_t)(struct rpmsg_lite_instance *rpmsgHandle, bool ready, void *param);

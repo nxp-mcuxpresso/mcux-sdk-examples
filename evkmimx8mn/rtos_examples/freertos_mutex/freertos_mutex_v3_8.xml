@@ -66,8 +66,8 @@
     <include_paths>
       <include_path path="examples/evkmimx8mn/rtos_examples/freertos_mutex" project_relative_path="board" type="c_include"/>
       <include_path path="examples/evkmimx8mn/rtos_examples/freertos_mutex" project_relative_path="source" type="c_include"/>
-      <include_path path="boards/evkmimx8mn/rtos_examples/freertos_mutex" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimx8mn" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimx8mn/rtos_examples/freertos_mutex" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/evkmimx8mn" project_relative_path="board" type="c_include"/>
       <include_path path="examples/evkmimx8mn/rtos_examples/freertos_mutex" project_relative_path="source" type="asm_include"/>
     </include_paths>
     <source path="examples/evkmimx8mn/rtos_examples/freertos_mutex/iar" project_relative_path="./" type="workspace" toolchain="iar">

@@ -106,7 +106,7 @@ AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t buffer[BUFFER_NUM * BUFFER_SIZE], 4
 volatile bool isFinished      = false;
 volatile uint32_t finishIndex = 0U;
 volatile uint32_t emptyBlock  = BUFFER_NUM;
-AT_NONCACHEABLE_SECTION_ALIGN(static edma_tcd_t s_emdaTcd, 32);
+AT_QUICKACCESS_SECTION_DATA_ALIGN(static edma_tcd_t s_emdaTcd, 32);
 static volatile bool s_Transfer_Done        = false;
 static volatile uint32_t s_playIndex        = 0U;
 static volatile uint32_t s_playCount        = 0U;

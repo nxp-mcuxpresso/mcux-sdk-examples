@@ -28,7 +28,7 @@
 #define DEMO_PDM_ENABLE_CHANNEL_RIGHT (1U)
 #define DEMO_PDM_SAMPLE_CLOCK_RATE    (640000U) /* 640KHZ */
 #define DEMO_PDM_DMA_REQUEST_SOURCE   (24U)
-#define DEMO_DMA                      SDMAARM2
+#define DEMO_DMA                      SDMAARM3
 #define DEMO_DMA_CHANNEL              (1U)
 #define BUFFER_SIZE (256)
 /*******************************************************************************
@@ -42,8 +42,9 @@ AT_NONCACHEABLE_SECTION_ALIGN(pdm_sdma_handle_t pdmRxHandle, 4);
 AT_NONCACHEABLE_SECTION_ALIGN(sdma_handle_t dmaHandle, 4);
 AT_NONCACHEABLE_SECTION_ALIGN(sdma_context_data_t sdma_context, 4);
 AT_NONCACHEABLE_SECTION_ALIGN(static int16_t rxBuff[BUFFER_SIZE], 4);
-
-static volatile bool s_lowFreqFlag   = false;
+#if (defined(FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ) && (FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ == 1U))
+static volatile bool s_lowFreqFlag = false;
+#endif
 static volatile bool s_fifoErrorFlag = false;
 static volatile bool s_pdmRxFinished = false;
 
@@ -54,8 +55,12 @@ static const pdm_config_t pdmConfig = {
     .cicOverSampleRate = DEMO_PDM_CIC_OVERSAMPLE_RATE,
 };
 static const pdm_channel_config_t channelConfig = {
+#if (defined(FSL_FEATURE_PDM_HAS_DC_OUT_CTRL) && (FSL_FEATURE_PDM_HAS_DC_OUT_CTRL))
+    .outputCutOffFreq = kPDM_DcRemoverCutOff40Hz,
+#else
     .cutOffFreq = kPDM_DcRemoverCutOff152Hz,
-    .gain       = kPDM_DfOutputGain4,
+#endif
+    .gain = kPDM_DfOutputGain4,
 };
 const short g_sdma_multi_fifo_script[] = FSL_SDMA_MULTI_FIFO_SCRIPT;
 /*******************************************************************************
@@ -69,12 +74,13 @@ static void pdmSdmallback(PDM_Type *base, pdm_sdma_handle_t *handle, status_t st
 void PDM_ERROR_IRQHandler(void)
 {
     uint32_t status = 0U;
+#if (defined(FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ) && (FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ == 1U))
     if (PDM_GetStatus(DEMO_PDM) & PDM_STAT_LOWFREQF_MASK)
     {
         PDM_ClearStatus(DEMO_PDM, PDM_STAT_LOWFREQF_MASK);
         s_lowFreqFlag = true;
     }
-
+#endif
     status = PDM_GetFifoStatus(DEMO_PDM);
     if (status)
     {

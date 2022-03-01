@@ -79,8 +79,8 @@ static void pint_intr_callback(pint_pin_int_t pintr, uint32_t pmatch_status);
  * Code
  ******************************************************************************/
 /*PLL status*/
-extern const clock_sys_pll_config_t g_sysPllConfig_BOARD_InitBootClocks;
-extern const clock_audio_pll_config_t g_audioPllConfig_BOARD_InitBootClocks;
+extern const clock_sys_pll_config_t g_sysPllConfig_BOARD_BootClockRUN;
+extern const clock_audio_pll_config_t g_audioPllConfig_BOARD_BootClockRUN;
 AT_QUICKACCESS_SECTION_CODE(void BOARD_SetFlexspiClock(uint32_t src, uint32_t divider));
 
 
@@ -129,8 +129,8 @@ void BOARD_RestorePll(void)
     POWER_DisablePD(kPDRUNCFG_PD_SYSXTAL);
     CLOCK_EnableSysOscClk(true, true, BOARD_SYSOSC_SETTLING_US);
     /*Restore PLL*/
-    CLOCK_InitSysPll(&g_sysPllConfig_BOARD_InitBootClocks);
-    CLOCK_InitAudioPll(&g_audioPllConfig_BOARD_InitBootClocks);
+    CLOCK_InitSysPll(&g_sysPllConfig_BOARD_BootClockRUN);
+    CLOCK_InitAudioPll(&g_audioPllConfig_BOARD_BootClockRUN);
     /*Restore PFD*/
     CLOCK_InitSysPfd(kCLOCK_Pfd0, 19);   /* Enable main PLL clock 500MHz. */
     CLOCK_InitSysPfd(kCLOCK_Pfd2, 24);   /* Enable aux0 PLL clock 396MHz for SDIO */
@@ -208,7 +208,7 @@ int main(void)
                 /* Disable Pll before enter deep sleep mode */
                 BOARD_DisablePll();
 #endif
-                POWER_EnterDeepSleep(APP_EXCLUDE_FROM_DEEPSLEEP);
+                BOARD_EnterDeepSleep(APP_EXCLUDE_FROM_DEEPSLEEP);
 #if POWER_DOWN_PLL_BEFORE_DEEP_SLEEP
                 /* Restore Pll before enter deep sleep mode */
                 BOARD_RestorePll();
@@ -221,7 +221,7 @@ int main(void)
                     "reset.\r\n\r\n");
                 GETCHAR();
                 BOARD_SetPmicVoltageBeforeDeepPowerDown();
-                POWER_EnterDeepPowerDown(APP_EXCLUDE_FROM_DEEP_POWERDOWN);
+                BOARD_EnterDeepPowerDown(APP_EXCLUDE_FROM_DEEP_POWERDOWN);
                 /* After deep power down wakeup, the code will restart and cannot reach here. */
                 break;
             case kPmu_Full_Deep_PowerDown: /* Enter full deep power down mode. */

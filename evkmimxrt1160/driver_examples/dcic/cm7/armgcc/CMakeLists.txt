@@ -86,6 +86,8 @@ include(utility_debug_console_lite)
 
 include(utility_assert_lite)
 
+include(driver_display-hx8394)
+
 include(driver_dcic)
 
 include(driver_clock)

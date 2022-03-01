@@ -29,6 +29,12 @@ typedef enum _core_status
     kCORE_PowerGated = 0x2UL,
 } core_status_t;
 
+typedef enum _app_wakeup_source
+{
+    kAPP_WakeupSourceTimer, /*!< Wakeup by Timer.        */
+    kAPP_WakeupSourcePin,   /*!< Wakeup by external pin. */
+} app_wakeup_source_t;
+
 /*******************************************************************************
  * API
  ******************************************************************************/

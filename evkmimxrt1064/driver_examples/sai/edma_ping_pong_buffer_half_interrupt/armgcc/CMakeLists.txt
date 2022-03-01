@@ -84,7 +84,7 @@ include(driver_sai_edma)
 
 include(driver_dmamux)
 
-include(driver_edma)
+include(driver_edma_MIMXRT1064)
 
 include(device_CMSIS)
 

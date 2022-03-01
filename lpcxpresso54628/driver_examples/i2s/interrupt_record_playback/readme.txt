@@ -6,7 +6,7 @@ and another I2S interface to playback the buffer to output - digital loopback.
 
 Toolchain supported
 ===================
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 - GCC ARM Embedded  10.2.1
 
 Hardware requirements
@@ -41,7 +41,7 @@ Running the demo
 Headphones will play what is input into the codec Line-In .
 Terminal window will show:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Configure WM8904 codec
+Configure codec
 Configure I2S
 Setup digital loopback
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

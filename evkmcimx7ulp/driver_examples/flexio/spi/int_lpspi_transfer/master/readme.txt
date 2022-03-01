@@ -32,8 +32,8 @@ please connect between LPSPI1 pins and LPSPI0 pins
 The connection should be set as following:
 - J8-3(R191 should be short-circuited), R101 pad1(On base board) connected
 - J8-4(R190 should be short-circuited), R22(On base board) connected
-- J8-5(R189 should be short-circuited), TP25(On base board) connected
-- J8-6(R188 should be short-circuited), TP27(On base board) connected
+- J8-5(R188 should be short-circuited), TP25(On base board) connected
+- J8-6(R189 should be short-circuited), TP27(On base board) connected
 
 #### Please note this application can't support running with Linux BSP! ####
 

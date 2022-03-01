@@ -66,6 +66,9 @@
 /* demo audio bit width */
 #define DEMO_AUDIO_BIT_WIDTH          kSAI_WordWidth16bits
 #define DEMO_ASRC_CONVERT_BUFFER_SIZE (150 * 1000U)
+#ifndef DEMO_ASRC_OUTPUT_CLOCK_SOURCE
+#define DEMO_ASRC_OUTPUT_CLOCK_SOURCE kASRC_ClockSourceBitClock0_SAI1_TX
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -95,7 +98,7 @@ asrc_channel_pair_config_t s_asrcChannelPairConfig       = {
     .audioDataChannels         = kASRC_ChannelsNumber2,
     .inClockSource             = kASRC_ClockSourceNotAvalible,
     .inSourceClock_Hz          = 0,
-    .outClockSource            = kASRC_ClockSourceBitClock0,
+    .outClockSource            = DEMO_ASRC_OUTPUT_CLOCK_SOURCE,
     .outSourceClock_Hz         = DEMO_ASRC_OUTPUT_SOURCE_CLOCK_HZ,
     .sampleRateRatio           = kASRC_RatioUseIdealRatio,
     .inDataWidth               = kASRC_DataWidth16Bit,

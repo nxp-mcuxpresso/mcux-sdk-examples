@@ -104,8 +104,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/evkmimxrt1024/driver_examples/flexio/i2s/edma_transfer" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimxrt1024/driver_examples/flexio/i2s/edma_transfer" project_relative_path="evkmimxrt1024/driver_examples/flexio/i2s/edma_transfer" type="c_include"/>
-      <include_path path="boards/evkmimxrt1024" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt1024/driver_examples/flexio/i2s/edma_transfer" project_relative_path="evkmimxrt1024/driver_examples/flexio/i2s/edma_transfer" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt1024" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimxrt1024/driver_examples/flexio/i2s/edma_transfer/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="flexio_i2s_edma_transfer.ewd"/>

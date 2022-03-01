@@ -61,8 +61,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/evkmimx8mm/driver_examples/uart/hardware_flow_control" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimx8mm/driver_examples/uart/hardware_flow_control" project_relative_path="evkmimx8mm/driver_examples/uart/hardware_flow_control" type="c_include"/>
-      <include_path path="boards/evkmimx8mm" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimx8mm/driver_examples/uart/hardware_flow_control" project_relative_path="evkmimx8mm/driver_examples/uart/hardware_flow_control" type="c_include"/>
+      <include_path path="core/boards/evkmimx8mm" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimx8mm/driver_examples/uart/hardware_flow_control/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="iuart_hardware_flow_control.ewp"/>

@@ -91,8 +91,8 @@ codec_config_t boardCodecConfig = {.codecDevType = kCODEC_DA7212, .codecDevConfi
 
 sai_master_clock_t mclkConfig;
 
-AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle) = {0};
-edma_handle_t g_dmaHandle                                = {0};
+AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t txHandle);
+edma_handle_t g_dmaHandle = {0};
 extern codec_config_t boardCodecConfig;
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t buffer[BUFFER_NUM * BUFFER_SIZE], 4);
 volatile bool isFinished      = false;

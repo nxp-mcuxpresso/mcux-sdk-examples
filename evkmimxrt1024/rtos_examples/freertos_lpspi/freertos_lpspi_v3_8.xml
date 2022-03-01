@@ -99,8 +99,8 @@
     <include_paths>
       <include_path path="examples/evkmimxrt1024/rtos_examples/freertos_lpspi" project_relative_path="board" type="c_include"/>
       <include_path path="examples/evkmimxrt1024/rtos_examples/freertos_lpspi" project_relative_path="source" type="c_include"/>
-      <include_path path="boards/evkmimxrt1024/rtos_examples/freertos_lpspi" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimxrt1024" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt1024/rtos_examples/freertos_lpspi" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt1024" project_relative_path="board" type="c_include"/>
       <include_path path="examples/evkmimxrt1024/rtos_examples/freertos_lpspi" project_relative_path="source" type="asm_include"/>
     </include_paths>
     <source path="examples/evkmimxrt1024/rtos_examples/freertos_lpspi/iar" project_relative_path="./" type="workspace" toolchain="iar">

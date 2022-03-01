@@ -62,7 +62,7 @@ include(driver_dac)
 
 include(driver_port)
 
-include(driver_edma)
+include(driver_edma_MKV11Z7)
 
 include(driver_dmamux)
 

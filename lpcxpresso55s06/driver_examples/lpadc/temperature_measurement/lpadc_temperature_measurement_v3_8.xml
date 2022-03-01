@@ -69,8 +69,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/lpcxpresso55s06/driver_examples/lpadc/temperature_measurement" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso55s06" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso55s06/driver_examples/lpadc/temperature_measurement" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso55s06" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso55s06/driver_examples/lpadc/temperature_measurement" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso55s06/driver_examples/lpadc/temperature_measurement/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="lpadc_temperature_measurement.ewd"/>

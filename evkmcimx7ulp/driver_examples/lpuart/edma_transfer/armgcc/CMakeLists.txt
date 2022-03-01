@@ -63,7 +63,7 @@ include(utility_assert_lite)
 
 include(driver_port)
 
-include(driver_edma)
+include(driver_edma_MCIMX7U5)
 
 include(driver_dmamux)
 

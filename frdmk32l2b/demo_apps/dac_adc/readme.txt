@@ -8,7 +8,7 @@ and how to read ADC values.
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================
@@ -18,8 +18,7 @@ Hardware requirements
 
 Board settings
 ==============
-Connect J4-11(DAC_OUT) to J4-11(PTE30/ADC0_SE23) and
-shorten jumper J19 to use external reference voltage pair pins.
+No special settings are required.
 
 Prepare the Demo
 ================

@@ -10,7 +10,7 @@ This example does not use the transactional API in LPSPI driver. It's a demonstr
 
 Toolchain supported
 ===================
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 - GCC ARM Embedded  10.2.1
 
 Hardware requirements

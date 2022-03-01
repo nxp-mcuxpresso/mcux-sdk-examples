@@ -65,7 +65,7 @@ include(driver_lpspi)
 
 include(driver_lpspi_edma)
 
-include(driver_edma)
+include(driver_edma_K32L3A60_cm4)
 
 include(driver_dmamux)
 

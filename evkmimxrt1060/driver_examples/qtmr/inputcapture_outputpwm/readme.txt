@@ -10,7 +10,7 @@ The example also sets up one QTMR channel to output pwm. The user should probe a
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================

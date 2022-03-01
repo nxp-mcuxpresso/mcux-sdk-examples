@@ -26,7 +26,7 @@
  * Definitions
  ******************************************************************************/
 #define DEMO_PDM_DMA                  SDMAARM3
-#define DEMO_SAI_DMA                  SDMAARM2
+#define DEMO_SAI_DMA                  SDMAARM3
 #define DEMO_PDM                      PDM
 #define DEMO_PDM_CLK_FREQ             (24576000U)
 #define DEMO_PDM_FIFO_WATERMARK       (4U)
@@ -96,8 +96,12 @@ static const pdm_config_t pdmConfig         = {
     .cicOverSampleRate = DEMO_PDM_CIC_OVERSAMPLE_RATE,
 };
 static const pdm_channel_config_t channelConfig = {
+#if (defined(FSL_FEATURE_PDM_HAS_DC_OUT_CTRL) && (FSL_FEATURE_PDM_HAS_DC_OUT_CTRL))
+    .outputCutOffFreq = kPDM_DcRemoverCutOff40Hz,
+#else
     .cutOffFreq = kPDM_DcRemoverCutOff152Hz,
-    .gain       = kPDM_DfOutputGain4,
+#endif
+    .gain = kPDM_DfOutputGain4,
 };
 
 codec_handle_t codecHandle;
@@ -138,11 +142,12 @@ static void saiCallback(I2S_Type *base, sai_sdma_handle_t *handle, status_t stat
 void PDM_ERROR_IRQHandler(void)
 {
     uint32_t fifoStatus = 0U;
+#if (defined(FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ) && (FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ == 1U))
     if (PDM_GetStatus(DEMO_PDM) & PDM_STAT_LOWFREQF_MASK)
     {
         PDM_ClearStatus(DEMO_PDM, PDM_STAT_LOWFREQF_MASK);
     }
-
+#endif
     fifoStatus = PDM_GetFifoStatus(DEMO_PDM);
     if (fifoStatus)
     {

@@ -64,8 +64,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmke06z/driver_examples/rtc" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmke06z/driver_examples/rtc" project_relative_path="frdmke06z/driver_examples/rtc" type="c_include"/>
-      <include_path path="boards/frdmke06z" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmke06z/driver_examples/rtc" project_relative_path="frdmke06z/driver_examples/rtc" type="c_include"/>
+      <include_path path="core/boards/frdmke06z" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmke06z/driver_examples/rtc/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="rtc_1.ewd"/>

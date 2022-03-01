@@ -39,13 +39,19 @@ void BOARD_InitBootPins(void);
  * @brief Configures pin routing and optionally pin electrical features.
  *
  */
-void BOARD_InitPins(void);                                 /*!< Function assigned for the core: Cortex-M4[m4] */
+void BOARD_InitPins(void);                                 /*!< Function assigned for the core: Cortex-M4[cm4] */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
  */
-void BOARD_I2C_ConfigurePins(void);                        /*!< Function assigned for the core: Cortex-M4[m4] */
+void BOARD_I2C_ConfigurePins(void);                        /*!< Function assigned for the core: Cortex-M4[cm4] */
+
+/*!
+ * @brief Configures pin routing and optionally pin electrical features.
+ *
+ */
+void BOARD_PDM_ConfigurePins(void);                        /*!< Function assigned for the core: Cortex-M4[cm4] */
 
 #if defined(__cplusplus)
 }

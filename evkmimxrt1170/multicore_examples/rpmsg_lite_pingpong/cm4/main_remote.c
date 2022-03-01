@@ -82,7 +82,6 @@ int main(void)
     /* Initialize standard SDK demo application pins */
     BOARD_ConfigMPU();
     BOARD_InitPins();
-    BOARD_BootClockRUN();
 
 #ifdef MCMGR_USED
     uint32_t startupData;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2018 NXP
+ * Copyright 2017-2018, 2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -50,7 +50,7 @@ void EXAMPLE_ADC_IRQHandler(void)
  */
 int main(void)
 {
-    adc_config_t adcConfigStrcut;
+    adc_config_t adcConfigStruct;
     adc_channel_config_t adcChannelConfigStruct;
 
     BOARD_InitBootPins();
@@ -68,8 +68,8 @@ int main(void)
      * config->ResolutionMode = kADC_Resolution8BitMode;
      * config->clockSource = kADC_ClockSourceAlt0;
      */
-    ADC_GetDefaultConfig(&adcConfigStrcut);
-    ADC_Init(DEMO_ADC_BASE, &adcConfigStrcut);
+    ADC_GetDefaultConfig(&adcConfigStruct);
+    ADC_Init(DEMO_ADC_BASE, &adcConfigStruct);
     ADC_EnableHardwareTrigger(DEMO_ADC_BASE, false);
 
     /* Configure the user channel and interrupt. */

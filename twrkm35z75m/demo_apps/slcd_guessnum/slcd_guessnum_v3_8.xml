@@ -69,8 +69,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/twrkm35z75m/demo_apps/slcd_guessnum" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/twrkm35z75m/demo_apps/slcd_guessnum" project_relative_path="twrkm35z75m/demo_apps/slcd_guessnum" type="c_include"/>
-      <include_path path="boards/twrkm35z75m" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/twrkm35z75m/demo_apps/slcd_guessnum" project_relative_path="twrkm35z75m/demo_apps/slcd_guessnum" type="c_include"/>
+      <include_path path="core/boards/twrkm35z75m" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/twrkm35z75m/demo_apps/slcd_guessnum/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="slcd_guessnum.ewd"/>

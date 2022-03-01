@@ -93,6 +93,10 @@ include(component_codec_adapters)
 
 include(component_wm8524_adapter)
 
+include(middleware_multicore_rpmsg_lite_MIMX8MN6)
+
+include(middleware_multicore_rpmsg_lite_freertos)
+
 include(driver_clock)
 
 include(driver_sai)
@@ -132,8 +136,6 @@ include(driver_srtm_freertos)
 include(driver_srtm_MIMX8MN6)
 
 include(middleware_multicore_rpmsg_lite_imx8mn_m7_freertos)
-
-include(middleware_multicore_rpmsg_lite)
 
 include(middleware_freertos-kernel_MIMX8MN6)
 

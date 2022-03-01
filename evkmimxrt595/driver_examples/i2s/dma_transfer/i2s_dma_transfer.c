@@ -19,12 +19,12 @@
 #include "fsl_i2c.h"
 #include "fsl_i2s.h"
 #include "fsl_i2s_dma.h"
-#include "fsl_wm8904.h"
 #include "fsl_codec_common.h"
 #include "music.h"
 
 #include <stdbool.h>
 #include "fsl_codec_adapter.h"
+#include "fsl_wm8904.h"
 #include "fsl_inputmux.h"
 #include "fsl_iopctl.h"
 /*******************************************************************************
@@ -42,7 +42,9 @@
 #define DEMO_I2S_TX_CHANNEL (7U)
 
 #define DEMO_I2S_CLOCK_DIVIDER (CLOCK_GetMclkClkFreq() / DEMO_AUDIO_SAMPLE_RATE / DEMO_AUDIO_BIT_WIDTH / 2U)
-
+#ifndef DEMO_CODEC_VOLUME
+#define DEMO_CODEC_VOLUME 30U
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -168,7 +170,7 @@ int main(void)
     /* Set flexcomm3 SCK, WS from shared signal set 0 */
     SYSCTL1->FCCTRLSEL[3] = SYSCTL1_FCCTRLSEL_SCKINSEL(1) | SYSCTL1_FCCTRLSEL_WSINSEL(1);
 
-    PRINTF("Configure WM8904 codec\r\n");
+    PRINTF("Configure codec\r\n");
 
     /* protocol: i2s
      * sampleRate: 48K
@@ -176,15 +178,15 @@ int main(void)
      */
     if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
     {
-        PRINTF("WM8904_Init failed!\r\n");
+        PRINTF("codec_Init failed!\r\n");
         assert(false);
     }
 
     /* Initial volume kept low for hearing safety.
      * Adjust it to your needs, 0-100, 0 for mute, 100 for maximum volume.
      */
-    if (CODEC_SetVolume(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight, 30U) !=
-        kStatus_Success)
+    if (CODEC_SetVolume(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight,
+                        DEMO_CODEC_VOLUME) != kStatus_Success)
     {
         assert(false);
     }

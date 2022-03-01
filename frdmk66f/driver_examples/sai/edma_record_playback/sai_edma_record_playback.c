@@ -88,8 +88,8 @@ codec_config_t boardCodecConfig = {.codecDevType = kCODEC_DA7212, .codecDevConfi
 sai_master_clock_t mclkConfig;
 
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t Buffer[BUFFER_NUMBER * BUFFER_SIZE], 4);
-AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle);
-AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t rxHandle);
+AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t txHandle);
+AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t rxHandle);
 static uint32_t tx_index = 0U, rx_index = 0U;
 volatile uint32_t emptyBlock = BUFFER_NUMBER;
 edma_handle_t dmaTxHandle = {0}, dmaRxHandle = {0};

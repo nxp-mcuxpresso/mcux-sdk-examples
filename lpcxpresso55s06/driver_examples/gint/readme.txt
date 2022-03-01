@@ -5,7 +5,7 @@ This example shows how to use SDK drivers to use the Group GPIO input interrupt 
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================
@@ -39,5 +39,5 @@ GINT0 and GINT1 events are configured
 
 Press corresponding switches to generate events
 
-2. "Group GPIO interrupt 0"" is configured to be invoked when both the switches SW1 and SW4 are pressed at the same time. The interrupt callback prints "GINT1 event detected" message on the serial terminal.
-   This example configures "Group GPIO interrupt 1"" to be invoked when SW3 switch is pressed by the user. The interrupt callback prints "GINT1 event detected" message on the serial terminal.
+2. "Group GPIO interrupt 1"" is configured to be invoked when both the switches SW1 and SW4 are pressed at the same time. The interrupt callback prints "GINT1 event detected" message on the serial terminal.
+   This example configures "Group GPIO interrupt 0"" to be invoked when SW3 switch is pressed by the user. The interrupt callback prints "GINT0 event detected" message on the serial terminal.

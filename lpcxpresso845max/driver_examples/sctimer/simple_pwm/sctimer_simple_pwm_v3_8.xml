@@ -67,8 +67,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/lpcxpresso845max/driver_examples/sctimer/simple_pwm" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso845max/driver_examples/sctimer/simple_pwm" project_relative_path="lpcxpresso845max/driver_examples/sctimer/simple_pwm" type="c_include"/>
-      <include_path path="boards/lpcxpresso845max" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso845max/driver_examples/sctimer/simple_pwm" project_relative_path="lpcxpresso845max/driver_examples/sctimer/simple_pwm" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso845max" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso845max/driver_examples/sctimer/simple_pwm/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="sctimer_simple_pwm.ewd"/>

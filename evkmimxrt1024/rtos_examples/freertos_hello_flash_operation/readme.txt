@@ -12,7 +12,7 @@ The example application creates two tasks called flash_operation_task and hello_
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================

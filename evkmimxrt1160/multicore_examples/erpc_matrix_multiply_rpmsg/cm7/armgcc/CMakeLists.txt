@@ -31,6 +31,10 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
+"${ProjDirPath}/../board.c"
+"${ProjDirPath}/../board.h"
+"${ProjDirPath}/../clock_config.c"
+"${ProjDirPath}/../clock_config.h"
 "${ProjDirPath}/../../../erpc_common/erpc_error_handler.h"
 "${ProjDirPath}/../../../erpc_common/erpc_error_handler.cpp"
 "${ProjDirPath}/../../../erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.erpc"
@@ -41,22 +45,18 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../../rpmsg_config.h"
 "${ProjDirPath}/../../erpc_config.h"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1160/board.c"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1160/board.h"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1160/clock_config.c"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1160/clock_config.h"
 "${ProjDirPath}/../../../../../../core/boards/evkmimxrt1160/dcd.c"
 "${ProjDirPath}/../../../../../../core/boards/evkmimxrt1160/dcd.h"
 "${ProjDirPath}/../evkmimxrt1160_connect_cm4_cm7side.jlinkscript"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+    ${ProjDirPath}/../../../../../../core/boards/evkmimxrt1160
     ${ProjDirPath}/../../../erpc_common
     ${ProjDirPath}/../../../erpc_common/erpc_matrix_multiply/service
     ${ProjDirPath}/..
     ${ProjDirPath}/../..
     ${ProjDirPath}/../../../../../../examples/evkmimxrt1160/multicore_examples/erpc_matrix_multiply_rpmsg/cm7
-    ${ProjDirPath}/../../../../../../core/boards/evkmimxrt1160
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
@@ -79,6 +79,10 @@ include(all_devices)
 include(middleware_multicore_mcmgr_imxrt1160)
 
 include(middleware_multicore_rpmsg_lite_imxrt1160_bm)
+
+include(middleware_multicore_rpmsg_lite_MIMXRT1166_cm7)
+
+include(middleware_multicore_rpmsg_lite_bm)
 
 include(utility_debug_console_lite)
 
@@ -133,8 +137,6 @@ include(driver_cache_armv7_m7)
 include(driver_anatop_ai)
 
 include(CMSIS_Include_core_cm)
-
-include(middleware_multicore_rpmsg_lite)
 
 include(middleware_multicore_erpc_common)
 

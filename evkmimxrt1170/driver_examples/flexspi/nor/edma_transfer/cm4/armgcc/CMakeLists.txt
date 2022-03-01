@@ -104,7 +104,9 @@ include(driver_anatop_ai)
 
 include(CMSIS_Include_core_cm)
 
-include(driver_edma)
+include(driver_edma_MIMXRT1176_cm4)
+
+include(driver_memory)
 
 include(driver_dmamux)
 

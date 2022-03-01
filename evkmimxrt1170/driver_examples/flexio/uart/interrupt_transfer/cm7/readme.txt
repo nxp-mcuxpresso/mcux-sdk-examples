@@ -7,7 +7,7 @@ that PC send to the board. Note: two queued transfer in this example, so please 
 
 Toolchain supported
 ===================
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 - GCC ARM Embedded  10.2.1
 
 Hardware requirements

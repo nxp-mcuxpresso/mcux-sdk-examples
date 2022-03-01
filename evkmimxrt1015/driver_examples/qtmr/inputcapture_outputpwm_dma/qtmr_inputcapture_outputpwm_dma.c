@@ -194,7 +194,7 @@ int main(void)
 
     PRINTF("\r\n****Output pwm dma example.****\n");
     PRINTF("\r\n*********Make sure to connect an oscilloscope.*********\n");
-    PRINTF("\r\n****A 50% duty cycle PWM wave is observed on an oscilloscope.****\n");
+    PRINTF("\r\n****A 50%% duty cycle PWM wave is observed on an oscilloscope.****\n");
 
     /* Initial the output channel. */
     qtmrConfig.primarySource = QTMR_PRIMARY_SOURCE;

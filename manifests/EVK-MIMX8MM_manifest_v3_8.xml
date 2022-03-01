@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_EVK-MIMX8MM" name="EVK-MIMX8MM" brief="This is SDK version 2.10.0 manifest file. It describes the content of the EVK-MIMX8MM and additional settings for tools that support SDK version 2.10.0" format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-07-22 12:49:42.265732-->
-  <!--This manifest is generated based on sdk repo commit: a40647dd23698fa812ab2e267466ae159e1a5d45-->
+  <!--Timestamp (UTC): 2022-01-26 08:51:31.130931-->
+  <!--This manifest is generated based on sdk repo commit: 04124c9a3d8bee40269a5fff2c12f59654c36812-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
@@ -93,6 +93,36 @@ ${load}</script>
         <files mask="evkmimx8mm.png"/>
       </image>
       <examples>
+        <example id="evkmimx8mm_cmsis_ecspi_int_loopback_transfer" name="cmsis_ecspi_int_loopback_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_ecspi_int_loopback_transfer example shows how to use CMSIS ECSPI driver in interrupt way: In this example , ECSPI will do a loopback transfer in interrupt way, so, there is no need to set up any pins.And we should set the ECSPIx-&gt;TESTREG[LBC] bit, this bit is used in Master mode only. When this bit is set, the ECSPI connects the transmitter and receiver sections internally, and the data shifted out from the most-significant bit of the shift register is looped back into the least-significant bit of the Shift register.In this way, a self-test of the complete transmit/receive path can be made. The output pins are not affected, and the input pins are ignored." toolchain="armgcc" compiler="compiler_gcc" category="cmsis_driver_examples/ecspi" path="examples/evkmimx8mm/cmsis_driver_examples/ecspi/int_loopback_transfer">
+          <external path="examples/evkmimx8mm/cmsis_driver_examples/ecspi/int_loopback_transfer" type="xml">
+            <files mask="cmsis_ecspi_int_loopback_transfer_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mm_cmsis_ecspi_sdma_loopback_transfer" name="cmsis_ecspi_sdma_loopback_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_ecspi_sdma_loopback_transfer example shows how to use CMSIS ECSPI driver in SDMA way: In this example , ECSPI will do a loopback transfer in SDMA way, so, there is no need to set up any pins.And we should set the ECSPIx-&gt;TESTREG[LBC] bit, this bit is used in Master mode only. When this bit is set, the ECSPI connects the transmitter and receiver sections internally, and the data shifted out from the most-significant bit of the shift register is looped back into the least-significant bit of the Shift register.In this way, a self-test of the complete transmit/receive path can be made. The output pins are not affected, and the input pins are ignored." toolchain="armgcc" compiler="compiler_gcc" category="cmsis_driver_examples/ecspi" path="examples/evkmimx8mm/cmsis_driver_examples/ecspi/sdma_loopback_transfer">
+          <external path="examples/evkmimx8mm/cmsis_driver_examples/ecspi/sdma_loopback_transfer" type="xml">
+            <files mask="cmsis_ecspi_sdma_loopback_transfer_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mm_cmsis_ii2c_int_b2b_transfer_master" name="cmsis_ii2c_int_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The i2c_interrupt_b2b_transfer_master example shows how to use CMSIS i2c driver as master to do board to board transfer with interrupt:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/evkmimx8mm/cmsis_driver_examples/i2c/int_b2b_transfer/master">
+          <external path="examples/evkmimx8mm/cmsis_driver_examples/i2c/int_b2b_transfer/master" type="xml">
+            <files mask="cmsis_ii2c_int_b2b_transfer_master_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mm_cmsis_ii2c_int_b2b_transfer_slave" name="cmsis_ii2c_int_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The i2c_interrupt_b2b_transfer_master example shows how to use CMSIS i2c driver as master to do board to board transfer with interrupt:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/evkmimx8mm/cmsis_driver_examples/i2c/int_b2b_transfer/slave">
+          <external path="examples/evkmimx8mm/cmsis_driver_examples/i2c/int_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_ii2c_int_b2b_transfer_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mm_cmsis_iuart_interrupt_transfer" name="cmsis_iuart_interrupt_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_uart_interrupt_transfer example shows how to use uart cmsis driver in interrupt way:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc" compiler="compiler_gcc" category="cmsis_driver_examples/uart" path="examples/evkmimx8mm/cmsis_driver_examples/uart/interrupt_transfer">
+          <external path="examples/evkmimx8mm/cmsis_driver_examples/uart/interrupt_transfer" type="xml">
+            <files mask="cmsis_iuart_interrupt_transfer_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mm_cmsis_iuart_sdma_transfer" name="cmsis_iuart_sdma_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_uart_sdma_transfer example shows how to use uart cmsis driver with SDMA:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc" compiler="compiler_gcc" category="cmsis_driver_examples/uart" path="examples/evkmimx8mm/cmsis_driver_examples/uart/sdma_transfer">
+          <external path="examples/evkmimx8mm/cmsis_driver_examples/uart/sdma_transfer" type="xml">
+            <files mask="cmsis_iuart_sdma_transfer_v3_8.xml"/>
+          </external>
+        </example>
         <example id="evkmimx8mm_ecspi_interrupt_b2b_transfer_master" name="ecspi_interrupt_b2b_transfer_master" brief="The ecspi_interrupt_b2b_transfer example shows how to use ECSPI driver in interrupt way:In this example , we need two boards, one board used as ECSPI master and another board used as ECSPI slave.The file 'ecspi_interrupt_b2b_transfer_master.c' includes the ECSPI master code.This example uses the transactional API in ECSPI driver.1. ECSPI master send/received data to/from ECSPI slave in interrupt . (ECSPI Slave using interrupt to receive/send the data)" toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/ecspi" path="examples/evkmimx8mm/driver_examples/ecspi/interrupt_b2b_transfer/master">
           <external path="examples/evkmimx8mm/driver_examples/ecspi/interrupt_b2b_transfer/master" type="xml">
             <files mask="ecspi_interrupt_b2b_transfer_master_v3_8.xml"/>
@@ -466,6 +496,351 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="CMSIS_DSP_Library.MIMX8MM6" name="CMSIS_DSP_Library" brief="CMSIS-DSP Library for Cortex-M, SC000, and SC300" version="1.7.0" full_name="CMSIS DSP Library" devices="MIMX8MM6xxxKZ MIMX8MM6xxxLZ" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/DSP" project_base_path="CMSIS/DSP">
+      <source relative_path="Include" type="c_include">
+        <files mask="arm_common_tables.h"/>
+        <files mask="arm_const_structs.h"/>
+        <files mask="arm_math.h"/>
+      </source>
+      <source toolchain="armgcc mcuxpresso" relative_path="Lib/GCC" project_relative_path="./" type="lib" device_cores="cm4_MIMX8MM6xxxLZ cm4_MIMX8MM6xxxKZ">
+        <files mask="libarm_cortexM4lf_math.a"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="Include" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_DSP_Source.MIMX8MM6" name="CMSIS_DSP_Library_Source" brief="CMSIS-DSP Library for Cortex-M, SC000, and SC300" version="1.7.0" full_name="CMSIS DSP Library Source" devices="MIMX8MM6xxxKZ MIMX8MM6xxxLZ" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/DSP" project_base_path="CMSIS/DSP">
+      <source relative_path="Include" type="c_include">
+        <files mask="arm_common_tables.h"/>
+        <files mask="arm_const_structs.h"/>
+        <files mask="arm_math.h"/>
+      </source>
+      <source relative_path="Source/BasicMathFunctions" type="src">
+        <files mask="BasicMathFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/BasicMathFunctions" type="src">
+        <files mask="arm_abs_f32.c" hidden="true"/>
+        <files mask="arm_abs_q15.c" hidden="true"/>
+        <files mask="arm_abs_q31.c" hidden="true"/>
+        <files mask="arm_abs_q7.c" hidden="true"/>
+        <files mask="arm_add_f32.c" hidden="true"/>
+        <files mask="arm_add_q15.c" hidden="true"/>
+        <files mask="arm_add_q31.c" hidden="true"/>
+        <files mask="arm_add_q7.c" hidden="true"/>
+        <files mask="arm_dot_prod_f32.c" hidden="true"/>
+        <files mask="arm_dot_prod_q15.c" hidden="true"/>
+        <files mask="arm_dot_prod_q31.c" hidden="true"/>
+        <files mask="arm_dot_prod_q7.c" hidden="true"/>
+        <files mask="arm_mult_f32.c" hidden="true"/>
+        <files mask="arm_mult_q15.c" hidden="true"/>
+        <files mask="arm_mult_q31.c" hidden="true"/>
+        <files mask="arm_mult_q7.c" hidden="true"/>
+        <files mask="arm_negate_f32.c" hidden="true"/>
+        <files mask="arm_negate_q15.c" hidden="true"/>
+        <files mask="arm_negate_q31.c" hidden="true"/>
+        <files mask="arm_negate_q7.c" hidden="true"/>
+        <files mask="arm_offset_f32.c" hidden="true"/>
+        <files mask="arm_offset_q15.c" hidden="true"/>
+        <files mask="arm_offset_q31.c" hidden="true"/>
+        <files mask="arm_offset_q7.c" hidden="true"/>
+        <files mask="arm_scale_f32.c" hidden="true"/>
+        <files mask="arm_scale_q15.c" hidden="true"/>
+        <files mask="arm_scale_q31.c" hidden="true"/>
+        <files mask="arm_scale_q7.c" hidden="true"/>
+        <files mask="arm_shift_q15.c" hidden="true"/>
+        <files mask="arm_shift_q31.c" hidden="true"/>
+        <files mask="arm_shift_q7.c" hidden="true"/>
+        <files mask="arm_sub_f32.c" hidden="true"/>
+        <files mask="arm_sub_q15.c" hidden="true"/>
+        <files mask="arm_sub_q31.c" hidden="true"/>
+        <files mask="arm_sub_q7.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/CommonTables" type="src">
+        <files mask="CommonTables.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/CommonTables" type="src">
+        <files mask="arm_common_tables.c" hidden="true"/>
+        <files mask="arm_const_structs.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/ComplexMathFunctions" type="src">
+        <files mask="ComplexMathFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/ComplexMathFunctions" type="src">
+        <files mask="arm_cmplx_conj_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_conj_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_conj_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_dot_prod_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_dot_prod_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_dot_prod_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_squared_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_squared_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_squared_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_cmplx_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_cmplx_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_cmplx_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_real_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_real_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_real_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/ControllerFunctions" type="src">
+        <files mask="ControllerFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/ControllerFunctions" type="src">
+        <files mask="arm_pid_init_f32.c" hidden="true"/>
+        <files mask="arm_pid_init_q15.c" hidden="true"/>
+        <files mask="arm_pid_init_q31.c" hidden="true"/>
+        <files mask="arm_pid_reset_f32.c" hidden="true"/>
+        <files mask="arm_pid_reset_q15.c" hidden="true"/>
+        <files mask="arm_pid_reset_q31.c" hidden="true"/>
+        <files mask="arm_sin_cos_f32.c" hidden="true"/>
+        <files mask="arm_sin_cos_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/FastMathFunctions" type="src">
+        <files mask="FastMathFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/FastMathFunctions" type="src">
+        <files mask="arm_cos_f32.c" hidden="true"/>
+        <files mask="arm_cos_q15.c" hidden="true"/>
+        <files mask="arm_cos_q31.c" hidden="true"/>
+        <files mask="arm_sin_f32.c" hidden="true"/>
+        <files mask="arm_sin_q15.c" hidden="true"/>
+        <files mask="arm_sin_q31.c" hidden="true"/>
+        <files mask="arm_sqrt_q15.c" hidden="true"/>
+        <files mask="arm_sqrt_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/FilteringFunctions" type="src">
+        <files mask="FilteringFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/FilteringFunctions" type="src">
+        <files mask="arm_biquad_cascade_df1_32x64_init_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_32x64_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_fast_q15.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_fast_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_init_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_init_q15.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_init_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_q15.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df2T_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df2T_f64.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df2T_init_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df2T_init_f64.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_stereo_df2T_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_stereo_df2T_init_f32.c" hidden="true"/>
+        <files mask="arm_conv_f32.c" hidden="true"/>
+        <files mask="arm_conv_fast_opt_q15.c" hidden="true"/>
+        <files mask="arm_conv_fast_q15.c" hidden="true"/>
+        <files mask="arm_conv_fast_q31.c" hidden="true"/>
+        <files mask="arm_conv_opt_q15.c" hidden="true"/>
+        <files mask="arm_conv_opt_q7.c" hidden="true"/>
+        <files mask="arm_conv_partial_f32.c" hidden="true"/>
+        <files mask="arm_conv_partial_fast_opt_q15.c" hidden="true"/>
+        <files mask="arm_conv_partial_fast_q15.c" hidden="true"/>
+        <files mask="arm_conv_partial_fast_q31.c" hidden="true"/>
+        <files mask="arm_conv_partial_opt_q15.c" hidden="true"/>
+        <files mask="arm_conv_partial_opt_q7.c" hidden="true"/>
+        <files mask="arm_conv_partial_q15.c" hidden="true"/>
+        <files mask="arm_conv_partial_q31.c" hidden="true"/>
+        <files mask="arm_conv_partial_q7.c" hidden="true"/>
+        <files mask="arm_conv_q15.c" hidden="true"/>
+        <files mask="arm_conv_q31.c" hidden="true"/>
+        <files mask="arm_conv_q7.c" hidden="true"/>
+        <files mask="arm_correlate_f32.c" hidden="true"/>
+        <files mask="arm_correlate_fast_opt_q15.c" hidden="true"/>
+        <files mask="arm_correlate_fast_q15.c" hidden="true"/>
+        <files mask="arm_correlate_fast_q31.c" hidden="true"/>
+        <files mask="arm_correlate_opt_q15.c" hidden="true"/>
+        <files mask="arm_correlate_opt_q7.c" hidden="true"/>
+        <files mask="arm_correlate_q15.c" hidden="true"/>
+        <files mask="arm_correlate_q31.c" hidden="true"/>
+        <files mask="arm_correlate_q7.c" hidden="true"/>
+        <files mask="arm_fir_decimate_f32.c" hidden="true"/>
+        <files mask="arm_fir_decimate_fast_q15.c" hidden="true"/>
+        <files mask="arm_fir_decimate_fast_q31.c" hidden="true"/>
+        <files mask="arm_fir_decimate_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_decimate_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_decimate_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_decimate_q15.c" hidden="true"/>
+        <files mask="arm_fir_decimate_q31.c" hidden="true"/>
+        <files mask="arm_fir_f32.c" hidden="true"/>
+        <files mask="arm_fir_fast_q15.c" hidden="true"/>
+        <files mask="arm_fir_fast_q31.c" hidden="true"/>
+        <files mask="arm_fir_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_init_q7.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_f32.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_q15.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_q31.c" hidden="true"/>
+        <files mask="arm_fir_lattice_f32.c" hidden="true"/>
+        <files mask="arm_fir_lattice_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_lattice_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_lattice_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_lattice_q15.c" hidden="true"/>
+        <files mask="arm_fir_lattice_q31.c" hidden="true"/>
+        <files mask="arm_fir_q15.c" hidden="true"/>
+        <files mask="arm_fir_q31.c" hidden="true"/>
+        <files mask="arm_fir_q7.c" hidden="true"/>
+        <files mask="arm_fir_sparse_f32.c" hidden="true"/>
+        <files mask="arm_fir_sparse_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_sparse_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_sparse_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_sparse_init_q7.c" hidden="true"/>
+        <files mask="arm_fir_sparse_q15.c" hidden="true"/>
+        <files mask="arm_fir_sparse_q31.c" hidden="true"/>
+        <files mask="arm_fir_sparse_q7.c" hidden="true"/>
+        <files mask="arm_iir_lattice_f32.c" hidden="true"/>
+        <files mask="arm_iir_lattice_init_f32.c" hidden="true"/>
+        <files mask="arm_iir_lattice_init_q15.c" hidden="true"/>
+        <files mask="arm_iir_lattice_init_q31.c" hidden="true"/>
+        <files mask="arm_iir_lattice_q15.c" hidden="true"/>
+        <files mask="arm_iir_lattice_q31.c" hidden="true"/>
+        <files mask="arm_lms_f32.c" hidden="true"/>
+        <files mask="arm_lms_init_f32.c" hidden="true"/>
+        <files mask="arm_lms_init_q15.c" hidden="true"/>
+        <files mask="arm_lms_init_q31.c" hidden="true"/>
+        <files mask="arm_lms_norm_f32.c" hidden="true"/>
+        <files mask="arm_lms_norm_init_f32.c" hidden="true"/>
+        <files mask="arm_lms_norm_init_q15.c" hidden="true"/>
+        <files mask="arm_lms_norm_init_q31.c" hidden="true"/>
+        <files mask="arm_lms_norm_q15.c" hidden="true"/>
+        <files mask="arm_lms_norm_q31.c" hidden="true"/>
+        <files mask="arm_lms_q15.c" hidden="true"/>
+        <files mask="arm_lms_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/MatrixFunctions" type="src">
+        <files mask="MatrixFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/MatrixFunctions" type="src">
+        <files mask="arm_mat_add_f32.c" hidden="true"/>
+        <files mask="arm_mat_add_q15.c" hidden="true"/>
+        <files mask="arm_mat_add_q31.c" hidden="true"/>
+        <files mask="arm_mat_cmplx_mult_f32.c" hidden="true"/>
+        <files mask="arm_mat_cmplx_mult_q15.c" hidden="true"/>
+        <files mask="arm_mat_cmplx_mult_q31.c" hidden="true"/>
+        <files mask="arm_mat_init_f32.c" hidden="true"/>
+        <files mask="arm_mat_init_q15.c" hidden="true"/>
+        <files mask="arm_mat_init_q31.c" hidden="true"/>
+        <files mask="arm_mat_inverse_f32.c" hidden="true"/>
+        <files mask="arm_mat_inverse_f64.c" hidden="true"/>
+        <files mask="arm_mat_mult_f32.c" hidden="true"/>
+        <files mask="arm_mat_mult_fast_q15.c" hidden="true"/>
+        <files mask="arm_mat_mult_fast_q31.c" hidden="true"/>
+        <files mask="arm_mat_mult_q15.c" hidden="true"/>
+        <files mask="arm_mat_mult_q31.c" hidden="true"/>
+        <files mask="arm_mat_scale_f32.c" hidden="true"/>
+        <files mask="arm_mat_scale_q15.c" hidden="true"/>
+        <files mask="arm_mat_scale_q31.c" hidden="true"/>
+        <files mask="arm_mat_sub_f32.c" hidden="true"/>
+        <files mask="arm_mat_sub_q15.c" hidden="true"/>
+        <files mask="arm_mat_sub_q31.c" hidden="true"/>
+        <files mask="arm_mat_trans_f32.c" hidden="true"/>
+        <files mask="arm_mat_trans_q15.c" hidden="true"/>
+        <files mask="arm_mat_trans_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/StatisticsFunctions" type="src">
+        <files mask="StatisticsFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/StatisticsFunctions" type="src">
+        <files mask="arm_max_f32.c" hidden="true"/>
+        <files mask="arm_max_q15.c" hidden="true"/>
+        <files mask="arm_max_q31.c" hidden="true"/>
+        <files mask="arm_max_q7.c" hidden="true"/>
+        <files mask="arm_mean_f32.c" hidden="true"/>
+        <files mask="arm_mean_q15.c" hidden="true"/>
+        <files mask="arm_mean_q31.c" hidden="true"/>
+        <files mask="arm_mean_q7.c" hidden="true"/>
+        <files mask="arm_min_f32.c" hidden="true"/>
+        <files mask="arm_min_q15.c" hidden="true"/>
+        <files mask="arm_min_q31.c" hidden="true"/>
+        <files mask="arm_min_q7.c" hidden="true"/>
+        <files mask="arm_power_f32.c" hidden="true"/>
+        <files mask="arm_power_q15.c" hidden="true"/>
+        <files mask="arm_power_q31.c" hidden="true"/>
+        <files mask="arm_power_q7.c" hidden="true"/>
+        <files mask="arm_rms_f32.c" hidden="true"/>
+        <files mask="arm_rms_q15.c" hidden="true"/>
+        <files mask="arm_rms_q31.c" hidden="true"/>
+        <files mask="arm_std_f32.c" hidden="true"/>
+        <files mask="arm_std_q15.c" hidden="true"/>
+        <files mask="arm_std_q31.c" hidden="true"/>
+        <files mask="arm_var_f32.c" hidden="true"/>
+        <files mask="arm_var_q15.c" hidden="true"/>
+        <files mask="arm_var_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/SupportFunctions" type="src">
+        <files mask="SupportFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/SupportFunctions" type="src">
+        <files mask="arm_copy_f32.c" hidden="true"/>
+        <files mask="arm_copy_q15.c" hidden="true"/>
+        <files mask="arm_copy_q31.c" hidden="true"/>
+        <files mask="arm_copy_q7.c" hidden="true"/>
+        <files mask="arm_fill_f32.c" hidden="true"/>
+        <files mask="arm_fill_q15.c" hidden="true"/>
+        <files mask="arm_fill_q31.c" hidden="true"/>
+        <files mask="arm_fill_q7.c" hidden="true"/>
+        <files mask="arm_float_to_q15.c" hidden="true"/>
+        <files mask="arm_float_to_q31.c" hidden="true"/>
+        <files mask="arm_float_to_q7.c" hidden="true"/>
+        <files mask="arm_q15_to_float.c" hidden="true"/>
+        <files mask="arm_q15_to_q31.c" hidden="true"/>
+        <files mask="arm_q15_to_q7.c" hidden="true"/>
+        <files mask="arm_q31_to_float.c" hidden="true"/>
+        <files mask="arm_q31_to_q15.c" hidden="true"/>
+        <files mask="arm_q31_to_q7.c" hidden="true"/>
+        <files mask="arm_q7_to_float.c" hidden="true"/>
+        <files mask="arm_q7_to_q15.c" hidden="true"/>
+        <files mask="arm_q7_to_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/TransformFunctions" type="src">
+        <files mask="TransformFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/TransformFunctions" type="src">
+        <files mask="arm_bitreversal.c" hidden="true"/>
+        <files mask="arm_bitreversal2.c" hidden="true"/>
+        <files mask="arm_cfft_f32.c" hidden="true"/>
+        <files mask="arm_cfft_q15.c" hidden="true"/>
+        <files mask="arm_cfft_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_f32.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_init_f32.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_init_q15.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_init_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_q15.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_f32.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_init_f32.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_init_q15.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_init_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_q15.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix8_f32.c" hidden="true"/>
+        <files mask="arm_dct4_f32.c" hidden="true"/>
+        <files mask="arm_dct4_init_f32.c" hidden="true"/>
+        <files mask="arm_dct4_init_q15.c" hidden="true"/>
+        <files mask="arm_dct4_init_q31.c" hidden="true"/>
+        <files mask="arm_dct4_q15.c" hidden="true"/>
+        <files mask="arm_dct4_q31.c" hidden="true"/>
+        <files mask="arm_rfft_f32.c" hidden="true"/>
+        <files mask="arm_rfft_fast_f32.c" hidden="true"/>
+        <files mask="arm_rfft_fast_init_f32.c" hidden="true"/>
+        <files mask="arm_rfft_init_f32.c" hidden="true"/>
+        <files mask="arm_rfft_init_q15.c" hidden="true"/>
+        <files mask="arm_rfft_init_q31.c" hidden="true"/>
+        <files mask="arm_rfft_q15.c" hidden="true"/>
+        <files mask="arm_rfft_q31.c" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="Include" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="CMSIS_Device_API_OSTick.MIMX8MM6" name="CMSIS_Device_API_OSTick" brief="Device interrupt controller interface" version="1.0.1" full_name="CMSIS Device API OSTick" devices="MIMX8MM6xxxKZ MIMX8MM6xxxLZ" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/RTOS2/Include" project_base_path="CMSIS/RTOS2/Include">
       <source relative_path="./" type="c_include">
         <files mask="os_tick.h"/>
@@ -496,6 +871,9 @@ ${load}</script>
     <component id="CMSIS_Driver_Include.Common.MIMX8MM6" name="CMSIS_Driver_Common" brief="Access to #include Driver_Common.h file for custom implementation" version="2.3.0" full_name="CMSIS Driver Common" devices="MIMX8MM6xxxKZ MIMX8MM6xxxLZ" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <source relative_path="./" type="c_include">
         <files mask="Driver_Common.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_Common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -563,6 +941,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="Driver_I2C.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_I2C.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -607,6 +988,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="Driver_SPI.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_SPI.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -617,6 +1001,9 @@ ${load}</script>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_USART.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_USART.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1378,7 +1765,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="device.MIMX8MM6_debugger.MIMX8MM6" name="MIMX8MM6_debugger" brief="Device MIMX8MM6_debugger" version="1.0.0" full_name="Device MIMX8MM6_debugger" devices="MIMX8MM6xxxKZ MIMX8MM6xxxLZ" user_visible="true" type="debugger" package_base_path="core/devices/MIMX8MM6" project_base_path="MIMX8MM6">
+    <component id="device.MIMX8MM6_debugger.MIMX8MM6" name="MIMX8MM6_debugger" brief="Device MIMX8MM6_debugger" version="1.0.0" full_name="Device MIMX8MM6_debugger" devices="MIMX8MM6xxxKZ MIMX8MM6xxxLZ" user_visible="true" type="debugger" package_base_path="svd/MIMX8MM6" project_base_path="MIMX8MM6">
       <source relative_path="./" type="xml">
         <files mask="MIMX8MM6_cm4.xml"/>
       </source>
@@ -1484,6 +1871,71 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="platform.drivers.ecspi_cmsis.MIMX8MM6" name="ecspi_cmsis" brief="ECSPI CMSIS Driver" version="2.2.0" full_name="ECSPI CMSIS Driver" devices="MIMX8MM6xxxKZ MIMX8MM6xxxLZ" device_cores="cm4_MIMX8MM6xxxKZ cm4_MIMX8MM6xxxLZ" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/ecspi" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.ecspi.MIMX8MM6"/>
+          <component_dependency value="CMSIS_Driver_Include.SPI.MIMX8MM6"/>
+          <component_dependency value="RTE_Device.MIMX8MM6"/>
+          <component_dependency value="platform.drivers.ecspi_sdma.MIMX8MM6"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_ecspi_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_ecspi_cmsis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_cmsis_ecspi.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.ii2c_cmsis.MIMX8MM6" name="i2c_cmsis" brief="I2C CMSIS Driver" version="2.2.0" full_name="II2C CMSIS Driver" devices="MIMX8MM6xxxKZ MIMX8MM6xxxLZ" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/ii2c" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.ii2c.MIMX8MM6"/>
+          <component_dependency value="CMSIS_Driver_Include.I2C.MIMX8MM6"/>
+          <component_dependency value="RTE_Device.MIMX8MM6"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_i2c_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_i2c_cmsis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_cmsis_ii2c.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.iuart_cmsis.MIMX8MM6" name="uart_cmsis" brief="UART CMSIS Driver" version="2.1.0" full_name="IUART CMSIS Driver" devices="MIMX8MM6xxxKZ MIMX8MM6xxxLZ" device_cores="cm4_MIMX8MM6xxxKZ cm4_MIMX8MM6xxxLZ" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/iuart" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.iuart.MIMX8MM6"/>
+          <component_dependency value="CMSIS_Driver_Include.USART.MIMX8MM6"/>
+          <component_dependency value="RTE_Device.MIMX8MM6"/>
+          <component_dependency value="platform.drivers.iuart_sdma.MIMX8MM6"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_uart_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_uart_cmsis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_cmsis_iuart.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="driver.codec.MIMX8MM6" name="codec" brief="Driver codec" version="2.2.2" full_name="Driver codec" devices="MIMX8MM6xxxKZ MIMX8MM6xxxLZ" device_cores="cm4_MIMX8MM6xxxKZ cm4_MIMX8MM6xxxLZ" user_visible="true" type="abstraction_layer" package_base_path="core/components/codec" project_base_path="codec">
       <dependencies>
         <all>
@@ -1583,6 +2035,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_ecspi_sdma.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_ecspi_sdma.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2594,6 +3049,278 @@ ${load}</script>
       </source>
       <include_paths>
         <include_path relative_path="rpmsg_lite/lib/include/platform/imx8mm_m4" project_relative_path="porting" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.rtcesl.cm4f.MIMX8MM6" name="rtcesl" brief="Real Time Control Embedded Software Library for CM4F core" version="1.1.0" full_name="Middleware rtcesl cm4f" devices="MIMX8MM6xxxKZ MIMX8MM6xxxLZ" device_cores="cm4_MIMX8MM6xxxKZ cm4_MIMX8MM6xxxLZ" user_visible="true" type="middleware" package_base_path="middleware/rtcesl" project_base_path="rtcesl">
+      <source toolchain="mcuxpresso armgcc" relative_path="CM4F_RTCESL_4.6.2_MCUX/AMCLIB/Include" type="c_include">
+        <files mask="amclib.h"/>
+        <files mask="AMCLIB_ACIMCtrlMTPA_FLT.h"/>
+        <files mask="AMCLIB_ACIMRotFluxObsrv_FLT.h"/>
+        <files mask="AMCLIB_ACIMSpeedMRAS_FLT.h"/>
+        <files mask="AMCLIB_AngleTrackObsrv_F32.h"/>
+        <files mask="AMCLIB_AngleTrackObsrv_FLT.h"/>
+        <files mask="AMCLIB_CtrlFluxWkng_A32.h"/>
+        <files mask="AMCLIB_CtrlFluxWkng_FLT.h"/>
+        <files mask="amclib_FP.h"/>
+        <files mask="AMCLIB_PMSMBemfObsrvAB_A32.h"/>
+        <files mask="AMCLIB_PMSMBemfObsrvAB_FLT.h"/>
+        <files mask="AMCLIB_PMSMBemfObsrvDQ_A32.h"/>
+        <files mask="AMCLIB_PMSMBemfObsrvDQ_FLT.h"/>
+        <files mask="AMCLIB_TrackObsrv_F32.h"/>
+        <files mask="AMCLIB_TrackObsrv_FLT.h"/>
+        <files mask="amclib_types.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM4F_RTCESL_4.6.2_MCUX/GDFLIB/Include" type="c_include">
+        <files mask="gdflib.h"/>
+        <files mask="GDFLIB_FilterExp_F32.h"/>
+        <files mask="GDFLIB_FilterExp_FLT.h"/>
+        <files mask="GDFLIB_FilterIIR1_F32.h"/>
+        <files mask="GDFLIB_FilterIIR1_F32_Asmi.h"/>
+        <files mask="GDFLIB_FilterIIR1_FLT.h"/>
+        <files mask="GDFLIB_FilterIIR2_F32.h"/>
+        <files mask="GDFLIB_FilterIIR2_FLT.h"/>
+        <files mask="GDFLIB_FilterIIR3_F32.h"/>
+        <files mask="GDFLIB_FilterIIR3_FLT.h"/>
+        <files mask="GDFLIB_FilterIIR4_F32.h"/>
+        <files mask="GDFLIB_FilterIIR4_FLT.h"/>
+        <files mask="GDFLIB_FilterMA_A32.h"/>
+        <files mask="GDFLIB_FilterMA_FLT.h"/>
+        <files mask="gdflib_FP.h"/>
+        <files mask="gdflib_types.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM4F_RTCESL_4.6.2_MCUX/GFLIB/Include" type="c_include">
+        <files mask="gflib.h"/>
+        <files mask="GFLIB_Acos_F16.h"/>
+        <files mask="GFLIB_Acos_FLT.h"/>
+        <files mask="GFLIB_Asin_F16.h"/>
+        <files mask="GFLIB_Asin_FLT.h"/>
+        <files mask="GFLIB_Atan_F32.h"/>
+        <files mask="GFLIB_Atan_FLT.h"/>
+        <files mask="GFLIB_AtanYX_F16.h"/>
+        <files mask="GFLIB_AtanYX_FLT.h"/>
+        <files mask="GFLIB_CtrlBetaIPDp_A32.h"/>
+        <files mask="GFLIB_CtrlBetaIPDp_FLT.h"/>
+        <files mask="GFLIB_CtrlBetaIPp_A32.h"/>
+        <files mask="GFLIB_CtrlBetaIPp_FLT.h"/>
+        <files mask="GFLIB_CtrlPIDp_A32.h"/>
+        <files mask="GFLIB_CtrlPIDp_FLT.h"/>
+        <files mask="GFLIB_CtrlPIp_A32.h"/>
+        <files mask="GFLIB_CtrlPIp_FLT.h"/>
+        <files mask="GFLIB_DFlexRamp_A32.h"/>
+        <files mask="GFLIB_DFlexRamp_FLT.h"/>
+        <files mask="GFLIB_DRamp_F16.h"/>
+        <files mask="GFLIB_DRamp_F32.h"/>
+        <files mask="GFLIB_DRamp_FLT.h"/>
+        <files mask="GFLIB_FlexRamp_A32.h"/>
+        <files mask="GFLIB_FlexRamp_FLT.h"/>
+        <files mask="GFLIB_FlexSRamp_A32.h"/>
+        <files mask="GFLIB_FlexSRamp_FLT.h"/>
+        <files mask="gflib_FP.h"/>
+        <files mask="GFLIB_Hyst_F16_Asmi.h"/>
+        <files mask="GFLIB_Hyst_FLT.h"/>
+        <files mask="GFLIB_Integrator_A32.h"/>
+        <files mask="GFLIB_Integrator_FLT.h"/>
+        <files mask="GFLIB_Limit_F16.h"/>
+        <files mask="GFLIB_Limit_F32.h"/>
+        <files mask="GFLIB_Limit_FLT.h"/>
+        <files mask="GFLIB_LowerLimit_F16.h"/>
+        <files mask="GFLIB_LowerLimit_F32.h"/>
+        <files mask="GFLIB_LowerLimit_FLT.h"/>
+        <files mask="GFLIB_Lut_F16_Asmi.h"/>
+        <files mask="GFLIB_Lut_F32.h"/>
+        <files mask="GFLIB_Lut_FLT.h"/>
+        <files mask="GFLIB_LutPer_F16_Asmi.h"/>
+        <files mask="GFLIB_LutPer_F32.h"/>
+        <files mask="GFLIB_LutPer_FLT.h"/>
+        <files mask="GFLIB_Ramp_F16.h"/>
+        <files mask="GFLIB_Ramp_F32.h"/>
+        <files mask="GFLIB_Ramp_FLT.h"/>
+        <files mask="GFLIB_SinCos_F32.h"/>
+        <files mask="GFLIB_SinCos_FLT.h"/>
+        <files mask="GFLIB_Sqrt_F16.h"/>
+        <files mask="GFLIB_Sqrt_F32.h"/>
+        <files mask="GFLIB_Sqrt_FLT_Asmi.h"/>
+        <files mask="GFLIB_Tan_F32.h"/>
+        <files mask="GFLIB_Tan_FLT.h"/>
+        <files mask="gflib_types.h"/>
+        <files mask="GFLIB_UpperLimit_F16.h"/>
+        <files mask="GFLIB_UpperLimit_F32.h"/>
+        <files mask="GFLIB_UpperLimit_FLT.h"/>
+        <files mask="GFLIB_VectorLimit_F16.h"/>
+        <files mask="GFLIB_VectorLimit_FLT.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM4F_RTCESL_4.6.2_MCUX/GMCLIB/Include" type="c_include">
+        <files mask="gmclib.h"/>
+        <files mask="GMCLIB_Clark_F16_Asmi.h"/>
+        <files mask="GMCLIB_Clark_FLT.h"/>
+        <files mask="GMCLIB_Decoupling_A32.h"/>
+        <files mask="GMCLIB_Decoupling_FLT.h"/>
+        <files mask="GMCLIB_ElimDcBusRip_A32_Asmi.h"/>
+        <files mask="GMCLIB_ElimDcBusRip_F16_Asmi.h"/>
+        <files mask="GMCLIB_ElimDcBusRip_FLT.h"/>
+        <files mask="gmclib_FP.h"/>
+        <files mask="GMCLIB_Park_F16_Asmi.h"/>
+        <files mask="GMCLIB_Park_FLT.h"/>
+        <files mask="GMCLIB_Svm_F16.h"/>
+        <files mask="gmclib_types.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM4F_RTCESL_4.6.2_MCUX/MLIB/Include" type="c_include">
+        <files mask="asm_mac.h"/>
+        <files mask="mlib.h"/>
+        <files mask="MLIB_Abs_F16.h"/>
+        <files mask="MLIB_Abs_F16_Asmi.h"/>
+        <files mask="MLIB_Abs_F32.h"/>
+        <files mask="MLIB_Abs_F32_Asmi.h"/>
+        <files mask="MLIB_Abs_FLT.h"/>
+        <files mask="MLIB_Abs_FLT_Asmi.h"/>
+        <files mask="MLIB_Add_A32.h"/>
+        <files mask="MLIB_Add_F16.h"/>
+        <files mask="MLIB_Add_F16_Asmi.h"/>
+        <files mask="MLIB_Add_F32.h"/>
+        <files mask="MLIB_Add_F32_Asmi.h"/>
+        <files mask="MLIB_Add_FLT.h"/>
+        <files mask="MLIB_Add4_F16_Asmi.h"/>
+        <files mask="MLIB_Add4_F32_Asmi.h"/>
+        <files mask="MLIB_Add4_FLT.h"/>
+        <files mask="MLIB_BiShift_F16.h"/>
+        <files mask="MLIB_BiShift_F32.h"/>
+        <files mask="MLIB_Clb_F16.h"/>
+        <files mask="MLIB_Clb_F32.h"/>
+        <files mask="MLIB_Conv_F32.h"/>
+        <files mask="MLIB_Conv_FLT_Asmi.h"/>
+        <files mask="MLIB_ConvSc_FLT_Asmi.h"/>
+        <files mask="MLIB_Div_A32.h"/>
+        <files mask="MLIB_Div_F16.h"/>
+        <files mask="MLIB_Div_F32.h"/>
+        <files mask="MLIB_Div_FLT.h"/>
+        <files mask="MLIB_Div1Q_A32.h"/>
+        <files mask="MLIB_Div1Q_F16.h"/>
+        <files mask="MLIB_Div1Q_F32.h"/>
+        <files mask="mlib_FP.h"/>
+        <files mask="MLIB_Log2_U16.h"/>
+        <files mask="MLIB_Mac_A32.h"/>
+        <files mask="MLIB_Mac_F16_Asmi.h"/>
+        <files mask="MLIB_Mac_F32.h"/>
+        <files mask="MLIB_Mac_F32_Asmi.h"/>
+        <files mask="MLIB_Mac_FLT.h"/>
+        <files mask="MLIB_Mac4_F32.h"/>
+        <files mask="MLIB_Mac4_F32_Asmi.h"/>
+        <files mask="MLIB_Mac4_FLT.h"/>
+        <files mask="MLIB_Mac4Rnd_F16_Asmi.h"/>
+        <files mask="MLIB_Mac4Rnd_F32.h"/>
+        <files mask="MLIB_Mac4Rnd_F32_Asmi.h"/>
+        <files mask="MLIB_MacRnd_A32.h"/>
+        <files mask="MLIB_MacRnd_F16_Asmi.h"/>
+        <files mask="MLIB_MacRnd_F32.h"/>
+        <files mask="MLIB_MacRnd_F32_Asmi.h"/>
+        <files mask="MLIB_Mnac_A32.h"/>
+        <files mask="MLIB_Mnac_F16_Asmi.h"/>
+        <files mask="MLIB_Mnac_F32.h"/>
+        <files mask="MLIB_Mnac_F32_Asmi.h"/>
+        <files mask="MLIB_Mnac_FLT.h"/>
+        <files mask="MLIB_MnacRnd_A32.h"/>
+        <files mask="MLIB_MnacRnd_F16_Asmi.h"/>
+        <files mask="MLIB_MnacRnd_F32.h"/>
+        <files mask="MLIB_MnacRnd_F32_Asmi.h"/>
+        <files mask="MLIB_Msu_A32.h"/>
+        <files mask="MLIB_Msu_F16_Asmi.h"/>
+        <files mask="MLIB_Msu_F32_Asmi.h"/>
+        <files mask="MLIB_Msu_FLT.h"/>
+        <files mask="MLIB_Msu4_F32.h"/>
+        <files mask="MLIB_Msu4_F32_Asmi.h"/>
+        <files mask="MLIB_Msu4_FLT.h"/>
+        <files mask="MLIB_Msu4Rnd_F16.h"/>
+        <files mask="MLIB_Msu4Rnd_F16_Asmi.h"/>
+        <files mask="MLIB_Msu4Rnd_F32.h"/>
+        <files mask="MLIB_Msu4Rnd_F32_Asmi.h"/>
+        <files mask="MLIB_MsuRnd_A32.h"/>
+        <files mask="MLIB_MsuRnd_F16_Asmi.h"/>
+        <files mask="MLIB_MsuRnd_F32.h"/>
+        <files mask="MLIB_MsuRnd_F32_Asmi.h"/>
+        <files mask="MLIB_Mul_A32.h"/>
+        <files mask="MLIB_Mul_A32_Asmi.h"/>
+        <files mask="MLIB_Mul_F16.h"/>
+        <files mask="MLIB_Mul_F16_Asmi.h"/>
+        <files mask="MLIB_Mul_F32.h"/>
+        <files mask="MLIB_Mul_F32_Asmi.h"/>
+        <files mask="MLIB_Mul_FLT.h"/>
+        <files mask="MLIB_MulRnd_A32.h"/>
+        <files mask="MLIB_MulRnd_A32_Asmi.h"/>
+        <files mask="MLIB_MulRnd_F16.h"/>
+        <files mask="MLIB_MulRnd_F16_Asmi.h"/>
+        <files mask="MLIB_MulRnd_F32.h"/>
+        <files mask="MLIB_MulRnd_F32_Asmi.h"/>
+        <files mask="MLIB_Neg_F16.h"/>
+        <files mask="MLIB_Neg_F16_Asmi.h"/>
+        <files mask="MLIB_Neg_F32.h"/>
+        <files mask="MLIB_Neg_F32_Asmi.h"/>
+        <files mask="MLIB_Neg_FLT.h"/>
+        <files mask="MLIB_Rcp_A32.h"/>
+        <files mask="MLIB_Rcp1Q_A32.h"/>
+        <files mask="MLIB_Rnd_F32.h"/>
+        <files mask="MLIB_Rnd_F32_Asmi.h"/>
+        <files mask="MLIB_Sat_A32_Asmi.h"/>
+        <files mask="MLIB_Shift_F16.h"/>
+        <files mask="MLIB_Shift_F16_Asmi.h"/>
+        <files mask="MLIB_Shift_F32.h"/>
+        <files mask="MLIB_Shift_F32_Asmi.h"/>
+        <files mask="MLIB_Sign_F16_Asmi.h"/>
+        <files mask="MLIB_Sign_F32_Asmi.h"/>
+        <files mask="MLIB_Sign_FLT_Asmi.h"/>
+        <files mask="MLIB_Sub_A32.h"/>
+        <files mask="MLIB_Sub_F16.h"/>
+        <files mask="MLIB_Sub_F16_Asmi.h"/>
+        <files mask="MLIB_Sub_F32.h"/>
+        <files mask="MLIB_Sub_F32_Asmi.h"/>
+        <files mask="MLIB_Sub_F64.h"/>
+        <files mask="MLIB_Sub_FLT.h"/>
+        <files mask="MLIB_Sub4_F16_Asmi.h"/>
+        <files mask="MLIB_Sub4_F32_Asmi.h"/>
+        <files mask="MLIB_Sub4_FLT.h"/>
+        <files mask="mlib_types.h"/>
+        <files mask="RTCESL_cfg.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM4F_RTCESL_4.6.2_MCUX/PCLIB/Include" type="c_include">
+        <files mask="pclib.h"/>
+        <files mask="PCLIB_Ctrl2P2Z_F16.h"/>
+        <files mask="PCLIB_Ctrl3P3Z_F16.h"/>
+        <files mask="PCLIB_CtrlPI_F16.h"/>
+        <files mask="PCLIB_CtrlPIandLPFilter_F16.h"/>
+        <files mask="PCLIB_CtrlPID_F16.h"/>
+        <files mask="pclib_types.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM4F_RTCESL_4.6.2_MCUX/AMCLIB" type="lib">
+        <files mask="libAMCLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM4F_RTCESL_4.6.2_MCUX/GFLIB" type="lib">
+        <files mask="libGFLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM4F_RTCESL_4.6.2_MCUX/GDFLIB" type="lib">
+        <files mask="libGDFLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM4F_RTCESL_4.6.2_MCUX/GMCLIB" type="lib">
+        <files mask="libGMCLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM4F_RTCESL_4.6.2_MCUX/MLIB" type="lib">
+        <files mask="libMLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM4F_RTCESL_4.6.2_MCUX/PCLIB" type="lib">
+        <files mask="libPCLIB.a"/>
+      </source>
+      <source relative_path="CM4F_RTCESL_4.6.2_doc" type="doc">
+        <files mask="CM4FAMCLIBUG.pdf" hidden="true"/>
+        <files mask="CM4FGDFLIBUG.pdf" hidden="true"/>
+        <files mask="CM4FGFLIBUG.pdf" hidden="true"/>
+        <files mask="CM4FGMCLIBUG.pdf" hidden="true"/>
+        <files mask="CM4FMLIBUG.pdf" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="CM4F_RTCESL_4.6.2_MCUX/AMCLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM4F_RTCESL_4.6.2_MCUX/GDFLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM4F_RTCESL_4.6.2_MCUX/GFLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM4F_RTCESL_4.6.2_MCUX/GMCLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM4F_RTCESL_4.6.2_MCUX/MLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM4F_RTCESL_4.6.2_MCUX/PCLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
       </include_paths>
     </component>
     <component id="platform.utilities.misc_utilities.MIMX8MM6" name="misc_utilities" brief="Utilities which is needed for particular toolchain like the SBRK function required to address limitation between HEAP and STACK in GCC toolchain library." version="1.0.0" full_name="Utilities miscellaneous" devices="MIMX8MM6xxxKZ MIMX8MM6xxxLZ" user_visible="true" type="utilities" package_base_path="core/utilities/misc_utilities" project_base_path="utilities">

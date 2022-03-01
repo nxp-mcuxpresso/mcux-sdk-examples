@@ -5,8 +5,8 @@ It could be compared with the project powerquad_benckmark_matrix to show the Pow
 
 Toolchain supported
 ===================
-- MCUXpresso  11.3.0
-- GCC ARM Embedded  9.3.1
+- MCUXpresso  11.5.0
+- GCC ARM Embedded  10.2.1
 
 Hardware requirements
 =====================

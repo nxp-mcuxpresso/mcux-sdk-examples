@@ -65,7 +65,7 @@ include(driver_dspi)
 
 include(driver_dspi_edma)
 
-include(driver_edma)
+include(driver_edma_MK66F18)
 
 include(driver_dmamux)
 

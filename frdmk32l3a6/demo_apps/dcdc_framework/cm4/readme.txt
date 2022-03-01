@@ -7,7 +7,7 @@ Actually, this use case is usually used in the connectivity application, and the
 
 Toolchain supported
 ===================
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 - GCC ARM Embedded  10.2.1
 
 Hardware requirements

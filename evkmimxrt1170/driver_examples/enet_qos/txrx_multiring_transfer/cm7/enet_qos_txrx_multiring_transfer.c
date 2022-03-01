@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -11,10 +11,7 @@
 #include "fsl_phy.h"
 
 #include "pin_mux.h"
-#include "clock_config.h"
 #include "board.h"
-#include "fsl_gpio.h"
-#include "fsl_iomuxc.h"
 #include "fsl_enet_qos_mdio.h"
 #include "fsl_phyrtl8211f.h"
 /*******************************************************************************
@@ -23,7 +20,6 @@
 #define EXAMPLE_ENET_QOS_BASE ENET_QOS
 #define EXAMPLE_PHY_ADDR      0x01U
 #define CORE_CLK_FREQ         CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
-#define MDIO_BASE             ENET_QOS
 #define ENET_PTP_REF_CLK      50000000UL
 #define ENET_QOS_RXBD_NUM                     (4)
 #define ENET_QOS_TXBD_NUM                     (4)
@@ -75,6 +71,22 @@
 #define PHY_STABILITY_DELAY_US (500000U)
 #endif
 
+/* @TEST_ANCHOR */
+
+#ifndef MAC_ADDRESS
+#define MAC_ADDRESS                        \
+    {                                      \
+        0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60 \
+    }
+#endif
+
+#ifndef MAC_ADDRESS2
+#define MAC_ADDRESS2                       \
+    {                                      \
+        0xd3, 0xbe, 0xd9, 0x45, 0x22, 0x60 \
+    }
+#endif
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -95,8 +107,8 @@ enet_qos_frame_info_t g_txDirty[ENET_QOS_TXQUEUE_USE][ENET_QOS_RXBD_NUM];
 uint32_t rxbuffer[ENET_QOS_RXQUEUE_USE][ENET_QOS_RXBD_NUM];
 enet_qos_handle_t g_handle = {0};
 /* The MAC address for ENET device. */
-uint8_t g_macAddr[6]  = {0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60};
-uint8_t g_macAddr2[6] = {0xd3, 0xbe, 0xd9, 0x45, 0x22, 0x60};
+uint8_t g_macAddr[6]  = MAC_ADDRESS;
+uint8_t g_macAddr2[6] = MAC_ADDRESS2;
 uint8_t g_frame[ENET_QOS_TXQUEUE_USE][ENET_QOS_FRAME_LENGTH];
 volatile uint32_t g_rxIndex  = 0;
 volatile uint32_t g_rxIndex1 = 0;
@@ -106,19 +118,17 @@ uint32_t g_txIndex1          = 0;
 uint32_t g_txIndex2          = 0;
 uint32_t g_txSuccessFlag     = false;
 uint32_t g_rxSuccessFlag     = false;
+uint32_t g_txMessageOut      = false;
 
 extern phy_handle_t phyHandle;
 /*******************************************************************************
  * Code
  ******************************************************************************/
-
-mdio_handle_t mdioHandle = {.resource = {.base = MDIO_BASE}, .ops = &enet_qos_ops};
+mdio_handle_t mdioHandle = {.resource = {.base = ENET_QOS}, .ops = &enet_qos_ops};
 phy_handle_t phyHandle   = {.phyAddr = EXAMPLE_PHY_ADDR, .mdioHandle = &mdioHandle, .ops = &phyrtl8211f_ops};
 
 void BOARD_InitModuleClock(void)
 {
-    /* Select syspll2pfd3, 528*18/24 = 396M */
-    CLOCK_InitPfd(kCLOCK_PllSys2, kCLOCK_Pfd3, 24);
     const clock_sys_pll1_config_t sysPll1Config = {
         .pllDiv2En = true,
     };
@@ -128,10 +138,7 @@ void BOARD_InitModuleClock(void)
     rootCfg.div = 10;
     CLOCK_SetRootClock(kCLOCK_Root_Enet_Timer3, &rootCfg); /* Generate 50M PTP REF clock. */
 
-    rootCfg.mux = 7;
-    rootCfg.div = 2;
-    CLOCK_SetRootClock(kCLOCK_Root_Bus, &rootCfg); /* Generate 198M bus clock. */
-    mdioHandle.resource.csrClock_Hz = CLOCK_GetRootClockFreq(kCLOCK_Root_Bus);
+    mdioHandle.resource.csrClock_Hz = CORE_CLK_FREQ;
 }
 
 void ENET_QOS_SetSYSControl(enet_qos_mii_mode_t miiMode)
@@ -591,12 +598,14 @@ int main(void)
             PRINTF("The frame transmitted from the ring 0, 1, 2 is %d, %d, %d!\r\n", g_txIndex, g_txIndex1, g_txIndex2);
             PRINTF("%d frames transmitted succeed!\r\n", ENET_QOS_TRANSMIT_DATA_NUM);
             g_txSuccessFlag = false;
+            g_txMessageOut  = true;
         }
-        if (g_rxSuccessFlag)
+        if (g_txMessageOut && g_rxSuccessFlag)
         {
             PRINTF("The frames successfully received from the ring 0, 1, 2 is %d, %d, %d!\r\n", g_rxIndex, g_rxIndex1,
                    g_rxIndex2);
             g_rxSuccessFlag = false;
+            g_txMessageOut  = false;
         }
     }
 }

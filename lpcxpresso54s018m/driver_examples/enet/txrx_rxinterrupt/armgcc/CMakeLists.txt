@@ -93,9 +93,9 @@ include(driver_emc)
 
 include(driver_mdio-common)
 
-include(CMSIS_Include_core_cm)
-
 include(driver_reset)
+
+include(CMSIS_Include_core_cm)
 
 include(driver_phy-common)
 

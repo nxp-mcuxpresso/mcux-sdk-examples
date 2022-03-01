@@ -74,8 +74,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/lpcxpresso54s018m/driver_examples/i2c/polling_b2b/master" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso54s018m/driver_examples/i2c/polling_b2b/master" project_relative_path="lpcxpresso54s018m/driver_examples/i2c/polling_b2b/master" type="c_include"/>
-      <include_path path="boards/lpcxpresso54s018m" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso54s018m/driver_examples/i2c/polling_b2b/master" project_relative_path="lpcxpresso54s018m/driver_examples/i2c/polling_b2b/master" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso54s018m" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso54s018m/driver_examples/i2c/polling_b2b/master/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="i2c_polling_b2b_master.ewd"/>

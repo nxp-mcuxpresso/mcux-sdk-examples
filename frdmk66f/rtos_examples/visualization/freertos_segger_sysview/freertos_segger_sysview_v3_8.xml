@@ -79,8 +79,8 @@
       <include_path path="examples/frdmk66f/rtos_examples/visualization/freertos_segger_sysview/Config" project_relative_path="segger_sysview" type="c_include"/>
       <include_path path="examples/frdmk66f/rtos_examples/visualization/freertos_segger_sysview/Sample/FreeRTOSV10" project_relative_path="segger_sysview" type="c_include"/>
       <include_path path="examples/frdmk66f/rtos_examples/visualization/freertos_segger_sysview/Sample/FreeRTOSV10" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmk66f/rtos_examples/visualization/freertos_segger_sysview" project_relative_path="frdmk66f/rtos_examples/visualization/freertos_segger_sysview" type="c_include"/>
-      <include_path path="boards/frdmk66f" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmk66f/rtos_examples/visualization/freertos_segger_sysview" project_relative_path="frdmk66f/rtos_examples/visualization/freertos_segger_sysview" type="c_include"/>
+      <include_path path="core/boards/frdmk66f" project_relative_path="board" type="c_include"/>
       <include_path path="examples/frdmk66f/rtos_examples/visualization/freertos_segger_sysview" project_relative_path="source" type="asm_include"/>
       <include_path path="examples/frdmk66f/rtos_examples/visualization/freertos_segger_sysview/SEGGER" project_relative_path="segger_sysview" type="asm_include"/>
       <include_path path="examples/frdmk66f/rtos_examples/visualization/freertos_segger_sysview/Config" project_relative_path="segger_sysview" type="asm_include"/>

@@ -104,9 +104,9 @@
       <include_path path="examples/lpcxpresso55s69/multicore_examples/erpc_common" project_relative_path="source" type="c_include"/>
       <include_path path="examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="erpc/service" type="c_include"/>
       <include_path path="examples/lpcxpresso55s69/multicore_examples/erpc_matrix_multiply_rpmsg/cm33_core1" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso55s69/multicore_examples/erpc_matrix_multiply_rpmsg" project_relative_path="source" type="c_include"/>
-      <include_path path="boards/lpcxpresso55s69/multicore_examples/erpc_matrix_multiply_rpmsg/cm33_core1" project_relative_path="lpcxpresso55s69/multicore_examples/erpc_matrix_multiply_rpmsg/cm33_core1" type="c_include"/>
-      <include_path path="boards/lpcxpresso55s69" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso55s69/multicore_examples/erpc_matrix_multiply_rpmsg" project_relative_path="source" type="c_include"/>
+      <include_path path="examples/lpcxpresso55s69/multicore_examples/erpc_matrix_multiply_rpmsg/cm33_core1" project_relative_path="lpcxpresso55s69/multicore_examples/erpc_matrix_multiply_rpmsg/cm33_core1" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso55s69" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso55s69/multicore_examples/erpc_matrix_multiply_rpmsg/cm33_core1/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="erpc_matrix_multiply_rpmsg_cm33_core1.ewd"/>

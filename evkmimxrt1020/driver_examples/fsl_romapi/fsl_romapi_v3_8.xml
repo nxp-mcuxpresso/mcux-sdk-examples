@@ -92,8 +92,8 @@
     <include_paths>
       <include_path path="examples/evkmimxrt1020/driver_examples/fsl_romapi" project_relative_path="board" type="c_include"/>
       <include_path path="devices/MIMXRT1021/drivers" project_relative_path="drivers" type="c_include"/>
-      <include_path path="boards/evkmimxrt1020/driver_examples/fsl_romapi" project_relative_path="evkmimxrt1020/driver_examples/fsl_romapi" type="c_include"/>
-      <include_path path="boards/evkmimxrt1020" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt1020/driver_examples/fsl_romapi" project_relative_path="evkmimxrt1020/driver_examples/fsl_romapi" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt1020" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimxrt1020/driver_examples/fsl_romapi/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="fsl_romapi.ewd"/>

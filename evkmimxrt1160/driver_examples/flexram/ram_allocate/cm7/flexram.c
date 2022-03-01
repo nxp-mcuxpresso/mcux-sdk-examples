@@ -34,9 +34,9 @@
 
 /* OCRAM relocate definition */
 #define APP_OCRAM_SIZE              (512 * 1024U)
-#define APP_OCRAM_ALLOCATE_BANK_NUM 4
+#define APP_OCRAM_ALLOCATE_BANK_NUM 2
 #define APP_ITCM_ALLOCATE_BANK_NUM  8
-#define APP_DTCM_ALLOCATE_BANK_NUM  4
+#define APP_DTCM_ALLOCATE_BANK_NUM  6
 
 /*
  * If cache is enabled, this example should maintain the cache to make sure
@@ -90,6 +90,16 @@ void APP_FLEXRAM_IRQ_HANDLER(void)
     {
         FLEXRAM_ClearInterruptStatus(APP_FLEXRAM, kFLEXRAM_OCRAMAccessError);
         s_flexram_ocram_access_error_match = true;
+    }
+
+    if (FLEXRAM_GetInterruptStatus(APP_FLEXRAM) & kFLEXRAM_DTCMAccessError)
+    {
+        FLEXRAM_ClearInterruptStatus(APP_FLEXRAM, kFLEXRAM_DTCMAccessError);
+    }
+
+    if (FLEXRAM_GetInterruptStatus(APP_FLEXRAM) & kFLEXRAM_ITCMAccessError)
+    {
+        FLEXRAM_ClearInterruptStatus(APP_FLEXRAM, kFLEXRAM_ITCMAccessError);
     }
 
     __DSB();

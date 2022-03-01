@@ -24,7 +24,8 @@
 #define DEMO_FLEXIO_CLOCK_FREQUENCY CLOCK_GetFreq(kCLOCK_McgIrc48MClk)
 #define DEMO_FLEXIO_FREQUENCY       200000U
 #define FLEXIO_MAX_FREQUENCY (DEMO_FLEXIO_CLOCK_FREQUENCY / 2U)
-#define FLEXIO_MIN_FREQUENCY (DEMO_FLEXIO_CLOCK_FREQUENCY / 256U)
+#define FLEXIO_MIN_FREQUENCY (DEMO_FLEXIO_CLOCK_FREQUENCY / 512U)
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/

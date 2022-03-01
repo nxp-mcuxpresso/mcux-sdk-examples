@@ -60,13 +60,13 @@ set(CMAKE_MODULE_PATH
 include(all_devices)
 
 # include modules
-include(driver_clock)
-
-include(driver_power_s)
+include(middleware_freertos-kernel_secure_context)
 
 include(driver_common)
 
-include(middleware_freertos-kernel_secure_context)
+include(driver_power)
+
+include(driver_clock)
 
 include(device_CMSIS)
 
@@ -92,9 +92,9 @@ include(component_lists)
 
 include(component_serial_manager_uart)
 
-include(CMSIS_Include_core_cm)
-
 include(driver_reset)
+
+include(CMSIS_Include_core_cm)
 
 include(utilities_misc_utilities)
 
@@ -110,14 +110,6 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
 
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
-
-if(CMAKE_BUILD_TYPE STREQUAL debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../../core/devices/LPC55S69/gcc/libpower_hardabi_s.a)
-endif(CMAKE_BUILD_TYPE STREQUAL debug)
-
-if(CMAKE_BUILD_TYPE STREQUAL release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../../core/devices/LPC55S69/gcc/libpower_hardabi_s.a)
-endif(CMAKE_BUILD_TYPE STREQUAL release)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

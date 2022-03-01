@@ -17,7 +17,7 @@ The example transmits 20 number frames. For simple demo, we create frames with s
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================

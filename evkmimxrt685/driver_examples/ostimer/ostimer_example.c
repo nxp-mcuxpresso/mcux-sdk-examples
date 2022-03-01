@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 NXP
+ * Copyright 2018-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -30,7 +30,7 @@
     (((const uint32_t[]){APP_DEEPSLEEP_RUNCFG0,                                                                   \
                          (SYSCTL0_PDSLEEPCFG1_FLEXSPI_SRAM_APD_MASK | SYSCTL0_PDSLEEPCFG1_FLEXSPI_SRAM_PPD_MASK), \
                          APP_DEEPSLEEP_RAM_APD, APP_DEEPSLEEP_RAM_PPD}))
-#define EXAMPLE_OSTIMER_IRQn OS_EVENT_IRQn
+#define EXAMPLE_EnableDeepSleepIRQ() EnableDeepSleepIRQ(OS_EVENT_IRQn)
 /* Enter deep sleep mode. */
 void EXAMPLE_EnterDeepSleep(void);
 
@@ -49,8 +49,6 @@ volatile bool matchFlag = false;
  ******************************************************************************/
 void EXAMPLE_EnterDeepSleep(void)
 {
-    /* Enable deep sleep IRQ. */
-    EnableDeepSleepIRQ(EXAMPLE_OSTIMER_IRQn);
     /* Enter deep sleep mode by using power API. */
     POWER_EnterDeepSleep(EXAMPLE_EXCLUDE_FROM_DEEPSLEEP);
 }
@@ -85,6 +83,8 @@ int main(void)
 
     CLOCK_AttachClk(kLPOSC_to_OSTIMER_CLK);
 
+    PRINTF("Press any key to start example.\r\n\r\n");
+    GETCHAR();
     PRINTF("Board will enter power deep sleep mode, and then wakeup by OS timer after about 5 seconds.\r\n");
     PRINTF("After Board wakeup, the OS timer will trigger the match interrupt about every 2 seconds.\r\n");
 
@@ -97,6 +97,8 @@ int main(void)
     if (kStatus_Success ==
         EXAMPLE_SetMatchInterruptTime(EXAMPLE_OSTIMER, 5000U, EXAMPLE_OSTIMER_FREQ, EXAMPLE_OstimerCallback))
     {
+        /* Enable OSTIMER IRQ under deep sleep mode. */
+        EXAMPLE_EnableDeepSleepIRQ();
         /* Enter deep sleep mode. */
         EXAMPLE_EnterDeepSleep();
 

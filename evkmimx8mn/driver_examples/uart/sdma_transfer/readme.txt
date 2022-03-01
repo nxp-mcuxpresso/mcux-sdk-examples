@@ -23,7 +23,12 @@ Board settings
 ==============
 No special settings are required.
 
-
+#### Please note this application can't support booting by uboot! and accordingly it does not support Flash target! ####
+This example aims to show the basic usage of the IP's function, some of the used Resources are assigned to Cortex-A core by uboot.
+To run the example, boot the A core into U-Boot and run the following command in the U-Boot console before starting the example to re-assign the resource.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+u-boot=> mw.b 0x303d022c 1 1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Prepare the Demo
 ================

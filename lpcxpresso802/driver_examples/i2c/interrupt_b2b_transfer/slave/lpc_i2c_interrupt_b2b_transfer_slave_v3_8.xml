@@ -67,8 +67,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/lpcxpresso802/driver_examples/i2c/interrupt_b2b_transfer/slave" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso802/driver_examples/i2c/interrupt_b2b_transfer/slave" project_relative_path="lpcxpresso802/driver_examples/i2c/interrupt_b2b_transfer/slave" type="c_include"/>
-      <include_path path="boards/lpcxpresso802" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso802/driver_examples/i2c/interrupt_b2b_transfer/slave" project_relative_path="lpcxpresso802/driver_examples/i2c/interrupt_b2b_transfer/slave" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso802" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso802/driver_examples/i2c/interrupt_b2b_transfer/slave/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="lpc_i2c_interrupt_b2b_transfer_slave.ewd"/>

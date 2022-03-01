@@ -18,6 +18,9 @@ processor: MIMXRT1064xxxxA
 package_id: MIMXRT1064DVL6A
 mcu_data: ksdk2_0
 processor_version: 9.0.0
+board: MIMXRT1064-EVK
+pin_labels:
+- {pin_num: L11, pin_signal: GPIO_AD_B1_02, label: 'SPDIF_OUT/J22[7]', identifier: SPDIF_OUT;CSI_PWDN}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -200,7 +203,7 @@ BOARD_InitCSIPins:
     pull_keeper_select: Keeper, pull_keeper_enable: Enable, open_drain: Enable, speed: MHZ_100, drive_strength: R0_6, slew_rate: Slow}
   - {pin_num: K11, peripheral: LPI2C1, signal: SDA, pin_signal: GPIO_AD_B1_01, software_input_on: Enable, hysteresis_enable: Disable, pull_up_down_config: Pull_Up_22K_Ohm,
     pull_keeper_select: Keeper, pull_keeper_enable: Enable, open_drain: Enable, speed: MHZ_100, drive_strength: R0_6, slew_rate: Slow}
-  - {pin_num: F11, peripheral: GPIO1, signal: 'gpio_io, 04', pin_signal: GPIO_AD_B0_04}
+  - {pin_num: L11, peripheral: GPIO1, signal: 'gpio_io, 18', pin_signal: GPIO_AD_B1_02, identifier: CSI_PWDN}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -213,9 +216,9 @@ BOARD_InitCSIPins:
 void BOARD_InitCSIPins(void) {
   CLOCK_EnableClock(kCLOCK_Iomuxc);           
 
-  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_04_GPIO1_IO04, 0U); 
   IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B1_00_LPI2C1_SCL, 1U); 
   IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B1_01_LPI2C1_SDA, 1U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B1_02_GPIO1_IO18, 0U); 
   IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B1_04_CSI_PIXCLK, 0U); 
   IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B1_05_CSI_MCLK, 0U); 
   IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B1_06_CSI_VSYNC, 0U); 

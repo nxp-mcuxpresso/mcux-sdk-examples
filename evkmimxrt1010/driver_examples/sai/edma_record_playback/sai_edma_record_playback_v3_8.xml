@@ -101,8 +101,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/evkmimxrt1010/driver_examples/sai/edma_record_playback" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimxrt1010/driver_examples/sai/edma_record_playback" project_relative_path="evkmimxrt1010/driver_examples/sai/edma_record_playback" type="c_include"/>
-      <include_path path="boards/evkmimxrt1010" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt1010/driver_examples/sai/edma_record_playback" project_relative_path="evkmimxrt1010/driver_examples/sai/edma_record_playback" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt1010" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmimxrt1010/driver_examples/sai/edma_record_playback/armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
       <files mask="build_all.bat"/>

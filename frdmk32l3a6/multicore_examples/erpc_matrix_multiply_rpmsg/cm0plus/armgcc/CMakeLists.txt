@@ -70,6 +70,10 @@ include(middleware_multicore_mcmgr_k32l3a6)
 
 include(middleware_multicore_rpmsg_lite_k32l3a6_bm)
 
+include(middleware_multicore_rpmsg_lite_K32L3A60_cm0plus)
+
+include(middleware_multicore_rpmsg_lite_bm)
+
 include(utility_debug_console_lite)
 
 include(utility_assert_lite)
@@ -111,8 +115,6 @@ include(device_CMSIS)
 include(device_startup_K32L3A60_cm0plus)
 
 include(CMSIS_Include_core_cm)
-
-include(middleware_multicore_rpmsg_lite)
 
 include(middleware_multicore_erpc_common)
 

@@ -72,6 +72,12 @@
 #define DEMO_AUDIO_BIT_WIDTH          kSAI_WordWidth16bits
 #define DEMO_ASRC_INPUT_SAMPLES       (48000)
 #define DEMO_ASRC_CONVERT_BUFFER_SIZE (100 * 1000U)
+#ifndef DEMO_ASRC_INPUT_CLOCK_SOURCE
+#define DEMO_ASRC_INPUT_CLOCK_SOURCE kASRC_ClockSourceBitClock0_SAI1_TX
+#endif
+#ifndef DEMO_ASRC_OUTPUT_CLOCK_SOURCE
+#define DEMO_ASRC_OUTPUT_CLOCK_SOURCE kASRC_ClockSourceBitClock0_SAI1_TX
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -79,13 +85,13 @@
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-edma_handle_t saiDmaHandle                                  = {0};
-edma_handle_t asrcInDmaHandle                               = {0};
-edma_handle_t asrcOutDmaHandle                              = {0};
-AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t saiHandle)   = {0};
-AT_NONCACHEABLE_SECTION_INIT(asrc_edma_handle_t asrcHandle) = {0};
-static volatile bool isSAIFinished                          = false;
-static volatile bool isASRCFinished                         = false;
+edma_handle_t saiDmaHandle     = {0};
+edma_handle_t asrcInDmaHandle  = {0};
+edma_handle_t asrcOutDmaHandle = {0};
+AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t saiHandle);
+AT_QUICKACCESS_SECTION_DATA(asrc_edma_handle_t asrcHandle);
+static volatile bool isSAIFinished  = false;
+static volatile bool isASRCFinished = false;
 extern codec_config_t boardCodecConfig;
 #if (defined(FSL_FEATURE_SAI_HAS_MCR) && (FSL_FEATURE_SAI_HAS_MCR)) || \
     (defined(FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER) && (FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER))
@@ -102,9 +108,9 @@ codec_handle_t codecHandle;
 uint8_t asrcConvertBuffer[DEMO_ASRC_CONVERT_BUFFER_SIZE] = {0U};
 asrc_channel_pair_config_t s_asrcChannelPairConfig       = {
     .audioDataChannels         = kASRC_ChannelsNumber2,
-    .inClockSource             = kASRC_ClockSourceBitClock0,
+    .inClockSource             = DEMO_ASRC_INPUT_CLOCK_SOURCE,
     .inSourceClock_Hz          = DEMO_ASRC_OUTPUT_SOURCE_CLOCK_HZ,
-    .outClockSource            = kASRC_ClockSourceBitClock0,
+    .outClockSource            = DEMO_ASRC_OUTPUT_CLOCK_SOURCE,
     .outSourceClock_Hz         = DEMO_ASRC_OUTPUT_SOURCE_CLOCK_HZ,
     .sampleRateRatio           = kASRC_RatioUseInternalMeasured,
     .inDataWidth               = kASRC_DataWidth16Bit,

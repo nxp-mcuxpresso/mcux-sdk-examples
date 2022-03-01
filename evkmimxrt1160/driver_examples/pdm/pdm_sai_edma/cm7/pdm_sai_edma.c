@@ -68,8 +68,8 @@ static void saiCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t stat
 AT_NONCACHEABLE_SECTION_ALIGN(pdm_edma_handle_t s_pdmRxHandle, 4);
 AT_NONCACHEABLE_SECTION_ALIGN(edma_handle_t s_pdmDmaHandle, 4);
 AT_NONCACHEABLE_SECTION_ALIGN(edma_handle_t s_saiDmaHandle, 4);
-AT_NONCACHEABLE_SECTION_ALIGN(sai_edma_handle_t s_saiTxHandle, 4);
-AT_NONCACHEABLE_SECTION_ALIGN(edma_tcd_t s_edmaTcd[4], 32U);
+AT_QUICKACCESS_SECTION_DATA_ALIGN(sai_edma_handle_t s_saiTxHandle, 4);
+AT_QUICKACCESS_SECTION_DATA_ALIGN(edma_tcd_t s_edmaTcd[4], 32U);
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t s_buffer[BUFFER_SIZE * BUFFER_NUMBER], 4);
 static volatile uint32_t s_bufferValidBlock = BUFFER_NUMBER;
 static volatile uint32_t s_readIndex        = 0U;
@@ -81,8 +81,12 @@ static const pdm_config_t pdmConfig         = {
     .cicOverSampleRate = DEMO_PDM_CIC_OVERSAMPLE_RATE,
 };
 static const pdm_channel_config_t channelConfig = {
+#if (defined(FSL_FEATURE_PDM_HAS_DC_OUT_CTRL) && (FSL_FEATURE_PDM_HAS_DC_OUT_CTRL))
+    .outputCutOffFreq = kPDM_DcRemoverCutOff40Hz,
+#else
     .cutOffFreq = kPDM_DcRemoverCutOff152Hz,
-    .gain       = kPDM_DfOutputGain7,
+#endif
+    .gain = kPDM_DfOutputGain7,
 };
 
 codec_handle_t codecHandle;
@@ -213,13 +217,18 @@ int main(void)
 
     config.bitClock.bclkSource = DEMO_SAI_CLOCK_SOURCE;
     config.masterSlave         = DEMO_SAI_MASTER_SLAVE;
+#if defined BOARD_SAI_RXCONFIG
+    config.syncMode = DEMO_SAI_TX_SYNC_MODE;
+#endif
 
     SAI_TransferTxSetConfigEDMA(DEMO_SAI, &s_saiTxHandle, &config);
 
     /* set bit clock divider */
     SAI_TxSetBitClockRate(DEMO_SAI, DEMO_AUDIO_MASTER_CLOCK, DEMO_AUDIO_SAMPLE_RATE, DEMO_AUDIO_BIT_WIDTH,
                           DEMO_AUDIO_DATA_CHANNEL);
-
+#if defined BOARD_SAI_RXCONFIG
+    BOARD_SAI_RXCONFIG(&config, DEMO_SAI_RX_SYNC_MODE);
+#endif
     /* master clock configurations */
     BOARD_MasterClockConfig();
 

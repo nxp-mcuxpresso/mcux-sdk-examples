@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -59,7 +59,6 @@ void TPM_INPUT_CAPTURE_HANDLER(void)
 int main(void)
 {
     tpm_config_t tpmInfo;
-    uint32_t captureVal = 0;
 
     /* Board pin, clock, debug console init */
     BOARD_InitBootPins();
@@ -78,7 +77,7 @@ int main(void)
     TPM_SetupInputCapture(DEMO_TPM_BASEADDR, BOARD_TPM_INPUT_CAPTURE_CHANNEL, kTPM_FallingEdge);
 
     /* Set the timer to be in free-running mode */
-    DEMO_TPM_BASEADDR->MOD = 0xFFFF;
+    TPM_SetTimerPeriod(DEMO_TPM_BASEADDR, TPM_MAX_COUNTER_VALUE(DEMO_TPM_BASEADDR));
 
     /* Enable channel interrupt when the second edge is detected */
     TPM_EnableInterrupts(DEMO_TPM_BASEADDR, TPM_CHANNEL_INTERRUPT_ENABLE);
@@ -92,9 +91,7 @@ int main(void)
     {
     }
 
-    captureVal = DEMO_TPM_BASEADDR->CONTROLS[BOARD_TPM_INPUT_CAPTURE_CHANNEL].CnV;
-
-    PRINTF("\r\nCapture value C(n)V=%x\r\n", captureVal);
+    PRINTF("\r\nCapture value C(n)V=%x\r\n", TPM_GetChannelValue(DEMO_TPM_BASEADDR, BOARD_TPM_INPUT_CAPTURE_CHANNEL));
     while (1)
     {
     }

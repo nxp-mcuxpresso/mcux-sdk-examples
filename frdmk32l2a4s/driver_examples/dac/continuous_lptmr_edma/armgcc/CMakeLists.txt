@@ -62,7 +62,7 @@ include(driver_dac)
 
 include(driver_port)
 
-include(driver_edma)
+include(driver_edma_K32L2A41A)
 
 include(driver_dmamux)
 

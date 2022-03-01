@@ -102,7 +102,7 @@
 /* Optional functions - most linkers will remove unused functions anyway. */
 #define INCLUDE_vTaskPrioritySet                1
 #define INCLUDE_uxTaskPriorityGet               1
-#define INCLUDE_vTaskDelete                     0
+#define INCLUDE_vTaskDelete                     1
 #define INCLUDE_vTaskSuspend                    1
 #define INCLUDE_vTaskDelayUntil                 1
 #define INCLUDE_vTaskDelay                      1
@@ -120,6 +120,7 @@
 
 #if defined(__ICCARM__)||defined(__CC_ARM)||defined(__GNUC__)
     /* in Kinetis SDK, this contains the system core clock frequency */
+    #include <stdint.h>
     extern uint32_t SystemCoreClock;
 #endif
 

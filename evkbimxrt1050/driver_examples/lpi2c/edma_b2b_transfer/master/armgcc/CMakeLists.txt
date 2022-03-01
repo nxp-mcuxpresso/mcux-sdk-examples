@@ -65,7 +65,7 @@ include(driver_lpi2c)
 
 include(driver_lpi2c_edma)
 
-include(driver_edma)
+include(driver_edma_MIMXRT1052)
 
 include(driver_dmamux)
 

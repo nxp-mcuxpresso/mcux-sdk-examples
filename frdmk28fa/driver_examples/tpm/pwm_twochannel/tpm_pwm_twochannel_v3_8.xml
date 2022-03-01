@@ -69,8 +69,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmk28fa/driver_examples/tpm/pwm_twochannel" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmk28fa/driver_examples/tpm/pwm_twochannel" project_relative_path="frdmk28fa/driver_examples/tpm/pwm_twochannel" type="c_include"/>
-      <include_path path="boards/frdmk28fa" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmk28fa/driver_examples/tpm/pwm_twochannel" project_relative_path="frdmk28fa/driver_examples/tpm/pwm_twochannel" type="c_include"/>
+      <include_path path="core/boards/frdmk28fa" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmk28fa/driver_examples/tpm/pwm_twochannel/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="tpm_pwm_twochannel.ewd"/>

@@ -61,7 +61,7 @@ include(utility_debug_console_lite)
 
 include(utility_assert_lite)
 
-include(driver_edma)
+include(driver_edma_MIMXRT1062)
 
 include(driver_dmamux)
 

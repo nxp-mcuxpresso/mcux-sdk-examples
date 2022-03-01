@@ -90,9 +90,9 @@ include(driver_emc)
 
 include(utility_assert)
 
-include(CMSIS_Include_core_cm)
-
 include(driver_reset)
+
+include(CMSIS_Include_core_cm)
 
 include(middleware_freertos-kernel_LPC54S018)
 

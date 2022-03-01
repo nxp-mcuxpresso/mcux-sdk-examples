@@ -5,8 +5,8 @@ The powerquad driver API results are compared to the reference result.
 
 Toolchain supported
 ===================
-- MCUXpresso  11.3.0
-- GCC ARM Embedded  9.3.1
+- MCUXpresso  11.5.0
+- GCC ARM Embedded  10.2.1
 
 Hardware requirements
 =====================

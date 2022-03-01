@@ -75,8 +75,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmk66f/demo_apps/rtc_func" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmk66f/demo_apps/rtc_func" project_relative_path="frdmk66f/demo_apps/rtc_func" type="c_include"/>
-      <include_path path="boards/frdmk66f" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmk66f/demo_apps/rtc_func" project_relative_path="frdmk66f/demo_apps/rtc_func" type="c_include"/>
+      <include_path path="core/boards/frdmk66f" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmk66f/demo_apps/rtc_func/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="rtc_func.ewd"/>

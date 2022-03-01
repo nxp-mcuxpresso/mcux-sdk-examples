@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 NXP
+ * Copyright 2018-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -26,6 +26,8 @@
  ******************************************************************************/
 /* Enter deep sleep mode. */
 void EXAMPLE_EnterDeepSleep(void);
+/* Enable OSTIMER IRQ under deep mode */
+void EXAMPLE_EnableDeepSleepIRQ(void);
 
 /*******************************************************************************
  * Variables
@@ -36,6 +38,10 @@ volatile bool matchFlag = false;
 /*******************************************************************************
  * Code
  ******************************************************************************/
+void EXAMPLE_EnableDeepSleepIRQ(void)
+{
+    PMC->OSTIMERr |= PMC_OSTIMER_DPDWAKEUPENABLE_MASK;
+}
 void EXAMPLE_EnterDeepSleep(void)
 {
     /* Enter deep sleep mode by using power API. */
@@ -80,6 +86,8 @@ int main(void)
     POWER_DisablePD(kPDRUNCFG_PD_XTAL32K);
     PMC->RTCOSC32K |= PMC_RTCOSC32K_SEL_MASK;
 
+    PRINTF("Press any key to start example.\r\n\r\n");
+    GETCHAR();
     PRINTF("Board will enter power deep sleep mode, and then wakeup by OS timer after about 5 seconds.\r\n");
     PRINTF("After Board wakeup, the OS timer will trigger the match interrupt about every 2 seconds.\r\n");
 
@@ -92,6 +100,8 @@ int main(void)
     if (kStatus_Success ==
         EXAMPLE_SetMatchInterruptTime(EXAMPLE_OSTIMER, 5000U, EXAMPLE_OSTIMER_FREQ, EXAMPLE_OstimerCallback))
     {
+        /* Enable OSTIMER IRQ under deep sleep mode. */
+        EXAMPLE_EnableDeepSleepIRQ();
         /* Enter deep sleep mode. */
         EXAMPLE_EnterDeepSleep();
 

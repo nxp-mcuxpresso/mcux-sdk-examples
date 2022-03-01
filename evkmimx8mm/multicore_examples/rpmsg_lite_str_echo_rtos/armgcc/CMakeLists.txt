@@ -63,6 +63,10 @@ include(all_devices)
 # include modules
 include(middleware_multicore_rpmsg_lite_imx8mm_m4_freertos)
 
+include(middleware_multicore_rpmsg_lite_MIMX8MM6)
+
+include(middleware_multicore_rpmsg_lite_freertos)
+
 include(middleware_freertos-kernel_heap_4)
 
 include(driver_clock)
@@ -92,8 +96,6 @@ include(driver_iuart)
 include(device_startup)
 
 include(utility_assert)
-
-include(middleware_multicore_rpmsg_lite)
 
 include(middleware_freertos-kernel_extension)
 

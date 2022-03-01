@@ -1,0 +1,22 @@
+{
+    "family": "rt5xx",
+    "inputImageFile": "./workspace/input_images/sdk20-app.bin",
+	"multicoreImages": [
+        {"address": "0x180400", "file": "./workspace/input_images/dsp_text_release.bin"},
+        {"address": "0x180000", "file": "./workspace/input_images/dsp_reset_release.bin"},
+        {"address": "0x080000", "file": "./workspace/input_images/dsp_data_release.bin"}
+	],
+    "imageLinkAddress": "0x08001000",
+    "outputImageExecutionTarget": "External flash (XIP)",
+    "outputImageAuthenticationType": "CRC",
+    "enableTrustZone": false,
+	"deviceKeySource": "",
+	"outputImageEncryptionKeyFile": "",
+    "trustZonePresetFile": "",
+    "rootCertificate0File": "",
+    "rootCertificate1File": "",
+    "rootCertificate2File": "",
+    "rootCertificate3File": "",
+    "mainCertPrivateKeyFile": "",
+    "masterBootOutputFile": "./workspace/output_images/mpi_loader_dsp_hello_world.bin"
+}

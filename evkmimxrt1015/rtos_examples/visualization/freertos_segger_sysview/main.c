@@ -102,13 +102,13 @@ int main(void)
 
     SEGGER_SYSVIEW_Conf();
 
-    if (xTaskCreate(first_task, "first_task", configMINIMAL_STACK_SIZE, NULL, FIRST_TASK_PRIORITY, NULL) != pdPASS)
+    if (xTaskCreate(first_task, "first_task", configMINIMAL_STACK_SIZE + 100, NULL, FIRST_TASK_PRIORITY, NULL) !=
+        pdPASS)
     {
         PRINTF("Task creation failed!.\r\n");
         while (1)
             ;
     }
-
     vTaskStartScheduler();
     while (1)
         ;
@@ -119,7 +119,8 @@ int main(void)
  */
 static void first_task(void *pvParameters)
 {
-    if (xTaskCreate(second_task, "second_task", configMINIMAL_STACK_SIZE, NULL, SECOND_TASK_PRIORITY, NULL) != pdPASS)
+    if (xTaskCreate(second_task, "second_task", configMINIMAL_STACK_SIZE + 100, NULL, SECOND_TASK_PRIORITY, NULL) !=
+        pdPASS)
     {
         PRINTF("Task creation failed!.\r\n");
         vTaskSuspend(NULL);

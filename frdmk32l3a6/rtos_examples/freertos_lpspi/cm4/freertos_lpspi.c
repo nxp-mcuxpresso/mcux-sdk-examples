@@ -40,8 +40,15 @@
 #define EXAMPLE_LPSPI_SLAVE_CLOCK_SOURCE     (kCLOCK_IpSrcFircAsync)
 #define EXAMPLE_LPSPI_SLAVE_PCS_FOR_INIT     (kLPSPI_Pcs1)
 #define EXAMPLE_LPSPI_SLAVE_PCS_FOR_TRANSFER (kLPSPI_SlavePcs1)
+
+/* @TEST_ANCHOR */
+
+#ifndef SINGLE_BOARD
 #define SINGLE_BOARD   0
+#endif
+#ifndef BOARD_TO_BOARD
 #define BOARD_TO_BOARD 1
+#endif
 
 #ifndef EXAMPLE_CONNECT_SPI
 #define EXAMPLE_CONNECT_SPI SINGLE_BOARD /* Default runs on single board. */

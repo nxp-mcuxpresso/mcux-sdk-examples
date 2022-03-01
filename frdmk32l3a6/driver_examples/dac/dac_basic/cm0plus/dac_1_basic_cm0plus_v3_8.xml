@@ -81,8 +81,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/frdmk32l3a6/driver_examples/dac/dac_basic/cm0plus" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmk32l3a6/driver_examples/dac/dac_basic/cm0plus" project_relative_path="frdmk32l3a6/driver_examples/dac/dac_basic/cm0plus" type="c_include"/>
-      <include_path path="boards/frdmk32l3a6" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmk32l3a6/driver_examples/dac/dac_basic/cm0plus" project_relative_path="frdmk32l3a6/driver_examples/dac/dac_basic/cm0plus" type="c_include"/>
+      <include_path path="core/boards/frdmk32l3a6" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmk32l3a6/driver_examples/dac/dac_basic/cm0plus/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="dac_1_basic_cm0plus.ewd"/>

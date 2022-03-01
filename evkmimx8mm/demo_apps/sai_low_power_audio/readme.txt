@@ -26,6 +26,7 @@ No special settings are required.
 
 #### Note! ####
 1.  This case does not support ddr and flash target. 
+2.  This case runs together with Linux and the Linux release version should be not lower than 5.10.72-2.2.0.
 
 Prepare the Demo
 ================
@@ -49,7 +50,11 @@ NOTE
 3.  Since the  DSD files are typically large, users could create a new large size patition in the SD card to place the music files.
 4.  After M core running, please boot the linux kernel to create the rpmsg channel between A core and M core.
     Make sure the FDT file is correctly set before booting the linux kernel. The following command can be used to set FDT file in uboot console:
-    u-boot=>setenv fdtfile imx8mm-evk-rpmsg.dtb
+    When ak4497 codec is used,
+	u-boot=>setenv fdtfile imx8mm-evk-rpmsg.dtb 
+    u-boot=>saveenv
+	When wm8524 codec is used,
+	u-boot=>setenv fdtfile imx8mm-evk-rpmsg-wm8524.dtb 
     u-boot=>saveenv
 5.  Please make sure here exists xxx.wav file in the SD card.
     If the music file is placed at the Windows FAT32 paritions, after the linux kernel boot up and logged as root,
@@ -73,7 +78,7 @@ E.g: Type command:
      3 [ak4497audio    ]: ak4497-audio - ak4497-audio
                           ak4497-audio
 Then the ak4497 sound number is 3.
-2. If use the WM8524 codec, still use the ak4497 sound card number.
+2. If use the WM8524 codec, use the wm8524 sound card number.
 
 When playback the .wav file:
 1.  If want to playabck with pause/resume command, could use command: 

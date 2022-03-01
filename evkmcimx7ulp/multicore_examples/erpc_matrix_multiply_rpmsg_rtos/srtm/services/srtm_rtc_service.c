@@ -74,6 +74,7 @@ static srtm_status_t SRTM_RtcService_Request(srtm_service_t service, srtm_reques
     srtm_channel_t channel;
     uint8_t command;
     uint32_t payloadLen;
+    uint32_t seconds;
     srtm_response_t response;
     struct _srtm_rtc_payload *rtcReq;
     struct _srtm_rtc_payload *rtcResp;
@@ -88,8 +89,8 @@ static srtm_status_t SRTM_RtcService_Request(srtm_service_t service, srtm_reques
     rtcReq     = (struct _srtm_rtc_payload *)SRTM_CommMessage_GetPayload(request);
     payloadLen = SRTM_CommMessage_GetPayloadLen(request);
 
-    response =
-        SRTM_Response_Create(channel, SRTM_RTC_CATEGORY, SRTM_RTC_VERSION, command, sizeof(struct _srtm_rtc_payload));
+    response = SRTM_Response_Create(channel, SRTM_RTC_CATEGORY, SRTM_RTC_VERSION, command,
+                                    (uint16_t)sizeof(struct _srtm_rtc_payload));
     if (!response)
     {
         return SRTM_Status_OutOfMemory;
@@ -120,7 +121,8 @@ static srtm_status_t SRTM_RtcService_Request(srtm_service_t service, srtm_reques
                 break;
             case SRTM_RTC_CMD_GET_TIME:
                 assert(adapter->getTime);
-                status = adapter->getTime(adapter, (uint32_t *)&rtcResp->alarm.seconds);
+                status                 = adapter->getTime(adapter, &seconds);
+                rtcResp->alarm.seconds = seconds;
                 rtcResp->retCode =
                     status == SRTM_Status_Success ? SRTM_RTC_RETURN_CODE_SUCEESS : SRTM_RTC_RETURN_CODE_FAIL;
                 break;

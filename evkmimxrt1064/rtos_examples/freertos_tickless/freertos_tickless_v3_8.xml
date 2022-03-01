@@ -99,8 +99,8 @@
       <include_path path="examples/evkmimxrt1064/rtos_examples/freertos_tickless/low_power_tickless" project_relative_path="source/low_power_tickless" type="c_include"/>
       <include_path path="examples/evkmimxrt1064/rtos_examples/freertos_tickless" project_relative_path="board" type="c_include"/>
       <include_path path="examples/evkmimxrt1064/rtos_examples/freertos_tickless" project_relative_path="source" type="c_include"/>
-      <include_path path="boards/evkmimxrt1064/rtos_examples/freertos_tickless" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/evkmimxrt1064" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmimxrt1064/rtos_examples/freertos_tickless" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/evkmimxrt1064" project_relative_path="board" type="c_include"/>
       <include_path path="examples/evkmimxrt1064/rtos_examples/freertos_tickless" project_relative_path="source" type="asm_include"/>
     </include_paths>
     <source path="examples/evkmimxrt1064/rtos_examples/freertos_tickless/iar" project_relative_path="./" type="workspace" toolchain="iar">

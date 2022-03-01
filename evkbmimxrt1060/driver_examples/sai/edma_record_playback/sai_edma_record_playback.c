@@ -24,8 +24,12 @@
  * Definitions
  ******************************************************************************/
 /* SAI instance and clock */
+#ifndef DEMO_CODEC_WM8960
 #define DEMO_CODEC_WM8960  1
+#endif
+#ifndef DEMO_CODEC_CS42448
 #define DEMO_CODEC_CS42448 0
+#endif
 #if DEMO_CODEC_WM8960 && DEMO_CODEC_CS42448
 #error "Duplicate codec defined"
 #endif
@@ -149,8 +153,8 @@ const clock_audio_pll_config_t audioPllConfig = {
     .denominator = 100, /* 30 bit denominator of fractional loop divider */
 };
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t Buffer[BUFFER_NUMBER * BUFFER_SIZE], 4);
-AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle);
-AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t rxHandle);
+AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t txHandle);
+AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t rxHandle);
 static uint32_t tx_index = 0U, rx_index = 0U;
 volatile uint32_t emptyBlock = BUFFER_NUMBER;
 edma_handle_t dmaTxHandle = {0}, dmaRxHandle = {0};

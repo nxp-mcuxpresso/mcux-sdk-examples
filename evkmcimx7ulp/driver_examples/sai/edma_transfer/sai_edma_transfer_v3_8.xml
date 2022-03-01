@@ -74,8 +74,8 @@
     <include_paths>
       <include_path path="examples/evkmcimx7ulp/driver_examples/sai/edma_transfer" project_relative_path="board" type="c_include"/>
       <include_path path="examples/evkmcimx7ulp/driver_examples/sai/edma_transfer" project_relative_path="source" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp/driver_examples/sai/edma_transfer" project_relative_path="evkmcimx7ulp/driver_examples/sai/edma_transfer" type="c_include"/>
-      <include_path path="boards/evkmcimx7ulp" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/evkmcimx7ulp/driver_examples/sai/edma_transfer" project_relative_path="evkmcimx7ulp/driver_examples/sai/edma_transfer" type="c_include"/>
+      <include_path path="core/boards/evkmcimx7ulp" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/evkmcimx7ulp/driver_examples/sai/edma_transfer/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="sai_edma_transfer.ewd"/>

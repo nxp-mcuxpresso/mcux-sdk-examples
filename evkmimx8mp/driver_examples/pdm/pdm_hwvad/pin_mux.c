@@ -41,7 +41,7 @@ void BOARD_InitBootPins(void)
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitPins:
-- options: {callFromInitBoot: 'true', coreID: m7}
+- options: {callFromInitBoot: 'true', coreID: cm7}
 - pin_list:
   - {pin_num: AD14, peripheral: PDM, signal: pdm_clk, pin_signal: SAI5_RXC, HYS: Schmitt, PUE: Weak_Pull_Up, FSEL: Fast, DSE: X6}
   - {pin_num: AE16, peripheral: PDM, signal: 'pdm_bit_stream, 0', pin_signal: SAI5_RXD0, HYS: Schmitt, PUE: Weak_Pull_Up, FSEL: Fast, DSE: X6}

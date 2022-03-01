@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_FRDM-K32L2B" name="FRDM-K32L2B" brief="This is SDK version 2.10.0 manifest file. It describes the content of the FRDM-K32L2B and additional settings for tools that support SDK version 2.10.0" format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
-  <!--Timestamp (UTC): 2021-07-22 12:49:41.714350-->
-  <!--This manifest is generated based on sdk repo commit: a40647dd23698fa812ab2e267466ae159e1a5d45-->
+  <!--Timestamp (UTC): 2022-01-26 08:51:30.459779-->
+  <!--This manifest is generated based on sdk repo commit: 04124c9a3d8bee40269a5fff2c12f59654c36812-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
@@ -134,6 +134,71 @@ ${load}</script>
             <files mask="cmp_polling_v3_8.xml"/>
           </external>
         </example>
+        <example id="frdmk32l2b_cmsis_i2c_dma_b2b_transfer_master" name="cmsis_i2c_dma_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_i2c_dma_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with DMA:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/frdmk32l2b/cmsis_driver_examples/i2c/dma_b2b_transfer/master">
+          <external path="examples/frdmk32l2b/cmsis_driver_examples/i2c/dma_b2b_transfer/master" type="xml">
+            <files mask="cmsis_i2c_dma_b2b_transfer_master_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_cmsis_i2c_dma_b2b_transfer_slave" name="cmsis_i2c_dma_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_i2c_dma_b2b_transfer_slave example shows how to use i2c driver as slave to do board to board transfer with a DMA master:In this example, one i2c instance as slave and another i2c instance on the other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/frdmk32l2b/cmsis_driver_examples/i2c/dma_b2b_transfer/slave">
+          <external path="examples/frdmk32l2b/cmsis_driver_examples/i2c/dma_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_i2c_dma_b2b_transfer_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_cmsis_i2c_int_b2b_transfer_master" name="cmsis_i2c_int_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The i2c_interrupt_b2b_transfer_master example shows how to use CMSIS i2c driver as master to do board to board transfer with interrupt:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/frdmk32l2b/cmsis_driver_examples/i2c/int_b2b_transfer/master">
+          <external path="examples/frdmk32l2b/cmsis_driver_examples/i2c/int_b2b_transfer/master" type="xml">
+            <files mask="cmsis_i2c_int_b2b_transfer_master_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_cmsis_i2c_int_b2b_transfer_slave" name="cmsis_i2c_int_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The i2c_interrupt_b2b_transfer_master example shows how to use CMSIS i2c driver as master to do board to board transfer with interrupt:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/frdmk32l2b/cmsis_driver_examples/i2c/int_b2b_transfer/slave">
+          <external path="examples/frdmk32l2b/cmsis_driver_examples/i2c/int_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_i2c_int_b2b_transfer_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_cmsis_i2c_read_accel_value_transfer" name="cmsis_i2c_read_accel_value_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_i2c_read_accel_value example shows how to use CMSIS I2C driver to communicate with an i2c device: 1. How to use the i2c driver to read a i2c device who_am_I register. 2. How to use the i2c driver to write/read the device registers.In this example, the values of three-axis accelerometer print to the serial terminal on PC throughthe virtual serial port on board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/frdmk32l2b/cmsis_driver_examples/i2c/read_accel_value_transfer">
+          <external path="examples/frdmk32l2b/cmsis_driver_examples/i2c/read_accel_value_transfer" type="xml">
+            <files mask="cmsis_i2c_read_accel_value_transfer_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_cmsis_lpuart_dma_transfer" name="cmsis_lpuart_dma_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_uart_edma_transfer example shows how to use uart cmsis  driver with EDMA:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/lpuart" path="examples/frdmk32l2b/cmsis_driver_examples/lpuart/dma_transfer">
+          <external path="examples/frdmk32l2b/cmsis_driver_examples/lpuart/dma_transfer" type="xml">
+            <files mask="cmsis_lpuart_dma_transfer_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_cmsis_lpuart_interrupt_transfer" name="cmsis_lpuart_interrupt_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_uart_interrupt_transfer example shows how to use uart cmsis driver in interrupt way:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/lpuart" path="examples/frdmk32l2b/cmsis_driver_examples/lpuart/interrupt_transfer">
+          <external path="examples/frdmk32l2b/cmsis_driver_examples/lpuart/interrupt_transfer" type="xml">
+            <files mask="cmsis_lpuart_interrupt_transfer_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_cmsis_spi_dma_b2b_transfer_master" name="cmsis_spi_dma_b2b_transfer_master" brief="The spi_dma_b2b_transfer example shows how to use SPI CMSIS driver in dma way:In this example , we need two boards, one board used as SPI master and another board used as SPI slave.The file 'spi_dma_b2b_transfer_master.c' includes the SPI master code.1. SPI master send/received data to/from SPI slave in dma . " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/frdmk32l2b/cmsis_driver_examples/spi/dma_b2b_transfer/master">
+          <external path="examples/frdmk32l2b/cmsis_driver_examples/spi/dma_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_dma_b2b_transfer_master_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_cmsis_spi_dma_b2b_transfer_slave" name="cmsis_spi_dma_b2b_transfer_slave" brief="The spi_dma_b2b_transfer example shows how to use SPI CMSIS driver in dma way:In this example , we need two boards, one board used as SPI master and another board used as SPI slave.The file 'spi_dma_b2b_transfer_slave.c' includes the SPI slave code.1. SPI master send/received data to/from SPI slave in dma . " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/frdmk32l2b/cmsis_driver_examples/spi/dma_b2b_transfer/slave">
+          <external path="examples/frdmk32l2b/cmsis_driver_examples/spi/dma_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_dma_b2b_transfer_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_cmsis_spi_interrupt_b2b_transfer_master" name="cmsis_spi_interrupt_b2b_transfer_master" brief="The spi_interrupt_b2b_transfer example shows how to use spi CMSIS driver in interrupt way:In this example , we need two boards, one board used as spi master and another board used as spi slave.The file 'spi_interrupt_b2b_transfer_master.c' includes the spi master code.This example uses the transactional API in spi driver.1. spi master send/received data to/from spi slave in interrupt . " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/frdmk32l2b/cmsis_driver_examples/spi/interrupt_b2b_transfer/master">
+          <external path="examples/frdmk32l2b/cmsis_driver_examples/spi/interrupt_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_interrupt_b2b_transfer_master_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_cmsis_spi_interrupt_b2b_transfer_slave" name="cmsis_spi_interrupt_b2b_transfer_slave" brief="The spi_interrupt_b2b_transfer example shows how to use SPI CMSIS driver in interrupt way:In this example , we need two boards, one board used as SPI master and another board used as SPI slave.The file 'spi_interrupt_b2b_transfer_slave.c' includes the SPI slave code.This example uses the transactional API in SPI driver.1. SPI master send/received data to/from SPI slave in interrupt . " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/frdmk32l2b/cmsis_driver_examples/spi/interrupt_b2b_transfer/slave">
+          <external path="examples/frdmk32l2b/cmsis_driver_examples/spi/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_interrupt_b2b_transfer_slave_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_cmsis_uart_dma_transfer" name="cmsis_uart_dma_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_uart_edma_transfer example shows how to use uart cmsis  driver with EDMA:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/uart" path="examples/frdmk32l2b/cmsis_driver_examples/uart/dma_transfer">
+          <external path="examples/frdmk32l2b/cmsis_driver_examples/uart/dma_transfer" type="xml">
+            <files mask="cmsis_uart_dma_transfer_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_cmsis_uart_interrupt_transfer" name="cmsis_uart_interrupt_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_uart_interrupt_transfer example shows how to use uart cmsis driver in interrupt way:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/uart" path="examples/frdmk32l2b/cmsis_driver_examples/uart/interrupt_transfer">
+          <external path="examples/frdmk32l2b/cmsis_driver_examples/uart/interrupt_transfer" type="xml">
+            <files mask="cmsis_uart_interrupt_transfer_v3_8.xml"/>
+          </external>
+        </example>
         <example id="frdmk32l2b_cop" name="cop" brief="The COP Example project is to demonstrate usage of the KSDK cop driver.In this example, after 10 times of refreshing, a timeout reset is generated.Please notice that because COP control registers are write-once only, so the COP_Init function and the COP_Disable function can be called only once after reset.In SystemInit() function which is called in startup code, there is an operation to disable the watchdog if macro DISABLE_WDOG is defined as 0, and by default if the DISABLE_WDOG is not defined, the DISABLE_WDOG is defined as 1. So this example has a special project setting that defines the DISABLE_WDOG macro to 0 so the startup code will skip the disable COP WDOG operation." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/cop" path="examples/frdmk32l2b/driver_examples/cop">
           <external path="examples/frdmk32l2b/driver_examples/cop" type="xml">
             <files mask="cop_v3_8.xml"/>
@@ -177,6 +242,36 @@ ${load}</script>
         <example id="frdmk32l2b_dma_wrap_transfer" name="dma_wrap_transfer" brief="The DMA wrap transfer example is a simple demonstration program that uses the SDK software.It executes wrap transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA and to provide a simple example for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/frdmk32l2b/driver_examples/dma/wrap_transfer">
           <external path="examples/frdmk32l2b/driver_examples/dma/wrap_transfer" type="xml">
             <files mask="dma_wrap_transfer_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_erpc_client_matrix_multiply_spi" name="erpc_client_matrix_multiply_spi" brief="This example demonstrates usage of eRPC between two boards using SPI transport layer. One board acts like a server and the second as client. When client starts, it generates two randommatrixes and sends them to server. Server then performs matrix multiplication and sendsresult data back to client. Client then prints the result matrix.eRPC documentation eRPC specific files are stored in: middleware/multicore/erpc eRPC documentation is stored in: middleware/multicore/erpc/doc eRPC is open-source project stored on github: https://github.com/EmbeddedRPC/erpc eRPC documentation can be also found in: http://embeddedrpc.github.io" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="multiprocessor_examples" path="examples/frdmk32l2b/multiprocessor_examples/erpc_client_matrix_multiply_spi">
+          <external path="examples/frdmk32l2b/multiprocessor_examples/erpc_client_matrix_multiply_spi" type="xml">
+            <files mask="erpc_client_matrix_multiply_spi_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_erpc_client_matrix_multiply_uart" name="erpc_client_matrix_multiply_uart" brief="This example demonstrates usage of eRPC between PC and board using UART transport layer.Board acts like a client and the PC as server. When client starts, it generates two randommatrixes and sends them to server. Server then performs matrix multiplication and sendsresult data back to client. Result matrix is then printed on the PC side.eRPC documentation eRPC specific files are stored in: middleware/multicore/erpc eRPC documentation is stored in: middleware/multicore/erpc/doc eRPC is open-source project stored on github: https://github.com/EmbeddedRPC/erpc eRPC documentation can be also found in: http://embeddedrpc.github.io PC Side Setup (Python)1. Make sure you have Python installed on your PC2. Install serial module by executing following command in command line: &quot;python -m pip install pyserial&quot;3. Install eRPC module to Python by executing setup.py located in: middleware\multicore\erpc\erpc_python - &quot;python setup.py install&quot;Usage of run_uart.pyusage: run_uart.py [-h] [-c] [-s] [-p PORT] [-b BD]eRPC Matrix Multiply exampleoptional arguments:  -h, --help            show this help message an  -c, --client          Run client  -s, --server          Run server  -p PORT, --port PORT  Serial port  -b BD, --bd BD        Baud rate (default value is 115200)Either server or client has to be selected to runExample:To run PC side as a server with a board connected as a client to COM3 execute:&quot;run_uart.py --server --port COM3&quot;" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="multiprocessor_examples" path="examples/frdmk32l2b/multiprocessor_examples/erpc_client_matrix_multiply_uart">
+          <external path="examples/frdmk32l2b/multiprocessor_examples/erpc_client_matrix_multiply_uart" type="xml">
+            <files mask="erpc_client_matrix_multiply_uart_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_erpc_remote_control" name="erpc_remote_control" brief="This example demonstrates usage of eRPC between PC and board using UART transport layer.Both board and the PC acts like server and client thanks to eRPC arbitrator.When both servers starts, they waits for data being send from client over UART. A. Server on the board performs action (DAC/ADC conversion, turn on selected LEDs, read data from magnetometer and accelerometer sensor) and sends result data back to client (or lights LED).B. Server on the PC displays which SW button was pressed on the board.eRPC documentation eRPC specific files are stored in: middleware/multicore/erpc eRPC documentation is stored in: middleware/multicore/erpc/doc eRPC is open-source project stored on github: https://github.com/EmbeddedRPC/erpc eRPC documentation can be also found in: http://embeddedrpc.github.io" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="multiprocessor_examples" path="examples/frdmk32l2b/multiprocessor_examples/erpc_remote_control">
+          <external path="examples/frdmk32l2b/multiprocessor_examples/erpc_remote_control" type="xml">
+            <files mask="erpc_remote_control_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_erpc_server_dac_adc" name="erpc_server_dac_adc" brief="This example demonstrates usage of eRPC between PC and board using UART transport layer.Board acts like a server and the PC as client. When server starts, it waits fordata being send from client over UART. Server then performs action (DAC/ADC conversion, light LEDs,read data from magnetometer senzor) and sends result data back to client (or lights LED).eRPC documentation eRPC specific files are stored in: middleware//multicore//erpc eRPC documentation is stored in: middleware//multicore//erpc//doc eRPC is open-source project stored on github: https://github.com/EmbeddedRPC/erpc eRPC documentation can be also found in: http://embeddedrpc.github.ioRunning with i.MX7D Sabre SD board- First, download L4.1.15_2.0.0_iMX6UL7D board support package from nxp.com- Then uncompress it and locate file fsl-image-validation-imx-imx7dsabresd.sdcard- Insert an SD card and run: sudo dd if=fsl-image-validation-imx-imx7dsabresd.sdcardof=/dev/mmcblk0 bs=1M - Flush disk IO operations, run command: sync- Download enum34, erpc and pyserial packages from pypi, uncompress them and copy to/home/root, respective links are:/t/t- enum34: https://pypi.python.org/packages/bf/3e/31d502c25302814a7c2f1d3959d2a3b3f78e509002ba91aea64993936876/enum34-1.1.6.tar.gz#md5=5f13a0841a61f7fc295c514490d120d0/t/t- erpc: https://pypi.python.org/packages/fd/0d/64425e9d5258fa5ea9cef7de879e3ae8be6c0d50a7e215ba791d0a32d77e/erpc--1.4.0.tar.gz#md5=1387082dab3af4067fdfe01c98b09dee/t/t- pyserial: https://pypi.python.org/packages/df/c9/d9da7fafaf2a2b323d20eee050503ab08237c16b0119c7bbf1597d53f793/pyserial-2.7.tar.gz#md5=794506184df83ef2290de0d18803dd11- Insert SD card in the board, connect to USB debug console- Once you boot and login (user root), enter enum34, erpc and pyserial directoriesand run in each of them: python setup.py install- now you can use: python run.py -p &lt;PORT&gt; -b &lt;BAUDRATE&gt;, to run the example" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="multiprocessor_examples" path="examples/frdmk32l2b/multiprocessor_examples/erpc_server_dac_adc">
+          <external path="examples/frdmk32l2b/multiprocessor_examples/erpc_server_dac_adc" type="xml">
+            <files mask="erpc_server_dac_adc_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_erpc_server_matrix_multiply_spi" name="erpc_server_matrix_multiply_spi" brief="This example demonstrates usage of eRPC between two boards using SPI transport layer. One board acts like a server and the second as client. When client starts, it generates two randommatrixes and sends them to server. Server then performs matrix multiplication and sendsresult data back to client. Client then prints the result matrix.eRPC documentation eRPC specific files are stored in: middleware/multicore/erpc eRPC documentation is stored in: middleware/multicore/erpc/doc eRPC is open-source project stored on github: https://github.com/EmbeddedRPC/erpc eRPC documentation can be also found in: http://embeddedrpc.github.io" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="multiprocessor_examples" path="examples/frdmk32l2b/multiprocessor_examples/erpc_server_matrix_multiply_spi">
+          <external path="examples/frdmk32l2b/multiprocessor_examples/erpc_server_matrix_multiply_spi" type="xml">
+            <files mask="erpc_server_matrix_multiply_spi_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_erpc_server_matrix_multiply_uart" name="erpc_server_matrix_multiply_uart" brief="This example demonstrates usage of eRPC between PC and board using UART transport layer.Board acts like a server and the PC as client. When client starts, it generates two randommatrixes and sends them to server. Server then performs matrix multiplication and sendsresult data back to client. Result matrix is then printed on the PC side.eRPC documentation eRPC specific files are stored in: middleware/multicore/erpc eRPC documentation is stored in: middleware/multicore/erpc/doc eRPC is open-source project stored on github: https://github.com/EmbeddedRPC/erpc eRPC documentation can be also found in: http://embeddedrpc.github.io PC Side Setup (Python)1. Make sure you have Python installed on your PC2. Install eRPC module to Python by executing setup.py located in: middleware/multicore/erpc/erpc_python3. Install serial module by executing following command in command line: &quot;python -m pip install pyserial&quot;Usage of run_uart.pyusage: run_uart.py [-h] [-c] [-s] [-p PORT] [-b BD]eRPC Matrix Multiply exampleoptional arguments:  -h, --help            show this help message an  -c, --client          Run client  -s, --server          Run server  -p PORT, --port PORT  Serial port  -b BD, --bd BD        Baud rate (default value is 115200)Either server or client has to be selected to runExample:To run PC side as a client with a board connected as a server to COM3 execute:&quot;run_uart.py --client --port COM3&quot;" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="multiprocessor_examples" path="examples/frdmk32l2b/multiprocessor_examples/erpc_server_matrix_multiply_uart">
+          <external path="examples/frdmk32l2b/multiprocessor_examples/erpc_server_matrix_multiply_uart" type="xml">
+            <files mask="erpc_server_matrix_multiply_uart_v3_8.xml"/>
           </external>
         </example>
         <example id="frdmk32l2b_flexio_i2c_interrupt_i2c_transfer" name="flexio_i2c_interrupt_i2c_transfer" brief="The flexio_i2c_interrupt example shows how to use flexio i2c master driver in interrupt way:In this example, a flexio simulated i2c master connect to an I2C slave." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/flexio" path="examples/frdmk32l2b/driver_examples/flexio/i2c/interrupt_i2c_transfer">
@@ -357,6 +452,26 @@ ${load}</script>
         <example id="frdmk32l2b_led_blinky" name="led_blinky" brief="The LED Blinky demo application provides a sanity check for the new SDK build environments and board bring up. The LED Blinky demo uses the systick interrupt to realize the function of timing delay. The example takes turns to shine the LED. The purpose of this demo is to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmk32l2b/demo_apps/led_blinky">
           <external path="examples/frdmk32l2b/demo_apps/led_blinky" type="xml">
             <files mask="led_blinky_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_led_control_bm" name="led_control_bm" brief="The LED demo is used to demonstrate how to use new components. The main function of the demo is to control the led by using the shell or button. For shell, please enter \&quot;help\&quot; to get the help information firstly. Turn on LED by using command \&quot;led on\&quot;. And turn off LED by using command \&quot;led off\&quot;. For button, please press the corresponding button to control LED. Turn on LED when the button is pressed with long press or double click event. And turn off LED when the button is pressed with short press or one click event." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="examples/frdmk32l2b/component_examples/led_control/bm">
+          <external path="examples/frdmk32l2b/component_examples/led_control/bm" type="xml">
+            <files mask="led_control_bm_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_led_control_freertos" name="led_control_freertos" brief="The LED demo is used to demonstrate how to use new components. The main function of the demo is to control the led by using the shell or button. For shell, please enter \&quot;help\&quot; to get the help information firstly. Turn on LED by using command \&quot;led on\&quot;. And turn off LED by using command \&quot;led off\&quot;. For button, please press the corresponding button to control LED. Turn on LED when the button is pressed with long press or double click event. And turn off LED when the button is pressed with short press or one click event." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="examples/frdmk32l2b/component_examples/led_control/freertos">
+          <external path="examples/frdmk32l2b/component_examples/led_control/freertos" type="xml">
+            <files mask="led_control_freertos_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_log_bm" name="log_bm" brief="The log demo is used to demonstrate how to use log component. The main function of the demo is to prompt the LOG level string according to the user input log level command." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="examples/frdmk32l2b/component_examples/log/bm">
+          <external path="examples/frdmk32l2b/component_examples/log/bm" type="xml">
+            <files mask="log_bm_v3_8.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2b_log_freertos" name="log_freertos" brief="The log demo is used to demonstrate how to use log component. The main function of the demo is to prompt the LOG level string according to the user input log level command." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="examples/frdmk32l2b/component_examples/log/freertos">
+          <external path="examples/frdmk32l2b/component_examples/log/freertos" type="xml">
+            <files mask="log_freertos_v3_8.xml"/>
           </external>
         </example>
         <example id="frdmk32l2b_lptmr" name="lptmr" brief="The LPTMR project is a simple demonstration program of the SDK LPTMR driver. It sets up the LPTMRhardware block to trigger a periodic interrupt after every 1 second. When the LPTMR interrupt is triggereda message a printed on the UART terminal and an LED is toggled on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lptmr" path="examples/frdmk32l2b/driver_examples/lptmr">
@@ -643,6 +758,351 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="CMSIS_DSP_Library.K32L2B31A" name="CMSIS_DSP_Library" brief="CMSIS-DSP Library for Cortex-M, SC000, and SC300" version="1.7.0" full_name="CMSIS DSP Library" devices="K32L2B31xxxxA" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/DSP" project_base_path="CMSIS/DSP">
+      <source relative_path="Include" type="c_include">
+        <files mask="arm_common_tables.h"/>
+        <files mask="arm_const_structs.h"/>
+        <files mask="arm_math.h"/>
+      </source>
+      <source toolchain="armgcc mcuxpresso" relative_path="Lib/GCC" project_relative_path="./" type="lib" device_cores="core0_K32L2B31xxxxA">
+        <files mask="libarm_cortexM0l_math.a"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="Include" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_DSP_Source.K32L2B31A" name="CMSIS_DSP_Library_Source" brief="CMSIS-DSP Library for Cortex-M, SC000, and SC300" version="1.7.0" full_name="CMSIS DSP Library Source" devices="K32L2B31xxxxA" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/DSP" project_base_path="CMSIS/DSP">
+      <source relative_path="Include" type="c_include">
+        <files mask="arm_common_tables.h"/>
+        <files mask="arm_const_structs.h"/>
+        <files mask="arm_math.h"/>
+      </source>
+      <source relative_path="Source/BasicMathFunctions" type="src">
+        <files mask="BasicMathFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/BasicMathFunctions" type="src">
+        <files mask="arm_abs_f32.c" hidden="true"/>
+        <files mask="arm_abs_q15.c" hidden="true"/>
+        <files mask="arm_abs_q31.c" hidden="true"/>
+        <files mask="arm_abs_q7.c" hidden="true"/>
+        <files mask="arm_add_f32.c" hidden="true"/>
+        <files mask="arm_add_q15.c" hidden="true"/>
+        <files mask="arm_add_q31.c" hidden="true"/>
+        <files mask="arm_add_q7.c" hidden="true"/>
+        <files mask="arm_dot_prod_f32.c" hidden="true"/>
+        <files mask="arm_dot_prod_q15.c" hidden="true"/>
+        <files mask="arm_dot_prod_q31.c" hidden="true"/>
+        <files mask="arm_dot_prod_q7.c" hidden="true"/>
+        <files mask="arm_mult_f32.c" hidden="true"/>
+        <files mask="arm_mult_q15.c" hidden="true"/>
+        <files mask="arm_mult_q31.c" hidden="true"/>
+        <files mask="arm_mult_q7.c" hidden="true"/>
+        <files mask="arm_negate_f32.c" hidden="true"/>
+        <files mask="arm_negate_q15.c" hidden="true"/>
+        <files mask="arm_negate_q31.c" hidden="true"/>
+        <files mask="arm_negate_q7.c" hidden="true"/>
+        <files mask="arm_offset_f32.c" hidden="true"/>
+        <files mask="arm_offset_q15.c" hidden="true"/>
+        <files mask="arm_offset_q31.c" hidden="true"/>
+        <files mask="arm_offset_q7.c" hidden="true"/>
+        <files mask="arm_scale_f32.c" hidden="true"/>
+        <files mask="arm_scale_q15.c" hidden="true"/>
+        <files mask="arm_scale_q31.c" hidden="true"/>
+        <files mask="arm_scale_q7.c" hidden="true"/>
+        <files mask="arm_shift_q15.c" hidden="true"/>
+        <files mask="arm_shift_q31.c" hidden="true"/>
+        <files mask="arm_shift_q7.c" hidden="true"/>
+        <files mask="arm_sub_f32.c" hidden="true"/>
+        <files mask="arm_sub_q15.c" hidden="true"/>
+        <files mask="arm_sub_q31.c" hidden="true"/>
+        <files mask="arm_sub_q7.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/CommonTables" type="src">
+        <files mask="CommonTables.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/CommonTables" type="src">
+        <files mask="arm_common_tables.c" hidden="true"/>
+        <files mask="arm_const_structs.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/ComplexMathFunctions" type="src">
+        <files mask="ComplexMathFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/ComplexMathFunctions" type="src">
+        <files mask="arm_cmplx_conj_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_conj_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_conj_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_dot_prod_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_dot_prod_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_dot_prod_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_squared_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_squared_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_squared_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_cmplx_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_cmplx_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_cmplx_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_real_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_real_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_real_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/ControllerFunctions" type="src">
+        <files mask="ControllerFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/ControllerFunctions" type="src">
+        <files mask="arm_pid_init_f32.c" hidden="true"/>
+        <files mask="arm_pid_init_q15.c" hidden="true"/>
+        <files mask="arm_pid_init_q31.c" hidden="true"/>
+        <files mask="arm_pid_reset_f32.c" hidden="true"/>
+        <files mask="arm_pid_reset_q15.c" hidden="true"/>
+        <files mask="arm_pid_reset_q31.c" hidden="true"/>
+        <files mask="arm_sin_cos_f32.c" hidden="true"/>
+        <files mask="arm_sin_cos_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/FastMathFunctions" type="src">
+        <files mask="FastMathFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/FastMathFunctions" type="src">
+        <files mask="arm_cos_f32.c" hidden="true"/>
+        <files mask="arm_cos_q15.c" hidden="true"/>
+        <files mask="arm_cos_q31.c" hidden="true"/>
+        <files mask="arm_sin_f32.c" hidden="true"/>
+        <files mask="arm_sin_q15.c" hidden="true"/>
+        <files mask="arm_sin_q31.c" hidden="true"/>
+        <files mask="arm_sqrt_q15.c" hidden="true"/>
+        <files mask="arm_sqrt_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/FilteringFunctions" type="src">
+        <files mask="FilteringFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/FilteringFunctions" type="src">
+        <files mask="arm_biquad_cascade_df1_32x64_init_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_32x64_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_fast_q15.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_fast_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_init_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_init_q15.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_init_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_q15.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df2T_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df2T_f64.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df2T_init_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df2T_init_f64.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_stereo_df2T_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_stereo_df2T_init_f32.c" hidden="true"/>
+        <files mask="arm_conv_f32.c" hidden="true"/>
+        <files mask="arm_conv_fast_opt_q15.c" hidden="true"/>
+        <files mask="arm_conv_fast_q15.c" hidden="true"/>
+        <files mask="arm_conv_fast_q31.c" hidden="true"/>
+        <files mask="arm_conv_opt_q15.c" hidden="true"/>
+        <files mask="arm_conv_opt_q7.c" hidden="true"/>
+        <files mask="arm_conv_partial_f32.c" hidden="true"/>
+        <files mask="arm_conv_partial_fast_opt_q15.c" hidden="true"/>
+        <files mask="arm_conv_partial_fast_q15.c" hidden="true"/>
+        <files mask="arm_conv_partial_fast_q31.c" hidden="true"/>
+        <files mask="arm_conv_partial_opt_q15.c" hidden="true"/>
+        <files mask="arm_conv_partial_opt_q7.c" hidden="true"/>
+        <files mask="arm_conv_partial_q15.c" hidden="true"/>
+        <files mask="arm_conv_partial_q31.c" hidden="true"/>
+        <files mask="arm_conv_partial_q7.c" hidden="true"/>
+        <files mask="arm_conv_q15.c" hidden="true"/>
+        <files mask="arm_conv_q31.c" hidden="true"/>
+        <files mask="arm_conv_q7.c" hidden="true"/>
+        <files mask="arm_correlate_f32.c" hidden="true"/>
+        <files mask="arm_correlate_fast_opt_q15.c" hidden="true"/>
+        <files mask="arm_correlate_fast_q15.c" hidden="true"/>
+        <files mask="arm_correlate_fast_q31.c" hidden="true"/>
+        <files mask="arm_correlate_opt_q15.c" hidden="true"/>
+        <files mask="arm_correlate_opt_q7.c" hidden="true"/>
+        <files mask="arm_correlate_q15.c" hidden="true"/>
+        <files mask="arm_correlate_q31.c" hidden="true"/>
+        <files mask="arm_correlate_q7.c" hidden="true"/>
+        <files mask="arm_fir_decimate_f32.c" hidden="true"/>
+        <files mask="arm_fir_decimate_fast_q15.c" hidden="true"/>
+        <files mask="arm_fir_decimate_fast_q31.c" hidden="true"/>
+        <files mask="arm_fir_decimate_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_decimate_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_decimate_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_decimate_q15.c" hidden="true"/>
+        <files mask="arm_fir_decimate_q31.c" hidden="true"/>
+        <files mask="arm_fir_f32.c" hidden="true"/>
+        <files mask="arm_fir_fast_q15.c" hidden="true"/>
+        <files mask="arm_fir_fast_q31.c" hidden="true"/>
+        <files mask="arm_fir_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_init_q7.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_f32.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_q15.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_q31.c" hidden="true"/>
+        <files mask="arm_fir_lattice_f32.c" hidden="true"/>
+        <files mask="arm_fir_lattice_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_lattice_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_lattice_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_lattice_q15.c" hidden="true"/>
+        <files mask="arm_fir_lattice_q31.c" hidden="true"/>
+        <files mask="arm_fir_q15.c" hidden="true"/>
+        <files mask="arm_fir_q31.c" hidden="true"/>
+        <files mask="arm_fir_q7.c" hidden="true"/>
+        <files mask="arm_fir_sparse_f32.c" hidden="true"/>
+        <files mask="arm_fir_sparse_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_sparse_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_sparse_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_sparse_init_q7.c" hidden="true"/>
+        <files mask="arm_fir_sparse_q15.c" hidden="true"/>
+        <files mask="arm_fir_sparse_q31.c" hidden="true"/>
+        <files mask="arm_fir_sparse_q7.c" hidden="true"/>
+        <files mask="arm_iir_lattice_f32.c" hidden="true"/>
+        <files mask="arm_iir_lattice_init_f32.c" hidden="true"/>
+        <files mask="arm_iir_lattice_init_q15.c" hidden="true"/>
+        <files mask="arm_iir_lattice_init_q31.c" hidden="true"/>
+        <files mask="arm_iir_lattice_q15.c" hidden="true"/>
+        <files mask="arm_iir_lattice_q31.c" hidden="true"/>
+        <files mask="arm_lms_f32.c" hidden="true"/>
+        <files mask="arm_lms_init_f32.c" hidden="true"/>
+        <files mask="arm_lms_init_q15.c" hidden="true"/>
+        <files mask="arm_lms_init_q31.c" hidden="true"/>
+        <files mask="arm_lms_norm_f32.c" hidden="true"/>
+        <files mask="arm_lms_norm_init_f32.c" hidden="true"/>
+        <files mask="arm_lms_norm_init_q15.c" hidden="true"/>
+        <files mask="arm_lms_norm_init_q31.c" hidden="true"/>
+        <files mask="arm_lms_norm_q15.c" hidden="true"/>
+        <files mask="arm_lms_norm_q31.c" hidden="true"/>
+        <files mask="arm_lms_q15.c" hidden="true"/>
+        <files mask="arm_lms_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/MatrixFunctions" type="src">
+        <files mask="MatrixFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/MatrixFunctions" type="src">
+        <files mask="arm_mat_add_f32.c" hidden="true"/>
+        <files mask="arm_mat_add_q15.c" hidden="true"/>
+        <files mask="arm_mat_add_q31.c" hidden="true"/>
+        <files mask="arm_mat_cmplx_mult_f32.c" hidden="true"/>
+        <files mask="arm_mat_cmplx_mult_q15.c" hidden="true"/>
+        <files mask="arm_mat_cmplx_mult_q31.c" hidden="true"/>
+        <files mask="arm_mat_init_f32.c" hidden="true"/>
+        <files mask="arm_mat_init_q15.c" hidden="true"/>
+        <files mask="arm_mat_init_q31.c" hidden="true"/>
+        <files mask="arm_mat_inverse_f32.c" hidden="true"/>
+        <files mask="arm_mat_inverse_f64.c" hidden="true"/>
+        <files mask="arm_mat_mult_f32.c" hidden="true"/>
+        <files mask="arm_mat_mult_fast_q15.c" hidden="true"/>
+        <files mask="arm_mat_mult_fast_q31.c" hidden="true"/>
+        <files mask="arm_mat_mult_q15.c" hidden="true"/>
+        <files mask="arm_mat_mult_q31.c" hidden="true"/>
+        <files mask="arm_mat_scale_f32.c" hidden="true"/>
+        <files mask="arm_mat_scale_q15.c" hidden="true"/>
+        <files mask="arm_mat_scale_q31.c" hidden="true"/>
+        <files mask="arm_mat_sub_f32.c" hidden="true"/>
+        <files mask="arm_mat_sub_q15.c" hidden="true"/>
+        <files mask="arm_mat_sub_q31.c" hidden="true"/>
+        <files mask="arm_mat_trans_f32.c" hidden="true"/>
+        <files mask="arm_mat_trans_q15.c" hidden="true"/>
+        <files mask="arm_mat_trans_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/StatisticsFunctions" type="src">
+        <files mask="StatisticsFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/StatisticsFunctions" type="src">
+        <files mask="arm_max_f32.c" hidden="true"/>
+        <files mask="arm_max_q15.c" hidden="true"/>
+        <files mask="arm_max_q31.c" hidden="true"/>
+        <files mask="arm_max_q7.c" hidden="true"/>
+        <files mask="arm_mean_f32.c" hidden="true"/>
+        <files mask="arm_mean_q15.c" hidden="true"/>
+        <files mask="arm_mean_q31.c" hidden="true"/>
+        <files mask="arm_mean_q7.c" hidden="true"/>
+        <files mask="arm_min_f32.c" hidden="true"/>
+        <files mask="arm_min_q15.c" hidden="true"/>
+        <files mask="arm_min_q31.c" hidden="true"/>
+        <files mask="arm_min_q7.c" hidden="true"/>
+        <files mask="arm_power_f32.c" hidden="true"/>
+        <files mask="arm_power_q15.c" hidden="true"/>
+        <files mask="arm_power_q31.c" hidden="true"/>
+        <files mask="arm_power_q7.c" hidden="true"/>
+        <files mask="arm_rms_f32.c" hidden="true"/>
+        <files mask="arm_rms_q15.c" hidden="true"/>
+        <files mask="arm_rms_q31.c" hidden="true"/>
+        <files mask="arm_std_f32.c" hidden="true"/>
+        <files mask="arm_std_q15.c" hidden="true"/>
+        <files mask="arm_std_q31.c" hidden="true"/>
+        <files mask="arm_var_f32.c" hidden="true"/>
+        <files mask="arm_var_q15.c" hidden="true"/>
+        <files mask="arm_var_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/SupportFunctions" type="src">
+        <files mask="SupportFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/SupportFunctions" type="src">
+        <files mask="arm_copy_f32.c" hidden="true"/>
+        <files mask="arm_copy_q15.c" hidden="true"/>
+        <files mask="arm_copy_q31.c" hidden="true"/>
+        <files mask="arm_copy_q7.c" hidden="true"/>
+        <files mask="arm_fill_f32.c" hidden="true"/>
+        <files mask="arm_fill_q15.c" hidden="true"/>
+        <files mask="arm_fill_q31.c" hidden="true"/>
+        <files mask="arm_fill_q7.c" hidden="true"/>
+        <files mask="arm_float_to_q15.c" hidden="true"/>
+        <files mask="arm_float_to_q31.c" hidden="true"/>
+        <files mask="arm_float_to_q7.c" hidden="true"/>
+        <files mask="arm_q15_to_float.c" hidden="true"/>
+        <files mask="arm_q15_to_q31.c" hidden="true"/>
+        <files mask="arm_q15_to_q7.c" hidden="true"/>
+        <files mask="arm_q31_to_float.c" hidden="true"/>
+        <files mask="arm_q31_to_q15.c" hidden="true"/>
+        <files mask="arm_q31_to_q7.c" hidden="true"/>
+        <files mask="arm_q7_to_float.c" hidden="true"/>
+        <files mask="arm_q7_to_q15.c" hidden="true"/>
+        <files mask="arm_q7_to_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/TransformFunctions" type="src">
+        <files mask="TransformFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/TransformFunctions" type="src">
+        <files mask="arm_bitreversal.c" hidden="true"/>
+        <files mask="arm_bitreversal2.c" hidden="true"/>
+        <files mask="arm_cfft_f32.c" hidden="true"/>
+        <files mask="arm_cfft_q15.c" hidden="true"/>
+        <files mask="arm_cfft_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_f32.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_init_f32.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_init_q15.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_init_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_q15.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_f32.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_init_f32.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_init_q15.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_init_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_q15.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix8_f32.c" hidden="true"/>
+        <files mask="arm_dct4_f32.c" hidden="true"/>
+        <files mask="arm_dct4_init_f32.c" hidden="true"/>
+        <files mask="arm_dct4_init_q15.c" hidden="true"/>
+        <files mask="arm_dct4_init_q31.c" hidden="true"/>
+        <files mask="arm_dct4_q15.c" hidden="true"/>
+        <files mask="arm_dct4_q31.c" hidden="true"/>
+        <files mask="arm_rfft_f32.c" hidden="true"/>
+        <files mask="arm_rfft_fast_f32.c" hidden="true"/>
+        <files mask="arm_rfft_fast_init_f32.c" hidden="true"/>
+        <files mask="arm_rfft_init_f32.c" hidden="true"/>
+        <files mask="arm_rfft_init_q15.c" hidden="true"/>
+        <files mask="arm_rfft_init_q31.c" hidden="true"/>
+        <files mask="arm_rfft_q15.c" hidden="true"/>
+        <files mask="arm_rfft_q31.c" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="Include" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="CMSIS_Device_API_OSTick.K32L2B31A" name="CMSIS_Device_API_OSTick" brief="Device interrupt controller interface" version="1.0.1" full_name="CMSIS Device API OSTick" devices="K32L2B31xxxxA" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/RTOS2/Include" project_base_path="CMSIS/RTOS2/Include">
       <source relative_path="./" type="c_include">
         <files mask="os_tick.h"/>
@@ -673,6 +1133,9 @@ ${load}</script>
     <component id="CMSIS_Driver_Include.Common.K32L2B31A" name="CMSIS_Driver_Common" brief="Access to #include Driver_Common.h file for custom implementation" version="2.3.0" full_name="CMSIS Driver Common" devices="K32L2B31xxxxA" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <source relative_path="./" type="c_include">
         <files mask="Driver_Common.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_Common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -740,6 +1203,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="Driver_I2C.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_I2C.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -784,6 +1250,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="Driver_SPI.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_SPI.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -794,6 +1263,9 @@ ${load}</script>
       </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="Driver_USART.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_USART.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1322,6 +1794,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_component_button.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_button.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1373,6 +1848,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_adapter_gpio.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_gpio_adapter.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1390,6 +1868,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_component_led.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_led.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1426,6 +1907,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_component_log.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_log.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1444,6 +1928,9 @@ ${load}</script>
       <source relative_path="./" type="c_include">
         <files mask="fsl_component_log_backend_debugconsole.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_log_backend_debugconsole.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1460,6 +1947,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="c_include">
         <files mask="fsl_component_log_backend_ringbuffer.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_log_backend_ringbuffer.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1602,6 +2092,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_os_abstraction_bm.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_osa_bm.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1621,6 +2114,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_os_abstraction_free_rtos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_osa_free_rtos.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1658,6 +2154,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_component_panic.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_panic.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1674,6 +2173,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_adapter_pit.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_pit_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1815,6 +2317,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_component_timer_manager.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_timer_manager.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -1831,6 +2336,9 @@ ${load}</script>
       </source>
       <source relative_path="./" type="src">
         <files mask="fsl_adapter_tpm.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_tpm_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -1869,7 +2377,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="device.K32L2B31A_debugger.K32L2B31A" name="K32L2B31A_debugger" brief="Device K32L2B31A_debugger" version="1.0.0" full_name="Device K32L2B31A_debugger" devices="K32L2B31xxxxA" user_visible="true" type="debugger" package_base_path="core/devices/K32L2B31A" project_base_path="K32L2B31A">
+    <component id="device.K32L2B31A_debugger.K32L2B31A" name="K32L2B31A_debugger" brief="Device K32L2B31A_debugger" version="1.0.0" full_name="Device K32L2B31A_debugger" devices="K32L2B31xxxxA" user_visible="true" type="debugger" package_base_path="svd/K32L2B31A" project_base_path="K32L2B31A">
       <source relative_path="./" type="xml">
         <files mask="K32L2B31A.xml"/>
       </source>
@@ -1966,6 +2474,94 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="driver_cmp.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.i2c_cmsis.K32L2B31A" name="i2c_cmsis" brief="I2C CMSIS Driver" version="2.2.0" full_name="I2C CMSIS Driver" devices="K32L2B31xxxxA" device_cores="core0_K32L2B31xxxxA" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/i2c" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.i2c_dma.K32L2B31A"/>
+          <component_dependency value="platform.drivers.i2c.K32L2B31A"/>
+          <component_dependency value="CMSIS_Driver_Include.I2C.K32L2B31A"/>
+          <component_dependency value="RTE_Device.K32L2B31A"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_i2c_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_i2c_cmsis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_cmsis_i2c.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.lpuart_cmsis.K32L2B31A" name="lpuart_cmsis" brief="LPUART CMSIS Driver" version="2.2.0" full_name="LPUART CMSIS Driver" devices="K32L2B31xxxxA" device_cores="core0_K32L2B31xxxxA" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/lpuart" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.lpuart_dma.K32L2B31A"/>
+          <component_dependency value="platform.drivers.lpuart.K32L2B31A"/>
+          <component_dependency value="CMSIS_Driver_Include.USART.K32L2B31A"/>
+          <component_dependency value="RTE_Device.K32L2B31A"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_lpuart_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_lpuart_cmsis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_cmsis_lpuart.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.spi_cmsis.K32L2B31A" name="spi_cmsis" brief="SPI CMSIS Driver" version="2.3.0" full_name="SPI CMSIS Driver" devices="K32L2B31xxxxA" device_cores="core0_K32L2B31xxxxA" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/spi" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.spi_dma.K32L2B31A"/>
+          <component_dependency value="platform.drivers.spi.K32L2B31A"/>
+          <component_dependency value="CMSIS_Driver_Include.SPI.K32L2B31A"/>
+          <component_dependency value="RTE_Device.K32L2B31A"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_spi_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_spi_cmsis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_cmsis_spi.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.uart_cmsis.K32L2B31A" name="uart_cmsis" brief="UART CMSIS Driver" version="2.1.0" full_name="UART CMSIS Driver" devices="K32L2B31xxxxA" device_cores="core0_K32L2B31xxxxA" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/uart" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.uart_dma.K32L2B31A"/>
+          <component_dependency value="platform.drivers.uart.K32L2B31A"/>
+          <component_dependency value="CMSIS_Driver_Include.USART.K32L2B31A"/>
+          <component_dependency value="RTE_Device.K32L2B31A"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_uart_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_uart_cmsis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_cmsis_uart.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -2735,6 +3331,194 @@ ${load}</script>
       </defines>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="middleware_baremetal.cmake" hidden="true"/>
+      </source>
+    </component>
+    <component id="middleware.fatfs.K32L2B31A" name="fatfs" brief="FatFs" version="0.14" full_name="FAT File System stack" devices="K32L2B31xxxxA" device_cores="core0_K32L2B31xxxxA" category="File System/FAT File System" user_visible="true" type="middleware" package_base_path="middleware/fatfs" project_base_path="fatfs">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.fatfs.template_ram.K32L2B31A"/>
+          <component_dependency value="middleware.fatfs.ram.K32L2B31A"/>
+        </all>
+      </dependencies>
+      <source relative_path="source" type="src">
+        <files mask="diskio.c"/>
+        <files mask="ff.c"/>
+        <files mask="ffsystem.c"/>
+        <files mask="ffunicode.c"/>
+      </source>
+      <source relative_path="source" type="c_include">
+        <files mask="diskio.h"/>
+        <files mask="ff.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="source" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.ram.K32L2B31A" name="ram" brief="FatFs_RAM" version="0.14" full_name="Fatfs RAM layer" devices="K32L2B31xxxxA" device_cores="core0_K32L2B31xxxxA" category="File System/FAT File System" user_visible="true" type="middleware" package_base_path="middleware/fatfs" project_base_path="fatfs">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.fatfs.K32L2B31A"/>
+          <component_dependency value="middleware.fatfs.template_ram.K32L2B31A"/>
+          <component_dependency value="platform.drivers.common.K32L2B31A"/>
+        </all>
+      </dependencies>
+      <source relative_path="source/fsl_ram_disk" type="src">
+        <files mask="fsl_ram_disk.c"/>
+      </source>
+      <source relative_path="source/fsl_ram_disk" type="c_include">
+        <files mask="fsl_ram_disk.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="source/fsl_ram_disk" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.template_mmc.K32L2B31A" name="fatfs_mmc" brief="FatFs template MMC" version="0.14" full_name="FatFs template configuration for MMC disk" devices="K32L2B31xxxxA" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
+      <source relative_path="template/mmc" project_relative_path="./" type="c_include">
+        <files mask="ffconf.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="template/mmc" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.template_nand.K32L2B31A" name="fatfs_nand" brief="FatFs template NAND" version="0.14" full_name="FatFs template configuration for NAND disk" devices="K32L2B31xxxxA" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
+      <source relative_path="template/nand" project_relative_path="./" type="c_include">
+        <files mask="ffconf.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="template/nand" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.template_ram.K32L2B31A" name="fatfs_ram" brief="FatFs template RAM" version="0.14" full_name="FatFs template configuration for RAM disk" devices="K32L2B31xxxxA" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
+      <source relative_path="template/ram" project_relative_path="./" type="c_include">
+        <files mask="ffconf.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="template/ram" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.template_sd.K32L2B31A" name="fatfs_sd" brief="FatFs template SD" version="0.14" full_name="FatFs template configuration for SD disk" devices="K32L2B31xxxxA" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/sd/fatfs" project_base_path="source">
+      <include_paths>
+        <include_path relative_path="template/sd" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.template_sdspi.K32L2B31A" name="fatfs_sdspi" brief="FatFs template SDSPI" version="0.14" full_name="FatFs template configuration for SDSPI disk" devices="K32L2B31xxxxA" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
+      <source relative_path="template/sdspi" project_relative_path="./" type="c_include">
+        <files mask="ffconf.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="template/sdspi" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.template_usb.K32L2B31A" name="fatfs_usb" brief="FatFs template USB" version="0.14" full_name="FatFs template configuration for USB disk" devices="K32L2B31xxxxA" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
+      <source relative_path="template/usb" project_relative_path="./" type="c_include">
+        <files mask="ffconf.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="template/usb" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.unused_files.K32L2B31A" name="unused_files" brief="fatfs files unused by projects" version="0.14" full_name="fatfs unused" devices="K32L2B31xxxxA" user_visible="false" type="other" package_base_path="middleware/fatfs" project_base_path="fatfs">
+      <source exclude="true" relative_path="./" type="doc">
+        <files mask="ChangeLogKSDK.txt" hidden="true"/>
+        <files mask="LICENSE.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="documents" type="doc">
+        <files mask="00index_e.html" hidden="true"/>
+        <files mask="css_e.css" hidden="true"/>
+        <files mask="updates.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="documents/doc" type="doc">
+        <files mask="appnote.html" hidden="true"/>
+        <files mask="chdir.html" hidden="true"/>
+        <files mask="chdrive.html" hidden="true"/>
+        <files mask="chmod.html" hidden="true"/>
+        <files mask="close.html" hidden="true"/>
+        <files mask="closedir.html" hidden="true"/>
+        <files mask="config.html" hidden="true"/>
+        <files mask="dinit.html" hidden="true"/>
+        <files mask="dioctl.html" hidden="true"/>
+        <files mask="dread.html" hidden="true"/>
+        <files mask="dstat.html" hidden="true"/>
+        <files mask="dwrite.html" hidden="true"/>
+        <files mask="eof.html" hidden="true"/>
+        <files mask="error.html" hidden="true"/>
+        <files mask="expand.html" hidden="true"/>
+        <files mask="fattime.html" hidden="true"/>
+        <files mask="fdisk.html" hidden="true"/>
+        <files mask="filename.html" hidden="true"/>
+        <files mask="findfirst.html" hidden="true"/>
+        <files mask="findnext.html" hidden="true"/>
+        <files mask="forward.html" hidden="true"/>
+        <files mask="getcwd.html" hidden="true"/>
+        <files mask="getfree.html" hidden="true"/>
+        <files mask="getlabel.html" hidden="true"/>
+        <files mask="gets.html" hidden="true"/>
+        <files mask="lseek.html" hidden="true"/>
+        <files mask="mkdir.html" hidden="true"/>
+        <files mask="mkfs.html" hidden="true"/>
+        <files mask="mount.html" hidden="true"/>
+        <files mask="open.html" hidden="true"/>
+        <files mask="opendir.html" hidden="true"/>
+        <files mask="printf.html" hidden="true"/>
+        <files mask="putc.html" hidden="true"/>
+        <files mask="puts.html" hidden="true"/>
+        <files mask="rc.html" hidden="true"/>
+        <files mask="read.html" hidden="true"/>
+        <files mask="readdir.html" hidden="true"/>
+        <files mask="rename.html" hidden="true"/>
+        <files mask="sdir.html" hidden="true"/>
+        <files mask="setcp.html" hidden="true"/>
+        <files mask="setlabel.html" hidden="true"/>
+        <files mask="sfatfs.html" hidden="true"/>
+        <files mask="sfile.html" hidden="true"/>
+        <files mask="sfileinfo.html" hidden="true"/>
+        <files mask="size.html" hidden="true"/>
+        <files mask="stat.html" hidden="true"/>
+        <files mask="sync.html" hidden="true"/>
+        <files mask="tell.html" hidden="true"/>
+        <files mask="truncate.html" hidden="true"/>
+        <files mask="unlink.html" hidden="true"/>
+        <files mask="utime.html" hidden="true"/>
+        <files mask="write.html" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="documents/res" type="src">
+        <files mask="app1.c" hidden="true"/>
+        <files mask="app2.c" hidden="true"/>
+        <files mask="app3.c" hidden="true"/>
+        <files mask="app4.c" hidden="true"/>
+        <files mask="app5.c" hidden="true"/>
+        <files mask="app6.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="documents/res" type="image">
+        <files mask="f1.png" hidden="true"/>
+        <files mask="f2.png" hidden="true"/>
+        <files mask="f3.png" hidden="true"/>
+        <files mask="f4.png" hidden="true"/>
+        <files mask="f5.png" hidden="true"/>
+        <files mask="f6.png" hidden="true"/>
+        <files mask="f7.png" hidden="true"/>
+        <files mask="funcs.png" hidden="true"/>
+        <files mask="layers.png" hidden="true"/>
+        <files mask="layers1.png" hidden="true"/>
+        <files mask="layers2.png" hidden="true"/>
+        <files mask="layers3.png" hidden="true"/>
+        <files mask="modules.png" hidden="true"/>
+        <files mask="rwtest1.png" hidden="true"/>
+        <files mask="rwtest2.png" hidden="true"/>
+        <files mask="rwtest3.png" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="documents/res" type="archive">
+        <files mask="mkfatimg.zip" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="documents/res" type="other">
+        <files mask="mkfs.xlsx" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="source" type="doc">
+        <files mask="00history.txt" hidden="true"/>
+        <files mask="00readme.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="source" type="c_include">
+        <files mask="ffconf_template.h" hidden="true"/>
       </source>
     </component>
     <component id="middleware.freertos-kernel.K32L2B31A" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="202012.00.0" full_name="FreeRTOS kernel" devices="K32L2B31xxxxA" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
@@ -5158,6 +5942,9 @@ ${load}</script>
       <source relative_path="erpc/erpc_c/port" project_relative_path="port" type="c_include">
         <files mask="erpc_setup_extensions.h"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_multicore_erpc_common.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
         <include_path relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="c_include"/>
@@ -5189,6 +5976,9 @@ ${load}</script>
         <files mask="eRPC_directory.png" hidden="true"/>
         <files mask="client_side_flowchart.png" hidden="true"/>
         <files mask="RPCblockDiagram.png" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_multicore_erpc_doc.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.multicore.erpc.eRPC_arbitrator.K32L2B31A" name="eRPC_arbitrator" brief="eRPC_arbitrator" version="1.8.1" full_name="eRPC arbitrator" devices="K32L2B31xxxxA" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
@@ -5223,6 +6013,9 @@ ${load}</script>
       <source relative_path="erpc/erpc_c/port" project_relative_path="port" type="src">
         <files mask="erpc_threading_freertos.cpp"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_multicore_erpc_eRPC_arbitrator.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
         <include_path relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="c_include"/>
@@ -5244,6 +6037,9 @@ ${load}</script>
       </source>
       <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
         <files mask="erpc_client_setup.cpp"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_multicore_erpc_eRPC_client.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
@@ -5410,6 +6206,9 @@ ${load}</script>
         <files mask="erpc_threading_freertos.cpp"/>
         <files mask="erpc_setup_extensions_freertos.cpp"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_multicore_erpc_eRPC_port_freertos.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="erpc/erpc_c/port" project_relative_path="port" type="c_include"/>
       </include_paths>
@@ -5424,6 +6223,9 @@ ${load}</script>
       </source>
       <source relative_path="erpc/erpc_c/port" project_relative_path="port" type="src">
         <files mask="erpc_port_stdlib.cpp"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_multicore_erpc_eRPC_port_stdlib.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="erpc/erpc_c/port" project_relative_path="port" type="c_include"/>
@@ -5559,6 +6361,9 @@ ${load}</script>
       <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
         <files mask="erpc_server_setup.cpp"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_multicore_erpc_eRPC_server.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
         <include_path relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="c_include"/>
@@ -5570,6 +6375,9 @@ ${load}</script>
       </dependencies>
       <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
         <files mask="erpc_setup_spi_master.cpp"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_multicore_erpc_eRPC_spi_master_c_wrapper.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.multicore.erpc.eRPC_spi_master_transport.K32L2B31A" name="eRPC_spi_master_transport" brief="eRPC_spi_master_transport" version="1.8.1" full_name="eRPC SPI master transport layer" devices="K32L2B31xxxxA" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
@@ -5591,6 +6399,9 @@ ${load}</script>
       <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
         <files mask="erpc_setup_mbf_dynamic.cpp"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_multicore_erpc_eRPC_spi_master_transport.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include"/>
         <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
@@ -5602,6 +6413,9 @@ ${load}</script>
       </dependencies>
       <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
         <files mask="erpc_setup_spi_slave.cpp"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_multicore_erpc_eRPC_spi_slave_c_wrapper.cmake" hidden="true"/>
       </source>
     </component>
     <component id="middleware.multicore.erpc.eRPC_spi_slave_transport.K32L2B31A" name="eRPC_spi_slave_transport" brief="eRPC_spi_slave_transport" version="1.8.1" full_name="eRPC SPI slave transport layer" devices="K32L2B31xxxxA" category="Multicore/eRPC" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="erpc">
@@ -5622,6 +6436,9 @@ ${load}</script>
       </source>
       <source relative_path="erpc/erpc_c/setup" project_relative_path="setup" type="src">
         <files mask="erpc_setup_mbf_dynamic.cpp"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_multicore_erpc_eRPC_spi_slave_transport.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include"/>
@@ -5648,9 +6465,252 @@ ${load}</script>
         <files mask="erpc_setup_uart_cmsis.cpp"/>
         <files mask="erpc_setup_mbf_dynamic.cpp"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_multicore_erpc_eRPC_uart_cmsis_transport.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="erpc/erpc_c/transports" project_relative_path="transports" type="c_include"/>
         <include_path relative_path="erpc/erpc_c/infra" project_relative_path="infra" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.rtcesl.cm0p.K32L2B31A" name="rtcesl" brief="Real Time Control Embedded Software Library for CM0 core" version="1.1.0" full_name="Middleware rtcesl cm0" devices="K32L2B31xxxxA" device_cores="core0_K32L2B31xxxxA" user_visible="true" type="middleware" package_base_path="middleware/rtcesl" project_base_path="rtcesl">
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/AMCLIB/Include" type="c_include">
+        <files mask="amclib.h"/>
+        <files mask="AMCLIB_AngleTrackObsrv_F32.h"/>
+        <files mask="AMCLIB_CtrlFluxWkng_A32.h"/>
+        <files mask="AMCLIB_PMSMBemfObsrvDQ_A32.h"/>
+        <files mask="AMCLIB_PMSMBemfObsrvDQHw_A32.h"/>
+        <files mask="AMCLIB_PMSMBemfObsrvAB_A32.h"/>
+        <files mask="AMCLIB_PMSMBemfObsrvABHw_A32.h"/>
+        <files mask="AMCLIB_TrackObsrv_F32.h"/>
+        <files mask="amclib_types.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/GDFLIB/Include" type="c_include">
+        <files mask="gdflib.h"/>
+        <files mask="GDFLIB_FilterExp_F32.h"/>
+        <files mask="GDFLIB_FilterIIR1_F32.h"/>
+        <files mask="GDFLIB_FilterIIR2_F32.h"/>
+        <files mask="GDFLIB_FilterMA_A32.h"/>
+        <files mask="GDFLIB_FilterMA_A32_Asmi.h"/>
+        <files mask="gdflib_types.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/GFLIB/Include" type="c_include">
+        <files mask="gflib.h"/>
+        <files mask="GFLIB_Atan_F32.h"/>
+        <files mask="GFLIB_AtanYX_F32.h"/>
+        <files mask="GFLIB_AtanYXHw_F32.h"/>
+        <files mask="GFLIB_CtrlBetaIPp_A32.h"/>
+        <files mask="GFLIB_CtrlPIp_A32.h"/>
+        <files mask="GFLIB_DFlexRamp_A32.h"/>
+        <files mask="GFLIB_DFlexRampHw_A32.h"/>
+        <files mask="GFLIB_DRamp_F16.h"/>
+        <files mask="GFLIB_DRamp_F32.h"/>
+        <files mask="GFLIB_FlexRamp_A32.h"/>
+        <files mask="GFLIB_FlexRampHw_A32.h"/>
+        <files mask="GFLIB_Hyst_F16_Asmi.h"/>
+        <files mask="GFLIB_Integrator_A32.h"/>
+        <files mask="GFLIB_Limit_F16.h"/>
+        <files mask="GFLIB_Limit_F32.h"/>
+        <files mask="GFLIB_LowerLimit_F16.h"/>
+        <files mask="GFLIB_LowerLimit_F32.h"/>
+        <files mask="GFLIB_Lut_F16_Asmi.h"/>
+        <files mask="GFLIB_Lut_F32.h"/>
+        <files mask="GFLIB_LutPer_F16_Asmi.h"/>
+        <files mask="GFLIB_LutPer_F32.h"/>
+        <files mask="GFLIB_Ramp_F16.h"/>
+        <files mask="GFLIB_Ramp_F16_Asmi.h"/>
+        <files mask="GFLIB_Ramp_F32.h"/>
+        <files mask="GFLIB_Ramp_F32_Asmi.h"/>
+        <files mask="GFLIB_SinCos_A32.h"/>
+        <files mask="GFLIB_Sqrt_F16.h"/>
+        <files mask="GFLIB_Sqrt_F32.h"/>
+        <files mask="GFLIB_SqrtHw_F16.h"/>
+        <files mask="GFLIB_SqrtHw_F16_Asmi.h"/>
+        <files mask="GFLIB_SqrtHw_F32.h"/>
+        <files mask="GFLIB_SqrtHw_F32_Asmi.h"/>
+        <files mask="gflib_types.h"/>
+        <files mask="GFLIB_UpperLimit_F16.h"/>
+        <files mask="GFLIB_UpperLimit_F32.h"/>
+        <files mask="GFLIB_VectorLimit1_F16.h"/>
+        <files mask="GFLIB_VectorLimit1Hw_F16.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/GMCLIB/Include" type="c_include">
+        <files mask="gmclib.h"/>
+        <files mask="GMCLIB_Clark_F16_Asmi.h"/>
+        <files mask="GMCLIB_Decoupling_A32.h"/>
+        <files mask="GMCLIB_ElimDcBusRip_A32.h"/>
+        <files mask="GMCLIB_ElimDcBusRip_F16.h"/>
+        <files mask="GMCLIB_ElimDcBusRipHw_A32.h"/>
+        <files mask="GMCLIB_ElimDcBusRipHw_F16.h"/>
+        <files mask="GMCLIB_Park_F16_Asmi.h"/>
+        <files mask="GMCLIB_Svm_F16.h"/>
+        <files mask="gmclib_types.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/MLIB/Include" type="c_include">
+        <files mask="asm_mac.h"/>
+        <files mask="mlib.h"/>
+        <files mask="MLIB_Abs_F16.h"/>
+        <files mask="MLIB_Abs_F16_Asmi.h"/>
+        <files mask="MLIB_Abs_F32.h"/>
+        <files mask="MLIB_Abs_F32_Asmi.h"/>
+        <files mask="MLIB_Add_A32.h"/>
+        <files mask="MLIB_Add_A32_Asmi.h"/>
+        <files mask="MLIB_Add_F16.h"/>
+        <files mask="MLIB_Add_F16_Asmi.h"/>
+        <files mask="MLIB_Add_F32.h"/>
+        <files mask="MLIB_Add_F32_Asmi.h"/>
+        <files mask="MLIB_Add4_F16.h"/>
+        <files mask="MLIB_Add4_F16_Asmi.h"/>
+        <files mask="MLIB_Add4_F32.h"/>
+        <files mask="MLIB_Add4_F32_Asmi.h"/>
+        <files mask="MLIB_BiShift_F16.h"/>
+        <files mask="MLIB_BiShift_F16_Asmi.h"/>
+        <files mask="MLIB_BiShift_F32.h"/>
+        <files mask="MLIB_BiShift_F32_Asmi.h"/>
+        <files mask="MLIB_Clb_F16_Asmi.h"/>
+        <files mask="MLIB_Clb_F32_Asmi.h"/>
+        <files mask="MLIB_Conv_F32.h"/>
+        <files mask="MLIB_Div_A32_Asm.h"/>
+        <files mask="MLIB_Div_F16_Asm.h"/>
+        <files mask="MLIB_Div_F32_Asm.h"/>
+        <files mask="MLIB_Div1Q_A32_Asm.h"/>
+        <files mask="MLIB_Div1Q_F16_Asm.h"/>
+        <files mask="MLIB_Div1Q_F32_Asm.h"/>
+        <files mask="MLIB_DivHw_A32_Asm.h"/>
+        <files mask="MLIB_DivHw_F16_Asm.h"/>
+        <files mask="MLIB_DivHw_F32.h"/>
+        <files mask="MLIB_DivHw_F32_Asm.h"/>
+        <files mask="MLIB_DivHw1Q_A32_Asm.h"/>
+        <files mask="MLIB_DivHw1Q_F16_Asm.h"/>
+        <files mask="MLIB_DivHw1Q_F32_Asm.h"/>
+        <files mask="MLIB_Log2_U16_Asmi.h"/>
+        <files mask="MLIB_Mac_A32.h"/>
+        <files mask="MLIB_Mac_F16.h"/>
+        <files mask="MLIB_Mac_F16_Asmi.h"/>
+        <files mask="MLIB_Mac_F32.h"/>
+        <files mask="MLIB_Mac_F32_Asmi.h"/>
+        <files mask="MLIB_Mac4_F32.h"/>
+        <files mask="MLIB_Mac4Rnd_F16.h"/>
+        <files mask="MLIB_Mac4Rnd_F16_Asmi.h"/>
+        <files mask="MLIB_Mac4Rnd_F32_Asm.h"/>
+        <files mask="MLIB_MacRnd_A32.h"/>
+        <files mask="MLIB_MacRnd_A32_Asmi.h"/>
+        <files mask="MLIB_MacRnd_F16.h"/>
+        <files mask="MLIB_MacRnd_F16_Asmi.h"/>
+        <files mask="MLIB_MacRnd_F32.h"/>
+        <files mask="MLIB_MacRnd_F32_Asmi.h"/>
+        <files mask="MLIB_MMDVSQ.h"/>
+        <files mask="MLIB_Mnac_A32.h"/>
+        <files mask="MLIB_Mnac_F16.h"/>
+        <files mask="MLIB_Mnac_F16_Asmi.h"/>
+        <files mask="MLIB_Mnac_F32.h"/>
+        <files mask="MLIB_Mnac_F32_Asmi.h"/>
+        <files mask="MLIB_MnacRnd_A32.h"/>
+        <files mask="MLIB_MnacRnd_A32_Asmi.h"/>
+        <files mask="MLIB_MnacRnd_F16.h"/>
+        <files mask="MLIB_MnacRnd_F16_Asmi.h"/>
+        <files mask="MLIB_MnacRnd_F32.h"/>
+        <files mask="MLIB_MnacRnd_F32_Asmi.h"/>
+        <files mask="MLIB_Msu_A32.h"/>
+        <files mask="MLIB_Msu_F16.h"/>
+        <files mask="MLIB_Msu_F16_Asmi.h"/>
+        <files mask="MLIB_Msu_F32.h"/>
+        <files mask="MLIB_Msu_F32_Asmi.h"/>
+        <files mask="MLIB_Msu4_F32.h"/>
+        <files mask="MLIB_Msu4Rnd_F16.h"/>
+        <files mask="MLIB_Msu4Rnd_F16_Asmi.h"/>
+        <files mask="MLIB_Msu4Rnd_F32_Asm.h"/>
+        <files mask="MLIB_MsuRnd_A32.h"/>
+        <files mask="MLIB_MsuRnd_A32_Asmi.h"/>
+        <files mask="MLIB_MsuRnd_F16.h"/>
+        <files mask="MLIB_MsuRnd_F16_Asmi.h"/>
+        <files mask="MLIB_MsuRnd_F32.h"/>
+        <files mask="MLIB_MsuRnd_F32_Asmi.h"/>
+        <files mask="MLIB_Mul_A32.h"/>
+        <files mask="MLIB_Mul_A32_Asmi.h"/>
+        <files mask="MLIB_Mul_F16.h"/>
+        <files mask="MLIB_Mul_F16_Asmi.h"/>
+        <files mask="MLIB_Mul_F32.h"/>
+        <files mask="MLIB_Mul_F32_Asmi.h"/>
+        <files mask="MLIB_MulRnd_A32.h"/>
+        <files mask="MLIB_MulRnd_A32_Asmi.h"/>
+        <files mask="MLIB_MulRnd_F16.h"/>
+        <files mask="MLIB_MulRnd_F16_Asmi.h"/>
+        <files mask="MLIB_MulRnd_F32.h"/>
+        <files mask="MLIB_MulRnd_F32_Asmi.h"/>
+        <files mask="MLIB_Neg_F16.h"/>
+        <files mask="MLIB_Neg_F16_Asmi.h"/>
+        <files mask="MLIB_Neg_F32.h"/>
+        <files mask="MLIB_Neg_F32_Asmi.h"/>
+        <files mask="MLIB_Rcp_A32_Asm.h"/>
+        <files mask="MLIB_Rcp1Q_A32_Asm.h"/>
+        <files mask="MLIB_RcpHw_A32_Asm.h"/>
+        <files mask="MLIB_RcpHw1Q_A32_Asmi.h"/>
+        <files mask="MLIB_Rnd_F32.h"/>
+        <files mask="MLIB_Rnd_F32_Asmi.h"/>
+        <files mask="MLIB_Sat_A32.h"/>
+        <files mask="MLIB_Sat_A32_Asmi.h"/>
+        <files mask="MLIB_Shift_F16.h"/>
+        <files mask="MLIB_Shift_F16_Asmi.h"/>
+        <files mask="MLIB_Shift_F32.h"/>
+        <files mask="MLIB_Shift_F32_Asmi.h"/>
+        <files mask="MLIB_Sign_F16_Asmi.h"/>
+        <files mask="MLIB_Sign_F32_Asmi.h"/>
+        <files mask="MLIB_Sub_A32.h"/>
+        <files mask="MLIB_Sub_A32_Asmi.h"/>
+        <files mask="MLIB_Sub_F16.h"/>
+        <files mask="MLIB_Sub_F16_Asmi.h"/>
+        <files mask="MLIB_Sub_F32.h"/>
+        <files mask="MLIB_Sub_F32_Asmi.h"/>
+        <files mask="MLIB_Sub4_F16.h"/>
+        <files mask="MLIB_Sub4_F16_Asmi.h"/>
+        <files mask="MLIB_Sub4_F32.h"/>
+        <files mask="MLIB_Sub4_F32_Asmi.h"/>
+        <files mask="mlib_types.h"/>
+        <files mask="RTCESL_cfg.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/PCLIB/Include" type="c_include">
+        <files mask="pclib.h"/>
+        <files mask="PCLIB_Ctrl2P2Z_F16.h"/>
+        <files mask="PCLIB_Ctrl3P3Z_F16.h"/>
+        <files mask="PCLIB_CtrlPI_F16.h"/>
+        <files mask="PCLIB_CtrlPIandLPFilter_F16.h"/>
+        <files mask="PCLIB_CtrlPID_F16.h"/>
+        <files mask="pclib_types.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/AMCLIB" type="lib">
+        <files mask="libAMCLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/GFLIB" type="lib">
+        <files mask="libGFLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/GDFLIB" type="lib">
+        <files mask="libGDFLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/GMCLIB" type="lib">
+        <files mask="libGMCLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/MLIB" type="lib">
+        <files mask="libMLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.6.2_MCUX/PCLIB" type="lib">
+        <files mask="libPCLIB.a"/>
+      </source>
+      <source relative_path="CM0_RTCESL_4.6.2_doc" type="doc">
+        <files mask="CM0AMCLIBUG.pdf" hidden="true"/>
+        <files mask="CM0GDFLIBUG.pdf" hidden="true"/>
+        <files mask="CM0GFLIBUG.pdf" hidden="true"/>
+        <files mask="CM0GMCLIBUG.pdf" hidden="true"/>
+        <files mask="CM0MLIBUG.pdf" hidden="true"/>
+        <files mask="CM0PCLIBUG.pdf" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="CM0_RTCESL_4.6.2_MCUX/AMCLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM0_RTCESL_4.6.2_MCUX/GDFLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM0_RTCESL_4.6.2_MCUX/GFLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM0_RTCESL_4.6.2_MCUX/GMCLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM0_RTCESL_4.6.2_MCUX/MLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM0_RTCESL_4.6.2_MCUX/PCLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
       </include_paths>
     </component>
     <component id="middleware.sdmmc.common.K32L2B31A" name="sdmmc_common" brief="Middleware sdmmc common" version="2.3.0" full_name="SDMMC common stack" devices="K32L2B31xxxxA" category="Memories/SDMMC Stack" user_visible="false" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="cm4_K32L3A60xxx"/>
+    <definition extID="frdmk32l3a6_erpc_matrix_multiply_rpmsg_rtos_cm0plus"/>
+    <definition extID="middleware.multicore.mcmgr.k32l3a6.K32L3A60"/>
+    <definition extID="middleware.multicore.rpmsg_lite.k32l3a6_freertos.K32L3A60"/>
+    <definition extID="middleware.multicore.rpmsg_lite.K32L3A60"/>
+    <definition extID="middleware.multicore.rpmsg_lite.freertos.K32L3A60"/>
+    <definition extID="platform.drivers.gpio.K32L3A60"/>
+    <definition extID="platform.drivers.port.K32L3A60"/>
+    <definition extID="platform.drivers.clock.K32L3A60"/>
+    <definition extID="platform.drivers.mu.K32L3A60"/>
+    <definition extID="middleware.multicore.erpc.eRPC_client.K32L3A60"/>
+    <definition extID="middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_master_c_wrapper.K32L3A60"/>
+    <definition extID="middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_transport.K32L3A60"/>
+    <definition extID="middleware.multicore.erpc.eRPC_port_freertos.K32L3A60"/>
+    <definition extID="middleware.multicore.mcmgr.K32L3A60"/>
+    <definition extID="middleware.freertos-kernel.K32L3A60"/>
+    <definition extID="middleware.freertos-kernel.heap_4.K32L3A60"/>
+    <definition extID="middleware.multicore.erpc.doc.K32L3A60"/>
+    <definition extID="utility.incbin.K32L3A60"/>
+    <definition extID="platform.drivers.common.K32L3A60"/>
+    <definition extID="platform.drivers.msmc.K32L3A60"/>
+    <definition extID="platform.drivers.lpuart.K32L3A60"/>
+    <definition extID="platform.utilities.assert.K32L3A60"/>
+    <definition extID="utility.debug_console.K32L3A60"/>
+    <definition extID="component.lpuart_adapter.K32L3A60"/>
+    <definition extID="component.serial_manager.K32L3A60"/>
+    <definition extID="component.lists.K32L3A60"/>
+    <definition extID="component.serial_manager_uart.K32L3A60"/>
+    <definition extID="platform.devices.K32L3A60_CMSIS.K32L3A60"/>
+    <definition extID="platform.devices.K32L3A60_startup.K32L3A60"/>
+    <definition extID="CMSIS_Include_core_cm.K32L3A60"/>
+    <definition extID="middleware.freertos-kernel.extension.K32L3A60"/>
+    <definition extID="middleware.multicore.erpc.common.K32L3A60"/>
+    <definition extID="platform.utilities.misc_utilities.K32L3A60"/>
+    <definition extID="platform.devices.K32L3A60_system.K32L3A60"/>
+    <definition extID="armgcc"/>
+    <definition extID="mdk"/>
+    <definition extID="iar"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+    <definition extID="com.crt.advproject.config.exe.debug"/>
+    <definition extID="com.crt.advproject.config.exe.release"/>
+  </externalDefinitions>
+  <example id="frdmk32l3a6_erpc_matrix_multiply_rpmsg_rtos_cm4" name="erpc_matrix_multiply_rpmsg_rtos_cm4" device_core="cm4_K32L3A60xxx" dependency="middleware.multicore.mcmgr.k32l3a6.K32L3A60 middleware.multicore.rpmsg_lite.k32l3a6_freertos.K32L3A60 middleware.multicore.rpmsg_lite.K32L3A60 middleware.multicore.rpmsg_lite.freertos.K32L3A60 platform.drivers.gpio.K32L3A60 platform.drivers.port.K32L3A60 platform.drivers.clock.K32L3A60 platform.drivers.mu.K32L3A60 middleware.multicore.erpc.eRPC_client.K32L3A60 middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_master_c_wrapper.K32L3A60 middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_transport.K32L3A60 middleware.multicore.erpc.eRPC_port_freertos.K32L3A60 middleware.multicore.mcmgr.K32L3A60 middleware.freertos-kernel.K32L3A60 middleware.freertos-kernel.heap_4.K32L3A60 middleware.multicore.erpc.doc.K32L3A60 utility.incbin.K32L3A60 platform.drivers.common.K32L3A60 platform.drivers.msmc.K32L3A60 platform.drivers.lpuart.K32L3A60 platform.utilities.assert.K32L3A60 utility.debug_console.K32L3A60 component.lpuart_adapter.K32L3A60 component.serial_manager.K32L3A60 component.lists.K32L3A60 component.serial_manager_uart.K32L3A60 platform.devices.K32L3A60_CMSIS.K32L3A60 platform.devices.K32L3A60_startup.K32L3A60 CMSIS_Include_core_cm.K32L3A60 middleware.freertos-kernel.extension.K32L3A60 middleware.multicore.erpc.common.K32L3A60 platform.utilities.misc_utilities.K32L3A60 platform.devices.K32L3A60_system.K32L3A60" linked_projects="frdmk32l3a6_erpc_matrix_multiply_rpmsg_rtos_cm0plus" category="multicore_examples">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.ccnature"/>
+    </projects>
+    <memory>
+      <memoryBlock id="PROGRAM_FLASH_cm4_K32L3A60xxx" name="PROGRAM_FLASH_cm4" addr="00000000" size="00100000" type="Flash" access="RO"/>
+      <memoryBlock id="SRAM_DTC_K32L3A60xxx" name="SRAM_DTC" addr="20000000" size="0002E800" type="RAM" access="RW"/>
+      <memoryBlock id="rpmsg_sh_mem_K32L3A60xxx" name="rpmsg_sh_mem" addr="2002E800" size="00001800" type="RAM" access="RW"/>
+      <memoryBlock id="PROGRAM_FLASH_cm0plus_K32L3A60xxx" name="PROGRAM_FLASH_cm0plus" addr="01000000" size="00040000" type="Flash" access="RO"/>
+      <memoryBlock id="SRAM_TCM_K32L3A60xxx" name="SRAM_TCM" addr="09000000" size="00020000" type="RAM" access="RW"/>
+    </memory>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>CPU_K32L3A60VPJ1A_cm4</value>
+          <value>MULTICORE_APP=1</value>
+          <value>SDK_OS_FREE_RTOS</value>
+          <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>MCUXPRESSO_SDK</value>
+        </option>
+        <option id="gnu.cpp.compiler.option.preprocessor.def" type="stringList">
+          <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>MCUXPRESSO_SDK</value>
+        </option>
+        <option id="com.crt.advproject.link.cpp.multicore.slave" type="string">
+          <value>Master</value>
+        </option>
+        <option id="com.crt.advproject.link.cpp.multicore.master" type="string">
+          <value>M0SLAVE,${workspace_loc:/frdmk32l3a6_multicore_examples_erpc_matrix_multiply_rpmsg_rtos_cm0plus/${ConfigName}/frdmk32l3a6_multicore_examples_erpc_matrix_multiply_rpmsg_rtos_cm0plus.axf.o},PROGRAM_FLASH_cm0plus,,true;</value>
+        </option>
+        <option id="com.crt.advproject.link.cpp.multicore.master.userobjs" type="stringList">
+          <value>${workspace_loc:/frdmk32l3a6_multicore_examples_erpc_matrix_multiply_rpmsg_rtos_cm0plus/${ConfigName}/frdmk32l3a6_multicore_examples_erpc_matrix_multiply_rpmsg_rtos_cm0plus.axf.o}</value>
+        </option>
+        <option id="com.crt.advproject.gas.hdrlib" type="enum">
+          <value>com.crt.advproject.gas.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gas.specs" type="enum">
+          <value>com.crt.advproject.gas.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gcc.specs" type="enum">
+          <value>com.crt.advproject.gcc.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.cpp.hdrlib" type="enum">
+          <value>com.crt.advproject.cpp.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.cpp.specs" type="enum">
+          <value>com.crt.advproject.cpp.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.link.cpp.hdrlib" type="enum">
+          <value>com.crt.advproject.cpp.link.hdrlib.newlibnano.nohost</value>
+        </option>
+        <option id="com.crt.advproject.link.cpp.fpu" type="enum">
+          <value>com.crt.advproject.link.cpp.fpu.fpv4.hard</value>
+        </option>
+        <option id="gnu.cpp.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.heapAndStack.cpp" type="string">
+          <value>&amp;Heap:Default;Default;Default&amp;Stack:Default;Default;0x400</value>
+        </option>
+        <option id="gnu.cpp.link.option.other" type="stringList">
+          <value>--defsym=__use_shmem__=1</value>
+          <value>--gc-sections</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv4.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+        </option>
+        <option id="com.crt.advproject.cpp.fpu" type="enum">
+          <value>com.crt.advproject.cpp.fpu.fpv4.hard</value>
+        </option>
+        <option id="gnu.cpp.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.cpp.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnupp11</value>
+        </option>
+        <option id="gnu.cpp.compiler.option.other.other" type="string">
+          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin -fno-rtti -fno-exceptions</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <debug_configurations>
+      <debug_configuration id_refs="com.crt.advproject.config.exe.debug com.crt.advproject.config.exe.release">
+        <drivers>
+          <driver id_refs="PROGRAM_FLASH_cm4_K32L3A60xxx">
+            <driverBinary path="devices/K32L3A60/mcuxpresso" project_relative_path="binary" type="binary">
+              <files mask="FTFE_4K_K32L3A_cm4.cfx"/>
+            </driverBinary>
+          </driver>
+          <driver id_refs="PROGRAM_FLASH_cm0plus_K32L3A60xxx">
+            <driverBinary path="devices/K32L3A60/mcuxpresso" project_relative_path="binary" type="binary">
+              <files mask="FTFE_2K_K32L3A_cm0plus.cfx"/>
+            </driverBinary>
+          </driver>
+        </drivers>
+      </debug_configuration>
+    </debug_configurations>
+    <include_paths>
+      <include_path path="examples/frdmk32l3a6/multicore_examples/erpc_common" project_relative_path="source" type="c_include"/>
+      <include_path path="examples/frdmk32l3a6/multicore_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="erpc/service" type="c_include"/>
+      <include_path path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_rpmsg_rtos" project_relative_path="source" type="c_include"/>
+      <include_path path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4" project_relative_path="source" type="c_include"/>
+      <include_path path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4" project_relative_path="frdmk32l3a6/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4" type="c_include"/>
+      <include_path path="core/boards/frdmk32l3a6" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4" project_relative_path="source" type="asm_include"/>
+    </include_paths>
+    <source path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4/armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_debug.bat"/>
+      <files mask="build_debug.sh"/>
+      <files mask="build_release.bat"/>
+      <files mask="build_release.sh"/>
+    </source>
+    <source path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4/mdk" project_relative_path="./" type="workspace" toolchain="mdk">
+      <files mask="erpc_matrix_multiply_rpmsg_rtos_cm4.uvprojx"/>
+      <files mask="erpc_matrix_multiply_rpmsg_rtos_cm4.uvoptx"/>
+      <files mask="erpc_matrix_multiply_rpmsg_rtos_cm4.uvmpw"/>
+    </source>
+    <source path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4/iar" project_relative_path="./" type="workspace" toolchain="iar">
+      <files mask="erpc_matrix_multiply_rpmsg_rtos_cm4.ewd"/>
+      <files mask="erpc_matrix_multiply_rpmsg_rtos_cm4.ewp"/>
+      <files mask="erpc_matrix_multiply_rpmsg_rtos_cm4.eww"/>
+    </source>
+    <source path="examples/frdmk32l3a6/multicore_examples/erpc_common" project_relative_path="source" type="c_include">
+      <files mask="erpc_error_handler.h"/>
+    </source>
+    <source path="examples/frdmk32l3a6/multicore_examples/erpc_common" project_relative_path="source" type="src">
+      <files mask="erpc_error_handler.cpp"/>
+    </source>
+    <source path="examples/frdmk32l3a6/multicore_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="erpc/service" type="script">
+      <files mask="erpc_matrix_multiply.erpc"/>
+    </source>
+    <source path="examples/frdmk32l3a6/multicore_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="erpc/service" type="c_include">
+      <files mask="erpc_matrix_multiply.h"/>
+    </source>
+    <source path="examples/frdmk32l3a6/multicore_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="erpc/service" type="src">
+      <files mask="erpc_matrix_multiply_client.cpp"/>
+    </source>
+    <source path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4" project_relative_path="source" type="src">
+      <files mask="main_core0.c"/>
+    </source>
+    <source path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4" project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4" project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_rpmsg_rtos" project_relative_path="source" type="c_include">
+      <files mask="rpmsg_config.h"/>
+      <files mask="erpc_config.h"/>
+    </source>
+    <source path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4" project_relative_path="source" type="c_include">
+      <files mask="FreeRTOSConfig.h"/>
+    </source>
+    <source path="core/boards/frdmk32l3a6" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="core/boards/frdmk32l3a6" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
+      <files mask="readme.txt"/>
+    </source>
+    <source path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4/armgcc" project_relative_path="K32L3A60/gcc" type="linker" toolchain="armgcc">
+      <files mask="K32L3A60xxx_cm4_flash.ld"/>
+    </source>
+  </example>
+</ksdk:examples>

@@ -26,7 +26,7 @@
 #define DEMO_SAI_CLK_FREQ 24576000U
 
 #define DEMO_IRQn             I2S3_IRQn
-#define DEMO_DMA              SDMAARM2
+#define DEMO_DMA              SDMAARM3
 #define DEMO_SAI_SDMA_CHANNEL (1)
 #define DEMO_ASRC_CONTEXT     kASRC_Context0
 #define DEMO_SAI_TX_SOURCE    (5)

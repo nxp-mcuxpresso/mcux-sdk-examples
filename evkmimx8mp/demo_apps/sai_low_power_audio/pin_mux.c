@@ -15,11 +15,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v9.0
+product: Pins v10.0
 processor: MIMX8ML8xxxLZ
 package_id: MIMX8ML8DVNLZ
 mcu_data: ksdk2_0
-processor_version: 0.9.1
+processor_version: 0.10.11
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -41,14 +41,20 @@ void BOARD_InitBootPins(void)
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitPins:
-- options: {callFromInitBoot: 'true', coreID: m7}
+- options: {callFromInitBoot: 'true', coreID: cm7}
 - pin_list:
+  - {pin_num: AD14, peripheral: PDM, signal: pdm_clk, pin_signal: SAI5_RXC, HYS: Schmitt, PUE: Weak_Pull_Up, FSEL: Fast, DSE: X6}
+  - {pin_num: AE16, peripheral: PDM, signal: 'pdm_bit_stream, 0', pin_signal: SAI5_RXD0, HYS: Schmitt, PUE: Weak_Pull_Up, FSEL: Fast, DSE: X6}
   - {pin_num: AJ5, peripheral: UART4, signal: uart_rx, pin_signal: UART4_RXD, PE: Enabled, PUE: Weak_Pull_Up, DSE: X1, SION: DISABLED}
   - {pin_num: AH5, peripheral: UART4, signal: uart_tx, pin_signal: UART4_TXD, PE: Enabled, PUE: Weak_Pull_Up, DSE: X1, SION: DISABLED}
   - {pin_num: AJ20, peripheral: SAI3, signal: sai_mclk, pin_signal: SAI3_MCLK, PE: Disabled, HYS: Schmitt, PUE: Weak_Pull_Up, FSEL: Fast, DSE: X6}
   - {pin_num: AH19, peripheral: SAI3, signal: sai_tx_bclk, pin_signal: SAI3_TXC, PE: Disabled, HYS: Schmitt, PUE: Weak_Pull_Up, FSEL: Fast, DSE: X6}
   - {pin_num: AH18, peripheral: SAI3, signal: 'sai_tx_data, 0', pin_signal: SAI3_TXD, PE: Disabled, HYS: Schmitt, PUE: Weak_Pull_Up, FSEL: Fast, DSE: X6}
   - {pin_num: AC16, peripheral: SAI3, signal: sai_tx_sync, pin_signal: SAI3_TXFS, PE: Disabled, HYS: Schmitt, PUE: Weak_Pull_Up, FSEL: Fast, DSE: X6}
+  - {pin_num: AF18, peripheral: SAI3, signal: 'sai_rx_data, 0', pin_signal: SAI3_RXD, PE: Disabled, HYS: Schmitt, PUE: Weak_Pull_Up, FSEL: Fast, DSE: X6}
+  - {pin_num: AD16, peripheral: PDM, signal: 'pdm_bit_stream, 1', pin_signal: SAI5_RXD1, HYS: Schmitt, PUE: Weak_Pull_Up, FSEL: Fast, DSE: X6}
+  - {pin_num: AF16, peripheral: PDM, signal: 'pdm_bit_stream, 2', pin_signal: SAI5_RXD2, HYS: Schmitt, PUE: Weak_Pull_Up, FSEL: Fast, DSE: X6}
+  - {pin_num: AE14, peripheral: PDM, signal: 'pdm_bit_stream, 3', pin_signal: SAI5_RXD3, HYS: Schmitt, PUE: Weak_Pull_Up, FSEL: Fast, DSE: X6}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -58,9 +64,15 @@ BOARD_InitPins:
  * Description   : Configures pin routing and optionally pin electrical features.
  *
  * END ****************************************************************************************************************/
-void BOARD_InitPins(void) {                                /*!< Function assigned for the core: Cortex-M7F[m7] */
+void BOARD_InitPins(void) {                                /*!< Function assigned for the core: undefined[cm7] */
     IOMUXC_SetPinMux(IOMUXC_SAI3_MCLK_AUDIOMIX_SAI3_MCLK, 0U);
     IOMUXC_SetPinConfig(IOMUXC_SAI3_MCLK_AUDIOMIX_SAI3_MCLK, 
+                        IOMUXC_SW_PAD_CTL_PAD_DSE(3U) |
+                        IOMUXC_SW_PAD_CTL_PAD_FSEL_MASK |
+                        IOMUXC_SW_PAD_CTL_PAD_PUE_MASK |
+                        IOMUXC_SW_PAD_CTL_PAD_HYS_MASK);
+    IOMUXC_SetPinMux(IOMUXC_SAI3_RXD_AUDIOMIX_SAI3_RX_DATA0, 0U);
+    IOMUXC_SetPinConfig(IOMUXC_SAI3_RXD_AUDIOMIX_SAI3_RX_DATA0, 
                         IOMUXC_SW_PAD_CTL_PAD_DSE(3U) |
                         IOMUXC_SW_PAD_CTL_PAD_FSEL_MASK |
                         IOMUXC_SW_PAD_CTL_PAD_PUE_MASK |
@@ -83,6 +95,41 @@ void BOARD_InitPins(void) {                                /*!< Function assigne
                         IOMUXC_SW_PAD_CTL_PAD_FSEL_MASK |
                         IOMUXC_SW_PAD_CTL_PAD_PUE_MASK |
                         IOMUXC_SW_PAD_CTL_PAD_HYS_MASK);
+    IOMUXC_SetPinMux(IOMUXC_SAI5_RXC_AUDIOMIX_PDM_CLK, 0U);
+    IOMUXC_SetPinConfig(IOMUXC_SAI5_RXC_AUDIOMIX_PDM_CLK, 
+                        IOMUXC_SW_PAD_CTL_PAD_DSE(3U) |
+                        IOMUXC_SW_PAD_CTL_PAD_FSEL_MASK |
+                        IOMUXC_SW_PAD_CTL_PAD_PUE_MASK |
+                        IOMUXC_SW_PAD_CTL_PAD_HYS_MASK |
+                        IOMUXC_SW_PAD_CTL_PAD_PE_MASK);
+    IOMUXC_SetPinMux(IOMUXC_SAI5_RXD0_AUDIOMIX_PDM_BIT_STREAM0, 0U);
+    IOMUXC_SetPinConfig(IOMUXC_SAI5_RXD0_AUDIOMIX_PDM_BIT_STREAM0, 
+                        IOMUXC_SW_PAD_CTL_PAD_DSE(3U) |
+                        IOMUXC_SW_PAD_CTL_PAD_FSEL_MASK |
+                        IOMUXC_SW_PAD_CTL_PAD_PUE_MASK |
+                        IOMUXC_SW_PAD_CTL_PAD_HYS_MASK |
+                        IOMUXC_SW_PAD_CTL_PAD_PE_MASK);
+    IOMUXC_SetPinMux(IOMUXC_SAI5_RXD1_AUDIOMIX_PDM_BIT_STREAM1, 0U);
+    IOMUXC_SetPinConfig(IOMUXC_SAI5_RXD1_AUDIOMIX_PDM_BIT_STREAM1, 
+                        IOMUXC_SW_PAD_CTL_PAD_DSE(3U) |
+                        IOMUXC_SW_PAD_CTL_PAD_FSEL_MASK |
+                        IOMUXC_SW_PAD_CTL_PAD_PUE_MASK |
+                        IOMUXC_SW_PAD_CTL_PAD_HYS_MASK |
+                        IOMUXC_SW_PAD_CTL_PAD_PE_MASK);
+    IOMUXC_SetPinMux(IOMUXC_SAI5_RXD2_AUDIOMIX_PDM_BIT_STREAM2, 0U);
+    IOMUXC_SetPinConfig(IOMUXC_SAI5_RXD2_AUDIOMIX_PDM_BIT_STREAM2, 
+                        IOMUXC_SW_PAD_CTL_PAD_DSE(3U) |
+                        IOMUXC_SW_PAD_CTL_PAD_FSEL_MASK |
+                        IOMUXC_SW_PAD_CTL_PAD_PUE_MASK |
+                        IOMUXC_SW_PAD_CTL_PAD_HYS_MASK |
+                        IOMUXC_SW_PAD_CTL_PAD_PE_MASK);
+    IOMUXC_SetPinMux(IOMUXC_SAI5_RXD3_AUDIOMIX_PDM_BIT_STREAM3, 0U);
+    IOMUXC_SetPinConfig(IOMUXC_SAI5_RXD3_AUDIOMIX_PDM_BIT_STREAM3, 
+                        IOMUXC_SW_PAD_CTL_PAD_DSE(3U) |
+                        IOMUXC_SW_PAD_CTL_PAD_FSEL_MASK |
+                        IOMUXC_SW_PAD_CTL_PAD_PUE_MASK |
+                        IOMUXC_SW_PAD_CTL_PAD_HYS_MASK |
+                        IOMUXC_SW_PAD_CTL_PAD_PE_MASK);
     IOMUXC_SetPinMux(IOMUXC_UART4_RXD_UART4_RX, 0U);
     IOMUXC_SetPinConfig(IOMUXC_UART4_RXD_UART4_RX, 
                         IOMUXC_SW_PAD_CTL_PAD_PUE_MASK |
@@ -97,7 +144,7 @@ void BOARD_InitPins(void) {                                /*!< Function assigne
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_I2C_ConfigurePins:
-- options: {callFromInitBoot: 'false', coreID: m7}
+- options: {callFromInitBoot: 'false', coreID: cm7}
 - pin_list:
   - {pin_num: AJ7, peripheral: I2C3, signal: i2c_scl, pin_signal: I2C3_SCL, PE: Enabled, HYS: Schmitt, PUE: Weak_Pull_Up, DSE: X1, SION: ENABLED}
   - {pin_num: AJ6, peripheral: I2C3, signal: i2c_sda, pin_signal: I2C3_SDA, PE: Enabled, HYS: Schmitt, PUE: Weak_Pull_Up, DSE: X1, SION: ENABLED}
@@ -110,7 +157,7 @@ BOARD_I2C_ConfigurePins:
  * Description   : Configures pin routing and optionally pin electrical features.
  *
  * END ****************************************************************************************************************/
-void BOARD_I2C_ConfigurePins(void) {                       /*!< Function assigned for the core: Cortex-M7F[m7] */
+void BOARD_I2C_ConfigurePins(void) {                       /*!< Function assigned for the core: undefined[cm7] */
     IOMUXC_SetPinMux(IOMUXC_I2C3_SCL_I2C3_SCL, 1U);
     IOMUXC_SetPinConfig(IOMUXC_I2C3_SCL_I2C3_SCL, 
                         IOMUXC_SW_PAD_CTL_PAD_PUE_MASK |

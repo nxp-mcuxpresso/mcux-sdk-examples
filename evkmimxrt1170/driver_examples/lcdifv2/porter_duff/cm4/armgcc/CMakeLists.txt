@@ -77,6 +77,8 @@ include(driver_display-rm68200)
 
 include(driver_soc_src)
 
+include(driver_display-hx8394)
+
 include(driver_lcdifv2)
 
 include(driver_clock)

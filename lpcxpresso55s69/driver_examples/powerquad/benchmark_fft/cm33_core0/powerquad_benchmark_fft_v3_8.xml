@@ -17,10 +17,9 @@
     <definition extID="platform.drivers.flexcomm.LPC55S69"/>
     <definition extID="component.usart_adapter.LPC55S69"/>
     <definition extID="component.lists.LPC55S69"/>
-    <definition extID="platform.Include_core_cm33.LPC55S69"/>
-    <definition extID="platform.Include_common.LPC55S69"/>
-    <definition extID="platform.Include_dsp.LPC55S69"/>
+    <definition extID="CMSIS_Include_core_cm.LPC55S69"/>
     <definition extID="platform.drivers.reset.LPC55S69"/>
+    <definition extID="CMSIS_DSP_Library.LPC55S69"/>
     <definition extID="platform.drivers.inputmux_connections.LPC55S69"/>
     <definition extID="platform.utilities.misc_utilities.LPC55S69"/>
     <definition extID="platform.devices.LPC55S69_system.LPC55S69"/>
@@ -32,7 +31,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="lpcxpresso55s69_powerquad_benchmark_fft" name="powerquad_benchmark_fft" device_core="cm33_core0_LPC55S69" dependency="utility.debug_console_lite.LPC55S69 platform.utilities.assert_lite.LPC55S69 platform.drivers.powerquad.LPC55S69 platform.drivers.common.LPC55S69 platform.drivers.power.LPC55S69 platform.drivers.lpc_iocon.LPC55S69 platform.drivers.lpc_gpio.LPC55S69 platform.drivers.inputmux.LPC55S69 platform.drivers.clock.LPC55S69 platform.devices.LPC55S69_CMSIS.LPC55S69 platform.devices.LPC55S69_startup.LPC55S69 platform.drivers.flexcomm_usart.LPC55S69 platform.drivers.flexcomm.LPC55S69 component.usart_adapter.LPC55S69 component.lists.LPC55S69 platform.Include_core_cm33.LPC55S69 platform.Include_common.LPC55S69 platform.Include_dsp.LPC55S69 platform.drivers.reset.LPC55S69 platform.drivers.inputmux_connections.LPC55S69 platform.utilities.misc_utilities.LPC55S69 platform.devices.LPC55S69_system.LPC55S69" category="driver_examples/powerquad">
+  <example id="lpcxpresso55s69_powerquad_benchmark_fft" name="powerquad_benchmark_fft" device_core="cm33_core0_LPC55S69" dependency="utility.debug_console_lite.LPC55S69 platform.utilities.assert_lite.LPC55S69 platform.drivers.powerquad.LPC55S69 platform.drivers.common.LPC55S69 platform.drivers.power.LPC55S69 platform.drivers.lpc_iocon.LPC55S69 platform.drivers.lpc_gpio.LPC55S69 platform.drivers.inputmux.LPC55S69 platform.drivers.clock.LPC55S69 platform.devices.LPC55S69_CMSIS.LPC55S69 platform.devices.LPC55S69_startup.LPC55S69 platform.drivers.flexcomm_usart.LPC55S69 platform.drivers.flexcomm.LPC55S69 component.usart_adapter.LPC55S69 component.lists.LPC55S69 CMSIS_Include_core_cm.LPC55S69 platform.drivers.reset.LPC55S69 CMSIS_DSP_Library.LPC55S69 platform.drivers.inputmux_connections.LPC55S69 platform.utilities.misc_utilities.LPC55S69 platform.devices.LPC55S69_system.LPC55S69" category="driver_examples/powerquad">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -46,6 +45,7 @@
       <toolchainSetting id_refs="com.nxp.mcuxpresso">
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>CPU_LPC55S69JBD100_cm33_core0</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.hdrlib" type="enum">
           <value>com.crt.advproject.gas.hdrlib.newlibnano</value>
@@ -101,8 +101,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_fft/cm33_core0" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso55s69" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso55s69/driver_examples/powerquad/benchmark_fft" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso55s69" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_fft" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_fft/cm33_core0/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="powerquad_benchmark_fft.ewd"/>
@@ -148,12 +148,6 @@
     </source>
     <source path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_fft/cm33_core0" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_fft/cm33_core0/iar" project_relative_path="LPC55S69/iar" type="linker" toolchain="iar">
-      <files mask="LPC55S69_cm33_core0_flash.icf"/>
-    </source>
-    <source path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_fft/cm33_core0/mdk" project_relative_path="LPC55S69/arm" type="linker" toolchain="mdk">
-      <files mask="LPC55S69_cm33_core0_flash.scf"/>
     </source>
     <source path="examples/lpcxpresso55s69/driver_examples/powerquad/benchmark_fft/cm33_core0/armgcc" project_relative_path="LPC55S69/gcc" type="linker" toolchain="armgcc">
       <files mask="LPC55S69_cm33_core0_flash.ld"/>

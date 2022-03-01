@@ -16,6 +16,7 @@
  ******************************************************************************/
 /*${macro:start}*/
 #define EXAMPLE_FLEXSPI                 FLEXSPI0
+#define EXAMPLE_CACHE                   CACHE64_CTRL0
 #define FLASH_SIZE                      0x10000 /* 512Mb/KByte */
 #define EXAMPLE_FLEXSPI_AMBA_BASE       FlexSPI0_AMBA_BASE
 #define FLASH_PAGE_SIZE                 256
@@ -64,6 +65,16 @@
     } while (0)
 
 /*${macro:end}*/
+
+/*******************************************************************************
+ * Variables
+ ******************************************************************************/
+/*${variable:start}*/
+typedef struct _flexspi_cache_status
+{
+    volatile bool CacheEnableFlag;
+} flexspi_cache_status_t;
+/*${variable:end}*/
 
 /*******************************************************************************
  * Prototypes

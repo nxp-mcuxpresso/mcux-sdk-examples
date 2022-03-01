@@ -223,6 +223,7 @@ static lpi2c_rtos_handle_t *sensorI2cHandle;
 static pf1550_handle_t pf1550Handle;
 static srtm_dispatcher_t disp;
 static srtm_peercore_t core;
+static srtm_sai_adapter_t saiAdapter;
 static srtm_service_t audioService;
 static srtm_rtc_adapter_t rtcAdapter;
 static srtm_service_t rtcService;
@@ -1128,6 +1129,10 @@ static void APP_PowerOnCA7(bool suspendMode)
         /* Enable application domain power */
         PF1550_EnableRegulator(&pf1550Handle, kPF1550_ModuleSwitch2, kPF1550_OperatingStatusRun, true);
         PF1550_EnableRegulator(&pf1550Handle, kPF1550_ModuleVrefDdr, kPF1550_OperatingStatusRun, true);
+        if (!PF1550_IsRegulatorEnabled(&pf1550Handle, kPF1550_ModuleSwitch3, kPF1550_OperatingStatusRun))
+        {
+            PF1550_EnableRegulator(&pf1550Handle, kPF1550_ModuleSwitch3, kPF1550_OperatingStatusRun, true);
+        }
     }
     PF1550_EnableRegulator(&pf1550Handle, kPF1550_ModuleSwitch1, kPF1550_OperatingStatusRun, true);
 
@@ -1475,10 +1480,13 @@ static void APP_SRTM_Linkup(void)
     chan                    = SRTM_RPMsgEndpoint_Create(&rpmsgConfig);
     SRTM_PeerCore_AddChannel(core, chan);
 
+    /* Create and add SRTM Audio channel to peer core */
     rpmsgConfig.rpmsgHandle = rpmsgHandle;
     rpmsgConfig.epName      = APP_SRTM_AUDIO_CHANNEL_NAME;
     chan                    = SRTM_RPMsgEndpoint_Create(&rpmsgConfig);
     SRTM_PeerCore_AddChannel(core, chan);
+    assert((audioService != NULL) && (saiAdapter != NULL));
+    SRTM_AudioService_BindChannel(audioService, saiAdapter, chan);
 
     /* Create and add SRTM Life Cycle channel to peer core */
     rpmsgConfig.rpmsgHandle = rpmsgHandle;
@@ -1524,7 +1532,6 @@ static void APP_SRTM_InitPeerCore(void)
 
     if (rpmsg_lite_is_link_up(rpmsgHandle))
     {
-        /* If resume context has already linked up, don't need to announce channel again. */
         APP_SRTM_Linkup();
     }
     else
@@ -1772,7 +1779,6 @@ static void APP_SRTM_InitAudioService(void)
     srtm_sai_edma_config_t saiRxConfig;
     srtm_i2c_codec_config_t i2cCodecConfig;
     srtm_codec_adapter_t codecAdapter;
-    srtm_sai_adapter_t saiAdapter;
 
     APP_SRTM_InitAudioDevice();
 
@@ -1781,24 +1787,16 @@ static void APP_SRTM_InitAudioService(void)
     NVIC_SetPriority(APP_DMA_IRQN(APP_SAI_RX_DMA_CHANNEL), APP_SAI_RX_DMA_IRQ_PRIO);
     NVIC_SetPriority(I2S0_IRQn, APP_SAI_IRQ_PRIO);
     /* Create SAI EDMA adapter */
-    SAI_TxGetDefaultConfig(&saiTxConfig.config);
+    SAI_GetClassicI2SConfig(&saiTxConfig.config, kSAI_WordWidth16bits, kSAI_Stereo, kSAI_Channel0Mask);
     saiTxConfig.config.syncMode = kSAI_ModeAsync; /* Tx in async mode */
-    saiTxConfig.config.protocol = kSAI_BusI2S;
-    saiTxConfig.dataLine        = 0;
-    saiTxConfig.watermark       = FSL_FEATURE_SAI_FIFO_COUNT - 1;
     saiTxConfig.mclk            = CLOCK_GetIpFreq(kCLOCK_Sai0);
-    saiTxConfig.bclk            = saiTxConfig.mclk;
     saiTxConfig.stopOnSuspend   = true;       /* Audio data is in DRAM which is not accessable in A7 suspend. */
     saiTxConfig.threshold       = UINT32_MAX; /* Every period transmitted triggers periodDone message to A7. */
     saiTxConfig.dmaChannel      = APP_SAI_TX_DMA_CHANNEL;
 
-    SAI_RxGetDefaultConfig(&saiRxConfig.config);
+    SAI_GetClassicI2SConfig(&saiRxConfig.config, kSAI_WordWidth16bits, kSAI_Stereo, kSAI_Channel0Mask);
     saiRxConfig.config.syncMode = kSAI_ModeSync; /* Rx in sync mode */
-    saiRxConfig.config.protocol = kSAI_BusI2S;
-    saiRxConfig.dataLine        = 0;
-    saiRxConfig.watermark       = 1;
     saiRxConfig.mclk            = saiTxConfig.mclk;
-    saiRxConfig.bclk            = saiRxConfig.mclk;
     saiRxConfig.stopOnSuspend   = true;       /* Audio data is in DRAM which is not accessable in A7 suspend. */
     saiRxConfig.threshold       = UINT32_MAX; /* Every period received triggers periodDone message to A7. */
     saiRxConfig.dmaChannel      = APP_SAI_RX_DMA_CHANNEL;
@@ -1827,10 +1825,12 @@ static void APP_SRTM_InitAudioService(void)
 
     /* Create I2C Codec adaptor */
     i2cCodecConfig.mclk        = saiTxConfig.mclk;
+    i2cCodecConfig.slaveAddr   = 0U;
     i2cCodecConfig.addrType    = kCODEC_RegAddr8Bit;
     i2cCodecConfig.regWidth    = kCODEC_RegWidth8Bit;
     i2cCodecConfig.writeRegMap = APP_SRTM_WriteCodecRegMap;
     i2cCodecConfig.readRegMap  = APP_SRTM_ReadCodecRegMap;
+    i2cCodecConfig.i2cHandle   = NULL;
     codecAdapter               = SRTM_I2CCodecAdapter_Create(&codecHandle, &i2cCodecConfig);
     assert(codecAdapter);
 

@@ -9,7 +9,7 @@ The ADC0 uses channel 1 and channel 5, and ADC1 uses channel 1 and channel 7.
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================

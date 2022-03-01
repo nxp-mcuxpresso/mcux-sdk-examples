@@ -48,7 +48,6 @@
 #define BOARD_SAI_RXCONFIG(config, mode)
 
 #define DEMO_DMA                SDMAARM3
-#define DEMO_RX_DMA             SDMAARM2
 #define DEMO_SAI_SDMA_TX_SOURCE 5
 #define DEMO_SAI_SDMA_RX_SOURCE 4
 #define DEMO_TX_SDMA_CHANNEL    1

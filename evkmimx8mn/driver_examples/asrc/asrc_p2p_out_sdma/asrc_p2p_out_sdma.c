@@ -35,7 +35,7 @@
 #define DEMO_CODEC_MUTE_PIN        (GPIO5)
 #define DEMO_CODEC_MUTE_PIN_NUM    (21)
 #define DEMO_IRQn                  I2S3_IRQn
-#define DEMO_DMA                   SDMAARM2
+#define DEMO_DMA                   SDMAARM3
 #define DEMO_ASRC_IN_SDMA_CHANNEL  2
 #define DEMO_ASRC_OUT_SDMA_CHANNEL 3
 #define DEMO_ASRC_IN_SDMA_SOURCE   16
