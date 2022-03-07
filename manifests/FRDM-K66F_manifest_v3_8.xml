@@ -2936,7 +2936,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="device.MK66F18_debugger.MK66F18" name="MK66F18_debugger" brief="Device MK66F18_debugger" version="1.0.0" full_name="Device MK66F18_debugger" devices="MK66FN2M0xxx18 MK66FX1M0xxx18" user_visible="true" type="debugger" package_base_path="core/devices/MK66F18" project_base_path="MK66F18">
+    <component id="device.MK66F18_debugger.MK66F18" name="MK66F18_debugger" brief="Device MK66F18_debugger" version="1.0.0" full_name="Device MK66F18_debugger" devices="MK66FN2M0xxx18 MK66FX1M0xxx18" user_visible="true" type="debugger" package_base_path="svd/MK66F18" project_base_path="MK66F18">
       <source relative_path="./" type="xml">
         <files mask="MK66F18.xml"/>
       </source>
