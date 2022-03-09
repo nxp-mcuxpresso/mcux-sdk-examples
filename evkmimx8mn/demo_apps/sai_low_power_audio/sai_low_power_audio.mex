@@ -4,12 +4,12 @@
       <processor>MIMX8MN6xxxJZ</processor>
       <package>MIMX8MN6DVTJZ</package>
       <mcu_data>ksdk2_0</mcu_data>
-      <cores selected="m7">
+      <cores selected="cm7">
          <core name="Cortex-A53(core#0)" id="a53_0" description="A53 core0"/>
          <core name="Cortex-A53(core#1)" id="a53_1" description="A53 core1"/>
          <core name="Cortex-A53(core#2)" id="a53_2" description="A53 core2"/>
          <core name="Cortex-A53(core#3)" id="a53_3" description="A53 core3"/>
-         <core name="Cortex-M7F" id="m7" description="M7 core"/>
+         <core name="Cortex-M7F" id="cm7" description="M7 core"/>
       </cores>
       <description></description>
    </common>
@@ -29,7 +29,7 @@
                <description>Configures pin routing and optionally pin electrical features.</description>
                <options>
                   <callFromInitBoot>false</callFromInitBoot>
-                  <coreID>m7</coreID>
+                  <coreID>cm7</coreID>
                </options>
                <dependencies/>
                <pins>

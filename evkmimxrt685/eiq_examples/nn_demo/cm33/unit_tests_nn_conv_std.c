@@ -76,7 +76,7 @@ static void alloc_buffers()
 
     // Interrogate DSP for necessary scratch size and allocate
     int scratch_size = xa_nn_conv2d_std_getsize(INPUT_HEIGHT, INPUT_CHANNELS, KERNEL_HEIGHT, KERNEL_WIDTH, Y_STRIDE,
-                                                Y_PADDING, OUTPUT_HEIGHT, INPUT_PRECISION);
+                                                Y_PADDING, OUTPUT_HEIGHT, OUTPUT_CHANNELS, INPUT_PRECISION);
     p_scratch        = xa_nn_malloc(scratch_size);
 }
 

@@ -67,7 +67,7 @@ include(driver_ltc)
 
 include(driver_ltc_edma)
 
-include(driver_edma)
+include(driver_edma_MCIMX7U5)
 
 include(driver_dmamux)
 

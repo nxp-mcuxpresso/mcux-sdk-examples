@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 NXP
+ * Copyright 2018-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -23,7 +23,7 @@
  * Prototypes
  ******************************************************************************/
 extern status_t flexspi_nor_flash_erase_sector(FLEXSPI_Type *base, uint32_t address);
-status_t flexspi_nor_flash_page_program(FLEXSPI_Type *base, uint32_t dstAddr, const uint32_t *src);
+extern status_t flexspi_nor_flash_page_program(FLEXSPI_Type *base, uint32_t dstAddr, const uint32_t *src);
 extern status_t flexspi_nor_get_vendor_id(FLEXSPI_Type *base, uint8_t *vendorId);
 extern status_t flexspi_nor_enable_octal_mode(FLEXSPI_Type *base);
 extern void flexspi_nor_flash_init(FLEXSPI_Type *base);
@@ -55,7 +55,27 @@ flexspi_device_config_t deviceconfig = {
     .AHBWriteWaitInterval = 0,
 };
 
-const uint32_t customLUT[CUSTOM_LUT_LENGTH] = {
+#if defined(EXAMPLE_FLASH_RESET_CONFIG)
+const uint32_t FastReadSDRLUTCommandSeq[4] = {
+    /*  Fast read with 4 bytes address(0x0c) */
+    [4 * NOR_CMD_LUT_SEQ_IDX_READ + 0] =
+        FLEXSPI_LUT_SEQ(kFLEXSPI_Command_SDR, kFLEXSPI_1PAD, 0x0C, kFLEXSPI_Command_RADDR_SDR, kFLEXSPI_1PAD, 0x20),
+    [4 * NOR_CMD_LUT_SEQ_IDX_READ + 1] = FLEXSPI_LUT_SEQ(
+        kFLEXSPI_Command_DUMMY_SDR, kFLEXSPI_1PAD, 0x08, kFLEXSPI_Command_READ_SDR, kFLEXSPI_1PAD, 0x04),
+};
+
+const uint32_t OctalReadDDRLUTCommandSeq[4] = {
+    /*  OPI DDR read */
+    [4 * NOR_CMD_LUT_SEQ_IDX_READ + 0] =
+        FLEXSPI_LUT_SEQ(kFLEXSPI_Command_DDR, kFLEXSPI_8PAD, 0xEE, kFLEXSPI_Command_DDR, kFLEXSPI_8PAD, 0x11),
+    [4 * NOR_CMD_LUT_SEQ_IDX_READ + 1] = FLEXSPI_LUT_SEQ(
+        kFLEXSPI_Command_RADDR_DDR, kFLEXSPI_8PAD, 0x20, kFLEXSPI_Command_DUMMY_DDR, kFLEXSPI_8PAD, 0x29),
+    [4 * NOR_CMD_LUT_SEQ_IDX_READ + 2] =
+        FLEXSPI_LUT_SEQ(kFLEXSPI_Command_READ_DDR, kFLEXSPI_8PAD, 0x04, kFLEXSPI_Command_STOP, kFLEXSPI_1PAD, 0x0),
+};
+#endif
+
+const uint32_t customLUTOctalMode[CUSTOM_LUT_LENGTH] = {
 
     /*  OPI DDR read */
     [4 * NOR_CMD_LUT_SEQ_IDX_READ + 0] =
@@ -154,6 +174,24 @@ int main(void)
 
     PRINTF("\r\nFLEXSPI example started!\r\n");
 
+    /* Adesto's octal flash has an limitation for read ID, which is that the Read Manufacturer and Device ID command is
+     * limited to a maximum clock frequency of fCLK. */
+#if defined(FLASH_ADESTO) && FLASH_ADESTO
+    /* Get vendor ID. */
+    status = flexspi_nor_get_vendor_id(EXAMPLE_FLEXSPI, &vendorID);
+    if (status != kStatus_Success)
+    {
+        return status;
+    }
+    PRINTF("Vendor ID: 0x%x\r\n", vendorID);
+
+    /* Enter quad mode. */
+    status = flexspi_nor_enable_octal_mode(EXAMPLE_FLEXSPI);
+    if (status != kStatus_Success)
+    {
+        return status;
+    }
+#else
     /* Enter quad mode. */
     status = flexspi_nor_enable_octal_mode(EXAMPLE_FLEXSPI);
     if (status != kStatus_Success)
@@ -168,6 +206,7 @@ int main(void)
         return status;
     }
     PRINTF("Vendor ID: 0x%x\r\n", vendorID);
+#endif
 
     /* Erase sectors. */
     PRINTF("Erasing Serial NOR over FlexSPI...\r\n");

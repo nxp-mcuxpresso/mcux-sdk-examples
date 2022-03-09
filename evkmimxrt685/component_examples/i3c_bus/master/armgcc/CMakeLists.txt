@@ -73,7 +73,7 @@ include(component_usart_adapter)
 
 include(driver_power)
 
-include(driver_flash_config)
+include(driver_flash_config_evkmimxrt685)
 
 include(driver_flexspi)
 

@@ -60,6 +60,10 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../clock_config.h"
 "${ProjDirPath}/../peripherals.h"
 "${ProjDirPath}/../peripherals.c"
+"${ProjDirPath}/../scripts/glow_process_image.py"
+"${ProjDirPath}/../scripts/glow_process_sound.py"
+"${ProjDirPath}/../scripts/glow_show_detections.py"
+"${ProjDirPath}/../scripts/glow_show_segmentation.py"
 "${ProjDirPath}/../dcd.c"
 "${ProjDirPath}/../dcd.h"
 )

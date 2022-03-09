@@ -354,7 +354,7 @@ int main(void)
 
             /* removing the service from the server */
             erpc_remove_service_from_server(service);
-            destroy_dac_adc_service();
+            destroy_dac_adc_service(service);
 
             /* stop erpc server */
             erpc_server_stop();

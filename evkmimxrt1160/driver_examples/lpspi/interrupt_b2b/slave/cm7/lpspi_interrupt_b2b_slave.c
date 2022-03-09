@@ -45,7 +45,7 @@ uint8_t slaveTxData[TRANSFER_SIZE] = {0U};
 volatile uint32_t slaveTxCount;
 volatile uint32_t slaveRxCount;
 volatile uint8_t g_slaveRxWatermark;
-uint8_t g_slaveFifoSize;
+volatile uint8_t g_slaveFifoSize;
 
 volatile bool isSlaveTransferCompleted = false;
 

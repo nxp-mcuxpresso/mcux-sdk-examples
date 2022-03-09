@@ -16,8 +16,14 @@
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-uint8_t g_keyId                 = 0U;
-static uint8_t tsi_currentmode  = kTSI_InvalidMode;
+uint8_t g_keyId = 0U;
+#if (FSL_FEATURE_SOC_TSI_COUNT == 1)
+static uint8_t tsi_currentmode[FSL_FEATURE_SOC_TSI_COUNT] = {kTSI_InvalidMode};
+#elif (FSL_FEATURE_SOC_TSI_COUNT == 2)
+static uint8_t tsi_currentmode[FSL_FEATURE_SOC_TSI_COUNT] = {kTSI_InvalidMode, kTSI_InvalidMode};
+#else
+#error "Need define the tsi_currentmode"
+#endif
 static uint8_t g_tsi_sample_cnt = 0;
 uint8_t g_key_baseline_freq     = BASELINE_UPDATE_FREQ;
 
@@ -36,18 +42,21 @@ void TSI_Init_SelfMode(TSI_Type *base)
 {
     tsi_selfCap_config_t config;
 
-    if (tsi_currentmode == kTSI_SelfMode)
+    uint32_t instance = 0U;
+    instance          = TSI_GetInstance(base);
+
+    if (tsi_currentmode[instance] == kTSI_SelfMode)
     {
         return;
     }
 
-    tsi_currentmode = kTSI_SelfMode;
+    tsi_currentmode[instance] = kTSI_SelfMode;
 
     TSI_GetSelfCapModeDefaultConfig(&config);
     config.commonConfig.mode        = kTSI_SensingModeSlection_Self;
     config.commonConfig.mainClock   = kTSI_MainClockSlection_1;   // 16.65MHz
     config.commonConfig.dvolt       = kTSI_DvoltOption_0;         /* DVOLT option value  */
-    config.commonConfig.cutoff      = kTSI_SincCutoffDiv_0;       /* Cutoff divider  */
+    config.commonConfig.cutoff      = kTSI_SincCutoffDiv_1;       /* Cutoff divider  */
     config.commonConfig.order       = kTSI_SincFilterOrder_2;     /* SINC filter order */
     config.commonConfig.decimation  = kTSI_SincDecimationValue_8; /* SINC decimation value */
     config.commonConfig.chargeNum   = kTSI_SscChargeNumValue_7;   /* SSC output bit0's period setting */
@@ -76,18 +85,20 @@ void TSI_Init_MutualMode(TSI_Type *base)
 {
     tsi_mutualCap_config_t config;
 
-    if (tsi_currentmode == kTSI_MutualMode)
+    uint32_t instance = 0U;
+    instance          = TSI_GetInstance(base);
+    if (tsi_currentmode[instance] == kTSI_MutualMode)
     {
         return;
     }
 
-    tsi_currentmode = kTSI_MutualMode;
+    tsi_currentmode[instance] = kTSI_MutualMode;
 
     TSI_GetMutualCapModeDefaultConfig(&config);
     config.commonConfig.mode        = kTSI_SensingModeSlection_Mutual;
     config.commonConfig.mainClock   = kTSI_MainClockSlection_1;
     config.commonConfig.dvolt       = kTSI_DvoltOption_0;         /* DVOLT option value  */
-    config.commonConfig.cutoff      = kTSI_SincCutoffDiv_0;       /* Cutoff divider  */
+    config.commonConfig.cutoff      = kTSI_SincCutoffDiv_1;       /* Cutoff divider  */
     config.commonConfig.order       = kTSI_SincFilterOrder_1;     /* SINC filter order */
     config.commonConfig.decimation  = kTSI_SincDecimationValue_8; /* SINC decimation value */
     config.commonConfig.chargeNum   = kTSI_SscChargeNumValue_4;   /* SSC output bit0's period setting */

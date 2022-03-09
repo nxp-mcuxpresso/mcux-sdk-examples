@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2017-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -45,54 +45,81 @@ extern "C" {
 void BOARD_InitBootPins(void);
 
 /* GPIO_AD_B0_05 (coord G14), CAN_STBY/BOOT_MODE[1]/Flash_RST/U12[8] */
-#define BOARD_CAN_STBY_GPIO                                                GPIO1   /*!< GPIO device name: GPIO1 */
-#define BOARD_CAN_STBY_PORT                                                GPIO1   /*!< PORT device name: GPIO1 */
-#define BOARD_CAN_STBY_PIN                                                    5U   /*!< GPIO1 pin index: 5 */
+/* Routed pin properties */
+#define BOARD_CAN_STBY_PERIPHERAL                                          GPIO1   /*!< Peripheral name */
+#define BOARD_CAN_STBY_SIGNAL                                            gpio_io   /*!< Signal name */
+#define BOARD_CAN_STBY_CHANNEL                                                5U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_CAN_STBY_GPIO                                                GPIO1   /*!< GPIO peripheral base pointer */
+#define BOARD_CAN_STBY_GPIO_PIN                                               5U   /*!< GPIO pin number */
+#define BOARD_CAN_STBY_GPIO_PIN_MASK                                  (1U << 5U)   /*!< GPIO pin mask */
+#define BOARD_CAN_STBY_PORT                                                GPIO1   /*!< PORT peripheral base pointer */
+#define BOARD_CAN_STBY_PIN                                                    5U   /*!< PORT pin number */
+#define BOARD_CAN_STBY_PIN_MASK                                       (1U << 5U)   /*!< PORT pin mask */
 
 /* GPIO_B1_12 (coord D13), SD_CD_SW */
-#define BOARD_SD_CD_SW_GPIO                                                GPIO2   /*!< GPIO device name: GPIO2 */
-#define BOARD_SD_CD_SW_PORT                                                GPIO2   /*!< PORT device name: GPIO2 */
-#define BOARD_SD_CD_SW_PIN                                                   28U   /*!< GPIO2 pin index: 28 */
+/* Routed pin properties */
+#define BOARD_SD_CD_SW_PERIPHERAL                                          GPIO2   /*!< Peripheral name */
+#define BOARD_SD_CD_SW_SIGNAL                                            gpio_io   /*!< Signal name */
+#define BOARD_SD_CD_SW_CHANNEL                                               28U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_SD_CD_SW_GPIO                                                GPIO2   /*!< GPIO peripheral base pointer */
+#define BOARD_SD_CD_SW_GPIO_PIN                                              28U   /*!< GPIO pin number */
+#define BOARD_SD_CD_SW_GPIO_PIN_MASK                                 (1U << 28U)   /*!< GPIO pin mask */
+#define BOARD_SD_CD_SW_PORT                                                GPIO2   /*!< PORT peripheral base pointer */
+#define BOARD_SD_CD_SW_PIN                                                   28U   /*!< PORT pin number */
+#define BOARD_SD_CD_SW_PIN_MASK                                      (1U << 28U)   /*!< PORT pin mask */
 
 /* GPIO_AD_B0_13 (coord L14), UART1_RXD */
-#define BOARD_UART1_RXD_PERIPHERAL                                       LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_UART1_RXD_SIGNAL                                                RX   /*!< LPUART1 signal: RX */
+/* Routed pin properties */
+#define BOARD_UART1_RXD_PERIPHERAL                                       LPUART1   /*!< Peripheral name */
+#define BOARD_UART1_RXD_SIGNAL                                                RX   /*!< Signal name */
 
 /* GPIO_AD_B0_12 (coord K14), UART1_TXD */
-#define BOARD_UART1_TXD_PERIPHERAL                                       LPUART1   /*!< Device name: LPUART1 */
-#define BOARD_UART1_TXD_SIGNAL                                                TX   /*!< LPUART1 signal: TX */
+/* Routed pin properties */
+#define BOARD_UART1_TXD_PERIPHERAL                                       LPUART1   /*!< Peripheral name */
+#define BOARD_UART1_TXD_SIGNAL                                                TX   /*!< Signal name */
 
 /* GPIO_SD_B0_01 (coord J3), SD1_CLK/J24[3] */
-#define BOARD_SD1_CLK_PERIPHERAL                                          USDHC1   /*!< Device name: USDHC1 */
-#define BOARD_SD1_CLK_SIGNAL                                           usdhc_clk   /*!< USDHC1 signal: usdhc_clk */
+/* Routed pin properties */
+#define BOARD_SD1_CLK_PERIPHERAL                                          USDHC1   /*!< Peripheral name */
+#define BOARD_SD1_CLK_SIGNAL                                           usdhc_clk   /*!< Signal name */
 
 /* GPIO_SD_B0_00 (coord J4), SD1_CMD/J24[6] */
-#define BOARD_SD1_CMD_PERIPHERAL                                          USDHC1   /*!< Device name: USDHC1 */
-#define BOARD_SD1_CMD_SIGNAL                                           usdhc_cmd   /*!< USDHC1 signal: usdhc_cmd */
+/* Routed pin properties */
+#define BOARD_SD1_CMD_PERIPHERAL                                          USDHC1   /*!< Peripheral name */
+#define BOARD_SD1_CMD_SIGNAL                                           usdhc_cmd   /*!< Signal name */
 
 /* GPIO_SD_B0_02 (coord J1), SD1_D0/J24[4]/SPI_MOSI/PWM */
-#define BOARD_SD1_D0_PERIPHERAL                                           USDHC1   /*!< Device name: USDHC1 */
-#define BOARD_SD1_D0_SIGNAL                                           usdhc_data   /*!< USDHC1 signal: usdhc_data */
-#define BOARD_SD1_D0_CHANNEL                                                  0U   /*!< USDHC1 usdhc_data channel: 0 */
+/* Routed pin properties */
+#define BOARD_SD1_D0_PERIPHERAL                                           USDHC1   /*!< Peripheral name */
+#define BOARD_SD1_D0_SIGNAL                                           usdhc_data   /*!< Signal name */
+#define BOARD_SD1_D0_CHANNEL                                                  0U   /*!< Signal channel */
 
 /* GPIO_SD_B0_03 (coord K1), SD1_D1/J24[5]/SPI_MISO */
-#define BOARD_SD1_D1_PERIPHERAL                                           USDHC1   /*!< Device name: USDHC1 */
-#define BOARD_SD1_D1_SIGNAL                                           usdhc_data   /*!< USDHC1 signal: usdhc_data */
-#define BOARD_SD1_D1_CHANNEL                                                  1U   /*!< USDHC1 usdhc_data channel: 1 */
+/* Routed pin properties */
+#define BOARD_SD1_D1_PERIPHERAL                                           USDHC1   /*!< Peripheral name */
+#define BOARD_SD1_D1_SIGNAL                                           usdhc_data   /*!< Signal name */
+#define BOARD_SD1_D1_CHANNEL                                                  1U   /*!< Signal channel */
 
 /* GPIO_SD_B0_04 (coord H2), SD1_D2 */
-#define BOARD_SD1_D2_PERIPHERAL                                           USDHC1   /*!< Device name: USDHC1 */
-#define BOARD_SD1_D2_SIGNAL                                           usdhc_data   /*!< USDHC1 signal: usdhc_data */
-#define BOARD_SD1_D2_CHANNEL                                                  2U   /*!< USDHC1 usdhc_data channel: 2 */
+/* Routed pin properties */
+#define BOARD_SD1_D2_PERIPHERAL                                           USDHC1   /*!< Peripheral name */
+#define BOARD_SD1_D2_SIGNAL                                           usdhc_data   /*!< Signal name */
+#define BOARD_SD1_D2_CHANNEL                                                  2U   /*!< Signal channel */
 
 /* GPIO_SD_B0_05 (coord J2), SD1_D3 */
-#define BOARD_SD1_D3_PERIPHERAL                                           USDHC1   /*!< Device name: USDHC1 */
-#define BOARD_SD1_D3_SIGNAL                                           usdhc_data   /*!< USDHC1 signal: usdhc_data */
-#define BOARD_SD1_D3_CHANNEL                                                  3U   /*!< USDHC1 usdhc_data channel: 3 */
+/* Routed pin properties */
+#define BOARD_SD1_D3_PERIPHERAL                                           USDHC1   /*!< Peripheral name */
+#define BOARD_SD1_D3_SIGNAL                                           usdhc_data   /*!< Signal name */
+#define BOARD_SD1_D3_CHANNEL                                                  3U   /*!< Signal channel */
 
 /* GPIO_B1_14 (coord C14), SD0_VSELECT */
-#define BOARD_SD0_VSELECT_PERIPHERAL                                      USDHC1   /*!< Device name: USDHC1 */
-#define BOARD_SD0_VSELECT_SIGNAL                                   usdhc_vselect   /*!< USDHC1 signal: usdhc_vselect */
+/* Routed pin properties */
+#define BOARD_SD0_VSELECT_PERIPHERAL                                      USDHC1   /*!< Peripheral name */
+#define BOARD_SD0_VSELECT_SIGNAL                                   usdhc_vselect   /*!< Signal name */
 
 
 /*!

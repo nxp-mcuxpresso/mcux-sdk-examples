@@ -10,6 +10,8 @@
 /*******************************************************************************
  * Application configuration
  ******************************************************************************/
+#define DEMO_ACOMP_BASE         ACOMP
+#define DEMO_ACOMP_CAPT_CHANNEL 5U
 
 /* If the channel sample data variance is less than this value, then the channel
  * sample data is stable, used in calibration stage.

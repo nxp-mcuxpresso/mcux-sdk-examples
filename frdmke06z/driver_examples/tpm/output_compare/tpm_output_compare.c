@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -21,7 +21,16 @@
 
 /* Get source clock for TPM driver */
 #define TPM_SOURCE_CLOCK CLOCK_GetFreq(kCLOCK_TimerClk)
-
+#ifndef DEMO_TIMER_PERIOD_MS
+/* To make led toggling visible, set default counter period to 40ms, which will make output frequency (two counter
+ * period) be 12.5Hz */
+#define DEMO_TIMER_PERIOD_MS (40U)
+#endif
+#ifndef TPM_PRESCALER_VALUE
+/* Calculate the clock division based on the PWM frequency to be obtained */
+#define TPM_PRESCALER_VALUE \
+    TPM_CalculateCounterClkDiv(DEMO_TPM_BASEADDR, 1000U / DEMO_TIMER_PERIOD_MS, TPM_SOURCE_CLOCK);
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -40,7 +49,6 @@
 int main(void)
 {
     tpm_config_t tpmInfo;
-    uint32_t compareValue = 0x1000;
 
     /* Board pin, clock, debug console init */
     BOARD_InitBootPins();
@@ -54,19 +62,19 @@ int main(void)
 
     TPM_GetDefaultConfig(&tpmInfo);
 
-#if defined(TPM_PRESCALER_VALUE)
-    /* Set divider to TPM_PRESCALER_VALUE instead of default 1 to be the led toggling visible */
     tpmInfo.prescale = TPM_PRESCALER_VALUE;
-#endif
 
     /* Initialize TPM module */
     TPM_Init(DEMO_TPM_BASEADDR, &tpmInfo);
 
-    /* Setup the output compare mode to toggle output on a match */
-    TPM_SetupOutputCompare(DEMO_TPM_BASEADDR, BOARD_TPM_OUT_CHANNEL, kTPM_ToggleOnMatch, compareValue);
+    /* Setup the output compare mode to toggle output on a match, note the compare value must less than counter mod
+     * value */
+    TPM_SetupOutputCompare(DEMO_TPM_BASEADDR, BOARD_TPM_OUT_CHANNEL, kTPM_ToggleOnMatch,
+                           MSEC_TO_COUNT(DEMO_TIMER_PERIOD_MS, TPM_SOURCE_CLOCK / (1U << tpmInfo.prescale)) / 2U);
 
-    /* Set the timer to be in free-running mode */
-    DEMO_TPM_BASEADDR->MOD = 0xFFFF;
+    /* Set the timer period */
+    TPM_SetTimerPeriod(DEMO_TPM_BASEADDR,
+                       MSEC_TO_COUNT(DEMO_TIMER_PERIOD_MS, TPM_SOURCE_CLOCK / (1U << tpmInfo.prescale)));
 
     TPM_StartTimer(DEMO_TPM_BASEADDR, kTPM_SystemClock);
     while (1)

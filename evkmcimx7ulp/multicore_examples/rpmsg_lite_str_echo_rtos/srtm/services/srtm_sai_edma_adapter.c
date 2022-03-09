@@ -52,7 +52,8 @@ typedef struct _srtm_sai_edma_runtime
     srtm_audio_state_t state;
     sai_edma_handle_t saiHandle;
     sai_word_width_t bitWidth;
-    sai_mono_stereo_t channels;
+    sai_mono_stereo_t mode;
+    uint32_t channels;
     uint32_t srate;
     uint8_t *bufAddr;
     uint32_t bufSize;
@@ -124,17 +125,31 @@ static void SRTM_SaiEdmaAdapter_RecycleRxMessage(srtm_message_t msg, void *param
 #if SRTM_SAI_EDMA_LOCAL_BUF_ENABLE
 static void SRTM_SaiEdmaAdaptor_ResetLocalBuf(srtm_sai_edma_runtime_t rtm)
 {
-    uint32_t i, n;
+    uint32_t i, n, alignment, maxPeriodSize;
+
+    alignment = ((uint32_t)(rtm->bitWidth) >> 3U) * rtm->channels;
+
+    if ((alignment % SRTM_SAI_EDMA_MAX_LOCAL_PERIOD_ALIGNMENT) != 0U)
+    {
+        alignment *= SRTM_SAI_EDMA_MAX_LOCAL_PERIOD_ALIGNMENT;
+    }
 
     if (rtm->localBuf.buf)
     {
         (void)memset(&rtm->localRtm.bufRtm, 0, sizeof(struct _srtm_sai_edma_buf_runtime));
-        rtm->localRtm.periodSize =
+        maxPeriodSize =
             (rtm->localBuf.bufSize / rtm->localBuf.periods) & (~SRTM_SAI_EDMA_MAX_LOCAL_PERIOD_ALIGNMENT_MASK);
         /* Calculate how many local periods each remote period */
-        n                        = (rtm->periodSize + rtm->localRtm.periodSize - 1) / rtm->localRtm.periodSize;
+        n                        = (rtm->periodSize + maxPeriodSize - 1) / maxPeriodSize;
         rtm->localRtm.periodSize = ((rtm->periodSize + n - 1) / n + SRTM_SAI_EDMA_MAX_LOCAL_PERIOD_ALIGNMENT_MASK) &
                                    (~SRTM_SAI_EDMA_MAX_LOCAL_PERIOD_ALIGNMENT_MASK);
+        /* The period size should be a multiple of bytes per sample */
+        rtm->localRtm.periodSize = (rtm->localRtm.periodSize + alignment - 1U) / alignment * alignment;
+        if (rtm->localRtm.periodSize > maxPeriodSize)
+        {
+            rtm->localRtm.periodSize -= alignment;
+        }
+
         for (i = 0; i < SRTM_SAI_EDMA_MAX_LOCAL_BUF_PERIODS; i++)
         {
             rtm->localRtm.periodsInfo[i].dataSize     = 0;
@@ -410,14 +425,12 @@ static void SRTM_SaiEdmaAdapter_InitSAI(srtm_sai_edma_adapter_t handle, srtm_aud
     if (dir == SRTM_AudioDirTx)
     {
         EDMA_CreateHandle(&handle->txDmaHandle, handle->dma, handle->txConfig.dmaChannel);
-        SAI_TxInit(handle->sai, &handle->txConfig.config);
         SAI_TransferTxCreateHandleEDMA(handle->sai, &handle->txRtm.saiHandle, SRTM_SaiEdmaTxCallback, (void *)handle,
                                        &handle->txDmaHandle);
     }
     else
     {
         EDMA_CreateHandle(&handle->rxDmaHandle, handle->dma, handle->rxConfig.dmaChannel);
-        SAI_RxInit(handle->sai, &handle->rxConfig.config);
         SAI_TransferRxCreateHandleEDMA(handle->sai, &handle->rxRtm.saiHandle, SRTM_SaiEdmaRxCallback, (void *)handle,
                                        &handle->rxDmaHandle);
     }
@@ -435,39 +448,21 @@ static void SRTM_SaiEdmaAdapter_DeinitSAI(srtm_sai_edma_adapter_t handle, srtm_a
     }
 }
 
-static void SRTM_SaiEdmaAdapter_SetXferFormat(sai_transfer_format_t *fmt,
-                                              srtm_sai_edma_runtime_t rtm,
-                                              srtm_sai_edma_config_t *cfg)
+static void SRTM_SaiEdmaAdapter_SetConfig(srtm_sai_edma_adapter_t handle, srtm_audio_dir_t dir)
 {
-    fmt->channel = cfg->dataLine;
-#if defined(FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER) && (FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER)
-    fmt->masterClockHz = cfg->mclk;
-#endif
-    fmt->protocol           = cfg->config.protocol;
-    fmt->watermark          = cfg->watermark;
-    fmt->sampleRate_Hz      = rtm->srate;
-    fmt->bitWidth           = (uint32_t)rtm->bitWidth;
-    fmt->stereo             = rtm->channels;
-    fmt->isFrameSyncCompact = false;
-}
-
-static void SRTM_SaiEdmaAdapter_SetFormat(srtm_sai_edma_adapter_t handle, srtm_audio_dir_t dir, bool sync)
-{
-    sai_transfer_format_t xferFormat;
-    srtm_sai_edma_config_t *cfg;
-
-    (void)memset(&xferFormat, 0, sizeof(sai_transfer_format_t));
     if (dir == SRTM_AudioDirTx)
     {
-        cfg = &handle->txConfig;
-        SRTM_SaiEdmaAdapter_SetXferFormat(&xferFormat, sync ? &handle->rxRtm : &handle->txRtm, cfg);
-        SAI_TransferTxSetFormatEDMA(handle->sai, &handle->txRtm.saiHandle, &xferFormat, cfg->mclk, cfg->bclk);
+        SAI_TransferTxSetConfigEDMA(handle->sai, &handle->txRtm.saiHandle, &handle->txConfig.config);
+
+        SAI_TxSetBitClockRate(handle->sai, handle->txConfig.mclk, handle->txRtm.srate, handle->txRtm.bitWidth,
+                              handle->txRtm.channels);
     }
     else
     {
-        cfg = &handle->rxConfig;
-        SRTM_SaiEdmaAdapter_SetXferFormat(&xferFormat, sync ? &handle->txRtm : &handle->rxRtm, cfg);
-        SAI_TransferRxSetFormatEDMA(handle->sai, &handle->rxRtm.saiHandle, &xferFormat, cfg->mclk, cfg->bclk);
+        SAI_TransferRxSetConfigEDMA(handle->sai, &handle->rxRtm.saiHandle, &handle->rxConfig.config);
+
+        SAI_RxSetBitClockRate(handle->sai, handle->rxConfig.mclk, handle->rxRtm.srate, handle->rxRtm.bitWidth,
+                              handle->rxRtm.channels);
     }
 }
 
@@ -565,6 +560,12 @@ static srtm_status_t SRTM_SaiEdmaAdapter_Start(srtm_sai_adapter_t adapter, srtm_
         return SRTM_Status_InvalidState;
     }
 
+    /* Init the audio device */
+    if (otherRtm->state != SRTM_AudioStateStarted)
+    {
+        SAI_Init(handle->sai);
+    }
+
     if (otherCfg->config.syncMode == kSAI_ModeSync)
     {
         /* The other direction in sync mode, it will initialize both directions. */
@@ -573,7 +574,7 @@ static srtm_status_t SRTM_SaiEdmaAdapter_Start(srtm_sai_adapter_t adapter, srtm_
             /* Only when the other direction is not started, we can initialize, else the device setting is reused. */
             SRTM_SaiEdmaAdapter_InitSAI(handle, dir);
             /* Use our own format. */
-            SRTM_SaiEdmaAdapter_SetFormat(handle, dir, false);
+            SRTM_SaiEdmaAdapter_SetConfig(handle, dir);
         }
     }
     else
@@ -582,14 +583,21 @@ static srtm_status_t SRTM_SaiEdmaAdapter_Start(srtm_sai_adapter_t adapter, srtm_
            Do initialization by ourselves. */
         SRTM_SaiEdmaAdapter_InitSAI(handle, dir);
         /* Use our own format. */
-        SRTM_SaiEdmaAdapter_SetFormat(handle, dir, false);
+        SRTM_SaiEdmaAdapter_SetConfig(handle, dir);
 
         if (thisCfg->config.syncMode == kSAI_ModeSync && otherRtm->state != SRTM_AudioStateStarted)
         {
             /* This direction in sync mode and the other not started, need to initialize the other direction. */
             SRTM_SaiEdmaAdapter_InitSAI(handle, otherDir);
+
+            /* The bit clock and frame sync is provided by sai RX, so set params from sai TX for sai RX */
+            otherRtm->bitWidth = thisRtm->bitWidth;
+            otherRtm->channels = thisRtm->channels;
+            otherRtm->mode     = thisRtm->mode;
+            otherRtm->srate    = thisRtm->srate;
+
             /* Set other direction format to ours. */
-            SRTM_SaiEdmaAdapter_SetFormat(handle, otherDir, true);
+            SRTM_SaiEdmaAdapter_SetConfig(handle, otherDir);
         }
     }
 
@@ -776,7 +784,8 @@ static srtm_status_t SRTM_SaiEdmaAdapter_SetParam(
     }
 
     rtm->bitWidth = saiBitsWidthMap[format];
-    rtm->channels = saiChannelMap[channels];
+    rtm->mode     = saiChannelMap[channels];
+    rtm->channels = channels;
     rtm->srate    = srate;
 
     return SRTM_Status_Success;

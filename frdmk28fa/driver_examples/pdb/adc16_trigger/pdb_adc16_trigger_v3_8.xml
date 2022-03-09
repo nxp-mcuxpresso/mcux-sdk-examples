@@ -70,8 +70,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmk28fa/driver_examples/pdb/adc16_trigger" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmk28fa/driver_examples/pdb/adc16_trigger" project_relative_path="frdmk28fa/driver_examples/pdb/adc16_trigger" type="c_include"/>
-      <include_path path="boards/frdmk28fa" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmk28fa/driver_examples/pdb/adc16_trigger" project_relative_path="frdmk28fa/driver_examples/pdb/adc16_trigger" type="c_include"/>
+      <include_path path="core/boards/frdmk28fa" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmk28fa/driver_examples/pdb/adc16_trigger/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="pdb_adc16_trigger.ewd"/>

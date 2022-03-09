@@ -101,7 +101,7 @@ include(driver_cache_cache64)
 
 include(driver_clock)
 
-include(driver_flash_config)
+include(driver_flash_config_evkmimxrt685)
 
 include(driver_flexcomm)
 
@@ -129,8 +129,6 @@ include(utilities_misc_utilities)
 
 include(middleware_eiq_tensorflow_lite_micro_third_party_cmsis_nn)
 
-include(CMSIS_DSP_Library)
-
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
@@ -141,14 +139,6 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
 
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
-
-if(CMAKE_BUILD_TYPE STREQUAL flash_release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../core/CMSIS/DSP/Lib/GCC/libarm_ARMv8MMLldfsp_math.a)
-endif(CMAKE_BUILD_TYPE STREQUAL flash_release)
-
-if(CMAKE_BUILD_TYPE STREQUAL flash_debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../core/CMSIS/DSP/Lib/GCC/libarm_ARMv8MMLldfsp_math.a)
-endif(CMAKE_BUILD_TYPE STREQUAL flash_debug)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

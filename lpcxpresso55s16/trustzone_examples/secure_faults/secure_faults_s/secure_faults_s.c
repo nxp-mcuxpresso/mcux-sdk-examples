@@ -28,6 +28,12 @@
 #define AHB_LAYERS_COUNT   10U
 #define NON_SECURE_START DEMO_CODE_START_NS
 
+/* @TEST_ANCHOR */
+
+#ifndef TESTCASE_MODE
+#define TESTCASE_MODE FAULT_NONE
+#endif
+
 /* typedef for non-secure callback functions, this type is needed for TEST 1  */
 typedef void (*funcptr_ns)(void) TZM_IS_NONSECURE_CALLED;
 
@@ -226,7 +232,7 @@ int main(void)
 
     PRINTF("Hello from secure world!\r\n");
 
-    testCaseNumber = FAULT_NONE;
+    testCaseNumber = TESTCASE_MODE;
 
     /* SET YOUR YOUR BREAK POINT TO THE NEXT CODE LINE */
 

@@ -41,7 +41,7 @@ void BOARD_InitBootPins(void)
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitPins:
-- options: {callFromInitBoot: 'true', coreID: m7}
+- options: {callFromInitBoot: 'true', coreID: cm7}
 - pin_list:
   - {pin_num: AD18, peripheral: FLEXCAN1, signal: can_rx, pin_signal: SPDIF_RX, PUE: Weak_Pull_Up, FSEL: Fast, DSE: X4}
   - {pin_num: AE18, peripheral: FLEXCAN1, signal: can_tx, pin_signal: SPDIF_TX, PUE: Weak_Pull_Up, FSEL: Fast, DSE: X4}

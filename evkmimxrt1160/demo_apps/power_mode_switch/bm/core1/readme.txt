@@ -25,7 +25,7 @@ and how to configure a wakeup source and wakeup the MCU from low power modes.
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================
@@ -79,6 +79,7 @@ M4 CLK is 240 MHz
 Please select the desired operation:
 Press  A to demonstrate typical set point transition.
 Press  B to demonstrate cpu mode switch in setpoint 0.
+Press  C to enter SNVS mode.
 
 Waiting for select...
 
@@ -154,6 +155,14 @@ Press G to enter cpu mode SUSPEND, system standby
 Press 'Q' to exit
 
 Waiting for select...
+
+3. When 'C' is selected, the menu shows wake up source selection for SNVS mode.
+
+Select the wake up source:
+Press T for Timer
+Press S for switch/button SW7. 
+
+Waiting for key press..
 
 Note:
 In this application, DCDC will be turned off durig SP11~SP15. All memories and peripherals in CM7 platform and WAKEUPMIX/DISPLAYMIX/MEGAMIX will be powered down in SP11~SP15.

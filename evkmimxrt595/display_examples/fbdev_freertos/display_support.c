@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019-2020, NXP
+ * Copyright (c) 2019-2021, NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -12,10 +12,16 @@
 #include "fsl_dc_fb_ssd1963.h"
 #include "fsl_dma.h"
 #include "fsl_inputmux.h"
-#elif ((DEMO_PANEL_RK055AHD091 == DEMO_PANEL) || (DEMO_PANEL_RK055IQH091 == DEMO_PANEL))
+#elif ((DEMO_PANEL_RK055AHD091 == DEMO_PANEL) || (DEMO_PANEL_RK055IQH091 == DEMO_PANEL) || \
+       (DEMO_PANEL_RK055MHD091 == DEMO_PANEL))
 #include "fsl_dc_fb_lcdif.h"
+#if (DEMO_PANEL_RK055AHD091 == DEMO_PANEL)
 #include "fsl_rm68200.h"
+#elif (DEMO_PANEL_RK055IQH091 == DEMO_PANEL)
 #include "fsl_rm68191.h"
+#elif (DEMO_PANEL_RK055MHD091 == DEMO_PANEL)
+#include "fsl_hx8394.h"
+#endif
 #include "fsl_mipi_dsi.h"
 #else
 #include "fsl_dc_fb_dsi_cmd.h"
@@ -275,7 +281,8 @@ status_t BOARD_PrepareDisplayController(void)
     return kStatus_Success;
 }
 
-#elif ((DEMO_PANEL_RK055AHD091 == DEMO_PANEL) || (DEMO_PANEL_RK055IQH091 == DEMO_PANEL))
+#elif ((DEMO_PANEL_RK055AHD091 == DEMO_PANEL) || (DEMO_PANEL_RK055IQH091 == DEMO_PANEL) || \
+       (DEMO_PANEL_RK055MHD091 == DEMO_PANEL))
 
 #if BOARD_ENABLE_PSRAM_CACHE
 /*
@@ -314,6 +321,15 @@ status_t BOARD_PrepareDisplayController(void)
 #define DEMO_LCDIF_HSW 2
 #define DEMO_LCDIF_HFP 32
 #define DEMO_LCDIF_HBP 30
+#define DEMO_LCDIF_VSW 2
+#define DEMO_LCDIF_VFP 16
+#define DEMO_LCDIF_VBP 14
+
+#elif (DEMO_PANEL_RK055MHD091 == DEMO_PANEL)
+
+#define DEMO_LCDIF_HSW 6
+#define DEMO_LCDIF_HFP 12
+#define DEMO_LCDIF_HBP 24
 #define DEMO_LCDIF_VSW 2
 #define DEMO_LCDIF_VFP 16
 #define DEMO_LCDIF_VBP 14
@@ -363,6 +379,24 @@ static const rm68200_resource_t rm68200Resource = {
 static display_handle_t rm68200Handle = {
     .resource = &rm68200Resource,
     .ops      = &rm68200_ops,
+};
+
+#elif (DEMO_PANEL == DEMO_PANEL_RK055MHD091)
+
+static mipi_dsi_device_t dsiDevice = {
+    .virtualChannel = 0,
+    .xferFunc       = BOARD_DSI_Transfer,
+};
+
+static const hx8394_resource_t hx8394Resource = {
+    .dsiDevice    = &dsiDevice,
+    .pullResetPin = BOARD_PullPanelResetPin,
+    .pullPowerPin = BOARD_PullPanelPowerPin,
+};
+
+static display_handle_t hx8394Handle = {
+    .resource = &hx8394Resource,
+    .ops      = &hx8394_ops,
 };
 
 #else
@@ -525,6 +559,8 @@ static status_t BOARD_InitLcdPanel(void)
 
 #if (DEMO_PANEL == DEMO_PANEL_RK055AHD091)
     status = RM68200_Init(&rm68200Handle, &displayConfig);
+#elif (DEMO_PANEL == DEMO_PANEL_RK055MHD091)
+    status = HX8394_Init(&hx8394Handle, &displayConfig);
 #else
     status = RM68191_Init(&rm68191Handle, &displayConfig);
 #endif

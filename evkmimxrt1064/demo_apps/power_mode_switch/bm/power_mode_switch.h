@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NXP
+ * Copyright 2018-2021 NXP
  * All rights reserved.
  *
  *
@@ -16,8 +16,8 @@
  ******************************************************************************/
 typedef enum _app_wakeup_source
 {
-    kAPP_WakeupSourceGPT, /*!< Wakeup by PIT.        */
-    kAPP_WakeupSourcePin, /*!< Wakeup by external pin. */
+    kAPP_WakeupSourceTimer, /*!< Wakeup by Timer.        */
+    kAPP_WakeupSourcePin,   /*!< Wakeup by external pin. */
 } app_wakeup_source_t;
 
 #endif /* _POWER_MODE_SWITCH_H_ */

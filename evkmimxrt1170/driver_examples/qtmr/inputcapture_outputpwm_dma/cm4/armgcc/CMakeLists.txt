@@ -59,7 +59,7 @@ set(CMAKE_MODULE_PATH
 include(all_devices)
 
 # include modules
-include(driver_edma)
+include(driver_edma_MIMXRT1176_cm4)
 
 include(driver_dmamux)
 
@@ -96,6 +96,8 @@ include(driver_pmu_1)
 include(driver_dcdc_soc)
 
 include(driver_cache_lmem)
+
+include(driver_memory)
 
 include(driver_anatop_ai)
 

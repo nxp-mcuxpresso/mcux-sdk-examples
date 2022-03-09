@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -26,7 +26,6 @@ processor_version: 0.9.0
 
 #include "fsl_common.h"
 #include "fsl_iopctl.h"
-#include "fsl_inputmux.h"
 #include "pin_mux.h"
 
 /* FUNCTION ************************************************************************************************************
@@ -53,7 +52,6 @@ BOARD_InitPins:
   - {pin_num: B10, peripheral: I3C0, signal: SCL, pin_signal: PIO2_29/I3C0_SCL/SCT0_OUT0/CLKOUT/SMARTDMA_PIO29, pupdena: enabled, pupdsel: pullUp, ibena: enabled}
   - {pin_num: D10, peripheral: I3C0, signal: SDA, pin_signal: PIO2_30/I3C0_SDA/SCT0_OUT3/CLKIN/CMP0_OUT/SMARTDMA_PIO30, pupdena: enabled, pupdsel: pullUp, ibena: enabled}
   - {pin_num: C14, peripheral: I3C0, signal: PUR, pin_signal: PIO2_31/I3C0_PUR/SCT0_OUT7/UTICK_CAP3/CTIMER_INP15/SWO/SMARTDMA_PIO31/CMP0_B}
-  - {peripheral: FUSIONF1, signal: 'DSP_INTERRUPT, 1', pin_signal: MU_B}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -67,11 +65,6 @@ BOARD_InitPins:
 /* Function assigned for the Cortex-M33 */
 void BOARD_InitPins(void)
 {
-    /* Enables the clock for the Input Mux */
-    CLOCK_EnableClock(kCLOCK_InputMux);
-    /* MUB interrupt signal is selected for DSP interrupt input 1 */
-    INPUTMUX_AttachSignal(INPUTMUX, 1U, kINPUTMUX_MuBToDspInterrupt);
-
     const uint32_t fc15_i2c_scl_config = (/* Pin is configured as I2C_SCL */
                                           IOPCTL_PIO_FUNC0 |
                                           /* Disable pull-up / pull-down function */

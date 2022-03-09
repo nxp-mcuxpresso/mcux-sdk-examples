@@ -60,7 +60,7 @@ include(all_devices)
 # include modules
 include(driver_clock)
 
-include(driver_edma)
+include(driver_edma_MIMXRT1062)
 
 include(driver_dmamux)
 

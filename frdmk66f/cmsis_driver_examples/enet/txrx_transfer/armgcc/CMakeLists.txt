@@ -110,7 +110,7 @@ include(CMSIS_Driver_Include_Common)
 
 include(CMSIS_Driver_Include_Ethernet_PHY)
 
-include(driver_edma)
+include(driver_edma_MK66F18)
 
 include(driver_dmamux)
 

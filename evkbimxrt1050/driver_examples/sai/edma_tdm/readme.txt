@@ -7,7 +7,7 @@ In this example, one sai instance playbacks the audio data stored in the sdcard 
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================
@@ -15,24 +15,26 @@ Hardware requirements
 - EVKB-IMXRT1050 board
 - Personal Computer
 - Headphone(OMTP standard) or speaker
-- RCA jack
-- cs42888 audio board
+- cs42448 audio board
 - sdcard(formatted with FAT32 format).
 
 Board settings
 ==============
-CS42888 audio board             rt1050 evk board
-A4                      ->          GND
-A5                      ->          SAI1_TX_BCLK(BCLK)
-A6                      ->          SAI1_TX_SYNC(SYNC)
-A8                      ->          SAI1_TXD(TX)
-A9                      ->          3V3
-A11                     ->          J22 pin8(RESET- GPIO1, PIN19)
-A13                     ->          5v
-A16                     ->          1v8
-B5                      ->          I2C1_SCL(scl)
-B6                      ->          I2C1_SDA(sda)
-B12                     ->          SAI1_MCLK(MCLK)
+CS42448 Audio board:
+Install J5 2-3, J3 2-3, J4 2-3, J2, J13, J14.
+
+To make example work, connections needed to be as follows:
+CS42448 audio board             rt1050 evk board
+J1-2                      ->          GND
+J1-23                     ->          SAI1_TX_BCLK(BCLK)
+J1-16                     ->          SAI1_TX_SYNC(SYNC)
+J1-17                     ->          SAI1_TXD(TX)
+J1-4                      ->          3V3
+J1-21                     ->          J22 pin8(power enable)
+J1-10                     ->          5v
+J1-13                     ->          I2C1_SCL(scl)
+J1-15                     ->          I2C1_SDA(sda)
+J1-1                      ->          SAI1_MCLK(MCLK)
 
 Prepare the Demo
 ================
@@ -44,7 +46,7 @@ Prepare the Demo
     - One stop bit
     - No flow control
 3. Download the program to the target board.
-4. connect CS42888 audio board to evk board.
+4. connect CS42448 audio board to evk board.
 5. Decompression the 8_TDM.zip and put 8_TDM.wav into the sdcard(formatted with FAT32 format).
 6. Either press the reset button on your board or launch the debugger in your IDE to begin running the demo.
 
@@ -52,12 +54,10 @@ Running the demo
 ================
 When the demo runs successfully, you can hear
 
-AOUT0 - Front left
-AOUT1 - Front right
-AOUT2 - Centre
-AOUT3 - "tone"
-AOUT4 - Back Left
-AOUT5 - Back right
+Line 1&2 output: "Front Left", "Front Right"
+Line 3&4 output: "Centre", tone
+Line 5&6 output: "Back Left", "Back Right"
+Line 7&8 output: "Auxiliary Left", "Auxiliary Right"
 
 and the log would be seen on the OpenSDA terminal like:
 ~~~~~~~~~~~~~~~~~~~
@@ -69,7 +69,7 @@ Card inserted.
 
 8_TDM.wav File is available
 
-CS42888 codec Init Done.
+Codec Init Done.
 
 Start play 8_TDM.wav file.
 

@@ -64,7 +64,7 @@ include(driver_i2c)
 
 include(driver_i2c_edma)
 
-include(driver_edma)
+include(driver_edma_MK66F18)
 
 include(driver_dmamux)
 

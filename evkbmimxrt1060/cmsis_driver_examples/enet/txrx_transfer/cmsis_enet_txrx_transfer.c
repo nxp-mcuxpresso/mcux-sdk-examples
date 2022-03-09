@@ -32,6 +32,13 @@
 #define EXAMPLE_ENET_PHY Driver_ETH_PHY0
 #define ENET_DATA_LENGTH        (1000)
 #define ENET_EXAMPLE_LOOP_COUNT (20U)
+
+/* @TEST_ANCHOR*/
+
+#ifndef MAC_ADDRESS
+#define MAC_ADDRESS {0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x61}
+#endif
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -41,7 +48,7 @@
  ******************************************************************************/
 uint8_t g_frame[ENET_DATA_LENGTH + 14];
 volatile uint32_t g_testTxNum  = 0;
-uint8_t g_macAddr[6]           = {0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x61};
+uint8_t g_macAddr[6]           = MAC_ADDRESS;
 volatile uint32_t g_rxIndex    = 0;
 volatile uint32_t g_rxCheckIdx = 0;
 volatile uint32_t g_txCheckIdx = 0;

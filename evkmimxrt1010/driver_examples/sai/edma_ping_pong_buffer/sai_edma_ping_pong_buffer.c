@@ -79,8 +79,6 @@
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
-static void DEMO_StartTXPingPongBuffer(void *buffer1, void *buffer2, uint32_t bufferSize);
-static void DEMO_StartRXPingPongBuffer(void *buffer1, void *buffer2, uint32_t bufferSize);
 extern void BOARD_SAI_RXConfig(sai_transceiver_t *config, sai_sync_mode_t sync);
 /*******************************************************************************
  * Variables
@@ -108,20 +106,41 @@ const clock_audio_pll_config_t audioPllConfig = {
     .numerator   = 77,  /* 30 bit numerator of fractional loop divider. */
     .denominator = 100, /* 30 bit denominator of fractional loop divider */
 };
+AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t txHandle);
+AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t rxHandle);
 static edma_handle_t s_dmaTxHandle = {0};
 static edma_handle_t s_dmaRxHandle = {0};
 extern codec_config_t boardCodecConfig;
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t s_buffer[BUFFER_NUM][BUFFER_SIZE], 4);
-volatile bool isFinished      = false;
-volatile uint32_t finishIndex = 0U;
-volatile uint32_t emptyBlock  = BUFFER_NUM;
-AT_NONCACHEABLE_SECTION_ALIGN(static edma_tcd_t s_emdaTcd[4], 32);
+volatile bool isFinished             = false;
+volatile uint32_t finishIndex        = 0U;
+volatile uint32_t emptyBlock         = BUFFER_NUM;
 static volatile bool s_Transfer_Done = false;
 static volatile uint32_t s_playIndex = 0U;
 static volatile uint32_t s_playCount = 0U;
 static sai_transceiver_t s_saiConfig;
 static codec_handle_t s_codecHandle;
+sai_transfer_t saiRxPingPongTransfer[2U] = {
+    {
+        .data     = s_buffer[0],
+        .dataSize = BUFFER_SIZE,
+    },
+    {
+        .data     = s_buffer[1],
+        .dataSize = BUFFER_SIZE,
+    },
+};
 
+sai_transfer_t saiTxPingPongTransfer[2U] = {
+    {
+        .data     = s_buffer[1],
+        .dataSize = BUFFER_SIZE,
+    },
+    {
+        .data     = s_buffer[0],
+        .dataSize = BUFFER_SIZE,
+    },
+};
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -145,12 +164,12 @@ void DelayMS(uint32_t ms)
     }
 }
 
-void EDMA_RX_Callback(edma_handle_t *handle, void *param, bool transferDone, uint32_t tcds)
+static void rx_callback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData)
 {
     __NOP();
 }
 
-void EDMA_TX_Callback(edma_handle_t *handle, void *param, bool transferDone, uint32_t tcds)
+static void tx_callback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData)
 {
     __NOP();
 }
@@ -202,22 +221,21 @@ int main(void)
     EDMA_Init(DEMO_DMA, &dmaConfig);
     EDMA_CreateHandle(&s_dmaTxHandle, DEMO_DMA, DEMO_TX_EDMA_CHANNEL);
     EDMA_CreateHandle(&s_dmaRxHandle, DEMO_DMA, DEMO_RX_EDMA_CHANNEL);
-    EDMA_SetCallback(&s_dmaTxHandle, EDMA_TX_Callback, NULL);
-    EDMA_SetCallback(&s_dmaRxHandle, EDMA_RX_Callback, NULL);
-    EDMA_ResetChannel(DEMO_DMA, DEMO_TX_EDMA_CHANNEL);
-    EDMA_ResetChannel(DEMO_DMA, DEMO_RX_EDMA_CHANNEL);
 
     /* SAI init */
     SAI_Init(DEMO_SAI);
 
     /* I2S mode configurations */
+    SAI_TransferTxCreateHandleEDMA(DEMO_SAI, &txHandle, tx_callback, NULL, &s_dmaTxHandle);
+    SAI_TransferRxCreateHandleEDMA(DEMO_SAI, &rxHandle, rx_callback, NULL, &s_dmaRxHandle);
+
     SAI_GetClassicI2SConfig(&s_saiConfig, DEMO_AUDIO_BIT_WIDTH, kSAI_Stereo, 1U << DEMO_SAI_CHANNEL);
     s_saiConfig.syncMode    = DEMO_SAI_TX_SYNC_MODE;
     s_saiConfig.masterSlave = DEMO_SAI_MASTER_SLAVE;
-    SAI_TxSetConfig(DEMO_SAI, &s_saiConfig);
+    SAI_TransferTxSetConfigEDMA(DEMO_SAI, &txHandle, &s_saiConfig);
     s_saiConfig.masterSlave = DEMO_SAI_MASTER_SLAVE;
     s_saiConfig.syncMode    = DEMO_SAI_RX_SYNC_MODE;
-    SAI_RxSetConfig(DEMO_SAI, &s_saiConfig);
+    SAI_TransferRxSetConfigEDMA(DEMO_SAI, &rxHandle, &s_saiConfig);
 
     /* set bit clock divider */
     SAI_TxSetBitClockRate(DEMO_SAI, DEMO_AUDIO_MASTER_CLOCK, DEMO_AUDIO_SAMPLE_RATE, DEMO_AUDIO_BIT_WIDTH,
@@ -237,70 +255,12 @@ int main(void)
     /* delay for codec output stable */
     DelayMS(DEMO_CODEC_INIT_DELAY_MS);
 
-    DEMO_StartRXPingPongBuffer(&s_buffer[0], &s_buffer[1], BUFFER_SIZE);
-    DEMO_StartTXPingPongBuffer(&s_buffer[1], &s_buffer[0], BUFFER_SIZE);
+    SAI_TransferReceiveLoopEDMA(DEMO_SAI, &rxHandle, &saiRxPingPongTransfer[0], 2U);
+    SAI_TransferSendLoopEDMA(DEMO_SAI, &txHandle, &saiTxPingPongTransfer[0], 2U);
 
     while (1)
     {
     }
-}
-
-static void DEMO_StartRXPingPongBuffer(void *buffer1, void *buffer2, uint32_t bufferSize)
-{
-    edma_transfer_config_t transferConfig = {0};
-    uint32_t srcAddr                      = SAI_RxGetDataRegisterAddress(DEMO_SAI, DEMO_SAI_CHANNEL);
-
-    /* Configure and submit transfer structure 1 */
-    EDMA_PrepareTransfer(&transferConfig, (void *)srcAddr, DEMO_AUDIO_BIT_WIDTH / 8U, buffer1,
-                         DEMO_AUDIO_BIT_WIDTH / 8U,
-                         (FSL_FEATURE_SAI_FIFO_COUNT - s_saiConfig.fifo.fifoWatermark) * (DEMO_AUDIO_BIT_WIDTH / 8U),
-                         bufferSize, kEDMA_PeripheralToMemory);
-
-    EDMA_TcdSetTransferConfig(&s_emdaTcd[2], &transferConfig, &s_emdaTcd[3]);
-    EDMA_PrepareTransfer(&transferConfig, (void *)srcAddr, DEMO_AUDIO_BIT_WIDTH / 8U, buffer2,
-                         DEMO_AUDIO_BIT_WIDTH / 8U,
-                         (FSL_FEATURE_SAI_FIFO_COUNT - s_saiConfig.fifo.fifoWatermark) * (DEMO_AUDIO_BIT_WIDTH / 8U),
-                         bufferSize, kEDMA_PeripheralToMemory);
-    EDMA_TcdSetTransferConfig(&s_emdaTcd[3], &transferConfig, &s_emdaTcd[2]);
-    EDMA_TcdEnableInterrupts(&s_emdaTcd[2], kEDMA_MajorInterruptEnable);
-    EDMA_TcdEnableInterrupts(&s_emdaTcd[3], kEDMA_MajorInterruptEnable);
-    EDMA_InstallTCD(DEMO_DMA, s_dmaRxHandle.channel, &s_emdaTcd[2]);
-    EDMA_StartTransfer(&s_dmaRxHandle);
-    /* Enable DMA enable bit */
-    SAI_RxEnableDMA(DEMO_SAI, kSAI_FIFORequestDMAEnable, true);
-    /* Enable SAI Tx clock */
-    SAI_RxEnable(DEMO_SAI, true);
-    /* Enable the channel FIFO */
-    SAI_RxSetChannelFIFOMask(DEMO_SAI, 1U << DEMO_SAI_CHANNEL);
-}
-
-static void DEMO_StartTXPingPongBuffer(void *buffer1, void *buffer2, uint32_t bufferSize)
-{
-    edma_transfer_config_t transferConfig = {0};
-    uint32_t destAddr                     = SAI_TxGetDataRegisterAddress(DEMO_SAI, DEMO_SAI_CHANNEL);
-
-    /* Configure and submit transfer structure 1 */
-    EDMA_PrepareTransfer(&transferConfig, buffer1, DEMO_AUDIO_BIT_WIDTH / 8U, (void *)destAddr,
-                         DEMO_AUDIO_BIT_WIDTH / 8U,
-                         (FSL_FEATURE_SAI_FIFO_COUNT - s_saiConfig.fifo.fifoWatermark) * (DEMO_AUDIO_BIT_WIDTH / 8U),
-                         bufferSize, kEDMA_MemoryToPeripheral);
-
-    EDMA_TcdSetTransferConfig(&s_emdaTcd[0], &transferConfig, &s_emdaTcd[1]);
-    EDMA_PrepareTransfer(&transferConfig, buffer2, DEMO_AUDIO_BIT_WIDTH / 8U, (void *)destAddr,
-                         DEMO_AUDIO_BIT_WIDTH / 8U,
-                         (FSL_FEATURE_SAI_FIFO_COUNT - s_saiConfig.fifo.fifoWatermark) * (DEMO_AUDIO_BIT_WIDTH / 8U),
-                         bufferSize, kEDMA_MemoryToPeripheral);
-    EDMA_TcdSetTransferConfig(&s_emdaTcd[1], &transferConfig, &s_emdaTcd[0]);
-    EDMA_TcdEnableInterrupts(&s_emdaTcd[0], kEDMA_MajorInterruptEnable);
-    EDMA_TcdEnableInterrupts(&s_emdaTcd[1], kEDMA_MajorInterruptEnable);
-    EDMA_InstallTCD(DEMO_DMA, s_dmaTxHandle.channel, &s_emdaTcd[0]);
-    EDMA_StartTransfer(&s_dmaTxHandle);
-    /* Enable DMA enable bit */
-    SAI_TxEnableDMA(DEMO_SAI, kSAI_FIFORequestDMAEnable, true);
-    /* Enable SAI Tx clock */
-    SAI_TxEnable(DEMO_SAI, true);
-    /* Enable the channel FIFO */
-    SAI_TxSetChannelFIFOMask(DEMO_SAI, 1U << DEMO_SAI_CHANNEL);
 }
 
 #if defined(DEMO_SAITxIRQHandler)

@@ -64,13 +64,13 @@ void BOARD_InitDEBUG_UARTPins(void) {
   CLOCK_EnableClock(kCLOCK_Iomuxc);           /* iomuxc clock (iomuxc_clk_enable): 0x03u */
 
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B0_12_LPUART1_TX,        /* GPIO_AD_B0_12 is configured as LPUART1_TX */
+      IOMUXC_GPIO_AD_B0_12_LPUART1_TXD,       /* GPIO_AD_B0_12 is configured as LPUART1_TX */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B0_13_LPUART1_RX,        /* GPIO_AD_B0_13 is configured as LPUART1_RX */
+      IOMUXC_GPIO_AD_B0_13_LPUART1_RXD,       /* GPIO_AD_B0_13 is configured as LPUART1_RX */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinConfig(
-      IOMUXC_GPIO_AD_B0_12_LPUART1_TX,        /* GPIO_AD_B0_12 PAD functional properties : */
+      IOMUXC_GPIO_AD_B0_12_LPUART1_TXD,       /* GPIO_AD_B0_12 PAD functional properties : */
       0x10B0u);                               /* Slew Rate Field: Slow Slew Rate
                                                  Drive Strength Field: R0/6
                                                  Speed Field: medium(100MHz)
@@ -80,7 +80,7 @@ void BOARD_InitDEBUG_UARTPins(void) {
                                                  Pull Up / Down Config. Field: 100K Ohm Pull Down
                                                  Hyst. Enable Field: Hysteresis Disabled */
   IOMUXC_SetPinConfig(
-      IOMUXC_GPIO_AD_B0_13_LPUART1_RX,        /* GPIO_AD_B0_13 PAD functional properties : */
+      IOMUXC_GPIO_AD_B0_13_LPUART1_RXD,       /* GPIO_AD_B0_13 PAD functional properties : */
       0x10B0u);                               /* Slew Rate Field: Slow Slew Rate
                                                  Drive Strength Field: R0/6
                                                  Speed Field: medium(100MHz)
@@ -149,28 +149,28 @@ void BOARD_InitSDRAMPins(void) {
   CLOCK_EnableClock(kCLOCK_Iomuxc);           /* iomuxc clock (iomuxc_clk_enable): 0x03u */
 
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_EMC_00_SEMC_DATA00,         /* GPIO_EMC_00 is configured as SEMC_DATA00 */
+      IOMUXC_GPIO_EMC_00_SEMC_DA00,           /* GPIO_EMC_00 is configured as SEMC_DATA00 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_EMC_01_SEMC_DATA01,         /* GPIO_EMC_01 is configured as SEMC_DATA01 */
+      IOMUXC_GPIO_EMC_01_SEMC_DA01,           /* GPIO_EMC_01 is configured as SEMC_DATA01 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_EMC_02_SEMC_DATA02,         /* GPIO_EMC_02 is configured as SEMC_DATA02 */
+      IOMUXC_GPIO_EMC_02_SEMC_DA02,           /* GPIO_EMC_02 is configured as SEMC_DATA02 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_EMC_03_SEMC_DATA03,         /* GPIO_EMC_03 is configured as SEMC_DATA03 */
+      IOMUXC_GPIO_EMC_03_SEMC_DA03,           /* GPIO_EMC_03 is configured as SEMC_DATA03 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_EMC_04_SEMC_DATA04,         /* GPIO_EMC_04 is configured as SEMC_DATA04 */
+      IOMUXC_GPIO_EMC_04_SEMC_DA04,           /* GPIO_EMC_04 is configured as SEMC_DATA04 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_EMC_05_SEMC_DATA05,         /* GPIO_EMC_05 is configured as SEMC_DATA05 */
+      IOMUXC_GPIO_EMC_05_SEMC_DA05,           /* GPIO_EMC_05 is configured as SEMC_DATA05 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_EMC_06_SEMC_DATA06,         /* GPIO_EMC_06 is configured as SEMC_DATA06 */
+      IOMUXC_GPIO_EMC_06_SEMC_DA06,           /* GPIO_EMC_06 is configured as SEMC_DATA06 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_EMC_07_SEMC_DATA07,         /* GPIO_EMC_07 is configured as SEMC_DATA07 */
+      IOMUXC_GPIO_EMC_07_SEMC_DA07,           /* GPIO_EMC_07 is configured as SEMC_DATA07 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_EMC_08_SEMC_DM00,           /* GPIO_EMC_08 is configured as SEMC_DM00 */
@@ -236,34 +236,34 @@ void BOARD_InitSDRAMPins(void) {
       IOMUXC_GPIO_EMC_28_SEMC_WE,             /* GPIO_EMC_28 is configured as SEMC_WE */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_EMC_30_SEMC_DATA08,         /* GPIO_EMC_30 is configured as SEMC_DATA08 */
+      IOMUXC_GPIO_EMC_30_SEMC_DA08,           /* GPIO_EMC_30 is configured as SEMC_DATA08 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_EMC_31_SEMC_DATA09,         /* GPIO_EMC_31 is configured as SEMC_DATA09 */
+      IOMUXC_GPIO_EMC_31_SEMC_DA09,           /* GPIO_EMC_31 is configured as SEMC_DATA09 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_EMC_32_SEMC_DATA10,         /* GPIO_EMC_32 is configured as SEMC_DATA10 */
+      IOMUXC_GPIO_EMC_32_SEMC_DA10,           /* GPIO_EMC_32 is configured as SEMC_DATA10 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_EMC_33_SEMC_DATA11,         /* GPIO_EMC_33 is configured as SEMC_DATA11 */
+      IOMUXC_GPIO_EMC_33_SEMC_DA11,           /* GPIO_EMC_33 is configured as SEMC_DATA11 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_EMC_34_SEMC_DATA12,         /* GPIO_EMC_34 is configured as SEMC_DATA12 */
+      IOMUXC_GPIO_EMC_34_SEMC_DA12,           /* GPIO_EMC_34 is configured as SEMC_DATA12 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_EMC_35_SEMC_DATA13,         /* GPIO_EMC_35 is configured as SEMC_DATA13 */
+      IOMUXC_GPIO_EMC_35_SEMC_DA13,           /* GPIO_EMC_35 is configured as SEMC_DATA13 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_EMC_36_SEMC_DATA14,         /* GPIO_EMC_36 is configured as SEMC_DATA14 */
+      IOMUXC_GPIO_EMC_36_SEMC_DA14,           /* GPIO_EMC_36 is configured as SEMC_DATA14 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_EMC_37_SEMC_DATA15,         /* GPIO_EMC_37 is configured as SEMC_DATA15 */
+      IOMUXC_GPIO_EMC_37_SEMC_DA15,           /* GPIO_EMC_37 is configured as SEMC_DATA15 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_EMC_38_SEMC_DM01,           /* GPIO_EMC_38 is configured as SEMC_DM01 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_EMC_41_SEMC_CSX00,          /* GPIO_EMC_41 is configured as SEMC_CSX00 */
+      IOMUXC_GPIO_EMC_41_SEMC_CSX0,           /* GPIO_EMC_41 is configured as SEMC_CSX00 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
 }
 

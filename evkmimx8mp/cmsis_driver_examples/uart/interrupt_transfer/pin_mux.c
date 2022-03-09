@@ -41,7 +41,7 @@ void BOARD_InitBootPins(void)
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitPins:
-- options: {callFromInitBoot: 'true', coreID: m7}
+- options: {callFromInitBoot: 'true', coreID: cm7}
 - pin_list: []
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -59,7 +59,7 @@ void BOARD_InitPins(void) {                                /*!< Function assigne
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 UART4_InitPins:
-- options: {callFromInitBoot: 'false', coreID: m7}
+- options: {callFromInitBoot: 'false', coreID: cm7}
 - pin_list:
   - {pin_num: AJ5, peripheral: UART4, signal: uart_rx, pin_signal: UART4_RXD, PE: Enabled, PUE: Weak_Pull_Up}
   - {pin_num: AH5, peripheral: UART4, signal: uart_tx, pin_signal: UART4_TXD, PE: Enabled, PUE: Weak_Pull_Up}
@@ -89,7 +89,7 @@ void UART4_InitPins(void) {                                /*!< Function assigne
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 UART4_DeinitPins:
-- options: {callFromInitBoot: 'false', coreID: m7}
+- options: {callFromInitBoot: 'false', coreID: cm7}
 - pin_list:
   - {pin_num: AJ5, peripheral: GPIO5, signal: 'gpio_io, 28', pin_signal: UART4_RXD}
   - {pin_num: AH5, peripheral: GPIO5, signal: 'gpio_io, 29', pin_signal: UART4_TXD}

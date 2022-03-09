@@ -61,8 +61,27 @@ flexspi_device_config_t deviceconfig = {
     .AHBWriteWaitInterval = 0,
 };
 
-const uint32_t customLUT[CUSTOM_LUT_LENGTH] = {
+#if defined(EXAMPLE_FLASH_RESET_CONFIG)
+const uint32_t FastReadSDRLUTCommandSeq[4] = {
+    /*  Fast read with 4 bytes address(0x0c) */
+    [4 * NOR_CMD_LUT_SEQ_IDX_READ + 0] =
+        FLEXSPI_LUT_SEQ(kFLEXSPI_Command_SDR, kFLEXSPI_1PAD, 0x0C, kFLEXSPI_Command_RADDR_SDR, kFLEXSPI_1PAD, 0x20),
+    [4 * NOR_CMD_LUT_SEQ_IDX_READ + 1] = FLEXSPI_LUT_SEQ(
+        kFLEXSPI_Command_DUMMY_SDR, kFLEXSPI_1PAD, 0x08, kFLEXSPI_Command_READ_SDR, kFLEXSPI_1PAD, 0x04),
+};
 
+const uint32_t OctalReadDDRLUTCommandSeq[4] = {
+    /*  OPI DDR read */
+    [4 * NOR_CMD_LUT_SEQ_IDX_READ + 0] =
+        FLEXSPI_LUT_SEQ(kFLEXSPI_Command_DDR, kFLEXSPI_8PAD, 0xEE, kFLEXSPI_Command_DDR, kFLEXSPI_8PAD, 0x11),
+    [4 * NOR_CMD_LUT_SEQ_IDX_READ + 1] = FLEXSPI_LUT_SEQ(
+        kFLEXSPI_Command_RADDR_DDR, kFLEXSPI_8PAD, 0x20, kFLEXSPI_Command_DUMMY_DDR, kFLEXSPI_8PAD, 0x29),
+    [4 * NOR_CMD_LUT_SEQ_IDX_READ + 2] =
+        FLEXSPI_LUT_SEQ(kFLEXSPI_Command_READ_DDR, kFLEXSPI_8PAD, 0x04, kFLEXSPI_Command_STOP, kFLEXSPI_1PAD, 0x0),
+};
+#endif
+
+const uint32_t customLUTOctalMode[CUSTOM_LUT_LENGTH] = {
     /*  OPI DDR read */
     [4 * NOR_CMD_LUT_SEQ_IDX_READ + 0] =
         FLEXSPI_LUT_SEQ(kFLEXSPI_Command_DDR, kFLEXSPI_8PAD, 0xEE, kFLEXSPI_Command_DDR, kFLEXSPI_8PAD, 0x11),

@@ -78,7 +78,7 @@ include(component_lpi2c_adapter)
 
 include(driver_codec)
 
-include(component_cs42888_adapter)
+include(component_cs42448_adapter)
 
 include(driver_cache_armv7_m7)
 
@@ -94,7 +94,7 @@ include(driver_sai_edma)
 
 include(driver_dmamux)
 
-include(driver_edma)
+include(driver_edma_MIMXRT1052)
 
 include(middleware_fatfs)
 
@@ -126,7 +126,7 @@ include(component_osa_bm)
 
 include(driver_usdhc)
 
-include(driver_cs42888)
+include(driver_cs42448)
 
 include(utilities_misc_utilities)
 

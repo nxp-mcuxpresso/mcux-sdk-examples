@@ -13,8 +13,11 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define DEMO_SEC_ADDRESS    0x30000000
-#define DEMO_NONSEC_ADDRESS 0x00130000
+#define DEMO_SEC_ADDRESS 0x30000000
+
+/* 0x20200000 - 0x20201FFF is configured Non-Secure SRAM in SAU.
+The SRAM alias 0x20200000 - 0x20201FFF is configured secure in AHB_SECURE_CTRL. */
+#define DEMO_NONSEC_ADDRESS 0x20200000
 typedef void (*funcptr_t)(char const *s);
 #define PRINTF_NSE DbgConsole_Printf_NSE
 

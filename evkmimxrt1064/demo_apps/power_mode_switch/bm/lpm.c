@@ -399,8 +399,6 @@ void LPM_LowPowerRun(lpm_power_mode_t curRunMode)
     /* Decrease core frequency before decreasing power supply */
     ClockSetToLowPowerRun();
     LPM_AdjustSystemSettings(curRunMode, LPM_PowerModeLowPowerRun);
-    /* Power down USBPHY */
-    PowerDownUSBPHY();
 }
 
 void LPM_EnterSystemIdle(lpm_power_mode_t curRunMode)
@@ -411,9 +409,6 @@ void LPM_EnterSystemIdle(lpm_power_mode_t curRunMode)
         LPM_LowSpeedRun(curRunMode);
     }
     LPM_SetWaitModeConfig();
-    SetLowPowerClockGate();
-    /* Power down USBPHY */
-    PowerDownUSBPHY();
     PeripheralEnterDozeMode();
 }
 
@@ -450,9 +445,6 @@ void LPM_EnterLowPowerIdle(lpm_power_mode_t curRunMode)
         LPM_LowPowerRun(curRunMode);
     }
     LPM_SetWaitModeConfig();
-    SetLowPowerClockGate();
-    /* Power down USBPHY */
-    PowerDownUSBPHY();
     PeripheralEnterDozeMode();
 }
 
@@ -488,7 +480,6 @@ void LPM_EnterSuspend(void)
     uint32_t gpcIMR5;
 
     LPM_SetStopModeConfig();
-    SetLowPowerClockGate();
 
     /* Connect internal the load resistor */
     DCDC->REG1 |= DCDC_REG1_REG_RLOAD_SW_MASK;
@@ -505,9 +496,6 @@ void LPM_EnterSuspend(void)
     DCDC_AdjustTargetVoltage(DCDC, 0x13, 0x1);
     /* Switch DCDC to use DCDC internal OSC */
     DCDC_SetClockSource(DCDC, kDCDC_ClockInternalOsc);
-
-    /* Power down USBPHY */
-    PowerDownUSBPHY();
 
     /* Power down CPU when requested */
     PGC->CPU_CTRL = PGC_CPU_CTRL_PCR_MASK;

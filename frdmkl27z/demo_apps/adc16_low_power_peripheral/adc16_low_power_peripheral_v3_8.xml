@@ -67,8 +67,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmkl27z/demo_apps/adc16_low_power_peripheral" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmkl27z/demo_apps/adc16_low_power_peripheral" project_relative_path="frdmkl27z/demo_apps/adc16_low_power_peripheral" type="c_include"/>
-      <include_path path="boards/frdmkl27z" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmkl27z/demo_apps/adc16_low_power_peripheral" project_relative_path="frdmkl27z/demo_apps/adc16_low_power_peripheral" type="c_include"/>
+      <include_path path="core/boards/frdmkl27z" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmkl27z/demo_apps/adc16_low_power_peripheral/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="adc16_low_power_peripheral.ewd"/>

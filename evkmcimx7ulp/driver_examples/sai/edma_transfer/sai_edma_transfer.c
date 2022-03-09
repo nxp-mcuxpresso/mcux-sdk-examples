@@ -84,8 +84,8 @@ wm8960_config_t wm8960Config = {
     .master_slave = false,
 };
 codec_config_t boardCodecConfig = {.codecDevType = kCODEC_WM8960, .codecDevConfig = &wm8960Config};
-AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle) = {0};
-edma_handle_t g_dmaHandle                                = {0};
+AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t txHandle);
+edma_handle_t g_dmaHandle = {0};
 extern codec_config_t boardCodecConfig;
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t buffer[BUFFER_NUM * BUFFER_SIZE], 4);
 volatile bool isFinished      = false;

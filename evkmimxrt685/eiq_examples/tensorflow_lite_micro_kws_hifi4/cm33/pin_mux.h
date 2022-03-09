@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2020 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -33,6 +33,7 @@ void BOARD_InitBootPins(void);
 
 #define IOPCTL_PIO_ANAMUX_DI 0x00u        /*!<@brief Analog mux is disabled */
 #define IOPCTL_PIO_FULLDRIVE_DI 0x00u     /*!<@brief Normal drive */
+#define IOPCTL_PIO_FULLDRIVE_EN 0x0100u   /*!<@brief Full drive enable */
 #define IOPCTL_PIO_FUNC0 0x00u            /*!<@brief Selects pin function 0 */
 #define IOPCTL_PIO_FUNC1 0x01u            /*!<@brief Selects pin function 1 */
 #define IOPCTL_PIO_INBUF_DI 0x00u         /*!<@brief Disable input buffer function */
@@ -45,14 +46,7 @@ void BOARD_InitBootPins(void);
 #define IOPCTL_PIO_PUPD_DI 0x00u          /*!<@brief Disable pull-up / pull-down function */
 #define IOPCTL_PIO_PUPD_EN 0x10u          /*!<@brief Enable pull-up / pull-down function */
 #define IOPCTL_PIO_SLEW_RATE_NORMAL 0x00u /*!<@brief Normal mode */
-
-/*! @name FC0_RXD_SDA_MOSI_DATA (coord G4), JP21[2]/U28[3]/U9[13]
-  @{ */
-                                                                     /* @} */
-
-/*! @name FC0_TXD_SCL_MISO_WS (coord G2), J16[1]/U27[3]/U9[12]
-  @{ */
-                                                                   /* @} */
+#define IOPCTL_PIO_SLEW_RATE_SLOW 0x80u   /*!<@brief Slow mode */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

@@ -39,9 +39,10 @@ Files:
     img = cv2.imread('ship.bmp')
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     with open('image_data.h', 'w') as fout:
+      print('#define STATIC_IMAGE_NAME "ship"', file=fout)
       print('static const uint8_t image_data[] = {', file=fout)
       img.tofile(fout, ', ', '0x%02X')
-      print('}\n', file=fout)
+      print('};\n', file=fout)
   timer.c - timer source code
   image/* - image capture and pre-processing code
   model/get_top_n.cpp - top results retrieval
@@ -56,7 +57,7 @@ Files:
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================

@@ -33,7 +33,9 @@ void BOARD_InitDebugConsole(void);
  * Variables
  ******************************************************************************/
 SDK_ALIGN(static uint32_t txBuff[SAMPLE_COUNT], 4);
-static volatile bool s_lowFreqFlag          = false;
+#if (defined(FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ) && (FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ == 1U))
+static volatile bool s_lowFreqFlag = false;
+#endif
 static volatile bool s_fifoErrorFlag        = false;
 static volatile bool s_dataReadFinishedFlag = false;
 static volatile uint32_t s_readIndex        = 0U;
@@ -44,8 +46,12 @@ static const pdm_config_t pdmConfig         = {
     .cicOverSampleRate = DEMO_PDM_CIC_OVERSAMPLE_RATE,
 };
 static pdm_channel_config_t channelConfig = {
+#if (defined(FSL_FEATURE_PDM_HAS_DC_OUT_CTRL) && (FSL_FEATURE_PDM_HAS_DC_OUT_CTRL))
+    .outputCutOffFreq = kPDM_DcRemoverCutOff40Hz,
+#else
     .cutOffFreq = kPDM_DcRemoverCutOff152Hz,
-    .gain       = kPDM_DfOutputGain7,
+#endif
+    .gain = kPDM_DfOutputGain7,
 };
 /*******************************************************************************
  * Code
@@ -65,11 +71,14 @@ const clock_audio_pll_config_t audioPllConfig = {
 static void pdm_error_irqHandler(void)
 {
     uint32_t status = 0U;
+
+#if (defined(FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ) && (FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ == 1U))
     if (PDM_GetStatus(DEMO_PDM) & PDM_STAT_LOWFREQF_MASK)
     {
         PDM_ClearStatus(DEMO_PDM, PDM_STAT_LOWFREQF_MASK);
         s_lowFreqFlag = true;
     }
+#endif
 
     status = PDM_GetFifoStatus(DEMO_PDM);
     if (status != 0U)
@@ -186,11 +195,13 @@ int main(void)
     /* wait data read finish */
     while (!s_dataReadFinishedFlag)
     {
+#if (defined(FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ) && (FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ == 1U))
         if (s_lowFreqFlag)
         {
             s_lowFreqFlag = false;
             PRINTF("PDM root clock freq too low, please switch to a higher value\r\n");
         }
+#endif
     }
 
     PRINTF("PDM recieve data:\n\r");

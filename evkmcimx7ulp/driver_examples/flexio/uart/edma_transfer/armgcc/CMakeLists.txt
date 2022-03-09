@@ -57,7 +57,7 @@ set(CMAKE_MODULE_PATH
 include(all_devices)
 
 # include modules
-include(driver_edma)
+include(driver_edma_MCIMX7U5)
 
 include(driver_dmamux)
 

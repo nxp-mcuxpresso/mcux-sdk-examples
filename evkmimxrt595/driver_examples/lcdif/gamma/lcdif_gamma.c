@@ -87,7 +87,7 @@ void DEMO_LCDIF_Init(void)
         }
     }
 
-    NVIC_EnableIRQ(LCDIF_IRQn);
+    NVIC_EnableIRQ(DEMO_LCDIF_IRQn);
 
     LCDIF_EnableInterrupts(DEMO_LCDIF, kLCDIF_Display0FrameDoneInterrupt);
 }

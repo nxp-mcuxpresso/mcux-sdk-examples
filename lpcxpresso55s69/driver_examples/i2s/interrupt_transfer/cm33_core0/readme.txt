@@ -6,7 +6,7 @@ The I2S example project uses one I2S interface to continuously playback the sine
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================
@@ -37,7 +37,7 @@ Headphones will play a sine wave sound.
 The log below shows example output of the I2S driver demo in the terminal window:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Configure I2C
-Configure WM8904 codec
+Configure codec
 Configure I2S
 Setup looping playback of sine wave
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -46,7 +46,7 @@ Modify i2s_interrupt_transfer.c to change condition to call StartDigitalLoopback
 Headphones will play what is input into Audio Line-In connector.
 Terminal window will show:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Configure WM8904 codec
+Configure codec
 Configure I2S
 Setup digital loopback
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

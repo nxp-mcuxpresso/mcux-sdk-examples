@@ -9,7 +9,7 @@ The file 'cmsis_lpspi_edma_b2b_transfer_master.c' includes the LPSPI master code
 
 Toolchain supported
 ===================
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 - GCC ARM Embedded  10.2.1
 
 Hardware requirements

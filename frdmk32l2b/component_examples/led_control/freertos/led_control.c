@@ -222,8 +222,9 @@ void main_task(void *param)
 
         initialized = 1;
 
-        timerConfig.instance    = 0U;
-        timerConfig.srcClock_Hz = TIMER_SOURCE_CLOCK;
+        timerConfig.instance       = 0U;
+        timerConfig.srcClock_Hz    = TIMER_SOURCE_CLOCK;
+        timerConfig.clockSrcSelect = 0U;
         TM_Init(&timerConfig);
 
         PRINTF("The demo is used to demonstrate how to use new components.\r\n");

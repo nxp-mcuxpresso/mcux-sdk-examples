@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -23,7 +23,14 @@
 #define BOARD_TPM_HANDLER TPM0_IRQHandler
 /* Get source clock for TPM driver */
 #define TPM_SOURCE_CLOCK (CLOCK_GetFreq(kCLOCK_TimerClk) / 4)
-
+#ifndef DEMO_TIMER_PERIOD_US
+/* Set counter period to 1ms */
+#define DEMO_TIMER_PERIOD_US (1000U)
+#endif
+#ifndef TPM_PRESCALER
+/* Calculate the clock division based on the PWM frequency to be obtained */
+#define TPM_PRESCALER TPM_CalculateCounterClkDiv(BOARD_TPM, 1000000U / DEMO_TIMER_PERIOD_US, TPM_SOURCE_CLOCK);
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -59,20 +66,14 @@ int main(void)
 
     TPM_GetDefaultConfig(&tpmInfo);
 
-#ifndef TPM_PRESCALER
-#define TPM_PRESCALER kTPM_Prescale_Divide_4
-#endif
-
     /* TPM clock divide by TPM_PRESCALER */
     tpmInfo.prescale = TPM_PRESCALER;
 
     /* Initialize TPM module */
     TPM_Init(BOARD_TPM, &tpmInfo);
 
-    /*
-     * Set timer period.
-     */
-    TPM_SetTimerPeriod(BOARD_TPM, USEC_TO_COUNT(1000U, TPM_SOURCE_CLOCK));
+    /* Set timer period */
+    TPM_SetTimerPeriod(BOARD_TPM, USEC_TO_COUNT(DEMO_TIMER_PERIOD_US, TPM_SOURCE_CLOCK / (1U << tpmInfo.prescale)));
 
     TPM_EnableInterrupts(BOARD_TPM, kTPM_TimeOverflowInterruptEnable);
 

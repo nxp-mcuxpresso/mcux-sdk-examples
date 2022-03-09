@@ -58,8 +58,9 @@ TZM_IS_NOSECURE_ENTRY void DbgConsole_Printf_NSE(char const *s)
     }
 
     /* Check whether string is located in non-secure memory */
-    /* Due to the bug in GCC 10 cmse_check_address_range() always fail, do not call it, see GCC Bugzilla - Bug 99157 */
-#if (__GNUC__ != 10)
+    /* Due to the bug in GCC 10 cmse_check_pointed_object() always fail, do not call it, see GCC Bugzilla - Bug 99157.
+       Solved in GCC 10.3 version */
+#if !((__GNUC__ == 10) && (__GNUC_MINOR__ < 3))
     if (cmse_check_address_range((void *)s, string_length, CMSE_NONSECURE | CMSE_MPU_READ) == NULL)
     {
         PRINTF("Input data error: String is not located in normal world!\r\n");
@@ -79,8 +80,9 @@ TZM_IS_NOSECURE_ENTRY uint32_t StringCompare_NSE(volatile callbackptr callback, 
     /* Input parameters check */
     /* Check whether function pointer is located in non-secure memory */
     callback_NS = (callbackptr_NS)cmse_nsfptr_create(callback);
-    /* Due to the bug in GCC 10 cmse_check_pointed_object() always fail, do not call it, see GCC Bugzilla - Bug 99157 */
-#if (__GNUC__ != 10)
+    /* Due to the bug in GCC 10 cmse_check_pointed_object() always fail, do not call it, see GCC Bugzilla - Bug 99157.
+       Solved in GCC 10.3 version */
+#if !((__GNUC__ == 10) && (__GNUC_MINOR__ < 3))
     if (cmse_check_pointed_object((int *)callback_NS, CMSE_NONSECURE) == NULL)
     {
         PRINTF("Input data error: The callback is not located in normal world!\r\n");

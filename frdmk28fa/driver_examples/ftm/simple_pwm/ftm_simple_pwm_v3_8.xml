@@ -69,8 +69,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmk28fa/driver_examples/ftm/simple_pwm" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmk28fa/driver_examples/ftm/simple_pwm" project_relative_path="frdmk28fa/driver_examples/ftm/simple_pwm" type="c_include"/>
-      <include_path path="boards/frdmk28fa" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmk28fa/driver_examples/ftm/simple_pwm" project_relative_path="frdmk28fa/driver_examples/ftm/simple_pwm" type="c_include"/>
+      <include_path path="core/boards/frdmk28fa" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmk28fa/driver_examples/ftm/simple_pwm/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="ftm_simple_pwm.ewd"/>

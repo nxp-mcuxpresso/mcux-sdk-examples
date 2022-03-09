@@ -58,7 +58,7 @@ BOARD_InitPins:
   - {pin_num: G17, peripheral: GPIO10, signal: 'gpio_io, 02', pin_signal: GPIO_AD_35}
   - {pin_num: K16, peripheral: CM7_GPIO3, signal: 'gpio_mux_io_cm7, 31', pin_signal: GPIO_AD_32}
   - {pin_num: K13, peripheral: SAI1, signal: sai_rx_data00, pin_signal: GPIO_AD_20, software_input_on: Enable}
-  - {pin_num: D6, peripheral: ARM, signal: arm_trace_swo, pin_signal: GPIO_DISP_B2_07, software_input_on: Disable, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper,
+  - {pin_num: T5, peripheral: ARM, signal: arm_trace_swo, pin_signal: GPIO_LPSR_11, software_input_on: Disable, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper,
     open_drain: Disable, drive_strength: High, slew_rate: Slow}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -136,7 +136,7 @@ void BOARD_InitPins(void) {
       IOMUXC_GPIO_LPSR_05_LPI2C5_SCL,         /* GPIO_LPSR_05 is configured as LPI2C5_SCL */
       1U);                                    /* Software Input On Field: Force input path of pad GPIO_LPSR_05 */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_DISP_B2_07_ARM_TRACE_SWO,   /* GPIO_DISP_B2_07 is configured as ARM_TRACE_SWO */
+      IOMUXC_GPIO_LPSR_11_ARM_TRACE_SWO,      /* GPIO_LPSR_11 is configured as ARM_TRACE_SWO */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinConfig(
       IOMUXC_GPIO_AD_17_SAI1_MCLK,            /* GPIO_AD_17 PAD functional properties : */
@@ -253,12 +253,12 @@ void BOARD_InitPins(void) {
                                                  Domain write protection: Both cores are allowed
                                                  Domain write protection lock: Neither of DWP bits is locked */
   IOMUXC_SetPinConfig(
-      IOMUXC_GPIO_DISP_B2_07_ARM_TRACE_SWO,   /* GPIO_DISP_B2_07 PAD functional properties : */
+      IOMUXC_GPIO_LPSR_11_ARM_TRACE_SWO,      /* GPIO_LPSR_11 PAD functional properties : */
       0x02U);                                 /* Slew Rate Field: Slow Slew Rate
-                                                 Drive Strength Field: high drive strength
-                                                 Pull / Keep Select Field: Pull Disable, Highz
+                                                 Drive Strength Field: high driver
+                                                 Pull / Keep Select Field: Pull Disable
                                                  Pull Up / Down Config. Field: Weak pull down
-                                                 Open Drain Field: Disabled
+                                                 Open Drain LPSR Field: Disabled
                                                  Domain write protection: Both cores are allowed
                                                  Domain write protection lock: Neither of DWP bits is locked */
 }

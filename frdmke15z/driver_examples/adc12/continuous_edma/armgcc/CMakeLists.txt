@@ -62,7 +62,7 @@ include(driver_adc12)
 
 include(driver_port)
 
-include(driver_edma)
+include(driver_edma_MKE15Z7)
 
 include(driver_dmamux)
 

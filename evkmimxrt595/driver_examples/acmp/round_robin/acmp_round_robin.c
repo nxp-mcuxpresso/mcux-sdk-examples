@@ -35,8 +35,8 @@
 
 #define EXAMPLE_DEEPSLEEP_RUNCFG0 \
     (SYSCTL0_PDRUNCFG0_ACMP_PD_MASK)          /*!< Power down all unnecessary blocks during deep sleep*/
-#define EXAMPLE_DEEPSLEEP_RAM_APD 0x00FFF000U /* 0x80000 - 0x2FFFFF keep powered */
-#define EXAMPLE_DEEPSLEEP_RAM_PPD 0x00FFF000U
+#define EXAMPLE_DEEPSLEEP_RAM_APD 0xFFC00000U /* 0x280000 - 0x4FFFFF keep powered */
+#define EXAMPLE_DEEPSLEEP_RAM_PPD 0U
 #define EXAMPLE_EXCLUDE_FROM_DEEPSLEEP                                                                              \
     (((const uint32_t[]){EXAMPLE_DEEPSLEEP_RUNCFG0,                                                                 \
                          (SYSCTL0_PDSLEEPCFG1_FLEXSPI0_SRAM_APD_MASK | SYSCTL0_PDSLEEPCFG1_FLEXSPI1_SRAM_APD_MASK | \

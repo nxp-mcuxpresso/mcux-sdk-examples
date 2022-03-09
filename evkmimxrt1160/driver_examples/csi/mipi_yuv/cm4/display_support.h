@@ -13,14 +13,18 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define DEMO_PANEL_RK055AHD091 0
-#define DEMO_PANEL_RK055IQH091 1
+
+/* @TEST_ANCHOR */
+
+#define DEMO_PANEL_RK055AHD091 0 /* 720 * 1280 */
+#define DEMO_PANEL_RK055IQH091 1 /* 540 * 960  */
+#define DEMO_PANEL_RK055MHD091 2 /* 720 * 1280 */
 
 #define DEMO_DISPLAY_CONTROLLER_ELCDIF  0
 #define DEMO_DISPLAY_CONTROLLER_LCDIFV2 1
 
 #ifndef DEMO_PANEL
-#define DEMO_PANEL DEMO_PANEL_RK055AHD091
+#define DEMO_PANEL DEMO_PANEL_RK055MHD091
 #endif
 
 #ifndef DEMO_DISPLAY_CONTROLLER
@@ -42,10 +46,19 @@
 /* Definitions for the frame buffer. */
 #define DEMO_BUFFER_COUNT 2 /* 2 is enough for DPI interface display. */
 
+#ifndef DEMO_USE_XRGB8888
+#define DEMO_USE_XRGB8888 0
+#endif
+
+#if DEMO_USE_XRGB8888
+#define DEMO_BUFFER_PIXEL_FORMAT   kVIDEO_PixelFormatXRGB8888
+#define DEMO_BUFFER_BYTE_PER_PIXEL 4
+#else
 #define DEMO_BUFFER_PIXEL_FORMAT   kVIDEO_PixelFormatRGB565
 #define DEMO_BUFFER_BYTE_PER_PIXEL 2
+#endif
 
-#if (DEMO_PANEL_RK055AHD091 == DEMO_PANEL)
+#if ((DEMO_PANEL_RK055AHD091 == DEMO_PANEL) || (DEMO_PANEL_RK055MHD091 == DEMO_PANEL))
 
 #define DEMO_PANEL_WIDTH  (720)
 #define DEMO_PANEL_HEIGHT (1280)

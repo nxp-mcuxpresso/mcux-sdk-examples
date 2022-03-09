@@ -64,6 +64,12 @@ void Peripheral_RdcSetting(void)
         RDC_SetPeriphAccessConfig(RDC, &periphConfig);
         periphConfig.periph = kRDC_Periph_GPT1;
         RDC_SetPeriphAccessConfig(RDC, &periphConfig);
+#if APP_SRTM_PDM_USED
+        periphConfig.periph = kRDC_Periph_MICFIL;
+        RDC_SetPeriphAccessConfig(RDC, &periphConfig);
+#endif
+        periphConfig.periph = kRDC_Periph_SDMA3;
+        RDC_SetPeriphAccessConfig(RDC, &periphConfig);
         /* For SAI3, both kRDC_Periph_SAI3_ACCESS and kRDC_Periph_SAI3_LPM registers need set.*/
         periphConfig.periph = kRDC_Periph_SAI3_ACCESS;
         RDC_SetPeriphAccessConfig(RDC, &periphConfig);
@@ -273,10 +279,6 @@ int main(void)
     {
         CCM->PLL_CTRL[i].PLL_CTRL = kCLOCK_ClockNeededRun;
     }
-    CLOCK_SetRootMux(kCLOCK_RootSai1, kCLOCK_SaiRootmuxAudioPll1); /* Set SAI source to Audio PLL1 393216000HZ */
-    CLOCK_SetRootDivider(kCLOCK_RootSai1, 1U, 8U);                 /* Set root clock to 393216000HZ / 8 = 49152000HZ */
-    CLOCK_SetRootMux(kCLOCK_RootSai3, kCLOCK_SaiRootmuxAudioPll1); /* Set SAI source to Audio PLL1 393215996HZ */
-    CLOCK_SetRootDivider(kCLOCK_RootSai3, 1U, 16U);                /* Set root clock to 393216000HZ / 16 = 27576000HZ */
     CLOCK_SetRootMux(kCLOCK_RootI2c3, kCLOCK_I2cRootmuxSysPll1Div5); /* Set I2C source to SysPLL1 Div5 160MHZ */
     CLOCK_SetRootDivider(kCLOCK_RootI2c3, 1U, 10U);                  /* Set root clock to 160MHZ / 10 = 16MHZ */
     CLOCK_SetRootMux(kCLOCK_RootGpt1, kCLOCK_GptRootmuxOsc24M);      /* Set GPT source to Osc24 MHZ */
@@ -284,6 +286,9 @@ int main(void)
 #if APP_SRTM_CODEC_AK4497_USED
     APP_SRTM_I2C_ReleaseBus();
     BOARD_I2C_ConfigurePins();
+#endif
+#if APP_SRTM_PDM_USED
+    BOARD_PDM_ConfigurePins();
 #endif
     PRINTF("\r\n####################  LOW POWER AUDIO TASK ####################\n\r\n");
     PRINTF("    Build Time: %s--%s \r\n", __DATE__, __TIME__);

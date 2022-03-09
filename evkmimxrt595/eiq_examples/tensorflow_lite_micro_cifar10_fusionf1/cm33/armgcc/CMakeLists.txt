@@ -31,11 +31,6 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${ProjDirPath}/../../fusionf1/binary/dsp_text_release.bin"
-"${ProjDirPath}/../../fusionf1/binary/dsp_data_release.bin"
-"${ProjDirPath}/../main.c"
-"${ProjDirPath}/../pin_mux.c"
-"${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../board.c"
 "${ProjDirPath}/../board.h"
 "${ProjDirPath}/../clock_config.c"
@@ -44,8 +39,14 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../board_init.h"
 "${ProjDirPath}/../incbin.S"
 "${ProjDirPath}/../dsp_config.h"
+"${ProjDirPath}/../main.c"
+"${ProjDirPath}/../pin_mux.c"
+"${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../dsp_support.c"
 "${ProjDirPath}/../dsp_support.h"
+"${ProjDirPath}/../../fusionf1/binary/dsp_reset_release.bin"
+"${ProjDirPath}/../../fusionf1/binary/dsp_text_release.bin"
+"${ProjDirPath}/../../fusionf1/binary/dsp_data_release.bin"
 "${ProjDirPath}/../pmic_support.c"
 "${ProjDirPath}/../pmic_support.h"
 )
@@ -82,7 +83,7 @@ include(driver_clock)
 
 include(driver_dsp)
 
-include(driver_flash_config)
+include(driver_flash_config_evkmimxrt595)
 
 include(driver_flexcomm)
 

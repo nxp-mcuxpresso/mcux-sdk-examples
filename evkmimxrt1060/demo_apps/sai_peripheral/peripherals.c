@@ -343,8 +343,8 @@ sai_transceiver_t DEMO_SAI_Rx_config = {
 };
 edma_handle_t dmaTxHandle;
 edma_handle_t dmaRxHandle;
-AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle);
-AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t rxHandle);
+AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t txHandle);
+AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t rxHandle);
 
 static void DEMO_SAI_init(void) {
   /* Set the source kDmaRequestMuxSai1Tx request in the DMAMUX */

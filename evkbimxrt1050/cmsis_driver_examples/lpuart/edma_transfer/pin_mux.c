@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2018 NXP
+ * Copyright 2017-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -13,7 +13,7 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v4.1
+product: Pins v9.0
 processor: MIMXRT1052xxxxB
 package_id: MIMXRT1052DVL6B
 mcu_data: ksdk2_0
@@ -73,34 +73,12 @@ LPUART1_InitPins:
  *
  * END ****************************************************************************************************************/
 void LPUART1_InitPins(void) {
-  CLOCK_EnableClock(kCLOCK_Iomuxc);           /* iomuxc clock (iomuxc_clk_enable): 0x03u */
+  CLOCK_EnableClock(kCLOCK_Iomuxc);           
 
-  IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B0_12_LPUART1_TX,        /* GPIO_AD_B0_12 is configured as LPUART1_TX */
-      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
-  IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B0_13_LPUART1_RX,        /* GPIO_AD_B0_13 is configured as LPUART1_RX */
-      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
-  IOMUXC_SetPinConfig(
-      IOMUXC_GPIO_AD_B0_12_LPUART1_TX,        /* GPIO_AD_B0_12 PAD functional properties : */
-      0x10B0u);                               /* Slew Rate Field: Slow Slew Rate
-                                                 Drive Strength Field: R0/6
-                                                 Speed Field: medium(100MHz)
-                                                 Open Drain Enable Field: Open Drain Disabled
-                                                 Pull / Keep Enable Field: Pull/Keeper Enabled
-                                                 Pull / Keep Select Field: Keeper
-                                                 Pull Up / Down Config. Field: 100K Ohm Pull Down
-                                                 Hyst. Enable Field: Hysteresis Disabled */
-  IOMUXC_SetPinConfig(
-      IOMUXC_GPIO_AD_B0_13_LPUART1_RX,        /* GPIO_AD_B0_13 PAD functional properties : */
-      0x10B0u);                               /* Slew Rate Field: Slow Slew Rate
-                                                 Drive Strength Field: R0/6
-                                                 Speed Field: medium(100MHz)
-                                                 Open Drain Enable Field: Open Drain Disabled
-                                                 Pull / Keep Enable Field: Pull/Keeper Enabled
-                                                 Pull / Keep Select Field: Keeper
-                                                 Pull Up / Down Config. Field: 100K Ohm Pull Down
-                                                 Hyst. Enable Field: Hysteresis Disabled */
+  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_12_LPUART1_TXD, 0U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_13_LPUART1_RXD, 0U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B0_12_LPUART1_TXD, 0x10B0U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B0_13_LPUART1_RXD, 0x10B0U); 
 }
 
 
@@ -121,14 +99,10 @@ LPUART1_DeinitPins:
  *
  * END ****************************************************************************************************************/
 void LPUART1_DeinitPins(void) {
-  CLOCK_EnableClock(kCLOCK_Iomuxc);           /* iomuxc clock (iomuxc_clk_enable): 0x03u */
+  CLOCK_EnableClock(kCLOCK_Iomuxc);           
 
-  IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B0_12_GPIO1_IO12,        /* GPIO_AD_B0_12 is configured as GPIO1_IO12 */
-      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
-  IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B0_13_GPIO1_IO13,        /* GPIO_AD_B0_13 is configured as GPIO1_IO13 */
-      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_12_GPIO1_IO12, 0U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_13_GPIO1_IO13, 0U); 
 }
 
 /***********************************************************************************************************************

@@ -68,7 +68,7 @@ include(driver_gpio)
 
 include(driver_lpuart)
 
-include(driver_edma)
+include(driver_edma_MK22F51212)
 
 include(driver_dmamux)
 

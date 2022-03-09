@@ -23,7 +23,8 @@ Board settings
 ==============
 No special settings are required.
 
-
+#### Please note this application can't support booting by uboot! and accordingly it does not support Flash target! ####
+This example aims to show the basic usage of the IP's function, some of the used Resources are assigned to Cortex-A core by uboot.
 
 Prepare the Demo
 ================

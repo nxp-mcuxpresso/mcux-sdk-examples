@@ -85,9 +85,9 @@ include(component_usart_adapter)
 
 include(component_lists)
 
-include(CMSIS_Include_core_cm)
-
 include(driver_reset)
+
+include(CMSIS_Include_core_cm)
 
 include(CMSIS_DSP_Library)
 
@@ -109,16 +109,8 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
 
 if(CMAKE_BUILD_TYPE STREQUAL debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../../core/devices/LPC55S69/gcc/libpower_hardabi.a)
-endif(CMAKE_BUILD_TYPE STREQUAL debug)
-
-if(CMAKE_BUILD_TYPE STREQUAL debug)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../../core/CMSIS/DSP/Lib/GCC/libarm_ARMv8MMLldfsp_math.a)
 endif(CMAKE_BUILD_TYPE STREQUAL debug)
-
-if(CMAKE_BUILD_TYPE STREQUAL release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../../core/devices/LPC55S69/gcc/libpower_hardabi.a)
-endif(CMAKE_BUILD_TYPE STREQUAL release)
 
 if(CMAKE_BUILD_TYPE STREQUAL release)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../../core/CMSIS/DSP/Lib/GCC/libarm_ARMv8MMLldfsp_math.a)

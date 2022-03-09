@@ -109,7 +109,7 @@ int main()
 
             /* removing the service from the server */
             erpc_remove_service_from_server(service);
-            destroy_MatrixMultiplyService_service();
+            destroy_MatrixMultiplyService_service(service);
 
             /* stop erpc server */
             erpc_server_stop();

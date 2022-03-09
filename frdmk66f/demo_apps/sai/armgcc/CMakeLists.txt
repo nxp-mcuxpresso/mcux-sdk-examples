@@ -108,7 +108,7 @@ include(driver_sai_edma)
 
 include(driver_dmamux)
 
-include(driver_edma)
+include(driver_edma_MK66F18)
 
 include(driver_sysmpu)
 

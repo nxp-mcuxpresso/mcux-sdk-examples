@@ -64,6 +64,7 @@ Files:
       print('#define WAVE_DATA {', file=fout)
       data.tofile(fout, ',', '%d')
       print('}\n', file=fout)
+  train.py - model training script based on https://www.tensorflow.org/tutorials/audio/simple_audio
   timer.c - timer source code
   audio/* - audio capture and pre-processing code
   audio/mfcc.cpp - MFCC feature extraction matching the TensorFlow MFCC operation
@@ -80,7 +81,7 @@ Files:
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================

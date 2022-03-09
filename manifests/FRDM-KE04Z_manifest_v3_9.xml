@@ -1,0 +1,2767 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_FRDM-KE04Z" name="FRDM-KE04Z" brief="This is SDK version 2.11.0 manifest file. It describes the content of the FRDM-KE04Z and additional settings for tools that support SDK version 2.11.0" format_version="3.9" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.9.xsd">
+  <!--Timestamp (UTC): 2022-02-15 13:10:12.886555-->
+  <!--This manifest is generated based on sdk repo commit: 9ee1cfaf44fbd02fc0e2be94f7fe73195409b79d-->
+  <defines>
+    <define name="CPU_$|package|" value=""/>
+    <define name="CPU_$|package|_$|core|" value=""/>
+    <define name="CPU_$|package|_$|core_name|" value=""/>
+  </defines>
+  <ksdk id="MCUXpressoSDK2110" name="MCUXpressoSDK2110" version="2.11.0"/>
+  <compilers>
+    <compiler id="compiler_gcc" name="gcc" type="gcc"/>
+  </compilers>
+  <toolchainSettings>
+    <toolchainSetting id="com.nxp.mcuxpresso" name="mcuxpresso" version="11.5.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" toolchain="mcuxpresso">
+      <option id="gnu.cpp.compiler.option.optimization.flags" type="string" user_name="">
+        <value>-fno-common</value>
+      </option>
+      <option id="gnu.c.compiler.option.optimization.flags" type="string" user_name="">
+        <value>-fno-common</value>
+      </option>
+      <option id="gnu.cpp.link.option.nostdlibs" type="boolean" user_name="">
+        <value>true</value>
+      </option>
+      <option id="com.crt.advproject.link.cpp.flashconfigenable" type="boolean" user_name="">
+        <value>true</value>
+      </option>
+      <option id="com.crt.advproject.link.flashconfigenable" type="boolean" user_name="">
+        <value>true</value>
+      </option>
+      <option id="gnu.c.link.option.nostdlibs" type="boolean" user_name="">
+        <value>true</value>
+      </option>
+    </toolchainSetting>
+  </toolchainSettings>
+  <toolchains>
+    <toolchain id="armgcc" name="GCC_ARM_Embedded" version="10.2.1" full_name="GCC ARM Embedded" compiler="compiler_gcc" type="armgcc" vendor="GCC ARM Embedded" vendor_url="http://launchpad.net/gcc-arm-embedded"/>
+    <toolchain id="mcuxpresso" name="MCUXpresso_IDE" version="11.5.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" type="mcuxpresso" vendor="NXP Semiconductors" vendor_url="http://www.nxp.com">
+      <debug>
+        <debug_configuration id="com.crt.advproject.config.exe.release" name="Release Configuration" probe="LinkServer">
+          <scripts>
+            <script type="init" silent="false" emulators="${gdb.stub} -mi -info-emu">
+              <script>
+set remotetimeout 60000
+##target_extended_remote##
+set mem inaccessible-by-default ${mem.access}
+mon ondisconnect ${ondisconnect}
+set arm force-mode thumb
+${load}</script>
+            </script>
+            <script type="run" silent="false" emulators="${gdb.stub} -mi -info-emu">
+              <script>${run}</script>
+            </script>
+          </scripts>
+          <params>
+            <params id="vector.catch.release.mcuxpresso" name="vector.catch" value="false"/>
+            <params id="internal.cache.release.mcuxpresso" name="internal.cache" value="Disable"/>
+          </params>
+        </debug_configuration>
+        <debug_configuration id="com.crt.advproject.config.exe.debug" name="Debug Configuration" probe="LinkServer">
+          <scripts>
+            <script type="init" silent="false" emulators="${gdb.stub} -mi -info-emu">
+              <script>
+set remotetimeout 60000
+##target_extended_remote##
+set mem inaccessible-by-default ${mem.access}
+mon ondisconnect ${ondisconnect}
+set arm force-mode thumb
+${load}</script>
+            </script>
+            <script type="run" silent="false" emulators="${gdb.stub} -mi -info-emu">
+              <script>${run}</script>
+            </script>
+          </scripts>
+          <params>
+            <params id="vector.catch.debug.mcuxpresso" name="vector.catch" value="false"/>
+            <params id="internal.cache.debug.mcuxpresso" name="internal.cache" value="Disable"/>
+          </params>
+        </debug_configuration>
+        <debug_configuration id="com.nxp.mcuxpresso.core.debug.support.segger.debug" name="Debug Configuration" probe="Segger"/>
+        <debug_configuration id="com.nxp.mcuxpresso.core.debug.support.segger.release" name="Release Configuration" probe="Segger"/>
+      </debug>
+    </toolchain>
+  </toolchains>
+  <boards>
+    <board id="frdmke04z" name="FRDM-KE04Z" href="https://www.nxp.com/pip/FRDM-KE04Z" version="1.0.0" package="MKE04Z8VFK4">
+      <description>Freedom Development Board for Kinetis KE04 (8KB Flash) MCUs</description>
+      <image path="core/boards/frdmke04z" type="image">
+        <files mask="frdmke04z.png"/>
+      </image>
+      <examples>
+        <example id="frdmke04z_acmp_1_interrupt" name="acmp_1_interrupt" brief="The ACMP Interrupt project is a simple demonstration program that uses the SDK software. Itcompares the selected analog input with ACMP internal DAC output continuously and toggle the LEDwhen the final comparison result changed. The purpose of this demo is to show how to use theACMP driver in SDK software by interrupt way. The ACMP can be configured based on defaultconfiguration returned by the API ACMP_GetDefaultConfig()." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/acmp" path="examples/frdmke04z/driver_examples/acmp/interrupt">
+          <external path="examples/frdmke04z/driver_examples/acmp/interrupt" type="xml">
+            <files mask="acmp_1_interrupt_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_acmp_1_polling" name="acmp_1_polling" brief="The ACMP Polling project is a simple demonstration program that uses the SDK software. It comparesthe selected analog input with ACMP internal DAC output continuously and toggle the LED when thefinal comparison result changed. The purpose of this demo is to show how to use the ACMP driverin SDK software by polling way. The ACMP can be configured based on default configuration returnedby the API ACMP_GetDefaultConfig(). " toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/acmp" path="examples/frdmke04z/driver_examples/acmp/polling">
+          <external path="examples/frdmke04z/driver_examples/acmp/polling" type="xml">
+            <files mask="acmp_1_polling_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_adc_5v12b_ll18_015_interrupt" name="adc_5v12b_ll18_015_interrupt" brief="The adc_interrupt example shows how to use interrupt with adc driver.In this example, user should indicate a channel to provide a voltage signal (can be controlled by user) as the adc'ssample input. When running the project, typing any key into debug console would trigger the conversion. ADC interrupt would be asserted once the conversion is completed. In ADC ISR, the conversion completed flag would be cleared by reading the conversion result value. Also, the conversion result value is stored, and the ISR counter is increased. These information would be printed when the execution return to the main loop.The point is that the adc interrupt configuration is set when configuring the adc's conversion channel. When in software trigger mode, the conversion would be launched by the operation of configuring channel, just like writing aconversion command. So if user wants to generate the interrupt every time the conversion is completed, the channel's configuration with enabling interrupt setting would be used for each conversion." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/adc" path="examples/frdmke04z/driver_examples/adc/interrupt">
+          <external path="examples/frdmke04z/driver_examples/adc/interrupt" type="xml">
+            <files mask="adc_5v12b_ll18_015_interrupt_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_adc_5v12b_ll18_015_polling" name="adc_5v12b_ll18_015_polling" brief="The adc_polling example shows the simplest way to use adc driver.In this example, user should indicate a channel to provide a voltage signal (can be controlled by user) as the adc'ssample input. When running the project, typing any key into debug console would trigger the conversion. The execution would check the conversion completed flag in loop until the flag is asserted, which means the conversion is completed. Then read the conversion result value and print it to debug console." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/adc" path="examples/frdmke04z/driver_examples/adc/polling">
+          <external path="examples/frdmke04z/driver_examples/adc/polling" type="xml">
+            <files mask="adc_5v12b_ll18_015_polling_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_cmsis_uart_interrupt_transfer" name="cmsis_uart_interrupt_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_uart_interrupt_transfer example shows how to use uart cmsis driver in interrupt way:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc" compiler="compiler_gcc" category="cmsis_driver_examples/uart" path="examples/frdmke04z/cmsis_driver_examples/uart/interrupt_transfer">
+          <external path="examples/frdmke04z/cmsis_driver_examples/uart/interrupt_transfer" type="xml">
+            <files mask="cmsis_uart_interrupt_transfer_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_ftm_combine_pwm" name="ftm_combine_pwm" brief="The FTM project is a demonstration program of generating a combined PWM signal by the SDK FTM driver. It sets up the FTMhardware block to output PWM signals on two TPM channels. The example also shows the complementary mode of operationand deadtime insertion.On boards that have 2 LEDs connected to the FTM pins, the user will see a change in LED brightness.And if the board do not support LEDs to show, the outputs can be observed by oscilloscope." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/ftm" path="examples/frdmke04z/driver_examples/ftm/combine_pwm">
+          <external path="examples/frdmke04z/driver_examples/ftm/combine_pwm" type="xml">
+            <files mask="ftm_combine_pwm_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_ftm_input_capture" name="ftm_input_capture" brief="The FTM project is a demonstration program of the SDK FTM driver's input capture feature.The example sets up a FTM channel for dual-edge capture. Once the input signal is received,this example will print the capture value." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/ftm" path="examples/frdmke04z/driver_examples/ftm/input_capture">
+          <external path="examples/frdmke04z/driver_examples/ftm/input_capture" type="xml">
+            <files mask="ftm_input_capture_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_ftm_output_compare" name="ftm_output_compare" brief="The FTM project is a demonstration program of the SDK FTM driver's output compare feature.It sets up one FTM channel to toggle the output when a match occurs with the channel value. The usershould probe the FTM output with a oscilloscope to see the signal toggling." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/ftm" path="examples/frdmke04z/driver_examples/ftm/output_compare">
+          <external path="examples/frdmke04z/driver_examples/ftm/output_compare" type="xml">
+            <files mask="ftm_output_compare_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_ftm_pwm_twochannel" name="ftm_pwm_twochannel" brief="The FTM pwm two channel Example project is a demonstration program that uses the KSDK software to generate a square pulse PWM on 2 channel to control the LED brightness.- FTM generates a PWM with the increasing and decreasing duty cycle.- LED brightness is increasing and then dimming. This is a continuous process." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/ftm" path="examples/frdmke04z/driver_examples/ftm/pwm_twochannel">
+          <external path="examples/frdmke04z/driver_examples/ftm/pwm_twochannel" type="xml">
+            <files mask="ftm_pwm_twochannel_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_ftm_simple_pwm" name="ftm_simple_pwm" brief="The FTM project is a simple demonstration program of the SDK FTM driver. It sets up the FTMhardware block to output a center-aligned PWM signal. The PWM dutycycle is periodically updated.On boards that have an LED connected to the FTM pins, the user will see a change in LED brightness." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/ftm" path="examples/frdmke04z/driver_examples/ftm/simple_pwm">
+          <external path="examples/frdmke04z/driver_examples/ftm/simple_pwm" type="xml">
+            <files mask="ftm_simple_pwm_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_ftm_timer" name="ftm_timer" brief="The FTM project is a simple demonstration program of the SDK FTM driver to use FTM as a timer.It sets up the FTM hardware block to trigger an interrupt every 1 millisecond.When the FTM interrupt is triggered a message a printed on the UART terminal." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/ftm" path="examples/frdmke04z/driver_examples/ftm/timer">
+          <external path="examples/frdmke04z/driver_examples/ftm/timer" type="xml">
+            <files mask="ftm_timer_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_gpio_1_led_output" name="gpio_1_led_output" brief="The GPIO Example project is a demonstration program that uses the KSDK software to manipulate the general-purposeoutputs.The example is supported by the set, clear, and toggle write-only registers for each port output data register. The example take turns to shine the LED." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/gpio_1" path="examples/frdmke04z/driver_examples/gpio_1/led_output">
+          <external path="examples/frdmke04z/driver_examples/gpio_1/led_output" type="xml">
+            <files mask="gpio_1_led_output_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_hello_world" name="hello_world" brief="The HelloWorld demo prints the &quot;Hello World&quot; string to the terminal using the SDK UART drivers and repeat what user input. The purpose of this demo is to show how to use the UART, and to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmke04z/demo_apps/hello_world">
+          <external path="examples/frdmke04z/demo_apps/hello_world" type="xml">
+            <files mask="hello_world_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_i2c_interrupt_b2b_transfer_master" name="i2c_interrupt_b2b_transfer_master" brief="The i2c_interrupt_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with interrupt:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/frdmke04z/driver_examples/i2c/interrupt_b2b_transfer/master">
+          <external path="examples/frdmke04z/driver_examples/i2c/interrupt_b2b_transfer/master" type="xml">
+            <files mask="i2c_interrupt_b2b_transfer_master_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_i2c_interrupt_b2b_transfer_slave" name="i2c_interrupt_b2b_transfer_slave" brief="The i2c_interrupt_b2b_transfer_slave example shows how to use i2c driver as slave to do board to board transfer with interrupt:In this example, one i2c instance as slave and another i2c instance on the other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/frdmke04z/driver_examples/i2c/interrupt_b2b_transfer/slave">
+          <external path="examples/frdmke04z/driver_examples/i2c/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="i2c_interrupt_b2b_transfer_slave_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_i2c_polling_b2b_transfer_master" name="i2c_polling_b2b_transfer_master" brief="The i2c_polling_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer using polling method:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/frdmke04z/driver_examples/i2c/polling_b2b_transfer/master">
+          <external path="examples/frdmke04z/driver_examples/i2c/polling_b2b_transfer/master" type="xml">
+            <files mask="i2c_polling_b2b_transfer_master_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_i2c_polling_b2b_transfer_slave" name="i2c_polling_b2b_transfer_slave" brief="The i2c_polling_b2b_transfer_slave example shows how to use i2c driver as slave to do board to board transfer with a polling master:In this example, one i2c instance as slave and another i2c instance on the other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/frdmke04z/driver_examples/i2c/polling_b2b_transfer/slave">
+          <external path="examples/frdmke04z/driver_examples/i2c/polling_b2b_transfer/slave" type="xml">
+            <files mask="i2c_polling_b2b_transfer_slave_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_irq" name="irq" brief="The IRQ Example project is a demonstration program that uses the MCUXpresso SDK software to useIRQ pin interrupt.The example uses the IRQ pin to generate a falling edge interrupt to show the example." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/irq" path="examples/frdmke04z/driver_examples/irq">
+          <external path="examples/frdmke04z/driver_examples/irq" type="xml">
+            <files mask="irq_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_kbi" name="kbi" brief="The KBI Example project is a demonstration program that uses the KSDK software to usekeyboard interrupt.The example uses one KBI pin to generate a raising edge interrupt to show the example." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/kbi" path="examples/frdmke04z/driver_examples/kbi">
+          <external path="examples/frdmke04z/driver_examples/kbi" type="xml">
+            <files mask="kbi_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_led_blinky_1" name="led_blinky_1" brief="The LED Blinky demo application provides a sanity check for the new SDK build environments and board bring up. The LED Blinky demo uses the systick interrupt to realize the function of timing delay. The example takes turns to shine the LED. The purpose of this demo is to provide a simple project for debugging and further development." toolchain="armgcc" compiler="compiler_gcc" category="demo_apps" path="examples/frdmke04z/demo_apps/led_blinky">
+          <external path="examples/frdmke04z/demo_apps/led_blinky" type="xml">
+            <files mask="led_blinky_1_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_pflash_ftmr" name="pflash_ftmr" brief="The pflash example shows how to use flash driver to operate program flash:" toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/flash" path="examples/frdmke04z/driver_examples/flash/pflash">
+          <external path="examples/frdmke04z/driver_examples/flash/pflash" type="xml">
+            <files mask="pflash_ftmr_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_pit" name="pit" brief="The PIT project is a simple demonstration program of the SDK PIT driver. It sets up the PIThardware block to trigger a periodic interrupt after every 1 second. When the PIT interrupt is triggereda message a printed on the UART terminal and an LED is toggled on the board." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/pit" path="examples/frdmke04z/driver_examples/pit">
+          <external path="examples/frdmke04z/driver_examples/pit" type="xml">
+            <files mask="pit_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_pwt" name="pwt" brief="The PWT project is a simple demonstration program of the SDK PWT driver. It sets up the PWThardware block to edge detection, capture control part and detects measurement trigger edges andcontrols when and which pulse width register(s) will be updated. Once the input signal is received,this example will print overflow, positive pulse width and negative pulse width." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/pwt" path="examples/frdmke04z/driver_examples/pwt">
+          <external path="examples/frdmke04z/driver_examples/pwt" type="xml">
+            <files mask="pwt_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_spi_interrupt_b2b_master" name="spi_interrupt_b2b_master" brief="The spi_interrupt_b2b_master example shows how to use spi functional API to do interrupt transfer as a master:In this example, the spi instance as master. Master sends a piece of data to slave, receive data from slave,and checkif the data master received is correct. This example needs to work with spi_interrupt_b2b_slave example." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/spi" path="examples/frdmke04z/driver_examples/spi/interrupt_b2b/master">
+          <external path="examples/frdmke04z/driver_examples/spi/interrupt_b2b/master" type="xml">
+            <files mask="spi_interrupt_b2b_master_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_spi_interrupt_b2b_slave" name="spi_interrupt_b2b_slave" brief="The spi_interrupt_b2b_slave example shows how to use spi functional API to do interrupt transfer as a slave:In this example, the spi instance as slave. Slave receives data froma master and send a peiece of data to master,and check if the data slave received is correct. This example needs to work with spi_interrupt_b2b_master example." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/spi" path="examples/frdmke04z/driver_examples/spi/interrupt_b2b/slave">
+          <external path="examples/frdmke04z/driver_examples/spi/interrupt_b2b/slave" type="xml">
+            <files mask="spi_interrupt_b2b_slave_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_spi_interrupt_b2b_transfer_master" name="spi_interrupt_b2b_transfer_master" brief="The spi_interrupt_board2board_master example shows how to use spi driver as master to do board to board transfer withinterrupt:In this example, one spi instance as master and another spi instance on othereboard as slave. Master sends a piece ofdata to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/spi" path="examples/frdmke04z/driver_examples/spi/interrupt_b2b_transfer/master">
+          <external path="examples/frdmke04z/driver_examples/spi/interrupt_b2b_transfer/master" type="xml">
+            <files mask="spi_interrupt_b2b_transfer_master_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_spi_interrupt_b2b_transfer_slave" name="spi_interrupt_b2b_transfer_slave" brief="The spi_interrupt_board2board_slave example shows how to use spi driver as slave to do board to board transfer with interrupt:In this example, one spi instance as slave and another spi instance on other board as master. Master sends a piece ofdata to slave, and receive a piece of data from slave. This example checks if the data received from master is correct." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/spi" path="examples/frdmke04z/driver_examples/spi/interrupt_b2b_transfer/slave">
+          <external path="examples/frdmke04z/driver_examples/spi/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="spi_interrupt_b2b_transfer_slave_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_tpm_input_capture" name="tpm_input_capture" brief="The TPM project is a demonstration program of the SDK TPM driver's input capture feature.The example sets up a TPM channel for dual-edge capture. Once the input signal is received,this example will print the capture value." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/tpm" path="examples/frdmke04z/driver_examples/tpm/input_capture">
+          <external path="examples/frdmke04z/driver_examples/tpm/input_capture" type="xml">
+            <files mask="tpm_input_capture_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_tpm_output_compare" name="tpm_output_compare" brief="The TPM project is a demonstration program of the SDK TPM driver's output compare feature.It sets up one TPM channel to toggle the output when a match occurs with the channel value. The usershould probe the TPM output with a oscilloscope to see the signal toggling." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/tpm" path="examples/frdmke04z/driver_examples/tpm/output_compare">
+          <external path="examples/frdmke04z/driver_examples/tpm/output_compare" type="xml">
+            <files mask="tpm_output_compare_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_tpm_pwm_twochannel" name="tpm_pwm_twochannel" brief="The TPM project is a simple demonstration program of the SDK TPM driver. It sets up the TPMhardware block to output PWM signals on two TPM channels. The PWM dutycycle on both channelsis manually updated. On boards that have an LED connected to the TPM pins, the user will seea change in LED brightness if user enter different values." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/tpm" path="examples/frdmke04z/driver_examples/tpm/pwm_twochannel">
+          <external path="examples/frdmke04z/driver_examples/tpm/pwm_twochannel" type="xml">
+            <files mask="tpm_pwm_twochannel_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_tpm_simple_pwm" name="tpm_simple_pwm" brief="The TPM project is a simple demonstration program of the SDK TPM driver. It sets up the TPMhardware block to output a center-aligned PWM signal. The PWM dutycycle is manually updated.On boards that have an LED connected to the TPM pins, the user will see a change in LEDbrightness if user enter different values." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/tpm" path="examples/frdmke04z/driver_examples/tpm/simple_pwm">
+          <external path="examples/frdmke04z/driver_examples/tpm/simple_pwm" type="xml">
+            <files mask="tpm_simple_pwm_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_tpm_timer" name="tpm_timer" brief="The TPM project is a simple demonstration program of the SDK TPM driver to use TPM as a timer.It sets up the TPM hardware block to trigger an interrupt every 1 millisecond.When the TPM interrupt is triggered a message a printed on the UART terminal." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/tpm" path="examples/frdmke04z/driver_examples/tpm/timer">
+          <external path="examples/frdmke04z/driver_examples/tpm/timer" type="xml">
+            <files mask="tpm_timer_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_uart_interrupt" name="uart_interrupt" brief="The uart_functioncal_interrupt example shows how to use uart driver functionalAPI to receive data with interrupt method:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/uart" path="examples/frdmke04z/driver_examples/uart/interrupt">
+          <external path="examples/frdmke04z/driver_examples/uart/interrupt" type="xml">
+            <files mask="uart_interrupt_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_uart_interrupt_rb_transfer" name="uart_interrupt_rb_transfer" brief="The uart_interrupt_ring_buffer example shows how to use uart driver in interrupt way withRX ring buffer enabled:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/uart" path="examples/frdmke04z/driver_examples/uart/interrupt_rb_transfer">
+          <external path="examples/frdmke04z/driver_examples/uart/interrupt_rb_transfer" type="xml">
+            <files mask="uart_interrupt_rb_transfer_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_uart_interrupt_transfer" name="uart_interrupt_transfer" brief="The uart_interrupt example shows how to use uart driver in interrupt way:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/uart" path="examples/frdmke04z/driver_examples/uart/interrupt_transfer">
+          <external path="examples/frdmke04z/driver_examples/uart/interrupt_transfer" type="xml">
+            <files mask="uart_interrupt_transfer_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_uart_polling" name="uart_polling" brief="The uart_polling example shows how to use uart driver in polling way:In this example, one uart instance connect to PC through uart, the board will send back all characters that PCsend to the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/uart" path="examples/frdmke04z/driver_examples/uart/polling">
+          <external path="examples/frdmke04z/driver_examples/uart/polling" type="xml">
+            <files mask="uart_polling_v3_9.xml"/>
+          </external>
+        </example>
+        <example id="frdmke04z_wdog8" name="wdog8" brief="The WDOG8 Example project is to demonstrate usage of the wdog8 driver.In this example, fast testing is first implemented to test the wdog8.After this, refreshing the watchdog in None-window mode and window mode is executed.Note wdog8 is disabled in SystemInit function which means wdog8 is disabledafter chip emerges from reset." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/wdog8" path="examples/frdmke04z/driver_examples/wdog8">
+          <external path="examples/frdmke04z/driver_examples/wdog8" type="xml">
+            <files mask="wdog8_v3_9.xml"/>
+          </external>
+        </example>
+      </examples>
+    </board>
+  </boards>
+  <devices>
+    <device id="MKE04Z8xxx4" name="MKE04Z4" version="1.0.0" full_name="MKE04Z8xxx4" family="KE0x" platform="Kinetis">
+      <description>Kinetis KE04-48 MHz, mainstream Microcontrollers (MCUs) based on ARM Cortex-M0+ Core</description>
+      <metadataSet>
+        <metadata key="vendor" value="NXP"/>
+      </metadataSet>
+      <core id="core0_MKE04Z8xxx4" name="core0" fpu="false" type="cm0plus"/>
+      <memory>
+        <memoryBlock id="PROGRAM_FLASH_MKE04Z8xxx4" name="PROGRAM_FLASH" addr="00000000" size="00002000" type="Flash" access="RO"/>
+        <memoryBlock id="SRAM_MKE04Z8xxx4" name="SRAM" addr="1fffff00" size="00000400" type="RAM" access="RW"/>
+      </memory>
+      <total_memory flash_size_kb="8" ram_size_kb="1"/>
+      <package id="MKE04Z8VTG4" name="MKE04Z8VTG4"/>
+      <package id="MKE04Z8VWJ4" name="MKE04Z8VWJ4"/>
+      <package id="MKE04Z8VFK4" name="MKE04Z8VFK4"/>
+      <evaluation_boards>
+        <evaluation_board name="frdmke04z"/>
+      </evaluation_boards>
+      <debug_configurations>
+        <debug_configuration id_refs="com.crt.advproject.config.exe.debug com.crt.advproject.config.exe.release">
+          <params>
+            <params id="internal.wiretype.release.MKE04Z8xxx4" name="internal.wiretype" value="SWD"/>
+            <params id="internal.has_swo.release.MKE04Z8xxx4" name="internal.has_swo" value="false"/>
+            <params id="internal.connect.script.debug.mcuxpresso.MKE04Z8xxx4" name="internal.connect.script" value="ke0xconnect.scp"/>
+          </params>
+          <drivers>
+            <driver id_refs="PROGRAM_FLASH_MKE04Z8xxx4">
+              <driverBinary path="core/devices/MKE04Z4/mcuxpresso" type="binary">
+                <files mask="FTMRE_KE04_Tiny.cfx"/>
+              </driverBinary>
+            </driver>
+          </drivers>
+        </debug_configuration>
+      </debug_configurations>
+      <linkerSettings nature="c_nature">
+        <linker property="start_symbol" value="ResetISR"/>
+        <linker property="text_align" value="4"/>
+        <linker property="data_align" value="4"/>
+        <linker property="bss_align" value="4"/>
+        <linker property="flash_security_address" value="0x400"/>
+        <linker property="mtb_supported" value="false"/>
+      </linkerSettings>
+      <linkerSettings nature="cpp_nature">
+        <linker property="start_symbol" value="ResetISR"/>
+        <linker property="text_align" value="4"/>
+        <linker property="data_align" value="4"/>
+        <linker property="bss_align" value="4"/>
+        <linker property="flash_security_address" value="0x400"/>
+        <linker property="mtb_supported" value="false"/>
+      </linkerSettings>
+    </device>
+  </devices>
+  <components>
+    <component id="project_template.frdmke04z.MKE04Z4" name="frdmke04z" brief="Board_project_template frdmke04z" version="1.0.0" full_name="Board_project_template frdmke04z" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" category="Board Support/SDK Project Template" user_visible="true" type="project_template" package_base_path="core/boards/frdmke04z/project_template" project_base_path="board">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.uart.MKE04Z4"/>
+          <component_dependency value="component.uart_adapter.MKE04Z4"/>
+          <component_dependency value="platform.drivers.port_ke04.MKE04Z4"/>
+          <component_dependency value="platform.drivers.common.MKE04Z4"/>
+          <component_dependency value="utility.debug_console_lite.MKE04Z4"/>
+          <component_dependency value="platform.drivers.gpio_1.MKE04Z4"/>
+          <component_dependency value="device.MKE04Z4_startup.MKE04Z4"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="board.h"/>
+        <files mask="clock_config.h"/>
+        <files mask="pin_mux.h"/>
+        <files mask="peripherals.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="board.c"/>
+        <files mask="clock_config.c"/>
+        <files mask="pin_mux.c"/>
+        <files mask="peripherals.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_DSP_Library.MKE04Z4" name="CMSIS_DSP_Library" brief="CMSIS-DSP Library for Cortex-M, SC000, and SC300" version="1.7.0" full_name="CMSIS DSP Library" devices="MKE04Z8xxx4" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/DSP" project_base_path="CMSIS/DSP">
+      <source relative_path="Include" type="c_include">
+        <files mask="arm_common_tables.h"/>
+        <files mask="arm_const_structs.h"/>
+        <files mask="arm_math.h"/>
+      </source>
+      <source toolchain="armgcc mcuxpresso" relative_path="Lib/GCC" project_relative_path="./" type="lib" device_cores="core0_MKE04Z8xxx4">
+        <files mask="libarm_cortexM0l_math.a"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="Include" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_DSP_Source.MKE04Z4" name="CMSIS_DSP_Library_Source" brief="CMSIS-DSP Library for Cortex-M, SC000, and SC300" version="1.7.0" full_name="CMSIS DSP Library Source" devices="MKE04Z8xxx4" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/DSP" project_base_path="CMSIS/DSP">
+      <source relative_path="Include" type="c_include">
+        <files mask="arm_common_tables.h"/>
+        <files mask="arm_const_structs.h"/>
+        <files mask="arm_math.h"/>
+      </source>
+      <source relative_path="Source/BasicMathFunctions" type="src">
+        <files mask="BasicMathFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/BasicMathFunctions" type="src">
+        <files mask="arm_abs_f32.c" hidden="true"/>
+        <files mask="arm_abs_q15.c" hidden="true"/>
+        <files mask="arm_abs_q31.c" hidden="true"/>
+        <files mask="arm_abs_q7.c" hidden="true"/>
+        <files mask="arm_add_f32.c" hidden="true"/>
+        <files mask="arm_add_q15.c" hidden="true"/>
+        <files mask="arm_add_q31.c" hidden="true"/>
+        <files mask="arm_add_q7.c" hidden="true"/>
+        <files mask="arm_dot_prod_f32.c" hidden="true"/>
+        <files mask="arm_dot_prod_q15.c" hidden="true"/>
+        <files mask="arm_dot_prod_q31.c" hidden="true"/>
+        <files mask="arm_dot_prod_q7.c" hidden="true"/>
+        <files mask="arm_mult_f32.c" hidden="true"/>
+        <files mask="arm_mult_q15.c" hidden="true"/>
+        <files mask="arm_mult_q31.c" hidden="true"/>
+        <files mask="arm_mult_q7.c" hidden="true"/>
+        <files mask="arm_negate_f32.c" hidden="true"/>
+        <files mask="arm_negate_q15.c" hidden="true"/>
+        <files mask="arm_negate_q31.c" hidden="true"/>
+        <files mask="arm_negate_q7.c" hidden="true"/>
+        <files mask="arm_offset_f32.c" hidden="true"/>
+        <files mask="arm_offset_q15.c" hidden="true"/>
+        <files mask="arm_offset_q31.c" hidden="true"/>
+        <files mask="arm_offset_q7.c" hidden="true"/>
+        <files mask="arm_scale_f32.c" hidden="true"/>
+        <files mask="arm_scale_q15.c" hidden="true"/>
+        <files mask="arm_scale_q31.c" hidden="true"/>
+        <files mask="arm_scale_q7.c" hidden="true"/>
+        <files mask="arm_shift_q15.c" hidden="true"/>
+        <files mask="arm_shift_q31.c" hidden="true"/>
+        <files mask="arm_shift_q7.c" hidden="true"/>
+        <files mask="arm_sub_f32.c" hidden="true"/>
+        <files mask="arm_sub_q15.c" hidden="true"/>
+        <files mask="arm_sub_q31.c" hidden="true"/>
+        <files mask="arm_sub_q7.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/CommonTables" type="src">
+        <files mask="CommonTables.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/CommonTables" type="src">
+        <files mask="arm_common_tables.c" hidden="true"/>
+        <files mask="arm_const_structs.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/ComplexMathFunctions" type="src">
+        <files mask="ComplexMathFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/ComplexMathFunctions" type="src">
+        <files mask="arm_cmplx_conj_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_conj_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_conj_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_dot_prod_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_dot_prod_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_dot_prod_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_squared_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_squared_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_squared_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_cmplx_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_cmplx_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_cmplx_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_real_f32.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_real_q15.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_real_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/ControllerFunctions" type="src">
+        <files mask="ControllerFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/ControllerFunctions" type="src">
+        <files mask="arm_pid_init_f32.c" hidden="true"/>
+        <files mask="arm_pid_init_q15.c" hidden="true"/>
+        <files mask="arm_pid_init_q31.c" hidden="true"/>
+        <files mask="arm_pid_reset_f32.c" hidden="true"/>
+        <files mask="arm_pid_reset_q15.c" hidden="true"/>
+        <files mask="arm_pid_reset_q31.c" hidden="true"/>
+        <files mask="arm_sin_cos_f32.c" hidden="true"/>
+        <files mask="arm_sin_cos_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/FastMathFunctions" type="src">
+        <files mask="FastMathFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/FastMathFunctions" type="src">
+        <files mask="arm_cos_f32.c" hidden="true"/>
+        <files mask="arm_cos_q15.c" hidden="true"/>
+        <files mask="arm_cos_q31.c" hidden="true"/>
+        <files mask="arm_sin_f32.c" hidden="true"/>
+        <files mask="arm_sin_q15.c" hidden="true"/>
+        <files mask="arm_sin_q31.c" hidden="true"/>
+        <files mask="arm_sqrt_q15.c" hidden="true"/>
+        <files mask="arm_sqrt_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/FilteringFunctions" type="src">
+        <files mask="FilteringFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/FilteringFunctions" type="src">
+        <files mask="arm_biquad_cascade_df1_32x64_init_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_32x64_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_fast_q15.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_fast_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_init_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_init_q15.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_init_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_q15.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df2T_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df2T_f64.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df2T_init_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df2T_init_f64.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_stereo_df2T_f32.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_stereo_df2T_init_f32.c" hidden="true"/>
+        <files mask="arm_conv_f32.c" hidden="true"/>
+        <files mask="arm_conv_fast_opt_q15.c" hidden="true"/>
+        <files mask="arm_conv_fast_q15.c" hidden="true"/>
+        <files mask="arm_conv_fast_q31.c" hidden="true"/>
+        <files mask="arm_conv_opt_q15.c" hidden="true"/>
+        <files mask="arm_conv_opt_q7.c" hidden="true"/>
+        <files mask="arm_conv_partial_f32.c" hidden="true"/>
+        <files mask="arm_conv_partial_fast_opt_q15.c" hidden="true"/>
+        <files mask="arm_conv_partial_fast_q15.c" hidden="true"/>
+        <files mask="arm_conv_partial_fast_q31.c" hidden="true"/>
+        <files mask="arm_conv_partial_opt_q15.c" hidden="true"/>
+        <files mask="arm_conv_partial_opt_q7.c" hidden="true"/>
+        <files mask="arm_conv_partial_q15.c" hidden="true"/>
+        <files mask="arm_conv_partial_q31.c" hidden="true"/>
+        <files mask="arm_conv_partial_q7.c" hidden="true"/>
+        <files mask="arm_conv_q15.c" hidden="true"/>
+        <files mask="arm_conv_q31.c" hidden="true"/>
+        <files mask="arm_conv_q7.c" hidden="true"/>
+        <files mask="arm_correlate_f32.c" hidden="true"/>
+        <files mask="arm_correlate_fast_opt_q15.c" hidden="true"/>
+        <files mask="arm_correlate_fast_q15.c" hidden="true"/>
+        <files mask="arm_correlate_fast_q31.c" hidden="true"/>
+        <files mask="arm_correlate_opt_q15.c" hidden="true"/>
+        <files mask="arm_correlate_opt_q7.c" hidden="true"/>
+        <files mask="arm_correlate_q15.c" hidden="true"/>
+        <files mask="arm_correlate_q31.c" hidden="true"/>
+        <files mask="arm_correlate_q7.c" hidden="true"/>
+        <files mask="arm_fir_decimate_f32.c" hidden="true"/>
+        <files mask="arm_fir_decimate_fast_q15.c" hidden="true"/>
+        <files mask="arm_fir_decimate_fast_q31.c" hidden="true"/>
+        <files mask="arm_fir_decimate_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_decimate_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_decimate_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_decimate_q15.c" hidden="true"/>
+        <files mask="arm_fir_decimate_q31.c" hidden="true"/>
+        <files mask="arm_fir_f32.c" hidden="true"/>
+        <files mask="arm_fir_fast_q15.c" hidden="true"/>
+        <files mask="arm_fir_fast_q31.c" hidden="true"/>
+        <files mask="arm_fir_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_init_q7.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_f32.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_q15.c" hidden="true"/>
+        <files mask="arm_fir_interpolate_q31.c" hidden="true"/>
+        <files mask="arm_fir_lattice_f32.c" hidden="true"/>
+        <files mask="arm_fir_lattice_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_lattice_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_lattice_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_lattice_q15.c" hidden="true"/>
+        <files mask="arm_fir_lattice_q31.c" hidden="true"/>
+        <files mask="arm_fir_q15.c" hidden="true"/>
+        <files mask="arm_fir_q31.c" hidden="true"/>
+        <files mask="arm_fir_q7.c" hidden="true"/>
+        <files mask="arm_fir_sparse_f32.c" hidden="true"/>
+        <files mask="arm_fir_sparse_init_f32.c" hidden="true"/>
+        <files mask="arm_fir_sparse_init_q15.c" hidden="true"/>
+        <files mask="arm_fir_sparse_init_q31.c" hidden="true"/>
+        <files mask="arm_fir_sparse_init_q7.c" hidden="true"/>
+        <files mask="arm_fir_sparse_q15.c" hidden="true"/>
+        <files mask="arm_fir_sparse_q31.c" hidden="true"/>
+        <files mask="arm_fir_sparse_q7.c" hidden="true"/>
+        <files mask="arm_iir_lattice_f32.c" hidden="true"/>
+        <files mask="arm_iir_lattice_init_f32.c" hidden="true"/>
+        <files mask="arm_iir_lattice_init_q15.c" hidden="true"/>
+        <files mask="arm_iir_lattice_init_q31.c" hidden="true"/>
+        <files mask="arm_iir_lattice_q15.c" hidden="true"/>
+        <files mask="arm_iir_lattice_q31.c" hidden="true"/>
+        <files mask="arm_lms_f32.c" hidden="true"/>
+        <files mask="arm_lms_init_f32.c" hidden="true"/>
+        <files mask="arm_lms_init_q15.c" hidden="true"/>
+        <files mask="arm_lms_init_q31.c" hidden="true"/>
+        <files mask="arm_lms_norm_f32.c" hidden="true"/>
+        <files mask="arm_lms_norm_init_f32.c" hidden="true"/>
+        <files mask="arm_lms_norm_init_q15.c" hidden="true"/>
+        <files mask="arm_lms_norm_init_q31.c" hidden="true"/>
+        <files mask="arm_lms_norm_q15.c" hidden="true"/>
+        <files mask="arm_lms_norm_q31.c" hidden="true"/>
+        <files mask="arm_lms_q15.c" hidden="true"/>
+        <files mask="arm_lms_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/MatrixFunctions" type="src">
+        <files mask="MatrixFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/MatrixFunctions" type="src">
+        <files mask="arm_mat_add_f32.c" hidden="true"/>
+        <files mask="arm_mat_add_q15.c" hidden="true"/>
+        <files mask="arm_mat_add_q31.c" hidden="true"/>
+        <files mask="arm_mat_cmplx_mult_f32.c" hidden="true"/>
+        <files mask="arm_mat_cmplx_mult_q15.c" hidden="true"/>
+        <files mask="arm_mat_cmplx_mult_q31.c" hidden="true"/>
+        <files mask="arm_mat_init_f32.c" hidden="true"/>
+        <files mask="arm_mat_init_q15.c" hidden="true"/>
+        <files mask="arm_mat_init_q31.c" hidden="true"/>
+        <files mask="arm_mat_inverse_f32.c" hidden="true"/>
+        <files mask="arm_mat_inverse_f64.c" hidden="true"/>
+        <files mask="arm_mat_mult_f32.c" hidden="true"/>
+        <files mask="arm_mat_mult_fast_q15.c" hidden="true"/>
+        <files mask="arm_mat_mult_fast_q31.c" hidden="true"/>
+        <files mask="arm_mat_mult_q15.c" hidden="true"/>
+        <files mask="arm_mat_mult_q31.c" hidden="true"/>
+        <files mask="arm_mat_scale_f32.c" hidden="true"/>
+        <files mask="arm_mat_scale_q15.c" hidden="true"/>
+        <files mask="arm_mat_scale_q31.c" hidden="true"/>
+        <files mask="arm_mat_sub_f32.c" hidden="true"/>
+        <files mask="arm_mat_sub_q15.c" hidden="true"/>
+        <files mask="arm_mat_sub_q31.c" hidden="true"/>
+        <files mask="arm_mat_trans_f32.c" hidden="true"/>
+        <files mask="arm_mat_trans_q15.c" hidden="true"/>
+        <files mask="arm_mat_trans_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/StatisticsFunctions" type="src">
+        <files mask="StatisticsFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/StatisticsFunctions" type="src">
+        <files mask="arm_max_f32.c" hidden="true"/>
+        <files mask="arm_max_q15.c" hidden="true"/>
+        <files mask="arm_max_q31.c" hidden="true"/>
+        <files mask="arm_max_q7.c" hidden="true"/>
+        <files mask="arm_mean_f32.c" hidden="true"/>
+        <files mask="arm_mean_q15.c" hidden="true"/>
+        <files mask="arm_mean_q31.c" hidden="true"/>
+        <files mask="arm_mean_q7.c" hidden="true"/>
+        <files mask="arm_min_f32.c" hidden="true"/>
+        <files mask="arm_min_q15.c" hidden="true"/>
+        <files mask="arm_min_q31.c" hidden="true"/>
+        <files mask="arm_min_q7.c" hidden="true"/>
+        <files mask="arm_power_f32.c" hidden="true"/>
+        <files mask="arm_power_q15.c" hidden="true"/>
+        <files mask="arm_power_q31.c" hidden="true"/>
+        <files mask="arm_power_q7.c" hidden="true"/>
+        <files mask="arm_rms_f32.c" hidden="true"/>
+        <files mask="arm_rms_q15.c" hidden="true"/>
+        <files mask="arm_rms_q31.c" hidden="true"/>
+        <files mask="arm_std_f32.c" hidden="true"/>
+        <files mask="arm_std_q15.c" hidden="true"/>
+        <files mask="arm_std_q31.c" hidden="true"/>
+        <files mask="arm_var_f32.c" hidden="true"/>
+        <files mask="arm_var_q15.c" hidden="true"/>
+        <files mask="arm_var_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/SupportFunctions" type="src">
+        <files mask="SupportFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/SupportFunctions" type="src">
+        <files mask="arm_copy_f32.c" hidden="true"/>
+        <files mask="arm_copy_q15.c" hidden="true"/>
+        <files mask="arm_copy_q31.c" hidden="true"/>
+        <files mask="arm_copy_q7.c" hidden="true"/>
+        <files mask="arm_fill_f32.c" hidden="true"/>
+        <files mask="arm_fill_q15.c" hidden="true"/>
+        <files mask="arm_fill_q31.c" hidden="true"/>
+        <files mask="arm_fill_q7.c" hidden="true"/>
+        <files mask="arm_float_to_q15.c" hidden="true"/>
+        <files mask="arm_float_to_q31.c" hidden="true"/>
+        <files mask="arm_float_to_q7.c" hidden="true"/>
+        <files mask="arm_q15_to_float.c" hidden="true"/>
+        <files mask="arm_q15_to_q31.c" hidden="true"/>
+        <files mask="arm_q15_to_q7.c" hidden="true"/>
+        <files mask="arm_q31_to_float.c" hidden="true"/>
+        <files mask="arm_q31_to_q15.c" hidden="true"/>
+        <files mask="arm_q31_to_q7.c" hidden="true"/>
+        <files mask="arm_q7_to_float.c" hidden="true"/>
+        <files mask="arm_q7_to_q15.c" hidden="true"/>
+        <files mask="arm_q7_to_q31.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/TransformFunctions" type="src">
+        <files mask="TransformFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/TransformFunctions" type="src">
+        <files mask="arm_bitreversal.c" hidden="true"/>
+        <files mask="arm_bitreversal2.c" hidden="true"/>
+        <files mask="arm_cfft_f32.c" hidden="true"/>
+        <files mask="arm_cfft_q15.c" hidden="true"/>
+        <files mask="arm_cfft_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_f32.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_init_f32.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_init_q15.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_init_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_q15.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_f32.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_init_f32.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_init_q15.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_init_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_q15.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_q31.c" hidden="true"/>
+        <files mask="arm_cfft_radix8_f32.c" hidden="true"/>
+        <files mask="arm_dct4_f32.c" hidden="true"/>
+        <files mask="arm_dct4_init_f32.c" hidden="true"/>
+        <files mask="arm_dct4_init_q15.c" hidden="true"/>
+        <files mask="arm_dct4_init_q31.c" hidden="true"/>
+        <files mask="arm_dct4_q15.c" hidden="true"/>
+        <files mask="arm_dct4_q31.c" hidden="true"/>
+        <files mask="arm_rfft_f32.c" hidden="true"/>
+        <files mask="arm_rfft_fast_f32.c" hidden="true"/>
+        <files mask="arm_rfft_fast_init_f32.c" hidden="true"/>
+        <files mask="arm_rfft_init_f32.c" hidden="true"/>
+        <files mask="arm_rfft_init_q15.c" hidden="true"/>
+        <files mask="arm_rfft_init_q31.c" hidden="true"/>
+        <files mask="arm_rfft_q15.c" hidden="true"/>
+        <files mask="arm_rfft_q31.c" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="Include" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_Device_API_OSTick.MKE04Z4" name="CMSIS_Device_API_OSTick" brief="Device interrupt controller interface" version="1.0.1" full_name="CMSIS Device API OSTick" devices="MKE04Z8xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/RTOS2/Include" project_base_path="CMSIS/RTOS2/Include">
+      <source relative_path="./" type="c_include">
+        <files mask="os_tick.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_Device_API_RTOS2.MKE04Z4" name="CMSIS_Device_API_RTOS2" brief="CMSIS-RTOS API for Cortex-M, SC000, and SC300" version="2.1.3" full_name="CMSIS Device API RTOS2" devices="MKE04Z8xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/RTOS2/Include" project_base_path="CMSIS/RTOS2/Include">
+      <source relative_path="./" type="c_include">
+        <files mask="cmsis_os2.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_Driver_Include.CAN.MKE04Z4" name="CMSIS_Driver_CAN" brief="Access to #include Driver_CAN.h file for custom implementation" version="1.2.0" full_name="CMSIS Driver CAN" devices="MKE04Z8xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+      <dependencies>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="Driver_CAN.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_Driver_Include.Common.MKE04Z4" name="CMSIS_Driver_Common" brief="Access to #include Driver_Common.h file for custom implementation" version="2.3.0" full_name="CMSIS Driver Common" devices="MKE04Z8xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+      <source relative_path="./" type="c_include">
+        <files mask="Driver_Common.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_Common.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_Driver_Include.Ethernet.MKE04Z4" name="CMSIS_Driver_Ethernet_Common" brief="Access to #include Driver_ETH.h file for custom implementation" version="2.1.0" full_name="CMSIS Driver Ethernet Common" devices="MKE04Z8xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+      <dependencies>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="Driver_ETH.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_Driver_Include.Ethernet_MAC.MKE04Z4" name="CMSIS_Driver_Ethernet_MAC" brief="Access to #include Driver_ETH_MAC.h file for custom implementation" version="2.1.0" full_name="CMSIS Driver Ethernet MAC" devices="MKE04Z8xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+      <dependencies>
+        <component_dependency value="CMSIS_Driver_Include.Ethernet.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="Driver_ETH_MAC.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_Driver_Include.Ethernet_PHY.MKE04Z4" name="CMSIS_Driver_Ethernet_PHY" brief="Access to #include Driver_ETH_PHY.h file for custom implementation" version="2.1.0" full_name="CMSIS Driver Ethernet PHY" devices="MKE04Z8xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+      <dependencies>
+        <component_dependency value="CMSIS_Driver_Include.Ethernet.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="Driver_ETH_PHY.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_Driver_Include.Flash.MKE04Z4" name="CMSIS_Driver_Flash" brief="Access to #include Driver_Flash.h file for custom implementation" version="2.2.0" full_name="CMSIS Driver Flash" devices="MKE04Z8xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+      <dependencies>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="Driver_Flash.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_Driver_Include.GPIO.MKE04Z4" name="NXP_CMSIS_Driver_GPIO" brief="NXP Standardized GPIO Driver aligned with CMSIS style." version="2.0.0" full_name="NXP CMSIS Driver GPIO" devices="MKE04Z8xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+      <dependencies>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="Driver_GPIO.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_Driver_Include.I2C.MKE04Z4" name="CMSIS_Driver_I2C" brief="Access to #include Driver_I2C.h file for custom implementation" version="2.3.0" full_name="CMSIS Driver I2C" devices="MKE04Z8xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+      <dependencies>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="Driver_I2C.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_Driver_Include.MCI.MKE04Z4" name="CMSIS_Driver_MCI" brief="Access to #include Driver_MCI.h file for custom implementation" version="2.3.0" full_name="CMSIS Driver MCI" devices="MKE04Z8xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+      <dependencies>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="Driver_MCI.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_Driver_Include.NAND.MKE04Z4" name="CMSIS_Driver_NAND" brief="Access to #include Driver_NAND.h file for custom implementation" version="2.3.0" full_name="CMSIS Driver NAND" devices="MKE04Z8xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+      <dependencies>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="Driver_NAND.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_Driver_Include.SAI.MKE04Z4" name="CMSIS_Driver_SAI" brief="Access to #include Driver_SAI.h file for custom implementation" version="1.1.0" full_name="CMSIS Driver SAI" devices="MKE04Z8xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+      <dependencies>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="Driver_SAI.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_Driver_Include.SPI.MKE04Z4" name="CMSIS_Driver_SPI" brief="Access to #include Driver_SPI.h file for custom implementation" version="2.2.0" full_name="CMSIS Driver SPI" devices="MKE04Z8xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+      <dependencies>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="Driver_SPI.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_Driver_Include.USART.MKE04Z4" name="CMSIS_Driver_USART" brief="Access to #include Driver_USART.h file for custom implementation" version="2.3.0" full_name="CMSIS Driver USART" devices="MKE04Z8xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+      <dependencies>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="Driver_USART.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Driver_Include_USART.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_Driver_Include.USB.MKE04Z4" name="CMSIS_Driver_USB_Common" brief="Access to #include Driver_USB.h file for custom implementation" version="2.2.0" full_name="CMSIS Driver USB Common" devices="MKE04Z8xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+      <dependencies>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="Driver_USB.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_Driver_Include.USB_Device.MKE04Z4" name="CMSIS_Driver_USB_Device" brief="Access to #include Driver_USBD.h file for custom implementation" version="2.2.0" full_name="CMSIS Driver USB Device" devices="MKE04Z8xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+      <dependencies>
+        <component_dependency value="CMSIS_Driver_Include.USB.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="Driver_USBD.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_Driver_Include.USB_Host.MKE04Z4" name="CMSIS_Driver_USB_Host" brief="Access to #include Driver_USBH.h file for custom implementation" version="2.2.0" full_name="CMSIS Driver USB Host" devices="MKE04Z8xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+      <dependencies>
+        <component_dependency value="CMSIS_Driver_Include.USB.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="Driver_USBH.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_Driver_Include.WiFi.MKE04Z4" name="CMSIS_Driver_WiFi" brief="Access to #include Driver_WiFi.h file" version="1.0.0" full_name="CMSIS Driver WiFi" devices="MKE04Z8xxx4" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+      <dependencies>
+        <component_dependency value="CMSIS_Driver_Include.Common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="Driver_WiFi.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="CMSIS_Include_core_cm.MKE04Z4" name="CMSIS_Include_CM" brief="CMSIS-CORE for Cortex-M, ARMv8-M, ARMv8.1-M" version="5.3.0" full_name="CMSIS Include For Cortex-M, ARMv8-M, ARMv8.1-M" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Core/Include" project_base_path="CMSIS">
+      <source relative_path="./" type="c_include">
+        <files mask="cmsis_armcc.h"/>
+        <files mask="cmsis_armclang.h"/>
+        <files mask="cmsis_armclang_ltm.h"/>
+        <files mask="cmsis_compiler.h"/>
+        <files mask="cmsis_gcc.h"/>
+        <files mask="cmsis_iccarm.h"/>
+        <files mask="cmsis_version.h"/>
+      </source>
+      <source relative_path="./" type="c_include" device_cores="core0_MKE04Z8xxx4">
+        <files mask="core_cm0plus.h"/>
+        <files mask="mpu_armv7.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_Include_core_cm.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <!--<component id="CMSIS_files.MKE04Z4" name="CMSIS" brief="CMSIS (Cortex Microcontroller Software Interface Standard)" version="5.6.0" full_name="CMSIS" devices="MKE04Z8xxx4" user_visible="false" type="container" package_base_path="core/CMSIS" project_base_path="CMSIS">
+  <source relative_path="Driver/Include" type="c_include">
+    <files mask="Driver_Storage.h"/>
+    <files mask="Driver_USART.h"/>
+    <files mask="Driver_USBD.h"/>
+    <files mask="Driver_I2C.h"/>
+    <files mask="Driver_SPI.h"/>
+    <files mask="Driver_USB.h"/>
+    <files mask="Driver_WiFi.h"/>
+    <files mask="Driver_SAI.h"/>
+    <files mask="Driver_Common.h"/>
+    <files mask="Driver_NAND.h"/>
+    <files mask="Driver_CAN.h"/>
+    <files mask="Driver_MCI.h"/>
+    <files mask="Driver_ETH_MAC.h"/>
+    <files mask="Driver_Flash.h"/>
+    <files mask="Driver_USBH.h"/>
+    <files mask="Driver_ETH_PHY.h"/>
+    <files mask="Driver_ETH.h"/>
+    <files mask="Driver_GPIO.h"/>
+  </source>
+  <source relative_path="Driver/DriverTemplates" type="src">
+    <files mask="Driver_SPI.c"/>
+    <files mask="Driver_Flash.c"/>
+    <files mask="Driver_USART.c"/>
+    <files mask="Driver_SAI.c"/>
+    <files mask="Driver_Storage.c"/>
+    <files mask="Driver_I2C.c"/>
+    <files mask="Driver_ETH_PHY.c"/>
+    <files mask="Driver_ETH_MAC.c"/>
+    <files mask="Driver_CAN.c"/>
+    <files mask="Driver_MCI.c"/>
+    <files mask="Driver_USBH.c"/>
+    <files mask="Driver_USBD.c"/>
+  </source>
+  <source relative_path="./" type="other">
+    <files mask="CMSIS.yml"/>
+    <files mask="CMSIS_v2.yml"/>
+  </source>
+  <source relative_path="./" type="doc">
+    <files mask="LICENSE.txt"/>
+  </source>
+  <source relative_path="DSP/Source/StatisticsFunctions" type="src">
+    <files mask="arm_var_q15.c"/>
+    <files mask="arm_min_q31.c"/>
+    <files mask="arm_mean_f32.c"/>
+    <files mask="arm_max_q7.c"/>
+    <files mask="arm_max_f32.c"/>
+    <files mask="arm_var_f32.c"/>
+    <files mask="arm_power_q7.c"/>
+    <files mask="arm_rms_f32.c"/>
+    <files mask="arm_max_q31.c"/>
+    <files mask="arm_max_q15.c"/>
+    <files mask="arm_mean_q7.c"/>
+    <files mask="arm_power_f32.c"/>
+    <files mask="arm_min_q7.c"/>
+    <files mask="arm_std_q15.c"/>
+    <files mask="arm_min_f32.c"/>
+    <files mask="arm_min_q15.c"/>
+    <files mask="StatisticsFunctions.c"/>
+    <files mask="arm_std_q31.c"/>
+    <files mask="arm_rms_q31.c"/>
+    <files mask="arm_mean_q15.c"/>
+    <files mask="arm_std_f32.c"/>
+    <files mask="arm_power_q15.c"/>
+    <files mask="arm_mean_q31.c"/>
+    <files mask="arm_rms_q15.c"/>
+    <files mask="arm_power_q31.c"/>
+    <files mask="arm_var_q31.c"/>
+  </source>
+  <source relative_path="DSP/Source/StatisticsFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/FastMathFunctions" type="src">
+    <files mask="arm_cos_q31.c"/>
+    <files mask="FastMathFunctions.c"/>
+    <files mask="arm_sin_q31.c"/>
+    <files mask="arm_sqrt_q15.c"/>
+    <files mask="arm_cos_q15.c"/>
+    <files mask="arm_sin_f32.c"/>
+    <files mask="arm_sin_q15.c"/>
+    <files mask="arm_cos_f32.c"/>
+    <files mask="arm_sqrt_q31.c"/>
+  </source>
+  <source relative_path="DSP/Source/FastMathFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/TransformFunctions" type="src">
+    <files mask="arm_cfft_radix2_f32.c"/>
+    <files mask="arm_cfft_radix8_f32.c"/>
+    <files mask="arm_cfft_radix2_q15.c"/>
+    <files mask="arm_cfft_radix4_init_f32.c"/>
+    <files mask="arm_cfft_radix4_init_q15.c"/>
+    <files mask="arm_cfft_radix2_init_q15.c"/>
+    <files mask="arm_rfft_init_f32.c"/>
+    <files mask="arm_rfft_fast_f32.c"/>
+    <files mask="arm_rfft_init_q31.c"/>
+    <files mask="arm_dct4_q15.c"/>
+    <files mask="arm_dct4_init_q31.c"/>
+    <files mask="arm_cfft_radix2_init_f32.c"/>
+    <files mask="arm_dct4_init_q15.c"/>
+    <files mask="arm_dct4_q31.c"/>
+    <files mask="arm_rfft_q15.c"/>
+    <files mask="arm_cfft_radix4_q31.c"/>
+    <files mask="arm_cfft_radix2_init_q31.c"/>
+    <files mask="TransformFunctions.c"/>
+    <files mask="arm_cfft_radix4_q15.c"/>
+    <files mask="arm_bitreversal.c"/>
+    <files mask="arm_rfft_init_q15.c"/>
+    <files mask="arm_rfft_q31.c"/>
+    <files mask="arm_bitreversal2.c"/>
+    <files mask="arm_rfft_fast_init_f32.c"/>
+    <files mask="arm_cfft_radix2_q31.c"/>
+    <files mask="arm_dct4_f32.c"/>
+    <files mask="arm_cfft_f32.c"/>
+    <files mask="arm_rfft_f32.c"/>
+    <files mask="arm_cfft_radix4_init_q31.c"/>
+    <files mask="arm_cfft_q31.c"/>
+    <files mask="arm_cfft_q15.c"/>
+    <files mask="arm_cfft_radix4_f32.c"/>
+    <files mask="arm_dct4_init_f32.c"/>
+  </source>
+  <source relative_path="DSP/Source/TransformFunctions" type="asm_include">
+    <files mask="arm_bitreversal2.S"/>
+  </source>
+  <source relative_path="DSP/Source/TransformFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/FilteringFunctions" type="src">
+    <files mask="arm_iir_lattice_q15.c"/>
+    <files mask="arm_iir_lattice_init_q15.c"/>
+    <files mask="arm_fir_interpolate_q15.c"/>
+    <files mask="arm_correlate_fast_q15.c"/>
+    <files mask="arm_lms_norm_init_q15.c"/>
+    <files mask="arm_fir_sparse_f32.c"/>
+    <files mask="arm_fir_interpolate_f32.c"/>
+    <files mask="arm_biquad_cascade_df1_fast_q15.c"/>
+    <files mask="arm_iir_lattice_init_q31.c"/>
+    <files mask="arm_fir_decimate_q31.c"/>
+    <files mask="arm_fir_interpolate_q31.c"/>
+    <files mask="arm_fir_decimate_init_f32.c"/>
+    <files mask="arm_correlate_fast_opt_q15.c"/>
+    <files mask="arm_lms_q31.c"/>
+    <files mask="arm_lms_init_f32.c"/>
+    <files mask="arm_fir_sparse_q7.c"/>
+    <files mask="arm_conv_fast_opt_q15.c"/>
+    <files mask="arm_biquad_cascade_stereo_df2T_init_f32.c"/>
+    <files mask="arm_biquad_cascade_df1_init_q31.c"/>
+    <files mask="arm_biquad_cascade_df2T_init_f64.c"/>
+    <files mask="arm_iir_lattice_f32.c"/>
+    <files mask="arm_fir_lattice_f32.c"/>
+    <files mask="arm_conv_partial_opt_q15.c"/>
+    <files mask="arm_iir_lattice_q31.c"/>
+    <files mask="arm_correlate_fast_q31.c"/>
+    <files mask="arm_biquad_cascade_stereo_df2T_f32.c"/>
+    <files mask="arm_conv_f32.c"/>
+    <files mask="arm_fir_sparse_q15.c"/>
+    <files mask="arm_fir_sparse_init_q7.c"/>
+    <files mask="arm_biquad_cascade_df1_fast_q31.c"/>
+    <files mask="arm_biquad_cascade_df1_init_f32.c"/>
+    <files mask="arm_fir_sparse_init_q31.c"/>
+    <files mask="arm_fir_sparse_init_q15.c"/>
+    <files mask="arm_fir_interpolate_init_q15.c"/>
+    <files mask="arm_fir_lattice_q15.c"/>
+    <files mask="arm_fir_decimate_init_q15.c"/>
+    <files mask="arm_conv_partial_fast_opt_q15.c"/>
+    <files mask="arm_fir_q31.c"/>
+    <files mask="arm_biquad_cascade_df2T_init_f32.c"/>
+    <files mask="arm_conv_fast_q15.c"/>
+    <files mask="arm_fir_fast_q15.c"/>
+    <files mask="arm_conv_q7.c"/>
+    <files mask="arm_fir_q15.c"/>
+    <files mask="arm_correlate_q15.c"/>
+    <files mask="arm_lms_init_q15.c"/>
+    <files mask="arm_conv_q15.c"/>
+    <files mask="arm_conv_partial_q7.c"/>
+    <files mask="arm_lms_f32.c"/>
+    <files mask="arm_lms_norm_q15.c"/>
+    <files mask="arm_fir_sparse_init_f32.c"/>
+    <files mask="arm_lms_norm_init_q31.c"/>
+    <files mask="arm_biquad_cascade_df1_init_q15.c"/>
+    <files mask="arm_conv_partial_fast_q15.c"/>
+    <files mask="arm_fir_init_f32.c"/>
+    <files mask="arm_fir_decimate_f32.c"/>
+    <files mask="arm_fir_lattice_init_q15.c"/>
+    <files mask="arm_correlate_opt_q15.c"/>
+    <files mask="arm_fir_sparse_q31.c"/>
+    <files mask="arm_biquad_cascade_df2T_f32.c"/>
+    <files mask="arm_fir_init_q7.c"/>
+    <files mask="arm_fir_init_q15.c"/>
+    <files mask="arm_fir_interpolate_init_f32.c"/>
+    <files mask="arm_conv_opt_q7.c"/>
+    <files mask="arm_lms_init_q31.c"/>
+    <files mask="arm_fir_fast_q31.c"/>
+    <files mask="arm_conv_partial_f32.c"/>
+    <files mask="arm_biquad_cascade_df1_q15.c"/>
+    <files mask="arm_biquad_cascade_df1_32x64_init_q31.c"/>
+    <files mask="arm_lms_norm_q31.c"/>
+    <files mask="arm_conv_partial_q15.c"/>
+    <files mask="arm_conv_opt_q15.c"/>
+    <files mask="arm_fir_decimate_q15.c"/>
+    <files mask="arm_iir_lattice_init_f32.c"/>
+    <files mask="arm_fir_lattice_init_f32.c"/>
+    <files mask="arm_fir_decimate_fast_q31.c"/>
+    <files mask="arm_fir_f32.c"/>
+    <files mask="arm_fir_decimate_init_q31.c"/>
+    <files mask="arm_conv_q31.c"/>
+    <files mask="arm_lms_norm_f32.c"/>
+    <files mask="arm_conv_partial_fast_q31.c"/>
+    <files mask="arm_fir_lattice_init_q31.c"/>
+    <files mask="arm_fir_init_q31.c"/>
+    <files mask="arm_lms_norm_init_f32.c"/>
+    <files mask="arm_correlate_opt_q7.c"/>
+    <files mask="arm_fir_lattice_q31.c"/>
+    <files mask="arm_conv_partial_q31.c"/>
+    <files mask="arm_biquad_cascade_df2T_f64.c"/>
+    <files mask="arm_biquad_cascade_df1_f32.c"/>
+    <files mask="arm_lms_q15.c"/>
+    <files mask="arm_correlate_q31.c"/>
+    <files mask="arm_correlate_q7.c"/>
+    <files mask="arm_fir_q7.c"/>
+    <files mask="arm_conv_fast_q31.c"/>
+    <files mask="arm_conv_partial_opt_q7.c"/>
+    <files mask="arm_fir_decimate_fast_q15.c"/>
+    <files mask="arm_fir_interpolate_init_q31.c"/>
+    <files mask="arm_biquad_cascade_df1_q31.c"/>
+    <files mask="FilteringFunctions.c"/>
+    <files mask="arm_correlate_f32.c"/>
+    <files mask="arm_biquad_cascade_df1_32x64_q31.c"/>
+  </source>
+  <source relative_path="DSP/Source/FilteringFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/ControllerFunctions" type="src">
+    <files mask="arm_sin_cos_f32.c"/>
+    <files mask="ControllerFunctions.c"/>
+    <files mask="arm_pid_reset_q31.c"/>
+    <files mask="arm_pid_init_q15.c"/>
+    <files mask="arm_sin_cos_q31.c"/>
+    <files mask="arm_pid_reset_f32.c"/>
+    <files mask="arm_pid_reset_q15.c"/>
+    <files mask="arm_pid_init_f32.c"/>
+    <files mask="arm_pid_init_q31.c"/>
+  </source>
+  <source relative_path="DSP/Source/ControllerFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/MatrixFunctions" type="src">
+    <files mask="arm_mat_mult_f32.c"/>
+    <files mask="arm_mat_mult_fast_q31.c"/>
+    <files mask="arm_mat_init_q15.c"/>
+    <files mask="arm_mat_mult_fast_q15.c"/>
+    <files mask="arm_mat_trans_q15.c"/>
+    <files mask="arm_mat_cmplx_mult_q31.c"/>
+    <files mask="arm_mat_mult_q31.c"/>
+    <files mask="arm_mat_init_f32.c"/>
+    <files mask="arm_mat_inverse_f32.c"/>
+    <files mask="arm_mat_scale_q31.c"/>
+    <files mask="arm_mat_cmplx_mult_f32.c"/>
+    <files mask="arm_mat_sub_q15.c"/>
+    <files mask="arm_mat_scale_f32.c"/>
+    <files mask="arm_mat_sub_f32.c"/>
+    <files mask="arm_mat_add_q31.c"/>
+    <files mask="arm_mat_add_f32.c"/>
+    <files mask="MatrixFunctions.c"/>
+    <files mask="arm_mat_mult_q15.c"/>
+    <files mask="arm_mat_trans_q31.c"/>
+    <files mask="arm_mat_scale_q15.c"/>
+    <files mask="arm_mat_sub_q31.c"/>
+    <files mask="arm_mat_inverse_f64.c"/>
+    <files mask="arm_mat_init_q31.c"/>
+    <files mask="arm_mat_trans_f32.c"/>
+    <files mask="arm_mat_cmplx_mult_q15.c"/>
+    <files mask="arm_mat_add_q15.c"/>
+  </source>
+  <source relative_path="DSP/Source/MatrixFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/CommonTables" type="src">
+    <files mask="CommonTables.c"/>
+    <files mask="arm_common_tables.c"/>
+    <files mask="arm_const_structs.c"/>
+  </source>
+  <source relative_path="DSP/Source/CommonTables" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/SupportFunctions" type="src">
+    <files mask="SupportFunctions.c"/>
+    <files mask="arm_fill_q7.c"/>
+    <files mask="arm_q15_to_q7.c"/>
+    <files mask="arm_copy_q15.c"/>
+    <files mask="arm_copy_f32.c"/>
+    <files mask="arm_q7_to_q15.c"/>
+    <files mask="arm_q31_to_q15.c"/>
+    <files mask="arm_copy_q7.c"/>
+    <files mask="arm_q15_to_float.c"/>
+    <files mask="arm_q7_to_float.c"/>
+    <files mask="arm_float_to_q15.c"/>
+    <files mask="arm_q15_to_q31.c"/>
+    <files mask="arm_fill_f32.c"/>
+    <files mask="arm_float_to_q7.c"/>
+    <files mask="arm_fill_q31.c"/>
+    <files mask="arm_q7_to_q31.c"/>
+    <files mask="arm_q31_to_float.c"/>
+    <files mask="arm_copy_q31.c"/>
+    <files mask="arm_fill_q15.c"/>
+    <files mask="arm_q31_to_q7.c"/>
+    <files mask="arm_float_to_q31.c"/>
+  </source>
+  <source relative_path="DSP/Source/SupportFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/ComplexMathFunctions" type="src">
+    <files mask="arm_cmplx_mag_squared_f32.c"/>
+    <files mask="arm_cmplx_conj_f32.c"/>
+    <files mask="arm_cmplx_mag_q31.c"/>
+    <files mask="arm_cmplx_conj_q31.c"/>
+    <files mask="arm_cmplx_dot_prod_f32.c"/>
+    <files mask="arm_cmplx_mag_q15.c"/>
+    <files mask="arm_cmplx_mag_f32.c"/>
+    <files mask="arm_cmplx_dot_prod_q31.c"/>
+    <files mask="arm_cmplx_dot_prod_q15.c"/>
+    <files mask="arm_cmplx_mult_cmplx_q15.c"/>
+    <files mask="arm_cmplx_mag_squared_q15.c"/>
+    <files mask="arm_cmplx_conj_q15.c"/>
+    <files mask="arm_cmplx_mult_real_q31.c"/>
+    <files mask="arm_cmplx_mult_cmplx_f32.c"/>
+    <files mask="ComplexMathFunctions.c"/>
+    <files mask="arm_cmplx_mag_squared_q31.c"/>
+    <files mask="arm_cmplx_mult_real_q15.c"/>
+    <files mask="arm_cmplx_mult_cmplx_q31.c"/>
+    <files mask="arm_cmplx_mult_real_f32.c"/>
+  </source>
+  <source relative_path="DSP/Source/ComplexMathFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+  <source relative_path="DSP/Source/BasicMathFunctions" type="src">
+    <files mask="arm_mult_f32.c"/>
+    <files mask="arm_dot_prod_q31.c"/>
+    <files mask="arm_sub_f32.c"/>
+    <files mask="arm_sub_q15.c"/>
+    <files mask="arm_shift_q7.c"/>
+    <files mask="arm_abs_q7.c"/>
+    <files mask="arm_abs_q31.c"/>
+    <files mask="arm_mult_q31.c"/>
+    <files mask="arm_dot_prod_f32.c"/>
+    <files mask="arm_offset_q31.c"/>
+    <files mask="arm_shift_q15.c"/>
+    <files mask="arm_shift_q31.c"/>
+    <files mask="arm_negate_q7.c"/>
+    <files mask="arm_add_q15.c"/>
+    <files mask="arm_add_q7.c"/>
+    <files mask="arm_offset_f32.c"/>
+    <files mask="arm_dot_prod_q15.c"/>
+    <files mask="arm_mult_q7.c"/>
+    <files mask="arm_dot_prod_q7.c"/>
+    <files mask="arm_abs_f32.c"/>
+    <files mask="arm_negate_q15.c"/>
+    <files mask="arm_scale_q15.c"/>
+    <files mask="arm_mult_q15.c"/>
+    <files mask="arm_add_q31.c"/>
+    <files mask="arm_scale_q7.c"/>
+    <files mask="arm_offset_q7.c"/>
+    <files mask="BasicMathFunctions.c"/>
+    <files mask="arm_sub_q31.c"/>
+    <files mask="arm_sub_q7.c"/>
+    <files mask="arm_negate_f32.c"/>
+    <files mask="arm_abs_q15.c"/>
+    <files mask="arm_scale_f32.c"/>
+    <files mask="arm_add_f32.c"/>
+    <files mask="arm_offset_q15.c"/>
+    <files mask="arm_negate_q31.c"/>
+    <files mask="arm_scale_q31.c"/>
+  </source>
+  <source relative_path="DSP/Source/BasicMathFunctions" type="doc">
+    <files mask="CMakeLists.txt"/>
+  </source>
+</component>-->
+    <component id="COPY_BSD_License.MKE04Z4" name="COPY_BSD_License" brief="COPY of BSD-3-Clause license" version="1.0.0" full_name="COPY of BSD-3-Clause license" devices="MKE04Z8xxx4" user_visible="true" type="other" package_base_path="core/./" project_base_path="src">
+      <source relative_path="./" type="other">
+        <files mask="COPYING-BSD-3"/>
+      </source>
+    </component>
+    <component id="project_template.MKE04Z4.MKE04Z4" name="MKE04Z4" brief="Devices_project_template MKE04Z4" version="1.0.0" full_name="Devices_project_template MKE04Z4" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" category="Board Support/SDK Project Template" user_visible="true" type="project_template" package_base_path="core/devices/MKE04Z4/project_template" project_base_path="board">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.uart.MKE04Z4"/>
+          <component_dependency value="component.uart_adapter.MKE04Z4"/>
+          <component_dependency value="platform.drivers.port_ke04.MKE04Z4"/>
+          <component_dependency value="platform.drivers.gpio_1.MKE04Z4"/>
+          <component_dependency value="device.MKE04Z4_startup.MKE04Z4"/>
+          <component_dependency value="platform.drivers.common.MKE04Z4"/>
+          <component_dependency value="utility.debug_console_lite.MKE04Z4"/>
+          <component_dependency value="platform.drivers.clock.MKE04Z4"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="board.h"/>
+        <files mask="clock_config.h"/>
+        <files mask="pin_mux.h"/>
+        <files mask="peripherals.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="board.c"/>
+        <files mask="clock_config.c"/>
+        <files mask="pin_mux.c"/>
+        <files mask="peripherals.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="RTE_Device.MKE04Z4" name="RTE_Device" brief="Rte_device" version="1.0.0" full_name="Rte_device" devices="MKE04Z8xxx4" category="Device/SDK Project Template" user_visible="true" type="project_template" package_base_path="core/devices/MKE04Z4/template" project_base_path="board">
+      <source relative_path="./" type="c_include">
+        <files mask="RTE_Device.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="tools.MKE04Z4" name="cmake_toolchain" brief="Cmake_toolchain" version="1.0.0" full_name="Cmake_toolchain" devices="MKE04Z8xxx4" user_visible="true" type="other" package_base_path="core/tools/cmake_toolchain_files" project_base_path="cmake_toolchain_files">
+      <source relative_path="./" type="script">
+        <files mask="armgcc.cmake"/>
+        <files mask="xcc.cmake"/>
+        <files mask="xclang.cmake"/>
+        <files mask="armgcc_force_cpp.cmake"/>
+      </source>
+    </component>
+    <component id="component.common_task.MKE04Z4" name="common_task" brief="Component common_task" version="1.0.0" full_name="Component common_task" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="software_component" package_base_path="core/components/common_task" project_base_path="component/common_task">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.common.MKE04Z4"/>
+          <component_dependency value="component.osa.MKE04Z4"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_component_common_task.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_component_common_task.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.ftm_adapter.MKE04Z4" name="ftm_adapter" brief="Component ftm_adapter" version="1.0.0" full_name="Component ftm_adapter" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="abstraction_layer" package_base_path="core/components/timer" project_base_path="component/timer">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.common.MKE04Z4"/>
+          <component_dependency value="platform.drivers.ftm.MKE04Z4"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_adapter_timer.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_adapter_ftm.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.lists.MKE04Z4" name="lists" brief="Component lists" version="1.0.0" full_name="Component lists" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="software_component" package_base_path="core/components/lists" project_base_path="component/lists">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_component_generic_list.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_component_generic_list.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_lists.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.mem_manager.MKE04Z4" name="mem_manager" brief="Component mem_manager" version="1.0.0" full_name="Component mem_manager" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="software_component" package_base_path="core/components/mem_manager" project_base_path="component/mem_manager">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.common.MKE04Z4"/>
+          <component_dependency value="component.lists.MKE04Z4"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_component_mem_manager.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_component_mem_manager.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.mem_manager_light.MKE04Z4" name="mem_manager_light" brief="Component mem_manager_light" version="1.0.0" full_name="Component mem_manager_light" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="software_component" package_base_path="core/components/mem_manager" project_base_path="component/mem_manager">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.common.MKE04Z4"/>
+          <component_dependency value="component.lists.MKE04Z4"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_component_mem_manager.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_component_mem_manager_light.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.osa.MKE04Z4" name="osa" brief="Component osa" version="1.0.0" full_name="Component osa" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="software_component" package_base_path="core/components/osa" project_base_path="component/osa">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.common.MKE04Z4"/>
+          <component_dependency value="component.lists.MKE04Z4"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_os_abstraction.h"/>
+        <files mask="fsl_os_abstraction_config.h"/>
+      </source>
+      <source condition="middleware.baremetal.MKE04Z4" relative_path="./" type="c_include">
+        <files mask="fsl_os_abstraction_bm.h"/>
+      </source>
+      <source condition="middleware.baremetal.MKE04Z4" relative_path="./" type="src">
+        <files mask="fsl_os_abstraction_bm.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.osa_bm.MKE04Z4" name="osa_bm" brief="Component osa_bm" version="1.0.0" full_name="Component osa_bm" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="false" type="software_component" package_base_path="core/components/osa" project_base_path="component/osa">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.common.MKE04Z4"/>
+          <component_dependency value="component.lists.MKE04Z4"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_os_abstraction.h"/>
+        <files mask="fsl_os_abstraction_bm.h"/>
+        <files mask="fsl_os_abstraction_config.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_os_abstraction_bm.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.osa_thread.MKE04Z4" name="osa thread" brief="Component osa thread" version="1.0.0" full_name="Component osa thread" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="false" type="software_component" package_base_path="core/components/osa" project_base_path="component/osa">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.common.MKE04Z4"/>
+          <component_dependency value="component.lists.MKE04Z4"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_os_abstraction.h"/>
+        <files mask="fsl_os_abstraction_config.h"/>
+        <files mask="fsl_os_abstraction_threadx.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_os_abstraction_threadx.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.pit_adapter.MKE04Z4" name="pit_adapter" brief="Component pit_adapter" version="1.0.0" full_name="Component pit_adapter" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="abstraction_layer" package_base_path="core/components/timer" project_base_path="component/timer">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.common.MKE04Z4"/>
+          <component_dependency value="platform.drivers.pit.MKE04Z4"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_adapter_timer.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_adapter_pit.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.pwm_ftm_adapter.MKE04Z4" name="pwm_ftm_adapter" brief="Component pwm_ftm_adapter" version="1.0.0" full_name="Component pwm_ftm_adapter" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="abstraction_layer" package_base_path="core/components/pwm" project_base_path="component/pwm">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.common.MKE04Z4"/>
+          <component_dependency value="platform.drivers.ftm.MKE04Z4"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_adapter_pwm.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_adapter_pwm_ftm.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.pwm_tpm_adapter.MKE04Z4" name="pwm_tpm_adapter" brief="Component pwm_tpm_adapter" version="1.0.0" full_name="Component pwm_tpm_adapter" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="abstraction_layer" package_base_path="core/components/pwm" project_base_path="component/pwm">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.common.MKE04Z4"/>
+          <component_dependency value="platform.drivers.tpm.MKE04Z4"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_adapter_pwm.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_adapter_pwm_tpm.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.software_crc_adapter.MKE04Z4" name="software_crc_adapter" brief="Component software_crc_adapter" version="1.0.0" full_name="Component software_crc_adapter" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="abstraction_layer" package_base_path="core/components/crc" project_base_path="component/crc">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_adapter_crc.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_adapter_software_crc.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.software_rng_adapter.MKE04Z4" name="software_rng_adapter" brief="Component software_rng_adapter" version="1.0.0" full_name="Component software_rng_adapter" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="abstraction_layer" package_base_path="core/components/rng" project_base_path="component/rng">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_adapter_rng.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_adapter_software_rng.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.timer_manager.MKE04Z4" name="timer_manager" brief="Component timer_manager" version="1.0.0" full_name="Component timer_manager" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="software_component" package_base_path="core/components/timer_manager" project_base_path="component/timer_manager">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.common.MKE04Z4"/>
+          <component_dependency value="component.lists.MKE04Z4"/>
+          <any_of>
+            <component_dependency value="component.tpm_adapter.MKE04Z4"/>
+            <component_dependency value="component.pit_adapter.MKE04Z4"/>
+            <component_dependency value="component.ftm_adapter.MKE04Z4"/>
+          </any_of>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_component_timer_manager.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_component_timer_manager.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.tpm_adapter.MKE04Z4" name="tpm_adapter" brief="Component tpm_adapter" version="1.0.0" full_name="Component tpm_adapter" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="abstraction_layer" package_base_path="core/components/timer" project_base_path="component/timer">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.common.MKE04Z4"/>
+          <component_dependency value="platform.drivers.tpm.MKE04Z4"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_adapter_timer.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_adapter_tpm.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.uart_adapter.MKE04Z4" name="uart_adapter" brief="Component uart_adapter" version="1.0.0" full_name="uart_adapter" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="utilities" package_base_path="core/components/uart" project_base_path="component/uart">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.common.MKE04Z4"/>
+          <component_dependency value="platform.drivers.uart.MKE04Z4"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_adapter_uart.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_adapter_uart.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_uart_adapter.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="device.MKE04Z4_CMSIS.MKE04Z4" name="MKE04Z4_CMSIS" brief="Device MKE04Z4_cmsis" version="1.0.0" full_name="Device MKE04Z4_cmsis" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="CMSIS_Include" package_base_path="core/devices/MKE04Z4" project_base_path="device">
+      <dependencies>
+        <component_dependency value="CMSIS_Include_core_cm.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_device_registers.h"/>
+        <files mask="MKE04Z4.h"/>
+        <files mask="MKE04Z4_features.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="device_CMSIS.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="device.MKE04Z4_debugger.MKE04Z4" name="MKE04Z4_debugger" brief="Device MKE04Z4_debugger" version="1.0.0" full_name="Device MKE04Z4_debugger" devices="MKE04Z8xxx4" user_visible="true" type="debugger" package_base_path="svd/MKE04Z4" project_base_path="MKE04Z4">
+      <source relative_path="./" type="xml">
+        <files mask="MKE04Z4.xml"/>
+      </source>
+    </component>
+    <component id="platform.devices.MKE04Z4_linker.MKE04Z4" name="MKE04Z4_linker" brief="Device MKE04Z4_linker" version="1.0.0" full_name="Device MKE04Z4_linker" devices="MKE04Z8xxx4" user_visible="true" type="linker" package_base_path="core/devices/MKE04Z4" project_base_path="MKE04Z4">
+      <source toolchain="armgcc" relative_path="gcc" type="linker">
+        <files mask="MKE04Z8xxx4_flash.ld"/>
+        <files mask="MKE04Z8xxx4_ram.ld"/>
+      </source>
+    </component>
+    <component id="device.MKE04Z4_startup.MKE04Z4" name="MKE04Z4_startup" brief="Device MKE04Z4_startup" version="1.1.0" full_name="Device MKE04Z4_startup" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" category="Device/Startup" user_visible="true" type="startup" package_base_path="core/devices/MKE04Z4" project_base_path="startup">
+      <dependencies>
+        <component_dependency value="device.MKE04Z4_system.MKE04Z4"/>
+      </dependencies>
+      <source toolchain="armgcc" relative_path="gcc" project_relative_path="./" type="asm_include">
+        <files mask="startup_MKE04Z4.S"/>
+      </source>
+      <source toolchain="mcuxpresso" relative_path="mcuxpresso" project_relative_path="./" type="src_c">
+        <files mask="startup_mke04z4.c"/>
+      </source>
+      <source toolchain="mcuxpresso" relative_path="mcuxpresso" project_relative_path="./" type="src_cpp">
+        <files mask="startup_mke04z4.cpp"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="device_startup.cmake" hidden="true"/>
+      </source>
+    </component>
+    <component id="device.MKE04Z4_system.MKE04Z4" name="MKE04Z4_system" brief="Device MKE04Z4_system" version="1.0.0" full_name="Device MKE04Z4_system" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="CMSIS_Include" package_base_path="core/devices/MKE04Z4" project_base_path="device">
+      <dependencies>
+        <component_dependency value="device.MKE04Z4_CMSIS.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="src">
+        <files mask="system_MKE04Z4.c"/>
+      </source>
+      <source relative_path="./" type="c_include">
+        <files mask="system_MKE04Z4.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="device_system.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="docs.MKE04Z4.MKE04Z4" name="MKE04Z4" brief="Docs mke04z4" version="1.0.0" full_name="Docs mke04z4" devices="MKE04Z8xxx4" user_visible="true" type="documentation" package_base_path="core/docs" project_base_path="docs">
+      <source relative_path="./" type="doc">
+        <files mask="MCUXpresso SDK Release Notes for FRDM-KE04Z.pdf"/>
+        <files mask="Getting Started with MCUXpresso SDK.pdf"/>
+      </source>
+    </component>
+    <component id="docs_external.MKE04Z4.MKE04Z4" name="docs_external.MKE04Z4" brief="External documentation for MKE04Z4." version="1.0.0" full_name="External documentation" devices="MKE04Z8xxx4" user_visible="true" type="documentation" package_base_path="core/docs" project_base_path="docs">
+      <source relative_path="./" type="doc">
+        <files mask="MCUXpresso SDK ChangeLog_MKE04Z4.pdf"/>
+        <files mask="MCUXpresso SDK API Reference Manual_MKE04Z4.pdf"/>
+      </source>
+      <source relative_path="MCUXpresso SDK API Reference Manual_MKE04Z4" type="doc">
+        <files mask="a00021.html"/>
+        <files mask="dir_13e7b449b29780a4af8c8692d20059c8.html"/>
+        <files mask="a00012.html"/>
+        <files mask="dir_a343a3e9cbb710280ccd0de2056b945d.html"/>
+        <files mask="dir_3946826206244ea278cbb2892830e61f.html"/>
+        <files mask="a00019.html"/>
+        <files mask="customdoxygen.css"/>
+        <files mask="a00084.html"/>
+        <files mask="a00006.html"/>
+        <files mask="a00004.html"/>
+        <files mask="a00080.html"/>
+        <files mask="a00008.html"/>
+        <files mask="dir_ea982a4a90bbf64c8a612131ad2f0fcb.html"/>
+        <files mask="a00010.html"/>
+        <files mask="a00009.html"/>
+        <files mask="dir_48dd3c62d7c86167056c35ed6b546d27.html"/>
+        <files mask="a00020.html"/>
+        <files mask="tabs.css"/>
+        <files mask="a00087.html"/>
+        <files mask="a00023.html"/>
+        <files mask="dir_cbec2bf2124ecc19311d10caa25d2549.html"/>
+        <files mask="a00085.html"/>
+        <files mask="a00088.html"/>
+        <files mask="dir_252e093e644d88ecffac71708c50cbfe.html"/>
+        <files mask="a00015.html"/>
+        <files mask="index.html"/>
+        <files mask="dir_848ba48fec923bc3c0bf8c7926036968.html"/>
+        <files mask="dir_581c511cdb7e3410adc63f657da77e6e.html"/>
+        <files mask="a00089.html"/>
+        <files mask="dir_52224d5799ed577ec7110a14b417b1cd.html"/>
+        <files mask="a00017.html"/>
+        <files mask="dir_81cd625641a90df482300fc494d26ddb.html"/>
+        <files mask="a00025.html"/>
+        <files mask="dir_83c4f67939b2e50b6dc50fe3fc259b2d.html"/>
+        <files mask="a00011.html"/>
+        <files mask="a00002.html"/>
+        <files mask="a00076.html"/>
+        <files mask="dir_edfff12e9e074f731a64a2da3691628f.html"/>
+        <files mask="a00082.html"/>
+        <files mask="a00078.html"/>
+        <files mask="dir_61bc899aee3999e613a40efe387422e4.html"/>
+        <files mask="dir_07b86ffc266b39efa5bbdc0e9fdb330a.html"/>
+        <files mask="dir_4d587534c930721bb7699d438d28eeba.html"/>
+        <files mask="a00081.html"/>
+        <files mask="a00022.html"/>
+        <files mask="dir_fbef74b0821a4a6b9566512e5bbdae93.html"/>
+        <files mask="dir_ba730c98e18806b5f7622792b8bb3a01.html"/>
+        <files mask="dir_b60bc431cd2d2a4b7e645c1f73116460.html"/>
+        <files mask="a00079.html"/>
+        <files mask="a00013.html"/>
+        <files mask="dir_c5a52a81292cf9a5167198f4f346d6d9.html"/>
+        <files mask="dir_22cbbd27e16e87caa10f675e5ce8b9df.html"/>
+        <files mask="dir_96457f44ccb3900e8bee9063fe7341fc.html"/>
+        <files mask="doxygen.css"/>
+        <files mask="dir_caec771fbba9b9119f445d8af217619b.html"/>
+        <files mask="dir_8612c4fc68d5d14807ff11dc8fe12077.html"/>
+        <files mask="a00024.html"/>
+        <files mask="dir_d0b0cea4c1afa919405231e98537b73c.html"/>
+        <files mask="a00083.html"/>
+        <files mask="dir_70b75669604c5403f9f22a823b49dde2.html"/>
+        <files mask="dir_1019d2ee4aa6448b7f69b928fb3aa7f9.html"/>
+        <files mask="a00077.html"/>
+        <files mask="a00086.html"/>
+        <files mask="navtree.css"/>
+        <files mask="pages.html"/>
+        <files mask="a00018.html"/>
+        <files mask="a00016.html"/>
+        <files mask="dir_a595ca013f2e2ca0e9084386b7dcbe2f.html"/>
+        <files mask="dir_f8174cdb13358fdf1d111275c2dd555d.html"/>
+        <files mask="modules.html"/>
+        <files mask="a00014.html"/>
+      </source>
+      <source relative_path="MCUXpresso SDK API Reference Manual_MKE04Z4" type="script">
+        <files mask="a00023.js"/>
+        <files mask="a00014.js"/>
+        <files mask="a00008.js"/>
+        <files mask="a00017.js"/>
+        <files mask="navtreeindex0.js"/>
+        <files mask="a00022.js"/>
+        <files mask="a00012.js"/>
+        <files mask="navtreeindex5.js"/>
+        <files mask="a00083.js"/>
+        <files mask="a00021.js"/>
+        <files mask="a00015.js"/>
+        <files mask="a00010.js"/>
+        <files mask="navtreeindex4.js"/>
+        <files mask="a00088.js"/>
+        <files mask="a00077.js"/>
+        <files mask="a00009.js"/>
+        <files mask="a00016.js"/>
+        <files mask="a00079.js"/>
+        <files mask="a00087.js"/>
+        <files mask="a00019.js"/>
+        <files mask="navtreeindex1.js"/>
+        <files mask="a00080.js"/>
+        <files mask="a00013.js"/>
+        <files mask="modules.js"/>
+        <files mask="resize.js"/>
+        <files mask="a00018.js"/>
+        <files mask="navtreeindex2.js"/>
+        <files mask="a00020.js"/>
+        <files mask="navtreeindex3.js"/>
+        <files mask="dynsections.js"/>
+        <files mask="a00078.js"/>
+        <files mask="a00085.js"/>
+        <files mask="navtree.js"/>
+        <files mask="a00011.js"/>
+        <files mask="a00076.js"/>
+        <files mask="jquery.js"/>
+      </source>
+      <source relative_path="MCUXpresso SDK API Reference Manual_MKE04Z4/search" type="doc">
+        <files mask="typedefs_73.html"/>
+        <files mask="functions_75.html"/>
+        <files mask="classes_77.html"/>
+        <files mask="all_68.html"/>
+        <files mask="variables_6f.html"/>
+        <files mask="variables_6d.html"/>
+        <files mask="all_6c.html"/>
+        <files mask="classes_61.html"/>
+        <files mask="variables_69.html"/>
+        <files mask="classes_70.html"/>
+        <files mask="groups_67.html"/>
+        <files mask="typedefs_66.html"/>
+        <files mask="functions_63.html"/>
+        <files mask="all_64.html"/>
+        <files mask="variables_73.html"/>
+        <files mask="all_63.html"/>
+        <files mask="functions_69.html"/>
+        <files mask="functions_74.html"/>
+        <files mask="typedefs_69.html"/>
+        <files mask="enums_6b.html"/>
+        <files mask="enums_70.html"/>
+        <files mask="variables_75.html"/>
+        <files mask="typedefs_72.html"/>
+        <files mask="all_74.html"/>
+        <files mask="enums_72.html"/>
+        <files mask="typedefs_75.html"/>
+        <files mask="enums_75.html"/>
+        <files mask="all_73.html"/>
+        <files mask="all_79.html"/>
+        <files mask="all_6f.html"/>
+        <files mask="pages_74.html"/>
+        <files mask="pages_69.html"/>
+        <files mask="search.css"/>
+        <files mask="variables_70.html"/>
+        <files mask="classes_75.html"/>
+        <files mask="variables_6c.html"/>
+        <files mask="classes_74.html"/>
+        <files mask="variables_68.html"/>
+        <files mask="classes_6b.html"/>
+        <files mask="all_70.html"/>
+        <files mask="classes_66.html"/>
+        <files mask="functions_6e.html"/>
+        <files mask="groups_6b.html"/>
+        <files mask="variables_63.html"/>
+        <files mask="variables_61.html"/>
+        <files mask="groups_75.html"/>
+        <files mask="variables_79.html"/>
+        <files mask="all_65.html"/>
+        <files mask="all_67.html"/>
+        <files mask="variables_62.html"/>
+        <files mask="enums_63.html"/>
+        <files mask="classes_69.html"/>
+        <files mask="variables_65.html"/>
+        <files mask="enums_5f.html"/>
+        <files mask="enums_74.html"/>
+        <files mask="all_6e.html"/>
+        <files mask="all_75.html"/>
+        <files mask="enums_61.html"/>
+        <files mask="groups_64.html"/>
+        <files mask="functions_6b.html"/>
+        <files mask="nomatches.html"/>
+        <files mask="all_77.html"/>
+        <files mask="groups_66.html"/>
+        <files mask="all_62.html"/>
+        <files mask="groups_77.html"/>
+        <files mask="enums_67.html"/>
+        <files mask="enums_69.html"/>
+        <files mask="typedefs_6e.html"/>
+        <files mask="pages_64.html"/>
+        <files mask="functions_66.html"/>
+        <files mask="variables_6e.html"/>
+        <files mask="all_66.html"/>
+        <files mask="groups_69.html"/>
+        <files mask="classes_72.html"/>
+        <files mask="variables_64.html"/>
+        <files mask="variables_66.html"/>
+        <files mask="all_69.html"/>
+        <files mask="all_5f.html"/>
+        <files mask="groups_73.html"/>
+        <files mask="functions_77.html"/>
+        <files mask="classes_73.html"/>
+        <files mask="classes_5f.html"/>
+        <files mask="functions_70.html"/>
+        <files mask="groups_72.html"/>
+        <files mask="groups_61.html"/>
+        <files mask="enums_66.html"/>
+        <files mask="groups_70.html"/>
+        <files mask="enums_6e.html"/>
+        <files mask="variables_67.html"/>
+        <files mask="pages_61.html"/>
+        <files mask="all_61.html"/>
+        <files mask="groups_6e.html"/>
+        <files mask="classes_6e.html"/>
+        <files mask="variables_74.html"/>
+        <files mask="groups_74.html"/>
+        <files mask="all_6b.html"/>
+        <files mask="classes_6f.html"/>
+        <files mask="variables_77.html"/>
+        <files mask="functions_73.html"/>
+        <files mask="enumvalues_6b.html"/>
+        <files mask="classes_67.html"/>
+        <files mask="functions_67.html"/>
+        <files mask="functions_61.html"/>
+        <files mask="all_72.html"/>
+        <files mask="all_6d.html"/>
+        <files mask="enums_73.html"/>
+        <files mask="groups_63.html"/>
+        <files mask="variables_72.html"/>
+        <files mask="functions_72.html"/>
+      </source>
+      <source relative_path="MCUXpresso SDK API Reference Manual_MKE04Z4/search" type="script">
+        <files mask="groups_6e.js"/>
+        <files mask="classes_70.js"/>
+        <files mask="typedefs_75.js"/>
+        <files mask="enums_6e.js"/>
+        <files mask="groups_70.js"/>
+        <files mask="all_64.js"/>
+        <files mask="enums_67.js"/>
+        <files mask="classes_74.js"/>
+        <files mask="variables_6e.js"/>
+        <files mask="groups_6b.js"/>
+        <files mask="variables_63.js"/>
+        <files mask="functions_67.js"/>
+        <files mask="variables_61.js"/>
+        <files mask="enumvalues_6b.js"/>
+        <files mask="typedefs_69.js"/>
+        <files mask="groups_64.js"/>
+        <files mask="all_65.js"/>
+        <files mask="variables_77.js"/>
+        <files mask="variables_67.js"/>
+        <files mask="all_67.js"/>
+        <files mask="variables_72.js"/>
+        <files mask="functions_77.js"/>
+        <files mask="enums_73.js"/>
+        <files mask="search.js"/>
+        <files mask="classes_6b.js"/>
+        <files mask="classes_69.js"/>
+        <files mask="pages_69.js"/>
+        <files mask="classes_6e.js"/>
+        <files mask="functions_63.js"/>
+        <files mask="classes_5f.js"/>
+        <files mask="enums_74.js"/>
+        <files mask="variables_73.js"/>
+        <files mask="pages_61.js"/>
+        <files mask="variables_75.js"/>
+        <files mask="all_6f.js"/>
+        <files mask="variables_79.js"/>
+        <files mask="all_66.js"/>
+        <files mask="all_68.js"/>
+        <files mask="functions_70.js"/>
+        <files mask="all_70.js"/>
+        <files mask="all_6b.js"/>
+        <files mask="typedefs_6e.js"/>
+        <files mask="typedefs_73.js"/>
+        <files mask="groups_63.js"/>
+        <files mask="all_77.js"/>
+        <files mask="classes_61.js"/>
+        <files mask="all_63.js"/>
+        <files mask="all_5f.js"/>
+        <files mask="groups_61.js"/>
+        <files mask="enums_72.js"/>
+        <files mask="all_61.js"/>
+        <files mask="classes_75.js"/>
+        <files mask="groups_74.js"/>
+        <files mask="classes_66.js"/>
+        <files mask="enums_63.js"/>
+        <files mask="variables_64.js"/>
+        <files mask="functions_66.js"/>
+        <files mask="enums_5f.js"/>
+        <files mask="functions_6e.js"/>
+        <files mask="functions_61.js"/>
+        <files mask="enums_70.js"/>
+        <files mask="groups_66.js"/>
+        <files mask="variables_69.js"/>
+        <files mask="groups_73.js"/>
+        <files mask="typedefs_72.js"/>
+        <files mask="all_69.js"/>
+        <files mask="variables_6f.js"/>
+        <files mask="all_72.js"/>
+        <files mask="classes_77.js"/>
+        <files mask="variables_62.js"/>
+        <files mask="all_6e.js"/>
+        <files mask="all_73.js"/>
+        <files mask="variables_6d.js"/>
+        <files mask="variables_74.js"/>
+        <files mask="pages_64.js"/>
+        <files mask="enums_61.js"/>
+        <files mask="enums_69.js"/>
+        <files mask="all_62.js"/>
+        <files mask="enums_6b.js"/>
+        <files mask="variables_68.js"/>
+        <files mask="variables_6c.js"/>
+        <files mask="variables_70.js"/>
+        <files mask="functions_75.js"/>
+        <files mask="all_75.js"/>
+        <files mask="classes_6f.js"/>
+        <files mask="variables_66.js"/>
+        <files mask="groups_67.js"/>
+        <files mask="classes_72.js"/>
+        <files mask="all_79.js"/>
+        <files mask="groups_75.js"/>
+        <files mask="functions_74.js"/>
+        <files mask="groups_72.js"/>
+        <files mask="functions_69.js"/>
+        <files mask="all_6d.js"/>
+        <files mask="enums_66.js"/>
+        <files mask="functions_73.js"/>
+        <files mask="enums_75.js"/>
+        <files mask="functions_6b.js"/>
+        <files mask="groups_77.js"/>
+        <files mask="groups_69.js"/>
+        <files mask="typedefs_66.js"/>
+        <files mask="classes_73.js"/>
+        <files mask="classes_67.js"/>
+        <files mask="pages_74.js"/>
+        <files mask="variables_65.js"/>
+        <files mask="functions_72.js"/>
+        <files mask="all_6c.js"/>
+        <files mask="all_74.js"/>
+      </source>
+      <source relative_path="MCUXpresso SDK API Reference Manual_MKE04Z4/search" type="image">
+        <files mask="search_r.png"/>
+        <files mask="search_l.png"/>
+        <files mask="mag_sel.png"/>
+        <files mask="close.png"/>
+        <files mask="search_m.png"/>
+      </source>
+      <source relative_path="MCUXpresso SDK API Reference Manual_MKE04Z4" type="image">
+        <files mask="ftv2vertline.png"/>
+        <files mask="ftv2node.png"/>
+        <files mask="tab_b.png"/>
+        <files mask="ftv2blank.png"/>
+        <files mask="Kinetis_SDK_Block_Diagram.jpg"/>
+        <files mask="ftv2plastnode.png"/>
+        <files mask="ftv2mo.png"/>
+        <files mask="bc_s.png"/>
+        <files mask="nxp_logo_small.png"/>
+        <files mask="nav_h.png"/>
+        <files mask="fs_logo.gif"/>
+        <files mask="tab_a.png"/>
+        <files mask="bdwn.png"/>
+        <files mask="ftv2folderopen.png"/>
+        <files mask="sync_off.png"/>
+        <files mask="ftv2mlastnode.png"/>
+        <files mask="tab_s.png"/>
+        <files mask="ftv2ns.png"/>
+        <files mask="ftv2mnode.png"/>
+        <files mask="ftv2folderclosed.png"/>
+        <files mask="open.png"/>
+        <files mask="ftv2doc.png"/>
+        <files mask="ftv2lastnode.png"/>
+        <files mask="tab_h.png"/>
+        <files mask="arm_logo.png"/>
+        <files mask="closed.png"/>
+        <files mask="ftv2splitbar.png"/>
+        <files mask="ftv2pnode.png"/>
+        <files mask="ftv2link.png"/>
+        <files mask="ftv2cl.png"/>
+        <files mask="nav_g.png"/>
+        <files mask="sync_on.png"/>
+        <files mask="nav_f.png"/>
+        <files mask="doxygen.png"/>
+      </source>
+    </component>
+    <component id="platform.drivers.acmp_1.MKE04Z4" name="acmp" brief="ACMP Driver" version="2.0.2" full_name="ACMP Driver" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="driver" package_base_path="core/drivers/acmp_1" project_base_path="drivers">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="src">
+        <files mask="fsl_acmp.c"/>
+      </source>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_acmp.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_acmp_1.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.adc.MKE04Z4" name="adc" brief="ADC12 Driver" version="2.1.0" full_name="ADC12 Driver" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="driver" package_base_path="core/drivers/adc_5v12b_ll18_015" project_base_path="drivers">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="src">
+        <files mask="fsl_adc.c"/>
+      </source>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_adc.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_adc_5v12b_ll18_015.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.clock.MKE04Z4" name="clock" brief="Clock Driver" version="2.2.1" full_name="Clock Driver" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="driver" package_base_path="core/devices/MKE04Z4/drivers" project_base_path="drivers">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_clock.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_clock.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_clock.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.i2c_cmsis.MKE04Z4" name="i2c_cmsis" brief="I2C CMSIS Driver" version="2.2.0" full_name="I2C CMSIS Driver" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/i2c" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.i2c.MKE04Z4"/>
+          <component_dependency value="CMSIS_Driver_Include.I2C.MKE04Z4"/>
+          <component_dependency value="RTE_Device.MKE04Z4"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_i2c_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_i2c_cmsis.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.spi_cmsis.MKE04Z4" name="spi_cmsis" brief="SPI CMSIS Driver" version="2.3.0" full_name="SPI CMSIS Driver" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/spi" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.spi.MKE04Z4"/>
+          <component_dependency value="CMSIS_Driver_Include.SPI.MKE04Z4"/>
+          <component_dependency value="RTE_Device.MKE04Z4"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_spi_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_spi_cmsis.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.uart_cmsis.MKE04Z4" name="uart_cmsis" brief="UART CMSIS Driver" version="2.1.0" full_name="UART CMSIS Driver" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="CMSIS_driver" package_base_path="core/cmsis_drivers/uart" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.uart.MKE04Z4"/>
+          <component_dependency value="CMSIS_Driver_Include.USART.MKE04Z4"/>
+          <component_dependency value="RTE_Device.MKE04Z4"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_uart_cmsis.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_uart_cmsis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_cmsis_uart.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.common.MKE04Z4" name="common" brief="COMMON Driver" version="2.3.1" full_name="COMMON Driver" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="driver" package_base_path="core/drivers/common" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.clock.MKE04Z4"/>
+          <component_dependency value="device.MKE04Z4_CMSIS.MKE04Z4"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_common.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_common.c"/>
+      </source>
+      <source relative_path="./" type="src" device_cores="core0_MKE04Z8xxx4">
+        <files mask="fsl_common_arm.c"/>
+      </source>
+      <source relative_path="./" type="c_include" device_cores="core0_MKE04Z8xxx4">
+        <files mask="fsl_common_arm.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_common.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.flash.MKE04Z4" name="flash" brief="Flash Driver" version="2.0.0" full_name="Flash Driver" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="driver" package_base_path="core/drivers/flash_ftmr" project_base_path="drivers">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="src">
+        <files mask="fsl_flash.c"/>
+      </source>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_flash.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_flash_ftmr.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.ftm.MKE04Z4" name="ftm" brief="FTM Driver" version="2.5.0" full_name="FTM Driver" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="driver" package_base_path="core/drivers/ftm" project_base_path="drivers">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="src">
+        <files mask="fsl_ftm.c"/>
+      </source>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_ftm.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_ftm.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.gpio_1.MKE04Z4" name="gpio" brief="GPIO Driver" version="2.1.1" full_name="GPIO Driver" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="driver" package_base_path="core/drivers/gpio_1" project_base_path="drivers">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_gpio.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_gpio.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_gpio_1.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.i2c.MKE04Z4" name="i2c" brief="I2C Driver" version="2.0.9" full_name="I2C Driver" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="driver" package_base_path="core/drivers/i2c" project_base_path="drivers">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_i2c.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_i2c.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_i2c.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.irq.MKE04Z4" name="irq" brief="IRQ Driver" version="2.0.2" full_name="IRQ Driver" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="driver" package_base_path="core/drivers/irq" project_base_path="drivers">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="src">
+        <files mask="fsl_irq.c"/>
+      </source>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_irq.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_irq.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.kbi.MKE04Z4" name="kbi" brief="KBI Driver" version="2.0.3" full_name="KBI Driver" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="driver" package_base_path="core/drivers/kbi" project_base_path="drivers">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_kbi.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_kbi.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_kbi.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.pit.MKE04Z4" name="pit" brief="PIT Driver" version="2.0.4" full_name="PIT Driver" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="driver" package_base_path="core/drivers/pit" project_base_path="drivers">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="src">
+        <files mask="fsl_pit.c"/>
+      </source>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_pit.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_pit.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.port_ke04.MKE04Z4" name="port" brief="PORT Driver" version="2.0.2" full_name="port Driver" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="driver" package_base_path="core/devices/MKE04Z4/drivers" project_base_path="drivers">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_port.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_port.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_port_ke04.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.pwt_1.MKE04Z4" name="pwt" brief="PWT Driver" version="2.0.1" full_name="PWT Driver" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="driver" package_base_path="core/drivers/pwt_1" project_base_path="drivers">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="src">
+        <files mask="fsl_pwt.c"/>
+      </source>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_pwt.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_pwt_1.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.rtc_1.MKE04Z4" name="rtc" brief="RTC Driver" version="2.0.3" full_name="RTC Driver" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="driver" package_base_path="core/drivers/rtc_1" project_base_path="drivers">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="src">
+        <files mask="fsl_rtc.c"/>
+      </source>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_rtc.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.spi.MKE04Z4" name="spi" brief="SPI Driver" version="2.1.1" full_name="SPI Driver" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="driver" package_base_path="core/drivers/spi" project_base_path="drivers">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_spi.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_spi.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_spi.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.tpm.MKE04Z4" name="tpm" brief="TPM Driver" version="2.2.0" full_name="TPM Driver" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="driver" package_base_path="core/drivers/tpm" project_base_path="drivers">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="src">
+        <files mask="fsl_tpm.c"/>
+      </source>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_tpm.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_tpm.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.uart.MKE04Z4" name="uart" brief="UART Driver" version="2.5.1" full_name="UART Driver" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="driver" package_base_path="core/drivers/uart" project_base_path="drivers">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_uart.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_uart.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_uart.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.drivers.wdog8.MKE04Z4" name="wdog" brief="WDOG Driver" version="2.0.1" full_name="WDOG Driver" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="driver" package_base_path="core/drivers/wdog8" project_base_path="drivers">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_wdog8.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_wdog8.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_wdog8.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.baremetal.MKE04Z4" name="baremetal" brief="Middleware baremetal" version="1.0.0" full_name="Baremetal" devices="MKE04Z8xxx4" user_visible="true" type="OS" package_base_path="core/middleware" project_base_path="middleware">
+      <defines>
+        <define name="SDK_OS_BAREMETAL" value=""/>
+      </defines>
+    </component>
+    <component id="middleware.rtcesl.cm0p.MKE04Z4" name="rtcesl" brief="Real Time Control Embedded Software Library for CM0 core" version="1.1.0" full_name="Middleware rtcesl cm0" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="middleware" package_base_path="middleware/rtcesl" project_base_path="rtcesl">
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.7_MCUX/AMCLIB/Include" type="c_include">
+        <files mask="amclib.h"/>
+        <files mask="AMCLIB_AngleTrackObsrv_F32.h"/>
+        <files mask="AMCLIB_CtrlFluxWkng_A32.h"/>
+        <files mask="AMCLIB_PMSMBemfObsrvDQ_A32.h"/>
+        <files mask="AMCLIB_PMSMBemfObsrvDQHw_A32.h"/>
+        <files mask="AMCLIB_PMSMBemfObsrvAB_A32.h"/>
+        <files mask="AMCLIB_PMSMBemfObsrvABHw_A32.h"/>
+        <files mask="AMCLIB_TrackObsrv_F32.h"/>
+        <files mask="amclib_types.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.7_MCUX/GDFLIB/Include" type="c_include">
+        <files mask="gdflib.h"/>
+        <files mask="GDFLIB_FilterExp_F32.h"/>
+        <files mask="GDFLIB_FilterIIR1_F32.h"/>
+        <files mask="GDFLIB_FilterIIR2_F32.h"/>
+        <files mask="GDFLIB_FilterMA_A32.h"/>
+        <files mask="GDFLIB_FilterMA_A32_Asmi.h"/>
+        <files mask="gdflib_types.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.7_MCUX/GFLIB/Include" type="c_include">
+        <files mask="gflib.h"/>
+        <files mask="GFLIB_Atan_F32.h"/>
+        <files mask="GFLIB_AtanYX_F32.h"/>
+        <files mask="GFLIB_AtanYXHw_F32.h"/>
+        <files mask="GFLIB_CtrlBetaIPp_A32.h"/>
+        <files mask="GFLIB_CtrlPIp_A32.h"/>
+        <files mask="GFLIB_DFlexRamp_A32.h"/>
+        <files mask="GFLIB_DFlexRampHw_A32.h"/>
+        <files mask="GFLIB_DRamp_F16.h"/>
+        <files mask="GFLIB_DRamp_F32.h"/>
+        <files mask="GFLIB_FlexRamp_A32.h"/>
+        <files mask="GFLIB_FlexRampHw_A32.h"/>
+        <files mask="GFLIB_Hyst_F16_Asmi.h"/>
+        <files mask="GFLIB_Integrator_A32.h"/>
+        <files mask="GFLIB_Limit_F16.h"/>
+        <files mask="GFLIB_Limit_F32.h"/>
+        <files mask="GFLIB_LowerLimit_F16.h"/>
+        <files mask="GFLIB_LowerLimit_F32.h"/>
+        <files mask="GFLIB_Lut_F16_Asmi.h"/>
+        <files mask="GFLIB_Lut_F32.h"/>
+        <files mask="GFLIB_LutPer_F16_Asmi.h"/>
+        <files mask="GFLIB_LutPer_F32.h"/>
+        <files mask="GFLIB_Ramp_F16.h"/>
+        <files mask="GFLIB_Ramp_F16_Asmi.h"/>
+        <files mask="GFLIB_Ramp_F32.h"/>
+        <files mask="GFLIB_Ramp_F32_Asmi.h"/>
+        <files mask="GFLIB_SinCos_F32.h"/>
+        <files mask="GFLIB_Sqrt_F16.h"/>
+        <files mask="GFLIB_Sqrt_F32.h"/>
+        <files mask="GFLIB_SqrtHw_F16.h"/>
+        <files mask="GFLIB_SqrtHw_F16_Asmi.h"/>
+        <files mask="GFLIB_SqrtHw_F32.h"/>
+        <files mask="GFLIB_SqrtHw_F32_Asmi.h"/>
+        <files mask="gflib_types.h"/>
+        <files mask="GFLIB_UpperLimit_F16.h"/>
+        <files mask="GFLIB_UpperLimit_F32.h"/>
+        <files mask="GFLIB_VectorLimit1_F16.h"/>
+        <files mask="GFLIB_VectorLimit1Hw_F16.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.7_MCUX/GMCLIB/Include" type="c_include">
+        <files mask="gmclib.h"/>
+        <files mask="GMCLIB_Clark_F16_Asmi.h"/>
+        <files mask="GMCLIB_Decoupling_A32.h"/>
+        <files mask="GMCLIB_DTCompLut1D_F16.h"/>
+        <files mask="GMCLIB_ElimDcBusRip_A32.h"/>
+        <files mask="GMCLIB_ElimDcBusRip_F16.h"/>
+        <files mask="GMCLIB_ElimDcBusRipHw_A32.h"/>
+        <files mask="GMCLIB_ElimDcBusRipHw_F16.h"/>
+        <files mask="GMCLIB_Park_F16_Asmi.h"/>
+        <files mask="GMCLIB_Svm_F16.h"/>
+        <files mask="gmclib_types.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.7_MCUX/MLIB/Include" type="c_include">
+        <files mask="asm_mac.h"/>
+        <files mask="mlib.h"/>
+        <files mask="MLIB_Abs_F16.h"/>
+        <files mask="MLIB_Abs_F16_Asmi.h"/>
+        <files mask="MLIB_Abs_F32.h"/>
+        <files mask="MLIB_Abs_F32_Asmi.h"/>
+        <files mask="MLIB_Add_A32.h"/>
+        <files mask="MLIB_Add_A32_Asmi.h"/>
+        <files mask="MLIB_Add_F16.h"/>
+        <files mask="MLIB_Add_F16_Asmi.h"/>
+        <files mask="MLIB_Add_F32.h"/>
+        <files mask="MLIB_Add_F32_Asmi.h"/>
+        <files mask="MLIB_Add4_F16.h"/>
+        <files mask="MLIB_Add4_F16_Asmi.h"/>
+        <files mask="MLIB_Add4_F32.h"/>
+        <files mask="MLIB_Add4_F32_Asmi.h"/>
+        <files mask="MLIB_BiShift_F16.h"/>
+        <files mask="MLIB_BiShift_F16_Asmi.h"/>
+        <files mask="MLIB_BiShift_F32.h"/>
+        <files mask="MLIB_BiShift_F32_Asmi.h"/>
+        <files mask="MLIB_Clb_F16_Asmi.h"/>
+        <files mask="MLIB_Clb_F32_Asmi.h"/>
+        <files mask="MLIB_Conv_F32.h"/>
+        <files mask="MLIB_Div_A32_Asm.h"/>
+        <files mask="MLIB_Div_F16_Asm.h"/>
+        <files mask="MLIB_Div_F32_Asm.h"/>
+        <files mask="MLIB_Div1Q_A32_Asm.h"/>
+        <files mask="MLIB_Div1Q_F16_Asm.h"/>
+        <files mask="MLIB_Div1Q_F32_Asm.h"/>
+        <files mask="MLIB_DivHw_A32_Asm.h"/>
+        <files mask="MLIB_DivHw_F16_Asm.h"/>
+        <files mask="MLIB_DivHw_F32.h"/>
+        <files mask="MLIB_DivHw_F32_Asm.h"/>
+        <files mask="MLIB_DivHw1Q_A32_Asm.h"/>
+        <files mask="MLIB_DivHw1Q_F16_Asm.h"/>
+        <files mask="MLIB_DivHw1Q_F32_Asm.h"/>
+        <files mask="MLIB_Log2_U16_Asmi.h"/>
+        <files mask="MLIB_Mac_A32.h"/>
+        <files mask="MLIB_Mac_F16.h"/>
+        <files mask="MLIB_Mac_F16_Asmi.h"/>
+        <files mask="MLIB_Mac_F32.h"/>
+        <files mask="MLIB_Mac_F32_Asmi.h"/>
+        <files mask="MLIB_Mac4_F32.h"/>
+        <files mask="MLIB_Mac4Rnd_F16.h"/>
+        <files mask="MLIB_Mac4Rnd_F16_Asmi.h"/>
+        <files mask="MLIB_Mac4Rnd_F32_Asm.h"/>
+        <files mask="MLIB_MacRnd_A32.h"/>
+        <files mask="MLIB_MacRnd_A32_Asmi.h"/>
+        <files mask="MLIB_MacRnd_F16.h"/>
+        <files mask="MLIB_MacRnd_F16_Asmi.h"/>
+        <files mask="MLIB_MacRnd_F32.h"/>
+        <files mask="MLIB_MacRnd_F32_Asmi.h"/>
+        <files mask="MLIB_MMDVSQ.h"/>
+        <files mask="MLIB_Mnac_A32.h"/>
+        <files mask="MLIB_Mnac_F16.h"/>
+        <files mask="MLIB_Mnac_F16_Asmi.h"/>
+        <files mask="MLIB_Mnac_F32.h"/>
+        <files mask="MLIB_Mnac_F32_Asmi.h"/>
+        <files mask="MLIB_MnacRnd_A32.h"/>
+        <files mask="MLIB_MnacRnd_A32_Asmi.h"/>
+        <files mask="MLIB_MnacRnd_F16.h"/>
+        <files mask="MLIB_MnacRnd_F16_Asmi.h"/>
+        <files mask="MLIB_MnacRnd_F32.h"/>
+        <files mask="MLIB_MnacRnd_F32_Asmi.h"/>
+        <files mask="MLIB_Msu_A32.h"/>
+        <files mask="MLIB_Msu_F16.h"/>
+        <files mask="MLIB_Msu_F16_Asmi.h"/>
+        <files mask="MLIB_Msu_F32.h"/>
+        <files mask="MLIB_Msu_F32_Asmi.h"/>
+        <files mask="MLIB_Msu4_F32.h"/>
+        <files mask="MLIB_Msu4Rnd_F16.h"/>
+        <files mask="MLIB_Msu4Rnd_F16_Asmi.h"/>
+        <files mask="MLIB_Msu4Rnd_F32_Asm.h"/>
+        <files mask="MLIB_MsuRnd_A32.h"/>
+        <files mask="MLIB_MsuRnd_A32_Asmi.h"/>
+        <files mask="MLIB_MsuRnd_F16.h"/>
+        <files mask="MLIB_MsuRnd_F16_Asmi.h"/>
+        <files mask="MLIB_MsuRnd_F32.h"/>
+        <files mask="MLIB_MsuRnd_F32_Asmi.h"/>
+        <files mask="MLIB_Mul_A32.h"/>
+        <files mask="MLIB_Mul_A32_Asmi.h"/>
+        <files mask="MLIB_Mul_F16.h"/>
+        <files mask="MLIB_Mul_F16_Asmi.h"/>
+        <files mask="MLIB_Mul_F32.h"/>
+        <files mask="MLIB_Mul_F32_Asmi.h"/>
+        <files mask="MLIB_MulRnd_A32.h"/>
+        <files mask="MLIB_MulRnd_A32_Asmi.h"/>
+        <files mask="MLIB_MulRnd_F16.h"/>
+        <files mask="MLIB_MulRnd_F16_Asmi.h"/>
+        <files mask="MLIB_MulRnd_F32.h"/>
+        <files mask="MLIB_MulRnd_F32_Asmi.h"/>
+        <files mask="MLIB_Neg_F16.h"/>
+        <files mask="MLIB_Neg_F16_Asmi.h"/>
+        <files mask="MLIB_Neg_F32.h"/>
+        <files mask="MLIB_Neg_F32_Asmi.h"/>
+        <files mask="MLIB_Rcp_A32_Asm.h"/>
+        <files mask="MLIB_Rcp1Q_A32_Asm.h"/>
+        <files mask="MLIB_RcpHw_A32_Asm.h"/>
+        <files mask="MLIB_RcpHw1Q_A32_Asmi.h"/>
+        <files mask="MLIB_Rnd_F32.h"/>
+        <files mask="MLIB_Rnd_F32_Asmi.h"/>
+        <files mask="MLIB_Sat_A32.h"/>
+        <files mask="MLIB_Sat_A32_Asmi.h"/>
+        <files mask="MLIB_Shift_F16.h"/>
+        <files mask="MLIB_Shift_F16_Asmi.h"/>
+        <files mask="MLIB_Shift_F32.h"/>
+        <files mask="MLIB_Shift_F32_Asmi.h"/>
+        <files mask="MLIB_Sign_F16_Asmi.h"/>
+        <files mask="MLIB_Sign_F32_Asmi.h"/>
+        <files mask="MLIB_Sub_A32.h"/>
+        <files mask="MLIB_Sub_A32_Asmi.h"/>
+        <files mask="MLIB_Sub_F16.h"/>
+        <files mask="MLIB_Sub_F16_Asmi.h"/>
+        <files mask="MLIB_Sub_F32.h"/>
+        <files mask="MLIB_Sub_F32_Asmi.h"/>
+        <files mask="MLIB_Sub4_F16.h"/>
+        <files mask="MLIB_Sub4_F16_Asmi.h"/>
+        <files mask="MLIB_Sub4_F32.h"/>
+        <files mask="MLIB_Sub4_F32_Asmi.h"/>
+        <files mask="mlib_types.h"/>
+        <files mask="RTCESL_cfg.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.7_MCUX/PCLIB/Include" type="c_include">
+        <files mask="pclib.h"/>
+        <files mask="PCLIB_Ctrl2P2Z_F16.h"/>
+        <files mask="PCLIB_Ctrl3P3Z_F16.h"/>
+        <files mask="PCLIB_CtrlPI_F16.h"/>
+        <files mask="PCLIB_CtrlPIandLPFilter_F16.h"/>
+        <files mask="PCLIB_CtrlPID_F16.h"/>
+        <files mask="pclib_types.h"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.7_MCUX/AMCLIB" type="lib">
+        <files mask="libAMCLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.7_MCUX/GFLIB" type="lib">
+        <files mask="libGFLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.7_MCUX/GDFLIB" type="lib">
+        <files mask="libGDFLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.7_MCUX/GMCLIB" type="lib">
+        <files mask="libGMCLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.7_MCUX/MLIB" type="lib">
+        <files mask="libMLIB.a"/>
+      </source>
+      <source toolchain="mcuxpresso armgcc" relative_path="CM0_RTCESL_4.7_MCUX/PCLIB" type="lib">
+        <files mask="libPCLIB.a"/>
+      </source>
+      <source relative_path="CM0_RTCESL_4.7_doc" type="doc">
+        <files mask="CM0AMCLIBUG.pdf" hidden="true"/>
+        <files mask="CM0GDFLIBUG.pdf" hidden="true"/>
+        <files mask="CM0GFLIBUG.pdf" hidden="true"/>
+        <files mask="CM0GMCLIBUG.pdf" hidden="true"/>
+        <files mask="CM0MLIBUG.pdf" hidden="true"/>
+        <files mask="CM0PCLIBUG.pdf" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="CM0_RTCESL_4.7_MCUX/AMCLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM0_RTCESL_4.7_MCUX/GDFLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM0_RTCESL_4.7_MCUX/GFLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM0_RTCESL_4.7_MCUX/GMCLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM0_RTCESL_4.7_MCUX/MLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+        <include_path relative_path="CM0_RTCESL_4.7_MCUX/PCLIB/Include" toolchain="mcuxpresso armgcc" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.utilities.misc_utilities.MKE04Z4" name="misc_utilities" brief="Utilities which is needed for particular toolchain like the SBRK function required to address limitation between HEAP and STACK in GCC toolchain library." version="1.0.0" full_name="Utilities miscellaneous" devices="MKE04Z8xxx4" user_visible="true" type="utilities" package_base_path="core/utilities/misc_utilities" project_base_path="utilities">
+      <source toolchain="armgcc" relative_path="./" type="src">
+        <files mask="fsl_sbrk.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utilities_misc_utilities.cmake" hidden="true"/>
+      </source>
+    </component>
+    <component id="platform.utilities.assert_lite.MKE04Z4" name="assert_lite" brief="Utility assert_lite" version="1.0.0" full_name="Utility assert_lite" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
+      <dependencies>
+        <all>
+          <component_dependency value="component.uart_adapter.MKE04Z4"/>
+          <component_dependency value="utility.debug_console_lite.MKE04Z4"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="src">
+        <files mask="fsl_assert.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_assert_lite.cmake" hidden="true"/>
+      </source>
+    </component>
+    <component id="utility.debug_console_lite.MKE04Z4" name="debug_console_lite" brief="Utility debug_console_lite" version="1.0.0" full_name="Utility debug_console_lite" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console_lite" project_base_path="utilities">
+      <dependencies>
+        <all>
+          <component_dependency value="component.uart_adapter.MKE04Z4"/>
+          <component_dependency value="platform.drivers.common.MKE04Z4"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="src">
+        <files mask="fsl_debug_console.c"/>
+      </source>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_debug_console.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="utility_debug_console_lite.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="platform.utilities.notifier.MKE04Z4" name="notifier" brief="Utility notifier" version="1.0.0" full_name="Utility notifier" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="utilities" package_base_path="core/devices/MKE04Z4/utilities" project_base_path="utilities/utilities">
+      <dependencies>
+        <component_dependency value="platform.drivers.common.MKE04Z4"/>
+      </dependencies>
+      <source relative_path="./" type="src">
+        <files mask="fsl_notifier.c"/>
+      </source>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_notifier.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+  </components>
+</ksdk:manifest>

@@ -1,13 +1,13 @@
 Overview
 ========
-Demonstrates the DMIC working with I2S. One channel Audio data is converted to samples in the DMIC module.
+Demonstrates the DMIC working with I2S. One or Stereo channel Audio data is converted to samples in the DMIC module.
 Then, the data is placed into the memory buffer. Last, it is send to the I2S buffer and sent
 to the CODEC, then the audio data will be output to Lineout of CODEC.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Toolchain supported
 ===================
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 - GCC ARM Embedded  10.2.1
 
 Hardware requirements
@@ -42,7 +42,7 @@ Running the demo
 
 The following lines are printed to the serial terminal when the demo program is executed.
 
-Configure WM8904 codec
+Configure codec
 
 Configure I2S
 

@@ -8,12 +8,12 @@ In this example, a flexio simulated master connect to a lpspi slave .
 
 Toolchain supported
 ===================
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 - GCC ARM Embedded  10.2.1
 
 Board settings
 ==============
-Remove 0Ω resistor to R406,R408,R404.
+Remove 0Ω resistor to R200,R406,R408,R404.
 
 To make the example work, connections needed to be as follows:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

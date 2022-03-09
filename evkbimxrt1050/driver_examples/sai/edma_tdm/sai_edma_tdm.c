@@ -21,7 +21,7 @@
 #include "fsl_codec_common.h"
 #include "sdmmc_config.h"
 #include "fsl_gpio.h"
-#include "fsl_cs42888.h"
+#include "fsl_cs42448.h"
 #include "fsl_codec_adapter.h"
 
 #include "fsl_common.h"
@@ -87,18 +87,18 @@ static void DEMO_InitCodec(void);
  * Variables
  ******************************************************************************/
 
-cs42888_config_t cs42888Config = {
-    .DACMode      = kCS42888_ModeSlave,
-    .ADCMode      = kCS42888_ModeSlave,
-    .reset        = BORAD_CodecReset,
+cs42448_config_t cs42448Config = {
+    .DACMode      = kCS42448_ModeSlave,
+    .ADCMode      = kCS42448_ModeSlave,
+    .reset        = NULL,
     .master       = false,
     .i2cConfig    = {.codecI2CInstance = BOARD_CODEC_I2C_INSTANCE, .codecI2CSourceClock = BOARD_CODEC_I2C_CLOCK_FREQ},
     .format       = {.mclk_HZ = 24576000U, .sampleRate = 48000U, .bitWidth = 24U},
-    .bus          = kCS42888_BusTDM,
-    .slaveAddress = CS42888_I2C_ADDR,
+    .bus          = kCS42448_BusTDM,
+    .slaveAddress = CS42448_I2C_ADDR,
 };
 
-codec_config_t boardCodecConfig = {.codecDevType = kCODEC_CS42888, .codecDevConfig = &cs42888Config};
+codec_config_t boardCodecConfig = {.codecDevType = kCODEC_CS42448, .codecDevConfig = &cs42448Config};
 
 /*
  * AUDIO PLL setting: Frequency = Fref * (DIV_SELECT + NUM / DENOM)
@@ -111,8 +111,8 @@ const clock_audio_pll_config_t audioPllConfig = {
     .numerator   = 77,  /* 30 bit numerator of fractional loop divider. */
     .denominator = 100, /* 30 bit denominator of fractional loop divider */
 };
-AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle) = {0};
-edma_handle_t dmaHandle                                  = {0};
+AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t txHandle);
+edma_handle_t dmaHandle = {0};
 extern codec_config_t boardCodecConfig;
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t s_buffer[BUFFER_NUM * BUFFER_SIZE], 4);
 volatile bool isFinished      = false;
@@ -132,17 +132,6 @@ codec_handle_t codecHandle;
 /*******************************************************************************
  * Code
  ******************************************************************************/
-static void BOARD_USDHCClockConfiguration(void)
-{
-    CLOCK_InitSysPll(&sysPllConfig_BOARD_BootClockRUN);
-    /*configure system pll PFD0 fractional divider to 24, output clock is 528MHZ * 18 / 24 = 396 MHZ*/
-    CLOCK_InitSysPfd(kCLOCK_Pfd0, 24U);
-    /* Configure USDHC clock source and divider */
-    CLOCK_SetDiv(kCLOCK_Usdhc1Div, 0U);
-    CLOCK_SetMux(kCLOCK_Usdhc1Mux, 1U);
-}
-
-/*${function:start}*/
 void BOARD_EnableSaiMclkOutput(bool enable)
 {
     if (enable)
@@ -156,17 +145,6 @@ void BOARD_EnableSaiMclkOutput(bool enable)
 }
 
 
-void BORAD_CodecReset(bool state)
-{
-    if (state)
-    {
-        GPIO_PinWrite(DEMO_CODEC_RESET_GPIO, DEMO_CODEC_RESET_GPIO_PIN, 1U);
-    }
-    else
-    {
-        GPIO_PinWrite(DEMO_CODEC_RESET_GPIO, DEMO_CODEC_RESET_GPIO_PIN, 0U);
-    }
-}
 
 static void callback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData)
 {
@@ -197,7 +175,6 @@ int main(void)
     BOARD_InitBootClocks();
     CLOCK_InitAudioPll(&audioPllConfig);
     BOARD_InitDebugConsole();
-    gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
 
     /*Clock setting for LPI2C*/
     CLOCK_SetMux(kCLOCK_Lpi2cMux, DEMO_LPI2C_CLOCK_SOURCE_SELECT);
@@ -207,10 +184,6 @@ int main(void)
     CLOCK_SetMux(kCLOCK_Sai1Mux, DEMO_SAI1_CLOCK_SOURCE_SELECT);
     CLOCK_SetDiv(kCLOCK_Sai1PreDiv, DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER);
     CLOCK_SetDiv(kCLOCK_Sai1Div, DEMO_SAI1_CLOCK_SOURCE_DIVIDER);
-
-    BOARD_USDHCClockConfiguration();
-
-    GPIO_PinInit(DEMO_CODEC_RESET_GPIO, DEMO_CODEC_RESET_GPIO_PIN, &gpio_config);
 
     /*Enable MCLK clock*/
     BOARD_EnableSaiMclkOutput(true);

@@ -89,8 +89,12 @@ int main(void)
         }
         else
         {
-            slaveAddr = ((i3c_device_t *)listItem)->info.dynamicAddr;
-            break;
+            /* Find the connected I3C slave on the other board */
+            if (((i3c_device_t *)listItem)->info.vendorID == 0x346U)
+            {
+                slaveAddr = ((i3c_device_t *)listItem)->info.dynamicAddr;
+                break;
+            }
         }
     }
     I3C_BusMasterGetDeviceInfo(&demo_masterDev, slaveAddr, &devInfo);

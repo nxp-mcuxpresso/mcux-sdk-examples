@@ -1,0 +1,49 @@
+    /* MAIN TEXT SECTION */
+    .text : ALIGN(${text_align})
+    {
+        FILL(0xff)
+        __vectors_start__ = ABSOLUTE(.) ;
+        KEEP(*(.isr_vector))
+<#include "global_section_table.ldt" >
+
+        *(.after_vectors*)
+
+        . = ALIGN(32);
+        __privileged_functions_start__ = .;
+        *(privileged_functions)
+        *(privileged_functions*)
+        . = ALIGN(32);
+        __privileged_functions_end__ = (. - 1);
+
+        . = ALIGN(32);
+        __syscalls_flash_start__ = .;
+        *(freertos_system_calls)
+        *(freertos_system_calls*)
+        . = ALIGN(32);
+        __syscalls_flash_end__ = (. - 1);
+        __unprivileged_flash_start__ = .;
+
+
+
+<#include "crp.ldt" >
+<#include "flashconfig.ldt" >
+<#if (PLAIN_LOAD_IMAGE) >
+    } > ${CODEX} AT> ${CODE}
+<#else>
+    } > ${CODE}
+</#if>
+
+    .text : ALIGN(${text_align})
+    {
+<#include "extrasections_text.ldt">
+<#include "main_text.ldt" >
+<#include "extrasections_rodata.ldt">
+<#include "freertos_debugconfig.ldt">
+<#include "main_rodata.ldt" >
+
+<#include "cpp_info.ldt" >
+<#if (PLAIN_LOAD_IMAGE) >
+    } > ${CODEX} AT> ${CODE}
+<#else>
+    } > ${CODE}
+</#if>

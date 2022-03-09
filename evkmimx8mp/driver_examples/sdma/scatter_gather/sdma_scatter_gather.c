@@ -14,8 +14,9 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define EXAMPLE_DMA     SDMAARM1
-#define EXAMPLE_CHANNEL (1U)
+#define EXAMPLE_DMA           SDMAARM3
+#define DEMO_SDMA_CLOCK_RATIO kSDMA_ARMClockFreq
+#define EXAMPLE_CHANNEL       (1U)
 #define BUFFER_LEN       8U
 #define BD_QUEUE_SIZE    2U
 #define BUFFER_TOTAL_LEN (BUFFER_LEN * BD_QUEUE_SIZE)
@@ -81,6 +82,9 @@ int main(void)
 
     /* Configure sdma one shot transfer */
     SDMA_GetDefaultConfig(&userConfig);
+#if defined DEMO_SDMA_CLOCK_RATIO
+    userConfig.ratio = DEMO_SDMA_CLOCK_RATIO;
+#endif
     SDMA_Init(EXAMPLE_DMA, &userConfig);
     SDMA_CreateHandle(&g_sdma_Handle, EXAMPLE_DMA, EXAMPLE_CHANNEL, &context);
     SDMA_SetCallback(&g_sdma_Handle, sdma_Callback, NULL);

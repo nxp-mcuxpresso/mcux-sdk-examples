@@ -55,6 +55,12 @@ static uint8_t s_buffer[BUFFER_LEN];
 /*! @brief Buffer for readback */
 static uint8_t s_buffer_rbc[BUFFER_LEN];
 
+typedef struct _flexspi_cache_status
+{
+    volatile bool DCacheEnableFlag;
+    volatile bool ICacheEnableFlag;
+} flexspi_cache_status_t;
+
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -290,6 +296,71 @@ void app_finalize(void)
     }
 }
 
+void get_cache_status(flexspi_cache_status_t *cacheStatus)
+{
+    if (SCB_CCR_DC_Msk == (SCB_CCR_DC_Msk & SCB->CCR))
+    {
+        cacheStatus->DCacheEnableFlag = true;
+    }
+    else
+    {
+        cacheStatus->DCacheEnableFlag = false;
+    }
+
+    if (SCB_CCR_IC_Msk == (SCB_CCR_IC_Msk & SCB->CCR))
+    {
+        cacheStatus->ICacheEnableFlag = true;
+    }
+    else
+    {
+        cacheStatus->ICacheEnableFlag = false;
+    }
+}
+
+void flexspi_nor_handle_cache(bool isPre, flexspi_cache_status_t cacheStatus)
+{
+    if (isPre)
+    {
+        if (cacheStatus.DCacheEnableFlag == true)
+        {
+            SCB_DisableDCache();
+        }
+        else
+        {
+            ; /* Do nothing */
+        }
+
+        if (cacheStatus.ICacheEnableFlag == true)
+        {
+            SCB_DisableICache();
+        }
+        else
+        {
+            ; /* Do nothing */
+        }
+    }
+    else
+    {
+        if (cacheStatus.DCacheEnableFlag == true)
+        {
+            SCB_EnableDCache();
+        }
+        else
+        {
+            ; /* Do nothing */
+        }
+
+        if (cacheStatus.ICacheEnableFlag == true)
+        {
+            SCB_EnableICache();
+        }
+        else
+        {
+            ; /* Do nothing */
+        }
+    }
+}
+
 int main(void)
 {
     status_t status;
@@ -309,6 +380,10 @@ int main(void)
     BOARD_InitDebugConsole();
 
     PRINTF("\r\n FLEXSPI NOR example started!\r\n");
+
+    flexspi_cache_status_t cacheStatus;
+    get_cache_status(&cacheStatus);
+
     /* Clean up FLEXSPI NOR flash driver Structure */
     memset(&norConfig, 0, sizeof(flexspi_nor_config_t));
 
@@ -367,7 +442,9 @@ int main(void)
 
     /* Erase one sector. */
     PRINTF("\r\n Erasing serial NOR flash over FLEXSPI");
+    flexspi_nor_handle_cache(true, cacheStatus);
     status = ROM_FLEXSPI_NorFlash_Erase(FlexSpiInstance, &norConfig, serialNorAddress, serialNorSectorSize);
+    flexspi_nor_handle_cache(false, cacheStatus);
     if (status == kStatus_Success)
     {
         /* Print message for user. */

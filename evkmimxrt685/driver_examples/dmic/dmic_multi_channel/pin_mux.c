@@ -182,15 +182,15 @@ void BOARD_InitPins(void)
     const uint32_t port0_pin17_config = (/* Pin is configured as FC2_CTS_SDA_SSEL0 */
                                          IOPCTL_PIO_FUNC1 |
                                          /* Enable pull-up / pull-down function */
-                                         IOPCTL_PIO_PUPD_EN |
+                                         IOPCTL_PIO_PUPD_DI |
                                          /* Enable pull-up function */
-                                         IOPCTL_PIO_PULLUP_EN |
+                                         IOPCTL_PIO_PULLDOWN_EN |
                                          /* Enables input buffer function */
                                          IOPCTL_PIO_INBUF_EN |
                                          /* Normal mode */
                                          IOPCTL_PIO_SLEW_RATE_NORMAL |
                                          /* Normal drive */
-                                         IOPCTL_PIO_FULLDRIVE_DI |
+                                         IOPCTL_PIO_FULLDRIVE_EN |
                                          /* Analog mux is disabled */
                                          IOPCTL_PIO_ANAMUX_DI |
                                          /* Pseudo Output Drain is enabled */
@@ -203,15 +203,15 @@ void BOARD_InitPins(void)
     const uint32_t port0_pin18_config = (/* Pin is configured as FC2_RTS_SCL_SSEL1 */
                                          IOPCTL_PIO_FUNC1 |
                                          /* Enable pull-up / pull-down function */
-                                         IOPCTL_PIO_PUPD_EN |
+                                         IOPCTL_PIO_PUPD_DI |
                                          /* Enable pull-up function */
-                                         IOPCTL_PIO_PULLUP_EN |
+                                         IOPCTL_PIO_PULLDOWN_EN |
                                          /* Enables input buffer function */
                                          IOPCTL_PIO_INBUF_EN |
                                          /* Normal mode */
                                          IOPCTL_PIO_SLEW_RATE_NORMAL |
                                          /* Normal drive */
-                                         IOPCTL_PIO_FULLDRIVE_DI |
+                                         IOPCTL_PIO_FULLDRIVE_EN |
                                          /* Analog mux is disabled */
                                          IOPCTL_PIO_ANAMUX_DI |
                                          /* Pseudo Output Drain is enabled */

@@ -125,7 +125,7 @@ include(utility_assert)
 
 include(CMSIS_Include_core_cm)
 
-include(driver_edma)
+include(driver_edma_MK64F12)
 
 include(CMSIS_Driver_Include_USART)
 

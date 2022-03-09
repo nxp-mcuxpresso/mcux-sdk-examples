@@ -93,9 +93,9 @@ include(component_usart_adapter)
 
 include(component_lists)
 
-include(CMSIS_Include_core_cm)
-
 include(driver_reset)
+
+include(CMSIS_Include_core_cm)
 
 include(CMSIS_Driver_Include_SPI)
 

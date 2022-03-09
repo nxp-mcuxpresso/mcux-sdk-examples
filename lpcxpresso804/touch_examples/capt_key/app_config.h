@@ -10,6 +10,8 @@
 /*******************************************************************************
  * Application configuration
  ******************************************************************************/
+#define DEMO_ACOMP_BASE         ACOMP
+#define DEMO_ACOMP_CAPT_CHANNEL 4U
 
 /* If the channel sample data variance is less than this value, then the channel
  * sample data is stable, used in calibration stage.
@@ -38,7 +40,7 @@
  * baseline value is larger than this threashold, the there is a potential
  * touch event.
  */
-#define TOUCH_YES_TOUCH_THRESHOLD_LOW 80
+#define TOUCH_YES_TOUCH_THRESHOLD_LOW 60
 
 /*
  * If the touched channel sample data decreases, set this to 1.

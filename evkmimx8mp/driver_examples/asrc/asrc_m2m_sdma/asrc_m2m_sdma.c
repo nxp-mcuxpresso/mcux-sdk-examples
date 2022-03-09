@@ -29,7 +29,7 @@
 
 #define DEMO_IRQn                  I2S3_IRQn
 #define SAI_UserIRQHandler         I2S3_IRQHandler
-#define DEMO_DMA                   SDMAARM2
+#define DEMO_DMA                   SDMAARM3
 #define DEMO_SAI_SDMA_CHANNEL      (1)
 #define DEMO_ASRC_IN_SDMA_CHANNEL  (2U)
 #define DEMO_ASRC_OUT_SDMA_CHANNEL (3U)

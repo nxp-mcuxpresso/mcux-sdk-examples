@@ -211,6 +211,7 @@ void DEMO_XBARA_IRQ_HANDLER_FUNC(void)
 int main(void)
 {
     /* Init board hardware */
+    BOARD_ConfigMPU();
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();

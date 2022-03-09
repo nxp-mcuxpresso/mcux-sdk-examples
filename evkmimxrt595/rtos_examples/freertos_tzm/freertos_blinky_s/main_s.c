@@ -50,6 +50,12 @@
 #define GREEN_LED_PIN  BOARD_LED_GREEN_GPIO_PIN
 #define BLUE_LED_PIN   BOARD_LED_BLUE_GPIO_PIN
 
+#if (DEMO_CODE_START_NS == 0x08100000U)
+#define BOARD_InitTrustZone XIP_BOARD_InitTrustZone
+#else
+#define BOARD_InitTrustZone RAM_BOARD_InitTrustZone
+#endif
+
 /**
  * @brief typedef for non-secure Reset Handler.
  */

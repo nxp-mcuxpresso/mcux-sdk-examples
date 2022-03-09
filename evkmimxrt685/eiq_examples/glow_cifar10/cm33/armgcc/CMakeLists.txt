@@ -97,6 +97,10 @@ include(driver_i3c)
 
 include(driver_lpc_dma)
 
+include(middleware_multicore_rpmsg_lite_MIMXRT685S_cm33)
+
+include(middleware_multicore_rpmsg_lite_freertos)
+
 include(middleware_freertos-kernel_cm33_nonsecure_port)
 
 include(driver_common)
@@ -123,7 +127,7 @@ include(utility_assert)
 
 include(component_usart_adapter)
 
-include(driver_flash_config)
+include(driver_flash_config_evkmimxrt685)
 
 include(driver_flexspi)
 
@@ -152,8 +156,6 @@ include(middleware_freertos-kernel_MIMXRT685S_cm33)
 include(middleware_freertos-kernel_extension)
 
 include(driver_inputmux_connections)
-
-include(middleware_multicore_rpmsg_lite)
 
 include(middleware_freertos-kernel_heap_4)
 

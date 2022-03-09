@@ -69,7 +69,7 @@ set(CMAKE_MODULE_PATH
 include(all_devices)
 
 # include modules
-include(driver_edma)
+include(driver_edma_MK22F51212)
 
 include(driver_uart)
 

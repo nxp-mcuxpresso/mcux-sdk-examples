@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 NXP
+ * Copyright 2019-2021 NXP
  * All rights reserved.
  *
  *
@@ -120,6 +120,7 @@ int main(void)
     while (1)
     {
         GETCHAR();
+        g_LpadcConversionCompletedFlag = false;
         LPADC_DoSoftwareTrigger(DEMO_LPADC_BASE, 1U); /* 1U is trigger0 mask. */
         while (false == g_LpadcConversionCompletedFlag)
         {

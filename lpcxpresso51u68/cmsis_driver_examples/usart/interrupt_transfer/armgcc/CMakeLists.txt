@@ -92,9 +92,9 @@ include(driver_flexcomm)
 
 include(driver_lpc_gpio)
 
-include(CMSIS_Include_core_cm)
-
 include(driver_reset)
+
+include(CMSIS_Include_core_cm)
 
 include(CMSIS_Driver_Include_USART)
 

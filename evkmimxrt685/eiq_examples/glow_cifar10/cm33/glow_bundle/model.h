@@ -1,5 +1,5 @@
 // Bundle API auto-generated header file. Do not edit!
-// Glow Tools version: 2021-05-28 (ce7f03408)
+// Glow Tools version: 2021-10-21 (d036c02dd)
 
 #ifndef _GLOW_BUNDLE_MODEL_H
 #define _GLOW_BUNDLE_MODEL_H
@@ -30,20 +30,21 @@
 //                          Bundle API
 // ---------------------------------------------------------------
 // Model name: "model"
-// Total data size: 112064 (bytes)
+// Total data size: 137472 (bytes)
+// Activations allocation efficiency: 1.0000
 // Placeholders:
 //
-//   Name: "data"
-//   Type: float<1 x 3 x 32 x 32>
+//   Name: "input"
+//   Type: i8[S:0.007812500 O:0][-1.000,0.992]<1 x 32 x 32 x 3>
 //   Size: 3072 (elements)
-//   Size: 12288 (bytes)
+//   Size: 3072 (bytes)
 //   Offset: 0 (bytes)
 //
-//   Name: "softmax"
+//   Name: "CifarNet_Predictions_Reshape_1"
 //   Type: float<1 x 10>
 //   Size: 10 (elements)
 //   Size: 40 (bytes)
-//   Offset: 12288 (bytes)
+//   Offset: 3072 (bytes)
 //
 // NOTE: Placeholders are allocated within the "mutableWeight"
 // buffer and are identified using an offset relative to base.
@@ -53,13 +54,13 @@ extern "C" {
 #endif
 
 // Placeholder address offsets within mutable buffer (bytes).
-#define MODEL_data     0
-#define MODEL_softmax  12288
+#define MODEL_input                           0
+#define MODEL_CifarNet_Predictions_Reshape_1  3072
 
 // Memory sizes (bytes).
-#define MODEL_CONSTANT_MEM_SIZE     34176
-#define MODEL_MUTABLE_MEM_SIZE      12352
-#define MODEL_ACTIVATIONS_MEM_SIZE  65536
+#define MODEL_CONSTANT_MEM_SIZE     90048
+#define MODEL_MUTABLE_MEM_SIZE      3136
+#define MODEL_ACTIVATIONS_MEM_SIZE  44288
 
 // Memory alignment (bytes).
 #define MODEL_MEM_ALIGN  64

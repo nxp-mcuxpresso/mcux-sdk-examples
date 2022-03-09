@@ -75,8 +75,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/lpcxpresso54114/driver_examples/i2c/dma_b2b_transfer/slave/cm4" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso54114" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso54114/driver_examples/i2c/dma_b2b_transfer/slave" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso54114" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso54114/driver_examples/i2c/dma_b2b_transfer/slave" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/lpcxpresso54114/driver_examples/i2c/dma_b2b_transfer/slave/cm4/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="i2c_dma_b2b_transfer_slave.ewd"/>

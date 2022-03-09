@@ -11,8 +11,8 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define BOARD_LED_PORT BOARD_LED_RED_PORT
-#define BOARD_LED_PIN  BOARD_LED_RED_PIN
+#define BOARD_LED_PORT DEMO_LED_RED_PORT
+#define BOARD_LED_PIN  DEMO_LED_RED_PIN
 
 /*******************************************************************************
  * Prototypes

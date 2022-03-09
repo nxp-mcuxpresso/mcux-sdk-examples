@@ -22,9 +22,9 @@ SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 
-project(deepviewrt_labelimage)
+project(deepviewrt_labelimage_cm7)
 
-set(MCUX_SDK_PROJECT_NAME deepviewrt_labelimage.elf)
+set(MCUX_SDK_PROJECT_NAME deepviewrt_labelimage_cm7.elf)
 
 include(${ProjDirPath}/flags.cmake)
 

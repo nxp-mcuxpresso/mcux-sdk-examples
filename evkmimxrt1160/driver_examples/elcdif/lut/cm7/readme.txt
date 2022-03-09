@@ -8,14 +8,14 @@ different pictures are shown one by one.
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================
 - Mini/micro USB cable
 - MIMXRT1160-EVK board
 - Personal Computer
-- RK055AHD091 panel or RK055IQH091 panel
+- RK055MHD091 panel or RK055AHD091 panel or RK055IQH091 panel
 
 Board settings
 ==============
@@ -31,11 +31,13 @@ Prepare the Demo
     - No parity
     - One stop bit
     - No flow control
-3.  Build the project, the project uses RK055AHD091 by default, to use panel RK055IQH091,
+3.  Build the project, the project uses RK055MHD091 by default, to use other panels,
     change
-    #define USE_MIPI_PANEL MIPI_PANEL_RK055AHD091
+    #define USE_MIPI_PANEL MIPI_PANEL_RK055MHD091
     to
     #define USE_MIPI_PANEL MIPI_PANEL_RK055IQH091
+    or
+    #define USE_MIPI_PANEL MIPI_PANEL_RK055AHD091
     in elcdif_support.h.
 3.  Download the program to the target board.
 4.  Either press the reset button on your board or launch the debugger in your IDE to begin running the demo.

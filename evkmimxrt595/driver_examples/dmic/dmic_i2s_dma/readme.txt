@@ -1,6 +1,6 @@
 Overview
 ========
-Demonstrates the DMIC working with I2S. One channel Audio data is converted to samples in the DMIC module.
+Demonstrates the DMIC working with I2S. One or Stereo channel Audio data is converted to samples in the DMIC module.
 Then, the data is placed into the memory buffer. Last, it is send to the I2S buffer and sent
 to the CODEC, then the audio data will be output to Lineout of CODEC.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -8,7 +8,7 @@ to the CODEC, then the audio data will be output to Lineout of CODEC.
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================
@@ -20,7 +20,8 @@ Hardware requirements
 Board settings
 ==============
 To make example work, connections needed to be as follows:
-The 1-2 connected for JP7, JP8, JP27, JP28, JP29.
+1.The 1-2 connected for JP7, JP8, JP27, JP28, JP29.
+2.Please make sure R781 is weld and R782 is switched to 1A side.
 
 Prepare the Demo
 ================
@@ -37,13 +38,18 @@ Prepare the Demo
 
 Running the demo
 ================
+Note: As the EVK-MIMXRT595 support two on board DMIC, so the demo provide a macro DEMO_DMIC_NUMS to control the counts of the DMIC to be used, such as
+#define DEMO_DMIC_NUMS 2U /* two dmic enabled */
+If the macro not defined by application, then only one codec will be enabled by default.
+
+
 1.  Launch the debugger in your IDE to begin running the demo.
 
 The following lines are printed to the serial terminal when the demo program is executed.
 
-Configure WM8904 codec
+Configure codec
 
 Configure I2S
 
 2. This example transfers data from DMIC to Codec. Connect headphone/earphone on audio out of the board.
-Speak on DMIC or play song nearby the dmic (U120 and U121),  you can hear sound on the left channel of headphone/earphone.
+Speak on DMIC or play song nearby the dmic (U120 and U121),  you can hear sound on the left/right channel of headphone/earphone.

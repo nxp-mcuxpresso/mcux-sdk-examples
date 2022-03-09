@@ -88,67 +88,29 @@ bool APP_SRTM_ServiceIdle(void)
         return false;
     }
 }
+
 static void APP_SRTM_WM8524_Mute_GPIO(uint32_t output)
 {
     GPIO_PinWrite(APP_CODEC_MUTE_PIN, APP_CODEC_MUTE_PIN_NUM, output);
 }
-static uint32_t APP_SRTM_SaiClockSet(mclk_type_t type)
+
+static uint32_t APP_SRTM_ConfAudioDevice(srtm_audio_format_type_t format, uint32_t srate)
 {
-    uint32_t sai_source_clk = 0;
-    if (type == SRTM_CLK22M)
+    uint32_t freq = 0U;
+
+    if ((srate % (uint32_t)kSAI_SampleRate11025Hz) == 0U)
     {
-        CLOCK_SetRootMux(kCLOCK_RootSai3,
-                         kCLOCK_SaiRootmuxAudioPll2); /* Set SAI source to Audio PLL2 361267197HZ to get 22.5792MHz */
-        sai_source_clk = APP_AUDIO_PLL2_FREQ / (CLOCK_GetRootPreDivider(kCLOCK_RootSai3)) /
-                         (CLOCK_GetRootPostDivider(kCLOCK_RootSai3));
+        freq = APP_AUDIO_PLL2_FREQ / (CLOCK_GetRootPreDivider(kCLOCK_RootSai3)) /
+               (CLOCK_GetRootPostDivider(kCLOCK_RootSai3));
     }
     else
     {
-        CLOCK_SetRootMux(kCLOCK_RootSai3,
-                         kCLOCK_SaiRootmuxAudioPll1); /* Set SAI source to Audio PLL1 393215996HZ to get 24.576Mhz*/
-        sai_source_clk = APP_AUDIO_PLL1_FREQ / (CLOCK_GetRootPreDivider(kCLOCK_RootSai3)) /
-                         (CLOCK_GetRootPostDivider(kCLOCK_RootSai3));
+        freq = APP_AUDIO_PLL1_FREQ / (CLOCK_GetRootPreDivider(kCLOCK_RootSai3)) /
+               (CLOCK_GetRootPostDivider(kCLOCK_RootSai3));
     }
-    return sai_source_clk;
+    return freq;
 }
 
-static void APP_SRTM_ClockGateControl(bool isEnable)
-{
-    if (isEnable)
-    {
-        /* Judge if the Audio PLL1/PLL2  are ON, if not, enable them. */
-        if ((CCM_ANALOG->AUDIO_PLL1_GEN_CTRL & CCM_ANALOG_AUDIO_PLL1_GEN_CTRL_PLL_CLKE_MASK) == 0U)
-        {
-            *&(CCM_ANALOG->AUDIO_PLL1_GEN_CTRL) =
-                CCM_ANALOG_AUDIO_PLL1_GEN_CTRL_PLL_RST_MASK | CCM_ANALOG_AUDIO_PLL1_GEN_CTRL_PLL_CLKE_MASK;
-            while (!(CCM_ANALOG->AUDIO_PLL1_GEN_CTRL & CCM_ANALOG_AUDIO_PLL1_GEN_CTRL_PLL_LOCK_MASK))
-            {
-            }
-        }
-
-        if ((CCM_ANALOG->AUDIO_PLL2_GEN_CTRL & CCM_ANALOG_AUDIO_PLL2_GEN_CTRL_PLL_CLKE_MASK) == 0U)
-        {
-            *&(CCM_ANALOG->AUDIO_PLL2_GEN_CTRL) =
-                CCM_ANALOG_AUDIO_PLL2_GEN_CTRL_PLL_RST_MASK | CCM_ANALOG_AUDIO_PLL2_GEN_CTRL_PLL_CLKE_MASK;
-            while (!(CCM_ANALOG->AUDIO_PLL2_GEN_CTRL & CCM_ANALOG_AUDIO_PLL2_GEN_CTRL_PLL_LOCK_MASK))
-            {
-            }
-        }
-    }
-    else
-    {
-        /* Judge if the Audio PLL1/PLL2  are OFF, if not, disable them. */
-        if (CCM_ANALOG->AUDIO_PLL1_GEN_CTRL & CCM_ANALOG_AUDIO_PLL1_GEN_CTRL_PLL_CLKE_MASK)
-        {
-            *&(CCM_ANALOG->AUDIO_PLL1_GEN_CTRL) &= ~CCM_ANALOG_AUDIO_PLL1_GEN_CTRL_PLL_CLKE_MASK;
-        }
-
-        if (CCM_ANALOG->AUDIO_PLL2_GEN_CTRL & CCM_ANALOG_AUDIO_PLL2_GEN_CTRL_PLL_CLKE_MASK)
-        {
-            *&(CCM_ANALOG->AUDIO_PLL2_GEN_CTRL) &= ~CCM_ANALOG_AUDIO_PLL2_GEN_CTRL_PLL_CLKE_MASK;
-        }
-    }
-}
 static void APP_SRTM_PollLinkup(srtm_dispatcher_t dispatcher, void *param1, void *param2)
 {
     if (srtmState == APP_SRTM_StateRun)
@@ -204,6 +166,8 @@ static void APP_SRTM_Linkup(void)
     rpmsgConfig.epName      = APP_SRTM_AUDIO_CHANNEL_NAME;
     chan                    = SRTM_RPMsgEndpoint_Create(&rpmsgConfig);
     SRTM_PeerCore_AddChannel(core, chan);
+    assert((audioService != NULL) && (saiAdapter != NULL));
+    SRTM_AudioService_BindChannel(audioService, saiAdapter, chan);
 
     SRTM_Dispatcher_AddPeerCore(disp, core);
 }
@@ -216,8 +180,6 @@ static void APP_SRTM_InitPeerCore(void)
     assert(rpmsgHandle);
     if (rpmsg_lite_is_link_up(rpmsgHandle))
     {
-        /* If resume context has already linked up, don't need to announce channel
-         * again. */
         APP_SRTM_Linkup();
     }
     else
@@ -258,18 +220,15 @@ static void APP_SRTM_InitAudioService(void)
         saiTxConfig.mclkConfig.mclkSourceClkHz;     /* Set the output mclk equal to its source clk by default */
     saiTxConfig.mclkConfig.mclkOutputEnable = true; /* Enable the MCLK output */
 
-    saiTxConfig.stopOnSuspend = true; /* Audio data is in DRAM which is not accessable in A53 suspend. */
-    saiTxConfig.threshold     = 1U;   /* Under the threshold value would trigger periodDone message to A53 */
+    saiTxConfig.stopOnSuspend = false; /* Keep playing audio on A53 suspend. */
+    saiTxConfig.threshold     = 1U;    /* Under the threshold value would trigger periodDone message to A53 */
     saiTxConfig.guardTime =
         1000; /* Unit:ms. This is a lower limit that M core should reserve such time data to wakeup A core. */
-    saiTxConfig.dmaChannel                 = APP_SAI_TX_DMA_CHANNEL;
-    saiTxConfig.ChannelPriority            = APP_SAI_TX_DMA_CHANNEL_PRIORITY;
-    saiTxConfig.eventSource                = APP_SAI_TX_DMA_SOURCE;
-    saiTxConfig.extendConfig.clkSetting    = APP_SRTM_SaiClockSet;
-    saiTxConfig.extendConfig.clkGate       = APP_SRTM_ClockGateControl;
-    saiTxConfig.extendConfig.audioDevInit  = APP_SRTM_InitAudioDevice;
-    saiTxConfig.extendConfig.dsdSaiSetting = NULL;
-    saiTxConfig.extendConfig.pcmSaiSetting = NULL;
+    saiTxConfig.dmaChannel                = APP_SAI_TX_DMA_CHANNEL;
+    saiTxConfig.ChannelPriority           = APP_SAI_TX_DMA_CHANNEL_PRIORITY;
+    saiTxConfig.eventSource               = APP_SAI_TX_DMA_SOURCE;
+    saiTxConfig.extendConfig.audioDevInit = APP_SRTM_InitAudioDevice;
+    saiTxConfig.extendConfig.audioDevConf = APP_SRTM_ConfAudioDevice;
 
     saiAdapter = SRTM_SaiSdmaAdapter_Create(APP_SRTM_SAI, APP_SRTM_DMA, &saiTxConfig, NULL);
     assert(saiAdapter);

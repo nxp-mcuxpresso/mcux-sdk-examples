@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 NXP
+ * Copyright 2018-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -23,14 +23,14 @@
 #define EXAMPLE_OSTIMER_FREQ CLOCK_GetLpOscFreq()
 #define EXAMPLE_DEEPSLEEP_RUNCFG0 \
     (SYSCTL0_PDRUNCFG0_LPOSC_PD_MASK)         /*!< Power down all unnecessary blocks during deep sleep*/
-#define EXAMPLE_DEEPSLEEP_RAM_APD 0x00FFF000U /* 0x80000 - 0x2FFFFF keep powered */
-#define EXAMPLE_DEEPSLEEP_RAM_PPD 0x00FFF000U
+#define EXAMPLE_DEEPSLEEP_RAM_APD 0xFFC00000U /* 0x280000 - 0x4FFFFF keep powered */
+#define EXAMPLE_DEEPSLEEP_RAM_PPD 0x0U
 #define EXAMPLE_EXCLUDE_FROM_DEEPSLEEP                                                                              \
     (((const uint32_t[]){EXAMPLE_DEEPSLEEP_RUNCFG0,                                                                 \
                          (SYSCTL0_PDSLEEPCFG1_FLEXSPI0_SRAM_APD_MASK | SYSCTL0_PDSLEEPCFG1_FLEXSPI1_SRAM_APD_MASK | \
                           SYSCTL0_PDSLEEPCFG1_FLEXSPI0_SRAM_PPD_MASK | SYSCTL0_PDSLEEPCFG1_FLEXSPI1_SRAM_PPD_MASK), \
                          EXAMPLE_DEEPSLEEP_RAM_APD, EXAMPLE_DEEPSLEEP_RAM_PPD}))
-#define EXAMPLE_OSTIMER_IRQn OS_EVENT_IRQn
+#define EXAMPLE_EnableDeepSleepIRQ() EnableDeepSleepIRQ(OS_EVENT_IRQn)
 
 /*******************************************************************************
  * Prototypes
@@ -48,8 +48,6 @@ volatile bool matchFlag = false;
  ******************************************************************************/
 void EXAMPLE_EnterDeepSleep(void)
 {
-    /* Enable deep sleep IRQ. */
-    EnableDeepSleepIRQ(EXAMPLE_OSTIMER_IRQn);
     /* Enter deep sleep mode by using power API. */
     POWER_EnterDeepSleep(EXAMPLE_EXCLUDE_FROM_DEEPSLEEP);
 }
@@ -85,6 +83,8 @@ int main(void)
 
     CLOCK_AttachClk(kLPOSC_to_OSTIMER_CLK);
 
+    PRINTF("Press any key to start example.\r\n\r\n");
+    GETCHAR();
     PRINTF("Board will enter power deep sleep mode, and then wakeup by OS timer after about 5 seconds.\r\n");
     PRINTF("After Board wakeup, the OS timer will trigger the match interrupt about every 2 seconds.\r\n");
 
@@ -97,6 +97,8 @@ int main(void)
     if (kStatus_Success ==
         EXAMPLE_SetMatchInterruptTime(EXAMPLE_OSTIMER, 5000U, EXAMPLE_OSTIMER_FREQ, EXAMPLE_OstimerCallback))
     {
+        /* Enable OSTIMER IRQ under deep sleep mode. */
+        EXAMPLE_EnableDeepSleepIRQ();
         /* Enter deep sleep mode. */
         EXAMPLE_EnterDeepSleep();
 

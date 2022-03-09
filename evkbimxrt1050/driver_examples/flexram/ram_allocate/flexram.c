@@ -27,7 +27,9 @@
 #define APP_FLEXRAM_DTCM_START_ADDR 0x20000000
 #define APP_FLEXRAM_DTCM_MAGIC_ADDR 0x200000A0
 
-#define APP_FLEXRAM_ITCM_START_ADDR 0x0
+/* Start adddress shouldn't be 0x00U, because some toolchain(such as ARMGCC) maybe consider it as null point and assert
+ * UDF instruction. */
+#define APP_FLEXRAM_ITCM_START_ADDR 0x4
 #define APP_FLEXRAM_ITCM_MAGIC_ADDR 0xA0
 
 /* OCRAM relocate definition */
@@ -88,6 +90,16 @@ void APP_FLEXRAM_IRQ_HANDLER(void)
     {
         FLEXRAM_ClearInterruptStatus(APP_FLEXRAM, kFLEXRAM_OCRAMAccessError);
         s_flexram_ocram_access_error_match = true;
+    }
+
+    if (FLEXRAM_GetInterruptStatus(APP_FLEXRAM) & kFLEXRAM_DTCMAccessError)
+    {
+        FLEXRAM_ClearInterruptStatus(APP_FLEXRAM, kFLEXRAM_DTCMAccessError);
+    }
+
+    if (FLEXRAM_GetInterruptStatus(APP_FLEXRAM) & kFLEXRAM_ITCMAccessError)
+    {
+        FLEXRAM_ClearInterruptStatus(APP_FLEXRAM, kFLEXRAM_ITCMAccessError);
     }
 
     __DSB();

@@ -243,7 +243,6 @@ int main(void)
     /* Initialize standard SDK demo application pins */
     BOARD_ConfigMPU();
     BOARD_InitPins();
-    BOARD_BootClockRUN();
 
     /* Initialize MCMGR before calling its API */
     (void)MCMGR_Init();

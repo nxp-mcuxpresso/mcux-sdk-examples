@@ -74,8 +74,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmk28fa/demo_apps/adc16_low_power_async_edma" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmk28fa/demo_apps/adc16_low_power_async_edma" project_relative_path="frdmk28fa/demo_apps/adc16_low_power_async_edma" type="c_include"/>
-      <include_path path="boards/frdmk28fa" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmk28fa/demo_apps/adc16_low_power_async_edma" project_relative_path="frdmk28fa/demo_apps/adc16_low_power_async_edma" type="c_include"/>
+      <include_path path="core/boards/frdmk28fa" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmk28fa/demo_apps/adc16_low_power_async_edma/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="adc16_low_power_async_edma.ewd"/>

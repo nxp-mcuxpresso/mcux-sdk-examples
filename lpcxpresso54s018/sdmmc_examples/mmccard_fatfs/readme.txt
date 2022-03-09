@@ -11,7 +11,7 @@ User can use MMC plus card or emmc(on board IC, but not recommand use emmc socke
 
 Toolchain supported
 ===================
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 - GCC ARM Embedded  10.2.1
 
 Hardware requirements

@@ -134,36 +134,41 @@ int main(void)
         {
             return kStatus_Fail;
         }
+        PRINTF("\r\nCIS read successfully\r\n");
 
-        PRINTF("\r\nRead function CIS, in extended way, non-block mode, non-word aligned size\r\n");
+        /* some sdio card FN0 do not support byte/block count bigger than one, skip below function for such case */
+        if (card->commonCIS.fn0MaxBlkSize >= 31U)
+        {
+            PRINTF("\r\nRead function CIS, in extended way, non-block mode, non-word aligned size\r\n");
 
-        if (kStatus_Success != SDIO_IO_Read_Extended(card, kSDIO_FunctionNum0, card->ioFBR[0].ioPointerToCIS,
-                                                     g_dataRead, 31U, SDIO_EXTEND_CMD_OP_CODE_MASK))
-        {
-            return kStatus_Fail;
-        }
-        PRINTF("\r\nRead function CIS, in extended way, block mode, non-word aligned size\r\n");
+            if (kStatus_Success != SDIO_IO_Read_Extended(card, kSDIO_FunctionNum0, card->ioFBR[0].ioPointerToCIS,
+                                                         g_dataRead, 31U, SDIO_EXTEND_CMD_OP_CODE_MASK))
+            {
+                return kStatus_Fail;
+            }
+            PRINTF("\r\nRead function CIS, in extended way, block mode, non-word aligned size\r\n");
 
-        /* set block size to a non-word aligned size for test */
-        if (kStatus_Success != SDIO_SetBlockSize(card, kSDIO_FunctionNum0, 31U))
-        {
-            return kStatus_Fail;
-        }
+            /* set block size to a non-word aligned size for test */
+            if (kStatus_Success != SDIO_SetBlockSize(card, kSDIO_FunctionNum0, 31U))
+            {
+                return kStatus_Fail;
+            }
 
-        if (kStatus_Success != SDIO_IO_Read_Extended(card, kSDIO_FunctionNum0, card->ioFBR[0].ioPointerToCIS,
-                                                     g_dataBlockRead, 1U,
-                                                     SDIO_EXTEND_CMD_OP_CODE_MASK | SDIO_EXTEND_CMD_BLOCK_MODE_MASK))
-        {
-            return kStatus_Fail;
-        }
+            if (kStatus_Success !=
+                SDIO_IO_Read_Extended(card, kSDIO_FunctionNum0, card->ioFBR[0].ioPointerToCIS, g_dataBlockRead, 1U,
+                                      SDIO_EXTEND_CMD_OP_CODE_MASK | SDIO_EXTEND_CMD_BLOCK_MODE_MASK))
+            {
+                return kStatus_Fail;
+            }
 
-        if (memcmp(g_dataRead, g_dataBlockRead, 31U))
-        {
-            PRINTF("\r\nThe read content isn't consistent.\r\n");
-        }
-        else
-        {
-            PRINTF("\r\nThe read content is consistent.\r\n");
+            if (memcmp(g_dataRead, g_dataBlockRead, 31U))
+            {
+                PRINTF("\r\nThe read content isn't consistent.\r\n");
+            }
+            else
+            {
+                PRINTF("\r\nThe read content is consistent.\r\n");
+            }
         }
     }
 

@@ -92,6 +92,16 @@ void APP_FLEXRAM_IRQ_HANDLER(void)
         s_flexram_ocram_access_error_match = true;
     }
 
+    if (FLEXRAM_GetInterruptStatus(APP_FLEXRAM) & kFLEXRAM_DTCMAccessError)
+    {
+        FLEXRAM_ClearInterruptStatus(APP_FLEXRAM, kFLEXRAM_DTCMAccessError);
+    }
+
+    if (FLEXRAM_GetInterruptStatus(APP_FLEXRAM) & kFLEXRAM_ITCMAccessError)
+    {
+        FLEXRAM_ClearInterruptStatus(APP_FLEXRAM, kFLEXRAM_ITCMAccessError);
+    }
+
     __DSB();
 }
 

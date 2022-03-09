@@ -89,9 +89,9 @@ include(component_lists)
 
 include(component_serial_manager_uart)
 
-include(CMSIS_Include_core_cm)
-
 include(driver_reset)
+
+include(CMSIS_Include_core_cm)
 
 include(driver_inputmux_connections)
 

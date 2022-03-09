@@ -1,5 +1,5 @@
 /*
- * Copyright  2018 NXP
+ * Copyright 2020 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v4.1
+product: Pins v9.0
 processor: LPC804
 package_id: LPC804M101JDH24
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 0.9.4
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -60,6 +60,7 @@ BOARD_InitPins:
   - {pin_num: '14', peripheral: GPIO, signal: 'PIO0, 15', pin_signal: PIO0_15/ADC_8, mode: inactive, invert: disabled, hysteresis: enabled, opendrain: disabled}
   - {pin_num: '17', peripheral: GPIO, signal: 'PIO0, 8', pin_signal: PIO0_8/ADC_5, mode: inactive, invert: disabled, hysteresis: enabled, opendrain: disabled}
   - {pin_num: '16', peripheral: GPIO, signal: 'PIO0, 9', pin_signal: PIO0_9/ADC_4, mode: inactive, invert: disabled, hysteresis: enabled, opendrain: disabled}
+  - {pin_num: '2', peripheral: ACMP, signal: ACMP_IN4, pin_signal: PIO0_16/ACMP_I4/ADC_3, mode: inactive, invert: disabled, hysteresis: enabled, opendrain: disabled}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -78,7 +79,7 @@ void BOARD_InitPins(void)
     /* Enables clock for switch matrix.: enable */
     CLOCK_EnableClock(kCLOCK_Swm);
 
-    const uint32_t IOCON_INDEX_PIO0_17_config = (/* No addition pin function */
+    const uint32_t IOCON_INDEX_PIO0_11_config = (/* No addition pin function */
                                                  IOCON_PIO_MODE_INACT |
                                                  /* Enable hysteresis */
                                                  IOCON_PIO_HYS_EN |
@@ -86,8 +87,19 @@ void BOARD_InitPins(void)
                                                  IOCON_PIO_INV_DI |
                                                  /* Disables Open-drain function */
                                                  IOCON_PIO_OD_DI);
-    /* PORT0 PIN (coords: ) is configured as  */
-    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_17, IOCON_INDEX_PIO0_17_config);
+    /* PIO0 PIN11 (coords: 10) is configured as CAPT, CAPTX, 3. */
+    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_11, IOCON_INDEX_PIO0_11_config);
+
+    const uint32_t IOCON_INDEX_PIO0_12_config = (/* No addition pin function */
+                                                 IOCON_PIO_MODE_INACT |
+                                                 /* Enable hysteresis */
+                                                 IOCON_PIO_HYS_EN |
+                                                 /* Input not invert */
+                                                 IOCON_PIO_INV_DI |
+                                                 /* Disables Open-drain function */
+                                                 IOCON_PIO_OD_DI);
+    /* PIO0 PIN12 (coords: 5) is configured as CAPT, CAPTX, 0. */
+    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_12, IOCON_INDEX_PIO0_12_config);
 
     const uint32_t IOCON_INDEX_PIO0_13_config = (/* No addition pin function */
                                                  IOCON_PIO_MODE_INACT |
@@ -97,7 +109,7 @@ void BOARD_InitPins(void)
                                                  IOCON_PIO_INV_DI |
                                                  /* Disables Open-drain function */
                                                  IOCON_PIO_OD_DI);
-    /* PORT1 PIN (coords: ) is configured as  */
+    /* PIO0 PIN13 (coords: 4) is configured as CAPT, CAPTX, 2. */
     IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_13, IOCON_INDEX_PIO0_13_config);
 
     const uint32_t IOCON_INDEX_PIO0_15_config = (/* No addition pin function */
@@ -108,10 +120,10 @@ void BOARD_InitPins(void)
                                                  IOCON_PIO_INV_DI |
                                                  /* Disables Open-drain function */
                                                  IOCON_PIO_OD_DI);
-    /* PORT1 PIN0 (coords: ) is configured as  */
+    /* PIO0 PIN15 (coords: 14) is configured as GPIO, PIO0, 15. */
     IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_15, IOCON_INDEX_PIO0_15_config);
 
-    const uint32_t IOCON_INDEX_PIO0_21_config = (/* No addition pin function */
+    const uint32_t IOCON_INDEX_PIO0_16_config = (/* No addition pin function */
                                                  IOCON_PIO_MODE_INACT |
                                                  /* Enable hysteresis */
                                                  IOCON_PIO_HYS_EN |
@@ -119,43 +131,10 @@ void BOARD_InitPins(void)
                                                  IOCON_PIO_INV_DI |
                                                  /* Disables Open-drain function */
                                                  IOCON_PIO_OD_DI);
-    /* PORT1 PIN2 (coords: ) is configured as  */
-    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_21, IOCON_INDEX_PIO0_21_config);
+    /* PIO0 PIN16 (coords: 2) is configured as ACMP, ACMP_IN4. */
+    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_16, IOCON_INDEX_PIO0_16_config);
 
-    const uint32_t IOCON_INDEX_PIO0_9_config = (/* No addition pin function */
-                                                IOCON_PIO_MODE_INACT |
-                                                /* Enable hysteresis */
-                                                IOCON_PIO_HYS_EN |
-                                                /* Input not invert */
-                                                IOCON_PIO_INV_DI |
-                                                /* Disables Open-drain function */
-                                                IOCON_PIO_OD_DI);
-    /* PORT1 PIN3 (coords: ) is configured as  */
-    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_9, IOCON_INDEX_PIO0_9_config);
-
-    const uint32_t IOCON_INDEX_PIO0_8_config = (/* No addition pin function */
-                                                IOCON_PIO_MODE_INACT |
-                                                /* Enable hysteresis */
-                                                IOCON_PIO_HYS_EN |
-                                                /* Input not invert */
-                                                IOCON_PIO_INV_DI |
-                                                /* Disables Open-drain function */
-                                                IOCON_PIO_OD_DI);
-    /* PORT1 PIN4 (coords: ) is configured as  */
-    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_8, IOCON_INDEX_PIO0_8_config);
-
-    const uint32_t IOCON_INDEX_PIO0_7_config = (/* No addition pin function */
-                                                IOCON_PIO_MODE_INACT |
-                                                /* Enable hysteresis */
-                                                IOCON_PIO_HYS_EN |
-                                                /* Input not invert */
-                                                IOCON_PIO_INV_DI |
-                                                /* Disables Open-drain function */
-                                                IOCON_PIO_OD_DI);
-    /* PORT1 PIN5 (coords: ) is configured as  */
-    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_7, IOCON_INDEX_PIO0_7_config);
-
-    const uint32_t IOCON_INDEX_PIO0_12_config = (/* No addition pin function */
+    const uint32_t IOCON_INDEX_PIO0_17_config = (/* No addition pin function */
                                                  IOCON_PIO_MODE_INACT |
                                                  /* Enable hysteresis */
                                                  IOCON_PIO_HYS_EN |
@@ -163,10 +142,10 @@ void BOARD_InitPins(void)
                                                  IOCON_PIO_INV_DI |
                                                  /* Disables Open-drain function */
                                                  IOCON_PIO_OD_DI);
-    /* PORT2 PIN (coords: ) is configured as  */
-    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_12, IOCON_INDEX_PIO0_12_config);
+    /* PIO0 PIN17 (coords: 3) is configured as CAPT, CAPTYH. */
+    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_17, IOCON_INDEX_PIO0_17_config);
 
-    const uint32_t IOCON_INDEX_PIO0_20_config = (/* No addition pin function */
+    const uint32_t IOCON_INDEX_PIO0_18_config = (/* No addition pin function */
                                                  IOCON_PIO_MODE_INACT |
                                                  /* Enable hysteresis */
                                                  IOCON_PIO_HYS_EN |
@@ -174,8 +153,8 @@ void BOARD_InitPins(void)
                                                  IOCON_PIO_INV_DI |
                                                  /* Disables Open-drain function */
                                                  IOCON_PIO_OD_DI);
-    /* PORT2 PIN2 (coords: ) is configured as  */
-    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_20, IOCON_INDEX_PIO0_20_config);
+    /* PIO0 PIN18 (coords: 1) is configured as GPIO, PIO0, 18. */
+    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_18, IOCON_INDEX_PIO0_18_config);
 
     const uint32_t IOCON_INDEX_PIO0_19_config = (/* No addition pin function */
                                                  IOCON_PIO_MODE_INACT |
@@ -187,10 +166,10 @@ void BOARD_InitPins(void)
                                                  IOCON_PIO_OD_DI |
                                                  /* Disables DAC mode */
                                                  IOCON_PIO_DACMODE_DI);
-    /* PORT2 PIN4 (coords: ) is configured as  */
+    /* PIO0 PIN19 (coords: 24) is configured as CAPT, CAPTX, 4. */
     IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_19, IOCON_INDEX_PIO0_19_config);
 
-    const uint32_t IOCON_INDEX_PIO0_18_config = (/* No addition pin function */
+    const uint32_t IOCON_INDEX_PIO0_20_config = (/* No addition pin function */
                                                  IOCON_PIO_MODE_INACT |
                                                  /* Enable hysteresis */
                                                  IOCON_PIO_HYS_EN |
@@ -198,10 +177,10 @@ void BOARD_InitPins(void)
                                                  IOCON_PIO_INV_DI |
                                                  /* Disables Open-drain function */
                                                  IOCON_PIO_OD_DI);
-    /* PORT2 PIN9 (coords: ) is configured as  */
-    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_18, IOCON_INDEX_PIO0_18_config);
+    /* PIO0 PIN20 (coords: 13) is configured as GPIO, PIO0, 20. */
+    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_20, IOCON_INDEX_PIO0_20_config);
 
-    const uint32_t IOCON_INDEX_PIO0_11_config = (/* No addition pin function */
+    const uint32_t IOCON_INDEX_PIO0_21_config = (/* No addition pin function */
                                                  IOCON_PIO_MODE_INACT |
                                                  /* Enable hysteresis */
                                                  IOCON_PIO_HYS_EN |
@@ -209,8 +188,41 @@ void BOARD_InitPins(void)
                                                  IOCON_PIO_INV_DI |
                                                  /* Disables Open-drain function */
                                                  IOCON_PIO_OD_DI);
-    /* PORT7 PIN (coords: ) is configured as  */
-    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_11, IOCON_INDEX_PIO0_11_config);
+    /* PIO0 PIN21 (coords: 12) is configured as CAPT, CAPTX, 1. */
+    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_21, IOCON_INDEX_PIO0_21_config);
+
+    const uint32_t IOCON_INDEX_PIO0_7_config = (/* No addition pin function */
+                                                IOCON_PIO_MODE_INACT |
+                                                /* Enable hysteresis */
+                                                IOCON_PIO_HYS_EN |
+                                                /* Input not invert */
+                                                IOCON_PIO_INV_DI |
+                                                /* Disables Open-drain function */
+                                                IOCON_PIO_OD_DI);
+    /* PIO0 PIN7 (coords: 20) is configured as CAPT, CAPTYL. */
+    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_7, IOCON_INDEX_PIO0_7_config);
+
+    const uint32_t IOCON_INDEX_PIO0_8_config = (/* No addition pin function */
+                                                IOCON_PIO_MODE_INACT |
+                                                /* Enable hysteresis */
+                                                IOCON_PIO_HYS_EN |
+                                                /* Input not invert */
+                                                IOCON_PIO_INV_DI |
+                                                /* Disables Open-drain function */
+                                                IOCON_PIO_OD_DI);
+    /* PIO0 PIN8 (coords: 17) is configured as GPIO, PIO0, 8. */
+    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_8, IOCON_INDEX_PIO0_8_config);
+
+    const uint32_t IOCON_INDEX_PIO0_9_config = (/* No addition pin function */
+                                                IOCON_PIO_MODE_INACT |
+                                                /* Enable hysteresis */
+                                                IOCON_PIO_HYS_EN |
+                                                /* Input not invert */
+                                                IOCON_PIO_INV_DI |
+                                                /* Disables Open-drain function */
+                                                IOCON_PIO_OD_DI);
+    /* PIO0 PIN9 (coords: 16) is configured as GPIO, PIO0, 9. */
+    IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_9, IOCON_INDEX_PIO0_9_config);
 
     /* USART0_TXD connect to P0_4 */
     SWM_SetMovablePinSelect(SWM0, kSWM_USART0_TXD, kSWM_PortPin_P0_4);
@@ -238,6 +250,9 @@ void BOARD_InitPins(void)
 
     /* CAPT_YH connect to P0_17 */
     SWM_SetMovablePinSelect(SWM0, kSWM_CAPT_YH, kSWM_PortPin_P0_17);
+
+    /* ACMP_INPUT4 connect to P0_16 */
+    SWM_SetFixedPinSelect(SWM0, kSWM_ACMP_INPUT4, true);
 
     /* Disable clock for switch matrix. */
     CLOCK_DisableClock(kCLOCK_Swm);

@@ -61,6 +61,10 @@ include(middleware_multicore_mcmgr_lpc55s69)
 
 include(middleware_multicore_rpmsg_lite_lpcxpresso55s69_freertos)
 
+include(middleware_multicore_rpmsg_lite_LPC55S69_cm33_core1)
+
+include(middleware_multicore_rpmsg_lite_freertos)
+
 include(middleware_freertos-kernel_cm33_nonsecure_port)
 
 include(driver_mailbox)
@@ -105,8 +109,6 @@ include(component_serial_manager_uart)
 
 include(CMSIS_Include_core_cm)
 
-include(middleware_multicore_rpmsg_lite)
-
 include(middleware_freertos-kernel_extension)
 
 include(utilities_misc_utilities)
@@ -123,14 +125,6 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
 
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
-
-if(CMAKE_BUILD_TYPE STREQUAL debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../core/devices/LPC55S69/gcc/libpower_soft.a)
-endif(CMAKE_BUILD_TYPE STREQUAL debug)
-
-if(CMAKE_BUILD_TYPE STREQUAL release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../core/devices/LPC55S69/gcc/libpower_soft.a)
-endif(CMAKE_BUILD_TYPE STREQUAL release)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

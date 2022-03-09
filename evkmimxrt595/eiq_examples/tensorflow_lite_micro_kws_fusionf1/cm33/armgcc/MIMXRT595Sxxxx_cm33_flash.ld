@@ -5,8 +5,8 @@
 **
 **     Compiler:            GNU C Compiler
 **     Reference manual:    iMXRT500RM Rev.0, 01/2021
-**     Version:             rev. 4.0, 2020-05-12
-**     Build:               b210303
+**     Version:             rev. 5.0, 2021-07-28
+**     Build:               b210728
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -41,7 +41,7 @@ MEMORY
   m_flash_config        (RX)  : ORIGIN = 0x08000400, LENGTH = 0x00000200
   m_interrupts          (RX)  : ORIGIN = 0x08001000, LENGTH = 0x00000180
   m_text                (RX)  : ORIGIN = 0x08001180, LENGTH = 0x001FEE80
-  m_data                (RW)  : ORIGIN = 0x20080000, LENGTH = 0x00180000
+  m_data                (RW)  : ORIGIN = 0x20280000, LENGTH = 0x00280000
   m_usb_sram            (RW)  : ORIGIN = 0x40140000, LENGTH = 0x00004000
 }
 

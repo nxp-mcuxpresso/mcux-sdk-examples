@@ -87,9 +87,9 @@ include(device_startup)
 
 include(driver_flexcomm)
 
-include(CMSIS_Include_core_cm)
-
 include(driver_reset)
+
+include(CMSIS_Include_core_cm)
 
 include(driver_inputmux_connections)
 

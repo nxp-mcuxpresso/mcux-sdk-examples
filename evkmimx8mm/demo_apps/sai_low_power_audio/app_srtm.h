@@ -15,14 +15,27 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+
+/* @TEST_ANCHOR */
+
 typedef enum
 {
     APP_SRTM_StateRun = 0x0U,
     APP_SRTM_StateLinkedUp,
 } app_srtm_state_t;
 
+#ifndef APP_SRTM_CODEC_WM8524_USED
 #define APP_SRTM_CODEC_WM8524_USED (0U)
+#endif
+#ifndef APP_SRTM_CODEC_AK4497_USED
 #define APP_SRTM_CODEC_AK4497_USED (1U)
+#endif
+
+#if APP_SRTM_CODEC_WM8524_USED
+#define APP_SRTM_PDM_USED (1U)
+#else
+#define APP_SRTM_PDM_USED (0U)
+#endif
 
 #if APP_SRTM_CODEC_AK4497_USED
 
@@ -49,6 +62,8 @@ typedef enum
 #define APP_SRTM_SAI      (I2S1)
 #define APP_SRTM_SAI_IRQn I2S1_IRQn
 #endif
+#define APP_SRTM_PDM (PDM)
+
 /* The MCLK of the SAI is 24576000Hz by default which can be changed when playback the music. */
 #define APP_SAI_CLK_FREQ (24576000U)
 /* The frequency of the audio pll 1/2 are the fixed value. */
@@ -78,6 +93,17 @@ typedef enum
 
 #define APP_SAI_TX_DMA_CHANNEL_PRIORITY (2U)
 #define APP_SAI_RX_DMA_CHANNEL_PRIORITY (2U)
+
+#if APP_SRTM_PDM_USED
+#define APP_PDM_RX_DMA_CHANNEL          (3U)
+#define APP_PDM_RX_DMA_SOURCE           (24U)
+#define APP_PDM_RX_DMA_CHANNEL_PRIORITY (2U)
+#define APP_PDM_QUALITY_MODE            (kPDM_QualityModeHigh)
+#define APP_PDM_CICOVERSAMPLE_RATE      (0U)
+#define APP_PDM_CHANNEL_GAIN            (kPDM_DfOutputGain4)
+#define APP_PDM_CHANNEL_CUTOFF_FREQ     (kPDM_DcRemoverCutOff152Hz)
+#define APP_SRTM_PDM_CHANNEL_NAME       "rpmsg-micfil-channel"
+#endif
 
 #if APP_SRTM_CODEC_WM8524_USED
 /* WM8524 Pin Set*/

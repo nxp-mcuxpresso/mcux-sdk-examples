@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019-2021 NXP
  * All rights reserved.
  *
  *
@@ -10,7 +10,8 @@
 
 /* Address of RAM, where the image for DSP should be copied */
 /* These addresses are accessed by the ARM core and aliased to M33 code memory */
-#define DSP_BOOT_ADDRESS (uint32_t *)0x00400000
-#define DSP_SRAM_ADDRESS (uint32_t *)0x00300000
+#define DSP_RESET_ADDRESS (uint32_t *)0x00180000
+#define DSP_TEXT_ADDRESS  (uint32_t *)0x00180400
+#define DSP_SRAM_ADDRESS  (uint32_t *)0x00080000
 
 #endif

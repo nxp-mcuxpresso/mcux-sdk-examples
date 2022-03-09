@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2013 - 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2018 NXP
+ * Copyright 2016-2018, 2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -37,7 +37,7 @@ const uint32_t g_Adc_12bitFullRange = 4096U;
  */
 int main(void)
 {
-    adc_config_t adcConfigStrcut;
+    adc_config_t adcConfigStruct;
     adc_channel_config_t adcChannelConfigStruct;
 
     BOARD_ConfigMPU();
@@ -60,8 +60,8 @@ int main(void)
      *  config->clockDriver =                   kADC_ClockDriver1;
      *  config->resolution =                    kADC_Resolution12Bit;
      */
-    ADC_GetDefaultConfig(&adcConfigStrcut);
-    ADC_Init(DEMO_ADC_BASE, &adcConfigStrcut);
+    ADC_GetDefaultConfig(&adcConfigStruct);
+    ADC_Init(DEMO_ADC_BASE, &adcConfigStruct);
 #if !(defined(FSL_FEATURE_ADC_SUPPORT_HARDWARE_TRIGGER_REMOVE) && FSL_FEATURE_ADC_SUPPORT_HARDWARE_TRIGGER_REMOVE)
     ADC_EnableHardwareTrigger(DEMO_ADC_BASE, false);
 #endif

@@ -37,6 +37,9 @@
 #define APP_WAKEUP_GPT_IRQn         GPT2_IRQn
 #define APP_WAKEUP_GPT_IRQn_HANDLER GPT2_IRQHandler
 
+#define APP_WAKEUP_SNVS_IRQ         SNVS_HP_WRAPPER_IRQn
+#define APP_WAKEUP_SNVS_IRQ_HANDLER SNVS_HP_WRAPPER_IRQHandler
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -55,6 +58,71 @@ static const char *s_modeNames[] = {"Over RUN",    "Full Run",       "Low Speed 
 /*******************************************************************************
  * Code
  ******************************************************************************/
+void SetLowPowerClockGate(void)
+{
+    CLOCK_ControlGate(kCLOCK_Aips_tz1, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_Aips_tz2, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_Mqs, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_FlexSpiExsc, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_Dcp, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_Lpuart3, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Trace, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_Gpt2, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_Gpt2S, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Lpuart2, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Gpio2, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Lpspi1, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Lpspi2, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Pit, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Adc1, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Gpt1, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_Gpt1S, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Lpuart4, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Gpio1, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_Csu, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Gpio5, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_OcramExsc, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_IomuxcSnvs, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_Lpi2c1, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Lpi2c2, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Ocotp, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_Xbar1, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Ewm0, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Wdog1, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_FlexRam, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_IomuxcSnvsGpr, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_Sim_m7_clk_r, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_Iomuxc, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_IomuxcGpr, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_SimM7, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_SimM, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_SimEms, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_Pwm1, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Rom, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_Flexio1, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Wdog3, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Dma, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Kpp, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Wdog2, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Spdif, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Sai1, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Sai3, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Lpuart1, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_SnvsHp, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_SnvsLp, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_UsbOh3, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_Dcdc, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_FlexSpi, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_Trng, kCLOCK_ClockNotNeeded);
+    CLOCK_ControlGate(kCLOCK_SimPer, kCLOCK_ClockNeededRun);
+    CLOCK_ControlGate(kCLOCK_Anadig, kCLOCK_ClockNeededRun);
+}
+
+void PowerDownUSBPHY(void)
+{
+    USBPHY->CTRL = 0xFFFFFFFFU;
+}
+
 void APP_WAKEUP_GPT_IRQn_HANDLER(void)
 {
     GPT_ClearStatusFlags(APP_WAKEUP_GPT_BASE, kGPT_OutputCompare1Flag);
@@ -63,7 +131,7 @@ void APP_WAKEUP_GPT_IRQn_HANDLER(void)
 
     xSemaphoreGiveFromISR(s_wakeupSig, NULL);
     portYIELD_FROM_ISR(pdTRUE);
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 void APP_WAKEUP_BUTTON_IRQ_HANDLER(void)
@@ -78,7 +146,14 @@ void APP_WAKEUP_BUTTON_IRQ_HANDLER(void)
 
     xSemaphoreGiveFromISR(s_wakeupSig, NULL);
     portYIELD_FROM_ISR(pdTRUE);
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
+}
+
+void APP_WAKEUP_SNVS_IRQ_HANDLER(void)
+{
+    /* Clear SRTC alarm interrupt. */
+    SNVS->LPSR |= SNVS_LPSR_LPTA_MASK;
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!
@@ -113,7 +188,7 @@ static app_wakeup_source_t APP_GetWakeupSource(lpm_power_mode_t targetMode)
     while (1)
     {
         PRINTF("Select the wake up source:\r\n");
-        PRINTF("Press T for GPT - GPT Timer\r\n");
+        PRINTF("Press T for Timer\r\n");
         PRINTF("Press S for switch/button %s. \r\n", APP_WAKEUP_BUTTON_NAME);
 
         PRINTF("\r\nWaiting for key press..\r\n\r\n");
@@ -127,7 +202,7 @@ static app_wakeup_source_t APP_GetWakeupSource(lpm_power_mode_t targetMode)
 
         if (ch == 'T')
         {
-            return kAPP_WakeupSourceGPT;
+            return kAPP_WakeupSourceTimer;
         }
         else if (ch == 'S')
         {
@@ -143,11 +218,11 @@ static app_wakeup_source_t APP_GetWakeupSource(lpm_power_mode_t targetMode)
 /* Get wakeup timeout and wakeup source. */
 static void APP_GetWakeupConfig(lpm_power_mode_t targetMode)
 {
-#if (HAS_WAKEUP_PIN)
+#if defined(HAS_WAKEUP_PIN) && (HAS_WAKEUP_PIN == 0)
+    /* If no WAKEUP pin available on board, then timer is the only wake up source in SNVS mode. */
     if (targetMode == LPM_PowerModeSNVS)
     {
-        /* In SNVS mode, only SNVS domain is powered, GPT could not work. */
-        s_wakeupSource = kAPP_WakeupSourcePin;
+        s_wakeupSource = kAPP_WakeupSourceTimer;
     }
     else
 #endif
@@ -156,9 +231,9 @@ static void APP_GetWakeupConfig(lpm_power_mode_t targetMode)
         s_wakeupSource = APP_GetWakeupSource(targetMode);
     }
 
-    if (kAPP_WakeupSourceGPT == s_wakeupSource)
+    if (kAPP_WakeupSourceTimer == s_wakeupSource)
     {
-        /* Wakeup source is GPT, user should input wakeup timeout value. */
+        /* Wakeup source is timer, user should input wakeup timeout value. */
         s_wakeupTimeout = APP_GetWakeupTimeout();
         PRINTF("Will wakeup in %d seconds.\r\n", s_wakeupTimeout);
     }
@@ -170,24 +245,54 @@ static void APP_GetWakeupConfig(lpm_power_mode_t targetMode)
 
 static void APP_SetWakeupConfig(lpm_power_mode_t targetMode)
 {
-    /* Set GPT timeout value. */
-    if (kAPP_WakeupSourceGPT == s_wakeupSource)
+    /* Set timer timeout value. */
+    if (kAPP_WakeupSourceTimer == s_wakeupSource)
     {
-        GPT_StopTimer(APP_WAKEUP_GPT_BASE);
-        /* Update compare channel1 value will reset counter */
-        GPT_SetOutputCompareValue(APP_WAKEUP_GPT_BASE, kGPT_OutputCompare_Channel1,
-                                  (CLOCK_GetRtcFreq() * s_wakeupTimeout) - 1U);
+        /* GPT can not work in SNVS mode, so we set SRTC as the wakeup source. */
+        if (targetMode == LPM_PowerModeSNVS)
+        {
+            /* Stop SRTC time counter */
+            SNVS->LPCR &= ~SNVS_LPCR_SRTC_ENV_MASK;
+            while ((SNVS->LPCR & SNVS_LPCR_SRTC_ENV_MASK))
+            {
+            }
+            /* Disable SRTC alarm interrupt */
+            SNVS->LPCR &= ~SNVS_LPCR_LPTA_EN_MASK;
+            while ((SNVS->LPCR & SNVS_LPCR_LPTA_EN_MASK))
+            {
+            }
 
-        /* Enable GPT Output Compare1 interrupt */
-        GPT_EnableInterrupts(APP_WAKEUP_GPT_BASE, kGPT_OutputCompare1InterruptEnable);
-        NVIC_ClearPendingIRQ(APP_WAKEUP_GPT_IRQn);
-        NVIC_SetPriority(APP_WAKEUP_GPT_IRQn, configMAX_SYSCALL_INTERRUPT_PRIORITY + 2);
-        EnableIRQ(APP_WAKEUP_GPT_IRQn);
+            SNVS->LPSRTCMR = 0x00;
+            SNVS->LPSRTCLR = 0x00;
+            /* Set alarm in seconds*/
+            SNVS->LPTAR = s_wakeupTimeout;
+            EnableIRQ(APP_WAKEUP_SNVS_IRQ);
+            /* Enable SRTC time counter and alarm interrupt */
+            SNVS->LPCR |= SNVS_LPCR_SRTC_ENV_MASK | SNVS_LPCR_LPTA_EN_MASK;
+            while (!(SNVS->LPCR & SNVS_LPCR_LPTA_EN_MASK))
+            {
+            }
 
-        /* Restart timer */
-        GPT_StartTimer(APP_WAKEUP_GPT_BASE);
+            LPM_EnableWakeupSource(APP_WAKEUP_SNVS_IRQ);
+        }
+        else
+        {
+            GPT_StopTimer(APP_WAKEUP_GPT_BASE);
+            /* Update compare channel1 value will reset counter */
+            GPT_SetOutputCompareValue(APP_WAKEUP_GPT_BASE, kGPT_OutputCompare_Channel1,
+                                      (CLOCK_GetRtcFreq() * s_wakeupTimeout) - 1U);
 
-        LPM_EnableWakeupSource(APP_WAKEUP_GPT_IRQn);
+            /* Enable GPT Output Compare1 interrupt */
+            GPT_EnableInterrupts(APP_WAKEUP_GPT_BASE, kGPT_OutputCompare1InterruptEnable);
+            NVIC_ClearPendingIRQ(APP_WAKEUP_GPT_IRQn);
+            NVIC_SetPriority(APP_WAKEUP_GPT_IRQn, configMAX_SYSCALL_INTERRUPT_PRIORITY + 2);
+            EnableIRQ(APP_WAKEUP_GPT_IRQn);
+
+            /* Restart timer */
+            GPT_StartTimer(APP_WAKEUP_GPT_BASE);
+
+            LPM_EnableWakeupSource(APP_WAKEUP_GPT_IRQn);
+        }
     }
     else
     {
@@ -241,25 +346,15 @@ bool APP_CheckPowerMode(lpm_power_mode_t originPowerMode, lpm_power_mode_t targe
         modeValid = false;
     }
 
-#if (!HAS_WAKEUP_PIN)
-    /* Can't wakeup from SNVS when no wake up pin available. */
-    if (targetPowerMode == LPM_PowerModeSNVS)
-    {
-        modeValid = false;
-    }
-#endif
-
     return modeValid;
 }
 
 void APP_PowerPreSwitchHook(lpm_power_mode_t targetMode)
 {
-#if (HAS_WAKEUP_PIN)
     if (targetMode == LPM_PowerModeSNVS)
     {
         PRINTF("Now shutting down the system...\r\n");
     }
-#endif
 
     if (targetMode > LPM_PowerModeRunEnd)
     {
@@ -341,10 +436,8 @@ static void PowerModeSwitchTask(void *pvParameters)
         PRINTF("Press  %c for enter: Low Power Idle - Low Power Idle mode\r\n",
                (uint8_t)'A' + (uint8_t)LPM_PowerModeLPIdle);
         PRINTF("Press  %c for enter: Suspend        - Suspend mode\r\n", (uint8_t)'A' + (uint8_t)LPM_PowerModeSuspend);
-#if (HAS_WAKEUP_PIN)
         PRINTF("Press  %c for enter: SNVS           - Shutdown the system\r\n",
                (uint8_t)'A' + (uint8_t)LPM_PowerModeSNVS);
-#endif
         PRINTF("\r\nWaiting for power mode select...\r\n\r\n");
 
         /* Wait for user response */
@@ -393,7 +486,6 @@ static void PowerModeSwitchTask(void *pvParameters)
                     APP_SetRunMode(s_targetPowerMode);
                     continue;
                 }
-#if (HAS_WAKEUP_PIN)
                 else if (LPM_PowerModeSNVS == s_targetPowerMode)
                 {
                     APP_GetWakeupConfig(s_targetPowerMode);
@@ -401,7 +493,6 @@ static void PowerModeSwitchTask(void *pvParameters)
                     APP_PowerPreSwitchHook(s_targetPowerMode);
                     LPM_EnterSNVS();
                 }
-#endif
                 else
                 {
                     APP_GetWakeupConfig(s_targetPowerMode);
@@ -451,10 +542,10 @@ int main(void)
     BOARD_InitBootClocks();
 
     /* When wakeup from suspend, peripheral's doze & stop requests won't be cleared, need to clear them manually */
-    IOMUXC_GPR->GPR4  = 0x00000000;
-    IOMUXC_GPR->GPR7  = 0x00000000;
-    IOMUXC_GPR->GPR8  = 0x00000000;
-    IOMUXC_GPR->GPR12 = 0x00000000;
+    IOMUXC_GPR->GPR4  = 0;
+    IOMUXC_GPR->GPR7  = 0;
+    IOMUXC_GPR->GPR8  = 0;
+    IOMUXC_GPR->GPR12 = 0;
 
     /* Configure UART divider to default */
     CLOCK_SetMux(kCLOCK_UartMux, 1); /* Set UART source to OSC 24M */
@@ -462,6 +553,12 @@ int main(void)
 
     BOARD_InitDebugConsole();
     BOARD_InitBootPeripherals();
+    /* Disable clock gates which are not used in this application. User should modify this function based on application
+     * requirement. */
+    SetLowPowerClockGate();
+    /* USBPHY is not used in this application. */
+    CLOCK_DisableUsbhs0PhyPllClock();
+    PowerDownUSBPHY();
 
     PRINTF("\r\nCPU wakeup source 0x%x...\r\n", SRC->SRSR);
 

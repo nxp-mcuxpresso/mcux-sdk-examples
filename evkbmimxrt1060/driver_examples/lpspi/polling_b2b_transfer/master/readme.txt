@@ -10,7 +10,7 @@ The file 'lpspi_polling_b2b_transfer_master.c' includes the LPSPI master code.
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================
@@ -20,7 +20,7 @@ Hardware requirements
 
 Board settings
 ==============
-Remove the resistor R347,R348,R349,R351,R363,R364,R365,R366.
+Remove the resistor R347,R348,R349,R351,R363,R364,R365.
 Weld 0Ω resistor to R346,R350,R356,R362.
 
 SPI one board:
@@ -80,3 +80,6 @@ LPSPI transfer all data matched!
  21 22 23 24 25 26 27 28 29 2A 2B 2C 2D 2E 2F 30
  31 32 33 34 35 36 37 38 39 3A 3B 3C 3D 3E 3F 40
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Note: Please ensure not to insert any SD CARD device on two boards
+

@@ -61,6 +61,7 @@ uint8_t imageData[LENET_MNIST_INPUT_SIZE] = {
 int main(void) {
 
   // Initialize hardware.
+  BOARD_ConfigMPU();
   BOARD_InitBootPins();
   BOARD_InitBootClocks();
   BOARD_InitBootPeripherals();

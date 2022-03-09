@@ -15,6 +15,7 @@
 #include "fsl_lpadc.h"
 
 #include "fsl_power.h"
+#include "fsl_anactrl.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -101,6 +102,9 @@ int main(void)
 
     /* Disable LDOGPADC power down */
     POWER_DisablePD(kPDRUNCFG_PD_LDOGPADC);
+
+    ANACTRL_Init(ANACTRL);
+    ANACTRL_EnableVref1V(ANACTRL, true);
     PRINTF("LPADC DMA Example\r\n");
 
     /* Configure peripherals. */

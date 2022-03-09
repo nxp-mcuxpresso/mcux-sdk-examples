@@ -75,7 +75,7 @@ include(driver_gpio)
 
 include(driver_port)
 
-include(driver_edma)
+include(driver_edma_MK66F18)
 
 include(driver_dmamux)
 

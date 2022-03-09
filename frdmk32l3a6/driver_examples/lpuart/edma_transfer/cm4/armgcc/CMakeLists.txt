@@ -61,7 +61,7 @@ include(utility_assert_lite)
 
 include(driver_port)
 
-include(driver_edma)
+include(driver_edma_K32L3A60_cm4)
 
 include(driver_dmamux)
 

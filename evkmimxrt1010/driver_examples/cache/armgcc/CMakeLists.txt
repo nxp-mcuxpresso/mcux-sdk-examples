@@ -55,7 +55,7 @@ set(CMAKE_MODULE_PATH
 include(all_devices)
 
 # include modules
-include(driver_edma)
+include(driver_edma_MIMXRT1011)
 
 include(driver_cache_armv7_m7)
 

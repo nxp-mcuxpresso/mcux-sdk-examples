@@ -31,23 +31,23 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
+"${ProjDirPath}/../board.c"
+"${ProjDirPath}/../board.h"
+"${ProjDirPath}/../clock_config.c"
+"${ProjDirPath}/../clock_config.h"
 "${ProjDirPath}/../main_master.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../rpmsg_config.h"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1170/board.c"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1170/board.h"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1170/clock_config.c"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1170/clock_config.h"
 "${ProjDirPath}/../../../../../../core/boards/evkmimxrt1170/dcd.c"
 "${ProjDirPath}/../../../../../../core/boards/evkmimxrt1170/dcd.h"
 "${ProjDirPath}/../evkmimxrt1170_connect_cm4_cm7side.jlinkscript"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+    ${ProjDirPath}/../../../../../../core/boards/evkmimxrt1170
     ${ProjDirPath}/..
     ${ProjDirPath}/../../../../../../examples/evkmimxrt1170/multicore_examples/rpmsg_lite_pingpong/cm7
-    ${ProjDirPath}/../../../../../../core/boards/evkmimxrt1170
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
@@ -70,6 +70,10 @@ include(all_devices)
 include(middleware_multicore_mcmgr_imxrt1170)
 
 include(middleware_multicore_rpmsg_lite_imxrt1170_bm)
+
+include(middleware_multicore_rpmsg_lite_MIMXRT1176_cm7)
+
+include(middleware_multicore_rpmsg_lite_bm)
 
 include(utility_debug_console_lite)
 
@@ -114,8 +118,6 @@ include(driver_cache_armv7_m7)
 include(driver_anatop_ai)
 
 include(CMSIS_Include_core_cm)
-
-include(middleware_multicore_rpmsg_lite)
 
 include(utilities_misc_utilities)
 

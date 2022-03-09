@@ -44,6 +44,7 @@ BOARD_InitPins:
     open_drain: Disable, drive_strength: Normal, slew_rate: Slow}
   - {pin_num: L13, peripheral: LPUART1, signal: TXD, pin_signal: GPIO_AD_24, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper, open_drain: Disable, drive_strength: Normal,
     slew_rate: Slow}
+  - {pin_num: N13, peripheral: LPADC1, signal: 'A, 1_0', pin_signal: GPIO_AD_06, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -80,6 +81,16 @@ void BOARD_InitPins(void) {
                                                  Open Drain Field: Disabled
                                                  Domain write protection: Both cores are allowed
                                                  Domain write protection lock: Neither of DWP bits is locked */
+  IOMUXC_SetPinConfig(
+      IOMUXC_GPIO_AD_06_GPIO_MUX3_IO05,       /* GPIO_AD_06 PAD functional properties : */
+      0x02U);                                 /* Slew Rate Field: Slow Slew Rate
+                                                 Drive Strength Field: high drive strength
+                                                 Pull / Keep Select Field: Pull Disable, Highz
+                                                 Pull Up / Down Config. Field: Weak pull down
+                                                 Open Drain Field: Disabled
+                                                 Domain write protection: Both cores are allowed
+                                                 Domain write protection lock: Neither of DWP bits is locked */
+
 }
 
 /***********************************************************************************************************************

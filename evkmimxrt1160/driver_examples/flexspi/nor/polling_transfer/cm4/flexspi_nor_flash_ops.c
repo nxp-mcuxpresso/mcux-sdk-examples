@@ -30,6 +30,7 @@ extern const uint32_t customLUT[CUSTOM_LUT_LENGTH];
 /*******************************************************************************
  * Code
  ******************************************************************************/
+#if (defined CACHE_MAINTAIN) && (CACHE_MAINTAIN == 1)
 void flexspi_nor_disable_cache(flexspi_cache_status_t *cacheStatus)
 {
 #if (defined __CORTEX_M) && (__CORTEX_M == 7U)
@@ -51,7 +52,7 @@ void flexspi_nor_disable_cache(flexspi_cache_status_t *cacheStatus)
     }
 #endif /* __ICACHE_PRESENT */
 
-#elif (defined __CORTEX_M) && (__CORTEX_M == 4U)
+#elif (defined FSL_FEATURE_SOC_LMEM_COUNT) && (FSL_FEATURE_SOC_LMEM_COUNT != 0U)
     /* Disable code bus cache and system bus cache */
     if (LMEM_PCCCR_ENCACHE_MASK == (LMEM_PCCCR_ENCACHE_MASK & LMEM->PCCCR))
     {
@@ -63,6 +64,11 @@ void flexspi_nor_disable_cache(flexspi_cache_status_t *cacheStatus)
         L1CACHE_DisableSystemCache();
         cacheStatus->systemCacheEnableFlag = true;
     }
+
+#elif (defined FSL_FEATURE_SOC_CACHE64_CTRL_COUNT) && (FSL_FEATURE_SOC_CACHE64_CTRL_COUNT != 0U)
+    /* Disable cache */
+    CACHE64_DisableCache(EXAMPLE_CACHE);
+    cacheStatus->CacheEnableFlag = true;
 #endif
 }
 
@@ -85,7 +91,7 @@ void flexspi_nor_enable_cache(flexspi_cache_status_t cacheStatus)
     }
 #endif /* __ICACHE_PRESENT */
 
-#elif (defined __CORTEX_M) && (__CORTEX_M == 4U)
+#elif (defined FSL_FEATURE_SOC_LMEM_COUNT) && (FSL_FEATURE_SOC_LMEM_COUNT != 0U)
     if (cacheStatus.codeCacheEnableFlag)
     {
         /* Enable code cache. */
@@ -97,8 +103,16 @@ void flexspi_nor_enable_cache(flexspi_cache_status_t cacheStatus)
         /* Enable system cache. */
         L1CACHE_EnableSystemCache();
     }
+
+#elif (defined FSL_FEATURE_SOC_CACHE64_CTRL_COUNT) && (FSL_FEATURE_SOC_CACHE64_CTRL_COUNT != 0U)
+    if (cacheStatus.CacheEnableFlag)
+    {
+        /* Enable cache. */
+        CACHE64_EnableCache(EXAMPLE_CACHE);
+    }
 #endif
 }
+#endif
 
 status_t flexspi_nor_write_enable(FLEXSPI_Type *base, uint32_t baseAddr)
 {
@@ -107,7 +121,7 @@ status_t flexspi_nor_write_enable(FLEXSPI_Type *base, uint32_t baseAddr)
 
     /* Write enable */
     flashXfer.deviceAddress = baseAddr;
-    flashXfer.port          = kFLEXSPI_PortA1;
+    flashXfer.port          = FLASH_PORT;
     flashXfer.cmdType       = kFLEXSPI_Command;
     flashXfer.SeqNumber     = 1;
     flashXfer.seqIndex      = NOR_CMD_LUT_SEQ_IDX_WRITEENABLE;
@@ -126,7 +140,7 @@ status_t flexspi_nor_wait_bus_busy(FLEXSPI_Type *base)
     flexspi_transfer_t flashXfer;
 
     flashXfer.deviceAddress = 0;
-    flashXfer.port          = kFLEXSPI_PortA1;
+    flashXfer.port          = FLASH_PORT;
     flashXfer.cmdType       = kFLEXSPI_Read;
     flashXfer.SeqNumber     = 1;
     flashXfer.seqIndex      = NOR_CMD_LUT_SEQ_IDX_READSTATUSREG;
@@ -190,7 +204,7 @@ status_t flexspi_nor_enable_quad_mode(FLEXSPI_Type *base)
 
     /* Enable quad mode. */
     flashXfer.deviceAddress = 0;
-    flashXfer.port          = kFLEXSPI_PortA1;
+    flashXfer.port          = FLASH_PORT;
     flashXfer.cmdType       = kFLEXSPI_Write;
     flashXfer.SeqNumber     = 1;
     flashXfer.seqIndex      = NOR_CMD_LUT_SEQ_IDX_WRITESTATUSREG;
@@ -215,6 +229,57 @@ status_t flexspi_nor_enable_quad_mode(FLEXSPI_Type *base)
     return status;
 }
 
+#if defined(NOR_CMD_LUT_SEQ_IDX_SETREADPARAMETER) && NOR_CMD_LUT_SEQ_IDX_SETREADPARAMETER
+status_t flexspi_nor_set_read_parameter(
+    FLEXSPI_Type *base, uint8_t burstLength, bool enableWrap, uint8_t dummyCycle, bool resetPinSelected)
+{
+    flexspi_transfer_t flashXfer;
+    status_t status;
+    uint32_t readParameterRegVal = ((uint32_t)resetPinSelected << RESET_PIN_SELECTED_REG_SHIFT) |
+                                   ((uint32_t)dummyCycle << DUMMY_CYCLES_REG_SHIFT) |
+                                   ((uint32_t)enableWrap << WRAP_ENABLE_REG_SHIFT) |
+                                   ((uint32_t)burstLength << BURST_LEGNTH_REG_SHIFT);
+
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    flexspi_cache_status_t cacheStatus;
+    flexspi_nor_disable_cache(&cacheStatus);
+#endif
+
+    /* Write enable */
+    status = flexspi_nor_write_enable(base, 0);
+
+    if (status != kStatus_Success)
+    {
+        return status;
+    }
+
+    flashXfer.deviceAddress = 0;
+    flashXfer.port          = FLASH_PORT;
+    flashXfer.cmdType       = kFLEXSPI_Write;
+    flashXfer.SeqNumber     = 1;
+    flashXfer.seqIndex      = NOR_CMD_LUT_SEQ_IDX_SETREADPARAMETER;
+    flashXfer.data          = &readParameterRegVal;
+    flashXfer.dataSize      = 1;
+
+    status = FLEXSPI_TransferBlocking(base, &flashXfer);
+    if (status != kStatus_Success)
+    {
+        return status;
+    }
+
+    status = flexspi_nor_wait_bus_busy(base);
+
+    /* Do software reset. */
+    FLEXSPI_SoftwareReset(base);
+
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    flexspi_nor_enable_cache(cacheStatus);
+#endif
+
+    return status;
+}
+#endif
+
 status_t flexspi_nor_flash_erase_sector(FLEXSPI_Type *base, uint32_t address)
 {
     status_t status;
@@ -227,7 +292,7 @@ status_t flexspi_nor_flash_erase_sector(FLEXSPI_Type *base, uint32_t address)
 
     /* Write enable */
     flashXfer.deviceAddress = address;
-    flashXfer.port          = kFLEXSPI_PortA1;
+    flashXfer.port          = FLASH_PORT;
     flashXfer.cmdType       = kFLEXSPI_Command;
     flashXfer.SeqNumber     = 1;
     flashXfer.seqIndex      = NOR_CMD_LUT_SEQ_IDX_WRITEENABLE;
@@ -240,7 +305,7 @@ status_t flexspi_nor_flash_erase_sector(FLEXSPI_Type *base, uint32_t address)
     }
 
     flashXfer.deviceAddress = address;
-    flashXfer.port          = kFLEXSPI_PortA1;
+    flashXfer.port          = FLASH_PORT;
     flashXfer.cmdType       = kFLEXSPI_Command;
     flashXfer.SeqNumber     = 1;
     flashXfer.seqIndex      = NOR_CMD_LUT_SEQ_IDX_ERASESECTOR;
@@ -283,7 +348,7 @@ status_t flexspi_nor_flash_program(FLEXSPI_Type *base, uint32_t dstAddr, const u
 
     /* Prepare page program command */
     flashXfer.deviceAddress = dstAddr;
-    flashXfer.port          = kFLEXSPI_PortA1;
+    flashXfer.port          = FLASH_PORT;
     flashXfer.cmdType       = kFLEXSPI_Write;
     flashXfer.SeqNumber     = 1;
     flashXfer.seqIndex      = NOR_CMD_LUT_SEQ_IDX_PAGEPROGRAM_QUAD;
@@ -343,7 +408,7 @@ status_t flexspi_nor_flash_page_program(FLEXSPI_Type *base, uint32_t dstAddr, co
 
     /* Prepare page program command */
     flashXfer.deviceAddress = dstAddr;
-    flashXfer.port          = kFLEXSPI_PortA1;
+    flashXfer.port          = FLASH_PORT;
     flashXfer.cmdType       = kFLEXSPI_Write;
     flashXfer.SeqNumber     = 1;
     flashXfer.seqIndex      = NOR_CMD_LUT_SEQ_IDX_PAGEPROGRAM_QUAD;
@@ -379,7 +444,7 @@ status_t flexspi_nor_get_vendor_id(FLEXSPI_Type *base, uint8_t *vendorId)
     uint32_t temp;
     flexspi_transfer_t flashXfer;
     flashXfer.deviceAddress = 0;
-    flashXfer.port          = kFLEXSPI_PortA1;
+    flashXfer.port          = FLASH_PORT;
     flashXfer.cmdType       = kFLEXSPI_Read;
     flashXfer.SeqNumber     = 1;
     flashXfer.seqIndex      = NOR_CMD_LUT_SEQ_IDX_READID;
@@ -421,7 +486,7 @@ status_t flexspi_nor_erase_chip(FLEXSPI_Type *base)
     }
 
     flashXfer.deviceAddress = 0;
-    flashXfer.port          = kFLEXSPI_PortA1;
+    flashXfer.port          = FLASH_PORT;
     flashXfer.cmdType       = kFLEXSPI_Command;
     flashXfer.SeqNumber     = 1;
     flashXfer.seqIndex      = NOR_CMD_LUT_SEQ_IDX_ERASECHIP;
@@ -461,11 +526,11 @@ void flexspi_nor_flash_init(FLEXSPI_Type *base)
     config.ahbConfig.enableAHBBufferable  = true;
     config.ahbConfig.enableReadAddressOpt = true;
     config.ahbConfig.enableAHBCachable    = true;
-    config.rxSampleClock                  = kFLEXSPI_ReadSampleClkLoopbackFromDqsPad;
+    config.rxSampleClock                  = EXAMPLE_FLEXSPI_RX_SAMPLE_CLOCK;
     FLEXSPI_Init(base, &config);
 
     /* Configure flash settings according to serial flash feature. */
-    FLEXSPI_SetFlashConfig(base, &deviceconfig, kFLEXSPI_PortA1);
+    FLEXSPI_SetFlashConfig(base, &deviceconfig, FLASH_PORT);
 
     /* Update LUT table. */
     FLEXSPI_UpdateLUT(base, 0, customLUT, CUSTOM_LUT_LENGTH);

@@ -49,8 +49,9 @@ __attribute__((cmse_nonsecure_entry)) struct rpmsg_lite_endpoint *rpmsg_lite_cre
     uint32_t addr, struct rpmsg_lite_endpoint_callback_descr_ns *ept_callback_descr)
 {
 #if defined(RL_USE_STATIC_API) && (RL_USE_STATIC_API == 1)
-    /* Due to the bug in GCC 10 cmse_check_pointed_object() always fail, do not call it, see GCC Bugzilla - Bug 99157 */
-#if (__GNUC__ != 10)
+    /* Due to the bug in GCC 10 cmse_check_pointed_object() always fail, do not call it, see GCC Bugzilla - Bug 99157.
+       Solved in GCC 10.3 version */
+#if !((__GNUC__ == 10) && (__GNUC_MINOR__ < 3))
     if (cmse_check_pointed_object(ept_callback_descr, CMSE_NONSECURE) != NULL)
     {
         return rpmsg_lite_create_ept(rpmsg_lite_instance_s, addr, ept_read_cb_s, ept_callback_descr, &ept_context_s);
@@ -63,10 +64,11 @@ __attribute__((cmse_nonsecure_entry)) struct rpmsg_lite_endpoint *rpmsg_lite_cre
     }
 #else
     return rpmsg_lite_create_ept(rpmsg_lite_instance_s, addr, ept_read_cb_s, ept_callback_descr, &ept_context_s);
-#endif /* (__GNUC__ != 10) */
+#endif /* !((__GNUC__ == 10) && (__GNUC_MINOR__ < 3)) */
 #else
-    /* Due to the bug in GCC 10 cmse_check_pointed_object() always fail, do not call it, see GCC Bugzilla - Bug 99157 */
-#if (__GNUC__ != 10)
+    /* Due to the bug in GCC 10 cmse_check_pointed_object() always fail, do not call it, see GCC Bugzilla - Bug 99157.
+       Solved in GCC 10.3 version */
+#if !((__GNUC__ == 10) && (__GNUC_MINOR__ < 3))
     if (cmse_check_pointed_object(ept_callback_descr, CMSE_NONSECURE) != NULL))
         {
             return rpmsg_lite_create_ept(rpmsg_lite_instance_s, addr, ept_read_cb_s, ept_callback_descr);
@@ -79,7 +81,7 @@ __attribute__((cmse_nonsecure_entry)) struct rpmsg_lite_endpoint *rpmsg_lite_cre
     }
 #else
     return rpmsg_lite_create_ept(rpmsg_lite_instance_s, addr, ept_read_cb_s, ept_callback_descr);
-#endif /* (__GNUC__ != 10) */
+#endif /* !((__GNUC__ == 10) && (__GNUC_MINOR__ < 3)) */
 #endif /* RL_USE_STATIC_API */
 }
 __attribute__((cmse_nonsecure_entry)) int32_t rpmsg_lite_destroy_ept_nse(struct rpmsg_lite_endpoint *rl_ept)
@@ -91,8 +93,9 @@ __attribute__((cmse_nonsecure_entry)) int32_t rpmsg_lite_send_nse(struct rpmsg_l
                                                                   struct rpmsg_lite_send_params_ns *message_params,
                                                                   uint32_t timeout)
 {
-    /* Due to the bug in GCC 10 cmse_check_pointed_object() always fail, do not call it, see GCC Bugzilla - Bug 99157 */
-#if (__GNUC__ != 10)
+    /* Due to the bug in GCC 10 cmse_check_pointed_object() always fail, do not call it, see GCC Bugzilla - Bug 99157.
+       Solved in GCC 10.3 version */
+#if !((__GNUC__ == 10) && (__GNUC_MINOR__ < 3))
     if (cmse_check_pointed_object(message_params, CMSE_NONSECURE) != NULL)
     {
         return rpmsg_lite_send(rpmsg_lite_instance_s, ept, message_params->dst, message_params->data,
@@ -107,7 +110,7 @@ __attribute__((cmse_nonsecure_entry)) int32_t rpmsg_lite_send_nse(struct rpmsg_l
 #else
     return rpmsg_lite_send(rpmsg_lite_instance_s, ept, message_params->dst, message_params->data, message_params->size,
                            timeout);
-#endif /* (__GNUC__ != 10) */
+#endif /* !((__GNUC__ == 10) && (__GNUC_MINOR__ < 3)) */
 }
 __attribute__((cmse_nonsecure_entry)) void DbgConsole_Printf_NSE(char const *s)
 {
@@ -123,14 +126,15 @@ __attribute__((cmse_nonsecure_entry)) void DbgConsole_Printf_NSE(char const *s)
     }
 
     /* Check whether string is located in non-secure memory */
-    /* Due to the bug in GCC 10 cmse_check_address_range() always fail, do not call it, see GCC Bugzilla - Bug 99157 */
-#if (__GNUC__ != 10)
+    /* Due to the bug in GCC 10 cmse_check_address_range() always fail, do not call it, see GCC Bugzilla - Bug 99157.
+       Solved in GCC 10.3 version */
+#if !((__GNUC__ == 10) && (__GNUC_MINOR__ < 3))
     if (cmse_check_address_range((void *)s, string_length, CMSE_NONSECURE | CMSE_MPU_READ) == NULL)
     {
         PRINTF("String is not located in normal world!\r\n");
         for (;;)
             ;
     }
-#endif
+#endif /* !((__GNUC__ == 10) && (__GNUC_MINOR__ < 3)) */
     PRINTF(s);
 }

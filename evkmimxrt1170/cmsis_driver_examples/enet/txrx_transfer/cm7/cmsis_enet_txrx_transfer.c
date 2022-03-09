@@ -10,7 +10,6 @@
 /*  SDK Included Files */
 #include "Driver_ETH_MAC.h"
 #include "pin_mux.h"
-#include "clock_config.h"
 #include "board.h"
 #include "fsl_debug_console.h"
 #include "fsl_enet.h"
@@ -21,8 +20,6 @@
 
 #include "fsl_enet_mdio.h"
 #include "fsl_phyrtl8211f.h"
-#include "fsl_gpio.h"
-#include "fsl_iomuxc.h"
 #include "RTE_Device.h"
 /*******************************************************************************
  * Definitions
@@ -36,6 +33,13 @@
 #define EXAMPLE_PHY_OPS phyrtl8211_ops
 #define ENET_DATA_LENGTH        (1000)
 #define ENET_EXAMPLE_LOOP_COUNT (20U)
+
+/* @TEST_ANCHOR*/
+
+#ifndef MAC_ADDRESS
+#define MAC_ADDRESS {0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x61}
+#endif
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -45,7 +49,7 @@
  ******************************************************************************/
 uint8_t g_frame[ENET_DATA_LENGTH + 14];
 volatile uint32_t g_testTxNum  = 0;
-uint8_t g_macAddr[6]           = {0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x61};
+uint8_t g_macAddr[6]           = MAC_ADDRESS;
 volatile uint32_t g_rxIndex    = 0;
 volatile uint32_t g_rxCheckIdx = 0;
 volatile uint32_t g_txCheckIdx = 0;
@@ -62,8 +66,6 @@ uint32_t ENET0_GetFreq(void)
 
 void BOARD_InitModuleClock(void)
 {
-    /* Select syspll2pfd3, 528*18/24 = 396M */
-    CLOCK_InitPfd(kCLOCK_PllSys2, kCLOCK_Pfd3, 24);
     const clock_sys_pll1_config_t sysPll1Config = {
         .pllDiv2En = true,
     };
@@ -71,9 +73,6 @@ void BOARD_InitModuleClock(void)
     clock_root_config_t rootCfg = {.mux = 4, .div = 4}; /* Generate 125M root clock. */
     CLOCK_SetRootClock(kCLOCK_Root_Enet2, &rootCfg);
 
-    rootCfg.mux = 7;
-    rootCfg.div = 2;
-    CLOCK_SetRootClock(kCLOCK_Root_Bus, &rootCfg); /* Generate 198M bus clock. */
     mdioHandle.resource.csrClock_Hz = ENET0_GetFreq();
 }
 

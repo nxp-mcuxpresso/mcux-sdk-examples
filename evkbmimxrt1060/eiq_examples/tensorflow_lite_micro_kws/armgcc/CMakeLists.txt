@@ -71,6 +71,7 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/common/audio
     ${ProjDirPath}/../../../../../middleware/eiq/common/audio
     ${ProjDirPath}/../../../../../middleware/eiq/common/model
+    ${ProjDirPath}/../../../../../middleware/eiq/common
 )
 
 #path for entry cmake
@@ -106,6 +107,8 @@ include(utility_assert_lite)
 
 include(middleware_eiq_worker_audio)
 
+include(CMSIS_DSP_Library)
+
 include(middleware_eiq_tensorflow_lite_micro)
 
 include(component_lists)
@@ -134,7 +137,7 @@ include(middleware_eiq_tensorflow_lite_micro_cmsis_nn)
 
 include(CMSIS_Include_core_cm)
 
-include(driver_edma)
+include(driver_edma_MIMXRT1062)
 
 include(middleware_eiq_worker)
 
@@ -149,8 +152,6 @@ include(utilities_misc_utilities)
 include(device_system)
 
 include(middleware_eiq_tensorflow_lite_micro_third_party_cmsis_nn)
-
-include(CMSIS_DSP_Library)
 
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)

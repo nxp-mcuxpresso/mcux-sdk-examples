@@ -9,7 +9,7 @@ ADC16 results to memory and if users press any key, demo will average ADC16 resu
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================

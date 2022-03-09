@@ -3,15 +3,15 @@
 **     Processors:          MIMXRT595SFAWC_cm33
 **                          MIMXRT595SFFOC_cm33
 **     Compiler:            GNU C Compiler
-**     Reference manual:    RT500 Reference Manual. Rev.A, 3/2020
-**     Version:             rev. 3.0, 2019-12-10
-**     Build:               b200423
+**     Reference manual:    iMXRT500RM Rev.0, 01/2021
+**     Version:             rev. 5.0, 2021-07-28
+**     Build:               b210728
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2020 NXP
+**     Copyright 2016-2021 NXP
 **     All rights reserved.
 **
 **     SPDX-License-Identifier: BSD-3-Clause
@@ -40,7 +40,7 @@ MEMORY
   m_flash_config        (RX)  : ORIGIN = 0x08000400, LENGTH = 0x00000200
   m_interrupts          (RX)  : ORIGIN = 0x08001000, LENGTH = 0x00000180
   m_text                (RX)  : ORIGIN = 0x08001180, LENGTH = 0x001FEE80
-  m_data                (RW)  : ORIGIN = 0x20080000, LENGTH = 0x00280000
+  m_data                (RW)  : ORIGIN = 0x20280000, LENGTH = 0x00280000
   m_usb_sram            (RW)  : ORIGIN = 0x40140000, LENGTH = 0x00004000
 }
 

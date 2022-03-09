@@ -41,7 +41,7 @@ void BOARD_InitBootPins(void)
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitPins:
-- options: {callFromInitBoot: 'true', coreID: m7}
+- options: {callFromInitBoot: 'true', coreID: cm7}
 - pin_list:
   - {pin_num: AJ5, peripheral: UART4, signal: uart_rx, pin_signal: UART4_RXD, PE: Enabled, PUE: Weak_Pull_Up, DSE: X1}
   - {pin_num: AH5, peripheral: UART4, signal: uart_tx, pin_signal: UART4_TXD, PE: Enabled, PUE: Weak_Pull_Up, DSE: X1}
@@ -69,7 +69,7 @@ void BOARD_InitPins(void) {                                /*!< Function assigne
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 ECSPI2_DeinitPins:
-- options: {callFromInitBoot: 'false', coreID: m7}
+- options: {callFromInitBoot: 'false', coreID: cm7}
 - pin_list:
   - {pin_num: AH21, peripheral: GPIO5, signal: 'gpio_io, 10', pin_signal: ECSPI2_SCLK}
   - {pin_num: AJ21, peripheral: GPIO5, signal: 'gpio_io, 11', pin_signal: ECSPI2_MOSI}
@@ -95,7 +95,7 @@ void ECSPI2_DeinitPins(void) {                             /*!< Function assigne
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 ECSPI2_InitPins:
-- options: {callFromInitBoot: 'false', coreID: m7}
+- options: {callFromInitBoot: 'false', coreID: cm7}
 - pin_list:
   - {pin_num: AH20, peripheral: ECSPI2, signal: ecspi_miso, pin_signal: ECSPI2_MISO, PE: Disabled, HYS: Schmitt, FSEL: Slow, DSE: X2}
   - {pin_num: AJ21, peripheral: ECSPI2, signal: ecspi_mosi, pin_signal: ECSPI2_MOSI, PE: Disabled, HYS: Schmitt, DSE: X2}

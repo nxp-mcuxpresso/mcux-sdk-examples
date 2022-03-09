@@ -18,10 +18,11 @@
 #define APP_ELCDIF_IRQHandler eLCDIF_IRQHandler
 
 #define MIPI_PANEL_RK055AHD091 0 /* 720 * 1280 */
-#define MIPI_PANEL_RK055IQH091 1 /* 540 * 960 */
+#define MIPI_PANEL_RK055IQH091 1 /* 540 * 960  */
+#define MIPI_PANEL_RK055MHD091 2 /* 720 * 1280 */
 
 #ifndef USE_MIPI_PANEL
-#define USE_MIPI_PANEL MIPI_PANEL_RK055AHD091
+#define USE_MIPI_PANEL MIPI_PANEL_RK055MHD091
 #endif
 
 #if (USE_MIPI_PANEL == MIPI_PANEL_RK055AHD091)
@@ -30,6 +31,15 @@
 #define APP_HSW          8
 #define APP_HFP          32
 #define APP_HBP          32
+#define APP_VSW          2
+#define APP_VFP          16
+#define APP_VBP          14
+#elif (USE_MIPI_PANEL == MIPI_PANEL_RK055MHD091)
+#define APP_PANEL_HEIGHT 1280
+#define APP_PANEL_WIDTH  720
+#define APP_HSW          6
+#define APP_HFP          12
+#define APP_HBP          24
 #define APP_VSW          2
 #define APP_VFP          16
 #define APP_VBP          14

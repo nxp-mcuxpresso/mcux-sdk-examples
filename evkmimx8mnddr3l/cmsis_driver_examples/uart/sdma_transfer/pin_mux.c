@@ -40,7 +40,7 @@ void BOARD_InitBootPins(void)
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitPins:
-- options: {callFromInitBoot: 'true', coreID: m7}
+- options: {callFromInitBoot: 'true', coreID: cm7}
 - pin_list: []
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -58,7 +58,7 @@ void BOARD_InitPins(void) {                                /*!< Function assigne
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 UART4_DeinitPins:
-- options: {callFromInitBoot: 'false', coreID: m7}
+- options: {callFromInitBoot: 'false', coreID: cm7}
 - pin_list:
   - {pin_num: F19, peripheral: GPIO5, signal: 'gpio_io, 28', pin_signal: UART4_RXD}
   - {pin_num: F18, peripheral: GPIO5, signal: 'gpio_io, 29', pin_signal: UART4_TXD}
@@ -80,7 +80,7 @@ void UART4_DeinitPins(void) {                              /*!< Function assigne
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 UART4_InitPins:
-- options: {callFromInitBoot: 'false', coreID: m7}
+- options: {callFromInitBoot: 'false', coreID: cm7}
 - pin_list:
   - {pin_num: F19, peripheral: UART4, signal: uart_rx, pin_signal: UART4_RXD, PE: Disabled, FSEL: FAST0, DSE: X6_0}
   - {pin_num: F18, peripheral: UART4, signal: uart_tx, pin_signal: UART4_TXD, PE: Disabled, FSEL: FAST0, DSE: X6_0}

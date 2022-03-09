@@ -65,7 +65,7 @@ include(driver_dspi)
 
 include(driver_dspi_edma)
 
-include(driver_edma)
+include(driver_edma_MKV31F51212)
 
 include(driver_dmamux)
 

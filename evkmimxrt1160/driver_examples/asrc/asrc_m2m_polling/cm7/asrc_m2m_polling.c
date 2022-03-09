@@ -66,6 +66,12 @@
 /* demo audio bit width */
 #define DEMO_AUDIO_BIT_WIDTH          kSAI_WordWidth16bits
 #define DEMO_ASRC_CONVERT_BUFFER_SIZE (100 * 1000U)
+#ifndef DEMO_ASRC_INPUT_CLOCK_SOURCE
+#define DEMO_ASRC_INPUT_CLOCK_SOURCE kASRC_ClockSourceBitClock0_SAI1_TX
+#endif
+#ifndef DEMO_ASRC_OUTPUT_CLOCK_SOURCE
+#define DEMO_ASRC_OUTPUT_CLOCK_SOURCE kASRC_ClockSourceBitClock0_SAI1_TX
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -91,9 +97,9 @@ codec_handle_t codecHandle;
 uint8_t asrcConvertBuffer[DEMO_ASRC_CONVERT_BUFFER_SIZE] = {0U};
 asrc_channel_pair_config_t s_asrcChannelPairConfig       = {
     .audioDataChannels         = kASRC_ChannelsNumber2,
-    .inClockSource             = kASRC_ClockSourceBitClock0,
+    .inClockSource             = DEMO_ASRC_INPUT_CLOCK_SOURCE,
     .inSourceClock_Hz          = DEMO_ASRC_OUTPUT_SOURCE_CLOCK_HZ,
-    .outClockSource            = kASRC_ClockSourceBitClock0,
+    .outClockSource            = DEMO_ASRC_OUTPUT_CLOCK_SOURCE,
     .outSourceClock_Hz         = DEMO_ASRC_OUTPUT_SOURCE_CLOCK_HZ,
     .sampleRateRatio           = kASRC_RatioUseInternalMeasured,
     .inDataWidth               = kASRC_DataWidth16Bit,

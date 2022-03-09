@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2020 NXP
+ * Copyright 2021 NXP
  * All rights reserved.
  *
  *
@@ -32,9 +32,6 @@ void ClockSetToLowSpeedRun(void);
 void ClockSetToLowPowerRun(void);
 void ClockSetToSystemIdle(void);
 void ClockSetToLowPowerIdle(void);
-
-AT_QUICKACCESS_SECTION_CODE(void SetLowPowerClockGate(void));
-void PowerDownUSBPHY(void);
 void ConfigUartRxPinToGpio(void);
 void ReConfigUartRxPin(void);
 void PeripheralEnterDozeMode(void);

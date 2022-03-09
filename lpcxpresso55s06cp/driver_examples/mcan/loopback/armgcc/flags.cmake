@@ -152,6 +152,8 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -Xlinker \
     -Map=output.map \
     -Wl,--print-memory-usage \
+    -Xlinker \
+    --sort-section=alignment \
     -T${ProjDirPath}/LPC5506CPXXXX_flash.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
@@ -180,5 +182,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -Xlinker \
     -Map=output.map \
     -Wl,--print-memory-usage \
+    -Xlinker \
+    --sort-section=alignment \
     -T${ProjDirPath}/LPC5506CPXXXX_flash.ld -static \
 ")

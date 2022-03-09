@@ -14,7 +14,7 @@ TEST 5: Invalid data access from normal world, example 2
 
 Toolchain supported
 ===================
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 - GCC ARM Embedded  10.2.1
 
 Hardware requirements
@@ -111,11 +111,11 @@ Welcome in normal world!
 
 Entering HardFault interrupt!
 SCB->BFSR:PRECISERR fault: Precise data access error.
-Address that caused secure bus violation is 0x130000.
+Address that caused secure bus violation is 0x330000.
 
 Additional AHB secure controller error information:
-Secure error at AHB layer 7.
-Address that caused secure violation is 0x20130000.
+Secure error at AHB layer 9.
+Address that caused secure violation is 0x20330000.
 Secure error caused by bus master number 0.
 Security level of master 1.
 Secure error happened during read data access.

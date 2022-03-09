@@ -6,7 +6,7 @@ With an interrupt callback the match value is changed frequently in such a way t
 
 Toolchain supported
 ===================
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 - GCC ARM Embedded  10.2.1
 
 Hardware requirements

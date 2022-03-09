@@ -26,6 +26,7 @@ No special settings are required.
 
 #### Note! ####
 1.  This case does not support ddr and flash target. 
+2.  This case runs together with Linux and the Linux release version should be not lower than 5.10.72-2.2.0.
 
 Prepare the Demo
 ================

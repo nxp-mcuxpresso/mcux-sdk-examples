@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 NXP.
+ * Copyright 2017-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -65,6 +65,15 @@
 #define PHY_STABILITY_DELAY_US (500000U)
 #endif
 
+/* @TEST_ANCHOR */
+
+#ifndef MAC_ADDRESS
+#define MAC_ADDRESS                        \
+    {                                      \
+        0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60 \
+    }
+#endif
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -99,7 +108,7 @@ SDK_ALIGN(uint8_t g_txDataBuff2[ENET_TXBD_NUM][SDK_SIZEALIGN(ENET_TXBUFF_SIZE, A
 enet_handle_t g_handle;
 
 /* The MAC address for ENET device. */
-uint8_t g_macAddr[6] = {0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60};
+uint8_t g_macAddr[6] = MAC_ADDRESS;
 uint8_t g_frame[FSL_FEATURE_ENET_QUEUE][ENET_FRAME_LENGTH];
 uint32_t g_rxIndex       = 0;
 uint32_t g_rxIndex1      = 0;
@@ -110,6 +119,7 @@ uint32_t g_txIndex2      = 0;
 uint32_t g_txCurrentIdx  = 0;
 uint32_t g_txSuccessFlag = false;
 uint32_t g_rxSuccessFlag = false;
+uint32_t g_txMessageOut  = false;
 
 /*! @brief Enet PHY and MDIO interface handler. */
 static mdio_handle_t mdioHandle = {.ops = &EXAMPLE_MDIO_OPS};
@@ -440,13 +450,15 @@ int main(void)
         {
             PRINTF("%d frames transmitted succeed!\r\n", ENET_TRANSMIT_DATA_NUM);
             g_txSuccessFlag = false;
+            g_txMessageOut  = true;
         }
-        if (g_rxSuccessFlag)
+        if (g_txMessageOut && g_rxSuccessFlag)
         {
             PRINTF("%d frames successfully received from the ring 0!\r\n", g_rxIndex);
             PRINTF("%d frames successfully received from the ring 1!\r\n", g_rxIndex1);
             PRINTF("%d frames successfully received from the ring 2!\r\n", g_rxIndex2);
             g_rxSuccessFlag = false;
+            g_txMessageOut  = false;
         }
     }
 }

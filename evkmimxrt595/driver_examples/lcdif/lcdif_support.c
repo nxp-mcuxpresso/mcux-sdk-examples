@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 NXP
+ * Copyright 2019-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -9,9 +9,14 @@
 #include "fsl_power.h"
 #include "fsl_gpio.h"
 #include "fsl_mipi_dsi.h"
-#include "fsl_rm68191.h"
-#include "fsl_rm68200.h"
 #include "lcdif_support.h"
+#if (USE_MIPI_PANEL == MIPI_PANEL_RK055IQH091)
+#include "fsl_rm68191.h"
+#elif (USE_MIPI_PANEL == MIPI_PANEL_RK055AHD091)
+#include "fsl_rm68200.h"
+#elif (USE_MIPI_PANEL == MIPI_PANEL_RK055MHD091)
+#include "fsl_hx8394.h"
+#endif
 
 #if BOARD_ENABLE_PSRAM_CACHE
 /*
@@ -80,6 +85,24 @@ static display_handle_t rm68200Handle = {
     .ops      = &rm68200_ops,
 };
 
+#elif (USE_MIPI_PANEL == MIPI_PANEL_RK055MHD091)
+
+static mipi_dsi_device_t dsiDevice = {
+    .virtualChannel = 0,
+    .xferFunc       = PANEL_DSI_Transfer,
+};
+
+static const hx8394_resource_t hx8394Resource = {
+    .dsiDevice    = &dsiDevice,
+    .pullResetPin = PANEL_PullResetPin,
+    .pullPowerPin = PANEL_PullPowerPin,
+};
+
+static display_handle_t hx8394Handle = {
+    .resource = &hx8394Resource,
+    .ops      = &hx8394_ops,
+};
+
 #else
 
 static mipi_dsi_device_t dsiDevice = {
@@ -112,7 +135,7 @@ void BOARD_InitLcdifClock(void)
      * the RK055AHD091 pixel clock should be 62MHz.
      */
     CLOCK_AttachClk(kAUX0_PLL_to_DCPIXEL_CLK);
-#if (USE_MIPI_PANEL == MIPI_PANEL_RK055AHD091)
+#if ((USE_MIPI_PANEL == MIPI_PANEL_RK055AHD091) || (USE_MIPI_PANEL == MIPI_PANEL_RK055MHD091))
     CLOCK_SetClkDiv(kCLOCK_DivDcPixelClk, 7);
 #else
     CLOCK_SetClkDiv(kCLOCK_DivDcPixelClk, 11);
@@ -154,6 +177,8 @@ static status_t BOARD_InitLcdPanel(void)
 
 #if (USE_MIPI_PANEL == MIPI_PANEL_RK055AHD091)
     status = RM68200_Init(&rm68200Handle, &displayConfig);
+#elif (USE_MIPI_PANEL == MIPI_PANEL_RK055MHD091)
+    status = HX8394_Init(&hx8394Handle, &displayConfig);
 #else
     status = RM68191_Init(&rm68191Handle, &displayConfig);
 #endif
@@ -193,7 +218,7 @@ static void BOARD_InitMipiDsiClock(void)
      * system pll clock is 528MHz defined in clock_config.c
      */
     CLOCK_AttachClk(kAUX1_PLL_to_MIPI_DPHY_CLK);
-#if (USE_MIPI_PANEL == MIPI_PANEL_RK055AHD091)
+#if ((USE_MIPI_PANEL == MIPI_PANEL_RK055AHD091) || (USE_MIPI_PANEL == MIPI_PANEL_RK055MHD091))
     CLOCK_InitSysPfd(kCLOCK_Pfd3, 12);
 #else
     CLOCK_InitSysPfd(kCLOCK_Pfd3, 18);

@@ -8,7 +8,7 @@ In this example, one i3c instance as master and another i3c instance on the othe
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================
@@ -31,7 +31,7 @@ GND         J18-4               GND        J18-4
 
 Prepare the Demo
 ================
-1.  Connect a micro USB cable between the PC host and the CMSIS DAP USB port (J5) on the board
+1.  Connect a micro USB cable between the PC host and the CMSIS DAP USB port (J40) on the board
 2.  Open a serial terminal with the following settings:
     - 115200 baud rate
     - 8 data bits

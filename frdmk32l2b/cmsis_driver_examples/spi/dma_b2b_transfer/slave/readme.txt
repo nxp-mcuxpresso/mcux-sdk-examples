@@ -10,7 +10,7 @@ The file 'spi_dma_b2b_transfer_slave.c' includes the SPI slave code.
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================

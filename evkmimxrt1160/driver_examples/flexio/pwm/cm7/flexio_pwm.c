@@ -25,7 +25,8 @@
 /* FLEXIO output PWM frequency */
 #define DEMO_FLEXIO_FREQUENCY (48000U)
 #define FLEXIO_MAX_FREQUENCY (DEMO_FLEXIO_CLOCK_FREQUENCY / 2U)
-#define FLEXIO_MIN_FREQUENCY (DEMO_FLEXIO_CLOCK_FREQUENCY / 256U)
+#define FLEXIO_MIN_FREQUENCY (DEMO_FLEXIO_CLOCK_FREQUENCY / 512U)
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/

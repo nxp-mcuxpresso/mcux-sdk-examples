@@ -148,7 +148,9 @@ int main(void)
 
     while (1)
     {
+        DisableIRQ(HWVAD0_IRQn);
         PRINTF("Going into sleep\r\n");
+        EnableIRQ(HWVAD0_IRQn);
         __WFI();
     }
 }

@@ -5,7 +5,7 @@ The example shows how to use i3c component as bus secondary master and demo the 
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================
@@ -44,9 +44,12 @@ Running the demo
 The following message shows in the terminal if the example runs successfully.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 I3C bus slave example.
 
 I3C bus secondary master creates.
+
+I3C bus second master requires to be primary master.
 
 I3C bus mastership takeover.
 

@@ -99,9 +99,9 @@ include(utility_assert)
 
 include(driver_power)
 
-include(CMSIS_Include_core_cm)
-
 include(driver_reset)
+
+include(CMSIS_Include_core_cm)
 
 include(utilities_misc_utilities)
 

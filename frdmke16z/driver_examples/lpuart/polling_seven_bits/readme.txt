@@ -8,7 +8,7 @@ NOTE: Please set com port format to "7 data bits without parity bit" in PC's com
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================

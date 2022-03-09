@@ -36,9 +36,9 @@ STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0400;
 /* The SRAM region [0x20000-0x7FFFF] is reserved for Non-cached shared memory between M33 and DSP. */
 MEMORY
 {
-  m_interrupts          (RX)  : ORIGIN = 0x00080000, LENGTH = 0x00000180
-  m_text                (RX)  : ORIGIN = 0x00080180, LENGTH = 0x0013FE80
-  m_data                (RW)  : ORIGIN = 0x201C0000, LENGTH = 0x00140000
+  m_interrupts          (RX)  : ORIGIN = 0x00280000, LENGTH = 0x00000180
+  m_text                (RX)  : ORIGIN = 0x00280180, LENGTH = 0x0013FE80
+  m_data                (RW)  : ORIGIN = 0x203C0000, LENGTH = 0x00140000
   m_usb_sram            (RW)  : ORIGIN = 0x40140000, LENGTH = 0x00004000
 }
 

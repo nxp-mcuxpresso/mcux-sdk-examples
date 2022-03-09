@@ -10,7 +10,9 @@
 #include "clock_config.h"
 #include "board.h"
 #include "fsl_flexio_uart_edma.h"
+#if defined(FSL_FEATURE_SOC_DMAMUX_COUNT) && FSL_FEATURE_SOC_DMAMUX_COUNT
 #include "fsl_dmamux.h"
+#endif
 
 /*******************************************************************************
  * Definitions
@@ -125,18 +127,26 @@ int main(void)
         return -1;
     }
 
-    /*Init DMA for example*/
+#if defined(FSL_FEATURE_SOC_DMAMUX_COUNT) && FSL_FEATURE_SOC_DMAMUX_COUNT
+    /*Init DMAMUX */
     DMAMUX_Init(EXAMPLE_FLEXIO_UART_DMAMUX_BASEADDR);
-    EDMA_GetDefaultConfig(&config);
-    EDMA_Init(EXAMPLE_FLEXIO_UART_DMA_BASEADDR, &config);
 
-    /* Request DMA channels for TX & RX. */
+    /* Set channel for FLEXIO */
     DMAMUX_SetSource(EXAMPLE_FLEXIO_UART_DMAMUX_BASEADDR, FLEXIO_UART_TX_DMA_CHANNEL, EXAMPLE_TX_DMA_SOURCE);
     DMAMUX_SetSource(EXAMPLE_FLEXIO_UART_DMAMUX_BASEADDR, FLEXIO_UART_RX_DMA_CHANNEL, EXAMPLE_RX_DMA_SOURCE);
     DMAMUX_EnableChannel(EXAMPLE_FLEXIO_UART_DMAMUX_BASEADDR, FLEXIO_UART_TX_DMA_CHANNEL);
     DMAMUX_EnableChannel(EXAMPLE_FLEXIO_UART_DMAMUX_BASEADDR, FLEXIO_UART_RX_DMA_CHANNEL);
+#endif
+    EDMA_GetDefaultConfig(&config);
+    EDMA_Init(EXAMPLE_FLEXIO_UART_DMA_BASEADDR, &config);
+
     EDMA_CreateHandle(&g_uartTxEdmaHandle, EXAMPLE_FLEXIO_UART_DMA_BASEADDR, FLEXIO_UART_TX_DMA_CHANNEL);
     EDMA_CreateHandle(&g_uartRxEdmaHandle, EXAMPLE_FLEXIO_UART_DMA_BASEADDR, FLEXIO_UART_RX_DMA_CHANNEL);
+
+#if defined(FSL_FEATURE_EDMA_HAS_CHANNEL_MUX) && FSL_FEATURE_EDMA_HAS_CHANNEL_MUX
+    EDMA_SetChannelMux(EXAMPLE_FLEXIO_UART_DMA_BASEADDR, FLEXIO_UART_TX_DMA_CHANNEL, EXAMPLE_TX_DMA_SOURCE);
+    EDMA_SetChannelMux(EXAMPLE_FLEXIO_UART_DMA_BASEADDR, FLEXIO_UART_RX_DMA_CHANNEL, EXAMPLE_RX_DMA_SOURCE);
+#endif
 
     FLEXIO_UART_TransferCreateHandleEDMA(&uartDev, &g_uartHandle, FLEXIO_UART_UserCallback, NULL, &g_uartTxEdmaHandle,
                                          &g_uartRxEdmaHandle);

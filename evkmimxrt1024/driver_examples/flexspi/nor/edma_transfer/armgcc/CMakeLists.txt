@@ -96,7 +96,7 @@ include(driver_flexspi)
 
 include(CMSIS_Include_core_cm)
 
-include(driver_edma)
+include(driver_edma_MIMXRT1024)
 
 include(driver_dmamux)
 

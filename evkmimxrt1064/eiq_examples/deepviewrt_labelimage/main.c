@@ -23,7 +23,6 @@
 
 #include "fsl_device_registers.h"
 #include "fsl_debug_console.h"
-#include "pin_mux.h"
 #include "clock_config.h"
 #include "board_init.h"
 #include "board.h"
@@ -71,6 +70,10 @@
  */
 #define MEMPOOL_SIZE 5 * 1024 * 1024
 
+#if defined ( __ICCARM__ )    /* for iar toolchain */
+extern const unsigned char model_rtm_start[];
+extern const unsigned char sample_img_start[];
+#else
 /* DeepViewRT Model definition from model.S */
 extern const unsigned char model_rtm_start;
 extern const unsigned char model_rtm_end;
@@ -78,6 +81,7 @@ extern const unsigned char model_rtm_end;
 /* Sample image definition from model.S */
 extern const unsigned char sample_img_start;
 extern const unsigned char sample_img_end;
+#endif
 
 /**
  * The DeepViewRT Cache buffer stored in SRAM_DTC for maximum performance.
@@ -151,9 +155,14 @@ int main(void)
      * The model and model_size will be setup at startup based on the model_rtm_start
      * and model_rtm_end variables from the model.S file.
      */
+#if defined ( __ICCARM__ )   /* for iar toolchain */
+    const uint8_t *model = model_rtm_start;
+    int model_size = 3 * 1024 * 1024;
+#else
     const uint8_t *model_end = &model_rtm_end;
     const uint8_t *model = &model_rtm_start;
     int model_size = model_end - model;
+#endif
     if (model_size < 1) {
     	PRINTF("[ERROR] invalid model_size (%d) verify model.S implementation.\r\n", model_size);
     	return EXIT_FAILURE;
@@ -162,9 +171,14 @@ int main(void)
     /**
 	 * Just like model above, but from sample_img_start/sample_img_end.
 	 */
+#if defined ( __ICCARM__ )    /* for iar toolchain */
+	const uint8_t *sample_image = sample_img_start;
+	int sample_image_size = 200 * 1024;
+#else
 	const uint8_t *image_end = &sample_img_end;
 	const uint8_t *sample_image = &sample_img_start;
 	int sample_image_size = image_end - sample_image;
+#endif
     if (sample_image_size < 1) {
     	PRINTF("[ERROR] invalid sample_image_size (%d) verify model.S implementation.\r\n", sample_image_size);
     	return EXIT_FAILURE;

@@ -34,8 +34,9 @@
  ******************************************************************************/
 void BOARD_InitADCClock(void);
 static lpadc_sample_time_mode_t DEMO_SelectSampleTime(void);
-static void DEMO_ADCInit(lpadc_sample_time_mode_t sampleTimeMode);
+static void DEMO_ADCStartSample(lpadc_sample_time_mode_t sampleTimeMode);
 static void DEMO_TimerInit(void);
+static void DEMO_ADCInit(void);
 
 /*******************************************************************************
  * Variables
@@ -100,11 +101,12 @@ int main(void)
     PRINTF("ADC High Sample Rate Demo!\r\n");
     PRINTF("Current ADC clock frequency is %d Hz!\r\n", CLOCK_GetFreqFromObs(CCM_OBS_ADC1_CLK_ROOT));
 
+    DEMO_ADCInit();
     DEMO_TimerInit();
     while (1)
     {
         sampleTimeMode = DEMO_SelectSampleTime();
-        DEMO_ADCInit(sampleTimeMode);
+        DEMO_ADCStartSample(sampleTimeMode);
         EnableIRQ(DEMO_PIT_IRQn);
         g_timeOut         = false;
         g_conversionCount = 0UL;
@@ -127,7 +129,6 @@ int main(void)
                 break;
             }
         }
-        LPADC_Deinit(DEMO_LPADC_BASE);
     }
 }
 
@@ -163,14 +164,11 @@ static lpadc_sample_time_mode_t DEMO_SelectSampleTime(void)
 
 /*!
  * @brief Configures ADC module.
- *
- * @param sampleTimeMode The sample time mode to be set.
  */
-static void DEMO_ADCInit(lpadc_sample_time_mode_t sampleTimeMode)
+static void DEMO_ADCInit(void)
 {
     lpadc_config_t adcConfig;
     lpadc_conv_trigger_config_t softwareTriggerConfig;
-    lpadc_conv_command_config_t commandConfig;
 
     LPADC_GetDefaultConfig(&adcConfig);
     adcConfig.enableAnalogPreliminary = true;
@@ -196,6 +194,22 @@ static void DEMO_ADCInit(lpadc_sample_time_mode_t sampleTimeMode)
     LPADC_DoAutoCalibration(DEMO_LPADC_BASE);
 #endif /* FSL_FEATURE_LPADC_HAS_CFG_CALOFS */
 
+    LPADC_GetDefaultConvTriggerConfig(&softwareTriggerConfig);
+    softwareTriggerConfig.targetCommandId = 1U;
+    LPADC_SetConvTriggerConfig(DEMO_LPADC_BASE, 0U, &softwareTriggerConfig);
+}
+
+/*!
+ * @brief Configures ADC sample mode.
+ *
+ * @param sampleTimeMode The sample time mode to be set.
+ */
+static void DEMO_ADCStartSample(lpadc_sample_time_mode_t sampleTimeMode)
+{
+    lpadc_conv_command_config_t commandConfig;
+
+    /* Disenable the module after setting configuration. */
+    LPADC_Enable(DEMO_LPADC_BASE, false);
     /*
      *   config->sampleScaleMode            = kLPADC_SampleFullScale;
      *   config->channelSampleMode          = kLPADC_SampleChannelSingleEndSideA;
@@ -219,15 +233,13 @@ static void DEMO_ADCInit(lpadc_sample_time_mode_t sampleTimeMode)
     commandConfig.sampleTimeMode = sampleTimeMode;
     LPADC_SetConvCommandConfig(DEMO_LPADC_BASE, 1U, &commandConfig);
 
-    LPADC_GetDefaultConvTriggerConfig(&softwareTriggerConfig);
-    softwareTriggerConfig.targetCommandId = 1U;
-    LPADC_SetConvTriggerConfig(DEMO_LPADC_BASE, 0U, &softwareTriggerConfig);
-
     LPADC_DoResetFIFO(DEMO_LPADC_BASE);
     LPADC_ClearStatusFlags(DEMO_LPADC_BASE, kLPADC_ResultFIFOReadyFlag | kLPADC_ResultFIFOOverflowFlag);
 
     LPADC_EnableInterrupts(DEMO_LPADC_BASE, kLPADC_FIFOWatermarkInterruptEnable);
     EnableIRQ(DEMO_LPADC_IRQn);
+    /* Enable the module after setting configuration. */
+    LPADC_Enable(DEMO_LPADC_BASE, true);
 }
 
 /*!

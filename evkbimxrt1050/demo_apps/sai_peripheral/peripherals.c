@@ -314,8 +314,8 @@ sai_transceiver_t DEMO_SAI_Rx_config = {
     .fifo         = {.fifoWatermark = 16U, .fifoPacking = kSAI_FifoPackingDisabled, .fifoContinueOneError = true}};
 edma_handle_t dmaTxHandle;
 edma_handle_t dmaRxHandle;
-AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle) = {0};
-AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t rxHandle) = {0};
+AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t txHandle);
+AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t rxHandle);
 
 void DEMO_SAI_init(void)
 {

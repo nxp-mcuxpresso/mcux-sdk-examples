@@ -1,5 +1,5 @@
 /*
- * Copyright  2017-2019 NXP
+ * Copyright 2017-2019, 2021 NXP
  * All rights reserved.
  *
  *
@@ -158,10 +158,11 @@ void APP_ELCDIF_Init(void)
         .dataBus       = kELCDIF_DataBus8Bit,
     };
 
-    ELCDIF_RgbModeInit(APP_ELCDIF, &config);
 #if (defined(APP_ELCDIF_HAS_DISPLAY_INTERFACE) && APP_ELCDIF_HAS_DISPLAY_INTERFACE)
     BOARD_InitDisplayInterface();
 #endif
+
+    ELCDIF_RgbModeInit(APP_ELCDIF, &config);
 
     /* Load the LUT data. */
     ELCDIF_UpdateLut(APP_ELCDIF, kELCDIF_Lut0, 0, lutData[0], ELCDIF_LUT_ENTRY_NUM);

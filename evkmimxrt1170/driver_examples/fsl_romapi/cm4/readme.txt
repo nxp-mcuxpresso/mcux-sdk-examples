@@ -10,7 +10,7 @@ Example will first erase the sector and program a page into the flash, at last c
 
 Toolchain supported
 ===================
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 - GCC ARM Embedded  10.2.1
 
 Hardware requirements

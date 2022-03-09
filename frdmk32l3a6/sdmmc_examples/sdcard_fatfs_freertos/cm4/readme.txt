@@ -7,7 +7,7 @@ Note: The output log of the case is not constant, since difference of card acces
 
 Toolchain supported
 ===================
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 - GCC ARM Embedded  10.2.1
 
 Hardware requirements
@@ -43,31 +43,15 @@ Running the demo
 When the demo runs successfully, the log would be seen on the terminal like:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+SDCARD fatfs freertos example.
 
-FATFS example to demonstrate how to use FATFS with SD card.
+Card inserted.
 
-Please insert a card into board.
-Detected SD card inserted.
+Make file system......The time may be long if the card capacity is big.
 
-Makes file system......This time may be long if the card capacity is big.
-
-Creates directory......
-
-Creates a file in that directory......
-
-Create a directory in that directory......
-
-List the file in that directory......
-General file : F_1.DAT.
-Directory file : DIR_2.
-
-Writes/reads file until encounters error......
-
-Writes to above created file.
-Reads from above created file.
-Compares the read/write content......
-The read/write content is consistent.
-
-Input 'q' to quit read/write.
-Input other char to read/write file again.
+Create directory......
+TASK1: write file successed.
+TASK2: write file successed.
+TASK1: finished.
+TASK2: finished.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

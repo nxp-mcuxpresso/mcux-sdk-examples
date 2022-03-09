@@ -61,19 +61,19 @@ set(CMAKE_MODULE_PATH
 include(all_devices)
 
 # include modules
-include(driver_clock)
-
-include(driver_power_s)
-
-include(driver_common)
-
 include(utility_debug_console_lite)
 
 include(utility_assert_lite)
 
 include(driver_lpc_iocon)
 
+include(driver_common)
+
+include(driver_power)
+
 include(driver_reset)
+
+include(driver_clock)
 
 include(device_CMSIS)
 
@@ -105,14 +105,6 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
 
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
-
-if(CMAKE_BUILD_TYPE STREQUAL debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../../core/devices/LPC55S69/gcc/libpower_hardabi_s.a)
-endif(CMAKE_BUILD_TYPE STREQUAL debug)
-
-if(CMAKE_BUILD_TYPE STREQUAL release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../../core/devices/LPC55S69/gcc/libpower_hardabi_s.a)
-endif(CMAKE_BUILD_TYPE STREQUAL release)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

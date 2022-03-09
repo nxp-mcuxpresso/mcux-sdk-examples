@@ -61,8 +61,8 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../../../../../examples/evkmimx8mn/demo_apps/sai_low_power_audio
-    ${ProjDirPath}/../../../../../core/boards/evkmimx8mn
     ${ProjDirPath}/..
+    ${ProjDirPath}/../../../../../core/boards/evkmimx8mn
     ${ProjDirPath}/../../../../../core/components/srtm/channels
     ${ProjDirPath}/../../../../../core/components/srtm/services
 )
@@ -91,6 +91,10 @@ include(driver_common)
 include(component_codec_adapters)
 
 include(component_wm8524_adapter)
+
+include(middleware_multicore_rpmsg_lite_MIMX8MN6)
+
+include(middleware_multicore_rpmsg_lite_freertos)
 
 include(driver_clock)
 
@@ -131,8 +135,6 @@ include(driver_srtm_freertos)
 include(driver_srtm_MIMX8MN6)
 
 include(middleware_multicore_rpmsg_lite_imx8mn_m7_freertos)
-
-include(middleware_multicore_rpmsg_lite)
 
 include(middleware_freertos-kernel_MIMX8MN6)
 

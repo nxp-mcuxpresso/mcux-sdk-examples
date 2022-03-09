@@ -67,7 +67,7 @@ include(driver_lpspi)
 
 include(driver_lpspi_edma)
 
-include(driver_edma)
+include(driver_edma_MIMXRT1176_cm4)
 
 include(driver_dmamux)
 
@@ -102,6 +102,8 @@ include(driver_cache_lmem)
 include(driver_anatop_ai)
 
 include(CMSIS_Include_core_cm)
+
+include(driver_memory)
 
 include(utilities_misc_utilities)
 

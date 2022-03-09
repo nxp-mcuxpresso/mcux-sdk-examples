@@ -54,13 +54,21 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../../../../../../../core/boards/evkmimxrt1170
 )
 
-if(CMAKE_BUILD_TYPE STREQUAL debug OR CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
+if(CMAKE_BUILD_TYPE STREQUAL debug)
     target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../core1/armgcc/debug)
-endif(CMAKE_BUILD_TYPE STREQUAL debug OR CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
+endif(CMAKE_BUILD_TYPE STREQUAL debug)
 
-if(CMAKE_BUILD_TYPE STREQUAL release OR CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
+if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
+    target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../core1/armgcc/debug)
+endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
+
+if(CMAKE_BUILD_TYPE STREQUAL release)
     target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../core1/armgcc/release)
-endif(CMAKE_BUILD_TYPE STREQUAL release OR CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
+endif(CMAKE_BUILD_TYPE STREQUAL release)
+
+if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
+    target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../core1/armgcc/release)
+endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH

@@ -54,7 +54,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../../../../../middleware/eiq/common/timer.c"
 "${ProjDirPath}/../clock_config.c"
 "${ProjDirPath}/../clock_config.h"
-"${ProjDirPath}/../../../../../middleware/eiq/common/audio/audio_load.cpp"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../board.c"
@@ -68,6 +67,7 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/common/audio
     ${ProjDirPath}/../../../../../middleware/eiq/common/audio
     ${ProjDirPath}/../../../../../middleware/eiq/common/model
+    ${ProjDirPath}/../../../../../middleware/eiq/common
     ${ProjDirPath}/..
 )
 
@@ -84,15 +84,47 @@ include(utility_debug_console_lite)
 
 include(utility_assert_lite)
 
+include(component_codec_i2c_MIMXRT685S_cm33)
+
+include(driver_common)
+
+include(component_i3c_adapter)
+
+include(driver_codec)
+
+include(component_wm8904_adapter)
+
+include(driver_dmic)
+
+include(driver_dmic_dma)
+
+include(driver_flexcomm_i2c)
+
+include(driver_flexcomm_i2s)
+
+include(driver_flexcomm_i2s_dma)
+
+include(driver_flexcomm_usart)
+
+include(driver_i3c)
+
+include(driver_inputmux)
+
+include(driver_inputmux_connections)
+
+include(driver_lpc_dma)
+
+include(driver_wm8904)
+
+include(middleware_eiq_audio)
+
+include(CMSIS_DSP_Library)
+
 include(middleware_eiq_tensorflow_lite_micro)
 
 include(component_lists)
 
-include(driver_common)
-
 include(component_usart_adapter)
-
-include(driver_flexcomm_usart)
 
 include(device_CMSIS)
 
@@ -102,7 +134,7 @@ include(driver_cache_cache64)
 
 include(driver_clock)
 
-include(driver_flash_config)
+include(driver_flash_config_evkmimxrt685)
 
 include(driver_flexcomm)
 
@@ -120,8 +152,6 @@ include(middleware_eiq_tensorflow_lite_micro_cmsis_nn)
 
 include(CMSIS_Include_core_cm)
 
-include(middleware_eiq_worker)
-
 include(middleware_eiq_tensorflow_lite_micro_third_party_flatbuffers)
 
 include(middleware_eiq_tensorflow_lite_micro_third_party_gemmlowp)
@@ -131,8 +161,6 @@ include(middleware_eiq_tensorflow_lite_micro_third_party_ruy)
 include(utilities_misc_utilities)
 
 include(middleware_eiq_tensorflow_lite_micro_third_party_cmsis_nn)
-
-include(CMSIS_DSP_Library)
 
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)

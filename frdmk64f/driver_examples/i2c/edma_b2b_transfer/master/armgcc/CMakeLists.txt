@@ -58,7 +58,7 @@ include(utility_debug_console_lite)
 
 include(utility_assert_lite)
 
-include(driver_edma)
+include(driver_edma_MK64F12)
 
 include(driver_dmamux)
 

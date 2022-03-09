@@ -40,7 +40,7 @@ void BOARD_InitBootPins(void)
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitPins:
-- options: {callFromInitBoot: 'true', coreID: m4}
+- options: {callFromInitBoot: 'true', coreID: cm4}
 - pin_list:
   - {pin_num: B6, peripheral: UART2, signal: uart_rx, pin_signal: UART2_RXD, PUE: Enabled, SRE: MEDIUM, DSE: OHM_45}
   - {pin_num: D6, peripheral: UART2, signal: uart_tx, pin_signal: UART2_TXD, PUE: Enabled, SRE: MEDIUM, DSE: OHM_45}
@@ -70,7 +70,7 @@ void BOARD_InitPins(void) {                                /*!< Function assigne
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 I2C2_InitPins:
-- options: {coreID: m4}
+- options: {coreID: cm4}
 - pin_list:
   - {pin_num: G7, peripheral: I2C2, signal: i2c_scl, pin_signal: I2C2_SCL, ODE: Enabled, SION: ENABLED, HYS: Enabled, SRE: MEDIUM, DSE: OHM_45}
   - {pin_num: F7, peripheral: I2C2, signal: i2c_sda, pin_signal: I2C2_SDA, ODE: Enabled, SION: ENABLED, HYS: Enabled, SRE: MEDIUM, DSE: OHM_45}
@@ -102,7 +102,7 @@ void I2C2_InitPins(void) {                                 /*!< Function assigne
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 I2C2_DeinitPins:
-- options: {coreID: m4}
+- options: {coreID: cm4}
 - pin_list:
   - {pin_num: G7, peripheral: I2C2, signal: i2c_scl, pin_signal: I2C2_SCL}
   - {pin_num: F7, peripheral: I2C2, signal: i2c_sda, pin_signal: I2C2_SDA}

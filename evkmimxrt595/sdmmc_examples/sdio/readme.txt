@@ -6,7 +6,7 @@ Note: If the sdio card need WL_REG_ON, please connect WL_REG_ON to the sdio card
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================
@@ -49,8 +49,14 @@ Card inserted.
 
 Read function CIS, in direct way
 
+CIS read successfully
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Please note that below log maybe printed according to the card capability.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Read function CIS, in extended way, non-block mode, non-word aligned size
 
 Read function CIS, in extended way, block mode, non-word aligned size
+
 The read content is consistent.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -39,20 +39,20 @@ GLOW_MEM_ALIGN(CIFAR10_MEM_ALIGN)
 uint8_t activations[CIFAR10_ACTIVATIONS_MEM_SIZE];
 
 // Bundle input data absolute address.
-uint8_t *inputAddr = GLOW_GET_ADDR(mutableWeight, CIFAR10_data);
+uint8_t *inputAddr = GLOW_GET_ADDR(mutableWeight, CIFAR10_input);
 
 // Bundle output data absolute address.
-uint8_t *outputAddr = GLOW_GET_ADDR(mutableWeight, CIFAR10_softmax);
+uint8_t *outputAddr = GLOW_GET_ADDR(mutableWeight, CIFAR10_CifarNet_Predictions_Reshape_1);
 
 // ---------------------------- Application -----------------------------
 // Model input size
 #define IMAGE_CHANNELS              3
 #define MODEL_INPUT_HEIGHT          32
 #define MODEL_INPUT_WIDTH           32
-#define MODEL_INPUT_SIZE            MODEL_INPUT_HEIGHT * MODEL_INPUT_WIDTH * IMAGE_CHANNELS * sizeof(float)
+#define MODEL_INPUT_SIZE            MODEL_INPUT_HEIGHT * MODEL_INPUT_WIDTH * IMAGE_CHANNELS
 
 #define MODEL_COLOR_ORDER           BGR_COLOR_ORDER
-#define MODEL_IMAGE_LAYOUT          NCHW_LAYOUT
+#define MODEL_IMAGE_LAYOUT          NHWC_LAYOUT
 #define MODEL_IMAGE_SCALE_MODE      SCALE_0TO1
 
 // Number of output classes for the model.
@@ -424,38 +424,23 @@ static void APP_CSIFullBufferReady(camera_receiver_handle_t *handle,
  * is not required.
  * param staticImageLen size of static image.
  */
-void run_inference(const uint8_t *image_data, const char* labels[], uint8_t scale_mode)
+void run_inference(const uint8_t *image_data, const char* labels[])
 {
 	  // Timer variables.
 	  uint32_t start_time = 0U;
 	  uint32_t stop_time = 0U;
 	  uint32_t duration_ms = 0U;
 
-	  // Produce input data for bundle.
-	  // Copy the pre-processed image data into the bundle input buffer.s)
-	  float *bundleInput =(float *)inputAddr;
+	  int8_t *bundleInput =(int8_t *)inputAddr;
 
 	  //Do scaling on image.
-      for (int idx = 0; idx < MODEL_INPUT_HEIGHT * MODEL_INPUT_WIDTH * IMAGE_CHANNELS; idx++)
-      {
-        if(scale_mode==SCALE_NEG1TO1)
-        {
-          bundleInput[idx]=(((((float)image_data[idx])/255.0)*2)-1.0);
-        }
-        else if(scale_mode==SCALE_0TO1)
-        {
-          bundleInput[idx]=(((float)image_data[idx])/255.0);
-        }
-        else if(scale_mode==SCALE_NEG128TO127)
-        {
-          bundleInput[idx]=(((float)image_data[idx])-128);
-        }
-        else if(scale_mode==SCALE_0TO255)
-        {
-          //Do nothing as data already scaled from 0 to 255
-          bundleInput[idx]=(float)image_data[idx];
-        }
-     }
+	  for (int idx = 0; idx < MODEL_INPUT_SIZE; idx++)
+	  {
+	    int32_t tmp = image_data[idx];
+	    tmp -= 128;
+		bundleInput[idx]=((int8_t)(tmp));
+	  }
+
 	  // Perform inference and compute inference time.
 	  start_time = get_time_in_us();
 	  cifar10(constantWeight, mutableWeight, activations);
@@ -545,7 +530,7 @@ int main(void)
        after_scale = ImScale(&prev_scale, after_scale, dx, dy);
 
        /* Run inference on the resized data */
-       run_inference(after_scale->imageData, LABELS, MODEL_IMAGE_SCALE_MODE);
+       run_inference(after_scale->imageData, LABELS);
 
        g_isCamDataExtracted = false;
     }

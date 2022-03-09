@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -23,7 +23,12 @@
 
 /* Get source clock for FTM driver */
 #define FTM_SOURCE_CLOCK CLOCK_GetFreq(kCLOCK_BusClk)
-
+#ifndef FTM_PWM_ON_LEVEL
+#define FTM_PWM_ON_LEVEL kFTM_HighTrue
+#endif
+#ifndef DEMO_PWM_FREQUENCY
+#define DEMO_PWM_FREQUENCY (24000U)
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -58,21 +63,6 @@ int main(void)
     uint8_t updatedDutycycle = 0U;
     ftm_chnl_pwm_signal_param_t ftmParam[2];
 
-    /* Configure ftm params with frequency 24kHZ */
-    ftmParam[0].chnlNumber            = (ftm_chnl_t)BOARD_FIRST_FTM_CHANNEL;
-    ftmParam[0].level                 = kFTM_LowTrue;
-    ftmParam[0].dutyCyclePercent      = 0U;
-    ftmParam[0].firstEdgeDelayPercent = 0U;
-    ftmParam[0].enableComplementary   = false;
-    ftmParam[0].enableDeadtime        = false;
-
-    ftmParam[1].chnlNumber            = (ftm_chnl_t)BOARD_SECOND_FTM_CHANNEL;
-    ftmParam[1].level                 = kFTM_LowTrue;
-    ftmParam[1].dutyCyclePercent      = 0U;
-    ftmParam[1].firstEdgeDelayPercent = 0U;
-    ftmParam[1].enableComplementary   = false;
-    ftmParam[1].enableDeadtime        = false;
-
     /* Board pin, clock, debug console init */
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
@@ -83,25 +73,33 @@ int main(void)
     PRINTF("\r\nYou will see a change in LED brightness if an LED is connected to the FTM pin");
     PRINTF("\r\nIf no LED is connected to the FTM pin, then probe the signal using an oscilloscope");
 
-    /*
-     * ftmInfo.prescale = kFTM_Prescale_Divide_1;
-     * ftmInfo.bdmMode = kFTM_BdmMode_0;
-     * ftmInfo.pwmSyncMode = kFTM_SoftwareTrigger;
-     * ftmInfo.reloadPoints = 0;
-     * ftmInfo.faultMode = kFTM_Fault_Disable;
-     * ftmInfo.faultFilterValue = 0;
-     * ftmInfo.deadTimePrescale = kFTM_Deadtime_Prescale_1;
-     * ftmInfo.deadTimeValue = 0;
-     * ftmInfo.extTriggers = 0;
-     * ftmInfo.chnlInitState = 0;
-     * ftmInfo.chnlPolarity = 0;
-     * ftmInfo.useGlobalTimeBase = false;
-     */
+    /* Fill in the FTM config struct with the default settings */
     FTM_GetDefaultConfig(&ftmInfo);
+    /* Calculate the clock division based on the PWM frequency to be obtained */
+    ftmInfo.prescale = FTM_CalculateCounterClkDiv(BOARD_FTM_BASEADDR, DEMO_PWM_FREQUENCY, FTM_SOURCE_CLOCK);
     /* Initialize FTM module */
     FTM_Init(BOARD_FTM_BASEADDR, &ftmInfo);
 
-    FTM_SetupPwm(BOARD_FTM_BASEADDR, ftmParam, 2U, kFTM_EdgeAlignedPwm, 24000U, FTM_SOURCE_CLOCK);
+    /* Configure ftm params with frequency 24kHZ */
+    ftmParam[0].chnlNumber            = (ftm_chnl_t)BOARD_FIRST_FTM_CHANNEL;
+    ftmParam[0].level                 = FTM_PWM_ON_LEVEL;
+    ftmParam[0].dutyCyclePercent      = 0U;
+    ftmParam[0].firstEdgeDelayPercent = 0U;
+    ftmParam[0].enableComplementary   = false;
+    ftmParam[0].enableDeadtime        = false;
+
+    ftmParam[1].chnlNumber            = (ftm_chnl_t)BOARD_SECOND_FTM_CHANNEL;
+    ftmParam[1].level                 = FTM_PWM_ON_LEVEL;
+    ftmParam[1].dutyCyclePercent      = 0U;
+    ftmParam[1].firstEdgeDelayPercent = 0U;
+    ftmParam[1].enableComplementary   = false;
+    ftmParam[1].enableDeadtime        = false;
+    if (kStatus_Success !=
+        FTM_SetupPwm(BOARD_FTM_BASEADDR, ftmParam, 2U, kFTM_EdgeAlignedPwm, DEMO_PWM_FREQUENCY, FTM_SOURCE_CLOCK))
+    {
+        PRINTF("\r\nSetup PWM fail, please check the configuration parameters!\r\n");
+        return -1;
+    }
     FTM_StartTimer(BOARD_FTM_BASEADDR, kFTM_SystemClock);
     while (1)
     {
@@ -125,10 +123,13 @@ int main(void)
             }
         }
         /* Start PWM mode with updated duty cycle */
-        FTM_UpdatePwmDutycycle(BOARD_FTM_BASEADDR, (ftm_chnl_t)BOARD_FIRST_FTM_CHANNEL, kFTM_EdgeAlignedPwm,
-                               updatedDutycycle);
-        FTM_UpdatePwmDutycycle(BOARD_FTM_BASEADDR, (ftm_chnl_t)BOARD_SECOND_FTM_CHANNEL, kFTM_EdgeAlignedPwm,
-                               updatedDutycycle);
+        if ((kStatus_Success != FTM_UpdatePwmDutycycle(BOARD_FTM_BASEADDR, (ftm_chnl_t)BOARD_FIRST_FTM_CHANNEL,
+                                                       kFTM_EdgeAlignedPwm, updatedDutycycle)) ||
+            (kStatus_Success != FTM_UpdatePwmDutycycle(BOARD_FTM_BASEADDR, (ftm_chnl_t)BOARD_SECOND_FTM_CHANNEL,
+                                                       kFTM_EdgeAlignedPwm, updatedDutycycle)))
+        {
+            PRINTF("Update duty cycle fail, the target duty cycle may out of range!\r\n");
+        }
         /* Software trigger to update registers */
         FTM_SetSoftwareTrigger(BOARD_FTM_BASEADDR, true);
     }

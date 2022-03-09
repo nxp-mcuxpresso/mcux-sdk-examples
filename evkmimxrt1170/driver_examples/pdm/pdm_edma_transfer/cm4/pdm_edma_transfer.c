@@ -43,8 +43,10 @@ static void pdmEdmallback(PDM_Type *base, pdm_edma_handle_t *handle, status_t st
 AT_NONCACHEABLE_SECTION_ALIGN(pdm_edma_handle_t pdmRxHandle, 4);
 AT_NONCACHEABLE_SECTION_ALIGN(edma_handle_t dmaHandle, 4);
 AT_NONCACHEABLE_SECTION_ALIGN(static int16_t rxBuff[BUFFER_SIZE], 4);
-AT_NONCACHEABLE_SECTION_ALIGN(edma_tcd_t s_edmaTcd[1], 32U);
-static volatile bool s_lowFreqFlag   = false;
+AT_QUICKACCESS_SECTION_DATA_ALIGN(edma_tcd_t s_edmaTcd[1], 32U);
+#if (defined(FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ) && (FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ == 1U))
+static volatile bool s_lowFreqFlag = false;
+#endif
 static volatile bool s_fifoErrorFlag = false;
 static volatile bool s_pdmRxFinished = false;
 
@@ -55,8 +57,12 @@ static const pdm_config_t pdmConfig = {
     .cicOverSampleRate = DEMO_PDM_CIC_OVERSAMPLE_RATE,
 };
 static const pdm_channel_config_t channelConfig = {
+#if (defined(FSL_FEATURE_PDM_HAS_DC_OUT_CTRL) && (FSL_FEATURE_PDM_HAS_DC_OUT_CTRL))
+    .outputCutOffFreq = kPDM_DcRemoverCutOff40Hz,
+#else
     .cutOffFreq = kPDM_DcRemoverCutOff152Hz,
-    .gain       = kPDM_DfOutputGain4,
+#endif
+    .gain = kPDM_DfOutputGain4,
 };
 /*******************************************************************************
  * Code
@@ -81,12 +87,14 @@ static void pdmEdmallback(PDM_Type *base, pdm_edma_handle_t *handle, status_t st
 void DEMO_PDM_ERROR_IRQHandler(void)
 {
     uint32_t status = 0U;
+
+#if (defined(FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ) && (FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ == 1U))
     if (PDM_GetStatus(DEMO_PDM) & PDM_STAT_LOWFREQF_MASK)
     {
         PDM_ClearStatus(DEMO_PDM, PDM_STAT_LOWFREQF_MASK);
         s_lowFreqFlag = true;
     }
-
+#endif
     status = PDM_GetFifoStatus(DEMO_PDM);
     if (status)
     {

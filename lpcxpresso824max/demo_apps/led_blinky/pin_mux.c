@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v9.0
+product: Pins v10.0
 processor: LPC824
 package_id: LPC824M201JHI33
 mcu_data: ksdk2_0
-processor_version: 9.0.0
+processor_version: 0.11.1
 board: LPCXpresso824
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -44,7 +44,7 @@ void BOARD_InitBootPins(void)
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitPins:
-- options: {callFromInitBoot: 'true', prefix: BOARD_, coreID: core0, enableClock: 'true'}
+- options: {callFromInitBoot: 'true', prefix: DEMO_, coreID: core0, enableClock: 'true'}
 - pin_list:
   - {pin_num: '2', peripheral: GPIO, signal: 'PIO0, 12', pin_signal: PIO0_12, identifier: LED_RED, direction: OUTPUT, mode: pullUp, invert: disabled, hysteresis: enabled,
     opendrain: disabled, smode: bypass, clkdiv: div0}
@@ -71,7 +71,7 @@ void BOARD_InitPins(void)
         .outputLogic = 0U,
     };
     /* Initialize GPIO functionality on pin PIO0_12 (pin 2)  */
-    GPIO_PinInit(BOARD_LED_RED_GPIO, BOARD_LED_RED_PORT, BOARD_LED_RED_PIN, &LED_RED_config);
+    GPIO_PinInit(DEMO_LED_RED_GPIO, DEMO_LED_RED_PORT, DEMO_LED_RED_PIN, &LED_RED_config);
 
     const uint32_t LED_RED = (/* Selects pull-up function */
                               IOCON_PIO_MODE_PULLUP |

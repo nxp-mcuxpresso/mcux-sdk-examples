@@ -31,9 +31,10 @@ Files:
     img = cv2.resize(img, (128, 128))
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     with open('image_data.h', 'w') as fout:
+      print('#define STATIC_IMAGE_NAME "stopwatch"', file=fout)
       print('static const uint8_t image_data[] = {', file=fout)
       img.tofile(fout, ', ', '0x%02X')
-      print('}\n', file=fout)
+      print('};\n', file=fout)
   labels.h - names of object classes
   mobilenet_v1_0.25_128_quant_int8.tflite - pre-trained TensorFlow Lite model quantized
     using TF Lite converter (for more details see the eIQ TensorFlow Lite User's Guide, which
@@ -56,7 +57,7 @@ Files:
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================

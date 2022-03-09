@@ -98,7 +98,7 @@ include(driver_cache_cache64)
 
 include(driver_flexcomm_usart)
 
-include(driver_flash_config)
+include(driver_flash_config_evkmimxrt595)
 
 include(device_startup)
 

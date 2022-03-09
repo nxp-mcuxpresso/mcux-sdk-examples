@@ -67,6 +67,8 @@ include(utility_assert_lite)
 
 include(driver_capt)
 
+include(driver_lpc_acomp)
+
 include(driver_common)
 
 include(driver_clock)

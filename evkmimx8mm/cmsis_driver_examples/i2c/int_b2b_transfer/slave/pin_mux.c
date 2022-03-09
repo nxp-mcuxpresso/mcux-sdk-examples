@@ -41,7 +41,7 @@ void BOARD_InitBootPins(void)
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitPins:
-- options: {callFromInitBoot: 'true', coreID: m4}
+- options: {callFromInitBoot: 'true', coreID: cm4}
 - pin_list:
   - {pin_num: F19, peripheral: UART4, signal: uart_rx, pin_signal: UART4_RXD, PE: Disabled, PUE: Disabled, SION: DISABLED, DSE: X6_0}
   - {pin_num: F18, peripheral: UART4, signal: uart_tx, pin_signal: UART4_TXD, PE: Disabled, PUE: Disabled, DSE: X6_0}
@@ -69,7 +69,7 @@ void BOARD_InitPins(void) {                                /*!< Function assigne
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 I2C3_DeinitPins:
-- options: {callFromInitBoot: 'false', coreID: m4}
+- options: {callFromInitBoot: 'false', coreID: cm4}
 - pin_list:
   - {pin_num: E10, peripheral: GPIO5, signal: 'gpio_io, 18', pin_signal: I2C3_SCL}
   - {pin_num: F10, peripheral: GPIO5, signal: 'gpio_io, 19', pin_signal: I2C3_SDA}
@@ -91,7 +91,7 @@ void I2C3_DeinitPins(void) {                               /*!< Function assigne
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 I2C3_InitPins:
-- options: {callFromInitBoot: 'false', coreID: m4}
+- options: {callFromInitBoot: 'false', coreID: cm4}
 - pin_list:
   - {pin_num: E10, peripheral: I2C3, signal: i2c_scl, pin_signal: I2C3_SCL, PE: Disabled, PUE: Disabled, HYS: Enabled, SION: ENABLED, DSE: X6_0}
   - {pin_num: F10, peripheral: I2C3, signal: i2c_sda, pin_signal: I2C3_SDA, PE: Disabled, HYS: Enabled, SION: ENABLED, DSE: X6_0}

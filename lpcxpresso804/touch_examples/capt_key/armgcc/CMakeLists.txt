@@ -63,6 +63,8 @@ include(all_devices)
 # include modules
 include(driver_capt)
 
+include(driver_lpc_acomp)
+
 include(driver_common)
 
 include(driver_clock)

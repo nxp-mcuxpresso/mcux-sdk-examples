@@ -193,7 +193,7 @@ static void server_task(void *param)
 
         /* eRPC server de-initialization */
         erpc_remove_service_from_server(service);
-        destroy_Core0Interface_service();
+        destroy_Core0Interface_service(service);
         erpc_server_deinit();
     }
 
@@ -207,7 +207,6 @@ int main(void)
 {
     BOARD_ConfigMPU();
     BOARD_InitPins();
-    BOARD_BootClockRUN();
 
 #ifdef MCMGR_USED
 

@@ -87,7 +87,7 @@ include(driver_flexio_i2s_edma)
 
 include(driver_dmamux)
 
-include(driver_edma)
+include(driver_edma_MIMXRT1062)
 
 include(device_CMSIS)
 

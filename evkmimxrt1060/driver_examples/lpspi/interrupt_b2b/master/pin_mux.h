@@ -2,6 +2,7 @@
  * Copyright 2018 ,2021 NXP
  * All rights reserved.
  *
+ *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
@@ -43,6 +44,36 @@ extern "C" {
  *
  */
 void BOARD_InitBootPins(void);
+
+/* GPIO_AD_B0_13 (coord L14), UART1_RXD */
+/* Routed pin properties */
+#define BOARD_INITPINS_UART1_RXD_PERIPHERAL                              LPUART1   /*!< Peripheral name */
+#define BOARD_INITPINS_UART1_RXD_SIGNAL                                       RX   /*!< Signal name */
+
+/* GPIO_AD_B0_12 (coord K14), UART1_TXD */
+/* Routed pin properties */
+#define BOARD_INITPINS_UART1_TXD_PERIPHERAL                              LPUART1   /*!< Peripheral name */
+#define BOARD_INITPINS_UART1_TXD_SIGNAL                                       TX   /*!< Signal name */
+
+/* GPIO_SD_B0_00 (coord J4), SD1_CMD/J24[6] */
+/* Routed pin properties */
+#define BOARD_INITPINS_SD1_CMD_PERIPHERAL                                 LPSPI1   /*!< Peripheral name */
+#define BOARD_INITPINS_SD1_CMD_SIGNAL                                        SCK   /*!< Signal name */
+
+/* GPIO_SD_B0_01 (coord J3), SD1_CLK/J24[3] */
+/* Routed pin properties */
+#define BOARD_INITPINS_SD1_CLK_PERIPHERAL                                 LPSPI1   /*!< Peripheral name */
+#define BOARD_INITPINS_SD1_CLK_SIGNAL                                       PCS0   /*!< Signal name */
+
+/* GPIO_SD_B0_02 (coord J1), SD1_D0/J24[4]/SPI_MOSI/PWM */
+/* Routed pin properties */
+#define BOARD_INITPINS_SD1_D0_PERIPHERAL                                  LPSPI1   /*!< Peripheral name */
+#define BOARD_INITPINS_SD1_D0_SIGNAL                                         SDO   /*!< Signal name */
+
+/* GPIO_SD_B0_03 (coord K1), SD1_D1/J24[5]/SPI_MISO */
+/* Routed pin properties */
+#define BOARD_INITPINS_SD1_D1_PERIPHERAL                                  LPSPI1   /*!< Peripheral name */
+#define BOARD_INITPINS_SD1_D1_SIGNAL                                         SDI   /*!< Signal name */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

@@ -17,11 +17,12 @@ SET(CMAKE_ASM_FLAGS_DEBUG " \
     -mapcs \
     -std=gnu99 \
 ")
-SET(CMAKE_ASM_FLAGS_RELEASE " \
-    ${CMAKE_ASM_FLAGS_RELEASE} \
-    -DNDEBUG \
+SET(CMAKE_ASM_FLAGS_SDRAM_DEBUG " \
+    ${CMAKE_ASM_FLAGS_SDRAM_DEBUG} \
     -D__STARTUP_CLEAR_BSS \
+    -DDEBUG \
     -D__STARTUP_INITIALIZE_NONCACHEDATA \
+    -g \
     -mcpu=cortex-m7 \
     -Wall \
     -mfloat-abi=hard \
@@ -35,12 +36,11 @@ SET(CMAKE_ASM_FLAGS_RELEASE " \
     -mapcs \
     -std=gnu99 \
 ")
-SET(CMAKE_ASM_FLAGS_SDRAM_DEBUG " \
-    ${CMAKE_ASM_FLAGS_SDRAM_DEBUG} \
+SET(CMAKE_ASM_FLAGS_RELEASE " \
+    ${CMAKE_ASM_FLAGS_RELEASE} \
+    -DNDEBUG \
     -D__STARTUP_CLEAR_BSS \
-    -DDEBUG \
     -D__STARTUP_INITIALIZE_NONCACHEDATA \
-    -g \
     -mcpu=cortex-m7 \
     -Wall \
     -mfloat-abi=hard \
@@ -117,32 +117,8 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8960_ENABLE \
     -DMCUXPRESSO_SDK \
+    -O1 \
     -g \
-    -O0 \
-    -mcpu=cortex-m7 \
-    -Wall \
-    -mfloat-abi=hard \
-    -mfpu=fpv5-d16 \
-    -mthumb \
-    -MMD \
-    -MP \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
-")
-SET(CMAKE_C_FLAGS_RELEASE " \
-    ${CMAKE_C_FLAGS_RELEASE} \
-    -DNDEBUG \
-    -DCPU_MIMXRT1064DVL6A \
-    -DSDK_I2C_BASED_COMPONENT_USED=1 \
-    -DBOARD_USE_CODEC=1 \
-    -DCODEC_WM8960_ENABLE \
-    -DMCUXPRESSO_SDK \
-    -Os \
     -mcpu=cortex-m7 \
     -Wall \
     -mfloat-abi=hard \
@@ -168,8 +144,32 @@ SET(CMAKE_C_FLAGS_SDRAM_DEBUG " \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8960_ENABLE \
     -DMCUXPRESSO_SDK \
+    -O1 \
     -g \
-    -O0 \
+    -mcpu=cortex-m7 \
+    -Wall \
+    -mfloat-abi=hard \
+    -mfpu=fpv5-d16 \
+    -mthumb \
+    -MMD \
+    -MP \
+    -fno-common \
+    -ffunction-sections \
+    -fdata-sections \
+    -ffreestanding \
+    -fno-builtin \
+    -mapcs \
+    -std=gnu99 \
+")
+SET(CMAKE_C_FLAGS_RELEASE " \
+    ${CMAKE_C_FLAGS_RELEASE} \
+    -DNDEBUG \
+    -DCPU_MIMXRT1064DVL6A \
+    -DSDK_I2C_BASED_COMPONENT_USED=1 \
+    -DBOARD_USE_CODEC=1 \
+    -DCODEC_WM8960_ENABLE \
+    -DMCUXPRESSO_SDK \
+    -Os \
     -mcpu=cortex-m7 \
     -Wall \
     -mfloat-abi=hard \
@@ -287,12 +287,13 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     -fno-rtti \
     -fno-exceptions \
 ")
-SET(CMAKE_CXX_FLAGS_RELEASE " \
-    ${CMAKE_CXX_FLAGS_RELEASE} \
-    -DNDEBUG \
+SET(CMAKE_CXX_FLAGS_SDRAM_DEBUG " \
+    ${CMAKE_CXX_FLAGS_SDRAM_DEBUG} \
+    -DDEBUG \
     -DCPU_MIMXRT1064DVL6A \
     -DMCUXPRESSO_SDK \
-    -Os \
+    -g \
+    -O0 \
     -mcpu=cortex-m7 \
     -Wall \
     -mfloat-abi=hard \
@@ -309,13 +310,12 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -fno-rtti \
     -fno-exceptions \
 ")
-SET(CMAKE_CXX_FLAGS_SDRAM_DEBUG " \
-    ${CMAKE_CXX_FLAGS_SDRAM_DEBUG} \
-    -DDEBUG \
+SET(CMAKE_CXX_FLAGS_RELEASE " \
+    ${CMAKE_CXX_FLAGS_RELEASE} \
+    -DNDEBUG \
     -DCPU_MIMXRT1064DVL6A \
     -DMCUXPRESSO_SDK \
-    -g \
-    -O0 \
+    -Os \
     -mcpu=cortex-m7 \
     -Wall \
     -mfloat-abi=hard \
@@ -428,34 +428,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -Wl,--print-memory-usage \
     -T${ProjDirPath}/MIMXRT1064xxxxx_ram.ld -static \
 ")
-SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
-    ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
-    -mcpu=cortex-m7 \
-    -Wall \
-    -mfloat-abi=hard \
-    -mfpu=fpv5-d16 \
-    --specs=nano.specs \
-    --specs=nosys.specs \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mthumb \
-    -mapcs \
-    -Xlinker \
-    --gc-sections \
-    -Xlinker \
-    -static \
-    -Xlinker \
-    -z \
-    -Xlinker \
-    muldefs \
-    -Xlinker \
-    -Map=output.map \
-    -Wl,--print-memory-usage \
-    -T${ProjDirPath}/MIMXRT1064xxxxx_ram.ld -static \
-")
 SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_SDRAM_DEBUG} \
     -g \
@@ -484,6 +456,34 @@ SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_DEBUG " \
     -Map=output.map \
     -Wl,--print-memory-usage \
     -T${ProjDirPath}/MIMXRT1064xxxxx_sdram.ld -static \
+")
+SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
+    ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
+    -mcpu=cortex-m7 \
+    -Wall \
+    -mfloat-abi=hard \
+    -mfpu=fpv5-d16 \
+    --specs=nano.specs \
+    --specs=nosys.specs \
+    -fno-common \
+    -ffunction-sections \
+    -fdata-sections \
+    -ffreestanding \
+    -fno-builtin \
+    -mthumb \
+    -mapcs \
+    -Xlinker \
+    --gc-sections \
+    -Xlinker \
+    -static \
+    -Xlinker \
+    -z \
+    -Xlinker \
+    muldefs \
+    -Xlinker \
+    -Map=output.map \
+    -Wl,--print-memory-usage \
+    -T${ProjDirPath}/MIMXRT1064xxxxx_ram.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_SDRAM_RELEASE} \

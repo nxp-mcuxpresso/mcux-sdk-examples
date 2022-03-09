@@ -65,7 +65,7 @@ include(driver_lpspi)
 
 include(driver_lpspi_edma)
 
-include(driver_edma)
+include(driver_edma_MIMXRT1024)
 
 include(driver_dmamux)
 

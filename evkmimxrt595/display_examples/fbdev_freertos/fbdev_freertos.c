@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019, 2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -134,6 +134,57 @@ int main(void)
         ;
 }
 
+static uint32_t DEMO_GetTimeMs()
+{
+    return (uint32_t)(xTaskGetTickCount() * portTICK_PERIOD_MS);
+}
+
+static void DEMO_ShowPixelFormat(video_pixel_format_t format)
+{
+    char *fmtString;
+
+    switch (format)
+    {
+        case kVIDEO_PixelFormatRGB565:
+            fmtString = "RGB565";
+            break;
+
+        case kVIDEO_PixelFormatBGR565:
+            fmtString = "BGR565";
+            break;
+
+        case kVIDEO_PixelFormatXRGB4444:
+            fmtString = "XRGB4444";
+            break;
+
+        case kVIDEO_PixelFormatXRGB1555:
+            fmtString = "XRGB1555";
+            break;
+
+        case kVIDEO_PixelFormatBGR888:
+            fmtString = "BGR888";
+            break;
+
+        case kVIDEO_PixelFormatRGB888:
+            fmtString = "RGB888";
+            break;
+
+        case kVIDEO_PixelFormatXBGR8888:
+            fmtString = "XBGR8888";
+            break;
+
+        case kVIDEO_PixelFormatXRGB8888:
+            fmtString = "XRGB8888";
+            break;
+
+        default:
+            fmtString = "UNSUPPORTED";
+            break;
+    }
+
+    PRINTF("Pixel format: %s\r\n", fmtString);
+}
+
 static void DEMO_FillFrameBuffer(void *buffer, uint16_t height, uint16_t width, uint16_t strideBytes)
 {
     /* Foreground color. */
@@ -149,11 +200,27 @@ static void DEMO_FillFrameBuffer(void *buffer, uint16_t height, uint16_t width, 
         fgColorTable[1] = 0x07E0U; /* Green. */
         fgColorTable[2] = 0x001FU; /* Red. */
     }
-    else
+    else if (DEMO_BUFFER_PIXEL_FORMAT == kVIDEO_PixelFormatXRGB4444)
+    {
+        fgColorTable[0] = 0x000FU; /* Blue. */
+        fgColorTable[1] = 0x00F0U; /* Green. */
+        fgColorTable[2] = 0x0F00U; /* Red. */
+    }
+    else if (DEMO_BUFFER_PIXEL_FORMAT == kVIDEO_PixelFormatXRGB1555)
+    {
+        fgColorTable[0] = 0x001FU; /* Blue. */
+        fgColorTable[1] = 0x03E0U; /* Green. */
+        fgColorTable[2] = 0x7C00U; /* Red. */
+    }
+    else if (DEMO_BUFFER_PIXEL_FORMAT == kVIDEO_PixelFormatRGB565)
     {
         fgColorTable[0] = 0x001FU; /* Blue. */
         fgColorTable[1] = 0x07E0U; /* Green. */
         fgColorTable[2] = 0xF800U; /* Red. */
+    }
+    else
+    {
+        PRINTF("Pixel format not supported\r\n");
     }
 #elif (3 == DEMO_BUFFER_BYTE_PER_PIXEL)
     static uint32_t fgColorTable[3];
@@ -165,11 +232,15 @@ static void DEMO_FillFrameBuffer(void *buffer, uint16_t height, uint16_t width, 
         fgColorTable[1] = 0x00FF00U; /* Green. */
         fgColorTable[2] = 0x0000FFU; /* Red. */
     }
-    else
+    else if (DEMO_BUFFER_PIXEL_FORMAT == kVIDEO_PixelFormatRGB888)
     {
         fgColorTable[0] = 0x0000FFU; /* Blue. */
         fgColorTable[1] = 0x00FF00U; /* Green. */
         fgColorTable[2] = 0xFF0000U; /* Red. */
+    }
+    else
+    {
+        PRINTF("Pixel format not supported\r\n");
     }
 #elif (4 == DEMO_BUFFER_BYTE_PER_PIXEL)
     static uint32_t fgColorTable[3];
@@ -181,11 +252,15 @@ static void DEMO_FillFrameBuffer(void *buffer, uint16_t height, uint16_t width, 
         fgColorTable[1] = 0x00FF00U; /* Green. */
         fgColorTable[2] = 0x0000FFU; /* Red. */
     }
-    else
+    else if (DEMO_BUFFER_PIXEL_FORMAT == kVIDEO_PixelFormatXRGB8888)
     {
         fgColorTable[0] = 0x0000FFU; /* Blue. */
         fgColorTable[1] = 0x00FF00U; /* Green. */
         fgColorTable[2] = 0xFF0000U; /* Red. */
+    }
+    else
+    {
+        PRINTF("Pixel format not supported\r\n");
     }
 
 #endif
@@ -270,7 +345,10 @@ static void fbdev_task(void *pvParameters)
 {
     void *buffer;
     status_t status;
-    uint32_t count = 0;
+
+    PRINTF("FBDEV_FreeRTOS example started\r\n");
+
+    DEMO_ShowPixelFormat(DEMO_BUFFER_PIXEL_FORMAT);
 
     BOARD_PrepareDisplayController();
     FBDEV_Open(&g_fbdev, &g_dc, 0);
@@ -310,14 +388,30 @@ static void fbdev_task(void *pvParameters)
 
     FBDEV_Enable(&g_fbdev);
 
+    uint32_t startTime, time, n = 0;
+    startTime = DEMO_GetTimeMs();
+
     while (1)
     {
-        PRINTF("Set frame buffer %d times.\r\n", ++count);
-
         buffer = FBDEV_GetFrameBuffer(&g_fbdev, 0);
 
         DEMO_FillFrameBuffer(buffer, g_fbInfo.bufInfo.height, g_fbInfo.bufInfo.width, g_fbInfo.bufInfo.strideBytes);
 
         FBDEV_SetFrameBuffer(&g_fbdev, buffer, 0);
+
+        /*
+         * Show the frame update rate.
+         *
+         * NOTE: The project spends time with filling frame buffer, so the calculated frame update rate
+         * might be smaller the actual LCD frame refresh rate, especially when frame buffer is large.
+         */
+        n++;
+        if (n > 60)
+        {
+            time = DEMO_GetTimeMs() - startTime;
+            PRINTF("Frame Update Rate (include buffer fill time): %d fps\r\n", n * 1000 / time);
+            n         = 0;
+            startTime = DEMO_GetTimeMs();
+        }
     }
 }

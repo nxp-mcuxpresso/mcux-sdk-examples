@@ -11,7 +11,6 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "board.h"
-#include "fsl_gpio.h"
 
 #include "fsl_reset.h"
 #include "fsl_power.h"

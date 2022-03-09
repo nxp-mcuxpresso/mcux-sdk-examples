@@ -96,9 +96,9 @@ include(middleware_freertos-kernel_LPC55S06)
 
 include(middleware_freertos-kernel_extension)
 
-include(CMSIS_Include_core_cm)
-
 include(driver_reset)
+
+include(CMSIS_Include_core_cm)
 
 include(utilities_misc_utilities)
 

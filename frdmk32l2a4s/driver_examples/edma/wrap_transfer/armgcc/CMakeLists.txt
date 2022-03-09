@@ -65,7 +65,7 @@ include(driver_sim)
 
 include(driver_clock)
 
-include(driver_edma)
+include(driver_edma_K32L2A41A)
 
 include(driver_dmamux)
 

@@ -31,7 +31,6 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${ProjDirPath}/../startup/startup_MIMXRT1064_armgcc.S"
 "${ProjDirPath}/../main.c"
 "${ProjDirPath}/../model.S"
 "${ProjDirPath}/../source/data/sample.jpg"
@@ -98,8 +97,6 @@ include(driver_video-i2c)
 
 include(driver_flexram)
 
-include(driver_soc_flexram_allocate)
-
 include(driver_dc-fb-common)
 
 include(driver_dc-fb-elcdif)
@@ -118,6 +115,8 @@ include(driver_lpuart)
 
 include(device_CMSIS)
 
+include(device_startup)
+
 include(driver_clock)
 
 include(driver_igpio)
@@ -128,7 +127,11 @@ include(driver_xip_device)
 
 include(driver_xip_board_evkmimxrt1064)
 
+include(CMSIS_DSP_Library)
+
 include(CMSIS_Include_core_cm)
+
+include(driver_soc_flexram_allocate)
 
 include(device_system)
 
@@ -145,13 +148,21 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
 
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
 
-if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
+if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_debug)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../middleware/eiq/deepviewrt/lib/libdeepview-rt-cortex-m7f.a)
-endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
+endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_debug)
 
-if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
+if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_debug)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../core/CMSIS/DSP/Lib/GCC/libarm_cortexM7lfdp_math.a)
+endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_debug)
+
+if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_release)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../middleware/eiq/deepviewrt/lib/libdeepview-rt-cortex-m7f.a)
-endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
+endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_release)
+
+if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_release)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../core/CMSIS/DSP/Lib/GCC/libarm_cortexM7lfdp_math.a)
+endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_release)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

@@ -44,6 +44,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../../../../../../core/boards/evkmimxrt595/board.h"
 "${ProjDirPath}/../../../../../../core/boards/evkmimxrt595/clock_config.c"
 "${ProjDirPath}/../../../../../../core/boards/evkmimxrt595/clock_config.h"
+"${ProjDirPath}/../../dsp/binary/dsp_reset_release.bin"
 "${ProjDirPath}/../../dsp/binary/dsp_text_release.bin"
 "${ProjDirPath}/../../dsp/binary/dsp_data_release.bin"
 )
@@ -98,7 +99,7 @@ include(component_lists)
 
 include(driver_flexcomm_usart)
 
-include(driver_flash_config)
+include(driver_flash_config_evkmimxrt595)
 
 include(device_startup)
 

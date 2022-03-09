@@ -66,7 +66,7 @@ include(driver_clock)
 
 include(driver_gpio)
 
-include(driver_edma)
+include(driver_edma_MK64F12)
 
 include(driver_dmamux)
 

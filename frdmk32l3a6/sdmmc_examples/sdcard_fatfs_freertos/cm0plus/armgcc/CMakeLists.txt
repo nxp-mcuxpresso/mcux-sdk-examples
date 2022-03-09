@@ -59,19 +59,23 @@ set(CMAKE_MODULE_PATH
 include(all_devices)
 
 # include modules
-include(driver_usdhc)
+include(driver_cache_lplmem)
 
 include(driver_intmux)
 
-include(middleware_sdmmc_sd)
-
-include(middleware_sdmmc_common)
+include(driver_usdhc)
 
 include(middleware_sdmmc_host_usdhc)
 
 include(middleware_sdmmc_host_usdhc_freertos_K32L3A60_cm0plus)
 
-include(driver_cache_lplmem)
+include(middleware_sdmmc_sd)
+
+include(middleware_sdmmc_common)
+
+include(utility_assert_lite)
+
+include(utility_debug_console_lite)
 
 include(middleware_fatfs)
 
@@ -91,21 +95,13 @@ include(driver_msmc)
 
 include(driver_lpuart)
 
-include(utility_assert)
-
-include(utility_debug_console)
-
 include(component_lpuart_adapter)
-
-include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
-
 include(device_CMSIS)
 
-include(device_K32L3A60_startup_K32L3A60_cm0plus)
+include(device_startup_K32L3A60_cm0plus)
 
 include(CMSIS_Include_core_cm)
 

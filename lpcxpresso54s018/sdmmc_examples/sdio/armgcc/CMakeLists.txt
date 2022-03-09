@@ -95,9 +95,9 @@ include(driver_emc)
 
 include(driver_power)
 
-include(CMSIS_Include_core_cm)
-
 include(driver_reset)
+
+include(CMSIS_Include_core_cm)
 
 include(middleware_sdmmc_osa_bm)
 

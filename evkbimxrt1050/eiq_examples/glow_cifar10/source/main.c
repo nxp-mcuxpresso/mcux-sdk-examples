@@ -37,14 +37,14 @@ GLOW_MEM_ALIGN(CIFAR10_MEM_ALIGN)
 uint8_t activations[CIFAR10_ACTIVATIONS_MEM_SIZE];
 
 // Bundle input data absolute address.
-uint8_t *inputAddr = GLOW_GET_ADDR(mutableWeight, CIFAR10_data);
+uint8_t *inputAddr = GLOW_GET_ADDR(mutableWeight, CIFAR10_input);
 
 // Bundle output data absolute address.
-uint8_t *outputAddr = GLOW_GET_ADDR(mutableWeight, CIFAR10_softmax);
+uint8_t *outputAddr = GLOW_GET_ADDR(mutableWeight, CIFAR10_CifarNet_Predictions_Reshape_1);
 
 // ---------------------------- Application -----------------------------
 // Cifar10 model input data size (bytes).
-#define CIFAR10_INPUT_SIZE    32*32*3*sizeof(float)
+#define CIFAR10_INPUT_SIZE    32*32*3
 
 // Cifar10 model number of output classes.
 #define CIFAR10_OUTPUT_CLASS  10
@@ -75,6 +75,7 @@ const char* CIFAR10_LABELS[] = {
 int main(void) {
 
   // Initialize hardware.
+  BOARD_ConfigMPU();
   BOARD_InitBootPins();
   BOARD_InitBootClocks();
   BOARD_InitBootPeripherals();
@@ -87,7 +88,16 @@ int main(void) {
 
   // Produce input data for bundle.
   // Copy the pre-processed image data into the bundle input buffer.
-  memcpy(inputAddr, imageData, sizeof(imageData));
+
+  int8_t *bundleInput =(int8_t *)inputAddr;
+
+  //Do scaling on image.
+  for (int idx = 0; idx < sizeof(imageData); idx++)
+  {
+    int32_t tmp = imageData[idx];
+    tmp -= 128;
+	bundleInput[idx]=((int8_t)(tmp));
+  }
 
   // Perform inference and compute inference time.
   start_time = get_time_in_us();

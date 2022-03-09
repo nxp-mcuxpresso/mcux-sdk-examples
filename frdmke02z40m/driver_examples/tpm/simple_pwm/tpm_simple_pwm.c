@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -29,7 +29,12 @@
 
 /* Get source clock for TPM driver */
 #define TPM_SOURCE_CLOCK CLOCK_GetFreq(kCLOCK_BusClk)
-
+#ifndef TPM_LED_ON_LEVEL
+#define TPM_LED_ON_LEVEL kTPM_HighTrue
+#endif
+#ifndef DEMO_PWM_FREQUENCY
+#define DEMO_PWM_FREQUENCY (24000U)
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -55,15 +60,7 @@ int main(void)
 {
     tpm_config_t tpmInfo;
     tpm_chnl_pwm_signal_param_t tpmParam;
-
-#ifndef TPM_LED_ON_LEVEL
-#define TPM_LED_ON_LEVEL kTPM_LowTrue
-#endif
-
-    /* Configure tpm params with frequency 24kHZ */
-    tpmParam.chnlNumber       = (tpm_chnl_t)BOARD_TPM_CHANNEL;
-    tpmParam.level            = TPM_LED_ON_LEVEL;
-    tpmParam.dutyCyclePercent = updatedDutycycle;
+    uint8_t control;
 
     /* Board pin, clock, debug console init */
     BOARD_InitBootPins();
@@ -77,14 +74,31 @@ int main(void)
         "values");
     PRINTF("\r\nIf no LED is connected to the TPM pin, then probe the signal using an oscilloscope");
 
+    /* Fill in the TPM config struct with the default settings */
     TPM_GetDefaultConfig(&tpmInfo);
+    /* Calculate the clock division based on the PWM frequency to be obtained */
+    tpmInfo.prescale = TPM_CalculateCounterClkDiv(BOARD_TPM_BASEADDR, DEMO_PWM_FREQUENCY, TPM_SOURCE_CLOCK);
     /* Initialize TPM module */
     TPM_Init(BOARD_TPM_BASEADDR, &tpmInfo);
 
-    TPM_SetupPwm(BOARD_TPM_BASEADDR, &tpmParam, 1U, kTPM_CenterAlignedPwm, 24000U, TPM_SOURCE_CLOCK);
+    /* Configure tpm params with frequency 24kHZ */
+    tpmParam.chnlNumber = (tpm_chnl_t)BOARD_TPM_CHANNEL;
+#if (defined(FSL_FEATURE_TPM_HAS_PAUSE_LEVEL_SELECT) && FSL_FEATURE_TPM_HAS_PAUSE_LEVEL_SELECT)
+    tpmParam.pauseLevel = kTPM_ClearOnPause;
+#endif
+    tpmParam.level            = TPM_LED_ON_LEVEL;
+    tpmParam.dutyCyclePercent = updatedDutycycle;
+    if (kStatus_Success !=
+        TPM_SetupPwm(BOARD_TPM_BASEADDR, &tpmParam, 1U, kTPM_CenterAlignedPwm, DEMO_PWM_FREQUENCY, TPM_SOURCE_CLOCK))
+    {
+        PRINTF("\r\nSetup PWM fail!\r\n");
+        return -1;
+    }
 
     TPM_StartTimer(BOARD_TPM_BASEADDR, kTPM_SystemClock);
 
+    /* Record channel PWM mode configure */
+    control = TPM_GetChannelContorlBits(BOARD_TPM_BASEADDR, (tpm_chnl_t)BOARD_TPM_CHANNEL);
     while (1)
     {
         do
@@ -101,15 +115,16 @@ int main(void)
         updatedDutycycle = getCharValue * 10U;
 
         /* Disable channel output before updating the dutycycle */
-        TPM_UpdateChnlEdgeLevelSelect(BOARD_TPM_BASEADDR, (tpm_chnl_t)BOARD_TPM_CHANNEL, 0U);
+        TPM_DisableChannel(BOARD_TPM_BASEADDR, (tpm_chnl_t)BOARD_TPM_CHANNEL);
 
         /* Update PWM duty cycle */
-        TPM_UpdatePwmDutycycle(BOARD_TPM_BASEADDR, (tpm_chnl_t)BOARD_TPM_CHANNEL, kTPM_CenterAlignedPwm,
-                               updatedDutycycle);
+        if (kStatus_Success == TPM_UpdatePwmDutycycle(BOARD_TPM_BASEADDR, (tpm_chnl_t)BOARD_TPM_CHANNEL,
+                                                      kTPM_CenterAlignedPwm, updatedDutycycle))
+        {
+            PRINTF("The duty cycle was successfully updated!\r\n");
+        }
 
         /* Start channel output with updated dutycycle */
-        TPM_UpdateChnlEdgeLevelSelect(BOARD_TPM_BASEADDR, (tpm_chnl_t)BOARD_TPM_CHANNEL, TPM_LED_ON_LEVEL);
-
-        PRINTF("The duty cycle was successfully updated!\r\n");
+        TPM_EnableChannel(BOARD_TPM_BASEADDR, (tpm_chnl_t)BOARD_TPM_CHANNEL, control);
     }
 }

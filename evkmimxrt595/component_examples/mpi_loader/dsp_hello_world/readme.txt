@@ -8,7 +8,7 @@ The elftosb and blhost tool can be downloaded from nxp.com.
 
 Toolchain supported
 ===================
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 - GCC ARM Embedded  10.2.1
 
 Hardware requirements
@@ -25,7 +25,7 @@ Prepare the Demo
 ================
 1. Connect a micro USB cable between the PC host and the CMSIS DAP USB port (J40) on the board
 2. DSP example boards\evkmimxrt595\dsp_examples\hello_world_usart\dsp should be built and we can then
-   get dsp_text_release.bin and dsp_data_release.bin.
+   get dsp_reset_release.bin, dsp_text_release.bin and dsp_data_release.bin.
 3. Build this example, and we can get sdk20-app.bin.
 4. Copy all those binaries to elf2sb workspace "input_images" folder identified in mpi_loader_<type>.json.
 5. Copy mpi_loader_<type>.json to elf2sb workspace "image_config" folder.

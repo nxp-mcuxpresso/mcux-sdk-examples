@@ -83,7 +83,7 @@ static srtm_status_t SRTM_PmicService_Request(srtm_service_t service, srtm_reque
     payloadLen = SRTM_CommMessage_GetPayloadLen(request);
 
     response = SRTM_Response_Create(channel, SRTM_PMIC_CATEGORY, SRTM_PMIC_VERSION, command,
-                                    sizeof(struct _srtm_pmic_payload));
+                                    (uint16_t)sizeof(struct _srtm_pmic_payload));
     if (response == NULL)
     {
         return SRTM_Status_OutOfMemory;
@@ -129,14 +129,14 @@ static srtm_status_t SRTM_PmicService_Request(srtm_service_t service, srtm_reque
                 break;
             case SRTM_PMIC_CMD_GET_VOLTAGE:
                 assert(adapter->getVoltage);
-                status = adapter->getVoltage(adapter, pmicReq->reg, &tmpOutValue);
+                status          = adapter->getVoltage(adapter, pmicReq->reg, &tmpOutValue);
                 pmicResp->value = tmpOutValue;
                 pmicResp->retCode =
                     status == SRTM_Status_Success ? SRTM_PMIC_RETURN_CODE_SUCEESS : SRTM_PMIC_RETURN_CODE_FAIL;
                 break;
             case SRTM_PMIC_CMD_GET_REGISTER:
                 assert(adapter->getRegister);
-                status = adapter->getRegister(adapter, pmicReq->reg, &tmpOutValue);
+                status          = adapter->getRegister(adapter, pmicReq->reg, &tmpOutValue);
                 pmicResp->value = tmpOutValue;
                 pmicResp->retCode =
                     status == SRTM_Status_Success ? SRTM_PMIC_RETURN_CODE_SUCEESS : SRTM_PMIC_RETURN_CODE_FAIL;

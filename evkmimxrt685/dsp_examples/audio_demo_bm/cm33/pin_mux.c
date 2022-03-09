@@ -26,7 +26,6 @@ pin_labels:
 
 #include "fsl_common.h"
 #include "fsl_iopctl.h"
-#include "fsl_inputmux.h"
 #include "pin_mux.h"
 
 /* FUNCTION ************************************************************************************************************
@@ -62,7 +61,6 @@ BOARD_InitPins:
     drive: normal, amena: disabled, odena: disabled, iiena: disabled}
   - {pin_num: K16, peripheral: SYSCON, signal: MCLK, pin_signal: PIO1_10/MCLK/FREQME_GPIO_CLK/CTIMER_INP10/CLKOUT, pupdena: disabled, pupdsel: pullDown, ibena: disabled,
     slew_rate: normal, drive: full, amena: disabled, odena: disabled, iiena: disabled}
-  - {peripheral: HIFI4, signal: 'DSP_INTERRUPT, 1', pin_signal: MU}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -76,11 +74,6 @@ BOARD_InitPins:
 /* Function assigned for the Cortex-M33 */
 void BOARD_InitPins(void)
 {
-    /* PIMCTL clock control: Enable Clock */
-    CLOCK_EnableClock(kCLOCK_InputMux);
-    /* MUB interrupt signal is selected for DSP interrupt input 1 */
-    INPUTMUX_AttachSignal(INPUTMUX, 1U, kINPUTMUX_MuBToDspInterrupt);
-
     const uint32_t fc15_i2c_scl_config = (/* Pin is configured as I2C_SCL */
                                           IOPCTL_PIO_FUNC0 |
                                           /* Enable pull-up / pull-down function */

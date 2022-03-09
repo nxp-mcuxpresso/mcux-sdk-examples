@@ -156,8 +156,8 @@ int main(void)
      */
     PWM_FaultDefaultConfig(&faultConfig);
 
-#if (defined(FSL_FEATURE_PWM_FAULT_LEVEL_HIGH) && FSL_FEATURE_PWM_FAULT_LEVEL_HIGH)
-    faultConfig.faultLevel = true;
+#ifdef DEMO_PWM_FAULT_LEVEL
+    faultConfig.faultLevel = DEMO_PWM_FAULT_LEVEL;
 #endif
 
     /* Sets up the PWM fault protection */

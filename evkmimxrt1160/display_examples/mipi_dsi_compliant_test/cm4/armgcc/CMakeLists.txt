@@ -80,6 +80,8 @@ include(driver_elcdif)
 
 include(driver_dc-fb-elcdif)
 
+include(driver_display-hx8394)
+
 include(driver_video-common)
 
 include(driver_display-common)

@@ -52,6 +52,7 @@ void SysTick_DelayTicks(uint32_t n)
 int main(void)
 {
     /* Board pin init */
+    BOARD_ConfigMPU();
     BOARD_InitPins();
     BOARD_BootClockRUN();
     BOARD_InitDebugConsole();

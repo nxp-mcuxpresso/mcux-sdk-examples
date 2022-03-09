@@ -5,12 +5,12 @@ The FLEXRAM project is a simple demonstration program of the SDK FLEXRAM driver.
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================
 - Mini/micro USB cable
-- MIMXRT1170-EVK board
+- MIMXRT1160-EVK board
 - Personal Computer
 
 Board settings
@@ -40,9 +40,9 @@ FLEXRAM ram allocate example.
 
 Allocate on-chip ram:
 
-   OCRAM bank numbers 4
+   OCRAM bank numbers 2
 
-   DTCM  bank numbers 4
+   DTCM  bank numbers 6
 
    ITCM  bank numbers 8
 

@@ -16,7 +16,7 @@ To remove touch glitch, a software filter is used in this example.
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================
@@ -26,7 +26,7 @@ Hardware requirements
 
 Board settings
 ==============
-Remove R23 on the LPC845 Breakout board.
+Make sure R23 is on the LPC845 Breakout board.
 
 Prepare the demo
 1.  Connect a micro USB cable between the PC host and the CMSIS DAP USB port on the board.

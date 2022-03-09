@@ -65,7 +65,7 @@ include(driver_lpi2c)
 
 include(driver_lpi2c_edma)
 
-include(driver_edma)
+include(driver_edma_K32L3A60_cm0plus)
 
 include(driver_dmamux)
 

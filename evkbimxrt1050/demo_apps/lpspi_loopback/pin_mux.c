@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 ,2021 NXP
+ * Copyright 2017-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -17,7 +17,7 @@ product: Pins v9.0
 processor: MIMXRT1052xxxxB
 package_id: MIMXRT1052DVL6B
 mcu_data: ksdk2_0
-processor_version: 9.0.0
+processor_version: 0.0.0
 board: IMXRT1050-EVKB
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -60,14 +60,14 @@ BOARD_InitPins:
 void BOARD_InitPins(void) {
   CLOCK_EnableClock(kCLOCK_Iomuxc);           
 
-  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_12_LPUART1_TX, 0U); 
-  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_13_LPUART1_RX, 0U); 
-  IOMUXC_SetPinMux(IOMUXC_GPIO_B0_13_ARM_CM7_TRACE_SWO, 0U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_12_LPUART1_TXD, 0U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_13_LPUART1_RXD, 0U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_B0_13_ARM_TRACE_SWO, 0U); 
   IOMUXC_SetPinMux(IOMUXC_GPIO_SD_B0_00_LPSPI1_SCK, 0U); 
   IOMUXC_SetPinMux(IOMUXC_GPIO_SD_B0_01_LPSPI1_PCS0, 0U); 
   IOMUXC_SetPinMux(IOMUXC_GPIO_SD_B0_02_LPSPI1_SDO, 0U); 
   IOMUXC_SetPinMux(IOMUXC_GPIO_SD_B0_03_LPSPI1_SDI, 0U); 
-  IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_13_ARM_CM7_TRACE_SWO, 0x10B0U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_13_ARM_TRACE_SWO, 0x10B0U); 
 }
 
 /***********************************************************************************************************************

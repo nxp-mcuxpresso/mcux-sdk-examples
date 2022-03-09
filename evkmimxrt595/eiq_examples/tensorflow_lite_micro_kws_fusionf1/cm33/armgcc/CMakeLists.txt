@@ -31,11 +31,6 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${ProjDirPath}/../../fusionf1/binary/dsp_text_release.bin"
-"${ProjDirPath}/../../fusionf1/binary/dsp_data_release.bin"
-"${ProjDirPath}/../main.c"
-"${ProjDirPath}/../pin_mux.c"
-"${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../board.c"
 "${ProjDirPath}/../board.h"
 "${ProjDirPath}/../clock_config.c"
@@ -46,8 +41,14 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../dsp_config.h"
 "${ProjDirPath}/../dsp_support.c"
 "${ProjDirPath}/../dsp_support.h"
+"${ProjDirPath}/../../fusionf1/binary/dsp_reset_release.bin"
+"${ProjDirPath}/../../fusionf1/binary/dsp_text_release.bin"
+"${ProjDirPath}/../../fusionf1/binary/dsp_data_release.bin"
 "${ProjDirPath}/../pmic_support.c"
 "${ProjDirPath}/../pmic_support.h"
+"${ProjDirPath}/../main.c"
+"${ProjDirPath}/../pin_mux.c"
+"${ProjDirPath}/../pin_mux.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
@@ -64,9 +65,23 @@ set(CMAKE_MODULE_PATH
 include(all_devices)
 
 # include modules
-include(component_lists)
+include(component_codec_i2c_MIMXRT595S_cm33)
 
 include(driver_common)
+
+include(component_i3c_adapter)
+
+include(driver_codec)
+
+include(component_wm8904_adapter)
+
+include(driver_flexcomm_i2c)
+
+include(driver_i3c)
+
+include(driver_wm8904)
+
+include(component_lists)
 
 include(component_usart_adapter)
 
@@ -82,11 +97,9 @@ include(driver_clock)
 
 include(driver_dsp)
 
-include(driver_flash_config)
+include(driver_flash_config_evkmimxrt595)
 
 include(driver_flexcomm)
-
-include(driver_flexcomm_i2c)
 
 include(driver_flexspi)
 
@@ -106,9 +119,9 @@ include(utility_debug_console_lite)
 
 include(utility_assert_lite)
 
-include(utilities_misc_utilities)
-
 include(CMSIS_Include_core_cm)
+
+include(utilities_misc_utilities)
 
 include(driver_iap)
 

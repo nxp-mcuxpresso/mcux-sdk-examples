@@ -35,6 +35,12 @@
 #define DEMO_SECURE_GPIO_CLOCK     kCLOCK_ShsGpio0
 #define DEMO_SECURE_GPIO_RST       kSHSGPIO0_RST_SHIFT_RSTn
 #define DEMO_BLUE_LED_PIN_SEC_MASK AHB_SECURE_CTRL_SEC_GPIO_MASK0_PIO0_PIN10_SEC_MASK_MASK
+
+#if (DEMO_CODE_START_NS == 0x08100000U)
+#define BOARD_InitTrustZone XIP_BOARD_InitTrustZone
+#else
+#define BOARD_InitTrustZone RAM_BOARD_InitTrustZone
+#endif
 #define NON_SECURE_START DEMO_CODE_START_NS
 
 /*******************************************************************************

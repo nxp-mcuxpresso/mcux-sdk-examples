@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -15,17 +15,23 @@
 /*******************************************************************************
  * Code
  ******************************************************************************/
-const clock_sys_pll_config_t sysPllConfig_PowerMode = {
+const clock_sys_pll_config_t sysPllConfig = {
     .loopDivider = 1, /* PLL loop divider, Fout = Fin * ( 20 + loopDivider*2 + numerator / denominator ) */
     .numerator   = 0, /* 30 bit numerator of fractional loop divider */
     .denominator = 1, /* 30 bit denominator of fractional loop divider */
     .src         = 0, /* Bypass clock source, 0 - OSC 24M, 1 - CLK1_P and CLK1_N */
 };
-const clock_usb_pll_config_t usb1PllConfig_PowerMode = {
+const clock_usb_pll_config_t usbPllConfig = {
     .loopDivider = 0, /* PLL loop divider, Fout = Fin * 20 */
     .src         = 0, /* Bypass clock source, 0 - OSC 24M, 1 - CLK1_P and CLK1_N */
 };
-const clock_enet_pll_config_t enetPllConfig_PowerMode = {
+const clock_audio_pll_config_t audioPllConfig = {
+    .loopDivider = 32,  /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
+    .postDivider = 1,   /* Divider after the PLL, should only be 1, 2, 4, 8, 16. */
+    .numerator   = 77,  /* 30 bit numerator of fractional loop divider. */
+    .denominator = 100, /* 30 bit denominator of fractional loop divider */
+};
+const clock_enet_pll_config_t enetPllConfig = {
     .enableClkOutput     = false, /* Disable the PLL providing the ENET 125MHz reference clock */
     .enableClkOutput500M = true,  /* Enable the PLL providing the ENET 500MHz reference clock */
     .enableClkOutput25M  = false, /* Disable the PLL providing the ENET 25MHz reference clock */
@@ -127,7 +133,7 @@ void ClockSetToOverDriveRun(void)
     SwitchSystemClocks(LPM_PowerModeLowPowerRun);
 
     /* Init SYS PLL*/
-    CLOCK_InitSysPll(&sysPllConfig_PowerMode);
+    CLOCK_InitSysPll(&sysPllConfig);
     /* Init System pfd0. */
     CLOCK_InitSysPfd(kCLOCK_Pfd0, 27);
     /* Init System pfd1. */
@@ -138,7 +144,7 @@ void ClockSetToOverDriveRun(void)
     CLOCK_InitSysPfd(kCLOCK_Pfd3, 24);
 
     /* Init USB1 PLL. */
-    CLOCK_InitUsb1Pll(&usb1PllConfig_PowerMode);
+    CLOCK_InitUsb1Pll(&usbPllConfig);
     /* Init Usb1 pfd0. */
     CLOCK_InitUsb1Pfd(kCLOCK_Pfd0, 22);
     /* Init Usb1 pfd1. */
@@ -147,20 +153,12 @@ void ClockSetToOverDriveRun(void)
     CLOCK_InitUsb1Pfd(kCLOCK_Pfd2, 17);
     /* Init Usb1 pfd3. */
     CLOCK_InitUsb1Pfd(kCLOCK_Pfd3, 19);
-    /* Disable Usb1 PLL output for USBPHY1. */
-    CCM_ANALOG->PLL_USB1 &= ~CCM_ANALOG_PLL_USB1_EN_USB_CLKS_MASK;
 
     /* Init AUDIO PLL */
-    CCM_ANALOG->PLL_AUDIO_SET = CCM_ANALOG_PLL_AUDIO_BYPASS_MASK;
-    CCM_ANALOG->PLL_AUDIO_CLR = CCM_ANALOG_PLL_AUDIO_POWERDOWN_MASK;
-    CCM_ANALOG->PLL_AUDIO_SET = CCM_ANALOG_PLL_AUDIO_ENABLE_MASK;
-    while ((CCM_ANALOG->PLL_AUDIO & CCM_ANALOG_PLL_AUDIO_LOCK_MASK) == 0)
-    {
-    }
-    CCM_ANALOG->PLL_AUDIO_CLR = CCM_ANALOG_PLL_AUDIO_BYPASS_MASK;
+    CLOCK_InitAudioPll(&audioPllConfig);
 
     /* Init ENET PLL */
-    CLOCK_InitEnetPll(&enetPllConfig_PowerMode);
+    CLOCK_InitEnetPll(&enetPllConfig);
 
     SwitchSystemClocks(LPM_PowerModeOverRun);
 }
@@ -171,7 +169,7 @@ void ClockSetToFullSpeedRun(void)
     SwitchSystemClocks(LPM_PowerModeLowPowerRun);
 
     /* Init SYS PLL. */
-    CLOCK_InitSysPll(&sysPllConfig_PowerMode);
+    CLOCK_InitSysPll(&sysPllConfig);
     /* Init System pfd0. */
     CLOCK_InitSysPfd(kCLOCK_Pfd0, 27);
     /* Init System pfd1. */
@@ -182,7 +180,7 @@ void ClockSetToFullSpeedRun(void)
     CLOCK_InitSysPfd(kCLOCK_Pfd3, 24);
 
     /* Init USB1 PLL. */
-    CLOCK_InitUsb1Pll(&usb1PllConfig_PowerMode);
+    CLOCK_InitUsb1Pll(&usbPllConfig);
     /* Init Usb1 pfd0. */
     CLOCK_InitUsb1Pfd(kCLOCK_Pfd0, 22);
     /* Init Usb1 pfd1. */
@@ -191,20 +189,12 @@ void ClockSetToFullSpeedRun(void)
     CLOCK_InitUsb1Pfd(kCLOCK_Pfd2, 17);
     /* Init Usb1 pfd3. */
     CLOCK_InitUsb1Pfd(kCLOCK_Pfd3, 19);
-    /* Disable Usb1 PLL output for USBPHY1. */
-    CCM_ANALOG->PLL_USB1 &= ~CCM_ANALOG_PLL_USB1_EN_USB_CLKS_MASK;
 
     /* Init AUDIO PLL */
-    CCM_ANALOG->PLL_AUDIO_SET = CCM_ANALOG_PLL_AUDIO_BYPASS_MASK;
-    CCM_ANALOG->PLL_AUDIO_CLR = CCM_ANALOG_PLL_AUDIO_POWERDOWN_MASK;
-    CCM_ANALOG->PLL_AUDIO_SET = CCM_ANALOG_PLL_AUDIO_ENABLE_MASK;
-    while ((CCM_ANALOG->PLL_AUDIO & CCM_ANALOG_PLL_AUDIO_LOCK_MASK) == 0)
-    {
-    }
-    CCM_ANALOG->PLL_AUDIO_CLR = CCM_ANALOG_PLL_AUDIO_BYPASS_MASK;
+    CLOCK_InitAudioPll(&audioPllConfig);
 
     /* Init ENET PLL */
-    CLOCK_InitEnetPll(&enetPllConfig_PowerMode);
+    CLOCK_InitEnetPll(&enetPllConfig);
 
     SwitchSystemClocks(LPM_PowerModeFullRun);
 }
@@ -215,7 +205,7 @@ void ClockSetToLowSpeedRun(void)
     SwitchSystemClocks(LPM_PowerModeLowPowerRun);
 
     /* Init SYS PLL */
-    CLOCK_InitSysPll(&sysPllConfig_PowerMode);
+    CLOCK_InitSysPll(&sysPllConfig);
 
     /* Deinit SYS PLL PFD 0 1 */
     CLOCK_DeinitSysPfd(kCLOCK_Pfd0);
@@ -271,26 +261,6 @@ void ClockSetToLowPowerRun(void)
 
     /* Deinit ENET PLL */
     CLOCK_DeinitEnetPll();
-}
-
-void SetLowPowerClockGate(void)
-{
-    CCM->CCGR0 = CCM_CCGR0_CG0(1) | CCM_CCGR0_CG1(1) | CCM_CCGR0_CG3(3) | CCM_CCGR0_CG11(1) | CCM_CCGR0_CG12(1);
-    CCM->CCGR1 = CCM_CCGR1_CG9(3) | CCM_CCGR1_CG10(1) | CCM_CCGR1_CG13(1) | CCM_CCGR1_CG14(1) | CCM_CCGR1_CG15(1);
-    CCM->CCGR2 = CCM_CCGR2_CG2(1) | CCM_CCGR2_CG8(1) | CCM_CCGR2_CG9(1) | CCM_CCGR2_CG10(1);
-    CCM->CCGR3 = CCM_CCGR3_CG2(1) | CCM_CCGR3_CG4(1) | CCM_CCGR3_CG9(1) | CCM_CCGR3_CG14(1) | CCM_CCGR3_CG15(1);
-    CCM->CCGR4 =
-        CCM_CCGR4_CG1(1) | CCM_CCGR4_CG2(1) | CCM_CCGR4_CG4(1) | CCM_CCGR4_CG5(1) | CCM_CCGR4_CG6(1) | CCM_CCGR4_CG7(1);
-    CCM->CCGR5 = CCM_CCGR5_CG0(1) | CCM_CCGR5_CG1(1) | CCM_CCGR5_CG4(1) | CCM_CCGR5_CG6(1) | CCM_CCGR5_CG12(1) |
-                 CCM_CCGR5_CG14(1) | CCM_CCGR5_CG15(1);
-    /* We can enable DCDC when need to config it and close it after configuration */
-    CCM->CCGR6 = CCM_CCGR6_CG3(1) | CCM_CCGR6_CG4(1) | CCM_CCGR6_CG5(1) | CCM_CCGR6_CG9(1) | CCM_CCGR6_CG10(1) |
-                 CCM_CCGR6_CG11(1);
-}
-
-void PowerDownUSBPHY(void)
-{
-    USBPHY->CTRL = 0xFFFFFFFF;
 }
 
 void ConfigUartRxPinToGpio(void)

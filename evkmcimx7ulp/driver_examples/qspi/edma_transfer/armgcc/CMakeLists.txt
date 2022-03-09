@@ -73,7 +73,7 @@ include(driver_qspi_edma)
 
 include(driver_dmamux)
 
-include(driver_edma)
+include(driver_edma_MCIMX7U5)
 
 include(driver_common)
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019, 2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -22,6 +22,13 @@
  * Definitions
  ******************************************************************************/
 #define DEMO_POWERQUAD POWERQUAD
+/* Some platforms flash are too small to run all functions. For these platforms,
+ * disable the DCT functions in this project.
+ */
+#ifndef EXAMPLE_ENABLE_DCT
+#define EXAMPLE_ENABLE_DCT 1
+#endif
+
 #define MATRIX_TEST_LOOP 10000
 #define MATH_TEST_LOOP   100000
 #define FIR_TEST_LOOP    100000
@@ -77,8 +84,10 @@ static void arm_cfft_q15Test(void);
 static void arm_cfft_q31Test(void);
 static void arm_ifft_q15Test(void);
 static void arm_ifft_q31Test(void);
+#if EXAMPLE_ENABLE_DCT
 static void arm_dct4_q15Test(void);
 static void arm_dct4_q31Test(void);
+#endif
 
 static void TEST_InitTime(void);
 static uint32_t TEST_GetTime(void);
@@ -119,8 +128,11 @@ int main(void)
 
     arm_ifft_q15Test();
     arm_ifft_q31Test();
+
+#if EXAMPLE_ENABLE_DCT
     arm_dct4_q15Test();
     arm_dct4_q31Test();
+#endif
 
     PRINTF("\r\nCMSIS DSP benchmark software fft test succeeded.\r\n");
 
@@ -445,6 +457,7 @@ static void arm_ifft_q31Test(void)
     }
 }
 
+#if EXAMPLE_ENABLE_DCT
 static const float dct4RefResult[DCT_INPUT_LEN] = {
     3.69141984,  -4.11250544, 1.77583408,  -1.58607316, 1.05064547,  -0.97872084, 0.74445111,  -0.70727551, 0.57621890,
     -0.55361336, 0.46995211,  -0.45478085, 0.39676580,  -0.38588813, 0.34330326,  -0.33512598, 0.30254239,  -0.29617268,
@@ -615,3 +628,4 @@ static void arm_dct4_q31Test(void)
         EXAMPLE_ASSERT_TRUE(abs(inout[i] - ref[i]) <= 15);
     }
 }
+#endif /* EXAMPLE_ENABLE_DCT */

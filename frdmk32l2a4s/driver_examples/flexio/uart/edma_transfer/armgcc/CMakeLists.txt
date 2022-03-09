@@ -55,7 +55,7 @@ set(CMAKE_MODULE_PATH
 include(all_devices)
 
 # include modules
-include(driver_edma)
+include(driver_edma_K32L2A41A)
 
 include(driver_dmamux)
 

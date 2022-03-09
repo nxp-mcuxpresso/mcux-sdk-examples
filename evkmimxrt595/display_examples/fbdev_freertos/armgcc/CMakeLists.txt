@@ -108,6 +108,8 @@ include(driver_dc-fb-dsi-cmd)
 
 include(driver_mipi_dsi_smartdma)
 
+include(driver_display-hx8394)
+
 include(driver_fbdev)
 
 include(driver_video-common)
@@ -134,7 +136,7 @@ include(component_serial_manager_uart)
 
 include(driver_flexcomm_usart)
 
-include(driver_flash_config)
+include(driver_flash_config_evkmimxrt595)
 
 include(device_startup)
 

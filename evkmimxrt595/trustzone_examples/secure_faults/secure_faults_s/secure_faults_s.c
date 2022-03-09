@@ -24,7 +24,18 @@
  * Definitions
  ******************************************************************************/
 #define AHB_LAYERS_COUNT 18U
+#if (DEMO_CODE_START_NS == 0x08100000U)
+#define BOARD_InitTrustZone XIP_BOARD_InitTrustZone
+#else
+#define BOARD_InitTrustZone RAM_BOARD_InitTrustZone
+#endif
 #define NON_SECURE_START DEMO_CODE_START_NS
+
+/* @TEST_ANCHOR */
+
+#ifndef TESTCASE_MODE
+#define TESTCASE_MODE FAULT_NONE
+#endif
 
 /* typedef for non-secure callback functions, this type is needed for TEST 1  */
 typedef void (*funcptr_ns)(void) TZM_IS_NONSECURE_CALLED;
@@ -219,7 +230,7 @@ int main(void)
 
     PRINTF("Hello from secure world!\r\n");
 
-    testCaseNumber = FAULT_NONE;
+    testCaseNumber = TESTCASE_MODE;
 
     /* SET YOUR YOUR BREAK POINT TO THE NEXT CODE LINE */
 

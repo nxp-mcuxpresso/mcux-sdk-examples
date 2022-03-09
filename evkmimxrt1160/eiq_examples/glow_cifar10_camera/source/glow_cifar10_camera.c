@@ -79,10 +79,10 @@ GLOW_MEM_ALIGN(CIFAR10_MEM_ALIGN)
 uint8_t activations[CIFAR10_ACTIVATIONS_MEM_SIZE];
 
 // Bundle input data absolute address.
-uint8_t *inputAddr = GLOW_GET_ADDR(mutableWeight, CIFAR10_data);
+uint8_t *inputAddr = GLOW_GET_ADDR(mutableWeight, CIFAR10_input);
 
 // Bundle output data absolute address.
-uint8_t *outputAddr = GLOW_GET_ADDR(mutableWeight, CIFAR10_softmax);
+uint8_t *outputAddr = GLOW_GET_ADDR(mutableWeight, CIFAR10_CifarNet_Predictions_Reshape_1);
 
 
 /*******************************************************************************
@@ -136,24 +136,6 @@ const char* LABELS[] = {
 /*******************************************************************************
  * Code
  ******************************************************************************/
-// from NHWC to NCHW
-void change_layout(uint8_t *image_data)
-{
-  uint8_t temp[MODEL_INPUT_HEIGHT * MODEL_INPUT_WIDTH * IMAGE_CHANNELS];
-
-  for (int channel_idx = 0; channel_idx < IMAGE_CHANNELS; channel_idx++)
-  {
-    for (int idx = 0; idx < MODEL_INPUT_HEIGHT * MODEL_INPUT_WIDTH; idx++)
-    {
-      temp[idx + channel_idx * MODEL_INPUT_HEIGHT * MODEL_INPUT_WIDTH] = image_data[idx * IMAGE_CHANNELS + channel_idx];
-    }
-  }
-
-  for (int idx = 0; idx < MODEL_INPUT_HEIGHT * MODEL_INPUT_WIDTH * IMAGE_CHANNELS; idx++)
-  {
-    image_data[idx] = temp[idx];
-  }
-}
 
 /*!
  * @brief  Run inference. It processed static image if static image is not NULL
@@ -163,40 +145,21 @@ void change_layout(uint8_t *image_data)
  * is not required.
  * param staticImageLen size of static image.
  */
-void run_inference(uint8_t *image_data, const char* labels[], uint8_t scale_mode, bool static_image)
+void run_inference(uint8_t *image_data, const char* labels[])
 {
   uint32_t start = 0U;
   uint32_t end = 0U;
   uint32_t duration_ms = 0U;
 
-  if (!static_image)
-    change_layout(image_data);
-
-  // Produce input data for bundle.
-  // Copy the pre-processed image data into the bundle input buffer.s)
-  float *bundleInput =(float *)inputAddr;
+  int8_t *bundleInput =(int8_t *)inputAddr;
 
   //Do scaling on image.
-  for (int idx = 0; idx < MODEL_INPUT_HEIGHT * MODEL_INPUT_WIDTH * IMAGE_CHANNELS; idx++)
+  for (int idx = 0; idx < MODEL_INPUT_SIZE; idx++)
   {
-    if(scale_mode==SCALE_NEG1TO1)
-    {
-      bundleInput[idx]=(((((float)image_data[idx])/255.0)*2)-1.0);
-    }
-    else if(scale_mode==SCALE_0TO1)
-    {
-      bundleInput[idx]=(((float)image_data[idx])/255.0);
-    }
-    else if(scale_mode==SCALE_NEG128TO127)
-    {
-      bundleInput[idx]=(((float)image_data[idx])-128);
-    }
-    else if(scale_mode==SCALE_0TO255)
-    {
-      //Do nothing as data already scaled from 0 to 255
-      bundleInput[idx]=(float)image_data[idx];
-    }
- }
+    int32_t tmp = image_data[idx];
+    tmp -= 128;
+	bundleInput[idx]=((int8_t)(tmp));
+  }
 
   start = get_time_in_us();
   cifar10(constantWeight, mutableWeight, activations);
@@ -239,8 +202,6 @@ int main(void)
   printf("CIFAR-10 object recognition example using Glow.\r\n");
   printf("Detection threshold: %d%%\r\n", DETECTION_TRESHOLD);
 
- bool static_image = true;
-
   while (1)
   {
     if (IMAGE_GetImage(s_imageData, IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_CHANNELS) != kStatus_Success)
@@ -249,8 +210,6 @@ int main(void)
       for (;;) {}
     }
 
-    run_inference(s_imageData, LABELS, MODEL_IMAGE_SCALE_MODE, static_image);
-
-    static_image = false;
+    run_inference(s_imageData, LABELS);
   }
 }

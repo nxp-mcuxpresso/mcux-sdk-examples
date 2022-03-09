@@ -68,7 +68,7 @@ include(driver_clock)
 
 include(driver_lpuart)
 
-include(driver_edma)
+include(driver_edma_MIMXRT1176_cm4)
 
 include(driver_dmamux)
 
@@ -105,6 +105,8 @@ include(driver_cache_lmem)
 include(driver_anatop_ai)
 
 include(CMSIS_Include_core_cm)
+
+include(driver_memory)
 
 include(CMSIS_Driver_Include_SPI)
 

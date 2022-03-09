@@ -68,7 +68,7 @@ include(driver_gpio)
 
 include(driver_lpuart)
 
-include(driver_edma)
+include(driver_edma_K32L2A41A)
 
 include(driver_dmamux)
 

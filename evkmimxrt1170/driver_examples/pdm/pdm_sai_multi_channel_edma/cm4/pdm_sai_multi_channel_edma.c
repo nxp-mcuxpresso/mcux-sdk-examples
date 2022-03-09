@@ -68,9 +68,9 @@ static void saiCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t stat
 AT_NONCACHEABLE_SECTION_ALIGN(pdm_edma_handle_t s_pdmRxHandle_0, 4);
 AT_NONCACHEABLE_SECTION_ALIGN(edma_handle_t s_pdmDmaHandle_0, 4);
 AT_NONCACHEABLE_SECTION_ALIGN(edma_handle_t s_saiDmaHandle, 4);
-AT_NONCACHEABLE_SECTION_ALIGN(sai_edma_handle_t s_saiTxHandle, 4);
-AT_NONCACHEABLE_SECTION_ALIGN(edma_tcd_t s_edmaTcd_0[2], 32U);
-AT_NONCACHEABLE_SECTION_ALIGN(edma_tcd_t s_edmaTcd_1[2], 32U);
+AT_QUICKACCESS_SECTION_DATA_ALIGN(sai_edma_handle_t s_saiTxHandle, 4);
+AT_QUICKACCESS_SECTION_DATA_ALIGN(edma_tcd_t s_edmaTcd_0[2], 32U);
+AT_QUICKACCESS_SECTION_DATA_ALIGN(edma_tcd_t s_edmaTcd_1[2], 32U);
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t s_buffer[BUFFER_SIZE * BUFFER_NUMBER], 4);
 
 pdm_edma_transfer_t pdmXfer[2] = {
@@ -93,8 +93,12 @@ static const pdm_config_t pdmConfig         = {
     .cicOverSampleRate = DEMO_PDM_CIC_OVERSAMPLE_RATE,
 };
 static const pdm_channel_config_t channelConfig = {
+#if (defined(FSL_FEATURE_PDM_HAS_DC_OUT_CTRL) && (FSL_FEATURE_PDM_HAS_DC_OUT_CTRL))
+    .outputCutOffFreq = kPDM_DcRemoverCutOff40Hz,
+#else
     .cutOffFreq = kPDM_DcRemoverCutOff152Hz,
-    .gain       = kPDM_DfOutputGain7,
+#endif
+    .gain = kPDM_DfOutputGain7,
 };
 
 codec_handle_t codecHandle;
@@ -166,10 +170,13 @@ static void saiCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t stat
 void PDM_ERROR_IRQHandler(void)
 {
     uint32_t fifoStatus = 0U;
+
+#if (defined(FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ) && (FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ == 1U))
     if (PDM_GetStatus(DEMO_PDM) & PDM_STAT_LOWFREQF_MASK)
     {
         PDM_ClearStatus(DEMO_PDM, PDM_STAT_LOWFREQF_MASK);
     }
+#endif
 
     fifoStatus = PDM_GetFifoStatus(DEMO_PDM);
     if (fifoStatus)

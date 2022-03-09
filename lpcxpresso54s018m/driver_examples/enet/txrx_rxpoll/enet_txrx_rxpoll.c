@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2020 NXP
+ * Copyright 2016-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -60,6 +60,22 @@
 #endif
 #endif
 #endif
+
+/* @TEST_ANCHOR */
+
+#ifndef MAC_ADDRESS
+#define MAC_ADDRESS                        \
+    {                                      \
+        0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60 \
+    }
+#endif
+
+#ifndef MAC_ADDRESS2
+#define MAC_ADDRESS2                       \
+    {                                      \
+        0x01, 0x00, 0x5e, 0x00, 0x01, 0x81 \
+    }
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -81,10 +97,9 @@ __ALIGN_BEGIN enet_rx_bd_struct_t g_rxBuffDescrip[ENET_RXBD_NUM] __ALIGN_END;
 #endif
 __ALIGN_BEGIN enet_tx_bd_struct_t g_txBuffDescrip[ENET_TXBD_NUM] __ALIGN_END;
 
-enet_handle_t g_handle = {0};
 /* The MAC address for ENET device. */
-uint8_t g_macAddr[6]     = {0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60};
-uint8_t multicastAddr[6] = {0x01, 0x00, 0x5e, 0x00, 0x01, 0x81};
+uint8_t g_macAddr[6]     = MAC_ADDRESS;
+uint8_t multicastAddr[6] = MAC_ADDRESS2;
 uint8_t g_frame[ENET_EXAMPLE_PACKAGETYPE][ENET_EXAMPLE_FRAME_SIZE];
 uint8_t *g_txbuff[ENET_TXBD_NUM];
 uint32_t g_txIdx      = 0;
@@ -140,6 +155,7 @@ int main(void)
         ENET_TXBD_NUM,
         &g_txBuffDescrip[0],
         &g_txBuffDescrip[0],
+        NULL,
         &g_rxBuffDescrip[0],
         &g_rxBuffDescrip[ENET_RXBD_NUM],
         &g_rxbuffer[0],
@@ -199,8 +215,7 @@ int main(void)
     /* Initialize ENET. */
     ENET_Init(EXAMPLE_ENET_BASE, &config, &g_macAddr[0], refClock);
 
-    /* Enable the tx/rx interrupt. */
-    ENET_EnableInterrupts(EXAMPLE_ENET_BASE, (kENET_DmaTx));
+    /* Enable the interrupt. */
     EnableIRQ(ENET_EXAMPLE_IRQ);
 
     /* Initialize Descriptor. */

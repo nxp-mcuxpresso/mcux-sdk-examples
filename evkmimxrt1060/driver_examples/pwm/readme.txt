@@ -8,7 +8,7 @@ It can be used to control all known Switched Mode Power Supplies (SMPS) topologi
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================

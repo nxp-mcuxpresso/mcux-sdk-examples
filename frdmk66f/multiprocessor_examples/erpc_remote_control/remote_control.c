@@ -606,7 +606,7 @@ static void server_task(void *pvParameters)
 
             /* removing the service from the server */
             erpc_remove_service_from_server(service);
-            destroy_remote_control_app_0_service();
+            destroy_remote_control_app_0_service(service);
 
             /* stop erpc server */
             erpc_server_stop();

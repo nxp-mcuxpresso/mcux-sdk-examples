@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -67,7 +67,8 @@ void TPM_INPUT_CAPTURE_HANDLER(void)
         TPM_ClearStatusFlags(DEMO_TPM_BASEADDR, TPM_SECOND_CHANNEL_FLAG);
         if (tpmFirstChannelInterruptFlag == true)
         {
-            capture2Val = DEMO_TPM_BASEADDR->CONTROLS[(BOARD_TPM_INPUT_CAPTURE_CHANNEL_PAIR * 2) + 1].CnV;
+            capture2Val =
+                TPM_GetChannelValue(DEMO_TPM_BASEADDR, (tpm_chnl_t)((BOARD_TPM_INPUT_CAPTURE_CHANNEL_PAIR * 2) + 1));
             /* Disable second channel interrupt.*/
             TPM_DisableInterrupts(DEMO_TPM_BASEADDR, TPM_SECOND_CHANNEL_INTERRUPT_ENABLE);
             g_secondChannelOverflowCount  = g_timerOverflowInterruptCount;
@@ -76,7 +77,7 @@ void TPM_INPUT_CAPTURE_HANDLER(void)
     }
     else if ((TPM_GetStatusFlags(DEMO_TPM_BASEADDR) & TPM_FIRST_CHANNEL_FLAG) == TPM_FIRST_CHANNEL_FLAG)
     {
-        capture1Val = DEMO_TPM_BASEADDR->CONTROLS[BOARD_TPM_INPUT_CAPTURE_CHANNEL_PAIR * 2].CnV;
+        capture1Val = TPM_GetChannelValue(DEMO_TPM_BASEADDR, (tpm_chnl_t)(BOARD_TPM_INPUT_CAPTURE_CHANNEL_PAIR * 2));
         /* Clear first channel interrupt flag.*/
         TPM_ClearStatusFlags(DEMO_TPM_BASEADDR, TPM_FIRST_CHANNEL_FLAG);
         /* Disable first channel interrupt.*/
@@ -129,7 +130,7 @@ int main(void)
     TPM_SetupDualEdgeCapture(DEMO_TPM_BASEADDR, BOARD_TPM_INPUT_CAPTURE_CHANNEL_PAIR, &edgeParam, 0);
 
     /* Set the timer to be in free-running mode */
-    DEMO_TPM_BASEADDR->MOD = 0xFFFF;
+    TPM_SetTimerPeriod(DEMO_TPM_BASEADDR, TPM_MAX_COUNTER_VALUE(DEMO_TPM_BASEADDR));
 
     /* Enable first channel interrupt */
     TPM_EnableInterrupts(DEMO_TPM_BASEADDR, TPM_FIRST_CHANNEL_INTERRUPT_ENABLE);
@@ -166,9 +167,11 @@ int main(void)
      */
     tpm_source_clock_ms = TPM_SOURCE_CLOCK / 1000000;
     assert(0 != tpm_source_clock_ms);
-    pulseWidth =
-        (((g_secondChannelOverflowCount - g_firstChannelOverflowCount) * 65536 + capture2Val - capture1Val) + 1) /
-        tpm_source_clock_ms;
+    pulseWidth = (((g_secondChannelOverflowCount - g_firstChannelOverflowCount) *
+                       (TPM_MAX_COUNTER_VALUE(DEMO_TPM_BASEADDR) + 1U) +
+                   capture2Val - capture1Val) +
+                  1) /
+                 tpm_source_clock_ms;
 
     PRINTF("\r\nInput signals pulse width=%d us\r\n", pulseWidth);
     while (1)

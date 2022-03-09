@@ -62,7 +62,7 @@ include(driver_clock)
 
 include(driver_lpuart)
 
-include(driver_edma)
+include(driver_edma_MIMXRT1052)
 
 include(driver_dmamux)
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 NXP
+ * Copyright 2018-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,6 +14,7 @@
 #include "clock_config.h"
 #include "board.h"
 #include "counter.h"
+#include "dsp_nn.h"
 
 #include "dsp_support.h"
 /*******************************************************************************
@@ -65,11 +66,11 @@ GLOW_MEM_ALIGN(MODEL_MEM_ALIGN)
 uint8_t activations[MODEL_ACTIVATIONS_MEM_SIZE];
 
 // Bundle input/output data absolute addresses.
-uint8_t *bundleInpAddr = GLOW_GET_ADDR(mutableWeight, MODEL_data);
-uint8_t *bundleOutAddr = GLOW_GET_ADDR(mutableWeight, MODEL_softmax);
+uint8_t *bundleInpAddr = GLOW_GET_ADDR(mutableWeight, MODEL_input);
+uint8_t *bundleOutAddr = GLOW_GET_ADDR(mutableWeight, MODEL_CifarNet_Predictions_Reshape_1);
 
 // Model input data size (bytes).
-#define INPUT_IMAGE_SIZE 32 * 32 * 3 * sizeof(float)
+#define INPUT_IMAGE_SIZE 32 * 32 * 3 * sizeof(uint8_t)
 
 // Model number of output classes.
 #define OUTPUT_NUM_CLASS 10
@@ -98,6 +99,10 @@ void app_nameservice_isr_cb(unsigned int new_ept, const char *new_ept_name, unsi
 
 /*********************************** CIFAR10 **********************************/
 
+#define INFERENCE_CONTROL_MCU 0
+#define INFERENCE_CONTROL_DSP 1
+#define INFERENCE_CONTROL     INFERENCE_CONTROL_MCU
+
 static TaskHandle_t nn_app_task_handle = NULL;
 void nn_app_task(void *param)
 {
@@ -119,7 +124,11 @@ void nn_app_task(void *param)
         // Perform inference and get inference time
         KIN1_ResetCycleCounter();
         tic = get_ccount();
-        model(constantWeight, mutableWeight, activations);
+#if INFERENCE_CONTROL == INFERENCE_CONTROL_MCU
+        int rc = model(constantWeight, mutableWeight, activations);
+#elif INFERENCE_CONTROL == INFERENCE_CONTROL_DSP
+        int rc = hifi_inference(constantWeight, mutableWeight, activations);
+#endif
         toc     = get_ccount();
         time_ms = COUNT_TO_USEC((toc - tic), SystemCoreClock) / 1000.0;
 
@@ -141,6 +150,7 @@ void nn_app_task(void *param)
         accuracy += ((max_idx == ref_idx) ? 1.0 : 0.0);
 
         // Print classification results
+        PRINTF("Return code = %d\r\n", rc);
         PRINTF("Top1 class = %d\r\n", max_idx);
         PRINTF("Ref class = %d\r\n", ref_idx);
         PRINTF("Confidence = %.18f\r\n", max_val);

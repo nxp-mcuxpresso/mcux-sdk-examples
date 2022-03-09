@@ -6,7 +6,7 @@ In this example, the RAW8 data is convert to RGB565 data, then shown in the pane
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- MCUXpresso  11.5.0
 
 Hardware requirements
 =====================
