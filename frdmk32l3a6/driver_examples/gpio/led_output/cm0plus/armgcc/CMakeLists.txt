@@ -77,7 +77,7 @@ include(component_lists)
 
 include(device_CMSIS)
 
-include(device_K32L3A60_startup_K32L3A60_cm0plus)
+include(device_startup_K32L3A60_cm0plus)
 
 include(CMSIS_Include_core_cm)
 
