@@ -1,0 +1,33 @@
+<#if configMemory?has_content>
+<#list configMemory as memory>
+<#if memory.RAM && memory.defaultRAM>
+
+    /* Main DATA section (${memory.name}) */
+<#if (PLAIN_LOAD_IMAGE) && (memory.name == CODEX) >
+    .data : ALIGN_WITH_INPUT
+<#else>
+    .data : ALIGN(${data_align})
+</#if>
+    {
+       FILL(0xff)
+       _data = . ;
+       *(vtable)
+       *(.ramfunc*)
+
+
+<#include "extrasections_data.ldt">
+
+       . = ALIGN(32);
+       __privileged_sram_start__ = .;
+       *(privileged_data)
+       *(privileged_data*)
+       . = ALIGN(32);
+       __privileged_sram_end__ = (. - 1);
+
+<#include "main_data.ldt">
+       . = ALIGN(${data_align}) ;
+       _edata = . ;
+    } > ${memory.name} AT>${CODE}
+</#if>
+</#list>
+</#if>

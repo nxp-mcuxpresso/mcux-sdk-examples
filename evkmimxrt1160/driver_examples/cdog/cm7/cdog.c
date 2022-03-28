@@ -138,7 +138,6 @@ int main(void)
     conf.timeout    = kCDOG_FaultCtrl_EnableInterrupt;
     conf.miscompare = kCDOG_FaultCtrl_EnableInterrupt;
     conf.sequence   = kCDOG_FaultCtrl_EnableInterrupt;
-    conf.control    = kCDOG_FaultCtrl_EnableReset; /* Note: Control can generate only reset */
     conf.state      = kCDOG_FaultCtrl_EnableInterrupt;
     conf.address    = kCDOG_FaultCtrl_EnableInterrupt;
     conf.irq_pause  = kCDOG_IrqPauseCtrl_Pause;
