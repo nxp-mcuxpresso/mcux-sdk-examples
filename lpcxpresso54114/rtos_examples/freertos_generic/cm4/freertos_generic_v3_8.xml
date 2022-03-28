@@ -80,8 +80,8 @@
     <include_paths>
       <include_path path="examples/lpcxpresso54114/rtos_examples/freertos_generic/cm4" project_relative_path="board" type="c_include"/>
       <include_path path="examples/lpcxpresso54114/rtos_examples/freertos_generic/cm4" project_relative_path="source" type="c_include"/>
-      <include_path path="boards/lpcxpresso54114" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/lpcxpresso54114/rtos_examples/freertos_generic" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/lpcxpresso54114" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/lpcxpresso54114/rtos_examples/freertos_generic" project_relative_path="board" type="c_include"/>
       <include_path path="examples/lpcxpresso54114/rtos_examples/freertos_generic/cm4" project_relative_path="source" type="asm_include"/>
     </include_paths>
     <source path="examples/lpcxpresso54114/rtos_examples/freertos_generic/cm4/iar" project_relative_path="./" type="workspace" toolchain="iar">

@@ -49,8 +49,9 @@
           <value>FRDM_K28FA</value>
           <value>FREEDOM</value>
           <value>SD_ENABLED</value>
-          <value>FSL_RTOS_FREE_RTOS</value>
-          <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>SDK_OS_FREE_RTOS</value>
+	  <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
@@ -85,8 +86,8 @@
     <include_paths>
       <include_path path="examples/frdmk28fa/sdmmc_examples/sdcard_freertos" project_relative_path="board" type="c_include"/>
       <include_path path="examples/frdmk28fa/sdmmc_examples/sdcard_freertos" project_relative_path="source" type="c_include"/>
-      <include_path path="boards/frdmk28fa/sdmmc_examples/sdcard_freertos" project_relative_path="frdmk28fa/sdmmc_examples/sdcard_freertos" type="c_include"/>
-      <include_path path="boards/frdmk28fa" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmk28fa/sdmmc_examples/sdcard_freertos" project_relative_path="frdmk28fa/sdmmc_examples/sdcard_freertos" type="c_include"/>
+      <include_path path="core/boards/frdmk28fa" project_relative_path="board" type="c_include"/>
       <include_path path="examples/frdmk28fa/sdmmc_examples/sdcard_freertos" project_relative_path="source" type="asm_include"/>
     </include_paths>
     <source path="examples/frdmk28fa/sdmmc_examples/sdcard_freertos/iar" project_relative_path="./" type="workspace" toolchain="iar">

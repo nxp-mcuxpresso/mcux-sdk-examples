@@ -73,8 +73,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="examples/frdmk28fa/demo_apps/ecompass" project_relative_path="board" type="c_include"/>
-      <include_path path="boards/frdmk28fa/demo_apps/ecompass" project_relative_path="frdmk28fa/demo_apps/ecompass" type="c_include"/>
-      <include_path path="boards/frdmk28fa" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/frdmk28fa/demo_apps/ecompass" project_relative_path="frdmk28fa/demo_apps/ecompass" type="c_include"/>
+      <include_path path="core/boards/frdmk28fa" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="examples/frdmk28fa/demo_apps/ecompass/iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="ecompass.ewd"/>
