@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_EVK-MIMXRT595" name="EVK-MIMXRT595" brief="This is SDK version 2.11.0 manifest file. It describes the content of the EVK-MIMXRT595 and additional settings for tools that support SDK version 2.11.0" format_version="3.9" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.9.xsd">
-  <!--Timestamp (UTC): 2022-02-15 13:09:06.665871-->
+  <!--Timestamp (UTC): 2022-03-31 08:10:41.226258-->
   <!--This manifest is generated based on sdk repo commit: 9ee1cfaf44fbd02fc0e2be94f7fe73195409b79d-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
-    <define name="CPU_$|package|_$|core_name|" value=""/>
   </defines>
   <externalDefinitions>
     <definition extID="fusionf1_MIMXRT595S"/>
@@ -3693,7 +3692,11 @@ ${load}</script>
         <include_path relative_path="./" type="c_include" device_cores="cm33_MIMXRT595S"/>
       </include_paths>
     </component>
-    <component id="device.MIMXRT595S_DSP.MIMXRT595S" name="MIMXRT595S_DSP" brief="Device MIMXRT595S_dsp" version="1.0.0" full_name="Device MIMXRT595S_dsp" devices="MIMXRT595S" user_visible="true" type="other" package_base_path="core/devices/MIMXRT595S" project_base_path="device"/>
+    <component id="device.MIMXRT595S_DSP.MIMXRT595S" name="MIMXRT595S_DSP" brief="Device MIMXRT595S_dsp" version="1.0.0" full_name="Device MIMXRT595S_dsp" devices="MIMXRT595S" user_visible="true" type="other" package_base_path="core/devices/MIMXRT595S" project_base_path="device">
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="platform.devices.MIMXRT595S_debugger.MIMXRT595S" name="MIMXRT595S_debugger" brief="Device MIMXRT595S_debugger" version="1.0.0" full_name="Device MIMXRT595S_debugger" devices="MIMXRT595S" user_visible="true" type="debugger" package_base_path="svd/MIMXRT595S" project_base_path="MIMXRT595S">
       <source relative_path="./" type="xml" device_cores="cm33_MIMXRT595S">
         <files mask="MIMXRT595S_cm33.xml"/>
