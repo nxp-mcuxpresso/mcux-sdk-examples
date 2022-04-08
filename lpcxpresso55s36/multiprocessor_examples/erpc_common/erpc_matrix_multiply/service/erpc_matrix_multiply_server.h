@@ -26,7 +26,7 @@ extern "C"
 #include <stdbool.h>
 }
 
-#if 10801 != ERPC_VERSION_NUMBER
+#if 10900 != ERPC_VERSION_NUMBER
 #error "The generated shim code version is different to the rest of eRPC code."
 #endif
 
