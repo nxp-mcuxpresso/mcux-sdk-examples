@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -43,14 +49,14 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../../../core/boards/evkmimx8mnddr3l
+    ${SdkRootDirPath}/core/boards/evkmimx8mnddr3l
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../../examples/evkmimx8mn/driver_examples/i2c/interrupt_b2b_transfer/slave
+    ${SdkRootDirPath}/examples/evkmimx8mn/driver_examples/i2c/interrupt_b2b_transfer/slave
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

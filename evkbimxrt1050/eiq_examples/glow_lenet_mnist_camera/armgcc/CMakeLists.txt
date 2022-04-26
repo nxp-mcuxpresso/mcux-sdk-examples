@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -67,13 +73,13 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../gui_print
     ${ProjDirPath}/../source
     ${ProjDirPath}/../board
-    ${ProjDirPath}/../../../../../middleware/eiq/glow/examples/lenet_mnist_camera/evkbimxrt1050
+    ${SdkRootDirPath}/middleware/eiq/glow/examples/lenet_mnist_camera/evkbimxrt1050
     ${ProjDirPath}/..
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component
@@ -162,11 +168,11 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
 
 if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../core/CMSIS/DSP/Lib/GCC/libarm_cortexM7lfdp_math.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/CMSIS/DSP/Lib/GCC/libarm_cortexM7lfdp_math.a)
 endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_debug)
 
 if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../core/CMSIS/DSP/Lib/GCC/libarm_cortexM7lfdp_math.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/CMSIS/DSP/Lib/GCC/libarm_cortexM7lfdp_math.a)
 endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_release)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)

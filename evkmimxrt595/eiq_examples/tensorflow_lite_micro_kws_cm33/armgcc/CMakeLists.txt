@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -31,27 +37,27 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${ProjDirPath}/../../../../../middleware/eiq/common/demo_info.h"
-"${ProjDirPath}/../../../../../middleware/eiq/common/model/get_top_n.cpp"
-"${ProjDirPath}/../../../../../middleware/eiq/common/model/get_top_n.h"
-"${ProjDirPath}/../../../../../middleware/eiq/common/model/model.h"
-"${ProjDirPath}/../../../../../middleware/eiq/common/model/output_postproc.h"
-"${ProjDirPath}/../../../../../middleware/eiq/common/audio/audio.h"
-"${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/common/audio/kws_mfcc.cpp"
-"${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/common/audio/kws_mfcc.hpp"
-"${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/common/audio/mfcc.cpp"
-"${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/common/audio/mfcc.hpp"
-"${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/model.cpp"
-"${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/kws/output_postproc.cpp"
-"${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/kws/audio_data.h"
-"${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/kws/demo_config.h"
-"${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/common/demo_info.cpp"
-"${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/kws/labels.h"
-"${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/kws/main.cpp"
-"${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/kws/model_data.h"
-"${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/kws/model_ds_cnn_ops_micro.cpp"
-"${ProjDirPath}/../../../../../middleware/eiq/common/timer.h"
-"${ProjDirPath}/../../../../../middleware/eiq/common/timer.c"
+"${SdkRootDirPath}/middleware/eiq/common/demo_info.h"
+"${SdkRootDirPath}/middleware/eiq/common/model/get_top_n.cpp"
+"${SdkRootDirPath}/middleware/eiq/common/model/get_top_n.h"
+"${SdkRootDirPath}/middleware/eiq/common/model/model.h"
+"${SdkRootDirPath}/middleware/eiq/common/model/output_postproc.h"
+"${SdkRootDirPath}/middleware/eiq/common/audio/audio.h"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/audio/kws_mfcc.cpp"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/audio/kws_mfcc.hpp"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/audio/mfcc.cpp"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/audio/mfcc.hpp"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/model.cpp"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws/output_postproc.cpp"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws/audio_data.h"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws/demo_config.h"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/demo_info.cpp"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws/labels.h"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws/main.cpp"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws/model_data.h"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws/model_ds_cnn_ops_micro.cpp"
+"${SdkRootDirPath}/middleware/eiq/common/timer.h"
+"${SdkRootDirPath}/middleware/eiq/common/timer.c"
 "${ProjDirPath}/../clock_config.c"
 "${ProjDirPath}/../clock_config.h"
 "${ProjDirPath}/../pin_mux.c"
@@ -63,17 +69,17 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/kws
-    ${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/common/audio
-    ${ProjDirPath}/../../../../../middleware/eiq/common/audio
-    ${ProjDirPath}/../../../../../middleware/eiq/common/model
-    ${ProjDirPath}/../../../../../middleware/eiq/common
+    ${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws
+    ${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/audio
+    ${SdkRootDirPath}/middleware/eiq/common/audio
+    ${SdkRootDirPath}/middleware/eiq/common/model
+    ${SdkRootDirPath}/middleware/eiq/common
     ${ProjDirPath}/..
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component
@@ -176,11 +182,11 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
 
 if(CMAKE_BUILD_TYPE STREQUAL flash_release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../core/CMSIS/DSP/Lib/GCC/libarm_ARMv8MMLldfsp_math.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/CMSIS/DSP/Lib/GCC/libarm_ARMv8MMLldfsp_math.a)
 endif(CMAKE_BUILD_TYPE STREQUAL flash_release)
 
 if(CMAKE_BUILD_TYPE STREQUAL flash_debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../core/CMSIS/DSP/Lib/GCC/libarm_ARMv8MMLldfsp_math.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/CMSIS/DSP/Lib/GCC/libarm_ARMv8MMLldfsp_math.a)
 endif(CMAKE_BUILD_TYPE STREQUAL flash_debug)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)

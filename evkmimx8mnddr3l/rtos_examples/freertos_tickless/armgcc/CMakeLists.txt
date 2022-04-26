@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -47,14 +53,14 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/evkmimx8mnddr3l
+    ${SdkRootDirPath}/core/boards/evkmimx8mnddr3l
     ${ProjDirPath}/../low_power_tickless
-    ${ProjDirPath}/../../../../../examples/evkmimx8mn/rtos_examples/freertos_tickless
+    ${SdkRootDirPath}/examples/evkmimx8mn/rtos_examples/freertos_tickless
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -34,10 +40,10 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../../low_power_tickless/cm4_core1/fsl_tickless_lpit.c"
 "${ProjDirPath}/../../low_power_tickless/cm4_core1/fsl_tickless_lpit.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
-"${ProjDirPath}/../../../../../../core/boards/mekmimx8qm/board.c"
-"${ProjDirPath}/../../../../../../core/boards/mekmimx8qm/board.h"
-"${ProjDirPath}/../../../../../../core/boards/mekmimx8qm/clock_config.c"
-"${ProjDirPath}/../../../../../../core/boards/mekmimx8qm/clock_config.h"
+"${SdkRootDirPath}/core/boards/mekmimx8qm/board.c"
+"${SdkRootDirPath}/core/boards/mekmimx8qm/board.h"
+"${SdkRootDirPath}/core/boards/mekmimx8qm/clock_config.c"
+"${SdkRootDirPath}/core/boards/mekmimx8qm/clock_config.h"
 "${ProjDirPath}/../freertos_tickless.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
@@ -47,13 +53,13 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/.. debug
     ${ProjDirPath}/../../low_power_tickless/cm4_core1
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../examples/mekmimx8qm/rtos_examples/freertos_tickless/cm4_core1
-    ${ProjDirPath}/../../../../../../core/boards/mekmimx8qm
+    ${SdkRootDirPath}/examples/mekmimx8qm/rtos_examples/freertos_tickless/cm4_core1
+    ${SdkRootDirPath}/core/boards/mekmimx8qm
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

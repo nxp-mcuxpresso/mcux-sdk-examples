@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -34,23 +40,23 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../sdma_memory_to_memory.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
-"${ProjDirPath}/../../../../../../core/boards/evkmimx8mm/board.c"
-"${ProjDirPath}/../../../../../../core/boards/evkmimx8mm/board.h"
-"${ProjDirPath}/../../../../../../core/boards/evkmimx8mm/clock_config.c"
-"${ProjDirPath}/../../../../../../core/boards/evkmimx8mm/clock_config.h"
+"${SdkRootDirPath}/core/boards/evkmimx8mm/board.c"
+"${SdkRootDirPath}/core/boards/evkmimx8mm/board.h"
+"${SdkRootDirPath}/core/boards/evkmimx8mm/clock_config.c"
+"${SdkRootDirPath}/core/boards/evkmimx8mm/clock_config.h"
 "${ProjDirPath}/../fsl_iomuxc.h"
 "${ProjDirPath}/../empty_rsc_table.c"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../examples/evkmimx8mm/driver_examples/sdma/memory_to_memory
-    ${ProjDirPath}/../../../../../../core/boards/evkmimx8mm
+    ${SdkRootDirPath}/examples/evkmimx8mm/driver_examples/sdma/memory_to_memory
+    ${SdkRootDirPath}/core/boards/evkmimx8mm
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

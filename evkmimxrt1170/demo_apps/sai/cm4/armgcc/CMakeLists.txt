@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -41,25 +47,25 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../sdmmc_config.h"
 "${ProjDirPath}/../sdmmc_config.c"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1170/board.c"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1170/board.h"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1170/clock_config.c"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1170/clock_config.h"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1170/dcd.c"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1170/dcd.h"
+"${SdkRootDirPath}/core/boards/evkmimxrt1170/board.c"
+"${SdkRootDirPath}/core/boards/evkmimxrt1170/board.h"
+"${SdkRootDirPath}/core/boards/evkmimxrt1170/clock_config.c"
+"${SdkRootDirPath}/core/boards/evkmimxrt1170/clock_config.h"
+"${SdkRootDirPath}/core/boards/evkmimxrt1170/dcd.c"
+"${SdkRootDirPath}/core/boards/evkmimxrt1170/dcd.h"
 "${ProjDirPath}/../evkmimxrt1170_connect_cm4_cm4side.jlinkscript"
 "${ProjDirPath}/../evkmimxrt1170_connect_cm4_cm4side_sdram.jlinkscript"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../examples/evkmimxrt1170/demo_apps/sai/cm4
-    ${ProjDirPath}/../../../../../../core/boards/evkmimxrt1170
+    ${SdkRootDirPath}/examples/evkmimxrt1170/demo_apps/sai/cm4
+    ${SdkRootDirPath}/core/boards/evkmimxrt1170
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component
@@ -160,27 +166,27 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
 
 if(CMAKE_BUILD_TYPE STREQUAL debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../core/CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a)
 endif(CMAKE_BUILD_TYPE STREQUAL debug)
 
 if(CMAKE_BUILD_TYPE STREQUAL release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../core/CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a)
 endif(CMAKE_BUILD_TYPE STREQUAL release)
 
 if(CMAKE_BUILD_TYPE STREQUAL sdram_debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../core/CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a)
 endif(CMAKE_BUILD_TYPE STREQUAL sdram_debug)
 
 if(CMAKE_BUILD_TYPE STREQUAL sdram_release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../core/CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a)
 endif(CMAKE_BUILD_TYPE STREQUAL sdram_release)
 
 if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../core/CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a)
 endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
 
 if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../core/CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a)
 endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)

@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -39,22 +45,22 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../rsc_table.c"
 "${ProjDirPath}/../rsc_table.h"
 "${ProjDirPath}/../remoteproc.h"
-"${ProjDirPath}/../../../../../../core/boards/evkmimx8mq/board.c"
-"${ProjDirPath}/../../../../../../core/boards/evkmimx8mq/board.h"
-"${ProjDirPath}/../../../../../../core/boards/evkmimx8mq/clock_config.c"
-"${ProjDirPath}/../../../../../../core/boards/evkmimx8mq/clock_config.h"
+"${SdkRootDirPath}/core/boards/evkmimx8mq/board.c"
+"${SdkRootDirPath}/core/boards/evkmimx8mq/board.h"
+"${SdkRootDirPath}/core/boards/evkmimx8mq/clock_config.c"
+"${SdkRootDirPath}/core/boards/evkmimx8mq/clock_config.h"
 "${ProjDirPath}/../fsl_iomuxc.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../examples/evkmimx8mq/multicore_examples/rpmsg_lite_pingpong_rtos/linux_remote
-    ${ProjDirPath}/../../../../../../core/boards/evkmimx8mq
+    ${SdkRootDirPath}/examples/evkmimx8mq/multicore_examples/rpmsg_lite_pingpong_rtos/linux_remote
+    ${SdkRootDirPath}/core/boards/evkmimx8mq
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

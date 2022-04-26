@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -33,21 +39,21 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../dma_linked_transfer.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
-"${ProjDirPath}/../../../../../../core/boards/lpcxpresso845max/board.c"
-"${ProjDirPath}/../../../../../../core/boards/lpcxpresso845max/board.h"
-"${ProjDirPath}/../../../../../../core/boards/lpcxpresso845max/clock_config.c"
-"${ProjDirPath}/../../../../../../core/boards/lpcxpresso845max/clock_config.h"
+"${SdkRootDirPath}/core/boards/lpcxpresso845max/board.c"
+"${SdkRootDirPath}/core/boards/lpcxpresso845max/board.h"
+"${SdkRootDirPath}/core/boards/lpcxpresso845max/clock_config.c"
+"${SdkRootDirPath}/core/boards/lpcxpresso845max/clock_config.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../examples/lpcxpresso845max/driver_examples/dma/linked_transfer
-    ${ProjDirPath}/../../../../../../core/boards/lpcxpresso845max
+    ${SdkRootDirPath}/examples/lpcxpresso845max/driver_examples/dma/linked_transfer
+    ${SdkRootDirPath}/core/boards/lpcxpresso845max
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

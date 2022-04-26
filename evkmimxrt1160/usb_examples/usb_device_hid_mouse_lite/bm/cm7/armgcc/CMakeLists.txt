@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -49,20 +55,20 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../dcd.c"
 "${ProjDirPath}/../dcd.h"
-"${ProjDirPath}/../../../../../../../middleware/usb/dcd/usb_hsdcd.c"
-"${ProjDirPath}/../../../../../../../middleware/usb/dcd/usb_hsdcd.h"
-"${ProjDirPath}/../../../../../../../middleware/usb/dcd/usb_charger_detect.h"
+"${SdkRootDirPath}/middleware/usb/dcd/usb_hsdcd.c"
+"${SdkRootDirPath}/middleware/usb/dcd/usb_hsdcd.h"
+"${SdkRootDirPath}/middleware/usb/dcd/usb_charger_detect.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../..
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../../middleware/usb/dcd
+    ${SdkRootDirPath}/middleware/usb/dcd
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

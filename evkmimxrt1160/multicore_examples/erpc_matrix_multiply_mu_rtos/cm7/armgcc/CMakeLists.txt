@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -45,18 +51,18 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../../erpc_config.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1160/dcd.c"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1160/dcd.h"
+"${SdkRootDirPath}/core/boards/evkmimxrt1160/dcd.c"
+"${SdkRootDirPath}/core/boards/evkmimxrt1160/dcd.h"
 "${ProjDirPath}/../evkmimxrt1160_connect_cm4_cm7side.jlinkscript"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/evkmimxrt1160
+    ${SdkRootDirPath}/core/boards/evkmimxrt1160
     ${ProjDirPath}/../../../erpc_common
     ${ProjDirPath}/../../../erpc_common/erpc_matrix_multiply/service
-    ${ProjDirPath}/../../../../../../examples/evkmimxrt1160/multicore_examples/erpc_matrix_multiply_mu_rtos
-    ${ProjDirPath}/../../../../../../examples/evkmimxrt1160/multicore_examples/erpc_matrix_multiply_mu_rtos/cm7
+    ${SdkRootDirPath}/examples/evkmimxrt1160/multicore_examples/erpc_matrix_multiply_mu_rtos
+    ${SdkRootDirPath}/examples/evkmimxrt1160/multicore_examples/erpc_matrix_multiply_mu_rtos/cm7
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
@@ -69,7 +75,7 @@ endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -45,10 +51,10 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../../rpmsg_config.h"
 "${ProjDirPath}/../../erpc_config.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
-"${ProjDirPath}/../../../../../../core/boards/lpcxpresso54114/board.c"
-"${ProjDirPath}/../../../../../../core/boards/lpcxpresso54114/board.h"
-"${ProjDirPath}/../../../../../../core/boards/lpcxpresso54114/clock_config.c"
-"${ProjDirPath}/../../../../../../core/boards/lpcxpresso54114/clock_config.h"
+"${SdkRootDirPath}/core/boards/lpcxpresso54114/board.c"
+"${SdkRootDirPath}/core/boards/lpcxpresso54114/board.h"
+"${SdkRootDirPath}/core/boards/lpcxpresso54114/clock_config.c"
+"${SdkRootDirPath}/core/boards/lpcxpresso54114/clock_config.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
@@ -56,14 +62,14 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../../../erpc_common
     ${ProjDirPath}/../../../erpc_common/erpc_two_way_rpc/service
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../examples/lpcxpresso54114/multicore_examples/erpc_two_way_rpc_rpmsg_rtos
-    ${ProjDirPath}/../../../../../../examples/lpcxpresso54114/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm0plus
-    ${ProjDirPath}/../../../../../../core/boards/lpcxpresso54114
+    ${SdkRootDirPath}/examples/lpcxpresso54114/multicore_examples/erpc_two_way_rpc_rpmsg_rtos
+    ${SdkRootDirPath}/examples/lpcxpresso54114/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm0plus
+    ${SdkRootDirPath}/core/boards/lpcxpresso54114
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component
@@ -152,11 +158,11 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
 
 if(CMAKE_BUILD_TYPE STREQUAL debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../core/devices/LPC54114/gcc/libpower_cm0.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/devices/LPC54114/gcc/libpower_cm0.a)
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../core/devices/LPC54114/gcc/libpower_cm0.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/devices/LPC54114/gcc/libpower_cm0.a)
 endif()
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)

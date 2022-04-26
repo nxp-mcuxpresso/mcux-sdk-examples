@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -53,14 +59,14 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${ProjDirPath}/../..
-    ${ProjDirPath}/../../../../../../../core/boards/evkmimxrt1170
-    ${ProjDirPath}/../../../../../../../examples/evkmimxrt1170/usb_examples/usb_host_audio_recorder/freertos/cm7
-    ${ProjDirPath}/../../../../../../../examples/evkmimxrt1170/usb_examples/usb_host_audio_recorder/freertos
+    ${SdkRootDirPath}/core/boards/evkmimxrt1170
+    ${SdkRootDirPath}/examples/evkmimxrt1170/usb_examples/usb_host_audio_recorder/freertos/cm7
+    ${SdkRootDirPath}/examples/evkmimxrt1170/usb_examples/usb_host_audio_recorder/freertos
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

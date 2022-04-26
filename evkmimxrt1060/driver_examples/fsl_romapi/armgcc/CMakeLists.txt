@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -34,24 +40,24 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../flexspi_romapi.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
-"${ProjDirPath}/../../../../../core/boards/evkmimxrt1060/board.c"
-"${ProjDirPath}/../../../../../core/boards/evkmimxrt1060/board.h"
-"${ProjDirPath}/../../../../../core/boards/evkmimxrt1060/clock_config.c"
-"${ProjDirPath}/../../../../../core/boards/evkmimxrt1060/clock_config.h"
-"${ProjDirPath}/../../../../../core/boards/evkmimxrt1060/dcd.c"
-"${ProjDirPath}/../../../../../core/boards/evkmimxrt1060/dcd.h"
+"${SdkRootDirPath}/core/boards/evkmimxrt1060/board.c"
+"${SdkRootDirPath}/core/boards/evkmimxrt1060/board.h"
+"${SdkRootDirPath}/core/boards/evkmimxrt1060/clock_config.c"
+"${SdkRootDirPath}/core/boards/evkmimxrt1060/clock_config.h"
+"${SdkRootDirPath}/core/boards/evkmimxrt1060/dcd.c"
+"${SdkRootDirPath}/core/boards/evkmimxrt1060/dcd.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/devices/MIMXRT1062/drivers
-    ${ProjDirPath}/../../../../../examples/evkmimxrt1060/driver_examples/fsl_romapi
-    ${ProjDirPath}/../../../../../core/boards/evkmimxrt1060
+    ${SdkRootDirPath}/core/devices/MIMXRT1062/drivers
+    ${SdkRootDirPath}/examples/evkmimxrt1060/driver_examples/fsl_romapi
+    ${SdkRootDirPath}/core/boards/evkmimxrt1060
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

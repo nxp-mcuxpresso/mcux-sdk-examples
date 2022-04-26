@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -31,24 +37,24 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${ProjDirPath}/../../../../../core/boards/lpcxpresso55s16/board.c"
-"${ProjDirPath}/../../../../../core/boards/lpcxpresso55s16/board.h"
-"${ProjDirPath}/../../../../../core/boards/lpcxpresso55s16/clock_config.c"
-"${ProjDirPath}/../../../../../core/boards/lpcxpresso55s16/clock_config.h"
+"${SdkRootDirPath}/core/boards/lpcxpresso55s16/board.c"
+"${SdkRootDirPath}/core/boards/lpcxpresso55s16/board.h"
+"${SdkRootDirPath}/core/boards/lpcxpresso55s16/clock_config.c"
+"${SdkRootDirPath}/core/boards/lpcxpresso55s16/clock_config.h"
 "${ProjDirPath}/../wwdt.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../core/boards/lpcxpresso55s16
+    ${SdkRootDirPath}/core/boards/lpcxpresso55s16
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../examples/lpcxpresso55s16/driver_examples/wwdt
+    ${SdkRootDirPath}/examples/lpcxpresso55s16/driver_examples/wwdt
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

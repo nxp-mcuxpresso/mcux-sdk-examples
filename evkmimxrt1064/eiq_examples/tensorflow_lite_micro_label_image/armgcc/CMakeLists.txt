@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -31,31 +37,31 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${ProjDirPath}/../../../../../middleware/eiq/common/image/image_conv.c"
-"${ProjDirPath}/../../../../../middleware/eiq/common/demo_info.h"
-"${ProjDirPath}/../../../../../middleware/eiq/common/image/image.h"
-"${ProjDirPath}/../../../../../middleware/eiq/common/image/image_decode_raw.c"
-"${ProjDirPath}/../../../../../middleware/eiq/common/image/image_utils.h"
-"${ProjDirPath}/../../../../../middleware/eiq/common/model/get_top_n.cpp"
-"${ProjDirPath}/../../../../../middleware/eiq/common/model/get_top_n.h"
-"${ProjDirPath}/../../../../../middleware/eiq/common/model/model.h"
-"${ProjDirPath}/../../../../../middleware/eiq/common/model/output_postproc.h"
-"${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/common/model/output_postproc.cpp"
-"${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/label_image/demo_config.h"
-"${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/common/demo_info.cpp"
-"${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/label_image/image_data.h"
-"${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/label_image/labels.h"
-"${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/label_image/model_mobilenet_ops_micro.cpp"
-"${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/model.cpp"
-"${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/image/main.cpp"
+"${SdkRootDirPath}/middleware/eiq/common/image/image_conv.c"
+"${SdkRootDirPath}/middleware/eiq/common/demo_info.h"
+"${SdkRootDirPath}/middleware/eiq/common/image/image.h"
+"${SdkRootDirPath}/middleware/eiq/common/image/image_decode_raw.c"
+"${SdkRootDirPath}/middleware/eiq/common/image/image_utils.h"
+"${SdkRootDirPath}/middleware/eiq/common/model/get_top_n.cpp"
+"${SdkRootDirPath}/middleware/eiq/common/model/get_top_n.h"
+"${SdkRootDirPath}/middleware/eiq/common/model/model.h"
+"${SdkRootDirPath}/middleware/eiq/common/model/output_postproc.h"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/model/output_postproc.cpp"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/label_image/demo_config.h"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/demo_info.cpp"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/label_image/image_data.h"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/label_image/labels.h"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/label_image/model_mobilenet_ops_micro.cpp"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/model.cpp"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/image/main.cpp"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
-"${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/label_image/pcq/model_data.h"
-"${ProjDirPath}/../../../../../middleware/eiq/common/image/image_capture.c"
-"${ProjDirPath}/../../../../../middleware/eiq/common/image/image_draw.c"
-"${ProjDirPath}/../../../../../middleware/eiq/common/image/image_resize_nearest.c"
-"${ProjDirPath}/../../../../../middleware/eiq/common/timer.h"
-"${ProjDirPath}/../../../../../middleware/eiq/common/timer.c"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/label_image/pcq/model_data.h"
+"${SdkRootDirPath}/middleware/eiq/common/image/image_capture.c"
+"${SdkRootDirPath}/middleware/eiq/common/image/image_draw.c"
+"${SdkRootDirPath}/middleware/eiq/common/image/image_resize_nearest.c"
+"${SdkRootDirPath}/middleware/eiq/common/timer.h"
+"${SdkRootDirPath}/middleware/eiq/common/timer.c"
 "${ProjDirPath}/../board_init.c"
 "${ProjDirPath}/../board_init.h"
 "${ProjDirPath}/../board.c"
@@ -67,17 +73,17 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/label_image
-    ${ProjDirPath}/../../../../../middleware/eiq/common
-    ${ProjDirPath}/../../../../../middleware/eiq/common/image
-    ${ProjDirPath}/../../../../../middleware/eiq/common/model
+    ${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/label_image
+    ${SdkRootDirPath}/middleware/eiq/common
+    ${SdkRootDirPath}/middleware/eiq/common/image
+    ${SdkRootDirPath}/middleware/eiq/common/model
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../middleware/eiq/tensorflow-lite/examples/label_image/pcq
+    ${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/label_image/pcq
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

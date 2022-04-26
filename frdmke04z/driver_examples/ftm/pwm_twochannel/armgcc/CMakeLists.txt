@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -33,21 +39,21 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../ftm_pwm_twochannel.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
-"${ProjDirPath}/../../../../../../core/boards/frdmke04z/board.c"
-"${ProjDirPath}/../../../../../../core/boards/frdmke04z/board.h"
-"${ProjDirPath}/../../../../../../core/boards/frdmke04z/clock_config.c"
-"${ProjDirPath}/../../../../../../core/boards/frdmke04z/clock_config.h"
+"${SdkRootDirPath}/core/boards/frdmke04z/board.c"
+"${SdkRootDirPath}/core/boards/frdmke04z/board.h"
+"${SdkRootDirPath}/core/boards/frdmke04z/clock_config.c"
+"${SdkRootDirPath}/core/boards/frdmke04z/clock_config.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../examples/frdmke04z/driver_examples/ftm/pwm_twochannel
-    ${ProjDirPath}/../../../../../../core/boards/frdmke04z
+    ${SdkRootDirPath}/examples/frdmke04z/driver_examples/ftm/pwm_twochannel
+    ${SdkRootDirPath}/core/boards/frdmke04z
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

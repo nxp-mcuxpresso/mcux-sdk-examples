@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -58,10 +64,10 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../FreeRTOSConfig.h"
 "${ProjDirPath}/../pmic_support.c"
 "${ProjDirPath}/../pmic_support.h"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt685/board.c"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt685/board.h"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt685/clock_config.c"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt685/clock_config.h"
+"${SdkRootDirPath}/core/boards/evkmimxrt685/board.c"
+"${SdkRootDirPath}/core/boards/evkmimxrt685/board.h"
+"${SdkRootDirPath}/core/boards/evkmimxrt685/clock_config.c"
+"${SdkRootDirPath}/core/boards/evkmimxrt685/clock_config.h"
 "${ProjDirPath}/../../dsp/binary/dsp_text_release.bin"
 "${ProjDirPath}/../../dsp/binary/dsp_data_release.bin"
 "${ProjDirPath}/../../dsp/binary/dsp_ncache_release.bin"
@@ -75,14 +81,14 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../examples/evkmimxrt685/dsp_examples/xaf_usb_demo/dsp/binary
-    ${ProjDirPath}/../../../../../../examples/evkmimxrt685/dsp_examples/xaf_usb_demo/cm33
-    ${ProjDirPath}/../../../../../../core/boards/evkmimxrt685
+    ${SdkRootDirPath}/examples/evkmimxrt685/dsp_examples/xaf_usb_demo/dsp/binary
+    ${SdkRootDirPath}/examples/evkmimxrt685/dsp_examples/xaf_usb_demo/cm33
+    ${SdkRootDirPath}/core/boards/evkmimxrt685
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

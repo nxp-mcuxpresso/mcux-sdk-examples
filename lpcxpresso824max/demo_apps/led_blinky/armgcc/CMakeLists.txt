@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -33,21 +39,21 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../led_blinky.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
-"${ProjDirPath}/../../../../../core/boards/lpcxpresso824max/board.c"
-"${ProjDirPath}/../../../../../core/boards/lpcxpresso824max/board.h"
-"${ProjDirPath}/../../../../../core/boards/lpcxpresso824max/clock_config.c"
-"${ProjDirPath}/../../../../../core/boards/lpcxpresso824max/clock_config.h"
+"${SdkRootDirPath}/core/boards/lpcxpresso824max/board.c"
+"${SdkRootDirPath}/core/boards/lpcxpresso824max/board.h"
+"${SdkRootDirPath}/core/boards/lpcxpresso824max/clock_config.c"
+"${SdkRootDirPath}/core/boards/lpcxpresso824max/clock_config.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../examples/lpcxpresso824max/demo_apps/led_blinky
-    ${ProjDirPath}/../../../../../core/boards/lpcxpresso824max
+    ${SdkRootDirPath}/examples/lpcxpresso824max/demo_apps/led_blinky
+    ${SdkRootDirPath}/core/boards/lpcxpresso824max
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

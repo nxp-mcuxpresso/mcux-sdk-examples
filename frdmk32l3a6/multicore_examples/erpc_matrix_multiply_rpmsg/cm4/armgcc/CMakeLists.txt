@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -41,10 +47,10 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../../rpmsg_config.h"
 "${ProjDirPath}/../../erpc_config.h"
-"${ProjDirPath}/../../../../../../core/boards/frdmk32l3a6/board.c"
-"${ProjDirPath}/../../../../../../core/boards/frdmk32l3a6/board.h"
-"${ProjDirPath}/../../../../../../core/boards/frdmk32l3a6/clock_config.c"
-"${ProjDirPath}/../../../../../../core/boards/frdmk32l3a6/clock_config.h"
+"${SdkRootDirPath}/core/boards/frdmk32l3a6/board.c"
+"${SdkRootDirPath}/core/boards/frdmk32l3a6/board.h"
+"${SdkRootDirPath}/core/boards/frdmk32l3a6/clock_config.c"
+"${SdkRootDirPath}/core/boards/frdmk32l3a6/clock_config.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
@@ -52,8 +58,8 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../../../erpc_common/erpc_matrix_multiply/service
     ${ProjDirPath}/..
     ${ProjDirPath}/../..
-    ${ProjDirPath}/../../../../../../examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_rpmsg/cm4
-    ${ProjDirPath}/../../../../../../core/boards/frdmk32l3a6
+    ${SdkRootDirPath}/examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_rpmsg/cm4
+    ${SdkRootDirPath}/core/boards/frdmk32l3a6
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL debug)
@@ -66,7 +72,7 @@ endif(CMAKE_BUILD_TYPE STREQUAL release)
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

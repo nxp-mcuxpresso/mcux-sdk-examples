@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -46,23 +52,23 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../../rpmsg_config.h"
 "${ProjDirPath}/../../erpc_config.h"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1170/dcd.c"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1170/dcd.h"
+"${SdkRootDirPath}/core/boards/evkmimxrt1170/dcd.c"
+"${SdkRootDirPath}/core/boards/evkmimxrt1170/dcd.h"
 "${ProjDirPath}/../evkmimxrt1170_connect_cm4_cm4side.jlinkscript"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../../core/boards/evkmimxrt1170
+    ${SdkRootDirPath}/core/boards/evkmimxrt1170
     ${ProjDirPath}/../../../erpc_common
     ${ProjDirPath}/../../../erpc_common/erpc_matrix_multiply/service
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../examples/evkmimxrt1170/multicore_examples/erpc_matrix_multiply_rpmsg
-    ${ProjDirPath}/../../../../../../examples/evkmimxrt1170/multicore_examples/erpc_matrix_multiply_rpmsg/cm4
+    ${SdkRootDirPath}/examples/evkmimxrt1170/multicore_examples/erpc_matrix_multiply_rpmsg
+    ${SdkRootDirPath}/examples/evkmimxrt1170/multicore_examples/erpc_matrix_multiply_rpmsg/cm4
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

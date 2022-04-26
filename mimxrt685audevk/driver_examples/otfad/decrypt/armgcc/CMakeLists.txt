@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -31,10 +37,10 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${ProjDirPath}/../../../../../../core/boards/mimxrt685audevk/board.c"
-"${ProjDirPath}/../../../../../../core/boards/mimxrt685audevk/board.h"
-"${ProjDirPath}/../../../../../../core/boards/mimxrt685audevk/clock_config.c"
-"${ProjDirPath}/../../../../../../core/boards/mimxrt685audevk/clock_config.h"
+"${SdkRootDirPath}/core/boards/mimxrt685audevk/board.c"
+"${SdkRootDirPath}/core/boards/mimxrt685audevk/board.h"
+"${SdkRootDirPath}/core/boards/mimxrt685audevk/clock_config.c"
+"${SdkRootDirPath}/core/boards/mimxrt685audevk/clock_config.h"
 "${ProjDirPath}/../otfad_decrypt.c"
 "${ProjDirPath}/../app.h"
 "${ProjDirPath}/../flexspi_nor_flash_ops.c"
@@ -43,13 +49,13 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../../core/boards/mimxrt685audevk
+    ${SdkRootDirPath}/core/boards/mimxrt685audevk
     ${ProjDirPath}/..
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

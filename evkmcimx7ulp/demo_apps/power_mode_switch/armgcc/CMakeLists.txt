@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -44,10 +50,10 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../rsc_table.c"
 "${ProjDirPath}/../rsc_table.h"
 "${ProjDirPath}/../remoteproc.h"
-"${ProjDirPath}/../../../../../core/boards/evkmcimx7ulp/board.c"
-"${ProjDirPath}/../../../../../core/boards/evkmcimx7ulp/board.h"
-"${ProjDirPath}/../../../../../core/boards/evkmcimx7ulp/clock_config.c"
-"${ProjDirPath}/../../../../../core/boards/evkmcimx7ulp/clock_config.h"
+"${SdkRootDirPath}/core/boards/evkmcimx7ulp/board.c"
+"${SdkRootDirPath}/core/boards/evkmcimx7ulp/board.h"
+"${SdkRootDirPath}/core/boards/evkmcimx7ulp/clock_config.c"
+"${SdkRootDirPath}/core/boards/evkmcimx7ulp/clock_config.h"
 "${ProjDirPath}/../fsl_iomuxc.h"
 "${ProjDirPath}/../app_srtm.c"
 "${ProjDirPath}/../app_srtm.h"
@@ -79,15 +85,15 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../examples/evkmcimx7ulp/demo_apps/power_mode_switch
-    ${ProjDirPath}/../../../../../core/boards/evkmcimx7ulp
+    ${SdkRootDirPath}/examples/evkmcimx7ulp/demo_apps/power_mode_switch
+    ${SdkRootDirPath}/core/boards/evkmcimx7ulp
     ${ProjDirPath}/../srtm/channels
     ${ProjDirPath}/../srtm/services
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component
@@ -200,15 +206,15 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
 
 if(CMAKE_BUILD_TYPE STREQUAL release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../core/middleware/issdk/algorithms/pedometer/lib/libpedometerm4.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/middleware/issdk/algorithms/pedometer/lib/libpedometerm4.a)
 endif(CMAKE_BUILD_TYPE STREQUAL release)
 
 if(CMAKE_BUILD_TYPE STREQUAL flash_debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../core/middleware/issdk/algorithms/pedometer/lib/libpedometerm4.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/middleware/issdk/algorithms/pedometer/lib/libpedometerm4.a)
 endif(CMAKE_BUILD_TYPE STREQUAL flash_debug)
 
 if(CMAKE_BUILD_TYPE STREQUAL flash_release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../core/middleware/issdk/algorithms/pedometer/lib/libpedometerm4.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/middleware/issdk/algorithms/pedometer/lib/libpedometerm4.a)
 endif(CMAKE_BUILD_TYPE STREQUAL flash_release)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)

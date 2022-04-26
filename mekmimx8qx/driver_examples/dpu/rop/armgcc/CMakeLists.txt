@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -37,22 +43,22 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../dpu_board.c"
 "${ProjDirPath}/../display_interface.c"
 "${ProjDirPath}/../dpu_example.h"
-"${ProjDirPath}/../../../../../../core/boards/mekmimx8qx/board.c"
-"${ProjDirPath}/../../../../../../core/boards/mekmimx8qx/board.h"
-"${ProjDirPath}/../../../../../../core/boards/mekmimx8qx/clock_config.c"
-"${ProjDirPath}/../../../../../../core/boards/mekmimx8qx/clock_config.h"
+"${SdkRootDirPath}/core/boards/mekmimx8qx/board.c"
+"${SdkRootDirPath}/core/boards/mekmimx8qx/board.h"
+"${SdkRootDirPath}/core/boards/mekmimx8qx/clock_config.c"
+"${SdkRootDirPath}/core/boards/mekmimx8qx/clock_config.h"
 "${ProjDirPath}/../empty_rsc_table.c"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../examples/mekmimx8qx/driver_examples/dpu/rop
-    ${ProjDirPath}/../../../../../../core/boards/mekmimx8qx
+    ${SdkRootDirPath}/examples/mekmimx8qx/driver_examples/dpu/rop
+    ${SdkRootDirPath}/core/boards/mekmimx8qx
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

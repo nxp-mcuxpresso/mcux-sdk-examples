@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -40,20 +46,20 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../rpmsg_config.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1160/dcd.c"
-"${ProjDirPath}/../../../../../../core/boards/evkmimxrt1160/dcd.h"
+"${SdkRootDirPath}/core/boards/evkmimxrt1160/dcd.c"
+"${SdkRootDirPath}/core/boards/evkmimxrt1160/dcd.h"
 "${ProjDirPath}/../evkmimxrt1160_connect_cm4_cm4side.jlinkscript"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../core/boards/evkmimxrt1160
-    ${ProjDirPath}/../../../../../../examples/evkmimxrt1160/multicore_examples/rpmsg_lite_pingpong_rtos/cm4
+    ${SdkRootDirPath}/core/boards/evkmimxrt1160
+    ${SdkRootDirPath}/examples/evkmimxrt1160/multicore_examples/rpmsg_lite_pingpong_rtos/cm4
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

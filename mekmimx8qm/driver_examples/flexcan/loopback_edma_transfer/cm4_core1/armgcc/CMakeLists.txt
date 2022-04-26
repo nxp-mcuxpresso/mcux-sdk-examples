@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -34,21 +40,21 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../flexcan_loopback_edma_transfer.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
-"${ProjDirPath}/../../../../../../../core/boards/mekmimx8qm/board.c"
-"${ProjDirPath}/../../../../../../../core/boards/mekmimx8qm/board.h"
-"${ProjDirPath}/../../../../../../../core/boards/mekmimx8qm/clock_config.c"
-"${ProjDirPath}/../../../../../../../core/boards/mekmimx8qm/clock_config.h"
+"${SdkRootDirPath}/core/boards/mekmimx8qm/board.c"
+"${SdkRootDirPath}/core/boards/mekmimx8qm/board.h"
+"${SdkRootDirPath}/core/boards/mekmimx8qm/clock_config.c"
+"${SdkRootDirPath}/core/boards/mekmimx8qm/clock_config.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../../examples/mekmimx8qm/driver_examples/flexcan/loopback_edma_transfer/cm4_core1
-    ${ProjDirPath}/../../../../../../../core/boards/mekmimx8qm
+    ${SdkRootDirPath}/examples/mekmimx8qm/driver_examples/flexcan/loopback_edma_transfer/cm4_core1
+    ${SdkRootDirPath}/core/boards/mekmimx8qm
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

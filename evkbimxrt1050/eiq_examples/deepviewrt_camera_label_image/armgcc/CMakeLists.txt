@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -36,18 +42,18 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../demo_config.h"
 "${ProjDirPath}/../image_data.h"
 "${ProjDirPath}/../startup/demo_config.h"
-"${ProjDirPath}/../../../../../middleware/eiq/common/image/image_draw.c"
-"${ProjDirPath}/../../../../../middleware/eiq/common/image/image_capture.c"
-"${ProjDirPath}/../../../../../middleware/eiq/common/image/image_resize_nearest.c"
-"${ProjDirPath}/../../../../../middleware/eiq/common/image/image_decode_raw.c"
-"${ProjDirPath}/../../../../../middleware/eiq/common/image/image_utils.h"
-"${ProjDirPath}/../../../../../middleware/eiq/common/image/image.h"
-"${ProjDirPath}/../../../../../middleware/eiq/common/image/image_conv_rotate.c"
+"${SdkRootDirPath}/middleware/eiq/common/image/image_draw.c"
+"${SdkRootDirPath}/middleware/eiq/common/image/image_capture.c"
+"${SdkRootDirPath}/middleware/eiq/common/image/image_resize_nearest.c"
+"${SdkRootDirPath}/middleware/eiq/common/image/image_decode_raw.c"
+"${SdkRootDirPath}/middleware/eiq/common/image/image_utils.h"
+"${SdkRootDirPath}/middleware/eiq/common/image/image.h"
+"${SdkRootDirPath}/middleware/eiq/common/image/image_conv_rotate.c"
 "${ProjDirPath}/../source/models/mobilenet_v1_0.25_160.rtm"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
-"${ProjDirPath}/../../../../../middleware/eiq/common/timer.h"
-"${ProjDirPath}/../../../../../middleware/eiq/common/timer.c"
+"${SdkRootDirPath}/middleware/eiq/common/timer.h"
+"${SdkRootDirPath}/middleware/eiq/common/timer.c"
 "${ProjDirPath}/../board_init.c"
 "${ProjDirPath}/../board_init.h"
 "${ProjDirPath}/../board.c"
@@ -61,13 +67,13 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../source
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../middleware/eiq/common
-    ${ProjDirPath}/../../../../../middleware/eiq/common/image
+    ${SdkRootDirPath}/middleware/eiq/common
+    ${SdkRootDirPath}/middleware/eiq/common/image
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component
@@ -156,11 +162,11 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
 
 if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../middleware/eiq/deepviewrt/lib/libdeepview-rt-cortex-m7f.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/eiq/deepviewrt/lib/libdeepview-rt-cortex-m7f.a)
 endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_debug)
 
 if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../middleware/eiq/deepviewrt/lib/libdeepview-rt-cortex-m7f.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/eiq/deepviewrt/lib/libdeepview-rt-cortex-m7f.a)
 endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_release)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)

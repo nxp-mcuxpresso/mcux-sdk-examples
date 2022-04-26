@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -40,24 +46,24 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../dsp_support.h"
 "${ProjDirPath}/../pmic_support.c"
 "${ProjDirPath}/../pmic_support.h"
-"${ProjDirPath}/../../../../../../core/boards/mimxrt685audevk/board.c"
-"${ProjDirPath}/../../../../../../core/boards/mimxrt685audevk/board.h"
-"${ProjDirPath}/../../../../../../core/boards/mimxrt685audevk/clock_config.c"
-"${ProjDirPath}/../../../../../../core/boards/mimxrt685audevk/clock_config.h"
+"${SdkRootDirPath}/core/boards/mimxrt685audevk/board.c"
+"${SdkRootDirPath}/core/boards/mimxrt685audevk/board.h"
+"${SdkRootDirPath}/core/boards/mimxrt685audevk/clock_config.c"
+"${SdkRootDirPath}/core/boards/mimxrt685audevk/clock_config.h"
 "${ProjDirPath}/../../dsp/binary/dsp_text_release.bin"
 "${ProjDirPath}/../../dsp/binary/dsp_data_release.bin"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../../examples/mimxrt685audevk/dsp_examples/mu_polling/dsp/binary
+    ${SdkRootDirPath}/examples/mimxrt685audevk/dsp_examples/mu_polling/dsp/binary
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../examples/mimxrt685audevk/dsp_examples/mu_polling/cm33
-    ${ProjDirPath}/../../../../../../core/boards/mimxrt685audevk
+    ${SdkRootDirPath}/examples/mimxrt685audevk/dsp_examples/mu_polling/cm33
+    ${SdkRootDirPath}/core/boards/mimxrt685audevk
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

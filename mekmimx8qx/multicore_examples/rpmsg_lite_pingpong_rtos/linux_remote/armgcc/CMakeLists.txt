@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -39,10 +45,10 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../rsc_table.c"
 "${ProjDirPath}/../rsc_table.h"
 "${ProjDirPath}/../remoteproc.h"
-"${ProjDirPath}/../../../../../../core/boards/mekmimx8qx/board.c"
-"${ProjDirPath}/../../../../../../core/boards/mekmimx8qx/board.h"
-"${ProjDirPath}/../../../../../../core/boards/mekmimx8qx/clock_config.c"
-"${ProjDirPath}/../../../../../../core/boards/mekmimx8qx/clock_config.h"
+"${SdkRootDirPath}/core/boards/mekmimx8qx/board.c"
+"${SdkRootDirPath}/core/boards/mekmimx8qx/board.h"
+"${SdkRootDirPath}/core/boards/mekmimx8qx/clock_config.c"
+"${SdkRootDirPath}/core/boards/mekmimx8qx/clock_config.h"
 "${ProjDirPath}/../app_srtm.c"
 "${ProjDirPath}/../app_srtm.h"
 "${ProjDirPath}/../srtm/channels/srtm_rpmsg_endpoint.h"
@@ -56,15 +62,15 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/.. debug
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../../examples/mekmimx8qx/multicore_examples/rpmsg_lite_pingpong_rtos/linux_remote
-    ${ProjDirPath}/../../../../../../core/boards/mekmimx8qx
+    ${SdkRootDirPath}/examples/mekmimx8qx/multicore_examples/rpmsg_lite_pingpong_rtos/linux_remote
+    ${SdkRootDirPath}/core/boards/mekmimx8qx
     ${ProjDirPath}/../srtm/channels
     ${ProjDirPath}/../srtm/services
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

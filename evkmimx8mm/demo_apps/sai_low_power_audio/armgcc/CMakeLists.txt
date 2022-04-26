@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -42,38 +48,38 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../rsc_table.c"
 "${ProjDirPath}/../rsc_table.h"
 "${ProjDirPath}/../remoteproc.h"
-"${ProjDirPath}/../../../../../core/boards/evkmimx8mm/board.c"
-"${ProjDirPath}/../../../../../core/boards/evkmimx8mm/board.h"
-"${ProjDirPath}/../../../../../core/boards/evkmimx8mm/clock_config.c"
-"${ProjDirPath}/../../../../../core/boards/evkmimx8mm/clock_config.h"
+"${SdkRootDirPath}/core/boards/evkmimx8mm/board.c"
+"${SdkRootDirPath}/core/boards/evkmimx8mm/board.h"
+"${SdkRootDirPath}/core/boards/evkmimx8mm/clock_config.c"
+"${SdkRootDirPath}/core/boards/evkmimx8mm/clock_config.h"
 "${ProjDirPath}/../fsl_iomuxc.h"
 "${ProjDirPath}/../app_srtm.c"
 "${ProjDirPath}/../app_srtm.h"
-"${ProjDirPath}/../../../../../core/components/srtm/channels/srtm_rpmsg_endpoint.h"
-"${ProjDirPath}/../../../../../core/components/srtm/channels/srtm_rpmsg_endpoint.c"
-"${ProjDirPath}/../../../../../core/components/srtm/services/srtm_audio_service.h"
-"${ProjDirPath}/../../../../../core/components/srtm/services/srtm_audio_service.c"
-"${ProjDirPath}/../../../../../core/components/srtm/services/srtm_sai_sdma_adapter.h"
-"${ProjDirPath}/../../../../../core/components/srtm/services/srtm_sai_sdma_adapter.c"
-"${ProjDirPath}/../../../../../core/components/srtm/services/srtm_pdm_sdma_adapter.h"
-"${ProjDirPath}/../../../../../core/components/srtm/services/srtm_pdm_sdma_adapter.c"
-"${ProjDirPath}/../../../../../core/components/srtm/services/srtm_i2c_codec_adapter.h"
-"${ProjDirPath}/../../../../../core/components/srtm/services/srtm_i2c_codec_adapter.c"
-"${ProjDirPath}/../../../../../core/components/srtm/services/srtm_wm8524_adapter.h"
-"${ProjDirPath}/../../../../../core/components/srtm/services/srtm_wm8524_adapter.c"
+"${SdkRootDirPath}/core/components/srtm/channels/srtm_rpmsg_endpoint.h"
+"${SdkRootDirPath}/core/components/srtm/channels/srtm_rpmsg_endpoint.c"
+"${SdkRootDirPath}/core/components/srtm/services/srtm_audio_service.h"
+"${SdkRootDirPath}/core/components/srtm/services/srtm_audio_service.c"
+"${SdkRootDirPath}/core/components/srtm/services/srtm_sai_sdma_adapter.h"
+"${SdkRootDirPath}/core/components/srtm/services/srtm_sai_sdma_adapter.c"
+"${SdkRootDirPath}/core/components/srtm/services/srtm_pdm_sdma_adapter.h"
+"${SdkRootDirPath}/core/components/srtm/services/srtm_pdm_sdma_adapter.c"
+"${SdkRootDirPath}/core/components/srtm/services/srtm_i2c_codec_adapter.h"
+"${SdkRootDirPath}/core/components/srtm/services/srtm_i2c_codec_adapter.c"
+"${SdkRootDirPath}/core/components/srtm/services/srtm_wm8524_adapter.h"
+"${SdkRootDirPath}/core/components/srtm/services/srtm_wm8524_adapter.c"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../examples/evkmimx8mm/demo_apps/sai_low_power_audio
+    ${SdkRootDirPath}/examples/evkmimx8mm/demo_apps/sai_low_power_audio
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../core/boards/evkmimx8mm
-    ${ProjDirPath}/../../../../../core/components/srtm/channels
-    ${ProjDirPath}/../../../../../core/components/srtm/services
+    ${SdkRootDirPath}/core/boards/evkmimx8mm
+    ${SdkRootDirPath}/core/components/srtm/channels
+    ${SdkRootDirPath}/core/components/srtm/services
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

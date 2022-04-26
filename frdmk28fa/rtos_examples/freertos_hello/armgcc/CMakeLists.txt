@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -35,22 +41,22 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
-"${ProjDirPath}/../../../../../core/boards/frdmk28fa/board.c"
-"${ProjDirPath}/../../../../../core/boards/frdmk28fa/board.h"
-"${ProjDirPath}/../../../../../core/boards/frdmk28fa/clock_config.c"
-"${ProjDirPath}/../../../../../core/boards/frdmk28fa/clock_config.h"
+"${SdkRootDirPath}/core/boards/frdmk28fa/board.c"
+"${SdkRootDirPath}/core/boards/frdmk28fa/board.h"
+"${SdkRootDirPath}/core/boards/frdmk28fa/clock_config.c"
+"${SdkRootDirPath}/core/boards/frdmk28fa/clock_config.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/.. debug
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../../../examples/frdmk28fa/rtos_examples/freertos_hello
-    ${ProjDirPath}/../../../../../core/boards/frdmk28fa
+    ${SdkRootDirPath}/examples/frdmk28fa/rtos_examples/freertos_hello
+    ${SdkRootDirPath}/core/boards/frdmk28fa
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component

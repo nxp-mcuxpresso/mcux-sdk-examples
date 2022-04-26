@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -53,14 +59,14 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../board_setup.c"
 "${ProjDirPath}/../board_setup.h"
-"${ProjDirPath}/../../../../../middleware/usb/include/usb.h"
-"${ProjDirPath}/../../../../../middleware/usb/include/usb_misc.h"
-"${ProjDirPath}/../../../../../middleware/usb/include/usb_spec.h"
-"${ProjDirPath}/../../../../../middleware/usb/phy/usb_phy.c"
-"${ProjDirPath}/../../../../../middleware/usb/phy/usb_phy.h"
-"${ProjDirPath}/../../../../../core/components/osa/fsl_os_abstraction.h"
-"${ProjDirPath}/../../../../../core/components/osa/fsl_os_abstraction_bm.h"
-"${ProjDirPath}/../../../../../core/components/osa/fsl_os_abstraction_config.h"
+"${SdkRootDirPath}/middleware/usb/include/usb.h"
+"${SdkRootDirPath}/middleware/usb/include/usb_misc.h"
+"${SdkRootDirPath}/middleware/usb/include/usb_spec.h"
+"${SdkRootDirPath}/middleware/usb/phy/usb_phy.c"
+"${SdkRootDirPath}/middleware/usb/phy/usb_phy.h"
+"${SdkRootDirPath}/core/components/osa/fsl_os_abstraction.h"
+"${SdkRootDirPath}/core/components/osa/fsl_os_abstraction_bm.h"
+"${SdkRootDirPath}/core/components/osa/fsl_os_abstraction_config.h"
 "${ProjDirPath}/../usbx_host_hid_mouse.c"
 "${ProjDirPath}/../tx_user.h"
 "${ProjDirPath}/../fx_user.h"
@@ -76,15 +82,15 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../middleware/usb/include
-    ${ProjDirPath}/../../../../../middleware/usb/phy
-    ${ProjDirPath}/../../../../../core/components/osa
+    ${SdkRootDirPath}/middleware/usb/include
+    ${SdkRootDirPath}/middleware/usb/phy
+    ${SdkRootDirPath}/core/components/osa
     ${ProjDirPath}/..
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component
@@ -144,13 +150,13 @@ include(CMSIS_Include_core_cm)
 include(device_system)
 
 
-add_subdirectory(${ProjDirPath}/../../../../../rtos/azure-rtos/threadx ./CMakeFiles/libthreadx)
+add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/threadx ./CMakeFiles/libthreadx)
 
-add_subdirectory(${ProjDirPath}/../../../../../rtos/azure-rtos/filex ./CMakeFiles/libfilex)
+add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/filex ./CMakeFiles/libfilex)
 
-add_subdirectory(${ProjDirPath}/../../../../../rtos/azure-rtos/netxduo ./CMakeFiles/libnetxduo)
+add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/netxduo ./CMakeFiles/libnetxduo)
 
-add_subdirectory(${ProjDirPath}/../../../../../rtos/azure-rtos/usbx ./CMakeFiles/libusbx)
+add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/usbx ./CMakeFiles/libusbx)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 

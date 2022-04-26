@@ -18,6 +18,12 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+if (DEFINED ENV{SdkRootDirPath})
+    SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
+else()
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../../..")
+endif()
+
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
@@ -31,24 +37,24 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${ProjDirPath}/../../../../../../core/boards/mekmimx8qm/board.c"
-"${ProjDirPath}/../../../../../../core/boards/mekmimx8qm/board.h"
-"${ProjDirPath}/../../../../../../core/boards/mekmimx8qm/clock_config.c"
-"${ProjDirPath}/../../../../../../core/boards/mekmimx8qm/clock_config.h"
+"${SdkRootDirPath}/core/boards/mekmimx8qm/board.c"
+"${SdkRootDirPath}/core/boards/mekmimx8qm/board.h"
+"${SdkRootDirPath}/core/boards/mekmimx8qm/clock_config.c"
+"${SdkRootDirPath}/core/boards/mekmimx8qm/clock_config.h"
 "${ProjDirPath}/../mmcau_api.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../../../../examples/mekmimx8qm/mmcau_examples/mmcau_api/cm4_core1
-    ${ProjDirPath}/../../../../../../core/boards/mekmimx8qm
+    ${SdkRootDirPath}/examples/mekmimx8qm/mmcau_examples/mmcau_api/cm4_core1
+    ${SdkRootDirPath}/core/boards/mekmimx8qm
     ${ProjDirPath}/..
 )
 
 #path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${ProjDirPath}/../../../../../../core
+    ${SdkRootDirPath}/core
 )
 
 #Include Entry cmake component
@@ -101,27 +107,27 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
 
 if(CMAKE_BUILD_TYPE STREQUAL debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../core/middleware/mmcau/asm-cm4-cm7/lib_mmcau.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/middleware/mmcau/asm-cm4-cm7/lib_mmcau.a)
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../core/middleware/mmcau/asm-cm4-cm7/lib_mmcau.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/middleware/mmcau/asm-cm4-cm7/lib_mmcau.a)
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL ddr_debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../core/middleware/mmcau/asm-cm4-cm7/lib_mmcau.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/middleware/mmcau/asm-cm4-cm7/lib_mmcau.a)
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL ddr_release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../core/middleware/mmcau/asm-cm4-cm7/lib_mmcau.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/middleware/mmcau/asm-cm4-cm7/lib_mmcau.a)
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL flash_debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../core/middleware/mmcau/asm-cm4-cm7/lib_mmcau.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/middleware/mmcau/asm-cm4-cm7/lib_mmcau.a)
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL flash_release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../core/middleware/mmcau/asm-cm4-cm7/lib_mmcau.a)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/middleware/mmcau/asm-cm4-cm7/lib_mmcau.a)
 endif()
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
