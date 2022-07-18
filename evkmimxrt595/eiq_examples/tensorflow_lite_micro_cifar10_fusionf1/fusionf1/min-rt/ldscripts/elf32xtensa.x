@@ -12,7 +12,7 @@ MEMORY
   iram1_7_seg :                       	org = 0x0018061C, len = 0x20
   iram1_8_seg :                       	org = 0x0018063C, len = 0x400
   iram1_9_seg :                       	org = 0x00180A3C, len = 0xFF5C4
-  dram0_0_seg :                       	org = 0x00810000, len = 0x16E000
+  dram0_0_seg :                       	org = 0x00840000, len = 0x13E000
   dram0_1_seg :                       	org = 0x0097E000, len = 0x2000
 }
 
@@ -71,7 +71,7 @@ _memmap_seg_iram1_8_start = 0x18063c;
 _memmap_seg_iram1_8_max   = 0x180a3c;
 _memmap_seg_iram1_9_start = 0x180a3c;
 _memmap_seg_iram1_9_max   = 0x280000;
-_memmap_seg_dram0_0_start = 0x880000;
+_memmap_seg_dram0_0_start = 0x840000;
 _memmap_seg_dram0_0_max   = 0x97e000;
 _memmap_seg_dram0_1_start = 0x97e000;
 _memmap_seg_dram0_1_max   = 0x980000;
@@ -548,19 +548,19 @@ SECTIONS
   .debug_varnames  0 :  { *(.debug_varnames) }
   .xt.insn 0 :
   {
-    KEEP (*(.xt.insn))
+    *(.xt.insn)
     KEEP (*(.gnu.linkonce.x.*))
   }
   .xt.prop 0 :
   {
-    KEEP (*(.xt.prop))
-    KEEP (*(.xt.prop.*))
+    *(.xt.prop)
+    *(.xt.prop.*)
     KEEP (*(.gnu.linkonce.prop.*))
   }
   .xt.lit 0 :
   {
-    KEEP (*(.xt.lit))
-    KEEP (*(.xt.lit.*))
+    *(.xt.lit)
+    *(.xt.lit.*)
     KEEP (*(.gnu.linkonce.p.*))
   }
   .debug.xt.callgraph 0 :

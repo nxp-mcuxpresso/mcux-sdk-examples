@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="utility.debug_console_lite.LPC845"/>
+    <definition extID="platform.utilities.assert_lite.LPC845"/>
+    <definition extID="platform.drivers.lpc_miniusart.LPC845"/>
+    <definition extID="platform.drivers.common.LPC845"/>
+    <definition extID="platform.drivers.clock.LPC845"/>
+    <definition extID="platform.drivers.power_no_lib.LPC845"/>
+    <definition extID="platform.drivers.lpc_gpio.LPC845"/>
+    <definition extID="platform.drivers.inputmux.LPC845"/>
+    <definition extID="platform.drivers.swm.LPC845"/>
+    <definition extID="platform.drivers.syscon.LPC845"/>
+    <definition extID="device.LPC845_CMSIS.LPC845"/>
+    <definition extID="component.miniusart_adapter.LPC845"/>
+    <definition extID="device.LPC845_startup.LPC845"/>
+    <definition extID="platform.drivers.lpc_iocon_lite.LPC845"/>
+    <definition extID="platform.drivers.inputmux_connections.LPC845"/>
+    <definition extID="CMSIS_Include_core_cm.LPC845"/>
+    <definition extID="platform.drivers.reset.LPC845"/>
+    <definition extID="platform.utilities.misc_utilities.LPC845"/>
+    <definition extID="platform.drivers.swm_connections.LPC845"/>
+    <definition extID="platform.drivers.syscon_connections.LPC845"/>
+    <definition extID="device.LPC845_system.LPC845"/>
+    <definition extID="iar"/>
+    <definition extID="mdk"/>
+    <definition extID="armgcc"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+  </externalDefinitions>
+  <example id="lpc845breakout_usart_transfer_interrupt" name="usart_transfer_interrupt" dependency="utility.debug_console_lite.LPC845 platform.utilities.assert_lite.LPC845 platform.drivers.lpc_miniusart.LPC845 platform.drivers.common.LPC845 platform.drivers.clock.LPC845 platform.drivers.power_no_lib.LPC845 platform.drivers.lpc_gpio.LPC845 platform.drivers.inputmux.LPC845 platform.drivers.swm.LPC845 platform.drivers.syscon.LPC845 device.LPC845_CMSIS.LPC845 component.miniusart_adapter.LPC845 device.LPC845_startup.LPC845 platform.drivers.lpc_iocon_lite.LPC845 platform.drivers.inputmux_connections.LPC845 CMSIS_Include_core_cm.LPC845 platform.drivers.reset.LPC845 platform.utilities.misc_utilities.LPC845 platform.drivers.swm_connections.LPC845 platform.drivers.syscon_connections.LPC845 device.LPC845_system.LPC845" category="driver_examples/usart">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>CPU_LPC845M301JBD48</value>
+          <value>MCUXPRESSO_SDK</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.none</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.none</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.none</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <include_paths>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="../../../../../examples/lpc845breakout/driver_examples/usart/transfer_interrupt" project_relative_path="lpc845breakout/driver_examples/usart/transfer_interrupt" type="c_include"/>
+      <include_path path="../../../../../core/boards/lpc845breakout" project_relative_path="board" type="c_include"/>
+    </include_paths>
+    <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
+      <files mask="usart_transfer_interrupt.ewd"/>
+      <files mask="usart_transfer_interrupt.ewp"/>
+      <files mask="usart_transfer_interrupt.eww"/>
+    </source>
+    <source path="mdk" project_relative_path="./" type="workspace" toolchain="mdk">
+      <files mask="usart_transfer_interrupt.uvprojx"/>
+      <files mask="usart_transfer_interrupt.uvoptx"/>
+      <files mask="JLinkSettings.ini"/>
+      <files mask="usart_transfer_interrupt.uvmpw"/>
+    </source>
+    <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="build_debug.bat"/>
+      <files mask="build_debug.sh"/>
+      <files mask="build_release.bat"/>
+      <files mask="build_release.sh"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="usart_transfer_interrupt.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="../../../../../core/boards/lpc845breakout" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="../../../../../core/boards/lpc845breakout" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
+      <files mask="readme.txt"/>
+    </source>
+    <source path="armgcc" project_relative_path="LPC845/gcc" type="linker" toolchain="armgcc">
+      <files mask="LPC845_flash.ld"/>
+    </source>
+  </example>
+</ksdk:examples>

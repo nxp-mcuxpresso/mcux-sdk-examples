@@ -19,6 +19,10 @@ Image* ImCreate(Image* imgOrig, double dx, double dy)
 {
   Image* ImgSca;
   ImgSca = (Image*)malloc(sizeof(Image));
+  if (ImgSca == NULL) {
+    return NULL;
+  }
+
   ImgSca->channels = imgOrig->channels;
   ImgSca->width = (int)(imgOrig->width * dx + 0.5);
   ImgSca->height = (int)(imgOrig->height * dy + 0.5);
@@ -34,7 +38,7 @@ Image* ImCreate(Image* imgOrig, double dx, double dy)
  * END ****************************************************************************************************************/
 Image* ImScale(Image* imgOrig, Image* imgSca, double dx, double dy)
 {
-  int width = 0, height = 0, channels = 1, step = 0, scale_step = 0;
+  int width, height, channels, step = 0, scale_step = 0;
   width = imgOrig->width;
   height = imgOrig->height;
   channels = imgOrig->channels;

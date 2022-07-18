@@ -155,23 +155,23 @@ uint8_t g_UsbDeviceConfigurationDescriptor[] = {
          D5: Remote Wakeup
          D4...0: Reserved (reset to zero)
     */
-    USB_DEVICE_MAX_POWER,            /* Maximum power consumption of the USB
-                                      * device from the bus in this specific
-                                      * configuration when the device is fully
-                                      * operational. Expressed in 2 mA units
-                                      *  (i.e., 50 = 100 mA).
-                                      */
-    USB_DESCRIPTOR_LENGTH_INTERFACE, /* Size of this descriptor in bytes */
-    USB_DESCRIPTOR_TYPE_INTERFACE,   /* INTERFACE Descriptor Type */
-    USB_HID_MOUSE_INTERFACE_INDEX,   /* Number of this interface. */
+    USB_DEVICE_MAX_POWER,                /* Maximum power consumption of the USB
+                                          * device from the bus in this specific
+                                          * configuration when the device is fully
+                                          * operational. Expressed in 2 mA units
+                                          *  (i.e., 50 = 100 mA).
+                                          */
+    USB_DESCRIPTOR_LENGTH_INTERFACE,     /* Size of this descriptor in bytes */
+    USB_DESCRIPTOR_TYPE_INTERFACE,       /* INTERFACE Descriptor Type */
+    USB_HID_MOUSE_INTERFACE_INDEX,       /* Number of this interface. */
     USB_HID_MOUSE_INTERFACE_ALTERNATE_0, /* Value used to select this alternate setting
                                         for the interface identified in the prior field */
-    USB_HID_MOUSE_ENDPOINT_COUNT,    /* Number of endpoints used by this
-                                          interface (excluding endpoint zero). */
-    USB_HID_MOUSE_CLASS,             /* Class code (assigned by the USB-IF). */
-    USB_HID_MOUSE_SUBCLASS,          /* Subclass code (assigned by the USB-IF). */
-    USB_HID_MOUSE_PROTOCOL,          /* Protocol code (assigned by the USB). */
-    0x00U,                           /* Index of string descriptor describing this interface */
+    USB_HID_MOUSE_ENDPOINT_COUNT,        /* Number of endpoints used by this
+                                              interface (excluding endpoint zero). */
+    USB_HID_MOUSE_CLASS,                 /* Class code (assigned by the USB-IF). */
+    USB_HID_MOUSE_SUBCLASS,              /* Subclass code (assigned by the USB-IF). */
+    USB_HID_MOUSE_PROTOCOL,              /* Protocol code (assigned by the USB). */
+    0x00U,                               /* Index of string descriptor describing this interface */
 
     USB_DESCRIPTOR_LENGTH_HID,      /* Numeric expression that is the total size of the
                                        HID descriptor. */
@@ -418,7 +418,7 @@ usb_status_t USB_DeviceSetSpeed(usb_device_handle handle, uint8_t speed)
 {
     usb_descriptor_union_t *descriptorHead;
     usb_descriptor_union_t *descriptorTail;
-    int i;
+    uint8_t i;
 
     descriptorHead = (usb_descriptor_union_t *)&g_UsbDeviceConfigurationDescriptor[0];
     descriptorTail =

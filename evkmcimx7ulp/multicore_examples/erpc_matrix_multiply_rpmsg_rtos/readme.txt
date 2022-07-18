@@ -23,7 +23,7 @@ eRPC documentation can be also found in: http://embeddedrpc.github.io
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
+- GCC ARM Embedded  10.3.1
 
 Hardware requirements
 =====================

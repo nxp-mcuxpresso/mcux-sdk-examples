@@ -150,6 +150,7 @@ usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *
         {
             g_composite.attach               = 0;
             g_composite.currentConfiguration = 0U;
+            g_composite.mscDisk.stop         = 0U;
             error                            = kStatus_USB_Success;
 #if (defined(USB_DEVICE_CONFIG_EHCI) && (USB_DEVICE_CONFIG_EHCI > 0U)) || \
     (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
@@ -178,7 +179,7 @@ usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *
             }
             else
             {
-                 /* no action, return kStatus_USB_InvalidRequest */
+                /* no action, return kStatus_USB_InvalidRequest */
             }
             break;
         case kUSB_DeviceEventSetInterface:

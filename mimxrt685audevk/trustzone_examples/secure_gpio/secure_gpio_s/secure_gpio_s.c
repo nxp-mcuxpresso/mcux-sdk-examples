@@ -76,11 +76,19 @@ void SysTick_Handler(void)
     /* Control GPIO MASK based on S2 button press */
     if (GPIO_PinRead(DEMO_SW2_GPIO, DEMO_SW2_GPIO_PORT, DEMO_SW2_GPIO_PIN))
     {
+#ifdef DEMO_ENABLE_SW_IN_NORMAL
+        DEMO_ENABLE_SW_IN_NORMAL;
+#else
         AHB_SECURE_CTRL->SEC_GPIO_MASK0 |= DEMO_BLUE_LED_PIN_SEC_MASK;
+#endif
     }
     else
     {
+#ifdef DEMO_DISABLE_SW_IN_NORMAL
+        DEMO_DISABLE_SW_IN_NORMAL;
+#else
         AHB_SECURE_CTRL->SEC_GPIO_MASK0 &= ~DEMO_BLUE_LED_PIN_SEC_MASK;
+#endif
     }
     /* Control green LED based on S1 button press */
     if (GPIO_PinRead(DEMO_SECURE_SW1_GPIO, DEMO_SECURE_SW1_GPIO_PORT, DEMO_SECURE_SW1_GPIO_PIN))
@@ -122,6 +130,7 @@ int main(void)
     GPIO_PinInit(DEMO_SW2_GPIO, DEMO_SW2_GPIO_PORT, DEMO_SW2_GPIO_PIN, &(gpio_pin_config_t){kGPIO_DigitalInput, 0});
 
     /* Initialize GPIO PINS for RGB LED*/
+    LED_RED_INIT(0x0U);
     LED_BLUE_INIT(0x1U);
     LED_GREEN_INIT(0x1U);
 

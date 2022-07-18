@@ -30,8 +30,6 @@
 #define USE_CANFD (1U)
 
 /* Frame length of data in bytes (DLC) should Less than or equal to MB Payload size in bytes (BYTES_IN_MB). */
-#define DLC         kFLEXCAN_64BperFrame
-#define BYTES_IN_MB kFLEXCAN_64BperMB
 
 #define EXAMPLE_FLEXCAN_RxWarningIRQn CAN_FD1_IRQn
 #define EXAMPLE_FLEXCAN_BusOffIRQn    CAN_FD1_IRQn
@@ -49,6 +47,24 @@
 #define RX_MB_ID_MASK 0xFFUL
 /* RX MB ID after mask. */
 #define RX_MB_ID_AFTER_MASK (RX_MB_ID_MASK & TX_MB_ID)
+
+#if (defined(USE_CANFD) && USE_CANFD)
+/*
+ *    DWORD_IN_MB    DLC    BYTES_IN_MB             Maximum MBs
+ *    2              8      kFLEXCAN_8BperMB        64
+ *    4              10     kFLEXCAN_16BperMB       42
+ *    8              13     kFLEXCAN_32BperMB       25
+ *    16             15     kFLEXCAN_64BperMB       14
+ *
+ * Dword in each message buffer, Length of data in bytes, Payload size must align,
+ * and the Message Buffers are limited corresponding to each payload configuration:
+ */
+#define DLC         (15)
+#define BYTES_IN_MB kFLEXCAN_64BperMB
+#else
+#define DLC (8)
+#endif
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/

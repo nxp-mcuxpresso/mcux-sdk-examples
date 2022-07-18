@@ -131,9 +131,7 @@ static void app_task(void *param)
     (void)PRINTF("RPMSG Share Base Addr is 0x%x\r\n", RPMSG_LITE_SHMEM_BASE);
     my_rpmsg = rpmsg_lite_remote_init((void *)RPMSG_LITE_SHMEM_BASE, RPMSG_LITE_LINK_ID, RL_NO_FLAGS);
 #endif /* MCMGR_USED */
-    while (0 == rpmsg_lite_is_link_up(my_rpmsg))
-    {
-    }
+    rpmsg_lite_wait_for_link_up(my_rpmsg);
     (void)PRINTF("Link is up!\r\n");
 
     my_queue  = rpmsg_queue_create(my_rpmsg);

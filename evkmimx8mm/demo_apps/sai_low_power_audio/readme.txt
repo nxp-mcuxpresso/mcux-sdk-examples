@@ -9,7 +9,7 @@ If there is no audio palyback, M core will enter the STOP mode, and the whole SO
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
+- GCC ARM Embedded  10.3.1
 
 Hardware requirements
 =====================
@@ -19,10 +19,12 @@ Hardware requirements
 - 12V power supply
 - Personal Computer
 - Headphone
+- 8MIC-PRI-MX8
 
 Board settings
 ==============
 No special settings are required.
+Connect the 8MIC-PRI-MX8 Microphone board to J1003 on the base board if sound capture needed.
 
 #### Note! ####
 1.  This case does not support ddr and flash target. 
@@ -56,13 +58,16 @@ NOTE
 	When wm8524 codec is used,
 	u-boot=>setenv fdtfile imx8mm-evk-rpmsg-wm8524.dtb 
     u-boot=>saveenv
+	Make sure the "snd_pcm.max_alloc_per_card" is set using below command for the uboot bootargs for Linux 5.15.5-1.0.0 and later version.
+	u-boot=>setenv mmcargs 'setenv bootargs ${jh_clk} console=${console} root=${mmcroot} snd_pcm.max_alloc_per_card=134217728'
+	u-boot=>saveenv
 5.  Please make sure here exists xxx.wav file in the SD card.
     If the music file is placed at the Windows FAT32 paritions, after the linux kernel boot up and logged as root,
     using the "mount /dev/mmcblk1p1 /mnt" and then go to "/mnt" folder to playabck the music using the playback command.
     If the music file is placed at the Linux paritions, eg "/home", could playback the music dirctly using the playback command. 
 
 ******************
-Playback command
+Playback/record command
 ******************
 Note:
 1. Please use the command "cat /proc/asound/cards" to check the ak4497 sound card number.
@@ -79,6 +84,7 @@ E.g: Type command:
                           ak4497-audio
 Then the ak4497 sound number is 3.
 2. If use the WM8524 codec, use the wm8524 sound card number.
+3. If use the MICFIL for sound capture, use the micfi sound card number.
 
 When playback the .wav file:
 1.  If want to playabck with pause/resume command, could use command: 
@@ -91,6 +97,10 @@ When playback the .wav file:
     Now please use "echo mem > /sys/power/state" command to make A core enter suspend mode and the playabck work normally.
     Note, make sure the A core has enough time to fill the audio buffer before going into suspend mode.
 
+When recording sound(RPMSG MICFIL is only supported when WM8524 codec used), could use command:
+	"arecord -Dhw:1,0 -r44100 -fS16_LE -c2 test.wav &"
+	fS16_LE and 1-8 channels are supported.
+
     
 When playback the .dsd/.dff file (only supported by AK4497 codec): 
 1.  Enter folder where the DSD execution procedure exists, using command:
@@ -100,6 +110,7 @@ When playback the .dsd/.dff file (only supported by AK4497 codec):
       "./mxc_alsa_dsd_player -Dhw:0 --buffer-time=xxx --period-time=xxx music path"
     Please note that the "music path" means where the DSD file exists.
 3.  Support music playabck when A core enters suspend.
+
 
 Running the demo
 ================

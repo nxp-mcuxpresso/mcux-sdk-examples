@@ -140,7 +140,7 @@ static int check_output()
         }
     }
 
-    PRINTF("%s output check succeded\r\n", UNIT_TEST_NAME);
+    PRINTF("%s output check succeeded\r\n", UNIT_TEST_NAME);
     return 1;
 }
 
@@ -191,8 +191,8 @@ void nn_conv_std_unit_test(int mode)
     total_cycles /= BENCH_ITERS;
     total_ms = COUNT_TO_USEC(total_cycles, SystemCoreClock) / 1000.0;
 
-    PRINTF("Avg Inference cycles: %u time: %.3f ms\r\n", total_cycles, total_ms);
-    PRINTF("Throughput: %.1f fps\r\n", 1000 / total_ms);
+    PRINTF("Avg Inference cycles: %u time: %d ms\r\n", total_cycles, (int) total_ms);
+    PRINTF("Throughput: %d fps\r\n",  (int) (1000 / total_ms));
 
     if (mode == UNIT_TEST_ASYNC)
     {
@@ -201,3 +201,4 @@ void nn_conv_std_unit_test(int mode)
     }
     free_buffers();
 }
+

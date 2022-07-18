@@ -6,8 +6,8 @@ and decrypt it back using AES and SHA algorithm. SHA-1, SHA-256, AES ECB and AES
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.5.0
+- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.6.0
 
 Hardware requirements
 =====================

@@ -8,7 +8,7 @@ send back all characters that PC send to the board.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
+- GCC ARM Embedded  10.3.1
 
 Hardware requirements
 =====================

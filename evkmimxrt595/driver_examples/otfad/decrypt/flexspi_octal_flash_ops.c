@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2021 NXP
+ * Copyright 2019-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -19,7 +19,7 @@
 
 extern flexspi_device_config_t deviceconfig;
 extern const uint32_t customLUTOctalMode[CUSTOM_LUT_LENGTH];
-#if defined(EXAMPLE_FLASH_RESET_CONFIG)
+#if defined(EXAMPLE_FLASH_RESET_CONFIG) || defined(FLASH_ADESTO)
 extern const uint32_t FastReadSDRLUTCommandSeq[4];
 extern const uint32_t OctalReadDDRLUTCommandSeq[4];
 #endif
@@ -206,7 +206,6 @@ status_t flexspi_nor_enable_octal_mode(FLEXSPI_Type *base)
 
     memcpy(TempOctalReadDDRLUTCommandSeq, OctalReadDDRLUTCommandSeq, sizeof(OctalReadDDRLUTCommandSeq));
 #endif
-
 #if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
     flexspi_cache_status_t cacheStatus;
     flexspi_nor_disable_cache(&cacheStatus);
@@ -217,7 +216,7 @@ status_t flexspi_nor_enable_octal_mode(FLEXSPI_Type *base)
     uint32_t readValue;
 
     /* Update LUT table for octal mode. */
-    FLEXSPI_UpdateLUT(base, 0, customLUTOctalMode, CUSTOM_LUT_LENGTH);
+    FLEXSPI_UpdateLUT(base, 4 * NOR_CMD_LUT_SEQ_IDX_READ, OctalReadDDRLUTCommandSeq, 4);
 
     /* Set the command instruction of read status register for LUT in octal sdr mode. */
     tempLUT[0] =
@@ -566,6 +565,8 @@ status_t flexspi_nor_get_vendor_id(FLEXSPI_Type *base, uint8_t *vendorId)
 void flexspi_nor_flash_init(FLEXSPI_Type *base)
 {
     flexspi_config_t config;
+    /* To store custom's LUT table in local. */
+    uint32_t tempCustomLUT[CUSTOM_LUT_LENGTH] = {0U};
 
 #if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
     flexspi_cache_status_t cacheStatus;
@@ -597,9 +598,18 @@ void flexspi_nor_flash_init(FLEXSPI_Type *base)
     memcpy(TempFastReadSDRLUTCommandSeq, FastReadSDRLUTCommandSeq, sizeof(FastReadSDRLUTCommandSeq));
 #endif
 
+#if (defined(XIP_EXTERNAL_FLASH) && XIP_EXTERNAL_FLASH == 1) && (FLASH_ADESTO == 1)
+    uint32_t tempLUT[4] = {0};
+    /* Exit octal mode command. */
+    tempLUT[0] = FLEXSPI_LUT_SEQ(kFLEXSPI_Command_SDR, kFLEXSPI_8PAD, 0xFF, kFLEXSPI_Command_STOP, kFLEXSPI_8PAD, 0x0);
+#endif
+
+    /* Copy LUT information from flash region into RAM region, because LUT update maybe corrupt read sequence(LUT[0])
+     * and load wrong LUT table from FLASH region. */
+    memcpy(tempCustomLUT, customLUTOctalMode, sizeof(tempCustomLUT));
     /* Update LUT table into a specific mode, such as octal SDR mode or octal DDR mode based on application's
      * requirement. */
-    FLEXSPI_UpdateLUT(base, 0, customLUTOctalMode, CUSTOM_LUT_LENGTH);
+    FLEXSPI_UpdateLUT(base, 0, tempCustomLUT, CUSTOM_LUT_LENGTH);
 
     /* Do software reset. */
     FLEXSPI_SoftwareReset(base);
@@ -607,10 +617,10 @@ void flexspi_nor_flash_init(FLEXSPI_Type *base)
 #if (defined(XIP_EXTERNAL_FLASH) && XIP_EXTERNAL_FLASH == 1) && (FLASH_ADESTO == 1)
     status_t status;
     flexspi_transfer_t flashXfer;
-    uint32_t tempLUT[4];
 
-    /* Exit octal mode command. */
-    tempLUT[0] = FLEXSPI_LUT_SEQ(kFLEXSPI_Command_SDR, kFLEXSPI_8PAD, 0xFF, kFLEXSPI_Command_STOP, kFLEXSPI_8PAD, 0x0);
+    /* Update for standard mode. */
+    FLEXSPI_UpdateLUT(base, 4 * NOR_CMD_LUT_SEQ_IDX_READ, FastReadSDRLUTCommandSeq, 4);
+    /* Update for exit octal mode. */
     FLEXSPI_UpdateLUT(base, 4 * NOR_CMD_LUT_SEQ_IDX_CONFIG, tempLUT, 4);
 
     /* Write enable */

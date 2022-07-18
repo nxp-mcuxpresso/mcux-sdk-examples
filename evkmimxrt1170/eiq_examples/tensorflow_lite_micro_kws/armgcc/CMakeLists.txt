@@ -113,7 +113,7 @@ include(utility_assert_lite)
 
 include(middleware_eiq_worker_audio)
 
-include(CMSIS_DSP_Library)
+include(CMSIS_DSP_Source)
 
 include(middleware_eiq_tensorflow_lite_micro)
 
@@ -145,6 +145,8 @@ include(driver_xip_board_evkmimxrt1170)
 
 include(middleware_eiq_tensorflow_lite_micro_cmsis_nn)
 
+include(driver_xmcd_evkmimxrt1170)
+
 include(driver_anatop_ai)
 
 include(CMSIS_Include_core_cm)
@@ -161,7 +163,7 @@ include(middleware_eiq_tensorflow_lite_micro_third_party_gemmlowp)
 
 include(middleware_eiq_tensorflow_lite_micro_third_party_ruy)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1176_cm7)
 
 include(device_system_MIMXRT1176_cm7)
 
@@ -177,14 +179,6 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
 
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
-
-if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/CMSIS/DSP/Lib/GCC/libarm_cortexM7lfdp_math.a)
-endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_release)
-
-if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/CMSIS/DSP/Lib/GCC/libarm_cortexM7lfdp_math.a)
-endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_debug)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

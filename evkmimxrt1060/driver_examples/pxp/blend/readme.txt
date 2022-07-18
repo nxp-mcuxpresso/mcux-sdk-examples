@@ -7,19 +7,20 @@ output, the overlay region color is OR'ed value of process surface and alpha sur
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.5.0
+- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.6.0
 
 Hardware requirements
 =====================
 - Mini/micro USB cable
 - EVK-MIMXRT1060 board
 - Personal Computer
-- RK043FN02H-CT LCD board
+- RK043FN02H-CT or RK043FN66HS-CT6 LCD board
+  (RK043FN02H-CT and RK043FN66HS-CT6 are compatible)
 
 Board settings
 ==============
-1. Connect the RK043FN02H-CT board to J8.
+1. Connect the RK043FN02H-CT or RK043FN66HS-CT6 to board.
 
 Prepare the Demo
 ================

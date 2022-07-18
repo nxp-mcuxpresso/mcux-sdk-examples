@@ -102,7 +102,7 @@ include(middleware_freertos-kernel_MKM34ZA5)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MKM34ZA5)
 
 include(device_system)
 

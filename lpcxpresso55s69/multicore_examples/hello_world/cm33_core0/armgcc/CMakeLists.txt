@@ -107,7 +107,7 @@ include(component_lists)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC55S69_cm33_core0)
 
 include(device_system_LPC55S69_cm33_core0)
 

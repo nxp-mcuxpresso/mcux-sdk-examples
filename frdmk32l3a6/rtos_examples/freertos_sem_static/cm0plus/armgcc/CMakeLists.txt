@@ -96,7 +96,7 @@ include(CMSIS_Include_core_cm)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_K32L3A60_cm0plus)
 
 include(device_system_K32L3A60_cm0plus)
 

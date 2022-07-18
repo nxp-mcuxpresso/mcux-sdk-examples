@@ -100,6 +100,8 @@ include(middleware_fatfs)
 
 include(middleware_fatfs_sd)
 
+include(component_igpio_adapter)
+
 include(middleware_baremetal)
 
 include(driver_clock)
@@ -130,7 +132,7 @@ include(driver_igpio)
 
 include(driver_xip_device)
 
-include(driver_xip_board)
+include(driver_xip_board_evkmimxrt1160)
 
 include(middleware_usb_device_controller_driver_MIMXRT1166_cm7)
 
@@ -158,7 +160,7 @@ include(driver_usdhc)
 
 include(driver_memory)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1166_cm7)
 
 include(device_system_MIMXRT1166_cm7)
 

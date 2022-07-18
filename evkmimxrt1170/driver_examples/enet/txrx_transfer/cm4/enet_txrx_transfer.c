@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2020 NXP
+ * Copyright 2016-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -12,9 +12,8 @@
 #include "fsl_debug_console.h"
 #include "fsl_enet.h"
 #include "fsl_phy.h"
-#if defined(FSL_FEATURE_MEMORY_HAS_ADDRESS_OFFSET) && FSL_FEATURE_MEMORY_HAS_ADDRESS_OFFSET
-#include "fsl_memory.h"
-#endif
+#include "fsl_silicon_id.h"
+
 #include "fsl_enet_mdio.h"
 #include "fsl_phyksz8081.h"
 /*******************************************************************************
@@ -48,7 +47,12 @@
 /* @TEST_ANCHOR */
 
 #ifndef MAC_ADDRESS
-#define MAC_ADDRESS {0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60}
+#define MAC_ADDRESS                        \
+    {                                      \
+        0x54, 0x27, 0x8d, 0x00, 0x00, 0x00 \
+    }
+#else
+#define USER_DEFINED_MAC_ADDRESS
 #endif
 
 /*******************************************************************************
@@ -222,12 +226,17 @@ int main(void)
     SDK_DelayAtLeastUs(PHY_STABILITY_DELAY_US, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
 #endif
 
-    /* Get the actual PHY link speed. */
+    /* Get the actual PHY link speed and set in MAC. */
     PHY_GetLinkSpeedDuplex(&phyHandle, &speed, &duplex);
-    /* Change the MII speed and duplex for actual link status. */
     config.miiSpeed  = (enet_mii_speed_t)speed;
     config.miiDuplex = (enet_mii_duplex_t)duplex;
 
+#ifndef USER_DEFINED_MAC_ADDRESS
+    /* Set special address for each chip. */
+    SILICONID_ConvertToMacAddr(&g_macAddr);
+#endif
+
+    /* Init the ENET. */
     ENET_Init(EXAMPLE_ENET, &g_handle, &config, &buffConfig[0], &g_macAddr[0], EXAMPLE_CLOCK_FREQ);
     ENET_ActiveRead(EXAMPLE_ENET);
 

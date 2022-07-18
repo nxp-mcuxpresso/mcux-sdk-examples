@@ -51,7 +51,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/demo_info.cpp"
 "${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/label_image/image_data.h"
 "${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/label_image/labels.h"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/label_image/model_mobilenet_ops_micro.cpp"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/model_all_ops_micro.cpp"
 "${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/model.cpp"
 "${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/image/main.cpp"
 "${ProjDirPath}/../pin_mux.c"
@@ -101,6 +101,8 @@ include(driver_camera-device-ov5640)
 include(driver_display-rm68191)
 
 include(driver_display-rm68200)
+
+include(driver_display-hx8394)
 
 include(driver_camera-common)
 
@@ -174,6 +176,8 @@ include(driver_xip_board_evkmimxrt1170)
 
 include(middleware_eiq_tensorflow_lite_micro_cmsis_nn)
 
+include(driver_xmcd_evkmimxrt1170)
+
 include(driver_anatop_ai)
 
 include(CMSIS_Include_core_cm)
@@ -190,7 +194,7 @@ include(middleware_eiq_tensorflow_lite_micro_third_party_gemmlowp)
 
 include(middleware_eiq_tensorflow_lite_micro_third_party_ruy)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1176_cm7)
 
 include(device_system_MIMXRT1176_cm7)
 

@@ -5,10 +5,10 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+#include "rpmsg_lite.h"
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "board.h"
-#include "rpmsg_lite.h"
 #include "erpc_arbitrated_client_setup.h"
 #include "erpc_server_setup.h"
 #include "erpc_two_way_rpc_Core1Interface.h"

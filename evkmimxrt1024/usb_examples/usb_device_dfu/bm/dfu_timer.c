@@ -147,7 +147,7 @@ void DFU_TimerISR(void)
         {
             dfu_timer_object_t *timerObject = &s_dfuTimerObjectArray[index];
             timerObject->timerCount--;
-            if (timerObject->timerCount <= 0U)
+            if (timerObject->timerCount <= 0)
             {
                 /* Call Pending Timer CallBacks */
                 timerObject->timerCallback();

@@ -255,7 +255,7 @@ void tx_application_define(void *first_unused_memory)
     parameter1.ux_slave_class_cdc_acm_instance_deactivate = demo_cdc_instance1_deactivate;
 
     /* Initialize the device CDC class. This class owns both interfaces starting with 0. */
-    status = ux_device_stack_class_register("ACM1",
+    status = ux_device_stack_class_register((UCHAR *)"ACM1",
                                             ux_device_class_cdc_acm_entry, 1, 0,
                                             &parameter1);
 
@@ -264,7 +264,7 @@ void tx_application_define(void *first_unused_memory)
     parameter2.ux_slave_class_cdc_acm_instance_deactivate = demo_cdc_instance2_deactivate;
 
     /* Initialize the device CDC class. This class owns both interfaces starting with 2. */
-    status = ux_device_stack_class_register("ACM2",
+    status = ux_device_stack_class_register((UCHAR *)"ACM2",
                                             ux_device_class_cdc_acm_entry, 1, 2,
                                             &parameter2);
 

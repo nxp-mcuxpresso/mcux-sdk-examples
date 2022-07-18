@@ -67,7 +67,7 @@ include(utility_assert_lite)
 
 include(driver_clock)
 
-include(CMSIS_DSP_Library)
+include(CMSIS_DSP_Source)
 
 include(driver_common)
 
@@ -103,7 +103,7 @@ include(CMSIS_Include_core_cm)
 
 include(driver_inputmux_connections)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT685S_cm33)
 
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
@@ -115,22 +115,6 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
 
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
-
-if(CMAKE_BUILD_TYPE STREQUAL debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/CMSIS/DSP/Lib/GCC/libarm_ARMv8MMLldfsp_math.a)
-endif(CMAKE_BUILD_TYPE STREQUAL debug)
-
-if(CMAKE_BUILD_TYPE STREQUAL release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/CMSIS/DSP/Lib/GCC/libarm_ARMv8MMLldfsp_math.a)
-endif(CMAKE_BUILD_TYPE STREQUAL release)
-
-if(CMAKE_BUILD_TYPE STREQUAL flash_debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/CMSIS/DSP/Lib/GCC/libarm_ARMv8MMLldfsp_math.a)
-endif(CMAKE_BUILD_TYPE STREQUAL flash_debug)
-
-if(CMAKE_BUILD_TYPE STREQUAL flash_release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/CMSIS/DSP/Lib/GCC/libarm_ARMv8MMLldfsp_math.a)
-endif(CMAKE_BUILD_TYPE STREQUAL flash_release)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

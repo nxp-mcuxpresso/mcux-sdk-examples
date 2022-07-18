@@ -142,6 +142,14 @@
 
 #define USB_DEVICE_MAX_POWER (0x32)
 
+/* There is no need to install the INF by changing the class code, subclass code
+ * and protocol code as the following:
+ * #define USB_CDC_IFACE_DESCRIPTOR_VNIC_CIC_CLASS    (0xEF)
+ * #define USB_CDC_IFACE_DESCRIPTOR_VNIC_CIC_SUBCLASS (0x04)
+ * #define USB_CDC_IFACE_DESCRIPTOR_VNIC_CIC_PROTOCOL (0x01)
+ * Note that the above change is only applied for descriptor, please do not change the codes of class driver.
+ * This is not verified under all conditions, so please be cautious to change.
+ */
 #define USB_CDC_VNIC_CIC_CLASS    (CDC_COMM_CLASS)
 #define USB_CDC_VNIC_CIC_SUBCLASS (USB_CDC_ABSTRACT_CONTROL_MODEL)
 #define USB_CDC_VNIC_CIC_PROTOCOL (USB_CDC_NO_CLASS_SPECIFIC_PROTOCOL)

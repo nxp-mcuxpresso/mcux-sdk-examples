@@ -26,7 +26,7 @@ Toolchains supported
 Hardware requirements
 =====================
 - Mini/micro USB cable
-- EVK-IMXRT1170 board
+- EVK-IMXRT10xx, EVK-IMXRT11xx or EVKB-IMXRT1050 board
 - Personal computer (Windows)
 - Python 3.x installed
 - Glow AOT tools installed for Windows and added to system PATH variable:
@@ -141,4 +141,12 @@ The log below shows the output of the Release version in the terminal window:
 
 Top1 class = 9
 Confidence = 0.942
-Inference time = 6 (ms)
+Inference time = 10 (ms)
+
+Notes
+=====
+The inference time depends on the board.
+For example you can expect the following inference time for the following boards:
+
+RT10xx: Inference time: 10 (ms)
+RT11xx: Inference time: 6 (ms)

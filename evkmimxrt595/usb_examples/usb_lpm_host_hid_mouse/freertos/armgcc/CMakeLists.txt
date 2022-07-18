@@ -85,6 +85,8 @@ include(driver_flexcomm_i2c)
 
 include(driver_pca9420)
 
+include(component_rt_gpio_adapter)
+
 include(middleware_freertos-kernel_heap_4)
 
 include(middleware_freertos-kernel_MIMXRT595S_cm33)
@@ -143,7 +145,7 @@ include(middleware_usb_host_common_header)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT595S_cm33)
 
 include(driver_iap)
 

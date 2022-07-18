@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -15,7 +15,6 @@
 #include "fsl_mmc.h"
 #endif
 #include "clock_config.h"
-#include "fsl_gpio.h"
 #include "fsl_sdmmc_host.h"
 #include "fsl_sdmmc_common.h"
 

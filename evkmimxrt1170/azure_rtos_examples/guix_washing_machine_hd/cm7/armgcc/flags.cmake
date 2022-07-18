@@ -5,21 +5,12 @@ SET(CMAKE_ASM_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -DDEBUG \
     -D__STARTUP_INITIALIZE_NONCACHEDATA \
     -DTX_ENABLE_FPU_SUPPORT=1 \
-    -g \
     -x \
     assembler-with-cpp \
     -mcpu=cortex-m7 \
-    -Wall \
     -mfloat-abi=hard \
     -mfpu=fpv5-d16 \
     -mthumb \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
 ")
 SET(CMAKE_ASM_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     ${CMAKE_ASM_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE} \
@@ -31,27 +22,21 @@ SET(CMAKE_ASM_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -x \
     assembler-with-cpp \
     -mcpu=cortex-m7 \
-    -Wall \
     -mfloat-abi=hard \
     -mfpu=fpv5-d16 \
     -mthumb \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
 ")
 SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     ${CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG} \
     -DXIP_EXTERNAL_FLASH=1 \
     -DXIP_BOOT_HEADER_ENABLE=1 \
-    -DXIP_BOOT_HEADER_DCD_ENABLE=1 \
+    -DXIP_BOOT_HEADER_DCD_ENABLE=0 \
+    -DXIP_BOOT_HEADER_XMCD_ENABLE=1 \
     -DUSE_SDRAM \
     -DDATA_SECTION_IS_CACHEABLE=1 \
     -DDEBUG \
     -DCPU_MIMXRT1176DVMAA_cm7 \
+    -DGUIX_PXP_ENABLE \
     -DSDK_DEBUGCONSOLE_UART \
     -DPRINTF_FLOAT_ENABLE=1 \
     -DSCANF_FLOAT_ENABLE=1 \
@@ -62,6 +47,7 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DTX_INCLUDE_USER_DEFINE_FILE \
+    -DFSL_RTOS_THREADX \
     -DMCUXPRESSO_SDK \
     -g \
     -O0 \
@@ -84,11 +70,13 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     ${CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE} \
     -DXIP_EXTERNAL_FLASH=1 \
     -DXIP_BOOT_HEADER_ENABLE=1 \
-    -DXIP_BOOT_HEADER_DCD_ENABLE=1 \
+    -DXIP_BOOT_HEADER_DCD_ENABLE=0 \
+    -DXIP_BOOT_HEADER_XMCD_ENABLE=1 \
     -DUSE_SDRAM \
     -DDATA_SECTION_IS_CACHEABLE=1 \
     -DNDEBUG \
     -DCPU_MIMXRT1176DVMAA_cm7 \
+    -DGUIX_PXP_ENABLE \
     -DSDK_DEBUGCONSOLE_UART \
     -DPRINTF_FLOAT_ENABLE=1 \
     -DSCANF_FLOAT_ENABLE=1 \
@@ -99,6 +87,7 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DTX_INCLUDE_USER_DEFINE_FILE \
+    -DFSL_RTOS_THREADX \
     -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m7 \

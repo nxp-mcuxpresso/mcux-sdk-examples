@@ -26,15 +26,15 @@ M7 core application depends on the M4 core, So user could build the M4 core appl
 
 Toolchain supported
 ===================
-- MCUXpresso  11.5.0
-- GCC ARM Embedded  10.2.1
+- MCUXpresso  11.6.0
+- GCC ARM Embedded  10.3.1
 
 Hardware requirements
 =====================
 - Mini/micro USB cable
 - EVK-MIMXRT1160 board
 - Personal computer
-- RK055AHD091 display (optional)
+- RK055AHD091 or RK055MHD091 display (optional)
 - OV5640 camera (optional)
 
 Board settings
@@ -52,8 +52,11 @@ Prepare the Demo
    - No parity
    - One stop bit
    - No flow control
-3. Download the program to the target board.
-4. Either press the reset button on your board or launch the debugger in your IDE to begin running the demo.
+3. Build the project. (The project expects the RK055MHD091 panel by default. To use the RK055AHD091 panel,
+    change #define DEMO_PANEL DEMO_PANEL_RK055MHD091 to #define DEMO_PANEL MIPI_PANEL_RK055AHD091
+    in eiq_display_conf.h.)
+4. Download the program to the target board.
+5. Either press the reset button on your board or launch the debugger in your IDE to begin running the demo.
 
 Running the demo
 ================

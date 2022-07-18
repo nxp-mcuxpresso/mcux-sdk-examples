@@ -139,22 +139,22 @@ void BOARD_InitModuleClock(void)
     };
     CLOCK_InitSysPll1(&sysPll1Config);
 
-#ifdef EXAMPLE_USE_1G_ENET_PORT
-    clock_root_config_t rootCfg = {.mux = 4, .div = 4}; /* Generate 125M root clock. */
-    CLOCK_SetRootClock(kCLOCK_Root_Enet2, &rootCfg);
-#else
+#if defined(BOARD_NETWORK_USE_100M_ENET_PORT) && (BOARD_NETWORK_USE_100M_ENET_PORT == 1)
     clock_root_config_t rootCfg = {.mux = 4, .div = 10}; /* Generate 50M root clock. */
     CLOCK_SetRootClock(kCLOCK_Root_Enet1, &rootCfg);
+#else
+    clock_root_config_t rootCfg = {.mux = 4, .div = 4}; /* Generate 125M root clock. */
+    CLOCK_SetRootClock(kCLOCK_Root_Enet2, &rootCfg);
 #endif
 }
 
 void IOMUXC_SelectENETClock(void)
 {
-#ifdef EXAMPLE_USE_1G_ENET_PORT
+#if defined(BOARD_NETWORK_USE_100M_ENET_PORT) && (BOARD_NETWORK_USE_100M_ENET_PORT == 1)
+    IOMUXC_GPR->GPR4 |= 0x3; /* 50M ENET_REF_CLOCK output to PHY and ENET module. */
+#else
     IOMUXC_GPR->GPR5 |= IOMUXC_GPR_GPR5_ENET1G_RGMII_EN_MASK; /* bit1:iomuxc_gpr_enet_clk_dir
                                                                  bit0:GPR_ENET_TX_CLK_SEL(internal or OSC) */
-#else
-    IOMUXC_GPR->GPR4 |= 0x3; /* 50M ENET_REF_CLOCK output to PHY and ENET module. */
 #endif
 
     /* wait 1 ms for stabilizing clock */
@@ -182,17 +182,7 @@ int main(void)
 
     IOMUXC_SelectENETClock();
 
-#ifdef EXAMPLE_USE_1G_ENET_PORT
-    BOARD_InitEnet1GPins();
-    GPIO_PinInit(GPIO11, 14, &gpio_config);
-    /* For a complete PHY reset of RTL8211FDI-CG, this pin must be asserted low for at least 20ms. And
-     * wait for a further 60ms(for internal circuits settling time) before accessing the PHY register */
-    GPIO_WritePinOutput(GPIO11, 14, 0);
-    SDK_DelayAtLeastUs(20000, CLOCK_GetFreq(kCLOCK_CpuClk));
-    GPIO_WritePinOutput(GPIO11, 14, 1);
-    SDK_DelayAtLeastUs(60000, CLOCK_GetFreq(kCLOCK_CpuClk));
-
-#else
+#if defined(BOARD_NETWORK_USE_100M_ENET_PORT) && (BOARD_NETWORK_USE_100M_ENET_PORT == 1)
     BOARD_InitEnetPins();
     GPIO_PinInit(GPIO9, 11, &gpio_config);
     GPIO_PinInit(GPIO12, 12, &gpio_config);
@@ -202,6 +192,15 @@ int main(void)
     SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
     GPIO_WritePinOutput(GPIO12, 12, 1);
     SDK_DelayAtLeastUs(6, CLOCK_GetFreq(kCLOCK_CpuClk));
+#else
+    BOARD_InitEnet1GPins();
+    GPIO_PinInit(GPIO11, 14, &gpio_config);
+    /* For a complete PHY reset of RTL8211FDI-CG, this pin must be asserted low for at least 20ms. And
+     * wait for a further 60ms(for internal circuits settling time) before accessing the PHY register */
+    GPIO_WritePinOutput(GPIO11, 14, 0);
+    SDK_DelayAtLeastUs(20000, CLOCK_GetFreq(kCLOCK_CpuClk));
+    GPIO_WritePinOutput(GPIO11, 14, 1);
+    SDK_DelayAtLeastUs(60000, CLOCK_GetFreq(kCLOCK_CpuClk));
 #endif
 
     PRINTF("Start the azure_iot_mqtt example...\r\n");

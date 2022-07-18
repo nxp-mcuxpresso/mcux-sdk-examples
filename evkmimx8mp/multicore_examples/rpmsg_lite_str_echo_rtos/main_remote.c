@@ -101,8 +101,7 @@ void app_task(void *param)
     my_rpmsg = rpmsg_lite_remote_init((void *)RPMSG_LITE_SHMEM_BASE, RPMSG_LITE_LINK_ID, RL_NO_FLAGS);
 #endif /* MCMGR_USED */
 
-    while (0 == rpmsg_lite_is_link_up(my_rpmsg))
-        ;
+    rpmsg_lite_wait_for_link_up(my_rpmsg);
 
     my_queue = rpmsg_queue_create(my_rpmsg);
     my_ept   = rpmsg_lite_create_ept(my_rpmsg, LOCAL_EPT_ADDR, rpmsg_queue_rx_cb, my_queue);

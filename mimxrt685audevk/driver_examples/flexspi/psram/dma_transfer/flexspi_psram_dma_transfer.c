@@ -20,6 +20,7 @@
  ******************************************************************************/
 #define EXAMPLE_FLEXSPI                    BOARD_FLEXSPI_PSRAM
 #define EXAMPLE_FLEXSPI_AMBA_BASE          FlexSPI_AMBA_BASE
+#define EXAMPLE_FLEXSPI_PORT               kFLEXSPI_PortA1
 #define HYPERRAM_CMD_LUT_SEQ_IDX_READDATA  0
 #define HYPERRAM_CMD_LUT_SEQ_IDX_WRITEDATA 1
 #define HYPERRAM_CMD_LUT_SEQ_IDX_READREG   2
@@ -83,7 +84,7 @@ status_t flexspi_hyper_ram_dmacommand_write_data(FLEXSPI_Type *base,
 
     /* Write data */
     flashXfer.deviceAddress = address;
-    flashXfer.port          = kFLEXSPI_PortA1;
+    flashXfer.port          = EXAMPLE_FLEXSPI_PORT;
     flashXfer.cmdType       = kFLEXSPI_Write;
     flashXfer.SeqNumber     = 1;
     flashXfer.seqIndex      = HYPERRAM_CMD_LUT_SEQ_IDX_WRITEDATA;
@@ -113,7 +114,7 @@ status_t flexspi_hyper_ram_dmacommand_read_data(FLEXSPI_Type *base, uint32_t add
 
     /* Write data */
     flashXfer.deviceAddress = address;
-    flashXfer.port          = kFLEXSPI_PortA1;
+    flashXfer.port          = EXAMPLE_FLEXSPI_PORT;
     flashXfer.cmdType       = kFLEXSPI_Read;
     flashXfer.SeqNumber     = 1;
     flashXfer.seqIndex      = HYPERRAM_CMD_LUT_SEQ_IDX_READDATA;

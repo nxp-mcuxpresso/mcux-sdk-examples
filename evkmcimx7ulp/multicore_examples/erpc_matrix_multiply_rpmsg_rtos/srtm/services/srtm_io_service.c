@@ -110,7 +110,11 @@ static srtm_io_pin_t SRTM_IoService_FindPin(srtm_io_service_t handle, uint16_t i
             if (notify)
             {
                 notif      = pin->notif;
-                pin->notif = NULL;
+                /* If channel is destoryed, the notif of pin should be recycled */
+                if(pin->channel)
+                {
+                    pin->notif = NULL;
+                }
             }
             break;
         }

@@ -9,7 +9,7 @@
 /* Vendor ID */
 #define USB_DEVICE_VID (0x1FC9U)
 /* Product ID */
-#define USB_DEVICE_PID (0x00A3U)
+#define USB_DEVICE_PID (0x00B1U)
 
 /* High Speed */
 #define USB_HS_BCD_VERSION (0x0200U)
@@ -697,7 +697,7 @@ unsigned char string_framework[] = {
     'N', 'X', 'P', ' ',
     'S', 'E', 'M', 'I', 'C', 'O', 'N', 'D', 'U', 'C', 'T', 'O', 'R', 'S',
 
-    /* Product string descriptor : Index 2 - "EL Composite device" */
+    /* Product string descriptor : Index 2 */
     0x09, 0x04, 0x02, 14U,
     'U', 'S', 'B', ' ',
     'A', 'U', 'D', 'I', 'O', ' ', 'D', 'E', 'M', 'O',

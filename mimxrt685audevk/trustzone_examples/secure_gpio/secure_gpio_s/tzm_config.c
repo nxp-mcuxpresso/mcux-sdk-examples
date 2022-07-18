@@ -17,7 +17,8 @@ product: TEE v4.0
 processor: MIMXRT685S
 package_id: MIMXRT685SFVKB
 mcu_data: ksdk2_0
-processor_version: 0.10.12
+processor_version: 11.0.1
+board: MIMXRT685-AUD-EVK
 toolOptions:
   _output_type_: c_code
   _legacy_source_names_: 'yes'

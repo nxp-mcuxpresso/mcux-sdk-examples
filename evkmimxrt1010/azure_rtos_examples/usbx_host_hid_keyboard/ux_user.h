@@ -9,10 +9,17 @@
 
 #define UX_PERIODIC_RATE (TX_TIMER_TICKS_PER_SECOND)
 
+#define UX_SLAVE_REQUEST_CONTROL_MAX_LENGTH      512
 #define UX_SLAVE_REQUEST_DATA_MAX_LENGTH         (1024 * 2)
 #define UX_HOST_CLASS_STORAGE_MEMORY_BUFFER_SIZE (1024 * 8)
 
-#define UX_MAX_DEVICES  2
+/*
+ * Defined, this value represents the maximum number of devices that can be attached to the USB.
+ * Normally, the theoretical maximum number on a single USB is 127 devices. This value can be
+ * scaled down to conserve memory. Note that this value represents the total number of devices
+ * regardless of the number of USB buses in the system.
+ */
+/* #define UX_MAX_DEVICES  127 */
 
 /*
  * Defined, this value represents the maximum number of Ed,
@@ -62,6 +69,15 @@
 
 /* Defined, this value will only enable the device side of usbx.  */
 /* #define UX_DEVICE_SIDE_ONLY   */
+
+/* defined, this macro enables device audio feedback endpoint support.  */
+#define UX_DEVICE_CLASS_AUDIO_FEEDBACK_SUPPORT
+
+/* Defined, device HID interrupt OUT transfer is supported.  */
+/* #define UX_DEVICE_CLASS_HID_INTERRUPT_OUT_SUPPORT  */
+
+/* Defined, this macro enables device bi-directional-endpoint support.  */
+#define UX_DEVICE_BIDIRECTIONAL_ENDPOINT_SUPPORT
 
 /*
  * Defined, this value will include the OTG polling thread.

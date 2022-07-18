@@ -112,7 +112,7 @@ include(CMSIS_Include_core_cm)
 
 include(driver_memory)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMX8ML8)
 
 include(device_system)
 

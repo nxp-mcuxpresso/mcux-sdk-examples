@@ -126,7 +126,7 @@ include(middleware_usb_host_common_header)
 
 include(driver_inputmux_connections)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT595S_cm33)
 
 include(driver_iap)
 

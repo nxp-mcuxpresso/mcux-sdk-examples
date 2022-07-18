@@ -121,6 +121,8 @@ include(driver_gt911)
 
 include(driver_soc_src)
 
+include(driver_pxp)
+
 include(component_lists)
 
 include(component_lpuart_adapter)
@@ -171,7 +173,7 @@ include(driver_lcdifv2)
 
 include(driver_memory)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1166_cm7)
 
 include(device_system_MIMXRT1166_cm7)
 

@@ -6,8 +6,8 @@
  */
 
 /*${header:start}*/
-#include "board.h"
 #include "cmd.h"
+#include "board.h"
 #include "dsp_ipc.h"
 
 #include <string.h>
@@ -110,6 +110,8 @@ static shell_status_t shellRecDMIC(shell_handle_t shellHandle, int32_t argc, cha
 {
     srtm_message msg = {0};
     initMessage(&msg);
+
+    BOARD_MuteRightChannel(BOARD_DMIC_NUM == 1);
 
     msg.head.category = SRTM_MessageCategory_AUDIO;
     msg.head.command  = SRTM_Command_REC_DMIC;

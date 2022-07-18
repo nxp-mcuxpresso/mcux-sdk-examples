@@ -10,7 +10,7 @@ This example does not use the transactional API in LPSPI driver. It's a demonstr
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
+- GCC ARM Embedded  10.3.1
 
 Hardware requirements
 =====================

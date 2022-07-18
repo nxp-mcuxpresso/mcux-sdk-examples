@@ -2,42 +2,26 @@ SET(CMAKE_ASM_FLAGS_DEBUG " \
     ${CMAKE_ASM_FLAGS_DEBUG} \
     -DDEBUG \
     -D__STARTUP_CLEAR_BSS \
-    -g \
     -mcpu=cortex-m33 \
-    -Wall \
     -mfloat-abi=hard \
     -mfpu=fpv5-sp-d16 \
     -mthumb \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
 ")
 SET(CMAKE_ASM_FLAGS_RELEASE " \
     ${CMAKE_ASM_FLAGS_RELEASE} \
     -DNDEBUG \
     -D__STARTUP_CLEAR_BSS \
     -mcpu=cortex-m33 \
-    -Wall \
     -mfloat-abi=hard \
     -mfpu=fpv5-sp-d16 \
     -mthumb \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
 ")
 SET(CMAKE_C_FLAGS_DEBUG " \
     ${CMAKE_C_FLAGS_DEBUG} \
     -DDEBUG \
     -DCPU_LPC5506JHI48 \
     -DCPU_LPC5506JHI48CPXXXX \
+    -DDONT_ENABLE_FLASH_PREFETCH \
     -DMCUXPRESSO_SDK \
     -g \
     -O0 \
@@ -61,6 +45,7 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DNDEBUG \
     -DCPU_LPC5506JHI48 \
     -DCPU_LPC5506JHI48CPXXXX \
+    -DDONT_ENABLE_FLASH_PREFETCH \
     -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m33 \

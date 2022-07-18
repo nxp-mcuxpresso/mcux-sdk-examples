@@ -32,7 +32,7 @@
 /* CSI output frame buffer is XYUV8888. */
 #define DEMO_CAMERA_BUFFER_BPP 4
 
-#define DEMO_CAMERA_BUFFER_COUNT 2
+#define DEMO_CAMERA_BUFFER_COUNT 3
 
 /* LCD input frame buffer is RGB565, converted by PXP. */
 #define DEMO_LCD_BUFFER_BPP 2

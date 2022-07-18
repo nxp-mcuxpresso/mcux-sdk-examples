@@ -10,8 +10,8 @@ In this example , available electrodes on board is used to show how to realize t
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.5.0
+- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.6.0
 
 Hardware requirements
 =====================

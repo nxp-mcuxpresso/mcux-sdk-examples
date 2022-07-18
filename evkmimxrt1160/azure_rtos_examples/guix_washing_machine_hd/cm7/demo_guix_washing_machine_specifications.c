@@ -5,8 +5,8 @@
 /*  specification file(s). For more information please refer to the Azure RTOS */
 /*  GUIX Studio User Guide, or visit our web site at azure.com/rtos            */
 /*                                                                             */
-/*  GUIX Studio Revision 6.1.9.0                                               */
-/*  Date (dd.mm.yyyy): 12.11.2021   Time (hh:mm): 18:04                        */
+/*  GUIX Studio Revision 6.1.10.0                                              */
+/*  Date (dd.mm.yyyy):  8. 4.2022   Time (hh:mm): 16:56                        */
 /*******************************************************************************/
 
 
@@ -23,8 +23,6 @@ MAIN_SCREEN_CONTROL_BLOCK main_screen;
 GX_DISPLAY main_display_control_block;
 GX_WINDOW_ROOT main_display_root_window;
 GX_CANVAS  main_display_canvas_control_block;
-ULONG      main_display_canvas_memory[460800];
-
 extern GX_CONST GX_THEME *main_display_theme_table[];
 extern GX_CONST GX_STRING *main_display_language_table[];
 
@@ -43,7 +41,7 @@ GX_STUDIO_DISPLAY_INFO demo_guix_washing_machine_display_table[1] =
     &main_display_control_block,
     &main_display_canvas_control_block,
     &main_display_root_window,
-    main_display_canvas_memory,              /* canvas memory area             */
+    GX_NULL,                                 /* canvas memory area             */
     1843200,                                 /* canvas memory size in bytes    */
     GX_SCREEN_ROTATION_NONE                  /* rotation angle                 */
     }

@@ -14,7 +14,12 @@
 #include "fsl_debug_console.h"
 #include "fsl_lcdc.h"
 #include "fsl_i2c.h"
+#include "fsl_video_common.h"
+#if (DEMO_PANEL == DEMO_PANEL_RK043FN66HS)
+#include "fsl_gt911.h"
+#else
 #include "fsl_ft5406.h"
+#endif
 
 #include "fsl_sctimer.h"
 /*******************************************************************************
@@ -43,6 +48,13 @@
 #define EXAMPLE_I2C_MASTER         ((I2C_Type *)EXAMPLE_I2C_MASTER_BASE)
 #define I2C_MASTER_SLAVE_ADDR_7BIT 0x7EU
 #define I2C_BAUDRATE               100000U
+
+#define DEMO_PANEL_RK043FN02H  0 /* RK043FN02H-CT */
+#define DEMO_PANEL_RK043FN66HS 1 /* RK043FN66HS-CTG */
+
+#ifndef DEMO_PANEL
+#define DEMO_PANEL DEMO_PANEL_RK043FN66HS
+#endif
 
 /*******************************************************************************
  * Prototypes
@@ -110,6 +122,11 @@ static const uint8_t cursor32Img0[] = {
     0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, /* Line 31. */
     0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA  /* Line 32. */
 };
+
+#if (DEMO_PANEL == DEMO_PANEL_RK043FN66HS)
+static void BOARD_PullTouchResetPin(bool pullUp);
+static void BOARD_ConfigTouchIntPin(gt911_int_pin_mode_t mode);
+#endif
 
 /*******************************************************************************
  * Code
@@ -249,13 +266,63 @@ void APP_SetCursorPosition(int posX, int posY)
     LCDC_SetCursorPosition(APP_LCD, posX, posY);
 }
 
+#if (DEMO_PANEL == DEMO_PANEL_RK043FN66HS)
+static void BOARD_PullTouchResetPin(bool pullUp)
+{
+    if (pullUp)
+    {
+        GPIO_PinWrite(BOARD_TOUCH_RST_GPIO, BOARD_TOUCH_RST_PORT, BOARD_TOUCH_RST_PIN, 1);
+    }
+    else
+    {
+        GPIO_PinWrite(BOARD_TOUCH_RST_GPIO, BOARD_TOUCH_RST_PORT, BOARD_TOUCH_RST_PIN, 0);
+    }
+}
+
+static void BOARD_ConfigTouchIntPin(gt911_int_pin_mode_t mode)
+{
+    if (mode == kGT911_IntPinInput)
+    {
+        BOARD_TOUCH_INT_GPIO->DIR[BOARD_TOUCH_INT_PORT] &= ~(1UL << BOARD_TOUCH_INT_PIN);
+    }
+    else
+    {
+        if (mode == kGT911_IntPinPullDown)
+        {
+            GPIO_PinWrite(BOARD_TOUCH_INT_GPIO, BOARD_TOUCH_INT_PORT, BOARD_TOUCH_INT_PIN, 0);
+        }
+        else
+        {
+            GPIO_PinWrite(BOARD_TOUCH_INT_GPIO, BOARD_TOUCH_INT_PORT, BOARD_TOUCH_INT_PIN, 1);
+        }
+
+        BOARD_TOUCH_INT_GPIO->DIR[BOARD_TOUCH_INT_PORT] |= 1UL << BOARD_TOUCH_INT_PIN;
+    }
+}
+#endif
+
 int main(void)
 {
     int cursorPosX = 0U;
     int cursorPosY = 0U;
 
+#if (DEMO_PANEL == DEMO_PANEL_RK043FN66HS)
+    gt911_handle_t s_touchHandle;
+    const gt911_config_t s_touchConfig = {
+        .I2C_SendFunc     = BOARD_Touch_I2C_Send,
+        .I2C_ReceiveFunc  = BOARD_Touch_I2C_Receive,
+        .pullResetPinFunc = BOARD_PullTouchResetPin,
+        .intPinFunc       = BOARD_ConfigTouchIntPin,
+        .timeDelayMsFunc  = VIDEO_DelayMs,
+        .touchPointNum    = 1,
+        .i2cAddrMode      = kGT911_I2cAddrMode0,
+        .intTrigMode      = kGT911_IntRisingEdge,
+    };
+
+#else
     ft5406_handle_t touch_handle;
     touch_event_t touch_event;
+#endif
 
     status_t status;
 
@@ -302,10 +369,19 @@ int main(void)
     assert(status == kStatus_Success);
 
     /* Trigger LCD reset */
-    GPIO_PinInit(GPIO, 2, 27, &pin_config);
-    GPIO_PinWrite(GPIO, 2, 27, 1);
+    /* Enable touch panel controller */
+    GPIO_PinInit(BOARD_TOUCH_RST_GPIO, BOARD_TOUCH_RST_PORT, BOARD_TOUCH_RST_PIN, &pin_config);
+    GPIO_PinWrite(BOARD_TOUCH_RST_GPIO, BOARD_TOUCH_RST_PORT, BOARD_TOUCH_RST_PIN, 1);
 
+    GPIO_PinInit(BOARD_TOUCH_INT_GPIO, BOARD_TOUCH_INT_PORT, BOARD_TOUCH_INT_PIN, &pin_config);
+    GPIO_PinWrite(BOARD_TOUCH_INT_GPIO, BOARD_TOUCH_INT_PORT, BOARD_TOUCH_INT_PIN, 0);
+
+#if (DEMO_PANEL == DEMO_PANEL_RK043FN66HS)
+    status = GT911_Init(&s_touchHandle, &s_touchConfig);
+#else
     status = FT5406_Init(&touch_handle, EXAMPLE_I2C_MASTER);
+#endif
+
     if (status != kStatus_Success)
     {
         PRINTF("Touch panel init failed\n");
@@ -314,6 +390,24 @@ int main(void)
 
     for (;;)
     {
+#if (DEMO_PANEL == DEMO_PANEL_RK043FN66HS)
+        status_t st = GT911_GetSingleTouch(&s_touchHandle, &cursorPosX, &cursorPosY);
+        if (st == kStatus_Success)
+        {
+            /* Update cursor position */
+            APP_SetCursorPosition(cursorPosX, cursorPosY);
+            PRINTF("0x%2x 0x%2x", cursorPosX, cursorPosY);
+            PRINTF("\r\n");
+        }
+        else if (st == kStatus_TOUCHPANEL_NotTouched)
+        {
+            ;
+        }
+        else
+        {
+            PRINTF("error reading touch controller\r\n");
+        }
+#else
         if (kStatus_Success == FT5406_GetSingleTouch(&touch_handle, &touch_event, &cursorPosX, &cursorPosY))
         {
             if ((touch_event == kTouch_Down) || (touch_event == kTouch_Contact))
@@ -328,5 +422,6 @@ int main(void)
         {
             PRINTF("error reading touch controller\r\n");
         }
+#endif
     }
 }

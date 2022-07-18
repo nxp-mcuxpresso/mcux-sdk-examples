@@ -172,6 +172,8 @@ void ClockSelectXtalOsc(void)
 {
     /* Enable XTAL 24MHz clock source. */
     CLOCK_InitExternalClk(0);
+    /* Wait for XTAL stable */
+    SDK_DelayAtLeastUs(200, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
     /* Switch clock source to external OSC. */
     CLOCK_SwitchOsc(kCLOCK_XtalOsc);
     /*

@@ -4,8 +4,8 @@ The IEE APC demo application demonstrates usage of the IEE and IEE APC driver. T
 
 Toolchain supported
 ===================
-- MCUXpresso  11.5.0
-- GCC ARM Embedded  10.2.1
+- MCUXpresso  11.6.0
+- GCC ARM Embedded  10.3.1
 
 Hardware requirements
 =====================

@@ -106,7 +106,7 @@ include(CMSIS_Driver_Include_USART)
 
 include(CMSIS_Driver_Include_Common)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC55S69_cm33_core0)
 
 include(device_system_LPC55S69_cm33_core0)
 

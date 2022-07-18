@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020-2022 NXP
  * All rights reserved.
  *
  *
@@ -434,6 +434,8 @@ status_t flexspi_nor_erase_chip(FLEXSPI_Type *base)
 void flexspi_nor_flash_init(FLEXSPI_Type *base)
 {
     flexspi_config_t config;
+    /* To store custom's LUT table in local. */
+    uint32_t tempLUT[CUSTOM_LUT_LENGTH] = {0x00U};
 
 #if defined(__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
     bool DCacheEnableFlag = false;
@@ -454,6 +456,10 @@ void flexspi_nor_flash_init(FLEXSPI_Type *base)
         }
     }
 
+    /* Copy LUT information from flash region into RAM region, because LUT update maybe corrupt read sequence(LUT[0])
+     * and load wrong LUT table from FLASH region. */
+    memcpy(tempLUT, customLUT, sizeof(tempLUT));
+
     flexspi_clock_init();
 
     /*Get FLEXSPI default settings and configure the flexspi. */
@@ -471,7 +477,7 @@ void flexspi_nor_flash_init(FLEXSPI_Type *base)
     FLEXSPI_SetFlashConfig(base, &deviceconfig, kFLEXSPI_PortA1);
 
     /* Update LUT table. */
-    FLEXSPI_UpdateLUT(base, 0, customLUT, CUSTOM_LUT_LENGTH);
+    FLEXSPI_UpdateLUT(base, 0, tempLUT, CUSTOM_LUT_LENGTH);
 
     /* Do software reset. */
     FLEXSPI_SoftwareReset(base);

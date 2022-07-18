@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2020 NXP
+ * Copyright 2016-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -12,9 +12,8 @@
 #include "fsl_debug_console.h"
 #include "fsl_enet.h"
 #include "fsl_phy.h"
-#if defined(FSL_FEATURE_MEMORY_HAS_ADDRESS_OFFSET) && FSL_FEATURE_MEMORY_HAS_ADDRESS_OFFSET
-#include "fsl_memory.h"
-#endif
+#include "fsl_silicon_id.h"
+
 #include "fsl_enet_mdio.h"
 #include "fsl_phyksz8081.h"
 /*******************************************************************************
@@ -50,7 +49,12 @@
 /* @TEST_ANCHOR */
 
 #ifndef MAC_ADDRESS
-#define MAC_ADDRESS {0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60}
+#define MAC_ADDRESS                        \
+    {                                      \
+        0x54, 0x27, 0x8d, 0x00, 0x00, 0x00 \
+    }
+#else
+#define USER_DEFINED_MAC_ADDRESS
 #endif
 
 /*******************************************************************************
@@ -64,24 +68,27 @@ static void ENET_BuildPtpEventFrame(void);
  * Variables
  ******************************************************************************/
 /*! @brief Buffer descriptors should be in non-cacheable region and should be align to "ENET_BUFF_ALIGNMENT". */
-AT_NONCACHEABLE_SECTION_ALIGN(enet_rx_bd_struct_t g_rxBuffDescrip[ENET_RXBD_NUM], ENET_BUFF_ALIGNMENT);
-AT_NONCACHEABLE_SECTION_ALIGN(enet_tx_bd_struct_t g_txBuffDescrip[ENET_TXBD_NUM], ENET_BUFF_ALIGNMENT);
+AT_NONCACHEABLE_SECTION_ALIGN(static enet_rx_bd_struct_t g_rxBuffDescrip[ENET_RXBD_NUM], ENET_BUFF_ALIGNMENT);
+AT_NONCACHEABLE_SECTION_ALIGN(static enet_tx_bd_struct_t g_txBuffDescrip[ENET_TXBD_NUM], ENET_BUFF_ALIGNMENT);
 /*! @brief The data buffers can be in cacheable region or in non-cacheable region.
  * If use cacheable region, the alignment size should be the maximum size of "CACHE LINE SIZE" and "ENET_BUFF_ALIGNMENT"
  * If use non-cache region, the alignment size is the "ENET_BUFF_ALIGNMENT".
  */
-SDK_ALIGN(uint8_t g_rxDataBuff[ENET_RXBD_NUM][SDK_SIZEALIGN(ENET_RXBUFF_SIZE, APP_ENET_BUFF_ALIGNMENT)],
+SDK_ALIGN(static uint8_t g_rxDataBuff[ENET_RXBD_NUM][SDK_SIZEALIGN(ENET_RXBUFF_SIZE, APP_ENET_BUFF_ALIGNMENT)],
           APP_ENET_BUFF_ALIGNMENT);
-SDK_ALIGN(uint8_t g_txDataBuff[ENET_TXBD_NUM][SDK_SIZEALIGN(ENET_TXBUFF_SIZE, APP_ENET_BUFF_ALIGNMENT)],
+SDK_ALIGN(static uint8_t g_txDataBuff[ENET_TXBD_NUM][SDK_SIZEALIGN(ENET_TXBUFF_SIZE, APP_ENET_BUFF_ALIGNMENT)],
           APP_ENET_BUFF_ALIGNMENT);
 
-enet_handle_t g_handle;
-uint8_t g_frame[ENET_DATA_LENGTH + 14];
-uint32_t g_testTxNum = 0;
-enet_frame_info_t txFrameInfoArray[ENET_TXBD_NUM];
+static enet_handle_t g_handle;
+static uint8_t g_frame[ENET_DATA_LENGTH + 14];
+static uint32_t g_testTxNum = 0;
+static enet_frame_info_t txFrameInfoArray[ENET_TXBD_NUM];
 
-/* The MAC address for ENET device. */
-uint8_t g_macAddr[6] = MAC_ADDRESS;
+/* The unicast MAC address for ENET device. */
+static uint8_t g_macAddr[6] = MAC_ADDRESS;
+
+/* The multicast MAC address. */
+static uint8_t multicastAddr[6] = {0x01, 0x00, 0x5e, 0x01, 0x01, 0x1};
 
 static volatile bool tx_frame_over   = false;
 static enet_frame_info_t txFrameInfo = {0};
@@ -116,9 +123,8 @@ void IOMUXC_SelectENETClock(void)
 /*! @brief Build Frame for transmit. */
 static void ENET_BuildPtpEventFrame(void)
 {
-    uint8_t mGAddr[6] = {0x01, 0x00, 0x5e, 0x01, 0x01, 0x1};
     /* Build for PTP event message frame. */
-    memcpy(&g_frame[0], &mGAddr[0], 6);
+    memcpy(&g_frame[0], &multicastAddr[0], 6);
     /* The six-byte source MAC address. */
     memcpy(&g_frame[6], &g_macAddr[0], 6);
     /* The type/length: if data length is used make sure it's smaller than 1500 */
@@ -172,7 +178,6 @@ int main(void)
     uint32_t txnumber = 0;
     enet_ptp_time_t ptpTime;
     status_t status;
-    uint8_t mGAddr[6] = {0x01, 0x00, 0x5e, 0x01, 0x01, 0x1};
 
     /* Hardware Initialization. */
     gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
@@ -273,12 +278,17 @@ int main(void)
     config.miiSpeed  = (enet_mii_speed_t)speed;
     config.miiDuplex = (enet_mii_duplex_t)duplex;
 
+#ifndef USER_DEFINED_MAC_ADDRESS
+    /* Set special address for each chip. */
+    SILICONID_ConvertToMacAddr(&g_macAddr);
+#endif
+
     /* Initialize ENET. */
     ENET_Init(EXAMPLE_ENET, &g_handle, &config, &buffConfig[0], &g_macAddr[0], EXAMPLE_CLOCK_FREQ);
     /* Configure PTP */
     ENET_Ptp1588Configure(EXAMPLE_ENET, &g_handle, &ptpConfig);
     /* Add to multicast group to receive ptp multicast frame. */
-    ENET_AddMulticastGroup(EXAMPLE_ENET, &mGAddr[0]);
+    ENET_AddMulticastGroup(EXAMPLE_ENET, &multicastAddr[0]);
     /* Active ENET read. */
     ENET_ActiveRead(EXAMPLE_ENET);
 

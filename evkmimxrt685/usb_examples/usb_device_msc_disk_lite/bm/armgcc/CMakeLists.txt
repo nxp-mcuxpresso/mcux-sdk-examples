@@ -97,6 +97,8 @@ include(utility_debug_console_lite)
 
 include(utility_assert_lite)
 
+include(component_rt_gpio_adapter)
+
 include(middleware_baremetal)
 
 include(driver_clock)
@@ -143,7 +145,7 @@ include(middleware_sdmmc_osa_bm)
 
 include(component_osa_bm)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT685S_cm33)
 
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)

@@ -82,6 +82,8 @@ include(driver_usdhc)
 
 include(middleware_freertos-kernel_cm33_nonsecure_port)
 
+include(component_rt_gpio_adapter)
+
 include(driver_clock)
 
 include(driver_common)
@@ -126,7 +128,7 @@ include(component_osa_free_rtos)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT595S_cm33)
 
 include(driver_iap)
 

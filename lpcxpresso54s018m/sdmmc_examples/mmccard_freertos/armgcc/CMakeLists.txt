@@ -110,6 +110,10 @@ include(utility_assert)
 
 include(driver_power)
 
+include(component_silicon_id)
+
+include(driver_iap)
+
 include(middleware_freertos-kernel_extension)
 
 include(driver_reset)
@@ -120,7 +124,7 @@ include(middleware_sdmmc_osa_freertos)
 
 include(component_osa_free_rtos)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC54S018M)
 
 include(device_system)
 

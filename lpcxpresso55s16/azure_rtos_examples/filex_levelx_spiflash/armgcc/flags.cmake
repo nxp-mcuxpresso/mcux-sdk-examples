@@ -4,21 +4,12 @@ SET(CMAKE_ASM_FLAGS_DEBUG " \
     -D__STARTUP_CLEAR_BSS \
     -DTX_SINGLE_MODE_SECURE \
     -DTX_ENABLE_FPU_SUPPORT=1 \
-    -g \
     -x \
     assembler-with-cpp \
     -mcpu=cortex-m33 \
-    -Wall \
     -mfloat-abi=hard \
     -mfpu=fpv5-sp-d16 \
     -mthumb \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
 ")
 SET(CMAKE_ASM_FLAGS_RELEASE " \
     ${CMAKE_ASM_FLAGS_RELEASE} \
@@ -29,17 +20,9 @@ SET(CMAKE_ASM_FLAGS_RELEASE " \
     -x \
     assembler-with-cpp \
     -mcpu=cortex-m33 \
-    -Wall \
     -mfloat-abi=hard \
     -mfpu=fpv5-sp-d16 \
     -mthumb \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
 ")
 SET(CMAKE_C_FLAGS_DEBUG " \
     ${CMAKE_C_FLAGS_DEBUG} \
@@ -56,6 +39,7 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DLX_THREAD_SAFE_ENABLE \
     -DFX_INCLUDE_USER_DEFINE_FILE \
     -DTX_INCLUDE_USER_DEFINE_FILE \
+    -DFSL_RTOS_THREADX \
     -DMCUXPRESSO_SDK \
     -g \
     -O0 \
@@ -89,6 +73,7 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DLX_THREAD_SAFE_ENABLE \
     -DFX_INCLUDE_USER_DEFINE_FILE \
     -DTX_INCLUDE_USER_DEFINE_FILE \
+    -DFSL_RTOS_THREADX \
     -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m33 \

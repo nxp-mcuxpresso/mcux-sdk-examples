@@ -102,6 +102,8 @@ include(driver_flexcomm_i2c)
 
 include(driver_pca9420)
 
+include(component_rt_gpio_adapter)
+
 include(middleware_freertos-kernel_heap_4)
 
 include(middleware_freertos-kernel_MIMXRT685S_cm33)
@@ -162,7 +164,7 @@ include(component_osa_free_rtos)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT685S_cm33)
 
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)

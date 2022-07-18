@@ -59,8 +59,8 @@ Note that these steps assume you use the Azure IoT Hub for the first time.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.5.0
+- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.6.0
 
 Hardware requirements
 =====================
@@ -84,12 +84,13 @@ Prepare the Demo
     - No parity
     - One stop bit
     - No flow control
-3.  If using the 1G ENET port, define the macro EXAMPLE_USE_1G_ENET_PORT when compiling.
+3.  This example uses 1G port by default. If using the 100M ENET port, set the macro
+    BOARD_NETWORK_USE_100M_ENET_PORT in board.h to 1.
 4.  Compile the demo.
 5.  Download the program to the target board.
-6.  Insert an Ethernet cable to the default Ethernet RJ45 port labelled "100M ENET" and connect it to
-    an Ethernet switch. Note that if enabling EXAMPLE_USE_1G_ENET_PORT, the RJ45 port should be the one
-    labelled "1G ENET". 
+6.  Insert an Ethernet cable to the default Ethernet RJ45 port labelled "1G ENET" and connect it to
+    an Ethernet switch. Note that if set BOARD_NETWORK_USE_100M_ENET_PORT, the RJ45 port should be
+    the one labelled "100M ENET".
 7.  Either press the reset button on your board or launch the debugger in your IDE to begin running the demo.
 
 Running the demo

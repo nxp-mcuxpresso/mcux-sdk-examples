@@ -28,14 +28,6 @@
 #define EXAMPLE_SHA_CLOCK (kCLOCK_Sha0)
 #define EXAMPLE_SHA_RESET (kSHA_RST_SHIFT_RSTn)
 
-#if defined(FSL_FEATURE_SHA_HAS_MEMADDR_DMA) && (FSL_FEATURE_SHA_HAS_MEMADDR_DMA > 0)
-/* Note: Only LPCXpresso54018 and LPCXpresso54628 has this feature.
- * Enabling pseudo-DMA on other boards has no effect
- */
-#define MANUAL_LOAD_SHA_INPUT 0 /* 0 - use MEMADDR, MEMCRL (pseudo-DMA), 1 - manual load */
-#else
-#define MANUAL_LOAD_SHA_INPUT 1 /* 0 - use MEMADDR, MEMCRL (pseudo-DMA), 1 - manual load */
-#endif
 
 /*******************************************************************************
  * Prototypes
@@ -92,7 +84,7 @@ int main(void)
         return 1;
     }
 
-    status = SHA_Update(EXAMPLE_SHA, &ctx, s_Input, sizeof(s_Input) - 1U, MANUAL_LOAD_SHA_INPUT);
+    status = SHA_Update(EXAMPLE_SHA, &ctx, s_Input, sizeof(s_Input) - 1U);
     if (status != kStatus_Success)
     {
         PRINTF("Failed to update SHA.\r\n");

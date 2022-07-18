@@ -173,7 +173,11 @@ static void APP_InitPxp(void)
         .pitchBytes  = APP_PS_WIDTH * APP_BPP,
     };
 
+#if defined(FSL_FEATURE_PXP_V3) && FSL_FEATURE_PXP_V3
+    PXP_SetProcessSurfaceBackGroundColor(APP_PXP, 0U, 0U);
+#else
     PXP_SetProcessSurfaceBackGroundColor(APP_PXP, 0U);
+#endif
     PXP_SetProcessSurfaceBufferConfig(APP_PXP, &psBufferConfig);
     PXP_SetProcessSurfacePosition(APP_PXP, 0, 0, APP_IMG_WIDTH - 1U, APP_IMG_HEIGHT - 1U);
 
@@ -206,9 +210,13 @@ static void APP_InitPxp(void)
     PXP_SetAlphaSurfaceBlendConfig(APP_PXP, &asBlendConfig);
 
     /* Color key. */
+#if defined(FSL_FEATURE_PXP_V3) && FSL_FEATURE_PXP_V3
+    PXP_SetAlphaSurfaceOverlayColorKey(APP_PXP, 0U, APP_COLOR_KEY_LOW(APP_YELLOW), APP_COLOR_KEY_HIGH(APP_YELLOW));
+    PXP_EnableAlphaSurfaceOverlayColorKey(APP_PXP, 0U, true);
+#else
     PXP_SetAlphaSurfaceOverlayColorKey(APP_PXP, APP_COLOR_KEY_LOW(APP_YELLOW), APP_COLOR_KEY_HIGH(APP_YELLOW));
     PXP_EnableAlphaSurfaceOverlayColorKey(APP_PXP, true);
-
+#endif
     /* Output config. */
     outputBufferConfig.pixelFormat    = APP_PXP_OUT_FORMAT;
     outputBufferConfig.interlacedMode = kPXP_OutputProgressive;

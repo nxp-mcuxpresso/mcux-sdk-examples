@@ -93,7 +93,7 @@ include(utility_assert)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MKE16Z4)
 
 include(device_system)
 

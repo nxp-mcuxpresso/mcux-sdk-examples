@@ -4,18 +4,9 @@ SET(CMAKE_ASM_FLAGS_DEBUG " \
     -DSLAVEBOOT \
     -D__STARTUP_CLEAR_BSS \
     -DNO_CRP \
-    -g \
     -mcpu=cortex-m33+nodsp \
-    -Wall \
     -mfloat-abi=soft \
     -mthumb \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
 ")
 SET(CMAKE_ASM_FLAGS_RELEASE " \
     ${CMAKE_ASM_FLAGS_RELEASE} \
@@ -24,16 +15,8 @@ SET(CMAKE_ASM_FLAGS_RELEASE " \
     -D__STARTUP_CLEAR_BSS \
     -DNO_CRP \
     -mcpu=cortex-m33+nodsp \
-    -Wall \
     -mfloat-abi=soft \
     -mthumb \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
 ")
 SET(CMAKE_C_FLAGS_DEBUG " \
     ${CMAKE_C_FLAGS_DEBUG} \

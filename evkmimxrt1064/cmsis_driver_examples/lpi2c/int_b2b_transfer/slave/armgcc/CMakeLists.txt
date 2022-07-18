@@ -100,13 +100,15 @@ include(driver_xip_device)
 
 include(driver_xip_board_evkmimxrt1064)
 
+include(component_silicon_id)
+
 include(CMSIS_Include_core_cm)
 
 include(CMSIS_Driver_Include_I2C)
 
 include(CMSIS_Driver_Include_Common)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1064)
 
 include(device_system)
 

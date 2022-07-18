@@ -1776,6 +1776,9 @@ static void APP_SRTM_InitAudioService(void)
     srtm_i2c_codec_config_t i2cCodecConfig;
     srtm_codec_adapter_t codecAdapter;
 
+    memset(&saiTxConfig, 0, sizeof(saiTxConfig));
+    memset(&saiRxConfig, 0, sizeof(saiRxConfig));
+
     APP_SRTM_InitAudioDevice();
 
     /*  Set SAI DMA IRQ Priority. */

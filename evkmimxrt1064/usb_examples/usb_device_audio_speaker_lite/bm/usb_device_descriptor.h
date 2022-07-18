@@ -17,13 +17,16 @@
 
 /* @TEST_ANCHOR */
 
-/*! @brief Whether UAC 7.1 is enabled or not. */
+/*! @brief Whether UAC 7.1 is enabled or not. Note that this macro may be also defined in usb_audio_config.h in some
+ * cases, make sure the consistent change. */
 #define USB_AUDIO_CHANNEL7_1 (0)
 
-/*! @brief Whether UAC 5.1 is enabled or not. */
+/*! @brief Whether UAC 5.1 is enabled or not. Note that this macro may be also defined in usb_audio_config.h in some
+ * cases, make sure the consistent change. */
 #define USB_AUDIO_CHANNEL5_1 (0)
 
-/*! @brief Whether UAC 3.1 is enabled or not. */
+/*! @brief Whether UAC 3.1 is enabled or not. Note that this macro may be also defined in usb_audio_config.h in some
+ * cases, make sure the consistent change. */
 #define USB_AUDIO_CHANNEL3_1 (0)
 
 #if defined(USB_AUDIO_CHANNEL7_1) && (USB_AUDIO_CHANNEL7_1 > 0U)

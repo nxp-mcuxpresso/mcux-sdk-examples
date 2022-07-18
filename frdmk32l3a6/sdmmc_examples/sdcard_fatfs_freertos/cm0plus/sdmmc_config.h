@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -15,8 +15,7 @@
 #include "fsl_mmc.h"
 #endif
 #include "clock_config.h"
-#include "fsl_gpio.h"
-#include "fsl_port.h"
+#include "fsl_adapter_gpio.h"
 #include "fsl_sdmmc_host.h"
 #include "fsl_sdmmc_common.h"
 
@@ -29,14 +28,12 @@
 #define BOARD_SDMMC_HOST_IRQ    USDHC0_IRQn
 #define BOARD_SDMMC_SD_HOST_IRQ BOARD_SDMMC_HOST_IRQ
 /* @brief card detect configuration */
-#define BOARD_SDMMC_SD_CD_GPIO_BASE                  GPIOC
-#define BOARD_SDMMC_SD_CD_GPIO_PIN                   27U
-#define BOARD_SDMMC_SD_CD_PORT_BASE                  PORTC
-#define BOARD_SDMMC_SD_CD_PORT_IRQ                   PORTC_IRQn
-#define BOARD_SDMMC_SD_CD_IRQ_PRIORITY               6U
-#define BOARD_SDMMC_SD_CD_INTTERUPT_TYPE             kPORT_InterruptRisingEdge
-#define BOARD_SDMMC_SD_CD_INSERT_LEVEL               (1U)
-#define BOARD_SDMMC_SD_CD_PORT_IRQ_HANDLER           PORTC_IRQHandler
+#define BOARD_SDMMC_SD_CD_GPIO_BASE      GPIOC
+#define BOARD_SDMMC_SD_CD_GPIO_PORT      2
+#define BOARD_SDMMC_SD_CD_GPIO_PIN       27U
+#define BOARD_SDMMC_SD_CD_INTTERUPT_TYPE kHAL_GpioInterruptEitherEdge
+#define BOARD_SDMMC_SD_CD_INSERT_LEVEL   (1U)
+
 #define BOARD_SDMMC_SD_CD_TYPE                       kSD_DetectCardByGpioCD
 #define BOARD_SDMMC_SD_CARD_DETECT_DEBOUNCE_DELAY_MS (100U)
 

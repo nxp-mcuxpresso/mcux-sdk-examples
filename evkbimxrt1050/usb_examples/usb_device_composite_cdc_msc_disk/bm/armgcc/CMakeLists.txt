@@ -103,6 +103,8 @@ include(utility_debug_console_lite)
 
 include(utility_assert_lite)
 
+include(component_igpio_adapter)
+
 include(middleware_baremetal)
 
 include(driver_clock)
@@ -143,7 +145,7 @@ include(component_osa_bm)
 
 include(driver_usdhc)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1052)
 
 include(device_system)
 

@@ -6,7 +6,7 @@ In this example, a flexio simulated i2c master connect to a LPI2C slave
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
+- GCC ARM Embedded  10.3.1
 
 Hardware requirements
 =====================

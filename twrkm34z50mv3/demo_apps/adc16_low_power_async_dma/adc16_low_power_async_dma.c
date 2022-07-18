@@ -142,6 +142,7 @@ static void ADC16_Configuration(void)
     adcUserConfig.resolution                 = kADC16_Resolution16Bit;
     adcUserConfig.enableContinuousConversion = false;
     adcUserConfig.clockSource                = kADC16_ClockSourceAsynchronousClock;
+    adcUserConfig.enableAsynchronousClock    = true;
 
     adcUserConfig.longSampleMode = kADC16_LongSampleCycle24;
     adcUserConfig.enableLowPower = true;

@@ -109,7 +109,7 @@ include(middleware_usb_common_header)
 
 include(driver_lpit)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_K32L2A41A)
 
 include(device_system)
 

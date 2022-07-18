@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 NXP
+ * Copyright 2020-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -9,6 +9,8 @@
 #include "fsl_debug_console.h"
 #include "fsl_enet_qos.h"
 #include "fsl_phy.h"
+#include "fsl_silicon_id.h"
+#include "fsl_cache.h"
 
 #include "pin_mux.h"
 #include "board.h"
@@ -51,6 +53,7 @@
 #define APP_ENET_QOS_BUFF_ALIGNMENT ENET_QOS_BUFF_ALIGNMENT
 #endif
 
+#if defined(FSL_ETH_ENABLE_CACHE_CONTROL)
 #ifndef FSL_FEATURE_L2CACHE_LINESIZE_BYTE
 #define FSL_FEATURE_L2CACHE_LINESIZE_BYTE 0
 #endif
@@ -63,6 +66,9 @@
 #else
 #define EXAMPLE_CACHE_LINE_SIZE FSL_FEATURE_L1DCACHE_LINESIZE_BYTE
 #endif
+#else                             /* No FSL_ETH_ENABLE_CACHE_CONTROL defined */
+#define EXAMPLE_CACHE_LINE_SIZE 1 /*!< No need to align cache line size */
+#endif                            /* FSL_ETH_ENABLE_CACHE_CONTROL */
 
 #ifndef PHY_AUTONEGO_TIMEOUT_COUNT
 #define PHY_AUTONEGO_TIMEOUT_COUNT (800000U)
@@ -76,8 +82,10 @@
 #ifndef MAC_ADDRESS
 #define MAC_ADDRESS                        \
     {                                      \
-        0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60 \
+        0x54, 0x27, 0x8d, 0x00, 0x00, 0x00 \
     }
+#else
+#define USER_DEFINED_MAC_ADDRESS
 #endif
 
 #ifndef MAC_ADDRESS2
@@ -319,7 +327,7 @@ void ENET_QOS_IntCallback(
 int main(void)
 {
     enet_qos_config_t config;
-    uint32_t refClock = ENET_PTP_REF_CLK; /* PTP REF clock. */
+    uint32_t refClock; /* PTP REF clock. */
     phy_speed_t speed;
     phy_duplex_t duplex;
     bool link          = false;
@@ -471,6 +479,11 @@ int main(void)
     }
     config.miiDuplex = (enet_qos_mii_duplex_t)duplex;
 
+#ifndef USER_DEFINED_MAC_ADDRESS
+    /* Set special address for each chip. */
+    SILICONID_ConvertToMacAddr(&g_macAddr);
+#endif
+
     enet_qos_ptp_config_t ptpConfig = {0};
     /* Initialize ENET. */
     /* Shoule enable the promiscuous mode and enable the store and forward
@@ -479,6 +492,7 @@ int main(void)
     config.csrClock_Hz    = CORE_CLK_FREQ;
 
     ptpConfig.tsRollover         = kENET_QOS_DigitalRollover;
+    refClock                     = ENET_PTP_REF_CLK;
     ptpConfig.systemTimeClock_Hz = refClock;
     config.ptpConfig             = &ptpConfig;
 

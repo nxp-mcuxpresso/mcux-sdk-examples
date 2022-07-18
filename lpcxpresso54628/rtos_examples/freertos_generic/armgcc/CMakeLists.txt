@@ -96,6 +96,10 @@ include(driver_emc)
 
 include(utility_assert)
 
+include(component_silicon_id)
+
+include(driver_iap)
+
 include(driver_reset)
 
 include(CMSIS_Include_core_cm)
@@ -104,7 +108,7 @@ include(middleware_freertos-kernel_LPC54628)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC54628)
 
 include(device_system)
 

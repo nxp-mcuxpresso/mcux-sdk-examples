@@ -1,10 +1,8 @@
 /*
- * Copyright 2017, ,2021 NXP
+ * Copyright 2017,2021,2022 NXP
  * All rights reserved.
  *
- *
  * SPDX-License-Identifier: BSD-3-Clause
- *
  */
 
 /***********************************************************************************************************************
@@ -41,18 +39,102 @@ extern "C" {
  */
 void BOARD_InitBootPins(void);
 
-#define IOCON_PIO_ANAMODE_DI 0x40u     /*!<@brief Disable analog Mode */
-#define IOCON_PIO_DIGITAL_EN 0x0100u   /*!<@brief Enables digital function */
-#define IOCON_PIO_FUNC1 0x01u          /*!<@brief Selects pin function 1 */
-#define IOCON_PIO_FUNC2 0x02u          /*!<@brief Selects pin function 2 */
-#define IOCON_PIO_I2CDRIVE_LOW 0x00u   /*!<@brief Low drive: 4 mA */
-#define IOCON_PIO_I2CFILTER_DI 0x0800u /*!<@brief I2C 50 ns glitch filter disabled */
-#define IOCON_PIO_I2CSLEW_GPIO 0x40u   /*!<@brief GPIO mode */
-#define IOCON_PIO_INPFILT_OFF 0x0200u  /*!<@brief Input filter disabled */
-#define IOCON_PIO_INV_DI 0x00u         /*!<@brief Input function is not inverted */
-#define IOCON_PIO_MODE_PULLUP 0x20u    /*!<@brief Selects pull-up function */
-#define IOCON_PIO_OPENDRAIN_DI 0x00u   /*!<@brief Open drain is disabled */
-#define IOCON_PIO_SLEW_STANDARD 0x00u  /*!<@brief Standard mode, output slew rate control is enabled */
+/*!
+ * @brief Select Analog/Digital mode.: Digital mode. */
+#define PIO00_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 2. */
+#define PIO00_FUNC_ALT2 0x02u
+/*!
+ * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
+#define PIO00_MODE_PULL_UP 0x02u
+/*!
+ * @brief Select Analog/Digital mode.: Digital mode. */
+#define PIO01_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 2. */
+#define PIO01_FUNC_ALT2 0x02u
+/*!
+ * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
+#define PIO01_MODE_PULL_UP 0x02u
+/*!
+ * @brief Select Analog/Digital mode.: Digital mode. */
+#define PIO029_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 1. */
+#define PIO029_FUNC_ALT1 0x01u
+/*!
+ * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
+#define PIO029_MODE_PULL_UP 0x02u
+/*!
+ * @brief Select Analog/Digital mode.: Digital mode. */
+#define PIO030_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 1. */
+#define PIO030_FUNC_ALT1 0x01u
+/*!
+ * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
+#define PIO030_MODE_PULL_UP 0x02u
+/*!
+ * @brief Select Analog/Digital mode.: Digital mode. */
+#define PIO11_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 1. */
+#define PIO11_FUNC_ALT1 0x01u
+/*!
+ * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
+#define PIO11_MODE_PULL_UP 0x02u
+/*!
+ * @brief Select Analog/Digital mode.: Digital mode. */
+#define PIO219_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 2. */
+#define PIO219_FUNC_ALT2 0x02u
+/*!
+ * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
+#define PIO219_MODE_PULL_UP 0x02u
+/*!
+ * @brief Select Analog/Digital mode.: Digital mode. */
+#define PIO320_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 1. */
+#define PIO320_FUNC_ALT1 0x01u
+/*!
+ * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
+#define PIO320_MODE_PULL_UP 0x02u
+/*!
+ * @brief Enables or disables analog mode.: Disable analog Mode. */
+#define PIO321_ANAMODE_DISABLED 0x01u
+/*!
+ * @brief Select Analog/Digital mode.: Digital mode. */
+#define PIO321_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 1. */
+#define PIO321_FUNC_ALT1 0x01u
+/*!
+ * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
+#define PIO321_MODE_PULL_UP 0x02u
+/*!
+ * @brief Enables or disables analog mode.: Disable analog Mode. */
+#define PIO322_ANAMODE_DISABLED 0x01u
+/*!
+ * @brief Select Analog/Digital mode.: Digital mode. */
+#define PIO322_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 1. */
+#define PIO322_FUNC_ALT1 0x01u
+/*!
+ * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
+#define PIO322_MODE_PULL_UP 0x02u
+/*!
+ * @brief Select Analog/Digital mode.: Digital mode. */
+#define PIO330_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 1. */
+#define PIO330_FUNC_ALT1 0x01u
+/*!
+ * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
+#define PIO330_MODE_PULL_UP 0x02u
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

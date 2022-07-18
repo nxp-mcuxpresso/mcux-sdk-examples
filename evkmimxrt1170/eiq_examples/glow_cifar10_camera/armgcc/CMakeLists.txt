@@ -102,7 +102,7 @@ include(utility_debug_console_lite)
 
 include(utility_assert_lite)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1176_cm7)
 
 include(device_system_MIMXRT1176_cm7)
 
@@ -115,6 +115,8 @@ include(driver_mipi_dsi_split)
 include(driver_display-rm68191)
 
 include(driver_display-rm68200)
+
+include(driver_display-hx8394)
 
 include(driver_display-common)
 
@@ -154,13 +156,13 @@ include(driver_soc_src)
 
 include(driver_soc_mipi_csi2rx)
 
+include(CMSIS_DSP_Source)
+
 include(middleware_eiq_worker)
 
 include(middleware_eiq_worker_video_MIMXRT1176_cm7)
 
 include(middleware_eiq_gui_printf)
-
-include(CMSIS_DSP_Library)
 
 include(middleware_eiq_glow)
 
@@ -196,6 +198,8 @@ include(driver_memory)
 
 include(driver_lcdifv2)
 
+include(driver_xmcd_evkmimxrt1170)
+
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
@@ -206,14 +210,6 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
 
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
-
-if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/CMSIS/DSP/Lib/GCC/libarm_cortexM7lfdp_math.a)
-endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_debug)
-
-if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/CMSIS/DSP/Lib/GCC/libarm_cortexM7lfdp_math.a)
-endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_release)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

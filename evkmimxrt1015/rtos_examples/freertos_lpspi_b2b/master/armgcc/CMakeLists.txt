@@ -104,7 +104,7 @@ include(middleware_freertos-kernel_MIMXRT1015)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1015)
 
 include(device_system)
 

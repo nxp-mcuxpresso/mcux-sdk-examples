@@ -622,7 +622,7 @@ az_result core_result;
     buffer_size = (UINT)(packet_ptr -> nx_packet_data_end - packet_ptr -> nx_packet_prepend_ptr);
 
     status = nx_azure_iot_mqtt_packet_id_get(&(prov_client_ptr -> nx_azure_iot_provisioning_client_resource.resource_mqtt),
-                                             packet_id, wait_option);
+                                             packet_id);
     if (status)
     {
         LogError(LogLiteralArgs("failed to get packetId "));
@@ -630,7 +630,9 @@ az_result core_result;
         return(status);
     }
 
-    if (register_response == NULL)
+    /* if no registration response or operation Id is missing, send new registration request. */
+    if ((register_response == NULL) ||
+        (az_span_size(register_response -> operation_id) == 0))
     {
         core_result = az_iot_provisioning_client_register_get_publish_topic(&(prov_client_ptr -> nx_azure_iot_provisioning_client_core),
                                                                             (CHAR *)buffer_ptr, buffer_size,

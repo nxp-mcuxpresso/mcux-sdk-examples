@@ -122,7 +122,7 @@ include(driver_inputmux_connections)
 
 include(driver_soc_mipi_dsi)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT595S_cm33)
 
 include(driver_iap)
 

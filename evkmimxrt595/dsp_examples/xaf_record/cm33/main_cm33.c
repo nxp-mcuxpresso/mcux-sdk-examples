@@ -8,13 +8,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "main_cm33.h"
 #include "fsl_debug_console.h"
 
 
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "board.h"
-#include "main_cm33.h"
 #include "dsp_support.h"
 #include "dsp_ipc.h"
 #include "cmd.h"
@@ -25,7 +25,7 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-
+#define DEMO_CODEC_VOLUME (75U)
 #define APP_TASK_STACK_SIZE (6 * 1024)
 
 /*******************************************************************************
@@ -76,13 +76,19 @@ int BOARD_CODEC_Init(void)
 
     /* Initial volume kept at 75% for hearing safety. */
     /* Adjust it to your needs between 0 - 100*/
-    if (CODEC_SetVolume(&g_codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight, 75) !=
-        kStatus_Success)
+    if (CODEC_SetVolume(&g_codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight,
+                        DEMO_CODEC_VOLUME) != kStatus_Success)
     {
         return -1;
     }
 
     return 0;
+}
+
+void BOARD_MuteRightChannel(bool mute)
+{
+    /* The CODEC_SetMute() funtion sets the volume to 100 after unmuting */
+    CODEC_SetVolume(&g_codecHandle, kCODEC_PlayChannelHeadphoneRight, mute ? 0 : DEMO_CODEC_VOLUME);
 }
 void handleShellMessage(srtm_message *msg, void *arg)
 {

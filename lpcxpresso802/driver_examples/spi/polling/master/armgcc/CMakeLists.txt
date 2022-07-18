@@ -94,7 +94,7 @@ include(CMSIS_Include_core_cm)
 
 include(driver_reset)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC802)
 
 include(driver_swm_connections)
 

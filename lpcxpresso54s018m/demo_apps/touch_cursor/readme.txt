@@ -6,24 +6,31 @@ In this example, a 32x32 cursor is shown. The cursor's position is changed in re
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.5.0
+- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.6.0
 
 Hardware requirements
 =====================
 - Micro USB cable
 - LPCXpresso54S018M board
+- RK043FN02H-CT or RK043FN66HS-CT6 LCD board
 - Personal Computer
 
 Board settings
 ==============
-No special board settings.
+1. Connect the RK043FN02H-CT or RK043FN66HS-CT6 to board.
 
 Prepare the Demo
 ================
 1. Connect a micro USB cable between the PC host and the LPC-Link USB port (J8) on the board.
-2. Download the program to the target board.
-3. Launch the debugger in your IDE to begin running
+2.  Build the project, the project uses RK043FN66HS-CT6 by default, to use other panels,
+    change
+    #define DEMO_PANEL DEMO_PANEL_RK043FN66HS
+    to
+    #define DEMO_PANEL DEMO_PANEL_RK043FN02H
+    in touch_cursor.c
+3. Download the program to the target board.
+4. Launch the debugger in your IDE to begin running
    the demo.
 
 Running the demo

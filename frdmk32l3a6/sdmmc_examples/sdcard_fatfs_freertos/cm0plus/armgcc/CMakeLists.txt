@@ -83,6 +83,8 @@ include(utility_assert_lite)
 
 include(utility_debug_console_lite)
 
+include(component_gpio_adapter)
+
 include(middleware_fatfs)
 
 include(middleware_fatfs_sd)
@@ -119,7 +121,7 @@ include(middleware_freertos-kernel_K32L3A60_cm0plus)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_K32L3A60_cm0plus)
 
 include(device_system_K32L3A60_cm0plus)
 

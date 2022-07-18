@@ -185,7 +185,7 @@ include(middleware_issdk_algorithms_pedometer_lib_cm4)
 
 include(middleware_issdk_algorithms_pedometer_common)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MCIMX7U5)
 
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)

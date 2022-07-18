@@ -101,11 +101,11 @@ void APP_SetClockVlpr(void)
 {
     const sim_clock_config_t simConfig = {
         .er32kSrc = 0U,          /* ERCLK32K selection, use OSC */
-        .clkdiv1  = 0x03000000U, /* SIM_CLKDIV1 */
+        .clkdiv1  = 0x08000000U, /* SIM_CLKDIV1 */
     };
 
     CLOCK_SetSimSafeDivs();
-    CLOCK_SetInternalRefClkConfig(kMCG_IrclkEnable, kMCG_IrcFast, 0U);
+    CLOCK_SetInternalRefClkConfig(kMCG_IrclkEnable, kMCG_IrcFast, 1U);
 
     /* MCG works in FEE mode now, will switch to BLPI mode. */
 
@@ -119,7 +119,7 @@ void APP_SetClockRunFromVlpr(void)
 {
     const sim_clock_config_t simConfig = {
         .er32kSrc = 0U,          /* ERCLK32K selection, use OSC */
-        .clkdiv1  = 0x02000000U, /* SIM_CLKDIV1 */
+        .clkdiv1  = 0x08000000U, /* SIM_CLKDIV1 */
     };
 
     CLOCK_SetSimSafeDivs();
@@ -128,7 +128,7 @@ void APP_SetClockRunFromVlpr(void)
     /* Enter FBI. */
     CLOCK_SetLowPowerEnable(false);
     /* Enter FEE. */
-    CLOCK_SetFeeMode(0U, kMCG_Dmx32Fine, kMCG_DrsMidHigh, APP_FllStableDelay);
+    CLOCK_SetFeeMode(0U, kMCG_Dmx32Fine, kMCG_DrsMid, APP_FllStableDelay);
 
     CLOCK_SetSimConfig(&simConfig);
 }

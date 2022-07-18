@@ -138,13 +138,15 @@ include(driver_iomuxc)
 
 include(driver_xip_device)
 
-include(driver_xip_board)
+include(driver_xip_board_evkmimxrt1160)
 
 include(driver_pmu_1)
 
 include(driver_dcdc_soc)
 
 include(driver_cache_armv7_m7)
+
+include(component_silicon_id)
 
 include(driver_anatop_ai)
 
@@ -154,7 +156,7 @@ include(driver_lcdifv2)
 
 include(driver_memory)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1166_cm7)
 
 include(device_system_MIMXRT1166_cm7)
 

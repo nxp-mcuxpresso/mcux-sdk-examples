@@ -168,7 +168,7 @@ include(driver_pdm)
 
 include(driver_wm8524)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMX8MM6)
 
 include(device_system)
 

@@ -25,12 +25,12 @@
 #define DEMO_PDM_CIC_OVERSAMPLE_RATE  (0U)
 #define DEMO_PDM_ENABLE_CHANNEL_LEFT  (0U)
 #define DEMO_PDM_ENABLE_CHANNEL_RIGHT (1U)
-#define DEMO_PDM_SAMPLE_CLOCK_RATE    (6144000) /* 6.144MHZ */
+#define DEMO_PDM_SAMPLE_CLOCK_RATE    (2048000U) /* 2.048MHZ */
 #define DEMO_EDMA                     DMA1
 #define DEMO_DMAMUX                   DMAMUX1
 #define DEMO_EDMA_CHANNEL             0
 #define DEMO_PDM_REQUEST_SOURCE       kDmaRequestMuxPdm
-#define DEMO_AUDIO_SAMPLE_RATE        48000
+#define DEMO_AUDIO_SAMPLE_RATE        16000
 #define BUFFER_SIZE (256)
 /*******************************************************************************
  * Prototypes
@@ -62,7 +62,11 @@ static const pdm_channel_config_t channelConfig = {
 #else
     .cutOffFreq = kPDM_DcRemoverCutOff152Hz,
 #endif
-    .gain = kPDM_DfOutputGain4,
+#ifdef DEMO_PDM_CHANNEL_GAIN
+    .gain = DEMO_PDM_CHANNEL_GAIN,
+#else
+    .gain       = kPDM_DfOutputGain4,
+#endif
 };
 /*******************************************************************************
  * Code
@@ -135,7 +139,7 @@ int main(void)
     CLOCK_SetRootClockMux(kCLOCK_Root_Bus_Lpsr, 0);
     CLOCK_InitAudioPll(&audioPllConfig);
 
-    /* 24.576m mic root clock */
+    /* mic root clock = 24.576M */
     CLOCK_SetRootClockMux(kCLOCK_Root_Mic, 6);
     CLOCK_SetRootClockDiv(kCLOCK_Root_Mic, 16);
 

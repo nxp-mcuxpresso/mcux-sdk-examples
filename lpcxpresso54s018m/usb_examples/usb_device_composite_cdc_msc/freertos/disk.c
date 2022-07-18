@@ -104,7 +104,12 @@ usb_status_t USB_DeviceMscCallback(class_handle_t handle, uint32_t event, void *
             break;
         case kUSB_DeviceMscEventTestUnitReady:
             /*change the test unit ready command's sense data if need, be careful to modify*/
-            ufi = (usb_device_ufi_app_struct_t *)param;
+            if (1U == g_deviceComposite->mscDisk.stop)
+            {
+                ufi                                    = (usb_device_ufi_app_struct_t *)param;
+                ufi->requestSense->senseKey            = USB_DEVICE_MSC_UFI_NOT_READY;
+                ufi->requestSense->additionalSenseCode = USB_DEVICE_MSC_UFI_ASC_MEDIUM_NOT_PRESENT;
+            }
             break;
         case kUSB_DeviceMscEventInquiry:
             ufi         = (usb_device_ufi_app_struct_t *)param;
@@ -122,8 +127,9 @@ usb_status_t USB_DeviceMscCallback(class_handle_t handle, uint32_t event, void *
         case kUSB_DeviceMscEventModeSelect:
         case kUSB_DeviceMscEventFormatComplete:
         case kUSB_DeviceMscEventRemovalRequest:
-        case kUSB_DeviceMscEventRequestSense:
             error = kStatus_USB_InvalidRequest;
+            break;
+        case kUSB_DeviceMscEventRequestSense:
             break;
         case kUSB_DeviceMscEventReadCapacity:
             capacityInformation                         = (usb_device_capacity_information_struct_t *)param;
@@ -134,6 +140,13 @@ usb_status_t USB_DeviceMscCallback(class_handle_t handle, uint32_t event, void *
             capacityInformation                         = (usb_device_capacity_information_struct_t *)param;
             capacityInformation->lengthOfEachLba        = LENGTH_OF_EACH_LBA;
             capacityInformation->totalLbaNumberSupports = TOTAL_LOGICAL_ADDRESS_BLOCKS_NORMAL;
+            break;
+        case kUSB_DeviceMscEventStopEjectMedia:
+            ufi = (usb_device_ufi_app_struct_t *)param;
+            if (0x00U == (ufi->cbwcb[4] & 0x01U)) /* check start bit */
+            {
+                g_deviceComposite->mscDisk.stop = 1U; /* stop command */
+            }
             break;
         default:
             error = kStatus_USB_InvalidRequest;
@@ -153,6 +166,7 @@ usb_status_t USB_DeviceMscCallback(class_handle_t handle, uint32_t event, void *
  */
 usb_status_t USB_DeviceMscDiskSetConfigure(class_handle_t handle, uint8_t configure)
 {
+    g_deviceComposite->mscDisk.stop = 0U;
     return kStatus_USB_Error;
 }
 /*!

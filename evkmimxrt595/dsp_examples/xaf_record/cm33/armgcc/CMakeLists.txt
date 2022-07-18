@@ -167,7 +167,7 @@ include(driver_inputmux_connections)
 
 include(middleware_freertos-kernel_heap_4)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT595S_cm33)
 
 include(driver_iap)
 

@@ -32,10 +32,10 @@
 #define DEMO_PDM_CIC_OVERSAMPLE_RATE  (0U)
 #define DEMO_PDM_ENABLE_CHANNEL_LEFT  (0U)
 #define DEMO_PDM_ENABLE_CHANNEL_RIGHT (1U)
-#define DEMO_PDM_SAMPLE_CLOCK_RATE    (6144000U) /* 6.144MHZ */
+#define DEMO_PDM_SAMPLE_CLOCK_RATE    (2048000U) /* 2.048MHZ */
 
 /* demo audio sample rate */
-#define DEMO_AUDIO_SAMPLE_RATE (kSAI_SampleRate48KHz)
+#define DEMO_AUDIO_SAMPLE_RATE (kSAI_SampleRate16KHz)
 /* demo audio master clock */
 #define DEMO_AUDIO_MASTER_CLOCK DEMO_SAI_CLK_FREQ
 /* demo audio data channel */
@@ -98,11 +98,16 @@ static const pdm_channel_config_t channelConfig = {
 #else
     .cutOffFreq = kPDM_DcRemoverCutOff152Hz,
 #endif
-    .gain = kPDM_DfOutputGain7,
+#ifdef DEMO_PDM_CHANNEL_GAIN
+    .gain = DEMO_PDM_CHANNEL_GAIN,
+#else
+    .gain       = kPDM_DfOutputGain7,
+#endif
 };
 
 codec_handle_t codecHandle;
 extern codec_config_t boardCodecConfig;
+
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -212,8 +217,8 @@ int main(void)
     /* audio pll  */
     CLOCK_SetRootClockMux(kCLOCK_Root_Sai1, 4);
     CLOCK_SetRootClockDiv(kCLOCK_Root_Sai1, 16);
-    /* 0SC400M */
-    /* 24.576m mic root clock */
+    /* AudioPllOut = 393.24M */
+    /* mic root clock = 24.576M */
     CLOCK_SetRootClockMux(kCLOCK_Root_Mic, 6);
     CLOCK_SetRootClockDiv(kCLOCK_Root_Mic, 16);
 

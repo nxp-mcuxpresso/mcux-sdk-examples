@@ -20,6 +20,7 @@
 #define DEMO_PINT_PIN_INT1_SRC     kINPUTMUX_GpioPort0Pin28ToPintsel
 #define DEMO_PINT_PIN_INT2_SRC     kINPUTMUX_GpioPort1Pin9ToPintsel
 #define DEMO_SEC_PINT_PIN_INT0_SRC kINPUTMUX_GpioPort0Pin5ToPintSecsel
+#define DEMO_PIN_NUM               3
 
 /*******************************************************************************
  * Prototypes

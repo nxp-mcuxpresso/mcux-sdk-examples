@@ -121,7 +121,7 @@ include(driver_soc_src)
 
 include(middleware_eiq_worker_audio)
 
-include(CMSIS_DSP_Library)
+include(CMSIS_DSP_Source)
 
 include(middleware_eiq_tensorflow_lite_micro)
 
@@ -169,7 +169,7 @@ include(middleware_eiq_tensorflow_lite_micro_third_party_gemmlowp)
 
 include(middleware_eiq_tensorflow_lite_micro_third_party_ruy)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1166_cm4)
 
 include(device_system_MIMXRT1166_cm4)
 
@@ -185,14 +185,6 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
 
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
-
-if(CMAKE_BUILD_TYPE STREQUAL debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a)
-endif(CMAKE_BUILD_TYPE STREQUAL debug)
-
-if(CMAKE_BUILD_TYPE STREQUAL release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a)
-endif(CMAKE_BUILD_TYPE STREQUAL release)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

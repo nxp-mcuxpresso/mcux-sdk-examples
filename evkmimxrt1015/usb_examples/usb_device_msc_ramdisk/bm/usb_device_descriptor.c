@@ -370,7 +370,7 @@ usb_status_t USB_DeviceSetSpeed(usb_device_handle handle, uint8_t speed)
 {
     usb_descriptor_union_t *descriptorHead;
     usb_descriptor_union_t *descriptorTail;
-    int i;
+    uint8_t i;
 
     descriptorHead = (usb_descriptor_union_t *)&g_UsbDeviceConfigurationDescriptor[0];
     descriptorTail =
@@ -416,7 +416,7 @@ usb_status_t USB_DeviceSetSpeed(usb_device_handle handle, uint8_t speed)
         descriptorHead = (usb_descriptor_union_t *)((uint8_t *)descriptorHead + descriptorHead->common.bLength);
     }
 
-    for (i = 0; i < USB_MSC_ENDPOINT_COUNT; i++)
+    for (i = 0U; i < USB_MSC_ENDPOINT_COUNT; i++)
     {
         if (USB_SPEED_HIGH == speed)
         {

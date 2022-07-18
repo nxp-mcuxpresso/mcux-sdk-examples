@@ -87,7 +87,8 @@ volatile uint8_t feedbackValueUpdating;
 #endif
 
 usb_device_composite_struct_t *g_deviceAudioComposite;
-volatile bool g_CodecMuteUnmute = false;
+volatile bool g_CodecSpeakerMuteUnmute    = false;
+volatile bool g_CodecMicrophoneMuteUnmute = false;
 extern usb_device_composite_struct_t g_composite;
 
 /*******************************************************************************
@@ -109,6 +110,7 @@ usb_status_t USB_DeviceAudioRequest(class_handle_t handle, uint32_t event, void 
 {
     usb_device_control_request_struct_t *request = (usb_device_control_request_struct_t *)param;
     usb_status_t error                           = kStatus_USB_Success;
+    uint8_t entity_id                            = (uint8_t)(request->setup->wIndex >> 0x08);
 #if (!USB_DEVICE_CONFIG_AUDIO_CLASS_2_0)
     uint16_t volume;
 #endif
@@ -117,20 +119,68 @@ usb_status_t USB_DeviceAudioRequest(class_handle_t handle, uint32_t event, void 
     {
         case USB_DEVICE_AUDIO_FU_GET_CUR_MUTE_CONTROL:
 #if (USB_DEVICE_CONFIG_AUDIO_CLASS_2_0)
-            request->buffer = (uint8_t *)&g_deviceAudioComposite->audioUnified.curMute20;
-            request->length = sizeof(g_deviceAudioComposite->audioUnified.curMute20);
+            if (USB_AUDIO_SPEAKER_CONTROL_FEATURE_UNIT_ID == entity_id)
+            {
+                request->buffer = (uint8_t *)&g_deviceAudioComposite->audioUnified.curSpeakerMute20;
+                request->length = sizeof(g_deviceAudioComposite->audioUnified.curSpeakerMute20);
+            }
+            else if (USB_AUDIO_RECORDER_CONTROL_FEATURE_UNIT_ID == entity_id)
+            {
+                request->buffer = (uint8_t *)&g_deviceAudioComposite->audioUnified.curMicrophoneMute20;
+                request->length = sizeof(g_deviceAudioComposite->audioUnified.curMicrophoneMute20);
+            }
+            else
+            {
+                /* no action */
+            }
 #else
-            request->buffer = &g_deviceAudioComposite->audioUnified.curMute;
-            request->length = sizeof(g_deviceAudioComposite->audioUnified.curMute);
+            if (USB_AUDIO_SPEAKER_CONTROL_FEATURE_UNIT_ID == entity_id)
+            {
+                request->buffer = (uint8_t *)&g_deviceAudioComposite->audioUnified.curSpeakerMute;
+                request->length = sizeof(g_deviceAudioComposite->audioUnified.curSpeakerMute);
+            }
+            else if (USB_AUDIO_RECORDER_CONTROL_FEATURE_UNIT_ID == entity_id)
+            {
+                request->buffer = (uint8_t *)&g_deviceAudioComposite->audioUnified.curMicrophoneMute;
+                request->length = sizeof(g_deviceAudioComposite->audioUnified.curMicrophoneMute);
+            }
+            else
+            {
+                /* no action */
+            }
 #endif
             break;
         case USB_DEVICE_AUDIO_FU_GET_CUR_VOLUME_CONTROL:
 #if (USB_DEVICE_CONFIG_AUDIO_CLASS_2_0)
-            request->buffer = (uint8_t *)&g_deviceAudioComposite->audioUnified.curVolume20;
-            request->length = sizeof(g_deviceAudioComposite->audioUnified.curVolume20);
+            if (USB_AUDIO_SPEAKER_CONTROL_FEATURE_UNIT_ID == entity_id)
+            {
+                request->buffer = (uint8_t *)&g_deviceAudioComposite->audioUnified.curSpeakerVolume20;
+                request->length = sizeof(g_deviceAudioComposite->audioUnified.curSpeakerVolume20);
+            }
+            else if (USB_AUDIO_RECORDER_CONTROL_FEATURE_UNIT_ID == entity_id)
+            {
+                request->buffer = (uint8_t *)&g_deviceAudioComposite->audioUnified.curMicrophoneVolume20;
+                request->length = sizeof(g_deviceAudioComposite->audioUnified.curMicrophoneVolume20);
+            }
+            else
+            {
+                /* no action */
+            }
 #else
-            request->buffer = g_deviceAudioComposite->audioUnified.curVolume;
-            request->length = sizeof(g_deviceAudioComposite->audioUnified.curVolume);
+            if (USB_AUDIO_SPEAKER_CONTROL_FEATURE_UNIT_ID == entity_id)
+            {
+                request->buffer = g_deviceAudioComposite->audioUnified.curSpeakerVolume;
+                request->length = sizeof(g_deviceAudioComposite->audioUnified.curSpeakerVolume);
+            }
+            else if (USB_AUDIO_RECORDER_CONTROL_FEATURE_UNIT_ID == entity_id)
+            {
+                request->buffer = g_deviceAudioComposite->audioUnified.curMicrophoneVolume;
+                request->length = sizeof(g_deviceAudioComposite->audioUnified.curMicrophoneVolume);
+            }
+            else
+            {
+                /* no action */
+            }
 #endif
             break;
         case USB_DEVICE_AUDIO_FU_GET_CUR_BASS_CONTROL:
@@ -294,24 +344,72 @@ usb_status_t USB_DeviceAudioRequest(class_handle_t handle, uint32_t event, void 
 #if (USB_DEVICE_CONFIG_AUDIO_CLASS_2_0)
             if (request->isSetup == 1U)
             {
-                request->buffer = g_deviceAudioComposite->audioUnified.curVolume20;
-                request->length = sizeof(g_deviceAudioComposite->audioUnified.curVolume20);
+                if (USB_AUDIO_SPEAKER_CONTROL_FEATURE_UNIT_ID == entity_id)
+                {
+                    request->buffer = g_deviceAudioComposite->audioUnified.curSpeakerVolume20;
+                    request->length = sizeof(g_deviceAudioComposite->audioUnified.curSpeakerVolume20);
+                }
+                else if (USB_AUDIO_RECORDER_CONTROL_FEATURE_UNIT_ID == entity_id)
+                {
+                    request->buffer = g_deviceAudioComposite->audioUnified.curMicrophoneVolume20;
+                    request->length = sizeof(g_deviceAudioComposite->audioUnified.curMicrophoneVolume20);
+                }
+                else
+                {
+                    /* no action */
+                }
             }
             else
             {
-                g_deviceAudioComposite->audioUnified.codecTask |= VOLUME_CHANGE_TASK;
+                if (USB_AUDIO_SPEAKER_CONTROL_FEATURE_UNIT_ID == entity_id)
+                {
+                    g_deviceAudioComposite->audioUnified.codecSpeakerTask |= VOLUME_CHANGE_TASK;
+                }
+                else if (USB_AUDIO_RECORDER_CONTROL_FEATURE_UNIT_ID == entity_id)
+                {
+                    g_deviceAudioComposite->audioUnified.codecMicrophoneTask |= VOLUME_CHANGE_TASK;
+                }
+                else
+                {
+                    /* no action */
+                }
             }
 #else
             if (request->isSetup == 1U)
             {
-                request->buffer = g_deviceAudioComposite->audioUnified.curVolume;
-                request->length = sizeof(g_deviceAudioComposite->audioUnified.curVolume);
+                if (USB_AUDIO_SPEAKER_CONTROL_FEATURE_UNIT_ID == entity_id)
+                {
+                    request->buffer = g_deviceAudioComposite->audioUnified.curSpeakerVolume;
+                    request->length = sizeof(g_deviceAudioComposite->audioUnified.curSpeakerVolume);
+                }
+                else if (USB_AUDIO_RECORDER_CONTROL_FEATURE_UNIT_ID == entity_id)
+                {
+                    request->buffer = g_deviceAudioComposite->audioUnified.curMicrophoneVolume;
+                    request->length = sizeof(g_deviceAudioComposite->audioUnified.curMicrophoneVolume);
+                }
+                else
+                {
+                    /* no action */
+                }
             }
             else
             {
-                volume = (uint16_t)((uint16_t)g_deviceAudioComposite->audioUnified.curVolume[1] << 8U);
-                volume |= (uint8_t)(g_deviceAudioComposite->audioUnified.curVolume[0]);
-                g_deviceAudioComposite->audioUnified.codecTask |= VOLUME_CHANGE_TASK;
+                if (USB_AUDIO_SPEAKER_CONTROL_FEATURE_UNIT_ID == entity_id)
+                {
+                    volume = (uint16_t)((uint16_t)g_deviceAudioComposite->audioUnified.curSpeakerVolume[1] << 8U);
+                    volume |= (uint8_t)(g_deviceAudioComposite->audioUnified.curSpeakerVolume[0]);
+                    g_deviceAudioComposite->audioUnified.codecSpeakerTask |= VOLUME_CHANGE_TASK;
+                }
+                else if (USB_AUDIO_RECORDER_CONTROL_FEATURE_UNIT_ID == entity_id)
+                {
+                    volume = (uint16_t)((uint16_t)g_deviceAudioComposite->audioUnified.curMicrophoneVolume[1] << 8U);
+                    volume |= (uint8_t)(g_deviceAudioComposite->audioUnified.curMicrophoneVolume[0]);
+                    g_deviceAudioComposite->audioUnified.codecMicrophoneTask |= VOLUME_CHANGE_TASK;
+                }
+                else
+                {
+                    /* no action */
+                }
             }
 #endif
             break;
@@ -319,35 +417,97 @@ usb_status_t USB_DeviceAudioRequest(class_handle_t handle, uint32_t event, void 
 #if (USB_DEVICE_CONFIG_AUDIO_CLASS_2_0)
             if (request->isSetup == 1U)
             {
-                request->buffer = &g_deviceAudioComposite->audioUnified.curMute20;
-                request->length = sizeof(g_deviceAudioComposite->audioUnified.curMute20);
-            }
-            else
-            {
-                if (g_deviceAudioComposite->audioUnified.curMute20)
+                if (USB_AUDIO_SPEAKER_CONTROL_FEATURE_UNIT_ID == entity_id)
                 {
-                    g_deviceAudioComposite->audioUnified.codecTask |= MUTE_CODEC_TASK;
+                    request->buffer = &g_deviceAudioComposite->audioUnified.curSpeakerMute20;
+                    request->length = sizeof(g_deviceAudioComposite->audioUnified.curSpeakerMute20);
+                }
+                else if (USB_AUDIO_RECORDER_CONTROL_FEATURE_UNIT_ID == entity_id)
+                {
+                    request->buffer = &g_deviceAudioComposite->audioUnified.curMicrophoneMute20;
+                    request->length = sizeof(g_deviceAudioComposite->audioUnified.curMicrophoneMute20);
                 }
                 else
                 {
-                    g_deviceAudioComposite->audioUnified.codecTask |= UNMUTE_CODEC_TASK;
+                    /* no action */
+                }
+            }
+            else
+            {
+                /* trigger task, only adjust speaker mute/unmute practically */
+                if (USB_AUDIO_SPEAKER_CONTROL_FEATURE_UNIT_ID == entity_id)
+                {
+                    if (g_deviceAudioComposite->audioUnified.curSpeakerMute20)
+                    {
+                        g_deviceAudioComposite->audioUnified.codecSpeakerTask |= MUTE_CODEC_TASK;
+                    }
+                    else
+                    {
+                        g_deviceAudioComposite->audioUnified.codecSpeakerTask |= UNMUTE_CODEC_TASK;
+                    }
+                }
+                else if (USB_AUDIO_RECORDER_CONTROL_FEATURE_UNIT_ID == entity_id)
+                {
+                    if (g_deviceAudioComposite->audioUnified.curSpeakerMute20)
+                    {
+                        g_deviceAudioComposite->audioUnified.codecMicrophoneTask |= MUTE_CODEC_TASK;
+                    }
+                    else
+                    {
+                        g_deviceAudioComposite->audioUnified.codecMicrophoneTask |= UNMUTE_CODEC_TASK;
+                    }
+                }
+                else
+                {
+                    /* no action */
                 }
             }
 #else
             if (request->isSetup == 1U)
             {
-                request->buffer = &g_deviceAudioComposite->audioUnified.curMute;
-                request->length = sizeof(g_deviceAudioComposite->audioUnified.curMute);
-            }
-            else
-            {
-                if (g_deviceAudioComposite->audioUnified.curMute)
+                if (USB_AUDIO_SPEAKER_CONTROL_FEATURE_UNIT_ID == entity_id)
                 {
-                    g_deviceAudioComposite->audioUnified.codecTask |= MUTE_CODEC_TASK;
+                    request->buffer = &g_deviceAudioComposite->audioUnified.curSpeakerMute;
+                    request->length = sizeof(g_deviceAudioComposite->audioUnified.curSpeakerMute);
+                }
+                else if (USB_AUDIO_RECORDER_CONTROL_FEATURE_UNIT_ID == entity_id)
+                {
+                    request->buffer = &g_deviceAudioComposite->audioUnified.curMicrophoneMute;
+                    request->length = sizeof(g_deviceAudioComposite->audioUnified.curMicrophoneMute);
                 }
                 else
                 {
-                    g_deviceAudioComposite->audioUnified.codecTask |= UNMUTE_CODEC_TASK;
+                    /* no action */
+                }
+            }
+            else
+            {
+                /* trigger task, only adjust speaker mute/unmute practically */
+                if (USB_AUDIO_SPEAKER_CONTROL_FEATURE_UNIT_ID == entity_id)
+                {
+                    if (g_deviceAudioComposite->audioUnified.curSpeakerMute)
+                    {
+                        g_deviceAudioComposite->audioUnified.codecSpeakerTask |= MUTE_CODEC_TASK;
+                    }
+                    else
+                    {
+                        g_deviceAudioComposite->audioUnified.codecSpeakerTask |= UNMUTE_CODEC_TASK;
+                    }
+                }
+                else if (USB_AUDIO_RECORDER_CONTROL_FEATURE_UNIT_ID == entity_id)
+                {
+                    if (g_deviceAudioComposite->audioUnified.curMicrophoneMute)
+                    {
+                        g_deviceAudioComposite->audioUnified.codecMicrophoneTask |= MUTE_CODEC_TASK;
+                    }
+                    else
+                    {
+                        g_deviceAudioComposite->audioUnified.codecMicrophoneTask |= UNMUTE_CODEC_TASK;
+                    }
+                }
+                else
+                {
+                    /* no action */
                 }
             }
 #endif
@@ -1310,9 +1470,12 @@ usb_status_t USB_DeviceAudioCompositeInit(usb_device_composite_struct_t *device_
 #endif
     g_deviceAudioComposite                                       = device_composite;
     g_deviceAudioComposite->audioUnified.copyProtect             = 0x01U;
-    g_deviceAudioComposite->audioUnified.curMute                 = 0x00U;
-    g_deviceAudioComposite->audioUnified.curVolume[0]            = 0x00U;
-    g_deviceAudioComposite->audioUnified.curVolume[1]            = 0x1fU;
+    g_deviceAudioComposite->audioUnified.curSpeakerMute          = 0x00U;
+    g_deviceAudioComposite->audioUnified.curMicrophoneMute       = 0x00U;
+    g_deviceAudioComposite->audioUnified.curSpeakerVolume[0]     = 0x00U;
+    g_deviceAudioComposite->audioUnified.curSpeakerVolume[1]     = 0x1fU;
+    g_deviceAudioComposite->audioUnified.curMicrophoneVolume[0]  = 0x00U;
+    g_deviceAudioComposite->audioUnified.curMicrophoneVolume[1]  = 0x1fU;
     g_deviceAudioComposite->audioUnified.minVolume[0]            = 0x00U;
     g_deviceAudioComposite->audioUnified.minVolume[1]            = 0x00U;
     g_deviceAudioComposite->audioUnified.maxVolume[0]            = 0x00U;
@@ -1355,11 +1518,14 @@ usb_status_t USB_DeviceAudioCompositeInit(usb_device_composite_struct_t *device_
     g_deviceAudioComposite->audioUnified.resSamplingFrequency[1] = 0x00U;
     g_deviceAudioComposite->audioUnified.resSamplingFrequency[2] = 0x01U;
 #if USB_DEVICE_CONFIG_AUDIO_CLASS_2_0
-    g_deviceAudioComposite->audioUnified.curMute20          = 0U;
-    g_deviceAudioComposite->audioUnified.curClockValid      = 1U;
-    g_deviceAudioComposite->audioUnified.curVolume20[0]     = 0x00U;
-    g_deviceAudioComposite->audioUnified.curVolume20[1]     = 0x1FU;
-    g_deviceAudioComposite->audioUnified.curSampleFrequency = 48000U;
+    g_deviceAudioComposite->audioUnified.curSpeakerMute20         = 0U;
+    g_deviceAudioComposite->audioUnified.curMicrophoneMute20      = 0U;
+    g_deviceAudioComposite->audioUnified.curClockValid            = 1U;
+    g_deviceAudioComposite->audioUnified.curSpeakerVolume20[0]    = 0x00U;
+    g_deviceAudioComposite->audioUnified.curSpeakerVolume20[1]    = 0x1FU;
+    g_deviceAudioComposite->audioUnified.curMicrophoneVolume20[0] = 0x00U;
+    g_deviceAudioComposite->audioUnified.curMicrophoneVolume20[1] = 0x1FU;
+    g_deviceAudioComposite->audioUnified.curSampleFrequency       = 48000U;
 
     g_deviceAudioComposite->audioUnified.freqControlRange.wNumSubRanges = 1U;
     g_deviceAudioComposite->audioUnified.freqControlRange.wMIN          = 48000U;
@@ -1413,38 +1579,75 @@ usb_status_t USB_DeviceAudioCompositeInit(usb_device_composite_struct_t *device_
 
 void USB_AudioCodecTask(void)
 {
-    if (g_deviceAudioComposite->audioUnified.codecTask & MUTE_CODEC_TASK)
+    if (g_deviceAudioComposite->audioUnified.codecSpeakerTask & MUTE_CODEC_TASK)
     {
 #if (USB_DEVICE_CONFIG_AUDIO_CLASS_2_0)
-        usb_echo("Set Cur Mute : %x\r\n", g_deviceAudioComposite->audioUnified.curMute20);
+        usb_echo("Set Speaker Cur Mute : %x\r\n", g_deviceAudioComposite->audioUnified.curSpeakerMute20);
 #else
-        usb_echo("Set Cur Mute : %x\r\n", g_deviceAudioComposite->audioUnified.curMute);
+        usb_echo("Set Speaker Cur Mute : %x\r\n", g_deviceAudioComposite->audioUnified.curSpeakerMute);
 #endif
         BOARD_SetCodecMuteUnmute(true);
-        g_deviceAudioComposite->audioUnified.codecTask &= ~MUTE_CODEC_TASK;
-        g_CodecMuteUnmute = true;
+        g_deviceAudioComposite->audioUnified.codecSpeakerTask &= ~MUTE_CODEC_TASK;
+        g_CodecSpeakerMuteUnmute = true;
     }
-    if (g_deviceAudioComposite->audioUnified.codecTask & UNMUTE_CODEC_TASK)
+    if (g_deviceAudioComposite->audioUnified.codecMicrophoneTask & MUTE_CODEC_TASK)
     {
 #if (USB_DEVICE_CONFIG_AUDIO_CLASS_2_0)
-        usb_echo("Set Cur Mute : %x\r\n", g_deviceAudioComposite->audioUnified.curMute20);
+        usb_echo("Set Microphone Cur Mute : %x\r\n", g_deviceAudioComposite->audioUnified.curMicrophoneMute20);
 #else
-        usb_echo("Set Cur Mute : %x\r\n", g_deviceAudioComposite->audioUnified.curMute);
+        usb_echo("Set Microphone Cur Mute : %x\r\n", g_deviceAudioComposite->audioUnified.curMicrophoneMute);
+#endif
+        /* here add code to set mute practically */
+        g_deviceAudioComposite->audioUnified.codecMicrophoneTask &= ~MUTE_CODEC_TASK;
+        g_CodecMicrophoneMuteUnmute = true;
+    }
+    if (g_deviceAudioComposite->audioUnified.codecSpeakerTask & UNMUTE_CODEC_TASK)
+    {
+#if (USB_DEVICE_CONFIG_AUDIO_CLASS_2_0)
+        usb_echo("Set Speaker Cur Mute : %x\r\n", g_deviceAudioComposite->audioUnified.curSpeakerMute20);
+#else
+        usb_echo("Set Speaker Cur Mute : %x\r\n", g_deviceAudioComposite->audioUnified.curSpeakerMute);
 #endif
         BOARD_SetCodecMuteUnmute(false);
-        g_deviceAudioComposite->audioUnified.codecTask &= ~UNMUTE_CODEC_TASK;
-        g_CodecMuteUnmute = true;
+        g_deviceAudioComposite->audioUnified.codecSpeakerTask &= ~UNMUTE_CODEC_TASK;
+        g_CodecSpeakerMuteUnmute = false;
     }
-    if (g_deviceAudioComposite->audioUnified.codecTask & VOLUME_CHANGE_TASK)
+    if (g_deviceAudioComposite->audioUnified.codecMicrophoneTask & UNMUTE_CODEC_TASK)
     {
 #if (USB_DEVICE_CONFIG_AUDIO_CLASS_2_0)
-        usb_echo("Set Cur Volume : %x\r\n", (uint16_t)(g_deviceAudioComposite->audioUnified.curVolume20[1] << 8U) |
-                                                g_deviceAudioComposite->audioUnified.curVolume20[0]);
+        usb_echo("Set Microphone Cur Mute : %x\r\n", g_deviceAudioComposite->audioUnified.curMicrophoneMute20);
 #else
-        usb_echo("Set Cur Volume : %x\r\n", (uint16_t)(g_deviceAudioComposite->audioUnified.curVolume[1] << 8U) |
-                                                g_deviceAudioComposite->audioUnified.curVolume[0]);
+        usb_echo("Set Microphone Cur Mute : %x\r\n", g_deviceAudioComposite->audioUnified.curMicrophoneMute);
 #endif
-        g_deviceAudioComposite->audioUnified.codecTask &= ~VOLUME_CHANGE_TASK;
+        /* here add code to set unmute practically */
+        g_deviceAudioComposite->audioUnified.codecMicrophoneTask &= ~UNMUTE_CODEC_TASK;
+        g_CodecMicrophoneMuteUnmute = false;
+    }
+    if (g_deviceAudioComposite->audioUnified.codecSpeakerTask & VOLUME_CHANGE_TASK)
+    {
+#if (USB_DEVICE_CONFIG_AUDIO_CLASS_2_0)
+        usb_echo("Set Speaker Cur Volume : %x\r\n",
+                 (uint16_t)(g_deviceAudioComposite->audioUnified.curSpeakerVolume20[1] << 8U) |
+                     g_deviceAudioComposite->audioUnified.curSpeakerVolume20[0]);
+#else
+        usb_echo("Set Speaker Cur Volume : %x\r\n",
+                 (uint16_t)(g_deviceAudioComposite->audioUnified.curSpeakerVolume[1] << 8U) |
+                     g_deviceAudioComposite->audioUnified.curSpeakerVolume[0]);
+#endif
+        g_deviceAudioComposite->audioUnified.codecSpeakerTask &= ~VOLUME_CHANGE_TASK;
+    }
+    if (g_deviceAudioComposite->audioUnified.codecMicrophoneTask & VOLUME_CHANGE_TASK)
+    {
+#if (USB_DEVICE_CONFIG_AUDIO_CLASS_2_0)
+        usb_echo("Set Microphone Cur Volume : %x\r\n",
+                 (uint16_t)(g_deviceAudioComposite->audioUnified.curMicrophoneVolume20[1] << 8U) |
+                     g_deviceAudioComposite->audioUnified.curMicrophoneVolume20[0]);
+#else
+        usb_echo("Set Microphone Cur Volume : %x\r\n",
+                 (uint16_t)(g_deviceAudioComposite->audioUnified.curMicrophoneVolume[1] << 8U) |
+                     g_deviceAudioComposite->audioUnified.curMicrophoneVolume[0]);
+#endif
+        g_deviceAudioComposite->audioUnified.codecMicrophoneTask &= ~VOLUME_CHANGE_TASK;
     }
 }
 

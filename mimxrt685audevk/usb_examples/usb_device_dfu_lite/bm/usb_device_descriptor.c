@@ -52,7 +52,6 @@ uint8_t g_UsbDeviceDescriptor[] = {
                                                         device's serial number */
     USB_DFU_INTERFACE_COUNT,                         /* Number of possible configurations */
 };
-
 USB_DMA_INIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE)
 uint8_t g_UsbDeviceConfigurationDescriptor[] = {
     USB_DESCRIPTOR_LENGTH_CONFIGURE, /* Size of this descriptor in bytes */
@@ -84,7 +83,7 @@ uint8_t g_UsbDeviceConfigurationDescriptor[] = {
     USB_DESCRIPTOR_LENGTH_INTERFACE, /* Size of this descriptor in bytes */
     USB_DESCRIPTOR_TYPE_INTERFACE,   /* INTERFACE Descriptor Type */
     USB_DFU_INTERFACE_INDEX,         /* Number of this interface. */
-    0x00U,                           /* Value used to select this alternate setting
+    USB_DFU_INTERFACE_ALTERNATE_0,   /* Value used to select this alternate setting
                                         for the interface identified in the prior field */
     0x00,                            /* Only the control endpoint is used */
     USB_DFU_CLASS,                   /* Class code (assigned by the USB-IF). */
@@ -100,7 +99,6 @@ uint8_t g_UsbDeviceConfigurationDescriptor[] = {
     USB_SHORT_GET_LOW(MAX_TRANSFER_SIZE), USB_SHORT_GET_HIGH(MAX_TRANSFER_SIZE),           /* Max transfer size */
     USB_SHORT_GET_LOW(USB_DEVICE_DEMO_BCD_VERSION), USB_SHORT_GET_HIGH(USB_DEVICE_DEMO_BCD_VERSION), /* bcdDFUVersion */
 };
-
 USB_DMA_INIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE)
 uint8_t g_UsbDeviceString0[] = {
     2U + 2U,
@@ -176,7 +174,7 @@ uint8_t g_UsbDeviceCompatibleIDDescriptor[] = {
     /*Microsoft Compatible ID Feature Descriptor*/
     /*The Header Section*/
     0x28U, 0x00U, 0x00U, 0x00U,                      /*Descriptor length of the complete extended compat ID descriptor*/
-    0x00U, 0x01U,                                    /*Descriptor?¡¥s version number*/
+    0x00U, 0x01U,                                    /*Descriptor's version number*/
     0x04U, 0x00U,                                    /*Compatibility ID Descriptor index*/
     0x01U,                                           /*Number of sections */
     0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, /*Reserved */
@@ -197,7 +195,7 @@ uint8_t g_UsbDeviceOSExendedDescriptor[] = {
     0x00,
     0x00, /*the length, in bytes, of the complete extended properties descriptor*/
     USB_SHORT_GET_LOW(USB_DEVICE_OS_DESCRIPTOR_BCD_VERSION),
-    USB_SHORT_GET_HIGH(USB_DEVICE_OS_DESCRIPTOR_BCD_VERSION), /* The descriptor?¡¥s version number. */
+    USB_SHORT_GET_HIGH(USB_DEVICE_OS_DESCRIPTOR_BCD_VERSION), /* The descriptor's version number. */
     0x05U,
     0x00U, /*Descriptor index*/
     0x01U,
@@ -343,6 +341,7 @@ uint32_t g_UsbDeviceStringDescriptorLength[USB_DEVICE_STRING_COUNT] = {
     sizeof(g_UsbDeviceString1),
     sizeof(g_UsbDeviceString2),
     sizeof(g_UsbDeviceString3),
+
 };
 
 uint8_t *g_UsbDeviceStringDescriptorArray[USB_DEVICE_STRING_COUNT] = {
@@ -350,6 +349,7 @@ uint8_t *g_UsbDeviceStringDescriptorArray[USB_DEVICE_STRING_COUNT] = {
     g_UsbDeviceString1,
     g_UsbDeviceString2,
     g_UsbDeviceString3,
+
 };
 
 usb_language_t g_UsbDeviceLanguage[USB_DEVICE_LANGUAGE_COUNT] = {{
@@ -467,7 +467,7 @@ usb_status_t USB_DeviceGetDescriptor(usb_device_handle handle,
                         break;
                     }
                 }
-                if (0xEE == descriptorIndex)
+                if (0xEEU == descriptorIndex)
                 {
                     *buffer = (uint8_t *)g_UsbDeviceOSString;
                     *length = sizeof(g_UsbDeviceOSString);
@@ -563,6 +563,5 @@ usb_status_t USB_DeviceSetSpeed(uint8_t speed)
         }
         descriptorHead = (usb_descriptor_union_t *)((uint8_t *)descriptorHead + descriptorHead->common.bLength);
     }
-
     return kStatus_USB_Success;
 }

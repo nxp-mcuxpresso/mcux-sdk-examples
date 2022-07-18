@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -35,6 +35,7 @@ static sd_io_voltage_t s_ioVoltage = {
 };
 #endif
 static sdmmchost_t s_host;
+GPIO_HANDLE_DEFINE(s_PowerResetGpioHandle);
 
 #ifdef SDIO_ENABLED
 static sdio_card_int_t s_sdioInt;
@@ -104,25 +105,24 @@ void BOARD_SDCardIoVoltageControl(sdmmc_operation_voltage_t voltage)
 
 void BOARD_SDCardPowerResetInit(void)
 {
-    /* workaround for calling GPIO_PortInit may reset the configuration already done for the port */
-    CLOCK_EnableClock(BOARD_SDMMC_SD_POWER_RESET_GPIO_CLOCK_NAME);
-    RESET_ClearPeripheralReset(BOARD_SDMMC_SD_POWER_RESET_GPIO_RESET_SOURCE);
-
-    GPIO_PinInit(BOARD_SDMMC_SD_POWER_RESET_GPIO_BASE, BOARD_SDMMC_SD_POWER_RESET_GPIO_PORT,
-                 BOARD_SDMMC_SD_POWER_RESET_GPIO_PIN, &(gpio_pin_config_t){kGPIO_DigitalOutput, 0});
+    hal_gpio_pin_config_t sw_config = {
+        kHAL_GpioDirectionOut,
+        0,
+        BOARD_SDMMC_SD_POWER_RESET_GPIO_PORT,
+        BOARD_SDMMC_SD_POWER_RESET_GPIO_PIN,
+    };
+    HAL_GpioInit(s_PowerResetGpioHandle, &sw_config);
 }
 
 void BOARD_SDCardPowerControl(bool enable)
 {
     if (enable)
     {
-        GPIO_PortSet(BOARD_SDMMC_SD_POWER_RESET_GPIO_BASE, BOARD_SDMMC_SD_POWER_RESET_GPIO_PORT,
-                     1U << BOARD_SDMMC_SD_POWER_RESET_GPIO_PIN);
+        HAL_GpioSetOutput(s_PowerResetGpioHandle, 1);
     }
     else
     {
-        GPIO_PortClear(BOARD_SDMMC_SD_POWER_RESET_GPIO_BASE, BOARD_SDMMC_SD_POWER_RESET_GPIO_PORT,
-                       1U << BOARD_SDMMC_SD_POWER_RESET_GPIO_PIN);
+        HAL_GpioSetOutput(s_PowerResetGpioHandle, 0);
     }
 }
 

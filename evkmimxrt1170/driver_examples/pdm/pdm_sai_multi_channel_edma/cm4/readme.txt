@@ -6,8 +6,8 @@ In this example, pdm gathers two channels' audio data though edma, then sai send
 
 Toolchain supported
 ===================
-- MCUXpresso  11.5.0
-- GCC ARM Embedded  10.2.1
+- MCUXpresso  11.6.0
+- GCC ARM Embedded  10.3.1
 
 Hardware requirements
 =====================
@@ -37,3 +37,4 @@ When the demo runs successfully, you can hear the sound from microphone(U40 and 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 PDM SAI multi channel edma example started!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+User can press the key SW7 to adjust the MIC output gain, the gain value will be looped in the rang 0-15.

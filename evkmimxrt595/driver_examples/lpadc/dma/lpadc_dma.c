@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2020 NXP
+ * Copyright 2018-2021 NXP
  * All rights reserved.
  *
  *
@@ -46,7 +46,8 @@ uint32_t g_AdcConvResult[1];                 /* Keep the ADC conversion resulut 
 dma_handle_t g_DmaHandleStruct;              /* Handler structure for using DMA. */
 volatile bool g_DmaTransferDoneFlag = false; /* Flag of DMA transfer done trigger by ADC conversion. */
 /* DMA descripter table used for ping-pong mode. */
-SDK_ALIGN(uint32_t s_dma_table[DMA_DESCRIPTOR_NUM * sizeof(dma_descriptor_t)], FSL_FEATURE_DMA_DESCRIPTOR_ALIGN_SIZE);
+SDK_ALIGN(uint32_t s_dma_table[DMA_DESCRIPTOR_NUM * sizeof(dma_descriptor_t)],
+          FSL_FEATURE_DMA_LINK_DESCRIPTOR_ALIGN_SIZE);
 const uint32_t g_XferConfig =
     DMA_CHANNEL_XFER(true,                          /* Reload link descriptor after current exhaust, */
                      true,                          /* Clear trigger status. */

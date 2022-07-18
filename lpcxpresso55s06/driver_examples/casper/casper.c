@@ -118,6 +118,8 @@ int main(void)
 
 #if CASPER_ECC_P256
 
+#define ECC_P256_WORDS 256U / 32U /* 256U/32U = 8 */
+
     CASPER_ecc_init(kCASPER_ECC_P256);
 
     PRINTF("Casper ECC Demo P256\r\n\r\n");
@@ -133,11 +135,11 @@ int main(void)
         {
             PRINTF("Round: %d\r\n", i);
 
-            uint32_t X1[8], Y1[8];
+            uint32_t X1[ECC_P256_WORDS], Y1[ECC_P256_WORDS];
             uint32_t *X3 = &test_ecmulans256[i][0];
-            uint32_t *Y3 = &test_ecmulans256[i][8];
+            uint32_t *Y3 = &test_ecmulans256[i][ECC_P256_WORDS];
 
-            CASPER_ECC_SECP256R1_Mul(CASPER, X1, Y1, &test_ecmulans256[0][0], &test_ecmulans256[0][8],
+            CASPER_ECC_SECP256R1_Mul(CASPER, X1, Y1, &test_ecmulans256[0][0], &test_ecmulans256[0][ECC_P256_WORDS],
                                      test_ecmulscalar256[i]);
             CASPER_ECC_equal(&m1, X1, X3);
             CASPER_ECC_equal(&m2, Y1, Y3);
@@ -148,7 +150,7 @@ int main(void)
         }
         if (errors != 0)
         {
-            PRINTF("Not all EC scalar multipication tests were successful.\r\n\r\n");
+            PRINTF("Not all EC scalar multiplication tests were successful.\r\n\r\n");
             PRINTF("%d / 8 tests failed.\n", errors);
         }
         else
@@ -164,16 +166,16 @@ int main(void)
         int m1, m2;
 
         int errors = 0;
-        uint32_t c3[256U / 32U], c4[256U / 32U];
+        uint32_t c3[ECC_P256_WORDS], c4[ECC_P256_WORDS];
         for (i = 0; i < 8; i++)
         {
             PRINTF("Round: %d\r\n", i);
             uint32_t *c1 = &test_ecddoublemul_result256[i][0];
-            uint32_t *c2 = &test_ecddoublemul_result256[i][256U / 32U];
-            CASPER_ECC_SECP256R1_MulAdd(CASPER, c3, c4, &test_ecddoublemul_base256[0][0],
-                                        &test_ecddoublemul_base256[0][256U / 32U], &test_ecddoublemul_scalars256[i][0],
-                                        &test_ecddoublemul_base256[1][0], &test_ecddoublemul_base256[1][256U / 32U],
-                                        &test_ecddoublemul_scalars256[i][256U / 32U]);
+            uint32_t *c2 = &test_ecddoublemul_result256[i][ECC_P256_WORDS];
+            CASPER_ECC_SECP256R1_MulAdd(
+                CASPER, c3, c4, &test_ecddoublemul_base256[0][0], &test_ecddoublemul_base256[0][ECC_P256_WORDS],
+                &test_ecddoublemul_scalars256[i][0], &test_ecddoublemul_base256[1][0],
+                &test_ecddoublemul_base256[1][ECC_P256_WORDS], &test_ecddoublemul_scalars256[i][ECC_P256_WORDS]);
 
             CASPER_ECC_equal(&m1, c1, c3);
             CASPER_ECC_equal(&m2, c2, c4);
@@ -184,7 +186,7 @@ int main(void)
         }
         if (errors != 0)
         {
-            PRINTF("Not all EC double scalar multipication tests were successful.\r\n\r\n");
+            PRINTF("Not all EC double scalar multiplication tests were successful.\r\n\r\n");
             PRINTF("%d / 8 tests failed.\n", errors);
         }
         else
@@ -197,6 +199,8 @@ int main(void)
 #endif /* CASPER_ECC_P256 */
 
 #if CASPER_ECC_P384
+
+#define ECC_P384_WORDS 384 / 32U /* 384U/32U = 12 */
 
     PRINTF("Casper ECC Demo P384\r\n\r\n");
 
@@ -213,11 +217,11 @@ int main(void)
         {
             PRINTF("Round: %d\r\n", i);
 
-            uint32_t X1[12], Y1[12];
+            uint32_t X1[ECC_P384_WORDS], Y1[ECC_P384_WORDS];
             uint32_t *X3 = &test_ecmulans384[i][0];
-            uint32_t *Y3 = &test_ecmulans384[i][12];
+            uint32_t *Y3 = &test_ecmulans384[i][ECC_P384_WORDS];
 
-            CASPER_ECC_SECP384R1_Mul(CASPER, X1, Y1, &test_ecmulans384[0][0], &test_ecmulans384[0][12],
+            CASPER_ECC_SECP384R1_Mul(CASPER, X1, Y1, &test_ecmulans384[0][0], &test_ecmulans384[0][ECC_P384_WORDS],
                                      test_ecmulscalar384[i]);
             CASPER_ECC_equal(&m1, X1, X3);
             CASPER_ECC_equal(&m2, Y1, Y3);
@@ -228,7 +232,7 @@ int main(void)
         }
         if (errors != 0)
         {
-            PRINTF("Not all EC scalar multipication tests were successful.\r\n");
+            PRINTF("Not all EC scalar multiplication tests were successful.\r\n");
             PRINTF("%d / 8 tests failed.\r\n", errors);
         }
         else
@@ -244,16 +248,16 @@ int main(void)
         int m1, m2;
 
         int errors = 0;
-        uint32_t c3[384U / 32U], c4[384U / 32U];
+        uint32_t c3[ECC_P384_WORDS], c4[ECC_P384_WORDS];
         for (i = 0; i < 8; i++)
         {
             PRINTF("Round: %d\r\n", i);
             uint32_t *c1 = &test_ecddoublemul_result384[i][0];
-            uint32_t *c2 = &test_ecddoublemul_result384[i][384U / 32U];
-            CASPER_ECC_SECP384R1_MulAdd(CASPER, c3, c4, &test_ecddoublemul_base384[0][0],
-                                        &test_ecddoublemul_base384[0][384U / 32U], &test_ecddoublemul_scalars384[i][0],
-                                        &test_ecddoublemul_base384[1][0], &test_ecddoublemul_base384[1][384U / 32U],
-                                        &test_ecddoublemul_scalars384[i][384U / 32U]);
+            uint32_t *c2 = &test_ecddoublemul_result384[i][ECC_P384_WORDS];
+            CASPER_ECC_SECP384R1_MulAdd(
+                CASPER, c3, c4, &test_ecddoublemul_base384[0][0], &test_ecddoublemul_base384[0][ECC_P384_WORDS],
+                &test_ecddoublemul_scalars384[i][0], &test_ecddoublemul_base384[1][0],
+                &test_ecddoublemul_base384[1][ECC_P384_WORDS], &test_ecddoublemul_scalars384[i][ECC_P384_WORDS]);
             CASPER_ECC_equal(&m1, c3, c1);
             CASPER_ECC_equal(&m2, c4, c2);
             if (m1 != 0 || m2 != 0)
@@ -263,7 +267,7 @@ int main(void)
         }
         if (errors != 0)
         {
-            PRINTF("Not all EC double scalar multipication tests were successful.\r\n\r\n");
+            PRINTF("Not all EC double scalar multiplication tests were successful.\r\n\r\n");
             PRINTF("%d / 8 tests failed.\r\n", errors);
         }
         else
@@ -276,6 +280,8 @@ int main(void)
 #endif /* CASPER_ECC_P384 */
 
 #if CASPER_ECC_P521
+
+#define ECC_P521_WORDS 576 / 32U /* 576U/32U = 18 */
 
     PRINTF("Casper ECC Demo P521\r\n\r\n");
 
@@ -293,11 +299,11 @@ int main(void)
         {
             PRINTF("Round: %d\r\n", i);
 
-            uint32_t X1[18], Y1[18];
+            uint32_t X1[ECC_P521_WORDS], Y1[ECC_P521_WORDS];
             uint32_t *X3 = &test_ecmulans521[i][0];
-            uint32_t *Y3 = &test_ecmulans521[i][18];
+            uint32_t *Y3 = &test_ecmulans521[i][ECC_P521_WORDS];
 
-            CASPER_ECC_SECP521R1_Mul(CASPER, X1, Y1, &test_ecmulans521[0][0], &test_ecmulans521[0][18],
+            CASPER_ECC_SECP521R1_Mul(CASPER, X1, Y1, &test_ecmulans521[0][0], &test_ecmulans521[0][ECC_P521_WORDS],
                                      test_ecmulscalar521[i]);
             CASPER_ECC_equal(&m1, X1, X3);
             CASPER_ECC_equal(&m2, Y1, Y3);
@@ -308,7 +314,7 @@ int main(void)
         }
         if (errors != 0)
         {
-            PRINTF("Not all EC scalar multipication tests were successful.\r\n");
+            PRINTF("Not all EC scalar multiplication tests were successful.\r\n");
             PRINTF("%d / 8 tests failed.\n", errors);
         }
         else
@@ -325,16 +331,16 @@ int main(void)
         int m1, m2;
 
         int errors = 0;
-        uint32_t c3[18], c4[18];
+        uint32_t c3[ECC_P521_WORDS], c4[ECC_P521_WORDS];
         for (i = 0; i < 8; i++)
         {
             PRINTF("Round: %d\r\n", i);
             uint32_t *c1 = &test_ecddoublemul_result521[i][0];
-            uint32_t *c2 = &test_ecddoublemul_result521[i][18];
-            CASPER_ECC_SECP521R1_MulAdd(CASPER, c3, c4, &test_ecddoublemul_base521[0][0],
-                                        &test_ecddoublemul_base521[0][18], &test_ecddoublemul_scalars521[i][0],
-                                        &test_ecddoublemul_base521[1][0], &test_ecddoublemul_base521[1][18],
-                                        &test_ecddoublemul_scalars521[i][18]);
+            uint32_t *c2 = &test_ecddoublemul_result521[i][ECC_P521_WORDS];
+            CASPER_ECC_SECP521R1_MulAdd(
+                CASPER, c3, c4, &test_ecddoublemul_base521[0][0], &test_ecddoublemul_base521[0][ECC_P521_WORDS],
+                &test_ecddoublemul_scalars521[i][0], &test_ecddoublemul_base521[1][0],
+                &test_ecddoublemul_base521[1][ECC_P521_WORDS], &test_ecddoublemul_scalars521[i][ECC_P521_WORDS]);
 
             CASPER_ECC_equal(&m1, c1, c3);
             CASPER_ECC_equal(&m2, c2, c4);
@@ -345,7 +351,7 @@ int main(void)
         }
         if (errors != 0)
         {
-            PRINTF("Not all EC double scalar multipication tests were successful.\r\n");
+            PRINTF("Not all EC double scalar multiplication tests were successful.\r\n");
             PRINTF("%d / 8 tests failed.\n", errors);
         }
         else

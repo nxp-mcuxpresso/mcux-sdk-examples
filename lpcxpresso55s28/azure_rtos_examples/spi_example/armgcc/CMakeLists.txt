@@ -111,7 +111,7 @@ include(driver_lpc_gpio)
 
 include(utility_assert)
 
-include(component_osa_bm)
+include(component_osa_thread)
 
 include(middleware_azure_rtos_tx_template_LPC55S28)
 
@@ -119,7 +119,7 @@ include(driver_reset)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC55S28)
 
 include(device_system)
 

@@ -51,7 +51,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/demo_info.cpp"
 "${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/label_image/image_data.h"
 "${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/label_image/labels.h"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/label_image/model_mobilenet_ops_micro.cpp"
+"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/model_all_ops_micro.cpp"
 "${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/model.cpp"
 "${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/image/main.cpp"
 "${ProjDirPath}/../pin_mux.c"
@@ -164,7 +164,7 @@ include(middleware_eiq_tensorflow_lite_micro_third_party_gemmlowp)
 
 include(middleware_eiq_tensorflow_lite_micro_third_party_ruy)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1064)
 
 include(device_system)
 

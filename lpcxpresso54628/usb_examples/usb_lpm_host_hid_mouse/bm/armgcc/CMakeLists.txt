@@ -129,7 +129,7 @@ include(middleware_usb_common_header)
 
 include(driver_pint)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC54628)
 
 include(device_system)
 

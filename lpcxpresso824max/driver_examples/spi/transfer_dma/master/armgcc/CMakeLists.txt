@@ -98,7 +98,7 @@ include(driver_reset)
 
 include(driver_inputmux_connections)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC824)
 
 include(driver_swm_connections)
 

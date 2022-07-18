@@ -208,7 +208,7 @@ static usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event,
             }
             break;
         case kUSB_DeviceEventSetInterface:
-            if (g_UsbDeviceDfu.attach)
+            if (0U != g_UsbDeviceDfu.attach)
             {
                 /* Set device interface request */
                 uint8_t interface        = (uint8_t)((*temp16 & 0xFF00U) >> 0x08U);
@@ -224,7 +224,7 @@ static usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event,
             }
             break;
         case kUSB_DeviceEventGetConfiguration:
-            if (param)
+            if (NULL != param)
             {
                 /* Get current configuration request */
                 *temp8 = g_UsbDeviceDfu.currentConfiguration;
@@ -232,7 +232,7 @@ static usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event,
             }
             break;
         case kUSB_DeviceEventGetInterface:
-            if (param)
+            if (NULL != param)
             {
                 /* Get current alternate setting of the interface request */
                 uint8_t interface = (uint8_t)((*temp16 & 0xFF00U) >> 0x08U);
@@ -244,14 +244,14 @@ static usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event,
             }
             break;
         case kUSB_DeviceEventGetDeviceDescriptor:
-            if (param)
+            if (NULL != param)
             {
                 /* Get device descriptor request */
                 error = USB_DeviceGetDeviceDescriptor(handle, (usb_device_get_device_descriptor_struct_t *)param);
             }
             break;
         case kUSB_DeviceEventGetConfigurationDescriptor:
-            if (param)
+            if (NULL != param)
             {
                 /* Get device configuration descriptor request */
                 error = USB_DeviceGetConfigurationDescriptor(handle,
@@ -259,7 +259,7 @@ static usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event,
             }
             break;
         case kUSB_DeviceEventGetStringDescriptor:
-            if (param)
+            if (NULL != param)
             {
                 /* Get device string descriptor request */
                 error = USB_DeviceGetStringDescriptor(handle, (usb_device_get_string_descriptor_struct_t *)param);
@@ -288,7 +288,7 @@ static void USB_DeviceApplicationInit(void)
 {
     USB_DeviceClockInit();
 #if (defined(FSL_FEATURE_SOC_SYSMPU_COUNT) && (FSL_FEATURE_SOC_SYSMPU_COUNT > 0U))
-    SYSMPU_Enable(SYSMPU, 0);
+    SYSMPU_Enable(SYSMPU, 0U);
 #endif /* FSL_FEATURE_SOC_SYSMPU_COUNT */
 
     /* Set dfu device to default state */
@@ -314,7 +314,7 @@ static void USB_DeviceApplicationInit(void)
 
     /* Start the device function */
     /*Add one delay here to make the DP pull down long enough to allow host to detect the previous disconnection.*/
-    SDK_DelayAtLeastUs(5000, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
+    SDK_DelayAtLeastUs(5000U, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
     USB_DeviceRun(g_UsbDeviceDfu.deviceHandle);
 }
 

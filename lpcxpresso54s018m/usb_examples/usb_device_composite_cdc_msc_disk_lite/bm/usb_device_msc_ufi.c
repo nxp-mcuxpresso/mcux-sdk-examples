@@ -313,7 +313,7 @@ usb_status_t USB_DeviceMscUfiRequestSenseCommand(usb_device_msc_struct_t *mscHan
     ufi                                        = &mscHandle->g_mscUfi;
     ufi->thirteenCase.deviceExpectedDataLength = USB_DEVICE_MSC_UFI_REQ_SENSE_DATA_LENGTH;
     ufi->thirteenCase.deviceExpectedDirection  = USB_IN;
-    ufi->thirteenCase.buffer                   = (uint8_t *)&ufi->requestSense;
+    ufi->thirteenCase.buffer                   = (uint8_t *)ufi->requestSense;
     ufi->thirteenCase.lbaSendRecvSelect        = 0;
     error                                      = USB_DeviceMscUfiThirteenCasesCheck(mscHandle);
 

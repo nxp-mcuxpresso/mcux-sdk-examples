@@ -15,10 +15,10 @@
 #include "clock_config.h"
 #include "board.h"
 #include "fsl_wwdt.h"
+
 #if !defined(FSL_FEATURE_WWDT_HAS_NO_PDCFG) || (!FSL_FEATURE_WWDT_HAS_NO_PDCFG)
 #include "fsl_power.h"
 #endif
-
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -99,13 +99,12 @@ int main(void)
     BOARD_InitPins();
     BOARD_BootClockRUN();
     BOARD_InitDebugConsole();
+#if !defined(FSL_FEATURE_WWDT_HAS_NO_PDCFG) || (!FSL_FEATURE_WWDT_HAS_NO_PDCFG)
+    POWER_DisablePD(kPDRUNCFG_PD_LPOSC);
+#endif
 
     /* Set Red LED to initially be high */
     APP_LED_INIT;
-
-#if !defined(FSL_FEATURE_WWDT_HAS_NO_PDCFG) || (!FSL_FEATURE_WWDT_HAS_NO_PDCFG)
-    POWER_DisablePD(kPDRUNCFG_PD_WDT_OSC);
-#endif
 
     /* Enable the WWDT time out to reset the CPU. */
     timeOutResetEnable = true;

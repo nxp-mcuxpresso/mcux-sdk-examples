@@ -102,10 +102,14 @@ int main(void)
     BOARD_InitPins();
     BOARD_BootClockFROHF96M();
 
-    CLOCK_SetClkDiv(kCLOCK_DivAhbClk, 2U, false);          /* Set AHBCLKDIV divider to value 2 */
-    CLOCK_SetClkDiv(kCLOCK_DivArmTrClkDiv, 2U, false);     /* Set ARMTRCLKDIV divider to value 2 */
+    CLOCK_SetClkDiv(kCLOCK_DivAhbClk, 2U, false);      /* Set AHBCLKDIV divider to value 2 */
+    CLOCK_SetClkDiv(kCLOCK_DivArmTrClkDiv, 2U, false); /* Set ARMTRCLKDIV divider to value 2 */
 
     BOARD_InitDebugConsole();
+#if !defined(DONT_ENABLE_FLASH_PREFETCH)
+    /* enable flash prefetch for better performance */
+    SYSCON->FMCCR |= SYSCON_FMCCR_PREFEN_MASK;
+#endif
     BOARD_InitKey();
     BOARD_InitDebugConsoleSWO(DEMO_DEBUG_CONSOLE_SWO_PORT, DEMO_DEBUG_CONSOLE_SWO_BAUDRATE);
 

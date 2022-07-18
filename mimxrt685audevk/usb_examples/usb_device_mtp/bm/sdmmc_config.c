@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -41,9 +41,13 @@ static sdmmchost_t s_host;
 static pca9420_handle_t pca9420Handle;
 #ifdef SDIO_ENABLED
 static sdio_card_int_t s_sdioInt;
-#endif /******************************************************************************* \
-        * Code                                                                          \
-        ******************************************************************************/
+#endif
+
+GPIO_HANDLE_DEFINE(s_PowerResetGpioHandle);
+/******************************************************************************* \
+* Code                                                                          \
+
+******************************************************************************/
 uint32_t BOARD_USDHC0ClockConfiguration(void)
 {
     /*Make sure USDHC ram buffer has power up*/
@@ -135,25 +139,29 @@ void BOARD_SDCardIoVoltageControl(sdmmc_operation_voltage_t voltage)
 
 void BOARD_SDCardPowerResetInit(void)
 {
+    hal_gpio_pin_config_t sw_config = {
+        kHAL_GpioDirectionOut,
+        0,
+        BOARD_SDMMC_SD_POWER_RESET_GPIO_PORT,
+        BOARD_SDMMC_SD_POWER_RESET_GPIO_PIN,
+    };
+
     /* workaround for calling GPIO_PortInit may reset the configuration already done for the port */
     CLOCK_EnableClock(BOARD_SDMMC_SD_POWER_RESET_GPIO_CLOCK_NAME);
     RESET_ClearPeripheralReset(BOARD_SDMMC_SD_POWER_RESET_GPIO_RESET_SOURCE);
 
-    GPIO_PinInit(BOARD_SDMMC_SD_POWER_RESET_GPIO_BASE, BOARD_SDMMC_SD_POWER_RESET_GPIO_PORT,
-                 BOARD_SDMMC_SD_POWER_RESET_GPIO_PIN, &(gpio_pin_config_t){kGPIO_DigitalOutput, 0});
+    HAL_GpioInit(s_PowerResetGpioHandle, &sw_config);
 }
 
 void BOARD_SDCardPowerControl(bool enable)
 {
     if (enable)
     {
-        GPIO_PortSet(BOARD_SDMMC_SD_POWER_RESET_GPIO_BASE, BOARD_SDMMC_SD_POWER_RESET_GPIO_PORT,
-                     1 << BOARD_SDMMC_SD_POWER_RESET_GPIO_PIN);
+        HAL_GpioSetOutput(s_PowerResetGpioHandle, 1);
     }
     else
     {
-        GPIO_PortClear(BOARD_SDMMC_SD_POWER_RESET_GPIO_BASE, BOARD_SDMMC_SD_POWER_RESET_GPIO_PORT,
-                       1 << BOARD_SDMMC_SD_POWER_RESET_GPIO_PIN);
+        HAL_GpioSetOutput(s_PowerResetGpioHandle, 0);
     }
 }
 #endif

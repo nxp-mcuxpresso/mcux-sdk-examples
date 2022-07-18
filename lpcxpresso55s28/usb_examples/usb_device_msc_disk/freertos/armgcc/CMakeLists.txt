@@ -148,7 +148,7 @@ include(middleware_sdmmc_osa_freertos)
 
 include(component_osa_free_rtos)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC55S28)
 
 include(device_system)
 

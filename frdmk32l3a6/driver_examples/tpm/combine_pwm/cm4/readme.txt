@@ -9,8 +9,8 @@ And if the board do not support LEDs to show, the outputs can be observed by osc
 
 Toolchain supported
 ===================
-- MCUXpresso  11.5.0
-- GCC ARM Embedded  10.2.1
+- MCUXpresso  11.6.0
+- GCC ARM Embedded  10.3.1
 
 Hardware requirements
 =====================

@@ -54,7 +54,7 @@ uint32_t get_seed(void)
     }
 
     CAAM_RNG_GetRandomData(CAAM, &caam_handle, kCAAM_RngStateHandle0,
-                &random_val, 4, kCAAM_RngDataAny, NULL);
+                (uint8_t *)&random_val, 4, kCAAM_RngDataAny, NULL);
 
     return random_val;
 }

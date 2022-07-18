@@ -8,8 +8,8 @@ Example will first erase the sector and program a page into the flash, at last c
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.5.0
+- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.6.0
 
 Hardware requirements
 =====================
@@ -44,3 +44,6 @@ Erasing Serial NOR over FlexSPI...
 Erase data - successfully.
 Program data - successfully.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Note: 
+1, this example do erase/program/read operations in external quad flash(IS25LP064A) and its image loads to internal flash(W25Q32JV) for flash target.

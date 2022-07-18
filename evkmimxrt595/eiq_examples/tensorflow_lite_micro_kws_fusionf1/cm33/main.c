@@ -82,7 +82,9 @@ int main(void)
 
     if (CODEC_Init(&s_codecHandle, &s_boardCodecConfig) != kStatus_Success)
     {
-        assert(false);
+        printf("Error: Could not initialize audio codec! Please, reconnect the board power supply.\r\n");
+        for (;;)
+            ;
     }
 
     /* Initial volume kept low for hearing safety.
@@ -91,7 +93,7 @@ int main(void)
     if (CODEC_SetVolume(&s_codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight, 32U) !=
         kStatus_Success)
     {
-        assert(false);
+        printf("Warning: Could not set volume!\r\n");
     }
 
     /* Print the initial banner */

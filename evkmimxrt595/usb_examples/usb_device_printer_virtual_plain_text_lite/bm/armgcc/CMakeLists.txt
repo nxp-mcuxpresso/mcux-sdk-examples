@@ -117,7 +117,7 @@ include(CMSIS_Include_core_cm)
 
 include(middleware_usb_device_common_header)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT595S_cm33)
 
 include(driver_iap)
 

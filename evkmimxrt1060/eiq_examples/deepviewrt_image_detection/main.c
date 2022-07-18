@@ -186,9 +186,7 @@ int main(void)
      * Initialize the SysTick to fire every milliseconds.  If this is adjusted the os_clock_now()
      * must also be adjusted accordingly to continue reporting nanoseconds.
      */
-    if(SysTick_Config(SystemCoreClock / 1000U)) {
-        while(1) {}
-    }
+    SysTick_Config(SystemCoreClock / 1000U);
 
     PRINTF("==========================================================================\r\n");
     PRINTF("                  DeepviewRT Image Detection Demo\r\n");
@@ -283,7 +281,7 @@ int main(void)
     float threshold = 0.5, nms_threshold=0.6;
     NNTensor *input=NULL, *anchor=NULL, *trans_tensor=NULL, *score_tensor=NULL;
     NNTensor *prediction_tensor=NULL;
-    int class_num = 0, bbx_num = 0, max_boxes = 50;
+    int class_num = 0, max_boxes = 50;
 
     if(SSD_MODEL_VERSION==0) {
         input = nn_context_tensor(context, "Preprocessor/sub");
@@ -312,7 +310,6 @@ int main(void)
         }
 
         const int32_t* score_tensor_shape = nn_tensor_shape(score_tensor);
-        bbx_num = score_tensor_shape[1];
         class_num = score_tensor_shape[2];
     } else {
 
@@ -335,7 +332,6 @@ int main(void)
         }
 
         const int32_t* prediction_tensor_shape = nn_tensor_shape(prediction_tensor);
-        bbx_num = prediction_tensor_shape[1];
         class_num = prediction_tensor_shape[2] - 4;
     }
 
@@ -348,13 +344,17 @@ int main(void)
 
     char      bbx_out_tensor_mem[NN_TENSOR_SIZEOF];
     NNTensor* bbx_out_tensor = nn_tensor_init(bbx_out_tensor_mem, engine);
-    float*    data_bbx_out =
-        (float*) calloc(4 * max_boxes * class_num,
-                        sizeof(float));
+    float*    data_bbx_out = NULL;
     int32_t shape_bbx_out[4];
     shape_bbx_out[0] = class_num;
     shape_bbx_out[1] = max_boxes;
     shape_bbx_out[2] = 4;
+
+    data_bbx_out = (float*) calloc(4 * max_boxes * class_num, sizeof(float));
+    if (data_bbx_out == NULL) {
+        PRINTF("failed to calloc data_bbx_out");
+        return EXIT_FAILURE;
+    }
 
     err = nn_tensor_assign(bbx_out_tensor,
                            NNTensorType_F32,
@@ -368,6 +368,12 @@ int main(void)
     char bbx_out_dim_tensor_mem[NN_TENSOR_SIZEOF];
     NNTensor* bbx_out_dim_tensor = nn_tensor_init(bbx_out_dim_tensor_mem, engine);
     int32_t* data_bbx_out_dim = (int32_t*) calloc(class_num, sizeof(int32_t));
+    if (data_bbx_out_dim == NULL) {
+        PRINTF("failed to calloc data_bbx_out_dim");
+        free(data_bbx_out);
+        return EXIT_FAILURE;
+    }
+
     int32_t shape_bbx_out_dim[2];
     shape_bbx_out_dim[0] = class_num;
     shape_bbx_out_dim[1] = 1;
@@ -384,6 +390,12 @@ int main(void)
     NNTensor* postprocess_cache_tensor   = nn_tensor_init(cache_tensor_mem, engine);
     int32_t   max_cache_size = 1024 * 1024;
     float*    data_cache     = (float*) calloc(max_cache_size, sizeof(float));
+    if (data_cache == NULL) {
+        PRINTF("failed to calloc data_cache");
+        free(data_bbx_out);
+        free(data_bbx_out_dim);
+        return EXIT_FAILURE;
+    }
 
     int32_t shape_cache[4];
     shape_cache[0] = 1;
@@ -404,7 +416,6 @@ int main(void)
     NNTensor *output = nn_context_tensor_index(context, output_index);
     if (!output) {
         PRINTF("[ERROR] failed to retrieve output tensor\r\n");
-        return EXIT_FAILURE;
     }
 
     for(int count = 0; count < 10; count++)
@@ -519,5 +530,8 @@ int main(void)
         PRINTF("%d: %s [%d ms] %s\r\n", i, type, tensor_ms, name);
     }
 #endif
+    free(data_bbx_out);
+    free(data_bbx_out_dim);
+    free(data_cache);
     return 0;
 }

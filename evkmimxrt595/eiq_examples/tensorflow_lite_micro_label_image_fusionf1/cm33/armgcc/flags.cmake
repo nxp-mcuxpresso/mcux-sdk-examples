@@ -3,19 +3,10 @@ SET(CMAKE_ASM_FLAGS_FLASH_DEBUG " \
     -DDEBUG \
     -D__STARTUP_CLEAR_BSS \
     -DDSP_IMAGE_COPY_TO_RAM=1 \
-    -g \
     -mcpu=cortex-m33 \
-    -Wall \
     -mfloat-abi=hard \
     -mfpu=fpv5-sp-d16 \
     -mthumb \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
 ")
 SET(CMAKE_ASM_FLAGS_FLASH_RELEASE " \
     ${CMAKE_ASM_FLAGS_FLASH_RELEASE} \
@@ -23,17 +14,9 @@ SET(CMAKE_ASM_FLAGS_FLASH_RELEASE " \
     -D__STARTUP_CLEAR_BSS \
     -DDSP_IMAGE_COPY_TO_RAM=1 \
     -mcpu=cortex-m33 \
-    -Wall \
     -mfloat-abi=hard \
     -mfpu=fpv5-sp-d16 \
     -mthumb \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
 ")
 SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     ${CMAKE_C_FLAGS_FLASH_DEBUG} \

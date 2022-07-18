@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020,2022 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -29,7 +29,7 @@
 #define NX_DISABLE_RX_SIZE_CHECKING
 #define NX_DISABLE_ARP_INFO
 #define NX_DISABLE_IP_INFO
-#define NX_DISABLE_ICMP_INFO
+//#define NX_DISABLE_ICMP_INFO
 #define NX_DISABLE_IGMPV2
 #define NX_DISABLE_IGMP_INFO
 #define NX_DISABLE_PACKET_INFO

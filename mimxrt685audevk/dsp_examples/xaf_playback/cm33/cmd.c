@@ -28,8 +28,8 @@
 #endif
 /* Enable Vorbis decoder*/
 #if XA_VORBIS_DECODER
-#include "i9_vor.h"
-#include "i9_trim_pcm.h"
+#include "hihat_vor.h"
+#include "hihat_pcm.h"
 #include "hihat.ogg.h"
 #include "hihat_vorbis_dec_out_trim.pcm.h"
 #endif

@@ -126,7 +126,7 @@ include(middleware_usb_host_common_header)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC55S16)
 
 include(device_system)
 

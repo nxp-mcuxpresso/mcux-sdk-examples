@@ -220,7 +220,7 @@ usb_status_t USB_DeviceCdcAcmBulkIn(usb_device_handle handle,
 {
     usb_status_t error = kStatus_USB_Error;
 
-    if ((message->length != 0) && (!(message->length % s_usbBulkMaxPacketSize)))
+    if ((message->length != 0) && (0U == (message->length % s_usbBulkMaxPacketSize)))
     {
         /* If the last packet is the size of endpoint, then send also zero-ended packet,
          ** meaning that we want to inform the host that we do not have any additional
@@ -228,9 +228,9 @@ usb_status_t USB_DeviceCdcAcmBulkIn(usb_device_handle handle,
          */
         error = USB_DeviceSendRequest(handle, USB_CDC_VCOM_BULK_IN_ENDPOINT, NULL, 0);
     }
-    else if ((1 == s_cdcVcom.attach) && (1 == s_cdcVcom.startTransactions))
+    else if ((1U == s_cdcVcom.attach) && (1U == s_cdcVcom.startTransactions))
     {
-        if ((message->buffer != NULL) || ((message->buffer == NULL) && (message->length == 0)))
+        if ((message->buffer != NULL) || ((message->buffer == NULL) && (message->length == 0U)))
         {
             /* User: add your own code for send complete event */
             /* Schedule buffer for next receive event */
@@ -267,7 +267,7 @@ usb_status_t USB_DeviceCdcAcmBulkOut(usb_device_handle handle,
 {
     usb_status_t error = kStatus_USB_Error;
 
-    if ((1 == s_cdcVcom.attach) && (1 == s_cdcVcom.startTransactions))
+    if ((1U == s_cdcVcom.attach) && (1U == s_cdcVcom.startTransactions))
     {
         s_recvSize = message->length;
         error      = kStatus_USB_Success;
@@ -278,7 +278,7 @@ usb_status_t USB_DeviceCdcAcmBulkOut(usb_device_handle handle,
         s_waitForDataReceive = 0;
         USB0->INTEN |= USB_INTEN_SOFTOKEN_MASK;
 #endif
-        if (!s_recvSize)
+        if (0U == s_recvSize)
         {
             /* Schedule buffer for next receive event */
             USB_DeviceRecvRequest(handle, USB_CDC_VCOM_BULK_OUT_ENDPOINT, s_currRecvBuf, s_usbBulkMaxPacketSize);
@@ -499,7 +499,7 @@ usb_status_t USB_DeviceProcessClassRequest(usb_device_handle handle,
 #if ((defined USB_DEVICE_CONFIG_CDC_CIC_EP_DISABLE) && (USB_DEVICE_CONFIG_CDC_CIC_EP_DISABLE > 0U))
 #else
                 len = (uint32_t)(NOTIF_PACKET_SIZE + UART_BITMAP_SIZE);
-                if (0 == s_cdcVcom.hasSentState)
+                if (0U == s_cdcVcom.hasSentState)
                 {
                     error =
                         USB_DeviceSendRequest(handle, USB_CDC_VCOM_INTERRUPT_IN_ENDPOINT, acmInfo->serialStateBuf, len);
@@ -520,7 +520,7 @@ usb_status_t USB_DeviceProcessClassRequest(usb_device_handle handle,
                     /* To do: CARRIER_DEACTIVATED */
                 }
 
-                if (1 == s_cdcVcom.attach)
+                if (1U == s_cdcVcom.attach)
                 {
                     s_cdcVcom.startTransactions = 1;
 #if defined(FSL_FEATURE_USB_KHCI_KEEP_ALIVE_ENABLED) && (FSL_FEATURE_USB_KHCI_KEEP_ALIVE_ENABLED > 0U) && \
@@ -707,6 +707,16 @@ usb_status_t USB_DeviceConfigureEndpointStatus(usb_device_handle handle, uint8_t
     }
 }
 
+static void CDC_VCOM_BMEnterCritical(uint32_t *sr)
+{
+    *sr = DisableGlobalIRQ();
+}
+
+static void CDC_VCOM_BMExitCritical(uint32_t sr)
+{
+    EnableGlobalIRQ(sr);
+}
+
 /*!
  * @brief Application initialization function.
  *
@@ -752,23 +762,30 @@ void APPInit(void)
 void APP_task(void)
 {
     usb_status_t error = kStatus_USB_Error;
-    if ((1 == s_cdcVcom.attach) && (1 == s_cdcVcom.startTransactions))
-    {
-        /* User Code */
-        /* endpoint callback length is USB_CANCELLED_TRANSFER_LENGTH (0xFFFFFFFFU) when transfer is canceled */
-        if ((0 != s_recvSize) && (USB_CANCELLED_TRANSFER_LENGTH != s_recvSize))
-        {
-            int32_t i;
+    uint32_t usbOsaCurrentSr;
 
-            /* Copy Buffer to Send Buff */
-            for (i = 0; i < s_recvSize; i++)
+    if ((1U == s_cdcVcom.attach) && (1U == s_cdcVcom.startTransactions))
+    {
+        /* Enter critical can not be added here because of the loop */
+        /* endpoint callback length is USB_CANCELLED_TRANSFER_LENGTH (0xFFFFFFFFU) when transfer is canceled */
+        if ((0U != s_recvSize) && (USB_CANCELLED_TRANSFER_LENGTH != s_recvSize))
+        {
+            /* The operating timing sequence has guaranteed there is no conflict to access the s_recvSize between USB
+               ISR and this task. Therefore, the following code of Enter/Exit ctitical mode is useless,
+               only to mention users the exclusive access of s_recvSize if users implement their own
+               application referred to this SDK demo */
+            CDC_VCOM_BMEnterCritical(&usbOsaCurrentSr);
+            if ((0U != s_recvSize) && (USB_CANCELLED_TRANSFER_LENGTH != s_recvSize))
             {
-                s_currSendBuf[s_sendSize++] = s_currRecvBuf[i];
+                /* Copy Buffer to Send Buff */
+                memcpy(s_currSendBuf, s_currRecvBuf, s_recvSize);
+                s_sendSize = s_recvSize;
+                s_recvSize = 0;
             }
-            s_recvSize = 0;
+            CDC_VCOM_BMExitCritical(usbOsaCurrentSr);
         }
 
-        if (s_sendSize)
+        if (0U != s_sendSize)
         {
             uint32_t size = s_sendSize;
             s_sendSize    = 0;
@@ -785,7 +802,7 @@ void APP_task(void)
     defined(FSL_FEATURE_USB_KHCI_USB_RAM) && (FSL_FEATURE_USB_KHCI_USB_RAM > 0U)
         if ((s_waitForDataReceive))
         {
-            if (s_comOpen == 1)
+            if (s_comOpen == 1U)
             {
                 /* Wait for all the packets been sent during opening the com port. Otherwise these packets may
                  * wake up the system.

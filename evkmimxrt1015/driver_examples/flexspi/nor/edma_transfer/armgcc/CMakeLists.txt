@@ -104,7 +104,7 @@ include(driver_edma_MIMXRT1015)
 
 include(driver_dmamux)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1015)
 
 include(device_system)
 

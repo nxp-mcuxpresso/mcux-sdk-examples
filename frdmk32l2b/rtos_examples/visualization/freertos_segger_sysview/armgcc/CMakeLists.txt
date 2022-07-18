@@ -116,7 +116,7 @@ include(middleware_freertos-kernel_K32L2B31A)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_K32L2B31A)
 
 include(device_system)
 

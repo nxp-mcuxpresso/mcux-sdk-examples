@@ -148,7 +148,7 @@ include(middleware_freertos-kernel_extension)
 
 include(middleware_freertos-kernel_heap_4)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMX8MN6)
 
 include(device_system)
 

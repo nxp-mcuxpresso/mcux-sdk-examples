@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2019 NXP
+ * Copyright 2016-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -10,6 +10,8 @@
 #include "fsl_debug_console.h"
 #include "fsl_enet_qos.h"
 #include "fsl_phy.h"
+#include "fsl_silicon_id.h"
+#include "fsl_cache.h"
 
 #include "pin_mux.h"
 #include "board.h"
@@ -34,6 +36,7 @@
 #define ENET_QOS_EXAMPLE_SEND_COUNT     (20U)
 #define ENET_QOS_PTP_SYNC_MSG           (0x00U)
 
+#if defined(FSL_ETH_ENABLE_CACHE_CONTROL)
 #ifndef FSL_FEATURE_L2CACHE_LINESIZE_BYTE
 #define FSL_FEATURE_L2CACHE_LINESIZE_BYTE 0
 #endif
@@ -46,6 +49,9 @@
 #else
 #define EXAMPLE_CACHE_LINE_SIZE FSL_FEATURE_L1DCACHE_LINESIZE_BYTE
 #endif
+#else                             /* No FSL_ETH_ENABLE_CACHE_CONTROL defined */
+#define EXAMPLE_CACHE_LINE_SIZE 1 /*!< No need to align cache line size */
+#endif                            /* FSL_ETH_ENABLE_CACHE_CONTROL */
 
 #ifndef PHY_AUTONEGO_TIMEOUT_COUNT
 #define PHY_AUTONEGO_TIMEOUT_COUNT (800000U)
@@ -57,11 +63,19 @@
 /* @TEST_ANCHOR */
 
 #ifndef MAC_ADDRESS
-#define MAC_ADDRESS {0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60}
+#define MAC_ADDRESS                        \
+    {                                      \
+        0x54, 0x27, 0x8d, 0x00, 0x00, 0x00 \
+    }
+#else
+#define USER_DEFINED_MAC_ADDRESS
 #endif
 
 #ifndef MAC_ADDRESS2
-#define MAC_ADDRESS2 {0x01, 0x00, 0x5e, 0x00, 0x01, 0x81}
+#define MAC_ADDRESS2                       \
+    {                                      \
+        0x01, 0x00, 0x5e, 0x00, 0x01, 0x81 \
+    }
 #endif
 /*******************************************************************************
  * Prototypes
@@ -188,7 +202,7 @@ int main(void)
     uint32_t rxbuffer[ENET_QOS_RXBD_NUM];
     uint8_t index;
     void *buff;
-    uint32_t refClock = ENET_PTP_REF_CLK; /* PTP REF clock. */
+    uint32_t refClock; /* PTP REF clock. */
     phy_speed_t speed;
     phy_duplex_t duplex;
     uint32_t length = 0;
@@ -315,12 +329,18 @@ int main(void)
     }
     config.miiDuplex = (enet_qos_mii_duplex_t)duplex;
 
+#ifndef USER_DEFINED_MAC_ADDRESS
+    /* Set special address for each chip. */
+    SILICONID_ConvertToMacAddr(&g_macAddr);
+#endif
+
     /* Initialize ENET. */
     /* Shoule enable the multicast receive and enable the store and forward
      * to make the timestamp is always updated correclty in the descriptors. */
     config.specialControl        = kENET_QOS_HashMulticastEnable | kENET_QOS_StoreAndForward;
     config.csrClock_Hz           = CORE_CLK_FREQ;
     ptpConfig.tsRollover         = kENET_QOS_DigitalRollover;
+    refClock                     = ENET_PTP_REF_CLK;
     ptpConfig.systemTimeClock_Hz = refClock;
     config.ptpConfig             = &ptpConfig;
     ENET_QOS_Init(EXAMPLE_ENET_QOS_BASE, &config, &g_macAddr[0], 1, refClock);

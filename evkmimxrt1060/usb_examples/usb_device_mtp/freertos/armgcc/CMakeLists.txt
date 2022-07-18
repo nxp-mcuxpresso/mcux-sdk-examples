@@ -103,6 +103,8 @@ include(middleware_fatfs)
 
 include(middleware_fatfs_sd)
 
+include(component_igpio_adapter)
+
 include(middleware_freertos-kernel_heap_4)
 
 include(middleware_freertos-kernel_MIMXRT1062)
@@ -155,7 +157,7 @@ include(middleware_freertos-kernel_extension)
 
 include(driver_usdhc)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1062)
 
 include(device_system)
 

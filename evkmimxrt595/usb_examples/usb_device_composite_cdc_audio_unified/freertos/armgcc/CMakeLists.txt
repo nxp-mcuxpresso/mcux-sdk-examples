@@ -169,7 +169,7 @@ include(middleware_freertos-kernel_MIMXRT595S_cm33)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT595S_cm33)
 
 include(driver_iap)
 

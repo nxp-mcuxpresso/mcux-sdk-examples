@@ -10,19 +10,20 @@ Start the spi_b2b_example_slave example first, then start the spi_b2b_example_ma
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.5.0
+- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.6.0
 
 Hardware requirements
 =====================
 - Mini/micro USB cable
-- MIMXRT1060-EVKB board
+- Two MIMXRT1060-EVKB boards
 - Personal Computer
 - 5-pin flat cable
 
 Board settings
 ==============
-Weld 0Ω resistor to R278,R279,R280,R281.
+Remove the resistor R347,R348,R349,R351,R363,R364,R365.
+Weld 0Ω resistor to R346,R350,R356,R362.
 
 SPI1 pins are connected with SPI1 pins of another board
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -30,9 +30,9 @@
 #define DEMO_PDM_CIC_OVERSAMPLE_RATE  (0U)
 #define DEMO_PDM_ENABLE_CHANNEL_LEFT  (0U)
 #define DEMO_PDM_ENABLE_CHANNEL_RIGHT (1U)
-#define DEMO_PDM_SAMPLE_CLOCK_RATE    (6144000U) /* 6.144MHZ */
+#define DEMO_PDM_SAMPLE_CLOCK_RATE    (2048000U) /* 2.048MHZ */
 /* demo audio sample rate */
-#define DEMO_AUDIO_SAMPLE_RATE (kSAI_SampleRate48KHz)
+#define DEMO_AUDIO_SAMPLE_RATE (kSAI_SampleRate16KHz)
 /* demo audio master clock */
 #define DEMO_AUDIO_MASTER_CLOCK DEMO_SAI_CLK_FREQ
 /* demo audio data channel */
@@ -71,7 +71,11 @@ static pdm_channel_config_t channelConfig = {
 #else
     .cutOffFreq = kPDM_DcRemoverCutOff152Hz,
 #endif
-    .gain = kPDM_DfOutputGain7,
+#ifdef DEMO_PDM_CHANNEL_GAIN
+    .gain = DEMO_PDM_CHANNEL_GAIN,
+#else
+    .gain       = kPDM_DfOutputGain7,
+#endif
 };
 codec_handle_t codecHandle;
 extern codec_config_t boardCodecConfig;
@@ -86,7 +90,7 @@ wm8960_config_t wm8960Config = {
     .playSource       = kWM8960_PlaySourceDAC,
     .slaveAddress     = WM8960_I2C_ADDR,
     .bus              = kWM8960_BusI2S,
-    .format = {.mclk_HZ = 24576000, .sampleRate = kWM8960_AudioSampleRate48KHz, .bitWidth = kWM8960_AudioBitWidth32bit},
+    .format = {.mclk_HZ = 24576000, .sampleRate = kWM8960_AudioSampleRate16KHz, .bitWidth = kWM8960_AudioBitWidth32bit},
     .master_slave = false,
 };
 codec_config_t boardCodecConfig = {.codecDevType = kCODEC_WM8960, .codecDevConfig = &wm8960Config};
@@ -207,7 +211,8 @@ int main(void)
     /* audio pll  */
     CLOCK_SetRootClockMux(kCLOCK_Root_Sai1, 4);
     CLOCK_SetRootClockDiv(kCLOCK_Root_Sai1, 16);
-    /* 24.576m mic root clock */
+    /* AudioPllOut = 393.24M */
+    /* mic root clock = 24.576M */
     CLOCK_SetRootClockMux(kCLOCK_Root_Mic, 6);
     CLOCK_SetRootClockDiv(kCLOCK_Root_Mic, 16);
 

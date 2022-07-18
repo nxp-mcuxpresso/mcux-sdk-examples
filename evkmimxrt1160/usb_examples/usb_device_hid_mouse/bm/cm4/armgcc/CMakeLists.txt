@@ -113,7 +113,7 @@ include(driver_igpio)
 
 include(driver_xip_device)
 
-include(driver_xip_board)
+include(driver_xip_board_evkmimxrt1160)
 
 include(middleware_usb_device_controller_driver_MIMXRT1166_cm4)
 
@@ -133,7 +133,7 @@ include(CMSIS_Include_core_cm)
 
 include(middleware_usb_device_common_header)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1166_cm4)
 
 include(device_system_MIMXRT1166_cm4)
 

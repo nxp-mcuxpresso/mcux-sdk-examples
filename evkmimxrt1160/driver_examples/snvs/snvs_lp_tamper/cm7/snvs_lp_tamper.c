@@ -106,7 +106,10 @@ void EXAMPLE_SNVS_Tamper_PullUp()
 void print_help()
 {
     PRINTF("\r\nSNVS tamper demo \r\n");
+#if defined(FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER) && (FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER > 0)
     PRINTF("1 - passive tamper pin  \r\n");
+#endif /* defined(FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER) && (FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER > 0) */
+#if defined(FSL_FEATURE_SNVS_HAS_ACTIVE_TAMPERS) && (FSL_FEATURE_SNVS_HAS_ACTIVE_TAMPERS > 0)
     PRINTF("2 - active tamper pin  \r\n");
     PRINTF("3 - voltage tamper enable  \r\n");
     PRINTF("4 - voltage tamper test  \r\n");
@@ -114,6 +117,10 @@ void print_help()
     PRINTF("6 - temperature tamper test \r\n");
     PRINTF("7 - clock tamper enable  \r\n");
     PRINTF("8 - clock tamper test  \r\n");
+#endif /* defined(FSL_FEATURE_SNVS_HAS_ACTIVE_TAMPERS) && (FSL_FEATURE_SNVS_HAS_ACTIVE_TAMPERS > 0) */
+#if defined(FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER) && (FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER == 0)
+    PRINTF("This chip have no tamper function  \r\n");
+#endif /* defined(FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER) && (FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER > 0) */
     PRINTF("0 - exit  \r\n");
     PRINTF("\r\n\r\nSelect test and confirm by Enter...\r\n");
 }
@@ -148,6 +155,7 @@ uint32_t GetInputNumber()
     return ch - '0';
 }
 
+#if defined(FSL_FEATURE_SNVS_HAS_ACTIVE_TAMPERS) && (FSL_FEATURE_SNVS_HAS_ACTIVE_TAMPERS > 0)
 void active_tamper_setting(uint32_t tx, uint32_t rx)
 {
     tamper_active_tx_config_t tx_config;
@@ -168,6 +176,7 @@ void active_tamper_setting(uint32_t tx, uint32_t rx)
     /* Enable RX pin and route active tamper TX to it */
     SNVS_LP_EnableRxActiveTamper(SNVS, (snvs_lp_external_tamper_t)rx, rx_config);
 }
+#endif /* FSL_FEATURE_SNVS_HAS_ACTIVE_TAMPERS */
 
 int main(void)
 {
@@ -221,9 +230,10 @@ int main(void)
             print_help();
             continue;
         }
-
+#if defined(FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER) && (FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER > 0)
         /* Clear all external tampers */
         SNVS_LP_ClearAllExternalTamperStatus(SNVS);
+#endif /* defined(FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER) && (FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER > 0) */
 
         /* Write ZMK to non-zero */
         SNVS_LP_WriteZeroizableMasterKey(SNVS, ZMKey);
@@ -246,6 +256,7 @@ int main(void)
         switch (tamper_type)
         {
             /* passive tamper */
+#if defined(FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER) && (FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER > 0)
             case 1:
             {
                 /* Get number of pin */
@@ -304,7 +315,10 @@ int main(void)
                 break;
 
             } /* End of passive tamper case */
+#endif        /* defined(FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER) && (FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER > 0) */
+
             /* active tamper */
+#if defined(FSL_FEATURE_SNVS_HAS_ACTIVE_TAMPERS) && (FSL_FEATURE_SNVS_HAS_ACTIVE_TAMPERS > 0)
             case 2:
             {
                 /* Get number of pins */
@@ -353,6 +367,8 @@ int main(void)
                 SNVS->LPATCTLR = 0;
                 break;
             }
+#endif /* FSL_FEATURE_SNVS_HAS_ACTIVE_TAMPERS */
+#if defined(FSL_FEATURE_SNVS_HAS_ACTIVE_TAMPERS) && (FSL_FEATURE_SNVS_HAS_ACTIVE_TAMPERS > 0)
             /* enable voltage tamper */
             case 3:
             {
@@ -425,6 +441,7 @@ int main(void)
                 GETCHAR();
                 break;
             }
+#endif /* defined(FSL_FEATURE_SNVS_HAS_ACTIVE_TAMPERS) && (FSL_FEATURE_SNVS_HAS_ACTIVE_TAMPERS > 0) */
             default:
             {
                 print_help();

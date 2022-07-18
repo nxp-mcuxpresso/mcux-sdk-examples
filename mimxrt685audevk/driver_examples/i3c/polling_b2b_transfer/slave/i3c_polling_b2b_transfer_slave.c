@@ -102,6 +102,11 @@ int main(void)
     CLOCK_SetClkDiv(kCLOCK_DivI3cTcClk, 1);
     CLOCK_SetClkDiv(kCLOCK_DivI3cSlowClk, 1);
 
+    /* Attach lposc_1m clock to I3C time control, clear halt for slow clock. */
+    CLOCK_AttachClk(kLPOSC_to_I3C_TC_CLK);
+    CLOCK_SetClkDiv(kCLOCK_DivI3cTcClk, 1);
+    CLOCK_SetClkDiv(kCLOCK_DivI3cSlowClk, 1);
+
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();

@@ -96,6 +96,8 @@ include(middleware_sdmmc_host_usdhc)
 
 include(middleware_sdmmc_host_usdhc_azurertos)
 
+include(component_igpio_adapter)
+
 include(component_lists)
 
 include(component_lpuart_adapter)
@@ -148,7 +150,7 @@ include(middleware_sdmmc_osa_azurertos)
 
 include(component_osa_thread)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1176_cm7)
 
 include(device_system_MIMXRT1176_cm7)
 

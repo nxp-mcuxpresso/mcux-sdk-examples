@@ -91,7 +91,7 @@ include(driver_smc)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MKV11Z7)
 
 include(device_system)
 

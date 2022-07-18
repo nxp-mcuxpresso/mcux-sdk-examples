@@ -110,7 +110,7 @@ include(middleware_usb_device_common_header)
 
 include(middleware_usb_common_header)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_K32L2B31A)
 
 include(device_system)
 

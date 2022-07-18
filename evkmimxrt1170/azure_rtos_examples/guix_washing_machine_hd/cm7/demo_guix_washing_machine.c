@@ -13,6 +13,9 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "board.h"
+#ifdef GUIX_PXP_ENABLE
+#include "fsl_pxp.h"
+#endif
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -140,6 +143,9 @@ int main(int argc, char ** argv)
 
     BOARD_InitTouchPanel();
     BOARD_PrepareDisplayController();
+#ifdef GUIX_PXP_ENABLE
+    PXP_Init(PXP);
+#endif
 
     PRINTF("Start the GUIX washing machine example...\r\n");
 

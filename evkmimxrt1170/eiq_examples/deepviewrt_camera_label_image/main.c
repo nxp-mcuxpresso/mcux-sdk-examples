@@ -8,7 +8,6 @@
 #include <stdio.h>
 
 #include "board_init.h"
-#include "demo_config.h"
 #include "image.h"
 #include "image_utils.h"
 #include "timer.h"
@@ -155,9 +154,7 @@ int main()
 
         printf("Label index = %d, score = %.3f, runtime: %lld\r\n", result, score, run_ms);
 
-        char *label="no label";
-
-        label= (char *) nn_model_label(model, result);
+        const char *label = (char *) nn_model_label(model, result);
 
         printf("\t%s - %s - %d \r\n",
                score > 0.3f ? "MATCH" : "NO MATCH",

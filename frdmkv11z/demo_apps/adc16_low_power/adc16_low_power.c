@@ -210,7 +210,7 @@ static void ADC16_CalibrateParams(ADC_Type *base)
     /*
      * adcUserConfig.referenceVoltageSource = kADC16_ReferenceVoltageSourceVref;
      * adcUserConfig.clockSource = kADC16_ClockSourceAsynchronousClock;
-     * adcUserConfig.enableAsynchronousClock = true;
+     * adcUserConfig.enableAsynchronousClock = false;
      * adcUserConfig.clockDivider = kADC16_ClockDivider8;
      * adcUserConfig.resolution = kADC16_ResolutionSE12Bit;
      * adcUserConfig.longSampleMode = kADC16_LongSampleDisabled;
@@ -228,6 +228,7 @@ static void ADC16_CalibrateParams(ADC_Type *base)
     adcUserConfig.clockSource                = kADC16_ClockSourceAsynchronousClock;
     adcUserConfig.enableLowPower             = 1;
     adcUserConfig.longSampleMode             = kADC16_LongSampleCycle24;
+    adcUserConfig.enableAsynchronousClock    = true;
 #ifdef BOARD_ADC_USE_ALT_VREF
     adcUserConfig.referenceVoltageSource = kADC16_ReferenceVoltageSourceValt;
 #endif
@@ -308,7 +309,7 @@ static bool ADC16_InitHardwareTrigger(ADC_Type *base)
     /*
      * adcUserConfig.referenceVoltageSource = kADC16_ReferenceVoltageSourceVref;
      * adcUserConfig.clockSource = kADC16_ClockSourceAsynchronousClock;
-     * adcUserConfig.enableAsynchronousClock = true;
+     * adcUserConfig.enableAsynchronousClock = false;
      * adcUserConfig.clockDivider = kADC16_ClockDivider8;
      * adcUserConfig.resolution = kADC16_ResolutionSE12Bit;
      * adcUserConfig.longSampleMode = kADC16_LongSampleDisabled;
@@ -327,8 +328,9 @@ static bool ADC16_InitHardwareTrigger(ADC_Type *base)
     adcUserConfig.enableContinuousConversion = false;
     adcUserConfig.clockSource                = kADC16_ClockSourceAsynchronousClock;
 
-    adcUserConfig.longSampleMode = kADC16_LongSampleCycle24;
-    adcUserConfig.enableLowPower = 1;
+    adcUserConfig.longSampleMode          = kADC16_LongSampleCycle24;
+    adcUserConfig.enableLowPower          = 1;
+    adcUserConfig.enableAsynchronousClock = true;
 #if ((defined BOARD_ADC_USE_ALT_VREF) && BOARD_ADC_USE_ALT_VREF)
     adcUserConfig.referenceVoltageSource = kADC16_ReferenceVoltageSourceValt;
 #endif

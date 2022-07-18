@@ -59,14 +59,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../board_setup.c"
 "${ProjDirPath}/../board_setup.h"
-"${SdkRootDirPath}/middleware/usb/include/usb.h"
-"${SdkRootDirPath}/middleware/usb/include/usb_misc.h"
-"${SdkRootDirPath}/middleware/usb/include/usb_spec.h"
-"${SdkRootDirPath}/middleware/usb/phy/usb_phy.c"
-"${SdkRootDirPath}/middleware/usb/phy/usb_phy.h"
-"${SdkRootDirPath}/core/components/osa/fsl_os_abstraction.h"
-"${SdkRootDirPath}/core/components/osa/fsl_os_abstraction_bm.h"
-"${SdkRootDirPath}/core/components/osa/fsl_os_abstraction_config.h"
 "${ProjDirPath}/../usbx_host_hid_mouse.c"
 "${ProjDirPath}/../tx_user.h"
 "${ProjDirPath}/../fx_user.h"
@@ -82,9 +74,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${SdkRootDirPath}/middleware/usb/include
-    ${SdkRootDirPath}/middleware/usb/phy
-    ${SdkRootDirPath}/core/components/osa
     ${ProjDirPath}/..
 )
 
@@ -98,6 +87,10 @@ include(all_devices)
 
 # include modules
 include(middleware_azure_rtos_ux)
+
+include(component_osa_thread)
+
+include(middleware_usb_phy)
 
 include(component_lists)
 
@@ -151,11 +144,15 @@ include(middleware_azure_rtos_tx)
 
 include(middleware_azure_rtos_tx_template_MIMXRT1176_cm7)
 
-include(utilities_misc_utilities)
-
 include(driver_anatop_ai)
 
 include(CMSIS_Include_core_cm)
+
+include(middleware_usb_common_header)
+
+include(component_osa)
+
+include(utilities_misc_utilities_MIMXRT1176_cm7)
 
 include(device_system_MIMXRT1176_cm7)
 

@@ -92,6 +92,8 @@ include(driver_display-rm68191)
 
 include(driver_display-rm68200)
 
+include(driver_display-hx8394)
+
 include(driver_camera-common)
 
 include(driver_camera-receiver-csi)
@@ -174,7 +176,7 @@ include(middleware_eiq_worker)
 
 include(device_system_MIMXRT1176_cm7)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1176_cm7)
 
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)

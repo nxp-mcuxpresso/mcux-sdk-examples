@@ -26,6 +26,19 @@ __STATIC_INLINE void board_delay(void)
 
 static void USB_DeviceClockInit(void)
 {
+#if defined(USB_DEVICE_CONFIG_LPCIP3511FS) && (USB_DEVICE_CONFIG_LPCIP3511FS > 0U)
+    /* enable USB IP clock */
+    CLOCK_EnableUsbfs0DeviceClock(kCLOCK_UsbfsSrcFro, CLOCK_GetFroHfFreq());
+
+#if defined(FSL_FEATURE_USB_USB_RAM) && (FSL_FEATURE_USB_USB_RAM)
+    for (int i = 0; i < FSL_FEATURE_USB_USB_RAM; i++)
+    {
+        ((uint8_t *)FSL_FEATURE_USB_USB_RAM_BASE_ADDRESS)[i] = 0x00U;
+    }
+#endif
+#endif
+
+#if defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U)
     /* enable USB IP clock */
     CLOCK_EnableUsbhs0PhyPllClock(kCLOCK_UsbPhySrcExt, BOARD_XTAL0_CLK_HZ);
     CLOCK_EnableUsbhs0DeviceClock(kCLOCK_UsbSrcUnused, 0U);
@@ -44,11 +57,16 @@ static void USB_DeviceClockInit(void)
         ((uint8_t *)FSL_FEATURE_USBHSD_USB_RAM_BASE_ADDRESS)[i] = 0x00U;
     }
 #endif
+#endif
 }
 
 static void usb_interrupt_setup(void)
 {
+#if defined(USB_DEVICE_CONFIG_LPCIP3511FS) && (USB_DEVICE_CONFIG_LPCIP3511FS > 0U)
+    IRQn_Type irqNumber = USB0_IRQn;
+#else
     IRQn_Type irqNumber = USB1_IRQn;
+#endif
 
     /* Clear pending IRQ, set priority, and enable IRQ. */
     NVIC_ClearPendingIRQ(irqNumber);
@@ -88,30 +106,53 @@ void board_setup(void)
 
 void usb_device_setup(void)
 {
-    _ux_dcd_ip3511_initialize(kUSB_ControllerLpcIp3511Hs0, &deviceHandle);
+#if defined(USB_DEVICE_CONFIG_LPCIP3511FS) && (USB_DEVICE_CONFIG_LPCIP3511FS > 0U)
+     _ux_dcd_ip3511_initialize(kUSB_ControllerLpcIp3511Fs0, &deviceHandle);
+#else
+     _ux_dcd_ip3511_initialize(kUSB_ControllerLpcIp3511Hs0, &deviceHandle);
+#endif
 
     usb_interrupt_setup();
 }
 
 void usb_device_hw_setup(void)
 {
+#if (defined USB_DEVICE_CONFIG_LPCIP3511FS) && (USB_DEVICE_CONFIG_LPCIP3511FS)
+    POWER_DisablePD(kPDRUNCFG_PD_USB0_PHY); /*< Turn on USB Phy */
+    CLOCK_SetClkDiv(kCLOCK_DivUsb0Clk, 1, false);
+    CLOCK_AttachClk(kFRO_HF_to_USB0_CLK);
+    /* enable usb0 host clock */
+    CLOCK_EnableClock(kCLOCK_Usbhsl0);
+    /*According to reference mannual, device mode setting has to be set by access usb host register */
+    USBFSH->PORTMODE |= USBFSH_PORTMODE_DEV_ENABLE_MASK;
+    /* disable usb0 host clock */
+    CLOCK_DisableClock(kCLOCK_Usbhsl0);
+#endif
+
+#if defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U)
     /* enable usb1 host clock */
     CLOCK_EnableClock(kCLOCK_Usbh1);
-
     /* Put PHY powerdown under software control */
     USBHSH->PORTMODE |= USBHSH_PORTMODE_SW_PDCOM_MASK;
-
     board_delay();
-
     /* device mode setting has to be set by access usb host register */
     USBHSH->PORTMODE |= USBHSH_PORTMODE_DEV_ENABLE_MASK;
-
     /* disable usb1 host clock */
     CLOCK_DisableClock(kCLOCK_Usbh1);
+#endif
 
     USB_DeviceClockInit();
 }
 
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511FS) && (USB_DEVICE_CONFIG_LPCIP3511FS > 0U))
+void USB0_IRQHandler(void)
+{
+    USB_DeviceLpcIp3511IsrFunction(deviceHandle);
+    SDK_ISR_EXIT_BARRIER;
+}
+#endif
+
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
 /* Interrupt handler for USB1 interrupt */
 void USB1_IRQHandler(void)
 {
@@ -119,3 +160,4 @@ void USB1_IRQHandler(void)
 
     SDK_ISR_EXIT_BARRIER;
 }
+#endif

@@ -225,7 +225,8 @@ usb_status_t USB_DeviceCdcVcomCallback(class_handle_t handle, uint32_t event, vo
     {
         case kUSB_DeviceCdcEventSendResponse:
         {
-            if ((epCbParam->length != 0) && (!(epCbParam->length % g_UsbDeviceCdcVcomDicEndpoints[0].maxPacketSize)))
+            if ((epCbParam->length != 0) &&
+                (0U == (epCbParam->length % g_UsbDeviceCdcVcomDicEndpoints[0].maxPacketSize)))
             {
                 /* If the last packet is the size of endpoint, then send also zero-ended packet,
                  ** meaning that we want to inform the host that we do not have any additional
@@ -233,7 +234,7 @@ usb_status_t USB_DeviceCdcVcomCallback(class_handle_t handle, uint32_t event, vo
                  */
                 error = USB_DeviceCdcAcmSend(handle, USB_CDC_VCOM_BULK_IN_ENDPOINT, NULL, 0);
             }
-            else if ((1 == s_cdcVcom.attach) && (1 == s_cdcVcom.startTransactions))
+            else if ((1U == s_cdcVcom.attach) && (1U == s_cdcVcom.startTransactions))
             {
                 if ((epCbParam->buffer != NULL) || ((epCbParam->buffer == NULL) && (epCbParam->length == 0)))
                 {
@@ -256,7 +257,7 @@ usb_status_t USB_DeviceCdcVcomCallback(class_handle_t handle, uint32_t event, vo
         break;
         case kUSB_DeviceCdcEventRecvResponse:
         {
-            if ((1 == s_cdcVcom.attach) && (1 == s_cdcVcom.startTransactions))
+            if ((1U == s_cdcVcom.attach) && (1U == s_cdcVcom.startTransactions))
             {
                 s_recvSize = epCbParam->length;
                 error      = kStatus_USB_Success;
@@ -267,7 +268,7 @@ usb_status_t USB_DeviceCdcVcomCallback(class_handle_t handle, uint32_t event, vo
                 s_waitForDataReceive = 0;
                 USB0->INTEN |= USB_INTEN_SOFTOKEN_MASK;
 #endif
-                if (!s_recvSize)
+                if (0U == s_recvSize)
                 {
                     /* Schedule buffer for next receive event */
                     error = USB_DeviceCdcAcmRecv(handle, USB_CDC_VCOM_BULK_OUT_ENDPOINT, s_currRecvBuf,
@@ -293,7 +294,7 @@ usb_status_t USB_DeviceCdcVcomCallback(class_handle_t handle, uint32_t event, vo
         case kUSB_DeviceCdcEventSetCommFeature:
             if (USB_DEVICE_CDC_FEATURE_ABSTRACT_STATE == acmReqParam->setupValue)
             {
-                if (1 == acmReqParam->isSetup)
+                if (1U == acmReqParam->isSetup)
                 {
                     *(acmReqParam->buffer) = s_abstractState;
                     *(acmReqParam->length) = sizeof(s_abstractState);
@@ -306,7 +307,7 @@ usb_status_t USB_DeviceCdcVcomCallback(class_handle_t handle, uint32_t event, vo
             }
             else if (USB_DEVICE_CDC_FEATURE_COUNTRY_SETTING == acmReqParam->setupValue)
             {
-                if (1 == acmReqParam->isSetup)
+                if (1U == acmReqParam->isSetup)
                 {
                     *(acmReqParam->buffer) = s_countryCode;
                     *(acmReqParam->length) = sizeof(s_countryCode);
@@ -349,7 +350,7 @@ usb_status_t USB_DeviceCdcVcomCallback(class_handle_t handle, uint32_t event, vo
             break;
         case kUSB_DeviceCdcEventSetLineCoding:
         {
-            if (1 == acmReqParam->isSetup)
+            if (1U == acmReqParam->isSetup)
             {
                 *(acmReqParam->buffer) = s_lineCoding;
                 *(acmReqParam->length) = sizeof(s_lineCoding);
@@ -386,7 +387,7 @@ usb_status_t USB_DeviceCdcVcomCallback(class_handle_t handle, uint32_t event, vo
             }
 
             /* Indicates to DCE if DTE is present or not */
-            acmInfo->dtePresent = (acmInfo->dteStatus & USB_DEVICE_CDC_CONTROL_SIG_BITMAP_DTE_PRESENCE) ? 1 : 0;
+            acmInfo->dtePresent = (acmInfo->dteStatus & USB_DEVICE_CDC_CONTROL_SIG_BITMAP_DTE_PRESENCE) ? true : false;
 
             /* Initialize the serial state buffer */
             acmInfo->serialStateBuf[0] = NOTIF_REQUEST_TYPE;                /* bmRequestType */
@@ -406,7 +407,7 @@ usb_status_t USB_DeviceCdcVcomCallback(class_handle_t handle, uint32_t event, vo
 #if ((defined USB_DEVICE_CONFIG_CDC_CIC_EP_DISABLE) && (USB_DEVICE_CONFIG_CDC_CIC_EP_DISABLE > 0U))
 #else
             len = (uint32_t)(NOTIF_PACKET_SIZE + UART_BITMAP_SIZE);
-            if (0 == ((usb_device_cdc_acm_struct_t *)handle)->hasSentState)
+            if (0U == ((usb_device_cdc_acm_struct_t *)handle)->hasSentState)
             {
                 error = USB_DeviceCdcAcmSend(handle, USB_CDC_VCOM_INTERRUPT_IN_ENDPOINT, acmInfo->serialStateBuf, len);
                 if (kStatus_USB_Success != error)
@@ -426,7 +427,7 @@ usb_status_t USB_DeviceCdcVcomCallback(class_handle_t handle, uint32_t event, vo
                 /* To do: CARRIER_DEACTIVATED */
             }
 
-            if (1 == s_cdcVcom.attach)
+            if (1U == s_cdcVcom.attach)
             {
                 s_cdcVcom.startTransactions = 1;
 #if defined(FSL_FEATURE_USB_KHCI_KEEP_ALIVE_ENABLED) && (FSL_FEATURE_USB_KHCI_KEEP_ALIVE_ENABLED > 0U) && \
@@ -506,7 +507,7 @@ usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *
             }
             break;
         case kUSB_DeviceEventSetInterface:
-            if (s_cdcVcom.attach)
+            if (0U != s_cdcVcom.attach)
             {
                 uint8_t interface        = (uint8_t)((*temp16 & 0xFF00U) >> 0x08U);
                 uint8_t alternateSetting = (uint8_t)(*temp16 & 0x00FFU);
@@ -533,7 +534,7 @@ usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *
             }
             break;
         case kUSB_DeviceEventGetConfiguration:
-            if (param)
+            if (NULL != param)
             {
                 /* Get current configuration request */
                 *temp8 = s_cdcVcom.currentConfiguration;
@@ -541,7 +542,7 @@ usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *
             }
             break;
         case kUSB_DeviceEventGetInterface:
-            if (param)
+            if (NULL != param)
             {
                 /* Get current alternate setting of the interface request */
                 uint8_t interface = (uint8_t)((*temp16 & 0xFF00U) >> 0x08U);
@@ -553,20 +554,20 @@ usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *
             }
             break;
         case kUSB_DeviceEventGetDeviceDescriptor:
-            if (param)
+            if (NULL != param)
             {
                 error = USB_DeviceGetDeviceDescriptor(handle, (usb_device_get_device_descriptor_struct_t *)param);
             }
             break;
         case kUSB_DeviceEventGetConfigurationDescriptor:
-            if (param)
+            if (NULL != param)
             {
                 error = USB_DeviceGetConfigurationDescriptor(handle,
                                                              (usb_device_get_configuration_descriptor_struct_t *)param);
             }
             break;
         case kUSB_DeviceEventGetStringDescriptor:
-            if (param)
+            if (NULL != param)
             {
                 /* Get device string descriptor request */
                 error = USB_DeviceGetStringDescriptor(handle, (usb_device_get_string_descriptor_struct_t *)param);
@@ -578,6 +579,16 @@ usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *
     }
 
     return error;
+}
+
+static void CDC_VCOM_BMEnterCritical(uint32_t *sr)
+{
+    *sr = DisableGlobalIRQ();
+}
+
+static void CDC_VCOM_BMExitCritical(uint32_t sr)
+{
+    EnableGlobalIRQ(sr);
 }
 
 /*!
@@ -626,23 +637,30 @@ static void APPInit(void)
 static void APPTask(void)
 {
     usb_status_t error = kStatus_USB_Error;
-    if ((1 == s_cdcVcom.attach) && (1 == s_cdcVcom.startTransactions))
+    uint32_t usbOsaCurrentSr;
+
+    if ((1U == s_cdcVcom.attach) && (1U == s_cdcVcom.startTransactions))
     {
-        /* User Code */
+        /* Enter critical can not be added here because of the loop */
         /* endpoint callback length is USB_CANCELLED_TRANSFER_LENGTH (0xFFFFFFFFU) when transfer is canceled */
         if ((0 != s_recvSize) && (USB_CANCELLED_TRANSFER_LENGTH != s_recvSize))
         {
-            int32_t i;
-
-            /* Copy Buffer to Send Buff */
-            for (i = 0; i < s_recvSize; i++)
+            /* The operating timing sequence has guaranteed there is no conflict to access the s_recvSize between USB
+               ISR and this task. Therefore, the following code of Enter/Exit ctitical mode is useless,
+               only to mention users the exclusive access of s_recvSize if users implement their own
+               application referred to this SDK demo */
+            CDC_VCOM_BMEnterCritical(&usbOsaCurrentSr);
+            if ((0U != s_recvSize) && (USB_CANCELLED_TRANSFER_LENGTH != s_recvSize))
             {
-                s_currSendBuf[s_sendSize++] = s_currRecvBuf[i];
+                /* Copy Buffer to Send Buff */
+                memcpy(s_currSendBuf, s_currRecvBuf, s_recvSize);
+                s_sendSize = s_recvSize;
+                s_recvSize = 0;
             }
-            s_recvSize = 0;
+            CDC_VCOM_BMExitCritical(usbOsaCurrentSr);
         }
 
-        if (s_sendSize)
+        if (0U != s_sendSize)
         {
             uint32_t size = s_sendSize;
             s_sendSize    = 0;

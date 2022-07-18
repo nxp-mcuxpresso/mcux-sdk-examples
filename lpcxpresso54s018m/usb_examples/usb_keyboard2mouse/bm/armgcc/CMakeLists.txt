@@ -128,7 +128,7 @@ include(middleware_usb_common_header)
 
 include(middleware_usb_device_common_header)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC54S018M)
 
 include(device_system)
 

@@ -12,6 +12,6 @@
 /* These addresses are accessed by the ARM core and aliased to M33 code memory */
 #define DSP_RESET_ADDRESS (uint32_t *)0x00180000
 #define DSP_TEXT_ADDRESS  (uint32_t *)0x00180400
-#define DSP_SRAM_ADDRESS  (uint32_t *)0x00010000
+#define DSP_SRAM_ADDRESS  (uint32_t *)0x00040000
 
 #endif 

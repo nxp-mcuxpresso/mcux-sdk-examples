@@ -114,7 +114,7 @@ include(CMSIS_Include_core_cm)
 
 include(middleware_usb_common_header)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC54S018M)
 
 include(device_system)
 

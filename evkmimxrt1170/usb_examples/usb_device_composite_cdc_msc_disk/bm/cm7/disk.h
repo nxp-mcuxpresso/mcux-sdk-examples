@@ -30,7 +30,7 @@
     (3U) /*! @brief enable the write task. 1U supported, 0U not supported . if this macro is enable ,the \
 USB_DEVICE_CONFIG_USE_TASK macro should also be enable.*/
 #define USB_DEVICE_MSC_USE_WRITE_TASK (0U)
-#define USB_DEVICE_MSC_BUFFER_NUMBER (3U)
+#define USB_DEVICE_MSC_BUFFER_NUMBER  (3U)
 /* applicationi define logical unit number, if LOGICAL_UNIT_SUPPORTED > USB_DEVICE_MSC_MAX_LUN, update
  * USB_DEVICE_MSC_MAX_LUN in class driver usb_device_msc.h*/
 #define LOGICAL_UNIT_SUPPORTED (1U)
@@ -44,7 +44,7 @@ USB_DEVICE_CONFIG_USE_TASK macro should also be enable.*/
 
 
 #define USB_DEVICE_SDCARD_BLOCK_SIZE_POWER (9U)
-#define USB_DEVICE_MSC_ADMA_TABLE_WORDS (8U)
+#define USB_DEVICE_MSC_ADMA_TABLE_WORDS    (8U)
 typedef struct _usb_msc_buffer_struct
 {
     uint32_t offset; /*!< Offset of the block need to access*/
@@ -65,6 +65,7 @@ typedef struct _usb_msc_struct
     uint8_t currentConfiguration;
     uint8_t speed;
     uint8_t attach;
+    uint8_t stop; /* indicates this media keeps stop or not, 1: stop, 0: start */
 } usb_msc_struct_t;
 
 #endif /* _USB_MSC_DISK_H_ */

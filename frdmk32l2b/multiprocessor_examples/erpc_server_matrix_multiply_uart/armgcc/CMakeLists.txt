@@ -125,7 +125,7 @@ include(CMSIS_Driver_Include_Common)
 
 include(middleware_multicore_erpc_common)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_K32L2B31A)
 
 include(device_system)
 

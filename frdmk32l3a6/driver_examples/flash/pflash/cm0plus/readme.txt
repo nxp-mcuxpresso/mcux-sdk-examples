@@ -6,7 +6,7 @@ The pflash example shows how to use flash driver to operate program flash:
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
+- GCC ARM Embedded  10.3.1
 
 Hardware requirements
 =====================

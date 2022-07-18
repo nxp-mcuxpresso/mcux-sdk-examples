@@ -6,7 +6,7 @@ In the example, you can send characters to the console back and they will be pri
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
+- GCC ARM Embedded  10.3.1
 
 Hardware requirements
 =====================

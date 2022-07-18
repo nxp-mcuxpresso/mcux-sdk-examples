@@ -91,13 +91,17 @@ include(device_startup)
 
 include(driver_flexcomm)
 
+include(component_silicon_id)
+
+include(driver_iap)
+
 include(driver_reset)
 
 include(CMSIS_Include_core_cm)
 
 include(driver_inputmux_connections)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC54S018)
 
 include(device_system)
 

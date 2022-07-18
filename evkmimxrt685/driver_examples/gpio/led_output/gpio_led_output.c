@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2019 NXP
+ * Copyright 2016-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -19,10 +19,11 @@
 #define APP_BOARD_TEST_LED_PIN  BOARD_LED_BLUE_GPIO_PIN
 #define APP_SW_PORT             BOARD_SW2_GPIO_PORT
 #define APP_SW_PIN              BOARD_SW2_GPIO_PIN
-#define APP_SW_STATE_RELEASED        0U
-#define APP_SW_STATE_CONFIRM_PRESSED 1U
-#define APP_SW_STATE_PRESSED         2U
-#define APP_SW_FILTER_PERIOD         5
+#define APP_SW_STATE_RELEASED         0U
+#define APP_SW_STATE_CONFIRM_PRESSED  1U
+#define APP_SW_STATE_PRESSED          2U
+#define APP_SW_STATE_CONFIRM_RELEASED 3U
+#define APP_SW_FILTER_PERIOD          5
 
 /*******************************************************************************
  * Prototypes
@@ -133,10 +134,27 @@ int main(void)
             case APP_SW_STATE_PRESSED:
                 if ((port_state & (1 << APP_SW_PIN)))
                 {
-                    swState = APP_SW_STATE_RELEASED;
+                    swState = APP_SW_STATE_CONFIRM_RELEASED;
+                    filter  = APP_SW_FILTER_PERIOD;
                 }
                 break;
-
+            case APP_SW_STATE_CONFIRM_RELEASED:
+                if ((port_state & (1 << APP_SW_PIN)))
+                {
+                    if (filter == 0)
+                    {
+                        swState = APP_SW_STATE_RELEASED;
+                    }
+                    else
+                    {
+                        filter--;
+                    }
+                }
+                else
+                {
+                    swState = APP_SW_STATE_PRESSED;
+                }
+                break;
             default:
                 swState = APP_SW_STATE_RELEASED;
                 break;

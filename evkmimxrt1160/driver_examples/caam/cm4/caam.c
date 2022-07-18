@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2021 NXP
+ * Copyright 2016-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -15,14 +15,11 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "board.h"
-#if defined(FSL_FEATURE_HAS_L1CACHE) || defined(__DCACHE_PRESENT)
-#include "fsl_cache.h"
-#endif
-
 #include "fsl_caam.h"
 
 #include <string.h>
 
+#include "fsl_cache.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -37,10 +34,9 @@
  ******************************************************************************/
 
 #if defined(FSL_FEATURE_HAS_L1CACHE) || defined(__DCACHE_PRESENT)
-/* Note: Usually the output data are not cached, because CAAM driver cleans them before scheduling job */
-/* and invalidate right after that, but in some cases the computing can take longer time and data could be written */
-/* to memory by CAAM after invalidate happen, so it's recommended to invalidate CAAM output data again, */
-/* right before their usage, as shown in AES example. Or move them to non-cache memory as shown in SHA example */
+/* Note: If JR interface is cached and multiple jobs are being scheduled at the same time, */
+/* it is recommended to move JR interfaces to non-cahed memory, rather than invalidate */
+/* them before retrieving output ring data  */
 /*! @brief CAAM job ring interface 0 in system memory. */
 AT_NONCACHEABLE_SECTION(static caam_job_ring_interface_t s_jrif0);
 /*! @brief CAAM job ring interface 1 in system memory. */
@@ -214,7 +210,7 @@ static const unsigned char s_ShaExpected[] = {0x63, 0x76, 0xea, 0xcc, 0xc9, 0xa2
                                               0x60, 0xef, 0x59, 0x7b, 0xd9, 0x1c, 0xac, 0xaa, 0x31, 0xf7};
 
 /*! @brief Output buffer for SHA. */
-uint8_t AT_NONCACHEABLE_SECTION(sha_output[32U]);
+uint8_t sha_output[32U];
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -267,8 +263,6 @@ static void EncryptDecryptCbc(
         return;
     }
 
-    /* Executed only if DCACHE present, sizeof(s_CbcCipher) is multiple of 32 */
-    DCACHE_InvalidateByRange((uint32_t)s_CbcCipher, sizeof(s_CbcCipher));
     if (memcmp(s_CbcCipher, cipherExpected, sizeof(s_CbcCipher)) == 0)
     {
         PRINTF("done successfully.\r\n");
@@ -289,8 +283,6 @@ static void EncryptDecryptCbc(
         return;
     }
 
-    /* Executed only if DCACHE present, sizeof(s_CbcPlainDecrypted) is multiple of 32 */
-    DCACHE_InvalidateByRange((uint32_t)s_CbcPlainDecrypted, sizeof(s_CbcPlainDecrypted));
     if (memcmp(s_CbcPlainDecrypted, s_CbcPlain, sizeof(s_CbcPlainDecrypted)) == 0)
     {
         PRINTF("done successfully.\r\n\r\n");
@@ -570,7 +562,7 @@ static void RunRngExample(CAAM_Type *base, caam_handle_t *handle)
     PRINTF("RNG : ");
 
     PRINTF("Generate %u-bit random number: ", RNG_EXAMPLE_RANDOM_NUMBER_BITS);
-    status = CAAM_RNG_GetRandomData(base, handle, kCAAM_RngStateHandle0, &data, RNG_EXAMPLE_RANDOM_BYTES,
+    status = CAAM_RNG_GetRandomData(base, handle, kCAAM_RngStateHandle0, (uint8_t *)data, RNG_EXAMPLE_RANDOM_BYTES,
                                     kCAAM_RngDataAny, NULL);
 
     if (status != kStatus_Success)

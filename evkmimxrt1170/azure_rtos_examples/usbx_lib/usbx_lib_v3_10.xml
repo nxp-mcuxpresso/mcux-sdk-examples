@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="cm7_MIMXRT1176xxxxx"/>
+    <definition extID="middleware.azure_rtos.ux.lib.MIMXRT1176"/>
+    <definition extID="platform.utilities.misc_utilities.MIMXRT1176"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="iar"/>
+    <definition extID="mdk"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+    <definition extID="armgcc"/>
+  </externalDefinitions>
+  <example id="evkmimxrt1170_usbx_lib" name="usbx_lib" device_core="cm7_MIMXRT1176xxxxx" dependency="middleware.azure_rtos.ux.lib.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176" category="azure_rtos_libs">
+    <projects>
+      <project type="com.crt.advproject.projecttype.lib" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5dp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="com.crt.advproject.gcc.exe.debug.option.debugging.level" type="enum">
+          <value>gnu.c.debugging.level.none</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-Wno-unused-but-set-variable -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.nowarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.extrawarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.wconversion" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>CPU_MIMXRT1176DVMAA_cm7</value>
+          <value>MIMXRT</value>
+          <value>UX_OTG_SUPPORT</value>
+          <value>TX_INCLUDE_USER_DEFINE_FILE</value>
+          <value>FX_INCLUDE_USER_DEFINE_FILE</value>
+          <value>NX_INCLUDE_USER_DEFINE_FILE</value>
+          <value>UX_INCLUDE_USER_DEFINE_FILE</value>
+          <value>MCUXPRESSO_SDK</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5dp.hard</value>
+        </option>
+        <option id="com.crt.advproject.cpp.fpu" type="enum">
+          <value>com.crt.advproject.cpp.fpu.fpv5dp.hard</value>
+        </option>
+        <option id="gnu.cpp.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.cpp.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnupp11</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <include_paths>
+      <include_path path="." project_relative_path="azure-rtos/config" type="c_include"/>
+    </include_paths>
+    <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
+      <files mask="usbx_lib.ewp"/>
+      <files mask="usbx_lib.eww"/>
+    </source>
+    <source path="mdk" project_relative_path="./" type="workspace" toolchain="mdk">
+      <files mask="usbx_lib.uvprojx"/>
+      <files mask="usbx_lib.uvmpw"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
+      <files mask="readme.txt"/>
+    </source>
+    <source path="." project_relative_path="azure-rtos/config" type="c_include">
+      <files mask="tx_user.h"/>
+    </source>
+    <source path="." project_relative_path="azure-rtos/config" type="c_include">
+      <files mask="fx_user.h"/>
+    </source>
+    <source path="." project_relative_path="azure-rtos/config" type="c_include">
+      <files mask="nx_user.h"/>
+    </source>
+    <source path="." project_relative_path="azure-rtos/config" type="c_include">
+      <files mask="ux_user.h"/>
+    </source>
+  </example>
+</ksdk:examples>

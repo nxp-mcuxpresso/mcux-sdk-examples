@@ -111,7 +111,7 @@ instance:
 - name: 'PIT'
 - type: 'pit'
 - mode: 'LPTMR_GENERAL'
-- type_id: 'pit_a4782ba5223c8a2527ba91aeb2bc4159'
+- type_id: 'pit_ab54f91356454adb874dafbb69e655fd'
 - functional_group: 'BOARD_InitPeripherals'
 - peripheral: 'PIT'
 - config_sets:

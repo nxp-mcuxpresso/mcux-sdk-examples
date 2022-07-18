@@ -97,6 +97,10 @@ include(driver_flexcomm)
 
 include(driver_emc)
 
+include(component_silicon_id)
+
+include(driver_iap)
+
 include(driver_mdio-common)
 
 include(driver_reset)
@@ -107,7 +111,7 @@ include(driver_phy-common)
 
 include(driver_inputmux_connections)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC54S018)
 
 include(device_system)
 

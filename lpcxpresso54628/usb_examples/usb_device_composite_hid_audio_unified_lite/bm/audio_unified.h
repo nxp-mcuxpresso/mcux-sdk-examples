@@ -30,8 +30,10 @@ typedef struct _usb_audio_composite_struct
 {
     usb_device_handle deviceHandle; /* USB device handle.                   */
     uint8_t copyProtect;
-    uint8_t curMute;
-    uint8_t curVolume[2];
+    uint8_t curSpeakerMute;
+    uint8_t curMicrophoneMute;
+    uint8_t curSpeakerVolume[2];
+    uint8_t curMicrophoneVolume[2];
     uint8_t minVolume[2];
     uint8_t maxVolume[2];
     uint8_t resVolume[2];
@@ -65,9 +67,11 @@ typedef struct _usb_audio_composite_struct
     uint8_t maxSamplingFrequency[3];
     uint8_t resSamplingFrequency[3];
 #if (USB_DEVICE_CONFIG_AUDIO_CLASS_2_0)
-    uint8_t curMute20;
+    uint8_t curSpeakerMute20;
+    uint8_t curMicrophoneMute20;
     uint8_t curClockValid;
-    uint8_t curVolume20[2];
+    uint8_t curSpeakerVolume20[2];
+    uint8_t curMicrophoneVolume20[2];
     uint32_t curSampleFrequency;
     usb_device_control_range_layout3_struct_t freqControlRange;
     usb_device_control_range_layout2_struct_t volumeControlRange;
@@ -99,7 +103,8 @@ typedef struct _usb_audio_composite_struct
     volatile uint32_t recorderReservedSpace;
     volatile uint32_t timesFeedbackCalculate;
     volatile uint32_t speakerDetachOrNoInput;
-    volatile uint32_t codecTask;
+    volatile uint32_t codecSpeakerTask;
+    volatile uint32_t codecMicrophoneTask;
     volatile uint32_t curAudioPllFrac;
     volatile uint32_t audioPllTicksPrev;
     volatile int32_t audioPllTicksDiff;

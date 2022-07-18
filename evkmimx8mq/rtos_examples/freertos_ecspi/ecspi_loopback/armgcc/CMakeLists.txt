@@ -100,7 +100,7 @@ include(middleware_freertos-kernel_MIMX8MQ6)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMX8MQ6)
 
 include(device_system)
 

@@ -79,6 +79,8 @@ include(middleware_sdmmc_host_usdhc)
 
 include(middleware_sdmmc_host_usdhc_freertos_MIMXRT1166_cm4)
 
+include(component_igpio_adapter)
+
 include(middleware_fatfs)
 
 include(middleware_fatfs_sd)
@@ -113,13 +115,15 @@ include(driver_igpio)
 
 include(driver_xip_device)
 
-include(driver_xip_board)
+include(driver_xip_board_evkmimxrt1160)
 
 include(driver_pmu_1)
 
 include(driver_dcdc_soc)
 
 include(driver_cache_lmem)
+
+include(component_silicon_id)
 
 include(driver_memory)
 
@@ -135,7 +139,7 @@ include(middleware_freertos-kernel_MIMXRT1166_cm4)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1166_cm4)
 
 include(device_system_MIMXRT1166_cm4)
 

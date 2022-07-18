@@ -100,6 +100,8 @@ include(driver_xip_device)
 
 include(driver_xip_board_evkmimxrt1020)
 
+include(component_silicon_id)
+
 include(CMSIS_Include_core_cm)
 
 include(CMSIS_Driver_Include_Ethernet_MAC)
@@ -118,7 +120,7 @@ include(driver_phy-common)
 
 include(driver_mdio-common)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1021)
 
 include(device_system)
 

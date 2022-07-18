@@ -138,6 +138,8 @@ include(driver_dcdc_soc)
 
 include(driver_cache_lmem)
 
+include(component_silicon_id)
+
 include(driver_mu)
 
 include(driver_anatop_ai)
@@ -148,7 +150,7 @@ include(middleware_freertos-kernel_extension)
 
 include(middleware_multicore_erpc_common)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1176_cm4)
 
 include(device_system_MIMXRT1176_cm4)
 

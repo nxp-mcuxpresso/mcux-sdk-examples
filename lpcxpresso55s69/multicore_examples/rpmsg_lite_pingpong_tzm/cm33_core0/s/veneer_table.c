@@ -7,6 +7,7 @@
 
 #include "stdint.h"
 #include <arm_cmse.h>
+#include "tzm_api.h"
 #include "rpmsg_lite.h"
 #include "veneer_table.h"
 #include "fsl_debug_console.h"
@@ -45,7 +46,7 @@ size_t strnlen(const char *s, size_t maxLength)
 }
 #endif
 
-__attribute__((cmse_nonsecure_entry)) struct rpmsg_lite_endpoint *rpmsg_lite_create_ept_nse(
+TZM_IS_NOSECURE_ENTRY struct rpmsg_lite_endpoint *rpmsg_lite_create_ept_nse(
     uint32_t addr, struct rpmsg_lite_endpoint_callback_descr_ns *ept_callback_descr)
 {
 #if defined(RL_USE_STATIC_API) && (RL_USE_STATIC_API == 1)
@@ -84,14 +85,14 @@ __attribute__((cmse_nonsecure_entry)) struct rpmsg_lite_endpoint *rpmsg_lite_cre
 #endif /* !((__GNUC__ == 10) && (__GNUC_MINOR__ < 3)) */
 #endif /* RL_USE_STATIC_API */
 }
-__attribute__((cmse_nonsecure_entry)) int32_t rpmsg_lite_destroy_ept_nse(struct rpmsg_lite_endpoint *rl_ept)
+TZM_IS_NOSECURE_ENTRY int32_t rpmsg_lite_destroy_ept_nse(struct rpmsg_lite_endpoint *rl_ept)
 {
     return rpmsg_lite_destroy_ept(rpmsg_lite_instance_s, rl_ept);
 }
 
-__attribute__((cmse_nonsecure_entry)) int32_t rpmsg_lite_send_nse(struct rpmsg_lite_endpoint *ept,
-                                                                  struct rpmsg_lite_send_params_ns *message_params,
-                                                                  uint32_t timeout)
+TZM_IS_NOSECURE_ENTRY int32_t rpmsg_lite_send_nse(struct rpmsg_lite_endpoint *ept,
+                                                  struct rpmsg_lite_send_params_ns *message_params,
+                                                  uint32_t timeout)
 {
     /* Due to the bug in GCC 10 cmse_check_pointed_object() always fail, do not call it, see GCC Bugzilla - Bug 99157.
        Solved in GCC 10.3 version */
@@ -112,7 +113,7 @@ __attribute__((cmse_nonsecure_entry)) int32_t rpmsg_lite_send_nse(struct rpmsg_l
                            timeout);
 #endif /* !((__GNUC__ == 10) && (__GNUC_MINOR__ < 3)) */
 }
-__attribute__((cmse_nonsecure_entry)) void DbgConsole_Printf_NSE(char const *s)
+TZM_IS_NOSECURE_ENTRY void DbgConsole_Printf_NSE(char const *s)
 {
     size_t string_length;
     /* Access to non-secure memory from secure world has to be properly validated */

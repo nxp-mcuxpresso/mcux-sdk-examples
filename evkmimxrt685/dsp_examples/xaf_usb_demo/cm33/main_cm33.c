@@ -8,13 +8,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "main_cm33.h"
 #include "fsl_debug_console.h"
 
 
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "board.h"
-#include "main_cm33.h"
 #include "dsp_support.h"
 #include "dsp_ipc.h"
 #include "cmd.h"

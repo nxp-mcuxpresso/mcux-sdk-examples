@@ -11,8 +11,8 @@ level 0, hysteresis level is level 0.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.5.0
+- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.6.0
 
 Hardware requirements
 =====================
@@ -22,11 +22,11 @@ Hardware requirements
 
 Board settings
 ==============
-This example project uses ACMP to compare the voltage signal input from External Input1(J48-21)
-with the voltage signal(half of Vin1 from internal PMC) output by ACMP's internal DAC. Terminal will print information
+This example project uses ACMP to compare the voltage signal input from External Input1(J48-22)
+with the voltage signal(half of Vin2 from internal PMC) output by ACMP's internal DAC. Terminal will print information
 corresponding to different comparison result.
 
-Connect ACMP External Input1(J48-21) to stable external voltage generator to avoid floating voltage.
+Connect ACMP External Input1(J48-22) to stable external voltage generator to avoid floating voltage.
 The example serial port output may be frequent change otherwise.
 
 Prepare the Demo

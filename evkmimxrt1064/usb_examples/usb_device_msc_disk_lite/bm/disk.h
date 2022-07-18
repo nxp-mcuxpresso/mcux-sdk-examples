@@ -68,6 +68,7 @@ typedef struct _usb_msc_struct
     uint8_t currentInterfaceAlternateSetting[USB_MSC_INTERFACE_COUNT];
     uint8_t speed;
     uint8_t attach;
+    uint8_t stop; /* indicates this media keeps stop or not, 1: stop, 0: start */
     usb_msc_buffer_struct_t *headlist;
     usb_msc_buffer_struct_t *taillist;
     usb_msc_buffer_struct_t *transferlist;

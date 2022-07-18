@@ -6,7 +6,7 @@ After every 4B received, these are sent back on UART.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
+- GCC ARM Embedded  10.3.1
 
 Hardware requirements
 =====================

@@ -97,9 +97,13 @@ include(driver_emc)
 
 include(utility_assert)
 
+include(component_silicon_id)
+
+include(driver_iap)
+
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC54628)
 
 include(device_system)
 

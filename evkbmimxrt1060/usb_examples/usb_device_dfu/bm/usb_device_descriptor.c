@@ -496,7 +496,7 @@ usb_status_t USB_DeviceGetStringDescriptor(usb_device_handle handle,
                 break;
             }
         }
-        if (0xEE == stringDescriptor->stringIndex)
+        if (0xEEU == stringDescriptor->stringIndex)
         {
             stringDescriptor->buffer = (uint8_t *)g_UsbDeviceOSString;
             stringDescriptor->length = sizeof(g_UsbDeviceOSString);
@@ -528,7 +528,7 @@ usb_status_t USB_DeviceSetSpeed(usb_device_handle handle, uint8_t speed)
     descriptorHead = (usb_descriptor_union_t *)&g_UsbDeviceConfigurationDescriptor[0];
     descriptorTail =
         (usb_descriptor_union_t *)(&g_UsbDeviceConfigurationDescriptor[USB_DESCRIPTOR_LENGTH_CONFIGURATION_ALL - 1U]);
-    if (g_detachRequest)
+    if (0U != g_detachRequest)
     {
         /*if current device has enter dfu mode, don't need set */
         return kStatus_USB_Success;

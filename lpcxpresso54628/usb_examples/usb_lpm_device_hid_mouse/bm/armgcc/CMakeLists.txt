@@ -123,7 +123,7 @@ include(middleware_usb_device_ip3511hs_LPC54628)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC54628)
 
 include(device_system)
 

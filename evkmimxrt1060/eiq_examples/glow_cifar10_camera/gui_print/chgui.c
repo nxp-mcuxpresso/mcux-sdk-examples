@@ -71,10 +71,12 @@ void CHGUI_Init(void)
 
 void _GUI_DispChar(char c, int x, int y, const char *pdata, int font_xsize, int font_ysize, int fcolor, int bcolor)
 {
-    uint8_t j,pos,t;
+    uint8_t j,t;
     uint8_t temp;
     uint8_t XNum;
     uint32_t base;
+    int pos;
+
     XNum = (font_xsize/8) + 1;
     if(font_ysize%8 == 0)
     {

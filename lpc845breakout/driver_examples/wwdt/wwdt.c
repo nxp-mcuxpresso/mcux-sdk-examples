@@ -14,10 +14,10 @@
 #include "pin_mux.h"
 #include "board.h"
 #include "fsl_wwdt.h"
+
 #if !defined(FSL_FEATURE_WWDT_HAS_NO_PDCFG) || (!FSL_FEATURE_WWDT_HAS_NO_PDCFG)
 #include "fsl_power.h"
 #endif
-
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -95,13 +95,12 @@ int main(void)
     BOARD_BootClockFRO30M();
     BOARD_InitDebugConsole();
     CLOCK_InitWdtOsc(kCLOCK_WdtAnaFreq600KHZ, 2U);
-
-    /* Set Red LED to initially be high */
-    APP_LED_INIT;
-
 #if !defined(FSL_FEATURE_WWDT_HAS_NO_PDCFG) || (!FSL_FEATURE_WWDT_HAS_NO_PDCFG)
     POWER_DisablePD(kPDRUNCFG_PD_WDT_OSC);
 #endif
+
+    /* Set Red LED to initially be high */
+    APP_LED_INIT;
 
     /* Enable the WWDT time out to reset the CPU. */
     timeOutResetEnable = true;

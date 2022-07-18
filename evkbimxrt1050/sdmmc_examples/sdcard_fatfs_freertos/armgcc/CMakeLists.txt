@@ -79,6 +79,8 @@ include(middleware_sdmmc_host_usdhc)
 
 include(middleware_sdmmc_host_usdhc_freertos_MIMXRT1052)
 
+include(component_igpio_adapter)
+
 include(middleware_fatfs)
 
 include(middleware_fatfs_sd)
@@ -115,6 +117,8 @@ include(driver_xip_device)
 
 include(driver_xip_board_evkbimxrt1050)
 
+include(component_silicon_id)
+
 include(CMSIS_Include_core_cm)
 
 include(middleware_sdmmc_osa_freertos)
@@ -125,7 +129,7 @@ include(middleware_freertos-kernel_MIMXRT1052)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1052)
 
 include(device_system)
 

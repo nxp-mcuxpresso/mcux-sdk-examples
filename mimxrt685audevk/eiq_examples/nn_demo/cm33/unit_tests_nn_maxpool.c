@@ -94,20 +94,28 @@ static void free_buffers()
 
 static void process_sync()
 {
+
+#if NN_ENABLE_xa_nn_maxpool_f32 == 1
     xa_nn_maxpool_f32(p_out, // OUTPUT
                       p_inp, // INPUT
                       INPUT_HEIGHT, INPUT_WIDTH, INPUT_CHANNELS, KERNEL_HEIGHT, KERNEL_WIDTH, X_STRIDE, Y_STRIDE,
                       X_PADDING, Y_PADDING, OUTPUT_HEIGHT, OUTPUT_WIDTH, 1, 1, p_scratch);
+
+#endif
 }
 
 static void process_async()
 {
+
+#if NN_ENABLE_xa_nn_maxpool_f32 == 1
     xa_nn_maxpool_f32_async(nn_cb, queue,
                             p_out, // OUTPUT
                             p_inp, // INPUT
                             INPUT_HEIGHT, INPUT_WIDTH, INPUT_CHANNELS, KERNEL_HEIGHT, KERNEL_WIDTH, X_STRIDE, Y_STRIDE,
                             X_PADDING, Y_PADDING, OUTPUT_HEIGHT, OUTPUT_WIDTH, 1, 1, p_scratch);
     xQueueReceive(queue, &msg, portMAX_DELAY);
+
+#endif
 }
 
 static int check_output()
@@ -125,18 +133,19 @@ static int check_output()
         }
     }
 
-    PRINTF("%s output check succeded\r\n", UNIT_TEST_NAME);
+    PRINTF("%s output check succeeded\r\n", UNIT_TEST_NAME);
     return 1;
 }
 
 void nn_maxpool_unit_test(int mode)
 {
+    PRINTF("Running %s %s\r\n", UNIT_TEST_NAME, mode == UNIT_TEST_SYNC ? "SYNC" : "ASYNC");
+
+#if NN_ENABLE_xa_nn_maxpool_f32 == 1
     int i;
     volatile unsigned long tic, toc;
     unsigned long total_cycles = 0;
     float total_ms;
-
-    PRINTF("Running %s %s\r\n", UNIT_TEST_NAME, mode == UNIT_TEST_SYNC ? "SYNC" : "ASYNC");
 
     if (mode == UNIT_TEST_ASYNC)
     {
@@ -176,8 +185,8 @@ void nn_maxpool_unit_test(int mode)
     total_cycles /= BENCH_ITERS;
     total_ms = COUNT_TO_USEC(total_cycles, SystemCoreClock) / 1000.0;
 
-    PRINTF("Avg Inference cycles: %u time: %.3f ms\r\n", total_cycles, total_ms);
-    PRINTF("Throughput: %.1f fps\r\n", 1000 / total_ms);
+    PRINTF("Avg Inference cycles: %u time: %d ms\r\n", total_cycles, total_ms);
+    PRINTF("Throughput: %d fps\r\n", 1000 / total_ms);
 
     if (mode == UNIT_TEST_ASYNC)
     {
@@ -185,4 +194,7 @@ void nn_maxpool_unit_test(int mode)
         vQueueDelete(queue);
     }
     free_buffers();
+#else
+    PRINTF("%s xa_nn_maxpool_f32%s not supported\r\n", UNIT_TEST_NAME, mode == UNIT_TEST_ASYNC ? "_async" : "");
+#endif
 }

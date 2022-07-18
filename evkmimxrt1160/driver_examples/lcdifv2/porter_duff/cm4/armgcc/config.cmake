@@ -2,4 +2,5 @@
 set(CONFIG_USE_driver_mipi_dsi_split true)
 set(CONFIG_USE_component_serial_manager_uart true)
 set(CONFIG_USE_driver_lpuart true)
+set(CONFIG_USE_driver_common true)
 set(MCUX_DEVICE "MIMXRT1166_cm4")

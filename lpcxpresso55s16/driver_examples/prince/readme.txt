@@ -6,8 +6,8 @@ The example also shows how to correctly perform PRINCE region erase and write op
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.5.0
+- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.6.0
 
 Hardware requirements
 =====================
@@ -21,7 +21,20 @@ The jumper setting:
     Default jumpers configuration does not work,  you will need to add JP20 and JP21 (JP22 optional for ADC use)
 
 The keystore in PFR (Protected Flash Region) has to be created before this application is executed.
-Refer to the device user manual (UM11295) for more information about how to create the keystore.
+Newer devices have provisioned keystore from NXP factory. This means that PUF activation code is already present in NXP
+programmed Key Store Area in FFR/PFR. Also device certificate and device private keys derived from activation key have
+been programmed in NMPA area. In most cases, user can reuse PUF activation code stored in FFR to start the PUF, so it
+is not necessary to perform PUF enroll again. In case that user application requires to have a separate PUF key store
+which is independent on the NXP programmed key store, it is possible to enroll PUF again and store the new AC at user
+defined location in non-volatile memory. 
+
+It is strongly recommended to not update the PUF activation code provisioned from NXP factory!!
+Device certificate and device private keys programmed by NXP in keystore area will become unusable.
+
+You can check whether the Key Store has already been provisioned by checking valid value at the Key Store header in FFR. 
+
+If your device is not provisioned, you can achieve it by following steps below:
+Refer to the device user manual for more information about how to create the keystore.
 The general steps are:
 1. Install the JS3 jumper to allow the ISP mode after the reset.
 2. Connect a micro USB cable between the PC host and the CMSIS DAP USB port (J1) on the board.

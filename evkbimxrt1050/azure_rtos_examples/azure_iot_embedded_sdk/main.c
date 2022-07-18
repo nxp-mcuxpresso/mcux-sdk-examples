@@ -114,9 +114,9 @@ extern VOID sample_entry(NX_IP* ip_ptr, NX_PACKET_POOL* pool_ptr, NX_DNS* dns_pt
 #define SAMPLE_SNTP_UPDATE_INTERVAL       (NX_IP_PERIODIC_RATE / 2)
 #endif /* SAMPLE_SNTP_UPDATE_INTERVAL */
 
-/* Default time. GMT: Mon Mar 22 03:15:42 2021.  */
+/* Default time. GMT: Thu Mar 10 10:44:35 2022.  */
 #ifndef SAMPLE_SYSTEM_TIME 
-#define SAMPLE_SYSTEM_TIME                1616354142
+#define SAMPLE_SYSTEM_TIME                1646909075
 #endif /* SAMPLE_SYSTEM_TIME  */
 
 /* Seconds between Unix Epoch (1/1/1970) and NTP Epoch (1/1/1999) */

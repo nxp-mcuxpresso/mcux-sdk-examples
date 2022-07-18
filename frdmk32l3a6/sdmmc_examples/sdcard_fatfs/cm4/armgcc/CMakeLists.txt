@@ -80,6 +80,8 @@ include(utility_assert_lite)
 
 include(driver_cache_lpcac)
 
+include(component_gpio_adapter)
+
 include(driver_port)
 
 include(driver_gpio)
@@ -110,7 +112,7 @@ include(middleware_sdmmc_osa_bm)
 
 include(component_osa_bm)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_K32L3A60_cm4)
 
 include(device_system_K32L3A60_cm4)
 

@@ -87,7 +87,7 @@ include(device_startup)
 
 include(utility_assert)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMX8MM6)
 
 include(CMSIS_Include_core_cm)
 

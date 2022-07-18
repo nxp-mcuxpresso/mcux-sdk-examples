@@ -99,13 +99,15 @@ include(driver_xip_device)
 
 include(driver_xip_board_evkmimxrt1064)
 
+include(component_silicon_id)
+
 include(CMSIS_Include_core_cm)
 
 include(driver_nor_flash-common)
 
 include(driver_flexspi)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1064)
 
 include(device_system)
 

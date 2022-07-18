@@ -129,7 +129,7 @@ status_t BOARD_InitSEMC(void)
     sdramconfig.refreshPeriod_nsPerRow = 64 * 1000000 / 8192; /* 64ms/8192 */
     sdramconfig.refreshUrgThreshold    = sdramconfig.refreshPeriod_nsPerRow;
     sdramconfig.refreshBurstLen        = 1;
-    sdramconfig.delayChain             = 2;
+    sdramconfig.delayChain             = 6; /* For all tempeatures. */
 
     return SEMC_ConfigureSDRAM(SEMC, kSEMC_SDRAM_CS0, &sdramconfig, clockFrq);
 }

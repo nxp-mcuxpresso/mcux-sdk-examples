@@ -92,6 +92,8 @@ include(middleware_sdmmc_host_usdhc)
 
 include(middleware_sdmmc_host_usdhc_freertos_MIMXRT595S_cm33)
 
+include(component_rt_gpio_adapter)
+
 include(middleware_freertos-kernel_heap_4)
 
 include(middleware_freertos-kernel_MIMXRT595S_cm33)
@@ -152,7 +154,7 @@ include(component_osa_free_rtos)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT595S_cm33)
 
 include(driver_iap)
 

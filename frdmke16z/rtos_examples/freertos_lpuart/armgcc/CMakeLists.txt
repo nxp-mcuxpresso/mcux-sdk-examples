@@ -100,7 +100,7 @@ include(middleware_freertos-kernel_MKE16Z4)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MKE16Z4)
 
 include(device_system)
 

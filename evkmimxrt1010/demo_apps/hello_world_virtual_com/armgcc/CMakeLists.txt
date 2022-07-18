@@ -114,7 +114,7 @@ include(middleware_usb_common_header)
 
 include(middleware_usb_device_common_header)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1011)
 
 include(device_system)
 

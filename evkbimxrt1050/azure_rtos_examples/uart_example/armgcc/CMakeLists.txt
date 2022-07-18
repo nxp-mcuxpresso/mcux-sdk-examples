@@ -112,7 +112,7 @@ include(driver_xip_board_evkbimxrt1050)
 
 include(middleware_azure_rtos_tx_template_MIMXRT1052)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1052)
 
 include(CMSIS_Include_core_cm)
 

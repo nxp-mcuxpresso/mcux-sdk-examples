@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 ,2021 NXP
+ * Copyright 2019 ,2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -37,17 +37,6 @@ void BOARD_InitBootPins(void);
 #define IOCON_PIO_MODE_PULLUP 0x10u  /*!<@brief Selects pull-up function */
 #define IOCON_PIO_OD_DI 0x00u        /*!<@brief Disables Open-drain function */
 #define IOCON_PIO_SMODE_BYPASS 0x00u /*!<@brief Bypass input filter */
-
-/*! @name PIO0_12 (number 2), SW2/D1[1]/P3[45]/J2[5]/P0_12-RED-ISP
-  @{ */
-
-/* Symbols to be used with GPIO driver */
-#define DEMO_LED_RED_GPIO GPIO                 /*!<@brief GPIO peripheral base pointer */
-#define DEMO_LED_RED_GPIO_PIN_MASK (1U << 12U) /*!<@brief GPIO pin mask */
-#define DEMO_LED_RED_PORT 0U                   /*!<@brief PORT device index: 0 */
-#define DEMO_LED_RED_PIN 12U                   /*!<@brief PORT pin number */
-#define DEMO_LED_RED_PIN_MASK (1U << 12U)      /*!<@brief PORT pin mask */
-                                               /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

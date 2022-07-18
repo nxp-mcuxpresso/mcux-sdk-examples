@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2021 NXP
+ * Copyright 2016-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -10,6 +10,7 @@
 #include "fsl_debug_console.h"
 #include "fsl_enet.h"
 #include "fsl_phy.h"
+#include "fsl_silicon_id.h"
 
 #include "pin_mux.h"
 #include "board.h"
@@ -66,16 +67,12 @@
 #ifndef MAC_ADDRESS
 #define MAC_ADDRESS                        \
     {                                      \
-        0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60 \
+        0x54, 0x27, 0x8d, 0x00, 0x00, 0x00 \
     }
+#else
+#define USER_DEFINED_MAC_ADDRESS
 #endif
 
-#ifndef MAC_ADDRESS2
-#define MAC_ADDRESS2                       \
-    {                                      \
-        0x01, 0x00, 0x5e, 0x00, 0x01, 0x81 \
-    }
-#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -97,21 +94,20 @@ __ALIGN_BEGIN enet_rx_bd_struct_t g_rxBuffDescrip[ENET_RXBD_NUM] __ALIGN_END;
 __ALIGN_BEGIN enet_tx_bd_struct_t g_txBuffDescrip[ENET_TXBD_NUM] __ALIGN_END;
 
 /* The MAC address for ENET device. */
-uint8_t g_macAddr[6]     = MAC_ADDRESS;
-uint8_t multicastAddr[6] = MAC_ADDRESS2;
-uint8_t g_frame[ENET_EXAMPLE_PACKAGETYPE][ENET_EXAMPLE_FRAME_SIZE];
-uint8_t *g_txbuff[ENET_TXBD_NUM];
-uint32_t g_txIdx      = 0;
-uint8_t g_txbuffIdx   = 0;
-uint8_t g_txGenIdx    = 0;
-uint8_t g_txCosumIdx  = 0;
-uint8_t g_txUsed      = 0;
-uint8_t g_rxGenIdx    = 0;
-uint32_t g_rxCosumIdx = 0;
-uint32_t g_testIdx    = 0;
-uint32_t g_rxIndex    = 0;
-uint32_t g_rxCheckIdx = 0;
-uint32_t g_rxbuffer[ENET_RXBD_NUM];
+static uint8_t g_macAddr[6] = MAC_ADDRESS;
+static uint8_t g_frame[ENET_EXAMPLE_PACKAGETYPE][ENET_EXAMPLE_FRAME_SIZE];
+static uint8_t *g_txbuff[ENET_TXBD_NUM];
+static uint32_t g_txIdx      = 0;
+static uint8_t g_txbuffIdx   = 0;
+static uint8_t g_txGenIdx    = 0;
+static uint8_t g_txCosumIdx  = 0;
+static uint8_t g_txUsed      = 0;
+static uint8_t g_rxGenIdx    = 0;
+static uint32_t g_rxCosumIdx = 0;
+static uint32_t g_testIdx    = 0;
+static uint32_t g_rxIndex    = 0;
+static uint32_t g_rxCheckIdx = 0;
+static uint32_t g_rxbuffer[ENET_RXBD_NUM];
 
 /*! @brief Enet PHY and MDIO interface handler. */
 static mdio_handle_t mdioHandle = {.ops = &EXAMPLE_MDIO_OPS};
@@ -202,6 +198,11 @@ int main(void)
             }
         }
     } while (!(link && autonego));
+
+#ifndef USER_DEFINED_MAC_ADDRESS
+    /* Set special address for each chip. */
+    SILICONID_ConvertToMacAddr(&g_macAddr);
+#endif
 
     /* Get default configuration 100M RMII. */
     ENET_GetDefaultConfig(&config);

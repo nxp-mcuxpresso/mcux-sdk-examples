@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 NXP
+ * Copyright 2019-2022 NXP
  * All rights reserved.
  *
  *
@@ -135,7 +135,7 @@
 #define NN_ENABLE_xa_nn_elm_sub_asym8sxasym8s_asym8s           1
 #define NN_ENABLE_xa_nn_elm_mul_asym8uxasym8u_asym8u           1
 #define NN_ENABLE_xa_nn_elm_mul_asym8sxasym8s_asym8s           1
-#define NN_ENABLE_xa_nn_elm_quantize_asym16s_asym8s            1
+#define NN_ENABLE_xa_nn_elm_quantize_asym16s_asym8s            0
 #define NN_ENABLE_xa_nn_elm_max_8x8_8                          1
 #define NN_ENABLE_xa_nn_elm_min_8x8_8                          1
 #define NN_ENABLE_xa_nn_elm_equal_asym8sxasym8s                1
@@ -144,7 +144,7 @@
 #define NN_ENABLE_xa_nn_elm_greaterequal_asym8sxasym8s         1
 #define NN_ENABLE_xa_nn_elm_less_asym8sxasym8s                 1
 #define NN_ENABLE_xa_nn_elm_lessequal_asym8sxasym8s            1
-#define NN_ENABLE_xa_nn_reduce_max_getsize_nhwc                1
+#define NN_ENABLE_xa_nn_reduce_max_getsize_nhwc                0
 #define NN_ENABLE_xa_nn_reduce_max_4D_asym8s_asym8s            1
 #define NN_ENABLE_xa_nn_elm_logicaland_boolxbool_bool          1
 #define NN_ENABLE_xa_nn_elm_logicalor_boolxbool_bool           1

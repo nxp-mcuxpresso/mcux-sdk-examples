@@ -77,7 +77,7 @@ include(component_timer_manager)
 
 include(component_gpio_adapter)
 
-include(component_button)
+include(component_button_K32L2B31A)
 
 include(component_lists)
 
@@ -121,7 +121,7 @@ include(middleware_freertos-kernel_K32L2B31A)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_K32L2B31A)
 
 include(device_system)
 

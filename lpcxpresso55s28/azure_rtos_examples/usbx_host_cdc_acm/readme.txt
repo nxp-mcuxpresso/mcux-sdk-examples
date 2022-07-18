@@ -5,8 +5,8 @@ This example works as a USB host CDC ACM. It can communicate with a USB CDC ACM 
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.5.0
+- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.6.0
 
 Hardware requirements
 =====================
@@ -18,13 +18,16 @@ Hardware requirements
 
 Board settings
 ==============
-This example only work with the USB high speed port (P9). Set jumpers to enable high speed mode.
-Install jumper in position 1-2 pins of J6 and open J7 jumper.
+This example can work with the USB high speed port (P9)or the USB full speed port (P10).
+High speed: Install jumper in position 1-2 pins of J6 and open J7 jumper.
+Full speed: Install jumper in position 2-3 pins of J6 and short J7 pins.
 
 Prepare the Demo
 ================
-1.  Connect the USB A Female to Micro B Male cable between a USB CDC ACM device and
-    the on-board USB high speed port (P9).
+1.  High speed: Connect the USB A Female to Micro B Male cable between a USB CDC ACM device and
+                the on-board USB high speed port (P9).
+    Full speed: Connect the USB A Female to Micro B Male cable between a USB CDC ACM device and
+                the on-board USB full speed port (P10).
 2.  Connect a USB Micro cable between the host PC and the Debug Link USB port (P6) on the target board.
 3.  Connect a USB Micro cable between the PC and the on-board USB power port (P5).
 4.  Open a serial terminal on the PC with the following settings:
@@ -33,7 +36,9 @@ Prepare the Demo
     - No parity
     - One stop bit
     - No flow control
-5.  Compile the demo.
+5.  Compile the demo:
+    - High speed: Set USB_HOST_CONFIG_IP3516HS to 1 in board_setup.c
+    - Full speed: Set USB_HOST_CONFIG_IP3516HS to 0 in board_setup.c
 6.  Download the program to the target board.
 7.  Press the on-board RESET button to start the demo.
 

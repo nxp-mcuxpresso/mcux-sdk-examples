@@ -20,6 +20,7 @@
 #include "pin_mux.h"
 #include "board.h"
 #include "fsl_debug_console.h"
+#include "tzm_api.h"
 #include "mcmgr.h"
 
 #include "fsl_common.h"
@@ -69,9 +70,6 @@ char rpmsg_lite_base[SH_MEM_TOTAL_SIZE] __attribute__((section("rpmsg_sh_mem_sec
 #else
 #error "RPMsg: Please provide your definition of rpmsg_lite_base[]!"
 #endif
-
-/* typedef for non-secure callback functions */
-typedef void (*funcptr_ns)(void) __attribute__((cmse_nonsecure_call));
 
 /*******************************************************************************
  * Prototypes
@@ -152,7 +150,6 @@ int main(void)
     volatile uint16_t RPMsgRemoteReadyEventData = 0;
     struct rpmsg_lite_ept_static_context my_ept_context_s;
     struct rpmsg_lite_endpoint *my_ept_s;
-    funcptr_ns ResetHandler_ns;
 
     /* Initialize standard SDK demo application pins */
     /* set BOD VBAT level to 1.65V */
@@ -235,20 +232,11 @@ int main(void)
         }
     }
 
-    /* jump to the non-secure domain */
-    /* Set non-secure main stack (MSP_NS) */
-    __TZ_set_MSP_NS(*((uint32_t *)(NON_SECURE_START)));
-
-    /* Set non-secure vector table */
-    SCB_NS->VTOR = NON_SECURE_START;
-
-    /* Get non-secure reset handler */
-    ResetHandler_ns = (funcptr_ns)(*((uint32_t *)((NON_SECURE_START) + 4U)));
-
     /* Call non-secure application */
     (void)PRINTF("\r\nEntering normal world now.\r\n");
-    /* Jump to normal world */
-    ResetHandler_ns();
+
+    /* jump to the non-secure domain */
+    TZM_JumpToNormalWorld(NON_SECURE_START);
     for (;;)
     {
         /* This point should never be reached */

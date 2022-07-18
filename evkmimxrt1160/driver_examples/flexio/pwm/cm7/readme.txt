@@ -6,8 +6,8 @@ and dynamic duty from 99 to 1 to one of the FLEXIO pin.
 
 Toolchain supported
 ===================
-- MCUXpresso  11.5.0
-- GCC ARM Embedded  10.2.1
+- MCUXpresso  11.6.0
+- GCC ARM Embedded  10.3.1
 
 Hardware requirements
 =====================

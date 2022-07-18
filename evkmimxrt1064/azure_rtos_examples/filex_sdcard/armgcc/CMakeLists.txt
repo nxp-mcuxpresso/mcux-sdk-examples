@@ -96,6 +96,8 @@ include(middleware_sdmmc_host_usdhc)
 
 include(middleware_sdmmc_host_usdhc_azurertos)
 
+include(component_igpio_adapter)
+
 include(driver_clock)
 
 include(driver_common)
@@ -138,7 +140,7 @@ include(middleware_sdmmc_osa_azurertos)
 
 include(component_osa_thread)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1064)
 
 include(device_system)
 

@@ -2,6 +2,7 @@
 ** ###################################################################
 **     Processors:          LPC55S16JBD100
 **                          LPC55S16JBD64
+**                          LPC55S16JEV59
 **                          LPC55S16JEV98
 **
 **     Compiler:            GNU C Compiler

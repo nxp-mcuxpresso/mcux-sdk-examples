@@ -58,6 +58,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/inc/azure/core/_az_cfg.h"
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/inc/azure/core/_az_cfg_prefix.h"
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/inc/azure/core/_az_cfg_suffix.h"
+"${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/inc/azure/core/az_base64.h"
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/inc/azure/core/az_config.h"
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/inc/azure/core/az_context.h"
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/inc/azure/core/az_credentials.h"
@@ -80,8 +81,10 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/inc/azure/core/internal/az_span_internal.h"
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/inc/azure/iot/az_iot_common.h"
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/inc/azure/iot/az_iot_hub_client.h"
+"${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/inc/azure/iot/az_iot_hub_client_properties.h"
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/inc/azure/iot/az_iot_provisioning_client.h"
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/inc/azure/iot/internal/az_iot_common_internal.h"
+"${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/src/azure/core/az_base64.c"
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/src/azure/core/az_context.c"
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/src/azure/core/az_hex_private.h"
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/src/azure/core/az_http_header_validation_private.h"
@@ -104,7 +107,9 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/src/azure/iot/az_iot_common.c"
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/src/azure/iot/az_iot_hub_client.c"
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/src/azure/iot/az_iot_hub_client_c2d.c"
+"${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/src/azure/iot/az_iot_hub_client_commands.c"
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/src/azure/iot/az_iot_hub_client_methods.c"
+"${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/src/azure/iot/az_iot_hub_client_properties.c"
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/src/azure/iot/az_iot_hub_client_sas.c"
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/src/azure/iot/az_iot_hub_client_telemetry.c"
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/src/azure/iot/az_iot_hub_client_twin.c"
@@ -288,8 +293,13 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../azure_iot/azure_iot_security_module/src/utils/os_utils.c"
 "${ProjDirPath}/../azure_iot/nx_azure_iot.c"
 "${ProjDirPath}/../azure_iot/nx_azure_iot.h"
+"${ProjDirPath}/../azure_iot/nx_azure_iot_adu_agent.c"
+"${ProjDirPath}/../azure_iot/nx_azure_iot_adu_agent.h"
+"${ProjDirPath}/../azure_iot/nx_azure_iot_adu_root_key.c"
 "${ProjDirPath}/../azure_iot/nx_azure_iot_hub_client.c"
 "${ProjDirPath}/../azure_iot/nx_azure_iot_hub_client.h"
+"${ProjDirPath}/../azure_iot/nx_azure_iot_hub_client_properties.c"
+"${ProjDirPath}/../azure_iot/nx_azure_iot_hub_client_properties.h"
 "${ProjDirPath}/../azure_iot/nx_azure_iot_json_reader.c"
 "${ProjDirPath}/../azure_iot/nx_azure_iot_json_reader.h"
 "${ProjDirPath}/../azure_iot/nx_azure_iot_json_writer.c"
@@ -416,7 +426,7 @@ include(driver_memory)
 
 include(driver_phy-common)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1166_cm7)
 
 include(device_system_MIMXRT1166_cm7)
 

@@ -9,7 +9,7 @@ If there is no audio palyback, M core will enter the STOP mode, and the whole SO
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
+- GCC ARM Embedded  10.3.1
 
 Hardware requirements
 =====================
@@ -19,10 +19,11 @@ Hardware requirements
 - 12V power supply
 - Personal Computer
 - Headphone
+- 8MIC-PRI-MX8
 
 Board settings
 ==============
-No special settings are required.
+Connect the 8MIC-PRI-MX8 Microphone board to J21 on the base board if sound capture is needed.
 
 #### Note! ####
 1.  This case does not support ddr and flash target. 
@@ -50,13 +51,16 @@ NOTE
     Make sure the FDT file is correctly set before booting the linux kernel. The following command can be used to set FDT file in uboot console:
     u-boot=>setenv fdtfile imx8mp-evk-rpmsg.dtb
     u-boot=>saveenv
+	Make sure the "snd_pcm.max_alloc_per_card" is set using below command for the uboot bootargs for Linux 5.15.5-1.0.0 and later version.
+	u-boot=>setenv mmcargs 'setenv bootargs ${jh_clk} console=${console} root=${mmcroot} snd_pcm.max_alloc_per_card=134217728'
+	u-boot=>saveenv
 4.  Please make sure there exists xxx.wav file in the SD card.
     If the music file is placed at the Windows FAT32 paritions, after the linux kernel boots up and logs on as root,
     using the "mount /dev/mmcblk1p1 /mnt" and then go to "/mnt" folder to playabck the music using the playback command.
     If the music file is placed at the Linux paritions, eg "/home", could playback the music directly using the playback command. 
 
 ******************
-Playback command
+Playback/record command
 ******************
 Note:
 1. Please use the command "cat /proc/asound/cards" to check the wm8960 sound card number.
@@ -75,7 +79,7 @@ E.g: Type command:
      4 [audiohdmi      ]: audio-hdmi - audio-hdmi
                       audio-hdmi
 
-Then the wm8960 sound card number is 3.
+Then the wm8960 sound card number is 3, the MICFIL sound card number is 0.
 
 When playback the .wav file:
 1.  If want to playabck with pause/resume command, could use command: 
@@ -87,6 +91,10 @@ When playback the .wav file:
     E.g: "aplay -Dhw:3 --period-time=500000 --buffer-time=10000000 xxx.wav -N &"
     Now please use "echo mem > /sys/power/state" command to make A core enter suspend mode and the playabck work normally.
     Note, make sure the A core has enough time to fill the audio buffer before going into suspend mode.
+
+When recording sound, could use command:
+	"arecord -Dhw:0,0 -r44100 -fS32_LE -c2 test.wav &"
+	fS32_LE and 1-8 channels are supported.
 
 Running the demo
 ================

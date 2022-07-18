@@ -5,8 +5,8 @@ This example works as a USB HID device. It will appear as a USB keyboard device 
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.5.0
+- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.6.0
 
 Hardware requirements
 =====================
@@ -16,19 +16,22 @@ Hardware requirements
 
 Board settings
 ==============
-This example only work with the USB high speed port (J4).
+This example can work with the USB high speed port (J4) or the USB full speed port (J3).
 
 Prepare the Demo
 ================
 1.  Connect a USB Micro cable between the host PC and the Debug Link USB port (J1) on the target board.
-2.  Connect a USB Micro cable between the host PC and the on-board USB high speed port (J4).
+2.  High speed: Connect a USB Micro cable between the host PC and the on-board USB high speed port (J4).
+    Full speed: Connect a USB Micro cable between the host PC and the on-board USB full speed port (J3).
 3.  Open a serial terminal with the following settings:
     - 115200 baud rate
     - 8 data bits
     - No parity
     - 1 stop bit
     - No flow control
-3.  Compile the demo.
+3.  Compile the demo:
+    - High speed: Set USB_DEVICE_CONFIG_LPCIP3511FS to 0 and USB_DEVICE_CONFIG_LPCIP3511HS to 1 in usb_device_config.h
+    - Full speed: Set USB_DEVICE_CONFIG_LPCIP3511FS to 1 and USB_DEVICE_CONFIG_LPCIP3511HS to 0 in usb_device_config.h
 5.  Download the program to the target board.
 6.  Press the on-board RESET button to start the demo. A new USB keyboard will appear on PC.
 

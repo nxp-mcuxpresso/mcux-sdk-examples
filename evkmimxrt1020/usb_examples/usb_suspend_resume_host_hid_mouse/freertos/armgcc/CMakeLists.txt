@@ -127,7 +127,7 @@ include(middleware_usb_host_common_header)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1021)
 
 include(device_system)
 

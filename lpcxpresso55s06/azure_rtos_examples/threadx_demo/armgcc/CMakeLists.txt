@@ -106,7 +106,7 @@ include(utility_assert)
 
 include(middleware_azure_rtos_tx_template_LPC55S06)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC55S06)
 
 include(driver_reset)
 

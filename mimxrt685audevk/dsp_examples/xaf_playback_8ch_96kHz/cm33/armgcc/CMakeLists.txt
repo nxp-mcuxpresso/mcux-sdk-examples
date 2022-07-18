@@ -138,6 +138,8 @@ include(component_codec_i2c_MIMXRT685S_cm33)
 
 include(component_flexcomm_i2c_adapter)
 
+include(component_rt_gpio_adapter)
+
 include(device_CMSIS)
 
 include(utility_debug_console)
@@ -180,7 +182,7 @@ include(driver_inputmux_connections)
 
 include(middleware_freertos-kernel_heap_4)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT685S_cm33)
 
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)

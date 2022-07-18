@@ -107,7 +107,7 @@ include(CMSIS_Include_core_cm)
 
 include(device_system)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1052)
 
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)

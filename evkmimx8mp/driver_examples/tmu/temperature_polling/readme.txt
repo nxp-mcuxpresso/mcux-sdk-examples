@@ -5,7 +5,7 @@ multiple temperature measurement sites strategically located on the chip.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
+- GCC ARM Embedded  10.3.1
 
 Hardware requirements
 =====================

@@ -102,7 +102,7 @@ include(CMSIS_Driver_Include_I2C)
 
 include(CMSIS_Driver_Include_Common)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_K32L2A41A)
 
 include(device_system)
 

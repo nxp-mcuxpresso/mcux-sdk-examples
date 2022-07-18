@@ -104,7 +104,7 @@ include(middleware_freertos-kernel_MKM34Z7)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MKM34Z7)
 
 include(device_system)
 

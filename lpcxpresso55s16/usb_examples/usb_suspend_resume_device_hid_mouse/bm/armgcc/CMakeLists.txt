@@ -125,7 +125,7 @@ include(middleware_usb_common_header)
 
 include(driver_mrt)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC55S16)
 
 include(device_system)
 

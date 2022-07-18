@@ -133,7 +133,7 @@ include(middleware_usb_common_header)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC54628)
 
 include(device_system)
 

@@ -92,6 +92,8 @@ include(utility_debug_console_lite)
 
 include(utility_assert_lite)
 
+include(component_igpio_adapter)
+
 include(driver_clock)
 
 include(driver_sai)
@@ -124,6 +126,8 @@ include(driver_xip_device)
 
 include(driver_xip_board_evkbmimxrt1060)
 
+include(component_silicon_id)
+
 include(CMSIS_Include_core_cm)
 
 include(driver_cache_armv7_m7)
@@ -134,7 +138,7 @@ include(component_osa_bm)
 
 include(driver_cs42448)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1062)
 
 include(device_system)
 

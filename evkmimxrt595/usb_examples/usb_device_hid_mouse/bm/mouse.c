@@ -208,8 +208,8 @@ void USB_DeviceTaskFn(void *deviceHandle)
 /* Update mouse pointer location. Draw a rectangular rotation*/
 static usb_status_t USB_DeviceHidMouseAction(void)
 {
-    static int8_t x = 0U;
-    static int8_t y = 0U;
+    static uint8_t x = 0U;
+    static uint8_t y = 0U;
     enum
     {
         RIGHT,
@@ -262,6 +262,7 @@ static usb_status_t USB_DeviceHidMouseAction(void)
             }
             break;
         default:
+            /*no action*/
             break;
     }
     /* Send mouse report to the host */
@@ -279,7 +280,7 @@ static usb_status_t USB_DeviceHidMouseCallback(class_handle_t handle, uint32_t e
     {
         case kUSB_DeviceHidEventSendResponse:
             /* Resport sent */
-            if (g_UsbDeviceHidMouse.attach)
+            if (0U != g_UsbDeviceHidMouse.attach)
             {
                 /* endpoint callback length is USB_CANCELLED_TRANSFER_LENGTH (0xFFFFFFFFU) when transfer is canceled */
                 if ((NULL != message) && (message->length == USB_CANCELLED_TRANSFER_LENGTH))
@@ -300,6 +301,7 @@ static usb_status_t USB_DeviceHidMouseCallback(class_handle_t handle, uint32_t e
             error = kStatus_USB_Success;
             break;
         default:
+            /*no action*/
             break;
     }
 
@@ -390,7 +392,7 @@ static usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event,
         case kUSB_DeviceEventSetConfiguration:
             if (0U == (*temp8))
             {
-                g_UsbDeviceHidMouse.attach               = 0;
+                g_UsbDeviceHidMouse.attach               = 0U;
                 g_UsbDeviceHidMouse.currentConfiguration = 0U;
                 error                                    = kStatus_USB_Success;
             }
@@ -411,7 +413,7 @@ static usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event,
             {
                 /* Set device interface request */
                 uint8_t interface        = (uint8_t)((*temp16 & 0xFF00U) >> 0x08U);
-                uint8_t alternateSetting = (uint8_t)(*temp16 & 0x00FFU);
+                uint8_t alternateSetting = (uint8_t)(*temp16 & 0xFFU);
                 if (interface < USB_HID_MOUSE_INTERFACE_COUNT)
                 {
                     if (alternateSetting < USB_HID_MOUSE_INTERFACE_ALTERNATE_COUNT)
@@ -426,7 +428,7 @@ static usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event,
             }
             break;
         case kUSB_DeviceEventGetConfiguration:
-            if (param)
+            if (NULL != param)
             {
                 /* Get current configuration request */
                 *temp8 = g_UsbDeviceHidMouse.currentConfiguration;
@@ -434,7 +436,7 @@ static usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event,
             }
             break;
         case kUSB_DeviceEventGetInterface:
-            if (param)
+            if (NULL != param)
             {
                 /* Get current alternate setting of the interface request */
                 uint8_t interface = (uint8_t)((*temp16 & 0xFF00U) >> 0x08U);
@@ -446,14 +448,14 @@ static usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event,
             }
             break;
         case kUSB_DeviceEventGetDeviceDescriptor:
-            if (param)
+            if (NULL != param)
             {
                 /* Get device descriptor request */
                 error = USB_DeviceGetDeviceDescriptor(handle, (usb_device_get_device_descriptor_struct_t *)param);
             }
             break;
         case kUSB_DeviceEventGetConfigurationDescriptor:
-            if (param)
+            if (NULL != param)
             {
                 /* Get device configuration descriptor request */
                 error = USB_DeviceGetConfigurationDescriptor(handle,
@@ -461,21 +463,21 @@ static usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event,
             }
             break;
         case kUSB_DeviceEventGetStringDescriptor:
-            if (param)
+            if (NULL != param)
             {
                 /* Get device string descriptor request */
                 error = USB_DeviceGetStringDescriptor(handle, (usb_device_get_string_descriptor_struct_t *)param);
             }
             break;
         case kUSB_DeviceEventGetHidDescriptor:
-            if (param)
+            if (NULL != param)
             {
                 /* Get hid descriptor request */
                 error = USB_DeviceGetHidDescriptor(handle, (usb_device_get_hid_descriptor_struct_t *)param);
             }
             break;
         case kUSB_DeviceEventGetHidReportDescriptor:
-            if (param)
+            if (NULL != param)
             {
                 /* Get hid report descriptor request */
                 error =
@@ -483,7 +485,7 @@ static usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event,
             }
             break;
         case kUSB_DeviceEventGetHidPhysicalDescriptor:
-            if (param)
+            if (NULL != param)
             {
                 /* Get hid physical descriptor request */
                 error = USB_DeviceGetHidPhysicalDescriptor(handle,
@@ -505,7 +507,7 @@ static usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event,
      (defined(FSL_FEATURE_SOC_USB_ANALOG_COUNT) && (FSL_FEATURE_SOC_USB_ANALOG_COUNT > 0U)))
         case kUSB_DeviceEventDcdDetectionfinished:
             /*temp pointer point to detection result*/
-            if (param)
+            if (NULL != param)
             {
                 error = kStatus_USB_Success;
                 if (kUSB_DcdSDP == *temp8)
@@ -613,10 +615,10 @@ void USB_DeviceAppTask(void *parameter)
 {
     usb_hid_mouse_struct_t *usbDeviceHid = (usb_hid_mouse_struct_t *)parameter;
 
-    if (usbDeviceHid->connectStateChanged)
+    if (0U != usbDeviceHid->connectStateChanged)
     {
         usbDeviceHid->connectStateChanged = 0;
-        if (g_UsbDeviceHidMouse.connectState)
+        if (0U != g_UsbDeviceHidMouse.connectState)
         {
             /*user need call USB_DeviceRun here to usb function run if dcd function is disabled*/
             /*USB_DeviceRun(g_UsbDeviceHidMouse.deviceHandle);*/
@@ -692,6 +694,7 @@ void USB_DeviceAppTask(void *parameter)
             }
             break;
             default:
+                /*no action*/
                 break;
         }
         usbDeviceHid->dcdDectionStatus = kUSB_DeviceDCDDectionFinished;

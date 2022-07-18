@@ -352,6 +352,9 @@ void InitTarget(void) {
 
     CPU = CORTEX_M4;
     CORESIGHT_IndexAHBAPToUse = 1;
+	
+    // SetSkipRestoreRAMCode command is used to skip the restoring of the RAMCode
+    JLINK_ExecCommand("SetSkipRestoreRAMCode = 1");
 }
 
 void SetupTarget(void) {

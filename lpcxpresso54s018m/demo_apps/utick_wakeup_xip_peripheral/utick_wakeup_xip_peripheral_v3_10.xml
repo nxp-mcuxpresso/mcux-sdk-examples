@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="utility.debug_console_lite.LPC54S018M"/>
+    <definition extID="platform.utilities.assert_lite.LPC54S018M"/>
+    <definition extID="platform.drivers.utick.LPC54S018M"/>
+    <definition extID="platform.drivers.lpc_gpio.LPC54S018M"/>
+    <definition extID="platform.drivers.lpc_iocon.LPC54S018M"/>
+    <definition extID="platform.drivers.common.LPC54S018M"/>
+    <definition extID="platform.drivers.clock.LPC54S018M"/>
+    <definition extID="platform.drivers.power.LPC54S018M"/>
+    <definition extID="platform.drivers.reset.LPC54S018M"/>
+    <definition extID="device.LPC54S018M_CMSIS.LPC54S018M"/>
+    <definition extID="component.usart_adapter.LPC54S018M"/>
+    <definition extID="component.lists.LPC54S018M"/>
+    <definition extID="platform.drivers.flexcomm_usart.LPC54S018M"/>
+    <definition extID="device.LPC54S018M_startup.LPC54S018M"/>
+    <definition extID="platform.drivers.flexcomm.LPC54S018M"/>
+    <definition extID="platform.drivers.emc.LPC54S018M"/>
+    <definition extID="component.silicon_id.LPC54S018M"/>
+    <definition extID="platform.drivers.iap.LPC54S018M"/>
+    <definition extID="CMSIS_Include_core_cm.LPC54S018M"/>
+    <definition extID="platform.utilities.misc_utilities.LPC54S018M"/>
+    <definition extID="device.LPC54S018M_system.LPC54S018M"/>
+    <definition extID="iar"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="armgcc"/>
+    <definition extID="mdk"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+  </externalDefinitions>
+  <example id="lpcxpresso54s018m_utick_wakeup_xip_peripheral" name="utick_wakeup_xip_peripheral" dependency="utility.debug_console_lite.LPC54S018M platform.utilities.assert_lite.LPC54S018M platform.drivers.utick.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.lpc_iocon.LPC54S018M platform.drivers.common.LPC54S018M platform.drivers.clock.LPC54S018M platform.drivers.power.LPC54S018M platform.drivers.reset.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M component.usart_adapter.LPC54S018M component.lists.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.emc.LPC54S018M component.silicon_id.LPC54S018M platform.drivers.iap.LPC54S018M CMSIS_Include_core_cm.LPC54S018M platform.utilities.misc_utilities.LPC54S018M device.LPC54S018M_system.LPC54S018M" category="demo_apps">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>CPU_LPC54S018J4M</value>
+          <value>__USE_CMSIS</value>
+          <value>CPU_LPC54S018J4MET180=1</value>
+          <value>MCUXPRESSO_SDK</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv4.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv4.hard</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.load.image" type="string">
+          <value>false;SRAMX</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <include_paths>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="../../../../examples/lpcxpresso54s018m/demo_apps/utick_wakeup_xip_peripheral" project_relative_path="lpcxpresso54s018m/demo_apps/utick_wakeup_xip_peripheral" type="c_include"/>
+    </include_paths>
+    <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
+      <files mask="utick_wakeup_xip_peripheral.ewd"/>
+      <files mask="utick_wakeup_xip_peripheral.ewp"/>
+      <files mask="utick_wakeup_xip_peripheral.eww"/>
+    </source>
+    <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_debug.bat"/>
+      <files mask="build_debug.sh"/>
+      <files mask="build_release.bat"/>
+      <files mask="build_release.sh"/>
+    </source>
+    <source path="mdk" project_relative_path="./" type="workspace" toolchain="mdk">
+      <files mask="utick_wakeup_xip_peripheral.uvprojx"/>
+      <files mask="utick_wakeup_xip_peripheral.uvoptx"/>
+      <files mask="JLinkSettings.ini"/>
+      <files mask="utick_wakeup_xip_peripheral.uvmpw"/>
+    </source>
+    <source path="armgcc" project_relative_path="LPC54S018M/gcc" type="linker" toolchain="armgcc">
+      <files mask="LPC54S018J4M_spifi_flash.ld"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="utick_wakeup_peripheral.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+      <files mask="peripherals.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+      <files mask="peripherals.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="." project_relative_path="." type="other">
+      <files mask="utick_wakeup_xip_peripheral.mex" hidden="true"/>
+    </source>
+    <source path="." project_relative_path="lpcxpresso54s018m/demo_apps/utick_wakeup_xip_peripheral" type="binary">
+      <files mask="utick_wakeup_xip_peripheral.bin" hidden="true"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
+      <files mask="readme.txt"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="board.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+    </source>
+  </example>
+</ksdk:examples>

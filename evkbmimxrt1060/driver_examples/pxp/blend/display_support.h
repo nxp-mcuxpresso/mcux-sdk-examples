@@ -13,6 +13,15 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+#define DEMO_PANEL_RK043FN02H  0 /* RK043FN02H-CT */
+#define DEMO_PANEL_RK043FN66HS 1 /* RK043FN66HS-CTG */
+
+/* @TEST_ANCHOR */
+
+#ifndef DEMO_PANEL
+#define DEMO_PANEL DEMO_PANEL_RK043FN66HS
+#endif
+
 #define DEMO_PANEL_WIDTH  480
 #define DEMO_PANEL_HEIGHT 272U
 

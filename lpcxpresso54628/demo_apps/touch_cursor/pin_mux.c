@@ -97,6 +97,7 @@ BOARD_InitPins:
     i2c_slew: i2c, i2c_drive: high, i2c_filter: enabled}
   - {pin_num: H14, peripheral: GPIO, signal: 'PIO2, 27', pin_signal: PIO2_27/LCD_VD(9)/FC9_SCK/FC3_SSEL2, mode: pullUp, invert: disabled, glitch_filter: disabled,
     slew_rate: standard, open_drain: disabled}
+  - {pin_num: H13, peripheral: GPIO, signal: 'PIO4, 0', pin_signal: PIO4_0/FC6_CTS_SDA_SSEL0/CTIMER4_CAP1/SCT0_GPI1/EMC_CSN(1)}
   - {pin_num: P2, peripheral: SWD, signal: SWO, pin_signal: PIO0_10/FC6_SCK/CTIMER2_CAP2/CTIMER2_MAT0/FC1_TXD_SCL_MISO/SWO/ADC0_0, mode: inactive, invert: disabled,
     glitch_filter: disabled, open_drain: disabled}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********

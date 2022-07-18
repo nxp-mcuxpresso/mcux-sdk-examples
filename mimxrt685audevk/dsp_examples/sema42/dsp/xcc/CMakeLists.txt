@@ -1,5 +1,3 @@
-INCLUDE(CMakeForceCompiler)
-
 # CROSS COMPILER SETTING
 SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 2.6)
@@ -21,6 +19,11 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 
+SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
+SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
+
+
+project(dsp_sema42_hifi4)
 
 SET(CMAKE_ASM_FLAGS_DEBUG "${CMAKE_ASM_FLAGS_DEBUG} -DDEBUG")
 
@@ -38,7 +41,7 @@ SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -g")
 
 SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O0")
 
-SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} --xtensa-core=nxp_rt600_RI2020_5_newlib")
+SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} --xtensa-core=nxp_rt600_RI2021_8_newlib")
 
 SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} --xtensa-system=${XTENSA_SYSTEM}")
 
@@ -62,7 +65,7 @@ SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DMCUXPRESSO_SDK")
 
 SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Os")
 
-SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} --xtensa-core=nxp_rt600_RI2020_5_newlib")
+SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} --xtensa-core=nxp_rt600_RI2021_8_newlib")
 
 SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} --xtensa-system=${XTENSA_SYSTEM}")
 
@@ -86,7 +89,7 @@ SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g")
 
 SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
 
-SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} --xtensa-core=nxp_rt600_RI2020_5_newlib")
+SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} --xtensa-core=nxp_rt600_RI2021_8_newlib")
 
 SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} --xtensa-system=${XTENSA_SYSTEM}")
 
@@ -108,7 +111,7 @@ SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DMCUXPRESSO_SDK")
 
 SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Os")
 
-SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} --xtensa-core=nxp_rt600_RI2020_5_newlib")
+SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} --xtensa-core=nxp_rt600_RI2021_8_newlib")
 
 SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} --xtensa-system=${XTENSA_SYSTEM}")
 
@@ -126,13 +129,13 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -mlsp=${ProjDi
 
 SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -g")
 
-SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} --xtensa-core=nxp_rt600_RI2020_5_newlib")
+SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} --xtensa-core=nxp_rt600_RI2021_8_newlib")
 
 SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} --xtensa-system=${XTENSA_SYSTEM}")
 
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -mlsp=${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/xtensa/min-rt")
 
-SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} --xtensa-core=nxp_rt600_RI2020_5_newlib")
+SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} --xtensa-core=nxp_rt600_RI2021_8_newlib")
 
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} --xtensa-system=${XTENSA_SYSTEM}")
 
@@ -213,24 +216,13 @@ add_executable(dsp_sema42_hifi4.elf
 
 ADD_CUSTOM_COMMAND(TARGET dsp_sema42_hifi4.elf POST_BUILD COMMAND ${CMAKE_OBJCOPY}
 --xtensa-params= -Obinary ${EXECUTABLE_OUTPUT_PATH}/dsp_sema42_hifi4.elf ${EXECUTABLE_OUTPUT_PATH}/../../../../../../../examples/mimxrt685audevk/dsp_examples/sema42/dsp/binary/dsp_text_${CMAKE_BUILD_TYPE}.bin
---xtensa-core=nxp_rt600_RI2020_5_newlib
+--xtensa-core=nxp_rt600_RI2021_8_newlib
 --xtensa-system=${XTENSA_SYSTEM}
---only-section=.dram0.rodata
---only-section=.Level2InterruptVector.literal
 --only-section=.Level3InterruptVector.literal
 --only-section=.DebugExceptionVector.literal
 --only-section=.NMIExceptionVector.literal
---only-section=.KernelExceptionVector.literal
 --only-section=.UserExceptionVector.literal
---only-section=.DoubleExceptionVector.literal
---only-section=.iram0.literal
---only-section=.ResetVector.literal
---only-section=.dram0.literal
---only-section=.dram0.data
---only-section=.dram0.bss
 --only-section=.ResetVector.text
---only-section=.ResetHandler.literal
---only-section=.ResetHandler.text
 --only-section=.WindowVectors.text
 --only-section=.Level2InterruptVector.text
 --only-section=.Level3InterruptVector.text
@@ -239,36 +231,19 @@ ADD_CUSTOM_COMMAND(TARGET dsp_sema42_hifi4.elf POST_BUILD COMMAND ${CMAKE_OBJCOP
 --only-section=.KernelExceptionVector.text
 --only-section=.UserExceptionVector.text
 --only-section=.DoubleExceptionVector.text
---only-section=.iram0.text
 )
 
 ADD_CUSTOM_COMMAND(TARGET dsp_sema42_hifi4.elf POST_BUILD COMMAND ${CMAKE_OBJCOPY}
 --xtensa-params= -Obinary ${EXECUTABLE_OUTPUT_PATH}/dsp_sema42_hifi4.elf ${EXECUTABLE_OUTPUT_PATH}/../../../../../../../examples/mimxrt685audevk/dsp_examples/sema42/dsp/binary/dsp_data_${CMAKE_BUILD_TYPE}.bin
---xtensa-core=nxp_rt600_RI2020_5_newlib
+--xtensa-core=nxp_rt600_RI2021_8_newlib
 --xtensa-system=${XTENSA_SYSTEM}
---only-section=.text
+--only-section=.clib.rodata
+--only-section=.rtos.rodata
 --only-section=.rodata
+--only-section=.text
+--only-section=.clib.data
+--only-section=.rtos.percpu.data
 --only-section=.data
 --only-section=.bss
---only-section=.literal
---only-section=.sram.text
---only-section=.sram.rodata
---only-section=.sram.data
---only-section=.sram.bss
---only-section=.sram.literal
---only-section=.clib.rodata
---only-section=.clib.text
---only-section=.clib.data
---only-section=.clib.percpu.data
---only-section=.clib.bss
---only-section=.clib.percpu.bss
---only-section=.clib.literal
---only-section=.rtos.rodata
---only-section=.rtos.text
---only-section=.rtos.data
---only-section=.rtos.percpu.data
---only-section=.rtos.bss
---only-section=.rtos.percpu.bss
---only-section=.rtos.literal
 )
 

@@ -185,7 +185,11 @@ static void APP_InitPxp(void)
         .pitchBytes  = APP_PS_SIZE * APP_BPP,
     };
 
+#if defined(FSL_FEATURE_PXP_V3) && FSL_FEATURE_PXP_V3
+    PXP_SetProcessSurfaceBackGroundColor(APP_PXP, 0U, 0U);
+#else
     PXP_SetProcessSurfaceBackGroundColor(APP_PXP, 0U);
+#endif
 
     PXP_SetProcessSurfaceBufferConfig(APP_PXP, &psBufferConfig);
 

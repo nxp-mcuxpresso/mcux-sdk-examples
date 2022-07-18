@@ -140,9 +140,7 @@ int main(void)
      * Initialize the SysTick to fire every milliseconds.  If this is adjusted the os_clock_now()
      * must also be adjusted accordingly to continue reporting nanoseconds.
      */
-	if(SysTick_Config(SystemCoreClock / 1000U)) {
-        while(1) {}
-    }
+	SysTick_Config(SystemCoreClock / 1000U);
 
 	PRINTF("==========================================================================\r\n");
 	PRINTF("                    DeepviewRT  Demo\r\n");
@@ -307,8 +305,8 @@ int main(void)
 		 * label result.  If a label is not provided we instead report the argmax value, this can also
 		 * happen if labels were provided but argmax was beyond the provided labels.
 		 */
-		int argmax;
-		float softmax;
+		int argmax = 0;
+		float softmax = 0.1;
 		nn_argmax(output, &argmax, &softmax, sizeof(softmax));
 
 		const char *label = nn_model_label(model, argmax);

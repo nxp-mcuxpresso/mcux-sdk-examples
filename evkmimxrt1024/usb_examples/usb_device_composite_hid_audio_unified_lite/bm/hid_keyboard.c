@@ -36,7 +36,7 @@ USB_DMA_NONINIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE) static uint8_t s_KeyboardBuffer[
 usb_device_composite_struct_t *g_UsbDeviceComposite;
 static usb_device_hid_keyboard_struct_t s_UsbDeviceHidKeyboard;
 extern volatile bool g_ButtonPress;
-extern volatile bool g_CodecMuteUnmute;
+extern volatile bool g_CodecSpeakerMuteUnmute;
 
 /*******************************************************************************
  * Code
@@ -51,10 +51,10 @@ usb_status_t USB_DeviceHidKeyboardAction(void)
         return USB_DeviceSendRequest(g_UsbDeviceComposite->deviceHandle, USB_HID_KEYBOARD_ENDPOINT,
                                      s_UsbDeviceHidKeyboard.buffer, USB_HID_KEYBOARD_REPORT_LENGTH);
     }
-    else if (g_CodecMuteUnmute)
+    else if (g_CodecSpeakerMuteUnmute)
     {
         s_UsbDeviceHidKeyboard.buffer[0] = 0x00U;
-        g_CodecMuteUnmute                = false;
+        g_CodecSpeakerMuteUnmute         = false;
         return USB_DeviceSendRequest(g_UsbDeviceComposite->deviceHandle, USB_HID_KEYBOARD_ENDPOINT,
                                      s_UsbDeviceHidKeyboard.buffer, USB_HID_KEYBOARD_REPORT_LENGTH);
     }
@@ -132,7 +132,7 @@ usb_status_t USB_DeviceHidKeyboardClassRequest(usb_device_handle handle,
         case USB_DEVICE_HID_REQUEST_SET_REPORT:
             break;
         case USB_DEVICE_HID_REQUEST_SET_IDLE:
-            if (((setup->bmRequestType & USB_REQUEST_TYPE_DIR_MASK) == USB_REQUEST_TYPE_DIR_OUT) && 
+            if (((setup->bmRequestType & USB_REQUEST_TYPE_DIR_MASK) == USB_REQUEST_TYPE_DIR_OUT) &&
                 (setup->wLength == 0U))
             {
                 error                           = kStatus_USB_Success;

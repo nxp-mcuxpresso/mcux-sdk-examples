@@ -47,4 +47,13 @@ void handleDSPMessage(app_handle_t *app, srtm_message *msg);
  * @param[in] arg Data to pass to callback handler.
  */
 void shellCmd(handleShellMessageCallback_t *handleShellMessageCallback, void *arg);
+
+/*!
+ * @brief Common function for muting the right channel.
+ *
+ * Can be used during mono playback
+ *
+ * @param[in] mute Mute right channel
+ */
+void BOARD_MuteRightChannel(bool mute);
 /*${prototype:end}*/

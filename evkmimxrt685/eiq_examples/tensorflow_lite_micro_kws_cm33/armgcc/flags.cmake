@@ -3,35 +3,18 @@ SET(CMAKE_ASM_FLAGS_FLASH_RELEASE " \
     -DNDEBUG \
     -D__STARTUP_CLEAR_BSS \
     -mcpu=cortex-m33 \
-    -Wall \
     -mfloat-abi=hard \
     -mfpu=fpv5-sp-d16 \
     -mthumb \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
 ")
 SET(CMAKE_ASM_FLAGS_FLASH_DEBUG " \
     ${CMAKE_ASM_FLAGS_FLASH_DEBUG} \
     -DDEBUG \
     -D__STARTUP_CLEAR_BSS \
-    -g \
     -mcpu=cortex-m33 \
-    -Wall \
     -mfloat-abi=hard \
     -mfpu=fpv5-sp-d16 \
     -mthumb \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
 ")
 SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     ${CMAKE_C_FLAGS_FLASH_RELEASE} \
@@ -45,6 +28,7 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8904_ENABLE \
+    -DDISABLEFLOAT16 \
     -DTF_LITE_STATIC_MEMORY \
     -DCMSIS_NN \
     -DMCUXPRESSO_SDK \
@@ -75,6 +59,7 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8904_ENABLE \
+    -DDISABLEFLOAT16 \
     -DTF_LITE_STATIC_MEMORY \
     -DCMSIS_NN \
     -DMCUXPRESSO_SDK \

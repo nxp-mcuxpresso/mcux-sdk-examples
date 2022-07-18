@@ -8,8 +8,8 @@ is used to convert the XRGB8888 to RGB565 and shown in the LCD panel.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.5.0
+- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.6.0
 
 Hardware requirements
 =====================

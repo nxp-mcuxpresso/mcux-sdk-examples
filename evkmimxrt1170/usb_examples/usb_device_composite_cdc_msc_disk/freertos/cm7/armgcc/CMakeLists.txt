@@ -92,6 +92,8 @@ include(middleware_usb_phy)
 
 include(driver_usdhc)
 
+include(component_igpio_adapter)
+
 include(middleware_sdmmc_sd)
 
 include(middleware_sdmmc_common)
@@ -160,7 +162,7 @@ include(component_osa_free_rtos)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1176_cm7)
 
 include(device_system_MIMXRT1176_cm7)
 

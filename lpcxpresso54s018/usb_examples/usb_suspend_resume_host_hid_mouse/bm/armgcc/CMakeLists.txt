@@ -129,7 +129,7 @@ include(driver_pint)
 
 include(driver_mrt)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC54S018)
 
 include(device_system)
 

@@ -51,6 +51,7 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
+"${ProjDirPath}/../display_support.h"
 "${ProjDirPath}/../tx_user.h"
 "${ProjDirPath}/../gx_user.h"
 "${ProjDirPath}/../pin_mux.c"
@@ -93,9 +94,13 @@ include(middleware_azure_rtos_gx)
 
 include(driver_ft5406_rt)
 
-include(driver_elcdif)
+include(driver_gt911)
+
+include(driver_dc-fb-elcdif)
 
 include(driver_lpi2c)
+
+include(driver_pxp)
 
 include(driver_clock)
 
@@ -133,7 +138,13 @@ include(middleware_azure_rtos_tx_template_MIMXRT1052)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities)
+include(driver_dc-fb-common)
+
+include(driver_video-common)
+
+include(driver_elcdif)
+
+include(utilities_misc_utilities_MIMXRT1052)
 
 include(device_system)
 

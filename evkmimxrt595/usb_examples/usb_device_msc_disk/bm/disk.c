@@ -469,7 +469,12 @@ usb_status_t USB_DeviceMscCallback(class_handle_t handle, uint32_t event, void *
             break;
         case kUSB_DeviceMscEventTestUnitReady:
             /*change the test unit ready command's sense data if need, be careful to modify*/
-            ufi = (usb_device_ufi_app_struct_t *)param;
+            if (1U == g_msc.stop)
+            {
+                ufi                                    = (usb_device_ufi_app_struct_t *)param;
+                ufi->requestSense->senseKey            = USB_DEVICE_MSC_UFI_NOT_READY;
+                ufi->requestSense->additionalSenseCode = USB_DEVICE_MSC_UFI_ASC_MEDIUM_NOT_PRESENT;
+            }
             break;
         case kUSB_DeviceMscEventInquiry:
             ufi         = (usb_device_ufi_app_struct_t *)param;
@@ -487,8 +492,9 @@ usb_status_t USB_DeviceMscCallback(class_handle_t handle, uint32_t event, void *
         case kUSB_DeviceMscEventModeSelect:
         case kUSB_DeviceMscEventFormatComplete:
         case kUSB_DeviceMscEventRemovalRequest:
-        case kUSB_DeviceMscEventRequestSense:
             error = kStatus_USB_InvalidRequest;
+            break;
+        case kUSB_DeviceMscEventRequestSense:
             break;
         case kUSB_DeviceMscEventReadCapacity:
             capacityInformation                         = (usb_device_capacity_information_struct_t *)param;
@@ -499,6 +505,13 @@ usb_status_t USB_DeviceMscCallback(class_handle_t handle, uint32_t event, void *
             capacityInformation                         = (usb_device_capacity_information_struct_t *)param;
             capacityInformation->lengthOfEachLba        = USB_Disk_GetBlockSize();
             capacityInformation->totalLbaNumberSupports = USB_Disk_GetBlockCount();
+            break;
+        case kUSB_DeviceMscEventStopEjectMedia:
+            ufi = (usb_device_ufi_app_struct_t *)param;
+            if (0x00U == (ufi->cbwcb[4] & 0x01U)) /* check start bit */
+            {
+                g_msc.stop = 1U; /* stop command */
+            }
             break;
         default:
             error = kStatus_USB_InvalidRequest;
@@ -524,8 +537,9 @@ usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *
     {
         case kUSB_DeviceEventBusReset:
         {
-            g_msc.attach               = 0;
+            g_msc.attach               = 0U;
             g_msc.currentConfiguration = 0U;
+            g_msc.stop                 = 0U;
             error                      = kStatus_USB_Success;
 #if (defined(USB_DEVICE_CONFIG_EHCI) && (USB_DEVICE_CONFIG_EHCI > 0U)) || \
     (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))

@@ -113,7 +113,7 @@ include(middleware_azure_rtos_tx_sp)
 
 include(middleware_azure_rtos_tx_template_MIMXRT1011)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1011)
 
 include(CMSIS_Include_core_cm)
 

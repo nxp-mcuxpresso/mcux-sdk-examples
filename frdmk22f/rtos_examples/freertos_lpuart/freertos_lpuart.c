@@ -42,6 +42,7 @@ static void uart_task(void *pvParameters);
 char *to_send               = "FreeRTOS LPUART driver example!\r\n";
 char *send_ring_overrun     = "\r\nRing buffer overrun!\r\n";
 char *send_hardware_overrun = "\r\nHardware buffer overrun!\r\n";
+char *send_timeout          = "\r\nTimeout expired!\r\n";
 uint8_t background_buffer[32];
 uint8_t recv_buffer[4];
 
@@ -49,11 +50,15 @@ lpuart_rtos_handle_t handle;
 struct _lpuart_handle t_handle;
 
 lpuart_rtos_config_t lpuart_config = {
-    .baudrate    = 115200,
-    .parity      = kLPUART_ParityDisabled,
-    .stopbits    = kLPUART_OneStopBit,
-    .buffer      = background_buffer,
-    .buffer_size = sizeof(background_buffer),
+    .baudrate                 = 115200,
+    .parity                   = kLPUART_ParityDisabled,
+    .stopbits                 = kLPUART_OneStopBit,
+    .buffer                   = background_buffer,
+    .buffer_size              = sizeof(background_buffer),
+    .rx_timeout_constant_ms   = 1,
+    .rx_timeout_multiplier_ms = 1,
+    .tx_timeout_constant_ms   = 20,
+    .tx_timeout_multiplier_ms = 1,
 };
 
 /*!
@@ -93,6 +98,8 @@ static void uart_task(void *pvParameters)
         vTaskSuspend(NULL);
     }
 
+    LPUART_RTOS_SetRxTimeout(&handle, 10000, 1);
+
     /* Send introduction message. */
     if (kStatus_Success != LPUART_RTOS_Send(&handle, (uint8_t *)to_send, strlen(to_send)))
     {
@@ -116,6 +123,14 @@ static void uart_task(void *pvParameters)
         {
             /* Notify about ring buffer overrun */
             if (kStatus_Success != LPUART_RTOS_Send(&handle, (uint8_t *)send_ring_overrun, strlen(send_ring_overrun)))
+            {
+                vTaskSuspend(NULL);
+            }
+        }
+        if (error == kStatus_Timeout)
+        {
+            /* Notify about ring buffer overrun */
+            if (kStatus_Success != LPUART_RTOS_Send(&handle, (uint8_t *)send_timeout, strlen(send_timeout)))
             {
                 vTaskSuspend(NULL);
             }

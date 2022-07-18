@@ -8,7 +8,7 @@ The LPI2C master sends data to LPI2C slave. The slave will check the data it rec
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
+- GCC ARM Embedded  10.3.1
 
 Hardware requirements
 =====================

@@ -103,6 +103,8 @@ include(driver_pmu_1)
 
 include(driver_dcdc_soc)
 
+include(component_silicon_id)
+
 include(driver_flexspi)
 
 include(driver_anatop_ai)
@@ -115,7 +117,7 @@ include(driver_memory)
 
 include(driver_dmamux)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1176_cm7)
 
 include(device_system_MIMXRT1176_cm7)
 

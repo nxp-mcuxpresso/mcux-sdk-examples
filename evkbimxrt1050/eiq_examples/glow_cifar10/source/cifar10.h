@@ -1,5 +1,5 @@
 // Bundle API auto-generated header file. Do not edit!
-// Glow Tools version: 2021-12-10 (1a77debd7) (Glow_Release_MCUX_SDK_2.11.0_REL15)
+// Glow Tools version: 2022-01-16 (c684fee14) (Glow_Release_MCUX_SDK_2.11.0_REL15)
 
 #ifndef _GLOW_BUNDLE_CIFAR10_H
 #define _GLOW_BUNDLE_CIFAR10_H
@@ -34,17 +34,17 @@
 // Activations allocation efficiency: 1.0000
 // Placeholders:
 //
-//   Name: "CifarNet_Predictions_Reshape_1"
-//   Type: float<1 x 10>
-//   Size: 10 (elements)
-//   Size: 40 (bytes)
-//   Offset: 3072 (bytes)
-//
 //   Name: "input"
 //   Type: i8[S:0.007812500 O:0][-1.000,0.992]<1 x 32 x 32 x 3>
 //   Size: 3072 (elements)
 //   Size: 3072 (bytes)
 //   Offset: 0 (bytes)
+//
+//   Name: "CifarNet_Predictions_Reshape_1"
+//   Type: float<1 x 10>
+//   Size: 10 (elements)
+//   Size: 40 (bytes)
+//   Offset: 3072 (bytes)
 //
 // NOTE: Placeholders are allocated within the "mutableWeight"
 // buffer and are identified using an offset relative to base.
@@ -54,8 +54,8 @@ extern "C" {
 #endif
 
 // Placeholder address offsets within mutable buffer (bytes).
-#define CIFAR10_CifarNet_Predictions_Reshape_1  3072
 #define CIFAR10_input                           0
+#define CIFAR10_CifarNet_Predictions_Reshape_1  3072
 
 // Memory sizes (bytes).
 #define CIFAR10_CONSTANT_MEM_SIZE     90112

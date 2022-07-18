@@ -1,13 +1,15 @@
 Overview
 ========
-The LPUART example for FreeRTOS demonstrates the possibility to use the LPUART driver in the RTOS.
-The example uses single instance of LPUART IP and writes string into, then reads back chars.
-After every 4B received, these are sent back on LPUART.
+This example is showing data send and receive via FreeRTOS adapted LPUART driver. Program initially send
+string into serial terminal via virtual COM. After that, user may send some custom input and
+application will return every 4 characters back to console. If delay from last user input exceed
+10s (receive timeout) notification about exceeded timeout appear and application will finish.
+Example need only single LPUART instance.
 
 Toolchain supported
 ===================
-- MCUXpresso  11.5.0
-- GCC ARM Embedded  10.2.1
+- MCUXpresso  11.6.0
+- GCC ARM Embedded  10.3.1
 
 Hardware requirements
 =====================

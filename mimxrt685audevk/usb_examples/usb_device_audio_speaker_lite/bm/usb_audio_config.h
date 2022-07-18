@@ -16,6 +16,11 @@
 /*! @brief Whether USB Audio use syn mode or not, note that some socs may not support sync mode */
 #define USB_DEVICE_AUDIO_USE_SYNC_MODE (1U)
 
+/*! @brief Note that these macro is also defined in usb_device_descriptor.h, make sure the consistent change. */
+#define USB_AUDIO_CHANNEL7_1 (0)
+#define USB_AUDIO_CHANNEL5_1 (0)
+#define USB_AUDIO_CHANNEL3_1 (0)
+
 /* Packet size and interval. */
 #if (USB_DEVICE_CONFIG_AUDIO_CLASS_2_0)
 #if ((defined(USB_AUDIO_CHANNEL7_1) && (USB_AUDIO_CHANNEL7_1 > 0U)) || \

@@ -48,7 +48,6 @@ int main(void)
     status_t status;
     flash_config_t flashInstance;
     uint8_t keyCode[PUF_GET_KEY_CODE_SIZE_FOR_KEY_SIZE(PUF_INTRINSIC_KEY_SIZE)] = {0};
-    ;
 
     /* Init board hardware. */
     /* attach main clock divide to FLEXCOMM0 (debug console) */
@@ -95,6 +94,7 @@ int main(void)
     {
         PRINTF("\r\nError setting encryption/decryption for (0x%x - 0x%x) address range\r\n", APP_ENCRYPTION_START_ADDR,
                APP_ENCRYPTION_START_ADDR + APP_ENCRYPTION_LENGTH);
+        return status;
     }
 
     /* It is necessary to check Prince region key at this point. Loading the keycode and reconstructing it to HW bus
@@ -109,6 +109,7 @@ int main(void)
     if (status != kStatus_Success)
     {
         PRINTF("Error loading key from FFR Keystore!\r\n");
+        return status;
     }
 
     /* Reconstruct key from keyCode to HW bus for crypto module, kPUF_KeySlot2 corresponds to PRINCE_Region1 */
@@ -116,6 +117,7 @@ int main(void)
     if (status != kStatus_Success)
     {
         PRINTF("Error reconstructing key to HW bus!\r\n");
+        return status;
         /* PRINCE_Region1 keycode loaded from FFR is not valid. Keystore in FFR needs to be created first.
            See the PUF driver example for details about generating keys for individual Prince regions,
            and also see the ISP interface documentation describing the key provisioning procedure. */
@@ -128,6 +130,7 @@ int main(void)
     if (status != kStatus_Success)
     {
         PRINTF("\r\nGenerating the new IV code failed\r\n");
+        return status;
     }
 
     /* Load IV code into the PRINCE bus encryption engine. */
@@ -135,9 +138,13 @@ int main(void)
     if (status != kStatus_Success)
     {
         PRINTF("\r\nLoading IV code into the PRINCE failed\r\n");
+        return status;
     }
 
     /* Set PRINCE mask value. */
+    /* Values 5 and A is chosen for their Hamming distance.
+       Due to big Hamming distance its hard to change 5 into A and vice versa with glitch attack. */
+
     PRINCE_SetMask(PRINCE, 0x5555AAAAAAAA5555);
 
     if (kStatus_Success == status)
@@ -169,6 +176,7 @@ int main(void)
         if (status != kStatus_Success)
         {
             PRINTF("\r\nErasing PRINCE encrypted region(s) failed\r\n");
+            return status;
         }
 
         /* Enable PRINCE after Erase */
@@ -182,6 +190,7 @@ int main(void)
         if (status != kStatus_Success)
         {
             PRINTF("\r\nPrograming PRINCE encrypted region(s) failed\r\n");
+            return status;
         }
 
         /* Disable data encryption */
@@ -189,7 +198,7 @@ int main(void)
     }
 
     PRINTF("\r\nRead decrypted data form address: 0x%x\r\n", APP_ENCRYPTION_START_ADDR);
-    /* Check of first 16 bytes of decrypted data */
+    /* Checking only first 16 bytes of decrypted data as only first 16 bytes of flash_data were initialized  */
     for (int i = 0; i < 16U; i++)
     {
         read_buff[i] = *(volatile uint8_t *)(APP_ENCRYPTION_START_ADDR + i);

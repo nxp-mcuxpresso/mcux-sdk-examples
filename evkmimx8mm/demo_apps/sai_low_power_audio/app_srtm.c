@@ -43,7 +43,13 @@
  * Definitions
  ******************************************************************************/
 #define APP_MS2TICK(ms) ((ms + portTICK_PERIOD_MS - 1) / portTICK_PERIOD_MS)
-#define BUFFER_LEN      (64 * 1024)
+
+#ifndef DEMO_SAI_TX_CONFIG_UseLocalBuf
+#define DEMO_SAI_TX_CONFIG_UseLocalBuf 1
+#endif
+
+#if DEMO_SAI_TX_CONFIG_UseLocalBuf
+#define BUFFER_LEN (64 * 1024)
 uint8_t g_buffer[BUFFER_LEN];
 srtm_sai_sdma_local_buf_t g_local_buf = {
     .buf       = (uint8_t *)&g_buffer,
@@ -52,6 +58,7 @@ srtm_sai_sdma_local_buf_t g_local_buf = {
     .threshold = 1,
 
 };
+#endif
 
 /*******************************************************************************
  * Prototypes
@@ -446,8 +453,12 @@ static void APP_SRTM_InitAudioService(void)
         saiTxConfig.mclkConfig.mclkSourceClkHz;     /* Set the output mclk equal to its source clk by default */
     saiTxConfig.mclkConfig.mclkOutputEnable = true; /* Enable the MCLK output */
 
+#if defined(DEMO_SAI_TX_CONFIG_StopOnSuspend)
+    saiTxConfig.stopOnSuspend = DEMO_SAI_TX_CONFIG_StopOnSuspend;
+#else
     saiTxConfig.stopOnSuspend = false; /* Keep playing audio on A53 suspend. */
-    saiTxConfig.threshold     = 1U;    /* Under the threshold value would trigger periodDone message to A53 */
+#endif
+    saiTxConfig.threshold = 1U; /* Under the threshold value would trigger periodDone message to A53 */
     saiTxConfig.guardTime =
         1000; /* Unit:ms. This is a lower limit that M core should reserve such time data to wakeup A core. */
     saiTxConfig.dmaChannel                = APP_SAI_TX_DMA_CHANNEL;
@@ -529,7 +540,9 @@ static void APP_SRTM_InitAudioService(void)
     NVIC_SetPriority(APP_SRTM_SAI_IRQn, APP_SAI_IRQ_PRIO);
 
     /* Create and register audio service */
+#if DEMO_SAI_TX_CONFIG_UseLocalBuf
     SRTM_SaiSdmaAdapter_SetTxLocalBuf(saiAdapter, &g_local_buf);
+#endif
     audioService = SRTM_AudioService_Create(saiAdapter, codecAdapter);
 #if APP_SRTM_PDM_USED
     SRTM_AudioService_AddAudioInterface(audioService, pdmAdapter);

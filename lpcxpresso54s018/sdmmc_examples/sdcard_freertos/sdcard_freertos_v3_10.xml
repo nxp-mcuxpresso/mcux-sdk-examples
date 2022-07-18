@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="platform.drivers.sdif.LPC54S018"/>
+    <definition extID="middleware.sdmmc.sd.LPC54S018"/>
+    <definition extID="middleware.sdmmc.common.LPC54S018"/>
+    <definition extID="middleware.sdmmc.host.sdif.LPC54S018"/>
+    <definition extID="middleware.sdmmc.host.sdif.freertos.LPC54S018"/>
+    <definition extID="middleware.freertos-kernel.LPC54S018"/>
+    <definition extID="middleware.freertos-kernel.heap_4.LPC54S018"/>
+    <definition extID="platform.drivers.clock.LPC54S018"/>
+    <definition extID="platform.drivers.common.LPC54S018"/>
+    <definition extID="device.LPC54S018_CMSIS.LPC54S018"/>
+    <definition extID="utility.debug_console.LPC54S018"/>
+    <definition extID="component.usart_adapter.LPC54S018"/>
+    <definition extID="component.serial_manager.LPC54S018"/>
+    <definition extID="component.lists.LPC54S018"/>
+    <definition extID="component.serial_manager_uart.LPC54S018"/>
+    <definition extID="platform.drivers.flexcomm_usart.LPC54S018"/>
+    <definition extID="device.LPC54S018_startup.LPC54S018"/>
+    <definition extID="platform.drivers.flexcomm.LPC54S018"/>
+    <definition extID="platform.drivers.lpc_iocon.LPC54S018"/>
+    <definition extID="platform.drivers.lpc_gpio.LPC54S018"/>
+    <definition extID="platform.drivers.emc.LPC54S018"/>
+    <definition extID="platform.utilities.assert.LPC54S018"/>
+    <definition extID="platform.drivers.power.LPC54S018"/>
+    <definition extID="component.silicon_id.LPC54S018"/>
+    <definition extID="platform.drivers.iap.LPC54S018"/>
+    <definition extID="platform.drivers.reset.LPC54S018"/>
+    <definition extID="CMSIS_Include_core_cm.LPC54S018"/>
+    <definition extID="middleware.sdmmc.osa.freertos.LPC54S018"/>
+    <definition extID="component.osa_free_rtos.LPC54S018"/>
+    <definition extID="middleware.freertos-kernel.extension.LPC54S018"/>
+    <definition extID="platform.utilities.misc_utilities.LPC54S018"/>
+    <definition extID="device.LPC54S018_system.LPC54S018"/>
+    <definition extID="iar"/>
+    <definition extID="mdk"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="armgcc"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+  </externalDefinitions>
+  <example id="lpcxpresso54s018_sdcard_freertos" name="sdcard_freertos" dependency="platform.drivers.sdif.LPC54S018 middleware.sdmmc.sd.LPC54S018 middleware.sdmmc.common.LPC54S018 middleware.sdmmc.host.sdif.LPC54S018 middleware.sdmmc.host.sdif.freertos.LPC54S018 middleware.freertos-kernel.LPC54S018 middleware.freertos-kernel.heap_4.LPC54S018 platform.drivers.clock.LPC54S018 platform.drivers.common.LPC54S018 device.LPC54S018_CMSIS.LPC54S018 utility.debug_console.LPC54S018 component.usart_adapter.LPC54S018 component.serial_manager.LPC54S018 component.lists.LPC54S018 component.serial_manager_uart.LPC54S018 platform.drivers.flexcomm_usart.LPC54S018 device.LPC54S018_startup.LPC54S018 platform.drivers.flexcomm.LPC54S018 platform.drivers.lpc_iocon.LPC54S018 platform.drivers.lpc_gpio.LPC54S018 platform.drivers.emc.LPC54S018 platform.utilities.assert.LPC54S018 platform.drivers.power.LPC54S018 component.silicon_id.LPC54S018 platform.drivers.iap.LPC54S018 platform.drivers.reset.LPC54S018 CMSIS_Include_core_cm.LPC54S018 middleware.sdmmc.osa.freertos.LPC54S018 component.osa_free_rtos.LPC54S018 middleware.freertos-kernel.extension.LPC54S018 platform.utilities.misc_utilities.LPC54S018 device.LPC54S018_system.LPC54S018" category="sdmmc_examples/sdcard_freertos">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>IMG_BAUDRATE=96000000</value>
+          <value>CPU_LPC54S018</value>
+          <value>__USE_CMSIS</value>
+          <value>W25Q128JVFM</value>
+          <value>CPU_LPC54S018JET180=1</value>
+          <value>SD_ENABLED</value>
+          <value>SDK_OS_FREE_RTOS</value>
+          <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>MCUXPRESSO_SDK</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv4.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv4.hard</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.load.image" type="string">
+          <value>true;SRAMX</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.data" type="string">
+          <value>SRAM_0_1_2_3</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <include_paths>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="c_include"/>
+      <include_path path="../../../../examples/lpcxpresso54s018/sdmmc_examples/sdcard_freertos" project_relative_path="lpcxpresso54s018/sdmmc_examples/sdcard_freertos" type="c_include"/>
+      <include_path path="../../../../core/boards/lpcxpresso54s018" project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="asm_include"/>
+    </include_paths>
+    <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
+      <files mask="sdcard_freertos.ewd"/>
+      <files mask="sdcard_freertos.ewp"/>
+      <files mask="sdcard_freertos.eww"/>
+    </source>
+    <source path="mdk" project_relative_path="./" type="workspace" toolchain="mdk">
+      <files mask="sdcard_freertos.uvprojx"/>
+      <files mask="sdcard_freertos.uvoptx"/>
+      <files mask="JLinkSettings.ini"/>
+      <files mask="sdcard_freertos.uvmpw"/>
+    </source>
+    <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_debug.bat"/>
+      <files mask="build_debug.sh"/>
+      <files mask="build_release.bat"/>
+      <files mask="build_release.sh"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="sdcard_freertos.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="sdmmc_config.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="sdmmc_config.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="FreeRTOSConfig.h"/>
+    </source>
+    <source path="../../../../core/boards/lpcxpresso54s018" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="../../../../core/boards/lpcxpresso54s018" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
+      <files mask="readme.txt"/>
+    </source>
+    <source path="armgcc" project_relative_path="LPC54S018/gcc" type="linker" toolchain="armgcc">
+      <files mask="LPC54S018_spifi_flash.ld"/>
+    </source>
+  </example>
+</ksdk:examples>

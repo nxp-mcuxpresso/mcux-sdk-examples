@@ -104,7 +104,7 @@ include(middleware_freertos-kernel_LPC51U68)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC51U68)
 
 include(device_system)
 

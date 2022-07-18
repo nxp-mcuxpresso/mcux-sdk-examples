@@ -124,7 +124,7 @@ include(middleware_usb_device_common_header)
 
 include(driver_pit)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1064)
 
 include(device_system)
 

@@ -3,20 +3,10 @@ SET(CMAKE_ASM_FLAGS_DEBUG " \
     -DDEBUG \
     -D__STARTUP_CLEAR_BSS \
     -DNO_CRP \
-    -g \
     -mcpu=cortex-m4 \
-    -Wall \
-    -Wno-address-of-packed-member \
     -mfloat-abi=hard \
     -mfpu=fpv4-sp-d16 \
     -mthumb \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
 ")
 SET(CMAKE_ASM_FLAGS_RELEASE " \
     ${CMAKE_ASM_FLAGS_RELEASE} \
@@ -24,18 +14,9 @@ SET(CMAKE_ASM_FLAGS_RELEASE " \
     -D__STARTUP_CLEAR_BSS \
     -DNO_CRP \
     -mcpu=cortex-m4 \
-    -Wall \
-    -Wno-address-of-packed-member \
     -mfloat-abi=hard \
     -mfpu=fpv4-sp-d16 \
     -mthumb \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
 ")
 SET(CMAKE_ASM_FLAGS_FLASH_DEBUG " \
     ${CMAKE_ASM_FLAGS_FLASH_DEBUG} \
@@ -44,20 +25,10 @@ SET(CMAKE_ASM_FLAGS_FLASH_DEBUG " \
     -DENABLE_RAM_VECTOR_TABLE \
     -D__STARTUP_CLEAR_BSS \
     -DNO_CRP \
-    -g \
     -mcpu=cortex-m4 \
-    -Wall \
-    -Wno-address-of-packed-member \
     -mfloat-abi=hard \
     -mfpu=fpv4-sp-d16 \
     -mthumb \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
 ")
 SET(CMAKE_ASM_FLAGS_FLASH_RELEASE " \
     ${CMAKE_ASM_FLAGS_FLASH_RELEASE} \
@@ -67,18 +38,9 @@ SET(CMAKE_ASM_FLAGS_FLASH_RELEASE " \
     -D__STARTUP_CLEAR_BSS \
     -DNO_CRP \
     -mcpu=cortex-m4 \
-    -Wall \
-    -Wno-address-of-packed-member \
     -mfloat-abi=hard \
     -mfpu=fpv4-sp-d16 \
     -mthumb \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
 ")
 SET(CMAKE_C_FLAGS_DEBUG " \
     ${CMAKE_C_FLAGS_DEBUG} \

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -18,7 +18,7 @@
 #include "fsl_sdio.h"
 #endif
 #include "clock_config.h"
-#include "fsl_gpio.h"
+#include "fsl_adapter_gpio.h"
 #include "fsl_sdmmc_host.h"
 #include "fsl_sdmmc_common.h"
 
@@ -33,13 +33,11 @@
 #define BOARD_SDMMC_SDIO_HOST_BASEADDR USDHC1
 #define BOARD_SDMMC_SDIO_HOST_IRQ      USDHC1_IRQn
 /* @brief card detect configuration */
-#define BOARD_SDMMC_SD_CD_GPIO_BASE        GPIO2
-#define BOARD_SDMMC_SD_CD_GPIO_PIN         28u
-#define BOARD_SDMMC_SD_CD_IRQ_PRIORITY     6U
-#define BOARD_SDMMC_SD_CD_IRQ              GPIO2_Combined_16_31_IRQn
-#define BOARD_SDMMC_SD_CD_INTTERUPT_TYPE   kGPIO_IntRisingOrFallingEdge
-#define BOARD_SDMMC_SD_CD_INSERT_LEVEL     (0U)
-#define BOARD_SDMMC_SD_CD_PORT_IRQ_HANDLER GPIO2_Combined_16_31_IRQHandler
+#define BOARD_SDMMC_SD_CD_GPIO_BASE      GPIO2
+#define BOARD_SDMMC_SD_CD_GPIO_PORT      2
+#define BOARD_SDMMC_SD_CD_GPIO_PIN       28U
+#define BOARD_SDMMC_SD_CD_INTTERUPT_TYPE kHAL_GpioInterruptEitherEdge
+#define BOARD_SDMMC_SD_CD_INSERT_LEVEL   (0U)
 /* @brief card detect type
  *
  * Note: Please pay attention, DAT3 card detection cannot works during the card access,
@@ -50,6 +48,7 @@
 #define BOARD_SDMMC_SD_CARD_DETECT_DEBOUNCE_DELAY_MS (100U)
 /*! @brief SD power reset */
 #define BOARD_SDMMC_SD_POWER_RESET_GPIO_BASE GPIO1
+#define BOARD_SDMMC_SD_POWER_RESET_GPIO_PORT 1
 #define BOARD_SDMMC_SD_POWER_RESET_GPIO_PIN  19U
 /*! @brief SD IO voltage */
 #define BOARD_SDMMC_SD_IO_VOLTAGE_CONTROL_TYPE kSD_IOVoltageCtrlByHost

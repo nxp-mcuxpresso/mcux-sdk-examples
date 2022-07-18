@@ -91,7 +91,7 @@ include(driver_xip_device)
 
 include(driver_xip_board_evkmimxrt1010)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1011)
 
 include(CMSIS_Include_core_cm)
 

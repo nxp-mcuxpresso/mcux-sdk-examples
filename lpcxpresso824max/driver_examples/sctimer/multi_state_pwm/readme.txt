@@ -64,5 +64,5 @@ When user presses a switch the PWM signal will be seen from Out 2
 When user presses the switch again PWM signal on Out 2 will turn off
 The PWM signal from Out 4 will remain active all the time
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Connect Pins J2-3(P0_28) and J2-2(0) to an oscilloscope. Users can press the SW2 to switch states.
+Connect Pins J2-3(P0_28) and J2-2(P0_16) to an oscilloscope. Users can press the SW2 to switch states.
 In State 0, Users can observe a PWM signal. In State 1, Users can observe two PWM signals.

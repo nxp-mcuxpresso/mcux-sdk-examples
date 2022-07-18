@@ -11,7 +11,7 @@ level 0, hysteresis level is level 0.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
+- GCC ARM Embedded  10.3.1
 
 Hardware requirements
 =====================

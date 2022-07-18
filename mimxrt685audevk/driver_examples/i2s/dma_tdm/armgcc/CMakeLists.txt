@@ -90,6 +90,8 @@ include(driver_pca9420)
 
 include(middleware_sdmmc_host_usdhc_interrupt_MIMXRT685S_cm33)
 
+include(component_rt_gpio_adapter)
+
 include(driver_flexcomm_i2c)
 
 include(driver_flexcomm_i2s)
@@ -142,7 +144,7 @@ include(driver_usdhc)
 
 include(driver_inputmux_connections)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT685S_cm33)
 
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)

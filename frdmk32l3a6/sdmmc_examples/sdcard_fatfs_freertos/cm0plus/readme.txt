@@ -7,7 +7,7 @@ Note: The output log of the case is not constant, since difference of card acces
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
+- GCC ARM Embedded  10.3.1
 
 Hardware requirements
 =====================

@@ -94,7 +94,7 @@ include(driver_flexcomm)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC51U68)
 
 include(device_system)
 

@@ -171,7 +171,7 @@ usb_status_t USB_DeviceAudioIsoOut(usb_device_handle deviceHandle,
 {
     usb_device_endpoint_callback_message_struct_t *ep_cb_param;
     ep_cb_param = (usb_device_endpoint_callback_message_struct_t *)event;
-    if ((s_audioGenerator.attach) &&
+    if ((0U != s_audioGenerator.attach) &&
         (ep_cb_param->length ==
          ((USB_SPEED_HIGH == s_audioGenerator.speed) ? HS_ISO_IN_ENDP_PACKET_SIZE : FS_ISO_IN_ENDP_PACKET_SIZE)))
     {
@@ -820,7 +820,7 @@ usb_status_t USB_DeviceAudioSetRequestInterface(usb_device_handle handle,
                                                 uint8_t **buffer)
 {
     usb_status_t error = kStatus_USB_InvalidRequest;
-    uint8_t entityId  = (uint8_t)(setup->wIndex >> 0x08);
+    uint8_t entityId   = (uint8_t)(setup->wIndex >> 0x08);
 
     if ((USB_AUDIO_RECORDER_CONTROL_INPUT_TERMINAL_ID == entityId) ||
         (USB_AUDIO_RECORDER_CONTROL_OUTPUT_TERMINAL_ID == entityId))
@@ -1051,13 +1051,12 @@ usb_status_t USB_DeviceProcessClassRequest(usb_device_handle handle,
                                            uint32_t *length,
                                            uint8_t **buffer)
 {
-    usb_status_t error = kStatus_USB_InvalidRequest;
+    usb_status_t error          = kStatus_USB_InvalidRequest;
     uint8_t interfaceOrEndpoint = (uint8_t)setup->wIndex;
 
     if ((setup->bmRequestType & USB_REQUEST_TYPE_RECIPIENT_MASK) == USB_REQUEST_TYPE_RECIPIENT_ENDPOINT)
     {
-        if ((interfaceOrEndpoint == USB_AUDIO_STREAM_ENDPOINT) ||
-            (interfaceOrEndpoint == USB_AUDIO_CONTROL_ENDPOINT))
+        if ((interfaceOrEndpoint == USB_AUDIO_STREAM_ENDPOINT) || (interfaceOrEndpoint == USB_AUDIO_CONTROL_ENDPOINT))
         {
             switch (setup->bmRequestType)
             {
@@ -1540,7 +1539,7 @@ usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *
             }
             break;
         case kUSB_DeviceEventSetInterface:
-            if (s_audioGenerator.attach)
+            if (0U != s_audioGenerator.attach)
             {
                 uint8_t interface        = (*temp8) & 0xFFU;
                 uint8_t alternateSetting = g_UsbDeviceInterface[interface];

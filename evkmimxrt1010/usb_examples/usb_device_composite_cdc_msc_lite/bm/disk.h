@@ -49,6 +49,7 @@ typedef struct _usb_msc_struct
     uint8_t currentConfiguration;
     uint8_t speed;
     uint8_t attach;
+    uint8_t stop; /* indicates this media keeps stop or not, 1: stop, 0: start */
 } usb_msc_struct_t;
 
 #endif /* _USB_MSC_DISK_H_ */

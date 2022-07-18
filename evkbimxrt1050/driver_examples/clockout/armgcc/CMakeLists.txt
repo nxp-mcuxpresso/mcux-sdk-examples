@@ -93,7 +93,9 @@ include(driver_xip_device)
 
 include(driver_xip_board_evkbimxrt1050)
 
-include(utilities_misc_utilities)
+include(component_silicon_id)
+
+include(utilities_misc_utilities_MIMXRT1052)
 
 include(CMSIS_Include_core_cm)
 

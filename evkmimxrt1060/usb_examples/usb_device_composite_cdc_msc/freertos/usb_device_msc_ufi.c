@@ -761,6 +761,10 @@ usb_status_t USB_DeviceMscUfiReadCapacityCommand(struct _usb_device_msc_struct *
     }
     else
     {
+        if (0U != deviceExpectedDataLength)
+        {
+            deviceExpectedDataLength = USB_DEVICE_MSC_UFI_READ_CAPACITY16_DATA_LENGTH;
+        }
         ufi->thirteenCase.deviceExpectedDataLength    = deviceExpectedDataLength;
         ufi->readCapacity16->lastLogicalBlockAddress1 = USB_LONG_TO_BIG_ENDIAN(
             mscHandle->luInformations[mscHandle->mscCbw->logicalUnitNumber].totalLbaNumberSupports - 1U);
@@ -815,6 +819,10 @@ usb_status_t USB_DeviceMscUfiReadFormatCapacityCommand(struct _usb_device_msc_st
         it is from the second parameter of classInit */
         status = mscHandle->configurationStruct->classCallback(
             (class_handle_t)mscHandle, kUSB_DeviceMscEventReadFormatCapacity, (void *)&diskInformation);
+        if (kStatus_USB_Success != status)
+        {
+            return status;
+        }
     }
 
     if (logicalUnitNumber > mscHandle->logicalUnitNumber)

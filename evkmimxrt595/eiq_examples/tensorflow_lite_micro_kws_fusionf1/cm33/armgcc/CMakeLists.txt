@@ -41,10 +41,10 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../board.h"
 "${ProjDirPath}/../clock_config.c"
 "${ProjDirPath}/../clock_config.h"
-"${ProjDirPath}/../board_init.c"
 "${ProjDirPath}/../board_init.h"
 "${ProjDirPath}/../incbin.S"
 "${ProjDirPath}/../dsp_config.h"
+"${ProjDirPath}/../board_init.c"
 "${ProjDirPath}/../dsp_support.c"
 "${ProjDirPath}/../dsp_support.h"
 "${ProjDirPath}/../../fusionf1/binary/dsp_reset_release.bin"
@@ -127,7 +127,7 @@ include(utility_assert_lite)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT595S_cm33)
 
 include(driver_iap)
 

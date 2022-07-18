@@ -19,7 +19,9 @@
 #endif /* FSL_FEATURE_SOC_SYSMPU_COUNT */
 #include "app.h"
 #if ((defined USB_HOST_CONFIG_EHCI) && (USB_HOST_CONFIG_EHCI))
+#if ((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
 #include "usb_phy.h"
+#endif
 #endif /* USB_HOST_CONFIG_EHCI */
 
 #if ((!USB_HOST_CONFIG_KHCI) && (!USB_HOST_CONFIG_EHCI))

@@ -121,7 +121,7 @@ include(utility_assert)
 
 include(driver_xip_device)
 
-include(driver_xip_board)
+include(driver_xip_board_evkmimxrt1160)
 
 include(middleware_usb_device_controller_driver_MIMXRT1166_cm7)
 
@@ -149,7 +149,7 @@ include(driver_phy-common)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1166_cm7)
 
 include(device_system_MIMXRT1166_cm7)
 

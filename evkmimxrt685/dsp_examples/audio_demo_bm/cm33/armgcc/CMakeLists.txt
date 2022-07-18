@@ -75,23 +75,11 @@ include(driver_clock)
 
 include(driver_flexcomm_i2c)
 
-include(driver_i3c)
-
-include(driver_wm8904)
-
 include(utility_shell)
 
-include(driver_codec)
+include(driver_lpc_gpio)
 
 include(driver_common)
-
-include(component_wm8904_adapter)
-
-include(component_codec_i2c_MIMXRT685S_cm33)
-
-include(component_i3c_adapter)
-
-include(driver_lpc_gpio)
 
 include(driver_power)
 
@@ -102,6 +90,18 @@ include(driver_dsp)
 include(driver_inputmux)
 
 include(driver_pca9420)
+
+include(driver_codec)
+
+include(component_wm8904_adapter)
+
+include(component_codec_i2c_MIMXRT685S_cm33)
+
+include(component_i3c_adapter)
+
+include(driver_i3c)
+
+include(driver_wm8904)
 
 include(device_CMSIS)
 
@@ -135,7 +135,7 @@ include(CMSIS_Include_core_cm)
 
 include(driver_inputmux_connections)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT685S_cm33)
 
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)

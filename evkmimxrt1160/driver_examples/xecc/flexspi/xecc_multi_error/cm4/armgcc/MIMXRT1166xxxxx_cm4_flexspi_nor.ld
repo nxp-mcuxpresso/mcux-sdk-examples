@@ -98,8 +98,18 @@ SECTIONS
         */fsl_xecc.c.obj
     ) .text*)                /* .text* sections (code) */
 
-    *(.rodata)               /* .rodata sections (constants, strings, etc.) */
-    *(.rodata*)              /* .rodata* sections (constants, strings, etc.) */
+    *(EXCLUDE_FILE(
+        /* Exclude flash and frequently executed functions from XIP */
+        */flexspi_nor_flash_ops.c.obj
+        */fsl_flexspi.c.obj
+        */fsl_xecc.c.obj
+    ) .rodata)               /* .rodata sections (constants, strings, etc.) */
+    *(EXCLUDE_FILE(
+        /* Exclude flash and frequently executed functions from XIP */
+        */flexspi_nor_flash_ops.c.obj
+        */fsl_flexspi.c.obj
+        */fsl_xecc.c.obj
+    ) .rodata*)              /* .rodata* sections (constants, strings, etc.) */
     *(.glue_7)               /* glue arm to thumb code */
     *(.glue_7t)              /* glue thumb to arm code */
     *(.eh_frame)

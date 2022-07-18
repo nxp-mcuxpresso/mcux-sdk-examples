@@ -97,13 +97,17 @@ include(driver_emc)
 
 include(utility_assert)
 
+include(component_silicon_id)
+
+include(driver_iap)
+
 include(driver_reset)
 
 include(CMSIS_Include_core_cm)
 
 include(driver_inputmux_connections)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC54S018M)
 
 include(device_system)
 

@@ -77,6 +77,8 @@ include(middleware_sdmmc_host_usdhc)
 
 include(middleware_sdmmc_host_usdhc_freertos_MIMXRT1176_cm7)
 
+include(component_igpio_adapter)
+
 include(middleware_freertos-kernel_MIMXRT1176_cm7)
 
 include(middleware_freertos-kernel_heap_4)
@@ -117,6 +119,8 @@ include(driver_dcdc_soc)
 
 include(driver_cache_armv7_m7)
 
+include(component_silicon_id)
+
 include(driver_memory)
 
 include(driver_anatop_ai)
@@ -129,7 +133,7 @@ include(component_osa_free_rtos)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1176_cm7)
 
 include(device_system_MIMXRT1176_cm7)
 

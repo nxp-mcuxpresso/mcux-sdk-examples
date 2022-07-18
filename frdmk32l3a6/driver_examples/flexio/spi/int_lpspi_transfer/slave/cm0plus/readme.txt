@@ -8,7 +8,7 @@ In this example, a flexio simulated slave connect to a lpspi master.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
+- GCC ARM Embedded  10.3.1
 
 Hardware requirements
 =====================

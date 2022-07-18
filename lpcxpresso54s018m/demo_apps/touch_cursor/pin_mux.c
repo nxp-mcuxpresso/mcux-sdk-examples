@@ -101,6 +101,7 @@ BOARD_InitPins:
     glitch_filter: disabled, open_drain: disabled}
   - {pin_num: J14, peripheral: GPIO, signal: 'PIO3, 31', pin_signal: PIO3_31/FC9_RTS_SCL_SSEL1/SCT0_OUT5/CTIMER4_MAT2/SCT0_GPI0/EMC_A(20), mode: pullUp, invert: disabled,
     glitch_filter: disabled, slew_rate: standard, open_drain: disabled}
+  - {pin_num: H13, peripheral: GPIO, signal: 'PIO4, 0', pin_signal: PIO4_0/FC6_CTS_SDA_SSEL0/CTIMER4_CAP1/SCT0_GPI1/EMC_CSN(1), mode: pullUp}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */

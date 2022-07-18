@@ -4,21 +4,12 @@ SET(CMAKE_ASM_FLAGS_DEBUG " \
     -D__STARTUP_CLEAR_BSS \
     -D__STARTUP_INITIALIZE_NONCACHEDATA \
     -DTX_ENABLE_FPU_SUPPORT=1 \
-    -g \
     -mcpu=cortex-m7 \
-    -Wall \
     -mfloat-abi=hard \
     -mfpu=fpv5-d16 \
     -mthumb \
     -x \
     assembler-with-cpp \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
 ")
 SET(CMAKE_ASM_FLAGS_RELEASE " \
     ${CMAKE_ASM_FLAGS_RELEASE} \
@@ -27,19 +18,11 @@ SET(CMAKE_ASM_FLAGS_RELEASE " \
     -D__STARTUP_INITIALIZE_NONCACHEDATA \
     -DTX_ENABLE_FPU_SUPPORT=1 \
     -mcpu=cortex-m7 \
-    -Wall \
     -mfloat-abi=hard \
     -mfpu=fpv5-d16 \
     -mthumb \
     -x \
     assembler-with-cpp \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
 ")
 SET(CMAKE_ASM_FLAGS_FLEXSPI_NOR_DEBUG " \
     ${CMAKE_ASM_FLAGS_FLEXSPI_NOR_DEBUG} \
@@ -47,21 +30,12 @@ SET(CMAKE_ASM_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DDEBUG \
     -D__STARTUP_INITIALIZE_NONCACHEDATA \
     -DTX_ENABLE_FPU_SUPPORT=1 \
-    -g \
     -mcpu=cortex-m7 \
-    -Wall \
     -mfloat-abi=hard \
     -mfpu=fpv5-d16 \
     -mthumb \
     -x \
     assembler-with-cpp \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
 ")
 SET(CMAKE_ASM_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${CMAKE_ASM_FLAGS_FLEXSPI_NOR_RELEASE} \
@@ -70,19 +44,11 @@ SET(CMAKE_ASM_FLAGS_FLEXSPI_NOR_RELEASE " \
     -D__STARTUP_INITIALIZE_NONCACHEDATA \
     -DTX_ENABLE_FPU_SUPPORT=1 \
     -mcpu=cortex-m7 \
-    -Wall \
     -mfloat-abi=hard \
     -mfpu=fpv5-d16 \
     -mthumb \
     -x \
     assembler-with-cpp \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
 ")
 SET(CMAKE_C_FLAGS_DEBUG " \
     ${CMAKE_C_FLAGS_DEBUG} \
@@ -94,7 +60,9 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DPRINTF_ADVANCED_ENABLE=1 \
     -DSCANF_ADVANCED_ENABLE=0 \
     -DSERIAL_PORT_TYPE_UART=1 \
+    -DDATA_SECTION_IS_CACHEABLE=1 \
     -DTX_INCLUDE_USER_DEFINE_FILE \
+    -DFSL_RTOS_THREADX \
     -DMCUXPRESSO_SDK \
     -g \
     -O0 \
@@ -123,7 +91,9 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DPRINTF_ADVANCED_ENABLE=1 \
     -DSCANF_ADVANCED_ENABLE=0 \
     -DSERIAL_PORT_TYPE_UART=1 \
+    -DDATA_SECTION_IS_CACHEABLE=1 \
     -DTX_INCLUDE_USER_DEFINE_FILE \
+    -DFSL_RTOS_THREADX \
     -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m7 \
@@ -153,7 +123,9 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DPRINTF_ADVANCED_ENABLE=1 \
     -DSCANF_ADVANCED_ENABLE=0 \
     -DSERIAL_PORT_TYPE_UART=1 \
+    -DDATA_SECTION_IS_CACHEABLE=1 \
     -DTX_INCLUDE_USER_DEFINE_FILE \
+    -DFSL_RTOS_THREADX \
     -DMCUXPRESSO_SDK \
     -g \
     -O0 \
@@ -184,7 +156,9 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -DPRINTF_ADVANCED_ENABLE=1 \
     -DSCANF_ADVANCED_ENABLE=0 \
     -DSERIAL_PORT_TYPE_UART=1 \
+    -DDATA_SECTION_IS_CACHEABLE=1 \
     -DTX_INCLUDE_USER_DEFINE_FILE \
+    -DFSL_RTOS_THREADX \
     -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m7 \

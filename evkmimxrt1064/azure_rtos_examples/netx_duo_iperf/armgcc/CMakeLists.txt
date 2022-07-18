@@ -139,7 +139,7 @@ include(driver_enet)
 
 include(driver_phy-common)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1064)
 
 include(device_system)
 

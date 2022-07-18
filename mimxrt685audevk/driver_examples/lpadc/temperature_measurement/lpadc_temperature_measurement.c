@@ -200,8 +200,4 @@ static void ADC_Configuration(void)
     while (false == g_LpadcConversionCompletedFlag)
     {
     }
-    LPADC_DoSoftwareTrigger(DEMO_LPADC_BASE, 1U); /* 1U is trigger0 mask. */
-    while (false == g_LpadcConversionCompletedFlag)
-    {
-    }
 }

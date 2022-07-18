@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2021 NXP
+ * Copyright 2016-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -92,7 +92,7 @@ void flexspi_hyper_flash_init(void)
 #endif /* __DCACHE_PRESENT */
 }
 
-status_t flexspi_nor_hyperbus_read(FLEXSPI_Type *base, uint32_t addr, uint32_t *buffer, uint32_t bytes)
+static status_t flexspi_nor_hyperbus_read_cfi(FLEXSPI_Type *base, uint32_t addr, uint32_t *buffer, uint32_t bytes)
 {
     flexspi_transfer_t flashXfer;
     status_t status;
@@ -114,7 +114,7 @@ status_t flexspi_nor_hyperbus_read(FLEXSPI_Type *base, uint32_t addr, uint32_t *
     return status;
 }
 
-status_t flexspi_nor_hyperbus_write(FLEXSPI_Type *base, uint32_t addr, uint32_t *buffer, uint32_t bytes)
+static status_t flexspi_nor_hyperbus_write_cfi(FLEXSPI_Type *base, uint32_t addr, uint32_t *buffer, uint32_t bytes)
 {
     flexspi_transfer_t flashXfer;
     status_t status;
@@ -289,6 +289,70 @@ status_t flexspi_nor_flash_page_program(FLEXSPI_Type *base, uint32_t address, co
     return status;
 }
 
+status_t flexspi_nor_flash_read(FLEXSPI_Type *base, uint32_t addr, uint8_t *buffer, uint32_t bytes)
+{
+    flexspi_transfer_t flashXfer;
+    status_t status;
+    uint8_t temp[4] = {0};
+
+    /* Odd number address*/
+    if (0x01U == (addr & 0x01U))
+    {
+        /* First odd number address */
+        flashXfer.deviceAddress = addr - 1U;
+        flashXfer.port          = kFLEXSPI_PortA1;
+        flashXfer.cmdType       = kFLEXSPI_Read;
+        flashXfer.SeqNumber     = 1;
+        flashXfer.seqIndex      = HYPERFLASH_CMD_LUT_SEQ_IDX_READDATA;
+        flashXfer.data          = (uint32_t *)temp;
+        flashXfer.dataSize      = 1U;
+        status                  = FLEXSPI_TransferBlocking(base, &flashXfer);
+
+        if (status != kStatus_Success)
+        {
+            return status;
+        }
+        /* Assign second read back data as application's first byte due to output is half word alginment. */
+        buffer[0] = temp[1];
+
+        /* last even number address data */
+        if (bytes > 1U)
+        {
+            flashXfer.deviceAddress = addr + 1U;
+            flashXfer.port          = kFLEXSPI_PortA1;
+            flashXfer.cmdType       = kFLEXSPI_Read;
+            flashXfer.SeqNumber     = 1;
+            flashXfer.seqIndex      = HYPERFLASH_CMD_LUT_SEQ_IDX_READDATA;
+            flashXfer.data          = (uint32_t *)(&buffer[1]);
+            flashXfer.dataSize      = bytes - 1U;
+            status                  = FLEXSPI_TransferBlocking(base, &flashXfer);
+
+            if (status != kStatus_Success)
+            {
+                return status;
+            }
+        }
+    }
+    else
+    {
+        flashXfer.deviceAddress = addr;
+        flashXfer.port          = kFLEXSPI_PortA1;
+        flashXfer.cmdType       = kFLEXSPI_Read;
+        flashXfer.SeqNumber     = 1;
+        flashXfer.seqIndex      = HYPERFLASH_CMD_LUT_SEQ_IDX_READDATA;
+        flashXfer.data          = (uint32_t *)buffer;
+        flashXfer.dataSize      = bytes;
+        status                  = FLEXSPI_TransferBlocking(base, &flashXfer);
+
+        if (status != kStatus_Success)
+        {
+            return status;
+        }
+    }
+
+    return status;
+}
+
 status_t flexspi_nor_hyperflash_cfi(FLEXSPI_Type *base)
 {
     /*
@@ -298,7 +362,7 @@ status_t flexspi_nor_hyperflash_cfi(FLEXSPI_Type *base)
     status_t status;
     uint32_t buffer[2];
     uint8_t data[4] = {0x00, 0x98};
-    status          = flexspi_nor_hyperbus_write(base, 0x555, (uint32_t *)data, 2);
+    status          = flexspi_nor_hyperbus_write_cfi(base, 0x555, (uint32_t *)data, 2);
     if (status != kStatus_Success)
     {
         return status;
@@ -306,7 +370,7 @@ status_t flexspi_nor_hyperflash_cfi(FLEXSPI_Type *base)
 
     // ID-CFI Read
     // Read Query Unique ASCII String
-    status = flexspi_nor_hyperbus_read(base, 0x10, &buffer[0], sizeof(buffer));
+    status = flexspi_nor_hyperbus_read_cfi(base, 0x10, &buffer[0], sizeof(buffer));
     if (status != kStatus_Success)
     {
         return status;
@@ -320,7 +384,7 @@ status_t flexspi_nor_hyperflash_cfi(FLEXSPI_Type *base)
     }
     // ASO Exit 0xF000
     data[1] = 0xF0;
-    status  = flexspi_nor_hyperbus_write(base, 0x0, (uint32_t *)data, 2);
+    status  = flexspi_nor_hyperbus_write_cfi(base, 0x0, (uint32_t *)data, 2);
     if (status != kStatus_Success)
     {
         return status;

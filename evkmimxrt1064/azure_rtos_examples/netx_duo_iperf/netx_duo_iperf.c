@@ -18,7 +18,7 @@
  ******************************************************************************/
 
 /* Define demo stack size.   */
-#define NX_PACKET_POOL_SIZE ((1536 + sizeof(NX_PACKET)) * 56)
+#define NX_PACKET_POOL_SIZE ((1536 + sizeof(NX_PACKET)) * 40)
 #define DEMO_STACK_SIZE     2048
 #define HTTP_STACK_SIZE     2048
 #define IPERF_STACK_SIZE    2048

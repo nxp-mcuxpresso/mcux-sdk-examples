@@ -33,16 +33,42 @@
 #define FLEXIO_I2C_SDA_PIN 22U
 #define FLEXIO_I2C_SCL_PIN 26U
 
-#define I2C_BAUDRATE (100000) /* 100K */
-
+#define I2C_BAUDRATE       (100000) /* 100K */
 #define FXOS8700_WHOAMI    (0xC7U)
 #define MMA8451_WHOAMI     (0x1AU)
+#define LSM6DSO_WHOAMI     (0x6CU)
 #define ACCEL_STATUS       (0x00U)
 #define ACCEL_XYZ_DATA_CFG (0x0EU)
 #define ACCEL_CTRL_REG1    (0x2AU)
 /* FXOS8700 and MMA8451 have the same who_am_i register address. */
-#define ACCEL_WHOAMI_REG (0x0DU)
-#define ACCEL_READ_TIMES (10U)
+#define ACCEL_WHOAMI_REG         (0x0DU)
+#define LSM6DSO_WHOAMI_REG       (0x0FU)
+#define ACCEL_READ_TIMES         (10U)
+#define SENSOR_MODEL_NUMBERS     3U
+#define READ_SEQ_COMMAND_NUMBERS 2U
+
+typedef enum _sensor_model
+{
+    FXOS8700 = 0U,
+    MMA8451  = 1U,
+    LSM6DSO  = 2U,
+} sensor_model;
+
+typedef enum _read_seq_command
+{
+    READ_STATUS     = 0U,
+    READ_ACCEL_DATA = 1U,
+} read_seq_command;
+
+/*!
+ * @brief This structure defines the Write command List.
+ */
+typedef struct _regList
+{
+    uint8_t reg; /* Register Address where the value is wrote to */
+    uint8_t val;
+    uint8_t size; /* read size from register */
+} regList_t;
 
 /*******************************************************************************
  * Prototypes
@@ -57,12 +83,89 @@ static bool I2C_read_accel_regs(
  * Variables
  ******************************************************************************/
 
-/*  FXOS8700 and MMA8451 device address */
-const uint8_t g_accel_address[] = {0x1CU, 0x1DU, 0x1EU, 0x1FU};
+uint8_t g_whoami_reg_addr[SENSOR_MODEL_NUMBERS] = {ACCEL_WHOAMI_REG, ACCEL_WHOAMI_REG, LSM6DSO_WHOAMI_REG};
+
+/*
+ * device address:
+ * FXOS8700(0x1c, 0x1d, 0x1e, 0x1f),
+ * MMA8451(0x1c, 0x1d, 0x1e, 0x1f ),
+ * LSM6SDO(0x6a, 0x6b).
+ */
+const uint8_t g_accel_addr[SENSOR_MODEL_NUMBERS][4] = {
+    {0x1CU, 0x1DU, 0x1EU, 0x1FU}, /* FXOS8700 */
+    {0x1CU, 0x1DU, 0x1EU, 0x1FU}, /* MMA8451 */
+    {0x6AU, 0x6BU, 0x00U, 0x00U}  /* LSM6SDO */
+};
+
+/* Each entry in a regWriteList is composed of: register address, value to write, bit-mask to apply to write */
+/* For FXOS8700 and MMA8451 */
+regList_t FXOS8700AndMMA8451InitSeq[] = {
+    /* for FXOS8700 */
+    /*  write 0000 0000 = 0x00 to accelerometer control register 1 */
+    /*  standby */
+    /*  [7-1] = 0000 000 */
+    /*  [0]: active=0 */
+    {ACCEL_CTRL_REG1, 0x00, 0x01},
+    /*  write 0000 0001= 0x01 to XYZ_DATA_CFG register */
+    /*  [7]: reserved */
+    /*  [6]: reserved */
+    /*  [5]: reserved */
+    /*  [4]: hpf_out=0 */
+    /*  [3]: reserved */
+    /*  [2]: reserved */
+    /*  [1-0]: fs=01 for accelerometer range of +/-4g range with 0.488mg/LSB */
+    /*  databyte = 0x01; */
+    {ACCEL_XYZ_DATA_CFG, 0x01, 0x01},
+    /*  write 0000 1101 = 0x0D to accelerometer control register 1 */
+    /*  [7-6]: aslp_rate=00 */
+    /*  [5-3]: dr=001 for 200Hz data rate (when in hybrid mode) */
+    /*  [2]: lnoise=1 for low noise mode */
+    /*  [1]: f_read=0 for normal 16 bit reads */
+    /*  [0]: active=1 to take the part out of standby and enable sampling */
+    /*   databyte = 0x0D; */
+    {ACCEL_CTRL_REG1, 0x0d, 0x01},
+};
+
+regList_t LSM6DSOInitSeq[] = {
+    /* for LSM6DSO */
+    /*  write 0000 0001 = 0x01 to CTRL3_C(0x12) */
+    /*  software reset */
+    {0x12, 0x01, 0x01},
+
+    /*  write 0000 1000 = 0x08 to CTRL4_C(0x13) */
+    /*   CTRL4_C[3] = 1,  enable data available */
+    {0x13, 0x08, 0x00},
+
+    /*  write 1011 0000 = 0xb0 to CTRL1_XL(0x10) */
+    /*   CTRL1_XL[7:4] = 1011,  12.5 Hz(high performance) */
+    {0x10, 0xb0, 0x01},
+};
+
+/*  SENSOR_MODEL_NUMBERS * READ_SEQ_COMMAND_NUMBERS */
+regList_t readSeq[] = {
+    /* for FXOS8700 */
+    /* read status register */
+    {0x00, 0xff, 0x01}, /* READ_STATUS */
+    /* read acceleration value from registers */
+    {0x01, 0x00, 0x06}, /* READ_ACCEL_DATA */
+
+    /* for MMA8451(same with FXOS8700) */
+    /* read status register */
+    {0x00, 0xff, 0x01}, /* READ_STATUS */
+    /* read acceleration value from registers */
+    {0x01, 0x00, 0x06}, /* READ_ACCEL_DATA */
+
+    /* for LSM6DSO */
+    /* read STATUS_REG(0x1E) */
+    {0x1e, 0x05, 0x01}, /* READ_STATUS */
+    /* read acceleration value from OUTX_L_A, OUTX_H_A, OUTY_L_A, OUTY_H_A, OUTZ_L_A, OUTZ_H_A */
+    {0x28, 0x00, 0x06}, /* READ_ACCEL_DATA */
+};
 
 flexio_i2c_master_handle_t g_m_handle;
 FLEXIO_I2C_Type i2cDev;
-uint8_t g_accel_addr_found   = 0x00;
+uint8_t g_device_addr_found  = 0x00;
+uint8_t g_model              = SENSOR_MODEL_NUMBERS;
 volatile bool completionFlag = false;
 volatile bool nakFlag        = false;
 
@@ -94,13 +197,14 @@ static bool I2C_example_readAccelWhoAmI(void)
     Start + Device_address_Write , who_am_I_register;
     Repeart_Start + Device_address_Read , who_am_I_value.
     */
-    uint8_t who_am_i_reg          = ACCEL_WHOAMI_REG;
-    uint8_t who_am_i_value        = 0x00;
-    uint8_t accel_addr_array_size = 0x00;
-    bool find_device              = false;
-    bool result                   = false;
-    uint8_t i                     = 0;
-    uint32_t j                    = 0;
+    uint8_t who_am_i_value         = 0x00;
+    uint8_t device_addr_array_size = 0x00;
+    bool find_device               = false;
+    bool result                    = false;
+    uint8_t i                      = 0;
+    uint32_t j                     = 0;
+    uint8_t model                  = 0;
+    uint8_t device_addr_offset     = 0;
 
     flexio_i2c_master_config_t masterConfig;
 
@@ -125,18 +229,21 @@ static bool I2C_example_readAccelWhoAmI(void)
     flexio_i2c_master_transfer_t masterXfer;
     memset(&masterXfer, 0, sizeof(masterXfer));
 
-    masterXfer.slaveAddress   = g_accel_address[0];
+    masterXfer.slaveAddress   = g_accel_addr[0][0];
     masterXfer.direction      = kFLEXIO_I2C_Read;
-    masterXfer.subaddress     = who_am_i_reg;
+    masterXfer.subaddress     = g_whoami_reg_addr[0];
     masterXfer.subaddressSize = 1;
     masterXfer.data           = &who_am_i_value;
     masterXfer.dataSize       = 1;
 
-    accel_addr_array_size = sizeof(g_accel_address) / sizeof(g_accel_address[0]);
+    device_addr_array_size = sizeof(g_accel_addr) / sizeof(g_accel_addr[0][0]);
 
-    for (i = 0; i < accel_addr_array_size; i++)
+    for (i = 0; i < device_addr_array_size; i++)
     {
-        masterXfer.slaveAddress = g_accel_address[i];
+        model                   = i / sizeof(g_accel_addr[0]);
+        device_addr_offset      = i % sizeof(g_accel_addr[0]);
+        masterXfer.slaveAddress = g_accel_addr[model][device_addr_offset];
+        masterXfer.subaddress   = g_whoami_reg_addr[model];
         completionFlag          = false;
         FLEXIO_I2C_MasterTransferNonBlocking(&i2cDev, &g_m_handle, &masterXfer);
 
@@ -155,9 +262,10 @@ static bool I2C_example_readAccelWhoAmI(void)
         }
         if (completionFlag == true)
         {
-            completionFlag     = false;
-            find_device        = true;
-            g_accel_addr_found = masterXfer.slaveAddress;
+            completionFlag      = false;
+            find_device         = true;
+            g_device_addr_found = masterXfer.slaveAddress;
+            g_model             = model;
             break;
         }
         for (j = 0; j < 0xFFF; j++)
@@ -178,10 +286,14 @@ static bool I2C_example_readAccelWhoAmI(void)
                 PRINTF("Found a MMA8451 on board, the device address is 0x%02X. \r\n", masterXfer.slaveAddress);
                 result = true;
                 break;
+            case LSM6DSO_WHOAMI:
+                PRINTF("Found a LSDM6DSO on board, the device address is 0x%02X. \r\n", masterXfer.slaveAddress);
+                result = true;
+                break;
             default:
 
                 PRINTF("Found a device, the WhoAmI value is 0x%02X\r\n", who_am_i_value);
-                PRINTF("It's not MMA8451 or FXOS8700. \r\n");
+                PRINTF("It's not MMA8451 or FXOS8700 or LSM6DSO. \r\n");
                 PRINTF("The device address is 0x%02X. \r\n", masterXfer.slaveAddress);
                 result = false;
                 break;
@@ -266,6 +378,34 @@ static bool I2C_read_accel_regs(
     }
 }
 
+void I2C_InitSensor(uint8_t model)
+{
+    int8_t commandNums  = 0;
+    regList_t *pRegList = NULL;
+    int8_t i            = 0;
+
+    if (model == FXOS8700 || model == MMA8451)
+    {
+        commandNums = sizeof(FXOS8700AndMMA8451InitSeq) / sizeof(FXOS8700AndMMA8451InitSeq[0]);
+        pRegList    = FXOS8700AndMMA8451InitSeq;
+    }
+    else if (model == LSM6DSO)
+    {
+        commandNums = sizeof(LSM6DSOInitSeq) / sizeof(LSM6DSOInitSeq[0]);
+        pRegList    = LSM6DSOInitSeq;
+    }
+    else
+    {
+        PRINTF("\r\n Failed to initialize sensor\r\n");
+        return;
+    }
+
+    for (i = 0; i < commandNums; i++)
+    {
+        I2C_write_accel_reg(&i2cDev, g_device_addr_found, pRegList[i].reg, pRegList[i].val);
+    }
+}
+
 /*!
  * @brief Main function
  */
@@ -300,64 +440,32 @@ int main(void)
     /*  read the accel xyz value if there is accel device on board */
     if (true == isThereAccel)
     {
-        uint8_t databyte  = 0;
-        uint8_t write_reg = 0;
-        uint8_t readBuff[7];
+        uint8_t readBuff[6] = {0};
         int16_t x, y, z;
         uint8_t status0_value = 0;
         uint32_t i            = 0;
 
-        /*  please refer to the "example FXOS8700CQ Driver Code" in FXOS8700 datasheet. */
-        /*  write 0000 0000 = 0x00 to accelerometer control register 1 */
-        /*  standby */
-        /*  [7-1] = 0000 000 */
-        /*  [0]: active=0 */
-        write_reg = ACCEL_CTRL_REG1;
-        databyte  = 0;
-        I2C_write_accel_reg(&i2cDev, g_accel_addr_found, write_reg, databyte);
+        I2C_InitSensor(g_model);
 
-        /*  write 0000 0001= 0x01 to XYZ_DATA_CFG register */
-        /*  [7]: reserved */
-        /*  [6]: reserved */
-        /*  [5]: reserved */
-        /*  [4]: hpf_out=0 */
-        /*  [3]: reserved */
-        /*  [2]: reserved */
-        /*  [1-0]: fs=01 for accelerometer range of +/-4g range with 0.488mg/LSB */
-        /*  databyte = 0x01; */
-        write_reg = ACCEL_XYZ_DATA_CFG;
-        databyte  = 0x01;
-        I2C_write_accel_reg(&i2cDev, g_accel_addr_found, write_reg, databyte);
-
-        /*  write 0000 1101 = 0x0D to accelerometer control register 1 */
-        /*  [7-6]: aslp_rate=00 */
-        /*  [5-3]: dr=001 for 200Hz data rate (when in hybrid mode) */
-        /*  [2]: lnoise=1 for low noise mode */
-        /*  [1]: f_read=0 for normal 16 bit reads */
-        /*  [0]: active=1 to take the part out of standby and enable sampling */
-        /*   databyte = 0x0D; */
-        write_reg = ACCEL_CTRL_REG1;
-        databyte  = 0x0d;
-        I2C_write_accel_reg(&i2cDev, g_accel_addr_found, write_reg, databyte);
         PRINTF("The accel values:\r\n");
         for (i = 0; i < ACCEL_READ_TIMES; i++)
         {
             status0_value = 0;
             /*  wait for new data are ready. */
-            while (status0_value != 0xff)
+            while (status0_value != readSeq[g_model * 2 + READ_STATUS].val)
             {
-                I2C_read_accel_regs(&i2cDev, g_accel_addr_found, ACCEL_STATUS, &status0_value, 1);
+                I2C_read_accel_regs(&i2cDev, g_device_addr_found, readSeq[g_model * 2 + READ_STATUS].reg,
+                                    &status0_value, readSeq[g_model * 2 + READ_STATUS].size);
             }
             /* Delay 10us for the data to be ready. */
             SDK_DelayAtLeastUs(10, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
 
-            /*  Multiple-byte Read from STATUS (0x00) register */
-            I2C_read_accel_regs(&i2cDev, g_accel_addr_found, ACCEL_STATUS, readBuff, 7);
-
-            status0_value = readBuff[0];
-            x             = ((int16_t)(((readBuff[1] * 256U) | readBuff[2]))) / 4U;
-            y             = ((int16_t)(((readBuff[3] * 256U) | readBuff[4]))) / 4U;
-            z             = ((int16_t)(((readBuff[5] * 256U) | readBuff[6]))) / 4U;
+            /*  Multiple-byte Read from acceleration registers */
+            I2C_read_accel_regs(&i2cDev, g_device_addr_found, readSeq[g_model * 2 + READ_ACCEL_DATA].reg, readBuff,
+                                readSeq[g_model * 2 + READ_ACCEL_DATA].size);
+            x = ((int16_t)(((readBuff[0] << 8U) | readBuff[1]))) >> ((g_model == LSM6DSO) ? (0U) : (2U));
+            y = ((int16_t)(((readBuff[2] << 8U) | readBuff[3]))) >> ((g_model == LSM6DSO) ? (0U) : (2U));
+            z = ((int16_t)(((readBuff[4] << 8U) | readBuff[5]))) >> ((g_model == LSM6DSO) ? (0U) : (2U));
 
             PRINTF("status_reg = 0x%x , x = %5d , y = %5d , z = %5d \r\n", status0_value, x, y, z);
         }

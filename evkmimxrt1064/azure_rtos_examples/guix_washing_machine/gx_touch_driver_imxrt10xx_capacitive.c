@@ -18,9 +18,6 @@
 /**                                                                       */
 /**************************************************************************/
 
-#include "tx_api.h"
-#include "gx_api.h"
-
 /* Notes
 
 This file contains the hardware-specific functions of the resistive touch
@@ -30,7 +27,18 @@ gx_generic_resistive_touch
 */
 
 #include "fsl_lpi2c.h"
+#include "board.h"
+#include "fsl_debug_console.h"
+#include "display_support.h"
+
+#if defined(DEMO_PANEL) && (DEMO_PANEL == DEMO_PANEL_RK043FN66HS)
+#include "fsl_gt911.h"
+#else
 #include "fsl_ft5406_rt.h"
+#endif
+
+#include "tx_api.h"
+#include "gx_api.h"
 
 #define BOARD_TOUCH_I2C LPI2C1
 
@@ -41,22 +49,51 @@ gx_generic_resistive_touch
 #define LPI2C_CLOCK_SOURCE_DIVIDER (5U)
 
 #define BOARD_TOUCH_I2C_CLOCK_FREQ ((CLOCK_GetFreq(kCLOCK_Usb1PllClk) / 8) / (LPI2C_CLOCK_SOURCE_DIVIDER + 1U))
-#define BOARD_TOUCH_I2C_BAUDRATE   100000U
+
+#define BOARD_TOUCH_I2C_BAUDRATE    100000U
+
+#define TOUCH_STATE_TOUCHED         1
+#define TOUCH_STATE_RELEASED        2
+#define MIN_DRAG_DELTA              10
+
+#define DEMO_STACK_SIZE             (4 * 1024)
 
 /* Define the touch thread control block and stack.  */
-TX_THREAD touch_thread;
-UCHAR touch_thread_stack[4096];
-VOID touch_thread_entry(ULONG thread_input);
-
-#define TOUCH_STATE_TOUCHED  1
-#define TOUCH_STATE_RELEASED 2
-#define MIN_DRAG_DELTA       10
+static TX_THREAD touch_thread;
+static ULONG touch_thread_stack[DEMO_STACK_SIZE / sizeof(ULONG)];
 
 static int last_pos_x;
 static int last_pos_y;
 static int curpos_x;
 static int curpos_y;
+
+#if defined(DEMO_PANEL) && (DEMO_PANEL == DEMO_PANEL_RK043FN66HS)
+
+static void gx_delay(uint32_t ms);
+static void BOARD_PullTouchResetPin(bool pullUp);
+static void BOARD_ConfigTouchIntPin(gt911_int_pin_mode_t mode);
+
+static gt911_handle_t s_touchHandle;
+
+static const gt911_config_t s_touchConfig = {
+    .I2C_SendFunc     = BOARD_Touch_I2C_Send,
+    .I2C_ReceiveFunc  = BOARD_Touch_I2C_Receive,
+    .pullResetPinFunc = BOARD_PullTouchResetPin,
+    .intPinFunc       = BOARD_ConfigTouchIntPin,
+    .timeDelayMsFunc  = gx_delay,
+    .touchPointNum    = 1,
+    .i2cAddrMode      = kGT911_I2cAddrAny,
+    .intTrigMode      = kGT911_IntRisingEdge,
+};
+static int s_touchResolutionX;
+static int s_touchResolutionY;
+#else
+
+static ft5406_rt_handle_t touch_handle;
 static int touch_state;
+#endif
+
+static VOID touch_thread_entry(ULONG thread_input);
 
 /**************************************************************************/
 /* called by application to fire off the touch screen driver thread       */
@@ -72,29 +109,7 @@ VOID start_touch_thread(void)
  * Implementation of communication with the touch controller
  ******************************************************************************/
 
-static void gx_touch_init(void)
-{
-    lpi2c_master_config_t masterConfig = {0};
-    LPI2C_MasterGetDefaultConfig(&masterConfig);
-
-    /* Change the default baudrate configuration */
-    masterConfig.baudRate_Hz = BOARD_TOUCH_I2C_BAUDRATE;
-
-    /* Initialize the LPI2C master peripheral */
-    LPI2C_MasterInit(BOARD_TOUCH_I2C, &masterConfig, BOARD_TOUCH_I2C_CLOCK_FREQ);
-
-    /*Clock setting for LPI2C*/
-    // CLOCK_SetMux(kCLOCK_Lpi2cMux, LPI2C_CLOCK_SOURCE_SELECT);
-    // CLOCK_SetDiv(kCLOCK_Lpi2cDiv, LPI2C_CLOCK_SOURCE_DIVIDER);
-}
-
-void gx_touch_deinit(void)
-{
-    LPI2C_MasterDeinit(BOARD_TOUCH_I2C);
-}
-
-/**************************************************************************/
-VOID gx_send_pen_down_event(VOID)
+static VOID gx_send_pen_down_event(VOID)
 {
     GX_EVENT event;
     event.gx_event_type                                  = GX_EVENT_PEN_DOWN;
@@ -106,8 +121,7 @@ VOID gx_send_pen_down_event(VOID)
     gx_system_event_send(&event);
 }
 
-/**************************************************************************/
-VOID gx_send_pen_drag_event(VOID)
+static VOID gx_send_pen_drag_event(VOID)
 {
     GX_EVENT event;
     int x_delta = abs(curpos_x - last_pos_x);
@@ -128,8 +142,7 @@ VOID gx_send_pen_drag_event(VOID)
     }
 }
 
-/**************************************************************************/
-VOID gx_send_pen_up_event(VOID)
+static VOID gx_send_pen_up_event(VOID)
 {
     GX_EVENT event;
     event.gx_event_type                                  = GX_EVENT_PEN_UP;
@@ -143,30 +156,181 @@ VOID gx_send_pen_up_event(VOID)
     gx_system_event_send(&event);
 }
 
-/**************************************************************************/
-VOID touch_thread_entry(ULONG thread_input)
-{
-    ft5406_rt_handle_t touch_handle;
-    touch_event_t driver_state;
-    status_t status;
+#if defined(DEMO_PANEL) && (DEMO_PANEL == DEMO_PANEL_RK043FN66HS)
 
-    /* fow now run in polling mode */
-    /*
-    tx_event_flags_create(&touch_events, "touch_events");
-    touch_interrupt_configure();
-    */
+static void gx_delay(uint32_t ms)
+{
+    ULONG ticks;
+
+    /* translate ms into ticks. */
+    ticks = (ULONG)(ms * TX_TIMER_TICKS_PER_SECOND) / 1000;
+
+    if (ticks == 0)
+    {
+        while (0U != (ms--))
+        {
+            SDK_DelayAtLeastUs(1000U, SystemCoreClock);
+        }
+    }
+    else
+    {
+        tx_thread_sleep(ticks);
+    }
+}
+
+static void BOARD_PullTouchResetPin(bool pullUp)
+{
+    if (pullUp)
+    {
+        GPIO_PinWrite(BOARD_TOUCH_RST_GPIO, BOARD_TOUCH_RST_PIN, 1);
+    }
+    else
+    {
+        GPIO_PinWrite(BOARD_TOUCH_RST_GPIO, BOARD_TOUCH_RST_PIN, 0);
+    }
+}
+
+static void BOARD_ConfigTouchIntPin(gt911_int_pin_mode_t mode)
+{
+    if (mode == kGT911_IntPinInput)
+    {
+        BOARD_TOUCH_INT_GPIO->GDIR &= ~(1UL << BOARD_TOUCH_INT_PIN);
+    }
+    else
+    {
+        if (mode == kGT911_IntPinPullDown)
+        {
+            GPIO_PinWrite(BOARD_TOUCH_INT_GPIO, BOARD_TOUCH_INT_PIN, 0);
+        }
+        else
+        {
+            GPIO_PinWrite(BOARD_TOUCH_INT_GPIO, BOARD_TOUCH_INT_PIN, 1);
+        }
+
+        BOARD_TOUCH_INT_GPIO->GDIR |= (1UL << BOARD_TOUCH_INT_PIN);
+    }
+}
+
+static void gx_touch_init(void)
+{
+    status_t status;
+    gpio_pin_config_t pinConfig = {
+                    .direction = kGPIO_DigitalOutput,
+                    .outputLogic = 0,
+                    .interruptMode = kGPIO_NoIntmode
+    };
+
+    GPIO_PinInit(BOARD_TOUCH_INT_GPIO, BOARD_TOUCH_INT_PIN, &pinConfig);
+    GPIO_PinInit(BOARD_TOUCH_RST_GPIO, BOARD_TOUCH_RST_PIN, &pinConfig);
+
+    CLOCK_SetDiv(kCLOCK_Lpi2cDiv, LPI2C_CLOCK_SOURCE_DIVIDER);
+
+    BOARD_LPI2C_Init(BOARD_TOUCH_I2C, BOARD_TOUCH_I2C_CLOCK_FREQ);
+
+    status = GT911_Init(&s_touchHandle, &s_touchConfig);
+    if (kStatus_Success != status)
+    {
+        PRINTF("Touch IC initialization failed\r\n");
+        assert(false);
+    }
+
+    GT911_GetResolution(&s_touchHandle, &s_touchResolutionX, &s_touchResolutionY);
+
+    tx_thread_sleep(30);
+}
+
+static VOID gx_touch_read(int *x, int *y, int *state)
+{
+    status_t status;
+    static int touch_x = 0;
+    static int touch_y = 0;
+
+    status = GT911_GetSingleTouch(&s_touchHandle, &touch_x, &touch_y);
+    if (status == kStatus_Success)
+    {
+        *state = TOUCH_STATE_TOUCHED;
+    }
+    else
+    {
+        *state = TOUCH_STATE_RELEASED;
+    }
+
+    *x = touch_x * DEMO_PANEL_WIDTH / s_touchResolutionX;
+    *y = touch_y * DEMO_PANEL_HEIGHT / s_touchResolutionY;
+}
+
+static VOID touch_thread_entry(ULONG thread_input)
+{
+    int prev_touch_state;
+    int cur_touch_state;
 
     gx_touch_init();
 
-    /* Initialize the touch handle. */
-    FT5406_RT_Init(&touch_handle, BOARD_TOUCH_I2C);
-    touch_state = TOUCH_STATE_RELEASED;
-
-    tx_thread_sleep(30);
+    prev_touch_state = TOUCH_STATE_RELEASED;
 
     while (1)
     {
-        // tx_event_flags_get(&touch_events, 1, TX_AND_CLEAR, &actual_flags, TX_WAIT_FOREVER);
+        tx_thread_sleep(2);
+
+        gx_touch_read(&curpos_x, &curpos_y, &cur_touch_state);
+
+        if (prev_touch_state == TOUCH_STATE_TOUCHED)
+        {
+            if (cur_touch_state == TOUCH_STATE_TOUCHED)
+            {
+                gx_send_pen_drag_event();
+            }
+            else
+            {
+                gx_send_pen_up_event();
+            }
+        }
+        else
+        {
+            if (cur_touch_state == TOUCH_STATE_TOUCHED)
+            {
+                gx_send_pen_down_event();
+            }
+        }
+
+        prev_touch_state = cur_touch_state;
+    }
+
+}
+
+#else
+
+static void gx_touch_init(void)
+{
+    lpi2c_master_config_t masterConfig = {0};
+
+    CLOCK_SetDiv(kCLOCK_Lpi2cDiv, LPI2C_CLOCK_SOURCE_DIVIDER);
+
+    LPI2C_MasterGetDefaultConfig(&masterConfig);
+
+    /* Change the default baudrate configuration */
+    masterConfig.baudRate_Hz = BOARD_TOUCH_I2C_BAUDRATE;
+
+    /* Initialize the LPI2C master peripheral */
+    LPI2C_MasterInit(BOARD_TOUCH_I2C, &masterConfig, BOARD_TOUCH_I2C_CLOCK_FREQ);
+
+    /* Initialize the touch handle. */
+    FT5406_RT_Init(&touch_handle, BOARD_TOUCH_I2C);
+
+    tx_thread_sleep(30);
+}
+
+static VOID touch_thread_entry(ULONG thread_input)
+{
+    touch_event_t driver_state;
+    status_t status;
+
+    gx_touch_init();
+
+    touch_state = TOUCH_STATE_RELEASED;
+
+    while (1)
+    {
         tx_thread_sleep(2);
         status = FT5406_RT_GetSingleTouch(&touch_handle, &driver_state, &curpos_y, &curpos_x);
 
@@ -199,3 +363,4 @@ VOID touch_thread_entry(ULONG thread_input)
         }
     }
 }
+#endif

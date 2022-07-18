@@ -21,7 +21,7 @@
 #define DEMO_PDM_CIC_OVERSAMPLE_RATE  (0U)
 #define DEMO_PDM_ENABLE_CHANNEL_LEFT  (0U)
 #define DEMO_PDM_ENABLE_CHANNEL_RIGHT (1U)
-#define DEMO_AUDIO_SAMPLE_RATE        (48000)
+#define DEMO_AUDIO_SAMPLE_RATE        (16000)
 
 #define SAMPLE_COUNT (256)
 /*******************************************************************************
@@ -51,7 +51,11 @@ static pdm_channel_config_t channelConfig = {
 #else
     .cutOffFreq = kPDM_DcRemoverCutOff152Hz,
 #endif
-    .gain = kPDM_DfOutputGain7,
+#ifdef DEMO_PDM_CHANNEL_GAIN
+    .gain = DEMO_PDM_CHANNEL_GAIN,
+#else
+    .gain       = kPDM_DfOutputGain7,
+#endif
 };
 /*******************************************************************************
  * Code
@@ -166,7 +170,7 @@ int main(void)
     CLOCK_SetRootClockMux(kCLOCK_Root_Bus_Lpsr, 0);
     CLOCK_InitAudioPll(&audioPllConfig);
 
-    /* 24.576m mic root clock */
+    /* mic root clock = 24.576M */
     CLOCK_SetRootClockMux(kCLOCK_Root_Mic, 6);
     CLOCK_SetRootClockDiv(kCLOCK_Root_Mic, 16);
 

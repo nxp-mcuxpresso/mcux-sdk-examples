@@ -125,7 +125,7 @@ include(middleware_usb_common_header)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_K32L3A60_cm4)
 
 include(device_system_K32L3A60_cm4)
 

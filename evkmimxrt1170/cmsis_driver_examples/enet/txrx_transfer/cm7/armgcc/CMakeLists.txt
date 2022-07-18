@@ -105,11 +105,15 @@ include(driver_dcdc_soc)
 
 include(driver_cache_armv7_m7)
 
-include(driver_mdio-common)
+include(component_silicon_id)
+
+include(driver_xmcd_evkmimxrt1170)
 
 include(driver_anatop_ai)
 
 include(CMSIS_Include_core_cm)
+
+include(driver_mdio-common)
 
 include(driver_memory)
 
@@ -127,7 +131,7 @@ include(driver_edma_MIMXRT1176_cm7)
 
 include(driver_dmamux)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1176_cm7)
 
 include(device_system_MIMXRT1176_cm7)
 

@@ -20,9 +20,9 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define FIFO_DEPTH (15U)
+#define FIFO_DEPTH  (15U)
 #define BUFFER_SIZE (982U)
-#define BUFFER_NUM (2U)
+#define BUFFER_NUM  (2U)
 
 #if defined(USB_DEVICE_CONFIG_EHCI) && (USB_DEVICE_CONFIG_EHCI > 0U) || \
     (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
@@ -134,17 +134,22 @@ void Board_DMIC_DMA_Init(void)
 
     dmic_channel_cfg.divhfclk            = kDMIC_PdmDiv1;
     dmic_channel_cfg.osr                 = DEMO_DMIC_OSR;
-    dmic_channel_cfg.gainshft            = 3U;
+    dmic_channel_cfg.gainshft            = 2U;
     dmic_channel_cfg.preac2coef          = kDMIC_CompValueZero;
     dmic_channel_cfg.preac4coef          = kDMIC_CompValueZero;
     dmic_channel_cfg.dc_cut_level        = kDMIC_DcCut155;
-    dmic_channel_cfg.post_dc_gain_reduce = 1U;
+    dmic_channel_cfg.post_dc_gain_reduce = 1;
     dmic_channel_cfg.saturate16bit       = 1U;
     dmic_channel_cfg.sample_rate         = kDMIC_PhyFullSpeed;
+#if defined(FSL_FEATURE_DMIC_CHANNEL_HAS_SIGNEXTEND) && (FSL_FEATURE_DMIC_CHANNEL_HAS_SIGNEXTEND)
+    dmic_channel_cfg.enableSignExtend = true;
+#endif
+
     DMIC_Init(DMIC0);
 #if !(defined(FSL_FEATURE_DMIC_HAS_NO_IOCFG) && FSL_FEATURE_DMIC_HAS_NO_IOCFG)
     DMIC_SetIOCFG(DMIC0, kDMIC_PdmDual);
 #endif
+
     DMIC_Use2fs(DMIC0, true);
     DMIC_EnableChannelDma(DMIC0, DEMO_DMIC_CHANNEL, true);
     DMIC_ConfigChannel(DMIC0, DEMO_DMIC_CHANNEL, kDMIC_Left, &dmic_channel_cfg);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 NXP
+ * Copyright 2018-2022 NXP
  * All rights reserved.
  *
  *
@@ -13,7 +13,7 @@
  ******************************************************************************/
 /*${macro:start}*/
 #define EXAMPLE_FLEXSPI                 FLEXSPI
-#define FLASH_SIZE                      0x4000 /* 128Mb/KByte */
+#define FLASH_SIZE                      0x2000 /* 64Mb/KByte */
 #define EXAMPLE_FLEXSPI_AMBA_BASE       FlexSPI_AMBA_BASE
 #define FLASH_PAGE_SIZE                 256
 #define EXAMPLE_SECTOR                  20

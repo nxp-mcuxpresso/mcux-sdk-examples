@@ -90,7 +90,7 @@ include(driver_lpc_iocon_lite)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC824)
 
 include(driver_swm_connections)
 

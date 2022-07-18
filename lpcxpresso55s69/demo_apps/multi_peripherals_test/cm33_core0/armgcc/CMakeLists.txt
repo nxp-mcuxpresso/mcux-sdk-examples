@@ -176,7 +176,7 @@ include(component_osa_free_rtos)
 
 include(driver_wm8904)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC55S69_cm33_core0)
 
 include(device_system_LPC55S69_cm33_core0)
 

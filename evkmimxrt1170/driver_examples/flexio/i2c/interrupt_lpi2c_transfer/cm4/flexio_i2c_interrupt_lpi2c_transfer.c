@@ -77,8 +77,7 @@ int main(void)
     lpi2c_slave_config_t slaveConfig;
 
     flexio_i2c_master_transfer_t masterXfer;
-    IRQn_Type flexio_irqs[] = FLEXIO_IRQS;
-    uint32_t timeout        = UINT32_MAX;
+    uint32_t timeout = UINT32_MAX;
 
     BOARD_ConfigMPU();
     BOARD_InitPins();

@@ -52,6 +52,14 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/examples/lpcxpresso55s28/driver_examples/prince
 )
 
+if(CMAKE_BUILD_TYPE STREQUAL debug)
+     target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE FFR_INCLUDE="fsl_iap_ffr.h")
+endif(CMAKE_BUILD_TYPE STREQUAL debug)
+
+if(CMAKE_BUILD_TYPE STREQUAL release)
+     target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE FFR_INCLUDE="fsl_iap_ffr.h")
+endif(CMAKE_BUILD_TYPE STREQUAL release)
+
 #path for entry cmake
 set(CMAKE_MODULE_PATH
     ${SdkRootDirPath}/core
@@ -101,7 +109,7 @@ include(CMSIS_Include_core_cm)
 
 include(driver_inputmux_connections)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC55S28)
 
 include(device_system)
 

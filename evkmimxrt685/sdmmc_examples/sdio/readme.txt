@@ -5,8 +5,8 @@ Note: If the sdio card need WL_REG_ON, please connect WL_REG_ON to the sdio card
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.5.0
+- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.6.0
 
 Hardware requirements
 =====================

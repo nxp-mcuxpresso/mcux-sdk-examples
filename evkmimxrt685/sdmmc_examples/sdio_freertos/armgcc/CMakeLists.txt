@@ -84,6 +84,8 @@ include(driver_pca9420)
 
 include(driver_flexcomm_i2c)
 
+include(component_rt_gpio_adapter)
+
 include(driver_clock)
 
 include(driver_common)
@@ -130,7 +132,7 @@ include(middleware_sdmmc_osa_freertos)
 
 include(component_osa_free_rtos)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT685S_cm33)
 
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)

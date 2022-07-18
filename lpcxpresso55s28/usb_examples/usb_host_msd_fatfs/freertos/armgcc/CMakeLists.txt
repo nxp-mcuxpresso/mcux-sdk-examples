@@ -128,7 +128,7 @@ include(middleware_freertos-kernel_extension)
 
 include(middleware_usb_host_msd)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC55S28)
 
 include(device_system)
 

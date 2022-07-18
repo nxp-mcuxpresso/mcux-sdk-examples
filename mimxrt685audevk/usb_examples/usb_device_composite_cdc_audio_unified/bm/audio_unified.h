@@ -36,8 +36,10 @@ typedef struct _usb_audio_composite_struct
     uint32_t currentFeedbackMaxPacketSize;
     class_handle_t audioRecorderHandle;
     uint8_t copyProtect;
-    uint8_t curMute;
-    uint8_t curVolume[2];
+    uint8_t curSpeakerMute;
+    uint8_t curMicrophoneMute;
+    uint8_t curSpeakerVolume[2];
+    uint8_t curMicrophoneVolume[2];
     uint8_t minVolume[2];
     uint8_t maxVolume[2];
     uint8_t resVolume[2];
@@ -71,9 +73,11 @@ typedef struct _usb_audio_composite_struct
     uint8_t maxSamplingFrequency[3];
     uint8_t resSamplingFrequency[3];
 #if (USB_DEVICE_CONFIG_AUDIO_CLASS_2_0)
-    uint8_t curMute20;
+    uint8_t curSpeakerMute20;
+    uint8_t curMicrophoneMute20;
     uint8_t curClockValid;
-    uint8_t curVolume20[2];
+    uint8_t curSpeakerVolume20[2];
+    uint8_t curMicrophoneVolume20[2];
     uint32_t curRecorderSampleFrequency;
     uint32_t curSpeakerSampleFrequency;
     usb_device_control_range_layout3_struct_t freqRecorderControlRange;
@@ -101,7 +105,8 @@ typedef struct _usb_audio_composite_struct
     volatile uint32_t speakerReservedSpace;
     volatile uint32_t timesFeedbackCalculate;
     volatile uint32_t speakerDetachOrNoInput;
-    volatile uint32_t codecTask;
+    volatile uint32_t codecSpeakerTask;
+    volatile uint32_t codecMicrophoneTask;
     uint32_t audioPlayTransferSize;
     volatile uint16_t audioPlayBufferSize;
 #if defined(USB_DEVICE_AUDIO_USE_SYNC_MODE) && (USB_DEVICE_AUDIO_USE_SYNC_MODE > 0U)

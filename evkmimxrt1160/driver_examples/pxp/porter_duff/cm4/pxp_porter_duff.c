@@ -166,7 +166,11 @@ static void APP_InitPxp(void)
         .pitchBytes  = APP_IMG_WIDTH * APP_BPP,
     };
 
+#if defined(FSL_FEATURE_PXP_V3) && FSL_FEATURE_PXP_V3
+    PXP_SetProcessSurfaceBackGroundColor(APP_PXP, 0U, 0U);
+#else
     PXP_SetProcessSurfaceBackGroundColor(APP_PXP, 0U);
+#endif
 
     PXP_SetProcessSurfaceBufferConfig(APP_PXP, &psBufferConfig);
 
@@ -215,7 +219,11 @@ static void APP_PorterDuff(void)
             modeIndex = 0;
         }
 
+#if defined(FSL_FEATURE_PXP_V3) && FSL_FEATURE_PXP_V3
+        PXP_SetPorterDuffConfig(APP_PXP, 0U, &pxpPorterDuffConfig);
+#else
         PXP_SetPorterDuffConfig(APP_PXP, &pxpPorterDuffConfig);
+#endif /* FSL_FEATURE_PXP_V3 */
 
         /*
          * Wait for the new set frame buffer active, so that the older frame

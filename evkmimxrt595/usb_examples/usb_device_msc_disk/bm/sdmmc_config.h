@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -18,7 +18,7 @@
 #include "fsl_sdio.h"
 #endif
 #include "clock_config.h"
-#include "fsl_gpio.h"
+#include "fsl_adapter_gpio.h"
 #include "fsl_sdmmc_host.h"
 #include "fsl_sdmmc_common.h"
 
@@ -43,11 +43,12 @@
 #define BOARD_SDMMC_SD_CD_TYPE                       kSD_DetectCardByHostCD
 #define BOARD_SDMMC_SD_CARD_DETECT_DEBOUNCE_DELAY_MS (100U)
 /*! @brief SD power reset */
-#define BOARD_SDMMC_SD_POWER_RESET_GPIO_BASE         GPIO
 #define BOARD_SDMMC_SD_POWER_RESET_GPIO_CLOCK_NAME   kCLOCK_HsGpio4
 #define BOARD_SDMMC_SD_POWER_RESET_GPIO_RESET_SOURCE kHSGPIO4_RST_SHIFT_RSTn
+#define BOARD_SDMMC_SD_POWER_RESET_GPIO_BASE         GPIO
 #define BOARD_SDMMC_SD_POWER_RESET_GPIO_PORT         4
 #define BOARD_SDMMC_SD_POWER_RESET_GPIO_PIN          0U
+
 /* the EVK board require mannual tuning for sd, since there is a EMI filter between 595 and card socket which will
  * affect the standard tuning*/
 #define BOARD_SDMMC_SD_TUNING_TYPE             1

@@ -95,7 +95,11 @@ static pdm_channel_config_t channelConfig = {
 #else
     .cutOffFreq = kPDM_DcRemoverCutOff152Hz,
 #endif
-    .gain = kPDM_DfOutputGain7,
+#ifdef DEMO_PDM_CHANNEL_GAIN
+    .gain = DEMO_PDM_CHANNEL_GAIN,
+#else
+    .gain       = kPDM_DfOutputGain7,
+#endif
 };
 codec_handle_t codecHandle;
 extern codec_config_t boardCodecConfig;

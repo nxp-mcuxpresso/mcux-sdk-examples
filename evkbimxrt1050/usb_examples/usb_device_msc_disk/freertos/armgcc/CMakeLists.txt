@@ -86,6 +86,8 @@ include(middleware_usb_phy)
 
 include(driver_cache_armv7_m7)
 
+include(component_igpio_adapter)
+
 include(middleware_sdmmc_sd)
 
 include(middleware_sdmmc_common)
@@ -146,7 +148,7 @@ include(middleware_freertos-kernel_extension)
 
 include(driver_usdhc)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1052)
 
 include(device_system)
 

@@ -117,7 +117,7 @@ include(driver_lpit)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_K32L2A41A)
 
 include(device_system)
 

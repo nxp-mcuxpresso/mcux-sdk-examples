@@ -173,7 +173,11 @@ static void APP_InitPxp(void)
         .pitchBytes  = APP_PS_SIZE * APP_BPP,
     };
 
+#if defined(FSL_FEATURE_PXP_V3) && FSL_FEATURE_PXP_V3
+    PXP_SetProcessSurfaceBackGroundColor(APP_PXP, 0U, 0U);
+#else
     PXP_SetProcessSurfaceBackGroundColor(APP_PXP, 0U);
+#endif
 
     PXP_SetProcessSurfaceBufferConfig(APP_PXP, &psBufferConfig);
     PXP_SetProcessSurfacePosition(APP_PXP, APP_PS_ULC_X, APP_PS_ULC_Y, APP_PS_LRC_X, APP_PS_LRC_Y);
@@ -193,6 +197,14 @@ static void APP_InitPxp(void)
 
     /* Disable CSC1, it is enabled by default. */
     PXP_EnableCsc1(APP_PXP, false);
+
+    /* Route the path mux to enable rotation engine. */
+#if PXP_USE_PATH
+#if defined(FSL_FEATURE_PXP_V3) && FSL_FEATURE_PXP_V3
+    PXP_SetPath(APP_PXP, kPXP_Mux0SelectProcessSurfaceEngine);
+#endif /* FSL_FEATURE_PXP_V3 */
+    PXP_SetPath(APP_PXP, kPXP_Mux3SelectRotation1Engine);
+#endif
 }
 
 static void APP_Flip(void)
@@ -222,7 +234,7 @@ static void APP_Flip(void)
             curLcdBufferIdx ^= 1U;
 
             /* Prepare next buffer for LCD. */
-            PXP_SetRotateConfig(APP_PXP, kPXP_RotateOutputBuffer, kPXP_Rotate0, flipModes[i]);
+            PXP_SetRotateConfig(APP_PXP, kPXP_RotateProcessSurface, kPXP_Rotate0, flipModes[i]);
             outputBufferConfig.buffer0Addr = (uint32_t)s_BufferLcd[curLcdBufferIdx];
             PXP_SetOutputBufferConfig(APP_PXP, &outputBufferConfig);
 

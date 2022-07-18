@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2021 NXP
+ * Copyright 2016-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -10,6 +10,7 @@
 #include "fsl_debug_console.h"
 #include "fsl_enet.h"
 #include "fsl_phy.h"
+#include "fsl_silicon_id.h"
 
 #include "pin_mux.h"
 #include "board.h"
@@ -65,16 +66,12 @@
 #ifndef MAC_ADDRESS
 #define MAC_ADDRESS                        \
     {                                      \
-        0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60 \
+        0x54, 0x27, 0x8d, 0x00, 0x00, 0x00 \
     }
+#else
+#define USER_DEFINED_MAC_ADDRESS
 #endif
 
-#ifndef MAC_ADDRESS2
-#define MAC_ADDRESS2                       \
-    {                                      \
-        0x01, 0x00, 0x5e, 0x00, 0x01, 0x81 \
-    }
-#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -97,12 +94,10 @@ static enet_tx_reclaim_info_t g_txDirty[ENET_TXBD_NUM];
 static volatile bool tx_frame_over = false;
 
 /* The MAC address for ENET device. */
-uint8_t g_macAddr[6]     = MAC_ADDRESS;
-uint8_t multicastAddr[6] = MAC_ADDRESS2;
-uint8_t g_frame[ENET_EXAMPLE_PACKAGETYPE][ENET_EXAMPLE_FRAME_SIZE];
-uint32_t g_txIdx    = 0;
-uint8_t g_txbuffIdx = 0;
-uint32_t g_testIdx  = 0;
+static uint8_t g_macAddr[6] = MAC_ADDRESS;
+static uint8_t g_frame[ENET_EXAMPLE_PACKAGETYPE][ENET_EXAMPLE_FRAME_SIZE];
+static uint32_t g_txIdx   = 0;
+static uint32_t g_testIdx = 0;
 
 /*! @brief Enet PHY and MDIO interface handler. */
 static mdio_handle_t mdioHandle = {.ops = &EXAMPLE_MDIO_OPS};
@@ -219,6 +214,11 @@ int main(void)
     } while (!(link && autonego));
 
     PHY_GetLinkSpeedDuplex(&phyHandle, &speed, &duplex);
+
+#ifndef USER_DEFINED_MAC_ADDRESS
+    /* Set special address for each chip. */
+    SILICONID_ConvertToMacAddr(&g_macAddr);
+#endif
 
     /* Get default configuration 100M RMII. */
     ENET_GetDefaultConfig(&config);

@@ -50,6 +50,7 @@ end-of-partition and data may remain in the buffer that has not been written to 
 /*! @brief Indicates that the source data did not match the data read from the medium*/
 #define USB_DEVICE_MSC_UFI_MISCOMPARE 0x0EU
 
+#define USB_DEVICE_MSC_UFI_ASC_MEDIUM_NOT_PRESENT 0x3AU
 /*! @brief invalid command operation code*/
 #define USB_DEVICE_MSC_UFI_INVALID_COMMAND_OPCODE 0x20U
 /*! @brief write fault*/

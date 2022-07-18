@@ -79,7 +79,7 @@ include(component_timer_manager)
 
 include(component_lpc_gpio_adapter)
 
-include(component_button)
+include(component_button_LPC54628)
 
 include(component_lists)
 
@@ -117,13 +117,17 @@ include(utility_assert)
 
 include(driver_power)
 
+include(component_silicon_id)
+
+include(driver_iap)
+
 include(driver_reset)
 
 include(CMSIS_Include_core_cm)
 
 include(driver_inputmux_connections)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC54628)
 
 include(device_system)
 

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -76,7 +76,7 @@ void erpcMatrixMultiply(Matrix matrix1, Matrix matrix2, Matrix result_matrix)
 /*!
  * @brief Main function
  */
-int main()
+int main(void)
 {
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
@@ -93,19 +93,19 @@ int main()
     message_buffer_factory = erpc_mbf_dynamic_init();
 
     /* eRPC server side initialization */
-    erpc_server_init(transport, message_buffer_factory);
+    (void)erpc_server_init(transport, message_buffer_factory);
 
     /* adding the service to the server */
     erpc_service_t service = create_MatrixMultiplyService_service();
     erpc_add_service_to_server(service);
 
-    while (1)
+    for (;;)
     {
         /* process message */
         erpc_status_t status = erpc_server_poll();
 
         /* handle error status */
-        if (status != kErpcStatus_Success)
+        if (status != (erpc_status_t)kErpcStatus_Success)
         {
             /* print error description */
             erpc_error_handler(status, 0);
@@ -125,12 +125,12 @@ int main()
         }
 
         /* do other tasks */
-        int i;
+        int32_t i;
         for (i = 0; i < 10000; i++)
         {
         }
     }
-    while (1)
+    for (;;)
     {
     }
 }

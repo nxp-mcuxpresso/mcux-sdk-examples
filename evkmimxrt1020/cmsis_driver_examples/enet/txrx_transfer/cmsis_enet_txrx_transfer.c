@@ -18,6 +18,7 @@
 #include "fsl_enet_phy_cmsis.h"
 #include "fsl_phy.h"
 #include "stdlib.h"
+#include "fsl_silicon_id.h"
 
 #include "fsl_gpio.h"
 #include "fsl_iomuxc.h"
@@ -36,7 +37,12 @@
 /* @TEST_ANCHOR*/
 
 #ifndef MAC_ADDRESS
-#define MAC_ADDRESS {0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x61}
+#define MAC_ADDRESS                        \
+    {                                      \
+        0x54, 0x27, 0x8d, 0x00, 0x00, 0x00 \
+    }
+#else
+#define USER_DEFINED_MAC_ADDRESS
 #endif
 
 /*******************************************************************************
@@ -155,6 +161,11 @@ int main(void)
     GPIO_WritePinOutput(GPIO1, 4, 1);
 
     PRINTF("\r\nENET example start.\r\n");
+
+#ifndef USER_DEFINED_MAC_ADDRESS
+    /* Set special address for each chip. */
+    SILICONID_ConvertToMacAddr(&g_macAddr);
+#endif
 
     /* Initialize the ENET module. */
     EXAMPLE_ENET.Initialize(ENET_SignalEvent_t);

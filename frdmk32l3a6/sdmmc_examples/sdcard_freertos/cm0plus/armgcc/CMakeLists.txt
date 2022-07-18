@@ -78,6 +78,8 @@ include(middleware_sdmmc_host_usdhc_freertos_K32L3A60_cm0plus)
 
 include(driver_cache_lplmem)
 
+include(component_gpio_adapter)
+
 include(driver_port)
 
 include(middleware_freertos-kernel_K32L3A60_cm0plus)
@@ -118,7 +120,7 @@ include(component_osa_free_rtos)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_K32L3A60_cm0plus)
 
 include(device_system_K32L3A60_cm0plus)
 

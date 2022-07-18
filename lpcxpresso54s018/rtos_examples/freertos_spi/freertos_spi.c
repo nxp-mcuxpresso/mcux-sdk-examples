@@ -26,8 +26,8 @@
  ******************************************************************************/
 #define EXAMPLE_SPI_MASTER      SPI9
 #define EXAMPLE_SPI_MASTER_IRQ  FLEXCOMM9_IRQn
-#define EXAMPLE_SPI_SLAVE       SPI2
-#define EXAMPLE_SPI_SLAVE_IRQ   FLEXCOMM2_IRQn
+#define EXAMPLE_SPI_SLAVE       SPI3
+#define EXAMPLE_SPI_SLAVE_IRQ   FLEXCOMM3_IRQn
 #define EXAMPLE_SPI_SSEL        kSPI_Ssel0
 #define EXAMPLE_MASTER_SPI_SPOL kSPI_SpolActiveAllLow
 #define EXAMPLE_SLAVE_SPI_SPOL  kSPI_SpolActiveAllLow

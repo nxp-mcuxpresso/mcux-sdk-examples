@@ -104,9 +104,7 @@ int main(void)
     my_rpmsg = rpmsg_lite_remote_init((void *)RPMSG_LITE_SHMEM_BASE, RPMSG_LITE_LINK_ID, RL_NO_FLAGS, &rpmsg_ctxt);
 #endif /* MCMGR_USED */
 
-    while (0 == rpmsg_lite_is_link_up(my_rpmsg))
-    {
-    }
+    rpmsg_lite_wait_for_link_up(my_rpmsg);
 
     my_ept = rpmsg_lite_create_ept(my_rpmsg, LOCAL_EPT_ADDR, my_ept_read_cb, (void *)&has_received, &my_ept_context);
 

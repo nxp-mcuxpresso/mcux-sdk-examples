@@ -141,7 +141,7 @@ include(component_osa)
 
 include(middleware_usb_device_ip3511hs_LPC54S018M)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC54S018M)
 
 include(CMSIS_Include_core_cm)
 

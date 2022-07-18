@@ -65,6 +65,10 @@ include(utility_debug_console_lite)
 
 include(utility_assert_lite)
 
+include(driver_gt911)
+
+include(driver_video-common)
+
 include(driver_lpc_iocon)
 
 include(driver_sctimer)
@@ -99,9 +103,13 @@ include(driver_lpc_gpio)
 
 include(driver_emc)
 
+include(component_silicon_id)
+
+include(driver_iap)
+
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC54628)
 
 include(device_system)
 

@@ -7,21 +7,22 @@ panel, so part of the LCD panel might be blank.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.5.0
+- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.6.0
 
 Hardware requirements
 =====================
 - Mini/micro USB cable
 - EVK-MIMXRT1060 board
 - Personal Computer
-- RK043FN02H-CT LCD board
+- RK043FN02H-CT or RK043FN66HS-CT6 LCD board
+  (RK043FN02H-CT and RK043FN66HS-CT6 are compatible)
 - MT9M114 module
 This example supports OV7725 too, if OV7725 is used, then MT9M114 is not necessary.
 
 Board settings
 ==============
-1. Connect the RK043FN02H-CT board.
+1. Connect the RK043FN02H-CT or RK043FN66HS-CT6 to board.
 2. Connect the MT9M114 or OV7725 camera module.
 
 Prepare the Demo

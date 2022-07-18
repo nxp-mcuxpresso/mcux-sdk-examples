@@ -6,7 +6,7 @@ When the TPM interrupt is triggered a message a printed on the UART terminal.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
+- GCC ARM Embedded  10.3.1
 
 Hardware requirements
 =====================

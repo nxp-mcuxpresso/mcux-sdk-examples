@@ -96,7 +96,7 @@ include(middleware_freertos-kernel_MIMX8ML8)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMX8ML8)
 
 include(CMSIS_Include_core_cm)
 

@@ -106,6 +106,10 @@ include(driver_emc)
 
 include(driver_power)
 
+include(component_silicon_id)
+
+include(driver_iap)
+
 include(driver_reset)
 
 include(CMSIS_Include_core_cm)
@@ -114,7 +118,7 @@ include(middleware_sdmmc_osa_bm)
 
 include(component_osa_bm)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC54S018)
 
 include(device_system)
 

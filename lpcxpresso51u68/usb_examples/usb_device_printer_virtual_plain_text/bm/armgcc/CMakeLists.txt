@@ -105,7 +105,7 @@ include(middleware_usb_device_controller_driver_LPC51U68)
 
 include(component_osa)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC51U68)
 
 include(CMSIS_Include_core_cm)
 

@@ -45,6 +45,8 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../tzm_config.h"
 "${ProjDirPath}/../veneer_table.h"
 "${ProjDirPath}/../veneer_table.c"
+"${ProjDirPath}/../tzm_api.c"
+"${ProjDirPath}/../tzm_api.h"
 "${SdkRootDirPath}/core/boards/lpcxpresso55s69/board.c"
 "${SdkRootDirPath}/core/boards/lpcxpresso55s69/board.h"
 "${SdkRootDirPath}/core/boards/lpcxpresso55s69/clock_config.c"
@@ -120,7 +122,7 @@ include(component_lists)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC55S69_cm33_core0)
 
 include(device_system_LPC55S69_cm33_core0)
 

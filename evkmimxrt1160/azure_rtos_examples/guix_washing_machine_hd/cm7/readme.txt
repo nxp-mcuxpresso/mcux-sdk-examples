@@ -3,11 +3,14 @@ Overview
 The example creates a simple washing machine demonstration. It shows
 a UI on a LCD panel with touch panel. It also can interact with user.
 
+Define GUIX_PXP_ENABLE to enable Pixel Pipeline engine (PXP).
+It can accelerate the image process.
+
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.5.0
+- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.6.0
 
 Hardware requirements
 =====================

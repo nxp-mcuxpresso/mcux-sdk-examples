@@ -56,8 +56,8 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../hihat_trim.pcm.h"
 "${ProjDirPath}/../hihat_trim.sbc.h"
 "${ProjDirPath}/../hihat_vorbis_dec_out_trim.pcm.h"
-"${ProjDirPath}/../i9_trim_pcm.h"
-"${ProjDirPath}/../i9_vor.h"
+"${ProjDirPath}/../hihat_vor.h"
+"${ProjDirPath}/../hihat_pcm.h"
 "${ProjDirPath}/../sbc_test_02_trim.sbc.h"
 "${ProjDirPath}/../sbc_test_02_trim.out.h"
 "${ProjDirPath}/../testvector04-48000-2ch_trim.out.h"
@@ -155,6 +155,8 @@ include(component_codec_i2c_MIMXRT685S_cm33)
 
 include(component_flexcomm_i2c_adapter)
 
+include(component_rt_gpio_adapter)
+
 include(device_CMSIS)
 
 include(utility_debug_console)
@@ -197,7 +199,7 @@ include(driver_inputmux_connections)
 
 include(middleware_freertos-kernel_heap_4)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT685S_cm33)
 
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)

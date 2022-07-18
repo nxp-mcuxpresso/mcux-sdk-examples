@@ -42,22 +42,34 @@
 #include "fsl_common.h"
 #include "fsl_enet.h"
 #include "fsl_phy.h"
-#ifdef EXAMPLE_USE_1G_ENET_PORT
-#include "fsl_phyrtl8211f.h"
-#else
-#include "fsl_phyksz8081.h"
-#endif
 #include "fsl_enet_mdio.h"
 #include "fsl_debug_console.h"
-#include "board.h"
-
 #include "nx_driver_imxrt.h"
+
+#ifndef BOARD_NETWORK_USE_100M_ENET_PORT
+#define BOARD_NETWORK_USE_100M_ENET_PORT    1
+#endif
+
+#if defined(BOARD_NETWORK_USE_100M_ENET_PORT) && (BOARD_NETWORK_USE_100M_ENET_PORT == 1)
+#include "fsl_phyksz8081.h"
+#else
+#include "fsl_phyrtl8211f.h"
+#endif
 
 //#endif
 
 /****** DRIVER SPECIFIC ****** End of part/vendor specific include file area!  */
 
-#ifdef EXAMPLE_USE_1G_ENET_PORT
+#if defined(BOARD_NETWORK_USE_100M_ENET_PORT) && (BOARD_NETWORK_USE_100M_ENET_PORT == 1)
+
+#define EXAMPLE_PHY_ADDRESS BOARD_ENET0_PHY_ADDRESS
+#define EXAMPLE_ENET        ENET
+/* PHY operations. */
+#define EXAMPLE_PHY_OPS     phyksz8081_ops
+#define EXAMPLE_INT         ENET_IRQn
+
+#else
+
 #if !defined(FSL_FEATURE_ENET_HAS_AVB) || FSL_FEATURE_ENET_HAS_AVB < 1
 #error "This board has no 1G Ethernet port."
 #endif
@@ -68,13 +80,6 @@
 #define EXAMPLE_PHY_OPS     phyrtl8211f_ops
 #define EXAMPLE_INT         ENET_1G_IRQn
 
-#else
-
-#define EXAMPLE_PHY_ADDRESS BOARD_ENET0_PHY_ADDRESS
-#define EXAMPLE_ENET        ENET
-/* PHY operations. */
-#define EXAMPLE_PHY_OPS     phyksz8081_ops
-#define EXAMPLE_INT         ENET_IRQn
 #endif
 
 /* MDIO operations. */
@@ -1661,10 +1666,10 @@ void enet_init()
     phy_duplex_t duplex;
     ENET_CONFIG_IMX econf;
 
-#ifdef EXAMPLE_USE_1G_ENET_PORT
-    econf.interface = kENET_RgmiiMode;
-#else
+#if defined(BOARD_NETWORK_USE_100M_ENET_PORT) && (BOARD_NETWORK_USE_100M_ENET_PORT == 1)
     econf.interface = kENET_RmiiMode;
+#else
+    econf.interface = kENET_RgmiiMode;
 #endif
 
     econf.neg = 0; /*autoneg on */

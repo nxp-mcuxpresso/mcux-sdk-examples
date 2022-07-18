@@ -1,10 +1,8 @@
 /*
- * Copyright 2017, ,2021 NXP
+ * Copyright 2017,2021,2022 NXP
  * All rights reserved.
  *
- *
  * SPDX-License-Identifier: BSD-3-Clause
- *
  */
 
 /***********************************************************************************************************************
@@ -26,7 +24,6 @@ processor_version: 9.0.0
 /* clang-format on */
 
 #include "fsl_common.h"
-#include "fsl_iocon.h"
 #include "pin_mux.h"
 
 /* FUNCTION ************************************************************************************************************
@@ -46,26 +43,17 @@ void BOARD_InitBootPins(void)
 BOARD_InitPins:
 - options: {callFromInitBoot: 'true', coreID: core0, enableClock: 'true'}
 - pin_list:
-  - {pin_num: C2, peripheral: FLEXCOMM2, signal: CTS_SDA_SSEL0, pin_signal: PIO3_23/FC2_CTS_SDA_SSEL0/UTICK_CAP3, invert: disabled, glitch_filter: disabled, i2c_slew: gpio,
-    i2c_drive: low, i2c_filter: disabled}
-  - {pin_num: B14, peripheral: FLEXCOMM2, signal: SCK, pin_signal: PIO4_8/ENET_TXD0/FC2_SCK/USB0_OVERCURRENTN/USB0_LEDN/SCT0_GPI1, mode: pullUp, invert: disabled,
-    glitch_filter: disabled, slew_rate: standard, open_drain: disabled}
-  - {pin_num: M13, peripheral: FLEXCOMM2, signal: RXD_SDA_MOSI, pin_signal: PIO0_26/FC2_RXD_SDA_MOSI/CLKOUT/CTIMER3_CAP2/SCT0_OUT5/PDM0_CLK/SPIFI_CLK/USB0_IDVALUE/FC10_CTS_SDA_SSEL0,
-    mode: pullUp, invert: disabled, glitch_filter: disabled, slew_rate: standard, open_drain: disabled}
-  - {pin_num: L9, peripheral: FLEXCOMM2, signal: TXD_SCL_MISO, pin_signal: PIO0_27/FC2_TXD_SCL_MISO/CTIMER3_MAT2/SCT0_OUT6/PDM0_DATA/SPIFI_IO(3), mode: pullUp, invert: disabled,
-    glitch_filter: disabled, slew_rate: standard, open_drain: disabled}
-  - {pin_num: N2, peripheral: FLEXCOMM9, signal: SCK, pin_signal: PIO3_20/FC9_SCK/SD_CARD_INT_N/CLKOUT/SCT0_OUT7, mode: pullUp, invert: disabled, glitch_filter: disabled,
-    slew_rate: standard, open_drain: disabled}
-  - {pin_num: P5, peripheral: FLEXCOMM9, signal: RXD_SDA_MOSI, pin_signal: PIO3_21/FC9_RXD_SDA_MOSI/SD_BACKEND_PWR/CTIMER4_MAT3/UTICK_CAP2/ADC0_9, mode: pullUp, invert: disabled,
-    glitch_filter: disabled, open_drain: disabled}
-  - {pin_num: N5, peripheral: FLEXCOMM9, signal: TXD_SCL_MISO, pin_signal: PIO3_22/FC9_TXD_SCL_MISO/ADC0_10, mode: pullUp, invert: disabled, glitch_filter: disabled,
-    open_drain: disabled}
-  - {pin_num: K13, peripheral: FLEXCOMM9, signal: CTS_SDA_SSEL0, pin_signal: PIO3_30/FC9_CTS_SDA_SSEL0/SCT0_OUT4/FC4_SSEL2/EMC_A(19), mode: pullUp, invert: disabled,
-    glitch_filter: disabled, slew_rate: standard, open_drain: disabled}
-  - {pin_num: B13, peripheral: FLEXCOMM0, signal: RXD_SDA_MOSI, pin_signal: PIO0_29/FC0_RXD_SDA_MOSI/CTIMER2_MAT3/SCT0_OUT8/TRACEDATA(2), mode: pullUp, invert: disabled,
-    glitch_filter: disabled, slew_rate: standard, open_drain: disabled}
-  - {pin_num: A2, peripheral: FLEXCOMM0, signal: TXD_SCL_MISO, pin_signal: PIO0_30/FC0_TXD_SCL_MISO/CTIMER0_MAT0/SCT0_OUT9/TRACEDATA(1), mode: pullUp, invert: disabled,
-    glitch_filter: disabled, slew_rate: standard, open_drain: disabled}
+  - {pin_num: '116', peripheral: FLEXCOMM9, signal: CTS_SDA_SSEL0, pin_signal: PIO3_30/FC9_CTS_SDA_SSEL0/SCT0_OUT4/FC4_SSEL2/EMC_A(19), mode: pullUp}
+  - {pin_num: '46', peripheral: FLEXCOMM9, signal: SCK, pin_signal: PIO3_20/FC9_SCK/SD_CARD_INT_N/CLKOUT/SCT0_OUT7, mode: pullUp}
+  - {pin_num: '61', peripheral: FLEXCOMM9, signal: RXD_SDA_MOSI, pin_signal: PIO3_21/FC9_RXD_SDA_MOSI/SD_BACKEND_PWR/CTIMER4_MAT3/UTICK_CAP2/ADC0_9, mode: pullUp}
+  - {pin_num: '62', peripheral: FLEXCOMM9, signal: TXD_SCL_MISO, pin_signal: PIO3_22/FC9_TXD_SCL_MISO/ADC0_10, mode: pullUp}
+  - {pin_num: '207', peripheral: FLEXCOMM3, signal: CTS_SDA_SSEL0, pin_signal: PIO0_1/CAN1_TD/FC3_CTS_SDA_SSEL0/CTIMER0_CAP0/SCT0_GPI1/PDM0_DATA, mode: pullUp}
+  - {pin_num: '196', peripheral: FLEXCOMM3, signal: SCK, pin_signal: PIO0_0/CAN1_RD/FC3_SCK/CTIMER0_MAT0/SCT0_GPI0/PDM0_CLK, mode: pullUp}
+  - {pin_num: '109', peripheral: FLEXCOMM3, signal: RXD_SDA_MOSI, pin_signal: PIO1_1/FC3_RXD_SDA_MOSI/CTIMER0_CAP3/SCT0_GPI5/FC10_RXD_SDA_MOSI/USB1_OVERCURRENTN,
+    mode: pullUp}
+  - {pin_num: '93', peripheral: FLEXCOMM3, signal: TXD_SCL_MISO, pin_signal: PIO2_19/LCD_VD(1)/FC3_TXD_SCL_MISO/FC7_RXD_SDA_MOSI_DATA/CTIMER3_MAT1, mode: pullUp}
+  - {pin_num: '167', peripheral: FLEXCOMM0, signal: RXD_SDA_MOSI, pin_signal: PIO0_29/FC0_RXD_SDA_MOSI/CTIMER2_MAT3/SCT0_OUT8/TRACEDATA(2), mode: pullUp}
+  - {pin_num: '200', peripheral: FLEXCOMM0, signal: TXD_SCL_MISO, pin_signal: PIO0_30/FC0_TXD_SCL_MISO/CTIMER0_MAT0/SCT0_OUT9/TRACEDATA(1), mode: pullUp}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -82,175 +70,185 @@ void BOARD_InitPins(void)
     /* Enables the clock for the IOCON block. 0 = Disable; 1 = Enable.: 0x01u */
     CLOCK_EnableClock(kCLOCK_Iocon);
 
-    const uint32_t port0_pin26_config = (/* Pin is configured as FC2_RXD_SDA_MOSI */
-                                         IOCON_PIO_FUNC1 |
-                                         /* Selects pull-up function */
-                                         IOCON_PIO_MODE_PULLUP |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Standard mode, output slew rate control is enabled */
-                                         IOCON_PIO_SLEW_STANDARD |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
-    /* PORT0 PIN26 (coords: M13) is configured as FC2_RXD_SDA_MOSI */
-    IOCON_PinMuxSet(IOCON, 0U, 26U, port0_pin26_config);
+    IOCON->PIO[0][0] = ((IOCON->PIO[0][0] &
+                         /* Mask bits to zero which are setting */
+                         (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_DIGIMODE_MASK)))
 
-    const uint32_t port0_pin27_config = (/* Pin is configured as FC2_TXD_SCL_MISO */
-                                         IOCON_PIO_FUNC1 |
-                                         /* Selects pull-up function */
-                                         IOCON_PIO_MODE_PULLUP |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Standard mode, output slew rate control is enabled */
-                                         IOCON_PIO_SLEW_STANDARD |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
-    /* PORT0 PIN27 (coords: L9) is configured as FC2_TXD_SCL_MISO */
-    IOCON_PinMuxSet(IOCON, 0U, 27U, port0_pin27_config);
+                        /* Selects pin function.
+                         * : PORT00 (pin 196) is configured as FC3_SCK. */
+                        | IOCON_PIO_FUNC(PIO00_FUNC_ALT2)
 
-    const uint32_t port0_pin29_config = (/* Pin is configured as FC0_RXD_SDA_MOSI */
-                                         IOCON_PIO_FUNC1 |
-                                         /* Selects pull-up function */
-                                         IOCON_PIO_MODE_PULLUP |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Standard mode, output slew rate control is enabled */
-                                         IOCON_PIO_SLEW_STANDARD |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
-    /* PORT0 PIN29 (coords: B13) is configured as FC0_RXD_SDA_MOSI */
-    IOCON_PinMuxSet(IOCON, 0U, 29U, port0_pin29_config);
+                        /* Selects function mode (on-chip pull-up/pull-down resistor control).
+                         * : Pull-up.
+                         * Pull-up resistor enabled. */
+                        | IOCON_PIO_MODE(PIO00_MODE_PULL_UP)
 
-    const uint32_t port0_pin30_config = (/* Pin is configured as FC0_TXD_SCL_MISO */
-                                         IOCON_PIO_FUNC1 |
-                                         /* Selects pull-up function */
-                                         IOCON_PIO_MODE_PULLUP |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Standard mode, output slew rate control is enabled */
-                                         IOCON_PIO_SLEW_STANDARD |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
-    /* PORT0 PIN30 (coords: A2) is configured as FC0_TXD_SCL_MISO */
-    IOCON_PinMuxSet(IOCON, 0U, 30U, port0_pin30_config);
+                        /* Select Analog/Digital mode.
+                         * : Digital mode. */
+                        | IOCON_PIO_DIGIMODE(PIO00_DIGIMODE_DIGITAL));
 
-    const uint32_t port3_pin20_config = (/* Pin is configured as FC9_SCK */
-                                         IOCON_PIO_FUNC1 |
-                                         /* Selects pull-up function */
-                                         IOCON_PIO_MODE_PULLUP |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Standard mode, output slew rate control is enabled */
-                                         IOCON_PIO_SLEW_STANDARD |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
-    /* PORT3 PIN20 (coords: N2) is configured as FC9_SCK */
-    IOCON_PinMuxSet(IOCON, 3U, 20U, port3_pin20_config);
+    IOCON->PIO[0][1] = ((IOCON->PIO[0][1] &
+                         /* Mask bits to zero which are setting */
+                         (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_DIGIMODE_MASK)))
 
-    const uint32_t port3_pin21_config = (/* Pin is configured as FC9_RXD_SDA_MOSI */
-                                         IOCON_PIO_FUNC1 |
-                                         /* Selects pull-up function */
-                                         IOCON_PIO_MODE_PULLUP |
-                                         /* Disable analog Mode */
-                                         IOCON_PIO_ANAMODE_DI |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
-    /* PORT3 PIN21 (coords: P5) is configured as FC9_RXD_SDA_MOSI */
-    IOCON_PinMuxSet(IOCON, 3U, 21U, port3_pin21_config);
+                        /* Selects pin function.
+                         * : PORT01 (pin 207) is configured as FC3_CTS_SDA_SSEL0. */
+                        | IOCON_PIO_FUNC(PIO01_FUNC_ALT2)
 
-    const uint32_t port3_pin22_config = (/* Pin is configured as FC9_TXD_SCL_MISO */
-                                         IOCON_PIO_FUNC1 |
-                                         /* Selects pull-up function */
-                                         IOCON_PIO_MODE_PULLUP |
-                                         /* Disable analog Mode */
-                                         IOCON_PIO_ANAMODE_DI |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
-    /* PORT3 PIN22 (coords: N5) is configured as FC9_TXD_SCL_MISO */
-    IOCON_PinMuxSet(IOCON, 3U, 22U, port3_pin22_config);
+                        /* Selects function mode (on-chip pull-up/pull-down resistor control).
+                         * : Pull-up.
+                         * Pull-up resistor enabled. */
+                        | IOCON_PIO_MODE(PIO01_MODE_PULL_UP)
 
-    const uint32_t port3_pin23_config = (/* Pin is configured as FC2_CTS_SDA_SSEL0 */
-                                         IOCON_PIO_FUNC1 |
-                                         /* GPIO mode */
-                                         IOCON_PIO_I2CSLEW_GPIO |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Low drive: 4 mA */
-                                         IOCON_PIO_I2CDRIVE_LOW |
-                                         /* I2C 50 ns glitch filter disabled */
-                                         IOCON_PIO_I2CFILTER_DI);
-    /* PORT3 PIN23 (coords: C2) is configured as FC2_CTS_SDA_SSEL0 */
-    IOCON_PinMuxSet(IOCON, 3U, 23U, port3_pin23_config);
+                        /* Select Analog/Digital mode.
+                         * : Digital mode. */
+                        | IOCON_PIO_DIGIMODE(PIO01_DIGIMODE_DIGITAL));
 
-    const uint32_t port3_pin30_config = (/* Pin is configured as FC9_CTS_SDA_SSEL0 */
-                                         IOCON_PIO_FUNC1 |
-                                         /* Selects pull-up function */
-                                         IOCON_PIO_MODE_PULLUP |
-                                         /* Input function is not inverted */
-                                         IOCON_PIO_INV_DI |
-                                         /* Enables digital function */
-                                         IOCON_PIO_DIGITAL_EN |
-                                         /* Input filter disabled */
-                                         IOCON_PIO_INPFILT_OFF |
-                                         /* Standard mode, output slew rate control is enabled */
-                                         IOCON_PIO_SLEW_STANDARD |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
-    /* PORT3 PIN30 (coords: K13) is configured as FC9_CTS_SDA_SSEL0 */
-    IOCON_PinMuxSet(IOCON, 3U, 30U, port3_pin30_config);
+    IOCON->PIO[0][29] = ((IOCON->PIO[0][29] &
+                          /* Mask bits to zero which are setting */
+                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_DIGIMODE_MASK)))
 
-    const uint32_t port4_pin8_config = (/* Pin is configured as FC2_SCK */
-                                        IOCON_PIO_FUNC2 |
-                                        /* Selects pull-up function */
-                                        IOCON_PIO_MODE_PULLUP |
-                                        /* Input function is not inverted */
-                                        IOCON_PIO_INV_DI |
-                                        /* Enables digital function */
-                                        IOCON_PIO_DIGITAL_EN |
-                                        /* Input filter disabled */
-                                        IOCON_PIO_INPFILT_OFF |
-                                        /* Standard mode, output slew rate control is enabled */
-                                        IOCON_PIO_SLEW_STANDARD |
-                                        /* Open drain is disabled */
-                                        IOCON_PIO_OPENDRAIN_DI);
-    /* PORT4 PIN8 (coords: B14) is configured as FC2_SCK */
-    IOCON_PinMuxSet(IOCON, 4U, 8U, port4_pin8_config);
+                         /* Selects pin function.
+                          * : PORT029 (pin 167) is configured as FC0_RXD_SDA_MOSI. */
+                         | IOCON_PIO_FUNC(PIO029_FUNC_ALT1)
+
+                         /* Selects function mode (on-chip pull-up/pull-down resistor control).
+                          * : Pull-up.
+                          * Pull-up resistor enabled. */
+                         | IOCON_PIO_MODE(PIO029_MODE_PULL_UP)
+
+                         /* Select Analog/Digital mode.
+                          * : Digital mode. */
+                         | IOCON_PIO_DIGIMODE(PIO029_DIGIMODE_DIGITAL));
+
+    IOCON->PIO[0][30] = ((IOCON->PIO[0][30] &
+                          /* Mask bits to zero which are setting */
+                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_DIGIMODE_MASK)))
+
+                         /* Selects pin function.
+                          * : PORT030 (pin 200) is configured as FC0_TXD_SCL_MISO. */
+                         | IOCON_PIO_FUNC(PIO030_FUNC_ALT1)
+
+                         /* Selects function mode (on-chip pull-up/pull-down resistor control).
+                          * : Pull-up.
+                          * Pull-up resistor enabled. */
+                         | IOCON_PIO_MODE(PIO030_MODE_PULL_UP)
+
+                         /* Select Analog/Digital mode.
+                          * : Digital mode. */
+                         | IOCON_PIO_DIGIMODE(PIO030_DIGIMODE_DIGITAL));
+
+    IOCON->PIO[1][1] = ((IOCON->PIO[1][1] &
+                         /* Mask bits to zero which are setting */
+                         (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_DIGIMODE_MASK)))
+
+                        /* Selects pin function.
+                         * : PORT11 (pin 109) is configured as FC3_RXD_SDA_MOSI. */
+                        | IOCON_PIO_FUNC(PIO11_FUNC_ALT1)
+
+                        /* Selects function mode (on-chip pull-up/pull-down resistor control).
+                         * : Pull-up.
+                         * Pull-up resistor enabled. */
+                        | IOCON_PIO_MODE(PIO11_MODE_PULL_UP)
+
+                        /* Select Analog/Digital mode.
+                         * : Digital mode. */
+                        | IOCON_PIO_DIGIMODE(PIO11_DIGIMODE_DIGITAL));
+
+    IOCON->PIO[2][19] = ((IOCON->PIO[2][19] &
+                          /* Mask bits to zero which are setting */
+                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_DIGIMODE_MASK)))
+
+                         /* Selects pin function.
+                          * : PORT219 (pin 93) is configured as FC3_TXD_SCL_MISO. */
+                         | IOCON_PIO_FUNC(PIO219_FUNC_ALT2)
+
+                         /* Selects function mode (on-chip pull-up/pull-down resistor control).
+                          * : Pull-up.
+                          * Pull-up resistor enabled. */
+                         | IOCON_PIO_MODE(PIO219_MODE_PULL_UP)
+
+                         /* Select Analog/Digital mode.
+                          * : Digital mode. */
+                         | IOCON_PIO_DIGIMODE(PIO219_DIGIMODE_DIGITAL));
+
+    IOCON->PIO[3][20] = ((IOCON->PIO[3][20] &
+                          /* Mask bits to zero which are setting */
+                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_DIGIMODE_MASK)))
+
+                         /* Selects pin function.
+                          * : PORT320 (pin 46) is configured as FC9_SCK. */
+                         | IOCON_PIO_FUNC(PIO320_FUNC_ALT1)
+
+                         /* Selects function mode (on-chip pull-up/pull-down resistor control).
+                          * : Pull-up.
+                          * Pull-up resistor enabled. */
+                         | IOCON_PIO_MODE(PIO320_MODE_PULL_UP)
+
+                         /* Select Analog/Digital mode.
+                          * : Digital mode. */
+                         | IOCON_PIO_DIGIMODE(PIO320_DIGIMODE_DIGITAL));
+
+    IOCON->PIO[3][21] =
+        ((IOCON->PIO[3][21] &
+          /* Mask bits to zero which are setting */
+          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_ANAMODE_MASK | IOCON_PIO_DIGIMODE_MASK)))
+
+         /* Selects pin function.
+          * : PORT321 (pin 61) is configured as FC9_RXD_SDA_MOSI. */
+         | IOCON_PIO_FUNC(PIO321_FUNC_ALT1)
+
+         /* Selects function mode (on-chip pull-up/pull-down resistor control).
+          * : Pull-up.
+          * Pull-up resistor enabled. */
+         | IOCON_PIO_MODE(PIO321_MODE_PULL_UP)
+
+         /* Enables or disables analog mode.
+          * : Disable analog Mode. */
+         | IOCON_PIO_ANAMODE(PIO321_ANAMODE_DISABLED)
+
+         /* Select Analog/Digital mode.
+          * : Digital mode. */
+         | IOCON_PIO_DIGIMODE(PIO321_DIGIMODE_DIGITAL));
+
+    IOCON->PIO[3][22] =
+        ((IOCON->PIO[3][22] &
+          /* Mask bits to zero which are setting */
+          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_ANAMODE_MASK | IOCON_PIO_DIGIMODE_MASK)))
+
+         /* Selects pin function.
+          * : PORT322 (pin 62) is configured as FC9_TXD_SCL_MISO. */
+         | IOCON_PIO_FUNC(PIO322_FUNC_ALT1)
+
+         /* Selects function mode (on-chip pull-up/pull-down resistor control).
+          * : Pull-up.
+          * Pull-up resistor enabled. */
+         | IOCON_PIO_MODE(PIO322_MODE_PULL_UP)
+
+         /* Enables or disables analog mode.
+          * : Disable analog Mode. */
+         | IOCON_PIO_ANAMODE(PIO322_ANAMODE_DISABLED)
+
+         /* Select Analog/Digital mode.
+          * : Digital mode. */
+         | IOCON_PIO_DIGIMODE(PIO322_DIGIMODE_DIGITAL));
+
+    IOCON->PIO[3][30] = ((IOCON->PIO[3][30] &
+                          /* Mask bits to zero which are setting */
+                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_DIGIMODE_MASK)))
+
+                         /* Selects pin function.
+                          * : PORT330 (pin 116) is configured as FC9_CTS_SDA_SSEL0. */
+                         | IOCON_PIO_FUNC(PIO330_FUNC_ALT1)
+
+                         /* Selects function mode (on-chip pull-up/pull-down resistor control).
+                          * : Pull-up.
+                          * Pull-up resistor enabled. */
+                         | IOCON_PIO_MODE(PIO330_MODE_PULL_UP)
+
+                         /* Select Analog/Digital mode.
+                          * : Digital mode. */
+                         | IOCON_PIO_DIGIMODE(PIO330_DIGIMODE_DIGITAL));
 }
 /***********************************************************************************************************************
  * EOF

@@ -1374,6 +1374,7 @@ usb_status_t USB_DeviceAudioGetRequestEndpoint(usb_device_audio_struct_t *audioH
                     /*no action*/
                     break;
             }
+            break;
         default:
             /*no action*/
             break;
@@ -1484,6 +1485,10 @@ usb_status_t USB_DeviceAudioGetControlTerminal(usb_device_audio_struct_t *audioH
                     /*no action*/
                     break;
             }
+            break;
+        default:
+            /*no action*/
+            break;
 #else
         case USB_DEVICE_AUDIO_GET_CUR_REQUEST:
             switch (controlSelector)
@@ -1502,6 +1507,10 @@ usb_status_t USB_DeviceAudioGetControlTerminal(usb_device_audio_struct_t *audioH
                     /*no action*/
                     break;
             }
+            break;
+        default:
+            /*no action*/
+            break;
 #endif
     }
 
@@ -1556,6 +1565,10 @@ usb_status_t USB_DeviceAudioSetControlTerminal(usb_device_audio_struct_t *audioH
                     /*no action*/
                     break;
             }
+            break;
+        default:
+            /*no action*/
+            break;
 #else
         case USB_DEVICE_AUDIO_SET_CUR_REQUEST:
             switch (controlSelector)
@@ -1574,6 +1587,10 @@ usb_status_t USB_DeviceAudioSetControlTerminal(usb_device_audio_struct_t *audioH
                     /*no action*/
                     break;
             }
+            break;
+        default:
+            /*no action*/
+            break;
 #endif
     }
 

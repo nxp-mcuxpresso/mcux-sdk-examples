@@ -107,7 +107,7 @@ include(driver_lpc_gpio)
 
 include(utility_assert)
 
-include(component_osa_bm)
+include(component_osa_thread)
 
 include(middleware_azure_rtos_fx_template_LPC55S69_cm33_core0)
 
@@ -115,7 +115,7 @@ include(middleware_azure_rtos_tx_sp)
 
 include(middleware_azure_rtos_tx_template_LPC55S69_cm33_core0)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC55S69_cm33_core0)
 
 include(driver_reset)
 

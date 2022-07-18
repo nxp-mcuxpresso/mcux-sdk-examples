@@ -13,12 +13,26 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+#if (DEMO_PANEL == DEMO_PANEL_RK043FN66HS)
+
+#define DEMO_HSW 4
+#define DEMO_HFP 8
+#define DEMO_HBP 43
+#define DEMO_VSW 4
+#define DEMO_VFP 8
+#define DEMO_VBP 12
+
+#else
+
 #define DEMO_HSW 41
 #define DEMO_HFP 4
 #define DEMO_HBP 8
 #define DEMO_VSW 10
 #define DEMO_VFP 4
 #define DEMO_VBP 2
+
+#endif
+
 #define DEMO_POL_FLAGS \
     (kELCDIF_DataEnableActiveHigh | kELCDIF_VsyncActiveLow | kELCDIF_HsyncActiveLow | kELCDIF_DriveDataOnRisingClkEdge)
 

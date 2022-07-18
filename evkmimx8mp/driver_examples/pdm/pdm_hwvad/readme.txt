@@ -5,7 +5,7 @@ The pdm hwvad example shows how to use pdm driver with hwvad:
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
+- GCC ARM Embedded  10.3.1
 
 Hardware requirements
 =====================

@@ -29,6 +29,9 @@
 #define USE_CANFD \
     (1) /* Define USE_CANFD to no-zero value to evaluate CANFD mode, define to 0 to use classical CAN mode*/
 
+/* Fix MISRA_C-2012 Rule 17.7. */
+#define LOG_INFO (void)PRINTF
+#if (defined(USE_CANFD) && USE_CANFD)
 /*
  *    DWORD_IN_MB    DLC    BYTES_IN_MB             Maximum MBs
  *    2              8      kFLEXCAN_8BperMB        64
@@ -39,10 +42,11 @@
  * Dword in each message buffer, Length of data in bytes, Payload size must align,
  * and the Message Buffers are limited corresponding to each payload configuration:
  */
-#define DLC         (10)
-#define BYTES_IN_MB kFLEXCAN_16BperMB
-/* Fix MISRA_C-2012 Rule 17.7. */
-#define LOG_INFO (void)PRINTF
+#define DLC         (15)
+#define BYTES_IN_MB kFLEXCAN_64BperMB
+#else
+#define DLC (8)
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/

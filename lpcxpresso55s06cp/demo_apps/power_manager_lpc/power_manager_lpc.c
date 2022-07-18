@@ -207,7 +207,6 @@ int main(void)
     CLOCK_AttachClk(kNONE_to_FLEXCOMM4);
     CLOCK_AttachClk(kNONE_to_FLEXCOMM5);
     CLOCK_AttachClk(kNONE_to_FLEXCOMM6);
-    CLOCK_AttachClk(kNONE_to_FLEXCOMM7);
     CLOCK_AttachClk(kNONE_to_HSLSPI);
     CLOCK_AttachClk(kNONE_to_TRACE);
     CLOCK_AttachClk(kNONE_to_SYSTICK0);

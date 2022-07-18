@@ -97,9 +97,13 @@ include(driver_lpc_gpio)
 
 include(driver_emc)
 
+include(component_silicon_id)
+
+include(driver_iap)
+
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC54S018M)
 
 include(device_system)
 

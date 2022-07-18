@@ -4,7 +4,7 @@
 <header>
 <project_version>55</project_version>
 <guix_version>60108</guix_version>
-<studio_version>6010900</studio_version>
+<studio_version>6011000</studio_version>
 <project_name>demo_guix_washing_machine</project_name>
 <source_path>.\</source_path>
 <header_path>.\</header_path>
@@ -61,7 +61,7 @@
 <format_332>FALSE</format_332>
 <grayscale>FALSE</grayscale>
 <reverse_order>FALSE</reverse_order>
-<allocate_canvas>TRUE</allocate_canvas>
+<allocate_canvas>FALSE</allocate_canvas>
 <enabled>TRUE</enabled>
 <rotation_angle>0</rotation_angle>
 <default_map_format>TRUE</default_map_format>
@@ -2858,15 +2858,6 @@
 <enabled>TRUE</enabled>
 <compress>FALSE</compress>
 </resource>
-<resource>
-<name>Add New String</name>
-<pathinfo>
-<pathtype>project_relative</pathtype>
-</pathinfo>
-<is_default>FALSE</is_default>
-<enabled>TRUE</enabled>
-<compress>FALSE</compress>
-</resource>
 </resource>
 <vscroll_appearance>
 <scroll_width>20</scroll_width>
@@ -3231,6 +3222,7 @@
 <ycenter>148</ycenter>
 <radius>108</radius>
 <track_width>44</track_width>
+<needle_offset>0</needle_offset>
 <current_angle>-46</current_angle>
 <min_angle>-46</min_angle>
 <max_angle>228</max_angle>
@@ -3690,6 +3682,7 @@
 <ycenter>133</ycenter>
 <radius>108</radius>
 <track_width>44</track_width>
+<needle_offset>0</needle_offset>
 <current_angle>-63</current_angle>
 <min_angle>-63</min_angle>
 <max_angle>242</max_angle>
@@ -4211,6 +4204,7 @@
 <ycenter>131</ycenter>
 <radius>108</radius>
 <track_width>44</track_width>
+<needle_offset>0</needle_offset>
 <current_angle>-63</current_angle>
 <min_angle>-63</min_angle>
 <max_angle>242</max_angle>

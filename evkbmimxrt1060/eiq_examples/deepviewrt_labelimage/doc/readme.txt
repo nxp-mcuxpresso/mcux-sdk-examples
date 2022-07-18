@@ -91,7 +91,7 @@ runtime model (RTM) with eIQ Portal.
 
 6. Release notes
 ----------------
-The library is based on DeepView RT version 2.4.36.
+The library is based on DeepView RT version 2.4.44.
 
 7. Limitations
 --------------

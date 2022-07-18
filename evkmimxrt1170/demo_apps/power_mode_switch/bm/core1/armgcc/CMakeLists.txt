@@ -115,11 +115,13 @@ include(driver_xip_board_evkmimxrt1170)
 
 include(driver_cache_lmem)
 
+include(component_silicon_id)
+
 include(driver_anatop_ai)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1176_cm4)
 
 include(device_system_MIMXRT1176_cm4)
 

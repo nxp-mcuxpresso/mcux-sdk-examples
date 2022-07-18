@@ -112,7 +112,7 @@ include(middleware_usb_host_ip3516hs_LPC55S16)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC55S16)
 
 include(device_system)
 

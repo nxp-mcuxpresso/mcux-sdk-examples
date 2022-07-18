@@ -139,7 +139,7 @@ static void thread_usb_entry(ULONG thread_input)
     UX_PARAMETER_NOT_USED(thread_input);
 }
 
-void main(void)
+int main(void)
 {
     /* Initialize the board. */
     board_setup();
@@ -150,6 +150,8 @@ void main(void)
 
     /* Enter the ThreadX kernel. */
     tx_kernel_enter();
+
+    return 0;
 }
 
 void tx_application_define(void *first_unused_memory)

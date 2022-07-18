@@ -17,7 +17,7 @@
 #define USB_DEVICE_MAX_POWER            (0x32U)
 
 #define USB_DEVICE_VID (0x1FC9U)
-#define USB_DEVICE_PID (0x0093U)
+#define USB_DEVICE_PID (0x00AEU)
 
 #define USB_CONFIGURE_COUNT       (1U)
 #define USB_DEVICE_STRING_COUNT   (5U)

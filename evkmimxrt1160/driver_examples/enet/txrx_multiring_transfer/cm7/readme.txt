@@ -19,8 +19,8 @@ auto-negotiation when phy is in loop back mode. However, the auto-negotiation fa
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.5.0
+- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.6.0
 
 Hardware requirements
 =====================

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NXP
+ * Copyright 2018-2022 NXP
  * All rights reserved.
  *
  *
@@ -127,7 +127,11 @@ static inline uint32_t flexspi_get_frequency(void)
      */
     div = CLOCK_GetDiv(kCLOCK_FlexspiDiv);
     /* Get frequency */
+#if defined(XIP_EXTERNAL_FLASH) && (XIP_EXTERNAL_FLASH == 1)
+    fre = CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk) / (div + 0x01U);
+#else
     fre = CLOCK_GetFreq(kCLOCK_Usb1PllPfd0Clk) / (div + 0x01U);
+#endif
 
     return fre;
 }

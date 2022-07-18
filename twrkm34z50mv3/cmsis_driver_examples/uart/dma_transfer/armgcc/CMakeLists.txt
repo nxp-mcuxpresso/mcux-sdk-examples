@@ -102,7 +102,7 @@ include(CMSIS_Driver_Include_USART)
 
 include(CMSIS_Driver_Include_Common)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MKM34ZA5)
 
 include(device_system)
 

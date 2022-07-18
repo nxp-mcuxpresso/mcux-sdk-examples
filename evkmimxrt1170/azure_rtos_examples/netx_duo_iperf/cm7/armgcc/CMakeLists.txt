@@ -153,7 +153,7 @@ include(driver_memory)
 
 include(driver_phy-common)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1176_cm7)
 
 include(device_system_MIMXRT1176_cm7)
 

@@ -2,6 +2,7 @@
 ** ###################################################################
 **     Processors:          LPC55S16JBD100
 **                          LPC55S16JBD64
+**                          LPC55S16JEV59
 **                          LPC55S16JEV98
 **
 **     Compiler:            GNU C Compiler
@@ -36,7 +37,7 @@ STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0800;
 MEMORY
 {
   m_interrupts          (RX)  : ORIGIN = 0x00010000, LENGTH = 0x00000200
-  m_text                (RX)  : ORIGIN = 0x00010200, LENGTH = 0x0002D600
+  m_text                (RX)  : ORIGIN = 0x00010200, LENGTH = 0x0002CE00
   m_data                (RW)  : ORIGIN = 0x20008000, LENGTH = 0x00008000
   m_sramx               (RW)  : ORIGIN = 0x04000000, LENGTH = 0x00004000
   m_usb_sram            (RW)  : ORIGIN = 0x20010000, LENGTH = 0x00004000

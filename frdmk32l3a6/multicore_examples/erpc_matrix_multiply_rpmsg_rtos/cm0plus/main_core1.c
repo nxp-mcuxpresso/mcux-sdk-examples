@@ -6,9 +6,9 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+#include "rpmsg_lite.h"
 #include "pin_mux.h"
 #include "board.h"
-#include "rpmsg_lite.h"
 #include "erpc_server_setup.h"
 #include "erpc_matrix_multiply_server.h"
 #include "erpc_matrix_multiply.h"

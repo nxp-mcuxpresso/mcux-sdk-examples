@@ -1283,22 +1283,124 @@ ${load}</script>
         <files mask="arm_common_tables.h"/>
         <files mask="arm_const_structs.h"/>
         <files mask="arm_math.h"/>
+        <files mask="arm_common_tables_f16.h"/>
+        <files mask="arm_const_structs_f16.h"/>
+        <files mask="arm_helium_utils.h"/>
+        <files mask="arm_math_f16.h"/>
+        <files mask="arm_math_memory.h"/>
+        <files mask="arm_math_types.h"/>
+        <files mask="arm_math_types_f16.h"/>
+        <files mask="arm_mve_tables.h"/>
+        <files mask="arm_mve_tables_f16.h"/>
+        <files mask="arm_vec_math.h"/>
+        <files mask="arm_vec_math_f16.h"/>
+      </source>
+      <source relative_path="Include/dsp" type="c_include">
+        <files mask="basic_math_functions.h"/>
+        <files mask="basic_math_functions_f16.h"/>
+        <files mask="bayes_functions.h"/>
+        <files mask="bayes_functions_f16.h"/>
+        <files mask="complex_math_functions.h"/>
+        <files mask="complex_math_functions_f16.h"/>
+        <files mask="controller_functions.h"/>
+        <files mask="controller_functions_f16.h"/>
+        <files mask="distance_functions.h"/>
+        <files mask="distance_functions_f16.h"/>
+        <files mask="fast_math_functions.h"/>
+        <files mask="fast_math_functions_f16.h"/>
+        <files mask="filtering_functions.h"/>
+        <files mask="filtering_functions_f16.h"/>
+        <files mask="interpolation_functions.h"/>
+        <files mask="interpolation_functions_f16.h"/>
+        <files mask="matrix_functions.h"/>
+        <files mask="matrix_functions_f16.h"/>
+        <files mask="none.h"/>
+        <files mask="quaternion_math_functions.h"/>
+        <files mask="statistics_functions.h"/>
+        <files mask="statistics_functions_f16.h"/>
+        <files mask="support_functions.h"/>
+        <files mask="support_functions_f16.h"/>
+        <files mask="svm_defines.h"/>
+        <files mask="svm_functions.h"/>
+        <files mask="svm_functions_f16.h"/>
+        <files mask="transform_functions.h"/>
+        <files mask="transform_functions_f16.h"/>
+        <files mask="utils.h"/>
+      </source>
+      <source relative_path="PrivateInclude" type="c_include">
+        <files mask="arm_sorting.h"/>
+        <files mask="arm_vec_fft.h"/>
+        <files mask="arm_vec_filtering.h"/>
       </source>
       <source toolchain="armgcc mcuxpresso" relative_path="Lib/GCC" project_relative_path="./" type="lib" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12">
         <files mask="libarm_cortexM4lf_math.a"/>
       </source>
       <include_paths>
         <include_path relative_path="Include" type="c_include"/>
+        <include_path relative_path="PrivateInclude" type="c_include"/>
+        <include_path relative_path="Source/DistanceFunctions" type="c_include"/>
       </include_paths>
     </component>
-    <component id="CMSIS_DSP_Source.MK64F12" name="CMSIS_DSP_Library_Source" brief="CMSIS-DSP Library for Cortex-M, SC000, and SC300" version="1.7.0" full_name="CMSIS DSP Library Source" devices="MK64FN1M0xxx12 MK64FX512xxx12" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/DSP" project_base_path="CMSIS/DSP">
+    <component id="CMSIS_DSP_Source.MK64F12" name="CMSIS_DSP_Library_Source" brief="CMSIS-DSP Library" version="1.9.0" full_name="CMSIS DSP Library Source" devices="MK64FN1M0xxx12 MK64FX512xxx12" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/DSP" project_base_path="CMSIS/DSP">
+      <source exclude="true" relative_path="./" type="other">
+        <files mask="README.md" hidden="true"/>
+      </source>
       <source relative_path="Include" type="c_include">
         <files mask="arm_common_tables.h"/>
         <files mask="arm_const_structs.h"/>
         <files mask="arm_math.h"/>
+        <files mask="arm_common_tables_f16.h"/>
+        <files mask="arm_const_structs_f16.h"/>
+        <files mask="arm_helium_utils.h"/>
+        <files mask="arm_math_f16.h"/>
+        <files mask="arm_math_memory.h"/>
+        <files mask="arm_math_types.h"/>
+        <files mask="arm_math_types_f16.h"/>
+        <files mask="arm_mve_tables.h"/>
+        <files mask="arm_mve_tables_f16.h"/>
+        <files mask="arm_vec_math.h"/>
+        <files mask="arm_vec_math_f16.h"/>
+      </source>
+      <source relative_path="Include/dsp" type="c_include">
+        <files mask="basic_math_functions.h"/>
+        <files mask="basic_math_functions_f16.h"/>
+        <files mask="bayes_functions.h"/>
+        <files mask="bayes_functions_f16.h"/>
+        <files mask="complex_math_functions.h"/>
+        <files mask="complex_math_functions_f16.h"/>
+        <files mask="controller_functions.h"/>
+        <files mask="controller_functions_f16.h"/>
+        <files mask="distance_functions.h"/>
+        <files mask="distance_functions_f16.h"/>
+        <files mask="fast_math_functions.h"/>
+        <files mask="fast_math_functions_f16.h"/>
+        <files mask="filtering_functions.h"/>
+        <files mask="filtering_functions_f16.h"/>
+        <files mask="interpolation_functions.h"/>
+        <files mask="interpolation_functions_f16.h"/>
+        <files mask="matrix_functions.h"/>
+        <files mask="matrix_functions_f16.h"/>
+        <files mask="none.h"/>
+        <files mask="quaternion_math_functions.h"/>
+        <files mask="statistics_functions.h"/>
+        <files mask="statistics_functions_f16.h"/>
+        <files mask="support_functions.h"/>
+        <files mask="support_functions_f16.h"/>
+        <files mask="svm_defines.h"/>
+        <files mask="svm_functions.h"/>
+        <files mask="svm_functions_f16.h"/>
+        <files mask="transform_functions.h"/>
+        <files mask="transform_functions_f16.h"/>
+        <files mask="utils.h"/>
+      </source>
+      <source relative_path="PrivateInclude" type="c_include">
+        <files mask="arm_sorting.h"/>
+        <files mask="arm_vec_fft.h"/>
+        <files mask="arm_vec_filtering.h"/>
       </source>
       <source relative_path="Source/BasicMathFunctions" type="src">
         <files mask="BasicMathFunctions.c"/>
+        <files mask="BasicMathFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/BasicMathFunctions" type="src">
         <files mask="arm_abs_f32.c" hidden="true"/>
@@ -1309,6 +1411,13 @@ ${load}</script>
         <files mask="arm_add_q15.c" hidden="true"/>
         <files mask="arm_add_q31.c" hidden="true"/>
         <files mask="arm_add_q7.c" hidden="true"/>
+        <files mask="arm_and_u16.c" hidden="true"/>
+        <files mask="arm_and_u32.c" hidden="true"/>
+        <files mask="arm_and_u8.c" hidden="true"/>
+        <files mask="arm_clip_f32.c" hidden="true"/>
+        <files mask="arm_clip_q15.c" hidden="true"/>
+        <files mask="arm_clip_q31.c" hidden="true"/>
+        <files mask="arm_clip_q7.c" hidden="true"/>
         <files mask="arm_dot_prod_f32.c" hidden="true"/>
         <files mask="arm_dot_prod_q15.c" hidden="true"/>
         <files mask="arm_dot_prod_q31.c" hidden="true"/>
@@ -1321,10 +1430,16 @@ ${load}</script>
         <files mask="arm_negate_q15.c" hidden="true"/>
         <files mask="arm_negate_q31.c" hidden="true"/>
         <files mask="arm_negate_q7.c" hidden="true"/>
+        <files mask="arm_not_u16.c" hidden="true"/>
+        <files mask="arm_not_u32.c" hidden="true"/>
+        <files mask="arm_not_u8.c" hidden="true"/>
         <files mask="arm_offset_f32.c" hidden="true"/>
         <files mask="arm_offset_q15.c" hidden="true"/>
         <files mask="arm_offset_q31.c" hidden="true"/>
         <files mask="arm_offset_q7.c" hidden="true"/>
+        <files mask="arm_or_u16.c" hidden="true"/>
+        <files mask="arm_or_u32.c" hidden="true"/>
+        <files mask="arm_or_u8.c" hidden="true"/>
         <files mask="arm_scale_f32.c" hidden="true"/>
         <files mask="arm_scale_q15.c" hidden="true"/>
         <files mask="arm_scale_q31.c" hidden="true"/>
@@ -1336,16 +1451,42 @@ ${load}</script>
         <files mask="arm_sub_q15.c" hidden="true"/>
         <files mask="arm_sub_q31.c" hidden="true"/>
         <files mask="arm_sub_q7.c" hidden="true"/>
+        <files mask="arm_xor_u16.c" hidden="true"/>
+        <files mask="arm_xor_u32.c" hidden="true"/>
+        <files mask="arm_xor_u8.c" hidden="true"/>
+        <files mask="arm_abs_f16.c" hidden="true"/>
+        <files mask="arm_add_f16.c" hidden="true"/>
+        <files mask="arm_clip_f16.c" hidden="true"/>
+        <files mask="arm_dot_prod_f16.c" hidden="true"/>
+        <files mask="arm_mult_f16.c" hidden="true"/>
+        <files mask="arm_negate_f16.c" hidden="true"/>
+        <files mask="arm_offset_f16.c" hidden="true"/>
+        <files mask="arm_scale_f16.c" hidden="true"/>
+        <files mask="arm_sub_f16.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/BayesFunctions" type="src">
+        <files mask="BayesFunctions.c"/>
+        <files mask="BayesFunctionsF16.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/BayesFunctions" type="src">
+        <files mask="arm_gaussian_naive_bayes_predict_f32.c" hidden="true"/>
+        <files mask="arm_gaussian_naive_bayes_predict_f16.c" hidden="true"/>
       </source>
       <source relative_path="Source/CommonTables" type="src">
         <files mask="CommonTables.c"/>
+        <files mask="CommonTablesF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/CommonTables" type="src">
         <files mask="arm_common_tables.c" hidden="true"/>
         <files mask="arm_const_structs.c" hidden="true"/>
+        <files mask="arm_mve_tables.c" hidden="true"/>
+        <files mask="arm_common_tables_f16.c" hidden="true"/>
+        <files mask="arm_const_structs_f16.c" hidden="true"/>
+        <files mask="arm_mve_tables_f16.c" hidden="true"/>
       </source>
       <source relative_path="Source/ComplexMathFunctions" type="src">
         <files mask="ComplexMathFunctions.c"/>
+        <files mask="ComplexMathFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/ComplexMathFunctions" type="src">
         <files mask="arm_cmplx_conj_f32.c" hidden="true"/>
@@ -1366,6 +1507,12 @@ ${load}</script>
         <files mask="arm_cmplx_mult_real_f32.c" hidden="true"/>
         <files mask="arm_cmplx_mult_real_q15.c" hidden="true"/>
         <files mask="arm_cmplx_mult_real_q31.c" hidden="true"/>
+        <files mask="arm_cmplx_conj_f16.c" hidden="true"/>
+        <files mask="arm_cmplx_dot_prod_f16.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_f16.c" hidden="true"/>
+        <files mask="arm_cmplx_mag_squared_f16.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_cmplx_f16.c" hidden="true"/>
+        <files mask="arm_cmplx_mult_real_f16.c" hidden="true"/>
       </source>
       <source relative_path="Source/ControllerFunctions" type="src">
         <files mask="ControllerFunctions.c"/>
@@ -1380,21 +1527,66 @@ ${load}</script>
         <files mask="arm_sin_cos_f32.c" hidden="true"/>
         <files mask="arm_sin_cos_q31.c" hidden="true"/>
       </source>
+      <source relative_path="Source/DistanceFunctions" type="src">
+        <files mask="DistanceFunctions.c"/>
+        <files mask="DistanceFunctionsF16.c"/>
+      </source>
+      <source relative_path="Source/DistanceFunctions" type="c_include">
+        <files mask="arm_boolean_distance_template.h"/>
+      </source>
+      <source exclude="true" relative_path="Source/DistanceFunctions" type="src">
+        <files mask="arm_boolean_distance.c" hidden="true"/>
+        <files mask="arm_braycurtis_distance_f32.c" hidden="true"/>
+        <files mask="arm_canberra_distance_f32.c" hidden="true"/>
+        <files mask="arm_chebyshev_distance_f32.c" hidden="true"/>
+        <files mask="arm_cityblock_distance_f32.c" hidden="true"/>
+        <files mask="arm_correlation_distance_f32.c" hidden="true"/>
+        <files mask="arm_cosine_distance_f32.c" hidden="true"/>
+        <files mask="arm_dice_distance.c" hidden="true"/>
+        <files mask="arm_euclidean_distance_f32.c" hidden="true"/>
+        <files mask="arm_hamming_distance.c" hidden="true"/>
+        <files mask="arm_jaccard_distance.c" hidden="true"/>
+        <files mask="arm_jensenshannon_distance_f32.c" hidden="true"/>
+        <files mask="arm_kulsinski_distance.c" hidden="true"/>
+        <files mask="arm_minkowski_distance_f32.c" hidden="true"/>
+        <files mask="arm_rogerstanimoto_distance.c" hidden="true"/>
+        <files mask="arm_russellrao_distance.c" hidden="true"/>
+        <files mask="arm_sokalmichener_distance.c" hidden="true"/>
+        <files mask="arm_sokalsneath_distance.c" hidden="true"/>
+        <files mask="arm_yule_distance.c" hidden="true"/>
+        <files mask="arm_braycurtis_distance_f16.c" hidden="true"/>
+        <files mask="arm_canberra_distance_f16.c" hidden="true"/>
+        <files mask="arm_chebyshev_distance_f16.c" hidden="true"/>
+        <files mask="arm_cityblock_distance_f16.c" hidden="true"/>
+        <files mask="arm_correlation_distance_f16.c" hidden="true"/>
+        <files mask="arm_cosine_distance_f16.c" hidden="true"/>
+        <files mask="arm_euclidean_distance_f16.c" hidden="true"/>
+        <files mask="arm_jensenshannon_distance_f16.c" hidden="true"/>
+        <files mask="arm_minkowski_distance_f16.c" hidden="true"/>
+      </source>
       <source relative_path="Source/FastMathFunctions" type="src">
         <files mask="FastMathFunctions.c"/>
+        <files mask="FastMathFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/FastMathFunctions" type="src">
         <files mask="arm_cos_f32.c" hidden="true"/>
         <files mask="arm_cos_q15.c" hidden="true"/>
         <files mask="arm_cos_q31.c" hidden="true"/>
+        <files mask="arm_divide_q15.c" hidden="true"/>
         <files mask="arm_sin_f32.c" hidden="true"/>
         <files mask="arm_sin_q15.c" hidden="true"/>
         <files mask="arm_sin_q31.c" hidden="true"/>
         <files mask="arm_sqrt_q15.c" hidden="true"/>
         <files mask="arm_sqrt_q31.c" hidden="true"/>
+        <files mask="arm_vexp_f32.c" hidden="true"/>
+        <files mask="arm_vlog_f32.c" hidden="true"/>
+        <files mask="arm_vexp_f16.c" hidden="true"/>
+        <files mask="arm_vinverse_f16.c" hidden="true"/>
+        <files mask="arm_vlog_f16.c" hidden="true"/>
       </source>
       <source relative_path="Source/FilteringFunctions" type="src">
         <files mask="FilteringFunctions.c"/>
+        <files mask="FilteringFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/FilteringFunctions" type="src">
         <files mask="arm_biquad_cascade_df1_32x64_init_q31.c" hidden="true"/>
@@ -1484,6 +1676,8 @@ ${load}</script>
         <files mask="arm_iir_lattice_init_q31.c" hidden="true"/>
         <files mask="arm_iir_lattice_q15.c" hidden="true"/>
         <files mask="arm_iir_lattice_q31.c" hidden="true"/>
+        <files mask="arm_levinson_durbin_f32.c" hidden="true"/>
+        <files mask="arm_levinson_durbin_q31.c" hidden="true"/>
         <files mask="arm_lms_f32.c" hidden="true"/>
         <files mask="arm_lms_init_f32.c" hidden="true"/>
         <files mask="arm_lms_init_q15.c" hidden="true"/>
@@ -1496,42 +1690,155 @@ ${load}</script>
         <files mask="arm_lms_norm_q31.c" hidden="true"/>
         <files mask="arm_lms_q15.c" hidden="true"/>
         <files mask="arm_lms_q31.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_f16.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_init_f16.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df2T_f16.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df2T_init_f16.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_stereo_df2T_f16.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_stereo_df2T_init_f16.c" hidden="true"/>
+        <files mask="arm_correlate_f16.c" hidden="true"/>
+        <files mask="arm_fir_f16.c" hidden="true"/>
+        <files mask="arm_fir_init_f16.c" hidden="true"/>
+        <files mask="arm_levinson_durbin_f16.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/InterpolationFunctions" type="src">
+        <files mask="InterpolationFunctions.c"/>
+        <files mask="InterpolationFunctionsF16.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/InterpolationFunctions" type="src">
+        <files mask="arm_bilinear_interp_f32.c" hidden="true"/>
+        <files mask="arm_bilinear_interp_q15.c" hidden="true"/>
+        <files mask="arm_bilinear_interp_q31.c" hidden="true"/>
+        <files mask="arm_bilinear_interp_q7.c" hidden="true"/>
+        <files mask="arm_linear_interp_f32.c" hidden="true"/>
+        <files mask="arm_linear_interp_q15.c" hidden="true"/>
+        <files mask="arm_linear_interp_q31.c" hidden="true"/>
+        <files mask="arm_linear_interp_q7.c" hidden="true"/>
+        <files mask="arm_spline_interp_f32.c" hidden="true"/>
+        <files mask="arm_spline_interp_init_f32.c" hidden="true"/>
+        <files mask="arm_bilinear_interp_f16.c" hidden="true"/>
+        <files mask="arm_linear_interp_f16.c" hidden="true"/>
       </source>
       <source relative_path="Source/MatrixFunctions" type="src">
         <files mask="MatrixFunctions.c"/>
+        <files mask="MatrixFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/MatrixFunctions" type="src">
         <files mask="arm_mat_add_f32.c" hidden="true"/>
         <files mask="arm_mat_add_q15.c" hidden="true"/>
         <files mask="arm_mat_add_q31.c" hidden="true"/>
+        <files mask="arm_mat_cholesky_f32.c" hidden="true"/>
+        <files mask="arm_mat_cholesky_f64.c" hidden="true"/>
         <files mask="arm_mat_cmplx_mult_f32.c" hidden="true"/>
         <files mask="arm_mat_cmplx_mult_q15.c" hidden="true"/>
         <files mask="arm_mat_cmplx_mult_q31.c" hidden="true"/>
+        <files mask="arm_mat_cmplx_trans_f32.c" hidden="true"/>
+        <files mask="arm_mat_cmplx_trans_q15.c" hidden="true"/>
+        <files mask="arm_mat_cmplx_trans_q31.c" hidden="true"/>
         <files mask="arm_mat_init_f32.c" hidden="true"/>
         <files mask="arm_mat_init_q15.c" hidden="true"/>
         <files mask="arm_mat_init_q31.c" hidden="true"/>
         <files mask="arm_mat_inverse_f32.c" hidden="true"/>
         <files mask="arm_mat_inverse_f64.c" hidden="true"/>
+        <files mask="arm_mat_ldlt_f32.c" hidden="true"/>
+        <files mask="arm_mat_ldlt_f64.c" hidden="true"/>
         <files mask="arm_mat_mult_f32.c" hidden="true"/>
+        <files mask="arm_mat_mult_f64.c" hidden="true"/>
         <files mask="arm_mat_mult_fast_q15.c" hidden="true"/>
         <files mask="arm_mat_mult_fast_q31.c" hidden="true"/>
         <files mask="arm_mat_mult_q15.c" hidden="true"/>
         <files mask="arm_mat_mult_q31.c" hidden="true"/>
+        <files mask="arm_mat_mult_q7.c" hidden="true"/>
         <files mask="arm_mat_scale_f32.c" hidden="true"/>
         <files mask="arm_mat_scale_q15.c" hidden="true"/>
         <files mask="arm_mat_scale_q31.c" hidden="true"/>
+        <files mask="arm_mat_solve_lower_triangular_f32.c" hidden="true"/>
+        <files mask="arm_mat_solve_lower_triangular_f64.c" hidden="true"/>
+        <files mask="arm_mat_solve_upper_triangular_f32.c" hidden="true"/>
+        <files mask="arm_mat_solve_upper_triangular_f64.c" hidden="true"/>
         <files mask="arm_mat_sub_f32.c" hidden="true"/>
+        <files mask="arm_mat_sub_f64.c" hidden="true"/>
         <files mask="arm_mat_sub_q15.c" hidden="true"/>
         <files mask="arm_mat_sub_q31.c" hidden="true"/>
         <files mask="arm_mat_trans_f32.c" hidden="true"/>
+        <files mask="arm_mat_trans_f64.c" hidden="true"/>
         <files mask="arm_mat_trans_q15.c" hidden="true"/>
         <files mask="arm_mat_trans_q31.c" hidden="true"/>
+        <files mask="arm_mat_trans_q7.c" hidden="true"/>
+        <files mask="arm_mat_vec_mult_f32.c" hidden="true"/>
+        <files mask="arm_mat_vec_mult_q15.c" hidden="true"/>
+        <files mask="arm_mat_vec_mult_q31.c" hidden="true"/>
+        <files mask="arm_mat_vec_mult_q7.c" hidden="true"/>
+        <files mask="arm_mat_add_f16.c" hidden="true"/>
+        <files mask="arm_mat_cholesky_f16.c" hidden="true"/>
+        <files mask="arm_mat_cmplx_mult_f16.c" hidden="true"/>
+        <files mask="arm_mat_cmplx_trans_f16.c" hidden="true"/>
+        <files mask="arm_mat_init_f16.c" hidden="true"/>
+        <files mask="arm_mat_inverse_f16.c" hidden="true"/>
+        <files mask="arm_mat_mult_f16.c" hidden="true"/>
+        <files mask="arm_mat_scale_f16.c" hidden="true"/>
+        <files mask="arm_mat_solve_lower_triangular_f16.c" hidden="true"/>
+        <files mask="arm_mat_solve_upper_triangular_f16.c" hidden="true"/>
+        <files mask="arm_mat_sub_f16.c" hidden="true"/>
+        <files mask="arm_mat_trans_f16.c" hidden="true"/>
+        <files mask="arm_mat_vec_mult_f16.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/QuaternionMathFunctions" type="src">
+        <files mask="QuaternionMathFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/QuaternionMathFunctions" type="src">
+        <files mask="arm_quaternion2rotation_f32.c" hidden="true"/>
+        <files mask="arm_quaternion_conjugate_f32.c" hidden="true"/>
+        <files mask="arm_quaternion_inverse_f32.c" hidden="true"/>
+        <files mask="arm_quaternion_norm_f32.c" hidden="true"/>
+        <files mask="arm_quaternion_normalize_f32.c" hidden="true"/>
+        <files mask="arm_quaternion_product_f32.c" hidden="true"/>
+        <files mask="arm_quaternion_product_single_f32.c" hidden="true"/>
+        <files mask="arm_rotation2quaternion_f32.c" hidden="true"/>
+      </source>
+      <source relative_path="Source/SVMFunctions" type="src">
+        <files mask="SVMFunctions.c"/>
+        <files mask="SVMFunctionsF16.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/SVMFunctions" type="src">
+        <files mask="arm_svm_linear_init_f32.c" hidden="true"/>
+        <files mask="arm_svm_linear_predict_f32.c" hidden="true"/>
+        <files mask="arm_svm_polynomial_init_f32.c" hidden="true"/>
+        <files mask="arm_svm_polynomial_predict_f32.c" hidden="true"/>
+        <files mask="arm_svm_rbf_init_f32.c" hidden="true"/>
+        <files mask="arm_svm_rbf_predict_f32.c" hidden="true"/>
+        <files mask="arm_svm_sigmoid_init_f32.c" hidden="true"/>
+        <files mask="arm_svm_sigmoid_predict_f32.c" hidden="true"/>
+        <files mask="arm_svm_linear_init_f16.c" hidden="true"/>
+        <files mask="arm_svm_linear_predict_f16.c" hidden="true"/>
+        <files mask="arm_svm_polynomial_init_f16.c" hidden="true"/>
+        <files mask="arm_svm_polynomial_predict_f16.c" hidden="true"/>
+        <files mask="arm_svm_rbf_init_f16.c" hidden="true"/>
+        <files mask="arm_svm_rbf_predict_f16.c" hidden="true"/>
+        <files mask="arm_svm_sigmoid_init_f16.c" hidden="true"/>
+        <files mask="arm_svm_sigmoid_predict_f16.c" hidden="true"/>
       </source>
       <source relative_path="Source/StatisticsFunctions" type="src">
         <files mask="StatisticsFunctions.c"/>
+        <files mask="StatisticsFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/StatisticsFunctions" type="src">
+        <files mask="arm_absmax_f32.c" hidden="true"/>
+        <files mask="arm_absmax_q15.c" hidden="true"/>
+        <files mask="arm_absmax_q31.c" hidden="true"/>
+        <files mask="arm_absmax_q7.c" hidden="true"/>
+        <files mask="arm_absmin_f32.c" hidden="true"/>
+        <files mask="arm_absmin_q15.c" hidden="true"/>
+        <files mask="arm_absmin_q31.c" hidden="true"/>
+        <files mask="arm_absmin_q7.c" hidden="true"/>
+        <files mask="arm_entropy_f32.c" hidden="true"/>
+        <files mask="arm_entropy_f64.c" hidden="true"/>
+        <files mask="arm_kullback_leibler_f32.c" hidden="true"/>
+        <files mask="arm_kullback_leibler_f64.c" hidden="true"/>
+        <files mask="arm_logsumexp_dot_prod_f32.c" hidden="true"/>
+        <files mask="arm_logsumexp_f32.c" hidden="true"/>
         <files mask="arm_max_f32.c" hidden="true"/>
+        <files mask="arm_max_no_idx_f32.c" hidden="true"/>
         <files mask="arm_max_q15.c" hidden="true"/>
         <files mask="arm_max_q31.c" hidden="true"/>
         <files mask="arm_max_q7.c" hidden="true"/>
@@ -1556,11 +1863,29 @@ ${load}</script>
         <files mask="arm_var_f32.c" hidden="true"/>
         <files mask="arm_var_q15.c" hidden="true"/>
         <files mask="arm_var_q31.c" hidden="true"/>
+        <files mask="arm_absmax_f16.c" hidden="true"/>
+        <files mask="arm_absmin_f16.c" hidden="true"/>
+        <files mask="arm_entropy_f16.c" hidden="true"/>
+        <files mask="arm_kullback_leibler_f16.c" hidden="true"/>
+        <files mask="arm_logsumexp_dot_prod_f16.c" hidden="true"/>
+        <files mask="arm_logsumexp_f16.c" hidden="true"/>
+        <files mask="arm_max_f16.c" hidden="true"/>
+        <files mask="arm_max_no_idx_f16.c" hidden="true"/>
+        <files mask="arm_mean_f16.c" hidden="true"/>
+        <files mask="arm_min_f16.c" hidden="true"/>
+        <files mask="arm_power_f16.c" hidden="true"/>
+        <files mask="arm_rms_f16.c" hidden="true"/>
+        <files mask="arm_std_f16.c" hidden="true"/>
+        <files mask="arm_var_f16.c" hidden="true"/>
       </source>
       <source relative_path="Source/SupportFunctions" type="src">
         <files mask="SupportFunctions.c"/>
+        <files mask="SupportFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/SupportFunctions" type="src">
+        <files mask="arm_barycenter_f32.c" hidden="true"/>
+        <files mask="arm_bitonic_sort_f32.c" hidden="true"/>
+        <files mask="arm_bubble_sort_f32.c" hidden="true"/>
         <files mask="arm_copy_f32.c" hidden="true"/>
         <files mask="arm_copy_q15.c" hidden="true"/>
         <files mask="arm_copy_q31.c" hidden="true"/>
@@ -1572,6 +1897,10 @@ ${load}</script>
         <files mask="arm_float_to_q15.c" hidden="true"/>
         <files mask="arm_float_to_q31.c" hidden="true"/>
         <files mask="arm_float_to_q7.c" hidden="true"/>
+        <files mask="arm_heap_sort_f32.c" hidden="true"/>
+        <files mask="arm_insertion_sort_f32.c" hidden="true"/>
+        <files mask="arm_merge_sort_f32.c" hidden="true"/>
+        <files mask="arm_merge_sort_init_f32.c" hidden="true"/>
         <files mask="arm_q15_to_float.c" hidden="true"/>
         <files mask="arm_q15_to_q31.c" hidden="true"/>
         <files mask="arm_q15_to_q7.c" hidden="true"/>
@@ -1581,14 +1910,33 @@ ${load}</script>
         <files mask="arm_q7_to_float.c" hidden="true"/>
         <files mask="arm_q7_to_q15.c" hidden="true"/>
         <files mask="arm_q7_to_q31.c" hidden="true"/>
+        <files mask="arm_quick_sort_f32.c" hidden="true"/>
+        <files mask="arm_selection_sort_f32.c" hidden="true"/>
+        <files mask="arm_sort_f32.c" hidden="true"/>
+        <files mask="arm_sort_init_f32.c" hidden="true"/>
+        <files mask="arm_weighted_sum_f32.c" hidden="true"/>
+        <files mask="arm_barycenter_f16.c" hidden="true"/>
+        <files mask="arm_copy_f16.c" hidden="true"/>
+        <files mask="arm_f16_to_float.c" hidden="true"/>
+        <files mask="arm_f16_to_q15.c" hidden="true"/>
+        <files mask="arm_fill_f16.c" hidden="true"/>
+        <files mask="arm_float_to_f16.c" hidden="true"/>
+        <files mask="arm_q15_to_f16.c" hidden="true"/>
+        <files mask="arm_weighted_sum_f16.c" hidden="true"/>
       </source>
       <source relative_path="Source/TransformFunctions" type="src">
         <files mask="TransformFunctions.c"/>
+        <files mask="TransformFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/TransformFunctions" type="src">
         <files mask="arm_bitreversal.c" hidden="true"/>
         <files mask="arm_bitreversal2.c" hidden="true"/>
         <files mask="arm_cfft_f32.c" hidden="true"/>
+        <files mask="arm_cfft_f64.c" hidden="true"/>
+        <files mask="arm_cfft_init_f32.c" hidden="true"/>
+        <files mask="arm_cfft_init_f64.c" hidden="true"/>
+        <files mask="arm_cfft_init_q15.c" hidden="true"/>
+        <files mask="arm_cfft_init_q31.c" hidden="true"/>
         <files mask="arm_cfft_q15.c" hidden="true"/>
         <files mask="arm_cfft_q31.c" hidden="true"/>
         <files mask="arm_cfft_radix2_f32.c" hidden="true"/>
@@ -1612,15 +1960,35 @@ ${load}</script>
         <files mask="arm_dct4_q31.c" hidden="true"/>
         <files mask="arm_rfft_f32.c" hidden="true"/>
         <files mask="arm_rfft_fast_f32.c" hidden="true"/>
+        <files mask="arm_rfft_fast_f64.c" hidden="true"/>
         <files mask="arm_rfft_fast_init_f32.c" hidden="true"/>
+        <files mask="arm_rfft_fast_init_f64.c" hidden="true"/>
         <files mask="arm_rfft_init_f32.c" hidden="true"/>
         <files mask="arm_rfft_init_q15.c" hidden="true"/>
         <files mask="arm_rfft_init_q31.c" hidden="true"/>
         <files mask="arm_rfft_q15.c" hidden="true"/>
         <files mask="arm_rfft_q31.c" hidden="true"/>
+        <files mask="arm_bitreversal_f16.c" hidden="true"/>
+        <files mask="arm_cfft_f16.c" hidden="true"/>
+        <files mask="arm_cfft_init_f16.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_f16.c" hidden="true"/>
+        <files mask="arm_cfft_radix2_init_f16.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_f16.c" hidden="true"/>
+        <files mask="arm_cfft_radix4_init_f16.c" hidden="true"/>
+        <files mask="arm_cfft_radix8_f16.c" hidden="true"/>
+        <files mask="arm_rfft_fast_f16.c" hidden="true"/>
+        <files mask="arm_rfft_fast_init_f16.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="Source/TransformFunctions" type="asm_include">
+        <files mask="arm_bitreversal2.S" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="CMSIS_DSP_Source.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="Include" type="c_include"/>
+        <include_path relative_path="PrivateInclude" type="c_include"/>
+        <include_path relative_path="Source/DistanceFunctions" type="c_include"/>
       </include_paths>
     </component>
     <component id="CMSIS_Device_API_OSTick.MK64F12" name="CMSIS_Device_API_OSTick" brief="Device interrupt controller interface" version="1.0.1" full_name="CMSIS Device API OSTick" devices="MK64FN1M0xxx12 MK64FX512xxx12" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/RTOS2/Include" project_base_path="CMSIS/RTOS2/Include">

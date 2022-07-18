@@ -92,7 +92,7 @@ include(CMSIS_Driver_Include_USART)
 
 include(CMSIS_Driver_Include_Common)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MKE02Z4)
 
 include(device_system)
 

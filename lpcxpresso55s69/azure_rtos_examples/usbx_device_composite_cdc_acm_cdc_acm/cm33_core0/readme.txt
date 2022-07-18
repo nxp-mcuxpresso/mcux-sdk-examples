@@ -5,8 +5,8 @@ This example works as two USB CDC ACM devices. It will appear as two USB serial 
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.5.0
+- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.6.0
 
 Hardware requirements
 =====================
@@ -16,19 +16,22 @@ Hardware requirements
 
 Board settings
 ==============
-This example only work with the USB high speed port (P9).
+This example can work with the USB high speed port (P9) or the USB full speed port (P10).
 
 Prepare the Demo
 ================
 1.  Connect a USB Micro cable between the host PC and the Debug Link USB port (P6) on the target board.
-2.  Connect a USB Micro cable between the host PC and the on-board USB high speed port (P9).
+2.  High speed: Connect a USB Micro cable between the host PC and the on-board USB high speed port (P9).
+    Full speed: Connect a USB Micro cable between the host PC and the on-board USB full speed port (P10).
 3.  Open a serial terminal on PC with the following settings:
     - 115200 baud rate
     - 8 data bits
     - No parity
     - 1 stop bit
     - No flow control
-4.  Compile the demo.
+4.  Compile the demo:
+    - High speed: Set USB_DEVICE_CONFIG_LPCIP3511FS to 0 and USB_DEVICE_CONFIG_LPCIP3511HS to 1 in usb_device_config.h
+    - Full speed: Set USB_DEVICE_CONFIG_LPCIP3511FS to 1 and USB_DEVICE_CONFIG_LPCIP3511HS to 0 in usb_device_config.h
 5.  Download the program to the target board.
 6.  Press the on-board RESET button to start the demo. A new USB serial device will appear on PC.
 7.  Open two serial terminal with the following settings for two new USB serial devices.

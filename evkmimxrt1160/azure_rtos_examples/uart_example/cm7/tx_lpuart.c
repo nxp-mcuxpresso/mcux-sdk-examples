@@ -44,13 +44,13 @@ UINT tx_uart_init(tx_uart_context_t *context)
 
     TX_MEMSET(context, 0, sizeof(tx_uart_context_t));
 
-    ret = tx_mutex_create(&context->lock, "LOCK", TX_NO_INHERIT);
+    status = tx_mutex_create(&context->lock, "LOCK", TX_NO_INHERIT);
     if (status != TX_SUCCESS)
     {
         return status;
     }
 
-    ret = tx_event_flags_create(&context->event_group, "EVENT");
+    status = tx_event_flags_create(&context->event_group, "EVENT");
     if (status != TX_SUCCESS)
     {
         return status;

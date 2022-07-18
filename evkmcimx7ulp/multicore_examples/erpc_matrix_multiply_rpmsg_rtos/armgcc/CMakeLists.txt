@@ -206,7 +206,7 @@ include(middleware_issdk_algorithms_pedometer_common)
 
 include(middleware_multicore_erpc_common)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MCIMX7U5)
 
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)

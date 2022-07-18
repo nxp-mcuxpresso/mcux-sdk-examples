@@ -8,8 +8,8 @@ performed.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.5.0
+- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.6.0
 
 Hardware requirements
 =====================
@@ -40,20 +40,23 @@ Running the demo
 ================
 If the demo run successfully, you will see the red LED blink every two seconds.
 The log below shows example output of the WWDT driver demo in the terminal window:
+
+--- Time out reset test start ---
+Watchdog reset occurred
+
 --- Window mode refresh test start---
 
-WDOG has be refreshed!
-WDOG has be refreshed!
-WDOG has be refreshed!
-WDOG has be refreshed!
-WDOG has be refreshed!
-WDOG has be refreshed!
-WDOG has be refreshed!
-WDOG has be refreshed!
-WDOG has be refreshed!
-WDOG has be refreshed!
-WDOG has be refreshed!
-WDOG has be refreshed!
-WDOG has be refreshed!
-WDOG has be refreshed!
-
+ WDOG has be refreshed!
+ WDOG has be refreshed!
+ WDOG has be refreshed!
+ WDOG has be refreshed!
+ WDOG has be refreshed!
+ WDOG has be refreshed!
+ WDOG has be refreshed!
+ WDOG has be refreshed!
+ WDOG has be refreshed!
+ WDOG has be refreshed!
+ WDOG has be refreshed!
+ WDOG has be refreshed!
+ WDOG has be refreshed!
+ WDOG has be refreshed!

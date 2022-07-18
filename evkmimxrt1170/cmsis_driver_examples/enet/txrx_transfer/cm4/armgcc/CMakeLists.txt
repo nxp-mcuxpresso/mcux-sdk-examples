@@ -106,6 +106,8 @@ include(driver_dcdc_soc)
 
 include(driver_cache_lmem)
 
+include(component_silicon_id)
+
 include(driver_mdio-common)
 
 include(driver_anatop_ai)
@@ -128,7 +130,7 @@ include(driver_edma_MIMXRT1176_cm4)
 
 include(driver_dmamux)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMXRT1176_cm4)
 
 include(device_system_MIMXRT1176_cm4)
 
