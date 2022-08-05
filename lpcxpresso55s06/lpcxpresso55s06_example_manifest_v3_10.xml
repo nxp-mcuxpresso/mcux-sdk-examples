@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_lpcxpresso55s06_examples_manifest_v3_10" name="SDK_2.x_lpcxpresso55s06_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2022-07-15 08:18:45.007348-->
-  <!--This manifest is generated based on sdk repo commit: 45d71c921a1dd3e0403549aa377535344ed9bc97-->
+  <!--Timestamp (UTC): 2022-08-04 15:20:49.274015-->
+  <!--This manifest is generated based on sdk repo commit: 7fb442914f92023b395b260777eb2355254fd71d-->
   <externalDefinitions>
     <definition extID="LPC55S06JBD64"/>
     <definition extID="armgcc"/>
@@ -315,6 +315,16 @@
         <example id="lpcxpresso55s06_lpc_bod" name="lpc_bod" brief="The bod example shows how to use LPC BOD(Brown-out detector) in the simplest way. To run this example, user should remove the jumper for the power source selector, and connect the adjustable input voltage to the MCU's Vin pin. If the input voltage of the Vin pin is lower than the threshold voltage, the BOD interrupt will be asserted." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/bod" path="driver_examples/bod">
           <external path="driver_examples/bod" type="xml">
             <files mask="lpc_bod_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_mbedtls_benchmark" name="mbedtls_benchmark" brief="The mbdedTLS Benchmark demo application performs cryptographic algorithm benchmarking and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_benchmark">
+          <external path="mbedtls_examples/mbedtls_benchmark" type="xml">
+            <files mask="mbedtls_benchmark_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_mbedtls_selftest" name="mbedtls_selftest" brief="The mbdedTLS SelfTest program performs cryptographic algorithm testing and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_selftest">
+          <external path="mbedtls_examples/mbedtls_selftest" type="xml">
+            <files mask="mbedtls_selftest_v3_10.xml"/>
           </external>
         </example>
         <example id="lpcxpresso55s06_mcan_interrupt_transfer" name="mcan_interrupt_transfer" brief="The mcan_interrupt example shows how to use MCAN driver in none-blocking interrupt way:In this example, 2 boards are connected through CAN bus. Endpoint A(board A) send a CAN Message toEndpoint B(board B) when users press space key in terminal. Endpoint B receives the message, printsthe message content to terminal and echoes back the message. Endpoint A will increase the receivedmessage and wait for the next transmission the users initiate." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/mcan" path="driver_examples/mcan/interrupt_transfer">

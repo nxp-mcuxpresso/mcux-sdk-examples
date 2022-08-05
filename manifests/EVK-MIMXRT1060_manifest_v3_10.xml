@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_EVK-MIMXRT1060_manifest_v3_10" name="SDKVersion 2.12.0 SuperSet" brief="This is SDK version 2.12.0 manifest file." format_version="3.10" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2022-07-15 08:18:35.983930-->
-  <!--This manifest is generated based on sdk repo commit: 45d71c921a1dd3e0403549aa377535344ed9bc97-->
+  <!--Timestamp (UTC): 2022-08-11 15:00:46.125357-->
+  <!--This manifest is generated based on sdk repo commit: 7fb442914f92023b395b260777eb2355254fd71d-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
@@ -98,6 +98,16 @@ ${load}</script>
       </memory>
       <total_memory flash_size_kb="8192" ram_size_kb="32768"/>
       <examples>
+        <example id="evkmimxrt1060_a2dp_sink" name="a2dp_sink" brief="The ethermind audio source with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkmimxrt1060/edgefast_bluetooth_examples/a2dp_sink">
+          <external path="examples/evkmimxrt1060/edgefast_bluetooth_examples/a2dp_sink" type="xml">
+            <files mask="a2dp_sink_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_a2dp_source" name="a2dp_source" brief="The ethermind audio source with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkmimxrt1060/edgefast_bluetooth_examples/a2dp_source">
+          <external path="examples/evkmimxrt1060/edgefast_bluetooth_examples/a2dp_source" type="xml">
+            <files mask="a2dp_source_v3_10.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt1060_adc_12b1msps_sar_interrupt" name="adc_12b1msps_sar_interrupt" brief="The adc_interrupt example shows how to use interrupt with adc driver.In this example, user should indicate a channel to provide a voltage signal (can be controlled by user) as the adc'ssample input. When running the project, typing any key into debug console would trigger the conversion. ADC interrupt would be asserted once the conversion is completed. In ADC ISR, the conversion completed flag would be cleared by reading the conversion result value. Also, the conversion result value is stored, and the ISR counter is increased. These information would be printed when the execution return to the main loop.The point is that the adc interrupt configuration is set when configuring the adc's conversion channel. When in software trigger mode, the conversion would be launched by the operation of configuring channel, just like writing aconversion command. So if user wants to generate the interrupt every time the conversion is completed, the channel's configuration with enabling interrupt setting would be used for each conversion." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc" path="examples/evkmimxrt1060/driver_examples/adc/interrupt">
           <external path="examples/evkmimxrt1060/driver_examples/adc/interrupt" type="xml">
             <files mask="adc_12b1msps_sar_interrupt_v3_10.xml"/>
@@ -281,6 +291,21 @@ ${load}</script>
         <example id="evkmimxrt1060_deepviewrt_labelimage" name="deepviewrt_labelimage" brief="DeepViewRT LabelImage is as a basic &quot;labelimage&quot; example for using DeepViewRT on an RT106x platform.  The firmware integrates a user defined model with an example provided as well as a user provided image to classify." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt1060/eiq_examples/deepviewrt_labelimage">
           <external path="examples/evkmimxrt1060/eiq_examples/deepviewrt_labelimage" type="xml">
             <files mask="deepviewrt_labelimage_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_deepviewrt_modelrunner" name="deepviewrt_modelrunner" brief="DeepViewRT ModelRunner is a dedicated service for hosting and evaluating RTM graphs through a set of RPC protocols, it provides an HTTP REST API for loading an evaluating models. It can work with eIQ toolkit to evaluating and profiling models." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt1060/eiq_examples/deepviewrt_modelrunner">
+          <external path="examples/evkmimxrt1060/eiq_examples/deepviewrt_modelrunner" type="xml">
+            <files mask="deepviewrt_modelrunner_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_deepviewrt_modelrunner-glow" name="deepviewrt_modelrunner-glow" brief="DeepViewRT ModelRunner for GLOW" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt1060/eiq_examples/deepviewrt_modelrunner-glow">
+          <external path="examples/evkmimxrt1060/eiq_examples/deepviewrt_modelrunner-glow" type="xml">
+            <files mask="deepviewrt_modelrunner-glow_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_deepviewrt_modelrunner-tflite" name="deepviewrt_modelrunner-tflite" brief="DeepViewRT ModelRunner for TFlite" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt1060/eiq_examples/deepviewrt_modelrunner-tflite">
+          <external path="examples/evkmimxrt1060/eiq_examples/deepviewrt_modelrunner-tflite" type="xml">
+            <files mask="deepviewrt_modelrunner-tflite_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1060_dev_audio_generator_bm" name="dev_audio_generator_bm" brief="The USB Audio Generator application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a recording device and users can record the sound from this device via the &quot;Sound Recorder&quot; in the Windows Accessories." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/evkmimxrt1060/usb_examples/usb_device_audio_generator/bm">
@@ -566,6 +591,11 @@ ${load}</script>
         <example id="evkmimxrt1060_dev_video_virtual_camera_lite_bm" name="dev_video_virtual_camera_lite_bm" brief="The USB video virtual camera application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a camera and users can see the video of the device by using a PC test tool." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/evkmimxrt1060/usb_examples/usb_device_video_virtual_camera_lite/bm">
           <external path="examples/evkmimxrt1060/usb_examples/usb_device_video_virtual_camera_lite/bm" type="xml">
             <files mask="dev_video_virtual_camera_lite_bm_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_edgefast_bluetooth_shell" name="edgefast_bluetooth_shell" brief="The ethermind shell example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkmimxrt1060/edgefast_bluetooth_examples/shell">
+          <external path="examples/evkmimxrt1060/edgefast_bluetooth_examples/shell" type="xml">
+            <files mask="edgefast_bluetooth_shell_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1060_edma_channel_link" name="edma_channel_link" brief="The EDMA memory to memory example is a simple demonstration program that uses the SDK software.It excuates one shot transfer from source buffer to destination buffer using the SDK EDMA drivers.The purpose of this example is to show how to use the EDMA and to provide a simple example fordebugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/edma" path="examples/evkmimxrt1060/driver_examples/edma/channel_link">
@@ -953,6 +983,16 @@ ${load}</script>
             <files mask="guix_washing_machine_v3_10.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt1060_handsfree" name="handsfree" brief="The ethermind bluetooth handsfree example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkmimxrt1060/edgefast_bluetooth_examples/handsfree">
+          <external path="examples/evkmimxrt1060/edgefast_bluetooth_examples/handsfree" type="xml">
+            <files mask="handsfree_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_handsfree_ag" name="handsfree_ag" brief="The ethermind handsfree AG example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkmimxrt1060/edgefast_bluetooth_examples/handsfree_ag">
+          <external path="examples/evkmimxrt1060/edgefast_bluetooth_examples/handsfree_ag" type="xml">
+            <files mask="handsfree_ag_v3_10.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt1060_hello_world" name="hello_world" brief="The HelloWorld demo prints the &quot;Hello World&quot; string to the terminal using the SDK UART drivers and repeat what user input. The purpose of this demo is to show how to use the UART, and to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/evkmimxrt1060/demo_apps/hello_world">
           <external path="examples/evkmimxrt1060/demo_apps/hello_world" type="xml">
             <files mask="hello_world_v3_10.xml"/>
@@ -1118,6 +1158,11 @@ ${load}</script>
             <files mask="kpp_v3_10.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt1060_littlefs_shell" name="littlefs_shell" brief="Demonstrates littlefs functionality by commands executed from shell." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="littlefs_examples" path="examples/evkmimxrt1060/littlefs_examples/littlefs_shell">
+          <external path="examples/evkmimxrt1060/littlefs_examples/littlefs_shell" type="xml">
+            <files mask="littlefs_shell_v3_10.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt1060_log_bm" name="log_bm" brief="The log demo is used to demonstrate how to use log component. The main function of the demo is to prompt the LOG level string according to the user input log level command." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="examples/evkmimxrt1060/component_examples/log/bm">
           <external path="examples/evkmimxrt1060/component_examples/log/bm" type="xml">
             <files mask="log_bm_v3_10.xml"/>
@@ -1246,6 +1291,81 @@ ${load}</script>
         <example id="evkmimxrt1060_lpuart_polling_seven_bits" name="lpuart_polling_seven_bits" brief="The lpuart_polling_seven_bits Example project is to demonstrate usage of the KSDK lpuart driver with seven data bits feature enabled.In the example, you can send characters to the console back and they will be printed out onto console instantly.NOTE: Please set com port format to &quot;7 data bits without parity bit&quot; in PC's com port tool" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpuart" path="examples/evkmimxrt1060/driver_examples/lpuart/polling_seven_bits">
           <external path="examples/evkmimxrt1060/driver_examples/lpuart/polling_seven_bits" type="xml">
             <files mask="lpuart_polling_seven_bits_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_lwip_dhcp_bm" name="lwip_dhcp_bm" brief="The lwip_dhcp demo application demonstrates a DHCP demo on the lwIP TCP/IP stack.The application acts as a DHCP client and prints the status as it is progressing.Once the interface is being bound to an IP address obtained from DHCP server, address information is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/evkmimxrt1060/lwip_examples/lwip_dhcp/bm">
+          <external path="examples/evkmimxrt1060/lwip_examples/lwip_dhcp/bm" type="xml">
+            <files mask="lwip_dhcp_bm_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_lwip_dhcp_freertos" name="lwip_dhcp_freertos" brief="The lwip_dhcp demo application demonstrates a DHCP demo on the lwIP TCP/IP stack.The application acts as a DHCP client and prints the status as it is progressing.Once the interface is being bound to an IP address obtained from DHCP server, address information is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/evkmimxrt1060/lwip_examples/lwip_dhcp/freertos">
+          <external path="examples/evkmimxrt1060/lwip_examples/lwip_dhcp/freertos" type="xml">
+            <files mask="lwip_dhcp_freertos_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_lwip_dhcp_usb_bm" name="lwip_dhcp_usb_bm" brief="The lwip_dhcp_usb demo application demonstrates a DHCP demo on the lwIP TCP/IP stack.The application acts as a DHCP client and prints the status as it is progressing.Once the interface is being bound to an IP address obtained from DHCP server, address information is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/evkmimxrt1060/lwip_examples/lwip_dhcp_usb/bm">
+          <external path="examples/evkmimxrt1060/lwip_examples/lwip_dhcp_usb/bm" type="xml">
+            <files mask="lwip_dhcp_usb_bm_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_lwip_dhcp_usb_freertos" name="lwip_dhcp_usb_freertos" brief="The lwip_dhcp demo application demonstrates a DHCP demo on the lwIP TCP/IP stack.The application acts as a DHCP client and prints the status as it is progressing.Once the interface is being bound to an IP address obtained from DHCP server, address information is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/evkmimxrt1060/lwip_examples/lwip_dhcp_usb/freertos">
+          <external path="examples/evkmimxrt1060/lwip_examples/lwip_dhcp_usb/freertos" type="xml">
+            <files mask="lwip_dhcp_usb_freertos_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_lwip_httpsrv_bm" name="lwip_httpsrv_bm" brief="The lwip_httpsrv demo application demonstrates an HTTPServer on the lwIP TCP/IP stack with bare metal SDK or FreeRTOS.The user uses an Internet browser to send a request for connection. The board acts as an HTTP server and sends a Webpage back to the PC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/evkmimxrt1060/lwip_examples/lwip_httpsrv/bm">
+          <external path="examples/evkmimxrt1060/lwip_examples/lwip_httpsrv/bm" type="xml">
+            <files mask="lwip_httpsrv_bm_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_lwip_httpsrv_freertos" name="lwip_httpsrv_freertos" brief="The lwip_httpsrv demo application demonstrates an HTTPServer on the lwIP TCP/IP stack with bare metal SDK or FreeRTOS.The user uses an Internet browser to send a request for connection. The board acts as an HTTP server and sends a Webpage back to the PC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/evkmimxrt1060/lwip_examples/lwip_httpsrv/freertos">
+          <external path="examples/evkmimxrt1060/lwip_examples/lwip_httpsrv/freertos" type="xml">
+            <files mask="lwip_httpsrv_freertos_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_lwip_httpssrv_mbedTLS_bm" name="lwip_httpssrv_mbedTLS_bm" brief="The lwip_httpsrv_mbedTSL_bm demo application demonstrates an HTTPS Serverset up on lwIP TCP/IP and the mbedTLS stack with bare metal. The useruses an Internet browser to send an https request for connection.The board acts as an HTTPS server and sends a Web page back to the PC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/evkmimxrt1060/lwip_examples/lwip_httpssrv_mbedTLS/bm">
+          <external path="examples/evkmimxrt1060/lwip_examples/lwip_httpssrv_mbedTLS/bm" type="xml">
+            <files mask="lwip_httpssrv_mbedTLS_bm_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_lwip_httpssrv_mbedTLS_freertos" name="lwip_httpssrv_mbedTLS_freertos" brief="The lwip_httpsrv_mbedTLS demo application demonstrates an HTTPServer set up on lwIP TCP/IP and the MbedTLS stack withFreeRTOS. The user uses an Internet browser to send an https request for connection. The board acts as an HTTP serverand sends a Web page back to the PC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/evkmimxrt1060/lwip_examples/lwip_httpssrv_mbedTLS/freertos">
+          <external path="examples/evkmimxrt1060/lwip_examples/lwip_httpssrv_mbedTLS/freertos" type="xml">
+            <files mask="lwip_httpssrv_mbedTLS_freertos_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_lwip_iperf_bm" name="lwip_iperf_bm" brief="This is the IPerf server example to check your bandwidth using the network performance measurement IPerf application on a PC as a client.It is currently a minimal implementation providing an IPv4 TCP server only.Instead of the command line IPerf application, for more convenience, it is recommended to use the JPerf2 graphical tool, which can be downloaded here: https://sourceforge.net/projects/iperf/files/jperf/jperf%202.0.0/jperf-2.0.0.zip/download" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/evkmimxrt1060/lwip_examples/lwip_iperf/bm">
+          <external path="examples/evkmimxrt1060/lwip_examples/lwip_iperf/bm" type="xml">
+            <files mask="lwip_iperf_bm_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_lwip_ipv4_ipv6_echo_freertos" name="lwip_ipv4_ipv6_echo_freertos" brief="The lwip_ipv4_ipv6_echo demo application demonstrates a TCP or UDP echo demo on the lwIP TCP/IP stack with FreeRTOS. The demo uses the TCP or UDP protocol over both IPv4 and IPv6 and acts as an echo server. The application sends back the received TCP or UDP packets from the PC, which can be used to test whether a TCP or UDP is available." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/evkmimxrt1060/lwip_examples/lwip_ipv4_ipv6_echo/freertos">
+          <external path="examples/evkmimxrt1060/lwip_examples/lwip_ipv4_ipv6_echo/freertos" type="xml">
+            <files mask="lwip_ipv4_ipv6_echo_freertos_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_lwip_mqtt_freertos" name="lwip_mqtt_freertos" brief="The lwip_mqtt demo application demonstrates MQTT client connecting to MQTT broker via unsecured socket. The application obtains IP and DNS addresses from DHCP and resolves broker's hostname if needed. Then it connects to the broker and subscribes to the &quot;lwip_topic/#&quot; and &quot;lwip_other/#&quot; topics. Further it publishes five messages to the &quot;lwip_topic/100&quot; which are also received back as the board is subscribed to the &quot;lwip_topic/#&quot;. Meanwhile it continues to receive messages published to the subscribed topics from other clients." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/evkmimxrt1060/lwip_examples/lwip_mqtt/freertos">
+          <external path="examples/evkmimxrt1060/lwip_examples/lwip_mqtt/freertos" type="xml">
+            <files mask="lwip_mqtt_freertos_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_lwip_ping_bm" name="lwip_ping_bm" brief="The lwip_ping demo application demonstrates a Ping Demo on the lwIP TCP/IP stack, which uses the ICMP protocol. Theapplication periodically sends the ICMP echo request to a PC, and processes the PC reply. Type &quot;ping $board_address&quot;in the PC command window to send an ICMP echo request to the board. The lwIP stack sends the ICMP echo reply back to thePC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/evkmimxrt1060/lwip_examples/lwip_ping/bm">
+          <external path="examples/evkmimxrt1060/lwip_examples/lwip_ping/bm" type="xml">
+            <files mask="lwip_ping_bm_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_lwip_ping_freertos" name="lwip_ping_freertos" brief="The lwip_ping demo application demonstrates a Ping Demo on the lwIP TCP/IP stack which using the ICMP protocol. Theapplication periodically sends the ICMP echo request to a PC and processes the PC reply. Type the &quot;ping $board_address&quot;in the PC command window to send an ICMP echo request to the board. The lwIP stack sends the ICMP echo reply back to thePC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/evkmimxrt1060/lwip_examples/lwip_ping/freertos">
+          <external path="examples/evkmimxrt1060/lwip_examples/lwip_ping/freertos" type="xml">
+            <files mask="lwip_ping_freertos_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_mbedtls_benchmark" name="mbedtls_benchmark" brief="The mbdedTLS Benchmark demo application performs cryptographic algorithm benchmarking and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="examples/evkmimxrt1060/mbedtls_examples/mbedtls_benchmark">
+          <external path="examples/evkmimxrt1060/mbedtls_examples/mbedtls_benchmark" type="xml">
+            <files mask="mbedtls_benchmark_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_mbedtls_selftest" name="mbedtls_selftest" brief="The mbdedTLS SelfTest program performs cryptographic algorithm testing and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="examples/evkmimxrt1060/mbedtls_examples/mbedtls_selftest">
+          <external path="examples/evkmimxrt1060/mbedtls_examples/mbedtls_selftest" type="xml">
+            <files mask="mbedtls_selftest_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1060_mmccard_freertos" name="mmccard_freertos" brief="The MMCCARD FreeRTOS project is a demonstration program that uses the SDK software. It reads/writes/erases the MMC card continusly. The purpose of this example is to show how to use MMCCARD driverwith FreeRTOS in SDK software to access MMC card.Note:User can use MMC plus card or emmc(on board IC, but not recommand use emmc socket,due to high speed timing restriction)" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/mmccard_freertos" path="examples/evkmimxrt1060/sdmmc_examples/mmccard_freertos">
@@ -1508,6 +1628,11 @@ ${load}</script>
             <files mask="spi_b2b_example_slave_v3_10.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt1060_spp" name="spp" brief="The Bluetooth BR SPP example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkmimxrt1060/edgefast_bluetooth_examples/spp">
+          <external path="examples/evkmimxrt1060/edgefast_bluetooth_examples/spp" type="xml">
+            <files mask="spp_v3_10.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt1060_src_reset_source" name="src_reset_source" brief="The src_reset_source example shows how to check the reset source and boot option with SRC driver.When run this example firstly on the board after power up, the POR reset or IPP reset flag would be asserted. But when running it again, the flag would be cleared, since it is no longer a reset.Usually, the reset flags are used and cleared by ROM code or bootloader to check which reset occurred. With the boot mode words, the initial boot code would go to the right way to execute the start code. For example, when the SoC is waked up from some low power mode, all necessary data are already staying in the RAM, the CPU would not have to reload the program to RAM and execute the application directly." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/src" path="examples/evkmimxrt1060/driver_examples/src/src_reset_source">
           <external path="examples/evkmimxrt1060/driver_examples/src/src_reset_source" type="xml">
             <files mask="src_reset_source_v3_10.xml"/>
@@ -1606,6 +1731,36 @@ ${load}</script>
         <example id="evkmimxrt1060_wdog01" name="wdog01" brief="The WDOG Example project is to demonstrate usage of the KSDK wdog driver.In this example,implemented to test the wdog.And then after 10 times of refreshing the watchdog, a timeout reset is generated.We also try to refresh out of window to trigger reset after 10 times of refreshing.Please notice that because WDOG control registers are write-once only, so the WDOG_Init function and the WDOG_Disable function can be called only once after reset." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/wdog" path="examples/evkmimxrt1060/driver_examples/wdog">
           <external path="examples/evkmimxrt1060/driver_examples/wdog" type="xml">
             <files mask="wdog01_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_wifi_cert" name="wifi_cert" brief="wifi_cert" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/evkmimxrt1060/wifi_examples/wifi_cert">
+          <external path="examples/evkmimxrt1060/wifi_examples/wifi_cert" type="xml">
+            <files mask="wifi_cert_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_wifi_cli" name="wifi_cli" brief="wifi_cli" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/evkmimxrt1060/wifi_examples/wifi_cli">
+          <external path="examples/evkmimxrt1060/wifi_examples/wifi_cli" type="xml">
+            <files mask="wifi_cli_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_wifi_cli_fw_dump" name="wifi_cli_fw_dump" brief="wifi_cli_fw_dump" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/evkmimxrt1060/wifi_examples/wifi_cli_fw_dump">
+          <external path="examples/evkmimxrt1060/wifi_examples/wifi_cli_fw_dump" type="xml">
+            <files mask="wifi_cli_fw_dump_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_wifi_ipv4_ipv6_echo" name="wifi_ipv4_ipv6_echo" brief="The wifi_ipv4_ipv6_echo demo application demonstrates a TCP or UDP echo demo on the lwIP TCP/IP stack with FreeRTOS. The demo uses the TCP or UDP protocol over both IPv4 and IPv6 and acts as an echo server. The application sends back the received TCP or UDP packets from the PC, which can be used to test whether a TCP or UDP is available." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/evkmimxrt1060/wifi_examples/wifi_ipv4_ipv6_echo">
+          <external path="examples/evkmimxrt1060/wifi_examples/wifi_ipv4_ipv6_echo" type="xml">
+            <files mask="wifi_ipv4_ipv6_echo_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_wifi_setup" name="wifi_setup" brief="wifi_setup" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/evkmimxrt1060/wifi_examples/wifi_setup">
+          <external path="examples/evkmimxrt1060/wifi_examples/wifi_setup" type="xml">
+            <files mask="wifi_setup_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1060_wifi_test_mode" name="wifi_test_mode" brief="wifi_test_mode" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/evkmimxrt1060/wifi_examples/wifi_test_mode">
+          <external path="examples/evkmimxrt1060/wifi_examples/wifi_test_mode" type="xml">
+            <files mask="wifi_test_mode_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1060_xbar_aoi" name="xbar_aoi" brief="The XBAR AOI demo application demonstrates the usage of the XBAR, AOI peripheral to combine interruptfrom CMP and PIT. If the button is pressed(CMP interrupt) and the PIT periodic interrupt occurs a message is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/evkmimxrt1060/demo_apps/xbar_aoi">
@@ -4526,6 +4681,35 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="component.wifi_bt_module.tx_pwr_limits.MIMXRT1062" name="wifi_bt_module_tx_pwr_limits" brief="Wi-Fi module Tx power limits" version="1.0.0" full_name="Wi-Fi module Tx power limits" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" user_visible="true" type="software_component" package_base_path="core/components/wifi_bt_module" project_base_path="component/wifi_bt_module">
+      <source relative_path="AzureWave/tx_pwr_limits" type="c_include">
+        <files mask="wlan_txpwrlimit_cfg_WW.h"/>
+      </source>
+      <source relative_path="Murata/tx_pwr_limits" type="c_include">
+        <files mask="wlan_txpwrlimit_cfg_murata_1XK_CA.h"/>
+        <files mask="wlan_txpwrlimit_cfg_murata_1XK_EU.h"/>
+        <files mask="wlan_txpwrlimit_cfg_murata_1XK_JP.h"/>
+        <files mask="wlan_txpwrlimit_cfg_murata_1XK_US.h"/>
+        <files mask="wlan_txpwrlimit_cfg_murata_1XK_WW.h"/>
+        <files mask="wlan_txpwrlimit_cfg_murata_1ZM_CA.h"/>
+        <files mask="wlan_txpwrlimit_cfg_murata_1ZM_EU.h"/>
+        <files mask="wlan_txpwrlimit_cfg_murata_1ZM_JP.h"/>
+        <files mask="wlan_txpwrlimit_cfg_murata_1ZM_US.h"/>
+        <files mask="wlan_txpwrlimit_cfg_murata_1ZM_WW.h"/>
+        <files mask="wlan_txpwrlimit_cfg_murata_2DS_CA.h"/>
+        <files mask="wlan_txpwrlimit_cfg_murata_2DS_EU.h"/>
+        <files mask="wlan_txpwrlimit_cfg_murata_2DS_JP.h"/>
+        <files mask="wlan_txpwrlimit_cfg_murata_2DS_US.h"/>
+        <files mask="wlan_txpwrlimit_cfg_murata_2DS_WW.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_wifi_bt_module_tx_pwr_limits.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="AzureWave/tx_pwr_limits" type="c_include"/>
+        <include_path relative_path="Murata/tx_pwr_limits" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="component.wm8904_adapter.MIMXRT1062" name="codec_wm8904_adapter" brief="Component wm8904 adapter for single codec" version="2.2.0" full_name="Component wm8904_adapter" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" user_visible="true" type="abstraction_layer" package_base_path="core/components/codec/" project_base_path="codec">
       <dependencies>
         <all>
@@ -4676,6 +4860,14 @@ ${load}</script>
         <files mask="eIQ_Media_Processing_Pipeline_User_Guide.pdf"/>
       </source>
     </component>
+    <component id="docs.littlefs.MIMXRT1062" name="doc_littlefs" brief="Littlefs documentation" version="1.0.0" full_name="Littlefs documentation" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" user_visible="true" type="documentation" package_base_path="core/docs/littlefs" project_base_path="littlefs">
+      <dependencies>
+        <component_dependency value="middleware.littlefs.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="./" type="doc">
+        <files mask="littlefs.txt"/>
+      </source>
+    </component>
     <component id="docs.multicore.MIMXRT1062" name="docs_multicore" brief="Collection of Multicore SDK documentation" version="2.12.0" full_name="Multicore SDK documentation" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" user_visible="true" type="documentation" package_base_path="core/docs/MULTICORE" project_base_path="MULTICORE">
       <dependencies>
         <any_of>
@@ -4694,6 +4886,28 @@ ${load}</script>
       </dependencies>
       <source relative_path="./" type="doc">
         <files mask="eRPC Getting Started User's Guide.pdf"/>
+      </source>
+    </component>
+    <component id="docs.wifi.MIMXRT1062" name="doc_wifi" brief="Wi-Fi documentation" version="1.0.0" full_name="Wi-Fi documentation" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" user_visible="true" type="documentation" package_base_path="core/docs/wireless/Wi-Fi" project_base_path="wireless/Wi-Fi">
+      <dependencies>
+        <component_dependency value="middleware.wifi.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="./" type="doc">
+        <files mask="AN12917-Compliance-and-certification-considerations.pdf"/>
+        <files mask="AN12918-Wi-Fi-Tx-Power-Table-and-Channel-Scan-Management-for-i.MX-RT-SDK.pdf"/>
+        <files mask="MCUXpresso_SDK_WLAN_Driver_Reference_Manual.pdf"/>
+        <files mask="TN00066-WFA-Derivative-Certification-Process.pdf"/>
+        <files mask="UM11567-WFA-Certification-Guide-for-NXP-based-Wireless-Modules-on-i.MX-RT-Platform-Running-RTOS.pdf"/>
+      </source>
+    </component>
+    <component id="docs.wifi_bt.MIMXRT1062" name="doc_wifi_bt" brief="Wi-Fi and Bluetooth documentation" version="1.0.0" full_name="Wi-Fi and Bluetooth documentation" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" user_visible="true" type="documentation" package_base_path="core/docs/wireless" project_base_path="wireless">
+      <dependencies>
+        <component_dependency value="middleware.wifi.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="./" type="doc">
+        <files mask="UM11441-Getting-Started-with-NXP-based-Wireless-Modules-and-i.MX-RT-Platform-Running-on-RTOS.pdf"/>
+        <files mask="UM11442-NXP-Wi-Fi-and-Bluetooth-Demo-Applications-for-i.MX-RT-platforms-User-Guide.pdf"/>
+        <files mask="UM11443-NXP-Wi-Fi-and-Bluetooth-Debug-Feature-Configuration-Guide-for-i.MX-RT-Platforms.pdf"/>
       </source>
     </component>
     <component id="docs_external.MIMXRT1062.MIMXRT1062" name="docs_external.MIMXRT1062" brief="External documentation for MIMXRT1062." version="1.0.0" full_name="External documentation" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" user_visible="true" type="documentation" package_base_path="core/docs" project_base_path="docs">
@@ -15386,6 +15600,35 @@ ${load}</script>
         <files mask="middleware_baremetal.cmake" hidden="true"/>
       </source>
     </component>
+    <component id="middleware.edgefast_wifi.MIMXRT1062" name="edgefast_wifi" brief="Wi-Fi Edgefast Abstraction Layer" version="1.0.0" full_name="Middleware Edgefast Wi-Fi" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Wireless/Middleware Edgefast Wi-Fi" user_visible="true" type="middleware" package_base_path="middleware/edgefast_wifi" project_base_path="edgefast_wifi">
+      <dependencies>
+        <component_dependency value="middleware.wifi.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="include" type="c_include">
+        <files mask="wpl.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_edgefast_wifi.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="include" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.edgefast_wifi_nxp.MIMXRT1062" name="edgefast_wifi_nxp" brief="Blocking layer for NXP Wi-Fi" version="1.0.0" full_name="Middleware Edgefast Wi-Fi NXP" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Wireless/Middleware Edgefast Wi-Fi" user_visible="true" type="middleware" package_base_path="middleware/edgefast_wifi" project_base_path="edgefast_wifi">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.edgefast_wifi.MIMXRT1062"/>
+          <component_dependency value="middleware.wifi.MIMXRT1062"/>
+          <component_dependency value="middleware.freertos-kernel.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source relative_path="source" type="src">
+        <files mask="wpl_nxp.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_edgefast_wifi_nxp.cmake" hidden="true"/>
+      </source>
+    </component>
     <component id="middleware.eiq.deepviewrt.MIMXRT1062" name="DeepViewRT Lib" brief="DeepViewRT Runtime library" version="2.4.44" full_name="DeepViewRT Lib" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" category="Machine Learning/eIQ" user_visible="true" type="middleware" package_base_path="middleware/eiq" project_base_path="eiq">
       <source relative_path="deepviewrt/include" type="c_include">
         <files mask="deepview_ops.h"/>
@@ -17147,6 +17390,2156 @@ ${load}</script>
       <include_paths>
         <include_path relative_path="template/ARM_CM4F" project_relative_path="../../source" type="c_include" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB"/>
       </include_paths>
+    </component>
+    <component id="middleware.littlefs.MIMXRT1062" name="LittleFS" brief="littlefs" version="2.4.1" full_name="LittleFS File System stack" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" category="File System/LittleFS File System" user_visible="true" type="middleware" package_base_path="middleware/littlefs" project_base_path="littlefs">
+      <source relative_path="./" type="src">
+        <files mask="lfs.c"/>
+        <files mask="lfs_util.c"/>
+      </source>
+      <source relative_path="./" type="c_include">
+        <files mask="lfs.h"/>
+        <files mask="lfs_util.h"/>
+      </source>
+      <source exclude="true" relative_path="./" type="doc">
+        <files mask="ChangeLogKSDK.txt" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_littlefs.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.littlefs.unused_files.MIMXRT1062" name="unused_files" brief="littlefs files unused by projects" version="2.4.1" full_name="Middleware littlefs unused_files" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" user_visible="false" type="other" package_base_path="middleware/littlefs" project_base_path="littlefs">
+      <source exclude="true" relative_path="./" type="other">
+        <files mask="DESIGN.md" hidden="true"/>
+        <files mask="LICENSE.md" hidden="true"/>
+        <files mask="README.md" hidden="true"/>
+        <files mask="SPEC.md" hidden="true"/>
+      </source>
+    </component>
+    <component id="middleware.lwip.MIMXRT1062" name="lwIP" brief="lwIP - A Lightweight TCP/IP Stack" version="2.2.0" revision="6" full_name="lwIP" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Network/lwIP TCPIP Networking Stack" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.lwip.template.MIMXRT1062"/>
+          <any_of>
+            <component_dependency value="middleware.lwip.empty_ethernetif.MIMXRT1062"/>
+            <component_dependency value="middleware.wifi.MIMXRT1062"/>
+            <component_dependency value="middleware.lwip.enet_ethernetif.MIMXRT1062"/>
+            <component_dependency value="middleware.lwip.usb_ethernetif.MIMXRT1062"/>
+          </any_of>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="doc">
+        <files mask="BUILDING" hidden="true"/>
+        <files mask="CHANGELOG" hidden="true"/>
+        <files mask="COPYING" hidden="true"/>
+        <files mask="FEATURES" hidden="true"/>
+        <files mask="FILES" hidden="true"/>
+        <files mask="README" hidden="true"/>
+        <files mask="UPGRADING" hidden="true"/>
+        <files mask="ChangeLogKSDK.txt" hidden="true"/>
+      </source>
+      <source relative_path="doc" type="doc">
+        <files mask="contrib.txt" hidden="true"/>
+        <files mask="mdns.txt" hidden="true"/>
+        <files mask="mqtt_client.txt" hidden="true"/>
+        <files mask="ppp.txt" hidden="true"/>
+        <files mask="savannah.txt" hidden="true"/>
+        <files mask="FILES" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="doc" type="doc">
+        <files mask="NO_SYS_SampleCode.c" hidden="true"/>
+        <files mask="ZeroCopyRx.c" hidden="true"/>
+      </source>
+      <source relative_path="doc/doxygen" type="doc">
+        <files mask="main_page.h" hidden="true"/>
+        <files mask="generate.sh" hidden="true"/>
+        <files mask="lwip.Doxyfile.cmake.in" hidden="true"/>
+        <files mask="lwip.Doxyfile" hidden="true"/>
+        <files mask="generate.bat" hidden="true"/>
+      </source>
+      <source relative_path="doc/doxygen/output" type="doc">
+        <files mask="index.html" hidden="true"/>
+      </source>
+      <source relative_path="port" type="src">
+        <files mask="sys_arch.c"/>
+      </source>
+      <source relative_path="port/arch" type="c_include">
+        <files mask="cc.h"/>
+        <files mask="perf.h"/>
+        <files mask="sys_arch.h"/>
+      </source>
+      <source relative_path="src" type="doc">
+        <files mask="FILES" hidden="true"/>
+      </source>
+      <source relative_path="src/api" type="src">
+        <files mask="sockets.c"/>
+        <files mask="netifapi.c"/>
+        <files mask="netdb.c"/>
+        <files mask="netbuf.c"/>
+        <files mask="tcpip.c"/>
+        <files mask="api_msg.c"/>
+        <files mask="err.c"/>
+        <files mask="if_api.c"/>
+        <files mask="api_lib.c"/>
+      </source>
+      <source relative_path="src/core" type="src">
+        <files mask="memp.c"/>
+        <files mask="def.c"/>
+        <files mask="ip.c"/>
+        <files mask="pbuf.c"/>
+        <files mask="altcp.c"/>
+        <files mask="tcp_out.c"/>
+        <files mask="raw.c"/>
+        <files mask="altcp_tcp.c"/>
+        <files mask="sys.c"/>
+        <files mask="init.c"/>
+        <files mask="inet_chksum.c"/>
+        <files mask="timeouts.c"/>
+        <files mask="tcp_in.c"/>
+        <files mask="netif.c"/>
+        <files mask="mem.c"/>
+        <files mask="udp.c"/>
+        <files mask="tcp.c"/>
+        <files mask="stats.c"/>
+        <files mask="dns.c"/>
+        <files mask="altcp_alloc.c"/>
+      </source>
+      <source relative_path="src/core/ipv6" type="src">
+        <files mask="ethip6.c"/>
+        <files mask="dhcp6.c"/>
+        <files mask="ip6_addr.c"/>
+        <files mask="nd6.c"/>
+        <files mask="mld6.c"/>
+        <files mask="icmp6.c"/>
+        <files mask="ip6_frag.c"/>
+        <files mask="ip6.c"/>
+        <files mask="inet6.c"/>
+      </source>
+      <source relative_path="src/core/ipv4" type="src">
+        <files mask="dhcp.c"/>
+        <files mask="ip4.c"/>
+        <files mask="autoip.c"/>
+        <files mask="icmp.c"/>
+        <files mask="acd.c"/>
+        <files mask="etharp.c"/>
+        <files mask="ip4_addr.c"/>
+        <files mask="igmp.c"/>
+        <files mask="ip4_frag.c"/>
+      </source>
+      <source relative_path="src/include/compat/stdc" type="c_include">
+        <files mask="errno.h"/>
+      </source>
+      <source relative_path="src/include/compat/posix" type="c_include">
+        <files mask="netdb.h"/>
+      </source>
+      <source relative_path="src/include/compat/posix/sys" type="c_include">
+        <files mask="socket.h"/>
+      </source>
+      <source relative_path="src/include/compat/posix/net" type="c_include">
+        <files mask="if.h"/>
+      </source>
+      <source relative_path="src/include/compat/posix/arpa" type="c_include">
+        <files mask="inet.h"/>
+      </source>
+      <source relative_path="src/include/lwip" type="c_include">
+        <files mask="acd.h"/>
+        <files mask="altcp.h"/>
+        <files mask="altcp_tcp.h"/>
+        <files mask="altcp_tls.h"/>
+        <files mask="api.h"/>
+        <files mask="arch.h"/>
+        <files mask="autoip.h"/>
+        <files mask="debug.h"/>
+        <files mask="def.h"/>
+        <files mask="dhcp.h"/>
+        <files mask="dhcp6.h"/>
+        <files mask="dns.h"/>
+        <files mask="err.h"/>
+        <files mask="errno.h"/>
+        <files mask="etharp.h"/>
+        <files mask="ethip6.h"/>
+        <files mask="icmp.h"/>
+        <files mask="icmp6.h"/>
+        <files mask="if_api.h"/>
+        <files mask="igmp.h"/>
+        <files mask="inet.h"/>
+        <files mask="inet_chksum.h"/>
+        <files mask="init.h"/>
+        <files mask="ip.h"/>
+        <files mask="ip4.h"/>
+        <files mask="ip4_addr.h"/>
+        <files mask="ip4_frag.h"/>
+        <files mask="ip6.h"/>
+        <files mask="ip6_addr.h"/>
+        <files mask="ip6_frag.h"/>
+        <files mask="ip6_zone.h"/>
+        <files mask="ip_addr.h"/>
+        <files mask="mem.h"/>
+        <files mask="memp.h"/>
+        <files mask="mld6.h"/>
+        <files mask="nd6.h"/>
+        <files mask="netbuf.h"/>
+        <files mask="netdb.h"/>
+        <files mask="netif.h"/>
+        <files mask="netifapi.h"/>
+        <files mask="opt.h"/>
+        <files mask="pbuf.h"/>
+        <files mask="raw.h"/>
+        <files mask="sio.h"/>
+        <files mask="snmp.h"/>
+        <files mask="sockets.h"/>
+        <files mask="stats.h"/>
+        <files mask="sys.h"/>
+        <files mask="tcp.h"/>
+        <files mask="tcpbase.h"/>
+        <files mask="tcpip.h"/>
+        <files mask="timeouts.h"/>
+        <files mask="udp.h"/>
+      </source>
+      <source relative_path="src/include/lwip/priv" type="c_include">
+        <files mask="altcp_priv.h"/>
+        <files mask="mem_priv.h"/>
+        <files mask="memp_priv.h"/>
+        <files mask="memp_std.h"/>
+        <files mask="api_msg.h"/>
+        <files mask="nd6_priv.h"/>
+        <files mask="tcpip_priv.h"/>
+        <files mask="tcp_priv.h"/>
+        <files mask="raw_priv.h"/>
+        <files mask="sockets_priv.h"/>
+      </source>
+      <source relative_path="src/include/lwip/prot" type="c_include">
+        <files mask="ip6.h"/>
+        <files mask="udp.h"/>
+        <files mask="mld6.h"/>
+        <files mask="ip4.h"/>
+        <files mask="icmp.h"/>
+        <files mask="igmp.h"/>
+        <files mask="dhcp.h"/>
+        <files mask="tcp.h"/>
+        <files mask="autoip.h"/>
+        <files mask="iana.h"/>
+        <files mask="ieee.h"/>
+        <files mask="dns.h"/>
+        <files mask="icmp6.h"/>
+        <files mask="ethernet.h"/>
+        <files mask="nd6.h"/>
+        <files mask="ip.h"/>
+        <files mask="acd.h"/>
+        <files mask="dhcp6.h"/>
+        <files mask="etharp.h"/>
+      </source>
+      <source relative_path="src/include/netif" type="c_include">
+        <files mask="bridgeif.h"/>
+        <files mask="zepif.h"/>
+        <files mask="lowpan6.h"/>
+        <files mask="ieee802154.h"/>
+        <files mask="ethernet.h"/>
+        <files mask="lowpan6_common.h"/>
+        <files mask="lowpan6_opts.h"/>
+        <files mask="bridgeif_opts.h"/>
+        <files mask="slipif.h"/>
+        <files mask="lowpan6_ble.h"/>
+        <files mask="etharp.h"/>
+      </source>
+      <source relative_path="src/include/netif/ppp" type="c_include">
+        <files mask="ipv6cp.h"/>
+        <files mask="pppapi.h"/>
+        <files mask="magic.h"/>
+        <files mask="ppp.h"/>
+        <files mask="upap.h"/>
+        <files mask="mppe.h"/>
+        <files mask="pppol2tp.h"/>
+        <files mask="pppoe.h"/>
+        <files mask="ipcp.h"/>
+        <files mask="pppdebug.h"/>
+        <files mask="eap.h"/>
+        <files mask="pppos.h"/>
+        <files mask="ppp_opts.h"/>
+        <files mask="pppcrypt.h"/>
+        <files mask="vj.h"/>
+        <files mask="chap-new.h"/>
+        <files mask="eui64.h"/>
+        <files mask="chap_ms.h"/>
+        <files mask="ccp.h"/>
+        <files mask="ecp.h"/>
+        <files mask="lcp.h"/>
+        <files mask="fsm.h"/>
+        <files mask="ppp_impl.h"/>
+        <files mask="chap-md5.h"/>
+      </source>
+      <source relative_path="src/include/netif/ppp/polarssl" type="c_include">
+        <files mask="sha1.h"/>
+        <files mask="des.h"/>
+        <files mask="md5.h"/>
+        <files mask="md4.h"/>
+        <files mask="arc4.h"/>
+      </source>
+      <source relative_path="src/netif" type="src">
+        <files mask="bridgeif.c"/>
+        <files mask="bridgeif_fdb.c"/>
+        <files mask="ethernet.c"/>
+        <files mask="lowpan6.c"/>
+        <files mask="lowpan6_ble.c"/>
+        <files mask="lowpan6_common.c"/>
+        <files mask="slipif.c"/>
+        <files mask="zepif.c"/>
+      </source>
+      <source relative_path="src/netif" type="doc">
+        <files mask="FILES" hidden="true"/>
+      </source>
+      <source relative_path="src/netif/ppp" type="src">
+        <files mask="auth.c"/>
+        <files mask="ccp.c"/>
+        <files mask="chap-md5.c"/>
+        <files mask="chap-new.c"/>
+        <files mask="chap_ms.c"/>
+        <files mask="demand.c"/>
+        <files mask="eap.c"/>
+        <files mask="ecp.c"/>
+        <files mask="eui64.c"/>
+        <files mask="fsm.c"/>
+        <files mask="ipcp.c"/>
+        <files mask="ipv6cp.c"/>
+        <files mask="lcp.c"/>
+        <files mask="magic.c"/>
+        <files mask="mppe.c"/>
+        <files mask="multilink.c"/>
+        <files mask="ppp.c"/>
+        <files mask="pppapi.c"/>
+        <files mask="pppcrypt.c"/>
+        <files mask="pppoe.c"/>
+        <files mask="pppol2tp.c"/>
+        <files mask="pppos.c"/>
+        <files mask="upap.c"/>
+        <files mask="utils.c"/>
+        <files mask="vj.c"/>
+      </source>
+      <source relative_path="src/netif/ppp" type="doc">
+        <files mask="PPPD_FOLLOWUP" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="src/netif/ppp/polarssl" type="src">
+        <files mask="arc4.c" hidden="true"/>
+        <files mask="des.c" hidden="true"/>
+        <files mask="md4.c" hidden="true"/>
+        <files mask="md5.c" hidden="true"/>
+        <files mask="sha1.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="src/netif/ppp/polarssl" type="doc">
+        <files mask="README" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_lwip.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="port" type="c_include"/>
+        <include_path relative_path="src" type="c_include"/>
+        <include_path relative_path="src/include" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.lwip.apps.httpd.MIMXRT1062" name="lwIP_HTTPD" brief="lwIP HTTP Daemon" version="2.2.0" revision="6" full_name="lwIP HTTP Daemon" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.lwip.MIMXRT1062"/>
+          <component_dependency value="middleware.lwip.apps.httpd.support.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source relative_path="src/apps/http" type="src">
+        <files mask="httpd.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_lwip_apps_httpd.cmake" hidden="true"/>
+      </source>
+    </component>
+    <component id="middleware.lwip.apps.httpd.support.MIMXRT1062" name="lwIP_HTTPD_support" brief="lwIP HTTP Daemon Implementation Support Files" version="2.2.0" revision="6" full_name="lwIP HTTP Daemon Implementation Support Files" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <component_dependency value="middleware.lwip.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="src/apps/http" type="src">
+        <files mask="fs.c"/>
+      </source>
+      <source relative_path="src/apps/http" type="c_include">
+        <files mask="fsdata.h"/>
+        <files mask="httpd_structs.h"/>
+      </source>
+      <source exclude="true" relative_path="src/apps/http" type="src">
+        <files mask="fsdata.c" hidden="true"/>
+      </source>
+      <source relative_path="src/include/lwip/apps" type="c_include">
+        <files mask="fs.h"/>
+        <files mask="httpd.h"/>
+        <files mask="httpd_opts.h"/>
+      </source>
+      <source relative_path="src/apps/http/fs" type="other">
+        <files mask="index.html" hidden="true"/>
+        <files mask="404.html" hidden="true"/>
+      </source>
+      <source relative_path="src/apps/http/fs/img" type="other">
+        <files mask="sics.gif" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="src/apps/http/makefsdata" type="c_include">
+        <files mask="tinydir.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="src/apps/http/makefsdata" type="src">
+        <files mask="makefsdata.c" hidden="true"/>
+      </source>
+      <source relative_path="src/apps/http/makefsdata" type="doc">
+        <files mask="readme.txt" hidden="true"/>
+      </source>
+      <source relative_path="src/apps/http/makefsdata" type="other">
+        <files mask="makefsdata" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_lwip_apps_httpd_support.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="src/apps/http" type="c_include"/>
+        <include_path relative_path="src/include/lwip/apps" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.lwip.apps.httpsrv.MIMXRT1062" name="lwIP_HTTP_srv" brief="lwIP HTTP Server Implementation" version="2.2.0" revision="6" full_name="lwIP HTTP Server" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.lwip.MIMXRT1062"/>
+          <component_dependency value="middleware.freertos-kernel.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source relative_path="src/apps/httpsrv" type="src">
+        <files mask="httpsrv.c"/>
+        <files mask="httpsrv_base64.c"/>
+        <files mask="httpsrv_fs.c"/>
+        <files mask="httpsrv_script.c"/>
+        <files mask="httpsrv_sha1.c"/>
+        <files mask="httpsrv_supp.c"/>
+        <files mask="httpsrv_task.c"/>
+        <files mask="httpsrv_tls.c"/>
+        <files mask="httpsrv_utf8.c"/>
+        <files mask="httpsrv_ws.c"/>
+        <files mask="httpsrv_ws_api.c"/>
+      </source>
+      <source relative_path="src/apps/httpsrv" type="c_include">
+        <files mask="httpsrv.h"/>
+        <files mask="httpsrv_base64.h"/>
+        <files mask="httpsrv_config.h"/>
+        <files mask="httpsrv_fs.h"/>
+        <files mask="httpsrv_port.h"/>
+        <files mask="httpsrv_prv.h"/>
+        <files mask="httpsrv_script.h"/>
+        <files mask="httpsrv_sha1.h"/>
+        <files mask="httpsrv_supp.h"/>
+        <files mask="httpsrv_tls.h"/>
+        <files mask="httpsrv_utf8.h"/>
+        <files mask="httpsrv_ws.h"/>
+        <files mask="httpsrv_ws_prv.h"/>
+      </source>
+      <source relative_path="src/apps/httpsrv/mkfs" type="other">
+        <files mask="mkfs.pl" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_lwip_apps_httpsrv.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="src/apps/httpsrv" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.lwip.apps.httpssrv.MIMXRT1062" name="lwIP_HTTPS_srv" brief="lwIP HTTPS Server Implementation" version="2.2.0" revision="6" full_name="lwIP HTTPS Server" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.lwip.apps.httpsrv.MIMXRT1062"/>
+          <component_dependency value="middleware.mbedtls.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_lwip_apps_httpssrv.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="src/apps/httpsrv" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.lwip.apps.lwiperf.MIMXRT1062" name="lwIP_IPERF" brief="lwIP IPERF Implementation" version="2.2.0" revision="6" full_name="lwIP IPERF" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.lwip.MIMXRT1062"/>
+          <any_of>
+            <component_dependency value="middleware.freertos-kernel.MIMXRT1062"/>
+            <component_dependency value="middleware.baremetal.MIMXRT1062"/>
+          </any_of>
+        </all>
+      </dependencies>
+      <source relative_path="src/apps/lwiperf" type="src">
+        <files mask="lwiperf.c"/>
+      </source>
+      <source relative_path="src/include/lwip/apps" type="c_include">
+        <files mask="lwiperf.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_lwip_apps_lwiperf.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="src/include/lwip/apps" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.lwip.apps.mdns.MIMXRT1062" name="lwIP_MDNS" brief="lwIP mDNS Implementation" version="2.2.0" revision="6" full_name="lwIP mDNS" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <component_dependency value="middleware.lwip.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="src/apps/mdns" type="src">
+        <files mask="mdns.c"/>
+        <files mask="mdns_domain.c"/>
+        <files mask="mdns_out.c"/>
+      </source>
+      <source relative_path="src/include/lwip/apps" type="c_include">
+        <files mask="mdns.h"/>
+        <files mask="mdns_domain.h"/>
+        <files mask="mdns_priv.h"/>
+        <files mask="mdns_opts.h"/>
+        <files mask="mdns_out.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_lwip_apps_mdns.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="src/include/lwip/apps" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.lwip.apps.mqtt.MIMXRT1062" name="lwIP_MQTT" brief="lwIP MQTT Client" version="2.2.0" revision="6" full_name="lwIP MQTT Client" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <component_dependency value="middleware.lwip.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="src/apps/mqtt" type="src">
+        <files mask="mqtt.c"/>
+      </source>
+      <source relative_path="src/include/lwip/apps" type="c_include">
+        <files mask="mqtt.h"/>
+        <files mask="mqtt_opts.h"/>
+        <files mask="mqtt_priv.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_lwip_apps_mqtt.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="src/include/lwip/apps" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.lwip.apps.sntp.MIMXRT1062" name="lwIP_SNTP" brief="lwIP SNTP" version="2.2.0" revision="6" full_name="lwIP SNTP" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <component_dependency value="middleware.lwip.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="src/include/lwip/apps" type="c_include">
+        <files mask="sntp.h"/>
+        <files mask="sntp_opts.h"/>
+      </source>
+      <source relative_path="src/apps/sntp" type="src">
+        <files mask="sntp.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="src/include/lwip/apps" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.lwip.contrib.ping.MIMXRT1062" name="lwIP_ping" brief="lwIP Ping Sender contrib" version="2.2.0" revision="6" full_name="lwIP Ping Sender" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <component_dependency value="middleware.lwip.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="contrib/apps/ping" type="c_include">
+        <files mask="ping.h"/>
+      </source>
+      <source relative_path="contrib/apps/ping" type="src">
+        <files mask="ping.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_lwip_contrib_ping.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="contrib/apps/ping" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.lwip.contrib.tcpecho.MIMXRT1062" name="lwIP_tcpecho" brief="lwIP TCP Echo contrib" version="2.2.0" revision="6" full_name="lwIP TCP Echo" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <component_dependency value="middleware.lwip.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="contrib/apps/tcpecho" type="c_include">
+        <files mask="tcpecho.h"/>
+      </source>
+      <source relative_path="contrib/apps/tcpecho" type="src">
+        <files mask="tcpecho.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_lwip_contrib_tcpecho.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="contrib/apps/tcpecho" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.lwip.contrib.tcpecho_raw.MIMXRT1062" name="lwIP_tcpecho_raw" brief="lwIP TCP Echo Raw API contrib" version="2.2.0" revision="6" full_name="lwIP TCP Echo Raw API" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <component_dependency value="middleware.lwip.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="contrib/apps/tcpecho_raw" type="src">
+        <files mask="tcpecho_raw.c"/>
+      </source>
+      <source relative_path="contrib/apps/tcpecho_raw" type="c_include">
+        <files mask="tcpecho_raw.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="contrib/apps/tcpecho_raw" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.lwip.contrib.udpecho.MIMXRT1062" name="lwIP_udpecho" brief="lwIP UDP Echo contrib" version="2.2.0" revision="6" full_name="lwIP UDP Echo" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <component_dependency value="middleware.lwip.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="contrib/apps/udpecho" type="c_include">
+        <files mask="udpecho.h"/>
+      </source>
+      <source relative_path="contrib/apps/udpecho" type="src">
+        <files mask="udpecho.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="contrib/apps/udpecho" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.lwip.contrib.udpecho_raw.MIMXRT1062" name="lwIP_udpecho_raw" brief="lwIP UDP Echo Raw API contrib" version="2.2.0" revision="6" full_name="lwIP UDP Echo Raw API" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <component_dependency value="middleware.lwip.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="contrib/apps/udpecho_raw" type="src">
+        <files mask="udpecho_raw.c"/>
+      </source>
+      <source relative_path="contrib/apps/udpecho_raw" type="c_include">
+        <files mask="udpecho_raw.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="contrib/apps/udpecho_raw" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.lwip.empty_ethernetif.MIMXRT1062" name="lwIP_empty_ethernetif" brief="lwIP Empty Ethernet Layer (do not use)" version="2.2.0" revision="6" full_name="lwIP Empty Ethernet Layer (do not use)" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Network/lwIP TCPIP Networking Stack" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.lwip.MIMXRT1062"/>
+          <component_dependency value="middleware.lwip.template.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_lwip_empty_ethernetif.cmake" hidden="true"/>
+      </source>
+    </component>
+    <component id="middleware.lwip.enet_ethernetif.MIMXRT1062" name="Enet ethernet interface" brief="Enet ethernet interface" version="2.2.0" revision="6" full_name="Enet ethernet interface" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Network/lwIP TCPIP Networking Stack" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.lwip.MIMXRT1062"/>
+          <component_dependency value="middleware.lwip.template.MIMXRT1062"/>
+          <component_dependency value="driver.phy-common.MIMXRT1062"/>
+          <component_dependency value="platform.drivers.enet.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source relative_path="port" type="src">
+        <files mask="enet_ethernetif.c"/>
+      </source>
+      <source relative_path="port" type="c_include">
+        <files mask="enet_ethernetif.h"/>
+        <files mask="enet_ethernetif_priv.h"/>
+      </source>
+      <source condition="platform.drivers.enet.MIMXRT1062" relative_path="port" type="src">
+        <files mask="enet_ethernetif_kinetis.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_lwip_enet_ethernetif_MIMXRT1062.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="port" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.lwip.template.MIMXRT1062" name="lwIP_template" brief="lwIP Template" version="2.2.0" revision="6" full_name="lwIP Template Application" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" user_visible="false" type="project_template" package_base_path="middleware/lwip" project_base_path="lwip">
+      <source relative_path="template" type="c_include">
+        <files mask="lwipopts.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="template" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.lwip.unused_files.MIMXRT1062" name="lwIP_unused_files" brief="lwIP files unused by projects" version="2.2.0" revision="6" full_name="lwIP - Files Unused by Projects" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" user_visible="false" type="other" package_base_path="middleware/lwip" project_base_path="lwip">
+      <source exclude="true" relative_path="./" type="other">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="src" type="other">
+        <files mask="Filelists.cmake" hidden="true"/>
+        <files mask="Filelists.mk" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/sockets" type="src">
+        <files mask="sockets_stresstest.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/sockets" type="c_include">
+        <files mask="sockets_stresstest.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/fuzz" type="src">
+        <files mask="fuzz3.c" hidden="true"/>
+        <files mask="fuzz_common.c" hidden="true"/>
+        <files mask="fuzz2.c" hidden="true"/>
+        <files mask="fuzz.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/fuzz" type="c_include">
+        <files mask="config.h" hidden="true"/>
+        <files mask="lwipopts.h" hidden="true"/>
+        <files mask="fuzz_common.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/fuzz/inputs/arp" type="binary">
+        <files mask="arp_req.bin" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/fuzz/inputs/ipv6" type="binary">
+        <files mask="neighbor_solicitation.bin" hidden="true"/>
+        <files mask="router_adv.bin" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/fuzz/inputs/icmp" type="binary">
+        <files mask="icmp_ping.bin" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/fuzz/inputs/udp" type="binary">
+        <files mask="udp_port_5000.bin" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/fuzz/inputs/tcp" type="binary">
+        <files mask="tcp_syn.bin" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/fuzz" type="other">
+        <files mask="Makefile" hidden="true"/>
+        <files mask="README" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/fuzz" type="script">
+        <files mask="output_to_pcap.sh" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit/arch" type="c_include">
+        <files mask="sys_arch.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit/arch" type="src">
+        <files mask="sys_arch.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit" type="c_include">
+        <files mask="lwip_check.h" hidden="true"/>
+        <files mask="lwipopts.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit/ip6" type="c_include">
+        <files mask="test_ip6.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit/ip6" type="src">
+        <files mask="test_ip6.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit" type="script">
+        <files mask="Filelists.cmake" hidden="true"/>
+        <files mask="Filelists.mk" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit/dhcp" type="src">
+        <files mask="test_dhcp.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit/dhcp" type="c_include">
+        <files mask="test_dhcp.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit/mqtt" type="c_include">
+        <files mask="test_mqtt.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit/mqtt" type="src">
+        <files mask="test_mqtt.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit/api" type="c_include">
+        <files mask="test_sockets.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit/api" type="src">
+        <files mask="test_sockets.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit" type="other">
+        <files mask="Makefile" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit/udp" type="src">
+        <files mask="test_udp.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit/udp" type="c_include">
+        <files mask="test_udp.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit/tcp" type="c_include">
+        <files mask="test_tcp_oos.h" hidden="true"/>
+        <files mask="test_tcp.h" hidden="true"/>
+        <files mask="tcp_helper.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit/tcp" type="src">
+        <files mask="tcp_helper.c" hidden="true"/>
+        <files mask="test_tcp.c" hidden="true"/>
+        <files mask="test_tcp_oos.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit/mdns" type="c_include">
+        <files mask="test_mdns.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit/mdns" type="src">
+        <files mask="test_mdns.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit" type="src">
+        <files mask="lwip_unittests.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit/etharp" type="c_include">
+        <files mask="test_etharp.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit/etharp" type="src">
+        <files mask="test_etharp.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit/ip4" type="c_include">
+        <files mask="test_ip4.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit/ip4" type="src">
+        <files mask="test_ip4.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit/core" type="src">
+        <files mask="test_timers.c" hidden="true"/>
+        <files mask="test_mem.c" hidden="true"/>
+        <files mask="test_dns.c" hidden="true"/>
+        <files mask="test_netif.c" hidden="true"/>
+        <files mask="test_def.c" hidden="true"/>
+        <files mask="test_pbuf.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="test/unit/core" type="c_include">
+        <files mask="test_pbuf.h" hidden="true"/>
+        <files mask="test_timers.h" hidden="true"/>
+        <files mask="test_mem.h" hidden="true"/>
+        <files mask="test_dns.h" hidden="true"/>
+        <files mask="test_def.h" hidden="true"/>
+        <files mask="test_netif.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib" type="script">
+        <files mask="Filelists.cmake" hidden="true"/>
+        <files mask="Filelists.mk" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/addons/tcp_isn" type="src">
+        <files mask="tcp_isn.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/addons/tcp_isn" type="c_include">
+        <files mask="tcp_isn.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/addons/ipv6_static_routing" type="c_include">
+        <files mask="ip6_route_table.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/addons/ipv6_static_routing" type="src">
+        <files mask="ip6_route_table.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/addons/ipv6_static_routing" type="other">
+        <files mask="README" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/addons/netconn/external_resolve" type="c_include">
+        <files mask="dnssd.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/addons/netconn/external_resolve" type="src">
+        <files mask="dnssd.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/addons/tcp_md5" type="src">
+        <files mask="tcp_md5.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/addons/tcp_md5" type="other">
+        <files mask="README" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/addons/tcp_md5" type="c_include">
+        <files mask="tcp_md5.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/apps/chargen" type="src">
+        <files mask="chargen.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/apps/chargen" type="c_include">
+        <files mask="chargen.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/apps/chargen" type="other">
+        <files mask="README" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/apps/httpserver" type="src">
+        <files mask="httpserver-netconn.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/apps/httpserver" type="other">
+        <files mask="README" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/apps/httpserver" type="c_include">
+        <files mask="httpserver-netconn.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/apps/netio" type="src">
+        <files mask="netio.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/apps/netio" type="c_include">
+        <files mask="netio.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/apps/rtp" type="c_include">
+        <files mask="rtpdata.h" hidden="true"/>
+        <files mask="rtp.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/apps/rtp" type="src">
+        <files mask="rtp.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/apps/shell" type="src">
+        <files mask="shell.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/apps/shell" type="c_include">
+        <files mask="shell.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/apps/socket_examples" type="src">
+        <files mask="socket_examples.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/apps/socket_examples" type="c_include">
+        <files mask="socket_examples.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/Coverity" type="src">
+        <files mask="coverity.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/httpd/genfiles_example" type="src">
+        <files mask="genfiles_example.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/httpd/genfiles_example" type="c_include">
+        <files mask="genfiles_example.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/httpd/post_example" type="src">
+        <files mask="post_example.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/httpd/https_example" type="c_include">
+        <files mask="https_example.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/httpd/https_example" type="src">
+        <files mask="https_example.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/httpd/cgi_example" type="c_include">
+        <files mask="cgi_example.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/httpd/cgi_example" type="src">
+        <files mask="cgi_example.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/httpd/fs_example" type="c_include">
+        <files mask="fs_example.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/httpd/fs_example" type="src">
+        <files mask="fs_example.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/httpd/examples_fs" type="doc">
+        <files mask="loginfail.html" hidden="true"/>
+        <files mask="index.html" hidden="true"/>
+        <files mask="session.html" hidden="true"/>
+        <files mask="login.html" hidden="true"/>
+        <files mask="404.html" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/httpd/examples_fs" type="other">
+        <files mask="ssi.shtml" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/httpd/examples_fs/img" type="image">
+        <files mask="sics.gif" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/httpd/ssi_example" type="src">
+        <files mask="ssi_example.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/httpd/ssi_example" type="c_include">
+        <files mask="ssi_example.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/httpd" type="src">
+        <files mask="examples_fsdata.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/ethernetif" type="src">
+        <files mask="ethernetif.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/tftp" type="src">
+        <files mask="tftp_example.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/tftp" type="c_include">
+        <files mask="tftp_example.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/lwiperf" type="c_include">
+        <files mask="lwiperf_example.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/lwiperf" type="src">
+        <files mask="lwiperf_example.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/mqtt" type="c_include">
+        <files mask="mqtt_example.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/mqtt" type="src">
+        <files mask="mqtt_example.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/ppp" type="c_include">
+        <files mask="pppos_example.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/ppp" type="src">
+        <files mask="pppos_example.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/snmp" type="c_include">
+        <files mask="snmp_example.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/snmp/snmp_private_mib" type="c_include">
+        <files mask="private_mib.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/snmp/snmp_private_mib" type="src">
+        <files mask="lwip_prvmib.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/snmp/snmp_v3" type="c_include">
+        <files mask="snmpv3_dummy.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/snmp/snmp_v3" type="src">
+        <files mask="snmpv3_dummy.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/snmp" type="src">
+        <files mask="snmp_example.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/example_app" type="c_include">
+        <files mask="lwippools.h" hidden="true"/>
+        <files mask="default_netif.h" hidden="true"/>
+        <files mask="ppp_settings.h" hidden="true"/>
+        <files mask="lwipopts.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/example_app" type="other">
+        <files mask="lwipcfg.h.example" hidden="true"/>
+        <files mask="lwipcfg.h.ci" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/example_app/test_configs" type="c_include">
+        <files mask="opt_nosys_ipv6.h" hidden="true"/>
+        <files mask="opt_no_tcp_dualstack.h" hidden="true"/>
+        <files mask="opt_ipv6only.h" hidden="true"/>
+        <files mask="opt_nosys_dual.h" hidden="true"/>
+        <files mask="opt_no_udp_ipv6only.h" hidden="true"/>
+        <files mask="opt_default.h" hidden="true"/>
+        <files mask="opt_nosys_ipv4.h" hidden="true"/>
+        <files mask="opt_no_tcp_ipv4only.h" hidden="true"/>
+        <files mask="opt_none.h" hidden="true"/>
+        <files mask="opt_no_udp_dualstack.h" hidden="true"/>
+        <files mask="opt_no_tcp_ipv6only.h" hidden="true"/>
+        <files mask="opt_dualstack.h" hidden="true"/>
+        <files mask="opt_no_udp_ipv4only.h" hidden="true"/>
+        <files mask="opt_ipv4only.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/example_app" type="src">
+        <files mask="test.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/mdns" type="src">
+        <files mask="mdns_example.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/mdns" type="c_include">
+        <files mask="mdns_example.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/sntp" type="c_include">
+        <files mask="sntp_example.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/examples/sntp" type="src">
+        <files mask="sntp_example.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/freertos/include/arch" type="c_include">
+        <files mask="sys_arch.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/freertos" type="src">
+        <files mask="sys_arch.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/unix" type="script">
+        <files mask="Filelists.cmake" hidden="true"/>
+        <files mask="Common.mk" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/unix" type="other">
+        <files mask="setup-tapif" hidden="true"/>
+        <files mask="README" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/unix/port" type="src">
+        <files mask="perf.c" hidden="true"/>
+        <files mask="sys_arch.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/unix/port/include/arch" type="c_include">
+        <files mask="sys_arch.h" hidden="true"/>
+        <files mask="perf.h" hidden="true"/>
+        <files mask="cc.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/unix/port/include/netif" type="c_include">
+        <files mask="list.h" hidden="true"/>
+        <files mask="pcapif.h" hidden="true"/>
+        <files mask="sio.h" hidden="true"/>
+        <files mask="fifo.h" hidden="true"/>
+        <files mask="tapif.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/unix/port/netif" type="src">
+        <files mask="list.c" hidden="true"/>
+        <files mask="tapif.c" hidden="true"/>
+        <files mask="pcapif.c" hidden="true"/>
+        <files mask="sio.c" hidden="true"/>
+        <files mask="fifo.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/unix/example_app" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/unix/example_app" type="other">
+        <files mask="Makefile" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/unix/example_app" type="script">
+        <files mask="iteropts.sh" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/unix/example_app" type="src">
+        <files mask="default_netif.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/unix/lib" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/unix/lib" type="other">
+        <files mask="README" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/unix/lib" type="c_include">
+        <files mask="lwipopts.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/unix/check" type="c_include">
+        <files mask="config.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/unix/check" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/unix/check" type="other">
+        <files mask="Makefile" hidden="true"/>
+        <files mask="README" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/win32" type="c_include">
+        <files mask="pcapif.h" hidden="true"/>
+        <files mask="pcapif_helper.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/win32" type="script">
+        <files mask="Filelists.cmake" hidden="true"/>
+        <files mask="Common.mk" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/win32/include/arch" type="c_include">
+        <files mask="epstruct.h" hidden="true"/>
+        <files mask="sys_arch.h" hidden="true"/>
+        <files mask="bpstruct.h" hidden="true"/>
+        <files mask="perf.h" hidden="true"/>
+        <files mask="cc.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/win32" type="doc">
+        <files mask="readme.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/win32" type="src">
+        <files mask="pcapif.c" hidden="true"/>
+        <files mask="sio.c" hidden="true"/>
+        <files mask="sys_arch.c" hidden="true"/>
+        <files mask="pcapif_helper.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/win32/msvc" type="other">
+        <files mask="lwip_unittests.vcxproj.filters" hidden="true"/>
+        <files mask="makefsdata.vcxproj.filters" hidden="true"/>
+        <files mask="lwIP.vcxproj" hidden="true"/>
+        <files mask="lwIP_unittests.sln" hidden="true"/>
+        <files mask="lwIP_Test.vcxproj" hidden="true"/>
+        <files mask="lwip_unittests.vcxproj" hidden="true"/>
+        <files mask="lwIP.vcxproj.filters" hidden="true"/>
+        <files mask="lwIP_pcapif.vcxproj.filters" hidden="true"/>
+        <files mask="makefsdata.vcxproj" hidden="true"/>
+        <files mask="libcheck.vcxproj" hidden="true"/>
+        <files mask="libcheck.vcxproj.filters" hidden="true"/>
+        <files mask="lwIP_pcapif.vcxproj" hidden="true"/>
+        <files mask="lwIP_Test.sln" hidden="true"/>
+        <files mask="lwIP_Test.vcxproj.filters" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/win32/msvc" type="script">
+        <files mask="build_coverity.cmd" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/win32/example_app" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/win32/example_app" type="other">
+        <files mask="Makefile" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/win32/example_app" type="src">
+        <files mask="default_netif.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/win32/check" type="c_include">
+        <files mask="stdbool.h" hidden="true"/>
+        <files mask="check_stdint.h" hidden="true"/>
+        <files mask="config.h" hidden="true"/>
+        <files mask="unistd.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/win32/check/sys" type="c_include">
+        <files mask="time.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports/win32/check" type="src">
+        <files mask="time.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="contrib/ports" type="script">
+        <files mask="Common.allports.mk" hidden="true"/>
+        <files mask="CMakeCommon.cmake" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="src/apps/altcp_tls" type="c_include">
+        <files mask="altcp_tls_mbedtls_mem.h" hidden="true"/>
+        <files mask="altcp_tls_mbedtls_structs.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="src/apps/altcp_tls" type="src">
+        <files mask="altcp_tls_mbedtls_mem.c" hidden="true"/>
+        <files mask="altcp_tls_mbedtls.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="src/apps/http" type="src">
+        <files mask="altcp_proxyconnect.c" hidden="true"/>
+        <files mask="http_client.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="src/apps/netbiosns" type="src">
+        <files mask="netbiosns.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="src/apps/smtp" type="src">
+        <files mask="smtp.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="src/apps/snmp" type="src">
+        <files mask="snmp_mib2_tcp.c" hidden="true"/>
+        <files mask="snmp_table.c" hidden="true"/>
+        <files mask="snmp_scalar.c" hidden="true"/>
+        <files mask="snmp_netconn.c" hidden="true"/>
+        <files mask="snmp_mib2_ip.c" hidden="true"/>
+        <files mask="snmp_traps.c" hidden="true"/>
+        <files mask="snmp_msg.c" hidden="true"/>
+        <files mask="snmp_mib2_udp.c" hidden="true"/>
+        <files mask="snmp_mib2_icmp.c" hidden="true"/>
+        <files mask="snmp_mib2_snmp.c" hidden="true"/>
+        <files mask="snmp_mib2.c" hidden="true"/>
+        <files mask="snmpv3.c" hidden="true"/>
+        <files mask="snmp_raw.c" hidden="true"/>
+        <files mask="snmp_threadsync.c" hidden="true"/>
+        <files mask="snmp_snmpv2_usm.c" hidden="true"/>
+        <files mask="snmp_pbuf_stream.c" hidden="true"/>
+        <files mask="snmp_snmpv2_framework.c" hidden="true"/>
+        <files mask="snmp_mib2_interfaces.c" hidden="true"/>
+        <files mask="snmpv3_mbedtls.c" hidden="true"/>
+        <files mask="snmp_mib2_system.c" hidden="true"/>
+        <files mask="snmp_asn1.c" hidden="true"/>
+        <files mask="snmp_core.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="src/apps/snmp" type="c_include">
+        <files mask="snmp_asn1.h" hidden="true"/>
+        <files mask="snmp_core_priv.h" hidden="true"/>
+        <files mask="snmpv3_priv.h" hidden="true"/>
+        <files mask="snmp_pbuf_stream.h" hidden="true"/>
+        <files mask="snmp_msg.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="src/apps/tftp" type="src">
+        <files mask="tftp.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="src/include/lwip" type="other">
+        <files mask="init.h.cmake.in" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="src/include/lwip/apps" type="c_include">
+        <files mask="altcp_proxyconnect.h" hidden="true"/>
+        <files mask="altcp_tls_mbedtls_opts.h" hidden="true"/>
+        <files mask="http_client.h" hidden="true"/>
+        <files mask="netbiosns.h" hidden="true"/>
+        <files mask="netbiosns_opts.h" hidden="true"/>
+        <files mask="smtp.h" hidden="true"/>
+        <files mask="smtp_opts.h" hidden="true"/>
+        <files mask="snmp.h" hidden="true"/>
+        <files mask="snmpv3.h" hidden="true"/>
+        <files mask="snmp_core.h" hidden="true"/>
+        <files mask="snmp_mib2.h" hidden="true"/>
+        <files mask="snmp_opts.h" hidden="true"/>
+        <files mask="snmp_scalar.h" hidden="true"/>
+        <files mask="snmp_snmpv2_framework.h" hidden="true"/>
+        <files mask="snmp_snmpv2_usm.h" hidden="true"/>
+        <files mask="snmp_table.h" hidden="true"/>
+        <files mask="snmp_threadsync.h" hidden="true"/>
+        <files mask="tftp_client.h" hidden="true"/>
+        <files mask="tftp_common.h" hidden="true"/>
+        <files mask="tftp_opts.h" hidden="true"/>
+        <files mask="tftp_server.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="src/include/lwip/apps" type="other">
+        <files mask="FILES" hidden="true"/>
+      </source>
+    </component>
+    <component id="middleware.lwip.usb_ethernetif.MIMXRT1062" name="lwIP_usb_ethernetif" brief="USB network layer" version="2.2.0" revision="6" full_name="lwIP Adaptation for USB Network Layer" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Network/lwIP TCPIP Networking Stack" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.lwip.MIMXRT1062"/>
+          <component_dependency value="middleware.usb.host_cdc.MIMXRT1062"/>
+          <component_dependency value="middleware.usb.host_cdc_rndis.MIMXRT1062"/>
+          <component_dependency value="middleware.usb.host_controller_ehci.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source condition="middleware.baremetal.MIMXRT1062" relative_path="port" type="src">
+        <files mask="usb_ethernetif_bm.c"/>
+      </source>
+      <source condition="middleware.freertos-kernel.MIMXRT1062" relative_path="port" type="src">
+        <files mask="usb_ethernetif_freertos.c"/>
+      </source>
+      <source relative_path="port" type="c_include">
+        <files mask="usb_ethernetif.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_lwip_usb_ethernetif.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="port" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.mbedtls.MIMXRT1062" name="mbedtls" brief="mbedTLS library" version="2.28.0" full_name="MbedTLS open source SSL library" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Security/mbedTLS library" user_visible="true" type="middleware" package_base_path="middleware/mbedtls" project_base_path="mbedtls">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.mbedtls.rt.MIMXRT1062"/>
+          <component_dependency value="middleware.mbedtls.template.MIMXRT1062"/>
+          <component_dependency value="utility.debug_console.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source relative_path="include/mbedtls" type="c_include">
+        <files mask="aes.h"/>
+        <files mask="aesni.h"/>
+        <files mask="arc4.h"/>
+        <files mask="aria.h"/>
+        <files mask="asn1.h"/>
+        <files mask="asn1write.h"/>
+        <files mask="base64.h"/>
+        <files mask="bignum.h"/>
+        <files mask="blowfish.h"/>
+        <files mask="bn_mul.h"/>
+        <files mask="camellia.h"/>
+        <files mask="ccm.h"/>
+        <files mask="certs.h"/>
+        <files mask="chacha20.h"/>
+        <files mask="chachapoly.h"/>
+        <files mask="check_config.h"/>
+        <files mask="cipher.h"/>
+        <files mask="cipher_internal.h"/>
+        <files mask="cmac.h"/>
+        <files mask="compat-1.3.h"/>
+        <files mask="config.h"/>
+        <files mask="config_psa.h"/>
+        <files mask="constant_time.h"/>
+        <files mask="ctr_drbg.h"/>
+        <files mask="debug.h"/>
+        <files mask="des.h"/>
+        <files mask="dhm.h"/>
+        <files mask="ecdh.h"/>
+        <files mask="ecdsa.h"/>
+        <files mask="ecjpake.h"/>
+        <files mask="ecp.h"/>
+        <files mask="ecp_internal.h"/>
+        <files mask="entropy.h"/>
+        <files mask="entropy_poll.h"/>
+        <files mask="error.h"/>
+        <files mask="gcm.h"/>
+        <files mask="havege.h"/>
+        <files mask="hkdf.h"/>
+        <files mask="hmac_drbg.h"/>
+        <files mask="md.h"/>
+        <files mask="md_internal.h"/>
+        <files mask="md2.h"/>
+        <files mask="md4.h"/>
+        <files mask="md5.h"/>
+        <files mask="memory_buffer_alloc.h"/>
+        <files mask="net.h"/>
+        <files mask="net_sockets.h"/>
+        <files mask="nist_kw.h"/>
+        <files mask="oid.h"/>
+        <files mask="padlock.h"/>
+        <files mask="pem.h"/>
+        <files mask="pk.h"/>
+        <files mask="pk_internal.h"/>
+        <files mask="pkcs5.h"/>
+        <files mask="pkcs11.h"/>
+        <files mask="pkcs12.h"/>
+        <files mask="platform.h"/>
+        <files mask="platform_time.h"/>
+        <files mask="platform_util.h"/>
+        <files mask="poly1305.h"/>
+        <files mask="psa_util.h"/>
+        <files mask="ripemd160.h"/>
+        <files mask="rsa.h"/>
+        <files mask="rsa_internal.h"/>
+        <files mask="sha1.h"/>
+        <files mask="sha256.h"/>
+        <files mask="sha512.h"/>
+        <files mask="ssl.h"/>
+        <files mask="ssl_cache.h"/>
+        <files mask="ssl_ciphersuites.h"/>
+        <files mask="ssl_cookie.h"/>
+        <files mask="ssl_internal.h"/>
+        <files mask="ssl_ticket.h"/>
+        <files mask="threading.h"/>
+        <files mask="timing.h"/>
+        <files mask="version.h"/>
+        <files mask="x509.h"/>
+        <files mask="x509_crl.h"/>
+        <files mask="x509_crt.h"/>
+        <files mask="x509_csr.h"/>
+        <files mask="xtea.h"/>
+      </source>
+      <source relative_path="include/psa" type="c_include">
+        <files mask="crypto.h"/>
+        <files mask="crypto_builtin_composites.h"/>
+        <files mask="crypto_builtin_primitives.h"/>
+        <files mask="crypto_compat.h"/>
+        <files mask="crypto_config.h"/>
+        <files mask="crypto_driver_common.h"/>
+        <files mask="crypto_driver_contexts_composites.h"/>
+        <files mask="crypto_driver_contexts_primitives.h"/>
+        <files mask="crypto_extra.h"/>
+        <files mask="crypto_platform.h"/>
+        <files mask="crypto_se_driver.h"/>
+        <files mask="crypto_sizes.h"/>
+        <files mask="crypto_struct.h"/>
+        <files mask="crypto_types.h"/>
+        <files mask="crypto_values.h"/>
+      </source>
+      <source relative_path="library" type="src">
+        <files mask="aes.c"/>
+        <files mask="aesni.c"/>
+        <files mask="arc4.c"/>
+        <files mask="aria.c"/>
+        <files mask="asn1parse.c"/>
+        <files mask="asn1write.c"/>
+        <files mask="base64.c"/>
+        <files mask="bignum.c"/>
+        <files mask="blowfish.c"/>
+        <files mask="camellia.c"/>
+        <files mask="ccm.c"/>
+        <files mask="certs.c"/>
+        <files mask="chacha20.c"/>
+        <files mask="chachapoly.c"/>
+        <files mask="cipher.c"/>
+        <files mask="cipher_wrap.c"/>
+        <files mask="cmac.c"/>
+        <files mask="constant_time.c"/>
+        <files mask="ctr_drbg.c"/>
+        <files mask="debug.c"/>
+        <files mask="des.c"/>
+        <files mask="dhm.c"/>
+        <files mask="ecdh.c"/>
+        <files mask="ecdsa.c"/>
+        <files mask="ecjpake.c"/>
+        <files mask="ecp.c"/>
+        <files mask="ecp_curves.c"/>
+        <files mask="entropy.c"/>
+        <files mask="entropy_poll.c"/>
+        <files mask="error.c"/>
+        <files mask="gcm.c"/>
+        <files mask="havege.c"/>
+        <files mask="hkdf.c"/>
+        <files mask="hmac_drbg.c"/>
+        <files mask="md.c"/>
+        <files mask="md2.c"/>
+        <files mask="md4.c"/>
+        <files mask="md5.c"/>
+        <files mask="memory_buffer_alloc.c"/>
+        <files mask="mps_reader.c"/>
+        <files mask="mps_trace.c"/>
+        <files mask="net_sockets.c"/>
+        <files mask="nist_kw.c"/>
+        <files mask="oid.c"/>
+        <files mask="padlock.c"/>
+        <files mask="pem.c"/>
+        <files mask="pk.c"/>
+        <files mask="pk_wrap.c"/>
+        <files mask="pkcs5.c"/>
+        <files mask="pkcs11.c"/>
+        <files mask="pkcs12.c"/>
+        <files mask="pkparse.c"/>
+        <files mask="pkwrite.c"/>
+        <files mask="platform.c"/>
+        <files mask="platform_util.c"/>
+        <files mask="poly1305.c"/>
+        <files mask="psa_crypto.c"/>
+        <files mask="psa_crypto_aead.c"/>
+        <files mask="psa_crypto_cipher.c"/>
+        <files mask="psa_crypto_client.c"/>
+        <files mask="psa_crypto_driver_wrappers.c"/>
+        <files mask="psa_crypto_ecp.c"/>
+        <files mask="psa_crypto_hash.c"/>
+        <files mask="psa_crypto_mac.c"/>
+        <files mask="psa_crypto_rsa.c"/>
+        <files mask="psa_crypto_se.c"/>
+        <files mask="psa_crypto_slot_management.c"/>
+        <files mask="psa_crypto_storage.c"/>
+        <files mask="psa_its_file.c"/>
+        <files mask="ripemd160.c"/>
+        <files mask="rsa.c"/>
+        <files mask="rsa_internal.c"/>
+        <files mask="sha1.c"/>
+        <files mask="sha256.c"/>
+        <files mask="sha512.c"/>
+        <files mask="ssl_cache.c"/>
+        <files mask="ssl_ciphersuites.c"/>
+        <files mask="ssl_cli.c"/>
+        <files mask="ssl_cookie.c"/>
+        <files mask="ssl_msg.c"/>
+        <files mask="ssl_srv.c"/>
+        <files mask="ssl_ticket.c"/>
+        <files mask="ssl_tls.c"/>
+        <files mask="ssl_tls13_keys.c"/>
+        <files mask="threading.c"/>
+        <files mask="timing.c"/>
+        <files mask="version.c"/>
+        <files mask="version_features.c"/>
+        <files mask="x509.c"/>
+        <files mask="x509_create.c"/>
+        <files mask="x509_crl.c"/>
+        <files mask="x509_crt.c"/>
+        <files mask="x509_csr.c"/>
+        <files mask="x509write_crt.c"/>
+        <files mask="x509write_csr.c"/>
+        <files mask="xtea.c"/>
+      </source>
+      <source relative_path="library" type="c_include">
+        <files mask="check_crypto_config.h"/>
+        <files mask="common.h"/>
+        <files mask="constant_time_internal.h"/>
+        <files mask="constant_time_invasive.h"/>
+        <files mask="ecp_invasive.h"/>
+        <files mask="mps_common.h"/>
+        <files mask="mps_error.h"/>
+        <files mask="mps_reader.h"/>
+        <files mask="mps_trace.h"/>
+        <files mask="psa_crypto_aead.h"/>
+        <files mask="psa_crypto_cipher.h"/>
+        <files mask="psa_crypto_core.h"/>
+        <files mask="psa_crypto_driver_wrappers.h"/>
+        <files mask="psa_crypto_ecp.h"/>
+        <files mask="psa_crypto_hash.h"/>
+        <files mask="psa_crypto_invasive.h"/>
+        <files mask="psa_crypto_its.h"/>
+        <files mask="psa_crypto_mac.h"/>
+        <files mask="psa_crypto_random_impl.h"/>
+        <files mask="psa_crypto_rsa.h"/>
+        <files mask="psa_crypto_se.h"/>
+        <files mask="psa_crypto_slot_management.h"/>
+        <files mask="psa_crypto_storage.h"/>
+        <files mask="ssl_tls13_keys.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_mbedtls_MIMXRT1062.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="include" type="c_include"/>
+        <include_path relative_path="library" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.mbedtls.empty.MIMXRT1062" name="mbedtls_empty" brief="mbedTLS Empty Crypto Accelerators Layer (do not use)" version="2.28.0" full_name="mbedTLS Empty Crypto Accelerators Layer (do not use)" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" category="Security/mbedTLS library" user_visible="true" type="middleware" package_base_path="middleware/mbedtls" project_base_path="mbedtls"/>
+    <component id="middleware.mbedtls.port.ksdk.MIMXRT1062" name="mbedtls_ksdk" brief="mbedTLS port library for KPSDK" version="2.28.0" full_name="MbedTLS MCUX SDK port layer" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Security/mbedTLS library" user_visible="true" type="middleware" package_base_path="middleware/mbedtls" project_base_path="mbedtls">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.mbedtls.MIMXRT1062"/>
+          <any_of>
+            <component_dependency value="middleware.mbedtls.empty.MIMXRT1062"/>
+            <component_dependency value="middleware.mbedtls.rt.MIMXRT1062"/>
+          </any_of>
+        </all>
+      </dependencies>
+      <source relative_path="port/ksdk" type="src">
+        <files mask="ksdk_mbedtls.c"/>
+        <files mask="des_alt.c"/>
+        <files mask="aes_alt.c"/>
+        <files mask="ecp_alt.c"/>
+        <files mask="ecp_curves_alt.c"/>
+        <files mask="ecp_alt_ksdk.c"/>
+      </source>
+      <source relative_path="port/ksdk" type="c_include">
+        <files mask="ksdk_mbedtls.h"/>
+        <files mask="ksdk_mbedtls_config.h"/>
+        <files mask="sha1_alt.h"/>
+        <files mask="sha256_alt.h"/>
+        <files mask="des_alt.h"/>
+        <files mask="aes_alt.h"/>
+        <files mask="ccm_alt.h"/>
+        <files mask="ecp_alt.h"/>
+        <files mask="threading_alt.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_mbedtls_port_ksdk.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="port/ksdk" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.mbedtls.rt.MIMXRT1062" name="mbedtls_lpc" brief="On-chip RT Crypto accelerator" version="2.28.0" full_name="MbedTLS Adaptation for On-chip RT Crypto accelerator." devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Security/mbedTLS library" user_visible="true" type="middleware" package_base_path="middleware/mbedtls" project_base_path="mbedtls">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.mbedtls.MIMXRT1062"/>
+          <component_dependency value="middleware.mbedtls.port.ksdk.MIMXRT1062"/>
+          <component_dependency value="platform.drivers.dcp.MIMXRT1062"/>
+          <component_dependency value="platform.drivers.trng.MIMXRT1062"/>
+          <component_dependency value="platform.drivers.cache_armv7_m7.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_mbedtls_rt.cmake" hidden="true"/>
+      </source>
+    </component>
+    <component id="middleware.mbedtls.template.MIMXRT1062" name="mbedtls_template" brief="mbedTLS Template" version="2.28.0" full_name="mbedTLS Template" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" user_visible="false" type="project_template" package_base_path="middleware/mbedtls" project_base_path="mbedtls">
+      <defines>
+        <define name="MBEDTLS_CONFIG_FILE" value="'&quot;ksdk_mbedtls_config.h&quot;'"/>
+      </defines>
+      <source relative_path="port/ksdk" type="c_include">
+        <files mask="ksdk_mbedtls_config.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="port/ksdk" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.mbedtls.unused_files.MIMXRT1062" name="unused_files" brief="mbedTLS files unused by projects" version="2.28.0" full_name="MbedTLS unused files" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" user_visible="false" type="other" package_base_path="middleware/mbedtls" project_base_path="mbedtls">
+      <source exclude="true" relative_path=".github" type="other">
+        <files mask="issue_template.md" hidden="true"/>
+        <files mask="pull_request_template.md" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="3rdparty" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="3rdparty" type="asm_include">
+        <files mask="Makefile.inc" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="ChangeLog.d" type="other">
+        <files mask="00README.md" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="configs" type="doc">
+        <files mask="README.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="configs" type="c_include">
+        <files mask="config-ccm-psk-tls1_2.h" hidden="true"/>
+        <files mask="config-mini-tls1_1.h" hidden="true"/>
+        <files mask="config-no-entropy.h" hidden="true"/>
+        <files mask="config-suite-b.h" hidden="true"/>
+        <files mask="config-symmetric-only.h" hidden="true"/>
+        <files mask="config-thread.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="docs" type="other">
+        <files mask="getting_started.md" hidden="true"/>
+        <files mask="use-psa-crypto.md" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="doxygen" type="other">
+        <files mask="mbedtls.doxyfile" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="doxygen/input" type="c_include">
+        <files mask="doc_encdec.h" hidden="true"/>
+        <files mask="doc_hashing.h" hidden="true"/>
+        <files mask="doc_mainpage.h" hidden="true"/>
+        <files mask="doc_rng.h" hidden="true"/>
+        <files mask="doc_ssltls.h" hidden="true"/>
+        <files mask="doc_tcpip.h" hidden="true"/>
+        <files mask="doc_x509.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="include" type="other">
+        <files mask=".gitignore" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="include" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="library" type="other">
+        <files mask=".gitignore" hidden="true"/>
+        <files mask="Makefile" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="library" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs" type="other">
+        <files mask="Makefile" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/aes" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/aes" type="src">
+        <files mask="crypt_and_hash.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/fuzz" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/fuzz" type="other">
+        <files mask="README.md" hidden="true"/>
+        <files mask="fuzz_client.options" hidden="true"/>
+        <files mask="fuzz_dtlsclient.options" hidden="true"/>
+        <files mask="fuzz_dtlsserver.options" hidden="true"/>
+        <files mask="fuzz_privkey.options" hidden="true"/>
+        <files mask="fuzz_pubkey.options" hidden="true"/>
+        <files mask="fuzz_server.options" hidden="true"/>
+        <files mask="fuzz_x509crl.options" hidden="true"/>
+        <files mask="fuzz_x509crt.options" hidden="true"/>
+        <files mask="fuzz_x509csr.options" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/fuzz" type="src">
+        <files mask="common.c" hidden="true"/>
+        <files mask="fuzz_client.c" hidden="true"/>
+        <files mask="fuzz_dtlsclient.c" hidden="true"/>
+        <files mask="fuzz_dtlsserver.c" hidden="true"/>
+        <files mask="fuzz_privkey.c" hidden="true"/>
+        <files mask="fuzz_pubkey.c" hidden="true"/>
+        <files mask="fuzz_server.c" hidden="true"/>
+        <files mask="fuzz_x509crl.c" hidden="true"/>
+        <files mask="fuzz_x509crt.c" hidden="true"/>
+        <files mask="fuzz_x509csr.c" hidden="true"/>
+        <files mask="onefile.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/fuzz" type="c_include">
+        <files mask="common.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/hash" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/hash" type="src">
+        <files mask="generic_sum.c" hidden="true"/>
+        <files mask="hello.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/pkey" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+        <files mask="dh_prime.txt" hidden="true"/>
+        <files mask="rsa_priv.txt" hidden="true"/>
+        <files mask="rsa_pub.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/pkey" type="src">
+        <files mask="dh_client.c" hidden="true"/>
+        <files mask="dh_genprime.c" hidden="true"/>
+        <files mask="dh_server.c" hidden="true"/>
+        <files mask="ecdh_curve25519.c" hidden="true"/>
+        <files mask="ecdsa.c" hidden="true"/>
+        <files mask="gen_key.c" hidden="true"/>
+        <files mask="key_app.c" hidden="true"/>
+        <files mask="key_app_writer.c" hidden="true"/>
+        <files mask="mpi_demo.c" hidden="true"/>
+        <files mask="pk_decrypt.c" hidden="true"/>
+        <files mask="pk_encrypt.c" hidden="true"/>
+        <files mask="pk_sign.c" hidden="true"/>
+        <files mask="pk_verify.c" hidden="true"/>
+        <files mask="rsa_decrypt.c" hidden="true"/>
+        <files mask="rsa_encrypt.c" hidden="true"/>
+        <files mask="rsa_genkey.c" hidden="true"/>
+        <files mask="rsa_sign.c" hidden="true"/>
+        <files mask="rsa_sign_pss.c" hidden="true"/>
+        <files mask="rsa_verify.c" hidden="true"/>
+        <files mask="rsa_verify_pss.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/random" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/random" type="src">
+        <files mask="gen_entropy.c" hidden="true"/>
+        <files mask="gen_random_ctr_drbg.c" hidden="true"/>
+        <files mask="gen_random_havege.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/ssl" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/ssl" type="src">
+        <files mask="dtls_client.c" hidden="true"/>
+        <files mask="dtls_server.c" hidden="true"/>
+        <files mask="mini_client.c" hidden="true"/>
+        <files mask="ssl_client1.c" hidden="true"/>
+        <files mask="ssl_client2.c" hidden="true"/>
+        <files mask="ssl_context_info.c" hidden="true"/>
+        <files mask="ssl_fork_server.c" hidden="true"/>
+        <files mask="ssl_mail_client.c" hidden="true"/>
+        <files mask="ssl_pthread_server.c" hidden="true"/>
+        <files mask="ssl_server.c" hidden="true"/>
+        <files mask="ssl_server2.c" hidden="true"/>
+        <files mask="ssl_test_common_source.c" hidden="true"/>
+        <files mask="ssl_test_lib.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/ssl" type="c_include">
+        <files mask="ssl_test_lib.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/test" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/test" type="src">
+        <files mask="benchmark.c" hidden="true"/>
+        <files mask="dlopen.c" hidden="true"/>
+        <files mask="query_compile_time_config.c" hidden="true"/>
+        <files mask="query_config.c" hidden="true"/>
+        <files mask="selftest.c" hidden="true"/>
+        <files mask="udp_proxy.c" hidden="true"/>
+        <files mask="zeroize.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/test" type="script">
+        <files mask="dlopen_demo.sh" hidden="true"/>
+        <files mask="generate_cpp_dummy_build.sh" hidden="true"/>
+        <files mask="udp_proxy_wrapper.sh" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/test" type="c_include">
+        <files mask="query_config.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/util" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/util" type="src">
+        <files mask="pem2der.c" hidden="true"/>
+        <files mask="strerror.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/x509" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/x509" type="src">
+        <files mask="cert_app.c" hidden="true"/>
+        <files mask="cert_req.c" hidden="true"/>
+        <files mask="cert_write.c" hidden="true"/>
+        <files mask="crl_app.c" hidden="true"/>
+        <files mask="load_roots.c" hidden="true"/>
+        <files mask="req_app.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="scripts" type="script">
+        <files mask="abi_check.py" hidden="true"/>
+        <files mask="apidoc_full.sh" hidden="true"/>
+        <files mask="assemble_changelog.py" hidden="true"/>
+        <files mask="bump_version.sh" hidden="true"/>
+        <files mask="config.py" hidden="true"/>
+        <files mask="ecc-heap.sh" hidden="true"/>
+        <files mask="footprint.sh" hidden="true"/>
+        <files mask="generate_psa_constants.py" hidden="true"/>
+        <files mask="memory.sh" hidden="true"/>
+        <files mask="min_requirements.py" hidden="true"/>
+        <files mask="output_env.sh" hidden="true"/>
+        <files mask="tmp_ignore_makefiles.sh" hidden="true"/>
+        <files mask="windows_msbuild.bat" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="scripts" type="doc">
+        <files mask="ci.requirements.txt" hidden="true"/>
+        <files mask="maintainer.requirements.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="scripts" type="other">
+        <files mask="config.pl" hidden="true"/>
+        <files mask="find-mem-leak.cocci" hidden="true"/>
+        <files mask="generate_errors.pl" hidden="true"/>
+        <files mask="generate_features.pl" hidden="true"/>
+        <files mask="generate_query_config.pl" hidden="true"/>
+        <files mask="generate_visualc_files.pl" hidden="true"/>
+        <files mask="massif_max.pl" hidden="true"/>
+        <files mask="rename.pl" hidden="true"/>
+        <files mask="rm-calloc-cast.cocci" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="scripts/data_files" type="other">
+        <files mask="error.fmt" hidden="true"/>
+        <files mask="query_config.fmt" hidden="true"/>
+        <files mask="version_features.fmt" hidden="true"/>
+        <files mask="vs2010-app-template.vcxproj" hidden="true"/>
+        <files mask="vs2010-main-template.vcxproj" hidden="true"/>
+        <files mask="vs2010-sln-template.sln" hidden="true"/>
+        <files mask="vs6-app-template.dsp" hidden="true"/>
+        <files mask="vs6-main-template.dsp" hidden="true"/>
+        <files mask="vs6-workspace-template.dsw" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="scripts/data_files" type="doc">
+        <files mask="rename-1.3-2.0.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="scripts/mbedtls_dev" type="script">
+        <files mask="asymmetric_key_data.py" hidden="true"/>
+        <files mask="c_build_helper.py" hidden="true"/>
+        <files mask="crypto_knowledge.py" hidden="true"/>
+        <files mask="macro_collector.py" hidden="true"/>
+        <files mask="psa_storage.py" hidden="true"/>
+        <files mask="test_case.py" hidden="true"/>
+        <files mask="typing_util.py" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="tests" type="other">
+        <files mask="Makefile" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="tests/.jenkins" type="other">
+        <files mask="Jenkinsfile" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="tests/data_files" type="other">
+        <files mask="Makefile" hidden="true"/>
+        <files mask="hash_file_1" hidden="true"/>
+        <files mask="hash_file_2" hidden="true"/>
+        <files mask="hash_file_3" hidden="true"/>
+        <files mask="hash_file_4" hidden="true"/>
+        <files mask="hash_file_5" hidden="true"/>
+        <files mask="mpi_10" hidden="true"/>
+        <files mask="mpi_too_big" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="tests/data_files/dir3" type="other">
+        <files mask="Readme" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="tests/data_files/dir4" type="other">
+        <files mask="Readme" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="tests/git-scripts" type="other">
+        <files mask="README.md" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="tests/git-scripts" type="script">
+        <files mask="pre-commit.sh" hidden="true"/>
+        <files mask="pre-push.sh" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="tests/scripts" type="script">
+        <files mask="all-in-docker.sh" hidden="true"/>
+        <files mask="all.sh" hidden="true"/>
+        <files mask="analyze_outcomes.py" hidden="true"/>
+        <files mask="basic-build-test.sh" hidden="true"/>
+        <files mask="basic-in-docker.sh" hidden="true"/>
+        <files mask="check-generated-files.sh" hidden="true"/>
+        <files mask="check-python-files.sh" hidden="true"/>
+        <files mask="check_files.py" hidden="true"/>
+        <files mask="check_names.py" hidden="true"/>
+        <files mask="check_test_cases.py" hidden="true"/>
+        <files mask="docker_env.sh" hidden="true"/>
+        <files mask="doxygen.sh" hidden="true"/>
+        <files mask="generate-afl-tests.sh" hidden="true"/>
+        <files mask="generate_psa_tests.py" hidden="true"/>
+        <files mask="generate_test_code.py" hidden="true"/>
+        <files mask="list-identifiers.sh" hidden="true"/>
+        <files mask="list_internal_identifiers.py" hidden="true"/>
+        <files mask="psa_collect_statuses.py" hidden="true"/>
+        <files mask="scripts_path.py" hidden="true"/>
+        <files mask="set_psa_test_dependencies.py" hidden="true"/>
+        <files mask="test_config_script.py" hidden="true"/>
+        <files mask="test_generate_test_code.py" hidden="true"/>
+        <files mask="test_psa_compliance.py" hidden="true"/>
+        <files mask="test_psa_constant_names.py" hidden="true"/>
+        <files mask="travis-log-failure.sh" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="tests/scripts" type="other">
+        <files mask="check-doxy-blocks.pl" hidden="true"/>
+        <files mask="curves.pl" hidden="true"/>
+        <files mask="depends-hashes.pl" hidden="true"/>
+        <files mask="depends-pkalgs.pl" hidden="true"/>
+        <files mask="gen_ctr_drbg.pl" hidden="true"/>
+        <files mask="gen_gcm_decrypt.pl" hidden="true"/>
+        <files mask="gen_gcm_encrypt.pl" hidden="true"/>
+        <files mask="gen_pkcs1_v21_sign_verify.pl" hidden="true"/>
+        <files mask="key-exchanges.pl" hidden="true"/>
+        <files mask="recursion.pl" hidden="true"/>
+        <files mask="run-test-suites.pl" hidden="true"/>
+        <files mask="tcp_client.pl" hidden="true"/>
+        <files mask="test-ref-configs.pl" hidden="true"/>
+        <files mask="test_zeroize.gdb" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="tests/src" type="src">
+        <files mask="asn1_helpers.c" hidden="true"/>
+        <files mask="fake_external_rng_for_test.c" hidden="true"/>
+        <files mask="helpers.c" hidden="true"/>
+        <files mask="psa_crypto_helpers.c" hidden="true"/>
+        <files mask="psa_exercise_key.c" hidden="true"/>
+        <files mask="random.c" hidden="true"/>
+        <files mask="threading_helpers.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="tests/suites" type="other">
+        <files mask="helpers.function" hidden="true"/>
+        <files mask="host_test.function" hidden="true"/>
+        <files mask="main_test.function" hidden="true"/>
+        <files mask="test_suite_aes.cbc.data" hidden="true"/>
+        <files mask="test_suite_aes.cfb.data" hidden="true"/>
+        <files mask="test_suite_aes.ecb.data" hidden="true"/>
+        <files mask="test_suite_aes.function" hidden="true"/>
+        <files mask="test_suite_aes.ofb.data" hidden="true"/>
+        <files mask="test_suite_aes.rest.data" hidden="true"/>
+        <files mask="test_suite_aes.xts.data" hidden="true"/>
+        <files mask="test_suite_all.data" hidden="true"/>
+        <files mask="test_suite_all.function" hidden="true"/>
+        <files mask="test_suite_arc4.data" hidden="true"/>
+        <files mask="test_suite_arc4.function" hidden="true"/>
+        <files mask="test_suite_aria.data" hidden="true"/>
+        <files mask="test_suite_aria.function" hidden="true"/>
+        <files mask="test_suite_asn1parse.data" hidden="true"/>
+        <files mask="test_suite_asn1parse.function" hidden="true"/>
+        <files mask="test_suite_asn1write.data" hidden="true"/>
+        <files mask="test_suite_asn1write.function" hidden="true"/>
+        <files mask="test_suite_base64.data" hidden="true"/>
+        <files mask="test_suite_base64.function" hidden="true"/>
+        <files mask="test_suite_blowfish.data" hidden="true"/>
+        <files mask="test_suite_blowfish.function" hidden="true"/>
+        <files mask="test_suite_camellia.data" hidden="true"/>
+        <files mask="test_suite_camellia.function" hidden="true"/>
+        <files mask="test_suite_ccm.data" hidden="true"/>
+        <files mask="test_suite_ccm.function" hidden="true"/>
+        <files mask="test_suite_chacha20.data" hidden="true"/>
+        <files mask="test_suite_chacha20.function" hidden="true"/>
+        <files mask="test_suite_chachapoly.data" hidden="true"/>
+        <files mask="test_suite_chachapoly.function" hidden="true"/>
+        <files mask="test_suite_cipher.aes.data" hidden="true"/>
+        <files mask="test_suite_cipher.arc4.data" hidden="true"/>
+        <files mask="test_suite_cipher.aria.data" hidden="true"/>
+        <files mask="test_suite_cipher.blowfish.data" hidden="true"/>
+        <files mask="test_suite_cipher.camellia.data" hidden="true"/>
+        <files mask="test_suite_cipher.ccm.data" hidden="true"/>
+        <files mask="test_suite_cipher.chacha20.data" hidden="true"/>
+        <files mask="test_suite_cipher.chachapoly.data" hidden="true"/>
+        <files mask="test_suite_cipher.des.data" hidden="true"/>
+        <files mask="test_suite_cipher.function" hidden="true"/>
+        <files mask="test_suite_cipher.gcm.data" hidden="true"/>
+        <files mask="test_suite_cipher.misc.data" hidden="true"/>
+        <files mask="test_suite_cipher.nist_kw.data" hidden="true"/>
+        <files mask="test_suite_cipher.null.data" hidden="true"/>
+        <files mask="test_suite_cipher.padding.data" hidden="true"/>
+        <files mask="test_suite_cmac.data" hidden="true"/>
+        <files mask="test_suite_cmac.function" hidden="true"/>
+        <files mask="test_suite_ctr_drbg.data" hidden="true"/>
+        <files mask="test_suite_ctr_drbg.function" hidden="true"/>
+        <files mask="test_suite_debug.data" hidden="true"/>
+        <files mask="test_suite_debug.function" hidden="true"/>
+        <files mask="test_suite_des.data" hidden="true"/>
+        <files mask="test_suite_des.function" hidden="true"/>
+        <files mask="test_suite_dhm.data" hidden="true"/>
+        <files mask="test_suite_dhm.function" hidden="true"/>
+        <files mask="test_suite_ecdh.data" hidden="true"/>
+        <files mask="test_suite_ecdh.function" hidden="true"/>
+        <files mask="test_suite_ecdsa.data" hidden="true"/>
+        <files mask="test_suite_ecdsa.function" hidden="true"/>
+        <files mask="test_suite_ecjpake.data" hidden="true"/>
+        <files mask="test_suite_ecjpake.function" hidden="true"/>
+        <files mask="test_suite_ecp.data" hidden="true"/>
+        <files mask="test_suite_ecp.function" hidden="true"/>
+        <files mask="test_suite_entropy.data" hidden="true"/>
+        <files mask="test_suite_entropy.function" hidden="true"/>
+        <files mask="test_suite_error.data" hidden="true"/>
+        <files mask="test_suite_error.function" hidden="true"/>
+        <files mask="test_suite_gcm.aes128_de.data" hidden="true"/>
+        <files mask="test_suite_gcm.aes128_en.data" hidden="true"/>
+        <files mask="test_suite_gcm.aes192_de.data" hidden="true"/>
+        <files mask="test_suite_gcm.aes192_en.data" hidden="true"/>
+        <files mask="test_suite_gcm.aes256_de.data" hidden="true"/>
+        <files mask="test_suite_gcm.aes256_en.data" hidden="true"/>
+        <files mask="test_suite_gcm.camellia.data" hidden="true"/>
+        <files mask="test_suite_gcm.function" hidden="true"/>
+        <files mask="test_suite_gcm.misc.data" hidden="true"/>
+        <files mask="test_suite_hkdf.data" hidden="true"/>
+        <files mask="test_suite_hkdf.function" hidden="true"/>
+        <files mask="test_suite_hmac_drbg.function" hidden="true"/>
+        <files mask="test_suite_hmac_drbg.misc.data" hidden="true"/>
+        <files mask="test_suite_hmac_drbg.no_reseed.data" hidden="true"/>
+        <files mask="test_suite_hmac_drbg.nopr.data" hidden="true"/>
+        <files mask="test_suite_hmac_drbg.pr.data" hidden="true"/>
+        <files mask="test_suite_md.data" hidden="true"/>
+        <files mask="test_suite_md.function" hidden="true"/>
+        <files mask="test_suite_mdx.data" hidden="true"/>
+        <files mask="test_suite_mdx.function" hidden="true"/>
+        <files mask="test_suite_memory_buffer_alloc.data" hidden="true"/>
+        <files mask="test_suite_memory_buffer_alloc.function" hidden="true"/>
+        <files mask="test_suite_mpi.data" hidden="true"/>
+        <files mask="test_suite_mpi.function" hidden="true"/>
+        <files mask="test_suite_mps.data" hidden="true"/>
+        <files mask="test_suite_mps.function" hidden="true"/>
+        <files mask="test_suite_net.data" hidden="true"/>
+        <files mask="test_suite_net.function" hidden="true"/>
+        <files mask="test_suite_nist_kw.data" hidden="true"/>
+        <files mask="test_suite_nist_kw.function" hidden="true"/>
+        <files mask="test_suite_oid.data" hidden="true"/>
+        <files mask="test_suite_oid.function" hidden="true"/>
+        <files mask="test_suite_pem.data" hidden="true"/>
+        <files mask="test_suite_pem.function" hidden="true"/>
+        <files mask="test_suite_pk.data" hidden="true"/>
+        <files mask="test_suite_pk.function" hidden="true"/>
+        <files mask="test_suite_pkcs12.data" hidden="true"/>
+        <files mask="test_suite_pkcs12.function" hidden="true"/>
+        <files mask="test_suite_pkcs1_v15.data" hidden="true"/>
+        <files mask="test_suite_pkcs1_v15.function" hidden="true"/>
+        <files mask="test_suite_pkcs1_v21.data" hidden="true"/>
+        <files mask="test_suite_pkcs1_v21.function" hidden="true"/>
+        <files mask="test_suite_pkcs5.data" hidden="true"/>
+        <files mask="test_suite_pkcs5.function" hidden="true"/>
+        <files mask="test_suite_pkparse.data" hidden="true"/>
+        <files mask="test_suite_pkparse.function" hidden="true"/>
+        <files mask="test_suite_pkwrite.data" hidden="true"/>
+        <files mask="test_suite_pkwrite.function" hidden="true"/>
+        <files mask="test_suite_poly1305.data" hidden="true"/>
+        <files mask="test_suite_poly1305.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_attributes.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_attributes.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_driver_wrappers.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_driver_wrappers.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_entropy.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_entropy.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_generate_key.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_generate_key.generated.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_hash.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_hash.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_init.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_init.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_metadata.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_metadata.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_not_supported.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_not_supported.generated.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_not_supported.misc.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_persistent_key.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_persistent_key.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_se_driver_hal.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_se_driver_hal.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_se_driver_hal_mocks.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_se_driver_hal_mocks.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_slot_management.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_slot_management.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_storage_format.current.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_storage_format.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_storage_format.misc.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_storage_format.v0.data" hidden="true"/>
+        <files mask="test_suite_psa_its.data" hidden="true"/>
+        <files mask="test_suite_psa_its.function" hidden="true"/>
+        <files mask="test_suite_random.data" hidden="true"/>
+        <files mask="test_suite_random.function" hidden="true"/>
+        <files mask="test_suite_rsa.data" hidden="true"/>
+        <files mask="test_suite_rsa.function" hidden="true"/>
+        <files mask="test_suite_shax.data" hidden="true"/>
+        <files mask="test_suite_shax.function" hidden="true"/>
+        <files mask="test_suite_ssl.data" hidden="true"/>
+        <files mask="test_suite_ssl.function" hidden="true"/>
+        <files mask="test_suite_timing.data" hidden="true"/>
+        <files mask="test_suite_timing.function" hidden="true"/>
+        <files mask="test_suite_version.data" hidden="true"/>
+        <files mask="test_suite_version.function" hidden="true"/>
+        <files mask="test_suite_x509parse.data" hidden="true"/>
+        <files mask="test_suite_x509parse.function" hidden="true"/>
+        <files mask="test_suite_x509write.data" hidden="true"/>
+        <files mask="test_suite_x509write.function" hidden="true"/>
+        <files mask="test_suite_xtea.data" hidden="true"/>
+        <files mask="test_suite_xtea.function" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="visualc/VS2010" type="other">
+        <files mask="benchmark.vcxproj" hidden="true"/>
+        <files mask="cert_app.vcxproj" hidden="true"/>
+        <files mask="cert_req.vcxproj" hidden="true"/>
+        <files mask="cert_write.vcxproj" hidden="true"/>
+        <files mask="crl_app.vcxproj" hidden="true"/>
+        <files mask="crypt_and_hash.vcxproj" hidden="true"/>
+        <files mask="crypto_examples.vcxproj" hidden="true"/>
+        <files mask="dh_client.vcxproj" hidden="true"/>
+        <files mask="dh_genprime.vcxproj" hidden="true"/>
+        <files mask="dh_server.vcxproj" hidden="true"/>
+        <files mask="dtls_client.vcxproj" hidden="true"/>
+        <files mask="dtls_server.vcxproj" hidden="true"/>
+        <files mask="ecdh_curve25519.vcxproj" hidden="true"/>
+        <files mask="ecdsa.vcxproj" hidden="true"/>
+        <files mask="gen_entropy.vcxproj" hidden="true"/>
+        <files mask="gen_key.vcxproj" hidden="true"/>
+        <files mask="gen_random_ctr_drbg.vcxproj" hidden="true"/>
+        <files mask="gen_random_havege.vcxproj" hidden="true"/>
+        <files mask="generic_sum.vcxproj" hidden="true"/>
+        <files mask="hello.vcxproj" hidden="true"/>
+        <files mask="key_app.vcxproj" hidden="true"/>
+        <files mask="key_app_writer.vcxproj" hidden="true"/>
+        <files mask="key_ladder_demo.vcxproj" hidden="true"/>
+        <files mask="load_roots.vcxproj" hidden="true"/>
+        <files mask="mbedTLS.sln" hidden="true"/>
+        <files mask="mbedTLS.vcxproj" hidden="true"/>
+        <files mask="mini_client.vcxproj" hidden="true"/>
+        <files mask="mpi_demo.vcxproj" hidden="true"/>
+        <files mask="pem2der.vcxproj" hidden="true"/>
+        <files mask="pk_decrypt.vcxproj" hidden="true"/>
+        <files mask="pk_encrypt.vcxproj" hidden="true"/>
+        <files mask="pk_sign.vcxproj" hidden="true"/>
+        <files mask="pk_verify.vcxproj" hidden="true"/>
+        <files mask="psa_constant_names.vcxproj" hidden="true"/>
+        <files mask="query_compile_time_config.vcxproj" hidden="true"/>
+        <files mask="req_app.vcxproj" hidden="true"/>
+        <files mask="rsa_decrypt.vcxproj" hidden="true"/>
+        <files mask="rsa_encrypt.vcxproj" hidden="true"/>
+        <files mask="rsa_genkey.vcxproj" hidden="true"/>
+        <files mask="rsa_sign.vcxproj" hidden="true"/>
+        <files mask="rsa_sign_pss.vcxproj" hidden="true"/>
+        <files mask="rsa_verify.vcxproj" hidden="true"/>
+        <files mask="rsa_verify_pss.vcxproj" hidden="true"/>
+        <files mask="selftest.vcxproj" hidden="true"/>
+        <files mask="ssl_client1.vcxproj" hidden="true"/>
+        <files mask="ssl_client2.vcxproj" hidden="true"/>
+        <files mask="ssl_context_info.vcxproj" hidden="true"/>
+        <files mask="ssl_fork_server.vcxproj" hidden="true"/>
+        <files mask="ssl_mail_client.vcxproj" hidden="true"/>
+        <files mask="ssl_server.vcxproj" hidden="true"/>
+        <files mask="ssl_server2.vcxproj" hidden="true"/>
+        <files mask="strerror.vcxproj" hidden="true"/>
+        <files mask="udp_proxy.vcxproj" hidden="true"/>
+        <files mask="zeroize.vcxproj" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="./" type="other">
+        <files mask="BRANCHES.md" hidden="true"/>
+        <files mask="BUGS.md" hidden="true"/>
+        <files mask="CONTRIBUTING.md" hidden="true"/>
+        <files mask="README.md" hidden="true"/>
+        <files mask="SECURITY.md" hidden="true"/>
+        <files mask="SUPPORT.md" hidden="true"/>
+        <files mask="mbeTLS_for_Kinetis_SDK_v2.0_readme.meta" hidden="true"/>
+        <files mask="ChangeLog" hidden="true"/>
+        <files mask="LICENSE" hidden="true"/>
+        <files mask="Makefile" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="./" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+        <files mask="ChangeLogKSDK.txt" hidden="true"/>
+        <files mask="dco.txt" hidden="true"/>
+        <files mask="mbeTLS_for_Kinetis_SDK_v2.0_readme.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="./" type="script">
+        <files mask="DartConfiguration.tcl" hidden="true"/>
+      </source>
     </component>
     <component id="middleware.multicore.MIMXRT1062" name="multicore middleware" brief="Multicore SDK" version="2.12.0" full_name="Multicore Software Development Kit" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" user_visible="true" type="other" package_base_path="middleware/multicore" project_base_path="multicore">
       <source relative_path="./" type="doc">
@@ -20575,6 +22968,317 @@ ${load}</script>
       </source>
       <include_paths>
         <include_path relative_path="phy" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.wifi.MIMXRT1062" name="wifi_nxp" brief="NXP Wi-Fi functionality enables customers to quickly develop applications of interest to add connectivity to different sensors and appliances" version="1.3.38" full_name="NXP Wi-Fi" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Wireless/NXP Wi-Fi" user_visible="true" type="middleware" package_base_path="middleware/wifi_nxp" project_base_path="wifi">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.freertos-kernel.MIMXRT1062"/>
+          <component_dependency value="utility.debug_console.MIMXRT1062"/>
+          <component_dependency value="middleware.wifi.wifidriver.MIMXRT1062"/>
+          <component_dependency value="middleware.wifi.template.MIMXRT1062"/>
+          <component_dependency value="middleware.lwip.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source relative_path="dhcpd" type="c_include">
+        <files mask="dhcp-bootp.h"/>
+        <files mask="dhcp-priv.h"/>
+        <files mask="dns.h"/>
+      </source>
+      <source relative_path="dhcpd" type="src">
+        <files mask="dhcp-server-main.c"/>
+        <files mask="dhcp-server.c"/>
+        <files mask="dns-server.c"/>
+      </source>
+      <source relative_path="incl/port/lwip" type="c_include">
+        <files mask="wm_net.h"/>
+      </source>
+      <source relative_path="incl" type="c_include">
+        <files mask="wmstats.h"/>
+      </source>
+      <source relative_path="port/lwip" type="src">
+        <files mask="net.c"/>
+        <files mask="wifi_netif.c"/>
+      </source>
+      <source relative_path="port/lwip" type="c_include">
+        <files mask="netif_decl.h"/>
+      </source>
+      <source relative_path="wlcmgr" type="src">
+        <files mask="wlan.c"/>
+        <files mask="wlan_txpwrlimit_cfg.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_wifi.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="dhcpd" type="c_include"/>
+        <include_path relative_path="incl" type="c_include"/>
+        <include_path relative_path="incl/port/lwip" type="c_include"/>
+        <include_path relative_path="port/lwip" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.wifi.cli.MIMXRT1062" name="wifi_nxp_cli" brief="Middlware Wi-Fi CLI" version="1.3.38" full_name="NXP Wi-Fi CLI" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Wireless/NXP Wi-Fi" user_visible="true" type="middleware" package_base_path="middleware/wifi_nxp" project_base_path="wifi">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.wifi.MIMXRT1062"/>
+          <component_dependency value="middleware.wifi.wifidriver.MIMXRT1062"/>
+          <component_dependency value="middleware.lwip.apps.lwiperf.MIMXRT1062"/>
+          <component_dependency value="utility.debug_console.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source relative_path="cli" type="c_include">
+        <files mask="cli_mem.h"/>
+      </source>
+      <source relative_path="cli" type="src">
+        <files mask="cli.c"/>
+        <files mask="cli_mem_simple.c"/>
+        <files mask="cli_utils.c"/>
+      </source>
+      <source relative_path="incl" type="c_include">
+        <files mask="cli.h"/>
+        <files mask="cli_utils.h"/>
+        <files mask="iperf.h"/>
+        <files mask="wifi_ping.h"/>
+      </source>
+      <source relative_path="nw_utils" type="src">
+        <files mask="wifi_ping.c"/>
+        <files mask="iperf.c"/>
+      </source>
+      <source relative_path="wlcmgr" type="src">
+        <files mask="wlan_basic_cli.c"/>
+        <files mask="wlan_enhanced_tests.c"/>
+        <files mask="wlan_tests.c"/>
+        <files mask="wlan_test_mode_tests.c"/>
+      </source>
+      <source relative_path="incl/wlcmgr" type="c_include">
+        <files mask="wlan_tests.h"/>
+      </source>
+      <source relative_path="dhcpd" type="src">
+        <files mask="dhcp-server-cli.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_wifi_cli.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="cli" type="c_include"/>
+        <include_path relative_path="incl" type="c_include"/>
+        <include_path relative_path="incl/wlcmgr" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.wifi.fwdnld.MIMXRT1062" name="nxp_wireless_fwdnld" brief="NXP WLAN f/w dnld driver" version="1.0.0" full_name="NXP WLAN f/w dnld driver" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Wireless/NXP Wi-Fi" user_visible="true" type="middleware" package_base_path="middleware/wifi_nxp" project_base_path="wifi">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.freertos-kernel.MIMXRT1062"/>
+          <component_dependency value="middleware.wifi.template.MIMXRT1062"/>
+          <component_dependency value="middleware.wifi.sdio-2.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source relative_path="incl/port/os" type="c_include">
+        <files mask="wm_os.h"/>
+      </source>
+      <source relative_path="incl" type="c_include">
+        <files mask="WIFI_IW416_BOARD_AW_AM457_CAL_DATA_EXT.h"/>
+        <files mask="wm_utils.h"/>
+        <files mask="wmerrno.h"/>
+        <files mask="wmlog.h"/>
+        <files mask="wmtypes.h"/>
+      </source>
+      <source relative_path="wifidriver/incl" type="c_include">
+        <files mask="mlan_main_defs.h"/>
+        <files mask="mlan_ioctl.h"/>
+        <files mask="mlan_decl.h"/>
+      </source>
+      <source relative_path="incl/wifidriver" type="c_include">
+        <files mask="wifi-decl.h"/>
+        <files mask="wifi.h"/>
+        <files mask="wifi_events.h"/>
+      </source>
+      <source relative_path="port/os" type="src">
+        <files mask="os.c"/>
+      </source>
+      <source relative_path="wifi_bt_firmware" type="c_include">
+        <files mask="sd8801_wlan.h"/>
+        <files mask="sduart8977_wlan_bt.h"/>
+        <files mask="sduartIW416_wlan_bt.h"/>
+        <files mask="sduart8987_wlan_bt.h"/>
+        <files mask="wlan_bt_fw.h"/>
+      </source>
+      <source relative_path="wifidriver" type="src">
+        <files mask="sdio.c"/>
+        <files mask="firmware_dnld.c"/>
+      </source>
+      <source relative_path="wifidriver" type="c_include">
+        <files mask="sdio.h"/>
+        <files mask="firmware_dnld.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_wifi_fwdnld.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="incl" type="c_include"/>
+        <include_path relative_path="incl/port/os" type="c_include"/>
+        <include_path relative_path="incl/wifidriver" type="c_include"/>
+        <include_path relative_path="wifi_bt_firmware" type="c_include"/>
+        <include_path relative_path="wifidriver" type="c_include"/>
+        <include_path relative_path="wifidriver/incl" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.wifi.sdio.MIMXRT1062" name="wifi_nxp_sdio" brief="NXP Wi-Fi SDIO driver" version="1.3.38" full_name="NXP Wi-Fi SDIO" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Wireless/NXP Wi-Fi" user_visible="true" type="middleware" package_base_path="middleware/wifi_nxp" project_base_path="wifi">
+      <dependencies>
+        <component_dependency value="middleware.wifi.sdio-2.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="wifidriver" type="src">
+        <files mask="wifi-sdio.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_wifi_sdio.cmake" hidden="true"/>
+      </source>
+    </component>
+    <component id="middleware.wifi.sdio-2.MIMXRT1062" name="wifi_nxp_sdio_2" brief="NXP Wi-Fi SDIO driver" version="1.3.38" full_name="NXP Wi-Fi SDIO" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Wireless/NXP Wi-Fi" user_visible="true" type="middleware" package_base_path="middleware/wifi_nxp" project_base_path="wifi">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.sdmmc.host.usdhc.freertos.MIMXRT1062"/>
+          <component_dependency value="middleware.sdmmc.sdio.MIMXRT1062"/>
+          <component_dependency value="middleware.sdmmc.host.usdhc.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source relative_path="wifidriver" type="src">
+        <files mask="mlan_sdio.c"/>
+      </source>
+      <source relative_path="wifidriver/incl" type="c_include">
+        <files mask="type_decls.h"/>
+        <files mask="mlan_sdio_defs.h"/>
+        <files mask="mlan_sdio.h"/>
+      </source>
+      <source relative_path="incl/wifidriver" type="c_include">
+        <files mask="mlan_sdio_api.h"/>
+      </source>
+      <source relative_path="wifidriver" type="c_include">
+        <files mask="wifi-sdio.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_wifi_sdio-2.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="incl/wifidriver" type="c_include"/>
+        <include_path relative_path="wifidriver" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.wifi.template.MIMXRT1062" name="Wi-Fi configuration template" brief="Template configuration file to be edited by user." version="1.0.0" full_name="Wi-Fi configuration template" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" category="Wireless/NXP Wi-Fi" user_visible="false" type="project_template" package_base_path="core/components/wifi_bt_module/template" project_base_path="wifi/template">
+      <defines>
+        <define name="LWIP_DNS" value="1"/>
+        <define name="LWIP_NETIF_HOSTNAME" value="1"/>
+        <define name="LWIP_NETIF_STATUS_CALLBACK" value="1"/>
+        <define name="LWIP_IGMP" value="1"/>
+        <define name="SDIO_ENABLED" value=""/>
+      </defines>
+      <dependencies>
+        <component_dependency value="component.wifi_bt_module.tx_pwr_limits.MIMXRT1062"/>
+      </dependencies>
+      <source relative_path="./" type="c_preinclude">
+        <files mask="app_config.h"/>
+      </source>
+      <source relative_path="./" type="c_include">
+        <files mask="wifi_config.h"/>
+        <files mask="wifi_bt_config.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="wifi_bt_config.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.wifi.unused.MIMXRT1062" name="wifi_nxp_unused" brief="Middlware Wi-Fi unused" version="1.3.38" full_name="NXP Wi-Fi unused" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" category="Wireless/NXP Wi-Fi" user_visible="false" type="middleware" package_base_path="middleware/wifi_nxp" project_base_path="wifi">
+      <source relative_path="wifi_bt_firmware" type="doc">
+        <files mask="version.txt"/>
+      </source>
+    </component>
+    <component id="middleware.wifi.wifidriver.MIMXRT1062" name="nxp_wifi_driver" brief="NXP Wi-Fi driver" version="1.3.38" full_name="NXP Wi-Fi driver" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" device_cores="core0_MIMXRT1062xxxxA core0_MIMXRT1062xxxxB" category="Wireless/NXP Wi-Fi" user_visible="true" type="middleware" package_base_path="middleware/wifi_nxp" project_base_path="wifi">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.freertos-kernel.MIMXRT1062"/>
+          <component_dependency value="utility.debug_console.MIMXRT1062"/>
+          <component_dependency value="middleware.wifi.sdio.MIMXRT1062"/>
+          <component_dependency value="middleware.wifi.fwdnld.MIMXRT1062"/>
+          <component_dependency value="middleware.wifi.template.MIMXRT1062"/>
+        </all>
+      </dependencies>
+      <source relative_path="incl" type="c_include">
+        <files mask="dhcp-server.h"/>
+      </source>
+      <source relative_path="incl/wlcmgr" type="c_include">
+        <files mask="wlan.h"/>
+        <files mask="wlan_11d.h"/>
+      </source>
+      <source relative_path="wifidriver/incl" type="c_include">
+        <files mask="mlan.h"/>
+        <files mask="mlan_11ac.h"/>
+        <files mask="mlan_11ax.h"/>
+        <files mask="mlan_11h.h"/>
+        <files mask="mlan_11n.h"/>
+        <files mask="mlan_11n_aggr.h"/>
+        <files mask="mlan_11n_rxreorder.h"/>
+        <files mask="mlan_api.h"/>
+        <files mask="mlan_fw.h"/>
+        <files mask="mlan_ieee.h"/>
+        <files mask="mlan_init.h"/>
+        <files mask="mlan_join.h"/>
+        <files mask="mlan_main.h"/>
+        <files mask="mlan_meas.h"/>
+        <files mask="mlan_remap_mem_operations.h"/>
+        <files mask="mlan_uap.h"/>
+        <files mask="mlan_util.h"/>
+        <files mask="mlan_wmm.h"/>
+      </source>
+      <source relative_path="wifidriver" type="src">
+        <files mask="mlan_11ac.c"/>
+        <files mask="mlan_11ax.c"/>
+        <files mask="mlan_11d.c"/>
+        <files mask="mlan_11h.c"/>
+        <files mask="mlan_11n.c"/>
+        <files mask="mlan_11n_aggr.c"/>
+        <files mask="mlan_11n_rxreorder.c"/>
+        <files mask="mlan_api.c"/>
+        <files mask="mlan_cfp.c"/>
+        <files mask="mlan_cmdevt.c"/>
+        <files mask="mlan_glue.c"/>
+        <files mask="mlan_init.c"/>
+        <files mask="mlan_join.c"/>
+        <files mask="mlan_misc.c"/>
+        <files mask="mlan_scan.c"/>
+        <files mask="mlan_shim.c"/>
+        <files mask="mlan_sta_cmd.c"/>
+        <files mask="mlan_sta_cmdresp.c"/>
+        <files mask="mlan_sta_event.c"/>
+        <files mask="mlan_sta_ioctl.c"/>
+        <files mask="mlan_sta_rx.c"/>
+        <files mask="mlan_txrx.c"/>
+        <files mask="mlan_uap_cmdevent.c"/>
+        <files mask="mlan_uap_ioctl.c"/>
+        <files mask="mlan_wmm.c"/>
+        <files mask="wifi-debug.c"/>
+        <files mask="wifi-mem.c"/>
+        <files mask="wifi-uap.c"/>
+        <files mask="wifi.c"/>
+        <files mask="wifi_pwrmgr.c"/>
+      </source>
+      <source relative_path="wifidriver" type="c_include">
+        <files mask="wifi-debug.h"/>
+        <files mask="wifi-internal.h"/>
+        <files mask="wifi_common.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_wifi_wifidriver.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="incl" type="c_include"/>
+        <include_path relative_path="incl/port/os" type="c_include"/>
+        <include_path relative_path="incl/wifidriver" type="c_include"/>
+        <include_path relative_path="incl/wlcmgr" type="c_include"/>
+        <include_path relative_path="wifi_bt_firmware" type="c_include"/>
+        <include_path relative_path="wifidriver" type="c_include"/>
+        <include_path relative_path="wifidriver/incl" type="c_include"/>
       </include_paths>
     </component>
     <component id="platform.utilities.misc_utilities.MIMXRT1062" name="misc_utilities" brief="Utilities which is needed for particular toolchain like the SBRK function required to address limitation between HEAP and STACK in GCC toolchain library." version="1.1.0" full_name="Utilities miscellaneous" devices="MIMXRT1062xxxxA MIMXRT1062xxxxB" user_visible="true" type="utilities" package_base_path="core/utilities/misc_utilities" project_base_path="utilities">

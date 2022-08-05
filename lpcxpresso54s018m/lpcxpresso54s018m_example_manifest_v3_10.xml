@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_lpcxpresso54s018m_examples_manifest_v3_10" name="SDK_2.x_lpcxpresso54s018m_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2022-07-15 08:19:17.473048-->
-  <!--This manifest is generated based on sdk repo commit: 45d71c921a1dd3e0403549aa377535344ed9bc97-->
+  <!--Timestamp (UTC): 2022-08-11 15:01:29.547500-->
+  <!--This manifest is generated based on sdk repo commit: 7fb442914f92023b395b260777eb2355254fd71d-->
   <externalDefinitions>
     <definition extID="LPC54S018J4MET180"/>
     <definition extID="armgcc"/>
@@ -732,6 +732,11 @@
             <files mask="led_blinky_v3_10.xml"/>
           </external>
         </example>
+        <example id="lpcxpresso54s018m_littlefs_shell" name="littlefs_shell" brief="Demonstrates littlefs functionality by commands executed from shell." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="littlefs_examples" path="littlefs_examples/littlefs_shell">
+          <external path="littlefs_examples/littlefs_shell" type="xml">
+            <files mask="littlefs_shell_v3_10.xml"/>
+          </external>
+        </example>
         <example id="lpcxpresso54s018m_log_bm" name="log_bm" brief="The log demo is used to demonstrate how to use log component. The main function of the demo is to prompt the LOG level string according to the user input log level command." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="component_examples/log/bm">
           <external path="component_examples/log/bm" type="xml">
             <files mask="log_bm_v3_10.xml"/>
@@ -765,6 +770,61 @@
         <example id="lpcxpresso54s018m_lpc_bod" name="lpc_bod" brief="The bod example shows how to use LPC BOD(Brown-out detector) in the simplest way. To run this example, user should remove the jumper for the power source selector, and connect the adjustable input voltage to the MCU's Vin pin. If the input voltage of the Vin pin is lower than the threshold voltage, the BOD interrupt will be asserted." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/bod" path="driver_examples/bod">
           <external path="driver_examples/bod" type="xml">
             <files mask="lpc_bod_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54s018m_lwip_dhcp_bm" name="lwip_dhcp_bm" brief="The lwip_dhcp demo application demonstrates a DHCP demo on the lwIP TCP/IP stack.The application acts as a DHCP client and prints the status as it is progressing.Once the interface is being bound to an IP address obtained from DHCP server, address information is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_dhcp/bm">
+          <external path="lwip_examples/lwip_dhcp/bm" type="xml">
+            <files mask="lwip_dhcp_bm_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54s018m_lwip_dhcp_freertos" name="lwip_dhcp_freertos" brief="The lwip_dhcp demo application demonstrates a DHCP demo on the lwIP TCP/IP stack.The application acts as a DHCP client and prints the status as it is progressing.Once the interface is being bound to an IP address obtained from DHCP server, address information is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_dhcp/freertos">
+          <external path="lwip_examples/lwip_dhcp/freertos" type="xml">
+            <files mask="lwip_dhcp_freertos_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54s018m_lwip_httpsrv_bm" name="lwip_httpsrv_bm" brief="The lwip_httpsrv demo application demonstrates an HTTPServer on the lwIP TCP/IP stack with bare metal SDK or FreeRTOS.The user uses an Internet browser to send a request for connection. The board acts as an HTTP server and sends a Webpage back to the PC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_httpsrv/bm">
+          <external path="lwip_examples/lwip_httpsrv/bm" type="xml">
+            <files mask="lwip_httpsrv_bm_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54s018m_lwip_httpsrv_freertos" name="lwip_httpsrv_freertos" brief="The lwip_httpsrv demo application demonstrates an HTTPServer on the lwIP TCP/IP stack with bare metal SDK or FreeRTOS.The user uses an Internet browser to send a request for connection. The board acts as an HTTP server and sends a Webpage back to the PC." toolchain="armgcc" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_httpsrv/freertos">
+          <external path="lwip_examples/lwip_httpsrv/freertos" type="xml">
+            <files mask="lwip_httpsrv_freertos_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54s018m_lwip_iperf_bm" name="lwip_iperf_bm" brief="This is the IPerf server example to check your bandwidth using the network performance measurement IPerf application on a PC as a client.It is currently a minimal implementation providing an IPv4 TCP server only.Instead of the command line IPerf application, for more convenience, it is recommended to use the JPerf2 graphical tool, which can be downloaded here: https://sourceforge.net/projects/iperf/files/jperf/jperf%202.0.0/jperf-2.0.0.zip/download" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_iperf/bm">
+          <external path="lwip_examples/lwip_iperf/bm" type="xml">
+            <files mask="lwip_iperf_bm_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54s018m_lwip_ipv4_ipv6_echo_freertos" name="lwip_ipv4_ipv6_echo_freertos" brief="The lwip_ipv4_ipv6_echo demo application demonstrates a TCP or UDP echo demo on the lwIP TCP/IP stack with FreeRTOS. The demo uses the TCP or UDP protocol over both IPv4 and IPv6 and acts as an echo server. The application sends back the received TCP or UDP packets from the PC, which can be used to test whether a TCP or UDP is available." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_ipv4_ipv6_echo/freertos">
+          <external path="lwip_examples/lwip_ipv4_ipv6_echo/freertos" type="xml">
+            <files mask="lwip_ipv4_ipv6_echo_freertos_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54s018m_lwip_mqtt_freertos" name="lwip_mqtt_freertos" brief="The lwip_mqtt demo application demonstrates MQTT client connecting to MQTT broker via unsecured socket. The application obtains IP and DNS addresses from DHCP and resolves broker's hostname if needed. Then it connects to the broker and subscribes to the &quot;lwip_topic/#&quot; and &quot;lwip_other/#&quot; topics. Further it publishes five messages to the &quot;lwip_topic/100&quot; which are also received back as the board is subscribed to the &quot;lwip_topic/#&quot;. Meanwhile it continues to receive messages published to the subscribed topics from other clients." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_mqtt/freertos">
+          <external path="lwip_examples/lwip_mqtt/freertos" type="xml">
+            <files mask="lwip_mqtt_freertos_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54s018m_lwip_ping_bm" name="lwip_ping_bm" brief="The lwip_ping demo application demonstrates a Ping Demo on the lwIP TCP/IP stack, which uses the ICMP protocol. Theapplication periodically sends the ICMP echo request to a PC, and processes the PC reply. Type &quot;ping $board_address&quot;in the PC command window to send an ICMP echo request to the board. The lwIP stack sends the ICMP echo reply back to thePC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_ping/bm">
+          <external path="lwip_examples/lwip_ping/bm" type="xml">
+            <files mask="lwip_ping_bm_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54s018m_lwip_ping_freertos" name="lwip_ping_freertos" brief="The lwip_ping demo application demonstrates a Ping Demo on the lwIP TCP/IP stack which using the ICMP protocol. Theapplication periodically sends the ICMP echo request to a PC and processes the PC reply. Type the &quot;ping $board_address&quot;in the PC command window to send an ICMP echo request to the board. The lwIP stack sends the ICMP echo reply back to thePC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_ping/freertos">
+          <external path="lwip_examples/lwip_ping/freertos" type="xml">
+            <files mask="lwip_ping_freertos_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54s018m_mbedtls_benchmark" name="mbedtls_benchmark" brief="The mbdedTLS Benchmark demo application performs cryptographic algorithm benchmarking and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_benchmark">
+          <external path="mbedtls_examples/mbedtls_benchmark" type="xml">
+            <files mask="mbedtls_benchmark_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54s018m_mbedtls_selftest" name="mbedtls_selftest" brief="The mbdedTLS SelfTest program performs cryptographic algorithm testing and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_selftest">
+          <external path="mbedtls_examples/mbedtls_selftest" type="xml">
+            <files mask="mbedtls_selftest_v3_10.xml"/>
           </external>
         </example>
         <example id="lpcxpresso54s018m_mcan_interrupt_transfer" name="mcan_interrupt_transfer" brief="The mcan_interrupt example shows how to use MCAN driver in none-blocking interrupt way:In this example, 2 boards are connected through CAN bus. Endpoint A(board A) send a CAN Message toEndpoint B(board B) when users press space key in terminal. Endpoint B receives the message, printsthe message content to terminal and echoes back the message. Endpoint A will increase the receivedmessage and wait for the next transmission the users initiate." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/mcan" path="driver_examples/mcan/interrupt_transfer">

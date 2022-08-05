@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_evkmimxrt1010_examples_manifest_v3_10" name="SDK_2.x_evkmimxrt1010_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2022-07-15 08:18:19.336361-->
-  <!--This manifest is generated based on sdk repo commit: 45d71c921a1dd3e0403549aa377535344ed9bc97-->
+  <!--Timestamp (UTC): 2022-08-04 15:20:19.340216-->
+  <!--This manifest is generated based on sdk repo commit: 7fb442914f92023b395b260777eb2355254fd71d-->
   <externalDefinitions>
     <definition extID="MIMXRT1011DAE5A"/>
     <definition extID="armgcc"/>
@@ -775,6 +775,16 @@
         <example id="evkmimxrt1010_lpuart_polling_seven_bits" name="lpuart_polling_seven_bits" brief="The lpuart_polling_seven_bits Example project is to demonstrate usage of the KSDK lpuart driver with seven data bits feature enabled.In the example, you can send characters to the console back and they will be printed out onto console instantly.NOTE: Please set com port format to &quot;7 data bits without parity bit&quot; in PC's com port tool" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpuart" path="driver_examples/lpuart/polling_seven_bits">
           <external path="driver_examples/lpuart/polling_seven_bits" type="xml">
             <files mask="lpuart_polling_seven_bits_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1010_mbedtls_benchmark" name="mbedtls_benchmark" brief="The mbdedTLS Benchmark demo application performs cryptographic algorithm benchmarking and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_benchmark">
+          <external path="mbedtls_examples/mbedtls_benchmark" type="xml">
+            <files mask="mbedtls_benchmark_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1010_mbedtls_selftest" name="mbedtls_selftest" brief="The mbdedTLS SelfTest program performs cryptographic algorithm testing and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_selftest">
+          <external path="mbedtls_examples/mbedtls_selftest" type="xml">
+            <files mask="mbedtls_selftest_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1010_netxduo_lib" name="netxduo_lib" brief="NetX Duo library" toolchain="mcuxpresso" compiler="compiler_gcc" category="azure_rtos_libs" path="azure_rtos_examples/netxduo_lib">

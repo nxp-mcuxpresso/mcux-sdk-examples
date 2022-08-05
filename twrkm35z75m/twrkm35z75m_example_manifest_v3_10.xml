@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_twrkm35z75m_examples_manifest_v3_10" name="SDK_2.x_twrkm35z75m_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2022-07-15 08:19:40.593593-->
-  <!--This manifest is generated based on sdk repo commit: 45d71c921a1dd3e0403549aa377535344ed9bc97-->
+  <!--Timestamp (UTC): 2022-08-04 15:21:52.107052-->
+  <!--This manifest is generated based on sdk repo commit: 7fb442914f92023b395b260777eb2355254fd71d-->
   <externalDefinitions>
     <definition extID="MKM35Z512VLQ7"/>
     <definition extID="armgcc"/>
@@ -320,6 +320,16 @@
         <example id="twrkm35z75m_lpuart_polling" name="lpuart_polling" brief="The lpuart_polling Example project is to demonstrate usage of the KSDK lpuart driver.In the example, you can send characters to the console back and they will be printed out onto console instantly." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpuart" path="driver_examples/lpuart/polling">
           <external path="driver_examples/lpuart/polling" type="xml">
             <files mask="lpuart_polling_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="twrkm35z75m_mbedtls_benchmark" name="mbedtls_benchmark" brief="The mbdedTLS Benchmark demo application performs cryptographic algorithm benchmarking and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_benchmark">
+          <external path="mbedtls_examples/mbedtls_benchmark" type="xml">
+            <files mask="mbedtls_benchmark_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="twrkm35z75m_mbedtls_selftest" name="mbedtls_selftest" brief="The mbdedTLS SelfTest program performs cryptographic algorithm testing and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_selftest">
+          <external path="mbedtls_examples/mbedtls_selftest" type="xml">
+            <files mask="mbedtls_selftest_v3_10.xml"/>
           </external>
         </example>
         <example id="twrkm35z75m_mcg_fee_blpe" name="mcg_fee_blpe" brief="The fee_bple example shows how to use MCG driver to change from FEE mode to BLPE mode: 1. How to use the mode functions for MCG mode switch. 2. How to use the frequency functions to get current MCG frequency. 3. Work flow    Boot to Fee mode from default reset mode    Change from FEE -&gt; FBE -&gt; BLPE    Change back BLPE -&gt; FBE -&gt; FEE    Get System clock in FEE mode to blink LEDIn this example, because the debug console's clock frequency may change,so the example running information is not output from debug console. Here theLED blinks to show that the example finished successfully." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/mcg" path="driver_examples/mcg/fee_blpe">
