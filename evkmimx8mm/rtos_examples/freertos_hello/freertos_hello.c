@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2017,2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -38,6 +38,8 @@ static void hello_task(void *pvParameters);
  */
 int main(void)
 {
+    BOARD_InitMemory();
+
     /* Init board hardware. */
     /* Board specific RDC settings */
     BOARD_RdcInit();
@@ -45,7 +47,6 @@ int main(void)
     BOARD_InitBootPins();
     BOARD_BootClockRUN();
     BOARD_InitDebugConsole();
-    BOARD_InitMemory();
     if (xTaskCreate(hello_task, "Hello_task", configMINIMAL_STACK_SIZE + 100, NULL, hello_task_PRIORITY, NULL) !=
         pdPASS)
     {
