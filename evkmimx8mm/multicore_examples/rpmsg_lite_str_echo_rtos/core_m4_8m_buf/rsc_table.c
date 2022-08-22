@@ -17,6 +17,7 @@
 #include <string.h>
 
 #define NUM_VRINGS 0x02
+#define RESOURCE_TABLE_OFFSET_8M 0xa00000
 
 /* Place resource table in special ELF section */
 #if defined(__ARMCC_VERSION) || defined(__GNUC__)
@@ -65,10 +66,10 @@ const struct remote_resource_table resources = {
 void copyResourceTable(void)
 {
     /*
-     * Resource table should be copied to VDEV0_VRING_BASE + RESOURCE_TABLE_OFFSET.
+     * Resource table should be copied to VDEV0_VRING_BASE + RESOURCE_TABLE_OFFSET_8M.
      * VDEV0_VRING_BASE is temperorily kept for backward compatibility, will be
      * removed in future release
      */
     memcpy((void *)VDEV0_VRING_BASE, &resources, sizeof(resources));
-    memcpy((void *)(VDEV0_VRING_BASE + RESOURCE_TABLE_OFFSET), &resources, sizeof(resources));
+    memcpy((void *)(VDEV0_VRING_BASE + RESOURCE_TABLE_OFFSET_8M), &resources, sizeof(resources));
 }

@@ -128,7 +128,7 @@
 #define configUSE_MUTEXES                       1
 
 #ifndef configTOTAL_HEAP_SIZE
-#define configTOTAL_HEAP_SIZE ((size_t)(40 * 1024))
+#define configTOTAL_HEAP_SIZE ((size_t)(80 * 1024))
 #endif
 
 /* Interrupt nesting behaviour configuration. Cortex-M specific. */

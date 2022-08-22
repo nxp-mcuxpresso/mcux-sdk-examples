@@ -31,7 +31,7 @@
 //! Size of the buffer payload, it must be equal to (240, 496, 1008, ...)
 //! [2^n - 16]. Ensure the same value is defined on both sides of rpmsg
 //! communication. The default value is 496U.
-#define RL_BUFFER_PAYLOAD_SIZE (496U)
+#define RL_BUFFER_PAYLOAD_SIZE (496U + 512U)
 
 //! @def RL_BUFFER_COUNT
 //!
@@ -41,7 +41,7 @@
 //! communication only, i.e. if the default value of 2 is used
 //! in rpmsg_config.h files for the master and the remote side, 4 buffers
 //! in total are created in the shared memory.
-#define RL_BUFFER_COUNT (256U)
+#define RL_BUFFER_COUNT (256U * 4 * 4)
 
 //! @def RL_API_HAS_ZEROCOPY
 //!
@@ -82,5 +82,7 @@
 //! Do not use in RPMsg-Lite to Linux configuration
 #define RL_DEBUG_CHECK_BUFFERS (0)
 //@}
+
+#define RL_BUFFER_8M
 
 #endif /* RPMSG_CONFIG_H_ */
