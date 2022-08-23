@@ -5862,6 +5862,12 @@ ${load}</script>
       </source>
     </component>
     <component id="middleware.multicore.rpmsg_lite.LPC54114" name="rpmsg_lite" brief="RPMsg-Lite" version="3.1.1" full_name="Remote Procedure Messaging Lite library" devices="LPC54114J256" category="Multicore/RPMsg-Lite" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
+      <dependencies>
+        <any_of>
+          <component_dependency value="middleware.multicore.rpmsg_lite.bm.LPC54114"/>
+          <component_dependency value="middleware.multicore.rpmsg_lite.freertos.LPC54114"/>
+        </any_of>
+      </dependencies>
       <source relative_path="rpmsg_lite/lib/include" project_relative_path="./" type="c_include">
         <files mask="rpmsg_lite.h"/>
         <files mask="rpmsg_ns.h"/>
@@ -6002,18 +6008,6 @@ ${load}</script>
         <files mask="close.png" hidden="true"/>
         <files mask="search_m.png" hidden="true"/>
       </source>
-      <source condition="middleware.baremetal.LPC54114" relative_path="rpmsg_lite/lib/rpmsg_lite/porting/environment" project_relative_path="env/bm" type="src">
-        <files mask="rpmsg_env_bm.c"/>
-      </source>
-      <source condition="middleware.freertos-kernel.LPC54114" relative_path="rpmsg_lite/lib/rpmsg_lite/porting/environment" project_relative_path="env/freertos" type="src">
-        <files mask="rpmsg_env_freertos.c"/>
-      </source>
-      <source condition="middleware.freertos-kernel.LPC54114" relative_path="rpmsg_lite/lib/include" project_relative_path="./" type="c_include">
-        <files mask="rpmsg_queue.h"/>
-      </source>
-      <source condition="middleware.freertos-kernel.LPC54114" relative_path="rpmsg_lite/lib/rpmsg_lite" project_relative_path="env/freertos" type="src">
-        <files mask="rpmsg_queue.c"/>
-      </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
         <files mask="middleware_multicore_rpmsg_lite.cmake" hidden="true"/>
       </source>
@@ -6022,6 +6016,23 @@ ${load}</script>
       </source>
       <include_paths>
         <include_path relative_path="rpmsg_lite/lib/include" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.rpmsg_lite.bm.LPC54114" name="rpmsg_lite" brief="RPMsg-Lite BM environment sources" version="4.0.0" full_name="RPMsg-Lite baremetal environment layer sources" devices="LPC54114J256" category="Multicore/RPMsg-Lite" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
+      <source condition="middleware.baremetal.LPC54114" relative_path="rpmsg_lite/lib/rpmsg_lite/porting/environment" project_relative_path="rpmsg_lite/porting/environment" type="src">
+        <files mask="rpmsg_env_bm.c"/>
+      </source>
+      <source relative_path="rpmsg_lite/lib/include/environment/bm" project_relative_path="include/environment/bm" type="c_include">
+        <files mask="rpmsg_env_specific.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
+        <files mask="middleware_multicore_rpmsg_lite_bm.cmake" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
+        <files mask="middleware_multicore_rpmsg_lite_bm.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="rpmsg_lite/lib/include/environment/bm" project_relative_path="include/environment/bm" type="c_include"/>
       </include_paths>
     </component>
     <component id="middleware.multicore.rpmsg_lite.bm.config.lpc5411x.LPC54114" name="rpmsg_lite_bm_config" brief="RPMsg-Lite baremetal application configuration" version="3.1.1" full_name="Remote Procedure Messaging Lite BM configuration" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" category="Multicore/RPMsg-Lite BM" user_visible="true" type="middleware" package_base_path="middleware/multicore" project_base_path="source">
@@ -6037,6 +6048,29 @@ ${load}</script>
       </source>
       <include_paths>
         <include_path relative_path="rpmsg_lite/template_application" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.rpmsg_lite.freertos.LPC54114" name="rpmsg_lite" brief="RPMsg-Lite FreeRTOS environment sources" version="4.0.0" full_name="RPMsg-Lite FreeRTOS environment layer sources" devices="LPC54114J256" category="Multicore/RPMsg-Lite" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
+      <source condition="middleware.freertos-kernel.LPC54114" relative_path="rpmsg_lite/lib/rpmsg_lite/porting/environment" project_relative_path="rpmsg_lite/porting/environment" type="src">
+        <files mask="rpmsg_env_freertos.c"/>
+      </source>
+      <source condition="middleware.freertos-kernel.LPC54114" relative_path="rpmsg_lite/lib/include" project_relative_path="include" type="c_include">
+        <files mask="rpmsg_queue.h"/>
+      </source>
+      <source condition="middleware.freertos-kernel.LPC54114" relative_path="rpmsg_lite/lib/rpmsg_lite" project_relative_path="rpmsg_lite" type="src">
+        <files mask="rpmsg_queue.c"/>
+      </source>
+      <source relative_path="rpmsg_lite/lib/include/environment/freertos" project_relative_path="include/environment/freertos" type="c_include">
+        <files mask="rpmsg_env_specific.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
+        <files mask="middleware_multicore_rpmsg_lite_freertos.cmake" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_LPC54114J256">
+        <files mask="middleware_multicore_rpmsg_lite_freertos.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="rpmsg_lite/lib/include/environment/freertos" project_relative_path="include/environment/freertos" type="c_include"/>
       </include_paths>
     </component>
     <component id="middleware.multicore.rpmsg_lite.freertos.config.lpc5411x.LPC54114" name="rpmsg_lite_freertos_config" brief="RPMsg-Lite FreeRTOS application configuration" version="3.1.1" full_name="Remote Procedure Messaging Lite FreeRTOS configuration" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" category="Multicore/RPMsg-Lite FreeRTOS" user_visible="true" type="middleware" package_base_path="middleware/multicore" project_base_path="source">
