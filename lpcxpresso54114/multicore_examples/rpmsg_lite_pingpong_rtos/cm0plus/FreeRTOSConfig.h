@@ -60,14 +60,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define configNUM_THREAD_LOCAL_STORAGE_POINTERS 5
 
 /* Used memory allocation (heap_x.c) */
-#define configFRTOS_MEMORY_SCHEME               3
+#define configFRTOS_MEMORY_SCHEME               4
 /* Tasks.c additions (e.g. Thread Aware Debug capability) */
 #define configINCLUDE_FREERTOS_TASK_C_ADDITIONS_H 1
 
 /* Memory allocation related definitions. */
 #define configSUPPORT_STATIC_ALLOCATION         0
 #define configSUPPORT_DYNAMIC_ALLOCATION        1
-/*#define configTOTAL_HEAP_SIZE                   0  not used by heap_3.c allocator */
+#define configTOTAL_HEAP_SIZE                   ((size_t)(8 * 1024))
 #define configAPPLICATION_ALLOCATED_HEAP        0
 
 /* Hook function related definitions. */
@@ -101,9 +101,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /* Optional functions - most linkers will remove unused functions anyway. */
 #define INCLUDE_vTaskPrioritySet                1
 #define INCLUDE_uxTaskPriorityGet               1
-#define INCLUDE_vTaskDelete                     0
+#define INCLUDE_vTaskDelete                     1
 #define INCLUDE_vTaskSuspend                    1
-#define INCLUDE_xResumeFromISR                  1
 #define INCLUDE_vTaskDelayUntil                 1
 #define INCLUDE_vTaskDelay                      1
 #define INCLUDE_xTaskGetSchedulerState          1
@@ -111,7 +110,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define INCLUDE_uxTaskGetStackHighWaterMark     0
 #define INCLUDE_xTaskGetIdleTaskHandle          0
 #define INCLUDE_eTaskGetState                   0
-#define INCLUDE_xEventGroupSetBitFromISR        1
 #define INCLUDE_xTimerPendFunctionCall          1
 #define INCLUDE_xTaskAbortDelay                 0
 #define INCLUDE_xTaskGetHandle                  0

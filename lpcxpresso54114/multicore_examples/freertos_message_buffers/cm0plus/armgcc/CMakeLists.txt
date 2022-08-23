@@ -75,6 +75,8 @@ include(middleware_multicore_mcmgr)
 
 include(middleware_freertos-kernel_LPC54114_cm0plus)
 
+include(middleware_freertos-kernel_heap_4)
+
 include(driver_common)
 
 include(driver_power)

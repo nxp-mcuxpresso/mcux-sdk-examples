@@ -60,14 +60,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define configNUM_THREAD_LOCAL_STORAGE_POINTERS 5
 
 /* Used memory allocation (heap_x.c) */
-#define configFRTOS_MEMORY_SCHEME               3
+#define configFRTOS_MEMORY_SCHEME               4
 /* Tasks.c additions (e.g. Thread Aware Debug capability) */
 #define configINCLUDE_FREERTOS_TASK_C_ADDITIONS_H 1
 
 /* Memory allocation related definitions. */
 #define configSUPPORT_STATIC_ALLOCATION         0
 #define configSUPPORT_DYNAMIC_ALLOCATION        1
-/*#define configTOTAL_HEAP_SIZE                   0  not used by heap_3.c allocator */
+#define configTOTAL_HEAP_SIZE                   ((size_t)(8 * 1024))
 #define configAPPLICATION_ALLOCATED_HEAP        0
 
 /* Hook function related definitions. */

@@ -68,6 +68,8 @@ include(middleware_multicore_mcmgr_lpc54114)
 
 include(middleware_multicore_rpmsg_lite_lpc5411x_freertos)
 
+include(middleware_multicore_rpmsg_lite_freertos)
+
 include(driver_mailbox)
 
 include(driver_lpc_iocon)
@@ -78,7 +80,7 @@ include(middleware_freertos-kernel_LPC54114_cm0plus)
 
 include(middleware_multicore_mcmgr)
 
-include(middleware_freertos-kernel_heap_3)
+include(middleware_freertos-kernel_heap_4)
 
 include(driver_common)
 

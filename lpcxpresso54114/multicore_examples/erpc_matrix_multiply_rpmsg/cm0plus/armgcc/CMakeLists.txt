@@ -76,6 +76,10 @@ include(middleware_multicore_mcmgr_lpc54114)
 
 include(middleware_multicore_rpmsg_lite_lpc5411x_bm)
 
+include(middleware_multicore_rpmsg_lite_LPC54114_cm0plus)
+
+include(middleware_multicore_rpmsg_lite_bm)
+
 include(utility_debug_console_lite)
 
 include(utility_assert_lite)
