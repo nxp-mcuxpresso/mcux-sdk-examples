@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="cm4_MIMXRT1176xxxxx"/>
+    <definition extID="platform.drivers.clock.MIMXRT1176"/>
+    <definition extID="platform.drivers.pmu_1.MIMXRT1176"/>
+    <definition extID="platform.drivers.common.MIMXRT1176"/>
+    <definition extID="platform.drivers.anatop_ai.MIMXRT1176"/>
+    <definition extID="platform.drivers.igpio.MIMXRT1176"/>
+    <definition extID="platform.drivers.lpuart.MIMXRT1176"/>
+    <definition extID="platform.drivers.xbara.MIMXRT1176"/>
+    <definition extID="platform.drivers.nic301.MIMXRT1176"/>
+    <definition extID="platform.drivers.dcdc_soc.MIMXRT1176"/>
+    <definition extID="platform.drivers.iomuxc.MIMXRT1176"/>
+    <definition extID="driver.romapi.MIMXRT1176"/>
+    <definition extID="platform.drivers.mu.MIMXRT1176"/>
+    <definition extID="platform.drivers.rdc_sema42.MIMXRT1176"/>
+    <definition extID="platform.drivers.rdc.MIMXRT1176"/>
+    <definition extID="platform.drivers.sema4.MIMXRT1176"/>
+    <definition extID="platform.drivers.wdog01.MIMXRT1176"/>
+    <definition extID="component.lpuart_adapter.MIMXRT1176"/>
+    <definition extID="component.lists.MIMXRT1176"/>
+    <definition extID="utility.debug_console.MIMXRT1176"/>
+    <definition extID="middleware.baremetal.MIMXRT1176"/>
+    <definition extID="platform.devices.MIMXRT1176_CMSIS.MIMXRT1176"/>
+    <definition extID="component.serial_manager.MIMXRT1176"/>
+    <definition extID="component.serial_manager_uart.MIMXRT1176"/>
+    <definition extID="platform.utilities.assert.MIMXRT1176"/>
+    <definition extID="platform.drivers.cache_lmem.MIMXRT1176"/>
+    <definition extID="platform.devices.MIMXRT1176_system.MIMXRT1176"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT1176"/>
+    <definition extID="platform.utilities.misc_utilities.MIMXRT1176"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+    <definition extID="iar"/>
+    <definition extID="mdk"/>
+    <definition extID="armgcc"/>
+  </externalDefinitions>
+  <example id="isi_qmc_dgc_hello_world_demo_cm4" name="hello_world_demo_cm4" device_core="cm4_MIMXRT1176xxxxx" dependency="platform.drivers.clock.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 platform.drivers.xbara.MIMXRT1176 platform.drivers.nic301.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 driver.romapi.MIMXRT1176 platform.drivers.mu.MIMXRT1176 platform.drivers.rdc_sema42.MIMXRT1176 platform.drivers.rdc.MIMXRT1176 platform.drivers.sema4.MIMXRT1176 platform.drivers.wdog01.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 component.lists.MIMXRT1176 utility.debug_console.MIMXRT1176 middleware.baremetal.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 component.serial_manager.MIMXRT1176 component.serial_manager_uart.MIMXRT1176 platform.utilities.assert.MIMXRT1176 platform.drivers.cache_lmem.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176" category="demo_apps">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <memory>
+      <memoryBlock id="LMEM_CODE_TCM_isi_qmc_dgc" name="LMEM_CODE_TCM" addr="1ffe0000" size="00020000" type="RAM" access="RW"/>
+      <memoryBlock id="LMEM_SYSTEM_TCM_isi_qmc_dgc" name="LMEM_SYSTEM_TCM" addr="20000000" size="00020000" type="RAM" access="RW"/>
+    </memory>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>FSL_RTOS_BM</value>
+          <value>SDK_OS_BAREMETAL</value>
+          <value>XIP_EXTERNAL_FLASH=0</value>
+          <value>XIP_BOOT_HEADER_ENABLE=0</value>
+          <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>CR_INTEGER_PRINTF</value>
+          <value>PRINTF_FLOAT_ENABLE=0</value>
+          <value>__MCUXPRESSO</value>
+          <value>__USE_CMSIS</value>
+          <value>DEBUG</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv4.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv4.hard</value>
+        </option>
+        <option id="com.crt.advproject.gas.hdrlib" type="enum">
+          <value>com.crt.advproject.gas.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gas.specs" type="enum">
+          <value>com.crt.advproject.gas.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gcc.specs" type="enum">
+          <value>com.crt.advproject.gcc.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.link.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.link.hdrlib.newlibnano.nohost</value>
+        </option>
+        <option id="com.crt.advproject.link.toram" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.heapAndStack" type="string">
+          <value>&amp;Heap:LMEM_SYSTEM_TCM;Post Data;0x1000&amp;Stack:LMEM_SYSTEM_TCM;End;0x1000</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <include_paths>
+      <include_path path="examples/isi_qmc_dgc/demo_apps/hello_world/cm4" project_relative_path="board" type="c_include"/>
+      <include_path path="examples/isi_qmc_dgc/demo_apps/hello_world/cm4" project_relative_path="board" type="c_include"/>
+      <include_path path="core/boards/isi_qmc_dgc" project_relative_path="board" type="c_include"/>
+    </include_paths>
+    <source path="examples/isi_qmc_dgc/demo_apps/hello_world/cm4" project_relative_path="isi_qmc_dgc/demo_apps/hello_world/cm4" type="binary">
+      <files mask="hello_world_demo_cm4.bin" hidden="true"/>
+    </source>
+    <source path="examples/isi_qmc_dgc/demo_apps/hello_world/cm4" project_relative_path="source" type="src">
+      <files mask="main_cm4.c"/>
+      <files mask="interrupts.c"/>
+    </source>
+    <source path="examples/isi_qmc_dgc/demo_apps/hello_world/cm4" project_relative_path="source" type="c_include">
+      <files mask="main_cm4.h"/>
+    </source>
+    <source path="examples/isi_qmc_dgc/cm4" project_relative_path="startup" type="src">
+      <files mask="startup_mimxrt1176_cm4.c"/>
+    </source>
+    <source path="examples/isi_qmc_dgc/demo_apps/hello_world/cm4" project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+      <files mask="peripherals.c"/>
+    </source>
+    <source path="examples/isi_qmc_dgc/demo_apps/hello_world/cm4" project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+      <files mask="peripherals.h"/>
+    </source>
+    <source path="examples/isi_qmc_dgc/demo_apps/hello_world/cm4" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="examples/isi_qmc_dgc/demo_apps/hello_world/cm4" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="examples/isi_qmc_dgc/demo_apps/hello_world/cm4" project_relative_path="." type="other">
+      <files mask="hello_world.mex" hidden="true"/>
+    </source>
+    <source path="core/boards/isi_qmc_dgc" project_relative_path="board" type="src">
+      <files mask="dcd.c"/>
+    </source>
+    <source path="core/boards/isi_qmc_dgc" project_relative_path="board" type="c_include">
+      <files mask="dcd.h"/>
+    </source>
+    <source path="examples/isi_qmc_dgc/demo_apps/hello_world/cm4" project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
+      <files mask="readme.txt"/>
+    </source>
+  </example>
+</ksdk:examples>

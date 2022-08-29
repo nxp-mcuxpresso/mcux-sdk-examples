@@ -1,0 +1,3 @@
+       *(EXCLUDE_FILE(
+						*freertos_kernel*
+		) *.bss*)

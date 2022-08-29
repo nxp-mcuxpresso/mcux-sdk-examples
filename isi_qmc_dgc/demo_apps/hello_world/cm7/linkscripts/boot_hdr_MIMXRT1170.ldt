@@ -1,0 +1,43 @@
+<#-- Only insert header if Flash region starts at true base address -->
+<#if (MemUtils.location(CODE) == Utils.strToInt("0x60000000")) >
+    /* Image Vector Table and Boot Data for booting from external flash */
+    .boot_hdr : ALIGN(${text_align})
+    {
+        FILL(0xff)
+        . = 0x400 ;
+        __boot_hdr_start__ = ABSOLUTE(.) ;
+        KEEP(*(.boot_hdr.conf))
+        . = 0x1000 ;
+<#if (PLAIN_LOAD_IMAGE) >
+        __boot_hdr_ivt_loadaddr__  =  ABSOLUTE(.) + _image_load_offset ;
+<#else>
+        __boot_hdr_ivt_loadaddr__  =  ABSOLUTE(.) ;
+</#if>
+        KEEP(*(.boot_hdr.ivt))
+        . = 0x1020 ;
+<#if (PLAIN_LOAD_IMAGE) >
+        __boot_hdr_boot_data_loadaddr__ = ABSOLUTE(.) + _image_load_offset ;
+<#else>
+        __boot_hdr_boot_data_loadaddr__ = ABSOLUTE(.) ;
+</#if>
+        KEEP(*(.boot_hdr.boot_data))
+        . = 0x1030 ;
+<#if (PLAIN_LOAD_IMAGE) >
+        __boot_hdr_dcd_loadaddr__ = ABSOLUTE(.) + _image_load_offset ;
+<#else>
+        __boot_hdr_dcd_loadaddr__ = ABSOLUTE(.) ;
+</#if>
+        KEEP(*(.boot_hdr.dcd_data))
+        __boot_hdr_end__ = ABSOLUTE(.) ;
+        . = 0x2000 ;
+    } >${CODE}
+
+<#if (PLAIN_LOAD_IMAGE) >
+    /* DUMMY TEXT SECTION - push the real .text section farther down in order
+     * to prevent collision with boot_hdr during plain load image booting */
+    .text ORIGIN(${CODEX}) + SIZEOF(.boot_hdr): ALIGN(4)
+    {
+    } > ${CODEX} AT> ${CODE}
+</#if>
+
+</#if>
