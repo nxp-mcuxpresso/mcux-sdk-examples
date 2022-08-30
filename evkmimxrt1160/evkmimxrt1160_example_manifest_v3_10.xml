@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_evkmimxrt1160_examples_manifest_v3_10" name="SDK_2.x_evkmimxrt1160_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2022-07-15 08:19:29.723461-->
-  <!--This manifest is generated based on sdk repo commit: 45d71c921a1dd3e0403549aa377535344ed9bc97-->
+  <!--Timestamp (UTC): 2022-08-11 15:01:42.385549-->
+  <!--This manifest is generated based on sdk repo commit: 7fb442914f92023b395b260777eb2355254fd71d-->
   <externalDefinitions>
     <definition extID="MIMXRT1166DVM6A"/>
     <definition extID="armgcc"/>
@@ -552,6 +552,11 @@
             <files mask="lcdifv2_rgb565_cm4_v3_10.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt1160_littlefs_shell_cm4" name="littlefs_shell_cm4" brief="Demonstrates littlefs functionality by commands executed from shell." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="littlefs_examples" path="littlefs_examples/littlefs_shell/cm4">
+          <external path="littlefs_examples/littlefs_shell/cm4" type="xml">
+            <files mask="littlefs_shell_cm4_v3_10.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt1160_lpadc_high_sample_rate_sample_signal_cm4" name="lpadc_high_sample_rate_sample_signal_cm4" brief="This demo application demonstrates the use of the LPADC to sample the analog signal. In this demo, the ADC clock is set as the maximum frequency, users should input analog signals to the ADC channel, press any keys to trigger the ADC conversion. After sampling enough sample points, the ADC will be disabled and the sample data will be print via UART. Users can use some tools such as EXCEL to recover the input signal based on those printed data." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="demo_apps/lpadc_high_sample_rate/sample_signal/cm4">
           <external path="demo_apps/lpadc_high_sample_rate/sample_signal/cm4" type="xml">
             <files mask="lpadc_high_sample_rate_sample_signal_cm4_v3_10.xml"/>
@@ -660,6 +665,71 @@
         <example id="evkmimxrt1160_lpuart_polling_seven_bits_cm4" name="lpuart_polling_seven_bits_cm4" brief="The lpuart_polling_seven_bits Example project is to demonstrate usage of the KSDK lpuart driver with seven data bits feature enabled.In the example, you can send characters to the console back and they will be printed out onto console instantly.NOTE: Please set com port format to &quot;7 data bits without parity bit&quot; in PC's com port tool" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpuart" path="driver_examples/lpuart/polling_seven_bits/cm4">
           <external path="driver_examples/lpuart/polling_seven_bits/cm4" type="xml">
             <files mask="lpuart_polling_seven_bits_cm4_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_dhcp_bm_cm4" name="lwip_dhcp_bm_cm4" brief="The lwip_dhcp demo application demonstrates a DHCP demo on the lwIP TCP/IP stack.The application acts as a DHCP client and prints the status as it is progressing.Once the interface is being bound to an IP address obtained from DHCP server, address information is printed." toolchain="armgcc" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_dhcp/bm/cm4">
+          <external path="lwip_examples/lwip_dhcp/bm/cm4" type="xml">
+            <files mask="lwip_dhcp_bm_cm4_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_dhcp_freertos_cm4" name="lwip_dhcp_freertos_cm4" brief="The lwip_dhcp demo application demonstrates a DHCP demo on the lwIP TCP/IP stack.The application acts as a DHCP client and prints the status as it is progressing.Once the interface is being bound to an IP address obtained from DHCP server, address information is printed." toolchain="armgcc" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_dhcp/freertos/cm4">
+          <external path="lwip_examples/lwip_dhcp/freertos/cm4" type="xml">
+            <files mask="lwip_dhcp_freertos_cm4_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_httpsrv_bm_cm4" name="lwip_httpsrv_bm_cm4" brief="The lwip_httpsrv demo application demonstrates an HTTPServer on the lwIP TCP/IP stack with bare metal SDK or FreeRTOS.The user uses an Internet browser to send a request for connection. The board acts as an HTTP server and sends a Webpage back to the PC." toolchain="armgcc" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_httpsrv/bm/cm4">
+          <external path="lwip_examples/lwip_httpsrv/bm/cm4" type="xml">
+            <files mask="lwip_httpsrv_bm_cm4_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_httpsrv_freertos_cm4" name="lwip_httpsrv_freertos_cm4" brief="The lwip_httpsrv demo application demonstrates an HTTPServer on the lwIP TCP/IP stack with bare metal SDK or FreeRTOS.The user uses an Internet browser to send a request for connection. The board acts as an HTTP server and sends a Webpage back to the PC." toolchain="armgcc" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_httpsrv/freertos/cm4">
+          <external path="lwip_examples/lwip_httpsrv/freertos/cm4" type="xml">
+            <files mask="lwip_httpsrv_freertos_cm4_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_httpssrv_mbedTLS_bm_cm4" name="lwip_httpssrv_mbedTLS_bm_cm4" brief="The lwip_httpsrv_mbedTSL_bm demo application demonstrates an HTTPS Serverset up on lwIP TCP/IP and the mbedTLS stack with bare metal. The useruses an Internet browser to send an https request for connection.The board acts as an HTTPS server and sends a Web page back to the PC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_httpssrv_mbedTLS/bm/cm4">
+          <external path="lwip_examples/lwip_httpssrv_mbedTLS/bm/cm4" type="xml">
+            <files mask="lwip_httpssrv_mbedTLS_bm_cm4_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_httpssrv_mbedTLS_freertos_cm4" name="lwip_httpssrv_mbedTLS_freertos_cm4" brief="The lwip_httpsrv_mbedTLS demo application demonstrates an HTTPServer set up on lwIP TCP/IP and the MbedTLS stack withFreeRTOS. The user uses an Internet browser to send an https request for connection. The board acts as an HTTP serverand sends a Web page back to the PC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_httpssrv_mbedTLS/freertos/cm4">
+          <external path="lwip_examples/lwip_httpssrv_mbedTLS/freertos/cm4" type="xml">
+            <files mask="lwip_httpssrv_mbedTLS_freertos_cm4_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_iperf_bm_cm4" name="lwip_iperf_bm_cm4" brief="This is the IPerf server example to check your bandwidth using the network performance measurement IPerf application on a PC as a client.It is currently a minimal implementation providing an IPv4 TCP server only.Instead of the command line IPerf application, for more convenience, it is recommended to use the JPerf2 graphical tool, which can be downloaded here: https://sourceforge.net/projects/iperf/files/jperf/jperf%202.0.0/jperf-2.0.0.zip/download" toolchain="armgcc" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_iperf/bm/cm4">
+          <external path="lwip_examples/lwip_iperf/bm/cm4" type="xml">
+            <files mask="lwip_iperf_bm_cm4_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_ipv4_ipv6_echo_freertos_cm4" name="lwip_ipv4_ipv6_echo_freertos_cm4" brief="The lwip_ipv4_ipv6_echo demo application demonstrates a TCP or UDP echo demo on the lwIP TCP/IP stack with FreeRTOS. The demo uses the TCP or UDP protocol over both IPv4 and IPv6 and acts as an echo server. The application sends back the received TCP or UDP packets from the PC, which can be used to test whether a TCP or UDP is available." toolchain="armgcc" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_ipv4_ipv6_echo/freertos/cm4">
+          <external path="lwip_examples/lwip_ipv4_ipv6_echo/freertos/cm4" type="xml">
+            <files mask="lwip_ipv4_ipv6_echo_freertos_cm4_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_mqtt_freertos_cm4" name="lwip_mqtt_freertos_cm4" brief="The lwip_mqtt demo application demonstrates MQTT client connecting to MQTT broker via unsecured socket. The application obtains IP and DNS addresses from DHCP and resolves broker's hostname if needed. Then it connects to the broker and subscribes to the &quot;lwip_topic/#&quot; and &quot;lwip_other/#&quot; topics. Further it publishes five messages to the &quot;lwip_topic/100&quot; which are also received back as the board is subscribed to the &quot;lwip_topic/#&quot;. Meanwhile it continues to receive messages published to the subscribed topics from other clients." toolchain="armgcc" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_mqtt/freertos/cm4">
+          <external path="lwip_examples/lwip_mqtt/freertos/cm4" type="xml">
+            <files mask="lwip_mqtt_freertos_cm4_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_ping_bm_cm4" name="lwip_ping_bm_cm4" brief="The lwip_ping demo application demonstrates a Ping Demo on the lwIP TCP/IP stack, which uses the ICMP protocol. Theapplication periodically sends the ICMP echo request to a PC, and processes the PC reply. Type &quot;ping $board_address&quot;in the PC command window to send an ICMP echo request to the board. The lwIP stack sends the ICMP echo reply back to thePC." toolchain="armgcc" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_ping/bm/cm4">
+          <external path="lwip_examples/lwip_ping/bm/cm4" type="xml">
+            <files mask="lwip_ping_bm_cm4_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_ping_freertos_cm4" name="lwip_ping_freertos_cm4" brief="The lwip_ping demo application demonstrates a Ping Demo on the lwIP TCP/IP stack which using the ICMP protocol. Theapplication periodically sends the ICMP echo request to a PC and processes the PC reply. Type the &quot;ping $board_address&quot;in the PC command window to send an ICMP echo request to the board. The lwIP stack sends the ICMP echo reply back to thePC." toolchain="armgcc" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_ping/freertos/cm4">
+          <external path="lwip_examples/lwip_ping/freertos/cm4" type="xml">
+            <files mask="lwip_ping_freertos_cm4_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_mbedtls_benchmark_cm4" name="mbedtls_benchmark_cm4" brief="The mbdedTLS Benchmark demo application performs cryptographic algorithm benchmarking and prints results to the terminal." toolchain="armgcc" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_benchmark/cm4">
+          <external path="mbedtls_examples/mbedtls_benchmark/cm4" type="xml">
+            <files mask="mbedtls_benchmark_cm4_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_mbedtls_selftest_cm4" name="mbedtls_selftest_cm4" brief="The mbdedTLS SelfTest program performs cryptographic algorithm testing and prints results to the terminal." toolchain="armgcc" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_selftest/cm4">
+          <external path="mbedtls_examples/mbedtls_selftest/cm4" type="xml">
+            <files mask="mbedtls_selftest_cm4_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1160_mipi_dsi_compliant_test_cm4" name="mipi_dsi_compliant_test_cm4" brief="This project is used for MIPI DSI compliant test." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="display_examples" path="display_examples/mipi_dsi_compliant_test/cm4">
@@ -1180,6 +1250,21 @@
         <example id="evkmimxrt1160_deepviewrt_labelimage_cm7" name="deepviewrt_labelimage_cm7" brief="DeepViewRT LabelImage is as a basic &quot;labelimage&quot; example for using DeepViewRT on an RT106x platform.  The firmware integrates a user defined model with an example provided as well as a user provided image to classify." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/deepviewrt_labelimage">
           <external path="eiq_examples/deepviewrt_labelimage" type="xml">
             <files mask="deepviewrt_labelimage_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_deepviewrt_modelrunner_cm7" name="deepviewrt_modelrunner_cm7" brief="DeepViewRT ModelRunner is a dedicated service for hosting and evaluating RTM graphs through a set of RPC protocols, it provides an HTTP REST API for loading an evaluating models. It can work with eIQ toolkit to evaluating and profiling models." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/deepviewrt_modelrunner">
+          <external path="eiq_examples/deepviewrt_modelrunner" type="xml">
+            <files mask="deepviewrt_modelrunner_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_deepviewrt_modelrunner-glow_cm7" name="deepviewrt_modelrunner-glow_cm7" brief="DeepViewRT ModelRunner for GLOW" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/deepviewrt_modelrunner-glow">
+          <external path="eiq_examples/deepviewrt_modelrunner-glow" type="xml">
+            <files mask="deepviewrt_modelrunner-glow_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_deepviewrt_modelrunner-tflite_cm7" name="deepviewrt_modelrunner-tflite_cm7" brief="DeepViewRT ModelRunner for TFlite" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/deepviewrt_modelrunner-tflite">
+          <external path="eiq_examples/deepviewrt_modelrunner-tflite" type="xml">
+            <files mask="deepviewrt_modelrunner-tflite_cm7_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1160_dev_audio_generator_bm_cm7" name="dev_audio_generator_bm_cm7" brief="The USB Audio Generator application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a recording device and users can record the sound from this device via the &quot;Sound Recorder&quot; in the Windows Accessories." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="usb_examples/usb_device_audio_generator/bm/cm7">
@@ -2022,6 +2107,11 @@
             <files mask="lcdifv2_rgb565_cm7_v3_10.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt1160_littlefs_shell_cm7" name="littlefs_shell_cm7" brief="Demonstrates littlefs functionality by commands executed from shell." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="littlefs_examples" path="littlefs_examples/littlefs_shell/cm7">
+          <external path="littlefs_examples/littlefs_shell/cm7" type="xml">
+            <files mask="littlefs_shell_cm7_v3_10.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt1160_log_bm" name="log_bm" brief="The log demo is used to demonstrate how to use log component. The main function of the demo is to prompt the LOG level string according to the user input log level command." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="component_examples/log/bm/cm7">
           <external path="component_examples/log/bm/cm7" type="xml">
             <files mask="log_bm_v3_10.xml"/>
@@ -2140,6 +2230,81 @@
         <example id="evkmimxrt1160_lpuart_polling_seven_bits_cm7" name="lpuart_polling_seven_bits_cm7" brief="The lpuart_polling_seven_bits Example project is to demonstrate usage of the KSDK lpuart driver with seven data bits feature enabled.In the example, you can send characters to the console back and they will be printed out onto console instantly.NOTE: Please set com port format to &quot;7 data bits without parity bit&quot; in PC's com port tool" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpuart" path="driver_examples/lpuart/polling_seven_bits/cm7">
           <external path="driver_examples/lpuart/polling_seven_bits/cm7" type="xml">
             <files mask="lpuart_polling_seven_bits_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_dhcp_bm_cm7" name="lwip_dhcp_bm_cm7" brief="The lwip_dhcp demo application demonstrates a DHCP demo on the lwIP TCP/IP stack.The application acts as a DHCP client and prints the status as it is progressing.Once the interface is being bound to an IP address obtained from DHCP server, address information is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_dhcp/bm/cm7">
+          <external path="lwip_examples/lwip_dhcp/bm/cm7" type="xml">
+            <files mask="lwip_dhcp_bm_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_dhcp_freertos_cm7" name="lwip_dhcp_freertos_cm7" brief="The lwip_dhcp demo application demonstrates a DHCP demo on the lwIP TCP/IP stack.The application acts as a DHCP client and prints the status as it is progressing.Once the interface is being bound to an IP address obtained from DHCP server, address information is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_dhcp/freertos/cm7">
+          <external path="lwip_examples/lwip_dhcp/freertos/cm7" type="xml">
+            <files mask="lwip_dhcp_freertos_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_dhcp_usb_bm" name="lwip_dhcp_usb_bm" brief="The lwip_dhcp_usb demo application demonstrates a DHCP demo on the lwIP TCP/IP stack.The application acts as a DHCP client and prints the status as it is progressing.Once the interface is being bound to an IP address obtained from DHCP server, address information is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_dhcp_usb/bm/cm7">
+          <external path="lwip_examples/lwip_dhcp_usb/bm/cm7" type="xml">
+            <files mask="lwip_dhcp_usb_bm_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_dhcp_usb_freertos" name="lwip_dhcp_usb_freertos" brief="The lwip_dhcp demo application demonstrates a DHCP demo on the lwIP TCP/IP stack.The application acts as a DHCP client and prints the status as it is progressing.Once the interface is being bound to an IP address obtained from DHCP server, address information is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_dhcp_usb/freertos/cm7">
+          <external path="lwip_examples/lwip_dhcp_usb/freertos/cm7" type="xml">
+            <files mask="lwip_dhcp_usb_freertos_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_httpsrv_bm_cm7" name="lwip_httpsrv_bm_cm7" brief="The lwip_httpsrv demo application demonstrates an HTTPServer on the lwIP TCP/IP stack with bare metal SDK or FreeRTOS.The user uses an Internet browser to send a request for connection. The board acts as an HTTP server and sends a Webpage back to the PC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_httpsrv/bm/cm7">
+          <external path="lwip_examples/lwip_httpsrv/bm/cm7" type="xml">
+            <files mask="lwip_httpsrv_bm_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_httpsrv_freertos_cm7" name="lwip_httpsrv_freertos_cm7" brief="The lwip_httpsrv demo application demonstrates an HTTPServer on the lwIP TCP/IP stack with bare metal SDK or FreeRTOS.The user uses an Internet browser to send a request for connection. The board acts as an HTTP server and sends a Webpage back to the PC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_httpsrv/freertos/cm7">
+          <external path="lwip_examples/lwip_httpsrv/freertos/cm7" type="xml">
+            <files mask="lwip_httpsrv_freertos_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_httpssrv_mbedTLS_bm_cm7" name="lwip_httpssrv_mbedTLS_bm_cm7" brief="The lwip_httpsrv_mbedTSL_bm demo application demonstrates an HTTPS Serverset up on lwIP TCP/IP and the mbedTLS stack with bare metal. The useruses an Internet browser to send an https request for connection.The board acts as an HTTPS server and sends a Web page back to the PC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_httpssrv_mbedTLS/bm/cm7">
+          <external path="lwip_examples/lwip_httpssrv_mbedTLS/bm/cm7" type="xml">
+            <files mask="lwip_httpssrv_mbedTLS_bm_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_httpssrv_mbedTLS_freertos_cm7" name="lwip_httpssrv_mbedTLS_freertos_cm7" brief="The lwip_httpsrv_mbedTLS demo application demonstrates an HTTPServer set up on lwIP TCP/IP and the MbedTLS stack withFreeRTOS. The user uses an Internet browser to send an https request for connection. The board acts as an HTTP serverand sends a Web page back to the PC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_httpssrv_mbedTLS/freertos/cm7">
+          <external path="lwip_examples/lwip_httpssrv_mbedTLS/freertos/cm7" type="xml">
+            <files mask="lwip_httpssrv_mbedTLS_freertos_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_iperf_bm_cm7" name="lwip_iperf_bm_cm7" brief="This is the IPerf server example to check your bandwidth using the network performance measurement IPerf application on a PC as a client.It is currently a minimal implementation providing an IPv4 TCP server only.Instead of the command line IPerf application, for more convenience, it is recommended to use the JPerf2 graphical tool, which can be downloaded here: https://sourceforge.net/projects/iperf/files/jperf/jperf%202.0.0/jperf-2.0.0.zip/download" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_iperf/bm/cm7">
+          <external path="lwip_examples/lwip_iperf/bm/cm7" type="xml">
+            <files mask="lwip_iperf_bm_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_ipv4_ipv6_echo_freertos_cm7" name="lwip_ipv4_ipv6_echo_freertos_cm7" brief="The lwip_ipv4_ipv6_echo demo application demonstrates a TCP or UDP echo demo on the lwIP TCP/IP stack with FreeRTOS. The demo uses the TCP or UDP protocol over both IPv4 and IPv6 and acts as an echo server. The application sends back the received TCP or UDP packets from the PC, which can be used to test whether a TCP or UDP is available." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_ipv4_ipv6_echo/freertos/cm7">
+          <external path="lwip_examples/lwip_ipv4_ipv6_echo/freertos/cm7" type="xml">
+            <files mask="lwip_ipv4_ipv6_echo_freertos_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_mqtt_freertos_cm7" name="lwip_mqtt_freertos_cm7" brief="The lwip_mqtt demo application demonstrates MQTT client connecting to MQTT broker via unsecured socket. The application obtains IP and DNS addresses from DHCP and resolves broker's hostname if needed. Then it connects to the broker and subscribes to the &quot;lwip_topic/#&quot; and &quot;lwip_other/#&quot; topics. Further it publishes five messages to the &quot;lwip_topic/100&quot; which are also received back as the board is subscribed to the &quot;lwip_topic/#&quot;. Meanwhile it continues to receive messages published to the subscribed topics from other clients." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_mqtt/freertos/cm7">
+          <external path="lwip_examples/lwip_mqtt/freertos/cm7" type="xml">
+            <files mask="lwip_mqtt_freertos_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_ping_bm_cm7" name="lwip_ping_bm_cm7" brief="The lwip_ping demo application demonstrates a Ping Demo on the lwIP TCP/IP stack, which uses the ICMP protocol. Theapplication periodically sends the ICMP echo request to a PC, and processes the PC reply. Type &quot;ping $board_address&quot;in the PC command window to send an ICMP echo request to the board. The lwIP stack sends the ICMP echo reply back to thePC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_ping/bm/cm7">
+          <external path="lwip_examples/lwip_ping/bm/cm7" type="xml">
+            <files mask="lwip_ping_bm_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_lwip_ping_freertos_cm7" name="lwip_ping_freertos_cm7" brief="The lwip_ping demo application demonstrates a Ping Demo on the lwIP TCP/IP stack which using the ICMP protocol. Theapplication periodically sends the ICMP echo request to a PC and processes the PC reply. Type the &quot;ping $board_address&quot;in the PC command window to send an ICMP echo request to the board. The lwIP stack sends the ICMP echo reply back to thePC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_ping/freertos/cm7">
+          <external path="lwip_examples/lwip_ping/freertos/cm7" type="xml">
+            <files mask="lwip_ping_freertos_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_mbedtls_benchmark_cm7" name="mbedtls_benchmark_cm7" brief="The mbdedTLS Benchmark demo application performs cryptographic algorithm benchmarking and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_benchmark/cm7">
+          <external path="mbedtls_examples/mbedtls_benchmark/cm7" type="xml">
+            <files mask="mbedtls_benchmark_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_mbedtls_selftest_cm7" name="mbedtls_selftest_cm7" brief="The mbdedTLS SelfTest program performs cryptographic algorithm testing and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_selftest/cm7">
+          <external path="mbedtls_examples/mbedtls_selftest/cm7" type="xml">
+            <files mask="mbedtls_selftest_cm7_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1160_mecc_multie_error_cm7" name="mecc_multie_error_cm7" brief="The MECC Multi Error project is a simple demonstration program of the SDK MECC driver. It supports Double Error Detection(SECDED) ECC function to provide reliability for 4 banks On-Chip RAM(OCRAM) access." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/mecc" path="driver_examples/mecc/mecc_multi_error/cm7">
@@ -2585,6 +2750,31 @@
         <example id="evkmimxrt1160_wdog01_cm7" name="wdog01_cm7" brief="The WDOG Example project is to demonstrate usage of the KSDK wdog driver.In this example,implemented to test the wdog.And then after 10 times of refreshing the watchdog, a timeout reset is generated.We also try to refresh out of window to trigger reset after 10 times of refreshing.Please notice that because WDOG control registers are write-once only, so the WDOG_Init function and the WDOG_Disable function can be called only once after reset." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/wdog" path="driver_examples/wdog/cm7">
           <external path="driver_examples/wdog/cm7" type="xml">
             <files mask="wdog01_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_wifi_cli_cm7" name="wifi_cli_cm7" brief="wifi_cli" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="wifi_examples/wifi_cli/cm7">
+          <external path="wifi_examples/wifi_cli/cm7" type="xml">
+            <files mask="wifi_cli_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_wifi_ipv4_ipv6_echo_cm7" name="wifi_ipv4_ipv6_echo_cm7" brief="The wifi_ipv4_ipv6_echo demo application demonstrates a TCP or UDP echo demo on the lwIP TCP/IP stack with FreeRTOS. The demo uses the TCP or UDP protocol over both IPv4 and IPv6 and acts as an echo server. The application sends back the received TCP or UDP packets from the PC, which can be used to test whether a TCP or UDP is available." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="wifi_examples/wifi_ipv4_ipv6_echo/cm7">
+          <external path="wifi_examples/wifi_ipv4_ipv6_echo/cm7" type="xml">
+            <files mask="wifi_ipv4_ipv6_echo_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_wifi_setup_cm7" name="wifi_setup_cm7" brief="wifi_setup" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="wifi_examples/wifi_setup/cm7">
+          <external path="wifi_examples/wifi_setup/cm7" type="xml">
+            <files mask="wifi_setup_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_wifi_test_mode_cm7" name="wifi_test_mode_cm7" brief="wifi_test_mode" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="wifi_examples/wifi_test_mode/cm7">
+          <external path="wifi_examples/wifi_test_mode/cm7" type="xml">
+            <files mask="wifi_test_mode_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_wifi_webconfig_cm7" name="wifi_webconfig_cm7" brief="Simple AP to Client configuration over web." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="wifi_examples/wifi_webconfig/cm7">
+          <external path="wifi_examples/wifi_webconfig/cm7" type="xml">
+            <files mask="wifi_webconfig_cm7_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1160_xbar_aoi_cm7" name="xbar_aoi_cm7" brief="The XBAR AOI demo application demonstrates the usage of the XBAR, AOI peripheral to combine interruptfrom CMP and PIT. If the button is pressed(CMP interrupt) and the PIT periodic interrupt occurs a message is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="demo_apps/xbar_aoi/cm7">

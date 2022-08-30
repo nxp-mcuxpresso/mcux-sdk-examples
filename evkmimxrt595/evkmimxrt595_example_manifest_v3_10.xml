@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_evkmimxrt595_examples_manifest_v3_10" name="SDK_2.x_evkmimxrt595_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2022-07-20 11:57:40.851856-->
+  <!--Timestamp (UTC): 2022-08-11 15:00:34.091429-->
   <!--This manifest is generated based on sdk repo commit: 7fb442914f92023b395b260777eb2355254fd71d-->
   <externalDefinitions>
     <definition extID="MIMXRT595SFFOC"/>
@@ -12,6 +12,16 @@
   <boards>
     <board id="evkmimxrt595" name="EVK-MIMXRT595" href="https://www.nxp.com/pip/MIMXRT595-EVK" version="1.0.0" package="MIMXRT595SFFOC">
       <examples>
+        <example id="evkmimxrt595_a2dp_sink" name="a2dp_sink" brief="The ethermind audio source with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="edgefast_bluetooth_examples/a2dp_sink">
+          <external path="edgefast_bluetooth_examples/a2dp_sink" type="xml">
+            <files mask="a2dp_sink_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_a2dp_source" name="a2dp_source" brief="The ethermind audio source with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="edgefast_bluetooth_examples/a2dp_source">
+          <external path="edgefast_bluetooth_examples/a2dp_source" type="xml">
+            <files mask="a2dp_source_v3_10.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt595_acmp_interrupt" name="acmp_interrupt" brief="The ACMP interrupt project is a simple demonstration program that uses the SDK software. It comparesthe selected analog input with ACMP internal DAC output continuously and toggle the LED when thefinal comparison result changed. The purpose of this demo is to show how to use the ACMP driverin SDK software by interrupt way. The ACMP can be configured based on default configuration returnedby the API ACMP_GetDefaultConfig(). The default configuration is: high speed is not enabled, invertoutput is not enabled, unfiltered output is not enabled, pin out is not enabled, offset level islevel 0, hysteresis level is level 0." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/acmp" path="driver_examples/acmp/interrupt">
           <external path="driver_examples/acmp/interrupt" type="xml">
             <files mask="acmp_interrupt_v3_10.xml"/>
@@ -492,6 +502,11 @@
             <files mask="dsp_xaf_usb_demo_cm33_v3_10.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt595_edgefast_bluetooth_shell" name="edgefast_bluetooth_shell" brief="The ethermind shell example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="edgefast_bluetooth_examples/shell">
+          <external path="edgefast_bluetooth_examples/shell" type="xml">
+            <files mask="edgefast_bluetooth_shell_v3_10.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt595_fbdev_freertos" name="fbdev_freertos" brief="This example shows how to use the fbdev component. The fbdev masks the difference of LCD controllers and provides a unified APIs for upper layers. At the same time, the frame buffers are managed by the FBDEV. When the example runs, you can see a rectangle moving in the screen, and its color changes when reached the border." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="display_examples" path="display_examples/fbdev_freertos">
           <external path="display_examples/fbdev_freertos" type="xml">
             <files mask="fbdev_freertos_v3_10.xml"/>
@@ -640,6 +655,16 @@
         <example id="evkmimxrt595_gpio_led_output" name="gpio_led_output" brief="The GPIO Example project is a demonstration program that uses the KSDK software to manipulate the general-purposeoutputs. The example use LEDs and buttons to demonstrates GPIO API for port and pin manipulation (init, set,clear, and toggle)." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/gpio" path="driver_examples/gpio/led_output">
           <external path="driver_examples/gpio/led_output" type="xml">
             <files mask="gpio_led_output_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_handsfree" name="handsfree" brief="The ethermind bluetooth handsfree example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="edgefast_bluetooth_examples/handsfree">
+          <external path="edgefast_bluetooth_examples/handsfree" type="xml">
+            <files mask="handsfree_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_handsfree_ag" name="handsfree_ag" brief="The ethermind handsfree AG example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="edgefast_bluetooth_examples/handsfree_ag">
+          <external path="edgefast_bluetooth_examples/handsfree_ag" type="xml">
+            <files mask="handsfree_ag_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt595_hashcrypt" name="hashcrypt" brief="The hashcrypt Example project is a demonstration program that uses the KSDK software to encrypt and hash data with hardware acceleration." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/hashcrypt" path="driver_examples/hashcrypt">
@@ -962,6 +987,16 @@
             <files mask="lpadc_temperature_measurement_v3_10.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt595_mbedtls_benchmark" name="mbedtls_benchmark" brief="The mbdedTLS Benchmark demo application performs cryptographic algorithm benchmarking and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_benchmark">
+          <external path="mbedtls_examples/mbedtls_benchmark" type="xml">
+            <files mask="mbedtls_benchmark_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_mbedtls_selftest" name="mbedtls_selftest" brief="The mbdedTLS SelfTest program performs cryptographic algorithm testing and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_selftest">
+          <external path="mbedtls_examples/mbedtls_selftest" type="xml">
+            <files mask="mbedtls_selftest_v3_10.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt595_mmccard_fatfs" name="mmccard_fatfs" brief="The MMCCARD FATFS project is a demonstration program that uses the SDK software. Tt mounts a file system based on a MMC card then does &quot;creat directory/read directory/create file/write file/read file&quot; operation. The file sdhc_config.h has default SDHC configuration which can be adjusted to letcard driver has different performance. The purpose of this example is to show how to use MMCCARD driver based FATFS disk in SDK software.Note:User can use MMC plus card or emmc(on board IC, but not recommand use emmc socket,due to high speed timing restriction)" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/mmccard_fatfs" path="sdmmc_examples/mmccard_fatfs">
           <external path="sdmmc_examples/mmccard_fatfs" type="xml">
             <files mask="mmccard_fatfs_v3_10.xml"/>
@@ -1247,6 +1282,11 @@
             <files mask="spi_polling_b2b_transfer_slave_v3_10.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt595_spp" name="spp" brief="The Bluetooth BR SPP example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="edgefast_bluetooth_examples/spp">
+          <external path="edgefast_bluetooth_examples/spp" type="xml">
+            <files mask="spp_v3_10.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt595_clockout" name="clockout" brief="The syscon_clockout driver example shows how to output the internal clock signal. In this driver example, users can choose the clock signal to be outputted, and the divider of the output clock signal. By probe the output pin, users can observe the selected internal clock signal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/syscon" path="driver_examples/clockout">
           <external path="driver_examples/clockout" type="xml">
             <files mask="clockout_v3_10.xml"/>
@@ -1330,6 +1370,31 @@
         <example id="evkmimxrt595_utick" name="utick" brief="The utick project is a simple demonstration program of the SDK utick driver. It sets up the utick hardware block to trigger a periodic interrupt after every 1 second. When the utick interrupt is triggered a message is printed on the UART terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/utick" path="driver_examples/utick">
           <external path="driver_examples/utick" type="xml">
             <files mask="utick_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_wifi_cli" name="wifi_cli" brief="wifi_cli" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="wifi_examples/wifi_cli">
+          <external path="wifi_examples/wifi_cli" type="xml">
+            <files mask="wifi_cli_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_wifi_ipv4_ipv6_echo" name="wifi_ipv4_ipv6_echo" brief="The wifi_ipv4_ipv6_echo demo application demonstrates a TCP or UDP echo demo on the lwIP TCP/IP stack with FreeRTOS. The demo uses the TCP or UDP protocol over both IPv4 and IPv6 and acts as an echo server. The application sends back the received TCP or UDP packets from the PC, which can be used to test whether a TCP or UDP is available." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="wifi_examples/wifi_ipv4_ipv6_echo">
+          <external path="wifi_examples/wifi_ipv4_ipv6_echo" type="xml">
+            <files mask="wifi_ipv4_ipv6_echo_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_wifi_setup" name="wifi_setup" brief="wifi_setup" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="wifi_examples/wifi_setup">
+          <external path="wifi_examples/wifi_setup" type="xml">
+            <files mask="wifi_setup_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_wifi_test_mode" name="wifi_test_mode" brief="wifi_test_mode" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="wifi_examples/wifi_test_mode">
+          <external path="wifi_examples/wifi_test_mode" type="xml">
+            <files mask="wifi_test_mode_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_wifi_webconfig" name="wifi_webconfig" brief="Simple AP to Client configuration over web." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="wifi_examples/wifi_webconfig">
+          <external path="wifi_examples/wifi_webconfig" type="xml">
+            <files mask="wifi_webconfig_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt595_wwdt_example" name="wwdt_example" brief="The WDOG Example project is to demonstrate usage of the KSDK wdog driver.In this example,quick test is first implemented to test the wdog.And then after 5 times of refreshing the watchdog, a timeout reset is generated." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/wwdt" path="driver_examples/wwdt">

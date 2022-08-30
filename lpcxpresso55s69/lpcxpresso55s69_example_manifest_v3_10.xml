@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_lpcxpresso55s69_examples_manifest_v3_10" name="SDK_2.x_lpcxpresso55s69_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2022-07-15 08:19:49.300571-->
-  <!--This manifest is generated based on sdk repo commit: 45d71c921a1dd3e0403549aa377535344ed9bc97-->
+  <!--Timestamp (UTC): 2022-08-11 15:02:03.962660-->
+  <!--This manifest is generated based on sdk repo commit: 7fb442914f92023b395b260777eb2355254fd71d-->
   <externalDefinitions>
     <definition extID="LPC55S69JBD100"/>
     <definition extID="armgcc"/>
@@ -800,6 +800,16 @@
         <example id="lpcxpresso55s69_mailbox_mutex_cm33_core0" name="mailbox_mutex_cm33_core0" brief="The mailbox_mutex example shows how to use mailbox mutex.In this example:The core 0 sends address of shared variable to core 1 by mailbox.Both cores trying to get mutex in while loop, after that updates shared variableand sets mutex, to allow access other core to shared variable." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/mailbox" linked_projects="lpcxpresso55s69_mailbox_mutex_cm33_core1" path="driver_examples/mailbox/mutex/cm33_core0">
           <external path="driver_examples/mailbox/mutex/cm33_core0" type="xml">
             <files mask="mailbox_mutex_cm33_core0_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s69_mbedtls_benchmark" name="mbedtls_benchmark" brief="The mbdedTLS Benchmark demo application performs cryptographic algorithm benchmarking and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_benchmark/cm33_core0">
+          <external path="mbedtls_examples/mbedtls_benchmark/cm33_core0" type="xml">
+            <files mask="mbedtls_benchmark_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s69_mbedtls_selftest" name="mbedtls_selftest" brief="The mbdedTLS SelfTest program performs cryptographic algorithm testing and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_selftest/cm33_core0">
+          <external path="mbedtls_examples/mbedtls_selftest/cm33_core0" type="xml">
+            <files mask="mbedtls_selftest_v3_10.xml"/>
           </external>
         </example>
         <example id="lpcxpresso55s69_mrt_example" name="mrt_example" brief="The MRT project is a simple demonstration program of the SDK MRT driver. It sets up the MRThardware block to trigger a periodic interrupt after every 250 milliseconds. When the PIT interrupt is triggereda message a printed on the UART terminal and an LED is toggled on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/mrt" path="driver_examples/mrt/cm33_core0">

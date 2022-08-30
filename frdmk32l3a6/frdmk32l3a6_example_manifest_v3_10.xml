@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_frdmk32l3a6_examples_manifest_v3_10" name="SDK_2.x_frdmk32l3a6_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2022-07-15 08:19:54.140034-->
-  <!--This manifest is generated based on sdk repo commit: 45d71c921a1dd3e0403549aa377535344ed9bc97-->
+  <!--Timestamp (UTC): 2022-08-04 15:22:06.592617-->
+  <!--This manifest is generated based on sdk repo commit: 7fb442914f92023b395b260777eb2355254fd71d-->
   <externalDefinitions>
     <definition extID="K32L3A60VPJ1A"/>
     <definition extID="armgcc"/>
@@ -435,6 +435,16 @@
         <example id="frdmk32l3a6_lpuart_polling_seven_bits_cm0plus" name="lpuart_polling_seven_bits_cm0plus" brief="The lpuart_polling_seven_bits Example project is to demonstrate usage of the KSDK lpuart driver with seven data bits feature enabled.In the example, you can send characters to the console back and they will be printed out onto console instantly.NOTE: Please set com port format to &quot;7 data bits without parity bit&quot; in PC's com port tool" toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/lpuart" path="driver_examples/lpuart/polling_seven_bits/cm0plus">
           <external path="driver_examples/lpuart/polling_seven_bits/cm0plus" type="xml">
             <files mask="lpuart_polling_seven_bits_cm0plus_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_mbedtls_benchmark_cm0plus" name="mbedtls_benchmark_cm0plus" brief="The mbdedTLS Benchmark demo application performs cryptographic algorithm benchmarking and prints results to the terminal." toolchain="armgcc" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_benchmark/cm0plus">
+          <external path="mbedtls_examples/mbedtls_benchmark/cm0plus" type="xml">
+            <files mask="mbedtls_benchmark_cm0plus_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_mbedtls_selftest_cm0plus" name="mbedtls_selftest_cm0plus" brief="The mbdedTLS SelfTest program performs cryptographic algorithm testing and prints results to the terminal." toolchain="armgcc" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_selftest/cm0plus">
+          <external path="mbedtls_examples/mbedtls_selftest/cm0plus" type="xml">
+            <files mask="mbedtls_selftest_cm0plus_v3_10.xml"/>
           </external>
         </example>
         <example id="frdmk32l3a6_mmdvsq_cm0plus" name="mmdvsq_cm0plus" brief="The MMDVSQ Example project is a demonstration program that uses the KSDK software to Calculation square root and QuotientMMDVSQ Peripheral Driver ExampleStart MMDVSQ ExampleCalculation square root, please enter radicandSquare root of 9 is 3Calculation division to get remainder and quotientEnter dividend and divisorRemainder of 10 and 5 is 0Quotient of 10 and 5 is 2" toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/mmdvsq" path="driver_examples/mmdvsq/cm0plus">
@@ -1215,6 +1225,16 @@
         <example id="frdmk32l3a6_lpuart_polling_seven_bits_cm4" name="lpuart_polling_seven_bits_cm4" brief="The lpuart_polling_seven_bits Example project is to demonstrate usage of the KSDK lpuart driver with seven data bits feature enabled.In the example, you can send characters to the console back and they will be printed out onto console instantly.NOTE: Please set com port format to &quot;7 data bits without parity bit&quot; in PC's com port tool" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpuart" path="driver_examples/lpuart/polling_seven_bits/cm4">
           <external path="driver_examples/lpuart/polling_seven_bits/cm4" type="xml">
             <files mask="lpuart_polling_seven_bits_cm4_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_mbedtls_benchmark_cm4" name="mbedtls_benchmark_cm4" brief="The mbdedTLS Benchmark demo application performs cryptographic algorithm benchmarking and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_benchmark/cm4">
+          <external path="mbedtls_examples/mbedtls_benchmark/cm4" type="xml">
+            <files mask="mbedtls_benchmark_cm4_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_mbedtls_selftest_cm4" name="mbedtls_selftest_cm4" brief="The mbdedTLS SelfTest program performs cryptographic algorithm testing and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_selftest/cm4">
+          <external path="mbedtls_examples/mbedtls_selftest/cm4" type="xml">
+            <files mask="mbedtls_selftest_cm4_v3_10.xml"/>
           </external>
         </example>
         <example id="frdmk32l3a6_mu_interrupt_core0" name="mu_interrupt_core0" brief="The mu_interrupt example shows how to use MU driver in interrupt way:In this example:1. Core 0 send message to Core 1 in interrupt mode via MU module.2. Core 1 send message back to Core 0 in interrupt mode.3. Core 0 receive message sent from Core 1 in interrupt mode." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/mu" linked_projects="frdmk32l3a6_mu_interrupt_core1" path="driver_examples/mu/interrupt/core0">

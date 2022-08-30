@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_FRDM-K32L2A4S_manifest_v3_10" name="SDKVersion 2.12.0 SuperSet" brief="This is SDK version 2.12.0 manifest file." format_version="3.10" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2022-07-15 08:18:21.923993-->
-  <!--This manifest is generated based on sdk repo commit: 45d71c921a1dd3e0403549aa377535344ed9bc97-->
+  <!--Timestamp (UTC): 2022-08-04 15:20:22.324055-->
+  <!--This manifest is generated based on sdk repo commit: 7fb442914f92023b395b260777eb2355254fd71d-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
@@ -832,6 +832,16 @@ ${load}</script>
         <example id="frdmk32l2a4s_lpuart_polling" name="lpuart_polling" brief="The lpuart_polling Example project is to demonstrate usage of the KSDK lpuart driver.In the example, you can send characters to the console back and they will be printed out onto console instantly." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpuart" path="examples/frdmk32l2a4s/driver_examples/lpuart/polling">
           <external path="examples/frdmk32l2a4s/driver_examples/lpuart/polling" type="xml">
             <files mask="lpuart_polling_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2a4s_mbedtls_benchmark" name="mbedtls_benchmark" brief="The mbdedTLS Benchmark demo application performs cryptographic algorithm benchmarking and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="examples/frdmk32l2a4s/mbedtls_examples/mbedtls_benchmark">
+          <external path="examples/frdmk32l2a4s/mbedtls_examples/mbedtls_benchmark" type="xml">
+            <files mask="mbedtls_benchmark_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l2a4s_mbedtls_selftest" name="mbedtls_selftest" brief="The mbdedTLS SelfTest program performs cryptographic algorithm testing and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="examples/frdmk32l2a4s/mbedtls_examples/mbedtls_selftest">
+          <external path="examples/frdmk32l2a4s/mbedtls_examples/mbedtls_selftest" type="xml">
+            <files mask="mbedtls_selftest_v3_10.xml"/>
           </external>
         </example>
         <example id="frdmk32l2a4s_mmcau" name="mmcau" brief="Memory-Mapped Cryptographic Acceleration Unit (MMCAU)This project is a demonstration program that uses the KSDK software for encryption/decryption sampledata using AES-CBC, DES3-CBC and Hash algorithms MD5, SHA1 and SHA256." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mmcau_examples" path="examples/frdmk32l2a4s/mmcau_examples/mmcau_api">
@@ -5581,6 +5591,887 @@ ${load}</script>
       <include_paths>
         <include_path relative_path="template/ARM_CM0" project_relative_path="../../source" type="c_include" device_cores="core0_K32L2A41xxxxA"/>
       </include_paths>
+    </component>
+    <component id="middleware.mbedtls.K32L2A41A" name="mbedtls" brief="mbedTLS library" version="2.28.0" full_name="MbedTLS open source SSL library" devices="K32L2A41xxxxA" device_cores="core0_K32L2A41xxxxA" category="Security/mbedTLS library" user_visible="true" type="middleware" package_base_path="middleware/mbedtls" project_base_path="mbedtls">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.mbedtls.kinetis2.K32L2A41A"/>
+          <component_dependency value="middleware.mbedtls.template.K32L2A41A"/>
+          <component_dependency value="utility.debug_console.K32L2A41A"/>
+        </all>
+      </dependencies>
+      <source relative_path="include/mbedtls" type="c_include">
+        <files mask="aes.h"/>
+        <files mask="aesni.h"/>
+        <files mask="arc4.h"/>
+        <files mask="aria.h"/>
+        <files mask="asn1.h"/>
+        <files mask="asn1write.h"/>
+        <files mask="base64.h"/>
+        <files mask="bignum.h"/>
+        <files mask="blowfish.h"/>
+        <files mask="bn_mul.h"/>
+        <files mask="camellia.h"/>
+        <files mask="ccm.h"/>
+        <files mask="certs.h"/>
+        <files mask="chacha20.h"/>
+        <files mask="chachapoly.h"/>
+        <files mask="check_config.h"/>
+        <files mask="cipher.h"/>
+        <files mask="cipher_internal.h"/>
+        <files mask="cmac.h"/>
+        <files mask="compat-1.3.h"/>
+        <files mask="config.h"/>
+        <files mask="config_psa.h"/>
+        <files mask="constant_time.h"/>
+        <files mask="ctr_drbg.h"/>
+        <files mask="debug.h"/>
+        <files mask="des.h"/>
+        <files mask="dhm.h"/>
+        <files mask="ecdh.h"/>
+        <files mask="ecdsa.h"/>
+        <files mask="ecjpake.h"/>
+        <files mask="ecp.h"/>
+        <files mask="ecp_internal.h"/>
+        <files mask="entropy.h"/>
+        <files mask="entropy_poll.h"/>
+        <files mask="error.h"/>
+        <files mask="gcm.h"/>
+        <files mask="havege.h"/>
+        <files mask="hkdf.h"/>
+        <files mask="hmac_drbg.h"/>
+        <files mask="md.h"/>
+        <files mask="md_internal.h"/>
+        <files mask="md2.h"/>
+        <files mask="md4.h"/>
+        <files mask="md5.h"/>
+        <files mask="memory_buffer_alloc.h"/>
+        <files mask="net.h"/>
+        <files mask="net_sockets.h"/>
+        <files mask="nist_kw.h"/>
+        <files mask="oid.h"/>
+        <files mask="padlock.h"/>
+        <files mask="pem.h"/>
+        <files mask="pk.h"/>
+        <files mask="pk_internal.h"/>
+        <files mask="pkcs5.h"/>
+        <files mask="pkcs11.h"/>
+        <files mask="pkcs12.h"/>
+        <files mask="platform.h"/>
+        <files mask="platform_time.h"/>
+        <files mask="platform_util.h"/>
+        <files mask="poly1305.h"/>
+        <files mask="psa_util.h"/>
+        <files mask="ripemd160.h"/>
+        <files mask="rsa.h"/>
+        <files mask="rsa_internal.h"/>
+        <files mask="sha1.h"/>
+        <files mask="sha256.h"/>
+        <files mask="sha512.h"/>
+        <files mask="ssl.h"/>
+        <files mask="ssl_cache.h"/>
+        <files mask="ssl_ciphersuites.h"/>
+        <files mask="ssl_cookie.h"/>
+        <files mask="ssl_internal.h"/>
+        <files mask="ssl_ticket.h"/>
+        <files mask="threading.h"/>
+        <files mask="timing.h"/>
+        <files mask="version.h"/>
+        <files mask="x509.h"/>
+        <files mask="x509_crl.h"/>
+        <files mask="x509_crt.h"/>
+        <files mask="x509_csr.h"/>
+        <files mask="xtea.h"/>
+      </source>
+      <source relative_path="include/psa" type="c_include">
+        <files mask="crypto.h"/>
+        <files mask="crypto_builtin_composites.h"/>
+        <files mask="crypto_builtin_primitives.h"/>
+        <files mask="crypto_compat.h"/>
+        <files mask="crypto_config.h"/>
+        <files mask="crypto_driver_common.h"/>
+        <files mask="crypto_driver_contexts_composites.h"/>
+        <files mask="crypto_driver_contexts_primitives.h"/>
+        <files mask="crypto_extra.h"/>
+        <files mask="crypto_platform.h"/>
+        <files mask="crypto_se_driver.h"/>
+        <files mask="crypto_sizes.h"/>
+        <files mask="crypto_struct.h"/>
+        <files mask="crypto_types.h"/>
+        <files mask="crypto_values.h"/>
+      </source>
+      <source relative_path="library" type="src">
+        <files mask="aes.c"/>
+        <files mask="aesni.c"/>
+        <files mask="arc4.c"/>
+        <files mask="aria.c"/>
+        <files mask="asn1parse.c"/>
+        <files mask="asn1write.c"/>
+        <files mask="base64.c"/>
+        <files mask="bignum.c"/>
+        <files mask="blowfish.c"/>
+        <files mask="camellia.c"/>
+        <files mask="ccm.c"/>
+        <files mask="certs.c"/>
+        <files mask="chacha20.c"/>
+        <files mask="chachapoly.c"/>
+        <files mask="cipher.c"/>
+        <files mask="cipher_wrap.c"/>
+        <files mask="cmac.c"/>
+        <files mask="constant_time.c"/>
+        <files mask="ctr_drbg.c"/>
+        <files mask="debug.c"/>
+        <files mask="des.c"/>
+        <files mask="dhm.c"/>
+        <files mask="ecdh.c"/>
+        <files mask="ecdsa.c"/>
+        <files mask="ecjpake.c"/>
+        <files mask="ecp.c"/>
+        <files mask="ecp_curves.c"/>
+        <files mask="entropy.c"/>
+        <files mask="entropy_poll.c"/>
+        <files mask="error.c"/>
+        <files mask="gcm.c"/>
+        <files mask="havege.c"/>
+        <files mask="hkdf.c"/>
+        <files mask="hmac_drbg.c"/>
+        <files mask="md.c"/>
+        <files mask="md2.c"/>
+        <files mask="md4.c"/>
+        <files mask="md5.c"/>
+        <files mask="memory_buffer_alloc.c"/>
+        <files mask="mps_reader.c"/>
+        <files mask="mps_trace.c"/>
+        <files mask="net_sockets.c"/>
+        <files mask="nist_kw.c"/>
+        <files mask="oid.c"/>
+        <files mask="padlock.c"/>
+        <files mask="pem.c"/>
+        <files mask="pk.c"/>
+        <files mask="pk_wrap.c"/>
+        <files mask="pkcs5.c"/>
+        <files mask="pkcs11.c"/>
+        <files mask="pkcs12.c"/>
+        <files mask="pkparse.c"/>
+        <files mask="pkwrite.c"/>
+        <files mask="platform.c"/>
+        <files mask="platform_util.c"/>
+        <files mask="poly1305.c"/>
+        <files mask="psa_crypto.c"/>
+        <files mask="psa_crypto_aead.c"/>
+        <files mask="psa_crypto_cipher.c"/>
+        <files mask="psa_crypto_client.c"/>
+        <files mask="psa_crypto_driver_wrappers.c"/>
+        <files mask="psa_crypto_ecp.c"/>
+        <files mask="psa_crypto_hash.c"/>
+        <files mask="psa_crypto_mac.c"/>
+        <files mask="psa_crypto_rsa.c"/>
+        <files mask="psa_crypto_se.c"/>
+        <files mask="psa_crypto_slot_management.c"/>
+        <files mask="psa_crypto_storage.c"/>
+        <files mask="psa_its_file.c"/>
+        <files mask="ripemd160.c"/>
+        <files mask="rsa.c"/>
+        <files mask="rsa_internal.c"/>
+        <files mask="sha1.c"/>
+        <files mask="sha256.c"/>
+        <files mask="sha512.c"/>
+        <files mask="ssl_cache.c"/>
+        <files mask="ssl_ciphersuites.c"/>
+        <files mask="ssl_cli.c"/>
+        <files mask="ssl_cookie.c"/>
+        <files mask="ssl_msg.c"/>
+        <files mask="ssl_srv.c"/>
+        <files mask="ssl_ticket.c"/>
+        <files mask="ssl_tls.c"/>
+        <files mask="ssl_tls13_keys.c"/>
+        <files mask="threading.c"/>
+        <files mask="timing.c"/>
+        <files mask="version.c"/>
+        <files mask="version_features.c"/>
+        <files mask="x509.c"/>
+        <files mask="x509_create.c"/>
+        <files mask="x509_crl.c"/>
+        <files mask="x509_crt.c"/>
+        <files mask="x509_csr.c"/>
+        <files mask="x509write_crt.c"/>
+        <files mask="x509write_csr.c"/>
+        <files mask="xtea.c"/>
+      </source>
+      <source relative_path="library" type="c_include">
+        <files mask="check_crypto_config.h"/>
+        <files mask="common.h"/>
+        <files mask="constant_time_internal.h"/>
+        <files mask="constant_time_invasive.h"/>
+        <files mask="ecp_invasive.h"/>
+        <files mask="mps_common.h"/>
+        <files mask="mps_error.h"/>
+        <files mask="mps_reader.h"/>
+        <files mask="mps_trace.h"/>
+        <files mask="psa_crypto_aead.h"/>
+        <files mask="psa_crypto_cipher.h"/>
+        <files mask="psa_crypto_core.h"/>
+        <files mask="psa_crypto_driver_wrappers.h"/>
+        <files mask="psa_crypto_ecp.h"/>
+        <files mask="psa_crypto_hash.h"/>
+        <files mask="psa_crypto_invasive.h"/>
+        <files mask="psa_crypto_its.h"/>
+        <files mask="psa_crypto_mac.h"/>
+        <files mask="psa_crypto_random_impl.h"/>
+        <files mask="psa_crypto_rsa.h"/>
+        <files mask="psa_crypto_se.h"/>
+        <files mask="psa_crypto_slot_management.h"/>
+        <files mask="psa_crypto_storage.h"/>
+        <files mask="ssl_tls13_keys.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_mbedtls_K32L2A41A.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="include" type="c_include"/>
+        <include_path relative_path="library" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.mbedtls.empty.K32L2A41A" name="mbedtls_empty" brief="mbedTLS Empty Crypto Accelerators Layer (do not use)" version="2.28.0" full_name="mbedTLS Empty Crypto Accelerators Layer (do not use)" devices="K32L2A41xxxxA" category="Security/mbedTLS library" user_visible="true" type="middleware" package_base_path="middleware/mbedtls" project_base_path="mbedtls"/>
+    <component id="middleware.mbedtls.kinetis2.K32L2A41A" name="mbedtls_kinetis" brief="On-chip Kinetis Crypto accelerator" version="2.28.0" full_name="MbedTLS Adaptation for On-chip Kinetis Crypto accelerator" devices="K32L2A41xxxxA" device_cores="core0_K32L2A41xxxxA" category="Security/mbedTLS library" user_visible="true" type="middleware" package_base_path="middleware/mbedtls" project_base_path="mbedtls">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.mbedtls.K32L2A41A"/>
+          <component_dependency value="middleware.mbedtls.port.ksdk.K32L2A41A"/>
+          <component_dependency value="platform.drivers.trng.K32L2A41A"/>
+          <component_dependency value="middleware.mmcau.cm0p.K32L2A41A"/>
+        </all>
+      </dependencies>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_mbedtls_kinetis2.cmake" hidden="true"/>
+      </source>
+    </component>
+    <component id="middleware.mbedtls.port.ksdk.K32L2A41A" name="mbedtls_ksdk" brief="mbedTLS port library for KPSDK" version="2.28.0" full_name="MbedTLS MCUX SDK port layer" devices="K32L2A41xxxxA" device_cores="core0_K32L2A41xxxxA" category="Security/mbedTLS library" user_visible="true" type="middleware" package_base_path="middleware/mbedtls" project_base_path="mbedtls">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.mbedtls.K32L2A41A"/>
+          <any_of>
+            <component_dependency value="middleware.mbedtls.empty.K32L2A41A"/>
+            <component_dependency value="middleware.mbedtls.kinetis2.K32L2A41A"/>
+          </any_of>
+        </all>
+      </dependencies>
+      <source relative_path="port/ksdk" type="src">
+        <files mask="ksdk_mbedtls.c"/>
+        <files mask="des_alt.c"/>
+        <files mask="aes_alt.c"/>
+        <files mask="ecp_alt.c"/>
+        <files mask="ecp_curves_alt.c"/>
+        <files mask="ecp_alt_ksdk.c"/>
+      </source>
+      <source relative_path="port/ksdk" type="c_include">
+        <files mask="ksdk_mbedtls.h"/>
+        <files mask="ksdk_mbedtls_config.h"/>
+        <files mask="sha1_alt.h"/>
+        <files mask="sha256_alt.h"/>
+        <files mask="des_alt.h"/>
+        <files mask="aes_alt.h"/>
+        <files mask="ccm_alt.h"/>
+        <files mask="ecp_alt.h"/>
+        <files mask="threading_alt.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="middleware_mbedtls_port_ksdk.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="port/ksdk" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.mbedtls.template.K32L2A41A" name="mbedtls_template" brief="mbedTLS Template" version="2.28.0" full_name="mbedTLS Template" devices="K32L2A41xxxxA" user_visible="false" type="project_template" package_base_path="middleware/mbedtls" project_base_path="mbedtls">
+      <defines>
+        <define name="MBEDTLS_CONFIG_FILE" value="'&quot;ksdk_mbedtls_config.h&quot;'"/>
+      </defines>
+      <source relative_path="port/ksdk" type="c_include">
+        <files mask="ksdk_mbedtls_config.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="port/ksdk" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.mbedtls.unused_files.K32L2A41A" name="unused_files" brief="mbedTLS files unused by projects" version="2.28.0" full_name="MbedTLS unused files" devices="K32L2A41xxxxA" user_visible="false" type="other" package_base_path="middleware/mbedtls" project_base_path="mbedtls">
+      <source exclude="true" relative_path=".github" type="other">
+        <files mask="issue_template.md" hidden="true"/>
+        <files mask="pull_request_template.md" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="3rdparty" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="3rdparty" type="asm_include">
+        <files mask="Makefile.inc" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="ChangeLog.d" type="other">
+        <files mask="00README.md" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="configs" type="doc">
+        <files mask="README.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="configs" type="c_include">
+        <files mask="config-ccm-psk-tls1_2.h" hidden="true"/>
+        <files mask="config-mini-tls1_1.h" hidden="true"/>
+        <files mask="config-no-entropy.h" hidden="true"/>
+        <files mask="config-suite-b.h" hidden="true"/>
+        <files mask="config-symmetric-only.h" hidden="true"/>
+        <files mask="config-thread.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="docs" type="other">
+        <files mask="getting_started.md" hidden="true"/>
+        <files mask="use-psa-crypto.md" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="doxygen" type="other">
+        <files mask="mbedtls.doxyfile" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="doxygen/input" type="c_include">
+        <files mask="doc_encdec.h" hidden="true"/>
+        <files mask="doc_hashing.h" hidden="true"/>
+        <files mask="doc_mainpage.h" hidden="true"/>
+        <files mask="doc_rng.h" hidden="true"/>
+        <files mask="doc_ssltls.h" hidden="true"/>
+        <files mask="doc_tcpip.h" hidden="true"/>
+        <files mask="doc_x509.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="include" type="other">
+        <files mask=".gitignore" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="include" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="library" type="other">
+        <files mask=".gitignore" hidden="true"/>
+        <files mask="Makefile" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="library" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs" type="other">
+        <files mask="Makefile" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/aes" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/aes" type="src">
+        <files mask="crypt_and_hash.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/fuzz" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/fuzz" type="other">
+        <files mask="README.md" hidden="true"/>
+        <files mask="fuzz_client.options" hidden="true"/>
+        <files mask="fuzz_dtlsclient.options" hidden="true"/>
+        <files mask="fuzz_dtlsserver.options" hidden="true"/>
+        <files mask="fuzz_privkey.options" hidden="true"/>
+        <files mask="fuzz_pubkey.options" hidden="true"/>
+        <files mask="fuzz_server.options" hidden="true"/>
+        <files mask="fuzz_x509crl.options" hidden="true"/>
+        <files mask="fuzz_x509crt.options" hidden="true"/>
+        <files mask="fuzz_x509csr.options" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/fuzz" type="src">
+        <files mask="common.c" hidden="true"/>
+        <files mask="fuzz_client.c" hidden="true"/>
+        <files mask="fuzz_dtlsclient.c" hidden="true"/>
+        <files mask="fuzz_dtlsserver.c" hidden="true"/>
+        <files mask="fuzz_privkey.c" hidden="true"/>
+        <files mask="fuzz_pubkey.c" hidden="true"/>
+        <files mask="fuzz_server.c" hidden="true"/>
+        <files mask="fuzz_x509crl.c" hidden="true"/>
+        <files mask="fuzz_x509crt.c" hidden="true"/>
+        <files mask="fuzz_x509csr.c" hidden="true"/>
+        <files mask="onefile.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/fuzz" type="c_include">
+        <files mask="common.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/hash" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/hash" type="src">
+        <files mask="generic_sum.c" hidden="true"/>
+        <files mask="hello.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/pkey" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+        <files mask="dh_prime.txt" hidden="true"/>
+        <files mask="rsa_priv.txt" hidden="true"/>
+        <files mask="rsa_pub.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/pkey" type="src">
+        <files mask="dh_client.c" hidden="true"/>
+        <files mask="dh_genprime.c" hidden="true"/>
+        <files mask="dh_server.c" hidden="true"/>
+        <files mask="ecdh_curve25519.c" hidden="true"/>
+        <files mask="ecdsa.c" hidden="true"/>
+        <files mask="gen_key.c" hidden="true"/>
+        <files mask="key_app.c" hidden="true"/>
+        <files mask="key_app_writer.c" hidden="true"/>
+        <files mask="mpi_demo.c" hidden="true"/>
+        <files mask="pk_decrypt.c" hidden="true"/>
+        <files mask="pk_encrypt.c" hidden="true"/>
+        <files mask="pk_sign.c" hidden="true"/>
+        <files mask="pk_verify.c" hidden="true"/>
+        <files mask="rsa_decrypt.c" hidden="true"/>
+        <files mask="rsa_encrypt.c" hidden="true"/>
+        <files mask="rsa_genkey.c" hidden="true"/>
+        <files mask="rsa_sign.c" hidden="true"/>
+        <files mask="rsa_sign_pss.c" hidden="true"/>
+        <files mask="rsa_verify.c" hidden="true"/>
+        <files mask="rsa_verify_pss.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/random" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/random" type="src">
+        <files mask="gen_entropy.c" hidden="true"/>
+        <files mask="gen_random_ctr_drbg.c" hidden="true"/>
+        <files mask="gen_random_havege.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/ssl" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/ssl" type="src">
+        <files mask="dtls_client.c" hidden="true"/>
+        <files mask="dtls_server.c" hidden="true"/>
+        <files mask="mini_client.c" hidden="true"/>
+        <files mask="ssl_client1.c" hidden="true"/>
+        <files mask="ssl_client2.c" hidden="true"/>
+        <files mask="ssl_context_info.c" hidden="true"/>
+        <files mask="ssl_fork_server.c" hidden="true"/>
+        <files mask="ssl_mail_client.c" hidden="true"/>
+        <files mask="ssl_pthread_server.c" hidden="true"/>
+        <files mask="ssl_server.c" hidden="true"/>
+        <files mask="ssl_server2.c" hidden="true"/>
+        <files mask="ssl_test_common_source.c" hidden="true"/>
+        <files mask="ssl_test_lib.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/ssl" type="c_include">
+        <files mask="ssl_test_lib.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/test" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/test" type="src">
+        <files mask="benchmark.c" hidden="true"/>
+        <files mask="dlopen.c" hidden="true"/>
+        <files mask="query_compile_time_config.c" hidden="true"/>
+        <files mask="query_config.c" hidden="true"/>
+        <files mask="selftest.c" hidden="true"/>
+        <files mask="udp_proxy.c" hidden="true"/>
+        <files mask="zeroize.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/test" type="script">
+        <files mask="dlopen_demo.sh" hidden="true"/>
+        <files mask="generate_cpp_dummy_build.sh" hidden="true"/>
+        <files mask="udp_proxy_wrapper.sh" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/test" type="c_include">
+        <files mask="query_config.h" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/util" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/util" type="src">
+        <files mask="pem2der.c" hidden="true"/>
+        <files mask="strerror.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/x509" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="programs/x509" type="src">
+        <files mask="cert_app.c" hidden="true"/>
+        <files mask="cert_req.c" hidden="true"/>
+        <files mask="cert_write.c" hidden="true"/>
+        <files mask="crl_app.c" hidden="true"/>
+        <files mask="load_roots.c" hidden="true"/>
+        <files mask="req_app.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="scripts" type="script">
+        <files mask="abi_check.py" hidden="true"/>
+        <files mask="apidoc_full.sh" hidden="true"/>
+        <files mask="assemble_changelog.py" hidden="true"/>
+        <files mask="bump_version.sh" hidden="true"/>
+        <files mask="config.py" hidden="true"/>
+        <files mask="ecc-heap.sh" hidden="true"/>
+        <files mask="footprint.sh" hidden="true"/>
+        <files mask="generate_psa_constants.py" hidden="true"/>
+        <files mask="memory.sh" hidden="true"/>
+        <files mask="min_requirements.py" hidden="true"/>
+        <files mask="output_env.sh" hidden="true"/>
+        <files mask="tmp_ignore_makefiles.sh" hidden="true"/>
+        <files mask="windows_msbuild.bat" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="scripts" type="doc">
+        <files mask="ci.requirements.txt" hidden="true"/>
+        <files mask="maintainer.requirements.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="scripts" type="other">
+        <files mask="config.pl" hidden="true"/>
+        <files mask="find-mem-leak.cocci" hidden="true"/>
+        <files mask="generate_errors.pl" hidden="true"/>
+        <files mask="generate_features.pl" hidden="true"/>
+        <files mask="generate_query_config.pl" hidden="true"/>
+        <files mask="generate_visualc_files.pl" hidden="true"/>
+        <files mask="massif_max.pl" hidden="true"/>
+        <files mask="rename.pl" hidden="true"/>
+        <files mask="rm-calloc-cast.cocci" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="scripts/data_files" type="other">
+        <files mask="error.fmt" hidden="true"/>
+        <files mask="query_config.fmt" hidden="true"/>
+        <files mask="version_features.fmt" hidden="true"/>
+        <files mask="vs2010-app-template.vcxproj" hidden="true"/>
+        <files mask="vs2010-main-template.vcxproj" hidden="true"/>
+        <files mask="vs2010-sln-template.sln" hidden="true"/>
+        <files mask="vs6-app-template.dsp" hidden="true"/>
+        <files mask="vs6-main-template.dsp" hidden="true"/>
+        <files mask="vs6-workspace-template.dsw" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="scripts/data_files" type="doc">
+        <files mask="rename-1.3-2.0.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="scripts/mbedtls_dev" type="script">
+        <files mask="asymmetric_key_data.py" hidden="true"/>
+        <files mask="c_build_helper.py" hidden="true"/>
+        <files mask="crypto_knowledge.py" hidden="true"/>
+        <files mask="macro_collector.py" hidden="true"/>
+        <files mask="psa_storage.py" hidden="true"/>
+        <files mask="test_case.py" hidden="true"/>
+        <files mask="typing_util.py" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="tests" type="other">
+        <files mask="Makefile" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="tests/.jenkins" type="other">
+        <files mask="Jenkinsfile" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="tests/data_files" type="other">
+        <files mask="Makefile" hidden="true"/>
+        <files mask="hash_file_1" hidden="true"/>
+        <files mask="hash_file_2" hidden="true"/>
+        <files mask="hash_file_3" hidden="true"/>
+        <files mask="hash_file_4" hidden="true"/>
+        <files mask="hash_file_5" hidden="true"/>
+        <files mask="mpi_10" hidden="true"/>
+        <files mask="mpi_too_big" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="tests/data_files/dir3" type="other">
+        <files mask="Readme" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="tests/data_files/dir4" type="other">
+        <files mask="Readme" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="tests/git-scripts" type="other">
+        <files mask="README.md" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="tests/git-scripts" type="script">
+        <files mask="pre-commit.sh" hidden="true"/>
+        <files mask="pre-push.sh" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="tests/scripts" type="script">
+        <files mask="all-in-docker.sh" hidden="true"/>
+        <files mask="all.sh" hidden="true"/>
+        <files mask="analyze_outcomes.py" hidden="true"/>
+        <files mask="basic-build-test.sh" hidden="true"/>
+        <files mask="basic-in-docker.sh" hidden="true"/>
+        <files mask="check-generated-files.sh" hidden="true"/>
+        <files mask="check-python-files.sh" hidden="true"/>
+        <files mask="check_files.py" hidden="true"/>
+        <files mask="check_names.py" hidden="true"/>
+        <files mask="check_test_cases.py" hidden="true"/>
+        <files mask="docker_env.sh" hidden="true"/>
+        <files mask="doxygen.sh" hidden="true"/>
+        <files mask="generate-afl-tests.sh" hidden="true"/>
+        <files mask="generate_psa_tests.py" hidden="true"/>
+        <files mask="generate_test_code.py" hidden="true"/>
+        <files mask="list-identifiers.sh" hidden="true"/>
+        <files mask="list_internal_identifiers.py" hidden="true"/>
+        <files mask="psa_collect_statuses.py" hidden="true"/>
+        <files mask="scripts_path.py" hidden="true"/>
+        <files mask="set_psa_test_dependencies.py" hidden="true"/>
+        <files mask="test_config_script.py" hidden="true"/>
+        <files mask="test_generate_test_code.py" hidden="true"/>
+        <files mask="test_psa_compliance.py" hidden="true"/>
+        <files mask="test_psa_constant_names.py" hidden="true"/>
+        <files mask="travis-log-failure.sh" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="tests/scripts" type="other">
+        <files mask="check-doxy-blocks.pl" hidden="true"/>
+        <files mask="curves.pl" hidden="true"/>
+        <files mask="depends-hashes.pl" hidden="true"/>
+        <files mask="depends-pkalgs.pl" hidden="true"/>
+        <files mask="gen_ctr_drbg.pl" hidden="true"/>
+        <files mask="gen_gcm_decrypt.pl" hidden="true"/>
+        <files mask="gen_gcm_encrypt.pl" hidden="true"/>
+        <files mask="gen_pkcs1_v21_sign_verify.pl" hidden="true"/>
+        <files mask="key-exchanges.pl" hidden="true"/>
+        <files mask="recursion.pl" hidden="true"/>
+        <files mask="run-test-suites.pl" hidden="true"/>
+        <files mask="tcp_client.pl" hidden="true"/>
+        <files mask="test-ref-configs.pl" hidden="true"/>
+        <files mask="test_zeroize.gdb" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="tests/src" type="src">
+        <files mask="asn1_helpers.c" hidden="true"/>
+        <files mask="fake_external_rng_for_test.c" hidden="true"/>
+        <files mask="helpers.c" hidden="true"/>
+        <files mask="psa_crypto_helpers.c" hidden="true"/>
+        <files mask="psa_exercise_key.c" hidden="true"/>
+        <files mask="random.c" hidden="true"/>
+        <files mask="threading_helpers.c" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="tests/suites" type="other">
+        <files mask="helpers.function" hidden="true"/>
+        <files mask="host_test.function" hidden="true"/>
+        <files mask="main_test.function" hidden="true"/>
+        <files mask="test_suite_aes.cbc.data" hidden="true"/>
+        <files mask="test_suite_aes.cfb.data" hidden="true"/>
+        <files mask="test_suite_aes.ecb.data" hidden="true"/>
+        <files mask="test_suite_aes.function" hidden="true"/>
+        <files mask="test_suite_aes.ofb.data" hidden="true"/>
+        <files mask="test_suite_aes.rest.data" hidden="true"/>
+        <files mask="test_suite_aes.xts.data" hidden="true"/>
+        <files mask="test_suite_all.data" hidden="true"/>
+        <files mask="test_suite_all.function" hidden="true"/>
+        <files mask="test_suite_arc4.data" hidden="true"/>
+        <files mask="test_suite_arc4.function" hidden="true"/>
+        <files mask="test_suite_aria.data" hidden="true"/>
+        <files mask="test_suite_aria.function" hidden="true"/>
+        <files mask="test_suite_asn1parse.data" hidden="true"/>
+        <files mask="test_suite_asn1parse.function" hidden="true"/>
+        <files mask="test_suite_asn1write.data" hidden="true"/>
+        <files mask="test_suite_asn1write.function" hidden="true"/>
+        <files mask="test_suite_base64.data" hidden="true"/>
+        <files mask="test_suite_base64.function" hidden="true"/>
+        <files mask="test_suite_blowfish.data" hidden="true"/>
+        <files mask="test_suite_blowfish.function" hidden="true"/>
+        <files mask="test_suite_camellia.data" hidden="true"/>
+        <files mask="test_suite_camellia.function" hidden="true"/>
+        <files mask="test_suite_ccm.data" hidden="true"/>
+        <files mask="test_suite_ccm.function" hidden="true"/>
+        <files mask="test_suite_chacha20.data" hidden="true"/>
+        <files mask="test_suite_chacha20.function" hidden="true"/>
+        <files mask="test_suite_chachapoly.data" hidden="true"/>
+        <files mask="test_suite_chachapoly.function" hidden="true"/>
+        <files mask="test_suite_cipher.aes.data" hidden="true"/>
+        <files mask="test_suite_cipher.arc4.data" hidden="true"/>
+        <files mask="test_suite_cipher.aria.data" hidden="true"/>
+        <files mask="test_suite_cipher.blowfish.data" hidden="true"/>
+        <files mask="test_suite_cipher.camellia.data" hidden="true"/>
+        <files mask="test_suite_cipher.ccm.data" hidden="true"/>
+        <files mask="test_suite_cipher.chacha20.data" hidden="true"/>
+        <files mask="test_suite_cipher.chachapoly.data" hidden="true"/>
+        <files mask="test_suite_cipher.des.data" hidden="true"/>
+        <files mask="test_suite_cipher.function" hidden="true"/>
+        <files mask="test_suite_cipher.gcm.data" hidden="true"/>
+        <files mask="test_suite_cipher.misc.data" hidden="true"/>
+        <files mask="test_suite_cipher.nist_kw.data" hidden="true"/>
+        <files mask="test_suite_cipher.null.data" hidden="true"/>
+        <files mask="test_suite_cipher.padding.data" hidden="true"/>
+        <files mask="test_suite_cmac.data" hidden="true"/>
+        <files mask="test_suite_cmac.function" hidden="true"/>
+        <files mask="test_suite_ctr_drbg.data" hidden="true"/>
+        <files mask="test_suite_ctr_drbg.function" hidden="true"/>
+        <files mask="test_suite_debug.data" hidden="true"/>
+        <files mask="test_suite_debug.function" hidden="true"/>
+        <files mask="test_suite_des.data" hidden="true"/>
+        <files mask="test_suite_des.function" hidden="true"/>
+        <files mask="test_suite_dhm.data" hidden="true"/>
+        <files mask="test_suite_dhm.function" hidden="true"/>
+        <files mask="test_suite_ecdh.data" hidden="true"/>
+        <files mask="test_suite_ecdh.function" hidden="true"/>
+        <files mask="test_suite_ecdsa.data" hidden="true"/>
+        <files mask="test_suite_ecdsa.function" hidden="true"/>
+        <files mask="test_suite_ecjpake.data" hidden="true"/>
+        <files mask="test_suite_ecjpake.function" hidden="true"/>
+        <files mask="test_suite_ecp.data" hidden="true"/>
+        <files mask="test_suite_ecp.function" hidden="true"/>
+        <files mask="test_suite_entropy.data" hidden="true"/>
+        <files mask="test_suite_entropy.function" hidden="true"/>
+        <files mask="test_suite_error.data" hidden="true"/>
+        <files mask="test_suite_error.function" hidden="true"/>
+        <files mask="test_suite_gcm.aes128_de.data" hidden="true"/>
+        <files mask="test_suite_gcm.aes128_en.data" hidden="true"/>
+        <files mask="test_suite_gcm.aes192_de.data" hidden="true"/>
+        <files mask="test_suite_gcm.aes192_en.data" hidden="true"/>
+        <files mask="test_suite_gcm.aes256_de.data" hidden="true"/>
+        <files mask="test_suite_gcm.aes256_en.data" hidden="true"/>
+        <files mask="test_suite_gcm.camellia.data" hidden="true"/>
+        <files mask="test_suite_gcm.function" hidden="true"/>
+        <files mask="test_suite_gcm.misc.data" hidden="true"/>
+        <files mask="test_suite_hkdf.data" hidden="true"/>
+        <files mask="test_suite_hkdf.function" hidden="true"/>
+        <files mask="test_suite_hmac_drbg.function" hidden="true"/>
+        <files mask="test_suite_hmac_drbg.misc.data" hidden="true"/>
+        <files mask="test_suite_hmac_drbg.no_reseed.data" hidden="true"/>
+        <files mask="test_suite_hmac_drbg.nopr.data" hidden="true"/>
+        <files mask="test_suite_hmac_drbg.pr.data" hidden="true"/>
+        <files mask="test_suite_md.data" hidden="true"/>
+        <files mask="test_suite_md.function" hidden="true"/>
+        <files mask="test_suite_mdx.data" hidden="true"/>
+        <files mask="test_suite_mdx.function" hidden="true"/>
+        <files mask="test_suite_memory_buffer_alloc.data" hidden="true"/>
+        <files mask="test_suite_memory_buffer_alloc.function" hidden="true"/>
+        <files mask="test_suite_mpi.data" hidden="true"/>
+        <files mask="test_suite_mpi.function" hidden="true"/>
+        <files mask="test_suite_mps.data" hidden="true"/>
+        <files mask="test_suite_mps.function" hidden="true"/>
+        <files mask="test_suite_net.data" hidden="true"/>
+        <files mask="test_suite_net.function" hidden="true"/>
+        <files mask="test_suite_nist_kw.data" hidden="true"/>
+        <files mask="test_suite_nist_kw.function" hidden="true"/>
+        <files mask="test_suite_oid.data" hidden="true"/>
+        <files mask="test_suite_oid.function" hidden="true"/>
+        <files mask="test_suite_pem.data" hidden="true"/>
+        <files mask="test_suite_pem.function" hidden="true"/>
+        <files mask="test_suite_pk.data" hidden="true"/>
+        <files mask="test_suite_pk.function" hidden="true"/>
+        <files mask="test_suite_pkcs12.data" hidden="true"/>
+        <files mask="test_suite_pkcs12.function" hidden="true"/>
+        <files mask="test_suite_pkcs1_v15.data" hidden="true"/>
+        <files mask="test_suite_pkcs1_v15.function" hidden="true"/>
+        <files mask="test_suite_pkcs1_v21.data" hidden="true"/>
+        <files mask="test_suite_pkcs1_v21.function" hidden="true"/>
+        <files mask="test_suite_pkcs5.data" hidden="true"/>
+        <files mask="test_suite_pkcs5.function" hidden="true"/>
+        <files mask="test_suite_pkparse.data" hidden="true"/>
+        <files mask="test_suite_pkparse.function" hidden="true"/>
+        <files mask="test_suite_pkwrite.data" hidden="true"/>
+        <files mask="test_suite_pkwrite.function" hidden="true"/>
+        <files mask="test_suite_poly1305.data" hidden="true"/>
+        <files mask="test_suite_poly1305.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_attributes.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_attributes.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_driver_wrappers.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_driver_wrappers.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_entropy.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_entropy.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_generate_key.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_generate_key.generated.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_hash.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_hash.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_init.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_init.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_metadata.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_metadata.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_not_supported.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_not_supported.generated.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_not_supported.misc.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_persistent_key.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_persistent_key.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_se_driver_hal.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_se_driver_hal.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_se_driver_hal_mocks.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_se_driver_hal_mocks.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_slot_management.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_slot_management.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_storage_format.current.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_storage_format.function" hidden="true"/>
+        <files mask="test_suite_psa_crypto_storage_format.misc.data" hidden="true"/>
+        <files mask="test_suite_psa_crypto_storage_format.v0.data" hidden="true"/>
+        <files mask="test_suite_psa_its.data" hidden="true"/>
+        <files mask="test_suite_psa_its.function" hidden="true"/>
+        <files mask="test_suite_random.data" hidden="true"/>
+        <files mask="test_suite_random.function" hidden="true"/>
+        <files mask="test_suite_rsa.data" hidden="true"/>
+        <files mask="test_suite_rsa.function" hidden="true"/>
+        <files mask="test_suite_shax.data" hidden="true"/>
+        <files mask="test_suite_shax.function" hidden="true"/>
+        <files mask="test_suite_ssl.data" hidden="true"/>
+        <files mask="test_suite_ssl.function" hidden="true"/>
+        <files mask="test_suite_timing.data" hidden="true"/>
+        <files mask="test_suite_timing.function" hidden="true"/>
+        <files mask="test_suite_version.data" hidden="true"/>
+        <files mask="test_suite_version.function" hidden="true"/>
+        <files mask="test_suite_x509parse.data" hidden="true"/>
+        <files mask="test_suite_x509parse.function" hidden="true"/>
+        <files mask="test_suite_x509write.data" hidden="true"/>
+        <files mask="test_suite_x509write.function" hidden="true"/>
+        <files mask="test_suite_xtea.data" hidden="true"/>
+        <files mask="test_suite_xtea.function" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="visualc/VS2010" type="other">
+        <files mask="benchmark.vcxproj" hidden="true"/>
+        <files mask="cert_app.vcxproj" hidden="true"/>
+        <files mask="cert_req.vcxproj" hidden="true"/>
+        <files mask="cert_write.vcxproj" hidden="true"/>
+        <files mask="crl_app.vcxproj" hidden="true"/>
+        <files mask="crypt_and_hash.vcxproj" hidden="true"/>
+        <files mask="crypto_examples.vcxproj" hidden="true"/>
+        <files mask="dh_client.vcxproj" hidden="true"/>
+        <files mask="dh_genprime.vcxproj" hidden="true"/>
+        <files mask="dh_server.vcxproj" hidden="true"/>
+        <files mask="dtls_client.vcxproj" hidden="true"/>
+        <files mask="dtls_server.vcxproj" hidden="true"/>
+        <files mask="ecdh_curve25519.vcxproj" hidden="true"/>
+        <files mask="ecdsa.vcxproj" hidden="true"/>
+        <files mask="gen_entropy.vcxproj" hidden="true"/>
+        <files mask="gen_key.vcxproj" hidden="true"/>
+        <files mask="gen_random_ctr_drbg.vcxproj" hidden="true"/>
+        <files mask="gen_random_havege.vcxproj" hidden="true"/>
+        <files mask="generic_sum.vcxproj" hidden="true"/>
+        <files mask="hello.vcxproj" hidden="true"/>
+        <files mask="key_app.vcxproj" hidden="true"/>
+        <files mask="key_app_writer.vcxproj" hidden="true"/>
+        <files mask="key_ladder_demo.vcxproj" hidden="true"/>
+        <files mask="load_roots.vcxproj" hidden="true"/>
+        <files mask="mbedTLS.sln" hidden="true"/>
+        <files mask="mbedTLS.vcxproj" hidden="true"/>
+        <files mask="mini_client.vcxproj" hidden="true"/>
+        <files mask="mpi_demo.vcxproj" hidden="true"/>
+        <files mask="pem2der.vcxproj" hidden="true"/>
+        <files mask="pk_decrypt.vcxproj" hidden="true"/>
+        <files mask="pk_encrypt.vcxproj" hidden="true"/>
+        <files mask="pk_sign.vcxproj" hidden="true"/>
+        <files mask="pk_verify.vcxproj" hidden="true"/>
+        <files mask="psa_constant_names.vcxproj" hidden="true"/>
+        <files mask="query_compile_time_config.vcxproj" hidden="true"/>
+        <files mask="req_app.vcxproj" hidden="true"/>
+        <files mask="rsa_decrypt.vcxproj" hidden="true"/>
+        <files mask="rsa_encrypt.vcxproj" hidden="true"/>
+        <files mask="rsa_genkey.vcxproj" hidden="true"/>
+        <files mask="rsa_sign.vcxproj" hidden="true"/>
+        <files mask="rsa_sign_pss.vcxproj" hidden="true"/>
+        <files mask="rsa_verify.vcxproj" hidden="true"/>
+        <files mask="rsa_verify_pss.vcxproj" hidden="true"/>
+        <files mask="selftest.vcxproj" hidden="true"/>
+        <files mask="ssl_client1.vcxproj" hidden="true"/>
+        <files mask="ssl_client2.vcxproj" hidden="true"/>
+        <files mask="ssl_context_info.vcxproj" hidden="true"/>
+        <files mask="ssl_fork_server.vcxproj" hidden="true"/>
+        <files mask="ssl_mail_client.vcxproj" hidden="true"/>
+        <files mask="ssl_server.vcxproj" hidden="true"/>
+        <files mask="ssl_server2.vcxproj" hidden="true"/>
+        <files mask="strerror.vcxproj" hidden="true"/>
+        <files mask="udp_proxy.vcxproj" hidden="true"/>
+        <files mask="zeroize.vcxproj" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="./" type="other">
+        <files mask="BRANCHES.md" hidden="true"/>
+        <files mask="BUGS.md" hidden="true"/>
+        <files mask="CONTRIBUTING.md" hidden="true"/>
+        <files mask="README.md" hidden="true"/>
+        <files mask="SECURITY.md" hidden="true"/>
+        <files mask="SUPPORT.md" hidden="true"/>
+        <files mask="mbeTLS_for_Kinetis_SDK_v2.0_readme.meta" hidden="true"/>
+        <files mask="ChangeLog" hidden="true"/>
+        <files mask="LICENSE" hidden="true"/>
+        <files mask="Makefile" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="./" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+        <files mask="ChangeLogKSDK.txt" hidden="true"/>
+        <files mask="dco.txt" hidden="true"/>
+        <files mask="mbeTLS_for_Kinetis_SDK_v2.0_readme.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="./" type="script">
+        <files mask="DartConfiguration.tcl" hidden="true"/>
+      </source>
     </component>
     <component id="middleware.mmcau.cm0p.K32L2A41A" name="mmcau_cm0p" brief="MMCAU library for ARM Cortex M0+ core" version="2.0.2" full_name="Kinetis MMCAU security function library for Arm Cortex-M0+" devices="K32L2A41xxxxA" device_cores="core0_K32L2A41xxxxA" category="Security/MMCAU library" user_visible="true" type="middleware" package_base_path="core/middleware/mmcau" project_base_path="mmcau">
       <dependencies>

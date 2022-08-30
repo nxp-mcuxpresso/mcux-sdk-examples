@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_lpcxpresso55s28_examples_manifest_v3_10" name="SDK_2.x_lpcxpresso55s28_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2022-07-15 08:18:31.792585-->
-  <!--This manifest is generated based on sdk repo commit: 45d71c921a1dd3e0403549aa377535344ed9bc97-->
+  <!--Timestamp (UTC): 2022-08-11 15:00:41.380414-->
+  <!--This manifest is generated based on sdk repo commit: 7fb442914f92023b395b260777eb2355254fd71d-->
   <externalDefinitions>
     <definition extID="LPC55S28JBD100"/>
     <definition extID="armgcc"/>
@@ -710,6 +710,16 @@
         <example id="lpcxpresso55s28_lpc_bod" name="lpc_bod" brief="The bod example shows how to use LPC BOD(Brown-out detector) in the simplest way. To run this example, user should remove the jumper for the power source selector, and connect the adjustable input voltage to the MCU's Vin pin. If the input voltage of the Vin pin is lower than the threshold voltage, the BOD interrupt will be asserted." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/bod" path="driver_examples/bod">
           <external path="driver_examples/bod" type="xml">
             <files mask="lpc_bod_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s28_mbedtls_benchmark" name="mbedtls_benchmark" brief="The mbdedTLS Benchmark demo application performs cryptographic algorithm benchmarking and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_benchmark">
+          <external path="mbedtls_examples/mbedtls_benchmark" type="xml">
+            <files mask="mbedtls_benchmark_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s28_mbedtls_selftest" name="mbedtls_selftest" brief="The mbdedTLS SelfTest program performs cryptographic algorithm testing and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_selftest">
+          <external path="mbedtls_examples/mbedtls_selftest" type="xml">
+            <files mask="mbedtls_selftest_v3_10.xml"/>
           </external>
         </example>
         <example id="lpcxpresso55s28_mrt_example" name="mrt_example" brief="The MRT project is a simple demonstration program of the SDK MRT driver. It sets up the MRThardware block to trigger a periodic interrupt after every 250 milliseconds. When the PIT interrupt is triggereda message a printed on the UART terminal and an LED is toggled on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/mrt" path="driver_examples/mrt">

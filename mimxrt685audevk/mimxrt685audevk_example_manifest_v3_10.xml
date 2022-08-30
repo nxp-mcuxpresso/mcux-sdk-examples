@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_mimxrt685audevk_examples_manifest_v3_10" name="SDK_2.x_mimxrt685audevk_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2022-07-15 08:18:57.552294-->
-  <!--This manifest is generated based on sdk repo commit: 45d71c921a1dd3e0403549aa377535344ed9bc97-->
+  <!--Timestamp (UTC): 2022-08-04 15:21:02.193243-->
+  <!--This manifest is generated based on sdk repo commit: 7fb442914f92023b395b260777eb2355254fd71d-->
   <externalDefinitions>
     <definition extID="MIMXRT685SFVKB"/>
     <definition extID="armgcc"/>
@@ -497,6 +497,11 @@
             <files mask="dsp_nn_demo_cm33_v3_10.xml"/>
           </external>
         </example>
+        <example id="mimxrt685audevk_dsp_rtp_demo_cm33" name="dsp_rtp_demo_cm33" brief="The dsp_rtp_demo demo application demonstrates starting DSP core with DSP image." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="dsp_examples" path="dsp_examples/rtp_demo/cm33">
+          <external path="dsp_examples/rtp_demo/cm33" type="xml">
+            <files mask="dsp_rtp_demo_cm33_v3_10.xml"/>
+          </external>
+        </example>
         <example id="mimxrt685audevk_dsp_sema42_cm33" name="dsp_sema42_cm33" brief="The dsp_sema42 demo application demonstrates starting DSP core with DSP image." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="dsp_examples" path="dsp_examples/sema42/cm33">
           <external path="dsp_examples/sema42/cm33" type="xml">
             <files mask="dsp_sema42_cm33_v3_10.xml"/>
@@ -962,6 +967,21 @@
             <files mask="lpadc_temperature_measurement_v3_10.xml"/>
           </external>
         </example>
+        <example id="mimxrt685audevk_lwip_httpssrv_ota_wifi" name="lwip_httpssrv_ota_wifi" brief="The lwip_httpsrv_ota demo application demonstrates OTA using an HTTPServer set up on lwIP TCP/IP and the MbedTLS stack withFreeRTOS. The user uses an Internet browser to upload new update package to reprogram application running on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_httpssrv_ota_wifi">
+          <external path="lwip_examples/lwip_httpssrv_ota_wifi" type="xml">
+            <files mask="lwip_httpssrv_ota_wifi_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_mbedtls_benchmark" name="mbedtls_benchmark" brief="The mbdedTLS Benchmark demo application performs cryptographic algorithm benchmarking and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_benchmark">
+          <external path="mbedtls_examples/mbedtls_benchmark" type="xml">
+            <files mask="mbedtls_benchmark_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_mbedtls_selftest" name="mbedtls_selftest" brief="The mbdedTLS SelfTest program performs cryptographic algorithm testing and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_selftest">
+          <external path="mbedtls_examples/mbedtls_selftest" type="xml">
+            <files mask="mbedtls_selftest_v3_10.xml"/>
+          </external>
+        </example>
         <example id="mimxrt685audevk_mpi_loader_dsp_hello_world" name="mpi_loader_dsp_hello_world" brief="The mpi_loader_dsp_hello_world demo application demonstrates multicore packed image loader to load DSP image to execution place and kick off it. The multicore packed image is created by elftosb tool." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="component_examples/mpi_loader/dsp_hello_world">
           <external path="component_examples/mpi_loader/dsp_hello_world" type="xml">
             <files mask="mpi_loader_dsp_hello_world_v3_10.xml"/>
@@ -1305,6 +1325,26 @@
         <example id="mimxrt685audevk_utick" name="utick" brief="The utick project is a simple demonstration program of the SDK utick driver. It sets up the utick hardware block to trigger a periodic interrupt after every 1 second. When the utick interrupt is triggered a message is printed on the UART terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/utick" path="driver_examples/utick">
           <external path="driver_examples/utick" type="xml">
             <files mask="utick_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_wifi_cli" name="wifi_cli" brief="wifi_cli" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="wifi_examples/wifi_cli">
+          <external path="wifi_examples/wifi_cli" type="xml">
+            <files mask="wifi_cli_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_wifi_setup" name="wifi_setup" brief="wifi_setup" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="wifi_examples/wifi_setup">
+          <external path="wifi_examples/wifi_setup" type="xml">
+            <files mask="wifi_setup_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_wifi_test_mode" name="wifi_test_mode" brief="wifi_test_mode" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="wifi_examples/wifi_test_mode">
+          <external path="wifi_examples/wifi_test_mode" type="xml">
+            <files mask="wifi_test_mode_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_wifi_webconfig" name="wifi_webconfig" brief="Simple AP to Client configuration over web." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="wifi_examples/wifi_webconfig">
+          <external path="wifi_examples/wifi_webconfig" type="xml">
+            <files mask="wifi_webconfig_v3_10.xml"/>
           </external>
         </example>
         <example id="mimxrt685audevk_wwdt_example" name="wwdt_example" brief="The WDOG Example project is to demonstrate usage of the KSDK wdog driver.In this example,quick test is first implemented to test the wdog.And then after 5 times of refreshing the watchdog, a timeout reset is generated." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/wwdt" path="driver_examples/wwdt">
