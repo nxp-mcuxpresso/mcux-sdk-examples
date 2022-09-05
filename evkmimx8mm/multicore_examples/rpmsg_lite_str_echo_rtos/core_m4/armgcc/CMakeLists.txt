@@ -21,7 +21,7 @@ SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
 if (DEFINED ENV{SdkRootDirPath})
     SET(SdkRootDirPath "$ENV{SdkRootDirPath}")
 else()
-    SET(SdkRootDirPath "${ProjDirPath}/../../../../..")
+    SET(SdkRootDirPath "${ProjDirPath}/../../../../../..")
 endif()
 
 SET(EXECUTABLE_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
