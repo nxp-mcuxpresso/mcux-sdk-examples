@@ -128,6 +128,8 @@ include(middleware_freertos-kernel_extension)
 
 include(middleware_multicore_rpmsg_lite_imx8qm_m4_freertos)
 
+include(middleware_multicore_rpmsg_lite_freertos)
+
 include(middleware_multicore_rpmsg_lite)
 
 include(middleware_freertos-kernel_heap_4)

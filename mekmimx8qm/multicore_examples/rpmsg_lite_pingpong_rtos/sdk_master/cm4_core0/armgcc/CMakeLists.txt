@@ -71,6 +71,8 @@ include(driver_irqsteer)
 
 include(middleware_multicore_rpmsg_lite_imx8qm_m4_freertos)
 
+include(middleware_multicore_rpmsg_lite_freertos)
+
 include(driver_clock)
 
 include(driver_mu)

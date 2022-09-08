@@ -96,6 +96,8 @@ include(component_lpi2c_adapter)
 
 include(middleware_multicore_rpmsg_lite_imx8qx_m4_freertos)
 
+include(middleware_multicore_rpmsg_lite_freertos)
+
 include(component_codec_i2c_MIMX8QX6)
 
 include(driver_clock)
