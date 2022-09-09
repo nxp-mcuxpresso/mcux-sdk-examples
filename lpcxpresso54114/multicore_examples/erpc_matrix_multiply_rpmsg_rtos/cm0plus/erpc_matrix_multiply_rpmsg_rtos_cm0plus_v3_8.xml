@@ -4,6 +4,7 @@
     <definition extID="cm0plus_LPC54114J256"/>
     <definition extID="middleware.multicore.mcmgr.lpc54114.LPC54114"/>
     <definition extID="middleware.multicore.rpmsg_lite.lpc5411x_freertos.LPC54114"/>
+    <definition extID="middleware.multicore.rpmsg_lite.freertos.LPC54114"/>
     <definition extID="platform.drivers.mailbox.LPC54114"/>
     <definition extID="platform.drivers.lpc_iocon.LPC54114"/>
     <definition extID="platform.drivers.clock.LPC54114"/>
@@ -13,7 +14,7 @@
     <definition extID="middleware.multicore.erpc.eRPC_port_freertos.LPC54114"/>
     <definition extID="middleware.freertos-kernel.LPC54114"/>
     <definition extID="middleware.multicore.mcmgr.LPC54114"/>
-    <definition extID="middleware.freertos-kernel.heap_3.LPC54114"/>
+    <definition extID="middleware.freertos-kernel.heap_4.LPC54114"/>
     <definition extID="middleware.multicore.erpc.doc.LPC54114"/>
     <definition extID="platform.drivers.common.LPC54114"/>
     <definition extID="platform.drivers.power.LPC54114"/>
@@ -43,7 +44,7 @@
     <definition extID="mdk"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso54114_erpc_matrix_multiply_rpmsg_rtos_cm0plus" name="erpc_matrix_multiply_rpmsg_rtos_cm0plus" device_core="cm0plus_LPC54114J256" dependency="middleware.multicore.mcmgr.lpc54114.LPC54114 middleware.multicore.rpmsg_lite.lpc5411x_freertos.LPC54114 platform.drivers.mailbox.LPC54114 platform.drivers.lpc_iocon.LPC54114 platform.drivers.clock.LPC54114 middleware.multicore.erpc.eRPC_server.LPC54114 middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_remote_c_wrapper.LPC54114 middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_transport.LPC54114 middleware.multicore.erpc.eRPC_port_freertos.LPC54114 middleware.freertos-kernel.LPC54114 middleware.multicore.mcmgr.LPC54114 middleware.freertos-kernel.heap_3.LPC54114 middleware.multicore.erpc.doc.LPC54114 platform.drivers.common.LPC54114 platform.drivers.power.LPC54114 platform.drivers.reset.LPC54114 platform.devices.LPC54114_CMSIS.LPC54114 platform.Include_core_cm0plus.LPC54114 platform.devices.LPC54114_startup.LPC54114 platform.drivers.flexcomm_usart.LPC54114 platform.drivers.flexcomm.LPC54114 platform.drivers.lpc_gpio.LPC54114 utility.debug_console.LPC54114 platform.utilities.assert.LPC54114 component.usart_adapter.LPC54114 component.serial_manager.LPC54114 component.lists.LPC54114 component.serial_manager_uart.LPC54114 middleware.multicore.rpmsg_lite.LPC54114 middleware.freertos-kernel.extension.LPC54114 middleware.multicore.erpc.common.LPC54114 platform.utilities.misc_utilities.LPC54114 platform.Include_common.LPC54114 platform.Include_dsp.LPC54114 platform.devices.LPC54114_system.LPC54114" category="multicore_examples">
+  <example id="lpcxpresso54114_erpc_matrix_multiply_rpmsg_rtos_cm0plus" name="erpc_matrix_multiply_rpmsg_rtos_cm0plus" device_core="cm0plus_LPC54114J256" dependency="middleware.multicore.mcmgr.lpc54114.LPC54114 middleware.multicore.rpmsg_lite.lpc5411x_freertos.LPC54114 middleware.multicore.rpmsg_lite.freertos.LPC54114 platform.drivers.mailbox.LPC54114 platform.drivers.lpc_iocon.LPC54114 platform.drivers.clock.LPC54114 middleware.multicore.erpc.eRPC_server.LPC54114 middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_remote_c_wrapper.LPC54114 middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_transport.LPC54114 middleware.multicore.erpc.eRPC_port_freertos.LPC54114 middleware.freertos-kernel.LPC54114 middleware.multicore.mcmgr.LPC54114 middleware.freertos-kernel.heap_4.LPC54114 middleware.multicore.erpc.doc.LPC54114 platform.drivers.common.LPC54114 platform.drivers.power.LPC54114 platform.drivers.reset.LPC54114 platform.devices.LPC54114_CMSIS.LPC54114 platform.Include_core_cm0plus.LPC54114 platform.devices.LPC54114_startup.LPC54114 platform.drivers.flexcomm_usart.LPC54114 platform.drivers.flexcomm.LPC54114 platform.drivers.lpc_gpio.LPC54114 utility.debug_console.LPC54114 platform.utilities.assert.LPC54114 component.usart_adapter.LPC54114 component.serial_manager.LPC54114 component.lists.LPC54114 component.serial_manager_uart.LPC54114 middleware.multicore.rpmsg_lite.LPC54114 middleware.freertos-kernel.extension.LPC54114 middleware.multicore.erpc.common.LPC54114 platform.utilities.misc_utilities.LPC54114 platform.Include_common.LPC54114 platform.Include_dsp.LPC54114 platform.devices.LPC54114_system.LPC54114" category="multicore_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.ccnature"/>
     </projects>

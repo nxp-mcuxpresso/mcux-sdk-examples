@@ -29,6 +29,7 @@
     <definition extID="middleware.freertos-kernel.extension.MIMX8QM6"/>
     <definition extID="middleware.multicore.rpmsg_lite.imx8qm_m4_freertos.MIMX8QM6"/>
     <definition extID="middleware.multicore.rpmsg_lite.MIMX8QM6"/>
+    <definition extID="middleware.multicore.rpmsg_lite.freertos.imx8qm_m4"/>
     <definition extID="middleware.freertos-kernel.heap_4.MIMX8QM6"/>
     <definition extID="platform.utilities.misc_utilities.MIMX8QM6"/>
     <definition extID="armgcc"/>
@@ -37,7 +38,7 @@
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="mdk"/>
   </externalDefinitions>
-  <example id="mekmimx8qm_rpmsg_lite_pingpong_rtos_linux_remote_m41" name="rpmsg_lite_pingpong_rtos_linux_remote_m41" device_core="cm4_core1_MIMX8QM6xxxFF" dependency="platform.drivers.irqsteer.MIMX8QM6 platform.drivers.clock.MIMX8QM6 platform.drivers.mu.MIMX8QM6 middleware.freertos-kernel.MIMX8QM6 platform.drivers.common.MIMX8QM6 platform.devices.MIMX8QM6_CMSIS.MIMX8QM6 platform.devices.MIMX8QM6_startup.MIMX8QM6 platform.drivers.lpuart.MIMX8QM6 platform.drivers.igpio.MIMX8QM6 platform.drivers.scfwapi.MIMX8QM6 platform.utilities.assert.MIMX8QM6 utility.debug_console.MIMX8QM6 component.lpuart_adapter.MIMX8QM6 component.serial_manager.MIMX8QM6 component.lists.MIMX8QM6 component.serial_manager_uart.MIMX8QM6 platform.Include_core_cm4.MIMX8QM6 platform.Include_common.MIMX8QM6 platform.Include_dsp.MIMX8QM6 platform.drivers.intmux.MIMX8QM6 driver.srtm.freertos.MIMX8QM6 driver.srtm.MIMX8QM6 platform.drivers.lpi2c.MIMX8QM6 platform.drivers.lpi2c_freertos.MIMX8QM6 middleware.freertos-kernel.extension.MIMX8QM6 middleware.multicore.rpmsg_lite.imx8qm_m4_freertos.MIMX8QM6 middleware.multicore.rpmsg_lite.MIMX8QM6 middleware.freertos-kernel.heap_4.MIMX8QM6 platform.utilities.misc_utilities.MIMX8QM6" category="multicore_examples">
+  <example id="mekmimx8qm_rpmsg_lite_pingpong_rtos_linux_remote_m41" name="rpmsg_lite_pingpong_rtos_linux_remote_m41" device_core="cm4_core1_MIMX8QM6xxxFF" dependency="platform.drivers.irqsteer.MIMX8QM6 platform.drivers.clock.MIMX8QM6 platform.drivers.mu.MIMX8QM6 middleware.freertos-kernel.MIMX8QM6 platform.drivers.common.MIMX8QM6 platform.devices.MIMX8QM6_CMSIS.MIMX8QM6 platform.devices.MIMX8QM6_startup.MIMX8QM6 platform.drivers.lpuart.MIMX8QM6 platform.drivers.igpio.MIMX8QM6 platform.drivers.scfwapi.MIMX8QM6 platform.utilities.assert.MIMX8QM6 utility.debug_console.MIMX8QM6 component.lpuart_adapter.MIMX8QM6 component.serial_manager.MIMX8QM6 component.lists.MIMX8QM6 component.serial_manager_uart.MIMX8QM6 platform.Include_core_cm4.MIMX8QM6 platform.Include_common.MIMX8QM6 platform.Include_dsp.MIMX8QM6 platform.drivers.intmux.MIMX8QM6 driver.srtm.freertos.MIMX8QM6 driver.srtm.MIMX8QM6 platform.drivers.lpi2c.MIMX8QM6 platform.drivers.lpi2c_freertos.MIMX8QM6 middleware.freertos-kernel.extension.MIMX8QM6 middleware.multicore.rpmsg_lite.imx8qm_m4_freertos.MIMX8QM6 middleware.multicore.rpmsg_lite.MIMX8QM6 middleware.multicore.rpmsg_lite.freertos.imx8qm_m4 middleware.freertos-kernel.heap_4.MIMX8QM6 platform.utilities.misc_utilities.MIMX8QM6" category="multicore_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
