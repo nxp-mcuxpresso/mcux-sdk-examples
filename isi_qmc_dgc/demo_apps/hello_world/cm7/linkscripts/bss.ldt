@@ -1,0 +1,8 @@
+<#if memory.name=="SRAM_OC1">
+		/* default project */
+		*freertos_kernel*(*.bss*)
+</#if>
+       *(.bss.$${memory.alias})
+       *(.bss.$${memory.name})
+       *(.bss.$${memory.alias}.*)
+       *(.bss.$${memory.name}.*)

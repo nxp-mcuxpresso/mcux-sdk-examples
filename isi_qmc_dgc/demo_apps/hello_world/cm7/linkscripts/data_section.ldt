@@ -1,0 +1,54 @@
+<#if configMemory?has_content>
+<#list configMemory as memory>
+<#if memory.RAM && !memory.defaultRAM>
+<#assign provide_required=true>
+<#if mtb_supported?? && mtb_supported >
+    /* possible MTB section for ${memory.name} */
+    .mtb_buffer_${memory.alias} (NOLOAD) :
+    {
+        KEEP(*(.mtb.$${memory.alias}*))
+        KEEP(*(.mtb.$${memory.name}*))
+    } > ${memory.name}
+
+<#elseif mtbError??>
+    ${mtbError}
+</#if>
+    /* DATA section for ${memory.name} */
+<#if slaves?has_content>
+  <#include "data_section_multicore.ldt" >
+<#elseif slavesError??>
+    ${slavesError}
+</#if>
+
+<#if (PLAIN_LOAD_IMAGE) && (memory.name == CODEX) >
+    .data_${memory.alias} : ALIGN_WITH_INPUT
+<#else> 
+    .data_${memory.alias} : ALIGN(${data_align})
+</#if>    
+    {
+        FILL(0xff)
+<#if memory.name=="SRAM_ITC_cm7">
+		. = 0x400 ;
+		__vtable_ram__ = ABSOLUTE(.) ;
+        KEEP(*(.data.vtable))
+		FILL(0xff)
+</#if>        
+<#if provide_required>
+        PROVIDE(__start_data_${memory.alias} = .) ;
+        PROVIDE(__start_data_${memory.name} = .) ;
+</#if>
+<#if iohMemory?? && (iohMemory==memory.name || iohMemory==memory.alias)>
+        *(.ioh_*) /* IOHandler code */
+</#if>
+        *(.ramfunc.$${memory.alias})
+        *(.ramfunc.$${memory.name})
+<#include "extrasections_data.ldt">
+<#include "data.ldt">
+        . = ALIGN(${data_align}) ;
+        PROVIDE(__end_data_${memory.alias} = .) ;
+        PROVIDE(__end_data_${memory.name} = .) ;
+     } > ${memory.name} AT>${CODE}
+
+</#if>
+</#list>
+</#if>

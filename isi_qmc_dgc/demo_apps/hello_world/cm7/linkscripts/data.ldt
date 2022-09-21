@@ -1,0 +1,19 @@
+<#if memory.name=="SRAM_ITC_cm7">
+	    KEEP(*(CodeQuickAccess))
+	    *(RamFunction)
+	    /* default project */
+	    *freertos_kernel*(*.text*)
+	    *interrupts.o*(*.text*)
+	    *fsl_clock.o*(*.text*)
+</#if>
+<#if memory.name=="SRAM_OC1">
+		/* default project */
+		*freertos_kernel*(*.constdata)
+		*freertos_kernel*(*.rodata)		
+		*freertos_kernel*(*.constdata*)
+		*freertos_kernel*(*.rodata*)
+</#if>
+        *(.data.$${memory.alias})
+        *(.data.$${memory.name})
+        *(.data.$${memory.alias}.*)
+        *(.data.$${memory.name}.*)

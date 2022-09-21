@@ -1,0 +1,23 @@
+<#include "user.ldt" >
+<#include "user_memory.ldt" ignore_missing=true>
+<#include "header.ldt" >
+
+MEMORY
+{
+  /* Define each memory region */
+<#list configMemory as memory>
+  ${memory.name} (${memory.linkerMemoryAttributes}) : ORIGIN = ${memory.location}, LENGTH = ${memory.size} /* ${memory.sizek} (alias ${memory.alias}) */  
+</#list>
+}
+
+  /* Define a symbol for the top of each memory region */
+<#list configMemory as memory>
+  __base_${memory.name} = ${memory.location}  ; /* ${memory.name} */  
+  __base_${memory.alias} = ${memory.location} ; /* ${memory.alias} */  
+  __top_${memory.name} = ${memory.location} + ${memory.size} ; /* ${memory.sizek} */  
+  __top_${memory.alias} = ${memory.location} + ${memory.size} ; /* ${memory.sizek} */  
+</#list>
+
+  __VECTOR_TABLE = 0x60002000;
+  __VECTOR_RAM = 0x00000000;
+  __RAM_VECTOR_TABLE_SIZE_BYTES = 0x400;

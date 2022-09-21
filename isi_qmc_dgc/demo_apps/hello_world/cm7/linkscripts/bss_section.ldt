@@ -1,0 +1,18 @@
+<#if configMemory?has_content>
+<#list configMemory as memory>
+<#if memory.RAM && !memory.defaultRAM>
+
+    /* BSS section for ${memory.name} */
+    .bss_${memory.alias} : ALIGN(${bss_align})
+    {
+       PROVIDE(__start_bss_${memory.alias} = .) ;
+       PROVIDE(__start_bss_${memory.name} = .) ;
+<#include "extrasections_bss.ldt">
+<#include "bss.ldt">
+       . = ALIGN (. != 0 ? ${bss_align} : 1) ; /* avoid empty segment */
+       PROVIDE(__end_bss_${memory.alias} = .) ;
+       PROVIDE(__end_bss_${memory.name} = .) ;
+    } > ${memory.name} AT> ${memory.name}
+</#if>
+</#list>
+</#if>

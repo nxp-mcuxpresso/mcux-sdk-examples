@@ -1,0 +1,10 @@
+       *(EXCLUDE_FILE(
+						*freertos_kernel*
+						*interrupts.o*
+						*fsl_clock.o*
+		) *.rodata*)
+		*(EXCLUDE_FILE(
+						*freertos_kernel*
+						*interrupts.o*
+						*fsl_clock.o*
+		) *.constdata*)
