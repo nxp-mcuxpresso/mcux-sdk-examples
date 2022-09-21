@@ -67,6 +67,8 @@ include(utility_assert_lite)
 
 include(driver_powerquad)
 
+include(driver_powerquad_cmsis)
+
 include(driver_common)
 
 include(driver_clock)
@@ -95,7 +97,7 @@ include(CMSIS_Include_core_cm)
 
 include(driver_reset)
 
-include(CMSIS_DSP_Library)
+include(CMSIS_DSP_Include)
 
 include(driver_inputmux_connections)
 
@@ -113,14 +115,6 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
 
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
-
-if(CMAKE_BUILD_TYPE STREQUAL debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/CMSIS/DSP/Lib/GCC/libarm_ARMv8MMLldfsp_math.a)
-endif()
-
-if(CMAKE_BUILD_TYPE STREQUAL release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/CMSIS/DSP/Lib/GCC/libarm_ARMv8MMLldfsp_math.a)
-endif()
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
