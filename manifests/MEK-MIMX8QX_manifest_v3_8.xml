@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_MEK-MIMX8QX" name="MEK-MIMX8QX" brief="This is SDK version 2.9.0 manifest file. It describes the content of the MEK-MIMX8QX and additional settings for tools that support SDK version 2.9.0" format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.8.xsd">
+<ksdk:manifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd ../../../../mcu-sdk-2.0/bin/generator/sdk_generator/src/manifest_generator/manifest_model/schema/sdk_manifest_v3.8.xsd"
+ xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" id="SDK_2.x_MEK-MIMX8QX"
+ name="MEK-MIMX8QX"
+ brief="This is SDK version 2.9.0 manifest file. It describes the content of the MEK-MIMX8QX and additional settings for tools that support SDK version 2.9.0"
+ format_version="3.8" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83">
   <!--Timestamp (UTC): 2021-06-08 04:50:19.590305-->
   <!--This manifest is generated based on sdk repo commit: 242d157ba29afc4bbd1dac95f382a1491bc2daf5-->
   <defines>
@@ -3356,13 +3361,14 @@ ${load}</script>
         <files mask="remote.cfg"/>
       </source>
     </component>
-    <component id="middleware.multicore.rpmsg_lite.MIMX8QX6" name="rpmsg_lite" brief="RPMsg-Lite" version="3.1.1" full_name="Remote Procedure Messaging Lite library" devices="MIMX8QX6xxxDZ MIMX8QX6xxxFZ" category="Multicore/RPMsg-Lite" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
+    <component id="middleware.multicore.rpmsg_lite.MIMX8QX6" name="rpmsg_lite" brief="RPMsg-Lite" version="4.0.0" full_name="Remote Procedure Messaging Lite library" devices="MIMX8QX6xxxDZ MIMX8QX6xxxFZ" category="Multicore/RPMsg-Lite" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
       <dependencies>
         <any_of>
-          <component_dependency value="middleware.multicore.rpmsg_lite.freertos.imx8qx_m4"/>
+          <component_dependency value="middleware.multicore.rpmsg_lite.bm.MIMX8QX6"/>
+          <component_dependency value="middleware.multicore.rpmsg_lite.freertos.MIMX8QX6"/>
         </any_of>
       </dependencies>
-      <source relative_path="rpmsg_lite/lib/include" project_relative_path="./" type="c_include">
+      <source relative_path="rpmsg_lite/lib/include" project_relative_path="include" type="c_include">
         <files mask="rpmsg_lite.h"/>
         <files mask="rpmsg_ns.h"/>
         <files mask="llist.h"/>
@@ -3372,144 +3378,172 @@ ${load}</script>
         <files mask="rpmsg_compiler.h"/>
         <files mask="rpmsg_env.h"/>
       </source>
-      <source relative_path="rpmsg_lite/lib/common" project_relative_path="./" type="src">
+      <source relative_path="rpmsg_lite/lib/common" project_relative_path="common" type="src">
         <files mask="llist.c"/>
       </source>
-      <source relative_path="rpmsg_lite/lib/rpmsg_lite" project_relative_path="./" type="src">
+      <source relative_path="rpmsg_lite/lib/rpmsg_lite" project_relative_path="rpmsg_lite" type="src">
         <files mask="rpmsg_lite.c"/>
         <files mask="rpmsg_ns.c"/>
       </source>
-      <source relative_path="rpmsg_lite/lib/virtio" project_relative_path="./" type="src">
+      <source relative_path="rpmsg_lite/lib/virtio" project_relative_path="virtio" type="src">
         <files mask="virtqueue.c"/>
       </source>
       <source relative_path="rpmsg_lite" project_relative_path="./" type="doc">
         <files mask="readme.txt" hidden="true"/>
       </source>
+      <source relative_path="rpmsg_lite/doc" project_relative_path="doc" type="image">
+        <files mask="arrowdown.png" hidden="true"/>
+        <files mask="arrowright.png" hidden="true"/>
+        <files mask="bc_s.png" hidden="true"/>
+        <files mask="bdwn.png" hidden="true"/>
+        <files mask="closed.png" hidden="true"/>
+        <files mask="doc.png" hidden="true"/>
+        <files mask="doxygen.png" hidden="true"/>
+        <files mask="folderclosed.png" hidden="true"/>
+        <files mask="folderopen.png" hidden="true"/>
+        <files mask="nav_f.png" hidden="true"/>
+        <files mask="nav_g.png" hidden="true"/>
+        <files mask="nav_h.png" hidden="true"/>
+        <files mask="nxp_logo_small.png" hidden="true"/>
+        <files mask="open.png" hidden="true"/>
+        <files mask="rpmsg_isoosi.png" hidden="true"/>
+        <files mask="rpmsg_lite_arch.png" hidden="true"/>
+        <files mask="rpmsg_lite_send_receive.png" hidden="true"/>
+        <files mask="splitbar.png" hidden="true"/>
+        <files mask="sync_off.png" hidden="true"/>
+        <files mask="sync_on.png" hidden="true"/>
+        <files mask="tab_a.png" hidden="true"/>
+        <files mask="tab_b.png" hidden="true"/>
+        <files mask="tab_h.png" hidden="true"/>
+        <files mask="tab_s.png" hidden="true"/>
+      </source>
       <source relative_path="rpmsg_lite/doc" project_relative_path="doc" type="doc">
-        <files mask="group__config.html" hidden="true"/>
-        <files mask="group__rpmsg__lite.html" hidden="true"/>
-        <files mask="dir_5a30104352ef4255dc24354b02eb2d20.html" hidden="true"/>
         <files mask="customdoxygen.css" hidden="true"/>
-        <files mask="rpmsg__default__config_8h.html" hidden="true"/>
-        <files mask="group__rpmsg__ns.html" hidden="true"/>
-        <files mask="tabs.css" hidden="true"/>
-        <files mask="rpmsg__lite_8h_source.html" hidden="true"/>
-        <files mask="index.html" hidden="true"/>
-        <files mask="group__rpmsg__queue.html" hidden="true"/>
-        <files mask="rpmsg__ns_8h_source.html" hidden="true"/>
-        <files mask="rpmsg__default__config_8h_source.html" hidden="true"/>
+        <files mask="dir_5a30104352ef4255dc24354b02eb2d20.html" hidden="true"/>
         <files mask="dir_97aefd0d527b934f1d99a682da8fe6a9.html" hidden="true"/>
         <files mask="doxygen.css" hidden="true"/>
-        <files mask="rpmsg__queue_8h_source.html" hidden="true"/>
-        <files mask="navtree.css" hidden="true"/>
+        <files mask="group__config.html" hidden="true"/>
+        <files mask="group__rpmsg__lite.html" hidden="true"/>
+        <files mask="group__rpmsg__ns.html" hidden="true"/>
+        <files mask="group__rpmsg__queue.html" hidden="true"/>
+        <files mask="index.html" hidden="true"/>
         <files mask="modules.html" hidden="true"/>
-      </source>
-      <source relative_path="rpmsg_lite/doc" project_relative_path="doc" type="image">
-        <files mask="tab_b.png" hidden="true"/>
-        <files mask="folderclosed.png" hidden="true"/>
-        <files mask="bc_s.png" hidden="true"/>
-        <files mask="nxp_logo_small.png" hidden="true"/>
-        <files mask="nav_h.png" hidden="true"/>
-        <files mask="tab_a.png" hidden="true"/>
-        <files mask="rpmsg_lite_send_receive.png" hidden="true"/>
-        <files mask="bdwn.png" hidden="true"/>
-        <files mask="sync_off.png" hidden="true"/>
-        <files mask="rpmsg_isoosi.png" hidden="true"/>
-        <files mask="tab_s.png" hidden="true"/>
-        <files mask="open.png" hidden="true"/>
-        <files mask="arrowdown.png" hidden="true"/>
-        <files mask="splitbar.png" hidden="true"/>
-        <files mask="rpmsg_lite_arch.png" hidden="true"/>
-        <files mask="tab_h.png" hidden="true"/>
-        <files mask="closed.png" hidden="true"/>
-        <files mask="arrowright.png" hidden="true"/>
-        <files mask="nav_g.png" hidden="true"/>
-        <files mask="doc.png" hidden="true"/>
-        <files mask="sync_on.png" hidden="true"/>
-        <files mask="nav_f.png" hidden="true"/>
-        <files mask="doxygen.png" hidden="true"/>
-        <files mask="folderopen.png" hidden="true"/>
+        <files mask="navtree.css" hidden="true"/>
+        <files mask="rpmsg__default__config_8h.html" hidden="true"/>
+        <files mask="rpmsg__default__config_8h_source.html" hidden="true"/>
+        <files mask="rpmsg__lite_8h_source.html" hidden="true"/>
+        <files mask="rpmsg__ns_8h_source.html" hidden="true"/>
+        <files mask="rpmsg__queue_8h_source.html" hidden="true"/>
+        <files mask="tabs.css" hidden="true"/>
       </source>
       <source relative_path="rpmsg_lite/doc" project_relative_path="doc" type="script">
-        <files mask="navtreeindex0.js" hidden="true"/>
-        <files mask="navtreedata.js" hidden="true"/>
-        <files mask="group__config.js" hidden="true"/>
-        <files mask="modules.js" hidden="true"/>
-        <files mask="group__rpmsg__lite.js" hidden="true"/>
-        <files mask="resize.js" hidden="true"/>
         <files mask="dynsections.js" hidden="true"/>
+        <files mask="group__config.js" hidden="true"/>
+        <files mask="group__rpmsg__lite.js" hidden="true"/>
         <files mask="group__rpmsg__ns.js" hidden="true"/>
         <files mask="group__rpmsg__queue.js" hidden="true"/>
-        <files mask="navtree.js" hidden="true"/>
         <files mask="jquery.js" hidden="true"/>
+        <files mask="modules.js" hidden="true"/>
+        <files mask="navtree.js" hidden="true"/>
+        <files mask="navtreedata.js" hidden="true"/>
+        <files mask="navtreeindex0.js" hidden="true"/>
+        <files mask="resize.js" hidden="true"/>
+      </source>
+      <source relative_path="rpmsg_lite/doc/search" project_relative_path="doc" type="doc">
+        <files mask="all_0.html" hidden="true"/>
+        <files mask="all_1.html" hidden="true"/>
+        <files mask="all_2.html" hidden="true"/>
+        <files mask="all_3.html" hidden="true"/>
+        <files mask="all_4.html" hidden="true"/>
+        <files mask="all_5.html" hidden="true"/>
+        <files mask="all_6.html" hidden="true"/>
+        <files mask="all_7.html" hidden="true"/>
+        <files mask="classes_0.html" hidden="true"/>
+        <files mask="files_0.html" hidden="true"/>
+        <files mask="functions_0.html" hidden="true"/>
+        <files mask="groups_0.html" hidden="true"/>
+        <files mask="nomatches.html" hidden="true"/>
+        <files mask="pages_0.html" hidden="true"/>
+        <files mask="search.css" hidden="true"/>
+        <files mask="typedefs_0.html" hidden="true"/>
+        <files mask="variables_0.html" hidden="true"/>
+        <files mask="variables_1.html" hidden="true"/>
+        <files mask="variables_2.html" hidden="true"/>
+        <files mask="variables_3.html" hidden="true"/>
+        <files mask="variables_4.html" hidden="true"/>
+        <files mask="variables_5.html" hidden="true"/>
+        <files mask="variables_6.html" hidden="true"/>
+        <files mask="variables_7.html" hidden="true"/>
       </source>
       <source relative_path="rpmsg_lite/doc/search" project_relative_path="doc" type="script">
         <files mask="all_0.js" hidden="true"/>
-        <files mask="variables_5.js" hidden="true"/>
+        <files mask="all_1.js" hidden="true"/>
+        <files mask="all_2.js" hidden="true"/>
+        <files mask="all_3.js" hidden="true"/>
+        <files mask="all_4.js" hidden="true"/>
         <files mask="all_5.js" hidden="true"/>
+        <files mask="all_6.js" hidden="true"/>
+        <files mask="all_7.js" hidden="true"/>
+        <files mask="classes_0.js" hidden="true"/>
+        <files mask="files_0.js" hidden="true"/>
+        <files mask="functions_0.js" hidden="true"/>
         <files mask="groups_0.js" hidden="true"/>
+        <files mask="pages_0.js" hidden="true"/>
         <files mask="search.js" hidden="true"/>
+        <files mask="searchdata.js" hidden="true"/>
+        <files mask="typedefs_0.js" hidden="true"/>
+        <files mask="variables_0.js" hidden="true"/>
         <files mask="variables_1.js" hidden="true"/>
         <files mask="variables_2.js" hidden="true"/>
-        <files mask="classes_0.js" hidden="true"/>
-        <files mask="functions_0.js" hidden="true"/>
-        <files mask="searchdata.js" hidden="true"/>
-        <files mask="variables_7.js" hidden="true"/>
-        <files mask="pages_0.js" hidden="true"/>
-        <files mask="all_6.js" hidden="true"/>
-        <files mask="typedefs_0.js" hidden="true"/>
         <files mask="variables_3.js" hidden="true"/>
-        <files mask="all_3.js" hidden="true"/>
-        <files mask="all_7.js" hidden="true"/>
-        <files mask="all_2.js" hidden="true"/>
-        <files mask="variables_6.js" hidden="true"/>
-        <files mask="files_0.js" hidden="true"/>
         <files mask="variables_4.js" hidden="true"/>
-        <files mask="all_1.js" hidden="true"/>
-        <files mask="variables_0.js" hidden="true"/>
-        <files mask="all_4.js" hidden="true"/>
-      </source>
-      <source relative_path="rpmsg_lite/doc/search" project_relative_path="doc" type="doc">
-        <files mask="variables_2.html" hidden="true"/>
-        <files mask="files_0.html" hidden="true"/>
-        <files mask="variables_4.html" hidden="true"/>
-        <files mask="all_1.html" hidden="true"/>
-        <files mask="all_0.html" hidden="true"/>
-        <files mask="variables_3.html" hidden="true"/>
-        <files mask="all_2.html" hidden="true"/>
-        <files mask="pages_0.html" hidden="true"/>
-        <files mask="search.css" hidden="true"/>
-        <files mask="functions_0.html" hidden="true"/>
-        <files mask="all_3.html" hidden="true"/>
-        <files mask="groups_0.html" hidden="true"/>
-        <files mask="all_4.html" hidden="true"/>
-        <files mask="all_7.html" hidden="true"/>
-        <files mask="variables_0.html" hidden="true"/>
-        <files mask="variables_7.html" hidden="true"/>
-        <files mask="nomatches.html" hidden="true"/>
-        <files mask="classes_0.html" hidden="true"/>
-        <files mask="variables_5.html" hidden="true"/>
-        <files mask="all_6.html" hidden="true"/>
-        <files mask="all_5.html" hidden="true"/>
-        <files mask="variables_6.html" hidden="true"/>
-        <files mask="typedefs_0.html" hidden="true"/>
-        <files mask="variables_1.html" hidden="true"/>
+        <files mask="variables_5.js" hidden="true"/>
+        <files mask="variables_6.js" hidden="true"/>
+        <files mask="variables_7.js" hidden="true"/>
       </source>
       <source relative_path="rpmsg_lite/doc/search" project_relative_path="doc" type="image">
-        <files mask="search_r.png" hidden="true"/>
-        <files mask="search_l.png" hidden="true"/>
-        <files mask="mag_sel.png" hidden="true"/>
         <files mask="close.png" hidden="true"/>
+        <files mask="mag_sel.png" hidden="true"/>
+        <files mask="search_l.png" hidden="true"/>
         <files mask="search_m.png" hidden="true"/>
+        <files mask="search_r.png" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="middleware_multicore_rpmsg_lite_MIMX8QX6.cmake" hidden="true"/>
       </source>
       <include_paths>
-        <include_path relative_path="rpmsg_lite/lib/include" project_relative_path="./" type="c_include"/>
+        <include_path relative_path="rpmsg_lite/lib/include" project_relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.multicore.rpmsg_lite.freertos.imx8qx_m4" name="rpmsg_lite" brief="RPMsg-Lite FreeRTOS environment sources" version="4.0.0" full_name="RPMsg-Lite FreeRTOS environment layer sources" devices="MIMX8QX6xxxDZ MIMX8QX6xxxFZ" category="Multicore/RPMsg-Lite" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
+    <component id="middleware.multicore.rpmsg_lite.bm.MIMX8QX6" name="rpmsg_lite" brief="RPMsg-Lite BM environment sources" version="4.0.0" full_name="RPMsg-Lite baremetal environment layer sources" devices="MIMX8QX6xxxDZ MIMX8QX6xxxFZ" category="Multicore/RPMsg-Lite" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
+      <source condition="middleware.baremetal.MIMX8QX6" relative_path="rpmsg_lite/lib/rpmsg_lite/porting/environment" project_relative_path="rpmsg_lite/porting/environment" type="src">
+        <files mask="rpmsg_env_bm.c"/>
+      </source>
+      <source relative_path="rpmsg_lite/lib/include/environment/bm" project_relative_path="include/environment/bm" type="c_include">
+        <files mask="rpmsg_env_specific.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_MIMX8QX6xxxDZ cm4_MIMX8QX6xxxFZ">
+        <files mask="middleware_multicore_rpmsg_lite_bm.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="rpmsg_lite/lib/include/environment/bm" project_relative_path="include/environment/bm" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.rpmsg_lite.bm.config.MIMX8QX6" name="rpmsg_lite_bm_config" brief="RPMsg-Lite baremetal application configuration" version="4.0.0" full_name="Remote Procedure Messaging Lite BM configuration" devices="MIMX8QX6xxxDZ MIMX8QX6xxxFZ" category="Multicore/RPMsg-Lite BM" user_visible="true" type="middleware" package_base_path="middleware/multicore" project_base_path="source">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.multicore.rpmsg_lite.MIMX8QX6"/>
+          <component_dependency value="middleware.multicore.rpmsg_lite.imx8qx_m4_bm.MIMX8QX6"/>
+        </all>
+      </dependencies>
+      <source relative_path="rpmsg_lite/template_application" project_relative_path="./" type="c_include">
+        <files mask="rpmsg_config.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="rpmsg_lite/template_application" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.rpmsg_lite.freertos.MIMX8QX6" name="rpmsg_lite" brief="RPMsg-Lite FreeRTOS environment sources" version="4.0.0" full_name="RPMsg-Lite FreeRTOS environment layer sources" devices="MIMX8QX6xxxDZ MIMX8QX6xxxFZ" category="Multicore/RPMsg-Lite" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
       <source condition="middleware.freertos-kernel.MIMX8QX6" relative_path="rpmsg_lite/lib/rpmsg_lite/porting/environment" project_relative_path="rpmsg_lite/porting/environment" type="src">
         <files mask="rpmsg_env_freertos.c"/>
       </source>
@@ -3525,46 +3559,53 @@ ${load}</script>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_MIMX8QX6xxxDZ cm4_MIMX8QX6xxxFZ">
         <files mask="middleware_multicore_rpmsg_lite_freertos.cmake" hidden="true"/>
       </source>
-      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_MIMX8QX6xxxDZ cm4_MIMX8QX6xxxFZ">
-        <files mask="middleware_multicore_rpmsg_lite_freertos.cmake" hidden="true"/>
-      </source>
       <include_paths>
         <include_path relative_path="rpmsg_lite/lib/include/environment/freertos" project_relative_path="include/environment/freertos" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.multicore.rpmsg_lite.imx8qx_m4_bm.MIMX8QX6" name="rpmsg_lite_imx8qx_m4_bm" brief="RPMsg-Lite for MIMX8QX6 baremetal application" version="3.1.1" full_name="Remote Procedure Messaging Lite porting layer for MIMX8QX6 board" devices="MIMX8QX6xxxDZ MIMX8QX6xxxFZ" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
-      <dependencies>
-        <component_dependency value="middleware.multicore.rpmsg_lite.MIMX8QX6"/>
-      </dependencies>
-      <source relative_path="rpmsg_lite/lib/include/platform/imx8qx_cm4" project_relative_path="porting" type="c_include">
-        <files mask="rpmsg_platform.h"/>
-      </source>
-      <source relative_path="rpmsg_lite/lib/rpmsg_lite/porting/platform/imx8qx_cm4" project_relative_path="porting" type="src">
-        <files mask="rpmsg_platform.c"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="rpmsg_lite/lib/include/platform/imx8qx_cm4" project_relative_path="porting" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="middleware.multicore.rpmsg_lite.imx8qx_m4_freertos.MIMX8QX6" name="rpmsg_lite_imx8qx_m4_freertos" brief="RPMsg-Lite for MIMX8QX6 FreeRTOS application" version="3.1.1" full_name="Remote Procedure Messaging Lite porting layer for MIMX8QX6 board" devices="MIMX8QX6xxxDZ MIMX8QX6xxxFZ" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
+    <component id="middleware.multicore.rpmsg_lite.freertos.config.MIMX8QX6" name="rpmsg_lite_freertos_config" brief="RPMsg-Lite FreeRTOS application configuration" version="4.0.0" full_name="Remote Procedure Messaging Lite FreeRTOS configuration" devices="MIMX8QX6xxxDZ MIMX8QX6xxxFZ" category="Multicore/RPMsg-Lite FreeRTOS" user_visible="true" type="middleware" package_base_path="middleware/multicore" project_base_path="source">
       <dependencies>
         <all>
           <component_dependency value="middleware.multicore.rpmsg_lite.MIMX8QX6"/>
+          <component_dependency value="middleware.multicore.rpmsg_lite.imx8qx_m4_freertos.MIMX8QX6"/>
+        </all>
+      </dependencies>
+      <source relative_path="rpmsg_lite/template_application" project_relative_path="./" type="c_include">
+        <files mask="rpmsg_config.h"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="rpmsg_lite/template_application" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.rpmsg_lite.imx8qx_m4_bm.MIMX8QX6" name="imx8qx_m4_bm" brief="RPMsg-Lite for MIMX8QX6 baremetal application" version="4.0.0" full_name="Remote Procedure Messaging Lite porting layer for MIMX8QX6 board" devices="MIMX8QX6xxxDZ MIMX8QX6xxxFZ" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
+      <source relative_path="rpmsg_lite/lib/include/platform/imx8qx_m4" project_relative_path="include/platform/imx8qx_m4" type="c_include">
+        <files mask="rpmsg_platform.h"/>
+      </source>
+      <source relative_path="rpmsg_lite/lib/rpmsg_lite/porting/platform/imx8qx_m4" project_relative_path="rpmsg_lite/porting/platform/imx8qx_m4" type="src">
+        <files mask="rpmsg_platform.c"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="rpmsg_lite/lib/include/platform/imx8qx_m4" project_relative_path="include/platform/imx8qx_m4" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.rpmsg_lite.imx8qx_m4_freertos.MIMX8QX6" name="rpmsg_lite_imx8qx_m4_freertos" brief="RPMsg-Lite for MIMX8QX6 FreeRTOS application" version="4.0.0" full_name="Remote Procedure Messaging Lite porting layer for MIMX8QX6 board" devices="MIMX8QX6xxxDZ MIMX8QX6xxxFZ" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
+      <dependencies>
+        <all>
           <component_dependency value="middleware.freertos-kernel.MIMX8QX6"/>
           <component_dependency value="middleware.freertos-kernel.heap_4.MIMX8QX6"/>
         </all>
       </dependencies>
-      <source relative_path="rpmsg_lite/lib/include/platform/imx8qx_cm4" project_relative_path="porting" type="c_include">
+      <source relative_path="rpmsg_lite/lib/include/platform/imx8qx_cm4" project_relative_path="include/platform/imx8qx_m4" type="c_include">
         <files mask="rpmsg_platform.h"/>
       </source>
-      <source relative_path="rpmsg_lite/lib/rpmsg_lite/porting/platform/imx8qx_cm4" project_relative_path="porting" type="src">
+      <source relative_path="rpmsg_lite/lib/rpmsg_lite/porting/platform/imx8qx_cm4" project_relative_path="rpmsg_lite/porting/platform/imx8qx_m4" type="src">
         <files mask="rpmsg_platform.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="middleware_multicore_rpmsg_lite_imx8qx_m4_freertos_MIMX8QX6.cmake" hidden="true"/>
       </source>
       <include_paths>
-        <include_path relative_path="rpmsg_lite/lib/include/platform/imx8qx_cm4" project_relative_path="porting" type="c_include"/>
+        <include_path relative_path="rpmsg_lite/lib/include/platform/imx8qx_cm4" project_relative_path="include/platform/imx8qx_m4" type="c_include"/>
       </include_paths>
     </component>
     <component id="platform.utilities.misc_utilities.MIMX8QX6" name="misc_utilities" brief="Utilities which is needed for particular toolchain like the SBRK function required to address limitation between HEAP and STACK in GCC toolchain library." version="1.0.0" full_name="Utilities miscellaneous" devices="MIMX8QX6xxxDZ MIMX8QX6xxxFZ" user_visible="true" type="utilities" package_base_path="core/utilities/misc_utilities" project_base_path="utilities">
