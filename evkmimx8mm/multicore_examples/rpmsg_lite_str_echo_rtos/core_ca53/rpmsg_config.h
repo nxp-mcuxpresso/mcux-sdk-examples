@@ -83,4 +83,22 @@
 #define RL_DEBUG_CHECK_BUFFERS (0)
 //@}
 
+//! @def RL_SGIMBOX_BASE
+//!
+//! Specify the sharing memory base address used for mailbox.
+#define RL_SGIMBOX_BASE (0xb8500000)
+//@}
+
+//! @def RL_SGIMBOX_IRQ
+//!
+//! Specify the SGI interrupt number to match with the other peer selection.
+#define RL_SGIMBOX_IRQ (Software10_IRQn)
+//@}
+
+//! @def RL_SGIMBOX_TARGET_CORE
+//!
+//! Specify the target core of SGI mailbox interrupt, count from 0.
+#define RL_SGIMBOX_TARGET_CORE (0)
+//@}
+
 #endif /* RPMSG_CONFIG_H_ */
