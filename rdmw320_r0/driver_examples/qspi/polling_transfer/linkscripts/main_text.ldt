@@ -1,0 +1,1 @@
+        *(EXCLUDE_FILE(*fsl_qspi.o *fsl_flashc.o *qspi_nor_flash_ops.o *qspi_polling_transfer.o) .text*)

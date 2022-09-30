@@ -1,0 +1,6 @@
+        <#if memory.name=="SRAM_ITC">
+        *fsl_qspi.o(.text*)
+        *fsl_flashc.o(.text*)
+		*qspi_nor_flash_ops.o(.text*)
+		*qspi_polling_transfer.o(.text*)
+        </#if>
