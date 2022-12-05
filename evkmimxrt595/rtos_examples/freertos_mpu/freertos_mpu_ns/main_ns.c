@@ -423,14 +423,14 @@ void prvGetRegistersFromStack(uint32_t *pulFaultStackAddress)
 void MemManage_Handler(void)
 {
     __asm volatile(
-        " tst lr, #4                                                \n"
-        " ite eq                                                    \n"
-        " mrseq r0, msp                                             \n"
-        " mrsne r0, psp                                             \n"
-        " ldr r1, handler2_address_const                            \n"
-        " bx r1                                                     \n"
-        "                                                           \n"
-        " handler2_address_const: .word prvGetRegistersFromStack    \n");
+        " tst lr, #4\r\n"
+        " ite eq\r\n"
+        " mrseq r0, msp\r\n"
+        " mrsne r0, psp\r\n"
+        " ldr r1, handler2_address_const\r\n"
+        " bx r1\r\n"
+        "\r\n"
+        " handler2_address_const: .word prvGetRegistersFromStack\r\n");
 }
 /*-----------------------------------------------------------*/
 #endif

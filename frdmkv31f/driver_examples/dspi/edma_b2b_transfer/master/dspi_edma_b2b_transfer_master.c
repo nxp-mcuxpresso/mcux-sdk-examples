@@ -68,7 +68,7 @@ void DSPI_MasterUserCallback(SPI_Type *base, dspi_master_edma_handle_t *handle, 
 {
     if (status == kStatus_Success)
     {
-        PRINTF("This is DSPI master edma transfer completed callback. \r\n\r\n");
+        PRINTF("This is DSPI master edma transfer completed callback.\r\n\r\n");
     }
 
     isTransferCompleted = true;
@@ -85,14 +85,14 @@ int main(void)
 
     PRINTF("DSPI board to board edma example.\r\n");
     PRINTF("This example use one board as master and another as slave.\r\n");
-    PRINTF("Master and slave uses EDMA way. Slave should start first. \r\n");
-    PRINTF("Please make sure you make the correct line connection. Basically, the connection is: \r\n");
-    PRINTF("DSPI_master -- DSPI_slave   \r\n");
-    PRINTF("   CLK      --    CLK  \r\n");
-    PRINTF("   PCS      --    PCS \r\n");
-    PRINTF("   SOUT     --    SIN  \r\n");
-    PRINTF("   SIN      --    SOUT \r\n");
-    PRINTF("   GND      --    GND \r\n");
+    PRINTF("Master and slave uses EDMA way. Slave should start first.\r\n");
+    PRINTF("Please make sure you make the correct line connection. Basically, the connection is:\r\n");
+    PRINTF("DSPI_master -- DSPI_slave\r\n");
+    PRINTF("   CLK      --    CLK\r\n");
+    PRINTF("   PCS      --    PCS\r\n");
+    PRINTF("   SOUT     --    SIN\r\n");
+    PRINTF("   SIN      --    SOUT\r\n");
+    PRINTF("   GND      --    GND\r\n");
 
     /* DMA Mux setting and EDMA init */
     uint32_t masterRxChannel, masterTxChannel;
@@ -213,7 +213,7 @@ int main(void)
         if (kStatus_Success !=
             DSPI_MasterTransferEDMA(EXAMPLE_DSPI_MASTER_BASEADDR, &g_dspi_edma_m_handle, &masterXfer))
         {
-            PRINTF("There is error when start DSPI_MasterTransferEDMA \r\n ");
+            PRINTF("There is error when start DSPI_MasterTransferEDMA\r\n");
         }
 
         /* Wait until transfer completed */
@@ -243,7 +243,7 @@ int main(void)
         if (kStatus_Success !=
             DSPI_MasterTransferEDMA(EXAMPLE_DSPI_MASTER_BASEADDR, &g_dspi_edma_m_handle, &masterXfer))
         {
-            PRINTF("There is error when start DSPI_MasterTransferEDMA \r\n ");
+            PRINTF("There is error when start DSPI_MasterTransferEDMA\r\n");
         }
 
         /* Wait until transfer completed */
@@ -261,7 +261,7 @@ int main(void)
         }
         if (errorCount == 0)
         {
-            PRINTF(" \r\nDSPI transfer all data matched! \r\n");
+            PRINTF("\r\nDSPI transfer all data matched!\r\n");
             /* Print out receive buffer */
             PRINTF("\r\n Master received:\r\n");
             for (i = 0; i < TRANSFER_SIZE; i++)
@@ -277,7 +277,7 @@ int main(void)
         }
         else
         {
-            PRINTF(" \r\nError occurred in DSPI transfer ! \r\n");
+            PRINTF("\r\nError occurred in DSPI transfer !\r\n");
         }
 
         /* Wait for press any key */

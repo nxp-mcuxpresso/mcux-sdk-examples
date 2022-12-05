@@ -246,7 +246,7 @@ static bool LPI2C_ReadAccelWhoAmI(void)
         }
 
         /* Delay at least one clock cycle to make sure the bus is idle. */
-        SDK_DelayAtLeastUs(1000000UL / I2C_BAUDRATE, SystemCoreClock); 
+        SDK_DelayAtLeastUs(1000000UL / I2C_BAUDRATE, SystemCoreClock);
     }
 
     if (completionFlag)
@@ -254,25 +254,25 @@ static bool LPI2C_ReadAccelWhoAmI(void)
         completionFlag     = false;
         if (who_am_i_value == FXOS8700_WHOAMI)
         {
-            PRINTF("Found an FXOS8700 on board , the device address is 0x%x . \r\n", masterXfer.slaveAddress);
+            PRINTF("Found an FXOS8700 on board , the device address is 0x%x .\r\n", masterXfer.slaveAddress);
             result = true;
         }
         else if (who_am_i_value == MMA8451_WHOAMI)
         {
-            PRINTF("Found an MMA8451 on board , the device address is 0x%x . \r\n", masterXfer.slaveAddress);
+            PRINTF("Found an MMA8451 on board , the device address is 0x%x .\r\n", masterXfer.slaveAddress);
             result = true;
         }
         else
         {
             PRINTF("Found a device, the WhoAmI value is 0x%x\r\n", who_am_i_value);
-            PRINTF("It's not MMA8451 or FXOS8700. \r\n");
-            PRINTF("The device address is 0x%x. \r\n", masterXfer.slaveAddress);
+            PRINTF("It's not MMA8451 or FXOS8700.\r\n");
+            PRINTF("The device address is 0x%x.\r\n", masterXfer.slaveAddress);
             result = false;
         }
     }
     else
     {
-        PRINTF("\r\n Do not find an accelerometer device ! \r\n");
+        PRINTF("\r\n Do not find an accelerometer device !\r\n");
         result = false;
     }
     return result;
@@ -385,7 +385,7 @@ int main(void)
 
     if (sc_pm_clock_enable(ipc, SC_R_I2C_1, SC_PM_CLK_PER, true, false) != SC_ERR_NONE)
     {
-        PRINTF("Error: Failed to enable SC_R_I2C_1 clock \r\n");
+        PRINTF("Error: Failed to enable SC_R_I2C_1 clock\r\n");
     }
 
     if (sc_pm_set_clock_rate(ipc, SC_R_I2C_1, SC_PM_CLK_PER, &src_rate) != SC_ERR_NONE)
@@ -519,7 +519,7 @@ int main(void)
             y             = ((int16_t)(((readBuff[3] * 256U) | readBuff[4]))) / 4U;
             z             = ((int16_t)(((readBuff[5] * 256U) | readBuff[6]))) / 4U;
 
-            PRINTF("status_reg = 0x%x , x = %5d , y = %5d , z = %5d \r\n", status0_value, x, y, z);
+            PRINTF("status_reg = 0x%x , x = %5d , y = %5d , z = %5d\r\n", status0_value, x, y, z);
         }
     }
 

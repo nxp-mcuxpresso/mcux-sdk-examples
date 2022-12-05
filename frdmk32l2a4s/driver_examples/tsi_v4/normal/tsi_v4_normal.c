@@ -114,7 +114,7 @@ int main(void)
     /* Print calibrated counter values */
     for (i = 0U; i < FSL_FEATURE_TSI_CHANNEL_COUNT; i++)
     {
-        PRINTF("Calibrated counters for channel %d is: %d \r\n", i, buffer.calibratedData[i]);
+        PRINTF("Calibrated counters for channel %d is: %d\r\n", i, buffer.calibratedData[i]);
     }
 
     /********** SOFTWARE TRIGGER SCAN USING POLLING METHOD ********/
@@ -128,7 +128,7 @@ int main(void)
     while (!(TSI_GetStatusFlags(TSI0) & kTSI_EndOfScanFlag))
     {
     }
-    PRINTF("Channel %d Normal mode counter is: %d \r\n", BOARD_TSI_ELECTRODE_1, TSI_GetCounter(TSI0));
+    PRINTF("Channel %d Normal mode counter is: %d\r\n", BOARD_TSI_ELECTRODE_1, TSI_GetCounter(TSI0));
 
     TSI_ClearStatusFlags(TSI0, kTSI_EndOfScanFlag);
     TSI_SetMeasuredChannelNumber(TSI0, BOARD_TSI_ELECTRODE_2);
@@ -136,7 +136,7 @@ int main(void)
     while (!(TSI_GetStatusFlags(TSI0) & kTSI_EndOfScanFlag))
     {
     }
-    PRINTF("Channel %d Normal mode counter is: %d \r\n", BOARD_TSI_ELECTRODE_2, TSI_GetCounter(TSI0));
+    PRINTF("Channel %d Normal mode counter is: %d\r\n", BOARD_TSI_ELECTRODE_2, TSI_GetCounter(TSI0));
     TSI_ClearStatusFlags(TSI0, kTSI_EndOfScanFlag);
     TSI_ClearStatusFlags(TSI0, (uint32_t)kTSI_OutOfRangeFlag);
 
@@ -150,14 +150,14 @@ int main(void)
     while (TSI_IsScanInProgress(TSI0))
     {
     }
-    PRINTF("Channel %d Normal mode counter is: %d \r\n", BOARD_TSI_ELECTRODE_1, TSI_GetCounter(TSI0));
+    PRINTF("Channel %d Normal mode counter is: %d\r\n", BOARD_TSI_ELECTRODE_1, TSI_GetCounter(TSI0));
 
     TSI_SetMeasuredChannelNumber(TSI0, BOARD_TSI_ELECTRODE_2);
     TSI_StartSoftwareTrigger(TSI0);
     while (TSI_IsScanInProgress(TSI0))
     {
     }
-    PRINTF("Channel %d Normal mode counter is: %d \r\n", BOARD_TSI_ELECTRODE_2, TSI_GetCounter(TSI0));
+    PRINTF("Channel %d Normal mode counter is: %d\r\n", BOARD_TSI_ELECTRODE_2, TSI_GetCounter(TSI0));
 
     /********** HARDWARE TRIGGER SCAN ********/
     PRINTF("\r\nNOW, comes to the hardware trigger scan method!\r\n");

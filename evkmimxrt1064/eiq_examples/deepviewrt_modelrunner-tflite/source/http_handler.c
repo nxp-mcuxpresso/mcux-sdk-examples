@@ -144,7 +144,7 @@ parse_multipart_mime(const char*  buf,
     if (!buf || !buf_len || !variable || !file_name) { return 0; }
 
     /* find the request length */
-    if ((header_end = (strnstr(buf, "\n\r\n", buf_len)))) { header_end += 3; }
+    if ((header_end = (strnstr(buf, "\r\n\r\n", buf_len)))) { header_end += 3; }
 
     /* make sure we have a boundary */
     if (!header_end || buf[0] != '-' || buf[1] != '-' || buf[2] == '\n') {
@@ -152,7 +152,7 @@ parse_multipart_mime(const char*  buf,
     }
 
     /* get the boundary end */
-    boundary_end = strnstr(buf, "\n", buf_len);
+    boundary_end = strnstr(buf, "\r\n", buf_len);
     if (!boundary_end) { return 0; }
     boundary_end++;
 
@@ -164,7 +164,7 @@ parse_multipart_mime(const char*  buf,
     line_start = boundary_end;
 
     /* a blank line within the buffer is where parsing will stop */
-    line_end = strstr(line_start, "\n");
+    line_end = strstr(line_start, "\r\n");
     while (line_end && (line_end < header_end)) {
         line_end++;
         if ((found = strnstr(line_start,
@@ -194,7 +194,7 @@ parse_multipart_mime(const char*  buf,
                 '\0';
         }
         line_start = line_end;
-        line_end   = strstr(line_start, "\n");
+        line_end   = strstr(line_start, "\r\n");
     }
 
     /* find the end boundary */
@@ -989,4 +989,3 @@ json_oom:
                          HTTP_HEADERS_END);
 
 }
-

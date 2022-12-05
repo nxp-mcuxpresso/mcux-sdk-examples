@@ -314,7 +314,7 @@ int main(void)
 		snprintf(argmax_string, sizeof(argmax_string), "%d", argmax);
         int decode_ms = (int)(decode_ns/1e6);
         int run_ms = (int)(run_ns/1e6);
-		PRINTF("\tResult: %s (%d%%) -- decode: %d ms runtime: %d ms \r\n",
+		PRINTF("\tResult: %s (%d%%) -- decode: %d ms runtime: %d ms\r\n",
 			   label ? label : argmax_string,
 			   (int) (softmax * 100),
 			   decode_ms,

@@ -290,12 +290,12 @@ int main(void)
 
     if (memcmp(s_decrypted_text, s_plain_text, sizeof(s_decrypted_text)) != 0)
     {
-        PRINTF("Decrypted data -  Decryption error !\r\n ");
+        PRINTF("Decrypted data -  Decryption error !\r\n");
         return -1;
     }
     else
     {
-        PRINTF("Decrypted data - successfully. \r\n");
+        PRINTF("Decrypted data - successfully.\r\n");
     }
 
     while (1)

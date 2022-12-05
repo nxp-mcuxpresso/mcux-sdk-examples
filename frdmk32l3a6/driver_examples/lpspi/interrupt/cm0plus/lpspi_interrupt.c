@@ -235,14 +235,14 @@ int main(void)
     PRINTF("Master uses interrupt way and slave uses interrupt way.\r\n");
     PRINTF(
         "Note that some LPSPI instances interrupt is in INTMUX ,"
-        "you should set the intmux when you porting this example accordingly \r\n");
+        "you should set the intmux when you porting this example accordingly\r\n");
 
-    PRINTF("Please make sure you make the correct line connection. Basically, the connection is: \r\n");
-    PRINTF("LPSPI_master -- LPSPI_slave   \r\n");
-    PRINTF("   CLK      --    CLK  \r\n");
-    PRINTF("   PCS      --    PCS \r\n");
-    PRINTF("   SOUT     --    SIN  \r\n");
-    PRINTF("   SIN      --    SOUT \r\n");
+    PRINTF("Please make sure you make the correct line connection. Basically, the connection is:\r\n");
+    PRINTF("LPSPI_master -- LPSPI_slave\r\n");
+    PRINTF("   CLK      --    CLK\r\n");
+    PRINTF("   PCS      --    PCS\r\n");
+    PRINTF("   SOUT     --    SIN\r\n");
+    PRINTF("   SIN      --    SOUT\r\n");
 
     uint32_t errorCount;
     uint32_t i;
@@ -415,17 +415,17 @@ int main(void)
     }
     if (errorCount == 0)
     {
-        PRINTF("\r\nLPSPI transfer all data matched! \r\n");
+        PRINTF("\r\nLPSPI transfer all data matched!\r\n");
     }
     else
     {
-        PRINTF("\r\nError occurred in LPSPI transfer ! \r\n");
+        PRINTF("\r\nError occurred in LPSPI transfer !\r\n");
     }
 
     LPSPI_Deinit(EXAMPLE_LPSPI_MASTER_BASEADDR);
     LPSPI_Deinit(EXAMPLE_LPSPI_SLAVE_BASEADDR);
 
-    PRINTF("End of example. \r\n");
+    PRINTF("End of example.\r\n");
 
     while (1)
     {

@@ -220,7 +220,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             auth_fail++;
             if (auth_fail >= 3)
             {
-                PRINTF("Authentication Failed. Disconnecting ... \r\n");
+                PRINTF("Authentication Failed. Disconnecting ...\r\n");
                 wlan_disconnect();
                 auth_fail = 0;
             }

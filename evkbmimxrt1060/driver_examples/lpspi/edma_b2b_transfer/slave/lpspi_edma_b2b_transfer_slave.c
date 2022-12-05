@@ -65,7 +65,7 @@ void LPSPI_SlaveUserCallback(LPSPI_Type *base, lpspi_slave_edma_handle_t *handle
 {
     if (status == kStatus_Success)
     {
-        PRINTF("This is LPSPI slave edma transfer completed callback. \r\n\r\n");
+        PRINTF("This is LPSPI slave edma transfer completed callback.\r\n\r\n");
     }
 
     isTransferCompleted = true;

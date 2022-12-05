@@ -197,7 +197,7 @@ int main()
             PRINTF(" - %c: kAPP_PowerModeVlls0\r\n", kAPP_PowerModeVlls0);
             PRINTF(" - %c: kAPP_PowerModeHsrun\r\n", kAPP_PowerModeHsrun);
 
-            PRINTF("Input %c to %c: \r\n", kAPP_PowerModeMin + 1U, kAPP_PowerModeMax - 1U);
+            PRINTF("Input %c to %c:\r\n", kAPP_PowerModeMin + 1U, kAPP_PowerModeMax - 1U);
 
             power_mode_cmd = GETCHAR();
             PRINTF("%c\r\n", power_mode_cmd);

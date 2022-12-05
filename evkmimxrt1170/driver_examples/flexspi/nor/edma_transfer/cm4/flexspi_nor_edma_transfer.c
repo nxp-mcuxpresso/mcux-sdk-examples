@@ -248,12 +248,12 @@ int main(void)
 
     if (memcmp(s_nor_program_buffer, s_nor_read_buffer, sizeof(s_nor_program_buffer)))
     {
-        PRINTF("Erase data -  read out data value incorrect !\r\n ");
+        PRINTF("Erase data -  read out data value incorrect !\r\n");
         return -1;
     }
     else
     {
-        PRINTF("Erase data - successfully. \r\n");
+        PRINTF("Erase data - successfully.\r\n");
     }
 
     for (i = 0; i < FLASH_PAGE_SIZE; i++)
@@ -297,12 +297,12 @@ int main(void)
 
     if (memcmp(s_nor_read_buffer, s_nor_program_buffer, sizeof(s_nor_program_buffer)) != 0)
     {
-        PRINTF("Program data -  read out data value incorrect !\r\n ");
+        PRINTF("Program data -  read out data value incorrect !\r\n");
         return -1;
     }
     else
     {
-        PRINTF("Program data - successfully. \r\n");
+        PRINTF("Program data - successfully.\r\n");
     }
 
     while (1)

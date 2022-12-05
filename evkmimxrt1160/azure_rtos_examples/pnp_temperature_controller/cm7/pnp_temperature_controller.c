@@ -731,7 +731,7 @@ static VOID sample_direct_method_action(SAMPLE_CONTEXT *sample_context_ptr)
                                                                  packet_ptr, &(sample_context_ptr -> iothub_client),
                                                                  context_ptr, context_length)) == NX_AZURE_IOT_SUCCESS)
     {
-        PRINTF("Successfully executed command %.*s  controller \r\n", method_name_length, method_name_ptr);
+        PRINTF("Successfully executed command %.*s  controller\r\n", method_name_length, method_name_ptr);
     }
     else
     {

@@ -162,18 +162,18 @@ static void lwiperf_report(void *arg,
     PRINTF("-------------------------------------------------\r\n");
     if (report_type < (sizeof(report_type_str) / sizeof(report_type_str[0])))
     {
-        PRINTF(" %s \r\n", report_type_str[report_type]);
+        PRINTF(" %s\r\n", report_type_str[report_type]);
         if (local_addr && remote_addr)
         {
             PRINTF(" Local address : %u.%u.%u.%u ", ((u8_t *)local_addr)[0], ((u8_t *)local_addr)[1],
                    ((u8_t *)local_addr)[2], ((u8_t *)local_addr)[3]);
-            PRINTF(" Port %d \r\n", local_port);
+            PRINTF(" Port %d\r\n", local_port);
             PRINTF(" Remote address : %u.%u.%u.%u ", ((u8_t *)remote_addr)[0], ((u8_t *)remote_addr)[1],
                    ((u8_t *)remote_addr)[2], ((u8_t *)remote_addr)[3]);
-            PRINTF(" Port %u \r\n", remote_port);
-            PRINTF(" Bytes Transferred %llu \r\n", bytes_transferred);
-            PRINTF(" Duration (ms) %u \r\n", ms_duration);
-            PRINTF(" Bandwidth (kbitpsec) %u \r\n", bandwidth_kbitpsec);
+            PRINTF(" Port %u\r\n", remote_port);
+            PRINTF(" Bytes Transferred %llu\r\n", bytes_transferred);
+            PRINTF(" Duration (ms) %u\r\n", ms_duration);
+            PRINTF(" Bandwidth (kbitpsec) %u\r\n", bandwidth_kbitpsec);
         }
     }
     else

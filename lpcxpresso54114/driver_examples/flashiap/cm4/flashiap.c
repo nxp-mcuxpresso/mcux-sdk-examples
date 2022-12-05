@@ -115,7 +115,7 @@ int main(void)
     {
         PRINTF("\r\nPage Erase failed\n");
     }
-    PRINTF("\r\nEnd of FLASHIAP Example \r\n");
+    PRINTF("\r\nEnd of FLASHIAP Example\r\n");
     while (1)
     {
     }

@@ -138,7 +138,7 @@ int main(void)
     gpio_pin_config_t gpioConfig = {kGPIO_DigitalOutput, 1};
     GPIO_PinInit(DEMO_CODEC_MUTE_PIN, DEMO_CODEC_MUTE_PIN_NUM, &gpioConfig);
 
-    PRINTF("SAI example started!\n\r");
+    PRINTF("SAI example started!\r\n");
 
     /* SAI init */
     SAI_Init(DEMO_SAI);
@@ -183,7 +183,7 @@ int main(void)
     {
     }
 
-    PRINTF("\n\r SAI example finished!\n\r ");
+    PRINTF("\r\n SAI example finished!\n\r ");
     while (1)
     {
     }

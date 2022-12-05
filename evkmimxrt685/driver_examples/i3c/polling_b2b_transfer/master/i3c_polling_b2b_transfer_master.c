@@ -148,7 +148,7 @@ int main(void)
     {
         if (g_master_rxBuff[i] != g_master_txBuff[i + 1])
         {
-            PRINTF("\r\nError occurred in the transfer ! \r\n");
+            PRINTF("\r\nError occurred in the transfer !\r\n");
             return -1;
         }
     }
@@ -207,7 +207,7 @@ int main(void)
     {
         if (g_master_rxBuff[i] != g_master_txBuff[i + 1])
         {
-            PRINTF("\r\nError occurred in the transfer ! \r\n");
+            PRINTF("\r\nError occurred in the transfer !\r\n");
             return -1;
         }
     }

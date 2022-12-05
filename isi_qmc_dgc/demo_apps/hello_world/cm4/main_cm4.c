@@ -48,7 +48,7 @@ int main(void)
     /* Init FSL debug console. */
     BOARD_InitDebugConsole();
 #endif
-    PRINTF("ISI QMC code SLAVE core started \r\n");
+    PRINTF("ISI QMC code SLAVE core started\r\n");
 
     /* Force the counter to be placed into memory. */
     volatile static int i = 0;

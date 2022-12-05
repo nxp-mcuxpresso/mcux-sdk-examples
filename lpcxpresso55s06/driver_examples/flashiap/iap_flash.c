@@ -70,7 +70,7 @@ int main()
     FLASH_GetProperty(&flashInstance, kFLASH_PropertyPflashPageSize, &PflashPageSize);
 
     /* print welcome message */
-    PRINTF("\r\n PFlash Example Start \r\n");
+    PRINTF("\r\n PFlash Example Start\r\n");
     /* Print flash information - PFlash. */
     PRINTF("\tkFLASH_PropertyPflashBlockBaseAddr = 0x%X\r\n", pflashBlockBase);
     PRINTF("\tkFLASH_PropertyPflashSectorSize = %d\r\n", pflashSectorSize);
@@ -135,7 +135,7 @@ PAGE_INDEX_FROM_END = 2 means (the last page -1 )...
         }
     }
 
-    PRINTF("\r\n Successfully Programmed and Verified Location 0x%x -> 0x%x \r\n", destAdrss,
+    PRINTF("\r\n Successfully Programmed and Verified Location 0x%x -> 0x%x\r\n", destAdrss,
            (destAdrss + sizeof(s_buffer)));
 
     /* resume flash memory status */

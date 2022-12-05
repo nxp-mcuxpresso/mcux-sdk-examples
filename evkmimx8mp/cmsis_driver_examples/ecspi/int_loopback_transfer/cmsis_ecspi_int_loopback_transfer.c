@@ -115,11 +115,11 @@ int main(void)
     }
     if (errorCount == 0U)
     {
-        PRINTF("\r\nECSPI transfer all data matched! \r\n");
+        PRINTF("\r\nECSPI transfer all data matched!\r\n");
     }
     else
     {
-        PRINTF(" \r\nError occurred in ECSPI loopback transfer ! \r\n");
+        PRINTF("\r\nError occurred in ECSPI loopback transfer !\r\n");
     }
 
     DRIVER_MASTER_SPI.PowerControl(ARM_POWER_OFF);

@@ -227,7 +227,7 @@ int main(void)
     gpio_pin_config_t gpioConfig = {kGPIO_DigitalOutput, 1};
     GPIO_PinInit(DEMO_CODEC_MUTE_PIN, DEMO_CODEC_MUTE_PIN_NUM, &gpioConfig);
 
-    PRINTF("PDM sai interrupt example started!\n\r");
+    PRINTF("PDM sai interrupt example started!\r\n");
 
     memset(txBuff, 0U, sizeof(txBuff));
 

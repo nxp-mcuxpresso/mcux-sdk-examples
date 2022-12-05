@@ -76,7 +76,7 @@ int main(void)
 
     /* Step 1: The other core lock the sema4 gate. */
     PRINTF("Lock sema4 gate in uboot using:\r\n");
-    PRINTF(" > mw.b 0x%08x %d 1 \r\n", APP_SEMA4_GATE_ADDR, APP_OTHER_PROC_NUM + 1);
+    PRINTF(" > mw.b 0x%08x %d 1\r\n", APP_SEMA4_GATE_ADDR, APP_OTHER_PROC_NUM + 1);
 
     /* Wait SEMA4 gate is locked by the other core. */
     while (SEMA4_GetLockProc(APP_SEMA4, APP_SEMA4_GATE) != APP_OTHER_PROC_NUM)
@@ -88,7 +88,7 @@ int main(void)
 
     /* Step 3: The other core unlock the sema4 gate. */
     PRINTF("Unlock sema4 gate in uboot using:\r\n");
-    PRINTF(" > mw.b 0x%08x 0 1 \r\n", APP_SEMA4_GATE_ADDR);
+    PRINTF(" > mw.b 0x%08x 0 1\r\n", APP_SEMA4_GATE_ADDR);
 
     /* Wait SEMA4 gate is locked by the other core. */
     while (SEMA4_GetLockProc(APP_SEMA4, APP_SEMA4_GATE) == APP_OTHER_PROC_NUM)

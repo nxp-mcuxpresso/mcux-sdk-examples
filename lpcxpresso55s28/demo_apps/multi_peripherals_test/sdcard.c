@@ -127,14 +127,14 @@ static void sdcard_task(void *pvParameters)
             error = f_write(&g_fileObject, g_bufferWrite, sizeof(g_bufferWrite), &bytesWritten);
             if ((error) || (bytesWritten != sizeof(g_bufferWrite)))
             {
-                PRINTF("SDCARD: Write file failed. \r\n");
+                PRINTF("SDCARD: Write file failed.\r\n");
                 continue;
             }
 
             /* Move the file pointer */
             if (f_lseek(&g_fileObject, 0U))
             {
-                PRINTF("SDCARD: Set file pointer position failed. \r\n");
+                PRINTF("SDCARD: Set file pointer position failed.\r\n");
                 continue;
             }
 

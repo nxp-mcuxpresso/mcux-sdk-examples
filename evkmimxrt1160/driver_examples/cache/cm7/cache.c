@@ -243,7 +243,7 @@ int main(void)
 
     if (invalidateResult)
     {
-        PRINTF("\r\n Cache Invalidate success! \r\n");
+        PRINTF("\r\n Cache Invalidate success!\r\n");
     }
     else
     {
@@ -252,14 +252,14 @@ int main(void)
 
     if (pushResult)
     {
-        PRINTF("\r\n Cache Clean success! \r\n");
+        PRINTF("\r\n Cache Clean success!\r\n");
     }
     else
     {
         PRINTF("\r\n The memory cache clean failure!\r\n");
     }
 
-    PRINTF(" \r\n Cache example end. \r\n");
+    PRINTF("\r\n Cache example end.\r\n");
 
     while (1)
     {

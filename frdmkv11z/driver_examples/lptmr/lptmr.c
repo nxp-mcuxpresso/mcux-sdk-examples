@@ -105,7 +105,7 @@ int main(void)
         if (currentCounter != lptmrCounter)
         {
             currentCounter = lptmrCounter;
-            PRINTF("LPTMR interrupt No.%d \r\n", currentCounter);
+            PRINTF("LPTMR interrupt No.%d\r\n", currentCounter);
         }
     }
 }

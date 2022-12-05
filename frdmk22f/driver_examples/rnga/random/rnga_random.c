@@ -51,7 +51,7 @@ int main(void)
 
     while (1)
     {
-        PRINTF("Generate %d random numbers: \r\n", RNGA_EXAMPLE_RANDOM_NUMBER);
+        PRINTF("Generate %d random numbers:\r\n", RNGA_EXAMPLE_RANDOM_NUMBER);
 
         /* Get Random data*/
         status = RNGA_GetRandomData(RNG, data, sizeof(data));
@@ -69,7 +69,7 @@ int main(void)
         }
 
         /* Print a note.*/
-        PRINTF("\r\n Press any key to continue... \r\n");
+        PRINTF("\r\n Press any key to continue...\r\n");
         GETCHAR();
     }
 }

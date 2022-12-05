@@ -344,8 +344,8 @@ int main(void)
         CCM->PLL_CTRL[i].PLL_CTRL = kCLOCK_ClockNeededRun;
     }
 
-    PRINTF("\r\n####################  LOW POWER AUDIO TASK ####################\n\r\n");
-    PRINTF("    Build Time: %s--%s \r\n", __DATE__, __TIME__);
+    PRINTF("\r\n####################  LOW POWER AUDIO TASK ####################\r\n\r\n");
+    PRINTF("    Build Time: %s--%s\r\n", __DATE__, __TIME__);
 
     APP_SRTM_Init();
 

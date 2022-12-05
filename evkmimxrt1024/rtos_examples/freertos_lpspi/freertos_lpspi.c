@@ -343,7 +343,7 @@ static void master_task(void *pvParameters)
 
     if (status != kStatus_Success)
     {
-        PRINTF("LPSPI master: error during initialization. \r\n");
+        PRINTF("LPSPI master: error during initialization.\r\n");
         vTaskSuspend(NULL);
     }
     /*Start master transfer*/

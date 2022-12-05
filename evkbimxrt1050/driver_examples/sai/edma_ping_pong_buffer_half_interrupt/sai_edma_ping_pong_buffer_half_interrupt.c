@@ -189,7 +189,7 @@ int main(void)
     DMAMUX_SetSource(DMAMUX0, DEMO_EDMA_CHANNEL, DEMO_SAI_TX_SOURCE);
     DMAMUX_EnableChannel(DMAMUX0, DEMO_EDMA_CHANNEL);
 
-    PRINTF("SAI EDMA Ping Pong Buffer Half Interrupt example started!\n\r");
+    PRINTF("SAI EDMA Ping Pong Buffer Half Interrupt example started!\r\n");
 
     memcpy(buffer, music, BUFFER_NUM * BUFFER_SIZE);
     s_playIndex = BUFFER_NUM * BUFFER_SIZE;
@@ -281,7 +281,7 @@ int main(void)
 
     /* Once transfer finish, disable SAI instance. */
     SAI_Deinit(DEMO_SAI);
-    PRINTF("\n\rSAI EDMA Ping Pong Buffer Half Interrupt example finished!\n\r ");
+    PRINTF("\r\nSAI EDMA Ping Pong Buffer Half Interrupt example finished!\r\n");
     while (1)
     {
     }

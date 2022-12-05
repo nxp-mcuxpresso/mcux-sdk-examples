@@ -305,30 +305,30 @@ static bool LPI2C_ReadAccelWhoAmI(void)
         completionFlag = false;
         if (who_am_i_value == FXOS8700_WHOAMI)
         {
-            PRINTF("Found an FXOS8700 on board , the device address is 0x%x . \r\n", masterXfer.slaveAddress);
+            PRINTF("Found an FXOS8700 on board , the device address is 0x%x .\r\n", masterXfer.slaveAddress);
             result = true;
         }
         else if (who_am_i_value == MMA8451_WHOAMI)
         {
-            PRINTF("Found an MMA8451 on board , the device address is 0x%x . \r\n", masterXfer.slaveAddress);
+            PRINTF("Found an MMA8451 on board , the device address is 0x%x .\r\n", masterXfer.slaveAddress);
             result = true;
         }
         else if (who_am_i_value == LSM6DSO_WHOAMI)
         {
-            PRINTF("Found a LSDM6DSO on board, the device address is 0x%02X. \r\n", masterXfer.slaveAddress);
+            PRINTF("Found a LSDM6DSO on board, the device address is 0x%02X.\r\n", masterXfer.slaveAddress);
             result = true;
         }
         else
         {
             PRINTF("Found a device, the WhoAmI value is 0x%x\r\n", who_am_i_value);
-            PRINTF("It's not MMA8451 or FXOS8700 or LSM6DSO. \r\n");
-            PRINTF("The device address is 0x%x. \r\n", masterXfer.slaveAddress);
+            PRINTF("It's not MMA8451 or FXOS8700 or LSM6DSO.\r\n");
+            PRINTF("The device address is 0x%x.\r\n", masterXfer.slaveAddress);
             result = false;
         }
     }
     else
     {
-        PRINTF("\r\n Do not find an accelerometer device ! \r\n");
+        PRINTF("\r\n Do not find an accelerometer device !\r\n");
         result = false;
     }
     return result;
@@ -524,7 +524,7 @@ int main(void)
             y = ((int16_t)(((readBuff[2] << 8U) | readBuff[3]))) >> ((g_model == LSM6DSO) ? (0U) : (2U));
             z = ((int16_t)(((readBuff[4] << 8U) | readBuff[5]))) >> ((g_model == LSM6DSO) ? (0U) : (2U));
 
-            PRINTF("status_reg = 0x%x , x = %5d , y = %5d , z = %5d \r\n", status0_value, x, y, z);
+            PRINTF("status_reg = 0x%x , x = %5d , y = %5d , z = %5d\r\n", status0_value, x, y, z);
         }
     }
 

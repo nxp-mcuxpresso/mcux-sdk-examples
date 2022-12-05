@@ -203,11 +203,11 @@ int main(void)
 
     if ((sdramAddress == info.multiErrorAddress) && (uncorrectedData == info.multiErrorData))
     {
-        PRINTF("Uncorrecdted read data: 0x%x \r\n", uncorrectedData);
-        PRINTF("Multiple error address: 0x%x \r\n", info.multiErrorAddress);
-        PRINTF("Multiple error read data: 0x%x \r\n", info.multiErrorData);
-        PRINTF("Multiple error ECC code: 0x%x \r\n", info.multiErrorEccCode);
-        PRINTF("Multiple error bit field: 0x%x \r\n", info.multiErrorBitField);
+        PRINTF("Uncorrecdted read data: 0x%x\r\n", uncorrectedData);
+        PRINTF("Multiple error address: 0x%x\r\n", info.multiErrorAddress);
+        PRINTF("Multiple error read data: 0x%x\r\n", info.multiErrorData);
+        PRINTF("Multiple error ECC code: 0x%x\r\n", info.multiErrorEccCode);
+        PRINTF("Multiple error bit field: 0x%x\r\n", info.multiErrorBitField);
     }
     else
     {

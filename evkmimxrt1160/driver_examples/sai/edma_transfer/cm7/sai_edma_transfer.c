@@ -187,7 +187,7 @@ int main(void)
     DMAMUX_SetSource(DEMO_DMAMUX, DEMO_EDMA_CHANNEL, (uint8_t)DEMO_SAI_TX_SOURCE);
     DMAMUX_EnableChannel(DEMO_DMAMUX, DEMO_EDMA_CHANNEL);
 
-    PRINTF("SAI example started!\n\r");
+    PRINTF("SAI example started!\r\n");
 
     /* Create EDMA handle */
     /*
@@ -268,7 +268,7 @@ int main(void)
     /* Once transfer finish, disable SAI instance. */
     SAI_TransferAbortSendEDMA(DEMO_SAI, &txHandle);
     SAI_Deinit(DEMO_SAI);
-    PRINTF("\n\r SAI EDMA example finished!\n\r ");
+    PRINTF("\r\n SAI EDMA example finished!\n\r ");
     while (1)
     {
     }

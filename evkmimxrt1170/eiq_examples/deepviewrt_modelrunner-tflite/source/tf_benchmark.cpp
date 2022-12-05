@@ -220,7 +220,7 @@ int Model_RunInference(NNServer* server) {
     {
         server->output.num_outputs = 0;
 #ifdef DEBUG
-        printf("loop %d: \r\n", i);
+        printf("loop %d:\r\n", i);
 #endif
         server->run_ns = 0;
         // Run inference, and report any error

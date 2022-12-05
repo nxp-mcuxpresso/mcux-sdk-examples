@@ -171,7 +171,7 @@ static void APP_CopyPicture(void)
 
     PXP_StartPictureCopy(APP_PXP, &pxpCopyConfig);
 
-    PRINTF("Copy from (%d, %d) in input image to (%d, %d) in output image, size: (%d, %d) \r\n", SRC_OFFSET_X,
+    PRINTF("Copy from (%d, %d) in input image to (%d, %d) in output image, size: (%d, %d)\r\n", SRC_OFFSET_X,
            SRC_OFFSET_Y, DEST_OFFSET_X, DEST_OFFSET_Y, COPY_WIDTH, COPY_HEIGHT);
 
     /* Wait for process complete. */

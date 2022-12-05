@@ -82,8 +82,8 @@ int main(void)
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
-    PRINTF("This is SPI dma transfer master example!\n\r");
-    PRINTF("To make sure the transfer work successfully, please start the slave board first!\n\r");
+    PRINTF("This is SPI dma transfer master example!\r\n");
+    PRINTF("To make sure the transfer work successfully, please start the slave board first!\r\n");
 
     /* Initialize the SPI master with configuration. */
     EXAMPLE_SPIMasterInit();
@@ -211,7 +211,7 @@ static void EXAMPLE_TransferDataCheck(void)
     {
     }
 
-    PRINTF("\n\rThe received data are:");
+    PRINTF("\r\nThe received data are:");
     /*Check if the data is right*/
     err = 0U;
     for (i = 0; i < BUFFER_SIZE; i++)
@@ -219,7 +219,7 @@ static void EXAMPLE_TransferDataCheck(void)
         /* Print 16 numbers in a line */
         if ((i & 0x0FU) == 0U)
         {
-            PRINTF("\n\r");
+            PRINTF("\r\n");
         }
         PRINTF("  0x%02X", rxBuffer[i]);
         /* Check if data matched. */
@@ -231,10 +231,10 @@ static void EXAMPLE_TransferDataCheck(void)
 
     if (err == 0)
     {
-        PRINTF("\n\rMaster DMA transfer succeed!\n\r");
+        PRINTF("\r\nMaster DMA transfer succeed!\r\n");
     }
     else
     {
-        PRINTF("\n\rMaster DMA transfer faild!\n\r");
+        PRINTF("\r\nMaster DMA transfer faild!\r\n");
     }
 }

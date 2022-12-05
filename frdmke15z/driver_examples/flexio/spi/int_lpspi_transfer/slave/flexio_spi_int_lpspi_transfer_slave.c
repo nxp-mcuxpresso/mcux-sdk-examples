@@ -105,12 +105,12 @@ int main(void)
     PRINTF("LPSPI Master interrupt - FLEXIO SPI Slave interrupt example start.\r\n");
     PRINTF("This example use one lpspi instance as master and one flexio spi slave on one board.\r\n");
     PRINTF("Master and slave are both use interrupt way.\r\n");
-    PRINTF("Please make sure you make the correct line connection. Basically, the connection is: \r\n");
-    PRINTF("LPSPI_master -- FLEXIO_SPI_slave   \r\n");
-    PRINTF("   CLK      --    CLK  \r\n");
-    PRINTF("   PCS      --    PCS  \r\n");
-    PRINTF("   SOUT     --    SIN  \r\n");
-    PRINTF("   SIN      --    SOUT \r\n");
+    PRINTF("Please make sure you make the correct line connection. Basically, the connection is:\r\n");
+    PRINTF("LPSPI_master -- FLEXIO_SPI_slave\r\n");
+    PRINTF("   CLK      --    CLK\r\n");
+    PRINTF("   PCS      --    PCS\r\n");
+    PRINTF("   SOUT     --    SIN\r\n");
+    PRINTF("   SIN      --    SOUT\r\n");
 
     uint32_t errorCount;
     uint32_t i;
@@ -231,7 +231,7 @@ int main(void)
     LPSPI_Deinit(MASTER_LPSPI_BASEADDR);
     FLEXIO_SPI_SlaveDeinit(&spiDev);
 
-    PRINTF("\r\nEnd of Example. \r\n");
+    PRINTF("\r\nEnd of Example.\r\n");
 
     while (1)
     {

@@ -294,7 +294,7 @@ int main(void)
     IRQSTEER_EnableInterrupt(IRQSTEER, DMA_I2C1_INT_IRQn);
     IRQSTEER_EnableInterrupt(IRQSTEER, AUDIO_SAI1_DMA_INT_IRQn);
 
-    PRINTF("SAI example started!\n\r");
+    PRINTF("SAI example started!\r\n");
 
     /* Create EDMA handle */
     /*
@@ -370,7 +370,7 @@ int main(void)
     /* Once transfer finish, disable SAI instance. */
     SAI_TransferAbortSendEDMA(DEMO_SAI, &txHandle);
     SAI_Deinit(DEMO_SAI);
-    PRINTF("\n\r SAI EDMA example finished!\n\r ");
+    PRINTF("\r\n SAI EDMA example finished!\n\r ");
     while (1)
     {
     }

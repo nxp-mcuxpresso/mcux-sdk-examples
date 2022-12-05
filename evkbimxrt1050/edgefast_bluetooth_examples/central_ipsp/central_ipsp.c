@@ -219,7 +219,7 @@ static void connected(struct bt_conn *conn, uint8_t err)
             }
             else
             {
-                PRINTF("Starting service discovery \n");
+                PRINTF("Starting service discovery\r\n");
             }
         }
 	}
@@ -254,7 +254,7 @@ static uint8_t discover_func(struct bt_conn *conn,
 
     if (!attr)
     {
-        PRINTF("Discover complete, No attribute found \n");
+        PRINTF("Discover complete, No attribute found\r\n");
         (void)memset(params, 0, sizeof(*params));
         return BT_GATT_ITER_STOP;
     }
@@ -349,4 +349,3 @@ void central_ipsp_task(void *pvParameters)
 
     }
 }
-

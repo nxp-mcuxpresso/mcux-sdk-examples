@@ -225,7 +225,7 @@ int main(void)
     GPIO_PinWrite(DEMO_CODEC_POWER_GPIO, DEMO_CODEC_POWER_GPIO_PIN, 1U);
 #endif
 
-    PRINTF("SAI example started!\n\r");
+    PRINTF("SAI example started!\r\n");
 
     /* SAI init */
     SAI_Init(DEMO_SAI);
@@ -270,7 +270,7 @@ int main(void)
     {
     }
 
-    PRINTF("\n\r SAI example finished!\n\r ");
+    PRINTF("\r\n SAI example finished!\n\r ");
     while (1)
     {
     }

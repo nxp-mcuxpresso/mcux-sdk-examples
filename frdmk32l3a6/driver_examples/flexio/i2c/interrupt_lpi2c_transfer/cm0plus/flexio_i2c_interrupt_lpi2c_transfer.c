@@ -197,7 +197,7 @@ int main(void)
     /* Failed to complete the transfer. */
     if (timeout == 0)
     {
-        PRINTF("\r\nTime out ! \r\n");
+        PRINTF("\r\nTime out !\r\n");
     }
 
     /*3.Transfer completed. Check the data.*/
@@ -205,7 +205,7 @@ int main(void)
     {
         if (g_slave_buff[i] != g_master_buff[i])
         {
-            PRINTF("\r\nError occurred in this transfer ! \r\n");
+            PRINTF("\r\nError occurred in this transfer !\r\n");
             break;
         }
     }

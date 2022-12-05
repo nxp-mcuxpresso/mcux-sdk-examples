@@ -104,7 +104,7 @@ static void USB_HostHidControlCallback(void *param, uint8_t *data, uint32_t data
 
     if (kStatus_USB_TransferStall == status)
     {
-        usb_echo("device don't support this ruquest \r\n");
+        usb_echo("device don't support this ruquest\r\n");
     }
     else if (kStatus_USB_Success != status)
     {

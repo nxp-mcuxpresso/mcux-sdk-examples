@@ -778,7 +778,7 @@ void USB_AudioTask(void *arg)
                                                sizeof(g_curMute[0]), Audio_ControlCallback, &g_audioRecorder))
 
                 {
-                    usb_echo("config mute failed\n\r");
+                    usb_echo("config mute failed\r\n");
                 }
             }
             else if ((AUDIO_DEVICE_VERSION_02 == g_audioRecorder.deviceAudioVersion))
@@ -791,7 +791,7 @@ void USB_AudioTask(void *arg)
                                                ((0U << 8U) | USB_AUDIO_CS_REQUEST_CODE_CUR_20), (void *)g_curMute,
                                                sizeof(g_curMute[0]), Audio_ControlCallback, &g_audioRecorder))
                 {
-                    usb_echo("config mute failed\n\r");
+                    usb_echo("config mute failed\r\n");
                 }
             }
             else
@@ -812,7 +812,7 @@ void USB_AudioTask(void *arg)
 
                 {
                     g_audioRecorder.runState = kUSB_HostAudioRunAudioSetCurSamplingFreq;
-                    usb_echo("config volume failed\n\r");
+                    usb_echo("config volume failed\r\n");
                 }
             }
             else if ((AUDIO_DEVICE_VERSION_02 == g_audioRecorder.deviceAudioVersion))
@@ -823,7 +823,7 @@ void USB_AudioTask(void *arg)
                                                sizeof(g_curVol), Audio_ControlCallback, &g_audioRecorder))
                 {
                     g_audioRecorder.runState = kUSB_HostAudioRunAudioSetCurSamplingFreq;
-                    usb_echo("config volume failed\n\r");
+                    usb_echo("config volume failed\r\n");
                 }
             }
             else
@@ -845,7 +845,7 @@ void USB_AudioTask(void *arg)
 
                 {
                     g_audioRecorder.runState = kUSB_HostAudioRunAudioSetCurSamplingFreq;
-                    usb_echo("config channel 2 volume failed\n\r");
+                    usb_echo("config channel 2 volume failed\r\n");
                 }
             }
             else if ((AUDIO_DEVICE_VERSION_02 == g_audioRecorder.deviceAudioVersion))
@@ -859,7 +859,7 @@ void USB_AudioTask(void *arg)
                                                sizeof(g_curVol), Audio_ControlCallback, &g_audioRecorder))
                 {
                     g_audioRecorder.runState = kUSB_HostAudioRunAudioSetCurSamplingFreq;
-                    usb_echo("config channel 2 volume failed\n\r");
+                    usb_echo("config channel 2 volume failed\r\n");
                 }
             }
             else
@@ -876,18 +876,18 @@ void USB_AudioTask(void *arg)
                 for (bsamfreqtype_g_index = 0U; bsamfreqtype_g_index < g_pFormatTypeDesc->bsamfreqtype;
                      bsamfreqtype_g_index++)
                 {
-                    usb_echo("   - Frequency device support      : %d Hz\n\r",
+                    usb_echo("   - Frequency device support      : %d Hz\r\n",
                              (((uint32_t)g_pFormatTypeDesc->tsamfreq[bsamfreqtype_g_index][2]) << 16U) |
                                  (((uint32_t)g_pFormatTypeDesc->tsamfreq[bsamfreqtype_g_index][1]) << 8U) |
                                  (((uint32_t)g_pFormatTypeDesc->tsamfreq[bsamfreqtype_g_index][0]) << 0U));
                 }
 
-                usb_echo("   - Bit resolution : %d bits\n\r", g_pFormatTypeDesc->bbitresolution);
-                usb_echo("   - Number of channels : %d channels\n\r", g_pFormatTypeDesc->bnrchannels);
-                usb_echo("   - Transfer type : %s\n\r", strTransferType[(g_pIsoEndpDesc->bmAttributes) & EP_TYPE_MASK]);
-                usb_echo("   - Sync type : %s\n\r",
+                usb_echo("   - Bit resolution : %d bits\r\n", g_pFormatTypeDesc->bbitresolution);
+                usb_echo("   - Number of channels : %d channels\r\n", g_pFormatTypeDesc->bnrchannels);
+                usb_echo("   - Transfer type : %s\r\n", strTransferType[(g_pIsoEndpDesc->bmAttributes) & EP_TYPE_MASK]);
+                usb_echo("   - Sync type : %s\r\n",
                          strSyncType[(uint8_t)(g_pIsoEndpDesc->bmAttributes >> 2) & EP_TYPE_MASK]);
-                usb_echo("   - Usage type : %s  \n\r",
+                usb_echo("   - Usage type : %s\r\n",
                          strDataType[(uint8_t)(g_pIsoEndpDesc->bmAttributes >> 4) & EP_TYPE_MASK]);
 
                 usb_echo("This audio device supports play audio files with these properties:\r\n");
@@ -895,13 +895,13 @@ void USB_AudioTask(void *arg)
                 for (bsamfreqtype_g_index = 0U; bsamfreqtype_g_index < g_pFormatTypeDesc->bsamfreqtype;
                      bsamfreqtype_g_index++)
                 {
-                    usb_echo("                    : %d Hz\n\r",
+                    usb_echo("                    : %d Hz\r\n",
                              (((uint32_t)g_pFormatTypeDesc->tsamfreq[bsamfreqtype_g_index][2]) << 16U) |
                                  (((uint32_t)g_pFormatTypeDesc->tsamfreq[bsamfreqtype_g_index][1]) << 8U) |
                                  (((uint32_t)g_pFormatTypeDesc->tsamfreq[bsamfreqtype_g_index][0]) << 0U));
                 }
-                usb_echo("   - Sample size    : %d bits\n\r", g_pFormatTypeDesc->bbitresolution);
-                usb_echo("   - Number of channels : %d channels\n\r", g_pFormatTypeDesc->bnrchannels);
+                usb_echo("   - Sample size    : %d bits\r\n", g_pFormatTypeDesc->bbitresolution);
+                usb_echo("   - Number of channels : %d channels\r\n", g_pFormatTypeDesc->bnrchannels);
                 usb_echo("USB Recorder example try to record %dk_%dbit_%dch audio using PCM format.\r\n",
                          ((((uint32_t)g_pFormatTypeDesc->tsamfreq[0][2]) << 16U) |
                           (((uint32_t)g_pFormatTypeDesc->tsamfreq[0][1]) << 8U) |
@@ -929,18 +929,18 @@ void USB_AudioTask(void *arg)
                     /*frequency array location in layout 3*/
                     usb_echo(
                         "   - Frequency device support frequency rang is :MIN %d Hz,  MAX %d Hz, RES attributes %dHz, "
-                        "\n\r",
+                        "\r\n",
                         USB_LONG_FROM_LITTLE_ENDIAN_ADDRESS((frequencyArrayStart)),
                         USB_LONG_FROM_LITTLE_ENDIAN_ADDRESS((frequencyArrayStart + 4U)),
                         USB_LONG_FROM_LITTLE_ENDIAN_ADDRESS((frequencyArrayStart + 8U)));
                     frequencyArrayStart += sizeof(usb_audio_2_0_layout3_struct_t);
                 }
-                usb_echo("   - Bit resolution : %d bits\n\r", g_pFormatTypeDesc_20->bBitResolution);
-                usb_echo("   - Number of channels : %d channels\n\r", g_generalDesc_20->bNrChannels);
-                usb_echo("   - Transfer type : %s\n\r", strTransferType[(g_pIsoEndpDesc->bmAttributes) & EP_TYPE_MASK]);
-                usb_echo("   - Sync type : %s\n\r",
+                usb_echo("   - Bit resolution : %d bits\r\n", g_pFormatTypeDesc_20->bBitResolution);
+                usb_echo("   - Number of channels : %d channels\r\n", g_generalDesc_20->bNrChannels);
+                usb_echo("   - Transfer type : %s\r\n", strTransferType[(g_pIsoEndpDesc->bmAttributes) & EP_TYPE_MASK]);
+                usb_echo("   - Sync type : %s\r\n",
                          strSyncType[(uint8_t)(g_pIsoEndpDesc->bmAttributes >> 2U) & EP_TYPE_MASK]);
-                usb_echo("   - Usage type : %s  \n\r",
+                usb_echo("   - Usage type : %s\r\n",
                          strDataType[(uint8_t)(g_pIsoEndpDesc->bmAttributes >> 4U) & EP_TYPE_MASK]);
                 usb_echo("USB Host Recorder example try to record %dk_%dbit_%d ch audio using PCM format.\r\n",
                          USB_SHORT_FROM_LITTLE_ENDIAN_ADDRESS((frequencyArray)) / 1000U,
@@ -1059,13 +1059,13 @@ void Audio_MuteRequest(void)
 {
     if (g_audioRecorder.devState > kStatus_DEV_Detached)
     {
-        usb_echo("  err: Audio Recorder is not connected\n\r");
+        usb_echo("  err: Audio Recorder is not connected\r\n");
         return;
     }
 
     if (g_audioRecorder.deviceIsUsed == 0)
     {
-        usb_echo("  err: Audio Recorder is not Ready\n\r");
+        usb_echo("  err: Audio Recorder is not Ready\r\n");
         return;
     }
 
@@ -1087,18 +1087,18 @@ void Audio_IncreaseVolumeRequest(uint8_t channel)
     max_audio_channel = 2U;
     if (channel > max_audio_channel)
     {
-        usb_echo("  err: Channel number larger than max channel\n\r");
+        usb_echo("  err: Channel number larger than max channel\r\n");
         return;
     }
     if (g_audioRecorder.devState > kStatus_DEV_Detached)
     {
-        usb_echo("  err: Audio Recorder is not connected\n\r");
+        usb_echo("  err: Audio Recorder is not connected\r\n");
         return;
     }
 
     if (g_audioRecorder.deviceIsUsed == 0)
     {
-        usb_echo("  err: Audio Recorder is not Ready\n\r");
+        usb_echo("  err: Audio Recorder is not Ready\r\n");
         return;
     }
     if (channel == 1U)
@@ -1137,18 +1137,18 @@ void Audio_DecreaseVolumeRequest(uint8_t channel)
     max_audio_channel = g_pFormatTypeDesc->bnrchannels;
     if (channel > max_audio_channel)
     {
-        usb_echo("  err: Channel number larger than max channel\n\r");
+        usb_echo("  err: Channel number larger than max channel\r\n");
         return;
     }
     if (g_audioRecorder.devState > kStatus_DEV_Detached)
     {
-        usb_echo("  err: Audio Recorder is not connected\n\r");
+        usb_echo("  err: Audio Recorder is not connected\r\n");
         return;
     }
 
     if (g_audioRecorder.deviceIsUsed == 0U)
     {
-        usb_echo("  err: Audio Recorder is not Ready\n\r");
+        usb_echo("  err: Audio Recorder is not Ready\r\n");
         return;
     }
     if (channel == 1U)

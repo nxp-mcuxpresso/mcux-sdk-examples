@@ -45,8 +45,8 @@ static void EXAMPLE_UserCallback(dma_handle_t *handle, void *param, bool transfe
     int i;
     if (tcds == kDMA_IntB)
     {
-        PRINTF("\n\rCallBack B is triggered!\n\r");
-        PRINTF("The received data is: \n\r");
+        PRINTF("\r\nCallBack B is triggered!\r\n");
+        PRINTF("The received data is:\r\n");
         for (i = 8; i <= 15; i++)
         {
             PRINTF("%c", g_data_buffer[i]);
@@ -54,8 +54,8 @@ static void EXAMPLE_UserCallback(dma_handle_t *handle, void *param, bool transfe
     }
     if (tcds == kDMA_IntA)
     {
-        PRINTF("\n\rCallBack A is triggered!\n\r");
-        PRINTF("The received data is: \n\r");
+        PRINTF("\r\nCallBack A is triggered!\r\n");
+        PRINTF("The received data is:\r\n");
         for (i = 0; i <= 7; i++)
         {
             PRINTF("%c", g_data_buffer[i]);

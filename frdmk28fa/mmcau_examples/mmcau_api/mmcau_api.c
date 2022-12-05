@@ -598,12 +598,12 @@ static void mmcau_example_task(void)
     int cycles;
 
     /* Print welcome string */
-    PRINTF("............................. MMCAU  DRIVER  EXAMPLE ............................. \r\n\r\n");
+    PRINTF("............................. MMCAU  DRIVER  EXAMPLE .............................\r\n\r\n");
     memset(&g_output[0], 0, OUTPUT_ARRAY_LEN);
     memset(&g_result[0], 0, OUTPUT_ARRAY_LEN);
     length = sizeof(g_testFull) - 1u;
 
-    PRINTF("Testing input string: \r\n");
+    PRINTF("Testing input string:\r\n");
     mmcau_print_msg(&g_testFull[0], length);
     /* Format console output */
     PRINTF("\r\n");
@@ -718,8 +718,8 @@ static void mmcau_example_task(void)
     /*get string length*/
     length = sizeof(g_testSha);
     PRINTF("--------------------------------------- HASH ------------------------------------------\r\n");
-    PRINTF("Computing hash of %d bytes. \r\n", length);
-    PRINTF("Input string: \r\n");
+    PRINTF("Computing hash of %d bytes.\r\n", length);
+    PRINTF("Input string:\r\n");
     mmcau_print_msg((uint8_t *)&g_testSha[0], 43u /* length of the test string (without padding bits) */);
     PRINTF("\r\n");
 

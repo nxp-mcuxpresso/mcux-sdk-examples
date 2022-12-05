@@ -59,8 +59,8 @@ int main(void)
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
-    PRINTF("\n\rThis is slave example for SPI half-duplex interrupt transfer.");
-    PRINTF("\n\rSlave is working....\r\n");
+    PRINTF("\r\nThis is slave example for SPI half-duplex interrupt transfer.");
+    PRINTF("\r\nSlave is working....\r\n");
 
     /* Slave config */
     SPI_SlaveGetDefaultConfig(&slaveConfig);

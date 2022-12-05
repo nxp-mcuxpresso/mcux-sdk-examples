@@ -416,12 +416,12 @@ int main(void)
 
     if (memcmp(s_nor_program_buffer, s_nor_read_buffer, sizeof(s_nor_program_buffer)))
     {
-        PRINTF("Erase data -  read out data value incorrect !\r\n ");
+        PRINTF("Erase data -  read out data value incorrect !\r\n");
         return -1;
     }
     else
     {
-        PRINTF("Erase data - successfully. \r\n");
+        PRINTF("Erase data - successfully.\r\n");
     }
 
     /* Get default configuration */
@@ -514,13 +514,13 @@ int main(void)
     if ((spiAddress == info.singleErrorAddress) && (uncorrectedData == info.singleErrorData) &&
         (bitPostion == info.singleErrorBitPos))
     {
-        PRINTF("Correcdted read data: 0x%x \r\n", correctedData);
-        PRINTF("Uncorrecdted read data: 0x%x \r\n", uncorrectedData);
-        PRINTF("Single error address: 0x%x \r\n", info.singleErrorAddress);
-        PRINTF("Single error read data: 0x%x \r\n", info.singleErrorData);
-        PRINTF("Single error ECC code: 0x%x \r\n", info.singleErrorEccCode);
-        PRINTF("Single error bit postion: 0x%x \r\n", info.singleErrorBitPos);
-        PRINTF("Single error bit field: 0x%x \r\n", info.singleErrorBitField);
+        PRINTF("Correcdted read data: 0x%x\r\n", correctedData);
+        PRINTF("Uncorrecdted read data: 0x%x\r\n", uncorrectedData);
+        PRINTF("Single error address: 0x%x\r\n", info.singleErrorAddress);
+        PRINTF("Single error read data: 0x%x\r\n", info.singleErrorData);
+        PRINTF("Single error ECC code: 0x%x\r\n", info.singleErrorEccCode);
+        PRINTF("Single error bit postion: 0x%x\r\n", info.singleErrorBitPos);
+        PRINTF("Single error bit field: 0x%x\r\n", info.singleErrorBitField);
     }
     else
     {
@@ -529,11 +529,11 @@ int main(void)
 
     if (errorFlag != 0x00U)
     {
-        PRINTF("XECC single error example failed. \r\n");
+        PRINTF("XECC single error example failed.\r\n");
     }
     else
     {
-        PRINTF("XECC single error example successfully. \r\n");
+        PRINTF("XECC single error example successfully.\r\n");
     }
 
     while (1)

@@ -110,7 +110,7 @@ int main(void)
     CLOCK_SetRootClockMux(kCLOCK_Root_Spdif, 4);
     CLOCK_SetRootClockDiv(kCLOCK_Root_Spdif, 1);
 
-    PRINTF("SPDIF example started!\n\r");
+    PRINTF("SPDIF example started!\r\n");
 
     SPDIF_GetDefaultConfig(&config);
     SPDIF_Init(EXAMPLE_SPDIF, &config);
@@ -148,7 +148,7 @@ int main(void)
         }
     }
 
-    PRINTF("\n\r SPDIF example finished!\n\r ");
+    PRINTF("\r\n SPDIF example finished!\n\r ");
     while (1)
     {
     }

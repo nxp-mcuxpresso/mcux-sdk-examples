@@ -169,7 +169,7 @@ int main(void)
     /* Set the PDM clock source in the audiomix */
     AUDIOMIX_AttachClk(AUDIOMIX, kAUDIOMIX_Attach_PDM_Root_to_CCM_PDM);
 
-    PRINTF("PDM interrupt example started!\n\r");
+    PRINTF("PDM interrupt example started!\r\n");
 
     memset(txBuff, 0U, sizeof(txBuff));
 
@@ -203,7 +203,7 @@ int main(void)
 #endif
     }
 
-    PRINTF("PDM recieve data:\n\r");
+    PRINTF("PDM recieve data:\r\n");
     for (i = 0U; i < SAMPLE_COUNT; i++)
     {
         PRINTF("%6x ", txBuff[i]);

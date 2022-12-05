@@ -377,7 +377,7 @@ static UINT sample_get_maxmin_report(NX_PACKET *packet_ptr, UCHAR *buffer, UINT 
     }
     else
     {
-        PRINTF("Failed to build getMaxMinReport response \r\n");
+        PRINTF("Failed to build getMaxMinReport response\r\n");
         status = NX_NOT_SUCCESSFUL;
     }
 

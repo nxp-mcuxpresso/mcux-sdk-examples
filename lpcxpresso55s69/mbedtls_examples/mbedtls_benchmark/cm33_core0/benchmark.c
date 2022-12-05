@@ -636,7 +636,7 @@ int main( int argc, char *argv[] )
     memset(&todo, 1, sizeof(todo));
 #endif
 
-    mbedtls_printf( "\n" );
+    mbedtls_printf( "\r\n" );
 
 #if defined(MBEDTLS_MEMORY_BUFFER_ALLOC_C)
     mbedtls_memory_buffer_alloc_init( alloc_buf, sizeof( alloc_buf ) );
@@ -1387,7 +1387,7 @@ int main( int argc, char *argv[] )
     }
 #endif
 
-    mbedtls_printf( "\n" );
+    mbedtls_printf( "\r\n" );
 
 #if defined(MBEDTLS_MEMORY_BUFFER_ALLOC_C)
     mbedtls_memory_buffer_alloc_free();

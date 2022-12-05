@@ -63,8 +63,8 @@ SHELL_COMMAND_DEFINE(led,
                      1);
 #if (defined(LED_DIMMING_ENABLEMENT) && (LED_DIMMING_ENABLEMENT > 0U))
 SHELL_COMMAND_DEFINE(dim,
-                     "\r\n\"dim arg1 arg2\": Set the brightness to incerase or decrease and its duration in ms \r\n"
-                     "  Usage:\r\n    arg1:brighten/darken\r\n    arg2:set dimming duration in ms,eg:5000 \r\n",
+                     "\r\n\"dim arg1 arg2\": Set the brightness to incerase or decrease and its duration in ms\r\n"
+                     "  Usage:\r\n    arg1:brighten/darken\r\n    arg2:set dimming duration in ms,eg:5000\r\n",
                      SHELL_DimCommand,
                      2);
 #endif

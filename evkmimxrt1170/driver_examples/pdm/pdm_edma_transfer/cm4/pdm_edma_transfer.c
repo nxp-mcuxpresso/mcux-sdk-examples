@@ -147,7 +147,7 @@ int main(void)
     DMAMUX_SetSource(DEMO_DMAMUX, DEMO_EDMA_CHANNEL, DEMO_PDM_REQUEST_SOURCE);
     DMAMUX_EnableChannel(DEMO_DMAMUX, DEMO_EDMA_CHANNEL);
 
-    PRINTF("PDM edma example started!\n\r");
+    PRINTF("PDM edma example started!\r\n");
 
     memset(rxBuff, 0, sizeof(rxBuff));
 
@@ -187,7 +187,7 @@ int main(void)
     {
     }
 
-    PRINTF("PDM recieve one channel data:\n\r");
+    PRINTF("PDM recieve one channel data:\r\n");
     for (i = 0U; i < BUFFER_SIZE; i++)
     {
         PRINTF("%4d ", rxBuff[i]);

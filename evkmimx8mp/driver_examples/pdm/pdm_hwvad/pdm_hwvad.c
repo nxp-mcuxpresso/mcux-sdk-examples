@@ -123,7 +123,7 @@ int main(void)
     /* Set the PDM clock source in the audiomix */
     AUDIOMIX_AttachClk(AUDIOMIX, kAUDIOMIX_Attach_PDM_Root_to_CCM_PDM);
 
-    PRINTF("PDM hwvad example started!\n\r");
+    PRINTF("PDM hwvad example started!\r\n");
 
     /* Set up pdm */
     PDM_Init(DEMO_PDM, &pdmConfig);
@@ -157,7 +157,7 @@ int main(void)
 
     PDM_Deinit(DEMO_PDM);
 
-    PRINTF("\n\rPDM hwvad example finished!\n\r ");
+    PRINTF("\r\nPDM hwvad example finished!\n\r ");
     while (1)
     {
     }

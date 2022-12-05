@@ -97,7 +97,7 @@ int flash_read_buffer(uint32_t address, char *buffer, char size)
     status = mx25r_cmd_read(&mx25r, address, (uint8_t *)buffer, size);
     if (mx25r_err_ok != status)
     {
-        PRINTF("'mx25r_cmd_read' failed \r\n");
+        PRINTF("'mx25r_cmd_read' failed\r\n");
     }
     return status;
 }
@@ -114,7 +114,7 @@ int flash_erase_sector(uint32_t address)
     status = mx25r_cmd_sector_erase(&mx25r, address);
     if (mx25r_err_ok != status)
     {
-        PRINTF("'mx25r_cmd_sector_erase' failed \r\n");
+        PRINTF("'mx25r_cmd_sector_erase' failed\r\n");
     }
     return status;
 }
@@ -131,7 +131,7 @@ int flash_write_buffer(uint32_t address, char *buffer, char size)
     status = mx25r_cmd_write(&mx25r, address, (uint8_t *)buffer, size);
     if (mx25r_err_ok != status)
     {
-        PRINTF("'mx25r_cmd_write' failed \r\n");
+        PRINTF("'mx25r_cmd_write' failed\r\n");
     }
     return status;
 }
@@ -170,17 +170,17 @@ int app(void)
     /* consider buffer as empty */
     if (flash_is_buffer_empty(g_buffer, BUFFER_SIZE))
     {
-        PRINTF("Flash at 0x%x of size %d B is empty \r\n", SECTOR_ADDR, BUFFER_SIZE);
+        PRINTF("Flash at 0x%x of size %d B is empty\r\n", SECTOR_ADDR, BUFFER_SIZE);
     }
     else
     {
-        PRINTF("Flash at 0x%x of size %d B has message '%s' \r\n", SECTOR_ADDR, BUFFER_SIZE, g_buffer);
+        PRINTF("Flash at 0x%x of size %d B has message '%s'\r\n", SECTOR_ADDR, BUFFER_SIZE, g_buffer);
     }
 
     /* read user message */
-    PRINTF("Write new message (max %d chars) to flash: \r\n", BUFFER_SIZE - 1);
+    PRINTF("Write new message (max %d chars) to flash:\r\n", BUFFER_SIZE - 1);
     read_string(g_buffer, BUFFER_SIZE);
-    PRINTF("\r\nmessage is: '%s' \r\n", g_buffer);
+    PRINTF("\r\nmessage is: '%s'\r\n", g_buffer);
 
     if (!flash_is_buffer_empty(g_buffer, BUFFER_SIZE))
     {
@@ -215,16 +215,16 @@ int main(void)
     BOARD_InitPins();
     BOARD_BootClockPLL150M();
     BOARD_InitDebugConsole();
-    PRINTF("*****app*start***** \r\n");
+    PRINTF("*****app*start*****\r\n");
     if (0 == app())
     {
-        PRINTF("Write succeed, please restart the board to see the written message \r\n");
+        PRINTF("Write succeed, please restart the board to see the written message\r\n");
     }
     else
     {
-        PRINTF("Write failed \r\n");
+        PRINTF("Write failed\r\n");
     }
-    PRINTF("*****app*end***** \r\n");
+    PRINTF("*****app*end*****\r\n");
     while (1)
     {
     }

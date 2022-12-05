@@ -160,7 +160,7 @@ static void wait_for_card_presence(smartcard_context_t *context)
     /* Check if a card is already inserted */
     if (false == context->cardParams.present)
     {
-        PRINTF("Please insert a smart card to test \r\n");
+        PRINTF("Please insert a smart card to test\r\n");
     }
     do
     { /* Read card presence status */
@@ -678,7 +678,7 @@ static int smartcard_test(void)
     }
     if (context.transferState == kSMARTCARD_InvalidTSDetecetedState || context.timersState.initCharTimerExpired)
     { /* Reject the card */
-        PRINTF("INVALID ATR received.... \r\nCard Rejected !\r\n");
+        PRINTF("INVALID ATR received....\r\nCard Rejected !\r\n");
         return -1;
     }
     /* Start WWT,CWT and ADT timer */
@@ -782,7 +782,7 @@ static int smartcard_test(void)
      *(expecting 0x9F == ME shall use the GET RESPONSE command to get the response data ) */
     if (context.statusBytes[0u] != 0x9Fu)
     {
-        PRINTF("GSM file selection failed. \r\n ");
+        PRINTF("GSM file selection failed.\r\n");
         return -1;
     }
     /* Second status byte inform about length of data will be send on get response command */
@@ -914,7 +914,7 @@ static int smartcard_test(void)
     /* Check if received status bytes is success */
     if (COMMAND_SUCCESS != context.statusBytes[0u])
     {
-        PRINTF("Get response command failed.\r\n ");
+        PRINTF("Get response command failed.\r\n");
         return -1;
     }
     PRINTF("Received smartcard ICC-IC: ");

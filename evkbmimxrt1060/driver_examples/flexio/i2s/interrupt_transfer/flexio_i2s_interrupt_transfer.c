@@ -208,7 +208,7 @@ int main(void)
     CLOCK_SetDiv(kCLOCK_Sai1Div, DEMO_SAI1_CLOCK_SOURCE_DIVIDER);
     /* Enable SAI1 MCLK output */
     BOARD_EnableSaiMclkOutput(true);
-    PRINTF("FLEXIO_I2S interrupt example started!\n\r");
+    PRINTF("FLEXIO_I2S interrupt example started!\r\n");
 
     /* Set flexio i2s pin, shifter and timer */
     base.bclkPinIndex   = BCLK_PIN;
@@ -302,7 +302,7 @@ int main(void)
             }
         }
     }
-    PRINTF("\n\r FLEXIO_I2S interrupt example finished!\n\r ");
+    PRINTF("\r\n FLEXIO_I2S interrupt example finished!\n\r ");
 
     while (1)
     {

@@ -279,7 +279,7 @@ void main(void)
 
     CLOCK_AttachClk(kMAIN_CLK_to_SDIO_CLK);
 
-    PRINTF("Multi-peripheral Test!\r\n\n");
+    PRINTF("Multi-peripheral Test!\r\n\r\n");
     g_errorEvent = xEventGroupCreate();
 
     rtc_init();

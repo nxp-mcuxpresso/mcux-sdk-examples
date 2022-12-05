@@ -260,7 +260,7 @@ bool logger_log(component_id_t id, unsigned int level, const char *filename, con
     vprintf(fmt, args);
     va_end(args);
 
-    printf("\n");
+    printf("\r\n");
     return true;
 }
 #else

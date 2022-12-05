@@ -51,7 +51,7 @@ void DSPI_SlaveUserCallback(SPI_Type *base, dspi_slave_edma_handle_t *handle, st
 {
     if (status == kStatus_Success)
     {
-        PRINTF("This is DSPI slave edma transfer completed callback. \r\n\r\n");
+        PRINTF("This is DSPI slave edma transfer completed callback.\r\n\r\n");
     }
 
     isTransferCompleted = true;
@@ -142,7 +142,7 @@ int main(void)
         /* Slave start receive */
         if (kStatus_Success != DSPI_SlaveTransferEDMA(EXAMPLE_DSPI_SLAVE_BASEADDR, &g_dspi_edma_s_handle, &slaveXfer))
         {
-            PRINTF("There is error when start DSPI_SlaveTransferEDMA \r\n");
+            PRINTF("There is error when start DSPI_SlaveTransferEDMA\r\n");
         }
 
         while (!isTransferCompleted)
@@ -159,7 +159,7 @@ int main(void)
         /* Slave start send */
         if (kStatus_Success != DSPI_SlaveTransferEDMA(EXAMPLE_DSPI_SLAVE_BASEADDR, &g_dspi_edma_s_handle, &slaveXfer))
         {
-            PRINTF("There is error when start DSPI_SlaveTransferEDMA \r\n");
+            PRINTF("There is error when start DSPI_SlaveTransferEDMA\r\n");
         }
 
         while (!isTransferCompleted)

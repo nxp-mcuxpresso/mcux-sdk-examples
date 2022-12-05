@@ -515,7 +515,7 @@ UINT  interface_index;
     server_ip.nxd_ip_version = NX_IP_VERSION_V4;
     server_ip.nxd_ip_address.v4 = nx_iperf_test_ip -> nx_ip_interface[0].nx_interface_ip_address;
     status += htmlwrite(resp_packet_ptr, nx_iperf_get_ip_addr_string(&server_ip, &length), length);
-    status += htmlwrite(resp_packet_ptr, "\n", sizeof("\n") - 1);
+    status += htmlwrite(resp_packet_ptr, "\r\n", sizeof("\r\n") - 1);
 #endif
 
 #ifdef FEATURE_NX_IPV6
@@ -529,7 +529,7 @@ UINT  interface_index;
         if (nxd_ipv6_address_get(nx_iperf_test_ip, address_index, &server_ip, &prefix_length, &interface_index) == NX_SUCCESS)
         {
             status += htmlwrite(resp_packet_ptr, nx_iperf_get_ip_addr_string(&server_ip, &length), length);
-            status += htmlwrite(resp_packet_ptr, "\n", sizeof("\n") - 1);
+            status += htmlwrite(resp_packet_ptr, "\r\n", sizeof("\r\n") - 1);
             address_index++;
         }
         else
@@ -2443,4 +2443,3 @@ UINT status;
     }
     return;
 }
-

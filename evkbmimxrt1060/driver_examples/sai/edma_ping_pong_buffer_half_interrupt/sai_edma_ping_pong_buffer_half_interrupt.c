@@ -254,7 +254,7 @@ int main(void)
     GPIO_PinWrite(DEMO_CODEC_POWER_GPIO, DEMO_CODEC_POWER_GPIO_PIN, 1U);
 #endif
 
-    PRINTF("SAI EDMA Ping Pong Buffer Half Interrupt example started!\n\r");
+    PRINTF("SAI EDMA Ping Pong Buffer Half Interrupt example started!\r\n");
 
     memcpy(buffer, music, BUFFER_NUM * BUFFER_SIZE);
     s_playIndex = BUFFER_NUM * BUFFER_SIZE;
@@ -346,7 +346,7 @@ int main(void)
 
     /* Once transfer finish, disable SAI instance. */
     SAI_Deinit(DEMO_SAI);
-    PRINTF("\n\rSAI EDMA Ping Pong Buffer Half Interrupt example finished!\n\r ");
+    PRINTF("\r\nSAI EDMA Ping Pong Buffer Half Interrupt example finished!\n\r ");
     while (1)
     {
     }

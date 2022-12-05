@@ -119,7 +119,7 @@ int main(void)
     BOARD_InitBootPins();
     BOARD_BootClockPLL180M();
     BOARD_InitDebugConsole();
-    PRINTF("SPIFI flash polling example started \r\n");
+    PRINTF("SPIFI flash polling example started\r\n");
     /* Set SPIFI clock source */
     CLOCK_AttachClk(kFRO_HF_to_SPIFI_CLK);
     sourceClockFreq = CLOCK_GetFroHfFreq();

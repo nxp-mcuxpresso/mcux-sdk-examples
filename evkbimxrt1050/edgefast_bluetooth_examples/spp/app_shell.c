@@ -78,7 +78,7 @@ SHELL_COMMAND_DEFINE(bt,
 /* spp command */
 SHELL_COMMAND_DEFINE(spp,
                      "\r\n\"spp\": SPP related function\r\n"
-                     "  USAGE: \r\n"
+                     "  USAGE:\r\n"
                      "    spp handle                display active spp handle list\r\n"
                      "    spp switch <hanlde>       switch spp handle\r\n"
                      "    spp register <cid>        register a spp server channel(cid)\r\n"

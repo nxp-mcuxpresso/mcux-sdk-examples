@@ -94,7 +94,7 @@ static int __scan_cb(unsigned int count)
         if (res.ssid[0])
             PRINTF(" \"%s\"\r\n", res.ssid);
         else
-            PRINTF(" (hidden) \r\n");
+            PRINTF(" (hidden)\r\n");
 
         PRINTF("\tchannel: %d\r\n", res.channel);
         PRINTF("\trssi: -%d dBm\r\n", res.rssi);

@@ -114,7 +114,7 @@ int main(void)
     BOARD_InitBootClocks(); /* Boot up FROHF96M for SPIFI to use*/
     BOARD_InitBootClocks(); /* Core clock boot to 220Mhz*/
     BOARD_InitDebugConsole();
-    PRINTF("SPIFI flash polling example started \r\n");
+    PRINTF("SPIFI flash polling example started\r\n");
     /* Set SPIFI clock source */
     CLOCK_AttachClk(kFRO_HF_to_SPIFI_CLK);
     sourceClockFreq = CLOCK_GetFroHfFreq();

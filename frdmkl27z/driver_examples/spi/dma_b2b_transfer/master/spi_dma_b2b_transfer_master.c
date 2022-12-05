@@ -60,7 +60,7 @@ int main(void)
     BOARD_InitPins();
     BOARD_BootClockRUN();
     BOARD_InitDebugConsole();
-    PRINTF("\n\rMaster Start...\n\r");
+    PRINTF("\r\nMaster Start...\r\n");
 
     /* Init DMAMUX */
     DMAMUX_Init(EXAMPLE_DMAMUX);
@@ -114,12 +114,12 @@ int main(void)
         if (srcBuff[i] != destBuff[i])
         {
             err++;
-            PRINTF("The %d is wrong! data is %d\n\r", i, destBuff[i]);
+            PRINTF("The %d is wrong! data is %d\r\n", i, destBuff[i]);
         }
     }
     if (err == 0)
     {
-        PRINTF("Succeed!\n\r");
+        PRINTF("Succeed!\r\n");
     }
 
     while (1)

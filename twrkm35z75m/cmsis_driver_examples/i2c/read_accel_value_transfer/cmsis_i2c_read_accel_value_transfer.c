@@ -215,31 +215,31 @@ static bool I2C_ReadAccelWhoAmI(void)
             completionFlag = false;
             if (who_am_i_value == FXOS8700_WHOAMI)
             {
-                PRINTF("Found an FXOS8700 on board , the device address is 0x%x . \r\n", g_accel_addr_found);
+                PRINTF("Found an FXOS8700 on board , the device address is 0x%x .\r\n", g_accel_addr_found);
                 return true;
             }
             else if (who_am_i_value == MMA8451_WHOAMI)
             {
-                PRINTF("Found an MMA8451 on board , the device address is 0x%x . \r\n", g_accel_addr_found);
+                PRINTF("Found an MMA8451 on board , the device address is 0x%x .\r\n", g_accel_addr_found);
                 return true;
             }
             else
             {
                 PRINTF("Found a device, the WhoAmI value is 0x%x\r\n", who_am_i_value);
-                PRINTF("It's not MMA8451 or FXOS8700. \r\n");
-                PRINTF("The device address is 0x%x. \r\n", g_accel_addr_found);
+                PRINTF("It's not MMA8451 or FXOS8700.\r\n");
+                PRINTF("The device address is 0x%x.\r\n", g_accel_addr_found);
                 return false;
             }
         }
         else
         {
-            PRINTF("Not a successful i2c communication \r\n");
+            PRINTF("Not a successful i2c communication\r\n");
             return false;
         }
     }
     else
     {
-        PRINTF("\r\n Do not find an accelerometer device ! \r\n");
+        PRINTF("\r\n Do not find an accelerometer device !\r\n");
         return false;
     }
 }
@@ -329,12 +329,12 @@ int main(void)
 
     if (isThereAccel)
     {
-        PRINTF("Found MMA8491 on board, the device address is 0x%x. \r\n", g_mma8491_addr);
+        PRINTF("Found MMA8491 on board, the device address is 0x%x.\r\n", g_mma8491_addr);
         g_accel_addr_found = g_mma8491_addr;
     }
     else
     {
-        PRINTF("\r\nDo not find an accelerometer device ! \r\n");
+        PRINTF("\r\nDo not find an accelerometer device !\r\n");
     }
 #else
     /* For other sensors, check the type of the sensor */
@@ -409,7 +409,7 @@ int main(void)
             y             = ((int16_t)(((readBuff[3] * 256U) | readBuff[4]))) / 4U;
             z             = ((int16_t)(((readBuff[5] * 256U) | readBuff[6]))) / 4U;
 
-            PRINTF("status_reg = 0x%x , x = %5d , y = %5d , z = %5d \r\n", status0_value, x, y, z);
+            PRINTF("status_reg = 0x%x , x = %5d , y = %5d , z = %5d\r\n", status0_value, x, y, z);
         }
     }
 

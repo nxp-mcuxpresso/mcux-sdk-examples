@@ -47,7 +47,7 @@ uint8_t USB_DeviceMscDiskStorageInit(void)
     /* Init card. */
     if (SD_Init(usbDeviceMscSdcard))
     {
-        PRINTF("\n SD card init failed \n");
+        PRINTF("\r\nSD card init failed\r\n");
         error = kStatus_USB_Error;
     }
 

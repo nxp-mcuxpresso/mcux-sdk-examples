@@ -68,8 +68,8 @@ int main(void)
     BOARD_InitBootPins();
     BOARD_BootClockPLL180M();
     BOARD_InitDebugConsole();
-    PRINTF("\n\rThis is slave example for SPI half-duplex DMA transfer.");
-    PRINTF("\n\rSlave is working....\r\n");
+    PRINTF("\r\nThis is slave example for SPI half-duplex DMA transfer.");
+    PRINTF("\r\nSlave is working....\r\n");
 
     /* DMA init */
     DMA_Init(EXAMPLE_SPI_SLAVE_DMA_BASEADDR);

@@ -165,7 +165,7 @@ int main(void)
     /*Enable MCLK clock*/
     BOARD_EnableSaiMclkOutput(true);
 
-    PRINTF("SAI interrupt record playback example started!\n\r");
+    PRINTF("SAI interrupt record playback example started!\r\n");
 
     /* SAI init */
     SAI_Init(DEMO_SAI);

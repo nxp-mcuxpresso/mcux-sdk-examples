@@ -92,12 +92,12 @@ int main(void)
     PRINTF("SPI Master interrupt - FLEXIO SPI Slave interrupt example start.\r\n");
     PRINTF("This example use one spi instance as master and one flexio spi slave on one board.\r\n");
     PRINTF("Master and slave are both use interrupt way.\r\n");
-    PRINTF("Please make sure you make the correct line connection. Basically, the connection is: \r\n");
-    PRINTF("SPI_master -- FLEXIO_SPI_slave \r\n");
-    PRINTF("   SCK      --    SCK  \r\n");
-    PRINTF("   PCS0     --    PCS0 \r\n");
-    PRINTF("   MOSI     --    MOSI \r\n");
-    PRINTF("   MISO     --    MISO \r\n");
+    PRINTF("Please make sure you make the correct line connection. Basically, the connection is:\r\n");
+    PRINTF("SPI_master -- FLEXIO_SPI_slave\r\n");
+    PRINTF("   SCK      --    SCK\r\n");
+    PRINTF("   PCS0     --    PCS0\r\n");
+    PRINTF("   MOSI     --    MOSI\r\n");
+    PRINTF("   MISO     --    MISO\r\n");
 
     uint32_t srcClock_Hz;
     uint32_t errorCount;

@@ -181,7 +181,7 @@ int main(void)
     gpio_pin_config_t gpioConfig = {kGPIO_DigitalOutput, 1};
     GPIO_PinInit(DEMO_CODEC_MUTE_PIN, DEMO_CODEC_MUTE_PIN_NUM, &gpioConfig);
 
-    PRINTF("PDM SAI interrupt transfer example started!\n\r");
+    PRINTF("PDM SAI interrupt transfer example started!\r\n");
 
     memset(s_buffer, 0U, sizeof(s_buffer));
 

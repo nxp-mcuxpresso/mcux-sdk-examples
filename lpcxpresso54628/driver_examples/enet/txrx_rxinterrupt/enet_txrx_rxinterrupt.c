@@ -272,7 +272,7 @@ int main(void)
             }
             else
             {
-                PRINTF(" \r\nThe PHY link down!\r\n");
+                PRINTF("\r\nThe PHY link down!\r\n");
             }
         }
     }

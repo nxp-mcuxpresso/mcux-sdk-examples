@@ -204,13 +204,13 @@ static void ltc_example_task(void)
                          &g_ltcOutputFifoEdmaHandle);
 
     /* Print welcome string */
-    PRINTF("................ LTC (AES EDMA)  DRIVER  EXAMPLE ............................. \r\n\r\n");
+    PRINTF("................ LTC (AES EDMA)  DRIVER  EXAMPLE .............................\r\n\r\n");
 
     memset(&output[0], 0, OUTPUT_ARRAY_LEN);
     memset(&cipher[0], 0, OUTPUT_ARRAY_LEN);
     g_length = sizeof(aes_test_full) - 1u;
 
-    PRINTF("Testing input string: \r\n");
+    PRINTF("Testing input string:\r\n");
     ltc_print_msg(&aes_test_full[0], g_length);
     /* Format console output */
     PRINTF("\r\n");

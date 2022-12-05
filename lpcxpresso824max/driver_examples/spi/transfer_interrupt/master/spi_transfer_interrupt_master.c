@@ -60,8 +60,8 @@ int main(void)
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
-    PRINTF("This is SPI interrupt transfer master example.\n\r");
-    PRINTF("\n\rMaster start to send data to slave, please make sure the slave has been started!\n\r");
+    PRINTF("This is SPI interrupt transfer master example.\r\n");
+    PRINTF("\r\nMaster start to send data to slave, please make sure the slave has been started!\r\n");
 
     /* Initialize the SPI master with configuration. */
     EXAMPLE_SPIMasterInit();
@@ -135,13 +135,13 @@ static void EXAMPLE_TransferDataCheck(void)
     {
     }
 
-    PRINTF("\n\rThe received data are:");
+    PRINTF("\r\nThe received data are:");
     for (i = 0; i < BUFFER_SIZE; i++)
     {
         /* Print 16 numbers in a line */
         if ((i & 0x0FU) == 0U)
         {
-            PRINTF("\n\r");
+            PRINTF("\r\n");
         }
         PRINTF("  0x%02X", rxBuffer[i]);
         /* Check if data matched. */
@@ -153,10 +153,10 @@ static void EXAMPLE_TransferDataCheck(void)
 
     if (err == 0)
     {
-        PRINTF("\n\rMaster interrupt transfer succeed!\n\r");
+        PRINTF("\r\nMaster interrupt transfer succeed!\r\n");
     }
     else
     {
-        PRINTF("\n\rMaster interrupt transfer faild!\n\r");
+        PRINTF("\r\nMaster interrupt transfer faild!\r\n");
     }
 }

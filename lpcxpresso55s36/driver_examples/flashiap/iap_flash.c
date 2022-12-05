@@ -76,7 +76,7 @@ void error_trap(void)
 void app_finalize(void)
 {
     /* Print finished message. */
-    PRINTF("\r\n End of PFlash Example! \r\n");
+    PRINTF("\r\n End of PFlash Example!\r\n");
     while (1)
     {
     }
@@ -107,18 +107,18 @@ int main()
     memset(&s_flashDriver, 0, sizeof(flash_config_t));
 
     /* Print basic information for Flash Driver API.*/
-    PRINTF("\r\n Flash driver API tree demo application. \r\n");
+    PRINTF("\r\n Flash driver API tree demo application.\r\n");
     /* Initialize flash driver */
     PRINTF("\r\n Initializing flash driver.");
     if (FLASH_Init(&s_flashDriver) != kStatus_Success)
     {
         error_trap();
     }
-    PRINTF("\r\n Flash init successfull! \r\n");
+    PRINTF("\r\n Flash init successfull!\r\n");
 
     /* Adjust the clock cycle for accessing the flash memory according to the system clock. */
     systemFreqHz = CLOCK_GetFreq(kCLOCK_CoreSysClk);
-    PRINTF("\r\n Config flash memory access time. \r\n");
+    PRINTF("\r\n Config flash memory access time.\r\n");
     CLOCK_SetFLASHAccessCyclesForFreq(systemFreqHz);
 
     /* Set systick reload value to generate 1ms interrupt */
@@ -224,7 +224,7 @@ PFLASH_PAGE_INDEX = 2 means (the last page -1 )...
         }
     }
 
-    PRINTF("\r\n Successfully programmed and verified location: 0x%x -> 0x%x \r\n", destAdrss,
+    PRINTF("\r\n Successfully programmed and verified location: 0x%x -> 0x%x\r\n", destAdrss,
            (destAdrss + sizeof(s_buffer)));
 
     /* resume flash memory status */

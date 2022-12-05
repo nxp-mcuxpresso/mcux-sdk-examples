@@ -278,7 +278,7 @@ int main(void)
     CLOCK_SetRootMux(kCLOCK_RootI2c3, kCLOCK_I2cRootmuxSysPll1Div5); /* Set I2C source to SysPLL1 Div5 160MHZ */
     CLOCK_SetRootDivider(kCLOCK_RootI2c3, 1U, 10U);                  /* Set root clock to 160MHZ / 10 = 16MHZ */
 
-    PRINTF("PDM sai interrupt example started!\n\r");
+    PRINTF("PDM sai interrupt example started!\r\n");
 
     memset(txBuff, 0U, sizeof(txBuff));
 

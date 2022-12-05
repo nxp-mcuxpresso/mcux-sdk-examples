@@ -191,7 +191,7 @@ int main(void)
     PRINTF("\r\nTSI_V4 Low_Power_Modes Example Start!\r\n");
     /************ CALIBRATION PROCESS ************/
     PRINTF("Please don't touch the touchpad.\r\n");
-    PRINTF("Press anykey to start TSI low power example. \r\n");
+    PRINTF("Press anykey to start TSI low power example.\r\n");
     GETCHAR();
     PRINTF("Start calibartion....\r\n");
     memset((void *)&buffer, 0, sizeof(buffer));
@@ -199,7 +199,7 @@ int main(void)
     /* Print calibrated counter values */
     for (i = 0U; i < FSL_FEATURE_TSI_CHANNEL_COUNT; i++)
     {
-        PRINTF("Calibrated counters for channel %d is: %d \r\n", i, buffer.calibratedData[i]);
+        PRINTF("Calibrated counters for channel %d is: %d\r\n", i, buffer.calibratedData[i]);
     }
     /************ LOW POWER FUNCTIONS **********/
     /*
@@ -239,10 +239,10 @@ int main(void)
     while (1)
     {
         PRINTF("\r\nPlease input the mode you want to enter!\r\n");
-        PRINTF("0 ------>  STOP MODE \r\n");
-        PRINTF("1 ------>  VLPS MODE \r\n");
+        PRINTF("0 ------>  STOP MODE\r\n");
+        PRINTF("1 ------>  VLPS MODE\r\n");
 #if (defined(FSL_FEATURE_SMC_HAS_LOW_LEAKAGE_STOP_MODE) && FSL_FEATURE_SMC_HAS_LOW_LEAKAGE_STOP_MODE)
-        PRINTF("2 ------>  LLS  MODE \r\n");
+        PRINTF("2 ------>  LLS  MODE\r\n");
 #endif /* FSL_FEATURE_SMC_HAS_LLS_SUBMODE */
 #if (defined(FSL_FEATURE_SMC_HAS_VERY_LOW_LEAKAGE_STOP_MODE) && FSL_FEATURE_SMC_HAS_VERY_LOW_LEAKAGE_STOP_MODE)
         PRINTF("3 ------>  VLLS1 MODE\r\n");
@@ -253,7 +253,7 @@ int main(void)
         switch (usrInput)
         {
             case '0':
-                PRINTF("About to enter into STOP MODE! \r\n");
+                PRINTF("About to enter into STOP MODE!\r\n");
                 DelayMs(1U);
                 SMC_SetPowerModeStop(SMC, kSMC_PartialStop);
 
@@ -266,7 +266,7 @@ int main(void)
                 PRINTF("Great!!! You touched it!!!\r\n");
                 break;
             case '1':
-                PRINTF("About to enter into VLPS MODE! \r\n");
+                PRINTF("About to enter into VLPS MODE!\r\n");
                 DelayMs(1U);
                 SMC_SetPowerModeVlps(SMC);
 
@@ -280,7 +280,7 @@ int main(void)
                 break;
 #if (defined(FSL_FEATURE_SMC_HAS_LOW_LEAKAGE_STOP_MODE) && FSL_FEATURE_SMC_HAS_LOW_LEAKAGE_STOP_MODE)
             case '2':
-                PRINTF("About to enter into LLS MODE! \r\n");
+                PRINTF("About to enter into LLS MODE!\r\n");
                 PRINTF("Wakeup will lead to a interrupt flow, pay attention to it!!!\r\n");
                 DelayMs(1U);
                 LLWU_EnableInternalModuleInterruptWakup(s_llwuBases[0], LLWU_TSI_IDX, true);
@@ -302,7 +302,7 @@ int main(void)
 #endif /* FSL_FEATURE_SMC_HAS_LOW_LEAKAGE_STOP_MODE */
 #if (defined(FSL_FEATURE_SMC_HAS_VERY_LOW_LEAKAGE_STOP_MODE) && FSL_FEATURE_SMC_HAS_VERY_LOW_LEAKAGE_STOP_MODE)
             case '3':
-                PRINTF("About to enter into VLLS1 MODE! \r\n");
+                PRINTF("About to enter into VLLS1 MODE!\r\n");
                 PRINTF("Wakeup will lead to a reset flow, pay attention to it!!!\r\n");
                 LLWU_EnableInternalModuleInterruptWakup(s_llwuBases[0], LLWU_TSI_IDX, true);
                 SMC_SetPowerModeVlls(SMC, &vlls_config);
@@ -311,7 +311,7 @@ int main(void)
                 break;
 
             case '4':
-                PRINTF("About to enter into VLLS2 MODE! \r\n");
+                PRINTF("About to enter into VLLS2 MODE!\r\n");
                 PRINTF("Wakeup will lead to a reset flow, pay attention to it!!!\r\n");
                 LLWU_EnableInternalModuleInterruptWakup(s_llwuBases[0], LLWU_TSI_IDX, true);
                 vlls_config.subMode = kSMC_StopSub2;
@@ -321,7 +321,7 @@ int main(void)
                 break;
 
             case '5':
-                PRINTF("About to enter into VLLS3 MODE! \r\n");
+                PRINTF("About to enter into VLLS3 MODE!\r\n");
                 PRINTF("Wakeup will lead to a reset flow, pay attention to it!!!\r\n");
                 LLWU_EnableInternalModuleInterruptWakup(s_llwuBases[0], LLWU_TSI_IDX, true);
                 vlls_config.subMode = kSMC_StopSub3;

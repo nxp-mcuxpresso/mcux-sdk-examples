@@ -189,7 +189,7 @@ int main(void)
     gpio_pin_config_t gpioConfig = {kGPIO_DigitalOutput, 1};
     GPIO_PinInit(DEMO_CODEC_MUTE_PIN, DEMO_CODEC_MUTE_PIN_NUM, &gpioConfig);
 
-    PRINTF("PDM SAI sdma example started!\n\r");
+    PRINTF("PDM SAI sdma example started!\r\n");
 
     /* Create SDMA handle */
     SDMA_GetDefaultConfig(&dmaConfig);

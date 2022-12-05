@@ -143,7 +143,7 @@ static void master_task(void *pvParameters)
     status = LPSPI_RTOS_Init(&master_rtos_handle, EXAMPLE_LPSPI_MASTER_BASEADDR, &masterConfig, LPSPI_MASTER_CLK_FREQ);
     if (status != kStatus_Success)
     {
-        PRINTF("LPSPI master: error during initialization. \r\n");
+        PRINTF("LPSPI master: error during initialization.\r\n");
         vTaskSuspend(NULL);
     }
 

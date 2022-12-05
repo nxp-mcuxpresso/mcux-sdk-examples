@@ -110,7 +110,7 @@ int main(void)
     SysTick_Init();
 
     PRINTF("USB audio demo:\n");
-    /*PRINTF("build date: " __DATE__ " build time: " __TIME__ "\n");*/
+    /*PRINTF("build date: " __DATE__ " build time: " __TIME__ "\r\n");*/
     /*printf("processor frequency: %ldMHz\n", SystemCoreClock / 1000000);*/
 
 #if defined(LOWPOWEROPERATION)

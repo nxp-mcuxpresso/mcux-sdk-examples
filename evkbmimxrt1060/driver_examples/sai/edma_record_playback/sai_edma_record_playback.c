@@ -259,7 +259,7 @@ int main(void)
     GPIO_PinWrite(DEMO_CODEC_POWER_GPIO, DEMO_CODEC_POWER_GPIO_PIN, 1U);
 #endif
 
-    PRINTF("SAI example started!\n\r");
+    PRINTF("SAI example started!\r\n");
 
     /* Init DMA and create handle for DMA */
     EDMA_GetDefaultConfig(&dmaConfig);

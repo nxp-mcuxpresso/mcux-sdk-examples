@@ -282,7 +282,7 @@ static void flash_operation_task(void *pvParameters)
     {
         if (0xFF != nor_read_buffer[i])
         {
-            PRINTF("Erase data -  read out data value incorrect !\r\n ");
+            PRINTF("Erase data -  read out data value incorrect !\r\n");
             configASSERT(NULL);
         }
     }

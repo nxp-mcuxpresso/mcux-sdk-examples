@@ -181,13 +181,13 @@ int main(void)
     if ((sdramAddress == info.singleErrorAddress) && (uncorrectedData == info.singleErrorData) &&
         (bitPostion == info.singleErrorBitPos))
     {
-        PRINTF("Correcdted read data: 0x%x \r\n", correctedData);
-        PRINTF("Uncorrecdted read data: 0x%x \r\n", uncorrectedData);
-        PRINTF("Single error address: 0x%x \r\n", info.singleErrorAddress);
-        PRINTF("Single error read data: 0x%x \r\n", info.singleErrorData);
-        PRINTF("Single error ECC code: 0x%x \r\n", info.singleErrorEccCode);
-        PRINTF("Single error bit postion: 0x%x \r\n", info.singleErrorBitPos);
-        PRINTF("Single error bit field: 0x%x \r\n", info.singleErrorBitField);
+        PRINTF("Correcdted read data: 0x%x\r\n", correctedData);
+        PRINTF("Uncorrecdted read data: 0x%x\r\n", uncorrectedData);
+        PRINTF("Single error address: 0x%x\r\n", info.singleErrorAddress);
+        PRINTF("Single error read data: 0x%x\r\n", info.singleErrorData);
+        PRINTF("Single error ECC code: 0x%x\r\n", info.singleErrorEccCode);
+        PRINTF("Single error bit postion: 0x%x\r\n", info.singleErrorBitPos);
+        PRINTF("Single error bit field: 0x%x\r\n", info.singleErrorBitField);
     }
     else
     {

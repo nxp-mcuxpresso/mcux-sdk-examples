@@ -208,7 +208,7 @@ int main(void)
     /* enable codec power */
     GPIO_PinWrite(DEMO_CODEC_POWER_GPIO, DEMO_CODEC_POWER_GPIO_PIN, 1U);
 
-    PRINTF("SAI TDM record playback example started!\n\r");
+    PRINTF("SAI TDM record playback example started!\r\n");
 
     /* Init DMA and create handle for DMA */
     EDMA_GetDefaultConfig(&dmaConfig);

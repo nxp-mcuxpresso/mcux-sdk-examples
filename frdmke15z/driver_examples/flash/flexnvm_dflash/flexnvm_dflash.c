@@ -59,7 +59,7 @@ void error_trap(void)
 void app_finalize(void)
 {
     /* Print finished message. */
-    PRINTF("\r\n End of FlexNVM Dflash Example \r\n");
+    PRINTF("\r\n End of FlexNVM Dflash Example\r\n");
     while (1)
     {
     }
@@ -87,12 +87,12 @@ int main(void)
     memset(&s_flashDriver, 0, sizeof(flexnvm_config_t));
 
     /* print welcome message */
-    PRINTF("\r\n FlexNVM DFlash Example Start \r\n");
+    PRINTF("\r\n FlexNVM DFlash Example Start\r\n");
 
 #if defined(SIM_FCFG2_PFLSH_MASK)
     if (SIM->FCFG2 & SIM_FCFG2_PFLSH_MASK)
     {
-        PRINTF("\r\n Current device doesn't support FlexNVM feature \r\n");
+        PRINTF("\r\n Current device doesn't support FlexNVM feature\r\n");
         app_finalize();
     }
 #endif
@@ -222,7 +222,7 @@ int main(void)
             }
         }
 
-        PRINTF("\r\n Successfully Programmed and Verified Location 0x%x -> 0x%x \r\n", destAdrss,
+        PRINTF("\r\n Successfully Programmed and Verified Location 0x%x -> 0x%x\r\n", destAdrss,
                (destAdrss + sizeof(s_buffer)));
     }
 

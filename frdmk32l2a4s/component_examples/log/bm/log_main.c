@@ -134,8 +134,8 @@ static shell_status_t installbackendCommand(shell_handle_t shellHandle, int32_t 
         if (0 != strlen((char const *)s_logBackendString))
         {
             PRINTF(
-                "\r\nLOG backend type \"%s\" has been installed. \r\nThe demo cannot support two types "
-                "backend at the same time due to the same hardware is used. \r\nOtherwise the ouput of "
+                "\r\nLOG backend type \"%s\" has been installed.\r\nThe demo cannot support two types "
+                "backend at the same time due to the same hardware is used.\r\nOtherwise the ouput of "
                 "the two backends will be messed up.\r\nIf the new backend needs to be used, please"
                 " remove the old one by using command \"uninstallbackend %s\".\r\n",
                 s_logBackendString, s_logBackendString);

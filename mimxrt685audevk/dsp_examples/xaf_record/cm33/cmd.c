@@ -189,7 +189,7 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                 /* echo returns version info of key components*/
                 case SRTM_Command_ECHO:
                     PRINTF("Component versions from DSP:\r\n");
-                    PRINTF("Audio Framework version %d.%d \r\n", msg->param[0] >> 16, msg->param[0] & 0xFF);
+                    PRINTF("Audio Framework version %d.%d\r\n", msg->param[0] >> 16, msg->param[0] & 0xFF);
                     PRINTF("Audio Framework API version %d.%d\r\n", msg->param[1] >> 16, msg->param[1] & 0xFF);
                     PRINTF("NatureDSP Lib version %d.%d\r\n", msg->param[2] >> 16, msg->param[2] & 0xFF);
                     PRINTF("NatureDSP API version %d.%d\r\n", msg->param[3] >> 16, msg->param[3] & 0xFF);
@@ -198,7 +198,7 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                 case SRTM_Command_SYST:
                     break;
                 default:
-                    PRINTF("Incoming unknown message command %d from category %d \r\n", msg->head.command,
+                    PRINTF("Incoming unknown message command %d from category %d\r\n", msg->head.command,
                            msg->head.category);
             }
             break;
@@ -238,7 +238,7 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                     break;
 
                 default:
-                    PRINTF("Incoming unknown message category %d \r\n", msg->head.category);
+                    PRINTF("Incoming unknown message category %d\r\n", msg->head.category);
                     break;
             }
             break;

@@ -320,7 +320,7 @@ static void APP_Resume(lpm_power_mode_t targetMode, bool result)
 
     if (sc_pm_clock_enable(ipc, SC_R_M4_0_I2C, SC_PM_CLK_PER, true, false) != SC_ERR_NONE)
     {
-        PRINTF("Error: Failed to enable SC_R_M4_0_I2C clock \r\n");
+        PRINTF("Error: Failed to enable SC_R_M4_0_I2C clock\r\n");
     }
 
     /*LSIO_I2C_1*/
@@ -335,7 +335,7 @@ static void APP_Resume(lpm_power_mode_t targetMode, bool result)
 
     if (sc_pm_clock_enable(ipc, SC_R_I2C_1, SC_PM_CLK_PER, true, false) != SC_ERR_NONE)
     {
-        PRINTF("Error: Failed to enable SC_R_I2C_1 clock \r\n");
+        PRINTF("Error: Failed to enable SC_R_I2C_1 clock\r\n");
     }
 
     if (result && ((LPM_PowerModeLls == targetMode) || (LPM_PowerModeVlls == targetMode)))
@@ -620,9 +620,9 @@ static app_wakeup_source_t APP_WakeupSourceSelect(void)
     {
         PRINTF("Select the wake up source:\r\n");
         PRINTF("Press T for LPIT - Low Power Timer\r\n");
-        PRINTF("Press S for switch/button %s. \r\n", APP_WAKEUP_BUTTON_NAME);
-        PRINTF("Press C for CAN - %s. \r\n", APP_WAKEUP_CAN_NAME);
-        PRINTF("Press P for PAD - %s. \r\n", APP_WAKEUP_PAD_NAME);
+        PRINTF("Press S for switch/button %s.\r\n", APP_WAKEUP_BUTTON_NAME);
+        PRINTF("Press C for CAN - %s.\r\n", APP_WAKEUP_CAN_NAME);
+        PRINTF("Press P for PAD - %s.\r\n", APP_WAKEUP_PAD_NAME);
 
         PRINTF("\r\nWaiting for key press..\r\n\r\n");
 
@@ -935,7 +935,7 @@ static bool APP_LpmListener(lpm_power_mode_t curMode, lpm_power_mode_t newMode, 
 static lpm_power_mode_t APP_PowerModeSelect(void)
 {
     uint8_t ch;
-    PRINTF("\r\nSelect the desired operation \n\r\n");
+    PRINTF("\r\nSelect the desired operation\r\n\r\n");
     PRINTF("Press  %c to enter: RUN      - Normal RUN mode\r\n", kAPP_PowerModeRun);
     PRINTF("Press  %c to enter: WAIT     - Wait mode\r\n", kAPP_PowerModeWait);
     PRINTF("Press  %c to enter: STOP     - Stop mode\r\n", kAPP_PowerModeStop);
@@ -1024,9 +1024,9 @@ static void PowerModeSwitchTask(void *pvParameters)
     while (1)
     {
         freq = CLOCK_GetFreq(kCLOCK_CoreSysClk);
-        PRINTF("\r\n####################  Power Mode Switch Task ####################\n\r\n");
-        PRINTF("    Build Time: %s--%s \r\n", __DATE__, __TIME__);
-        PRINTF("    Core Clock: %dHz \r\n", freq);
+        PRINTF("\r\n####################  Power Mode Switch Task ####################\r\n\r\n");
+        PRINTF("    Build Time: %s--%s\r\n", __DATE__, __TIME__);
+        PRINTF("    Core Clock: %dHz\r\n", freq);
         curPowerState = ASMC_GetPowerModeState(CM4__ASMC);
         APP_ShowPowerMode(curPowerState);
 
@@ -1092,7 +1092,7 @@ int main(void)
 
     if (sc_pm_clock_enable(ipc, SC_R_M4_0_I2C, SC_PM_CLK_PER, true, false) != SC_ERR_NONE)
     {
-        PRINTF("Error: Failed to enable SC_R_M4_0_I2C clock \r\n");
+        PRINTF("Error: Failed to enable SC_R_M4_0_I2C clock\r\n");
     }
 
     RTN_ERR(sc_pm_set_resource_power_mode(ipc, SC_R_I2C_1, SC_PM_PW_MODE_ON));
@@ -1106,7 +1106,7 @@ int main(void)
 
     if (sc_pm_clock_enable(ipc, SC_R_I2C_1, SC_PM_CLK_PER, true, false) != SC_ERR_NONE)
     {
-        PRINTF("Error: Failed to enable SC_R_I2C_1 clock \r\n");
+        PRINTF("Error: Failed to enable SC_R_I2C_1 clock\r\n");
     }
 
     IRQSTEER_Init(IRQSTEER);

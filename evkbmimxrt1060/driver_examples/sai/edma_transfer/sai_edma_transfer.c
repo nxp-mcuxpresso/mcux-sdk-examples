@@ -268,7 +268,7 @@ int main(void)
     GPIO_PinWrite(DEMO_CODEC_POWER_GPIO, DEMO_CODEC_POWER_GPIO_PIN, 1U);
 #endif
 
-    PRINTF("SAI example started!\n\r");
+    PRINTF("SAI example started!\r\n");
 
     /* Create EDMA handle */
     /*
@@ -349,7 +349,7 @@ int main(void)
     /* Once transfer finish, disable SAI instance. */
     SAI_TransferAbortSendEDMA(DEMO_SAI, &txHandle);
     SAI_Deinit(DEMO_SAI);
-    PRINTF("\n\r SAI EDMA example finished!\n\r ");
+    PRINTF("\r\n SAI EDMA example finished!\n\r ");
     while (1)
     {
     }

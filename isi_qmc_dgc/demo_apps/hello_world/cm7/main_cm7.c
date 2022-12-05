@@ -67,7 +67,7 @@ int main(void)
     EnableIRQ(BOARD_DIG_IN3_IRQ);
     EnableIRQ(BOARD_SLOW_DIG_IN4_IRQ);
 
-    PRINTF("ISI QMC code started \r\n");
+    PRINTF("ISI QMC code started\r\n");
 
     SoftwareHandler();
 

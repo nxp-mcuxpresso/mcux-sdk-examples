@@ -306,7 +306,7 @@ int main(void)
      */
     IOMUXC_GPR->GPR28 &= (~IOMUXC_GPR_GPR28_AWCACHE_USDHC_MASK);
 
-    PRINTF("SAI Demo started!\n\r");
+    PRINTF("SAI Demo started!\r\n");
 
     /* Create EDMA handle */
     /*
@@ -372,7 +372,7 @@ int main(void)
     }
 #endif /* DEMO_SDCARD */
 
-    PRINTF("\n\rPlease choose the option :\r\n");
+    PRINTF("\r\nPlease choose the option :\r\n");
     while (1)
     {
         PRINTF("\r%d. Record and playback at same time\r\n", userItem++);
@@ -439,7 +439,7 @@ int main(void)
     {
         assert(false);
     }
-    PRINTF("\n\r SAI demo finished!\n\r ");
+    PRINTF("\r\n SAI demo finished!\n\r ");
     while (1)
     {
     }

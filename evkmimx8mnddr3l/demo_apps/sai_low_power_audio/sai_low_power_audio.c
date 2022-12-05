@@ -272,8 +272,8 @@ int main(void)
     gpio_pin_config_t gpioConfig = {kGPIO_DigitalOutput, 0};
     GPIO_PinInit(GPIO5, 21, &gpioConfig);
 
-    PRINTF("\r\n####################  LOW POWER AUDIO TASK ####################\n\r\n");
-    PRINTF("    Build Time: %s--%s \r\n", __DATE__, __TIME__);
+    PRINTF("\r\n####################  LOW POWER AUDIO TASK ####################\r\n\r\n");
+    PRINTF("    Build Time: %s--%s\r\n", __DATE__, __TIME__);
 
     APP_SRTM_Init();
 

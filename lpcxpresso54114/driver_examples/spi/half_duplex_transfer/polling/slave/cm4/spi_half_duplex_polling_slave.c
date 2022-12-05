@@ -62,8 +62,8 @@ int main(void)
     BOARD_InitPins();
     BOARD_BootClockPLL150M();
     BOARD_InitDebugConsole();
-    PRINTF("\n\rThis is slave example for SPI half-duplex polling transfer.\r\n");
-    PRINTF("\n\rSlave is working....\r\n");
+    PRINTF("\r\nThis is slave example for SPI half-duplex polling transfer.\r\n");
+    PRINTF("\r\nSlave is working....\r\n");
 
     /* Slave config */
     SPI_SlaveGetDefaultConfig(&slaveConfig);

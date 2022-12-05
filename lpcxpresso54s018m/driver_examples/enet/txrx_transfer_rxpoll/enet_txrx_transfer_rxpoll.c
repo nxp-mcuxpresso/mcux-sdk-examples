@@ -257,8 +257,8 @@ int main(void)
                 status = ENET_ReadFrame(EXAMPLE_ENET_BASE, &g_handle, data, length, 0, NULL);
                 if (status == kStatus_Success)
                 {
-                    PRINTF(" One frame received. the length %d \r\n", length);
-                    PRINTF(" Dest Address %02x:%02x:%02x:%02x:%02x:%02x Src Address %02x:%02x:%02x:%02x:%02x:%02x \r\n",
+                    PRINTF(" One frame received. the length %d\r\n", length);
+                    PRINTF(" Dest Address %02x:%02x:%02x:%02x:%02x:%02x Src Address %02x:%02x:%02x:%02x:%02x:%02x\r\n",
                            data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9],
                            data[10], data[11]);
                 }
@@ -328,7 +328,7 @@ int main(void)
             }
             else
             {
-                PRINTF(" \r\nThe PHY link down!\r\n");
+                PRINTF("\r\nThe PHY link down!\r\n");
             }
         }
     }

@@ -2289,7 +2289,7 @@ static err_t http_parse_request(struct pbuf *inp, struct http_state *hs, struct 
             {
                 sp1 = data + 3;
                 /* received GET request */
-                LWIP_DEBUGF(HTTPD_DEBUG | LWIP_DBG_TRACE, ("Received GET request\"\n"));
+                LWIP_DEBUGF(HTTPD_DEBUG | LWIP_DBG_TRACE, ("Received GET request\"\r\n"));
 #if LWIP_HTTPD_SUPPORT_POST
             }
             else if (!strncmp(data, "POST ", 5))
@@ -2306,7 +2306,7 @@ static err_t http_parse_request(struct pbuf *inp, struct http_state *hs, struct 
                 /* null-terminate the METHOD (pbuf is freed anyway wen returning) */
                 data[4] = 0;
                 /* unsupported method! */
-                LWIP_DEBUGF(HTTPD_DEBUG, ("Unsupported request method (not implemented): \"%s\"\n", data));
+                LWIP_DEBUGF(HTTPD_DEBUG, ("Unsupported request method (not implemented): \"%s\"\r\n", data));
                 return http_find_error_file(hs, 501);
             }
             /* if we come here, method is OK, parse URI */
@@ -2350,7 +2350,7 @@ static err_t http_parse_request(struct pbuf *inp, struct http_state *hs, struct 
                     /* null-terminate the METHOD (pbuf is freed anyway wen returning) */
                     *sp1         = 0;
                     uri[uri_len] = 0;
-                    LWIP_DEBUGF(HTTPD_DEBUG, ("Received \"%s\" request for URI: \"%s\"\n", data, uri));
+                    LWIP_DEBUGF(HTTPD_DEBUG, ("Received \"%s\" request for URI: \"%s\"\r\n", data, uri));
 #if LWIP_HTTPD_SUPPORT_POST
                     if (is_post)
                     {
@@ -2887,7 +2887,7 @@ static err_t http_recv(void *arg, struct tcp_pcb *pcb, struct pbuf *p, err_t err
 #endif /* LWIP_HTTPD_SUPPORT_POST */
                 {
                     LWIP_DEBUGF(HTTPD_DEBUG | LWIP_DBG_TRACE,
-                                ("http_recv: data %p len %" S32_F "\n", hs->file, hs->left));
+                                ("http_recv: data %p len %" S32_F "\r\n", hs->file, hs->left));
                     http_send(pcb, hs);
                 }
             }

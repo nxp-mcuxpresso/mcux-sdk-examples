@@ -191,7 +191,7 @@ int main(void)
     /* SAI bit clock source */
     AUDIOMIX_AttachClk(AUDIOMIX, kAUDIOMIX_Attach_SAI3_MCLK1_To_SAI3_ROOT);
 
-    PRINTF("SAI example started!\n\r");
+    PRINTF("SAI example started!\r\n");
 
     /* SAI init */
     SAI_Init(DEMO_SAI);
@@ -236,7 +236,7 @@ int main(void)
     {
     }
 
-    PRINTF("\n\r SAI example finished!\n\r ");
+    PRINTF("\r\n SAI example finished!\n\r ");
     while (1)
     {
     }

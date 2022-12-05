@@ -214,7 +214,7 @@ int main(void)
     GPIO_PinWrite(DEMO_CODEC_POWER_GPIO, DEMO_CODEC_POWER_GPIO_PIN, 1U);
     BOARD_SD_Config(&g_sd, NULL, BOARD_SDMMC_SD_HOST_IRQ, NULL);
 
-    PRINTF("\r\nSAI edma TDM example started.\n\r");
+    PRINTF("\r\nSAI edma TDM example started.\r\n");
 
     /* Create EDMA handle */
     /*
@@ -283,7 +283,7 @@ int main(void)
     leftWAVData = s_fileInfo.fsize - oneTimeRW;
     oneTimeRW   = BUFFER_SIZE;
 
-    PRINTF("\r\nStart play 8_TDM.wav file.\n\r");
+    PRINTF("\r\nStart play 8_TDM.wav file.\r\n");
 
     while (leftWAVData > BUFFER_SIZE)
     {

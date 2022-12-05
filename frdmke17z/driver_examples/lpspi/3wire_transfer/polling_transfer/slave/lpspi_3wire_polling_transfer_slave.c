@@ -46,14 +46,14 @@ void LPSPI_SlaveUserCallback(LPSPI_Type *base, lpspi_slave_handle_t *handle, sta
 {
     if (status == kStatus_Success)
     {
-        PRINTF(" This is LPSPI slave transfer completed callback. \r\n");
-        PRINTF(" It's a successful transfer. \r\n\r\n");
+        PRINTF(" This is LPSPI slave transfer completed callback.\r\n");
+        PRINTF(" It's a successful transfer.\r\n\r\n");
     }
 
     if (status == kStatus_LPSPI_Error)
     {
-        PRINTF(" This is LPSPI slave transfer completed callback. \r\n");
-        PRINTF(" Error occurred in this transfer. \r\n\r\n");
+        PRINTF(" This is LPSPI slave transfer completed callback.\r\n");
+        PRINTF(" Error occurred in this transfer.\r\n\r\n");
     }
 
     isTransferCompleted = true;

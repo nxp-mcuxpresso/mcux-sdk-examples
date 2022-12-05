@@ -113,7 +113,7 @@ int main(void)
     UART_TransferReceiveNonBlocking(DEMO_UART, &g_uartHandle, &g_receiveXfer, NULL);
 
     /* First send TRANSFER_SIZE byte of data without addressing itself first, these data should be discarded. */
-    PRINTF("UART will send first piece of data out:\n\r");
+    PRINTF("UART will send first piece of data out:\r\n");
     for (i = 0U; i < TRANSFER_SIZE; i++)
     {
         if (i % 8U == 0U)
@@ -133,10 +133,10 @@ int main(void)
     }
     txComplete = false;
     /* Address itself. */
-    PRINTF("UART will address itself\n\r");
+    PRINTF("UART will address itself\r\n");
     UART_SendAddress(DEMO_UART, EXAMPLE_ADDRESS);
     /* Then send the other TRANSFER_SIZE byte of data, these data should be received in g_rxBuffer. */
-    PRINTF("UART will send the other piece of data out:\n\r");
+    PRINTF("UART will send the other piece of data out:\r\n");
     for (i = TRANSFER_SIZE; i < TRANSFER_SIZE * 2U; i++)
     {
         if (i % 8U == 0U)
@@ -156,7 +156,7 @@ int main(void)
     }
 
     bool success = true;
-    PRINTF("UART received data:\n\r");
+    PRINTF("UART received data:\r\n");
     for (i = 0; i < TRANSFER_SIZE; i++)
     {
         if (i % 8U == 0U)
@@ -172,13 +172,13 @@ int main(void)
         if (g_rxBuffer[i + 1U] != g_txBuffer[i + TRANSFER_SIZE])
         {
             success = false;
-            PRINTF("Received data does not match!\n\r");
+            PRINTF("Received data does not match!\r\n");
             break;
         }
     }
     if (success)
     {
-        PRINTF("All data matches!\n\r");
+        PRINTF("All data matches!\r\n");
     }
 
     while (1)

@@ -216,7 +216,7 @@ int main(void)
     DMAMUX_SetSource(DMAMUX0, DEMO_ASRC_OUT_CHANNEL, DEMO_ASRC_OUT_DMAMUX_SOURCE);
     DMAMUX_EnableChannel(DMAMUX0, DEMO_ASRC_OUT_CHANNEL);
 
-    PRINTF("ASRC m2m edma example\n\r");
+    PRINTF("ASRC m2m edma example\r\n");
 
     /* Create EDMA handle */
     /*

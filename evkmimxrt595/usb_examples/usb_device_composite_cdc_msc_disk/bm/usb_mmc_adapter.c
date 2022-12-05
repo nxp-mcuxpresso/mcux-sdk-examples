@@ -50,7 +50,7 @@ uint8_t USB_DeviceMscDiskStorageInit(void)
     /* Init mmc. */
     if (MMC_Init(usbDeviceMscMmc))
     {
-        PRINTF("\n MMC init failed \n");
+        PRINTF("\r\nMMC init failed\r\n");
         error = kStatus_USB_Error;
     }
 

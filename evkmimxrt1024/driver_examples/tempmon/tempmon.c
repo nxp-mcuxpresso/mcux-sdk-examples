@@ -65,7 +65,7 @@ int main(void)
     BOARD_InitDebugConsole();
     EnableIRQ(DEMO_TEMP_LOW_HIGH_IRQn);
 
-    PRINTF("TEMPMON driver example. \r\n");
+    PRINTF("TEMPMON driver example.\r\n");
 
     TEMPMON_GetDefaultConfig(&config);
     config.frequency     = 0x03U;
@@ -78,7 +78,7 @@ int main(void)
     /* Get temperature */
     temperature = TEMPMON_GetCurrentTemperature(DEMO_TEMP_MONITOR);
 
-    PRINTF("The chip initial temperature is %.1f degrees celsius. \r\n", temperature);
+    PRINTF("The chip initial temperature is %.1f degrees celsius.\r\n", temperature);
 
     while (1)
     {
@@ -91,15 +91,15 @@ int main(void)
 
             if (0x01U == temperatureReachHighCount)
             {
-                PRINTF("The chip temperature has reached high temperature that is %.1f degrees celsius. \r\n",
+                PRINTF("The chip temperature has reached high temperature that is %.1f degrees celsius.\r\n",
                        temperature);
-                PRINTF("The chip throttling back core frequency to waiting a desired cool down temperature . \r\n");
+                PRINTF("The chip throttling back core frequency to waiting a desired cool down temperature .\r\n");
 
                 /* Set the core frequency into a lower frequency. */
                 CLOCK_SetDiv(DEMO_CLOCK_DIV, 0x07);
 
                 coreFrequency = CLOCK_GetFreq(DEMO_CLOCK_SOURCE);
-                PRINTF("The chip core frequency is %d Hz. \r\n", coreFrequency);
+                PRINTF("The chip core frequency is %d Hz.\r\n", coreFrequency);
 
                 /* Set low alarm temperature */
                 TEMPMON_SetTempAlarm(DEMO_TEMP_MONITOR, DEMO_LOW_ALARM_TEMP, kTEMPMON_LowAlarmMode);
@@ -114,15 +114,15 @@ int main(void)
 
             if (0x01U == temperatureReachLowCount)
             {
-                PRINTF("The chip temperature has reached low temperature that is %.1f degrees celsius. \r\n",
+                PRINTF("The chip temperature has reached low temperature that is %.1f degrees celsius.\r\n",
                        temperature);
-                PRINTF("The chip will return to the normal process . \r\n");
+                PRINTF("The chip will return to the normal process .\r\n");
 
                 /* Set the core frequency into a higher frequency. */
                 CLOCK_SetDiv(DEMO_CLOCK_DIV, 0x0);
 
                 coreFrequency = CLOCK_GetFreq(DEMO_CLOCK_SOURCE);
-                PRINTF("The chip core frequency is %d Hz. \r\n", coreFrequency);
+                PRINTF("The chip core frequency is %d Hz.\r\n", coreFrequency);
 
                 temperatureReachLowCount++;
             }

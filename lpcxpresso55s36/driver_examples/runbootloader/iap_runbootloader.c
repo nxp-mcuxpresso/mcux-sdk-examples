@@ -87,7 +87,7 @@ void error_trap(void)
 void app_fail(void)
 {
     /* Print finished message. */
-    PRINTF("\r\n Fail to run runBootloader Example! \r\n");
+    PRINTF("\r\n Fail to run runBootloader Example!\r\n");
     while (1)
     {
     }

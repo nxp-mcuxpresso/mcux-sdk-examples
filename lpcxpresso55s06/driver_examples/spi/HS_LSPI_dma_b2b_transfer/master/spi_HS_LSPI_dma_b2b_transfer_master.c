@@ -166,7 +166,7 @@ static void EXAMPLE_MasterStartDMATransfer(void)
 
     if (kStatus_Success != SPI_MasterTransferDMA(EXAMPLE_SPI_MASTER, &masterHandle, &masterXfer))
     {
-        PRINTF("There is an error when start SPI_MasterTransferDMA \r\n ");
+        PRINTF("There is an error when start SPI_MasterTransferDMA\r\n");
     }
 }
 
@@ -197,10 +197,10 @@ static void EXAMPLE_TransferDataCheck(void)
     }
     if (errorCount == 0)
     {
-        PRINTF("\r\nSPI transfer all data matched! \r\n");
+        PRINTF("\r\nSPI transfer all data matched!\r\n");
     }
     else
     {
-        PRINTF("\r\nError occurred in SPI transfer ! \r\n");
+        PRINTF("\r\nError occurred in SPI transfer !\r\n");
     }
 }

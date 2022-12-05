@@ -111,7 +111,7 @@ void BOARD_InitMem(void)
 /*Error trap function*/
 void ErrorTrap(void)
 {
-    PRINTF("\n\rError occurred. Please check the configurations.\n\r");
+    PRINTF("\r\nError occurred. Please check the configurations.\r\n");
     while (1)
     {
         ;

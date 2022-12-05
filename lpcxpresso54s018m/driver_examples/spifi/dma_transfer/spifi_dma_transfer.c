@@ -129,7 +129,7 @@ int main(void)
     BOARD_InitBootPins();
     BOARD_BootClockPLL180M();
     BOARD_InitDebugConsole();
-    PRINTF("SPIFI flash dma example started \r\n");
+    PRINTF("SPIFI flash dma example started\r\n");
 
     DMA_Init(EXAMPLE_DMA);
 

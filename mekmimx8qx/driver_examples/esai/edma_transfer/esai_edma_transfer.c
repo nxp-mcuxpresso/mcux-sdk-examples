@@ -251,7 +251,7 @@ int main(void)
 
     if (sc_pm_clock_enable(ipc, SC_R_I2C_1, SC_PM_CLK_PER, true, false) != SC_ERR_NONE)
     {
-        PRINTF("Error: Failed to enable SC_R_I2C_1 clock \r\n");
+        PRINTF("Error: Failed to enable SC_R_I2C_1 clock\r\n");
     }
 
     if (sc_pm_set_clock_rate(ipc, SC_R_I2C_1, SC_PM_CLK_PER, &src_rate) != SC_ERR_NONE)
@@ -343,7 +343,7 @@ int main(void)
     sc_pad_set(ipc, SC_P_COMP_CTL_GPIO_1V8_3V3_ENET_ENETB1, 0x400014a0);
     sc_pad_set(ipc, SC_P_COMP_CTL_GPIO_1V8_3V3_GPIORHB, 0x400514a0);
 
-    PRINTF("\r\nESAI EDMA example started! \r\n");
+    PRINTF("\r\nESAI EDMA example started!\r\n");
 
     /* Init codec */
     if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
@@ -406,7 +406,7 @@ int main(void)
     ESAI_TransferAbortReceiveEDMA(EXAMPLE_ESAI, &rxHandle);
     ESAI_TransferAbortSendEDMA(EXAMPLE_ESAI, &txHandle);
 
-    PRINTF("\r\nESAI EDMA example succeed! \r\n");
+    PRINTF("\r\nESAI EDMA example succeed!\r\n");
 
     while (1)
     {

@@ -74,8 +74,8 @@ int main(void)
     LED_RED_INIT(LOGIC_LED_ON);
 
     /* Print example information. */
-    PRINTF("This is SPI dma transfer slave example!\n\r");
-    PRINTF("\n\rSlave is working....\n\r");
+    PRINTF("This is SPI dma transfer slave example!\r\n");
+    PRINTF("\r\nSlave is working....\r\n");
 
     /* Initialize the slave SPI with configuration. */
     EXAMPLE_SlaveInit();
@@ -170,7 +170,7 @@ static void EXAMPLE_TransferDataCheck(void)
     {
     }
 
-    PRINTF("\n\rThe received data are:");
+    PRINTF("\r\nThe received data are:");
     /*Check if the data is right*/
     err = 0U;
     for (i = 0; i < BUFFER_SIZE; i++)
@@ -178,7 +178,7 @@ static void EXAMPLE_TransferDataCheck(void)
         /* Print 16 numbers in a line */
         if ((i & 0x0FU) == 0U)
         {
-            PRINTF("\n\r");
+            PRINTF("\r\n");
         }
         PRINTF("  0x%02X", rxBuffer[i]);
         /* Check if data matched. */
@@ -190,10 +190,10 @@ static void EXAMPLE_TransferDataCheck(void)
 
     if (err == 0)
     {
-        PRINTF("\n\rSlave DMA transfer succeed!\n\r");
+        PRINTF("\r\nSlave DMA transfer succeed!\r\n");
     }
     else
     {
-        PRINTF("\n\rSlave DMA transfer faild!\n\r");
+        PRINTF("\r\nSlave DMA transfer faild!\r\n");
     }
 }

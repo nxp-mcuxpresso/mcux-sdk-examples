@@ -45,11 +45,11 @@ int main(void)
     KEYMGR_Init(KEY_MANAGER);
 
     /* Select PUF for Master key and lock register for writing */
-    PRINTF("Select PUF for Master key and lock register for writing. \r\n");
+    PRINTF("Select PUF for Master key and lock register for writing.\r\n");
     status = KEYMGR_MasterKeyControll(KEY_MANAGER, KEYMGR_SEL_PUF, kKEYMGR_Lock);
     if (status != kStatus_Success)
     {
-        PRINTF("Error while Master Key controll. \r\n");
+        PRINTF("Error while Master Key controll.\r\n");
         return kStatus_Fail;
     }
 
@@ -57,7 +57,7 @@ int main(void)
     status = KEYMGR_GetDefaultConfig(&config);
     if (status != kStatus_Success)
     {
-        PRINTF("Error while getting default slot configuration. \r\n");
+        PRINTF("Error while getting default slot configuration.\r\n");
         return kStatus_Fail;
     }
 
@@ -69,15 +69,15 @@ int main(void)
     config.whiteList      = 0u;
 
     /* Set slot configuration */
-    PRINTF("Setting slot 0 (MASTER_KEY_CTRL register) configuration. \r\n");
+    PRINTF("Setting slot 0 (MASTER_KEY_CTRL register) configuration.\r\n");
     status = KEYMGR_SlotControl(KEY_MANAGER, &config, kKEYMGR_Slot0);
     if (status != kStatus_Success)
     {
-        PRINTF("Error while setting slot configuration. \r\n");
+        PRINTF("Error while setting slot configuration.\r\n");
         return kStatus_Fail;
     }
 
-    PRINTF("Example end. \r\n");
+    PRINTF("Example end.\r\n");
 
     while (1)
     {

@@ -115,7 +115,7 @@ int main(void)
     /* Print calibrated counter values */
     for (i = 0U; i < FSL_FEATURE_TSI_CHANNEL_COUNT; i++)
     {
-        PRINTF("Calibrated counters for channel %d is: %d \r\n", i, buffer.calibratedData[i]);
+        PRINTF("Calibrated counters for channel %d is: %d\r\n", i, buffer.calibratedData[i]);
     }
 
     /********** SOFTWARE TRIGGER SCAN USING POLLING METHOD ********/
@@ -128,7 +128,7 @@ int main(void)
     while (!(TSI_GetStatusFlags(APP_TSI) & kTSI_EndOfScanFlag))
     {
     }
-    PRINTF("Channel %d Normal mode counter is: %d \r\n", BOARD_TSI_ELECTRODE_1, TSI_GetCounter(APP_TSI));
+    PRINTF("Channel %d Normal mode counter is: %d\r\n", BOARD_TSI_ELECTRODE_1, TSI_GetCounter(APP_TSI));
 #if (defined(PAD_TSI_ELECTRODE_2_ENABLED) && PAD_TSI_ELECTRODE_2_ENABLED)
     TSI_ClearStatusFlags(APP_TSI, kTSI_EndOfScanFlag);
     TSI_SetSelfCapMeasuredChannel(APP_TSI, BOARD_TSI_ELECTRODE_2);
@@ -136,7 +136,7 @@ int main(void)
     while (!(TSI_GetStatusFlags(APP_TSI) & kTSI_EndOfScanFlag))
     {
     }
-    PRINTF("Channel %d Normal mode counter is: %d \r\n", BOARD_TSI_ELECTRODE_2, TSI_GetCounter(APP_TSI));
+    PRINTF("Channel %d Normal mode counter is: %d\r\n", BOARD_TSI_ELECTRODE_2, TSI_GetCounter(APP_TSI));
 #endif
     TSI_ClearStatusFlags(APP_TSI, kTSI_EndOfScanFlag | kTSI_OutOfRangeFlag);
 
@@ -150,14 +150,14 @@ int main(void)
     while (TSI_IsScanInProgress(APP_TSI))
     {
     }
-    PRINTF("Channel %d Normal mode counter is: %d \r\n", BOARD_TSI_ELECTRODE_1, TSI_GetCounter(APP_TSI));
+    PRINTF("Channel %d Normal mode counter is: %d\r\n", BOARD_TSI_ELECTRODE_1, TSI_GetCounter(APP_TSI));
 #if (defined(PAD_TSI_ELECTRODE_2_ENABLED) && PAD_TSI_ELECTRODE_2_ENABLED)
     TSI_SetSelfCapMeasuredChannel(APP_TSI, BOARD_TSI_ELECTRODE_2);
     TSI_StartSoftwareTrigger(APP_TSI);
     while (TSI_IsScanInProgress(APP_TSI))
     {
     }
-    PRINTF("Channel %d Normal mode counter is: %d \r\n", BOARD_TSI_ELECTRODE_2, TSI_GetCounter(APP_TSI));
+    PRINTF("Channel %d Normal mode counter is: %d\r\n", BOARD_TSI_ELECTRODE_2, TSI_GetCounter(APP_TSI));
 #endif
     /********** HARDWARE TRIGGER SCAN ********/
     PRINTF("\r\nNOW, comes to the hardware trigger scan method!\r\n");

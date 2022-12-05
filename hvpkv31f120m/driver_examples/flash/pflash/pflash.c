@@ -74,7 +74,7 @@ void error_trap(void)
 void app_finalize(void)
 {
     /* Print finished message. */
-    PRINTF("\r\n End of PFlash Example \r\n");
+    PRINTF("\r\n End of PFlash Example\r\n");
     while (1)
     {
     }
@@ -126,7 +126,7 @@ int main(void)
     FLASH_GetProperty(&s_flashDriver, kFLASH_PropertyPflash0SectorSize, &pflashSectorSize);
 
     /* print welcome message */
-    PRINTF("\r\n PFlash Example Start \r\n");
+    PRINTF("\r\n PFlash Example Start\r\n");
     /* Print flash information - PFlash. */
     PRINTF("\r\n PFlash Information: ");
     PRINTF("\r\n Total Program Flash Size:\t%d KB, Hex: (0x%x)", (pflashTotalSize / 1024), pflashTotalSize);
@@ -262,7 +262,7 @@ with width of 2 sectors ...
             }
         }
 
-        PRINTF("\r\n Successfully Programmed and Verified Location 0x%x -> 0x%x \r\n", destAddr,
+        PRINTF("\r\n Successfully Programmed and Verified Location 0x%x -> 0x%x\r\n", destAddr,
                (destAddr + sizeof(s_buffer)));
 
         /* Erase the context we have progeammed before*/

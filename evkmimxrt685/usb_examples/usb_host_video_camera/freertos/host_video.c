@@ -218,7 +218,7 @@ static void USB_HostVideoControlCallback(void *param, uint8_t *data, uint32_t da
     usb_host_video_camera_instance_t *videoInstance = (usb_host_video_camera_instance_t *)param;
     if (status != kStatus_USB_Success)
     {
-        usb_echo("data transfer error = %d , status \r\n");
+        usb_echo("data transfer error = %d , status\r\n");
         return;
     }
 
@@ -996,7 +996,7 @@ void USB_HostVideoTask(void *param)
             {
                 usb_echo(
                     "picture buffer malloc failed, please make sure the heap size is enough. If it is raw data now, "
-                    "please use other format like MJPEG \r\n");
+                    "please use other format like MJPEG\r\n");
                 videoAppInstance->runState     = kUSB_HostVideoRunIdle;
                 videoAppInstance->runWaitState = kUSB_HostVideoRunIdle;
                 return;

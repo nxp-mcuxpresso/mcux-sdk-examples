@@ -386,7 +386,7 @@ int main(void)
     BOARD_BootClockPLL150M();
     BOARD_InitDebugConsole();
 
-    PRINTF("PUFv3 driver example\n\r");
+    PRINTF("PUFv3 driver example\r\n");
 
     UnityBegin();
 

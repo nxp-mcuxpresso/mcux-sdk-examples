@@ -107,7 +107,7 @@ static bool I2C_example_readAccelWhoAmI(void)
 
     if (FLEXIO_I2C_MasterInit(&i2cDev, &masterConfig, FLEXIO_CLOCK_FREQUENCY) != kStatus_Success)
     {
-        PRINTF("FlexIO clock frequency exceeded upper range. \r\n");
+        PRINTF("FlexIO clock frequency exceeded upper range.\r\n");
         return false;
     }
 
@@ -162,18 +162,18 @@ static bool I2C_example_readAccelWhoAmI(void)
         switch (who_am_i_value)
         {
             case FXOS8700_WHOAMI:
-                PRINTF("Found a FXOS8700 on board, the device address is 0x%02X. \r\n", masterXfer.slaveAddress);
+                PRINTF("Found a FXOS8700 on board, the device address is 0x%02X.\r\n", masterXfer.slaveAddress);
                 result = true;
                 break;
             case MMA8451_WHOAMI:
-                PRINTF("Found a MMA8451 on board, the device address is 0x%02X. \r\n", masterXfer.slaveAddress);
+                PRINTF("Found a MMA8451 on board, the device address is 0x%02X.\r\n", masterXfer.slaveAddress);
                 result = true;
                 break;
             default:
 
                 PRINTF("Found a device, the WhoAmI value is 0x%02X\r\n", who_am_i_value);
-                PRINTF("It's not MMA8451 or FXOS8700. \r\n");
-                PRINTF("The device address is 0x%02X. \r\n", masterXfer.slaveAddress);
+                PRINTF("It's not MMA8451 or FXOS8700.\r\n");
+                PRINTF("The device address is 0x%02X.\r\n", masterXfer.slaveAddress);
                 result = false;
                 break;
         }
@@ -346,7 +346,7 @@ int main(void)
             y             = ((int16_t)(((readBuff[3] * 256U) | readBuff[4]))) / 4U;
             z             = ((int16_t)(((readBuff[5] * 256U) | readBuff[6]))) / 4U;
 
-            PRINTF("status_reg = 0x%x , x = %5d , y = %5d , z = %5d \r\n", status0_value, x, y, z);
+            PRINTF("status_reg = 0x%x , x = %5d , y = %5d , z = %5d\r\n", status0_value, x, y, z);
         }
     }
 

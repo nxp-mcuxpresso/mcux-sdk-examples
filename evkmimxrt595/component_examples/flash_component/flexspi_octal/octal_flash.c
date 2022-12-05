@@ -92,7 +92,7 @@ nor_config_t norConfig = {
 /*Error trap function*/
 void ErrorTrap(void)
 {
-    PRINTF("\n\rError Occured. Please check the configurations.\n\r");
+    PRINTF("\r\nError Occured. Please check the configurations.\r\n");
     while (1)
     {
         ;

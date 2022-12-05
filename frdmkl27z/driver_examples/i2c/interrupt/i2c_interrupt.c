@@ -263,7 +263,7 @@ int main(void)
         tmpslavedata  = g_slave_buff[i];
         if (tmpslavedata != tmpmasterdata)
         {
-            PRINTF("\r\nError occurred in this transfer ! \r\n");
+            PRINTF("\r\nError occurred in this transfer !\r\n");
             break;
         }
     }
@@ -333,7 +333,7 @@ int main(void)
         tmpslavedata  = g_slave_buff[i];
         if (tmpslavedata != tmpmasterdata)
         {
-            PRINTF("\r\nError occurred in the transfer ! \r\n");
+            PRINTF("\r\nError occurred in the transfer !\r\n");
             break;
         }
     }

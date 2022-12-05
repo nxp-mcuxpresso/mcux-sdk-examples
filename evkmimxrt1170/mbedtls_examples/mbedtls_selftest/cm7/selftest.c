@@ -508,7 +508,7 @@ int main(int argc, char *argv[])
     }
 
     if( v != 0 )
-        mbedtls_printf( "\n" );
+        mbedtls_printf( "\r\n" );
 #endif
 
 #if defined(MBEDTLS_SELF_TEST)
@@ -547,7 +547,7 @@ int main(int argc, char *argv[])
             }
             if( test->name == NULL )
             {
-                mbedtls_printf( "  Test suite %s not available -> failed\n\n", *argp );
+                mbedtls_printf( "  Test suite %s not available -> failed\r\n\r\n", *argp );
                 suites_failed++;
             }
         }
@@ -588,15 +588,15 @@ int main(int argc, char *argv[])
 
     if( v != 0 )
     {
-        mbedtls_printf( "  Executed %d test suites\n\n", suites_tested );
+        mbedtls_printf( "  Executed %d test suites\r\n\r\n", suites_tested );
 
         if( suites_failed > 0)
         {
-            mbedtls_printf( "  [ %d tests FAIL ]\n\n", suites_failed );
+            mbedtls_printf( "  [ %d tests FAIL ]\r\n\r\n", suites_failed );
         }
         else
         {
-            mbedtls_printf( "  [ All tests PASS ]\n\n" );
+            mbedtls_printf( "  [ All tests PASS ]\r\n\r\n" );
         }
 #if defined(_WIN32)
         mbedtls_printf( "  Press Enter to exit this program.\n" );
@@ -610,4 +610,3 @@ int main(int argc, char *argv[])
         PUTCHAR(ch);
     }
 }
-

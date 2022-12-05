@@ -167,7 +167,7 @@ int main(void)
     /* Use AUXPLL main clock source */
     CLOCK_SetIpSrcDiv(kCLOCK_Sai0, kCLOCK_IpSrcRtcAuxPllAsync, 1, 0);
 
-    PRINTF("SAI example started!\n\r");
+    PRINTF("SAI example started!\r\n");
 
     /* SAI init */
     SAI_Init(DEMO_SAI);
@@ -212,7 +212,7 @@ int main(void)
     {
     }
 
-    PRINTF("\n\r SAI example finished!\n\r ");
+    PRINTF("\r\n SAI example finished!\n\r ");
     while (1)
     {
     }

@@ -118,7 +118,7 @@ int main(void)
     cs42448Config.format.mclk_HZ                = CLOCK_GetMclkClkFreq();
     BOARD_SD_Config(&g_sd, NULL, BOARD_SDMMC_SD_HOST_IRQ, NULL);
 
-    PRINTF("\r\nI2S dma TDM example started.\n\r");
+    PRINTF("\r\nI2S dma TDM example started.\r\n");
 
     /* i2s configurations */
     /*
@@ -189,7 +189,7 @@ int main(void)
     leftWAVData = s_fileInfo.fsize - oneTimeRW;
     oneTimeRW   = PLAYBACK_BUFFER_SIZE;
 
-    PRINTF("\r\nStart play 8_TDM.wav file.\n\r");
+    PRINTF("\r\nStart play 8_TDM.wav file.\r\n");
 
     while (leftWAVData > PLAYBACK_BUFFER_SIZE)
     {

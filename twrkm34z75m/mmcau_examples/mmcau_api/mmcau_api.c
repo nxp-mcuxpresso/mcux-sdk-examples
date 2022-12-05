@@ -743,12 +743,12 @@ static void mmcau_example_task(void)
     int cycles;
 
     /* Print welcome string */
-    PRINTF("............................. MMCAU  DRIVER  EXAMPLE ............................. \r\n\r\n");
+    PRINTF("............................. MMCAU  DRIVER  EXAMPLE .............................\r\n\r\n");
     memset(&g_output[0], 0, OUTPUT_ARRAY_LEN);
     memset(&g_result[0], 0, OUTPUT_ARRAY_LEN);
     length = sizeof(g_testFull) - 1u;
 
-    PRINTF("Testing input string: \r\n");
+    PRINTF("Testing input string:\r\n");
     mmcau_print_msg(&g_testFull[0], length);
     /* Format console output */
     PRINTF("\r\n");
@@ -854,7 +854,7 @@ static void mmcau_example_task(void)
         cycles--;
     }
     time_config(false);
-    PRINTF("AES-128 CBC encryption & decryption finished. Sucess rate %f % \r\n", PassRate);
+    PRINTF("AES-128 CBC encryption & decryption finished. Sucess rate %f %\r\n", PassRate);
 #endif /* DEMO_MMCAU_PASS_RATE */
     PRINTF("----------------------------------- AES-192-CBC method --------------------------------------\r\n");
 
@@ -954,7 +954,7 @@ static void mmcau_example_task(void)
         cycles--;
     }
     time_config(false);
-    PRINTF("AES-192 CBC encryption & decryption finished. Sucess rate %f % \r\n", PassRate);
+    PRINTF("AES-192 CBC encryption & decryption finished. Sucess rate %f %\r\n", PassRate);
 #endif /* DEMO_MMCAU_PASS_RATE */
     PRINTF("----------------------------------- AES-256-CBC method --------------------------------------\r\n");
 
@@ -1052,7 +1052,7 @@ static void mmcau_example_task(void)
         cycles--;
     }
     time_config(false);
-    PRINTF("AES-256 CBC encryption & decryption finished. Sucess rate %f % \r\n", PassRate);
+    PRINTF("AES-256 CBC encryption & decryption finished. Sucess rate %f %\r\n", PassRate);
     PRINTF("\r\n");
 #endif /* DEMO_MMCAU_PASS_RATE */
 
@@ -1153,7 +1153,7 @@ static void mmcau_example_task(void)
     }
 
     time_config(false);
-    PRINTF("DES3 encryption & decryption finished. Sucess rate %f % \r\n", PassRate);
+    PRINTF("DES3 encryption & decryption finished. Sucess rate %f %\r\n", PassRate);
     PRINTF("\r\n");
 #endif /* DEMO_MMCAU_PASS_RATE */
 
@@ -1163,8 +1163,8 @@ static void mmcau_example_task(void)
     /*get string length*/
     length = sizeof(g_testSha);
     PRINTF("--------------------------------------- HASH ------------------------------------------\r\n");
-    PRINTF("Computing hash of %d bytes. \r\n", length);
-    PRINTF("Input string: \r\n");
+    PRINTF("Computing hash of %d bytes.\r\n", length);
+    PRINTF("Input string:\r\n");
     mmcau_print_msg((uint8_t *)&g_testSha[0], 43u /* length of the test string (without padding bits) */);
     PRINTF("\r\n");
 
@@ -1219,7 +1219,7 @@ static void mmcau_example_task(void)
         cycles--;
     }
     time_config(false);
-    PRINTF("SHA1 finished. Sucess rate %f % \r\n", PassRate);
+    PRINTF("SHA1 finished. Sucess rate %f %\r\n", PassRate);
     PRINTF("\r\n");
 #endif /* DEMO_MMCAU_PASS_RATE */
 
@@ -1270,7 +1270,7 @@ static void mmcau_example_task(void)
         cycles--;
     }
     time_config(false);
-    PRINTF("SHA256 finished. Sucess rate %f % \r\n", PassRate);
+    PRINTF("SHA256 finished. Sucess rate %f %\r\n", PassRate);
     PRINTF("\r\n");
 #endif /* DEMO_MMCAU_PASS_RATE */
 
@@ -1325,7 +1325,7 @@ static void mmcau_example_task(void)
         cycles--;
     }
     time_config(false);
-    PRINTF("MD5 finished. Sucess rate %f % \r\n", PassRate);
+    PRINTF("MD5 finished. Sucess rate %f %\r\n", PassRate);
     PRINTF("\r\n");
 #endif /* DEMO_MMCAU_PASS_RATE */
 

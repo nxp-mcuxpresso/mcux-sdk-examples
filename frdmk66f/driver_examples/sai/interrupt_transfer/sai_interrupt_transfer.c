@@ -129,7 +129,7 @@ int main(void)
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
-    PRINTF("SAI example started!\n\r");
+    PRINTF("SAI example started!\r\n");
 
     /* SAI init */
     SAI_Init(DEMO_SAI);
@@ -174,7 +174,7 @@ int main(void)
     {
     }
 
-    PRINTF("\n\r SAI example finished!\n\r ");
+    PRINTF("\r\n SAI example finished!\n\r ");
     while (1)
     {
     }

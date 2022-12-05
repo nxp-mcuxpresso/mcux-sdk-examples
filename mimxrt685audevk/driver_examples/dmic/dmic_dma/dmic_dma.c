@@ -125,7 +125,7 @@ int main(void)
     receiveXfer.dataAddrInterleaveSize = kDMA_AddressInterleave1xWidth;
     receiveXfer.dataWidth              = sizeof(DEMO_DMIC_DATA_WIDTH);
     receiveXfer.linkTransfer           = NULL;
-    PRINTF("Buffer Data before transfer \r\n");
+    PRINTF("Buffer Data before transfer\r\n");
     for (i = 0; i < BUFFER_LENGTH; i++)
     {
         PRINTF("%d\r\n", g_rxBuffer[i]);
@@ -138,7 +138,7 @@ int main(void)
     }
 
     PRINTF("Transfer completed\r\n");
-    PRINTF("Buffer Data after transfer \r\n");
+    PRINTF("Buffer Data after transfer\r\n");
     for (i = 0; i < BUFFER_LENGTH; i++)
     {
         PRINTF("%d\r\n", g_rxBuffer[i]);

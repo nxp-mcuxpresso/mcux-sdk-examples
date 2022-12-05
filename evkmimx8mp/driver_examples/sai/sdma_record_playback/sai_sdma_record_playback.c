@@ -203,7 +203,7 @@ int main(void)
     /* SAI bit clock source */
     AUDIOMIX_AttachClk(AUDIOMIX, kAUDIOMIX_Attach_SAI3_MCLK1_To_SAI3_ROOT);
 
-    PRINTF("SAI SDMA record playback example started!\n\r");
+    PRINTF("SAI SDMA record playback example started!\r\n");
     /* Create SDMA handle */
     SDMA_GetDefaultConfig(&dmaConfig);
 #ifdef SDMA_FREQ_EQUALS_ARM

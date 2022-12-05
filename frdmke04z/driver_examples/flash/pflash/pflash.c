@@ -67,7 +67,7 @@ void error_trap(void)
 void app_finalize(void)
 {
     /* Print finished message. */
-    PRINTF("\r\n End of PFlash Example \r\n");
+    PRINTF("\r\n End of PFlash Example\r\n");
     while (1)
     {
     }
@@ -112,7 +112,7 @@ int main(void)
     pflashSectorSize = s_flashDriver.PFlashSectorSize;
 
     /* print welcome message */
-    PRINTF("\r\n PFlash Example Start \r\n");
+    PRINTF("\r\n PFlash Example Start\r\n");
     /* Print flash information - PFlash. */
     PRINTF("\r\n PFlash Information: ");
     PRINTF("\r\n Total Program Flash Size:\t%d KB, Hex: (0x%x)", (pflashTotalSize / 1024), pflashTotalSize);
@@ -177,7 +177,7 @@ with width of 2 sectors ...
             error_trap();
         }
     }
-    PRINTF("\r\n Successfully Programmed and Verified Location 0x%x -> 0x%x \r\n", destAdrss,
+    PRINTF("\r\n Successfully Programmed and Verified Location 0x%x -> 0x%x\r\n", destAdrss,
            (destAdrss + sizeof(s_buffer)));
 
     FLASH_Erase(&s_flashDriver, destAdrss, pflashSectorSize, kFLASH_ApiEraseKey);

@@ -255,7 +255,7 @@ int main(void)
     IRQSTEER_EnableInterrupt(IRQSTEER, DMA_I2C1_INT_IRQn);
     IRQSTEER_EnableInterrupt(IRQSTEER, AUDIO_SAI1_INT_IRQn);
 
-    PRINTF("SAI example started!\n\r");
+    PRINTF("SAI example started!\r\n");
 
     /* SAI init */
     SAI_Init(DEMO_SAI);
@@ -292,7 +292,7 @@ int main(void)
     {
     }
 
-    PRINTF("\n\r SAI example finished!\n\r ");
+    PRINTF("\r\n SAI example finished!\n\r ");
     while (1)
     {
     }

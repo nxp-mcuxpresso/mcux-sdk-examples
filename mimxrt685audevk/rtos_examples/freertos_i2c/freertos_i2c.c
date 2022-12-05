@@ -202,18 +202,18 @@ static void slave_task(void *pvParameters)
 
     if (cb_msg.async_status == kStatus_Success)
     {
-        PRINTF("I2C slave transfer completed successfully. \r\n\r\n");
+        PRINTF("I2C slave transfer completed successfully.\r\n\r\n");
     }
     else
     {
-        PRINTF("I2C slave transfer completed with error. \r\n\r\n");
+        PRINTF("I2C slave transfer completed with error.\r\n\r\n");
     }
 
     for (uint32_t i = 0; i < I2C_DATA_LENGTH; i++)
     {
         if (g_slave_buff[i] != g_master_buff[i])
         {
-            PRINTF("\r\nError occurred in this transfer ! \r\n");
+            PRINTF("\r\nError occurred in this transfer !\r\n");
             break;
         }
     }
@@ -339,7 +339,7 @@ static void master_task(void *pvParameters)
     {
         if (g_slave_buff[i] != g_master_buff[i])
         {
-            PRINTF("\r\nError occurred in the transfer ! \r\n");
+            PRINTF("\r\nError occurred in the transfer !\r\n");
             break;
         }
     }

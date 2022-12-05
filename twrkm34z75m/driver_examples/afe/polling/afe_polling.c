@@ -111,6 +111,6 @@ int main(void)
         /* Read result conversion */
         result0 = (int32_t)AFE_GetChannelConversionValue(DEMO_AFE_BASEADDR, DEMO_AFE_CHANNEL);
         /* Print result */
-        PRINTF("AFE value  = %d \r\n", result0);
+        PRINTF("AFE value  = %d\r\n", result0);
     }
 }

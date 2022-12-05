@@ -241,7 +241,7 @@ int main(void)
             }
             else
             {
-                PRINTF(" \r\nTransmit frame failed!\r\n");
+                PRINTF("\r\nTransmit frame failed!\r\n");
             }
         }
     }

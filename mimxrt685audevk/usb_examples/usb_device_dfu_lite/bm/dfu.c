@@ -545,7 +545,7 @@ static usb_status_t USB_DeviceDfuUpLoadReqest(uint32_t *length, uint8_t **data)
         }
         else
         {
-            usb_echo("\nUploading firmware ...\n");
+            usb_echo("\r\nUploading firmware ...\n");
             s_UsbDeviceDfuDemo.dfuStatus->bState      = kState_DfuUpLoadIdle;
             s_UsbDeviceDfuDemo.dfuCurrentUploadLenght = 0U;
 
@@ -578,7 +578,7 @@ static usb_status_t USB_DeviceDfuUpLoadReqest(uint32_t *length, uint8_t **data)
         }
         else
         {
-            usb_echo("\nUploading firmware completed.\n");
+            usb_echo("\r\nUploading firmware completed.\n");
             *length = s_UsbDeviceDfuDemo.dfuFirmwareSize - s_UsbDeviceDfuDemo.dfuCurrentUploadLenght;
             for (i = 0U; i < *length; i++)
             {

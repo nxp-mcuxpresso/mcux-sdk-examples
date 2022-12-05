@@ -232,7 +232,7 @@ int main(void)
     GPIO_PinWrite(DEMO_CODEC_POWER_GPIO, DEMO_CODEC_POWER_GPIO_PIN, 1U);
 #endif
 
-    PRINTF("SAI interrupt record playback example started!\n\r");
+    PRINTF("SAI interrupt record playback example started!\r\n");
 
     /* SAI init */
     SAI_Init(DEMO_SAI);

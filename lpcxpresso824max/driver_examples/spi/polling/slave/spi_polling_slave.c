@@ -57,8 +57,8 @@ int main(void)
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
-    PRINTF("This is SPI polling transfer slave example.\n\r");
-    PRINTF("\n\rSlave is working....\n\r");
+    PRINTF("This is SPI polling transfer slave example.\r\n");
+    PRINTF("\r\nSlave is working....\r\n");
 
     /* Initialize the slave SPI with configuration. */
     EXAMPLE_SlaveInit();
@@ -126,13 +126,13 @@ static void EXAMPLE_TransferDataCheck(void)
     {
     }
 
-    PRINTF("\n\rThe received data are:");
+    PRINTF("\r\nThe received data are:");
     for (i = 0; i < BUFFER_SIZE; i++)
     {
         /* Print 16 numbers in a line */
         if ((i & 0x0FU) == 0U)
         {
-            PRINTF("\n\r");
+            PRINTF("\r\n");
         }
         PRINTF("  0x%02X", rxBuffer[i]);
         /* Check if data matched. */
@@ -144,10 +144,10 @@ static void EXAMPLE_TransferDataCheck(void)
 
     if (err == 0)
     {
-        PRINTF("\n\rSlave interrupt transfer succeed!\n\r");
+        PRINTF("\r\nSlave interrupt transfer succeed!\r\n");
     }
     else
     {
-        PRINTF("\n\rSlave interrupt transfer faild!\n\r");
+        PRINTF("\r\nSlave interrupt transfer faild!\r\n");
     }
 }

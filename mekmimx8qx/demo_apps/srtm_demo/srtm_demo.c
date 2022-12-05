@@ -92,8 +92,8 @@ static void WDOG32_Configure(uint16_t timeout)
 static void srtm_codec_demo(void *pvParameters)
 {
     char c;
-    PRINTF("\r\n####################  CODEC SRTM DEMO ####################\n\r\n");
-    PRINTF("    Build Time: %s--%s \n\r\n", __DATE__, __TIME__);
+    PRINTF("\r\n####################  CODEC SRTM DEMO ####################\r\n\r\n");
+    PRINTF("    Build Time: %s--%s\r\n\r\n", __DATE__, __TIME__);
     PRINTF("##########################################################\r\n");
 
     APP_SRTM_StartCommunication();
@@ -169,7 +169,7 @@ int main(void)
     }
     if (sc_pm_clock_enable(ipc, SC_R_I2C_1, SC_PM_CLK_PER, true, false) != SC_ERR_NONE)
     {
-        PRINTF("Error: Failed to enable SC_R_I2C_1 clock \r\n");
+        PRINTF("Error: Failed to enable SC_R_I2C_1 clock\r\n");
     }
 
     if (sc_pm_set_clock_rate(ipc, SC_R_I2C_1, SC_PM_CLK_PER, &src_rate) != SC_ERR_NONE)

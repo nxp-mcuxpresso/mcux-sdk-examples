@@ -73,7 +73,7 @@ void error_trap(void)
 void app_finalize(void)
 {
     /* Print finished message. */
-    PRINTF("\r\n End of internal flash example! \r\n");
+    PRINTF("\r\n End of internal flash example!\r\n");
     while (1)
     {
     }
@@ -101,7 +101,7 @@ int main()
     memset(&apiCoreCtx, 0, sizeof(apiCoreCtx));
 
     /* print welcome message */
-    PRINTF("\r\n Internal flash example start: \r\n");
+    PRINTF("\r\n Internal flash example start:\r\n");
 
     PRINTF("\r\n Calling API_Version!");
     standard_version_t iapVersion = API_Version();
@@ -163,7 +163,7 @@ int main()
     }
 
     /* Program user buffer into flash*/
-    PRINTF("\r\n Calling MEM_Write to program internal flash! \r\n");
+    PRINTF("\r\n Calling MEM_Write to program internal flash!\r\n");
     status = MEM_Write(&apiCoreCtx, destAddress, sizeof(s_buffer), (uint8_t *)s_buffer, kMemoryInternal);
     if (status != kStatus_Success)
     {
@@ -177,7 +177,7 @@ int main()
     status = memcmp(s_buffer, s_buffer_rbc, sizeof(s_buffer));
     if (status == kStatus_Success)
     {
-        PRINTF("\r\n Successfully Programmed and Verified Location 0x%x -> 0x%x \r\n", destAddress,
+        PRINTF("\r\n Successfully Programmed and Verified Location 0x%x -> 0x%x\r\n", destAddress,
                (destAddress + sizeof(s_buffer)));
     }
     else

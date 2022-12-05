@@ -269,7 +269,7 @@ int main(void)
 
         if (memcmp(s_hyperflash_program_buffer, s_hyperflash_read_buffer, sizeof(s_hyperflash_program_buffer)))
         {
-            PRINTF("Erase data -  read out data value incorrect !\r\n ");
+            PRINTF("Erase data -  read out data value incorrect !\r\n");
         }
 
         for (i = 0; i < sizeof(s_hyperflash_program_buffer); i++)
@@ -325,11 +325,11 @@ int main(void)
 
     if (errorFlag)
     {
-        PRINTF("FLEXSPI hyperflash example failed. \r\n ");
+        PRINTF("FLEXSPI hyperflash example failed.\r\n");
     }
     else
     {
-        PRINTF("FLEXSPI hyperflash example successfully. \r\n");
+        PRINTF("FLEXSPI hyperflash example successfully.\r\n");
     }
 
     while (1)

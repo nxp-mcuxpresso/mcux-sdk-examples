@@ -117,14 +117,14 @@ static void security_changed(struct bt_conn *conn, bt_security_t level, enum bt_
     {
         if (err == BT_SECURITY_ERR_PIN_OR_KEY_MISSING)
         {
-            PRINTF("\n");
+            PRINTF("\r\n");
 
             PRINTF("___________________________________________________________\n");
             PRINTF("The peer device seems to have lost the bonding information.\n");
             PRINTF("Kindly delete the bonding information of the peer from the\n");
-            PRINTF("and try again.\n\n");
+            PRINTF("and try again.\r\n\r\n");
 
-            PRINTF("\n");
+            PRINTF("\r\n");
         }
         PRINTF("Security failed: %s level %u err %d\n", addr, level, err);
     }

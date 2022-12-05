@@ -201,7 +201,7 @@ static app_wakeup_source_t APP_GetWakeupSource(void)
     {
         PRINTF("Select the wake up source:\r\n");
         PRINTF("Press T for LPTMR - Low Power Timer\r\n");
-        PRINTF("Press S for switch/button %s. \r\n", APP_WAKEUP_BUTTON_NAME);
+        PRINTF("Press S for switch/button %s.\r\n", APP_WAKEUP_BUTTON_NAME);
 
         PRINTF("\r\nWaiting for key press..\r\n\r\n");
 
@@ -488,7 +488,7 @@ int main(void)
         freq = CLOCK_GetFreq(kCLOCK_CoreSysClk);
 
         PRINTF("\r\n####################  Power Manager Demo ####################\n\r\n");
-        PRINTF("    Core Clock = %dHz \r\n", freq);
+        PRINTF("    Core Clock = %dHz\r\n", freq);
 
         APP_ShowPowerMode(currentPowerState);
 

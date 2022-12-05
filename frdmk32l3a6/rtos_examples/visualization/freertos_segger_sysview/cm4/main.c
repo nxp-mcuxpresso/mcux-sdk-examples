@@ -123,7 +123,7 @@ static void first_task(void *pvParameters)
         vTaskSuspend(NULL);
     }
 
-    PRINTF("RTT block address is: 0x%x \r\n", &_SEGGER_RTT);
+    PRINTF("RTT block address is: 0x%x\r\n", &_SEGGER_RTT);
 
     /* dummy code, print counter and delay */
     for (int counter = 0;; counter++)

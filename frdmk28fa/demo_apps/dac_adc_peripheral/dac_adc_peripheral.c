@@ -103,7 +103,7 @@ int main(void)
                 DAC_SetBufferValue(BOARD_DAC_PERIPHERAL, 0U, DAC_3_0_VOLTS);
                 break;
             default:
-                PRINTF("\r\nPlease input a valid number: 1-5 \r\n");
+                PRINTF("\r\nPlease input a valid number: 1-5\r\n");
                 break;
         }
 

@@ -174,7 +174,7 @@ int main(void)
     CLOCK_SetRootClockMux(kCLOCK_Root_Mic, 6);
     CLOCK_SetRootClockDiv(kCLOCK_Root_Mic, 16);
 
-    PRINTF("PDM interrupt example started!\n\r");
+    PRINTF("PDM interrupt example started!\r\n");
 
     memset(txBuff, 0U, sizeof(txBuff));
 
@@ -208,7 +208,7 @@ int main(void)
 #endif
     }
 
-    PRINTF("PDM recieve data:\n\r");
+    PRINTF("PDM recieve data:\r\n");
     for (i = 0U; i < SAMPLE_COUNT; i++)
     {
         PRINTF("%6x ", txBuff[i]);

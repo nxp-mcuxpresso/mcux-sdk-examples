@@ -305,7 +305,7 @@ static void Init_Board_Sco_Audio(uint32_t samplingRate, UCHAR bitWidth)
 
     if (samplingRate > 0U)
     {
-        PRINTF("Init Audio SCO SAI and CODEC samplingRate :%d  bitWidth:%d \r\n", samplingRate, bitWidth);
+        PRINTF("Init Audio SCO SAI and CODEC samplingRate :%d  bitWidth:%d\r\n", samplingRate, bitWidth);
 
         /* Enable clock */
         src_clk_hz = BOARD_SwitchAudioFreq(samplingRate);
