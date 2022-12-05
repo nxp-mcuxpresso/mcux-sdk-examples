@@ -157,7 +157,7 @@ int main(void)
     gpio_pin_config_t gpioConfig = {kGPIO_DigitalOutput, 1};
     GPIO_PinInit(DEMO_CODEC_MUTE_PIN, DEMO_CODEC_MUTE_PIN_NUM, &gpioConfig);
 
-    PRINTF("ASRC peripheral to peripheral SDMA example.\n\r");
+    PRINTF("ASRC peripheral to peripheral SDMA example.\r\n");
 
     /* Create SDMA handle */
     SDMA_GetDefaultConfig(&dmaConfig);

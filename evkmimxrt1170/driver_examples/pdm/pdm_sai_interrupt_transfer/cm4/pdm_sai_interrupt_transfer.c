@@ -180,7 +180,7 @@ int main(void)
 
     BOARD_EnableSaiMclkOutput(true);
 
-    PRINTF("PDM SAI interrupt transfer example started!\n\r");
+    PRINTF("PDM SAI interrupt transfer example started!\r\n");
 
     memset(s_buffer, 0U, sizeof(s_buffer));
 

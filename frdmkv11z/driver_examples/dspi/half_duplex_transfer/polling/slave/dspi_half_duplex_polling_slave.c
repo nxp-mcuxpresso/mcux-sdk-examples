@@ -52,8 +52,8 @@ int main(void)
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
-    PRINTF("\n\rThis is slave example for DSPI half-duplex polling transfer.");
-    PRINTF("\n\rSlave is working....\r\n");
+    PRINTF("\r\nThis is slave example for DSPI half-duplex polling transfer.");
+    PRINTF("\r\nSlave is working....\r\n");
 
     /* Slave config */
     slaveConfig.whichCtar                  = kDSPI_Ctar0;

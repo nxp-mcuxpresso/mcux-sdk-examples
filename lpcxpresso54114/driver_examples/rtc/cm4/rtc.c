@@ -107,7 +107,7 @@ int main(void)
                date.minute, date.second);
 
         /* Get alarm time from user */
-        PRINTF("Please input the number of second to wait for alarm \r\n");
+        PRINTF("Please input the number of second to wait for alarm\r\n");
         PRINTF("The second must be positive value\r\n");
         do
         {

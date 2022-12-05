@@ -20,7 +20,7 @@ void nn_printf_uart(char * s)
 {
     char str[128] = {'0'};
     memcpy(str, s, 127);
-    PRINTF("%s \r\n", str);
+    PRINTF("%s\r\n", str);
 }
 
 //provide only for keil mdk

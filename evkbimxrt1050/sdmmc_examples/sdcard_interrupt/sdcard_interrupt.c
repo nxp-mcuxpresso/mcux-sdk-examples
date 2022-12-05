@@ -220,8 +220,8 @@ int main(void)
                     s_cardInserted = false;
                     PRINTF("\r\nCard removed\r\n");
                     PRINTF(
-                        "\r\nInput 'q' to quit read/write/erase process.\
-                \r\nInput other char to wait card re-insert.\r\n");
+                        "\r\nInput 'q' to quit read/write/erase process."
+                        "\r\nInput other char to wait card re-insert.\r\n");
                     ch = GETCHAR();
                     PUTCHAR(ch);
                 }
@@ -236,8 +236,8 @@ int main(void)
             else
             {
                 PRINTF(
-                    "\r\nInput 'q' to quit read/write/erase process.\
-                \r\nInput other char to read/write/erase data blocks again.\r\n");
+                    "\r\nInput 'q' to quit read/write/erase process."
+                    "\r\nInput other char to read/write/erase data blocks again.\r\n");
                 ch = GETCHAR();
                 PUTCHAR(ch);
                 if (ch == 'q')

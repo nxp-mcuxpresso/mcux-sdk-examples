@@ -70,11 +70,11 @@ int main(void)
     PRINTF("This example will use 3 wires for transmission.\r\n");
     PRINTF("For SPI master: MOSI pin is an I/O pin for master to transmit data or receive data.\r\n");
     PRINTF("For SPI slave: MISO pin is an I/O pin for slave to transmit data or receive data.\r\n");
-    PRINTF("Please make sure you make the correct line connection. Basically, the connection is: \r\n");
-    PRINTF(" SPI_master --  SPI_slave   \r\n");
-    PRINTF("   CLK      --    CLK  \r\n");
-    PRINTF("   PCS      --    PCS  \r\n");
-    PRINTF("   MOSI     --    MISO  \r\n");
+    PRINTF("Please make sure you make the correct line connection. Basically, the connection is:\r\n");
+    PRINTF(" SPI_master --  SPI_slave\r\n");
+    PRINTF("   CLK      --    CLK\r\n");
+    PRINTF("   PCS      --    PCS\r\n");
+    PRINTF("   MOSI     --    MISO\r\n");
 
     PRINTF("\r\nSPI master starts to transmit data to slave.\r\n");
     /* Init SPI master */
@@ -173,12 +173,12 @@ int main(void)
     {
         if (slaveRxBuff[i] != masterTxBuff[i])
         {
-            PRINTF("\r\nThe %d data is wrong, the data slave received is %d \r\n", i, slaveRxBuff[i]);
+            PRINTF("\r\nThe %d data is wrong, the data slave received is %d\r\n", i, slaveRxBuff[i]);
             err++;
         }
         if (slaveTxBuff[i] != masterRxBuff[i])
         {
-            PRINTF("\r\nThe %d data is wrong, the data master received is %d \r\n", i, masterRxBuff[i]);
+            PRINTF("\r\nThe %d data is wrong, the data master received is %d\r\n", i, masterRxBuff[i]);
             err++;
         }
     }

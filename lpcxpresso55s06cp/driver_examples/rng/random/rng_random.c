@@ -69,7 +69,7 @@ int main(void)
 
     while (1)
     {
-        PRINTF("Generate %u-bit random number: \r\n", RNG_EXAMPLE_RANDOM_NUMBER_BITS);
+        PRINTF("Generate %u-bit random number:\r\n", RNG_EXAMPLE_RANDOM_NUMBER_BITS);
 
         /* Get Random data */
 
@@ -89,7 +89,7 @@ int main(void)
         PRINTF("\r\n");
 
         /* Print a note */
-        PRINTF(" Press any key to continue... \r\n\r\n");
+        PRINTF(" Press any key to continue...\r\n\r\n");
         GETCHAR();
     }
 }

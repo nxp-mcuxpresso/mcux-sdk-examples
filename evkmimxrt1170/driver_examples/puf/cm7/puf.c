@@ -185,7 +185,7 @@ int main(void)
 
 cleanup:
     PUF_Deinit(PUF, &conf);
-    PRINTF("\r\n\nExample end.\r\n");
+    PRINTF("\r\n\r\nExample end.\r\n");
 
     while (1)
     {

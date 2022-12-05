@@ -123,7 +123,7 @@ int main(void)
     gpio_pin_config_t gpioConfig = {kGPIO_DigitalOutput, 1};
     GPIO_PinInit(DEMO_CODEC_MUTE_PIN, DEMO_CODEC_MUTE_PIN_NUM, &gpioConfig);
 
-    PRINTF("ASRC memory to memory polling example.\n\r");
+    PRINTF("ASRC memory to memory polling example.\r\n");
 
     memset(s_asrcOutBuffer, 0U, sizeof(s_asrcOutBuffer));
 

@@ -123,7 +123,7 @@ int main(void)
     {
     }
     mutualCalibratedData[0] = TSI_GetCounter(APP_TSI);
-    PRINTF("Calibrated counters for mutual-cap pad %s is: %d \r\n", PAD_TSI_MUTUAL_CAP_1_NAME, mutualCalibratedData[0]);
+    PRINTF("Calibrated counters for mutual-cap pad %s is: %d\r\n", PAD_TSI_MUTUAL_CAP_1_NAME, mutualCalibratedData[0]);
 
     /********** SOFTWARE TRIGGER SCAN USING POLLING METHOD ********/
     PRINTF("\r\nNOW, comes to the software trigger scan using polling method!\r\n");
@@ -137,7 +137,7 @@ int main(void)
     while (!(TSI_GetStatusFlags(APP_TSI) & kTSI_EndOfScanFlag))
     {
     }
-    PRINTF("Mutual-cap pad %s Normal mode counter is: %d \r\n", PAD_TSI_MUTUAL_CAP_1_NAME, TSI_GetCounter(APP_TSI));
+    PRINTF("Mutual-cap pad %s Normal mode counter is: %d\r\n", PAD_TSI_MUTUAL_CAP_1_NAME, TSI_GetCounter(APP_TSI));
     TSI_ClearStatusFlags(APP_TSI, kTSI_EndOfScanFlag);
     TSI_ClearStatusFlags(APP_TSI, (uint32_t)kTSI_OutOfRangeFlag);
 
@@ -153,7 +153,7 @@ int main(void)
     while (TSI_IsScanInProgress(APP_TSI))
     {
     }
-    PRINTF("Mutual-cap pad %s Normal mode counter is: %d \r\n", PAD_TSI_MUTUAL_CAP_1_NAME, TSI_GetCounter(APP_TSI));
+    PRINTF("Mutual-cap pad %s Normal mode counter is: %d\r\n", PAD_TSI_MUTUAL_CAP_1_NAME, TSI_GetCounter(APP_TSI));
 
     /********** HARDWARE TRIGGER SCAN ********/
     PRINTF("\r\nNOW, comes to the hardware trigger scan method!\r\n");

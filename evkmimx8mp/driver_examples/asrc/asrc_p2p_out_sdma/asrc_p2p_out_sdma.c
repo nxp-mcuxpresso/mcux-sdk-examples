@@ -219,7 +219,7 @@ int main(void)
     CLOCK_SetRootMux(kCLOCK_RootI2c3, kCLOCK_I2cRootmuxSysPll1Div5); /* Set I2C source to SysPLL1 Div5 160MHZ */
     CLOCK_SetRootDivider(kCLOCK_RootI2c3, 1U, 10U);                  /* Set root clock to 160MHZ / 10 = 16MHZ */
 
-    PRINTF("ASRC peripheral to peripheral SDMA example.\n\r");
+    PRINTF("ASRC peripheral to peripheral SDMA example.\r\n");
 
     /* Create SDMA handle */
     SDMA_GetDefaultConfig(&dmaConfig);

@@ -25,7 +25,7 @@ component:
 - type_id: 'system_54b53072540eeeb8f8e9343e71f28176'
 - global_system_definitions:
   - user_definitions: '#define LITTLEFS_START_ADDR 0x800000\n'
-  - user_includes: '#include "lfs_mflash.h"\n'
+  - user_includes: '#include "lfs_mflash.h"\r\n'
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 

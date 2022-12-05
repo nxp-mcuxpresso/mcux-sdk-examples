@@ -137,7 +137,7 @@ int main(void)
     gpio_pin_config_t gpioConfig = {kGPIO_DigitalOutput, 1};
     GPIO_PinInit(DEMO_CODEC_MUTE_PIN, DEMO_CODEC_MUTE_PIN_NUM, &gpioConfig);
 
-    PRINTF("SAI SDMA example started!\n\r");
+    PRINTF("SAI SDMA example started!\r\n");
     /* Create SDMA handle */
     SDMA_GetDefaultConfig(&dmaConfig);
 #ifdef SDMA_FREQ_EQUALS_ARM
@@ -193,7 +193,7 @@ int main(void)
         assert(false);
     }
 
-    PRINTF("\n\r SAI SDMA example finished!\n\r ");
+    PRINTF("\r\n SAI SDMA example finished!\n\r ");
     while (1)
     {
     }

@@ -151,7 +151,7 @@ int main(void)
     {
         /* User can feed WDG in their main thread. */
         WDOG_Refresh(DEMO_WDOG_BASE);
-        PRINTF(" \r\nWDOG has be refreshed!");
+        PRINTF("\r\nWDOG has be refreshed!");
 
         /* Delay. */
         delay(SystemCoreClock);

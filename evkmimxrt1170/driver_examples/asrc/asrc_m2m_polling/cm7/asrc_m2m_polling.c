@@ -192,7 +192,7 @@ int main(void)
     /* ASRC baremental driver need non-4byte align access */
     SCB->CCR &= ~SCB_CCR_UNALIGN_TRP_Msk;
 
-    PRINTF("ASRC m2m polling example\n\r");
+    PRINTF("ASRC m2m polling example\r\n");
 
     /* SAI init */
     SAI_Init(DEMO_SAI);

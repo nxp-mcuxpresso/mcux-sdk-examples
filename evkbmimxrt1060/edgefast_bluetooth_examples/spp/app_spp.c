@@ -420,18 +420,18 @@ static void spp_data_received(struct bt_spp *spp, uint8_t *data, uint16_t len)
     current_spp_handle = index;
     PRINTF("SPP appl handle %d received %d data callback, dumped here:", current_spp_handle, len);
 
-    PRINTF("\n----------------CHAR DUMP-----------------------\n");
+    PRINTF("\r\n----------------CHAR DUMP-----------------------\n");
     for (index = 0; index < len; index++)
     {
         PRINTF("%c ", data[index]);
     }
-    PRINTF("\n----------------------------------------------------\n");
-    PRINTF("\n----------------HEX DUMP------------------------\n");
+    PRINTF("\r\n----------------------------------------------------\n");
+    PRINTF("\r\n----------------HEX DUMP------------------------\n");
     for (index = 0; index < len; index++)
     {
         PRINTF("%02X ", data[index]);
     }
-    PRINTF("\n----------------------------------------------------\n");
+    PRINTF("\r\n----------------------------------------------------\n");
 }
 
 static void spp_data_sent(struct bt_spp *spp, uint8_t *data, uint16_t len)
@@ -445,13 +445,13 @@ static void spp_data_sent(struct bt_spp *spp, uint8_t *data, uint16_t len)
         return;
     }
 
-    PRINTF("\nSPP appl handle %d sent %d data callback, dumped here:", index, len);
-    PRINTF("\n----------------CHAR DUMP-----------------------\n");
+    PRINTF("\r\nSPP appl handle %d sent %d data callback, dumped here:", index, len);
+    PRINTF("\r\n----------------CHAR DUMP-----------------------\n");
     for (index = 0; index < len; index++)
     {
         PRINTF("%c ", data[index]);
     }
-    PRINTF("\n-----------------------------------------------------\n");
+    PRINTF("\r\n-----------------------------------------------------\n");
 }
 
 static void spp_control(struct bt_spp_control *control, int error)
@@ -464,11 +464,11 @@ static void spp_control(struct bt_spp_control *control, int error)
         PRINTF("SPP appl callback on channel %d ", control->channel);
         if(BT_SPP_ROLE_SERVER == control->role)
         {
-            PRINTF("server: \n");
+            PRINTF("server:\r\n");
         }
         else
         {
-            PRINTF("client: \n");
+            PRINTF("client:\r\n");
         }
     }
     else
@@ -479,11 +479,11 @@ static void spp_control(struct bt_spp_control *control, int error)
         PRINTF("SPP appl callback on channel %d ", channel);
         if(BT_SPP_ROLE_SERVER == role)
         {
-            PRINTF("server: \n");
+            PRINTF("server:\r\n");
         }
         else
         {
-            PRINTF("client: \n");
+            PRINTF("client:\r\n");
         }
     }
 

@@ -132,7 +132,7 @@ int main(void)
     /* Set the PDM clock source in the audiomix */
     AUDIOMIX_AttachClk(AUDIOMIX, kAUDIOMIX_Attach_PDM_Root_to_CCM_PDM);
 
-    PRINTF("PDM sdma example started!\n\r");
+    PRINTF("PDM sdma example started!\r\n");
 
     memset(rxBuff, 0, sizeof(rxBuff));
 
@@ -165,7 +165,7 @@ int main(void)
     {
     }
 
-    PRINTF("PDM recieve two channel data:\n\r");
+    PRINTF("PDM recieve two channel data:\r\n");
     for (i = 0U; i < BUFFER_SIZE; i++)
     {
         PRINTF("%6x ", rxBuff[i]);

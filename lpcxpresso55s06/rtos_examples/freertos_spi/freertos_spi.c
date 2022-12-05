@@ -105,12 +105,12 @@ int main(void)
     PRINTF("FreeRTOS SPI example start.\r\n");
     PRINTF("This example use one SPI instance as master and another as slave on one board.\r\n");
     PRINTF("Master and slave are both use interrupt way.\r\n");
-    PRINTF("Please make sure you make the correct line connection. Basically, the connection is: \r\n");
-    PRINTF(" SPI_master -- SPI_slave   \r\n");
-    PRINTF("   SCK      --    SCK  \r\n");
-    PRINTF("   PCS%d     --    PCS%d \r\n", TRANSFER_MASTER_PCS, TRANSFER_SLAVE_PCS);
-    PRINTF("   SOUT     --    SIN  \r\n");
-    PRINTF("   SIN      --    SOUT \r\n");
+    PRINTF("Please make sure you make the correct line connection. Basically, the connection is:\r\n");
+    PRINTF(" SPI_master -- SPI_slave\r\n");
+    PRINTF("   SCK      --    SCK\r\n");
+    PRINTF("   PCS%d     --    PCS%d\r\n", TRANSFER_MASTER_PCS, TRANSFER_SLAVE_PCS);
+    PRINTF("   SOUT     --    SIN\r\n");
+    PRINTF("   SIN      --    SOUT\r\n");
 
     /* Initialize data in transfer buffers */
     for (i = 0; i < TRANSFER_SIZE; i++)
@@ -199,11 +199,11 @@ static void slave_task(void *pvParameters)
         xSemaphoreTake(cb_msg.sem, portMAX_DELAY);
         if (cb_msg.async_status == kStatus_SPI_Idle)
         {
-            PRINTF("SPI slave transfer completed successfully. \r\n");
+            PRINTF("SPI slave transfer completed successfully.\r\n");
         }
         else
         {
-            PRINTF("SPI slave transfer completed with error. \r\n");
+            PRINTF("SPI slave transfer completed with error.\r\n");
         }
 
         errorCount = 0;
@@ -251,7 +251,7 @@ static void master_task(void *pvParameters)
 
     if (status != kStatus_Success)
     {
-        PRINTF("SPI master: error during initialization. \r\n");
+        PRINTF("SPI master: error during initialization.\r\n");
         vTaskSuspend(NULL);
     }
 

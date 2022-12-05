@@ -292,7 +292,7 @@ int main(void)
     }
     else
     {
-        PRINTF("Decrypted data - successfully. \r\n");
+        PRINTF("Decrypted data - successfully.\r\n");
     }
 
     while (1)

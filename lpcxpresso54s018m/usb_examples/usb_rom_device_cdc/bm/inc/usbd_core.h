@@ -206,7 +206,7 @@ typedef struct USBD_API_INIT_PARAM
      *
      *  \note This event is not normally active - it must be manually enabled and disabled via the USB interrupt
      *        register.
-     *        \n\n
+     *        \r\n\r\n
      */
     USB_CB_T USB_SOF_Event;
 
@@ -220,7 +220,7 @@ typedef struct USBD_API_INIT_PARAM
      *  remote wake-up feature is enabled by host. To signal remote wake-up the device has to generate
      *  resume signaling on bus by calling usapi.hw->WakeUp() routine.
      *
-     *  \n\n
+     *  \r\n\r\n
      *  \param[in] hUsb Handle to the USB device stack.
      *  \param[in] param1 When 0 - Clear the wake-up configuration, 1 - Enable the wake-up configuration.
      *  \return The call back should return \ref ErrorCode_t type to indicate success or error condition.
@@ -233,7 +233,7 @@ typedef struct USBD_API_INIT_PARAM
     /** Event for error condition. This event fires when USB device controller detect
      *  an error condition in the system.
      *
-     *  \n\n
+     *  \r\n\r\n
      *  \param[in] hUsb Handle to the USB device stack.
      *  \param[in] param1 USB device interrupt status register.
      *  \return The call back should return \ref ErrorCode_t type to indicate success or error condition.

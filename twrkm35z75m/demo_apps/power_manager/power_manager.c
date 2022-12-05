@@ -280,7 +280,7 @@ static app_wakeup_source_t APP_GetWakeupSource(void)
     {
         PRINTF("Select the wake up source:\r\n");
         PRINTF("Press T for LPTMR - Low Power Timer\r\n");
-        PRINTF("Press S for switch/button %s. \r\n", APP_WAKEUP_BUTTON_NAME);
+        PRINTF("Press S for switch/button %s.\r\n", APP_WAKEUP_BUTTON_NAME);
 
         PRINTF("\r\nWaiting for key press..\r\n\r\n");
 
@@ -655,12 +655,12 @@ int main(void)
 
         freq = CLOCK_GetFreq(kCLOCK_CoreSysClk);
 
-        PRINTF("\r\n####################  Power Manager Demo ####################\n\r\n");
-        PRINTF("    Core Clock = %dHz \r\n", freq);
+        PRINTF("\r\n####################  Power Manager Demo ####################\r\n\r\n");
+        PRINTF("    Core Clock = %dHz\r\n", freq);
 
         APP_ShowPowerMode(currentPowerState);
 
-        PRINTF("\r\nSelect the desired operation \n\r\n");
+        PRINTF("\r\nSelect the desired operation\r\n\r\n");
         PRINTF("Press  %c for enter: RUN      - Normal RUN mode\r\n", kAPP_PowerModeRun);
         PRINTF("Press  %c for enter: WAIT     - Wait mode\r\n", kAPP_PowerModeWait);
         PRINTF("Press  %c for enter: STOP     - Stop mode\r\n", kAPP_PowerModeStop);

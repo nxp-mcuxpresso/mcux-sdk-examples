@@ -46,15 +46,15 @@ static shell_status_t shellCmd_ota(shell_handle_t shellHandle, int32_t argc, cha
  * Variables
  ******************************************************************************/
 
-SHELL_COMMAND_DEFINE(ls, "\n\"ls\": List files on SD card in the root directory\n", shellCmd_ls, 0);
+SHELL_COMMAND_DEFINE(ls, "\r\n\"ls\": List files on SD card in the root directory\n", shellCmd_ls, 0);
 
 SHELL_COMMAND_DEFINE(install,
-                     "\n\"install path\": Installs a candidate ota image at given path\n",
+                     "\r\n\"install path\": Installs a candidate ota image at given path\n",
                      shellCmd_install,
                      1);
 
 SHELL_COMMAND_DEFINE(ota,
-                     "\n\"ota action\": Execute one of possible OTA actions\n"
+                     "\r\n\"ota action\": Execute one of possible OTA actions\n"
                      "      status  - prints current OTA image status\n"
                      "      accept  - mark current primary image as permanent\n"
                      "      version - print primary image version\n"
@@ -441,7 +441,7 @@ int main(void)
     BOARD_SD_Config(&g_sd, NULL, BOARD_SDMMC_SD_HOST_IRQ_PRIORITY, NULL);
     mflash_drv_init();
 
-    PRINTF("\nOTA example with SD card and FATFS.\n");
+    PRINTF("\r\nOTA example with SD card and FATFS.\n");
 
     if (SD_HostInit(&g_sd) != kStatus_Success)
     {

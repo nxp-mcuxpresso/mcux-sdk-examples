@@ -41,14 +41,14 @@ void DSPI_SlaveUserCallback(SPI_Type *base, dspi_slave_handle_t *handle, status_
 {
     if (status == kStatus_Success)
     {
-        PRINTF("This is DSPI slave transfer completed callback. \r\n");
-        PRINTF("It's a successful transfer. \r\n\r\n");
+        PRINTF("This is DSPI slave transfer completed callback.\r\n");
+        PRINTF("It's a successful transfer.\r\n\r\n");
     }
 
     if (status == kStatus_DSPI_Error)
     {
-        PRINTF("This is DSPI slave transfer completed callback. \r\n");
-        PRINTF("Error occurred in this transfer. \r\n\r\n");
+        PRINTF("This is DSPI slave transfer completed callback.\r\n");
+        PRINTF("Error occurred in this transfer.\r\n\r\n");
     }
 
     isTransferCompleted = true;

@@ -102,36 +102,36 @@ static void PHDC_ManagerSetState(void *param, uint8_t state)
         {
             case IEEE11073_MANAGER_DISCONNECTED:
                 phdcManagerInstance->managerState = state;
-                usb_echo("\n\r11073Manager: Enter Disconnected state");
+                usb_echo("\r\n11073Manager: Enter Disconnected state");
                 break;
             case IEEE11073_MANAGER_CONNECTED_UNASSOCIATED:
                 phdcManagerInstance->managerState = state;
-                usb_echo("\n\r11073Manager: Enter Connected Unassociated state");
+                usb_echo("\r\n11073Manager: Enter Connected Unassociated state");
                 break;
             case IEEE11073_MANAGER_CONNECTED_ASSOCIATED_CONFIGURING_WAITING:
                 phdcManagerInstance->managerState = state;
-                usb_echo("\n\r11073Manager: Enter Associated Configuring Waiting state");
+                usb_echo("\r\n11073Manager: Enter Associated Configuring Waiting state");
                 break;
             case IEEE11073_MANAGER_CONNECTED_ASSOCIATED_CONFIGURING_CHECKING_CONFIG:
                 phdcManagerInstance->managerState = state;
-                usb_echo("\n\r11073Manager: Enter Associated Configuring Checking state");
+                usb_echo("\r\n11073Manager: Enter Associated Configuring Checking state");
                 break;
             case IEEE11073_MANAGER_CONNECTED_ASSOCIATED_OPERATING:
                 phdcManagerInstance->managerState = state;
-                usb_echo("\n\r11073Manager: Enter Associated Operating state");
+                usb_echo("\r\n11073Manager: Enter Associated Operating state");
                 break;
             case IEEE11073_MANAGER_DISASSOCIATING:
                 phdcManagerInstance->managerState = state;
-                usb_echo("\n\r11073Manager: Enter Disassociating state");
+                usb_echo("\r\n11073Manager: Enter Disassociating state");
                 break;
             default:
-                usb_echo("\n\r11073Manager: Error Invalid state");
+                usb_echo("\r\n11073Manager: Error Invalid state");
                 break;
         }
     }
     else
     {
-        usb_echo("\n\r11073Manager: Error Invalid request");
+        usb_echo("\r\n11073Manager: Error Invalid request");
     }
 }
 
@@ -251,7 +251,7 @@ static void PHDC_ManagerRecvAssociationRequest(void *param, aarq_apdu_t *associa
             }
         }
     }
-    usb_echo("\n\r11073Manager: Received Association request.");
+    usb_echo("\r\n11073Manager: Received Association request.");
     /* Send back association response to the device */
     PHDC_ManagerSendAssociationResponse(param, associationResponse);
 }
@@ -735,10 +735,10 @@ static void PHDC_ManagerRecvMdcNotiConfig(void *param, event_report_argument_sim
     /* initialize the configuration result */
     phdcManagerInstance->configResult = UNSUPPORTED_CONFIG;
 
-    usb_echo("\n\r11073Manager: Received a configuration event report.");
-    usb_echo("\n\r11073Manager: --------------------------------------------------");
-    usb_echo("\n\r11073Manager: Configuration Report Id: %d.", USB_SHORT_FROM_BIG_ENDIAN(configReport->configReportId));
-    usb_echo("\n\r11073Manager: Number of configuration Objects: %d.",
+    usb_echo("\r\n11073Manager: Received a configuration event report.");
+    usb_echo("\r\n11073Manager: --------------------------------------------------");
+    usb_echo("\r\n11073Manager: Configuration Report Id: %d.", USB_SHORT_FROM_BIG_ENDIAN(configReport->configReportId));
+    usb_echo("\r\n11073Manager: Number of configuration Objects: %d.",
              USB_SHORT_FROM_BIG_ENDIAN(configObjectList->count));
     if (IEEE11073_MANAGER_CONNECTED_ASSOCIATED_CONFIGURING_WAITING == phdcManagerInstance->managerState)
     {
@@ -758,7 +758,7 @@ static void PHDC_ManagerRecvMdcNotiConfig(void *param, event_report_argument_sim
                 (config_object_t *)(((uint8_t *)&configObjectList->value[0U]) + configOffset);
             attribute_list_t *attributeList = (attribute_list_t *)&configObject->attributes;
             uint16_t attributeOffset        = 0U;
-            usb_echo("\n\r11073Manager:  > Object Handle %d: Class = %d  Num Attributes = %d.",
+            usb_echo("\r\n11073Manager:  > Object Handle %d: Class = %d  Num Attributes = %d.",
                      USB_SHORT_FROM_BIG_ENDIAN(configObject->objectHandle),
                      USB_SHORT_FROM_BIG_ENDIAN(configObject->objectClass),
                      USB_SHORT_FROM_BIG_ENDIAN(attributeList->count));
@@ -767,7 +767,7 @@ static void PHDC_ManagerRecvMdcNotiConfig(void *param, event_report_argument_sim
             {
                 /* get attribute entry */
                 ava_type_t *attribute = (ava_type_t *)((uint8_t *)(&attributeList->value[0U]) + attributeOffset);
-                usb_echo("\n\r11073Manager:  > > Attribute%d: Id = ", j);
+                usb_echo("\r\n11073Manager:  > > Attribute%d: Id = ", j);
                 PHDC_ManagerPrintNomenclature(attribute->attributeId);
                 /* Seek to the next attribute entry in the attribute list */
                 attributeOffset += sizeof(attribute->attributeId) + sizeof(attribute->attributeValue.length) +
@@ -829,9 +829,9 @@ static void PHDC_ManagerRecvMdcNotiScanReportFixed(void *param, event_report_arg
         (observation_scan_fixed_list_t *)&scanReportInfoFixed->obsScanFixed;
     event_report_result_simple_t *eventResponse = NULL;
     uint16_t obsListOffset                      = 0U;
-    usb_echo("\n\r11073Manager: Received a MDC Noti Scan Report Fixed event.");
-    usb_echo("\n\r11073Manager: --------------------------------------------------");
-    usb_echo("\n\r11073Manager: Scan Report Number: %d  Number Observations: %d",
+    usb_echo("\r\n11073Manager: Received a MDC Noti Scan Report Fixed event.");
+    usb_echo("\r\n11073Manager: --------------------------------------------------");
+    usb_echo("\r\n11073Manager: Scan Report Number: %d  Number Observations: %d",
              USB_SHORT_FROM_BIG_ENDIAN(scanReportInfoFixed->scanReportNo),
              USB_SHORT_FROM_BIG_ENDIAN(obsScanFixedList->count));
 
@@ -855,21 +855,21 @@ static void PHDC_ManagerRecvMdcNotiScanReportFixed(void *param, event_report_arg
                     break;
                 default:
                     usb_echo(
-                        "\n\r11073Manager: The object class is not supported to print out obsScanFixed report : %d",
+                        "\r\n11073Manager: The object class is not supported to print out obsScanFixed report : %d",
                         configObject->objectClass);
                     break;
             }
         }
         else
         {
-            usb_echo("\n\r11073Manager: Cannot find the object for obsScanFixed report : %d",
+            usb_echo("\r\n11073Manager: Cannot find the object for obsScanFixed report : %d",
                      USB_SHORT_FROM_BIG_ENDIAN(obsScanFixed->objectHandle));
         }
         obsListOffset += sizeof(obsScanFixed->objectHandle) + sizeof(obsScanFixed->obsValData.length) +
                          USB_SHORT_FROM_BIG_ENDIAN(obsScanFixed->obsValData.length);
     }
-    usb_echo("\n\r11073Manager: --------------------------------------------------");
-    usb_echo("\n\r11073Manager: Send back MDC Noti Scan Fixed response.");
+    usb_echo("\r\n11073Manager: --------------------------------------------------");
+    usb_echo("\r\n11073Manager: Send back MDC Noti Scan Fixed response.");
     /* prepare response data */
     eventResponse               = (event_report_result_simple_t *)&s_tempBuffer[0U];
     eventResponse->objectHandle = eventReport->objectHandle;
@@ -926,7 +926,7 @@ static void PHDC_ManagerRecvMdcNotiScanReportFixedMetricNU(config_object_t *conf
                     /* MDC Attribute Numeric Value Observation */
                     nu_obs_value_t *observationValue =
                         (nu_obs_value_t *)&(observationValData->value[observationOffset]);
-                    usb_echo("\n\r11073Manager: Metric Id: ");
+                    usb_echo("\r\n11073Manager: Metric Id: ");
                     PHDC_ManagerPrintNomenclature(observationValue->metricId);
                     usb_echo(", unit code: ");
                     PHDC_ManagerPrintNomenclature(observationValue->unitCode);
@@ -936,7 +936,7 @@ static void PHDC_ManagerRecvMdcNotiScanReportFixedMetricNU(config_object_t *conf
                 break;
                 case MDC_ATTRIBUTE_NUMERIC_VALUE_OBSERVATION_SIMPLE:
                     /* MDC Attribute Numeric Value Observation Simple */
-                    usb_echo("\n\r11073Manager: Observation Value = ");
+                    usb_echo("\r\n11073Manager: Observation Value = ");
                     PHDC_ManagerPrintFloatValue(&(observationValData->value[observationOffset]));
                     /* The Unit code of observation value */
                     if (NULL != mdcAttributeUnitCode)
@@ -949,7 +949,7 @@ static void PHDC_ManagerRecvMdcNotiScanReportFixedMetricNU(config_object_t *conf
                     break;
                 case MDC_ATTRIBUTE_NUMERIC_VALUE_OBSERVATION_BASIC:
                     /* MDC Attribute Numeric Value Observation Basic */
-                    usb_echo("\n\r11073Manager: Observation Value = ");
+                    usb_echo("\r\n11073Manager: Observation Value = ");
                     PHDC_ManagerPrintSfloatValue(&(observationValData->value[observationOffset]));
                     /* The Unit code of observation value */
                     if (NULL != mdcAttributeUnitCode)
@@ -970,7 +970,7 @@ static void PHDC_ManagerRecvMdcNotiScanReportFixedMetricNU(config_object_t *conf
                     break;
                 case MDC_ATTRIBUTE_TIME_STAMP_ABSOLUTE:
                     /* MDC Attribute Time Stamp Absolute */
-                    usb_echo("\n\r11073Manager: Absolute Time Stamp = ");
+                    usb_echo("\r\n11073Manager: Absolute Time Stamp = ");
                     PHDC_ManagerPrintAbsoluteTimeStamp(&(observationValData->value[observationOffset]));
                     break;
                 default:
@@ -984,7 +984,7 @@ static void PHDC_ManagerRecvMdcNotiScanReportFixedMetricNU(config_object_t *conf
     }
     else
     {
-        usb_echo("\n\r11073Manager: Missing MDC_ATTRIBUTE_VALUE_MAP attribute to print the fixed observation");
+        usb_echo("\r\n11073Manager: Missing MDC_ATTRIBUTE_VALUE_MAP attribute to print the fixed observation");
     }
 }
 
@@ -1053,7 +1053,7 @@ static void PHDC_ManagerSendRorsCmipConfirmedEventReport(void *param, event_repo
  */
 static void PHDC_ManagerPrintObjectInformation(type_t *objectType)
 {
-    usb_echo("\n\r11073Manager: Object Type : ");
+    usb_echo("\r\n11073Manager: Object Type : ");
     PHDC_ManagerPrintNomenclature(objectType->code);
     usb_echo(", Partition: ");
     PHDC_ManagerPrintPartition(objectType->partition);
@@ -1123,9 +1123,9 @@ static void PHDC_ManagerRecvRorsCmipGet(void *param, get_result_simple_t *getRes
 {
     attribute_list_t *attributeList = (attribute_list_t *)&getResult->attributeList;
     uint16_t attributeOffset        = 0U;
-    usb_echo("\n\r11073Manager: Received a RORS_CMIP_GET_CHOSEN.");
-    usb_echo("\n\r11073Manager: --------------------------------------------------");
-    usb_echo("\n\r11073Manager: Number of attributes = %d", USB_SHORT_FROM_BIG_ENDIAN(attributeList->count));
+    usb_echo("\r\n11073Manager: Received a RORS_CMIP_GET_CHOSEN.");
+    usb_echo("\r\n11073Manager: --------------------------------------------------");
+    usb_echo("\r\n11073Manager: Number of attributes = %d", USB_SHORT_FROM_BIG_ENDIAN(attributeList->count));
 
     for (uint8_t i = 0U; i < USB_SHORT_FROM_BIG_ENDIAN(attributeList->count); i++)
     {
@@ -1141,37 +1141,37 @@ static void PHDC_ManagerRecvRorsCmipGet(void *param, get_result_simple_t *getRes
                     switch (USB_SHORT_FROM_BIG_ENDIAN(typeVer->type))
                     {
                         case MDC_DEV_SPEC_PROFILE_PULSE_OXIMETER:
-                            usb_echo("\n\r11073Manager: Type = Pulse Oximeter, Version = %d",
+                            usb_echo("\r\n11073Manager: Type = Pulse Oximeter, Version = %d",
                                      USB_SHORT_FROM_BIG_ENDIAN(typeVer->version));
                             break;
                         case MDC_DEV_SPEC_PROFILE_BLOOD_PRESSURE:
-                            usb_echo("\n\r11073Manager: Type = Blood Pressure, Version = %d",
+                            usb_echo("\r\n11073Manager: Type = Blood Pressure, Version = %d",
                                      USB_SHORT_FROM_BIG_ENDIAN(typeVer->version));
                             break;
                         case MDC_DEV_SPEC_PROFILE_THERMOMETER:
-                            usb_echo("\n\r11073Manager: Type = Thermometer, Version = %d",
+                            usb_echo("\r\n11073Manager: Type = Thermometer, Version = %d",
                                      USB_SHORT_FROM_BIG_ENDIAN(typeVer->version));
                             break;
                         case MDC_DEV_SPEC_PROFILE_SCALE:
-                            usb_echo("\n\r11073Manager: Type = Scale, Version = %d",
+                            usb_echo("\r\n11073Manager: Type = Scale, Version = %d",
                                      USB_SHORT_FROM_BIG_ENDIAN(typeVer->version));
                             break;
                         case MDC_DEV_SPEC_PROFILE_GLUCOSE:
-                            usb_echo("\n\r11073Manager: Type = Glucose Meter, Version = %d",
+                            usb_echo("\r\n11073Manager: Type = Glucose Meter, Version = %d",
                                      USB_SHORT_FROM_BIG_ENDIAN(typeVer->version));
                             break;
                         case MDC_DEV_SPEC_PROFILE_HF_CARDIO:
-                            usb_echo("\n\r11073Manager: Type = HF Cardio, Version = %d",
+                            usb_echo("\r\n11073Manager: Type = HF Cardio, Version = %d",
                                      USB_SHORT_FROM_BIG_ENDIAN(typeVer->version));
                             break;
                         case MDC_DEV_SPEC_PROFILE_HF_STRENGTH:
-                            usb_echo("\n\r11073Manager: Type = HF Strength, Version = %d",
+                            usb_echo("\r\n11073Manager: Type = HF Strength, Version = %d",
                                      USB_SHORT_FROM_BIG_ENDIAN(typeVer->version));
                             break;
                         case MDC_DEV_SPEC_PROFILE_AI_ACTIVITY_HUB:
                         case MDC_DEV_SPEC_PROFILE_AI_MED_MINDER:
                         default:
-                            usb_echo("\n\r11073Manager: Type = (%s) Version = %d",
+                            usb_echo("\r\n11073Manager: Type = (%s) Version = %d",
                                      USB_SHORT_FROM_BIG_ENDIAN(typeVer->type),
                                      USB_SHORT_FROM_BIG_ENDIAN(typeVer->version));
                             break;
@@ -1182,7 +1182,7 @@ static void PHDC_ManagerRecvRorsCmipGet(void *param, get_result_simple_t *getRes
             case MDC_ATTRIBUTE_ID_MODEL:
             {
                 uint16_t stringOffset = 0U;
-                usb_echo("\n\r11073Manager: Model: ");
+                usb_echo("\r\n11073Manager: Model: ");
                 while (USB_SHORT_FROM_BIG_ENDIAN(attribute->attributeValue.length) > stringOffset)
                 {
                     any_t *modelString = (any_t *)((uint8_t *)&attribute->attributeValue.value[0U] + stringOffset);
@@ -1793,7 +1793,7 @@ void HOST_PhdcManagerTask(void *param)
                 USB_HostPhdcDeinit(phdcManagerInstance->deviceHandle, phdcManagerInstance->classHandle);
                 PHDC_ManagerSetState(phdcManagerInstance, IEEE11073_MANAGER_DISCONNECTED);
                 phdcManagerInstance->classHandle = NULL;
-                usb_echo("\n\rphdc device detached\r\n");
+                usb_echo("\r\nphdc device detached\r\n");
                 break;
             default:
                 break;

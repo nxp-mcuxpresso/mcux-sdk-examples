@@ -307,7 +307,7 @@ int main(void)
         PRINTF("Success: encrypted outputs are correct\r\n");
     }
 
-    PRINTF("\r\n\nExample end.\r\n");
+    PRINTF("\r\n\r\nExample end.\r\n");
 
     while (1)
     {

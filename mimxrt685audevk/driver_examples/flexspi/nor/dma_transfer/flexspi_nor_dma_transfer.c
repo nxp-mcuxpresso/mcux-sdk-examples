@@ -225,7 +225,7 @@ int main(void)
     }
     else
     {
-        PRINTF("Erase data - successfully. \r\n");
+        PRINTF("Erase data - successfully.\r\n");
     }
 
     for (i = 0; i < FLASH_PAGE_SIZE; i++)
@@ -255,7 +255,7 @@ int main(void)
     }
     else
     {
-        PRINTF("Program data - successfully. \r\n");
+        PRINTF("Program data - successfully.\r\n");
     }
 
     while (1)

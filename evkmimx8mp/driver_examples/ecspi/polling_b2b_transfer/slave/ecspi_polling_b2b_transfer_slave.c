@@ -41,14 +41,14 @@ void ECSPI_SlaveUserCallback(ECSPI_Type *base, ecspi_slave_handle_t *handle, sta
 {
     if (status == kStatus_Success)
     {
-        PRINTF("This is ECSPI slave transfer completed callback. \r\n");
-        PRINTF("It's a successful transfer. \r\n\r\n");
+        PRINTF("This is ECSPI slave transfer completed callback.\r\n");
+        PRINTF("It's a successful transfer.\r\n\r\n");
         isTransferCompleted = true;
     }
 
     if (status == kStatus_ECSPI_HardwareOverFlow)
     {
-        PRINTF("Hardware overflow occurred in this transfer. \r\n");
+        PRINTF("Hardware overflow occurred in this transfer.\r\n");
     }
 }
 

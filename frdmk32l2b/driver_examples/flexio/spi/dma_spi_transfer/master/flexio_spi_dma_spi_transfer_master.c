@@ -103,11 +103,11 @@ int main(void)
     PRINTF("This example use one flexio spi as master and one spi instance as slave on one board.\r\n");
     PRINTF("Master uses dma and slave uses interrupt way.\r\n");
     PRINTF("Please make sure you make the correct line connection. Basically, the connection is:\r\n");
-    PRINTF("FLEXIO_SPI_master -- SPI_slave \r\n");
-    PRINTF("   SCK      --    SCK  \r\n");
-    PRINTF("   PCS0     --    PCS0 \r\n");
-    PRINTF("   MOSI     --    MOSI \r\n");
-    PRINTF("   MISO     --    MISO \r\n");
+    PRINTF("FLEXIO_SPI_master -- SPI_slave\r\n");
+    PRINTF("   SCK      --    SCK\r\n");
+    PRINTF("   PCS0     --    PCS0\r\n");
+    PRINTF("   MOSI     --    MOSI\r\n");
+    PRINTF("   MISO     --    MISO\r\n");
 
     uint32_t errorCount;
     uint32_t i;

@@ -298,8 +298,8 @@ static void AccessCardTask(void *pvParameters)
         xSemaphoreGive(s_CardAccessSemaphore);
 
         PRINTF(
-            "\r\nInput 'q' to quit card access task.\
-            \r\nInput other char to access again.\r\n");
+            "\r\nInput 'q' to quit card access task."
+            "\r\nInput other char to access again.\r\n");
         ch = GETCHAR();
         PUTCHAR(ch);
     }

@@ -234,7 +234,7 @@ static void client_task(void *param)
         }
         (void)PRINTF(" rpc call example.\r\n");
         nestedCallGetNumber(s_getNumberCallbackPtr);
-        (void)PRINTF("RPC call example finished.\r\n\n\n");
+        (void)PRINTF("RPC call example finished.\r\n\r\r\n\r\n");
 
         if (s_getNumberCallbackPtr == &getNumberFromCore1)
         {

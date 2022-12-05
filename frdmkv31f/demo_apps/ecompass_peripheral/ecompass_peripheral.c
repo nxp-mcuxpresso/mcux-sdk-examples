@@ -224,7 +224,7 @@ static void Magnetometer_Calibrate(void)
                 g_My_Offset = (My_max + My_min) / 2;
                 g_Mz_Offset = (Mz_max + Mz_min) / 2;
                 PRINTF("\r\nCalibrate magnetometer successfully!");
-                PRINTF("\r\nMagnetometer offset Mx: %d - My: %d - Mz: %d \r\n", g_Mx_Offset, g_My_Offset, g_Mz_Offset);
+                PRINTF("\r\nMagnetometer offset Mx: %d - My: %d - Mz: %d\r\n", g_Mx_Offset, g_My_Offset, g_Mz_Offset);
             }
             else
             {

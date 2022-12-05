@@ -105,23 +105,23 @@ void EXAMPLE_SNVS_Tamper_PullUp()
 
 void print_help()
 {
-    PRINTF("\r\nSNVS tamper demo \r\n");
+    PRINTF("\r\nSNVS tamper demo\r\n");
 #if defined(FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER) && (FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER > 0)
-    PRINTF("1 - passive tamper pin  \r\n");
+    PRINTF("1 - passive tamper pin\r\n");
 #endif /* defined(FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER) && (FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER > 0) */
 #if defined(FSL_FEATURE_SNVS_HAS_ACTIVE_TAMPERS) && (FSL_FEATURE_SNVS_HAS_ACTIVE_TAMPERS > 0)
-    PRINTF("2 - active tamper pin  \r\n");
-    PRINTF("3 - voltage tamper enable  \r\n");
-    PRINTF("4 - voltage tamper test  \r\n");
-    PRINTF("5 - temperature tamper enable \r\n");
-    PRINTF("6 - temperature tamper test \r\n");
-    PRINTF("7 - clock tamper enable  \r\n");
-    PRINTF("8 - clock tamper test  \r\n");
+    PRINTF("2 - active tamper pin\r\n");
+    PRINTF("3 - voltage tamper enable\r\n");
+    PRINTF("4 - voltage tamper test\r\n");
+    PRINTF("5 - temperature tamper enable\r\n");
+    PRINTF("6 - temperature tamper test\r\n");
+    PRINTF("7 - clock tamper enable\r\n");
+    PRINTF("8 - clock tamper test\r\n");
 #endif /* defined(FSL_FEATURE_SNVS_HAS_ACTIVE_TAMPERS) && (FSL_FEATURE_SNVS_HAS_ACTIVE_TAMPERS > 0) */
 #if defined(FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER) && (FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER == 0)
-    PRINTF("This chip have no tamper function  \r\n");
+    PRINTF("This chip have no tamper function\r\n");
 #endif /* defined(FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER) && (FSL_FEATURE_SNVS_HAS_MULTIPLE_TAMPER > 0) */
-    PRINTF("0 - exit  \r\n");
+    PRINTF("0 - exit\r\n");
     PRINTF("\r\n\r\nSelect test and confirm by Enter...\r\n");
 }
 
@@ -450,7 +450,7 @@ int main(void)
         } /* End of switch */
     }
 
-    PRINTF("\r\nSNVS Tamper demo exit \r\n");
+    PRINTF("\r\nSNVS Tamper demo exit\r\n");
 
     while (1)
     {

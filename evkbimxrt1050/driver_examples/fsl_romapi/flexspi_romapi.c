@@ -290,7 +290,7 @@ void error_trap(void)
 void app_finalize(void)
 {
     /* Print finished message. */
-    PRINTF("\r\n End of FLEXSPI NOR Example! \r\n");
+    PRINTF("\r\n End of FLEXSPI NOR Example!\r\n");
     while (1)
     {
     }
@@ -394,7 +394,7 @@ int main(void)
     status = ROM_FLEXSPI_NorFlash_Init(FlexSpiInstance, &norConfig);
     if (status == kStatus_Success)
     {
-        PRINTF("\r\n Successfully init FLEXSPI serial NOR flash\r\n ");
+        PRINTF("\r\n Successfully init FLEXSPI serial NOR flash\r\n");
     }
     else
     {
@@ -410,7 +410,7 @@ int main(void)
     status = FLEXSPI_NorFlash_VerifyID(FlexSpiInstance);
     if (status == kStatus_Success)
     {
-        PRINTF("\r\n HyperFlash has been found successfully\r\n ");
+        PRINTF("\r\n HyperFlash has been found successfully\r\n");
     }
     else
     {
@@ -478,12 +478,12 @@ int main(void)
     memcpy(s_buffer_rbc, (void *)(FlexSPISerialNorAddress), sizeof(s_buffer_rbc));
     if (memcmp(s_buffer_rbc, s_buffer, sizeof(s_buffer)) == 0)
     {
-        PRINTF("\r\n Successfully programmed and verified location FLEXSPI memory 0x%x -> 0x%x \r\n",
+        PRINTF("\r\n Successfully programmed and verified location FLEXSPI memory 0x%x -> 0x%x\r\n",
                (FlexSPISerialNorAddress), (FlexSPISerialNorAddress + sizeof(s_buffer)));
     }
     else
     {
-        PRINTF("\r\n Program data -  read out data value incorrect!\r\n ");
+        PRINTF("\r\n Program data -  read out data value incorrect!\r\n");
         error_trap();
     }
 

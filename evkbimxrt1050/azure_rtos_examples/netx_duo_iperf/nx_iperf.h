@@ -117,7 +117,7 @@ typedef struct
 
 #define htmlwrite(p, s, l) (nx_packet_data_append(p, s, l, server_ptr -> nx_web_http_server_packet_pool_ptr, NX_WAIT_FOREVER))
 
-#define htmlresponse    "HTTP/1.0 200 \r\nContent-Type: text/html\r\n\r\n"
+#define htmlresponse    "HTTP/1.0 200\r\nContent-Type: text/html\r\n\r\n"
 #define htmltag         "<HTML>"
 #define htmlendtag      "</HTML>"
 #define titleline       "<HEAD><TITLE>NetX IPerf Demonstration</TITLE></HEAD>\r\n"
@@ -2215,4 +2215,3 @@ const unsigned char nxlogo_png[] = {
 };
 
 unsigned int        nxlogo_png_size = sizeof(nxlogo_png);
-

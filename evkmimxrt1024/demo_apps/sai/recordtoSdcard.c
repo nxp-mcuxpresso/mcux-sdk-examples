@@ -130,7 +130,7 @@ void RecordSDCard(I2S_Type *base, uint32_t time_s)
     error = f_write(&g_fileObject, (void *)header, 44U, (UINT *)&bytesWritten);
     if ((error) || (bytesWritten != 44))
     {
-        PRINTF("Write file failed. \r\n");
+        PRINTF("Write file failed.\r\n");
     }
 
     /* Reset SAI internal logic */
@@ -157,7 +157,7 @@ void RecordSDCard(I2S_Type *base, uint32_t time_s)
             error = f_write(&g_fileObject, audioBuff + txindex * BUFFER_SIZE, BUFFER_SIZE, (UINT *)&bytesWritten);
             if ((error) || (bytesWritten != BUFFER_SIZE))
             {
-                PRINTF("Write file failed. \r\n");
+                PRINTF("Write file failed.\r\n");
                 return;
             }
 
@@ -187,7 +187,7 @@ void RecordSDCard(I2S_Type *base, uint32_t time_s)
     f_open(&g_fileObject, (char const *)wavpathBuffer, (FA_READ));
     if (f_lseek(&g_fileObject, 44U))
     {
-        PRINTF("Set file pointer position failed. \r\n");
+        PRINTF("Set file pointer position failed.\r\n");
     }
 
     for (i = 0; i < BUFFER_NUM; i++)
@@ -195,7 +195,7 @@ void RecordSDCard(I2S_Type *base, uint32_t time_s)
         error = f_read(&g_fileObject, (void *)(audioBuff + i * BUFFER_SIZE), BUFFER_SIZE, (UINT *)&bytesRead);
         if ((error) || (bytesRead != BUFFER_SIZE))
         {
-            PRINTF("Read file failed. \r\n");
+            PRINTF("Read file failed.\r\n");
             return;
         }
 
@@ -211,7 +211,7 @@ void RecordSDCard(I2S_Type *base, uint32_t time_s)
             error = f_read(&g_fileObject, (void *)(audioBuff + rxindex * BUFFER_SIZE), BUFFER_SIZE, (UINT *)&bytesRead);
             if ((error) || (bytesRead != BUFFER_SIZE))
             {
-                PRINTF("Read file failed. \r\n");
+                PRINTF("Read file failed.\r\n");
                 return;
             }
 

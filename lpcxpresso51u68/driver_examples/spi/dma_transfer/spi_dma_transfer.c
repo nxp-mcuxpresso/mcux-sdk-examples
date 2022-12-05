@@ -69,7 +69,7 @@ void SPI_SlaveUserCallback(SPI_Type *base, spi_dma_handle_t *handle, status_t st
 {
     if (status == kStatus_Success)
     {
-        PRINTF("This is SPI slave dma transfer completed callback. \r\n\r\n");
+        PRINTF("This is SPI slave dma transfer completed callback.\r\n\r\n");
     }
     isTransferCompleted = true;
 }
@@ -78,7 +78,7 @@ void SPI_MasterUserCallback(SPI_Type *base, spi_dma_handle_t *handle, status_t s
 {
     if (status == kStatus_Success)
     {
-        PRINTF("This is SPI master dma transfer completed callback. \r\n\r\n");
+        PRINTF("This is SPI master dma transfer completed callback.\r\n\r\n");
     }
 }
 
@@ -106,12 +106,12 @@ int main(void)
 
     PRINTF("SPI dma example start.\r\n");
     PRINTF("This example use one spi instance as master and another as slave on one board.\r\n");
-    PRINTF("Please make sure you make the correct line connection. Basically, the connection is: \r\n");
-    PRINTF("SPI_master -- SPI_slave   \r\n");
-    PRINTF("   CLK      --    CLK  \r\n");
-    PRINTF("   PCS      --    PCS  \r\n");
-    PRINTF("   SOUT     --    SIN  \r\n");
-    PRINTF("   SIN      --    SOUT \r\n");
+    PRINTF("Please make sure you make the correct line connection. Basically, the connection is:\r\n");
+    PRINTF("SPI_master -- SPI_slave\r\n");
+    PRINTF("   CLK      --    CLK\r\n");
+    PRINTF("   PCS      --    PCS\r\n");
+    PRINTF("   SOUT     --    SIN\r\n");
+    PRINTF("   SIN      --    SOUT\r\n");
 
     /* DMA init */
     DMA_Init(EXAMPLE_DMA);
@@ -177,7 +177,7 @@ int main(void)
 
     if (kStatus_Success != SPI_SlaveTransferDMA(EXAMPLE_SPI_SLAVE, &slaveHandle, &slaveXfer))
     {
-        PRINTF("There is error when start SPI_SlaveTransferDMA \r\n");
+        PRINTF("There is error when start SPI_SlaveTransferDMA\r\n");
     }
 
     /* Enable SPI Slave after DMA is ready to transfer data */
@@ -195,7 +195,7 @@ int main(void)
 
     if (kStatus_Success != SPI_MasterTransferDMA(EXAMPLE_SPI_MASTER, &masterHandle, &masterXfer))
     {
-        PRINTF("There is error when start SPI_MasterTransferDMA \r\n ");
+        PRINTF("There is error when start SPI_MasterTransferDMA\r\n");
     }
 
     /* Wait until transfer completed */
@@ -218,11 +218,11 @@ int main(void)
     }
     if (errorCount == 0)
     {
-        PRINTF("SPI transfer all data matched! \r\n");
+        PRINTF("SPI transfer all data matched!\r\n");
     }
     else
     {
-        PRINTF("Error occurred in SPI transfer ! \r\n");
+        PRINTF("Error occurred in SPI transfer !\r\n");
     }
 
     SPI_Deinit(EXAMPLE_SPI_MASTER);

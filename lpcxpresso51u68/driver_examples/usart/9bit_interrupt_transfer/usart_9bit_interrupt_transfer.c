@@ -114,7 +114,7 @@ int main(void)
     USART_TransferReceiveNonBlocking(DEMO_USART, &g_usartHandle, &g_receiveXfer, NULL);
 
     /* First send TRANSFER_SIZE byte of data without addressing itself first, these data should be discarded. */
-    PRINTF("USART will send first piece of data out:\n\r");
+    PRINTF("USART will send first piece of data out:\r\n");
     for (i = 0U; i < TRANSFER_SIZE; i++)
     {
         if (i % 8U == 0U)
@@ -134,10 +134,10 @@ int main(void)
     }
     txComplete = false;
     /* Address itself. */
-    PRINTF("USART will address itself\n\r");
+    PRINTF("USART will address itself\r\n");
     USART_SendAddress(DEMO_USART, EXAMPLE_ADDRESS);
     /* Then send the other TRANSFER_SIZE byte of data, these data should be received in g_rxBuffer. */
-    PRINTF("USART will send the other piece of data out:\n\r");
+    PRINTF("USART will send the other piece of data out:\r\n");
     for (i = TRANSFER_SIZE; i < TRANSFER_SIZE * 2U; i++)
     {
         if (i % 8U == 0U)
@@ -157,7 +157,7 @@ int main(void)
     }
 
     bool success = true;
-    PRINTF("USART received data:\n\r");
+    PRINTF("USART received data:\r\n");
     for (i = 0; i < TRANSFER_SIZE; i++)
     {
         if (i % 8U == 0U)
@@ -173,13 +173,13 @@ int main(void)
         if (g_rxBuffer[i + 1U] != g_txBuffer[i + TRANSFER_SIZE])
         {
             success = false;
-            PRINTF("Received data does not match!\n\r");
+            PRINTF("Received data does not match!\r\n");
             break;
         }
     }
     if (success)
     {
-        PRINTF("All data matches!\n\r");
+        PRINTF("All data matches!\r\n");
     }
 
     while (1)

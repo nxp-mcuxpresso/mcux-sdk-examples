@@ -56,7 +56,7 @@ int main(void)
     BOARD_InitBootPins();
     BOARD_BootClockPLL180M();
     BOARD_InitDebugConsole();
-    PRINTF("\n\rSlave is working....\n\r");
+    PRINTF("\r\nSlave is working....\r\n");
 
     /*
      * userConfig.enableSlave = true;
@@ -87,14 +87,14 @@ int main(void)
     {
         if (receiveBuff[i] != sendBuff[i])
         {
-            PRINTF("\n\rThe %d number is wrong! It is %d\n\r", i, receiveBuff[i]);
+            PRINTF("\r\nThe %d number is wrong! It is %d\r\n", i, receiveBuff[i]);
             err++;
         }
     }
     PRINTF("\r\n");
     if (err == 0)
     {
-        PRINTF("Succeed!\n\r");
+        PRINTF("Succeed!\r\n");
     }
 
     while (1)

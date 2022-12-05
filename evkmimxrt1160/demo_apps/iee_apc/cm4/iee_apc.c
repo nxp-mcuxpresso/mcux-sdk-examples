@@ -208,7 +208,7 @@ int main(void)
     status = Flash_Setup();
     if (status != kStatus_Success)
     {
-        PRINTF("Error while setup Flash memory \r\n");
+        PRINTF("Error while setup Flash memory\r\n");
         return status;
     }
 #endif /* USE_FLASH */
@@ -217,7 +217,7 @@ int main(void)
     status = IEE_APC_Setup();
     if (status != kStatus_Success)
     {
-        PRINTF("Error while setup IEE & IEE_APC memory \r\n");
+        PRINTF("Error while setup IEE & IEE_APC memory\r\n");
         return status;
     }
 
@@ -225,7 +225,7 @@ int main(void)
     status = Device_ReadWrite();
     if (status != kStatus_Success)
     {
-        PRINTF("Error while writting and reading encrypted data. \r\n");
+        PRINTF("Error while writting and reading encrypted data.\r\n");
         return status;
     }
 
@@ -296,12 +296,12 @@ status_t Flash_Setup(void)
 
     if (memcmp(s_program_buffer, s_read_buffer, sizeof(s_program_buffer)))
     {
-        PRINTF("Erase data -  read out data value incorrect !\r\n ");
+        PRINTF("Erase data -  read out data value incorrect !\r\n");
         return kStatus_Fail;
     }
     else
     {
-        PRINTF("Erase data - successfully. \r\n");
+        PRINTF("Erase data - successfully.\r\n");
     }
 
     /* Program cipher text to be decrypted */
@@ -319,12 +319,12 @@ status_t Flash_Setup(void)
 
     if (memcmp(s_read_buffer, aes_ctr_cipher, sizeof(aes_ctr_cipher)) != 0)
     {
-        PRINTF("Program data -  read out data value incorrect !\r\n ");
+        PRINTF("Program data -  read out data value incorrect !\r\n");
         return kStatus_Fail;
     }
     else
     {
-        PRINTF("Program data - successfully. \r\n");
+        PRINTF("Program data - successfully.\r\n");
     }
 
     return status;
@@ -442,7 +442,7 @@ static bool Device_ReadWrite(void)
     status_t status = kStatus_Fail;
 
     /* Write data to OCRAM */
-    PRINTF("Write plain text data to be encrypted at addess 0x%x: \r\n", StartAddr);
+    PRINTF("Write plain text data to be encrypted at addess 0x%x:\r\n", StartAddr);
     Hex_Print((char *)plain_text, sizeof(plain_text));
     memset((void *)StartAddrPtr, 0, 16U);
     memcpy((void *)StartAddrPtr, (void *)plain_text, sizeof(plain_text));
@@ -468,7 +468,7 @@ static bool Device_ReadWrite(void)
     }
     else
     {
-        PRINTF("Data was not encryped!\r\n ");
+        PRINTF("Data was not encryped!\r\n");
         return kStatus_Fail;
     }
 
@@ -485,29 +485,29 @@ static bool Device_ReadWrite(void)
     /* Test if data are decrypted */
     if (memcmp(s_read_buffer, plain_text, sizeof(plain_text)) == 0)
     {
-        PRINTF("Read decrypted data, From address 0x%x: \r\n", StartAddr);
+        PRINTF("Read decrypted data, From address 0x%x:\r\n", StartAddr);
         Hex_Print((char *)s_read_buffer, sizeof(plain_text));
         status = kStatus_Success;
     }
     else
     {
-        PRINTF("Data was not decryted!\r\n ");
+        PRINTF("Data was not decryted!\r\n");
         return kStatus_Fail;
     }
 
 #if USE_FLASH
-    PRINTF("Read decrypted data, From address 0x%x (FLASH): \r\n", StartAddrFlash);
+    PRINTF("Read decrypted data, From address 0x%x (FLASH):\r\n", StartAddrFlash);
     DCACHE_CleanInvalidateByRange(StartAddrFlash, FLASH_PAGE_SIZE);
     memcpy(s_read_buffer, (void *)StartAddrFlash, sizeof(aes_ctr_expect));
 
     /* Test if data are decrypted */
     if (memcmp(s_read_buffer, aes_ctr_expect, sizeof(aes_ctr_expect)) == 0)
     {
-        PRINTF("Data are decrypted sucessuly \r\n\r\n");
+        PRINTF("Data are decrypted sucessuly\r\n\r\n");
     }
     else
     {
-        PRINTF("Data was not decryted!\r\n ");
+        PRINTF("Data was not decryted!\r\n");
         return kStatus_Fail;
     }
 
@@ -520,11 +520,11 @@ static bool Device_ReadWrite(void)
     /* Test if data are encrypted */
     if (memcmp(s_read_buffer, aes_ctr_cipher, sizeof(aes_ctr_cipher)) == 0)
     {
-        PRINTF("Data are encrypted sucessuly \r\n");
+        PRINTF("Data are encrypted sucessuly\r\n");
     }
     else
     {
-        PRINTF("Data was not encrypted!\r\n ");
+        PRINTF("Data was not encrypted!\r\n");
         return kStatus_Fail;
     }
 

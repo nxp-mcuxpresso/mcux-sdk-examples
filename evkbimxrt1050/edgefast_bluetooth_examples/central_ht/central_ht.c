@@ -47,7 +47,7 @@ static uint8_t notify_func(struct bt_conn *conn,
 
     if (!data)
     {
-        PRINTF("Unsubscribed \n");
+        PRINTF("Unsubscribed\r\n");
         params->value_handle = 0U;
         return BT_GATT_ITER_STOP;
     }
@@ -58,11 +58,11 @@ static uint8_t notify_func(struct bt_conn *conn,
 
     if ((temp_measurement.flags & BIT0) == hts_unit_celsius_c)
     {
-        PRINTF("Temperature %d degrees Celsius \n", temperature);
+        PRINTF("Temperature %d degrees Celsius\r\n", temperature);
     }
     else
     {
-        PRINTF("Temperature %d degrees Fahrenheit \n", temperature);
+        PRINTF("Temperature %d degrees Fahrenheit\r\n", temperature);
     }
 
     return BT_GATT_ITER_CONTINUE;
@@ -76,7 +76,7 @@ static uint8_t discover_func(struct bt_conn *conn,
 
     if (!attr)
     {
-        PRINTF("Discover complete, No attribute found \n");
+        PRINTF("Discover complete, No attribute found\r\n");
         (void)memset(params, 0, sizeof(*params));
         return BT_GATT_ITER_STOP;
     }
@@ -170,7 +170,7 @@ static void connected(struct bt_conn *conn, uint8_t conn_err)
         }
         else
         {
-            PRINTF("Starting service discovery \n");
+            PRINTF("Starting service discovery\r\n");
         }
     }
 }
@@ -387,4 +387,3 @@ void central_ht_task(void *pvParameters)
         vTaskDelay(1000);
     }
 }
-

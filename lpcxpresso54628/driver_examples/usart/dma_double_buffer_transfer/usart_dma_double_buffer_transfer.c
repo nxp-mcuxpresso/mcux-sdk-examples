@@ -44,7 +44,7 @@ void DMA_Callback(dma_handle_t *handle, void *param, bool transferDone, uint32_t
     int i;
     if (tcds == kDMA_IntB)
     {
-        PRINTF("\n\r CallBack B \n\r");
+        PRINTF("\r\n CallBack B\r\n");
         for (i = 0; i <= 7; i++)
         {
             PRINTF("%c", g_data_buffer[i]);
@@ -57,7 +57,7 @@ void DMA_Callback(dma_handle_t *handle, void *param, bool transferDone, uint32_t
     }
     if (tcds == kDMA_IntA)
     {
-        PRINTF("\n\r CallBack A \n\r");
+        PRINTF("\r\n CallBack A\r\n");
         for (i = 0; i <= 7; i++)
         {
             PRINTF("%c", g_data_buffer[i]);
@@ -113,7 +113,7 @@ int main(void)
     USART_Init(DEMO_USART, &config, DEMO_USART_CLK_FREQ);
     USART_EnableRxDMA(DEMO_USART, true);
 
-    PRINTF("USART Receive Double Buffer Example. The USART will echo the double buffer after each 8 bytes :\n\r");
+    PRINTF("USART Receive Double Buffer Example. The USART will echo the double buffer after each 8 bytes :\r\n");
 
     /* Configure DMA. */
     DMA_Init(EXAMPLE_UART_DMA_BASEADDR);

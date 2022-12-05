@@ -156,7 +156,7 @@ int main()
 
         const char *label = (char *) nn_model_label(model, result);
 
-        printf("\t%s - %s - %d \r\n",
+        printf("\t%s - %s - %d\r\n",
                score > 0.3f ? "MATCH" : "NO MATCH",
                label,
                result);

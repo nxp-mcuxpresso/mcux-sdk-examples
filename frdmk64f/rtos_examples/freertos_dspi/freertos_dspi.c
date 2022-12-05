@@ -100,14 +100,14 @@ int main(void)
     PRINTF("This example use two boards to connect with one as master and anohter as slave.\r\n");
 #endif
     PRINTF("Master and slave are both use interrupt way.\r\n");
-    PRINTF("Please make sure you make the correct line connection. Basically, the connection is: \r\n");
-    PRINTF("DSPI_master -- DSPI_slave   \r\n");
-    PRINTF("   CLK      --    CLK  \r\n");
-    PRINTF("   PCS0     --    PCS0 \r\n");
-    PRINTF("   SOUT     --    SIN  \r\n");
-    PRINTF("   SIN      --    SOUT \r\n");
+    PRINTF("Please make sure you make the correct line connection. Basically, the connection is:\r\n");
+    PRINTF("DSPI_master -- DSPI_slave\r\n");
+    PRINTF("   CLK      --    CLK\r\n");
+    PRINTF("   PCS0     --    PCS0\r\n");
+    PRINTF("   SOUT     --    SIN\r\n");
+    PRINTF("   SIN      --    SOUT\r\n");
 #if (EXAMPLE_CONNECT_DSPI == BOARD_TO_BOARD)
-    PRINTF("   GND      --    GND \r\n");
+    PRINTF("   GND      --    GND\r\n");
 #endif
 
     if (xTaskCreate(slave_task, "Slave_task", configMINIMAL_STACK_SIZE + 100, NULL, slave_task_PRIORITY, NULL) !=
@@ -211,11 +211,11 @@ static void slave_task(void *pvParameters)
 #if ((SPI_MASTER_SLAVE == isSLAVE) || (EXAMPLE_CONNECT_DSPI == SINGLE_BOARD))
     if (cb_msg.async_status == kStatus_Success)
     {
-        PRINTF("DSPI slave transfer completed successfully. \r\n\r\n");
+        PRINTF("DSPI slave transfer completed successfully.\r\n\r\n");
     }
     else
     {
-        PRINTF("DSPI slave transfer completed with error. \r\n\r\n");
+        PRINTF("DSPI slave transfer completed with error.\r\n\r\n");
     }
 #endif
     errorCount = 0;
@@ -247,11 +247,11 @@ static void slave_task(void *pvParameters)
     }
     if (errorCount == 0)
     {
-        PRINTF("DSPI transfer all data matched! \r\n");
+        PRINTF("DSPI transfer all data matched!\r\n");
     }
     else
     {
-        PRINTF("Error occurred in DSPI transfer ! \r\n");
+        PRINTF("Error occurred in DSPI transfer !\r\n");
     }
 
     vTaskSuspend(NULL);
@@ -293,7 +293,7 @@ static void master_task(void *pvParameters)
 
     if (status != kStatus_Success)
     {
-        PRINTF("DSPI master: error during initialization. \r\n");
+        PRINTF("DSPI master: error during initialization.\r\n");
         vTaskSuspend(NULL);
     }
     /*Start master transfer*/
@@ -309,11 +309,11 @@ static void master_task(void *pvParameters)
 #if (EXAMPLE_CONNECT_DSPI == BOARD_TO_BOARD)
         xSemaphoreGive(dspi_sem);
 #endif
-        PRINTF("DSPI master transfer completed successfully. \r\n\r\n");
+        PRINTF("DSPI master transfer completed successfully.\r\n\r\n");
     }
     else
     {
-        PRINTF("DSPI master transfer completed with error. \r\n\r\n");
+        PRINTF("DSPI master transfer completed with error.\r\n\r\n");
     }
 
     vTaskSuspend(NULL);

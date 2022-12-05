@@ -79,7 +79,7 @@ int main(void)
     /* Init card. */
     if (MMC_Init(card))
     {
-        PRINTF("\n MMC card init failed \n");
+        PRINTF("\r\nMMC card init failed\r\n");
         return -1;
     }
     /* card information log */
@@ -184,7 +184,7 @@ int main(void)
             PRINTF("Erase data groups......\r\n");
             if (kStatus_Success != MMC_EraseGroups(card, ERASE_GROUP_START, ERASE_GROUP_END))
             {
-                PRINTF("\n Erases blocks failed \n");
+                PRINTF("\r\nErases blocks failed\r\n");
                 failedFlag = true;
                 continue;
             }

@@ -215,7 +215,7 @@ int main(void)
                          (void *)&DMIC0->CHANNEL[APP_DMIC_CHANNEL].FIFO_DATA, &g_data_buffer[0], &g_pingpong_desc[1]);
     DMA_StartTransfer(&g_DMA_Handle);
     PRINTF("USB audio dmic demo:\n");
-    /*PRINTF("build date: " __DATE__ " build time: " __TIME__ "\n");*/
+    /*PRINTF("build date: " __DATE__ " build time: " __TIME__ "\r\n");*/
     /*PRINTF("processor frequency: %ldMHz\n", SystemCoreClock / 1000000);*/
     while (1U)
     {

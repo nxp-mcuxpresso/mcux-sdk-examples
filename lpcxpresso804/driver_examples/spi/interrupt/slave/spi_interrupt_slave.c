@@ -73,8 +73,8 @@ int main(void)
     /* Attach main clock to SPI0. */
     CLOCK_Select(kSPI0_Clk_From_MainClk);
 
-    PRINTF("This is SPI interrupt functional slave example.\n\r");
-    PRINTF("\n\rSlave is working....\n\r");
+    PRINTF("This is SPI interrupt functional slave example.\r\n");
+    PRINTF("\r\nSlave is working....\r\n");
 
     /* Initialize the slave SPI with configuration. */
     EXAMPLE_SlaveInit();
@@ -135,7 +135,7 @@ static void EXAMPLE_TransferDataCheck(void)
     {
     }
 
-    PRINTF("\n\rThe received data are:");
+    PRINTF("\r\nThe received data are:");
     for (i = 0; i < BUFFER_SIZE; i++)
     {
         /* Print 16 numbers in a line */
@@ -153,10 +153,10 @@ static void EXAMPLE_TransferDataCheck(void)
 
     if (err == 0)
     {
-        PRINTF("\n\rSlave transfer succeed!\n\r");
+        PRINTF("\r\nSlave transfer succeed!\r\n");
     }
     else
     {
-        PRINTF("\n\rSlave transfer faild!\n\r");
+        PRINTF("\r\nSlave transfer faild!\r\n");
     }
 }

@@ -163,10 +163,10 @@ static void ltc_aes_ccm_exam(void)
 
     /*   ENCRYPTION   */
     PRINTF("AES CCM Encryption of  %u bytes.\r\n", g_length);
-    PRINTF("    using iv length  : %u bytes \r\n", CCM_IV_SIZE);
-    PRINTF("    using aad length : %u bytes \r\n", CCM_AAD_SIZE);
-    PRINTF("    using key length : %u bytes \r\n", CCM_KEY_SIZE);
-    PRINTF("    using tag length : %u bytes \r\n", CCM_TAG_SIZE);
+    PRINTF("    using iv length  : %u bytes\r\n", CCM_IV_SIZE);
+    PRINTF("    using aad length : %u bytes\r\n", CCM_AAD_SIZE);
+    PRINTF("    using key length : %u bytes\r\n", CCM_KEY_SIZE);
+    PRINTF("    using tag length : %u bytes\r\n", CCM_TAG_SIZE);
 
     /* Call AES CCM encryption */
     if (kStatus_Success != LTC_AES_EncryptTagCcm(base, &aes_test_full[0], &cipher[0], g_length, &nonce[0], CCM_IV_SIZE,
@@ -192,7 +192,7 @@ static void ltc_aes_ccm_exam(void)
 
     /* Result message */
     PRINTF("AES CCM decryption finished.\r\n");
-    PRINTF("Decrypted string: \r\n");
+    PRINTF("Decrypted string:\r\n");
     ltc_print_msg(output, g_length);
     PRINTF("\r\n");
 }
@@ -211,7 +211,7 @@ static void ltc_aes_cmac_exam(void)
     ltc_hash_ctx_t ctx; /* CMAC context */
 
     PRINTF("----------------------------------- AES-XCBC-MAC --------------------------------------\r\n");
-    PRINTF("AES XCBC-MAC Computing hash of %u bytes \r\n", g_length);
+    PRINTF("AES XCBC-MAC Computing hash of %u bytes\r\n", g_length);
 
     /* Create sample key */
     j = 0;
@@ -285,13 +285,13 @@ static void ltc_example_task(void)
     LTC_Init(base);
 
     /* Print welcome string */
-    PRINTF("............................. LTC (AES)  DRIVER  EXAMPLE ............................. \r\n\r\n");
+    PRINTF("............................. LTC (AES)  DRIVER  EXAMPLE .............................\r\n\r\n");
 
     memset(&output[0], 0, OUTPUT_ARRAY_LEN);
     memset(&cipher[0], 0, OUTPUT_ARRAY_LEN);
     g_length = sizeof(aes_test_full) - 1u;
 
-    PRINTF("Testing input string: \r\n");
+    PRINTF("Testing input string:\r\n");
     ltc_print_msg(&aes_test_full[0], g_length);
     /* Format console output */
     PRINTF("\r\n");

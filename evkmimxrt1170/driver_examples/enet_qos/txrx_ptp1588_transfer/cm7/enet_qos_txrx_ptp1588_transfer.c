@@ -338,7 +338,7 @@ int main(void)
         ENET_QOS_Ptp1588GetTimer(EXAMPLE_ENET_QOS_BASE, &second, &nanosecond);
         PRINTF(" Get the %d-th time", index);
         PRINTF(" %d second,", (uint32_t)second);
-        PRINTF(" %d nanosecond  \r\n", nanosecond);
+        PRINTF(" %d nanosecond\r\n", nanosecond);
         SDK_DelayAtLeastUs(200000, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
     }
 
@@ -360,9 +360,9 @@ int main(void)
                 status = ENET_QOS_ReadFrame(EXAMPLE_ENET_QOS_BASE, &g_handle, data, length, 0, &rxFrameTimeStamp);
                 if (status == kStatus_Success)
                 {
-                    PRINTF(" One frame received. the length %d \r\n", length);
+                    PRINTF(" One frame received. the length %d\r\n", length);
                     PRINTF(" the timestamp is %d second,", (uint32_t)rxFrameTimeStamp.second);
-                    PRINTF(" %d nanosecond  \r\n", rxFrameTimeStamp.nanosecond);
+                    PRINTF(" %d nanosecond\r\n", rxFrameTimeStamp.nanosecond);
                 }
 
                 free(data);
@@ -410,7 +410,7 @@ int main(void)
                         if ((sentFrameInfo.context == buffer) && (sentFrameInfo.isTsAvail == true))
                         {
                             PRINTF(" the timestamp is %d second,", (uint32_t)sentFrameInfo.timeStamp.second);
-                            PRINTF(" %d nanosecond  \r\n", sentFrameInfo.timeStamp.nanosecond);
+                            PRINTF(" %d nanosecond\r\n", sentFrameInfo.timeStamp.nanosecond);
                         }
                     }
                 }
@@ -421,7 +421,7 @@ int main(void)
             }
             else
             {
-                PRINTF(" \r\nThe PHY link down!\r\n");
+                PRINTF("\r\nThe PHY link down!\r\n");
             }
         }
     }

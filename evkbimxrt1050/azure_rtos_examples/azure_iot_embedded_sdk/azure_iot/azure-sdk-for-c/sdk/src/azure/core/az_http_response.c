@@ -274,7 +274,7 @@ AZ_NODISCARD az_result az_http_response_get_next_header(
     *out_value = _az_span_trim_whitespace_from_end(*out_value);
   }
 
-  _az_RETURN_IF_FAILED(_az_is_expected_span(reader, AZ_SPAN_FROM_STR("\n")));
+  _az_RETURN_IF_FAILED(_az_is_expected_span(reader, AZ_SPAN_FROM_STR("\r\n")));
 
   return AZ_OK;
 }

@@ -457,7 +457,7 @@ void USB_HostCdcControlCallback(void *param, uint8_t *data, uint32_t dataLength,
 
     if (status != kStatus_USB_Success)
     {
-        usb_echo("data transfer error = %d , status \r\n");
+        usb_echo("data transfer error = %d , status\r\n");
         return;
     }
 

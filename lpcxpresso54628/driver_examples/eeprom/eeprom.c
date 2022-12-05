@@ -73,7 +73,7 @@ int main(void)
             if (eeprom_data != data[j])
             {
                 err++;
-                PRINTF("Page %d offset %d is wrong, data is %x \r\n", i, (j * 4), eeprom_data);
+                PRINTF("Page %d offset %d is wrong, data is %x\r\n", i, (j * 4), eeprom_data);
             }
         }
         PRINTF("Page %d program finished!\r\n", i);

@@ -91,7 +91,7 @@ static az_result _az_http_policy_logging_append_http_request_msg(
 
   int32_t const headers_count = az_http_request_headers_count(request);
 
-  az_span new_line_tab_string = AZ_SPAN_FROM_STR("\n\t");
+  az_span new_line_tab_string = AZ_SPAN_FROM_STR("\r\n\t");
   az_span colon_separator_string = AZ_SPAN_FROM_STR(" : ");
 
   for (int32_t index = 0; index < headers_count; ++index)
@@ -159,7 +159,7 @@ static az_result _az_http_policy_logging_append_http_response_msg(
   remainder = az_span_copy_u8(remainder, ' ');
   remainder = az_span_copy(remainder, status_line.reason_phrase);
 
-  az_span new_line_tab_string = AZ_SPAN_FROM_STR("\n\t");
+  az_span new_line_tab_string = AZ_SPAN_FROM_STR("\r\n\t");
 
   az_result result = AZ_OK;
   az_span header_name = { 0 };
@@ -191,7 +191,7 @@ static az_result _az_http_policy_logging_append_http_response_msg(
     return result;
   }
 
-  az_span new_lines_string = AZ_SPAN_FROM_STR("\n\n");
+  az_span new_lines_string = AZ_SPAN_FROM_STR("\r\n\r\n");
   az_span arrow_separator_string = AZ_SPAN_FROM_STR(" -> ");
   int32_t required_length = az_span_size(new_lines_string) + az_span_size(arrow_separator_string);
   _az_RETURN_IF_NOT_ENOUGH_SIZE(remainder, required_length);

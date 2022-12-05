@@ -61,9 +61,9 @@ int main(void)
     BOARD_InitDebugConsole();
     PRINTF("This is LPUART hardware flow control example on one board.\r\n");
     PRINTF("This example will send data to itself and will use hardware flow control to avoid the overflow.\r\n");
-    PRINTF("Please make sure you make the correct line connection. Basically, the connection is: \r\n");
-    PRINTF("      LPUART_TX    --     LPUART_RX    \r\n");
-    PRINTF("      LPUART_RTS   --     LPUART_CTS   \r\n");
+    PRINTF("Please make sure you make the correct line connection. Basically, the connection is:\r\n");
+    PRINTF("      LPUART_TX    --     LPUART_RX\r\n");
+    PRINTF("      LPUART_RTS   --     LPUART_CTS\r\n");
     /*
      * config.baudRate_Bps = 115200U;
      * config.parityMode = kLPUART_ParityDisabled;

@@ -62,7 +62,7 @@ void error_trap(void)
 void app_finalize(void)
 {
     /* Print finished message. */
-    PRINTF("\r\n End of FlexRAM as traditional RAM example \r\n");
+    PRINTF("\r\n End of FlexRAM as traditional RAM example\r\n");
     while (1)
     {
     }
@@ -88,7 +88,7 @@ static status_t FLEXRAM_TraditionalRamWrite(flexnvm_config_t *config,
         return kStatus_FTFx_AddressError;
     }
 
-    PRINTF("\r\n Make FlexRAM available for traditional RAM!\r\n ");
+    PRINTF("\r\n Make FlexRAM available for traditional RAM!\r\n");
     /* Switch function of FlexRAM if needed */
     if (0U == (FTFx->FCNFG & FTFx_FCNFG_RAMRDY_MASK))
     {
@@ -162,12 +162,12 @@ int main(void)
     memset(&s_flashDriver, 0, sizeof(flexnvm_config_t));
 
     /* print welcome message */
-    PRINTF("\r\n FlexRAM as traditional RAM Example Start \r\n");
+    PRINTF("\r\n FlexRAM as traditional RAM Example Start\r\n");
 
 #if defined(SIM_FCFG2_PFLSH_MASK)
     if (SIM->FCFG2 & SIM_FCFG2_PFLSH_MASK)
     {
-        PRINTF("\r\n Current device doesn't support FlexNVM feature \r\n");
+        PRINTF("\r\n Current device doesn't support FlexNVM feature\r\n");
         app_finalize();
     }
 #endif
@@ -234,7 +234,7 @@ int main(void)
         }
 
         destAdrss = flexramBlockBase;
-        PRINTF("\r\n\r\n Stat to program... \r\n");
+        PRINTF("\r\n\r\n Stat to program...\r\n");
         result = FLEXRAM_TraditionalRamWrite(&s_flashDriver, destAdrss, (uint8_t *)s_buffer, sizeof(s_buffer));
         if (result != kStatus_FTFx_Success)
         {
@@ -255,7 +255,7 @@ int main(void)
             }
         }
 
-        PRINTF("\r\n\r\n Successfully Programmed and Verified Location 0x%x -> 0x%x \r\n", destAdrss,
+        PRINTF("\r\n\r\n Successfully Programmed and Verified Location 0x%x -> 0x%x\r\n", destAdrss,
                (destAdrss + sizeof(s_buffer)));
     }
 

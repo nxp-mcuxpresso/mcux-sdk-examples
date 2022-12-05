@@ -106,11 +106,11 @@ int main(void)
     PRINTF("This example use one flexio spi as master and one lpspi instance as slave on one board.\r\n");
     PRINTF("Master and slave are both use interrupt way.\r\n");
     PRINTF("Please make sure you make the correct line connection. Basically, the connection is:\r\n");
-    PRINTF("FLEXIO_SPI_master -- LPSPI_slave   \r\n");
-    PRINTF("       CLK        --    CLK  \r\n");
-    PRINTF("       PCS        --    PCS  \r\n");
-    PRINTF("       SOUT       --    SIN  \r\n");
-    PRINTF("       SIN        --    SOUT \r\n");
+    PRINTF("FLEXIO_SPI_master -- LPSPI_slave\r\n");
+    PRINTF("       CLK        --    CLK\r\n");
+    PRINTF("       PCS        --    PCS\r\n");
+    PRINTF("       SOUT       --    SIN\r\n");
+    PRINTF("       SIN        --    SOUT\r\n");
 
     uint32_t errorCount;
     uint32_t i;

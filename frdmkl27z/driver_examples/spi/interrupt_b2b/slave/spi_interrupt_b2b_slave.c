@@ -109,7 +109,7 @@ int main(void)
     {
         if (destBuff[i] != srcBuff[i])
         {
-            PRINTF("\r\nThe %d data is wrong, the data received is %d \r\n", i, destBuff[i]);
+            PRINTF("\r\nThe %d data is wrong, the data received is %d\r\n", i, destBuff[i]);
             err++;
         }
     }

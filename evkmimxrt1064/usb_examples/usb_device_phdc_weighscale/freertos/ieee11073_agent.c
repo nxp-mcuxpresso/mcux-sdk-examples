@@ -90,7 +90,7 @@ void AGENT_SendAssociationRequest(void *handle, uint8_t *associationData, uint32
             if (AGENT_SendData(handle, AGENT_SEND_DATA_QOS, (uint8_t *)associationData, size))
             {
 #if _USB_DEBUG
-                usb_echo("Send association request error\n\r");
+                usb_echo("Send association request error\r\n");
 #endif
             }
         }
@@ -98,7 +98,7 @@ void AGENT_SendAssociationRequest(void *handle, uint8_t *associationData, uint32
     else
     {
 #if _USB_DEBUG
-        usb_echo("Cannot get agent device \n\r");
+        usb_echo("Cannot get agent device\r\n");
 #endif
     }
 }
@@ -153,7 +153,7 @@ void AGENT_SendConfig(void *handle, uint8_t *config, uint32_t size)
             if (AGENT_SendData(handle, AGENT_SEND_DATA_QOS, (uint8_t *)config, size))
             {
 #if _USB_DEBUG
-                usb_echo("Send configuration error\n\r");
+                usb_echo("Send configuration error\r\n");
 #endif
             }
         }
@@ -161,7 +161,7 @@ void AGENT_SendConfig(void *handle, uint8_t *config, uint32_t size)
     else
     {
 #if _USB_DEBUG
-        usb_echo("Cannot get agent device \n\r");
+        usb_echo("Cannot get agent device\r\n");
 #endif
     }
 }
@@ -213,14 +213,14 @@ void AGENT_SendAssociationAbortRequest(void *handle, abort_reason_t abortReason)
         if (AGENT_SendData(pAgent->agentHandle, AGENT_SEND_DATA_QOS, (uint8_t *)pApdu, (uint32_t)size))
         {
 #if _USB_DEBUG
-            usb_echo("Send abort request error\n\r");
+            usb_echo("Send abort request error\r\n");
 #endif
         }
     }
     else
     {
 #if _USB_DEBUG
-        usb_echo("Cannot find the agent device\n\r");
+        usb_echo("Cannot find the agent device\r\n");
 #endif
     }
 }
@@ -255,14 +255,14 @@ void AGENT_SendAssociationRleaseRequest(void *handle, release_request_reason_t r
         if (AGENT_SendData(pAgent->agentHandle, AGENT_SEND_DATA_QOS, (uint8_t *)pApdu, (uint32_t)size))
         {
 #if _USB_DEBUG
-            usb_echo("Send release request error\n\r");
+            usb_echo("Send release request error\r\n");
 #endif
         }
     }
     else
     {
 #if _USB_DEBUG
-        usb_echo("Cannot find agent device\n\r");
+        usb_echo("Cannot find agent device\r\n");
 #endif
     }
 }
@@ -297,14 +297,14 @@ static void AGENT_SendAssociationReleaseResponse(void *handle, release_request_r
         if (AGENT_SendData(handle, AGENT_SEND_DATA_QOS, (uint8_t *)pApdu, (uint32_t)size))
         {
 #if _USB_DEBUG
-            usb_echo("Send release response error\n\r");
+            usb_echo("Send release response error\r\n");
 #endif
         }
     }
     else
     {
 #if _USB_DEBUG
-        usb_echo("Cannot find the agent device\n\r");
+        usb_echo("Cannot find the agent device\r\n");
 #endif
     }
 }
@@ -365,48 +365,48 @@ void AGENT_SetAgentState(void *handle, uint8_t state)
 #endif
                 pAgent->agentState = state;
 #if _USB_DEBUG
-                usb_echo("\n\r11073Agent: ENTER DISCONNECTED state");
+                usb_echo("\r\n11073Agent: ENTER DISCONNECTED state");
 #endif
                 break;
             case AGENT_STATE_CON_UNASSOCIATED:
                 pAgent->agentState = state;
 #if _USB_DEBUG
-                usb_echo("\n\r11073Agent: ENTER UNASSOCIATED state");
+                usb_echo("\r\n11073Agent: ENTER UNASSOCIATED state");
 #endif
                 break;
             case AGENT_STATE_CON_ASSOCIATING:
                 pAgent->agentState = state;
 #if _USB_DEBUG
-                usb_echo("\n\r11073Agent: ENTER ASSOCIATING state");
+                usb_echo("\r\n11073Agent: ENTER ASSOCIATING state");
 #endif
                 break;
             case AGENT_STATE_CON_ASSOC_CFG_SENDING_CONFIG:
                 pAgent->agentState = state;
 #if _USB_DEBUG
-                usb_echo("\n\r11073Agent: ENTER CONFIGURING SENDING CONFIG state");
+                usb_echo("\r\n11073Agent: ENTER CONFIGURING SENDING CONFIG state");
 #endif
                 break;
             case AGENT_STATE_CON_ASSOC_CFG_WAITING_APPROVAL:
                 pAgent->agentState = state;
 #if _USB_DEBUG
-                usb_echo("\n\r11073Agent: ENTER CONFIGURING WAITING APPROVAL state");
+                usb_echo("\r\n11073Agent: ENTER CONFIGURING WAITING APPROVAL state");
 #endif
                 break;
             case AGENT_STATE_CON_ASSOC_OPERATING:
                 pAgent->agentState = state;
 #if _USB_DEBUG
-                usb_echo("\n\r11073Agent: ENTER OPERATING state");
+                usb_echo("\r\n11073Agent: ENTER OPERATING state");
 #endif
                 break;
             case AGENT_STATE_CON_DISASSOCIATING:
                 pAgent->agentState = state;
 #if _USB_DEBUG
-                usb_echo("\n\r11073Agent: ENTER DISASSOCIATING state");
+                usb_echo("\r\n11073Agent: ENTER DISASSOCIATING state");
 #endif
                 break;
             default:
 #if _USB_DEBUG
-                usb_echo("\n\r11073Agent: Error invalid state");
+                usb_echo("\r\n11073Agent: Error invalid state");
 #endif
                 break;
         }
@@ -414,7 +414,7 @@ void AGENT_SetAgentState(void *handle, uint8_t state)
     else
     {
 #if _USB_DEBUG
-        usb_echo("\n\r11073Agent: Error invalid param");
+        usb_echo("\r\n11073Agent: Error invalid param");
 #endif
     }
 }
@@ -442,7 +442,7 @@ void AGENT_Init(void *handle)
     if (0U == isNonActiveAgent)
     {
 #if _USB_DEBUG
-        usb_echo("ERROR: Users need to increase the max number of agent devices!\n\r");
+        usb_echo("ERROR: Users need to increase the max number of agent devices!\r\n");
 #endif
     }
     else
@@ -531,7 +531,7 @@ void AGENT_Callback(void *handle, uint8_t request, uint8_t *data, uint32_t size)
     else
     {
 #if _USB_DEBUG
-        usb_echo("Cannot the Agent device\n\r");
+        usb_echo("Cannot the Agent device\r\n");
 #endif
     }
 }
@@ -678,7 +678,7 @@ static void AGENT_RecvComplete(void *handle, uint8_t *dataBuffer, uint32_t size)
     else
     {
 #if _USB_DEBUG
-        usb_echo("Cannot find the Agent device\n\r");
+        usb_echo("Cannot find the Agent device\r\n");
 #endif
     }
 }
@@ -724,7 +724,7 @@ static void AGENT_RecvAssociationResponse(void *handle, aare_apdu_t *associaionR
     else
     {
 #if _USB_DEBUG
-        usb_echo("Cannot find the Agent device\n\r");
+        usb_echo("Cannot find the Agent device\r\n");
 #endif
     }
 }
@@ -891,7 +891,7 @@ static void AGENT_RecvPresentationProtocolDataUnit(void *handle, prst_apdu_t *pP
     else
     {
 #if _USB_DEBUG
-        usb_echo("Cannot find the Agent device\n\r");
+        usb_echo("Cannot find the Agent device\r\n");
 #endif
     }
 }
@@ -937,14 +937,14 @@ static void AGENT_SendRoer(uint32_t handle, error_result_t *errorResult)
         if (AGENT_SendData(handle, AGENT_SEND_DATA_QOS, (uint8_t *)pApdu, (uint32_t)size))
         {
 #if _USB_DEBUG
-            usb_echo("Send release response error\n\r");
+            usb_echo("Send release response error\r\n");
 #endif
         }
     }
     else
     {
 #if _USB_DEBUG
-        usb_echo("Cannot find the agent device\n\r");
+        usb_echo("Cannot find the agent device\r\n");
 #endif
     }
 }

@@ -104,7 +104,7 @@ static void ecspi_task(void *pvParameters)
 
     if (status != kStatus_Success)
     {
-        PRINTF("ECSPI meets error during initialization. \r\n");
+        PRINTF("ECSPI meets error during initialization.\r\n");
         vTaskSuspend(NULL);
     }
 
@@ -121,7 +121,7 @@ static void ecspi_task(void *pvParameters)
     status = ECSPI_RTOS_Transfer(&master_rtos_handle, &masterXfer);
     if (status != kStatus_Success)
     {
-        PRINTF("ECSPI transfer completed with error. \r\n\r\n");
+        PRINTF("ECSPI transfer completed with error.\r\n\r\n");
         vTaskSuspend(NULL);
     }
 

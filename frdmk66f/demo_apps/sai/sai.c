@@ -295,7 +295,7 @@ int main(void)
     DMAMUX_SetSource(DEMO_DMAMUX, DEMO_RX_EDMA_CHANNEL, (uint8_t)DEMO_SAI_RX_SOURCE);
     DMAMUX_EnableChannel(DEMO_DMAMUX, DEMO_RX_EDMA_CHANNEL);
 
-    PRINTF("SAI Demo started!\n\r");
+    PRINTF("SAI Demo started!\r\n");
 
     /* Create EDMA handle */
     /*
@@ -361,7 +361,7 @@ int main(void)
     }
 #endif /* DEMO_SDCARD */
 
-    PRINTF("\n\rPlease choose the option :\r\n");
+    PRINTF("\r\nPlease choose the option :\r\n");
     while (1)
     {
         PRINTF("\r%d. Record and playback at same time\r\n", userItem++);
@@ -428,7 +428,7 @@ int main(void)
     {
         assert(false);
     }
-    PRINTF("\n\r SAI demo finished!\n\r ");
+    PRINTF("\r\n SAI demo finished!\n\r ");
     while (1)
     {
     }

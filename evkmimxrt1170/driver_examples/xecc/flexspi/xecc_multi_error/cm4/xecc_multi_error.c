@@ -422,12 +422,12 @@ int main(void)
 
     if (memcmp(s_nor_program_buffer, s_nor_read_buffer, sizeof(s_nor_program_buffer)) != 0x00U)
     {
-        PRINTF("Erase data -  read out data value incorrect !\r\n ");
+        PRINTF("Erase data -  read out data value incorrect !\r\n");
         return -1;
     }
     else
     {
-        PRINTF("Erase data - successfully. \r\n");
+        PRINTF("Erase data - successfully.\r\n");
     }
 
     /* Get default configuration */
@@ -525,11 +525,11 @@ int main(void)
 
     if ((spiAddress == info.multiErrorAddress) && (uncorrectedData == info.multiErrorData))
     {
-        PRINTF("Uncorrecdted read data: 0x%x \r\n", uncorrectedData);
-        PRINTF("Multiple error address: 0x%x \r\n", info.multiErrorAddress);
-        PRINTF("Multiple error read data: 0x%x \r\n", info.multiErrorData);
-        PRINTF("Multiple error ECC code: 0x%x \r\n", info.multiErrorEccCode);
-        PRINTF("Multiple error bit field: 0x%x \r\n", info.multiErrorBitField);
+        PRINTF("Uncorrecdted read data: 0x%x\r\n", uncorrectedData);
+        PRINTF("Multiple error address: 0x%x\r\n", info.multiErrorAddress);
+        PRINTF("Multiple error read data: 0x%x\r\n", info.multiErrorData);
+        PRINTF("Multiple error ECC code: 0x%x\r\n", info.multiErrorEccCode);
+        PRINTF("Multiple error bit field: 0x%x\r\n", info.multiErrorBitField);
     }
     else
     {
@@ -538,11 +538,11 @@ int main(void)
 
     if (errorFlag != 0x00U)
     {
-        PRINTF("XECC multiple error example failed. \r\n");
+        PRINTF("XECC multiple error example failed.\r\n");
     }
     else
     {
-        PRINTF("XECC multiple error example successfully. \r\n");
+        PRINTF("XECC multiple error example successfully.\r\n");
     }
 
     while (1)

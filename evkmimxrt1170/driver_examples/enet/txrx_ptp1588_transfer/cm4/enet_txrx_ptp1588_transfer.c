@@ -300,7 +300,7 @@ int main(void)
         ENET_Ptp1588GetTimer(EXAMPLE_ENET, &g_handle, &ptpTime);
         PRINTF(" Get the %d-th time", count);
         PRINTF(" %d second,", (uint32_t)ptpTime.second);
-        PRINTF(" %d nanosecond  \r\n", ptpTime.nanosecond);
+        PRINTF(" %d nanosecond\r\n", ptpTime.nanosecond);
         SDK_DelayAtLeastUs(200000, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
     }
 
@@ -328,8 +328,8 @@ int main(void)
 
                 PRINTF(" A frame received. the length %d ", length);
                 PRINTF(" the timestamp is %d second,", (uint32_t)rxPtpTime.second);
-                PRINTF(" %d nanosecond  \r\n", ts);
-                PRINTF(" Dest Address %02x:%02x:%02x:%02x:%02x:%02x Src Address %02x:%02x:%02x:%02x:%02x:%02x \r\n",
+                PRINTF(" %d nanosecond\r\n", ts);
+                PRINTF(" Dest Address %02x:%02x:%02x:%02x:%02x:%02x Src Address %02x:%02x:%02x:%02x:%02x:%02x\r\n",
                        data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9],
                        data[10], data[11]);
             }
@@ -362,16 +362,16 @@ int main(void)
                         if (txFrameInfo.isTsAvail)
                         {
                             PRINTF(" the timestamp is %d second,", (uint32_t)txFrameInfo.timeStamp.second);
-                            PRINTF(" %d nanosecond  \r\n", txFrameInfo.timeStamp.nanosecond);
+                            PRINTF(" %d nanosecond\r\n", txFrameInfo.timeStamp.nanosecond);
                         }
                         else
                         {
-                            PRINTF(" Get transmit timestamp failed! \r\n");
+                            PRINTF(" Get transmit timestamp failed!\r\n");
                         }
                     }
                     else
                     {
-                        PRINTF(" \r\nTransmit frame failed!\r\n");
+                        PRINTF("\r\nTransmit frame failed!\r\n");
                     }
                 }
             }

@@ -124,7 +124,7 @@ int main(void)
     BOARD_InitBootClocks(); /* Boot up FROHF96M for SPIFI to use*/
     BOARD_InitBootClocks(); /* Core clock boot to 220Mhz*/
     BOARD_InitDebugConsole();
-    PRINTF("SPIFI flash dma example started \r\n");
+    PRINTF("SPIFI flash dma example started\r\n");
 
     DMA_Init(EXAMPLE_DMA);
 

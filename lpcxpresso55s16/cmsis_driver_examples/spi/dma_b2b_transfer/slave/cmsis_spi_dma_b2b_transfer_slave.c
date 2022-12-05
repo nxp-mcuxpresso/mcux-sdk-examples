@@ -98,7 +98,7 @@ int main(void)
     {
         if (slaveRxData[i] != i)
         {
-            PRINTF("\n\rThe %d number is wrong! It is %dn\r", i, slaveRxData[i]);
+            PRINTF("\r\nThe %d number is wrong! It is %dn\r", i, slaveRxData[i]);
             errorCount++;
         }
     }
@@ -117,11 +117,11 @@ int main(void)
             PRINTF(" %02X", slaveRxData[i]);
         }
         PRINTF("\r\n");
-        PRINTF("Succeed!\n\r");
+        PRINTF("Succeed!\r\n");
     }
     else
     {
-        PRINTF("Error occurd in SPI transfer!\n\r");
+        PRINTF("Error occurd in SPI transfer!\r\n");
     }
     while (1)
     {

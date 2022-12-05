@@ -122,7 +122,7 @@ int main(void)
     BUTTON_2_INIT();
 #endif
     /* Print the initial banner from Primary core */
-    (void)PRINTF("\r\nHello World from the Primary Core!\r\n\n");
+    (void)PRINTF("\r\nHello World from the Primary Core!\r\n\r\n");
 
 #ifdef CORE1_IMAGE_COPY_TO_RAM
     /* Calculate size of the image  - not required on MCUXpresso IDE. MCUXpresso copies the secondary core

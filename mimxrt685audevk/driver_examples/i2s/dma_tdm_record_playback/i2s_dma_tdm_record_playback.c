@@ -107,7 +107,7 @@ int main(void)
     cs42448Config.i2cConfig.codecI2CSourceClock = CLOCK_GetFlexCommClkFreq(2);
     cs42448Config.format.mclk_HZ                = CLOCK_GetMclkClkFreq();
 
-    PRINTF("I2S TDM record playback example started!\n\r");
+    PRINTF("I2S TDM record playback example started!\r\n");
 
     /* i2s configurations */
     /*
@@ -168,7 +168,7 @@ int main(void)
     /* codec initialization */
     DEMO_InitCodec();
 
-    PRINTF("Starting TDM record playback\n\r");
+    PRINTF("Starting TDM record playback\r\n");
 
     while (1)
     {

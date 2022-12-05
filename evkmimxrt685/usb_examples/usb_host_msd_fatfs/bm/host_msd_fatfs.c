@@ -407,7 +407,7 @@ static void USB_HostMsdFatfsTest(usb_host_msd_fatfs_instance_t *msdFatfsInstance
     {
         usb_echo("    FAT type = FAT32\r\n");
     }
-    usb_echo("    bytes per cluster = %d; number of clusters=%lu \r\n", fs->csize * 512, fs->n_fatent - 2);
+    usb_echo("    bytes per cluster = %d; number of clusters=%lu\r\n", fs->csize * 512, fs->n_fatent - 2);
     usb_echo("    The free size: %dKB, the total size:%dKB\r\n", (freeClusterNumber * (fs->csize) / 2),
              ((fs->n_fatent - 2) * (fs->csize) / 2));
 

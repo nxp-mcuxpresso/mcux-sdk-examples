@@ -211,7 +211,7 @@ int main(void)
        Use BB_AUDIN_RST_B pin to reset Codec. */
     GPIO_PinInit(CODEC_RST_GPIO, CODEC_RST_PIN, &pin_config);
 
-    PRINTF("\r\nESAI EDMA example started! \r\n");
+    PRINTF("\r\nESAI EDMA example started!\r\n");
 
     /* Init codec */
     if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
@@ -274,7 +274,7 @@ int main(void)
     ESAI_TransferAbortReceiveEDMA(EXAMPLE_ESAI, &rxHandle);
     ESAI_TransferAbortSendEDMA(EXAMPLE_ESAI, &txHandle);
 
-    PRINTF("\r\nESAI EDMA example succeed! \r\n");
+    PRINTF("\r\nESAI EDMA example succeed!\r\n");
 
     while (1)
     {

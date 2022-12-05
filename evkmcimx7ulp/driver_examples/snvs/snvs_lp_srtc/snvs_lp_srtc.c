@@ -127,7 +127,7 @@ int main(void)
                rtcDate.hour, rtcDate.minute, rtcDate.second);
 
         /* Get alarm time from user */
-        PRINTF("Please input the number of second to wait for alarm and press enter \r\n");
+        PRINTF("Please input the number of second to wait for alarm and press enter\r\n");
         PRINTF("The second must be positive value\r\n");
 
         while (index != 0x0D)
@@ -144,7 +144,7 @@ int main(void)
         /* Alarm can be set only for one day*/
         if (sec > (24 * 60 * 60))
         {
-            PRINTF("Please input the number below 86000 and press enter \r\n");
+            PRINTF("Please input the number below 86000 and press enter\r\n");
             continue;
         }
         SNVS_HP_RTC_GetDatetime(SNVS, &rtcDate);

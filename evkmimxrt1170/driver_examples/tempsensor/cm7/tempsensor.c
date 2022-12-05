@@ -60,7 +60,7 @@ int main(void)
     BOARD_BootClockRUN();
     BOARD_InitDebugConsole();
 
-    PRINTF("TMPSNS driver example. \r\n");
+    PRINTF("TMPSNS driver example.\r\n");
 
     TMPSNS_GetDefaultConfig(&config);
     config.measureMode   = kTEMPSENSOR_ContinuousMode;
@@ -75,7 +75,7 @@ int main(void)
     /* Get temperature */
     temperature = TMPSNS_GetCurrentTemperature(DEMO_TEMP_SENSOR);
 
-    PRINTF("The chip initial temperature is %.1f celsius degree. \r\n", temperature);
+    PRINTF("The chip initial temperature is %.1f celsius degree.\r\n", temperature);
 
     while (1)
     {
@@ -89,7 +89,7 @@ int main(void)
             /* Re-enable high temperature interrupt */
             TMPSNS_EnableInterrupt(DEMO_TEMP_SENSOR, kTEMPSENSOR_HighTempInterruptStatusEnable);
 
-            PRINTF("The chip temperature has reached high temperature that is %.1f celsius degree. \r\n", temperature);
+            PRINTF("The chip temperature has reached high temperature that is %.1f celsius degree.\r\n", temperature);
             break;
         }
     }

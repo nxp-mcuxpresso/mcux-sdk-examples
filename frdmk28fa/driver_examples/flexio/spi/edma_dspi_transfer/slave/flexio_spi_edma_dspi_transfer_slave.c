@@ -108,11 +108,11 @@ int main(void)
     PRINTF("This example use one dspi instance as master and one flexio spi as slave on one board.\r\n");
     PRINTF("Master uses interrupt and slave uses edma way.\r\n");
     PRINTF("Please make sure you make the correct line connection. Basically, the connection is:\r\n");
-    PRINTF("DSPI_master -- FLEXIO_SPI_slave   \r\n");
-    PRINTF("   CLK      --    CLK  \r\n");
-    PRINTF("   PCS      --    PCS  \r\n");
-    PRINTF("   SOUT     --    SIN  \r\n");
-    PRINTF("   SIN      --    SOUT \r\n");
+    PRINTF("DSPI_master -- FLEXIO_SPI_slave\r\n");
+    PRINTF("   CLK      --    CLK\r\n");
+    PRINTF("   PCS      --    PCS\r\n");
+    PRINTF("   SOUT     --    SIN\r\n");
+    PRINTF("   SIN      --    SOUT\r\n");
 
     uint32_t srcClock_Hz;
     uint32_t errorCount;

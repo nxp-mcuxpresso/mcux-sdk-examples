@@ -130,7 +130,7 @@ int main(void)
     CLOCK_SetRootMux(kCLOCK_RootPdm, kCLOCK_PdmRootmuxOsc24M); /* Set PDM source from OSC 25MHZ */
     CLOCK_SetRootDivider(kCLOCK_RootPdm, 1U, 1U);              /* Set root clock to 25MHZ */
 
-    PRINTF("PDM sdma example started!\n\r");
+    PRINTF("PDM sdma example started!\r\n");
 
     memset(rxBuff, 0, sizeof(rxBuff));
 
@@ -163,7 +163,7 @@ int main(void)
     {
     }
 
-    PRINTF("PDM recieve two channel data:\n\r");
+    PRINTF("PDM recieve two channel data:\r\n");
     for (i = 0U; i < BUFFER_SIZE; i++)
     {
         PRINTF("%6x ", rxBuff[i]);

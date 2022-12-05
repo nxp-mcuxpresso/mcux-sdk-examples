@@ -78,7 +78,7 @@ int main(void)
     PRINTF("This example use one SPI instance in master mode\r\n");
     PRINTF("to transfer data through loopback.\r\n");
     PRINTF("Please be sure to externally connect together SOUT and SIN signals.\r\n");
-    PRINTF("   SOUT     --    SIN  \r\n");
+    PRINTF("   SOUT     --    SIN\r\n");
 
     if (xTaskCreate(master_task, "Master_task", configMINIMAL_STACK_SIZE + 100, NULL, master_task_PRIORITY, NULL) !=
         pdPASS)
@@ -124,7 +124,7 @@ static void master_task(void *pvParameters)
 
     if (status != kStatus_Success)
     {
-        PRINTF("DSPI master: error during initialization. \r\n");
+        PRINTF("DSPI master: error during initialization.\r\n");
         vTaskSuspend(NULL);
     }
 
@@ -144,11 +144,11 @@ static void master_task(void *pvParameters)
 
     if (status == kStatus_Success)
     {
-        PRINTF("SPI transfer completed successfully. \r\n");
+        PRINTF("SPI transfer completed successfully.\r\n");
     }
     else
     {
-        PRINTF("SPI transfer completed with error. \r\n");
+        PRINTF("SPI transfer completed with error.\r\n");
     }
 
     /* Verify received data */
@@ -158,12 +158,12 @@ static void master_task(void *pvParameters)
         if (srcBuff[i] != destBuff[i])
         {
             err++;
-            PRINTF("Mismatch at offset %d. %d != %d \n\r", i, destBuff[i], srcBuff[i]);
+            PRINTF("Mismatch at offset %d. %d != %d\r\n", i, destBuff[i], srcBuff[i]);
         }
     }
     if (err == 0)
     {
-        PRINTF("Data verified ok.\n\r");
+        PRINTF("Data verified ok.\r\n");
     }
     vTaskSuspend(NULL);
 }

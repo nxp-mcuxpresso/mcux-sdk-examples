@@ -253,7 +253,7 @@ static app_wakeup_source_t APP_GetWakeupSource(lpm_power_mode_t targetMode)
     {
         PRINTF("Select the wake up source:\r\n");
         PRINTF("Press T for Timer\r\n");
-        PRINTF("Press S for switch/button %s. \r\n", APP_WAKEUP_BUTTON_NAME);
+        PRINTF("Press S for switch/button %s.\r\n", APP_WAKEUP_BUTTON_NAME);
 
         PRINTF("\r\nWaiting for key press..\r\n\r\n");
 
@@ -481,12 +481,12 @@ static void PowerModeSwitchTask(void *pvParameters)
     {
         freq = CLOCK_GetFreq(kCLOCK_CpuClk);
 
-        PRINTF("\r\n########## Power Mode Switch Demo ###########\n\r\n");
-        PRINTF("    Core Clock = %dHz \r\n", freq);
+        PRINTF("\r\n########## Power Mode Switch Demo ###########\r\n\r\n");
+        PRINTF("    Core Clock = %dHz\r\n", freq);
 
         APP_ShowPowerMode(s_curRunMode);
 
-        PRINTF("\r\nSelect the desired operation \n\r\n");
+        PRINTF("\r\nSelect the desired operation\r\n\r\n");
         PRINTF("Press  %c for enter: Over RUN       - System Over Run mode\r\n",
                (uint8_t)'A' + (uint8_t)LPM_PowerModeOverRun);
         PRINTF("Press  %c for enter: Full RUN       - System Full Run mode\r\n",

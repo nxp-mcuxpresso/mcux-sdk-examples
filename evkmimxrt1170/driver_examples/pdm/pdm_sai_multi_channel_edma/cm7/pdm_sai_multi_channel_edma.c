@@ -261,7 +261,7 @@ int main(void)
     DMAMUX_SetSource(DEMO_DMAMUX, DEMO_SAI_EDMA_CHANNEL, DEMO_SAI_REQUEST_SOURCE);
     DMAMUX_EnableChannel(DEMO_DMAMUX, DEMO_SAI_EDMA_CHANNEL);
 
-    PRINTF("PDM SAI multi channel edma example started!\n\r");
+    PRINTF("PDM SAI multi channel edma example started!\r\n");
 
     /* Create EDMA handle */
     /*

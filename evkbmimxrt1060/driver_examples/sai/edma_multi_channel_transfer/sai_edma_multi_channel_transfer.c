@@ -209,7 +209,7 @@ int main(void)
     /* enable codec power */
     GPIO_PinWrite(DEMO_CODEC_POWER_GPIO, DEMO_CODEC_POWER_GPIO_PIN, 1U);
 
-    PRINTF("SAI EDMA multi channel transfer example started!\n\r");
+    PRINTF("SAI EDMA multi channel transfer example started!\r\n");
 
     /* Create EDMA handle */
     /*
@@ -294,7 +294,7 @@ int main(void)
     /* Once transfer finish, disable SAI instance. */
     SAI_TransferAbortSendEDMA(DEMO_SAI, &txHandle);
     SAI_Deinit(DEMO_SAI);
-    PRINTF("\n\r SAI EDMA multi channel transfer example finished!\n\r ");
+    PRINTF("\r\n SAI EDMA multi channel transfer example finished!\r\n");
     while (1)
     {
     }

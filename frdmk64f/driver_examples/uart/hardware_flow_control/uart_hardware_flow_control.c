@@ -63,9 +63,9 @@ int main(void)
     BOARD_InitDebugConsole();
     PRINTF("This is UART hardware flow control example on one board.\r\n");
     PRINTF("This example will send data to itself and will use hardware flow control to avoid the overflow.\r\n");
-    PRINTF("Please make sure you make the correct line connection. Basically, the connection is: \r\n");
-    PRINTF("      UART_TX    --     UART_RX    \r\n");
-    PRINTF("      UART_RTS   --     UART_CTS   \r\n");
+    PRINTF("Please make sure you make the correct line connection. Basically, the connection is:\r\n");
+    PRINTF("      UART_TX    --     UART_RX\r\n");
+    PRINTF("      UART_RTS   --     UART_CTS\r\n");
     /*
      * config.baudRate_Bps = 115200U;
      * config.parityMode = kUART_ParityDisabled;

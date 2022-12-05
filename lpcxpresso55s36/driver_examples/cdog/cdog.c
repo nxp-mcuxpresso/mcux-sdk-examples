@@ -42,7 +42,7 @@ void CDOG_DriverIRQHandler(void)
 {
     NVIC_DisableIRQ(CDOG_IRQn);
 
-    PRINTF("CDOG IRQ Reached \r\n");
+    PRINTF("CDOG IRQ Reached\r\n");
 
     if ((CDOG->FLAGS & CDOG_FLAGS_TO_FLAG_MASK))
     {

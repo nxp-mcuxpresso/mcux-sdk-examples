@@ -1236,7 +1236,7 @@ void USB_DeviceApplicationInit(void)
     SYSMPU_Enable(SYSMPU, 0);
 #endif /* FSL_FEATURE_SOC_SYSMPU_COUNT */
 
-    usb_echo("Please insert disk \r\n");
+    usb_echo("Please insert disk\r\n");
 
     if (kStatus_USB_Success != USB_DeviceMscDiskStorageInit())
     {

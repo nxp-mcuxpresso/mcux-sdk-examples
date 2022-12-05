@@ -129,7 +129,7 @@ int main(void)
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
-    PRINTF("SAI interrupt record playback example started!\n\r");
+    PRINTF("SAI interrupt record playback example started!\r\n");
 
     /* SAI init */
     SAI_Init(DEMO_SAI);

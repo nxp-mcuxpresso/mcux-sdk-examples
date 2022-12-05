@@ -218,7 +218,7 @@ int main(void)
 
     BOARD_EnableSaiMclkOutput(true);
 
-    PRINTF("PDM sai interrupt example started!\n\r");
+    PRINTF("PDM sai interrupt example started!\r\n");
 
     memset(txBuff, 0U, sizeof(txBuff));
 

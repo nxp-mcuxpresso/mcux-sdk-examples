@@ -49,7 +49,7 @@ static int check_output()
     }
 */
     PRINTF("%s unit test succeded\r\n", UNIT_TEST_NAME);
-    PRINTF("NNlib version %d.%d \r\n", result >> 16, result & 0xFF);
+    PRINTF("NNlib version %d.%d\r\n", result >> 16, result & 0xFF);
 
     return 1;
 }

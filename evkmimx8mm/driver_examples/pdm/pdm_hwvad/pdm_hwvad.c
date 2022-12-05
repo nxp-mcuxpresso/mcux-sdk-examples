@@ -116,7 +116,7 @@ int main(void)
     CLOCK_SetRootMux(kCLOCK_RootPdm, kCLOCK_PdmRootmuxAudioPll1); /* Set PDM source from OSC 25MHZ */
     CLOCK_SetRootDivider(kCLOCK_RootPdm, 1U, 32U);                /* Set root clock to 25MHZ */
 
-    PRINTF("PDM hwvad example started!\n\r");
+    PRINTF("PDM hwvad example started!\r\n");
 
     /* Set up pdm */
     PDM_Init(DEMO_PDM, &pdmConfig);
@@ -150,7 +150,7 @@ int main(void)
 
     PDM_Deinit(DEMO_PDM);
 
-    PRINTF("\n\rPDM hwvad example finished!\n\r ");
+    PRINTF("\r\nPDM hwvad example finished!\n\r ");
     while (1)
     {
     }

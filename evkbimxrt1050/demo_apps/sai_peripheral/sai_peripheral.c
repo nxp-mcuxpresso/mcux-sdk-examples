@@ -279,7 +279,7 @@ int main(void)
     /*Enable MCLK clock*/
     BOARD_EnableSaiMclkOutput(true);
 
-    PRINTF("SAI Demo started!\n\r");
+    PRINTF("SAI Demo started!\r\n");
 
     /* Use default setting to init codec */
     if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
@@ -305,7 +305,7 @@ int main(void)
     }
 #endif /* DEMO_SDCARD */
 
-    PRINTF("\n\rPlease choose the option :\r\n");
+    PRINTF("\r\nPlease choose the option :\r\n");
     while (1)
     {
         PRINTF("\r%d. Record and playback at same time\r\n", userItem++);
@@ -362,7 +362,7 @@ int main(void)
     {
         assert(false);
     }
-    PRINTF("\n\r SAI demo finished!\n\r ");
+    PRINTF("\r\n SAI demo finished!\n\r ");
     while (1)
     {
     }

@@ -122,7 +122,7 @@ int main(void)
     CLOCK_SetRootClockMux(kCLOCK_Root_Spdif, 4);
     CLOCK_SetRootClockDiv(kCLOCK_Root_Spdif, 1);
 
-    PRINTF("SPDIF EDMA example started!\n\r");
+    PRINTF("SPDIF EDMA example started!\r\n");
 
     /* Create EDMA handle */
     /*
@@ -191,7 +191,7 @@ int main(void)
             }
         }
     }
-    PRINTF("\n\r SPDIF EDMA example finished!\n\r ");
+    PRINTF("\r\n SPDIF EDMA example finished!\n\r ");
     while (1)
     {
     }

@@ -64,11 +64,11 @@ int main(void)
     PRINTF("This is USART synchronous transfer slave example.\r\n");
     PRINTF("Slave will receive data from master firstly, and then send back the received characters.\r\n");
     PRINTF("Please connect the pins as below shows:\r\n");
-    PRINTF("   Master Board          Slave Board    \r\n");
-    PRINTF("   USART_TX      -------   USART_RX     \r\n");
-    PRINTF("   USART_RX      -------   USART_TX     \r\n");
-    PRINTF("   USART_SCLK    -------   USART_SCLK   \r\n");
-    PRINTF("   GND           -------   GND          \r\n");
+    PRINTF("   Master Board          Slave Board\r\n");
+    PRINTF("   USART_TX      -------   USART_RX\r\n");
+    PRINTF("   USART_RX      -------   USART_TX\r\n");
+    PRINTF("   USART_SCLK    -------   USART_SCLK\r\n");
+    PRINTF("   GND           -------   GND\r\n");
 
     /* Initialize the USART as slave node. */
     EXAMPLE_InitUSART();
@@ -170,7 +170,7 @@ static void EXAMPLE_CheckResult(void)
 {
     uint32_t i = 0U;
 
-    PRINTF("The data received from master are: \r\n");
+    PRINTF("The data received from master are:\r\n");
 
     for (i = 0U; i < EXAMPLE_TRANSFER_SIZE; i++)
     {

@@ -112,7 +112,7 @@ int main(void)
     }
     else
     {
-        PRINTF("SetMatchInterruptTime failed: set time has already expired! \r\n");
+        PRINTF("SetMatchInterruptTime failed: set time has already expired!\r\n");
     }
 
     while (1)
@@ -132,7 +132,7 @@ int main(void)
         }
         else
         {
-            PRINTF("SetMatchInterruptTime failed: set time has already expired! \r\n");
+            PRINTF("SetMatchInterruptTime failed: set time has already expired!\r\n");
         }
     }
 }

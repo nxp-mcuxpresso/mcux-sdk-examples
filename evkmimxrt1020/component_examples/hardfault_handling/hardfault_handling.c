@@ -42,11 +42,11 @@ int main(void)
     PRINTF(
         "This main function is used to generate a hardfault event. The program enters hardfault when you input the "
         "character \"1\"."
-        " Then you can see the \"Stack frame\" information in the terminal. \r\n");
+        " Then you can see the \"Stack frame\" information in the terminal.\r\n");
 
     while (1)
     {
-        PRINTF("Please input the character \"1\" to enter hardfault case. \r\n");
+        PRINTF("Please input the character \"1\" to enter hardfault case.\r\n");
         ch = GETCHAR();
         PUTCHAR(ch);
         if (ch == '1')

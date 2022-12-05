@@ -371,7 +371,7 @@ static void USB_HostRemoteWarkupCallback(void *param, usb_host_transfer_t *trans
     {
         g_HostHidMouse.suspendResumeState = kStatus_SuspendFailRemoteWakeup;
         usb_echo(
-            "\tSend clear remote wakeup feature request failed. \r\nWhether need to continue? "
+            "\tSend clear remote wakeup feature request failed.\r\nWhether need to continue? "
             "Please ENTER y(es) or n(o): ");
     }
     DbgConsole_Flush();
@@ -599,7 +599,7 @@ void USB_HostSuspendResumeTask(void)
                 {
                     g_HostHidMouse.suspendResumeState = kStatus_SuspendFailRemoteWakeup;
                     usb_echo(
-                        "\tSend set remote wakeup feature request failed. \r\nWhether need to continue? "
+                        "\tSend set remote wakeup feature request failed.\r\nWhether need to continue? "
                         "Please ENTER y(es) or n(o): ");
                 }
             }
@@ -616,7 +616,7 @@ void USB_HostSuspendResumeTask(void)
                 {
                     g_HostHidMouse.suspendResumeState = kStatus_SuspendFailRemoteWakeup;
                     usb_echo(
-                        "\tSend clear remote wakeup feature request failed. \r\nWhether need to continue? "
+                        "\tSend clear remote wakeup feature request failed.\r\nWhether need to continue? "
                         "Please ENTER y(es) or n(o): ");
                 }
             }

@@ -197,7 +197,7 @@ int main(void)
     /* The AUD_RST_B comes from BB_PER_RST_B AND logic with BB_AUDIN_RST_B.*/
     GPIO_PinInit(CODEC_RST_GPIO, CODEC_RST_PIN, &pin_config);
 
-    PRINTF("\r\nESAI Interrupt example started! \n\r");
+    PRINTF("\r\nESAI Interrupt example started!\r\n");
 
     /* Init codec */
     if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
@@ -259,7 +259,7 @@ int main(void)
 
     ESAI_TransferAbortReceive(DEMO_ESAI, &rxHandle);
     ESAI_TransferAbortSend(DEMO_ESAI, &txHandle);
-    PRINTF("\r\nESAI Interrupt example Succeed! \n\r");
+    PRINTF("\r\nESAI Interrupt example Succeed!\r\n");
 
     while (1)
     {

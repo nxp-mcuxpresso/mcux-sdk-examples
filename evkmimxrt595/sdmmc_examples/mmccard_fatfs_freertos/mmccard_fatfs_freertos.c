@@ -296,7 +296,7 @@ static void CardAccessTask2(void *pvParameters)
         error = f_write(&g_fileObject2, s_buffer2, sizeof(s_buffer2), &bytesWritten);
         if ((error) || (bytesWritten != sizeof(s_buffer2)))
         {
-            PRINTF("Write file failed. \r\n");
+            PRINTF("Write file failed.\r\n");
             break;
         }
         f_close(&g_fileObject2);

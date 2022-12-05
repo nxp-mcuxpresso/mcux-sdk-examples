@@ -197,7 +197,7 @@ int main(void)
         error = f_write(&g_fileObject, g_bufferWrite, sizeof(g_bufferWrite), &bytesWritten);
         if ((error) || (bytesWritten != sizeof(g_bufferWrite)))
         {
-            PRINTF("Write file failed. \r\n");
+            PRINTF("Write file failed.\r\n");
             failedFlag = true;
             continue;
         }
@@ -205,7 +205,7 @@ int main(void)
         /* Move the file pointer */
         if (f_lseek(&g_fileObject, 0U))
         {
-            PRINTF("Set file pointer position failed. \r\n");
+            PRINTF("Set file pointer position failed.\r\n");
             failedFlag = true;
             continue;
         }
@@ -215,7 +215,7 @@ int main(void)
         error = f_read(&g_fileObject, g_bufferRead, sizeof(g_bufferRead), &bytesRead);
         if ((error) || (bytesRead != sizeof(g_bufferRead)))
         {
-            PRINTF("Read file failed. \r\n");
+            PRINTF("Read file failed.\r\n");
             failedFlag = true;
             continue;
         }

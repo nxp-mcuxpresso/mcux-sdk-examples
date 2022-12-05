@@ -223,7 +223,7 @@ int main(void)
     /* Enable SAI1 MCLK output */
     BOARD_EnableSaiMclkOutput(true);
     BOARD_Codec_I2C_Init();
-    PRINTF("FLEXIO I2S EDMA example started!\n\r");
+    PRINTF("FLEXIO I2S EDMA example started!\r\n");
 
     /* Set flexio i2s pin, shifter and timer */
     base.bclkPinIndex = BCLK_PIN;
@@ -346,7 +346,7 @@ int main(void)
         }
     }
 
-    PRINTF("\n\r FLEXIO I2S EDMA example finished!\n\r ");
+    PRINTF("\r\n FLEXIO I2S EDMA example finished!\r\n");
 
     while (1)
     {

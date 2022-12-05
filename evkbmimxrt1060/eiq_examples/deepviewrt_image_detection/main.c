@@ -493,7 +493,7 @@ int main(void)
         for (int k = 0; k < class_num-1; k++) {
             const char* label = NULL;
             label = nn_model_label(model, k);
-            PRINTF("\t Class ID = [%ld][%s] \r\n", data_class_id[k], label);
+            PRINTF("\t Class ID = [%ld][%s]\r\n", data_class_id[k], label);
             for (int i = 0; i < data_bbx_out_dim[k]; i++) {
                 PRINTF("\t \tPredicted bounding box[%d]: %.3f %.3f %.3f %.3f (%f)\r\n",
                            i,

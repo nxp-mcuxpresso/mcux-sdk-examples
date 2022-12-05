@@ -530,7 +530,7 @@ static app_wakeup_source_t APP_GetWakeupSource(void)
     {
         PRINTF("Select the wake up source:\r\n");
         PRINTF("Press T for LPTMR - Low Power Timer\r\n");
-        PRINTF("Press S for switch/button %s. \r\n", APP_WAKEUP_BUTTON_NAME);
+        PRINTF("Press S for switch/button %s.\r\n", APP_WAKEUP_BUTTON_NAME);
 
         PRINTF("\r\nWaiting for key press..\r\n\r\n");
 
@@ -846,7 +846,7 @@ static void APP_PowerTestMode(void)
         /* Have impact on Linux WIFI feature resume, but can reduce leakage. */
         PRINTF("2: %s WL_REG_ON/BT_REG_ON pins in VLLS\r\n", disableWirelessPinsInVLLS ? "Enable" : "Disable");
         PRINTF("   - Disable these pins leads to failure in Linux WIFI driver resume.\r\n");
-        PRINTF("   - Just for showing minimum board leakage. \r\n");
+        PRINTF("   - Just for showing minimum board leakage.\r\n");
         /* Have impact on debug feature during suspend/resume. */
         PRINTF("3: %s JTAG pins in VLLS\r\n", disableJtagPinsInVLLS ? "Enable" : "Disable");
         /* May have risk in M4 running during PMIC standby mode. */
@@ -950,12 +950,12 @@ void PowerModeSwitchTask(void *pvParameters)
     for (;;)
     {
         freq = CLOCK_GetFreq(kCLOCK_CoreSysClk);
-        PRINTF("\r\n####################  Power Mode Switch Task ####################\n\r\n");
-        PRINTF("    Build Time: %s--%s \r\n", __DATE__, __TIME__);
-        PRINTF("    Core Clock: %dHz \r\n", freq);
+        PRINTF("\r\n####################  Power Mode Switch Task ####################\r\n\r\n");
+        PRINTF("    Build Time: %s--%s\r\n", __DATE__, __TIME__);
+        PRINTF("    Core Clock: %dHz\r\n", freq);
         curPowerState = SMC_GetPowerModeState(MSMC0);
         APP_ShowPowerMode(curPowerState);
-        PRINTF("\r\nSelect the desired operation \n\r\n");
+        PRINTF("\r\nSelect the desired operation\r\n\r\n");
         PRINTF("Press  %c for enter: RUN      - Normal RUN mode\r\n", kAPP_PowerModeRun);
         PRINTF("Press  %c for enter: WAIT     - Wait mode\r\n", kAPP_PowerModeWait);
         PRINTF("Press  %c for enter: STOP     - Stop mode\r\n", kAPP_PowerModeStop);

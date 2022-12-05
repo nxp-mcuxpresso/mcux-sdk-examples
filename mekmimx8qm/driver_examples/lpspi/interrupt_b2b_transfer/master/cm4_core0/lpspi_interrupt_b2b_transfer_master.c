@@ -102,14 +102,14 @@ int main(void)
 
     PRINTF("LPSPI board to board interrupt example.\r\n");
     PRINTF("This example use one board as master and another as slave.\r\n");
-    PRINTF("Master and slave uses interrupt way. Slave should start first. \r\n");
-    PRINTF("Please make sure you make the correct line connection. Basically, the connection is: \r\n");
-    PRINTF("LPSPI_master -- LPSPI_slave   \r\n");
-    PRINTF("   CLK       --    CLK  \r\n");
-    PRINTF("   PCS       --    PCS \r\n");
-    PRINTF("   SOUT      --    SIN  \r\n");
-    PRINTF("   SIN       --    SOUT \r\n");
-    PRINTF("   GND       --    GND \r\n");
+    PRINTF("Master and slave uses interrupt way. Slave should start first.\r\n");
+    PRINTF("Please make sure you make the correct line connection. Basically, the connection is:\r\n");
+    PRINTF("LPSPI_master -- LPSPI_slave\r\n");
+    PRINTF("   CLK       --    CLK\r\n");
+    PRINTF("   PCS       --    PCS\r\n");
+    PRINTF("   SOUT      --    SIN\r\n");
+    PRINTF("   SIN       --    SOUT\r\n");
+    PRINTF("   GND       --    GND\r\n");
 
     uint32_t srcClock_Hz;
     uint32_t errorCount;
@@ -202,7 +202,7 @@ int main(void)
         }
         if (errorCount == 0U)
         {
-            PRINTF(" \r\nLPSPI transfer all data matched! \r\n");
+            PRINTF("\r\nLPSPI transfer all data matched!\r\n");
             /* Print out receive buffer */
             PRINTF("\r\n Master received:\r\n");
             for (i = 0U; i < TRANSFER_SIZE; i++)
@@ -218,7 +218,7 @@ int main(void)
         }
         else
         {
-            PRINTF(" \r\nError occurred in LPSPI transfer ! \r\n");
+            PRINTF("\r\nError occurred in LPSPI transfer !\r\n");
         }
 
         /* Wait for press any key */

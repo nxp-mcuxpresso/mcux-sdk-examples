@@ -426,12 +426,12 @@ int main(void)
         return -1;
     }
 
-    PRINTF("\n\r ADC LOW POWER DEMO\n");
-    PRINTF("\r The Low Power ADC project is designed to work with the Tower System or in a stand alone setting\n\n");
+    PRINTF("\r\n ADC LOW POWER DEMO\n");
+    PRINTF("\r The Low Power ADC project is designed to work with the Tower System or in a stand alone setting\r\n\r\n");
     PRINTF("\r 1. Set your target board in a place where the temperature is constant.\n");
     PRINTF("\r 2. Wait until two Led light turns on.\n");
     PRINTF("\r 3. Increment or decrement the temperature to see the changes.\n");
-    PRINTF("\r Wait two led on...\n\r");
+    PRINTF("\r Wait two led on...\r\n");
 
     /* setup the HW trigger source */
     LPTMR_InitTriggerSourceOfAdc(DEMO_LPTMR_BASE);

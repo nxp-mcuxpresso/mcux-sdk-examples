@@ -144,7 +144,7 @@ UCHAR hid_mouse_report[] = {
 
 static UINT demo_thread_hid_callback(UX_SLAVE_CLASS_HID *hid, UX_SLAVE_CLASS_HID_EVENT *hid_event)
 {
-    PRINTF("demo_thread_hid_callback %x %x %x \r\n",
+    PRINTF("demo_thread_hid_callback %x %x %x\r\n",
         hid_event->ux_device_class_hid_event_buffer[0],
         hid_event->ux_device_class_hid_event_buffer[1],
         hid_event->ux_device_class_hid_event_buffer[2]);

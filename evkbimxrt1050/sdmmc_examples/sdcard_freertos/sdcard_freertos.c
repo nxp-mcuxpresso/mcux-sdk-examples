@@ -203,8 +203,8 @@ static void AccessCardTask(void *pvParameters)
         SDCARD_ReadWrite(card, isReadOnly);
 
         PRINTF(
-            "\r\nInput 'q' to quit card access task.\
-            \r\nInput other char to read/write/erase data blocks again.\r\n");
+            "\r\nInput 'q' to quit card access task."
+            "\r\nInput other char to read/write/erase data blocks again.\r\n");
         ch = GETCHAR();
         PUTCHAR(ch);
     }

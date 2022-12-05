@@ -390,7 +390,7 @@ az_span description = az_span_create(description_ptr, (INT)description_len);
     if (az_result_failed(az_json_writer_init(&json_builder, buff_span, NULL)) ||
         az_result_failed(az_json_writer_append_begin_object(&json_builder)))
     {
-        PRINTF("Failed intialize json writer \r\n");
+        PRINTF("Failed intialize json writer\r\n");
         return(NX_NOT_SUCCESSFUL);
     }
 
@@ -400,7 +400,7 @@ az_span description = az_span_create(description_ptr, (INT)description_len);
           az_result_succeeded(az_json_writer_append_property_name(&json_builder, sample_pnp_component_type_property_name)) &&
           az_result_succeeded(az_json_writer_append_string(&json_builder, reported_component_type_value))))
     {
-        PRINTF("Failed build reported property with status message \r\n");
+        PRINTF("Failed build reported property with status message\r\n");
         return(NX_NOT_SUCCESSFUL);
     }
 

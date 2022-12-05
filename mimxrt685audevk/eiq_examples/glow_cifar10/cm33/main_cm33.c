@@ -111,7 +111,7 @@ void nn_app_task(void *param)
     float accuracy = 0.0;
 
     // Print start banner
-    PRINTF("---- Cifar10 Quantized Demo ----- \r\n");
+    PRINTF("---- Cifar10 Quantized Demo -----\r\n");
 
     memcpy(constantWeight, WEIGHT_DATA_START, MODEL_CONSTANT_MEM_SIZE);
 

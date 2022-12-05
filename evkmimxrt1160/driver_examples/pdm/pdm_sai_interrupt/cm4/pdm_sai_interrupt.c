@@ -220,7 +220,7 @@ int main(void)
 
     //*((uint32_t *)(0x40C080B4U)) = 1U;
 
-    PRINTF("PDM sai interrupt example started!\n\r");
+    PRINTF("PDM sai interrupt example started!\r\n");
 
     memset(txBuff, 0U, sizeof(txBuff));
 

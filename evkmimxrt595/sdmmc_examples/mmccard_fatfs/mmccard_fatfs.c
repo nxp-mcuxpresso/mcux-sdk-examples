@@ -168,7 +168,7 @@ int main(void)
         error = f_write(&g_fileObject, g_bufferWrite, sizeof(g_bufferWrite), &bytesWritten);
         if ((error) || (bytesWritten != sizeof(g_bufferWrite)))
         {
-            PRINTF("Write file failed. \r\n");
+            PRINTF("Write file failed.\r\n");
             failedFlag = true;
             continue;
         }

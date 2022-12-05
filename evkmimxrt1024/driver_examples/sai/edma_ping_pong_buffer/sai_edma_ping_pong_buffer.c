@@ -205,7 +205,7 @@ int main(void)
     DMAMUX_SetSource(DEMO_DMAMUX, DEMO_RX_EDMA_CHANNEL, (uint8_t)DEMO_SAI_RX_SOURCE);
     DMAMUX_EnableChannel(DEMO_DMAMUX, DEMO_RX_EDMA_CHANNEL);
 
-    PRINTF("SAI EDMA ping pong buffer example started!\n\r");
+    PRINTF("SAI EDMA ping pong buffer example started!\r\n");
 
     memset(s_buffer, 0, BUFFER_NUM * BUFFER_SIZE);
 

@@ -203,7 +203,7 @@ static void demo_thread_entry(ULONG arg)
             if (buffer[requested_length - 1] == '\r')
             {
                 /* Copy LF value into user buffer.  */
-                ux_utility_memory_copy(buffer, "\n", 1);
+                ux_utility_memory_copy(buffer, "\r\n", 1);
 
                 /* And send it again.  */
                 status = ux_device_class_cdc_acm_write(cdc, buffer, 1, &actual_length);

@@ -53,9 +53,9 @@ const uint8_t nxpVirtualPrinterTestStr[] =
 const uint8_t pjlPostscriptTestStr[] =
     " " /* escape character */
 
-    "%-12345X@PJL \r\n"
+    "%-12345X@PJL\r\n"
 
-    "@PJL ENTER LANGUAGE = POSTSCRIPT \r\n"
+    "@PJL ENTER LANGUAGE = POSTSCRIPT\r\n"
 
     "/inch {72 mul}def\r\n"
 

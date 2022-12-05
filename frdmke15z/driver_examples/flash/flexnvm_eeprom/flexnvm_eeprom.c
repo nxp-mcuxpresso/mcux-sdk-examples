@@ -108,7 +108,7 @@ void error_trap(void)
 void app_finalize(void)
 {
     /* Print finished message. */
-    PRINTF("\r\n End of FlexNVM EEprom Example \r\n");
+    PRINTF("\r\n End of FlexNVM EEprom Example\r\n");
     while (1)
     {
     }
@@ -135,12 +135,12 @@ int main(void)
     memset(&s_flashDriver, 0, sizeof(flexnvm_config_t));
 
     /* print welcome message */
-    PRINTF("\r\n FlexNVM EEprom Example Start \r\n");
+    PRINTF("\r\n FlexNVM EEprom Example Start\r\n");
 
 #if defined(SIM_FCFG2_PFLSH_MASK)
     if (SIM->FCFG2 & SIM_FCFG2_PFLSH_MASK)
     {
-        PRINTF("\r\n Current device doesn't support FlexNVM feature \r\n");
+        PRINTF("\r\n Current device doesn't support FlexNVM feature\r\n");
         app_finalize();
     }
 #endif
@@ -218,7 +218,7 @@ int main(void)
             }
 
             /* Reset MCU */
-            PRINTF("\r\n Perform a system reset \r\n");
+            PRINTF("\r\n Perform a system reset\r\n");
             NVIC_SystemReset();
         }
 
@@ -288,11 +288,11 @@ int main(void)
                 {
                     error_trap();
                 }
-                PRINTF("\r\n Successfully Programmed Location 0x%x -> 0x%x \r\n", destAdrss,
+                PRINTF("\r\n Successfully Programmed Location 0x%x -> 0x%x\r\n", destAdrss,
                        (destAdrss + sizeof(s_buffer)));
 
                 /* Reset MCU */
-                PRINTF("\r\n Perform a system reset \r\n");
+                PRINTF("\r\n Perform a system reset\r\n");
                 NVIC_SystemReset();
             }
             else
@@ -310,10 +310,10 @@ int main(void)
         {
             error_trap();
         }
-        PRINTF("\r\n Successfully Programmed Location 0x%x -> 0x%x \r\n", destAdrss, (destAdrss + sizeof(s_buffer)));
+        PRINTF("\r\n Successfully Programmed Location 0x%x -> 0x%x\r\n", destAdrss, (destAdrss + sizeof(s_buffer)));
 
         /* Reset MCU */
-        PRINTF("\r\n Perform a system reset \r\n");
+        PRINTF("\r\n Perform a system reset\r\n");
         NVIC_SystemReset();
     }
 

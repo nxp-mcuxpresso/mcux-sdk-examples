@@ -155,7 +155,7 @@ static void EXAMPLE_SlaveStartDMATransfer(void)
     /* Start transfer, when transmission complete, the SPI_SlaveUserCallback will be called. */
     if (kStatus_Success != SPI_SlaveTransferDMA(EXAMPLE_SPI_SLAVE, &slaveHandle, &slaveXfer))
     {
-        PRINTF("There is an error when start SPI_SlaveTransferDMA \r\n");
+        PRINTF("There is an error when start SPI_SlaveTransferDMA\r\n");
     }
 }
 
@@ -186,10 +186,10 @@ static void EXAMPLE_TransferDataCheck(void)
     }
     if (errorCount == 0)
     {
-        PRINTF("\r\nSPI transfer all data matched! \r\n");
+        PRINTF("\r\nSPI transfer all data matched!\r\n");
     }
     else
     {
-        PRINTF("\r\nError occurred in SPI transfer ! \r\n");
+        PRINTF("\r\nError occurred in SPI transfer !\r\n");
     }
 }

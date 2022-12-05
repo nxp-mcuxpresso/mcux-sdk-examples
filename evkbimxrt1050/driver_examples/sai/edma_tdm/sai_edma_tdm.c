@@ -189,7 +189,7 @@ int main(void)
     BOARD_EnableSaiMclkOutput(true);
     BOARD_SD_Config(&g_sd, NULL, BOARD_SDMMC_SD_HOST_IRQ, NULL);
 
-    PRINTF("\r\nSAI edma TDM example started.\n\r");
+    PRINTF("\r\nSAI edma TDM example started.\r\n");
 
     /* Create EDMA handle */
     /*
@@ -258,7 +258,7 @@ int main(void)
     leftWAVData = s_fileInfo.fsize - oneTimeRW;
     oneTimeRW   = BUFFER_SIZE;
 
-    PRINTF("\r\nStart play 8_TDM.wav file.\n\r");
+    PRINTF("\r\nStart play 8_TDM.wav file.\r\n");
 
     while (leftWAVData > BUFFER_SIZE)
     {
@@ -307,7 +307,7 @@ int main(void)
     /* Once transfer finish, disable SAI instance. */
     SAI_TransferAbortSendEDMA(DEMO_SAI, &txHandle);
     SAI_Deinit(DEMO_SAI);
-    PRINTF("\r\nSAI TDM EDMA example finished.\n\r ");
+    PRINTF("\r\nSAI TDM EDMA example finished.\r\n");
     while (1)
     {
     }

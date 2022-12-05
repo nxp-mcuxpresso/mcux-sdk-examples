@@ -356,7 +356,7 @@ static void DEMO_DumpRegulatorOutput(void)
     /* Scroll to a new page. */
     PRINTF("\f");
     PRINTF("\r\n-------------- Dumping PF1550 Regulator Output --------------\r\n");
-    PRINTF("All the Regulator Output Parameters are listed here:\r\r\n\n");
+    PRINTF("All the Regulator Output Parameters are listed here:\r\r\n\r\n");
 
     /* Print All Regulator Output Voltages. */
     DEMO_PrintRegulatorInfo("Switch1", kPF1550_ModuleSwitch1);

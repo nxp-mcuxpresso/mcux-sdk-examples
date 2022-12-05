@@ -293,7 +293,7 @@ int main(void)
         ENET_Ptp1588GetTimer(EXAMPLE_ENET_BASE, &second, &nanosecond);
         PRINTF(" Get the %d-th time", index);
         PRINTF(" %d second,", (uint32_t)second);
-        PRINTF(" %d nanosecond  \r\n", nanosecond);
+        PRINTF(" %d nanosecond\r\n", nanosecond);
         SDK_DelayAtLeastUs(200000, CLOCK_GetFreq(kCLOCK_CoreSysClk));
     }
 
@@ -314,9 +314,9 @@ int main(void)
                 status = ENET_ReadFrame(EXAMPLE_ENET_BASE, &g_handle, data, length, 0, &timestamp);
                 if (status == kStatus_Success)
                 {
-                    PRINTF(" One frame received. the length %d \r\n", length);
+                    PRINTF(" One frame received. the length %d\r\n", length);
                     PRINTF(" the timestamp is %d second,", (uint32_t)timestamp.second);
-                    PRINTF(" %d nanosecond  \r\n", timestamp.nanosecond);
+                    PRINTF(" %d nanosecond\r\n", timestamp.nanosecond);
                 }
 
                 free(data);
@@ -372,7 +372,7 @@ int main(void)
                         if (txFrameInfo.isTsAvail)
                         {
                             PRINTF(" the timestamp is %d second,", (uint32_t)txFrameInfo.timeStamp.second);
-                            PRINTF(" %d nanosecond  \r\n", txFrameInfo.timeStamp.nanosecond);
+                            PRINTF(" %d nanosecond\r\n", txFrameInfo.timeStamp.nanosecond);
                         }
                     }
                 }
@@ -383,7 +383,7 @@ int main(void)
             }
             else
             {
-                PRINTF(" \r\nThe PHY link down!\r\n");
+                PRINTF("\r\nThe PHY link down!\r\n");
             }
         }
     }

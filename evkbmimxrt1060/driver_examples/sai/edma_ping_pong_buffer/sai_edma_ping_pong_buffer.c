@@ -274,7 +274,7 @@ int main(void)
     GPIO_PinWrite(DEMO_CODEC_POWER_GPIO, DEMO_CODEC_POWER_GPIO_PIN, 1U);
 #endif
 
-    PRINTF("SAI EDMA ping pong buffer example started!\n\r");
+    PRINTF("SAI EDMA ping pong buffer example started!\r\n");
 
     memset(s_buffer, 0, BUFFER_NUM * BUFFER_SIZE);
 

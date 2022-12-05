@@ -108,7 +108,7 @@ int main(void)
                rtcDate.hour, rtcDate.minute, rtcDate.second);
 
         /* Get alarm time from user */
-        PRINTF("Please input the number of second to wait for alarm and press enter \r\n");
+        PRINTF("Please input the number of second to wait for alarm and press enter\r\n");
         PRINTF("The second must be positive value\r\n");
 
         while (index != 0x0D)

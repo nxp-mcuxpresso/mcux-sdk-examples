@@ -130,8 +130,8 @@ int main(void)
     LED_RED2_INIT(LOGIC_LED_OFF);
 #endif
 
-    PRINTF("CTimer match example to toggle the output. \r\n");
-    PRINTF("This example uses interrupt to change the match period. \r\n");
+    PRINTF("CTimer match example to toggle the output.\r\n");
+    PRINTF("This example uses interrupt to change the match period.\r\n");
 
     CTIMER_GetDefaultConfig(&config);
 

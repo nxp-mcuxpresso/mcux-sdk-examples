@@ -316,7 +316,7 @@ int main(void)
     /* Set to allow entering vlps mode */
     SMC_SetPowerModeProtection(SMC, kSMC_AllowPowerModeVlp);
 
-    PRINTF("\n\r ADC LOW POWER PERIPHERAL DEMO... ");
+    PRINTF("\r\n ADC LOW POWER PERIPHERAL DEMO... ");
 
     /* Calibrate param Temperature sensor */
     ADC16_CalibrateParams(DEMO_ADC16_PERIPHERAL);

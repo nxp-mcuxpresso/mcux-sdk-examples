@@ -239,11 +239,11 @@ int main(void)
     }
     if (errorCount == 0)
     {
-        PRINTF("\r\nLPSPI transfer all data matched! \r\n");
+        PRINTF("\r\nLPSPI transfer all data matched!\r\n");
     }
     else
     {
-        PRINTF("\r\nError occurred in LPSPI transfer ! \r\n");
+        PRINTF("\r\nError occurred in LPSPI transfer !\r\n");
     }
     /* Print out receive buffer */
     PRINTF("\r\n Slave received:\r\n");
@@ -260,7 +260,7 @@ int main(void)
 
     LPSPI_Deinit(EXAMPLE_LPSPI_SLAVE_BASEADDR);
 
-    PRINTF("End of slave example! \r\n");
+    PRINTF("End of slave example!\r\n");
 
     while (1)
     {

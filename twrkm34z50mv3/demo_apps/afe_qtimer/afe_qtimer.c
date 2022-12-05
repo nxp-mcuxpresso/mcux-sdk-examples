@@ -223,7 +223,7 @@ int main(void)
     {
     }
     g_bAfeFirstChannelConvDone = false;
-    PRINTF("First Channel value: %d \r\n\r\n", g_result0);
+    PRINTF("First Channel value: %d\r\n\r\n", g_result0);
 
     /* Read channel 2 result conversion */
     while (!g_bAfeSecondChannelConvDone)

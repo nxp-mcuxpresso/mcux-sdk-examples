@@ -69,7 +69,7 @@ void error_trap(void)
 void app_finalize(void)
 {
     /* Print finished message. */
-    PRINTF("\r\n End of FLEXSPI NOR Example! \r\n");
+    PRINTF("\r\n End of FLEXSPI NOR Example!\r\n");
     while (1)
     {
     }
@@ -178,7 +178,7 @@ int main(void)
     memcpy(s_buffer_rbc, (void *)(AHBNorAddress), sizeof(s_buffer_rbc));
     if (memcmp(s_buffer_rbc, s_buffer, sizeof(s_buffer)) == 0)
     {
-        PRINTF("\r\n Successfully programmed and verified location FLEXSPI AMBA memory 0x%x -> 0x%x \r\n",
+        PRINTF("\r\n Successfully programmed and verified location FLEXSPI AMBA memory 0x%x -> 0x%x\r\n",
                (AHBNorAddress), (AHBNorAddress + sizeof(s_buffer)));
     }
     else
