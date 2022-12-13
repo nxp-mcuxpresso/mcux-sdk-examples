@@ -67,6 +67,10 @@
 /* dual mode include */
 #include "app_dual_mode_switch.h"
 
+#ifndef ENABLE_SUBG_IF
+#include "MacSched.h"
+#endif
+
 /* Selective OTA */
 #if defined (SOTA_ENABLED)
 #include "blob_manager_app.h"
@@ -307,6 +311,9 @@ void dm_switch_IdleTask(void)
 #ifndef ENABLE_SUBG_IF
         APP_PRINT_SER0("Init ZIGBEE stack in progress ... \r\n");
         App_InitZigbee();
+
+        /* Enable MAC scheduler. After this point, you cannot register a protocol anymore. */
+        sched_enable();
 #endif
 
         APP_PRINT_SER0("BLE/ZIGBEE stacks initialized \r\n");

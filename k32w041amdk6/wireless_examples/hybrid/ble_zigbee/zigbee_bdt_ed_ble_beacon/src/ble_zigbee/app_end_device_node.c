@@ -16,7 +16,7 @@
 #include "app_buttons.h"
 #include "dbg.h"
 #include "app_main.h"
-#include "Microspecific.h"
+#include "MicroSpecific.h"
 #include "app_end_device_node.h"
 #include "zigbee_config.h"
 #include "ZTimer.h"

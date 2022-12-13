@@ -22,6 +22,11 @@
 #ifndef ZED_MAX_POLLS
 #define ZED_MAX_POLLS (20)
 #endif
+
+#ifndef ZED_FB_START_TIME
+#define ZED_FB_START_TIME (1) /* s */
+#endif
+
 /****************************************************************************/
 /***        Type Definitions                                              ***/
 /****************************************************************************/

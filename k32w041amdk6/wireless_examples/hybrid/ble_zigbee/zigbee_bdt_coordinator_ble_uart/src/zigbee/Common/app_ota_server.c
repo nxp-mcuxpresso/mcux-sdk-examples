@@ -12,7 +12,7 @@
 #include "EmbeddedTypes.h"
 #include "dbg.h"
 #include <string.h>
-#include "ota.h"
+#include "OTA.h"
 #include "app_ota_server.h"
 #include "app_common.h"
 #include "zps_gen.h"

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_K32W041ADK6" name="K32W041ADK6" brief="This is SDK version 2.6.7 manifest file. It describes the content of the K32W041ADK6 and additional settings for tools that support SDK version 2.6.7" format_version="3.5" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.5.xsd">
-  <!--Timestamp (UTC): 2022-09-28 02:53:36.065745-->
-  <!--This manifest is generated based on sdk repo commit: 66e86863adc286aa4863b0f8f2223eb2fe4d4ea8-->
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_K32W041ADK6" name="K32W041ADK6" brief="This is SDK version 2.6.8 manifest file. It describes the content of the K32W041ADK6 and additional settings for tools that support SDK version 2.6.8" format_version="3.5" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.5.xsd">
+  <!--Timestamp (UTC): 2022-12-13 08:39:17.993388-->
+  <!--This manifest is generated based on sdk repo commit: 72c7a3e3c888fcb8a0abcde043b0c37c8c80af56-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
   </defines>
-  <ksdk id="MCUXpressoSDK267" name="MCUXpressoSDK267" version="2.6.7"/>
+  <ksdk id="MCUXpressoSDK268" name="MCUXpressoSDK268" version="2.6.8"/>
   <compilers>
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
   </compilers>
@@ -4575,6 +4575,11 @@ ${load}</script>
         <files mask="LED.c"/>
       </source>
     </component>
+    <component id="middleware.wireless.MCUX_linker_file_QN9030.K32W041A" name="wireless framework linker_file MCUX for QN9030" version="1.0.0" full_name="wireless linker_file MCUX for QN9030" devices="K32W041A" user_visible="false" type="middleware">
+      <source toolchain="mcuxpresso" path="middleware/wireless/framework/Common/devices/QN9090/gcc" target_path="src" type="linker">
+        <files mask="connectivity_QN9030.ld"/>
+      </source>
+    </component>
     <component id="middleware.wireless.framework.reset.K32W041A" name="wireless Reset" version="1.0.0" full_name="wireless Reset" devices="K32W041A" user_visible="false" type="middleware">
       <source path="middleware/wireless/framework/Reset" target_path="framework/Reset/source" type="src">
         <files mask="Reset.c"/>
@@ -5328,9 +5333,11 @@ ${load}</script>
     <component id="middleware.wireless.framework.sec_lib.K32W041A" name="wireless framework Sec_lib" version="1.0.0" full_name="wireless framework Sec_lib" devices="K32W041A" user_visible="false" type="middleware">
       <source path="middleware/wireless/framework/SecLib" target_path="framework/SecLib/source" type="src">
         <files mask="SecLib.c"/>
+        <files mask="SecLib_ecp256_sw.c"/>
       </source>
       <source path="middleware/wireless/framework/SecLib" target_path="framework/SecLib/interface" type="c_include">
         <files mask="SecLib.h"/>
+        <files mask="SecLib_ecp256.h"/>
       </source>
       <source toolchain="mcuxpresso" path="middleware/wireless/framework/SecLib" target_path="libs" type="lib">
         <files mask="lib_crypto_m4.a"/>
@@ -5339,9 +5346,11 @@ ${load}</script>
     <component id="middleware.wireless.framework.framework_sec_zigbee.K32W041A" name="wireless framework Sec_lib for zigbee" version="1.0.0" full_name="wireless framework Sec_lib for zigbee" devices="K32W041A" user_visible="false" type="middleware">
       <source path="middleware/wireless/framework/SecLib" target_path="framework/SecLib/source" type="src">
         <files mask="SecLib.c"/>
+        <files mask="SecLib_ecp256_sw.c"/>
       </source>
       <source path="middleware/wireless/framework/SecLib" target_path="framework/SecLib/interface" type="c_include">
         <files mask="SecLib.h"/>
+        <files mask="SecLib_ecp256.h"/>
         <files mask="aessw_ccm.h"/>
       </source>
     </component>
@@ -5349,9 +5358,6 @@ ${load}</script>
       <source path="middleware/wireless/ieee-802.15.4/MacDynamic/Include" target_path="ieee-802.15.4/MacDynamic/Include" type="c_include">
         <files mask="MacDynamic.h"/>
         <files mask="MacSched.h"/>
-      </source>
-      <source toolchain="mcuxpresso" path="middleware/wireless/ieee-802.15.4/lib" target_path="libs" type="lib">
-        <files mask="libMiniMac_Dynamic.a"/>
       </source>
     </component>
     <component id="middleware.wireless.ieee-802.15.4_common.K32W041A" name="Wireless ieee-802.15.4 common" version="1.0.0" full_name="Wireless ieee-802.15.4 common" devices="K32W041A" user_visible="false" type="middleware">
@@ -5365,7 +5371,12 @@ ${load}</script>
     <component id="middleware.wireless.ieee-802.15.4_lib.K32W041A" name="Wireless ieee-802.15.4 lib" version="1.0.0" full_name="Wireless ieee-802.15.4 lib" devices="K32W041A" user_visible="false" type="middleware">
       <source toolchain="mcuxpresso" path="middleware/wireless/ieee-802.15.4/lib" target_path="libs" type="lib">
         <files mask="libMiniMac.a"/>
+        <files mask="libMiniMac_Dynamic.a"/>
         <files mask="libMiniMac_IPN.a"/>
+      </source>
+    </component>
+    <component id="middleware.wireless.ieee-802.15.4_libMiniMac_Sched.K32W041A" name="Wireless ieee-802.15.4 libMiniMac_Sched" version="1.0.0" full_name="Wireless ieee-802.15.4 libMiniMac_Sched" devices="K32W041A" user_visible="false" type="middleware">
+      <source toolchain="mcuxpresso" path="middleware/wireless/ieee-802.15.4/lib" target_path="libs" type="lib">
         <files mask="libMiniMac_Sched.a"/>
       </source>
     </component>

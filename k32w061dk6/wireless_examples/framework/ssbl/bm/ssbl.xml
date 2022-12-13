@@ -138,6 +138,9 @@
     <source path="examples/k32w061dk6/wireless_examples/framework/ssbl" target_path="doc" type="doc">
       <files mask="ssbl.readme"/>
     </source>
+    <source path="middleware/wireless/framework/SecLib" target_path="middleware/wireless/framework/SecLib" type="lib" toolchain="iar">
+      <files mask="lib_crypto_m4_dspext.a"/>
+    </source>
     <source path="tools/imagetool" target_path="scripts" type="script" exclude="true" toolchain="mcuxpresso">
       <files mask="dk6_image_tool.py"/>
     </source>

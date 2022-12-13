@@ -67,6 +67,14 @@ typedef struct
 * Extern functions/variables
 *************************************************************************************
 ************************************************************************************/
+
+/* This function is not implemented in the Mac_sched lib */
+void vDynStopAll(void)
+{
+    vDynRequestState(E_DYN_SLAVE, E_DYN_STATE_OFF);
+    vDynRequestState(E_DYN_MASTER, E_DYN_STATE_OFF);
+}
+
 /* BLE Link Layer extern function */
 extern int BLE_SetActive(void);
 

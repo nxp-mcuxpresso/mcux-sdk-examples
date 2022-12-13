@@ -4,7 +4,7 @@
  ********************************************************************************** */
 /*!
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2017, 2019 NXP
+ * Copyright 2016-2017, 2022 NXP
  *
  * \file
  *
@@ -221,7 +221,7 @@
 #define gMainThreadStackSize_c  1100
 
 /* Defines total heap size used by the OS */
-#define gTotalHeapSize_c        11000
+#define gTotalHeapSize_c        12288
 
 /*! *********************************************************************************
  * 	BLE Stack Configuration

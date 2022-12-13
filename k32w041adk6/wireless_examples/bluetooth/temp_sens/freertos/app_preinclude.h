@@ -4,7 +4,7 @@
  ********************************************************************************** */
 /*!
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2019 NXP
+ * Copyright 2016-2019, 2022 NXP
  *
  * \file
  *
@@ -177,6 +177,18 @@
 
 /* gUsePdm_d is not synonymous to gAppUseNvm_d because PDM is used by Radio driver independantly from NVM */
 #define gUsePdm_d                       (gAppUseBonding_d | gAppUsePairing_d | gRadioUsePdm_d)
+
+/* Enable encryption on PDM */
+#define gAPP_PdmUseEncryption_d         1
+
+/* use and define staging buffer size in bytes -
+    Should be the biggest PDM record to be stored , 160 bytes for Bonding info
+    Increase value if bigger record shall be stored
+    zero if for no staging buffer
+  If no staging buffer is set, encryption will occur in place but
+    - will take more time as need to decryption after the PDM write
+    - Critical section by interrupt masking will be much longer too */
+#define gAPP_PdmStagingBufferSize_c     160
 
 /* Defines Num of Serial Manager interfaces */
 #define gSerialManagerMaxInterfaces_c   1

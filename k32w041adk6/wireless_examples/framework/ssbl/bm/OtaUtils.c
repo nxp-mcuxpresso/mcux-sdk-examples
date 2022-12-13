@@ -25,7 +25,18 @@
 #include "rom_psector.h"
 #include "rom_secure.h"
 #include "rom_api.h"
+
+/* This flag can be set to 1 to redirect OTA AES usage through SecLib,
+ * ensuring mutex protection against concurrent access to AES hardware. */
+#ifndef gOTA_UseSecLibAes
+#define gOTA_UseSecLibAes 0
+#endif
+
+#if gOTA_UseSecLibAes
+#include "SecLib.h"
+#else
 #include "rom_aes.h"
+#endif
 
 /************************************************************************************
 *************************************************************************************
@@ -60,15 +71,6 @@
 ************************************************************************************/
 
 typedef struct {
-    IMAGE_CERT_T certificate;
-    uint8_t signature[SIGNATURE_LEN];
-} ImageCertificate_t;
-
-typedef struct {
-    uint8_t signature[SIGNATURE_LEN];
-} ImageSignature_t;
-
-typedef struct {
     uint16_t blob_id;
     uint32_t blob_version;
 } ImageCompatibilityListElem_t;
@@ -91,9 +93,8 @@ typedef uint32_t (*flash_GetDmaccStatus_t)(uint8_t *address);
 * Private memory declarations
 *************************************************************************************
 ************************************************************************************/
-
-static const efuse_LoadUniqueKey_t efuse_LoadUniqueKey   = (efuse_LoadUniqueKey_t) ROM_API_efuse_LoadUniqueKey;
-static const aesLoadKeyFromOTP_t aesLoadKeyFromOTP       = (aesLoadKeyFromOTP_t) ROM_API_aesLoadKeyFromOTP;
+static const efuse_LoadUniqueKey_t efuse_LoadUniqueKey     = (efuse_LoadUniqueKey_t) ROM_API_efuse_LoadUniqueKey;
+static const aesLoadKeyFromOTP_t aesLoadKeyFromOTP         = (aesLoadKeyFromOTP_t) ROM_API_aesLoadKeyFromOTP;
 static const crc_update_t crc_update                       = (crc_update_t)ROM_API_crc_update;
 static const boot_CheckVectorSum_t boot_CheckVectorSum     = (boot_CheckVectorSum_t)ROM_API_boot_CheckVectorSum;
 static const flash_GetDmaccStatus_t flash_GetDmaccStatus   = (flash_GetDmaccStatus_t) ROM_API_flash_GetDmaccStatus;
@@ -205,33 +206,33 @@ static otaUtilsResult_t OtaUtils_ReadFromEncryptedExtFlash(uint16_t nbBytesToRea
             nbByteToAlignEnd = 0;
         }
 
+        aesContext_t aesContext;
         if (eType == eEfuseKey)
         {
             //aesInit();
-            efuse_LoadUniqueKey();
-            aesLoadKeyFromOTP(AES_KEY_128BITS);
+            OtaUtils_AesLoadKeyFromOTP(&aesContext, AES_KEY_128BITS);
         }
         else if (eType == eSoftwareKey && pParam != NULL)
         {
             sOtaUtilsSoftwareKey * pSoftKey = (sOtaUtilsSoftwareKey *) pParam;
-            aesLoadKeyFromSW(AES_KEY_128BITS, (uint32_t*)pSoftKey->pSoftKeyAes);
+            OtaUtils_AesLoadKeyFromSW(&aesContext, AES_KEY_128BITS, (uint32_t*)pSoftKey->pSoftKeyAes);
             break;
         }
 
-        aesMode(AES_MODE_ECB_DECRYPT, AES_INT_BSWAP | AES_OUTT_BSWAP);
+        OtaUtils_AesSetMode(&aesContext, AES_MODE_ECB_DECRYPT, AES_INT_BSWAP | AES_OUTT_BSWAP);
         if (nbByteToAlignStart)
         {
-            aesProcess((void*)alignedBufferStart, (void*)alignedBufferStart,  1);
+            OtaUtils_AesProcessBlocks(&aesContext, (void*)alignedBufferStart, (void*)alignedBufferStart,  1);
             nb_blocks -=1;
         }
         if (nbByteToAlignEnd)
         {
-            aesProcess((void*)pBuf, (void*)pBuf,  nb_blocks-1);
-            aesProcess((void*)alignedBufferEnd, (void*)alignedBufferEnd,  1);
+            OtaUtils_AesProcessBlocks(&aesContext, (void*)pBuf, (void*)pBuf,  nb_blocks-1);
+            OtaUtils_AesProcessBlocks(&aesContext, (void*)alignedBufferEnd, (void*)alignedBufferEnd,  1);
         }
         else
         {
-            aesProcess((void*)pBuf, (void*)pBuf,  nb_blocks);
+            OtaUtils_AesProcessBlocks(&aesContext, (void*)pBuf, (void*)pBuf,  nb_blocks);
         }
 
         /* Fill missing pBuf bytes */
@@ -307,25 +308,25 @@ static bool_t OtaUtils_VerifySignature(uint32_t address,
 
 static bool_t OtaUtils_FindBlankPage(uint32_t startAddr, uint16_t size)
 {
-	bool_t result = FALSE;
-	uint32_t addrIterator = startAddr;
+    bool_t result = FALSE;
+    uint32_t addrIterator = startAddr;
 
 
-	while (addrIterator < startAddr+size)
-	{
-		if (flash_GetDmaccStatus((uint8_t *)addrIterator) == 0)
-		{
-			result = TRUE;
-			break;
-		}
-		addrIterator += FLASH_PAGE_SIZE;
-	}
+    while (addrIterator < startAddr+size)
+    {
+        if (flash_GetDmaccStatus((uint8_t *)addrIterator) == 0)
+        {
+            result = TRUE;
+            break;
+        }
+        addrIterator += FLASH_PAGE_SIZE;
+    }
 
-	/* Check the endAddr */
-	if (!result && flash_GetDmaccStatus((uint8_t *)startAddr+size) == 0)
-		result = TRUE;
+    /* Check the endAddr */
+    if (!result && flash_GetDmaccStatus((uint8_t *)startAddr+size) == 0)
+        result = TRUE;
 
-	return result;
+    return result;
 }
 
 /******************************************************************************
@@ -333,6 +334,57 @@ static bool_t OtaUtils_FindBlankPage(uint32_t startAddr, uint16_t size)
 * Public functions
 *******************************************************************************
 ******************************************************************************/
+
+uint32_t OtaUtils_AesLoadKeyFromOTP(aesContext_t* pContext,
+                                    uint32_t keySize)
+{
+#if gOTA_UseSecLibAes
+    pContext->keySize = keySize;
+    pContext->pSoftwareKey = NULL;
+    return 0;
+#else
+    efuse_LoadUniqueKey();
+    return aesLoadKeyFromOTP((AES_KEY_SIZE_T)keySize);
+#endif
+}
+
+uint32_t OtaUtils_AesLoadKeyFromSW(aesContext_t* pContext,
+                                   uint32_t  keySize,
+                                   uint32_t* pKey)
+{
+#if gOTA_UseSecLibAes
+    pContext->keySize = keySize;
+    pContext->pSoftwareKey = pKey;
+    return 0;
+#else
+    return aesLoadKeyFromSW((AES_KEY_SIZE_T)keySize, pKey);
+#endif
+}
+
+uint32_t OtaUtils_AesSetMode(aesContext_t* pContext,
+                          uint32_t modeVal,
+                          uint32_t flags)
+{
+#if gOTA_UseSecLibAes
+    pContext->mode = modeVal;
+    pContext->flags = flags;
+    return 0;
+#else
+    return aesMode((AES_MODE_T)modeVal, flags);
+#endif
+}
+
+uint32_t OtaUtils_AesProcessBlocks(const aesContext_t* pContext,
+                                   uint32_t* pBlockIn,
+                                   uint32_t* pBlockOut,
+                                   uint32_t  numBlocks)
+{
+#if gOTA_UseSecLibAes
+    return AES_128_ProcessBlocks((const void*)pContext, pBlockIn, pBlockOut, numBlocks);
+#else
+    return aesProcess(pBlockIn, pBlockOut, numBlocks);
+#endif
+}
 
 otaUtilsResult_t OtaUtils_ReadFromInternalFlash(uint16_t nbBytesToRead,
                                                 uint32_t address,
@@ -504,26 +556,24 @@ uint32_t OtaUtils_ValidateImage(OtaUtils_ReadBytes pFunctionRead,
                 OTA_UTILS_DEBUG("Certificate found\n");
                 /* Check that the certificate is inside the img */
                 if ((uImgParser.imgBootBlock.certificate_offset + sizeof(ImageCertificate_t)) != imgSizeFound)
+                {
                     break;
+                }
                 /* If there is a certificate is must comply with the expectations */
                 /* There must be a trailing ImageAuthTrailer_t appended to boot block */
-                if (pFunctionRead(sizeof(ImageCertificate_t),  imgAddr + uImgParser.imgBootBlock.certificate_offset, (uint8_t *)&uImgParser.imgCertificate, pReadFunctionParam, pFunctionEepromRead) != gOtaUtilsSuccess_c)
+                if (pFunctionRead(sizeof(ImageCertificate_t), imgAddr + uImgParser.imgBootBlock.certificate_offset, (uint8_t *)&uImgParser.imgCertificate, pReadFunctionParam, pFunctionEepromRead) != gOtaUtilsSuccess_c)
+                {
                     break;
+                }
                 if (uImgParser.imgCertificate.certificate.certificate_marker != CERTIFICATE_MARKER)
-                    break;
-                /* Accesses to certificate header, certificate signature and image signature fields
-                 * indirectly allow their correct presence via the Bus Fault TRY-CATCH.
-                 */
-                if (uImgParser.imgCertificate.certificate.public_key[0] == uImgParser.imgCertificate.certificate.public_key[SIGNATURE_WRD_LEN-1])
-                    break;
-                const uint32_t * cert_sign = (uint32_t*)&uImgParser.imgCertificate.signature[0];
-                if (cert_sign[0] == cert_sign[SIGNATURE_WRD_LEN-1])
                 {
                     break;
                 }
                 /* Check the signature of the certificate */
                 if (!secure_VerifyCertificate(&uImgParser.imgCertificate.certificate, pKey, &uImgParser.imgCertificate.signature[0]))
+                {
                     break;
+                }
                 pKey =  (const uint32_t *)&uImgParser.imgCertificate.certificate.public_key[0];
                 imgSignatureOffset += sizeof(ImageCertificate_t);
             }
@@ -534,12 +584,11 @@ uint32_t OtaUtils_ValidateImage(OtaUtils_ReadBytes pFunctionRead,
             OTA_UTILS_DEBUG("Img signature found\n");
             /* Read the img signature */
             if (pFunctionRead(sizeof(ImageSignature_t), imgAddr + imgSignatureOffset, (uint8_t *)&uImgParser.imgCertificate.signature, pReadFunctionParam, pFunctionEepromRead) != gOtaUtilsSuccess_c)
-                    break;
+            {
+                break;
+            }
 
             const uint8_t * img_sign = (uint8_t*)&uImgParser.imgCertificate.signature[0];
-            if (img_sign[0] == img_sign[SIGNATURE_WRD_LEN-1])
-                break;
-
             if (!OtaUtils_VerifySignature(imgAddr, imgSignatureOffset, pKey, img_sign, pFunctionRead,
                                             pReadFunctionParam, pFunctionEepromRead))
                 break;
@@ -555,6 +604,7 @@ otaUtilsResult_t OtaUtils_ReconstructRootCert(IMAGE_CERT_T *pCert, const psector
 {
     otaUtilsResult_t result = gOtaUtilsError_c;
     uint32_t keyValid;
+    aesContext_t aesContext;
     do
     {
         if (pCert == NULL || pPage0 == NULL)
@@ -567,10 +617,9 @@ otaUtilsResult_t OtaUtils_ReconstructRootCert(IMAGE_CERT_T *pCert, const psector
             break;
         }
         /* Decrypt the public key using the efuse key */
-        efuse_LoadUniqueKey();
-        aesLoadKeyFromOTP(AES_KEY_128BITS);
-        aesMode(AES_MODE_ECB_DECRYPT, AES_INT_BSWAP | AES_OUTT_BSWAP);
-        aesProcess((uint32_t*)&pPage0->page0_v3.image_pubkey[0], &pCert->public_key[0],  SIGNATURE_LEN/16);
+        OtaUtils_AesLoadKeyFromOTP(&aesContext, AES_KEY_128BITS);
+        OtaUtils_AesSetMode(&aesContext, AES_MODE_ECB_DECRYPT, AES_INT_BSWAP | AES_OUTT_BSWAP);
+        OtaUtils_AesProcessBlocks(&aesContext, (uint32_t*)&pPage0->page0_v3.image_pubkey[0], &pCert->public_key[0],  SIGNATURE_LEN/16);
 
         if (pFlashPage != NULL)
         {

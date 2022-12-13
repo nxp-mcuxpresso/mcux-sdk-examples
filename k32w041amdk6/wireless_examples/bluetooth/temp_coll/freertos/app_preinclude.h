@@ -175,6 +175,9 @@
 /* gUsePdm_d is not synonymous to gAppUseNvm_d because PDM is used by Radio driver independantly from NVM */
 #define gUsePdm_d                       (gAppUseBonding_d | gAppUsePairing_d | gRadioUsePdm_d)
 
+/* Enable encryption on PDM - Set gAPP_PdmStagingBufferSize_c MACRO if you want to use a staging buffer, see temperature sensors app */
+#define gAPP_PdmUseEncryption_d         1
+
 /* Defines Num of Serial Manager interfaces */
 #define gSerialManagerMaxInterfaces_c   1
 

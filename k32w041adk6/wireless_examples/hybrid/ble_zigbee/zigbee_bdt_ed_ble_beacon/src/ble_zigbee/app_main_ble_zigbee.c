@@ -65,6 +65,8 @@
 #include "blob_utils.h"
 #endif
 
+#include "MacSched.h"
+
 /************************************************************************************
 *************************************************************************************
 * Local macros
@@ -121,6 +123,9 @@ static sDualModeAppStates dualModeStates;
 * Exported functions/variables
 *************************************************************************************
 ************************************************************************************/
+
+/* Not exported by Mac_sched library */
+void stopM2();
 
 /* BLE Application input queues */
 extern anchor_t mHostAppInputQueue;
@@ -230,6 +235,9 @@ void main_task(uint32_t param)
         (*(uint8_t *) &framework_configuration.lp_cfg.wakeup_advance) = 3;
 
         dm_switch_startBle();
+
+        /* Enable MAC scheduler. After this point, you cannot register a protocol anymore. */
+        sched_enable();
     }
 
     /* Call application task */
@@ -294,6 +302,10 @@ void dm_switch_init15_4AfterWakeUp(void)
     }
     /* Re-init the zigbee stack which will contains calls to radio APIs */
     App_InitZigbee(FALSE);
+
+    /* Enable MAC scheduler after Zigbee stack initialization */
+    sched_enable();
+
     /* Post an event to complete the re-init of the zigbee app */
     (void)App_PostCallbackMessage(dm_switch_processEvent, (void *) e15_4WakeUpReinitContinueEvent);
 
@@ -428,6 +440,12 @@ static void dm_switch_preSleepCallBack(void)
         /* If the power mode is with RAM held do the following
          * else not required as the entry point will init everything*/
          vSetOTAPersistedDatForMinRetention();
+
+        /* Disable the scheduler to enter low power mode. This should be done before vAppApiSaveMacSettings() because the protocols 
+        must be removed from scheduler(If vMMAC_Disable() it's called first the protocols will no longer be removed from sched) */
+        stopM2();
+        sched_disable();
+
          /* sleep memory held */
          vAppApiSaveMacSettings();
          dualModeStates.zigbeeInitialized = FALSE;

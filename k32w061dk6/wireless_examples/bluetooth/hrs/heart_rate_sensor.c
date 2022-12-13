@@ -459,7 +459,7 @@ static void BleApp_Config()
             AdvStartTimerCallback,
             NULL);
 #endif
-#if !defined (CPU_JN518X)
+
 #if (cPWR_UsePowerDownMode)
     #if MULTICORE_APPLICATION_CORE
         #if gErpcLowPowerApiServiceIncluded_c
@@ -472,7 +472,6 @@ static void BleApp_Config()
         PWR_ChangeDeepSleepMode(cPWR_DeepSleepMode);
         PWR_AllowDeviceToSleep();
     #endif
-#endif
 #endif
 }
 

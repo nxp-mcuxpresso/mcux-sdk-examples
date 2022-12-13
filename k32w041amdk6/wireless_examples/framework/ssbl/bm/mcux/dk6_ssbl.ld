@@ -483,4 +483,4 @@ SECTIONS
     ASSERT(__StackLimit >= _end_boot_resume_stack, "Possible stack corruption with data/bss/boot_stack")
 }
 
-GROUP(libcr_nohost.a libcr_c.a libcr_eabihelpers.a)
+GROUP(libcr_c.a libcr_eabihelpers.a)

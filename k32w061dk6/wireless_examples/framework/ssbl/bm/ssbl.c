@@ -49,8 +49,10 @@ extern jmp_buf  *exception_buf;
 
 #define RAISE_ERROR(x, val)   { x = val; break; }
 
+#ifdef SSBL_BLOB_LOAD
 #define SOTA_GET_BLOB_MAJOR_VERSION(blobVersion) (blobVersion >> 16)
 #define SOTA_GET_BLOB_MINOR_VERSION(blobVersion) (blobVersion & 0x0000FFFF)
+#endif
 
 #undef MIN
 #define MIN(a,b) ((a) <= (b) ? (a) : (b))
@@ -79,6 +81,33 @@ typedef enum
     FRO96M_ENA_SHIFT,
 } FroClkSelBit_t;
 
+#ifndef EXTERNAL_FLASH_DATA_OTA
+#define EXTERNAL_FLASH_DATA_OTA        0
+#endif
+
+#if EXTERNAL_FLASH_DATA_OTA
+#define EXTRA_SECTION_MAGIC     0x73676745
+#define COPY_BUFFER_LENGTH        256U
+#define MAX_EXTRA_DATA_SIZE        0x7000U /* Should be tuned according use case */
+#define EXTRA_BUFFER_SHA_LENGTH        16U
+
+/*!
+ * @brief Extra data header.
+ *
+ * Be very cautious when modifying the EXTRA_DATA_HEADER_T structure (alignment) as
+ * these structures are used in the image_tool.py (which does not take care of alignment).
+ */
+typedef struct
+{
+    uint32_t extra_data_magic;        /*!< Identifier for extra section descriptor */
+    uint32_t extra_data_lma;        /*!< Extra data load machine address - typically External flash address*/
+    uint32_t extra_data_size;       /*!< Extra data size in Bytes */
+    uint8_t extra_data_hash[32];    /*!< Computed Hash of the extra data - 256 Bits (32 Bytes)*/
+} EXTRA_DATA_HEADER_T;
+
+#define GET_PAGE_MULTIPLE_UP(X, PAGE_SIZE) ((X + PAGE_SIZE-1)/PAGE_SIZE)
+
+#endif
 
 #define ENABLE_FROCLK(x) PMC->FRO192M |= (1 << (PMC_FRO192M_DIVSEL_SHIFT+(x)))
 /************************************************************************************
@@ -88,6 +117,9 @@ typedef enum
 ************************************************************************************/
 
 typedef enum {
+#if EXTERNAL_FLASH_DATA_OTA
+    StatusOta_incorrect_extra_data = -9,
+#endif
     StatusOTA_downgrade_error = -8,
     StatusOta_compatibility_error = -7,
     StatusOta_ciphering_error = -6,
@@ -120,10 +152,12 @@ typedef enum {
     AES_PASSWORD_CIPHER,
 } CipherMethod_t;
 
+#ifdef SSBL_BLOB_LOAD
 typedef struct {
     uint16_t blob_id;
     uint32_t blob_version;
 } ImageCompatibilityListElem_t;
+#endif
 
 /************************************************************************************
 *************************************************************************************
@@ -131,7 +165,8 @@ typedef struct {
 *************************************************************************************
 ************************************************************************************/
 extern int SPIFI_Flash_Init(void);
-
+extern uint8_t SPIFI_eraseArea(uint32_t Addr, int32_t size);
+extern void SPIFI_writeData(uint32_t NoOfBytes, uint32_t Addr, uint8_t *Outbuf);
 /************************************************************************************
 *************************************************************************************
 * Variables
@@ -148,7 +183,7 @@ const static BOOT_SetImageAddress_t BOOT_SetImageAddress   = (BOOT_SetImageAddre
 const static BOOT_SetCfgWord_t BOOT_SetCfgWord             = (BOOT_SetCfgWord_t)ROM_API_BOOT_SetCfgWord;
 const static BOOT_ResumeGetCfgWord_t BOOT_ResumeGetCfgWord = (BOOT_ResumeGetCfgWord_t)ROM_API_BOOT_ResumeGetCfgWord;
 #endif
-
+extern uint32_t INT_STORAGE_START[];
 /******************************************************************************
 *******************************************************************************
 * Private functions
@@ -262,6 +297,7 @@ static uint8_t ssbl_ExtractImgType(const IMG_HEADER_T *imageHeader)
     return imgType;
 }
 
+#ifdef SSBL_BLOB_LOAD
 static uint16_t ssbl_ExtractBlobIdVersion(uint32_t blob_start_address, uint32_t *blob_version)
 {
     uint32_t u32BootBlockOffset;
@@ -364,7 +400,7 @@ static bool ssbl_CheckCompatibility(const image_directory_entry_t *img_directory
 
     return status;
 }
-
+#endif
 static void ImgDirectoryEntryClear(image_directory_entry_t * dir_entry)
 {
     dir_entry->img_nb_pages = 0;
@@ -373,12 +409,14 @@ static void ImgDirectoryEntryClear(image_directory_entry_t * dir_entry)
     dir_entry->flags = 0;
 }
 
+#ifdef SSBL_BLOB_LOAD
 static  __attribute__ ((noinline))  const BOOT_BLOCK_T* GetBootBlockPtr(const IMG_HEADER_T * img_hdr)
 {
     /* The noinline is there so as to prevent -Os to perform an optimization that causes a HardFault */
     uint32_t hdr = (uint32_t)img_hdr + img_hdr->bootBlockOffset;
     return (const BOOT_BLOCK_T*)hdr;
 }
+#endif
 
 static const image_directory_entry_t * ssbl_GetImgDirEntryBasedOnImgType(
         const image_directory_entry_t * img_directory,
@@ -399,11 +437,107 @@ static const image_directory_entry_t * ssbl_GetImgDirEntryBasedOnImgType(
     return entry_found;
 }
 
+static bool AddressWithinInternalFlashSafeRange(uint32_t addr)
+{
+    return (addr < (uint32_t) INT_STORAGE_START);
+}
+
+static  bool ssbl_ImgDirectorySanityCheck(psector_page_data_t * page0)
+
+{
+    const image_directory_entry_t * img_directory = &page0->page0_v3.img_directory[0];
+    bool res = false;
+    uint32_t img_base, img_end;
+    for (int i = 0; i < IMG_DIRECTORY_MAX_SIZE; i++)
+    {
+        img_base = img_directory[i].img_base_addr;
+        img_end = img_base + FLASH_PAGE_SIZE * img_directory[i].img_nb_pages;
+        bool overlap = false;
+        if (AddressWithinInternalFlashSafeRange(img_end))
+        {
+            for (int j = i+1; j < IMG_DIRECTORY_MAX_SIZE; j++ )
+            {
+                uint32_t other_entry_base = img_directory[j].img_base_addr;
+                uint32_t other_entry_end = other_entry_base + FLASH_PAGE_SIZE * img_directory[j].img_nb_pages;
+                if (((img_base < other_entry_base) && (img_end > other_entry_base)) ||
+                        ((img_base >= other_entry_base) && (img_base < other_entry_end)))
+                {
+                    overlap = true;
+                    break;
+                }
+            }
+            res =  !overlap;
+        }
+        else
+        {
+            res = false;
+            break;
+        }
+    }
+    return res;
+}
+
 static otaUtilsResult_t ssbl_EEPROM_ReadData(uint16_t nbBytes, uint32_t address, uint8_t *pInbuf)
 {
     memcpy(pInbuf, (void*)(address), nbBytes);
     return gOtaUtilsSuccess_c;
 }
+
+#if EXTERNAL_FLASH_DATA_OTA
+static otaUtilsResult_t ssbl_ComputeExtraDataHash(uint32_t p_extra_data_addr,
+                                                  uint32_t extra_data_size,
+                                                  uint8_t *p_computed_hash,
+                                                  OtaUtils_ReadBytes pFunctionRead,
+                                                  void * pReadFunctionParam,
+                                                  OtaUtils_EEPROM_ReadData pFunctionEepromRead)
+{
+    otaUtilsResult_t res = gOtaUtilsError_c;
+    uint32_t nbPageToRead = extra_data_size/EXTRA_BUFFER_SHA_LENGTH;
+    uint32_t lastPageNbByteNumber = extra_data_size - (nbPageToRead*EXTRA_BUFFER_SHA_LENGTH);
+    uint32_t i = 0;
+
+    do {
+        uint8_t pageContent[EXTRA_BUFFER_SHA_LENGTH];
+        uint8_t digest[32];
+        sha_ctx_t hash_ctx;
+        size_t sha_sz = 32;
+        /* Initialise SHA clock do not call SHA_ClkInit(SHA0) because the HAL pulls in too much code  */
+        SYSCON->AHBCLKCTRLSET[1] = SYSCON_AHBCLKCTRL1_HASH_MASK;
+        if (SHA_Init(SHA0, &hash_ctx, kSHA_Sha256) != kStatus_Success)
+            break;
+        for (i=0; i<nbPageToRead; i++)
+        {
+            if (pFunctionRead(sizeof(pageContent),  p_extra_data_addr+(i*EXTRA_BUFFER_SHA_LENGTH), &pageContent[0], pReadFunctionParam, pFunctionEepromRead) != gOtaUtilsSuccess_c)
+                break;
+            if (SHA_Update(SHA0, &hash_ctx, (const uint8_t*)pageContent, EXTRA_BUFFER_SHA_LENGTH) != kStatus_Success)
+                break;
+        }
+        /* Read bytes located on the last page */
+        if (pFunctionRead(lastPageNbByteNumber,  p_extra_data_addr+(i*EXTRA_BUFFER_SHA_LENGTH), &pageContent[0], pReadFunctionParam, pFunctionEepromRead) != gOtaUtilsSuccess_c)
+            break;
+        if (SHA_Update(SHA0, &hash_ctx, (const uint8_t*)pageContent, lastPageNbByteNumber) != kStatus_Success)
+                break;
+        if (SHA_Finish(SHA0,  &hash_ctx, &digest[0], &sha_sz) != kStatus_Success)
+            break;
+        /* Compare with the computed Hash */
+        res = gOtaUtilsSuccess_c;
+        void *p_hash = &digest[0];
+        while (sha_sz)
+        {
+            if ( *((uint8_t *)p_hash) != *((uint8_t *)p_computed_hash))
+            {
+                res = gOtaUtilsError_c;
+                break;
+            }
+            p_computed_hash = (uint8_t* )p_computed_hash+1;
+            p_hash = (uint8_t* )p_hash+1;
+            sha_sz--;
+        }
+    } while (0);
+    SYSCON->AHBCLKCTRLCLR[1] =  SYSCON_AHBCLKCTRL1_HASH_MASK; /* equivalent to SHA_ClkDeinit(SHA0) */
+    return res;
+}
+#endif
 
 static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
                               const image_directory_entry_t * img_directory,
@@ -415,6 +549,7 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
     bool_t external_flash_ota = (ota_entry->img_base_addr >= FSL_FEATURE_SPIFI_START_ADDR);
     uint32_t img_addr_ota = ota_entry->img_base_addr;
     uint32_t img_addr_targeted;
+    uint32_t img_total_len = 0;
     CipherMethod_t cipher_method = NO_CIPHER;
     OtaUtils_ReadBytes pFunction_read = OtaUtils_ReadFromInternalFlash;
     OtaUtils_EEPROM_ReadData pFunction_eeprom_read = ssbl_EEPROM_ReadData;
@@ -424,6 +559,7 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
     IMG_HEADER_T img_header_ota;
     BOOT_BLOCK_T boot_block_ota;
     uint8_t img_type_ota;
+    uint16_t img_nb_pages = ota_entry->img_nb_pages;
     uint8_t page_content_ota[FLASH_PAGE_SIZE];
     bool_t ssblUpdate = FALSE;
 
@@ -520,10 +656,16 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
         /* Check that the size of the new update will fit in the final destination */
         int img_nb_pages_ota = ((boot_block_ota.img_len + FLASH_PAGE_SIZE-1)/FLASH_PAGE_SIZE);
         int dst_section_size = (dest_dir_entry->img_nb_pages*FLASH_PAGE_SIZE);
+        img_total_len = boot_block_ota.img_len;
+        if(root_cert != NULL)
+        {
+            img_total_len += sizeof(ImageSignature_t);
+        }
         if (img_nb_pages_ota > dest_dir_entry->img_nb_pages
-                || boot_block_ota.img_len > dst_section_size)
+                || img_total_len > dst_section_size)
             RAISE_ERROR(err, StatusOta_incorrect_image_struct);
 
+#ifdef SSBL_BLOB_LOAD
         /* Compatibility list is not check when OTA comes from external flash */
         if (!external_flash_ota)
         {
@@ -554,16 +696,107 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
                 }
             }
         }
+#endif
+
+#if EXTERNAL_FLASH_DATA_OTA
+        if (!ssblUpdate && external_flash_ota)
+        {
+            /* Check the extra data integrity before doing anything else */
+            EXTRA_DATA_HEADER_T extra_data_header;
+            uint32_t extra_data_src_addr = 0;
+            uint8_t temp_buff[COPY_BUFFER_LENGTH] = {0};
+            memset(&extra_data_header, 0x0, sizeof(EXTRA_DATA_HEADER_T));
+
+            /* Try to extract Extra Section Descriptor */
+            TRY
+            {
+                pFunction_read(sizeof(EXTRA_DATA_HEADER_T),  img_addr_ota + img_header_ota.bootBlockOffset - sizeof(EXTRA_DATA_HEADER_T), (uint8_t *)&extra_data_header, p_param, ssbl_EEPROM_ReadData);
+            }
+            CATCH(BUS_EXCEPTION)
+            {
+                RAISE_ERROR(err, StatusOta_bus_fault);
+            }
+            YRT
+
+            /* Check if descriptor has been found */
+            if((extra_data_header.extra_data_magic == EXTRA_SECTION_MAGIC) && (img_nb_pages*FLASH_PAGE_SIZE >= img_total_len + extra_data_header.extra_data_size))
+            {
+                /* Sanity check on extracted descriptor */
+                if((extra_data_header.extra_data_size == 0) ||
+                        (extra_data_header.extra_data_lma < FSL_FEATURE_SPIFI_START_ADDR)
+                        || (extra_data_header.extra_data_lma > FSL_FEATURE_SPIFI_END_ADDR)
+                        || extra_data_header.extra_data_size > MAX_EXTRA_DATA_SIZE)
+                {
+                    /* At this stage nothing as been done - simply exit and keep the current image */
+                    RAISE_ERROR(err, StatusOta_incorrect_extra_data);
+                }
+
+                extra_data_src_addr = img_addr_ota + img_total_len;
+                if(extra_data_src_addr + extra_data_header.extra_data_size >= FSL_FEATURE_SPIFI_END_ADDR)
+                {
+                    /* At this stage nothing as been done - simply exit and keep the current image */
+                    RAISE_ERROR(err, StatusOta_incorrect_extra_data);
+                }
+
+                if(gOtaUtilsSuccess_c != ssbl_ComputeExtraDataHash((uint32_t *)extra_data_src_addr, extra_data_header.extra_data_size, extra_data_header.extra_data_hash, pFunction_read, p_param, pFunction_eeprom_read))
+                {
+                    /* At this stage nothing as been done - simply exit and keep the current image */
+                    RAISE_ERROR(err, StatusOta_incorrect_extra_data);
+                }
+
+                /* Checks passed - Start erasing the needed area - must be multiple of 4K */
+
+                if(0 != SPIFI_eraseArea(extra_data_header.extra_data_lma - FSL_FEATURE_SPIFI_START_ADDR, (int32_t) GET_PAGE_MULTIPLE_UP(MAX_EXTRA_DATA_SIZE, 4096U)))
+                {
+                    /* Exit on failure - TODO: if data already erased, only ISP mode can recover */
+                    RAISE_ERROR(err, StatusOta_operation_error);
+                }
+                /* Copy extra data buffers */
+                for (int i= 0 ; i < GET_PAGE_MULTIPLE_UP(extra_data_header.extra_data_size, COPY_BUFFER_LENGTH); i++)
+                {
+                    TRY
+                    {
+                        pFunction_read(COPY_BUFFER_LENGTH,  extra_data_src_addr + i*COPY_BUFFER_LENGTH, (uint8_t *)&temp_buff, p_param, pFunction_eeprom_read);
+                    }
+                    CATCH(BUS_EXCEPTION)
+                    {
+                        RAISE_ERROR(err, StatusOta_bus_fault);
+                    }
+                    YRT
+                    SPIFI_writeData(COPY_BUFFER_LENGTH, extra_data_header.extra_data_lma + i*COPY_BUFFER_LENGTH - FSL_FEATURE_SPIFI_START_ADDR, (uint8_t *)&temp_buff);
+                    dst_section_size = dst_section_size - COPY_BUFFER_LENGTH;
+                }
+                if(err != StatusOta_ok_so_far)
+                {
+                    /* Exit on failure - TODO: if data already erased, only ISP mode can recover */
+                    RAISE_ERROR(err, StatusOta_operation_error);
+                }
+                /* Remove the extra pages from the total image length */
+                img_nb_pages = GET_PAGE_MULTIPLE_UP(img_nb_pages*FLASH_PAGE_SIZE - extra_data_header.extra_data_size, FLASH_PAGE_SIZE);
+            }
+        }
+#endif /* EXTERNAL_FLASH_DATA_OTA */
 
         /* Erase flash section needed before copying */
         uint8_t * end_addr = (uint8_t*)img_addr_targeted + dst_section_size -1;
+        if ((uint32_t *)end_addr > INT_STORAGE_START)
+        {
+            if(img_addr_targeted + ota_entry->img_nb_pages*FLASH_PAGE_SIZE < (uint32_t) INT_STORAGE_START)
+            {
+                end_addr = (uint8_t*)img_addr_targeted + ota_entry->img_nb_pages*FLASH_PAGE_SIZE -1;
+            }
+            else
+            {
+                RAISE_ERROR(err, StatusOta_incorrect_image_struct);
+            }
+        }
         if (FLASH_Erase(FLASH, (uint8_t*)img_addr_targeted,
                 (uint8_t*) end_addr) != FLASH_DONE)
         {
             RAISE_ERROR(err, StatusOta_operation_error);
         }
 
-        for (int i= 0 ; i < ota_entry->img_nb_pages; i++)
+        for (int i= 0 ; i < img_nb_pages; i++)
         {
             TRY
             {
@@ -574,6 +807,16 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
                 RAISE_ERROR(err, StatusOta_bus_fault);
             }
             YRT
+#if EXTERNAL_FLASH_DATA_OTA
+            if(i==(img_nb_pages-1) && (img_total_len%FLASH_PAGE_SIZE != 0))
+            {
+                /* For last page, we may need to clear some bytes (end of the page) */
+                for (uint32_t j=(img_total_len%FLASH_PAGE_SIZE); j<FLASH_PAGE_SIZE; j++)
+                {
+                    page_content_ota[j] = 0xFF;
+                }
+            }
+#endif
             if (FLASH_Program(FLASH, (uint32_t*) (img_addr_targeted+(i*FLASH_PAGE_SIZE)),
                     (uint32_t*) &page_content_ota[0], FLASH_PAGE_SIZE) != FLASH_DONE)
                 RAISE_ERROR(err, StatusOta_operation_error);
@@ -596,6 +839,7 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
     return err;
 }
 
+#ifdef SSBL_BLOB_LOAD
 static const image_directory_entry_t * ssbl_GetImgDirEntryBasedOnBlobId(
         const image_directory_entry_t * img_directory,
         uint16_t blob_id
@@ -617,7 +861,7 @@ static const image_directory_entry_t * ssbl_GetImgDirEntryBasedOnBlobId(
     }
     return entry_found;
 }
-
+#endif
 static uint32_t ssbl_SearchForValidBootableImg(
         const image_directory_entry_t * img_directory,
         const uint32_t min_valid_addr,
@@ -661,6 +905,7 @@ static uint32_t ssbl_SearchForValidBootableImg(
     return image_addr;
 }
 
+#ifdef SSBL_BLOB_LOAD
 /*
  * The function is in charge of checking if the img is a blob
  * and if yes, the function oversees the validation of each blob composing
@@ -721,7 +966,7 @@ static void ssbl_CheckBlobsLinkToBootableImg(
         }
     }
 }
-
+#endif
 static uint32_t ssbl_SearchBootableImage(
         uint32_t *preferred_app,
         bool *update_page0_required,
@@ -746,15 +991,19 @@ static uint32_t ssbl_SearchBootableImage(
                                           root_cert,
                                           FALSE,
                                           FALSE);
+#ifdef SSBL_BLOB_LOAD
         if (image_addr != OTA_UTILS_IMAGE_INVALID_ADDR)
             ssbl_CheckBlobsLinkToBootableImg(img_directory, &image_addr, min_valid_addr, root_cert);
+#endif
     }
     else
     {
         /* there is no valid preferred app yet, try to find one bootable image */
         image_addr = ssbl_SearchForValidBootableImg(img_directory, min_valid_addr, root_cert, preferred_app);
+#ifdef SSBL_BLOB_LOAD
         if (image_addr != OTA_UTILS_IMAGE_INVALID_ADDR)
             ssbl_CheckBlobsLinkToBootableImg(img_directory, &image_addr, min_valid_addr, root_cert);
+#endif
         if (image_addr != OTA_UTILS_IMAGE_INVALID_ADDR)
         {
             *update_page0_required = true;
@@ -812,6 +1061,13 @@ int main(void)
         }
 
         end_of_ssbl = 0x00 + (uint32_t)SSBL_SIZE;
+
+        /* Sanity check of image directory */
+        if (!ssbl_ImgDirectorySanityCheck(&page[0]) )
+        {
+            /* status is -1 so ends up in ISP */
+            break;
+        }
 
         /* Check whether an OTA has been pushed */
         if (page[0].page0_v3.ota_entry.img_nb_pages != 0)

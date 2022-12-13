@@ -36,6 +36,15 @@
 *************************************************************************************
 ********************************************************************************** */
 
+typedef struct {
+    IMAGE_CERT_T certificate;
+    uint8_t signature[SIGNATURE_LEN];
+} ImageCertificate_t;
+
+typedef struct {
+    uint8_t signature[SIGNATURE_LEN];
+} ImageSignature_t;
+
 typedef enum {
   gOtaUtilsSuccess_c = 0,
   gOtaUtilsReadError_c,
@@ -54,6 +63,13 @@ typedef enum {
     eSoftwareKey,
 } eEncryptionKeyType;
 
+typedef struct {
+    uint32_t mode;          /* Setup mode: ECB, etc. */
+    uint32_t keySize;       /* Size of the AES key. */
+    uint32_t* pSoftwareKey; /* Address to save the software key. */
+    uint32_t flags;         /* Extra flags, normally 0. */
+} aesContext_t;
+
 /*
  * Function pointer to read from the flash driver
  */
@@ -71,11 +87,72 @@ typedef otaUtilsResult_t (*OtaUtils_ReadBytes)(uint16_t nbBytes,
                                                void *pParam,
                                                OtaUtils_EEPROM_ReadData eepromFunction);
 
+
 /*! *********************************************************************************
 *************************************************************************************
 * Public prototypes
 *************************************************************************************
 ********************************************************************************** */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/*! *********************************************************************************
+* \brief  Allows hardware AES to use the efuse OTP secret key for operations.
+*
+* \param[in] pContext: software context that stores key/mode information.
+* \param[in] keySize: size of the AES key
+*
+* \return    uint32_t
+*
+********************************************************************************** */
+uint32_t OtaUtils_AesLoadKeyFromOTP(aesContext_t* pContext,
+                                    uint32_t keySize);
+
+/*! *********************************************************************************
+* \brief  Allows hardware AES to use a software key for operations.
+*
+* \param[in] pContext: software context that stores key/mode information.
+* \param[in] keySize: size of the AES key
+* \param[in/out] pKey: address to save the software key
+*
+* \return    uint32_t
+*
+********************************************************************************** */
+uint32_t OtaUtils_AesLoadKeyFromSW(aesContext_t* pContext,
+                                   uint32_t  keySize,
+                                   uint32_t* pKey);
+
+/*! *********************************************************************************
+* \brief  Allows hardware AES to select an operation mode.
+*
+* \param[in] pContext: software context that stores key/mode information.
+* \param[in] modeVal: setup mode
+* \param[in] flags: extra flags, normally 0
+*
+* \return    uint32_t
+*
+********************************************************************************** */
+uint32_t OtaUtils_AesSetMode(aesContext_t* pContext,
+                             uint32_t modeVal,
+                             uint32_t flags);
+
+/*! *********************************************************************************
+* \brief  Allows hardware AES to start processing using selected mode and key.
+*
+* \param[in] pContext: software context that stores key/mode information.
+* \param[in] pBlockIn: pointer to the location of the input
+* \param[in/out] pBlockOut: pointer to the location of the output
+* \param[in] numBlocks: number of 16 bytes blocks to be processed
+*
+* \return    uint32_t
+*
+********************************************************************************** */
+uint32_t OtaUtils_AesProcessBlocks(const aesContext_t* pContext,
+                                   uint32_t* pBlockIn,
+                                   uint32_t* pBlockOut,
+                                   uint32_t  numBlocks);
 
 /*! *********************************************************************************
 * \brief  Allows to read bytes from the Internal Flash
@@ -185,6 +262,8 @@ uint32_t OtaUtils_ValidateImage(OtaUtils_ReadBytes pFunctionRead,
 ********************************************************************************** */
 otaUtilsResult_t OtaUtils_ReconstructRootCert(IMAGE_CERT_T *pCert, const psector_page_data_t* pPage0, const psector_page_data_t* pFlashPage);
 
-
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _OTA_UTILS_H_ */

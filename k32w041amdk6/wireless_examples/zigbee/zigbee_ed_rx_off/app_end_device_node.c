@@ -54,7 +54,9 @@
 static void vAppHandleAfEvent( BDB_tsZpsAfEvent *psZpsAfEvent);
 static void vAppHandleZdoEvents( BDB_tsZpsAfEvent *psZpsAfEvent);
 static void APP_vBdbInit(bool_t bColdStart);
+#if !defined(K32W2ARD_ITPS)
 static void vDeletePDMOnButtonPress(uint8_t u8ButtonDIO);
+#endif
 static void vPrintAPSTable(void);
 
 /****************************************************************************/
@@ -196,8 +198,10 @@ void APP_vInitialiseEndDevice(bool_t bColdStart)
 
    if (bColdStart)
    {
+#if !defined(K32W2ARD_ITPS)
        /* Delete PDM if required */
        vDeletePDMOnButtonPress(APP_BOARD_SW0_PIN);
+#endif
        DBG_vPrintf(TRACE_APP, "Start Up State %d On Network %d\r\n",
                 sDeviceDesc.eNodeState,
                 sBDB.sAttrib.bbdbNodeIsOnANetwork);
@@ -277,6 +281,9 @@ void APP_vBdbCallback(BDB_tsBdbEvent *psBdbEvent)
             APP_vSetLed(LED2, ON);
 #ifdef OT_ZB_SUPPORT
             ZTIMER_eStop(u8TimerScan);
+
+            /* Start the F&B procedure after a while */
+            ZTIMER_eStart(u8TimerButtonScan, ZTIMER_TIME_SEC(ZED_FB_START_TIME));
 #endif
             break;
 
@@ -581,6 +588,7 @@ static void APP_vBdbInit(bool_t bColdStart)
     }
 }
 
+#if !defined(K32W2ARD_ITPS)
 /****************************************************************************
  *
  * NAME: vDeletePDMOnButtonPress
@@ -631,6 +639,7 @@ static void vDeletePDMOnButtonPress(uint8_t u8ButtonDIO)
         } else { DBG_vPrintf(TRACE_APP, "RESET: Sent Leave\r\n"); }
     }
 }
+#endif /* !defined(K32W2ARD_ITPS) */
 
 /****************************************************************************
  *

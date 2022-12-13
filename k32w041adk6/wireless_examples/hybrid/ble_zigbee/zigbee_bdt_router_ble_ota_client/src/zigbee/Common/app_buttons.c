@@ -197,6 +197,7 @@ void gint_callback(void)
  * RETURNS:
  *
  ****************************************************************************/
+#ifndef OT_ZB_SUPPORT
 void APP_cbTimerButtonScan(void *pvParam)
 {
     /*
@@ -279,7 +280,28 @@ void APP_cbTimerButtonScan(void *pvParam)
         ZTIMER_eStart(u8TimerButtonScan, ZTIMER_TIME_MSEC(10));
     }
 }
+#else
+void APP_cbTimerButtonScan(void *pvParam)
+{
+    APP_tsEvent sButtonEvent;
 
+    DBG_vPrintf(TRACE_APP_BUTTON, "APP_cbTimerButtonScan\n");
+
+    /*
+     * Send a "button down" event, similar to what a press on the
+     * hardware button would do.
+     */
+    sButtonEvent.eType = APP_E_EVENT_BUTTON_DOWN;
+    sButtonEvent.uEvent.sButton.u8Button = 0;
+
+    if(ZQ_bQueueSend(&APP_msgAppEvents, &sButtonEvent) == FALSE)
+    {
+        DBG_vPrintf(TRACE_APP_BUTTON, "Button: Failed to post Event %d \r\n", sButtonEvent.eType);
+    }
+    /* We want this to be done only once, so stop the timer here */
+    ZTIMER_eStop(u8TimerButtonScan);
+}
+#endif /* OT_ZB_SUPPORT */
 /****************************************************************************/
 /***        Local Functions                                               ***/
 /****************************************************************************/

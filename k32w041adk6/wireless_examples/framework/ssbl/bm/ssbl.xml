@@ -138,5 +138,8 @@
     <source path="examples/k32w041adk6/wireless_examples/framework/ssbl" target_path="doc" type="doc">
       <files mask="ssbl.readme"/>
     </source>
+    <source path="middleware/wireless/framework/SecLib" target_path="middleware/wireless/framework/SecLib" type="lib" toolchain="iar">
+      <files mask="lib_crypto_m4_dspext.a"/>
+    </source>
   </example>
 </ksdk:examples>

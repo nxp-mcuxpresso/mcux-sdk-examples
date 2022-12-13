@@ -134,8 +134,9 @@
  * enabled (cPWR_UsePowerDownMode set to 3)
  * To be used with FRO32K (gClkUseFro32K)
  * Allow to decrease Always ON LDO voltage in powerdown for additional power saving
- * in connected mode */
-#define gPWR_UseAlgoTimeBaseDriftCompensate  gClkUseFro32K
+ * in connected mode
+ * Keep it disabled for now */
+//#define gPWR_UseAlgoTimeBaseDriftCompensate  1
 
 /*! Switch CPU clock to 48MHz FRO at startup - 32MHz (FRO or XTAL) default */
 #define gPWR_CpuClk_48MHz                    1

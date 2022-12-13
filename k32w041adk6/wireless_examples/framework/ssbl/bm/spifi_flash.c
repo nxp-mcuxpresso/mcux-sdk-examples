@@ -64,13 +64,15 @@
 
 #define MX25R8035F_PAGE_SIZE        256                  /* 256B sectors */
 #define MX25R8035F_SECTOR_SIZE      4096                 /* 4KB sectors */
-#define MX25R8035F_BLOCK_SIZE       QSPIFLASH_SECTOR_SIZE * 16     /* 64KB blocks */
-#define MX25R8035F_CHIP_SIZE        QSPIFLASHF_SECTOR_SIZE * 2000   /* 8MB capacity */
+#define MX25R8035F_BLOCK_SIZE       QSPIFLASH_SECTOR_SIZE * 8     /* 32KB blocks */
+#define QSPIFLASH_BLOCK2_SIZE        QSPIFLASH_BLOCK_SIZE * 2      /* 64KB blocks */
+#define MX25R8035F_CHIP_SIZE        QSPIFLASH_SECTOR_SIZE * 2000  /* 8MB capacity */
 
 #define QSPIFLASH_PAGE_SIZE        MX25R8035F_PAGE_SIZE
 #define QSPIFLASH_SECTOR_SIZE      MX25R8035F_SECTOR_SIZE
 #define QSPIFLASH_BLOCK_SIZE       MX25R8035F_BLOCK_SIZE
 #define QSPIFLASH_CHIP_SIZE        MX25R8035F_CHIP_SIZE
+#define QSPIFLASH_PAGE_MASK       (QSPIFLASH_PAGE_SIZE - 1)
 
 #define MX25_SR_WIP_POS 0     /* Write In Progress */
 #define MX25_SR_WEL_POS 1     /* Write Enable Latch */
@@ -136,6 +138,53 @@
 #define QSPI_CS_PIN 16
 #define QSPI_WP_PIN 20
 
+#ifndef SPIFI_DUAL_MODE_SUPPORT
+#define SPIFI_DUAL_MODE_SUPPORT 0
+#endif
+
+#define IS_SPIFI_DUAL_MODE()         (CHIP_USING_SPIFI_DUAL_MODE() || SPIFI_DUAL_MODE_SUPPORT)
+#define IS_ALIGNED(x, aligment)     (((uint32_t)(x) & (aligment-1)) == 0)
+
+#define IOCON_GPIO_MODE_FUNC        (0U)
+#define IOCON_QSPI_MODE_FUNC        (7U)
+
+#define SPIFI_FAST_IO_MODE                                              \
+    IOCON_PIO_FUNC(IOCON_QSPI_MODE_FUNC) |                              \
+    /* No addition pin function */                                      \
+    /* Fast mode, slew rate control is enabled */                       \
+    IOCON_PIO_SLEW0(1) | IOCON_PIO_SLEW1(1) |                           \
+    /* Input function is not inverted */                                \
+    IOCON_PIO_INVERT(0) |                                               \
+    /* Enables digital function */                                      \
+    IOCON_PIO_DIGIMODE(1) |                                             \
+    /* Input filter disabled */                                         \
+    IOCON_PIO_FILTEROFF(0) |                                            \
+    /* Open drain is disabled */                                        \
+    IOCON_PIO_OD(0) |                                                   \
+    /* SSEL is disabled */                                              \
+    IOCON_PIO_SSEL(0)
+
+#define GPIO_PULLUP_MODE                                                \
+    /* Pin is configured as GPIO */                                     \
+    IOCON_PIO_FUNC(IOCON_GPIO_MODE_FUNC) |                              \
+    /* Selects pull-down function */                                    \
+    IOCON_PIO_MODE(0) |                                                 \
+    /* Standard mode, output slew rate control is disabled */           \
+    IOCON_PIO_SLEW0(0) | IOCON_PIO_SLEW1(0) |                           \
+    /* Input function is not inverted */                                \
+    IOCON_PIO_INVERT(0) |                                               \
+    /* Enables digital function */                                      \
+    IOCON_PIO_DIGIMODE(1) |                                             \
+    /* Input filter disabled */                                         \
+    IOCON_PIO_FILTEROFF(0) |                                            \
+    /* Open drain is disabled */                                        \
+    IOCON_PIO_OD(0) |                                                   \
+    /* SSEL is disabled */                                              \
+    IOCON_PIO_SSEL(0)
+
+#define SPIFI_FAST_IO_MODE_INACT   (SPIFI_FAST_IO_MODE | IOCON_PIO_MODE(2))
+#define SPIFI_FAST_IO_MODE_PULLUP  (SPIFI_FAST_IO_MODE | IOCON_PIO_MODE(0))
+
 /*******************************************************************************
  * Types
  ******************************************************************************/
@@ -149,13 +198,13 @@ typedef enum _command_t
 //    WRDI,      /* Write Disable */
       WRSR,      /* Write Status Register */
 //    PP4,       /* Quad Page Program */
-//    QPP,       /* Quad Input Page Program */
+      QPP,       /* Quad Input Page Program */
       QREAD,     /* 1I-4O read */
       SE,        /* Sector Erase */
 //    READ,      /* Read */
       DREAD,     /* 1I-2O read */
 //    READ2,     /* 2I-2O read */
-//    PP,        /* Page Program */
+      PP,        /* Page Program */
 //    READ4,     /* 4I-4O read */
       BE64K,        /* Block Erase */
       BE32K,        /* Block Erase */
@@ -224,13 +273,13 @@ static spifi_command_t command[MAX_CMD] =
 //  [WRDI]  = {0                  , false, kSPIFI_DataOutput, 0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeOnly,   0x04},
     [WRSR]  = {3                  , false, kSPIFI_DataOutput, 0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeOnly,   0x01},
 //  [PP4]   = {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataOutput, 0, kSPIFI_CommandOpcodeSerial, kSPIFI_CommandOpcodeAddrThreeBytes, 0x38},
-//  [QPP]   = {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataOutput, 0, kSPIFI_CommandDataQuad,     kSPIFI_CommandOpcodeAddrThreeBytes, 0x32},
+    [QPP]   = {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataOutput, 0, kSPIFI_CommandDataQuad,     kSPIFI_CommandOpcodeAddrThreeBytes, 0x32},
     [QREAD] = {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataInput,  1, kSPIFI_CommandDataQuad,     kSPIFI_CommandOpcodeAddrThreeBytes, 0x6B},
     [SE]    = {0                  , false, kSPIFI_DataOutput, 0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeAddrThreeBytes, 0x20},
 //  [READ]  = {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataInput,  0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeAddrThreeBytes, 0x03},
     [DREAD] =  {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataInput,  1, kSPIFI_CommandDataQuad,     kSPIFI_CommandOpcodeAddrThreeBytes, 0x3B},
 //  [READ2] =  {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataInput,  1, kSPIFI_CommandOpcodeSerial, kSPIFI_CommandOpcodeAddrThreeBytes, 0xBB},
-//  [PP]    =  {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataOutput, 0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeAddrThreeBytes, 0x02},
+    [PP]    =  {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataOutput, 0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeAddrThreeBytes, 0x02},
 //  [READ4] =  {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataInput,  3, kSPIFI_CommandOpcodeSerial, kSPIFI_CommandOpcodeAddrThreeBytes, 0xEB},
     [BE64K] =  {0                  , false, kSPIFI_DataOutput, 0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeAddrThreeBytes, 0xD8},
     [BE32K] =  {0                  , false, kSPIFI_DataOutput, 0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeAddrThreeBytes, 0x52},
@@ -238,6 +287,40 @@ static spifi_command_t command[MAX_CMD] =
     [DP]    =  {0                  , false, kSPIFI_DataOutput, 0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeOnly,           0xB9},
 };
 
+const iocon_group_t spifi_io_cfg[] = {
+    [0] = {
+        .port = 0,
+        .pin =  16,               /* SPIFI Chip Select */
+        .modefunc = SPIFI_FAST_IO_MODE_PULLUP,
+    },
+    [1] = {
+        .port = 0,
+        .pin =  17,                 /*SPIFI DIO3 */
+        .modefunc = SPIFI_FAST_IO_MODE_INACT,
+    },
+    [2] = {
+        .port = 0,
+        .pin =  18,                 /*SPIFI CLK */
+        .modefunc = SPIFI_FAST_IO_MODE_INACT,
+    },
+    [3] = {
+        .port = 0,
+        .pin =  19,                 /*SPIFI DIO0 */
+        .modefunc =SPIFI_FAST_IO_MODE_INACT,
+    },
+    [4] = {
+        .port = 0,
+        .pin =  20,                 /*SPIFI DIO2 */
+        .modefunc = SPIFI_FAST_IO_MODE_INACT,
+    },
+    [5] = {
+        .port = 0,
+        .pin =  21,                 /*SPIFI DIO1 */
+        .modefunc = SPIFI_FAST_IO_MODE_INACT,
+    },
+};
+
+static uint8_t initialized = 0;
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -256,124 +339,205 @@ static uint32_t SPIFI_readCommand (command_t cmd);
 
 static void ConfigureSpiFi(void)
 {
-#define IOCON_QSPI_MODE_FUNC    (7U)
-
     /* Set up SPIFI: it comprises 6 pins : PIO[16:21]
-     * PIO[16] : CS
+     * PIO[16] : CSN
+     * PIO[17] : IO3 (in Quad Access Mode only)
      * PIO[18] : CLK
-     * PIO[19] : MOSI
-     * PIO[21] : MISO
+     * PIO[19] : IO0
+     * PIO[20] : IO2 (in Quad Access Mode only)
+     * PIO[21] : IO1
      * */
-    for (int pin = 16; pin <= 21; pin++)
+    CLOCK_EnableClock(kCLOCK_Iocon);
+    for (int i = 0; i < 6; i++)
     {
-        IOCON_PinMuxSet(IOCON, 0, pin,
-                        IOCON_PIO_FUNC(IOCON_QSPI_MODE_FUNC) | IOCON_PIO_MODE(2)
-                      | IOCON_PIO_DIGIMODE(1) | IOCON_PIO_FILTEROFF(0)
-                      | IOCON_PIO_SLEW0(1) | IOCON_PIO_SLEW1(1));
+        if ((i==1 || i==4) && IS_SPIFI_DUAL_MODE())
+        {
+#ifdef DK6
+            /* In DK6 board, IO2 & IO3 needs to be set with Pull-Ups instead of
+             * the default Pull-Downs config which is placing the QSPI Flash in Reset
+             */
+            IOCON_PinMuxSet(IOCON,
+                            spifi_io_cfg[i].port,
+                            spifi_io_cfg[i].pin,
+                            (uint32_t)GPIO_PULLUP_MODE);
+#else
+            /* We assume that customers will have connected IO2 & IO3 to Vdd
+             * hence no need to configure them
+             */
+            continue;
+#endif
+        }
+        else
+        {
+            IOCON_PinMuxSet(IOCON,
+                            spifi_io_cfg[i].port,
+                            spifi_io_cfg[i].pin,
+                            spifi_io_cfg[i].modefunc);
+        }
+    }
+    CLOCK_DisableClock(kCLOCK_Iocon);
+}
+
+/*! *********************************************************************************
+* \brief   Set the SPIFI Flash into read mode
+*
+* \param[in] Addr      Start memory address
+*
+********************************************************************************** */
+static void SPIFI_SetRead(uint32_t Addr)
+{
+
+    /* Set start address */
+    SPIFI_SetCommandAddress(SPIFI, FSL_FEATURE_SPIFI_START_ADDR + Addr );
+
+    /* Enable read */
+    if (IS_SPIFI_DUAL_MODE())
+    {
+        SPIFI_SetMemoryCommand(SPIFI, &command[DREAD]);
+    }
+    else
+    {
+        SPIFI_SetMemoryCommand(SPIFI, &command[QREAD]);
+    }
+}
+
+/*! *********************************************************************************
+* \brief   Write a page in the external memory, at a given address
+*
+* \param[in] NoOfBytes Number of bytes to read
+* \param[in] Addr      Start memory address
+* \param[in] Outbuf    Pointer to the data
+*
+********************************************************************************** */
+static void SPIFI_WritePage(uint32_t NoOfBytes, uint32_t Addr, uint8_t *Outbuf)
+{
+    if(NoOfBytes > 0)
+    {
+        SPIFI_SetCommand(SPIFI, &command[WREN]);
+        SPIFI_SetCommandAddress(SPIFI, Addr + FSL_FEATURE_SPIFI_START_ADDR);
+
+        if (IS_SPIFI_DUAL_MODE())
+        {
+            command[PP].dataLen = NoOfBytes;
+            SPIFI_SetCommand(SPIFI, &command[PP]);
+        }
+        else
+        {
+            command[QPP].dataLen = NoOfBytes;
+            SPIFI_SetCommand(SPIFI, &command[QPP]);
+        }
+
+        SPIFI_WriteBuffer(SPIFI, Outbuf, NoOfBytes);
+        qspi_wait_for_completion();
+        SPIFI_SetRead(0);
     }
 }
 
 
-
-
 int SPIFI_Flash_Init(void)
 {
-    int status = -1;
+    if(!initialized)
+    {
+        int status = -1;
 
-    spifi_config_t config = {0};
-#define SPIFI_CLK  kMAIN_CLK_to_SPIFI
-//#define SPIFI_CLK kFRO48M_to_SPIFI
+        spifi_config_t config = {0};
+    #define SPIFI_CLK  kMAIN_CLK_to_SPIFI
+    //#define SPIFI_CLK kFRO48M_to_SPIFI
 
-    do {
-        // Init SPIFI clk
-#ifdef NO_OPT_SZ
-        RESET_SetPeripheralReset(kSPIFI_RST_SHIFT_RSTn);
-        CLOCK_AttachClk(SPIFI_CLK);
-        uint32_t divisor = CLOCK_GetSpifiClkFreq() / SPI_BAUDRATE;
-        CLOCK_SetClkDiv(kCLOCK_DivSpifiClk, divisor ? divisor : 1, false);
-        CLOCK_EnableClock(kCLOCK_Spifi);
-        /* Set the clock divider */
-        SYSCON->AHBCLKCTRLSET[0] = SYSCON_AHBCLKCTRLSET0_SPIFI_CLK_SET_MASK;
-        ConfigureSpiFi();
-        RESET_ClearPeripheralReset(kSPIFI_RST_SHIFT_RSTn);
-#else
-        SYSCON->PRESETCTRLSET[0] = SYSCON_PRESETCTRL0_SPIFI_RST_SHIFT; /* Hold SPIFI under reset */
-        SYSCON->SPIFICLKDIV |= SYSCON_SPIFICLKDIV_HALT_MASK;
-        SYSCON->SPIFICLKSEL = kCLOCK_SpifiMainClk;  /* Main CLK to SPIFI CLK : supposed to be 32MHz */
+        do {
+            // Init SPIFI clk
+//#define NO_OPT_SZ
+    #ifdef NO_OPT_SZ
+            RESET_SetPeripheralReset(kSPIFI_RST_SHIFT_RSTn);
+            CLOCK_AttachClk(SPIFI_CLK);
+            uint32_t divisor = CLOCK_GetSpifiClkFreq() / SPI_BAUDRATE;
+            CLOCK_SetClkDiv(kCLOCK_DivSpifiClk, divisor ? divisor : 1, false);
+            CLOCK_EnableClock(kCLOCK_Spifi);
+            /* Set the clock divider */
+            SYSCON->AHBCLKCTRLSET[0] = SYSCON_AHBCLKCTRLSET0_SPIFI_CLK_SET_MASK;
+            ConfigureSpiFi();
+            RESET_ClearPeripheralReset(kSPIFI_RST_SHIFT_RSTn);
+    #else
+            SYSCON->PRESETCTRLSET[0] = SYSCON_PRESETCTRL0_SPIFI_RST_SHIFT; /* Hold SPIFI under reset */
+            SYSCON->SPIFICLKDIV |= SYSCON_SPIFICLKDIV_HALT_MASK;
+            SYSCON->SPIFICLKSEL = kCLOCK_SpifiMainClk;  /* Main CLK to SPIFI CLK : supposed to be 32MHz */
 
-        ConfigureSpiFi();
-        /* Set the clock divider */
-        uint32_t divisor = 32 / SPI_BAUDRATE;
-        // CLOCK_SetClkDiv(kCLOCK_DivSpifiClk, divisor ? divisor : 1, false);
-        SYSCON->SPIFICLKDIV &= ~SYSCON_SPIFICLKDIV_DIV_MASK;
-        if ((divisor-1) > 0)
-        {
-            SYSCON->SPIFICLKDIV |= SYSCON_SPIFICLKDIV_DIV(divisor-1);
-        }
-        SYSCON->SPIFICLKDIV &= ~SYSCON_SPIFICLKDIV_HALT_MASK;
-        SYSCON->AHBCLKCTRLSET[0] = SYSCON_AHBCLKCTRLSET0_SPIFI_CLK_SET_MASK;
-        SYSCON->PRESETCTRLCLR[0] = SYSCON_PRESETCTRL0_SPIFI_RST_SHIFT; /* Release SPIFI reset */
-#endif
-        /* Initialize SPIFI */
-        SPIFI_GetDefaultConfig(&config);
-        bool dual_mode = false;
-        if (CHIP_USING_SPIFI_DUAL_MODE())
-        {
-            config.dualMode = kSPIFI_DualMode;
-            dual_mode = true;
-        }
-        SPIFI_Init(SPIFI, &config);
-
-        uint32_t val = SPIFI_readCommand(RDID);
-        val &= 0x00FFFFFF;
-
-        /* Write enable */
-        SPIFI_SetCommand(SPIFI, &command[WREN]);
-
-
-        switch (val)
-        {
-            case MX25R8035F_DEVICE_ID:
+            ConfigureSpiFi();
+            /* Set the clock divider */
+            uint32_t divisor = 32 / SPI_BAUDRATE;
+            // CLOCK_SetClkDiv(kCLOCK_DivSpifiClk, divisor ? divisor : 1, false);
+            SYSCON->SPIFICLKDIV &= ~SYSCON_SPIFICLKDIV_DIV_MASK;
+            if ((divisor-1) > 0)
             {
-                /* Set write register command */
-                uint32_t cfg_word = 0x000000; /* 24 bit register */
-#ifdef gSpiFiHiPerfMode_d
-                cfg_word |= MX25R8035_CFG_REG2_HI_PERF_MODE;
-#endif
-                if (! dual_mode )
-                {
-                    /* insert dummy cycles for Quad mode operation */
-                    cfg_word |= MX25R8035_CFG_STATUS_QUAD_MODE;
-                }
-                SPIFI_SetCommand(SPIFI, &command[WRSR]);
-                SPIFI_WritePartialWord(SPIFI, cfg_word, 3);
-                status = 0;
+                SYSCON->SPIFICLKDIV |= SYSCON_SPIFICLKDIV_DIV(divisor-1);
             }
-            break;
+            SYSCON->SPIFICLKDIV &= ~SYSCON_SPIFICLKDIV_HALT_MASK;
+            SYSCON->AHBCLKCTRLSET[0] = SYSCON_AHBCLKCTRLSET0_SPIFI_CLK_SET_MASK;
+            SYSCON->PRESETCTRLCLR[0] = SYSCON_PRESETCTRL0_SPIFI_RST_SHIFT; /* Release SPIFI reset */
+    #endif
+            /* Initialize SPIFI */
+            SPIFI_GetDefaultConfig(&config);
+            bool dual_mode = false;
+            if (IS_SPIFI_DUAL_MODE())
+            {
+                config.dualMode = kSPIFI_DualMode;
+                dual_mode = true;
+            }
+            SPIFI_Init(SPIFI, &config);
 
-            case XT25F08B_DEVICE_ID:
-                command[WRSR].dataLen=2;
-                SPIFI_SetCommand(SPIFI, &command[WRSR]);
-                SPIFI_WriteDataHalfword(SPIFI, 0x0200);
-                status = 0;
+            uint32_t val = SPIFI_readCommand(RDID);
+            val &= 0x00FFFFFF;
+
+            /* Write enable */
+            SPIFI_SetCommand(SPIFI, &command[WREN]);
+
+            switch (val)
+            {
+                case MX25R8035F_DEVICE_ID:
+                {
+                    /* Set write register command */
+                    uint32_t cfg_word = 0x000000; /* 24 bit register */
+    #ifdef gSpiFiHiPerfMode_d
+                    cfg_word |= MX25R8035_CFG_REG2_HI_PERF_MODE;
+    #endif
+                    if (! dual_mode )
+                    {
+                        /* insert dummy cycles for Quad mode operation */
+                        cfg_word |= MX25R8035_CFG_STATUS_QUAD_MODE;
+                    }
+                    SPIFI_SetCommand(SPIFI, &command[WRSR]);
+                    SPIFI_WritePartialWord(SPIFI, cfg_word, command[WRSR].dataLen);
+                    status = 0;
+                }
                 break;
-            default:
-                break;
-        }
 
-        qspi_wait_for_completion();
+                case XT25F08B_DEVICE_ID:
+                    command[WRSR].dataLen=2;
+                    SPIFI_SetCommand(SPIFI, &command[WRSR]);
+                    SPIFI_WriteDataHalfword(SPIFI, 0x0200);
+                    status = 0;
+                    break;
+                default:
+                    break;
+            }
 
-        // Set address
-        uint32_t addr = 0;
-        SPIFI_SetCommandAddress(SPIFI, FSL_FEATURE_SPIFI_START_ADDR + addr);
-        /* Setup memory command */
+            qspi_wait_for_completion();
 
-        command_t read_op =  dual_mode ? DREAD : QREAD;
+            // Set address
+            uint32_t addr = 0;
+            SPIFI_SetCommandAddress(SPIFI, FSL_FEATURE_SPIFI_START_ADDR + addr);
 
-        SPIFI_SetMemoryCommand(SPIFI, &command[read_op]);
+            /* Setup memory command */
+            SPIFI_SetCommand(SPIFI, &command[WREN]);
+            command_t read_op =  dual_mode ? DREAD : QREAD;
+            SPIFI_SetMemoryCommand(SPIFI, &command[read_op]);
 
-    } while (0);
-    return status;
+            initialized = 1;
+
+        } while (0);
+        return status;
+    }
+    return (0);
 }
 
 
@@ -387,6 +551,7 @@ void SPIFI_Flash_Deinit(void)
 #ifdef NO_OPT_SZ
     CLOCK_DisableClock(kCLOCK_Spifi);
 #endif
+    initialized = 0;
 }
 
 
@@ -402,7 +567,7 @@ static void qspi_wait_for_completion(void)
             while ((SPIFI->STAT & SPIFI_STAT_INTRQ_MASK) == 0U);
         }
         val = SPIFI_ReadPartialWord(SPIFI, command[RDSR].dataLen);
-    } while (val & 0x1); /* BIT(0) is BUSY flag */
+    } while (val & 0x1); /* BIT(0) is WRITE IN PROGRESS/BUSY flag */
 }
 
 
@@ -431,5 +596,130 @@ void SPIFI_ChipErase(void)
     SPIFI_SetCommand(SPIFI, &command[CE]);
     while ((SPIFI->STAT & SPIFI_STAT_INTRQ_MASK) == 0U);
 
+}
+
+/*! *********************************************************************************
+* \brief   Write a data buffer into the external memory, at a given address
+*
+* \param[in] NoOfBytes Number of bytes to write
+* \param[in] Addr      Start memory address
+* \param[in] inbuf     Pointer to the data
+*
+********************************************************************************** */
+void SPIFI_writeData(uint32_t NoOfBytes, uint32_t Addr, uint8_t *Outbuf)
+{
+    uint32_t bytes;
+    if (Addr >= QSPIFLASH_CHIP_SIZE)
+    {
+        return;
+    }
+
+    if (NoOfBytes > 0)
+    {
+        while ((Addr & QSPIFLASH_PAGE_MASK) + NoOfBytes > QSPIFLASH_PAGE_MASK)
+        {
+            bytes = QSPIFLASH_PAGE_SIZE - (Addr & QSPIFLASH_PAGE_MASK);
+            SPIFI_WritePage(bytes, Addr, Outbuf);
+            NoOfBytes -= bytes;
+            Addr += bytes;
+            Outbuf += bytes;
+
+        }
+        SPIFI_WritePage(NoOfBytes, Addr, Outbuf);
+        qspi_wait_for_completion();
+        SPIFI_SetRead(0);
+    }
+}
+
+/*! *********************************************************************************
+* \brief   Erase data block the external memory, at a given address
+*
+* \param[in] Addr              Start memory address
+* \param[in] block_size        size of the block to erase
+*
+********************************************************************************** */
+static void SPIFI_eraseBlock(uint32_t Addr, uint32_t block_size)
+{
+    uint8_t cmd;
+    if (Addr >= QSPIFLASH_CHIP_SIZE)
+    {
+        return;
+    }
+
+    SPIFI_SetCommand(SPIFI, &command[WREN]);
+
+    switch (block_size)
+    {
+    case QSPIFLASH_SECTOR_SIZE:
+        cmd = SE;
+        break;
+    case QSPIFLASH_BLOCK_SIZE:
+        cmd = BE32K;
+        break;
+    case QSPIFLASH_BLOCK2_SIZE:
+        cmd = BE64K;
+        break;
+    default:
+        return;
+    }
+    /* Set block address: any address within the block is acceptable to the MX25R8035F */
+    SPIFI_SetCommandAddress(SPIFI, Addr);
+    /* Erase sector or block */
+    SPIFI_SetCommand(SPIFI, &command[cmd]);
+
+}
+
+/*! *********************************************************************************
+* \brief   This function erases as many block/sectors as necessary to erase
+*          the expected number of bytes
+*
+* \param[in] Addr              Start memory address
+* \param[in] size            size of the area to erase
+*
+********************************************************************************** */
+uint8_t SPIFI_eraseArea(uint32_t Addr, int32_t size)
+{
+    uint8_t status = 1;
+    uint32_t sz;
+    int32_t remain_sz = (int32_t)size;
+    uint32_t erase_addr = Addr;
+
+    do {
+        if ((uint32_t)Addr >= MX25R8035F_CHIP_SIZE)
+        {
+            break;
+        }
+
+        if (!IS_ALIGNED(Addr, QSPIFLASH_SECTOR_SIZE))
+        {
+            break;
+        }
+        if (remain_sz == 0)
+        {
+            break;
+        }
+
+        for (erase_addr = Addr; remain_sz > 0; )
+        {
+            sz = QSPIFLASH_SECTOR_SIZE;
+
+            if ((IS_ALIGNED(erase_addr, QSPIFLASH_BLOCK2_SIZE) && (remain_sz >= QSPIFLASH_BLOCK2_SIZE)))  /* QSPIFLASH_BLOCK_SIZE*2 */
+            {
+                sz = QSPIFLASH_BLOCK2_SIZE;
+            }
+            else if ((IS_ALIGNED(erase_addr, QSPIFLASH_BLOCK_SIZE) && (remain_sz >= QSPIFLASH_BLOCK_SIZE))) /* QSPIFLASH_BLOCK_SIZE */
+            {
+                sz = QSPIFLASH_BLOCK_SIZE;
+            }
+
+            SPIFI_eraseBlock(erase_addr, sz);
+            erase_addr += sz;
+            remain_sz -= sz;
+        }
+        status = 0;
+    } while (0);
+    qspi_wait_for_completion();
+    SPIFI_SetRead(0);
+    return status;
 }
 /*******************************************************************/

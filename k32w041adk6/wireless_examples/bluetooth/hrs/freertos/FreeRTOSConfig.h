@@ -94,7 +94,13 @@
 /* Memory allocation related definitions. */
 #define configSUPPORT_STATIC_ALLOCATION         0
 #define configSUPPORT_DYNAMIC_ALLOCATION        1
+
+#if (defined gAppUsePairing_d &&  (gAppUsePairing_d != 0)) && (defined EC_P256_DSPEXT && (EC_P256_DSPEXT == 1))
+/* Extra 0x280 of stack required for use of NCCL optimized crypto lib */
+#define configTOTAL_HEAP_SIZE                   ((size_t) ((gTotalHeapSize_c) + 0x280))
+#else
 #define configTOTAL_HEAP_SIZE                   ((size_t)(gTotalHeapSize_c))
+#endif
 #define configAPPLICATION_ALLOCATED_HEAP        0
 
 /* Hook function related definitions. */
