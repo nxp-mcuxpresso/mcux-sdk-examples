@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020, 2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -13,11 +13,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v9.0
+product: Pins v12.0
 processor: MIMXRT1176xxxxx
 package_id: MIMXRT1176DVMAA
 mcu_data: ksdk2_0
-processor_version: 0.10.5
+processor_version: 12.0.1
 pin_labels:
 - {pin_num: N17, pin_signal: GPIO_AD_16, label: SDIO_RST, identifier: SDIO_RST}
 - {pin_num: J17, pin_signal: GPIO_AD_31, label: WL_RST, identifier: WL_RST}
@@ -449,8 +449,6 @@ void BOARD_InitM2UARTPins(void) {
                                                  Domain write protection: Both cores are allowed
                                                  Domain write protection lock: Neither of DWP bits is locked */
 }
-
-
 
 
 /*

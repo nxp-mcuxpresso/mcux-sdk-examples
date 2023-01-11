@@ -85,7 +85,6 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimxrt595/component_examples/mpi_loader/dsp_hello_world" project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../core/boards/evkmimxrt595" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="mdk" project_relative_path="./" type="workspace" toolchain="mdk">

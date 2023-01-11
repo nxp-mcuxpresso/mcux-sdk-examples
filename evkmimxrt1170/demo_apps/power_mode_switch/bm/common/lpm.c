@@ -941,6 +941,9 @@ void CpuModeTransition(gpc_cpu_mode_t cpuMode, bool stbyEn)
         GPC_CPU_MODE_CTRL_CM_NON_IRQ_WAKEUP_MASK_EVENT_WAKEUP_MASK_MASK |
         GPC_CPU_MODE_CTRL_CM_NON_IRQ_WAKEUP_MASK_DEBUG_WAKEUP_MASK_MASK; /* Mask debugger wakeup */
 
+    /* To safely enter a low-power mode, software handshaking is needed based on different application usage. Please
+     * refer to <application note AN13104, chapter 4.5 Handshake> for details. */
+
     if (stbyEn == true)
     {
         GPC_CM_RequestStandbyMode(GPC_CPU_MODE_CTRL, cpuMode);

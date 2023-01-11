@@ -106,7 +106,7 @@
       <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="service" project_relative_path="erpc/service" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../examples/frdmk22f/multiprocessor_examples/erpc_remote_control" project_relative_path="frdmk22f/multiprocessor_examples/erpc_remote_control" type="c_include"/>
+      <include_path path="." project_relative_path="frdmk22f/multiprocessor_examples/erpc_remote_control" type="c_include"/>
       <include_path path="../../../../core/boards/frdmk22f" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
     </include_paths>

@@ -92,7 +92,7 @@
     </debug_configurations>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../examples/evkmimxrt595/demo_apps/pmc_temperature_sensor" project_relative_path="evkmimxrt595/demo_apps/pmc_temperature_sensor" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimxrt595/demo_apps/pmc_temperature_sensor" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="pmc_temperature_sensor.ewd"/>

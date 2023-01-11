@@ -1,6 +1,5 @@
 /*
- * Copyright 2020-2021 NXP
- * All rights reserved.
+ * Copyright 2022 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -13,11 +12,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v9.0
+product: Pins v12.0
 processor: MIMXRT1176xxxxx
 package_id: MIMXRT1176DVMAA
 mcu_data: ksdk2_0
-processor_version: 0.9.6
+processor_version: 12.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -60,7 +59,7 @@ BOARD_InitPins:
     open_drain: Disable, drive_strength: High, slew_rate: Slow}
   - {pin_num: C7, peripheral: ENET, signal: enet_tx_en, pin_signal: GPIO_DISP_B2_04, software_input_on: Disable, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper,
     open_drain: Disable, drive_strength: High, slew_rate: Slow}
-  - {pin_num: C9, peripheral: ENET, signal: enet_ref_clk, pin_signal: GPIO_DISP_B2_05, software_input_on: Enable, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper,
+  - {pin_num: C9, peripheral: ENET, signal: enet_ref_clk, pin_signal: GPIO_DISP_B2_05, direction: OUTPUT, software_input_on: Enable, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper,
     open_drain: Disable, drive_strength: High, slew_rate: Fast}
   - {pin_num: D8, peripheral: ENET, signal: enet_rx_er, pin_signal: GPIO_DISP_B2_09, software_input_on: Disable, pull_up_down_config: Pull_Down, pull_keeper_select: Pull,
     open_drain: Disable}

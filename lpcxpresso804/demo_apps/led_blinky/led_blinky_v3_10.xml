@@ -69,7 +69,7 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../examples/lpcxpresso804/demo_apps/led_blinky" project_relative_path="lpcxpresso804/demo_apps/led_blinky" type="c_include"/>
+      <include_path path="." project_relative_path="lpcxpresso804/demo_apps/led_blinky" type="c_include"/>
       <include_path path="../../../../core/boards/lpcxpresso804" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

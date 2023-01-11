@@ -102,15 +102,15 @@
       </toolchainSetting>
     </toolchainSettings>
     <include_paths>
-      <include_path path="../../../../../../core/boards/lpcxpresso55s69" project_relative_path="board" type="c_include"/>
+      <include_path path="../../../.." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../../core/boards/lpcxpresso55s69" project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../../examples/lpcxpresso55s69/usb_examples/usb_host_audio_recorder/freertos/cm33_core0" project_relative_path="." type="c_include"/>
-      <include_path path="../../../../../../examples/lpcxpresso55s69/usb_examples/usb_host_audio_recorder/freertos" project_relative_path="." type="c_include"/>
+      <include_path path="../../../.." project_relative_path="source" type="c_include"/>
+      <include_path path="." project_relative_path="." type="c_include"/>
+      <include_path path=".." project_relative_path="." type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
       <include_path path=".." project_relative_path="source" type="asm_include"/>
-      <include_path path="../../../../../../core/boards/lpcxpresso55s69" project_relative_path="source" type="asm_include"/>
+      <include_path path="../../../.." project_relative_path="source" type="asm_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="host_audio_recorder_freertos.ewd"/>

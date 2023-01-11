@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(dev_mtp_lite_bm)
 
+set(MCUX_BUILD_TYPES release flash_release debug flash_debug)
+
 set(MCUX_SDK_PROJECT_NAME dev_mtp_lite_bm.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -65,19 +71,36 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${SdkRootDirPath}/core/boards/evkmimxrt595
-    ${SdkRootDirPath}/examples/evkmimxrt595/usb_examples/usb_device_mtp_lite/bm
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+    ${SdkRootDirPath}/examples/evkmimxrt595
     ${ProjDirPath}/..
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
+    ${SdkRootDirPath}/middleware/usb
+    ${SdkRootDirPath}/core/drivers/usdhc
+    ${SdkRootDirPath}/middleware/sdmmc
+    ${SdkRootDirPath}/middleware/fatfs
+    ${SdkRootDirPath}/core/components/gpio
     ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/devices/MIMXRT595S/drivers
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/devices/MIMXRT595S
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/drivers/flexspi
+    ${SdkRootDirPath}/core/drivers/cache/cache64
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/drivers/flexcomm
+    ${SdkRootDirPath}/core/boards/evkmimxrt595/flash_config
+    ${SdkRootDirPath}/core/drivers/lpc_iopctl
+    ${SdkRootDirPath}/core/drivers/lpc_gpio
+    ${SdkRootDirPath}/core/components/osa
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(middleware_usb_device_ip3511hs_MIMXRT595S_cm33)
@@ -94,7 +117,7 @@ include(middleware_sdmmc_host_usdhc)
 
 include(middleware_sdmmc_host_usdhc_interrupt_MIMXRT595S_cm33)
 
-include(middleware_fatfs)
+include(middleware_fatfs_MIMXRT595S_cm33)
 
 include(middleware_fatfs_mmc)
 
@@ -159,15 +182,13 @@ include(utilities_misc_utilities_MIMXRT595S_cm33)
 include(driver_iap)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

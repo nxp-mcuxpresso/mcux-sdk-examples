@@ -84,9 +84,6 @@ int main(void)
      * trngConfig.frequencyCountLimit.minimum = TRNG_USER_CONFIG_DEFAULT_FREQUENCY_MINIMUM;
      */
     TRNG_GetDefaultConfig(&trngConfig);
-    /* Set sample mode of the TRNG ring oscillator to Von Neumann, for better random data.
-     * It is optional.*/
-    trngConfig.sampleMode = kTRNG_SampleModeVonNeumann;
 
     /* Initialize TRNG */
     status = TRNG_Init(TRNG0, &trngConfig);

@@ -25,7 +25,7 @@
  ******************************************************************************/
 /* SAI instance and clock */
 #ifndef DEMO_CODEC_WM8960
-#define DEMO_CODEC_WM8960  1
+#define DEMO_CODEC_WM8960 1
 #endif
 #ifndef DEMO_CODEC_CS42448
 #define DEMO_CODEC_CS42448 0
@@ -66,18 +66,18 @@
 #define DEMO_CODEC_POWER_GPIO_PIN      0
 #define DEMO_CODEC_RESET_GPIO          GPIO1
 #define DEMO_CODEC_RESET_GPIO_PIN      2
-#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (47U)
+#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (11U)
 #define DEMO_SAI_MASTER_SLAVE          kSAI_Master
 #else
 #define DEMO_WM8960_I2C_INSTANCE       1
-#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (63U)
+#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (15U)
 #define DEMO_SAI_MASTER_SLAVE          kSAI_Slave
 #endif
 
 /* Select Audio/Video PLL (786.48 MHz) as sai1 clock source */
 #define DEMO_SAI1_CLOCK_SOURCE_SELECT (2U)
 /* Clock pre divider for sai1 clock source */
-#define DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER (0U)
+#define DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER (3U)
 /* Get frequency of sai1 clock */
 #define DEMO_SAI_CLK_FREQ                                                        \
     (CLOCK_GetFreq(kCLOCK_AudioPllClk) / (DEMO_SAI1_CLOCK_SOURCE_DIVIDER + 1U) / \
@@ -160,6 +160,11 @@ volatile uint32_t emptyBlock = BUFFER_NUMBER;
 edma_handle_t dmaTxHandle = {0}, dmaRxHandle = {0};
 extern codec_config_t boardCodecConfig;
 codec_handle_t codecHandle;
+#if (defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) && DEMO_EDMA_HAS_CHANNEL_CONFIG)
+extern edma_config_t dmaConfig;
+#else
+edma_config_t dmaConfig = {0};
+#endif
 
 /*******************************************************************************
  * Code
@@ -221,7 +226,6 @@ static void tx_callback(I2S_Type *base, sai_edma_handle_t *handle, status_t stat
 int main(void)
 {
     sai_transfer_t xfer;
-    edma_config_t dmaConfig = {0};
     sai_transceiver_t saiConfig;
 
     BOARD_ConfigMPU();
@@ -262,7 +266,9 @@ int main(void)
     PRINTF("SAI example started!\n\r");
 
     /* Init DMA and create handle for DMA */
+#if (!defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) || (defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) && !DEMO_EDMA_HAS_CHANNEL_CONFIG))
     EDMA_GetDefaultConfig(&dmaConfig);
+#endif
     EDMA_Init(DEMO_DMA, &dmaConfig);
     EDMA_CreateHandle(&dmaTxHandle, DEMO_DMA, DEMO_TX_EDMA_CHANNEL);
     EDMA_CreateHandle(&dmaRxHandle, DEMO_DMA, DEMO_RX_EDMA_CHANNEL);

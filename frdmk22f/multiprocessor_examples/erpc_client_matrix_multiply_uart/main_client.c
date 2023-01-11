@@ -89,10 +89,11 @@ int main()
     message_buffer_factory = erpc_mbf_dynamic_init();
 
     /* eRPC client side initialization */
-    erpc_client_init(transport, message_buffer_factory);
+    erpc_client_t client;
+    client = erpc_client_init(transport, message_buffer_factory);
 
     /* Set default error handler */
-    erpc_client_set_error_handler(erpc_error_handler);
+    erpc_client_set_error_handler(client, erpc_error_handler);
 
     /* Fill both matrices by random values */
     fill_matrices(matrix1, matrix2);

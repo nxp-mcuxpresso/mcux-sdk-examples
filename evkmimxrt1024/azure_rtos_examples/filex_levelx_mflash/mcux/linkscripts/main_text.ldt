@@ -1,0 +1,15 @@
+
+        *(EXCLUDE_FILE(
+            /* Exclude flash operation functions. */
+            */mflash_drv.o
+            */fsl_flexspi.o
+            */fsl_cache.o
+        ) .text)
+
+        *(EXCLUDE_FILE(
+            /* Exclude flash operation functions. */
+            */mflash_drv.o
+            */fsl_flexspi.o
+            */fsl_cache.o
+        ) .text*)
+

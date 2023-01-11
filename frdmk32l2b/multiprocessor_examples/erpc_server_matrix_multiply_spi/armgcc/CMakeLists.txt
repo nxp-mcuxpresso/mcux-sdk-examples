@@ -30,19 +30,25 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(erpc_server_matrix_multiply_spi)
 
+set(MCUX_BUILD_TYPES debug release)
+
 set(MCUX_SDK_PROJECT_NAME erpc_server_matrix_multiply_spi.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${ProjDirPath}/../../erpc_common/erpc_error_handler.h"
-"${ProjDirPath}/../../erpc_common/erpc_error_handler.cpp"
-"${ProjDirPath}/../../erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.erpc"
-"${ProjDirPath}/../../erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.h"
-"${ProjDirPath}/../../erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply_server.h"
-"${ProjDirPath}/../../erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply_server.cpp"
+"${SdkRootDirPath}/examples/frdmk32l2b/multiprocessor_examples/erpc_common/erpc_error_handler.h"
+"${SdkRootDirPath}/examples/frdmk32l2b/multiprocessor_examples/erpc_common/erpc_error_handler.cpp"
+"${SdkRootDirPath}/examples/frdmk32l2b/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.erpc"
+"${SdkRootDirPath}/examples/frdmk32l2b/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.h"
+"${SdkRootDirPath}/examples/frdmk32l2b/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply_server.h"
+"${SdkRootDirPath}/examples/frdmk32l2b/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply_server.cpp"
 "${ProjDirPath}/../main_server.c"
 "${ProjDirPath}/../erpc_config.h"
 "${ProjDirPath}/../pin_mux.c"
@@ -53,21 +59,31 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/frdmk32l2b/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../erpc_common
-    ${ProjDirPath}/../../erpc_common/erpc_matrix_multiply/service
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+    ${SdkRootDirPath}/examples/frdmk32l2b/multiprocessor_examples/erpc_common
+    ${SdkRootDirPath}/examples/frdmk32l2b/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service
     ${ProjDirPath}/..
-    ${SdkRootDirPath}/examples/frdmk32l2b/multiprocessor_examples/erpc_server_matrix_multiply_spi
     ${SdkRootDirPath}/core/boards/frdmk32l2b
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/middleware/multicore
+    ${SdkRootDirPath}/core/drivers/spi
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/drivers/gpio
+    ${SdkRootDirPath}/core/drivers/port
+    ${SdkRootDirPath}/core/devices/K32L2B31A/drivers
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/devices/K32L2B31A
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/drivers/lpuart
+    ${SdkRootDirPath}/core/drivers/uart
+    ${SdkRootDirPath}/core/drivers/smc
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(middleware_multicore_erpc_eRPC_spi_slave_transport)
@@ -117,19 +133,15 @@ include(utilities_misc_utilities_K32L2B31A)
 include(device_system)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lstdc++ -lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE g)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE stdc++)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

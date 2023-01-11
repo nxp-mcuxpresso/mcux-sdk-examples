@@ -252,7 +252,7 @@ static void arm_sin_f32Test(void)
 
     PRINTF("%s: %d ms\r\n", __func__, TEST_GetTime() - oldTime);
 
-    EXAMPLE_ASSERT_TRUE(fabs(sinRef - Result) < 0.00001);
+    EXAMPLE_ASSERT_TRUE(fabs((double)(sinRef - Result)) < 0.00001);
 }
 
 /* Q15 cos */
@@ -311,5 +311,5 @@ static void arm_cos_f32Test(void)
 
     PRINTF("%s: %d ms\r\n", __func__, TEST_GetTime() - oldTime);
 
-    EXAMPLE_ASSERT_TRUE(fabs(cosRef - Result) < 0.00001);
+    EXAMPLE_ASSERT_TRUE(fabs((double)(cosRef - Result)) < 0.00001);
 }

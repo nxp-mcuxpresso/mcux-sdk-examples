@@ -80,6 +80,8 @@
 #elif defined(MBEDTLS_MCUX_CSS_PKC_API)
 #include "platform_hw_ip.h"
 #include "css_pkc_mbedtls.h"
+#elif defined(MBEDTLS_MCUX_ELE_S400_API)
+#include "ele_mbedtls.h"
 #else
 #include "ksdk_mbedtls.h"
 #endif
@@ -382,6 +384,8 @@ static int bench_print_features(void)
     text = "SW AES, S300 HW accelerated CCM and CMAC";
 #elif defined(MBEDTLS_MCUX_CSS_PKC_API)
     text = "CSS PKC HW accelerated";
+#elif defined(MBEDTLS_MCUX_ELE_S400)
+    text = "ELE S40x HW accelerated";
 #else
     text = "Software implementation";
 #endif

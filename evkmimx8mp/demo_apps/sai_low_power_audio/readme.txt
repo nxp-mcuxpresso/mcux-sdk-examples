@@ -51,9 +51,11 @@ NOTE
     Make sure the FDT file is correctly set before booting the linux kernel. The following command can be used to set FDT file in uboot console:
     u-boot=>setenv fdtfile imx8mp-evk-rpmsg.dtb
     u-boot=>saveenv
-	Make sure the "snd_pcm.max_alloc_per_card" is set using below command for the uboot bootargs for Linux 5.15.5-1.0.0 and later version.
-	u-boot=>setenv mmcargs 'setenv bootargs ${jh_clk} console=${console} root=${mmcroot} snd_pcm.max_alloc_per_card=134217728'
-	u-boot=>saveenv
+    Set the "snd_pcm.max_alloc_per_card" in bootargs, use the following command to print default mmcargs and add "snd_pcm.max_alloc_per_card=134217728" to the end. 
+    u-boot=>printenv mmcargs
+        For example, "mmcargs=setenv bootargs ${jh_clk} ${mcore_clk} console=${console} root=${mmcroot}" is printed, then set the mmcargs using the following command. 
+    u-boot=>setenv mmcargs 'setenv bootargs ${jh_clk} ${mcore_clk} console=${console} root=${mmcroot} snd_pcm.max_alloc_per_card=134217728'
+    u-boot=>saveenv
 4.  Please make sure there exists xxx.wav file in the SD card.
     If the music file is placed at the Windows FAT32 paritions, after the linux kernel boots up and logs on as root,
     using the "mount /dev/mmcblk1p1 /mnt" and then go to "/mnt" folder to playabck the music using the playback command.

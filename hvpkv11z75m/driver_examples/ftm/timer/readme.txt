@@ -2,7 +2,7 @@ Overview
 ========
 The FTM project is a simple demonstration program of the SDK FTM driver to use FTM as a timer.
 It sets up the FTM hardware block to trigger an interrupt every 1 millisecond.
-When the FTM interrupt is triggered a message a printed on the UART terminal.
+When the FTM interrupt is triggered 1000 times, a message is printed on the UART terminal.
 
 Toolchain supported
 ===================

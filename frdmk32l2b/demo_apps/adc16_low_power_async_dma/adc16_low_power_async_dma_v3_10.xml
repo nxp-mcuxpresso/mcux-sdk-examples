@@ -72,7 +72,7 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../examples/frdmk32l2b/demo_apps/adc16_low_power_async_dma" project_relative_path="frdmk32l2b/demo_apps/adc16_low_power_async_dma" type="c_include"/>
+      <include_path path="." project_relative_path="frdmk32l2b/demo_apps/adc16_low_power_async_dma" type="c_include"/>
       <include_path path="../../../../core/boards/frdmk32l2b" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

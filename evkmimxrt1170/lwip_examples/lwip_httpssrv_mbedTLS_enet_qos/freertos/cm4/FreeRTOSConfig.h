@@ -117,6 +117,9 @@
 #define INCLUDE_xTaskGetHandle                  0
 #define INCLUDE_xTaskResumeFromISR              1
 
+/* Enable TAD for link-time optimalizations */
+#define portREMOVE_STATIC_QUALIFIER             1
+
 
 
 #if defined(__ICCARM__)||defined(__CC_ARM)||defined(__GNUC__)

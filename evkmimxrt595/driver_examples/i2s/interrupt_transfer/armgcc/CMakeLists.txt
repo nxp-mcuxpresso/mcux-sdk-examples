@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(i2s_interrupt_transfer)
 
+set(MCUX_BUILD_TYPES debug release flash_debug flash_release)
+
 set(MCUX_SDK_PROJECT_NAME i2s_interrupt_transfer.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -38,7 +44,7 @@ include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
 "${ProjDirPath}/../i2s_interrupt_transfer.c"
-"${ProjDirPath}/../../music.h"
+"${SdkRootDirPath}/examples/evkmimxrt595/driver_examples/i2s/music.h"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
 "${SdkRootDirPath}/core/boards/evkmimxrt595/board.c"
@@ -47,19 +53,37 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/evkmimxrt595/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../..
-    ${SdkRootDirPath}/examples/evkmimxrt595/driver_examples/i2s/interrupt_transfer
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+    ${SdkRootDirPath}/examples/evkmimxrt595/driver_examples/i2s
+    ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/evkmimxrt595
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/drivers/i3c
+    ${SdkRootDirPath}/core/components/codec/i2c
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/components/i2c
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/drivers/flexcomm
+    ${SdkRootDirPath}/core/drivers/lpc_dma
+    ${SdkRootDirPath}/core/components/codec/wm8904
+    ${SdkRootDirPath}/core/components/codec
+    ${SdkRootDirPath}/core/components/codec/
+    ${SdkRootDirPath}/core/devices/MIMXRT595S/drivers
+    ${SdkRootDirPath}/core/drivers/lpc_gpio
+    ${SdkRootDirPath}/core/drivers/inputmux
+    ${SdkRootDirPath}/core/devices/MIMXRT595S
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/drivers/flexspi
+    ${SdkRootDirPath}/core/drivers/cache/cache64
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/boards/evkmimxrt595/flash_config
+    ${SdkRootDirPath}/core/drivers/lpc_iopctl
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(driver_i3c)
@@ -127,15 +151,13 @@ include(utilities_misc_utilities_MIMXRT595S_cm33)
 include(driver_iap)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

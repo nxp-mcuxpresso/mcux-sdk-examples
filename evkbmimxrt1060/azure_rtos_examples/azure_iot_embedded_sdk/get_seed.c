@@ -36,7 +36,7 @@ uint32_t get_seed(void)
 
 AT_NONCACHEABLE_SECTION(static caam_job_ring_interface_t s_jrif0);
 
-uint32_t get_seed(void)
+__WEAK uint32_t get_seed(void)
 {
     uint32_t random_val = 0;
     caam_config_t caam_config;

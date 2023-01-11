@@ -13,9 +13,17 @@
 
 #include "nx_azure_iot_adu_agent.h"
 
+/* Update buffer pointer and buffer size.  */
+#define NX_AZURE_IOT_ADU_AGENT_PTR_UPDATE(a, b, c, d)                   { \
+                                                                            (a) = (c); \
+                                                                            (c) += (b); \
+                                                                            (d) -= (b); \
+                                                                        }
+
 static VOID nx_azure_iot_adu_agent_event_process(VOID *adu_agent, ULONG common_events, ULONG module_own_events);
 static VOID nx_azure_iot_adu_agent_timer_event_process(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr);
-static VOID nx_azure_iot_adu_agent_workflow_update(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr);
+static VOID nx_azure_iot_adu_agent_update_check_event_process(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr);
+static VOID nx_azure_iot_adu_agent_download_install_event_process(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr);
 static VOID nx_azure_iot_adu_agent_apply_event_process(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr);
 static UINT nx_azure_iot_adu_agent_manifest_verify(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr);
 static UINT nx_azure_iot_adu_agent_jws_split(UCHAR *jws, UINT jws_length,
@@ -24,28 +32,26 @@ static UINT nx_azure_iot_adu_agent_jws_split(UCHAR *jws, UINT jws_length,
                                              UCHAR **signature, UINT *signature_length);
 static UINT nx_azure_iot_adu_agent_service_properties_get(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr,
                                                           NX_AZURE_IOT_JSON_READER *json_reader_ptr);
-static UINT nx_azure_iot_adu_agent_service_update_manifest_property_process(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr,
-                                                                            UCHAR *update_manifest,
-                                                                            UINT update_manifest_size,
-                                                                            NX_AZURE_IOT_ADU_AGENT_UPDATE_MANIFEST_CONTENT *update_manifest_content,
-                                                                            UCHAR *update_manifest_content_buffer,
-                                                                            UINT update_manifest_content_buffer_size);
+static UINT nx_azure_iot_adu_agent_service_update_manifest_process(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr,
+                                                                   UCHAR *update_manifest,
+                                                                   UINT update_manifest_size,
+                                                                   NX_AZURE_IOT_ADU_AGENT_UPDATE_MANIFEST_CONTENT *update_manifest_content,
+                                                                   UCHAR *update_manifest_content_buffer,
+                                                                   UINT update_manifest_content_buffer_size);
 static UINT nx_azure_iot_adu_agent_service_reported_properties_send(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr, 
                                                                     UINT status_code, ULONG version, const CHAR *description,
                                                                     ULONG wait_option);
-static UINT nx_azure_iot_adu_agent_reported_properties_send(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr, UINT wait_option);
+static UINT nx_azure_iot_adu_agent_reported_properties_startup_send(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr, UINT wait_option);
+static UINT nx_azure_iot_adu_agent_reported_properties_state_send(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr);
 static VOID nx_azure_iot_adu_agent_step_state_update(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr, UINT step_state);
-static UINT nx_azure_iot_adu_agent_update_find(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr,
-                                               NX_AZURE_IOT_ADU_AGENT_UPDATE_ID *update_id,
-                                               NX_AZURE_IOT_ADU_AGENT_UPDATE **update);
 static UINT nx_azure_iot_adu_agent_file_find(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr, 
                                              NX_AZURE_IOT_ADU_AGENT_UPDATE_MANIFEST_CONTENT *manifest_content,
                                              UCHAR *file_id, UINT file_id_length,
                                              NX_AZURE_IOT_ADU_AGENT_FILE **file);
 static UINT nx_azure_iot_adu_agent_method_is_installed(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr,
-                                                       NX_AZURE_IOT_ADU_AGENT_UPDATE_ID *update_id,
-                                                       UINT *is_installed,
-                                                       NX_AZURE_IOT_ADU_AGENT_UPDATE **update);
+                                                       NX_AZURE_IOT_ADU_AGENT_COMPATIBILITY *compatibility,
+                                                       NX_AZURE_IOT_ADU_AGENT_STEP *step,
+                                                       UINT *is_installed);
 static UINT nx_azure_iot_adu_agent_method_download(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr,
                                                    NX_AZURE_IOT_ADU_AGENT_FILE *file,
                                                    UINT type, UCHAR *buffer_ptr, UINT buffer_size,
@@ -94,9 +100,7 @@ UINT nx_azure_iot_adu_agent_start(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr,
                                   NX_AZURE_IOT_HUB_CLIENT *iothub_client_ptr,
                                   const UCHAR *manufacturer, UINT manufacturer_length,
                                   const UCHAR *model, UINT model_length,
-                                  const UCHAR *provider, UINT provider_length,
-                                  const UCHAR *name, UINT name_length,
-                                  const UCHAR *version, UINT version_length,
+                                  const UCHAR *installed_criteria, UINT installed_criteria_length,
                                   VOID (*adu_agent_update_notify)(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr,
                                                                   UINT update_state,
                                                                   UCHAR *provider, UINT provider_length,
@@ -113,17 +117,23 @@ NX_CRYPTO_METHOD *method_rsa = NX_NULL;
 NX_SECURE_TLS_SESSION *tls_session;
 NX_AZURE_IOT_ADU_AGENT_CRYPTO *adu_agent_crypto;
 NX_AZURE_IOT_ADU_AGENT_DRIVER driver_request;
+UINT component_added = NX_FALSE;
 
     if ((adu_agent_ptr == NX_NULL) || (iothub_client_ptr == NX_NULL) ||
         (manufacturer == NX_NULL) || (manufacturer_length == 0) ||
         (model == NX_NULL) || (model_length == 0) ||
-        (provider == NX_NULL) || (provider_length == 0) ||
-        (name == NX_NULL) || (name_length == 0) ||
-        (version == NX_NULL) || (version_length == 0) ||
+        ((installed_criteria == NX_NULL) && (installed_criteria_length != 0)) ||
         (adu_agent_update_driver == NX_NULL))
     {
         LogError(LogLiteralArgs("ADU agent start fail: INVALID POINTER"));
         return(NX_AZURE_IOT_INVALID_PARAMETER);
+    }
+
+    /* Check if IoT Hub connected.  */
+    if (iothub_client_ptr -> nx_azure_iot_hub_client_state != NX_AZURE_IOT_HUB_CLIENT_STATUS_CONNECTED)
+    {
+        LogError(LogLiteralArgs("ADU agent start fail: IOTHUB NOT CONNECTED"));
+        return(NX_AZURE_IOT_WRONG_STATE);
     }
 
     /* Check if properties is enabled.  */
@@ -142,15 +152,30 @@ NX_AZURE_IOT_ADU_AGENT_DRIVER driver_request;
     /* Set component process routine for system component.  */
     iothub_client_ptr -> nx_azure_iot_hub_client_component_properties_process = nx_azure_iot_hub_client_properties_component_process;
 
-    /* Add ADU component.  */
-    if ((status = nx_azure_iot_hub_client_component_add_internal(iothub_client_ptr, 
-                                                                 (const UCHAR *)NX_AZURE_IOT_ADU_AGENT_COMPONENT_NAME,
-                                                                 sizeof(NX_AZURE_IOT_ADU_AGENT_COMPONENT_NAME) - 1,
-                                                                 nx_azure_iot_adu_agent_component_properties_process,
-                                                                 adu_agent_ptr)))
+    /* Check if the component has been added.  */
+    for (i = 0; i < (UINT)iothub_client_ptr -> iot_hub_client_core._internal.options.component_names_length; i++)
     {
-        LogError(LogLiteralArgs("ADU agent start fail: COMPONENT ADD FAIL: %d"), status);
-        return(status);
+ 
+        /* Compare the component.  */
+        if ((iothub_client_ptr -> iot_hub_client_core._internal.options.component_names[i]._internal.size == sizeof(NX_AZURE_IOT_ADU_AGENT_COMPONENT_NAME) - 1) &&
+            (!memcmp(iothub_client_ptr -> iot_hub_client_core._internal.options.component_names[i]._internal.ptr, NX_AZURE_IOT_ADU_AGENT_COMPONENT_NAME, sizeof(NX_AZURE_IOT_ADU_AGENT_COMPONENT_NAME) - 1)))
+        {
+            component_added = NX_TRUE;
+        }
+    }
+
+    /* Add ADU component.  */
+    if (component_added == NX_FALSE)
+    {
+        if ((status = nx_azure_iot_hub_client_component_add_internal(iothub_client_ptr, 
+                                                                    (const UCHAR *)NX_AZURE_IOT_ADU_AGENT_COMPONENT_NAME,
+                                                                    sizeof(NX_AZURE_IOT_ADU_AGENT_COMPONENT_NAME) - 1,
+                                                                    nx_azure_iot_adu_agent_component_properties_process,
+                                                                    adu_agent_ptr)))
+        {
+            LogError(LogLiteralArgs("ADU agent start fail: COMPONENT ADD FAIL: %d"), status);
+            return(status);
+        }
     }
 
     /* Save the mutex.  */
@@ -176,9 +201,13 @@ NX_AZURE_IOT_ADU_AGENT_DRIVER driver_request;
     }
 
     /* Check if find the crypto method.  */
-    if ((method_sha256 == NX_NULL) || (method_rsa == NX_NULL))
+    if ((method_sha256 == NX_NULL) || 
+        (method_sha256 -> nx_crypto_operation == NX_NULL) ||
+        (method_rsa == NX_NULL) ||
+        (method_rsa -> nx_crypto_init == NX_NULL) ||
+        (method_rsa -> nx_crypto_operation == NX_NULL) )
     {
-        LogError(LogLiteralArgs("ADU agent start fail: NO AVAILABLE CIPHER SHA256"));
+        LogError(LogLiteralArgs("ADU agent start fail: NO AVAILABLE CIPHER"));
         return(NX_AZURE_IOT_NO_AVAILABLE_CIPHER);
     }
 
@@ -219,22 +248,22 @@ NX_AZURE_IOT_ADU_AGENT_DRIVER driver_request;
     adu_agent_ptr -> nx_azure_iot_adu_agent_device_properties.model = model;
     adu_agent_ptr -> nx_azure_iot_adu_agent_device_properties.model_length = model_length;
 
-    /* Save the current update id (provider, name and version.)*/
-    adu_agent_ptr -> nx_azure_iot_adu_agent_update[0].update_id.provider = provider;
-    adu_agent_ptr -> nx_azure_iot_adu_agent_update[0].update_id.provider_length = provider_length;
-    adu_agent_ptr -> nx_azure_iot_adu_agent_update[0].update_id.name = name;
-    adu_agent_ptr -> nx_azure_iot_adu_agent_update[0].update_id.name_length = name_length;
-    adu_agent_ptr -> nx_azure_iot_adu_agent_update[0].update_id.version = version;
-    adu_agent_ptr -> nx_azure_iot_adu_agent_update[0].update_id.version_length = version_length;
+    /* Save the device properties for compatibility. Compatibility defines the criteria of a device that can install the update.  */
+    adu_agent_ptr -> nx_azure_iot_adu_agent_device[0].device_properties.manufacturer = manufacturer;
+    adu_agent_ptr -> nx_azure_iot_adu_agent_device[0].device_properties.manufacturer_length = manufacturer_length;
+    adu_agent_ptr -> nx_azure_iot_adu_agent_device[0].device_properties.model = model;
+    adu_agent_ptr -> nx_azure_iot_adu_agent_device[0].device_properties.model_length = model_length;
+    adu_agent_ptr -> nx_azure_iot_adu_agent_device[0].installed_criteria = installed_criteria;
+    adu_agent_ptr -> nx_azure_iot_adu_agent_device[0].installed_criteria_length = installed_criteria_length;
 
     /* Save the driver.  */
-    adu_agent_ptr -> nx_azure_iot_adu_agent_update[0].update_driver_entry = adu_agent_update_driver;
+    adu_agent_ptr -> nx_azure_iot_adu_agent_device[0].device_driver_entry = adu_agent_update_driver;
 
     /* Set the entry as valid.  */
-    adu_agent_ptr -> nx_azure_iot_adu_agent_update[0].valid = NX_TRUE;
+    adu_agent_ptr -> nx_azure_iot_adu_agent_device[0].valid = NX_TRUE;
 
-    /* We're assuming that the update (before restart) was succeeded.  */
-    status = nx_azure_iot_adu_agent_reported_properties_send(adu_agent_ptr, NX_WAIT_FOREVER);
+    /* Send agent startup message.  */
+    status = nx_azure_iot_adu_agent_reported_properties_startup_send(adu_agent_ptr, NX_WAIT_FOREVER);
     if (status)
     {
         LogError(LogLiteralArgs("ADU agent start fail: CLIENT REPORTED PROPERTIES SEND FAIL"));
@@ -302,7 +331,7 @@ UINT nx_azure_iot_adu_agent_stop(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr)
     return(NX_AZURE_IOT_SUCCESS);
 }
 
-UINT nx_azure_iot_adu_agent_update_download_install(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr)
+UINT nx_azure_iot_adu_agent_update_download_and_install(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr)
 {
 UINT status;
 
@@ -312,9 +341,12 @@ UINT status;
         return(NX_AZURE_IOT_INVALID_PARAMETER);
     }
 
-    /* Set event to deploy update.  */
+    /* Reset the step.  */
+    adu_agent_ptr -> nx_azure_iot_adu_agent_current_step = NX_NULL;
+
+    /* Set event to download and install update.  */
     status = nx_cloud_module_event_set(&(adu_agent_ptr -> nx_azure_iot_adu_agent_cloud_module),
-                                       NX_AZURE_IOT_ADU_AGENT_UPDATE_EVENT);
+                                       NX_AZURE_IOT_ADU_AGENT_DOWNLOAD_INSTALL_EVENT);
 
     return(status);
 }
@@ -336,31 +368,35 @@ UINT status;
     return(status);
 }
 
-#if NX_AZURE_IOT_ADU_AGENT_PROXY_UPDATE_COUNT
+#if (NX_AZURE_IOT_ADU_AGENT_PROXY_UPDATE_COUNT >= 1)
 UINT nx_azure_iot_adu_agent_proxy_update_add(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr,
-                                             const UCHAR *provider, UINT provider_length,
-                                             const UCHAR *name, UINT name_length,
-                                             const UCHAR *version, UINT version_length,
+                                             const UCHAR *manufacturer, UINT manufacturer_length,
+                                             const UCHAR *model, UINT model_length,
+                                             const UCHAR *installed_criteria, UINT installed_criteria_length,
                                              VOID (*adu_agent_proxy_update_driver)(NX_AZURE_IOT_ADU_AGENT_DRIVER *))
 {
 UINT i;
 NX_AZURE_IOT_ADU_AGENT_DRIVER driver_request;
 
     if ((adu_agent_ptr == NX_NULL) ||
-        (name == NX_NULL) || (name_length == 0) ||
+        (manufacturer == NX_NULL) || (manufacturer_length == 0) ||
+        (model == NX_NULL) || (model_length == 0) ||
+        ((installed_criteria == NX_NULL) && (installed_criteria_length != 0)) ||
         (adu_agent_proxy_update_driver == NX_NULL))
     {
         LogError(LogLiteralArgs("ADU agent proxy update fail: INVALID POINTER"));
         return(NX_AZURE_IOT_INVALID_PARAMETER);
     }
 
+    /* Compatibility defines the criteria of a device that can install the update. It contains device properties (manufacturer and model). */
+
     /* Obtain the mutex.  */
     tx_mutex_get(adu_agent_ptr -> nx_azure_iot_adu_agent_mutex_ptr, NX_WAIT_FOREVER);
 
     /* Find available entry.  */
-    for (i = 0; i < NX_AZURE_IOT_ADU_AGENT_UPDATE_COUNT; i++)
+    for (i = 0; i < NX_AZURE_IOT_ADU_AGENT_DEVICE_COUNT; i++)
     {
-        if (adu_agent_ptr -> nx_azure_iot_adu_agent_update[i].valid == NX_FALSE)
+        if (adu_agent_ptr -> nx_azure_iot_adu_agent_device[i].valid == NX_FALSE)
         {
 
             /* Find available entry.   */
@@ -369,7 +405,7 @@ NX_AZURE_IOT_ADU_AGENT_DRIVER driver_request;
     }
 
     /* Check if find an available entry.  */
-    if (i >= NX_AZURE_IOT_ADU_AGENT_UPDATE_COUNT)
+    if (i >= NX_AZURE_IOT_ADU_AGENT_DEVICE_COUNT)
     {
 
         /* Release the mutex.  */
@@ -393,25 +429,25 @@ NX_AZURE_IOT_ADU_AGENT_DRIVER driver_request;
     }
 
     /* Setup the driver.  */
-    adu_agent_ptr -> nx_azure_iot_adu_agent_update[i].update_driver_entry = adu_agent_proxy_update_driver;
-    
-    /* Save the device properties for compatibility.  */
-    adu_agent_ptr -> nx_azure_iot_adu_agent_update[i].update_id.provider = provider;
-    adu_agent_ptr -> nx_azure_iot_adu_agent_update[i].update_id.provider_length = provider_length;
-    adu_agent_ptr -> nx_azure_iot_adu_agent_update[i].update_id.name = name;
-    adu_agent_ptr -> nx_azure_iot_adu_agent_update[i].update_id.name_length = name_length;
-    adu_agent_ptr -> nx_azure_iot_adu_agent_update[i].update_id.version = version;
-    adu_agent_ptr -> nx_azure_iot_adu_agent_update[i].update_id.version_length = version_length;
+    adu_agent_ptr -> nx_azure_iot_adu_agent_device[i].device_driver_entry = adu_agent_proxy_update_driver;
+
+    /* Save the device properties for compatibility. Compatibility defines the criteria of a device that can install the update.  */
+    adu_agent_ptr -> nx_azure_iot_adu_agent_device[i].device_properties.manufacturer = manufacturer;
+    adu_agent_ptr -> nx_azure_iot_adu_agent_device[i].device_properties.manufacturer_length = manufacturer_length;
+    adu_agent_ptr -> nx_azure_iot_adu_agent_device[i].device_properties.model = model;
+    adu_agent_ptr -> nx_azure_iot_adu_agent_device[i].device_properties.model_length = model_length;
+    adu_agent_ptr -> nx_azure_iot_adu_agent_device[i].installed_criteria = installed_criteria;
+    adu_agent_ptr -> nx_azure_iot_adu_agent_device[i].installed_criteria_length = installed_criteria_length;
 
     /* Set the entry as valid.  */
-    adu_agent_ptr -> nx_azure_iot_adu_agent_update[i].valid = NX_TRUE;
+    adu_agent_ptr -> nx_azure_iot_adu_agent_device[i].valid = NX_TRUE;
 
     /* Release the mutex.  */
     tx_mutex_put(adu_agent_ptr -> nx_azure_iot_adu_agent_mutex_ptr);
 
     return(NX_AZURE_IOT_SUCCESS);
 }
-#endif /* NX_AZURE_IOT_ADU_AGENT_PROXY_UPDATE_COUNT */
+#endif /* (NX_AZURE_IOT_ADU_AGENT_PROXY_UPDATE_COUNT >= 1) */
 
 static UINT nx_azure_iot_adu_agent_component_properties_process(VOID *reader_ptr,
                                                                 ULONG version,
@@ -420,9 +456,6 @@ static UINT nx_azure_iot_adu_agent_component_properties_process(VOID *reader_ptr
 UINT status;
 NX_AZURE_IOT_JSON_READER *json_reader_ptr = (NX_AZURE_IOT_JSON_READER *)reader_ptr;
 NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr = (NX_AZURE_IOT_ADU_AGENT *)args;
-NX_AZURE_IOT_ADU_AGENT_UPDATE_MANIFEST_CONTENT *manifest;
-NX_AZURE_IOT_ADU_AGENT_UPDATE *update;
-UINT is_installed = NX_FALSE;
 
     /* Check the state.  */
     if (adu_agent_ptr -> nx_azure_iot_adu_agent_state == NX_AZURE_IOT_ADU_AGENT_STATE_DEPLOYMENT_IN_PROGRESS)
@@ -468,8 +501,6 @@ UINT is_installed = NX_FALSE;
             /* Reset the state.  */
             adu_agent_ptr -> nx_azure_iot_adu_agent_state = NX_AZURE_IOT_ADU_AGENT_STATE_IDLE;
 
-            /* Report apply success to server.  */
-            nx_azure_iot_adu_agent_reported_properties_send(adu_agent_ptr, NX_NO_WAIT);
             LogInfo(LogLiteralArgs("Cancel Command received"));
             return(NX_AZURE_IOT_SUCCESS);
         }
@@ -483,67 +514,32 @@ UINT is_installed = NX_FALSE;
         /* Verify manifest.  */
         if (nx_azure_iot_adu_agent_manifest_verify(adu_agent_ptr) != NX_TRUE)
         {
+            LogError(LogLiteralArgs("Failed to verify update manifest signature"));
             return(NX_AZURE_IOT_FAILURE);
         }
 
         /* Process deployable update manifest.  */
-        if (nx_azure_iot_adu_agent_service_update_manifest_property_process(adu_agent_ptr,
-                                                                            adu_agent_ptr -> nx_azure_iot_adu_agent_update_manifest,
-                                                                            adu_agent_ptr -> nx_azure_iot_adu_agent_update_manifest_size,
-                                                                            &(adu_agent_ptr -> nx_azure_iot_adu_agent_update_manifest_content),
-                                                                            adu_agent_ptr -> nx_azure_iot_adu_agent_buffer,
-                                                                            NX_AZURE_IOT_ADU_AGENT_BUFFER_SIZE))
+        if (nx_azure_iot_adu_agent_service_update_manifest_process(adu_agent_ptr,
+                                                                   adu_agent_ptr -> nx_azure_iot_adu_agent_update_manifest,
+                                                                   adu_agent_ptr -> nx_azure_iot_adu_agent_update_manifest_size,
+                                                                   &(adu_agent_ptr -> nx_azure_iot_adu_agent_update_manifest_content),
+                                                                   adu_agent_ptr -> nx_azure_iot_adu_agent_buffer,
+                                                                   NX_AZURE_IOT_ADU_AGENT_BUFFER_SIZE))
         {
             LogError(LogLiteralArgs("ADU agent component process fail: UPDATE MANIFEST PROCESS FAIL"));
             return(NX_AZURE_IOT_FAILURE);
         }
 
-        /* Check if the update is installed.  */
-        if (nx_azure_iot_adu_agent_method_is_installed(adu_agent_ptr, &(adu_agent_ptr -> nx_azure_iot_adu_agent_update_manifest_content.update_id), &is_installed, &update))
-        {
-            return(NX_AZURE_IOT_FAILURE);
-        }
-
-        if (is_installed == NX_TRUE)
-        {
-
-            /* Reset the state.  */
-            adu_agent_ptr -> nx_azure_iot_adu_agent_state = NX_AZURE_IOT_ADU_AGENT_STATE_IDLE;
-
-            /* Report apply success to server.  */
-            nx_azure_iot_adu_agent_reported_properties_send(adu_agent_ptr, NX_NO_WAIT);
-
-            return(NX_AZURE_IOT_SUCCESS);
-        }
-
         /* Reset.  */
         adu_agent_ptr -> nx_azure_iot_adu_agent_current_step = NX_NULL;
+        adu_agent_ptr -> nx_azure_iot_adu_agent_update_flag = NX_FALSE;
 
         /* Update the state.  */
         adu_agent_ptr -> nx_azure_iot_adu_agent_state = NX_AZURE_IOT_ADU_AGENT_STATE_DEPLOYMENT_IN_PROGRESS;
 
-        /* Report deployment in progress state to server.  */
-        nx_azure_iot_adu_agent_reported_properties_send(adu_agent_ptr, NX_NO_WAIT);
-
-        /* Check if set the update notify.  */
-        if (adu_agent_ptr -> nx_azure_iot_adu_agent_update_notify)
-        {
-
-            /* Notify the user and let users control the update.   */
-            manifest = &(adu_agent_ptr -> nx_azure_iot_adu_agent_update_manifest_content);
-            adu_agent_ptr -> nx_azure_iot_adu_agent_update_notify(adu_agent_ptr,
-                                                                  NX_AZURE_IOT_ADU_AGENT_UPDATE_RECEIVED,
-                                                                  (UCHAR *)manifest -> update_id.provider, manifest -> update_id.provider_length,
-                                                                  (UCHAR *)manifest -> update_id.name, manifest -> update_id.name_length,
-                                                                  (UCHAR *)manifest -> update_id.version, manifest -> update_id.version_length);
-        }
-        else
-        {
-
-            /* Set event to start update automatically.  */
-            nx_cloud_module_event_set(&(adu_agent_ptr -> nx_azure_iot_adu_agent_cloud_module),
-                                      NX_AZURE_IOT_ADU_AGENT_UPDATE_EVENT);
-        }
+        /* Set event to start update automatically.  */
+        nx_cloud_module_event_set(&(adu_agent_ptr -> nx_azure_iot_adu_agent_cloud_module),
+                                    NX_AZURE_IOT_ADU_AGENT_UPDATE_EVENT);
     }
     else
     {
@@ -569,17 +565,23 @@ NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr = (NX_AZURE_IOT_ADU_AGENT *)adu_agent;
         nx_azure_iot_adu_agent_timer_event_process(adu_agent_ptr);
     }
 
-    /* Loop to process events.  */
+    /* Process events.  */
     if (module_own_events & NX_AZURE_IOT_ADU_AGENT_UPDATE_EVENT)
     {
 
-        /* Update workflow.  */
-        nx_azure_iot_adu_agent_workflow_update(adu_agent_ptr);
+        /* Update check.  */
+        nx_azure_iot_adu_agent_update_check_event_process(adu_agent_ptr);
+    }
+    if (module_own_events & NX_AZURE_IOT_ADU_AGENT_DOWNLOAD_INSTALL_EVENT)
+    {
+
+        /* Update download and install.  */
+        nx_azure_iot_adu_agent_download_install_event_process(adu_agent_ptr);
     }
     if (module_own_events & NX_AZURE_IOT_ADU_AGENT_APPLY_EVENT)
     {
 
-        /* Process apply event.  */
+        /* Update apply.  */
         nx_azure_iot_adu_agent_apply_event_process(adu_agent_ptr);
     }
     if (module_own_events & NX_AZURE_IOT_ADU_AGENT_DNS_RESPONSE_RECEIVE_EVENT)
@@ -633,6 +635,7 @@ NX_AZURE_IOT_ADU_AGENT_DOWNLOADER *downloader_ptr = &(adu_agent_ptr -> nx_azure_
         else if ((downloader_ptr -> state == NX_AZURE_IOT_ADU_AGENT_DOWNLOADER_HTTP_CONNECT) ||
                  (downloader_ptr -> state == NX_AZURE_IOT_ADU_AGENT_DOWNLOADER_HTTP_CONTENT_GET))
         {
+            LogError(LogLiteralArgs("Firmware download fail: TIMEOUT"));
 
             /* Timeout for http connect or http content get.  */
             nx_azure_iot_adu_agent_download_state_update(adu_agent_ptr, NX_FALSE);
@@ -640,15 +643,14 @@ NX_AZURE_IOT_ADU_AGENT_DOWNLOADER *downloader_ptr = &(adu_agent_ptr -> nx_azure_
     }
 }
 
-static VOID nx_azure_iot_adu_agent_workflow_update(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr)
+static VOID nx_azure_iot_adu_agent_update_check_event_process(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr)
 {
 NX_AZURE_IOT_ADU_AGENT_UPDATE_MANIFEST_CONTENT *update_manifest_content = &(adu_agent_ptr -> nx_azure_iot_adu_agent_update_manifest_content);
 NX_AZURE_IOT_ADU_AGENT_STEP *step;
 NX_AZURE_IOT_ADU_AGENT_FILE *file;
-NX_AZURE_IOT_ADU_AGENT_UPDATE *update;
 UINT is_installed = NX_FALSE;
 UINT i;
-#if NX_AZURE_IOT_ADU_AGENT_PROXY_UPDATE_COUNT
+#if (NX_AZURE_IOT_ADU_AGENT_PROXY_UPDATE_COUNT >= 1)
 UCHAR *json_data_ptr;
 NX_AZURE_IOT_JSON_READER json_reader;
 UCHAR *proxy_update_manifest_ptr;
@@ -656,7 +658,275 @@ UINT proxy_update_manifest_size;
 NX_AZURE_IOT_ADU_AGENT_UPDATE_MANIFEST_CONTENT *proxy_update_manifest_content;
 NX_AZURE_IOT_ADU_AGENT_STEP *proxy_step;
 NX_AZURE_IOT_ADU_AGENT_DOWNLOADER *downloader_ptr = &(adu_agent_ptr -> nx_azure_iot_adu_agent_downloader);
-#endif /* NX_AZURE_IOT_ADU_AGENT_PROXY_UPDATE_COUNT */
+#endif /* (NX_AZURE_IOT_ADU_AGENT_PROXY_UPDATE_COUNT >= 1) */
+
+    /* Check if current step is completed or not.  */
+    if ((adu_agent_ptr -> nx_azure_iot_adu_agent_current_step == NX_NULL) ||
+        (adu_agent_ptr -> nx_azure_iot_adu_agent_current_step -> state == NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FIRMWARE_DOWNLOAD_STARTED) ||
+        (adu_agent_ptr -> nx_azure_iot_adu_agent_current_step -> state == NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FIRMWARE_APPLY_SUCCEEDED))
+    {
+        for (i = 0; i < update_manifest_content -> steps_count; i++)
+        {
+
+            /* Check the state.  */
+            if (update_manifest_content -> steps[i].state == NX_AZURE_IOT_ADU_AGENT_STEP_STATE_IDLE)
+            {
+                adu_agent_ptr -> nx_azure_iot_adu_agent_current_step = &(update_manifest_content -> steps[i]);
+                break;
+            }
+        }
+
+        /* Check if all steps are checked.  */
+        if (i == update_manifest_content -> steps_count)
+        {
+
+            /* Check if all updates are installed.  */
+            if (adu_agent_ptr -> nx_azure_iot_adu_agent_update_flag == NX_TRUE)
+            {
+
+                /* If there is a new update, report deployment in progress state to server and start to download.  */
+                nx_azure_iot_adu_agent_reported_properties_state_send(adu_agent_ptr);
+
+                /* Check if set the update notify.  */
+                if (adu_agent_ptr -> nx_azure_iot_adu_agent_update_notify)
+                {
+
+                    /* Notify the user and let users control the update.   */
+                    adu_agent_ptr -> nx_azure_iot_adu_agent_update_notify(adu_agent_ptr,
+                                                                        NX_AZURE_IOT_ADU_AGENT_UPDATE_RECEIVED,
+                                                                        (UCHAR *)update_manifest_content -> update_id.provider,
+                                                                        update_manifest_content -> update_id.provider_length,
+                                                                        (UCHAR *)update_manifest_content -> update_id.name,
+                                                                        update_manifest_content -> update_id.name_length,
+                                                                        (UCHAR *)update_manifest_content -> update_id.version,
+                                                                        update_manifest_content -> update_id.version_length);
+                }
+                else
+                {
+
+                    /* Set event to start update automatically.  */
+                    nx_cloud_module_event_set(&(adu_agent_ptr -> nx_azure_iot_adu_agent_cloud_module),
+                                              NX_AZURE_IOT_ADU_AGENT_DOWNLOAD_INSTALL_EVENT);
+                }
+            }
+            else
+            {
+
+                /* All updates are installed and applied.  */                
+                adu_agent_ptr -> nx_azure_iot_adu_agent_state = NX_AZURE_IOT_ADU_AGENT_STATE_IDLE;
+
+                /* Send reported properties to notify server.  */
+                nx_azure_iot_adu_agent_reported_properties_state_send(adu_agent_ptr);
+            }
+            
+            return;
+        }
+    }
+
+    step = adu_agent_ptr -> nx_azure_iot_adu_agent_current_step;
+    switch (step -> state)
+    {
+
+        /* Idle.  */
+        case NX_AZURE_IOT_ADU_AGENT_STEP_STATE_IDLE:
+        {
+
+            /* Check the type and handler properties.  */
+            if (((step -> type_length != 0) && 
+                 (step -> type_length == sizeof(NX_AZURE_IOT_ADU_AGENT_STEP_TYPE_INLINE) - 1) &&
+                 (!memcmp(step -> type, NX_AZURE_IOT_ADU_AGENT_STEP_TYPE_INLINE, step -> type_length))) ||
+                ((step -> type_length == 0) &&
+                 (step -> handler_length == sizeof(NX_AZURE_IOT_ADU_AGENT_STEP_HANDLER_SWUPDATE) - 1) &&
+                 (!memcmp(step -> handler, NX_AZURE_IOT_ADU_AGENT_STEP_HANDLER_SWUPDATE, step -> handler_length))))
+            {
+
+                /* Call method to check if the update is installed.  */
+                if (nx_azure_iot_adu_agent_method_is_installed(adu_agent_ptr, &(update_manifest_content -> compatibility), step, &is_installed))
+                {
+                    LogError(LogLiteralArgs("Failed to check the update"));
+                    nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
+                    return;
+                }
+
+                if (is_installed == NX_TRUE)
+                {
+                    nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FIRMWARE_APPLY_SUCCEEDED);
+                }
+                else
+                {
+
+                    /* Find the new update file and update it into step.  */
+                    if (nx_azure_iot_adu_agent_file_find(adu_agent_ptr, update_manifest_content, (UCHAR *)step -> file_id, step -> file_id_length, &file))
+                    {
+                        LogError(LogLiteralArgs("Failed to find update file"));
+                        nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
+                        return;
+                    }
+
+                    /* Set the file as new update.  */
+                    step -> file = file;
+                    adu_agent_ptr -> nx_azure_iot_adu_agent_update_flag = NX_TRUE;
+
+                    nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FIRMWARE_DOWNLOAD_STARTED);
+                }
+            }
+#if (NX_AZURE_IOT_ADU_AGENT_PROXY_UPDATE_COUNT >= 1)
+            else if ((step -> type_length == sizeof(NX_AZURE_IOT_ADU_AGENT_STEP_TYPE_REFERENCE) - 1) &&
+                     (!memcmp(step -> type, NX_AZURE_IOT_ADU_AGENT_STEP_TYPE_REFERENCE, step -> type_length)))
+            {
+
+                /* Leaf update.  */
+
+                /* Find the manifest file.  */
+                if (nx_azure_iot_adu_agent_file_find(adu_agent_ptr, update_manifest_content, (UCHAR *)step -> file_id, step -> file_id_length, &file))
+                {
+                    LogError(LogLiteralArgs("Failed to find proxy manifest file"));
+                    nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
+                    return;
+                }
+
+                /* Update the state.  */
+                nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_MANIFEST_DOWNLOAD_STARTED);
+
+                /* Start to download firmware.  */
+                if (nx_azure_iot_adu_agent_method_download(adu_agent_ptr, file, NX_AZURE_IOT_ADU_AGENT_DOWNLOADER_TYPE_MANIFEST, 
+                                                           adu_agent_ptr -> nx_azure_iot_adu_agent_update_manifest_signature,
+                                                           NX_AZURE_IOT_ADU_AGENT_UPDATE_MANIFEST_SIGNATURE_SIZE,
+                                                           NX_NULL))
+                {
+                    LogError(LogLiteralArgs("Failed to download proxy manifest file"));
+                    nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
+                }
+
+                return;
+            }
+#endif /* (NX_AZURE_IOT_ADU_AGENT_PROXY_UPDATE_COUNT >= 1) */
+
+            break;
+        }
+
+#if (NX_AZURE_IOT_ADU_AGENT_PROXY_UPDATE_COUNT >= 1)
+        case NX_AZURE_IOT_ADU_AGENT_STEP_STATE_MANIFEST_DOWNLOAD_SUCCEEDED:
+        {
+            json_data_ptr = adu_agent_ptr -> nx_azure_iot_adu_agent_update_manifest_signature;
+            proxy_update_manifest_ptr = json_data_ptr + downloader_ptr -> received_firmware_size;
+            proxy_update_manifest_size = NX_AZURE_IOT_ADU_AGENT_UPDATE_MANIFEST_SIGNATURE_SIZE - downloader_ptr -> received_firmware_size;
+            proxy_update_manifest_content = &(adu_agent_ptr -> nx_azure_iot_adu_agent_proxy_update_manifest_content);
+
+            /* There may be 3 BOM bytes (EF BB BF) for UTF-8 json, skip them if exist.  */
+            if ((downloader_ptr -> received_firmware_size > 3) &&
+                ((json_data_ptr[0] == 0xEF) && (json_data_ptr[1] == 0xBB) && (json_data_ptr[2] == 0XBF)))
+            {
+                json_data_ptr +=3;
+                downloader_ptr -> received_firmware_size -= 3;
+            }
+
+            /* Initialize the update manifest string as json.  */
+            if (nx_azure_iot_json_reader_with_buffer_init(&json_reader,
+                                                          json_data_ptr,
+                                                          downloader_ptr -> received_firmware_size))
+            {
+                LogError(LogLiteralArgs("Failed to initialize proxy update manifest"));
+                nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
+                return;
+            }
+
+            /* Skip the first begin object. */
+            if ((nx_azure_iot_json_reader_next_token(&json_reader) != NX_AZURE_IOT_SUCCESS) ||
+                (nx_azure_iot_json_reader_token_type(&json_reader) != NX_AZURE_IOT_READER_TOKEN_BEGIN_OBJECT) ||
+                (nx_azure_iot_json_reader_next_token(&json_reader) != NX_AZURE_IOT_SUCCESS) ||
+                (nx_azure_iot_json_reader_token_type(&json_reader) != NX_AZURE_IOT_READER_TOKEN_PROPERTY_NAME) ||
+                (!nx_azure_iot_json_reader_token_is_text_equal(&json_reader,
+                                                                (UCHAR *)NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_UPDATE_MANIFEST,
+                                                                sizeof(NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_UPDATE_MANIFEST) - 1)) ||
+                (nx_azure_iot_json_reader_next_token(&json_reader)) ||
+                (nx_azure_iot_json_reader_token_string_get(&json_reader,
+                                                            proxy_update_manifest_ptr,
+                                                            proxy_update_manifest_size,
+                                                            &proxy_update_manifest_size)))
+            {
+                LogError(LogLiteralArgs("Failed to process proxy update manifest"));
+                nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
+                return;
+            }
+
+            /* Process proxy update manifest.  */
+            if (nx_azure_iot_adu_agent_service_update_manifest_process(adu_agent_ptr,
+                                                                       proxy_update_manifest_ptr,
+                                                                       proxy_update_manifest_size,
+                                                                       proxy_update_manifest_content,
+                                                                       adu_agent_ptr -> nx_azure_iot_adu_agent_update_manifest_sjwk,
+                                                                       NX_AZURE_IOT_ADU_AGENT_UPDATE_MANIFEST_SJWK_SIZE))
+            {
+                LogError(LogLiteralArgs("Failed to process proxy update manifest"));
+                nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
+                return;
+            }
+
+            if (proxy_update_manifest_content -> steps_count != 1)
+            {
+                LogError(LogLiteralArgs("Failed to process proxy update manifest"));
+                nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
+                return;
+            }
+
+            proxy_step = &(proxy_update_manifest_content -> steps[0]);
+
+            /* Update the installed criteria for reference step.  */
+            step -> installed_criteria = proxy_step -> installed_criteria;
+            step -> installed_criteria_length = proxy_step -> installed_criteria_length;
+
+            /* Call method to check if the update is installed.  */
+            if (nx_azure_iot_adu_agent_method_is_installed(adu_agent_ptr, &(proxy_update_manifest_content -> compatibility), step, &is_installed))
+            {
+                LogError(LogLiteralArgs("Failed to check the update"));
+                nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
+                return;
+            }
+
+            if (is_installed == NX_TRUE)
+            {
+                nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FIRMWARE_APPLY_SUCCEEDED);
+            }
+            else
+            {
+
+                /* Find the new update file and update it into step.  */
+                if (nx_azure_iot_adu_agent_file_find(adu_agent_ptr, proxy_update_manifest_content, (UCHAR *)proxy_step -> file_id, proxy_step -> file_id_length, &file))
+                {
+                    LogError(LogLiteralArgs("Failed to find update file"));
+                    nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
+                    return;
+                }
+
+                /* Set the file as new update.  */
+                step -> file = file;
+                adu_agent_ptr -> nx_azure_iot_adu_agent_update_flag = NX_TRUE;
+
+                nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FIRMWARE_DOWNLOAD_STARTED);
+            }
+
+            break;
+        }
+#endif /* (NX_AZURE_IOT_ADU_AGENT_PROXY_UPDATE_COUNT >= 1) */
+
+        default:
+        {
+            return;
+        }
+    }
+
+    /* Set event for next update check.  */        
+    nx_cloud_module_event_set(&(adu_agent_ptr -> nx_azure_iot_adu_agent_cloud_module),
+                              NX_AZURE_IOT_ADU_AGENT_UPDATE_EVENT);
+}
+
+static VOID nx_azure_iot_adu_agent_download_install_event_process(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr)
+{
+
+NX_AZURE_IOT_ADU_AGENT_UPDATE_MANIFEST_CONTENT *update_manifest_content = &(adu_agent_ptr -> nx_azure_iot_adu_agent_update_manifest_content);
+NX_AZURE_IOT_ADU_AGENT_STEP *step;
+UINT i;
 
     /* Check if current step is completed or not.  */
     if ((adu_agent_ptr -> nx_azure_iot_adu_agent_current_step == NX_NULL) ||
@@ -667,13 +937,9 @@ NX_AZURE_IOT_ADU_AGENT_DOWNLOADER *downloader_ptr = &(adu_agent_ptr -> nx_azure_
         /* Find next step to download and install the next firmware.   */
         for (i = 0; i < update_manifest_content -> steps_count; i++)
         {
-            if (update_manifest_content -> steps[i].state == NX_AZURE_IOT_ADU_AGENT_STEP_STATE_IDLE)
+            if (update_manifest_content -> steps[i].state == NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FIRMWARE_DOWNLOAD_STARTED)
             {
                 break;
-            }
-            else if (update_manifest_content -> steps[i].state == NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FIRMWARE_INSTALL_SUCCEEDED)
-            {
-                is_installed = NX_TRUE;
             }
         }
 
@@ -687,7 +953,7 @@ NX_AZURE_IOT_ADU_AGENT_DOWNLOADER *downloader_ptr = &(adu_agent_ptr -> nx_azure_
         {
 
             /* All updates are downloaded and installed.  */
-            if ((adu_agent_ptr -> nx_azure_iot_adu_agent_update_notify) && (is_installed == NX_TRUE))
+            if (adu_agent_ptr -> nx_azure_iot_adu_agent_update_notify)
             {
 
                 /* Notify the user and let users control the update.  */
@@ -714,187 +980,18 @@ NX_AZURE_IOT_ADU_AGENT_DOWNLOADER *downloader_ptr = &(adu_agent_ptr -> nx_azure_
     step = adu_agent_ptr -> nx_azure_iot_adu_agent_current_step;
     switch (step -> state)
     {
-
-        /* Idle.  */
-        case NX_AZURE_IOT_ADU_AGENT_STEP_STATE_IDLE:
+        case NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FIRMWARE_DOWNLOAD_STARTED:
         {
 
-            /* Check the type and handler properties.  */
-            if (((step -> type_length != 0) && 
-                 (step -> type_length == sizeof("inline") - 1) &&
-                 (!memcmp(step -> type, "inline", step -> type_length))) ||
-                ((step -> type_length == 0) &&
-                 (step -> handler_length == sizeof("microsoft/swupdate:1") - 1) &&
-                 (!memcmp(step -> handler, "microsoft/swupdate:1", step -> handler_length))))
-            {
+            /* Download firmware.  */
+            LogInfo(LogLiteralArgs("Updating firmware..."));
+            LogInfo(LogLiteralArgs("Manufacturer: %s"), step -> device  -> device_properties.manufacturer, step -> device  -> device_properties.manufacturer_length);
+            LogInfo(LogLiteralArgs("Model: %s"), step -> device  -> device_properties.model, step -> device  -> device_properties.model_length);
 
-                /* Output info.  */
-                LogInfo(LogLiteralArgs("Updating host firmware..."));
-
-                /* Call method to check if the update is installed.  */
-                if (nx_azure_iot_adu_agent_method_is_installed(adu_agent_ptr, &(update_manifest_content -> update_id), &is_installed, &update))
-                {
-                    nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
-                    return;
-                }
-
-                if (is_installed == NX_TRUE)
-                {
-                    nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FIRMWARE_APPLY_SUCCEEDED);
-                    return;
-                }
-
-                /* Set the driver entry for applying later.  */
-                step -> driver_entry = update -> update_driver_entry;
-
-                /* Find the file.  */
-                if (nx_azure_iot_adu_agent_file_find(adu_agent_ptr, update_manifest_content, (UCHAR *)step -> file_id, step -> file_id_length, &file))
-                {
-                    nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
-                    return;
-                }
-
-                /* Update the state.  */
-                nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FIRMWARE_DOWNLOAD_STARTED);
-
-                /* Start to download firmware for host update.  */
-                if (nx_azure_iot_adu_agent_method_download(adu_agent_ptr, file, NX_AZURE_IOT_ADU_AGENT_DOWNLOADER_TYPE_FIRMWARE, 
-                                                           NX_NULL, 0,
-                                                           update -> update_driver_entry))
-                {
-                    nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
-                    return;
-                }
-            }
-#if NX_AZURE_IOT_ADU_AGENT_PROXY_UPDATE_COUNT
-            else if ((step -> type_length == sizeof("reference") - 1) &&
-                     (!memcmp(step -> type, "reference", step -> type_length)))
-            {
-
-                /* Output info.  */
-                LogInfo(LogLiteralArgs("Updating leaf firmware..."));
-
-                /* Leaf update.  */
-
-                /* Find the file.  */
-                if (nx_azure_iot_adu_agent_file_find(adu_agent_ptr, update_manifest_content, (UCHAR *)step -> file_id, step -> file_id_length, &file))
-                {
-                    nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
-                    return;
-                }
-
-                /* Update the state.  */
-                nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_MANIFEST_DOWNLOAD_STARTED);
-
-                /* Start to download firmware.  */
-                if (nx_azure_iot_adu_agent_method_download(adu_agent_ptr, file, NX_AZURE_IOT_ADU_AGENT_DOWNLOADER_TYPE_MANIFEST, 
-                                                           adu_agent_ptr -> nx_azure_iot_adu_agent_update_manifest_signature,
-                                                           NX_AZURE_IOT_ADU_AGENT_UPDATE_MANIFEST_SIGNATURE_SIZE,
-                                                           NX_NULL))
-                {
-                    nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
-                    return;
-                }
-            }
-#endif /* NX_AZURE_IOT_ADU_AGENT_PROXY_UPDATE_COUNT */
-
-            break;
-        }
-
-#if NX_AZURE_IOT_ADU_AGENT_PROXY_UPDATE_COUNT
-        case NX_AZURE_IOT_ADU_AGENT_STEP_STATE_MANIFEST_DOWNLOAD_SUCCEEDED:
-        {
-            json_data_ptr = adu_agent_ptr -> nx_azure_iot_adu_agent_update_manifest_signature;
-            proxy_update_manifest_ptr = json_data_ptr + downloader_ptr -> received_firmware_size;
-            proxy_update_manifest_size = NX_AZURE_IOT_ADU_AGENT_UPDATE_MANIFEST_SIGNATURE_SIZE - downloader_ptr -> received_firmware_size;
-            proxy_update_manifest_content = &(adu_agent_ptr -> nx_azure_iot_adu_agent_proxy_update_manifest_content);
-
-            /* There may be 3 BOM bytes (EF BB BF) for UTF-8 json, skip them if exist.  */
-            if ((downloader_ptr -> received_firmware_size > 3) &&
-                ((json_data_ptr[0] == 0xEF) && (json_data_ptr[1] == 0xBB) && (json_data_ptr[2] == 0XBF)))
-            {
-                json_data_ptr +=3;
-                downloader_ptr -> received_firmware_size -= 3;
-            }
-
-            /* Initialize the update manifest string as json.  */
-            if (nx_azure_iot_json_reader_with_buffer_init(&json_reader,
-                                                          json_data_ptr,
-                                                          downloader_ptr -> received_firmware_size))
-            {
-                nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
-                return;
-            }
-
-            /* Skip the first begin object. */
-            if ((nx_azure_iot_json_reader_next_token(&json_reader) != NX_AZURE_IOT_SUCCESS) ||
-                (nx_azure_iot_json_reader_token_type(&json_reader) != NX_AZURE_IOT_READER_TOKEN_BEGIN_OBJECT) ||
-                (nx_azure_iot_json_reader_next_token(&json_reader) != NX_AZURE_IOT_SUCCESS) ||
-                (nx_azure_iot_json_reader_token_type(&json_reader) != NX_AZURE_IOT_READER_TOKEN_PROPERTY_NAME) ||
-                (!nx_azure_iot_json_reader_token_is_text_equal(&json_reader,
-                                                                (UCHAR *)NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_UPDATE_MANIFEST,
-                                                                sizeof(NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_UPDATE_MANIFEST) - 1)) ||
-                (nx_azure_iot_json_reader_next_token(&json_reader)) ||
-                (nx_azure_iot_json_reader_token_string_get(&json_reader,
-                                                            proxy_update_manifest_ptr,
-                                                            proxy_update_manifest_size,
-                                                            &proxy_update_manifest_size)))
-            {
-                nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
-                return;
-            }
-
-            /* Process leaf update manifest.  */
-            if (nx_azure_iot_adu_agent_service_update_manifest_property_process(adu_agent_ptr,
-                                                                                proxy_update_manifest_ptr,
-                                                                                proxy_update_manifest_size,
-                                                                                proxy_update_manifest_content,
-                                                                                adu_agent_ptr -> nx_azure_iot_adu_agent_update_manifest_sjwk,
-                                                                                NX_AZURE_IOT_ADU_AGENT_UPDATE_MANIFEST_SJWK_SIZE))
-            {
-                nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
-                LogError(LogLiteralArgs("ADU agent proxy update manifest process fail"));
-                return;
-            }
-
-            /* Call method to check if the update is installed.  */
-            if (nx_azure_iot_adu_agent_method_is_installed(adu_agent_ptr, &(proxy_update_manifest_content -> update_id), &is_installed, &update))
-            {
-                nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
-                return;
-            }
-
-            if (is_installed == NX_TRUE)
-            {
-                nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FIRMWARE_APPLY_SUCCEEDED);
-                return;
-            }
-
-            /* Set the driver entry for applying later.  */
-            step -> driver_entry = update -> update_driver_entry;
-
-            if (proxy_update_manifest_content -> steps_count != 1)
-            {
-                nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
-                return;
-            }
-
-            proxy_step = &(proxy_update_manifest_content -> steps[0]);
-
-            /* Find the file.  */
-            if (nx_azure_iot_adu_agent_file_find(adu_agent_ptr, proxy_update_manifest_content, (UCHAR *)proxy_step -> file_id, proxy_step -> file_id_length, &file))
-            {
-                nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
-                return;
-            }
-
-            /* Update the state.  */
-            nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FIRMWARE_DOWNLOAD_STARTED);
-
-            /* Start to download firmware.  */
-            if (nx_azure_iot_adu_agent_method_download(adu_agent_ptr, file, NX_AZURE_IOT_ADU_AGENT_DOWNLOADER_TYPE_FIRMWARE, 
+            /* Start to download firmware for host update.  */
+            if (nx_azure_iot_adu_agent_method_download(adu_agent_ptr, step -> file, NX_AZURE_IOT_ADU_AGENT_DOWNLOADER_TYPE_FIRMWARE, 
                                                        NX_NULL, 0,
-                                                       update -> update_driver_entry))
+                                                       step -> device -> device_driver_entry))
             {
                 nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
                 return;
@@ -902,13 +999,12 @@ NX_AZURE_IOT_ADU_AGENT_DOWNLOADER *downloader_ptr = &(adu_agent_ptr -> nx_azure_
 
             break;
         }
-#endif /* NX_AZURE_IOT_ADU_AGENT_PROXY_UPDATE_COUNT */
 
         case NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FIRMWARE_DOWNLOAD_SUCCEEDED:
         {
 
             /* Install firmware.  */
-            if (nx_azure_iot_adu_agent_method_install(adu_agent_ptr, step -> driver_entry))
+            if (nx_azure_iot_adu_agent_method_install(adu_agent_ptr, step -> device -> device_driver_entry))
             {
                 nx_azure_iot_adu_agent_step_state_update(adu_agent_ptr, NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED);
             }
@@ -932,6 +1028,7 @@ NX_AZURE_IOT_ADU_AGENT_DOWNLOADER *downloader_ptr = &(adu_agent_ptr -> nx_azure_
 static VOID nx_azure_iot_adu_agent_apply_event_process(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr)
 {
 NX_AZURE_IOT_ADU_AGENT_UPDATE_MANIFEST_CONTENT *manifest_content = &(adu_agent_ptr -> nx_azure_iot_adu_agent_update_manifest_content);
+NX_AZURE_IOT_ADU_AGENT_STEP *step;
 UINT i;
 UINT step_fail = NX_FALSE;
 
@@ -939,13 +1036,17 @@ UINT step_fail = NX_FALSE;
     /* Loop to apply the updates.  */
     for (i = 0; i < manifest_content -> steps_count; i++)
     {
+        step = &(manifest_content -> steps[i]);
 
         /* Check the state.  */
-        if (manifest_content -> steps[i].state == NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FIRMWARE_INSTALL_SUCCEEDED)
+        if (step -> state == NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FIRMWARE_INSTALL_SUCCEEDED)
         {
+            LogInfo(LogLiteralArgs("Applying firmware..."));
+            LogInfo(LogLiteralArgs("Manufacturer: %s"), step -> device  -> device_properties.manufacturer, step -> device  -> device_properties.manufacturer_length);
+            LogInfo(LogLiteralArgs("Model: %s"), step -> device  -> device_properties.model, step -> device  -> device_properties.model_length);
 
             /* Apply the update.  */
-            nx_azure_iot_adu_agent_method_apply(adu_agent_ptr, manifest_content -> steps[i].driver_entry);
+            nx_azure_iot_adu_agent_method_apply(adu_agent_ptr, manifest_content -> steps[i].device -> device_driver_entry);
         }
         else if (manifest_content -> steps[i].state == NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED)
         {
@@ -965,7 +1066,7 @@ UINT step_fail = NX_FALSE;
     }
 
     /* Send reported properties to notify server.  */
-    nx_azure_iot_adu_agent_reported_properties_send(adu_agent_ptr, NX_NO_WAIT);
+    nx_azure_iot_adu_agent_reported_properties_state_send(adu_agent_ptr);
 }
 
 static UINT nx_azure_iot_adu_agent_manifest_verify(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr)
@@ -1010,7 +1111,9 @@ UCHAR  *sha256_generated_hash_ptr;
 UCHAR  *sha256_decoded_hash_64_ptr;
 UCHAR  *sha256_decoded_hash_ptr;
 
-    /* Signed update manifest: https://microsoft.visualstudio.com/Universal%20Store/_wiki/wikis/EDS%20Wiki/58449/Signed-update-manifest  */
+    /* The updateManifestSignature is used to ensure that the information contained within the updateManifest
+       hasn't been tampered with. 
+       https://docs.microsoft.com/en-us/azure/iot-hub-device-update/device-update-security#json-web-signature-jws  */
 
     /* JWS value format: BASE64URL(UTF8(header)) + "." + BASE64URL(UTF8(payload) + "." + BASE64URL(signature)).  */
 
@@ -1568,7 +1671,7 @@ UINT   i = 0;
     {
         if (*jws == '.')
         {
-            dot_count ++;
+            dot_count++;
 
             if (dot_count == 1)
             {
@@ -1583,8 +1686,8 @@ UINT   i = 0;
                 return(NX_FALSE);
             }
         }
-        jws ++;
-        i ++;
+        jws++;
+        i++;
     }
 
     /* Check if the dot count is correct.  */
@@ -1614,54 +1717,24 @@ static VOID nx_azure_iot_adu_agent_step_state_update(NX_AZURE_IOT_ADU_AGENT *adu
     {
         adu_agent_ptr -> nx_azure_iot_adu_agent_state = NX_AZURE_IOT_ADU_AGENT_STATE_FAILED;
 
-        LogInfo(LogLiteralArgs("Failed to deploy update!"));
+        LogError(LogLiteralArgs("Failed to deploy update!"));
 
         /* Report state to server.  */
-        nx_azure_iot_adu_agent_reported_properties_send(adu_agent_ptr, NX_NO_WAIT);
+        nx_azure_iot_adu_agent_reported_properties_state_send(adu_agent_ptr);
     }
-    else if ((step_state == NX_AZURE_IOT_ADU_AGENT_STEP_STATE_MANIFEST_DOWNLOAD_SUCCEEDED) ||
-             (step_state == NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FIRMWARE_DOWNLOAD_SUCCEEDED) ||
-             (step_state == NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FIRMWARE_INSTALL_SUCCEEDED) ||
-             (step_state == NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FIRMWARE_APPLY_SUCCEEDED))
+    else if (step_state == NX_AZURE_IOT_ADU_AGENT_STEP_STATE_MANIFEST_DOWNLOAD_SUCCEEDED)
     {
+
+        /* Set event for update check.  */        
         nx_cloud_module_event_set(&(adu_agent_ptr -> nx_azure_iot_adu_agent_cloud_module),
                                   NX_AZURE_IOT_ADU_AGENT_UPDATE_EVENT);
     }
-}
-
-static UINT nx_azure_iot_adu_agent_update_find(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr,
-                                               NX_AZURE_IOT_ADU_AGENT_UPDATE_ID *update_id,
-                                               NX_AZURE_IOT_ADU_AGENT_UPDATE **update)
-{
-UINT i;
-
-    /* Find the update.  */
-    for (i = 0; i < NX_AZURE_IOT_ADU_AGENT_UPDATE_COUNT; i++)
+    else if ((step_state == NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FIRMWARE_DOWNLOAD_SUCCEEDED) ||
+             (step_state == NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FIRMWARE_INSTALL_SUCCEEDED))
     {
-
-        /* Check if the update is valid.  */
-        if (adu_agent_ptr -> nx_azure_iot_adu_agent_update[i].valid == NX_FALSE)
-        {
-            continue;
-        }
-
-        /* Compare the name.  */
-        if ((update_id -> name_length == adu_agent_ptr -> nx_azure_iot_adu_agent_update[i].update_id.name_length) &&
-            (!memcmp(update_id -> name, adu_agent_ptr -> nx_azure_iot_adu_agent_update[i].update_id.name, update_id -> name_length)))
-        {
-            break;
-        }
+        nx_cloud_module_event_set(&(adu_agent_ptr -> nx_azure_iot_adu_agent_cloud_module),
+                                  NX_AZURE_IOT_ADU_AGENT_DOWNLOAD_INSTALL_EVENT);
     }
-
-    /* Check if find the update.  */
-    if (i >= NX_AZURE_IOT_ADU_AGENT_UPDATE_COUNT)
-    {
-        return(NX_AZURE_IOT_NOT_FOUND);
-    }
-
-    *update = &(adu_agent_ptr -> nx_azure_iot_adu_agent_update[i]);
-
-    return(NX_AZURE_IOT_SUCCESS);
 }
 
 static UINT nx_azure_iot_adu_agent_file_find(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr, 
@@ -1720,38 +1793,62 @@ UINT i;
 }
 
 static UINT nx_azure_iot_adu_agent_method_is_installed(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr,
-                                                       NX_AZURE_IOT_ADU_AGENT_UPDATE_ID *update_id,
-                                                       UINT *is_installed,
-                                                       NX_AZURE_IOT_ADU_AGENT_UPDATE **update)
+                                                       NX_AZURE_IOT_ADU_AGENT_COMPATIBILITY *compatibility,
+                                                       NX_AZURE_IOT_ADU_AGENT_STEP *step,
+                                                       UINT *is_installed)
 {
+UINT i;
 NX_AZURE_IOT_ADU_AGENT_DRIVER driver_request;
 
     *is_installed = NX_FALSE;
 
-    /* Check if update id exists.  */
-    if ((update_id -> provider == NX_NULL) ||
-        (update_id -> provider_length == 0) ||
-        (update_id -> name == NX_NULL) ||
-        (update_id -> name_length == 0) ||
-        (update_id -> version == NX_NULL) ||
-        (update_id -> version_length == 0))
+    /* Check if compatibility and installed criteria in step are correct.  */
+    if ((compatibility -> device_manufacturer == NX_NULL) ||
+        (compatibility -> device_manufacturer_length == 0) ||
+        (compatibility -> device_model == NX_NULL) ||
+        (compatibility -> device_model_length == 0) ||
+        (step -> installed_criteria == NX_NULL) ||
+        (step -> installed_criteria_length == 0))
     {
         return(NX_AZURE_IOT_INVALID_PARAMETER);
     }
 
-    /* Find the update entry.  */
-    if (nx_azure_iot_adu_agent_update_find(adu_agent_ptr, update_id, update))
+    /* Find the device according to compatibility.  */
+    for (i = 0; i < NX_AZURE_IOT_ADU_AGENT_DEVICE_COUNT; i++)
+    {
+
+        /* Check if the device is valid.  */
+        if (adu_agent_ptr -> nx_azure_iot_adu_agent_device[i].valid == NX_FALSE)
+        {
+            continue;
+        }
+
+        /* Compare the compatility (manufacturer and model).  */
+        if ((compatibility -> device_manufacturer_length == adu_agent_ptr -> nx_azure_iot_adu_agent_device[i].device_properties.manufacturer_length) &&
+            (!memcmp(compatibility -> device_manufacturer, adu_agent_ptr -> nx_azure_iot_adu_agent_device[i].device_properties.manufacturer, compatibility -> device_manufacturer_length)) &&
+            (compatibility -> device_model_length == adu_agent_ptr -> nx_azure_iot_adu_agent_device[i].device_properties.model_length) &&
+            (!memcmp(compatibility -> device_model, adu_agent_ptr -> nx_azure_iot_adu_agent_device[i].device_properties.model, compatibility -> device_model_length)))
+        {
+
+            /* Set the matching device.  */
+            step -> device = &adu_agent_ptr -> nx_azure_iot_adu_agent_device[i];
+            break;
+        }
+    }
+
+    /* Check if device with matching properties.  */
+    if (step -> device == NX_NULL)
     {
         return(NX_AZURE_IOT_NOT_FOUND);
     }
 
-    /* Check if agent has the version info.  */
-    if ((*update) -> update_id.version_length)
+    /* Check if agent has the installed criteria.  */
+    if (step -> device -> installed_criteria_length)
     {
 
         /* Check if already installed this update.  */
-        if ((update_id -> version_length == (*update) -> update_id.version_length) &&
-            (!memcmp(update_id -> version, (*update) -> update_id.version, update_id -> version_length)))
+        if ((step -> installed_criteria_length == step -> device -> installed_criteria_length) &&
+            (!memcmp(step -> installed_criteria, step -> device -> installed_criteria, step -> installed_criteria_length)))
         {
             *is_installed = NX_TRUE;
         }
@@ -1764,12 +1861,13 @@ NX_AZURE_IOT_ADU_AGENT_DRIVER driver_request;
     else
     {
 
-        /* Call the driver to check if this udpate is installed.  */
+        /* Call the driver to check if this update is installed.  */
         driver_request.nx_azure_iot_adu_agent_driver_command = NX_AZURE_IOT_ADU_AGENT_DRIVER_UPDATE_CHECK;
-        driver_request.nx_azure_iot_adu_agent_driver_update_id = update_id;
+        driver_request.nx_azure_iot_adu_agent_driver_installed_criteria = step -> installed_criteria;
+        driver_request.nx_azure_iot_adu_agent_driver_installed_criteria_length = step -> installed_criteria_length;
         driver_request.nx_azure_iot_adu_agent_driver_return_ptr = (ULONG *)is_installed;
         driver_request.nx_azure_iot_adu_agent_driver_status = NX_AZURE_IOT_SUCCESS;
-        ((*update) -> update_driver_entry)(&driver_request);
+        (step -> device -> device_driver_entry)(&driver_request);
 
         /* Check status.  */
         if (driver_request.nx_azure_iot_adu_agent_driver_status)
@@ -1789,10 +1887,6 @@ static UINT nx_azure_iot_adu_agent_method_download(NX_AZURE_IOT_ADU_AGENT *adu_a
 UINT                status;
 UCHAR              *buffer_ptr;
 UINT                buffer_size;
-NX_CRYPTO_METHOD   *sha256_method;
-UCHAR              *sha256_method_metadata;
-ULONG               sha256_method_metadata_size;
-VOID               *handler;
 NX_DNS             *dns_ptr;
 NX_AZURE_IOT_ADU_AGENT_DOWNLOADER *downloader_ptr;
 NX_AZURE_IOT_ADU_AGENT_DRIVER driver_request;
@@ -1815,9 +1909,6 @@ NX_AZURE_IOT_ADU_AGENT_DRIVER driver_request;
         return(NX_AZURE_IOT_FAILURE);
     }
 
-    /* Output info.  */
-    LogInfo(LogLiteralArgs("Firmware downloading..."));
-
     /* Initialization.  */
     downloader_ptr = &(adu_agent_ptr -> nx_azure_iot_adu_agent_downloader);
     dns_ptr = downloader_ptr -> dns_ptr;
@@ -1831,13 +1922,12 @@ NX_AZURE_IOT_ADU_AGENT_DRIVER driver_request;
 
     buffer_ptr = adu_agent_ptr -> nx_azure_iot_adu_agent_update_manifest;
     buffer_size = NX_AZURE_IOT_ADU_AGENT_UPDATE_MANIFEST_SIZE;
-    sha256_method = adu_agent_ptr -> nx_azure_iot_adu_agent_crypto.method_sha256;
-    sha256_method_metadata = adu_agent_ptr -> nx_azure_iot_adu_agent_crypto.method_sha256_metadata;
-    sha256_method_metadata_size = NX_AZURE_IOT_ADU_AGENT_SHA256_METADATA_SIZE;
-    handler = adu_agent_ptr -> nx_azure_iot_adu_agent_crypto.handler;
 
     if (type == NX_AZURE_IOT_ADU_AGENT_DOWNLOADER_TYPE_FIRMWARE)
     {
+
+        /* Output info.  */
+        LogInfo(LogLiteralArgs("Firmware downloading..."));
 
         /* Send the preprocess request to the driver.   */
         driver_request.nx_azure_iot_adu_agent_driver_command = NX_AZURE_IOT_ADU_AGENT_DRIVER_PREPROCESS;
@@ -1851,42 +1941,6 @@ NX_AZURE_IOT_ADU_AGENT_DRIVER driver_request;
             LogError(LogLiteralArgs("Firmware download fail: DRIVER PREPROCESS ERROR"));
             return(NX_AZURE_IOT_FAILURE);
         }
-    }
-
-    /* Initialize the sha256 for firmware hash. */
-    status = sha256_method -> nx_crypto_init((NX_CRYPTO_METHOD*)sha256_method,
-                                             NX_NULL,
-                                             0,
-                                             &handler,
-                                             sha256_method_metadata,
-                                             sha256_method_metadata_size);
-
-    /* Check status.  */
-    if (status)
-    {
-        LogError(LogLiteralArgs("Firmware download fail: SHA256 INIT ERROR"));
-        return(NX_AZURE_IOT_FAILURE);
-    }
-    status = sha256_method -> nx_crypto_operation(NX_CRYPTO_HASH_INITIALIZE,
-                                                  handler,
-                                                  (NX_CRYPTO_METHOD*)sha256_method,
-                                                  NX_NULL,
-                                                  0,
-                                                  NX_NULL,
-                                                  0,
-                                                  NX_NULL,
-                                                  NX_NULL,
-                                                  0,
-                                                  sha256_method_metadata,
-                                                  sha256_method_metadata_size,
-                                                  NX_NULL,
-                                                  NX_NULL); 
-
-    /* Check status.  */
-    if (status)
-    {
-        LogError(LogLiteralArgs("Firmware download fail: SHA256 INIT ERROR"));
-        return(NX_AZURE_IOT_FAILURE);
     }
 
     /* Parse the url.  */
@@ -2073,7 +2127,7 @@ NX_AZURE_IOT_ADU_AGENT_WORKFLOW *workflow = &(adu_agent_ptr -> nx_azure_iot_adu_
                             }
                         }
 
-                        /* Skip the unknow properties.  */
+                        /* Skip the unknown properties.  */
                         else
                         {
                             if (nx_azure_iot_json_reader_skip_children(json_reader_ptr))
@@ -2149,7 +2203,7 @@ NX_AZURE_IOT_ADU_AGENT_WORKFLOW *workflow = &(adu_agent_ptr -> nx_azure_iot_adu_
 
                     /* Start to parse file array.  */
                     file_buffer_ptr = adu_agent_ptr -> nx_azure_iot_adu_agent_file_urls.file_urls_buffer;
-                    file_buffer_size = NX_AZURE_IOT_ADU_AGENT_FILE_URLS_SIZE;
+                    file_buffer_size = NX_AZURE_IOT_ADU_AGENT_FILE_URLS_MAX;
 
                     while (nx_azure_iot_json_reader_next_token(json_reader_ptr) == NX_AZURE_IOT_SUCCESS)
                     {
@@ -2205,7 +2259,7 @@ NX_AZURE_IOT_ADU_AGENT_WORKFLOW *workflow = &(adu_agent_ptr -> nx_azure_iot_adu_
                 }
             }
 
-            /* Skip the unknow properties.  */
+            /* Skip the unknown properties.  */
             else
             {
                 if (nx_azure_iot_json_reader_skip_children(json_reader_ptr))
@@ -2224,18 +2278,19 @@ NX_AZURE_IOT_ADU_AGENT_WORKFLOW *workflow = &(adu_agent_ptr -> nx_azure_iot_adu_
     return(NX_AZURE_IOT_SUCCESS);
 }
 
-static UINT nx_azure_iot_adu_agent_service_update_manifest_property_process(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr,
-                                                                            UCHAR *update_manifest,
-                                                                            UINT update_manifest_size,
-                                                                            NX_AZURE_IOT_ADU_AGENT_UPDATE_MANIFEST_CONTENT *update_manifest_content,
-                                                                            UCHAR *update_manifest_content_buffer,
-                                                                            UINT update_manifest_content_buffer_size)
+static UINT nx_azure_iot_adu_agent_service_update_manifest_process(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr,
+                                                                   UCHAR *update_manifest,
+                                                                   UINT update_manifest_size,
+                                                                   NX_AZURE_IOT_ADU_AGENT_UPDATE_MANIFEST_CONTENT *update_manifest_content,
+                                                                   UCHAR *update_manifest_content_buffer,
+                                                                   UINT update_manifest_content_buffer_size)
 {
 
 UCHAR *buffer_ptr = update_manifest_content_buffer;
 UINT buffer_size = update_manifest_content_buffer_size;
 UINT i = 0;
 NX_AZURE_IOT_JSON_READER json_reader;
+NX_AZURE_IOT_ADU_AGENT_COMPATIBILITY *compatibility = &(update_manifest_content -> compatibility);
 
     NX_PARAMETER_NOT_USED(adu_agent_ptr);
 
@@ -2368,7 +2423,7 @@ NX_AZURE_IOT_JSON_READER json_reader;
                                                               buffer_ptr, buffer_size);
                         }
 
-                        /* Skip the unknow properties.  */
+                        /* Skip the unknown properties.  */
                         else
                         {
                             if (nx_azure_iot_json_reader_skip_children(&json_reader))
@@ -2421,14 +2476,14 @@ NX_AZURE_IOT_JSON_READER json_reader;
                                 nx_azure_iot_json_reader_token_string_get(&json_reader,
                                                                           buffer_ptr,
                                                                           buffer_size,
-                                                                          &(update_manifest_content -> device_manufacturer_length)))
+                                                                          &(compatibility -> device_manufacturer_length)))
                             {
                                 return(NX_NOT_SUCCESSFUL);
                             }
 
-                            NX_AZURE_IOT_ADU_AGENT_PTR_UPDATE(update_manifest_content -> device_manufacturer,
-                                                                update_manifest_content -> device_manufacturer_length,
-                                                                buffer_ptr, buffer_size);
+                            NX_AZURE_IOT_ADU_AGENT_PTR_UPDATE(compatibility -> device_manufacturer,
+                                                              compatibility -> device_manufacturer_length,
+                                                              buffer_ptr, buffer_size);
                         }
 
                         /* Device model.  */
@@ -2438,16 +2493,16 @@ NX_AZURE_IOT_JSON_READER json_reader;
                         {
                             if (nx_azure_iot_json_reader_next_token(&json_reader) ||
                                 nx_azure_iot_json_reader_token_string_get(&json_reader,
-                                                                            buffer_ptr,
-                                                                            buffer_size,
-                                                                            &(update_manifest_content -> device_model_length)))
+                                                                          buffer_ptr,
+                                                                          buffer_size,
+                                                                          &(compatibility -> device_model_length)))
                             {
                                 return(NX_NOT_SUCCESSFUL);
                             }
 
-                            NX_AZURE_IOT_ADU_AGENT_PTR_UPDATE(update_manifest_content -> device_model,
-                                                                update_manifest_content -> device_model_length,
-                                                                buffer_ptr, buffer_size);
+                            NX_AZURE_IOT_ADU_AGENT_PTR_UPDATE(compatibility -> device_model,
+                                                              compatibility -> device_model_length,
+                                                              buffer_ptr, buffer_size);
                         }
 
                         /* Group.  */
@@ -2457,19 +2512,19 @@ NX_AZURE_IOT_JSON_READER json_reader;
                         {
                             if (nx_azure_iot_json_reader_next_token(&json_reader) ||
                                 nx_azure_iot_json_reader_token_string_get(&json_reader,
-                                                                            buffer_ptr,
-                                                                            buffer_size,
-                                                                            &(update_manifest_content -> group_length)))
+                                                                          buffer_ptr,
+                                                                          buffer_size,
+                                                                          &(compatibility -> group_length)))
                             {
                                 return(NX_NOT_SUCCESSFUL);
                             }
 
-                            NX_AZURE_IOT_ADU_AGENT_PTR_UPDATE(update_manifest_content -> group,
-                                                                update_manifest_content -> group_length,
-                                                                buffer_ptr, buffer_size);
+                            NX_AZURE_IOT_ADU_AGENT_PTR_UPDATE(compatibility -> group,
+                                                              compatibility -> group_length,
+                                                              buffer_ptr, buffer_size);
                         }
 
-                        /* Skip the unknow properties.  */
+                        /* Skip the unknown properties.  */
                         else
                         {
                             if (nx_azure_iot_json_reader_skip_children(&json_reader))
@@ -2533,6 +2588,7 @@ NX_AZURE_IOT_JSON_READER json_reader;
                             continue;
                         }
 
+                        /* Loop to process properties in step.  */
                         while (nx_azure_iot_json_reader_next_token(&json_reader) == NX_AZURE_IOT_SUCCESS)
                         {
                             if (nx_azure_iot_json_reader_token_type(&json_reader) == NX_AZURE_IOT_READER_TOKEN_PROPERTY_NAME)
@@ -2578,6 +2634,40 @@ NX_AZURE_IOT_JSON_READER json_reader;
 
                                     NX_AZURE_IOT_ADU_AGENT_PTR_UPDATE(update_manifest_content -> steps[i].handler,
                                                                       update_manifest_content -> steps[i].handler_length,
+                                                                      buffer_ptr, buffer_size);
+                                }
+
+                                /* Handler properties: installedCriteria.  */
+                                else if (nx_azure_iot_json_reader_token_is_text_equal(&json_reader,
+                                                                                      (UCHAR *)NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_HANDLER_PROPERTIES,
+                                                                                      sizeof(NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_HANDLER_PROPERTIES) - 1))
+                                {
+
+                                    /* Skip the installedCriteria property name. */
+                                    if ((nx_azure_iot_json_reader_next_token(&json_reader) != NX_AZURE_IOT_SUCCESS) ||
+                                        (nx_azure_iot_json_reader_token_type(&json_reader) != NX_AZURE_IOT_READER_TOKEN_BEGIN_OBJECT) ||
+                                        (nx_azure_iot_json_reader_next_token(&json_reader) != NX_AZURE_IOT_SUCCESS) ||
+                                        (nx_azure_iot_json_reader_token_is_text_equal(&json_reader,
+                                                                                      (UCHAR *)NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_INSTALLED_CRITERIA,
+                                                                                      sizeof(NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_INSTALLED_CRITERIA) - 1) != NX_TRUE))
+                                    {
+                                        return(NX_NOT_SUCCESSFUL);
+                                    }
+
+                                    /* Get installedCriteria value.  */
+                                    if (nx_azure_iot_json_reader_next_token(&json_reader) ||
+                                        nx_azure_iot_json_reader_token_string_get(&json_reader,
+                                                                                  buffer_ptr,
+                                                                                  buffer_size,
+                                                                                  &(update_manifest_content -> steps[i].installed_criteria_length)) ||
+                                        (nx_azure_iot_json_reader_next_token(&json_reader) != NX_AZURE_IOT_SUCCESS) ||
+                                        (nx_azure_iot_json_reader_token_type(&json_reader) != NX_AZURE_IOT_READER_TOKEN_END_OBJECT))
+                                    {
+                                        return(NX_NOT_SUCCESSFUL);
+                                    }
+
+                                    NX_AZURE_IOT_ADU_AGENT_PTR_UPDATE(update_manifest_content -> steps[i].installed_criteria,
+                                                                      update_manifest_content -> steps[i].installed_criteria_length,
                                                                       buffer_ptr, buffer_size);
                                 }
 
@@ -2632,7 +2722,7 @@ NX_AZURE_IOT_JSON_READER json_reader;
                                                                       buffer_ptr, buffer_size);
                                 }
 
-                                /* Skip the unknow properties.  */
+                                /* Skip the unknown properties.  */
                                 else
                                 {
                                     if (nx_azure_iot_json_reader_skip_children(&json_reader))
@@ -2776,7 +2866,7 @@ NX_AZURE_IOT_JSON_READER json_reader;
                                     }
                                 }
 
-                                /* Skip the unknow properties.  */
+                                /* Skip the unknown properties.  */
                                 else
                                 {
                                     if (nx_azure_iot_json_reader_skip_children(&json_reader))
@@ -2801,7 +2891,7 @@ NX_AZURE_IOT_JSON_READER json_reader;
                 }
             }
 
-            /* Skip the unknow properties.  */
+            /* Skip the unknown properties.  */
             else
             {
                 if (nx_azure_iot_json_reader_skip_children(&json_reader))
@@ -2829,19 +2919,170 @@ NX_AZURE_IOT_JSON_READER json_reader;
     return(NX_AZURE_IOT_SUCCESS);
 }
 
-/* agent reported properties sample:
+/* agent reported properties for startup:
 {
     "deviceUpdate": {
         "__t": "c",
         "agent": {
-            "state": 0,
-            "installedUpdateId": "{\"provider\":\"Microsoft\",\"Name\":\"MS-Board\",\"Version\":\"1.0.0\"}",
             "deviceProperties": {
                 "manufacturer": "Microsoft",
                 "model": "MS-Board",
                 "interfaceId": "dtmi:azure:iot:deviceUpdate;1",
             },
             "compatPropertyNames": "manufacturer,model",
+        }
+    }
+}
+*/
+static UINT nx_azure_iot_adu_agent_reported_properties_startup_send(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr, UINT wait_option)
+{
+
+NX_PACKET *packet_ptr;
+NX_AZURE_IOT_JSON_WRITER json_writer;
+NX_AZURE_IOT_ADU_AGENT_DEVICE_PROPERTIES *device_properties = &(adu_agent_ptr -> nx_azure_iot_adu_agent_device_properties);
+UINT status;
+UINT response_status;
+
+    /* Create json writer for client reported property.  */
+    status = nx_azure_iot_hub_client_reported_properties_create(adu_agent_ptr -> nx_azure_iot_hub_client_ptr, &packet_ptr, wait_option);
+    if (status)
+    {
+        return(status);
+    }
+
+    /* Init json writer.  */
+    status = nx_azure_iot_json_writer_init(&json_writer, packet_ptr, wait_option);
+    if (status)
+    {
+        nx_packet_release(packet_ptr);
+        return(status);
+    }
+
+    /* Append begin object.  */
+    if (nx_azure_iot_json_writer_append_begin_object(&json_writer))
+    {
+        nx_packet_release(packet_ptr);
+        return(NX_NOT_SUCCESSFUL);
+    }
+
+    /* Fill the ADU agent component name.  */
+    status = nx_azure_iot_hub_client_reported_properties_component_begin(adu_agent_ptr -> nx_azure_iot_hub_client_ptr,
+                                                                         &json_writer, 
+                                                                         (const UCHAR *)NX_AZURE_IOT_ADU_AGENT_COMPONENT_NAME,
+                                                                         sizeof(NX_AZURE_IOT_ADU_AGENT_COMPONENT_NAME) - 1);
+    if (status)
+    {
+        nx_packet_release(packet_ptr);
+        return(status);
+    }
+
+    /* Fill the agent property name.  */
+    if (nx_azure_iot_json_writer_append_property_name(&json_writer,
+                                                      (const UCHAR *)NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_AGENT,
+                                                      sizeof(NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_AGENT) - 1))
+    {
+        nx_packet_release(packet_ptr);
+        return(NX_NOT_SUCCESSFUL);
+    }
+
+    /* Start to fill agent property value.   */
+    if (nx_azure_iot_json_writer_append_begin_object(&json_writer))
+    {
+        nx_packet_release(packet_ptr);
+        return(NX_NOT_SUCCESSFUL);
+    }
+
+    /* Fill the deviceProperties.  */
+    if ((nx_azure_iot_json_writer_append_property_name(&json_writer,
+                                                        (const UCHAR *)NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_DEVICEPROPERTIES,
+                                                        sizeof(NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_DEVICEPROPERTIES) - 1)) ||
+        (nx_azure_iot_json_writer_append_begin_object(&json_writer)) ||
+        (nx_azure_iot_json_writer_append_property_with_string_value(&json_writer,
+                                                                    (const UCHAR *)NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_MANUFACTURER,
+                                                                    sizeof(NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_MANUFACTURER) - 1,
+                                                                    device_properties -> manufacturer, device_properties -> manufacturer_length)) ||
+        (nx_azure_iot_json_writer_append_property_with_string_value(&json_writer,
+                                                                    (const UCHAR *)NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_MODEL,
+                                                                    sizeof(NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_MODEL) - 1,
+                                                                    device_properties -> model, device_properties -> model_length)) ||
+        (nx_azure_iot_json_writer_append_property_with_string_value(&json_writer,
+                                                                    (const UCHAR *)NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_INTERFACE_ID,
+                                                                    sizeof(NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_INTERFACE_ID) - 1,
+                                                                    (const UCHAR *)NX_AZURE_IOT_ADU_AGENT_INTERFACE_ID,
+                                                                    sizeof(NX_AZURE_IOT_ADU_AGENT_INTERFACE_ID) - 1)) ||
+        (nx_azure_iot_json_writer_append_end_object(&json_writer)))
+    {
+        nx_packet_release(packet_ptr);
+        return(NX_NOT_SUCCESSFUL);
+    }
+
+    /* Fill the comatability property.  */
+    if (nx_azure_iot_json_writer_append_property_with_string_value(&json_writer,
+                                                                   (const UCHAR *)NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_COMPAT_PROPERTY_NAMES,
+                                                                   sizeof(NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_COMPAT_PROPERTY_NAMES) - 1,
+                                                                   (const UCHAR *)NX_AZURE_IOT_ADU_AGENT_PROPERTY_VALUE_COMPATIBILITY,
+                                                                   sizeof(NX_AZURE_IOT_ADU_AGENT_PROPERTY_VALUE_COMPATIBILITY) - 1))
+    {
+        nx_packet_release(packet_ptr);
+        return(NX_NOT_SUCCESSFUL);
+    }
+
+    /* End the client property value.  */
+    if (nx_azure_iot_json_writer_append_end_object(&json_writer))
+    {
+        nx_packet_release(packet_ptr);
+        return(NX_NOT_SUCCESSFUL);
+    }
+
+    /* End ADU agent component.  */
+    if (nx_azure_iot_hub_client_reported_properties_component_end(adu_agent_ptr -> nx_azure_iot_hub_client_ptr, &json_writer))
+    {
+        nx_packet_release(packet_ptr);
+        return(NX_NOT_SUCCESSFUL);
+    }
+
+    /* End json object.  */
+    if (nx_azure_iot_json_writer_append_end_object(&json_writer))
+    {
+        nx_packet_release(packet_ptr);
+        return(NX_NOT_SUCCESSFUL);
+    }
+
+    /* Send agent reported properties startup message to IoT Hub.  */
+    status = nx_azure_iot_hub_client_reported_properties_send(adu_agent_ptr -> nx_azure_iot_hub_client_ptr,
+                                                              packet_ptr,
+                                                              NX_NULL, &response_status,
+                                                              NX_NULL, wait_option);
+    if (status)
+    {
+        nx_packet_release(packet_ptr);
+        return(status);
+    }
+
+    /* Check the response statue for blocking.  */
+    if (wait_option)
+    {
+        if ((response_status < 200) || (response_status >= 300))
+        {
+            return(NX_NOT_SUCCESSFUL);
+        }
+    }
+
+    return(NX_AZURE_IOT_SUCCESS);
+}
+
+/* agent reported properties state:
+{
+    "deviceUpdate": {
+        "__t": "c",
+        "agent": {
+            "state": 0,
+            "workflow": {
+                "action": 3,
+                "id": "someguid",
+                "retryTimestamp": "2020-04-22T12:12:12.0000000+00:00"
+            },
+            "installedUpdateId": "{\"provider\":\"Microsoft\",\"Name\":\"MS-Board\",\"Version\":\"1.0.0\"}",,
             "lastInstallResult": {
                 "resultCode": 700,
                 "extendedResultCode": 0,
@@ -2858,33 +3099,30 @@ NX_AZURE_IOT_JSON_READER json_reader;
     }
 }
 */
-static UINT nx_azure_iot_adu_agent_reported_properties_send(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr, UINT wait_option)
+static UINT nx_azure_iot_adu_agent_reported_properties_state_send(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr)
 {
 
 NX_PACKET *packet_ptr;
 NX_AZURE_IOT_JSON_WRITER json_writer;
-NX_AZURE_IOT_ADU_AGENT_DEVICE_PROPERTIES *device_properties = &(adu_agent_ptr -> nx_azure_iot_adu_agent_device_properties);
 NX_AZURE_IOT_ADU_AGENT_UPDATE_MANIFEST_CONTENT *manifest_content = &(adu_agent_ptr -> nx_azure_iot_adu_agent_update_manifest_content);
 UINT status;
-UINT response_status;
-UINT request_id;
-ULONG reported_property_version;
 UINT result_code;
 UINT i;
+/* Prepare the buffer for step name: such as: "step_0", the max name is "step_xxx".  */
 CHAR step_property_name[8] = "step_";
 UINT step_size = sizeof("step_") - 1;
 UINT step_property_name_size;
 UINT update_id_length;
 
     /* Create json writer for client reported property.  */
-    status = nx_azure_iot_hub_client_reported_properties_create(adu_agent_ptr -> nx_azure_iot_hub_client_ptr, &packet_ptr, wait_option);
+    status = nx_azure_iot_hub_client_reported_properties_create(adu_agent_ptr -> nx_azure_iot_hub_client_ptr, &packet_ptr, NX_NO_WAIT);
     if (status)
     {
         return(status);
     }
 
     /* Init json writer.  */
-    status = nx_azure_iot_json_writer_init(&json_writer, packet_ptr, wait_option);
+    status = nx_azure_iot_json_writer_init(&json_writer, packet_ptr, NX_NO_WAIT);
     if (status)
     {
         nx_packet_release(packet_ptr);
@@ -3008,41 +3246,6 @@ UINT update_id_length;
         }
     }
 
-    /* Fill the deviceProperties.  */
-    if ((nx_azure_iot_json_writer_append_property_name(&json_writer,
-                                                        (const UCHAR *)NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_DEVICEPROPERTIES,
-                                                        sizeof(NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_DEVICEPROPERTIES) - 1)) ||
-        (nx_azure_iot_json_writer_append_begin_object(&json_writer)) ||
-        (nx_azure_iot_json_writer_append_property_with_string_value(&json_writer,
-                                                                    (const UCHAR *)NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_MANUFACTURER,
-                                                                    sizeof(NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_MANUFACTURER) - 1,
-                                                                    device_properties -> manufacturer, device_properties -> manufacturer_length)) ||
-        (nx_azure_iot_json_writer_append_property_with_string_value(&json_writer,
-                                                                    (const UCHAR *)NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_MODEL,
-                                                                    sizeof(NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_MODEL) - 1,
-                                                                    device_properties -> model, device_properties -> model_length)) ||
-        (nx_azure_iot_json_writer_append_property_with_string_value(&json_writer,
-                                                                    (const UCHAR *)NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_INTERFACE_ID,
-                                                                    sizeof(NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_INTERFACE_ID) - 1,
-                                                                    (const UCHAR *)NX_AZURE_IOT_ADU_AGENT_INTERFACE_ID,
-                                                                    sizeof(NX_AZURE_IOT_ADU_AGENT_INTERFACE_ID) - 1)) ||
-        (nx_azure_iot_json_writer_append_end_object(&json_writer)))
-    {
-        nx_packet_release(packet_ptr);
-        return(NX_NOT_SUCCESSFUL);
-    }
-
-    /* Fill the comatability property.  */
-    if (nx_azure_iot_json_writer_append_property_with_string_value(&json_writer,
-                                                                   (const UCHAR *)NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_COMPAT_PROPERTY_NAMES,
-                                                                   sizeof(NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_COMPAT_PROPERTY_NAMES) - 1,
-                                                                   (const UCHAR *)NX_AZURE_IOT_ADU_AGENT_COMPATIBILITY,
-                                                                   sizeof(NX_AZURE_IOT_ADU_AGENT_COMPATIBILITY) - 1))
-    {
-        nx_packet_release(packet_ptr);
-        return(NX_NOT_SUCCESSFUL);
-    }
-
     /* Fill the last install result.  */
     if ((adu_agent_ptr -> nx_azure_iot_adu_agent_state != NX_AZURE_IOT_ADU_AGENT_STATE_DEPLOYMENT_IN_PROGRESS) && 
         (adu_agent_ptr -> nx_azure_iot_adu_agent_update_manifest_content.steps_count))
@@ -3148,21 +3351,12 @@ UINT update_id_length;
     /* Send device info reported properties message to IoT Hub.  */
     status = nx_azure_iot_hub_client_reported_properties_send(adu_agent_ptr -> nx_azure_iot_hub_client_ptr,
                                                               packet_ptr,
-                                                              &request_id, &response_status,
-                                                              &reported_property_version, wait_option);
+                                                              NX_NULL, NX_NULL,
+                                                              NX_NULL, NX_NO_WAIT);
     if (status)
     {
         nx_packet_release(packet_ptr);
         return(status);
-    }
-
-    /* Check the response statue for blocking.  */
-    if (wait_option)
-    {
-        if ((response_status < 200) || (response_status >= 300))
-        {
-            return(NX_NOT_SUCCESSFUL);
-        }
     }
 
     return(NX_AZURE_IOT_SUCCESS);
@@ -3358,13 +3552,8 @@ static UINT nx_azure_iot_adu_agent_sha256_calculate(NX_CRYPTO_METHOD *sha256_met
 {
 UINT status;
 
-    /* Check for invalid pointer.  */
-    if ((sha256_method == NX_NULL) || (sha256_method -> nx_crypto_operation == NX_NULL))
-    {
-        return(NX_AZURE_IOT_INVALID_PARAMETER);
-    }
 
-    /* Initialize.  */
+    /* Initialize crypto method.  */
     if (sha256_method -> nx_crypto_init)
     {
         status = sha256_method -> nx_crypto_init((NX_CRYPTO_METHOD*)sha256_method,
@@ -3381,6 +3570,7 @@ UINT status;
         }
     } 
 
+    /* Initialize hash.  */
     status = sha256_method -> nx_crypto_operation(NX_CRYPTO_HASH_INITIALIZE,
                                                   NX_NULL,
                                                   (NX_CRYPTO_METHOD*)sha256_method,
@@ -3396,54 +3586,42 @@ UINT status;
                                                   NX_NULL,
                                                   NX_NULL);
 
-    /* Check status.  */
-    if (status)
-    {
-        return(status);
-    }
-
     /* Update hash value for data.  */
-    status = sha256_method -> nx_crypto_operation(NX_CRYPTO_HASH_UPDATE,
-                                                  NX_NULL,
-                                                  (NX_CRYPTO_METHOD*)sha256_method,
-                                                  NX_NULL,
-                                                  0,
-                                                  input_ptr,
-                                                  input_size,
-                                                  NX_NULL,
-                                                  NX_NULL,
-                                                  0,
-                                                  metadata_ptr,
-                                                  metadata_size,
-                                                  NX_NULL,
-                                                  NX_NULL);
-    
-    /* Check status.  */
-    if (status)
+    if (status == NX_SUCCESS)
     {
-        return(status);
+        status = sha256_method -> nx_crypto_operation(NX_CRYPTO_HASH_UPDATE,
+                                                      NX_NULL,
+                                                      (NX_CRYPTO_METHOD*)sha256_method,
+                                                      NX_NULL,
+                                                      0,
+                                                      input_ptr,
+                                                      input_size,
+                                                      NX_NULL,
+                                                      NX_NULL,
+                                                      0,
+                                                      metadata_ptr,
+                                                      metadata_size,
+                                                      NX_NULL,
+                                                      NX_NULL);
     }
 
     /* Calculate the hash value.  */
-    status = sha256_method -> nx_crypto_operation(NX_CRYPTO_HASH_CALCULATE,
-                                                  NX_NULL,
-                                                  (NX_CRYPTO_METHOD*)sha256_method,
-                                                  NX_NULL,
-                                                  0,
-                                                  NX_NULL,
-                                                  0,
-                                                  NX_NULL,
-                                                  output_ptr,
-                                                  output_size,
-                                                  metadata_ptr,
-                                                  metadata_size,
-                                                  NX_NULL,
-                                                  NX_NULL);
-    
-    /* Check status.  */
-    if (status)
+    if (status == NX_SUCCESS)
     {
-        return(status);
+        status = sha256_method -> nx_crypto_operation(NX_CRYPTO_HASH_CALCULATE,
+                                                      NX_NULL,
+                                                      (NX_CRYPTO_METHOD*)sha256_method,
+                                                      NX_NULL,
+                                                      0,
+                                                      NX_NULL,
+                                                      0,
+                                                      NX_NULL,
+                                                      output_ptr,
+                                                      output_size,
+                                                      metadata_ptr,
+                                                      metadata_size,
+                                                      NX_NULL,
+                                                      NX_NULL);
     }
 
     /* Cleanup.  */
@@ -3452,7 +3630,7 @@ UINT status;
         sha256_method -> nx_crypto_cleanup(metadata_ptr);
     }
 
-    return(NX_AZURE_IOT_SUCCESS);
+    return(status);
 }
 
 
@@ -3472,16 +3650,6 @@ UCHAR *decrypted_hash;
 UINT   decrypted_hash_length;
 UCHAR *rsa_buffer = buffer_ptr;
 UCHAR *sha_buffer = buffer_ptr + NX_AZURE_IOT_ADU_AGENT_RSA3072_SIZE;
-
-    /* Check for invalid pointer.  */
-    if ((adu_agent_crypto -> method_rsa == NX_NULL) ||
-        (adu_agent_crypto -> method_rsa -> nx_crypto_init == NX_NULL) ||
-        (adu_agent_crypto -> method_rsa -> nx_crypto_operation == NX_NULL) ||
-        (adu_agent_crypto -> method_sha256 == NX_NULL) || 
-        (adu_agent_crypto -> method_sha256 -> nx_crypto_operation == NX_NULL))
-    {
-        return(NX_FALSE);
-    }
 
     /* Check buffer size.  */
     if (buffer_size < (NX_AZURE_IOT_ADU_AGENT_RSA3072_SIZE + NX_AZURE_IOT_ADU_AGENT_SHA256_HASH_SIZE))
@@ -3520,17 +3688,17 @@ UCHAR *sha_buffer = buffer_ptr + NX_AZURE_IOT_ADU_AGENT_RSA3072_SIZE;
                                                                    adu_agent_crypto -> method_rsa_metadata_size,
                                                                    NX_NULL,
                                                                    NX_NULL);
-    
-    /* Check status.  */
-    if (status)
-    {
-        return(NX_FALSE);
-    }
 
     /* Cleanup.  */
     if (adu_agent_crypto -> method_rsa -> nx_crypto_cleanup)
     {
         adu_agent_crypto -> method_rsa -> nx_crypto_cleanup(adu_agent_crypto -> method_rsa_metadata);
+    }
+
+    /* Check status.  */
+    if (status)
+    {
+        return(NX_FALSE);
     }
 
     /* Decode the decrypted signature, which should be in PKCS#7 format. */
@@ -3583,7 +3751,7 @@ UCHAR   port_found = NX_FALSE;
     downloader_ptr -> host = NX_NULL;
     downloader_ptr -> resource = NX_NULL;
 
-    /* The url must be "http://host/resource".  */
+    /* Format: http://host:port/resource.  */
     if (memcmp(file_url, NX_AZURE_IOT_ADU_AGENT_HTTP_PROTOCOL, sizeof(NX_AZURE_IOT_ADU_AGENT_HTTP_PROTOCOL) - 1))
     {
         return(NX_AZURE_IOT_FAILURE);
@@ -3687,7 +3855,9 @@ UCHAR   port_found = NX_FALSE;
     
     /* Check the host and resource.   */
     if ((downloader_ptr -> host == NX_NULL) || (downloader_ptr -> resource == NX_NULL))
+    {
         return(NX_AZURE_IOT_FAILURE);
+    }
 
     /* Update the state.  */
     if (address_found == NX_FALSE)
@@ -3816,13 +3986,66 @@ NX_AZURE_IOT_ADU_AGENT_DOWNLOADER *downloader_ptr = &(adu_agent_ptr -> nx_azure_
 static void nx_azure_iot_adu_agent_http_connect(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr)
 {
 
-UINT status;
-NX_IP *ip_ptr;
+UINT                status;
+NX_IP              *ip_ptr;
+NX_CRYPTO_METHOD   *sha256_method;
+UCHAR              *sha256_method_metadata;
+ULONG               sha256_method_metadata_size;
+VOID               *handler;
 NX_AZURE_IOT_ADU_AGENT_DOWNLOADER *downloader_ptr = &(adu_agent_ptr -> nx_azure_iot_adu_agent_downloader);
 
     /* Initialize.  */
     ip_ptr = adu_agent_ptr -> nx_azure_iot_hub_client_ptr -> nx_azure_iot_ptr -> nx_azure_iot_ip_ptr;
     downloader_ptr = &(adu_agent_ptr -> nx_azure_iot_adu_agent_downloader);
+
+    /* Initialize hash for downloading firmware.  */
+    sha256_method = adu_agent_ptr -> nx_azure_iot_adu_agent_crypto.method_sha256;
+    sha256_method_metadata = adu_agent_ptr -> nx_azure_iot_adu_agent_crypto.method_sha256_metadata;
+    sha256_method_metadata_size = NX_AZURE_IOT_ADU_AGENT_SHA256_METADATA_SIZE;
+    handler = adu_agent_ptr -> nx_azure_iot_adu_agent_crypto.handler;
+
+    /* Initialize the crypto. */
+    if (sha256_method -> nx_crypto_init)
+    {
+        status = sha256_method -> nx_crypto_init((NX_CRYPTO_METHOD*)sha256_method,
+                                                 NX_NULL,
+                                                 0,
+                                                 &handler,
+                                                 sha256_method_metadata,
+                                                 sha256_method_metadata_size);
+
+        /* Check status.  */
+        if (status)
+        {
+            LogError(LogLiteralArgs("Firmware download fail: SHA256 INIT ERROR"));
+            nx_azure_iot_adu_agent_download_state_update(adu_agent_ptr, NX_FALSE);
+            return;
+        }
+    }
+
+    /* Initialize the sha256 for firmware hash. */
+    status = sha256_method -> nx_crypto_operation(NX_CRYPTO_HASH_INITIALIZE,
+                                                  handler,
+                                                  (NX_CRYPTO_METHOD*)sha256_method,
+                                                  NX_NULL,
+                                                  0,
+                                                  NX_NULL,
+                                                  0,
+                                                  NX_NULL,
+                                                  NX_NULL,
+                                                  0,
+                                                  sha256_method_metadata,
+                                                  sha256_method_metadata_size,
+                                                  NX_NULL,
+                                                  NX_NULL); 
+
+    /* Check status.  */
+    if (status)
+    {
+        LogError(LogLiteralArgs("Firmware download fail: SHA256 INIT ERROR"));
+        nx_azure_iot_adu_agent_download_state_update(adu_agent_ptr, NX_FALSE);
+        return;
+    }
 
     /* Create an HTTP client instance.  */
     status = nx_web_http_client_create(&(downloader_ptr -> http_client),
@@ -3833,6 +4056,7 @@ NX_AZURE_IOT_ADU_AGENT_DOWNLOADER *downloader_ptr = &(adu_agent_ptr -> nx_azure_
     /* Check status.  */
     if (status)
     {
+        LogError(LogLiteralArgs("Firmware download fail: CLIENT CREATE FAIL"));
         nx_azure_iot_adu_agent_download_state_update(adu_agent_ptr, NX_FALSE);
         return;
     }
@@ -3870,6 +4094,8 @@ NX_AZURE_IOT_ADU_AGENT_DOWNLOADER *downloader_ptr = &(adu_agent_ptr -> nx_azure_
         return;
     }
 
+    LogError(LogLiteralArgs("Firmware download fail: CLIENT CONNECT FAIL"));
+
     /* Failed.  */
     nx_azure_iot_adu_agent_download_state_update(adu_agent_ptr, NX_FALSE);
     return;
@@ -3896,22 +4122,7 @@ NX_AZURE_IOT_ADU_AGENT_DOWNLOADER *downloader_ptr = &(adu_agent_ptr -> nx_azure_
     /* Check status.  */
     if (status)
     {
-        nx_azure_iot_adu_agent_download_state_update(adu_agent_ptr, NX_FALSE);
-        return;
-    }
-
-    /* Add HTTP request header.  */
-    status = nx_web_http_client_request_header_add(&(downloader_ptr -> http_client), NX_AZURE_IOT_ADU_AGENT_STRING("Accept"), NX_AZURE_IOT_ADU_AGENT_STRING("*/*"), NX_NO_WAIT);
-    status += nx_web_http_client_request_header_add(&(downloader_ptr -> http_client), NX_AZURE_IOT_ADU_AGENT_STRING("Accept-Encoding"), NX_AZURE_IOT_ADU_AGENT_STRING("peerdist*"), NX_NO_WAIT);
-    status += nx_web_http_client_request_header_add(&(downloader_ptr -> http_client), NX_AZURE_IOT_ADU_AGENT_STRING("Range"), NX_AZURE_IOT_ADU_AGENT_STRING("bytes=0-"), NX_NO_WAIT);
-    status += nx_web_http_client_request_header_add(&(downloader_ptr -> http_client), NX_AZURE_IOT_ADU_AGENT_STRING("User-Agent"), NX_AZURE_IOT_ADU_AGENT_STRING("Microsoft-Delivery-Optimization/10.0"), NX_NO_WAIT);
-    status += nx_web_http_client_request_header_add(&(downloader_ptr -> http_client), NX_AZURE_IOT_ADU_AGENT_STRING("MS-CV"), NX_AZURE_IOT_ADU_AGENT_STRING("+ucpLSBeUESzB8XY.1.1.2.64.1.6.2.7.3.1.2"), NX_NO_WAIT);
-    status += nx_web_http_client_request_header_add(&(downloader_ptr -> http_client), NX_AZURE_IOT_ADU_AGENT_STRING("X-P2P-PeerDist"), NX_AZURE_IOT_ADU_AGENT_STRING("Version=1.1"), NX_NO_WAIT);
-    status += nx_web_http_client_request_header_add(&(downloader_ptr -> http_client), NX_AZURE_IOT_ADU_AGENT_STRING("X-P2P-PeerDistEx"), NX_AZURE_IOT_ADU_AGENT_STRING("MinContentInformation=1.0, MaxContentInformation=2.0"), NX_NO_WAIT);
-
-    /* Check status.  */
-    if (status)
-    {
+        LogError(LogLiteralArgs("Firmware download fail: CLIENT REQUEST INIT FAIL"));
         nx_azure_iot_adu_agent_download_state_update(adu_agent_ptr, NX_FALSE);
         return;
     }
@@ -3922,6 +4133,7 @@ NX_AZURE_IOT_ADU_AGENT_DOWNLOADER *downloader_ptr = &(adu_agent_ptr -> nx_azure_
     /* Check status.  */
     if (status)
     {
+        LogError(LogLiteralArgs("Firmware download fail: CLIENT REQUEST SEND FAIL"));
         nx_azure_iot_adu_agent_download_state_update(adu_agent_ptr, NX_FALSE);
         return;
     }
@@ -4047,16 +4259,28 @@ NX_AZURE_IOT_ADU_AGENT_DOWNLOADER *downloader_ptr = &(adu_agent_ptr -> nx_azure_
 
             /* Release the packet.  */
             nx_packet_release(received_packet);
+
+            if (downloader_ptr -> type == NX_AZURE_IOT_ADU_AGENT_DOWNLOADER_TYPE_FIRMWARE)
+            {
+                LogInfo(LogLiteralArgs("Getting download data... %d"), downloader_ptr -> received_firmware_size);
+            }
         }
         else
         {
-            LogInfo(LogLiteralArgs("Getting download data... %d"), downloader_ptr -> received_firmware_size);
+            if (get_status != NX_NO_PACKET)
+            {
+                LogError(LogLiteralArgs("Firmware download fail: RECEIVE ERROR"));
+                nx_azure_iot_adu_agent_download_state_update(adu_agent_ptr, NX_FALSE);
+            }
             return;
         }
     }
 
     /* Output info.  */
-    LogInfo(LogLiteralArgs("Firmware downloaded"));
+    if (downloader_ptr -> type == NX_AZURE_IOT_ADU_AGENT_DOWNLOADER_TYPE_FIRMWARE)
+    {
+        LogInfo(LogLiteralArgs("Firmware downloaded"));
+    }
     downloader_ptr -> state = NX_AZURE_IOT_ADU_AGENT_DOWNLOADER_DONE;
 
     /* Firmware downloaded. Verify the hash.  */
@@ -4095,12 +4319,6 @@ NX_AZURE_IOT_ADU_AGENT_DOWNLOADER *downloader_ptr = &(adu_agent_ptr -> nx_azure_
         LogError(LogLiteralArgs("Firmware verify fail: HASH ERROR"));
         nx_azure_iot_adu_agent_download_state_update(adu_agent_ptr, NX_FALSE);
         return;
-    }
-
-    /* Cleanup.  */
-    if (sha256_method -> nx_crypto_cleanup)
-    {
-        sha256_method -> nx_crypto_cleanup(sha256_method_metadata);
     }
 
     /* Decode the file hash (base64).  */
@@ -4153,6 +4371,8 @@ NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr;
 
 static void nx_azure_iot_adu_agent_download_state_update(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr, UINT success)
 {
+NX_CRYPTO_METHOD   *sha256_method = adu_agent_ptr -> nx_azure_iot_adu_agent_crypto.method_sha256;
+UCHAR              *sha256_method_metadata = adu_agent_ptr -> nx_azure_iot_adu_agent_crypto.method_sha256_metadata;
 
     /* Cleanup download socket.  */
     if (adu_agent_ptr -> nx_azure_iot_adu_agent_downloader.state >= NX_AZURE_IOT_ADU_AGENT_DOWNLOADER_HTTP_CONNECT)
@@ -4164,6 +4384,12 @@ static void nx_azure_iot_adu_agent_download_state_update(NX_AZURE_IOT_ADU_AGENT 
 
     /* Reset the state.  */
     adu_agent_ptr -> nx_azure_iot_adu_agent_downloader.state = NX_AZURE_IOT_ADU_AGENT_DOWNLOADER_IDLE;
+
+    /* Cleanup sha256.  */
+    if (sha256_method -> nx_crypto_cleanup)
+    {
+        sha256_method -> nx_crypto_cleanup(sha256_method_metadata);
+    }
 
     /* Update the state according to the download status.  */
     if (success == NX_TRUE)

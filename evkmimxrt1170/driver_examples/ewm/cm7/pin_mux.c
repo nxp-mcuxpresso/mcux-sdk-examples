@@ -1,6 +1,5 @@
 /*
- * Copyright 2020-2021 NXP
- * All rights reserved.
+ * Copyright 2022 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -13,11 +12,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v9.0
+product: Pins v12.0
 processor: MIMXRT1176xxxxx
 package_id: MIMXRT1176DVMAA
 mcu_data: ksdk2_0
-processor_version: 0.9.6
+processor_version: 12.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -44,8 +43,7 @@ BOARD_InitPins:
     open_drain: Disable, drive_strength: High, slew_rate: Slow}
   - {pin_num: L13, peripheral: LPUART1, signal: TXD, pin_signal: GPIO_AD_24, software_input_on: Disable, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper,
     open_drain: Disable, drive_strength: High, slew_rate: Slow}
-  - {pin_num: T8, peripheral: GPIO13, signal: 'gpio_io, 00', pin_signal: WAKEUP, pull_up_down_config: Pull_Up, pull_keeper_select: Pull, open_drain: Disable, drive_strength: High,
-    slew_rate: Slow}
+  - {pin_num: T8, peripheral: GPIO13, signal: 'gpio_io, 00', pin_signal: WAKEUP}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -83,15 +81,6 @@ void BOARD_InitPins(void) {
                                                  Pull / Keep Select Field: Pull Disable, Highz
                                                  Pull Up / Down Config. Field: Weak pull down
                                                  Open Drain Field: Disabled
-                                                 Domain write protection: Both cores are allowed
-                                                 Domain write protection lock: Neither of DWP bits is locked */
-  IOMUXC_SetPinConfig(
-      IOMUXC_WAKEUP_DIG_GPIO13_IO00,          /* WAKEUP_DIG PAD functional properties : */
-      0x0EU);                                 /* Slew Rate Field: Slow Slew Rate
-                                                 Drive Strength Field: high driver
-                                                 Pull / Keep Select Field: Pull Enable
-                                                 Pull Up / Down Config. Field: Weak pull up
-                                                 Open Drain SNVS Field: Disabled
                                                  Domain write protection: Both cores are allowed
                                                  Domain write protection lock: Neither of DWP bits is locked */
 }

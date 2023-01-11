@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="fusionf1_MIMXRT595S"/>
+    <definition extID="component.usart_adapter.MIMXRT595S"/>
+    <definition extID="platform.drivers.flexcomm_usart.MIMXRT595S"/>
+    <definition extID="platform.drivers.lpc_gpio.MIMXRT595S"/>
+    <definition extID="platform.drivers.lpc_iopctl.MIMXRT595S"/>
+    <definition extID="utility.debug_console_lite.MIMXRT595S"/>
+    <definition extID="platform.utilities.assert_lite.MIMXRT595S"/>
+    <definition extID="middleware.eiq.tensorflow_lite_micro.MIMXRT595S"/>
+    <definition extID="device.MIMXRT595S_DSP.MIMXRT595S"/>
+    <definition extID="middleware.eiq.tensorflow_lite_micro.xtensa.MIMXRT595S"/>
+    <definition extID="platform.drivers.common.MIMXRT595S"/>
+    <definition extID="platform.drivers.reset.MIMXRT595S"/>
+    <definition extID="platform.drivers.clock.MIMXRT595S"/>
+    <definition extID="device.MIMXRT595S_CMSIS.MIMXRT595S"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT595S"/>
+    <definition extID="platform.drivers.flexcomm.MIMXRT595S"/>
+    <definition extID="middleware.eiq.tensorflow_lite_micro.third_party.flatbuffers.MIMXRT595S"/>
+    <definition extID="middleware.eiq.tensorflow_lite_micro.third_party.gemmlowp.MIMXRT595S"/>
+    <definition extID="middleware.eiq.tensorflow_lite_micro.third_party.ruy.MIMXRT595S"/>
+    <definition extID="platform.utilities.misc_utilities.MIMXRT595S"/>
+    <definition extID="middleware.eiq.tensorflow_lite_micro.third_party.xa_nnlib_hifi4.binary.MIMXRT595S"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+  </externalDefinitions>
+  <example id="evkmimxrt595_tflm_label_image_fusionf1" name="tflm_label_image_fusionf1" device_core="fusionf1_MIMXRT595S" dependency="component.usart_adapter.MIMXRT595S platform.drivers.flexcomm_usart.MIMXRT595S platform.drivers.lpc_gpio.MIMXRT595S platform.drivers.lpc_iopctl.MIMXRT595S utility.debug_console_lite.MIMXRT595S platform.utilities.assert_lite.MIMXRT595S middleware.eiq.tensorflow_lite_micro.MIMXRT595S device.MIMXRT595S_DSP.MIMXRT595S middleware.eiq.tensorflow_lite_micro.xtensa.MIMXRT595S platform.drivers.common.MIMXRT595S platform.drivers.reset.MIMXRT595S platform.drivers.clock.MIMXRT595S device.MIMXRT595S_CMSIS.MIMXRT595S CMSIS_Include_core_cm.MIMXRT595S platform.drivers.flexcomm.MIMXRT595S middleware.eiq.tensorflow_lite_micro.third_party.flatbuffers.MIMXRT595S middleware.eiq.tensorflow_lite_micro.third_party.gemmlowp.MIMXRT595S middleware.eiq.tensorflow_lite_micro.third_party.ruy.MIMXRT595S platform.utilities.misc_utilities.MIMXRT595S middleware.eiq.tensorflow_lite_micro.third_party.xa_nnlib_hifi4.binary.MIMXRT595S" category="eiq_examples">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.ccnature"/>
+    </projects>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>SDK_DEBUGCONSOLE_UART</value>
+          <value>XOS_CLOCK_FREQ=198000000</value>
+          <value>TF_LITE_STATIC_MEMORY</value>
+          <value>CPU_MIMXRT595SFFOC_dsp</value>
+          <value>XTENSA</value>
+          <value>HIFI4</value>
+          <value>MCUXPRESSO_SDK</value>
+          <value>NNLIB_V2</value>
+          <value>MODEL_INT16</value>
+          <value>hifi4</value>
+        </option>
+        <option id="gnu.cpp.compiler.option.preprocessor.def" type="stringList">
+          <value>SDK_DEBUGCONSOLE_UART</value>
+          <value>CPU_MIMXRT595SFFOC_dsp</value>
+          <value>TF_LITE_STATIC_MEMORY</value>
+          <value>XTENSA</value>
+          <value>HIFI4</value>
+          <value>MCUXPRESSO_SDK</value>
+          <value>NNLIB_V2</value>
+          <value>MODEL_INT16</value>
+          <value>hifi4</value>
+        </option>
+        <option id="com.crt.advproject.gcc.exe.debug.option.debugging.level" type="enum">
+          <value>gnu.c.debugging.level.default</value>
+        </option>
+        <option id="com.crt.advproject.gcc.exe.debug.option.optimization.level" type="enum">
+          <value>gnu.c.optimization.level.none</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="com.crt.advproject.gcc.exe.release.option.optimization.level" type="enum">
+          <value>gnu.c.optimization.level.size</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.none</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-Wno-strict-aliasing -fsigned-char -Wno-unused -Wno-missing-braces -fmessage-length=0</value>
+        </option>
+        <option id="com.crt.advproject.link.cpp.fpu" type="enum">
+          <value>com.crt.advproject.link.cpp.fpu.none</value>
+        </option>
+        <option id="gnu.cpp.link.option.nostdlibs" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="com.crt.advproject.cpp.fpu" type="enum">
+          <value>com.crt.advproject.cpp.fpu.none</value>
+        </option>
+        <option id="gnu.cpp.compiler.option.other.other" type="string">
+          <value>-fno-rtti -fno-exceptions -Wno-sign-compare -Wno-strict-aliasing</value>
+        </option>
+        <option id="gnu.cpp.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <include_paths>
+      <include_path path="../../../../../middleware/eiq/tensorflow-lite/examples/label_image" project_relative_path="source" type="c_include"/>
+      <include_path path="../../../../../middleware/eiq/common" project_relative_path="source" type="c_include"/>
+      <include_path path="../../../../../middleware/eiq/common/image" project_relative_path="source/image" type="c_include"/>
+      <include_path path="../../../../../middleware/eiq/common/model" project_relative_path="source/model" type="c_include"/>
+      <include_path path="../../../../../middleware/eiq/tensorflow-lite/examples/label_image/pcq" project_relative_path="source/model" type="c_include"/>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+    </include_paths>
+    <source path="../../../../../middleware/eiq/common" project_relative_path="source" type="c_include">
+      <files mask="demo_info.h"/>
+      <files mask="timer.h"/>
+    </source>
+    <source path="../../../../../middleware/eiq/common/image" project_relative_path="source/image" type="c_include">
+      <files mask="image.h"/>
+      <files mask="image_utils.h"/>
+    </source>
+    <source path="../../../../../middleware/eiq/common/image" project_relative_path="source/image" type="src">
+      <files mask="image_decode_raw.c"/>
+      <files mask="image_load.c"/>
+    </source>
+    <source path="../../../../../middleware/eiq/common/model" project_relative_path="source/model" type="src">
+      <files mask="get_top_n.cpp"/>
+    </source>
+    <source path="../../../../../middleware/eiq/common/model" project_relative_path="source/model" type="c_include">
+      <files mask="get_top_n.h"/>
+      <files mask="model.h"/>
+      <files mask="output_postproc.h"/>
+    </source>
+    <source path="../../../../../middleware/eiq/tensorflow-lite/examples/common/model" project_relative_path="source/model" type="src">
+      <files mask="output_postproc.cpp"/>
+    </source>
+    <source path="../../../../../middleware/eiq/tensorflow-lite/examples/label_image" project_relative_path="source" type="c_include">
+      <files mask="demo_config.h"/>
+      <files mask="labels.h"/>
+    </source>
+    <source path="../../../../../middleware/eiq/tensorflow-lite/examples/common" project_relative_path="source" type="src">
+      <files mask="demo_info.cpp"/>
+    </source>
+    <source path="../../../../../middleware/eiq/tensorflow-lite/examples/label_image" project_relative_path="source/image" type="c_include">
+      <files mask="image_data.h"/>
+    </source>
+    <source path="../../../../../middleware/eiq/tensorflow-lite/examples/label_image" project_relative_path="doc" type="doc">
+      <files mask="labels.txt"/>
+      <files mask="stopwatch.bmp"/>
+    </source>
+    <source path="../../../../../middleware/eiq/tensorflow-lite/examples" project_relative_path="source/model" type="src">
+      <files mask="model.cpp"/>
+      <files mask="model_all_ops_micro.cpp"/>
+    </source>
+    <source path="../../../../../middleware/eiq/tensorflow-lite/examples/image" project_relative_path="source" type="src">
+      <files mask="main.cpp"/>
+    </source>
+    <source path="../../../../../middleware/eiq/tensorflow-lite/examples/label_image/pcq" project_relative_path="source/model" type="c_include">
+      <files mask="model_data.h"/>
+    </source>
+    <source path="../../../../../middleware/eiq/tensorflow-lite/examples/label_image/pcq" project_relative_path="doc" type="doc">
+      <files mask="mobilenet_v1_0.25_128_quant_int8.tflite"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc">
+      <files mask="readme.txt"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="core_dsp.h"/>
+    </source>
+    <source path="gdbio/ldscripts" project_relative_path="board" type="other">
+      <files mask="elf32xtensa.x"/>
+    </source>
+    <source path="gdbio" project_relative_path="board" type="other">
+      <files mask="specs"/>
+    </source>
+    <source path="min-rt/ldscripts" project_relative_path="board" type="other">
+      <files mask="elf32xtensa.x"/>
+    </source>
+    <source path="min-rt" project_relative_path="board" type="other">
+      <files mask="specs"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+      <files mask="board_init.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="board_fusionf1.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="board_fusionf1.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="board_init.h"/>
+    </source>
+    <source path="../../../../../middleware/eiq/common" project_relative_path="source" type="src">
+      <files mask="timer_xtensa.c"/>
+    </source>
+  </example>
+</ksdk:examples>

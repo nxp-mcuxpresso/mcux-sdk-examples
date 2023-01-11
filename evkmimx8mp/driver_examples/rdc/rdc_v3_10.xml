@@ -67,7 +67,7 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../examples/evkmimx8mp/driver_examples/rdc" project_relative_path="evkmimx8mp/driver_examples/rdc" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimx8mp/driver_examples/rdc" type="c_include"/>
       <include_path path="../../../../core/boards/evkmimx8mp" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

@@ -187,6 +187,10 @@ int main(void)
     {
     }
 
+    /* Once transfer finish, disable SAI instance. */
+    SAI_TransferAbortSendSDMA(DEMO_SAI, &txHandle);
+    SAI_Deinit(DEMO_SAI);
+
     error = CODEC_Deinit(&codecHandle);
     if ((error != kStatus_CODEC_NotSupport) && (error != kStatus_Success))
     {

@@ -30,46 +30,61 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(erpc_matrix_multiply_rpmsg_cm33_core1)
 
+set(MCUX_BUILD_TYPES debug release)
+
 set(MCUX_SDK_PROJECT_NAME erpc_matrix_multiply_rpmsg_cm33_core1.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${ProjDirPath}/../../../erpc_common/erpc_error_handler.h"
-"${ProjDirPath}/../../../erpc_common/erpc_error_handler.cpp"
-"${ProjDirPath}/../../../erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.erpc"
-"${ProjDirPath}/../../../erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.h"
-"${ProjDirPath}/../../../erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply_server.h"
-"${ProjDirPath}/../../../erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply_server.cpp"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_error_handler.h"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_error_handler.cpp"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.erpc"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.h"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply_server.h"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply_server.cpp"
 "${ProjDirPath}/../main_core1.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
-"${ProjDirPath}/../../rpmsg_config.h"
-"${ProjDirPath}/../../erpc_config.h"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_matrix_multiply_rpmsg/rpmsg_config.h"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_matrix_multiply_rpmsg/erpc_config.h"
 "${SdkRootDirPath}/core/boards/lpcxpresso55s69/board.c"
 "${SdkRootDirPath}/core/boards/lpcxpresso55s69/board.h"
 "${SdkRootDirPath}/core/boards/lpcxpresso55s69/clock_config.c"
 "${SdkRootDirPath}/core/boards/lpcxpresso55s69/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../erpc_common
-    ${ProjDirPath}/../../../erpc_common/erpc_matrix_multiply/service
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+    ${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common
+    ${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_matrix_multiply/service
     ${ProjDirPath}/..
     ${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_matrix_multiply_rpmsg
-    ${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_matrix_multiply_rpmsg/cm33_core1
     ${SdkRootDirPath}/core/boards/lpcxpresso55s69
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
+    ${SdkRootDirPath}/middleware/multicore
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/drivers/mailbox
+    ${SdkRootDirPath}/core/drivers/lpc_iocon
     ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/devices/LPC55S69/drivers
+    ${SdkRootDirPath}/core/devices/LPC55S69
+    ${SdkRootDirPath}/core/drivers/flexcomm
+    ${SdkRootDirPath}/core/drivers/lpc_gpio
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(middleware_multicore_mcmgr_lpc55s69)
@@ -133,15 +148,13 @@ include(utilities_misc_utilities_LPC55S69_cm33_core1)
 include(device_system_LPC55S69_cm33_core1)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

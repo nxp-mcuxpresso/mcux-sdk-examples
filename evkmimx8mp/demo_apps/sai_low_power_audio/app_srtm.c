@@ -61,7 +61,7 @@ static srtm_status_t APP_SRTM_I2C_Read(srtm_i2c_adapter_t adapter,
                                        srtm_i2c_type_t type,
                                        uint16_t slaveAddr,
                                        uint8_t *buf,
-                                       uint8_t len,
+                                       uint16_t len,
                                        uint16_t flags);
 
 static srtm_status_t APP_SRTM_I2C_Write(srtm_i2c_adapter_t adapter,
@@ -69,7 +69,7 @@ static srtm_status_t APP_SRTM_I2C_Write(srtm_i2c_adapter_t adapter,
                                         srtm_i2c_type_t type,
                                         uint16_t slaveAddr,
                                         uint8_t *buf,
-                                        uint8_t len,
+                                        uint16_t len,
                                         uint16_t flags);
 
 static srtm_status_t APP_SRTM_I2C_SwitchChannel(srtm_i2c_adapter_t adapter,
@@ -305,7 +305,7 @@ static void APP_SRTM_InitAudioService(void)
                             kSAI_Channel0Mask);              /* SAI channel 0 used by default */
     saiTxConfig.config.syncMode            = kSAI_ModeAsync; /* Tx in async mode */
     saiTxConfig.dataLine1                  = 0U;
-    saiTxConfig.config.fifo.fifoWatermark  = FSL_FEATURE_SAI_FIFO_COUNT / 2U;
+    saiTxConfig.config.fifo.fifoWatermark  = FSL_FEATURE_SAI_FIFO_COUNTn(APP_SRTM_SAI) / 2U;
     saiTxConfig.mclkConfig.mclkSourceClkHz = APP_SAI_CLK_FREQ;
     saiTxConfig.mclkConfig.mclkHz          = saiTxConfig.mclkConfig.mclkSourceClkHz; /* Set the output mclk equal to
                                                                                         its source clk by default */
@@ -330,7 +330,7 @@ static void APP_SRTM_InitAudioService(void)
                             kSAI_Channel0Mask);              /* SAI channel 0 used by default */
     saiRxConfig.config.syncMode             = kSAI_ModeSync; /* Rx in sync mode */
     saiRxConfig.dataLine1                   = 0U;
-    saiRxConfig.config.fifo.fifoWatermark   = FSL_FEATURE_SAI_FIFO_COUNT / 2U;
+    saiRxConfig.config.fifo.fifoWatermark   = FSL_FEATURE_SAI_FIFO_COUNTn(APP_SRTM_SAI) / 2U;
     saiRxConfig.mclkConfig.mclkSourceClkHz  = APP_SAI_CLK_FREQ;
     saiRxConfig.mclkConfig.mclkHz           = saiTxConfig.mclkConfig.mclkSourceClkHz; /* Same as Tx */
     saiRxConfig.mclkConfig.mclkOutputEnable = true;                                   /* Enable the MCLK output */
@@ -479,7 +479,7 @@ static srtm_status_t APP_SRTM_I2C_SwitchChannel(srtm_i2c_adapter_t adapter,
                           SRTM_I2C_FLAG_NEED_STOP); // APP_SRTM_I2C_Write
 }
 
-static status_t SRTM_I2C_Send(I2C_Type *base, uint8_t slaveAddr, uint8_t *buf, uint8_t len, uint16_t flags)
+static status_t SRTM_I2C_Send(I2C_Type *base, uint8_t slaveAddr, uint8_t *buf, uint16_t len, uint16_t flags)
 {
     status_t reVal = kStatus_Success;
     i2c_master_transfer_t masterXfer;
@@ -498,7 +498,7 @@ static status_t SRTM_I2C_Send(I2C_Type *base, uint8_t slaveAddr, uint8_t *buf, u
     return reVal;
 }
 
-static status_t SRTM_I2C_Read(I2C_Type *base, uint8_t slaveAddr, uint8_t *buf, uint8_t len, uint16_t flags)
+static status_t SRTM_I2C_Read(I2C_Type *base, uint8_t slaveAddr, uint8_t *buf, uint16_t len, uint16_t flags)
 {
     status_t reVal = kStatus_Success;
 
@@ -523,7 +523,7 @@ static srtm_status_t APP_SRTM_I2C_Write(srtm_i2c_adapter_t adapter,
                                         srtm_i2c_type_t type,
                                         uint16_t slaveAddr,
                                         uint8_t *buf,
-                                        uint8_t len,
+                                        uint16_t len,
                                         uint16_t flags)
 {
     status_t retVal = kStatus_Success;
@@ -544,7 +544,7 @@ static srtm_status_t APP_SRTM_I2C_Read(srtm_i2c_adapter_t adapter,
                                        srtm_i2c_type_t type,
                                        uint16_t slaveAddr,
                                        uint8_t *buf,
-                                       uint8_t len,
+                                       uint16_t len,
                                        uint16_t flags)
 {
     status_t retVal = kStatus_Success;

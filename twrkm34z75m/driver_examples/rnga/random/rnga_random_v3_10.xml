@@ -68,7 +68,6 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/twrkm34z75m/driver_examples/rnga/random" project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../core/boards/twrkm34z75m" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

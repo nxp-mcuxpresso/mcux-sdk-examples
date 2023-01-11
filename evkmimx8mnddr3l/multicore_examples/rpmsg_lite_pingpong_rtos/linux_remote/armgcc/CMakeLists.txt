@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(rpmsg_lite_pingpong_rtos_linux_remote)
 
+set(MCUX_BUILD_TYPES debug release ddr_debug ddr_release flash_debug flash_release)
+
 set(MCUX_SDK_PROJECT_NAME rpmsg_lite_pingpong_rtos_linux_remote.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -52,20 +58,30 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../remoteproc.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/evkmimx8mn
     ${SdkRootDirPath}/core/boards/evkmimx8mnddr3l
     ${SdkRootDirPath}/examples/evkmimx8mn/multicore_examples/rpmsg_lite_pingpong_rtos/linux_remote
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/middleware/multicore
+    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
+    ${SdkRootDirPath}/core/devices/MIMX8MN6/drivers
+    ${SdkRootDirPath}/core/drivers/mu
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/drivers/rdc
+    ${SdkRootDirPath}/core/devices/MIMX8MN6
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/drivers/iuart
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(middleware_multicore_rpmsg_lite_imx8mn_m7_freertos)
@@ -113,15 +129,13 @@ include(utilities_misc_utilities_MIMX8MN6)
 include(device_system)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

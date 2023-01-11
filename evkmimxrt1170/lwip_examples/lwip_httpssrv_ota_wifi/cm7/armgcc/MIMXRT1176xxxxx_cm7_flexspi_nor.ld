@@ -1,0 +1,273 @@
+/*
+** ###################################################################
+**     Processors:          MIMXRT1176AVM8A_cm7
+**                          MIMXRT1176CVM8A_cm7
+**                          MIMXRT1176DVMAA_cm7
+**
+**     Compiler:            GNU C Compiler
+**     Reference manual:    IMXRT1170RM, Rev E, 12/2019
+**     Version:             rev. 0.1, 2018-03-05
+**     Build:               b200723
+**
+**     Abstract:
+**         Linker file for the GNU C Compiler
+**
+**     Copyright 2016 Freescale Semiconductor, Inc.
+**     Copyright 2016-2020 NXP
+**     All rights reserved.
+**
+**     SPDX-License-Identifier: BSD-3-Clause
+**
+**     http:                 www.nxp.com
+**     mail:                 support@nxp.com
+**
+** ###################################################################
+*/
+
+/* Entry Point */
+ENTRY(Reset_Handler)
+
+HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 100000;
+STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 1000;
+RPMSG_SHMEM_SIZE = DEFINED(__use_shmem__) ? 0x2000 : 0;
+VECTOR_RAM_SIZE = DEFINED(__ram_vector_table__) ? 0x00000400 : 0;
+
+/* Specify the memory areas */
+MEMORY
+{
+  m_interrupts          (RX)  : ORIGIN = 0x30040400, LENGTH = 0x00000400
+  m_text                (RX)  : ORIGIN = 0x30040800, LENGTH = 0x00D8DC00
+  m_data                (RW)  : ORIGIN = 0x20000000, LENGTH = 0x00040000
+  m_ncache              (RW)  : ORIGIN = 0x202C0000, LENGTH = 0x00002000
+  m_data2               (RW)  : ORIGIN = 0x202C2000 + RPMSG_SHMEM_SIZE, LENGTH = 0x0007E000 - RPMSG_SHMEM_SIZE
+  rpmsg_sh_mem          (RW)  : ORIGIN = 0x202C2000, LENGTH = RPMSG_SHMEM_SIZE
+  m_core1_image         (RX)  : ORIGIN = 0x30FC0000, LENGTH = 0x00040000
+}
+
+/* NOTE: Flash in range 0x30D9_0000 - 0x30FF_FFFF is reserved for  data */
+
+/* Define output sections */
+SECTIONS
+{
+  __NCACHE_REGION_START = ORIGIN(m_ncache);
+  __NCACHE_REGION_SIZE  = LENGTH(m_ncache);
+
+  /* section for storing the secondary core image */
+  .core1_code :
+  {
+     . = ALIGN(4) ;
+    KEEP (*(.core1_code))
+     *(.core1_code*)
+     . = ALIGN(4) ;
+  } > m_core1_image
+
+  /* NOINIT section for rpmsg_sh_mem */
+  .noinit_rpmsg_sh_mem (NOLOAD) : ALIGN(4)
+  {
+     __RPMSG_SH_MEM_START__ = .;
+     *(.noinit.$rpmsg_sh_mem*)
+     . = ALIGN(4) ;
+     __RPMSG_SH_MEM_END__ = .;
+  } > rpmsg_sh_mem
+
+  /* The startup code goes first into internal RAM */
+  .interrupts :
+  {
+    __VECTOR_TABLE = .;
+    __Vectors = .;
+    . = ALIGN(4);
+    KEEP(*(.isr_vector))     /* Startup code */
+    . = ALIGN(4);
+  } > m_interrupts
+
+  /* The program code and other data goes into internal RAM */
+  .text :
+  {
+    . = ALIGN(4);
+    *(EXCLUDE_FILE(
+        /* Exclude flash and frequently executed functions from XIP */
+        */mflash_drv.c.obj
+        */fsl_flexspi.c.obj
+    ) .text)                 /* .text sections (code) */
+    *(EXCLUDE_FILE(
+        /* Exclude flash and frequently executed functions from XIP */
+        */mflash_drv.c.obj
+        */fsl_flexspi.c.obj
+    ) .text*)                /* .text* sections (code) */
+    *(.rodata)               /* .rodata sections (constants, strings, etc.) */
+    *(.rodata*)              /* .rodata* sections (constants, strings, etc.) */
+    *(.glue_7)               /* glue arm to thumb code */
+    *(.glue_7t)              /* glue thumb to arm code */
+    *(.eh_frame)
+    KEEP (*(.init))
+    KEEP (*(.fini))
+    . = ALIGN(4);
+  } > m_text
+
+  .ARM.extab :
+  {
+    *(.ARM.extab* .gnu.linkonce.armextab.*)
+  } > m_text
+
+  .ARM :
+  {
+    __exidx_start = .;
+    *(.ARM.exidx*)
+    __exidx_end = .;
+  } > m_text
+
+ .ctors :
+  {
+    __CTOR_LIST__ = .;
+    /* gcc uses crtbegin.o to find the start of
+       the constructors, so we make sure it is
+       first.  Because this is a wildcard, it
+       doesn't matter if the user does not
+       actually link against crtbegin.o; the
+       linker won't look for a file to match a
+       wildcard.  The wildcard also means that it
+       doesn't matter which directory crtbegin.o
+       is in.  */
+    KEEP (*crtbegin.o(.ctors))
+    KEEP (*crtbegin?.o(.ctors))
+    /* We don't want to include the .ctor section from
+       from the crtend.o file until after the sorted ctors.
+       The .ctor section from the crtend file contains the
+       end of ctors marker and it must be last */
+    KEEP (*(EXCLUDE_FILE(*crtend?.o *crtend.o) .ctors))
+    KEEP (*(SORT(.ctors.*)))
+    KEEP (*(.ctors))
+    __CTOR_END__ = .;
+  } > m_text
+
+  .dtors :
+  {
+    __DTOR_LIST__ = .;
+    KEEP (*crtbegin.o(.dtors))
+    KEEP (*crtbegin?.o(.dtors))
+    KEEP (*(EXCLUDE_FILE(*crtend?.o *crtend.o) .dtors))
+    KEEP (*(SORT(.dtors.*)))
+    KEEP (*(.dtors))
+    __DTOR_END__ = .;
+  } > m_text
+
+  .preinit_array :
+  {
+    PROVIDE_HIDDEN (__preinit_array_start = .);
+    KEEP (*(.preinit_array*))
+    PROVIDE_HIDDEN (__preinit_array_end = .);
+  } > m_text
+
+  .init_array :
+  {
+    PROVIDE_HIDDEN (__init_array_start = .);
+    KEEP (*(SORT(.init_array.*)))
+    KEEP (*(.init_array*))
+    PROVIDE_HIDDEN (__init_array_end = .);
+  } > m_text
+
+  .fini_array :
+  {
+    PROVIDE_HIDDEN (__fini_array_start = .);
+    KEEP (*(SORT(.fini_array.*)))
+    KEEP (*(.fini_array*))
+    PROVIDE_HIDDEN (__fini_array_end = .);
+  } > m_text
+
+  __etext = .;    /* define a global symbol at end of code */
+  __DATA_ROM = .; /* Symbol is used by startup for data initialization */
+
+  .interrupts_ram :
+  {
+    . = ALIGN(4);
+    __VECTOR_RAM__ = .;
+    __interrupts_ram_start__ = .; /* Create a global symbol at data start */
+    *(.m_interrupts_ram)     /* This is a user defined section */
+    . += VECTOR_RAM_SIZE;
+    . = ALIGN(4);
+    __interrupts_ram_end__ = .; /* Define a global symbol at data end */
+  } > m_data
+
+  __VECTOR_RAM = DEFINED(__ram_vector_table__) ? __VECTOR_RAM__ : ORIGIN(m_interrupts);
+  __RAM_VECTOR_TABLE_SIZE_BYTES = DEFINED(__ram_vector_table__) ? (__interrupts_ram_end__ - __interrupts_ram_start__) : 0x0;
+
+  .data : AT(__DATA_ROM)
+  {
+    . = ALIGN(4);
+    __DATA_RAM = .;
+    __data_start__ = .;      /* create a global symbol at data start */
+    *(m_usb_dma_init_data)
+    /* Explicit placement of flash and frequently executed functions in RAM */
+    */mflash_drv.c.obj(.text .text* .rodata .rodata*)
+    */fsl_flexspi.c.obj(.text .text* .rodata .rodata*)
+    *(.data)                 /* .data sections */
+    *(.data*)                /* .data* sections */
+    *(.wlan_data .wlan_data.*)
+    KEEP(*(.jcr*))
+    . = ALIGN(4);
+    __data_end__ = .;        /* define a global symbol at data end */
+  } > m_data2
+
+  __NDATA_ROM = __DATA_ROM + (__data_end__ - __data_start__);
+  .ncache.init : AT(__NDATA_ROM)
+  {
+    __noncachedata_start__ = .;   /* create a global symbol at ncache data start */
+    *(NonCacheable.init)
+    . = ALIGN(4);
+    __noncachedata_init_end__ = .;   /* create a global symbol at initialized ncache data end */
+  } > m_ncache
+  . = __noncachedata_init_end__;
+  .ncache :
+  {
+    *(NonCacheable)
+    . = ALIGN(4);
+    __noncachedata_end__ = .;     /* define a global symbol at ncache data end */
+  } > m_ncache
+
+  __DATA_END = __NDATA_ROM + (__noncachedata_init_end__ - __noncachedata_start__);
+  text_end = ORIGIN(m_text) + LENGTH(m_text);
+  ASSERT(__DATA_END <= text_end, "region m_text overflowed with text and data")
+
+  /* Uninitialized data section */
+  .bss :
+  {
+    /* This is used by the startup in order to initialize the .bss section */
+    . = ALIGN(4);
+    __START_BSS = .;
+    __bss_start__ = .;
+    *(m_usb_dma_noninit_data)
+    *(.bss)
+    *(.bss*)
+    *(COMMON)
+    . = ALIGN(4);
+    __bss_end__ = .;
+    __END_BSS = .;
+  } > m_data2
+
+  .heap :
+  {
+    . = ALIGN(8);
+    __end__ = .;
+    PROVIDE(end = .);
+    __HeapBase = .;
+    . += HEAP_SIZE;
+    __HeapLimit = .;
+    __heap_limit = .; /* Add for _sbrk */
+  } > m_data2
+
+  .stack :
+  {
+    . = ALIGN(8);
+    . += STACK_SIZE;
+  } > m_data2
+
+  /* Initializes stack on the end of block */
+  __StackTop   = ORIGIN(m_data2) + LENGTH(m_data2);
+  __StackLimit = __StackTop - STACK_SIZE;
+  PROVIDE(__stack = __StackTop);
+
+  .ARM.attributes 0 : { *(.ARM.attributes) }
+
+  ASSERT(__StackLimit >= __HeapLimit, "region m_data2 overflowed with stack and heap")
+}
+

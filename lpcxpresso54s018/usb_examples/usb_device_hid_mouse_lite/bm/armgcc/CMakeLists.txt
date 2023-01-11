@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(dev_hid_mouse_lite_bm)
 
+set(MCUX_BUILD_TYPES debug release)
+
 set(MCUX_SDK_PROJECT_NAME dev_hid_mouse_lite_bm.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -54,17 +60,28 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
     ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/devices/LPC54S018/drivers
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/devices/LPC54S018
+    ${SdkRootDirPath}/core/drivers/flexcomm
+    ${SdkRootDirPath}/core/drivers/lpc_gpio
+    ${SdkRootDirPath}/core/drivers/lpc_iocon
+    ${SdkRootDirPath}/core/drivers/emc
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/middleware/usb
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/components/osa
+    ${SdkRootDirPath}/core/utilities/misc_utilities
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(middleware_baremetal)
@@ -118,15 +135,13 @@ include(middleware_usb_device_common_header)
 include(middleware_usb_common_header)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 if(CMAKE_BUILD_TYPE STREQUAL debug)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/devices/LPC54S018/gcc/libpower_hardabi.a)

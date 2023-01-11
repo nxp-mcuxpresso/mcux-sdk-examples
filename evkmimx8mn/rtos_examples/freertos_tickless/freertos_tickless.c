@@ -145,7 +145,11 @@ int main(void)
 
 /* Init input switch GPIO. */
 #if defined(FSL_FEATURE_SOC_PORT_COUNT) && (FSL_FEATURE_SOC_PORT_COUNT > 0)
+#if (defined(FSL_FEATURE_PORT_HAS_NO_INTERRUPT) && FSL_FEATURE_PORT_HAS_NO_INTERRUPT)
+    GPIO_SetPinInterruptConfig(BOARD_SW_GPIO, BOARD_SW_GPIO_PIN, kGPIO_InterruptFallingEdge);
+#else
     PORT_SetPinInterruptConfig(BOARD_SW_PORT, BOARD_SW_GPIO_PIN, kPORT_InterruptFallingEdge);
+#endif
 #endif
 
 #if defined(__CORTEX_M)
@@ -222,13 +226,25 @@ void BOARD_SW_IRQ_HANDLER(void)
     {
         __NOP(); /* delay */
     }
+#if (defined(FSL_FEATURE_PORT_HAS_NO_INTERRUPT) && FSL_FEATURE_PORT_HAS_NO_INTERRUPT)
+    /* Clear external interrupt flag. */
+    GPIO_GpioClearInterruptFlags(BOARD_SW_GPIO, 1U << BOARD_SW_GPIO_PIN);
+#else
+    /* Clear external interrupt flag. */
     GPIO_PortClearInterruptFlags(BOARD_SW_GPIO, 1U << BOARD_SW_GPIO_PIN);
+#endif
     if (1 == GPIO_PinRead(BOARD_SW_GPIO, BOARD_SW_GPIO_PIN))
     {
         xSemaphoreGiveFromISR(xSWSemaphore, &xHigherPriorityTaskWoken);
     }
 #else
+#if (defined(FSL_FEATURE_PORT_HAS_NO_INTERRUPT) && FSL_FEATURE_PORT_HAS_NO_INTERRUPT)
+    /* Clear external interrupt flag. */
+    GPIO_GpioClearInterruptFlags(BOARD_SW_GPIO, 1U << BOARD_SW_GPIO_PIN);
+#else
+    /* Clear external interrupt flag. */
     GPIO_PortClearInterruptFlags(BOARD_SW_GPIO, 1U << BOARD_SW_GPIO_PIN);
+#endif
     xSemaphoreGiveFromISR(xSWSemaphore, &xHigherPriorityTaskWoken);
 #endif
 }

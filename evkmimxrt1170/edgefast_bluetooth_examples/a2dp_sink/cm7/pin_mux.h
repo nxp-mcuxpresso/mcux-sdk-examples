@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020, 2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -53,13 +53,11 @@ extern "C" {
  */
 void BOARD_InitBootPins(void);
 
-
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
  */
 void BOARD_InitPins(void);                    /* Function assigned for the Cortex-M7F */
-
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
@@ -74,13 +72,11 @@ void BOARD_InitDEBUG_UARTPins(void);          /* Function assigned for the Corte
  */
 void BOARD_InitUSDHCPins(void);               /* Function assigned for the Cortex-M7F */
 
-
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
  */
 void BOARD_InitArduinoUARTPins(void);         /* Function assigned for the Cortex-M7F */
-
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
@@ -88,20 +84,17 @@ void BOARD_InitArduinoUARTPins(void);         /* Function assigned for the Corte
  */
 void BOARD_InitSPIPins(void);                 /* Function assigned for the Cortex-M7F */
 
-
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
  */
 void BOARD_InitM2UARTPins(void);              /* Function assigned for the Cortex-M7F */
 
-
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
  */
 void BOARD_InitM2ScoPins(void);               /* Function assigned for the Cortex-M7F */
-
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

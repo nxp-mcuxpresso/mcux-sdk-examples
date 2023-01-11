@@ -66,7 +66,7 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/hvpkv11z75m/driver_examples/edma/interleave_transfer" project_relative_path="hvpkv11z75m/driver_examples/edma/interleave_transfer" type="c_include"/>
+      <include_path path="." project_relative_path="hvpkv11z75m/driver_examples/edma/interleave_transfer" type="c_include"/>
       <include_path path="../../../../../core/boards/hvpkv11z75m" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

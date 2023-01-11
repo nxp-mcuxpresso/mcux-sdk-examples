@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<configuration name="MIMXRT1042xxxxB" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_11 http://mcuxpresso.nxp.com/XSD/mex_configuration_11.xsd" uuid="28cf4cbe-0192-45a7-a515-df10840c5fa7" version="11" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_11" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <common>
+      <processor>MIMXRT1042xxxxB</processor>
+      <package>MIMXRT1042XJM5B</package>
+      <mcu_data>ksdk2_0</mcu_data>
+      <cores selected="core0">
+         <core name="Cortex-M7F" id="core0" description="M7 core"/>
+      </cores>
+      <description></description>
+   </common>
+   <preferences>
+      <validate_boot_init_only>true</validate_boot_init_only>
+      <generate_extended_information>false</generate_extended_information>
+      <generate_code_modified_registers_only>false</generate_code_modified_registers_only>
+      <custom_copyright>
+         <text>/*
+ * Copyright 2022 NXP
+ * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+</text>
+         <enabled>true</enabled>
+      </custom_copyright>
+      <update_include_paths>true</update_include_paths>
+      <generate_registers_defines>false</generate_registers_defines>
+   </preferences>
+   <tools>
+      <pins name="Pins" version="12.0" enabled="true" update_project_code="true">
+         <pins_profile>
+            <processor_version>0.12.7</processor_version>
+            <power_domains/>
+            <pin_labels>
+               <pin_label pin_num="G11" pin_signal="GPIO_AD_B0_08" label="USER_LED" identifier="USER_LED"/>
+               <pin_label pin_num="G12" pin_signal="GPIO_AD_B0_09" label="JTAG_TDI/J21[5]/ENET_RST/J22[5]/USER_LED" identifier="USER_LED"/>
+            </pin_labels>
+         </pins_profile>
+         <functions_list>
+            <function name="BOARD_InitPins">
+               <description>Configures pin routing and optionally pin electrical features.</description>
+               <options>
+                  <callFromInitBoot>true</callFromInitBoot>
+                  <coreID>core0</coreID>
+                  <enableClock>true</enableClock>
+               </options>
+               <dependencies>
+                  <dependency resourceType="Peripheral" resourceId="LPUART1" description="Peripheral LPUART1 is not initialized" problem_level="1" source="Pins:BOARD_InitPins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="Peripheral" resourceId="ARM" description="Peripheral ARM is not initialized" problem_level="1" source="Pins:BOARD_InitPins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.iomuxc" description="Pins initialization requires the IOMUXC Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.igpio" description="Pins initialization requires the IGPIO Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <pins>
+                  <pin peripheral="LPUART1" signal="RX" pin_num="J11" pin_signal="GPIO_AD_B0_13">
+                     <pin_features>
+                        <pin_feature name="software_input_on" value="Disable"/>
+                        <pin_feature name="hysteresis_enable" value="Disable"/>
+                        <pin_feature name="pull_up_down_config" value="Pull_Down_100K_Ohm"/>
+                        <pin_feature name="pull_keeper_select" value="Keeper"/>
+                        <pin_feature name="pull_keeper_enable" value="Enable"/>
+                        <pin_feature name="open_drain" value="Disable"/>
+                        <pin_feature name="speed" value="MHZ_100"/>
+                        <pin_feature name="drive_strength" value="R0_6"/>
+                        <pin_feature name="slew_rate" value="Slow"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="LPUART1" signal="TX" pin_num="J12" pin_signal="GPIO_AD_B0_12">
+                     <pin_features>
+                        <pin_feature name="software_input_on" value="Disable"/>
+                        <pin_feature name="hysteresis_enable" value="Disable"/>
+                        <pin_feature name="pull_up_down_config" value="Pull_Down_100K_Ohm"/>
+                        <pin_feature name="pull_keeper_select" value="Keeper"/>
+                        <pin_feature name="pull_keeper_enable" value="Enable"/>
+                        <pin_feature name="open_drain" value="Disable"/>
+                        <pin_feature name="speed" value="MHZ_100"/>
+                        <pin_feature name="drive_strength" value="R0_6"/>
+                        <pin_feature name="slew_rate" value="Slow"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="ARM" signal="arm_trace_swo" pin_num="G10" pin_signal="GPIO_AD_B0_10">
+                     <pin_features>
+                        <pin_feature name="slew_rate" value="Fast"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="GPIO1" signal="gpio_io, 08" pin_num="G11" pin_signal="GPIO_AD_B0_08">
+                     <pin_features>
+                        <pin_feature name="direction" value="OUTPUT"/>
+                        <pin_feature name="gpio_init_state" value="false"/>
+                        <pin_feature name="software_input_on" value="Disable"/>
+                        <pin_feature name="hysteresis_enable" value="Disable"/>
+                        <pin_feature name="pull_up_down_config" value="Pull_Down_100K_Ohm"/>
+                        <pin_feature name="pull_keeper_select" value="Pull"/>
+                        <pin_feature name="pull_keeper_enable" value="Enable"/>
+                        <pin_feature name="open_drain" value="Disable"/>
+                        <pin_feature name="speed" value="MHZ_50"/>
+                        <pin_feature name="drive_strength" value="R0_4"/>
+                        <pin_feature name="slew_rate" value="Slow"/>
+                     </pin_features>
+                  </pin>
+               </pins>
+            </function>
+         </functions_list>
+      </pins>
+      <clocks name="Clocks" version="10.0" enabled="false" update_project_code="true">
+         <clocks_profile>
+            <processor_version>N/A</processor_version>
+         </clocks_profile>
+         <clock_configurations/>
+      </clocks>
+      <dcdx name="DCDx" version="3.0" enabled="false" update_project_code="true">
+         <dcdx_profile>
+            <processor_version>N/A</processor_version>
+         </dcdx_profile>
+         <dcdx_configurations/>
+      </dcdx>
+      <periphs name="Peripherals" version="11.0" enabled="false" update_project_code="true">
+         <peripherals_profile>
+            <processor_version>N/A</processor_version>
+         </peripherals_profile>
+         <functional_groups/>
+         <components/>
+      </periphs>
+      <tee name="TEE" version="4.0" enabled="false" update_project_code="true">
+         <tee_profile>
+            <processor_version>N/A</processor_version>
+         </tee_profile>
+      </tee>
+   </tools>
+</configuration>

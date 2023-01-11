@@ -37,7 +37,7 @@
 
 /* Define the helper thread for running Azure SDK on ThreadX (THREADX IoT Platform).  */
 #ifndef SAMPLE_HELPER_STACK_SIZE
-#define SAMPLE_HELPER_STACK_SIZE        (4096)
+#define SAMPLE_HELPER_STACK_SIZE        (4096 * 2)
 #endif /* SAMPLE_HELPER_STACK_SIZE  */
 
 #ifndef SAMPLE_HELPER_THREAD_PRIORITY
@@ -87,19 +87,17 @@
 /*#define SAMPLE_DNS_SERVER_ADDRESS     IP_ADDRESS(192, 168, 100, 1)*/
 #error "SYMBOL SAMPLE_DNS_SERVER_ADDRESS must be defined. This symbol specifies the dns server address for routing. "
 #endif /* SAMPLE_DNS_SERVER_ADDRESS */
+
 #else
+
 #define SAMPLE_IPV4_ADDRESS             IP_ADDRESS(0, 0, 0, 0)
 #define SAMPLE_IPV4_MASK                IP_ADDRESS(0, 0, 0, 0)
+
+#ifndef SAMPLE_DHCP_WAIT_OPTION
+#define SAMPLE_DHCP_WAIT_OPTION         (20 * NX_IP_PERIODIC_RATE)
+#endif /* SAMPLE_DHCP_WAIT_OPTION */
+
 #endif /* SAMPLE_DHCP_DISABLE */
-
-
-/* Using SNTP to get unix time.  */
-/* Define the address of SNTP Server. If not defined, use DNS module to
- * resolve the host name SAMPLE_SNTP_SERVER_NAME.
- */
-/*
-#define SAMPLE_SNTP_SERVER_ADDRESS      IP_ADDRESS(118, 190, 21, 209)
-*/
 
 #ifndef SAMPLE_SNTP_SYNC_MAX
 #define SAMPLE_SNTP_SYNC_MAX            1
@@ -132,9 +130,9 @@
  * Variables
  ******************************************************************************/
 
-char host_name[80];
-char device_id[80];
-char device_symmetric_key[256];
+char g_host_name[80];
+char g_device_id[80];
+char g_device_symmetric_key[256];
 
 static TX_THREAD        sample_helper_thread;
 static NX_PACKET_POOL   pool_0;
@@ -177,13 +175,12 @@ static UINT sntp_server_index;
 static void sample_helper_thread_entry(ULONG parameter);
 
 #ifndef SAMPLE_DHCP_DISABLE
-static void dhcp_wait();
+static UINT dhcp_wait(VOID);
 #endif /* SAMPLE_DHCP_DISABLE */
 
-static UINT dns_create();
+static UINT dns_create(ULONG dns_server_address);
 static UINT sntp_time_sync();
 static UINT unix_time_get(ULONG *unix_time);
-
 
 /* Include the platform IP driver. */
 extern VOID nx_driver_imx(NX_IP_DRIVER *driver_req_ptr);
@@ -215,26 +212,6 @@ uint32_t BOARD_GetMDIOClock(void)
     return CLOCK_GetFreq(kCLOCK_IpgClk);
 }
 
-
-static void update_swaptype(void)
-{
-    status_t status;
-
-    status = bl_update_image_state(kSwapType_Permanent);
-    if (status != kStatus_Success && status != kStatus_NoData)
-    {
-        PRINTF("Failed to mark the new image as permanent (ret=%d)\r\n", status);
-        goto err;
-    }
-
-    return;
-
-err:
-    while (1)
-    {
-        tx_thread_sleep(TX_TIMER_TICKS_PER_SECOND);
-    }
-}
 
 static status_t parse_str(char *string, char *key_name, char** data, uint32_t *size)
 {
@@ -278,30 +255,29 @@ static void get_input_string(char *key_name, char *output)
     output[size] = 0;
 }
 
-static status_t get_new_device_string(void)
+static void get_device_credential_from_user(void)
 {
-	status_t status;
-	char buf[250];
-
-	PRINTF("Please input a device connection string.\r\n");
-
-	get_input_string(CONN_STR_HOSTNAME, host_name);
-	get_input_string(CONN_STR_DEVICEID, device_id);
-	get_input_string(CONN_STR_ACCESS_KEY, device_symmetric_key);
-
-	sprintf(buf, "%s=%s;%s=%s;%s=%s;", CONN_STR_HOSTNAME, host_name,
-			CONN_STR_DEVICEID, device_id, CONN_STR_ACCESS_KEY, device_symmetric_key);
-
-	status = secure_save_file(KEY_FILE_NAME, (uint8_t *)buf, strlen(buf) + 1);
-	if (status != kStatus_Success)
-	{
-		return status;
-	}
-
-	return kStatus_Success;
+	get_input_string(CONN_STR_HOSTNAME, g_host_name);
+	get_input_string(CONN_STR_DEVICEID, g_device_id);
+	get_input_string(CONN_STR_ACCESS_KEY, g_device_symmetric_key);
 }
 
-static status_t get_secure_conn_string(void)
+static status_t save_device_credential(void)
+{
+    char buf[250];
+    status_t status;
+
+    memset(buf, 0, sizeof(buf));
+    sprintf(buf, "%s=%s;%s=%s;%s=%s;", CONN_STR_HOSTNAME, g_host_name,
+                                       CONN_STR_DEVICEID, g_device_id,
+                                       CONN_STR_ACCESS_KEY, g_device_symmetric_key);
+
+    status = secure_save_file(KEY_FILE_NAME, (uint8_t *)buf, strlen(buf) + 1);
+
+    return status;
+}
+
+static status_t get_device_credential_from_fs(void)
 {
     status_t status;
     char buf[250];
@@ -312,12 +288,8 @@ static status_t get_secure_conn_string(void)
     status = secure_read_file(KEY_FILE_NAME, (uint8_t *)buf, &size);
     if (status != kStatus_Success)
     {
-        PRINTF("Did not find any device connection string.\r\n");
-        get_new_device_string();
-        return kStatus_Success;
+        return kStatus_NoData;
     }
-
-    PRINTF("Get the device connection string from an encrypted file.\r\n");
 
     /* Parse the device connection string. */
     /* Format: HostName=<>;DeviceId=<>;SharedAccessKey=<>; */
@@ -327,31 +299,85 @@ static status_t get_secure_conn_string(void)
     {
         return kStatus_NoData;
     }
-    memcpy(host_name, str, size);
-    host_name[size] = 0;
+    memcpy(g_host_name, str, size);
+    g_host_name[size] = 0;
 
     status = parse_str(buf, CONN_STR_DEVICEID, &str, &size);
     if (status != kStatus_Success)
     {
         return kStatus_NoData;
     }
-    memcpy(device_id, str, size);
-    device_id[size] = 0;
+    memcpy(g_device_id, str, size);
+    g_device_id[size] = 0;
 
     status = parse_str(buf, CONN_STR_ACCESS_KEY, &str, &size);
     if (status != kStatus_Success)
     {
         return kStatus_NoData;
     }
-    memcpy(device_symmetric_key, str, size);
-    device_symmetric_key[size] = 0;
+    memcpy(g_device_symmetric_key, str, size);
+    g_device_symmetric_key[size] = 0;
 
-    PRINTF("%s: %s\r\n", CONN_STR_HOSTNAME, host_name);
-    PRINTF("%s: %s\r\n", CONN_STR_DEVICEID, device_id);
+    return kStatus_Success;
+}
+
+static status_t get_device_credential_from_macros(void)
+{
+    int size;
+
+    size = strlen(HOST_NAME);
+    if (size == 0)
+    {
+        return kStatus_NoData;
+    }
+    memcpy(g_host_name, HOST_NAME, size + 1);
+
+    size = strlen(DEVICE_ID);
+    if (size == 0)
+    {
+        return kStatus_NoData;
+    }
+    memcpy(g_device_id, DEVICE_ID, size + 1);
+
+    size = strlen(DEVICE_SYMMETRIC_KEY);
+    if (size == 0)
+    {
+        return kStatus_NoData;
+    }
+    memcpy(g_device_symmetric_key, DEVICE_SYMMETRIC_KEY, size + 1);
+
+    return kStatus_Success;
+}
+
+static status_t config_device_credential(void)
+{
+    status_t status;
+
+    memset(g_host_name, 0, sizeof(g_host_name));
+    memset(g_device_id, 0, sizeof(g_device_id));
+    memset(g_device_symmetric_key, 0, sizeof(g_device_symmetric_key));
+
+    status = get_device_credential_from_fs();
+    if (status == kStatus_Success)
+    {
+        PRINTF("Get saved device credential from an encrypted file.\r\n");
+    }
+    else
+    {
+        status = get_device_credential_from_macros();
+        if (status == kStatus_Success)
+        {
+            PRINTF("Get device credential from macros.\r\n");
+        }
+    }
+
+    PRINTF("\r\n");
+    PRINTF("%s: %s\r\n", CONN_STR_HOSTNAME, g_host_name);
+    PRINTF("%s: %s\r\n", CONN_STR_DEVICEID, g_device_id);
     /* Print the key for debug */
-    PRINTF("%s: %s\r\n", CONN_STR_ACCESS_KEY, device_symmetric_key);
+    PRINTF("%s: %s\r\n", CONN_STR_ACCESS_KEY, g_device_symmetric_key);
 
-    PRINTF("\r\nDo you want to update the device information? (Y/N) ");
+    PRINTF("\r\nDo you want to update the device credential? (Y/N) ");
     while (1)
     {
         int input = GETCHAR();
@@ -359,7 +385,21 @@ static status_t get_secure_conn_string(void)
         PRINTF("\r\n\r\n");
         if (input == 'y' || input == 'Y')
         {
-            get_new_device_string();
+            get_device_credential_from_user();
+
+            status = save_device_credential();
+            if (status != kStatus_Success)
+            {
+                PRINTF("ERR: Failed to save the device credential\r\n");
+                return kStatus_Fail;
+            }
+
+            PRINTF("\r\nThe device credential is:\r\n");
+            PRINTF("%s: %s\r\n", CONN_STR_HOSTNAME, g_host_name);
+            PRINTF("%s: %s\r\n", CONN_STR_DEVICEID, g_device_id);
+            /* Print the key for debug */
+            PRINTF("%s: %s\r\n", CONN_STR_ACCESS_KEY, g_device_symmetric_key);
+
             break;
         }
 
@@ -367,7 +407,6 @@ static status_t get_secure_conn_string(void)
         {
             break;
         }
-
     }
 
     return kStatus_Success;
@@ -405,22 +444,19 @@ int main(void)
     delay();
     GPIO_WritePinOutput(GPIO1, 9, 1);
 
-    PRINTF("Start the azure_iot_embedded_sdk_adu example (v%s)\r\n", SAMPLE_UPDATE_ID_VERSION);
+    PRINTF("\r\nStart the azure_iot_embedded_sdk_adu example (%s)\r\n", SAMPLE_DEVICE_FIRMWARE_VERSION);
 
     status = secure_storage_init(KEY_FILE_NAME);
     if (status != kStatus_Success)
     {
-        PRINTF("Failed to init secure storage\r\n");
+        PRINTF("ERR: Failed to init secure storage\r\n");
         return -1;
     }
 
-    /* This could be moved to other places where the new update is deemed valid. */
-    update_swaptype();
-
-    status = get_secure_conn_string();
+    status = config_device_credential();
     if (status != kStatus_Success)
     {
-        PRINTF("Failed to retrive a device connection string\r\n");
+        PRINTF("ERR: Failed to retrive a device connection string\r\n");
         return -1;
     }
 
@@ -433,7 +469,6 @@ int main(void)
 /* Define what the initial system looks like.  */
 void tx_application_define(void *first_unused_memory)
 {
-
     UINT  status;
 
     NX_PARAMETER_NOT_USED(first_unused_memory);
@@ -531,11 +566,19 @@ void sample_helper_thread_entry(ULONG parameter)
     ULONG   ip_address = 0;
     ULONG   network_mask = 0;
     ULONG   gateway_address = 0;
+    ULONG   dns_server_address[3];
+#ifndef SAMPLE_DHCP_DISABLE
+    UINT    dns_server_address_size = sizeof(dns_server_address);
+#endif
 
     NX_PARAMETER_NOT_USED(parameter);
 
 #ifndef SAMPLE_DHCP_DISABLE
-    dhcp_wait();
+    if (dhcp_wait())
+    {
+        PRINTF("ERR: Failed to get the IP address!\r\n");
+        return;
+    }
 #else
     nx_ip_gateway_address_set(&ip_0, SAMPLE_GATEWAY_ADDRESS);
 #endif /* SAMPLE_DHCP_DISABLE  */
@@ -561,8 +604,16 @@ void sample_helper_thread_entry(ULONG parameter)
            (gateway_address >> 8 & 0xFF),
            (gateway_address & 0xFF));
 
+#ifndef SAMPLE_DHCP_DISABLE
+    /* Retrieve DNS server address.  */
+    nx_dhcp_interface_user_option_retrieve(&dhcp_0, 0, NX_DHCP_OPTION_DNS_SVR, (UCHAR *)(dns_server_address),
+                                           &dns_server_address_size);
+#elif !defined(SAMPLE_NETWORK_CONFIGURE)
+    dns_server_address[0] = SAMPLE_DNS_SERVER_ADDRESS;
+#endif /* SAMPLE_DHCP_DISABLE */
+
     /* Create DNS. */
-    status = dns_create();
+    status = dns_create(dns_server_address[0]);
 
     /* Check for DNS create errors.  */
     if (status)
@@ -574,7 +625,6 @@ void sample_helper_thread_entry(ULONG parameter)
     /* Sync up time by SNTP at start up.  */
     for (UINT i = 0; i < SAMPLE_SNTP_SYNC_MAX; i++)
     {
-
         /* Start SNTP to sync the local time.  */
         status = sntp_time_sync();
 
@@ -607,29 +657,61 @@ void sample_helper_thread_entry(ULONG parameter)
 }
 
 #ifndef SAMPLE_DHCP_DISABLE
-static void dhcp_wait()
+
+static UINT dhcp_wait(VOID)
 {
-    ULONG actual_status;
+    UINT    status;
+    ULONG   actual_status;
 
     PRINTF("DHCP In Progress...\r\n");
 
     /* Create the DHCP instance.  */
-    nx_dhcp_create(&dhcp_0, &ip_0, "DHCP Client");
+    status = nx_dhcp_create(&dhcp_0, &ip_0, "DHCP Client");
+
+    /* Check status.  */
+    if (status)
+    {
+        return(status);
+    }
+
+    /* Request NTP server.  */
+    status = nx_dhcp_user_option_request(&dhcp_0, NX_DHCP_OPTION_NTP_SVR);
+
+    /* Check status.  */
+    if (status)
+    {
+        nx_dhcp_delete(&dhcp_0);
+        return(status);
+    }
 
     /* Start the DHCP Client.  */
-    nx_dhcp_start(&dhcp_0);
+    status = nx_dhcp_start(&dhcp_0);
 
-    /* Wait util address is solved. */
-    nx_ip_status_check(&ip_0, NX_IP_ADDRESS_RESOLVED, &actual_status, NX_WAIT_FOREVER);
+    /* Check status.  */
+    if (status)
+    {
+        nx_dhcp_delete(&dhcp_0);
+        return(status);
+    }
+
+    /* Wait until address is solved. */
+    status = nx_ip_status_check(&ip_0, NX_IP_ADDRESS_RESOLVED, &actual_status, SAMPLE_DHCP_WAIT_OPTION);
+
+    /* Check status.  */
+    if (status)
+    {
+        nx_dhcp_delete(&dhcp_0);
+        return(status);
+    }
+
+    return(NX_SUCCESS);
 }
+
 #endif /* SAMPLE_DHCP_DISABLE  */
 
-static UINT dns_create()
+static UINT dns_create(ULONG dns_server_address)
 {
-
     UINT    status;
-    ULONG   dns_server_address[3];
-    UINT    dns_server_address_size = 12;
 
     /* Create a DNS instance for the Client.  Note this function will create
        the DNS Client packet pool for creating DNS message packets intended
@@ -640,8 +722,11 @@ static UINT dns_create()
         return status;
     }
 
+    /* Is the DNS client configured for the host application to create the packet pool? */
 #ifdef NX_DNS_CLIENT_USER_CREATE_PACKET_POOL
 
+    /* Yes, use the packet pool created above which has appropriate payload size
+       for DNS messages. */
     status = nx_dns_packet_pool_set(&dns_0, ip_0.nx_ip_default_packet_pool);
     if (status)
     {
@@ -650,17 +735,8 @@ static UINT dns_create()
     }
 #endif /* NX_DNS_CLIENT_USER_CREATE_PACKET_POOL */
 
-#ifndef SAMPLE_DHCP_DISABLE
-    /* Retrieve DNS server address.  */
-    nx_dhcp_interface_user_option_retrieve(&dhcp_0, 0, NX_DHCP_OPTION_DNS_SVR,
-                                           (UCHAR *)(dns_server_address),
-                                           &dns_server_address_size);
-#else
-    dns_server_address[0] = SAMPLE_DNS_SERVER_ADDRESS;
-#endif /* SAMPLE_DHCP_DISABLE */
-
     /* Add an IPv4 server address to the Client list. */
-    status = nx_dns_server_add(&dns_0, dns_server_address[0]);
+    status = nx_dns_server_add(&dns_0, dns_server_address);
     if (status)
     {
         nx_dns_delete(&dns_0);
@@ -669,10 +745,10 @@ static UINT dns_create()
 
     /* Output DNS Server address.  */
     PRINTF("DNS Server address: %lu.%lu.%lu.%lu\r\n",
-           (dns_server_address[0] >> 24),
-           (dns_server_address[0] >> 16 & 0xFF),
-           (dns_server_address[0] >> 8 & 0xFF),
-           (dns_server_address[0] & 0xFF));
+           (dns_server_address >> 24),
+           (dns_server_address >> 16 & 0xFF),
+           (dns_server_address >> 8 & 0xFF),
+           (dns_server_address & 0xFF));
 
     return NX_SUCCESS;
 }

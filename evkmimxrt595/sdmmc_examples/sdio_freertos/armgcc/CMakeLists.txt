@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(sdio_freertos)
 
+set(MCUX_BUILD_TYPES debug release flash_debug flash_release)
+
 set(MCUX_SDK_PROJECT_NAME sdio_freertos.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -49,19 +55,34 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/evkmimxrt595/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
-    ${SdkRootDirPath}/examples/evkmimxrt595/sdmmc_examples/sdio_freertos
     ${SdkRootDirPath}/core/boards/evkmimxrt595
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
+    ${SdkRootDirPath}/core/drivers/usdhc
+    ${SdkRootDirPath}/middleware/sdmmc
+    ${SdkRootDirPath}/core/components/gpio
+    ${SdkRootDirPath}/core/devices/MIMXRT595S/drivers
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/devices/MIMXRT595S
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/drivers/flexspi
+    ${SdkRootDirPath}/core/drivers/cache/cache64
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/drivers/flexcomm
+    ${SdkRootDirPath}/core/boards/evkmimxrt595/flash_config
+    ${SdkRootDirPath}/core/drivers/lpc_iopctl
+    ${SdkRootDirPath}/core/drivers/lpc_gpio
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/components/osa
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(middleware_freertos-kernel_MIMXRT595S_cm33)
@@ -133,15 +154,13 @@ include(utilities_misc_utilities_MIMXRT595S_cm33)
 include(driver_iap)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

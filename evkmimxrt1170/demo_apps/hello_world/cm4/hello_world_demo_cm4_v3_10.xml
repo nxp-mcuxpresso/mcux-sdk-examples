@@ -18,7 +18,6 @@
     <definition extID="platform.drivers.pmu_1.MIMXRT1176"/>
     <definition extID="platform.drivers.dcdc_soc.MIMXRT1176"/>
     <definition extID="platform.drivers.cache_lmem.MIMXRT1176"/>
-    <definition extID="component.silicon_id.MIMXRT1176"/>
     <definition extID="platform.drivers.xmcd.evkmimxrt1170.MIMXRT1176"/>
     <definition extID="platform.drivers.anatop_ai.MIMXRT1176"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1176"/>
@@ -34,27 +33,24 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1170_hello_world_demo_cm4" name="hello_world_demo_cm4" device_core="cm4_MIMXRT1176xxxxx" dependency="utility.debug_console_lite.MIMXRT1176 platform.utilities.assert_lite.MIMXRT1176 platform.drivers.clock.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 component.lists.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.xip_device.MIMXRT1176 platform.drivers.xip_board.evkmimxrt1170.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.drivers.cache_lmem.MIMXRT1176 component.silicon_id.MIMXRT1176 platform.drivers.xmcd.evkmimxrt1170.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176" category="demo_apps">
+  <example id="evkmimxrt1170_hello_world_demo_cm4" name="hello_world_demo_cm4" device_core="cm4_MIMXRT1176xxxxx" dependency="utility.debug_console_lite.MIMXRT1176 platform.utilities.assert_lite.MIMXRT1176 platform.drivers.clock.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 component.lists.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.xip_device.MIMXRT1176 platform.drivers.xip_board.evkmimxrt1170.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.drivers.cache_lmem.MIMXRT1176 platform.drivers.xmcd.evkmimxrt1170.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176" category="demo_apps">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
     <memory>
       <memoryBlock id="BOARD_FLASH_evkmimxrt1170" name="BOARD_FLASH" addr="08000000" size="01000000" type="ExtFlash" access="RO"/>
-      <memoryBlock id="BOARD_SDRAM_evkmimxrt1170" name="BOARD_SDRAM" addr="80000000" size="03000000" type="RAM" access="RW"/>
-      <memoryBlock id="NCACHE_REGION_evkmimxrt1170" name="NCACHE_REGION" addr="83000000" size="01000000" type="RAM" access="RW"/>
       <memoryBlock id="SRAM_DTC_cm4_evkmimxrt1170" name="SRAM_DTC_cm4" addr="20000000" size="00020000" type="RAM" access="RW"/>
       <memoryBlock id="SRAM_ITC_cm4_evkmimxrt1170" name="SRAM_ITC_cm4" addr="1ffe0000" size="00020000" type="RAM" access="RW"/>
-      <memoryBlock id="SRAM_OC1_evkmimxrt1170" name="SRAM_OC1" addr="20240000" size="00080000" type="RAM" access="RW"/>
+      <memoryBlock id="SRAM_OC1_evkmimxrt1170" name="SRAM_OC1" addr="20240000" size="00040000" type="RAM" access="RW"/>
+      <memoryBlock id="NCACHE_REGION_evkmimxrt1170" name="NCACHE_REGION" addr="20280000" size="00040000" type="RAM" access="RW"/>
       <memoryBlock id="SRAM_OC2_evkmimxrt1170" name="SRAM_OC2" addr="202C0000" size="00080000" type="RAM" access="RW"/>
       <memoryBlock id="SRAM_OC_ECC1_evkmimxrt1170" name="SRAM_OC_ECC1" addr="20340000" size="00010000" type="RAM" access="RW"/>
       <memoryBlock id="SRAM_OC_ECC2_evkmimxrt1170" name="SRAM_OC_ECC2" addr="20350000" size="00010000" type="RAM" access="RW"/>
+      <memoryBlock id="BOARD_SDRAM_evkmimxrt1170" name="BOARD_SDRAM" addr="80000000" size="04000000" type="RAM" access="RW"/>
     </memory>
     <toolchainSettings>
       <toolchainSetting id_refs="com.nxp.mcuxpresso">
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
-          <value>XIP_BOOT_HEADER_DCD_ENABLE=0</value>
-          <value>USE_SDRAM</value>
-          <value>DATA_SECTION_IS_CACHEABLE=1</value>
           <value>CPU_MIMXRT1176DVMAA_cm4</value>
           <value>SDK_DEBUGCONSOLE=1</value>
           <value>XIP_BOOT_HEADER_ENABLE=0</value>
@@ -64,20 +60,6 @@
           <value>SCANF_ADVANCED_ENABLE=0</value>
           <value>FSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1</value>
           <value>MCUXPRESSO_SDK</value>
-        </option>
-        <option id="com.crt.advproject.link.memory.sections" type="stringList">
-          <value>isd=KEEP(*(CodeQuickAccess));region=SRAM_ITC_cm4;type=.data</value>
-          <value>isd=*(NonCacheable.init);region=NCACHE_REGION;type=.data</value>
-          <value>isd=*(NonCacheable);region=NCACHE_REGION;type=.bss</value>
-        </option>
-        <option id="com.crt.advproject.link.fpu" type="enum">
-          <value>com.crt.advproject.link.fpu.fpv4.hard</value>
-        </option>
-        <option id="com.crt.advproject.link.toram" type="boolean">
-          <value>true</value>
-        </option>
-        <option id="gnu.c.link.option.nostdlibs" type="boolean">
-          <value>true</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
@@ -99,6 +81,19 @@
         </option>
         <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
           <value>false</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv4.hard</value>
+        </option>
+        <option id="com.crt.advproject.link.toram" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.sections" type="stringList">
+          <value>isd=*(NonCacheable.init);region=NCACHE_REGION;type=.data</value>
+          <value>isd=*(NonCacheable);region=NCACHE_REGION;type=.bss</value>
         </option>
       </toolchainSetting>
     </toolchainSettings>
@@ -143,7 +138,6 @@
     </debug_configurations>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimxrt1170/demo_apps/hello_world/cm4" project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../core/boards/evkmimxrt1170" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

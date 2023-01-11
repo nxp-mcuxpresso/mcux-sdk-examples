@@ -14,13 +14,15 @@
 
 #include "pin_mux.h"
 #include "board.h"
-#include "fsl_enet_qos_mdio.h"
 #include "fsl_phyrtl8211f.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+extern phy_rtl8211f_resource_t g_phy_resource;
 #define EXAMPLE_ENET_QOS_BASE ENET_QOS
 #define EXAMPLE_PHY_ADDR      0x01U
+#define EXAMPLE_PHY_OPS       &phyrtl8211f_ops
+#define EXAMPLE_PHY_RESOURCE  &g_phy_resource
 #define CORE_CLK_FREQ         CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
 #define ENET_PTP_REF_CLK      50000000UL
 #define ENET_QOS_RXBD_NUM                     (4)
@@ -102,6 +104,7 @@
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+phy_rtl8211f_resource_t g_phy_resource;
 AT_NONCACHEABLE_SECTION_ALIGN(enet_qos_rx_bd_struct_t g_rxBuffDescrip[ENET_QOS_RXQUEUE_USE][ENET_QOS_RXBD_NUM],
                               ENET_QOS_BUFF_ALIGNMENT);
 AT_NONCACHEABLE_SECTION_ALIGN(enet_qos_tx_bd_struct_t g_txBuffDescrip[ENET_QOS_TXQUEUE_USE][ENET_QOS_TXBD_NUM],
@@ -113,7 +116,9 @@ AT_NONCACHEABLE_SECTION_ALIGN(enet_qos_tx_bd_struct_t g_txBuffDescrip[ENET_QOS_T
 
 enet_qos_frame_info_t g_txDirty[ENET_QOS_TXQUEUE_USE][ENET_QOS_RXBD_NUM];
 uint32_t rxbuffer[ENET_QOS_RXQUEUE_USE][ENET_QOS_RXBD_NUM];
-enet_qos_handle_t g_handle = {0};
+static enet_qos_handle_t g_handle = {0};
+static phy_handle_t phyHandle;
+
 /* The MAC address for ENET device. */
 uint8_t g_macAddr[6]  = MAC_ADDRESS;
 uint8_t g_macAddr2[6] = MAC_ADDRESS2;
@@ -128,13 +133,9 @@ uint32_t g_txSuccessFlag     = false;
 uint32_t g_rxSuccessFlag     = false;
 uint32_t g_txMessageOut      = false;
 
-extern phy_handle_t phyHandle;
 /*******************************************************************************
  * Code
  ******************************************************************************/
-mdio_handle_t mdioHandle = {.resource = {.base = ENET_QOS}, .ops = &enet_qos_ops};
-phy_handle_t phyHandle   = {.phyAddr = EXAMPLE_PHY_ADDR, .mdioHandle = &mdioHandle, .ops = &phyrtl8211f_ops};
-
 void BOARD_InitModuleClock(void)
 {
     const clock_sys_pll1_config_t sysPll1Config = {
@@ -145,14 +146,33 @@ void BOARD_InitModuleClock(void)
     CLOCK_SetRootClock(kCLOCK_Root_Enet_Qos, &rootCfg);
     rootCfg.div = 10;
     CLOCK_SetRootClock(kCLOCK_Root_Enet_Timer3, &rootCfg); /* Generate 50M PTP REF clock. */
-
-    mdioHandle.resource.csrClock_Hz = CORE_CLK_FREQ;
 }
 
+void ENET_QOS_EnableClock(bool enable)
+{
+    IOMUXC_GPR->GPR6 =
+        (IOMUXC_GPR->GPR6 & (~IOMUXC_GPR_GPR6_ENET_QOS_CLKGEN_EN_MASK)) | IOMUXC_GPR_GPR6_ENET_QOS_CLKGEN_EN(enable);
+}
 void ENET_QOS_SetSYSControl(enet_qos_mii_mode_t miiMode)
 {
-    IOMUXC_GPR->GPR6 |= (miiMode << 3U);
-    IOMUXC_GPR->GPR6 |= IOMUXC_GPR_GPR6_ENET_QOS_CLKGEN_EN_MASK; /* Set this bit to enable ENET_QOS clock generation. */
+    IOMUXC_GPR->GPR6 =
+        (IOMUXC_GPR->GPR6 & (~IOMUXC_GPR_GPR6_ENET_QOS_INTF_SEL_MASK)) | IOMUXC_GPR_GPR6_ENET_QOS_INTF_SEL(miiMode);
+}
+
+static void MDIO_Init(void)
+{
+    CLOCK_EnableClock(s_enetqosClock[ENET_QOS_GetInstance(EXAMPLE_ENET_QOS_BASE)]);
+    ENET_QOS_SetSMI(EXAMPLE_ENET_QOS_BASE, CORE_CLK_FREQ);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_QOS_MDIOWrite(EXAMPLE_ENET_QOS_BASE, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_QOS_MDIORead(EXAMPLE_ENET_QOS_BASE, phyAddr, regAddr, pData);
 }
 
 /*! @brief Build Frame for transmit. */
@@ -299,17 +319,18 @@ void ENET_QOS_IntCallback(
 
 int main(void)
 {
+    enet_qos_ptp_config_t ptpConfig = {0};
+    phy_config_t phyConfig          = {0};
+    bool link                       = false;
+    bool autonego                   = false;
+    uint32_t ringId                 = 0;
+    uint32_t testTxNum              = 0;
+    uint32_t count                  = 0;
     enet_qos_config_t config;
-    uint32_t refClock; /* PTP REF clock. */
     phy_speed_t speed;
     phy_duplex_t duplex;
-    bool link          = false;
-    bool autonego      = false;
-    uint32_t ringId    = 0;
-    uint32_t testTxNum = 0;
     status_t status;
     uint8_t *buff;
-    uint32_t count = 0;
 
     /* Hardware Initialization. */
     gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
@@ -334,6 +355,11 @@ int main(void)
 
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_1_IRQn);
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_2_IRQn);
+
+    g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
+
+    MDIO_Init();
 
     for (uint8_t ringId = 0; ringId < ENET_QOS_RXQUEUE_USE; ringId++)
     {
@@ -397,9 +423,10 @@ int main(void)
 
     PRINTF("\r\nENET multi-ring txrx example start.\r\n");
 
-    phy_config_t phyConfig;
-    phyConfig.phyAddr = EXAMPLE_PHY_ADDR;
-    phyConfig.autoNeg = true;
+    phyConfig.phyAddr  = EXAMPLE_PHY_ADDR;
+    phyConfig.ops      = EXAMPLE_PHY_OPS;
+    phyConfig.resource = EXAMPLE_PHY_RESOURCE;
+    phyConfig.autoNeg  = true;
 
     /* Initialize PHY and wait auto-negotiation over. */
     PRINTF("Wait for PHY init...\r\n");
@@ -457,7 +484,6 @@ int main(void)
     SILICONID_ConvertToMacAddr(&g_macAddr);
 #endif
 
-    enet_qos_ptp_config_t ptpConfig = {0};
     /* Initialize ENET. */
     /* Shoule enable the promiscuous mode and enable the store and forward
      * to make the timestamp is always updated correclty in the descriptors. */
@@ -465,8 +491,7 @@ int main(void)
     config.csrClock_Hz    = CORE_CLK_FREQ;
 
     ptpConfig.tsRollover         = kENET_QOS_DigitalRollover;
-    refClock                     = ENET_PTP_REF_CLK;
-    ptpConfig.systemTimeClock_Hz = refClock;
+    ptpConfig.systemTimeClock_Hz = ENET_PTP_REF_CLK;
     config.ptpConfig             = &ptpConfig;
 
     /* Multi-queue config */
@@ -521,7 +546,7 @@ int main(void)
     };
     config.multiqueueCfg = &multiQueue;
 
-    ENET_QOS_Init(EXAMPLE_ENET_QOS_BASE, &config, &g_macAddr[0], 1, refClock);
+    ENET_QOS_Init(EXAMPLE_ENET_QOS_BASE, &config, &g_macAddr[0], 1, ENET_PTP_REF_CLK);
 
     enet_qos_rxp_config_t rxpConfig[3] = {
         {
@@ -583,7 +608,7 @@ int main(void)
     ENET_QOS_BuildFrame();
 
     /* Delay some time before executing send and receive operation. */
-    SDK_DelayAtLeastUs(3000000ULL, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
+    SDK_DelayAtLeastUs(1000000ULL, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
     PRINTF("\r\n%d frames will be sent in %d queues, and frames will be received in %d queues.\r\n",
            ENET_QOS_TRANSMIT_DATA_NUM, ENET_QOS_TXQUEUE_USE, ENET_QOS_RXQUEUE_USE);
 

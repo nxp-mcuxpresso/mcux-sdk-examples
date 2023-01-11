@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(sdcard_fatfs_ota)
 
+set(MCUX_BUILD_TYPES debug release)
+
 set(MCUX_SDK_PROJECT_NAME sdcard_fatfs_ota.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -48,26 +54,54 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../crypto_support.h"
 "${ProjDirPath}/../mcuboot_app_support.c"
 "${ProjDirPath}/../mcuboot_app_support.h"
-"${ProjDirPath}/../flash_partitioning.h"
+"${ProjDirPath}/../bootutil_port/board_specific/flash_partitioning.h"
+"${ProjDirPath}/../bootutil_port/board_specific/flash_partitioning.c"
+"${ProjDirPath}/../bootutil_port/board_specific/sblconfig.h"
+"${ProjDirPath}/../bootutil_port/mcuboot_config/mcuboot_config.h"
+"${ProjDirPath}/../bootutil_port/mcuboot_config/mcuboot_logging.h"
+"${ProjDirPath}/../bootutil_port/flash_map.h"
+"${ProjDirPath}/../bootutil_port/sysflash/sysflash.h"
+"${ProjDirPath}/../bootutil_port/sbldef.h"
 "${SdkRootDirPath}/core/boards/lpcxpresso55s69/board.c"
 "${SdkRootDirPath}/core/boards/lpcxpresso55s69/board.h"
 "${SdkRootDirPath}/core/boards/lpcxpresso55s69/clock_config.c"
 "${SdkRootDirPath}/core/boards/lpcxpresso55s69/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${SdkRootDirPath}/examples/lpcxpresso55s69/sdmmc_examples/sdcard_fatfs_ota
     ${ProjDirPath}/..
+    ${ProjDirPath}/../bootutil_port
+    ${ProjDirPath}/../bootutil_port/mcuboot_config
+    ${ProjDirPath}/../bootutil_port/sysflash
+    ${ProjDirPath}/../bootutil_port/board_specific
     ${SdkRootDirPath}/core/boards/lpcxpresso55s69
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/drivers/lpc_iocon
+    ${SdkRootDirPath}/core/drivers/sdif
+    ${SdkRootDirPath}/core/drivers/flexcomm
+    ${SdkRootDirPath}/middleware/sdmmc
+    ${SdkRootDirPath}/core/components/flash/mflash/lpc55xxx
+    ${SdkRootDirPath}/core/devices/LPC55S69/utilities
+    ${SdkRootDirPath}/core/drivers/hashcrypt
+    ${SdkRootDirPath}/middleware/fatfs
+    ${SdkRootDirPath}/core/devices/LPC55S69/drivers
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/devices/LPC55S69
+    ${SdkRootDirPath}/core/drivers/lpc_gpio
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/components/osa
+    ${SdkRootDirPath}/core/components/flash/mflash
+    ${SdkRootDirPath}/core/drivers/iap1
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(driver_lpc_iocon)
@@ -90,7 +124,7 @@ include(utility_shell)
 
 include(driver_hashcrypt)
 
-include(middleware_fatfs)
+include(middleware_fatfs_LPC55S69_cm33_core0)
 
 include(middleware_fatfs_sd)
 
@@ -137,16 +171,16 @@ include(utilities_misc_utilities_LPC55S69_cm33_core0)
 include(device_system_LPC55S69_cm33_core0)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
+ADD_CUSTOM_COMMAND(TARGET ${MCUX_SDK_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_OBJCOPY}
+-Obinary ${EXECUTABLE_OUTPUT_PATH}/${MCUX_SDK_PROJECT_NAME} ${EXECUTABLE_OUTPUT_PATH}/sdcard_fatfs_ota.bin)
 

@@ -24,7 +24,7 @@
  */
 
 /* @TEST_ANCHOR */
-#define WIFI_IW416_BOARD_AW_AM510_USD
+#define WIFI_IW416_BOARD_MURATA_1XK_USD
 /* @END_TEST_ANCHOR */
 /*#define WIFI_IW416_BOARD_AW_AM457_USD*/
 /*#define WIFI_88W8987_BOARD_AW_CM358_USD*/
@@ -48,6 +48,13 @@
 #endif
 #endif
 
+#if (defined(WIFI_IW416_BOARD_MURATA_1XK_USD) || defined(WIFI_88W8987_BOARD_MURATA_1ZM_USD))
+#undef SDMMCHOST_OPERATION_VOLTAGE_1V8
+#define SDMMCHOST_OPERATION_VOLTAGE_3V3
+#undef SD_TIMING_MAX
+#define SD_TIMING_MAX kSD_TimingSDR25HighSpeedMode
+#endif
+
 #define CONFIG_BT_RFCOMM                1
 #define CONFIG_BT_HFP_HF                1
 #define CONFIG_BT_DEBUG                 0
@@ -63,4 +70,5 @@
 #define CONFIG_BT_SETTINGS              1
 #define CONFIG_BT_KEYS_OVERWRITE_OLDEST 1
 
+#define CONFIG_BT_BLE_DISABLE 1
 #include "edgefast_bluetooth_config.h"

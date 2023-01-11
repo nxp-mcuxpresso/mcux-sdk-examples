@@ -2,7 +2,7 @@
 set(CONFIG_USE_middleware_freertos-kernel_MIMXRT1166_cm7 true)
 set(CONFIG_USE_driver_enet true)
 set(CONFIG_USE_middleware_lwip_empty_ethernetif true)
-set(CONFIG_USE_driver_common true)
+set(CONFIG_USE_component_silicon_id_rt1170 true)
 set(CONFIG_USE_component_serial_manager_uart true)
 set(CONFIG_USE_driver_lpuart true)
 set(MCUX_DEVICE "MIMXRT1166_cm7")

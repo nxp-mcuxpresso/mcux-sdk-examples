@@ -71,7 +71,7 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../examples/frdmkv31f/demo_apps/ecompass_peripheral" project_relative_path="frdmkv31f/demo_apps/ecompass_peripheral" type="c_include"/>
+      <include_path path="." project_relative_path="frdmkv31f/demo_apps/ecompass_peripheral" type="c_include"/>
       <include_path path="../../../../core/boards/frdmkv31f" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

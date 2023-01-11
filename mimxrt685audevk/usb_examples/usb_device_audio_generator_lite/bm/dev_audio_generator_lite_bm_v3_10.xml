@@ -108,7 +108,6 @@
       </debug_configuration>
     </debug_configurations>
     <include_paths>
-      <include_path path="../../../../../examples/mimxrt685audevk/usb_examples/usb_device_audio_generator_lite/bm" project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
     </include_paths>

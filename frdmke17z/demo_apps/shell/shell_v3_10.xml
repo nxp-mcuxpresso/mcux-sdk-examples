@@ -70,7 +70,7 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../examples/frdmke17z/demo_apps/shell" project_relative_path="frdmke17z/demo_apps/shell" type="c_include"/>
+      <include_path path="." project_relative_path="frdmke17z/demo_apps/shell" type="c_include"/>
       <include_path path="../../../../core/boards/frdmke17z" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

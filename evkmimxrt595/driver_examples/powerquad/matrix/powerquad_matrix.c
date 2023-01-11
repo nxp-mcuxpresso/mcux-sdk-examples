@@ -478,7 +478,7 @@ static void PQ_MatrixInversionFloatExample(void)
 
     for (uint32_t i = 0; i < 4; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(ref[i] - result[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref[i] - result[i])) < 0.00001);
     }
 }
 

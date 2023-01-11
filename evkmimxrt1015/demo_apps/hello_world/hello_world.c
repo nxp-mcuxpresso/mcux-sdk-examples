@@ -37,6 +37,14 @@ int main(void)
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
+    /* Just enable the trace clock, leave coresight initialization to IDE debugger */
+    SystemCoreClockUpdate();
+    /* Set TRACE_PODF to 4 */
+    CLOCK_SetDiv(kCLOCK_TraceDiv, 3);
+    /* Set Trace clock source to PLL2_MAIN */
+    CLOCK_SetMux(kCLOCK_TraceMux, 0);
+    CLOCK_EnableClock(kCLOCK_Trace);
+
     PRINTF("hello world.\r\n");
 
     while (1)

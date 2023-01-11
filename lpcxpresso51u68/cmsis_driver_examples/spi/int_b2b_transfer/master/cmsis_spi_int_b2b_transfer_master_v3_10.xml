@@ -76,7 +76,6 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../../core/boards/lpcxpresso51u68" project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../../examples/lpcxpresso51u68/cmsis_driver_examples/spi/int_b2b_transfer/master" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="cmsis_spi_int_b2b_transfer_master.ewd"/>

@@ -62,6 +62,7 @@ Jumper settings for AzureWave AW-AM457-uSD Module:
   - J11 2-3: VIO_SD 3.3V (Voltage level of SDIO pins is 3.3V)
   - J2  1-2: 3.3V VIO_uSD (Power Supply from uSD connector)
   - J4  2-3: 3.3V VIO
+    Jumper settings for evkmimxrt685 Module:
   - JP7  1-2
   - JP8  1-2
 

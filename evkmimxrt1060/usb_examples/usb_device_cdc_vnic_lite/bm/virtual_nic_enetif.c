@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016 - 2017, 2020 - 2021 NXP
+ * Copyright 2016 - 2017, 2020 - 2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -25,6 +25,8 @@
  ******************************************************************************/
 #define BOARD_ENET_BASEADDR BOARD_GetExampleEnetBase()
 #define BOARD_PHY_SYS_CLOCK BOARD_GetPhySysClock()
+#define BOARD_PHY_OPS       BOARD_GetPhyOps()
+#define BOARD_PHY_RESOURCE  BOARD_GetPhyResource()
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -34,14 +36,14 @@ void VNIC_EnetRxBufFree(pbuf_t *pbuf);
 uint8_t *VNIC_EnetRxBufAlloc(void);
 extern ENET_Type *BOARD_GetExampleEnetBase(void);
 extern uint32_t BOARD_GetPhySysClock(void);
+extern const phy_operations_t *BOARD_GetPhyOps(void);
+extern void *BOARD_GetPhyResource(void);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
 enet_handle_t g_handle;
+phy_handle_t phyHandle;
 extern uint8_t g_hwaddr[ENET_MAC_ADDR_SIZE];
-
-extern mdio_handle_t mdioHandle;
-extern phy_handle_t phyHandle;
 
 AT_NONCACHEABLE_SECTION_ALIGN(enet_rx_bd_struct_t RxBuffDescrip[ENET_RXBD_NUM], ENET_BUFF_ALIGNMENT);
 AT_NONCACHEABLE_SECTION_ALIGN(enet_tx_bd_struct_t TxBuffDescrip[ENET_TXBD_NUM], ENET_BUFF_ALIGNMENT);
@@ -266,9 +268,10 @@ enet_err_t ENETIF_Init(void)
 
 #endif
 
-    mdioHandle.resource.csrClock_Hz = BOARD_PHY_SYS_CLOCK;
-    phyConfig.phyAddr               = BOARD_ENET0_PHY_ADDRESS;
-    phyConfig.autoNeg               = true;
+    phyConfig.phyAddr  = BOARD_ENET0_PHY_ADDRESS;
+    phyConfig.ops      = BOARD_PHY_OPS;
+    phyConfig.resource = BOARD_PHY_RESOURCE;
+    phyConfig.autoNeg  = true;
     PHY_Init(&phyHandle, &phyConfig);
 
     while ((count < ENET_PHY_TIMEOUT) && (!(link && autonego)))

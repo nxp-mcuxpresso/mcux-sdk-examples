@@ -1,6 +1,8 @@
 Overview
 ========
 The SCTimer project is a simple demonstration program of the SDK SCTimer's driver capabiltiy to generate PWM signals.
+The SCTimer project enables a 32-bit counter to output two center-aligned PWM signals with parameters set to 24kHz frequency.
+The duty cycles of the two PWM signals are 50% and 20%, respectively.
 
 Toolchain supported
 ===================

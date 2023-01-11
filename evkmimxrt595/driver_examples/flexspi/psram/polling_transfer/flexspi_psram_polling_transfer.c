@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -59,18 +59,12 @@ status_t flexspi_hyper_ram_ipcommand_write_data(FLEXSPI_Type *base, uint32_t add
     return status;
 }
 
-void flexspi_hyper_ram_ahbcommand_write_data(FLEXSPI_Type *base, uint32_t address, uint32_t *buffer, uint32_t length)
-{
-    uint32_t *startAddr = (uint32_t *)(EXAMPLE_FLEXSPI_AMBA_BASE + address);
-    memcpy(startAddr, buffer, length);
-}
-
 status_t flexspi_hyper_ram_ipcommand_read_data(FLEXSPI_Type *base, uint32_t address, uint32_t *buffer, uint32_t length)
 {
     flexspi_transfer_t flashXfer;
     status_t status;
 
-    /* Write data */
+    /* Read data */
     flashXfer.deviceAddress = address;
     flashXfer.port          = EXAMPLE_FLEXSPI_PORT;
     flashXfer.cmdType       = kFLEXSPI_Read;
@@ -84,6 +78,12 @@ status_t flexspi_hyper_ram_ipcommand_read_data(FLEXSPI_Type *base, uint32_t addr
     return status;
 }
 
+void flexspi_hyper_ram_ahbcommand_write_data(FLEXSPI_Type *base, uint32_t address, uint32_t *buffer, uint32_t length)
+{
+    uint32_t *startAddr = (uint32_t *)(EXAMPLE_FLEXSPI_AMBA_BASE + address);
+    memcpy(startAddr, buffer, length);
+}
+
 void flexspi_hyper_ram_ahbcommand_read_data(FLEXSPI_Type *base, uint32_t address, uint32_t *buffer, uint32_t length)
 {
     uint32_t *startAddr = (uint32_t *)(EXAMPLE_FLEXSPI_AMBA_BASE + address);
@@ -92,7 +92,8 @@ void flexspi_hyper_ram_ahbcommand_read_data(FLEXSPI_Type *base, uint32_t address
 
 int main(void)
 {
-    uint32_t i = 0;
+    uint32_t i  = 0;
+    status_t st = kStatus_Success;
 
     BOARD_InitPins();
     BOARD_InitPsRamPins();
@@ -116,10 +117,22 @@ int main(void)
      * should be 1024 aligned.*/
     for (i = 0; i < DRAM_SIZE; i += 1024)
     {
-        flexspi_hyper_ram_ipcommand_write_data(EXAMPLE_FLEXSPI, i, (uint32_t *)s_hyper_ram_write_buffer,
-                                               sizeof(s_hyper_ram_write_buffer));
-        flexspi_hyper_ram_ipcommand_read_data(EXAMPLE_FLEXSPI, i, (uint32_t *)s_hyper_ram_read_buffer,
-                                              sizeof(s_hyper_ram_read_buffer));
+        st = flexspi_hyper_ram_ipcommand_write_data(EXAMPLE_FLEXSPI, i, (uint32_t *)s_hyper_ram_write_buffer,
+                                                    sizeof(s_hyper_ram_write_buffer));
+
+        if (st != kStatus_Success)
+        {
+            st = kStatus_Fail;
+            PRINTF("IP Command Write data Failure at 0x%x!\r\n", i);
+        }
+
+        st = flexspi_hyper_ram_ipcommand_read_data(EXAMPLE_FLEXSPI, i, (uint32_t *)s_hyper_ram_read_buffer,
+                                                   sizeof(s_hyper_ram_read_buffer));
+        if (st != kStatus_Success)
+        {
+            st = kStatus_Fail;
+            PRINTF("IP Command Read data Failure at 0x%x!\r\n", i);
+        }
 
         if (memcmp(s_hyper_ram_read_buffer, s_hyper_ram_write_buffer, sizeof(s_hyper_ram_write_buffer)) != 0)
         {

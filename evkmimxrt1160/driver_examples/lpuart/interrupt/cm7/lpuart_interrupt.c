@@ -57,7 +57,11 @@ void DEMO_LPUART_IRQHandler(void)
     uint16_t tmptxIndex = txIndex;
 
     /* If new data arrived. */
+#if defined(LP_FLEXCOMM_PSELID_UARTPRESENT_MASK)
+    if ((kLPUART_RxDataRegFullInterruptFlag)&LPUART_GetStatusFlags(DEMO_LPUART))
+#else
     if ((kLPUART_RxDataRegFullFlag)&LPUART_GetStatusFlags(DEMO_LPUART))
+#endif
     {
         data = LPUART_ReadByte(DEMO_LPUART);
 
@@ -111,7 +115,11 @@ int main(void)
     while (1)
     {
         /* Send data only when LPUART TX register is empty and ring buffer has data to send out. */
+#if defined(LP_FLEXCOMM_PSELID_UARTPRESENT_MASK)
+        while (kLPUART_TxDataRegEmptyInterruptFlag & LPUART_GetStatusFlags(DEMO_LPUART))
+#else
         while (kLPUART_TxDataRegEmptyFlag & LPUART_GetStatusFlags(DEMO_LPUART))
+#endif
         {
             tmprxIndex = rxIndex;
             tmptxIndex = txIndex;

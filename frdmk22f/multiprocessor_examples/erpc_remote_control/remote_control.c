@@ -138,6 +138,8 @@ static erpc_transport_t transportArbitrator = NULL; /*! eRPC transport arbitrato
 static erpc_mbf_t message_buffer_factory    = NULL; /* MessageBufferFactory */
 static uint8_t swButton                     = 0;    /*! Which SW button was pressed */
 extern bool g_erpc_error_occurred;
+static erpc_server_t server = NULL;
+static erpc_client_t client = NULL;
 
 /* FreeRTOS task handles */
 TaskHandle_t serverTaskHandle = NULL;
@@ -585,16 +587,16 @@ static void server_task(void *pvParameters)
     }
 
     /* Initialize eRPC server with arbitrator transport */
-    erpc_server_init(transportArbitrator, message_buffer_factory);
+    server = erpc_server_init(transportArbitrator, message_buffer_factory);
 
     /* Add service to the server */
     erpc_service_t service = create_remote_control_app_0_service();
-    erpc_add_service_to_server(service);
+    erpc_add_service_to_server(server, service);
 
     while (1)
     {
         /* Process message */
-        erpc_status_t status = erpc_server_poll();
+        erpc_status_t status = erpc_server_poll(server);
 
         /* Sleep */
         vTaskDelay(100);
@@ -606,14 +608,14 @@ static void server_task(void *pvParameters)
             erpc_error_handler(status, 0);
 
             /* removing the service from the server */
-            erpc_remove_service_from_server(service);
+            erpc_remove_service_from_server(server, service);
             destroy_remote_control_app_0_service(service);
 
             /* stop erpc server */
-            erpc_server_stop();
+            erpc_server_stop(server);
 
             /* print error description */
-            erpc_server_deinit();
+            erpc_server_deinit(server);
 
             /* exit program loop */
             break;
@@ -636,10 +638,10 @@ static void client_task(void *pvParameters)
     message_buffer_factory = erpc_mbf_dynamic_init();
 
     /* Initialize transport arbitrator */
-    transportArbitrator = erpc_arbitrated_client_init(transport, message_buffer_factory);
+    client = erpc_arbitrated_client_init(transport, message_buffer_factory, &transportArbitrator);
 
     /* Register error handler */
-    erpc_arbitrated_client_set_error_handler(erpc_error_handler);
+    erpc_arbitrated_client_set_error_handler(client, erpc_error_handler);
 
     while (1)
     {

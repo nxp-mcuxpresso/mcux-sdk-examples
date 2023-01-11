@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(host_audio_speaker_freertos)
 
+set(MCUX_BUILD_TYPES debug release)
+
 set(MCUX_SDK_PROJECT_NAME host_audio_speaker_freertos.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -54,18 +60,30 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
-    ${SdkRootDirPath}/core/boards/frdmk32l2a4s
+    ${SdkRootDirPath}/examples/frdmk32l2a4s
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/middleware/usb
+    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
+    ${SdkRootDirPath}/core/drivers/smc
+    ${SdkRootDirPath}/core/devices/K32L2A41A/drivers
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/devices/K32L2A41A
+    ${SdkRootDirPath}/core/drivers/lpuart
+    ${SdkRootDirPath}/core/drivers/gpio
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/drivers/port
+    ${SdkRootDirPath}/core/components/osa
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(middleware_usb_host_khci)
@@ -123,15 +141,13 @@ include(utilities_misc_utilities_K32L2A41A)
 include(device_system)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

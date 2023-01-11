@@ -114,13 +114,13 @@
     <include_paths>
       <include_path path="." project_relative_path="source/ieee11073_agent" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../core/boards/mimxrt685audevk" project_relative_path="source" type="c_include"/>
+      <include_path path="../../.." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="usb/device/source" type="c_include"/>
       <include_path path="." project_relative_path="usb/device/class" type="c_include"/>
       <include_path path="." project_relative_path="usb/device/class/phdc" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
-      <include_path path="../../../../../core/boards/mimxrt685audevk" project_relative_path="source" type="asm_include"/>
+      <include_path path="../../.." project_relative_path="source" type="asm_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="dev_phdc_weighscale_freertos.ewd"/>

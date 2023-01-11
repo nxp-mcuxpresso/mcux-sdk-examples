@@ -1,0 +1,7 @@
+	    *(EXCLUDE_FILE(
+	        *bt_db_gen.o*
+	    ).bss)
+	    *(EXCLUDE_FILE(
+	        *bt_db_gen.o*
+	    ).bss*)
+	    . = ALIGN(4);

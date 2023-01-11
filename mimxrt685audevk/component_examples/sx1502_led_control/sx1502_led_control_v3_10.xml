@@ -98,7 +98,6 @@
     </debug_configurations>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../examples/mimxrt685audevk/component_examples/sx1502_led_control" project_relative_path="board" type="c_include"/>
       <include_path path="../../../../core/boards/mimxrt685audevk" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

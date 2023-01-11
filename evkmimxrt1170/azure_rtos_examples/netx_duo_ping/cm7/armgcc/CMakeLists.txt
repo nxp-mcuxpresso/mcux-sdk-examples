@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(netx_duo_ping)
 
+set(MCUX_BUILD_TYPES flexspi_nor_release debug release flexspi_nor_debug)
+
 set(MCUX_SDK_PROJECT_NAME netx_duo_ping.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 SET(CMAKE_STATIC_LIBRARY_PREFIX "lib")
 
@@ -70,22 +76,38 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../dcd.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/rtos/azure-rtos
+    ${SdkRootDirPath}/core/drivers/enet
+    ${SdkRootDirPath}/core/components/phy/device/phyksz8081
+    ${SdkRootDirPath}/core/components/phy/device/phyrtl8211f
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/drivers/lpuart
+    ${SdkRootDirPath}/core/devices/MIMXRT1176
+    ${SdkRootDirPath}/core/devices/MIMXRT1176/drivers/cm7
+    ${SdkRootDirPath}/core/devices/MIMXRT1176/drivers
+    ${SdkRootDirPath}/core/drivers/igpio
+    ${SdkRootDirPath}/core/drivers/lpi2c
+    ${SdkRootDirPath}/core/boards/evkmimxrt1170/xip
+    ${SdkRootDirPath}/core/devices/MIMXRT1176/xip
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/components/phy
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(middleware_azure_rtos_nxd)
 
-include(driver_mdio-enet)
+include(driver_enet)
 
 include(driver_phy-device-ksz8081)
 
@@ -139,17 +161,13 @@ include(middleware_azure_rtos_tx)
 
 include(middleware_azure_rtos_tx_template_MIMXRT1176_cm7)
 
-include(driver_mdio-common)
+include(driver_memory)
 
 include(driver_anatop_ai)
 
 include(CMSIS_Include_core_cm)
 
-include(driver_enet)
-
-include(driver_memory)
-
-include(driver_phy-common)
+include(driver_phy-common_MIMXRT1176_cm7)
 
 include(utilities_misc_utilities_MIMXRT1176_cm7)
 
@@ -162,21 +180,17 @@ add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/filex ./CMakeFiles/libfilex)
 
 add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/threadx ./CMakeFiles/libthreadx)
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
-
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE "azrtos::netxduo")
-
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE "azrtos::filex")
-
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE "azrtos::threadx")
+
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

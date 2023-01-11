@@ -19,8 +19,6 @@
     <definition extID="device.LPC54S018_startup.LPC54S018"/>
     <definition extID="platform.drivers.flexcomm.LPC54S018"/>
     <definition extID="platform.drivers.emc.LPC54S018"/>
-    <definition extID="component.silicon_id.LPC54S018"/>
-    <definition extID="platform.drivers.iap.LPC54S018"/>
     <definition extID="platform.drivers.reset.LPC54S018"/>
     <definition extID="CMSIS_Include_core_cm.LPC54S018"/>
     <definition extID="platform.drivers.inputmux_connections.LPC54S018"/>
@@ -32,7 +30,7 @@
     <definition extID="armgcc"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso54s018_dmic_dma" name="dmic_dma" dependency="utility.debug_console_lite.LPC54S018 platform.utilities.assert_lite.LPC54S018 platform.drivers.lpc_iocon.LPC54S018 platform.drivers.dmic.LPC54S018 platform.drivers.lpc_dma.LPC54S018 platform.drivers.dmic_dma.LPC54S018 platform.drivers.flexcomm_usart.LPC54S018 platform.drivers.common.LPC54S018 platform.drivers.clock.LPC54S018 platform.drivers.power.LPC54S018 platform.drivers.lpc_gpio.LPC54S018 platform.drivers.inputmux.LPC54S018 device.LPC54S018_CMSIS.LPC54S018 component.usart_adapter.LPC54S018 component.lists.LPC54S018 device.LPC54S018_startup.LPC54S018 platform.drivers.flexcomm.LPC54S018 platform.drivers.emc.LPC54S018 component.silicon_id.LPC54S018 platform.drivers.iap.LPC54S018 platform.drivers.reset.LPC54S018 CMSIS_Include_core_cm.LPC54S018 platform.drivers.inputmux_connections.LPC54S018 platform.utilities.misc_utilities.LPC54S018 device.LPC54S018_system.LPC54S018" category="driver_examples/dmic">
+  <example id="lpcxpresso54s018_dmic_dma" name="dmic_dma" dependency="utility.debug_console_lite.LPC54S018 platform.utilities.assert_lite.LPC54S018 platform.drivers.lpc_iocon.LPC54S018 platform.drivers.dmic.LPC54S018 platform.drivers.lpc_dma.LPC54S018 platform.drivers.dmic_dma.LPC54S018 platform.drivers.flexcomm_usart.LPC54S018 platform.drivers.common.LPC54S018 platform.drivers.clock.LPC54S018 platform.drivers.power.LPC54S018 platform.drivers.lpc_gpio.LPC54S018 platform.drivers.inputmux.LPC54S018 device.LPC54S018_CMSIS.LPC54S018 component.usart_adapter.LPC54S018 component.lists.LPC54S018 device.LPC54S018_startup.LPC54S018 platform.drivers.flexcomm.LPC54S018 platform.drivers.emc.LPC54S018 platform.drivers.reset.LPC54S018 CMSIS_Include_core_cm.LPC54S018 platform.drivers.inputmux_connections.LPC54S018 platform.utilities.misc_utilities.LPC54S018 device.LPC54S018_system.LPC54S018" category="driver_examples/dmic">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -83,7 +81,7 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/lpcxpresso54s018/driver_examples/dmic/dmic_dma" project_relative_path="lpcxpresso54s018/driver_examples/dmic/dmic_dma" type="c_include"/>
+      <include_path path="." project_relative_path="lpcxpresso54s018/driver_examples/dmic/dmic_dma" type="c_include"/>
       <include_path path="../../../../../core/boards/lpcxpresso54s018" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

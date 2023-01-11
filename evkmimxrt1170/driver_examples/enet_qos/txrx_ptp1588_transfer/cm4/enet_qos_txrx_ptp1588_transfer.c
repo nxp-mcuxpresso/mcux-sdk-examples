@@ -15,13 +15,15 @@
 
 #include "pin_mux.h"
 #include "board.h"
-#include "fsl_enet_qos_mdio.h"
 #include "fsl_phyrtl8211f.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+extern phy_rtl8211f_resource_t g_phy_resource;
 #define EXAMPLE_ENET_QOS_BASE ENET_QOS
 #define EXAMPLE_PHY_ADDR      0x01U
+#define EXAMPLE_PHY_OPS       &phyrtl8211f_ops
+#define EXAMPLE_PHY_RESOURCE  &g_phy_resource
 #define CORE_CLK_FREQ         CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
 #define ENET_PTP_REF_CLK      50000000UL
 #define ENET_QOS_RXBD_NUM               (4)
@@ -85,6 +87,7 @@ static void ENET_QOS_BuildPtpEventFrame(void);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+phy_rtl8211f_resource_t g_phy_resource;
 AT_NONCACHEABLE_SECTION_ALIGN(enet_qos_rx_bd_struct_t g_rxBuffDescrip[ENET_QOS_RXBD_NUM], ENET_QOS_BUFF_ALIGNMENT);
 AT_NONCACHEABLE_SECTION_ALIGN(enet_qos_tx_bd_struct_t g_txBuffDescrip[ENET_QOS_TXBD_NUM], ENET_QOS_BUFF_ALIGNMENT);
 
@@ -100,14 +103,11 @@ uint32_t g_txIdx     = 0;
 uint8_t g_txbuffIdx  = 0;
 uint8_t g_txCosumIdx = 0;
 uint32_t g_testIdx   = 0;
+static phy_handle_t phyHandle;
 
-extern phy_handle_t phyHandle;
 /*******************************************************************************
  * Code
  ******************************************************************************/
-mdio_handle_t mdioHandle = {.resource = {.base = ENET_QOS}, .ops = &enet_qos_ops};
-phy_handle_t phyHandle   = {.phyAddr = EXAMPLE_PHY_ADDR, .mdioHandle = &mdioHandle, .ops = &phyrtl8211f_ops};
-
 void BOARD_InitModuleClock(void)
 {
     const clock_sys_pll1_config_t sysPll1Config = {
@@ -118,8 +118,6 @@ void BOARD_InitModuleClock(void)
     CLOCK_SetRootClock(kCLOCK_Root_Enet_Qos, &rootCfg);
     rootCfg.div = 10;
     CLOCK_SetRootClock(kCLOCK_Root_Enet_Timer3, &rootCfg); /* Generate 50M PTP REF clock. */
-
-    mdioHandle.resource.csrClock_Hz = CORE_CLK_FREQ;
 }
 
 void BOARD_UpdateENETModuleClock(enet_qos_mii_speed_t miiSpeed)
@@ -149,10 +147,33 @@ void BOARD_UpdateENETModuleClock(enet_qos_mii_speed_t miiSpeed)
     CLOCK_SetRootClock(kCLOCK_Root_Enet_Qos, &rootCfg);
 }
 
+void ENET_QOS_EnableClock(bool enable)
+{
+    IOMUXC_GPR->GPR6 =
+        (IOMUXC_GPR->GPR6 & (~IOMUXC_GPR_GPR6_ENET_QOS_CLKGEN_EN_MASK)) | IOMUXC_GPR_GPR6_ENET_QOS_CLKGEN_EN(enable);
+}
+
 void ENET_QOS_SetSYSControl(enet_qos_mii_mode_t miiMode)
 {
-    IOMUXC_GPR->GPR6 |= (miiMode << 3U);
-    IOMUXC_GPR->GPR6 |= IOMUXC_GPR_GPR6_ENET_QOS_CLKGEN_EN_MASK; /* Set this bit to enable ENET_QOS clock generation. */
+    IOMUXC_GPR->GPR6 =
+        (IOMUXC_GPR->GPR6 & (~IOMUXC_GPR_GPR6_ENET_QOS_INTF_SEL_MASK)) | IOMUXC_GPR_GPR6_ENET_QOS_INTF_SEL(miiMode);
+}
+
+static void MDIO_Init(void)
+{
+    /* Set SMI first. */
+    CLOCK_EnableClock(s_enetqosClock[ENET_QOS_GetInstance(EXAMPLE_ENET_QOS_BASE)]);
+    ENET_QOS_SetSMI(EXAMPLE_ENET_QOS_BASE, CORE_CLK_FREQ);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_QOS_MDIOWrite(EXAMPLE_ENET_QOS_BASE, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_QOS_MDIORead(EXAMPLE_ENET_QOS_BASE, phyAddr, regAddr, pData);
 }
 
 static void ENET_QOS_BuildPtpEventFrame(void)
@@ -212,8 +233,9 @@ int main(void)
     enet_qos_ptp_config_t ptpConfig = {0};
     uint64_t second;
     uint32_t nanosecond;
-    bool link     = false;
-    bool autonego = false;
+    bool link              = false;
+    bool autonego          = false;
+    phy_config_t phyConfig = {0};
 
     /* Hardware Initialization. */
     gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
@@ -238,6 +260,10 @@ int main(void)
 
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_1_IRQn);
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_2_IRQn);
+
+    MDIO_Init();
+    g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
 
     for (index = 0; index < ENET_QOS_RXBD_NUM; index++)
     {
@@ -274,9 +300,10 @@ int main(void)
 
     PRINTF("\r\nENET example start.\r\n");
 
-    phy_config_t phyConfig;
-    phyConfig.phyAddr = EXAMPLE_PHY_ADDR;
-    phyConfig.autoNeg = true;
+    phyConfig.phyAddr  = EXAMPLE_PHY_ADDR;
+    phyConfig.autoNeg  = true;
+    phyConfig.ops      = EXAMPLE_PHY_OPS;
+    phyConfig.resource = EXAMPLE_PHY_RESOURCE;
 
     /* Initialize PHY and wait auto-negotiation over. */
     PRINTF("Wait for PHY init...\r\n");
@@ -345,14 +372,15 @@ int main(void)
     config.ptpConfig             = &ptpConfig;
     ENET_QOS_Init(EXAMPLE_ENET_QOS_BASE, &config, &g_macAddr[0], 1, refClock);
 
-    /* Add to multicast group to receive ptp multicast frame. */
-    ENET_QOS_AddMulticastGroup(EXAMPLE_ENET_QOS_BASE, &g_multicastAddr[0]);
-
     /* Initialize Descriptor. */
     ENET_QOS_DescriptorInit(EXAMPLE_ENET_QOS_BASE, &config, &buffConfig);
 
     /* Create the handler. */
     ENET_QOS_CreateHandler(EXAMPLE_ENET_QOS_BASE, &g_handle, &config, &buffConfig, ENET_QOS_IntCallback, NULL);
+
+    /* Add to multicast group to receive ptp multicast frame. */
+    ENET_QOS_AddMulticastGroup(EXAMPLE_ENET_QOS_BASE, &g_multicastAddr[0]);
+
     /* Active TX/RX. */
     ENET_QOS_StartRxTx(EXAMPLE_ENET_QOS_BASE, 1, 1);
 

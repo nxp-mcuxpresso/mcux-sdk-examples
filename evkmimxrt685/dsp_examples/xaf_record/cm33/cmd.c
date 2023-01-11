@@ -59,7 +59,7 @@ SHELL_COMMAND_DEFINE(
 #if (XA_VIT_PRE_PROC == 1)
     " , perform voice recognition (VIT)"
 #endif
-    " and playback on WM8904 codec\r\n"
+    " and playback on codec\r\n"
 #if (XA_VIT_PRE_PROC == 1)
     " USAGE: record_dmic [en|cn]\r\n"
     " For voice recognition say supported WakeWord and in 3s frame supported command.\r\n"
@@ -67,7 +67,11 @@ SHELL_COMMAND_DEFINE(
 #endif
     " NOTE: this command does not return to the shell\r\n",
     shellRecDMIC,
+#if (XA_VIT_PRE_PROC == 1)
     1);
+#else
+    0);
+#endif
 #endif
 
 SDK_ALIGN(static uint8_t s_shellHandleBuffer[SHELL_HANDLE_SIZE], 4);
@@ -111,7 +115,11 @@ static shell_status_t shellRecDMIC(shell_handle_t shellHandle, int32_t argc, cha
     srtm_message msg = {0};
     initMessage(&msg);
 
+#ifdef XA_VIT_PRE_PROC
+    BOARD_MuteRightChannel(true);
+#else
     BOARD_MuteRightChannel(BOARD_DMIC_NUM == 1);
+#endif
 
     msg.head.category = SRTM_MessageCategory_AUDIO;
     msg.head.command  = SRTM_Command_REC_DMIC;

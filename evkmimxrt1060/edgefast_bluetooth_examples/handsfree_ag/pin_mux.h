@@ -368,42 +368,6 @@ void BOARD_Init_Audio_Pins(void);
  */
 void BOARD_InitScoPins(void);
 
-#define BOARD_INITMURATAMODULEPINS_IOMUXC_GPR_GPR26_GPIO_MUX1_GPIO_SEL_MASK 0x01000800U /*!< GPIO1 and GPIO6 share same IO MUX function, GPIO_MUX1 selects one GPIO function: affected bits mask */
-
-/* GPIO_AD_B0_11 (coord G10), JTAG_nTRST/J21[3]/INT2_COMBO/LCD_TOUCH_INT/J22[3]/U32[9] */
-/* Routed pin properties */
-#define BOARD_INITMURATAMODULEPINS_INT2_COMBO_PERIPHERAL                   GPIO1   /*!< Peripheral name */
-#define BOARD_INITMURATAMODULEPINS_INT2_COMBO_SIGNAL                     gpio_io   /*!< Signal name */
-#define BOARD_INITMURATAMODULEPINS_INT2_COMBO_CHANNEL                        11U   /*!< Signal channel */
-
-/* Symbols to be used with GPIO driver */
-#define BOARD_INITMURATAMODULEPINS_INT2_COMBO_GPIO                         GPIO1   /*!< GPIO peripheral base pointer */
-#define BOARD_INITMURATAMODULEPINS_INT2_COMBO_GPIO_PIN                       11U   /*!< GPIO pin number */
-#define BOARD_INITMURATAMODULEPINS_INT2_COMBO_GPIO_PIN_MASK          (1U << 11U)   /*!< GPIO pin mask */
-#define BOARD_INITMURATAMODULEPINS_INT2_COMBO_PORT                         GPIO1   /*!< PORT peripheral base pointer */
-#define BOARD_INITMURATAMODULEPINS_INT2_COMBO_PIN                            11U   /*!< PORT pin number */
-#define BOARD_INITMURATAMODULEPINS_INT2_COMBO_PIN_MASK               (1U << 11U)   /*!< PORT pin mask */
-
-/* GPIO_AD_B1_08 (coord H13), AUD_INT/CSI_D9//J35[13]/J22[4] */
-/* Routed pin properties */
-#define BOARD_INITMURATAMODULEPINS_CSI_D9_PERIPHERAL                       GPIO1   /*!< Peripheral name */
-#define BOARD_INITMURATAMODULEPINS_CSI_D9_SIGNAL                         gpio_io   /*!< Signal name */
-#define BOARD_INITMURATAMODULEPINS_CSI_D9_CHANNEL                            24U   /*!< Signal channel */
-
-/* Symbols to be used with GPIO driver */
-#define BOARD_INITMURATAMODULEPINS_CSI_D9_GPIO                             GPIO1   /*!< GPIO peripheral base pointer */
-#define BOARD_INITMURATAMODULEPINS_CSI_D9_GPIO_PIN                           24U   /*!< GPIO pin number */
-#define BOARD_INITMURATAMODULEPINS_CSI_D9_GPIO_PIN_MASK              (1U << 24U)   /*!< GPIO pin mask */
-#define BOARD_INITMURATAMODULEPINS_CSI_D9_PORT                             GPIO1   /*!< PORT peripheral base pointer */
-#define BOARD_INITMURATAMODULEPINS_CSI_D9_PIN                                24U   /*!< PORT pin number */
-#define BOARD_INITMURATAMODULEPINS_CSI_D9_PIN_MASK                   (1U << 24U)   /*!< PORT pin mask */
-
-/*!
- * @brief Configures pin routing and optionally pin electrical features.
- *
- */
-void BOARD_InitMurataModulePins(void);
-
 #if defined(__cplusplus)
 }
 #endif

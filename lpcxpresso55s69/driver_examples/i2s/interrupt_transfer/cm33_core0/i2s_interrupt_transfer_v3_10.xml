@@ -83,7 +83,7 @@
       <include_path path="../../cm33_core0" project_relative_path="source" type="c_include"/>
       <include_path path="../../cm33_core0" project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../../core/boards/lpcxpresso55s69" project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../../examples/lpcxpresso55s69/driver_examples/i2s/interrupt_transfer" project_relative_path="board" type="c_include"/>
+      <include_path path=".." project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="i2s_interrupt_transfer.ewd"/>

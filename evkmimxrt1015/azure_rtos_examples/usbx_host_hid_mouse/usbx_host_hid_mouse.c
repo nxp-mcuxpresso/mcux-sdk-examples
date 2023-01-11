@@ -79,7 +79,12 @@ static void demo_thread_entry(ULONG arg)
     UX_HOST_CLASS_HID_CLIENT *hid_client;
     UX_HOST_CLASS_HID_MOUSE *mouse;
     ULONG mouse_button;
-    LONG mouse_px, mouse_py, mouse_cx, mouse_cy, pre_wheel, cur_wheel;
+    SLONG mouse_px;
+    SLONG mouse_py;
+    SLONG pre_wheel;
+    SLONG mouse_cx = 0;
+    SLONG mouse_cy = 0;
+    SLONG cur_wheel = 0;
     UINT status;
 
     /* Find the HID class */

@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(freertos_mpu_ns)
 
+set(MCUX_BUILD_TYPES release debug)
+
 set(MCUX_SDK_PROJECT_NAME freertos_mpu_ns.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -38,28 +44,37 @@ include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
 "${ProjDirPath}/../main_ns.c"
-"${ProjDirPath}/../../../freertos_mpu_s/cm33_core0/nsc_functions.h"
-"${SdkRootDirPath}/rtos/freertos/freertos_kernel/portable/GCC/ARM_CM33/secure/secure_context.h"
-"${SdkRootDirPath}/rtos/freertos/freertos_kernel/portable/GCC/ARM_CM33/secure/secure_init.h"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/rtos_examples/freertos_mpu/freertos_mpu_s/cm33_core0/nsc_functions.h"
+"${SdkRootDirPath}/rtos/freertos/freertos-kernel/portable/GCC/ARM_CM33/secure/secure_context.h"
+"${SdkRootDirPath}/rtos/freertos/freertos-kernel/portable/GCC/ARM_CM33/secure/secure_init.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
 "${ProjDirPath}/../clock_config.c"
 "${ProjDirPath}/../clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../freertos_mpu_s/cm33_core0
-    ${SdkRootDirPath}/rtos/freertos/freertos_kernel/portable/GCC/ARM_CM33/secure
+    ${SdkRootDirPath}/examples/lpcxpresso55s69/rtos_examples/freertos_mpu/freertos_mpu_s/cm33_core0
+    ${SdkRootDirPath}/rtos/freertos/freertos-kernel/portable/GCC/ARM_CM33/secure
     ${SdkRootDirPath}/examples/lpcxpresso55s69/rtos_examples/freertos_mpu/freertos_mpu_ns
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/devices/LPC55S69/drivers
+    ${SdkRootDirPath}/core/devices/LPC55S69
+    ${SdkRootDirPath}/core/drivers/flexcomm
+    ${SdkRootDirPath}/core/drivers/lpc_iocon
+    ${SdkRootDirPath}/core/drivers/lpc_gpio
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(middleware_freertos-kernel_cm33_secure_port)
@@ -111,15 +126,13 @@ include(utilities_misc_utilities_LPC55S69_cm33_core0)
 include(device_system_LPC55S69_cm33_core0)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 if(CMAKE_BUILD_TYPE STREQUAL debug)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../freertos_mpu_s/cm33_core0/armgcc/debug/freertos_mpu_s_CMSE_lib.o)

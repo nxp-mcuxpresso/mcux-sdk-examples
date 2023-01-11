@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(a2dp_sink)
 
+set(MCUX_BUILD_TYPES flash_debug flash_release)
+
 set(MCUX_SDK_PROJECT_NAME a2dp_sink.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -57,8 +63,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../bt_module_config.h"
-"${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/hci_uart.c"
-"${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/hci_uart.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/controller/configs/lwipopts.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/controller/configs/lwippools.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/controller/configs/wifi_config.h"
@@ -208,10 +212,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/write_task_pl.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/littlefs_pl.c"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/littlefs_pl.h"
-"${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/controller.c"
-"${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/controller.h"
-"${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/controller/controller_wifi_nxp.c"
-"${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/controller/controller_wifi_nxp.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/ethal/ethal_assert.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/ethal/ethal_config.c"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/ethal/ethal_config.h"
@@ -258,7 +258,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_avrcp_al_internal.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_avrcp_al_api.c"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_avrcp_internal.h"
-"${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_att.c"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_at.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_att_internal.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_avdtp_internal.h"
@@ -266,7 +265,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_conn_internal.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_crypto.c"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_crypto_internal.h"
-"${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_gatt.c"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_gatt_internal.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_hci_core.c"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_hci_core.h"
@@ -314,6 +312,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/bluetooth/avrcp.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/bluetooth/a2dp_codec_sbc.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/bluetooth/addr.h"
+"${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/common/addr.c"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/bluetooth/att.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/bluetooth/avdtp.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/bluetooth/bluetooth.h"
@@ -337,12 +336,17 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/bluetooth/testing.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/bluetooth/uuid.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/sys/util.h"
+"${SdkRootDirPath}/middleware/edgefast_bluetooth/include/sys/util_internal.h"
+"${SdkRootDirPath}/middleware/edgefast_bluetooth/include/sys/util_loops.h"
+"${SdkRootDirPath}/middleware/edgefast_bluetooth/include/sys/util_macro.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/sys/printk.h"
+"${SdkRootDirPath}/middleware/edgefast_bluetooth/include/sys/check.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/sys/byteorder.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/zephyr/types.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/porting/porting.c"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/porting/porting.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/porting/errno/errno.h"
+"${SdkRootDirPath}/middleware/edgefast_bluetooth/source/porting/utf8.c"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/porting/work_queue.c"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/sys/work_queue.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/toolchain/common.h"
@@ -354,15 +358,17 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/net/buf.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/porting/slist.c"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/sys/slist.h"
+"${SdkRootDirPath}/middleware/edgefast_bluetooth/include/sys/dlist.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/porting/atomic_c.c"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/sys/atomic.h"
-"${SdkRootDirPath}/middleware/edgefast_bluetooth/source/services/bas.c"
-"${SdkRootDirPath}/middleware/edgefast_bluetooth/include/bluetooth/services/bas.h"
-"${SdkRootDirPath}/middleware/edgefast_bluetooth/source/services/hrs.c"
-"${SdkRootDirPath}/middleware/edgefast_bluetooth/include/bluetooth/services/hrs.h"
+"${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/hci_uart.c"
+"${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/hci_uart.h"
+"${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/controller/controller.h"
+"${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/controller/controller_wifi_nxp.c"
+"${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/controller/controller_hci_uart.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
     ${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/controller/configs
     ${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/controller
@@ -396,7 +402,6 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/storage
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/xml_parser
     ${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth
-    ${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/controller
     ${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/ethal
     ${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/sbc
     ${SdkRootDirPath}/middleware/wireless/ethermind/port/osal/src/freertos
@@ -404,11 +409,11 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/sbc
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/config
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/extension
-    ${SdkRootDirPath}/middleware/edgefast_bluetooth/source
+    ${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host
     ${SdkRootDirPath}/middleware/edgefast_bluetooth/include
-    ${SdkRootDirPath}/middleware/edgefast_bluetooth/bluetooth
+    ${SdkRootDirPath}/middleware/edgefast_bluetooth/include/bluetooth
     ${SdkRootDirPath}/middleware/edgefast_bluetooth/source/porting
-    ${SdkRootDirPath}/middleware/edgefast_bluetooth/source/services
+    ${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/controller
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL flash_debug)
@@ -419,13 +424,50 @@ if(CMAKE_BUILD_TYPE STREQUAL flash_release)
      target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="mbedtls_config_client.h")
 endif(CMAKE_BUILD_TYPE STREQUAL flash_release)
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/devices/MIMXRT595S/drivers
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/devices/MIMXRT595S
+    ${SdkRootDirPath}/core/drivers/flexcomm
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/middleware/sdmmc
+    ${SdkRootDirPath}/core/drivers/trng
+    ${SdkRootDirPath}/core/drivers/flexspi
+    ${SdkRootDirPath}/core/components/codec/wm8904
+    ${SdkRootDirPath}/core/components/codec
+    ${SdkRootDirPath}/core/components/codec/
+    ${SdkRootDirPath}/core/components/codec/i2c
+    ${SdkRootDirPath}/core/components/i2c
+    ${SdkRootDirPath}/middleware/usb
+    ${SdkRootDirPath}/core/components/osa
+    ${SdkRootDirPath}/middleware/fatfs
+    ${SdkRootDirPath}/core/components/audio
+    ${SdkRootDirPath}/core/components/gpio
+    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
+    ${SdkRootDirPath}/middleware/wifi_nxp
+    ${SdkRootDirPath}/core/boards/evkmimxrt595/flash_config
+    ${SdkRootDirPath}/core/drivers/cache/cache64
+    ${SdkRootDirPath}/core/drivers/lpc_iopctl
+    ${SdkRootDirPath}/core/drivers/lpc_gpio
+    ${SdkRootDirPath}/core/components/internal_flash/
+    ${SdkRootDirPath}/core/components/pca9420
+    ${SdkRootDirPath}/middleware/littlefs
+    ${SdkRootDirPath}/core/drivers/inputmux
+    ${SdkRootDirPath}/middleware/mbedtls
+    ${SdkRootDirPath}/core/utilities/misc_utilities
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/drivers/usdhc
+    ${SdkRootDirPath}/core/drivers/i3c
+    ${SdkRootDirPath}/core/drivers/lpc_dma
+    ${SdkRootDirPath}/core/components/wifi_bt_module
+    ${SdkRootDirPath}/core/components/log
+    ${SdkRootDirPath}/core/drivers/casper
+    ${SdkRootDirPath}/core/drivers/hashcrypt
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(driver_clock)
@@ -488,7 +530,7 @@ include(middleware_usb_host_ip3516hs_MIMXRT595S_cm33)
 
 include(middleware_usb_phy)
 
-include(middleware_fatfs)
+include(middleware_fatfs_MIMXRT595S_cm33)
 
 include(middleware_fatfs_usb)
 
@@ -500,7 +542,7 @@ include(middleware_freertos-kernel_heap_4)
 
 include(middleware_freertos-kernel_MIMXRT595S_cm33)
 
-include(middleware_wifi_fwdnld)
+include(middleware_wifi_fwdnld_MIMXRT595S_cm33)
 
 include(driver_flash_config_evkmimxrt595)
 
@@ -513,8 +555,6 @@ include(driver_lpc_iopctl)
 include(driver_lpc_gpio)
 
 include(driver_reset)
-
-include(component_flexspi_nor_flash_adapter)
 
 include(component_flexspi_nor_flash_adapter_rt595evk)
 
@@ -558,6 +598,8 @@ include(component_wifi_bt_module_tx_pwr_limits)
 
 include(middleware_wifi_sdio-2)
 
+include(middleware_wifi_common_files)
+
 include(component_log_backend_debugconsole)
 
 include(component_log)
@@ -571,15 +613,13 @@ include(driver_casper)
 include(driver_hashcrypt)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 if(CMAKE_BUILD_TYPE STREQUAL flash_debug)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm33/gcc/libethermind_bt_a2dp.a)
@@ -611,6 +651,10 @@ endif(CMAKE_BUILD_TYPE STREQUAL flash_debug)
 
 if(CMAKE_BUILD_TYPE STREQUAL flash_debug)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm33/gcc/libethermind_bt_gatt.a)
+endif(CMAKE_BUILD_TYPE STREQUAL flash_debug)
+
+if(CMAKE_BUILD_TYPE STREQUAL flash_debug)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm33/gcc/libethermind_bt_ga.a)
 endif(CMAKE_BUILD_TYPE STREQUAL flash_debug)
 
 if(CMAKE_BUILD_TYPE STREQUAL flash_debug)
@@ -665,6 +709,18 @@ if(CMAKE_BUILD_TYPE STREQUAL flash_debug)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm33/gcc/libethermind_sbc_encoder.a)
 endif(CMAKE_BUILD_TYPE STREQUAL flash_debug)
 
+if(CMAKE_BUILD_TYPE STREQUAL flash_debug)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm33/gcc/libethermind_lc3_common.a)
+endif(CMAKE_BUILD_TYPE STREQUAL flash_debug)
+
+if(CMAKE_BUILD_TYPE STREQUAL flash_debug)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm33/gcc/libethermind_lc3_decoder.a)
+endif(CMAKE_BUILD_TYPE STREQUAL flash_debug)
+
+if(CMAKE_BUILD_TYPE STREQUAL flash_debug)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm33/gcc/libethermind_lc3_encoder.a)
+endif(CMAKE_BUILD_TYPE STREQUAL flash_debug)
+
 if(CMAKE_BUILD_TYPE STREQUAL flash_release)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm33/gcc/libethermind_bt_a2dp.a)
 endif(CMAKE_BUILD_TYPE STREQUAL flash_release)
@@ -695,6 +751,10 @@ endif(CMAKE_BUILD_TYPE STREQUAL flash_release)
 
 if(CMAKE_BUILD_TYPE STREQUAL flash_release)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm33/gcc/libethermind_bt_gatt.a)
+endif(CMAKE_BUILD_TYPE STREQUAL flash_release)
+
+if(CMAKE_BUILD_TYPE STREQUAL flash_release)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm33/gcc/libethermind_bt_ga.a)
 endif(CMAKE_BUILD_TYPE STREQUAL flash_release)
 
 if(CMAKE_BUILD_TYPE STREQUAL flash_release)
@@ -747,6 +807,18 @@ endif(CMAKE_BUILD_TYPE STREQUAL flash_release)
 
 if(CMAKE_BUILD_TYPE STREQUAL flash_release)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm33/gcc/libethermind_sbc_encoder.a)
+endif(CMAKE_BUILD_TYPE STREQUAL flash_release)
+
+if(CMAKE_BUILD_TYPE STREQUAL flash_release)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm33/gcc/libethermind_lc3_common.a)
+endif(CMAKE_BUILD_TYPE STREQUAL flash_release)
+
+if(CMAKE_BUILD_TYPE STREQUAL flash_release)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm33/gcc/libethermind_lc3_decoder.a)
+endif(CMAKE_BUILD_TYPE STREQUAL flash_release)
+
+if(CMAKE_BUILD_TYPE STREQUAL flash_release)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm33/gcc/libethermind_lc3_encoder.a)
 endif(CMAKE_BUILD_TYPE STREQUAL flash_release)
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)

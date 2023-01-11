@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -188,14 +188,14 @@ static void flash_operation_task(void *pvParameters)
     uint8_t *nor_program_buffer = pvPortMalloc(256);
     if (NULL == nor_program_buffer)
     {
-        PRINTF("nor_program_buffer memory allock failed!\r\n");
+        PRINTF("nor_program_buffer memory allocation failed!\r\n");
         configASSERT(NULL);
     }
 
     uint8_t *nor_read_buffer = pvPortMalloc(256);
     if (NULL == nor_read_buffer)
     {
-        PRINTF("nor_read_buffer memory allock failed!\r\n");
+        PRINTF("nor_read_buffer memory allocation failed!\r\n");
         configASSERT(NULL);
     }
 

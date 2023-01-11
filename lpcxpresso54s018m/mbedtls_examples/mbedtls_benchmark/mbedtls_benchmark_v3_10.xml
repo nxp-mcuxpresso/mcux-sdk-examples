@@ -24,8 +24,6 @@
     <definition extID="platform.drivers.lpc_gpio.LPC54S018M"/>
     <definition extID="platform.drivers.emc.LPC54S018M"/>
     <definition extID="platform.utilities.assert.LPC54S018M"/>
-    <definition extID="component.silicon_id.LPC54S018M"/>
-    <definition extID="platform.drivers.iap.LPC54S018M"/>
     <definition extID="CMSIS_Include_core_cm.LPC54S018M"/>
     <definition extID="platform.utilities.misc_utilities.LPC54S018M"/>
     <definition extID="device.LPC54S018M_system.LPC54S018M"/>
@@ -35,7 +33,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso54s018m_mbedtls_benchmark" name="mbedtls_benchmark" dependency="platform.drivers.aes.LPC54S018M platform.drivers.sha.LPC54S018M platform.drivers.rng.LPC54S018M middleware.mbedtls.LPC54S018M middleware.mbedtls.port.ksdk.LPC54S018M middleware.mbedtls.lpc2.LPC54S018M platform.drivers.lpc_iocon.LPC54S018M platform.drivers.common.LPC54S018M platform.drivers.clock.LPC54S018M platform.drivers.power.LPC54S018M platform.drivers.reset.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M utility.debug_console.LPC54S018M component.usart_adapter.LPC54S018M component.serial_manager.LPC54S018M component.lists.LPC54S018M component.serial_manager_uart.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.emc.LPC54S018M platform.utilities.assert.LPC54S018M component.silicon_id.LPC54S018M platform.drivers.iap.LPC54S018M CMSIS_Include_core_cm.LPC54S018M platform.utilities.misc_utilities.LPC54S018M device.LPC54S018M_system.LPC54S018M" category="mbedtls_examples">
+  <example id="lpcxpresso54s018m_mbedtls_benchmark" name="mbedtls_benchmark" dependency="platform.drivers.aes.LPC54S018M platform.drivers.sha.LPC54S018M platform.drivers.rng.LPC54S018M middleware.mbedtls.LPC54S018M middleware.mbedtls.port.ksdk.LPC54S018M middleware.mbedtls.lpc2.LPC54S018M platform.drivers.lpc_iocon.LPC54S018M platform.drivers.common.LPC54S018M platform.drivers.clock.LPC54S018M platform.drivers.power.LPC54S018M platform.drivers.reset.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M utility.debug_console.LPC54S018M component.usart_adapter.LPC54S018M component.serial_manager.LPC54S018M component.lists.LPC54S018M component.serial_manager_uart.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.emc.LPC54S018M platform.utilities.assert.LPC54S018M CMSIS_Include_core_cm.LPC54S018M platform.utilities.misc_utilities.LPC54S018M device.LPC54S018M_system.LPC54S018M" category="mbedtls_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -95,7 +93,7 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../examples/lpcxpresso54s018m/mbedtls_examples/mbedtls_benchmark" project_relative_path="lpcxpresso54s018m/mbedtls_examples/mbedtls_benchmark" type="c_include"/>
+      <include_path path="." project_relative_path="lpcxpresso54s018m/mbedtls_examples/mbedtls_benchmark" type="c_include"/>
       <include_path path="../../../../core/boards/lpcxpresso54s018m" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

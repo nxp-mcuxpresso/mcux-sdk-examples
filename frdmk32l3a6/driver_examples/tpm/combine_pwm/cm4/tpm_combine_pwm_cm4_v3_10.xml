@@ -85,7 +85,7 @@
     </debug_configurations>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../../examples/frdmk32l3a6/driver_examples/tpm/combine_pwm/cm4" project_relative_path="frdmk32l3a6/driver_examples/tpm/combine_pwm/cm4" type="c_include"/>
+      <include_path path="." project_relative_path="frdmk32l3a6/driver_examples/tpm/combine_pwm/cm4" type="c_include"/>
       <include_path path="../../../../../../core/boards/frdmk32l3a6" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

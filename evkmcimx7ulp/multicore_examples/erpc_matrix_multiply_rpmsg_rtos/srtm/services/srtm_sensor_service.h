@@ -31,7 +31,8 @@
 
 typedef enum
 {
-    SRTM_SensorTypePedometer = 0
+    SRTM_SensorTypePedometer = 0x00U,
+    SRTM_SensorTypeTilt      = 0x01U,
 } srtm_sensor_type_t;
 
 /**

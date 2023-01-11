@@ -98,7 +98,7 @@
     </debug_configurations>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../../examples/evkmimxrt1015/cmsis_driver_examples/lpspi/edma_b2b_transfer/slave" project_relative_path="evkmimxrt1015/cmsis_driver_examples/lpspi/edma_b2b_transfer/slave" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimxrt1015/cmsis_driver_examples/lpspi/edma_b2b_transfer/slave" type="c_include"/>
       <include_path path="../../../../../../core/boards/evkmimxrt1015" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

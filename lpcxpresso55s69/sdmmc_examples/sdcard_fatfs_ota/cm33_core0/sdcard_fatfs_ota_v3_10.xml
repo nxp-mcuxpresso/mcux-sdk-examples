@@ -109,9 +109,13 @@
       </debug_configuration>
     </debug_configurations>
     <include_paths>
-      <include_path path="../../../../../examples/lpcxpresso55s69/sdmmc_examples/sdcard_fatfs_ota" project_relative_path="board" type="c_include"/>
+      <include_path path=".." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="bootutil_port" project_relative_path="bootutil_port" type="c_include"/>
+      <include_path path="bootutil_port/mcuboot_config" project_relative_path="bootutil_port/mcuboot_config" type="c_include"/>
+      <include_path path="bootutil_port/sysflash" project_relative_path="bootutil_port/sysflash" type="c_include"/>
+      <include_path path="bootutil_port/board_specific" project_relative_path="bootutil_port/board_specific" type="c_include"/>
       <include_path path="../../../../../core/boards/lpcxpresso55s69" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
@@ -169,8 +173,25 @@
     <source path="." project_relative_path="source" type="c_include">
       <files mask="mcuboot_app_support.h"/>
     </source>
-    <source path="." project_relative_path="board" type="c_include">
+    <source path="bootutil_port/board_specific" project_relative_path="bootutil_port/board_specific" type="c_include">
       <files mask="flash_partitioning.h"/>
+    </source>
+    <source path="bootutil_port/board_specific" project_relative_path="bootutil_port/board_specific" type="src">
+      <files mask="flash_partitioning.c"/>
+    </source>
+    <source path="bootutil_port/board_specific" project_relative_path="bootutil_port/board_specific" type="c_include">
+      <files mask="sblconfig.h"/>
+    </source>
+    <source path="bootutil_port/mcuboot_config" project_relative_path="bootutil_port/mcuboot_config" type="c_include">
+      <files mask="mcuboot_config.h"/>
+      <files mask="mcuboot_logging.h"/>
+    </source>
+    <source path="bootutil_port" project_relative_path="bootutil_port" type="c_include">
+      <files mask="flash_map.h"/>
+      <files mask="sbldef.h"/>
+    </source>
+    <source path="bootutil_port/sysflash" project_relative_path="bootutil_port/sysflash" type="c_include">
+      <files mask="sysflash.h"/>
     </source>
     <source path="../../../../../core/boards/lpcxpresso55s69" project_relative_path="board" type="src">
       <files mask="board.c"/>

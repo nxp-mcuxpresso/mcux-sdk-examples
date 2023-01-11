@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(glow_lenet_mnist_cm7)
 
+set(MCUX_BUILD_TYPES flexspi_nor_sdram_debug flexspi_nor_sdram_release)
+
 set(MCUX_SDK_PROJECT_NAME glow_lenet_mnist_cm7.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -61,18 +67,28 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../dcd.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/../source
     ${ProjDirPath}/..
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/middleware/eiq
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/drivers/lpuart
+    ${SdkRootDirPath}/core/devices/MIMXRT1176
+    ${SdkRootDirPath}/core/devices/MIMXRT1176/drivers
+    ${SdkRootDirPath}/core/drivers/igpio
+    ${SdkRootDirPath}/core/devices/MIMXRT1176/xip
+    ${SdkRootDirPath}/core/boards/evkmimxrt1170/xip
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
+    ${SdkRootDirPath}/core/boards/evkmimxrt1170/xmcd
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(utility_debug_console_lite)
@@ -118,15 +134,13 @@ include(driver_xmcd_evkmimxrt1170)
 include(device_system_MIMXRT1176_cm7)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

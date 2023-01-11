@@ -6,11 +6,11 @@
  */
 
 #include "fsl_debug_console.h"
-#include "fsl_gpio.h"
 #include "pin_mux.h"
 #include "board.h"
 #include "mcmgr.h"
 
+#include "fsl_gpio.h"
 #include "fsl_common.h"
 /*******************************************************************************
  * Definitions
@@ -18,7 +18,9 @@
 /* Address of memory, from which the secondary core will boot */
 #define CORE1_BOOT_ADDRESS 0x01000000
 
-#define BUTTON_1_INIT()       GPIO_PinInit(BOARD_SW2_GPIO, BOARD_SW2_GPIO_PIN, &sw_config)
+#define BUTTON_1_INIT()                                    \
+    gpio_pin_config_t sw_config = {kGPIO_DigitalInput, 0}; \
+    GPIO_PinInit(BOARD_SW2_GPIO, BOARD_SW2_GPIO_PIN, &sw_config)
 #define IS_BUTTON_1_PRESSED() (0U == GPIO_PinRead(BOARD_SW2_GPIO, BOARD_SW2_GPIO_PIN))
 #define BUTTON_1_NAME         "SW2"
 
@@ -68,8 +70,6 @@ int main(void)
     volatile uint32_t resetDone       = 0U;
     volatile uint32_t exceptionNumber = 0U;
     volatile uint32_t startupDone     = 0U;
-    /* Define the init structure for the switches*/
-    gpio_pin_config_t sw_config = {kGPIO_DigitalInput, 0};
 
     /* Initialize MCMGR, install generic event handlers */
     (void)MCMGR_Init();

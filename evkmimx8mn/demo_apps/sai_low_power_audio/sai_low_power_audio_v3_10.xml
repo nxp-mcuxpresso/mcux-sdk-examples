@@ -93,15 +93,13 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../examples/evkmimx8mn/demo_apps/sai_low_power_audio" project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="remoteproc" type="c_include"/>
-      <include_path path="../../../../examples/evkmimx8mn/demo_apps/sai_low_power_audio" project_relative_path="evkmimx8mn/demo_apps/sai_low_power_audio" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimx8mn/demo_apps/sai_low_power_audio" type="c_include"/>
       <include_path path="../../../../core/boards/evkmimx8mn" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="evkmimx8mn" type="c_include"/>
       <include_path path="../../../../core/components/srtm/channels" project_relative_path="srtm/channels" type="c_include"/>
       <include_path path="../../../../core/components/srtm/services" project_relative_path="srtm/services" type="c_include"/>
-      <include_path path="../../../../examples/evkmimx8mn/demo_apps/sai_low_power_audio" project_relative_path="source" type="asm_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
@@ -172,11 +170,12 @@
     <source path="." project_relative_path="doc" type="doc" toolchain="iar mdk armgcc">
       <files mask="readme.txt"/>
     </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="srtm_config.h"/>
+      <files mask="app_srtm.h"/>
+    </source>
     <source path="." project_relative_path="source" type="src">
       <files mask="app_srtm.c"/>
-    </source>
-    <source path="." project_relative_path="source" type="c_include">
-      <files mask="app_srtm.h"/>
     </source>
     <source path="../../../../core/components/srtm/channels" project_relative_path="srtm/channels" type="c_include">
       <files mask="srtm_rpmsg_endpoint.h"/>

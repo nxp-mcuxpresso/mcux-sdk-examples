@@ -16,7 +16,13 @@
 
 static LX_NOR_FLASH spi_flash;
 
+#ifdef LX_USE_MFLASH
+extern UINT _lx_mflash_initialize(LX_NOR_FLASH *nor_flash);
+#define LX_INIT_FUNCTION    _lx_mflash_initialize
+#else
 extern UINT _lx_spi_flash_initialize(LX_NOR_FLASH *spi_flash);
+#define LX_INIT_FUNCTION    _lx_spi_flash_initialize
+#endif
 
 static VOID _fx_levelx_driver_read(FX_MEDIA *media_ptr)
 {
@@ -113,11 +119,9 @@ static VOID _fx_levelx_driver_init(FX_MEDIA *media_ptr)
     media_ptr->fx_media_driver_free_sector_update = FX_TRUE;
 
     /* initialize the LevelX driver */
-    status = lx_nor_flash_open(&spi_flash, "SPI flash", _lx_spi_flash_initialize);
+    status = lx_nor_flash_open(&spi_flash, "SPI flash", LX_INIT_FUNCTION);
     if (status != LX_SUCCESS)
     {
-
-        PRINTF("i_fx_levelx_driver_init: lx_nor_flash_open\r\n");
         media_ptr->fx_media_driver_status = FX_IO_ERROR;
         return;
     }

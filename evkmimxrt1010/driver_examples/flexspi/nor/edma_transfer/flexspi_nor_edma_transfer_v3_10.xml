@@ -18,10 +18,10 @@
     <definition extID="platform.drivers.igpio.MIMXRT1011"/>
     <definition extID="platform.drivers.xip_device.MIMXRT1011"/>
     <definition extID="platform.drivers.xip_board.evkmimxrt1010.MIMXRT1011"/>
-    <definition extID="platform.drivers.flexspi.MIMXRT1011"/>
-    <definition extID="CMSIS_Include_core_cm.MIMXRT1011"/>
     <definition extID="platform.drivers.edma.MIMXRT1011"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT1011"/>
     <definition extID="platform.drivers.dmamux.MIMXRT1011"/>
+    <definition extID="platform.drivers.flexspi.MIMXRT1011"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1011"/>
     <definition extID="device.MIMXRT1011_system.MIMXRT1011"/>
     <definition extID="iar"/>
@@ -32,7 +32,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1010_flexspi_nor_edma_transfer" name="flexspi_nor_edma_transfer" dependency="platform.drivers.flexspi_edma.MIMXRT1011 platform.drivers.cache_armv7_m7.MIMXRT1011 platform.drivers.clock.MIMXRT1011 platform.drivers.common.MIMXRT1011 device.MIMXRT1011_CMSIS.MIMXRT1011 utility.debug_console.MIMXRT1011 component.lpuart_adapter.MIMXRT1011 component.serial_manager.MIMXRT1011 component.lists.MIMXRT1011 component.serial_manager_uart.MIMXRT1011 platform.drivers.lpuart.MIMXRT1011 device.MIMXRT1011_startup.MIMXRT1011 platform.drivers.iomuxc.MIMXRT1011 platform.utilities.assert.MIMXRT1011 platform.drivers.igpio.MIMXRT1011 platform.drivers.xip_device.MIMXRT1011 platform.drivers.xip_board.evkmimxrt1010.MIMXRT1011 platform.drivers.flexspi.MIMXRT1011 CMSIS_Include_core_cm.MIMXRT1011 platform.drivers.edma.MIMXRT1011 platform.drivers.dmamux.MIMXRT1011 platform.utilities.misc_utilities.MIMXRT1011 device.MIMXRT1011_system.MIMXRT1011" category="driver_examples/flexspi">
+  <example id="evkmimxrt1010_flexspi_nor_edma_transfer" name="flexspi_nor_edma_transfer" dependency="platform.drivers.flexspi_edma.MIMXRT1011 platform.drivers.cache_armv7_m7.MIMXRT1011 platform.drivers.clock.MIMXRT1011 platform.drivers.common.MIMXRT1011 device.MIMXRT1011_CMSIS.MIMXRT1011 utility.debug_console.MIMXRT1011 component.lpuart_adapter.MIMXRT1011 component.serial_manager.MIMXRT1011 component.lists.MIMXRT1011 component.serial_manager_uart.MIMXRT1011 platform.drivers.lpuart.MIMXRT1011 device.MIMXRT1011_startup.MIMXRT1011 platform.drivers.iomuxc.MIMXRT1011 platform.utilities.assert.MIMXRT1011 platform.drivers.igpio.MIMXRT1011 platform.drivers.xip_device.MIMXRT1011 platform.drivers.xip_board.evkmimxrt1010.MIMXRT1011 platform.drivers.edma.MIMXRT1011 CMSIS_Include_core_cm.MIMXRT1011 platform.drivers.dmamux.MIMXRT1011 platform.drivers.flexspi.MIMXRT1011 platform.utilities.misc_utilities.MIMXRT1011 device.MIMXRT1011_system.MIMXRT1011" category="driver_examples/flexspi">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>

@@ -256,6 +256,7 @@ void SRTM_SensorService_Reset(srtm_service_t service, srtm_peercore_t core)
 
     /* Currently assume just one peer core, need to disable all sensor activity. */
     handle->sensor->enableStateDetector(handle->sensor, SRTM_SensorTypePedometer, 0, false);
+    handle->sensor->enableStateDetector(handle->sensor, SRTM_SensorTypeTilt, 0, false);
     handle->sensor->enableDataReport(handle->sensor, SRTM_SensorTypePedometer, 0, false);
 
     handle->channel = NULL;

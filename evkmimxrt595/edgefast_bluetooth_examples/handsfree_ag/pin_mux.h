@@ -363,6 +363,7 @@ void BOARD_InitPinsM2(void); /* Function assigned for the Cortex-M33 */
 #define IOPCTL_PIO_ANAMUX_DI 0x00u        /*!<@brief Analog mux is disabled */
 #define IOPCTL_PIO_FULLDRIVE_EN 0x0100u   /*!<@brief Full drive enable */
 #define IOPCTL_PIO_FUNC1 0x01u            /*!<@brief Selects pin function 1 */
+#define IOPCTL_PIO_FUNC7 0x07u            /*!<@brief Selects pin function 7 */
 #define IOPCTL_PIO_INBUF_DI 0x00u         /*!<@brief Disable input buffer function */
 #define IOPCTL_PIO_INBUF_EN 0x40u         /*!<@brief Enables input buffer function */
 #define IOPCTL_PIO_INV_DI 0x00u           /*!<@brief Input function is not inverted */

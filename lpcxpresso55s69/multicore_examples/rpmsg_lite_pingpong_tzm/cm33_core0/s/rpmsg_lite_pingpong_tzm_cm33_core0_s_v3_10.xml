@@ -140,7 +140,7 @@
       <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="trustzone" type="c_include"/>
       <include_path path="../../../../../../core/boards/lpcxpresso55s69" project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../../examples/lpcxpresso55s69/multicore_examples/rpmsg_lite_pingpong_tzm/s" project_relative_path="board" type="c_include"/>
+      <include_path path="../../s" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
       <files mask="build_all.bat"/>

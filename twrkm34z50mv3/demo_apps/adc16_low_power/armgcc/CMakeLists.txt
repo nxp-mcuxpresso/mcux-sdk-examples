@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(adc16_low_power)
 
+set(MCUX_BUILD_TYPES debug release)
+
 set(MCUX_SDK_PROJECT_NAME adc16_low_power.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -46,19 +52,31 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/twrkm34z50mv3/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
-    ${SdkRootDirPath}/examples/twrkm34z50mv3/demo_apps/adc16_low_power
     ${SdkRootDirPath}/core/boards/twrkm34z50mv3
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/drivers/xbar
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/drivers/port
+    ${SdkRootDirPath}/core/drivers/lptmr
+    ${SdkRootDirPath}/core/drivers/gpio
+    ${SdkRootDirPath}/core/devices/MKM34ZA5/drivers
+    ${SdkRootDirPath}/core/drivers/adc16
+    ${SdkRootDirPath}/core/drivers/pmc
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/devices/MKM34ZA5
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/drivers/uart
+    ${SdkRootDirPath}/core/drivers/irtc
+    ${SdkRootDirPath}/core/drivers/smc
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(driver_xbar)
@@ -102,15 +120,13 @@ include(utilities_misc_utilities_MKM34ZA5)
 include(device_system)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

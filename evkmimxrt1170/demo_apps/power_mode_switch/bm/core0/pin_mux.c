@@ -1,6 +1,5 @@
 /*
- * Copyright 2020-2021 NXP
- * All rights reserved.
+ * Copyright 2022 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -13,11 +12,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v9.0
+product: Pins v12.0
 processor: MIMXRT1176xxxxx
 package_id: MIMXRT1176DVMAA
 mcu_data: ksdk2_0
-processor_version: 0.9.6
+processor_version: 12.0.0
 pin_labels:
 - {pin_num: T8, pin_signal: WAKEUP, label: USER_BUTTON, identifier: USER_BUTTON}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
@@ -82,10 +81,10 @@ void BOARD_InitPins(void) {
       IOMUXC_GPIO_AD_25_LPUART1_RXD,          /* GPIO_AD_25 is configured as LPUART1_RXD */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_WAKEUP_DIG_GPIO13_IO00,          /* WAKEUP_DIG is configured as GPIO13_IO00 */
+      IOMUXC_GPIO_LPSR_11_ARM_TRACE_SWO,      /* GPIO_LPSR_11 is configured as ARM_TRACE_SWO */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_LPSR_11_ARM_TRACE_SWO,      /* GPIO_LPSR_11 is configured as ARM_TRACE_SWO */
+      IOMUXC_WAKEUP_DIG_GPIO13_IO00,          /* WAKEUP_DIG is configured as GPIO13_IO00 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinConfig(
       IOMUXC_GPIO_AD_24_LPUART1_TXD,          /* GPIO_AD_24 PAD functional properties : */

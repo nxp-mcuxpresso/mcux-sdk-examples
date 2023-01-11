@@ -99,7 +99,7 @@
       <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="../../../../core/boards/lpcxpresso55s16" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../examples/lpcxpresso55s16/demo_apps/multi_peripherals_test" project_relative_path="lpcxpresso55s16/demo_apps/multi_peripherals_test" type="c_include"/>
+      <include_path path="." project_relative_path="lpcxpresso55s16/demo_apps/multi_peripherals_test" type="c_include"/>
       <include_path path="." project_relative_path="usb/device/source" type="c_include"/>
       <include_path path="." project_relative_path="usb/device/class" type="c_include"/>
       <include_path path="." project_relative_path="usb/device/class/hid" type="c_include"/>

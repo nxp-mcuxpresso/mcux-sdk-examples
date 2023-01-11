@@ -21,7 +21,7 @@
 #include "fsl_wm8960.h"
 #include "fsl_codec_adapter.h"
 #include "fsl_adapter_uart.h"
-#include "controller.h"
+#include "controller_hci_uart.h"
 #include "usb_host_config.h"
 #include "usb_host.h"
 #include "fsl_lpuart_edma.h"
@@ -57,6 +57,7 @@ extern void BOARD_InitHardware(void);
 /* Get frequency of sai1 clock */
 #define DEMO_SAI_CLK_FREQ (CLOCK_GetFreq(kCLOCK_AudioPll) / DEMO_SAI1_CLOCK_SOURCE_DIVIDER)
 
+#define DEMO_SAI            SAI1
 #define DEMO_AUDIO_INSTANCE (1U)
 
 /* DMA */
@@ -140,7 +141,7 @@ hal_audio_config_t audioTxConfig = {
     .ipConfig          = (void *)&audioTxIpConfig,
     .srcClock_Hz       = 11289750U,
     .sampleRate_Hz     = (uint32_t)DEMO_AUDIO_SAMPLING_RATE,
-    .fifoWatermark     = FSL_FEATURE_SAI_FIFO_COUNT / 2U,
+    .fifoWatermark     = FSL_FEATURE_SAI_FIFO_COUNTn(DEMO_SAI) / 2U,
     .msaterSlave       = kHAL_AudioMaster,
     .bclkPolarity      = kHAL_AudioSampleOnRisingEdge,
     .frameSyncWidth    = kHAL_AudioFrameSyncWidthHalfFrame,
@@ -366,17 +367,4 @@ int main(void)
     vTaskStartScheduler();
     for (;;)
         ;
-}
-
-void *pvPortCalloc(size_t xNum, size_t xSize)
-{
-    void *pvReturn;
-
-    pvReturn = pvPortMalloc(xNum * xSize);
-    if (pvReturn != NULL)
-    {
-        memset(pvReturn, 0x00, xNum * xSize);
-    }
-
-    return pvReturn;
 }

@@ -99,7 +99,6 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../examples/evkmimxrt1010/rtos_examples/freertos_hello" project_relative_path="board" type="c_include"/>
       <include_path path="../../../../core/boards/evkmimxrt1010" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
     </include_paths>

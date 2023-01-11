@@ -42,6 +42,16 @@ void TZM_JumpToNormalWorld(uint32_t nonsecVtorAddress)
     /* Get non-secure reset handler */
     ResetHandler_ns = (funcptr_ns)(*((uint32_t *)((nonsecVtorAddress) + 4U)));
 
+/* IAR issue: in ResetHandler_ns asm code, only push 7 register into stack
+   for Armv8-M, Stack pointer need aligned with 8bytes, otherwise will triger
+   a exception.
+   After IAR fixed this issue ,this code must be deleted.*/
+#if defined(IAR_FP_VLSTM_ASSIGNED_ISSUE) && (IAR_FP_VLSTM_ASSIGNED_ISSUE == 1U)
+    asm volatile("PUSH {r12}");
+#endif
     /* Call non-secure application - jump to normal world */
     ResetHandler_ns();
+#if defined(IAR_FP_VLSTM_ASSIGNED_ISSUE) && (IAR_FP_VLSTM_ASSIGNED_ISSUE == 1U)
+    asm volatile("POP {r12}");
+#endif
 }

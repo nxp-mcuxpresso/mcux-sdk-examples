@@ -131,7 +131,7 @@ static void app_task(void *param)
     (void)PRINTF("RPMSG Share Base Addr is 0x%x\r\n", RPMSG_LITE_SHMEM_BASE);
     my_rpmsg = rpmsg_lite_remote_init((void *)RPMSG_LITE_SHMEM_BASE, RPMSG_LITE_LINK_ID, RL_NO_FLAGS);
 #endif /* MCMGR_USED */
-    rpmsg_lite_wait_for_link_up(my_rpmsg);
+    rpmsg_lite_wait_for_link_up(my_rpmsg, RL_BLOCK);
     (void)PRINTF("Link is up!\r\n");
 
     my_queue  = rpmsg_queue_create(my_rpmsg);
@@ -181,7 +181,8 @@ static void app_task(void *param)
 
 void app_create_task(void)
 {
-    if (xTaskCreate(app_task, "APP_TASK", APP_TASK_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, &app_task_handle) != pdPASS)
+    if (app_task_handle == NULL &&
+        xTaskCreate(app_task, "APP_TASK", APP_TASK_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, &app_task_handle) != pdPASS)
     {
         PRINTF("\r\nFailed to create application task\r\n");
         for (;;)

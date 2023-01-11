@@ -32,7 +32,7 @@
 
 #define DEMO_SAI                 (I2S3)
 #define DEMO_SAI_CLK_FREQ        (24576000U)
-#define DEMO_SAI_FIFO_WATER_MARK (FSL_FEATURE_SAI_FIFO_COUNT / 2U)
+#define DEMO_SAI_FIFO_WATER_MARK (FSL_FEATURE_SAI_FIFO_COUNTn(DEMO_SAI) / 2U)
 #define DEMO_SAI_CLOCK_SOURCE    (kSAI_BclkSourceMclkDiv)
 #define DEMO_SAI_MASTER_SLAVE    kSAI_Master
 #define DEMO_SAI_CHANNEL         0U

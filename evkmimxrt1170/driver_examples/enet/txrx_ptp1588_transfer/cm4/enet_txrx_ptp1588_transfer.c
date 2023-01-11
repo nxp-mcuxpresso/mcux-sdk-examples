@@ -6,29 +6,24 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include <stdlib.h>
-#include "pin_mux.h"
-#include "board.h"
 #include "fsl_debug_console.h"
+#include "fsl_silicon_id.h"
 #include "fsl_enet.h"
 #include "fsl_phy.h"
-#include "fsl_silicon_id.h"
+#include "pin_mux.h"
+#include "board.h"
 
-#include "fsl_enet_mdio.h"
 #include "fsl_phyksz8081.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define EXAMPLE_ENET        ENET
-#define EXAMPLE_PHY_ADDRESS 0x02U
-#define PTP_CLK_FREQ        CLOCK_GetRootClockFreq(kCLOCK_Root_Enet_Timer1)
-
-/* MDIO operations. */
-#define EXAMPLE_MDIO_OPS enet_ops
-/* PHY operations. */
-#define EXAMPLE_PHY_OPS phyksz8081_ops
-/* ENET clock frequency. */
-#define EXAMPLE_CLOCK_FREQ CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
+extern phy_ksz8081_resource_t g_phy_resource;
+#define EXAMPLE_ENET         ENET
+#define EXAMPLE_PHY_ADDRESS  0x02U
+#define EXAMPLE_PHY_OPS      &phyksz8081_ops
+#define EXAMPLE_PHY_RESOURCE &g_phy_resource
+#define EXAMPLE_CLOCK_FREQ   CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
+#define PTP_CLK_FREQ         CLOCK_GetRootClockFreq(kCLOCK_Root_Enet_Timer1)
 #define ENET_RXBD_NUM          (4)
 #define ENET_TXBD_NUM          (4)
 #define ENET_RXBUFF_SIZE       (ENET_FRAME_MAX_FRAMELEN)
@@ -67,6 +62,7 @@ static void ENET_BuildPtpEventFrame(void);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+phy_ksz8081_resource_t g_phy_resource;
 /*! @brief Buffer descriptors should be in non-cacheable region and should be align to "ENET_BUFF_ALIGNMENT". */
 AT_NONCACHEABLE_SECTION_ALIGN(static enet_rx_bd_struct_t g_rxBuffDescrip[ENET_RXBD_NUM], ENET_BUFF_ALIGNMENT);
 AT_NONCACHEABLE_SECTION_ALIGN(static enet_tx_bd_struct_t g_txBuffDescrip[ENET_TXBD_NUM], ENET_BUFF_ALIGNMENT);
@@ -94,8 +90,7 @@ static volatile bool tx_frame_over   = false;
 static enet_frame_info_t txFrameInfo = {0};
 
 /*! @brief Enet PHY and MDIO interface handler. */
-static mdio_handle_t mdioHandle = {.ops = &EXAMPLE_MDIO_OPS};
-static phy_handle_t phyHandle   = {.phyAddr = EXAMPLE_PHY_ADDRESS, .mdioHandle = &mdioHandle, .ops = &EXAMPLE_PHY_OPS};
+static phy_handle_t phyHandle;
 
 /*******************************************************************************
  * Code
@@ -113,6 +108,22 @@ void BOARD_InitModuleClock(void)
     rootCfg.mux = 0;
     rootCfg.div = 1;
     CLOCK_SetRootClock(kCLOCK_Root_Enet_Timer1, &rootCfg);
+}
+
+static void MDIO_Init(void)
+{
+    (void)CLOCK_EnableClock(s_enetClock[ENET_GetInstance(EXAMPLE_ENET)]);
+    ENET_SetSMI(EXAMPLE_ENET, EXAMPLE_CLOCK_FREQ, false);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_MDIOWrite(EXAMPLE_ENET, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_MDIORead(EXAMPLE_ENET, phyAddr, regAddr, pData);
 }
 
 /*! @brief Build Frame for transmit. */
@@ -160,17 +171,17 @@ static void enetCallback(ENET_Type *base,
  */
 int main(void)
 {
-    enet_config_t config;
     phy_config_t phyConfig = {0};
     uint32_t length        = 0;
-    uint32_t ptpClock;
-    uint32_t count = 0;
-    bool link      = false;
-    bool autonego  = false;
+    uint32_t count         = 0;
+    bool link              = false;
+    bool autonego          = false;
+    uint32_t txnumber      = 0;
+    enet_config_t config;
     phy_speed_t speed;
     phy_duplex_t duplex;
     status_t result;
-    uint32_t txnumber = 0;
+
     enet_ptp_time_t ptpTime;
     status_t status;
 
@@ -186,14 +197,15 @@ int main(void)
     /* 50M ENET_REF_CLOCK output to PHY and ENET module. */
     IOMUXC_GPR->GPR4 |= IOMUXC_GPR_GPR4_ENET_REF_CLK_DIR_MASK;
 
-    GPIO_PinInit(GPIO9, 11, &gpio_config);
     GPIO_PinInit(GPIO12, 12, &gpio_config);
-    /* Pull up the ENET_INT before RESET. */
-    GPIO_WritePinOutput(GPIO9, 11, 1);
     GPIO_WritePinOutput(GPIO12, 12, 0);
     SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
     GPIO_WritePinOutput(GPIO12, 12, 1);
     SDK_DelayAtLeastUs(6, CLOCK_GetFreq(kCLOCK_CpuClk));
+
+    MDIO_Init();
+    g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
 
     PRINTF("\r\nENET PTP 1588 example start.\r\n");
 
@@ -212,11 +224,10 @@ int main(void)
         &txFrameInfoArray[0],
     }};
 
-    ptpClock = PTP_CLK_FREQ;
     /* Prepare the PTP configure */
     enet_ptp_config_t ptpConfig = {
         kENET_PtpTimerChannel1,
-        ptpClock,
+        PTP_CLK_FREQ,
     };
 
     /*
@@ -233,10 +244,10 @@ int main(void)
 #else
     config.miiMode = kENET_RmiiMode;
 #endif
-    phyConfig.phyAddr               = EXAMPLE_PHY_ADDRESS;
-    phyConfig.autoNeg               = true;
-    mdioHandle.resource.base        = EXAMPLE_ENET;
-    mdioHandle.resource.csrClock_Hz = EXAMPLE_CLOCK_FREQ;
+    phyConfig.phyAddr  = EXAMPLE_PHY_ADDRESS;
+    phyConfig.ops      = EXAMPLE_PHY_OPS;
+    phyConfig.resource = EXAMPLE_PHY_RESOURCE;
+    phyConfig.autoNeg  = true;
 
     /* Initialize PHY and wait auto-negotiation over. */
     PRINTF("Wait for PHY init...\r\n");

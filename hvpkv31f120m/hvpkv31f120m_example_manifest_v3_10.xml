@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_hvpkv31f120m_examples_manifest_v3_10" name="SDK_2.x_hvpkv31f120m_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2022-07-15 08:18:09.777434-->
-  <!--This manifest is generated based on sdk repo commit: 45d71c921a1dd3e0403549aa377535344ed9bc97-->
+  <!--Timestamp (UTC): 2023-01-10 16:33:33.176544-->
+  <!--This manifest is generated based on sdk repo commit: 11a5f6af5190bfe018a89b4d02c239713dc4cfa6-->
   <externalDefinitions>
     <definition extID="MKV31F512VLL12"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="compiler_gcc"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2120_hvpkv31f120m_examples_manifest_v3_10" name="MCUXpressoSDK2120_hvpkv31f120m_examples_manifest_v3_10" version="2.12.0"/>
+  <ksdk id="MCUXpressoSDK2130_hvpkv31f120m_examples_manifest_v3_10" name="MCUXpressoSDK2130_hvpkv31f120m_examples_manifest_v3_10" version="2.13.0"/>
   <boards>
     <board id="hvpkv31f120m" name="HVP-KV31F120M" href="https://www.nxp.com/pip/HVP-MC3PH" version="1.0.0" package="MKV31F512VLL12">
       <examples>

@@ -5,18 +5,107 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+#include "fsl_common.h"
+
+#if defined(FSL_FEATURE_SOC_CAAM_COUNT) && (FSL_FEATURE_SOC_CAAM_COUNT > 0)
+#include "fsl_caam.h"
+#elif defined(FSL_FEATURE_SOC_DCP_COUNT) && (FSL_FEATURE_SOC_DCP_COUNT > 0)
 #include "fsl_dcp.h"
+#else
+#error "The platform does not support DCP or CAAM."
+#endif
 
 #include "fsl_debug_console.h"
 #include "mflash_file.h"
 
+#define MAX_FILE_SIZE                   (400U)
 #define CIPHER_KEY_SIZE_BITS            (128U)
 #define CIPHER_KEY_SIZE_BYTES           (CIPHER_KEY_SIZE_BITS / 8)
 
-#define MAX_FILE_SIZE                   (400U)
-
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t in_buffer[CIPHER_KEY_SIZE_BYTES], 64);
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t out_buffer[CIPHER_KEY_SIZE_BYTES], 64);
+
+#ifdef FSL_FEATURE_SOC_CAAM_COUNT
+
+/*! @brief CAAM job ring interface 0 in system memory. */
+AT_NONCACHEABLE_SECTION(static caam_job_ring_interface_t s_jrif0);
+
+/*! @brief 16 bytes key for CBC method: "ultrapassword123". */
+static const uint8_t s_CbcKey128[] = {0x75, 0x6c, 0x74, 0x72, 0x61, 0x70, 0x61, 0x73,
+                                      0x73, 0x77, 0x6f, 0x72, 0x64, 0x31, 0x32, 0x33};
+
+/*! @brief Initialization vector for CBC method: 16 bytes: "mysecretpassword". */
+static const uint8_t s_CbcIv[CAAM_AES_BLOCK_SIZE] = {0x6d, 0x79, 0x73, 0x65, 0x63, 0x72, 0x65, 0x74,
+                                                     0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64};
+
+static caam_handle_t caamHandle = {
+        .jobRing = kCAAM_JobRing0
+    };
+
+/*!
+ * @brief Encrypts and decrypts in AES CBC mode.
+ */
+static status_t do_crypto(uint8_t *data, uint8_t *output, uint32_t *data_len, bool encrypt)
+{
+    uint8_t iv_temp[CAAM_AES_BLOCK_SIZE];
+    uint32_t size = 0;
+    status_t status;
+
+    memcpy(iv_temp, s_CbcIv, CAAM_AES_BLOCK_SIZE);
+    while(size < *data_len) {
+        memset(in_buffer, 0, CIPHER_KEY_SIZE_BYTES);
+        memcpy(in_buffer, data, (*data_len - size) >= CIPHER_KEY_SIZE_BYTES ?
+                                CIPHER_KEY_SIZE_BYTES : (*data_len - size));
+
+        if (encrypt) {
+            status = CAAM_AES_EncryptCbc(CAAM, &caamHandle, in_buffer, out_buffer, CIPHER_KEY_SIZE_BYTES,
+                                         iv_temp, s_CbcKey128, sizeof(s_CbcKey128));
+            memcpy(iv_temp, out_buffer, CIPHER_KEY_SIZE_BYTES);
+        } else {
+            status = CAAM_AES_DecryptCbc(CAAM, &caamHandle, in_buffer, out_buffer, CIPHER_KEY_SIZE_BYTES,
+                                         iv_temp, s_CbcKey128, sizeof(s_CbcKey128));
+            memcpy(iv_temp, in_buffer, CIPHER_KEY_SIZE_BYTES);
+        }
+
+        if (status != kStatus_Success) {
+            PRINTF("do_crypto error!\r\n");
+            return status;
+        }
+
+        memcpy(output, out_buffer, CIPHER_KEY_SIZE_BYTES);
+        data   += CIPHER_KEY_SIZE_BYTES;
+        output += CIPHER_KEY_SIZE_BYTES;
+        size   += CIPHER_KEY_SIZE_BYTES;
+    }
+    *data_len = size;
+
+    return status;
+}
+
+static status_t init_caam(void)
+{
+    caam_config_t caamConfig;
+
+    /* Get default configuration. */
+    CAAM_GetDefaultConfig(&caamConfig);
+
+    /* setup memory for job ring interfaces. Can be in system memory or CAAM's secure memory. */
+    caamConfig.jobRingInterface[0] = &s_jrif0;
+
+    /* Init CAAM driver, including CAAM's internal RNG */
+    return CAAM_Init(CAAM, &caamConfig);
+}
+
+uint32_t get_seed(void)
+{
+    uint32_t random_val = 0;
+
+    CAAM_RNG_GetRandomData(CAAM, &caamHandle, kCAAM_RngStateHandle0,
+                           (uint8_t *)&random_val, 4, kCAAM_RngDataAny, NULL);
+
+    return random_val;
+}
+#else
 
 typedef enum _dcp_otp_key_select
 {
@@ -141,6 +230,7 @@ static status_t init_dcp(void)
 
     return kStatus_Success;
 }
+#endif /* FSL_FEATURE_SOC_CAAM_COUNT */
 
 status_t secure_storage_init(char *filename)
 {
@@ -154,7 +244,11 @@ status_t secure_storage_init(char *filename)
         {0}
     };
 
+#ifdef FSL_FEATURE_SOC_CAAM_COUNT
+    status = init_caam();
+#else
     status = init_dcp();
+#endif
     if (status != kStatus_Success)
     {
         return status;

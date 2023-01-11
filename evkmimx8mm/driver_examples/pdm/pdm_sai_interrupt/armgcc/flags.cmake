@@ -1,12 +1,23 @@
+IF(NOT DEFINED FPU)  
+    SET(FPU "-mfloat-abi=hard -mfpu=fpv4-sp-d16")  
+ENDIF()  
+
+IF(NOT DEFINED SPECS)  
+    SET(SPECS "--specs=nano.specs --specs=nosys.specs")  
+ENDIF()  
+
+IF(NOT DEFINED DEBUG_CONSOLE_CONFIG)  
+    SET(DEBUG_CONSOLE_CONFIG "-DSDK_DEBUGCONSOLE=1")  
+ENDIF()  
+
 SET(CMAKE_ASM_FLAGS_DEBUG " \
     ${CMAKE_ASM_FLAGS_DEBUG} \
     -DDEBUG \
     -D__STARTUP_CLEAR_BSS \
     -D__STARTUP_INITIALIZE_NONCACHEDATA \
     -mcpu=cortex-m4 \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -mthumb \
+    ${FPU} \
 ")
 SET(CMAKE_ASM_FLAGS_RELEASE " \
     ${CMAKE_ASM_FLAGS_RELEASE} \
@@ -14,45 +25,40 @@ SET(CMAKE_ASM_FLAGS_RELEASE " \
     -D__STARTUP_CLEAR_BSS \
     -D__STARTUP_INITIALIZE_NONCACHEDATA \
     -mcpu=cortex-m4 \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -mthumb \
+    ${FPU} \
 ")
 SET(CMAKE_ASM_FLAGS_DDR_DEBUG " \
     ${CMAKE_ASM_FLAGS_DDR_DEBUG} \
     -D__STARTUP_CLEAR_BSS \
     -D__STARTUP_INITIALIZE_NONCACHEDATA \
     -mcpu=cortex-m4 \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -mthumb \
+    ${FPU} \
 ")
 SET(CMAKE_ASM_FLAGS_DDR_RELEASE " \
     ${CMAKE_ASM_FLAGS_DDR_RELEASE} \
     -D__STARTUP_CLEAR_BSS \
     -D__STARTUP_INITIALIZE_NONCACHEDATA \
     -mcpu=cortex-m4 \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -mthumb \
+    ${FPU} \
 ")
 SET(CMAKE_ASM_FLAGS_FLASH_DEBUG " \
     ${CMAKE_ASM_FLAGS_FLASH_DEBUG} \
     -D__STARTUP_CLEAR_BSS \
     -D__STARTUP_INITIALIZE_NONCACHEDATA \
     -mcpu=cortex-m4 \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -mthumb \
+    ${FPU} \
 ")
 SET(CMAKE_ASM_FLAGS_FLASH_RELEASE " \
     ${CMAKE_ASM_FLAGS_FLASH_RELEASE} \
     -D__STARTUP_CLEAR_BSS \
     -D__STARTUP_INITIALIZE_NONCACHEDATA \
     -mcpu=cortex-m4 \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -mthumb \
+    ${FPU} \
 ")
 SET(CMAKE_C_FLAGS_DEBUG " \
     ${CMAKE_C_FLAGS_DEBUG} \
@@ -68,8 +74,6 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -mcpu=cortex-m4 \
     -Wall \
     -Wno-address-of-packed-member \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -mthumb \
     -MMD \
     -MP \
@@ -80,6 +84,8 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
+    ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_C_FLAGS_RELEASE " \
     ${CMAKE_C_FLAGS_RELEASE} \
@@ -94,8 +100,6 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -mcpu=cortex-m4 \
     -Wall \
     -Wno-address-of-packed-member \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -mthumb \
     -MMD \
     -MP \
@@ -106,6 +110,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
+    ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_C_FLAGS_DDR_DEBUG " \
     ${CMAKE_C_FLAGS_DDR_DEBUG} \
@@ -120,8 +126,6 @@ SET(CMAKE_C_FLAGS_DDR_DEBUG " \
     -mcpu=cortex-m4 \
     -Wall \
     -Wno-address-of-packed-member \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -mthumb \
     -MMD \
     -MP \
@@ -132,6 +136,8 @@ SET(CMAKE_C_FLAGS_DDR_DEBUG " \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
+    ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_C_FLAGS_DDR_RELEASE " \
     ${CMAKE_C_FLAGS_DDR_RELEASE} \
@@ -145,8 +151,6 @@ SET(CMAKE_C_FLAGS_DDR_RELEASE " \
     -mcpu=cortex-m4 \
     -Wall \
     -Wno-address-of-packed-member \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -mthumb \
     -MMD \
     -MP \
@@ -157,6 +161,8 @@ SET(CMAKE_C_FLAGS_DDR_RELEASE " \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
+    ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     ${CMAKE_C_FLAGS_FLASH_DEBUG} \
@@ -172,8 +178,6 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -mcpu=cortex-m4 \
     -Wall \
     -Wno-address-of-packed-member \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -mthumb \
     -MMD \
     -MP \
@@ -184,6 +188,8 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
+    ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     ${CMAKE_C_FLAGS_FLASH_RELEASE} \
@@ -198,8 +204,6 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -mcpu=cortex-m4 \
     -Wall \
     -Wno-address-of-packed-member \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -mthumb \
     -MMD \
     -MP \
@@ -210,6 +214,8 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
+    ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_CXX_FLAGS_DEBUG " \
     ${CMAKE_CXX_FLAGS_DEBUG} \
@@ -222,8 +228,6 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     -mcpu=cortex-m4 \
     -Wall \
     -Wno-address-of-packed-member \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -mthumb \
     -MMD \
     -MP \
@@ -235,6 +239,8 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     -mapcs \
     -fno-rtti \
     -fno-exceptions \
+    ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_CXX_FLAGS_RELEASE " \
     ${CMAKE_CXX_FLAGS_RELEASE} \
@@ -246,8 +252,6 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -mcpu=cortex-m4 \
     -Wall \
     -Wno-address-of-packed-member \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -mthumb \
     -MMD \
     -MP \
@@ -259,6 +263,8 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -mapcs \
     -fno-rtti \
     -fno-exceptions \
+    ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_CXX_FLAGS_DDR_DEBUG " \
     ${CMAKE_CXX_FLAGS_DDR_DEBUG} \
@@ -270,8 +276,6 @@ SET(CMAKE_CXX_FLAGS_DDR_DEBUG " \
     -mcpu=cortex-m4 \
     -Wall \
     -Wno-address-of-packed-member \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -mthumb \
     -MMD \
     -MP \
@@ -283,6 +287,8 @@ SET(CMAKE_CXX_FLAGS_DDR_DEBUG " \
     -mapcs \
     -fno-rtti \
     -fno-exceptions \
+    ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_CXX_FLAGS_DDR_RELEASE " \
     ${CMAKE_CXX_FLAGS_DDR_RELEASE} \
@@ -293,8 +299,6 @@ SET(CMAKE_CXX_FLAGS_DDR_RELEASE " \
     -mcpu=cortex-m4 \
     -Wall \
     -Wno-address-of-packed-member \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -mthumb \
     -MMD \
     -MP \
@@ -306,6 +310,8 @@ SET(CMAKE_CXX_FLAGS_DDR_RELEASE " \
     -mapcs \
     -fno-rtti \
     -fno-exceptions \
+    ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
     ${CMAKE_CXX_FLAGS_FLASH_DEBUG} \
@@ -317,8 +323,6 @@ SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
     -mcpu=cortex-m4 \
     -Wall \
     -Wno-address-of-packed-member \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -mthumb \
     -MMD \
     -MP \
@@ -330,6 +334,8 @@ SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
     -mapcs \
     -fno-rtti \
     -fno-exceptions \
+    ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
     ${CMAKE_CXX_FLAGS_FLASH_RELEASE} \
@@ -340,8 +346,6 @@ SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
     -mcpu=cortex-m4 \
     -Wall \
     -Wno-address-of-packed-member \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -mthumb \
     -MMD \
     -MP \
@@ -353,17 +357,15 @@ SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
     -mapcs \
     -fno-rtti \
     -fno-exceptions \
+    ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_DEBUG} \
     -g \
     -mcpu=cortex-m4 \
     -Wall \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -Wl,--print-memory-usage \
-    --specs=nano.specs \
-    --specs=nosys.specs \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
@@ -381,17 +383,15 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     muldefs \
     -Xlinker \
     -Map=output.map \
+    ${FPU} \
+    ${SPECS} \
     -T${ProjDirPath}/MIMX8MM6xxxxx_cm4_ram.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
     -mcpu=cortex-m4 \
     -Wall \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -Wl,--print-memory-usage \
-    --specs=nano.specs \
-    --specs=nosys.specs \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
@@ -409,6 +409,8 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     muldefs \
     -Xlinker \
     -Map=output.map \
+    ${FPU} \
+    ${SPECS} \
     -T${ProjDirPath}/MIMX8MM6xxxxx_cm4_ram.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_DDR_DEBUG " \
@@ -416,11 +418,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DDR_DEBUG " \
     -g \
     -mcpu=cortex-m4 \
     -Wall \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -Wl,--print-memory-usage \
-    --specs=nano.specs \
-    --specs=nosys.specs \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
@@ -438,17 +436,15 @@ SET(CMAKE_EXE_LINKER_FLAGS_DDR_DEBUG " \
     muldefs \
     -Xlinker \
     -Map=output.map \
+    ${FPU} \
+    ${SPECS} \
     -T${ProjDirPath}/MIMX8MM6xxxxx_cm4_ddr_ram.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_DDR_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_DDR_RELEASE} \
     -mcpu=cortex-m4 \
     -Wall \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -Wl,--print-memory-usage \
-    --specs=nano.specs \
-    --specs=nosys.specs \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
@@ -466,6 +462,8 @@ SET(CMAKE_EXE_LINKER_FLAGS_DDR_RELEASE " \
     muldefs \
     -Xlinker \
     -Map=output.map \
+    ${FPU} \
+    ${SPECS} \
     -T${ProjDirPath}/MIMX8MM6xxxxx_cm4_ddr_ram.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
@@ -473,11 +471,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     -g \
     -mcpu=cortex-m4 \
     -Wall \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -Wl,--print-memory-usage \
-    --specs=nano.specs \
-    --specs=nosys.specs \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
@@ -495,17 +489,15 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     muldefs \
     -Xlinker \
     -Map=output.map \
+    ${FPU} \
+    ${SPECS} \
     -T${ProjDirPath}/MIMX8MM6xxxxx_cm4_flash.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE} \
     -mcpu=cortex-m4 \
     -Wall \
-    -mfloat-abi=hard \
-    -mfpu=fpv4-sp-d16 \
     -Wl,--print-memory-usage \
-    --specs=nano.specs \
-    --specs=nosys.specs \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
@@ -523,5 +515,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     muldefs \
     -Xlinker \
     -Map=output.map \
+    ${FPU} \
+    ${SPECS} \
     -T${ProjDirPath}/MIMX8MM6xxxxx_cm4_flash.ld -static \
 ")

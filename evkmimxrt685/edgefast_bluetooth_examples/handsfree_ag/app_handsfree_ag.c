@@ -243,6 +243,14 @@ int app_hfp_ag_start_twc_incoming_call(void)
     return -1;
 }
 
+void app_hfp_ag_open_audio()
+{
+    bt_hfp_ag_open_audio(g_HfpAg.hfp_agHandle, 0);
+}
+void app_hfp_ag_close_audio()
+{
+    bt_hfp_ag_close_audio(g_HfpAg.hfp_agHandle);
+}
 int app_hfp_ag_accept_incoming_call()
 {
     if (s_hfp_in_calling_status == 2)

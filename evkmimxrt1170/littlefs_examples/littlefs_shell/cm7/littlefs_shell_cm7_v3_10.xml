@@ -23,7 +23,6 @@
     <definition extID="platform.drivers.igpio.MIMXRT1176"/>
     <definition extID="platform.drivers.pmu_1.MIMXRT1176"/>
     <definition extID="platform.drivers.dcdc_soc.MIMXRT1176"/>
-    <definition extID="component.silicon_id.MIMXRT1176"/>
     <definition extID="platform.drivers.anatop_ai.MIMXRT1176"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1176"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1176"/>
@@ -34,7 +33,7 @@
     <definition extID="armgcc"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="evkmimxrt1170_littlefs_shell_cm7" name="littlefs_shell_cm7" device_core="cm7_MIMXRT1176xxxxx" dependency="component.mflash.rt1170.MIMXRT1176 component.mflash.common.MIMXRT1176 platform.drivers.flexspi.MIMXRT1176 platform.drivers.cache_armv7_m7.MIMXRT1176 middleware.littlefs.MIMXRT1176 utility.shell.MIMXRT1176 platform.drivers.clock.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 utility.debug_console.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 component.serial_manager.MIMXRT1176 component.lists.MIMXRT1176 component.serial_manager_uart.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.utilities.assert.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 component.silicon_id.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176" category="littlefs_examples">
+  <example id="evkmimxrt1170_littlefs_shell_cm7" name="littlefs_shell_cm7" device_core="cm7_MIMXRT1176xxxxx" dependency="component.mflash.rt1170.MIMXRT1176 component.mflash.common.MIMXRT1176 platform.drivers.flexspi.MIMXRT1176 platform.drivers.cache_armv7_m7.MIMXRT1176 middleware.littlefs.MIMXRT1176 utility.shell.MIMXRT1176 platform.drivers.clock.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 utility.debug_console.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 component.serial_manager.MIMXRT1176 component.lists.MIMXRT1176 component.serial_manager_uart.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.utilities.assert.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176" category="littlefs_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -111,7 +110,7 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimxrt1170/littlefs_examples/littlefs_shell/cm7" project_relative_path="evkmimxrt1170/littlefs_examples/littlefs_shell/cm7" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimxrt1170/littlefs_examples/littlefs_shell/cm7" type="c_include"/>
       <include_path path="../../../../../core/boards/evkmimxrt1170" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
@@ -132,10 +131,10 @@
       <files mask="CMakeLists.txt"/>
       <files mask="flags.cmake"/>
       <files mask="config.cmake"/>
-      <files mask="build_debug.bat"/>
-      <files mask="build_debug.sh"/>
       <files mask="build_release.bat"/>
       <files mask="build_release.sh"/>
+      <files mask="build_debug.bat"/>
+      <files mask="build_debug.sh"/>
       <files mask="build_sdram_debug.bat"/>
       <files mask="build_sdram_debug.sh"/>
       <files mask="build_sdram_release.bat"/>

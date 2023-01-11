@@ -98,6 +98,7 @@ Running the demo
 When the demo is running, the serial port will output, for example:
 
 Start the azure_iot_mqtt example...
+MAC address: 00:11:22:33:44:56
 DHCP In Progress...
 IP address: 10.193.20.67
 Mask: 255.255.255.0

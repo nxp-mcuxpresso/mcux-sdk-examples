@@ -121,7 +121,7 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimxrt685/dsp_examples/nn_demo/cm33" project_relative_path="board" type="c_include"/>
+      <include_path path="../../../dsp_examples/nn_demo/cm33" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="nn" type="c_include"/>
       <include_path path="../../../../../middleware/eiq/glow/bundle_utils" project_relative_path="glow_utils" type="c_include"/>
       <include_path path="glow_bundle" project_relative_path="glow_bundle" type="c_include"/>

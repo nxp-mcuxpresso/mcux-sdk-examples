@@ -73,7 +73,7 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../../examples/twrkm34z50mv3/cmsis_driver_examples/spi/dma_b2b_transfer/slave" project_relative_path="twrkm34z50mv3/cmsis_driver_examples/spi/dma_b2b_transfer/slave" type="c_include"/>
+      <include_path path="." project_relative_path="twrkm34z50mv3/cmsis_driver_examples/spi/dma_b2b_transfer/slave" type="c_include"/>
       <include_path path="../../../../../../core/boards/twrkm34z50mv3" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_evkmimxrt1010_examples_manifest_v3_10" name="SDK_2.x_evkmimxrt1010_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2022-08-04 15:20:19.340216-->
-  <!--This manifest is generated based on sdk repo commit: 7fb442914f92023b395b260777eb2355254fd71d-->
+  <!--Timestamp (UTC): 2023-01-10 16:33:56.083581-->
+  <!--This manifest is generated based on sdk repo commit: 11a5f6af5190bfe018a89b4d02c239713dc4cfa6-->
   <externalDefinitions>
     <definition extID="MIMXRT1011DAE5A"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="compiler_gcc"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2120_evkmimxrt1010_examples_manifest_v3_10" name="MCUXpressoSDK2120_evkmimxrt1010_examples_manifest_v3_10" version="2.12.0"/>
+  <ksdk id="MCUXpressoSDK2130_evkmimxrt1010_examples_manifest_v3_10" name="MCUXpressoSDK2130_evkmimxrt1010_examples_manifest_v3_10" version="2.13.0"/>
   <boards>
     <board id="evkmimxrt1010" name="EVK-MIMXRT1010" href="https://www.nxp.com/pip/MIMXRT1010-EVK" version="1.0.0" package="MIMXRT1011DAE5A">
       <examples>
@@ -530,6 +530,11 @@
         <example id="evkmimxrt1010_hello_world" name="hello_world" brief="The HelloWorld demo prints the &quot;Hello World&quot; string to the terminal using the SDK UART drivers and repeat what user input. The purpose of this demo is to show how to use the UART, and to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="demo_apps/hello_world">
           <external path="demo_apps/hello_world" type="xml">
             <files mask="hello_world_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1010_hello_world_swo" name="hello_world_swo" brief="The Hello World SWO demo prints the &quot;SWO: Hello World&quot; string to the SWO viewer. The purpose of this demo is to show how to use the swo, and to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="demo_apps/hello_world_swo">
+          <external path="demo_apps/hello_world_swo" type="xml">
+            <files mask="hello_world_swo_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1010_hello_world_virtual_com" name="hello_world_virtual_com" brief="Hello World Virtual Com demonstrates the use of virtual com to print the &quot;Hello World&quot; string to the terminal. Different with Hello World demo (a HW UART peripheral is used to transmit data), the demo transmits data based on a serial port simulated by the USB device stack on target board side via USB peripheral. The purpose of this demo is to demonstrate how to use virtual com and provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="demo_apps/hello_world_virtual_com">

@@ -31,17 +31,11 @@
 #endif /* FSL_FEATURE_SOC_SYSMPU_COUNT */
 
 #include "usb_phy.h"
-#include "fsl_enet_mdio.h"
 #include "fsl_phyksz8081.h"
 #include "fsl_phy.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define EXAMPLE_PHY_ADDRESS BOARD_ENET0_PHY_ADDRESS
-/* MDIO operations. */
-#define EXAMPLE_MDIO_OPS enet_ops
-/* PHY operations. */
-#define EXAMPLE_PHY_OPS phyksz8081_ops
 /* Base unit for ENIT layer is 1Mbps while for RNDIS its 100bps*/
 #define ENET_CONVERT_FACTOR (10000)
 
@@ -64,10 +58,7 @@ usb_status_t VNIC_EnetTxDone(void);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-/*! @brief Enet PHY and MDIO interface handler. */
-mdio_handle_t mdioHandle = {.resource.base = ENET, .ops = &EXAMPLE_MDIO_OPS};
-phy_handle_t phyHandle   = {.phyAddr = EXAMPLE_PHY_ADDRESS, .mdioHandle = &mdioHandle, .ops = &EXAMPLE_PHY_OPS};
-
+phy_ksz8081_resource_t g_phy_resource;
 extern usb_cdc_vnic_t g_cdcVnic;
 extern queue_t g_enetRxServiceQueue;
 extern queue_t g_enetTxServiceQueue;
@@ -117,6 +108,16 @@ uint32_t BOARD_GetPhySysClock(void)
     return CLOCK_GetRootClockFreq(kCLOCK_Root_Bus);
 }
 
+const phy_operations_t *BOARD_GetPhyOps(void)
+{
+    return &phyksz8081_ops;
+}
+
+void *BOARD_GetPhyResource(void)
+{
+    return (void *)&g_phy_resource;
+}
+
 void BOARD_InitModuleClock(void)
 {
     /* Select syspll2pfd3, 528*18/19 = 500M */
@@ -128,6 +129,22 @@ void BOARD_InitModuleClock(void)
 void IOMUXC_SelectENETClock(void)
 {
     IOMUXC_GPR->GPR4 |= IOMUXC_GPR_GPR4_ENET_REF_CLK_DIR_MASK; /* 50M ENET_REF_CLOCK output to PHY and ENET module. */
+}
+
+static void MDIO_Init(void)
+{
+    (void)CLOCK_EnableClock(s_enetClock[ENET_GetInstance(ENET)]);
+    ENET_SetSMI(ENET, CLOCK_GetRootClockFreq(kCLOCK_Root_Bus), false);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_MDIOWrite(ENET, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_MDIORead(ENET, phyAddr, regAddr, pData);
 }
 
 
@@ -1028,14 +1045,15 @@ void main(void)
 
     IOMUXC_SelectENETClock();
 
-    GPIO_PinInit(GPIO9, 11, &gpio_config);
     GPIO_PinInit(GPIO12, 12, &gpio_config);
-    /* Pull up the ENET_INT before RESET. */
-    GPIO_WritePinOutput(GPIO9, 11, 1);
     GPIO_WritePinOutput(GPIO12, 12, 0);
     SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
     GPIO_WritePinOutput(GPIO12, 12, 1);
     SDK_DelayAtLeastUs(6, CLOCK_GetFreq(kCLOCK_CpuClk));
+
+    MDIO_Init();
+    g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
 
     APPInit();
 

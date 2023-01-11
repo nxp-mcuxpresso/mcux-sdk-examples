@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(littlefs_shell)
 
+set(MCUX_BUILD_TYPES release sdram_release debug sdram_debug)
+
 set(MCUX_SDK_PROJECT_NAME littlefs_shell.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -52,19 +58,31 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/evkbimxrt1050/dcd.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
-    ${SdkRootDirPath}/examples/evkbimxrt1050/littlefs_examples/littlefs_shell
     ${SdkRootDirPath}/core/boards/evkbimxrt1050
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/components/flash/mflash/mimxrt1052
+    ${SdkRootDirPath}/core/drivers/flexspi
+    ${SdkRootDirPath}/middleware/littlefs
+    ${SdkRootDirPath}/core/devices/MIMXRT1052/utilities
+    ${SdkRootDirPath}/core/devices/MIMXRT1052/drivers
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/devices/MIMXRT1052
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/drivers/lpuart
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/drivers/igpio
+    ${SdkRootDirPath}/core/components/flash/mflash
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/drivers/cache/armv7-m7
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(component_mflash_rt1050)
@@ -101,8 +119,6 @@ include(utility_assert)
 
 include(driver_igpio)
 
-include(component_silicon_id)
-
 include(component_mflash_common)
 
 include(CMSIS_Include_core_cm)
@@ -114,15 +130,13 @@ include(utilities_misc_utilities_MIMXRT1052)
 include(device_system)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

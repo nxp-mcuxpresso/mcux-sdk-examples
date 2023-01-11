@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(pin_detect_hid_mouse_bm)
 
+set(MCUX_BUILD_TYPES debug release sdram_debug sdram_release flexspi_nor_debug flexspi_nor_release)
+
 set(MCUX_SDK_PROJECT_NAME pin_detect_hid_mouse_bm.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -63,17 +69,29 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../usb_device_hid.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
+    ${SdkRootDirPath}/core/drivers/cache/armv7-m7
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/utilities/assert
     ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/middleware/usb
+    ${SdkRootDirPath}/core/devices/MIMXRT1052/drivers
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/devices/MIMXRT1052
+    ${SdkRootDirPath}/core/drivers/lpuart
+    ${SdkRootDirPath}/core/drivers/igpio
+    ${SdkRootDirPath}/core/devices/MIMXRT1052/xip
+    ${SdkRootDirPath}/core/boards/evkbimxrt1050/xip
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/components/osa
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(driver_cache_armv7_m7)
@@ -112,11 +130,11 @@ include(middleware_usb_host_stack_MIMXRT1052)
 
 include(component_osa)
 
-include(middleware_usb_host_ehci)
+include(middleware_usb_host_ehci_MIMXRT1052)
 
 include(middleware_usb_device_controller_driver_MIMXRT1052)
 
-include(middleware_usb_device_ehci)
+include(middleware_usb_device_ehci_MIMXRT1052)
 
 include(CMSIS_Include_core_cm)
 
@@ -133,15 +151,13 @@ include(middleware_usb_host_common_header)
 include(middleware_usb_device_common_header)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

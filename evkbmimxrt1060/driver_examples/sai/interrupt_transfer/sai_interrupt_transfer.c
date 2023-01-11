@@ -29,7 +29,7 @@
 
 /* SAI instance and clock */
 #ifndef DEMO_CODEC_WM8960
-#define DEMO_CODEC_WM8960  1
+#define DEMO_CODEC_WM8960 1
 #endif
 #ifndef DEMO_CODEC_CS42448
 #define DEMO_CODEC_CS42448 0
@@ -65,9 +65,9 @@
 /* Select Audio/Video PLL (767.69 MHz) as sai1 clock source */
 #define DEMO_SAI1_CLOCK_SOURCE_SELECT (2U)
 /* Clock pre divider for sai1 clock source */
-#define DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER (0U)
+#define DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER (3U)
 /* Clock divider for sai1 clock source */
-#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (33U)
+#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (16U)
 /* Get frequency of sai1 clock */
 #define DEMO_SAI_CLK_FREQ                                                        \
     (CLOCK_GetFreq(kCLOCK_AudioPllClk) / (DEMO_SAI1_CLOCK_SOURCE_DIVIDER + 1U) / \
@@ -107,7 +107,7 @@ wm8960_config_t wm8960Config = {
     .playSource       = kWM8960_PlaySourceDAC,
     .slaveAddress     = WM8960_I2C_ADDR,
     .bus              = kWM8960_BusI2S,
-    .format           = {.mclk_HZ    = 22579200U,
+    .format           = {.mclk_HZ    = 11289600U,
                .sampleRate = kWM8960_AudioSampleRate44100Hz,
                .bitWidth   = kWM8960_AudioBitWidth16bit},
     .master_slave     = false,

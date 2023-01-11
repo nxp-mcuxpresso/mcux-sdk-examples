@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(deepviewrt_modelrunner-tflite)
 
+set(MCUX_BUILD_TYPES flexspi_nor_sdram_release flexspi_nor_sdram_debug)
+
 set(MCUX_SDK_PROJECT_NAME deepviewrt_modelrunner-tflite.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -63,19 +69,40 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../board.c"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/../source
     ${ProjDirPath}/..
     ${SdkRootDirPath}/rtos/freertos/libraries/abstractions/posix/include
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/middleware/lwip
+    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
+    ${SdkRootDirPath}/core/components/phy
+    ${SdkRootDirPath}/core/drivers/enet
+    ${SdkRootDirPath}/core/drivers/cache/armv7-m7
+    ${SdkRootDirPath}/core/components/phy/device/phyksz8081
+    ${SdkRootDirPath}/core/drivers/gpt
+    ${SdkRootDirPath}/core/components/silicon_id
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/components/silicon_id/socs/rt10xx
+    ${SdkRootDirPath}/middleware/eiq
+    ${SdkRootDirPath}/middleware/eiq/tensorflow-lite
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/drivers/lpuart
+    ${SdkRootDirPath}/core/devices/MIMXRT1064
+    ${SdkRootDirPath}/core/devices/MIMXRT1064/drivers
+    ${SdkRootDirPath}/core/drivers/igpio
+    ${SdkRootDirPath}/core/devices/MIMXRT1064/xip
+    ${SdkRootDirPath}/core/boards/evkmimxrt1064/xip
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/middleware/eiq/tensorflow-lite/third_party/cmsis
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(middleware_lwip_apps_httpsrv)
@@ -86,7 +113,7 @@ include(middleware_freertos-kernel_MIMXRT1064)
 
 include(middleware_lwip_enet_ethernetif_MIMXRT1064)
 
-include(driver_phy-common)
+include(driver_phy-common_MIMXRT1064)
 
 include(driver_enet)
 
@@ -98,9 +125,13 @@ include(driver_cache_armv7_m7)
 
 include(driver_phy-device-ksz8081)
 
-include(driver_mdio-enet)
-
 include(driver_gpt)
+
+include(component_silicon_id_MIMXRT1064)
+
+include(driver_common)
+
+include(component_silicon_id_rt10xx)
 
 include(middleware_eiq_deepviewrt_deps_json)
 
@@ -109,10 +140,6 @@ include(middleware_eiq_deepviewrt_deps_stb)
 include(middleware_eiq_deepviewrt_deps_flatcc)
 
 include(middleware_eiq_tensorflow_lite_micro_cmsis_nn)
-
-include(component_silicon_id)
-
-include(driver_common)
 
 include(middleware_eiq_deepviewrt)
 
@@ -125,8 +152,6 @@ include(component_serial_manager)
 include(component_serial_manager_uart)
 
 include(driver_lpuart)
-
-include(utility_debug_console)
 
 include(device_CMSIS)
 
@@ -144,9 +169,9 @@ include(driver_xip_board_evkmimxrt1064)
 
 include(utility_assert)
 
-include(middleware_freertos-kernel_extension)
+include(utility_debug_console)
 
-include(driver_mdio-common)
+include(middleware_freertos-kernel_extension)
 
 include(CMSIS_Include_core_cm)
 
@@ -160,20 +185,18 @@ include(middleware_eiq_tensorflow_lite_micro_third_party_ruy)
 
 include(middleware_eiq_tensorflow_lite_micro_third_party_cmsis_nn)
 
-include(device_system)
-
 include(utilities_misc_utilities_MIMXRT1064)
 
+include(device_system)
+
+
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_release)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/eiq/deepviewrt/lib/libdeepview-rt-cortex-m7f.a)

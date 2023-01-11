@@ -40,6 +40,9 @@ extern uint8_t USB_EnterLowpowerMode(void);
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+#ifndef APP_TASK_STACK_SIZE
+#define APP_TASK_STACK_SIZE 5000L
+#endif
 
 /*******************************************************************************
  * Prototypes
@@ -757,12 +760,12 @@ void main(void)
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
-    if (xTaskCreate(APPTask,                         /* pointer to the task                      */
-                    s_appName,                       /* task name for kernel awareness debugging */
-                    5000L / sizeof(portSTACK_TYPE),  /* task stack size                          */
-                    &s_cdcVcom,                      /* optional task startup argument           */
-                    4,                               /* initial priority                         */
-                    &s_cdcVcom.applicationTaskHandle /* optional task handle to create           */
+    if (xTaskCreate(APPTask,                                       /* pointer to the task                      */
+                    s_appName,                                     /* task name for kernel awareness debugging */
+                    APP_TASK_STACK_SIZE / sizeof(portSTACK_TYPE),  /* task stack size                          */
+                    &s_cdcVcom,                                    /* optional task startup argument           */
+                    4,                                             /* initial priority                         */
+                    &s_cdcVcom.applicationTaskHandle               /* optional task handle to create           */
                     ) != pdPASS)
     {
         usb_echo("app task create failed!\r\n");

@@ -221,6 +221,8 @@
     </source>
     <source path="." project_relative_path="source" type="c_include">
       <files mask="ux_device_descriptor.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
       <files mask="audio_speaker.h"/>
     </source>
     <source path="." project_relative_path="azure-rtos/config" type="c_include">

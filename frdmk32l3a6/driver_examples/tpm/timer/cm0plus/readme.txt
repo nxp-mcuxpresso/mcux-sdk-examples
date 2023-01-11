@@ -2,7 +2,7 @@ Overview
 ========
 The TPM project is a simple demonstration program of the SDK TPM driver to use TPM as a timer.
 It sets up the TPM hardware block to trigger an interrupt every 1 millisecond.
-When the TPM interrupt is triggered a message a printed on the UART terminal.
+When the TPM interrupt is triggered 1000 times, a message is printed on the UART terminal.
 
 Toolchain supported
 ===================
@@ -36,6 +36,8 @@ When the example runs successfully, the following message is displayed in the te
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 TPM example to simulate a timer
+
+Press any key to start timer!
 
 You will see a "-" or "|" in terminal every 1 second:
 -|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-

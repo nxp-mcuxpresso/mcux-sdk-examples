@@ -16,7 +16,6 @@
     <definition extID="platform.drivers.igpio.MIMXRT1062"/>
     <definition extID="platform.drivers.xip_device.MIMXRT1062"/>
     <definition extID="platform.drivers.xip_board.evkbmimxrt1060.MIMXRT1062"/>
-    <definition extID="component.silicon_id.MIMXRT1062"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1062"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1062"/>
     <definition extID="device.MIMXRT1062_system.MIMXRT1062"/>
@@ -26,7 +25,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="evkbmimxrt1060_flexspi_hyper_flash_polling_transfer" name="flexspi_hyper_flash_polling_transfer" dependency="utility.debug_console_lite.MIMXRT1062 platform.utilities.assert_lite.MIMXRT1062 platform.drivers.flexspi.MIMXRT1062 platform.drivers.cache_armv7_m7.MIMXRT1062 platform.drivers.clock.MIMXRT1062 platform.drivers.common.MIMXRT1062 device.MIMXRT1062_CMSIS.MIMXRT1062 component.lpuart_adapter.MIMXRT1062 component.lists.MIMXRT1062 platform.drivers.lpuart.MIMXRT1062 device.MIMXRT1062_startup.MIMXRT1062 platform.drivers.iomuxc.MIMXRT1062 platform.drivers.igpio.MIMXRT1062 platform.drivers.xip_device.MIMXRT1062 platform.drivers.xip_board.evkbmimxrt1060.MIMXRT1062 component.silicon_id.MIMXRT1062 CMSIS_Include_core_cm.MIMXRT1062 platform.utilities.misc_utilities.MIMXRT1062 device.MIMXRT1062_system.MIMXRT1062" category="driver_examples/flexspi">
+  <example id="evkbmimxrt1060_flexspi_hyper_flash_polling_transfer" name="flexspi_hyper_flash_polling_transfer" dependency="utility.debug_console_lite.MIMXRT1062 platform.utilities.assert_lite.MIMXRT1062 platform.drivers.flexspi.MIMXRT1062 platform.drivers.cache_armv7_m7.MIMXRT1062 platform.drivers.clock.MIMXRT1062 platform.drivers.common.MIMXRT1062 device.MIMXRT1062_CMSIS.MIMXRT1062 component.lpuart_adapter.MIMXRT1062 component.lists.MIMXRT1062 platform.drivers.lpuart.MIMXRT1062 device.MIMXRT1062_startup.MIMXRT1062 platform.drivers.iomuxc.MIMXRT1062 platform.drivers.igpio.MIMXRT1062 platform.drivers.xip_device.MIMXRT1062 platform.drivers.xip_board.evkbmimxrt1060.MIMXRT1062 CMSIS_Include_core_cm.MIMXRT1062 platform.utilities.misc_utilities.MIMXRT1062 device.MIMXRT1062_system.MIMXRT1062" category="driver_examples/flexspi">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>

@@ -30,26 +30,32 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(erpc_two_way_rpc_rpmsg_rtos_cm33_core0)
 
+set(MCUX_BUILD_TYPES debug release)
+
 set(MCUX_SDK_PROJECT_NAME erpc_two_way_rpc_rpmsg_rtos_cm33_core0.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${ProjDirPath}/../../../erpc_common/erpc_error_handler.h"
-"${ProjDirPath}/../../../erpc_common/erpc_error_handler.cpp"
-"${ProjDirPath}/../../../erpc_common/erpc_two_way_rpc/service/erpc_two_way_rpc.erpc"
-"${ProjDirPath}/../../../erpc_common/erpc_two_way_rpc/service/erpc_two_way_rpc_Core0Interface.h"
-"${ProjDirPath}/../../../erpc_common/erpc_two_way_rpc/service/erpc_two_way_rpc_Core0Interface_client.cpp"
-"${ProjDirPath}/../../../erpc_common/erpc_two_way_rpc/service/erpc_two_way_rpc_Core1Interface.h"
-"${ProjDirPath}/../../../erpc_common/erpc_two_way_rpc/service/erpc_two_way_rpc_Core1Interface_server.h"
-"${ProjDirPath}/../../../erpc_common/erpc_two_way_rpc/service/erpc_two_way_rpc_Core1Interface_server.cpp"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_error_handler.h"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_error_handler.cpp"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_two_way_rpc/service/erpc_two_way_rpc.erpc"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_two_way_rpc/service/erpc_two_way_rpc_Core0Interface.h"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_two_way_rpc/service/erpc_two_way_rpc_Core0Interface_client.cpp"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_two_way_rpc/service/erpc_two_way_rpc_Core1Interface.h"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_two_way_rpc/service/erpc_two_way_rpc_Core1Interface_server.h"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_two_way_rpc/service/erpc_two_way_rpc_Core1Interface_server.cpp"
 "${ProjDirPath}/../main_core0.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
-"${ProjDirPath}/../../rpmsg_config.h"
-"${ProjDirPath}/../../erpc_config.h"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/rpmsg_config.h"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/erpc_config.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
 "${SdkRootDirPath}/core/boards/lpcxpresso55s69/board.c"
 "${SdkRootDirPath}/core/boards/lpcxpresso55s69/board.h"
@@ -57,30 +63,40 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/lpcxpresso55s69/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../erpc_common
-    ${ProjDirPath}/../../../erpc_common/erpc_two_way_rpc/service
+    ${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common
+    ${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_two_way_rpc/service
     ${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_two_way_rpc_rpmsg_rtos
-    ${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm33_core0
     ${SdkRootDirPath}/core/boards/lpcxpresso55s69
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL debug)
-    target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../cm33_core1/armgcc/debug)
+    target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC ${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm33_core1/armgcc/debug)
 endif(CMAKE_BUILD_TYPE STREQUAL debug)
 
 if(CMAKE_BUILD_TYPE STREQUAL release)
-    target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../cm33_core1/armgcc/release)
+    target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC ${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm33_core1/armgcc/release)
 endif(CMAKE_BUILD_TYPE STREQUAL release)
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/middleware/multicore
+    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
+    ${SdkRootDirPath}/core/drivers/mailbox
+    ${SdkRootDirPath}/core/drivers/lpc_iocon
+    ${SdkRootDirPath}/core/drivers/lpc_gpio
+    ${SdkRootDirPath}/core/utilities/misc_utilities
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/devices/LPC55S69/drivers
+    ${SdkRootDirPath}/core/devices/LPC55S69
+    ${SdkRootDirPath}/core/drivers/flexcomm
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(middleware_multicore_mcmgr_lpc55s69)
@@ -156,15 +172,13 @@ include(utilities_misc_utilities_LPC55S69_cm33_core0)
 include(device_system_LPC55S69_cm33_core0)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

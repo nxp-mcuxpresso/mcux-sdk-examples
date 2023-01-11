@@ -122,9 +122,9 @@
     </debug_configurations>
     <include_paths>
       <include_path path="../freertos_mpu_s" project_relative_path="nsc_functions" type="c_include"/>
-      <include_path path="../../../../../rtos/freertos/freertos_kernel/portable/GCC/ARM_CM33/secure" project_relative_path="freertos/secure_context" toolchain="armgcc mcuxpresso mdk" type="c_include"/>
+      <include_path path="../../../../../rtos/freertos/freertos-kernel/portable/GCC/ARM_CM33/secure" project_relative_path="freertos/secure_context" toolchain="armgcc mcuxpresso mdk" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../examples/mimxrt685audevk/rtos_examples/freertos_mpu/freertos_mpu_ns" project_relative_path="mimxrt685audevk/rtos_examples/freertos_mpu/freertos_mpu_ns" type="c_include"/>
+      <include_path path="." project_relative_path="mimxrt685audevk/rtos_examples/freertos_mpu/freertos_mpu_ns" type="c_include"/>
       <include_path path="../../../../../core/boards/mimxrt685audevk" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
     </include_paths>
@@ -163,7 +163,7 @@
     <source path="../freertos_mpu_s" project_relative_path="nsc_functions" type="c_include">
       <files mask="nsc_functions.h"/>
     </source>
-    <source path="../../../../../rtos/freertos/freertos_kernel/portable/GCC/ARM_CM33/secure" project_relative_path="freertos/secure_context" type="c_include" toolchain="armgcc mcuxpresso mdk">
+    <source path="../../../../../rtos/freertos/freertos-kernel/portable/GCC/ARM_CM33/secure" project_relative_path="freertos/secure_context" type="c_include" toolchain="armgcc mcuxpresso mdk">
       <files mask="secure_context.h"/>
       <files mask="secure_init.h"/>
     </source>

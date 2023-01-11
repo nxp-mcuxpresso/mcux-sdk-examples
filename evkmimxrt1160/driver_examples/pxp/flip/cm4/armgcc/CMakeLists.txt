@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(pxp_flip_cm4)
 
+set(MCUX_BUILD_TYPES flexspi_nor_sdram_debug flexspi_nor_sdram_release sdram_debug sdram_release)
+
 set(MCUX_SDK_PROJECT_NAME pxp_flip_cm4.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -51,19 +57,40 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../evkmimxrt1160_connect_cm4_cm4side_sdram.jlinkscript"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
-    ${SdkRootDirPath}/examples/evkmimxrt1160/driver_examples/pxp/flip/cm4
     ${SdkRootDirPath}/core/boards/evkmimxrt1160
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/components/video
+    ${SdkRootDirPath}/core/components/video/display
+    ${SdkRootDirPath}/core/components/video/display/rm68191
+    ${SdkRootDirPath}/core/drivers/mipi_dsi_split
+    ${SdkRootDirPath}/core/components/video/display/mipi_dsi_cmd
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/components/video/display/rm68200
+    ${SdkRootDirPath}/core/components/video/display/dc/lcdifv2
+    ${SdkRootDirPath}/core/devices/MIMXRT1166/drivers
+    ${SdkRootDirPath}/core/drivers/elcdif
+    ${SdkRootDirPath}/core/components/video/display/dc/elcdif
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/components/video/display/hx8394
+    ${SdkRootDirPath}/core/drivers/igpio
+    ${SdkRootDirPath}/core/drivers/pxp
+    ${SdkRootDirPath}/core/components/video/display/dc
+    ${SdkRootDirPath}/core/devices/MIMXRT1166
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/drivers/lpuart
+    ${SdkRootDirPath}/core/devices/MIMXRT1166/xip
+    ${SdkRootDirPath}/core/boards/evkmimxrt1160/xip
+    ${SdkRootDirPath}/core/devices/MIMXRT1166/drivers/cm4
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/drivers/lcdifv2
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(driver_video-common)
@@ -124,8 +151,6 @@ include(driver_dcdc_soc)
 
 include(driver_cache_lmem)
 
-include(component_silicon_id)
-
 include(driver_anatop_ai)
 
 include(CMSIS_Include_core_cm)
@@ -141,15 +166,13 @@ include(utilities_misc_utilities_MIMXRT1166_cm4)
 include(device_system_MIMXRT1166_cm4)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

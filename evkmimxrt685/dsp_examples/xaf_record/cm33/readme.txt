@@ -55,7 +55,6 @@ Hardware requirements
 
 Board settings
 ==============
-
 To enable the example audio using WM8904 codec, connect pins as follows:
   JP7-1        <-->        JP8-2
 
@@ -93,8 +92,7 @@ When the demo runs successfully, the terminal will display the following:
     [APP_DSP_IPC_Task] start
     [APP_Shell_Task] start
 
-    SHELL build: Dec 18 2019
-    Copyright  2021  NXP
+    Copyright  2022  NXP
     >>
 
 Demo commands:
@@ -127,9 +125,35 @@ When the demo runs successfully, the terminal will display the following:
 
     Cadence Xtensa Audio Framework
       Library Name    : Audio Framework (Hostless)
-      Library Version : 2.0
-      API Version     : 1.3
+      Library Version : 3.2
+      API Version     : 3.0
 
     [DSP_Main] start
     [DSP_Main] established RPMsg link
+    Number of channels 2, sampling rate 16000, PCM width 16
 
+    Audio Device Ready
+    VoiceSeekerLight lib initialized!
+      version = 0.6.0
+      num mics = 2
+      max num mics = 4
+      mic0 = (35, 0, 0)
+      mic1 = (-35, 0, 0)
+      mic2 = (0, -35, 0)
+      num_spks = 0
+      max num spks = 2
+      samplerate = 16000
+      framesize_in = 32
+      framesize_out = 480
+      create_aec = 0
+      create_doa = 0
+      buffer_length_sec = 1.5
+      aec_filter_length_ms = 0
+      VoiceSeekerLib allocated 80592 persistent bytes
+      VoiceSeekerLib allocated 3840 scratch bytes
+      Total                 = 72400 bytes
+
+    connected CAPTURER -> GAIN_0
+    connected XA_GAIN_0 -> XA_VOICE_SEEKER_0
+    connected XA_VOICE_SEEKER_0 -> XA_VIT_PRE_PROC_0
+    connected XA_VIT_PRE_PROC_0 -> XA_RENDERER_0

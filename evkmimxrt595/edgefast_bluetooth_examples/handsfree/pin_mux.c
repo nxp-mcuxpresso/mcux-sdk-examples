@@ -855,6 +855,27 @@ void BOARD_InitPinsM2(void)
     /* PORT2 PIN10 (coords: N5) is configured as PIO2_10 */
     IOPCTL_PinMuxSet(IOPCTL, BOARD_INITPINSM2_SD0_RESET_N_PORT, BOARD_INITPINSM2_SD0_RESET_N_PIN, SD0_RESET_N);
 
+	const uint32_t port2_pin14_config = (/* Pin is configured as 32KHZ_CLKOUT */
+                                         IOPCTL_PIO_FUNC7 |
+                                         /* Disable pull-up / pull-down function */
+                                         IOPCTL_PIO_PUPD_DI |
+                                         /* Enable pull-down function */
+                                         IOPCTL_PIO_PULLDOWN_EN |
+                                         /* Disable input buffer function */
+                                         IOPCTL_PIO_INBUF_DI |
+                                         /* Normal mode */
+                                         IOPCTL_PIO_SLEW_RATE_NORMAL |
+                                         /* Normal drive */
+                                         IOPCTL_PIO_FULLDRIVE_DI |
+                                         /* Analog mux is disabled */
+                                         IOPCTL_PIO_ANAMUX_DI |
+                                         /* Pseudo Output Drain is disabled */
+                                         IOPCTL_PIO_PSEDRAIN_DI |
+                                         /* Input function is not inverted */
+                                         IOPCTL_PIO_INV_DI);
+    /* PORT2 PIN14 (coords: E15) is configured as 32KHZ_CLKOUT */
+    IOPCTL_PinMuxSet(IOPCTL, 2U, 14U, port2_pin14_config);
+
     const uint32_t port3_pin10_config = (/* Pin is configured as SD1_D0 */
                                          IOPCTL_PIO_FUNC1 |
                                          /* Enable pull-up / pull-down function */

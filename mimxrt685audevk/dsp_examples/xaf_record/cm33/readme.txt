@@ -69,10 +69,10 @@ NOTE: To be able to build the DSP project, please see the document
 'Getting Started with Xplorer for MIMXRT685-AUD-EVK.pdf'.
 
 1. Select how many microphones should be used
-    a. Set the BOARD_DMIC_NUM preprocessor macro to 1,2 or 3 (defualt) in the project for the CM33 core
-    b. Set the BOARD_DMIC_NUM preprocessor macro to 1,2 or 3 (defualt) in the project for the DSP core - the value must be the same as for the CM33 core
+    - Set the BOARD_DMIC_NUM preprocessor macro to 1,2, 3 (default) or 4 in the project for the CM33 core.
+    - When the 8CH-DMIC expansion board is used, the DMIC_BOARD_CONNECTED macro must be set to 1 (default) in the project for the DSP core.
     Important:
-        When you set the value to 2 or 3, you have to connect the 8CH-DMIC expansion board to the MIMXRT685-AUD-EVK board to the DMIC connector (J31).
+        When you set the value to 2, 3 or 4 you have to connect the 8CH-DMIC expansion board to the MIMXRT685-AUD-EVK board to the DMIC connector (J31) and set the DMIC_BOARD_CONNECTED macro to 1.
         For safety reasons, the expansion board must be connected when the power supply is disconnected. Don't forget set the hardware jumpers JP44 2-3 and JP45 2-3.
 
 2.  Connect headphones to Audio HP / Line-Out connector (J4).
@@ -104,15 +104,14 @@ When the demo runs successfully, the terminal will display the following:
     [APP_DSP_IPC_Task] start
     [APP_Shell_Task] start
 
-    SHELL build: Dec 18 2019
- * Copyright 2021 NXP
+    Copyright 2022 NXP
     >>
 
 Demo commands:
 
 "help": List all the registered commands
 
-"record_dmic": Record DMIC audio, perform voice recognition (VIT) and playback on CS42448 codec
+"record_dmic": Record DMIC audio, perform voice recognition (VIT) and playback on codec
   For voice recognition say supported WakeWord and in 3s frame spported command.
   List of supported commands:
   MUTE, NEXT, SKIP, PAIR_DEVICE, PAUSE, STOP, POWER_OFF, POWER_ON, PLAY_MUSIC
@@ -136,9 +135,35 @@ When the demo runs successfully, the terminal will display the following:
 
     Cadence Xtensa Audio Framework
       Library Name    : Audio Framework (Hostless)
-      Library Version : 2.6p1
-      API Version     : 2.0
+      Library Version : 3.2
+      API Version     : 3.0
 
     [DSP_Main] start
     [DSP_Main] established RPMsg link
+    Number of channels 3, sampling rate 16000, PCM width 16
 
+    Audio Device Ready
+    VoiceSeekerLight lib initialized!
+      version = 0.6.0
+      num mics = 3
+      max num mics = 4
+      mic0 = (35, 0, 0)
+      mic1 = (-35, 0, 0)
+      mic2 = (0, -35, 0)
+      num_spks = 0
+      max num spks = 2
+      samplerate = 16000
+      framesize_in = 32
+      framesize_out = 480
+      create_aec = 0
+      create_doa = 0
+      buffer_length_sec = 1.5
+      aec_filter_length_ms = 0
+      VoiceSeekerLib allocated 80592 persistent bytes
+      VoiceSeekerLib allocated 3840 scratch bytes
+      Total                 = 72400 bytes
+
+    connected CAPTURER -> GAIN_0
+    connected XA_GAIN_0 -> XA_VOICE_SEEKER_0
+    connected XA_VOICE_SEEKER_0 -> XA_VIT_PRE_PROC_0
+    connected XA_VIT_PRE_PROC_0 -> XA_RENDERER_0

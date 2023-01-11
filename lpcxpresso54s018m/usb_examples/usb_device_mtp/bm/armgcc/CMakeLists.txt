@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(dev_mtp_bm)
 
+set(MCUX_BUILD_TYPES debug release)
+
 set(MCUX_SDK_PROJECT_NAME dev_mtp_bm.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -67,19 +73,33 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../usb_device_mtp_operation.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
-    ${SdkRootDirPath}/core/boards/lpcxpresso54s018m
-    ${SdkRootDirPath}/examples/lpcxpresso54s018m/usb_examples/usb_device_mtp/bm
+    ${SdkRootDirPath}/examples/lpcxpresso54s018m
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
     ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/devices/LPC54S018M/drivers
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/devices/LPC54S018M
+    ${SdkRootDirPath}/core/drivers/flexcomm
+    ${SdkRootDirPath}/core/drivers/lpc_gpio
+    ${SdkRootDirPath}/core/drivers/lpc_iocon
+    ${SdkRootDirPath}/core/drivers/emc
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/middleware/usb
+    ${SdkRootDirPath}/core/drivers/sdif
+    ${SdkRootDirPath}/middleware/sdmmc
+    ${SdkRootDirPath}/middleware/fatfs
+    ${SdkRootDirPath}/core/components/osa
+    ${SdkRootDirPath}/core/utilities/misc_utilities
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(middleware_baremetal)
@@ -130,7 +150,7 @@ include(middleware_sdmmc_host_sdif)
 
 include(middleware_sdmmc_host_sdif_interrupt)
 
-include(middleware_fatfs)
+include(middleware_fatfs_LPC54S018M)
 
 include(middleware_fatfs_sd)
 
@@ -155,15 +175,13 @@ include(middleware_sdmmc_osa_bm)
 include(component_osa_bm)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 if(CMAKE_BUILD_TYPE STREQUAL debug)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/devices/LPC54S018M/gcc/libpower_hardabi.a)

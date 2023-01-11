@@ -38,8 +38,8 @@
     <definition extID="middleware.usb.common_header.MIMXRT1176"/>
     <definition extID="platform.drivers.anatop_ai.MIMXRT1176"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1176"/>
-    <definition extID="middleware.usb.host.common_header.MIMXRT1176"/>
     <definition extID="platform.drivers.memory.MIMXRT1176"/>
+    <definition extID="middleware.usb.host.common_header.MIMXRT1176"/>
     <definition extID="middleware.sdmmc.osa.freertos.MIMXRT1176"/>
     <definition extID="component.osa_free_rtos.MIMXRT1176"/>
     <definition extID="middleware.freertos-kernel.extension.MIMXRT1176"/>
@@ -53,7 +53,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1170_host_audio_recorder_freertos" name="host_audio_recorder_freertos" device_core="cm7_MIMXRT1176xxxxx" dependency="middleware.usb.host_controller_ehci.MIMXRT1176 middleware.usb.phy.MIMXRT1176 platform.drivers.usdhc.MIMXRT1176 middleware.sdmmc.sd.MIMXRT1176 middleware.sdmmc.common.MIMXRT1176 middleware.sdmmc.host.usdhc.MIMXRT1176 middleware.sdmmc.host.usdhc.freertos.MIMXRT1176 middleware.fatfs.MIMXRT1176 middleware.fatfs.sd.MIMXRT1176 component.igpio_adapter.MIMXRT1176 middleware.freertos-kernel.heap_4.MIMXRT1176 middleware.freertos-kernel.MIMXRT1176 middleware.usb.host_audio.MIMXRT1176 platform.drivers.clock.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 utility.debug_console.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 component.serial_manager.MIMXRT1176 component.lists.MIMXRT1176 component.serial_manager_uart.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.utilities.assert.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.xip_device.MIMXRT1176 platform.drivers.xip_board.evkmimxrt1170.MIMXRT1176 middleware.usb.host.stack.MIMXRT1176 component.osa.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.drivers.cache_armv7_m7.MIMXRT1176 middleware.usb.common_header.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 middleware.usb.host.common_header.MIMXRT1176 platform.drivers.memory.MIMXRT1176 middleware.sdmmc.osa.freertos.MIMXRT1176 component.osa_free_rtos.MIMXRT1176 middleware.freertos-kernel.extension.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176" category="usb_examples">
+  <example id="evkmimxrt1170_host_audio_recorder_freertos" name="host_audio_recorder_freertos" device_core="cm7_MIMXRT1176xxxxx" dependency="middleware.usb.host_controller_ehci.MIMXRT1176 middleware.usb.phy.MIMXRT1176 platform.drivers.usdhc.MIMXRT1176 middleware.sdmmc.sd.MIMXRT1176 middleware.sdmmc.common.MIMXRT1176 middleware.sdmmc.host.usdhc.MIMXRT1176 middleware.sdmmc.host.usdhc.freertos.MIMXRT1176 middleware.fatfs.MIMXRT1176 middleware.fatfs.sd.MIMXRT1176 component.igpio_adapter.MIMXRT1176 middleware.freertos-kernel.heap_4.MIMXRT1176 middleware.freertos-kernel.MIMXRT1176 middleware.usb.host_audio.MIMXRT1176 platform.drivers.clock.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 utility.debug_console.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 component.serial_manager.MIMXRT1176 component.lists.MIMXRT1176 component.serial_manager_uart.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.utilities.assert.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.xip_device.MIMXRT1176 platform.drivers.xip_board.evkmimxrt1170.MIMXRT1176 middleware.usb.host.stack.MIMXRT1176 component.osa.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.drivers.cache_armv7_m7.MIMXRT1176 middleware.usb.common_header.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.drivers.memory.MIMXRT1176 middleware.usb.host.common_header.MIMXRT1176 middleware.sdmmc.osa.freertos.MIMXRT1176 component.osa_free_rtos.MIMXRT1176 middleware.freertos-kernel.extension.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176" category="usb_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -137,15 +137,15 @@
       </debug_configuration>
     </debug_configurations>
     <include_paths>
-      <include_path path="../../../../../../core/boards/evkmimxrt1170" project_relative_path="board" type="c_include"/>
+      <include_path path="../../../.." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../../core/boards/evkmimxrt1170" project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../../examples/evkmimxrt1170/usb_examples/usb_host_audio_recorder/freertos/cm7" project_relative_path="." type="c_include"/>
-      <include_path path="../../../../../../examples/evkmimxrt1170/usb_examples/usb_host_audio_recorder/freertos" project_relative_path="." type="c_include"/>
+      <include_path path="../../../.." project_relative_path="source" type="c_include"/>
+      <include_path path="." project_relative_path="." type="c_include"/>
+      <include_path path=".." project_relative_path="." type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
       <include_path path=".." project_relative_path="source" type="asm_include"/>
-      <include_path path="../../../../../../core/boards/evkmimxrt1170" project_relative_path="source" type="asm_include"/>
+      <include_path path="../../../.." project_relative_path="source" type="asm_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="host_audio_recorder_freertos.ewd"/>

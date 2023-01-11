@@ -54,6 +54,7 @@ static void LPSPI_Init(void)
     masterConfig.pcsToSckDelayInNanoSec        = 1000000000 / masterConfig.baudRate;
     masterConfig.lastSckToPcsDelayInNanoSec    = 1000000000 / masterConfig.baudRate;
     masterConfig.betweenTransferDelayInNanoSec = 1000000000 / masterConfig.baudRate;
+    masterConfig.enableInputDelay              = false;
 
     LPSPI_MasterInit(BOARD_EEPROM_LPSPI_BASEADDR, &masterConfig, BOARD_LPSPI_CLK_FREQ);
 }

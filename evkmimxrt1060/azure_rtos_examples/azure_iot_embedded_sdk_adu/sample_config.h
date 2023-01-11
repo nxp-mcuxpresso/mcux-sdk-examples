@@ -22,6 +22,7 @@ extern   "C" {
    simply defining USE_DEVICE_CERTIFICATE and setting your device certificate
    to connect to IoT Hub with x509 certificate. Set up X.509 security in your Azure IoT Hub,
    refer to https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-security-x509-get-started  */
+
 /* #define USE_DEVICE_CERTIFICATE                      1  */
 
 /*
@@ -61,20 +62,18 @@ TODO`s: Configure core settings of application for your IoTHub.
    DEVICE_ID can be set to <device1>,
    DEVICE_SYMMETRIC_KEY can be set to <key1>.  */
 #ifndef HOST_NAME
-extern char host_name[];
-#define HOST_NAME                                   host_name
+#define HOST_NAME                                   ""
 #endif /* HOST_NAME */
 
 #ifndef DEVICE_ID
-extern char device_id[];
-#define DEVICE_ID                                   device_id
+#define DEVICE_ID                                   ""
 #endif /* DEVICE_ID */
 
 #else /* !ENABLE_DPS_SAMPLE */
 
 /* Required when DPS is used.  */
 #ifndef ENDPOINT
-#define ENDPOINT                                    ""
+#define ENDPOINT                                    "global.azure-devices-provisioning.net"
 #endif /* ENDPOINT */
 
 #ifndef ID_SCOPE
@@ -89,8 +88,7 @@ extern char device_id[];
 
 /* Optional SYMMETRIC KEY.  */
 #ifndef DEVICE_SYMMETRIC_KEY
-extern char device_symmetric_key[];
-#define DEVICE_SYMMETRIC_KEY                        device_symmetric_key
+#define DEVICE_SYMMETRIC_KEY                        ""
 #endif /* DEVICE_SYMMETRIC_KEY */
 
 /* Optional module ID.  */
@@ -116,7 +114,7 @@ END TODO section
 
 /* Define the Azure RTOS IOT thread stack and priority.  */
 #ifndef NX_AZURE_IOT_STACK_SIZE
-#define NX_AZURE_IOT_STACK_SIZE                     (2048)
+#define NX_AZURE_IOT_STACK_SIZE                     (4096)
 #endif /* NX_AZURE_IOT_STACK_SIZE */
 
 #ifndef NX_AZURE_IOT_THREAD_PRIORITY
@@ -139,17 +137,13 @@ END TODO section
 /* Define sample properties count. */
 #define MAX_PROPERTY_COUNT                          2
 
-
 /* Device properties.  */
 #define SAMPLE_DEVICE_MANUFACTURER                                      "NXP"
-#define SAMPLE_DEVICE_MODEL                                             "MIMXRT1060"
-
-/* Current update id.  */
-#define SAMPLE_UPDATE_ID_PROVIDER                                       "NXP"
-#define SAMPLE_UPDATE_ID_NAME                                           "MIMXRT1060"
-#define SAMPLE_UPDATE_ID_VERSION                                        "1.0.0"
+#define SAMPLE_DEVICE_MODEL                                             "MIMXRT1xxx"
+#define SAMPLE_DEVICE_FIRMWARE_VERSION                                  "1.0.0"
 
 #ifdef __cplusplus
 }
 #endif
 #endif /* SAMPLE_CONFIG_H */
+

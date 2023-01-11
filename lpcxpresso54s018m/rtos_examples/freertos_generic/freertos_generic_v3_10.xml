@@ -18,8 +18,6 @@
     <definition extID="platform.drivers.lpc_gpio.LPC54S018M"/>
     <definition extID="platform.drivers.emc.LPC54S018M"/>
     <definition extID="platform.utilities.assert.LPC54S018M"/>
-    <definition extID="component.silicon_id.LPC54S018M"/>
-    <definition extID="platform.drivers.iap.LPC54S018M"/>
     <definition extID="platform.drivers.reset.LPC54S018M"/>
     <definition extID="CMSIS_Include_core_cm.LPC54S018M"/>
     <definition extID="middleware.freertos-kernel.LPC54S018M"/>
@@ -32,7 +30,7 @@
     <definition extID="armgcc"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso54s018m_freertos_generic" name="freertos_generic" dependency="platform.drivers.clock.LPC54S018M middleware.freertos-kernel.heap_4.LPC54S018M platform.drivers.common.LPC54S018M platform.drivers.power.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M utility.debug_console.LPC54S018M component.usart_adapter.LPC54S018M component.serial_manager.LPC54S018M component.lists.LPC54S018M component.serial_manager_uart.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.lpc_iocon.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.emc.LPC54S018M platform.utilities.assert.LPC54S018M component.silicon_id.LPC54S018M platform.drivers.iap.LPC54S018M platform.drivers.reset.LPC54S018M CMSIS_Include_core_cm.LPC54S018M middleware.freertos-kernel.LPC54S018M middleware.freertos-kernel.extension.LPC54S018M platform.utilities.misc_utilities.LPC54S018M device.LPC54S018M_system.LPC54S018M" category="rtos_examples">
+  <example id="lpcxpresso54s018m_freertos_generic" name="freertos_generic" dependency="platform.drivers.clock.LPC54S018M middleware.freertos-kernel.heap_4.LPC54S018M platform.drivers.common.LPC54S018M platform.drivers.power.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M utility.debug_console.LPC54S018M component.usart_adapter.LPC54S018M component.serial_manager.LPC54S018M component.lists.LPC54S018M component.serial_manager_uart.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.lpc_iocon.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.emc.LPC54S018M platform.utilities.assert.LPC54S018M platform.drivers.reset.LPC54S018M CMSIS_Include_core_cm.LPC54S018M middleware.freertos-kernel.LPC54S018M middleware.freertos-kernel.extension.LPC54S018M platform.utilities.misc_utilities.LPC54S018M device.LPC54S018M_system.LPC54S018M" category="rtos_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -84,7 +82,7 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../examples/lpcxpresso54s018m/rtos_examples/freertos_generic" project_relative_path="lpcxpresso54s018m/rtos_examples/freertos_generic" type="c_include"/>
+      <include_path path="." project_relative_path="lpcxpresso54s018m/rtos_examples/freertos_generic" type="c_include"/>
       <include_path path="../../../../core/boards/lpcxpresso54s018m" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
     </include_paths>

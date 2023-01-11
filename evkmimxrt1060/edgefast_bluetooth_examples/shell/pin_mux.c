@@ -573,50 +573,7 @@ void BOARD_InitArduinoUARTPins(void) {
 }
 
 
-/*
- * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-BOARD_InitMurataModulePins:
-- options: {callFromInitBoot: 'true', coreID: core0, enableClock: 'true'}
-- pin_list:
-  - {pin_num: G10, peripheral: GPIO1, signal: 'gpio_io, 11', pin_signal: GPIO_AD_B0_11, direction: OUTPUT}
-  - {pin_num: H13, peripheral: GPIO1, signal: 'gpio_io, 24', pin_signal: GPIO_AD_B1_08, direction: OUTPUT}
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
- */
 
-/* FUNCTION ************************************************************************************************************
- *
- * Function Name : BOARD_InitMurataModulePins
- * Description   : Configures pin routing and optionally pin electrical features.
- *
- * END ****************************************************************************************************************/
-void BOARD_InitMurataModulePins(void) {
-  CLOCK_EnableClock(kCLOCK_Iomuxc);           
-
-  /* GPIO configuration of INT2_COMBO on GPIO_AD_B0_11 (pin G10) */
-  gpio_pin_config_t PDN_config = {
-      .direction = kGPIO_DigitalOutput,
-      .outputLogic = 0U,
-      .interruptMode = kGPIO_NoIntmode
-  };
-  /* Initialize GPIO functionality on GPIO_AD_B0_11 (pin G10) */
-  GPIO_PinInit(GPIO1, 11U, &PDN_config);
-
-  /* GPIO configuration of CSI_D9 on GPIO_AD_B1_08 (pin H13) */
-  gpio_pin_config_t BT_REG_ON_config = {
-      .direction = kGPIO_DigitalOutput,
-      .outputLogic = 0U,
-      .interruptMode = kGPIO_NoIntmode
-  };
-  /* Initialize GPIO functionality on GPIO_AD_B1_08 (pin H13) */
-  GPIO_PinInit(GPIO1, 24U, &BT_REG_ON_config);
-
-  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_11_GPIO1_IO11, 0U); 
-  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B1_08_GPIO1_IO24, 0U); 
-  IOMUXC_GPR->GPR26 = ((IOMUXC_GPR->GPR26 &
-    (~(BOARD_INITMURATAMODULEPINS_IOMUXC_GPR_GPR26_GPIO_MUX1_GPIO_SEL_MASK))) 
-      | IOMUXC_GPR_GPR26_GPIO_MUX1_GPIO_SEL(0x00U) 
-    );
-}
 
 /***********************************************************************************************************************
  * EOF

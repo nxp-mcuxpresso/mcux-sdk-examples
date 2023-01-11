@@ -64,7 +64,6 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="mimxrt685audevk" type="c_include"/>
-      <include_path path="../../../../../examples/mimxrt685audevk/dsp_examples/hello_world_usart/dsp" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="." project_relative_path="source" type="src">
       <files mask="main_dsp.c"/>

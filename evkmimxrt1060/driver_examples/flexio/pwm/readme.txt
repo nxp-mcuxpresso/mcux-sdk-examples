@@ -35,7 +35,32 @@ Prepare the Demo
 
 Running the demo
 ================
-When the example runs successfully, you can see the similar information from the terminal as below.
+When the example runs successfully, if the input duty cycle range is 0~100,
+You can see similar information from the terminal as follows:
 ~~~~~~~~~~~~
 FLEXIO_PWM demo start.
+
+Please input a value (0 - 100) to set duty cycle: 10
+Input value is 10
+
+PWM duty cycle is: 10
+PWM leave is: 0
+
+Please input a value (0 - 100) to set duty cycle: 150
+Input value is 150
+Your value is output of range.
+Set pwm output to IDLE.
+
+Please input pwm idle status (0 or 1): 1
+Input IDLE state value is 1
+
+PWM leave is: 1 
+
+Please input a value (0 - 100) to set duty cycle: 
+......
 ~~~~~~~~~~~~
+Note:
+1. The duty cycle of the PWM is variable, except for the idle state, 0 and 100.
+2. If the input duty cycle range exceeds 100, the pwm will be set to idle state
+3. If the set pwm idle value is out of range, it will output "Your value is output of range."
+   and then return to set the duty cycle.

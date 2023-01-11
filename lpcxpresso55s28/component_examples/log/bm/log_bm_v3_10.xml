@@ -76,7 +76,6 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../core/boards/lpcxpresso55s28" project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/lpcxpresso55s28/component_examples/log/bm" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="mdk" project_relative_path="./" type="workspace" toolchain="mdk">
       <files mask="log_bm.uvprojx"/>

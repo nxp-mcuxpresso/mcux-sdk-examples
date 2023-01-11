@@ -14,6 +14,7 @@
 
 usb_device_handle deviceHandle;
 
+#if defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U)
 __STATIC_INLINE void board_delay(void)
 {
     volatile int i;
@@ -23,6 +24,7 @@ __STATIC_INLINE void board_delay(void)
         __ASM volatile ("nop");
     }
 }
+#endif
 
 static void USB_DeviceClockInit(void)
 {

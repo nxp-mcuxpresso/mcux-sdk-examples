@@ -16,8 +16,8 @@
     <definition extID="platform.drivers.swm.LPC804"/>
     <definition extID="platform.drivers.syscon.LPC804"/>
     <definition extID="platform.drivers.rom_api.LPC804"/>
-    <definition extID="CMSIS_Include_core_cm.LPC804"/>
     <definition extID="platform.drivers.reset.LPC804"/>
+    <definition extID="CMSIS_Include_core_cm.LPC804"/>
     <definition extID="platform.utilities.misc_utilities.LPC804"/>
     <definition extID="device.LPC804_system.LPC804"/>
     <definition extID="platform.drivers.swm_connections.LPC804"/>
@@ -28,7 +28,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso804_mrt_example" name="mrt_example" dependency="utility.debug_console_lite.LPC804 platform.utilities.assert_lite.LPC804 platform.drivers.mrt.LPC804 platform.drivers.lpc_gpio.LPC804 platform.drivers.common.LPC804 platform.drivers.clock.LPC804 platform.drivers.power_no_lib.LPC804 device.LPC804_CMSIS.LPC804 component.miniusart_adapter.LPC804 device.LPC804_startup.LPC804 platform.drivers.lpc_miniusart.LPC804 platform.drivers.lpc_iocon_lite.LPC804 platform.drivers.swm.LPC804 platform.drivers.syscon.LPC804 platform.drivers.rom_api.LPC804 CMSIS_Include_core_cm.LPC804 platform.drivers.reset.LPC804 platform.utilities.misc_utilities.LPC804 device.LPC804_system.LPC804 platform.drivers.swm_connections.LPC804 platform.drivers.syscon_connections.LPC804" category="driver_examples/mrt">
+  <example id="lpcxpresso804_mrt_example" name="mrt_example" dependency="utility.debug_console_lite.LPC804 platform.utilities.assert_lite.LPC804 platform.drivers.mrt.LPC804 platform.drivers.lpc_gpio.LPC804 platform.drivers.common.LPC804 platform.drivers.clock.LPC804 platform.drivers.power_no_lib.LPC804 device.LPC804_CMSIS.LPC804 component.miniusart_adapter.LPC804 device.LPC804_startup.LPC804 platform.drivers.lpc_miniusart.LPC804 platform.drivers.lpc_iocon_lite.LPC804 platform.drivers.swm.LPC804 platform.drivers.syscon.LPC804 platform.drivers.rom_api.LPC804 platform.drivers.reset.LPC804 CMSIS_Include_core_cm.LPC804 platform.utilities.misc_utilities.LPC804 device.LPC804_system.LPC804 platform.drivers.swm_connections.LPC804 platform.drivers.syscon_connections.LPC804" category="driver_examples/mrt">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -70,7 +70,7 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../examples/lpcxpresso804/driver_examples/mrt" project_relative_path="lpcxpresso804/driver_examples/mrt" type="c_include"/>
+      <include_path path="." project_relative_path="lpcxpresso804/driver_examples/mrt" type="c_include"/>
       <include_path path="../../../../core/boards/lpcxpresso804" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

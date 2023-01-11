@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2020 NXP
+ * Copyright 2016-2022 NXP
  * All rights reserved.
  *
  *
@@ -41,6 +41,19 @@ typedef enum
     kFLEXSPI_Clock_High166M, /* Flexspi clock 332M, DDR mode, internal clock 166M. */
     kFLEXSPI_Clock_Low42M,   /* Flexspi clock 83M, DDR mode, internal clock 42M. */
 } flexspi_clock_t;
+
+/*******************************************************************************
+ * Variables
+ ******************************************************************************/
+/*${variable:start}*/
+#if (defined CACHE_MAINTAIN) && (CACHE_MAINTAIN == 1)
+typedef struct _flexspi_cache_status
+{
+    volatile bool DCacheEnableFlag;
+    volatile bool ICacheEnableFlag;
+} flexspi_cache_status_t;
+#endif
+/*${variable:end}*/
 
 /*******************************************************************************
  * Prototypes
@@ -106,8 +119,8 @@ static inline void flexspi_clock_update(flexspi_clock_t clockSelect)
 
 static inline uint32_t flexspi_get_frequency(void)
 {
-    uint32_t div;
-    uint32_t fre;
+    uint32_t div = 0x00u;
+    uint32_t fre = 0x00u;
 
     /* Clock divider:
        000 divided by 1

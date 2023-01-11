@@ -420,6 +420,7 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
         /* Set EOF if file smaller than initial read block size */
         if (bytes_read < FILE_PLAYBACK_INITIAL_READ_SIZE)
         {
+            msg.param[1] = bytes_read;
             msg.param[2] = 1;
         }
         file_playing = true;

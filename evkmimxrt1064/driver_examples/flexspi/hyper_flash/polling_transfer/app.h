@@ -42,6 +42,19 @@ typedef enum
 } flexspi_clock_t;
 
 /*******************************************************************************
+ * Variables
+ ******************************************************************************/
+/*${variable:start}*/
+#if (defined CACHE_MAINTAIN) && (CACHE_MAINTAIN == 1)
+typedef struct _flexspi_cache_status
+{
+    volatile bool DCacheEnableFlag;
+    volatile bool ICacheEnableFlag;
+} flexspi_cache_status_t;
+#endif
+/*${variable:end}*/
+
+/*******************************************************************************
  * Prototypes
  ******************************************************************************/
 /*${prototype:start}*/

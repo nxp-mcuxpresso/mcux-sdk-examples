@@ -94,7 +94,6 @@
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="../secure_gpio_s" project_relative_path="trustzone" type="c_include"/>
       <include_path path="../../../../../core/boards/lpcxpresso55s06" project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/lpcxpresso55s06/trustzone_examples/secure_gpio/secure_gpio_ns" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
       <files mask="build_all.bat"/>

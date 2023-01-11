@@ -19,8 +19,6 @@
     <definition extID="device.LPC54S018M_startup.LPC54S018M"/>
     <definition extID="platform.drivers.flexcomm.LPC54S018M"/>
     <definition extID="platform.drivers.emc.LPC54S018M"/>
-    <definition extID="component.silicon_id.LPC54S018M"/>
-    <definition extID="platform.drivers.iap.LPC54S018M"/>
     <definition extID="platform.drivers.reset.LPC54S018M"/>
     <definition extID="CMSIS_Include_core_cm.LPC54S018M"/>
     <definition extID="platform.drivers.inputmux_connections.LPC54S018M"/>
@@ -33,8 +31,10 @@
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso.core.debug.support.segger.debug"/>
     <definition extID="com.nxp.mcuxpresso.core.debug.support.segger.release"/>
+    <definition extID="com.crt.advproject.config.exe.debug"/>
+    <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="lpcxpresso54s018m_spifi_dma_transfer" name="spifi_dma_transfer" dependency="utility.debug_console_lite.LPC54S018M platform.utilities.assert_lite.LPC54S018M platform.drivers.spifi.LPC54S018M platform.drivers.spifi_dma.LPC54S018M platform.drivers.lpc_dma.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M platform.drivers.common.LPC54S018M platform.drivers.clock.LPC54S018M platform.drivers.power.LPC54S018M platform.drivers.lpc_iocon.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.inputmux.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M component.usart_adapter.LPC54S018M component.lists.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.emc.LPC54S018M component.silicon_id.LPC54S018M platform.drivers.iap.LPC54S018M platform.drivers.reset.LPC54S018M CMSIS_Include_core_cm.LPC54S018M platform.drivers.inputmux_connections.LPC54S018M platform.utilities.misc_utilities.LPC54S018M device.LPC54S018M_system.LPC54S018M" category="driver_examples/spifi">
+  <example id="lpcxpresso54s018m_spifi_dma_transfer" name="spifi_dma_transfer" dependency="utility.debug_console_lite.LPC54S018M platform.utilities.assert_lite.LPC54S018M platform.drivers.spifi.LPC54S018M platform.drivers.spifi_dma.LPC54S018M platform.drivers.lpc_dma.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M platform.drivers.common.LPC54S018M platform.drivers.clock.LPC54S018M platform.drivers.power.LPC54S018M platform.drivers.lpc_iocon.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.inputmux.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M component.usart_adapter.LPC54S018M component.lists.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.emc.LPC54S018M platform.drivers.reset.LPC54S018M CMSIS_Include_core_cm.LPC54S018M platform.drivers.inputmux_connections.LPC54S018M platform.utilities.misc_utilities.LPC54S018M device.LPC54S018M_system.LPC54S018M" category="driver_examples/spifi">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -103,7 +103,7 @@
     </debug_configurations>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/lpcxpresso54s018m/driver_examples/spifi/dma_transfer" project_relative_path="lpcxpresso54s018m/driver_examples/spifi/dma_transfer" type="c_include"/>
+      <include_path path="." project_relative_path="lpcxpresso54s018m/driver_examples/spifi/dma_transfer" type="c_include"/>
       <include_path path="../../../../../core/boards/lpcxpresso54s018m" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

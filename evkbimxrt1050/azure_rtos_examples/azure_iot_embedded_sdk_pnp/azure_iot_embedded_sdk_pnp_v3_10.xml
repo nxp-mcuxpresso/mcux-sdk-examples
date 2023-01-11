@@ -3,7 +3,7 @@
   <externalDefinitions>
     <definition extID="middleware.azure_rtos.azure_iot.MIMXRT1052"/>
     <definition extID="middleware.azure_rtos.nxd.MIMXRT1052"/>
-    <definition extID="driver.mdio-enet.MIMXRT1052"/>
+    <definition extID="platform.drivers.enet.MIMXRT1052"/>
     <definition extID="driver.phy-device-ksz8081.MIMXRT1052"/>
     <definition extID="platform.drivers.trng.MIMXRT1052"/>
     <definition extID="platform.drivers.clock.MIMXRT1052"/>
@@ -26,9 +26,7 @@
     <definition extID="middleware.azure_rtos.fx.template.MIMXRT1052"/>
     <definition extID="middleware.azure_rtos.tx.MIMXRT1052"/>
     <definition extID="middleware.azure_rtos.tx.template.MIMXRT1052"/>
-    <definition extID="driver.mdio-common.MIMXRT1052"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1052"/>
-    <definition extID="platform.drivers.enet.MIMXRT1052"/>
     <definition extID="driver.phy-common.MIMXRT1052"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1052"/>
     <definition extID="device.MIMXRT1052_system.MIMXRT1052"/>
@@ -40,7 +38,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkbimxrt1050_azure_iot_embedded_sdk_pnp" name="azure_iot_embedded_sdk_pnp" dependency="middleware.azure_rtos.azure_iot.MIMXRT1052 middleware.azure_rtos.nxd.MIMXRT1052 driver.mdio-enet.MIMXRT1052 driver.phy-device-ksz8081.MIMXRT1052 platform.drivers.trng.MIMXRT1052 platform.drivers.clock.MIMXRT1052 platform.drivers.common.MIMXRT1052 device.MIMXRT1052_CMSIS.MIMXRT1052 utility.debug_console.MIMXRT1052 component.lpuart_adapter.MIMXRT1052 component.serial_manager.MIMXRT1052 component.lists.MIMXRT1052 component.serial_manager_uart.MIMXRT1052 platform.drivers.lpuart.MIMXRT1052 device.MIMXRT1052_startup.MIMXRT1052 platform.drivers.iomuxc.MIMXRT1052 platform.utilities.assert.MIMXRT1052 platform.drivers.igpio.MIMXRT1052 platform.drivers.xip_device.MIMXRT1052 platform.drivers.xip_board.evkbimxrt1050.MIMXRT1052 middleware.azure_rtos.nxd.template.MIMXRT1052 middleware.azure_rtos.fx.MIMXRT1052 middleware.azure_rtos.fx.template.MIMXRT1052 middleware.azure_rtos.tx.MIMXRT1052 middleware.azure_rtos.tx.template.MIMXRT1052 driver.mdio-common.MIMXRT1052 CMSIS_Include_core_cm.MIMXRT1052 platform.drivers.enet.MIMXRT1052 driver.phy-common.MIMXRT1052 platform.utilities.misc_utilities.MIMXRT1052 device.MIMXRT1052_system.MIMXRT1052" category="azure_rtos_examples">
+  <example id="evkbimxrt1050_azure_iot_embedded_sdk_pnp" name="azure_iot_embedded_sdk_pnp" dependency="middleware.azure_rtos.azure_iot.MIMXRT1052 middleware.azure_rtos.nxd.MIMXRT1052 platform.drivers.enet.MIMXRT1052 driver.phy-device-ksz8081.MIMXRT1052 platform.drivers.trng.MIMXRT1052 platform.drivers.clock.MIMXRT1052 platform.drivers.common.MIMXRT1052 device.MIMXRT1052_CMSIS.MIMXRT1052 utility.debug_console.MIMXRT1052 component.lpuart_adapter.MIMXRT1052 component.serial_manager.MIMXRT1052 component.lists.MIMXRT1052 component.serial_manager_uart.MIMXRT1052 platform.drivers.lpuart.MIMXRT1052 device.MIMXRT1052_startup.MIMXRT1052 platform.drivers.iomuxc.MIMXRT1052 platform.utilities.assert.MIMXRT1052 platform.drivers.igpio.MIMXRT1052 platform.drivers.xip_device.MIMXRT1052 platform.drivers.xip_board.evkbimxrt1050.MIMXRT1052 middleware.azure_rtos.nxd.template.MIMXRT1052 middleware.azure_rtos.fx.MIMXRT1052 middleware.azure_rtos.fx.template.MIMXRT1052 middleware.azure_rtos.tx.MIMXRT1052 middleware.azure_rtos.tx.template.MIMXRT1052 CMSIS_Include_core_cm.MIMXRT1052 driver.phy-common.MIMXRT1052 platform.utilities.misc_utilities.MIMXRT1052 device.MIMXRT1052_system.MIMXRT1052" category="azure_rtos_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>

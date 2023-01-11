@@ -16,7 +16,7 @@
 #include "clock_config.h"
 #include "board.h"
 #include "fsl_adapter_uart.h"
-#include "controller.h"
+#include "controller_hci_uart.h"
 #include "usb_host_config.h"
 #include "usb_phy.h"
 #include "usb_host.h"
@@ -189,9 +189,6 @@ int main(void)
     osa_status_t status;
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
-#if (defined(WIFI_IW416_BOARD_MURATA_1XK_USD) || defined(WIFI_88W8987_BOARD_MURATA_1ZM_USD))
-    BOARD_InitMurataModulePins();
-#endif
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     SCB_DisableDCache();
@@ -212,7 +209,7 @@ int main(void)
     CLOCK_SetMux(kCLOCK_PerclkMux, 1U);
     /* Set PERCLK_CLK divider to 1 */
     CLOCK_SetDiv(kCLOCK_PerclkDiv, 0U);
-
+    (void)memset(&timerConfig, 0, sizeof(timer_config_t));
     timerConfig.instance    = 0;
     timerConfig.srcClock_Hz = CLOCK_GetFreq(kCLOCK_OscClk);
     status                  = (osa_status_t)TM_Init(&timerConfig);
@@ -232,17 +229,4 @@ int main(void)
     vTaskStartScheduler();
     for (;;)
         ;
-}
-
-void *pvPortCalloc(size_t xNum, size_t xSize)
-{
-    void *pvReturn;
-
-    pvReturn = pvPortMalloc(xNum * xSize);
-    if (pvReturn != NULL)
-    {
-        memset(pvReturn, 0x00, xNum * xSize);
-    }
-
-    return pvReturn;
 }

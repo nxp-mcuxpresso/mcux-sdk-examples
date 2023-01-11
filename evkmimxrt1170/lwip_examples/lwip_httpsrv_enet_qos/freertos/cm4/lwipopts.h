@@ -4,7 +4,7 @@
  * This file is based on \src\include\lwip\opt.h
  ******************************************************************************
  * Copyright (c) 2013-2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2018 NXP
+ * Copyright 2016-2018, 2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -126,6 +126,11 @@ void sys_mark_tcpip_thread(void);
    timeouts. */
 #ifndef MEMP_NUM_SYS_TIMEOUT
 #define MEMP_NUM_SYS_TIMEOUT 10
+#endif
+/* MEMP_NUM_REASS_DATA: The number of whole IP packets
+   queued for reassembly. */
+#ifndef MEMP_NUM_REASSDATA
+#define MEMP_NUM_REASSDATA 2
 #endif
 
 /* ---------- Pbuf options ---------- */
@@ -329,6 +334,20 @@ Some MCU allow computing and verifying the IP, UDP, TCP and ICMP checksums by ha
 #include "lwip/arch.h"
 u32_t lwip_rand(void);
 #define LWIP_RAND() lwip_rand()
+#endif
+
+/**
+ * LWIP_NETIF_EXT_STATUS_CALLBACK==1: Support an extended callback function
+ * for several netif related event that supports multiple subscribers.
+ * @see netif_ext_status_callback
+ */
+#define LWIP_NETIF_EXT_STATUS_CALLBACK 1
+
+/**
+ * IP_REASS_MAX_PBUFS: Number of buffers reserved for IP fragment reassembly.
+ */
+#ifndef IP_REASS_MAX_PBUFS
+#define IP_REASS_MAX_PBUFS 4
 #endif
 
 #endif /* __LWIPOPTS_H__ */

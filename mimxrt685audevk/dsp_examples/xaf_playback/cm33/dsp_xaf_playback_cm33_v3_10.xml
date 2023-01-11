@@ -83,12 +83,12 @@
           <value>XA_OPUS_DECODER=1</value>
           <value>XA_SBC_ENCODER=1</value>
           <value>XA_SBC_DECODER=1</value>
+          <value>XA_VORBIS_DECODER=1</value>
           <value>XA_PCM_GAIN=1</value>
           <value>XA_SRC_PP_FX=1</value>
           <value>XA_CLIENT_PROXY=1</value>
           <value>XA_RENDERER=1</value>
           <value>DSP_NCACHE</value>
-          <value>XA_VORBIS_DECODER=1</value>
           <value>DEBUG_CONSOLE_RX_ENABLE=0</value>
           <value>SD_ENABLED</value>
           <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
@@ -142,7 +142,7 @@
       <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="resources" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/mimxrt685audevk/dsp_examples/xaf_playback/cm33" project_relative_path="board" type="c_include"/>
+      <include_path path="../../.." project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../core/boards/mimxrt685audevk" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
       <include_path path="../../../../../examples/mimxrt685audevk/dsp_examples/xaf_playback/dsp/binary" project_relative_path="dsp_binary" type="asm_include"/>

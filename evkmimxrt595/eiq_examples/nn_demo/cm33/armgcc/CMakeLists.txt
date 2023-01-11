@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(dsp_nn_demo_cm33)
 
+set(MCUX_BUILD_TYPES flash_debug flash_release)
+
 set(MCUX_SDK_PROJECT_NAME dsp_nn_demo_cm33.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -63,9 +69,9 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/evkmimxrt595/board.h"
 "${SdkRootDirPath}/core/boards/evkmimxrt595/clock_config.c"
 "${SdkRootDirPath}/core/boards/evkmimxrt595/clock_config.h"
-"${ProjDirPath}/../../dsp/binary/dsp_reset_release.bin"
-"${ProjDirPath}/../../dsp/binary/dsp_text_release.bin"
-"${ProjDirPath}/../../dsp/binary/dsp_data_release.bin"
+"${SdkRootDirPath}/examples/evkmimxrt595/eiq_examples/nn_demo/dsp/binary/dsp_reset_release.bin"
+"${SdkRootDirPath}/examples/evkmimxrt595/eiq_examples/nn_demo/dsp/binary/dsp_text_release.bin"
+"${SdkRootDirPath}/examples/evkmimxrt595/eiq_examples/nn_demo/dsp/binary/dsp_data_release.bin"
 "${ProjDirPath}/../main_cm33.c"
 "${ProjDirPath}/../counter.c"
 "${ProjDirPath}/../counter.h"
@@ -82,19 +88,36 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../config_nn.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../dsp/binary
+    ${SdkRootDirPath}/examples/evkmimxrt595/eiq_examples/nn_demo/dsp/binary
     ${SdkRootDirPath}/core/boards/evkmimxrt595
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/devices/MIMXRT595S/drivers
+    ${SdkRootDirPath}/core/drivers/flexcomm
+    ${SdkRootDirPath}/core/drivers/i3c
+    ${SdkRootDirPath}/middleware/multicore
+    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/drivers/inputmux
+    ${SdkRootDirPath}/core/drivers/mu
+    ${SdkRootDirPath}/core/components/pca9420
+    ${SdkRootDirPath}/core/devices/MIMXRT595S
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/drivers/flexspi
+    ${SdkRootDirPath}/core/drivers/cache/cache64
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/boards/evkmimxrt595/flash_config
+    ${SdkRootDirPath}/core/drivers/lpc_iopctl
+    ${SdkRootDirPath}/core/drivers/lpc_gpio
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(driver_clock)
@@ -170,15 +193,13 @@ include(utilities_misc_utilities_MIMXRT595S_cm33)
 include(driver_iap)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

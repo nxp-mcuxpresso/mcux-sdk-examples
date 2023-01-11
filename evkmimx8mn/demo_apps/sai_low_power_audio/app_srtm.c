@@ -214,7 +214,7 @@ static void APP_SRTM_InitAudioService(void)
     SAI_GetClassicI2SConfig(&saiTxConfig.config, kSAI_WordWidth16bits, kSAI_Stereo,
                             kSAI_Channel0Mask); /* SAI channel 0 used by default */
     saiTxConfig.dataLine1                  = 0U;
-    saiTxConfig.config.fifo.fifoWatermark  = FSL_FEATURE_SAI_FIFO_COUNT / 2;
+    saiTxConfig.config.fifo.fifoWatermark  = FSL_FEATURE_SAI_FIFO_COUNTn(APP_SRTM_SAI) / 2;
     saiTxConfig.mclkConfig.mclkSourceClkHz = APP_SAI_CLK_FREQ;
     saiTxConfig.mclkConfig.mclkHz =
         saiTxConfig.mclkConfig.mclkSourceClkHz;     /* Set the output mclk equal to its source clk by default */

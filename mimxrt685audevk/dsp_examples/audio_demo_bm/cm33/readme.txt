@@ -20,10 +20,8 @@ Hardware requirements
 
 Board settings
 ==============
-
-To enable the example audio using WM8904 codec, connect jumpers as follows:
-  JP7-1        <-->        JP7-2
-  JP8-1        <-->        JP8-2
+1. Set the hardware jumpers (Tower system/base module) to default settings.
+2. Set the hardware jumpers JP2 2-3, JP44 1-2 and JP45 1-2.
 
 Prepare the Demo
 ================

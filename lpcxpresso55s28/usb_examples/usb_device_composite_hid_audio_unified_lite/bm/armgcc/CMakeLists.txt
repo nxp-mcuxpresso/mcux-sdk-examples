@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(dev_composite_hid_audio_unified_lite_bm)
 
+set(MCUX_BUILD_TYPES release debug)
+
 set(MCUX_SDK_PROJECT_NAME dev_composite_hid_audio_unified_lite_bm.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -61,18 +67,36 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${SdkRootDirPath}/examples/lpcxpresso55s28/usb_examples/usb_device_composite_hid_audio_unified_lite/bm
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
+    ${SdkRootDirPath}/middleware/usb
+    ${SdkRootDirPath}/core/drivers/flexcomm
+    ${SdkRootDirPath}/core/drivers/ctimer
+    ${SdkRootDirPath}/core/drivers/lpc_dma
+    ${SdkRootDirPath}/core/components/codec/wm8904
+    ${SdkRootDirPath}/core/components/codec
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/components/codec/
+    ${SdkRootDirPath}/core/components/codec/i2c
+    ${SdkRootDirPath}/core/components/i2c
+    ${SdkRootDirPath}/core/drivers/gint
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/components/audio
     ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/devices/LPC55S28/drivers
+    ${SdkRootDirPath}/core/devices/LPC55S28
+    ${SdkRootDirPath}/core/drivers/lpc_gpio
+    ${SdkRootDirPath}/core/drivers/lpc_iocon
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/components/osa
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(middleware_usb_device_ip3511fs)
@@ -150,15 +174,13 @@ include(utilities_misc_utilities_LPC55S28)
 include(device_system)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

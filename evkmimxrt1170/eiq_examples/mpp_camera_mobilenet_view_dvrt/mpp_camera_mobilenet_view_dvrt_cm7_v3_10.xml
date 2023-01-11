@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="cm7_MIMXRT1176xxxxx"/>
+    <definition extID="driver.camera-device-common.MIMXRT1176"/>
+    <definition extID="driver.camera-receiver-common.MIMXRT1176"/>
+    <definition extID="driver.camera-device-sccb.MIMXRT1176"/>
+    <definition extID="driver.camera-device-ov5640.MIMXRT1176"/>
+    <definition extID="driver.display-rm68191.MIMXRT1176"/>
+    <definition extID="driver.display-rm68200.MIMXRT1176"/>
+    <definition extID="driver.display-hx8394.MIMXRT1176"/>
+    <definition extID="driver.camera-common.MIMXRT1176"/>
+    <definition extID="driver.camera-receiver-csi.MIMXRT1176"/>
+    <definition extID="platform.drivers.csi.MIMXRT1176"/>
+    <definition extID="driver.video-common.MIMXRT1176"/>
+    <definition extID="driver.video-i2c.MIMXRT1176"/>
+    <definition extID="platform.drivers.elcdif.MIMXRT1176"/>
+    <definition extID="platform.drivers.pxp.MIMXRT1176"/>
+    <definition extID="driver.dc-fb-common.MIMXRT1176"/>
+    <definition extID="driver.dc-fb-elcdif.MIMXRT1176"/>
+    <definition extID="driver.dc-fb-lcdifv2.MIMXRT1176"/>
+    <definition extID="driver.display-common.MIMXRT1176"/>
+    <definition extID="driver.display-mipi-dsi-cmd.MIMXRT1176"/>
+    <definition extID="platform.drivers.common.MIMXRT1176"/>
+    <definition extID="platform.drivers.mipi_dsi_split.MIMXRT1176"/>
+    <definition extID="platform.drivers.igpio.MIMXRT1176"/>
+    <definition extID="platform.drivers.mipi_csi2rx.MIMXRT1176"/>
+    <definition extID="platform.drivers.soc_mipi_csi2rx.MIMXRT1176"/>
+    <definition extID="platform.drivers.soc_src.MIMXRT1176"/>
+    <definition extID="utility.debug_console_lite.MIMXRT1176"/>
+    <definition extID="platform.utilities.assert_lite.MIMXRT1176"/>
+    <definition extID="middleware.eiq.mpp.MIMXRT1176"/>
+    <definition extID="component.lists.MIMXRT1176"/>
+    <definition extID="component.lpuart_adapter.MIMXRT1176"/>
+    <definition extID="platform.drivers.lpuart.MIMXRT1176"/>
+    <definition extID="platform.devices.MIMXRT1176_CMSIS.MIMXRT1176"/>
+    <definition extID="platform.devices.MIMXRT1176_startup.MIMXRT1176"/>
+    <definition extID="platform.drivers.dcdc_soc.MIMXRT1176"/>
+    <definition extID="platform.drivers.pmu_1.MIMXRT1176"/>
+    <definition extID="platform.drivers.clock.MIMXRT1176"/>
+    <definition extID="platform.drivers.iomuxc.MIMXRT1176"/>
+    <definition extID="platform.drivers.lpi2c.MIMXRT1176"/>
+    <definition extID="platform.drivers.cache_armv7_m7.MIMXRT1176"/>
+    <definition extID="platform.drivers.xip_device.MIMXRT1176"/>
+    <definition extID="platform.drivers.xip_board.evkmimxrt1170.MIMXRT1176"/>
+    <definition extID="platform.drivers.xmcd.evkmimxrt1170.MIMXRT1176"/>
+    <definition extID="platform.drivers.anatop_ai.MIMXRT1176"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT1176"/>
+    <definition extID="platform.drivers.memory.MIMXRT1176"/>
+    <definition extID="platform.drivers.lcdifv2.MIMXRT1176"/>
+    <definition extID="middleware.freertos-kernel.MIMXRT1176"/>
+    <definition extID="middleware.freertos-kernel.extension.MIMXRT1176"/>
+    <definition extID="middleware.freertos-kernel.heap_4.MIMXRT1176"/>
+    <definition extID="middleware.eiq.tensorflow_lite_micro.MIMXRT1176"/>
+    <definition extID="middleware.eiq.tensorflow_lite_micro.third_party.flatbuffers.MIMXRT1176"/>
+    <definition extID="middleware.eiq.tensorflow_lite_micro.third_party.gemmlowp.MIMXRT1176"/>
+    <definition extID="middleware.eiq.tensorflow_lite_micro.third_party.ruy.MIMXRT1176"/>
+    <definition extID="middleware.eiq.deepviewrt.MIMXRT1176"/>
+    <definition extID="platform.utilities.misc_utilities.MIMXRT1176"/>
+    <definition extID="platform.devices.MIMXRT1176_system.MIMXRT1176"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="armgcc"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+    <definition extID="com.crt.advproject.config.exe.debug"/>
+    <definition extID="com.crt.advproject.config.exe.release"/>
+  </externalDefinitions>
+  <example id="evkmimxrt1170_mpp_camera_mobilenet_view_dvrt_cm7" name="mpp_camera_mobilenet_view_dvrt_cm7" device_core="cm7_MIMXRT1176xxxxx" dependency="driver.camera-device-common.MIMXRT1176 driver.camera-receiver-common.MIMXRT1176 driver.camera-device-sccb.MIMXRT1176 driver.camera-device-ov5640.MIMXRT1176 driver.display-rm68191.MIMXRT1176 driver.display-rm68200.MIMXRT1176 driver.display-hx8394.MIMXRT1176 driver.camera-common.MIMXRT1176 driver.camera-receiver-csi.MIMXRT1176 platform.drivers.csi.MIMXRT1176 driver.video-common.MIMXRT1176 driver.video-i2c.MIMXRT1176 platform.drivers.elcdif.MIMXRT1176 platform.drivers.pxp.MIMXRT1176 driver.dc-fb-common.MIMXRT1176 driver.dc-fb-elcdif.MIMXRT1176 driver.dc-fb-lcdifv2.MIMXRT1176 driver.display-common.MIMXRT1176 driver.display-mipi-dsi-cmd.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.drivers.mipi_dsi_split.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.mipi_csi2rx.MIMXRT1176 platform.drivers.soc_mipi_csi2rx.MIMXRT1176 platform.drivers.soc_src.MIMXRT1176 utility.debug_console_lite.MIMXRT1176 platform.utilities.assert_lite.MIMXRT1176 middleware.eiq.mpp.MIMXRT1176 component.lists.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.clock.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.drivers.lpi2c.MIMXRT1176 platform.drivers.cache_armv7_m7.MIMXRT1176 platform.drivers.xip_device.MIMXRT1176 platform.drivers.xip_board.evkmimxrt1170.MIMXRT1176 platform.drivers.xmcd.evkmimxrt1170.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.drivers.memory.MIMXRT1176 platform.drivers.lcdifv2.MIMXRT1176 middleware.freertos-kernel.MIMXRT1176 middleware.freertos-kernel.extension.MIMXRT1176 middleware.freertos-kernel.heap_4.MIMXRT1176 middleware.eiq.tensorflow_lite_micro.MIMXRT1176 middleware.eiq.tensorflow_lite_micro.third_party.flatbuffers.MIMXRT1176 middleware.eiq.tensorflow_lite_micro.third_party.gemmlowp.MIMXRT1176 middleware.eiq.tensorflow_lite_micro.third_party.ruy.MIMXRT1176 middleware.eiq.deepviewrt.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176" category="eiq_examples">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.ccnature"/>
+    </projects>
+    <memory>
+      <memoryBlock id="BOARD_FLASH_evkmimxrt1170" name="BOARD_FLASH" addr="30000000" size="01000000" type="ExtFlash" access="RO"/>
+      <memoryBlock id="BOARD_SDRAM_evkmimxrt1170" name="BOARD_SDRAM" addr="80000000" size="03000000" type="RAM" access="RW"/>
+      <memoryBlock id="NCACHE_REGION_evkmimxrt1170" name="NCACHE_REGION" addr="83000000" size="01000000" type="RAM" access="RW"/>
+      <memoryBlock id="SRAM_DTC_cm7_evkmimxrt1170" name="SRAM_DTC_cm7" addr="20000000" size="00040000" type="RAM" access="RW"/>
+      <memoryBlock id="SRAM_ITC_cm7_evkmimxrt1170" name="SRAM_ITC_cm7" addr="00000000" size="00040000" type="RAM" access="RW"/>
+      <memoryBlock id="SRAM_OC1_evkmimxrt1170" name="SRAM_OC1" addr="20240000" size="00080000" type="RAM" access="RW"/>
+      <memoryBlock id="SRAM_OC2_evkmimxrt1170" name="SRAM_OC2" addr="202C0000" size="00080000" type="RAM" access="RW"/>
+      <memoryBlock id="SRAM_OC_ECC1_evkmimxrt1170" name="SRAM_OC_ECC1" addr="20340000" size="00010000" type="RAM" access="RW"/>
+      <memoryBlock id="SRAM_OC_ECC2_evkmimxrt1170" name="SRAM_OC_ECC2" addr="20350000" size="00010000" type="RAM" access="RW"/>
+    </memory>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="com.crt.advproject.gcc.exe.release.option.optimization.level" type="enum">
+          <value>gnu.c.optimization.level.most</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5dp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="com.crt.advproject.gcc.exe.debug.option.optimization.level" type="enum">
+          <value>gnu.c.optimization.level.most</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-Wno-strict-aliasing -c -ffunction-sections -fdata-sections</value>
+        </option>
+        <option id="com.crt.advproject.cpp.exe.release.option.optimization.level" type="enum">
+          <value>gnu.cpp.compiler.optimization.level.most</value>
+        </option>
+        <option id="com.crt.advproject.cpp.fpu" type="enum">
+          <value>com.crt.advproject.cpp.fpu.fpv5dp.hard</value>
+        </option>
+        <option id="gnu.cpp.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.cpp.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnupp11</value>
+        </option>
+        <option id="com.crt.advproject.cpp.exe.debug.option.optimization.level" type="enum">
+          <value>gnu.cpp.compiler.optimization.level.most</value>
+        </option>
+        <option id="gnu.cpp.compiler.option.other.other" type="string">
+          <value>-fno-rtti -fno-exceptions -Wno-sign-compare -Wno-strict-aliasing -c -ffunction-sections -fdata-sections</value>
+        </option>
+        <option id="gnu.cpp.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>XIP_BOOT_HEADER_DCD_ENABLE=1</value>
+          <value>USE_SDRAM</value>
+          <value>DATA_SECTION_IS_CACHEABLE=1</value>
+          <value>CPU_MIMXRT1176DVMAA_cm7</value>
+          <value>SDK_DEBUGCONSOLE=1</value>
+          <value>XIP_EXTERNAL_FLASH=1</value>
+          <value>XIP_BOOT_HEADER_ENABLE=1</value>
+          <value>TFLITE_CUSTOM_OPS_DUMMY_RESOLVER=1</value>
+          <value>INFERENCE_ENGINE_DeepViewRT</value>
+          <value>SDK_DEBUGCONSOLE_UART</value>
+          <value>ARM_MATH_CM7</value>
+          <value>__FPU_PRESENT=1</value>
+          <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
+          <value>FSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1</value>
+          <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
+          <value>MPP_STATIC_MEMORY</value>
+          <value>SDK_OS_FREE_RTOS</value>
+          <value>TF_LITE_STATIC_MEMORY</value>
+          <value>MCUXPRESSO_SDK</value>
+        </option>
+        <option id="gnu.cpp.compiler.option.preprocessor.def" type="stringList">
+          <value>TFLITE_CUSTOM_OPS_DUMMY_RESOLVER=1</value>
+          <value>INFERENCE_ENGINE_DeepViewRT</value>
+          <value>SDK_DEBUGCONSOLE_UART</value>
+          <value>ARM_MATH_CM7</value>
+          <value>__FPU_PRESENT=1</value>
+          <value>CPU_MIMXRT1176DVMAA_cm7</value>
+          <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
+          <value>MPP_STATIC_MEMORY</value>
+          <value>TF_LITE_STATIC_MEMORY</value>
+          <value>MCUXPRESSO_SDK</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5dp.hard</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.sections.cpp" type="stringList">
+          <value>isd=*(NonCacheable.init);region=BOARD_SDRAM;type=.data</value>
+          <value>isd=*(NonCacheable);region=BOARD_SDRAM;type=.bss</value>
+          <value>isd=*(NonCacheable.init);region=NCACHE_REGION;type=.data</value>
+          <value>isd=*(NonCacheable);region=NCACHE_REGION;type=.bss</value>
+        </option>
+        <option id="gnu.cpp.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.heapAndStack.cpp" type="string">
+          <value>&amp;Heap:BOARD_SDRAM;Post Data;0x400000&amp;Stack:SRAM_ITC_cm7;End;0x8000</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <debug_configurations>
+      <debug_configuration id_refs="com.crt.advproject.config.exe.debug com.crt.advproject.config.exe.release">
+        <drivers>
+          <driver id_refs="BOARD_FLASH_evkmimxrt1170">
+            <driverBinary path="../../../../devices/MIMXRT1176/mcuxpresso" project_relative_path="binary" type="binary">
+              <files mask="MIMXRT1170_SFDP_QSPI.cfx"/>
+            </driverBinary>
+          </driver>
+        </drivers>
+      </debug_configuration>
+    </debug_configurations>
+    <include_paths>
+      <include_path path="../../../../middleware/eiq/mpp/examples/camera_mobilenet_view" project_relative_path="source" type="c_include"/>
+      <include_path path="../../../../middleware/eiq/mpp/examples" project_relative_path="source" type="c_include"/>
+      <include_path path="../../../../middleware/eiq/mpp/boards/evkmimxrt1170/inc" project_relative_path="source" type="c_include"/>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="asm_include"/>
+    </include_paths>
+    <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_flexspi_nor_sdram_debug.bat"/>
+      <files mask="build_flexspi_nor_sdram_debug.sh"/>
+      <files mask="build_flexspi_nor_sdram_release.bat"/>
+      <files mask="build_flexspi_nor_sdram_release.sh"/>
+    </source>
+    <source path="../../../../middleware/eiq/mpp/examples/camera_mobilenet_view" project_relative_path="source" type="src">
+      <files mask="camera_mobilenet_view.c"/>
+    </source>
+    <source path="../../../../middleware/eiq/mpp/examples/camera_mobilenet_view" project_relative_path="source" type="c_include">
+      <files mask="mpp_config.h"/>
+    </source>
+    <source path="../../../../middleware/eiq/mpp/boards/evkmimxrt1170/inc" project_relative_path="source" type="c_include">
+      <files mask="board_config.h"/>
+    </source>
+    <source path="../../../../middleware/eiq/mpp/examples/models" project_relative_path="source/models" type="src">
+      <files mask="get_top_n.cpp"/>
+    </source>
+    <source path="../../../../middleware/eiq/mpp/examples/models/mobilenet_v1_0.25_128_quant_int8_cm7" project_relative_path="source/models/mobilenet_v1_0.25_128_quant_int8_cm7" type="c_include">
+      <files mask="mobilenet_model_data_dvrt.h"/>
+      <files mask="mobilenetv1_labels.h"/>
+      <files mask="mobilenetv1_output_postproc.h"/>
+    </source>
+    <source path="../../../../middleware/eiq/mpp/examples/models/mobilenet_v1_0.25_128_quant_int8_cm7" project_relative_path="source/models/mobilenet_v1_0.25_128_quant_int8_cm7" type="src">
+      <files mask="mobilenetv1_output_postproc.cpp"/>
+    </source>
+    <source path="../../../../middleware/eiq/mpp/examples/camera_mobilenet_view" project_relative_path="source" type="doc">
+      <files mask="camera_mobilenet_view.readme"/>
+    </source>
+    <source path="../../../../middleware/eiq/mpp/examples/models" project_relative_path="source/models" type="c_include">
+      <files mask="get_top_n.h"/>
+      <files mask="utils.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="FreeRTOSConfig.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="board_init.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="board_init.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+      <files mask="dcd.c"/>
+      <files mask="display_support.c"/>
+      <files mask="camera_support.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+      <files mask="dcd.h"/>
+      <files mask="display_support.h"/>
+      <files mask="camera_support.h"/>
+    </source>
+    <source path="../../../../middleware/eiq/mpp" project_relative_path="doc" type="other">
+      <files mask="README.md"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="../../../../middleware/eiq/mpp/boards/evkmimxrt1170" project_relative_path="MIMXRT1176/gcc" type="linker" toolchain="armgcc">
+      <files mask="MIMXRT1176xxxxx_cm7_flexspi_nor_sdram.ld"/>
+    </source>
+  </example>
+</ksdk:examples>

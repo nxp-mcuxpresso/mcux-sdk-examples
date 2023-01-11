@@ -512,7 +512,8 @@ static void USB_DeviceApplicationInit(void)
 #if (defined(USB_DEVICE_CONFIG_DETACH_ENABLE) && (USB_DEVICE_CONFIG_DETACH_ENABLE > 0U))
     /*USB_DeviceRun could not be called here to avoid DP/DM confliction between DCD function and USB function in case
       DCD is enabled. Instead, USB_DeviceRun should be called after the DCD is finished immediately*/
-#if (defined(USB_DEVICE_CONFIG_LPCIP3511FS) && (USB_DEVICE_CONFIG_LPCIP3511FS > 0U))
+#if ((defined(USB_DEVICE_CONFIG_LPCIP3511FS) && (USB_DEVICE_CONFIG_LPCIP3511FS > 0U)) || \
+     (defined(USB_DEVICE_CONFIG_KHCI) && (USB_DEVICE_CONFIG_KHCI > 0U)))
     /* Start USB device HID mouse */
     /*Add one delay here to make the DP pull down long enough to allow host to detect the previous disconnection.*/
     SDK_DelayAtLeastUs(5000, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);

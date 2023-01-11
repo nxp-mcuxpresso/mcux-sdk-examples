@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 ,2021 NXP
+ * Copyright 2016-2017 ,2021-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -35,6 +35,20 @@ void BOARD_InitBootPins(void);
 
 #define SOPT5_UART0RXSRC_UART_RX 0x00u /*!<@brief UART 0 Receive Data Source Select: UART0_RX pin */
 #define SOPT5_UART0TXSRC_UART_TX 0x00u /*!<@brief UART 0 Transmit Data Source Select: UART0_TX pin */
+
+/*! @name PORTA13 (number 29), CAN_S
+  @{ */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_CAN_S_FGPIO FGPIOA              /*!<@brief FGPIO peripheral base pointer */
+#define BOARD_INITPINS_CAN_S_GPIO GPIOA                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_INITPINS_CAN_S_GPIO_PIN_MASK (1U << 13U) /*!<@brief GPIO pin mask */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_INITPINS_CAN_S_PORT PORTA                /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_CAN_S_PIN 13U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_CAN_S_PIN_MASK (1U << 13U)      /*!<@brief PORT pin mask */
+                                                       /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

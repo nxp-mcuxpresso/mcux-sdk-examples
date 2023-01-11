@@ -134,7 +134,7 @@
    //   secureCb.checked = true;
     }
     var wsPort = (window.location.port.toString() == "" ? "" : ":"+window.location.port)
-    wsUri.value = wsScheme+"//192.168.0.102/echo"+wsPort
+    wsUri.value = wsScheme+"//"+window.location.host+"/echo"+wsPort
   }
 
  /* function toggleTlS()

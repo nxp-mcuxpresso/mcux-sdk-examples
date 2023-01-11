@@ -96,7 +96,6 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../examples/mimxrt685audevk/dsp_examples/hello_world_usart/cm33" project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../core/boards/mimxrt685audevk" project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../examples/mimxrt685audevk/dsp_examples/hello_world_usart/dsp/binary" project_relative_path="dsp_binary" type="asm_include"/>
     </include_paths>

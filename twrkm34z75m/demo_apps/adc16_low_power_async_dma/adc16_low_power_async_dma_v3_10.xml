@@ -74,7 +74,7 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../examples/twrkm34z75m/demo_apps/adc16_low_power_async_dma" project_relative_path="twrkm34z75m/demo_apps/adc16_low_power_async_dma" type="c_include"/>
+      <include_path path="." project_relative_path="twrkm34z75m/demo_apps/adc16_low_power_async_dma" type="c_include"/>
       <include_path path="../../../../core/boards/twrkm34z75m" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

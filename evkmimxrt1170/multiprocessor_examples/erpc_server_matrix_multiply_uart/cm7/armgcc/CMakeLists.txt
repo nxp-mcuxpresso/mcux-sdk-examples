@@ -30,19 +30,25 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(erpc_server_matrix_multiply_uart)
 
+set(MCUX_BUILD_TYPES debug release sdram_debug sdram_release flexspi_nor_debug flexspi_nor_release)
+
 set(MCUX_SDK_PROJECT_NAME erpc_server_matrix_multiply_uart.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${ProjDirPath}/../../../erpc_common/erpc_error_handler.h"
-"${ProjDirPath}/../../../erpc_common/erpc_error_handler.cpp"
-"${ProjDirPath}/../../../erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.erpc"
-"${ProjDirPath}/../../../erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.h"
-"${ProjDirPath}/../../../erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply_server.h"
-"${ProjDirPath}/../../../erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply_server.cpp"
+"${SdkRootDirPath}/examples/evkmimxrt1170/multiprocessor_examples/erpc_common/erpc_error_handler.h"
+"${SdkRootDirPath}/examples/evkmimxrt1170/multiprocessor_examples/erpc_common/erpc_error_handler.cpp"
+"${SdkRootDirPath}/examples/evkmimxrt1170/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.erpc"
+"${SdkRootDirPath}/examples/evkmimxrt1170/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.h"
+"${SdkRootDirPath}/examples/evkmimxrt1170/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply_server.h"
+"${SdkRootDirPath}/examples/evkmimxrt1170/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply_server.cpp"
 "${ProjDirPath}/../main_server.c"
 "${ProjDirPath}/../erpc_config.h"
 "${ProjDirPath}/../pin_mux.c"
@@ -57,21 +63,35 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../evkmimxrt1170_connect_cm4_cm7side.jlinkscript"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../../../erpc_common
-    ${ProjDirPath}/../../../erpc_common/erpc_matrix_multiply/service
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+    ${SdkRootDirPath}/examples/evkmimxrt1170/multiprocessor_examples/erpc_common
+    ${SdkRootDirPath}/examples/evkmimxrt1170/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service
     ${ProjDirPath}/..
-    ${SdkRootDirPath}/examples/evkmimxrt1170/multiprocessor_examples/erpc_server_matrix_multiply_uart/cm7
     ${SdkRootDirPath}/core/boards/evkmimxrt1170
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/drivers/lpuart
+    ${SdkRootDirPath}/core/cmsis_drivers/lpuart
+    ${SdkRootDirPath}/core/drivers/edma
+    ${SdkRootDirPath}/core/drivers/dmamux
+    ${SdkRootDirPath}/middleware/multicore
+    ${SdkRootDirPath}/core/devices/MIMXRT1176/drivers
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/devices/MIMXRT1176
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/drivers/igpio
+    ${SdkRootDirPath}/core/devices/MIMXRT1176/xip
+    ${SdkRootDirPath}/core/boards/evkmimxrt1170/xip
+    ${SdkRootDirPath}/core/devices/MIMXRT1176/drivers/cm7
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/CMSIS/Driver/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(driver_lpuart)
@@ -126,8 +146,6 @@ include(driver_dcdc_soc)
 
 include(driver_cache_armv7_m7)
 
-include(component_silicon_id)
-
 include(driver_anatop_ai)
 
 include(CMSIS_Include_core_cm)
@@ -145,19 +163,15 @@ include(utilities_misc_utilities_MIMXRT1176_cm7)
 include(device_system_MIMXRT1176_cm7)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lstdc++ -lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE g)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE stdc++)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

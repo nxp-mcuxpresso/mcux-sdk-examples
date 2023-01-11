@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2019 NXP
+ * Copyright 2016-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -42,16 +42,7 @@ uint32_t g_AdcConvResult[1];         /* Keep the ADC conversion resulut moved fr
 volatile bool g_DmaTransferDoneFlag; /* Flag of DMA transfer done trigger by ADC conversion. */
 /* DMA descripter table used for ping-pong mode. */
 DMA_ALLOCATE_LINK_DESCRIPTORS(s_dma_table, DMA_DESCRIPTOR_NUM);
-const uint32_t g_XferConfig =
-    DMA_CHANNEL_XFER(true,                          /* Reload link descriptor after current exhaust, */
-                     true,                          /* Clear trigger status. */
-                     true,                          /* Enable interruptA. */
-                     false,                         /* Not enable interruptB. */
-                     sizeof(uint32_t),              /* Dma transfer width. */
-                     kDMA_AddressInterleave0xWidth, /* Dma source address no interleave  */
-                     kDMA_AddressInterleave0xWidth, /* Dma destination address no interleave  */
-                     sizeof(uint32_t)               /* Dma transfer byte. */
-    );
+uint32_t g_XferConfig;
 const uint32_t g_Adc_12bitFullRange = 4096U;
 
 /*******************************************************************************
@@ -204,6 +195,15 @@ static void DMA_Configfuation(void)
     dma_channel_config_t dmaChannelConfigStruct;
     dma_channel_trigger_t dmaChannelTriggerStruct;
 
+    g_XferConfig = DMA_CHANNEL_XFER(true,                          /* Reload link descriptor after current exhaust, */
+                                    true,                          /* Clear trigger status. */
+                                    true,                          /* Enable interruptA. */
+                                    false,                         /* Not enable interruptB. */
+                                    sizeof(uint32_t),              /* Dma transfer width. */
+                                    kDMA_AddressInterleave0xWidth, /* Dma source address no interleave  */
+                                    kDMA_AddressInterleave0xWidth, /* Dma destination address no interleave  */
+                                    sizeof(uint32_t)               /* Dma transfer byte. */
+    );
     /* Init DMA. This must be set before INPUTMUX_Init() for DMA peripheral reset will clear the mux setting. */
     DMA_Init(DEMO_DMA_BASE);
 

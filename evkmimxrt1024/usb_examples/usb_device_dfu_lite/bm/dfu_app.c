@@ -17,10 +17,7 @@
 #include "usb_device_descriptor.h"
 
 #include "dfu_app.h"
-
 #include "dfu.h"
-
-#include "fsl_gpio.h"
 #include "fsl_device_registers.h"
 #include "fsl_debug_console.h"
 #include "pin_mux.h"

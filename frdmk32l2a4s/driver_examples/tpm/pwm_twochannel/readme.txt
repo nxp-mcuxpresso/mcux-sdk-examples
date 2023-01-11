@@ -1,8 +1,9 @@
 Overview
 ========
 The TPM project is a simple demonstration program of the SDK TPM driver. It sets up the TPM
-hardware block to output PWM signals on two TPM channels. The PWM dutycycle on both channels
-is manually updated. On boards that have an LED connected to the TPM pins, the user will see
+hardware block to output PWM signals(24KHZ) on two TPM channels. The PWM dutycycle on both channels
+is manually updated. The example sets up a TPM channel-pair to output two edge-aligned PWM signals.
+On boards that have an LED connected to the TPM pins, the user will see
 a change in LED brightness if user enter different values.
 
 Toolchain supported

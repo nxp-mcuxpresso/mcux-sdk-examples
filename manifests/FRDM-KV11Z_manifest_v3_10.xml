@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_FRDM-KV11Z_manifest_v3_10" name="SDKVersion 2.12.0 SuperSet" brief="This is SDK version 2.12.0 manifest file." format_version="3.10" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2022-07-15 08:19:14.822644-->
-  <!--This manifest is generated based on sdk repo commit: 45d71c921a1dd3e0403549aa377535344ed9bc97-->
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_FRDM-KV11Z_manifest_v3_10" name="SDKVersion 2.13.0 SuperSet" brief="This is SDK version 2.13.0 manifest file." format_version="3.10" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
+  <!--Timestamp (UTC): 2023-01-10 16:35:48.948488-->
+  <!--This manifest is generated based on sdk repo commit: 11a5f6af5190bfe018a89b4d02c239713dc4cfa6-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
@@ -11,7 +11,7 @@
     <definition extID="hvpkv11z75m"/>
     <definition extID="twrkv11z75m"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2120" name="MCUXpressoSDK2120" version="2.12.0"/>
+  <ksdk id="MCUXpressoSDK2130" name="MCUXpressoSDK2130" version="2.13.0"/>
   <compilers>
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
   </compilers>
@@ -693,22 +693,22 @@ ${load}</script>
     <component id="project_template.hvpkv11z75m.MKV11Z7" name="hvpkv11z75m" brief="Board_project_template hvpkv11z75m" version="1.0.0" full_name="Board_project_template hvpkv11z75m" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" category="Board Support/SDK Project Template" user_visible="true" type="project_template" package_base_path="core/boards/hvpkv11z75m/project_template" project_base_path="board">
       <dependencies>
         <all>
-          <component_dependency value="platform.drivers.common.MKV11Z7"/>
-          <component_dependency value="platform.drivers.uart.MKV11Z7"/>
           <component_dependency value="component.uart_adapter.MKV11Z7"/>
-          <component_dependency value="platform.drivers.port.MKV11Z7"/>
-          <component_dependency value="platform.drivers.gpio.MKV11Z7"/>
-          <component_dependency value="platform.drivers.smc.MKV11Z7"/>
           <component_dependency value="device.MKV11Z7_startup.MKV11Z7"/>
+          <component_dependency value="platform.drivers.common.MKV11Z7"/>
+          <component_dependency value="platform.drivers.gpio.MKV11Z7"/>
+          <component_dependency value="platform.drivers.port.MKV11Z7"/>
+          <component_dependency value="platform.drivers.smc.MKV11Z7"/>
+          <component_dependency value="platform.drivers.uart.MKV11Z7"/>
           <any_of>
             <all>
-              <component_dependency value="utility.debug_console.MKV11Z7"/>
-              <component_dependency value="platform.utilities.assert.MKV11Z7"/>
               <component_dependency value="component.serial_manager.MKV11Z7"/>
+              <component_dependency value="platform.utilities.assert.MKV11Z7"/>
+              <component_dependency value="utility.debug_console.MKV11Z7"/>
             </all>
             <all>
-              <component_dependency value="utility.debug_console_lite.MKV11Z7"/>
               <component_dependency value="platform.utilities.assert_lite.MKV11Z7"/>
+              <component_dependency value="utility.debug_console_lite.MKV11Z7"/>
             </all>
           </any_of>
         </all>
@@ -854,129 +854,129 @@ ${load}</script>
         <files mask="BasicMathFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/BasicMathFunctions" type="src">
-        <files mask="arm_abs_f32.c" hidden="true"/>
-        <files mask="arm_abs_q15.c" hidden="true"/>
-        <files mask="arm_abs_q31.c" hidden="true"/>
-        <files mask="arm_abs_q7.c" hidden="true"/>
-        <files mask="arm_add_f32.c" hidden="true"/>
-        <files mask="arm_add_q15.c" hidden="true"/>
-        <files mask="arm_add_q31.c" hidden="true"/>
-        <files mask="arm_add_q7.c" hidden="true"/>
-        <files mask="arm_and_u16.c" hidden="true"/>
-        <files mask="arm_and_u32.c" hidden="true"/>
-        <files mask="arm_and_u8.c" hidden="true"/>
-        <files mask="arm_clip_f32.c" hidden="true"/>
-        <files mask="arm_clip_q15.c" hidden="true"/>
-        <files mask="arm_clip_q31.c" hidden="true"/>
-        <files mask="arm_clip_q7.c" hidden="true"/>
-        <files mask="arm_dot_prod_f32.c" hidden="true"/>
-        <files mask="arm_dot_prod_q15.c" hidden="true"/>
-        <files mask="arm_dot_prod_q31.c" hidden="true"/>
-        <files mask="arm_dot_prod_q7.c" hidden="true"/>
-        <files mask="arm_mult_f32.c" hidden="true"/>
-        <files mask="arm_mult_q15.c" hidden="true"/>
-        <files mask="arm_mult_q31.c" hidden="true"/>
-        <files mask="arm_mult_q7.c" hidden="true"/>
-        <files mask="arm_negate_f32.c" hidden="true"/>
-        <files mask="arm_negate_q15.c" hidden="true"/>
-        <files mask="arm_negate_q31.c" hidden="true"/>
-        <files mask="arm_negate_q7.c" hidden="true"/>
-        <files mask="arm_not_u16.c" hidden="true"/>
-        <files mask="arm_not_u32.c" hidden="true"/>
-        <files mask="arm_not_u8.c" hidden="true"/>
-        <files mask="arm_offset_f32.c" hidden="true"/>
-        <files mask="arm_offset_q15.c" hidden="true"/>
-        <files mask="arm_offset_q31.c" hidden="true"/>
-        <files mask="arm_offset_q7.c" hidden="true"/>
-        <files mask="arm_or_u16.c" hidden="true"/>
-        <files mask="arm_or_u32.c" hidden="true"/>
-        <files mask="arm_or_u8.c" hidden="true"/>
-        <files mask="arm_scale_f32.c" hidden="true"/>
-        <files mask="arm_scale_q15.c" hidden="true"/>
-        <files mask="arm_scale_q31.c" hidden="true"/>
-        <files mask="arm_scale_q7.c" hidden="true"/>
-        <files mask="arm_shift_q15.c" hidden="true"/>
-        <files mask="arm_shift_q31.c" hidden="true"/>
-        <files mask="arm_shift_q7.c" hidden="true"/>
-        <files mask="arm_sub_f32.c" hidden="true"/>
-        <files mask="arm_sub_q15.c" hidden="true"/>
-        <files mask="arm_sub_q31.c" hidden="true"/>
-        <files mask="arm_sub_q7.c" hidden="true"/>
-        <files mask="arm_xor_u16.c" hidden="true"/>
-        <files mask="arm_xor_u32.c" hidden="true"/>
-        <files mask="arm_xor_u8.c" hidden="true"/>
-        <files mask="arm_abs_f16.c" hidden="true"/>
-        <files mask="arm_add_f16.c" hidden="true"/>
-        <files mask="arm_clip_f16.c" hidden="true"/>
-        <files mask="arm_dot_prod_f16.c" hidden="true"/>
-        <files mask="arm_mult_f16.c" hidden="true"/>
-        <files mask="arm_negate_f16.c" hidden="true"/>
-        <files mask="arm_offset_f16.c" hidden="true"/>
-        <files mask="arm_scale_f16.c" hidden="true"/>
-        <files mask="arm_sub_f16.c" hidden="true"/>
+        <files mask="arm_abs_f32.c"/>
+        <files mask="arm_abs_q15.c"/>
+        <files mask="arm_abs_q31.c"/>
+        <files mask="arm_abs_q7.c"/>
+        <files mask="arm_add_f32.c"/>
+        <files mask="arm_add_q15.c"/>
+        <files mask="arm_add_q31.c"/>
+        <files mask="arm_add_q7.c"/>
+        <files mask="arm_and_u16.c"/>
+        <files mask="arm_and_u32.c"/>
+        <files mask="arm_and_u8.c"/>
+        <files mask="arm_clip_f32.c"/>
+        <files mask="arm_clip_q15.c"/>
+        <files mask="arm_clip_q31.c"/>
+        <files mask="arm_clip_q7.c"/>
+        <files mask="arm_dot_prod_f32.c"/>
+        <files mask="arm_dot_prod_q15.c"/>
+        <files mask="arm_dot_prod_q31.c"/>
+        <files mask="arm_dot_prod_q7.c"/>
+        <files mask="arm_mult_f32.c"/>
+        <files mask="arm_mult_q15.c"/>
+        <files mask="arm_mult_q31.c"/>
+        <files mask="arm_mult_q7.c"/>
+        <files mask="arm_negate_f32.c"/>
+        <files mask="arm_negate_q15.c"/>
+        <files mask="arm_negate_q31.c"/>
+        <files mask="arm_negate_q7.c"/>
+        <files mask="arm_not_u16.c"/>
+        <files mask="arm_not_u32.c"/>
+        <files mask="arm_not_u8.c"/>
+        <files mask="arm_offset_f32.c"/>
+        <files mask="arm_offset_q15.c"/>
+        <files mask="arm_offset_q31.c"/>
+        <files mask="arm_offset_q7.c"/>
+        <files mask="arm_or_u16.c"/>
+        <files mask="arm_or_u32.c"/>
+        <files mask="arm_or_u8.c"/>
+        <files mask="arm_scale_f32.c"/>
+        <files mask="arm_scale_q15.c"/>
+        <files mask="arm_scale_q31.c"/>
+        <files mask="arm_scale_q7.c"/>
+        <files mask="arm_shift_q15.c"/>
+        <files mask="arm_shift_q31.c"/>
+        <files mask="arm_shift_q7.c"/>
+        <files mask="arm_sub_f32.c"/>
+        <files mask="arm_sub_q15.c"/>
+        <files mask="arm_sub_q31.c"/>
+        <files mask="arm_sub_q7.c"/>
+        <files mask="arm_xor_u16.c"/>
+        <files mask="arm_xor_u32.c"/>
+        <files mask="arm_xor_u8.c"/>
+        <files mask="arm_abs_f16.c"/>
+        <files mask="arm_add_f16.c"/>
+        <files mask="arm_clip_f16.c"/>
+        <files mask="arm_dot_prod_f16.c"/>
+        <files mask="arm_mult_f16.c"/>
+        <files mask="arm_negate_f16.c"/>
+        <files mask="arm_offset_f16.c"/>
+        <files mask="arm_scale_f16.c"/>
+        <files mask="arm_sub_f16.c"/>
       </source>
       <source relative_path="Source/BayesFunctions" type="src">
         <files mask="BayesFunctions.c"/>
         <files mask="BayesFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/BayesFunctions" type="src">
-        <files mask="arm_gaussian_naive_bayes_predict_f32.c" hidden="true"/>
-        <files mask="arm_gaussian_naive_bayes_predict_f16.c" hidden="true"/>
+        <files mask="arm_gaussian_naive_bayes_predict_f32.c"/>
+        <files mask="arm_gaussian_naive_bayes_predict_f16.c"/>
       </source>
       <source relative_path="Source/CommonTables" type="src">
         <files mask="CommonTables.c"/>
         <files mask="CommonTablesF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/CommonTables" type="src">
-        <files mask="arm_common_tables.c" hidden="true"/>
-        <files mask="arm_const_structs.c" hidden="true"/>
-        <files mask="arm_mve_tables.c" hidden="true"/>
-        <files mask="arm_common_tables_f16.c" hidden="true"/>
-        <files mask="arm_const_structs_f16.c" hidden="true"/>
-        <files mask="arm_mve_tables_f16.c" hidden="true"/>
+        <files mask="arm_common_tables.c"/>
+        <files mask="arm_const_structs.c"/>
+        <files mask="arm_mve_tables.c"/>
+        <files mask="arm_common_tables_f16.c"/>
+        <files mask="arm_const_structs_f16.c"/>
+        <files mask="arm_mve_tables_f16.c"/>
       </source>
       <source relative_path="Source/ComplexMathFunctions" type="src">
         <files mask="ComplexMathFunctions.c"/>
         <files mask="ComplexMathFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/ComplexMathFunctions" type="src">
-        <files mask="arm_cmplx_conj_f32.c" hidden="true"/>
-        <files mask="arm_cmplx_conj_q15.c" hidden="true"/>
-        <files mask="arm_cmplx_conj_q31.c" hidden="true"/>
-        <files mask="arm_cmplx_dot_prod_f32.c" hidden="true"/>
-        <files mask="arm_cmplx_dot_prod_q15.c" hidden="true"/>
-        <files mask="arm_cmplx_dot_prod_q31.c" hidden="true"/>
-        <files mask="arm_cmplx_mag_f32.c" hidden="true"/>
-        <files mask="arm_cmplx_mag_q15.c" hidden="true"/>
-        <files mask="arm_cmplx_mag_q31.c" hidden="true"/>
-        <files mask="arm_cmplx_mag_squared_f32.c" hidden="true"/>
-        <files mask="arm_cmplx_mag_squared_q15.c" hidden="true"/>
-        <files mask="arm_cmplx_mag_squared_q31.c" hidden="true"/>
-        <files mask="arm_cmplx_mult_cmplx_f32.c" hidden="true"/>
-        <files mask="arm_cmplx_mult_cmplx_q15.c" hidden="true"/>
-        <files mask="arm_cmplx_mult_cmplx_q31.c" hidden="true"/>
-        <files mask="arm_cmplx_mult_real_f32.c" hidden="true"/>
-        <files mask="arm_cmplx_mult_real_q15.c" hidden="true"/>
-        <files mask="arm_cmplx_mult_real_q31.c" hidden="true"/>
-        <files mask="arm_cmplx_conj_f16.c" hidden="true"/>
-        <files mask="arm_cmplx_dot_prod_f16.c" hidden="true"/>
-        <files mask="arm_cmplx_mag_f16.c" hidden="true"/>
-        <files mask="arm_cmplx_mag_squared_f16.c" hidden="true"/>
-        <files mask="arm_cmplx_mult_cmplx_f16.c" hidden="true"/>
-        <files mask="arm_cmplx_mult_real_f16.c" hidden="true"/>
+        <files mask="arm_cmplx_conj_f32.c"/>
+        <files mask="arm_cmplx_conj_q15.c"/>
+        <files mask="arm_cmplx_conj_q31.c"/>
+        <files mask="arm_cmplx_dot_prod_f32.c"/>
+        <files mask="arm_cmplx_dot_prod_q15.c"/>
+        <files mask="arm_cmplx_dot_prod_q31.c"/>
+        <files mask="arm_cmplx_mag_f32.c"/>
+        <files mask="arm_cmplx_mag_q15.c"/>
+        <files mask="arm_cmplx_mag_q31.c"/>
+        <files mask="arm_cmplx_mag_squared_f32.c"/>
+        <files mask="arm_cmplx_mag_squared_q15.c"/>
+        <files mask="arm_cmplx_mag_squared_q31.c"/>
+        <files mask="arm_cmplx_mult_cmplx_f32.c"/>
+        <files mask="arm_cmplx_mult_cmplx_q15.c"/>
+        <files mask="arm_cmplx_mult_cmplx_q31.c"/>
+        <files mask="arm_cmplx_mult_real_f32.c"/>
+        <files mask="arm_cmplx_mult_real_q15.c"/>
+        <files mask="arm_cmplx_mult_real_q31.c"/>
+        <files mask="arm_cmplx_conj_f16.c"/>
+        <files mask="arm_cmplx_dot_prod_f16.c"/>
+        <files mask="arm_cmplx_mag_f16.c"/>
+        <files mask="arm_cmplx_mag_squared_f16.c"/>
+        <files mask="arm_cmplx_mult_cmplx_f16.c"/>
+        <files mask="arm_cmplx_mult_real_f16.c"/>
       </source>
       <source relative_path="Source/ControllerFunctions" type="src">
         <files mask="ControllerFunctions.c"/>
       </source>
       <source exclude="true" relative_path="Source/ControllerFunctions" type="src">
-        <files mask="arm_pid_init_f32.c" hidden="true"/>
-        <files mask="arm_pid_init_q15.c" hidden="true"/>
-        <files mask="arm_pid_init_q31.c" hidden="true"/>
-        <files mask="arm_pid_reset_f32.c" hidden="true"/>
-        <files mask="arm_pid_reset_q15.c" hidden="true"/>
-        <files mask="arm_pid_reset_q31.c" hidden="true"/>
-        <files mask="arm_sin_cos_f32.c" hidden="true"/>
-        <files mask="arm_sin_cos_q31.c" hidden="true"/>
+        <files mask="arm_pid_init_f32.c"/>
+        <files mask="arm_pid_init_q15.c"/>
+        <files mask="arm_pid_init_q31.c"/>
+        <files mask="arm_pid_reset_f32.c"/>
+        <files mask="arm_pid_reset_q15.c"/>
+        <files mask="arm_pid_reset_q31.c"/>
+        <files mask="arm_sin_cos_f32.c"/>
+        <files mask="arm_sin_cos_q31.c"/>
       </source>
       <source relative_path="Source/DistanceFunctions" type="src">
         <files mask="DistanceFunctions.c"/>
@@ -986,452 +986,450 @@ ${load}</script>
         <files mask="arm_boolean_distance_template.h"/>
       </source>
       <source exclude="true" relative_path="Source/DistanceFunctions" type="src">
-        <files mask="arm_boolean_distance.c" hidden="true"/>
-        <files mask="arm_braycurtis_distance_f32.c" hidden="true"/>
-        <files mask="arm_canberra_distance_f32.c" hidden="true"/>
-        <files mask="arm_chebyshev_distance_f32.c" hidden="true"/>
-        <files mask="arm_cityblock_distance_f32.c" hidden="true"/>
-        <files mask="arm_correlation_distance_f32.c" hidden="true"/>
-        <files mask="arm_cosine_distance_f32.c" hidden="true"/>
-        <files mask="arm_dice_distance.c" hidden="true"/>
-        <files mask="arm_euclidean_distance_f32.c" hidden="true"/>
-        <files mask="arm_hamming_distance.c" hidden="true"/>
-        <files mask="arm_jaccard_distance.c" hidden="true"/>
-        <files mask="arm_jensenshannon_distance_f32.c" hidden="true"/>
-        <files mask="arm_kulsinski_distance.c" hidden="true"/>
-        <files mask="arm_minkowski_distance_f32.c" hidden="true"/>
-        <files mask="arm_rogerstanimoto_distance.c" hidden="true"/>
-        <files mask="arm_russellrao_distance.c" hidden="true"/>
-        <files mask="arm_sokalmichener_distance.c" hidden="true"/>
-        <files mask="arm_sokalsneath_distance.c" hidden="true"/>
-        <files mask="arm_yule_distance.c" hidden="true"/>
-        <files mask="arm_braycurtis_distance_f16.c" hidden="true"/>
-        <files mask="arm_canberra_distance_f16.c" hidden="true"/>
-        <files mask="arm_chebyshev_distance_f16.c" hidden="true"/>
-        <files mask="arm_cityblock_distance_f16.c" hidden="true"/>
-        <files mask="arm_correlation_distance_f16.c" hidden="true"/>
-        <files mask="arm_cosine_distance_f16.c" hidden="true"/>
-        <files mask="arm_euclidean_distance_f16.c" hidden="true"/>
-        <files mask="arm_jensenshannon_distance_f16.c" hidden="true"/>
-        <files mask="arm_minkowski_distance_f16.c" hidden="true"/>
+        <files mask="arm_boolean_distance.c"/>
+        <files mask="arm_braycurtis_distance_f32.c"/>
+        <files mask="arm_canberra_distance_f32.c"/>
+        <files mask="arm_chebyshev_distance_f32.c"/>
+        <files mask="arm_cityblock_distance_f32.c"/>
+        <files mask="arm_correlation_distance_f32.c"/>
+        <files mask="arm_cosine_distance_f32.c"/>
+        <files mask="arm_dice_distance.c"/>
+        <files mask="arm_euclidean_distance_f32.c"/>
+        <files mask="arm_hamming_distance.c"/>
+        <files mask="arm_jaccard_distance.c"/>
+        <files mask="arm_jensenshannon_distance_f32.c"/>
+        <files mask="arm_kulsinski_distance.c"/>
+        <files mask="arm_minkowski_distance_f32.c"/>
+        <files mask="arm_rogerstanimoto_distance.c"/>
+        <files mask="arm_russellrao_distance.c"/>
+        <files mask="arm_sokalmichener_distance.c"/>
+        <files mask="arm_sokalsneath_distance.c"/>
+        <files mask="arm_yule_distance.c"/>
+        <files mask="arm_braycurtis_distance_f16.c"/>
+        <files mask="arm_canberra_distance_f16.c"/>
+        <files mask="arm_chebyshev_distance_f16.c"/>
+        <files mask="arm_cityblock_distance_f16.c"/>
+        <files mask="arm_correlation_distance_f16.c"/>
+        <files mask="arm_cosine_distance_f16.c"/>
+        <files mask="arm_euclidean_distance_f16.c"/>
+        <files mask="arm_jensenshannon_distance_f16.c"/>
+        <files mask="arm_minkowski_distance_f16.c"/>
       </source>
       <source relative_path="Source/FastMathFunctions" type="src">
         <files mask="FastMathFunctions.c"/>
         <files mask="FastMathFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/FastMathFunctions" type="src">
-        <files mask="arm_cos_f32.c" hidden="true"/>
-        <files mask="arm_cos_q15.c" hidden="true"/>
-        <files mask="arm_cos_q31.c" hidden="true"/>
-        <files mask="arm_divide_q15.c" hidden="true"/>
-        <files mask="arm_sin_f32.c" hidden="true"/>
-        <files mask="arm_sin_q15.c" hidden="true"/>
-        <files mask="arm_sin_q31.c" hidden="true"/>
-        <files mask="arm_sqrt_q15.c" hidden="true"/>
-        <files mask="arm_sqrt_q31.c" hidden="true"/>
-        <files mask="arm_vexp_f32.c" hidden="true"/>
-        <files mask="arm_vlog_f32.c" hidden="true"/>
-        <files mask="arm_vexp_f16.c" hidden="true"/>
-        <files mask="arm_vinverse_f16.c" hidden="true"/>
-        <files mask="arm_vlog_f16.c" hidden="true"/>
+        <files mask="arm_cos_f32.c"/>
+        <files mask="arm_cos_q15.c"/>
+        <files mask="arm_cos_q31.c"/>
+        <files mask="arm_divide_q15.c"/>
+        <files mask="arm_sin_f32.c"/>
+        <files mask="arm_sin_q15.c"/>
+        <files mask="arm_sin_q31.c"/>
+        <files mask="arm_sqrt_q15.c"/>
+        <files mask="arm_sqrt_q31.c"/>
+        <files mask="arm_vexp_f32.c"/>
+        <files mask="arm_vlog_f32.c"/>
+        <files mask="arm_vexp_f16.c"/>
+        <files mask="arm_vinverse_f16.c"/>
+        <files mask="arm_vlog_f16.c"/>
       </source>
       <source relative_path="Source/FilteringFunctions" type="src">
         <files mask="FilteringFunctions.c"/>
         <files mask="FilteringFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/FilteringFunctions" type="src">
-        <files mask="arm_biquad_cascade_df1_32x64_init_q31.c" hidden="true"/>
-        <files mask="arm_biquad_cascade_df1_32x64_q31.c" hidden="true"/>
-        <files mask="arm_biquad_cascade_df1_f32.c" hidden="true"/>
-        <files mask="arm_biquad_cascade_df1_fast_q15.c" hidden="true"/>
-        <files mask="arm_biquad_cascade_df1_fast_q31.c" hidden="true"/>
-        <files mask="arm_biquad_cascade_df1_init_f32.c" hidden="true"/>
-        <files mask="arm_biquad_cascade_df1_init_q15.c" hidden="true"/>
-        <files mask="arm_biquad_cascade_df1_init_q31.c" hidden="true"/>
-        <files mask="arm_biquad_cascade_df1_q15.c" hidden="true"/>
-        <files mask="arm_biquad_cascade_df1_q31.c" hidden="true"/>
-        <files mask="arm_biquad_cascade_df2T_f32.c" hidden="true"/>
-        <files mask="arm_biquad_cascade_df2T_f64.c" hidden="true"/>
-        <files mask="arm_biquad_cascade_df2T_init_f32.c" hidden="true"/>
-        <files mask="arm_biquad_cascade_df2T_init_f64.c" hidden="true"/>
-        <files mask="arm_biquad_cascade_stereo_df2T_f32.c" hidden="true"/>
-        <files mask="arm_biquad_cascade_stereo_df2T_init_f32.c" hidden="true"/>
-        <files mask="arm_conv_f32.c" hidden="true"/>
-        <files mask="arm_conv_fast_opt_q15.c" hidden="true"/>
-        <files mask="arm_conv_fast_q15.c" hidden="true"/>
-        <files mask="arm_conv_fast_q31.c" hidden="true"/>
-        <files mask="arm_conv_opt_q15.c" hidden="true"/>
-        <files mask="arm_conv_opt_q7.c" hidden="true"/>
-        <files mask="arm_conv_partial_f32.c" hidden="true"/>
-        <files mask="arm_conv_partial_fast_opt_q15.c" hidden="true"/>
-        <files mask="arm_conv_partial_fast_q15.c" hidden="true"/>
-        <files mask="arm_conv_partial_fast_q31.c" hidden="true"/>
-        <files mask="arm_conv_partial_opt_q15.c" hidden="true"/>
-        <files mask="arm_conv_partial_opt_q7.c" hidden="true"/>
-        <files mask="arm_conv_partial_q15.c" hidden="true"/>
-        <files mask="arm_conv_partial_q31.c" hidden="true"/>
-        <files mask="arm_conv_partial_q7.c" hidden="true"/>
-        <files mask="arm_conv_q15.c" hidden="true"/>
-        <files mask="arm_conv_q31.c" hidden="true"/>
-        <files mask="arm_conv_q7.c" hidden="true"/>
-        <files mask="arm_correlate_f32.c" hidden="true"/>
-        <files mask="arm_correlate_fast_opt_q15.c" hidden="true"/>
-        <files mask="arm_correlate_fast_q15.c" hidden="true"/>
-        <files mask="arm_correlate_fast_q31.c" hidden="true"/>
-        <files mask="arm_correlate_opt_q15.c" hidden="true"/>
-        <files mask="arm_correlate_opt_q7.c" hidden="true"/>
-        <files mask="arm_correlate_q15.c" hidden="true"/>
-        <files mask="arm_correlate_q31.c" hidden="true"/>
-        <files mask="arm_correlate_q7.c" hidden="true"/>
-        <files mask="arm_fir_decimate_f32.c" hidden="true"/>
-        <files mask="arm_fir_decimate_fast_q15.c" hidden="true"/>
-        <files mask="arm_fir_decimate_fast_q31.c" hidden="true"/>
-        <files mask="arm_fir_decimate_init_f32.c" hidden="true"/>
-        <files mask="arm_fir_decimate_init_q15.c" hidden="true"/>
-        <files mask="arm_fir_decimate_init_q31.c" hidden="true"/>
-        <files mask="arm_fir_decimate_q15.c" hidden="true"/>
-        <files mask="arm_fir_decimate_q31.c" hidden="true"/>
-        <files mask="arm_fir_f32.c" hidden="true"/>
-        <files mask="arm_fir_fast_q15.c" hidden="true"/>
-        <files mask="arm_fir_fast_q31.c" hidden="true"/>
-        <files mask="arm_fir_init_f32.c" hidden="true"/>
-        <files mask="arm_fir_init_q15.c" hidden="true"/>
-        <files mask="arm_fir_init_q31.c" hidden="true"/>
-        <files mask="arm_fir_init_q7.c" hidden="true"/>
-        <files mask="arm_fir_interpolate_f32.c" hidden="true"/>
-        <files mask="arm_fir_interpolate_init_f32.c" hidden="true"/>
-        <files mask="arm_fir_interpolate_init_q15.c" hidden="true"/>
-        <files mask="arm_fir_interpolate_init_q31.c" hidden="true"/>
-        <files mask="arm_fir_interpolate_q15.c" hidden="true"/>
-        <files mask="arm_fir_interpolate_q31.c" hidden="true"/>
-        <files mask="arm_fir_lattice_f32.c" hidden="true"/>
-        <files mask="arm_fir_lattice_init_f32.c" hidden="true"/>
-        <files mask="arm_fir_lattice_init_q15.c" hidden="true"/>
-        <files mask="arm_fir_lattice_init_q31.c" hidden="true"/>
-        <files mask="arm_fir_lattice_q15.c" hidden="true"/>
-        <files mask="arm_fir_lattice_q31.c" hidden="true"/>
-        <files mask="arm_fir_q15.c" hidden="true"/>
-        <files mask="arm_fir_q31.c" hidden="true"/>
-        <files mask="arm_fir_q7.c" hidden="true"/>
-        <files mask="arm_fir_sparse_f32.c" hidden="true"/>
-        <files mask="arm_fir_sparse_init_f32.c" hidden="true"/>
-        <files mask="arm_fir_sparse_init_q15.c" hidden="true"/>
-        <files mask="arm_fir_sparse_init_q31.c" hidden="true"/>
-        <files mask="arm_fir_sparse_init_q7.c" hidden="true"/>
-        <files mask="arm_fir_sparse_q15.c" hidden="true"/>
-        <files mask="arm_fir_sparse_q31.c" hidden="true"/>
-        <files mask="arm_fir_sparse_q7.c" hidden="true"/>
-        <files mask="arm_iir_lattice_f32.c" hidden="true"/>
-        <files mask="arm_iir_lattice_init_f32.c" hidden="true"/>
-        <files mask="arm_iir_lattice_init_q15.c" hidden="true"/>
-        <files mask="arm_iir_lattice_init_q31.c" hidden="true"/>
-        <files mask="arm_iir_lattice_q15.c" hidden="true"/>
-        <files mask="arm_iir_lattice_q31.c" hidden="true"/>
-        <files mask="arm_levinson_durbin_f32.c" hidden="true"/>
-        <files mask="arm_levinson_durbin_q31.c" hidden="true"/>
-        <files mask="arm_lms_f32.c" hidden="true"/>
-        <files mask="arm_lms_init_f32.c" hidden="true"/>
-        <files mask="arm_lms_init_q15.c" hidden="true"/>
-        <files mask="arm_lms_init_q31.c" hidden="true"/>
-        <files mask="arm_lms_norm_f32.c" hidden="true"/>
-        <files mask="arm_lms_norm_init_f32.c" hidden="true"/>
-        <files mask="arm_lms_norm_init_q15.c" hidden="true"/>
-        <files mask="arm_lms_norm_init_q31.c" hidden="true"/>
-        <files mask="arm_lms_norm_q15.c" hidden="true"/>
-        <files mask="arm_lms_norm_q31.c" hidden="true"/>
-        <files mask="arm_lms_q15.c" hidden="true"/>
-        <files mask="arm_lms_q31.c" hidden="true"/>
-        <files mask="arm_biquad_cascade_df1_f16.c" hidden="true"/>
-        <files mask="arm_biquad_cascade_df1_init_f16.c" hidden="true"/>
-        <files mask="arm_biquad_cascade_df2T_f16.c" hidden="true"/>
-        <files mask="arm_biquad_cascade_df2T_init_f16.c" hidden="true"/>
-        <files mask="arm_biquad_cascade_stereo_df2T_f16.c" hidden="true"/>
-        <files mask="arm_biquad_cascade_stereo_df2T_init_f16.c" hidden="true"/>
-        <files mask="arm_correlate_f16.c" hidden="true"/>
-        <files mask="arm_fir_f16.c" hidden="true"/>
-        <files mask="arm_fir_init_f16.c" hidden="true"/>
-        <files mask="arm_levinson_durbin_f16.c" hidden="true"/>
+        <files mask="arm_biquad_cascade_df1_32x64_init_q31.c"/>
+        <files mask="arm_biquad_cascade_df1_32x64_q31.c"/>
+        <files mask="arm_biquad_cascade_df1_f32.c"/>
+        <files mask="arm_biquad_cascade_df1_fast_q15.c"/>
+        <files mask="arm_biquad_cascade_df1_fast_q31.c"/>
+        <files mask="arm_biquad_cascade_df1_init_f32.c"/>
+        <files mask="arm_biquad_cascade_df1_init_q15.c"/>
+        <files mask="arm_biquad_cascade_df1_init_q31.c"/>
+        <files mask="arm_biquad_cascade_df1_q15.c"/>
+        <files mask="arm_biquad_cascade_df1_q31.c"/>
+        <files mask="arm_biquad_cascade_df2T_f32.c"/>
+        <files mask="arm_biquad_cascade_df2T_f64.c"/>
+        <files mask="arm_biquad_cascade_df2T_init_f32.c"/>
+        <files mask="arm_biquad_cascade_df2T_init_f64.c"/>
+        <files mask="arm_biquad_cascade_stereo_df2T_f32.c"/>
+        <files mask="arm_biquad_cascade_stereo_df2T_init_f32.c"/>
+        <files mask="arm_conv_f32.c"/>
+        <files mask="arm_conv_fast_opt_q15.c"/>
+        <files mask="arm_conv_fast_q15.c"/>
+        <files mask="arm_conv_fast_q31.c"/>
+        <files mask="arm_conv_opt_q15.c"/>
+        <files mask="arm_conv_opt_q7.c"/>
+        <files mask="arm_conv_partial_f32.c"/>
+        <files mask="arm_conv_partial_fast_opt_q15.c"/>
+        <files mask="arm_conv_partial_fast_q15.c"/>
+        <files mask="arm_conv_partial_fast_q31.c"/>
+        <files mask="arm_conv_partial_opt_q15.c"/>
+        <files mask="arm_conv_partial_opt_q7.c"/>
+        <files mask="arm_conv_partial_q15.c"/>
+        <files mask="arm_conv_partial_q31.c"/>
+        <files mask="arm_conv_partial_q7.c"/>
+        <files mask="arm_conv_q15.c"/>
+        <files mask="arm_conv_q31.c"/>
+        <files mask="arm_conv_q7.c"/>
+        <files mask="arm_correlate_f32.c"/>
+        <files mask="arm_correlate_fast_opt_q15.c"/>
+        <files mask="arm_correlate_fast_q15.c"/>
+        <files mask="arm_correlate_fast_q31.c"/>
+        <files mask="arm_correlate_opt_q15.c"/>
+        <files mask="arm_correlate_opt_q7.c"/>
+        <files mask="arm_correlate_q15.c"/>
+        <files mask="arm_correlate_q31.c"/>
+        <files mask="arm_correlate_q7.c"/>
+        <files mask="arm_fir_decimate_f32.c"/>
+        <files mask="arm_fir_decimate_fast_q15.c"/>
+        <files mask="arm_fir_decimate_fast_q31.c"/>
+        <files mask="arm_fir_decimate_init_f32.c"/>
+        <files mask="arm_fir_decimate_init_q15.c"/>
+        <files mask="arm_fir_decimate_init_q31.c"/>
+        <files mask="arm_fir_decimate_q15.c"/>
+        <files mask="arm_fir_decimate_q31.c"/>
+        <files mask="arm_fir_f32.c"/>
+        <files mask="arm_fir_fast_q15.c"/>
+        <files mask="arm_fir_fast_q31.c"/>
+        <files mask="arm_fir_init_f32.c"/>
+        <files mask="arm_fir_init_q15.c"/>
+        <files mask="arm_fir_init_q31.c"/>
+        <files mask="arm_fir_init_q7.c"/>
+        <files mask="arm_fir_interpolate_f32.c"/>
+        <files mask="arm_fir_interpolate_init_f32.c"/>
+        <files mask="arm_fir_interpolate_init_q15.c"/>
+        <files mask="arm_fir_interpolate_init_q31.c"/>
+        <files mask="arm_fir_interpolate_q15.c"/>
+        <files mask="arm_fir_interpolate_q31.c"/>
+        <files mask="arm_fir_lattice_f32.c"/>
+        <files mask="arm_fir_lattice_init_f32.c"/>
+        <files mask="arm_fir_lattice_init_q15.c"/>
+        <files mask="arm_fir_lattice_init_q31.c"/>
+        <files mask="arm_fir_lattice_q15.c"/>
+        <files mask="arm_fir_lattice_q31.c"/>
+        <files mask="arm_fir_q15.c"/>
+        <files mask="arm_fir_q31.c"/>
+        <files mask="arm_fir_q7.c"/>
+        <files mask="arm_fir_sparse_f32.c"/>
+        <files mask="arm_fir_sparse_init_f32.c"/>
+        <files mask="arm_fir_sparse_init_q15.c"/>
+        <files mask="arm_fir_sparse_init_q31.c"/>
+        <files mask="arm_fir_sparse_init_q7.c"/>
+        <files mask="arm_fir_sparse_q15.c"/>
+        <files mask="arm_fir_sparse_q31.c"/>
+        <files mask="arm_fir_sparse_q7.c"/>
+        <files mask="arm_iir_lattice_f32.c"/>
+        <files mask="arm_iir_lattice_init_f32.c"/>
+        <files mask="arm_iir_lattice_init_q15.c"/>
+        <files mask="arm_iir_lattice_init_q31.c"/>
+        <files mask="arm_iir_lattice_q15.c"/>
+        <files mask="arm_iir_lattice_q31.c"/>
+        <files mask="arm_levinson_durbin_f32.c"/>
+        <files mask="arm_levinson_durbin_q31.c"/>
+        <files mask="arm_lms_f32.c"/>
+        <files mask="arm_lms_init_f32.c"/>
+        <files mask="arm_lms_init_q15.c"/>
+        <files mask="arm_lms_init_q31.c"/>
+        <files mask="arm_lms_norm_f32.c"/>
+        <files mask="arm_lms_norm_init_f32.c"/>
+        <files mask="arm_lms_norm_init_q15.c"/>
+        <files mask="arm_lms_norm_init_q31.c"/>
+        <files mask="arm_lms_norm_q15.c"/>
+        <files mask="arm_lms_norm_q31.c"/>
+        <files mask="arm_lms_q15.c"/>
+        <files mask="arm_lms_q31.c"/>
+        <files mask="arm_biquad_cascade_df1_f16.c"/>
+        <files mask="arm_biquad_cascade_df1_init_f16.c"/>
+        <files mask="arm_biquad_cascade_df2T_f16.c"/>
+        <files mask="arm_biquad_cascade_df2T_init_f16.c"/>
+        <files mask="arm_biquad_cascade_stereo_df2T_f16.c"/>
+        <files mask="arm_biquad_cascade_stereo_df2T_init_f16.c"/>
+        <files mask="arm_correlate_f16.c"/>
+        <files mask="arm_fir_f16.c"/>
+        <files mask="arm_fir_init_f16.c"/>
+        <files mask="arm_levinson_durbin_f16.c"/>
       </source>
       <source relative_path="Source/InterpolationFunctions" type="src">
         <files mask="InterpolationFunctions.c"/>
         <files mask="InterpolationFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/InterpolationFunctions" type="src">
-        <files mask="arm_bilinear_interp_f32.c" hidden="true"/>
-        <files mask="arm_bilinear_interp_q15.c" hidden="true"/>
-        <files mask="arm_bilinear_interp_q31.c" hidden="true"/>
-        <files mask="arm_bilinear_interp_q7.c" hidden="true"/>
-        <files mask="arm_linear_interp_f32.c" hidden="true"/>
-        <files mask="arm_linear_interp_q15.c" hidden="true"/>
-        <files mask="arm_linear_interp_q31.c" hidden="true"/>
-        <files mask="arm_linear_interp_q7.c" hidden="true"/>
-        <files mask="arm_spline_interp_f32.c" hidden="true"/>
-        <files mask="arm_spline_interp_init_f32.c" hidden="true"/>
-        <files mask="arm_bilinear_interp_f16.c" hidden="true"/>
-        <files mask="arm_linear_interp_f16.c" hidden="true"/>
+        <files mask="arm_bilinear_interp_f32.c"/>
+        <files mask="arm_bilinear_interp_q15.c"/>
+        <files mask="arm_bilinear_interp_q31.c"/>
+        <files mask="arm_bilinear_interp_q7.c"/>
+        <files mask="arm_linear_interp_f32.c"/>
+        <files mask="arm_linear_interp_q15.c"/>
+        <files mask="arm_linear_interp_q31.c"/>
+        <files mask="arm_linear_interp_q7.c"/>
+        <files mask="arm_spline_interp_f32.c"/>
+        <files mask="arm_spline_interp_init_f32.c"/>
+        <files mask="arm_bilinear_interp_f16.c"/>
+        <files mask="arm_linear_interp_f16.c"/>
       </source>
       <source relative_path="Source/MatrixFunctions" type="src">
         <files mask="MatrixFunctions.c"/>
         <files mask="MatrixFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/MatrixFunctions" type="src">
-        <files mask="arm_mat_add_f32.c" hidden="true"/>
-        <files mask="arm_mat_add_q15.c" hidden="true"/>
-        <files mask="arm_mat_add_q31.c" hidden="true"/>
-        <files mask="arm_mat_cholesky_f32.c" hidden="true"/>
-        <files mask="arm_mat_cholesky_f64.c" hidden="true"/>
-        <files mask="arm_mat_cmplx_mult_f32.c" hidden="true"/>
-        <files mask="arm_mat_cmplx_mult_q15.c" hidden="true"/>
-        <files mask="arm_mat_cmplx_mult_q31.c" hidden="true"/>
-        <files mask="arm_mat_cmplx_trans_f32.c" hidden="true"/>
-        <files mask="arm_mat_cmplx_trans_q15.c" hidden="true"/>
-        <files mask="arm_mat_cmplx_trans_q31.c" hidden="true"/>
-        <files mask="arm_mat_init_f32.c" hidden="true"/>
-        <files mask="arm_mat_init_q15.c" hidden="true"/>
-        <files mask="arm_mat_init_q31.c" hidden="true"/>
-        <files mask="arm_mat_inverse_f32.c" hidden="true"/>
-        <files mask="arm_mat_inverse_f64.c" hidden="true"/>
-        <files mask="arm_mat_ldlt_f32.c" hidden="true"/>
-        <files mask="arm_mat_ldlt_f64.c" hidden="true"/>
-        <files mask="arm_mat_mult_f32.c" hidden="true"/>
-        <files mask="arm_mat_mult_f64.c" hidden="true"/>
-        <files mask="arm_mat_mult_fast_q15.c" hidden="true"/>
-        <files mask="arm_mat_mult_fast_q31.c" hidden="true"/>
-        <files mask="arm_mat_mult_q15.c" hidden="true"/>
-        <files mask="arm_mat_mult_q31.c" hidden="true"/>
-        <files mask="arm_mat_mult_q7.c" hidden="true"/>
-        <files mask="arm_mat_scale_f32.c" hidden="true"/>
-        <files mask="arm_mat_scale_q15.c" hidden="true"/>
-        <files mask="arm_mat_scale_q31.c" hidden="true"/>
-        <files mask="arm_mat_solve_lower_triangular_f32.c" hidden="true"/>
-        <files mask="arm_mat_solve_lower_triangular_f64.c" hidden="true"/>
-        <files mask="arm_mat_solve_upper_triangular_f32.c" hidden="true"/>
-        <files mask="arm_mat_solve_upper_triangular_f64.c" hidden="true"/>
-        <files mask="arm_mat_sub_f32.c" hidden="true"/>
-        <files mask="arm_mat_sub_f64.c" hidden="true"/>
-        <files mask="arm_mat_sub_q15.c" hidden="true"/>
-        <files mask="arm_mat_sub_q31.c" hidden="true"/>
-        <files mask="arm_mat_trans_f32.c" hidden="true"/>
-        <files mask="arm_mat_trans_f64.c" hidden="true"/>
-        <files mask="arm_mat_trans_q15.c" hidden="true"/>
-        <files mask="arm_mat_trans_q31.c" hidden="true"/>
-        <files mask="arm_mat_trans_q7.c" hidden="true"/>
-        <files mask="arm_mat_vec_mult_f32.c" hidden="true"/>
-        <files mask="arm_mat_vec_mult_q15.c" hidden="true"/>
-        <files mask="arm_mat_vec_mult_q31.c" hidden="true"/>
-        <files mask="arm_mat_vec_mult_q7.c" hidden="true"/>
-        <files mask="arm_mat_add_f16.c" hidden="true"/>
-        <files mask="arm_mat_cholesky_f16.c" hidden="true"/>
-        <files mask="arm_mat_cmplx_mult_f16.c" hidden="true"/>
-        <files mask="arm_mat_cmplx_trans_f16.c" hidden="true"/>
-        <files mask="arm_mat_init_f16.c" hidden="true"/>
-        <files mask="arm_mat_inverse_f16.c" hidden="true"/>
-        <files mask="arm_mat_mult_f16.c" hidden="true"/>
-        <files mask="arm_mat_scale_f16.c" hidden="true"/>
-        <files mask="arm_mat_solve_lower_triangular_f16.c" hidden="true"/>
-        <files mask="arm_mat_solve_upper_triangular_f16.c" hidden="true"/>
-        <files mask="arm_mat_sub_f16.c" hidden="true"/>
-        <files mask="arm_mat_trans_f16.c" hidden="true"/>
-        <files mask="arm_mat_vec_mult_f16.c" hidden="true"/>
+        <files mask="arm_mat_add_f32.c"/>
+        <files mask="arm_mat_add_q15.c"/>
+        <files mask="arm_mat_add_q31.c"/>
+        <files mask="arm_mat_cholesky_f32.c"/>
+        <files mask="arm_mat_cholesky_f64.c"/>
+        <files mask="arm_mat_cmplx_mult_f32.c"/>
+        <files mask="arm_mat_cmplx_mult_q15.c"/>
+        <files mask="arm_mat_cmplx_mult_q31.c"/>
+        <files mask="arm_mat_cmplx_trans_f32.c"/>
+        <files mask="arm_mat_cmplx_trans_q15.c"/>
+        <files mask="arm_mat_cmplx_trans_q31.c"/>
+        <files mask="arm_mat_init_f32.c"/>
+        <files mask="arm_mat_init_q15.c"/>
+        <files mask="arm_mat_init_q31.c"/>
+        <files mask="arm_mat_inverse_f32.c"/>
+        <files mask="arm_mat_inverse_f64.c"/>
+        <files mask="arm_mat_ldlt_f32.c"/>
+        <files mask="arm_mat_ldlt_f64.c"/>
+        <files mask="arm_mat_mult_f32.c"/>
+        <files mask="arm_mat_mult_f64.c"/>
+        <files mask="arm_mat_mult_fast_q15.c"/>
+        <files mask="arm_mat_mult_fast_q31.c"/>
+        <files mask="arm_mat_mult_q15.c"/>
+        <files mask="arm_mat_mult_q31.c"/>
+        <files mask="arm_mat_mult_q7.c"/>
+        <files mask="arm_mat_scale_f32.c"/>
+        <files mask="arm_mat_scale_q15.c"/>
+        <files mask="arm_mat_scale_q31.c"/>
+        <files mask="arm_mat_solve_lower_triangular_f32.c"/>
+        <files mask="arm_mat_solve_lower_triangular_f64.c"/>
+        <files mask="arm_mat_solve_upper_triangular_f32.c"/>
+        <files mask="arm_mat_solve_upper_triangular_f64.c"/>
+        <files mask="arm_mat_sub_f32.c"/>
+        <files mask="arm_mat_sub_f64.c"/>
+        <files mask="arm_mat_sub_q15.c"/>
+        <files mask="arm_mat_sub_q31.c"/>
+        <files mask="arm_mat_trans_f32.c"/>
+        <files mask="arm_mat_trans_f64.c"/>
+        <files mask="arm_mat_trans_q15.c"/>
+        <files mask="arm_mat_trans_q31.c"/>
+        <files mask="arm_mat_trans_q7.c"/>
+        <files mask="arm_mat_vec_mult_f32.c"/>
+        <files mask="arm_mat_vec_mult_q15.c"/>
+        <files mask="arm_mat_vec_mult_q31.c"/>
+        <files mask="arm_mat_vec_mult_q7.c"/>
+        <files mask="arm_mat_add_f16.c"/>
+        <files mask="arm_mat_cholesky_f16.c"/>
+        <files mask="arm_mat_cmplx_mult_f16.c"/>
+        <files mask="arm_mat_cmplx_trans_f16.c"/>
+        <files mask="arm_mat_init_f16.c"/>
+        <files mask="arm_mat_inverse_f16.c"/>
+        <files mask="arm_mat_mult_f16.c"/>
+        <files mask="arm_mat_scale_f16.c"/>
+        <files mask="arm_mat_solve_lower_triangular_f16.c"/>
+        <files mask="arm_mat_solve_upper_triangular_f16.c"/>
+        <files mask="arm_mat_sub_f16.c"/>
+        <files mask="arm_mat_trans_f16.c"/>
+        <files mask="arm_mat_vec_mult_f16.c"/>
       </source>
       <source relative_path="Source/QuaternionMathFunctions" type="src">
         <files mask="QuaternionMathFunctions.c"/>
       </source>
       <source exclude="true" relative_path="Source/QuaternionMathFunctions" type="src">
-        <files mask="arm_quaternion2rotation_f32.c" hidden="true"/>
-        <files mask="arm_quaternion_conjugate_f32.c" hidden="true"/>
-        <files mask="arm_quaternion_inverse_f32.c" hidden="true"/>
-        <files mask="arm_quaternion_norm_f32.c" hidden="true"/>
-        <files mask="arm_quaternion_normalize_f32.c" hidden="true"/>
-        <files mask="arm_quaternion_product_f32.c" hidden="true"/>
-        <files mask="arm_quaternion_product_single_f32.c" hidden="true"/>
-        <files mask="arm_rotation2quaternion_f32.c" hidden="true"/>
+        <files mask="arm_quaternion2rotation_f32.c"/>
+        <files mask="arm_quaternion_conjugate_f32.c"/>
+        <files mask="arm_quaternion_inverse_f32.c"/>
+        <files mask="arm_quaternion_norm_f32.c"/>
+        <files mask="arm_quaternion_normalize_f32.c"/>
+        <files mask="arm_quaternion_product_f32.c"/>
+        <files mask="arm_quaternion_product_single_f32.c"/>
+        <files mask="arm_rotation2quaternion_f32.c"/>
       </source>
       <source relative_path="Source/SVMFunctions" type="src">
         <files mask="SVMFunctions.c"/>
         <files mask="SVMFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/SVMFunctions" type="src">
-        <files mask="arm_svm_linear_init_f32.c" hidden="true"/>
-        <files mask="arm_svm_linear_predict_f32.c" hidden="true"/>
-        <files mask="arm_svm_polynomial_init_f32.c" hidden="true"/>
-        <files mask="arm_svm_polynomial_predict_f32.c" hidden="true"/>
-        <files mask="arm_svm_rbf_init_f32.c" hidden="true"/>
-        <files mask="arm_svm_rbf_predict_f32.c" hidden="true"/>
-        <files mask="arm_svm_sigmoid_init_f32.c" hidden="true"/>
-        <files mask="arm_svm_sigmoid_predict_f32.c" hidden="true"/>
-        <files mask="arm_svm_linear_init_f16.c" hidden="true"/>
-        <files mask="arm_svm_linear_predict_f16.c" hidden="true"/>
-        <files mask="arm_svm_polynomial_init_f16.c" hidden="true"/>
-        <files mask="arm_svm_polynomial_predict_f16.c" hidden="true"/>
-        <files mask="arm_svm_rbf_init_f16.c" hidden="true"/>
-        <files mask="arm_svm_rbf_predict_f16.c" hidden="true"/>
-        <files mask="arm_svm_sigmoid_init_f16.c" hidden="true"/>
-        <files mask="arm_svm_sigmoid_predict_f16.c" hidden="true"/>
+        <files mask="arm_svm_linear_init_f32.c"/>
+        <files mask="arm_svm_linear_predict_f32.c"/>
+        <files mask="arm_svm_polynomial_init_f32.c"/>
+        <files mask="arm_svm_polynomial_predict_f32.c"/>
+        <files mask="arm_svm_rbf_init_f32.c"/>
+        <files mask="arm_svm_rbf_predict_f32.c"/>
+        <files mask="arm_svm_sigmoid_init_f32.c"/>
+        <files mask="arm_svm_sigmoid_predict_f32.c"/>
+        <files mask="arm_svm_linear_init_f16.c"/>
+        <files mask="arm_svm_linear_predict_f16.c"/>
+        <files mask="arm_svm_polynomial_init_f16.c"/>
+        <files mask="arm_svm_polynomial_predict_f16.c"/>
+        <files mask="arm_svm_rbf_init_f16.c"/>
+        <files mask="arm_svm_rbf_predict_f16.c"/>
+        <files mask="arm_svm_sigmoid_init_f16.c"/>
+        <files mask="arm_svm_sigmoid_predict_f16.c"/>
       </source>
       <source relative_path="Source/StatisticsFunctions" type="src">
         <files mask="StatisticsFunctions.c"/>
         <files mask="StatisticsFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/StatisticsFunctions" type="src">
-        <files mask="arm_absmax_f32.c" hidden="true"/>
-        <files mask="arm_absmax_q15.c" hidden="true"/>
-        <files mask="arm_absmax_q31.c" hidden="true"/>
-        <files mask="arm_absmax_q7.c" hidden="true"/>
-        <files mask="arm_absmin_f32.c" hidden="true"/>
-        <files mask="arm_absmin_q15.c" hidden="true"/>
-        <files mask="arm_absmin_q31.c" hidden="true"/>
-        <files mask="arm_absmin_q7.c" hidden="true"/>
-        <files mask="arm_entropy_f32.c" hidden="true"/>
-        <files mask="arm_entropy_f64.c" hidden="true"/>
-        <files mask="arm_kullback_leibler_f32.c" hidden="true"/>
-        <files mask="arm_kullback_leibler_f64.c" hidden="true"/>
-        <files mask="arm_logsumexp_dot_prod_f32.c" hidden="true"/>
-        <files mask="arm_logsumexp_f32.c" hidden="true"/>
-        <files mask="arm_max_f32.c" hidden="true"/>
-        <files mask="arm_max_no_idx_f32.c" hidden="true"/>
-        <files mask="arm_max_q15.c" hidden="true"/>
-        <files mask="arm_max_q31.c" hidden="true"/>
-        <files mask="arm_max_q7.c" hidden="true"/>
-        <files mask="arm_mean_f32.c" hidden="true"/>
-        <files mask="arm_mean_q15.c" hidden="true"/>
-        <files mask="arm_mean_q31.c" hidden="true"/>
-        <files mask="arm_mean_q7.c" hidden="true"/>
-        <files mask="arm_min_f32.c" hidden="true"/>
-        <files mask="arm_min_q15.c" hidden="true"/>
-        <files mask="arm_min_q31.c" hidden="true"/>
-        <files mask="arm_min_q7.c" hidden="true"/>
-        <files mask="arm_power_f32.c" hidden="true"/>
-        <files mask="arm_power_q15.c" hidden="true"/>
-        <files mask="arm_power_q31.c" hidden="true"/>
-        <files mask="arm_power_q7.c" hidden="true"/>
-        <files mask="arm_rms_f32.c" hidden="true"/>
-        <files mask="arm_rms_q15.c" hidden="true"/>
-        <files mask="arm_rms_q31.c" hidden="true"/>
-        <files mask="arm_std_f32.c" hidden="true"/>
-        <files mask="arm_std_q15.c" hidden="true"/>
-        <files mask="arm_std_q31.c" hidden="true"/>
-        <files mask="arm_var_f32.c" hidden="true"/>
-        <files mask="arm_var_q15.c" hidden="true"/>
-        <files mask="arm_var_q31.c" hidden="true"/>
-        <files mask="arm_absmax_f16.c" hidden="true"/>
-        <files mask="arm_absmin_f16.c" hidden="true"/>
-        <files mask="arm_entropy_f16.c" hidden="true"/>
-        <files mask="arm_kullback_leibler_f16.c" hidden="true"/>
-        <files mask="arm_logsumexp_dot_prod_f16.c" hidden="true"/>
-        <files mask="arm_logsumexp_f16.c" hidden="true"/>
-        <files mask="arm_max_f16.c" hidden="true"/>
-        <files mask="arm_max_no_idx_f16.c" hidden="true"/>
-        <files mask="arm_mean_f16.c" hidden="true"/>
-        <files mask="arm_min_f16.c" hidden="true"/>
-        <files mask="arm_power_f16.c" hidden="true"/>
-        <files mask="arm_rms_f16.c" hidden="true"/>
-        <files mask="arm_std_f16.c" hidden="true"/>
-        <files mask="arm_var_f16.c" hidden="true"/>
+        <files mask="arm_absmax_f32.c"/>
+        <files mask="arm_absmax_q15.c"/>
+        <files mask="arm_absmax_q31.c"/>
+        <files mask="arm_absmax_q7.c"/>
+        <files mask="arm_absmin_f32.c"/>
+        <files mask="arm_absmin_q15.c"/>
+        <files mask="arm_absmin_q31.c"/>
+        <files mask="arm_absmin_q7.c"/>
+        <files mask="arm_entropy_f32.c"/>
+        <files mask="arm_entropy_f64.c"/>
+        <files mask="arm_kullback_leibler_f32.c"/>
+        <files mask="arm_kullback_leibler_f64.c"/>
+        <files mask="arm_logsumexp_dot_prod_f32.c"/>
+        <files mask="arm_logsumexp_f32.c"/>
+        <files mask="arm_max_f32.c"/>
+        <files mask="arm_max_no_idx_f32.c"/>
+        <files mask="arm_max_q15.c"/>
+        <files mask="arm_max_q31.c"/>
+        <files mask="arm_max_q7.c"/>
+        <files mask="arm_mean_f32.c"/>
+        <files mask="arm_mean_q15.c"/>
+        <files mask="arm_mean_q31.c"/>
+        <files mask="arm_mean_q7.c"/>
+        <files mask="arm_min_f32.c"/>
+        <files mask="arm_min_q15.c"/>
+        <files mask="arm_min_q31.c"/>
+        <files mask="arm_min_q7.c"/>
+        <files mask="arm_power_f32.c"/>
+        <files mask="arm_power_q15.c"/>
+        <files mask="arm_power_q31.c"/>
+        <files mask="arm_power_q7.c"/>
+        <files mask="arm_rms_f32.c"/>
+        <files mask="arm_rms_q15.c"/>
+        <files mask="arm_rms_q31.c"/>
+        <files mask="arm_std_f32.c"/>
+        <files mask="arm_std_q15.c"/>
+        <files mask="arm_std_q31.c"/>
+        <files mask="arm_var_f32.c"/>
+        <files mask="arm_var_q15.c"/>
+        <files mask="arm_var_q31.c"/>
+        <files mask="arm_absmax_f16.c"/>
+        <files mask="arm_absmin_f16.c"/>
+        <files mask="arm_entropy_f16.c"/>
+        <files mask="arm_kullback_leibler_f16.c"/>
+        <files mask="arm_logsumexp_dot_prod_f16.c"/>
+        <files mask="arm_logsumexp_f16.c"/>
+        <files mask="arm_max_f16.c"/>
+        <files mask="arm_max_no_idx_f16.c"/>
+        <files mask="arm_mean_f16.c"/>
+        <files mask="arm_min_f16.c"/>
+        <files mask="arm_power_f16.c"/>
+        <files mask="arm_rms_f16.c"/>
+        <files mask="arm_std_f16.c"/>
+        <files mask="arm_var_f16.c"/>
       </source>
       <source relative_path="Source/SupportFunctions" type="src">
         <files mask="SupportFunctions.c"/>
         <files mask="SupportFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/SupportFunctions" type="src">
-        <files mask="arm_barycenter_f32.c" hidden="true"/>
-        <files mask="arm_bitonic_sort_f32.c" hidden="true"/>
-        <files mask="arm_bubble_sort_f32.c" hidden="true"/>
-        <files mask="arm_copy_f32.c" hidden="true"/>
-        <files mask="arm_copy_q15.c" hidden="true"/>
-        <files mask="arm_copy_q31.c" hidden="true"/>
-        <files mask="arm_copy_q7.c" hidden="true"/>
-        <files mask="arm_fill_f32.c" hidden="true"/>
-        <files mask="arm_fill_q15.c" hidden="true"/>
-        <files mask="arm_fill_q31.c" hidden="true"/>
-        <files mask="arm_fill_q7.c" hidden="true"/>
-        <files mask="arm_float_to_q15.c" hidden="true"/>
-        <files mask="arm_float_to_q31.c" hidden="true"/>
-        <files mask="arm_float_to_q7.c" hidden="true"/>
-        <files mask="arm_heap_sort_f32.c" hidden="true"/>
-        <files mask="arm_insertion_sort_f32.c" hidden="true"/>
-        <files mask="arm_merge_sort_f32.c" hidden="true"/>
-        <files mask="arm_merge_sort_init_f32.c" hidden="true"/>
-        <files mask="arm_q15_to_float.c" hidden="true"/>
-        <files mask="arm_q15_to_q31.c" hidden="true"/>
-        <files mask="arm_q15_to_q7.c" hidden="true"/>
-        <files mask="arm_q31_to_float.c" hidden="true"/>
-        <files mask="arm_q31_to_q15.c" hidden="true"/>
-        <files mask="arm_q31_to_q7.c" hidden="true"/>
-        <files mask="arm_q7_to_float.c" hidden="true"/>
-        <files mask="arm_q7_to_q15.c" hidden="true"/>
-        <files mask="arm_q7_to_q31.c" hidden="true"/>
-        <files mask="arm_quick_sort_f32.c" hidden="true"/>
-        <files mask="arm_selection_sort_f32.c" hidden="true"/>
-        <files mask="arm_sort_f32.c" hidden="true"/>
-        <files mask="arm_sort_init_f32.c" hidden="true"/>
-        <files mask="arm_weighted_sum_f32.c" hidden="true"/>
-        <files mask="arm_barycenter_f16.c" hidden="true"/>
-        <files mask="arm_copy_f16.c" hidden="true"/>
-        <files mask="arm_f16_to_float.c" hidden="true"/>
-        <files mask="arm_f16_to_q15.c" hidden="true"/>
-        <files mask="arm_fill_f16.c" hidden="true"/>
-        <files mask="arm_float_to_f16.c" hidden="true"/>
-        <files mask="arm_q15_to_f16.c" hidden="true"/>
-        <files mask="arm_weighted_sum_f16.c" hidden="true"/>
+        <files mask="arm_barycenter_f32.c"/>
+        <files mask="arm_bitonic_sort_f32.c"/>
+        <files mask="arm_bubble_sort_f32.c"/>
+        <files mask="arm_copy_f32.c"/>
+        <files mask="arm_copy_q15.c"/>
+        <files mask="arm_copy_q31.c"/>
+        <files mask="arm_copy_q7.c"/>
+        <files mask="arm_fill_f32.c"/>
+        <files mask="arm_fill_q15.c"/>
+        <files mask="arm_fill_q31.c"/>
+        <files mask="arm_fill_q7.c"/>
+        <files mask="arm_float_to_q15.c"/>
+        <files mask="arm_float_to_q31.c"/>
+        <files mask="arm_float_to_q7.c"/>
+        <files mask="arm_heap_sort_f32.c"/>
+        <files mask="arm_insertion_sort_f32.c"/>
+        <files mask="arm_merge_sort_f32.c"/>
+        <files mask="arm_merge_sort_init_f32.c"/>
+        <files mask="arm_q15_to_float.c"/>
+        <files mask="arm_q15_to_q31.c"/>
+        <files mask="arm_q15_to_q7.c"/>
+        <files mask="arm_q31_to_float.c"/>
+        <files mask="arm_q31_to_q15.c"/>
+        <files mask="arm_q31_to_q7.c"/>
+        <files mask="arm_q7_to_float.c"/>
+        <files mask="arm_q7_to_q15.c"/>
+        <files mask="arm_q7_to_q31.c"/>
+        <files mask="arm_quick_sort_f32.c"/>
+        <files mask="arm_selection_sort_f32.c"/>
+        <files mask="arm_sort_f32.c"/>
+        <files mask="arm_sort_init_f32.c"/>
+        <files mask="arm_weighted_sum_f32.c"/>
+        <files mask="arm_barycenter_f16.c"/>
+        <files mask="arm_copy_f16.c"/>
+        <files mask="arm_f16_to_float.c"/>
+        <files mask="arm_f16_to_q15.c"/>
+        <files mask="arm_fill_f16.c"/>
+        <files mask="arm_float_to_f16.c"/>
+        <files mask="arm_q15_to_f16.c"/>
+        <files mask="arm_weighted_sum_f16.c"/>
       </source>
       <source relative_path="Source/TransformFunctions" type="src">
         <files mask="TransformFunctions.c"/>
         <files mask="TransformFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/TransformFunctions" type="src">
-        <files mask="arm_bitreversal.c" hidden="true"/>
-        <files mask="arm_bitreversal2.c" hidden="true"/>
-        <files mask="arm_cfft_f32.c" hidden="true"/>
-        <files mask="arm_cfft_f64.c" hidden="true"/>
-        <files mask="arm_cfft_init_f32.c" hidden="true"/>
-        <files mask="arm_cfft_init_f64.c" hidden="true"/>
-        <files mask="arm_cfft_init_q15.c" hidden="true"/>
-        <files mask="arm_cfft_init_q31.c" hidden="true"/>
-        <files mask="arm_cfft_q15.c" hidden="true"/>
-        <files mask="arm_cfft_q31.c" hidden="true"/>
-        <files mask="arm_cfft_radix2_f32.c" hidden="true"/>
-        <files mask="arm_cfft_radix2_init_f32.c" hidden="true"/>
-        <files mask="arm_cfft_radix2_init_q15.c" hidden="true"/>
-        <files mask="arm_cfft_radix2_init_q31.c" hidden="true"/>
-        <files mask="arm_cfft_radix2_q15.c" hidden="true"/>
-        <files mask="arm_cfft_radix2_q31.c" hidden="true"/>
-        <files mask="arm_cfft_radix4_f32.c" hidden="true"/>
-        <files mask="arm_cfft_radix4_init_f32.c" hidden="true"/>
-        <files mask="arm_cfft_radix4_init_q15.c" hidden="true"/>
-        <files mask="arm_cfft_radix4_init_q31.c" hidden="true"/>
-        <files mask="arm_cfft_radix4_q15.c" hidden="true"/>
-        <files mask="arm_cfft_radix4_q31.c" hidden="true"/>
-        <files mask="arm_cfft_radix8_f32.c" hidden="true"/>
-        <files mask="arm_dct4_f32.c" hidden="true"/>
-        <files mask="arm_dct4_init_f32.c" hidden="true"/>
-        <files mask="arm_dct4_init_q15.c" hidden="true"/>
-        <files mask="arm_dct4_init_q31.c" hidden="true"/>
-        <files mask="arm_dct4_q15.c" hidden="true"/>
-        <files mask="arm_dct4_q31.c" hidden="true"/>
-        <files mask="arm_rfft_f32.c" hidden="true"/>
-        <files mask="arm_rfft_fast_f32.c" hidden="true"/>
-        <files mask="arm_rfft_fast_f64.c" hidden="true"/>
-        <files mask="arm_rfft_fast_init_f32.c" hidden="true"/>
-        <files mask="arm_rfft_fast_init_f64.c" hidden="true"/>
-        <files mask="arm_rfft_init_f32.c" hidden="true"/>
-        <files mask="arm_rfft_init_q15.c" hidden="true"/>
-        <files mask="arm_rfft_init_q31.c" hidden="true"/>
-        <files mask="arm_rfft_q15.c" hidden="true"/>
-        <files mask="arm_rfft_q31.c" hidden="true"/>
-        <files mask="arm_bitreversal_f16.c" hidden="true"/>
-        <files mask="arm_cfft_f16.c" hidden="true"/>
-        <files mask="arm_cfft_init_f16.c" hidden="true"/>
-        <files mask="arm_cfft_radix2_f16.c" hidden="true"/>
-        <files mask="arm_cfft_radix2_init_f16.c" hidden="true"/>
-        <files mask="arm_cfft_radix4_f16.c" hidden="true"/>
-        <files mask="arm_cfft_radix4_init_f16.c" hidden="true"/>
-        <files mask="arm_cfft_radix8_f16.c" hidden="true"/>
-        <files mask="arm_rfft_fast_f16.c" hidden="true"/>
-        <files mask="arm_rfft_fast_init_f16.c" hidden="true"/>
-      </source>
-      <source exclude="true" relative_path="Source/TransformFunctions" type="asm_include">
-        <files mask="arm_bitreversal2.S" hidden="true"/>
+        <files mask="arm_bitreversal.c"/>
+        <files mask="arm_bitreversal2.c"/>
+        <files mask="arm_bitreversal2.S"/>
+        <files mask="arm_cfft_f32.c"/>
+        <files mask="arm_cfft_f64.c"/>
+        <files mask="arm_cfft_init_f32.c"/>
+        <files mask="arm_cfft_init_f64.c"/>
+        <files mask="arm_cfft_init_q15.c"/>
+        <files mask="arm_cfft_init_q31.c"/>
+        <files mask="arm_cfft_q15.c"/>
+        <files mask="arm_cfft_q31.c"/>
+        <files mask="arm_cfft_radix2_f32.c"/>
+        <files mask="arm_cfft_radix2_init_f32.c"/>
+        <files mask="arm_cfft_radix2_init_q15.c"/>
+        <files mask="arm_cfft_radix2_init_q31.c"/>
+        <files mask="arm_cfft_radix2_q15.c"/>
+        <files mask="arm_cfft_radix2_q31.c"/>
+        <files mask="arm_cfft_radix4_f32.c"/>
+        <files mask="arm_cfft_radix4_init_f32.c"/>
+        <files mask="arm_cfft_radix4_init_q15.c"/>
+        <files mask="arm_cfft_radix4_init_q31.c"/>
+        <files mask="arm_cfft_radix4_q15.c"/>
+        <files mask="arm_cfft_radix4_q31.c"/>
+        <files mask="arm_cfft_radix8_f32.c"/>
+        <files mask="arm_dct4_f32.c"/>
+        <files mask="arm_dct4_init_f32.c"/>
+        <files mask="arm_dct4_init_q15.c"/>
+        <files mask="arm_dct4_init_q31.c"/>
+        <files mask="arm_dct4_q15.c"/>
+        <files mask="arm_dct4_q31.c"/>
+        <files mask="arm_rfft_f32.c"/>
+        <files mask="arm_rfft_fast_f32.c"/>
+        <files mask="arm_rfft_fast_f64.c"/>
+        <files mask="arm_rfft_fast_init_f32.c"/>
+        <files mask="arm_rfft_fast_init_f64.c"/>
+        <files mask="arm_rfft_init_f32.c"/>
+        <files mask="arm_rfft_init_q15.c"/>
+        <files mask="arm_rfft_init_q31.c"/>
+        <files mask="arm_rfft_q15.c"/>
+        <files mask="arm_rfft_q31.c"/>
+        <files mask="arm_bitreversal_f16.c"/>
+        <files mask="arm_cfft_f16.c"/>
+        <files mask="arm_cfft_init_f16.c"/>
+        <files mask="arm_cfft_radix2_f16.c"/>
+        <files mask="arm_cfft_radix2_init_f16.c"/>
+        <files mask="arm_cfft_radix4_f16.c"/>
+        <files mask="arm_cfft_radix4_init_f16.c"/>
+        <files mask="arm_cfft_radix8_f16.c"/>
+        <files mask="arm_rfft_fast_f16.c"/>
+        <files mask="arm_rfft_fast_init_f16.c"/>
       </source>
       <include_paths>
         <include_path relative_path="Include" type="c_include"/>
@@ -1641,13 +1639,9 @@ ${load}</script>
       </include_paths>
     </component>
     <component id="CMSIS_Include_core_cm.MKV11Z7" name="CMSIS_Include_CM" brief="CMSIS-CORE for Cortex-M, ARMv8-M, ARMv8.1-M" version="5.5.0" full_name="CMSIS Include For Cortex-M, ARMv8-M, ARMv8.1-M" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Core/Include" project_base_path="CMSIS">
-      <source relative_path="./" type="c_include">
-        <files mask="cmsis_armcc.h"/>
-        <files mask="cmsis_armclang.h"/>
-        <files mask="cmsis_armclang_ltm.h"/>
+      <source compiler="compiler_gcc" relative_path="./" type="c_include">
         <files mask="cmsis_compiler.h"/>
         <files mask="cmsis_gcc.h"/>
-        <files mask="cmsis_iccarm.h"/>
         <files mask="cmsis_version.h"/>
       </source>
       <source relative_path="./" type="c_include" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7">
@@ -2432,23 +2426,23 @@ ${load}</script>
     <component id="project_template.MKV11Z7.MKV11Z7" name="MKV11Z7" brief="Devices_project_template MKV11Z7" version="1.0.0" full_name="Devices_project_template MKV11Z7" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" category="Board Support/SDK Project Template" user_visible="true" type="project_template" package_base_path="core/devices/MKV11Z7/project_template" project_base_path="board">
       <dependencies>
         <all>
-          <component_dependency value="platform.drivers.uart.MKV11Z7"/>
           <component_dependency value="component.uart_adapter.MKV11Z7"/>
-          <component_dependency value="platform.drivers.port.MKV11Z7"/>
-          <component_dependency value="platform.drivers.gpio.MKV11Z7"/>
-          <component_dependency value="platform.drivers.smc.MKV11Z7"/>
           <component_dependency value="device.MKV11Z7_startup.MKV11Z7"/>
-          <component_dependency value="platform.drivers.common.MKV11Z7"/>
           <component_dependency value="platform.drivers.clock.MKV11Z7"/>
+          <component_dependency value="platform.drivers.common.MKV11Z7"/>
+          <component_dependency value="platform.drivers.gpio.MKV11Z7"/>
+          <component_dependency value="platform.drivers.port.MKV11Z7"/>
+          <component_dependency value="platform.drivers.smc.MKV11Z7"/>
+          <component_dependency value="platform.drivers.uart.MKV11Z7"/>
           <any_of>
             <all>
-              <component_dependency value="utility.debug_console.MKV11Z7"/>
-              <component_dependency value="platform.utilities.assert.MKV11Z7"/>
               <component_dependency value="component.serial_manager.MKV11Z7"/>
+              <component_dependency value="platform.utilities.assert.MKV11Z7"/>
+              <component_dependency value="utility.debug_console.MKV11Z7"/>
             </all>
             <all>
-              <component_dependency value="utility.debug_console_lite.MKV11Z7"/>
               <component_dependency value="platform.utilities.assert_lite.MKV11Z7"/>
+              <component_dependency value="utility.debug_console_lite.MKV11Z7"/>
             </all>
           </any_of>
         </all>
@@ -2472,8 +2466,8 @@ ${load}</script>
     <component id="RTE_Device.MKV11Z7" name="RTE_Device" brief="Rte_device" version="1.0.0" full_name="Rte_device" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" category="Device/SDK Project Template" user_visible="true" type="project_template" package_base_path="core/devices/MKV11Z7/template" project_base_path="board">
       <dependencies>
         <all>
-          <component_dependency value="platform.drivers.edma.MKV11Z7"/>
           <component_dependency value="platform.drivers.dmamux.MKV11Z7"/>
+          <component_dependency value="platform.drivers.edma.MKV11Z7"/>
         </all>
       </dependencies>
       <source relative_path="./" type="c_include">
@@ -2489,6 +2483,7 @@ ${load}</script>
         <files mask="xcc.cmake"/>
         <files mask="xclang.cmake"/>
         <files mask="armgcc_force_cpp.cmake"/>
+        <files mask="mcux_config.cmake"/>
       </source>
     </component>
     <component id="component.button.MKV11Z7" name="button" brief="Component button" version="1.0.0" full_name="Component button" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="software_component" package_base_path="core/components/button" project_base_path="component/button">
@@ -3141,6 +3136,7 @@ ${load}</script>
         <files mask="a00038.js"/>
         <files mask="navtreeindex9.js"/>
         <files mask="a00014.js"/>
+        <files mask="a00158.js"/>
         <files mask="a00144.js"/>
         <files mask="a00036.js"/>
         <files mask="a00008.js"/>
@@ -3148,15 +3144,14 @@ ${load}</script>
         <files mask="navtreeindex8.js"/>
         <files mask="a00035.js"/>
         <files mask="a00017.js"/>
+        <files mask="a00138.js"/>
         <files mask="navtreeindex0.js"/>
         <files mask="a00042.js"/>
-        <files mask="a00157.js"/>
         <files mask="a00151.js"/>
-        <files mask="a00159.js"/>
+        <files mask="a00156.js"/>
         <files mask="a00022.js"/>
         <files mask="a00032.js"/>
         <files mask="a00033.js"/>
-        <files mask="a00152.js"/>
         <files mask="a00012.js"/>
         <files mask="navtreeindex10.js"/>
         <files mask="navtreeindex5.js"/>
@@ -3164,6 +3159,7 @@ ${load}</script>
         <files mask="a00021.js"/>
         <files mask="a00041.js"/>
         <files mask="a00034.js"/>
+        <files mask="a00146.js"/>
         <files mask="a00039.js"/>
         <files mask="a00015.js"/>
         <files mask="a00010.js"/>
@@ -3173,16 +3169,16 @@ ${load}</script>
         <files mask="a00149.js"/>
         <files mask="navtreeindex13.js"/>
         <files mask="a00016.js"/>
+        <files mask="a00153.js"/>
         <files mask="a00026.js"/>
-        <files mask="a00142.js"/>
         <files mask="a00141.js"/>
         <files mask="a00139.js"/>
         <files mask="a00019.js"/>
         <files mask="navtreeindex1.js"/>
+        <files mask="a00143.js"/>
         <files mask="a00025.js"/>
         <files mask="a00013.js"/>
         <files mask="a00043.js"/>
-        <files mask="a00161.js"/>
         <files mask="a00154.js"/>
         <files mask="a00031.js"/>
         <files mask="modules.js"/>
@@ -3195,22 +3191,20 @@ ${load}</script>
         <files mask="navtreeindex2.js"/>
         <files mask="a00024.js"/>
         <files mask="a00148.js"/>
-        <files mask="a00155.js"/>
         <files mask="a00020.js"/>
         <files mask="a00140.js"/>
         <files mask="navtreeindex3.js"/>
         <files mask="dynsections.js"/>
         <files mask="navtreeindex12.js"/>
-        <files mask="a00145.js"/>
         <files mask="a00040.js"/>
         <files mask="navtree.js"/>
+        <files mask="a00160.js"/>
         <files mask="a00150.js"/>
         <files mask="navtreeindex11.js"/>
         <files mask="a00011.js"/>
         <files mask="jquery.js"/>
       </source>
       <source relative_path="MCUXpresso SDK API Reference Manual_MKV11Z7" type="doc">
-        <files mask="a00163.html"/>
         <files mask="a00021.html"/>
         <files mask="a00143.html"/>
         <files mask="dir_13e7b449b29780a4af8c8692d20059c8.html"/>
@@ -3241,17 +3235,16 @@ ${load}</script>
         <files mask="dir_fa5fdb8d20f935f25433a14a3646651d.html"/>
         <files mask="a00023.html"/>
         <files mask="a00152.html"/>
-        <files mask="a00161.html"/>
         <files mask="a00031.html"/>
         <files mask="dir_0c267f045edb9b0ef64e9a860fd099c4.html"/>
         <files mask="a00015.html"/>
-        <files mask="dir_e683f204d6c251cd0e483bc258ef2ba0.html"/>
         <files mask="dir_f382573a88a6eedb79e240e7ead9d11a.html"/>
         <files mask="index.html"/>
         <files mask="dir_848ba48fec923bc3c0bf8c7926036968.html"/>
         <files mask="dir_581c511cdb7e3410adc63f657da77e6e.html"/>
         <files mask="dir_a8bdfff229695ca6884fb40ef8906651.html"/>
         <files mask="dir_f7e99b515278d57327e2df3b2ab543bb.html"/>
+        <files mask="a00162.html"/>
         <files mask="a00036.html"/>
         <files mask="a00017.html"/>
         <files mask="a00154.html"/>
@@ -3300,6 +3293,7 @@ ${load}</script>
         <files mask="a00148.html"/>
         <files mask="dir_bda58036682f346ab3d015dd2d42b321.html"/>
         <files mask="dir_d0b0cea4c1afa919405231e98537b73c.html"/>
+        <files mask="a00137.html"/>
         <files mask="dir_09f9dadd705c180f0f6fcba2157ed2a9.html"/>
         <files mask="a00141.html"/>
         <files mask="dir_409f97388efe006bc3438b95e9edef48.html"/>
@@ -3451,7 +3445,6 @@ ${load}</script>
         <files mask="groups_63.html"/>
         <files mask="variables_72.html"/>
         <files mask="functions_72.html"/>
-        <files mask="typedefs_70.html"/>
         <files mask="functions_6f.html"/>
       </source>
       <source relative_path="MCUXpresso SDK API Reference Manual_MKV11Z7/search" type="script">
@@ -3467,7 +3460,6 @@ ${load}</script>
         <files mask="variables_6e.js"/>
         <files mask="variables_63.js"/>
         <files mask="functions_67.js"/>
-        <files mask="typedefs_70.js"/>
         <files mask="variables_61.js"/>
         <files mask="enumvalues_6b.js"/>
         <files mask="typedefs_69.js"/>
@@ -3740,7 +3732,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.common.MKV11Z7" name="common" brief="COMMON Driver" version="2.3.2" full_name="COMMON Driver" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="driver" package_base_path="core/drivers/common" project_base_path="drivers">
+    <component id="platform.drivers.common.MKV11Z7" name="common" brief="COMMON Driver" version="2.4.0" full_name="COMMON Driver" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="driver" package_base_path="core/drivers/common" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.clock.MKV11Z7"/>
@@ -3817,7 +3809,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.dspi.MKV11Z7" name="dspi" brief="DSPI Driver" version="2.2.4" full_name="DSPI Driver" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="driver" package_base_path="core/drivers/dspi" project_base_path="drivers">
+    <component id="platform.drivers.dspi.MKV11Z7" name="dspi" brief="DSPI Driver" version="2.2.5" full_name="DSPI Driver" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="driver" package_base_path="core/drivers/dspi" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MKV11Z7"/>
       </dependencies>
@@ -3834,11 +3826,11 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.dspi_edma.MKV11Z7" name="dspi_edma" brief="DSPI Driver" version="2.2.4" full_name="DSPI_EDMA Driver" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="driver" package_base_path="core/drivers/dspi" project_base_path="drivers">
+    <component id="platform.drivers.dspi_edma.MKV11Z7" name="dspi_edma" brief="DSPI Driver" version="2.2.5" full_name="DSPI_EDMA Driver" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="driver" package_base_path="core/drivers/dspi" project_base_path="drivers">
       <dependencies>
         <all>
-          <component_dependency value="platform.drivers.dspi.MKV11Z7"/>
           <component_dependency value="platform.drivers.edma.MKV11Z7"/>
+          <component_dependency value="platform.drivers.dspi.MKV11Z7"/>
         </all>
       </dependencies>
       <source relative_path="./" type="c_include">
@@ -3854,7 +3846,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.dspi_freertos.MKV11Z7" name="dspi_freertos" brief="DSPI Driver" version="2.2.4" full_name="DSPI Freertos Driver" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="driver" package_base_path="core/drivers/dspi" project_base_path="drivers/freertos">
+    <component id="platform.drivers.dspi_freertos.MKV11Z7" name="dspi_freertos" brief="DSPI Driver" version="2.2.5" full_name="DSPI Freertos Driver" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="driver" package_base_path="core/drivers/dspi" project_base_path="drivers/freertos">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.dspi.MKV11Z7"/>
@@ -3935,7 +3927,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcan.MKV11Z7" name="flexcan" brief="FLEXCAN Driver" version="2.8.6" full_name="FLEXCAN Driver" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="driver" package_base_path="core/drivers/flexcan" project_base_path="drivers">
+    <component id="platform.drivers.flexcan.MKV11Z7" name="flexcan" brief="FLEXCAN Driver" version="2.9.2" full_name="FLEXCAN Driver" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="driver" package_base_path="core/drivers/flexcan" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MKV11Z7"/>
       </dependencies>
@@ -3952,7 +3944,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcan_edma.MKV11Z7" name="flexcan_edma" brief="FLEXCAN Driver" version="2.8.6" full_name="FLEXCAN EDMA Driver" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="driver" package_base_path="core/drivers/flexcan" project_base_path="drivers">
+    <component id="platform.drivers.flexcan_edma.MKV11Z7" name="flexcan_edma" brief="FLEXCAN Driver" version="2.9.2" full_name="FLEXCAN EDMA Driver" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="driver" package_base_path="core/drivers/flexcan" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.edma.MKV11Z7"/>
@@ -3972,7 +3964,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.ftm.MKV11Z7" name="ftm" brief="FTM Driver" version="2.5.0" full_name="FTM Driver" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="driver" package_base_path="core/drivers/ftm" project_base_path="drivers">
+    <component id="platform.drivers.ftm.MKV11Z7" name="ftm" brief="FTM Driver" version="2.6.0" full_name="FTM Driver" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="driver" package_base_path="core/drivers/ftm" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MKV11Z7"/>
       </dependencies>
@@ -4006,7 +3998,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.gpio.MKV11Z7" name="gpio" brief="GPIO Driver" version="2.6.0" full_name="GPIO Driver" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="driver" package_base_path="core/drivers/gpio" project_base_path="drivers">
+    <component id="platform.drivers.gpio.MKV11Z7" name="gpio" brief="GPIO Driver" version="2.7.1" full_name="GPIO Driver" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="driver" package_base_path="core/drivers/gpio" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MKV11Z7"/>
       </dependencies>
@@ -4043,8 +4035,8 @@ ${load}</script>
     <component id="platform.drivers.i2c_edma.MKV11Z7" name="i2c_edma" brief="I2C Driver" version="2.0.9" full_name="I2C EDMA Driver" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="driver" package_base_path="core/drivers/i2c" project_base_path="drivers">
       <dependencies>
         <all>
-          <component_dependency value="platform.drivers.i2c.MKV11Z7"/>
           <component_dependency value="platform.drivers.edma.MKV11Z7"/>
+          <component_dependency value="platform.drivers.i2c.MKV11Z7"/>
         </all>
       </dependencies>
       <source relative_path="./" type="src">
@@ -4165,7 +4157,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.port.MKV11Z7" name="port" brief="PORT Driver" version="2.3.0" full_name="PORT Driver" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="driver" package_base_path="core/drivers/port" project_base_path="drivers">
+    <component id="platform.drivers.port.MKV11Z7" name="port" brief="PORT Driver" version="2.4.1" full_name="PORT Driver" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="driver" package_base_path="core/drivers/port" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MKV11Z7"/>
       </dependencies>
@@ -4250,8 +4242,8 @@ ${load}</script>
     <component id="platform.drivers.uart_edma.MKV11Z7" name="uart_edma" brief="UART Driver" version="2.5.3" full_name="UART EDMA Driver" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="driver" package_base_path="core/drivers/uart" project_base_path="drivers">
       <dependencies>
         <all>
-          <component_dependency value="platform.drivers.uart.MKV11Z7"/>
           <component_dependency value="platform.drivers.edma.MKV11Z7"/>
+          <component_dependency value="platform.drivers.uart.MKV11Z7"/>
         </all>
       </dependencies>
       <source relative_path="./" type="c_include">
@@ -4527,7 +4519,7 @@ ${load}</script>
         <files mask="ffconf_template.h" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.MKV11Z7" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="10.4.3" revision="1" full_name="FreeRTOS kernel" devices="MKV11Z128xxx7 MKV11Z64xxx7" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos/freertos_kernel">
+    <component id="middleware.freertos-kernel.MKV11Z7" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="10.5.0" full_name="FreeRTOS kernel" devices="MKV11Z128xxx7 MKV11Z64xxx7" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <defines>
         <define name="SDK_OS_FREE_RTOS" value=""/>
       </defines>
@@ -4589,7 +4581,7 @@ ${load}</script>
         <include_path relative_path="portable/GCC/ARM_CM0" toolchain="armgcc mcuxpresso" type="c_include" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.armv8m.MKV11Z7" name="FreeRTOS port ARMv8M" brief="FreeRTOS port ARMv8M" version="10.4.3" revision="1" full_name="FreeRTOS port ARMv8M" devices="MKV11Z128xxx7 MKV11Z64xxx7" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos/freertos_kernel">
+    <component id="middleware.freertos-kernel.armv8m.MKV11Z7" name="FreeRTOS port ARMv8M" brief="FreeRTOS port ARMv8M" version="10.5.0" full_name="FreeRTOS port ARMv8M" devices="MKV11Z128xxx7 MKV11Z64xxx7" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MKV11Z7"/>
       </dependencies>
@@ -4625,6 +4617,7 @@ ${load}</script>
       </source>
       <source relative_path="portable/ARMv8M/non_secure" type="c_include">
         <files mask="portasm.h"/>
+        <files mask="portmacrocommon.h"/>
       </source>
       <source relative_path="portable/ARMv8M/non_secure" type="doc">
         <files mask="ReadMe.txt"/>
@@ -4674,22 +4667,25 @@ ${load}</script>
         <include_path relative_path="portable/ARMv8M/secure/macros" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.doc.MKV11Z7" name="Root FreeRTOS documents." brief="FreeRTOS root documents" version="10.4.3" revision="1" full_name="FreeRTOS root documents" devices="MKV11Z128xxx7 MKV11Z64xxx7" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos/freertos_kernel">
+    <component id="middleware.freertos-kernel.doc.MKV11Z7" name="Root FreeRTOS documents." brief="FreeRTOS root documents" version="10.5.0" full_name="FreeRTOS root documents" devices="MKV11Z128xxx7 MKV11Z64xxx7" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <source relative_path="./" type="doc">
         <files mask="ChangeLogKSDK.txt"/>
+        <files mask="CMakeLists.txt"/>
         <files mask="History.txt"/>
       </source>
       <source relative_path="./" type="other">
         <files mask="GitHub-FreeRTOS-Kernel-Home.url"/>
         <files mask="LICENSE.md"/>
+        <files mask="manifest.yml"/>
         <files mask="Quick_Start_Guide.url"/>
         <files mask="README.md"/>
+        <files mask="sbom.spdx"/>
       </source>
       <source relative_path="portable/ARMClang" type="doc">
         <files mask="Use-the-GCC-ports.txt"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.extension.MKV11Z7" name="FreeRTOS NXP extension" brief="FreeRTOS NXP extension" version="10.4.3" revision="1" full_name="FreeRTOS NXP extension" devices="MKV11Z128xxx7 MKV11Z64xxx7" category="Operating System/FreeRTOS kernel extensions" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos/freertos_kernel">
+    <component id="middleware.freertos-kernel.extension.MKV11Z7" name="FreeRTOS NXP extension" brief="FreeRTOS NXP extension" version="10.5.0" full_name="FreeRTOS NXP extension" devices="MKV11Z128xxx7 MKV11Z64xxx7" category="Operating System/FreeRTOS kernel extensions" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <source relative_path="include" type="c_include">
         <files mask="freertos_tasks_c_additions.h"/>
       </source>
@@ -4700,7 +4696,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.heap_1.MKV11Z7" name="FreeRTOS heap 1" brief="FreeRTOS heap 1" version="10.4.3" revision="1" full_name="FreeRTOS heap 1" devices="MKV11Z128xxx7 MKV11Z64xxx7" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos/freertos_kernel">
+    <component id="middleware.freertos-kernel.heap_1.MKV11Z7" name="FreeRTOS heap 1" brief="FreeRTOS heap 1" version="10.5.0" full_name="FreeRTOS heap 1" devices="MKV11Z128xxx7 MKV11Z64xxx7" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MKV11Z7"/>
       </dependencies>
@@ -4708,7 +4704,7 @@ ${load}</script>
         <files mask="heap_1.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_2.MKV11Z7" name="FreeRTOS heap 2" brief="FreeRTOS heap 2" version="10.4.3" revision="1" full_name="FreeRTOS heap 2" devices="MKV11Z128xxx7 MKV11Z64xxx7" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos/freertos_kernel">
+    <component id="middleware.freertos-kernel.heap_2.MKV11Z7" name="FreeRTOS heap 2" brief="FreeRTOS heap 2" version="10.5.0" full_name="FreeRTOS heap 2" devices="MKV11Z128xxx7 MKV11Z64xxx7" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MKV11Z7"/>
       </dependencies>
@@ -4716,7 +4712,7 @@ ${load}</script>
         <files mask="heap_2.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_3.MKV11Z7" name="FreeRTOS heap 3" brief="FreeRTOS heap 3" version="10.4.3" revision="1" full_name="FreeRTOS heap_3" devices="MKV11Z128xxx7 MKV11Z64xxx7" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos/freertos_kernel">
+    <component id="middleware.freertos-kernel.heap_3.MKV11Z7" name="FreeRTOS heap 3" brief="FreeRTOS heap 3" version="10.5.0" full_name="FreeRTOS heap_3" devices="MKV11Z128xxx7 MKV11Z64xxx7" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MKV11Z7"/>
       </dependencies>
@@ -4724,7 +4720,7 @@ ${load}</script>
         <files mask="heap_3.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_4.MKV11Z7" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="10.4.3" revision="1" full_name="FreeRTOS heap 4" devices="MKV11Z128xxx7 MKV11Z64xxx7" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos/freertos_kernel">
+    <component id="middleware.freertos-kernel.heap_4.MKV11Z7" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="10.5.0" full_name="FreeRTOS heap 4" devices="MKV11Z128xxx7 MKV11Z64xxx7" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MKV11Z7"/>
       </dependencies>
@@ -4735,7 +4731,7 @@ ${load}</script>
         <files mask="middleware_freertos-kernel_heap_4.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_5.MKV11Z7" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="10.4.3" revision="1" full_name="FreeRTOS heap 5" devices="MKV11Z128xxx7 MKV11Z64xxx7" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos/freertos_kernel">
+    <component id="middleware.freertos-kernel.heap_5.MKV11Z7" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="10.5.0" full_name="FreeRTOS heap 5" devices="MKV11Z128xxx7 MKV11Z64xxx7" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MKV11Z7"/>
       </dependencies>
@@ -4743,7 +4739,7 @@ ${load}</script>
         <files mask="heap_5.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.mpu_wrappers.MKV11Z7" name="FreeRTOS MPU wrappers" brief="FreeRTOS MPU wrappers" version="10.4.3" revision="1" full_name="FreeRTOS MPU wrappers" devices="MKV11Z128xxx7 MKV11Z64xxx7" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos/freertos_kernel">
+    <component id="middleware.freertos-kernel.mpu_wrappers.MKV11Z7" name="FreeRTOS MPU wrappers" brief="FreeRTOS MPU wrappers" version="10.5.0" full_name="FreeRTOS MPU wrappers" devices="MKV11Z128xxx7 MKV11Z64xxx7" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MKV11Z7"/>
       </dependencies>
@@ -4751,7 +4747,7 @@ ${load}</script>
         <files mask="mpu_wrappers.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.template.MKV11Z7" name="FreeRTOS configuration template" brief="Template configuration file to be edited by user. Provides also memory allocator (heap_x), change variant if needed." version="10.4.3" revision="1" full_name="FreeRTOS configuration template" devices="MKV11Z128xxx7 MKV11Z64xxx7" category="Operating System/FreeRTOS kernel" user_visible="false" type="project_template" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos/freertos_kernel">
+    <component id="middleware.freertos-kernel.template.MKV11Z7" name="FreeRTOS configuration template" brief="Template configuration file to be edited by user. Provides also memory allocator (heap_x), change variant if needed." version="10.5.0" full_name="FreeRTOS configuration template" devices="MKV11Z128xxx7 MKV11Z64xxx7" category="Operating System/FreeRTOS kernel" user_visible="false" type="project_template" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <source exclude="true" relative_path="portable/MemMang" type="src">
         <files mask="heap_1.c"/>
         <files mask="heap_2.c"/>
@@ -4834,7 +4830,7 @@ ${load}</script>
         <include_path relative_path="template/usdhc" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.utilities.misc_utilities.MKV11Z7" name="misc_utilities" brief="Utilities which is needed for particular toolchain like the SBRK function required to address limitation between HEAP and STACK in GCC toolchain library." version="1.1.0" full_name="Utilities miscellaneous" devices="MKV11Z128xxx7 MKV11Z64xxx7" user_visible="true" type="utilities" package_base_path="core/utilities/misc_utilities" project_base_path="utilities">
+    <component id="platform.utilities.misc_utilities.MKV11Z7" name="misc_utilities" brief="Utilities which is needed for particular toolchain like the SBRK function required to address limitation between HEAP and STACK in GCC toolchain library." version="1.1.1" full_name="Utilities miscellaneous" devices="MKV11Z128xxx7 MKV11Z64xxx7" user_visible="true" type="utilities" package_base_path="core/utilities/misc_utilities" project_base_path="utilities">
       <source toolchain="armgcc" relative_path="./" type="src">
         <files mask="fsl_sbrk.c"/>
       </source>
@@ -4864,7 +4860,7 @@ ${load}</script>
         <files mask="utility_assert_lite.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="utility.debug_console.MKV11Z7" name="debug_console" brief="Utility debug_console" version="1.0.1" full_name="Utility debug_console" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console" project_base_path="utilities">
+    <component id="utility.debug_console.MKV11Z7" name="debug_console" brief="Utility debug_console" version="1.0.1" full_name="Utility debug_console" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="utilities" package_base_path="core/utilities" project_base_path="utilities">
       <dependencies>
         <all>
           <component_dependency value="component.serial_manager.MKV11Z7"/>
@@ -4892,24 +4888,31 @@ ${load}</script>
         <include_path relative_path="debug_console" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="utility.debug_console_lite.MKV11Z7" name="debug_console_lite" brief="Utility debug_console_lite" version="1.0.0" full_name="Utility debug_console_lite" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console_lite" project_base_path="utilities">
+    <component id="utility.debug_console_lite.MKV11Z7" name="debug_console_lite" brief="Utility debug_console_lite" version="1.0.0" full_name="Utility debug_console_lite" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="utilities" package_base_path="core/utilities" project_base_path="utilities">
       <dependencies>
         <all>
           <component_dependency value="component.uart_adapter.MKV11Z7"/>
           <component_dependency value="platform.drivers.common.MKV11Z7"/>
         </all>
       </dependencies>
-      <source relative_path="./" type="src">
+      <source relative_path="str" project_relative_path="./" type="src">
+        <files mask="fsl_str.c"/>
+      </source>
+      <source relative_path="str" project_relative_path="./" type="c_include">
+        <files mask="fsl_str.h"/>
+      </source>
+      <source relative_path="debug_console_lite" project_relative_path="./" type="src">
         <files mask="fsl_debug_console.c"/>
       </source>
-      <source relative_path="./" type="c_include">
+      <source relative_path="debug_console_lite" project_relative_path="./" type="c_include">
         <files mask="fsl_debug_console.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="utility_debug_console_lite.cmake" hidden="true"/>
       </source>
       <include_paths>
-        <include_path relative_path="./" type="c_include"/>
+        <include_path relative_path="str" project_relative_path="./" type="c_include"/>
+        <include_path relative_path="debug_console_lite" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
     <component id="platform.utilities.notifier.MKV11Z7" name="notifier" brief="Utility notifier" version="1.0.0" full_name="Utility notifier" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" user_visible="true" type="utilities" package_base_path="core/devices/MKV11Z7/utilities" project_base_path="utilities/utilities">
@@ -4956,22 +4959,22 @@ ${load}</script>
     <component id="project_template.frdmkv11z.MKV11Z7" name="frdmkv11z" brief="Board_project_template frdmkv11z" version="1.0.0" full_name="Board_project_template frdmkv11z" devices="MKV11Z128xxx7 MKV11Z64xxx7" device_cores="core0_MKV11Z128xxx7 core0_MKV11Z64xxx7" category="Board Support/SDK Project Template" user_visible="true" type="project_template" package_base_path="core/boards/frdmkv11z/project_template" project_base_path="board">
       <dependencies>
         <all>
-          <component_dependency value="platform.drivers.common.MKV11Z7"/>
-          <component_dependency value="platform.drivers.uart.MKV11Z7"/>
           <component_dependency value="component.uart_adapter.MKV11Z7"/>
-          <component_dependency value="platform.drivers.port.MKV11Z7"/>
-          <component_dependency value="platform.drivers.gpio.MKV11Z7"/>
-          <component_dependency value="platform.drivers.smc.MKV11Z7"/>
           <component_dependency value="device.MKV11Z7_startup.MKV11Z7"/>
+          <component_dependency value="platform.drivers.common.MKV11Z7"/>
+          <component_dependency value="platform.drivers.gpio.MKV11Z7"/>
+          <component_dependency value="platform.drivers.port.MKV11Z7"/>
+          <component_dependency value="platform.drivers.smc.MKV11Z7"/>
+          <component_dependency value="platform.drivers.uart.MKV11Z7"/>
           <any_of>
             <all>
-              <component_dependency value="utility.debug_console.MKV11Z7"/>
-              <component_dependency value="platform.utilities.assert.MKV11Z7"/>
               <component_dependency value="component.serial_manager.MKV11Z7"/>
+              <component_dependency value="platform.utilities.assert.MKV11Z7"/>
+              <component_dependency value="utility.debug_console.MKV11Z7"/>
             </all>
             <all>
-              <component_dependency value="utility.debug_console_lite.MKV11Z7"/>
               <component_dependency value="platform.utilities.assert_lite.MKV11Z7"/>
+              <component_dependency value="utility.debug_console_lite.MKV11Z7"/>
             </all>
           </any_of>
         </all>

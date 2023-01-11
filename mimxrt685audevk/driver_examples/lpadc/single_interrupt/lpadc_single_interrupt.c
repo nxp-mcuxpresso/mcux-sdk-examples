@@ -38,7 +38,11 @@ const uint32_t g_Lpadc_12bitFullRange = 4096U;
  ******************************************************************************/
 void DEMO_LPADC_IRQ_HANDLER_FUNC(void)
 {
+#if (defined(FSL_FEATURE_LPADC_FIFO_COUNT) && (FSL_FEATURE_LPADC_FIFO_COUNT == 2U))
+    if (LPADC_GetConvResult(DEMO_LPADC_BASE, &g_LpadcResultConfigStruct, 0U))
+#else
     if (LPADC_GetConvResult(DEMO_LPADC_BASE, &g_LpadcResultConfigStruct))
+#endif /* FSL_FEATURE_LPADC_FIFO_COUNT */
     {
         g_LpadcConversionCompletedFlag = true;
     }
@@ -68,7 +72,12 @@ int main(void)
 
     LPADC_GetDefaultConfig(&mLpadcConfigStruct);
     mLpadcConfigStruct.enableAnalogPreliminary = true;
-    mLpadcConfigStruct.FIFOWatermark           = 0U; /* Set watermark as 0U. */
+#if (defined(FSL_FEATURE_LPADC_FIFO_COUNT) && (FSL_FEATURE_LPADC_FIFO_COUNT == 2))
+    mLpadcConfigStruct.FIFO0Watermark = 0U;
+    mLpadcConfigStruct.FIFO1Watermark = 0U;
+#else
+    mLpadcConfigStruct.FIFOWatermark = 0U;
+#endif /* FSL_FEATURE_LPADC_FIFO_COUNT */
     LPADC_Init(DEMO_LPADC_BASE, &mLpadcConfigStruct);
 
     /* Set conversion CMD configuration. */
@@ -82,8 +91,12 @@ int main(void)
     mLpadcTriggerConfigStruct.enableHardwareTrigger = false;
     LPADC_SetConvTriggerConfig(DEMO_LPADC_BASE, 0U, &mLpadcTriggerConfigStruct); /* Configurate the trigger0. */
 
-    /* Enable the watermark interrupt. */
+/* Enable the watermark interrupt. */
+#if (defined(FSL_FEATURE_LPADC_FIFO_COUNT) && (FSL_FEATURE_LPADC_FIFO_COUNT == 2U))
+    LPADC_EnableInterrupts(DEMO_LPADC_BASE, kLPADC_FIFO0WatermarkInterruptEnable);
+#else
     LPADC_EnableInterrupts(DEMO_LPADC_BASE, kLPADC_FIFOWatermarkInterruptEnable);
+#endif /* FSL_FEATURE_LPADC_FIFO_COUNT */
     EnableIRQ(DEMO_LPADC_IRQn);
 
     PRINTF("ADC Full Range: %d\r\n", g_Lpadc_12bitFullRange);

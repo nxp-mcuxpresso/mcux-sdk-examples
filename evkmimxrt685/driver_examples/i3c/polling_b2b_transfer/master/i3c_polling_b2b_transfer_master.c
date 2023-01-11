@@ -19,6 +19,8 @@
  ******************************************************************************/
 #define EXAMPLE_MASTER             I3C
 #define EXAMPLE_I2C_BAUDRATE       400000
+#define EXAMPLE_I3C_OD_BAUDRATE    1500000
+#define EXAMPLE_I3C_PP_BAUDRATE    4000000
 #define I3C_MASTER_CLOCK_FREQUENCY CLOCK_GetI3cClkFreq()
 #define I3C_MASTER_SLAVE_ADDR_7BIT 0x1E
 #define WAIT_TIME                  1000
@@ -48,9 +50,9 @@ int main(void)
     i3c_master_transfer_t masterXfer;
     status_t result = kStatus_Success;
 
-    /* Attach main clock to I3C, 396MHz / 4 = 99MHz. */
+    /* Attach main clock to I3C, 500MHz / 10 = 50MHz. */
     CLOCK_AttachClk(kMAIN_CLK_to_I3C_CLK);
-    CLOCK_SetClkDiv(kCLOCK_DivI3cClk, 4);
+    CLOCK_SetClkDiv(kCLOCK_DivI3cClk, 10);
 
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
@@ -81,8 +83,8 @@ int main(void)
 
     I3C_MasterGetDefaultConfig(&masterConfig);
     masterConfig.baudRate_Hz.i2cBaud          = EXAMPLE_I2C_BAUDRATE;
-    masterConfig.baudRate_Hz.i3cPushPullBaud  = 4000000U;
-    masterConfig.baudRate_Hz.i3cOpenDrainBaud = 1500000U;
+    masterConfig.baudRate_Hz.i3cPushPullBaud  = EXAMPLE_I3C_PP_BAUDRATE;
+    masterConfig.baudRate_Hz.i3cOpenDrainBaud = EXAMPLE_I3C_OD_BAUDRATE;
     masterConfig.enableOpenDrainStop          = false;
     I3C_MasterInit(EXAMPLE_MASTER, &masterConfig, I3C_MASTER_CLOCK_FREQUENCY);
 
@@ -141,21 +143,36 @@ int main(void)
         }
         PRINTF("0x%2x  ", g_master_rxBuff[i]);
     }
-    PRINTF("\r\n\r\n");
 
     /* Transfer completed. Check the data.*/
     for (uint32_t i = 0U; i < I3C_DATA_LENGTH - 1U; i++)
     {
         if (g_master_rxBuff[i] != g_master_txBuff[i + 1])
         {
-            PRINTF("\r\nError occurred in the transfer ! \r\n");
+            PRINTF("\r\nError occurred in the transfer!\r\n");
             return -1;
         }
     }
 
-    PRINTF("\r\nI3C master transfer successful in I2C mode .\r\n");
+    PRINTF("\r\nI3C master transfer successful in I2C mode.\r\n");
 
-    PRINTF("\r\nI3C master do dynamic address assignment to the I3C slaves on bus.\r\n");
+    PRINTF("\r\nI3C master do dynamic address assignment to the I3C slaves on bus.");
+
+    /* Reset dynamic address before DAA */
+    memset(&masterXfer, 0, sizeof(masterXfer));
+
+    masterXfer.slaveAddress   = 0x7EU; /* Broadcast address */
+    masterXfer.subaddress     = 0x06U; /* CCC command RSTDAA */
+    masterXfer.subaddressSize = 1U;
+    masterXfer.direction      = kI3C_Write;
+    masterXfer.busType        = kI3C_TypeI3CSdr;
+    masterXfer.flags          = kI3C_TransferDefaultFlag;
+    masterXfer.ibiResponse    = kI3C_IbiRespAckMandatory;
+    result                    = I3C_MasterTransferBlocking(EXAMPLE_MASTER, &masterXfer);
+    if (kStatus_Success != result)
+    {
+        return result;
+    }
 
     uint8_t addressList[8] = {0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37};
     result                 = I3C_MasterProcessDAA(EXAMPLE_MASTER, addressList, 8);
@@ -166,10 +183,23 @@ int main(void)
 
     PRINTF("\r\nI3C master dynamic address assignment done.\r\n");
 
-    PRINTF("\r\nStart to do I3C master transfer in I3C SDR mode.\r\n");
+    uint8_t devCount;
+    i3c_device_info_t *devList;
+    uint8_t slaveAddr = 0x0U;
+    devList           = I3C_MasterGetDeviceListAfterDAA(EXAMPLE_MASTER, &devCount);
+    for (uint8_t devIndex = 0; devIndex < devCount; devIndex++)
+    {
+        if (devList[devIndex].vendorID == 0x123U)
+        {
+            slaveAddr = devList[devIndex].dynamicAddr;
+            break;
+        }
+    }
+
+    PRINTF("\r\nStart to do I3C master transfer in I3C SDR mode.");
     memset(&masterXfer, 0, sizeof(masterXfer));
 
-    masterXfer.slaveAddress = 0x30U;
+    masterXfer.slaveAddress = slaveAddr;
     masterXfer.data         = g_master_txBuff;
     masterXfer.dataSize     = I3C_DATA_LENGTH;
     masterXfer.direction    = kI3C_Write;
@@ -190,7 +220,7 @@ int main(void)
 
     memset(g_master_rxBuff, 0, I3C_DATA_LENGTH);
 
-    masterXfer.slaveAddress = 0x30U;
+    masterXfer.slaveAddress = slaveAddr;
     masterXfer.data         = g_master_rxBuff;
     masterXfer.dataSize     = I3C_DATA_LENGTH - 1U;
     masterXfer.direction    = kI3C_Read;
@@ -207,12 +237,12 @@ int main(void)
     {
         if (g_master_rxBuff[i] != g_master_txBuff[i + 1])
         {
-            PRINTF("\r\nError occurred in the transfer ! \r\n");
+            PRINTF("\r\nError occurred in the transfer! \r\n");
             return -1;
         }
     }
 
-    PRINTF("\r\nI3C master transfer successful in I3C SDR mode .\r\n");
+    PRINTF("\r\nI3C master transfer successful in I3C SDR mode.\r\n");
 
     while (1)
     {

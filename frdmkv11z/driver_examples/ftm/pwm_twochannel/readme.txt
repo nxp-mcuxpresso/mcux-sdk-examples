@@ -1,9 +1,11 @@
 Overview
 ========
 The FTM pwm two channel Example project is a demonstration program that uses the KSDK software to generate a square 
-pulse PWM on 2 channel to control the LED brightness.
+pulse PWM(24kHZ) on 2 channel to control the LED brightness. It sets up the FTM hardware block to output two edge-aligned PWM signals.
+The PWM dutycycles are periodically updated.
 - FTM generates a PWM with the increasing and decreasing duty cycle.
 - LED brightness is increasing and then dimming. This is a continuous process.
+The user should probe the FTM output with a oscilloscope to see the PWM.
 
 Toolchain supported
 ===================

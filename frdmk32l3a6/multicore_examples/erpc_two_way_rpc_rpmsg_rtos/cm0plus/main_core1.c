@@ -37,6 +37,7 @@ static erpc_transport_t s_transportArbitrator     = NULL;
 static erpc_transport_t s_transport               = NULL;
 static getNumberCallback_t s_getNumberCallbackPtr = NULL;
 static erpc_server_t s_server                     = NULL;
+static erpc_client_t s_client                     = NULL;
 extern bool g_erpc_error_occurred;
 static uint32_t s_number = 0U;
 #ifdef MCMGR_USED
@@ -126,18 +127,18 @@ static void client_task(void *param)
 #endif
 
     /* eRPC client side initialization */
-    s_transportArbitrator = erpc_arbitrated_client_init(transport, message_buffer_factory);
+    s_client = erpc_arbitrated_client_init(transport, message_buffer_factory, &s_transportArbitrator);
 
     /* Set default error handler */
-    erpc_arbitrated_client_set_error_handler(erpc_error_handler);
+    erpc_arbitrated_client_set_error_handler(s_client, erpc_error_handler);
 
     /* Add server to client is necessary when do nesting RPC call. */
     while (s_server == NULL)
     {
         vTaskDelay(100);
     }
-    erpc_arbitrated_client_set_server(s_server);
-    erpc_arbitrated_client_set_server_thread_id((void *)s_server_task_handle);
+    erpc_arbitrated_client_set_server(s_client, s_server);
+    erpc_arbitrated_client_set_server_thread_id(s_client, (void *)s_server_task_handle);
 
     s_getNumberCallbackPtr = &getNumberFromCore1;
 
@@ -174,7 +175,7 @@ static void server_task(void *param)
     /* eRPC server initialization */
     s_server               = erpc_server_init(s_transportArbitrator, message_buffer_factory);
     erpc_service_t service = create_Core0Interface_service();
-    erpc_add_service_to_server(service);
+    erpc_add_service_to_server(s_server, service);
 
 #ifdef RPMSG_LITE_MASTER_IS_LINUX
     /* ignore first hello world message from RPMSG tty device */
@@ -182,7 +183,7 @@ static void server_task(void *param)
 #endif
 
     /* process message */
-    erpc_status_t status = erpc_server_run();
+    erpc_status_t status = erpc_server_run(s_server);
 
     /* handle error status */
     if (status != (erpc_status_t)kErpcStatus_Success)
@@ -192,9 +193,9 @@ static void server_task(void *param)
         erpc_error_handler(status, 0);
 
         /* eRPC server de-initialization */
-        erpc_remove_service_from_server(service);
+        erpc_remove_service_from_server(s_server, service);
         destroy_Core0Interface_service(service);
-        erpc_server_deinit();
+        erpc_server_deinit(s_server);
     }
 
     vTaskDelete(s_server_task_handle);

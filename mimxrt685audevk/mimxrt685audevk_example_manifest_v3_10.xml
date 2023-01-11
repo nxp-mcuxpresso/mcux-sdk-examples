@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_mimxrt685audevk_examples_manifest_v3_10" name="SDK_2.x_mimxrt685audevk_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2022-08-04 15:21:02.193243-->
-  <!--This manifest is generated based on sdk repo commit: 7fb442914f92023b395b260777eb2355254fd71d-->
+  <!--Timestamp (UTC): 2023-01-10 16:35:14.403506-->
+  <!--This manifest is generated based on sdk repo commit: 11a5f6af5190bfe018a89b4d02c239713dc4cfa6-->
   <externalDefinitions>
     <definition extID="MIMXRT685SFVKB"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="compiler_gcc"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2120_mimxrt685audevk_examples_manifest_v3_10" name="MCUXpressoSDK2120_mimxrt685audevk_examples_manifest_v3_10" version="2.12.0"/>
+  <ksdk id="MCUXpressoSDK2130_mimxrt685audevk_examples_manifest_v3_10" name="MCUXpressoSDK2130_mimxrt685audevk_examples_manifest_v3_10" version="2.13.0"/>
   <boards>
     <board id="mimxrt685audevk" name="MIMXRT685-AUD-EVK" href="" version="1.0.0" package="MIMXRT685SFVKB">
       <examples>
@@ -427,6 +427,11 @@
             <files mask="dma_channel_chain_v3_10.xml"/>
           </external>
         </example>
+        <example id="mimxrt685audevk_dma_hardware_trigger" name="dma_hardware_trigger" brief="The DMA hardware trigger example is a simple demonstration program that uses the SDK software.It executes one shot transfer from source buffer to destination buffer using the SDK DMA drivers by hardware trigger.The purpose of this example is to show how to use the DMA and to provide a simple example fordebugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="driver_examples/dma/hardware_trigger">
+          <external path="driver_examples/dma/hardware_trigger" type="xml">
+            <files mask="dma_hardware_trigger_v3_10.xml"/>
+          </external>
+        </example>
         <example id="mimxrt685audevk_dma_interleave_transfer" name="dma_interleave_transfer" brief="The DMA interleave transfer example is a simple demonstration program that uses the SDK software.It executes a linked transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA interleave feature." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="driver_examples/dma/interleave_transfer">
           <external path="driver_examples/dma/interleave_transfer" type="xml">
             <files mask="dma_interleave_transfer_v3_10.xml"/>
@@ -507,11 +512,6 @@
             <files mask="dsp_sema42_cm33_v3_10.xml"/>
           </external>
         </example>
-        <example id="mimxrt685audevk_dsp_voice_spot_demo_cm33" name="dsp_voice_spot_demo_cm33" brief="The dsp_voice_spot_demo demo application demonstrates starting DSP core with DSP image." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="dsp_examples" path="dsp_examples/voice_spot_demo/cm33">
-          <external path="dsp_examples/voice_spot_demo/cm33" type="xml">
-            <files mask="dsp_voice_spot_demo_cm33_v3_10.xml"/>
-          </external>
-        </example>
         <example id="mimxrt685audevk_dsp_xaf_playback_8ch_96kHz_cm33" name="dsp_xaf_playback_8ch_96kHz_cm33" brief="The dsp_xaf_playback_8ch_96kHz demo application demonstrates starting DSP core with DSP image." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="dsp_examples" path="dsp_examples/xaf_playback_8ch_96kHz/cm33">
           <external path="dsp_examples/xaf_playback_8ch_96kHz/cm33" type="xml">
             <files mask="dsp_xaf_playback_8ch_96kHz_cm33_v3_10.xml"/>
@@ -555,16 +555,6 @@
         <example id="mimxrt685audevk_fmeas" name="fmeas" brief="This example shows how to use SDK drivers to use the Frequency Measure feature of SYSCON module on LPC devices.It shows how to measure a target frequency using a (faster) reference frequency. The example uses the internal main clock as the reference frequency to measure the frequencies of the RTC, watchdog oscillator, and internal RC oscillator." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/fmeas" path="driver_examples/fmeas">
           <external path="driver_examples/fmeas" type="xml">
             <files mask="fmeas_v3_10.xml"/>
-          </external>
-        </example>
-        <example id="mimxrt685audevk_freertos_blinky_ns" name="freertos_blinky_ns" brief="The blinky example for FreeRTOS demonstrates the possibility to use the trust-zone features of FreeRTOS." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" linked_projects="mimxrt685audevk_freertos_blinky_s" path="rtos_examples/freertos_tzm/freertos_blinky_ns">
-          <external path="rtos_examples/freertos_tzm/freertos_blinky_ns" type="xml">
-            <files mask="freertos_blinky_ns_v3_10.xml"/>
-          </external>
-        </example>
-        <example id="mimxrt685audevk_freertos_blinky_s" name="freertos_blinky_s" brief="The blinky example for FreeRTOS demonstrates the possibility to use the trust-zone features of FreeRTOS." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" linked_projects="mimxrt685audevk_freertos_blinky_ns" path="rtos_examples/freertos_tzm/freertos_blinky_s">
-          <external path="rtos_examples/freertos_tzm/freertos_blinky_s" type="xml">
-            <files mask="freertos_blinky_s_v3_10.xml"/>
           </external>
         </example>
         <example id="mimxrt685audevk_freertos_event" name="freertos_event" brief="This document explains the freertos_event example. It shows how task waits for an event (defined setof bits in event group). This event can be set by any other process or interrupt in the system.The example application creates three tasks. Two write tasks write_task_1 and write_task_2continuously setting event bit 0 and bit 1.Read_task is waiting for any event bit and printing actual state on console. Event bits areautomatically cleared after read task is entered.Three possible states can occurre:Both bits are set.zBit B0 is set.Bit B1 is set." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="rtos_examples/freertos_event">
@@ -617,7 +607,7 @@
             <files mask="freertos_spi_v3_10.xml"/>
           </external>
         </example>
-        <example id="mimxrt685audevk_freertos_swtimer" name="freertos_swtimer" brief="This document explains the freertos_swtimer example. It shows usage of software timer and itscallback.The example application creates one software timer SwTimer. The timer’s callback SwTimerCallback isperiodically executed and text “Tick.” is printed to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="rtos_examples/freertos_swtimer">
+        <example id="mimxrt685audevk_freertos_swtimer" name="freertos_swtimer" brief="This document explains the freertos_swtimer example. It shows usage of software timer and itscallback.The example application creates one software timer SwTimer. The timer’s callback SwTimerCallback isperiodically executed and text &quot;Tick.&quot; is printed to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="rtos_examples/freertos_swtimer">
           <external path="rtos_examples/freertos_swtimer" type="xml">
             <files mask="freertos_swtimer_v3_10.xml"/>
           </external>
@@ -982,6 +972,11 @@
             <files mask="mbedtls_selftest_v3_10.xml"/>
           </external>
         </example>
+        <example id="mimxrt685audevk_mcuboot_opensource" name="mcuboot_opensource" brief="MCUboot bootloader" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="bootloader" path="mcuboot_opensource">
+          <external path="mcuboot_opensource" type="xml">
+            <files mask="mcuboot_opensource_v3_10.xml"/>
+          </external>
+        </example>
         <example id="mimxrt685audevk_mpi_loader_dsp_hello_world" name="mpi_loader_dsp_hello_world" brief="The mpi_loader_dsp_hello_world demo application demonstrates multicore packed image loader to load DSP image to execution place and kick off it. The multicore packed image is created by elftosb tool." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="component_examples/mpi_loader/dsp_hello_world">
           <external path="component_examples/mpi_loader/dsp_hello_world" type="xml">
             <files mask="mpi_loader_dsp_hello_world_v3_10.xml"/>
@@ -1242,39 +1237,39 @@
             <files mask="clockout_v3_10.xml"/>
           </external>
         </example>
-        <example id="mimxrt685audevk_tensorflow_lite_micro_cifar10_cm33" name="tensorflow_lite_micro_cifar10_cm33" brief="CIFAR-10 example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tensorflow_lite_micro_cifar10_cm33">
-          <external path="eiq_examples/tensorflow_lite_micro_cifar10_cm33" type="xml">
-            <files mask="tensorflow_lite_micro_cifar10_cm33_v3_10.xml"/>
+        <example id="mimxrt685audevk_tflm_cifar10_cm33" name="tflm_cifar10_cm33" brief="CIFAR-10 example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tflm_cifar10_cm33">
+          <external path="eiq_examples/tflm_cifar10_cm33" type="xml">
+            <files mask="tflm_cifar10_cm33_v3_10.xml"/>
           </external>
         </example>
-        <example id="mimxrt685audevk_tensorflow_lite_micro_cifar10_hifi4_cm33" name="tensorflow_lite_micro_cifar10_hifi4_cm33" brief="CIFAR-10 example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tensorflow_lite_micro_cifar10_hifi4/cm33">
-          <external path="eiq_examples/tensorflow_lite_micro_cifar10_hifi4/cm33" type="xml">
-            <files mask="tensorflow_lite_micro_cifar10_hifi4_cm33_v3_10.xml"/>
+        <example id="mimxrt685audevk_tflm_cifar10_hifi4_cm33" name="tflm_cifar10_hifi4_cm33" brief="CIFAR-10 example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tflm_cifar10_hifi4/cm33">
+          <external path="eiq_examples/tflm_cifar10_hifi4/cm33" type="xml">
+            <files mask="tflm_cifar10_hifi4_cm33_v3_10.xml"/>
           </external>
         </example>
-        <example id="mimxrt685audevk_tensorflow_lite_micro_kws_cm33" name="tensorflow_lite_micro_kws_cm33" brief="Keyword spotting example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tensorflow_lite_micro_kws_cm33">
-          <external path="eiq_examples/tensorflow_lite_micro_kws_cm33" type="xml">
-            <files mask="tensorflow_lite_micro_kws_cm33_v3_10.xml"/>
+        <example id="mimxrt685audevk_tflm_kws_cm33" name="tflm_kws_cm33" brief="Keyword spotting example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tflm_kws_cm33">
+          <external path="eiq_examples/tflm_kws_cm33" type="xml">
+            <files mask="tflm_kws_cm33_v3_10.xml"/>
           </external>
         </example>
-        <example id="mimxrt685audevk_tensorflow_lite_micro_kws_hifi4_cm33" name="tensorflow_lite_micro_kws_hifi4_cm33" brief="Keyword spotting example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tensorflow_lite_micro_kws_hifi4/cm33">
-          <external path="eiq_examples/tensorflow_lite_micro_kws_hifi4/cm33" type="xml">
-            <files mask="tensorflow_lite_micro_kws_hifi4_cm33_v3_10.xml"/>
+        <example id="mimxrt685audevk_tflm_kws_hifi4_cm33" name="tflm_kws_hifi4_cm33" brief="Keyword spotting example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tflm_kws_hifi4/cm33">
+          <external path="eiq_examples/tflm_kws_hifi4/cm33" type="xml">
+            <files mask="tflm_kws_hifi4_cm33_v3_10.xml"/>
           </external>
         </example>
-        <example id="mimxrt685audevk_tensorflow_lite_micro_label_image_cm33" name="tensorflow_lite_micro_label_image_cm33" brief="Label image example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tensorflow_lite_micro_label_image_cm33">
-          <external path="eiq_examples/tensorflow_lite_micro_label_image_cm33" type="xml">
-            <files mask="tensorflow_lite_micro_label_image_cm33_v3_10.xml"/>
+        <example id="mimxrt685audevk_tflm_label_image_cm33" name="tflm_label_image_cm33" brief="Label image example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tflm_label_image_cm33">
+          <external path="eiq_examples/tflm_label_image_cm33" type="xml">
+            <files mask="tflm_label_image_cm33_v3_10.xml"/>
           </external>
         </example>
-        <example id="mimxrt685audevk_tensorflow_lite_micro_label_image_hifi4_cm33" name="tensorflow_lite_micro_label_image_hifi4_cm33" brief="Label image example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tensorflow_lite_micro_label_image_hifi4/cm33">
-          <external path="eiq_examples/tensorflow_lite_micro_label_image_hifi4/cm33" type="xml">
-            <files mask="tensorflow_lite_micro_label_image_hifi4_cm33_v3_10.xml"/>
+        <example id="mimxrt685audevk_tflm_label_image_hifi4_cm33" name="tflm_label_image_hifi4_cm33" brief="Label image example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tflm_label_image_hifi4/cm33">
+          <external path="eiq_examples/tflm_label_image_hifi4/cm33" type="xml">
+            <files mask="tflm_label_image_hifi4_cm33_v3_10.xml"/>
           </external>
         </example>
-        <example id="mimxrt685audevk_tensorflow_lite_micro_xaf_hifi4_cm33" name="tensorflow_lite_micro_xaf_hifi4_cm33" brief="Xtensa Audio Framework example with TensorFlow Lite Micro word detection" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tensorflow_lite_micro_xaf_hifi4/cm33">
-          <external path="eiq_examples/tensorflow_lite_micro_xaf_hifi4/cm33" type="xml">
-            <files mask="tensorflow_lite_micro_xaf_hifi4_cm33_v3_10.xml"/>
+        <example id="mimxrt685audevk_tflm_xaf_hifi4_cm33" name="tflm_xaf_hifi4_cm33" brief="Xtensa Audio Framework example with TensorFlow Lite Micro word detection" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tflm_xaf_hifi4/cm33">
+          <external path="eiq_examples/tflm_xaf_hifi4/cm33" type="xml">
+            <files mask="tflm_xaf_hifi4_cm33_v3_10.xml"/>
           </external>
         </example>
         <example id="mimxrt685audevk_trng_random" name="trng_random" brief="The True Random Number Generator (TRNG) is a hardware accelerator module that generates a 512-bitentropy as needed by an entropy consuming module or by other post processing functions. The TRNGExample project is a demonstration program that uses the KSDK software to generate random numbersand prints them to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/trng" path="driver_examples/trng/random">

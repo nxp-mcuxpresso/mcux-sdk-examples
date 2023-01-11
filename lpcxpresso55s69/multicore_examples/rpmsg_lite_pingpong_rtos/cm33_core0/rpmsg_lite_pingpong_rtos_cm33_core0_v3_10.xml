@@ -106,7 +106,7 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../examples/lpcxpresso55s69/multicore_examples/rpmsg_lite_pingpong_rtos/cm33_core0" project_relative_path="lpcxpresso55s69/multicore_examples/rpmsg_lite_pingpong_rtos/cm33_core0" type="c_include"/>
+      <include_path path="." project_relative_path="lpcxpresso55s69/multicore_examples/rpmsg_lite_pingpong_rtos/cm33_core0" type="c_include"/>
       <include_path path="../../../../../core/boards/lpcxpresso55s69" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
     </include_paths>

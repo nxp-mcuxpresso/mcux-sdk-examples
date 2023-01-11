@@ -59,6 +59,12 @@ AT_NONCACHEABLE_SECTION_INIT(lpspi_master_edma_handle_t g_m_edma_handle) = {0};
 edma_handle_t lpspiEdmaMasterRxRegToRxDataHandle;
 edma_handle_t lpspiEdmaMasterTxDataToTxRegHandle;
 
+#if (defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) && DEMO_EDMA_HAS_CHANNEL_CONFIG)
+extern edma_config_t userConfig;
+#else
+edma_config_t userConfig = {0};
+#endif
+
 volatile bool isTransferCompleted  = false;
 volatile uint32_t g_systickCounter = 20U;
 /*******************************************************************************
@@ -93,7 +99,6 @@ int main(void)
     uint32_t i;
     lpspi_master_config_t masterConfig;
     lpspi_transfer_t masterXfer;
-    edma_config_t userConfig;
 
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
@@ -129,6 +134,7 @@ int main(void)
     DMAMUX_EnableChannel(EXAMPLE_LPSPI_MASTER_DMA_MUX_BASE, EXAMPLE_LPSPI_MASTER_DMA_TX_CHANNEL);
 #endif
     /* EDMA init*/
+#if (!defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) || (defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) && !DEMO_EDMA_HAS_CHANNEL_CONFIG))
     /*
      * userConfig.enableRoundRobinArbitration = false;
      * userConfig.enableHaltOnError = true;
@@ -136,6 +142,7 @@ int main(void)
      * userConfig.enableDebugMode = false;
      */
     EDMA_GetDefaultConfig(&userConfig);
+#endif
     EDMA_Init(EXAMPLE_LPSPI_MASTER_DMA_BASE, &userConfig);
 
     /*Master config*/

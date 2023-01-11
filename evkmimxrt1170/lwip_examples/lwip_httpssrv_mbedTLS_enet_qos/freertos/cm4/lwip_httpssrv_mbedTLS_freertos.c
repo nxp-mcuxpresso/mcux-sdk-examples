@@ -19,10 +19,12 @@
 #include <stdarg.h>
 #include <ctype.h>
 
-#include "enet_ethernetif.h"
+#include "ethernetif.h"
 #include "pin_mux.h"
 #include "board.h"
+#ifndef configMAC_ADDR
 #include "fsl_silicon_id.h"
+#endif
 #include "fsl_phy.h"
 
 #include "lwip/netif.h"
@@ -35,14 +37,18 @@
 #include "lwip/sockets.h"
 #include "netif/etharp.h"
 
+#ifdef MBEDTLS_MCUX_ELE_S400_API
+#include "ele_mbedtls.h"
+#else
 #include "ksdk_mbedtls.h"
+#endif /* MBEDTLS_MCUX_ELE_S400_API */
+
 #include "httpsrv.h"
 
 // dm #include "certs_buff.h"
 #include "mbedtls/certs.h"
 
 #include "fsl_phyrtl8211f.h"
-#include "fsl_enet_qos_mdio.h"
 #include "fsl_enet_qos.h"
 /*******************************************************************************
  * Definitions
@@ -92,17 +98,12 @@
 #define configGW_ADDR3 100
 #endif
 
-/* Address of PHY interface. */
-#define EXAMPLE_PHY_ADDRESS 0x01U
-
-/* MDIO operations. */
-#define EXAMPLE_MDIO_OPS enet_qos_ops
-
-/* PHY operations. */
-#define EXAMPLE_PHY_OPS phyrtl8211f_ops
-
-/* ENET clock frequency. */
-#define EXAMPLE_CLOCK_FREQ CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
+/* Ethernet configuration. */
+extern phy_rtl8211f_resource_t g_phy_resource;
+#define EXAMPLE_PHY_ADDRESS  0x01U
+#define EXAMPLE_PHY_OPS      &phyrtl8211f_ops
+#define EXAMPLE_PHY_RESOURCE &g_phy_resource
+#define EXAMPLE_CLOCK_FREQ   CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
 
 /* ENET IRQ priority. Used in FreeRTOS. */
 #ifndef ENET_PRIORITY
@@ -143,9 +144,9 @@ static bool cgi_get_varval(char *var_str, char *var_name, char *var_val, uint32_
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+phy_rtl8211f_resource_t g_phy_resource;
 
-static mdio_handle_t mdioHandle = {.ops = &EXAMPLE_MDIO_OPS};
-static phy_handle_t phyHandle   = {.phyAddr = EXAMPLE_PHY_ADDRESS, .mdioHandle = &mdioHandle, .ops = &EXAMPLE_PHY_OPS};
+static phy_handle_t phyHandle;
 
 static struct netif netif;
 /* FS data.*/
@@ -219,10 +220,31 @@ void BOARD_UpdateENETModuleClock(enet_qos_mii_speed_t miiSpeed)
     CLOCK_SetRootClock(kCLOCK_Root_Enet_Qos, &rootCfg);
 }
 
+void ENET_QOS_EnableClock(bool enable)
+{
+    IOMUXC_GPR->GPR6 =
+        (IOMUXC_GPR->GPR6 & (~IOMUXC_GPR_GPR6_ENET_QOS_CLKGEN_EN_MASK)) | IOMUXC_GPR_GPR6_ENET_QOS_CLKGEN_EN(enable);
+}
 void ENET_QOS_SetSYSControl(enet_qos_mii_mode_t miiMode)
 {
-    IOMUXC_GPR->GPR6 |= (miiMode << 3U);
-    IOMUXC_GPR->GPR6 |= IOMUXC_GPR_GPR6_ENET_QOS_CLKGEN_EN_MASK; /* Set this bit to enable ENET_QOS clock generation. */
+    IOMUXC_GPR->GPR6 =
+        (IOMUXC_GPR->GPR6 & (~IOMUXC_GPR_GPR6_ENET_QOS_INTF_SEL_MASK)) | IOMUXC_GPR_GPR6_ENET_QOS_INTF_SEL(miiMode);
+}
+
+static void MDIO_Init(void)
+{
+    CLOCK_EnableClock(s_enetqosClock[ENET_QOS_GetInstance(ENET_QOS)]);
+    ENET_QOS_SetSMI(ENET_QOS, EXAMPLE_CLOCK_FREQ);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_QOS_MDIOWrite(ENET_QOS, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_QOS_MDIORead(ENET_QOS, phyAddr, regAddr, pData);
 }
 
 static int cgi_rtc_data(HTTPSRV_CGI_REQ_STRUCT *param)
@@ -553,20 +575,22 @@ static HTTPSRV_TLS_PARAM_STRUCT tls_params;
 static void stack_init(void)
 {
     ip4_addr_t netif_ipaddr, netif_netmask, netif_gw;
-    ethernetif_config_t enet_config = {
-        .phyHandle = &phyHandle,
+    ethernetif_config_t enet_config = {.phyHandle   = &phyHandle,
+                                       .phyAddr     = EXAMPLE_PHY_ADDRESS,
+                                       .phyOps      = EXAMPLE_PHY_OPS,
+                                       .phyResource = EXAMPLE_PHY_RESOURCE,
+                                       .srcClockHz  = EXAMPLE_CLOCK_FREQ,
 #ifdef configMAC_ADDR
-        .macAddress = configMAC_ADDR,
+                                       .macAddress = configMAC_ADDR
 #endif
     };
 
     CRYPTO_InitHardware();
-    mdioHandle.resource.csrClock_Hz = EXAMPLE_CLOCK_FREQ;
 
     tcpip_init(NULL, NULL);
 
+    /* Set MAC address. */
 #ifndef configMAC_ADDR
-    /* Set special address for each chip. */
     (void)SILICONID_ConvertToMacAddr(&enet_config.macAddress);
 #endif
 
@@ -578,6 +602,11 @@ static void stack_init(void)
                        tcpip_input);
     netifapi_netif_set_default(&netif);
     netifapi_netif_set_up(&netif);
+
+    while (ethernetif_wait_linkup(&netif, 5000) != ERR_OK)
+    {
+        PRINTF("PHY Auto-negotiation failed. Please check the cable connection and link partner setting.\r\n");
+    }
 
     LWIP_PLATFORM_DIAG(("\r\n************************************************"));
     LWIP_PLATFORM_DIAG(("mbedTLS HTTPS Server example"));
@@ -671,7 +700,9 @@ int main(void)
 
     NVIC_SetPriority(ENET_QOS_IRQn, ENET_PRIORITY);
 
-    mdioHandle.resource.csrClock_Hz = EXAMPLE_CLOCK_FREQ;
+    MDIO_Init();
+    g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
 
     /* create server thread in RTOS */
     if (sys_thread_new("main", main_thread, NULL, HTTPD_STACKSIZE, HTTPD_PRIORITY) == NULL)

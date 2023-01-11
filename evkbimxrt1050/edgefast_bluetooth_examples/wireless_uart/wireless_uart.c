@@ -1,5 +1,5 @@
 /*
- * Copyright 2019, 2021 NXP
+ * Copyright 2019, 2021-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -60,6 +60,13 @@ typedef struct _wireless_uart_state
     uint8_t peerPeripheralConnCount;
 } wireless_uart_state_t;
 
+typedef struct _scan_dev_info_t
+{
+    const bt_addr_le_t *addr;       /* the address of the scanned device */
+    uint8_t ad_type;                /* the ad type of the scanned device */
+    uint8_t ad_len;                 /* the ad len of the scanned device */
+    int8_t  rssi;                   /* the rssi of the scanned device */
+} scan_dev_info_t;
 /* TODO: insert other definitions and declarations here. */
 
 static void connected(struct bt_conn *conn, uint8_t err);
@@ -386,13 +393,14 @@ static int wireless_uart_read(struct bt_conn *conn, uint8_t** buffer, ssize_t* l
     return -1;
 }
 
-
 static bool wu_central_parse_callback(struct bt_data *data, void *user_data)
 {
-    bt_addr_le_t *addr = user_data;
-    int i;
-    int error = -1;
-    uint8_t index;
+    scan_dev_info_t *deviceInfo = (scan_dev_info_t *)user_data;
+    char             dev[BT_ADDR_LE_STR_LEN];
+    int              i;
+    int              error = -1;
+    uint8_t          index;
+    
 #if 0
     PRINTF("[AD]: %u data_len %u\n", data->type, data->data_len);
 #endif
@@ -413,6 +421,10 @@ static bool wu_central_parse_callback(struct bt_data *data, void *user_data)
             if (bt_uuid_cmp((struct bt_uuid *)&uuid, WIRELESS_UART_SERIVCE)) {
                 continue;
             }
+            
+            bt_addr_le_to_str(deviceInfo->addr, dev, sizeof(dev));
+            PRINTF("[DEVICE]: %s, AD evt type %u, AD data len %u, RSSI %i\n", dev, deviceInfo->ad_type, deviceInfo->ad_len, deviceInfo->rssi);
+            
 
             for (index = 0;index < CONFIG_BT_MAX_CONN;index++)
             {
@@ -423,7 +435,7 @@ static bool wu_central_parse_callback(struct bt_data *data, void *user_data)
                     int err = bt_conn_get_info(g_WirelessUartState.peerPeripheral[index].conn, &info);
                     if (0 == err)
                     {
-                        if (0 == bt_addr_le_cmp(info.le.remote, addr))
+                        if (0 == bt_addr_le_cmp(info.le.remote, deviceInfo->addr))
                         {
                             return true;
                         }
@@ -446,7 +458,7 @@ static bool wu_central_parse_callback(struct bt_data *data, void *user_data)
                             BT_CONN_LE_OPT_NONE,
                             BT_GAP_SCAN_FAST_INTERVAL,
                             BT_GAP_SCAN_FAST_INTERVAL);
-                        error = bt_conn_le_create(addr, &param, BT_LE_CONN_PARAM_DEFAULT, &g_WirelessUartState.peerPeripheral[index].conn);
+                        error = bt_conn_le_create(deviceInfo->addr, &param, BT_LE_CONN_PARAM_DEFAULT, &g_WirelessUartState.peerPeripheral[index].conn);
                         if (0 == error)
                         {
                             break;
@@ -477,16 +489,25 @@ static bool wu_central_parse_callback(struct bt_data *data, void *user_data)
 static void wu_central_scan_callback(const bt_addr_le_t *addr, int8_t rssi, uint8_t type,
              struct net_buf_simple *ad)
 {
+    scan_dev_info_t deviceInfo;
+    
+    assert(NULL != addr);
+    deviceInfo.addr    = addr;
+    deviceInfo.ad_type = type;
+    deviceInfo.ad_len  = ad->len;
+    deviceInfo.rssi    = rssi;
+
+#if 0
     char dev[BT_ADDR_LE_STR_LEN];
+    
     bt_addr_le_to_str(addr, dev, sizeof(dev));
-#if 1
     PRINTF("[DEVICE]: %s, AD evt type %u, AD data len %u, RSSI %i\n",
-           dev, type, ad->len, rssi);
+           deviceInfo.dev, deviceInfo.ad_type, deviceInfo.ad_len, deviceInfo.rssi);
 #endif
     /* We're only interested in connectable events */
     if (type == BT_HCI_ADV_IND || type == BT_HCI_ADV_DIRECT_IND)
     {
-        bt_data_parse(ad, wu_central_parse_callback, (void *)addr);
+        bt_data_parse(ad, wu_central_parse_callback, (void *)&deviceInfo);
     }
 }
 

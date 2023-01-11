@@ -53,14 +53,16 @@ NOTE
 4.  After M core running, please boot the linux kernel to create the rpmsg channel between A core and M core.
     Make sure the FDT file is correctly set before booting the linux kernel. The following command can be used to set FDT file in uboot console:
     When ak4497 codec is used,
-	u-boot=>setenv fdtfile imx8mm-evk-rpmsg.dtb 
+    u-boot=>setenv fdtfile imx8mm-evk-rpmsg.dtb 
     u-boot=>saveenv
-	When wm8524 codec is used,
-	u-boot=>setenv fdtfile imx8mm-evk-rpmsg-wm8524.dtb 
+    When wm8524 codec is used,
+    u-boot=>setenv fdtfile imx8mm-evk-rpmsg-wm8524.dtb 
     u-boot=>saveenv
-	Make sure the "snd_pcm.max_alloc_per_card" is set using below command for the uboot bootargs for Linux 5.15.5-1.0.0 and later version.
-	u-boot=>setenv mmcargs 'setenv bootargs ${jh_clk} console=${console} root=${mmcroot} snd_pcm.max_alloc_per_card=134217728'
-	u-boot=>saveenv
+    Set the "snd_pcm.max_alloc_per_card" in bootargs, use the following command to print default mmcargs and add "snd_pcm.max_alloc_per_card=134217728" to the end. 
+    u-boot=>printenv mmcargs
+        For example, "mmcargs=setenv bootargs ${jh_clk} ${mcore_clk} console=${console} root=${mmcroot}" is printed, then set the mmcargs using the following command. 
+    u-boot=>setenv mmcargs 'setenv bootargs ${jh_clk} ${mcore_clk} console=${console} root=${mmcroot} snd_pcm.max_alloc_per_card=134217728'
+    u-boot=>saveenv
 5.  Please make sure here exists xxx.wav file in the SD card.
     If the music file is placed at the Windows FAT32 paritions, after the linux kernel boot up and logged as root,
     using the "mount /dev/mmcblk1p1 /mnt" and then go to "/mnt" folder to playabck the music using the playback command.
@@ -98,8 +100,8 @@ When playback the .wav file:
     Note, make sure the A core has enough time to fill the audio buffer before going into suspend mode.
 
 When recording sound(RPMSG MICFIL is only supported when WM8524 codec used), could use command:
-	"arecord -Dhw:1,0 -r44100 -fS16_LE -c2 test.wav &"
-	fS16_LE and 1-8 channels are supported.
+    "arecord -Dhw:1,0 -r44100 -fS16_LE -c2 test.wav &"
+    fS16_LE and 1-8 channels are supported.
 
     
 When playback the .dsd/.dff file (only supported by AK4497 codec): 

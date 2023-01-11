@@ -25,7 +25,7 @@
  ******************************************************************************/
 /* SAI instance and clock */
 #ifndef DEMO_CODEC_WM8960
-#define DEMO_CODEC_WM8960  1
+#define DEMO_CODEC_WM8960 1
 #endif
 #ifndef DEMO_CODEC_CS42448
 #define DEMO_CODEC_CS42448 0
@@ -52,18 +52,18 @@
 #define DEMO_CODEC_POWER_GPIO_PIN      0
 #define DEMO_CODEC_RESET_GPIO          GPIO1
 #define DEMO_CODEC_RESET_GPIO_PIN      2
-#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (47U)
+#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (11U)
 #define DEMO_SAI_MASTER_SLAVE          kSAI_Master
 #else
 #define DEMO_WM8960_I2C_INSTANCE       1
-#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (63U)
+#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (15U)
 #define DEMO_SAI_MASTER_SLAVE          kSAI_Master
 #endif
 
 /* Select Audio/Video PLL (786.48 MHz) as sai1 clock source */
 #define DEMO_SAI1_CLOCK_SOURCE_SELECT (2U)
 /* Clock pre divider for sai1 clock source */
-#define DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER (0U)
+#define DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER (3U)
 /* Get frequency of sai1 clock */
 #define DEMO_SAI_CLK_FREQ                                                        \
     (CLOCK_GetFreq(kCLOCK_AudioPllClk) / (DEMO_SAI1_CLOCK_SOURCE_DIVIDER + 1U) / \
@@ -185,7 +185,7 @@ void DEMO_SAITxIRQHandler(void)
 
     if (SAI_TxGetStatusFlag(DEMO_SAI) & kSAI_FIFOWarningFlag)
     {
-        for (i = 0; i < FSL_FEATURE_SAI_FIFO_COUNT; i++)
+        for (i = 0; i < FSL_FEATURE_SAI_FIFO_COUNTn(DEMO_SAI); i++)
         {
             data = 0;
             for (j = 0; j < DEMO_AUDIO_BIT_WIDTH / 8U; j++)

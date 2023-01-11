@@ -125,13 +125,13 @@
       </debug_configuration>
     </debug_configurations>
     <include_paths>
-      <include_path path="../../../../../core/boards/evkmimxrt1020" project_relative_path="board" type="c_include"/>
+      <include_path path="../../.." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../core/boards/evkmimxrt1020" project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimxrt1020/usb_examples/usb_host_audio_recorder/freertos" project_relative_path="." type="c_include"/>
+      <include_path path="../../.." project_relative_path="source" type="c_include"/>
+      <include_path path="." project_relative_path="." type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
-      <include_path path="../../../../../core/boards/evkmimxrt1020" project_relative_path="source" type="asm_include"/>
+      <include_path path="../../.." project_relative_path="source" type="asm_include"/>
     </include_paths>
     <source path="." project_relative_path="board" type="src">
       <files mask="sdmmc_config.c"/>

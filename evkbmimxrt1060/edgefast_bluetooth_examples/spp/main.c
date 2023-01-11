@@ -16,7 +16,7 @@
 #include "board.h"
 #include "fsl_adapter_uart.h"
 #include "bt_ble_platform.h"
-#include "controller.h"
+#include "controller_hci_uart.h"
 #include "usb_host_config.h"
 #include "usb_phy.h"
 #include "usb_host.h"
@@ -247,17 +247,4 @@ int main(void)
     vTaskStartScheduler();
     for (;;)
         ;
-}
-
-void *pvPortCalloc(size_t xNum, size_t xSize)
-{
-    void *pvReturn;
-
-    pvReturn = pvPortMalloc(xNum * xSize);
-    if (pvReturn != NULL)
-    {
-        memset(pvReturn, 0x00, xNum * xSize);
-    }
-
-    return pvReturn;
 }

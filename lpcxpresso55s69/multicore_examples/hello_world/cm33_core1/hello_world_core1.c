@@ -15,7 +15,12 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define LED_INIT()   GPIO_PinInit(GPIO, BOARD_LED_RED_GPIO_PORT, BOARD_LED_RED_GPIO_PIN, &led_config);
+#define LED_INIT()                   \
+    gpio_pin_config_t led_config = { \
+        kGPIO_DigitalOutput,         \
+        0,                           \
+    };                               \
+    GPIO_PinInit(GPIO, BOARD_LED_RED_GPIO_PORT, BOARD_LED_RED_GPIO_PIN, &led_config);
 #define LED_TOGGLE() GPIO_PortToggle(GPIO, BOARD_LED_RED_GPIO_PORT, 1u << BOARD_LED_RED_GPIO_PIN);
 
 /*******************************************************************************
@@ -45,12 +50,6 @@ int main(void)
 {
     uint32_t startupData, i;
     mcmgr_status_t status;
-
-    /* Define the init structure for the output LED pin*/
-    gpio_pin_config_t led_config = {
-        kGPIO_DigitalOutput,
-        0,
-    };
 
     /* Init board hardware.*/
     /* set BOD VBAT level to 1.65V */

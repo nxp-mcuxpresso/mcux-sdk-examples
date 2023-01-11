@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2020 NXP
+ * Copyright 2016-2022 NXP
  * All rights reserved.
  *
  *
@@ -98,6 +98,11 @@ int main(void)
     LPADC_SetOffsetValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE_A, DEMO_LPADC_OFFSET_VALUE_B);
 #endif /* DEMO_LPADC_DO_OFFSET_CALIBRATION */
 #endif /* FSL_FEATURE_LPADC_HAS_OFSTRIM */
+
+#if defined(FSL_FEATURE_LPADC_HAS_CTRL_CALOFSMODE) && FSL_FEATURE_LPADC_HAS_CTRL_CALOFSMODE
+    LPADC_SetOffsetCalibrationMode(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_CALIBRATION_MODE);
+    LPADC_DoOffsetCalibration(DEMO_LPADC_BASE);
+#endif /* FSL_FEATURE_LPADC_HAS_CTRL_CALOFSMODE */
     /* Request gain calibration. */
     LPADC_DoAutoCalibration(DEMO_LPADC_BASE);
 #endif /* FSL_FEATURE_LPADC_HAS_CTRL_CALOFS */

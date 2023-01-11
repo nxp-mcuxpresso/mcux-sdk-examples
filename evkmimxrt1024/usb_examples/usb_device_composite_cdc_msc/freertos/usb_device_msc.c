@@ -903,14 +903,7 @@ usb_status_t USB_DeviceMscInit(uint8_t controllerId, usb_device_class_config_str
     usb_device_msc_ufi_struct_t *ufi = NULL;
 
     /* Allocate a msc class handle. */
-#if (defined(USB_DEVICE_CONFIG_RETURN_VALUE_CHECK) && (USB_DEVICE_CONFIG_RETURN_VALUE_CHECK > 0U))
-    if (kStatus_USB_Success != USB_DeviceMscAllocateHandle(&mscHandle))
-    {
-        return kStatus_USB_Error;
-    }
-#else
     error = USB_DeviceMscAllocateHandle(&mscHandle);
-#endif
 
     if (kStatus_USB_Success != error)
     {

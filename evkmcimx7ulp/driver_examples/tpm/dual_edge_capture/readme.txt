@@ -2,8 +2,11 @@ Overview
 ========
 The TPM project is a demonstration program of the SDK TPM driver's dual-edge capture feature.
 This feature is available only on certain SoC's.
-The example sets up a TPM channel-pair for dual-edge capture. Once the input signal is received,
-this example will print the capture values and period of the input signal on the terminal window.
+The example sets up a TPM channel-pair for dual-edge capture. Meanwhile, the capture mode is set up one-shot, 
+using API TPM_SetupDualEdgeCapture(). Once the input signal is received and the second edge is detected,
+the interrupt flag will be cleared and the interrupt overflow will be disabled.
+The example gets the capture value of the input signal using API TPM_GetChannelValue().
+This example will print the capture values and period of the input signal on the terminal window.
 
 Toolchain supported
 ===================

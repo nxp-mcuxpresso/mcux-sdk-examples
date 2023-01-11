@@ -6,7 +6,6 @@
  */
 
 #include "fsl_debug_console.h"
-#include "fsl_gpio.h"
 #include "pin_mux.h"
 #include "board.h"
 #include "mcmgr.h"

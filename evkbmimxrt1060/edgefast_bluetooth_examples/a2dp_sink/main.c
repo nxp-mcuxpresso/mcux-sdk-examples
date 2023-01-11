@@ -21,7 +21,7 @@
 #include "fsl_wm8960.h"
 #include "fsl_codec_adapter.h"
 #include "fsl_adapter_uart.h"
-#include "controller.h"
+#include "controller_hci_uart.h"
 #include "usb_host_config.h"
 #include "usb_phy.h"
 #include "usb_host.h"
@@ -52,9 +52,9 @@ extern void BOARD_InitHardware(void);
 /* Select Audio/Video PLL (786.48 MHz) as sai2 clock source */
 #define DEMO_SAI2_CLOCK_SOURCE_SELECT (2U)
 /* Clock pre divider for sai2 clock source */
-#define DEMO_SAI2_CLOCK_SOURCE_PRE_DIVIDER (0U)
+#define DEMO_SAI2_CLOCK_SOURCE_PRE_DIVIDER (3U)
 /* Clock divider for sai2 clock source */
-#define DEMO_SAI2_CLOCK_SOURCE_DIVIDER (63U)
+#define DEMO_SAI2_CLOCK_SOURCE_DIVIDER (15U)
 /* Get frequency of sai2 clock */
 #define DEMO_SAI_CLK_FREQ                                                        \
     (CLOCK_GetFreq(kCLOCK_AudioPllClk) / (DEMO_SAI2_CLOCK_SOURCE_DIVIDER + 1U) / \
@@ -65,6 +65,7 @@ extern void BOARD_InitHardware(void);
 /* Clock divider for master lpi2c clock source */
 #define DEMO_LPI2C_CLOCK_SOURCE_DIVIDER (5U)
 
+#define DEMO_SAI            SAI2
 #define DEMO_AUDIO_INSTANCE (2U)
 
 /* DMA */
@@ -76,9 +77,9 @@ extern void BOARD_InitHardware(void);
 /* Select Audio/Video PLL (786.48 MHz) as sai1 clock source */
 #define DEMO_SAI1_CLOCK_SOURCE_SELECT      (2U)
 /* Clock pre divider for sai1 clock source */
-#define DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER (0U)
+#define DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER (3U)
 /* Clock divider for sai1 clock source */
-#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER     (63U)
+#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER     (15U)
 /* Get frequency of sai1 clock */
 #define DEMO_SAI_CLK_FREQ                                                        \
     (CLOCK_GetFreq(kCLOCK_AudioPllClk) / (DEMO_SAI1_CLOCK_SOURCE_DIVIDER + 1U) / \
@@ -89,6 +90,7 @@ extern void BOARD_InitHardware(void);
 /* Clock divider for master lpi2c clock source */
 #define DEMO_LPI2C_CLOCK_SOURCE_DIVIDER (5U)
 
+#define DEMO_SAI                SAI1
 #define DEMO_AUDIO_INSTANCE     (1U)
 
 /* DMA */
@@ -170,7 +172,7 @@ hal_audio_config_t audioTxConfig = {
     .ipConfig          = (void *)&audioTxIpConfig,
     .srcClock_Hz       = 11289750U,
     .sampleRate_Hz     = (uint32_t)DEMO_AUDIO_SAMPLING_RATE,
-    .fifoWatermark     = FSL_FEATURE_SAI_FIFO_COUNT / 2U,
+    .fifoWatermark     = FSL_FEATURE_SAI_FIFO_COUNTn(DEMO_SAI) / 2U,
     .msaterSlave       = kHAL_AudioMaster,
     .bclkPolarity      = kHAL_AudioSampleOnRisingEdge,
     .frameSyncWidth    = kHAL_AudioFrameSyncWidthHalfFrame,
@@ -474,17 +476,4 @@ int main(void)
     vTaskStartScheduler();
     for (;;)
         ;
-}
-
-void *pvPortCalloc(size_t xNum, size_t xSize)
-{
-    void *pvReturn;
-
-    pvReturn = pvPortMalloc(xNum * xSize);
-    if (pvReturn != NULL)
-    {
-        memset(pvReturn, 0x00, xNum * xSize);
-    }
-
-    return pvReturn;
 }

@@ -19,7 +19,7 @@
 #define DEMO_PDM_CLK_FREQ \
     (24000000U) / (CLOCK_GetRootPreDivider(kCLOCK_RootPdm)) / (CLOCK_GetRootPostDivider(kCLOCK_RootPdm))
 #define DEMO_PDM_FIFO_WATERMARK       (FSL_FEATURE_PDM_FIFO_DEPTH / 2U - 1U)
-#define DEMO_PDM_QUALITY_MODE         kPDM_QualityModeHigh
+#define DEMO_PDM_QUALITY_MODE         kPDM_QualityModeMedium
 #define DEMO_PDM_CIC_OVERSAMPLE_RATE  (0U)
 #define DEMO_PDM_ENABLE_CHANNEL_LEFT  (0U)
 #define DEMO_PDM_ENABLE_CHANNEL_RIGHT (1U)

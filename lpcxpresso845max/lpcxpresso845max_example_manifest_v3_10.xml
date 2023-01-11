@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_lpcxpresso845max_examples_manifest_v3_10" name="SDK_2.x_lpcxpresso845max_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2022-08-11 15:01:44.821124-->
-  <!--This manifest is generated based on sdk repo commit: 7fb442914f92023b395b260777eb2355254fd71d-->
+  <!--Timestamp (UTC): 2023-01-10 16:36:20.202649-->
+  <!--This manifest is generated based on sdk repo commit: 11a5f6af5190bfe018a89b4d02c239713dc4cfa6-->
   <externalDefinitions>
     <definition extID="LPC845M301JBD64"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="compiler_gcc"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2120_lpcxpresso845max_examples_manifest_v3_10" name="MCUXpressoSDK2120_lpcxpresso845max_examples_manifest_v3_10" version="2.12.0"/>
+  <ksdk id="MCUXpressoSDK2130_lpcxpresso845max_examples_manifest_v3_10" name="MCUXpressoSDK2130_lpcxpresso845max_examples_manifest_v3_10" version="2.13.0"/>
   <boards>
     <board id="lpcxpresso845max" name="LPCXpresso845MAX" href="https://www.nxp.com/pip/OM13097" version="1.0.0" package="LPC845M301JBD64">
       <examples>
@@ -50,6 +50,11 @@
         <example id="lpcxpresso845max_dma_channel_chain" name="dma_channel_chain" brief="The DMA channel chain example is a simple demonstration program that uses the SDK software.The purpose of this example is to show how to use the DMA channel chain feature." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="driver_examples/dma/channel_chain">
           <external path="driver_examples/dma/channel_chain" type="xml">
             <files mask="dma_channel_chain_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso845max_dma_hardware_trigger" name="dma_hardware_trigger" brief="The DMA hardware trigger example is a simple demonstration program that uses the SDK software.It executes one shot transfer from source buffer to destination buffer using the SDK DMA drivers by hardware trigger.The purpose of this example is to show how to use the DMA and to provide a simple example fordebugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="driver_examples/dma/hardware_trigger">
+          <external path="driver_examples/dma/hardware_trigger" type="xml">
+            <files mask="dma_hardware_trigger_v3_10.xml"/>
           </external>
         </example>
         <example id="lpcxpresso845max_dma_interleave_transfer" name="dma_interleave_transfer" brief="The DMA interleave transfer example is a simple demonstration program that uses the SDK software.It executes a linked transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA interleave feature." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="driver_examples/dma/interleave_transfer">

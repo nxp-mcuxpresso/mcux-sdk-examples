@@ -992,7 +992,12 @@ static usb_status_t USB_DeviceControlCallback(usb_device_handle handle,
     uint8_t state       = 0U;
 
     /* endpoint callback length is USB_CANCELLED_TRANSFER_LENGTH (0xFFFFFFFFU) when transfer is canceled */
-    if ((USB_CANCELLED_TRANSFER_LENGTH == message->length) || (NULL == callbackParam))
+    if (USB_CANCELLED_TRANSFER_LENGTH == message->length)
+    {
+        return kStatus_USB_Success;
+    }
+
+    if (NULL == callbackParam)
     {
         return status;
     }
@@ -1053,7 +1058,8 @@ static usb_status_t USB_DeviceControlCallback(usb_device_handle handle,
         if ((deviceSetup->bmRequestType & USB_REQUEST_TYPE_TYPE_MASK) == USB_REQUEST_TYPE_TYPE_STANDARD)
         {
             /* Handle the standard request, only handle the request in request array. */
-            if (deviceSetup->bRequest < (sizeof(s_UsbDeviceStandardRequest) / 4U))
+            if (deviceSetup->bRequest <
+                ((sizeof(s_UsbDeviceStandardRequest)) / (sizeof(usb_standard_request_callback_t))))
             {
                 if (s_UsbDeviceStandardRequest[deviceSetup->bRequest] != (usb_standard_request_callback_t)NULL)
                 {

@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(lcdif_cursor_masked)
 
+set(MCUX_BUILD_TYPES debug release flash_debug flash_release)
+
 set(MCUX_SDK_PROJECT_NAME lcdif_cursor_masked.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -40,28 +46,46 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../lcdif_cursor_masked.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
-"${ProjDirPath}/../../lcdif_support.h"
-"${ProjDirPath}/../../lcdif_support.c"
+"${SdkRootDirPath}/examples/evkmimxrt595/driver_examples/lcdif/lcdif_support.h"
+"${SdkRootDirPath}/examples/evkmimxrt595/driver_examples/lcdif/lcdif_support.c"
 "${SdkRootDirPath}/core/boards/evkmimxrt595/board.c"
 "${SdkRootDirPath}/core/boards/evkmimxrt595/board.h"
 "${SdkRootDirPath}/core/boards/evkmimxrt595/clock_config.c"
 "${SdkRootDirPath}/core/boards/evkmimxrt595/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
     ${SdkRootDirPath}/examples/evkmimxrt595/driver_examples/lcdif
-    ${SdkRootDirPath}/examples/evkmimxrt595/driver_examples/lcdif/cursor_masked
     ${SdkRootDirPath}/core/boards/evkmimxrt595
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/devices/MIMXRT595S/drivers
+    ${SdkRootDirPath}/core/drivers/inputmux
+    ${SdkRootDirPath}/core/components/video
+    ${SdkRootDirPath}/core/components/video/display
+    ${SdkRootDirPath}/core/components/video/display/rm68191
+    ${SdkRootDirPath}/core/drivers/mipi_dsi
+    ${SdkRootDirPath}/core/components/video/display/mipi_dsi_cmd
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/drivers/lpc_gpio
+    ${SdkRootDirPath}/core/components/video/display/rm68200
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/components/video/display/hx8394
+    ${SdkRootDirPath}/core/drivers/lcdif
+    ${SdkRootDirPath}/core/devices/MIMXRT595S
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/drivers/flexspi
+    ${SdkRootDirPath}/core/drivers/cache/cache64
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/drivers/flexcomm
+    ${SdkRootDirPath}/core/boards/evkmimxrt595/flash_config
+    ${SdkRootDirPath}/core/drivers/lpc_iopctl
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(driver_clock)
@@ -127,15 +151,13 @@ include(utilities_misc_utilities_MIMXRT595S_cm33)
 include(driver_iap)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(hello_world_virtual_com)
 
+set(MCUX_BUILD_TYPES debug release sdram_debug sdram_release flexspi_nor_debug flexspi_nor_release)
+
 set(MCUX_SDK_PROJECT_NAME hello_world_virtual_com.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -47,19 +53,31 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../usb_device_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${SdkRootDirPath}/examples/evkbimxrt1050/demo_apps/hello_world_virtual_com
-    ${SdkRootDirPath}/core/boards/evkbimxrt1050
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
+    ${SdkRootDirPath}/core/boards/evkbimxrt1050
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/middleware/usb
+    ${SdkRootDirPath}/core/components/osa
+    ${SdkRootDirPath}/core/drivers/cache/armv7-m7
     ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/devices/MIMXRT1052/drivers
+    ${SdkRootDirPath}/core/devices/MIMXRT1052
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/drivers/lpuart
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/drivers/igpio
+    ${SdkRootDirPath}/core/devices/MIMXRT1052/xip
+    ${SdkRootDirPath}/core/boards/evkbimxrt1050/xip
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(component_serial_manager)
@@ -74,7 +92,7 @@ include(middleware_usb_device_controller_driver_MIMXRT1052)
 
 include(component_osa)
 
-include(middleware_usb_device_ehci)
+include(middleware_usb_device_ehci_MIMXRT1052)
 
 include(driver_cache_armv7_m7)
 
@@ -104,8 +122,6 @@ include(driver_xip_device)
 
 include(driver_xip_board_evkbimxrt1050)
 
-include(component_silicon_id)
-
 include(CMSIS_Include_core_cm)
 
 include(middleware_usb_device_cdc_external)
@@ -123,15 +139,13 @@ include(utilities_misc_utilities_MIMXRT1052)
 include(device_system)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

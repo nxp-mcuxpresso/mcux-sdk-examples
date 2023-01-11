@@ -112,7 +112,7 @@ include(driver_dcdc_soc)
 
 include(driver_cache_armv7_m7)
 
-include(component_silicon_id)
+include(component_silicon_id_MIMXRT1166_cm7)
 
 include(driver_anatop_ai)
 

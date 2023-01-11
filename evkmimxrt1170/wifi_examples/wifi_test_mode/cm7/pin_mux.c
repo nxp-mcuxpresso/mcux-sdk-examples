@@ -1,6 +1,5 @@
 /*
- * Copyright 2020-2021 NXP
- * All rights reserved.
+ * Copyright 2022 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -13,11 +12,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v10.0
+product: Pins v12.0
 processor: MIMXRT1176xxxxx
 package_id: MIMXRT1176DVMAA
 mcu_data: ksdk2_0
-processor_version: 10.0.0
+processor_version: 12.0.0
 pin_labels:
 - {pin_num: N17, pin_signal: GPIO_AD_16, label: SDIO_RST, identifier: SDIO_RESET;SDIO_RST}
 - {pin_num: J17, pin_signal: GPIO_AD_31, label: WL_RST, identifier: WL_RST}
@@ -101,7 +100,7 @@ void BOARD_InitPins(void) {
       IOMUXC_GPIO_SD_B1_05_USDHC1_DATA3,      /* GPIO_SD_B1_05 is configured as USDHC1_DATA3 */
       1U);                                    /* Software Input On Field: Force input path of pad GPIO_SD_B1_05 */
   IOMUXC_GPR->GPR43 = ((IOMUXC_GPR->GPR43 &
-    (~(IOMUXC_GPR_GPR43_GPIO_MUX3_GPIO_SEL_HIGH_MASK))) /* Mask bits to zero which are setting */
+    (~(BOARD_INITPINS_IOMUXC_GPR_GPR43_GPIO_MUX3_GPIO_SEL_HIGH_MASK))) /* Mask bits to zero which are setting */
       | IOMUXC_GPR_GPR43_GPIO_MUX3_GPIO_SEL_HIGH(0x8000U) /* GPIO3 and CM7_GPIO3 share same IO MUX function, GPIO_MUX3 selects one GPIO function: 0x8000U */
     );
   IOMUXC_SetPinConfig(

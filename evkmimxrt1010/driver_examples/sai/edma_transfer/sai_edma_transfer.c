@@ -40,9 +40,9 @@
 /* Select Audio/Video PLL (786.48 MHz) as sai1 clock source */
 #define DEMO_SAI1_CLOCK_SOURCE_SELECT (2U)
 /* Clock pre divider for sai1 clock source */
-#define DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER (0U)
+#define DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER (3U)
 /* Clock divider for sai1 clock source */
-#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (63U)
+#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (15U)
 
 /* I2C instance and clock */
 #define DEMO_I2C LPI2C1
@@ -62,8 +62,10 @@
 
 #define BOARD_MASTER_CLOCK_CONFIG()
 #define BOARD_SAI_RXCONFIG(config, mode)
-#define BUFFER_SIZE (1600U)
-#define BUFFER_NUM  (2U)
+#define BUFFER_NUM (2U)
+#ifndef DEMO_XFER_BUFFER_SIZE
+#define DEMO_XFER_BUFFER_SIZE (1600U)
+#endif
 #ifndef DEMO_CODEC_INIT_DELAY_MS
 #define DEMO_CODEC_INIT_DELAY_MS (1000U)
 #endif
@@ -82,10 +84,15 @@ extern void BOARD_SAI_RXConfig(sai_transceiver_t *config, sai_sync_mode_t sync);
 AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t txHandle);
 edma_handle_t g_dmaHandle = {0};
 extern codec_config_t boardCodecConfig;
-AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t buffer[BUFFER_NUM * BUFFER_SIZE], 4);
+AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t buffer[BUFFER_NUM * DEMO_XFER_BUFFER_SIZE], 4);
 volatile bool isFinished      = false;
 volatile uint32_t finishIndex = 0U;
 volatile uint32_t emptyBlock  = BUFFER_NUM;
+#if (defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) && DEMO_EDMA_HAS_CHANNEL_CONFIG)
+extern edma_config_t dmaConfig;
+#else
+edma_config_t dmaConfig = {0};
+#endif
 
 codec_handle_t codecHandle;
 /*******************************************************************************
@@ -142,7 +149,7 @@ static void callback(I2S_Type *base, sai_edma_handle_t *handle, status_t status,
         finishIndex++;
         emptyBlock++;
         /* Judge whether the music array is completely transfered. */
-        if (MUSIC_LEN / BUFFER_SIZE == finishIndex)
+        if (MUSIC_LEN / DEMO_XFER_BUFFER_SIZE == finishIndex)
         {
             isFinished = true;
         }
@@ -163,7 +170,6 @@ void DelayMS(uint32_t ms)
 int main(void)
 {
     sai_transfer_t xfer;
-    edma_config_t dmaConfig = {0};
     uint32_t cpy_index = 0U, tx_index = 0U;
     sai_transceiver_t saiConfig;
 
@@ -192,6 +198,7 @@ int main(void)
 
     PRINTF("SAI example started!\n\r");
 
+#if (!defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) || (defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) && !DEMO_EDMA_HAS_CHANNEL_CONFIG))
     /* Create EDMA handle */
     /*
      * dmaConfig.enableRoundRobinArbitration = false;
@@ -200,6 +207,7 @@ int main(void)
      * dmaConfig.enableDebugMode = false;
      */
     EDMA_GetDefaultConfig(&dmaConfig);
+#endif
     EDMA_Init(DEMO_DMA, &dmaConfig);
     EDMA_CreateHandle(&g_dmaHandle, DEMO_DMA, DEMO_EDMA_CHANNEL);
 #if defined(FSL_FEATURE_EDMA_HAS_CHANNEL_MUX) && FSL_FEATURE_EDMA_HAS_CHANNEL_MUX
@@ -247,19 +255,19 @@ int main(void)
     /* Waiting until finished. */
     while (!isFinished)
     {
-        if ((emptyBlock > 0U) && (cpy_index < MUSIC_LEN / BUFFER_SIZE))
+        if ((emptyBlock > 0U) && (cpy_index < MUSIC_LEN / DEMO_XFER_BUFFER_SIZE))
         {
             /* Fill in the buffers. */
-            memcpy((uint8_t *)&buffer[BUFFER_SIZE * (cpy_index % BUFFER_NUM)],
-                   (uint8_t *)&music[cpy_index * BUFFER_SIZE], sizeof(uint8_t) * BUFFER_SIZE);
+            memcpy((uint8_t *)&buffer[DEMO_XFER_BUFFER_SIZE * (cpy_index % BUFFER_NUM)],
+                   (uint8_t *)&music[cpy_index * DEMO_XFER_BUFFER_SIZE], sizeof(uint8_t) * DEMO_XFER_BUFFER_SIZE);
             emptyBlock--;
             cpy_index++;
         }
         if (emptyBlock < BUFFER_NUM)
         {
             /*  xfer structure */
-            xfer.data     = (uint8_t *)&buffer[BUFFER_SIZE * (tx_index % BUFFER_NUM)];
-            xfer.dataSize = BUFFER_SIZE;
+            xfer.data     = (uint8_t *)&buffer[DEMO_XFER_BUFFER_SIZE * (tx_index % BUFFER_NUM)];
+            xfer.dataSize = DEMO_XFER_BUFFER_SIZE;
             /* Wait for available queue. */
             if (kStatus_Success == SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer))
             {

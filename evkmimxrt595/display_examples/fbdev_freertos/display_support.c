@@ -699,6 +699,10 @@ static void BOARD_PullPanelPowerPin(bool pullUp);
 static void BOARD_InitMipiDsiClock(void);
 static status_t BOARD_DSI_Transfer(dsi_transfer_t *xfer);
 static status_t BOARD_DSI_MemWrite(uint8_t virtualChannel, const uint8_t *data, uint32_t length);
+#if DEMO_RM67162_USE_DSI_SMARTDMA
+static status_t BOARD_DSI_MemWrite2D(
+    uint8_t virtualChannel, const uint8_t *data, uint32_t minorLoop, uint32_t minorLoopOffset, uint32_t majorLoop);
+#endif
 /*******************************************************************************
  * Variables
  ******************************************************************************/
@@ -718,6 +722,9 @@ static mipi_dsi_device_t dsiDevice = {
     .virtualChannel = 0,
     .xferFunc       = BOARD_DSI_Transfer,
     .memWriteFunc   = BOARD_DSI_MemWrite,
+#if DEMO_RM67162_USE_DSI_SMARTDMA
+    .memWriteFunc2D = BOARD_DSI_MemWrite2D,
+#endif
 };
 
 static const rm67162_resource_t rm67162Resource = {
@@ -859,15 +866,15 @@ static void BOARD_DsiMemWriteCallback(MIPI_DSI_HOST_Type *base,
 {
     MIPI_DSI_MemoryDoneDriverCallback(status, &dsiDevice);
 }
-#endif
+#endif /* !DEMO_RM67162_USE_DSI_SMARTDMA */
 
 static status_t BOARD_DSI_MemWrite(uint8_t virtualChannel, const uint8_t *data, uint32_t length)
 {
 #if DEMO_RM67162_USE_DSI_SMARTDMA
     dsi_smartdma_write_mem_transfer_t xfer = {
 #if (DEMO_RM67162_BUFFER_FORMAT == DEMO_RM67162_BUFFER_RGB565)
-        .inputFormat  = kDSI_SMARTDMA_InputPixelFormatRGB565,
-        .outputFormat = kDSI_SMARTDMA_OutputPixelFormatRGB565,
+        .inputFormat          = kDSI_SMARTDMA_InputPixelFormatRGB565,
+        .outputFormat         = kDSI_SMARTDMA_OutputPixelFormatRGB565,
 #elif (DEMO_RM67162_BUFFER_FORMAT == DEMO_RM67162_BUFFER_RGB888)
         .inputFormat  = kDSI_SMARTDMA_InputPixelFormatRGB888,
         .outputFormat = kDSI_SMARTDMA_OutputPixelFormatRGB888,
@@ -875,9 +882,9 @@ static status_t BOARD_DSI_MemWrite(uint8_t virtualChannel, const uint8_t *data, 
         .inputFormat  = kDSI_SMARTDMA_InputPixelFormatXRGB8888,
         .outputFormat = kDSI_SMARTDMA_OutputPixelFormatRGB888,
 #endif /* DEMO_RM67162_BUFFER_FORMAT */
-        .data         = data,
-        .dataSize     = length,
-
+        .data                 = data,
+        .dataSize             = length,
+        .twoDimension         = false,
         .virtualChannel       = virtualChannel,
         .disablePixelByteSwap = false,
     };
@@ -913,6 +920,34 @@ static status_t BOARD_DSI_MemWrite(uint8_t virtualChannel, const uint8_t *data, 
     return status;
 #endif
 }
+
+#if DEMO_RM67162_USE_DSI_SMARTDMA
+static status_t BOARD_DSI_MemWrite2D(
+    uint8_t virtualChannel, const uint8_t *data, uint32_t minorLoop, uint32_t minorLoopOffset, uint32_t majorLoop)
+{
+    dsi_smartdma_write_mem_transfer_t xfer = {
+#if (DEMO_RM67162_BUFFER_FORMAT == DEMO_RM67162_BUFFER_RGB565)
+        .inputFormat          = kDSI_SMARTDMA_InputPixelFormatRGB565,
+        .outputFormat         = kDSI_SMARTDMA_OutputPixelFormatRGB565,
+#elif (DEMO_RM67162_BUFFER_FORMAT == DEMO_RM67162_BUFFER_RGB888)
+        .inputFormat  = kDSI_SMARTDMA_InputPixelFormatRGB888,
+        .outputFormat = kDSI_SMARTDMA_OutputPixelFormatRGB888,
+#else
+        .inputFormat  = kDSI_SMARTDMA_InputPixelFormatXRGB8888,
+        .outputFormat = kDSI_SMARTDMA_OutputPixelFormatRGB888,
+#endif /* DEMO_RM67162_BUFFER_FORMAT */
+        .twoDimension         = true,
+        .data                 = data,
+        .minorLoop            = minorLoop,
+        .minorLoopOffset      = minorLoopOffset,
+        .majorLoop            = majorLoop,
+        .virtualChannel       = virtualChannel,
+        .disablePixelByteSwap = false,
+    };
+
+    return DSI_TransferWriteMemorySMARTDMA(DEMO_MIPI_DSI, &s_dsiDriverHandle, &xfer);
+}
+#endif
 
 static void BOARD_InitMipiDsiClock(void)
 {

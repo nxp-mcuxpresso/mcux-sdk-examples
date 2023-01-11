@@ -110,7 +110,7 @@
     </debug_configurations>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimxrt595/driver_examples/powerquad/fir_fast" project_relative_path="evkmimxrt595/driver_examples/powerquad/fir_fast" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimxrt595/driver_examples/powerquad/fir_fast" type="c_include"/>
       <include_path path="../../../../../core/boards/evkmimxrt595" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="mdk" project_relative_path="./" type="workspace" toolchain="mdk">

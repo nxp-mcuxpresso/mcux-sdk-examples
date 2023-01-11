@@ -4,15 +4,19 @@
  * This file is based on \src\include\lwip\opt.h
  ******************************************************************************
  * Copyright (c) 2013-2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2018 NXP
+ * Copyright 2016-2018, 2022 NXP
  * All rights reserved.
- *
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
 #ifndef __LWIPOPTS_H__
 #define __LWIPOPTS_H__
+
+/* Enable IGMP and MDNS */
+#define LWIP_IGMP                  1
+#define LWIP_MDNS_RESPONDER        1
+#define LWIP_NUM_NETIF_CLIENT_DATA (LWIP_MDNS_RESPONDER)
 
 #if USE_RTOS
 
@@ -101,7 +105,7 @@ void sys_mark_tcpip_thread(void);
 /* MEMP_NUM_UDP_PCB: the number of UDP protocol control blocks. One
    per active UDP "connection". */
 #ifndef MEMP_NUM_UDP_PCB
-#define MEMP_NUM_UDP_PCB 6
+#define MEMP_NUM_UDP_PCB 7
 #endif
 /* MEMP_NUM_TCP_PCB: the number of simulatenously active TCP
    connections. */
@@ -123,11 +127,16 @@ void sys_mark_tcpip_thread(void);
 #ifndef MEMP_NUM_SYS_TIMEOUT
 #define MEMP_NUM_SYS_TIMEOUT 10
 #endif
+/* MEMP_NUM_REASS_DATA: The number of whole IP packets
+   queued for reassembly. */
+#ifndef MEMP_NUM_REASSDATA
+#define MEMP_NUM_REASSDATA 2
+#endif
 
 /* ---------- Pbuf options ---------- */
 /* PBUF_POOL_SIZE: the number of buffers in the pbuf pool. */
 #ifndef PBUF_POOL_SIZE
-#define PBUF_POOL_SIZE 9
+#define PBUF_POOL_SIZE 5
 #endif
 
 /* PBUF_POOL_BUFSIZE: the size of each pbuf in the pbuf pool. */
@@ -325,6 +334,20 @@ Some MCU allow computing and verifying the IP, UDP, TCP and ICMP checksums by ha
 #include "lwip/arch.h"
 u32_t lwip_rand(void);
 #define LWIP_RAND() lwip_rand()
+#endif
+
+/**
+ * LWIP_NETIF_EXT_STATUS_CALLBACK==1: Support an extended callback function
+ * for several netif related event that supports multiple subscribers.
+ * @see netif_ext_status_callback
+ */
+#define LWIP_NETIF_EXT_STATUS_CALLBACK 1
+
+/**
+ * IP_REASS_MAX_PBUFS: Number of buffers reserved for IP fragment reassembly.
+ */
+#ifndef IP_REASS_MAX_PBUFS
+#define IP_REASS_MAX_PBUFS 4
 #endif
 
 #endif /* __LWIPOPTS_H__ */

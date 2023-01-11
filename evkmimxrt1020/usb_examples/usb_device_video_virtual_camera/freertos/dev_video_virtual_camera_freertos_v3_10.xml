@@ -115,13 +115,13 @@
     </debug_configurations>
     <include_paths>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../core/boards/evkmimxrt1020" project_relative_path="source" type="c_include"/>
+      <include_path path="../../.." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="usb/device/source" type="c_include"/>
       <include_path path="." project_relative_path="usb/device/class" type="c_include"/>
       <include_path path="." project_relative_path="usb/device/class/video" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
-      <include_path path="../../../../../core/boards/evkmimxrt1020" project_relative_path="source" type="asm_include"/>
+      <include_path path="../../.." project_relative_path="source" type="asm_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="dev_video_virtual_camera_freertos.ewd"/>

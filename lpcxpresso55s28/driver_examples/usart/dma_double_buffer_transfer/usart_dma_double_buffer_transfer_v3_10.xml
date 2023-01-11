@@ -70,7 +70,6 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../core/boards/lpcxpresso55s28" project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/lpcxpresso55s28/driver_examples/usart/dma_double_buffer_transfer" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="usart_dma_double_buffer_transfer.ewd"/>

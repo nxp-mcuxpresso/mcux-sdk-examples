@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2021 NXP
+ * Copyright 2019-2022 NXP
  * All rights reserved.
  *
  *
@@ -162,7 +162,7 @@ int main(void)
         while (false == g_LpadcConversionCompletedFlag)
         {
         }
-        PRINTF("Current temperature: %6.3f\r\n", g_CurrentTemperature);
+        PRINTF("Current temperature: %6.3f\r\n", (double)g_CurrentTemperature);
     }
 }
 

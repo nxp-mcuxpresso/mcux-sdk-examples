@@ -25,4 +25,6 @@ int usb_file_write(uint8_t *data, size_t data_len);
 
 int usb_file_close();
 
+int usb_file_lseek(size_t lseek_size);
+
 #endif /* _USB_API_H_ */

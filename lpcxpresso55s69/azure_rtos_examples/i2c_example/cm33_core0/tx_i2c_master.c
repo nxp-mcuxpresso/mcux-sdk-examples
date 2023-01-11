@@ -15,9 +15,17 @@ static void _i2c_callback(I2C_Type *base,
                           void *user_data)
 {
     tx_i2c_master_context_t *context = user_data;
+    UINT ret;
 
     context->result = status;
-    tx_semaphore_put(&context->io_semaphore);
+    while (true)
+    {
+        ret = tx_semaphore_put(&context->io_semaphore);
+        if (ret == TX_SUCCESS)
+            break;
+
+        tx_thread_sleep(1);
+    }
 }
 
 static UINT _tx_tranfer_i2c(tx_i2c_master_context_t *context, tx_i2c_request_t *request,

@@ -53,6 +53,9 @@
 
 #define APP_EXCLUDE_FROM_DEEP_POWERDOWN      (((const uint32_t[]){0, 0, 0, 0}))
 #define APP_EXCLUDE_FROM_FULL_DEEP_POWERDOWN (((const uint32_t[]){0, 0, 0, 0}))
+#define DEMO_IS_XIP_FLEXSPI()                                                                                   \
+    ((((uint32_t)BOARD_InitDebugConsole >= 0x08000000U) && ((uint32_t)BOARD_InitDebugConsole < 0x10000000U)) || \
+     (((uint32_t)BOARD_InitDebugConsole >= 0x18000000U) && ((uint32_t)BOARD_InitDebugConsole < 0x20000000U)))
 const char *gWakeupInfoStr[] = {"Sleep [Press the user key to wakeup]", "Deep Sleep [Press the user key to wakeup]",
 #if (defined(FSL_FEATURE_SYSCON_HAS_POWERDOWN_MODE) && FSL_FEATURE_SYSCON_HAS_POWERDOWN_MODE)
                                 "Powerdown [Reset to wakeup]", "Deep Powerdown [Reset to wakeup]"};
@@ -107,8 +110,11 @@ void BOARD_ConfigPMICModes(pca9420_modecfg_t *cfg, uint32_t num)
 #if POWER_DOWN_PLL_BEFORE_DEEP_SLEEP
 void BOARD_DisablePll(void)
 {
-    /* Let FlexSPI run on FRO. */
-    BOARD_SetFlexspiClock(3U, 1U);
+    if (DEMO_IS_XIP_FLEXSPI())
+    {
+        /* Let FlexSPI run on FRO. */
+        BOARD_SetFlexspiClock(3U, 1U);
+    }
     /* Let CPU run on ffro before power down SYS PLL. */
     CLOCK_AttachClk(kFFRO_to_MAIN_CLK);
     /* Disable the PFD clock output first. */
@@ -136,8 +142,11 @@ void BOARD_RestorePll(void)
     CLOCK_InitAudioPfd(kCLOCK_Pfd0, 26); /* Configure audio_pll_clk to 24.576Mhz */
     /* Let CPU run on SYS PLL PFD0 with divider 2 (250Mhz). */
     CLOCK_AttachClk(kMAIN_PLL_to_MAIN_CLK);
-    /* Move FlexSPI clock source from FRO clock to Main PLL clock. */
-    BOARD_SetFlexspiClock(1U, 5U);
+    if (DEMO_IS_XIP_FLEXSPI())
+    {
+        /* Move FlexSPI clock source from FRO clock to Main PLL clock. */
+        BOARD_SetFlexspiClock(1U, 5U);
+    }
 }
 #endif /* POWER_DOWN_PLL_BEFORE_DEEP_SLEEP */
 
@@ -160,6 +169,25 @@ int main(void)
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
+
+    /* Disable the clock for unused modules.*/
+    CLOCK_DisableClock(kCLOCK_RomCtrlr);
+    CLOCK_DisableClock(kCLOCK_OtpCtrl);
+    CLOCK_DisableClock(kCLOCK_Rng);
+    CLOCK_DisableClock(kCLOCK_Puf);
+    CLOCK_DisableClock(kCLOCK_HashCrypt);
+    CLOCK_DisableClock(kCLOCK_Flexcomm14);
+    CLOCK_AttachClk(kNONE_to_FLEXCOMM14);
+    CLOCK_DisableClock(kCLOCK_Flexcomm2);
+    CLOCK_AttachClk(kNONE_to_FLEXCOMM2);
+    CLOCK_DisableClock(kCLOCK_Crc);
+
+    if (!DEMO_IS_XIP_FLEXSPI()) /* If not run XIP from FlexSPI flash, close FlexSPI clock for power saving.*/
+    {
+        BOARD_DeinitXip(FLEXSPI);
+        CLOCK_DisableClock(kCLOCK_Flexspi);
+        CLOCK_AttachClk(kNONE_to_FLEXSPI_CLK);
+    }
 
     /* PMIC PCA9420 */
     BOARD_InitPmic();

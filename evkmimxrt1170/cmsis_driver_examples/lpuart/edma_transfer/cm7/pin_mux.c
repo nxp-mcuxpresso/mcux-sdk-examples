@@ -1,6 +1,5 @@
 /*
- * Copyright 2020-2021 NXP
- * All rights reserved.
+ * Copyright 2022 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -13,11 +12,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v9.0
+product: Pins v12.0
 processor: MIMXRT1176xxxxx
 package_id: MIMXRT1176DVMAA
 mcu_data: ksdk2_0
-processor_version: 0.9.6
+processor_version: 12.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -128,7 +127,7 @@ void LPUART1_DeinitPins(void) {
       IOMUXC_GPIO_AD_25_GPIO_MUX3_IO24,       /* GPIO_AD_25 is configured as GPIO_MUX3_IO24 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_GPR->GPR43 = ((IOMUXC_GPR->GPR43 &
-    (~(IOMUXC_GPR_GPR43_GPIO_MUX3_GPIO_SEL_HIGH_MASK))) /* Mask bits to zero which are setting */
+    (~(LPUART1_DEINITPINS_IOMUXC_GPR_GPR43_GPIO_MUX3_GPIO_SEL_HIGH_MASK))) /* Mask bits to zero which are setting */
       | IOMUXC_GPR_GPR43_GPIO_MUX3_GPIO_SEL_HIGH(0x00U) /* GPIO3 and CM7_GPIO3 share same IO MUX function, GPIO_MUX3 selects one GPIO function: 0x00U */
     );
 }

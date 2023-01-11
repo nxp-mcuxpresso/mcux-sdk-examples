@@ -130,20 +130,20 @@ int main(void)
     /* SETUP 1: Configure Channel 1. */
     lpitChannelConfig.chainChannel = true;
 
-    /* Init lpit channel 0 */
+    /* Init lpit channel 1 */
     LPIT_SetupChannel(DEMO_LPIT_BASE, kLPIT_Chnl_1, &lpitChannelConfig);
 
-    /* Set timer period for channel 0 */
+    /* Set timer period for channel 1 */
     LPIT_SetTimerPeriod(DEMO_LPIT_BASE, kLPIT_Chnl_1, DEMO_MAX_CHAINED_COUNTS);
 
 #if (defined(FSL_FEATURE_LPIT_TIMER_COUNT) && (FSL_FEATURE_LPIT_TIMER_COUNT >= 3U))
     /* SETUP 2: Configure Channel 2. */
     lpitChannelConfig.chainChannel = true;
 
-    /* Init lpit channel 0 */
+    /* Init lpit channel 2 */
     LPIT_SetupChannel(DEMO_LPIT_BASE, kLPIT_Chnl_2, &lpitChannelConfig);
 
-    /* Set timer period for channel 0 */
+    /* Set timer period for channel 2 */
     LPIT_SetTimerPeriod(DEMO_LPIT_BASE, kLPIT_Chnl_2, DEMO_MAX_CHAINED_COUNTS);
 #endif
 
@@ -151,10 +151,10 @@ int main(void)
     /* SETUP 3: Configure Channel 3. */
     lpitChannelConfig.chainChannel = true;
 
-    /* Init lpit channel 0 */
+    /* Init lpit channel 3 */
     LPIT_SetupChannel(DEMO_LPIT_BASE, kLPIT_Chnl_3, &lpitChannelConfig);
 
-    /* Set timer period for channel 0 */
+    /* Set timer period for channel 3 */
     LPIT_SetTimerPeriod(DEMO_LPIT_BASE, kLPIT_Chnl_3, DEMO_MAX_CHAINED_COUNTS);
 #endif
 

@@ -43,6 +43,8 @@ SHELL_COMMAND_DEFINE(bt,
                      "  USAGE: bt [discover|connect|disconnect|delete]\r\n"
                      "    discover             start to find BT devices\r\n"
                      "    connect              connect to the device that is found, for example: bt connect n (from 1)\r\n"
+                     "    openaudio            open audio connection without calls\r\n"
+                     "    closeaudio           close audio connection without calls\r\n"  
                      "    sincall              start an incoming call\r\n"
                      "    aincall              accept the call.\r\n"
                      "    eincall              end an call.\r\n"
@@ -147,6 +149,14 @@ static shell_status_t shellBt(shell_handle_t shellHandle, int32_t argc, char **a
     else if (strcmp(argv[1], "disconnect") == 0)
     {
         app_disconnect();
+    }
+    else if (strcmp(argv[1], "openaudio") == 0)
+    {
+        app_hfp_ag_open_audio();
+    }
+    else if (strcmp(argv[1], "closeaudio") == 0)
+    {
+        app_hfp_ag_close_audio();
     }
     else if (strcmp(argv[1], "sincall") == 0)
     {

@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(dsp_xaf_record_cm33)
 
+set(MCUX_BUILD_TYPES flash_debug flash_release)
+
 set(MCUX_SDK_PROJECT_NAME dsp_xaf_record_cm33.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -64,27 +70,49 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/evkmimxrt685/board.h"
 "${SdkRootDirPath}/core/boards/evkmimxrt685/clock_config.c"
 "${SdkRootDirPath}/core/boards/evkmimxrt685/clock_config.h"
-"${ProjDirPath}/../../dsp/binary/dsp_text_release.bin"
-"${ProjDirPath}/../../dsp/binary/dsp_data_release.bin"
-"${ProjDirPath}/../../dsp/binary/dsp_ncache_release.bin"
+"${SdkRootDirPath}/examples/evkmimxrt685/dsp_examples/xaf_record/dsp/binary/dsp_text_release.bin"
+"${SdkRootDirPath}/examples/evkmimxrt685/dsp_examples/xaf_record/dsp/binary/dsp_data_release.bin"
+"${SdkRootDirPath}/examples/evkmimxrt685/dsp_examples/xaf_record/dsp/binary/dsp_ncache_release.bin"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
     ${SdkRootDirPath}/examples/evkmimxrt685/dsp_examples/xaf_record/dsp/binary
     ${SdkRootDirPath}/middleware/vit/HIFI4/Lib
     ${SdkRootDirPath}/middleware/vit/HIFI4/Lib/Inc
-    ${SdkRootDirPath}/examples/evkmimxrt685/dsp_examples/xaf_record/cm33
     ${SdkRootDirPath}/core/boards/evkmimxrt685
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/devices/MIMXRT685S/drivers
+    ${SdkRootDirPath}/core/drivers/flexcomm
+    ${SdkRootDirPath}/middleware/multicore
+    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
+    ${SdkRootDirPath}/core/devices/MIMXRT685S/utilities
+    ${SdkRootDirPath}/core/drivers/lpc_gpio
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/drivers/inputmux
+    ${SdkRootDirPath}/core/drivers/mu
+    ${SdkRootDirPath}/core/components/pca9420
+    ${SdkRootDirPath}/core/components/codec/wm8904
+    ${SdkRootDirPath}/core/components/codec
+    ${SdkRootDirPath}/core/components/codec/
+    ${SdkRootDirPath}/core/components/codec/i2c
+    ${SdkRootDirPath}/core/components/i2c
+    ${SdkRootDirPath}/core/drivers/i3c
+    ${SdkRootDirPath}/core/devices/MIMXRT685S
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/boards/evkmimxrt685/flash_config
+    ${SdkRootDirPath}/core/drivers/flexspi
+    ${SdkRootDirPath}/core/drivers/cache/cache64
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/drivers/lpc_iopctl
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(driver_clock)
@@ -170,15 +198,13 @@ include(middleware_freertos-kernel_heap_4)
 include(utilities_misc_utilities_MIMXRT685S_cm33)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

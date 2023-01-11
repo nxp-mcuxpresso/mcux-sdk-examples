@@ -86,9 +86,8 @@ AT_NONCACHEABLE_SECTION_ALIGN(sdma_context_data_t s_asrcOutSDMAcontext, 4);
 
 /*! @brief ASRC context config */
 static asrc_context_config_t s_asrcContextConfig;
-static const asrc_p2p_sdma_config_t s_asrcSDMAConfig = {
+static asrc_p2p_sdma_config_t s_asrcSDMAConfig = {
     .eventSource      = DEMO_SAI_TX_SOURCE,
-    .watermark        = FSL_FEATURE_SAI_FIFO_COUNT / 2U,
     .channel          = 0U,
     .enableContinuous = true,
     .startPeripheral  = startSai,
@@ -135,8 +134,9 @@ static void startSai(bool start)
  */
 int main(void)
 {
-    uint8_t *temp           = (uint8_t *)music;
-    sdma_config_t dmaConfig = {0};
+    uint8_t *temp              = (uint8_t *)music;
+    sdma_config_t dmaConfig    = {0};
+    s_asrcSDMAConfig.watermark = FSL_FEATURE_SAI_FIFO_COUNTn(DEMO_SAI) / 2U;
     sai_transceiver_t config;
 
     /* M7 has its local cache and enabled by default,

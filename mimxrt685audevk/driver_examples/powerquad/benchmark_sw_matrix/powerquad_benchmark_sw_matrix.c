@@ -593,7 +593,7 @@ static void arm_mat_inverse_f32Test(void)
 
     for (uint32_t i = 0; i < 9 * 9; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(inverseRef[i] - inverseMatrixR.pData[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(inverseRef[i] - inverseMatrixR.pData[i])) < 0.00001);
     }
 }
 

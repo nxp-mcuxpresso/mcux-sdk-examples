@@ -103,11 +103,11 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} --xtensa-s
 
 include_directories(${ProjDirPath}/..)
 
-include_directories(${ProjDirPath}/../../../../../../boards/evkmimxrt595/dsp_examples/hello_world_usart/dsp)
-
 include_directories(${ProjDirPath}/../../../../../../core/components/uart)
 
 include_directories(${ProjDirPath}/../../../../../../core/drivers/flexcomm)
+
+include_directories(${ProjDirPath}/../../../../../../core/utilities/str)
 
 include_directories(${ProjDirPath}/../../../../../../core/utilities/debug_console_lite)
 
@@ -123,7 +123,7 @@ include_directories(${ProjDirPath}/../../../../../../core/devices/MIMXRT595S/dri
 
 include_directories(${ProjDirPath}/../../../../../../core/devices/MIMXRT595S)
 
-include_directories(${ProjDirPath}/../../../../../../core/CMSIS/Core/Include)
+include_directories(${ProjDirPath}/../../../../../../CMSIS/Core/Include)
 
 add_executable(dsp_hello_world_usart_fusionf1.elf 
 "${ProjDirPath}/../main_dsp.c"
@@ -135,6 +135,8 @@ add_executable(dsp_hello_world_usart_fusionf1.elf
 "${ProjDirPath}/../../../../../../core/components/uart/fsl_adapter_usart.c"
 "${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_usart.h"
 "${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_usart.c"
+"${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.c"
+"${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.h"
 "${ProjDirPath}/../../../../../../core/utilities/debug_console_lite/fsl_debug_console.c"
 "${ProjDirPath}/../../../../../../core/utilities/debug_console_lite/fsl_debug_console.h"
 "${ProjDirPath}/../../../../../../core/utilities/assert/fsl_assert.c"
@@ -155,13 +157,6 @@ add_executable(dsp_hello_world_usart_fusionf1.elf
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT595S/MIMXRT595S_dsp_features.h"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT595S/system_MIMXRT595S_dsp.c"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT595S/system_MIMXRT595S_dsp.h"
-"${ProjDirPath}/../../../../../../core/CMSIS/Core/Include/cmsis_armcc.h"
-"${ProjDirPath}/../../../../../../core/CMSIS/Core/Include/cmsis_armclang.h"
-"${ProjDirPath}/../../../../../../core/CMSIS/Core/Include/cmsis_armclang_ltm.h"
-"${ProjDirPath}/../../../../../../core/CMSIS/Core/Include/cmsis_compiler.h"
-"${ProjDirPath}/../../../../../../core/CMSIS/Core/Include/cmsis_gcc.h"
-"${ProjDirPath}/../../../../../../core/CMSIS/Core/Include/cmsis_iccarm.h"
-"${ProjDirPath}/../../../../../../core/CMSIS/Core/Include/cmsis_version.h"
 "${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_flexcomm.h"
 "${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_flexcomm.c"
 )

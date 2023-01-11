@@ -48,7 +48,11 @@ volatile bool rxBufferEmpty                                          = true;
 volatile bool txBufferFull                                           = false;
 volatile bool txOnGoing                                              = false;
 volatile bool rxOnGoing                                              = false;
-
+#if (defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) && DEMO_EDMA_HAS_CHANNEL_CONFIG)
+extern edma_config_t config;
+#else
+edma_config_t config;
+#endif
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -76,7 +80,6 @@ void LPUART_UserCallback(LPUART_Type *base, lpuart_edma_handle_t *handle, status
 int main(void)
 {
     lpuart_config_t lpuartConfig;
-    edma_config_t config;
     lpuart_transfer_t xfer;
     lpuart_transfer_t sendXfer;
     lpuart_transfer_t receiveXfer;
@@ -112,7 +115,9 @@ int main(void)
     DMAMUX_EnableChannel(EXAMPLE_LPUART_DMAMUX_BASEADDR, LPUART_RX_DMA_CHANNEL);
 #endif
     /* Init the EDMA module */
+#if (!defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) || (defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) && !DEMO_EDMA_HAS_CHANNEL_CONFIG))
     EDMA_GetDefaultConfig(&config);
+#endif
     EDMA_Init(EXAMPLE_LPUART_DMA_BASEADDR, &config);
     EDMA_CreateHandle(&g_lpuartTxEdmaHandle, EXAMPLE_LPUART_DMA_BASEADDR, LPUART_TX_DMA_CHANNEL);
     EDMA_CreateHandle(&g_lpuartRxEdmaHandle, EXAMPLE_LPUART_DMA_BASEADDR, LPUART_RX_DMA_CHANNEL);

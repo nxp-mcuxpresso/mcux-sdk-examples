@@ -77,7 +77,7 @@
       <include_path path="../../../../../core/boards/evkmimx8mnddr3l" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimx8mn/driver_examples/asrc/asrc_p2p_out_sdma" project_relative_path="evkmimx8mnddr3l/driver_examples/asrc/asrc_p2p_out_sdma" type="c_include"/>
+      <include_path path="../../../../evkmimx8mn/driver_examples/asrc/asrc_p2p_out_sdma" project_relative_path="evkmimx8mnddr3l/driver_examples/asrc/asrc_p2p_out_sdma" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="asrc_p2p_out_sdma.ewp"/>

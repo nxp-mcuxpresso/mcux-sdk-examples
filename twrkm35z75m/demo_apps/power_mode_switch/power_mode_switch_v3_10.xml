@@ -74,8 +74,8 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../examples/twrkm35z75m/demo_apps/power_mode_switch" project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../examples/twrkm35z75m/demo_apps/power_mode_switch" project_relative_path="twrkm35z75m/demo_apps/power_mode_switch" type="c_include"/>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="twrkm35z75m/demo_apps/power_mode_switch" type="c_include"/>
       <include_path path="../../../../core/boards/twrkm35z75m" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(lwip_httpssrv_mbedTLS_freertos_cm7)
 
+set(MCUX_BUILD_TYPES flexspi_nor_debug flexspi_nor_release)
+
 set(MCUX_SDK_PROJECT_NAME lwip_httpssrv_mbedTLS_freertos_cm7.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -52,10 +58,9 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../evkmimxrt1170_connect_cm4_cm7side.jlinkscript"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/evkmimxrt1170
-    ${SdkRootDirPath}/examples/evkmimxrt1170/lwip_examples/lwip_httpssrv_mbedTLS/freertos/cm7
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
@@ -66,17 +71,35 @@ if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
      target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="ksdk_mbedtls_config.h")
 endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/components/phy/device/phyksz8081
+    ${SdkRootDirPath}/core/components/phy/device/phyrtl8211f
+    ${SdkRootDirPath}/core/drivers/caam
+    ${SdkRootDirPath}/middleware/mbedtls
+    ${SdkRootDirPath}/middleware/lwip
+    ${SdkRootDirPath}/core/components/phy
+    ${SdkRootDirPath}/core/drivers/enet
+    ${SdkRootDirPath}/core/components/silicon_id
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/components/silicon_id/socs/imxrt1170
+    ${SdkRootDirPath}/core/devices/MIMXRT1176/drivers
+    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
+    ${SdkRootDirPath}/core/devices/MIMXRT1176
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/drivers/lpuart
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/drivers/igpio
+    ${SdkRootDirPath}/core/devices/MIMXRT1176/xip
+    ${SdkRootDirPath}/core/boards/evkmimxrt1170/xip
+    ${SdkRootDirPath}/core/devices/MIMXRT1176/drivers/cm7
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
 
-#Include Entry cmake component
-include(all_devices)
-
 # include modules
-include(driver_mdio-enet)
-
 include(driver_phy-device-ksz8081)
 
 include(driver_phy-device-rtl8211f)
@@ -89,21 +112,25 @@ include(middleware_mbedtls_port_ksdk)
 
 include(middleware_mbedtls_rt2)
 
-include(middleware_lwip_apps_httpssrv)
-
 include(middleware_lwip_enet_ethernetif_MIMXRT1176_cm7)
 
 include(middleware_lwip)
 
-include(driver_phy-common)
+include(driver_phy-common_MIMXRT1176_cm7)
 
 include(driver_enet)
+
+include(component_silicon_id_MIMXRT1176_cm7)
+
+include(driver_common)
+
+include(component_silicon_id_rt1170)
+
+include(middleware_lwip_apps_httpssrv)
 
 include(driver_clock)
 
 include(middleware_freertos-kernel_heap_3)
-
-include(driver_common)
 
 include(device_CMSIS)
 
@@ -137,15 +164,11 @@ include(driver_dcdc_soc)
 
 include(driver_cache_armv7_m7)
 
-include(component_silicon_id)
-
-include(driver_mdio-common)
+include(driver_memory)
 
 include(driver_anatop_ai)
 
 include(CMSIS_Include_core_cm)
-
-include(driver_memory)
 
 include(middleware_lwip_apps_httpsrv)
 
@@ -158,15 +181,13 @@ include(utilities_misc_utilities_MIMXRT1176_cm7)
 include(device_system_MIMXRT1176_cm7)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

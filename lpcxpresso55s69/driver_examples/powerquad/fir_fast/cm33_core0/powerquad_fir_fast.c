@@ -464,7 +464,7 @@ static void PQ_FIRFloatExample(void)
 
     for (i = 0; i < EXAMPLE_FIR_DATA_LEN; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(s_firOutputRef[i] - output[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(s_firOutputRef[i] - output[i])) < 0.00001);
     }
 
     /*
@@ -510,7 +510,7 @@ static void PQ_FIRFloatExample(void)
 
     for (i = 0; i < EXAMPLE_FIR_DATA_LEN; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(s_firOutputRef[i] - output[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(s_firOutputRef[i] - output[i])) < 0.00001);
     }
 }
 
@@ -758,7 +758,7 @@ static void PQ_ConvolutionFloatExample(void)
 
     for (i = 0; i < EXAMPLE_CONV_RESULT_LEN; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(s_convOutputRef[i] - output[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(s_convOutputRef[i] - output[i])) < 0.00001);
     }
 
     /*
@@ -804,7 +804,7 @@ static void PQ_ConvolutionFloatExample(void)
 
     for (i = 0; i < EXAMPLE_CONV_RESULT_LEN; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(s_convOutputRef[i] - output[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(s_convOutputRef[i] - output[i])) < 0.00001);
     }
 }
 
@@ -1052,7 +1052,7 @@ static void PQ_CorrelationFloatExample(void)
 
     for (i = 0; i < EXAMPLE_CORR_RESULT_LEN; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(s_corrOutputRef[i] - output[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(s_corrOutputRef[i] - output[i])) < 0.00001);
     }
 
     /*
@@ -1098,6 +1098,6 @@ static void PQ_CorrelationFloatExample(void)
 
     for (i = 0; i < EXAMPLE_CORR_RESULT_LEN; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(s_corrOutputRef[i] - output[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(s_corrOutputRef[i] - output[i])) < 0.00001);
     }
 }

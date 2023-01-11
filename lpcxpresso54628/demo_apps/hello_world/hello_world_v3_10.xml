@@ -16,8 +16,6 @@
     <definition extID="platform.drivers.flexcomm.LPC54628"/>
     <definition extID="platform.drivers.lpc_gpio.LPC54628"/>
     <definition extID="platform.drivers.emc.LPC54628"/>
-    <definition extID="component.silicon_id.LPC54628"/>
-    <definition extID="platform.drivers.iap.LPC54628"/>
     <definition extID="CMSIS_Include_core_cm.LPC54628"/>
     <definition extID="platform.utilities.misc_utilities.LPC54628"/>
     <definition extID="device.LPC54628_system.LPC54628"/>
@@ -27,7 +25,7 @@
     <definition extID="armgcc"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso54628_hello_world" name="hello_world" dependency="utility.debug_console_lite.LPC54628 platform.utilities.assert_lite.LPC54628 platform.drivers.lpc_iocon.LPC54628 platform.drivers.common.LPC54628 platform.drivers.clock.LPC54628 platform.drivers.power.LPC54628 platform.drivers.reset.LPC54628 device.LPC54628_CMSIS.LPC54628 component.usart_adapter.LPC54628 component.lists.LPC54628 platform.drivers.flexcomm_usart.LPC54628 device.LPC54628_startup.LPC54628 platform.drivers.flexcomm.LPC54628 platform.drivers.lpc_gpio.LPC54628 platform.drivers.emc.LPC54628 component.silicon_id.LPC54628 platform.drivers.iap.LPC54628 CMSIS_Include_core_cm.LPC54628 platform.utilities.misc_utilities.LPC54628 device.LPC54628_system.LPC54628" category="demo_apps">
+  <example id="lpcxpresso54628_hello_world" name="hello_world" dependency="utility.debug_console_lite.LPC54628 platform.utilities.assert_lite.LPC54628 platform.drivers.lpc_iocon.LPC54628 platform.drivers.common.LPC54628 platform.drivers.clock.LPC54628 platform.drivers.power.LPC54628 platform.drivers.reset.LPC54628 device.LPC54628_CMSIS.LPC54628 component.usart_adapter.LPC54628 component.lists.LPC54628 platform.drivers.flexcomm_usart.LPC54628 device.LPC54628_startup.LPC54628 platform.drivers.flexcomm.LPC54628 platform.drivers.lpc_gpio.LPC54628 platform.drivers.emc.LPC54628 CMSIS_Include_core_cm.LPC54628 platform.utilities.misc_utilities.LPC54628 device.LPC54628_system.LPC54628" category="demo_apps">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -70,7 +68,7 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../examples/lpcxpresso54628/demo_apps/hello_world" project_relative_path="lpcxpresso54628/demo_apps/hello_world" type="c_include"/>
+      <include_path path="." project_relative_path="lpcxpresso54628/demo_apps/hello_world" type="c_include"/>
       <include_path path="../../../../core/boards/lpcxpresso54628" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

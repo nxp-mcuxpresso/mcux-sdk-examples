@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(rpmsg_lite_pingpong_rtos_imxcm4)
 
+set(MCUX_BUILD_TYPES debug release flash_debug flash_release)
+
 set(MCUX_SDK_PROJECT_NAME rpmsg_lite_pingpong_rtos_imxcm4.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -49,7 +55,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/evkmcimx7ulp/board.h"
 "${SdkRootDirPath}/core/boards/evkmcimx7ulp/clock_config.c"
 "${SdkRootDirPath}/core/boards/evkmcimx7ulp/clock_config.h"
-"${ProjDirPath}/../fsl_iomuxc.h"
+"${ProjDirPath}/../srtm_config.h"
 "${ProjDirPath}/../app_srtm.c"
 "${ProjDirPath}/../app_srtm.h"
 "${ProjDirPath}/../srtm/channels/srtm_rpmsg_endpoint.h"
@@ -78,21 +84,49 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../srtm/services/srtm_sensor_service.c"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
-    ${SdkRootDirPath}/examples/evkmcimx7ulp/multicore_examples/rpmsg_lite_pingpong_rtos
     ${SdkRootDirPath}/core/boards/evkmcimx7ulp
     ${ProjDirPath}/../srtm/channels
     ${ProjDirPath}/../srtm/services
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/components/codec/i2c
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/components/i2c
+    ${SdkRootDirPath}/core/components/codec
+    ${SdkRootDirPath}/core/components/codec/
+    ${SdkRootDirPath}/middleware/multicore
+    ${SdkRootDirPath}/core/drivers/gpio
+    ${SdkRootDirPath}/core/drivers/port
+    ${SdkRootDirPath}/core/devices/MCIMX7U5/drivers
+    ${SdkRootDirPath}/core/drivers/mu
+    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
+    ${SdkRootDirPath}/core/devices/MCIMX7U5
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/drivers/lpuart
+    ${SdkRootDirPath}/core/drivers/msmc
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/drivers/dmamux
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/drivers/edma
+    ${SdkRootDirPath}/core/drivers/lpi2c
+    ${SdkRootDirPath}/core/drivers/pmc0
+    ${SdkRootDirPath}/core/drivers/llwu
+    ${SdkRootDirPath}/core/drivers/snvs_lp
+    ${SdkRootDirPath}/core/components/pf1550
+    ${SdkRootDirPath}/core/drivers/sai
+    ${SdkRootDirPath}/core/components/codec/wm8960
+    ${SdkRootDirPath}/core/components/srtm/port
+    ${SdkRootDirPath}/core/components/srtm
+    ${SdkRootDirPath}/core/middleware/issdk
+    ${SdkRootDirPath}/core/CMSIS/Driver/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(component_codec_i2c_MCIMX7U5)
@@ -118,6 +152,8 @@ include(driver_clock)
 include(driver_mu)
 
 include(middleware_freertos-kernel_MCIMX7U5)
+
+include(driver_iomuxc)
 
 include(device_CMSIS)
 
@@ -188,15 +224,13 @@ include(middleware_issdk_algorithms_pedometer_common)
 include(utilities_misc_utilities_MCIMX7U5)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 if(CMAKE_BUILD_TYPE STREQUAL debug)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/middleware/issdk/algorithms/pedometer/lib/libpedometerm4.a)

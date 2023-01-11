@@ -14,13 +14,13 @@
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
 product: Pins v10.0
-processor: MIMXRT1062xxxxA
-package_id: MIMXRT1062DVL6A
+processor: MIMXRT1062xxxxB
+package_id: MIMXRT1062DVL6B
 mcu_data: ksdk2_0
 processor_version: 0.10.3
 board: MIMXRT1060-EVKB
 pin_labels:
-- {pin_num: M12, pin_signal: GPIO_AD_B1_03, label: 'SPDIF_IN/U15[4]/WL_RST#/J8[56]/SD_PWREN/Q5[1]/J16[8]', identifier: SPDIF_IN;WL_RST}
+- {pin_num: M12, pin_signal: GPIO_AD_B1_03, label: 'SPDIF_IN/U15[4]/WL_RST#/J8[56]/SD_PWREN/Q5[1]/J16[8]', identifier: SPDIF_IN;WL_RST;SD_PWREN}
 - {pin_num: H13, pin_signal: GPIO_AD_B1_08, label: 'AUD_INT/J34[5]/U25[15]/WIFI_RST_B/U9[3]/CSI_D9/J46[13]/J16[4]', identifier: CSI_D9;SDIO_RST}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -262,14 +262,14 @@ BOARD_InitUSDHCPins:
  * END ****************************************************************************************************************/
 void BOARD_InitUSDHCPins(void) {
   CLOCK_EnableClock(kCLOCK_Iomuxc);
-  /* GPIO configuration of SPDIF_IN on GPIO_AD_B1_03 (pin M12) */
-  gpio_pin_config_t SPDIF_IN_config = {
+  /* GPIO configuration of SD_PWREN on GPIO_AD_B1_03 (pin M12) */
+  gpio_pin_config_t SD_PWREN_config = {
       .direction = kGPIO_DigitalOutput,
       .outputLogic = 1U,
       .interruptMode = kGPIO_NoIntmode
   };
   /* Initialize GPIO functionality on GPIO_AD_B1_03 (pin M12) */
-  GPIO_PinInit(GPIO1, 19U, &SPDIF_IN_config);
+  GPIO_PinInit(GPIO1, 19U, &SD_PWREN_config);
 
   IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B1_03_GPIO1_IO19, 0U);
   IOMUXC_SetPinMux(IOMUXC_GPIO_B1_14_USDHC1_VSELECT, 0U); 

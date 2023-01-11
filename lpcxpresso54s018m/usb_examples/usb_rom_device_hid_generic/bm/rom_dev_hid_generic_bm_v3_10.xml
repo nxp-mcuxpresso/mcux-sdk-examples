@@ -84,9 +84,8 @@
       </toolchainSetting>
     </toolchainSettings>
     <include_paths>
-      <include_path path="../../../../../examples/lpcxpresso54s018m/usb_examples/usb_rom_device_hid_generic/bm/inc" project_relative_path="source/inc" type="c_include"/>
-      <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="inc" project_relative_path="source/inc" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="inc" project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
     </include_paths>

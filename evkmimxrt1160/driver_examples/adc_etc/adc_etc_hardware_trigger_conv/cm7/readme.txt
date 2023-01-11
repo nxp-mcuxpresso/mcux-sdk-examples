@@ -38,9 +38,10 @@ Prepare the Demo
 
 Running the demo
 ================
-The log below shows the output of the hello world demo in the terminal window:
+The log below shows the output of the ADC_ETC hardware trigger conversion demo in the terminal window:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ADC_ETC_Hardware_Trigger_Conv Example Start!
+ADC Full Range:4096 
 Please press any key to get user channel's ADC value.
 ADC conversion value is 107 and 3882
 ADC conversion value is 103 and 3884
@@ -52,4 +53,4 @@ ADC conversion value is 104 and 3882
 ADC conversion value is 104 and 3882
 ...
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+The analog voltage input range about is 0-1.8v.

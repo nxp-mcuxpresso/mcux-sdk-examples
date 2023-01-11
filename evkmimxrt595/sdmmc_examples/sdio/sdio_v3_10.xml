@@ -99,7 +99,7 @@
     </debug_configurations>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../examples/evkmimxrt595/sdmmc_examples/sdio" project_relative_path="evkmimxrt595/sdmmc_examples/sdio" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimxrt595/sdmmc_examples/sdio" type="c_include"/>
       <include_path path="../../../../core/boards/evkmimxrt595" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

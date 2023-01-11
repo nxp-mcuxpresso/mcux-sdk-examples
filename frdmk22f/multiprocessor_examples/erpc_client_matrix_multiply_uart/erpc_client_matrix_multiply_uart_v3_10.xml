@@ -100,7 +100,7 @@
       <include_path path="../erpc_common/erpc_matrix_multiply/service" project_relative_path="erpc/service" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../examples/frdmk22f/multiprocessor_examples/erpc_client_matrix_multiply_uart" project_relative_path="frdmk22f/multiprocessor_examples/erpc_client_matrix_multiply_uart" type="c_include"/>
+      <include_path path="." project_relative_path="frdmk22f/multiprocessor_examples/erpc_client_matrix_multiply_uart" type="c_include"/>
       <include_path path="../../../../core/boards/frdmk22f" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

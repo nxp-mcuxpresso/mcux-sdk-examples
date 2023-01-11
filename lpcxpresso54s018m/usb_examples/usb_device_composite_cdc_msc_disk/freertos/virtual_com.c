@@ -202,7 +202,7 @@ usb_status_t USB_DeviceCdcVcomCallback(class_handle_t handle, uint32_t event, vo
             break;
         case kUSB_DeviceCdcEventSetLineCoding:
         {
-            if (1 == acmReqParam->isSetup)
+            if (1U == acmReqParam->isSetup)
             {
                 *(acmReqParam->buffer) = s_lineCoding;
                 *(acmReqParam->length) = sizeof(s_lineCoding);
@@ -278,22 +278,12 @@ usb_status_t USB_DeviceCdcVcomCallback(class_handle_t handle, uint32_t event, vo
             {
                 /* To do: CARRIER_DEACTIVATED */
             }
-            if (acmInfo->dteStatus & USB_DEVICE_CDC_CONTROL_SIG_BITMAP_DTE_PRESENCE)
+
+            if (1U == g_deviceComposite->cdcVcom.attach)
             {
-                /* DTE_ACTIVATED */
-                if (1 == g_deviceComposite->cdcVcom.attach)
-                {
-                    g_deviceComposite->cdcVcom.startTransactions = 1;
-                }
+                g_deviceComposite->cdcVcom.startTransactions = 1;
             }
-            else
-            {
-                /* DTE_DEACTIVATED */
-                if (1 == g_deviceComposite->cdcVcom.attach)
-                {
-                    g_deviceComposite->cdcVcom.startTransactions = 0;
-                }
-            }
+            error = kStatus_USB_Success;
         }
         break;
         case kUSB_DeviceCdcEventSendBreak:

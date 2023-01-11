@@ -22,7 +22,6 @@
     <definition extID="platform.drivers.igpio.MIMXRT1024"/>
     <definition extID="platform.drivers.xip_device.MIMXRT1024"/>
     <definition extID="platform.drivers.xip_board.evkmimxrt1024.MIMXRT1024"/>
-    <definition extID="component.silicon_id.MIMXRT1024"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1024"/>
     <definition extID="middleware.usb.device.cdc.external.MIMXRT1024"/>
     <definition extID="middleware.usb.device.stack.external.MIMXRT1024"/>
@@ -39,7 +38,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1024_hello_world_virtual_com" name="hello_world_virtual_com" dependency="component.serial_manager.MIMXRT1024 platform.drivers.common.MIMXRT1024 component.lists.MIMXRT1024 component.serial_manager_usb_cdc.MIMXRT1024 middleware.usb.device.controller.driver.MIMXRT1024 component.osa.MIMXRT1024 middleware.usb.device_controller_ehci.MIMXRT1024 platform.drivers.cache_armv7_m7.MIMXRT1024 middleware.baremetal.MIMXRT1024 platform.drivers.clock.MIMXRT1024 device.MIMXRT1024_CMSIS.MIMXRT1024 utility.debug_console.MIMXRT1024 component.lpuart_adapter.MIMXRT1024 component.serial_manager_uart.MIMXRT1024 platform.drivers.lpuart.MIMXRT1024 device.MIMXRT1024_startup.MIMXRT1024 platform.drivers.iomuxc.MIMXRT1024 platform.utilities.assert.MIMXRT1024 platform.drivers.igpio.MIMXRT1024 platform.drivers.xip_device.MIMXRT1024 platform.drivers.xip_board.evkmimxrt1024.MIMXRT1024 component.silicon_id.MIMXRT1024 CMSIS_Include_core_cm.MIMXRT1024 middleware.usb.device.cdc.external.MIMXRT1024 middleware.usb.device.stack.external.MIMXRT1024 middleware.usb.phy.MIMXRT1024 middleware.usb.common_header.MIMXRT1024 middleware.usb.device.common_header.MIMXRT1024 platform.utilities.misc_utilities.MIMXRT1024 device.MIMXRT1024_system.MIMXRT1024" category="demo_apps">
+  <example id="evkmimxrt1024_hello_world_virtual_com" name="hello_world_virtual_com" dependency="component.serial_manager.MIMXRT1024 platform.drivers.common.MIMXRT1024 component.lists.MIMXRT1024 component.serial_manager_usb_cdc.MIMXRT1024 middleware.usb.device.controller.driver.MIMXRT1024 component.osa.MIMXRT1024 middleware.usb.device_controller_ehci.MIMXRT1024 platform.drivers.cache_armv7_m7.MIMXRT1024 middleware.baremetal.MIMXRT1024 platform.drivers.clock.MIMXRT1024 device.MIMXRT1024_CMSIS.MIMXRT1024 utility.debug_console.MIMXRT1024 component.lpuart_adapter.MIMXRT1024 component.serial_manager_uart.MIMXRT1024 platform.drivers.lpuart.MIMXRT1024 device.MIMXRT1024_startup.MIMXRT1024 platform.drivers.iomuxc.MIMXRT1024 platform.utilities.assert.MIMXRT1024 platform.drivers.igpio.MIMXRT1024 platform.drivers.xip_device.MIMXRT1024 platform.drivers.xip_board.evkmimxrt1024.MIMXRT1024 CMSIS_Include_core_cm.MIMXRT1024 middleware.usb.device.cdc.external.MIMXRT1024 middleware.usb.device.stack.external.MIMXRT1024 middleware.usb.phy.MIMXRT1024 middleware.usb.common_header.MIMXRT1024 middleware.usb.device.common_header.MIMXRT1024 platform.utilities.misc_utilities.MIMXRT1024 device.MIMXRT1024_system.MIMXRT1024" category="demo_apps">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -116,8 +115,8 @@
       </debug_configuration>
     </debug_configurations>
     <include_paths>
-      <include_path path="../../../../examples/evkmimxrt1024/demo_apps/hello_world_virtual_com" project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../examples/evkmimxrt1024/demo_apps/hello_world_virtual_com" project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="c_include"/>
+      <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="../../../../core/boards/evkmimxrt1024" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="component/serial_manager/usb_cdc_adapter" type="c_include"/>
     </include_paths>

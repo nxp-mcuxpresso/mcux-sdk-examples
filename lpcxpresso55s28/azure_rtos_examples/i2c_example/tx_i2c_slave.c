@@ -9,6 +9,7 @@
 static void _i2c_callback(I2C_Type *base, volatile i2c_slave_transfer_t *xfer,
                           void *user_data)
 {
+    UINT    status;
     tx_i2c_slave_context_t *context = user_data;
 
     switch (xfer->event)
@@ -24,7 +25,15 @@ static void _i2c_callback(I2C_Type *base, volatile i2c_slave_transfer_t *xfer,
             context->state = TX_I2C_RECEIVE;
             break;
         case kI2C_SlaveCompletionEvent:
-            tx_semaphore_put(&context->io_semaphore);
+            while (true)
+            {
+                status = tx_semaphore_put(&context->io_semaphore);
+                if (status == TX_SUCCESS)
+                    break;
+
+                tx_thread_sleep(1);
+            }
+
             break;
         default:
             break;

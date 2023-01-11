@@ -200,8 +200,8 @@ int main(void)
         else                                                                                             \
         {                                                                                                \
             mbedtls_printf("%6.2f KB/s,  %6.2f cycles/byte\r\n",                                         \
-                           (ii * BUFSIZE / 1024) / (((float)(tsc2 - tsc1)) / CLOCK_GetCoreSysClkFreq()), \
-                           (((float)(benchmark_mbedtls_timing_hardclock() - tsc2)) / (jj * BUFSIZE)));   \
+                           (ii * BUFSIZE / 1024) / (((double)(tsc2 - tsc1)) / CLOCK_GetCoreSysClkFreq()), \
+                           (((double)(benchmark_mbedtls_timing_hardclock() - tsc2)) / (jj * BUFSIZE)));   \
         }                                                                                                \
     } while (0)
 
@@ -264,7 +264,7 @@ int main(void)
         else                                                                                                          \
         {                                                                                                             \
             mbedtls_printf("%6.2f " TYPE "/s",                                                                        \
-                           ((float)ii) / ((benchmark_mbedtls_timing_hardclock() - tsc) / CLOCK_GetCoreSysClkFreq())); \
+                           ((double)ii) / ((benchmark_mbedtls_timing_hardclock() - tsc) / CLOCK_GetCoreSysClkFreq())); \
             MEMORY_MEASURE_PRINT(sizeof(TYPE) + 1);                                                                   \
             mbedtls_printf("\r\n");                                                                                   \
         }                                                                                                             \
@@ -529,6 +529,7 @@ int main( int argc, char *argv[] )
     
 #if defined(MBEDTLS_ECP_C)
     (void) curve_list; /* Unused in some configurations where no benchmark uses ECC */
+    (void) set_ecp_curve; /* Unused in some configurations where no benchmark uses ECC */
 #endif    
 
 #if defined(FREESCALE_KSDK_BM)
@@ -1381,7 +1382,48 @@ int main( int argc, char *argv[] )
         }
     }
 #endif
+    
+#if defined(MBEDTLS_ECDH_C) && defined(MBEDTLS_NXP_SSSAPI)
+    if( todo.ecdh )
+    {
+        mbedtls_ecdh_context ecdh_srv, ecdh_cli;
+        unsigned char buf_srv[BUFSIZE], buf_cli[BUFSIZE];
+        const mbedtls_ecp_curve_info *curve_info;
+        size_t olen;
 
+        for( curve_info = curve_list;
+            curve_info->grp_id != MBEDTLS_ECP_DP_NONE;
+            curve_info++ )
+        {
+            if( ! mbedtls_ecdh_can_do( curve_info->grp_id ) )
+                continue;
+
+            
+            mbedtls_snprintf( title, sizeof( title ), "ECDHE-%s", curve_info->name );
+            TIME_PUBLIC( title, "full handshake",
+                const unsigned char * p_srv = buf_srv;
+                         
+                mbedtls_ecdh_init( &ecdh_srv );
+                mbedtls_ecdh_init( &ecdh_cli );         
+
+                CHECK_AND_CONTINUE( mbedtls_ecdh_setup( &ecdh_srv, curve_info->grp_id ) );
+                CHECK_AND_CONTINUE( mbedtls_ecdh_make_params( &ecdh_srv, &olen, buf_srv, sizeof( buf_srv ), myrand, NULL ) );
+
+                CHECK_AND_CONTINUE( mbedtls_ecdh_read_params( &ecdh_cli, &p_srv, p_srv + olen ) );
+                CHECK_AND_CONTINUE( mbedtls_ecdh_make_public( &ecdh_cli, &olen, buf_cli, sizeof( buf_cli ), myrand, NULL ) );
+
+                CHECK_AND_CONTINUE( mbedtls_ecdh_read_public( &ecdh_srv, buf_cli, olen ) );
+                CHECK_AND_CONTINUE( mbedtls_ecdh_calc_secret_sw( &ecdh_srv, &olen, buf_srv, sizeof( buf_srv ), myrand, NULL ) );
+
+                CHECK_AND_CONTINUE( mbedtls_ecdh_calc_secret( &ecdh_cli, &olen, buf_cli, sizeof( buf_cli ), myrand, NULL ) );
+                mbedtls_ecdh_free( &ecdh_cli );
+
+                mbedtls_ecdh_free( &ecdh_srv );
+            );
+
+        }
+    }
+#endif
     mbedtls_printf( "\n" );
 
 #if defined(MBEDTLS_MEMORY_BUFFER_ALLOC_C)

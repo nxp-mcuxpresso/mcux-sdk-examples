@@ -69,7 +69,6 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../core/boards/lpcxpresso55s16" project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/lpcxpresso55s16/driver_examples/sctimer/simple_pwm" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="sctimer_simple_pwm.ewd"/>

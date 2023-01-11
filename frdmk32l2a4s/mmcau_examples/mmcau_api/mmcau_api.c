@@ -776,7 +776,7 @@ static void mmcau_example_task(void)
 
     /* Result message */
     PRINTF("AES-128 CBC encryption finished. Speed %f MB/s.\r\n\r\n",
-           mmcau_get_throughput(timeAfter - timeBefore, CYCLES_FOR_THROUGHPUT * length));
+           (double)mmcau_get_throughput(timeAfter - timeBefore, CYCLES_FOR_THROUGHPUT * length));
 
     /*   DECRYPTION   */
     PRINTF("AES-128 CBC Decryption of %d bytes.\r\n", length);
@@ -798,7 +798,7 @@ static void mmcau_example_task(void)
 
     /* Result message */
     PRINTF("AES-128 CBC decryption finished. Speed %f MB/s.\r\n",
-           mmcau_get_throughput(timeAfter - timeBefore, CYCLES_FOR_THROUGHPUT * length));
+           (double)mmcau_get_throughput(timeAfter - timeBefore, CYCLES_FOR_THROUGHPUT * length));
     /* Print decrypted string */
     PRINTF("Decrypted string :\r\n");
     mmcau_print_msg(g_result, length);
@@ -876,7 +876,7 @@ static void mmcau_example_task(void)
 
     /* Result message */
     PRINTF("AES-192 CBC encryption finished. Speed %f MB/s.\r\n\r\n",
-           mmcau_get_throughput(timeAfter - timeBefore, CYCLES_FOR_THROUGHPUT * length));
+           (double)mmcau_get_throughput(timeAfter - timeBefore, CYCLES_FOR_THROUGHPUT * length));
 
     /*   DECRYPTION   */
     PRINTF("AES-192 CBC Decryption of %d bytes.\r\n", length);
@@ -898,7 +898,7 @@ static void mmcau_example_task(void)
 
     /* Result message */
     PRINTF("AES-192 CBC decryption finished. Speed %f MB/s.\r\n",
-           mmcau_get_throughput(timeAfter - timeBefore, CYCLES_FOR_THROUGHPUT * length));
+           (double)mmcau_get_throughput(timeAfter - timeBefore, CYCLES_FOR_THROUGHPUT * length));
     /* Print decrypted string */
     PRINTF("Decrypted string :\r\n");
     mmcau_print_msg(g_result, length);
@@ -976,7 +976,7 @@ static void mmcau_example_task(void)
 
     /* Result message */
     PRINTF("AES-256 CBC encryption finished. Speed %f MB/s.\r\n\r\n",
-           mmcau_get_throughput(timeAfter - timeBefore, CYCLES_FOR_THROUGHPUT * length));
+           (double)mmcau_get_throughput(timeAfter - timeBefore, CYCLES_FOR_THROUGHPUT * length));
 
     /*   DECRYPTION   */
     PRINTF("AES-256 CBC Decryption of %d bytes.\r\n", length);
@@ -998,7 +998,7 @@ static void mmcau_example_task(void)
 
     /* Result message */
     PRINTF("AES-256 CBC decryption finished. Speed %f MB/s.\r\n",
-           mmcau_get_throughput(timeAfter - timeBefore, CYCLES_FOR_THROUGHPUT * length));
+           (double)mmcau_get_throughput(timeAfter - timeBefore, CYCLES_FOR_THROUGHPUT * length));
     /* Print decrypted string */
     PRINTF("Decrypted string :\r\n");
     mmcau_print_msg(g_result, length);
@@ -1079,7 +1079,7 @@ static void mmcau_example_task(void)
 
     /* Result message */
     PRINTF("DES3 CBC encryption finished. Speed %f MB/s.\r\n\r\n",
-           mmcau_get_throughput(timeAfter - timeBefore, CYCLES_FOR_THROUGHPUT * length));
+           (double)mmcau_get_throughput(timeAfter - timeBefore, CYCLES_FOR_THROUGHPUT * length));
 
     /*   DECRYPTION   */
     PRINTF("DES3 CBC decryption of %d bytes.\r\n", length);
@@ -1099,7 +1099,7 @@ static void mmcau_example_task(void)
     timeAfter = time_get_ms();
     /* Result message */
     PRINTF("DES3 CBC decryption finished. Speed %f MB/s.\r\n",
-           mmcau_get_throughput(timeAfter - timeBefore, CYCLES_FOR_THROUGHPUT * length));
+           (double)mmcau_get_throughput(timeAfter - timeBefore, CYCLES_FOR_THROUGHPUT * length));
     /* Print decrypted string */
     PRINTF("Decrypted string :\r\n");
     mmcau_print_msg(g_result, length);
@@ -1180,7 +1180,7 @@ static void mmcau_example_task(void)
     }
     timeAfter = time_get_ms();
     PRINTF("Computed SHA1 at speed %f MB/s:\r\n",
-           mmcau_get_throughput(timeAfter - timeBefore, CYCLES_FOR_THROUGHPUT * length));
+           (double)mmcau_get_throughput(timeAfter - timeBefore, CYCLES_FOR_THROUGHPUT * length));
     for (int i = 0; i < SHA1_RESULT_LENGTH / sizeof(uint32_t); i++)
     {
         PRINTF("%08x", resultSha1[i]);
@@ -1231,7 +1231,7 @@ static void mmcau_example_task(void)
     }
     timeAfter = time_get_ms();
     PRINTF("Computed SHA256 at speed %f MB/s:\r\n",
-           mmcau_get_throughput(timeAfter - timeBefore, CYCLES_FOR_THROUGHPUT * length));
+           (double)mmcau_get_throughput(timeAfter - timeBefore, CYCLES_FOR_THROUGHPUT * length));
     for (int i = 0; i < SHA256_RESULT_LENGTH / sizeof(uint32_t); i++)
     {
         PRINTF("%08x", resultSha256[i]);
@@ -1283,7 +1283,7 @@ static void mmcau_example_task(void)
     timeAfter = time_get_ms();
     /* NOTE: CAU lib provides resultMd5[] in most significant byte first order */
     PRINTF("Computed MD5 at speed %f MB/s:\r\n",
-           mmcau_get_throughput(timeAfter - timeBefore, CYCLES_FOR_THROUGHPUT * length));
+           (double)mmcau_get_throughput(timeAfter - timeBefore, CYCLES_FOR_THROUGHPUT * length));
     for (int i = 0; i < MD5_RESULT_LENGTH / sizeof(uint32_t); i++)
     {
         uint8_t *pByte = (uint8_t *)&resultMd5[i];

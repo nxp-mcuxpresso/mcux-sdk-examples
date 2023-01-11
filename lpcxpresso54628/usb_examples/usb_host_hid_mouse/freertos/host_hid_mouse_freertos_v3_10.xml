@@ -92,10 +92,10 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../core/boards/lpcxpresso54628" project_relative_path="source" type="c_include"/>
+      <include_path path="../../.." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
-      <include_path path="../../../../../core/boards/lpcxpresso54628" project_relative_path="source" type="asm_include"/>
+      <include_path path="../../.." project_relative_path="source" type="asm_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="host_hid_mouse_freertos.ewd"/>

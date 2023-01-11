@@ -2,7 +2,7 @@
 set(CONFIG_USE_middleware_mbedtls_rt true)
 set(CONFIG_USE_driver_enet true)
 set(CONFIG_USE_middleware_lwip_enet_ethernetif_MIMXRT1064 true)
+set(CONFIG_USE_component_silicon_id_rt10xx true)
 set(CONFIG_USE_component_serial_manager_uart true)
 set(CONFIG_USE_driver_lpuart true)
-set(CONFIG_USE_driver_common true)
 set(MCUX_DEVICE "MIMXRT1064")

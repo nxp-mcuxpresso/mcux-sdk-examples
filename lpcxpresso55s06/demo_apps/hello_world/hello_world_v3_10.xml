@@ -66,7 +66,6 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="../../../../core/boards/lpcxpresso55s06" project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../examples/lpcxpresso55s06/demo_apps/hello_world" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="hello_world.ewd"/>
