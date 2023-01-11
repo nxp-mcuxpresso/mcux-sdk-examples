@@ -63,7 +63,6 @@ int main(void)
 
     /* Print a note to terminal */
     PRINTF("\r\nTPM example to simulate a timer\r\n");
-    PRINTF("\r\nYou will see a \"-\" or \"|\" in terminal every 1 second:\r\n");
 
     TPM_GetDefaultConfig(&tpmInfo);
 
@@ -80,6 +79,10 @@ int main(void)
 
     EnableIRQ(BOARD_TPM_IRQ_NUM);
 
+    PRINTF("Press any key to start timer!\r\n");
+    GETCHAR();
+
+    PRINTF("\r\nYou will see a \"-\" or \"|\" in terminal every 1 second:\r\n");
     TPM_StartTimer(BOARD_TPM, kTPM_SystemClock);
 
     cnt = 0;

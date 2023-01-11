@@ -323,6 +323,12 @@ static usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event,
              * Please refer to the implementation for the detail information.
              */
             USB_DeviceHsPhyChirpIssueWorkaround();
+#else
+            if (((USBHSD->DEVCMDSTAT & USBHSD_DEVCMDSTAT_Speed_MASK) >> USBHSD_DEVCMDSTAT_Speed_SHIFT) == 0x01U)
+            {
+                /* After device is attached, if the device operating speed is full-speed, set the FORCE_FS bit. */
+                USBHSD->DEVCMDSTAT |= (0x1 << 21);
+            }
 #endif
 #endif
 
@@ -350,6 +356,13 @@ static usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event,
 
 #if (defined(USB_DEVICE_CONFIG_LPCIP3511FS) && (USB_DEVICE_CONFIG_LPCIP3511FS > 0U))
 #else
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
+#if ((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
+            /* Change the trip level voltage in USB PHY RX control register once device is attached to the host/hub. */
+            USBPHY->RX &= ~(USBPHY_RX_ENVADJ_MASK);
+            USBPHY->RX |= 2;
+#endif
+#endif
             /*Add one delay here to make the DP pull down long enough to allow host to detect the previous
              * disconnection.*/
             SDK_DelayAtLeastUs(5000, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
@@ -360,6 +373,14 @@ static usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event,
         break;
         case kUSB_DeviceEventDetach:
         {
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
+#if ((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
+            /* Clean the FORCE_FS bit in DEVCMDSTAT register as well as reset ENVADJ field of the USB PHY RX control
+             * register. */
+            USBHSD->DEVCMDSTAT &= ~(0x1 << 21);
+            USBPHY->RX &= ~(USBPHY_RX_ENVADJ_MASK);
+#endif
+#endif
             g_UsbDeviceHidMouse.connectStateChanged = 1U;
             g_UsbDeviceHidMouse.connectState        = 0U;
             g_UsbDeviceHidMouse.attach              = 0U;
@@ -441,6 +462,12 @@ static usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event,
             }
             break;
         case kUSB_DeviceEventGetDeviceDescriptor:
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
+#if ((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
+            /* Reset ENVADJ field of the USB PHY RX control register to minimize false squelch signal detection. */
+            USBPHY->RX &= ~(USBPHY_RX_ENVADJ_MASK);
+#endif
+#endif
             if (NULL != param)
             {
                 /* Get device descriptor request */
@@ -582,7 +609,8 @@ static void USB_DeviceApplicationInit(void)
 #if (defined(USB_DEVICE_CONFIG_DETACH_ENABLE) && (USB_DEVICE_CONFIG_DETACH_ENABLE > 0U))
     /*USB_DeviceRun could not be called here to avoid DP/DM confliction between DCD function and USB function in case
       DCD is enabled. Instead, USB_DeviceRun should be called after the DCD is finished immediately*/
-#if (defined(USB_DEVICE_CONFIG_LPCIP3511FS) && (USB_DEVICE_CONFIG_LPCIP3511FS > 0U))
+#if ((defined(USB_DEVICE_CONFIG_LPCIP3511FS) && (USB_DEVICE_CONFIG_LPCIP3511FS > 0U)) || \
+     (defined(USB_DEVICE_CONFIG_KHCI) && (USB_DEVICE_CONFIG_KHCI > 0U)))
     /* Start USB device HID mouse */
     /*Add one delay here to make the DP pull down long enough to allow host to detect the previous disconnection.*/
     SDK_DelayAtLeastUs(5000, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);

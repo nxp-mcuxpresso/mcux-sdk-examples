@@ -134,7 +134,7 @@ int main(int argc, char ** argv)
 {
     /* Init board hardware. */
     BOARD_ConfigMPU();
-    BOARD_BootClockRUN();
+    BOARD_InitBootClocks();
     BOARD_ResetDisplayMix();
     BOARD_InitLpuartPins();
     BOARD_InitMipiPanelPins();

@@ -32,7 +32,7 @@
 #include "fsl_codec_common.h"
 #include "fsl_wm8960.h"
 #include "fsl_codec_adapter.h"
-#include "controller.h"
+#include "controller_hci_uart.h"
 #include "usb_host_config.h"
 #include "usb_phy.h"
 #include "usb_host.h"
@@ -49,11 +49,6 @@
 #else
 #define USB_HOST_INTERRUPT_PRIORITY (3U)
 #endif
-/* MURATA wifi reset pin */
-#if (defined(WIFI_IW416_BOARD_MURATA_1XK_USD) || defined(WIFI_88W8987_BOARD_MURATA_1ZM_USD))
-#define MURATA_WIFI_RESET_GPIO     GPIO1
-#define MURATA_WIFI_RESET_GPIO_PIN 24U
-#endif
 
 /*******************************************************************************
  * Prototypes
@@ -66,9 +61,9 @@ extern void BOARD_InitHardware(void);
 /* Select Audio/Video PLL (786.48 MHz) as sai1 clock source */
 #define DEMO_SAI1_CLOCK_SOURCE_SELECT (2U)
 /* Clock pre divider for sai1 clock source */
-#define DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER (1U)
+#define DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER (3U)
 /* Clock divider for sai1 clock source */
-#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (63U)
+#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (31U)
 /* Get frequency of sai1 clock */
 #define DEMO_SAI_CLK_FREQ                                                        \
     (CLOCK_GetFreq(kCLOCK_AudioPllClk) / (DEMO_SAI1_CLOCK_SOURCE_DIVIDER + 1U) / \
@@ -83,6 +78,7 @@ extern void BOARD_InitHardware(void);
 /* Get frequency of lpi2c clock */
 #define BOARD_SCO_DEMO_I2C_FREQ ((CLOCK_GetFreq(kCLOCK_Usb1PllClk) / 8) / (DEMO_LPI2C_CLOCK_SOURCE_DIVIDER + 1U))
 
+#define DEMO_SAI            SAI1
 #define DEMO_CODEC_INSTANCE (1U)
 #define DEMO_SCO_INSTANCE   (2U)
 
@@ -167,7 +163,7 @@ hal_audio_config_t txSpeakerConfig = {
     .ipConfig          = (void *)&txSpeakerIpConfig,
     .srcClock_Hz       = 0,
     .sampleRate_Hz     = 0,
-    .fifoWatermark     = FSL_FEATURE_SAI_FIFO_COUNT / 2U,
+    .fifoWatermark     = FSL_FEATURE_SAI_FIFO_COUNTn(DEMO_SAI) / 2U,
     .msaterSlave       = kHAL_AudioMaster,
     .bclkPolarity      = kHAL_AudioSampleOnRisingEdge,
     .frameSyncWidth    = kHAL_AudioFrameSyncWidthHalfFrame,
@@ -203,7 +199,7 @@ hal_audio_config_t rxMicConfig = {
     .ipConfig          = (void *)&rxMicIpConfig,
     .srcClock_Hz       = 0,
     .sampleRate_Hz     = 0,
-    .fifoWatermark     = FSL_FEATURE_SAI_FIFO_COUNT / 2U,
+    .fifoWatermark     = FSL_FEATURE_SAI_FIFO_COUNTn(DEMO_SAI) / 2U,
     .msaterSlave       = kHAL_AudioMaster,
     .bclkPolarity      = kHAL_AudioSampleOnRisingEdge,
     .frameSyncWidth    = kHAL_AudioFrameSyncWidthHalfFrame,
@@ -243,7 +239,7 @@ hal_audio_config_t txMicConfig = {
     .ipConfig          = (void *)&txMicIpConfig,
     .srcClock_Hz       = 0,
     .sampleRate_Hz     = 0,
-    .fifoWatermark     = FSL_FEATURE_SAI_FIFO_COUNT / 2U,
+    .fifoWatermark     = FSL_FEATURE_SAI_FIFO_COUNTn(DEMO_SAI) / 2U,
     .msaterSlave       = kHAL_AudioSlave,
     .bclkPolarity      = kHAL_AudioSampleOnFallingEdge,
     .frameSyncWidth    = kHAL_AudioFrameSyncWidthOneBitClk,
@@ -283,7 +279,7 @@ hal_audio_config_t rxSpeakerConfig = {
     .ipConfig          = (void *)&rxSpeakerIpConfig,
     .srcClock_Hz       = 0,
     .sampleRate_Hz     = 0,
-    .fifoWatermark     = FSL_FEATURE_SAI_FIFO_COUNT / 2U,
+    .fifoWatermark     = FSL_FEATURE_SAI_FIFO_COUNTn(DEMO_SAI) / 2U,
     .msaterSlave       = kHAL_AudioSlave,
     .bclkPolarity      = kHAL_AudioSampleOnFallingEdge,
     .frameSyncWidth    = kHAL_AudioFrameSyncWidthOneBitClk,
@@ -425,9 +421,6 @@ int main(void)
 
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
-#if (defined(WIFI_IW416_BOARD_MURATA_1XK_USD) || defined(WIFI_88W8987_BOARD_MURATA_1ZM_USD))
-    BOARD_InitMurataModulePins();
-#endif
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     SCB_DisableDCache();
@@ -435,10 +428,6 @@ int main(void)
     DMAMUX_Init(dmaMuxBases[EXAMPLE_DMAMUX_INSTANCE]);
     EDMA_GetDefaultConfig(&config);
     EDMA_Init(dmaBases[EXAMPLE_DMA_INSTANCE], &config);
-#if (defined(WIFI_IW416_BOARD_MURATA_1XK_USD) || defined(WIFI_88W8987_BOARD_MURATA_1ZM_USD))
-    /* Turn on Bluetooth module */
-    GPIO_PinWrite(MURATA_WIFI_RESET_GPIO, MURATA_WIFI_RESET_GPIO_PIN, 1U);
-#endif
 #if (((defined(CONFIG_BT_SMP)) && (CONFIG_BT_SMP)))
     CRYPTO_InitHardware();
 #endif /* CONFIG_BT_SMP */
@@ -454,17 +443,4 @@ int main(void)
     vTaskStartScheduler();
     for (;;)
         ;
-}
-
-void *pvPortCalloc(size_t xNum, size_t xSize)
-{
-    void *pvReturn;
-
-    pvReturn = pvPortMalloc(xNum * xSize);
-    if (pvReturn != NULL)
-    {
-        memset(pvReturn, 0x00, xNum * xSize);
-    }
-
-    return pvReturn;
 }

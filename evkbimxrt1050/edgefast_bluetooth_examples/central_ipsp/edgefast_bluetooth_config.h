@@ -217,6 +217,14 @@ Select this for LE Peripheral role support.
     #define CONFIG_BT_DEVICE_NAME "BLE Peripheral"
 #endif
 
+/*! @brief Runtime Bluetooth Appearance changing
+ * Enables use of bt_set_appearance.
+ * If CONFIG_BT_SETTINGS is set, the appearance is persistently stored.
+ */
+#ifndef CONFIG_BT_DEVICE_APPEARANCE_DYNAMIC
+    #define CONFIG_BT_DEVICE_APPEARANCE_DYNAMIC 0
+#endif
+
 /*! @brief Bluetooth device appearance
  * For the list of possible values please
  * consult the following link:
@@ -267,6 +275,13 @@ Select this for LE Peripheral role support.
 #ifndef CONFIG_BT_MAX_CONN
     #define CONFIG_BT_MAX_CONN 1
 #endif
+
+/*! @brief Hidden configuration that is true if ACL or broadcast ISO is enabled
+ */
+#ifndef CONFIG_BT_CONN_TX
+    #define CONFIG_BT_CONN_TX   (CONFIG_BT_CONN | CONFIG_BT_ISO_BROADCASTER)
+#endif
+
 /* @brief Connection enablement. */
 #if CONFIG_BT_CONN
 
@@ -450,11 +465,79 @@ Select this for LE Peripheral role support.
 #endif /* !(CONFIG_BT_SMP_SC_PAIR_ONLY || CONFIG_BT_SMP_SC_ONLY || CONFIG_BT_SMP_OOB_LEGACY_PAIR_ONLY) */
 
 /*! @brief Privacy Feature, if the macro is set to 0, feature is disabled, if 1, feature is enabled.
- * Enable local Privacy Feature support. This makes it possible
- * to use Resolvable Private Addresses (RPAs).
+ * Enable Privacy Feature support. This makes it possible to generate and use
+ * Resolvable Private Addresses (RPAs).
+ * 
+ * Disabling this will remove the capability to resolve private addresses.
  */
 #ifndef CONFIG_BT_PRIVACY
     #define CONFIG_BT_PRIVACY 0
+#endif
+
+/*! @brief Randomize identity root for fallback identities
+ * Enabling this option will cause the Host to ignore controller-provided
+ * identity roots (IR). The Host will instead use bt_rand to generate
+ * identity resolving keys (IRK) and store them in the settings subsystem.
+ * 
+ * Setting this config may come with a performance penalty to boot time,
+ * as the hardware RNG may need time to generate entropy and will block
+ * Bluetooth initialization.
+ * 
+ * This option increases privacy, as explained in the following text.
+ * 
+ * The IR determines the IRK of the identity. The IRK is used to both
+ * generate and resolve (recognize) the private addresses of an identity.
+ * The IRK is a shared secret, distributed to peers bonded to that
+ * identity.
+ * 
+ * An attacker that has stolen or once bonded and retained the IRK can
+ * forever resolve addresses from that IRK, even if that bond has been
+ * deleted locally.
+ * 
+ * Deleting an identity should ideally delete the IRK as well and thereby
+ * restore anonymity from previously bonded peers. But unless this config
+ * is set, this does not always happen.
+ * 
+ * In particular, a factory reset function that wipes the data in the
+ * settings subsystem may not affect the controller-provided IRs. If
+ * those IRs are reused, this device can be tracked across factory resets.
+ * 
+ * For optimal privacy, a new IRK (i.e., identity) should be used per
+ * bond. However, this naturally limits advertisements from that identity
+ * to be recognizable by only that one bonded device.
+ * 
+ * A description of the exact effect of this setting follows.
+ * 
+ * If the application has not setup an identity before calling
+ * settings_load()/settings_load_subtree("bt") after bt_enable(), the
+ * Host will automatically try to load saved identities from the settings
+ * subsystem, and if there are none, set up the default identity
+ * (BT_ID_DEFAULT).
+ * 
+ * If the controller has a public address (HCI_Read_BD_ADDR), that becomes
+ * the address of the default identity. The Host will by default try to
+ * obtain the IR for that identity from the controller (by Zephyr HCI
+ * Read_Key_Hierarchy_Roots). Setting this config randomizes the IR
+ * instead.
+ * 
+ * If the controller does not have a public address, the Host will try
+ * to source the default identity from the static address information
+ * from controller (Zephyr HCI Read_Static_Addresses). This results in an
+ * identity for each entry in Read_Static_Addresses. Setting this config
+ * randomizes the IRs during this process.
+ */
+#ifndef CONFIG_BT_PRIVACY_RANDOMIZE_IR
+    #define CONFIG_BT_PRIVACY_RANDOMIZE_IR 0
+#endif
+
+#if (defined(CONFIG_BT_PRIVACY_RANDOMIZE_IR) && (CONFIG_BT_PRIVACY_RANDOMIZE_IR > 0))
+    #if !((defined(CONFIG_BT_PRIVACY) && (CONFIG_BT_PRIVACY > 0)))
+        #error CONFIG_BT_PRIVACY_RANDOMIZE_IR depends on CONFIG_BT_PRIVACY.
+    #endif
+
+    #if !((defined(CONFIG_BT_SETTINGS) && (CONFIG_BT_SETTINGS > 0)))
+        #error CONFIG_BT_PRIVACY_RANDOMIZE_IR depends on CONFIG_BT_SETTINGS.
+    #endif
 #endif
 
 /*! @brief Enable ECDH key generation support.
@@ -512,6 +595,20 @@ Select this for LE Peripheral role support.
  */
 #ifndef CONFIG_BT_RPA_TIMEOUT
     #define CONFIG_BT_RPA_TIMEOUT 900
+#endif
+
+/*! @brief Support setting the Resolvable Private Address timeout at runtime
+ * This option allows the user to override the default value of
+ * the Resolvable Private Address timeout using dedicated APIs.
+ */
+#ifndef CONFIG_BT_RPA_TIMEOUT_DYNAMIC
+    #define CONFIG_BT_RPA_TIMEOUT_DYNAMIC 0
+#endif
+
+#if (defined(CONFIG_BT_RPA_TIMEOUT_DYNAMIC) && (CONFIG_BT_RPA_TIMEOUT_DYNAMIC > 0))
+    #if !((defined(CONFIG_BT_PRIVACY) && (CONFIG_BT_PRIVACY > 0)))
+        #error CONFIG_BT_RPA_TIMEOUT_DYNAMIC depends on CONFIG_BT_PRIVACY.
+    #endif
 #endif
 
 /*! @brief Data signing support, if the macro is set to 0, feature is disabled, if 1, feature is enabled.
@@ -744,6 +841,18 @@ Select this for LE Peripheral role support.
     #define CONFIG_BT_ATT_PREPARE_COUNT 0
 #endif
 
+/*! @brief Automatic security elevation and retry on security errors
+ * If an ATT request fails due to insufficient security, the host will
+ * try to elevate the security level and retry the ATT request.
+ */
+#if (defined(CONFIG_BT_SMP) && (CONFIG_BT_SMP > 0))
+
+  #ifndef CONFIG_BT_ATT_RETRY_ON_SEC_ERR
+      #define CONFIG_BT_ATT_RETRY_ON_SEC_ERR 1
+  #endif
+
+#endif
+
 /*! @brief Maximum number of queued outgoing ATT PDUs.
  * Number of ATT PDUs that can be at a single moment queued for
  * transmission. If the application tries to send more than this
@@ -781,11 +890,23 @@ Select this for LE Peripheral role support.
 
 #if (defined(CONFIG_BT_EATT) && (CONFIG_BT_EATT > 0))
 
+#ifndef CONFIG_BT_GATT_READ_MULT_VAR_LEN
+    #define CONFIG_BT_GATT_READ_MULT_VAR_LEN 1
+#endif
+
 /*! @brief Maximum number of Enhanced ATT bearers, range 1 to 16 is valid.
  * Number of Enhanced ATT bearers available.
  */
 #ifndef CONFIG_BT_EATT_MAX
     #define CONFIG_BT_EATT_MAX 3
+#endif
+
+/*! @brief Automatically connect EATT bearers when a link is established
+ * The device will try to connect BT_EATT_MAX enhanced ATT bearers when a
+ * connection to a peer is established.
+ */
+#ifndef CONFIG_BT_EATT_AUTO_CONNECT
+    #define CONFIG_BT_EATT_AUTO_CONNECT 1
 #endif
 
 /*! @brief Enhanced ATT bearer security level, range 1 to 4 is valid.
@@ -836,6 +957,26 @@ Select this for LE Peripheral role support.
     #define CONFIG_BT_GATT_NOTIFY_MULTIPLE 1
 #endif
 
+#if (defined(CONFIG_BT_GATT_NOTIFY_MULTIPLE) && (CONFIG_BT_GATT_NOTIFY_MULTIPLE > 0))
+
+/*! @brief Delay for batching multiple notifications in a single PDU.
+ * Sets the time (in milliseconds) during which consecutive GATT
+ * notifications will be tentatively appended to form a single
+ * ATT_MULTIPLE_HANDLE_VALUE_NTF PDU.
+ * 
+ * If set to 0, batching is disabled. Then, the only way to send
+ * ATT_MULTIPLE_HANDLE_VALUE_NTF PDUs is to use bt_gatt_notify_multiple.
+ * 
+ * See the documentation of bt_gatt_notify() for more details.
+ * 
+ * Valid range 0 ~ 4000
+ */
+#ifndef CONFIG_BT_GATT_NOTIFY_MULTIPLE_FLUSH_MS
+    #define CONFIG_BT_GATT_NOTIFY_MULTIPLE_FLUSH_MS 1
+#endif
+
+#endif
+
 /*! @brief GATT Enforce change-unaware state, if the macro is set to 0, feature is disabled, if 1, feature is enabled.
  * When enabled, this option blocks notification and indications to client
  * to conform to the following statement from the Bluetooth 5.1
@@ -852,6 +993,15 @@ Select this for LE Peripheral role support.
 
 #endif /* CONFIG_BT_GATT_SERVICE_CHANGED */
 
+/*! @brief GATT Enforce characteristic subscription
+ * When enabled, this option will make the server block sending
+ * notifications and indications to a device which has not subscribed to
+ * the supplied characteristic.
+ */
+#ifndef CONFIG_BT_GATT_ENFORCE_SUBSCRIPTION
+    #define CONFIG_BT_GATT_ENFORCE_SUBSCRIPTION      1
+#endif
+
 /*! @brief GATT client support, if the macro is set to 0, feature is disabled, if 1, feature is enabled.
  * This option enables support for the GATT Client role.
  */
@@ -866,8 +1016,34 @@ Select this for LE Peripheral role support.
 #ifndef CONFIG_BT_GATT_READ_MULTIPLE
     #define CONFIG_BT_GATT_READ_MULTIPLE     1
 #endif
+
+/*! @brief Automatically send ATT MTU exchange request on connect
+ * This option if enabled allows automatically sending request for ATT
+ * MTU exchange.
+ */
+#ifndef CONFIG_BT_GATT_AUTO_UPDATE_MTU
+    #define CONFIG_BT_GATT_AUTO_UPDATE_MTU     0
+#endif
+
+#if (defined(CONFIG_BT_GATT_AUTO_UPDATE_MTU) && (CONFIG_BT_GATT_AUTO_UPDATE_MTU > 0))
+    #if !(defined(CONFIG_BT_GATT_CLIENT) && (CONFIG_BT_GATT_CLIENT > 0))
+        #error CONFIG_BT_GATT_AUTO_UPDATE_MTU depends on CONFIG_BT_GATT_CLIENT
+    #endif
+#endif
+
+/*! @brief GATT Read Multiple Variable Length Characteristic Values support
+ * This option enables support for the GATT Read Multiple Variable Length
+ * Characteristic Values procedure. Mandatory if EATT is enabled, optional
+ * otherwise (Core spec v5.3, Vol 3, Part G, Section 4.2, Table 4.1).
+ *
+ */
+#ifndef CONFIG_BT_GATT_READ_MULT_VAR_LEN
+    #define CONFIG_BT_GATT_READ_MULT_VAR_LEN     1
+#endif
+
 /* GATT peripheral support*/
 #if CONFIG_BT_PERIPHERAL
+
 /*! @brief Automatic Update of Connection Parameters, if the macro is set to 0, feature is disabled, if 1, feature is enabled.
  * This option, if enabled, allows automatically sending request for connection
  * parameters update after GAP recommended 5 seconds of connection as
@@ -986,6 +1162,13 @@ Select this for LE Peripheral role support.
     #define CONFIG_BT_BACKGROUND_SCAN_WINDOW 18
 #endif
 
+/*! @brief Maximum advertisement report size, range 1 to 1650 is valid.
+ * Range 1 to 1650 is valid.
+ */
+#ifndef CONFIG_BT_EXT_SCAN_BUF_SIZE
+    #define CONFIG_BT_EXT_SCAN_BUF_SIZE 229
+#endif
+
 #endif /* CONFIG_BT_OBSERVER */
 
 #if (!(defined(CONFIG_BT_PRIVACY) && (CONFIG_BT_PRIVACY > 0)) && (CONFIG_BT_CENTRAL || (defined(CONFIG_BT_OBSERVER) && (CONFIG_BT_OBSERVER > 0U)) ))
@@ -1003,6 +1186,168 @@ Select this for LE Peripheral role support.
 #endif
 
 #endif /* ((!CONFIG_BT_PRIVACY) && (CONFIG_BT_CENTRAL || CONFIG_BT_OBSERVER)) */
+
+/*************************** ISO configuration ***********************/
+
+/*! @brief Bluetooth Isochronous Channel Unicast Support
+ * This option enables support for Bluetooth Broadcast Isochronous channels.
+ */
+#if ((defined(CONFIG_BT_ISO_UNICAST)) && (CONFIG_BT_ISO_UNICAST > 0))
+
+#if (!(defined(CONFIG_BT_CONN)) || !(CONFIG_BT_CONN > 0))
+    #error CONFIG_BT_CONN must enable for CONFIG_BT_ISO_UNICAST.
+#endif /* !CONFIG_BT_CONN */
+
+#ifndef CONFIG_BT_ISO
+    #define CONFIG_BT_ISO 1
+#else
+    #if !(CONFIG_BT_ISO > 0)
+        #error CONFIG_BT_ISO must enable for CONFIG_BT_ISO_UNICAST.
+    #endif
+#endif
+
+#endif /* CONFIG_BT_ISO_UNICAST */
+
+/*! @brief Bluetooth Isochronous Broadcaster Support
+ * This option enables support for the Bluetooth Isochronous Broadcaster.
+ */
+#if ((defined(CONFIG_BT_ISO_BROADCASTER)) && (CONFIG_BT_ISO_BROADCASTER > 0))
+
+#ifndef CONFIG_BT_ISO_BROADCAST
+    #define CONFIG_BT_ISO_BROADCAST 1
+#else
+    #if !(CONFIG_BT_ISO_BROADCAST > 0)
+        #error CONFIG_BT_ISO_BROADCAST must enable for CONFIG_BT_ISO_BROADCASTER.
+    #endif
+#endif
+
+#if (!(defined(CONFIG_BT_BROADCASTER)) || !(CONFIG_BT_BROADCASTER > 0))
+    #error CONFIG_BT_BROADCASTER must enable for CONFIG_BT_ISO_BROADCASTER.
+#endif /* !CONFIG_BT_PER_ADV */
+
+#if (!(defined(CONFIG_BT_PER_ADV)) || !(CONFIG_BT_PER_ADV > 0))
+    #error CONFIG_BT_PER_ADV must enable for CONFIG_BT_ISO_BROADCASTER.
+#endif /* !CONFIG_BT_PER_ADV */
+
+#endif /* CONFIG_BT_ISO_BROADCASTER */
+
+/*! @brief Bluetooth Isochronous Synchronized Receiver Support
+ * This option enables support for the Bluetooth Isochronous Synchronized Receiver.
+ */
+#if ((defined(CONFIG_BT_ISO_SYNC_RECEIVER)) && (CONFIG_BT_ISO_SYNC_RECEIVER > 0))
+
+#ifndef CONFIG_BT_ISO_BROADCAST
+    #define CONFIG_BT_ISO_BROADCAST 1
+#else
+    #if !(CONFIG_BT_ISO_BROADCAST > 0)
+        #error CONFIG_BT_ISO_BROADCAST must enable for CONFIG_BT_ISO_BROADCASTER.
+    #endif
+#endif
+
+#if (!(defined(CONFIG_BT_OBSERVER)) || !(CONFIG_BT_OBSERVER > 0))
+    #error CONFIG_BT_OBSERVER must enable for CONFIG_BT_ISO_SYNC_RECEIVER.
+#endif /* !CONFIG_BT_OBSERVER */
+
+#if (!(defined(CONFIG_BT_PER_ADV_SYNC)) || !(CONFIG_BT_PER_ADV_SYNC > 0))
+    #error CONFIG_BT_PER_ADV_SYNC must enable for CONFIG_BT_ISO_SYNC_RECEIVER.
+#endif /* !CONFIG_BT_PER_ADV_SYNC */
+
+#endif /* CONFIG_BT_ISO_SYNC_RECEIVER */
+
+#if ((defined(CONFIG_BT_ISO_BROADCAST)) && (CONFIG_BT_ISO_BROADCAST > 0))
+
+#ifndef CONFIG_BT_ISO
+    #define CONFIG_BT_ISO 1
+#else
+    #if !(CONFIG_BT_ISO > 0)
+        #error CONFIG_BT_ISO must enable for CONFIG_BT_ISO_BROADCAST.
+    #endif
+#endif
+
+#if (!(defined(CONFIG_BT_EXT_ADV)) || !(CONFIG_BT_EXT_ADV > 0))
+    #error CONFIG_BT_EXT_ADV must enable for CONFIG_BT_ISO_BROADCAST.
+#endif /* !CONFIG_BT_EXT_ADV */
+
+#endif /* CONFIG_BT_ISO_BROADCAST */
+
+#if ((defined(CONFIG_BT_ISO)) && (CONFIG_BT_ISO > 0))
+
+/*! @brief Maximum number of simultaneous Bluetooth isochronous channels supported.
+ *
+ * Valid range 1 ~ 64
+ */
+#ifndef CONFIG_BT_ISO_MAX_CHAN
+    #define CONFIG_BT_ISO_MAX_CHAN 1
+#endif
+
+/*! @brief Number of buffers available for outgoing Isochronous channel SDUs.
+ *
+ * Valid range 1 ~ 255
+ */
+#ifndef CONFIG_BT_ISO_TX_BUF_COUNT
+    #define CONFIG_BT_ISO_TX_BUF_COUNT 1
+#endif
+
+/*! @brief Number of buffers available for fragments of TX buffers.
+ * Warning: setting this to 0 means that the application must ensure that
+ * queued TX buffers never need to be fragmented, i.e. that the
+ * controller's buffer size is large enough. If this is not ensured,
+ * and there are no dedicated fragment buffers, a deadlock may occur.
+ * In most cases the default value of 2 is a safe bet.
+ *
+ * Valid range 0 ~ 255
+ */
+#ifndef CONFIG_BT_ISO_TX_FRAG_COUNT
+    #define CONFIG_BT_ISO_TX_FRAG_COUNT 2
+#endif
+
+/*! @brief Maximum MTU for Isochronous channels TX buffers.
+ *
+ * Valid range 23 ~ 4095
+ */
+#ifndef CONFIG_BT_ISO_TX_MTU
+    #define CONFIG_BT_ISO_TX_MTU 251
+#endif
+
+/*! @brief Number of buffers available for incoming Isochronous channel SDUs.
+ *
+ * Valid range 1 ~ 255
+ */
+#ifndef CONFIG_BT_ISO_RX_BUF_COUNT
+    #define CONFIG_BT_ISO_RX_BUF_COUNT 1
+#endif
+
+/*! @brief Maximum MTU for Isochronous channels RX buffers.
+ *
+ * Valid range 23 ~ 4095
+ */
+#ifndef CONFIG_BT_ISO_RX_MTU
+    #define CONFIG_BT_ISO_RX_MTU 251
+#endif
+
+#if ((defined(CONFIG_BT_ISO_UNICAST)) && (CONFIG_BT_ISO_UNICAST > 0))
+
+/*! @brief Maximum number of CIGs that are supported by the host. A CIG can be
+ * used for either transmitting or receiving.
+ */
+#ifndef CONFIG_BT_ISO_MAX_CIG
+    #define CONFIG_BT_ISO_MAX_CIG 1
+#endif
+
+#endif /* CONFIG_BT_ISO_UNICAST */
+
+#if ((defined(CONFIG_BT_ISO_BROADCAST)) && (CONFIG_BT_ISO_BROADCAST > 0))
+
+/*! @brief Maximmum number of BIGs that are supported by the host. A BIG can be
+ * used for either transmitting or receiving, but not at the same time.
+ */
+#ifndef CONFIG_BT_ISO_MAX_BIG
+    #define CONFIG_BT_ISO_MAX_BIG 1
+#endif
+
+#endif /* CONFIG_BT_ISO_BROADCAST */
+
+#endif /* CONFIG_BT_ISO */
 
 /*************************** Settings configuration ***********************/
 
@@ -1066,6 +1411,13 @@ Select this for LE Peripheral role support.
  */
 #ifndef CONFIG_BT_BREDR
     #define CONFIG_BT_BREDR 0
+#endif
+
+/*! @brief Bluetooth BLE support
+ * This option disables Bluetooth BLE support. Note: not all the BLE related codes could be disabled.
+ */
+#ifndef CONFIG_BT_BLE_DISABLE
+    #define CONFIG_BT_BLE_DISABLE 0
 #endif
 
 #if CONFIG_BT_BREDR

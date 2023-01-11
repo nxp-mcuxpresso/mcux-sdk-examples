@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(glow_cifar10_camera)
 
+set(MCUX_BUILD_TYPES flexspi_nor_sdram_debug flexspi_nor_sdram_release)
+
 set(MCUX_SDK_PROJECT_NAME glow_cifar10_camera.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -69,7 +75,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../dcd.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/../gui_print
     ${ProjDirPath}/../source
     ${ProjDirPath}/../board
@@ -77,13 +83,39 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/devices/MIMXRT1052
+    ${SdkRootDirPath}/core/utilities/misc_utilities
+    ${SdkRootDirPath}/core/components/video/camera/device
+    ${SdkRootDirPath}/core/components/video/camera
+    ${SdkRootDirPath}/core/components/video
+    ${SdkRootDirPath}/core/components/video/camera/receiver
+    ${SdkRootDirPath}/core/components/video/camera/device/sccb
+    ${SdkRootDirPath}/core/components/video/camera/device/ov7725
+    ${SdkRootDirPath}/core/components/video/camera/device/mt9m114
+    ${SdkRootDirPath}/core/components/video/i2c
+    ${SdkRootDirPath}/core/components/video/camera/receiver/csi
+    ${SdkRootDirPath}/core/drivers/csi
+    ${SdkRootDirPath}/core/drivers/elcdif
+    ${SdkRootDirPath}/core/drivers/pxp
+    ${SdkRootDirPath}/core/components/video/display/dc
+    ${SdkRootDirPath}/core/components/video/display/dc/elcdif
+    ${SdkRootDirPath}/core/drivers/igpio
+    ${SdkRootDirPath}/core/drivers/lpi2c
+    ${SdkRootDirPath}/middleware/eiq
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/drivers/lpuart
+    ${SdkRootDirPath}/core/devices/MIMXRT1052/drivers
+    ${SdkRootDirPath}/core/devices/MIMXRT1052/xip
+    ${SdkRootDirPath}/core/boards/evkbimxrt1050/xip
+    ${SdkRootDirPath}/core/CMSIS/DSP
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(utility_debug_console)
@@ -157,15 +189,13 @@ include(CMSIS_DSP_Source)
 include(CMSIS_Include_core_cm)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

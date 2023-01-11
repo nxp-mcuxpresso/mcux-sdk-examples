@@ -30,8 +30,9 @@
  */
 
 /* @TEST_ANCHOR */
-#define WIFI_IW416_BOARD_AW_AM510MA
+#define WIFI_IW416_BOARD_MURATA_1XK_M2
 /* @END_TEST_ANCHOR */
+/*#define WIFI_IW416_BOARD_AW_AM510MA*/
 /*#define WIFI_IW416_BOARD_AW_AM457_USD*/
 /*#define WIFI_88W8987_BOARD_AW_CM358MA*/
 /*#define WIFI_IW416_BOARD_MURATA_1XK_USD*/
@@ -58,4 +59,5 @@
 #define CONFIG_BT_SETTINGS                 1
 #define CONFIG_BT_KEYS_OVERWRITE_OLDEST    1
 
+#define CONFIG_BT_BLE_DISABLE 1
 #include "edgefast_bluetooth_config.h"

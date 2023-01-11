@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_evkbimxrt1050_examples_manifest_v3_10" name="SDK_2.x_evkbimxrt1050_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2022-08-11 15:00:11.398284-->
-  <!--This manifest is generated based on sdk repo commit: 7fb442914f92023b395b260777eb2355254fd71d-->
+  <!--Timestamp (UTC): 2023-01-10 16:33:18.573501-->
+  <!--This manifest is generated based on sdk repo commit: 11a5f6af5190bfe018a89b4d02c239713dc4cfa6-->
   <externalDefinitions>
     <definition extID="MIMXRT1052DVL6B"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="compiler_gcc"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2120_evkbimxrt1050_examples_manifest_v3_10" name="MCUXpressoSDK2120_evkbimxrt1050_examples_manifest_v3_10" version="2.12.0"/>
+  <ksdk id="MCUXpressoSDK2130_evkbimxrt1050_examples_manifest_v3_10" name="MCUXpressoSDK2130_evkbimxrt1050_examples_manifest_v3_10" version="2.13.0"/>
   <boards>
     <board id="evkbimxrt1050" name="EVKB-IMXRT1050" href="https://www.nxp.com/pip/MIMXRT1050-EVK" version="1.0.0" package="MIMXRT1052DVL6B">
       <examples>
@@ -37,6 +37,11 @@
             <files mask="azure_iot_embedded_sdk_v3_10.xml"/>
           </external>
         </example>
+        <example id="evkbimxrt1050_azure_iot_embedded_sdk_adu" name="azure_iot_embedded_sdk_adu" brief="A example that connects to azure iot hub with plug and play, and support ADU feature." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="azure_rtos_examples" path="azure_rtos_examples/azure_iot_embedded_sdk_adu">
+          <external path="azure_rtos_examples/azure_iot_embedded_sdk_adu" type="xml">
+            <files mask="azure_iot_embedded_sdk_adu_v3_10.xml"/>
+          </external>
+        </example>
         <example id="evkbimxrt1050_azure_iot_embedded_sdk_pnp" name="azure_iot_embedded_sdk_pnp" brief="A example that connects to azure iot hub with plug and play." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="azure_rtos_examples" path="azure_rtos_examples/azure_iot_embedded_sdk_pnp">
           <external path="azure_rtos_examples/azure_iot_embedded_sdk_pnp" type="xml">
             <files mask="azure_iot_embedded_sdk_pnp_v3_10.xml"/>
@@ -60,6 +65,26 @@
         <example id="evkbimxrt1050_cache" name="cache" brief="The cache example shows how to use memory cache driver.In this example, many memory (such as SDRAM, etc) and DMA will be used to show the example.Those memory is both accessible for cpu and DMA. For the memory data alignment, cache driver should be used rightly. For cache enabled case, the cache invalidate operation should be done before cpu access the memory. The cache clean opeartion should be done after CPU verify the memorymemory and before DMA access the memory." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/cache" path="driver_examples/cache">
           <external path="driver_examples/cache" type="xml">
             <files mask="cache_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_mpp_camera_mobilenet_view_dvrt" name="mpp_camera_mobilenet_view_dvrt" brief="Image Classification with DeepViewRT Example" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/mpp_camera_mobilenet_view_dvrt">
+          <external path="eiq_examples/mpp_camera_mobilenet_view_dvrt" type="xml">
+            <files mask="mpp_camera_mobilenet_view_dvrt_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_mpp_camera_mobilenet_view_glow" name="mpp_camera_mobilenet_view_glow" brief="Image Classification with GLOW Example" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/mpp_camera_mobilenet_view_glow">
+          <external path="eiq_examples/mpp_camera_mobilenet_view_glow" type="xml">
+            <files mask="mpp_camera_mobilenet_view_glow_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_mpp_camera_mobilenet_view_tflm" name="mpp_camera_mobilenet_view_tflm" brief="Image Classification with TensorFlow Lite Micro Example" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/mpp_camera_mobilenet_view_tflm">
+          <external path="eiq_examples/mpp_camera_mobilenet_view_tflm" type="xml">
+            <files mask="mpp_camera_mobilenet_view_tflm_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_mpp_camera_view" name="mpp_camera_view" brief="MPP Camera View Example" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/mpp_camera_view">
+          <external path="eiq_examples/mpp_camera_view" type="xml">
+            <files mask="mpp_camera_view_v3_10.xml"/>
           </external>
         </example>
         <example id="evkbimxrt1050_ccm_clockout" name="ccm_clockout" brief="The ccm_clockout driver example shows how to output the internal clock signal. In this driver example, users can choose the clock signal to be outputted, and the divider of the output clock signal. By probing the output pin, users can observe the selected internal clock signal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ccm" path="driver_examples/clockout">
@@ -572,6 +597,11 @@
             <files mask="ewm_v3_10.xml"/>
           </external>
         </example>
+        <example id="evkbimxrt1050_filex_levelx_mflash" name="filex_levelx_mflash" brief="The filex_levelx_mflash example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="azure_rtos_examples" path="azure_rtos_examples/filex_levelx_mflash">
+          <external path="azure_rtos_examples/filex_levelx_mflash" type="xml">
+            <files mask="filex_levelx_mflash_v3_10.xml"/>
+          </external>
+        </example>
         <example id="evkbimxrt1050_filex_lib" name="filex_lib" brief="FileX library" toolchain="mcuxpresso" compiler="compiler_gcc" category="azure_rtos_libs" path="azure_rtos_examples/filex_lib">
           <external path="azure_rtos_examples/filex_lib" type="xml">
             <files mask="filex_lib_v3_10.xml"/>
@@ -840,6 +870,11 @@
         <example id="evkbimxrt1050_hello_world" name="hello_world" brief="The HelloWorld demo prints the &quot;Hello World&quot; string to the terminal using the SDK UART drivers and repeat what user input. The purpose of this demo is to show how to use the UART, and to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="demo_apps/hello_world">
           <external path="demo_apps/hello_world" type="xml">
             <files mask="hello_world_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_hello_world_swo" name="hello_world_swo" brief="The Hello World SWO demo prints the &quot;SWO: Hello World&quot; string to the SWO viewer. The purpose of this demo is to show how to use the swo, and to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="demo_apps/hello_world_swo">
+          <external path="demo_apps/hello_world_swo" type="xml">
+            <files mask="hello_world_swo_v3_10.xml"/>
           </external>
         </example>
         <example id="evkbimxrt1050_hello_world_virtual_com" name="hello_world_virtual_com" brief="Hello World Virtual Com demonstrates the use of virtual com to print the &quot;Hello World&quot; string to the terminal. Different with Hello World demo (a HW UART peripheral is used to transmit data), the demo transmits data based on a serial port simulated by the USB device stack on target board side via USB peripheral. The purpose of this demo is to demonstrate how to use virtual com and provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="demo_apps/hello_world_virtual_com">
@@ -1207,6 +1242,26 @@
             <files mask="lwip_ping_freertos_v3_10.xml"/>
           </external>
         </example>
+        <example id="evkbimxrt1050_maestro_playback" name="maestro_playback" brief="Audio maestro framework demo example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="audio_examples" path="audio_examples/maestro_playback">
+          <external path="audio_examples/maestro_playback" type="xml">
+            <files mask="maestro_playback_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_maestro_record" name="maestro_record" brief="Audio maestro framework demo example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="audio_examples" path="audio_examples/maestro_record">
+          <external path="audio_examples/maestro_record" type="xml">
+            <files mask="maestro_record_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_maestro_usb_mic" name="maestro_usb_mic" brief="Audio maestro framework USB microphone example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="audio_examples" path="audio_examples/maestro_usb_mic">
+          <external path="audio_examples/maestro_usb_mic" type="xml">
+            <files mask="maestro_usb_mic_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_maestro_usb_speaker" name="maestro_usb_speaker" brief="Audio maestro framework USB speaker example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="audio_examples" path="audio_examples/maestro_usb_speaker">
+          <external path="audio_examples/maestro_usb_speaker" type="xml">
+            <files mask="maestro_usb_speaker_v3_10.xml"/>
+          </external>
+        </example>
         <example id="evkbimxrt1050_mbedtls_benchmark" name="mbedtls_benchmark" brief="The mbdedTLS Benchmark demo application performs cryptographic algorithm benchmarking and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_benchmark">
           <external path="mbedtls_examples/mbedtls_benchmark" type="xml">
             <files mask="mbedtls_benchmark_v3_10.xml"/>
@@ -1215,6 +1270,11 @@
         <example id="evkbimxrt1050_mbedtls_selftest" name="mbedtls_selftest" brief="The mbdedTLS SelfTest program performs cryptographic algorithm testing and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_selftest">
           <external path="mbedtls_examples/mbedtls_selftest" type="xml">
             <files mask="mbedtls_selftest_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_mcuboot_opensource" name="mcuboot_opensource" brief="MCUboot bootloader" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="bootloader" path="mcuboot_opensource">
+          <external path="mcuboot_opensource" type="xml">
+            <files mask="mcuboot_opensource_v3_10.xml"/>
           </external>
         </example>
         <example id="evkbimxrt1050_mmccard_freertos" name="mmccard_freertos" brief="The MMCCARD FreeRTOS project is a demonstration program that uses the SDK software. It reads/writes/erases the MMC card continusly. The purpose of this example is to show how to use MMCCARD driverwith FreeRTOS in SDK software to access MMC card.Note:User can use MMC plus card or emmc(on board IC, but not recommand use emmc socket,due to high speed timing restriction)" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/mmccard_freertos" path="sdmmc_examples/mmccard_freertos">
@@ -1527,24 +1587,29 @@
             <files mask="src_reset_source_v3_10.xml"/>
           </external>
         </example>
+        <example id="evkbimxrt1050_mpp_static_image_nanodet_view_tflm" name="mpp_static_image_nanodet_view_tflm" brief="Object Detection with TensorFlow Lite Micro Example" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/mpp_static_image_nanodet_view_tflm">
+          <external path="eiq_examples/mpp_static_image_nanodet_view_tflm" type="xml">
+            <files mask="mpp_static_image_nanodet_view_tflm_v3_10.xml"/>
+          </external>
+        </example>
         <example id="evkbimxrt1050_temperaturemonitor" name="temperaturemonitor" brief="The TEMPMON project is a simple demonstration program of the SDK TEMPMON driver.The temperatue monitor (TEMPMON) module features alarm functions that can raise independent interrupt signals if the temperature is above two high-temperature thresholds and below a low temperature threshold, the system can then use this module to monitor the on-die temperature and take appropriate actions such as throttling back the core frequency when a the high temperature interrupt is set." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/temperaturemonitor" path="driver_examples/tempmon">
           <external path="driver_examples/tempmon" type="xml">
             <files mask="temperaturemonitor_v3_10.xml"/>
           </external>
         </example>
-        <example id="evkbimxrt1050_tensorflow_lite_micro_cifar10" name="tensorflow_lite_micro_cifar10" brief="CIFAR-10 example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tensorflow_lite_micro_cifar10">
-          <external path="eiq_examples/tensorflow_lite_micro_cifar10" type="xml">
-            <files mask="tensorflow_lite_micro_cifar10_v3_10.xml"/>
+        <example id="evkbimxrt1050_tflm_cifar10" name="tflm_cifar10" brief="CIFAR-10 example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tflm_cifar10">
+          <external path="eiq_examples/tflm_cifar10" type="xml">
+            <files mask="tflm_cifar10_v3_10.xml"/>
           </external>
         </example>
-        <example id="evkbimxrt1050_tensorflow_lite_micro_kws" name="tensorflow_lite_micro_kws" brief="Keyword spotting example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tensorflow_lite_micro_kws">
-          <external path="eiq_examples/tensorflow_lite_micro_kws" type="xml">
-            <files mask="tensorflow_lite_micro_kws_v3_10.xml"/>
+        <example id="evkbimxrt1050_tflm_kws" name="tflm_kws" brief="Keyword spotting example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tflm_kws">
+          <external path="eiq_examples/tflm_kws" type="xml">
+            <files mask="tflm_kws_v3_10.xml"/>
           </external>
         </example>
-        <example id="evkbimxrt1050_tensorflow_lite_micro_label_image" name="tensorflow_lite_micro_label_image" brief="Label image example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tensorflow_lite_micro_label_image">
-          <external path="eiq_examples/tensorflow_lite_micro_label_image" type="xml">
-            <files mask="tensorflow_lite_micro_label_image_v3_10.xml"/>
+        <example id="evkbimxrt1050_tflm_label_image" name="tflm_label_image" brief="Label image example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tflm_label_image">
+          <external path="eiq_examples/tflm_label_image" type="xml">
+            <files mask="tflm_label_image_v3_10.xml"/>
           </external>
         </example>
         <example id="evkbimxrt1050_threadx_demo" name="threadx_demo" brief="The ThreadX example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="azure_rtos_examples" path="azure_rtos_examples/threadx_demo">
@@ -1565,6 +1630,16 @@
         <example id="evkbimxrt1050_uart_example" name="uart_example" brief="The example shows how to use the uart driver in Azure RTOS." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="azure_rtos_examples" path="azure_rtos_examples/uart_example">
           <external path="azure_rtos_examples/uart_example" type="xml">
             <files mask="uart_example_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_usbx_device_audio_microphone" name="usbx_device_audio_microphone" brief="The usbx_device_audio_microphone example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="azure_rtos_examples" path="azure_rtos_examples/usbx_device_audio_microphone">
+          <external path="azure_rtos_examples/usbx_device_audio_microphone" type="xml">
+            <files mask="usbx_device_audio_microphone_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_usbx_device_audio_speaker" name="usbx_device_audio_speaker" brief="The usbx_device_audio_speaker example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="azure_rtos_examples" path="azure_rtos_examples/usbx_device_audio_speaker">
+          <external path="azure_rtos_examples/usbx_device_audio_speaker" type="xml">
+            <files mask="usbx_device_audio_speaker_v3_10.xml"/>
           </external>
         </example>
         <example id="evkbimxrt1050_usbx_device_composite_cdc_acm_cdc_acm" name="usbx_device_composite_cdc_acm_cdc_acm" brief="The usbx_device_composite_cdc_acm_cdc_acm example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="azure_rtos_examples" path="azure_rtos_examples/usbx_device_composite_cdc_acm_cdc_acm">

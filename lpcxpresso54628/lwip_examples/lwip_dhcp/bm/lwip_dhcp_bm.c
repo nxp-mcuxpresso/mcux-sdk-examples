@@ -21,33 +21,30 @@
 #include "lwip/dhcp.h"
 #include "lwip/prot/dhcp.h"
 #include "netif/ethernet.h"
-#include "enet_ethernetif.h"
+#include "ethernetif.h"
 
+#ifndef configMAC_ADDR
+#include "fsl_silicon_id.h"
+#endif
+#include "fsl_phy.h"
 #include "pin_mux.h"
 #include "board.h"
-#include "fsl_silicon_id.h"
-#include "fsl_phy.h"
 
 #include "fsl_phylan8720a.h"
-#include "fsl_enet_mdio.h"
-#include <stdbool.h>
+#include "fsl_enet.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
 
 /* @TEST_ANCHOR */
 
-/* Address of PHY interface. */
-#define EXAMPLE_PHY_ADDRESS BOARD_ENET0_PHY_ADDRESS
-
-/* MDIO operations. */
-#define EXAMPLE_MDIO_OPS lpc_enet_ops
-
-/* PHY operations. */
-#define EXAMPLE_PHY_OPS phylan8720a_ops
-
-/* ENET clock frequency. */
-#define EXAMPLE_CLOCK_FREQ CLOCK_GetFreq(kCLOCK_CoreSysClk)
+/* Ethernet configuration. */
+extern phy_lan8720a_resource_t g_phy_resource;
+#define EXAMPLE_ENET_BASE    ENET
+#define EXAMPLE_PHY_ADDRESS  BOARD_ENET0_PHY_ADDRESS
+#define EXAMPLE_PHY_OPS      &phylan8720a_ops
+#define EXAMPLE_PHY_RESOURCE &g_phy_resource
+#define EXAMPLE_CLOCK_FREQ   CLOCK_GetFreq(kCLOCK_CoreSysClk)
 
 
 #ifndef EXAMPLE_NETIF_INIT_FN
@@ -62,13 +59,29 @@
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+phy_lan8720a_resource_t g_phy_resource;
 
-static mdio_handle_t mdioHandle = {.ops = &EXAMPLE_MDIO_OPS};
-static phy_handle_t phyHandle   = {.phyAddr = EXAMPLE_PHY_ADDRESS, .mdioHandle = &mdioHandle, .ops = &EXAMPLE_PHY_OPS};
+static phy_handle_t phyHandle;
 
 /*******************************************************************************
  * Code
  ******************************************************************************/
+static void MDIO_Init(void)
+{
+    (void)CLOCK_EnableClock(s_enetClock[ENET_GetInstance(EXAMPLE_ENET_BASE)]);
+    ENET_SetSMI(EXAMPLE_ENET_BASE);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_MDIOWrite(EXAMPLE_ENET_BASE, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_MDIORead(EXAMPLE_ENET_BASE, phyAddr, regAddr, pData);
+}
+
 
 /*!
  * @brief Interrupt service for SysTick timer.
@@ -154,11 +167,12 @@ static void print_dhcp_state(struct netif *netif)
 int main(void)
 {
     struct netif netif;
-    ip4_addr_t netif_ipaddr, netif_netmask, netif_gw;
-    ethernetif_config_t enet_config = {
-        .phyHandle = &phyHandle,
+    ethernetif_config_t enet_config = {.phyHandle   = &phyHandle,
+                                       .phyAddr     = EXAMPLE_PHY_ADDRESS,
+                                       .phyOps      = EXAMPLE_PHY_OPS,
+                                       .phyResource = EXAMPLE_PHY_RESOURCE,
 #ifdef configMAC_ADDR
-        .macAddress = configMAC_ADDR,
+                                       .macAddress = configMAC_ADDR
 #endif
     };
 
@@ -171,24 +185,30 @@ int main(void)
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
-    mdioHandle.resource.csrClock_Hz = EXAMPLE_CLOCK_FREQ;
+    MDIO_Init();
+    g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
 
     time_init();
 
+    /* Set MAC address. */
 #ifndef configMAC_ADDR
-    /* Set special address for each chip. */
     (void)SILICONID_ConvertToMacAddr(&enet_config.macAddress);
 #endif
 
-    IP4_ADDR(&netif_ipaddr, 0U, 0U, 0U, 0U);
-    IP4_ADDR(&netif_netmask, 0U, 0U, 0U, 0U);
-    IP4_ADDR(&netif_gw, 0U, 0U, 0U, 0U);
+    /* Get clock after hardware init. */
+    enet_config.srcClockHz = EXAMPLE_CLOCK_FREQ;
 
     lwip_init();
 
-    netif_add(&netif, &netif_ipaddr, &netif_netmask, &netif_gw, &enet_config, EXAMPLE_NETIF_INIT_FN, ethernet_input);
+    netif_add(&netif, NULL, NULL, NULL, &enet_config, EXAMPLE_NETIF_INIT_FN, ethernet_input);
     netif_set_default(&netif);
     netif_set_up(&netif);
+
+    while (ethernetif_wait_linkup(&netif, 5000) != ERR_OK)
+    {
+        PRINTF("PHY Auto-negotiation failed. Please check the cable connection and link partner setting.\r\n");
+    }
 
     dhcp_start(&netif);
 

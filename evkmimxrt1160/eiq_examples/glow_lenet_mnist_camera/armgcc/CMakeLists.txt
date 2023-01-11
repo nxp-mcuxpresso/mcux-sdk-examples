@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(glow_lenet_mnist_camera_cm7)
 
+set(MCUX_BUILD_TYPES flexspi_nor_sdram_release flexspi_nor_sdram_debug)
+
 set(MCUX_SDK_PROJECT_NAME glow_lenet_mnist_camera_cm7.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -74,7 +80,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../dcd.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/../source/image
     ${ProjDirPath}/../source/video
     ${ProjDirPath}/../eiq/cmsis_nn/Include
@@ -84,13 +90,46 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/utilities/misc_utilities
+    ${SdkRootDirPath}/core/devices/MIMXRT1166
+    ${SdkRootDirPath}/core/components/video/display/mipi_dsi_cmd
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/drivers/mipi_dsi_split
+    ${SdkRootDirPath}/core/components/video/display/rm68191
+    ${SdkRootDirPath}/core/components/video/display/rm68200
+    ${SdkRootDirPath}/core/components/video/display/hx8394
+    ${SdkRootDirPath}/core/components/video/display
+    ${SdkRootDirPath}/core/components/video/camera/device
+    ${SdkRootDirPath}/core/components/video/camera
+    ${SdkRootDirPath}/core/components/video
+    ${SdkRootDirPath}/core/components/video/camera/receiver
+    ${SdkRootDirPath}/core/components/video/camera/device/sccb
+    ${SdkRootDirPath}/core/components/video/camera/device/ov5640
+    ${SdkRootDirPath}/core/drivers/mipi_csi2rx
+    ${SdkRootDirPath}/core/components/video/i2c
+    ${SdkRootDirPath}/core/components/video/camera/receiver/csi
+    ${SdkRootDirPath}/core/drivers/csi
+    ${SdkRootDirPath}/core/drivers/elcdif
+    ${SdkRootDirPath}/core/drivers/pxp
+    ${SdkRootDirPath}/core/components/video/display/dc
+    ${SdkRootDirPath}/core/components/video/display/dc/elcdif
+    ${SdkRootDirPath}/core/components/video/display/dc/lcdifv2
+    ${SdkRootDirPath}/core/drivers/lpi2c
+    ${SdkRootDirPath}/core/devices/MIMXRT1166/drivers
+    ${SdkRootDirPath}/core/CMSIS/DSP
+    ${SdkRootDirPath}/middleware/eiq
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/drivers/lpuart
+    ${SdkRootDirPath}/core/drivers/igpio
+    ${SdkRootDirPath}/core/devices/MIMXRT1166/xip
+    ${SdkRootDirPath}/core/boards/evkmimxrt1160/xip
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/drivers/lcdifv2
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(utility_debug_console_lite)
@@ -194,15 +233,13 @@ include(driver_memory)
 include(driver_lcdifv2)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

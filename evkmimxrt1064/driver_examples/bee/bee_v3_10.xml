@@ -13,7 +13,6 @@
     <definition extID="device.MIMXRT1064_startup.MIMXRT1064"/>
     <definition extID="platform.drivers.iomuxc.MIMXRT1064"/>
     <definition extID="platform.drivers.igpio.MIMXRT1064"/>
-    <definition extID="component.silicon_id.MIMXRT1064"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1064"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1064"/>
     <definition extID="device.MIMXRT1064_system.MIMXRT1064"/>
@@ -23,7 +22,7 @@
     <definition extID="armgcc"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="evkmimxrt1064_bee" name="bee" dependency="utility.debug_console_lite.MIMXRT1064 platform.utilities.assert_lite.MIMXRT1064 platform.drivers.bee.MIMXRT1064 platform.drivers.clock.MIMXRT1064 platform.drivers.common.MIMXRT1064 device.MIMXRT1064_CMSIS.MIMXRT1064 component.lpuart_adapter.MIMXRT1064 component.lists.MIMXRT1064 platform.drivers.lpuart.MIMXRT1064 device.MIMXRT1064_startup.MIMXRT1064 platform.drivers.iomuxc.MIMXRT1064 platform.drivers.igpio.MIMXRT1064 component.silicon_id.MIMXRT1064 CMSIS_Include_core_cm.MIMXRT1064 platform.utilities.misc_utilities.MIMXRT1064 device.MIMXRT1064_system.MIMXRT1064" category="driver_examples/bee">
+  <example id="evkmimxrt1064_bee" name="bee" dependency="utility.debug_console_lite.MIMXRT1064 platform.utilities.assert_lite.MIMXRT1064 platform.drivers.bee.MIMXRT1064 platform.drivers.clock.MIMXRT1064 platform.drivers.common.MIMXRT1064 device.MIMXRT1064_CMSIS.MIMXRT1064 component.lpuart_adapter.MIMXRT1064 component.lists.MIMXRT1064 platform.drivers.lpuart.MIMXRT1064 device.MIMXRT1064_startup.MIMXRT1064 platform.drivers.iomuxc.MIMXRT1064 platform.drivers.igpio.MIMXRT1064 CMSIS_Include_core_cm.MIMXRT1064 platform.utilities.misc_utilities.MIMXRT1064 device.MIMXRT1064_system.MIMXRT1064" category="driver_examples/bee">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -83,7 +82,7 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../examples/evkmimxrt1064/driver_examples/bee" project_relative_path="evkmimxrt1064/driver_examples/bee" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimxrt1064/driver_examples/bee" type="c_include"/>
       <include_path path="../../../../core/boards/evkmimxrt1064" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

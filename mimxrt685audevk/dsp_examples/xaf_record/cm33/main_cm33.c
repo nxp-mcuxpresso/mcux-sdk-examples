@@ -41,13 +41,18 @@ int BOARD_CODEC_Init(void);
  ******************************************************************************/
 codec_handle_t g_codecHandle;
 cs42448_config_t g_cs42448Config = {
-    .DACMode      = kCS42448_ModeSlave,
-    .ADCMode      = kCS42448_ModeSlave,
-    .reset        = NULL,
-    .master       = false,
-    .i2cConfig    = {.codecI2CInstance = BOARD_CODEC_I2C_INSTANCE},
-    .format       = {.sampleRate = 16000U, .bitWidth = BOARD_DMIC_NUM > 2 ? 24U : 16U},
-    .bus          = BOARD_DMIC_NUM > 2 ? kCS42448_BusTDM : kCS42448_BusI2S,
+    .DACMode   = kCS42448_ModeSlave,
+    .ADCMode   = kCS42448_ModeSlave,
+    .reset     = NULL,
+    .master    = false,
+    .i2cConfig = {.codecI2CInstance = BOARD_CODEC_I2C_INSTANCE},
+#ifdef XA_VIT_PRE_PROC
+    .format = {.sampleRate = 16000U, .bitWidth = 16U},
+    .bus    = kCS42448_BusI2S,
+#else
+    .format = {.sampleRate = 16000U, .bitWidth = BOARD_DMIC_NUM > 2 ? 24U : 16U},
+    .bus    = BOARD_DMIC_NUM > 2 ? kCS42448_BusTDM : kCS42448_BusI2S,
+#endif
     .slaveAddress = CS42448_I2C_ADDR,
 };
 codec_config_t g_boardCodecConfig = {.codecDevType = kCODEC_CS42448, .codecDevConfig = &g_cs42448Config};

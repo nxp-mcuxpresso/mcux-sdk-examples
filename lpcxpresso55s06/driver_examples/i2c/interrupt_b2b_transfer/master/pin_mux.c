@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 NXP
+ * Copyright 2017-2020, 2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v8.0
+product: Pins v12.0
 processor: LPC55S06
 package_id: LPC55S06JBD64
 mcu_data: ksdk2_0
-processor_version: 0.8.0
+processor_version: 0.12.6
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -49,9 +49,9 @@ BOARD_InitPins:
   - {pin_num: '61', peripheral: FLEXCOMM0, signal: RXD_SDA_MOSI_DATA, pin_signal: PIO0_29/FC0_RXD_SDA_MOSI_DATA/CTIMER2_MAT3/SCT0_OUT8/CMP0_OUT/PLU_OUT2/SECURE_GPIO0_29,
     mode: inactive, slew_rate: standard, invert: disabled, open_drain: disabled}
   - {pin_num: '48', peripheral: FLEXCOMM3, signal: CTS_SDA_SSEL0, pin_signal: PIO0_20/FC3_CTS_SDA_SSEL0/CTIMER1_MAT1/CT_INP15/SCT_GPI2/FC7_RXD_SDA_MOSI_DATA/HS_SPI_SSEL0/PLU_IN5/SECURE_GPIO0_20/FC4_TXD_SCL_MISO_WS,
-    mode: pullUp, slew_rate: standard, invert: disabled, open_drain: disabled}
+    mode: pullUp, slew_rate: standard, invert: disabled, open_drain: enabled}
   - {pin_num: '49', peripheral: FLEXCOMM3, signal: RTS_SCL_SSEL1, pin_signal: PIO0_21/FC3_RTS_SCL_SSEL1/UTICK_CAP3/CTIMER3_MAT3/SCT_GPI3/FC7_SCK/HS_SPI_SSEL3/PLU_CLKIN/SECURE_GPIO0_21,
-    mode: pullUp, slew_rate: standard, invert: disabled, open_drain: disabled}
+    mode: pullUp, slew_rate: standard, invert: disabled, open_drain: enabled}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -78,8 +78,8 @@ void BOARD_InitPins(void)
                                          IOCON_PIO_INV_DI |
                                          /* Enables digital function */
                                          IOCON_PIO_DIGITAL_EN |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+                                         /* Open drain is enabled */
+                                         IOCON_PIO_OPENDRAIN_EN);
     /* PORT0 PIN20 (coords: 48) is configured as FC3_CTS_SDA_SSEL0 */
     IOCON_PinMuxSet(IOCON, 0U, 20U, port0_pin20_config);
 
@@ -93,8 +93,8 @@ void BOARD_InitPins(void)
                                          IOCON_PIO_INV_DI |
                                          /* Enables digital function */
                                          IOCON_PIO_DIGITAL_EN |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+                                         /* Open drain is enabled */
+                                         IOCON_PIO_OPENDRAIN_EN);
     /* PORT0 PIN21 (coords: 49) is configured as FC3_RTS_SCL_SSEL1 */
     IOCON_PinMuxSet(IOCON, 0U, 21U, port0_pin21_config);
 

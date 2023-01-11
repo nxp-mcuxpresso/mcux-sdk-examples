@@ -78,7 +78,6 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../examples/frdmk32l2b/usb_examples/usb_device_composite_hid_audio/bm" project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="usb/device/source" type="c_include"/>
       <include_path path="." project_relative_path="usb/device/class" type="c_include"/>

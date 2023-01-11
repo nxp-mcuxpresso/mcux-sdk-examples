@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(sai_low_power_audio)
 
+set(MCUX_BUILD_TYPES debug release)
+
 set(MCUX_SDK_PROJECT_NAME sai_low_power_audio.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -53,6 +59,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/evkmimx8mn/clock_config.c"
 "${SdkRootDirPath}/core/boards/evkmimx8mn/clock_config.h"
 "${ProjDirPath}/../fsl_iomuxc.h"
+"${ProjDirPath}/../srtm_config.h"
 "${ProjDirPath}/../app_srtm.c"
 "${ProjDirPath}/../app_srtm.h"
 "${SdkRootDirPath}/core/components/srtm/channels/srtm_rpmsg_endpoint.h"
@@ -65,21 +72,40 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/components/srtm/services/srtm_wm8524_adapter.c"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${SdkRootDirPath}/examples/evkmimx8mn/demo_apps/sai_low_power_audio
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/evkmimx8mn
     ${SdkRootDirPath}/core/components/srtm/channels
     ${SdkRootDirPath}/core/components/srtm/services
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/drivers/igpio
+    ${SdkRootDirPath}/core/drivers/iuart
+    ${SdkRootDirPath}/core/drivers/gpc_2
+    ${SdkRootDirPath}/core/drivers/gpt
+    ${SdkRootDirPath}/core/components/codec
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/components/codec/
+    ${SdkRootDirPath}/middleware/multicore
+    ${SdkRootDirPath}/core/devices/MIMX8MN6/drivers
+    ${SdkRootDirPath}/core/drivers/sai
+    ${SdkRootDirPath}/core/drivers/rdc
+    ${SdkRootDirPath}/core/devices/MIMX8MN6
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/drivers/sdma
+    ${SdkRootDirPath}/core/drivers/mu
+    ${SdkRootDirPath}/core/components/codec/wm8524
+    ${SdkRootDirPath}/core/components/srtm/port
+    ${SdkRootDirPath}/core/components/srtm
+    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(driver_igpio)
@@ -153,15 +179,13 @@ include(utilities_misc_utilities_MIMX8MN6)
 include(device_system)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

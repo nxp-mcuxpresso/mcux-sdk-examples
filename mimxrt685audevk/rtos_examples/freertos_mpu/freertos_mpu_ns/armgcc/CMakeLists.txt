@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(freertos_mpu_ns)
 
+set(MCUX_BUILD_TYPES debug release flash_debug flash_release)
+
 set(MCUX_SDK_PROJECT_NAME freertos_mpu_ns.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -38,9 +44,9 @@ include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
 "${ProjDirPath}/../main_ns.c"
-"${ProjDirPath}/../../freertos_mpu_s/nsc_functions.h"
-"${SdkRootDirPath}/rtos/freertos/freertos_kernel/portable/GCC/ARM_CM33/secure/secure_context.h"
-"${SdkRootDirPath}/rtos/freertos/freertos_kernel/portable/GCC/ARM_CM33/secure/secure_init.h"
+"${SdkRootDirPath}/examples/mimxrt685audevk/rtos_examples/freertos_mpu/freertos_mpu_s/nsc_functions.h"
+"${SdkRootDirPath}/rtos/freertos/freertos-kernel/portable/GCC/ARM_CM33/secure/secure_context.h"
+"${SdkRootDirPath}/rtos/freertos/freertos-kernel/portable/GCC/ARM_CM33/secure/secure_init.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
 "${SdkRootDirPath}/core/boards/mimxrt685audevk/board.c"
 "${SdkRootDirPath}/core/boards/mimxrt685audevk/board.h"
@@ -48,21 +54,32 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/mimxrt685audevk/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../freertos_mpu_s
-    ${SdkRootDirPath}/rtos/freertos/freertos_kernel/portable/GCC/ARM_CM33/secure
-    ${SdkRootDirPath}/examples/mimxrt685audevk/rtos_examples/freertos_mpu/freertos_mpu_ns
+    ${SdkRootDirPath}/examples/mimxrt685audevk/rtos_examples/freertos_mpu/freertos_mpu_s
+    ${SdkRootDirPath}/rtos/freertos/freertos-kernel/portable/GCC/ARM_CM33/secure
     ${SdkRootDirPath}/core/boards/mimxrt685audevk
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/devices/MIMXRT685S/drivers
+    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/devices/MIMXRT685S
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/boards/mimxrt685audevk/flash_config
+    ${SdkRootDirPath}/core/drivers/flexspi
+    ${SdkRootDirPath}/core/drivers/cache/cache64
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/drivers/flexcomm
+    ${SdkRootDirPath}/core/drivers/lpc_iopctl
+    ${SdkRootDirPath}/core/drivers/lpc_gpio
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(driver_clock)
@@ -118,15 +135,13 @@ include(CMSIS_Include_core_cm)
 include(utilities_misc_utilities_MIMXRT685S_cm33)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 if(CMAKE_BUILD_TYPE STREQUAL debug)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../freertos_mpu_s/armgcc/${CMAKE_BUILD_TYPE}/freertos_mpu_s_CMSE_lib.o)

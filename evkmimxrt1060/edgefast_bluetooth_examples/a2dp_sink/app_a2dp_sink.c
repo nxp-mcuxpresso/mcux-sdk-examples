@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 - 2021 NXP
+ * Copyright 2020 - 2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -42,7 +42,7 @@ BT_A2DP_SBC_SINK_ENDPOINT(sbcEndpoint);
 
 extern hal_audio_config_t audioTxConfig;
 extern codec_config_t boardCodecConfig;
-static HAL_AUDIO_HANDLE_DEFINE(audio_tx_handle);
+AT_NONCACHEABLE_SECTION_ALIGN(static HAL_AUDIO_HANDLE_DEFINE(audio_tx_handle), 4);
 static codec_handle_t codec_handle;
 
 static struct bt_sdp_attribute a2dp_sink_attrs[] = {

@@ -257,7 +257,9 @@ usb_status_t USB_DeviceDfuInit(uint8_t controllerId, usb_device_class_config_str
 usb_status_t USB_DeviceDfuDeinit(class_handle_t handle)
 {
     usb_device_dfu_struct_t *dfuHandle;
+#if (defined(USB_DEVICE_CONFIG_RETURN_VALUE_CHECK) && (USB_DEVICE_CONFIG_RETURN_VALUE_CHECK > 0U))
     usb_status_t error = kStatus_USB_Error;
+#endif
 
     dfuHandle = (usb_device_dfu_struct_t *)handle;
 
@@ -268,13 +270,11 @@ usb_status_t USB_DeviceDfuDeinit(class_handle_t handle)
 
     /* Free the dfu class handle. */
 #if (defined(USB_DEVICE_CONFIG_RETURN_VALUE_CHECK) && (USB_DEVICE_CONFIG_RETURN_VALUE_CHECK > 0U))
-    if (kStatus_USB_Success != USB_DeviceDfuFreeHandle(dfuHandle))
-    {
-        return kStatus_USB_Error;
-    }
+    error = USB_DeviceDfuFreeHandle(dfuHandle);
+    return error;
 #else
     (void)USB_DeviceDfuFreeHandle(dfuHandle);
+    return kStatus_USB_Success;
 #endif
-    return error;
 }
 #endif

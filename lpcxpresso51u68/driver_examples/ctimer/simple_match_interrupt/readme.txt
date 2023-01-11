@@ -2,6 +2,9 @@ Overview
 ========
 The Simple Match Interrupt project is to demonstrate usage of the SDK CTimer driver with interrupt callback functions
 In this example the upon match and IO pin connected to the LED is toggled and the timer is reset, so it would generate a square wave.
+When the number of times of entering the interrupt callback function is greater than matchUpdateCount, matchValue will be divided by 2,
+and matchUpdateCount will be multiplied by 2. When matchUpdateCount == 0XFF, matchUpdateCount and matchValue will return to the
+original settings.
 With an interrupt callback the match value is changed frequently in such a way that the frequency of the output square wave is increased gradually.
 
 Toolchain supported

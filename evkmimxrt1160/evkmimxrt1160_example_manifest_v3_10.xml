@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_evkmimxrt1160_examples_manifest_v3_10" name="SDK_2.x_evkmimxrt1160_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2022-08-11 15:01:42.385549-->
-  <!--This manifest is generated based on sdk repo commit: 7fb442914f92023b395b260777eb2355254fd71d-->
+  <!--Timestamp (UTC): 2023-01-10 16:36:17.255008-->
+  <!--This manifest is generated based on sdk repo commit: 11a5f6af5190bfe018a89b4d02c239713dc4cfa6-->
   <externalDefinitions>
     <definition extID="MIMXRT1166DVM6A"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="compiler_gcc"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2120_evkmimxrt1160_examples_manifest_v3_10" name="MCUXpressoSDK2120_evkmimxrt1160_examples_manifest_v3_10" version="2.12.0"/>
+  <ksdk id="MCUXpressoSDK2130_evkmimxrt1160_examples_manifest_v3_10" name="MCUXpressoSDK2130_evkmimxrt1160_examples_manifest_v3_10" version="2.13.0"/>
   <boards>
     <board id="evkmimxrt1160" name="MIMXRT1160-EVK" href="https://www.nxp.com/pip/MIMXRT1160-EVK" version="1.0.0" package="MIMXRT1166DVM6A">
       <examples>
@@ -232,24 +232,24 @@
             <files mask="enet_txrx_transfer_cm4_v3_10.xml"/>
           </external>
         </example>
-        <example id="evkmimxrt1160_erpc_matrix_multiply_mu_cm4" name="erpc_matrix_multiply_mu_cm4" brief="The Multicore eRPC Matrix Multiply project is a simple demonstration program that uses theMCUXpresso SDK software and the Multicore SDK to show how to implement the Remote Procedure Callbetween cores of the multicore system. The primary core (eRPC client) releases the secondary core(eRPC server) from the reset and then the erpcMatrixMultiply() eRPC call is issued to let thesecondary core to perform the multiplication of two randomly generated matrices. The originalmatrices and the result matrix is printed out to the serial console by the primary core. Thematrix multiplication can be issued repeatedly when pressing a SW board button. MU (Messaging Unit)erpc transport layer is used in this example application.eRPC documentation eRPC specific files are stored in: middleware/multicore/erpc eRPC documentation is stored in: middleware/multicore/erpc/doc eRPC is open-source project stored on github: https://github.com/EmbeddedRPC/erpc eRPC documentation can be also found in: http://embeddedrpc.github.io" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="multicore_examples" path="multicore_examples/erpc_matrix_multiply_mu/cm4">
-          <external path="multicore_examples/erpc_matrix_multiply_mu/cm4" type="xml">
-            <files mask="erpc_matrix_multiply_mu_cm4_v3_10.xml"/>
-          </external>
-        </example>
         <example id="evkmimxrt1160_erpc_matrix_multiply_mu_rtos_cm4" name="erpc_matrix_multiply_mu_rtos_cm4" brief="The Multicore eRPC Matrix Multiply RTOS project is a simple demonstration program that uses theMCUXpresso SDK software and the Multicore SDK to show how to implement the Remote Procedure Callbetween cores of the multicore system. The primary core (eRPC client) releases the secondary core(eRPC server) from the reset and then the erpcMatrixMultiply() eRPC call is issued to let thesecondary core to perform the multiplication of two randomly generated matrices. The originalmatrices and the result matrix is printed out to the serial console by the primary core. Thematrix multiplication can be issued repeatedly when pressing a SW board button. MU (Messaging Unit)erpc transport layer is used in this example application.eRPC documentation eRPC specific files are stored in: middleware/multicore/erpc eRPC documentation is stored in: middleware/multicore/erpc/doc eRPC is open-source project stored on github: https://github.com/EmbeddedRPC/erpc eRPC documentation can be also found in: http://embeddedrpc.github.io" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="multicore_examples" path="multicore_examples/erpc_matrix_multiply_mu_rtos/cm4">
           <external path="multicore_examples/erpc_matrix_multiply_mu_rtos/cm4" type="xml">
             <files mask="erpc_matrix_multiply_mu_rtos_cm4_v3_10.xml"/>
           </external>
         </example>
-        <example id="evkmimxrt1160_erpc_matrix_multiply_rpmsg_cm4" name="erpc_matrix_multiply_rpmsg_cm4" brief="The Multicore eRPC Matrix Multiply project is a simple demonstration program that uses theMCUXpresso SDK software and the Multicore SDK to show how to implement the Remote Procedure Callbetween cores of the multicore system. The primary core (eRPC client) releases the secondary core(eRPC server) from the reset and then the erpcMatrixMultiply() eRPC call is issued to let thesecondary core to perform the multiplication of two randomly generated matrices. The originalmatrices and the result matrix is printed out to the serial console by the primary core. Thematrix multiplication can be issued repeatedly when pressing a SW board button. RPMsg-Lite erpctransport layer is used in this example application.Shared memory usageThis multicore example uses the shared memory for data exchange. The shared memory region isdefined and the size can be adjustable in the linker file. The shared memory region start addressand the size have to be defined in linker file for each core equally. The shared memory startaddress is then exported from the linker to the application.eRPC documentationeRPC specific files are stored in: middleware/multicore_&lt;version&gt;/erpceRPC documentation is stored in: middleware/multicore_&lt;version&gt;/erpc/doceRPC is open-source project stored on github: https://github.com/EmbeddedRPC/erpceRPC documentation can be also found in: http://embeddedrpc.github.io" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="multicore_examples" path="multicore_examples/erpc_matrix_multiply_rpmsg/cm4">
-          <external path="multicore_examples/erpc_matrix_multiply_rpmsg/cm4" type="xml">
-            <files mask="erpc_matrix_multiply_rpmsg_cm4_v3_10.xml"/>
+        <example id="evkmimxrt1160_erpc_matrix_multiply_mu_cm4" name="erpc_matrix_multiply_mu_cm4" brief="The Multicore eRPC Matrix Multiply project is a simple demonstration program that uses theMCUXpresso SDK software and the Multicore SDK to show how to implement the Remote Procedure Callbetween cores of the multicore system. The primary core (eRPC client) releases the secondary core(eRPC server) from the reset and then the erpcMatrixMultiply() eRPC call is issued to let thesecondary core to perform the multiplication of two randomly generated matrices. The originalmatrices and the result matrix is printed out to the serial console by the primary core. Thematrix multiplication can be issued repeatedly when pressing a SW board button. MU (Messaging Unit)erpc transport layer is used in this example application.eRPC documentation eRPC specific files are stored in: middleware/multicore/erpc eRPC documentation is stored in: middleware/multicore/erpc/doc eRPC is open-source project stored on github: https://github.com/EmbeddedRPC/erpc eRPC documentation can be also found in: http://embeddedrpc.github.io" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="multicore_examples" path="multicore_examples/erpc_matrix_multiply_mu/cm4">
+          <external path="multicore_examples/erpc_matrix_multiply_mu/cm4" type="xml">
+            <files mask="erpc_matrix_multiply_mu_cm4_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1160_erpc_matrix_multiply_rpmsg_rtos_cm4" name="erpc_matrix_multiply_rpmsg_rtos_cm4" brief="The Multicore eRPC Matrix Multiply RTOS project is a simple demonstration program that uses theMCUXpresso SDK software and the Multicore SDK to show how to implement the Remote Procedure Callbetween cores of the multicore system. The primary core (eRPC client) releases the secondary core(eRPC server) from the reset and then the erpcMatrixMultiply() eRPC call is issued to let thesecondary core to perform the multiplication of two randomly generated matrices. The originalmatrices and the result matrix is printed out to the serial console by the primary core. Thematrix multiplication can be issued repeatedly when pressing a SW board button. RPMsg-Lite erpctransport layer is used in this example application.Shared memory usageThis multicore example uses the shared memory for data exchange. The shared memory region isdefined and the size can be adjustable in the linker file. The shared memory region start addressand the size have to be defined in linker file for each core equally. The shared memory startaddress is then exported from the linker to the application.eRPC documentationeRPC specific files are stored in: middleware/multicore_&lt;version&gt;/erpceRPC documentation is stored in: middleware/multicore_&lt;version&gt;/erpc/doceRPC is open-source project stored on github: https://github.com/EmbeddedRPC/erpceRPC documentation can be also found in: http://embeddedrpc.github.io" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="multicore_examples" path="multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4">
           <external path="multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4" type="xml">
             <files mask="erpc_matrix_multiply_rpmsg_rtos_cm4_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_erpc_matrix_multiply_rpmsg_cm4" name="erpc_matrix_multiply_rpmsg_cm4" brief="The Multicore eRPC Matrix Multiply project is a simple demonstration program that uses theMCUXpresso SDK software and the Multicore SDK to show how to implement the Remote Procedure Callbetween cores of the multicore system. The primary core (eRPC client) releases the secondary core(eRPC server) from the reset and then the erpcMatrixMultiply() eRPC call is issued to let thesecondary core to perform the multiplication of two randomly generated matrices. The originalmatrices and the result matrix is printed out to the serial console by the primary core. Thematrix multiplication can be issued repeatedly when pressing a SW board button. RPMsg-Lite erpctransport layer is used in this example application.Shared memory usageThis multicore example uses the shared memory for data exchange. The shared memory region isdefined and the size can be adjustable in the linker file. The shared memory region start addressand the size have to be defined in linker file for each core equally. The shared memory startaddress is then exported from the linker to the application.eRPC documentationeRPC specific files are stored in: middleware/multicore_&lt;version&gt;/erpceRPC documentation is stored in: middleware/multicore_&lt;version&gt;/erpc/doceRPC is open-source project stored on github: https://github.com/EmbeddedRPC/erpceRPC documentation can be also found in: http://embeddedrpc.github.io" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="multicore_examples" path="multicore_examples/erpc_matrix_multiply_rpmsg/cm4">
+          <external path="multicore_examples/erpc_matrix_multiply_rpmsg/cm4" type="xml">
+            <files mask="erpc_matrix_multiply_rpmsg_cm4_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1160_erpc_two_way_rpc_rpmsg_rtos_cm4" name="erpc_two_way_rpc_rpmsg_rtos_cm4" brief="The Multicore eRPC Two Way RPC RTOS project is a simple demonstration program that uses the MCUXpresso SDK software and the Multicore SDK to show how to implement the Remote Procedure Call between cores of the multicore system. This multicore example shows how both the eRPC client and the eRPC server can be setup on one side/core (bidirectional communication) and how to handle callback functions in eRPC. The primary core (Core0) creates client and server tasks first. The client task releases the secondary core from the reset, initializes the RPMsg-Lite erpc transport and once the server task is running it configures the arbitrated client. Then the application logic is running. The secondary core (Core1) creates client and server tasks two. The client task initializes the RPMsg-Lite erpc transport and once the server task is running it configures the arbitrated client. Then the application logic is running. The client task logic of the Core1 is very simple, it repeatedly calls the increaseNumber() erpc function that is implemented on the Core0 and that increments the counter. The client task logic of the Core0 alternately issues either getNumberFromCore0() function implementation on the Core0 or getNumberFromCore1() function implementation on the Core1 (erpc call). Then, the nestedCallGetNumber() erpc function call is issued that alternately triggers either getNumberFromCore1() function implementation on the Core1 (normal erpc call) or it triggers the getNumberFromCore0() function implementation on the Core0 (nested erpc call, routed through the Core1 erpc server)." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="multicore_examples" path="multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm4">
@@ -752,11 +752,6 @@
             <files mask="mu_polling_core1_v3_10.xml"/>
           </external>
         </example>
-        <example id="evkmimxrt1160_multicore_manager_cm4" name="multicore_manager_cm4" brief="The Multicore Manager example application demonstrates advanced features of the MCMgr component.&#10;In this demo, the primary core prints the &quot;Hello World from the Primary Core!&quot; string to the terminal&#10;and then releases the secondary core from the reset. The secondary&#10;core toggles an on-board LED indicating that the secondary core is running. It is also possible to&#10;stop/start the secondary core during the runtime by pressing on-board buttons. The&#10;on-board LED then indicates the change, it stops/starts toggling accordingly.&#10;&#10;This application also shows how to use the Multicore Manager for&#10;remote core monitoring and handling of events such as application, CoreUp, CoreDown and exception events.&#10;Application-specific callback functions for events are registered by the MCMGR_RegisterEvent() API&#10;on the primary core. Triggering these events is done using the MCMGR_TriggerEvent() API on the&#10;secondary core. While CoreUp, CoreDown events are triggered from startup and MCMGR code, the&#10;application event is triggered from the application.&#10;The exception event is triggered in the secondary application after 100 LED toggles by trying&#10;to write to flash. This raises the exception on the secondary core and triggers the&#10;RemoteExceptionEvent on the primary core.&#10;" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="multicore_examples" path="multicore_examples/multicore_manager/cm4">
-          <external path="multicore_examples/multicore_manager/cm4" type="xml">
-            <files mask="multicore_manager_cm4_v3_10.xml"/>
-          </external>
-        </example>
         <example id="evkmimxrt1160_ocotp_example_cm4" name="ocotp_example_cm4" brief="The ocotp driver example shows how to operation the OCOTP register with driver API." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ocotp" path="driver_examples/ocotp/cm4">
           <external path="driver_examples/ocotp/cm4" type="xml">
             <files mask="ocotp_example_cm4_v3_10.xml"/>
@@ -882,14 +877,14 @@
             <files mask="rdc_cm4_v3_10.xml"/>
           </external>
         </example>
-        <example id="evkmimxrt1160_rpmsg_lite_pingpong_cm4" name="rpmsg_lite_pingpong_cm4" brief="The Multicore RPMsg-Lite pingpong project is a simple demonstration program that uses theMCUXpresso SDK software and the RPMsg-Lite library and shows how to implement the inter-corecommunicaton between cores of the multicore system. The primary core releases the secondary corefrom the reset and then the inter-core communication is established. Once the RPMsg is initializedand endpoints are created the message exchange starts, incrementing a virtual counter that is partof the message payload. The message pingpong finishes when the counter reaches the value of 100.Then the RPMsg-Lite is deinitialized and the procedure of the data exchange is repeated again.Shared memory usageThis multicore example uses the shared memory for data exchange. The shared memory region isdefined and the size can be adjustable in the linker file. The shared memory region start addressand the size have to be defined in linker file for each core equally. The shared memory startaddress is then exported from the linker to the application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="multicore_examples" path="multicore_examples/rpmsg_lite_pingpong/cm4">
-          <external path="multicore_examples/rpmsg_lite_pingpong/cm4" type="xml">
-            <files mask="rpmsg_lite_pingpong_cm4_v3_10.xml"/>
-          </external>
-        </example>
         <example id="evkmimxrt1160_rpmsg_lite_pingpong_rtos_cm4" name="rpmsg_lite_pingpong_rtos_cm4" brief="The Multicore RPMsg-Lite pingpong RTOS project is a simple demonstration program that uses theMCUXpresso SDK software and the RPMsg-Lite library and shows how to implement the inter-corecommunicaton between cores of the multicore system. The primary core releases the secondary corefrom the reset and then the inter-core communication is established. Once the RPMsg is initializedand endpoints are created the message exchange starts, incrementing a virtual counter that is partof the message payload. The message pingpong finishes when the counter reaches the value of 100.Then the RPMsg-Lite is deinitialized and the procedure of the data exchange is repeated again.Shared memory usageThis multicore example uses the shared memory for data exchange. The shared memory region isdefined and the size can be adjustable in the linker file. The shared memory region start addressand the size have to be defined in linker file for each core equally. The shared memory startaddress is then exported from the linker to the application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="multicore_examples" path="multicore_examples/rpmsg_lite_pingpong_rtos/cm4">
           <external path="multicore_examples/rpmsg_lite_pingpong_rtos/cm4" type="xml">
             <files mask="rpmsg_lite_pingpong_rtos_cm4_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_rpmsg_lite_pingpong_cm4" name="rpmsg_lite_pingpong_cm4" brief="The Multicore RPMsg-Lite pingpong project is a simple demonstration program that uses theMCUXpresso SDK software and the RPMsg-Lite library and shows how to implement the inter-corecommunicaton between cores of the multicore system. The primary core releases the secondary corefrom the reset and then the inter-core communication is established. Once the RPMsg is initializedand endpoints are created the message exchange starts, incrementing a virtual counter that is partof the message payload. The message pingpong finishes when the counter reaches the value of 100.Then the RPMsg-Lite is deinitialized and the procedure of the data exchange is repeated again.Shared memory usageThis multicore example uses the shared memory for data exchange. The shared memory region isdefined and the size can be adjustable in the linker file. The shared memory region start addressand the size have to be defined in linker file for each core equally. The shared memory startaddress is then exported from the linker to the application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="multicore_examples" path="multicore_examples/rpmsg_lite_pingpong/cm4">
+          <external path="multicore_examples/rpmsg_lite_pingpong/cm4" type="xml">
+            <files mask="rpmsg_lite_pingpong_cm4_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1160_sai_cm4" name="sai_cm4" brief="The SAI Demo application demonstrates complicated digital audio playback and record case. The demo provide these features below:1. Duplex audio transfer, record and playback at same time.2. Playback a 250 Hz sine wave data generated by CMSIS-DSP library. Also compute the fundamental frequency using Fast Fourier Transform with CMSIS-DSP library.3. Record a 5 seconds audio to sdcard with a FatFs system. After record, playback it. This feature may only existed in platform which support sdhc." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="demo_apps/sai/cm4">
@@ -1037,9 +1032,9 @@
             <files mask="tempsensor_cm4_v3_10.xml"/>
           </external>
         </example>
-        <example id="evkmimxrt1160_tensorflow_lite_micro_multicore_cm4" name="tensorflow_lite_micro_multicore_cm4" brief="eIQ multicore for TensorFlow Lite Micro Keyword spotting example" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tensorflow_lite_micro_multicore/cm4">
-          <external path="eiq_examples/tensorflow_lite_micro_multicore/cm4" type="xml">
-            <files mask="tensorflow_lite_micro_multicore_cm4_v3_10.xml"/>
+        <example id="evkmimxrt1160_tflm_multicore_cm4" name="tflm_multicore_cm4" brief="eIQ multicore for TensorFlow Lite Micro Keyword spotting example" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tflm_multicore/cm4">
+          <external path="eiq_examples/tflm_multicore/cm4" type="xml">
+            <files mask="tflm_multicore_cm4_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1160_xbar_aoi_cm4" name="xbar_aoi_cm4" brief="The XBAR AOI demo application demonstrates the usage of the XBAR, AOI peripheral to combine interruptfrom CMP and PIT. If the button is pressed(CMP interrupt) and the PIT periodic interrupt occurs a message is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="demo_apps/xbar_aoi/cm4">
@@ -1150,6 +1145,26 @@
         <example id="evkmimxrt1160_cdog_cm7" name="cdog_cm7" brief="The CDOG Example project is a demonstration program that uses the KSDK software to show funcionality of Code Watchdog Timer." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples" path="driver_examples/cdog/cm7">
           <external path="driver_examples/cdog/cm7" type="xml">
             <files mask="cdog_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_central_hpc" name="central_hpc" brief="The ethermind hpc example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="edgefast_bluetooth_examples/central_hpc/cm7">
+          <external path="edgefast_bluetooth_examples/central_hpc/cm7" type="xml">
+            <files mask="central_hpc_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_central_ht" name="central_ht" brief="The ethermind hts example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="edgefast_bluetooth_examples/central_ht/cm7">
+          <external path="edgefast_bluetooth_examples/central_ht/cm7" type="xml">
+            <files mask="central_ht_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_central_ipsp" name="central_ipsp" brief="The ethermind ipsp example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="edgefast_bluetooth_examples/central_ipsp/cm7">
+          <external path="edgefast_bluetooth_examples/central_ipsp/cm7" type="xml">
+            <files mask="central_ipsp_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_central_pxm" name="central_pxm" brief="The ethermind pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="edgefast_bluetooth_examples/central_pxm/cm7">
+          <external path="edgefast_bluetooth_examples/central_pxm/cm7" type="xml">
+            <files mask="central_pxm_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1160_cmsis_enet_txrx_transfer_cm7" name="cmsis_enet_txrx_transfer_cm7" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide &#10;range of supported microcontroller devices. The API connects microcontroller peripherals with middleware &#10;that implements for example communication stacks, file systems, or graphic user interfaces. &#10;More information and usage method please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.&#10;&#10;The cmsis_enet_transfer example shows how to use CMSIS ENET driver:&#10;&#10;In this example, the ENET transmits 20 number broadcast frames and will print the received frame.&#10;&#10;" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/enet" path="cmsis_driver_examples/enet/txrx_transfer/cm7">
@@ -1655,6 +1670,11 @@
         <example id="evkmimxrt1160_fbdev_freertos_cm7" name="fbdev_freertos_cm7" brief="This example shows how to use the fbdev component. The fbdev masks the difference of LCD controllers and provides a unified APIs for upper layers. At the same time, the frame buffers are managed by the FBDEV. When the example runs, you can see a rectangle moving in the screen, and its color changes when reached the border." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="display_examples" path="display_examples/fbdev_freertos/cm7">
           <external path="display_examples/fbdev_freertos/cm7" type="xml">
             <files mask="fbdev_freertos_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_filex_levelx_mflash" name="filex_levelx_mflash" brief="The filex_levelx_mflash example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="azure_rtos_examples" path="azure_rtos_examples/filex_levelx_mflash/cm7">
+          <external path="azure_rtos_examples/filex_levelx_mflash/cm7" type="xml">
+            <files mask="filex_levelx_mflash_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1160_filex_lib" name="filex_lib" brief="FileX library" toolchain="mcuxpresso" compiler="compiler_gcc" category="azure_rtos_libs" path="azure_rtos_examples/filex_lib">
@@ -2297,6 +2317,26 @@
             <files mask="lwip_ping_freertos_cm7_v3_10.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt1160_maestro_playback" name="maestro_playback" brief="Audio maestro framework demo example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="audio_examples" path="audio_examples/maestro_playback/cm7">
+          <external path="audio_examples/maestro_playback/cm7" type="xml">
+            <files mask="maestro_playback_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_maestro_record" name="maestro_record" brief="Audio maestro framework demo example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="audio_examples" path="audio_examples/maestro_record/cm7">
+          <external path="audio_examples/maestro_record/cm7" type="xml">
+            <files mask="maestro_record_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_maestro_usb_mic" name="maestro_usb_mic" brief="Audio maestro framework USB microphone example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="audio_examples" path="audio_examples/maestro_usb_mic/cm7">
+          <external path="audio_examples/maestro_usb_mic/cm7" type="xml">
+            <files mask="maestro_usb_mic_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_maestro_usb_speaker" name="maestro_usb_speaker" brief="Audio maestro framework USB speaker example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="audio_examples" path="audio_examples/maestro_usb_speaker/cm7">
+          <external path="audio_examples/maestro_usb_speaker/cm7" type="xml">
+            <files mask="maestro_usb_speaker_v3_10.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt1160_mbedtls_benchmark_cm7" name="mbedtls_benchmark_cm7" brief="The mbdedTLS Benchmark demo application performs cryptographic algorithm benchmarking and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="mbedtls_examples/mbedtls_benchmark/cm7">
           <external path="mbedtls_examples/mbedtls_benchmark/cm7" type="xml">
             <files mask="mbedtls_benchmark_cm7_v3_10.xml"/>
@@ -2330,11 +2370,6 @@
         <example id="evkmimxrt1160_mu_polling_core0" name="mu_polling_core0" brief="The mu_polling example shows how to use MU driver in polling way:In this example:1. Core 0 send message to Core 1 in polling mode via MU module.2. Core 1 send message back to Core 0 in polling mode.3. Core 0 receive message sent from Core 1 in polling mode." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/mu" linked_projects="evkmimxrt1160_mu_polling_core1" path="driver_examples/mu/polling/core0">
           <external path="driver_examples/mu/polling/core0" type="xml">
             <files mask="mu_polling_core0_v3_10.xml"/>
-          </external>
-        </example>
-        <example id="evkmimxrt1160_multicore_manager_cm7" name="multicore_manager_cm7" brief="The Multicore Manager example application demonstrates advanced features of the MCMgr component.&#10;In this demo, the primary core prints the &quot;Hello World from the Primary Core!&quot; string to the terminal&#10;and then releases the secondary core from the reset. The secondary&#10;core toggles an on-board LED indicating that the secondary core is running. It is also possible to&#10;stop/start the secondary core during the runtime by pressing on-board buttons. The&#10;on-board LED then indicates the change, it stops/starts toggling accordingly.&#10;&#10;This application also shows how to use the Multicore Manager for&#10;remote core monitoring and handling of events such as application, CoreUp, CoreDown and exception events.&#10;Application-specific callback functions for events are registered by the MCMGR_RegisterEvent() API&#10;on the primary core. Triggering these events is done using the MCMGR_TriggerEvent() API on the&#10;secondary core. While CoreUp, CoreDown events are triggered from startup and MCMGR code, the&#10;application event is triggered from the application.&#10;The exception event is triggered in the secondary application after 100 LED toggles by trying&#10;to write to flash. This raises the exception on the secondary core and triggers the&#10;RemoteExceptionEvent on the primary core.&#10;" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="multicore_examples" linked_projects="evkmimxrt1160_multicore_manager_cm4" path="multicore_examples/multicore_manager/cm7">
-          <external path="multicore_examples/multicore_manager/cm7" type="xml">
-            <files mask="multicore_manager_cm7_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1160_netx_duo_iperf" name="netx_duo_iperf" brief="The netx_duo_iperf example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="azure_rtos_examples" path="azure_rtos_examples/netx_duo_iperf/cm7">
@@ -2385,6 +2420,31 @@
         <example id="evkmimxrt1160_pdm_sai_multi_channel_edma_cm7" name="pdm_sai_multi_channel_edma_cm7" brief="The pdm_sai_multi_channel_edma example shows how to use pdm edma driver to record multi channel data together with sai edma driver" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/pdm" path="driver_examples/pdm/pdm_sai_multi_channel_edma/cm7">
           <external path="driver_examples/pdm/pdm_sai_multi_channel_edma/cm7" type="xml">
             <files mask="pdm_sai_multi_channel_edma_cm7_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_peripheral_beacon" name="peripheral_beacon" brief="The ethermind beacon example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="edgefast_bluetooth_examples/peripheral_beacon/cm7">
+          <external path="edgefast_bluetooth_examples/peripheral_beacon/cm7" type="xml">
+            <files mask="peripheral_beacon_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_peripheral_hps" name="peripheral_hps" brief="The ethermind hps example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="edgefast_bluetooth_examples/peripheral_hps/cm7">
+          <external path="edgefast_bluetooth_examples/peripheral_hps/cm7" type="xml">
+            <files mask="peripheral_hps_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_peripheral_ht" name="peripheral_ht" brief="The ethermind hts example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="edgefast_bluetooth_examples/peripheral_ht/cm7">
+          <external path="edgefast_bluetooth_examples/peripheral_ht/cm7" type="xml">
+            <files mask="peripheral_ht_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_peripheral_ipsp" name="peripheral_ipsp" brief="The ethermind ipsp example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="edgefast_bluetooth_examples/peripheral_ipsp/cm7">
+          <external path="edgefast_bluetooth_examples/peripheral_ipsp/cm7" type="xml">
+            <files mask="peripheral_ipsp_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_peripheral_pxr" name="peripheral_pxr" brief="The ethermind pxr example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="edgefast_bluetooth_examples/peripheral_pxr/cm7">
+          <external path="edgefast_bluetooth_examples/peripheral_pxr/cm7" type="xml">
+            <files mask="peripheral_pxr_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1160_pin_detect_hid_mouse_bm_cm7" name="pin_detect_hid_mouse_bm_cm7" brief="This pin detect HID example supports the mouse device. The application prints the operation information when the mouse device is attached or plugged in to the PC host." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="usb_examples/usb_pin_detect_hid_mouse/bm/cm7">
@@ -2652,6 +2712,11 @@
             <files mask="spdif_interrupt_transfer_cm7_v3_10.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt1160_spp" name="spp" brief="The Bluetooth BR SPP example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="edgefast_bluetooth_examples/spp/cm7">
+          <external path="edgefast_bluetooth_examples/spp/cm7" type="xml">
+            <files mask="spp_v3_10.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt1160_src_global_reset_cm7" name="src_global_reset_cm7" brief="The src_global_reset example shows how to reset the selected slice via software.s" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/src" path="driver_examples/src/src_global_reset/cm7">
           <external path="driver_examples/src/src_global_reset/cm7" type="xml">
             <files mask="src_global_reset_cm7_v3_10.xml"/>
@@ -2672,24 +2737,24 @@
             <files mask="tempsensor_cm7_v3_10.xml"/>
           </external>
         </example>
-        <example id="evkmimxrt1160_tensorflow_lite_micro_cifar10_cm7" name="tensorflow_lite_micro_cifar10_cm7" brief="CIFAR-10 example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tensorflow_lite_micro_cifar10">
-          <external path="eiq_examples/tensorflow_lite_micro_cifar10" type="xml">
-            <files mask="tensorflow_lite_micro_cifar10_cm7_v3_10.xml"/>
+        <example id="evkmimxrt1160_tflm_cifar10_cm7" name="tflm_cifar10_cm7" brief="CIFAR-10 example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tflm_cifar10">
+          <external path="eiq_examples/tflm_cifar10" type="xml">
+            <files mask="tflm_cifar10_cm7_v3_10.xml"/>
           </external>
         </example>
-        <example id="evkmimxrt1160_tensorflow_lite_micro_kws_cm7" name="tensorflow_lite_micro_kws_cm7" brief="Keyword spotting example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tensorflow_lite_micro_kws">
-          <external path="eiq_examples/tensorflow_lite_micro_kws" type="xml">
-            <files mask="tensorflow_lite_micro_kws_cm7_v3_10.xml"/>
+        <example id="evkmimxrt1160_tflm_kws_cm7" name="tflm_kws_cm7" brief="Keyword spotting example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tflm_kws">
+          <external path="eiq_examples/tflm_kws" type="xml">
+            <files mask="tflm_kws_cm7_v3_10.xml"/>
           </external>
         </example>
-        <example id="evkmimxrt1160_tensorflow_lite_micro_label_image_cm7" name="tensorflow_lite_micro_label_image_cm7" brief="Label image example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tensorflow_lite_micro_label_image">
-          <external path="eiq_examples/tensorflow_lite_micro_label_image" type="xml">
-            <files mask="tensorflow_lite_micro_label_image_cm7_v3_10.xml"/>
+        <example id="evkmimxrt1160_tflm_label_image_cm7" name="tflm_label_image_cm7" brief="Label image example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="eiq_examples/tflm_label_image">
+          <external path="eiq_examples/tflm_label_image" type="xml">
+            <files mask="tflm_label_image_cm7_v3_10.xml"/>
           </external>
         </example>
-        <example id="evkmimxrt1160_tensorflow_lite_micro_multicore_cm7" name="tensorflow_lite_micro_multicore_cm7" brief="eIQ multicore for TensorFlow Lite Micro Label image example" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" linked_projects="evkmimxrt1160_tensorflow_lite_micro_multicore_cm4" path="eiq_examples/tensorflow_lite_micro_multicore/cm7">
-          <external path="eiq_examples/tensorflow_lite_micro_multicore/cm7" type="xml">
-            <files mask="tensorflow_lite_micro_multicore_cm7_v3_10.xml"/>
+        <example id="evkmimxrt1160_tflm_multicore_cm7" name="tflm_multicore_cm7" brief="eIQ multicore for TensorFlow Lite Micro Label image example" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" linked_projects="evkmimxrt1160_tflm_multicore_cm4" path="eiq_examples/tflm_multicore/cm7">
+          <external path="eiq_examples/tflm_multicore/cm7" type="xml">
+            <files mask="tflm_multicore_cm7_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1160_threadx_demo" name="threadx_demo" brief="The ThreadX example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="azure_rtos_examples" path="azure_rtos_examples/threadx_demo/cm7">
@@ -2705,6 +2770,16 @@
         <example id="evkmimxrt1160_uart_example" name="uart_example" brief="The example shows how to use the uart driver in Azure RTOS." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="azure_rtos_examples" path="azure_rtos_examples/uart_example/cm7">
           <external path="azure_rtos_examples/uart_example/cm7" type="xml">
             <files mask="uart_example_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_usbx_device_audio_microphone" name="usbx_device_audio_microphone" brief="The usbx_device_audio_microphone example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="azure_rtos_examples" path="azure_rtos_examples/usbx_device_audio_microphone/cm7">
+          <external path="azure_rtos_examples/usbx_device_audio_microphone/cm7" type="xml">
+            <files mask="usbx_device_audio_microphone_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1160_usbx_device_audio_speaker" name="usbx_device_audio_speaker" brief="The usbx_device_audio_speaker example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="azure_rtos_examples" path="azure_rtos_examples/usbx_device_audio_speaker/cm7">
+          <external path="azure_rtos_examples/usbx_device_audio_speaker/cm7" type="xml">
+            <files mask="usbx_device_audio_speaker_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1160_usbx_device_composite_cdc_acm_cdc_acm" name="usbx_device_composite_cdc_acm_cdc_acm" brief="The usbx_device_composite_cdc_acm_cdc_acm example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="azure_rtos_examples" path="azure_rtos_examples/usbx_device_composite_cdc_acm_cdc_acm/cm7">

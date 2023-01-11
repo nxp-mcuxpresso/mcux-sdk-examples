@@ -262,6 +262,8 @@ int main(void)
     saiPlayAudio((uint8_t *)s_asrcOutBuffer,
                  ASRC_GetContextOutSampleSize(DEMO_ASRC_IN_SAMPLE_RATE, MUSIC_LEN, 2U, DEMO_ASRC_OUT_SAMPLE_RATE, 2U));
 
+    /* Once transfer all finish, de-initializes the SAI peripheral */
+    SAI_Deinit(DEMO_SAI);
     PRINTF("ASRC memory to memory polling example finished.\n\r ");
     while (1)
     {
@@ -292,6 +294,9 @@ static void saiPlayAudio(uint8_t *data, uint32_t dataSize)
     {
     }
     isSaiFinishedCount = 0U;
+
+    /* Once transfer finish, disable SAI instance and clear all the internal information. */
+    SAI_TransferTerminateSendSDMA(DEMO_SAI, &txHandle);
 }
 
 void SAI_UserIRQHandler(void)

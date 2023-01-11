@@ -47,9 +47,9 @@ i3c_device_control_info_t i3cMasterCtlInfo        = {
  */
 int main(void)
 {
-    /* Attach main clock to I3C, 396MHz / 4 = 99MHz. */
+    /* Attach main clock to I3C, 500MHz / 10 = 50MHz. */
     CLOCK_AttachClk(kMAIN_CLK_to_I3C_CLK);
-    CLOCK_SetClkDiv(kCLOCK_DivI3cClk, 4);
+    CLOCK_SetClkDiv(kCLOCK_DivI3cClk, 10);
 
     /* Attach lposc_1m clock to I3C time control, clear halt for slow clock. */
     CLOCK_AttachClk(kLPOSC_to_I3C_TC_CLK);

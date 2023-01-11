@@ -74,7 +74,6 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../core/boards/lpcxpresso51u68" project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/lpcxpresso51u68/driver_examples/ctimer/simple_match_interrupt" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="ctimer_match_interrupt_example.ewd"/>

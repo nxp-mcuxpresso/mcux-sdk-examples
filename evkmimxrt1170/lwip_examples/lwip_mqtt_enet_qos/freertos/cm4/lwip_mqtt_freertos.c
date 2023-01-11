@@ -10,32 +10,19 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "lwip/opt.h"
-
-#if LWIP_IPV4 && LWIP_RAW && LWIP_NETCONN && LWIP_DHCP && LWIP_DNS
-
 #include "pin_mux.h"
 #include "board.h"
 #include "fsl_silicon_id.h"
 #include "fsl_phy.h"
+#include "mqtt_freertos.h"
 
+#include "lwip/opt.h"
 #include "lwip/api.h"
-#include "lwip/apps/mqtt.h"
 #include "lwip/dhcp.h"
-#include "lwip/netdb.h"
 #include "lwip/netifapi.h"
-#include "lwip/prot/dhcp.h"
-#include "lwip/tcpip.h"
-#include "lwip/timeouts.h"
-#include "netif/ethernet.h"
-#include "enet_ethernetif.h"
-#include "fsl_silicon_id.h"
-
-#include "ctype.h"
-#include "stdio.h"
+#include "ethernetif.h"
 
 #include "fsl_phyrtl8211f.h"
-#include "fsl_enet_qos_mdio.h"
 #include "fsl_enet_qos.h"
 /*******************************************************************************
  * Definitions
@@ -85,17 +72,12 @@
 #define configGW_ADDR3 100
 #endif
 
-/* Address of PHY interface. */
-#define EXAMPLE_PHY_ADDRESS 0x01U
-
-/* MDIO operations. */
-#define EXAMPLE_MDIO_OPS enet_qos_ops
-
-/* PHY operations. */
-#define EXAMPLE_PHY_OPS phyrtl8211f_ops
-
-/* ENET clock frequency. */
-#define EXAMPLE_CLOCK_FREQ CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
+/* Ethernet configuration. */
+extern phy_rtl8211f_resource_t g_phy_resource;
+#define EXAMPLE_PHY_ADDRESS  0x01U
+#define EXAMPLE_PHY_OPS      &phyrtl8211f_ops
+#define EXAMPLE_PHY_RESOURCE &g_phy_resource
+#define EXAMPLE_CLOCK_FREQ   CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
 
 /* ENET IRQ priority. Used in FreeRTOS. */
 #ifndef ENET_PRIORITY
@@ -108,69 +90,22 @@
 #define EXAMPLE_NETIF_INIT_FN ethernetif0_init
 #endif /* EXAMPLE_NETIF_INIT_FN */
 
-/*! @brief MQTT server host name or IP address. */
-#define EXAMPLE_MQTT_SERVER_HOST "broker.hivemq.com"
-
-/*! @brief MQTT server port number. */
-#define EXAMPLE_MQTT_SERVER_PORT 1883
-
 /*! @brief Stack size of the temporary lwIP initialization thread. */
 #define INIT_THREAD_STACKSIZE 1024
 
 /*! @brief Priority of the temporary lwIP initialization thread. */
 #define INIT_THREAD_PRIO DEFAULT_THREAD_PRIO
 
-/*! @brief Stack size of the temporary initialization thread. */
-#define APP_THREAD_STACKSIZE 1024
-
-/*! @brief Priority of the temporary initialization thread. */
-#define APP_THREAD_PRIO DEFAULT_THREAD_PRIO
-
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
 
-static void connect_to_mqtt(void *ctx);
-
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+phy_rtl8211f_resource_t g_phy_resource;
 
-static mdio_handle_t mdioHandle = {.ops = &EXAMPLE_MDIO_OPS};
-static phy_handle_t phyHandle   = {.phyAddr = EXAMPLE_PHY_ADDRESS, .mdioHandle = &mdioHandle, .ops = &EXAMPLE_PHY_OPS};
-
-/*! @brief MQTT client data. */
-static mqtt_client_t *mqtt_client;
-
-/*! @brief MQTT client ID string. */
-static char client_id[(SILICONID_MAX_LENGTH * 2) + 5];
-
-/*! @brief MQTT client information. */
-static const struct mqtt_connect_client_info_t mqtt_client_info = {
-    .client_id   = (const char *)&client_id[0],
-    .client_user = NULL,
-    .client_pass = NULL,
-    .keep_alive  = 100,
-    .will_topic  = NULL,
-    .will_msg    = NULL,
-    .will_qos    = 0,
-    .will_retain = 0,
-#if LWIP_ALTCP && LWIP_ALTCP_TLS
-    .tls_config = NULL,
-#endif
-};
-
-/*! @brief MQTT broker IP address. */
-static ip_addr_t mqtt_addr;
-
-/*! @brief Indicates connection to MQTT broker. */
-static volatile bool connected = false;
-
-/*! @brief Binary semaphore to block thread until valid IPv4 address is obtained from DHCP*/
-static SemaphoreHandle_t sem_ipv4_addr_valid;
-
-/*! @brief Memory for lwIP stack needed registration of callback*/
-NETIF_DECLARE_EXT_CALLBACK(netif_ext_cb_mem);
+static phy_handle_t phyHandle;
 
 /*******************************************************************************
  * Code
@@ -214,306 +149,33 @@ void BOARD_UpdateENETModuleClock(enet_qos_mii_speed_t miiSpeed)
     CLOCK_SetRootClock(kCLOCK_Root_Enet_Qos, &rootCfg);
 }
 
+void ENET_QOS_EnableClock(bool enable)
+{
+    IOMUXC_GPR->GPR6 =
+        (IOMUXC_GPR->GPR6 & (~IOMUXC_GPR_GPR6_ENET_QOS_CLKGEN_EN_MASK)) | IOMUXC_GPR_GPR6_ENET_QOS_CLKGEN_EN(enable);
+}
 void ENET_QOS_SetSYSControl(enet_qos_mii_mode_t miiMode)
 {
-    IOMUXC_GPR->GPR6 |= (miiMode << 3U);
-    IOMUXC_GPR->GPR6 |= IOMUXC_GPR_GPR6_ENET_QOS_CLKGEN_EN_MASK; /* Set this bit to enable ENET_QOS clock generation. */
+    IOMUXC_GPR->GPR6 =
+        (IOMUXC_GPR->GPR6 & (~IOMUXC_GPR_GPR6_ENET_QOS_INTF_SEL_MASK)) | IOMUXC_GPR_GPR6_ENET_QOS_INTF_SEL(miiMode);
 }
 
-
-/*!
- * @brief Callback called by lwIP stack on various events.
- */
-static void netif_ext_cb(struct netif *cb_netif, netif_nsc_reason_t reason, const netif_ext_callback_args_t *args)
+static void MDIO_Init(void)
 {
-    (void)cb_netif;
-    (void)args;
-
-    if (0U != (reason & (netif_nsc_reason_t)LWIP_NSC_IPV4_ADDR_VALID))
-    {
-        (void)xSemaphoreGive(sem_ipv4_addr_valid);
-    }
+    CLOCK_EnableClock(s_enetqosClock[ENET_QOS_GetInstance(ENET_QOS)]);
+    ENET_QOS_SetSMI(ENET_QOS, EXAMPLE_CLOCK_FREQ);
 }
 
-/*!
- * @brief Called when subscription request finishes.
- */
-static void mqtt_topic_subscribed_cb(void *arg, err_t err)
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
 {
-    const char *topic = (const char *)arg;
-
-    if (err == ERR_OK)
-    {
-        PRINTF("Subscribed to the topic \"%s\".\r\n", topic);
-    }
-    else
-    {
-        PRINTF("Failed to subscribe to the topic \"%s\": %d.\r\n", topic, err);
-    }
+    return ENET_QOS_MDIOWrite(ENET_QOS, phyAddr, regAddr, data);
 }
 
-/*!
- * @brief Called when there is a message on a subscribed topic.
- */
-static void mqtt_incoming_publish_cb(void *arg, const char *topic, u32_t tot_len)
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
 {
-    LWIP_UNUSED_ARG(arg);
-
-    PRINTF("Received %u bytes from the topic \"%s\": \"", tot_len, topic);
+    return ENET_QOS_MDIORead(ENET_QOS, phyAddr, regAddr, pData);
 }
 
-/*!
- * @brief Called when recieved incoming published message fragment.
- */
-static void mqtt_incoming_data_cb(void *arg, const u8_t *data, u16_t len, u8_t flags)
-{
-    int i;
-
-    LWIP_UNUSED_ARG(arg);
-
-    for (i = 0; i < len; i++)
-    {
-        if (isprint(data[i]))
-        {
-            PRINTF("%c", (char)data[i]);
-        }
-        else
-        {
-            PRINTF("\\x%02x", data[i]);
-        }
-    }
-
-    if (flags & MQTT_DATA_FLAG_LAST)
-    {
-        PRINTF("\"\r\n");
-    }
-}
-
-/*!
- * @brief Subscribe to MQTT topics.
- */
-static void mqtt_subscribe_topics(mqtt_client_t *client)
-{
-    static const char *topics[] = {"lwip_topic/#", "lwip_other/#"};
-    int qos[]                   = {0, 1};
-    err_t err;
-    int i;
-
-    mqtt_set_inpub_callback(client, mqtt_incoming_publish_cb, mqtt_incoming_data_cb,
-                            LWIP_CONST_CAST(void *, &mqtt_client_info));
-
-    for (i = 0; i < ARRAY_SIZE(topics); i++)
-    {
-        err = mqtt_subscribe(client, topics[i], qos[i], mqtt_topic_subscribed_cb, LWIP_CONST_CAST(void *, topics[i]));
-
-        if (err == ERR_OK)
-        {
-            PRINTF("Subscribing to the topic \"%s\" with QoS %d...\r\n", topics[i], qos[i]);
-        }
-        else
-        {
-            PRINTF("Failed to subscribe to the topic \"%s\" with QoS %d: %d.\r\n", topics[i], qos[i], err);
-        }
-    }
-}
-
-/*!
- * @brief Called when connection state changes.
- */
-static void mqtt_connection_cb(mqtt_client_t *client, void *arg, mqtt_connection_status_t status)
-{
-    const struct mqtt_connect_client_info_t *client_info = (const struct mqtt_connect_client_info_t *)arg;
-
-    connected = (status == MQTT_CONNECT_ACCEPTED);
-
-    switch (status)
-    {
-        case MQTT_CONNECT_ACCEPTED:
-            PRINTF("MQTT client \"%s\" connected.\r\n", client_info->client_id);
-            mqtt_subscribe_topics(client);
-            break;
-
-        case MQTT_CONNECT_DISCONNECTED:
-            PRINTF("MQTT client \"%s\" not connected.\r\n", client_info->client_id);
-            /* Try to reconnect 1 second later */
-            sys_timeout(1000, connect_to_mqtt, NULL);
-            break;
-
-        case MQTT_CONNECT_TIMEOUT:
-            PRINTF("MQTT client \"%s\" connection timeout.\r\n", client_info->client_id);
-            /* Try again 1 second later */
-            sys_timeout(1000, connect_to_mqtt, NULL);
-            break;
-
-        case MQTT_CONNECT_REFUSED_PROTOCOL_VERSION:
-        case MQTT_CONNECT_REFUSED_IDENTIFIER:
-        case MQTT_CONNECT_REFUSED_SERVER:
-        case MQTT_CONNECT_REFUSED_USERNAME_PASS:
-        case MQTT_CONNECT_REFUSED_NOT_AUTHORIZED_:
-            PRINTF("MQTT client \"%s\" connection refused: %d.\r\n", client_info->client_id, (int)status);
-            /* Try again 10 seconds later */
-            sys_timeout(10000, connect_to_mqtt, NULL);
-            break;
-
-        default:
-            PRINTF("MQTT client \"%s\" connection status: %d.\r\n", client_info->client_id, (int)status);
-            /* Try again 10 seconds later */
-            sys_timeout(10000, connect_to_mqtt, NULL);
-            break;
-    }
-}
-
-/*!
- * @brief Starts connecting to MQTT broker. To be called on tcpip_thread.
- */
-static void connect_to_mqtt(void *ctx)
-{
-    LWIP_UNUSED_ARG(ctx);
-
-    PRINTF("Connecting to MQTT broker at %s...\r\n", ipaddr_ntoa(&mqtt_addr));
-
-    mqtt_client_connect(mqtt_client, &mqtt_addr, EXAMPLE_MQTT_SERVER_PORT, mqtt_connection_cb,
-                        LWIP_CONST_CAST(void *, &mqtt_client_info), &mqtt_client_info);
-}
-
-/*!
- * @brief Called when publish request finishes.
- */
-static void mqtt_message_published_cb(void *arg, err_t err)
-{
-    const char *topic = (const char *)arg;
-
-    if (err == ERR_OK)
-    {
-        PRINTF("Published to the topic \"%s\".\r\n", topic);
-    }
-    else
-    {
-        PRINTF("Failed to publish to the topic \"%s\": %d.\r\n", topic, err);
-    }
-}
-
-/*!
- * @brief Publishes a message. To be called on tcpip_thread.
- */
-static void publish_message(void *ctx)
-{
-    static const char *topic   = "lwip_topic/100";
-    static const char *message = "message from board";
-
-    LWIP_UNUSED_ARG(ctx);
-
-    PRINTF("Going to publish to the topic \"%s\"...\r\n", topic);
-
-    mqtt_publish(mqtt_client, topic, message, strlen(message), 1, 0, mqtt_message_published_cb, (void *)topic);
-}
-
-/*!
- * @brief Application thread.
- */
-static void app_thread(void *arg)
-{
-    struct netif *netif = (struct netif *)arg;
-    err_t err;
-    int i;
-
-    /* Wait for address from DHCP */
-
-    PRINTF("Getting IP address from DHCP...\r\n");
-
-    xSemaphoreTake(sem_ipv4_addr_valid, portMAX_DELAY);
-
-    PRINTF("\r\nIPv4 Address     : %s\r\n", ipaddr_ntoa(&netif->ip_addr));
-    PRINTF("IPv4 Subnet mask : %s\r\n", ipaddr_ntoa(&netif->netmask));
-    PRINTF("IPv4 Gateway     : %s\r\n\r\n", ipaddr_ntoa(&netif->gw));
-
-    /*
-     * Check if we have an IP address or host name string configured.
-     * Could just call netconn_gethostbyname() on both IP address or host name,
-     * but we want to print some info if goint to resolve it.
-     */
-    if (ipaddr_aton(EXAMPLE_MQTT_SERVER_HOST, &mqtt_addr) && IP_IS_V4(&mqtt_addr))
-    {
-        /* Already an IP address */
-        err = ERR_OK;
-    }
-    else
-    {
-        /* Resolve MQTT broker's host name to an IP address */
-        PRINTF("Resolving \"%s\"...\r\n", EXAMPLE_MQTT_SERVER_HOST);
-        err = netconn_gethostbyname(EXAMPLE_MQTT_SERVER_HOST, &mqtt_addr);
-    }
-
-    if (err == ERR_OK)
-    {
-        /* Start connecting to MQTT broker from tcpip_thread */
-        err = tcpip_callback(connect_to_mqtt, NULL);
-        if (err != ERR_OK)
-        {
-            PRINTF("Failed to invoke broker connection on the tcpip_thread: %d.\r\n", err);
-        }
-    }
-    else
-    {
-        PRINTF("Failed to obtain IP address: %d.\r\n", err);
-    }
-
-    /* Publish some messages */
-    for (i = 0; i < 5;)
-    {
-        if (connected)
-        {
-            err = tcpip_callback(publish_message, NULL);
-            if (err != ERR_OK)
-            {
-                PRINTF("Failed to invoke publishing of a message on the tcpip_thread: %d.\r\n", err);
-            }
-            i++;
-        }
-
-        sys_msleep(1000U);
-    }
-
-    vTaskDelete(NULL);
-}
-
-static void generate_client_id(void)
-{
-    uint8_t silicon_id[SILICONID_MAX_LENGTH];
-    const char *hex = "0123456789abcdef";
-    status_t status;
-    uint32_t id_len;
-    int idx = 0;
-    int i;
-
-    /* Get unique ID of SoC */
-    status = SILICONID_GetID(&silicon_id[0], &id_len);
-    assert(status == kStatus_Success);
-    assert(id_len > 0U);
-    (void)status;
-
-    /* Covert unique ID to client ID string in form: nxp_hex-unique-id */
-
-    /* Check if client_id can accomodate prefix, id and terminator */
-    assert(sizeof(client_id) >= (5U + (2U * id_len)));
-
-    /* Fill in prefix */
-    client_id[idx++] = 'n';
-    client_id[idx++] = 'x';
-    client_id[idx++] = 'p';
-    client_id[idx++] = '_';
-
-    /* Append unique ID */
-    for (i = (int)id_len - 1; i >= 0; i--)
-    {
-        uint8_t value    = silicon_id[i];
-        client_id[idx++] = hex[value >> 4];
-        client_id[idx++] = hex[value & 0xFU];
-    }
-
-    /* Terminate string */
-    client_id[idx] = '\0';
-}
 
 /*!
  * @brief Initializes lwIP stack.
@@ -523,46 +185,26 @@ static void generate_client_id(void)
 static void stack_init(void *arg)
 {
     static struct netif netif;
-    ip4_addr_t netif_ipaddr, netif_netmask, netif_gw;
     ethernetif_config_t enet_config = {
-        .phyHandle = &phyHandle,
-#ifdef configMAC_ADDR
-        .macAddress = configMAC_ADDR,
-#endif
+        .phyHandle   = &phyHandle,
+        .phyAddr     = EXAMPLE_PHY_ADDRESS,
+        .phyOps      = EXAMPLE_PHY_OPS,
+        .phyResource = EXAMPLE_PHY_RESOURCE,
+        .srcClockHz  = EXAMPLE_CLOCK_FREQ,
     };
 
     LWIP_UNUSED_ARG(arg);
-    generate_client_id();
 
-    mdioHandle.resource.csrClock_Hz = EXAMPLE_CLOCK_FREQ;
-
-#ifndef configMAC_ADDR
-    /* Set special address for each chip. */
+    /* Set MAC address. */
+#ifdef configMAC_ADDR
+    enet_config.macAddress = configMAC_ADDR,
+#else
     (void)SILICONID_ConvertToMacAddr(&enet_config.macAddress);
 #endif
 
-    IP4_ADDR(&netif_ipaddr, 0U, 0U, 0U, 0U);
-    IP4_ADDR(&netif_netmask, 0U, 0U, 0U, 0U);
-    IP4_ADDR(&netif_gw, 0U, 0U, 0U, 0U);
-
     tcpip_init(NULL, NULL);
 
-    sem_ipv4_addr_valid = xSemaphoreCreateBinary();
-    LOCK_TCPIP_CORE();
-    netif_add_ext_callback(&netif_ext_cb_mem, netif_ext_cb);
-
-    mqtt_client = mqtt_client_new();
-    UNLOCK_TCPIP_CORE();
-    if (mqtt_client == NULL)
-    {
-        PRINTF("mqtt_client_new() failed.\r\n");
-        while (1)
-        {
-        }
-    }
-
-    netifapi_netif_add(&netif, &netif_ipaddr, &netif_netmask, &netif_gw, &enet_config, EXAMPLE_NETIF_INIT_FN,
-                       tcpip_input);
+    netifapi_netif_add(&netif, NULL, NULL, NULL, &enet_config, EXAMPLE_NETIF_INIT_FN, tcpip_input);
     netifapi_netif_set_default(&netif);
     netifapi_netif_set_up(&netif);
 
@@ -572,10 +214,18 @@ static void stack_init(void *arg)
     PRINTF(" MQTT client example\r\n");
     PRINTF("************************************************\r\n");
 
-    if (sys_thread_new("app_task", app_thread, &netif, APP_THREAD_STACKSIZE, APP_THREAD_PRIO) == NULL)
+    while (ethernetif_wait_linkup(&netif, 5000) != ERR_OK)
     {
-        LWIP_ASSERT("stack_init(): Task creation failed.", 0);
+        PRINTF("PHY Auto-negotiation failed. Please check the cable connection and link partner setting.\r\n");
     }
+
+    /* Wait for address from DHCP */
+
+    PRINTF("Getting IP address from DHCP...\r\n");
+
+    (void)ethernetif_wait_ipv4_valid(&netif, ETHERNETIF_WAIT_FOREVER);
+
+    mqtt_freertos_run_thread(&netif);
 
     vTaskDelete(NULL);
 }
@@ -610,6 +260,10 @@ int main(void)
 
     NVIC_SetPriority(ENET_QOS_IRQn, ENET_PRIORITY);
 
+    MDIO_Init();
+    g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
+
     /* Initialize lwIP from thread */
     if (sys_thread_new("main", stack_init, NULL, INIT_THREAD_STACKSIZE, INIT_THREAD_PRIO) == NULL)
     {
@@ -621,4 +275,3 @@ int main(void)
     /* Will not get here unless a task calls vTaskEndScheduler ()*/
     return 0;
 }
-#endif

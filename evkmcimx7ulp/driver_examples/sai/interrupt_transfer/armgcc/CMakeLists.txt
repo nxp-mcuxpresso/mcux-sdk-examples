@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(sai_interrupt_transfer)
 
+set(MCUX_BUILD_TYPES debug release flash_debug flash_release)
+
 set(MCUX_SDK_PROJECT_NAME sai_interrupt_transfer.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -45,23 +51,36 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/evkmcimx7ulp/board.h"
 "${SdkRootDirPath}/core/boards/evkmcimx7ulp/clock_config.c"
 "${SdkRootDirPath}/core/boards/evkmcimx7ulp/clock_config.h"
-"${ProjDirPath}/../fsl_iomuxc.h"
 "${ProjDirPath}/../empty_rsc_table.c"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
-    ${SdkRootDirPath}/examples/evkmcimx7ulp/driver_examples/sai/interrupt_transfer
     ${SdkRootDirPath}/core/boards/evkmcimx7ulp
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/drivers/lpi2c
+    ${SdkRootDirPath}/core/components/codec/wm8960
+    ${SdkRootDirPath}/core/components/codec
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/components/codec/
+    ${SdkRootDirPath}/core/components/codec/i2c
+    ${SdkRootDirPath}/core/components/i2c
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/drivers/port
+    ${SdkRootDirPath}/core/drivers/gpio
+    ${SdkRootDirPath}/core/devices/MCIMX7U5/drivers
+    ${SdkRootDirPath}/core/drivers/sai
+    ${SdkRootDirPath}/core/devices/MCIMX7U5
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/drivers/lpuart
+    ${SdkRootDirPath}/core/drivers/msmc
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(driver_lpi2c)
@@ -90,6 +109,8 @@ include(driver_clock)
 
 include(driver_sai)
 
+include(driver_iomuxc)
+
 include(device_CMSIS)
 
 include(component_lpuart_adapter)
@@ -107,15 +128,13 @@ include(CMSIS_Include_core_cm)
 include(utilities_misc_utilities_MCIMX7U5)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

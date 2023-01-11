@@ -21,19 +21,20 @@
 #include "lwip/dhcp.h"
 #include "lwip/prot/dhcp.h"
 #include "netif/ethernet.h"
-#include "enet_ethernetif.h"
+#include "ethernetif.h"
 
+#ifndef configMAC_ADDR
+#include "fsl_silicon_id.h"
+#endif
+#include "fsl_phy.h"
 #include "pin_mux.h"
 #include "board.h"
-#include "fsl_silicon_id.h"
-#include "fsl_phy.h"
 
 #if BOARD_NETWORK_USE_100M_ENET_PORT
 #include "fsl_phyksz8081.h"
 #else
 #include "fsl_phyrtl8211f.h"
 #endif
-#include "fsl_enet_mdio.h"
 #include "fsl_enet.h"
 /*******************************************************************************
  * Definitions
@@ -84,23 +85,29 @@
 #endif
 
 #if BOARD_NETWORK_USE_100M_ENET_PORT
+#define EXAMPLE_ENET ENET
 /* Address of PHY interface. */
 #define EXAMPLE_PHY_ADDRESS BOARD_ENET0_PHY_ADDRESS
 /* PHY operations. */
-#define EXAMPLE_PHY_OPS phyksz8081_ops
+#define EXAMPLE_PHY_OPS &phyksz8081_ops
 /* ENET instance select. */
 #define EXAMPLE_NETIF_INIT_FN ethernetif0_init
+
+extern phy_ksz8081_resource_t g_phy_resource;
 #else
+#define EXAMPLE_ENET          ENET_1G
 /* Address of PHY interface. */
 #define EXAMPLE_PHY_ADDRESS   BOARD_ENET1_PHY_ADDRESS
 /* PHY operations. */
-#define EXAMPLE_PHY_OPS       phyrtl8211f_ops
+#define EXAMPLE_PHY_OPS       &phyrtl8211f_ops
 /* ENET instance select. */
 #define EXAMPLE_NETIF_INIT_FN ethernetif1_init
+
+extern phy_rtl8211f_resource_t g_phy_resource;
 #endif
 
-/* MDIO operations. */
-#define EXAMPLE_MDIO_OPS enet_ops
+/* PHY resource. */
+#define EXAMPLE_PHY_RESOURCE &g_phy_resource
 
 /* ENET clock frequency. */
 #define EXAMPLE_CLOCK_FREQ CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
@@ -118,9 +125,13 @@
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+#if BOARD_NETWORK_USE_100M_ENET_PORT
+phy_ksz8081_resource_t g_phy_resource;
+#else
+phy_rtl8211f_resource_t g_phy_resource;
+#endif
 
-static mdio_handle_t mdioHandle = {.ops = &EXAMPLE_MDIO_OPS};
-static phy_handle_t phyHandle   = {.phyAddr = EXAMPLE_PHY_ADDRESS, .mdioHandle = &mdioHandle, .ops = &EXAMPLE_PHY_OPS};
+static phy_handle_t phyHandle;
 
 /*******************************************************************************
  * Code
@@ -158,6 +169,22 @@ void BOARD_ENETFlexibleConfigure(enet_config_t *config)
 #else
     config->miiMode = kENET_RgmiiMode;
 #endif
+}
+
+static void MDIO_Init(void)
+{
+    (void)CLOCK_EnableClock(s_enetClock[ENET_GetInstance(EXAMPLE_ENET)]);
+    ENET_SetSMI(EXAMPLE_ENET, EXAMPLE_CLOCK_FREQ, false);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_MDIOWrite(EXAMPLE_ENET, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_MDIORead(EXAMPLE_ENET, phyAddr, regAddr, pData);
 }
 
 
@@ -245,11 +272,12 @@ static void print_dhcp_state(struct netif *netif)
 int main(void)
 {
     struct netif netif;
-    ip4_addr_t netif_ipaddr, netif_netmask, netif_gw;
-    ethernetif_config_t enet_config = {
-        .phyHandle = &phyHandle,
+    ethernetif_config_t enet_config = {.phyHandle   = &phyHandle,
+                                       .phyAddr     = EXAMPLE_PHY_ADDRESS,
+                                       .phyOps      = EXAMPLE_PHY_OPS,
+                                       .phyResource = EXAMPLE_PHY_RESOURCE,
 #ifdef configMAC_ADDR
-        .macAddress = configMAC_ADDR,
+                                       .macAddress = configMAC_ADDR
 #endif
     };
 
@@ -287,24 +315,30 @@ int main(void)
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_2_IRQn);
 #endif
 
-    mdioHandle.resource.csrClock_Hz = EXAMPLE_CLOCK_FREQ;
+    MDIO_Init();
+    g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
 
     time_init();
 
+    /* Set MAC address. */
 #ifndef configMAC_ADDR
-    /* Set special address for each chip. */
     (void)SILICONID_ConvertToMacAddr(&enet_config.macAddress);
 #endif
 
-    IP4_ADDR(&netif_ipaddr, 0U, 0U, 0U, 0U);
-    IP4_ADDR(&netif_netmask, 0U, 0U, 0U, 0U);
-    IP4_ADDR(&netif_gw, 0U, 0U, 0U, 0U);
+    /* Get clock after hardware init. */
+    enet_config.srcClockHz = EXAMPLE_CLOCK_FREQ;
 
     lwip_init();
 
-    netif_add(&netif, &netif_ipaddr, &netif_netmask, &netif_gw, &enet_config, EXAMPLE_NETIF_INIT_FN, ethernet_input);
+    netif_add(&netif, NULL, NULL, NULL, &enet_config, EXAMPLE_NETIF_INIT_FN, ethernet_input);
     netif_set_default(&netif);
     netif_set_up(&netif);
+
+    while (ethernetif_wait_linkup(&netif, 5000) != ERR_OK)
+    {
+        PRINTF("PHY Auto-negotiation failed. Please check the cable connection and link partner setting.\r\n");
+    }
 
     dhcp_start(&netif);
 

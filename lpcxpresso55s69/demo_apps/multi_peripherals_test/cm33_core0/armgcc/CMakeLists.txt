@@ -30,36 +30,42 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(multi_peripherals_test)
 
+set(MCUX_BUILD_TYPES debug release)
+
 set(MCUX_SDK_PROJECT_NAME multi_peripherals_test.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${ProjDirPath}/../../multi_peripherals_test.c"
-"${ProjDirPath}/../../accelerometer.c"
-"${ProjDirPath}/../../audio.c"
-"${ProjDirPath}/../../music.h"
-"${ProjDirPath}/../../led_blinky.c"
-"${ProjDirPath}/../../mouse.c"
-"${ProjDirPath}/../../mouse.h"
-"${ProjDirPath}/../../rtc.c"
-"${ProjDirPath}/../../sdcard.c"
-"${ProjDirPath}/../../ffconf.h"
-"${ProjDirPath}/../../usb_device_descriptor.c"
-"${ProjDirPath}/../../usb_device_descriptor.h"
-"${ProjDirPath}/../../usb_device_config.h"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/demo_apps/multi_peripherals_test/multi_peripherals_test.c"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/demo_apps/multi_peripherals_test/accelerometer.c"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/demo_apps/multi_peripherals_test/audio.c"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/demo_apps/multi_peripherals_test/music.h"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/demo_apps/multi_peripherals_test/led_blinky.c"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/demo_apps/multi_peripherals_test/mouse.c"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/demo_apps/multi_peripherals_test/mouse.h"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/demo_apps/multi_peripherals_test/rtc.c"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/demo_apps/multi_peripherals_test/sdcard.c"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/demo_apps/multi_peripherals_test/ffconf.h"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/demo_apps/multi_peripherals_test/usb_device_descriptor.c"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/demo_apps/multi_peripherals_test/usb_device_descriptor.h"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/demo_apps/multi_peripherals_test/usb_device_config.h"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../sdmmc_config.c"
 "${ProjDirPath}/../sdmmc_config.h"
-"${ProjDirPath}/../../FreeRTOSConfig.h"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/demo_apps/multi_peripherals_test/FreeRTOSConfig.h"
 "${SdkRootDirPath}/core/boards/lpcxpresso55s69/board.c"
 "${SdkRootDirPath}/core/boards/lpcxpresso55s69/board.h"
 "${SdkRootDirPath}/core/boards/lpcxpresso55s69/clock_config.c"
 "${SdkRootDirPath}/core/boards/lpcxpresso55s69/clock_config.h"
-"${ProjDirPath}/../../demo_config.h"
+"${SdkRootDirPath}/examples/lpcxpresso55s69/demo_apps/multi_peripherals_test/demo_config.h"
 "${ProjDirPath}/../usb_device_ch9.c"
 "${ProjDirPath}/../usb_device_ch9.h"
 "${ProjDirPath}/../usb_device_class.c"
@@ -68,20 +74,40 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../usb_device_hid.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${ProjDirPath}/../..
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+    ${SdkRootDirPath}/examples/lpcxpresso55s69/demo_apps/multi_peripherals_test
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/lpcxpresso55s69
-    ${SdkRootDirPath}/examples/lpcxpresso55s69/demo_apps/multi_peripherals_test
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/components/codec/i2c
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/components/i2c
+    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
+    ${SdkRootDirPath}/middleware/usb
+    ${SdkRootDirPath}/core/components/osa
+    ${SdkRootDirPath}/core/drivers/flexcomm
+    ${SdkRootDirPath}/core/drivers/lpc_gpio
+    ${SdkRootDirPath}/core/drivers/lpc_iocon
+    ${SdkRootDirPath}/core/devices/LPC55S69/drivers
+    ${SdkRootDirPath}/core/drivers/lpc_rtc
+    ${SdkRootDirPath}/core/drivers/sysctl
+    ${SdkRootDirPath}/core/drivers/sdif
+    ${SdkRootDirPath}/middleware/sdmmc
+    ${SdkRootDirPath}/middleware/fatfs
+    ${SdkRootDirPath}/core/components/codec
+    ${SdkRootDirPath}/core/components/codec/
+    ${SdkRootDirPath}/core/devices/LPC55S69
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/components/codec/wm8904
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(component_codec_i2c_LPC55S69_cm33_core0)
@@ -130,7 +156,7 @@ include(middleware_sdmmc_host_sdif)
 
 include(middleware_sdmmc_host_sdif_freertos)
 
-include(middleware_fatfs)
+include(middleware_fatfs_LPC55S69_cm33_core0)
 
 include(middleware_fatfs_sd)
 
@@ -181,15 +207,13 @@ include(utilities_misc_utilities_LPC55S69_cm33_core0)
 include(device_system_LPC55S69_cm33_core0)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

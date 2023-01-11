@@ -2,7 +2,7 @@
 <ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
   <externalDefinitions>
     <definition extID="middleware.azure_rtos.nxd.MIMXRT1024"/>
-    <definition extID="driver.mdio-enet.MIMXRT1024"/>
+    <definition extID="platform.drivers.enet.MIMXRT1024"/>
     <definition extID="driver.phy-device-ksz8081.MIMXRT1024"/>
     <definition extID="platform.drivers.clock.MIMXRT1024"/>
     <definition extID="platform.drivers.common.MIMXRT1024"/>
@@ -24,9 +24,7 @@
     <definition extID="middleware.azure_rtos.fx.template.MIMXRT1024"/>
     <definition extID="middleware.azure_rtos.tx.MIMXRT1024"/>
     <definition extID="middleware.azure_rtos.tx.template.MIMXRT1024"/>
-    <definition extID="driver.mdio-common.MIMXRT1024"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1024"/>
-    <definition extID="platform.drivers.enet.MIMXRT1024"/>
     <definition extID="driver.phy-common.MIMXRT1024"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1024"/>
     <definition extID="device.MIMXRT1024_system.MIMXRT1024"/>
@@ -38,7 +36,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1024_netx_duo_ping" name="netx_duo_ping" dependency="middleware.azure_rtos.nxd.MIMXRT1024 driver.mdio-enet.MIMXRT1024 driver.phy-device-ksz8081.MIMXRT1024 platform.drivers.clock.MIMXRT1024 platform.drivers.common.MIMXRT1024 device.MIMXRT1024_CMSIS.MIMXRT1024 utility.debug_console.MIMXRT1024 component.lpuart_adapter.MIMXRT1024 component.serial_manager.MIMXRT1024 component.lists.MIMXRT1024 component.serial_manager_uart.MIMXRT1024 platform.drivers.lpuart.MIMXRT1024 device.MIMXRT1024_startup.MIMXRT1024 platform.drivers.iomuxc.MIMXRT1024 platform.utilities.assert.MIMXRT1024 platform.drivers.igpio.MIMXRT1024 platform.drivers.xip_device.MIMXRT1024 platform.drivers.xip_board.evkmimxrt1024.MIMXRT1024 middleware.azure_rtos.nxd.template.MIMXRT1024 middleware.azure_rtos.fx.MIMXRT1024 middleware.azure_rtos.fx.template.MIMXRT1024 middleware.azure_rtos.tx.MIMXRT1024 middleware.azure_rtos.tx.template.MIMXRT1024 driver.mdio-common.MIMXRT1024 CMSIS_Include_core_cm.MIMXRT1024 platform.drivers.enet.MIMXRT1024 driver.phy-common.MIMXRT1024 platform.utilities.misc_utilities.MIMXRT1024 device.MIMXRT1024_system.MIMXRT1024" category="azure_rtos_examples">
+  <example id="evkmimxrt1024_netx_duo_ping" name="netx_duo_ping" dependency="middleware.azure_rtos.nxd.MIMXRT1024 platform.drivers.enet.MIMXRT1024 driver.phy-device-ksz8081.MIMXRT1024 platform.drivers.clock.MIMXRT1024 platform.drivers.common.MIMXRT1024 device.MIMXRT1024_CMSIS.MIMXRT1024 utility.debug_console.MIMXRT1024 component.lpuart_adapter.MIMXRT1024 component.serial_manager.MIMXRT1024 component.lists.MIMXRT1024 component.serial_manager_uart.MIMXRT1024 platform.drivers.lpuart.MIMXRT1024 device.MIMXRT1024_startup.MIMXRT1024 platform.drivers.iomuxc.MIMXRT1024 platform.utilities.assert.MIMXRT1024 platform.drivers.igpio.MIMXRT1024 platform.drivers.xip_device.MIMXRT1024 platform.drivers.xip_board.evkmimxrt1024.MIMXRT1024 middleware.azure_rtos.nxd.template.MIMXRT1024 middleware.azure_rtos.fx.MIMXRT1024 middleware.azure_rtos.fx.template.MIMXRT1024 middleware.azure_rtos.tx.MIMXRT1024 middleware.azure_rtos.tx.template.MIMXRT1024 CMSIS_Include_core_cm.MIMXRT1024 driver.phy-common.MIMXRT1024 platform.utilities.misc_utilities.MIMXRT1024 device.MIMXRT1024_system.MIMXRT1024" category="azure_rtos_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>

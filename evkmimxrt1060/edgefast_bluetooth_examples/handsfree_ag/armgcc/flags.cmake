@@ -1,12 +1,23 @@
+IF(NOT DEFINED FPU)  
+    SET(FPU "-mfloat-abi=hard -mfpu=fpv5-d16")  
+ENDIF()  
+
+IF(NOT DEFINED SPECS)  
+    SET(SPECS "--specs=nano.specs --specs=nosys.specs")  
+ENDIF()  
+
+IF(NOT DEFINED DEBUG_CONSOLE_CONFIG)  
+    SET(DEBUG_CONSOLE_CONFIG "-DSDK_DEBUGCONSOLE_UART=1")  
+ENDIF()  
+
 SET(CMAKE_ASM_FLAGS_FLEXSPI_NOR_DEBUG " \
     ${CMAKE_ASM_FLAGS_FLEXSPI_NOR_DEBUG} \
     -D__STARTUP_CLEAR_BSS \
     -DDEBUG \
     -D__STARTUP_INITIALIZE_NONCACHEDATA \
     -mcpu=cortex-m7 \
-    -mfloat-abi=hard \
-    -mfpu=fpv5-d16 \
     -mthumb \
+    ${FPU} \
 ")
 SET(CMAKE_ASM_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${CMAKE_ASM_FLAGS_FLEXSPI_NOR_RELEASE} \
@@ -14,9 +25,8 @@ SET(CMAKE_ASM_FLAGS_FLEXSPI_NOR_RELEASE " \
     -DNDEBUG \
     -D__STARTUP_INITIALIZE_NONCACHEDATA \
     -mcpu=cortex-m7 \
-    -mfloat-abi=hard \
-    -mfpu=fpv5-d16 \
     -mthumb \
+    ${FPU} \
 ")
 SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     ${CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG} \
@@ -44,7 +54,6 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DFSL_OSA_TASK_ENABLE=1 \
     -DSDIO_ENABLED=1 \
     -DDEBUG_CONSOLE_TRANSFER_NON_BLOCKING \
-    -DSDK_DEBUGCONSOLE_UART=1 \
     -DCONFIG_BT_BREDR=1 \
     -DCONFIG_BT_PERIPHERAL=1 \
     -DCONFIG_BT_CENTRAL=1 \
@@ -75,8 +84,6 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -O0 \
     -mcpu=cortex-m7 \
     -Wall \
-    -mfloat-abi=hard \
-    -mfpu=fpv5-d16 \
     -mthumb \
     -MMD \
     -MP \
@@ -89,6 +96,8 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
+    ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE} \
@@ -116,7 +125,6 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -DFSL_OSA_TASK_ENABLE=1 \
     -DSDIO_ENABLED=1 \
     -DDEBUG_CONSOLE_TRANSFER_NON_BLOCKING \
-    -DSDK_DEBUGCONSOLE_UART=1 \
     -DCONFIG_BT_BREDR=1 \
     -DCONFIG_BT_PERIPHERAL=1 \
     -DCONFIG_BT_CENTRAL=1 \
@@ -146,8 +154,6 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
-    -mfloat-abi=hard \
-    -mfpu=fpv5-d16 \
     -mthumb \
     -MMD \
     -MP \
@@ -160,6 +166,8 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
+    ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG " \
     ${CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG} \
@@ -171,8 +179,6 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG " \
     -O0 \
     -mcpu=cortex-m7 \
     -Wall \
-    -mfloat-abi=hard \
-    -mfpu=fpv5-d16 \
     -mthumb \
     -MMD \
     -MP \
@@ -184,6 +190,8 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG " \
     -mapcs \
     -fno-rtti \
     -fno-exceptions \
+    ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${CMAKE_CXX_FLAGS_FLEXSPI_NOR_RELEASE} \
@@ -194,8 +202,6 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_RELEASE " \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
-    -mfloat-abi=hard \
-    -mfpu=fpv5-d16 \
     -mthumb \
     -MMD \
     -MP \
@@ -207,16 +213,14 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_RELEASE " \
     -mapcs \
     -fno-rtti \
     -fno-exceptions \
+    ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG} \
     -g \
     -mcpu=cortex-m7 \
     -Wall \
-    -mfloat-abi=hard \
-    -mfpu=fpv5-d16 \
-    --specs=nano.specs \
-    --specs=nosys.specs \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
@@ -235,16 +239,14 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     -Xlinker \
     -Map=output.map \
     -Wl,--print-memory-usage \
+    ${FPU} \
+    ${SPECS} \
     -T${ProjDirPath}/MIMXRT1062xxxxx_flexspi_nor.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE} \
     -mcpu=cortex-m7 \
     -Wall \
-    -mfloat-abi=hard \
-    -mfpu=fpv5-d16 \
-    --specs=nano.specs \
-    --specs=nosys.specs \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
@@ -263,5 +265,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     -Xlinker \
     -Map=output.map \
     -Wl,--print-memory-usage \
+    ${FPU} \
+    ${SPECS} \
     -T${ProjDirPath}/MIMXRT1062xxxxx_flexspi_nor.ld -static \
 ")

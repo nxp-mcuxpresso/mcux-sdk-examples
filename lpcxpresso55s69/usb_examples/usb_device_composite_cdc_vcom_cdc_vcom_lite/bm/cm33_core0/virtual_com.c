@@ -378,7 +378,7 @@ usb_status_t USB_DeviceCdcVcomClassRequest(usb_device_handle handle,
                 (setup->wLength != 0U))
             {
                 (void)memcpy(vcomInstance->lineCoding, *buffer, LINE_CODING_SIZE);
-                error   = kStatus_USB_Success;
+                error = kStatus_USB_Success;
             }
             break;
         case USB_DEVICE_CDC_REQUEST_SET_CONTROL_LINE_STATE:
@@ -410,7 +410,8 @@ usb_status_t USB_DeviceCdcVcomClassRequest(usb_device_handle handle,
                 }
 
                 /* Indicates to DCE if DTE is present or not */
-                acmInfo->dtePresent = (acmInfo->dteStatus & USB_DEVICE_CDC_CONTROL_SIG_BITMAP_DTE_PRESENCE) ? true : false;
+                acmInfo->dtePresent =
+                    (acmInfo->dteStatus & USB_DEVICE_CDC_CONTROL_SIG_BITMAP_DTE_PRESENCE) ? true : false;
 
                 /* Initialize the serial state buffer */
                 acmInfo->serialStateBuf[0] = NOTIF_REQUEST_TYPE;                        /* bmRequestType */
@@ -430,7 +431,8 @@ usb_status_t USB_DeviceCdcVcomClassRequest(usb_device_handle handle,
                 len           = (uint32_t)(NOTIF_PACKET_SIZE + UART_BITMAP_SIZE);
                 if (0 == vcomInstance->hasSentState)
                 {
-                    error = USB_DeviceSendRequest(handle, vcomInstance->interruptEndpoint, acmInfo->serialStateBuf, len);
+                    error =
+                        USB_DeviceSendRequest(handle, vcomInstance->interruptEndpoint, acmInfo->serialStateBuf, len);
                     if (kStatus_USB_Success != error)
                     {
                         usb_echo("kUSB_DeviceCdcEventSetControlLineState error!");
@@ -449,22 +451,12 @@ usb_status_t USB_DeviceCdcVcomClassRequest(usb_device_handle handle,
                 {
                     /* To do: CARRIER_DEACTIVATED */
                 }
-                if (acmInfo->dteStatus & USB_DEVICE_CDC_CONTROL_SIG_BITMAP_DTE_PRESENCE)
+
+                if (1U == vcomInstance->attach)
                 {
-                    /* DTE_ACTIVATED */
-                    if (1 == vcomInstance->attach)
-                    {
-                        vcomInstance->startTransactions = 1;
-                    }
+                    vcomInstance->startTransactions = 1;
                 }
-                else
-                {
-                    /* DTE_DEACTIVATED */
-                    if (1 == vcomInstance->attach)
-                    {
-                        vcomInstance->startTransactions = 0;
-                    }
-                }
+                error = kStatus_USB_Success;
             }
         }
         break;

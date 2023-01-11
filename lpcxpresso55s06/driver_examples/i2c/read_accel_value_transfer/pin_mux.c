@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 NXP
+ * Copyright 2017-2020, 2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v8.0
+product: Pins v12.0
 processor: LPC55S06
 package_id: LPC55S06JBD64
 mcu_data: ksdk2_0
-processor_version: 0.8.0
+processor_version: 0.12.6
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -49,9 +49,9 @@ BOARD_InitPins:
   - {pin_num: '52', peripheral: FLEXCOMM0, signal: TXD_SCL_MISO_WS, pin_signal: PIO0_25/FC0_TXD_SCL_MISO_WS/CT_INP9/SCT_GPI1/SECURE_GPIO0_25, mode: inactive, slew_rate: standard,
     invert: disabled, open_drain: disabled}
   - {pin_num: '25', peripheral: FLEXCOMM1, signal: RXD_SDA_MOSI_DATA, pin_signal: PIO1_10/FC1_RXD_SDA_MOSI_DATA/CTIMER1_MAT0/SCT0_OUT3, mode: inactive, slew_rate: standard,
-    invert: disabled, open_drain: disabled}
+    invert: disabled, open_drain: enabled}
   - {pin_num: '62', peripheral: FLEXCOMM1, signal: TXD_SCL_MISO_WS, pin_signal: PIO1_11/FC1_TXD_SCL_MISO_WS/CT_INP5, mode: inactive, slew_rate: standard, invert: disabled,
-    open_drain: disabled}
+    open_drain: enabled}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -108,8 +108,8 @@ void BOARD_InitPins(void)
                                          IOCON_PIO_INV_DI |
                                          /* Enables digital function */
                                          IOCON_PIO_DIGITAL_EN |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+                                         /* Open drain is enabled */
+                                         IOCON_PIO_OPENDRAIN_EN);
     /* PORT1 PIN10 (coords: 25) is configured as FC1_RXD_SDA_MOSI_DATA */
     IOCON_PinMuxSet(IOCON, 1U, 10U, port1_pin10_config);
 
@@ -123,8 +123,8 @@ void BOARD_InitPins(void)
                                          IOCON_PIO_INV_DI |
                                          /* Enables digital function */
                                          IOCON_PIO_DIGITAL_EN |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+                                         /* Open drain is enabled */
+                                         IOCON_PIO_OPENDRAIN_EN);
     /* PORT1 PIN11 (coords: 62) is configured as FC1_TXD_SCL_MISO_WS */
     IOCON_PinMuxSet(IOCON, 1U, 11U, port1_pin11_config);
 }

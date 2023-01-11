@@ -26,7 +26,9 @@
 #include "cli.h"
 #include "wifi_ping.h"
 #include "iperf.h"
+#ifndef RW610
 #include "wifi_bt_config.h"
+#endif
 
 #include "fsl_common.h"
 /*******************************************************************************
@@ -96,7 +98,16 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             }
             PRINTF("WLAN CLIs are initialized\r\n");
             printSeparator();
-
+#ifdef RW610
+            ret = wlan_enhanced_cli_init();
+            if (ret != WM_SUCCESS)
+            {
+                PRINTF("Failed to initialize WLAN CLIs\r\n");
+                return 0;
+            }
+            PRINTF("ENHANCED WLAN CLIs are initialized\r\n");
+            printSeparator();
+#endif
             ret = ping_cli_init();
             if (ret != WM_SUCCESS)
             {
@@ -273,6 +284,7 @@ int wlan_driver_init(void)
     return result;
 }
 
+#ifndef RW610
 int wlan_driver_deinit(void)
 {
     int result = 0;
@@ -329,7 +341,7 @@ int wlan_reset_cli_init(void)
 
     return 0;
 }
-
+#endif
 void task_main(void *param)
 {
     int32_t result = 0;
@@ -350,9 +362,11 @@ void task_main(void *param)
 
     assert(WM_SUCCESS == result);
 
+#ifndef RW610
     result = wlan_reset_cli_init();
 
     assert(WM_SUCCESS == result);
+#endif	
 
     while (1)
     {

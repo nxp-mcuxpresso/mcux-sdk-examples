@@ -66,7 +66,7 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/frdmke16z/driver_examples/lpuart/interrupt_rb_transfer" project_relative_path="frdmke16z/driver_examples/lpuart/interrupt_rb_transfer" type="c_include"/>
+      <include_path path="." project_relative_path="frdmke16z/driver_examples/lpuart/interrupt_rb_transfer" type="c_include"/>
       <include_path path="../../../../../core/boards/frdmke16z" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

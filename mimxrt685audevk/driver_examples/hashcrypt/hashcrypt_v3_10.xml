@@ -92,7 +92,7 @@
     </debug_configurations>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../examples/mimxrt685audevk/driver_examples/hashcrypt" project_relative_path="mimxrt685audevk/driver_examples/hashcrypt" type="c_include"/>
+      <include_path path="." project_relative_path="mimxrt685audevk/driver_examples/hashcrypt" type="c_include"/>
       <include_path path="../../../../core/boards/mimxrt685audevk" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

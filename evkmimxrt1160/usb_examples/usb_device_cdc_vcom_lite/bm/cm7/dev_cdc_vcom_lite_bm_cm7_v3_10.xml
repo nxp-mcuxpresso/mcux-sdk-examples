@@ -26,6 +26,7 @@
     <definition extID="middleware.usb.common_header.MIMXRT1166"/>
     <definition extID="platform.drivers.anatop_ai.MIMXRT1166"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1166"/>
+    <definition extID="platform.drivers.memory.MIMXRT1166"/>
     <definition extID="middleware.usb.device.common_header.MIMXRT1166"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1166"/>
     <definition extID="platform.devices.MIMXRT1166_system.MIMXRT1166"/>
@@ -37,7 +38,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1160_dev_cdc_vcom_lite_bm_cm7" name="dev_cdc_vcom_lite_bm_cm7" device_core="cm7_MIMXRT1166xxxxx" dependency="middleware.usb.device_controller_ehci.MIMXRT1166 middleware.usb.phy.MIMXRT1166 utility.debug_console_lite.MIMXRT1166 platform.utilities.assert_lite.MIMXRT1166 middleware.baremetal.MIMXRT1166 platform.drivers.clock.MIMXRT1166 platform.drivers.common.MIMXRT1166 platform.devices.MIMXRT1166_CMSIS.MIMXRT1166 component.lpuart_adapter.MIMXRT1166 component.lists.MIMXRT1166 platform.drivers.lpuart.MIMXRT1166 platform.devices.MIMXRT1166_startup.MIMXRT1166 platform.drivers.iomuxc.MIMXRT1166 platform.drivers.igpio.MIMXRT1166 platform.drivers.xip_device.MIMXRT1166 platform.drivers.xip_board.evkmimxrt1160.MIMXRT1166 middleware.usb.device.controller.driver.MIMXRT1166 component.osa.MIMXRT1166 platform.drivers.pmu_1.MIMXRT1166 platform.drivers.dcdc_soc.MIMXRT1166 platform.drivers.cache_armv7_m7.MIMXRT1166 middleware.usb.common_header.MIMXRT1166 platform.drivers.anatop_ai.MIMXRT1166 CMSIS_Include_core_cm.MIMXRT1166 middleware.usb.device.common_header.MIMXRT1166 platform.utilities.misc_utilities.MIMXRT1166 platform.devices.MIMXRT1166_system.MIMXRT1166" category="usb_examples">
+  <example id="evkmimxrt1160_dev_cdc_vcom_lite_bm_cm7" name="dev_cdc_vcom_lite_bm_cm7" device_core="cm7_MIMXRT1166xxxxx" dependency="middleware.usb.device_controller_ehci.MIMXRT1166 middleware.usb.phy.MIMXRT1166 utility.debug_console_lite.MIMXRT1166 platform.utilities.assert_lite.MIMXRT1166 middleware.baremetal.MIMXRT1166 platform.drivers.clock.MIMXRT1166 platform.drivers.common.MIMXRT1166 platform.devices.MIMXRT1166_CMSIS.MIMXRT1166 component.lpuart_adapter.MIMXRT1166 component.lists.MIMXRT1166 platform.drivers.lpuart.MIMXRT1166 platform.devices.MIMXRT1166_startup.MIMXRT1166 platform.drivers.iomuxc.MIMXRT1166 platform.drivers.igpio.MIMXRT1166 platform.drivers.xip_device.MIMXRT1166 platform.drivers.xip_board.evkmimxrt1160.MIMXRT1166 middleware.usb.device.controller.driver.MIMXRT1166 component.osa.MIMXRT1166 platform.drivers.pmu_1.MIMXRT1166 platform.drivers.dcdc_soc.MIMXRT1166 platform.drivers.cache_armv7_m7.MIMXRT1166 middleware.usb.common_header.MIMXRT1166 platform.drivers.anatop_ai.MIMXRT1166 CMSIS_Include_core_cm.MIMXRT1166 platform.drivers.memory.MIMXRT1166 middleware.usb.device.common_header.MIMXRT1166 platform.utilities.misc_utilities.MIMXRT1166 platform.devices.MIMXRT1166_system.MIMXRT1166" category="usb_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>

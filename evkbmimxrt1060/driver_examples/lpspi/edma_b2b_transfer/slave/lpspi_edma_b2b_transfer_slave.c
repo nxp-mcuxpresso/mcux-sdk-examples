@@ -55,6 +55,12 @@ AT_NONCACHEABLE_SECTION(lpspi_slave_edma_handle_t g_s_edma_handle);
 edma_handle_t lpspiEdmaSlaveRxRegToRxDataHandle;
 edma_handle_t lpspiEdmaSlaveTxDataToTxRegHandle;
 
+#if (defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) && DEMO_EDMA_HAS_CHANNEL_CONFIG)
+extern edma_config_t userConfig;
+#else
+edma_config_t userConfig = {0};
+#endif
+
 volatile bool isTransferCompleted = false;
 
 /*******************************************************************************
@@ -79,7 +85,6 @@ int main(void)
     uint32_t i;
     lpspi_slave_config_t slaveConfig;
     lpspi_transfer_t slaveXfer;
-    edma_config_t userConfig;
 
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
@@ -107,6 +112,7 @@ int main(void)
 #endif
 
     /* EDMA init*/
+#if (!defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) || (defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) && !DEMO_EDMA_HAS_CHANNEL_CONFIG))
     /*
      * userConfig.enableRoundRobinArbitration = false;
      * userConfig.enableHaltOnError = true;
@@ -114,6 +120,7 @@ int main(void)
      * userConfig.enableDebugMode = false;
      */
     EDMA_GetDefaultConfig(&userConfig);
+#endif
     EDMA_Init(EXAMPLE_LPSPI_SLAVE_DMA_BASE, &userConfig);
 
     /*Slave config*/

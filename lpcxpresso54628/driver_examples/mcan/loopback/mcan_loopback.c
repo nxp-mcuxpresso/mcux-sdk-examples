@@ -1,7 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2021 NXP
- * All rights reserved.
+ * Copyright 2016-2022 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -43,9 +42,16 @@
 #define MCAN_CLK_FREQ              CLOCK_GetMCanClkFreq(0U)
 #define STDID_OFFSET               (18U)
 #define STD_FILTER_OFS 0x0
-#define RX_FIFO0_OFS   0x10U
-#define TX_BUFFER_OFS  0x20U
-#define MSG_RAM_SIZE   (TX_BUFFER_OFS + 8 + CAN_DATASIZE)
+#if (defined(USE_EXT_FILTER) && USE_EXT_FILTER)
+#define EXT_FILTER_OFS 0x4
+#endif
+#define RX_FIFO0_OFS 0x10U
+#if (defined(USE_CANFD) && USE_CANFD)
+#define TX_BUFFER_OFS 0x60U
+#else
+#define TX_BUFFER_OFS 0x20U
+#endif
+#define MSG_RAM_SIZE (TX_BUFFER_OFS + 8 + CAN_DATASIZE)
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -88,10 +94,15 @@ void CAN0_IRQ0_IRQHandler(void)
 int main(void)
 {
     mcan_config_t mcanConfig;
-    mcan_frame_filter_config_t rxFilter;
-    mcan_std_filter_element_config_t stdFilter;
-    mcan_rx_fifo_config_t rxFifo0;
-    mcan_tx_buffer_config_t txBuffer;
+    mcan_memory_config_t memoryConfig          = {0};
+    mcan_frame_filter_config_t rxFilter        = {0};
+    mcan_std_filter_element_config_t stdFilter = {0};
+#if (defined(USE_EXT_FILTER) && USE_EXT_FILTER)
+    mcan_frame_filter_config_t extRxFilter     = {0};
+    mcan_ext_filter_element_config_t extFilter = {0};
+#endif
+    mcan_rx_fifo_config_t rxFifo0    = {0};
+    mcan_tx_buffer_config_t txBuffer = {0};
 
     /* Initialize board hardware. */
     /* attach 12 MHz clock to FLEXCOMM0 (debug console) */
@@ -156,25 +167,23 @@ int main(void)
 
     MCAN_Init(EXAMPLE_MCAN, &mcanConfig, MCAN_CLK_FREQ);
 
-    /* Set Message RAM base address and clear to avoid BEU/BEC error. */
-    MCAN_SetMsgRAMBase(EXAMPLE_MCAN, (uint32_t)msgRam);
-    memset((void *)msgRam, 0, MSG_RAM_SIZE * sizeof(uint8_t));
-
+    memoryConfig.baseAddr = (uint32_t)msgRam;
     /* STD filter config. */
-    rxFilter.address  = STD_FILTER_OFS;
-    rxFilter.idFormat = kMCAN_FrameIDStandard;
-    rxFilter.listSize = 1U;
-    rxFilter.nmFrame  = kMCAN_reject0;
-    rxFilter.remFrame = kMCAN_rejectFrame;
-    MCAN_SetFilterConfig(EXAMPLE_MCAN, &rxFilter);
-
-    stdFilter.sfec = kMCAN_storeinFifo0;
-    /* Classic filter mode, only filter matching ID. */
-    stdFilter.sft   = kMCAN_classic;
-    stdFilter.sfid1 = 0x123U;
-    stdFilter.sfid2 = 0x7FFU;
-    MCAN_SetSTDFilterElement(EXAMPLE_MCAN, &rxFilter, &stdFilter, 0);
-
+    rxFilter.address          = STD_FILTER_OFS;
+    rxFilter.idFormat         = kMCAN_FrameIDStandard;
+    rxFilter.listSize         = 1U;
+    rxFilter.nmFrame          = kMCAN_reject0;
+    rxFilter.remFrame         = kMCAN_rejectFrame;
+    memoryConfig.stdFilterCfg = &rxFilter;
+#if (defined(USE_EXT_FILTER) && USE_EXT_FILTER)
+    /* EXT filter config. */
+    extRxFilter.address       = EXT_FILTER_OFS;
+    extRxFilter.idFormat      = kMCAN_FrameIDExtend;
+    extRxFilter.listSize      = 1U;
+    extRxFilter.nmFrame       = kMCAN_reject0;
+    extRxFilter.remFrame      = kMCAN_rejectFrame;
+    memoryConfig.extFilterCfg = &extRxFilter;
+#endif
     /* RX fifo0 config. */
     rxFifo0.address       = RX_FIFO0_OFS;
     rxFifo0.elementSize   = 1U;
@@ -184,10 +193,8 @@ int main(void)
 #if (defined(USE_CANFD) && USE_CANFD)
     rxFifo0.datafieldSize = BYTES_IN_MB;
 #endif
-    MCAN_SetRxFifo0Config(EXAMPLE_MCAN, &rxFifo0);
-
+    memoryConfig.rxFifo0Cfg = &rxFifo0;
     /* TX buffer config. */
-    memset(&txBuffer, 0, sizeof(txBuffer));
     txBuffer.address       = TX_BUFFER_OFS;
     txBuffer.dedicatedSize = 1U;
     txBuffer.fqSize        = 0;
@@ -195,14 +202,34 @@ int main(void)
 #if (defined(USE_CANFD) && USE_CANFD)
     txBuffer.datafieldSize = BYTES_IN_MB;
 #endif
-    MCAN_SetTxBufferConfig(EXAMPLE_MCAN, &txBuffer);
+    memoryConfig.txBufferCfg = &txBuffer;
+    /* Set Message RAM config and clear memory to avoid BEU/BEC error. */
+    memset((void *)msgRam, 0, MSG_RAM_SIZE * sizeof(uint8_t));
+    if (kStatus_Success != MCAN_SetMessageRamConfig(EXAMPLE_MCAN, &memoryConfig))
+    {
+        PRINTF("MCAN Message RAM configuration failed, please check parameters!\r\n");
+        return -1;
+    }
+
+    /* Filling Standard ID filter element with Classic filter mode, which only filter matching ID. */
+    stdFilter.sfec  = kMCAN_storeinFifo0;
+    stdFilter.sft   = kMCAN_classic;
+    stdFilter.sfid1 = 0x123U;
+    stdFilter.sfid2 = 0x7FFU;
+    MCAN_SetSTDFilterElement(EXAMPLE_MCAN, &rxFilter, &stdFilter, 0);
+#if (defined(USE_EXT_FILTER) && USE_EXT_FILTER)
+    /* Filling extended ID filter element with range filter (0x0 ~ 0x1FFFFFFF) mode, which make it actually accept all
+     * extended frame. */
+    extFilter.efec  = kMCAN_storeinFifo0;
+    extFilter.eft   = kMCAN_range;
+    extFilter.efid1 = 0x0U;
+    extFilter.efid2 = 0x1FFFFFFFU;
+    MCAN_SetEXTFilterElement(EXAMPLE_MCAN, &extRxFilter, &extFilter, 0);
+#endif
 
     /* Enable RX fifo0 new message interrupt using interrupt line 0. */
     MCAN_EnableInterrupts(EXAMPLE_MCAN, 0, CAN_IE_RF0NE_MASK);
     EnableIRQ(CAN0_IRQ0_IRQn);
-
-    /* Enter normal mode. */
-    MCAN_EnterNormalMode(EXAMPLE_MCAN);
 
     /* Config TX frame data. */
     uint8_t cnt = 0;
@@ -242,6 +269,32 @@ int main(void)
     {
         PRINTF("0x%x ", rx_data[cnt++]);
     }
+
+#if (defined(USE_EXT_FILTER) && USE_EXT_FILTER)
+    /* Use Extend frame ID. */
+    txFrame.xtd = kMCAN_FrameIDExtend;
+    txFrame.id  = 0x12345678U;
+    rxComplete  = false;
+    MCAN_TransferSendBlocking(EXAMPLE_MCAN, 0, &txFrame);
+
+    while (!rxComplete)
+    {
+    }
+
+    rxFrame.size = CAN_DATASIZE;
+    /* After call the API of rMCAN_TransferReceiveFifoNonBlocking success, we can
+     * only get a point (rxFrame.data) to the fifo reading entrance.
+     * Copy the received frame data from the FIFO by the pointer(rxFrame.data). */
+    memcpy(rx_data, rxFrame.data, rxFrame.size);
+
+    PRINTF("\r\nReceived Extend Frame ID: 0x%x\r\n", rxFrame.id);
+    PRINTF("Received Frame DATA: ");
+    cnt = 0;
+    while (cnt < rxFrame.size)
+    {
+        PRINTF("0x%x ", rx_data[cnt++]);
+    }
+#endif
     PRINTF("\r\n\r\n==MCAN loopback functional example -- Finish.==\r\n");
 
     while (1)

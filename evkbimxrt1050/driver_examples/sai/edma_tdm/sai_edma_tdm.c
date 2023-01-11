@@ -36,9 +36,9 @@
 /* Select Audio/Video PLL (786.48 MHz) as sai1 clock source */
 #define DEMO_SAI1_CLOCK_SOURCE_SELECT (2U)
 /* Clock pre divider for sai1 clock source */
-#define DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER (1U)
+#define DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER (3U)
 /* Clock divider for sai1 clock source */
-#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (15U)
+#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (7U)
 /* Get frequency of sai1 clock */
 #define DEMO_SAI_CLK_FREQ                                                        \
     (CLOCK_GetFreq(kCLOCK_AudioPllClk) / (DEMO_SAI1_CLOCK_SOURCE_DIVIDER + 1U) / \
@@ -61,7 +61,7 @@
 #define EXAMPLE_SAI_TX_SOURCE kDmaRequestMuxSai1Tx
 
 #define DEMO_CODEC_RESET_GPIO     GPIO1
-#define DEMO_CODEC_RESET_GPIO_PIN 19
+#define DEMO_CODEC_RESET_GPIO_PIN 18
 #define BOARD_MASTER_CLOCK_CONFIG()
 #define BUFFER_SIZE (2048U)
 #define BUFFER_NUM  (4U)
@@ -90,7 +90,7 @@ static void DEMO_InitCodec(void);
 cs42448_config_t cs42448Config = {
     .DACMode      = kCS42448_ModeSlave,
     .ADCMode      = kCS42448_ModeSlave,
-    .reset        = NULL,
+    .reset        = BORAD_CodecReset,
     .master       = false,
     .i2cConfig    = {.codecI2CInstance = BOARD_CODEC_I2C_INSTANCE, .codecI2CSourceClock = BOARD_CODEC_I2C_CLOCK_FREQ},
     .format       = {.mclk_HZ = 24576000U, .sampleRate = 48000U, .bitWidth = 24U},
@@ -145,6 +145,17 @@ void BOARD_EnableSaiMclkOutput(bool enable)
 }
 
 
+void BORAD_CodecReset(bool state)
+{
+    if (state)
+    {
+        GPIO_PinWrite(DEMO_CODEC_RESET_GPIO, DEMO_CODEC_RESET_GPIO_PIN, 1U);
+    }
+    else
+    {
+        GPIO_PinWrite(DEMO_CODEC_RESET_GPIO, DEMO_CODEC_RESET_GPIO_PIN, 0U);
+    }
+}
 
 static void callback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData)
 {

@@ -63,8 +63,12 @@
 #define SD8987
 #elif (defined(WIFI_IW416_BOARD_MURATA_1XK_USD))
 #define SD8978
+#ifndef SDMMCHOST_OPERATION_VOLTAGE_1V8
 #define SDMMCHOST_OPERATION_VOLTAGE_1V8
+#endif
+#ifndef SD_TIMING_MAX
 #define SD_TIMING_MAX kSD_TimingDDR50Mode
+#endif
 #define WIFI_BT_USE_USD_INTERFACE
 /* #define WIFI_BT_TX_PWR_LIMITS "wlan_txpwrlimit_cfg_murata_1XK_CA.h" */
 /* #define WIFI_BT_TX_PWR_LIMITS "wlan_txpwrlimit_cfg_murata_1XK_EU.h" */
@@ -91,8 +95,12 @@
     }
 #elif (defined(WIFI_88W8987_BOARD_MURATA_1ZM_USD))
 #define SD8987
+#ifndef SDMMCHOST_OPERATION_VOLTAGE_1V8
 #define SDMMCHOST_OPERATION_VOLTAGE_1V8
+#endif
+#ifndef SD_TIMING_MAX
 #define SD_TIMING_MAX kSD_TimingDDR50Mode
+#endif
 #define WIFI_BT_USE_USD_INTERFACE
 /* #define WIFI_BT_TX_PWR_LIMITS "wlan_txpwrlimit_cfg_murata_1ZM_CA.h" */
 /* #define WIFI_BT_TX_PWR_LIMITS "wlan_txpwrlimit_cfg_murata_1ZM_EU.h" */

@@ -78,6 +78,9 @@ begin running the demo.
 NOTE: DSP image can only be debugged using J-Link debugger. See again
 'Getting Started with Xplorer for MIMXRT685-AUD-EVK.pdf' for more information.
 
+Running the demo
+================
+
 Running the demo CM33
 =====================
 When the demo runs successfully, the terminal will display the following:
@@ -86,7 +89,7 @@ When the demo runs successfully, the terminal will display the following:
     DSP audio framework demo start
     ******************************
 
-    Configure CS42448 codec
+    Configure [board specific] codec
     [APP_SDCARD_Task] start
     [APP_DSP_IPC_Task] start
     [APP_Shell_Task] start
@@ -104,27 +107,15 @@ Demo commands:
     list          List audio files on SD card available for playback
     <audio_file>  Select file from SD card and start playback
     <nchannel>    Select the number of channels (2 or 8 can be selected).
-    NOTE: Selected audio file must meet the following parameters:
+    NOTES: Selected audio file must meet the following parameters:
                   - Sample rate: 96 kHz
                   - Width:       32 bit
-    NOTE: Only when 2 channels are selected can EAP be applied to the audio file.
+           Only when 2 channels are selected EAP can be applied to the audio file.
 
   When file command starts playback successfully, the terminal will display following output:
     [APP_DSP_IPC_Task] response from DSP, cmd: 12, error: 0
     DSP file playback start
     >>
-
-  Xtensa IDE log when command is playing a file:
-    File playback start, initial buffer size: 16384
-    [DSP_FILE_REN] Audio Device Ready
-    [DSP_FILE_REN] post-proc/pcm_gain component started
-    [DSP_FILE_REN] post-proc/client_proxy component started
-    [DSP_FILE_REN] Connected post-proc/pcm_gain -> post-proc/client_proxy
-    [DSP_FILE_REN] renderer component started
-    [DSP_FILE_REN] Connected post-proc/client_proxy -> renderer
-    [DSP_BufferThread] start
-    [DSP_ProcessThread] start
-    [DSP_CleanupThread] start
 
 "eap": Set EAP parameters
   USAGE: eap [1|2|3|4|5|6|7|+|-|l|r]
@@ -160,3 +151,17 @@ When the demo runs successfully, the terminal will display the following:
     [DSP_Main] start
     [DSP_Main] established RPMsg link
 
+  Xtensa IDE log when command is playing a file:
+    File playback start, initial buffer size: 16384
+    [DSP_FILE_REN] Audio Device Ready
+    [DSP_FILE_REN] post-proc/pcm_gain component started
+    [DSP_FILE_REN] post-proc/client_proxy component started
+    [DSP_FILE_REN] Connected post-proc/pcm_gain -> post-proc/client_proxy
+    [DSP_FILE_REN] renderer component started
+    [DSP_FILE_REN] Connected post-proc/client_proxy -> renderer
+    [DSP_BufferThread] start
+    [DSP_ProcessThread] start
+    [DSP_CleanupThread] start
+
+Note: Debug printf is disabled by default because it was causing audio distortion.
+      To enable it, please undefine MULTICHANNEL_EXAMPLE in the project settings.

@@ -9,7 +9,6 @@
     <definition extID="utility.debug_console_lite.MIMXRT1166"/>
     <definition extID="platform.utilities.assert_lite.MIMXRT1166"/>
     <definition extID="platform.drivers.clock.MIMXRT1166"/>
-    <definition extID="platform.drivers.mu.MIMXRT1166"/>
     <definition extID="middleware.multicore.erpc.eRPC_server.MIMXRT1166"/>
     <definition extID="middleware.multicore.erpc.eRPC_rpmsg_lite_remote_c_wrapper.MIMXRT1166"/>
     <definition extID="middleware.multicore.erpc.eRPC_rpmsg_lite_transport.MIMXRT1166"/>
@@ -30,7 +29,7 @@
     <definition extID="platform.drivers.pmu_1.MIMXRT1166"/>
     <definition extID="platform.drivers.dcdc_soc.MIMXRT1166"/>
     <definition extID="platform.drivers.cache_lmem.MIMXRT1166"/>
-    <definition extID="component.silicon_id.MIMXRT1166"/>
+    <definition extID="platform.drivers.mu.MIMXRT1166"/>
     <definition extID="platform.drivers.anatop_ai.MIMXRT1166"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1166"/>
     <definition extID="middleware.multicore.erpc.common.MIMXRT1166"/>
@@ -43,8 +42,10 @@
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso.core.debug.support.segger.debug"/>
     <definition extID="com.nxp.mcuxpresso.core.debug.support.segger.release"/>
+    <definition extID="com.crt.advproject.config.exe.debug"/>
+    <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1160_erpc_matrix_multiply_rpmsg_cm4" name="erpc_matrix_multiply_rpmsg_cm4" device_core="cm4_MIMXRT1166xxxxx" dependency="middleware.multicore.mcmgr.imxrt1160.MIMXRT1166 middleware.multicore.rpmsg_lite.imxrt1160_bm.MIMXRT1166 middleware.multicore.rpmsg_lite.MIMXRT1166 middleware.multicore.rpmsg_lite.bm.MIMXRT1166 utility.debug_console_lite.MIMXRT1166 platform.utilities.assert_lite.MIMXRT1166 platform.drivers.clock.MIMXRT1166 platform.drivers.mu.MIMXRT1166 middleware.multicore.erpc.eRPC_server.MIMXRT1166 middleware.multicore.erpc.eRPC_rpmsg_lite_remote_c_wrapper.MIMXRT1166 middleware.multicore.erpc.eRPC_rpmsg_lite_transport.MIMXRT1166 middleware.multicore.erpc.eRPC_port_stdlib.MIMXRT1166 middleware.baremetal.MIMXRT1166 middleware.multicore.mcmgr.MIMXRT1166 middleware.multicore.erpc.doc.MIMXRT1166 platform.drivers.common.MIMXRT1166 platform.devices.MIMXRT1166_CMSIS.MIMXRT1166 component.lpuart_adapter.MIMXRT1166 component.lists.MIMXRT1166 platform.drivers.lpuart.MIMXRT1166 platform.devices.MIMXRT1166_startup.MIMXRT1166 platform.drivers.iomuxc.MIMXRT1166 platform.drivers.igpio.MIMXRT1166 platform.drivers.xip_device.MIMXRT1166 platform.drivers.xip_board.evkmimxrt1160.MIMXRT1166 platform.drivers.pmu_1.MIMXRT1166 platform.drivers.dcdc_soc.MIMXRT1166 platform.drivers.cache_lmem.MIMXRT1166 component.silicon_id.MIMXRT1166 platform.drivers.anatop_ai.MIMXRT1166 CMSIS_Include_core_cm.MIMXRT1166 middleware.multicore.erpc.common.MIMXRT1166 platform.utilities.misc_utilities.MIMXRT1166 platform.devices.MIMXRT1166_system.MIMXRT1166" category="multicore_examples">
+  <example id="evkmimxrt1160_erpc_matrix_multiply_rpmsg_cm4" name="erpc_matrix_multiply_rpmsg_cm4" device_core="cm4_MIMXRT1166xxxxx" dependency="middleware.multicore.mcmgr.imxrt1160.MIMXRT1166 middleware.multicore.rpmsg_lite.imxrt1160_bm.MIMXRT1166 middleware.multicore.rpmsg_lite.MIMXRT1166 middleware.multicore.rpmsg_lite.bm.MIMXRT1166 utility.debug_console_lite.MIMXRT1166 platform.utilities.assert_lite.MIMXRT1166 platform.drivers.clock.MIMXRT1166 middleware.multicore.erpc.eRPC_server.MIMXRT1166 middleware.multicore.erpc.eRPC_rpmsg_lite_remote_c_wrapper.MIMXRT1166 middleware.multicore.erpc.eRPC_rpmsg_lite_transport.MIMXRT1166 middleware.multicore.erpc.eRPC_port_stdlib.MIMXRT1166 middleware.baremetal.MIMXRT1166 middleware.multicore.mcmgr.MIMXRT1166 middleware.multicore.erpc.doc.MIMXRT1166 platform.drivers.common.MIMXRT1166 platform.devices.MIMXRT1166_CMSIS.MIMXRT1166 component.lpuart_adapter.MIMXRT1166 component.lists.MIMXRT1166 platform.drivers.lpuart.MIMXRT1166 platform.devices.MIMXRT1166_startup.MIMXRT1166 platform.drivers.iomuxc.MIMXRT1166 platform.drivers.igpio.MIMXRT1166 platform.drivers.xip_device.MIMXRT1166 platform.drivers.xip_board.evkmimxrt1160.MIMXRT1166 platform.drivers.pmu_1.MIMXRT1166 platform.drivers.dcdc_soc.MIMXRT1166 platform.drivers.cache_lmem.MIMXRT1166 platform.drivers.mu.MIMXRT1166 platform.drivers.anatop_ai.MIMXRT1166 CMSIS_Include_core_cm.MIMXRT1166 middleware.multicore.erpc.common.MIMXRT1166 platform.utilities.misc_utilities.MIMXRT1166 platform.devices.MIMXRT1166_system.MIMXRT1166" category="multicore_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.ccnature"/>
     </projects>
@@ -169,8 +170,8 @@
       <include_path path="../../erpc_common" project_relative_path="source" type="c_include"/>
       <include_path path="../../erpc_common/erpc_matrix_multiply/service" project_relative_path="erpc/service" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimxrt1160/multicore_examples/erpc_matrix_multiply_rpmsg" project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimxrt1160/multicore_examples/erpc_matrix_multiply_rpmsg/cm4" project_relative_path="evkmimxrt1160/multicore_examples/erpc_matrix_multiply_rpmsg/cm4" type="c_include"/>
+      <include_path path=".." project_relative_path="source" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimxrt1160/multicore_examples/erpc_matrix_multiply_rpmsg/cm4" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="erpc_matrix_multiply_rpmsg_cm4.ewd"/>

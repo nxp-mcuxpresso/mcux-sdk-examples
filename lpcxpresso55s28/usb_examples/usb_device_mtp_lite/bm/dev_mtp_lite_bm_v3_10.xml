@@ -95,8 +95,7 @@
       </toolchainSetting>
     </toolchainSettings>
     <include_paths>
-      <include_path path="../../../../../core/boards/lpcxpresso55s28" project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/lpcxpresso55s28/usb_examples/usb_device_mtp_lite/bm" project_relative_path="source" type="c_include"/>
+      <include_path path="../../.." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
     </include_paths>

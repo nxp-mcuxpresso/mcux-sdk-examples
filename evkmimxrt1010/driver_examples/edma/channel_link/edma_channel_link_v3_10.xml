@@ -93,7 +93,7 @@
     </debug_configurations>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimxrt1010/driver_examples/edma/channel_link" project_relative_path="evkmimxrt1010/driver_examples/edma/channel_link" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimxrt1010/driver_examples/edma/channel_link" type="c_include"/>
       <include_path path="../../../../../core/boards/evkmimxrt1010" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

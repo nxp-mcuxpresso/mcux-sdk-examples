@@ -25,7 +25,12 @@
  ******************************************************************************/
 #define ERPC_TRANSPORT_RPMSG_LITE_LINK_ID (RL_PLATFORM_K32L3A60_M4_M0_LINK_ID)
 
-#define BUTTON_INIT()       GPIO_PinInit(BOARD_SW2_GPIO, BOARD_SW2_GPIO_PIN, &button_config)
+#define BUTTON_INIT()                   \
+    gpio_pin_config_t button_config = { \
+        kGPIO_DigitalInput,             \
+        0,                              \
+    };                                  \
+    GPIO_PinInit(BOARD_SW2_GPIO, BOARD_SW2_GPIO_PIN, &button_config)
 #define IS_BUTTON_PRESSED() (0U == GPIO_PinRead(BOARD_SW2_GPIO, BOARD_SW2_GPIO_PIN))
 #define BUTTON_NAME         BOARD_SW2_NAME
 
@@ -147,6 +152,7 @@ static void app_task(void *param)
 
     /* RPMsg-Lite transport layer initialization */
     erpc_transport_t transport;
+    erpc_client_t client;
 
     transport = erpc_transport_rpmsg_lite_rtos_master_init(100, 101, ERPC_TRANSPORT_RPMSG_LITE_LINK_ID);
 
@@ -155,10 +161,10 @@ static void app_task(void *param)
     message_buffer_factory = erpc_mbf_rpmsg_init(transport);
 
     /* eRPC client side initialization */
-    erpc_client_init(transport, message_buffer_factory);
+    client = erpc_client_init(transport, message_buffer_factory);
 
     /* Set default error handler */
-    erpc_client_set_error_handler(erpc_error_handler);
+    erpc_client_set_error_handler(client, erpc_error_handler);
 
     /* Fill both matrices by random values */
     fill_matrices(matrix1, matrix2);
@@ -223,12 +229,6 @@ int main(void)
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
-
-    /* Define the init structure for the input switch pin */
-    gpio_pin_config_t button_config = {
-        kGPIO_DigitalInput,
-        0,
-    };
 
     /* Configure BUTTON */
     BUTTON_INIT();

@@ -50,6 +50,7 @@
           <value>CPU_MIMXRT685SFVKB_cm33</value>
           <value>BOOT_HEADER_ENABLE=1</value>
           <value>FSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1</value>
+          <value>PRINTF_ADVANCED_ENABLE=1</value>
           <value>MCUXPRESSO_SDK</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
@@ -94,7 +95,7 @@
     </debug_configurations>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/mimxrt685audevk/driver_examples/i3c/master_read_sensor_icm42688p" project_relative_path="mimxrt685audevk/driver_examples/i3c/master_read_sensor_icm42688p" type="c_include"/>
+      <include_path path="." project_relative_path="mimxrt685audevk/driver_examples/i3c/master_read_sensor_icm42688p" type="c_include"/>
       <include_path path="../../../../../core/boards/mimxrt685audevk" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

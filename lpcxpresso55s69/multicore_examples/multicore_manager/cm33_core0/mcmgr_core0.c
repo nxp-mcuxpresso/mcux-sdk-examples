@@ -6,7 +6,6 @@
  */
 
 #include "fsl_debug_console.h"
-#include "fsl_gpio.h"
 #include "pin_mux.h"
 #include "board.h"
 #include "mcmgr.h"
@@ -18,7 +17,9 @@
 /* Address of RAM, where the image for core1 should be copied */
 #define CORE1_BOOT_ADDRESS 0x20033000
 
-#define BUTTON_1_INIT()       GPIO_PinInit(BOARD_SW3_GPIO, BOARD_SW3_GPIO_PORT, BOARD_SW3_GPIO_PIN, &sw_config)
+#define BUTTON_1_INIT()                                    \
+    gpio_pin_config_t sw_config = {kGPIO_DigitalInput, 0}; \
+    GPIO_PinInit(BOARD_SW3_GPIO, BOARD_SW3_GPIO_PORT, BOARD_SW3_GPIO_PIN, &sw_config)
 #define IS_BUTTON_1_PRESSED() (0U == GPIO_PinRead(BOARD_SW3_GPIO, BOARD_SW3_GPIO_PORT, BOARD_SW3_GPIO_PIN))
 #define BUTTON_1_NAME         BOARD_SW3_NAME
 
@@ -102,8 +103,6 @@ int main(void)
     volatile uint32_t resetDone       = 0U;
     volatile uint32_t exceptionNumber = 0U;
     volatile uint32_t startupDone     = 0U;
-    /* Define the init structure for the switches*/
-    gpio_pin_config_t sw_config = {kGPIO_DigitalInput, 0};
 
     /* Initialize MCMGR, install generic event handlers */
     (void)MCMGR_Init();

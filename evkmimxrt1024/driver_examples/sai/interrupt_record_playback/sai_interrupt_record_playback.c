@@ -35,9 +35,9 @@
 /* Select Audio/Video PLL (786.48 MHz) as sai3 clock source */
 #define DEMO_SAI3_CLOCK_SOURCE_SELECT (2U)
 /* Clock pre divider for sai3 clock source */
-#define DEMO_SAI3_CLOCK_SOURCE_PRE_DIVIDER (0U)
+#define DEMO_SAI3_CLOCK_SOURCE_PRE_DIVIDER (3U)
 /* Clock divider for sai3 clock source */
-#define DEMO_SAI3_CLOCK_SOURCE_DIVIDER (63U)
+#define DEMO_SAI3_CLOCK_SOURCE_DIVIDER (15U)
 /* Get frequency of sai3 clock */
 #define DEMO_SAI_CLK_FREQ                                                        \
     (CLOCK_GetFreq(kCLOCK_AudioPllClk) / (DEMO_SAI3_CLOCK_SOURCE_DIVIDER + 1U) / \

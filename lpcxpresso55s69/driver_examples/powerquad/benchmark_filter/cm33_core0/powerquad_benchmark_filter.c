@@ -301,7 +301,7 @@ static void arm_fir_f32Test(void)
 
     for (i = 0; i < ARRAY_SIZE(FIRRef); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(FIRRef[i] - FIRResult[i]) < 0.0001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(FIRRef[i] - FIRResult[i])) < 0.0001);
     }
 }
 
@@ -423,7 +423,7 @@ static void arm_conv_f32Test(void)
 
     for (uint32_t i = 0; i < ARRAY_SIZE(ref); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(ref[i] - result[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref[i] - result[i])) < 0.00001);
     }
 }
 
@@ -545,7 +545,7 @@ static void arm_correlate_f32Test(void)
 
     for (uint32_t i = 0; i < ARRAY_SIZE(ref); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(ref[i] - result[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref[i] - result[i])) < 0.00001);
     }
 }
 
@@ -627,6 +627,6 @@ static void biquad_cascade_f32Test(void)
 
     for (uint32_t i = 0; i < BIQUAD_CASCADE_DATA_LEN; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(output[i] - biquadRef[i]) <= 0.0002);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(output[i] - biquadRef[i])) <= 0.0002);
     }
 }

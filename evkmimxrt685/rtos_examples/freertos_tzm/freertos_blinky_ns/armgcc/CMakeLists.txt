@@ -39,8 +39,8 @@ include(${ProjDirPath}/config.cmake)
 add_executable(${MCUX_SDK_PROJECT_NAME} 
 "${ProjDirPath}/../main_ns.c"
 "${ProjDirPath}/../../freertos_blinky_s/nsc_functions.h"
-"${SdkRootDirPath}/rtos/freertos/freertos_kernel/portable/GCC/ARM_CM33/secure/secure_context.h"
-"${SdkRootDirPath}/rtos/freertos/freertos_kernel/portable/GCC/ARM_CM33/secure/secure_init.h"
+"${SdkRootDirPath}/rtos/freertos/freertos-kernel/portable/GCC/ARM_CM33/secure/secure_context.h"
+"${SdkRootDirPath}/rtos/freertos/freertos-kernel/portable/GCC/ARM_CM33/secure/secure_init.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
 "${SdkRootDirPath}/core/boards/evkmimxrt685/board.c"
 "${SdkRootDirPath}/core/boards/evkmimxrt685/board.h"
@@ -51,7 +51,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${ProjDirPath}/../../freertos_blinky_s
-    ${SdkRootDirPath}/rtos/freertos/freertos_kernel/portable/GCC/ARM_CM33/secure
+    ${SdkRootDirPath}/rtos/freertos/freertos-kernel/portable/GCC/ARM_CM33/secure
     ${SdkRootDirPath}/examples/evkmimxrt685/rtos_examples/freertos_tzm/freertos_blinky_ns
     ${SdkRootDirPath}/core/boards/evkmimxrt685
 )

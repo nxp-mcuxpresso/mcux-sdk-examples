@@ -1,13 +1,12 @@
 /*
- * Copyright 2020-2021 NXP
+ * Copyright 2020-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include <stdio.h>
-
 #include "demo_config.h"
+#include "fsl_debug_console.h"
 #include "image.h"
 #include "image_utils.h"
 #include "image_data.h"
@@ -48,14 +47,14 @@ status_t IMAGE_GetImage(uint8_t* dstData, int32_t dstWidth, int32_t dstHeight, i
     if (s_static)
     {
         s_static = false;
-        printf(EOL "Static data processing:" EOL);
+        PRINTF(EOL "Static data processing:" EOL);
         return IMAGE_Decode(image_data, dstData, dstWidth, dstHeight, dstChannels);
     }
     else
     {
         if (s_worker == NULL)
         {
-            printf(EOL "Camera data processing:" EOL);
+            PRINTF(EOL "Camera data processing:" EOL);
             s_worker = EIQ_InitVideoWorker();
             s_captureBuffer = s_worker->base.getData();
             s_captureBufferDims = s_worker->base.getResolution();
@@ -63,7 +62,7 @@ status_t IMAGE_GetImage(uint8_t* dstData, int32_t dstWidth, int32_t dstHeight, i
         }
 
         while (!s_worker->base.isReady()) {}
-        printf(EOL "Data for inference are ready" EOL);
+        PRINTF(EOL "Data for inference are ready" EOL);
 
         IMAGE_Resize(s_captureBuffer, s_captureBufferDims.width, s_captureBufferDims.height,
                      dstData, dstWidth, dstHeight, dstChannels);

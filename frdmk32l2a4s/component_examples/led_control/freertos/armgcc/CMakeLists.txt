@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(led_control_freertos)
 
+set(MCUX_BUILD_TYPES debug release)
+
 set(MCUX_SDK_PROJECT_NAME led_control_freertos.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -49,20 +55,38 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/frdmk32l2a4s/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../../log/freertos
-    ${SdkRootDirPath}/examples/frdmk32l2a4s/component_examples/led_control/freertos
+    ${SdkRootDirPath}/examples/frdmk32l2a4s/component_examples/log/freertos
     ${SdkRootDirPath}/core/boards/frdmk32l2a4s
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/drivers/lpit
+    ${SdkRootDirPath}/core/devices/K32L2A41A/utilities
+    ${SdkRootDirPath}/core/components/led
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/components/timer_manager
+    ${SdkRootDirPath}/core/components/gpio
+    ${SdkRootDirPath}/core/components/button
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/components/timer
+    ${SdkRootDirPath}/core/drivers/gpio
+    ${SdkRootDirPath}/core/components/panic
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/components/osa
+    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
+    ${SdkRootDirPath}/core/devices/K32L2A41A/drivers
+    ${SdkRootDirPath}/core/devices/K32L2A41A
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/drivers/lpuart
+    ${SdkRootDirPath}/core/drivers/port
+    ${SdkRootDirPath}/core/drivers/smc
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(driver_lpit)
@@ -124,15 +148,13 @@ include(utilities_misc_utilities_K32L2A41A)
 include(device_system)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

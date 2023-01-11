@@ -77,6 +77,8 @@ gpio_pin_config_t led_config = {
     0,
 };
 
+erpc_server_t server;
+
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -288,7 +290,7 @@ void erpc_init(void)
     erpc_mbf_t message_buffer_factory;
     message_buffer_factory = erpc_mbf_dynamic_init();
 
-    erpc_server_init(transport, message_buffer_factory);
+    server = erpc_server_init(transport, message_buffer_factory);
 }
 
 void led_init()
@@ -341,12 +343,12 @@ int main(void)
 
     /* adding the service to the server */
     erpc_service_t service = create_dac_adc_service();
-    erpc_add_service_to_server(service);
+    erpc_add_service_to_server(server, service);
 
     while (1)
     {
         /* process message */
-        erpc_status_t status = erpc_server_run();
+        erpc_status_t status = erpc_server_run(server);
 
         /* handle error status */
         if (status != kErpcStatus_Success)
@@ -355,14 +357,14 @@ int main(void)
             erpc_error_handler(status, 0);
 
             /* removing the service from the server */
-            erpc_remove_service_from_server(service);
+            erpc_remove_service_from_server(server, service);
             destroy_dac_adc_service(service);
 
             /* stop erpc server */
-            erpc_server_stop();
+            erpc_server_stop(server);
 
             /* print error description */
-            erpc_server_deinit();
+            erpc_server_deinit(server);
 
             /* exit program loop */
             break;

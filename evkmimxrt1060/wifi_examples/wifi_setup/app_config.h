@@ -1,5 +1,5 @@
 /*
- *  Copyright 2021 NXP
+ *  Copyright 2021-2022 NXP
  *  All rights reserved.
  *
  *  SPDX-License-Identifier: BSD-3-Clause
@@ -7,8 +7,6 @@
 
 /*
  * Supported Wi-Fi boards (modules):
- *     WIFI_88W8977_BOARD_PAN9026_SDIO
- *     WIFI_88W8977_BOARD_AW_AM281_USD
  *     WIFI_88W8801_BOARD_AW_NM191_USD
  *     WIFI_IW416_BOARD_AW_AM457_USD
  *     WIFI_IW416_BOARD_AW_AM510_USD
@@ -21,35 +19,13 @@
  *     WIFI_IW416_BOARD_UBX_MAYA_W1_USD
  */
 /* @TEST_ANCHOR */
-#define WIFI_IW416_BOARD_AW_AM510_USD
+#define WIFI_IW416_BOARD_MURATA_1XK_USD
 /* @END_TEST_ANCHOR */
 
 /* Wi-Fi boards configuration list */
 
-/* Panasonic PAN9026 SDIO ADAPTER */
-#if defined(WIFI_88W8977_BOARD_PAN9026_SDIO)
-#define WIFI_BT_TX_PWR_LIMITS "wlan_txpwrlimit_cfg_WW.h"
-#define SD8977
-#define SDMMCHOST_OPERATION_VOLTAGE_3V3
-#define SD_CLOCK_MAX (25000000U)
-#define WIFI_BT_USE_USD_INTERFACE
-#define WLAN_ED_MAC_CTRL                                                               \
-    {                                                                                  \
-        .ed_ctrl_2g = 0x1, .ed_offset_2g = 0x9, .ed_ctrl_5g = 0x1, .ed_offset_5g = 0xC \
-    }
-
-/* Azurewave AW-AM281-uSD */
-#elif defined(WIFI_88W8977_BOARD_AW_AM281_USD)
-#define WIFI_BT_TX_PWR_LIMITS "wlan_txpwrlimit_cfg_WW.h"
-#define SD8977
-#define WIFI_BT_USE_USD_INTERFACE
-#define WLAN_ED_MAC_CTRL                                                               \
-    {                                                                                  \
-        .ed_ctrl_2g = 0x1, .ed_offset_2g = 0x9, .ed_ctrl_5g = 0x1, .ed_offset_5g = 0xC \
-    }
-
 /* AzureWave AW-NM191-uSD */
-#elif defined(WIFI_88W8801_BOARD_AW_NM191_USD)
+#if defined(WIFI_88W8801_BOARD_AW_NM191_USD)
 #define WIFI_BT_TX_PWR_LIMITS "wlan_txpwrlimit_cfg_WW.h"
 #define SD8801
 #define SDMMCHOST_OPERATION_VOLTAGE_1V8
@@ -153,7 +129,7 @@
 #define WIFI_BT_USE_USD_INTERFACE
 #define WLAN_ED_MAC_CTRL                        \
     {                                           \
-        .ed_ctrl_2g = 0x1, .ed_offset_2g = 0x1E \
+        .ed_ctrl_2g = 0x1, .ed_offset_2g = 0x0E \
     }
 
 /* Murata 2DS */
@@ -169,7 +145,7 @@
 #define WIFI_BT_USE_M2_INTERFACE
 #define WLAN_ED_MAC_CTRL                        \
     {                                           \
-        .ed_ctrl_2g = 0x1, .ed_offset_2g = 0x1E \
+        .ed_ctrl_2g = 0x1, .ed_offset_2g = 0x0E \
     }
 
 /* Murata 1XK + Murata uSD-M.2 adapter */

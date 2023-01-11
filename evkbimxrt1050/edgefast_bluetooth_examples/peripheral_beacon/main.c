@@ -22,7 +22,7 @@
 #include "clock_config.h"
 #include "board.h"
 #include "fsl_adapter_uart.h"
-#include "controller.h"
+#include "controller_hci_uart.h"
 #include "usb_host_config.h"
 #include "usb_phy.h"
 #include "usb_host.h"
@@ -175,9 +175,6 @@ void USB_HostIsrEnable(void)
 {
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
-#if (defined(WIFI_IW416_BOARD_MURATA_1XK_USD) || defined(WIFI_88W8987_BOARD_MURATA_1ZM_USD))
-    BOARD_InitMurataModulePins();
-#endif
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     SCB_DisableDCache();
@@ -207,17 +204,4 @@ void USB_HostIsrEnable(void)
     vTaskStartScheduler();
     for (;;)
         ;
-}
-
-void *pvPortCalloc(size_t xNum, size_t xSize)
-{
-    void *pvReturn;
-
-    pvReturn = pvPortMalloc(xNum * xSize);
-    if (pvReturn != NULL)
-    {
-        memset(pvReturn, 0x00, xNum * xSize);
-    }
-
-    return pvReturn;
 }

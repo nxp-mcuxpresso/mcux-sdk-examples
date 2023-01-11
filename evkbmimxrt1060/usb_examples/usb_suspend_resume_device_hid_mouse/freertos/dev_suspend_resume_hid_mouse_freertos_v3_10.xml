@@ -120,13 +120,13 @@
     </debug_configurations>
     <include_paths>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../core/boards/evkbmimxrt1060" project_relative_path="source" type="c_include"/>
+      <include_path path="../../.." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="usb/device/source" type="c_include"/>
       <include_path path="." project_relative_path="usb/device/class" type="c_include"/>
       <include_path path="." project_relative_path="usb/device/class/hid" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
-      <include_path path="../../../../../core/boards/evkbmimxrt1060" project_relative_path="source" type="asm_include"/>
+      <include_path path="../../.." project_relative_path="source" type="asm_include"/>
     </include_paths>
     <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
       <files mask="build_all.bat"/>

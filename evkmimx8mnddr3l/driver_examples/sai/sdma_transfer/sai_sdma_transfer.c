@@ -31,6 +31,7 @@
 #define DEMO_CODEC_MUTE_PIN     (GPIO5)
 #define DEMO_CODEC_MUTE_PIN_NUM (21)
 #define DEMO_IRQn               I2S3_IRQn
+#define SAI_UserIRQHandler      I2S3_IRQHandler
 #define EXAMPLE_DMA             SDMAARM3
 #define EXAMPLE_CHANNEL         (1)
 #define SAI_TX_SOURCE           (5)
@@ -187,6 +188,10 @@ int main(void)
     while (isFinished != true)
     {
     }
+
+    /* Once transfer finish, disable SAI instance. */
+    SAI_TransferAbortSendSDMA(DEMO_SAI, &txHandle);
+    SAI_Deinit(DEMO_SAI);
 
     error = CODEC_Deinit(&codecHandle);
     if ((error != kStatus_CODEC_NotSupport) && (error != kStatus_Success))

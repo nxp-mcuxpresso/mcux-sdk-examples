@@ -1,6 +1,5 @@
 /*
  * Copyright 2022 NXP
- * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -13,11 +12,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v9.0
+product: Pins v12.0
 processor: MIMXRT1176xxxxx
 package_id: MIMXRT1176DVMAA
 mcu_data: ksdk2_0
-processor_version: 0.9.6
+processor_version: 12.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -26,10 +25,10 @@ processor_version: 0.9.6
 #include "pin_mux.h"
 
 /* FUNCTION ************************************************************************************************************
- *
+ * 
  * Function Name : BOARD_InitBootPins
  * Description   : Calls initialization functions.
- *
+ * 
  * END ****************************************************************************************************************/
 void BOARD_InitBootPins(void) {
     BOARD_InitLpuartPins();

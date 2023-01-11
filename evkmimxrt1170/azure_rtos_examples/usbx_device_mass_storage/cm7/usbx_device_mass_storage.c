@@ -213,7 +213,7 @@ static VOID thread_usb_entry(ULONG thread_input)
     lun = &storage_parameter.ux_slave_class_storage_parameter_lun[0];
 
     /* Initialize the storage class parameters for reading/writing to the Flash Disk. */
-    lun->ux_slave_class_storage_media_last_lba        =  MEDIA_TOTAL_SECTORS - 1;
+    lun->ux_slave_class_storage_media_last_lba        =  MEDIA_TOTAL_SECTORS;
     lun->ux_slave_class_storage_media_block_length    =  MEDIA_BYTES_PER_SECTOR;
     lun->ux_slave_class_storage_media_type            =  0;
     lun->ux_slave_class_storage_media_removable_flag  =  0x80;

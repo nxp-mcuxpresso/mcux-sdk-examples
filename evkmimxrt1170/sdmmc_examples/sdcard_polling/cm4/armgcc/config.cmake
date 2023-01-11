@@ -2,5 +2,4 @@
 set(CONFIG_USE_middleware_sdmmc_host_usdhc true)
 set(CONFIG_USE_middleware_sdmmc_host_usdhc_polling_MIMXRT1176_cm4 true)
 set(CONFIG_USE_driver_lpuart true)
-set(CONFIG_USE_driver_common true)
 set(MCUX_DEVICE "MIMXRT1176_cm4")

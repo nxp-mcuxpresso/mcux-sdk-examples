@@ -1,10 +1,22 @@
+IF(NOT DEFINED FPU)  
+    SET(FPU "-mfloat-abi=soft")  
+ENDIF()  
+
+IF(NOT DEFINED SPECS)  
+    SET(SPECS "--specs=nano.specs --specs=nosys.specs")  
+ENDIF()  
+
+IF(NOT DEFINED DEBUG_CONSOLE_CONFIG)  
+    SET(DEBUG_CONSOLE_CONFIG "-DSDK_DEBUGCONSOLE=1")  
+ENDIF()  
+
 SET(CMAKE_ASM_FLAGS_RELEASE " \
     ${CMAKE_ASM_FLAGS_RELEASE} \
     -DNDEBUG \
     -D__STARTUP_CLEAR_BSS \
     -mcpu=cortex-m0plus \
-    -mfloat-abi=soft \
     -mthumb \
+    ${FPU} \
 ")
 SET(CMAKE_C_FLAGS_RELEASE " \
     ${CMAKE_C_FLAGS_RELEASE} \
@@ -20,7 +32,6 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -Wno-unused-function \
     -mcpu=cortex-m0plus \
     -Wall \
-    -mfloat-abi=soft \
     -mthumb \
     -MMD \
     -MP \
@@ -31,6 +42,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
+    ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_CXX_FLAGS_RELEASE " \
     ${CMAKE_CXX_FLAGS_RELEASE} \
@@ -41,7 +54,6 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -Os \
     -mcpu=cortex-m0plus \
     -Wall \
-    -mfloat-abi=soft \
     -mthumb \
     -MMD \
     -MP \
@@ -53,14 +65,13 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -mapcs \
     -fno-rtti \
     -fno-exceptions \
+    ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
     -mcpu=cortex-m0plus \
     -Wall \
-    -mfloat-abi=soft \
-    --specs=nano.specs \
-    --specs=nosys.specs \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
@@ -83,5 +94,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     --defsym=__stack_size__=0x2000 \
     -Xlinker \
     --defsym=__heap_size__=0x8000 \
+    ${FPU} \
+    ${SPECS} \
     -T${ProjDirPath}/K32L3A60xxx_cm0plus_flash.ld -static \
 ")

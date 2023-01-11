@@ -42,8 +42,9 @@ Prepare the Demo
 5.  Launch the debugger in your IDE to begin running the demo.
 
 Note: If OV7725 is used, change the macro APP_CAMERA_TYPE to APP_CAMERA_OV7725 in
-csi_rgb565.c.
+csi_fragment_gray.c.
 
 Running the demo
 ================
+Input anykey from the terminal to trigger image capture.
 When the demo runs successfully, the camera received pictures are shown in the LCD.

@@ -30,7 +30,7 @@
 #include "fsl_codec_common.h"
 #include "fsl_codec_adapter.h"
 #include "fsl_adapter_uart.h"
-#include "controller.h"
+#include "controller_hci_uart.h"
 #include "fsl_power.h"
 #include "usb_host_config.h"
 #include "usb_phy.h"
@@ -187,9 +187,10 @@ hal_audio_config_t txMicConfig = {
     .ipConfig      = NULL,
     .srcClock_Hz   = 24576000,
     .sampleRate_Hz = (uint32_t)kHAL_AudioSampleRate8KHz,
-#if defined(WIFI_88W8987_BOARD_AW_CM358_USD)
+#if (defined(WIFI_88W8987_BOARD_AW_CM358_USD) || defined(WIFI_IW416_BOARD_MURATA_1ZM_USD))
     .frameLength = 22, /* Here is 22 because the bt module will generate 22 bits clock after one clock WS. */
-#elif (defined(WIFI_IW416_BOARD_AW_AM510_USD) || defined(WIFI_IW416_BOARD_AW_AM457_USD))
+#elif (defined(WIFI_IW416_BOARD_AW_AM510_USD) || defined(WIFI_IW416_BOARD_AW_AM457_USD) || \
+       defined(WIFI_IW416_BOARD_MURATA_1XK_USD))
     .frameLength = 256, /* Here is 256 because the bt module will generate 256 bits clock after one clock WS. */
 #else
 #endif
@@ -219,9 +220,10 @@ hal_audio_config_t rxSpeakerConfig = {
     .ipConfig      = NULL,
     .srcClock_Hz   = 24576000,
     .sampleRate_Hz = (uint32_t)kHAL_AudioSampleRate8KHz,
-#if defined(WIFI_88W8987_BOARD_AW_CM358_USD)
+#if (defined(WIFI_88W8987_BOARD_AW_CM358_USD) || defined(WIFI_IW416_BOARD_MURATA_1ZM_USD))
     .frameLength = 22, /* Here is 22 because the bt module will generate 22 bits clock after one clock WS. */
-#elif (defined(WIFI_IW416_BOARD_AW_AM510_USD) || defined(WIFI_IW416_BOARD_AW_AM457_USD))
+#elif (defined(WIFI_IW416_BOARD_AW_AM510_USD) || defined(WIFI_IW416_BOARD_AW_AM457_USD) || \
+       defined(WIFI_IW416_BOARD_MURATA_1XK_USD))
     .frameLength = 256, /* Here is 256 because the bt module will generate 256 bits clock after one clock WS. */
 #else
 #endif
@@ -532,17 +534,4 @@ int main(void)
     vTaskStartScheduler();
     for (;;)
         ;
-}
-
-void *pvPortCalloc(size_t xNum, size_t xSize)
-{
-    void *pvReturn;
-
-    pvReturn = pvPortMalloc(xNum * xSize);
-    if (pvReturn != NULL)
-    {
-        memset(pvReturn, 0x00, xNum * xSize);
-    }
-
-    return pvReturn;
 }

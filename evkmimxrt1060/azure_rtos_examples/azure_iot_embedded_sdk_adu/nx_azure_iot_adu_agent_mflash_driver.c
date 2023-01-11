@@ -101,6 +101,8 @@ static status_t _write_image(NX_AZURE_IOT_ADU_AGENT_DRIVER *driver_req_ptr)
     return kStatus_Success;
 }
 
+#define IMAGE_INDEX     0
+
 void nx_azure_iot_adu_agent_driver(NX_AZURE_IOT_ADU_AGENT_DRIVER *driver_req_ptr)
 {
     status_t status;
@@ -114,8 +116,13 @@ void nx_azure_iot_adu_agent_driver(NX_AZURE_IOT_ADU_AGENT_DRIVER *driver_req_ptr
 
         case NX_AZURE_IOT_ADU_AGENT_DRIVER_INITIALIZE:
         {
-            update_part_offset = FLASH_AREA_IMAGE_2_OFFSET;
-            update_part_size = FLASH_AREA_IMAGE_2_SIZE;
+            status = bl_update_image_state(0, kSwapType_Permanent);
+            if (status != kStatus_Success && status != kStatus_NoData)
+            {
+                PRINTF("ERR: Failed to mark the new image as permanent (ret=%d)\r\n", status);
+                driver_req_ptr -> nx_azure_iot_adu_agent_driver_status = NX_AZURE_IOT_FAILURE;
+            }
+
             break;
         }
 
@@ -123,6 +130,17 @@ void nx_azure_iot_adu_agent_driver(NX_AZURE_IOT_ADU_AGENT_DRIVER *driver_req_ptr
         {
             /* Process firmware preprocess requests before writing firmware.
                Such as: erase the flash at once to improve the speed.  */
+
+            partition_t update_part;
+
+            if (bl_get_update_partition_info(IMAGE_INDEX, &update_part) != kStatus_Success)
+            {
+                PRINTF("ERR: bl_get_update_partition_info()\r\n");
+                driver_req_ptr -> nx_azure_iot_adu_agent_driver_status = NX_AZURE_IOT_FAILURE;
+            }
+
+            update_part_offset = update_part.start;
+            update_part_size = update_part.size;
 
             firmware_size = driver_req_ptr->nx_azure_iot_adu_agent_driver_firmware_size;
 
@@ -172,7 +190,7 @@ void nx_azure_iot_adu_agent_driver(NX_AZURE_IOT_ADU_AGENT_DRIVER *driver_req_ptr
             /* Set the new firmware for next boot.  */
 
             /* verify the new image */
-            status = bl_verify_image((uint8_t *)(MFLASH_BASE_ADDRESS + update_part_offset), firmware_size);
+            status = bl_verify_image(update_part_offset, firmware_size);
             if (status != 1)
             {
                 PRINTF("ERR: bl_verify_image()\r\n");
@@ -181,7 +199,7 @@ void nx_azure_iot_adu_agent_driver(NX_AZURE_IOT_ADU_AGENT_DRIVER *driver_req_ptr
             }
 
             /* set the flag to make the new image in effect */
-            status = bl_update_image_state(kSwapType_ReadyForTest);
+            status = bl_update_image_state(0, kSwapType_ReadyForTest);
             if (status != kStatus_Success)
             {
                 PRINTF("ERR: bl_update_image_state()\r\n");
@@ -194,10 +212,6 @@ void nx_azure_iot_adu_agent_driver(NX_AZURE_IOT_ADU_AGENT_DRIVER *driver_req_ptr
 
         case NX_AZURE_IOT_ADU_AGENT_DRIVER_APPLY:
         {
-            /* Apply the new firmware, and reboot device from that.*/
-            tx_thread_sleep(TX_TIMER_TICKS_PER_SECOND / 2);
-
-            NVIC_SystemReset();
 
             break;
         }

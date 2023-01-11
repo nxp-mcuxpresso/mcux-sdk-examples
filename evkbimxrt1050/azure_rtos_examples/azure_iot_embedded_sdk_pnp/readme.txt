@@ -109,6 +109,7 @@ Running the demo
 When the demo is running, the serial port will output, for example:
 
 Start the azure_iot_embedded_sdk_pnp example...
+MAC address: 00:11:22:33:44:56
 DHCP In Progress...
 IP address: 192.168.31.99
 Mask: 255.255.255.0

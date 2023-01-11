@@ -75,7 +75,6 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../examples/frdmk32l2a4s/rtos_examples/freertos_lpspi_b2b/master" project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../core/boards/frdmk32l2a4s" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
     </include_paths>

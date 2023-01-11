@@ -10,6 +10,10 @@
 #include "mcmgr.h"
 
 #include "fsl_gpio.h"
+gpio_pin_config_t led_config = {
+    kGPIO_DigitalOutput,
+    0,
+};
 #include "fsl_common.h"
 #include "fsl_power.h"
 /*******************************************************************************
@@ -49,12 +53,6 @@ int main(void)
 
     /* After 100 cycles, an exception will occur */
     uint32_t timeToException = 100U;
-
-    /* Define the init structure for the output LED pin*/
-    gpio_pin_config_t led_config = {
-        kGPIO_DigitalOutput,
-        0,
-    };
 
     /* Init board hardware.*/
     /* set BOD VBAT level to 1.65V */

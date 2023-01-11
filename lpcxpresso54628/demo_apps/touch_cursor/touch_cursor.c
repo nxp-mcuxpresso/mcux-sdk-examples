@@ -14,6 +14,14 @@
 #include "fsl_debug_console.h"
 #include "fsl_lcdc.h"
 #include "fsl_i2c.h"
+
+#define DEMO_PANEL_RK043FN02H  1 /* RK043FN02H-CT */
+#define DEMO_PANEL_RK043FN66HS 2 /* RK043FN66HS-CTG */
+
+#ifndef DEMO_PANEL
+#define DEMO_PANEL DEMO_PANEL_RK043FN66HS
+#endif
+
 #include "fsl_video_common.h"
 #if (DEMO_PANEL == DEMO_PANEL_RK043FN66HS)
 #include "fsl_gt911.h"
@@ -48,13 +56,6 @@
 #define EXAMPLE_I2C_MASTER         ((I2C_Type *)EXAMPLE_I2C_MASTER_BASE)
 #define I2C_MASTER_SLAVE_ADDR_7BIT 0x7EU
 #define I2C_BAUDRATE               100000U
-
-#define DEMO_PANEL_RK043FN02H  0 /* RK043FN02H-CT */
-#define DEMO_PANEL_RK043FN66HS 1 /* RK043FN66HS-CTG */
-
-#ifndef DEMO_PANEL
-#define DEMO_PANEL DEMO_PANEL_RK043FN66HS
-#endif
 
 /*******************************************************************************
  * Prototypes

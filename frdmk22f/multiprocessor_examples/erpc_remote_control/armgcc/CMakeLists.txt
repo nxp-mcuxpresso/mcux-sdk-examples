@@ -30,15 +30,21 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(erpc_remote_control)
 
+set(MCUX_BUILD_TYPES debug release)
+
 set(MCUX_SDK_PROJECT_NAME erpc_remote_control.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${ProjDirPath}/../../erpc_common/erpc_error_handler.h"
-"${ProjDirPath}/../../erpc_common/erpc_error_handler.cpp"
+"${SdkRootDirPath}/examples/frdmk22f/multiprocessor_examples/erpc_common/erpc_error_handler.h"
+"${SdkRootDirPath}/examples/frdmk22f/multiprocessor_examples/erpc_common/erpc_error_handler.cpp"
 "${ProjDirPath}/../remote_control.c"
 "${ProjDirPath}/../FreeRTOSConfig.h"
 "${ProjDirPath}/../erpc_config.h"
@@ -58,21 +64,40 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/frdmk22f/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
-    ${ProjDirPath}/../../erpc_common
+    ${SdkRootDirPath}/examples/frdmk22f/multiprocessor_examples/erpc_common
     ${ProjDirPath}/../service
-    ${SdkRootDirPath}/examples/frdmk22f/multiprocessor_examples/erpc_remote_control
     ${SdkRootDirPath}/core/boards/frdmk22f
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/drivers/edma
+    ${SdkRootDirPath}/core/drivers/uart
+    ${SdkRootDirPath}/core/drivers/dac
+    ${SdkRootDirPath}/core/components/fxos8700cq
+    ${SdkRootDirPath}/core/cmsis_drivers/uart
+    ${SdkRootDirPath}/core/drivers/gpio
+    ${SdkRootDirPath}/core/drivers/port
+    ${SdkRootDirPath}/core/drivers/i2c
+    ${SdkRootDirPath}/core/drivers/adc16
+    ${SdkRootDirPath}/core/drivers/dmamux
+    ${SdkRootDirPath}/middleware/multicore
+    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
+    ${SdkRootDirPath}/core/devices/MK22F51212/drivers
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/devices/MK22F51212
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/drivers/lpuart
+    ${SdkRootDirPath}/core/drivers/smc
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/CMSIS/Driver/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(driver_edma_MK22F51212)
@@ -148,19 +173,15 @@ include(utilities_misc_utilities_MK22F51212)
 include(device_system)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lstdc++ -lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE g)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE stdc++)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

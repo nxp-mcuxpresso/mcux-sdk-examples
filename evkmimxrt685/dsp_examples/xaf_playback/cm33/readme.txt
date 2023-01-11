@@ -80,6 +80,9 @@ begin running the demo.
 NOTE: DSP image can only be debugged using J-Link debugger.  See again
 'Getting Started with Xplorer for EVK-MIMXRT685.pdf' for more information.
 
+Running the demo
+================
+
 Running the demo CM33
 =====================
 When the demo runs successfully, the terminal will display the following:
@@ -88,13 +91,13 @@ When the demo runs successfully, the terminal will display the following:
     DSP audio framework demo start
     ******************************
 
-    Configure WM8904 codec
+    Configure [board specific] codec
     [APP_SDCARD_Task] start
     [APP_DSP_IPC_Task] start
     [APP_Shell_Task] start
 
     SHELL build: Dec 18 2019
-    Copyright  2021  NXP
+ * Copyright 2021 NXP
     >>
 
 Demo commands:
@@ -110,22 +113,6 @@ Demo commands:
     [APP_DSP_IPC_Task] response from DSP, cmd: 12, error: 0
     DSP file playback start
     >>
-
-  Xtensa IDE log when command is playing a file:
-    File playback start, initial buffer size: 16384
-    [DSP Codec] Audio Device Ready
-    [DSP Codec] Decoder component started
-    [DSP Codec] Setting decode playback format:
-      Decoder    : mp3_dec
-      Sample rate: 16000
-      Bit Width  : 16
-      Channels   : 2
-    [DSP Codec] EAP filter component started
-    [DSP Codec] Renderer component started
-    [DSP Codec] Connected XA_DECODER -> XA_EAP_FILTER
-    [DSP Codec] Connected XA_EAP_FILTER -> XA_RENDERER
-    [DSP_ProcessThread] start
-    [DSP_BufferThread] start
 
 "eap": Set EAP parameters
   USAGE: eap [1|2|3|4|5|6|7|+|-|l|r]
@@ -161,3 +148,19 @@ When the demo runs successfully, the terminal will display the following:
     [DSP_Main] start
     [DSP_Main] established RPMsg link
 
+Xtensa IDE log when command is playing a file:
+
+    File playback start, initial buffer size: 16384
+    [DSP Codec] Audio Device Ready
+    [DSP Codec] Decoder component started
+    [DSP Codec] Setting decode playback format:
+      Decoder    : mp3_dec
+      Sample rate: 16000
+      Bit Width  : 16
+      Channels   : 2
+    [DSP Codec] EAP filter component started
+    [DSP Codec] Renderer component started
+    [DSP Codec] Connected XA_DECODER -> XA_EAP_FILTER
+    [DSP Codec] Connected XA_EAP_FILTER -> XA_RENDERER
+    [DSP_ProcessThread] start
+    [DSP_BufferThread] start

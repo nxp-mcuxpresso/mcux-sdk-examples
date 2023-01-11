@@ -1346,7 +1346,7 @@ static void PHDC_ManagerPrintFloatValue(uint8_t *value)
     exponent = PHDC_ManagerConvertTwoComplement(8U, (uint8_t *)&exponent);
     mantissa = PHDC_ManagerConvertTwoComplement(24U, (uint8_t *)&mantissa);
     fValue   = (float)(mantissa * pow(10U, (double)exponent));
-    usb_echo("%f", fValue);
+    usb_echo("%f", (double)fValue);
 }
 
 /*!
@@ -1376,7 +1376,7 @@ static void PHDC_ManagerPrintSfloatValue(uint8_t *value)
     exponent = PHDC_ManagerConvertTwoComplement(4U, (uint8_t *)&exponent);
     mantissa = PHDC_ManagerConvertTwoComplement(12U, (uint8_t *)&mantissa);
     fValue   = (float)(mantissa * pow(10U, (double)exponent));
-    usb_echo("%f", fValue);
+    usb_echo("%f", (double)fValue);
 }
 
 /*!

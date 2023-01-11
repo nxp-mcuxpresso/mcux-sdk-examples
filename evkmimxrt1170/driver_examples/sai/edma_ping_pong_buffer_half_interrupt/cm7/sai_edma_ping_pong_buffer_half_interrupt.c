@@ -69,6 +69,9 @@
 #ifndef DEMO_CODEC_INIT_DELAY_MS
 #define DEMO_CODEC_INIT_DELAY_MS (1000U)
 #endif
+#ifndef DEMO_CODEC_VOLUME
+#define DEMO_CODEC_VOLUME 100U
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -114,6 +117,11 @@ static volatile uint32_t s_playIndex        = 0U;
 static volatile uint32_t s_playCount        = 0U;
 static volatile bool s_transferComplete     = false;
 static volatile bool s_transferHalfComplete = false;
+#if (defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) && DEMO_EDMA_HAS_CHANNEL_CONFIG)
+extern edma_config_t dmaConfig;
+#else
+edma_config_t dmaConfig = {0};
+#endif
 
 codec_handle_t codecHandle;
 
@@ -161,7 +169,6 @@ void DelayMS(uint32_t ms)
  */
 int main(void)
 {
-    edma_config_t dmaConfig               = {0};
     edma_transfer_config_t transferConfig = {0};
     uint32_t destAddr                     = SAI_TxGetDataRegisterAddress(DEMO_SAI, DEMO_SAI_CHANNEL);
     sai_transceiver_t saiConfig;
@@ -191,6 +198,7 @@ int main(void)
     memcpy(buffer, music, BUFFER_NUM * BUFFER_SIZE);
     s_playIndex = BUFFER_NUM * BUFFER_SIZE;
 
+#if (!defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) || (defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) && !DEMO_EDMA_HAS_CHANNEL_CONFIG))
     /* Create EDMA handle */
     /*
      * dmaConfig.enableRoundRobinArbitration = false;
@@ -199,6 +207,7 @@ int main(void)
      * dmaConfig.enableDebugMode = false;
      */
     EDMA_GetDefaultConfig(&dmaConfig);
+#endif
     EDMA_Init(DEMO_DMA, &dmaConfig);
     EDMA_CreateHandle(&g_dmaHandle, DEMO_DMA, DEMO_EDMA_CHANNEL);
     EDMA_SetCallback(&g_dmaHandle, EDMA_TX_Callback, NULL);
@@ -229,15 +238,20 @@ int main(void)
     {
         assert(false);
     }
+    if (CODEC_SetVolume(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight,
+                        DEMO_CODEC_VOLUME) != kStatus_Success)
+    {
+        assert(false);
+    }
 
     /* delay for codec output stable */
     DelayMS(DEMO_CODEC_INIT_DELAY_MS);
 
     /* Configure and submit transfer structure 1 */
-    EDMA_PrepareTransfer(&transferConfig, buffer, DEMO_AUDIO_BIT_WIDTH / 8U, (void *)destAddr,
-                         DEMO_AUDIO_BIT_WIDTH / 8U,
-                         (FSL_FEATURE_SAI_FIFO_COUNT - saiConfig.fifo.fifoWatermark) * (DEMO_AUDIO_BIT_WIDTH / 8U),
-                         BUFFER_SIZE * BUFFER_NUM, kEDMA_MemoryToPeripheral);
+    EDMA_PrepareTransfer(
+        &transferConfig, buffer, DEMO_AUDIO_BIT_WIDTH / 8U, (void *)destAddr, DEMO_AUDIO_BIT_WIDTH / 8U,
+        (FSL_FEATURE_SAI_FIFO_COUNTn(DEMO_SAI) - saiConfig.fifo.fifoWatermark) * (DEMO_AUDIO_BIT_WIDTH / 8U),
+        BUFFER_SIZE * BUFFER_NUM, kEDMA_MemoryToPeripheral);
 
     EDMA_TcdSetTransferConfig(&s_emdaTcd, &transferConfig, &s_emdaTcd);
     EDMA_TcdEnableInterrupts(&s_emdaTcd, kEDMA_MajorInterruptEnable | kEDMA_HalfInterruptEnable);

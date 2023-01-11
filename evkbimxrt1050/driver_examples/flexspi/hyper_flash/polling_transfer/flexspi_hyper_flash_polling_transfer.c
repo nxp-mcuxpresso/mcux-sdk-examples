@@ -190,9 +190,9 @@ const uint32_t customLUT[CUSTOM_LUT_LENGTH] = {
 
 int main(void)
 {
-    uint32_t i = 0;
-    status_t status;
-    bool errorFlag = false;
+    uint32_t i      = 0;
+    status_t status = kStatus_Fail;
+    bool errorFlag  = false;
 
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
@@ -230,28 +230,8 @@ int main(void)
     {
         PRINTF("loop nummber: %d\r\n", j);
 
-        /* Disable I cache to avoid cache pre-fatch instruction with branch prediction from flash
-           and application operate flash synchronously in multi-tasks. */
-#if defined(__ICACHE_PRESENT) && (__ICACHE_PRESENT == 1U)
-        volatile bool ICacheEnableFlag = false;
-        /* Disable I cache. */
-        if (SCB_CCR_IC_Msk == (SCB_CCR_IC_Msk & SCB->CCR))
-        {
-            SCB_DisableICache();
-            ICacheEnableFlag = true;
-        }
-#endif /* __ICACHE_PRESENT */
         /* Erase sector. */
         status = flexspi_nor_flash_erase_sector(EXAMPLE_FLEXSPI, (EXAMPLE_SECTOR + j) * SECTOR_SIZE);
-
-#if defined(__ICACHE_PRESENT) && (__ICACHE_PRESENT == 1U)
-        if (ICacheEnableFlag)
-        {
-            /* Enable I cache. */
-            SCB_EnableICache();
-            ICacheEnableFlag = false;
-        }
-#endif /* __ICACHE_PRESENT */
 
         if (status != kStatus_Success)
         {
@@ -279,27 +259,9 @@ int main(void)
 
         for (uint32_t k = 0x00U; k < (SECTOR_SIZE / FLASH_PAGE_SIZE); k++)
         {
-#if defined(__ICACHE_PRESENT) && (__ICACHE_PRESENT == 1U)
-            /* Disable I cache. */
-            if (SCB_CCR_IC_Msk == (SCB_CCR_IC_Msk & SCB->CCR))
-            {
-                SCB_DisableICache();
-                ICacheEnableFlag = true;
-            }
-#endif /* __ICACHE_PRESENT */
-
             status = flexspi_nor_flash_page_program(EXAMPLE_FLEXSPI,
                                                     (EXAMPLE_SECTOR + j) * SECTOR_SIZE + k * FLASH_PAGE_SIZE,
                                                     (void *)s_hyperflash_program_buffer);
-
-#if defined(__ICACHE_PRESENT) && (__ICACHE_PRESENT == 1U)
-            if (ICacheEnableFlag)
-            {
-                /* Enable I cache. */
-                SCB_EnableICache();
-                ICacheEnableFlag = false;
-            }
-#endif /* __ICACHE_PRESENT */
 
             if (status != kStatus_Success)
             {
@@ -312,7 +274,7 @@ int main(void)
 #endif
 
             memcpy(s_hyperflash_read_buffer,
-                   (void *)(FlexSPI_AMBA_BASE + (EXAMPLE_SECTOR + j) * SECTOR_SIZE + k * FLASH_PAGE_SIZE),
+                   (void *)(EXAMPLE_FLEXSPI_AMBA_BASE + (EXAMPLE_SECTOR + j) * SECTOR_SIZE + k * FLASH_PAGE_SIZE),
                    sizeof(s_hyperflash_read_buffer));
 
             if (memcmp(s_hyperflash_read_buffer, s_hyperflash_program_buffer, sizeof(s_hyperflash_program_buffer)) != 0)

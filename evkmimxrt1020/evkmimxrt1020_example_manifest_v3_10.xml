@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_evkmimxrt1020_examples_manifest_v3_10" name="SDK_2.x_evkmimxrt1020_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2022-08-04 15:21:49.762246-->
-  <!--This manifest is generated based on sdk repo commit: 7fb442914f92023b395b260777eb2355254fd71d-->
+  <!--Timestamp (UTC): 2023-01-10 16:36:33.899228-->
+  <!--This manifest is generated based on sdk repo commit: 11a5f6af5190bfe018a89b4d02c239713dc4cfa6-->
   <externalDefinitions>
     <definition extID="MIMXRT1021DAG5A"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="compiler_gcc"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2120_evkmimxrt1020_examples_manifest_v3_10" name="MCUXpressoSDK2120_evkmimxrt1020_examples_manifest_v3_10" version="2.12.0"/>
+  <ksdk id="MCUXpressoSDK2130_evkmimxrt1020_examples_manifest_v3_10" name="MCUXpressoSDK2130_evkmimxrt1020_examples_manifest_v3_10" version="2.13.0"/>
   <boards>
     <board id="evkmimxrt1020" name="EVK-MIMXRT1020" href="https://www.nxp.com/pip/MIMXRT1020-EVK" version="1.0.0" package="MIMXRT1021DAG5A">
       <examples>
@@ -487,6 +487,11 @@
             <files mask="ewm_v3_10.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt1020_filex_levelx_mflash" name="filex_levelx_mflash" brief="The filex_levelx_mflash example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="azure_rtos_examples" path="azure_rtos_examples/filex_levelx_mflash">
+          <external path="azure_rtos_examples/filex_levelx_mflash" type="xml">
+            <files mask="filex_levelx_mflash_v3_10.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt1020_filex_lib" name="filex_lib" brief="FileX library" toolchain="mcuxpresso" compiler="compiler_gcc" category="azure_rtos_libs" path="azure_rtos_examples/filex_lib">
           <external path="azure_rtos_examples/filex_lib" type="xml">
             <files mask="filex_lib_v3_10.xml"/>
@@ -735,6 +740,11 @@
         <example id="evkmimxrt1020_hello_world" name="hello_world" brief="The HelloWorld demo prints the &quot;Hello World&quot; string to the terminal using the SDK UART drivers and repeat what user input. The purpose of this demo is to show how to use the UART, and to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="demo_apps/hello_world">
           <external path="demo_apps/hello_world" type="xml">
             <files mask="hello_world_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1020_hello_world_swo" name="hello_world_swo" brief="The Hello World SWO demo prints the &quot;SWO: Hello World&quot; string to the SWO viewer. The purpose of this demo is to show how to use the swo, and to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="demo_apps/hello_world_swo">
+          <external path="demo_apps/hello_world_swo" type="xml">
+            <files mask="hello_world_swo_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1020_hello_world_virtual_com" name="hello_world_virtual_com" brief="Hello World Virtual Com demonstrates the use of virtual com to print the &quot;Hello World&quot; string to the terminal. Different with Hello World demo (a HW UART peripheral is used to transmit data), the demo transmits data based on a serial port simulated by the USB device stack on target board side via USB peripheral. The purpose of this demo is to demonstrate how to use virtual com and provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="demo_apps/hello_world_virtual_com">
@@ -1320,6 +1330,16 @@
         <example id="evkmimxrt1020_uart_example" name="uart_example" brief="The example shows how to use the uart driver in Azure RTOS." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="azure_rtos_examples" path="azure_rtos_examples/uart_example">
           <external path="azure_rtos_examples/uart_example" type="xml">
             <files mask="uart_example_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1020_usbx_device_audio_microphone" name="usbx_device_audio_microphone" brief="The usbx_device_audio_microphone example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="azure_rtos_examples" path="azure_rtos_examples/usbx_device_audio_microphone">
+          <external path="azure_rtos_examples/usbx_device_audio_microphone" type="xml">
+            <files mask="usbx_device_audio_microphone_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1020_usbx_device_audio_speaker" name="usbx_device_audio_speaker" brief="The usbx_device_audio_speaker example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="azure_rtos_examples" path="azure_rtos_examples/usbx_device_audio_speaker">
+          <external path="azure_rtos_examples/usbx_device_audio_speaker" type="xml">
+            <files mask="usbx_device_audio_speaker_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1020_usbx_device_composite_cdc_acm_cdc_acm" name="usbx_device_composite_cdc_acm_cdc_acm" brief="The usbx_device_composite_cdc_acm_cdc_acm example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="azure_rtos_examples" path="azure_rtos_examples/usbx_device_composite_cdc_acm_cdc_acm">

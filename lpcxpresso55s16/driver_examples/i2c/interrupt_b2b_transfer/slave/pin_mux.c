@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 ,2021 NXP
+ * Copyright 2017-2020, 2021, 2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v9.0
+product: Pins v12.0
 processor: LPC55S16
 package_id: LPC55S16JBD100
 mcu_data: ksdk2_0
-processor_version: 9.0.0
+processor_version: 0.12.6
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -49,9 +49,9 @@ BOARD_InitPins:
   - {pin_num: '92', peripheral: FLEXCOMM0, signal: RXD_SDA_MOSI_DATA, pin_signal: PIO0_29/FC0_RXD_SDA_MOSI_DATA/CTIMER2_MAT3/SCT0_OUT8/CMP0_OUT/PLU_OUT2/SECURE_GPIO0_29,
     mode: inactive, slew_rate: standard, invert: disabled, open_drain: disabled}
   - {pin_num: '4', peripheral: FLEXCOMM4, signal: TXD_SCL_MISO_WS, pin_signal: PIO1_20/FC7_RTS_SCL_SSEL1/CT_INP14/FC4_TXD_SCL_MISO_WS/PLU_OUT2, mode: inactive, slew_rate: standard,
-    invert: disabled, open_drain: disabled}
+    invert: disabled, open_drain: enabled}
   - {pin_num: '30', peripheral: FLEXCOMM4, signal: RXD_SDA_MOSI_DATA, pin_signal: PIO1_21/FC7_CTS_SDA_SSEL0/CTIMER3_MAT2/FC4_RXD_SDA_MOSI_DATA/PLU_OUT3, mode: inactive,
-    slew_rate: standard, invert: disabled, open_drain: disabled}
+    slew_rate: standard, invert: disabled, open_drain: enabled}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -108,8 +108,8 @@ void BOARD_InitPins(void)
                                          IOCON_PIO_INV_DI |
                                          /* Enables digital function */
                                          IOCON_PIO_DIGITAL_EN |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+                                         /* Open drain is enabled */
+                                         IOCON_PIO_OPENDRAIN_EN);
     /* PORT1 PIN20 (coords: 4) is configured as FC4_TXD_SCL_MISO_WS */
     IOCON_PinMuxSet(IOCON, 1U, 20U, port1_pin20_config);
 
@@ -123,8 +123,8 @@ void BOARD_InitPins(void)
                                          IOCON_PIO_INV_DI |
                                          /* Enables digital function */
                                          IOCON_PIO_DIGITAL_EN |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+                                         /* Open drain is enabled */
+                                         IOCON_PIO_OPENDRAIN_EN);
     /* PORT1 PIN21 (coords: 30) is configured as FC4_RXD_SDA_MOSI_DATA */
     IOCON_PinMuxSet(IOCON, 1U, 21U, port1_pin21_config);
 }

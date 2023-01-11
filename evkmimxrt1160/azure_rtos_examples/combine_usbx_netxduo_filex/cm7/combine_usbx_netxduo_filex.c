@@ -284,8 +284,8 @@ int main(void)
     gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
 
     BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     BOARD_InitModuleClock();
 
@@ -429,6 +429,7 @@ static int usb_storage_initialize(void)
 /* Define what the initial system looks like.  */
 VOID tx_application_define(void *first_unused_memory)
 {
+    status_t status;
     NX_PARAMETER_NOT_USED(first_unused_memory);
 
     network_service_initialize();
@@ -449,7 +450,11 @@ VOID tx_application_define(void *first_unused_memory)
                      TX_NO_TIME_SLICE, TX_AUTO_START);
 
     /* Create the event flags group used by threads 0 and 1.  */
-    tx_event_flags_create(&event_flags_0, "event flags 0");
+    status = tx_event_flags_create(&event_flags_0, "event flags 0");
+    if (status != TX_SUCCESS)
+    {
+        PRINTF("Error: tx_event_flags_create() failed\r\n");
+    }
 }
 
 #ifdef NX_ENABLE_DHCP

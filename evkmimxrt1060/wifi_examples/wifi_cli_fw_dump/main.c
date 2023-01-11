@@ -346,8 +346,12 @@ int main(void)
     BOARD_InitDebugConsole();
 
 #ifdef CONFIG_WIFI_FW_DEBUG
-    SCB_DisableDCache();
-    wlan_register_fw_dump_cb(usb_init, usb_mount, usb_file_open, usb_file_write, usb_file_close);
+    //SCB_DisableDCache();
+    wlan_register_fw_dump_cb(usb_init, usb_mount, usb_file_open, usb_file_write, usb_file_close
+#if defined(CONFIG_FW_DUMP_EVENT) || defined(CONFIG_CSI)
+                             , usb_file_lseek
+#endif
+                              );
 #endif
 
     printSeparator();

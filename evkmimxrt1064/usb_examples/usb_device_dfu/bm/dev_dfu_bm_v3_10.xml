@@ -108,7 +108,6 @@
     </debug_configurations>
     <include_paths>
       <include_path path="." project_relative_path="utility" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimxrt1064/usb_examples/usb_device_dfu/bm" project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="usb/device/source" type="c_include"/>

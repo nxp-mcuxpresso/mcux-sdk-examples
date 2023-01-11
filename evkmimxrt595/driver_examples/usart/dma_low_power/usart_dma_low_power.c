@@ -206,6 +206,7 @@ int main(void)
             EXAMPLE_EnterDeepSleep();
         }
         EnableGlobalIRQ(irqMask);
+        __ISB();
         assert(rxOnGoing == false);
 
         /* Now echo the characters */

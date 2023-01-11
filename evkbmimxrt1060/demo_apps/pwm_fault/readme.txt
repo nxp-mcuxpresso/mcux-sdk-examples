@@ -19,6 +19,8 @@ Hardware requirements
 
 Board settings
 ==============
+Weld 0Ω resistor to R362.
+
 * Probe the pwm signal using an oscilloscope
  - At J17-6
 

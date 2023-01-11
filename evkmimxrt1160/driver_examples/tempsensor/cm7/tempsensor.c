@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -37,13 +37,20 @@ volatile bool temperatureReach = false;
 /*******************************************************************************
  * Code
  ******************************************************************************/
-
 void DEMO_TEMP_LOW_HIGH_IRQHandler(void)
 {
     temperatureReach = true;
 
+#if defined(FSL_FEATURE_TMPSNS_HAS_AI_INTERFACE) && FSL_FEATURE_TMPSNS_HAS_AI_INTERFACE
     /* Disable high temp interrupt to jump out dead loop */
     TMPSNS_DisableInterrupt(DEMO_TEMP_SENSOR, kTEMPSENSOR_HighTempInterruptStatusEnable);
+#else
+    /* Disable high temp interrupt and finish interrupt to jump out dead loop, because finish interrupt and
+     * high/low/panic share the one IRQ number. */
+    TMPSNS_DisableInterrupt(DEMO_TEMP_SENSOR,
+                            kTEMPSENSOR_HighTempInterruptStatusEnable | kTEMPSENSOR_FinishInterruptStatusEnable);
+#endif
+
     SDK_ISR_EXIT_BARRIER;
 }
 
@@ -75,7 +82,7 @@ int main(void)
     /* Get temperature */
     temperature = TMPSNS_GetCurrentTemperature(DEMO_TEMP_SENSOR);
 
-    PRINTF("The chip initial temperature is %.1f celsius degree. \r\n", temperature);
+    PRINTF("The chip initial temperature is %.1f celsius degree. \r\n", (double)temperature);
 
     while (1)
     {
@@ -89,7 +96,8 @@ int main(void)
             /* Re-enable high temperature interrupt */
             TMPSNS_EnableInterrupt(DEMO_TEMP_SENSOR, kTEMPSENSOR_HighTempInterruptStatusEnable);
 
-            PRINTF("The chip temperature has reached high temperature that is %.1f celsius degree. \r\n", temperature);
+            PRINTF("The chip temperature has reached high temperature that is %.1f celsius degree. \r\n",
+                   (double)temperature);
             break;
         }
     }

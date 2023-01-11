@@ -30,6 +30,8 @@
       <toolchainSetting id_refs="com.nxp.mcuxpresso">
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>XOS_CLOCK_FREQ=594000000</value>
+          <value>XF_CORE_ID=0</value>
+          <value>XF_CFG_CORES_NUM=1</value>
           <value>SDK_DEBUGCONSOLE=1</value>
           <value>CPU_MIMXRT685SFVKB_dsp</value>
           <value>MCUXPRESSO_SDK</value>
@@ -69,7 +71,6 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="mimxrt685audevk" type="c_include"/>
-      <include_path path="../../../../../examples/mimxrt685audevk/dsp_examples/mu_interrupt/dsp" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="." project_relative_path="source" type="src">
       <files mask="main_dsp.c"/>

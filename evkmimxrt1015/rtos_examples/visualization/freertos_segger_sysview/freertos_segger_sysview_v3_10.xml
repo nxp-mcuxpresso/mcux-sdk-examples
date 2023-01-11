@@ -102,7 +102,7 @@
       <include_path path="Config" project_relative_path="segger_sysview" type="c_include"/>
       <include_path path="Sample/FreeRTOSV10" project_relative_path="segger_sysview" type="c_include"/>
       <include_path path="Sample/FreeRTOSV10" project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview" project_relative_path="evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimxrt1015/rtos_examples/visualization/freertos_segger_sysview" type="c_include"/>
       <include_path path="../../../../../core/boards/evkmimxrt1015" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
       <include_path path="SEGGER" project_relative_path="segger_sysview" type="asm_include"/>

@@ -112,7 +112,6 @@
     <include_paths>
       <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimxrt595/dsp_examples/audio_demo_bm/cm33" project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../core/boards/evkmimxrt595" project_relative_path="board" type="c_include"/>
       <include_path path="../dsp/binary" project_relative_path="dsp_binary" type="asm_include"/>
     </include_paths>

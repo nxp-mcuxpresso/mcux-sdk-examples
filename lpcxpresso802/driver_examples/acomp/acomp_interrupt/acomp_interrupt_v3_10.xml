@@ -16,8 +16,8 @@
     <definition extID="platform.drivers.lpc_miniusart.LPC802"/>
     <definition extID="platform.drivers.lpc_iocon_lite.LPC802"/>
     <definition extID="platform.drivers.rom_api.LPC802"/>
-    <definition extID="CMSIS_Include_core_cm.LPC802"/>
     <definition extID="platform.drivers.reset.LPC802"/>
+    <definition extID="CMSIS_Include_core_cm.LPC802"/>
     <definition extID="platform.utilities.misc_utilities.LPC802"/>
     <definition extID="platform.drivers.swm_connections.LPC802"/>
     <definition extID="platform.drivers.syscon_connections.LPC802"/>
@@ -28,7 +28,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso802_acomp_interrupt" name="acomp_interrupt" dependency="utility.debug_console_lite.LPC802 platform.utilities.assert_lite.LPC802 platform.drivers.lpc_acomp.LPC802 platform.drivers.lpc_gpio.LPC802 platform.drivers.common.LPC802 platform.drivers.clock.LPC802 platform.drivers.power_no_lib.LPC802 platform.drivers.swm.LPC802 platform.drivers.syscon.LPC802 device.LPC802_CMSIS.LPC802 component.miniusart_adapter.LPC802 device.LPC802_startup.LPC802 platform.drivers.lpc_miniusart.LPC802 platform.drivers.lpc_iocon_lite.LPC802 platform.drivers.rom_api.LPC802 CMSIS_Include_core_cm.LPC802 platform.drivers.reset.LPC802 platform.utilities.misc_utilities.LPC802 platform.drivers.swm_connections.LPC802 platform.drivers.syscon_connections.LPC802 device.LPC802_system.LPC802" category="driver_examples/acomp">
+  <example id="lpcxpresso802_acomp_interrupt" name="acomp_interrupt" dependency="utility.debug_console_lite.LPC802 platform.utilities.assert_lite.LPC802 platform.drivers.lpc_acomp.LPC802 platform.drivers.lpc_gpio.LPC802 platform.drivers.common.LPC802 platform.drivers.clock.LPC802 platform.drivers.power_no_lib.LPC802 platform.drivers.swm.LPC802 platform.drivers.syscon.LPC802 device.LPC802_CMSIS.LPC802 component.miniusart_adapter.LPC802 device.LPC802_startup.LPC802 platform.drivers.lpc_miniusart.LPC802 platform.drivers.lpc_iocon_lite.LPC802 platform.drivers.rom_api.LPC802 platform.drivers.reset.LPC802 CMSIS_Include_core_cm.LPC802 platform.utilities.misc_utilities.LPC802 platform.drivers.swm_connections.LPC802 platform.drivers.syscon_connections.LPC802 device.LPC802_system.LPC802" category="driver_examples/acomp">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -70,7 +70,7 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/lpcxpresso802/driver_examples/acomp/acomp_interrupt" project_relative_path="lpcxpresso802/driver_examples/acomp/acomp_interrupt" type="c_include"/>
+      <include_path path="." project_relative_path="lpcxpresso802/driver_examples/acomp/acomp_interrupt" type="c_include"/>
       <include_path path="../../../../../core/boards/lpcxpresso802" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

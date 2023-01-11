@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2021 NXP
+ * Copyright 2016-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -131,8 +131,8 @@ int main(void)
     /* Init FlexCAN module. */
     /*
      * flexcanConfig.clkSrc                 = kFLEXCAN_ClkSrc0;
-     * flexcanConfig.baudRate               = 1000000U;
-     * flexcanConfig.baudRateFD             = 2000000U;
+     * flexcanConfig.bitRate                = 1000000U;
+     * flexcanConfig.bitRateFD              = 2000000U;
      * flexcanConfig.maxMbNum               = 16;
      * flexcanConfig.enableLoopBack         = false;
      * flexcanConfig.enableSelfWakeup       = false;
@@ -153,7 +153,7 @@ int main(void)
     flexcan_timing_config_t timing_config;
     memset(&timing_config, 0, sizeof(flexcan_timing_config_t));
 #if (defined(USE_CANFD) && USE_CANFD)
-    if (FLEXCAN_FDCalculateImprovedTimingValues(EXAMPLE_CAN, flexcanConfig.baudRate, flexcanConfig.baudRateFD,
+    if (FLEXCAN_FDCalculateImprovedTimingValues(EXAMPLE_CAN, flexcanConfig.bitRate, flexcanConfig.bitRateFD,
                                                 EXAMPLE_CAN_CLK_FREQ, &timing_config))
     {
         /* Update the improved timing configuration*/
@@ -164,8 +164,7 @@ int main(void)
         LOG_INFO("No found Improved Timing Configuration. Just used default configuration\r\n\r\n");
     }
 #else
-    if (FLEXCAN_CalculateImprovedTimingValues(EXAMPLE_CAN, flexcanConfig.baudRate, EXAMPLE_CAN_CLK_FREQ,
-                                              &timing_config))
+    if (FLEXCAN_CalculateImprovedTimingValues(EXAMPLE_CAN, flexcanConfig.bitRate, EXAMPLE_CAN_CLK_FREQ, &timing_config))
     {
         /* Update the improved timing configuration*/
         memcpy(&(flexcanConfig.timingConfig), &timing_config, sizeof(flexcan_timing_config_t));

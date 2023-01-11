@@ -19,10 +19,12 @@
 #include <stdarg.h>
 #include <ctype.h>
 
-#include "enet_ethernetif.h"
+#include "ethernetif.h"
 #include "pin_mux.h"
 #include "board.h"
+#ifndef configMAC_ADDR
 #include "fsl_silicon_id.h"
+#endif
 #include "fsl_phy.h"
 
 #include "lwip/netif.h"
@@ -35,7 +37,12 @@
 #include "lwip/sockets.h"
 #include "netif/etharp.h"
 
+#ifdef MBEDTLS_MCUX_ELE_S400_API
+#include "ele_mbedtls.h"
+#else
 #include "ksdk_mbedtls.h"
+#endif /* MBEDTLS_MCUX_ELE_S400_API */
+
 #include "httpsrv.h"
 
 // dm #include "certs_buff.h"
@@ -46,7 +53,6 @@
 #else
 #include "fsl_phyrtl8211f.h"
 #endif
-#include "fsl_enet_mdio.h"
 #include "fsl_enet.h"
 /*******************************************************************************
  * Definitions
@@ -98,23 +104,29 @@
 #endif
 
 #if BOARD_NETWORK_USE_100M_ENET_PORT
+#define EXAMPLE_ENET ENET
 /* Address of PHY interface. */
 #define EXAMPLE_PHY_ADDRESS BOARD_ENET0_PHY_ADDRESS
 /* PHY operations. */
-#define EXAMPLE_PHY_OPS phyksz8081_ops
+#define EXAMPLE_PHY_OPS &phyksz8081_ops
 /* ENET instance select. */
 #define EXAMPLE_NETIF_INIT_FN ethernetif0_init
+
+extern phy_ksz8081_resource_t g_phy_resource;
 #else
+#define EXAMPLE_ENET          ENET_1G
 /* Address of PHY interface. */
 #define EXAMPLE_PHY_ADDRESS   BOARD_ENET1_PHY_ADDRESS
 /* PHY operations. */
-#define EXAMPLE_PHY_OPS       phyrtl8211f_ops
+#define EXAMPLE_PHY_OPS       &phyrtl8211f_ops
 /* ENET instance select. */
 #define EXAMPLE_NETIF_INIT_FN ethernetif1_init
+
+extern phy_rtl8211f_resource_t g_phy_resource;
 #endif
 
-/* MDIO operations. */
-#define EXAMPLE_MDIO_OPS enet_ops
+/* PHY resource. */
+#define EXAMPLE_PHY_RESOURCE &g_phy_resource
 
 /* ENET clock frequency. */
 #define EXAMPLE_CLOCK_FREQ CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
@@ -153,9 +165,13 @@ static bool cgi_get_varval(char *var_str, char *var_name, char *var_val, uint32_
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+#if BOARD_NETWORK_USE_100M_ENET_PORT
+phy_ksz8081_resource_t g_phy_resource;
+#else
+phy_rtl8211f_resource_t g_phy_resource;
+#endif
 
-static mdio_handle_t mdioHandle = {.ops = &EXAMPLE_MDIO_OPS};
-static phy_handle_t phyHandle   = {.phyAddr = EXAMPLE_PHY_ADDRESS, .mdioHandle = &mdioHandle, .ops = &EXAMPLE_PHY_OPS};
+static phy_handle_t phyHandle;
 
 static struct netif netif;
 /* FS data.*/
@@ -223,6 +239,22 @@ void BOARD_ENETFlexibleConfigure(enet_config_t *config)
 #else
     config->miiMode = kENET_RgmiiMode;
 #endif
+}
+
+static void MDIO_Init(void)
+{
+    (void)CLOCK_EnableClock(s_enetClock[ENET_GetInstance(EXAMPLE_ENET)]);
+    ENET_SetSMI(EXAMPLE_ENET, EXAMPLE_CLOCK_FREQ, false);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_MDIOWrite(EXAMPLE_ENET, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_MDIORead(EXAMPLE_ENET, phyAddr, regAddr, pData);
 }
 
 static int cgi_rtc_data(HTTPSRV_CGI_REQ_STRUCT *param)
@@ -553,20 +585,22 @@ static HTTPSRV_TLS_PARAM_STRUCT tls_params;
 static void stack_init(void)
 {
     ip4_addr_t netif_ipaddr, netif_netmask, netif_gw;
-    ethernetif_config_t enet_config = {
-        .phyHandle = &phyHandle,
+    ethernetif_config_t enet_config = {.phyHandle   = &phyHandle,
+                                       .phyAddr     = EXAMPLE_PHY_ADDRESS,
+                                       .phyOps      = EXAMPLE_PHY_OPS,
+                                       .phyResource = EXAMPLE_PHY_RESOURCE,
+                                       .srcClockHz  = EXAMPLE_CLOCK_FREQ,
 #ifdef configMAC_ADDR
-        .macAddress = configMAC_ADDR,
+                                       .macAddress = configMAC_ADDR
 #endif
     };
 
     CRYPTO_InitHardware();
-    mdioHandle.resource.csrClock_Hz = EXAMPLE_CLOCK_FREQ;
 
     tcpip_init(NULL, NULL);
 
+    /* Set MAC address. */
 #ifndef configMAC_ADDR
-    /* Set special address for each chip. */
     (void)SILICONID_ConvertToMacAddr(&enet_config.macAddress);
 #endif
 
@@ -578,6 +612,11 @@ static void stack_init(void)
                        tcpip_input);
     netifapi_netif_set_default(&netif);
     netifapi_netif_set_up(&netif);
+
+    while (ethernetif_wait_linkup(&netif, 5000) != ERR_OK)
+    {
+        PRINTF("PHY Auto-negotiation failed. Please check the cable connection and link partner setting.\r\n");
+    }
 
     LWIP_PLATFORM_DIAG(("\r\n************************************************"));
     LWIP_PLATFORM_DIAG(("mbedTLS HTTPS Server example"));
@@ -658,10 +697,7 @@ int main(void)
 
 #if BOARD_NETWORK_USE_100M_ENET_PORT
     BOARD_InitEnetPins();
-    GPIO_PinInit(GPIO9, 11, &gpio_config);
     GPIO_PinInit(GPIO12, 12, &gpio_config);
-    /* Pull up the ENET_INT before RESET. */
-    GPIO_WritePinOutput(GPIO9, 11, 1);
     GPIO_WritePinOutput(GPIO12, 12, 0);
     SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
     GPIO_WritePinOutput(GPIO12, 12, 1);
@@ -680,7 +716,9 @@ int main(void)
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_2_IRQn);
 #endif
 
-    mdioHandle.resource.csrClock_Hz = EXAMPLE_CLOCK_FREQ;
+    MDIO_Init();
+    g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
 
     /* create server thread in RTOS */
     if (sys_thread_new("main", main_thread, NULL, HTTPD_STACKSIZE, HTTPD_PRIORITY) == NULL)

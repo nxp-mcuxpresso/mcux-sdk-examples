@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2017, 2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -39,13 +39,14 @@ volatile static bool alarmHappen = false;
  */
 void RTC_IRQHandler(void)
 {
-    if (IRTC_GetStatusFlags(RTC) & kIRTC_AlarmFlag)
+    uint32_t flags = IRTC_GetStatusFlags(RTC);
+    if (0U != flags)
     {
-        alarmHappen = true;
+        alarmHappen = (0U != (flags & kIRTC_AlarmFlag));
         /* Unlock to allow register write operation */
         IRTC_SetWriteProtection(RTC, false);
-        /*Clear alarm flag */
-        IRTC_ClearStatusFlags(RTC, kIRTC_AlarmInterruptEnable);
+        /*Clear all irtc flag */
+        IRTC_ClearStatusFlags(RTC, flags);
     }
     SDK_ISR_EXIT_BARRIER;
 }

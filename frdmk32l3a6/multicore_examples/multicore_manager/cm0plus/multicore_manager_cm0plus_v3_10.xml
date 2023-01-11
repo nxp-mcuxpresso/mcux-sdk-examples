@@ -9,7 +9,6 @@
     <definition extID="platform.drivers.port.K32L3A60"/>
     <definition extID="platform.drivers.lpuart.K32L3A60"/>
     <definition extID="platform.drivers.clock.K32L3A60"/>
-    <definition extID="platform.drivers.mu.K32L3A60"/>
     <definition extID="middleware.multicore.mcmgr.K32L3A60"/>
     <definition extID="platform.drivers.common.K32L3A60"/>
     <definition extID="platform.drivers.msmc.K32L3A60"/>
@@ -17,6 +16,7 @@
     <definition extID="component.lists.K32L3A60"/>
     <definition extID="platform.devices.K32L3A60_CMSIS.K32L3A60"/>
     <definition extID="platform.devices.K32L3A60_startup.K32L3A60"/>
+    <definition extID="platform.drivers.mu.K32L3A60"/>
     <definition extID="CMSIS_Include_core_cm.K32L3A60"/>
     <definition extID="platform.utilities.misc_utilities.K32L3A60"/>
     <definition extID="platform.devices.K32L3A60_system.K32L3A60"/>
@@ -28,7 +28,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="frdmk32l3a6_multicore_manager_cm0plus" name="multicore_manager_cm0plus" device_core="cm0plus_K32L3A60xxx" dependency="middleware.multicore.mcmgr.k32l3a6.K32L3A60 utility.debug_console_lite.K32L3A60 platform.utilities.assert_lite.K32L3A60 platform.drivers.gpio.K32L3A60 platform.drivers.port.K32L3A60 platform.drivers.lpuart.K32L3A60 platform.drivers.clock.K32L3A60 platform.drivers.mu.K32L3A60 middleware.multicore.mcmgr.K32L3A60 platform.drivers.common.K32L3A60 platform.drivers.msmc.K32L3A60 component.lpuart_adapter.K32L3A60 component.lists.K32L3A60 platform.devices.K32L3A60_CMSIS.K32L3A60 platform.devices.K32L3A60_startup.K32L3A60 CMSIS_Include_core_cm.K32L3A60 platform.utilities.misc_utilities.K32L3A60 platform.devices.K32L3A60_system.K32L3A60" category="multicore_examples">
+  <example id="frdmk32l3a6_multicore_manager_cm0plus" name="multicore_manager_cm0plus" device_core="cm0plus_K32L3A60xxx" dependency="middleware.multicore.mcmgr.k32l3a6.K32L3A60 utility.debug_console_lite.K32L3A60 platform.utilities.assert_lite.K32L3A60 platform.drivers.gpio.K32L3A60 platform.drivers.port.K32L3A60 platform.drivers.lpuart.K32L3A60 platform.drivers.clock.K32L3A60 middleware.multicore.mcmgr.K32L3A60 platform.drivers.common.K32L3A60 platform.drivers.msmc.K32L3A60 component.lpuart_adapter.K32L3A60 component.lists.K32L3A60 platform.devices.K32L3A60_CMSIS.K32L3A60 platform.devices.K32L3A60_startup.K32L3A60 platform.drivers.mu.K32L3A60 CMSIS_Include_core_cm.K32L3A60 platform.utilities.misc_utilities.K32L3A60 platform.devices.K32L3A60_system.K32L3A60" category="multicore_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -91,7 +91,7 @@
     </debug_configurations>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/frdmk32l3a6/multicore_examples/multicore_manager/cm0plus" project_relative_path="frdmk32l3a6/multicore_examples/multicore_manager/cm0plus" type="c_include"/>
+      <include_path path="." project_relative_path="frdmk32l3a6/multicore_examples/multicore_manager/cm0plus" type="c_include"/>
       <include_path path="../../../../../core/boards/frdmk32l3a6" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

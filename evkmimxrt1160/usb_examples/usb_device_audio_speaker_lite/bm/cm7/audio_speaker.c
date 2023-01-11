@@ -49,6 +49,7 @@
 #define DEMO_DMA_TX_CHANNEL     (0U)
 #define DEMO_DMAMUX_INDEX       (0U)
 #define DEMO_SAI_TX_SOURCE      kDmaRequestMuxSai1Tx
+#define DEMO_SAI                SAI1
 
 /* Get frequency of sai1 clock */
 #define DEMO_SAI_CLK_FREQ CLOCK_GetRootClockFreq(kCLOCK_Root_Sai1)
@@ -2919,7 +2920,7 @@ void main(void)
     audioTxConfig.frameSyncWidth                 = kHAL_AudioFrameSyncWidthHalfFrame;
     audioTxConfig.frameSyncPolarity              = kHAL_AudioBeginAtFallingEdge;
     audioTxConfig.dataFormat                     = kHAL_AudioDataFormatI2sClassic;
-    audioTxConfig.fifoWatermark                  = (uint8_t)(FSL_FEATURE_SAI_FIFO_COUNT - 1);
+    audioTxConfig.fifoWatermark                  = (uint8_t)(FSL_FEATURE_SAI_FIFO_COUNTn(DEMO_SAI) - 1);
     audioTxConfig.bitWidth                       = (uint8_t)kHAL_AudioWordWidth16bits;
     audioTxConfig.lineChannels                   = kHAL_AudioStereo;
 

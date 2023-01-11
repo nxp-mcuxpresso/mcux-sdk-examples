@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_lpcxpresso802_examples_manifest_v3_10" name="SDK_2.x_lpcxpresso802_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2022-08-11 15:02:17.602482-->
-  <!--This manifest is generated based on sdk repo commit: 7fb442914f92023b395b260777eb2355254fd71d-->
+  <!--Timestamp (UTC): 2023-01-10 16:37:23.087424-->
+  <!--This manifest is generated based on sdk repo commit: 11a5f6af5190bfe018a89b4d02c239713dc4cfa6-->
   <externalDefinitions>
     <definition extID="LPC802M001JDH20"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="compiler_gcc"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2120_lpcxpresso802_examples_manifest_v3_10" name="MCUXpressoSDK2120_lpcxpresso802_examples_manifest_v3_10" version="2.12.0"/>
+  <ksdk id="MCUXpressoSDK2130_lpcxpresso802_examples_manifest_v3_10" name="MCUXpressoSDK2130_lpcxpresso802_examples_manifest_v3_10" version="2.13.0"/>
   <boards>
     <board id="lpcxpresso802" name="LPCXpresso802" href="https://www.nxp.com/pip/OM40000" version="1.0.0" package="LPC802M001JDH20">
       <examples>

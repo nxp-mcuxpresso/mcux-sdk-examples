@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 ,2021 NXP
+ * Copyright 2016-2017 ,2021-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -15,17 +15,20 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v9.0
+product: Pins v12.0
 processor: MKV11Z128xxx7
 package_id: MKV11Z128VLH7
 mcu_data: ksdk2_0
-processor_version: 9.0.0
+processor_version: 0.12.6
+pin_labels:
+- {pin_num: '29', pin_signal: PTA13/LLWU_P4/CAN0_RX/FTM1_CH1/FTM1_QD_PHB, label: CAN_S, identifier: CAN_S}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
 
 #include "fsl_common.h"
 #include "fsl_port.h"
+#include "fsl_gpio.h"
 #include "pin_mux.h"
 
 /* FUNCTION ************************************************************************************************************
@@ -49,6 +52,7 @@ BOARD_InitPins:
   - {pin_num: '40', peripheral: UART0, signal: TX, pin_signal: PTB17/UART0_TX/FTM_CLKIN1/CAN0_RX/EWM_OUT_b, direction: OUTPUT}
   - {pin_num: '21', peripheral: CAN0, signal: RX, pin_signal: PTE25/LLWU_P21/CAN0_RX/FTM0_CH1/I2C0_SDA/EWM_IN}
   - {pin_num: '20', peripheral: CAN0, signal: TX, pin_signal: PTE24/CAN0_TX/FTM0_CH0/I2C0_SCL/EWM_OUT_b}
+  - {pin_num: '29', peripheral: GPIOA, signal: 'GPIO, 13', pin_signal: PTA13/LLWU_P4/CAN0_RX/FTM1_CH1/FTM1_QD_PHB, direction: OUTPUT}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -61,10 +65,22 @@ BOARD_InitPins:
  * END ****************************************************************************************************************/
 void BOARD_InitPins(void)
 {
+    /* Port A Clock Gate Control: Clock enabled */
+    CLOCK_EnableClock(kCLOCK_PortA);
     /* Port B Clock Gate Control: Clock enabled */
     CLOCK_EnableClock(kCLOCK_PortB);
     /* Port E Clock Gate Control: Clock enabled */
     CLOCK_EnableClock(kCLOCK_PortE);
+
+    gpio_pin_config_t CAN_S_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PTA13 (pin 29)  */
+    GPIO_PinInit(BOARD_INITPINS_CAN_S_GPIO, BOARD_INITPINS_CAN_S_PIN, &CAN_S_config);
+
+    /* PORTA13 (pin 29) is configured as PTA13 */
+    PORT_SetPinMux(BOARD_INITPINS_CAN_S_PORT, BOARD_INITPINS_CAN_S_PIN, kPORT_MuxAsGpio);
 
     /* PORTB16 (pin 39) is configured as UART0_RX */
     PORT_SetPinMux(PORTB, 16U, kPORT_MuxAlt3);

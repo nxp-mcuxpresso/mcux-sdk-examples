@@ -85,7 +85,11 @@ int main(void)
 
     GETCHAR();
     LPADC_DoSoftwareTrigger(DEMO_LPADC_BASE, 1U); /* 1U is trigger0 mask. */
+#if (defined(FSL_FEATURE_LPADC_FIFO_COUNT) && (FSL_FEATURE_LPADC_FIFO_COUNT == 2U))
+    while (!LPADC_GetConvResult(DEMO_LPADC_BASE, &mLpadcResultConfigStruct, 0U))
+#else
     while (!LPADC_GetConvResult(DEMO_LPADC_BASE, &mLpadcResultConfigStruct))
+#endif /* FSL_FEATURE_LPADC_FIFO_COUNT */
     {
     }
     PRINTF("ADC value: %d\r\n", ((mLpadcResultConfigStruct.convValue) >> 3U));

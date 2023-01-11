@@ -31,17 +31,11 @@
 #endif /* FSL_FEATURE_SOC_SYSMPU_COUNT */
 
 #include "fsl_power.h"
-#include "fsl_enet_mdio.h"
 #include "fsl_phylan8720a.h"
 #include "fsl_phy.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define EXAMPLE_PHY_ADDRESS BOARD_ENET0_PHY_ADDRESS
-/* MDIO operations. */
-#define EXAMPLE_MDIO_OPS lpc_enet_ops
-/* PHY operations. */
-#define EXAMPLE_PHY_OPS phylan8720a_ops
 /* Base unit for ENIT layer is 1Mbps while for RNDIS its 100bps*/
 #define ENET_CONVERT_FACTOR (10000)
 
@@ -64,10 +58,7 @@ usb_status_t VNIC_EnetTxDone(void);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-/*! @brief Enet PHY and MDIO interface handler. */
-mdio_handle_t mdioHandle = {.resource.base = ENET, .ops = &EXAMPLE_MDIO_OPS};
-phy_handle_t phyHandle   = {.phyAddr = EXAMPLE_PHY_ADDRESS, .mdioHandle = &mdioHandle, .ops = &EXAMPLE_PHY_OPS};
-
+phy_lan8720a_resource_t g_phy_resource;
 extern usb_cdc_vnic_t g_cdcVnic;
 extern queue_t g_enetRxServiceQueue;
 extern queue_t g_enetTxServiceQueue;
@@ -107,6 +98,32 @@ USB_DMA_INIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE) static uint8_t s_zeroSend = 0x00;
 /*******************************************************************************
  * Code
  ******************************************************************************/
+const phy_operations_t *BOARD_GetPhyOps(void)
+{
+    return &phylan8720a_ops;
+}
+
+void *BOARD_GetPhyResource(void)
+{
+    return (void *)&g_phy_resource;
+}
+
+static void MDIO_Init(void)
+{
+    (void)CLOCK_EnableClock(s_enetClock[ENET_GetInstance(ENET)]);
+    ENET_SetSMI(ENET);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_MDIOWrite(ENET, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_MDIORead(ENET, phyAddr, regAddr, pData);
+}
+
 #if (defined(USB_DEVICE_CONFIG_LPCIP3511FS) && (USB_DEVICE_CONFIG_LPCIP3511FS > 0U))
 void USB0_IRQHandler(void)
 {
@@ -1033,6 +1050,10 @@ void main(void)
     /* disable usb0 host clock */
     CLOCK_DisableClock(kCLOCK_Usbhsl0);
 #endif
+
+    MDIO_Init();
+    g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
 
     APPInit();
 

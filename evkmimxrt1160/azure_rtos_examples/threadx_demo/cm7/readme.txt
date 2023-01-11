@@ -15,7 +15,7 @@ Toolchain supported
 Hardware requirements
 =====================
 - A Micro USB cable
-- MIMXRT1170-EVK board
+- MIMXRT1160-EVK board
 - Personal Computer
 
 Board settings

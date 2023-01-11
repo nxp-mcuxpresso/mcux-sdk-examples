@@ -90,7 +90,6 @@
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="../../log/freertos" project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../examples/frdmk22f/component_examples/led_control/freertos" project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../core/boards/frdmk22f" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
     </include_paths>

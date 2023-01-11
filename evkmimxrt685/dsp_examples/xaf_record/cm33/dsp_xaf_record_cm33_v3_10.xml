@@ -70,6 +70,7 @@
           <value>FSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1</value>
           <value>XA_PCM_GAIN=1</value>
           <value>XA_VIT_PRE_PROC=1</value>
+          <value>XA_VOICE_SEEKER=1</value>
           <value>XA_RENDERER=1</value>
           <value>XA_CAPTURER=1</value>
           <value>DSP_NCACHE</value>
@@ -127,7 +128,6 @@
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../middleware/vit/HIFI4/Lib" project_relative_path="middleware/vit" type="c_include"/>
       <include_path path="../../../../../middleware/vit/HIFI4/Lib/Inc" project_relative_path="middleware/vit" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimxrt685/dsp_examples/xaf_record/cm33" project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../core/boards/evkmimxrt685" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
       <include_path path="../../../../../examples/evkmimxrt685/dsp_examples/xaf_record/dsp/binary" project_relative_path="dsp_binary" type="asm_include"/>

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016 - 2017, 2021 NXP
+ * Copyright 2016 - 2017, 2021 - 2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -23,6 +23,8 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+#define BOARD_PHY_OPS      BOARD_GetPhyOps()
+#define BOARD_PHY_RESOURCE BOARD_GetPhyResource()
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -31,10 +33,13 @@ void VNIC_EnetCallback(pbuf_t *pbuffer);
 void VNIC_EnetRxBufFree(pbuf_t *pbuf);
 uint8_t *VNIC_EnetRxBufAlloc(void);
 usb_status_t VNIC_EnetTxDone(void);
+extern const phy_operations_t *BOARD_GetPhyOps(void);
+extern void *BOARD_GetPhyResource(void);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
 enet_handle_t g_handle;
+phy_handle_t phyHandle;
 uint8_t g_hwaddr[ENET_MAC_ADDR_SIZE];
 static enet_tx_reclaim_info_t g_txDirty[ENET_TXBD_NUM];
 
@@ -51,8 +56,6 @@ __ALIGN_BEGIN enet_tx_bd_struct_t g_txBuffDescrip[ENET_TXBD_NUM] __ALIGN_END;
 #endif
 __ALIGN_BEGIN uint8_t RxDataBuff[ENET_RXBD_NUM][ENET_RXBUFF_SIZE] __ALIGN_END;
 
-extern mdio_handle_t mdioHandle;
-extern phy_handle_t phyHandle;
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -277,9 +280,10 @@ enet_err_t ENETIF_Init(void)
         ENET_BuffSizeAlign(ENET_RXBUFF_SIZE),
     };
 
-    phyConfig.phyAddr        = 0;
-    phyConfig.autoNeg        = true;
-    mdioHandle.resource.base = ENET;
+    phyConfig.phyAddr  = 0;
+    phyConfig.ops      = BOARD_PHY_OPS;
+    phyConfig.resource = BOARD_PHY_RESOURCE;
+    phyConfig.autoNeg  = true;
     PHY_Init(&phyHandle, &phyConfig);
 
     while ((count < ENET_PHY_TIMEOUT) && (!(link && autonego)))

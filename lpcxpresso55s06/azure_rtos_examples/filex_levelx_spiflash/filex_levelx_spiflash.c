@@ -14,20 +14,30 @@
 
 #define DEMO_STACK_SIZE         2048
 
+#ifndef DEMO_DISK_SIZE_KB
 #define DEMO_DISK_SIZE_KB       (512UL)       /* disk size is 512 KB */
+#endif
+
+#ifndef DEMO_DISK_FLASH_OFFSET
+#define DEMO_DISK_FLASH_OFFSET      (0UL)
+#endif
+
 #define DEMO_DISK_SIZE          (DEMO_DISK_SIZE_KB * 1024UL)
 #define DEMO_SECTOR_SIZE        (LX_NOR_SECTOR_SIZE_BYTES)
 #define DEMO_SECTOR_COUNT       (DEMO_DISK_SIZE / DEMO_SECTOR_SIZE)
 
 #define DEMO_SECTORS_PER_CLUSTER    (8UL)
-#define DEMO_DISK_FLASH_OFFSET      (0UL)
 
 #define LX_NOR_SECTOR_SIZE_BYTES    (LX_NOR_SECTOR_SIZE * sizeof(ULONG))
 #define LX_NOR_SECTOR_PER_BLOCK     (16UL)
 #define LX_NOR_BLOCK_SIZE           (LX_NOR_SECTOR_SIZE_BYTES * LX_NOR_SECTOR_PER_BLOCK)
 #define LX_NOR_BLOCK_COUNT          (DEMO_DISK_SIZE / LX_NOR_BLOCK_SIZE)
 
-fx_levelx_disk_infor_t g_disk_infor;
+fx_levelx_disk_infor_t g_disk_infor = {
+    .disk_size = DEMO_DISK_SIZE,
+    .disk_flash_offset = DEMO_DISK_FLASH_OFFSET,
+    .levelx_block_size = LX_NOR_BLOCK_SIZE
+};
 
 static FX_MEDIA flash_disk;
 
@@ -41,7 +51,7 @@ static ULONG media_memory[LX_NOR_SECTOR_SIZE * 4];
 
 extern VOID _fx_levelx_driver(FX_MEDIA *media_ptr);
 
-extern status_t spi_flash_erase_flash_disk(uint32_t offset, uint32_t disk_size);
+extern status_t erase_flash_disk(uint32_t offset, uint32_t disk_size);
 
 static VOID thread_main_entry(ULONG thread_input)
 {
@@ -53,17 +63,12 @@ static VOID thread_main_entry(ULONG thread_input)
                 DEMO_DISK_FLASH_OFFSET, DEMO_DISK_SIZE_KB);
 
     /* erase flash if necessary */
-    ret = spi_flash_erase_flash_disk(DEMO_DISK_FLASH_OFFSET,
-                                     DEMO_DISK_SIZE);
+    ret = erase_flash_disk(DEMO_DISK_FLASH_OFFSET, DEMO_DISK_SIZE);
     if (ret != kStatus_Success)
     {
         PRINTF("ERR: failed to erase SPI flash.\r\n");
         goto err;
     }
-
-    g_disk_infor.disk_size = DEMO_DISK_SIZE;
-    g_disk_infor.disk_flash_offset = DEMO_DISK_FLASH_OFFSET;
-    g_disk_infor.levelx_block_size = LX_NOR_BLOCK_SIZE;
 
     /*
      * Removing the sectors used by LevelX to get the real total sector number.

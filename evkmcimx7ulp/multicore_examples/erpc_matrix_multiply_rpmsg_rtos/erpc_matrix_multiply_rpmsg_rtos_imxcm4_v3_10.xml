@@ -18,6 +18,7 @@
     <definition extID="middleware.multicore.erpc.eRPC_port_freertos.MCIMX7U5"/>
     <definition extID="middleware.multicore.erpc.doc.MCIMX7U5"/>
     <definition extID="middleware.freertos-kernel.MCIMX7U5"/>
+    <definition extID="platform.drivers.iomuxc.MCIMX7U5"/>
     <definition extID="platform.devices.MCIMX7U5_CMSIS.MCIMX7U5"/>
     <definition extID="utility.debug_console.MCIMX7U5"/>
     <definition extID="component.lpuart_adapter.MCIMX7U5"/>
@@ -59,7 +60,7 @@
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="mdk"/>
   </externalDefinitions>
-  <example id="evkmcimx7ulp_erpc_matrix_multiply_rpmsg_rtos_imxcm4" name="erpc_matrix_multiply_rpmsg_rtos_imxcm4" dependency="component.codec_i2c.MCIMX7U5 platform.drivers.common.MCIMX7U5 component.lpi2c_adapter.MCIMX7U5 driver.codec.MCIMX7U5 component.wm8960_adapter.MCIMX7U5 middleware.multicore.rpmsg_lite.MCIMX7U5 middleware.multicore.rpmsg_lite.freertos.MCIMX7U5 platform.drivers.gpio.MCIMX7U5 platform.drivers.port.MCIMX7U5 platform.drivers.clock.MCIMX7U5 platform.drivers.mu.MCIMX7U5 middleware.multicore.erpc.eRPC_server.MCIMX7U5 middleware.multicore.erpc.eRPC_rpmsg_tty_rtos_remote_c_wrapper.MCIMX7U5 middleware.multicore.erpc.eRPC_rpmsg_tty_rtos_transport.MCIMX7U5 middleware.multicore.erpc.eRPC_port_freertos.MCIMX7U5 middleware.multicore.erpc.doc.MCIMX7U5 middleware.freertos-kernel.MCIMX7U5 platform.devices.MCIMX7U5_CMSIS.MCIMX7U5 utility.debug_console.MCIMX7U5 component.lpuart_adapter.MCIMX7U5 component.serial_manager.MCIMX7U5 component.lists.MCIMX7U5 component.serial_manager_uart.MCIMX7U5 platform.drivers.lpuart.MCIMX7U5 platform.devices.MCIMX7U5_startup.MCIMX7U5 platform.drivers.msmc.MCIMX7U5 platform.utilities.assert.MCIMX7U5 platform.drivers.dmamux.MCIMX7U5 CMSIS_Include_core_cm.MCIMX7U5 platform.drivers.edma.MCIMX7U5 platform.drivers.lpi2c.MCIMX7U5 platform.drivers.lpi2c_freertos.MCIMX7U5 middleware.freertos-kernel.extension.MCIMX7U5 platform.drivers.pmc0.MCIMX7U5 platform.drivers.llwu.MCIMX7U5 platform.drivers.snvs_lp.MCIMX7U5 driver.pf1550.MCIMX7U5 platform.drivers.sai.MCIMX7U5 platform.drivers.sai_edma.MCIMX7U5 driver.wm8960.MCIMX7U5 driver.srtm.freertos.MCIMX7U5 driver.srtm.MCIMX7U5 middleware.multicore.rpmsg_lite.imx7ulp_m4_freertos.MCIMX7U5 middleware.freertos-kernel.heap_4.MCIMX7U5 middleware.issdk.sensor.allregdefs.MCIMX7U5 CMSIS_Driver_Include.I2C.MCIMX7U5 CMSIS_Driver_Include.Common.MCIMX7U5 CMSIS_Driver_Include.SPI.MCIMX7U5 middleware.issdk.algorithms.pedometer.lib_cm4.MCIMX7U5 middleware.issdk.algorithms.pedometer.MCIMX7U5 middleware.multicore.erpc.common.MCIMX7U5 platform.utilities.misc_utilities.MCIMX7U5" category="multicore_examples">
+  <example id="evkmcimx7ulp_erpc_matrix_multiply_rpmsg_rtos_imxcm4" name="erpc_matrix_multiply_rpmsg_rtos_imxcm4" dependency="component.codec_i2c.MCIMX7U5 platform.drivers.common.MCIMX7U5 component.lpi2c_adapter.MCIMX7U5 driver.codec.MCIMX7U5 component.wm8960_adapter.MCIMX7U5 middleware.multicore.rpmsg_lite.MCIMX7U5 middleware.multicore.rpmsg_lite.freertos.MCIMX7U5 platform.drivers.gpio.MCIMX7U5 platform.drivers.port.MCIMX7U5 platform.drivers.clock.MCIMX7U5 platform.drivers.mu.MCIMX7U5 middleware.multicore.erpc.eRPC_server.MCIMX7U5 middleware.multicore.erpc.eRPC_rpmsg_tty_rtos_remote_c_wrapper.MCIMX7U5 middleware.multicore.erpc.eRPC_rpmsg_tty_rtos_transport.MCIMX7U5 middleware.multicore.erpc.eRPC_port_freertos.MCIMX7U5 middleware.multicore.erpc.doc.MCIMX7U5 middleware.freertos-kernel.MCIMX7U5 platform.drivers.iomuxc.MCIMX7U5 platform.devices.MCIMX7U5_CMSIS.MCIMX7U5 utility.debug_console.MCIMX7U5 component.lpuart_adapter.MCIMX7U5 component.serial_manager.MCIMX7U5 component.lists.MCIMX7U5 component.serial_manager_uart.MCIMX7U5 platform.drivers.lpuart.MCIMX7U5 platform.devices.MCIMX7U5_startup.MCIMX7U5 platform.drivers.msmc.MCIMX7U5 platform.utilities.assert.MCIMX7U5 platform.drivers.dmamux.MCIMX7U5 CMSIS_Include_core_cm.MCIMX7U5 platform.drivers.edma.MCIMX7U5 platform.drivers.lpi2c.MCIMX7U5 platform.drivers.lpi2c_freertos.MCIMX7U5 middleware.freertos-kernel.extension.MCIMX7U5 platform.drivers.pmc0.MCIMX7U5 platform.drivers.llwu.MCIMX7U5 platform.drivers.snvs_lp.MCIMX7U5 driver.pf1550.MCIMX7U5 platform.drivers.sai.MCIMX7U5 platform.drivers.sai_edma.MCIMX7U5 driver.wm8960.MCIMX7U5 driver.srtm.freertos.MCIMX7U5 driver.srtm.MCIMX7U5 middleware.multicore.rpmsg_lite.imx7ulp_m4_freertos.MCIMX7U5 middleware.freertos-kernel.heap_4.MCIMX7U5 middleware.issdk.sensor.allregdefs.MCIMX7U5 CMSIS_Driver_Include.I2C.MCIMX7U5 CMSIS_Driver_Include.Common.MCIMX7U5 CMSIS_Driver_Include.SPI.MCIMX7U5 middleware.issdk.algorithms.pedometer.lib_cm4.MCIMX7U5 middleware.issdk.algorithms.pedometer.MCIMX7U5 middleware.multicore.erpc.common.MCIMX7U5 platform.utilities.misc_utilities.MCIMX7U5" category="multicore_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.ccnature"/>
     </projects>
@@ -148,15 +149,13 @@
       </toolchainSetting>
     </toolchainSettings>
     <include_paths>
-      <include_path path="../../../../examples/evkmcimx7ulp/multicore_examples/erpc_matrix_multiply_rpmsg_rtos" project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../examples/evkmcimx7ulp/multicore_examples/erpc_matrix_multiply_rpmsg_rtos" project_relative_path="source" type="c_include"/>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="../erpc_common" project_relative_path="source" type="c_include"/>
       <include_path path="../erpc_common/erpc_matrix_multiply/service" project_relative_path="erpc/service" type="c_include"/>
-      <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="remoteproc" type="c_include"/>
-      <include_path path="../../../../examples/evkmcimx7ulp/multicore_examples/erpc_matrix_multiply_rpmsg_rtos" project_relative_path="evkmcimx7ulp/multicore_examples/erpc_matrix_multiply_rpmsg_rtos" type="c_include"/>
+      <include_path path="." project_relative_path="evkmcimx7ulp/multicore_examples/erpc_matrix_multiply_rpmsg_rtos" type="c_include"/>
       <include_path path="../../../../core/boards/evkmcimx7ulp" project_relative_path="board" type="c_include"/>
-      <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="evkmcimx7ulp" type="c_include"/>
       <include_path path="srtm/channels" project_relative_path="srtm/channels" type="c_include"/>
       <include_path path="srtm/services" project_relative_path="srtm/services" type="c_include"/>
@@ -246,9 +245,6 @@
       <files mask="board.h"/>
       <files mask="clock_config.h"/>
     </source>
-    <source path="." project_relative_path="board" type="c_include">
-      <files mask="fsl_iomuxc.h"/>
-    </source>
     <source path="." project_relative_path="doc" type="doc" toolchain="iar mdk armgcc">
       <files mask="readme.txt"/>
     </source>
@@ -256,11 +252,12 @@
       <files mask="MCIMX7U5xxxxx_cm4_ram.ld"/>
       <files mask="MCIMX7U5xxxxx_cm4_flash.ld"/>
     </source>
+    <source path="." project_relative_path="evkmcimx7ulp" type="c_include">
+      <files mask="srtm_config.h"/>
+      <files mask="app_srtm.h"/>
+    </source>
     <source path="." project_relative_path="evkmcimx7ulp" type="src">
       <files mask="app_srtm.c"/>
-    </source>
-    <source path="." project_relative_path="evkmcimx7ulp" type="c_include">
-      <files mask="app_srtm.h"/>
     </source>
     <source path="srtm/channels" project_relative_path="srtm/channels" type="c_include">
       <files mask="srtm_rpmsg_endpoint.h"/>

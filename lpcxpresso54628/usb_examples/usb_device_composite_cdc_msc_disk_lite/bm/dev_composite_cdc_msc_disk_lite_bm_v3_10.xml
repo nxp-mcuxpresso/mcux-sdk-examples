@@ -94,8 +94,7 @@
     <include_paths>
       <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../core/boards/lpcxpresso54628" project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/lpcxpresso54628/usb_examples/usb_device_composite_cdc_msc_disk_lite/bm" project_relative_path="source" type="c_include"/>
+      <include_path path="../../.." project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="dev_composite_cdc_msc_disk_lite_bm.ewd"/>

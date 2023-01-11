@@ -1,5 +1,5 @@
 /*
- * Copyright 2017, 2020 NXP
+ * Copyright 2017,2020,2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -203,7 +203,7 @@ int main(void)
      */
     EnableIRQ(EXAMPLE_LPSPI_MASTER_IRQN);
 
-    /* TCR is also shared the FIFO , so wait for TCR written. */
+    /* TCR also shares the FIFO, so wait for TCR written. */
     while (LPSPI_GetTxFifoCount(EXAMPLE_LPSPI_MASTER_BASEADDR) != 0)
     {
     }
@@ -217,6 +217,10 @@ int main(void)
 
         if (masterTxCount == TRANSFER_SIZE)
         {
+            /* TCR also shares the FIFO, so wait for FIFO has room. */
+            while (LPSPI_GetTxFifoCount(EXAMPLE_LPSPI_MASTER_BASEADDR) == g_masterFifoSize)
+            {
+            }
             /* Set the PCS back to uncontinuous to finish the transfer if all tx data are pushed to FIFO. */
             LPSPI_SetPCSContinous(EXAMPLE_LPSPI_MASTER_BASEADDR, false);
             break;

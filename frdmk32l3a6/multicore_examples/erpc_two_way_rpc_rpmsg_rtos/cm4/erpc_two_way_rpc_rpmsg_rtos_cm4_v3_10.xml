@@ -7,20 +7,19 @@
     <definition extID="middleware.multicore.rpmsg_lite.k32l3a6_freertos.K32L3A60"/>
     <definition extID="middleware.multicore.rpmsg_lite.K32L3A60"/>
     <definition extID="middleware.multicore.rpmsg_lite.freertos.K32L3A60"/>
-    <definition extID="platform.drivers.port.K32L3A60"/>
     <definition extID="platform.drivers.clock.K32L3A60"/>
-    <definition extID="platform.drivers.mu.K32L3A60"/>
     <definition extID="middleware.multicore.erpc.eRPC_arbitrator.K32L3A60"/>
     <definition extID="middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_master_c_wrapper.K32L3A60"/>
     <definition extID="middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_transport.K32L3A60"/>
     <definition extID="middleware.multicore.erpc.eRPC_port_freertos.K32L3A60"/>
-    <definition extID="middleware.freertos-kernel.K32L3A60"/>
     <definition extID="middleware.multicore.mcmgr.K32L3A60"/>
+    <definition extID="middleware.freertos-kernel.K32L3A60"/>
     <definition extID="middleware.freertos-kernel.heap_4.K32L3A60"/>
     <definition extID="middleware.multicore.erpc.doc.K32L3A60"/>
     <definition extID="utility.incbin.K32L3A60"/>
     <definition extID="platform.drivers.common.K32L3A60"/>
     <definition extID="platform.drivers.msmc.K32L3A60"/>
+    <definition extID="platform.drivers.port.K32L3A60"/>
     <definition extID="platform.drivers.lpuart.K32L3A60"/>
     <definition extID="platform.drivers.gpio.K32L3A60"/>
     <definition extID="platform.utilities.assert.K32L3A60"/>
@@ -31,6 +30,7 @@
     <definition extID="component.serial_manager_uart.K32L3A60"/>
     <definition extID="platform.devices.K32L3A60_CMSIS.K32L3A60"/>
     <definition extID="platform.devices.K32L3A60_startup.K32L3A60"/>
+    <definition extID="platform.drivers.mu.K32L3A60"/>
     <definition extID="CMSIS_Include_core_cm.K32L3A60"/>
     <definition extID="middleware.freertos-kernel.extension.K32L3A60"/>
     <definition extID="middleware.multicore.erpc.common.K32L3A60"/>
@@ -44,7 +44,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="frdmk32l3a6_erpc_two_way_rpc_rpmsg_rtos_cm4" name="erpc_two_way_rpc_rpmsg_rtos_cm4" device_core="cm4_K32L3A60xxx" dependency="middleware.multicore.mcmgr.k32l3a6.K32L3A60 middleware.multicore.rpmsg_lite.k32l3a6_freertos.K32L3A60 middleware.multicore.rpmsg_lite.K32L3A60 middleware.multicore.rpmsg_lite.freertos.K32L3A60 platform.drivers.port.K32L3A60 platform.drivers.clock.K32L3A60 platform.drivers.mu.K32L3A60 middleware.multicore.erpc.eRPC_arbitrator.K32L3A60 middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_master_c_wrapper.K32L3A60 middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_transport.K32L3A60 middleware.multicore.erpc.eRPC_port_freertos.K32L3A60 middleware.freertos-kernel.K32L3A60 middleware.multicore.mcmgr.K32L3A60 middleware.freertos-kernel.heap_4.K32L3A60 middleware.multicore.erpc.doc.K32L3A60 utility.incbin.K32L3A60 platform.drivers.common.K32L3A60 platform.drivers.msmc.K32L3A60 platform.drivers.lpuart.K32L3A60 platform.drivers.gpio.K32L3A60 platform.utilities.assert.K32L3A60 utility.debug_console.K32L3A60 component.lpuart_adapter.K32L3A60 component.serial_manager.K32L3A60 component.lists.K32L3A60 component.serial_manager_uart.K32L3A60 platform.devices.K32L3A60_CMSIS.K32L3A60 platform.devices.K32L3A60_startup.K32L3A60 CMSIS_Include_core_cm.K32L3A60 middleware.freertos-kernel.extension.K32L3A60 middleware.multicore.erpc.common.K32L3A60 platform.utilities.misc_utilities.K32L3A60 platform.devices.K32L3A60_system.K32L3A60" linked_projects="frdmk32l3a6_erpc_two_way_rpc_rpmsg_rtos_cm0plus" category="multicore_examples">
+  <example id="frdmk32l3a6_erpc_two_way_rpc_rpmsg_rtos_cm4" name="erpc_two_way_rpc_rpmsg_rtos_cm4" device_core="cm4_K32L3A60xxx" dependency="middleware.multicore.mcmgr.k32l3a6.K32L3A60 middleware.multicore.rpmsg_lite.k32l3a6_freertos.K32L3A60 middleware.multicore.rpmsg_lite.K32L3A60 middleware.multicore.rpmsg_lite.freertos.K32L3A60 platform.drivers.clock.K32L3A60 middleware.multicore.erpc.eRPC_arbitrator.K32L3A60 middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_master_c_wrapper.K32L3A60 middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_transport.K32L3A60 middleware.multicore.erpc.eRPC_port_freertos.K32L3A60 middleware.multicore.mcmgr.K32L3A60 middleware.freertos-kernel.K32L3A60 middleware.freertos-kernel.heap_4.K32L3A60 middleware.multicore.erpc.doc.K32L3A60 utility.incbin.K32L3A60 platform.drivers.common.K32L3A60 platform.drivers.msmc.K32L3A60 platform.drivers.port.K32L3A60 platform.drivers.lpuart.K32L3A60 platform.drivers.gpio.K32L3A60 platform.utilities.assert.K32L3A60 utility.debug_console.K32L3A60 component.lpuart_adapter.K32L3A60 component.serial_manager.K32L3A60 component.lists.K32L3A60 component.serial_manager_uart.K32L3A60 platform.devices.K32L3A60_CMSIS.K32L3A60 platform.devices.K32L3A60_startup.K32L3A60 platform.drivers.mu.K32L3A60 CMSIS_Include_core_cm.K32L3A60 middleware.freertos-kernel.extension.K32L3A60 middleware.multicore.erpc.common.K32L3A60 platform.utilities.misc_utilities.K32L3A60 platform.devices.K32L3A60_system.K32L3A60" linked_projects="frdmk32l3a6_erpc_two_way_rpc_rpmsg_rtos_cm0plus" category="multicore_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.ccnature"/>
     </projects>
@@ -59,8 +59,8 @@
       <toolchainSetting id_refs="com.nxp.mcuxpresso">
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>CPU_K32L3A60VPJ1A_cm4</value>
-          <value>SDK_OS_FREE_RTOS</value>
           <value>MULTICORE_APP=1</value>
+          <value>SDK_OS_FREE_RTOS</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
           <value>MCUXPRESSO_SDK</value>
         </option>
@@ -76,40 +76,6 @@
         </option>
         <option id="com.crt.advproject.link.cpp.multicore.master.userobjs" type="stringList">
           <value>${workspace_loc:/frdmk32l3a6_multicore_examples_erpc_two_way_rpc_rpmsg_rtos_cm0plus/${ConfigName}/frdmk32l3a6_multicore_examples_erpc_two_way_rpc_rpmsg_rtos_cm0plus.axf.o}</value>
-        </option>
-        <option id="com.crt.advproject.gas.hdrlib" type="enum">
-          <value>com.crt.advproject.gas.hdrlib.newlibnano</value>
-        </option>
-        <option id="com.crt.advproject.gas.specs" type="enum">
-          <value>com.crt.advproject.gas.specs.newlibnano</value>
-        </option>
-        <option id="com.crt.advproject.gcc.hdrlib" type="enum">
-          <value>com.crt.advproject.gcc.hdrlib.newlibnano</value>
-        </option>
-        <option id="com.crt.advproject.gcc.specs" type="enum">
-          <value>com.crt.advproject.gcc.specs.newlibnano</value>
-        </option>
-        <option id="com.crt.advproject.cpp.hdrlib" type="enum">
-          <value>com.crt.advproject.cpp.hdrlib.newlibnano</value>
-        </option>
-        <option id="com.crt.advproject.cpp.specs" type="enum">
-          <value>com.crt.advproject.cpp.specs.newlibnano</value>
-        </option>
-        <option id="com.crt.advproject.link.cpp.hdrlib" type="enum">
-          <value>com.crt.advproject.cpp.link.hdrlib.newlibnano.nohost</value>
-        </option>
-        <option id="com.crt.advproject.link.cpp.fpu" type="enum">
-          <value>com.crt.advproject.link.cpp.fpu.fpv4.hard</value>
-        </option>
-        <option id="gnu.cpp.link.option.nostdlibs" type="boolean">
-          <value>true</value>
-        </option>
-        <option id="com.crt.advproject.link.memory.heapAndStack.cpp" type="string">
-          <value>&amp;Heap:Default;Default;Default&amp;Stack:Default;Default;0x400</value>
-        </option>
-        <option id="gnu.cpp.link.option.other" type="stringList">
-          <value>--defsym=__use_shmem__=1</value>
-          <value>--gc-sections</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
@@ -141,6 +107,19 @@
         <option id="gnu.cpp.compiler.option.warnings.toerrors" type="boolean">
           <value>false</value>
         </option>
+        <option id="com.crt.advproject.link.cpp.fpu" type="enum">
+          <value>com.crt.advproject.link.cpp.fpu.fpv4.hard</value>
+        </option>
+        <option id="gnu.cpp.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.heapAndStack.cpp" type="string">
+          <value>&amp;Heap:Default;Default;Default&amp;Stack:Default;Default;0x400</value>
+        </option>
+        <option id="gnu.cpp.link.option.other" type="stringList">
+          <value>--defsym=__use_shmem__=1</value>
+          <value>--gc-sections</value>
+        </option>
       </toolchainSetting>
     </toolchainSettings>
     <debug_configurations>
@@ -163,9 +142,9 @@
       <include_path path="../../erpc_common" project_relative_path="source" type="c_include"/>
       <include_path path="../../erpc_common/erpc_two_way_rpc/service" project_relative_path="erpc/service" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/frdmk32l3a6/multicore_examples/erpc_two_way_rpc_rpmsg_rtos" project_relative_path="source" type="c_include"/>
+      <include_path path=".." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../examples/frdmk32l3a6/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm4" project_relative_path="frdmk32l3a6/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm4" type="c_include"/>
+      <include_path path="." project_relative_path="frdmk32l3a6/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm4" type="c_include"/>
       <include_path path="../../../../../core/boards/frdmk32l3a6" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
     </include_paths>

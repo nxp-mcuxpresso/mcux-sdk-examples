@@ -42,7 +42,6 @@
 #include "fsl_common.h"
 #include "fsl_enet.h"
 #include "fsl_phy.h"
-#include "fsl_enet_mdio.h"
 #include "fsl_debug_console.h"
 #include "nx_driver_imxrt.h"
 
@@ -65,8 +64,10 @@
 #define EXAMPLE_PHY_ADDRESS BOARD_ENET0_PHY_ADDRESS
 #define EXAMPLE_ENET        ENET
 /* PHY operations. */
-#define EXAMPLE_PHY_OPS     phyksz8081_ops
+#define EXAMPLE_PHY_OPS     (&phyksz8081_ops)
 #define EXAMPLE_INT         ENET_IRQn
+
+phy_ksz8081_resource_t g_phy_resource;
 
 #else
 
@@ -77,13 +78,14 @@
 #define EXAMPLE_PHY_ADDRESS BOARD_ENET1_PHY_ADDRESS
 #define EXAMPLE_ENET        ENET_1G
 /* PHY operations. */
-#define EXAMPLE_PHY_OPS     phyrtl8211f_ops
+#define EXAMPLE_PHY_OPS     (&phyrtl8211f_ops)
 #define EXAMPLE_INT         ENET_1G_IRQn
+
+phy_rtl8211f_resource_t g_phy_resource;
 
 #endif
 
-/* MDIO operations. */
-#define EXAMPLE_MDIO_OPS enet_ops
+#define EXAMPLE_PHY_RESOURCE    (&g_phy_resource)
 
 #define EXAMPLE_CLOCK_FREQ      BOARD_GetMDIOClock()
 
@@ -109,12 +111,8 @@ UCHAR   _nx_driver_hardware_address[] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x56};
 UCHAR   _nx_driver_hardware_address[] = NX_DRIVER_ETHERNET_MAC;
 #endif
 
-/*! @brief Enet PHY and MDIO interface handler. */
-static mdio_handle_t mdioHandle = {.ops = &EXAMPLE_MDIO_OPS};
-static phy_handle_t phyHandle   = {
-                .phyAddr = EXAMPLE_PHY_ADDRESS,
-                .mdioHandle = &mdioHandle,
-                .ops = &EXAMPLE_PHY_OPS };
+/*! @brief Enet PHY interface handler. */
+static phy_handle_t phyHandle;
 
 
 /****** DRIVER SPECIFIC ****** End of part/vendor specific data area!  */
@@ -230,6 +228,13 @@ VOID  nx_driver_imx(NX_IP_DRIVER *driver_req_ptr)
 
     case NX_LINK_INITIALIZE:
     {
+        PRINTF("MAC address: %02x:%02x:%02x:%02x:%02x:%02x\r\n",
+               _nx_driver_hardware_address[0],
+               _nx_driver_hardware_address[1],
+               _nx_driver_hardware_address[2],
+               _nx_driver_hardware_address[3],
+               _nx_driver_hardware_address[4],
+               _nx_driver_hardware_address[5]);
 
         /* Process link initialize requests.  */
         _nx_driver_initialize(driver_req_ptr);
@@ -1550,7 +1555,23 @@ typedef struct
 VOID nx_driver_link_mode_changed(VOID);
 VOID nx_driver_imx_ethernet_isr(VOID);
 
-void enet_init_imx(ENET_CONFIG_IMX *config)
+static void MDIO_Init(void)
+{
+    (void)CLOCK_EnableClock(s_enetClock[ENET_GetInstance(EXAMPLE_ENET)]);
+    ENET_SetSMI(EXAMPLE_ENET, EXAMPLE_CLOCK_FREQ, false);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_MDIOWrite(EXAMPLE_ENET, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_MDIORead(EXAMPLE_ENET, phyAddr, regAddr, pData);
+}
+
+static void enet_init_imx(ENET_CONFIG_IMX *config)
 {
     volatile uint32_t rcr = 0;
     volatile uint32_t ecr = 0;
@@ -1655,7 +1676,7 @@ void enet_init_imx(ENET_CONFIG_IMX *config)
     EXAMPLE_ENET->TCR = tcr;
 }
 
-void enet_init()
+static void enet_init(void)
 {
     phy_config_t phyConfig = {0};
     bool link              = false;
@@ -1665,6 +1686,11 @@ void enet_init()
     phy_speed_t speed;
     phy_duplex_t duplex;
     ENET_CONFIG_IMX econf;
+
+    g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
+
+    MDIO_Init();
 
 #if defined(BOARD_NETWORK_USE_100M_ENET_PORT) && (BOARD_NETWORK_USE_100M_ENET_PORT == 1)
     econf.interface = kENET_RmiiMode;
@@ -1680,10 +1706,10 @@ void enet_init()
     econf.mac[4] = _nx_driver_hardware_address[4];
     econf.mac[5] = _nx_driver_hardware_address[5];
 
-    phyConfig.phyAddr               = EXAMPLE_PHY_ADDRESS;
-    phyConfig.autoNeg               = true;
-    mdioHandle.resource.base        = EXAMPLE_ENET;
-    mdioHandle.resource.csrClock_Hz = EXAMPLE_CLOCK_FREQ;
+    phyConfig.phyAddr  = EXAMPLE_PHY_ADDRESS;
+    phyConfig.autoNeg  = true;
+    phyConfig.ops      = EXAMPLE_PHY_OPS;
+    phyConfig.resource = EXAMPLE_PHY_RESOURCE;
 
     /* Initialize PHY and wait auto-negotiation over. */
     do
@@ -1786,11 +1812,7 @@ UINT                i;
         return(NX_DRIVER_ERROR);
     }
 
-
     enet_init();
-
-
-
 
     /* Initialize TX Descriptors list: Ring Mode.  */
 
@@ -1855,7 +1877,7 @@ UINT                i;
 	    nx_driver_information.nx_driver_information_dma_rx_descriptors[i].controlExtend2 = 0x0000;
 	    nx_driver_information.nx_driver_information_dma_rx_descriptors[i].controlExtend1 = ENET_BUFFDESCRIPTOR_RX_BROADCAST_MASK;
 #endif
-            nx_driver_information.nx_driver_information_dma_rx_descriptors[i].buffer = (uint8_t *)(uint32_t)packet_ptr->nx_packet_prepend_ptr;
+            nx_driver_information.nx_driver_information_dma_rx_descriptors[i].buffer = (uint32_t)packet_ptr->nx_packet_prepend_ptr;
             nx_driver_information.nx_driver_information_receive_packets[i] = packet_ptr;
 
         }
@@ -2069,7 +2091,7 @@ UCHAR*         src_addr;
     }
 
     /* Find the Buffer, set the Buffer pointer. */
-    nx_driver_information.nx_driver_information_dma_tx_descriptors[curIdx].buffer = (uint8_t *)(ULONG)(packet_ptr->nx_packet_prepend_ptr - 2);
+    nx_driver_information.nx_driver_information_dma_tx_descriptors[curIdx].buffer = (uint32_t)(packet_ptr->nx_packet_prepend_ptr - 2);
 
     /* Clear the first Descriptor's LS bit.  */
     nx_driver_information.nx_driver_information_dma_tx_descriptors[curIdx].control &= ~ENET_BUFFDESCRIPTOR_TX_LAST_MASK;
@@ -2093,7 +2115,7 @@ UCHAR*         src_addr;
 
 
         /* Find the Buffer, set the Buffer pointer.  */
-        nx_driver_information.nx_driver_information_dma_tx_descriptors[curIdx].buffer = (uint8_t *)(ULONG)(pktIdx->nx_packet_prepend_ptr);
+        nx_driver_information.nx_driver_information_dma_tx_descriptors[curIdx].buffer = (uint32_t)(pktIdx->nx_packet_prepend_ptr);
 
         /* Set the buffer size.  */
         nx_driver_information.nx_driver_information_dma_tx_descriptors[curIdx].length = (pktIdx -> nx_packet_append_ptr - pktIdx->nx_packet_prepend_ptr);
@@ -2595,7 +2617,7 @@ NX_PACKET     *received_packet_ptr = nx_driver_information.nx_driver_information
 
                     /* Adjust the new packet and assign it to the BD.  */
 
-                    nx_driver_information.nx_driver_information_dma_rx_descriptors[temp_idx].buffer = (uint8_t *)((uint32_t)packet_ptr->nx_packet_prepend_ptr);
+                    nx_driver_information.nx_driver_information_dma_rx_descriptors[temp_idx].buffer = (uint32_t)(packet_ptr->nx_packet_prepend_ptr);
                     nx_driver_information.nx_driver_information_dma_rx_descriptors[temp_idx].control |= ENET_BUFFDESCRIPTOR_RX_EMPTY_MASK;
                     nx_driver_information.nx_driver_information_receive_packets[temp_idx] = packet_ptr;
                 }

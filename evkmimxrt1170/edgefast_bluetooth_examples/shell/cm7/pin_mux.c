@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020, 2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -13,11 +13,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v9.0
+product: Pins v12.0
 processor: MIMXRT1176xxxxx
 package_id: MIMXRT1176DVMAA
 mcu_data: ksdk2_0
-processor_version: 0.10.5
+processor_version: 12.0.1
 pin_labels:
 - {pin_num: N17, pin_signal: GPIO_AD_16, label: SDIO_RST, identifier: SDIO_RST}
 - {pin_num: J17, pin_signal: GPIO_AD_31, label: WL_RST, identifier: WL_RST}
@@ -40,7 +40,6 @@ void BOARD_InitBootPins(void) {
     BOARD_InitDEBUG_UARTPins();
     BOARD_InitUSDHCPins();
     BOARD_InitSPIPins();
-
 }
 
 /*
@@ -214,7 +213,7 @@ void BOARD_InitUSDHCPins(void) {
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitArduinoUARTPins:
-- options: {callFromInitBoot: 'true', coreID: cm7, enableClock: 'true'}
+- options: {callFromInitBoot: 'false', coreID: cm7, enableClock: 'true'}
 - pin_list:
   - {pin_num: R13, peripheral: LPUART7, signal: CTS_B, pin_signal: GPIO_AD_02, software_input_on: Disable, pull_keeper_select: Keeper}
   - {pin_num: P15, peripheral: LPUART7, signal: RTS_B, pin_signal: GPIO_AD_03, software_input_on: Disable, pull_keeper_select: Keeper}
@@ -280,7 +279,6 @@ void BOARD_InitArduinoUARTPins(void) {
                                                  Open Drain Field: Disabled
                                                  Domain write protection: Both cores are allowed
                                                  Domain write protection lock: Neither of DWP bits is locked */
-
 }
 
 
@@ -384,7 +382,7 @@ void BOARD_InitSPIPins(void) {
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitM2UARTPins:
-- options: {callFromInitBoot: 'true', coreID: cm7, enableClock: 'true'}
+- options: {callFromInitBoot: 'false', coreID: cm7, enableClock: 'true'}
 - pin_list:
   - {pin_num: B6, peripheral: LPUART2, signal: CTS_B, pin_signal: GPIO_DISP_B2_12, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper}
   - {pin_num: A5, peripheral: LPUART2, signal: RTS_B, pin_signal: GPIO_DISP_B2_13, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper}
@@ -452,10 +450,11 @@ void BOARD_InitM2UARTPins(void) {
                                                  Domain write protection lock: Neither of DWP bits is locked */
 }
 
+
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitM2ScoPins:
-- options: {callFromInitBoot: 'true', coreID: cm7, enableClock: 'true'}
+- options: {callFromInitBoot: 'false', coreID: cm7, enableClock: 'true'}
 - pin_list:
   - {pin_num: K13, peripheral: SAI1, signal: sai_rx_data00, pin_signal: GPIO_AD_20, software_input_on: Enable, pull_keeper_select: Keeper}
   - {pin_num: K14, peripheral: SAI1, signal: sai_tx_data00, pin_signal: GPIO_AD_21, software_input_on: Enable, pull_keeper_select: Keeper}
@@ -527,7 +526,7 @@ void BOARD_InitM2ScoPins(void) {
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitM2CodecPins:
-- options: {callFromInitBoot: 'true', coreID: cm7, enableClock: 'true'}
+- options: {callFromInitBoot: 'false', coreID: cm7, enableClock: 'true'}
 - pin_list:
   - {pin_num: T2, peripheral: SAI3, signal: sai_mclk, pin_signal: GPIO_EMC_B2_17, software_input_on: Enable, pull_down_pull_up_config: Pull_Down}
   - {pin_num: M4, peripheral: SAI3, signal: sai_tx_data, pin_signal: GPIO_EMC_B2_14, software_input_on: Enable, pull_down_pull_up_config: Pull_Down}
@@ -676,7 +675,6 @@ void BOARD_InitPinsM2(void) {
       IOMUXC_GPIO_AD_31_GPIO9_IO30,           /* GPIO_AD_31 is configured as GPIO9_IO30 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
 }
-
 
 /***********************************************************************************************************************
  * EOF

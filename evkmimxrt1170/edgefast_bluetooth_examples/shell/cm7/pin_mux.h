@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020, 2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -88,7 +88,6 @@ void BOARD_InitSPIPins(void);                 /* Function assigned for the Corte
  *
  */
 void BOARD_InitM2UARTPins(void);              /* Function assigned for the Cortex-M7F */
-
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

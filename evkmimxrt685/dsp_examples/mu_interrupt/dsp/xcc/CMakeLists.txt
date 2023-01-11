@@ -33,6 +33,10 @@ SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DDEBUG")
 
 SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DXOS_CLOCK_FREQ=594000000")
 
+SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DXF_CORE_ID=0")
+
+SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DXF_CFG_CORES_NUM=1")
+
 SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DSDK_DEBUGCONSOLE=1")
 
 SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DCPU_MIMXRT685SFVKB_dsp")
@@ -60,6 +64,10 @@ SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -std=gnu99")
 SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DNDEBUG")
 
 SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DXOS_CLOCK_FREQ=594000000")
+
+SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DXF_CORE_ID=0")
+
+SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DXF_CFG_CORES_NUM=1")
 
 SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DSDK_DEBUGCONSOLE=1")
 
@@ -145,13 +153,13 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} --xtensa-s
 
 include_directories(${ProjDirPath}/..)
 
-include_directories(${ProjDirPath}/../../../../../../boards/evkmimxrt685/dsp_examples/mu_interrupt/dsp)
-
 include_directories(${ProjDirPath}/../../../../../../core/drivers/inputmux)
 
 include_directories(${ProjDirPath}/../../../../../../core/components/uart)
 
 include_directories(${ProjDirPath}/../../../../../../core/drivers/flexcomm)
+
+include_directories(${ProjDirPath}/../../../../../../core/utilities/str)
 
 include_directories(${ProjDirPath}/../../../../../../core/utilities/debug_console_lite)
 
@@ -169,7 +177,7 @@ include_directories(${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/dri
 
 include_directories(${ProjDirPath}/../../../../../../core/devices/MIMXRT685S)
 
-include_directories(${ProjDirPath}/../../../../../../core/CMSIS/Core/Include)
+include_directories(${ProjDirPath}/../../../../../../CMSIS/Core/Include)
 
 add_executable(dsp_mu_interrupt_hifi4.elf 
 "${ProjDirPath}/../main_dsp.c"
@@ -183,6 +191,8 @@ add_executable(dsp_mu_interrupt_hifi4.elf
 "${ProjDirPath}/../../../../../../core/components/uart/fsl_adapter_usart.c"
 "${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_usart.h"
 "${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_usart.c"
+"${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.c"
+"${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.h"
 "${ProjDirPath}/../../../../../../core/utilities/debug_console_lite/fsl_debug_console.c"
 "${ProjDirPath}/../../../../../../core/utilities/debug_console_lite/fsl_debug_console.h"
 "${ProjDirPath}/../../../../../../core/utilities/assert/fsl_assert.c"
@@ -205,13 +215,6 @@ add_executable(dsp_mu_interrupt_hifi4.elf
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/MIMXRT685S_dsp_features.h"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/system_MIMXRT685S_dsp.c"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/system_MIMXRT685S_dsp.h"
-"${ProjDirPath}/../../../../../../core/CMSIS/Core/Include/cmsis_armcc.h"
-"${ProjDirPath}/../../../../../../core/CMSIS/Core/Include/cmsis_armclang.h"
-"${ProjDirPath}/../../../../../../core/CMSIS/Core/Include/cmsis_armclang_ltm.h"
-"${ProjDirPath}/../../../../../../core/CMSIS/Core/Include/cmsis_compiler.h"
-"${ProjDirPath}/../../../../../../core/CMSIS/Core/Include/cmsis_gcc.h"
-"${ProjDirPath}/../../../../../../core/CMSIS/Core/Include/cmsis_iccarm.h"
-"${ProjDirPath}/../../../../../../core/CMSIS/Core/Include/cmsis_version.h"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/drivers/fsl_inputmux_connections.h"
 "${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_flexcomm.h"
 "${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_flexcomm.c"

@@ -42,14 +42,14 @@
 #define DEMO_CODEC_POWER_GPIO_PIN      0
 #define DEMO_CODEC_RESET_GPIO          GPIO1
 #define DEMO_CODEC_RESET_GPIO_PIN      2
-#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (31U)
+#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (7U)
 #define DEMO_SAI_MASTER_SLAVE          kSAI_Master
 #define DEMO_AUDIO_MASTER_CLOCK        24576000
 
 /* Select Audio/Video PLL (786.48 MHz) as sai1 clock source */
 #define DEMO_SAI1_CLOCK_SOURCE_SELECT (2U)
 /* Clock pre divider for sai1 clock source */
-#define DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER (0U)
+#define DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER (3U)
 
 /* Select USB1 PLL (480 MHz) as master lpi2c clock source */
 #define DEMO_LPI2C_CLOCK_SOURCE_SELECT (0U)

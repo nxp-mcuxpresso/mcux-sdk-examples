@@ -1,0 +1,14 @@
+
+        */mflash_drv.o(.text .text*)
+        */fsl_flexspi.o(.text .text*)
+        */fsl_cache.o(.text .text*)
+        . = ALIGN(${text_align});
+
+        */mflash_drv.o(.rodata .rodata* .constdata .constdata.*)
+        */fsl_flexspi.o(.rodata .rodata* .constdata .constdata.*)
+        */fsl_cache.o(.rodata .rodata* .constdata .constdata.*)
+        . = ALIGN(${text_align});
+
+        *(.data)
+        *(.data*)
+

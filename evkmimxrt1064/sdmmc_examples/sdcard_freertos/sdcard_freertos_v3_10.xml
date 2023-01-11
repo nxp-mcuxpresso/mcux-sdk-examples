@@ -25,7 +25,6 @@
     <definition extID="platform.drivers.igpio.MIMXRT1064"/>
     <definition extID="platform.drivers.xip_device.MIMXRT1064"/>
     <definition extID="platform.drivers.xip_board.evkmimxrt1064.MIMXRT1064"/>
-    <definition extID="component.silicon_id.MIMXRT1064"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1064"/>
     <definition extID="middleware.sdmmc.osa.freertos.MIMXRT1064"/>
     <definition extID="component.osa_free_rtos.MIMXRT1064"/>
@@ -40,7 +39,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1064_sdcard_freertos" name="sdcard_freertos" dependency="platform.drivers.cache_armv7_m7.MIMXRT1064 platform.drivers.usdhc.MIMXRT1064 middleware.sdmmc.sd.MIMXRT1064 middleware.sdmmc.common.MIMXRT1064 middleware.sdmmc.host.usdhc.MIMXRT1064 middleware.sdmmc.host.usdhc.freertos.MIMXRT1064 component.igpio_adapter.MIMXRT1064 middleware.freertos-kernel.MIMXRT1064 middleware.freertos-kernel.heap_4.MIMXRT1064 platform.drivers.clock.MIMXRT1064 platform.drivers.common.MIMXRT1064 device.MIMXRT1064_CMSIS.MIMXRT1064 utility.debug_console.MIMXRT1064 component.lpuart_adapter.MIMXRT1064 component.serial_manager.MIMXRT1064 component.lists.MIMXRT1064 component.serial_manager_uart.MIMXRT1064 platform.drivers.lpuart.MIMXRT1064 device.MIMXRT1064_startup.MIMXRT1064 platform.drivers.iomuxc.MIMXRT1064 platform.utilities.assert.MIMXRT1064 platform.drivers.igpio.MIMXRT1064 platform.drivers.xip_device.MIMXRT1064 platform.drivers.xip_board.evkmimxrt1064.MIMXRT1064 component.silicon_id.MIMXRT1064 CMSIS_Include_core_cm.MIMXRT1064 middleware.sdmmc.osa.freertos.MIMXRT1064 component.osa_free_rtos.MIMXRT1064 middleware.freertos-kernel.extension.MIMXRT1064 platform.utilities.misc_utilities.MIMXRT1064 device.MIMXRT1064_system.MIMXRT1064" category="sdmmc_examples/sdcard_freertos">
+  <example id="evkmimxrt1064_sdcard_freertos" name="sdcard_freertos" dependency="platform.drivers.cache_armv7_m7.MIMXRT1064 platform.drivers.usdhc.MIMXRT1064 middleware.sdmmc.sd.MIMXRT1064 middleware.sdmmc.common.MIMXRT1064 middleware.sdmmc.host.usdhc.MIMXRT1064 middleware.sdmmc.host.usdhc.freertos.MIMXRT1064 component.igpio_adapter.MIMXRT1064 middleware.freertos-kernel.MIMXRT1064 middleware.freertos-kernel.heap_4.MIMXRT1064 platform.drivers.clock.MIMXRT1064 platform.drivers.common.MIMXRT1064 device.MIMXRT1064_CMSIS.MIMXRT1064 utility.debug_console.MIMXRT1064 component.lpuart_adapter.MIMXRT1064 component.serial_manager.MIMXRT1064 component.lists.MIMXRT1064 component.serial_manager_uart.MIMXRT1064 platform.drivers.lpuart.MIMXRT1064 device.MIMXRT1064_startup.MIMXRT1064 platform.drivers.iomuxc.MIMXRT1064 platform.utilities.assert.MIMXRT1064 platform.drivers.igpio.MIMXRT1064 platform.drivers.xip_device.MIMXRT1064 platform.drivers.xip_board.evkmimxrt1064.MIMXRT1064 CMSIS_Include_core_cm.MIMXRT1064 middleware.sdmmc.osa.freertos.MIMXRT1064 component.osa_free_rtos.MIMXRT1064 middleware.freertos-kernel.extension.MIMXRT1064 platform.utilities.misc_utilities.MIMXRT1064 device.MIMXRT1064_system.MIMXRT1064" category="sdmmc_examples/sdcard_freertos">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -113,7 +112,7 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../examples/evkmimxrt1064/sdmmc_examples/sdcard_freertos" project_relative_path="evkmimxrt1064/sdmmc_examples/sdcard_freertos" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimxrt1064/sdmmc_examples/sdcard_freertos" type="c_include"/>
       <include_path path="../../../../core/boards/evkmimxrt1064" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
     </include_paths>

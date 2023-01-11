@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NXP
+ * Copyright 2018-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -32,14 +32,14 @@
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
-static void PQ_Vector16BiqaudDf2FPExample(void);
-static void PQ_Vector16BiqaudDf2FXExample(void);
+static void PQ_Vector16BiquadDf2FPExample(void);
+static void PQ_Vector16BiquadDf2FXExample(void);
 static void PQ_16ByteBiquadCascadedf2FPExample(void);
 static void PQ_16ByteBiquadCascadedf2FXExample(void);
 
-static void PQ_VectorBiqaudDf2FloatExample(void);
-static void PQ_VectorBiqaudDf2Fixed32Example(void);
-static void PQ_VectorBiqaudDf2Fixed16Example(void);
+static void PQ_VectorBiquadDf2FloatExample(void);
+static void PQ_VectorBiquadDf2Fixed32Example(void);
+static void PQ_VectorBiquadDf2Fixed16Example(void);
 static void PQ_BiquadCascadedf2FloatExample(void);
 static void PQ_BiquadCascadedf2Fixed32Example(void);
 static void PQ_BiquadCascadedf2Fixed16Example(void);
@@ -69,9 +69,9 @@ void PQ_16ByteBiquadCascadeDf2FX(const pq_biquad_cascade_df2_instance *S,
    resulting in disruption of the execution order of the original code in MDK release mode with -O3.
    Resolution: add noinline attribute to assembly code API to prevent inline optimization by compiler. */
 #if (defined(__ARMCC_VERSION))
-static void PQ_Vector16BiqaudDf2FP(float *pSrc, float *pDst) __attribute__((noinline))
+static void PQ_Vector16BiquadDf2FP(float *pSrc, float *pDst) __attribute__((noinline))
 #else
-static void PQ_Vector16BiqaudDf2FP(float *pSrc, float *pDst)
+static void PQ_Vector16BiquadDf2FP(float *pSrc, float *pDst)
 #endif
 {
     PQ_Initiate_Vector_Func(pSrc, pDst);
@@ -84,9 +84,9 @@ static void PQ_Vector16BiqaudDf2FP(float *pSrc, float *pDst)
    resulting in disruption of the execution order of the original code in MDK release mode with -O3.
    Resolution: add noinline attribute to assembly code API to prevent inline optimization by compiler. */
 #if (defined(__ARMCC_VERSION))
-static void PQ_Vector16BiqaudDf2FX(int32_t *pSrc, int32_t *pDst) __attribute__((noinline))
+static void PQ_Vector16BiquadDf2FX(int32_t *pSrc, int32_t *pDst) __attribute__((noinline))
 #else
-static void PQ_Vector16BiqaudDf2FX(int32_t *pSrc, int32_t *pDst)
+static void PQ_Vector16BiquadDf2FX(int32_t *pSrc, int32_t *pDst)
 #endif
 {
     PQ_Initiate_Vector_Func(pSrc, pDst);
@@ -99,9 +99,9 @@ static void PQ_Vector16BiqaudDf2FX(int32_t *pSrc, int32_t *pDst)
    resulting in disruption of the execution order of the original code in MDK release mode with -O3.
    Resolution: add noinline attribute to assembly code API to prevent inline optimization by compiler. */
 #if (defined(__ARMCC_VERSION))
-static void PQ_Vector16BiqaudCascadeDf2FP(float *pSrc, float *pDst) __attribute__((noinline))
+static void PQ_Vector16BiquadCascadeDf2FP(float *pSrc, float *pDst) __attribute__((noinline))
 #else
-static void PQ_Vector16BiqaudCascadeDf2FP(float *pSrc, float *pDst)
+static void PQ_Vector16BiquadCascadeDf2FP(float *pSrc, float *pDst)
 #endif
 {
     PQ_Initiate_Vector_Func(pSrc, pDst);
@@ -114,9 +114,9 @@ static void PQ_Vector16BiqaudCascadeDf2FP(float *pSrc, float *pDst)
    resulting in disruption of the execution order of the original code in MDK release mode with -O3.
    Resolution: add noinline attribute to assembly code API to prevent inline optimization by compiler. */
 #if (defined(__ARMCC_VERSION))
-static void PQ_Vector16BiqaudCascadeDf2FX(int32_t *pSrc, int32_t *pDst) __attribute__((noinline))
+static void PQ_Vector16BiquadCascadeDf2FX(int32_t *pSrc, int32_t *pDst) __attribute__((noinline))
 #else
-static void PQ_Vector16BiqaudCascadeDf2FX(int32_t *pSrc, int32_t *pDst)
+static void PQ_Vector16BiquadCascadeDf2FX(int32_t *pSrc, int32_t *pDst)
 #endif
 {
     PQ_Initiate_Vector_Func(pSrc, pDst);
@@ -144,14 +144,14 @@ int main(void)
 
     PQ_Init(DEMO_POWERQUAD);
 
-    PQ_Vector16BiqaudDf2FPExample();
-    PQ_Vector16BiqaudDf2FXExample();
+    PQ_Vector16BiquadDf2FPExample();
+    PQ_Vector16BiquadDf2FXExample();
     PQ_16ByteBiquadCascadedf2FPExample();
     PQ_16ByteBiquadCascadedf2FXExample();
 
-    PQ_VectorBiqaudDf2FloatExample();
-    PQ_VectorBiqaudDf2Fixed32Example();
-    PQ_VectorBiqaudDf2Fixed16Example();
+    PQ_VectorBiquadDf2FloatExample();
+    PQ_VectorBiquadDf2Fixed32Example();
+    PQ_VectorBiquadDf2Fixed16Example();
     PQ_BiquadCascadedf2FloatExample();
     PQ_BiquadCascadedf2Fixed32Example();
     PQ_BiquadCascadedf2Fixed16Example();
@@ -186,7 +186,7 @@ void PQ_16ByteBiquadCascadeDf2FP(const pq_biquad_cascade_df2_instance *S, float 
     {
         PQ_BiquadRestoreInternalState(POWERQUAD, 0, states);
 
-        PQ_Vector16BiqaudDf2FP(pSrc, pDst);
+        PQ_Vector16BiquadDf2FP(pSrc, pDst);
 
         PQ_BiquadBackUpInternalState(POWERQUAD, 0, states);
 
@@ -200,7 +200,7 @@ void PQ_16ByteBiquadCascadeDf2FP(const pq_biquad_cascade_df2_instance *S, float 
         states++;
         PQ_BiquadRestoreInternalState(POWERQUAD, 0, states);
 
-        PQ_Vector16BiqaudCascadeDf2FP(pDst, pDst);
+        PQ_Vector16BiquadCascadeDf2FP(pDst, pDst);
 
         states--;
         PQ_BiquadBackUpInternalState(POWERQUAD, 1, states);
@@ -230,7 +230,7 @@ void PQ_16ByteBiquadCascadeDf2FX(const pq_biquad_cascade_df2_instance *S,
     {
         PQ_BiquadRestoreInternalState(POWERQUAD, 0, states);
 
-        PQ_Vector16BiqaudDf2FX(pSrc, pDst);
+        PQ_Vector16BiquadDf2FX(pSrc, pDst);
 
         PQ_BiquadBackUpInternalState(POWERQUAD, 0, states);
 
@@ -244,7 +244,7 @@ void PQ_16ByteBiquadCascadeDf2FX(const pq_biquad_cascade_df2_instance *S,
         states++;
         PQ_BiquadRestoreInternalState(POWERQUAD, 1, states);
 
-        PQ_Vector16BiqaudCascadeDf2FX(pDst, pDst);
+        PQ_Vector16BiquadCascadeDf2FX(pDst, pDst);
 
         states--;
         PQ_BiquadBackUpInternalState(POWERQUAD, 0, states);
@@ -256,7 +256,7 @@ void PQ_16ByteBiquadCascadeDf2FX(const pq_biquad_cascade_df2_instance *S,
     } while (stage > 0U);
 }
 
-static void PQ_Vector16BiqaudDf2FPExample(void)
+static void PQ_Vector16BiquadDf2FPExample(void)
 {
     pq_biquad_state_t state = {
         .compreg = 0,
@@ -281,15 +281,15 @@ static void PQ_Vector16BiqaudDf2FPExample(void)
     // Init the biquad0 filter
     PQ_BiquadRestoreInternalState(DEMO_POWERQUAD, 0, &state);
 
-    PQ_Vector16BiqaudDf2FP(dataForBiquad, biquadResult);
+    PQ_Vector16BiquadDf2FP(dataForBiquad, biquadResult);
 
     for (uint32_t i = 0; i < ARRAY_SIZE(dataForBiquad); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(biquadRef[i] - biquadResult[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(biquadRef[i] - biquadResult[i])) < 0.00001);
     }
 }
 
-static void PQ_Vector16BiqaudDf2FXExample(void)
+static void PQ_Vector16BiquadDf2FXExample(void)
 {
     pq_biquad_state_t state = {
         .compreg = 0,
@@ -319,7 +319,7 @@ static void PQ_Vector16BiqaudDf2FXExample(void)
     // Init the biquad0 filter
     PQ_BiquadRestoreInternalState(DEMO_POWERQUAD, 0, &state);
 
-    PQ_Vector16BiqaudDf2FX(dataForBiquad, biquadResult);
+    PQ_Vector16BiquadDf2FX(dataForBiquad, biquadResult);
 
     for (uint32_t i = 0; i < ARRAY_SIZE(biquadRef); i++)
     {
@@ -387,7 +387,7 @@ static void PQ_16ByteBiquadCascadedf2FPExample(void)
     PQ_16ByteBiquadCascadeDf2FP(&instance, dataForBiquad, biquadResult, 15);
     for (uint32_t i = 0; i < 15; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(biquadRef[i] - biquadResult[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(biquadRef[i] - biquadResult[i])) < 0.00001);
     }
 }
 
@@ -453,7 +453,7 @@ static void PQ_16ByteBiquadCascadedf2FXExample(void)
     }
 }
 
-static void PQ_VectorBiqaudDf2FloatExample(void)
+static void PQ_VectorBiquadDf2FloatExample(void)
 {
     pq_biquad_state_t state = {
         .compreg = 0,
@@ -478,15 +478,15 @@ static void PQ_VectorBiqaudDf2FloatExample(void)
     // Init the biquad0 filter
     PQ_BiquadRestoreInternalState(DEMO_POWERQUAD, 0, &state);
 
-    PQ_VectorBiqaudDf2F32(dataForBiquad, biquadResult, ARRAY_SIZE(dataForBiquad));
+    PQ_VectorBiquadDf2F32(dataForBiquad, biquadResult, ARRAY_SIZE(dataForBiquad));
 
     for (uint32_t i = 0; i < ARRAY_SIZE(dataForBiquad); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(biquadRef[i] - biquadResult[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(biquadRef[i] - biquadResult[i])) < 0.00001);
     }
 }
 
-static void PQ_VectorBiqaudDf2Fixed32Example(void)
+static void PQ_VectorBiquadDf2Fixed32Example(void)
 {
     pq_biquad_state_t state = {
         .compreg = 0,
@@ -516,7 +516,7 @@ static void PQ_VectorBiqaudDf2Fixed32Example(void)
     // Init the biquad0 filter
     PQ_BiquadRestoreInternalState(DEMO_POWERQUAD, 0, &state);
 
-    PQ_VectorBiqaudDf2Fixed32(dataForBiquad, biquadResult, ARRAY_SIZE(biquadRef));
+    PQ_VectorBiquadDf2Fixed32(dataForBiquad, biquadResult, ARRAY_SIZE(biquadRef));
 
     for (uint32_t i = 0; i < ARRAY_SIZE(biquadRef); i++)
     {
@@ -524,7 +524,7 @@ static void PQ_VectorBiqaudDf2Fixed32Example(void)
     }
 }
 
-static void PQ_VectorBiqaudDf2Fixed16Example(void)
+static void PQ_VectorBiquadDf2Fixed16Example(void)
 {
     pq_biquad_state_t state = {
         .compreg = 0,
@@ -554,7 +554,7 @@ static void PQ_VectorBiqaudDf2Fixed16Example(void)
     // Init the biquad0 filter
     PQ_BiquadRestoreInternalState(DEMO_POWERQUAD, 0, &state);
 
-    PQ_VectorBiqaudDf2Fixed16(dataForBiquad, biquadResult, ARRAY_SIZE(biquadRef));
+    PQ_VectorBiquadDf2Fixed16(dataForBiquad, biquadResult, ARRAY_SIZE(biquadRef));
 
     for (uint32_t i = 0; i < ARRAY_SIZE(biquadRef); i++)
     {
@@ -622,7 +622,7 @@ static void PQ_BiquadCascadedf2FloatExample(void)
     PQ_BiquadCascadeDf2F32(&instance, dataForBiquad, biquadResult, 15);
     for (uint32_t i = 0; i < 15; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(biquadRef[i] - biquadResult[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(biquadRef[i] - biquadResult[i])) < 0.00001);
     }
 
     /* Incremental calculation. */
@@ -641,7 +641,7 @@ static void PQ_BiquadCascadedf2FloatExample(void)
 
     for (uint32_t i = 0; i < 15; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(biquadRef[i] - biquadResult[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(biquadRef[i] - biquadResult[i])) < 0.00001);
     }
 }
 
@@ -890,7 +890,7 @@ static void PQ_FIRFloatExample(void)
 
     for (uint32_t i = 0; i < 16; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(FIRRef[i] - FIRResult[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(FIRRef[i] - FIRResult[i])) < 0.00001);
     }
 
     /* Incremental calculation. */
@@ -906,7 +906,7 @@ static void PQ_FIRFloatExample(void)
 
     for (uint32_t i = 0; i < 16; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(FIRRef[i] - FIRResult[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(FIRRef[i] - FIRResult[i])) < 0.00001);
     }
 }
 
@@ -961,7 +961,7 @@ static void PQ_ConvolutionFloatExample(void)
 
     for (uint32_t i = 0; i < ARRAY_SIZE(convRef); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(convRef[i] - convResult[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(convRef[i] - convResult[i])) < 0.00001);
     }
 }
 
@@ -1016,6 +1016,6 @@ static void PQ_CorrelationFloatExample(void)
 
     for (uint32_t i = 0; i < ARRAY_SIZE(correlRef); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(correlRef[i] - correlResult[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(correlRef[i] - correlResult[i])) < 0.00001);
     }
 }

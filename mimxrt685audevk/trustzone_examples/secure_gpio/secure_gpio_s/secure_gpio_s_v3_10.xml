@@ -119,7 +119,7 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="trustzone" type="c_include"/>
-      <include_path path="../../../../../examples/mimxrt685audevk/trustzone_examples/secure_gpio/secure_gpio_s" project_relative_path="mimxrt685audevk/trustzone_examples/secure_gpio/secure_gpio_s" type="c_include"/>
+      <include_path path="." project_relative_path="mimxrt685audevk/trustzone_examples/secure_gpio/secure_gpio_s" type="c_include"/>
       <include_path path="../../../../../core/boards/mimxrt685audevk" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">

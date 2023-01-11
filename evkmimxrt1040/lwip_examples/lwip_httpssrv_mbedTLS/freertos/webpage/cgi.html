@@ -1,0 +1,44 @@
+<!DOCTYPE HTML SYSTEM>
+<html>
+
+<head>
+<title>MCUXpresso SDK HTTP Server Example</title>
+    <style type="text/css">
+    <!--
+    @import"httpsrv.css";
+    -->
+    </style>
+
+    <script src="request.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        function parse_vars(data)
+        {
+            var elem = document.getElementById("get_response_text");
+            elem.value = data;
+        }
+    </script>
+</head>
+
+<body>
+    <h2>CGI example</h2>
+    <p>
+        This page demonstrates CGI functionality. When you click on the POST button, HTTP POST request is sent to the server, CGI function is invoked. As a result any text written (80 characters max.) in the input field is stored in memory. After that, response in sent back to the client, containing information for page refreshing. 
+    </p>
+
+    <div style="text-align: center;">
+        <form name="ex_form" action="post.cgi" method="POST">
+            <input id="post_text" type="text" name="post_input" size="80" maxlength="80">
+            <input type="submit" value="POST">
+        </form>
+    </div>
+    <p>
+        Similarly, when you click on the GET button, HTTP GET request is sent to the server and then processed in CGI. As a result content of following text field is replaced by text stored previously by POST request.
+    </p>
+    <div style="text-align: center;">
+        <input id="get_response_text" type="text" size="80" maxlength="80" disabled="true">
+        <button id="get_button" type="button" onclick="make_request('get.cgi')">GET</button>
+    </div>
+</html>
+
+

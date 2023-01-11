@@ -112,8 +112,8 @@
     </debug_configurations>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../examples/evkmimxrt595/demo_apps/hello_world_virtual_com" project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../examples/evkmimxrt595/demo_apps/hello_world_virtual_com" project_relative_path="evkmimxrt595/demo_apps/hello_world_virtual_com" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimxrt595/demo_apps/hello_world_virtual_com" type="c_include"/>
       <include_path path="../../../../core/boards/evkmimxrt595" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="component/serial_manager/usb_cdc_adapter" type="c_include"/>
     </include_paths>

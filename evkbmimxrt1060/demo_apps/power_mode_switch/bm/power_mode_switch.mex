@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding= "UTF-8" ?>
-<configuration name="MIMXRT1062xxxxA" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.8 http://mcuxpresso.nxp.com/XSD/mex_configuration_1.8.xsd" uuid="5929328c-7eb0-4db7-a59c-6f1b6a964369" version="1.8" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<configuration name="MIMXRT1062xxxxB" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.8 http://mcuxpresso.nxp.com/XSD/mex_configuration_1.8.xsd" uuid="5929328c-7eb0-4db7-a59c-6f1b6a964369" version="1.8" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <common>
-      <processor>MIMXRT1062xxxxA</processor>
-      <package>MIMXRT1062DVL6A</package>
+      <processor>MIMXRT1062xxxxB</processor>
+      <package>MIMXRT1062DVL6B</package>
       <board>MIMXRT1060-EVKB</board>
       <mcu_data>ksdk2_0</mcu_data>
       <cores selected="core0">

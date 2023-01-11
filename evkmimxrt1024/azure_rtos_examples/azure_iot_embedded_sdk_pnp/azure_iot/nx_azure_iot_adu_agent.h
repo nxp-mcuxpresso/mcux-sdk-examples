@@ -16,6 +16,9 @@
  *
  * @brief Definition for the Azure IoT ADU agent interface.
  *
+ * @note More details about Azure Device Update can be found online
+ * at https://docs.microsoft.com/en-us/azure/iot-hub-device-update/understand-device-update
+ *
  */
 
 #ifndef NX_AZURE_IOT_ADU_AGENT_H
@@ -44,8 +47,8 @@ extern   "C" {
 /* Define the ADU agent interface ID.  */
 #define NX_AZURE_IOT_ADU_AGENT_INTERFACE_ID                             "dtmi:azure:iot:deviceUpdate;1"
 
-/* Define the compatibility.  */
-#define NX_AZURE_IOT_ADU_AGENT_COMPATIBILITY                            "manufacturer,model"
+/* Define the compatibility value.  */
+#define NX_AZURE_IOT_ADU_AGENT_PROPERTY_VALUE_COMPATIBILITY             "manufacturer,model"
 
 /* Define the ADU agent property name "agent" and sub property names.  */
 #define NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_AGENT                      "agent"
@@ -96,6 +99,7 @@ extern   "C" {
 #define NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_HANDLE                     "handler"
 #define NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_FILES                      "files"
 #define NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_DETACHED_MANIFEST_FILED    "detachedManifestFileId"
+#define NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_HANDLER_PROPERTIES         "handlerProperties"
 #define NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_INSTALLED_CRITERIA         "installedCriteria"
 #define NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_FILE_NAME                  "fileName"
 #define NX_AZURE_IOT_ADU_AGENT_PROPERTY_NAME_SIZE_IN_BYTES              "sizeInBytes"
@@ -105,17 +109,20 @@ extern   "C" {
 
 /* Define ADU events. These events are processed by the cloud thread.  */
 #define NX_AZURE_IOT_ADU_AGENT_UPDATE_EVENT                             ((ULONG)0x00000001)
-#define NX_AZURE_IOT_ADU_AGENT_DNS_RESPONSE_RECEIVE_EVENT               ((ULONG)0x00000002)
-#define NX_AZURE_IOT_ADU_AGENT_HTTP_CONNECT_DONE_EVENT                  ((ULONG)0x00000004)
-#define NX_AZURE_IOT_ADU_AGENT_HTTP_RECEIVE_EVENT                       ((ULONG)0x00000008)
-#define NX_AZURE_IOT_ADU_AGENT_APPLY_EVENT                              ((ULONG)0x00000010)
+#define NX_AZURE_IOT_ADU_AGENT_DOWNLOAD_INSTALL_EVENT                   ((ULONG)0x00000002)
+#define NX_AZURE_IOT_ADU_AGENT_APPLY_EVENT                              ((ULONG)0x00000004)
+#define NX_AZURE_IOT_ADU_AGENT_DNS_RESPONSE_RECEIVE_EVENT               ((ULONG)0x00000008)
+#define NX_AZURE_IOT_ADU_AGENT_HTTP_CONNECT_DONE_EVENT                  ((ULONG)0x00000010)
+#define NX_AZURE_IOT_ADU_AGENT_HTTP_RECEIVE_EVENT                       ((ULONG)0x00000020)
 
-/* Define the agent state values. Interaction between agent and server.  */
+/* Define the agent state values. Interaction between agent and server.  
+   https://docs.microsoft.com/en-us/azure/iot-hub-device-update/device-update-plug-and-play#state  */
 #define NX_AZURE_IOT_ADU_AGENT_STATE_IDLE                               0
 #define NX_AZURE_IOT_ADU_AGENT_STATE_DEPLOYMENT_IN_PROGRESS             6
 #define NX_AZURE_IOT_ADU_AGENT_STATE_FAILED                             255
 
-/* Define the agent action values. Interaction between agent and server.  */
+/* Define the agent action values. Interaction between agent and server.  
+   https://docs.microsoft.com/en-us/azure/iot-hub-device-update/device-update-plug-and-play#action  */
 #define NX_AZURE_IOT_ADU_AGENT_ACTION_APPLY_DEPLOYMENT                  3
 #define NX_AZURE_IOT_ADU_AGENT_ACTION_CANCEL                            255
 
@@ -142,18 +149,17 @@ extern   "C" {
 #define NX_AZURE_IOT_ADU_AGENT_SHA256_HASH_BASE64_SIZE                  44
 #define NX_AZURE_IOT_ADU_AGENT_RSA3072_SIZE                             384
 
-/* Define the sha256 metadata buffer size used for verifying file hash. 
-   The default value is software sha256 crypto metadata (sizeof(NX_CRYPTO_SHA256)).  */
+/* Define the sha256 metadata buffer size used for verifying file hash.  */
 #ifndef NX_AZURE_IOT_ADU_AGENT_SHA256_METADATA_SIZE
-#define NX_AZURE_IOT_ADU_AGENT_SHA256_METADATA_SIZE                     360
+#define NX_AZURE_IOT_ADU_AGENT_SHA256_METADATA_SIZE                     400
 #endif /* NX_AZURE_IOT_ADU_AGENT_SHA256_METADATA_SIZE */
 
-/* Define the max size of workflow id.  */
+/* Define the max size of workflow id, including a null terminator.  */
 #ifndef NX_AZURE_IOT_ADU_AGENT_WORKFLOW_ID_SIZE
 #define NX_AZURE_IOT_ADU_AGENT_WORKFLOW_ID_SIZE                         48
 #endif /* NX_AZURE_IOT_ADU_AGENT_WORKFLOW_ID_SIZE */
 
-/* Define the max size of workflow retry timestamp.  */
+/* Define the max size of workflow retry timestamp, including a null terminator.  */
 #ifndef NX_AZURE_IOT_ADU_AGENT_WORKFLOW_RETRY_TIMESTAMP_SIZE
 #define NX_AZURE_IOT_ADU_AGENT_WORKFLOW_RETRY_TIMESTAMP_SIZE            80
 #endif /* NX_AZURE_IOT_ADU_AGENT_WORKFLOW_RETRY_TIMESTAMP_SIZE */
@@ -178,34 +184,29 @@ extern   "C" {
 #define NX_AZURE_IOT_ADU_AGENT_UPDATE_MANIFEST_SJWK_SIZE                2048
 #endif /* NX_AZURE_IOT_ADU_AGENT_UPDATE_MANIFEST_SJWK_SIZE */
 
-/* Define the buffer for parsing file url, update manifest content in service property. FIXME: consider to use packet.  */
+/* Define the buffer for parsing file url, update manifest content in service property.  */
 #ifndef NX_AZURE_IOT_ADU_AGENT_BUFFER_SIZE
 #define NX_AZURE_IOT_ADU_AGENT_BUFFER_SIZE                              2048
 #endif /* NX_AZURE_IOT_ADU_AGENT_BUFFER_SIZE */
 
-/* Define the max steps of update manifest instructions. (1 step for host update and steps for proxy update)  */
-#ifndef NX_AZURE_IOT_ADU_AGENT_STEPS_MAX
+/* Define the steps of update manifest instructions. (1 step for host update and steps for proxy update)  */
 #define NX_AZURE_IOT_ADU_AGENT_STEPS_MAX                                (1 + NX_AZURE_IOT_ADU_AGENT_PROXY_UPDATE_COUNT)
-#endif /* NX_AZURE_IOT_ADU_AGENT_STEPS_MAX */
 
 /* Define the max number of file updates (1 host update + (1 leaf manifest + 1 leaf update) * count).  */
 #ifndef NX_AZURE_IOT_ADU_AGENT_FILES_MAX
 #define NX_AZURE_IOT_ADU_AGENT_FILES_MAX                                (1 +  (2 * NX_AZURE_IOT_ADU_AGENT_PROXY_UPDATE_COUNT))
 #endif /* NX_AZURE_IOT_ADU_AGENT_FILES_MAX */
 
+/* Define the buffer size for one file URL.  */
+#ifndef NX_AZURE_IOT_ADU_AGENT_FILE_URL_SIZE
+#define NX_AZURE_IOT_ADU_AGENT_FILE_URL_SIZE                            (320)
+#endif /* NX_AZURE_IOT_ADU_AGENT_FILE_URL_SIZE */
+
 /* Define the buffer size of storing file URLs.  */
-#ifndef NX_AZURE_IOT_ADU_AGENT_FILE_URLS_SIZE
-#define NX_AZURE_IOT_ADU_AGENT_FILE_URLS_SIZE                           (320 * NX_AZURE_IOT_ADU_AGENT_FILES_MAX)
-#endif /* NX_AZURE_IOT_ADU_AGENT_FILE_URLS_SIZE */
+#define NX_AZURE_IOT_ADU_AGENT_FILE_URLS_MAX                            (NX_AZURE_IOT_ADU_AGENT_FILE_URL_SIZE * NX_AZURE_IOT_ADU_AGENT_FILES_MAX)
 
-/* Define the update count.  */
-#define NX_AZURE_IOT_ADU_AGENT_UPDATE_COUNT                             (1 + NX_AZURE_IOT_ADU_AGENT_PROXY_UPDATE_COUNT)
-
-#define NX_AZURE_IOT_ADU_AGENT_PTR_UPDATE(a, b, c, d)                   { \
-                                                                            (a) = (c); \
-                                                                            (c) += (b); \
-                                                                            (d) -= (b); \
-                                                                        }
+/* Define the device count.  */
+#define NX_AZURE_IOT_ADU_AGENT_DEVICE_COUNT                             (1 + NX_AZURE_IOT_ADU_AGENT_PROXY_UPDATE_COUNT)
 
 /* Define the initial timeout for DNS query, the default wait time is 1s.
    For the next retransmission, the timeout will be doubled.  */
@@ -236,6 +237,13 @@ extern   "C" {
 /* Define the http protocol string.  */
 #define NX_AZURE_IOT_ADU_AGENT_HTTP_PROTOCOL                            "http://"
 
+/* Define the step type.  */
+#define NX_AZURE_IOT_ADU_AGENT_STEP_TYPE_INLINE                         "inline"
+#define NX_AZURE_IOT_ADU_AGENT_STEP_TYPE_REFERENCE                      "reference"
+
+/* Define the step handler.  */
+#define NX_AZURE_IOT_ADU_AGENT_STEP_HANDLER_SWUPDATE                    "microsoft/swupdate:1"
+
 /* Define the firmware update state.  */
 #define NX_AZURE_IOT_ADU_AGENT_STEP_STATE_IDLE                          0
 #define NX_AZURE_IOT_ADU_AGENT_STEP_STATE_MANIFEST_DOWNLOAD_STARTED     1
@@ -248,7 +256,7 @@ extern   "C" {
 #define NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FIRMWARE_APPLY_SUCCEEDED      8
 #define NX_AZURE_IOT_ADU_AGENT_STEP_STATE_FAILED                        255
 
-/* Define the download type.  */
+/* Define the downloader type.  */
 #define NX_AZURE_IOT_ADU_AGENT_DOWNLOADER_TYPE_MANIFEST                 0
 #define NX_AZURE_IOT_ADU_AGENT_DOWNLOADER_TYPE_FIRMWARE                 1
 
@@ -279,11 +287,11 @@ extern   "C" {
 typedef struct NX_AZURE_IOT_ADU_AGENT_UPDATE_ID_STRUCT
 {
 
-    /* Manufacturer.  */
+    /* Provider.  */
     const UCHAR                            *provider;
     UINT                                    provider_length;
 
-    /* Name/model.  */
+    /* Name.  */
     const UCHAR                            *name;
     UINT                                    name_length;
 
@@ -317,8 +325,9 @@ typedef struct NX_AZURE_IOT_ADU_AGENT_DRIVER_STRUCT
     /* Define the return pointer for raw driver command requests.  */
     ULONG                                  *nx_azure_iot_adu_agent_driver_return_ptr;
 
-    /* Update ID.  */
-    NX_AZURE_IOT_ADU_AGENT_UPDATE_ID       *nx_azure_iot_adu_agent_driver_update_id;
+    /* Installed criteria.  */
+    const UCHAR                            *nx_azure_iot_adu_agent_driver_installed_criteria;
+    UINT                                    nx_azure_iot_adu_agent_driver_installed_criteria_length;
 
 } NX_AZURE_IOT_ADU_AGENT_DRIVER;
 
@@ -398,33 +407,25 @@ typedef struct NX_AZURE_IOT_ADU_AGENT_DEVICE_PROPERTIES_STRUCT
 } NX_AZURE_IOT_ADU_AGENT_DEVICE_PROPERTIES;
 
 /**
- * @brief ADU update manifest steps struct.
+ * @brief ADU device struct.
  */
-typedef struct NX_AZURE_IOT_ADU_AGENT_STEP_STRUCT
+typedef struct NX_AZURE_IOT_ADU_AGENT_DEVICE_STRUCT
 {
 
-    /* Type.  */
-    const UCHAR                            *type;
-    UINT                                    type_length;
+    /* State.  */
+    UINT                                    valid;
 
-    /* Handler.  */
-    const UCHAR                            *handler;
-    UINT                                    handler_length;
+    /* Device properties.  */
+    NX_AZURE_IOT_ADU_AGENT_DEVICE_PROPERTIES device_properties;
 
-    /* File id. */
-    const UCHAR                            *file_id;
-    UINT                                    file_id_length;
+    /* Installed criteria.  */
+    const UCHAR                            *installed_criteria;
+    UINT                                    installed_criteria_length;
 
-    /* Step state.  */
-    UINT                                    state;
+    /* Driver entry point for updating firmware.  */
+    VOID                                  (*device_driver_entry)(NX_AZURE_IOT_ADU_AGENT_DRIVER *);
 
-    /* Result.  */
-    NX_AZURE_IOT_ADU_AGENT_RESULT           result;
-
-    /* Driver entry point for firmware.  */
-    VOID                                  (*driver_entry)(NX_AZURE_IOT_ADU_AGENT_DRIVER *);
-
-} NX_AZURE_IOT_ADU_AGENT_STEP;
+} NX_AZURE_IOT_ADU_AGENT_DEVICE;
 
 /**
  * @brief ADU update manifest files struct.
@@ -454,6 +455,63 @@ typedef struct NX_AZURE_IOT_ADU_AGENT_FILE_STRUCT
 } NX_AZURE_IOT_ADU_AGENT_FILE;
 
 /**
+ * @brief ADU update manifest steps struct.
+ */
+typedef struct NX_AZURE_IOT_ADU_AGENT_STEP_STRUCT
+{
+
+    /* Type.  */
+    const UCHAR                            *type;
+    UINT                                    type_length;
+
+    /* Handler.  */
+    const UCHAR                            *handler;
+    UINT                                    handler_length;
+
+    /* Installed criteria.  */
+    const UCHAR                            *installed_criteria;
+    UINT                                    installed_criteria_length;
+
+    /* File id. */
+    const UCHAR                            *file_id;
+    UINT                                    file_id_length;
+
+    /* Step state.  */
+    UINT                                    state;
+
+    /* Result.  */
+    NX_AZURE_IOT_ADU_AGENT_RESULT           result;
+
+    /* Device.  */
+    NX_AZURE_IOT_ADU_AGENT_DEVICE          *device;
+
+    /* File.  */
+    NX_AZURE_IOT_ADU_AGENT_FILE            *file;
+
+} NX_AZURE_IOT_ADU_AGENT_STEP;
+
+/**
+ * @brief ADU compatibility struct.
+ * @note Compatibility defines the criteria of a device that can install the update. It contains device properties.
+ */
+typedef struct NX_AZURE_IOT_ADU_AGENT_COMPATIBILITY_STRUCT
+{
+
+    /* Compatibility: deviceManufacturer.  */
+    UCHAR                                  *device_manufacturer;
+    UINT                                    device_manufacturer_length;
+
+    /* Compatibility: deviceModel.  */
+    UCHAR                                  *device_model;
+    UINT                                    device_model_length;
+
+    /* Compatibility: group.  */
+    const UCHAR                            *group;
+    UINT                                    group_length;
+
+} NX_AZURE_IOT_ADU_AGENT_COMPATIBILITY;
+
+/**
  * @brief ADU update manifest content struct.
  */
 typedef struct NX_AZURE_IOT_ADU_AGENT_UPDATE_MANIFEST_CONTENT_STRUCT
@@ -467,16 +525,7 @@ typedef struct NX_AZURE_IOT_ADU_AGENT_UPDATE_MANIFEST_CONTENT_STRUCT
     NX_AZURE_IOT_ADU_AGENT_UPDATE_ID        update_id;
 
     /* Compatibility: deviceManufacturer.  */
-    UCHAR                                  *device_manufacturer;
-    UINT                                    device_manufacturer_length;
-
-    /* Compatibility: deviceModel.  */
-    UCHAR                                  *device_model;
-    UINT                                    device_model_length;
-
-    /* Compatibility: group.  */
-    const UCHAR                            *group;
-    UINT                                    group_length;
+    NX_AZURE_IOT_ADU_AGENT_COMPATIBILITY    compatibility;
 
     /* Instructions: steps.  */
     NX_AZURE_IOT_ADU_AGENT_STEP             steps[NX_AZURE_IOT_ADU_AGENT_STEPS_MAX];
@@ -517,7 +566,7 @@ typedef struct NX_AZURE_IOT_ADU_AGENT_FILE_URLS_STRUCT
     UINT                                    file_urls_count;
 
     /* Buffer.   */
-    UCHAR                                   file_urls_buffer[NX_AZURE_IOT_ADU_AGENT_FILE_URLS_SIZE];
+    UCHAR                                   file_urls_buffer[NX_AZURE_IOT_ADU_AGENT_FILE_URLS_MAX];
 
 } NX_AZURE_IOT_ADU_AGENT_FILE_URLS;
 
@@ -590,23 +639,6 @@ typedef struct NX_AZURE_IOT_ADU_AGENT_RSA_ROOT_KEY_STRUCT
 } NX_AZURE_IOT_ADU_AGENT_RSA_ROOT_KEY;
 
 /**
- * @brief ADU update struct.
- */
-typedef struct NX_AZURE_IOT_ADU_AGENT_UPDATE_STRUCT
-{
-
-    /* State.  */
-    UINT                                    valid;
-
-    /* Update Id.  */
-    NX_AZURE_IOT_ADU_AGENT_UPDATE_ID        update_id;
-
-    /* Driver entry point for firmware.  */
-    VOID                                  (*update_driver_entry)(NX_AZURE_IOT_ADU_AGENT_DRIVER *);
-
-} NX_AZURE_IOT_ADU_AGENT_UPDATE;
-
-/**
  * @brief ADU agent struct
  *
  */
@@ -631,8 +663,11 @@ typedef struct NX_AZURE_IOT_ADU_AGENT_STRUCT
     /* ADU device properties.  */
     NX_AZURE_IOT_ADU_AGENT_DEVICE_PROPERTIES nx_azure_iot_adu_agent_device_properties;
 
-    /* Firmware update state.  */
+    /* Agent state.  */
     UINT                                    nx_azure_iot_adu_agent_state;
+
+    /* Flag for new update.  */
+    UINT                                    nx_azure_iot_adu_agent_update_flag;
 
     /* Workflow.  */
     NX_AZURE_IOT_ADU_AGENT_WORKFLOW         nx_azure_iot_adu_agent_workflow;
@@ -660,8 +695,8 @@ typedef struct NX_AZURE_IOT_ADU_AGENT_STRUCT
     UCHAR                                   nx_azure_iot_adu_agent_buffer[NX_AZURE_IOT_ADU_AGENT_BUFFER_SIZE];
     UINT                                    nx_azure_iot_adu_agent_buffer_size;
 
-    /* Update info.  */
-    NX_AZURE_IOT_ADU_AGENT_UPDATE           nx_azure_iot_adu_agent_update[NX_AZURE_IOT_ADU_AGENT_UPDATE_COUNT];
+    /* Device info.  */
+    NX_AZURE_IOT_ADU_AGENT_DEVICE           nx_azure_iot_adu_agent_device[NX_AZURE_IOT_ADU_AGENT_DEVICE_COUNT];
 
 #if NX_AZURE_IOT_ADU_AGENT_PROXY_UPDATE_COUNT
     /* Leaf-level manifest content.  */
@@ -687,12 +722,8 @@ typedef struct NX_AZURE_IOT_ADU_AGENT_STRUCT
  * @param[in] manufacturer_length Length of the `manufacturer`. Does not include the `NULL` terminator.
  * @param[in] model A `UCHAR` pointer to the model
  * @param[in] model_length Length of the `model`. Does not include the `NULL` terminator.
- * @param[in] provider A `UCHAR` pointer to the provider.
- * @param[in] provider_length Length of the `provider`. Does not include the `NULL` terminator.
- * @param[in] name A `UCHAR` pointer to the name
- * @param[in] name_length Length of the `name`. Does not include the `NULL` terminator.
- * @param[in] version A `UCHAR` pointer to the version
- * @param[in] version_length Length of the `version`. Does not include the `NULL` terminator.
+ * @param[in] installed_criteria A `UCHAR` pointer to the installed criteria string, such as: version string.
+ * @param[in] installed_criteria_length Length of the `installed_criteria`. Does not include the `NULL` terminator.
  * @param[in] adu_agent_update_notify User supplied update receive change callback.
  * @param[in] adu_agent_update_driver User supplied driver for flash operation.
  * @return A `UINT` with the result of the API.
@@ -705,9 +736,7 @@ UINT nx_azure_iot_adu_agent_start(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr,
                                   NX_AZURE_IOT_HUB_CLIENT *iothub_client_ptr,
                                   const UCHAR *manufacturer, UINT manufacturer_length,
                                   const UCHAR *model, UINT model_length,
-                                  const UCHAR *provider, UINT provider_length,
-                                  const UCHAR *name, UINT name_length,
-                                  const UCHAR *version, UINT version_length,
+                                  const UCHAR *installed_criteria, UINT installed_criteria_length,
                                   VOID (*adu_agent_update_notify)(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr,
                                                                   UINT update_state,
                                                                   UCHAR *provider, UINT provider_length,
@@ -724,8 +753,8 @@ UINT nx_azure_iot_adu_agent_start(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr,
  * @param[in] provider_length Length of the `provider`. Does not include the `NULL` terminator.
  * @param[in] name A `UCHAR` pointer to the name
  * @param[in] name_length Length of the `name`. Does not include the `NULL` terminator.
- * @param[in] version A `UCHAR` pointer to the version
- * @param[in] version_length Length of the `version`. Does not include the `NULL` terminator.
+ * @param[in] installed_criteria A `UCHAR` pointer to the installed criteria string, such as: version string.
+ * @param[in] installed_criteria_length Length of the `installed_criteria`. Does not include the `NULL` terminator.
  * @param[in] adu_agent_proxy_driver User supplied driver for proxy update operation.
  * @return A `UINT` with the result of the API.
  *   @retval #NX_AZURE_IOT_SUCCESS Successfully add ADU agent proxy update on leaf device.
@@ -733,9 +762,9 @@ UINT nx_azure_iot_adu_agent_start(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr,
  *   @retval #NX_AZURE_IOT_NO_MORE_ENTRIES Fail to start the Azure IoT ADU agent due to no more entries.
  */
 UINT nx_azure_iot_adu_agent_proxy_update_add(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr,
-                                             const UCHAR *provider, UINT provider_length,
-                                             const UCHAR *name, UINT name_length,
-                                             const UCHAR *version, UINT version_length,
+                                             const UCHAR *manufacturer, UINT manufacturer_length,
+                                             const UCHAR *model, UINT model_length,
+                                             const UCHAR *installed_criteria, UINT installed_criteria_length,
                                              VOID (*adu_agent_proxy_update_driver)(NX_AZURE_IOT_ADU_AGENT_DRIVER *));
 #endif /* NX_AZURE_IOT_ADU_AGENT_PROXY_UPDATE_COUNT */
 
@@ -758,7 +787,7 @@ UINT nx_azure_iot_adu_agent_stop(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr);
  *   @retval #NX_AZURE_IOT_SUCCESS Successfully start to update new firmware.
  *   @retval #NX_AZURE_IOT_INVALID_PARAMETER Fail to start to update new firmware due to invalid parameter.
  */
-UINT nx_azure_iot_adu_agent_update_download_install(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr);
+UINT nx_azure_iot_adu_agent_update_download_and_install(NX_AZURE_IOT_ADU_AGENT *adu_agent_ptr);
 
 /**
  * @brief Start to apply firmware immediately.

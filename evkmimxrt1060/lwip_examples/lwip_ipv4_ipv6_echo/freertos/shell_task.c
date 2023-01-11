@@ -149,6 +149,8 @@ static shell_status_t print_ip_cfg(shell_handle_t shellHandle, int32_t argc, cha
 
     socket_task_print_ips();
 
+    // PRINTF("\r\nheap=%U\r\n", xPortGetMinimumEverFreeHeapSize());
+
     return kStatus_SHELL_Success;
 }
 

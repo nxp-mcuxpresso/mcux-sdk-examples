@@ -122,8 +122,7 @@
       </debug_configuration>
     </debug_configurations>
     <include_paths>
-      <include_path path="../../../../../core/boards/evkmimxrt1064" project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimxrt1064/usb_examples/usb_device_mtp/bm" project_relative_path="source" type="c_include"/>
+      <include_path path="../../.." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="usb/device/source" type="c_include"/>

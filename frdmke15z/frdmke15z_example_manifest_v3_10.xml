@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_frdmke15z_examples_manifest_v3_10" name="SDK_2.x_frdmke15z_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2022-07-15 08:19:43.852449-->
-  <!--This manifest is generated based on sdk repo commit: 45d71c921a1dd3e0403549aa377535344ed9bc97-->
+  <!--Timestamp (UTC): 2023-01-10 16:36:45.518285-->
+  <!--This manifest is generated based on sdk repo commit: 11a5f6af5190bfe018a89b4d02c239713dc4cfa6-->
   <externalDefinitions>
     <definition extID="MKE15Z256VLL7"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="compiler_gcc"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2120_frdmke15z_examples_manifest_v3_10" name="MCUXpressoSDK2120_frdmke15z_examples_manifest_v3_10" version="2.12.0"/>
+  <ksdk id="MCUXpressoSDK2130_frdmke15z_examples_manifest_v3_10" name="MCUXpressoSDK2130_frdmke15z_examples_manifest_v3_10" version="2.13.0"/>
   <boards>
     <board id="frdmke15z" name="FRDM-KE15Z" href="https://www.nxp.com/pip/FRDM-KE15Z" version="1.0.0" package="MKE15Z256VLL7">
       <examples>
@@ -415,6 +415,11 @@
         <example id="frdmke15z_lpit_chained_channel" name="lpit_chained_channel" brief="The LPIT chained channel project is a simple example of the SDK LPIT driver. It sets up the LPIT hardware block to trigger a periodic interrupt after every 1 second in the channel No.0, the channel No.1 chained with channel No.0, if LPIT contain more than two channels, the channel No.2 chained with channel No.1....the channel No.N chained with Channel No.N-1. When the LPIT interrupt is triggered." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpit" path="driver_examples/lpit/chained_channel">
           <external path="driver_examples/lpit/chained_channel" type="xml">
             <files mask="lpit_chained_channel_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="frdmke15z_lpit_pwm" name="lpit_pwm" brief="This example show how to use SDK drivers to implement the PWM feature by LPIT IP module in dualperiodcounter mode.You can set up PWM singal frequency and duty in this example.Connect PWM singal output pin to oscilloscope, you will see PWM wave." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpit" path="driver_examples/lpit/lpit_pwm">
+          <external path="driver_examples/lpit/lpit_pwm" type="xml">
+            <files mask="lpit_pwm_v3_10.xml"/>
           </external>
         </example>
         <example id="frdmke15z_lpit_single_channel" name="lpit_single_channel" brief="The LPIT single channel project is a simple example of the SDK LPIT driver. It sets up the LPIThardware block to trigger a periodic interrupt after every 1 second. When the LPIT interrupt is triggereda message a printed on the serial terminal and an LED is toggled on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpit" path="driver_examples/lpit/single_channel">

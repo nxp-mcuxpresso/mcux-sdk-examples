@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -152,19 +152,10 @@ int main(void)
     {
         /* Invalidate the cache to update the new data of the test memory
          * when we wants to get the real data in the test memory.
-         * Note:
-         L2CACHE_InvalidateByRange(startAddr, MEM_DMATRANSFER_LEN);
-         L1CACHE_InvalidateDCacheByRange(startAddr, MEM_DMATRANSFER_LEN);
-         *  can be replaced by using DCACHE_InvalidateByRange(startAddr, MEM_DMATRANSFER_LEN)
          */
-#if (FSL_FEATURE_SOC_L2CACHEC_COUNT > 0)
-#if defined(FSL_SDK_DISBLE_L2CACHE_PRESENT) && !FSL_SDK_DISBLE_L2CACHE_PRESENT
-        L2CACHE_InvalidateByRange(startAddr, MEM_DMATRANSFER_LEN);
-#endif /* !FSL_SDK_DISBLE_L2CACHE_PRESENT */
-#endif /* FSL_FEATURE_SOC_L2CACHEC_COUNT > 0 */
         if (memcmp((void *)&g_data[0], (void *)startAddr, MEM_DMATRANSFER_LEN) != 0)
         {
-            L1CACHE_InvalidateDCacheByRange(startAddr, MEM_DMATRANSFER_LEN);
+            DCACHE_InvalidateByRange(startAddr, MEM_DMATRANSFER_LEN);
 
             /* Now the data in cache is align with the real data in test memory. */
             if (memcmp((void *)&g_data[0], (void *)startAddr, MEM_DMATRANSFER_LEN) == 0)
@@ -197,17 +188,9 @@ int main(void)
             {
                 /* Push the memory to update the data in physical sdram address
                  * at this moment, the real sdram data will be align with the
-                 * data in cache. Note:
-                 L1CACHE_CleanDCacheByRange(startAddr, MEM_DMATRANSFER_LEN);
-                 L2CACHE_CleanByRange(startAddr, MEM_DMATRANSFER_LEN);
-                 *  can be replaced by using DCACHE_CleanByRange(startAddr, MEM_DMATRANSFER_LEN)
+                 * data in cache.
                  */
-                L1CACHE_CleanDCacheByRange(startAddr, MEM_DMATRANSFER_LEN);
-#if (FSL_FEATURE_SOC_L2CACHEC_COUNT > 0)
-#if defined(FSL_SDK_DISBLE_L2CACHE_PRESENT) && !FSL_SDK_DISBLE_L2CACHE_PRESENT
-                L2CACHE_CleanByRange(startAddr, MEM_DMATRANSFER_LEN);
-#endif /* !FSL_SDK_DISBLE_L2CACHE_PRESENT */
-#endif /* FSL_FEATURE_SOC_L2CACHEC_COUNT > 0 */
+                DCACHE_CleanByRange(startAddr, MEM_DMATRANSFER_LEN);
 
                 /* Transfer from the sdram to data[]. */
                 g_Transfer_Done = false;

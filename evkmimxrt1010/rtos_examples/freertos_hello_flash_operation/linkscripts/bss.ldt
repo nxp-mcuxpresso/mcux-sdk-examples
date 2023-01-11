@@ -1,3 +1,3 @@
-        <#if memory.name=="BOARD_SDRAM">
+        <#if memory.name=="SRAM_DTC">
         *(.bss*)
         </#if>

@@ -222,7 +222,7 @@ VOID temperature_page_init()
 
     /* Change page name to "Temperature". */
     string.gx_string_ptr    = string_temperature;
-    string.gx_string_length = sizeof(string_temperature);
+    string.gx_string_length = strlen(string_temperature);
 
     gx_prompt_text_set_ext(&main_screen.main_screen_page_name, &string);
 

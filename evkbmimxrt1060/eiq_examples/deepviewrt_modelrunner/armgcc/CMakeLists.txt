@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(deepviewrt_modelrunner)
 
+set(MCUX_BUILD_TYPES flexspi_nor_sdram_debug flexspi_nor_sdram_release)
+
 set(MCUX_SDK_PROJECT_NAME deepviewrt_modelrunner.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -61,19 +67,40 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../board.c"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/../source
     ${ProjDirPath}/..
     ${SdkRootDirPath}/rtos/freertos/libraries/abstractions/posix/include
 )
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/middleware/lwip
+    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
+    ${SdkRootDirPath}/core/components/phy
+    ${SdkRootDirPath}/core/drivers/enet
+    ${SdkRootDirPath}/middleware/eiq
+    ${SdkRootDirPath}/core/drivers/cache/armv7-m7
+    ${SdkRootDirPath}/core/components/phy/device/phyksz8081
+    ${SdkRootDirPath}/core/drivers/flexspi
+    ${SdkRootDirPath}/core/drivers/gpt
+    ${SdkRootDirPath}/core/drivers/flexram
+    ${SdkRootDirPath}/core/devices/MIMXRT1062/drivers
+    ${SdkRootDirPath}/core/components/silicon_id
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/components/silicon_id/socs/rt10xx
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/drivers/lpuart
+    ${SdkRootDirPath}/core/devices/MIMXRT1062
+    ${SdkRootDirPath}/core/drivers/igpio
+    ${SdkRootDirPath}/core/devices/MIMXRT1062/xip
+    ${SdkRootDirPath}/core/boards/evkbmimxrt1060/xip
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
-
-#Include Entry cmake component
-include(all_devices)
 
 # include modules
 include(middleware_lwip_apps_httpsrv)
@@ -86,7 +113,7 @@ include(middleware_lwip_apps_mdns)
 
 include(middleware_lwip_enet_ethernetif_MIMXRT1062)
 
-include(driver_phy-common)
+include(driver_phy-common_MIMXRT1062)
 
 include(driver_enet)
 
@@ -100,8 +127,6 @@ include(driver_cache_armv7_m7)
 
 include(driver_phy-device-ksz8081)
 
-include(driver_mdio-enet)
-
 include(driver_flexspi)
 
 include(driver_gpt)
@@ -110,9 +135,11 @@ include(driver_flexram)
 
 include(driver_soc_flexram_allocate)
 
-include(component_silicon_id)
+include(component_silicon_id_MIMXRT1062)
 
 include(driver_common)
+
+include(component_silicon_id_rt10xx)
 
 include(middleware_eiq_deepviewrt)
 
@@ -125,8 +152,6 @@ include(component_serial_manager)
 include(component_serial_manager_uart)
 
 include(driver_lpuart)
-
-include(utility_debug_console)
 
 include(device_CMSIS)
 
@@ -144,26 +169,24 @@ include(driver_xip_board_evkbmimxrt1060)
 
 include(utility_assert)
 
-include(middleware_freertos-kernel_extension)
+include(utility_debug_console)
 
-include(driver_mdio-common)
+include(middleware_freertos-kernel_extension)
 
 include(CMSIS_Include_core_cm)
 
-include(device_system)
-
 include(utilities_misc_utilities_MIMXRT1062)
 
+include(device_system)
+
+
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_debug)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/eiq/deepviewrt/lib/libmodelrunner-rt-flash.a)

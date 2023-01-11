@@ -1,7 +1,7 @@
 Overview
 ========
 The TPM project is a simple demonstration program of the SDK TPM driver. It sets up the TPM
-hardware block to output a center-aligned PWM signal. The PWM dutycycle is manually updated.
+hardware block to output a center-aligned PWM signal(24kHZ). The PWM duty cycle is manually updated and is initially 10%.
 On boards that have an LED connected to the TPM pins, the user will see a change in LED
 brightness if user enter different values.
 

@@ -1,0 +1,7 @@
+
+	    *(EXCLUDE_FILE(*/mflash_drv.o */fsl_flexspi.o */fsl_cache.o ) .rodata)
+	    *(EXCLUDE_FILE(*/mflash_drv.o */fsl_flexspi.o */fsl_cache.o ) .rodata.*)
+
+	    *(EXCLUDE_FILE(*/mflash_drv.o */fsl_flexspi.o */fsl_cache.o ) .constdata)
+	    *(EXCLUDE_FILE(*/mflash_drv.o */fsl_flexspi.o */fsl_cache.o ) .constdata.*)
+

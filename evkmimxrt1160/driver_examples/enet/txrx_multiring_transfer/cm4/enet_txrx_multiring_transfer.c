@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 NXP
+ * Copyright 2017-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -7,7 +7,6 @@
 
 #include <stdlib.h>
 #include "pin_mux.h"
-#include "clock_config.h"
 #include "board.h"
 #include "fsl_debug_console.h"
 #include "fsl_enet.h"
@@ -16,22 +15,17 @@
 #include "fsl_memory.h"
 #endif
 
-#include "fsl_enet_mdio.h"
 #include "fsl_phyrtl8211f.h"
-#include "fsl_gpio.h"
 #include "fsl_iomuxc.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define EXAMPLE_ENET        ENET_1G
-#define EXAMPLE_PHY_ADDRESS 0x01U
-
-/* MDIO operations. */
-#define EXAMPLE_MDIO_OPS enet_ops
-/* PHY operations. */
-#define EXAMPLE_PHY_OPS phyrtl8211f_ops
-/* ENET clock frequency. */
-#define EXAMPLE_CLOCK_FREQ CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
+extern phy_rtl8211f_resource_t g_phy_resource;
+#define EXAMPLE_ENET         ENET_1G
+#define EXAMPLE_PHY_ADDRESS  0x01U
+#define EXAMPLE_PHY_OPS      &phyrtl8211f_ops
+#define EXAMPLE_PHY_RESOURCE &g_phy_resource
+#define EXAMPLE_CLOCK_FREQ   CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
 #define ENET_RXBD_NUM                     (2)
 #define ENET_TXBD_NUM                     (2)
 #define ENET_RXBUFF_SIZE                  (ENET_FRAME_MAX_FRAMELEN)
@@ -83,6 +77,7 @@ static void ENET_BuildFrame(void);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+phy_rtl8211f_resource_t g_phy_resource;
 /*! @brief Buffer descriptors should be in non-cacheable region and should be align to "ENET_BUFF_ALIGNMENT". */
 AT_NONCACHEABLE_SECTION_ALIGN(enet_rx_bd_struct_t g_rxBuffDescrip[FSL_FEATURE_ENET_QUEUE][ENET_RXBD_NUM],
                               ENET_BUFF_ALIGNMENT);
@@ -121,9 +116,8 @@ uint32_t g_txSuccessFlag = false;
 uint32_t g_rxSuccessFlag = false;
 uint32_t g_txMessageOut  = false;
 
-/*! @brief Enet PHY and MDIO interface handler. */
-static mdio_handle_t mdioHandle = {.ops = &EXAMPLE_MDIO_OPS};
-static phy_handle_t phyHandle   = {.phyAddr = EXAMPLE_PHY_ADDRESS, .mdioHandle = &mdioHandle, .ops = &EXAMPLE_PHY_OPS};
+/*! @brief PHY interface handle. */
+static phy_handle_t phyHandle;
 
 /*******************************************************************************
  * Code
@@ -136,6 +130,22 @@ void BOARD_InitModuleClock(void)
     CLOCK_InitSysPll1(&sysPll1Config);
     clock_root_config_t rootCfg = {.mux = 4, .div = 4}; /* Generate 125M root clock. */
     CLOCK_SetRootClock(kCLOCK_Root_Enet2, &rootCfg);
+}
+
+static void MDIO_Init(void)
+{
+    (void)CLOCK_EnableClock(s_enetClock[ENET_GetInstance(EXAMPLE_ENET)]);
+    ENET_SetSMI(EXAMPLE_ENET, EXAMPLE_CLOCK_FREQ, false);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_MDIOWrite(EXAMPLE_ENET, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_MDIORead(EXAMPLE_ENET, phyAddr, regAddr, pData);
 }
 
 
@@ -317,6 +327,10 @@ int main(void)
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_1_IRQn);
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_2_IRQn);
 
+    MDIO_Init();
+    g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
+
     memset(&avbConfig, 0, sizeof(enet_avb_config_t));
 
     /* Prepare the buffer configuration. */
@@ -366,10 +380,10 @@ int main(void)
     /* Get default configuration 100M RMII. */
     ENET_GetDefaultConfig(&config);
     /* Set SMI to get PHY link status. */
-    phyConfig.phyAddr               = EXAMPLE_PHY_ADDRESS;
-    phyConfig.autoNeg               = true;
-    mdioHandle.resource.base        = EXAMPLE_ENET;
-    mdioHandle.resource.csrClock_Hz = EXAMPLE_CLOCK_FREQ;
+    phyConfig.phyAddr  = EXAMPLE_PHY_ADDRESS;
+    phyConfig.ops      = EXAMPLE_PHY_OPS;
+    phyConfig.resource = EXAMPLE_PHY_RESOURCE;
+    phyConfig.autoNeg  = true;
 
     /* Initialize PHY and wait auto-negotiation over. */
     PRINTF("Wait for PHY init...\r\n");

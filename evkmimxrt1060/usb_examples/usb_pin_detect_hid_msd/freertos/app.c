@@ -283,7 +283,11 @@ void Pin_DetectTask(void *param)
  */
 void APP_init(void)
 {
+#if defined(USBHS_STACK_BASE_ADDRS)
+    uint32_t usbhsBaseAddrs[] = USBHS_STACK_BASE_ADDRS;
+#else
     uint32_t usbhsBaseAddrs[] = USBHS_BASE_ADDRS;
+#endif
 
     if (CONTROLLER_ID - kUSB_ControllerEhci0 >= (sizeof(usbhsBaseAddrs) / sizeof(usbhsBaseAddrs[0])))
     {

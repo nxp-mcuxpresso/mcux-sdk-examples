@@ -117,16 +117,16 @@ int main(void)
     DMA_EnableChannel(EXAMPLE_UART_DMA_BASEADDR, USART_RX_DMA_CHANNEL);
     DMA_CreateHandle(&g_DMA_Handle, EXAMPLE_UART_DMA_BASEADDR, USART_RX_DMA_CHANNEL);
     DMA_SetCallback(&g_DMA_Handle, DMA_Callback, NULL);
-    DMA_PrepareTransfer(&transferConfig, (void *)&USART0->FIFORD, g_data_buffer, 1, 8, kDMA_PeripheralToMemory,
+    DMA_PrepareTransfer(&transferConfig, (void *)&DEMO_USART->FIFORD, g_data_buffer, 1, 8, kDMA_PeripheralToMemory,
                         &g_pingpong_desc[1]);
     DMA_SubmitTransfer(&g_DMA_Handle, &transferConfig);
     transferConfig.xfercfg.intA = false;
     transferConfig.xfercfg.intB = true;
-    DMA_CreateDescriptor(&g_pingpong_desc[1], &transferConfig.xfercfg, (void *)&USART0->FIFORD, &g_data_buffer[8],
+    DMA_CreateDescriptor(&g_pingpong_desc[1], &transferConfig.xfercfg, (void *)&DEMO_USART->FIFORD, &g_data_buffer[8],
                          &g_pingpong_desc[0]);
     transferConfig.xfercfg.intA = true;
     transferConfig.xfercfg.intB = false;
-    DMA_CreateDescriptor(&g_pingpong_desc[0], &transferConfig.xfercfg, (void *)&USART0->FIFORD, &g_data_buffer[0],
+    DMA_CreateDescriptor(&g_pingpong_desc[0], &transferConfig.xfercfg, (void *)&DEMO_USART->FIFORD, &g_data_buffer[0],
                          &g_pingpong_desc[1]);
 
     DMA_StartTransfer(&g_DMA_Handle);

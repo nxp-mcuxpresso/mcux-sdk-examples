@@ -49,8 +49,8 @@
     <definition extID="platform.drivers.memory.MIMXRT1176"/>
     <definition extID="platform.drivers.lcdifv2.MIMXRT1176"/>
     <definition extID="middleware.eiq.worker.MIMXRT1176"/>
-    <definition extID="platform.devices.MIMXRT1176_system.MIMXRT1176"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1176"/>
+    <definition extID="platform.devices.MIMXRT1176_system.MIMXRT1176"/>
     <definition extID="mcuxpresso"/>
     <definition extID="mdk"/>
     <definition extID="armgcc"/>
@@ -59,7 +59,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1170_deepviewrt_camera_label_image_cm7" name="deepviewrt_camera_label_image_cm7" device_core="cm7_MIMXRT1176xxxxx" dependency="driver.camera-device-common.MIMXRT1176 driver.camera-receiver-common.MIMXRT1176 driver.camera-device-sccb.MIMXRT1176 driver.camera-device-ov5640.MIMXRT1176 driver.display-rm68191.MIMXRT1176 driver.display-rm68200.MIMXRT1176 driver.display-hx8394.MIMXRT1176 driver.camera-common.MIMXRT1176 driver.camera-receiver-csi.MIMXRT1176 platform.drivers.csi.MIMXRT1176 driver.video-common.MIMXRT1176 driver.video-i2c.MIMXRT1176 platform.drivers.elcdif.MIMXRT1176 platform.drivers.pxp.MIMXRT1176 driver.dc-fb-common.MIMXRT1176 driver.dc-fb-elcdif.MIMXRT1176 driver.dc-fb-lcdifv2.MIMXRT1176 driver.display-common.MIMXRT1176 driver.display-mipi-dsi-cmd.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.drivers.mipi_dsi_split.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.lpi2c.MIMXRT1176 platform.drivers.mipi_csi2rx.MIMXRT1176 platform.drivers.soc_mipi_csi2rx.MIMXRT1176 platform.drivers.soc_src.MIMXRT1176 utility.debug_console_lite.MIMXRT1176 platform.utilities.assert_lite.MIMXRT1176 middleware.eiq.worker.video.MIMXRT1176 middleware.eiq.gui.printf.MIMXRT1176 middleware.eiq.deepviewrt.MIMXRT1176 component.lists.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.clock.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.drivers.xip_device.MIMXRT1176 platform.drivers.xip_board.evkmimxrt1170.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.drivers.memory.MIMXRT1176 platform.drivers.lcdifv2.MIMXRT1176 middleware.eiq.worker.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176" category="eiq_examples">
+  <example id="evkmimxrt1170_deepviewrt_camera_label_image_cm7" name="deepviewrt_camera_label_image_cm7" device_core="cm7_MIMXRT1176xxxxx" dependency="driver.camera-device-common.MIMXRT1176 driver.camera-receiver-common.MIMXRT1176 driver.camera-device-sccb.MIMXRT1176 driver.camera-device-ov5640.MIMXRT1176 driver.display-rm68191.MIMXRT1176 driver.display-rm68200.MIMXRT1176 driver.display-hx8394.MIMXRT1176 driver.camera-common.MIMXRT1176 driver.camera-receiver-csi.MIMXRT1176 platform.drivers.csi.MIMXRT1176 driver.video-common.MIMXRT1176 driver.video-i2c.MIMXRT1176 platform.drivers.elcdif.MIMXRT1176 platform.drivers.pxp.MIMXRT1176 driver.dc-fb-common.MIMXRT1176 driver.dc-fb-elcdif.MIMXRT1176 driver.dc-fb-lcdifv2.MIMXRT1176 driver.display-common.MIMXRT1176 driver.display-mipi-dsi-cmd.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.drivers.mipi_dsi_split.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.lpi2c.MIMXRT1176 platform.drivers.mipi_csi2rx.MIMXRT1176 platform.drivers.soc_mipi_csi2rx.MIMXRT1176 platform.drivers.soc_src.MIMXRT1176 utility.debug_console_lite.MIMXRT1176 platform.utilities.assert_lite.MIMXRT1176 middleware.eiq.worker.video.MIMXRT1176 middleware.eiq.gui.printf.MIMXRT1176 middleware.eiq.deepviewrt.MIMXRT1176 component.lists.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.clock.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.drivers.xip_device.MIMXRT1176 platform.drivers.xip_board.evkmimxrt1170.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.drivers.memory.MIMXRT1176 platform.drivers.lcdifv2.MIMXRT1176 middleware.eiq.worker.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176" category="eiq_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -89,7 +89,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-Wno-unused-function -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -230,6 +230,9 @@
     <source path="." project_relative_path="board" type="c_include">
       <files mask="pin_mux.h"/>
     </source>
+    <source path="../../../../middleware/eiq/deepviewrt/boards/evkmimxrt1170/camera_label_image" project_relative_path="MIMXRT1176/gcc" type="linker" toolchain="armgcc">
+      <files mask="MIMXRT1176xxxxx_cm7_flexspi_nor_sdram.ld"/>
+    </source>
     <source path="../../../../middleware/eiq/common" project_relative_path="source" type="c_include">
       <files mask="timer.h"/>
     </source>
@@ -251,9 +254,6 @@
       <files mask="board.h"/>
       <files mask="clock_config.h"/>
       <files mask="dcd.h"/>
-    </source>
-    <source path="armgcc" project_relative_path="MIMXRT1176/gcc" type="linker" toolchain="armgcc">
-      <files mask="MIMXRT1176xxxxx_cm7_flexspi_nor_sdram.ld"/>
     </source>
   </example>
 </ksdk:examples>

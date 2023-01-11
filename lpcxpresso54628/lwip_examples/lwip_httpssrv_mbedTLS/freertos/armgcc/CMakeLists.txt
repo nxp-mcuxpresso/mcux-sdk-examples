@@ -30,7 +30,13 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(lwip_httpssrv_mbedTLS_freertos)
 
+set(MCUX_BUILD_TYPES debug release)
+
 set(MCUX_SDK_PROJECT_NAME lwip_httpssrv_mbedTLS_freertos.elf)
+
+if (NOT DEFINED SdkRootDirPath)
+    SET(SdkRootDirPath ${SdkRootDirPath})
+endif()
 
 include(${ProjDirPath}/flags.cmake)
 
@@ -49,10 +55,9 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/lpcxpresso54628/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/lpcxpresso54628
-    ${SdkRootDirPath}/examples/lpcxpresso54628/lwip_examples/lwip_httpssrv_mbedTLS/freertos
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL debug)
@@ -63,17 +68,34 @@ if(CMAKE_BUILD_TYPE STREQUAL release)
      target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="ksdk_mbedtls_config.h")
 endif(CMAKE_BUILD_TYPE STREQUAL release)
 
-#path for entry cmake
 set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core
+    ${SdkRootDirPath}/core/components/phy/device/phylan8720a
+    ${SdkRootDirPath}/middleware/mbedtls
+    ${SdkRootDirPath}/core/components/silicon_id
+    ${SdkRootDirPath}/core/drivers/iap
+    ${SdkRootDirPath}/middleware/lwip
+    ${SdkRootDirPath}/core/components/phy
+    ${SdkRootDirPath}/core/drivers/lpc_enet
+    ${SdkRootDirPath}/core/drivers/lpc_iocon
+    ${SdkRootDirPath}/core/devices/LPC54628/drivers
+    ${SdkRootDirPath}/core/drivers/sha
+    ${SdkRootDirPath}/core/drivers/rng
+    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
+    ${SdkRootDirPath}/core/drivers/common
+    ${SdkRootDirPath}/core/devices/LPC54628
+    ${SdkRootDirPath}/core/utilities
+    ${SdkRootDirPath}/core/components/uart
+    ${SdkRootDirPath}/core/components/serial_manager
+    ${SdkRootDirPath}/core/components/lists
+    ${SdkRootDirPath}/core/drivers/flexcomm
+    ${SdkRootDirPath}/core/drivers/lpc_gpio
+    ${SdkRootDirPath}/core/drivers/emc
+    ${SdkRootDirPath}/core/utilities/assert
+    ${SdkRootDirPath}/core/CMSIS/Core/Include
+    ${SdkRootDirPath}/core/utilities/misc_utilities
 )
 
-#Include Entry cmake component
-include(all_devices)
-
 # include modules
-include(driver_mdio-lpc-enet)
-
 include(driver_phy-device-lan8720a)
 
 include(middleware_mbedtls_LPC54628)
@@ -82,13 +104,17 @@ include(middleware_mbedtls_port_ksdk)
 
 include(middleware_mbedtls_lpc3)
 
+include(component_silicon_id_LPC54628)
+
+include(driver_iap)
+
 include(middleware_lwip_apps_httpssrv)
 
 include(middleware_lwip_enet_ethernetif_LPC54628)
 
 include(middleware_lwip)
 
-include(driver_phy-common)
+include(driver_phy-common_LPC54628)
 
 include(driver_lpc_enet)
 
@@ -130,12 +156,6 @@ include(driver_emc)
 
 include(utility_assert)
 
-include(component_silicon_id)
-
-include(driver_iap)
-
-include(driver_mdio-common)
-
 include(driver_reset)
 
 include(CMSIS_Include_core_cm)
@@ -151,15 +171,13 @@ include(utilities_misc_utilities_LPC54628)
 include(device_system)
 
 
+IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+ENDIF()  
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE m)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE c)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE gcc)
-
-target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
+target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
 if(CMAKE_BUILD_TYPE STREQUAL debug)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/devices/LPC54628/gcc/libpower_hardabi.a)

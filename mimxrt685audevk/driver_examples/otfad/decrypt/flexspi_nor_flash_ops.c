@@ -328,6 +328,57 @@ status_t flexspi_nor_flash_erase_sector(FLEXSPI_Type *base, uint32_t address)
     return status;
 }
 
+status_t flexspi_nor_flash_read(FLEXSPI_Type *base, uint32_t dstAddr, const uint32_t *src, uint32_t length)
+{
+    status_t status;
+    flexspi_transfer_t flashXfer;
+
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    flexspi_cache_status_t cacheStatus;
+    flexspi_nor_disable_cache(&cacheStatus);
+#endif
+
+    /* Write enable */
+    status = flexspi_nor_write_enable(base, dstAddr);
+
+    if (status != kStatus_Success)
+    {
+        return status;
+    }
+
+    /* Prepare page program command */
+    flashXfer.deviceAddress = dstAddr;
+    flashXfer.port          = FLASH_PORT;
+    flashXfer.cmdType       = kFLEXSPI_Read;
+    flashXfer.SeqNumber     = 1;
+    flashXfer.seqIndex      = NOR_CMD_LUT_SEQ_IDX_READ_FAST_QUAD;
+    flashXfer.data          = (uint32_t *)src;
+    flashXfer.dataSize      = length;
+    status                  = FLEXSPI_TransferBlocking(base, &flashXfer);
+
+    if (status != kStatus_Success)
+    {
+        return status;
+    }
+
+    status = flexspi_nor_wait_bus_busy(base);
+
+    /* Do software reset or clear AHB buffer directly. */
+#if defined(FSL_FEATURE_SOC_OTFAD_COUNT) && defined(FLEXSPI_AHBCR_CLRAHBRXBUF_MASK) && \
+    defined(FLEXSPI_AHBCR_CLRAHBTXBUF_MASK)
+    base->AHBCR |= FLEXSPI_AHBCR_CLRAHBRXBUF_MASK | FLEXSPI_AHBCR_CLRAHBTXBUF_MASK;
+    base->AHBCR &= ~(FLEXSPI_AHBCR_CLRAHBRXBUF_MASK | FLEXSPI_AHBCR_CLRAHBTXBUF_MASK);
+#else
+    FLEXSPI_SoftwareReset(base);
+#endif
+
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    flexspi_nor_enable_cache(cacheStatus);
+#endif
+
+    return status;
+}
+
 status_t flexspi_nor_flash_program(FLEXSPI_Type *base, uint32_t dstAddr, const uint32_t *src, uint32_t length)
 {
     status_t status;

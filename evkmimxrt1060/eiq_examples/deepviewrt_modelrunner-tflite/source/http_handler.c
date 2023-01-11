@@ -723,9 +723,24 @@ v1_handler_post(SOCKET             sock,
         if (strcmp("run", key) == 0){
             server->inference_count = atoi(val);
         } else if(strcmp("output", key) == 0) {
+            char out_tensor_name[512];
+            int outind = 0;
+            int index  = 0;
+            while (outind < strlen(val)) {
+                char decoded = url_decode(&val[outind]);
+                if (decoded != 0) {
+                    out_tensor_name[index++] = decoded;
+                    outind += 3;
+                } else {
+                    out_tensor_name[index++] = val[outind];
+                    outind++;
+                }
+            }
+            out_tensor_name[index] = '\0';
+
             int output = 0;
             for (int i=0; i < server->output.outputs_size; i++) {
-                if (strcmp (val, server->output.name[server->output.index[i]]) == 0 ){
+                if (strcmp (out_tensor_name, server->output.name[server->output.index[i]]) == 0 ){
                     output = 1;
                     outputs_idx[n_outputs] = i;
                     n_outputs++;
@@ -904,7 +919,7 @@ v1_handler_post(SOCKET             sock,
                          &server->json_size,
                          json,
                          "timing",
-                         (float)(server->run_ns/1e3));
+                         (float)(server->run_ns*1e3));
     if (!json) { goto json_oom; }
 
     json = json_int_flex(&server->json_buffer,

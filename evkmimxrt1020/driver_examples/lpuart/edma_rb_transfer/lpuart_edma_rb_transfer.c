@@ -120,6 +120,11 @@ static void EXAMPLE_InitEDMA(void)
     EDMA_CreateHandle(&g_lpuartTxEdmaHandle, EXAMPLE_LPUART_DMA_BASEADDR, LPUART_TX_DMA_CHANNEL);
     EDMA_CreateHandle(&g_lpuartRxEdmaHandle, EXAMPLE_LPUART_DMA_BASEADDR, LPUART_RX_DMA_CHANNEL);
 
+#if defined(FSL_FEATURE_EDMA_HAS_CHANNEL_MUX) && FSL_FEATURE_EDMA_HAS_CHANNEL_MUX
+    EDMA_SetChannelMux(EXAMPLE_LPUART_DMA_BASEADDR, LPUART_TX_DMA_CHANNEL, LPUART_TX_DMA_REQUEST);
+    EDMA_SetChannelMux(EXAMPLE_LPUART_DMA_BASEADDR, LPUART_RX_DMA_CHANNEL, LPUART_RX_DMA_REQUEST);
+#endif
+
     /* Create LPUART DMA handle for sending data. */
     LPUART_TransferCreateHandleEDMA(EXAMPLE_LPUART, &g_lpuartEdmaHandle, EXAMPLE_TxEDMACallback, NULL,
                                     &g_lpuartTxEdmaHandle, &g_lpuartRxEdmaHandle);
@@ -145,7 +150,7 @@ static void EXAMPLE_StartRingBufferEDMA(void)
     EDMA_TcdSetTransferConfig(&g_lpuartRxEdmaHandle.tcdPool[0U], &xferConfig, tcdMemoryPoolPtr);
 
     /* Enable major interrupt for counting received bytes. */
-    g_lpuartRxEdmaHandle.tcdPool[0U].CSR |= DMA_CSR_INTMAJOR_MASK;
+    EDMA_TcdEnableInterrupts(&g_lpuartRxEdmaHandle.tcdPool[0U], kEDMA_MajorInterruptEnable);
 
     /* There is no live chain, TCD block need to be installed in TCD registers. */
     EDMA_InstallTCD(g_lpuartRxEdmaHandle.base, g_lpuartRxEdmaHandle.channel, &g_lpuartRxEdmaHandle.tcdPool[0U]);

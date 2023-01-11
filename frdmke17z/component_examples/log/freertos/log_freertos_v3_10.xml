@@ -80,7 +80,6 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../examples/frdmke17z/component_examples/log/freertos" project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../core/boards/frdmke17z" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
     </include_paths>

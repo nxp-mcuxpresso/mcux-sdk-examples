@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2017, 2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -80,13 +80,12 @@ int main(void)
     /* Init PWT */
     PWT_GetDefaultConfig(&pwtConfig);
     pwtConfig.inputSelect = kPWT_InputPort_1;
+    PWT_Init(PWT, &pwtConfig);
 
     PRINTF("\r\nPWT example: input signal whose pulse width needs to be measured\r\n");
 
     /* Enable at the NVIC */
     EnableIRQ(PWT_INTERRUPT_NUMBER);
-
-    PWT_Init(PWT, &pwtConfig);
 
     /* Start the PWT counter */
     PWT_StartTimer(PWT);

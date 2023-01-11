@@ -13,7 +13,9 @@
 #include "music.h"
 #include "fsl_codec_common.h"
 #include "fsl_asrc_edma.h"
+#if defined(FSL_FEATURE_SOC_DMAMUX_COUNT) && FSL_FEATURE_SOC_DMAMUX_COUNT
 #include "fsl_dmamux.h"
+#endif
 #include "fsl_wm8960.h"
 #include "fsl_codec_adapter.h"
 /*******************************************************************************
@@ -61,8 +63,9 @@
 #define DEMO_I2C_CLK_FREQ ((CLOCK_GetFreq(kCLOCK_Usb1PllClk) / 8) / (DEMO_LPI2C_CLOCK_SOURCE_DIVIDER + 1U))
 
 /* DMA */
-#define EXAMPLE_DMA     DMA0
+#define DEMO_ASRC_DMA   DMA0
 #define EXAMPLE_CHANNEL (0U)
+#define BOARD_ASRC_EDMA_CONFIG(config)
 
 /* demo audio data channel */
 #define DEMO_AUDIO_DATA_CHANNEL (2U)
@@ -72,6 +75,11 @@
 #ifndef DEMO_ASRC_OUTPUT_CLOCK_SOURCE
 #define DEMO_ASRC_OUTPUT_CLOCK_SOURCE kASRC_ClockSourceBitClock0_SAI1_TX
 #endif
+#ifndef DEMO_CODEC_VOLUME
+#define DEMO_CODEC_VOLUME 100U
+#endif
+
+edma_config_t dmaConfig = {0};
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -113,8 +121,7 @@ asrc_channel_pair_config_t s_asrcChannelPairConfig       = {
     .inFifoThreshold           = FSL_ASRC_CHANNEL_PAIR_FIFO_DEPTH / 2,
     .bufStallWhenFifoEmptyFull = false,
 };
-static const asrc_p2p_edma_config_t s_asrcEDMAP2PConfig = {
-    .watermark       = FSL_FEATURE_SAI_FIFO_COUNT / 2U,
+static asrc_p2p_edma_config_t s_asrcEDMAP2PConfig = {
     .channel         = 0,
     .startPeripheral = startSai,
 };
@@ -183,9 +190,9 @@ static void startSai(bool start)
 int main(void)
 {
     sai_transceiver_t config;
-    uint8_t *audioData      = (uint8_t *)music;
-    edma_config_t dmaConfig = {0};
-    uint32_t outputBufSize  = 0U;
+    uint8_t *audioData            = (uint8_t *)music;
+    uint32_t outputBufSize        = 0U;
+    s_asrcEDMAP2PConfig.watermark = FSL_FEATURE_SAI_FIFO_COUNTn(DEMO_SAI) / 2U;
     asrc_transfer_t asrcConvert;
 
     BOARD_ConfigMPU();
@@ -218,17 +225,17 @@ int main(void)
 
     PRINTF("ASRC p2p edma example\n\r");
 
-    /* Create EDMA handle */
-    /*
-     * dmaConfig.enableRoundRobinArbitration = false;
-     * dmaConfig.enableHaltOnError = true;
-     * dmaConfig.enableContinuousLinkMode = false;
-     * dmaConfig.enableDebugMode = false;
-     */
     EDMA_GetDefaultConfig(&dmaConfig);
-    EDMA_Init(EXAMPLE_DMA, &dmaConfig);
-    EDMA_CreateHandle(&asrcInDmaHandle, EXAMPLE_DMA, DEMO_ASRC_IN_CHANNEL);
-    EDMA_CreateHandle(&asrcOutDmaHandle, EXAMPLE_DMA, DEMO_ASRC_OUT_CHANNEL);
+    BOARD_ASRC_EDMA_CONFIG(&dmaConfig);
+    EDMA_Init(DEMO_ASRC_DMA, &dmaConfig);
+    EDMA_CreateHandle(&asrcInDmaHandle, DEMO_ASRC_DMA, DEMO_ASRC_IN_CHANNEL);
+    EDMA_CreateHandle(&asrcOutDmaHandle, DEMO_ASRC_DMA, DEMO_ASRC_OUT_CHANNEL);
+
+#if defined(FSL_FEATURE_EDMA_HAS_CHANNEL_MUX) && FSL_FEATURE_EDMA_HAS_CHANNEL_MUX
+    EDMA_SetChannelMux(DEMO_ASRC_DMA, DEMO_ASRC_IN_CHANNEL, DEMO_ASRC_IN_EDMA_CHANNEL);
+    EDMA_SetChannelMux(DEMO_ASRC_DMA, DEMO_ASRC_OUT_CHANNEL, DEMO_ASRC_OUT_EDMA_CHANNEL);
+    EDMA_SetChannelMux(DEMO_SAI_DMA, DEMO_SAI_CHANNEL, DEMO_SAI_DMA_CHANNEL);
+#endif
 
     /* SAI init */
     SAI_Init(DEMO_SAI);
@@ -251,6 +258,12 @@ int main(void)
 
     /* Use default setting to init codec */
     if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
+    {
+        assert(false);
+    }
+
+    if (CODEC_SetVolume(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight,
+                        DEMO_CODEC_VOLUME) != kStatus_Success)
     {
         assert(false);
     }

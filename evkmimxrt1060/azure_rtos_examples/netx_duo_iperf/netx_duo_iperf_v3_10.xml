@@ -2,7 +2,7 @@
 <ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
   <externalDefinitions>
     <definition extID="middleware.azure_rtos.nxd.MIMXRT1062"/>
-    <definition extID="driver.mdio-enet.MIMXRT1062"/>
+    <definition extID="platform.drivers.enet.MIMXRT1062"/>
     <definition extID="driver.phy-device-ksz8081.MIMXRT1062"/>
     <definition extID="platform.drivers.clock.MIMXRT1062"/>
     <definition extID="platform.drivers.common.MIMXRT1062"/>
@@ -24,9 +24,7 @@
     <definition extID="middleware.azure_rtos.fx.template.MIMXRT1062"/>
     <definition extID="middleware.azure_rtos.tx.MIMXRT1062"/>
     <definition extID="middleware.azure_rtos.tx.template.MIMXRT1062"/>
-    <definition extID="driver.mdio-common.MIMXRT1062"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1062"/>
-    <definition extID="platform.drivers.enet.MIMXRT1062"/>
     <definition extID="driver.phy-common.MIMXRT1062"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1062"/>
     <definition extID="device.MIMXRT1062_system.MIMXRT1062"/>
@@ -38,7 +36,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1060_netx_duo_iperf" name="netx_duo_iperf" dependency="middleware.azure_rtos.nxd.MIMXRT1062 driver.mdio-enet.MIMXRT1062 driver.phy-device-ksz8081.MIMXRT1062 platform.drivers.clock.MIMXRT1062 platform.drivers.common.MIMXRT1062 device.MIMXRT1062_CMSIS.MIMXRT1062 utility.debug_console.MIMXRT1062 component.lpuart_adapter.MIMXRT1062 component.serial_manager.MIMXRT1062 component.lists.MIMXRT1062 component.serial_manager_uart.MIMXRT1062 platform.drivers.lpuart.MIMXRT1062 device.MIMXRT1062_startup.MIMXRT1062 platform.drivers.iomuxc.MIMXRT1062 platform.utilities.assert.MIMXRT1062 platform.drivers.igpio.MIMXRT1062 platform.drivers.xip_device.MIMXRT1062 platform.drivers.xip_board.evkmimxrt1060.MIMXRT1062 middleware.azure_rtos.nxd.template.MIMXRT1062 middleware.azure_rtos.fx.MIMXRT1062 middleware.azure_rtos.fx.template.MIMXRT1062 middleware.azure_rtos.tx.MIMXRT1062 middleware.azure_rtos.tx.template.MIMXRT1062 driver.mdio-common.MIMXRT1062 CMSIS_Include_core_cm.MIMXRT1062 platform.drivers.enet.MIMXRT1062 driver.phy-common.MIMXRT1062 platform.utilities.misc_utilities.MIMXRT1062 device.MIMXRT1062_system.MIMXRT1062" category="azure_rtos_examples">
+  <example id="evkmimxrt1060_netx_duo_iperf" name="netx_duo_iperf" dependency="middleware.azure_rtos.nxd.MIMXRT1062 platform.drivers.enet.MIMXRT1062 driver.phy-device-ksz8081.MIMXRT1062 platform.drivers.clock.MIMXRT1062 platform.drivers.common.MIMXRT1062 device.MIMXRT1062_CMSIS.MIMXRT1062 utility.debug_console.MIMXRT1062 component.lpuart_adapter.MIMXRT1062 component.serial_manager.MIMXRT1062 component.lists.MIMXRT1062 component.serial_manager_uart.MIMXRT1062 platform.drivers.lpuart.MIMXRT1062 device.MIMXRT1062_startup.MIMXRT1062 platform.drivers.iomuxc.MIMXRT1062 platform.utilities.assert.MIMXRT1062 platform.drivers.igpio.MIMXRT1062 platform.drivers.xip_device.MIMXRT1062 platform.drivers.xip_board.evkmimxrt1060.MIMXRT1062 middleware.azure_rtos.nxd.template.MIMXRT1062 middleware.azure_rtos.fx.MIMXRT1062 middleware.azure_rtos.fx.template.MIMXRT1062 middleware.azure_rtos.tx.MIMXRT1062 middleware.azure_rtos.tx.template.MIMXRT1062 CMSIS_Include_core_cm.MIMXRT1062 driver.phy-common.MIMXRT1062 platform.utilities.misc_utilities.MIMXRT1062 device.MIMXRT1062_system.MIMXRT1062" category="azure_rtos_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>

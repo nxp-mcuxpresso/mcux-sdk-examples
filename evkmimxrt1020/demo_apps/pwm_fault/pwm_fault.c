@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2017, 2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -65,6 +65,7 @@ static void PWM_InitPhasePwm(void)
     pwmSignal.dutyCyclePercent = 50U; /* 50 percent dutycycle */
     pwmSignal.deadtimeValue    = deadTimeVal;
     pwmSignal.faultState       = kPWM_PwmFaultState0;
+    pwmSignal.pwmchannelenable = true;
 
     PWM_SetupPwm(DEMO_PWM_BASEADDR, DEMO_PWM_SUBMODULE, &pwmSignal, 1U, kPWM_SignedCenterAligned, pwmFrequencyInHz,
                  pwmSourceClockInHz);

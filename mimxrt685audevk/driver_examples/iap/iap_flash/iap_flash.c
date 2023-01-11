@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019,2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -56,7 +56,7 @@ int main(void)
     flexspi_nor_config_t config;
     serial_nor_config_option_t option;
     uint32_t i;
-    uint32_t pages;
+    uint32_t pages, irqMask;
     uint8_t *pReadBuf  = (uint8_t *)mem_readBuffer;
     uint8_t *pWriteBuf = (uint8_t *)mem_writeBuffer;
 
@@ -89,7 +89,9 @@ int main(void)
         PRINTF("\r\n***NOR Flash Initialization Success!***\r\n");
 
         /* Erase sectors */
-        status = IAP_FlexspiNorErase(EXAMPLE_NOR_INSTANCE, &config, NOR_FLASH_OP_START_ADDRESS, NOR_FLASH_OP_SIZE);
+        irqMask = DisableGlobalIRQ();
+        status  = IAP_FlexspiNorErase(EXAMPLE_NOR_INSTANCE, &config, NOR_FLASH_OP_START_ADDRESS, NOR_FLASH_OP_SIZE);
+        EnableGlobalIRQ(irqMask);
         if (status != kStatus_Success)
         {
             PRINTF("\r\n***NOR Flash Erase Failed!***\r\n");
@@ -122,7 +124,8 @@ int main(void)
             pWriteBuf[i] = i & 0xFF;
         }
 
-        pages = NOR_FLASH_OP_SIZE / config.pageSize;
+        pages   = NOR_FLASH_OP_SIZE / config.pageSize;
+        irqMask = DisableGlobalIRQ();
         for (i = 0; i < pages; i++)
         {
             status = IAP_FlexspiNorPageProgram(EXAMPLE_NOR_INSTANCE, &config,
@@ -133,6 +136,7 @@ int main(void)
                 break;
             }
         }
+        EnableGlobalIRQ(irqMask);
 
         status = IAP_FlexspiNorRead(EXAMPLE_NOR_INSTANCE, &config, mem_readBuffer, NOR_FLASH_OP_START_ADDRESS,
                                     NOR_FLASH_OP_SIZE);

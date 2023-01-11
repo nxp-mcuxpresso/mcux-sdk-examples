@@ -97,6 +97,7 @@ static void app_task(void *param)
 {
     /* RPMsg-Lite transport layer initialization */
     erpc_transport_t transport;
+    erpc_server_t server;
 
     /* Print the initial banner */
     (void)PRINTF("\r\neRPC Matrix Multiply demo started...\r\n");
@@ -122,21 +123,21 @@ static void app_task(void *param)
 #endif
 
     /* eRPC server side initialization */
-    (void)erpc_server_init(transport, message_buffer_factory);
+    server = erpc_server_init(transport, message_buffer_factory);
 
     /* adding the service to the server */
     erpc_service_t service = create_MatrixMultiplyService_service();
-    erpc_add_service_to_server(service);
+    erpc_add_service_to_server(server, service);
 
     (void)PRINTF("\r\neRPC setup done, waiting for requests...\r\n");
 
 #ifdef RPMSG_LITE_MASTER_IS_LINUX
     /* ignore first hello world message from RPMSG tty device */
-    erpc_server_run();
+    erpc_server_run(server);
 #endif
 
     /* process message */
-    erpc_status_t status = erpc_server_run();
+    erpc_status_t status = erpc_server_run(server);
 
     /* handle error status */
     if (status != (erpc_status_t)kErpcStatus_Success)
@@ -145,14 +146,14 @@ static void app_task(void *param)
         erpc_error_handler(status, 0);
 
         /* removing the service from the server */
-        erpc_remove_service_from_server(service);
+        erpc_remove_service_from_server(server, service);
         destroy_MatrixMultiplyService_service(service);
 
         /* stop erpc server */
-        erpc_server_stop();
+        erpc_server_stop(server);
 
         /* print error description */
-        erpc_server_deinit();
+        erpc_server_deinit(server);
     }
 
     for (;;)

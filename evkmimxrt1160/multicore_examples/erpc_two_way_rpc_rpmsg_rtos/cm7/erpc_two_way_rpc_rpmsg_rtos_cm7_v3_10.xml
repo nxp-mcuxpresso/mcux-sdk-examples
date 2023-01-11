@@ -34,7 +34,6 @@
     <definition extID="platform.drivers.pmu_1.MIMXRT1166"/>
     <definition extID="platform.drivers.dcdc_soc.MIMXRT1166"/>
     <definition extID="platform.drivers.cache_armv7_m7.MIMXRT1166"/>
-    <definition extID="component.silicon_id.MIMXRT1166"/>
     <definition extID="platform.drivers.mu.MIMXRT1166"/>
     <definition extID="platform.drivers.anatop_ai.MIMXRT1166"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1166"/>
@@ -50,7 +49,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1160_erpc_two_way_rpc_rpmsg_rtos_cm7" name="erpc_two_way_rpc_rpmsg_rtos_cm7" device_core="cm7_MIMXRT1166xxxxx" dependency="middleware.multicore.mcmgr.imxrt1160.MIMXRT1166 middleware.multicore.rpmsg_lite.imxrt1160_freertos.MIMXRT1166 middleware.multicore.rpmsg_lite.MIMXRT1166 middleware.multicore.rpmsg_lite.freertos.MIMXRT1166 platform.drivers.clock.MIMXRT1166 middleware.multicore.erpc.eRPC_arbitrator.MIMXRT1166 middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_master_c_wrapper.MIMXRT1166 middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_transport.MIMXRT1166 middleware.multicore.erpc.eRPC_port_freertos.MIMXRT1166 middleware.multicore.mcmgr.MIMXRT1166 middleware.freertos-kernel.MIMXRT1166 middleware.freertos-kernel.heap_4.MIMXRT1166 middleware.multicore.erpc.doc.MIMXRT1166 utility.incbin.MIMXRT1166 platform.drivers.common.MIMXRT1166 platform.devices.MIMXRT1166_CMSIS.MIMXRT1166 utility.debug_console.MIMXRT1166 component.lpuart_adapter.MIMXRT1166 component.serial_manager.MIMXRT1166 component.lists.MIMXRT1166 component.serial_manager_uart.MIMXRT1166 platform.drivers.lpuart.MIMXRT1166 platform.devices.MIMXRT1166_startup.MIMXRT1166 platform.drivers.iomuxc.MIMXRT1166 platform.utilities.assert.MIMXRT1166 platform.drivers.igpio.MIMXRT1166 platform.drivers.xip_device.MIMXRT1166 platform.drivers.xip_board.evkmimxrt1160.MIMXRT1166 platform.drivers.pmu_1.MIMXRT1166 platform.drivers.dcdc_soc.MIMXRT1166 platform.drivers.cache_armv7_m7.MIMXRT1166 component.silicon_id.MIMXRT1166 platform.drivers.mu.MIMXRT1166 platform.drivers.anatop_ai.MIMXRT1166 CMSIS_Include_core_cm.MIMXRT1166 middleware.freertos-kernel.extension.MIMXRT1166 middleware.multicore.erpc.common.MIMXRT1166 platform.utilities.misc_utilities.MIMXRT1166 platform.devices.MIMXRT1166_system.MIMXRT1166" linked_projects="evkmimxrt1160_erpc_two_way_rpc_rpmsg_rtos_cm4" category="multicore_examples">
+  <example id="evkmimxrt1160_erpc_two_way_rpc_rpmsg_rtos_cm7" name="erpc_two_way_rpc_rpmsg_rtos_cm7" device_core="cm7_MIMXRT1166xxxxx" dependency="middleware.multicore.mcmgr.imxrt1160.MIMXRT1166 middleware.multicore.rpmsg_lite.imxrt1160_freertos.MIMXRT1166 middleware.multicore.rpmsg_lite.MIMXRT1166 middleware.multicore.rpmsg_lite.freertos.MIMXRT1166 platform.drivers.clock.MIMXRT1166 middleware.multicore.erpc.eRPC_arbitrator.MIMXRT1166 middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_master_c_wrapper.MIMXRT1166 middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_transport.MIMXRT1166 middleware.multicore.erpc.eRPC_port_freertos.MIMXRT1166 middleware.multicore.mcmgr.MIMXRT1166 middleware.freertos-kernel.MIMXRT1166 middleware.freertos-kernel.heap_4.MIMXRT1166 middleware.multicore.erpc.doc.MIMXRT1166 utility.incbin.MIMXRT1166 platform.drivers.common.MIMXRT1166 platform.devices.MIMXRT1166_CMSIS.MIMXRT1166 utility.debug_console.MIMXRT1166 component.lpuart_adapter.MIMXRT1166 component.serial_manager.MIMXRT1166 component.lists.MIMXRT1166 component.serial_manager_uart.MIMXRT1166 platform.drivers.lpuart.MIMXRT1166 platform.devices.MIMXRT1166_startup.MIMXRT1166 platform.drivers.iomuxc.MIMXRT1166 platform.utilities.assert.MIMXRT1166 platform.drivers.igpio.MIMXRT1166 platform.drivers.xip_device.MIMXRT1166 platform.drivers.xip_board.evkmimxrt1160.MIMXRT1166 platform.drivers.pmu_1.MIMXRT1166 platform.drivers.dcdc_soc.MIMXRT1166 platform.drivers.cache_armv7_m7.MIMXRT1166 platform.drivers.mu.MIMXRT1166 platform.drivers.anatop_ai.MIMXRT1166 CMSIS_Include_core_cm.MIMXRT1166 middleware.freertos-kernel.extension.MIMXRT1166 middleware.multicore.erpc.common.MIMXRT1166 platform.utilities.misc_utilities.MIMXRT1166 platform.devices.MIMXRT1166_system.MIMXRT1166" linked_projects="evkmimxrt1160_erpc_two_way_rpc_rpmsg_rtos_cm4" category="multicore_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.ccnature"/>
     </projects>
@@ -152,9 +151,9 @@
       <include_path path="../../erpc_common" project_relative_path="source" type="c_include"/>
       <include_path path="../../erpc_common/erpc_two_way_rpc/service" project_relative_path="erpc/service" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimxrt1160/multicore_examples/erpc_two_way_rpc_rpmsg_rtos" project_relative_path="source" type="c_include"/>
+      <include_path path=".." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimxrt1160/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm7" project_relative_path="evkmimxrt1160/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm7" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimxrt1160/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm7" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
     </include_paths>
     <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">

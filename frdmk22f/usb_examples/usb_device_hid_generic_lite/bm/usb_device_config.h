@@ -104,7 +104,7 @@
 
 /*! @brief Whether device supports ROOT2 test. ROOT2 is only tested on RT685. */
 #ifndef USB_DEVICE_CONFIG_ROOT2_TEST
-#define USB_DEVICE_CONFIG_ROOT2_TEST (0U)
+#define USB_DEVICE_CONFIG_ROOT2_TEST (1U)
 #endif
 
 /*! @brief Whether device compliance test is enabled. If the macro is enabled,

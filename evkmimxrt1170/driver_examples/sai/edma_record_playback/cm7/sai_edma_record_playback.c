@@ -105,6 +105,11 @@ volatile uint32_t emptyBlock = BUFFER_NUMBER;
 edma_handle_t dmaTxHandle = {0}, dmaRxHandle = {0};
 extern codec_config_t boardCodecConfig;
 codec_handle_t codecHandle;
+#if (defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) && DEMO_EDMA_HAS_CHANNEL_CONFIG)
+extern edma_config_t dmaConfig;
+#else
+edma_config_t dmaConfig = {0};
+#endif
 
 /*******************************************************************************
  * Code
@@ -152,7 +157,6 @@ static void tx_callback(I2S_Type *base, sai_edma_handle_t *handle, status_t stat
 int main(void)
 {
     sai_transfer_t xfer;
-    edma_config_t dmaConfig = {0};
     sai_transceiver_t saiConfig;
 
     BOARD_ConfigMPU();
@@ -180,7 +184,9 @@ int main(void)
     PRINTF("SAI example started!\n\r");
 
     /* Init DMA and create handle for DMA */
+#if (!defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) || (defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) && !DEMO_EDMA_HAS_CHANNEL_CONFIG))
     EDMA_GetDefaultConfig(&dmaConfig);
+#endif
     EDMA_Init(DEMO_DMA, &dmaConfig);
     EDMA_CreateHandle(&dmaTxHandle, DEMO_DMA, DEMO_TX_EDMA_CHANNEL);
     EDMA_CreateHandle(&dmaRxHandle, DEMO_DMA, DEMO_RX_EDMA_CHANNEL);

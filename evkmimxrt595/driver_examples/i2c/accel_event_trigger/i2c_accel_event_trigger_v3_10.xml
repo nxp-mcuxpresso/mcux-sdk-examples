@@ -95,7 +95,7 @@
     </debug_configurations>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimxrt595/driver_examples/i2c/accel_event_trigger" project_relative_path="evkmimxrt595/driver_examples/i2c/accel_event_trigger" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimxrt595/driver_examples/i2c/accel_event_trigger" type="c_include"/>
       <include_path path="../../../../../core/boards/evkmimxrt595" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

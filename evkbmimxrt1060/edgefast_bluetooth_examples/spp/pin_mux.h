@@ -345,17 +345,17 @@ void BOARD_InitSDRAMPins(void);
 
 /* GPIO_AD_B1_03 (coord M12), SPDIF_IN/U15[4]/WL_RST#/J8[56]/SD_PWREN/Q5[1]/J16[8] */
 /* Routed pin properties */
-#define BOARD_INITUSDHCPINS_SPDIF_IN_PERIPHERAL                            GPIO1   /*!< Peripheral name */
-#define BOARD_INITUSDHCPINS_SPDIF_IN_SIGNAL                              gpio_io   /*!< Signal name */
-#define BOARD_INITUSDHCPINS_SPDIF_IN_CHANNEL                                 19U   /*!< Signal channel */
+#define BOARD_INITUSDHCPINS_SD_PWREN_PERIPHERAL                            GPIO1   /*!< Peripheral name */
+#define BOARD_INITUSDHCPINS_SD_PWREN_SIGNAL                              gpio_io   /*!< Signal name */
+#define BOARD_INITUSDHCPINS_SD_PWREN_CHANNEL                                 19U   /*!< Signal channel */
 
 /* Symbols to be used with GPIO driver */
-#define BOARD_INITUSDHCPINS_SPDIF_IN_GPIO                                  GPIO1   /*!< GPIO peripheral base pointer */
-#define BOARD_INITUSDHCPINS_SPDIF_IN_GPIO_PIN                                19U   /*!< GPIO pin number */
-#define BOARD_INITUSDHCPINS_SPDIF_IN_GPIO_PIN_MASK                   (1U << 19U)   /*!< GPIO pin mask */
-#define BOARD_INITUSDHCPINS_SPDIF_IN_PORT                                  GPIO1   /*!< PORT peripheral base pointer */
-#define BOARD_INITUSDHCPINS_SPDIF_IN_PIN                                     19U   /*!< PORT pin number */
-#define BOARD_INITUSDHCPINS_SPDIF_IN_PIN_MASK                        (1U << 19U)   /*!< PORT pin mask */
+#define BOARD_INITUSDHCPINS_SD_PWREN_GPIO                                  GPIO1   /*!< GPIO peripheral base pointer */
+#define BOARD_INITUSDHCPINS_SD_PWREN_GPIO_PIN                                19U   /*!< GPIO pin number */
+#define BOARD_INITUSDHCPINS_SD_PWREN_GPIO_PIN_MASK                   (1U << 19U)   /*!< GPIO pin mask */
+#define BOARD_INITUSDHCPINS_SD_PWREN_PORT                                  GPIO1   /*!< PORT peripheral base pointer */
+#define BOARD_INITUSDHCPINS_SD_PWREN_PIN                                     19U   /*!< PORT pin number */
+#define BOARD_INITUSDHCPINS_SD_PWREN_PIN_MASK                        (1U << 19U)   /*!< PORT pin mask */
 
 /* GPIO_B1_12 (coord D13), SD_CD_SW/J22[9] */
 /* Routed pin properties */

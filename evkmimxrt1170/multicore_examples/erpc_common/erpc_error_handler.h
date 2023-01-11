@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -10,6 +10,7 @@
 #define _EMBEDDED_RPC__ERROR_HANDLER_H_
 
 #include "erpc_common.h"
+#include <stdint.h>
 
 /*!
  * @addtogroup error_handler

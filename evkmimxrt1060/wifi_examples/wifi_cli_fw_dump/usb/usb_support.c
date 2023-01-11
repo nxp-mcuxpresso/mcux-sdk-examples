@@ -218,6 +218,19 @@ int usb_file_open(char *test_file_name)
     return WM_SUCCESS;
 }
 
+int usb_file_lseek(size_t lseek_size)
+{
+    FRESULT fatfsCode;
+    fatfsCode = f_lseek(&file, lseek_size);
+    if (fatfsCode)
+    {
+        PRINTF("lseek error\r\n");
+        f_close(&file);
+        return -WM_FAIL;
+    }
+    return WM_SUCCESS;
+}
+
 int usb_file_write(uint8_t *data, size_t data_len)
 {
     unsigned int resultSize;

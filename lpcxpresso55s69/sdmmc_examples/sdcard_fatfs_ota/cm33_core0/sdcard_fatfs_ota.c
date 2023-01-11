@@ -46,7 +46,10 @@ static shell_status_t shellCmd_ota(shell_handle_t shellHandle, int32_t argc, cha
  * Variables
  ******************************************************************************/
 
-SHELL_COMMAND_DEFINE(ls, "\n\"ls\": List files on SD card in the root directory\n", shellCmd_ls, 0);
+SHELL_COMMAND_DEFINE(ls,
+                     "\n\"ls [dir]\": List files on SD card in the given directory\n",
+                     shellCmd_ls,
+                     SHELL_IGNORE_PARAMETER_COUNT);
 
 SHELL_COMMAND_DEFINE(install,
                      "\n\"install path\": Installs a candidate ota image at given path\n",
@@ -162,17 +165,28 @@ static int flash_program(uint32_t offset, void *data, size_t size)
     return kStatus_Success;
 }
 
-
 static shell_status_t shellCmd_ls(shell_handle_t shellHandle, int32_t argc, char **argv)
 {
     FRESULT ret;
-    DIR dir;
     FILINFO finfo;
+    DIR dir;
+    char *dirpath = "/";
 
-    ret = f_opendir(&dir, "/");
+    if (argc > 2)
+    {
+        PRINTF("Too many arguments.\n");
+        return kStatus_SHELL_Error;
+    }
+
+    if (argc == 2)
+    {
+        dirpath = argv[1];
+    }
+
+    ret = f_opendir(&dir, dirpath);
     if (ret)
     {
-        PRINTF("Failed to open root directory, ret=%d\n", ret);
+        PRINTF("Failed to open directory \"%s\"\n", dirpath);
         return kStatus_SHELL_Error;
     }
 
@@ -317,7 +331,7 @@ static shell_status_t shellCmd_install(shell_handle_t shellHandle, int32_t argc,
 
     /* Verification of MCUBoot structures in the programmed image */
 
-    ret = bl_verify_image((uint8_t *)BOOT_FLASH_CAND_APP, f_size(&f));
+    ret = bl_verify_image(BOOT_FLASH_CAND_APP, f_size(&f));
     if (ret == 0)
     {
         PRINTF("Failed to verify MCUBoot structures in the programmed image\n");
@@ -327,7 +341,7 @@ static shell_status_t shellCmd_install(shell_handle_t shellHandle, int32_t argc,
 
     /* Mark downloaded image ready for test */
 
-    ret = bl_update_image_state(kSwapType_ReadyForTest);
+    ret = bl_update_image_state(0, kSwapType_ReadyForTest);
     if (ret != kStatus_Success)
     {
         PRINTF("Failed to mark OTA image as ReadyForTest (ret=%d)\n", ret);
@@ -359,7 +373,7 @@ static shell_status_t shellCmd_ota(shell_handle_t shellHandle, int32_t argc, cha
         uint32_t state;
         char *stateStr = NULL;
 
-        if (bl_get_image_state(&state) != kStatus_Success)
+        if (bl_get_image_state(0, &state) != kStatus_Success)
         {
             PRINTF("Failed to read image status\n");
             return kStatus_SHELL_Error;

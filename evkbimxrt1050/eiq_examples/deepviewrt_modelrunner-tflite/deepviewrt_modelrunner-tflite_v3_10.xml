@@ -13,39 +13,38 @@
     <definition extID="driver.phy-device-ksz8081.MIMXRT1052"/>
     <definition extID="platform.drivers.pxp.MIMXRT1052"/>
     <definition extID="platform.drivers.igpio.MIMXRT1052"/>
-    <definition extID="driver.mdio-enet.MIMXRT1052"/>
     <definition extID="platform.drivers.gpt.MIMXRT1052"/>
+    <definition extID="component.silicon_id.MIMXRT1052"/>
+    <definition extID="platform.drivers.common.MIMXRT1052"/>
+    <definition extID="component.silicon_id_rt10xx.MIMXRT1052"/>
     <definition extID="middleware.eiq.deepviewrt.deps.json.MIMXRT1052"/>
     <definition extID="middleware.eiq.deepviewrt.deps.stb.MIMXRT1052"/>
     <definition extID="middleware.eiq.deepviewrt.deps.flatcc.MIMXRT1052"/>
     <definition extID="middleware.eiq.tensorflow_lite_micro.cmsis_nn.MIMXRT1052"/>
-    <definition extID="component.silicon_id.MIMXRT1052"/>
-    <definition extID="platform.drivers.common.MIMXRT1052"/>
     <definition extID="middleware.eiq.deepviewrt.MIMXRT1052"/>
     <definition extID="component.lists.MIMXRT1052"/>
     <definition extID="component.lpuart_adapter.MIMXRT1052"/>
     <definition extID="component.serial_manager.MIMXRT1052"/>
     <definition extID="component.serial_manager_uart.MIMXRT1052"/>
     <definition extID="platform.drivers.lpuart.MIMXRT1052"/>
-    <definition extID="utility.debug_console.MIMXRT1052"/>
     <definition extID="device.MIMXRT1052_CMSIS.MIMXRT1052"/>
     <definition extID="device.MIMXRT1052_startup.MIMXRT1052"/>
     <definition extID="platform.drivers.clock.MIMXRT1052"/>
     <definition extID="platform.drivers.iomuxc.MIMXRT1052"/>
+    <definition extID="platform.drivers.lpi2c.MIMXRT1052"/>
     <definition extID="platform.drivers.xip_device.MIMXRT1052"/>
     <definition extID="platform.drivers.xip_board.evkbimxrt1050.MIMXRT1052"/>
-    <definition extID="platform.drivers.lpi2c.MIMXRT1052"/>
     <definition extID="platform.utilities.assert.MIMXRT1052"/>
+    <definition extID="utility.debug_console.MIMXRT1052"/>
     <definition extID="middleware.freertos-kernel.extension.MIMXRT1052"/>
-    <definition extID="driver.mdio-common.MIMXRT1052"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1052"/>
     <definition extID="middleware.eiq.tensorflow_lite_micro.MIMXRT1052"/>
     <definition extID="middleware.eiq.tensorflow_lite_micro.third_party.flatbuffers.MIMXRT1052"/>
     <definition extID="middleware.eiq.tensorflow_lite_micro.third_party.gemmlowp.MIMXRT1052"/>
     <definition extID="middleware.eiq.tensorflow_lite_micro.third_party.ruy.MIMXRT1052"/>
     <definition extID="middleware.eiq.tensorflow_lite_micro.third_party.cmsis_nn.MIMXRT1052"/>
-    <definition extID="device.MIMXRT1052_system.MIMXRT1052"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1052"/>
+    <definition extID="device.MIMXRT1052_system.MIMXRT1052"/>
     <definition extID="iar"/>
     <definition extID="mdk"/>
     <definition extID="mcuxpresso"/>
@@ -56,7 +55,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkbimxrt1050_deepviewrt_modelrunner-tflite" name="deepviewrt_modelrunner-tflite" dependency="middleware.lwip.apps.httpsrv.MIMXRT1052 middleware.lwip.MIMXRT1052 middleware.freertos-kernel.MIMXRT1052 middleware.lwip.enet_ethernetif.MIMXRT1052 driver.phy-common.MIMXRT1052 platform.drivers.enet.MIMXRT1052 middleware.lwip.empty_ethernetif.MIMXRT1052 middleware.freertos-kernel.heap_3.MIMXRT1052 platform.drivers.cache_armv7_m7.MIMXRT1052 driver.phy-device-ksz8081.MIMXRT1052 platform.drivers.pxp.MIMXRT1052 platform.drivers.igpio.MIMXRT1052 driver.mdio-enet.MIMXRT1052 platform.drivers.gpt.MIMXRT1052 middleware.eiq.deepviewrt.deps.json.MIMXRT1052 middleware.eiq.deepviewrt.deps.stb.MIMXRT1052 middleware.eiq.deepviewrt.deps.flatcc.MIMXRT1052 middleware.eiq.tensorflow_lite_micro.cmsis_nn.MIMXRT1052 component.silicon_id.MIMXRT1052 platform.drivers.common.MIMXRT1052 middleware.eiq.deepviewrt.MIMXRT1052 component.lists.MIMXRT1052 component.lpuart_adapter.MIMXRT1052 component.serial_manager.MIMXRT1052 component.serial_manager_uart.MIMXRT1052 platform.drivers.lpuart.MIMXRT1052 utility.debug_console.MIMXRT1052 device.MIMXRT1052_CMSIS.MIMXRT1052 device.MIMXRT1052_startup.MIMXRT1052 platform.drivers.clock.MIMXRT1052 platform.drivers.iomuxc.MIMXRT1052 platform.drivers.xip_device.MIMXRT1052 platform.drivers.xip_board.evkbimxrt1050.MIMXRT1052 platform.drivers.lpi2c.MIMXRT1052 platform.utilities.assert.MIMXRT1052 middleware.freertos-kernel.extension.MIMXRT1052 driver.mdio-common.MIMXRT1052 CMSIS_Include_core_cm.MIMXRT1052 middleware.eiq.tensorflow_lite_micro.MIMXRT1052 middleware.eiq.tensorflow_lite_micro.third_party.flatbuffers.MIMXRT1052 middleware.eiq.tensorflow_lite_micro.third_party.gemmlowp.MIMXRT1052 middleware.eiq.tensorflow_lite_micro.third_party.ruy.MIMXRT1052 middleware.eiq.tensorflow_lite_micro.third_party.cmsis_nn.MIMXRT1052 device.MIMXRT1052_system.MIMXRT1052 platform.utilities.misc_utilities.MIMXRT1052" category="eiq_examples">
+  <example id="evkbimxrt1050_deepviewrt_modelrunner-tflite" name="deepviewrt_modelrunner-tflite" dependency="middleware.lwip.apps.httpsrv.MIMXRT1052 middleware.lwip.MIMXRT1052 middleware.freertos-kernel.MIMXRT1052 middleware.lwip.enet_ethernetif.MIMXRT1052 driver.phy-common.MIMXRT1052 platform.drivers.enet.MIMXRT1052 middleware.lwip.empty_ethernetif.MIMXRT1052 middleware.freertos-kernel.heap_3.MIMXRT1052 platform.drivers.cache_armv7_m7.MIMXRT1052 driver.phy-device-ksz8081.MIMXRT1052 platform.drivers.pxp.MIMXRT1052 platform.drivers.igpio.MIMXRT1052 platform.drivers.gpt.MIMXRT1052 component.silicon_id.MIMXRT1052 platform.drivers.common.MIMXRT1052 component.silicon_id_rt10xx.MIMXRT1052 middleware.eiq.deepviewrt.deps.json.MIMXRT1052 middleware.eiq.deepviewrt.deps.stb.MIMXRT1052 middleware.eiq.deepviewrt.deps.flatcc.MIMXRT1052 middleware.eiq.tensorflow_lite_micro.cmsis_nn.MIMXRT1052 middleware.eiq.deepviewrt.MIMXRT1052 component.lists.MIMXRT1052 component.lpuart_adapter.MIMXRT1052 component.serial_manager.MIMXRT1052 component.serial_manager_uart.MIMXRT1052 platform.drivers.lpuart.MIMXRT1052 device.MIMXRT1052_CMSIS.MIMXRT1052 device.MIMXRT1052_startup.MIMXRT1052 platform.drivers.clock.MIMXRT1052 platform.drivers.iomuxc.MIMXRT1052 platform.drivers.lpi2c.MIMXRT1052 platform.drivers.xip_device.MIMXRT1052 platform.drivers.xip_board.evkbimxrt1050.MIMXRT1052 platform.utilities.assert.MIMXRT1052 utility.debug_console.MIMXRT1052 middleware.freertos-kernel.extension.MIMXRT1052 CMSIS_Include_core_cm.MIMXRT1052 middleware.eiq.tensorflow_lite_micro.MIMXRT1052 middleware.eiq.tensorflow_lite_micro.third_party.flatbuffers.MIMXRT1052 middleware.eiq.tensorflow_lite_micro.third_party.gemmlowp.MIMXRT1052 middleware.eiq.tensorflow_lite_micro.third_party.ruy.MIMXRT1052 middleware.eiq.tensorflow_lite_micro.third_party.cmsis_nn.MIMXRT1052 platform.utilities.misc_utilities.MIMXRT1052 device.MIMXRT1052_system.MIMXRT1052" category="eiq_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.ccnature"/>
     </projects>
@@ -84,7 +83,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-Wno-strict-aliasing -c -ffunction-sections -fdata-sections</value>
+          <value>-Wno-strict-aliasing -Wno-unused-function -c -ffunction-sections -fdata-sections</value>
         </option>
         <option id="com.crt.advproject.cpp.exe.release.option.optimization.level" type="enum">
           <value>gnu.cpp.compiler.optimization.level.more</value>

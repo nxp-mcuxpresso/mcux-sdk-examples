@@ -65,7 +65,7 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/hvpkv31f120m/driver_examples/adc16/interrupt" project_relative_path="hvpkv31f120m/driver_examples/adc16/interrupt" type="c_include"/>
+      <include_path path="." project_relative_path="hvpkv31f120m/driver_examples/adc16/interrupt" type="c_include"/>
       <include_path path="../../../../../core/boards/hvpkv31f120m" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

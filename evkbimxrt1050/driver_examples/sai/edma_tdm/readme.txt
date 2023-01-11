@@ -35,6 +35,7 @@ J1-10                     ->          5v
 J1-13                     ->          I2C1_SCL(scl)
 J1-15                     ->          I2C1_SDA(sda)
 J1-1                      ->          SAI1_MCLK(MCLK)
+J1-7                      ->          J22 pin7(codec reset)
 
 Prepare the Demo
 ================

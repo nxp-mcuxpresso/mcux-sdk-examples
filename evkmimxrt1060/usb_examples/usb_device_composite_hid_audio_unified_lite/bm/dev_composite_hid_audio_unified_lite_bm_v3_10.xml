@@ -122,7 +122,6 @@
       </debug_configuration>
     </debug_configurations>
     <include_paths>
-      <include_path path="../../../../../examples/evkmimxrt1060/usb_examples/usb_device_composite_hid_audio_unified_lite/bm" project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
     </include_paths>

@@ -114,7 +114,7 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="../hello_world_s" project_relative_path="trustzone" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimxrt595/trustzone_examples/hello_world/hello_world_ns" project_relative_path="evkmimxrt595/trustzone_examples/hello_world/hello_world_ns" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimxrt595/trustzone_examples/hello_world/hello_world_ns" type="c_include"/>
       <include_path path="../../../../../core/boards/evkmimxrt595" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="mdk" project_relative_path="./" type="workspace" toolchain="mdk">

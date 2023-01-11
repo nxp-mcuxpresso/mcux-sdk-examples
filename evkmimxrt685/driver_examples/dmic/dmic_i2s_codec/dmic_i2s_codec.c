@@ -217,8 +217,13 @@ int main(void)
     DMIC_SetIOCFG(DMIC0, kDMIC_PdmDual);
 #endif
     DMIC_Use2fs(DMIC0, true);
+#if defined(BOARD_DMIC_CHANNEL_STEREO_SIDE_SWAP) && (BOARD_DMIC_CHANNEL_STEREO_SIDE_SWAP)
+    DMIC_ConfigChannel(DMIC0, kDMIC_Channel0, kDMIC_Right, &dmic_channel_cfg);
+    DMIC_ConfigChannel(DMIC0, kDMIC_Channel1, kDMIC_Left, &dmic_channel_cfg);
+#else
     DMIC_ConfigChannel(DMIC0, kDMIC_Channel0, kDMIC_Left, &dmic_channel_cfg);
     DMIC_ConfigChannel(DMIC0, kDMIC_Channel1, kDMIC_Right, &dmic_channel_cfg);
+#endif
 
     /* FIFO disabled */
     DMIC_FifoChannel(DMIC0, kDMIC_Channel0, FIFO_DEPTH, false, true);

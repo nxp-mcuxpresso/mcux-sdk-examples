@@ -300,7 +300,7 @@ status_t Nor_Flash_Init(nor_config_t *config, nor_handle_t *handle)
     return kStatus_Success;
 }
 
-status_t spi_flash_erase_flash_disk(uint32_t offset, uint32_t disk_size)
+status_t erase_flash_disk(uint32_t offset, uint32_t disk_size)
 {
     nor_config_t config;
     nor_handle_t handle;

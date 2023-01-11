@@ -124,6 +124,9 @@ int main(void)
     /* Clean up FLEXSPI NOR flash driver Structure */
     memset(&norConfig, 0U, sizeof(flexspi_nor_config_t));
 
+    /* Disable I cache */
+    SCB_DisableICache();
+
     /* Setup FLEXSPI NOR Configuration Block */
     status = ROM_FLEXSPI_NorFlash_GetConfig(FlexSpiInstance, &norConfig, &option);
     if (status == kStatus_Success)
@@ -167,6 +170,9 @@ int main(void)
     serialNorTotalSize  = norConfig.memConfig.sflashA1Size;
     serialNorSectorSize = norConfig.sectorSize;
     serialNorPageSize   = norConfig.pageSize;
+
+    /* Enable I cache */
+    SCB_EnableICache();
 
     /* Print serial NOR flash information */
     PRINTF("\r\n Serial NOR flash Information: ");

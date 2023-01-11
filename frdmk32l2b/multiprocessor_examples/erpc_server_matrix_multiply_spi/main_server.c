@@ -24,6 +24,7 @@
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+erpc_server_t server;
 
 /*******************************************************************************
  * Prototypes
@@ -93,16 +94,16 @@ int main(void)
     message_buffer_factory = erpc_mbf_dynamic_init();
 
     /* eRPC server side initialization */
-    (void)erpc_server_init(transport, message_buffer_factory);
+    server = erpc_server_init(transport, message_buffer_factory);
 
     /* adding the service to the server */
     erpc_service_t service = create_MatrixMultiplyService_service();
-    erpc_add_service_to_server(service);
+    erpc_add_service_to_server(server, service);
 
     for (;;)
     {
         /* process message */
-        erpc_status_t status = erpc_server_poll();
+        erpc_status_t status = erpc_server_poll(server);
 
         /* handle error status */
         if (status != (erpc_status_t)kErpcStatus_Success)
@@ -111,14 +112,14 @@ int main(void)
             erpc_error_handler(status, 0);
 
             /* removing the service from the server */
-            erpc_remove_service_from_server(service);
+            erpc_remove_service_from_server(server, service);
             destroy_MatrixMultiplyService_service(service);
 
             /* stop erpc server */
-            erpc_server_stop();
+            erpc_server_stop(server);
 
             /* print error description */
-            erpc_server_deinit();
+            erpc_server_deinit(server);
 
             /* exit program loop */
             break;

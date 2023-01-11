@@ -1,7 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2021 NXP
- * All rights reserved.
+ * Copyright 2016-2022 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -43,9 +42,16 @@
 #define MCAN_CLK_FREQ              CLOCK_GetMCanClkFreq(0U)
 #define STDID_OFFSET               (18U)
 #define STD_FILTER_OFS 0x0
-#define RX_FIFO0_OFS   0x10U
-#define TX_BUFFER_OFS  0x20U
-#define MSG_RAM_SIZE   (TX_BUFFER_OFS + 8 + CAN_DATASIZE)
+#if (defined(USE_EXT_FILTER) && USE_EXT_FILTER)
+#define EXT_FILTER_OFS 0x4
+#endif
+#define RX_FIFO0_OFS 0x10U
+#if (defined(USE_CANFD) && USE_CANFD)
+#define TX_BUFFER_OFS 0x60U
+#else
+#define TX_BUFFER_OFS 0x20U
+#endif
+#define MSG_RAM_SIZE (TX_BUFFER_OFS + 8 + CAN_DATASIZE)
 
 /*******************************************************************************
  * Prototypes
@@ -115,10 +121,15 @@ static void mcan_callback(CAN_Type *base, mcan_handle_t *handle, status_t status
 int main(void)
 {
     mcan_config_t mcanConfig;
-    mcan_frame_filter_config_t rxFilter;
-    mcan_std_filter_element_config_t stdFilter;
-    mcan_rx_fifo_config_t rxFifo0;
-    mcan_tx_buffer_config_t txBuffer;
+    mcan_memory_config_t memoryConfig          = {0};
+    mcan_frame_filter_config_t rxFilter        = {0};
+    mcan_std_filter_element_config_t stdFilter = {0};
+#if (defined(USE_EXT_FILTER) && USE_EXT_FILTER)
+    mcan_frame_filter_config_t extRxFilter     = {0};
+    mcan_ext_filter_element_config_t extFilter = {0};
+#endif
+    mcan_rx_fifo_config_t rxFifo0    = {0};
+    mcan_tx_buffer_config_t txBuffer = {0};
     uint8_t node_type;
     uint8_t numMessage = 0;
     uint8_t cnt        = 0;
@@ -200,28 +211,23 @@ int main(void)
 
     MCAN_Init(EXAMPLE_MCAN, &mcanConfig, MCAN_CLK_FREQ);
 
-    /* Create MCAN handle structure and set call back function. */
-    MCAN_TransferCreateHandle(EXAMPLE_MCAN, &mcanHandle, mcan_callback, NULL);
-
-    /* Set Message RAM base address and clear to avoid BEU/BEC error. */
-    MCAN_SetMsgRAMBase(EXAMPLE_MCAN, (uint32_t)msgRam);
-    memset((void *)msgRam, 0, MSG_RAM_SIZE * sizeof(uint8_t));
-
+    memoryConfig.baseAddr = (uint32_t)msgRam;
     /* STD filter config. */
-    rxFilter.address  = STD_FILTER_OFS;
-    rxFilter.idFormat = kMCAN_FrameIDStandard;
-    rxFilter.listSize = 1U;
-    rxFilter.nmFrame  = kMCAN_reject0;
-    rxFilter.remFrame = kMCAN_rejectFrame;
-    MCAN_SetFilterConfig(EXAMPLE_MCAN, &rxFilter);
-
-    stdFilter.sfec = kMCAN_storeinFifo0;
-    /* Classic filter mode, only filter matching ID. */
-    stdFilter.sft   = kMCAN_classic;
-    stdFilter.sfid1 = rxIdentifier;
-    stdFilter.sfid2 = 0x7FFU;
-    MCAN_SetSTDFilterElement(EXAMPLE_MCAN, &rxFilter, &stdFilter, 0);
-
+    rxFilter.address          = STD_FILTER_OFS;
+    rxFilter.idFormat         = kMCAN_FrameIDStandard;
+    rxFilter.listSize         = 1U;
+    rxFilter.nmFrame          = kMCAN_reject0;
+    rxFilter.remFrame         = kMCAN_rejectFrame;
+    memoryConfig.stdFilterCfg = &rxFilter;
+#if (defined(USE_EXT_FILTER) && USE_EXT_FILTER)
+    /* EXT filter config. */
+    extRxFilter.address       = EXT_FILTER_OFS;
+    extRxFilter.idFormat      = kMCAN_FrameIDExtend;
+    extRxFilter.listSize      = 1U;
+    extRxFilter.nmFrame       = kMCAN_reject0;
+    extRxFilter.remFrame      = kMCAN_rejectFrame;
+    memoryConfig.extFilterCfg = &extRxFilter;
+#endif
     /* RX fifo0 config. */
     rxFifo0.address       = RX_FIFO0_OFS;
     rxFifo0.elementSize   = 1U;
@@ -231,10 +237,8 @@ int main(void)
 #if (defined(USE_CANFD) && USE_CANFD)
     rxFifo0.datafieldSize = BYTES_IN_MB;
 #endif
-    MCAN_SetRxFifo0Config(EXAMPLE_MCAN, &rxFifo0);
-
+    memoryConfig.rxFifo0Cfg = &rxFifo0;
     /* TX buffer config. */
-    memset(&txBuffer, 0, sizeof(txBuffer));
     txBuffer.address       = TX_BUFFER_OFS;
     txBuffer.dedicatedSize = 1U;
     txBuffer.fqSize        = 0;
@@ -242,14 +246,62 @@ int main(void)
 #if (defined(USE_CANFD) && USE_CANFD)
     txBuffer.datafieldSize = BYTES_IN_MB;
 #endif
-    MCAN_SetTxBufferConfig(EXAMPLE_MCAN, &txBuffer);
+    memoryConfig.txBufferCfg = &txBuffer;
+    /* Set Message RAM config and clear memory to avoid BEU/BEC error. */
+    memset((void *)msgRam, 0, MSG_RAM_SIZE * sizeof(uint8_t));
+    if (kStatus_Success != MCAN_SetMessageRamConfig(EXAMPLE_MCAN, &memoryConfig))
+    {
+        PRINTF("MCAN Message RAM configuration failed, please check parameters!\r\n");
+        return -1;
+    }
 
-    /* Finish software initialization and enter normal mode, synchronizes to
-       CAN bus, ready for communication */
-    MCAN_EnterNormalMode(EXAMPLE_MCAN);
+    /* Filling Standard ID filter element with Classic filter mode, which only filter matching ID. */
+    stdFilter.sfec  = kMCAN_storeinFifo0;
+    stdFilter.sft   = kMCAN_classic;
+    stdFilter.sfid1 = rxIdentifier;
+    stdFilter.sfid2 = 0x7FFU;
+    MCAN_SetSTDFilterElement(EXAMPLE_MCAN, &rxFilter, &stdFilter, 0);
+#if (defined(USE_EXT_FILTER) && USE_EXT_FILTER)
+    /* Filling extended ID filter element with range filter (0x0 ~ 0x1FFFFFFF) mode, which make it actually accept all
+     * extended frame. */
+    extFilter.efec  = kMCAN_storeinFifo0;
+    extFilter.eft   = kMCAN_range;
+    extFilter.efid1 = 0x0U;
+    extFilter.efid2 = 0x1FFFFFFFU;
+    MCAN_SetEXTFilterElement(EXAMPLE_MCAN, &extRxFilter, &extFilter, 0);
+#endif
+
+    /* Create MCAN handle structure and set call back function. */
+    MCAN_TransferCreateHandle(EXAMPLE_MCAN, &mcanHandle, mcan_callback, NULL);
 
     if ((node_type == 'A') || (node_type == 'a'))
     {
+        /* Config TX frame data. */
+        memset(tx_data, 0, sizeof(uint8_t) * CAN_DATASIZE);
+        for (cnt = 0; cnt < CAN_DATASIZE; cnt++)
+        {
+            tx_data[cnt] = cnt;
+        }
+#if (defined(USE_EXT_FILTER) && USE_EXT_FILTER)
+        txFrame.xtd = kMCAN_FrameIDExtend;
+        txFrame.id  = 0x12345678;
+#else
+        txFrame.xtd = kMCAN_FrameIDStandard;
+        txFrame.id  = txIdentifier << STDID_OFFSET;
+#endif
+        txFrame.rtr  = kMCAN_FrameTypeData;
+        txFrame.fdf  = 0;
+        txFrame.brs  = 0;
+        txFrame.dlc  = 8U;
+        txFrame.data = tx_data;
+        txFrame.size = CAN_DATASIZE;
+#if (defined(USE_CANFD) && USE_CANFD)
+        txFrame.fdf = 1;
+        txFrame.brs = 1;
+        txFrame.dlc = DLC;
+#endif
+        txXfer.frame     = &txFrame;
+        txXfer.bufferIdx = 0;
         PRINTF("Press any key to trigger one-shot transmission\r\n\r\n");
     }
     else
@@ -262,28 +314,7 @@ int main(void)
         if ((node_type == 'A') || (node_type == 'a'))
         {
             GETCHAR();
-            /* Config TX frame data. */
-            memset(tx_data, 0, sizeof(uint8_t) * CAN_DATASIZE);
-            for (cnt = 0; cnt < CAN_DATASIZE; cnt++)
-            {
-                tx_data[cnt] = cnt;
-            }
-            tx_data[0] += numMessage++;
-            txFrame.xtd  = kMCAN_FrameIDStandard;
-            txFrame.rtr  = kMCAN_FrameTypeData;
-            txFrame.fdf  = 0;
-            txFrame.brs  = 0;
-            txFrame.dlc  = 8U;
-            txFrame.id   = txIdentifier << STDID_OFFSET;
-            txFrame.data = tx_data;
-            txFrame.size = CAN_DATASIZE;
-#if (defined(USE_CANFD) && USE_CANFD)
-            txFrame.fdf = 1;
-            txFrame.brs = 1;
-            txFrame.dlc = DLC;
-#endif
-            txXfer.frame     = &txFrame;
-            txXfer.bufferIdx = 0;
+            tx_data[0] = numMessage++;
             MCAN_TransferSendNonBlocking(EXAMPLE_MCAN, &mcanHandle, &txXfer);
 
             while (!txComplete)
@@ -309,7 +340,11 @@ int main(void)
              * Copy the received frame data from the FIFO by the pointer(rxFrame.data). */
             memcpy(rx_data, rxFrame.data, rxFrame.size);
 
+#if (defined(USE_EXT_FILTER) && USE_EXT_FILTER)
+            PRINTF("Received Extend Frame ID: 0x%x\r\n", rxFrame.id);
+#else
             PRINTF("Received Frame ID: 0x%x\r\n", rxFrame.id >> STDID_OFFSET);
+#endif
             PRINTF("Received Frame DATA: ");
             cnt = 0;
             while (cnt < rxFrame.size)
@@ -337,7 +372,11 @@ int main(void)
              * Copy the received frame data from the FIFO by the pointer(rxFrame.data). */
             memcpy(rx_data, rxFrame.data, rxFrame.size);
 
+#if (defined(USE_EXT_FILTER) && USE_EXT_FILTER)
+            PRINTF("Received Extend Frame ID: 0x%x\r\n", rxFrame.id);
+#else
             PRINTF("Received Frame ID: 0x%x\r\n", rxFrame.id >> STDID_OFFSET);
+#endif
             PRINTF("Received Frame DATA: ");
 
             cnt = 0;
@@ -350,12 +389,16 @@ int main(void)
             /* Copy received frame data to tx frame. */
             memcpy(tx_data, rx_data, CAN_DATASIZE);
 
-            txFrame.xtd      = rxFrame.xtd;
-            txFrame.rtr      = rxFrame.rtr;
-            txFrame.fdf      = rxFrame.fdf;
-            txFrame.brs      = rxFrame.brs;
-            txFrame.dlc      = rxFrame.dlc;
-            txFrame.id       = txIdentifier << STDID_OFFSET;
+            txFrame.xtd = rxFrame.xtd;
+            txFrame.rtr = rxFrame.rtr;
+            txFrame.fdf = rxFrame.fdf;
+            txFrame.brs = rxFrame.brs;
+            txFrame.dlc = rxFrame.dlc;
+#if (defined(USE_EXT_FILTER) && USE_EXT_FILTER)
+            txFrame.id = 0x12345678;
+#else
+            txFrame.id = txIdentifier << STDID_OFFSET;
+#endif
             txFrame.data     = tx_data;
             txFrame.size     = rxFrame.size;
             txXfer.frame     = &txFrame;

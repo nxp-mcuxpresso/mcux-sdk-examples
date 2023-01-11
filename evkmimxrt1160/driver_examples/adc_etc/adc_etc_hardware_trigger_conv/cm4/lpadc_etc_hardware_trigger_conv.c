@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -19,15 +19,17 @@
  * Definitions
  ******************************************************************************/
 #define DEMO_ADC_BASE           LPADC1
-#define DEMO_ADC_USER_CHANNEL   0U
-#define DEMO_ADC_USER_CMDID     1U
+#define DEMO_ADC_USER_CHANNEL0  0U
+#define DEMO_ADC_USER_CHANNEL1  4U
+#define DEMO_ADC_USER_CMDID1    1U
+#define DEMO_ADC_USER_CMDID2    2U
 #define DEMO_ADC_CHANNEL_GROUP0 0U
 #define DEMO_ADC_CHANNEL_GROUP1 1U
 
 #define DEMO_ADC_ETC_BASE          ADC_ETC
 #define DEMO_ADC_ETC_CHAIN_LENGTH  1U /* Chain length is 2. */
-#define DEMO_ADC_ETC_CHANNEL0      0U
 #define DEMO_ADC_ETC_CHANNEL1      1U
+#define DEMO_ADC_ETC_CHANNEL2      2U
 #define DEMO_ADC_ETC_TRIGGER_GROUP 0U
 #define DEMO_ADC_ETC_DONE0_Handler ADC_ETC_IRQ0_IRQHandler
 #define DEMO_ADC_ETC_DONE1_Handler ADC_ETC_IRQ1_IRQHandler
@@ -54,6 +56,7 @@ void PIT_Configuration(void);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+lpadc_conv_result_t g_LpadcResultConfigStruct;
 volatile uint32_t g_AdcConversionValue0;
 volatile uint32_t g_AdcConversionValue1;
 const uint32_t g_Adc_12bitFullRange = 4096U;
@@ -64,16 +67,22 @@ const uint32_t g_Adc_12bitFullRange = 4096U;
 void DEMO_ADC_ETC_DONE0_Handler(void)
 {
     ADC_ETC_ClearInterruptStatusFlags(DEMO_ADC_ETC_BASE, kADC_ETC_Trg0TriggerSource, kADC_ETC_Done0StatusFlagMask);
-    /* Get result from the trigger source chain 0. */
-    g_AdcConversionValue0 = ADC_ETC_GetADCConversionValue(DEMO_ADC_ETC_BASE, DEMO_ADC_ETC_TRIGGER_GROUP, 0U);
+
+    if (LPADC_GetConvResult(DEMO_ADC_BASE, &g_LpadcResultConfigStruct))
+    {
+        g_AdcConversionValue0 = ((g_LpadcResultConfigStruct.convValue) >> 3U);
+    }
     __DSB();
 }
 
 void DEMO_ADC_ETC_DONE1_Handler(void)
 {
     ADC_ETC_ClearInterruptStatusFlags(DEMO_ADC_ETC_BASE, kADC_ETC_Trg0TriggerSource, kADC_ETC_Done1StatusFlagMask);
-    /* Get result from the trigger source chain 1. */
-    g_AdcConversionValue1 = ADC_ETC_GetADCConversionValue(DEMO_ADC_ETC_BASE, DEMO_ADC_ETC_TRIGGER_GROUP, 1U);
+
+    if (LPADC_GetConvResult(DEMO_ADC_BASE, &g_LpadcResultConfigStruct))
+    {
+        g_AdcConversionValue1 = ((g_LpadcResultConfigStruct.convValue) >> 3U);
+    }
     __DSB();
 }
 
@@ -133,21 +142,17 @@ void ADC_ETC_Configuration(void)
 
     /* Set the external XBAR trigger0 chain configuration. */
     adcEtcTriggerChainConfig.enableB2BMode       = true;
-    adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U
-                                                   << DEMO_ADC_CHANNEL_GROUP0; /* Select ADC_HC0 register to trigger. */
-    adcEtcTriggerChainConfig.ADCChannelSelect =
-        DEMO_ADC_ETC_CHANNEL0; /* ADC_HC0 will be triggered to sample Corresponding channel. */
-    adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_Done0InterruptEnable; /* Enable the Done0 interrupt. */
+    adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U << DEMO_ADC_CHANNEL_GROUP0;
+    adcEtcTriggerChainConfig.ADCChannelSelect    = DEMO_ADC_ETC_CHANNEL1;
+    adcEtcTriggerChainConfig.InterruptEnable     = kADC_ETC_Done0InterruptEnable; /* Enable the Done0 interrupt. */
 #if defined(FSL_FEATURE_ADC_ETC_HAS_TRIGm_CHAIN_a_b_IEn_EN) && FSL_FEATURE_ADC_ETC_HAS_TRIGm_CHAIN_a_b_IEn_EN
     adcEtcTriggerChainConfig.enableIrq = true; /* Enable the IRQ. */
 #endif                                         /* FSL_FEATURE_ADC_ETC_HAS_TRIGm_CHAIN_a_b_IEn_EN */
     ADC_ETC_SetTriggerChainConfig(DEMO_ADC_ETC_BASE, DEMO_ADC_ETC_TRIGGER_GROUP, 0U,
                                   &adcEtcTriggerChainConfig); /* Configure the trigger0 chain0. */
-    adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U
-                                                   << DEMO_ADC_CHANNEL_GROUP1; /* Select ADC_HC1 register to trigger. */
-    adcEtcTriggerChainConfig.ADCChannelSelect =
-        DEMO_ADC_ETC_CHANNEL1; /* ADC_HC1 will be triggered to sample Corresponding channel. */
-    adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_Done1InterruptEnable; /* Enable the Done1 interrupt. */
+    adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U << DEMO_ADC_CHANNEL_GROUP1;
+    adcEtcTriggerChainConfig.ADCChannelSelect    = DEMO_ADC_ETC_CHANNEL2;
+    adcEtcTriggerChainConfig.InterruptEnable     = kADC_ETC_Done1InterruptEnable; /* Enable the Done1 interrupt. */
 #if defined(FSL_FEATURE_ADC_ETC_HAS_TRIGm_CHAIN_a_b_IEn_EN) && FSL_FEATURE_ADC_ETC_HAS_TRIGm_CHAIN_a_b_IEn_EN
     adcEtcTriggerChainConfig.enableIrq = true; /* Enable the IRQ. */
 #endif                                         /* FSL_FEATURE_ADC_ETC_HAS_TRIGm_CHAIN_a_b_IEn_EN */
@@ -175,19 +180,26 @@ void LPADC_Configuration(void)
 
     /* Set conversion CMD configuration. */
     LPADC_GetDefaultConvCommandConfig(&lpadcCommandConfig);
-    lpadcCommandConfig.channelNumber = DEMO_ADC_USER_CHANNEL;
-    LPADC_SetConvCommandConfig(DEMO_ADC_BASE, DEMO_ADC_USER_CMDID, &lpadcCommandConfig);
+    lpadcCommandConfig.channelNumber = DEMO_ADC_USER_CHANNEL0;
+    LPADC_SetConvCommandConfig(DEMO_ADC_BASE, DEMO_ADC_USER_CMDID1, &lpadcCommandConfig);
+
+    LPADC_GetDefaultConvCommandConfig(&lpadcCommandConfig);
+    lpadcCommandConfig.channelNumber = DEMO_ADC_USER_CHANNEL1;
+    LPADC_SetConvCommandConfig(DEMO_ADC_BASE, DEMO_ADC_USER_CMDID2, &lpadcCommandConfig);
 
     /* Set trigger configuration. */
     LPADC_GetDefaultConvTriggerConfig(&lpadcTriggerConfig);
-    lpadcTriggerConfig.targetCommandId       = DEMO_ADC_USER_CMDID;
+    lpadcTriggerConfig.targetCommandId       = DEMO_ADC_USER_CMDID1;
     lpadcTriggerConfig.enableHardwareTrigger = true;
     LPADC_SetConvTriggerConfig(DEMO_ADC_BASE, 0U, &lpadcTriggerConfig);
+    LPADC_EnableHardwareTriggerCommandSelection(DEMO_ADC_BASE, 0U, true);
+
     /* Set trigger configuration. */
     LPADC_GetDefaultConvTriggerConfig(&lpadcTriggerConfig);
-    lpadcTriggerConfig.targetCommandId       = DEMO_ADC_USER_CMDID;
+    lpadcTriggerConfig.targetCommandId       = DEMO_ADC_USER_CMDID2;
     lpadcTriggerConfig.enableHardwareTrigger = true;
     LPADC_SetConvTriggerConfig(DEMO_ADC_BASE, 1U, &lpadcTriggerConfig);
+    LPADC_EnableHardwareTriggerCommandSelection(DEMO_ADC_BASE, 1U, true);
 }
 
 /*!

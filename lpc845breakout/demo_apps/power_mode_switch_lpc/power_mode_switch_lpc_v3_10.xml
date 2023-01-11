@@ -70,7 +70,7 @@
       </toolchainSetting>
     </toolchainSettings>
     <include_paths>
-      <include_path path="../../../../examples/lpc845breakout/demo_apps/power_mode_switch_lpc" project_relative_path="lpc845breakout/demo_apps/power_mode_switch_lpc" type="c_include"/>
+      <include_path path="." project_relative_path="lpc845breakout/demo_apps/power_mode_switch_lpc" type="c_include"/>
       <include_path path="../../../../core/boards/lpc845breakout" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
     </include_paths>

@@ -24,7 +24,7 @@
  */
 
 /* @TEST_ANCHOR */
-#define WIFI_IW416_BOARD_AW_AM510_USD
+#define WIFI_IW416_BOARD_MURATA_1XK_USD
 /* @END_TEST_ANCHOR */
 /*#define WIFI_IW416_BOARD_AW_AM457_USD*/
 /*#define WIFI_88W8987_BOARD_AW_CM358_USD*/
@@ -47,15 +47,15 @@
 
 #define CONFIG_BT_RFCOMM                    1
 #define CONFIG_BT_HFP_HF                    1
-#define CONFIG_BT_A2DP                      1
-#define CONFIG_BT_A2DP_SOURCE               1
-#define CONFIG_BT_A2DP_SINK                 1
-#define CONFIG_BT_A2DP_CP_SERVICE           1
-#define CONFIG_BT_A2DP_RECOVERY_SERVICE     1
-#define CONFIG_BT_A2DP_REPORTING_SERVICE    1
-#define CONFIG_BT_A2DP_DR_SERVICE           1
-#define CONFIG_BT_A2DP_HC_SERVICE           1
-#define CONFIG_BT_A2DP_MULTIPLEXING_SERVICE 1
+#define CONFIG_BT_A2DP                      0
+#define CONFIG_BT_A2DP_SOURCE               0
+#define CONFIG_BT_A2DP_SINK                 0
+#define CONFIG_BT_A2DP_CP_SERVICE           0
+#define CONFIG_BT_A2DP_RECOVERY_SERVICE     0
+#define CONFIG_BT_A2DP_REPORTING_SERVICE    0
+#define CONFIG_BT_A2DP_DR_SERVICE           0
+#define CONFIG_BT_A2DP_HC_SERVICE           0
+#define CONFIG_BT_A2DP_MULTIPLEXING_SERVICE 0
 #define CONFIG_BT_AVRCP                     1
 #define CONFIG_BT_AVRCP_CT                  1
 #define CONFIG_BT_AVRCP_TG                  1

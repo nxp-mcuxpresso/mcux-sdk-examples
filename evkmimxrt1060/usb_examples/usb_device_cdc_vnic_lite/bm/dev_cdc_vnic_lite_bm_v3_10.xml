@@ -4,7 +4,6 @@
     <definition extID="middleware.usb.device_controller_ehci.MIMXRT1062"/>
     <definition extID="middleware.usb.phy.MIMXRT1062"/>
     <definition extID="platform.drivers.cache_armv7_m7.MIMXRT1062"/>
-    <definition extID="driver.mdio-enet.MIMXRT1062"/>
     <definition extID="driver.phy-device-ksz8081.MIMXRT1062"/>
     <definition extID="platform.drivers.igpio.MIMXRT1062"/>
     <definition extID="utility.debug_console_lite.MIMXRT1062"/>
@@ -26,7 +25,6 @@
     <definition extID="middleware.usb.common_header.MIMXRT1062"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1062"/>
     <definition extID="middleware.usb.device.common_header.MIMXRT1062"/>
-    <definition extID="driver.mdio-common.MIMXRT1062"/>
     <definition extID="driver.phy-common.MIMXRT1062"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1062"/>
     <definition extID="device.MIMXRT1062_system.MIMXRT1062"/>
@@ -38,7 +36,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1060_dev_cdc_vnic_lite_bm" name="dev_cdc_vnic_lite_bm" dependency="middleware.usb.device_controller_ehci.MIMXRT1062 middleware.usb.phy.MIMXRT1062 platform.drivers.cache_armv7_m7.MIMXRT1062 driver.mdio-enet.MIMXRT1062 driver.phy-device-ksz8081.MIMXRT1062 platform.drivers.igpio.MIMXRT1062 utility.debug_console_lite.MIMXRT1062 platform.utilities.assert_lite.MIMXRT1062 middleware.baremetal.MIMXRT1062 platform.drivers.enet.MIMXRT1062 platform.drivers.clock.MIMXRT1062 platform.drivers.common.MIMXRT1062 device.MIMXRT1062_CMSIS.MIMXRT1062 device.MIMXRT1062_startup.MIMXRT1062 platform.drivers.lpuart.MIMXRT1062 platform.drivers.iomuxc.MIMXRT1062 platform.drivers.xip_device.MIMXRT1062 platform.drivers.xip_board.evkmimxrt1060.MIMXRT1062 component.lpuart_adapter.MIMXRT1062 component.lists.MIMXRT1062 middleware.usb.device.controller.driver.MIMXRT1062 component.osa.MIMXRT1062 middleware.usb.common_header.MIMXRT1062 CMSIS_Include_core_cm.MIMXRT1062 middleware.usb.device.common_header.MIMXRT1062 driver.mdio-common.MIMXRT1062 driver.phy-common.MIMXRT1062 platform.utilities.misc_utilities.MIMXRT1062 device.MIMXRT1062_system.MIMXRT1062" category="usb_examples">
+  <example id="evkmimxrt1060_dev_cdc_vnic_lite_bm" name="dev_cdc_vnic_lite_bm" dependency="middleware.usb.device_controller_ehci.MIMXRT1062 middleware.usb.phy.MIMXRT1062 platform.drivers.cache_armv7_m7.MIMXRT1062 driver.phy-device-ksz8081.MIMXRT1062 platform.drivers.igpio.MIMXRT1062 utility.debug_console_lite.MIMXRT1062 platform.utilities.assert_lite.MIMXRT1062 middleware.baremetal.MIMXRT1062 platform.drivers.enet.MIMXRT1062 platform.drivers.clock.MIMXRT1062 platform.drivers.common.MIMXRT1062 device.MIMXRT1062_CMSIS.MIMXRT1062 device.MIMXRT1062_startup.MIMXRT1062 platform.drivers.lpuart.MIMXRT1062 platform.drivers.iomuxc.MIMXRT1062 platform.drivers.xip_device.MIMXRT1062 platform.drivers.xip_board.evkmimxrt1060.MIMXRT1062 component.lpuart_adapter.MIMXRT1062 component.lists.MIMXRT1062 middleware.usb.device.controller.driver.MIMXRT1062 component.osa.MIMXRT1062 middleware.usb.common_header.MIMXRT1062 CMSIS_Include_core_cm.MIMXRT1062 middleware.usb.device.common_header.MIMXRT1062 driver.phy-common.MIMXRT1062 platform.utilities.misc_utilities.MIMXRT1062 device.MIMXRT1062_system.MIMXRT1062" category="usb_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>

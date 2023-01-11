@@ -15,7 +15,7 @@
 #include "clock_config.h"
 #include "board.h"
 #include "fsl_adapter_uart.h"
-#include "controller.h"
+#include "controller_hci_uart.h"
 #include "usb_host_config.h"
 #include "usb_phy.h"
 #include "usb_host.h"
@@ -34,11 +34,7 @@
 #else
 #define USB_HOST_INTERRUPT_PRIORITY (3U)
 #endif
-/* MURATA wifi reset pin */
-#if (defined(WIFI_IW416_BOARD_MURATA_1XK_USD) || defined(WIFI_88W8987_BOARD_MURATA_1ZM_USD))
-#define MURATA_WIFI_RESET_GPIO     GPIO1
-#define MURATA_WIFI_RESET_GPIO_PIN 24U
-#endif
+
 
 /*******************************************************************************
  * Prototypes
@@ -145,9 +141,7 @@ int main(void)
 {
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
-#if (defined(WIFI_IW416_BOARD_MURATA_1XK_USD) || defined(WIFI_88W8987_BOARD_MURATA_1ZM_USD))
-    BOARD_InitMurataModulePins();
-#endif
+
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     SCB_DisableDCache();
@@ -159,10 +153,7 @@ int main(void)
     EDMA_GetDefaultConfig(&config);
     EDMA_Init(dmaBases[0], &config);
 #endif
-#if (defined(WIFI_IW416_BOARD_MURATA_1XK_USD) || defined(WIFI_88W8987_BOARD_MURATA_1ZM_USD))
-    /* Turn on Bluetooth module */
-    GPIO_PinWrite(MURATA_WIFI_RESET_GPIO, MURATA_WIFI_RESET_GPIO_PIN, 1U);
-#endif
+
 #if (((defined(CONFIG_BT_SMP)) && (CONFIG_BT_SMP)))
     CRYPTO_InitHardware();
 #endif /* CONFIG_BT_SMP */
@@ -177,17 +168,4 @@ int main(void)
     vTaskStartScheduler();
     for (;;)
         ;
-}
-
-void *pvPortCalloc(size_t xNum, size_t xSize)
-{
-    void *pvReturn;
-
-    pvReturn = pvPortMalloc(xNum * xSize);
-    if (pvReturn != NULL)
-    {
-        memset(pvReturn, 0x00, xNum * xSize);
-    }
-
-    return pvReturn;
 }

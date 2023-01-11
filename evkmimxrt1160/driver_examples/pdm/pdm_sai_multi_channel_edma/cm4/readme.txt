@@ -2,7 +2,10 @@ Overview
 ========
 The pdm sai multi channel edma example shows how to use pdm driver with edma:
 
-In this example, pdm gathers two channels' audio data though edma, then sai sends it to codec.
+In this example, pdm gathers two channels' audio data though edma, then sai sends it to codec, the received DMIC data format,
+ ----------------------------------------------------------------------------------------------------------------------
+ |CHANNEL0 | CHANNEL1 | CHANNEL2 | .... | CHANNEL0 | CHANNEL 1 | CHANNEL2 |....| CHANNEL0 | CHANNEL 1 | CHANNEL2 |....|
+ ----------------------------------------------------------------------------------------------------------------------
 
 Toolchain supported
 ===================

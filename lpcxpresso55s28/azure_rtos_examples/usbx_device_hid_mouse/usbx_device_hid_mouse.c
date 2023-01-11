@@ -173,6 +173,7 @@ static void demo_thread_entry(ULONG arg)
         UP
     };
     UCHAR dir = RIGHT;
+    UINT ret;
 
     /* Get the pointer to the device.  */
     device = &_ux_system_slave->ux_system_slave_device;
@@ -194,9 +195,6 @@ static void demo_thread_entry(ULONG arg)
             /* Get the interface.  We use the first interface, this is a simple device.  */
             interface = device->ux_slave_device_first_interface;
 
-            /* Form that interface, derive the HID owner.  */
-            hid = interface->ux_slave_interface_class_instance;
-
             /* Length is fixed to 4. */
             hid_event.ux_device_class_hid_event_length = 4;
 
@@ -212,7 +210,7 @@ static void demo_thread_entry(ULONG arg)
                     x++;
                     if (x > 199U)
                     {
-                        dir++;
+                        dir = DOWN;
                     }
                     break;
                 case DOWN:
@@ -222,7 +220,7 @@ static void demo_thread_entry(ULONG arg)
                     y++;
                     if (y > 199U)
                     {
-                        dir++;
+                        dir = LEFT;
                     }
                     break;
                 case LEFT:
@@ -232,7 +230,7 @@ static void demo_thread_entry(ULONG arg)
                     x--;
                     if (x < 2U)
                     {
-                        dir++;
+                        dir = UP;
                     }
                     break;
                 case UP:
@@ -249,8 +247,20 @@ static void demo_thread_entry(ULONG arg)
                     break;
             }
 
-            /* Set the mouse event.  */
-            ux_device_class_hid_event_set(hid, &hid_event);
+            /* From that interface, derive the HID owner. */
+            hid = interface->ux_slave_interface_class_instance;
+
+            /* When the event buffer is full, add some delay. */
+            do {
+                /* Set the mouse event.  */
+                ret = ux_device_class_hid_event_set(hid, &hid_event);
+                if (ret == UX_SUCCESS)
+                {
+                    break;
+                }
+
+                tx_thread_sleep(TX_TIMER_TICKS_PER_SECOND / 100);
+            } while (1);
         }
     }
 }

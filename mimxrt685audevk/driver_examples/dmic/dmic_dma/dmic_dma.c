@@ -104,7 +104,11 @@ int main(void)
 
     DMIC_Use2fs(DMIC0, true);
     DMIC_EnableChannelDma(DMIC0, APP_DMIC_CHANNEL, true);
+#if defined(BOARD_DMIC_CHANNEL_STEREO_SIDE_SWAP) && (BOARD_DMIC_CHANNEL_STEREO_SIDE_SWAP)
+    DMIC_ConfigChannel(DMIC0, APP_DMIC_CHANNEL, kDMIC_Right, &dmic_channel_cfg);
+#else
     DMIC_ConfigChannel(DMIC0, APP_DMIC_CHANNEL, kDMIC_Left, &dmic_channel_cfg);
+#endif
 
     DMIC_FifoChannel(DMIC0, APP_DMIC_CHANNEL, FIFO_DEPTH, true, true);
 

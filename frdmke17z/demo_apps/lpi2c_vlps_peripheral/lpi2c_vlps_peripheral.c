@@ -162,8 +162,8 @@ static void DEMO_ACCEL_Init(void)
 
 static void DEMO_ACCEL_ReadData(void)
 {
-    edma_transfer_config_t transferConfig;
-    edma_tcd_t *linkTcd = NULL;
+    edma_transfer_config_t transferConfig = {0};
+    edma_tcd_t *linkTcd                   = NULL;
 
     /* Get a 32-byte aligned TCD pointer. */
     edma_tcd_t *tcd = (edma_tcd_t *)((uint32_t)(&tcds[1]) & (~0x1FU));

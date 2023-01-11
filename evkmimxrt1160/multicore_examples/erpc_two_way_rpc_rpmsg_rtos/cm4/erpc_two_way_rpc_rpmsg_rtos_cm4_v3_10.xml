@@ -32,7 +32,6 @@
     <definition extID="platform.drivers.pmu_1.MIMXRT1166"/>
     <definition extID="platform.drivers.dcdc_soc.MIMXRT1166"/>
     <definition extID="platform.drivers.cache_lmem.MIMXRT1166"/>
-    <definition extID="component.silicon_id.MIMXRT1166"/>
     <definition extID="platform.drivers.mu.MIMXRT1166"/>
     <definition extID="platform.drivers.anatop_ai.MIMXRT1166"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1166"/>
@@ -47,8 +46,10 @@
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso.core.debug.support.segger.debug"/>
     <definition extID="com.nxp.mcuxpresso.core.debug.support.segger.release"/>
+    <definition extID="com.crt.advproject.config.exe.debug"/>
+    <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1160_erpc_two_way_rpc_rpmsg_rtos_cm4" name="erpc_two_way_rpc_rpmsg_rtos_cm4" device_core="cm4_MIMXRT1166xxxxx" dependency="middleware.multicore.mcmgr.imxrt1160.MIMXRT1166 middleware.multicore.rpmsg_lite.imxrt1160_freertos.MIMXRT1166 middleware.multicore.rpmsg_lite.MIMXRT1166 middleware.multicore.rpmsg_lite.freertos.MIMXRT1166 platform.drivers.clock.MIMXRT1166 middleware.multicore.erpc.eRPC_arbitrator.MIMXRT1166 middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_remote_c_wrapper.MIMXRT1166 middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_transport.MIMXRT1166 middleware.multicore.erpc.eRPC_port_freertos.MIMXRT1166 middleware.freertos-kernel.MIMXRT1166 middleware.multicore.mcmgr.MIMXRT1166 middleware.freertos-kernel.heap_4.MIMXRT1166 middleware.multicore.erpc.doc.MIMXRT1166 platform.drivers.common.MIMXRT1166 platform.devices.MIMXRT1166_CMSIS.MIMXRT1166 utility.debug_console.MIMXRT1166 component.lpuart_adapter.MIMXRT1166 component.serial_manager.MIMXRT1166 component.lists.MIMXRT1166 component.serial_manager_uart.MIMXRT1166 platform.drivers.lpuart.MIMXRT1166 platform.devices.MIMXRT1166_startup.MIMXRT1166 platform.drivers.iomuxc.MIMXRT1166 platform.utilities.assert.MIMXRT1166 platform.drivers.igpio.MIMXRT1166 platform.drivers.xip_device.MIMXRT1166 platform.drivers.xip_board.evkmimxrt1160.MIMXRT1166 platform.drivers.pmu_1.MIMXRT1166 platform.drivers.dcdc_soc.MIMXRT1166 platform.drivers.cache_lmem.MIMXRT1166 component.silicon_id.MIMXRT1166 platform.drivers.mu.MIMXRT1166 platform.drivers.anatop_ai.MIMXRT1166 CMSIS_Include_core_cm.MIMXRT1166 middleware.freertos-kernel.extension.MIMXRT1166 middleware.multicore.erpc.common.MIMXRT1166 platform.utilities.misc_utilities.MIMXRT1166 platform.devices.MIMXRT1166_system.MIMXRT1166" category="multicore_examples">
+  <example id="evkmimxrt1160_erpc_two_way_rpc_rpmsg_rtos_cm4" name="erpc_two_way_rpc_rpmsg_rtos_cm4" device_core="cm4_MIMXRT1166xxxxx" dependency="middleware.multicore.mcmgr.imxrt1160.MIMXRT1166 middleware.multicore.rpmsg_lite.imxrt1160_freertos.MIMXRT1166 middleware.multicore.rpmsg_lite.MIMXRT1166 middleware.multicore.rpmsg_lite.freertos.MIMXRT1166 platform.drivers.clock.MIMXRT1166 middleware.multicore.erpc.eRPC_arbitrator.MIMXRT1166 middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_remote_c_wrapper.MIMXRT1166 middleware.multicore.erpc.eRPC_rpmsg_lite_rtos_transport.MIMXRT1166 middleware.multicore.erpc.eRPC_port_freertos.MIMXRT1166 middleware.freertos-kernel.MIMXRT1166 middleware.multicore.mcmgr.MIMXRT1166 middleware.freertos-kernel.heap_4.MIMXRT1166 middleware.multicore.erpc.doc.MIMXRT1166 platform.drivers.common.MIMXRT1166 platform.devices.MIMXRT1166_CMSIS.MIMXRT1166 utility.debug_console.MIMXRT1166 component.lpuart_adapter.MIMXRT1166 component.serial_manager.MIMXRT1166 component.lists.MIMXRT1166 component.serial_manager_uart.MIMXRT1166 platform.drivers.lpuart.MIMXRT1166 platform.devices.MIMXRT1166_startup.MIMXRT1166 platform.drivers.iomuxc.MIMXRT1166 platform.utilities.assert.MIMXRT1166 platform.drivers.igpio.MIMXRT1166 platform.drivers.xip_device.MIMXRT1166 platform.drivers.xip_board.evkmimxrt1160.MIMXRT1166 platform.drivers.pmu_1.MIMXRT1166 platform.drivers.dcdc_soc.MIMXRT1166 platform.drivers.cache_lmem.MIMXRT1166 platform.drivers.mu.MIMXRT1166 platform.drivers.anatop_ai.MIMXRT1166 CMSIS_Include_core_cm.MIMXRT1166 middleware.freertos-kernel.extension.MIMXRT1166 middleware.multicore.erpc.common.MIMXRT1166 platform.utilities.misc_utilities.MIMXRT1166 platform.devices.MIMXRT1166_system.MIMXRT1166" category="multicore_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.ccnature"/>
     </projects>
@@ -77,6 +78,47 @@
         </option>
         <option id="com.crt.advproject.link.cpp.multicore.slave" type="string">
           <value>M4SLAVE</value>
+        </option>
+        <option id="com.crt.advproject.gas.hdrlib" type="enum">
+          <value>com.crt.advproject.gas.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gas.specs" type="enum">
+          <value>com.crt.advproject.gas.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gcc.specs" type="enum">
+          <value>com.crt.advproject.gcc.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.cpp.hdrlib" type="enum">
+          <value>com.crt.advproject.cpp.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.cpp.specs" type="enum">
+          <value>com.crt.advproject.cpp.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.link.cpp.hdrlib" type="enum">
+          <value>com.crt.advproject.cpp.link.hdrlib.newlibnano.nohost</value>
+        </option>
+        <option id="com.crt.advproject.link.cpp.fpu" type="enum">
+          <value>com.crt.advproject.link.cpp.fpu.fpv4.hard</value>
+        </option>
+        <option id="com.crt.advproject.link.cpp.toram" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="gnu.cpp.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.sections.cpp" type="stringList">
+          <value>isd=*(NonCacheable.init);region=NCACHE_REGION;type=.data</value>
+          <value>isd=*(NonCacheable);region=NCACHE_REGION;type=.bss</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.heapAndStack.cpp" type="string">
+          <value>&amp;Heap:Default;Default;Default&amp;Stack:Default;Default;0x400</value>
+        </option>
+        <option id="gnu.cpp.link.option.other" type="stringList">
+          <value>--defsym=__use_shmem__=1</value>
+          <value>--gc-sections</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv4.hard</value>
@@ -108,26 +150,6 @@
         <option id="gnu.cpp.compiler.option.warnings.toerrors" type="boolean">
           <value>false</value>
         </option>
-        <option id="com.crt.advproject.link.cpp.fpu" type="enum">
-          <value>com.crt.advproject.link.cpp.fpu.fpv4.hard</value>
-        </option>
-        <option id="com.crt.advproject.link.cpp.toram" type="boolean">
-          <value>true</value>
-        </option>
-        <option id="gnu.cpp.link.option.nostdlibs" type="boolean">
-          <value>true</value>
-        </option>
-        <option id="com.crt.advproject.link.memory.sections.cpp" type="stringList">
-          <value>isd=*(NonCacheable.init);region=NCACHE_REGION;type=.data</value>
-          <value>isd=*(NonCacheable);region=NCACHE_REGION;type=.bss</value>
-        </option>
-        <option id="com.crt.advproject.link.memory.heapAndStack.cpp" type="string">
-          <value>&amp;Heap:Default;Default;Default&amp;Stack:Default;Default;0x400</value>
-        </option>
-        <option id="gnu.cpp.link.option.other" type="stringList">
-          <value>--defsym=__use_shmem__=1</value>
-          <value>--gc-sections</value>
-        </option>
       </toolchainSetting>
     </toolchainSettings>
     <debug_configurations>
@@ -155,9 +177,9 @@
       <include_path path="../../erpc_common" project_relative_path="source" type="c_include"/>
       <include_path path="../../erpc_common/erpc_two_way_rpc/service" project_relative_path="erpc/service" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimxrt1160/multicore_examples/erpc_two_way_rpc_rpmsg_rtos" project_relative_path="source" type="c_include"/>
+      <include_path path=".." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimxrt1160/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm4" project_relative_path="evkmimxrt1160/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm4" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimxrt1160/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm4" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

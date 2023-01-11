@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -366,8 +366,8 @@ int main(void)
     /* Get FlexCAN module default Configuration. */
     /*
      * flexcanConfig.clkSrc                 = kFLEXCAN_ClkSrc0;
-     * flexcanConfig.baudRate               = 1000000U;
-     * flexcanConfig.baudRateFD             = 2000000U;
+     * flexcanConfig.bitRate                = 1000000U;
+     * flexcanConfig.bitRateFD              = 2000000U;
      * flexcanConfig.maxMbNum               = 16;
      * flexcanConfig.enableLoopBack         = false;
      * flexcanConfig.enableSelfWakeup       = false;
@@ -385,24 +385,12 @@ int main(void)
     flexcanConfig.clkSrc = EXAMPLE_CAN_CLK_SOURCE;
 #endif
 
-/* If board special timing setting is needed, set the bit timing parameters. */
-#if (defined(USE_BOARD_CAN_TIMING_CONFIG) && USE_BOARD_CAN_TIMING_CONFIG)
-    flexcanConfig.timingConfig.phaseSeg1 = PSEG1;
-    flexcanConfig.timingConfig.phaseSeg2 = PSEG2;
-    flexcanConfig.timingConfig.propSeg   = PROPSEG;
-#if (defined(FSL_FEATURE_FLEXCAN_HAS_FLEXIBLE_DATA_RATE) && FSL_FEATURE_FLEXCAN_HAS_FLEXIBLE_DATA_RATE)
-    flexcanConfig.timingConfig.fphaseSeg1 = FPSEG1;
-    flexcanConfig.timingConfig.fphaseSeg2 = FPSEG2;
-    flexcanConfig.timingConfig.fpropSeg   = FPROPSEG;
-#endif
-#endif
-
 /* Use the FLEXCAN API to automatically get the ideal bit timing configuration. */
 #if (defined(USE_IMPROVED_TIMING_CONFIG) && USE_IMPROVED_TIMING_CONFIG)
     flexcan_timing_config_t timing_config;
     memset(&timing_config, 0, sizeof(flexcan_timing_config_t));
 #if (defined(USE_CANFD) && USE_CANFD)
-    if (FLEXCAN_FDCalculateImprovedTimingValues(EXAMPLE_CAN, flexcanConfig.baudRate, flexcanConfig.baudRateFD,
+    if (FLEXCAN_FDCalculateImprovedTimingValues(EXAMPLE_CAN, flexcanConfig.bitRate, flexcanConfig.bitRateFD,
                                                 EXAMPLE_CAN_CLK_FREQ, &timing_config))
     {
         /* Update the improved timing configuration*/
@@ -413,8 +401,7 @@ int main(void)
         LOG_INFO("No found Improved Timing Configuration. Just used default configuration\r\n\r\n");
     }
 #else
-    if (FLEXCAN_CalculateImprovedTimingValues(EXAMPLE_CAN, flexcanConfig.baudRate, EXAMPLE_CAN_CLK_FREQ,
-                                              &timing_config))
+    if (FLEXCAN_CalculateImprovedTimingValues(EXAMPLE_CAN, flexcanConfig.bitRate, EXAMPLE_CAN_CLK_FREQ, &timing_config))
     {
         /* Update the improved timing configuration*/
         memcpy(&(flexcanConfig.timingConfig), &timing_config, sizeof(flexcan_timing_config_t));

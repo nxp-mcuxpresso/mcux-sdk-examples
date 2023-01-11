@@ -5,6 +5,7 @@
     <definition extID="platform.drivers.gpio.MCIMX7U5"/>
     <definition extID="platform.drivers.clock.MCIMX7U5"/>
     <definition extID="middleware.freertos-kernel.heap_4.MCIMX7U5"/>
+    <definition extID="platform.drivers.iomuxc.MCIMX7U5"/>
     <definition extID="platform.drivers.common.MCIMX7U5"/>
     <definition extID="platform.devices.MCIMX7U5_CMSIS.MCIMX7U5"/>
     <definition extID="utility.debug_console.MCIMX7U5"/>
@@ -26,7 +27,7 @@
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="mdk"/>
   </externalDefinitions>
-  <example id="evkmcimx7ulp_freertos_sem" name="freertos_sem" dependency="platform.drivers.port.MCIMX7U5 platform.drivers.gpio.MCIMX7U5 platform.drivers.clock.MCIMX7U5 middleware.freertos-kernel.heap_4.MCIMX7U5 platform.drivers.common.MCIMX7U5 platform.devices.MCIMX7U5_CMSIS.MCIMX7U5 utility.debug_console.MCIMX7U5 component.lpuart_adapter.MCIMX7U5 component.serial_manager.MCIMX7U5 component.lists.MCIMX7U5 component.serial_manager_uart.MCIMX7U5 platform.drivers.lpuart.MCIMX7U5 platform.devices.MCIMX7U5_startup.MCIMX7U5 platform.drivers.msmc.MCIMX7U5 platform.utilities.assert.MCIMX7U5 CMSIS_Include_core_cm.MCIMX7U5 middleware.freertos-kernel.MCIMX7U5 middleware.freertos-kernel.extension.MCIMX7U5 platform.utilities.misc_utilities.MCIMX7U5" category="rtos_examples">
+  <example id="evkmcimx7ulp_freertos_sem" name="freertos_sem" dependency="platform.drivers.port.MCIMX7U5 platform.drivers.gpio.MCIMX7U5 platform.drivers.clock.MCIMX7U5 middleware.freertos-kernel.heap_4.MCIMX7U5 platform.drivers.iomuxc.MCIMX7U5 platform.drivers.common.MCIMX7U5 platform.devices.MCIMX7U5_CMSIS.MCIMX7U5 utility.debug_console.MCIMX7U5 component.lpuart_adapter.MCIMX7U5 component.serial_manager.MCIMX7U5 component.lists.MCIMX7U5 component.serial_manager_uart.MCIMX7U5 platform.drivers.lpuart.MCIMX7U5 platform.devices.MCIMX7U5_startup.MCIMX7U5 platform.drivers.msmc.MCIMX7U5 platform.utilities.assert.MCIMX7U5 CMSIS_Include_core_cm.MCIMX7U5 middleware.freertos-kernel.MCIMX7U5 middleware.freertos-kernel.extension.MCIMX7U5 platform.utilities.misc_utilities.MCIMX7U5" category="rtos_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -71,7 +72,6 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../examples/evkmcimx7ulp/rtos_examples/freertos_sem" project_relative_path="board" type="c_include"/>
       <include_path path="../../../../core/boards/evkmcimx7ulp" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
     </include_paths>
@@ -116,9 +116,6 @@
     <source path="../../../../core/boards/evkmcimx7ulp" project_relative_path="board" type="c_include">
       <files mask="board.h"/>
       <files mask="clock_config.h"/>
-    </source>
-    <source path="." project_relative_path="board" type="c_include">
-      <files mask="fsl_iomuxc.h"/>
     </source>
     <source path="." project_relative_path="doc" type="doc" toolchain="iar mdk armgcc">
       <files mask="readme.txt"/>

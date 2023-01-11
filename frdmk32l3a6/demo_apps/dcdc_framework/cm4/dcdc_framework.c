@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2013 - 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2017, 2022 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -183,7 +183,7 @@ void DCDCx_Configuration(void)
 
     /* Setup the integrator value into DCDC hardware, as calibration for the environment. */
     mSpmDcdcIntegratorConfigStruct.vddCoreValue = 1.25f;
-    mSpmDcdcIntegratorConfigStruct.vBatValue    = (float)batteryVoltageMv / 1000.0f;
+    mSpmDcdcIntegratorConfigStruct.vBatValue    = (double)batteryVoltageMv / 1000.0f;
     SPM_SetDcdcIntegratorConfig(SPM, &mSpmDcdcIntegratorConfigStruct);
 
     /* Setup the batt monitor value initially. */

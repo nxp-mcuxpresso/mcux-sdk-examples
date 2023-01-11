@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 NXP
+ * Copyright 2018-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -49,17 +49,17 @@ void BOARD_InitBootPins(void);
 
 /* GPIO_AD_B1_03 (coord M12), WL_RST */
 /* Routed pin properties */
-#define BOARD_INITPINS_WL_RST_PERIPHERAL                                   GPIO1   /*!< Peripheral name */
-#define BOARD_INITPINS_WL_RST_SIGNAL                                     gpio_io   /*!< Signal name */
-#define BOARD_INITPINS_WL_RST_CHANNEL                                        19U   /*!< Signal channel */
+#define BOARD_INITPINS_SD_PWREN_PERIPHERAL                                 GPIO1   /*!< Peripheral name */
+#define BOARD_INITPINS_SD_PWREN_SIGNAL                                   gpio_io   /*!< Signal name */
+#define BOARD_INITPINS_SD_PWREN_CHANNEL                                      19U   /*!< Signal channel */
 
 /* Symbols to be used with GPIO driver */
-#define BOARD_INITPINS_WL_RST_GPIO                                         GPIO1   /*!< GPIO peripheral base pointer */
-#define BOARD_INITPINS_WL_RST_GPIO_PIN                                       19U   /*!< GPIO pin number */
-#define BOARD_INITPINS_WL_RST_GPIO_PIN_MASK                          (1U << 19U)   /*!< GPIO pin mask */
-#define BOARD_INITPINS_WL_RST_PORT                                         GPIO1   /*!< PORT peripheral base pointer */
-#define BOARD_INITPINS_WL_RST_PIN                                            19U   /*!< PORT pin number */
-#define BOARD_INITPINS_WL_RST_PIN_MASK                               (1U << 19U)   /*!< PORT pin mask */
+#define BOARD_INITPINS_SD_PWREN_GPIO                                       GPIO1   /*!< GPIO peripheral base pointer */
+#define BOARD_INITPINS_SD_PWREN_GPIO_PIN                                     19U   /*!< GPIO pin number */
+#define BOARD_INITPINS_SD_PWREN_GPIO_PIN_MASK                        (1U << 19U)   /*!< GPIO pin mask */
+#define BOARD_INITPINS_SD_PWREN_PORT                                       GPIO1   /*!< PORT peripheral base pointer */
+#define BOARD_INITPINS_SD_PWREN_PIN                                          19U   /*!< PORT pin number */
+#define BOARD_INITPINS_SD_PWREN_PIN_MASK                             (1U << 19U)   /*!< PORT pin mask */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

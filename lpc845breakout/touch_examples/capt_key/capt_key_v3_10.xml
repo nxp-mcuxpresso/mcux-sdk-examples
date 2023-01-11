@@ -72,7 +72,7 @@
     <include_paths>
       <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../examples/lpc845breakout/touch_examples/capt_key" project_relative_path="lpc845breakout/touch_examples/capt_key" type="c_include"/>
+      <include_path path="." project_relative_path="lpc845breakout/touch_examples/capt_key" type="c_include"/>
       <include_path path="../../../../core/boards/lpc845breakout" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

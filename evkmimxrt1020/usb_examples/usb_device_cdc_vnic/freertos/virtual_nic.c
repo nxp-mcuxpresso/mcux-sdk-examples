@@ -33,17 +33,11 @@
 
 #include "usb_phy.h"
 #include "fsl_iomuxc.h"
-#include "fsl_enet_mdio.h"
 #include "fsl_phyksz8081.h"
 #include "fsl_phy.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define EXAMPLE_PHY_ADDRESS BOARD_ENET0_PHY_ADDRESS
-/* MDIO operations. */
-#define EXAMPLE_MDIO_OPS enet_ops
-/* PHY operations. */
-#define EXAMPLE_PHY_OPS phyksz8081_ops
 /* Base unit for ENIT layer is 1Mbps while for RNDIS its 100bps*/
 #define ENET_CONVERT_FACTOR (10000)
 
@@ -69,10 +63,7 @@ usb_status_t VNIC_EnetTxDone(void);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-/*! @brief Enet PHY and MDIO interface handler. */
-mdio_handle_t mdioHandle = {.resource.base = ENET, .ops = &EXAMPLE_MDIO_OPS};
-phy_handle_t phyHandle   = {.phyAddr = EXAMPLE_PHY_ADDRESS, .mdioHandle = &mdioHandle, .ops = &EXAMPLE_PHY_OPS};
-
+phy_ksz8081_resource_t g_phy_resource;
 extern usb_cdc_vnic_t g_cdcVnic;
 extern usb_device_endpoint_struct_t g_cdcVnicDicEp[];
 extern usb_device_class_struct_t g_cdcVnicClass;
@@ -137,11 +128,37 @@ uint32_t BOARD_GetPhySysClock(void)
     return CLOCK_GetFreq(kCLOCK_IpgClk);
 }
 
+const phy_operations_t *BOARD_GetPhyOps(void)
+{
+    return &phyksz8081_ops;
+}
+
+void *BOARD_GetPhyResource(void)
+{
+    return (void *)&g_phy_resource;
+}
+
 void BOARD_InitModuleClock(void)
 {
     const clock_enet_pll_config_t config = {
         .enableClkOutput = true, .enableClkOutput500M = false, .enableClkOutput25M = true, .loopDivider = 1};
     CLOCK_InitEnetPll(&config);
+}
+
+static void MDIO_Init(void)
+{
+    (void)CLOCK_EnableClock(s_enetClock[ENET_GetInstance(ENET)]);
+    ENET_SetSMI(ENET, CLOCK_GetFreq(kCLOCK_IpgClk), false);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_MDIOWrite(ENET, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_MDIORead(ENET, phyAddr, regAddr, pData);
 }
 
 
@@ -423,7 +440,6 @@ usb_status_t USB_DeviceVnicReceive(void)
                 break;
             }
             messageLen = USB_LONG_TO_LITTLE_ENDIAN(*((uint32_t *)(buffer) + 1));
-            ;
 
             if (!(messageLen % g_cdcVnicDicEp[1].maxPacketSize))
             {
@@ -936,6 +952,10 @@ void main(void)
     SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
     GPIO_WritePinOutput(GPIO1, 9, 1);
     SDK_DelayAtLeastUs(6, CLOCK_GetFreq(kCLOCK_CpuClk));
+
+    MDIO_Init();
+    g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
 
     if (xTaskCreate(APPTask,                         /* pointer to the task                      */
                     s_appName,                       /* task name for kernel awareness debugging */

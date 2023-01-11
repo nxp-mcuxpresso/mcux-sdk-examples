@@ -62,10 +62,9 @@
       </toolchainSetting>
     </toolchainSettings>
     <include_paths>
-      <include_path path="../../../../../examples/evkmimx8mq/driver_examples/gpio/led_output" project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimx8mq/driver_examples/gpio/led_output" project_relative_path="evkmimx8mq/driver_examples/gpio/led_output" type="c_include"/>
-      <include_path path="../../../../../core/boards/evkmimx8mq" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimx8mq/driver_examples/gpio/led_output" type="c_include"/>
+      <include_path path="../../../../../core/boards/evkmimx8mq" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
       <files mask="igpio_led_output.ewp"/>

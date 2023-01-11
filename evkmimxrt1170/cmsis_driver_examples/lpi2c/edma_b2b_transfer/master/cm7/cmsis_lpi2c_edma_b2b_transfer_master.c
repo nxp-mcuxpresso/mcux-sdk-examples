@@ -85,10 +85,6 @@ int main(void)
     EDMA_GetDefaultConfig(&edmaConfig);
     EDMA_Init(EXAMPLE_LPI2C_DMA_BASEADDR, &edmaConfig);
 
-#if (defined(FSL_FEATURE_EDMA_HAS_CHANNEL_MUX) && FSL_FEATURE_EDMA_HAS_CHANNEL_MUX)
-    EDMA_SetChannelMux(RTE_I2C0_DMA_TX_DMA_BASE, RTE_I2C0_DMA_TX_CH, RTE_I2C0_DMA_TX_PERI_SEL);
-    EDMA_SetChannelMux(RTE_I2C0_DMA_RX_DMA_BASE, RTE_I2C0_DMA_RX_CH, RTE_I2C0_DMA_RX_PERI_SEL);
-#endif
     /* Initialize the LPI2C master peripheral */
     EXAMPLE_I2C_MASTER.Initialize(lpi2c_master_callback);
     EXAMPLE_I2C_MASTER.PowerControl(ARM_POWER_FULL);

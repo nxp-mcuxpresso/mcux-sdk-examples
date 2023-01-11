@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="cm7_MIMXRT1166xxxxx"/>
+    <definition extID="platform.drivers.lpi2c.MIMXRT1166"/>
+    <definition extID="platform.drivers.sai.MIMXRT1166"/>
+    <definition extID="driver.wm8960.MIMXRT1166"/>
+    <definition extID="driver.codec.MIMXRT1166"/>
+    <definition extID="platform.drivers.common.MIMXRT1166"/>
+    <definition extID="component.wm8960_adapter.MIMXRT1166"/>
+    <definition extID="component.codec_i2c.MIMXRT1166"/>
+    <definition extID="component.lpi2c_adapter.MIMXRT1166"/>
+    <definition extID="platform.drivers.sai_edma.MIMXRT1166"/>
+    <definition extID="platform.drivers.dmamux.MIMXRT1166"/>
+    <definition extID="platform.drivers.edma.MIMXRT1166"/>
+    <definition extID="middleware.sdmmc.sd.MIMXRT1166"/>
+    <definition extID="middleware.sdmmc.common.MIMXRT1166"/>
+    <definition extID="middleware.sdmmc.host.usdhc.MIMXRT1166"/>
+    <definition extID="middleware.sdmmc.host.usdhc.freertos.MIMXRT1166"/>
+    <definition extID="platform.drivers.cache_armv7_m7.MIMXRT1166"/>
+    <definition extID="platform.drivers.flexram.MIMXRT1166"/>
+    <definition extID="component.igpio_adapter.MIMXRT1166"/>
+    <definition extID="middleware.freertos-kernel.heap_4.MIMXRT1166"/>
+    <definition extID="middleware.maestro_framework.MIMXRT1166"/>
+    <definition extID="utility.shell.MIMXRT1166"/>
+    <definition extID="middleware.fatfs.MIMXRT1166"/>
+    <definition extID="middleware.fatfs.sd.MIMXRT1166"/>
+    <definition extID="middleware.eap.MIMXRT1166"/>
+    <definition extID="middleware.eap.arm.lib.MIMXRT1166"/>
+    <definition extID="middleware.maestro_framework.opus.MIMXRT1166"/>
+    <definition extID="middleware.maestro_framework.opusfile.MIMXRT1166"/>
+    <definition extID="middleware.maestro_framework.ogg.MIMXRT1166"/>
+    <definition extID="platform.drivers.clock.MIMXRT1166"/>
+    <definition extID="platform.devices.MIMXRT1166_CMSIS.MIMXRT1166"/>
+    <definition extID="utility.debug_console.MIMXRT1166"/>
+    <definition extID="component.lpuart_adapter.MIMXRT1166"/>
+    <definition extID="component.serial_manager.MIMXRT1166"/>
+    <definition extID="component.lists.MIMXRT1166"/>
+    <definition extID="component.serial_manager_uart.MIMXRT1166"/>
+    <definition extID="platform.drivers.lpuart.MIMXRT1166"/>
+    <definition extID="platform.devices.MIMXRT1166_startup.MIMXRT1166"/>
+    <definition extID="platform.drivers.iomuxc.MIMXRT1166"/>
+    <definition extID="platform.utilities.assert.MIMXRT1166"/>
+    <definition extID="platform.drivers.igpio.MIMXRT1166"/>
+    <definition extID="platform.drivers.xip_device.MIMXRT1166"/>
+    <definition extID="platform.drivers.xip_board.evkmimxrt1160.MIMXRT1166"/>
+    <definition extID="platform.drivers.pmu_1.MIMXRT1166"/>
+    <definition extID="platform.drivers.dcdc_soc.MIMXRT1166"/>
+    <definition extID="platform.drivers.anatop_ai.MIMXRT1166"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT1166"/>
+    <definition extID="platform.drivers.memory.MIMXRT1166"/>
+    <definition extID="middleware.sdmmc.osa.freertos.MIMXRT1166"/>
+    <definition extID="component.osa_free_rtos.MIMXRT1166"/>
+    <definition extID="middleware.freertos-kernel.MIMXRT1166"/>
+    <definition extID="middleware.freertos-kernel.extension.MIMXRT1166"/>
+    <definition extID="platform.drivers.usdhc.MIMXRT1166"/>
+    <definition extID="platform.drivers.soc_flexram_allocate.MIMXRT1166"/>
+    <definition extID="middleware.maestro_framework.doc.MIMXRT1166"/>
+    <definition extID="middleware.maestro_framework.streamer.MIMXRT1166"/>
+    <definition extID="middleware.eap.exapp.MIMXRT1166"/>
+    <definition extID="middleware.eap16.header.MIMXRT1166"/>
+    <definition extID="platform.utilities.misc_utilities.MIMXRT1166"/>
+    <definition extID="platform.devices.MIMXRT1166_system.MIMXRT1166"/>
+    <definition extID="iar"/>
+    <definition extID="armgcc"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+    <definition extID="com.crt.advproject.config.exe.debug"/>
+    <definition extID="com.crt.advproject.config.exe.release"/>
+    <definition extID="mdk"/>
+  </externalDefinitions>
+  <example id="evkmimxrt1160_maestro_playback" name="maestro_playback" device_core="cm7_MIMXRT1166xxxxx" dependency="platform.drivers.lpi2c.MIMXRT1166 platform.drivers.sai.MIMXRT1166 driver.wm8960.MIMXRT1166 driver.codec.MIMXRT1166 platform.drivers.common.MIMXRT1166 component.wm8960_adapter.MIMXRT1166 component.codec_i2c.MIMXRT1166 component.lpi2c_adapter.MIMXRT1166 platform.drivers.sai_edma.MIMXRT1166 platform.drivers.dmamux.MIMXRT1166 platform.drivers.edma.MIMXRT1166 middleware.sdmmc.sd.MIMXRT1166 middleware.sdmmc.common.MIMXRT1166 middleware.sdmmc.host.usdhc.MIMXRT1166 middleware.sdmmc.host.usdhc.freertos.MIMXRT1166 platform.drivers.cache_armv7_m7.MIMXRT1166 platform.drivers.flexram.MIMXRT1166 component.igpio_adapter.MIMXRT1166 middleware.freertos-kernel.heap_4.MIMXRT1166 middleware.maestro_framework.MIMXRT1166 utility.shell.MIMXRT1166 middleware.fatfs.MIMXRT1166 middleware.fatfs.sd.MIMXRT1166 middleware.eap.MIMXRT1166 middleware.eap.arm.lib.MIMXRT1166 middleware.maestro_framework.opus.MIMXRT1166 middleware.maestro_framework.opusfile.MIMXRT1166 middleware.maestro_framework.ogg.MIMXRT1166 platform.drivers.clock.MIMXRT1166 platform.devices.MIMXRT1166_CMSIS.MIMXRT1166 utility.debug_console.MIMXRT1166 component.lpuart_adapter.MIMXRT1166 component.serial_manager.MIMXRT1166 component.lists.MIMXRT1166 component.serial_manager_uart.MIMXRT1166 platform.drivers.lpuart.MIMXRT1166 platform.devices.MIMXRT1166_startup.MIMXRT1166 platform.drivers.iomuxc.MIMXRT1166 platform.utilities.assert.MIMXRT1166 platform.drivers.igpio.MIMXRT1166 platform.drivers.xip_device.MIMXRT1166 platform.drivers.xip_board.evkmimxrt1160.MIMXRT1166 platform.drivers.pmu_1.MIMXRT1166 platform.drivers.dcdc_soc.MIMXRT1166 platform.drivers.anatop_ai.MIMXRT1166 CMSIS_Include_core_cm.MIMXRT1166 platform.drivers.memory.MIMXRT1166 middleware.sdmmc.osa.freertos.MIMXRT1166 component.osa_free_rtos.MIMXRT1166 middleware.freertos-kernel.MIMXRT1166 middleware.freertos-kernel.extension.MIMXRT1166 platform.drivers.usdhc.MIMXRT1166 platform.drivers.soc_flexram_allocate.MIMXRT1166 middleware.maestro_framework.doc.MIMXRT1166 middleware.maestro_framework.streamer.MIMXRT1166 middleware.eap.exapp.MIMXRT1166 middleware.eap16.header.MIMXRT1166 platform.utilities.misc_utilities.MIMXRT1166 platform.devices.MIMXRT1166_system.MIMXRT1166" category="audio_examples">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <memory>
+      <memoryBlock id="BOARD_FLASH_evkmimxrt1160" name="BOARD_FLASH" addr="30000000" size="01000000" type="ExtFlash" access="RO"/>
+      <memoryBlock id="SRAM_OC2_evkmimxrt1160" name="SRAM_OC2" addr="20220000" size="00020000" type="RAM" access="RW"/>
+      <memoryBlock id="SRAM_DTC_cm7_evkmimxrt1160" name="SRAM_DTC_cm7" addr="20000000" size="00008000" type="RAM" access="RW"/>
+      <memoryBlock id="SRAM_OC1_evkmimxrt1160" name="SRAM_OC1" addr="20340000" size="000B8000" type="RAM" access="RW"/>
+      <memoryBlock id="NCACHE_REGION_evkmimxrt1160" name="NCACHE_REGION" addr="84000000" size="00000000" type="RAM" access="RW"/>
+      <memoryBlock id="BOARD_SDRAM_evkmimxrt1160" name="BOARD_SDRAM" addr="80000000" size="04000000" type="RAM" access="RW"/>
+    </memory>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>PLATFORM_ID=LVM_IMXRT1170</value>
+          <value>AAC_DEC=1</value>
+          <value>ALGORITHM_CS=1</value>
+          <value>ALGORITHM_XO=1</value>
+          <value>ALGORITHM_VC=1</value>
+          <value>ALGORITHM_DBE=1</value>
+          <value>ALGORITHM_EQNB=1</value>
+          <value>ALGORITHM_LM=1</value>
+          <value>ALGORITHM_TE=1</value>
+          <value>ALGORITHM_TG=1</value>
+          <value>ALGORITHM_AVL=1</value>
+          <value>ALGORITHM_PSA=1</value>
+          <value>ALGORITHM_PR_EQNB=1</value>
+          <value>ALGORITHM_LIMP=1</value>
+          <value>ALGORITHM_LIMR=1</value>
+          <value>CPU_MIMXRT1166DVM6A_cm7</value>
+          <value>SDK_DEBUGCONSOLE=1</value>
+          <value>XIP_EXTERNAL_FLASH=1</value>
+          <value>XIP_BOOT_HEADER_ENABLE=1</value>
+          <value>STREAMER_ENABLE_AUDIO_PROC</value>
+          <value>STREAMER_ENABLE_VIT_SINK</value>
+          <value>EAP_PROC</value>
+          <value>PRINTF_ADVANCED_ENABLE=1</value>
+          <value>PRINTF_FLOAT_ENABLE=1</value>
+          <value>OGG_OPUS_DEC=1</value>
+          <value>WAV_DEC=1</value>
+          <value>DEBUG_CONSOLE_TRANSFER_NON_BLOCKING</value>
+          <value>OSA_USED</value>
+          <value>SHELL_TASK_STACK_SIZE=4000</value>
+          <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
+          <value>BOARD_USE_CODEC=1</value>
+          <value>CODEC_WM8960_ENABLE</value>
+          <value>SD_ENABLED</value>
+          <value>SAI_XFER_QUEUE_SIZE=2</value>
+          <value>DEBUG_CONSOLE_RX_ENABLE=0</value>
+          <value>HAVE_CONFIG_H</value>
+          <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>SDK_OS_FREE_RTOS</value>
+          <value>CASCFG_PLATFORM_FREERTOS</value>
+          <value>FSL_OS_SELECTED=SDK_OS_FREERTOS</value>
+          <value>FSL_OSA_TASK_ENABLE=1</value>
+          <value>STREAMER_ENABLE_FILESRC</value>
+          <value>STREAMER_ENABLE_FILE_SINK</value>
+          <value>STREAMER_ENABLE_MEM_SRC</value>
+          <value>STREAMER_ENABLE_MEM_SINK</value>
+          <value>MCUXPRESSO_SDK</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5dp.hard</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5dp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv5dp.hard</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.sections" type="stringList">
+          <value>isd=*heap_4.o(.bss .bss*);region=SRAM_OC1;type=.bss</value>
+          <value>isd=*(NonCacheable.init);region=SRAM_DTC_cm7;type=.data</value>
+          <value>isd=*(NonCacheable);region=SRAM_DTC_cm7;type=.bss</value>
+          <value>isd=*(.data .data*);region=SRAM_OC2;type=.data</value>
+          <value>isd=*(.bss .bss*);region=SRAM_OC2;type=.bss</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.heapAndStack" type="string">
+          <value>&amp;Heap:SRAM_OC2;Start;0x10000&amp;Stack:SRAM_OC2;End;0x1000</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <debug_configurations>
+      <debug_configuration id_refs="com.crt.advproject.config.exe.debug com.crt.advproject.config.exe.release">
+        <drivers>
+          <driver id_refs="BOARD_FLASH_evkmimxrt1160">
+            <driverBinary path="../../../../../devices/MIMXRT1166/mcuxpresso" project_relative_path="binary" type="binary">
+              <files mask="MIMXRT1160_SFDP_QSPI.cfx"/>
+            </driverBinary>
+          </driver>
+        </drivers>
+      </debug_configuration>
+    </debug_configurations>
+    <include_paths>
+      <include_path path="." project_relative_path="source" type="c_include"/>
+      <include_path path=".." project_relative_path="source" type="c_include"/>
+      <include_path path=".." project_relative_path="board" type="c_include"/>
+      <include_path path="../../common/att" project_relative_path="att" type="c_include"/>
+      <include_path path="../../.." project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimxrt1160/audio_examples/maestro_playback/cm7" type="c_include"/>
+      <include_path path="../../../../../core/boards/evkmimxrt1160" project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="asm_include"/>
+    </include_paths>
+    <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
+      <files mask="maestro_playback.ewd"/>
+      <files mask="maestro_playback.ewp"/>
+      <files mask="maestro_playback.eww"/>
+    </source>
+    <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_flexspi_nor_debug.bat"/>
+      <files mask="build_flexspi_nor_debug.sh"/>
+      <files mask="build_flexspi_nor_release.bat"/>
+      <files mask="build_flexspi_nor_release.sh"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="streamer_pcm.c"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="streamer_pcm_app.h"/>
+    </source>
+    <source path="armgcc" project_relative_path="evkmimxrt1160/audio_examples/common/linker" type="linker" toolchain="armgcc">
+      <files mask="MIMXRT1166xxxxx_cm7_flexspi_nor.ld"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="app_data.h"/>
+      <files mask="app_streamer.h"/>
+      <files mask="cmd.h"/>
+      <files mask="main.h"/>
+      <files mask="FreeRTOSConfig.h"/>
+      <files mask="ffconf.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="app_streamer.c"/>
+      <files mask="cmd.c"/>
+      <files mask="main.c"/>
+    </source>
+    <source path="." project_relative_path="source" type="src" toolchain="armgcc mcuxpresso">
+      <files mask="eap_proc.c"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include" toolchain="armgcc mcuxpresso">
+      <files mask="eap_proc.h"/>
+    </source>
+    <source path=".." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path=".." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="../../common/att" project_relative_path="att" type="src">
+      <files mask="eap_att.c"/>
+    </source>
+    <source path="../../common/att" project_relative_path="att" type="c_include">
+      <files mask="eap_att.h"/>
+    </source>
+    <source path="../../common/att" project_relative_path="att" type="doc">
+      <files mask="LICENSE.txt" hidden="true"/>
+    </source>
+    <source path="../../common/att" project_relative_path="att" type="other">
+      <files mask="README.md" hidden="true"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="sdmmc_config.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="sdmmc_config.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="app_definitions.h"/>
+    </source>
+    <source path="../../../../../core/boards/evkmimxrt1160" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+      <files mask="dcd.c"/>
+    </source>
+    <source path="../../../../../core/boards/evkmimxrt1160" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+      <files mask="dcd.h"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
+      <files mask="readme.txt"/>
+    </source>
+    <source path="." project_relative_path="evkmimxrt1160" type="other" toolchain="iar mdk armgcc">
+      <files mask="evkmimxrt1160_connect_cm4_cm7side.jlinkscript"/>
+    </source>
+  </example>
+</ksdk:examples>

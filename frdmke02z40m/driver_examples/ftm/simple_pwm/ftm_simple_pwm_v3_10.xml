@@ -65,7 +65,7 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/frdmke02z40m/driver_examples/ftm/simple_pwm" project_relative_path="frdmke02z40m/driver_examples/ftm/simple_pwm" type="c_include"/>
+      <include_path path="." project_relative_path="frdmke02z40m/driver_examples/ftm/simple_pwm" type="c_include"/>
       <include_path path="../../../../../core/boards/frdmke02z40m" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

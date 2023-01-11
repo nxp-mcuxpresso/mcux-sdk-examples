@@ -167,8 +167,9 @@ int main(void)
     masterConfig.whichPcs           = MASTER_LPSPI_PCS_FOR_INIT;
     masterConfig.pcsActiveHighOrLow = kLPSPI_PcsActiveLow;
 
-    masterConfig.pinCfg        = kLPSPI_SdiInSdoOut;
-    masterConfig.dataOutConfig = kLpspiDataOutRetained;
+    masterConfig.pinCfg           = kLPSPI_SdiInSdoOut;
+    masterConfig.dataOutConfig    = kLpspiDataOutRetained;
+    masterConfig.enableInputDelay = false;
 
     LPSPI_MasterInit(MASTER_LPSPI_BASEADDR, &masterConfig, MASTER_LPSPI_CLOCK_FREQUENCY);
 

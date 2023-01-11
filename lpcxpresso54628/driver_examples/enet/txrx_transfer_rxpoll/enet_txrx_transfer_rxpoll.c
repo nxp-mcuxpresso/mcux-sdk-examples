@@ -5,28 +5,24 @@
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
-#include <stdlib.h>
-#include <string.h>
 #include "fsl_debug_console.h"
+#include "fsl_silicon_id.h"
 #include "fsl_enet.h"
 #include "fsl_phy.h"
 #include "fsl_silicon_id.h"
 
 #include "pin_mux.h"
 #include "board.h"
-#include <stdbool.h>
-#include "fsl_enet_mdio.h"
 #include "fsl_phylan8720a.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define EXAMPLE_ENET_BASE   ENET
-#define EXAMPLE_PHY_ADDRESS (0x00U)
-
-/* MDIO operations. */
-#define EXAMPLE_MDIO_OPS lpc_enet_ops
-/* PHY operations. */
-#define EXAMPLE_PHY_OPS phylan8720a_ops
+extern phy_lan8720a_resource_t g_phy_resource;
+#define EXAMPLE_ENET_BASE    ENET
+#define EXAMPLE_PHY_ADDRESS  0x00U
+#define EXAMPLE_PHY_OPS      &phylan8720a_ops
+#define EXAMPLE_PHY_RESOURCE &g_phy_resource
+#define EXAMPLE_CLOCK_FREQ   CLOCK_GetFreq(kCLOCK_CoreSysClk)
 #define ENET_RXBD_NUM               (4)
 #define ENET_TXBD_NUM               (4)
 #define ENET_RXBUFF_SIZE            (ENET_FRAME_MAX_FRAMELEN)
@@ -80,6 +76,7 @@ static void ENET_BuildBroadCastFrame(void);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+phy_lan8720a_resource_t g_phy_resource;
 #if defined(__ICCARM__)
 #pragma data_alignment = ENET_BUFF_ALIGNMENT
 #endif
@@ -99,13 +96,28 @@ static uint8_t g_frame[ENET_EXAMPLE_PACKAGETYPE][ENET_EXAMPLE_FRAME_SIZE];
 static uint32_t g_txIdx   = 0;
 static uint32_t g_testIdx = 0;
 
-/*! @brief Enet PHY and MDIO interface handler. */
-static mdio_handle_t mdioHandle = {.ops = &EXAMPLE_MDIO_OPS};
-static phy_handle_t phyHandle   = {.phyAddr = EXAMPLE_PHY_ADDRESS, .mdioHandle = &mdioHandle, .ops = &EXAMPLE_PHY_OPS};
+/* PHY handle. */
+static phy_handle_t phyHandle;
 
 /*******************************************************************************
  * Code
  ******************************************************************************/
+static void MDIO_Init(void)
+{
+    (void)CLOCK_EnableClock(s_enetClock[ENET_GetInstance(EXAMPLE_ENET_BASE)]);
+    ENET_SetSMI(EXAMPLE_ENET_BASE);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_MDIOWrite(EXAMPLE_ENET_BASE, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_MDIORead(EXAMPLE_ENET_BASE, phyAddr, regAddr, pData);
+}
+
 void ENET_IntCallback(ENET_Type *base,
                       enet_handle_t *handle,
                       enet_event_t event,
@@ -130,19 +142,18 @@ void ENET_IntCallback(ENET_Type *base,
 
 int main(void)
 {
-    enet_config_t config;
-    uint32_t rxbuffer[ENET_RXBD_NUM];
-    uint8_t index;
-    void *buff;
-    uint32_t refClock = 50000000; /* 50MHZ for rmii reference clock. */
-    phy_speed_t speed;
-    phy_duplex_t duplex;
     uint32_t length = 0;
     uint32_t count  = 0;
-    uint8_t *buffer;
+    bool link       = false;
+    bool autonego   = false;
+    uint32_t rxbuffer[ENET_RXBD_NUM];
+    phy_config_t phyConfig;
+    enet_config_t config;
+    phy_speed_t speed;
+    phy_duplex_t duplex;
     status_t status;
-    bool link     = false;
-    bool autonego = false;
+    uint8_t index;
+    void *buff;
 
     for (index = 0; index < ENET_RXBD_NUM; index++)
     {
@@ -180,12 +191,16 @@ int main(void)
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
+    MDIO_Init();
+    g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
+
     PRINTF("\r\nENET example start.\r\n");
 
-    phy_config_t phyConfig;
-    phyConfig.phyAddr        = EXAMPLE_PHY_ADDRESS;
-    phyConfig.autoNeg        = true;
-    mdioHandle.resource.base = EXAMPLE_ENET_BASE;
+    phyConfig.phyAddr  = EXAMPLE_PHY_ADDRESS;
+    phyConfig.ops      = EXAMPLE_PHY_OPS;
+    phyConfig.resource = EXAMPLE_PHY_RESOURCE;
+    phyConfig.autoNeg  = true;
 
     /* Initialize PHY and wait auto-negotiation over. */
     PRINTF("Wait for PHY init...\r\n");
@@ -228,7 +243,7 @@ int main(void)
     config.miiDuplex = (enet_mii_duplex_t)duplex;
 
     /* Initialize ENET. */
-    ENET_Init(EXAMPLE_ENET_BASE, &config, &g_macAddr[0], refClock);
+    ENET_Init(EXAMPLE_ENET_BASE, &config, &g_macAddr[0], 50000000);
 
     /* Initialize Descriptor. */
     ENET_DescriptorInit(EXAMPLE_ENET_BASE, &config, &buffConfig[0]);
@@ -285,20 +300,20 @@ int main(void)
             if (link)
             {
                 /* Create the frame to be send. */
-                buffer = (uint8_t *)malloc(ENET_EXAMPLE_FRAME_SIZE);
-                if (buffer)
+                buff = (uint8_t *)malloc(ENET_EXAMPLE_FRAME_SIZE);
+                if (buff)
                 {
-                    memcpy(buffer, &g_frame[g_txIdx], ENET_EXAMPLE_FRAME_SIZE);
+                    memcpy(buff, &g_frame[g_txIdx], ENET_EXAMPLE_FRAME_SIZE);
 
                     enet_buffer_struct_t txBuff;
                     enet_tx_frame_struct_t txFrame = {0};
 
-                    txBuff.buffer              = buffer;
+                    txBuff.buffer              = buff;
                     txBuff.length              = ENET_EXAMPLE_FRAME_SIZE;
                     txFrame.txBuffArray        = &txBuff;
                     txFrame.txBuffNum          = 1;
                     txFrame.txConfig.intEnable = true;
-                    txFrame.context            = buffer;
+                    txFrame.context            = buff;
 
                     tx_frame_over = false;
 

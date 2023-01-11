@@ -38,8 +38,7 @@
     <definition extID="platform.drivers.lpuart_edma.MIMXRT1176"/>
     <definition extID="platform.drivers.pmu_1.MIMXRT1176"/>
     <definition extID="platform.drivers.dcdc_soc.MIMXRT1176"/>
-    <definition extID="component.flexspi_nor_flash_adapter.MIMXRT1176"/>
-    <definition extID="component.flexspi_nor_flash_adapter_rt1060evk.MIMXRT1176"/>
+    <definition extID="component.flexspi_nor_flash_adapter_rt1170.MIMXRT1176"/>
     <definition extID="middleware.littlefs.MIMXRT1176"/>
     <definition extID="middleware.mbedtls.MIMXRT1176"/>
     <definition extID="middleware.mbedtls.port.ksdk.MIMXRT1176"/>
@@ -58,6 +57,7 @@
     <definition extID="middleware.usb.host_msd.MIMXRT1176"/>
     <definition extID="component.wifi_bt_module.tx_pwr_limits.MIMXRT1176"/>
     <definition extID="middleware.wifi.sdio-2.MIMXRT1176"/>
+    <definition extID="middleware.wifi.common_files.MIMXRT1176"/>
     <definition extID="component.log.backend.debugconsole.MIMXRT1176"/>
     <definition extID="component.log.MIMXRT1176"/>
     <definition extID="platform.drivers.edma.MIMXRT1176"/>
@@ -71,7 +71,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1170_spp" name="spp" device_core="cm7_MIMXRT1176xxxxx" dependency="platform.drivers.clock.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 platform.utilities.assert.MIMXRT1176 utility.debug_console.MIMXRT1176 platform.drivers.xip_device.MIMXRT1176 platform.drivers.xip_board.evkmimxrt1170.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 component.serial_manager.MIMXRT1176 component.lists.MIMXRT1176 component.serial_manager_uart.MIMXRT1176 middleware.sdmmc.sdio.MIMXRT1176 middleware.sdmmc.common.MIMXRT1176 middleware.sdmmc.host.usdhc.MIMXRT1176 middleware.sdmmc.host.usdhc.freertos.MIMXRT1176 platform.drivers.cache_armv7_m7.MIMXRT1176 platform.drivers.flexspi.MIMXRT1176 middleware.usb.host.stack.MIMXRT1176 component.osa.MIMXRT1176 middleware.usb.host_controller_ehci.MIMXRT1176 middleware.usb.phy.MIMXRT1176 middleware.fatfs.MIMXRT1176 middleware.fatfs.usb.MIMXRT1176 component.igpio_adapter.MIMXRT1176 middleware.freertos-kernel.heap_4.MIMXRT1176 utility.shell.MIMXRT1176 component.common_task.MIMXRT1176 middleware.freertos-kernel.MIMXRT1176 middleware.wifi.fwdnld.MIMXRT1176 platform.drivers.lpuart_edma.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 component.flexspi_nor_flash_adapter.MIMXRT1176 component.flexspi_nor_flash_adapter_rt1060evk.MIMXRT1176 middleware.littlefs.MIMXRT1176 middleware.mbedtls.MIMXRT1176 middleware.mbedtls.port.ksdk.MIMXRT1176 middleware.mbedtls.rt2.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176 middleware.sdmmc.osa.freertos.MIMXRT1176 component.osa_free_rtos.MIMXRT1176 middleware.freertos-kernel.extension.MIMXRT1176 platform.drivers.usdhc.MIMXRT1176 platform.drivers.memory.MIMXRT1176 middleware.usb.common_header.MIMXRT1176 middleware.usb.host.common_header.MIMXRT1176 middleware.usb.host_msd.MIMXRT1176 component.wifi_bt_module.tx_pwr_limits.MIMXRT1176 middleware.wifi.sdio-2.MIMXRT1176 component.log.backend.debugconsole.MIMXRT1176 component.log.MIMXRT1176 platform.drivers.edma.MIMXRT1176 platform.drivers.dmamux.MIMXRT1176 platform.drivers.caam.MIMXRT1176" category="edgefast_bluetooth_examples">
+  <example id="evkmimxrt1170_spp" name="spp" device_core="cm7_MIMXRT1176xxxxx" dependency="platform.drivers.clock.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 platform.utilities.assert.MIMXRT1176 utility.debug_console.MIMXRT1176 platform.drivers.xip_device.MIMXRT1176 platform.drivers.xip_board.evkmimxrt1170.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 component.serial_manager.MIMXRT1176 component.lists.MIMXRT1176 component.serial_manager_uart.MIMXRT1176 middleware.sdmmc.sdio.MIMXRT1176 middleware.sdmmc.common.MIMXRT1176 middleware.sdmmc.host.usdhc.MIMXRT1176 middleware.sdmmc.host.usdhc.freertos.MIMXRT1176 platform.drivers.cache_armv7_m7.MIMXRT1176 platform.drivers.flexspi.MIMXRT1176 middleware.usb.host.stack.MIMXRT1176 component.osa.MIMXRT1176 middleware.usb.host_controller_ehci.MIMXRT1176 middleware.usb.phy.MIMXRT1176 middleware.fatfs.MIMXRT1176 middleware.fatfs.usb.MIMXRT1176 component.igpio_adapter.MIMXRT1176 middleware.freertos-kernel.heap_4.MIMXRT1176 utility.shell.MIMXRT1176 component.common_task.MIMXRT1176 middleware.freertos-kernel.MIMXRT1176 middleware.wifi.fwdnld.MIMXRT1176 platform.drivers.lpuart_edma.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 component.flexspi_nor_flash_adapter_rt1170.MIMXRT1176 middleware.littlefs.MIMXRT1176 middleware.mbedtls.MIMXRT1176 middleware.mbedtls.port.ksdk.MIMXRT1176 middleware.mbedtls.rt2.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176 middleware.sdmmc.osa.freertos.MIMXRT1176 component.osa_free_rtos.MIMXRT1176 middleware.freertos-kernel.extension.MIMXRT1176 platform.drivers.usdhc.MIMXRT1176 platform.drivers.memory.MIMXRT1176 middleware.usb.common_header.MIMXRT1176 middleware.usb.host.common_header.MIMXRT1176 middleware.usb.host_msd.MIMXRT1176 component.wifi_bt_module.tx_pwr_limits.MIMXRT1176 middleware.wifi.sdio-2.MIMXRT1176 middleware.wifi.common_files.MIMXRT1176 component.log.backend.debugconsole.MIMXRT1176 component.log.MIMXRT1176 platform.drivers.edma.MIMXRT1176 platform.drivers.dmamux.MIMXRT1176 platform.drivers.caam.MIMXRT1176" category="edgefast_bluetooth_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -114,7 +114,6 @@
           <value>FSL_OSA_TASK_ENABLE=1</value>
           <value>SDIO_ENABLED=1</value>
           <value>DEBUG_CONSOLE_TRANSFER_NON_BLOCKING</value>
-          <value>MBEDTLS_CONFIG_FILE='"mbedtls_config_client.h"'</value>
           <value>SDK_DEBUGCONSOLE_UART=1</value>
           <value>CONFIG_BT_BREDR=1</value>
           <value>CONFIG_BT_PERIPHERAL=1</value>
@@ -131,6 +130,7 @@
           <value>HAL_AUDIO_DMA_INIT_ENABLE=0</value>
           <value>LFS_NO_INTRINSICS=1</value>
           <value>LFS_NO_ERROR=1</value>
+          <value>MBEDTLS_CONFIG_FILE='"mbedtls_config_client.h"'</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
           <value>LOG_ENABLE_ASYNC_MODE=1</value>
           <value>LOG_MAX_ARGUMENT_COUNT=10</value>
@@ -246,7 +246,6 @@
       <include_path path="../../../../../middleware/wireless/ethermind/bluetooth/private/utils/storage" project_relative_path="bt_ble/bluetooth/private/utils/storage" type="c_include"/>
       <include_path path="../../../../../middleware/wireless/ethermind/bluetooth/private/utils/xml_parser" project_relative_path="bt_ble/bluetooth/private/utils/xml_parser" type="c_include"/>
       <include_path path="../../../../../middleware/wireless/ethermind/port/pal/mcux/bluetooth" project_relative_path="bt_ble/port/pal/mcux/bluetooth" type="c_include"/>
-      <include_path path="../../../../../middleware/wireless/ethermind/port/pal/mcux/bluetooth/controller" project_relative_path="bt_ble/port/pal/mcux/bluetooth/controller" type="c_include"/>
       <include_path path="../../../../../middleware/wireless/ethermind/port/pal/mcux/ethal" project_relative_path="bt_ble/port/pal/mcux/ethal" type="c_include"/>
       <include_path path="../../../../../middleware/wireless/ethermind/port/pal/mcux/toolspec/mcuxpresso" project_relative_path="bt_ble/port/pal/mcux/toolspec/mcuxpresso" toolchain="mcuxpresso" type="c_include"/>
       <include_path path="../../../../../middleware/wireless/ethermind/port/pal/mcux/sbc" project_relative_path="bt_ble/port/pal/mcux/sbc" type="c_include"/>
@@ -255,12 +254,11 @@
       <include_path path="../../../../../middleware/wireless/ethermind/bluetooth/private/utils/sbc" project_relative_path="bt_ble/bluetooth/private/utils/sbc" type="c_include"/>
       <include_path path="../../../../../middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/config" project_relative_path="bt_ble/bluetooth/private/lib/config" type="c_include"/>
       <include_path path="../../../../../middleware/wireless/ethermind/bluetooth/export/extension" project_relative_path="bt_ble/bluetooth/export/extension" type="c_include"/>
-      <include_path path="../../../../../middleware/edgefast_bluetooth/source" project_relative_path="edgefast/bluetooth/source" type="c_include"/>
+      <include_path path="../../../../../middleware/edgefast_bluetooth/source/impl/ethermind/host" project_relative_path="edgefast/bluetooth/source" type="c_include"/>
       <include_path path="../../../../../middleware/edgefast_bluetooth/include" project_relative_path="edgefast/bluetooth/include" type="c_include"/>
-      <include_path path="../../../../../middleware/edgefast_bluetooth/bluetooth" project_relative_path="edgefast/bluetooth/include/bluetooth" type="c_include"/>
+      <include_path path="../../../../../middleware/edgefast_bluetooth/include/bluetooth" project_relative_path="edgefast/bluetooth/include/bluetooth" type="c_include"/>
       <include_path path="../../../../../middleware/edgefast_bluetooth/source/porting" project_relative_path="edgefast/bluetooth/porting" type="c_include"/>
-      <include_path path="../../../../../middleware/edgefast_bluetooth/source/services" project_relative_path="edgefast/bluetooth/source/services" type="c_include"/>
-      <include_path path="../../../../../middleware/edgefast_bluetooth/include" project_relative_path="edgefast/bluetooth/include/bluetooth/services" type="c_include"/>
+      <include_path path="../../../../../middleware/wireless/ethermind/port/pal/mcux/bluetooth/controller" project_relative_path="bt_ble/port/pal/mcux/bluetooth/controller" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
       <include_path path="../../../../../middleware/edgefast_bluetooth/source/impl/ethermind/controller/configs" project_relative_path="bt_ble/port/pal/mcux/edgefast_support/configs" type="asm_include"/>
       <include_path path="." project_relative_path="boards/evkmimxrt1170/edgefast_bluetooth_examples/spp/cm7" type="asm_include"/>
@@ -353,45 +351,6 @@
     </source>
     <source path="." project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
-    </source>
-    <source path="../../../../../middleware/wireless/ethermind/port/pal/mcux/bluetooth" project_relative_path="bt_ble/port/pal/mcux/bluetooth" type="src">
-      <files mask="hci_uart.c"/>
-      <files mask="BT_status_pl.c"/>
-      <files mask="BT_storage_pl.c"/>
-      <files mask="btsnoop_pl.c"/>
-      <files mask="sco_audio_pl.c"/>
-      <files mask="ctn_pl.c"/>
-      <files mask="ftp_pl.c"/>
-      <files mask="ht_read_task_pl.c"/>
-      <files mask="map_pl.c"/>
-      <files mask="obex_pl.c"/>
-      <files mask="pbap_pl.c"/>
-      <files mask="write_task_pl.c"/>
-      <files mask="littlefs_pl.c"/>
-      <files mask="controller.c"/>
-    </source>
-    <source path="../../../../../middleware/wireless/ethermind/port/pal/mcux/bluetooth" project_relative_path="bt_ble/port/pal/mcux/bluetooth" type="c_include">
-      <files mask="hci_uart.h"/>
-      <files mask="BT_assert.h"/>
-      <files mask="BT_config.h"/>
-      <files mask="BT_debug.h"/>
-      <files mask="BT_debug_api.h"/>
-      <files mask="BT_fops.h"/>
-      <files mask="BT_os.h"/>
-      <files mask="BT_storage_pl.h"/>
-      <files mask="BT_timer.h"/>
-      <files mask="btsnoop_pl.h"/>
-      <files mask="sco_audio_pl.h"/>
-      <files mask="ctn_pl.h"/>
-      <files mask="ftp_pl.h"/>
-      <files mask="hci_uart_internal.h"/>
-      <files mask="map_pl.h"/>
-      <files mask="obex_pl.h"/>
-      <files mask="pbap_pl.h"/>
-      <files mask="write_task_extern_pl.h"/>
-      <files mask="write_task_pl.h"/>
-      <files mask="littlefs_pl.h"/>
-      <files mask="controller.h"/>
     </source>
     <source path="../../../../../middleware/edgefast_bluetooth/source/impl/ethermind/platform" project_relative_path="bt_ble/port/pal/mcux/edgefast_support" type="src">
       <files mask="bt_ble_platform.c"/>
@@ -564,11 +523,42 @@
       <files mask="EM_serial.c"/>
       <files mask="EM_timer.c"/>
     </source>
-    <source path="../../../../../middleware/wireless/ethermind/port/pal/mcux/bluetooth/controller" project_relative_path="bt_ble/port/pal/mcux/bluetooth" type="src">
-      <files mask="controller_wifi_nxp.c"/>
+    <source path="../../../../../middleware/wireless/ethermind/port/pal/mcux/bluetooth" project_relative_path="bt_ble/port/pal/mcux/bluetooth" type="c_include">
+      <files mask="BT_assert.h"/>
+      <files mask="BT_config.h"/>
+      <files mask="BT_debug.h"/>
+      <files mask="BT_debug_api.h"/>
+      <files mask="BT_fops.h"/>
+      <files mask="BT_os.h"/>
+      <files mask="BT_storage_pl.h"/>
+      <files mask="BT_timer.h"/>
+      <files mask="btsnoop_pl.h"/>
+      <files mask="sco_audio_pl.h"/>
+      <files mask="ctn_pl.h"/>
+      <files mask="ftp_pl.h"/>
+      <files mask="hci_uart_internal.h"/>
+      <files mask="map_pl.h"/>
+      <files mask="obex_pl.h"/>
+      <files mask="pbap_pl.h"/>
+      <files mask="write_task_extern_pl.h"/>
+      <files mask="write_task_pl.h"/>
+      <files mask="littlefs_pl.h"/>
+      <files mask="hci_uart.h"/>
     </source>
-    <source path="../../../../../middleware/wireless/ethermind/port/pal/mcux/bluetooth/controller" project_relative_path="bt_ble/port/pal/mcux/bluetooth" type="c_include">
-      <files mask="controller_wifi_nxp.h"/>
+    <source path="../../../../../middleware/wireless/ethermind/port/pal/mcux/bluetooth" project_relative_path="bt_ble/port/pal/mcux/bluetooth" type="src">
+      <files mask="BT_status_pl.c"/>
+      <files mask="BT_storage_pl.c"/>
+      <files mask="btsnoop_pl.c"/>
+      <files mask="sco_audio_pl.c"/>
+      <files mask="ctn_pl.c"/>
+      <files mask="ftp_pl.c"/>
+      <files mask="ht_read_task_pl.c"/>
+      <files mask="map_pl.c"/>
+      <files mask="obex_pl.c"/>
+      <files mask="pbap_pl.c"/>
+      <files mask="write_task_pl.c"/>
+      <files mask="littlefs_pl.c"/>
+      <files mask="hci_uart.c"/>
     </source>
     <source path="../../../../../middleware/wireless/ethermind/port/pal/mcux/ethal" project_relative_path="bt_ble/port/pal/mcux/ethal" type="c_include">
       <files mask="ethal_assert.h"/>
@@ -636,10 +626,8 @@
       <files mask="bt_pal_avrcp.c"/>
       <files mask="bt_pal_avrcp_al_internal.c"/>
       <files mask="bt_pal_avrcp_al_api.c"/>
-      <files mask="bt_pal_att.c"/>
       <files mask="bt_pal_conn.c"/>
       <files mask="bt_pal_crypto.c"/>
-      <files mask="bt_pal_gatt.c"/>
       <files mask="bt_pal_hci_core.c"/>
       <files mask="bt_pal_adv.c"/>
       <files mask="bt_pal_br.c"/>
@@ -726,12 +714,20 @@
       <files mask="testing.h"/>
       <files mask="uuid.h"/>
     </source>
+    <source path="../../../../../middleware/edgefast_bluetooth/source/impl/ethermind/common" project_relative_path="edgefast/bluetooth/common" type="src">
+      <files mask="addr.c"/>
+    </source>
     <source path="../../../../../middleware/edgefast_bluetooth/include/sys" project_relative_path="edgefast/bluetooth/include/sys" type="c_include">
       <files mask="util.h"/>
+      <files mask="util_internal.h"/>
+      <files mask="util_loops.h"/>
+      <files mask="util_macro.h"/>
       <files mask="printk.h"/>
+      <files mask="check.h"/>
       <files mask="byteorder.h"/>
       <files mask="work_queue.h"/>
       <files mask="slist.h"/>
+      <files mask="dlist.h"/>
       <files mask="atomic.h"/>
     </source>
     <source path="../../../../../middleware/edgefast_bluetooth/include/zephyr" project_relative_path="edgefast/bluetooth/include/zephyr" type="c_include">
@@ -739,6 +735,7 @@
     </source>
     <source path="../../../../../middleware/edgefast_bluetooth/source/porting" project_relative_path="edgefast/bluetooth/porting" type="src">
       <files mask="porting.c"/>
+      <files mask="utf8.c"/>
       <files mask="work_queue.c"/>
       <files mask="buf.c"/>
       <files mask="slist.c"/>
@@ -762,14 +759,6 @@
     <source path="../../../../../middleware/edgefast_bluetooth/include/net" project_relative_path="edgefast/bluetooth/include/net" type="c_include">
       <files mask="buf.h"/>
     </source>
-    <source path="../../../../../middleware/edgefast_bluetooth/source/services" project_relative_path="edgefast/bluetooth/source/services" type="src">
-      <files mask="bas.c"/>
-      <files mask="hrs.c"/>
-    </source>
-    <source path="../../../../../middleware/edgefast_bluetooth/include/bluetooth/services" project_relative_path="edgefast/bluetooth/include/bluetooth/services" type="c_include">
-      <files mask="bas.h"/>
-      <files mask="hrs.h"/>
-    </source>
     <source path="../../../../../middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm7f/gcc" project_relative_path="ethermind/bluetooth/private/lib" method="copy" type="lib" toolchain="armgcc">
       <files mask="libethermind_bt_a2dp.a"/>
     </source>
@@ -793,6 +782,9 @@
     </source>
     <source path="../../../../../middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm7f/gcc" project_relative_path="ethermind/bluetooth/private/lib" method="copy" type="lib" toolchain="armgcc">
       <files mask="libethermind_bt_gatt.a"/>
+    </source>
+    <source path="../../../../../middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm7f/gcc" project_relative_path="ethermind/bluetooth/private/lib" method="copy" type="lib" toolchain="armgcc">
+      <files mask="libethermind_bt_ga.a"/>
     </source>
     <source path="../../../../../middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm7f/gcc" project_relative_path="ethermind/bluetooth/private/lib" method="copy" type="lib" toolchain="armgcc">
       <files mask="libethermind_bt_hfp.a"/>
@@ -833,6 +825,15 @@
     <source path="../../../../../middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm7f/gcc" project_relative_path="ethermind/bluetooth/private/lib" method="copy" type="lib" toolchain="armgcc">
       <files mask="libethermind_sbc_encoder.a"/>
     </source>
+    <source path="../../../../../middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm7f/gcc" project_relative_path="ethermind/bluetooth/private/lib" method="copy" type="lib" toolchain="armgcc">
+      <files mask="libethermind_lc3_common.a"/>
+    </source>
+    <source path="../../../../../middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm7f/gcc" project_relative_path="ethermind/bluetooth/private/lib" method="copy" type="lib" toolchain="armgcc">
+      <files mask="libethermind_lc3_decoder.a"/>
+    </source>
+    <source path="../../../../../middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm7f/gcc" project_relative_path="ethermind/bluetooth/private/lib" method="copy" type="lib" toolchain="armgcc">
+      <files mask="libethermind_lc3_encoder.a"/>
+    </source>
     <source path="../../../../../middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm7f/mcuxpresso" project_relative_path="ethermind/bluetooth/private/lib" method="copy" type="lib" toolchain="mcuxpresso">
       <files mask="libethermind_bt_a2dp.a"/>
     </source>
@@ -856,6 +857,9 @@
     </source>
     <source path="../../../../../middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm7f/mcuxpresso" project_relative_path="ethermind/bluetooth/private/lib" method="copy" type="lib" toolchain="mcuxpresso">
       <files mask="libethermind_bt_gatt.a"/>
+    </source>
+    <source path="../../../../../middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm7f/mcuxpresso" project_relative_path="ethermind/bluetooth/private/lib" method="copy" type="lib" toolchain="mcuxpresso">
+      <files mask="libethermind_bt_ga.a"/>
     </source>
     <source path="../../../../../middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm7f/mcuxpresso" project_relative_path="ethermind/bluetooth/private/lib" method="copy" type="lib" toolchain="mcuxpresso">
       <files mask="libethermind_bt_hfp.a"/>
@@ -896,7 +900,23 @@
     <source path="../../../../../middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm7f/mcuxpresso" project_relative_path="ethermind/bluetooth/private/lib" method="copy" type="lib" toolchain="mcuxpresso">
       <files mask="libethermind_sbc_encoder.a"/>
     </source>
-    <source path="../../../../../middleware/edgefast_bluetooth/output/templates/config" project_relative_path="edgefast/bluetooth/edgefast_bluetooth/output/templates/config" type="c_include" exclude="true">
+    <source path="../../../../../middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm7f/mcuxpresso" project_relative_path="ethermind/bluetooth/private/lib" method="copy" type="lib" toolchain="mcuxpresso">
+      <files mask="libethermind_lc3_common.a"/>
+    </source>
+    <source path="../../../../../middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm7f/mcuxpresso" project_relative_path="ethermind/bluetooth/private/lib" method="copy" type="lib" toolchain="mcuxpresso">
+      <files mask="libethermind_lc3_decoder.a"/>
+    </source>
+    <source path="../../../../../middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/btdm/cm7f/mcuxpresso" project_relative_path="ethermind/bluetooth/private/lib" method="copy" type="lib" toolchain="mcuxpresso">
+      <files mask="libethermind_lc3_encoder.a"/>
+    </source>
+    <source path="../../../../../middleware/wireless/ethermind/port/pal/mcux/bluetooth/controller" project_relative_path="bt_ble/port/pal/mcux/bluetooth/controller" type="c_include">
+      <files mask="controller.h"/>
+      <files mask="controller_hci_uart.h"/>
+    </source>
+    <source path="../../../../../middleware/wireless/ethermind/port/pal/mcux/bluetooth/controller" project_relative_path="bt_ble/port/pal/mcux/bluetooth/controller" type="src">
+      <files mask="controller_wifi_nxp.c"/>
+    </source>
+    <source path="../../../../../middleware/edgefast_bluetooth/output/templates/config" project_relative_path="edgefast/bluetooth/edgefast_bluetooth/include" type="c_include" exclude="true">
       <files mask="edgefast_bluetooth_config.h" hidden="true"/>
     </source>
   </example>

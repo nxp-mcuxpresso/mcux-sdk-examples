@@ -71,9 +71,10 @@
           <value>FSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1</value>
           <value>XA_PCM_GAIN=1</value>
           <value>XA_VIT_PRE_PROC=1</value>
+          <value>XA_VOICE_SEEKER=1</value>
           <value>XA_RENDERER=1</value>
           <value>XA_CAPTURER=1</value>
-          <value>BOARD_DMIC_NUM=1</value>
+          <value>BOARD_DMIC_NUM=2</value>
           <value>DEBUG_CONSOLE_RX_ENABLE=0</value>
           <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
           <value>BOARD_USE_CODEC=1</value>
@@ -128,7 +129,6 @@
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../middleware/vit/FusionF1/Lib" project_relative_path="middleware/vit" type="c_include"/>
       <include_path path="../../../../../middleware/vit/FusionF1/Lib/Inc" project_relative_path="middleware/vit" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimxrt595/dsp_examples/xaf_record/cm33" project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../core/boards/evkmimxrt595" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
       <include_path path="../../../../../examples/evkmimxrt595/dsp_examples/xaf_record/dsp/binary" project_relative_path="dsp_binary" type="asm_include"/>

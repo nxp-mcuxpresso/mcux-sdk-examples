@@ -600,8 +600,10 @@ void flexspi_nor_flash_init(FLEXSPI_Type *base)
 
 #if (defined(XIP_EXTERNAL_FLASH) && XIP_EXTERNAL_FLASH == 1) && (FLASH_ADESTO == 1)
     uint32_t tempLUT[4] = {0};
+    uint32_t tmpFastReadSDRLUTCommandSeq[4];
     /* Exit octal mode command. */
     tempLUT[0] = FLEXSPI_LUT_SEQ(kFLEXSPI_Command_SDR, kFLEXSPI_8PAD, 0xFF, kFLEXSPI_Command_STOP, kFLEXSPI_8PAD, 0x0);
+    memcpy(tmpFastReadSDRLUTCommandSeq, FastReadSDRLUTCommandSeq, sizeof(FastReadSDRLUTCommandSeq));
 #endif
 
     /* Copy LUT information from flash region into RAM region, because LUT update maybe corrupt read sequence(LUT[0])
@@ -619,7 +621,7 @@ void flexspi_nor_flash_init(FLEXSPI_Type *base)
     flexspi_transfer_t flashXfer;
 
     /* Update for standard mode. */
-    FLEXSPI_UpdateLUT(base, 4 * NOR_CMD_LUT_SEQ_IDX_READ, FastReadSDRLUTCommandSeq, 4);
+    FLEXSPI_UpdateLUT(base, 4 * NOR_CMD_LUT_SEQ_IDX_READ, tmpFastReadSDRLUTCommandSeq, 4);
     /* Update for exit octal mode. */
     FLEXSPI_UpdateLUT(base, 4 * NOR_CMD_LUT_SEQ_IDX_CONFIG, tempLUT, 4);
 

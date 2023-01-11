@@ -126,7 +126,7 @@
       <include_path path="." project_relative_path="nsc_functions" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimxrt595/rtos_examples/freertos_mpu/freertos_mpu_s" project_relative_path="evkmimxrt595/rtos_examples/freertos_mpu/freertos_mpu_s" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimxrt595/rtos_examples/freertos_mpu/freertos_mpu_s" type="c_include"/>
       <include_path path="../../../../../core/boards/evkmimxrt595" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
     </include_paths>

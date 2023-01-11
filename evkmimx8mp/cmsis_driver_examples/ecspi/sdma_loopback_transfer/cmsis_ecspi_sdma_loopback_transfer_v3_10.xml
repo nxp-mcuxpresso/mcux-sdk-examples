@@ -14,10 +14,10 @@
     <definition extID="component.lists.MIMX8ML8"/>
     <definition extID="platform.drivers.iuart.MIMX8ML8"/>
     <definition extID="device.MIMX8ML8_startup.MIMX8ML8"/>
-    <definition extID="platform.drivers.ecspi.MIMX8ML8"/>
-    <definition extID="CMSIS_Include_core_cm.MIMX8ML8"/>
     <definition extID="platform.drivers.sdma.MIMX8ML8"/>
     <definition extID="platform.drivers.memory.MIMX8ML8"/>
+    <definition extID="CMSIS_Include_core_cm.MIMX8ML8"/>
+    <definition extID="platform.drivers.ecspi.MIMX8ML8"/>
     <definition extID="CMSIS_Driver_Include.SPI.MIMX8ML8"/>
     <definition extID="CMSIS_Driver_Include.Common.MIMX8ML8"/>
     <definition extID="platform.utilities.misc_utilities.MIMX8ML8"/>
@@ -28,7 +28,7 @@
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="mdk"/>
   </externalDefinitions>
-  <example id="evkmimx8mp_cmsis_ecspi_sdma_loopback_transfer" name="cmsis_ecspi_sdma_loopback_transfer" dependency="platform.drivers.ecspi_sdma.MIMX8ML8 utility.debug_console_lite.MIMX8ML8 platform.utilities.assert_lite.MIMX8ML8 platform.drivers.clock.MIMX8ML8 platform.drivers.ecspi_cmsis.MIMX8ML8 platform.drivers.common.MIMX8ML8 platform.drivers.rdc.MIMX8ML8 platform.drivers.audiomix.MIMX8ML8 device.MIMX8ML8_CMSIS.MIMX8ML8 component.iuart_adapter.MIMX8ML8 component.lists.MIMX8ML8 platform.drivers.iuart.MIMX8ML8 device.MIMX8ML8_startup.MIMX8ML8 platform.drivers.ecspi.MIMX8ML8 CMSIS_Include_core_cm.MIMX8ML8 platform.drivers.sdma.MIMX8ML8 platform.drivers.memory.MIMX8ML8 CMSIS_Driver_Include.SPI.MIMX8ML8 CMSIS_Driver_Include.Common.MIMX8ML8 platform.utilities.misc_utilities.MIMX8ML8 device.MIMX8ML8_system.MIMX8ML8" category="cmsis_driver_examples/ecspi">
+  <example id="evkmimx8mp_cmsis_ecspi_sdma_loopback_transfer" name="cmsis_ecspi_sdma_loopback_transfer" dependency="platform.drivers.ecspi_sdma.MIMX8ML8 utility.debug_console_lite.MIMX8ML8 platform.utilities.assert_lite.MIMX8ML8 platform.drivers.clock.MIMX8ML8 platform.drivers.ecspi_cmsis.MIMX8ML8 platform.drivers.common.MIMX8ML8 platform.drivers.rdc.MIMX8ML8 platform.drivers.audiomix.MIMX8ML8 device.MIMX8ML8_CMSIS.MIMX8ML8 component.iuart_adapter.MIMX8ML8 component.lists.MIMX8ML8 platform.drivers.iuart.MIMX8ML8 device.MIMX8ML8_startup.MIMX8ML8 platform.drivers.sdma.MIMX8ML8 platform.drivers.memory.MIMX8ML8 CMSIS_Include_core_cm.MIMX8ML8 platform.drivers.ecspi.MIMX8ML8 CMSIS_Driver_Include.SPI.MIMX8ML8 CMSIS_Driver_Include.Common.MIMX8ML8 platform.utilities.misc_utilities.MIMX8ML8 device.MIMX8ML8_system.MIMX8ML8" category="cmsis_driver_examples/ecspi">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -70,7 +70,7 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/evkmimx8mp/cmsis_driver_examples/ecspi/sdma_loopback_transfer" project_relative_path="evkmimx8mp/cmsis_driver_examples/ecspi/sdma_loopback_transfer" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimx8mp/cmsis_driver_examples/ecspi/sdma_loopback_transfer" type="c_include"/>
       <include_path path="../../../../../core/boards/evkmimx8mp" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
   <externalDefinitions>
-    <definition extID="driver.mdio-lpc-enet.LPC54S018M"/>
     <definition extID="driver.phy-device-lan8720a.LPC54S018M"/>
+    <definition extID="component.silicon_id.LPC54S018M"/>
+    <definition extID="platform.drivers.iap.LPC54S018M"/>
     <definition extID="middleware.lwip.contrib.tcpecho.LPC54S018M"/>
     <definition extID="middleware.lwip.enet_ethernetif.LPC54S018M"/>
     <definition extID="middleware.lwip.LPC54S018M"/>
@@ -26,9 +27,6 @@
     <definition extID="platform.drivers.lpc_gpio.LPC54S018M"/>
     <definition extID="platform.drivers.emc.LPC54S018M"/>
     <definition extID="platform.utilities.assert.LPC54S018M"/>
-    <definition extID="component.silicon_id.LPC54S018M"/>
-    <definition extID="platform.drivers.iap.LPC54S018M"/>
-    <definition extID="driver.mdio-common.LPC54S018M"/>
     <definition extID="platform.drivers.reset.LPC54S018M"/>
     <definition extID="CMSIS_Include_core_cm.LPC54S018M"/>
     <definition extID="middleware.freertos-kernel.LPC54S018M"/>
@@ -41,7 +39,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso54s018m_lwip_ipv4_ipv6_echo_freertos" name="lwip_ipv4_ipv6_echo_freertos" dependency="driver.mdio-lpc-enet.LPC54S018M driver.phy-device-lan8720a.LPC54S018M middleware.lwip.contrib.tcpecho.LPC54S018M middleware.lwip.enet_ethernetif.LPC54S018M middleware.lwip.LPC54S018M driver.phy-common.LPC54S018M platform.drivers.lpc_enet.LPC54S018M platform.drivers.lpc_iocon.LPC54S018M platform.drivers.clock.LPC54S018M middleware.freertos-kernel.heap_3.LPC54S018M utility.shell.LPC54S018M platform.drivers.common.LPC54S018M platform.drivers.power.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M utility.debug_console.LPC54S018M component.usart_adapter.LPC54S018M component.serial_manager.LPC54S018M component.lists.LPC54S018M component.serial_manager_uart.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.emc.LPC54S018M platform.utilities.assert.LPC54S018M component.silicon_id.LPC54S018M platform.drivers.iap.LPC54S018M driver.mdio-common.LPC54S018M platform.drivers.reset.LPC54S018M CMSIS_Include_core_cm.LPC54S018M middleware.freertos-kernel.LPC54S018M middleware.freertos-kernel.extension.LPC54S018M platform.utilities.misc_utilities.LPC54S018M device.LPC54S018M_system.LPC54S018M" category="lwip_examples">
+  <example id="lpcxpresso54s018m_lwip_ipv4_ipv6_echo_freertos" name="lwip_ipv4_ipv6_echo_freertos" dependency="driver.phy-device-lan8720a.LPC54S018M component.silicon_id.LPC54S018M platform.drivers.iap.LPC54S018M middleware.lwip.contrib.tcpecho.LPC54S018M middleware.lwip.enet_ethernetif.LPC54S018M middleware.lwip.LPC54S018M driver.phy-common.LPC54S018M platform.drivers.lpc_enet.LPC54S018M platform.drivers.lpc_iocon.LPC54S018M platform.drivers.clock.LPC54S018M middleware.freertos-kernel.heap_3.LPC54S018M utility.shell.LPC54S018M platform.drivers.common.LPC54S018M platform.drivers.power.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M utility.debug_console.LPC54S018M component.usart_adapter.LPC54S018M component.serial_manager.LPC54S018M component.lists.LPC54S018M component.serial_manager_uart.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.emc.LPC54S018M platform.utilities.assert.LPC54S018M platform.drivers.reset.LPC54S018M CMSIS_Include_core_cm.LPC54S018M middleware.freertos-kernel.LPC54S018M middleware.freertos-kernel.extension.LPC54S018M platform.utilities.misc_utilities.LPC54S018M device.LPC54S018M_system.LPC54S018M" category="lwip_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -49,6 +47,7 @@
       <toolchainSetting id_refs="com.nxp.mcuxpresso">
         <option id="com.crt.advproject.gcc.exe.debug.option.optimization.level" type="enum">
           <value>gnu.c.optimization.level.optimize</value>
+          <value>gnu.c.optimization.level.general</value>
         </option>
         <option id="com.crt.advproject.gcc.fpu" type="enum">
           <value>com.crt.advproject.gcc.fpu.fpv4.hard</value>
@@ -103,7 +102,6 @@
     <include_paths>
       <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/lpcxpresso54s018m/lwip_examples/lwip_ipv4_ipv6_echo/freertos" project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../core/boards/lpcxpresso54s018m" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
       <include_path path="../../../../../core/boards/lpcxpresso54s018m" project_relative_path="source" type="asm_include"/>

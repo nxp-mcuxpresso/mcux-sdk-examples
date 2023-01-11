@@ -44,6 +44,7 @@ Running the demo
 When the demo is running, the serial port will output:
 
 Start the ping example...
+MAC address: 00:11:22:33:44:56
 DHCP In Progress...
 IP address: 192.168.2.10
 Mask: 255.255.255.0

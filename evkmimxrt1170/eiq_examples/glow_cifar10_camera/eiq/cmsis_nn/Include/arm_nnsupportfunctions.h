@@ -40,8 +40,12 @@ extern    "C"
 
 #define LEFT_SHIFT(_shift)  (_shift > 0 ? _shift : 0)
 #define RIGHT_SHIFT(_shift) (_shift > 0 ? 0 : -_shift)
+#ifndef Q31_MIN
 #define Q31_MIN (0x80000000L)
+#endif
+#ifndef Q31_MAX
 #define Q31_MAX (0x7FFFFFFFL)
+#endif
 
 /**
  * @brief Union for SIMD access of Q31/Q15/Q7 types

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2020 NXP
+ * Copyright 2016-2020, 2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -18,6 +18,9 @@
  ******************************************************************************/
 #define DEMO_IAP_FLASH_SECTOR            (14)
 #define DEMO_INVERSED_FLASH_ERASED_VALUE (1)
+#ifndef DEMO_IAP_FLASH_ACCESS_TIME
+#define DEMO_IAP_FLASH_ACCESS_TIME kFlash_IAP_OneSystemClockTime
+#endif
 
 /*******************************************************************************
  * Prototypes
@@ -59,7 +62,7 @@ int main(void)
     PRINTF("\r\nIAP Flash example\r\n");
 
 #if defined(FLASH_CTRL_FLASHCFG_FLASHTIM_MASK)
-    IAP_ConfigAccessFlashTime(kFlash_IAP_OneSystemClockTime);
+    IAP_ConfigAccessFlashTime(DEMO_IAP_FLASH_ACCESS_TIME);
 #endif
 
     PRINTF("\r\nWriting flash sector %d\r\n", DEMO_IAP_FLASH_SECTOR);

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
   <externalDefinitions>
-    <definition extID="driver.mdio-lpc-enet.LPC54S018M"/>
     <definition extID="driver.phy-device-lan8720a.LPC54S018M"/>
     <definition extID="utility.debug_console_lite.LPC54S018M"/>
     <definition extID="platform.utilities.assert_lite.LPC54S018M"/>
+    <definition extID="component.silicon_id.LPC54S018M"/>
+    <definition extID="platform.drivers.iap.LPC54S018M"/>
     <definition extID="platform.drivers.lpc_enet.LPC54S018M"/>
     <definition extID="platform.drivers.common.LPC54S018M"/>
     <definition extID="platform.drivers.clock.LPC54S018M"/>
@@ -19,12 +20,9 @@
     <definition extID="device.LPC54S018M_startup.LPC54S018M"/>
     <definition extID="platform.drivers.flexcomm.LPC54S018M"/>
     <definition extID="platform.drivers.emc.LPC54S018M"/>
-    <definition extID="component.silicon_id.LPC54S018M"/>
-    <definition extID="platform.drivers.iap.LPC54S018M"/>
-    <definition extID="driver.mdio-common.LPC54S018M"/>
+    <definition extID="driver.phy-common.LPC54S018M"/>
     <definition extID="platform.drivers.reset.LPC54S018M"/>
     <definition extID="CMSIS_Include_core_cm.LPC54S018M"/>
-    <definition extID="driver.phy-common.LPC54S018M"/>
     <definition extID="platform.drivers.inputmux_connections.LPC54S018M"/>
     <definition extID="platform.utilities.misc_utilities.LPC54S018M"/>
     <definition extID="device.LPC54S018M_system.LPC54S018M"/>
@@ -34,7 +32,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso54s018m_enet_txrx_rxpoll" name="enet_txrx_rxpoll" dependency="driver.mdio-lpc-enet.LPC54S018M driver.phy-device-lan8720a.LPC54S018M utility.debug_console_lite.LPC54S018M platform.utilities.assert_lite.LPC54S018M platform.drivers.lpc_enet.LPC54S018M platform.drivers.common.LPC54S018M platform.drivers.clock.LPC54S018M platform.drivers.power.LPC54S018M platform.drivers.lpc_iocon.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.inputmux.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M component.usart_adapter.LPC54S018M component.lists.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.emc.LPC54S018M component.silicon_id.LPC54S018M platform.drivers.iap.LPC54S018M driver.mdio-common.LPC54S018M platform.drivers.reset.LPC54S018M CMSIS_Include_core_cm.LPC54S018M driver.phy-common.LPC54S018M platform.drivers.inputmux_connections.LPC54S018M platform.utilities.misc_utilities.LPC54S018M device.LPC54S018M_system.LPC54S018M" category="driver_examples/enet">
+  <example id="lpcxpresso54s018m_enet_txrx_rxpoll" name="enet_txrx_rxpoll" dependency="driver.phy-device-lan8720a.LPC54S018M utility.debug_console_lite.LPC54S018M platform.utilities.assert_lite.LPC54S018M component.silicon_id.LPC54S018M platform.drivers.iap.LPC54S018M platform.drivers.lpc_enet.LPC54S018M platform.drivers.common.LPC54S018M platform.drivers.clock.LPC54S018M platform.drivers.power.LPC54S018M platform.drivers.lpc_iocon.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.inputmux.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M component.usart_adapter.LPC54S018M component.lists.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.emc.LPC54S018M driver.phy-common.LPC54S018M platform.drivers.reset.LPC54S018M CMSIS_Include_core_cm.LPC54S018M platform.drivers.inputmux_connections.LPC54S018M platform.utilities.misc_utilities.LPC54S018M device.LPC54S018M_system.LPC54S018M" category="driver_examples/enet">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -90,7 +88,7 @@
     </toolchainSettings>
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../examples/lpcxpresso54s018m/driver_examples/enet/txrx_rxpoll" project_relative_path="lpcxpresso54s018m/driver_examples/enet/txrx_rxpoll" type="c_include"/>
+      <include_path path="." project_relative_path="lpcxpresso54s018m/driver_examples/enet/txrx_rxpoll" type="c_include"/>
       <include_path path="../../../../../core/boards/lpcxpresso54s018m" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">

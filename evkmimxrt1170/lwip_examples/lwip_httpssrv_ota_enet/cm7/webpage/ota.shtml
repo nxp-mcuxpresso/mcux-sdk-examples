@@ -1,0 +1,62 @@
+<!DOCTYPE HTML SYSTEM>
+<html>
+
+<head>
+<title>MCUXpresso SDK HTTP Server Example</title>
+    <style type="text/css">
+    <!--
+    @import"httpsrv.css";
+    -->
+    </style>
+
+    <script src="request.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <h2>OTA update</h2>
+    <p>
+        This page demonstrates OTA update functionality.
+    </p>
+    <p>
+        <%ota_status%>
+    </p>
+
+    <div style="text-align: left;">
+
+      <fieldset>
+        <legend> Images for upload </legend>
+          <form name="upload_form" action="upload.cgi" method="POST" enctype="multipart/form-data">
+            <table>
+              <%ota_image_upload%>
+              <tr><td colspan=2>&nbsp;</td></tr>
+              <tr><td colspan=2><input type="submit" value="Upload"></td></tr>
+            </table>
+          </form>
+      </fieldset>
+
+      <p>
+
+      <fieldset>
+        <legend> Current image state </legend>
+        <form name='accept' action='accept.cgi' method='get'>
+          <table border='1'>
+            <tr>
+              <th>Slot</th><th>Name</th><th>Version</th><th>Size</th><th>State</th><th></th>
+            </tr>
+            <%ota_image_info%>
+          </table>
+        </form>
+      </fieldset>
+
+      <p>
+
+      <fieldset>
+        <legend> Machine reboot </legend>
+        <form name="reboot_form" action="reboot.cgi" method="get">
+          <input type="submit" value="Reboot">
+        </form>
+      </fieldset>
+
+    </div>
+</body>
+</html>

@@ -238,7 +238,7 @@ usb_status_t USB_DeviceCdcVcomCallback(class_handle_t handle, uint32_t event, vo
         break;
         case kUSB_DeviceCdcEventSetControlLineState:
         {
-            error                     = kStatus_USB_Success;
+            error                                  = kStatus_USB_Success;
             vcomInstance->usbCdcAcmInfo->dteStatus = acmReqParam->setupValue;
             /* activate/deactivate Tx carrier */
             if (acmInfo->dteStatus & USB_DEVICE_CDC_CONTROL_SIG_BITMAP_CARRIER_ACTIVATION)
@@ -299,22 +299,12 @@ usb_status_t USB_DeviceCdcVcomCallback(class_handle_t handle, uint32_t event, vo
             {
                 /* To do: CARRIER_DEACTIVATED */
             }
-            if (acmInfo->dteStatus & USB_DEVICE_CDC_CONTROL_SIG_BITMAP_DTE_PRESENCE)
+
+            if (1U == vcomInstance->attach)
             {
-                /* DTE_ACTIVATED */
-                if (1 == vcomInstance->attach)
-                {
-                    vcomInstance->startTransactions = 1;
-                }
+                vcomInstance->startTransactions = 1;
             }
-            else
-            {
-                /* DTE_DEACTIVATED */
-                if (1 == vcomInstance->attach)
-                {
-                    vcomInstance->startTransactions = 0;
-                }
-            }
+            error = kStatus_USB_Success;
         }
         break;
         case kUSB_DeviceCdcEventSendBreak:

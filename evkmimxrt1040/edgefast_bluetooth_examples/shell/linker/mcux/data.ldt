@@ -1,0 +1,12 @@
+        <#if memory.name=="SRAM_ITC">
+        *fsl_adapter_flexspi_nor_flash.o(.text*)
+        *fsl_flexspi.o(.text*)
+        *NV_Flash.o(.text*)
+        *mflash_drv.o(.text*)
+        </#if>
+
+        <#if memory.name=="SRAM_DTC">
+        *bt_db_gen.o*(.data*)
+        *sdio.o*(.data*)
+        *mlan_sdio.o*(.data*)
+        </#if>

@@ -49,12 +49,13 @@
 #define DEMO_DMA_TX_CHANNEL     (0U)
 #define DEMO_DMAMUX_INDEX       (0U)
 #define DEMO_SAI_TX_SOURCE      kDmaRequestMuxSai3Tx
+#define DEMO_SAI                SAI3
 /* Select Audio/Video PLL (786.48 MHz) as sai3 clock source */
 #define DEMO_SAI3_CLOCK_SOURCE_SELECT (2U)
 /* Clock pre divider for sai3 clock source */
-#define DEMO_SAI3_CLOCK_SOURCE_PRE_DIVIDER (0U)
+#define DEMO_SAI3_CLOCK_SOURCE_PRE_DIVIDER (3U)
 /* Clock divider for sai3 clock source */
-#define DEMO_SAI3_CLOCK_SOURCE_DIVIDER (63U)
+#define DEMO_SAI3_CLOCK_SOURCE_DIVIDER (15U)
 /* Get frequency of sai3 clock */
 #define DEMO_SAI_CLK_FREQ                                                        \
     (CLOCK_GetFreq(kCLOCK_AudioPllClk) / (DEMO_SAI3_CLOCK_SOURCE_DIVIDER + 1U) / \
@@ -2914,7 +2915,7 @@ void main(void)
     audioTxConfig.frameSyncWidth                 = kHAL_AudioFrameSyncWidthHalfFrame;
     audioTxConfig.frameSyncPolarity              = kHAL_AudioBeginAtFallingEdge;
     audioTxConfig.dataFormat                     = kHAL_AudioDataFormatI2sClassic;
-    audioTxConfig.fifoWatermark                  = (uint8_t)(FSL_FEATURE_SAI_FIFO_COUNT - 1);
+    audioTxConfig.fifoWatermark                  = (uint8_t)(FSL_FEATURE_SAI_FIFO_COUNTn(DEMO_SAI) - 1);
     audioTxConfig.bitWidth                       = (uint8_t)kHAL_AudioWordWidth16bits;
     audioTxConfig.lineChannels                   = kHAL_AudioStereo;
 

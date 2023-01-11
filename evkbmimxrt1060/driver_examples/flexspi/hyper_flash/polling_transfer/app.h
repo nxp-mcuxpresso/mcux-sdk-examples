@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2022 NXP
  * All rights reserved.
  *
  *
@@ -40,6 +40,19 @@ typedef enum
     kFLEXSPI_Clock_High166M, /* Flexspi clock 332M, DDR mode, internal clock 166M. */
     kFLEXSPI_Clock_Low42M,   /* Flexspi clock 83M, DDR mode, internal clock 42M. */
 } flexspi_clock_t;
+
+/*******************************************************************************
+ * Variables
+ ******************************************************************************/
+/*${variable:start}*/
+#if (defined CACHE_MAINTAIN) && (CACHE_MAINTAIN == 1)
+typedef struct _flexspi_cache_status
+{
+    volatile bool DCacheEnableFlag;
+    volatile bool ICacheEnableFlag;
+} flexspi_cache_status_t;
+#endif
+/*${variable:end}*/
 
 /*******************************************************************************
  * Prototypes

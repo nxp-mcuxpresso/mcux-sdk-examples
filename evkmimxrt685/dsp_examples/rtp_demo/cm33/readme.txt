@@ -84,6 +84,7 @@ In order to stream audio, follow the steps below:
 
 Multiple instances of VLC media player could be opened to test mixed playback of concurrent streams.
 
+
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.3.1
@@ -127,6 +128,9 @@ Prepare the Demo
 NOTE: DSP image can only be debugged using J-Link debugger.  See
 'Getting Started with Xplorer for EVK-MIMXRT685.pdf' for more information.
 
+Running the demo
+================
+
 Running the demo CM33
 =====================
 When the demo runs successfully, the terminal will display similar output:
@@ -135,7 +139,7 @@ When the demo runs successfully, the terminal will display similar output:
     RTP demo start
     ******************************
 
-    Configure WM8904 codec
+    Configure [board specific] codec
     [app_dsp_ipc] start
     [wifi_client_task] start
     Initializing WLAN
