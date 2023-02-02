@@ -2,7 +2,7 @@
  * Copyright (c) 2014, Mentor Graphics Corporation
  * Copyright (c) 2015 Xilinx, Inc.
  * Copyright (c) 2016 Freescale Semiconductor, Inc.
- * Copyright 2016-2022 NXP
+ * Copyright 2016-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -83,22 +83,22 @@
 #define RL_DEBUG_CHECK_BUFFERS (0)
 //@}
 
-//! @def RL_SGIMBOX_BASE
+//! @def RL_GEN_SW_MBOX_BASE
 //!
 //! Specify the sharing memory base address used for mailbox.
-#define RL_SGIMBOX_BASE (0xb8500000)
+#define RL_GEN_SW_MBOX_BASE (0xb8500000)
 //@}
 
-//! @def RL_SGIMBOX_IRQ
+//! @def RL_GEN_SW_MBOX_IRQ
 //!
-//! Specify the SGI interrupt number to match with the other peer selection.
-#define RL_SGIMBOX_IRQ (Software10_IRQn)
+//! Specify the interrupt number for handling the received message.
+#define RL_GEN_SW_MBOX_IRQ (109)
 //@}
 
-//! @def RL_SGIMBOX_TARGET_CORE
+//! @def RL_GEN_SW_MBOX_IRQ
 //!
-//! Specify the target core of SGI mailbox interrupt, count from 0.
-#define RL_SGIMBOX_TARGET_CORE (0)
+//! Specify the interrupt number to trigger for notifying remote when send message.
+#define RL_GEN_SW_MBOX_REMOTE_IRQ (108)
 //@}
 
 #endif /* RPMSG_CONFIG_H_ */
