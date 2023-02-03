@@ -16,6 +16,8 @@ SET (Tutorial_VERSION_MINOR 0)
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
 
+ADD_DEFINITIONS(-DAARCH64=1)
+
 SET(CMAKE_STATIC_LIBRARY_PREFIX)
 SET(CMAKE_STATIC_LIBRARY_SUFFIX)
 
@@ -80,7 +82,7 @@ set(CMAKE_MODULE_PATH
 include(all_devices)
 
 # include modules
-include(middleware_multicore_rpmsg_lite_imx8mm_ca53_freertos)
+include(middleware_multicore_rpmsg_lite_aarch64_freertos)
 
 include(middleware_multicore_rpmsg_lite_MIMX8MM6)
 

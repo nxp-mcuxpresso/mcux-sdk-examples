@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2017,2022 NXP
+ * Copyright 2016-2017,2022-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -12,25 +12,30 @@
 #include "rpmsg_lite.h"
 #include "rpmsg_queue.h"
 #include "rpmsg_ns.h"
+#include "rpmsg_platform.h"
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "board.h"
 #include "fsl_debug_console.h"
 #include "FreeRTOS.h"
 #include "task.h"
+#include "irq.h"
 
 #include "fsl_uart.h"
 #include "rsc_table.h"
+
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
 #define RPMSG_LITE_SHMEM_BASE         (VDEV0_VRING_BASE)
-#define RPMSG_LITE_LINK_ID            (RL_PLATFORM_IMX8MM_CA53_USER_LINK_ID)
+#define RPMSG_LITE_LINK_ID            (RL_PLATFORM_USER_LINK_ID)
 #define RPMSG_LITE_NS_ANNOUNCE_STRING "rpmsg-virtual-tty-channel-1"
 #define APP_TASK_STACK_SIZE (256)
 #ifndef LOCAL_EPT_ADDR
 #define LOCAL_EPT_ADDR (30)
 #endif
+
+#define GEN_SW_MBOX_IRQ_PRIO ((portLOWEST_USABLE_INTERRUPT_PRIORITY - 1) << portPRIORITY_SHIFT)
 
 /* Globals */
 static char app_buf[512]; /* Each RPMSG buffer can carry less than 512 payload */
@@ -75,6 +80,11 @@ void app_destroy_task(void)
     }
 }
 
+static void rpmsg_mailbox_init(void)
+{
+    irq_register(RL_GEN_SW_MBOX_IRQ, gen_sw_mbox_handler, (void *)RL_GEN_SW_MBOX_BASE, GEN_SW_MBOX_IRQ_PRIO);
+}
+
 void app_task(void *param)
 {
     volatile uint32_t remote_addr;
@@ -86,6 +96,8 @@ void app_task(void *param)
 
     /* Print the initial banner */
     PRINTF("\r\nRPMSG String Echo FreeRTOS RTOS API Demo...\r\n");
+
+    rpmsg_mailbox_init();
 
     my_rpmsg = rpmsg_lite_remote_init((void *)RPMSG_LITE_SHMEM_BASE, RPMSG_LITE_LINK_ID, RL_NO_FLAGS);
 
