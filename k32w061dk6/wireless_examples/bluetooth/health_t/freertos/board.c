@@ -17,7 +17,8 @@
 #include "fsl_xcvr.h"
 #endif
 
-#include "board.h"
+#include <board.h>
+
 #include "board_utility.h"
 #include "FunctionLib.h"
 
@@ -83,20 +84,21 @@ extern uint32_t        _scratch_buf_end;
 #define ScratchStartAddr   (uint32_t)0x04000000UL
 #define ScratchEndAddr     (uint32_t)0x04000400UL
 #endif
+
 /*******************************************************************************
 * Local variables
 ******************************************************************************/
 #if defined (gMWS_UseCoexistence_d) && (gMWS_UseCoexistence_d)
 static gpioOutputPinConfig_t rfActivePin = {
     .gpioPort = gpioPort_A_c,
-    .gpioPin = 15,
+    .gpioPin = BOARD_PTA_REQ_PIN,
     .outputLogic = 1,
     .slewRate = pinSlewRate_Slow_c,
     .driveStrength = pinDriveStrength_Low_c,
 };
 static gpioOutputPinConfig_t rfStatusPin = {
     .gpioPort = gpioPort_A_c,
-    .gpioPin = 16,
+    .gpioPin = BOARD_PTA_PRIO_PIN,
     .outputLogic = 1,
     .slewRate = pinSlewRate_Slow_c,
     .driveStrength = pinDriveStrength_Low_c,
@@ -104,7 +106,7 @@ static gpioOutputPinConfig_t rfStatusPin = {
 };
 static  gpioInputPinConfig_t rfDenyPin = {
     .gpioPort = gpioPort_A_c,
-    .gpioPin = 14,
+    .gpioPin = BOARD_PTA_GRANT_PIN,
     .pullSelect = pinPull_Disabled_c,
     .interruptModeSelect = pinInt_EitherEdge_c,
     .pinIntSelect = kPINT_PinInt2,
@@ -540,107 +542,16 @@ static void FaultRecovery(void)
                               IOCON_PIO_MODE(0) |\
                               IOCON_PIO_DIGIMODE(1)
 
-#define USART1_TX_MODE                                                  \
-    IOCON_PIO_FUNC(2) |                                                 \
-    /* GPIO mode */                                                     \
-    IOCON_PIO_EGP_GPIO |                                                \
-    /* IO is an open drain cell */                                      \
-    IOCON_PIO_ECS_DI |                                                  \
-    /* High speed IO for GPIO mode, IIC not */                          \
-    IOCON_PIO_EHS_DI |                                                  \
-    /* Input function is not inverted */                                \
-    IOCON_PIO_INV_DI |                                                  \
-    /* Enables digital function */                                      \
-    IOCON_PIO_DIGITAL_EN |                                              \
-    /* Input filter disabled */                                         \
-    IOCON_PIO_INPFILT_OFF |                                             \
-    /* IIC mode:Noise pulses below approximately */                     \
-    /* 50ns are filtered out. GPIO mode:a 3ns filter */                 \
-    IOCON_PIO_FSEL_DI |                                                 \
-    /* Open drain is disabled */                                        \
-    IOCON_PIO_OPENDRAIN_DI |                                            \
-    /* IO_CLAMP disabled */                                             \
-    IOCON_PIO_IO_CLAMP_DI
-
-
-#define USART1_RX_MODE                                                  \
-    IOCON_PIO_FUNC2 |                                                   \
-    /* GPIO mode */                                                     \
-    IOCON_PIO_EGP_GPIO |                                                \
-    /* IO is an open drain cell */                                      \
-    IOCON_PIO_ECS_DI |                                                  \
-    /* High speed IO for GPIO mode, IIC not */                          \
-    IOCON_PIO_EHS_DI |                                                  \
-    /* Input function is not inverted */                                \
-    IOCON_PIO_INV_DI |                                                  \
-    /* Enables digital function */                                      \
-    IOCON_PIO_DIGITAL_EN |                                              \
-    /* Input filter disabled */                                         \
-    IOCON_PIO_INPFILT_OFF |                                             \
-    /* IIC mode:Noise pulses below approximately */                     \
-    /* 50ns are filtered out.*/                                         \
-    IOCON_PIO_FSEL_DI |                                                 \
-    /* Open drain is disabled */                                        \
-    IOCON_PIO_OPENDRAIN_DI |                                            \
-    /* IO_CLAMP disabled */                                             \
-    IOCON_PIO_IO_CLAMP_DI
-
-#define USART0_TX_MODE                                                  \
-    /* Pin is configured as USART0_TXD */                               \
-    IOCON_PIO_FUNC2 |                                                   \
-    /* Selects pull-up function */                                      \
-    IOCON_PIO_MODE_PULLUP |                                             \
-    /* Standard mode, output slew rate control is disabled */           \
-    IOCON_PIO_SLEW0_STANDARD | IOCON_PIO_SLEW1_STANDARD |               \
-    /* Input function is not inverted */                                \
-    IOCON_PIO_INV_DI |                                                  \
-    /* Enables digital function */                                      \
-    IOCON_PIO_DIGITAL_EN |                                              \
-    /* Input filter disabled */                                         \
-    IOCON_PIO_INPFILT_OFF |                                             \
-    /* Open drain is disabled */                                        \
-    IOCON_PIO_OPENDRAIN_DI |                                            \
-    /* SSEL is disabled */                                              \
-    IOCON_PIO_SSEL_DI
-
-#define USART0_RX_MODE                                                  \
-    /* Pin is configured as USART0_RXD */                               \
-    IOCON_PIO_FUNC2 |                                                   \
-    /* Selects pull-up function */                                      \
-    IOCON_PIO_MODE_PULLUP |                                             \
-    /* Standard mode, output slew rate control is disabled */           \
-    IOCON_PIO_SLEW0_STANDARD |  IOCON_PIO_SLEW1_STANDARD |              \
-    /* Input function is not inverted */                                \
-    IOCON_PIO_INV_DI |                                                  \
-    /* Enables digital function */                                      \
-    IOCON_PIO_DIGITAL_EN |                                              \
-    /* Input filter disabled */                                         \
-    IOCON_PIO_INPFILT_OFF |                                             \
-    /* Open drain is disabled */                                        \
-    IOCON_PIO_OPENDRAIN_DI |                                            \
-    /* SSEL is disabled */                                              \
-    IOCON_PIO_SSEL_DI
-
 const iocon_group_t usart1_io_cfg[] = {
     [0] = {
         .port = 0,
-#ifdef USART1_FTDI
-        .pin =  0,  /* USART 1 Tx */
-        .modefunc =  USART0_TX_MODE,
-#else
         .pin =  IOCON_USART1_TX_PIN,  /* USART 1 Tx */
         .modefunc =  USART1_TX_MODE,
-#endif
     },
     [1] = {
         .port = 0,
-#ifdef USART1_FTDI
-        .pin =  1,   /* USART 1 Rx */
-        .modefunc = USART0_RX_MODE,
-#else
         .pin =  IOCON_USART1_RX_PIN,   /* USART 1 Rx */
         .modefunc = USART1_RX_MODE,
-#endif
     },
 };
 

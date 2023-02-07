@@ -110,9 +110,6 @@
     <source path="examples/k32w041amdk6/wireless_examples/framework/ssbl/bm/iar" target_path="src" type="linker" toolchain="iar">
       <files mask="dk6_ssbl.icf"/>
     </source>
-    <source path="examples/k32w041amdk6/wireless_examples/framework/ssbl/bm/iar" target_path="src" type="script" toolchain="iar">
-      <files mask="dk6_iarpostbuild_ssbl.bat"/>
-    </source>
     <source path="examples/k32w041amdk6/wireless_examples/framework/ssbl/bm/mcux" target_path="src" type="linker" toolchain="mcuxpresso">
       <files mask="dk6_ssbl.ld"/>
     </source>

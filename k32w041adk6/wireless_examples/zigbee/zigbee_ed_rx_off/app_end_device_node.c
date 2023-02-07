@@ -333,7 +333,9 @@ void APP_taskEndDevicNode(void)
                         {
                             DBG_vPrintf(TRACE_APP_EVENT, "APP_EVENT: Fiind and Bind Failed %02x\r\n", eStatus);
                         }
+#ifndef OT_ZB_SUPPORT
                         bDisallowSleep = TRUE;
+#endif
                     break;
 
                 default:

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_K32W041AMDK6" name="K32W041AMDK6" brief="This is SDK version 2.6.8 manifest file. It describes the content of the K32W041AMDK6 and additional settings for tools that support SDK version 2.6.8" format_version="3.5" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.5.xsd">
-  <!--Timestamp (UTC): 2022-12-13 08:39:20.089776-->
-  <!--This manifest is generated based on sdk repo commit: 72c7a3e3c888fcb8a0abcde043b0c37c8c80af56-->
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_K32W041AMDK6" name="K32W041AMDK6" brief="This is SDK version 2.6.9 manifest file. It describes the content of the K32W041AMDK6 and additional settings for tools that support SDK version 2.6.9" format_version="3.5" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.5.xsd">
+  <!--Timestamp (UTC): 2023-02-06 14:47:42.063889-->
+  <!--This manifest is generated based on sdk repo commit: e2b93dace8fb2da8dc8b814351263419a9a2ad5b-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
   </defines>
-  <ksdk id="MCUXpressoSDK268" name="MCUXpressoSDK268" version="2.6.8"/>
+  <ksdk id="MCUXpressoSDK269" name="MCUXpressoSDK269" version="2.6.9"/>
   <compilers>
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
   </compilers>
@@ -624,6 +624,61 @@ ${load}</script>
             <files mask="wwdt_example.xml"/>
           </external>
         </example>
+        <example id="k32w041amdk6_zigbee_bdt_coordinator_ble_uart_bm" name="zigbee_bdt_coordinator_ble_uart_bm" brief="The zigbee_bdt_coordinator_ble_uart application is a simple demonstration program based on the MCUXpresso SDK.The demo shows a dual mode Zigbee/BLE application running in a dynamic mode. Both Zigbee and BLE are located on a single image." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/hybrid/ble_zigbee/zigbee_bdt_coordinator_ble_uart/bm" path="examples/k32w041amdk6/wireless_examples/hybrid/ble_zigbee/zigbee_bdt_coordinator_ble_uart/bm">
+          <external path="examples/k32w041amdk6/wireless_examples/hybrid/ble_zigbee/zigbee_bdt_coordinator_ble_uart/bm" type="xml">
+            <files mask="zigbee_bdt_coordinator_ble_uart_bm.xml"/>
+          </external>
+        </example>
+        <example id="k32w041amdk6_zigbee_bdt_ed_ble_beacon_bm" name="zigbee_bdt_ed_ble_beacon_bm" brief="The zigbee_bdt_ed_ble_beacon application is a simple demonstration program based on the MCUXpresso SDK.The demo shows a dual mode Zigbee/BLE application allowing to switch from one connectivity to another at runtime. Both Zigbee and BLE are located on a single image." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/hybrid/ble_zigbee/zigbee_bdt_ed_ble_beacon/bm" path="examples/k32w041amdk6/wireless_examples/hybrid/ble_zigbee/zigbee_bdt_ed_ble_beacon/bm">
+          <external path="examples/k32w041amdk6/wireless_examples/hybrid/ble_zigbee/zigbee_bdt_ed_ble_beacon/bm" type="xml">
+            <files mask="zigbee_bdt_ed_ble_beacon_bm.xml"/>
+          </external>
+        </example>
+        <example id="k32w041amdk6_zigbee_bdt_ed_ble_uart_bm" name="zigbee_bdt_ed_ble_uart_bm" brief="The zigbee_bdt_ed_ble_uart application is a simple demonstration program based on the MCUXpresso SDK.The demo shows a dual mode Zigbee/BLE application running in a dynamic mode. Both Zigbee and BLE are located on a single image." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/hybrid/ble_zigbee/zigbee_bdt_ed_ble_uart/bm" path="examples/k32w041amdk6/wireless_examples/hybrid/ble_zigbee/zigbee_bdt_ed_ble_uart/bm">
+          <external path="examples/k32w041amdk6/wireless_examples/hybrid/ble_zigbee/zigbee_bdt_ed_ble_uart/bm" type="xml">
+            <files mask="zigbee_bdt_ed_ble_uart_bm.xml"/>
+          </external>
+        </example>
+        <example id="k32w041amdk6_zigbee_bdt_router_ble_ota_client_bm" name="zigbee_bdt_router_ble_ota_client_bm" brief="The zigbee_bdt_router_ble_ota_client application is a simple demonstration program based on the MCUXpresso SDK.The demo shows a dual mode Zigbee/BLE application allowing to switch from one connectivity to another at runtime. Both Zigbee and BLE are located on a single image." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/hybrid/ble_zigbee/zigbee_bdt_router_ble_ota_client/bm" path="examples/k32w041amdk6/wireless_examples/hybrid/ble_zigbee/zigbee_bdt_router_ble_ota_client/bm">
+          <external path="examples/k32w041amdk6/wireless_examples/hybrid/ble_zigbee/zigbee_bdt_router_ble_ota_client/bm" type="xml">
+            <files mask="zigbee_bdt_router_ble_ota_client_bm.xml"/>
+          </external>
+        </example>
+        <example id="k32w041amdk6_zigbee_bdt_router_ble_uart_bm" name="zigbee_bdt_router_ble_uart_bm" brief="The zigbee_bdt_router_ble_uart application is a simple demonstration program based on the MCUXpresso SDK.The demo shows a dual mode Zigbee/BLE application running in a dynamic mode. Both Zigbee and BLE are located on a single image." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/hybrid/ble_zigbee/zigbee_bdt_router_ble_uart/bm" path="examples/k32w041amdk6/wireless_examples/hybrid/ble_zigbee/zigbee_bdt_router_ble_uart/bm">
+          <external path="examples/k32w041amdk6/wireless_examples/hybrid/ble_zigbee/zigbee_bdt_router_ble_uart/bm" type="xml">
+            <files mask="zigbee_bdt_router_ble_uart_bm.xml"/>
+          </external>
+        </example>
+        <example id="k32w041amdk6_zigbee_coordinator_bm" name="zigbee_coordinator_bm" brief="The BLE zigbee_coordinator application is a simple demonstration program based on the MCUXpresso SDK.This application implements zigbee_coordinator demo." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/zigbee/zigbee_coordinator/bm" path="examples/k32w041amdk6/wireless_examples/zigbee/zigbee_coordinator/bm">
+          <external path="examples/k32w041amdk6/wireless_examples/zigbee/zigbee_coordinator/bm" type="xml">
+            <files mask="zigbee_coordinator_bm.xml"/>
+          </external>
+        </example>
+        <example id="k32w041amdk6_zigbee_coordinator_freertos" name="zigbee_coordinator_freertos" brief="The BLE zigbee_coordinator application is a simple demonstration program based on the MCUXpresso SDK.This application implements zigbee_coordinator demo." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/zigbee/zigbee_coordinator/freertos" path="examples/k32w041amdk6/wireless_examples/zigbee/zigbee_coordinator/freertos">
+          <external path="examples/k32w041amdk6/wireless_examples/zigbee/zigbee_coordinator/freertos" type="xml">
+            <files mask="zigbee_coordinator_freertos.xml"/>
+          </external>
+        </example>
+        <example id="k32w041amdk6_zigbee_ed_rx_off_bm" name="zigbee_ed_rx_off_bm" brief="The BLE zigbee_ed_rx_off application is a simple demonstration program based on the MCUXpresso SDK.This application implements Zigbee ed rx  off demo." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/zigbee/zigbee_ed_rx_off/bm" path="examples/k32w041amdk6/wireless_examples/zigbee/zigbee_ed_rx_off/bm">
+          <external path="examples/k32w041amdk6/wireless_examples/zigbee/zigbee_ed_rx_off/bm" type="xml">
+            <files mask="zigbee_ed_rx_off_bm.xml"/>
+          </external>
+        </example>
+        <example id="k32w041amdk6_zigbee_ed_rx_on_bm" name="zigbee_ed_rx_on_bm" brief="The BLE zigbee_ed_rx_on application is a simple demonstration program based on the MCUXpresso SDK.This application implements Zigbee ed rx on demo." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/zigbee/zigbee_ed_rx_on/bm" path="examples/k32w041amdk6/wireless_examples/zigbee/zigbee_ed_rx_on/bm">
+          <external path="examples/k32w041amdk6/wireless_examples/zigbee/zigbee_ed_rx_on/bm" type="xml">
+            <files mask="zigbee_ed_rx_on_bm.xml"/>
+          </external>
+        </example>
+        <example id="k32w041amdk6_zigbee_router_bm" name="zigbee_router_bm" brief="The BLE zigbee_router application is a simple demonstration program based on the MCUXpresso SDK.This application implements a zigbee router features." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/zigbee/zigbee_router/bm" path="examples/k32w041amdk6/wireless_examples/zigbee/zigbee_router/bm">
+          <external path="examples/k32w041amdk6/wireless_examples/zigbee/zigbee_router/bm" type="xml">
+            <files mask="zigbee_router_bm.xml"/>
+          </external>
+        </example>
+        <example id="k32w041amdk6_zigbee_router_freertos" name="zigbee_router_freertos" brief="The BLE zigbee_router application is a simple demonstration program based on the MCUXpresso SDK.This application implements a zigbee router features." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/zigbee/zigbee_router/freertos" path="examples/k32w041amdk6/wireless_examples/zigbee/zigbee_router/freertos">
+          <external path="examples/k32w041amdk6/wireless_examples/zigbee/zigbee_router/freertos" type="xml">
+            <files mask="zigbee_router_freertos.xml"/>
+          </external>
+        </example>
       </examples>
     </board>
   </boards>
@@ -657,6 +712,12 @@ ${load}</script>
         <evaluation_board name="k32w041amdk6"/>
       </evaluation_boards>
       <toolchainSettings>
+        <toolchainSetting id_refs="com.nxp.mcuxpresso">
+          <buildSteps>
+            <preBuildStep></preBuildStep>
+            <postBuildStep>( py -3 $PROJ_DIR$/../../../../../../../tools/imagetool/dk6_image_tool.py -s 294912 "$TARGET_PATH$" || python3 $PROJ_DIR$/../../../../../../../tools/imagetool/dk6_image_tool.py -s 294912 "$TARGET_PATH$" ) &amp;&amp; arm-none-eabi-objcopy -v -O binary "$TARGET_PATH$" "$TARGET_PATH$.bin"</postBuildStep>
+          </buildSteps>
+        </toolchainSetting>
         <toolchainSetting id_refs="com.nxp.mcuxpresso">
           <buildSteps>
             <preBuildStep></preBuildStep>
@@ -2012,6 +2073,12 @@ ${load}</script>
         <files mask="hsdkSemaphore.c"/>
         <files mask="hsdkThread.c"/>
         <files mask="utils.c"/>
+      </source>
+      <source path="core/tools/wireless/ot-rcp" target_path="src" type="other">
+        <files mask="ot-rcp-uart-no-fc-usb.axf"/>
+      </source>
+      <source path="core/tools/wireless/ot-rcp" target_path="src" type="binary">
+        <files mask="ot-rcp-uart-no-fc-usb.bin"/>
       </source>
     </component>
     <component id="device.K32W041AM_image_tool.K32W041AM" name="K32W041AM_image_tool" version="1.0.0" devices="K32W041AM" user_visible="true" type="other">
@@ -5264,6 +5331,14 @@ ${load}</script>
         <files mask="SerialManager.c"/>
       </source>
     </component>
+    <component id="middleware.wireless.framework.smgr.uarthelper.K32W041AM" name="wireless framework Serial Manager UART Helper" version="1.0.0" full_name="wireless framework Serial Manager UART Helper" devices="K32W041AM" user_visible="false" type="middleware">
+      <source path="middleware/wireless/framework/SerialManager/Source" target_path="src" type="c_include">
+        <files mask="UART_Helper.h"/>
+      </source>
+      <source path="middleware/wireless/framework/SerialManager/Source" target_path="src" type="lib">
+        <files mask="libUART_Helper.a"/>
+      </source>
+    </component>
     <component id="middleware.wireless.framework.shell.K32W041AM" name="wireless framework Shells" version="1.0.0" full_name="wireless framework Shells" devices="K32W041AM" user_visible="false" type="middleware">
       <source path="middleware/wireless/framework/Shell/Interface" target_path="framework/Shell/interface" type="c_include">
         <files mask="shell.h"/>
@@ -5460,6 +5535,12 @@ ${load}</script>
         <files mask="aes_alt.h"/>
         <files mask="ksdk_mbedtls.h"/>
         <files mask="sha1_alt.h"/>
+        <files mask="sha256_alt.h"/>
+      </source>
+      <source path="middleware/mbedtls/port/matter" target_path="src" type="src">
+        <files mask="ksdk_mbedtls.c"/>
+      </source>
+      <source path="middleware/mbedtls/port/matter" target_path="src" type="c_include">
         <files mask="sha256_alt.h"/>
       </source>
       <source path="core/examples/k32w041amdk6/wireless_examples/hybrid/ble_ot/lped_ble_wuart/ble_802_15_4_common" target_path="src" type="src">

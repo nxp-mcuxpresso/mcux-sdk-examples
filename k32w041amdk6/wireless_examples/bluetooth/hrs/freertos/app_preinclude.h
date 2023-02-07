@@ -81,7 +81,7 @@
 #define gAppConnectableAdv_d            1
 
 /*! Enable HS Clock to support 2Mbps PHY mode setting */
-#define gBleUseHSClock2MbpsPhy_c 0
+#define gBleUseHSClock2MbpsPhy_c        0
 
 /*! Enable/Disable FSCI Low Power Commands*/
 #define gFSCI_IncludeLpmCommands_c      0
@@ -139,7 +139,7 @@
 //#define gPWR_UseAlgoTimeBaseDriftCompensate  1
 
 /*! Switch CPU clock to 48MHz FRO at startup - 32MHz (FRO or XTAL) default */
-#define gPWR_CpuClk_48MHz                    1
+#define gPWR_CpuClk_48MHz                    0
 
  /*! Wait for oscillator number of 30us 32kHz ticks - 24 seems to work, 27 is the default value*/
 //#define gBleOscWakeDelay_c              (22)
@@ -161,9 +161,6 @@
 #define gPWR_FlashControllerPowerDownInWFI   1
 #endif
 
-/*! Reduce Ldo Memory voltage from 1.0v down to 0.9v saving 28% of leakage on Retained RAM banks */
-#define gPWR_LDOMEM_0_9V_PD                  1
-
 /*! Reduce the system clock frequency for  CPU / AHB bus/ SRAM during WFI
      This is particularly useful when the CPU is inactive during the Link layer events.
      However, this reduces the number of possible white-list and RAL entries that can be resolved.
@@ -173,10 +170,10 @@
       16 : reduced down to 16MHz : XTAL32M and clock divided by 2 or 48M divided by 3:  Single white-list entry
 */
 
-#define gPWR_FreqScalingWFI                  (0)
+#define gPWR_FreqScalingWFI                  (16)
 
 /*! BLE Link Layer Fast Correct feature allows a one slot 625us shorter wake up advance */
- #define gBleLL_FastCorrect_d                (1)
+//#define gBleLL_FastCorrect_d               (0)
 
 #define gPWR_BleLL_EarlyEnterDsm             (1)
 

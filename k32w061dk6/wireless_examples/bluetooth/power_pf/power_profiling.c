@@ -420,11 +420,7 @@ void BleApp_HandleKeys(key_event_t events)
                 /* not ready yet to go on */
                 break;
             }
-            if (mPowerState <= LAST_POWER_STATE)
-            {
-                BleAppGotoPowerMode(mPowerState);
-            }
-            else if (mPowerState == 0)
+            if (mPowerState == 0)
             {
                 if (mAdvState.advOn)
                 {
@@ -436,6 +432,10 @@ void BleApp_HandleKeys(key_event_t events)
                     Gap_Disconnect(mPeerDeviceId);
                 }
                 BleAppGotoPowerMode(0);
+            }
+            else if (mPowerState <= LAST_POWER_STATE)
+            {
+                BleAppGotoPowerMode(mPowerState);
             }
             break;
         }

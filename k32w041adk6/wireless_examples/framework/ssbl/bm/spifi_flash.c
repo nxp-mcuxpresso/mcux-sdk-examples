@@ -66,7 +66,7 @@
 #define MX25R8035F_SECTOR_SIZE      4096                 /* 4KB sectors */
 #define MX25R8035F_BLOCK_SIZE       QSPIFLASH_SECTOR_SIZE * 8     /* 32KB blocks */
 #define QSPIFLASH_BLOCK2_SIZE        QSPIFLASH_BLOCK_SIZE * 2      /* 64KB blocks */
-#define MX25R8035F_CHIP_SIZE        QSPIFLASH_SECTOR_SIZE * 2000  /* 8MB capacity */
+#define MX25R8035F_CHIP_SIZE        QSPIFLASH_SECTOR_SIZE * 256  /* 1MB capacity */
 
 #define QSPIFLASH_PAGE_SIZE        MX25R8035F_PAGE_SIZE
 #define QSPIFLASH_SECTOR_SIZE      MX25R8035F_SECTOR_SIZE
@@ -685,7 +685,7 @@ uint8_t SPIFI_eraseArea(uint32_t Addr, int32_t size)
     uint32_t erase_addr = Addr;
 
     do {
-        if ((uint32_t)Addr >= MX25R8035F_CHIP_SIZE)
+        if ((uint32_t)Addr >= QSPIFLASH_CHIP_SIZE)
         {
             break;
         }
@@ -721,5 +721,23 @@ uint8_t SPIFI_eraseArea(uint32_t Addr, int32_t size)
     qspi_wait_for_completion();
     SPIFI_SetRead(0);
     return status;
+}
+
+/*! *********************************************************************************
+* \brief   This function returns the size of the SPIFI Memory
+*
+********************************************************************************** */
+uint32_t SPIFI_getSize(void)
+{
+    return QSPIFLASH_CHIP_SIZE;
+}
+
+/*! *********************************************************************************
+* \brief   This function returns the size of a SPIFI Memory Sector
+*
+********************************************************************************** */
+uint32_t SPIFI_getSectorSize(void)
+{
+    return QSPIFLASH_SECTOR_SIZE;
 }
 /*******************************************************************/

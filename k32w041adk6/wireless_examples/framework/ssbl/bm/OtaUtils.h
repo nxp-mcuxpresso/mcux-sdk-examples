@@ -30,6 +30,10 @@
 
 #define OTA_UTILS_IMAGE_INVALID_ADDR              (0xFFFFFFFF)
 
+#define OTA_UTILS_PSECT_OTA_IMAGE_TYPE            (0xFC)
+#define OTA_UTILS_PSECT_NVM_IMAGE_TYPE            (0xFD)
+#define OTA_UTILS_PSECT_EXT_FLASH_TEXT_IMAGE_TYPE (0xFE)
+
 /*! *********************************************************************************
 *************************************************************************************
 * Public type definitions

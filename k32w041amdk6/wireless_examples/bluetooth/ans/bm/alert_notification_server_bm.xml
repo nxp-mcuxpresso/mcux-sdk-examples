@@ -165,9 +165,6 @@
     <source path="examples/k32w041amdk6/wireless_examples/bluetooth/ans/bm/iar" target_path="src" type="linker" toolchain="iar">
       <files mask="connectivity.icf"/>
     </source>
-    <source path="examples/k32w041amdk6/wireless_examples/bluetooth/ans/bm/iar" target_path="src" type="script" toolchain="iar">
-      <files mask="dk6_iarpostbuild.bat"/>
-    </source>
     <source path="examples/k32w041amdk6/wireless_examples/bluetooth/ans/bm/mcux" target_path="src" type="linker" toolchain="mcuxpresso">
       <files mask="connectivity.ld"/>
     </source>

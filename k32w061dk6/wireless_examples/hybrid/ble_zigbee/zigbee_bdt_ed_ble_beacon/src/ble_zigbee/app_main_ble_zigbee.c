@@ -124,9 +124,6 @@ static sDualModeAppStates dualModeStates;
 *************************************************************************************
 ************************************************************************************/
 
-/* Not exported by Mac_sched library */
-void stopM2();
-
 /* BLE Application input queues */
 extern anchor_t mHostAppInputQueue;
 extern anchor_t mAppCbInputQueue;
@@ -300,10 +297,15 @@ void dm_switch_init15_4AfterWakeUp(void)
         PWR_Start32kCounter();
         tick1 = PWR_Get32kTimestamp();
     }
-    /* Re-init the zigbee stack which will contains calls to radio APIs */
+    /* Re-init the zigbee stack which will contains calls to radio APIs.
+       15.4 is set as active by default */
     App_InitZigbee(FALSE);
 
-    /* Enable MAC scheduler after Zigbee stack initialization */
+    /* set the correct state */
+    vDynRequestState(E_DYN_SLAVE, E_DYN_STATE_INACTIVE);    /* 15.4 */
+    vDynRequestState(E_DYN_MASTER, E_DYN_STATE_ACTIVE);     /* BLE */
+
+    /* Enable MAC scheduler */
     sched_enable();
 
     /* Post an event to complete the re-init of the zigbee app */
@@ -339,7 +341,7 @@ void vWakeCallBack(void)
     {
         SWITCH_DBG_LOG("zb not initialized");
         /* Notify the dual mode low power mode */
-        (void)App_PostCallbackMessage(dm_lp_processEvent, (void *) e15_4WakeUpEnded);
+        dm_lp_processEvent((void *) e15_4WakeUpEnded);
     }
 }
 
@@ -434,24 +436,25 @@ static void dm_switch_preSleepCallBack(void)
 {
     SWITCH_DBG_LOG("sleeping");
     DBG_vPrintf(APP_DUAL_MODE_DEBUG, "sleeping\n");
+
+    /* Inform the low power dual mode module that we will sleep.
+       It disables the MAC scheduler.
+       Disabling the scheduler must be done before calling vMMAC_Disable()
+       so it works correctly */
+    dm_lp_preSleep();
+
     if (dualModeStates.zigbeeInitialized)
     {
         vSetReportDataForMinRetention();
         /* If the power mode is with RAM held do the following
-         * else not required as the entry point will init everything*/
-         vSetOTAPersistedDatForMinRetention();
+         * else not required as the entry point will init everything */
+        vSetOTAPersistedDatForMinRetention();
 
-        /* Disable the scheduler to enter low power mode. This should be done before vAppApiSaveMacSettings() because the protocols 
-        must be removed from scheduler(If vMMAC_Disable() it's called first the protocols will no longer be removed from sched) */
-        stopM2();
-        sched_disable();
-
-         /* sleep memory held */
-         vAppApiSaveMacSettings();
-         dualModeStates.zigbeeInitialized = FALSE;
+        /* sleep memory held */
+        vAppApiSaveMacSettings();
+        dualModeStates.zigbeeInitialized = FALSE;
     }
-    /* Inform the low power dual mode module that we will sleep */
-    dm_lp_preSleep();
+
     /* Deinitialize the OTA support */
     OTA_DeInitExternalMemory();
     /* Deinitialize debug console */

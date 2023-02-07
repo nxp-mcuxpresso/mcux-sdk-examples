@@ -78,9 +78,6 @@
     <source path="examples/k32w061dk6/driver_examples/cmp/input_internal/iar" target_path="src" type="linker" toolchain="iar">
       <files mask="K32W061_flash.icf"/>
     </source>
-    <source path="examples/k32w061dk6/driver_examples/cmp/input_internal/iar" target_path="src" type="script" toolchain="iar">
-      <files mask="dk6_iarpostbuild.bat"/>
-    </source>
     <source path="examples/k32w061dk6/driver_examples/cmp/input_internal/mdk" target_path="src" type="linker" toolchain="mdk">
       <files mask="K32W061_flash.scf"/>
     </source>

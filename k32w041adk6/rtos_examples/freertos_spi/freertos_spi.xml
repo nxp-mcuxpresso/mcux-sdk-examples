@@ -82,9 +82,6 @@
     <source path="examples/k32w041adk6/rtos_examples/freertos_spi/iar" target_path="src" type="linker" toolchain="iar">
       <files mask="K32W041A_flash.icf"/>
     </source>
-    <source path="examples/k32w041adk6/rtos_examples/freertos_spi/iar" target_path="src" type="script" toolchain="iar">
-      <files mask="dk6_iarpostbuild.bat"/>
-    </source>
     <source path="examples/k32w041adk6/rtos_examples/freertos_spi/mdk" target_path="src" type="linker" toolchain="mdk">
       <files mask="K32W041A_flash.scf"/>
     </source>

@@ -125,7 +125,7 @@
  * To be used with FRO32K (gClkUseFro32K)
  * Allow to decrease Always ON LDO voltage in powerdown for additional power saving
  * in connected mode */
-#define gPWR_UseAlgoTimeBaseDriftCompensate  gClkUseFro32K
+//#define gPWR_UseAlgoTimeBaseDriftCompensate  1
 
 /* Switch CPU clock to 48MHz FRO at startup - 32MHz (FRO or XTAL) default */
 #define gPWR_CpuClk_48MHz                 0
@@ -150,9 +150,6 @@
 #define gPWR_FlashControllerPowerDownInWFI   1
 #endif
 
-/* Reduce Ldo Memory voltage from 1.0v down to 0.9v saving 28% of leakage on Retained RAM banks */
-#define gPWR_LDOMEM_0_9V_PD                  1
-
 /* Reduce the system clock frequency for  CPU / AHB bus/ SRAM during WFI
      This is particularly useful when the CPU is inactive during the Link layer events.
      However, this reduces the number of possible white-list and RAL entries that can be resolved.
@@ -162,7 +159,7 @@
       16 : reduced down to 16MHz : XTAL32M and clock divided by 2 or 48M divided by 3:  Single white-list entry
 */
 
-#define gPWR_FreqScalingWFI                   (0)
+#define gPWR_FreqScalingWFI                   (16)
 
 /*! BLE Link Layer Fast Correct feature allows a one slot 625us shorter wake up advance */
 //#define gBleLL_FastCorrect_d                (0)
@@ -187,6 +184,12 @@
 
 /* gUsePdm_d is not synonymous to gAppUseNvm_d because PDM is used by Radio driver independantly from NVM */
 #define gUsePdm_d                       (gAppUseBonding_d | gAppUsePairing_d | gRadioUsePdm_d)
+
+/*! Defines Tx Queue Size for Serial Manager */
+#define gSerialMgrTxQueueSize_c         30
+
+/*! Defines Size for Serial Manager Task*/
+#define gSerialTaskStackSize_c          500
 
 /* Defines Num of Serial Manager interfaces */
 #define gSerialManagerMaxInterfaces_c   1
@@ -240,7 +243,7 @@
 /*! *********************************************************************************
  * 	BLE Stack Configuration
  ********************************************************************************** */
-#define gMaxServicesCount_d         10
+#define gMaxServicesCount_d             10
 #define gMaxBondedDevices_c             16
 #define gMaxResolvingListSize_c         6
 
@@ -307,6 +310,16 @@
 #else
   #define PoolsDetails_c     \
          AppPoolsDetails_c
+#endif
+
+/*! *********************************************************************************
+ * 	Flag dependencies
+ *    Define flags needed by other features to be functional
+ *    DO NOT MODIFIED
+ ********************************************************************************** */
+
+#if (gAppUseBonding_d) && (!gAppUsePairing_d)
+  #error "Enable pairing to make use of bonding"
 #endif
 
 #endif /* _APP_PREINCLUDE_H_ */

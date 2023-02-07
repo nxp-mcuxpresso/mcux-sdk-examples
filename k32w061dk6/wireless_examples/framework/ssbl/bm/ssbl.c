@@ -88,7 +88,6 @@ typedef enum
 #if EXTERNAL_FLASH_DATA_OTA
 #define EXTRA_SECTION_MAGIC     0x73676745
 #define COPY_BUFFER_LENGTH        256U
-#define MAX_EXTRA_DATA_SIZE        0x7000U /* Should be tuned according use case */
 #define EXTRA_BUFFER_SHA_LENGTH        16U
 
 /*!
@@ -167,6 +166,8 @@ typedef struct {
 extern int SPIFI_Flash_Init(void);
 extern uint8_t SPIFI_eraseArea(uint32_t Addr, int32_t size);
 extern void SPIFI_writeData(uint32_t NoOfBytes, uint32_t Addr, uint8_t *Outbuf);
+extern uint32_t SPIFI_getSize(void);
+extern uint32_t SPIFI_getSectorSize(void);
 /************************************************************************************
 *************************************************************************************
 * Variables
@@ -437,9 +438,70 @@ static const image_directory_entry_t * ssbl_GetImgDirEntryBasedOnImgType(
     return entry_found;
 }
 
-static bool AddressWithinInternalFlashSafeRange(uint32_t addr)
+#if EXTERNAL_FLASH_DATA_OTA
+static bool ssbl_CheckExtFlashDesc(const image_directory_entry_t *img_directory, uint32_t ext_flash_text_addr, uint32_t ext_flash_text_size)
+{
+    bool res = false;
+    if((ext_flash_text_size == 0)
+            || (ext_flash_text_addr < FSL_FEATURE_SPIFI_START_ADDR)
+            || (ext_flash_text_addr > (FSL_FEATURE_SPIFI_START_ADDR + SPIFI_getSize())))
+    {
+        return res;
+    }
+    for (int i = 0; i < IMG_DIRECTORY_MAX_SIZE; i++)
+    {
+        if(img_directory[i].img_type == OTA_UTILS_PSECT_EXT_FLASH_TEXT_IMAGE_TYPE)
+        {
+            if(ext_flash_text_addr == img_directory[i].img_base_addr || ext_flash_text_size <= FLASH_PAGE_SIZE * img_directory[i].img_nb_pages)
+            {
+                res = true;
+                break;
+            }
+        }
+    }
+    return res;
+}
+
+static uint32_t ssbl_GetMaxExtFlashTextSize(const image_directory_entry_t *img_directory)
+{
+    uint32_t size = 0;
+    for (int i = 0; i < IMG_DIRECTORY_MAX_SIZE; i++)
+    {
+        if(img_directory[i].img_type == OTA_UTILS_PSECT_EXT_FLASH_TEXT_IMAGE_TYPE)
+        {
+            size = FLASH_PAGE_SIZE * img_directory[i].img_nb_pages;
+            break;
+        }
+    }
+    return size;
+}
+#endif
+
+static bool ssbl_CheckOtaEntryVsImgDir(const image_directory_entry_t *img_directory, uint32_t ota_img_start, uint32_t ota_img_pages)
+{
+    bool res = true;
+    for (int i = 0; i < IMG_DIRECTORY_MAX_SIZE; i++)
+    {
+        if(img_directory[i].img_type == OTA_UTILS_PSECT_OTA_IMAGE_TYPE)
+        {
+            if(ota_img_start != img_directory[i].img_base_addr || ota_img_pages > img_directory[i].img_nb_pages)
+            {
+                res = false;
+                break;
+            }
+        }
+    }
+    return res;
+}
+
+static bool ssbl_AddressWithinInternalFlashSafeRange(uint32_t addr)
 {
     return (addr < (uint32_t) INT_STORAGE_START);
+}
+
+static bool ssbl_AddressWithinExternalFlashSafeRange(uint32_t start_addr, uint32_t end_addr)
+{
+    return (start_addr >= (uint32_t) FSL_FEATURE_SPIFI_START_ADDR && end_addr < (FSL_FEATURE_SPIFI_START_ADDR + SPIFI_getSize()));
 }
 
 static  bool ssbl_ImgDirectorySanityCheck(psector_page_data_t * page0)
@@ -453,25 +515,56 @@ static  bool ssbl_ImgDirectorySanityCheck(psector_page_data_t * page0)
         img_base = img_directory[i].img_base_addr;
         img_end = img_base + FLASH_PAGE_SIZE * img_directory[i].img_nb_pages;
         bool overlap = false;
-        if (AddressWithinInternalFlashSafeRange(img_end))
+
+        /* Check for predefined image type used for external flash OTA */
+        if(img_directory[i].img_type == OTA_UTILS_PSECT_OTA_IMAGE_TYPE || img_directory[i].img_type == OTA_UTILS_PSECT_EXT_FLASH_TEXT_IMAGE_TYPE || img_directory[i].img_type == OTA_UTILS_PSECT_NVM_IMAGE_TYPE)
         {
-            for (int j = i+1; j < IMG_DIRECTORY_MAX_SIZE; j++ )
+            if (ssbl_AddressWithinExternalFlashSafeRange(img_base, img_end))
             {
-                uint32_t other_entry_base = img_directory[j].img_base_addr;
-                uint32_t other_entry_end = other_entry_base + FLASH_PAGE_SIZE * img_directory[j].img_nb_pages;
-                if (((img_base < other_entry_base) && (img_end > other_entry_base)) ||
-                        ((img_base >= other_entry_base) && (img_base < other_entry_end)))
+                for (int j = i+1; j < IMG_DIRECTORY_MAX_SIZE; j++ )
                 {
-                    overlap = true;
-                    break;
+                    if(img_directory[j].img_type == OTA_UTILS_PSECT_OTA_IMAGE_TYPE || img_directory[j].img_type == OTA_UTILS_PSECT_EXT_FLASH_TEXT_IMAGE_TYPE || img_directory[j].img_type == OTA_UTILS_PSECT_NVM_IMAGE_TYPE)
+                    {
+                        uint32_t other_entry_base = img_directory[j].img_base_addr;
+                        uint32_t other_entry_end = other_entry_base + FLASH_PAGE_SIZE * img_directory[j].img_nb_pages;
+                        if (((img_base < other_entry_base) && (img_end > other_entry_base)) ||
+                                ((img_base >= other_entry_base) && (img_base < other_entry_end)))
+                        {
+                            overlap = true;
+                            break;
+                        }
+                    }
                 }
+                res =  !overlap;
             }
-            res =  !overlap;
+            else
+            {
+                res = false;
+                break;
+            }
         }
         else
         {
-            res = false;
-            break;
+            if (ssbl_AddressWithinInternalFlashSafeRange(img_end))
+            {
+                for (int j = i+1; j < IMG_DIRECTORY_MAX_SIZE; j++ )
+                {
+                    uint32_t other_entry_base = img_directory[j].img_base_addr;
+                    uint32_t other_entry_end = other_entry_base + FLASH_PAGE_SIZE * img_directory[j].img_nb_pages;
+                    if (((img_base < other_entry_base) && (img_end > other_entry_base)) ||
+                            ((img_base >= other_entry_base) && (img_base < other_entry_end)))
+                    {
+                        overlap = true;
+                        break;
+                    }
+                }
+                res =  !overlap;
+            }
+            else
+            {
+                res = false;
+                break;
+            }
         }
     }
     return res;
@@ -599,6 +692,10 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
             }
         }
 
+        /* If OTA partition was not provisioned in PSECT, continue the OTA for backward compatibility */
+        if(!ssbl_CheckOtaEntryVsImgDir(img_directory, img_addr_ota, img_nb_pages))
+            RAISE_ERROR(err, StatusOta_incorrect_image_struct);
+
         TRY
         {
             img_addr_targeted = OtaUtils_ValidateImage(pFunction_read,
@@ -722,31 +819,28 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
             if((extra_data_header.extra_data_magic == EXTRA_SECTION_MAGIC) && (img_nb_pages*FLASH_PAGE_SIZE >= img_total_len + extra_data_header.extra_data_size))
             {
                 /* Sanity check on extracted descriptor */
-                if((extra_data_header.extra_data_size == 0) ||
-                        (extra_data_header.extra_data_lma < FSL_FEATURE_SPIFI_START_ADDR)
-                        || (extra_data_header.extra_data_lma > FSL_FEATURE_SPIFI_END_ADDR)
-                        || extra_data_header.extra_data_size > MAX_EXTRA_DATA_SIZE)
+                if(!ssbl_CheckExtFlashDesc(img_directory, extra_data_header.extra_data_lma, extra_data_header.extra_data_size))
                 {
                     /* At this stage nothing as been done - simply exit and keep the current image */
                     RAISE_ERROR(err, StatusOta_incorrect_extra_data);
                 }
 
                 extra_data_src_addr = img_addr_ota + img_total_len;
-                if(extra_data_src_addr + extra_data_header.extra_data_size >= FSL_FEATURE_SPIFI_END_ADDR)
+                if(extra_data_src_addr + extra_data_header.extra_data_size >= (FSL_FEATURE_SPIFI_START_ADDR + SPIFI_getSize()))
                 {
                     /* At this stage nothing as been done - simply exit and keep the current image */
                     RAISE_ERROR(err, StatusOta_incorrect_extra_data);
                 }
 
-                if(gOtaUtilsSuccess_c != ssbl_ComputeExtraDataHash((uint32_t *)extra_data_src_addr, extra_data_header.extra_data_size, extra_data_header.extra_data_hash, pFunction_read, p_param, pFunction_eeprom_read))
+                if(gOtaUtilsSuccess_c != ssbl_ComputeExtraDataHash(extra_data_src_addr, extra_data_header.extra_data_size, extra_data_header.extra_data_hash, pFunction_read, p_param, pFunction_eeprom_read))
                 {
                     /* At this stage nothing as been done - simply exit and keep the current image */
                     RAISE_ERROR(err, StatusOta_incorrect_extra_data);
                 }
 
                 /* Checks passed - Start erasing the needed area - must be multiple of 4K */
-
-                if(0 != SPIFI_eraseArea(extra_data_header.extra_data_lma - FSL_FEATURE_SPIFI_START_ADDR, (int32_t) GET_PAGE_MULTIPLE_UP(MAX_EXTRA_DATA_SIZE, 4096U)))
+                uint32_t ext_flash_text_partition = ssbl_GetMaxExtFlashTextSize(img_directory);
+                if(0 != SPIFI_eraseArea(extra_data_header.extra_data_lma - FSL_FEATURE_SPIFI_START_ADDR, (int32_t) GET_PAGE_MULTIPLE_UP(ext_flash_text_partition, SPIFI_getSectorSize())*SPIFI_getSectorSize()))
                 {
                     /* Exit on failure - TODO: if data already erased, only ISP mode can recover */
                     RAISE_ERROR(err, StatusOta_operation_error);
@@ -764,7 +858,6 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
                     }
                     YRT
                     SPIFI_writeData(COPY_BUFFER_LENGTH, extra_data_header.extra_data_lma + i*COPY_BUFFER_LENGTH - FSL_FEATURE_SPIFI_START_ADDR, (uint8_t *)&temp_buff);
-                    dst_section_size = dst_section_size - COPY_BUFFER_LENGTH;
                 }
                 if(err != StatusOta_ok_so_far)
                 {

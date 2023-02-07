@@ -70,11 +70,98 @@
 
 #define IOCON_QSPI_MODE_FUNC        (7U)
 
+#define USART1_TX_MODE                                                  \
+    IOCON_PIO_FUNC(2) |                                                 \
+    /* GPIO mode */                                                     \
+    IOCON_PIO_EGP_GPIO |                                                \
+    /* IO is an open drain cell */                                      \
+    IOCON_PIO_ECS_DI |                                                  \
+    /* High speed IO for GPIO mode, IIC not */                          \
+    IOCON_PIO_EHS_DI |                                                  \
+    /* Input function is not inverted */                                \
+    IOCON_PIO_INV_DI |                                                  \
+    /* Enables digital function */                                      \
+    IOCON_PIO_DIGITAL_EN |                                              \
+    /* Input filter disabled */                                         \
+    IOCON_PIO_INPFILT_OFF |                                             \
+    /* IIC mode:Noise pulses below approximately */                     \
+    /* 50ns are filtered out. GPIO mode:a 3ns filter */                 \
+    IOCON_PIO_FSEL_DI |                                                 \
+    /* Open drain is disabled */                                        \
+    IOCON_PIO_OPENDRAIN_DI |                                            \
+    /* IO_CLAMP disabled */                                             \
+    IOCON_PIO_IO_CLAMP_DI
+
+
+#define USART1_RX_MODE                                                  \
+    IOCON_PIO_FUNC(2) |                                                 \
+    /* GPIO mode */                                                     \
+    IOCON_PIO_EGP_GPIO |                                                \
+    /* IO is an open drain cell */                                      \
+    IOCON_PIO_ECS_DI |                                                  \
+    /* High speed IO for GPIO mode, IIC not */                          \
+    IOCON_PIO_EHS_DI |                                                  \
+    /* Input function is not inverted */                                \
+    IOCON_PIO_INV_DI |                                                  \
+    /* Enables digital function */                                      \
+    IOCON_PIO_DIGITAL_EN |                                              \
+    /* Input filter disabled */                                         \
+    IOCON_PIO_INPFILT_OFF |                                             \
+    /* IIC mode:Noise pulses below approximately */                     \
+    /* 50ns are filtered out.*/                                         \
+    IOCON_PIO_FSEL_DI |                                                 \
+    /* Open drain is disabled */                                        \
+    IOCON_PIO_OPENDRAIN_DI |                                            \
+    /* IO_CLAMP disabled */                                             \
+    IOCON_PIO_IO_CLAMP_DI
+
+#define USART0_TX_MODE                                                  \
+    /* Pin is configured as USART0_TXD */                               \
+    IOCON_PIO_FUNC2 |                                                   \
+    /* Selects pull-up function */                                      \
+    IOCON_PIO_MODE_PULLUP |                                             \
+    /* Standard mode, output slew rate control is disabled */           \
+    IOCON_PIO_SLEW0_STANDARD | IOCON_PIO_SLEW1_STANDARD |               \
+    /* Input function is not inverted */                                \
+    IOCON_PIO_INV_DI |                                                  \
+    /* Enables digital function */                                      \
+    IOCON_PIO_DIGITAL_EN |                                              \
+    /* Input filter disabled */                                         \
+    IOCON_PIO_INPFILT_OFF |                                             \
+    /* Open drain is disabled */                                        \
+    IOCON_PIO_OPENDRAIN_DI |                                            \
+    /* SSEL is disabled */                                              \
+    IOCON_PIO_SSEL_DI
+
+#define USART0_RX_MODE                                                  \
+    /* Pin is configured as USART0_RXD */                               \
+    IOCON_PIO_FUNC2 |                                                   \
+    /* Selects pull-up function */                                      \
+    IOCON_PIO_MODE_PULLUP |                                             \
+    /* Standard mode, output slew rate control is disabled */           \
+    IOCON_PIO_SLEW0_STANDARD |  IOCON_PIO_SLEW1_STANDARD |              \
+    /* Input function is not inverted */                                \
+    IOCON_PIO_INV_DI |                                                  \
+    /* Enables digital function */                                      \
+    IOCON_PIO_DIGITAL_EN |                                              \
+    /* Input filter disabled */                                         \
+    IOCON_PIO_INPFILT_OFF |                                             \
+    /* Open drain is disabled */                                        \
+    IOCON_PIO_OPENDRAIN_DI |                                            \
+    /* SSEL is disabled */                                              \
+    IOCON_PIO_SSEL_DI
+
 #define IOCON_USART0_TX_PIN         (8U)
 #define IOCON_USART0_RX_PIN         (9U)
 
+#ifndef USART1_FTDI
 #define IOCON_USART1_TX_PIN         (10U)
 #define IOCON_USART1_RX_PIN         (11U)
+#else
+/* USART1 output on FTDI connector */
+#define IOCON_USART1_TX_PIN         (0U)
+#define IOCON_USART1_RX_PIN         (1U)
+#endif
 
 #define IOCON_SWCLK_PIN             (12U)
 #define IOCON_SWDIO_PIN             (13U)
@@ -381,13 +468,18 @@
       to save time on wakeup (=1) and lowpower entry (=2) , keep 32Mhz XTAL otherwise
     Note : flag is useless if gPWR_CpuClk_48MHz is set to 1 already   */
 #ifndef gPWR_SmartFrequencyScaling
-#define gPWR_SmartFrequencyScaling     (0)
+#define gPWR_SmartFrequencyScaling     (2)
 #endif
 
 /* Reduce LDO Core/Mem/Ao Voltage down to 1.0V during Active
  * except at wakeup and when increasing CPU clock */
 #define gPWR_LdoVoltDynamic                  1
 
+#if defined (gMWS_UseCoexistence_d) && (gMWS_UseCoexistence_d)
+#define BOARD_PTA_REQ_PIN                    (15)
+#define BOARD_PTA_PRIO_PIN                   (16)
+#define BOARD_PTA_GRANT_PIN                  (14)
+#endif
 #if defined(__cplusplus)
 extern "C" {
 #endif /* __cplusplus */
