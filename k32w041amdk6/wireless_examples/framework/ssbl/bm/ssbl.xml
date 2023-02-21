@@ -96,6 +96,7 @@
     </toolchainSettings>
     <source path="examples/k32w041amdk6/wireless_examples/framework/ssbl/binary" target_path="source" type="binary" exclude="true">
       <files mask="ssbl.bin"/>
+      <files mask="ssbl_ext_flash_pdm_support.bin"/>
     </source>
     <source path="examples/k32w041amdk6/wireless_examples/framework/ssbl/bm/iar/test_es2_sign" target_path="scripts/test_es2_sign" type="binary" exclude="true" toolchain="iar mcuxpresso">
       <files mask="cert.bin"/>

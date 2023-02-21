@@ -86,8 +86,9 @@ typedef enum
 #endif
 
 #if EXTERNAL_FLASH_DATA_OTA
-#define EXTRA_SECTION_MAGIC     0x73676745
-#define COPY_BUFFER_LENGTH        256U
+#define EXTRA_SECTION_MAGIC            0x73676745
+#define EXTRA_SECTION_MAGIC_APP_ONLY   0x65706F4E
+#define COPY_BUFFER_LENGTH             256U
 #define EXTRA_BUFFER_SHA_LENGTH        16U
 
 /*!
@@ -104,9 +105,10 @@ typedef struct
     uint8_t extra_data_hash[32];    /*!< Computed Hash of the extra data - 256 Bits (32 Bytes)*/
 } EXTRA_DATA_HEADER_T;
 
+#endif
+
 #define GET_PAGE_MULTIPLE_UP(X, PAGE_SIZE) ((X + PAGE_SIZE-1)/PAGE_SIZE)
 
-#endif
 
 #define ENABLE_FROCLK(x) PMC->FRO192M |= (1 << (PMC_FRO192M_DIVSEL_SHIFT+(x)))
 /************************************************************************************
@@ -184,7 +186,7 @@ const static BOOT_SetImageAddress_t BOOT_SetImageAddress   = (BOOT_SetImageAddre
 const static BOOT_SetCfgWord_t BOOT_SetCfgWord             = (BOOT_SetCfgWord_t)ROM_API_BOOT_SetCfgWord;
 const static BOOT_ResumeGetCfgWord_t BOOT_ResumeGetCfgWord = (BOOT_ResumeGetCfgWord_t)ROM_API_BOOT_ResumeGetCfgWord;
 #endif
-extern uint32_t INT_STORAGE_START[];
+
 /******************************************************************************
 *******************************************************************************
 * Private functions
@@ -450,7 +452,7 @@ static bool ssbl_CheckExtFlashDesc(const image_directory_entry_t *img_directory,
     }
     for (int i = 0; i < IMG_DIRECTORY_MAX_SIZE; i++)
     {
-        if(img_directory[i].img_type == OTA_UTILS_PSECT_EXT_FLASH_TEXT_IMAGE_TYPE)
+        if(img_directory[i].img_type == OTA_UTILS_PSECT_EXT_FLASH_TEXT_PARTITION_IMAGE_TYPE)
         {
             if(ext_flash_text_addr == img_directory[i].img_base_addr || ext_flash_text_size <= FLASH_PAGE_SIZE * img_directory[i].img_nb_pages)
             {
@@ -467,7 +469,7 @@ static uint32_t ssbl_GetMaxExtFlashTextSize(const image_directory_entry_t *img_d
     uint32_t size = 0;
     for (int i = 0; i < IMG_DIRECTORY_MAX_SIZE; i++)
     {
-        if(img_directory[i].img_type == OTA_UTILS_PSECT_EXT_FLASH_TEXT_IMAGE_TYPE)
+        if(img_directory[i].img_type == OTA_UTILS_PSECT_EXT_FLASH_TEXT_PARTITION_IMAGE_TYPE)
         {
             size = FLASH_PAGE_SIZE * img_directory[i].img_nb_pages;
             break;
@@ -482,85 +484,9 @@ static bool ssbl_CheckOtaEntryVsImgDir(const image_directory_entry_t *img_direct
     bool res = true;
     for (int i = 0; i < IMG_DIRECTORY_MAX_SIZE; i++)
     {
-        if(img_directory[i].img_type == OTA_UTILS_PSECT_OTA_IMAGE_TYPE)
+        if(img_directory[i].img_type == OTA_UTILS_PSECT_OTA_PARTITION_IMAGE_TYPE)
         {
             if(ota_img_start != img_directory[i].img_base_addr || ota_img_pages > img_directory[i].img_nb_pages)
-            {
-                res = false;
-                break;
-            }
-        }
-    }
-    return res;
-}
-
-static bool ssbl_AddressWithinInternalFlashSafeRange(uint32_t addr)
-{
-    return (addr < (uint32_t) INT_STORAGE_START);
-}
-
-static bool ssbl_AddressWithinExternalFlashSafeRange(uint32_t start_addr, uint32_t end_addr)
-{
-    return (start_addr >= (uint32_t) FSL_FEATURE_SPIFI_START_ADDR && end_addr < (FSL_FEATURE_SPIFI_START_ADDR + SPIFI_getSize()));
-}
-
-static  bool ssbl_ImgDirectorySanityCheck(psector_page_data_t * page0)
-
-{
-    const image_directory_entry_t * img_directory = &page0->page0_v3.img_directory[0];
-    bool res = false;
-    uint32_t img_base, img_end;
-    for (int i = 0; i < IMG_DIRECTORY_MAX_SIZE; i++)
-    {
-        img_base = img_directory[i].img_base_addr;
-        img_end = img_base + FLASH_PAGE_SIZE * img_directory[i].img_nb_pages;
-        bool overlap = false;
-
-        /* Check for predefined image type used for external flash OTA */
-        if(img_directory[i].img_type == OTA_UTILS_PSECT_OTA_IMAGE_TYPE || img_directory[i].img_type == OTA_UTILS_PSECT_EXT_FLASH_TEXT_IMAGE_TYPE || img_directory[i].img_type == OTA_UTILS_PSECT_NVM_IMAGE_TYPE)
-        {
-            if (ssbl_AddressWithinExternalFlashSafeRange(img_base, img_end))
-            {
-                for (int j = i+1; j < IMG_DIRECTORY_MAX_SIZE; j++ )
-                {
-                    if(img_directory[j].img_type == OTA_UTILS_PSECT_OTA_IMAGE_TYPE || img_directory[j].img_type == OTA_UTILS_PSECT_EXT_FLASH_TEXT_IMAGE_TYPE || img_directory[j].img_type == OTA_UTILS_PSECT_NVM_IMAGE_TYPE)
-                    {
-                        uint32_t other_entry_base = img_directory[j].img_base_addr;
-                        uint32_t other_entry_end = other_entry_base + FLASH_PAGE_SIZE * img_directory[j].img_nb_pages;
-                        if (((img_base < other_entry_base) && (img_end > other_entry_base)) ||
-                                ((img_base >= other_entry_base) && (img_base < other_entry_end)))
-                        {
-                            overlap = true;
-                            break;
-                        }
-                    }
-                }
-                res =  !overlap;
-            }
-            else
-            {
-                res = false;
-                break;
-            }
-        }
-        else
-        {
-            if (ssbl_AddressWithinInternalFlashSafeRange(img_end))
-            {
-                for (int j = i+1; j < IMG_DIRECTORY_MAX_SIZE; j++ )
-                {
-                    uint32_t other_entry_base = img_directory[j].img_base_addr;
-                    uint32_t other_entry_end = other_entry_base + FLASH_PAGE_SIZE * img_directory[j].img_nb_pages;
-                    if (((img_base < other_entry_base) && (img_end > other_entry_base)) ||
-                            ((img_base >= other_entry_base) && (img_base < other_entry_end)))
-                    {
-                        overlap = true;
-                        break;
-                    }
-                }
-                res =  !overlap;
-            }
-            else
             {
                 res = false;
                 break;
@@ -642,7 +568,7 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
     bool_t external_flash_ota = (ota_entry->img_base_addr >= FSL_FEATURE_SPIFI_START_ADDR);
     uint32_t img_addr_ota = ota_entry->img_base_addr;
     uint32_t img_addr_targeted;
-    uint32_t img_total_len = 0;
+    uint32_t internal_img_size = 0;
     CipherMethod_t cipher_method = NO_CIPHER;
     OtaUtils_ReadBytes pFunction_read = OtaUtils_ReadFromInternalFlash;
     OtaUtils_EEPROM_ReadData pFunction_eeprom_read = ssbl_EEPROM_ReadData;
@@ -652,7 +578,8 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
     IMG_HEADER_T img_header_ota;
     BOOT_BLOCK_T boot_block_ota;
     uint8_t img_type_ota;
-    uint16_t img_nb_pages = ota_entry->img_nb_pages;
+    uint16_t ota_img_nb_pages = ota_entry->img_nb_pages;
+    uint32_t dest_partition_size;
     uint8_t page_content_ota[FLASH_PAGE_SIZE];
     bool_t ssblUpdate = FALSE;
 
@@ -693,7 +620,7 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
         }
 
         /* If OTA partition was not provisioned in PSECT, continue the OTA for backward compatibility */
-        if(!ssbl_CheckOtaEntryVsImgDir(img_directory, img_addr_ota, img_nb_pages))
+        if(!ssbl_CheckOtaEntryVsImgDir(img_directory, img_addr_ota, ota_img_nb_pages))
             RAISE_ERROR(err, StatusOta_incorrect_image_struct);
 
         TRY
@@ -751,15 +678,14 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
             RAISE_ERROR(err, StatusOta_incorrect_image_struct);
 
         /* Check that the size of the new update will fit in the final destination */
-        int img_nb_pages_ota = ((boot_block_ota.img_len + FLASH_PAGE_SIZE-1)/FLASH_PAGE_SIZE);
-        int dst_section_size = (dest_dir_entry->img_nb_pages*FLASH_PAGE_SIZE);
-        img_total_len = boot_block_ota.img_len;
+        dest_partition_size = dest_dir_entry->img_nb_pages*FLASH_PAGE_SIZE;
+        internal_img_size = boot_block_ota.img_len;
         if(root_cert != NULL)
         {
-            img_total_len += sizeof(ImageSignature_t);
+            internal_img_size += sizeof(ImageSignature_t);
         }
-        if (img_nb_pages_ota > dest_dir_entry->img_nb_pages
-                || img_total_len > dst_section_size)
+        if (GET_PAGE_MULTIPLE_UP(internal_img_size, FLASH_PAGE_SIZE) > dest_dir_entry->img_nb_pages
+                || internal_img_size > dest_partition_size)
             RAISE_ERROR(err, StatusOta_incorrect_image_struct);
 
 #ifdef SSBL_BLOB_LOAD
@@ -816,7 +742,7 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
             YRT
 
             /* Check if descriptor has been found */
-            if((extra_data_header.extra_data_magic == EXTRA_SECTION_MAGIC) && (img_nb_pages*FLASH_PAGE_SIZE >= img_total_len + extra_data_header.extra_data_size))
+            if((extra_data_header.extra_data_magic == EXTRA_SECTION_MAGIC) && (ota_img_nb_pages*FLASH_PAGE_SIZE >= internal_img_size + extra_data_header.extra_data_size))
             {
                 /* Sanity check on extracted descriptor */
                 if(!ssbl_CheckExtFlashDesc(img_directory, extra_data_header.extra_data_lma, extra_data_header.extra_data_size))
@@ -825,7 +751,7 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
                     RAISE_ERROR(err, StatusOta_incorrect_extra_data);
                 }
 
-                extra_data_src_addr = img_addr_ota + img_total_len;
+                extra_data_src_addr = img_addr_ota + internal_img_size;
                 if(extra_data_src_addr + extra_data_header.extra_data_size >= (FSL_FEATURE_SPIFI_START_ADDR + SPIFI_getSize()))
                 {
                     /* At this stage nothing as been done - simply exit and keep the current image */
@@ -865,18 +791,20 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
                     RAISE_ERROR(err, StatusOta_operation_error);
                 }
                 /* Remove the extra pages from the total image length */
-                img_nb_pages = GET_PAGE_MULTIPLE_UP(img_nb_pages*FLASH_PAGE_SIZE - extra_data_header.extra_data_size, FLASH_PAGE_SIZE);
+                ota_img_nb_pages = GET_PAGE_MULTIPLE_UP(ota_img_nb_pages*FLASH_PAGE_SIZE - extra_data_header.extra_data_size, FLASH_PAGE_SIZE);
             }
         }
 #endif /* EXTERNAL_FLASH_DATA_OTA */
 
-        /* Erase flash section needed before copying */
-        uint8_t * end_addr = (uint8_t*)img_addr_targeted + dst_section_size -1;
-        if ((uint32_t *)end_addr > INT_STORAGE_START)
+        /* Erase flash section needed before copying  - take the image partition size from PSECT
+         * If image partition size exceed internal flash safe limit, use the size of the received image instead (if fits into the internal flash safe range) */
+        uint8_t * erase_end_addr = (uint8_t*)img_addr_targeted + dest_partition_size -1;
+        uint32_t max_modifiable_int_addr = OtaUtils_GetModifiableInternalFlashTopAddress();
+        if ((uint32_t)erase_end_addr > max_modifiable_int_addr)
         {
-            if(img_addr_targeted + ota_entry->img_nb_pages*FLASH_PAGE_SIZE < (uint32_t) INT_STORAGE_START)
+            if(img_addr_targeted + ota_entry->img_nb_pages*FLASH_PAGE_SIZE < max_modifiable_int_addr)
             {
-                end_addr = (uint8_t*)img_addr_targeted + ota_entry->img_nb_pages*FLASH_PAGE_SIZE -1;
+                erase_end_addr = (uint8_t*)img_addr_targeted + ota_entry->img_nb_pages*FLASH_PAGE_SIZE -1;
             }
             else
             {
@@ -884,12 +812,20 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
             }
         }
         if (FLASH_Erase(FLASH, (uint8_t*)img_addr_targeted,
-                (uint8_t*) end_addr) != FLASH_DONE)
+                (uint8_t*) erase_end_addr) != FLASH_DONE)
         {
             RAISE_ERROR(err, StatusOta_operation_error);
         }
 
-        for (int i= 0 ; i < img_nb_pages; i++)
+        /* Before copying the image, check the iterator limit value. If inconsistency is detected, reduce it to the actual application size */
+        uint32_t ota_img_max_size = ota_img_nb_pages*FLASH_PAGE_SIZE;
+        if(ota_img_max_size > dest_partition_size || ota_img_max_size > internal_img_size)
+        {
+            ota_img_nb_pages = GET_PAGE_MULTIPLE_UP(internal_img_size, FLASH_PAGE_SIZE);
+        }
+
+        /* Copying the image */
+        for (int i= 0 ; i < ota_img_nb_pages; i++)
         {
             TRY
             {
@@ -901,10 +837,12 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
             }
             YRT
 #if EXTERNAL_FLASH_DATA_OTA
-            if(i==(img_nb_pages-1) && (img_total_len%FLASH_PAGE_SIZE != 0))
+            uint32_t unaligned_bytes = internal_img_size%FLASH_PAGE_SIZE;
+            if(i==(ota_img_nb_pages-1) && (unaligned_bytes != 0))
             {
-                /* For last page, we may need to clear some bytes (end of the page) */
-                for (uint32_t j=(img_total_len%FLASH_PAGE_SIZE); j<FLASH_PAGE_SIZE; j++)
+                /* In case application image end address is not FLASH_PAGE_SIZE,
+                 * we may need to clear some bytes in the end of last page, to not copy unwanted data into flash */
+                for (uint32_t j=(unaligned_bytes); j<FLASH_PAGE_SIZE; j++)
                 {
                     page_content_ota[j] = 0xFF;
                 }
@@ -1156,7 +1094,7 @@ int main(void)
         end_of_ssbl = 0x00 + (uint32_t)SSBL_SIZE;
 
         /* Sanity check of image directory */
-        if (!ssbl_ImgDirectorySanityCheck(&page[0]) )
+        if (!OtaUtils_ImgDirectorySanityCheck(&page[0], SPIFI_getSize()))
         {
             /* status is -1 so ends up in ISP */
             break;
@@ -1203,6 +1141,31 @@ int main(void)
         if (image_addr == OTA_UTILS_IMAGE_INVALID_ADDR)
             break;
 
+#if EXTERNAL_FLASH_DATA_OTA
+        /* If here, bootable image is found. Find the extra data descriptor in image if any */
+        IMG_HEADER_T img_header_ota;
+        BOOT_BLOCK_T boot_block_ota;
+        EXTRA_DATA_HEADER_T extra_data_header;
+
+        OtaUtils_ReadFromInternalFlash(sizeof(IMG_HEADER_T),  image_addr, (uint8_t *)&img_header_ota, NULL, ssbl_EEPROM_ReadData);
+        OtaUtils_ReadFromInternalFlash(sizeof(BOOT_BLOCK_T),  image_addr + img_header_ota.bootBlockOffset, (uint8_t *)&boot_block_ota, NULL, ssbl_EEPROM_ReadData);
+        OtaUtils_ReadFromInternalFlash(sizeof(EXTRA_DATA_HEADER_T),  image_addr + img_header_ota.bootBlockOffset - sizeof(EXTRA_DATA_HEADER_T), (uint8_t *)&extra_data_header, NULL, ssbl_EEPROM_ReadData);
+
+        /* If any extra data linked to the image is expected in external flash, compute the Hash */
+        if(((extra_data_header.extra_data_magic == EXTRA_SECTION_MAGIC) || (extra_data_header.extra_data_magic == EXTRA_SECTION_MAGIC_APP_ONLY)) && (extra_data_header.extra_data_size != 0))
+        {
+#ifndef QSPI_EARLY_START
+            if (SPIFI_Flash_Init() < 0)
+            {
+                /* Ends up in ISP */
+                break;
+            }
+#endif
+            if(gOtaUtilsSuccess_c != ssbl_ComputeExtraDataHash(extra_data_header.extra_data_lma, extra_data_header.extra_data_size, extra_data_header.extra_data_hash, OtaUtils_ReadFromUnencryptedExtFlash, NULL, ssbl_EEPROM_ReadData))
+                /* Hash comparison failed - Ends up in ISP */
+                break;
+        }
+#endif /* EXTERNAL_FLASH_DATA_OTA */
         /*
          * Clear pending status into flash for ATE test.
          * During ATE test after reset the flash controller is waiting for a cleared

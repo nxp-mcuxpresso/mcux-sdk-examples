@@ -4,7 +4,7 @@
  ********************************************************************************** */
 /*!
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2019 NXP
+ * Copyright 2016-2019, 2022 NXP
  *
  * \file
  *
@@ -98,24 +98,24 @@
  * */
 //#define gAppADCMeasureCounter_c         10
 
-/* Use the Lowpower module from the framework :
+/*! Use the Lowpower module from the framework :
  * Default lowpower mode for the lowpower module is WFI only
  * For full power down mode, cPWR_FullPowerDownMode shall be set to 1
  */
 #define cPWR_UsePowerDownMode           1
 
-/* Enable Power down modes
+/*! Enable Power down modes
  * Need cPWR_UsePowerDownMode to be set to 1 first */
 #define cPWR_FullPowerDownMode          1
 
-/* Settings that apply only when cPWR_FullPowerDownMode is set */
+/*! Settings that apply only when cPWR_FullPowerDownMode is set */
 #if cPWR_FullPowerDownMode
 
-/* Prevent from disabling the power down mode when switching in connected mode
+/*! Prevent from disabling the power down mode when switching in connected mode
  * If not set, the powerdown mode will be disabled when going into connected mode */
 #define cPWR_NoPowerDownDisabledOnConnect    1
 
-/* Go to power down even if a timer (not lower timer) is running
+/*! Go to power down even if a timer (not lower timer) is running
  * Warning : timers are lost and not yet recovered on wakeup
  */
 #define cPWR_DiscardRunningTimerForPowerDown 1
@@ -124,17 +124,15 @@
  * enabled (cPWR_UsePowerDownMode set to 3)
  * To be used with FRO32K (gClkUseFro32K)
  * Allow to decrease Always ON LDO voltage in powerdown for additional power saving
- * in connected mode */
+ * in connected mode
+ * Keep it disabled for now */
 //#define gPWR_UseAlgoTimeBaseDriftCompensate  1
 
-/* Switch CPU clock to 48MHz FRO at startup - 32MHz (FRO or XTAL) default */
-#define gPWR_CpuClk_48MHz                 0
+/*! Switch CPU clock to 48MHz FRO at startup - 32MHz (FRO or XTAL) default */
+//#define gPWR_CpuClk_48MHz                    1
 
- /* Wait for oscillator number of 30us 32kHz ticks - 24 seems to work, 27 is the default value*/
+ /*! Wait for oscillator number of 30us 32kHz ticks - 24 seems to work, 27 is the default value*/
 //#define gBleOscWakeDelay_c              (22)
-
-/* Optimize Advertising interslot interval in us - Default is 1500us if not set */
-#define gPWR_AdvertisingInterSlotInt         1328
 
 /*!  define gSwdWakeupReconnect_c as 1 to ensure that SWD can wake device up and
  *  attach debugger when powered down */
@@ -150,7 +148,7 @@
 #define gPWR_FlashControllerPowerDownInWFI   1
 #endif
 
-/* Reduce the system clock frequency for  CPU / AHB bus/ SRAM during WFI
+/*! Reduce the system clock frequency for  CPU / AHB bus/ SRAM during WFI
      This is particularly useful when the CPU is inactive during the Link layer events.
      However, this reduces the number of possible white-list and RAL entries that can be resolved.
      The radio timings need to be trimmed to allow WFI frequency scaling below
@@ -158,32 +156,47 @@
       32 : reduced down to 32MHz  (no effect if gPWR_CpuClk_48MHz is disabled)
       16 : reduced down to 16MHz : XTAL32M and clock divided by 2 or 48M divided by 3:  Single white-list entry
 */
-
-#define gPWR_FreqScalingWFI                   (16)
+#define gPWR_FreqScalingWFI                  (16)
 
 /*! BLE Link Layer Fast Correct feature allows a one slot 625us shorter wake up advance */
-//#define gBleLL_FastCorrect_d                (0)
+//#define gBleLL_FastCorrect_d               (0)
 
-#endif
+/*! In lowpower entry sequence, Disable Link layer to switch to DSM at first step */
+//#define gPWR_BleLL_EarlyEnterDsm             (0)
+
+#endif   // cPWR_FullPowerDownMode
 
 #define PWR_WTIMER1_IRQ_HANDLER
 
 /* This setting impacts Slave RX window widening and consequently power consumption
-   Customer needs to charaterize the 32Khz crytal with regards to temperature and aging
+   Customer needs to characterize the 32Khz crystal with regards to temperature and aging
    for better power saving.  keep it to safe value (500ppm) if not done */
 #define gLocalSleepClkAccuracyPpm       250
+
+/* Reduce Memory footprint for lowpower in case of low RX throughput application */
+#define gController_ReducedRxThoughput  1
+
+#if NDEBUG
+#define gBleSlpAlgoDuration           (375)
+#endif /* NDEBUG */
 
 /*! *********************************************************************************
  * 	Framework Configuration
  ********************************************************************************** */
-/* enable NVM to be used as non volatile storage management by the host stack */
+
+#define gMemManagerLight 1
+#define gMemManagerLightExtendHeapAreaUsage   1
+/*! enable NVM to be used as non volatile storage management by the host stack */
 #define gAppUseNvm_d                    0
 
-/* If set, enables Kmod data saving in PDM (requires PDM library) */
+/*! If set, enables Kmod data saving in PDM (requires PDM library) */
 #define gRadioUsePdm_d                  1
 
-/* gUsePdm_d is not synonymous to gAppUseNvm_d because PDM is used by Radio driver independantly from NVM */
+/*! gUsePdm_d is not synonymous to gAppUseNvm_d because PDM is used by Radio driver independantly from NVM */
 #define gUsePdm_d                       (gAppUseBonding_d | gAppUsePairing_d | gRadioUsePdm_d)
+
+/*! Defines Num of Serial Manager interfaces */
+#define gSerialManagerMaxInterfaces_c   1
 
 /*! Defines Tx Queue Size for Serial Manager */
 #define gSerialMgrTxQueueSize_c         30
@@ -191,10 +204,7 @@
 /*! Defines Size for Serial Manager Task*/
 #define gSerialTaskStackSize_c          500
 
-/* Defines Num of Serial Manager interfaces */
-#define gSerialManagerMaxInterfaces_c   1
-
-/* Defines Size for Timer Task*/
+/*! Defines Size for TMR Task*/
 #define gTmrTaskStackSize_c             700
 
 /* Defines pools by block size and number of blocks. Must be aligned to 4 bytes.*/
@@ -208,7 +218,15 @@
 #define gTmrApplicationTimers_c         4
 
 /* Defines number of timers needed by the protocol stack */
-#define gTmrStackTimers_c               5
+#ifndef gL2caMaxLeCbChannels_c
+/* If not yet defined above set default value to 2 */
+#define gL2caMaxLeCbChannels_c           (2U)
+#endif
+#if defined(gAppMaxConnections_c)
+    #define gTmrStackTimers_c (2 + ((gAppMaxConnections_c) * 2) + gL2caMaxLeCbChannels_c)
+#else
+    #define gTmrStackTimers_c (32)
+#endif
 
 /* Set this define TRUE if the PIT frequency is an integer number of MHZ */
 #define gTMR_PIT_FreqMultipleOfMHZ_d    0
@@ -222,13 +240,10 @@
 /* Use Lowpower timers - switch timers from CTIMERS to RTC 16bit timer - 1ms resolution*/
 #define gTimerMgrLowPowerTimers         1
 
-#define gTimestampUseWtimer_c           (1)
-
-
-/* Enable/Disable PANIC catch */
+/*! Enable/Disable PANIC catch */
 #define gUsePanic_c                     1
 
-/* Debug only */
+/*! Debug only */
 #define gLoggingActive_d                0
 #define DBG_TMR 0
 #define DBG_PWR 0
@@ -244,7 +259,11 @@
  * 	BLE Stack Configuration
  ********************************************************************************** */
 #define gMaxServicesCount_d             10
+#if defined gAppUseBonding_d && (gAppUseBonding_d > 0)
 #define gMaxBondedDevices_c             16
+#else
+#define gMaxBondedDevices_c             1
+#endif
 #define gMaxResolvingListSize_c         6
 
 /*! *********************************************************************************
@@ -322,6 +341,7 @@
   #error "Enable pairing to make use of bonding"
 #endif
 
+#define gTimestampUseWtimer_c           (1)
 #endif /* _APP_PREINCLUDE_H_ */
 
 /*! *********************************************************************************

@@ -156,9 +156,6 @@
  * Shall not be used over full operating range of the device  */
 #define gPWR_LDOMEM_0_9V_PD                  1
 
-/* Optimize Advertising interslot interval in us - Default is 1500us if not set */
-#define gPWR_AdvertisingInterSlotInt         1328
-
 /* Not supported */
 #define gPWR_SerialUartRxWakeup              0
 #endif
@@ -193,7 +190,15 @@
 #define gTmrApplicationTimers_c         4
 
 /* Defines number of timers needed by the protocol stack */
-#define gTmrStackTimers_c               5
+#ifndef gL2caMaxLeCbChannels_c
+/* If not yet defined above set default value to 2 */
+#define gL2caMaxLeCbChannels_c           (2U)
+#endif
+#if defined(gAppMaxConnections_c)
+    #define gTmrStackTimers_c (2 + ((gAppMaxConnections_c) * 2) + gL2caMaxLeCbChannels_c)
+#else
+    #define gTmrStackTimers_c (32)
+#endif
 
 
 /* Enables / Disables the precision timers platform component */
@@ -223,7 +228,11 @@
  * user should remove an old bonded device to store new bonded information. Otherwise,
  * demo application will pair with new device with No Bonding type.
  */
+#if defined gAppUseBonding_d && (gAppUseBonding_d > 0)
 #define gMaxBondedDevices_c             16
+#else
+#define gMaxBondedDevices_c             1
+#endif
 #define gMaxResolvingListSize_c         6
 
 /*! *********************************************************************************

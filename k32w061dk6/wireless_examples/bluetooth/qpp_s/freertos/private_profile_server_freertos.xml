@@ -136,6 +136,7 @@
           <value>--defsym=__ram_vector_table__=1</value>
           <value>--defsym=gUseNVMLink_d=1</value>
           <value>--defsym=__app_load_address__=0</value>
+          <value>--defsym=__rtos__=1</value>
         </option>
         <option id="gnu.c.link.option.libs" type="stringList">
           <value>m</value>

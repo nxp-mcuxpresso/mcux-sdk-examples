@@ -9,7 +9,6 @@
     <definition extID="device.K32W061_CMSIS.K32W061"/>
     <definition extID="device.K32W061_startup.K32W061"/>
     <definition extID="middleware.amazon_freertos.freertos.K32W061"/>
-    <definition extID="middleware.amazon_freertos.freertos.heap_4.K32W061"/>
     <definition extID="middleware.framework.generic_lists.K32W061"/>
     <definition extID="middleware.wireless.ble_appl_main.K32W061"/>
     <definition extID="middleware.wireless.ble_gatt_db.K32W061"/>
@@ -27,6 +26,7 @@
     <definition extID="middleware.wireless.framework.flash.internal.K32W061"/>
     <definition extID="middleware.wireless.framework.function_lib.K32W061"/>
     <definition extID="middleware.wireless.framework.gpio_adapter.K32W061"/>
+    <definition extID="middleware.wireless.framework.heap_mem_manager.K32W061"/>
     <definition extID="middleware.wireless.framework.keyboard.K32W061"/>
     <definition extID="middleware.wireless.framework.led.K32W061"/>
     <definition extID="middleware.wireless.framework.lpm_ble_qn_k32w061dk6.K32W061"/>
@@ -78,7 +78,7 @@
     <definition extID="iar"/>
     <definition extID="mcuxpresso"/>
   </externalDefinitions>
-  <example id="k32w061dk6_heart_rate_sensor_freertos" name="heart_rate_sensor_freertos" category="wireless_examples/bluetooth/hrs/freertos" dependency="middleware.amazon_freertos.freertos.heap_4.K32W061 middleware.amazon_freertos.freertos.K32W061 middleware.wireless.framework.osa_freertos.K32W061 middleware.wireless.framework.flash.internal.K32W061 middleware.wireless.framework.gpio_adapter.K32W061 middleware.wireless.framework.keyboard.K32W061 middleware.wireless.framework.led.K32W061 middleware.wireless.framework.reset.K32W061 middleware.wireless.framework.common.K32W061 middleware.wireless.framework.mem_manager.K32W061 middleware.wireless.framework.messaging.K32W061 middleware.wireless.framework.osa.K32W061 middleware.wireless.framework.panic.K32W061 middleware.wireless.framework.rng.K32W061 middleware.wireless.framework.nvm.K32W061 middleware.wireless.framework.coexistence.K32W061 middleware.wireless.framework.smgr.K32W061 middleware.wireless.framework.smgr.uart_adapter.K32W061 middleware.wireless.framework.tmr.K32W061 middleware.wireless.framework.module_info.K32W061 middleware.wireless.framework.function_lib.K32W061 middleware.framework.generic_lists.K32W061 middleware.wireless.framework.sec_lib.K32W061 middleware.wireless.framework.pdm.K32W061 middleware.wireless.framework.lpm_ble_qn_k32w061dk6.K32W061 middleware.wireless.framework.dbg_logging.K32W061 middleware.wireless.xcvr_DK6.K32W061 middleware.wireless.ble_host.K32W061 middleware.wireless.ble_hci_transport.K32W061 middleware.wireless.ble_jn_controller.K32W061 middleware.wireless.ble_appl_main.K32W061 middleware.wireless.ble_gatt_db.K32W061 middleware.wireless.ble_gatt_service_discovery.K32W061 middleware.wireless.ble_profiles.battery_service.K32W061 middleware.wireless.ble_profiles.device_info_service.K32W061 middleware.wireless.ble_profiles.heart_rate.K32W061 platform.drivers.clock.K32W061 platform.drivers.common.K32W061 device.K32W061_CMSIS.K32W061 device.K32W061_startup.K32W061 platform.drivers.ctimer.K32W061 platform.drivers.reset.K32W061 platform.drivers.wtimer.K32W061 platform.drivers.flexcomm_spi.K32W061 platform.drivers.jn_rng.K32W061 platform.drivers.fmeas.K32W061 platform.drivers.jn_romapi.K32W061 platform.drivers.jn_rtc.K32W061 platform.drivers.aes.K32W061 platform.drivers.lpc_adc.K32W061 platform.drivers.pint.K32W061 platform.drivers.sha.K32W061 platform.drivers.jn_iocon.K32W061 platform.drivers.inputmux.K32W061 platform.drivers.lpc_gpio.K32W061 component.lists.K32W061 platform.drivers.jn_flash.K32W061 platform.drivers.power_no_lib.K32W061 platform.drivers.spifi.K32W061 platform.drivers.lpc_dma.K32W061 platform.drivers.flexcomm_usart_dma.K32W061 platform.drivers.flexcomm_usart.K32W061 platform.drivers.flexcomm.K32W061 component.usart_adapter.K32W061 component.serial_manager.K32W061 component.serial_manager_uart.K32W061 platform.utilities.assert.K32W061 utility.debug_console.K32W061 platform.Include_core_cm4.K32W061 platform.Include_common.K32W061 platform.drivers.inputmux_connections.K32W061 middleware.wireless.framework_PDM_lib_jn.K32W061 middleware.wireless.ble_host_peripheral_noFP_lib.K32W061">
+  <example id="k32w061dk6_heart_rate_sensor_freertos" name="heart_rate_sensor_freertos" category="wireless_examples/bluetooth/hrs/freertos" dependency="middleware.wireless.framework.heap_mem_manager.K32W061 middleware.amazon_freertos.freertos.K32W061 middleware.wireless.framework.osa_freertos.K32W061 middleware.wireless.framework.flash.internal.K32W061 middleware.wireless.framework.gpio_adapter.K32W061 middleware.wireless.framework.keyboard.K32W061 middleware.wireless.framework.led.K32W061 middleware.wireless.framework.reset.K32W061 middleware.wireless.framework.common.K32W061 middleware.wireless.framework.mem_manager.K32W061 middleware.wireless.framework.messaging.K32W061 middleware.wireless.framework.osa.K32W061 middleware.wireless.framework.panic.K32W061 middleware.wireless.framework.rng.K32W061 middleware.wireless.framework.nvm.K32W061 middleware.wireless.framework.coexistence.K32W061 middleware.wireless.framework.smgr.K32W061 middleware.wireless.framework.smgr.uart_adapter.K32W061 middleware.wireless.framework.tmr.K32W061 middleware.wireless.framework.module_info.K32W061 middleware.wireless.framework.function_lib.K32W061 middleware.framework.generic_lists.K32W061 middleware.wireless.framework.sec_lib.K32W061 middleware.wireless.framework.pdm.K32W061 middleware.wireless.framework.lpm_ble_qn_k32w061dk6.K32W061 middleware.wireless.framework.dbg_logging.K32W061 middleware.wireless.xcvr_DK6.K32W061 middleware.wireless.ble_host.K32W061 middleware.wireless.ble_hci_transport.K32W061 middleware.wireless.ble_jn_controller.K32W061 middleware.wireless.ble_appl_main.K32W061 middleware.wireless.ble_gatt_db.K32W061 middleware.wireless.ble_gatt_service_discovery.K32W061 middleware.wireless.ble_profiles.battery_service.K32W061 middleware.wireless.ble_profiles.device_info_service.K32W061 middleware.wireless.ble_profiles.heart_rate.K32W061 platform.drivers.clock.K32W061 platform.drivers.common.K32W061 device.K32W061_CMSIS.K32W061 device.K32W061_startup.K32W061 platform.drivers.ctimer.K32W061 platform.drivers.reset.K32W061 platform.drivers.wtimer.K32W061 platform.drivers.flexcomm_spi.K32W061 platform.drivers.jn_rng.K32W061 platform.drivers.fmeas.K32W061 platform.drivers.jn_romapi.K32W061 platform.drivers.jn_rtc.K32W061 platform.drivers.aes.K32W061 platform.drivers.lpc_adc.K32W061 platform.drivers.pint.K32W061 platform.drivers.sha.K32W061 platform.drivers.jn_iocon.K32W061 platform.drivers.inputmux.K32W061 platform.drivers.lpc_gpio.K32W061 component.lists.K32W061 platform.drivers.jn_flash.K32W061 platform.drivers.power_no_lib.K32W061 platform.drivers.spifi.K32W061 platform.drivers.lpc_dma.K32W061 platform.drivers.flexcomm_usart_dma.K32W061 platform.drivers.flexcomm_usart.K32W061 platform.drivers.flexcomm.K32W061 component.usart_adapter.K32W061 component.serial_manager.K32W061 component.serial_manager_uart.K32W061 platform.utilities.assert.K32W061 utility.debug_console.K32W061 platform.Include_core_cm4.K32W061 platform.Include_common.K32W061 platform.drivers.inputmux_connections.K32W061 middleware.wireless.framework_PDM_lib_jn.K32W061 middleware.wireless.ble_host_peripheral_noFP_lib.K32W061">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -137,6 +137,7 @@
           <value>--defsym=__app_load_address__=0</value>
           <value>--defsym=__app_stated_size__=294912</value>
           <value>--defsym=__app_id__=0</value>
+          <value>--defsym=__rtos__=1</value>
         </option>
         <option id="gnu.c.link.option.libs" type="stringList">
           <value>m</value>
@@ -168,7 +169,7 @@
       <files mask="connectivity.icf"/>
     </source>
     <source path="examples/k32w061dk6/wireless_examples/bluetooth/hrs/freertos/mcux" target_path="src" type="linker" toolchain="mcuxpresso">
-      <files mask="connectivity.ld"/>
+      <files mask="connectivity_opt_placement.ld"/>
     </source>
     <source path="examples/k32w061dk6/wireless_examples/bluetooth/hrs/freertos" target_path="board" type="c_include">
       <files mask="app.h"/>

@@ -85,6 +85,19 @@ static const gapAdStructure_t advScanStruct[3] = {
   }  
 };
 
+#if APP_MsgInScanRsp
+gapAdvertisingData_t gAppAdvertisingData =
+{
+    0,
+    NULL
+};
+
+gapScanResponseData_t gAppScanRspData =
+{
+    NumberOfElements(advScanStruct),
+    (void *)advScanStruct
+};
+#else
 gapAdvertisingData_t gAppAdvertisingData = 
 {
     NumberOfElements(advScanStruct),
@@ -96,6 +109,7 @@ gapScanResponseData_t gAppScanRspData =
     0,
     NULL
 };
+#endif
 
 /* SMP Data */
 gapPairingParameters_t gPairingParameters = {

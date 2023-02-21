@@ -140,6 +140,7 @@
           <value>--defsym=__app_load_address__=0</value>
           <value>--defsym=__app_stated_size__=294912</value>
           <value>--defsym=__app_id__=0</value>
+          <value>--defsym=__rtos__=1</value>
         </option>
         <option id="gnu.c.link.option.libs" type="stringList">
           <value>m</value>
@@ -171,7 +172,7 @@
       <files mask="connectivity.icf"/>
     </source>
     <source path="examples/k32w061dk6/wireless_examples/bluetooth/power_pf/freertos/mcux" target_path="src" type="linker" toolchain="mcuxpresso">
-      <files mask="connectivity.ld"/>
+      <files mask="connectivity_opt_placement.ld"/>
     </source>
     <source path="examples/k32w061dk6/wireless_examples/bluetooth/power_pf/freertos" target_path="board" type="c_include">
       <files mask="app.h"/>

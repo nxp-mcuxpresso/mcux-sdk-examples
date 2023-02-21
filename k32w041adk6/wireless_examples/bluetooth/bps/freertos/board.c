@@ -1458,7 +1458,7 @@ void BOARD_common_hw_init(void)
 
     /* check if we come from power down */
     reset_cause = POWER_GetResetCause();
-    if(reset_cause  != RESET_WAKE_PD)
+    if(reset_cause != RESET_WAKE_PD)
     {
         INIT_DBG_LOG("Reset Cause=%x PMC reset cause:%x", reset_cause, PMC->RESETCAUSE);
     }
@@ -1497,9 +1497,19 @@ void BOARD_common_hw_init(void)
     vRadio_ActivateXtal32MRadioBiasing();
 
 #if defined(cPWR_FullPowerDownMode) && ( cPWR_FullPowerDownMode == 1 )
+
+#if defined PWR_StackCompressionRetention_d && (PWR_StackCompressionRetention_d != 0)
+    /* If the device is waking up from power down, the stacks may have been compressed, so need to be restored */
+    if(reset_cause == RESET_WAKE_PD)
+    {
+    	/* will have no effect if stack was kept in retention */
+    	OSA_LowPowerRestoreStacksToActualLocation();
+    }
+#endif
 #if !defined(gPWR_BleWakeupTimeOptimDisabled) || (gPWR_BleWakeupTimeOptimDisabled == 0)
-    static uint8_t ram_was_retained = 0;
     LpIoSet(1, 1);
+    static uint8_t ram_was_retained = 0;
+
     if ( (reset_cause == RESET_WAKE_PD) && (ram_was_retained == 1) )
     {
         /* Call in advance the UpdateWakeupReason in Advance, it will call the LL ISR to speed up the wakeup time */
@@ -1593,10 +1603,11 @@ void BOARD_common_hw_init(void)
     /* Always call this in case CPU frequency was updated during/before hardware_init() */
     SystemCoreClockUpdate();
 
+
     OSA_TimeInit();
 
-    /* on K32W041AM chip, external flash need to be initialised and set in deep power down to avoid over consumption */
-    if(reset_cause  != RESET_WAKE_PD)
+    /* on K32W041AM chip, external flash need to be initialized and set in deep power down to avoid over consumption */
+    if(reset_cause != RESET_WAKE_PD)
     {
         BOARD_SPIFI_FLASH_Config();
     }

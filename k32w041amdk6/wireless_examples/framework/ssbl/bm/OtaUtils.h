@@ -30,9 +30,11 @@
 
 #define OTA_UTILS_IMAGE_INVALID_ADDR              (0xFFFFFFFF)
 
-#define OTA_UTILS_PSECT_OTA_IMAGE_TYPE            (0xFC)
-#define OTA_UTILS_PSECT_NVM_IMAGE_TYPE            (0xFD)
-#define OTA_UTILS_PSECT_EXT_FLASH_TEXT_IMAGE_TYPE (0xFE)
+#define OTA_UTILS_PSECT_SSBL_PARTITION_IMAGE_TYPE               (0x00)
+#define OTA_UTILS_PSECT_OTA_PARTITION_IMAGE_TYPE                (0xFC)
+#define OTA_UTILS_PSECT_NVM_PARTITION_IMAGE_TYPE                (0xFD)
+#define OTA_UTILS_PSECT_EXT_FLASH_TEXT_PARTITION_IMAGE_TYPE     (0xFE)
+#define OTA_UTILS_PSECT_RESERVED_PARTITION_IMAGE_TYPE (0xFF) /* For reserving some pages for data storage outside PDM */
 
 /*! *********************************************************************************
 *************************************************************************************
@@ -229,6 +231,27 @@ otaUtilsResult_t OtaUtils_ReadFromUnencryptedExtFlash(uint16_t nbBytesToRead,
                                                             uint8_t *pOutbuf,
                                                             void *pParam,
                                                             OtaUtils_EEPROM_ReadData pFunctionEepromRead);
+
+/*! *********************************************************************************
+* \brief  Get the internal flash limit address that can be erased/written according to partitions
+*
+* \param[in] -
+*
+* \return  maximum flash address that can be erased/written
+*
+********************************************************************************** */
+uint32_t OtaUtils_GetModifiableInternalFlashTopAddress(void);
+
+/*! *********************************************************************************
+* \brief  Allows to check the partitions from PSECT Image Directory
+*
+* \param[in] page0: pointer to the PSECT (Page0)
+* \param[in] ext_flash_size: Size of external flash
+*
+* \return  TRUE if partitions are good or FALSE if not valid
+*
+********************************************************************************** */
+bool OtaUtils_ImgDirectorySanityCheck(psector_page_data_t * page0, uint32_t ext_flash_size);
 
 /*! *********************************************************************************
 * \brief  Allows validate an image

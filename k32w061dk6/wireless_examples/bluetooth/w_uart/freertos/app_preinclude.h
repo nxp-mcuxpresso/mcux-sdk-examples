@@ -170,7 +170,15 @@
 #define gTmrApplicationTimers_c         8
 
 /* Defines number of timers needed by the protocol stack */
-#define gTmrStackTimers_c               32
+#ifndef gL2caMaxLeCbChannels_c
+/* If not yet defined above set default value to 2 */
+#define gL2caMaxLeCbChannels_c           (2U)
+#endif
+#if defined(gAppMaxConnections_c)
+    #define gTmrStackTimers_c (2 + ((gAppMaxConnections_c) * 2) + gL2caMaxLeCbChannels_c)
+#else
+    #define gTmrStackTimers_c (32)
+#endif
 
 /* Use 1Hz Timestamping - switch timers from CTIMERS to RTC 16bit timer - 1ms resolution*/
 #define gTimestamp_Enabled_d            1
@@ -200,8 +208,16 @@
 /* Defines controller task stack size */
 #define gControllerTaskStackSize_c 2048
 
-/* Defines total heap size used by the OS - 12k */
-#define gTotalHeapSize_c        12288
+/* 
+ * Defines total heap size used by the OS - 12k.
+ * BLE Host Stack task requires a larger stack when using NXP Ultrafast EC P256 library,
+ * which has become the default, so increase heap size.
+*/
+#if defined gAppUsePairing_d && (gAppUsePairing_d > 0)
+#define gTotalHeapSize_c        0x3280
+#else
+#define gTotalHeapSize_c        0x3000
+#endif
 
 /*! *********************************************************************************
  *     BLE Stack Configuration
@@ -212,7 +228,11 @@
  * user should remove an old bonded device to store new bonded information. Otherwise,
  * demo application will pair with new deivce with No Bonding type.
  */
+#if defined gAppUseBonding_d && (gAppUseBonding_d > 0)
 #define gMaxBondedDevices_c             16
+#else
+#define gMaxBondedDevices_c             1
+#endif
 #define gMaxResolvingListSize_c         6
 #define gMaxL2caQueueSize_c             5
 

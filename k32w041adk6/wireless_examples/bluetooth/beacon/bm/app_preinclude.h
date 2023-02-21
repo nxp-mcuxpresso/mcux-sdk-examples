@@ -95,9 +95,6 @@
 
 /* Enable deep power down */
 #define cPWR_EnableDeepSleepMode_4           0
-
-/* Optimize Advertising interslot interval in us - Default is 1500us if not set */
-#define gPWR_AdvertisingInterSlotInt         1328
 #endif
 
 /* If set, enables Kmod data saving in PDM (requires PDM library) */
@@ -129,7 +126,15 @@
 #define gTmrApplicationTimers_c         4
 
 /* Defines number of timers needed by the protocol stack */
-#define gTmrStackTimers_c               5
+#ifndef gL2caMaxLeCbChannels_c
+/* If not yet defined above set default value to 2 */
+#define gL2caMaxLeCbChannels_c           (2U)
+#endif
+#if defined(gAppMaxConnections_c)
+    #define gTmrStackTimers_c (2 + ((gAppMaxConnections_c) * 2) + gL2caMaxLeCbChannels_c)
+#else
+    #define gTmrStackTimers_c (32)
+#endif
 
 /* Set this define TRUE if the PIT frequency is an integer number of MHZ */
 #define gTMR_PIT_FreqMultipleOfMHZ_d    0

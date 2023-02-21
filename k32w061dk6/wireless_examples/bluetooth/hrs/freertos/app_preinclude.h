@@ -4,7 +4,7 @@
  ********************************************************************************** */
 /*!
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2019 NXP
+ * Copyright 2016-2019, 2022 NXP
  *
  * \file
  *
@@ -45,17 +45,18 @@
  ********************************************************************************** */
 #define gLEDSupported_d                 1
 
-/*! Defines the number of available keys for the keyboard module */
+/* Defines the number of available keys for the keyboard module */
 #define gKBD_KeysCount_c                2
 
-/*! Specifies the number of physical LEDs on the target board */
+/* Specifies the number of physical LEDs on the target board */
 #define gLEDsOnTargetBoardCnt_c         2
 
-/*! Use FRO32K instead of XTAL32K in active and power down modes*/
+/* Use FRO32K instead of XTAL32K in active and power down modes*/
 #define gClkUseFro32K                   0
 
-/*! Disable uart app console */
+/* Disable uart app console */
 #define gUartAppConsole_d               0
+
 
 /*! *********************************************************************************
  * 	App Configuration
@@ -72,7 +73,11 @@
 /*! Enable/disable use of privacy */
 #define gAppUsePrivacy_d                0
 
-#define gPasskeyValue_c                999999
+#define gPasskeyValue_c                 999999
+
+#if (gAppUseBonding_d) && (!gAppUsePairing_d)
+  #error "Enable pairing to make use of bonding"
+#endif
 
 /*! ADV interval in Slots : 2048 matches to 1.28s  */
 #define gAppAdvertisingInterval         2048
@@ -80,12 +85,11 @@
 /*! ADV connectable - Set to 0 if ADV is not connectable*/
 #define gAppConnectableAdv_d            1
 
-/*! Enable HS Clock to support 2Mbps PHY mode setting */
+/* Enable HS Clock to support 2Mbps PHY mode setting */
 #define gBleUseHSClock2MbpsPhy_c        0
 
-/*! Enable/Disable FSCI Low Power Commands*/
+/* Enable/Disable FSCI Low Power Commands*/
 #define gFSCI_IncludeLpmCommands_c      0
-
 
 /* ADC measurements are done one over gAppADCMeasureCounter wakeup times
  * To do measurements at each wakeup, set it to 0
@@ -107,6 +111,9 @@
 
 /*! Settings that apply only when cPWR_FullPowerDownMode is set */
 #if cPWR_FullPowerDownMode
+
+/*! Put ADV msg in Scan Response to save power during Advertising event*/
+#define APP_MsgInScanRsp 		0
 
 /*! Prevent from disabling the power down mode when switching in connected mode
  * If not set, the powerdown mode will be disabled when going into connected mode */
@@ -139,13 +146,10 @@
 //#define gPWR_UseAlgoTimeBaseDriftCompensate  1
 
 /*! Switch CPU clock to 48MHz FRO at startup - 32MHz (FRO or XTAL) default */
-#define gPWR_CpuClk_48MHz                    0
+//#define gPWR_CpuClk_48MHz                    1
 
  /*! Wait for oscillator number of 30us 32kHz ticks - 24 seems to work, 27 is the default value*/
 //#define gBleOscWakeDelay_c              (22)
-
-/*! Optimize Advertising interslot interval in us - Default is 1500us if not set */
-#define gPWR_AdvertisingInterSlotInt         1328
 
 /*!  define gSwdWakeupReconnect_c as 1 to ensure that SWD can wake device up and
  *  attach debugger when powered down */
@@ -169,13 +173,13 @@
       32 : reduced down to 32MHz  (no effect if gPWR_CpuClk_48MHz is disabled)
       16 : reduced down to 16MHz : XTAL32M and clock divided by 2 or 48M divided by 3:  Single white-list entry
 */
-
 #define gPWR_FreqScalingWFI                  (16)
 
 /*! BLE Link Layer Fast Correct feature allows a one slot 625us shorter wake up advance */
 //#define gBleLL_FastCorrect_d               (0)
 
-#define gPWR_BleLL_EarlyEnterDsm             (1)
+/*! In lowpower entry sequence, Disable Link layer to switch to DSM at first step */
+//#define gPWR_BleLL_EarlyEnterDsm             (0)
 
 #endif   // cPWR_FullPowerDownMode
 
@@ -184,9 +188,22 @@
    for better power saving.  keep it to safe value (500ppm) if not done */
 #define gLocalSleepClkAccuracyPpm       250
 
+/* Reduce Memory footprint for lowpower in case of low RX throughput application */
+#define gController_ReducedRxThoughput  1
+
+#if NDEBUG
+#define gBleSlpAlgoDuration           (375)
+#endif /* NDEBUG */
+
 /*! *********************************************************************************
  * 	Framework Configuration
  ********************************************************************************** */
+
+#define gMemManagerLight 1
+#define gMemManagerLightExtendHeapAreaUsage   1
+/* MinimalHeapSize_c need to be adjusted by application */
+#define MinimalHeapSize_c                     20000
+
 /*! enable NVM to be used as non volatile storage management by the host stack */
 #define gAppUseNvm_d                    0
 
@@ -218,8 +235,17 @@
 /*! Defines number of timers needed by the application */
 #define gTmrApplicationTimers_c         8
 
-/*! Defines number of timers needed by the protocol stack */
-#define gTmrStackTimers_c               32
+/* Defines number of timers needed by the protocol stack */
+#ifndef gL2caMaxLeCbChannels_c
+/* If not yet defined above set default value to 2 */
+#define gL2caMaxLeCbChannels_c           (2U)
+#endif
+#if defined(gAppMaxConnections_c)
+    #define gTmrStackTimers_c (2 + ((gAppMaxConnections_c) * 2) + gL2caMaxLeCbChannels_c)
+#else
+    #define gTmrStackTimers_c (32)
+#endif
+
 
 /*! Set this define TRUE if the PIT frequency is an integer number of MHZ */
 #define gTMR_PIT_FreqMultipleOfMHZ_d    0
@@ -257,14 +283,26 @@
 /*! Defines controller task stack size */
 #define gControllerTaskStackSize_c      2048
 
-/*! Defines total heap size used by the OS - 12k */
-#define gTotalHeapSize_c                12288
+/* 
+ * Defines total heap size used by the OS - 12k.
+ * BLE Host Stack task requires a larger stack when using NXP Ultrafast EC P256 library,
+ * which has become the default, so increase heap size.
+*/
+#if defined gAppUsePairing_d && (gAppUsePairing_d > 0)
+#define gTotalHeapSize_c        0x3280
+#else
+#define gTotalHeapSize_c        0x3000
+#endif
 
 /*! *********************************************************************************
  * 	BLE Stack Configuration
  ********************************************************************************** */
 #define gMaxServicesCount_d             10
+#if defined gAppUseBonding_d && (gAppUseBonding_d > 0)
 #define gMaxBondedDevices_c             16
+#else
+#define gMaxBondedDevices_c             1
+#endif
 #define gMaxResolvingListSize_c         6
 
 /*! *********************************************************************************

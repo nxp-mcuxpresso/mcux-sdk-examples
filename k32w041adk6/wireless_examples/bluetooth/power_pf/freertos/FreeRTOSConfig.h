@@ -63,7 +63,7 @@
 
 #define configCPU_CLOCK_HZ                      (SystemCoreClock)
 #define configTICK_RATE_HZ                      ((TickType_t)100)
-#define configMAX_PRIORITIES                    (18)
+#define configMAX_PRIORITIES                    (12)
 
 #if (defined gLoggingActive_d && (gLoggingActive_d != 0)) || (defined mAppIdleHook_c && (mAppIdleHook_c != 0)) || (defined mAppUseTickLessMode_c  && (mAppUseTickLessMode_c  != 0))
 #define configMINIMAL_STACK_SIZE                ((unsigned short)250)
@@ -71,7 +71,7 @@
 /* Stack requirements have increased due to extra processing for SysTick synch */
 #define configMINIMAL_STACK_SIZE                ((unsigned short)90)
 #endif
-#define configMAX_TASK_NAME_LEN                 20
+#define configMAX_TASK_NAME_LEN                 16
 #define configUSE_16_BIT_TICKS                  0
 #define configIDLE_SHOULD_YIELD                 1
 #define configUSE_TASK_NOTIFICATIONS            1
@@ -84,7 +84,7 @@
 #define configUSE_TIME_SLICING                  0
 #define configUSE_NEWLIB_REENTRANT              0
 #define configENABLE_BACKWARD_COMPATIBILITY     1
-#define configNUM_THREAD_LOCAL_STORAGE_POINTERS 5
+#define configNUM_THREAD_LOCAL_STORAGE_POINTERS 1
 
 /* Used memory allocation (heap_x.c) */
 #define configFRTOS_MEMORY_SCHEME               4
@@ -95,12 +95,12 @@
 #define configSUPPORT_STATIC_ALLOCATION         0
 #define configSUPPORT_DYNAMIC_ALLOCATION        1
 
-#if (defined gAppUsePairing_d &&  (gAppUsePairing_d != 0)) && (defined EC_P256_DSPEXT && (EC_P256_DSPEXT == 1))
-/* Extra 0x280 of stack required for use of NCCL optimized crypto lib */
-#define configTOTAL_HEAP_SIZE                   ((size_t) ((gTotalHeapSize_c) + 0x280))
-#else
-#define configTOTAL_HEAP_SIZE                   ((size_t)(gTotalHeapSize_c))
+#if defined PWR_StackCompressionRetention_d && (PWR_StackCompressionRetention_d != 0)
+#define  configSUPPORT_STACK_UNRETAINED         1
 #endif
+
+#define configTOTAL_HEAP_SIZE                   ((size_t)(gTotalHeapSize_c))
+
 #define configAPPLICATION_ALLOCATED_HEAP        0
 
 /* Hook function related definitions. */

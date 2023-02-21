@@ -48,10 +48,11 @@
 #define CRC_FINALIZE(x)                ((x) ^ ~0UL)
 
 #ifdef PDM_EXT_FLASH
-#define BOOT_BLOCK_OFFSET_MAX_VALUE     0x9de00
+#define DEFAULT_PDM_SIZE                0x00
 #else
-#define BOOT_BLOCK_OFFSET_MAX_VALUE     0x96000
+#define DEFAULT_PDM_SIZE                0x7e00
 #endif
+#define INTERNAL_FLASH_MAX_SAFE_VALUE   0x9de00
 
 #define SIGNATURE_WRD_LEN               (SIGNATURE_LEN / 4)
 
@@ -112,6 +113,36 @@ static bool_t OtaUtils_IsInternalFlashAddr(uint32_t image_addr)
     ROM_GetFlash(&internalFlashAddrStart, &internalFlashSize);
     return ((image_addr >= internalFlashAddrStart)
             && image_addr < (internalFlashAddrStart+internalFlashSize));
+}
+
+static bool_t OtaUtils_IsExternalFlashAddr(uint32_t image_addr, uint32_t ext_flash_size)
+{
+    return (image_addr >= (uint32_t) FSL_FEATURE_SPIFI_START_ADDR
+                && image_addr < (FSL_FEATURE_SPIFI_START_ADDR + ext_flash_size));
+}
+
+static const psector_page_data_t * OtaUtils_GetPage0ValidSubpage(void)
+{
+#define SECT_STATE_PAGE0_POS 0
+#define SECT_STATE_PAGE0_WIDTH 16
+
+    const psector_page_data_t * ret = NULL;
+    const uint32_t * pBI_psect_state = (uint32_t*)0x04015fe4;
+    uint32_t  val = * pBI_psect_state;
+    uint8_t subpage_state;
+    val = (val >> SECT_STATE_PAGE0_POS) & ((1<<SECT_STATE_PAGE0_WIDTH) -1);
+    const psector_page_data_t * page_addr[2] = { (psector_page_data_t *)0x9e800, (psector_page_data_t *)0x9ea00 };
+    for (int i = 0; i < 2; i++)
+    {
+        subpage_state = (val & 0xff);
+        if (subpage_state != PAGE_STATE_ERROR)
+        {
+            ret =  page_addr[i];
+            break;
+        }
+        val >>=8;
+    }
+    return ret;
 }
 
 /* In case of wrong ImgType, IMG_TYPE_NB is returned  */
@@ -311,6 +342,9 @@ static bool_t OtaUtils_FindBlankPage(uint32_t startAddr, uint16_t size)
     bool_t result = FALSE;
     uint32_t addrIterator = startAddr;
 
+    addrIterator &= ~(FLASH_PAGE_SIZE -1); /* Align address iterator with begining of the flash page.
+                                              This allows to check the exact number of page needed in a single while loop
+                                              and not checking an extra page when startAddr+size is a multiple of FLASH_PAGE_SIZE */
 
     while (addrIterator < startAddr+size)
     {
@@ -321,10 +355,6 @@ static bool_t OtaUtils_FindBlankPage(uint32_t startAddr, uint16_t size)
         }
         addrIterator += FLASH_PAGE_SIZE;
     }
-
-    /* Check the endAddr */
-    if (!result && flash_GetDmaccStatus((uint8_t *)startAddr+size) == 0)
-        result = TRUE;
 
     return result;
 }
@@ -442,6 +472,120 @@ otaUtilsResult_t OtaUtils_ReadFromEncryptedExtFlashSoftwareKey(uint16_t nbBytesT
     return OtaUtils_ReadFromEncryptedExtFlash(nbBytesToRead, address, pOutbuf, pFunctionEepromRead, eSoftwareKey, pParam);
 }
 
+uint32_t OtaUtils_GetModifiableInternalFlashTopAddress(void)
+{
+    uint32_t int_reserved_or_pdm_size = 0;
+    bool is_pdm_found = false;
+
+    /* Access PSECT from flash directly without initiate full structure in RAM (only pointer) */
+    const psector_page_data_t *  page = OtaUtils_GetPage0ValidSubpage();
+    assert(page != NULL);
+
+    /* Go through PSECT and update int_flash_top_addr if the NVM or Reserved partition is found in internal flash. Else, use the default value */
+    for (int i = 0; i < IMG_DIRECTORY_MAX_SIZE; i++)
+    {
+        if(page->page0_v3.img_directory[i].img_type == OTA_UTILS_PSECT_NVM_PARTITION_IMAGE_TYPE)
+        {
+            is_pdm_found = true;
+            if(OtaUtils_IsInternalFlashAddr(page->page0_v3.img_directory[i].img_base_addr))
+            {
+                int_reserved_or_pdm_size += page->page0_v3.img_directory[i].img_nb_pages*FLASH_PAGE_SIZE;
+                /* Continuing looping on the image directory in case other reserved or DPM partitions are found */
+            }
+        }
+        else if((page->page0_v3.img_directory[i].img_type == OTA_UTILS_PSECT_RESERVED_PARTITION_IMAGE_TYPE && OtaUtils_IsInternalFlashAddr(page->page0_v3.img_directory[i].img_base_addr)))
+        {
+            int_reserved_or_pdm_size += page->page0_v3.img_directory[i].img_nb_pages*FLASH_PAGE_SIZE;
+            /* Continuing looping on the image directory in case other reserved or DPM partitions are found */
+        }
+    }
+    if(!is_pdm_found)
+        int_reserved_or_pdm_size += DEFAULT_PDM_SIZE; /* No specific PDM found - use the default PDM size */
+
+    if(int_reserved_or_pdm_size > INTERNAL_FLASH_MAX_SAFE_VALUE)
+        int_reserved_or_pdm_size = INTERNAL_FLASH_MAX_SAFE_VALUE; /* Should never enter here ! */
+
+    return (INTERNAL_FLASH_MAX_SAFE_VALUE - int_reserved_or_pdm_size); /* reduce the accessible flash size by the reserved/PDM size */
+}
+
+bool OtaUtils_ImgDirectorySanityCheck(psector_page_data_t * page0, uint32_t ext_flash_size)
+{
+    const image_directory_entry_t * img_directory = &page0->page0_v3.img_directory[0];
+    bool res = false;
+    uint32_t img_base, img_end;
+    for (int i = 0; i < IMG_DIRECTORY_MAX_SIZE; i++)
+    {
+        if(img_directory[i].img_nb_pages != 0)
+        {
+            img_base = img_directory[i].img_base_addr;
+            img_end = img_base + FLASH_PAGE_SIZE * img_directory[i].img_nb_pages - 1;
+            bool overlap = false;
+            if(OtaUtils_IsInternalFlashAddr(img_base))
+            {
+                if(img_directory[i].img_type == OTA_UTILS_PSECT_EXT_FLASH_TEXT_PARTITION_IMAGE_TYPE)
+                {
+                    /* Wrong address for this partition type */
+                    res = false;
+                    break;
+                }
+                if(OtaUtils_IsInternalFlashAddr(img_end) && img_end < INTERNAL_FLASH_MAX_SAFE_VALUE)
+                {
+                    /* Partition boundaries are good for internal flash - Check with other partitions */
+                    for (int j = i+1; j < IMG_DIRECTORY_MAX_SIZE; j++ )
+                    {
+                        if(img_directory[j].img_nb_pages != 0)
+                        {
+                            uint32_t other_entry_base = img_directory[j].img_base_addr;
+                            uint32_t other_entry_end = other_entry_base + FLASH_PAGE_SIZE * img_directory[j].img_nb_pages - 1;
+                            if(OtaUtils_IsInternalFlashAddr(other_entry_base))
+                            {
+                                if (((img_base < other_entry_base) && (img_end > other_entry_base)) || /* Partition ends in the middle of another one */
+                                        ((img_base >= other_entry_base) && (img_base < other_entry_end))) /* Partition starts in the middle on another one */
+                                {
+                                    overlap = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    res =  !overlap;
+                }
+                else
+                {
+                    res = false;
+                    break;
+                }
+            }
+            else
+            {
+                if (OtaUtils_IsExternalFlashAddr(img_base, ext_flash_size) && OtaUtils_IsExternalFlashAddr(img_end, ext_flash_size))
+                {
+                    for (int j = i+1; j < IMG_DIRECTORY_MAX_SIZE; j++ )
+                    {
+                        uint32_t other_entry_base = img_directory[j].img_base_addr;
+                        uint32_t other_entry_end = other_entry_base + FLASH_PAGE_SIZE * img_directory[j].img_nb_pages;
+                        if(OtaUtils_IsExternalFlashAddr(other_entry_base, ext_flash_size))
+                        {
+                            if (((img_base < other_entry_base) && (img_end > other_entry_base)) ||
+                                    ((img_base >= other_entry_base) && (img_base < other_entry_end)))
+                            {
+                                overlap = true;
+                                break;
+                            }
+                        }
+                    }
+                    res =  !overlap;
+                }
+                else
+                {
+                    res = false;
+                    break;
+                }
+            }
+        }
+    }
+    return res;
+}
 
 uint32_t OtaUtils_ValidateImage(OtaUtils_ReadBytes pFunctionRead,
                                 void *pReadFunctionParam,
@@ -487,7 +631,7 @@ uint32_t OtaUtils_ValidateImage(OtaUtils_ReadBytes pFunctionRead,
 
         if (uImgParser.imgHeader.bootBlockOffset % sizeof(uint32_t) ) break;
 
-        if (uImgParser.imgHeader.bootBlockOffset + sizeof(BOOT_BLOCK_T) >= BOOT_BLOCK_OFFSET_MAX_VALUE) break;
+        if (uImgParser.imgHeader.bootBlockOffset + sizeof(BOOT_BLOCK_T) >= OtaUtils_GetModifiableInternalFlashTopAddress()) break;
 
         /* compute CRC of the header */
         uint32_t crc = ~0UL;

@@ -4,7 +4,7 @@
  ********************************************************************************** */
 /*!
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2019 NXP
+ * Copyright 2016-2019, 2023 NXP
  *
  * \file
  *
@@ -94,7 +94,7 @@
 #endif
 
 /* Enable HS Clock to support 2Mbps PHY mode setting */
-#define gBleUseHSClock2MbpsPhy_c 0
+#define gBleUseHSClock2MbpsPhy_c        0
 
 /* Enable image certificate authenticate */
 #define gImageAuthenticate_c            1
@@ -136,7 +136,15 @@
 #define gTmrApplicationTimers_c         8
 
 /* Defines number of timers needed by the protocol stack */
-#define gTmrStackTimers_c               32
+#ifndef gL2caMaxLeCbChannels_c
+/* If not yet defined above set default value to 2 */
+#define gL2caMaxLeCbChannels_c           (2U)
+#endif
+#if defined(gAppMaxConnections_c)
+    #define gTmrStackTimers_c (2 + ((gAppMaxConnections_c) * 2) + gL2caMaxLeCbChannels_c)
+#else
+    #define gTmrStackTimers_c (32)
+#endif
 
 /* Set this define TRUE if the PIT frequency is an integer number of MHZ */
 #define gTMR_PIT_FreqMultipleOfMHZ_d    0
@@ -173,8 +181,16 @@
 /* Defines controller task stack size */
 #define gControllerTaskStackSize_c 2048
 
-/* Defines total heap size used by the OS - 12,5k */
-#define gTotalHeapSize_c        12800
+/* 
+ * Defines total heap size used by the OS - 12k.
+ * BLE Host Stack task requires a larger stack when using NXP Ultrafast EC P256 library,
+ * which has become the default, so increase heap size.
+*/
+#if defined gAppUsePairing_d && (gAppUsePairing_d > 0)
+#define gTotalHeapSize_c        0x3480
+#else
+#define gTotalHeapSize_c        0x3200
+#endif
 
 /*! *********************************************************************************
  *     BLE Stack Configuration
@@ -183,7 +199,11 @@
  * user should remove an old bonded device to store new bonded information. Otherwise,
  * demo application will pair with new deivce with No Bonding type.
  */
+#if defined gAppUseBonding_d && (gAppUseBonding_d > 0)
 #define gMaxBondedDevices_c             16
+#else
+#define gMaxBondedDevices_c             1
+#endif
 #define gMaxResolvingListSize_c         6
 
 /*! *********************************************************************************
