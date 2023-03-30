@@ -278,7 +278,7 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
 
     if (!app->sdcardInserted)
     {
-        PRINTF("Please insert an SD card with audio files and retry this command\r\n");
+        PRINTF("[CM33 CMD] Please insert an SD card with audio files and retry this command\r\n");
         return kStatus_SHELL_Success;
     }
 
@@ -287,11 +287,11 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
         error = f_opendir(&directory, "/");
         if (error)
         {
-            PRINTF("Failed to open root directory of SD card\r\n");
+            PRINTF("[CM33 CMD] Failed to open root directory of SD card\r\n");
             return kStatus_SHELL_Error;
         }
 
-        PRINTF("Available audio files:\r\n");
+        PRINTF("[CM33 CMD] Available audio files:\r\n");
 
         while (1)
         {
@@ -314,7 +314,7 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
 #if XA_MP3_DECODER == 1
                 if (dot && strncmp(dot + 1, "mp3", 3) == 0)
                 {
-                    PRINTF("  %s\r\n", fileInformation.fname);
+                    PRINTF("[CM33 CMD] %s\r\n", fileInformation.fname);
                     count++;
                 }
 #endif
@@ -322,7 +322,7 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
 #if XA_AAC_DECODER == 1
                 if (dot && strncmp(dot + 1, "aac", 3) == 0)
                 {
-                    PRINTF("  %s\r\n", fileInformation.fname);
+                    PRINTF("[CM33 CMD] %s\r\n", fileInformation.fname);
                     count++;
                 }
 #endif
@@ -330,7 +330,7 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
 #if XA_VORBIS_DECODER == 1
                 if (dot && strncmp(dot + 1, "ogg", 3) == 0)
                 {
-                    PRINTF("  %s\r\n", fileInformation.fname);
+                    PRINTF("[CM33 CMD] %s\r\n", fileInformation.fname);
                     count++;
                 }
 #endif
@@ -344,7 +344,7 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
 
         if (!count)
         {
-            PRINTF("  (none)\r\n");
+            PRINTF("[CM33 CMD] (none)\r\n");
         }
     }
     else if (strcmp(argv[1], "stop") == 0)
@@ -357,7 +357,7 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
         }
         else
         {
-            PRINTF("File is not playing \r\n");
+            PRINTF("[CM33 CMD] File is not playing \r\n");
             return kStatus_SHELL_Error;
         }
     }
@@ -399,21 +399,21 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
 #endif
         if (!count)
         {
-            PRINTF("Unsupported file type %s\r\n", filename);
+            PRINTF("[CM33 CMD] Unsupported file type %s\r\n", filename);
             return kStatus_SHELL_Error;
         }
 
         error = f_open(&app->fileObject, _T(filename), FA_READ);
         if (error)
         {
-            PRINTF("Cannot open file for reading: %s\r\n", filename);
+            PRINTF("[CM33 CMD] Cannot open file for reading: %s\r\n", filename);
             return kStatus_SHELL_Error;
         }
 
         error = f_read(&app->fileObject, file_ptr, FILE_PLAYBACK_INITIAL_READ_SIZE, &bytes_read);
         if (error)
         {
-            PRINTF("file read fail\r\n");
+            PRINTF("[CM33 CMD] file read fail\r\n");
             return kStatus_SHELL_Error;
         }
 
@@ -428,7 +428,7 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
     }
     else
     {
-        PRINTF("File is already playing\r\n");
+        PRINTF("[CM33 CMD] File is already playing\r\n");
         return kStatus_SHELL_Error;
     }
 
@@ -464,12 +464,12 @@ static shell_status_t shellAAC(shell_handle_t shellHandle, int32_t argc, char **
     /* Parse shell arg for output type */
     if (strcmp(argv[1], "codec") == 0)
     {
-        PRINTF("Setting decode output to codec renderer\r\n");
+        PRINTF("[CM33 CMD] Setting decode output to codec renderer\r\n");
         msg.param[4] = AUDIO_OUTPUT_RENDERER;
     }
     else
     {
-        PRINTF("Setting decode output to audio buffer\r\n");
+        PRINTF("[CM33 CMD] Setting decode output to audio buffer\r\n");
         msg.param[4] = AUDIO_OUTPUT_BUFFER;
     }
 
@@ -504,7 +504,7 @@ static shell_status_t shellMP3(shell_handle_t shellHandle, int32_t argc, char **
     /* Parse shell arg for output type */
     if (strcmp(argv[1], "codec") == 0)
     {
-        PRINTF("Setting decode output to codec renderer\r\n");
+        PRINTF("[CM33 CMD] Setting decode output to codec renderer\r\n");
         msg.param[4] = AUDIO_OUTPUT_RENDERER;
 
         /* Copy encoded audio clip into shared memory buffer */
@@ -513,7 +513,7 @@ static shell_status_t shellMP3(shell_handle_t shellHandle, int32_t argc, char **
     }
     else
     {
-        PRINTF("Setting decode output to audio buffer\r\n");
+        PRINTF("[CM33 CMD] Setting decode output to audio buffer\r\n");
         msg.param[4] = AUDIO_OUTPUT_BUFFER;
 
         /* Copy encoded audio clip into shared memory buffer */
@@ -551,18 +551,18 @@ static shell_status_t shellVORBIS(shell_handle_t shellHandle, int32_t argc, char
 
     if ((strcmp(argv[1], "codec") == 0) || (strcmp(argv[2], "codec") == 0))
     {
-        PRINTF("Setting decode output to codec renderer\r\n");
+        PRINTF("[CM33 CMD] Setting decode output to codec renderer\r\n");
         msg.param[4] = AUDIO_OUTPUT_RENDERER;
     }
     else
     {
-        PRINTF("Setting decode output to audio buffer\r\n");
+        PRINTF("[CM33 CMD] Setting decode output to audio buffer\r\n");
         msg.param[4] = AUDIO_OUTPUT_BUFFER;
     }
 
     if ((strcmp(argv[1], "ogg") == 0) || (strcmp(argv[2], "ogg") == 0))
     {
-        PRINTF("Setting OGG VORBIS as decode input\r\n");
+        PRINTF("[CM33 CMD] Setting OGG VORBIS as decode input\r\n");
         msg.param[7] = AUDIO_VORBIS_INPUT_OGG;
 
         /* Copy encoded audio clip into shared memory buffer */
@@ -571,7 +571,7 @@ static shell_status_t shellVORBIS(shell_handle_t shellHandle, int32_t argc, char
     }
     else
     {
-        PRINTF("Setting raw VORBIS as decode input\r\n");
+        PRINTF("[CM33 CMD] Setting raw VORBIS as decode input\r\n");
         msg.param[7] = AUDIO_VORBIS_INPUT_RAW;
 
         /* Copy encoded audio clip into shared memory buffer */
@@ -606,12 +606,12 @@ static shell_status_t shellOpusDec(shell_handle_t shellHandle, int32_t argc, cha
 
     if (strcmp(argv[1], "codec") == 0)
     {
-        PRINTF("Setting decode output to codec renderer\r\n");
+        PRINTF("[CM33 CMD] Setting decode output to codec renderer\r\n");
         msg.param[4] = AUDIO_OUTPUT_RENDERER;
     }
     else
     {
-        PRINTF("Setting decode output to audio buffer\r\n");
+        PRINTF("[CM33 CMD] Setting decode output to audio buffer\r\n");
         msg.param[4] = AUDIO_OUTPUT_BUFFER;
     }
 
@@ -674,12 +674,12 @@ static shell_status_t shellSbcDec(shell_handle_t shellHandle, int32_t argc, char
 
     if (strcmp(argv[1], "codec") == 0)
     {
-        PRINTF("Setting decode output to codec renderer\r\n");
+        PRINTF("[CM33 CMD] Setting decode output to codec renderer\r\n");
         msg.param[4] = AUDIO_OUTPUT_RENDERER;
     }
     else
     {
-        PRINTF("Setting decode output to audio buffer\r\n");
+        PRINTF("[CM33 CMD] Setting decode output to audio buffer\r\n");
         msg.param[4] = AUDIO_OUTPUT_BUFFER;
     }
 
@@ -834,7 +834,7 @@ static shell_status_t shellEAPeffect(shell_handle_t shellHandle, int32_t argc, c
     }
     else
     {
-        PRINTF("Effect parameter is out of range! Please see help. \r\n");
+        PRINTF("[CM33 CMD] Effect parameter is out of range! Please see help. \r\n");
         return kStatus_SHELL_Error;
     }
 }
@@ -896,7 +896,8 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
 
     if (msg->head.type == SRTM_MessageTypeResponse)
     {
-        PRINTF("[APP_DSP_IPC_Task] response from DSP, cmd: %d, error: %d\r\n", msg->head.command, msg->error);
+        PRINTF("[CM33 CMD] [APP_DSP_IPC_Task] response from DSP, cmd: %d, error: %d\r\n", msg->head.command,
+               msg->error);
     }
 
     /* Processing returned data*/
@@ -907,25 +908,27 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
             {
                 /* echo returns version info of key components*/
                 case SRTM_Command_ECHO:
-                    PRINTF("Component versions from DSP:\r\n");
-                    PRINTF("Audio Framework version %d.%d \r\n", msg->param[0] >> 16, msg->param[0] & 0xFF);
-                    PRINTF("Audio Framework API version %d.%d\r\n", msg->param[1] >> 16, msg->param[1] & 0xFF);
-                    PRINTF("NatureDSP Lib version %d.%d\r\n", msg->param[2] >> 16, msg->param[2] & 0xFF);
-                    PRINTF("NatureDSP API version %d.%d\r\n", msg->param[3] >> 16, msg->param[3] & 0xFF);
-                    PRINTF("MP3 Decoder Lib version %d.%d\r\n", msg->param[4] >> 16, msg->param[4] & 0xFF);
-                    PRINTF("AAC Decoder Lib version %d.%d\r\n", msg->param[5] >> 16, msg->param[5] & 0xFF);
+                    PRINTF("[CM33 CMD] Component versions from DSP:\r\n");
+                    PRINTF("[CM33 CMD] Audio Framework version %d.%d \r\n", msg->param[0] >> 16, msg->param[0] & 0xFF);
+                    PRINTF("[CM33 CMD] Audio Framework API version %d.%d\r\n", msg->param[1] >> 16,
+                           msg->param[1] & 0xFF);
+                    PRINTF("[CM33 CMD] NatureDSP Lib version %d.%d\r\n", msg->param[2] >> 16, msg->param[2] & 0xFF);
+                    PRINTF("[CM33 CMD] NatureDSP API version %d.%d\r\n", msg->param[3] >> 16, msg->param[3] & 0xFF);
+                    PRINTF("[CM33 CMD] MP3 Decoder Lib version %d.%d\r\n", msg->param[4] >> 16, msg->param[4] & 0xFF);
+                    PRINTF("[CM33 CMD] AAC Decoder Lib version %d.%d\r\n", msg->param[5] >> 16, msg->param[5] & 0xFF);
 #if XA_VORBIS_DECODER
-                    PRINTF("VORBIS Decoder Lib version %d.%d\r\n", msg->param[6] >> 16, msg->param[6] & 0xFF);
+                    PRINTF("[CM33 CMD] VORBIS Decoder Lib version %d.%d\r\n", msg->param[6] >> 16,
+                           msg->param[6] & 0xFF);
 #endif
-                    PRINTF("OPUS Codec Lib version %d.%d\r\n", msg->param[7] >> 16, msg->param[7] & 0xFF);
-                    PRINTF("SBC Decoder Lib version %d.%d\r\n", msg->param[8] >> 16, msg->param[8] & 0xFF);
-                    PRINTF("SBC Encoder Lib version %d.%d\r\n", msg->param[9] >> 16, msg->param[9] & 0xFF);
+                    PRINTF("[CM33 CMD] OPUS Codec Lib version %d.%d\r\n", msg->param[7] >> 16, msg->param[7] & 0xFF);
+                    PRINTF("[CM33 CMD] SBC Decoder Lib version %d.%d\r\n", msg->param[8] >> 16, msg->param[8] & 0xFF);
+                    PRINTF("[CM33 CMD] SBC Encoder Lib version %d.%d\r\n", msg->param[9] >> 16, msg->param[9] & 0xFF);
                     break;
 
                 case SRTM_Command_SYST:
                     break;
                 default:
-                    PRINTF("Incoming unknown message command %d from category %d \r\n", msg->head.command,
+                    PRINTF("[CM33 CMD] Incoming unknown message command %d from category %d \r\n", msg->head.command,
                            msg->head.category);
             }
             break;
@@ -934,12 +937,14 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
             if (file_playing &&
                 (msg->head.command < SRTM_Command_FileStart || msg->head.command > SRTM_Command_FilterCfg))
             {
-                PRINTF("This command is not possible to process now since a file from SD card is being played!\r\n");
+                PRINTF(
+                    "[CM33 CMD] This command is not possible to process now since a file from SD card is being "
+                    "played!\r\n");
                 break;
             }
             else if (!file_playing && msg->head.command == SRTM_Command_FilterCfg)
             {
-                PRINTF("Please play a file first, then apply an EAP preset.\r\n");
+                PRINTF("[CM33 CMD] Please play a file first, then apply an EAP preset.\r\n");
                 break;
             }
             switch (msg->head.command)
@@ -949,28 +954,29 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                 case SRTM_Command_AAC:
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("DSP AAC decoder failed, return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP AAC decoder failed, return error = %d\r\n", msg->error);
                     }
 
                     if (msg->param[4] == AUDIO_OUTPUT_BUFFER)
                     {
                         size_t ref_buffer_size = sizeof(SRTM_AAC_REFBUFFER);
-                        PRINTF("AAC decoder read %d bytes and output %d bytes \r\n", msg->param[5], msg->param[6]);
-                        PRINTF("  Checking decode results...\r\n");
+                        PRINTF("[CM33 CMD] AAC decoder read %d bytes and output %d bytes \r\n", msg->param[5],
+                               msg->param[6]);
+                        PRINTF("[CM33 CMD] Checking decode results...\r\n");
                         for (int i = 0; (i < msg->param[6]) && (i < ref_buffer_size); i++)
                         {
                             if (s_audioOutput[i] != SRTM_AAC_REFBUFFER[i])
                             {
-                                PRINTF("  Output doesn't match @ %d bytes, output = %d ref = %d\r\n", i,
+                                PRINTF("[CM33 CMD] Output doesn't match @ %d bytes, output = %d ref = %d\r\n", i,
                                        s_audioOutput[i], SRTM_AAC_REFBUFFER[i]);
                                 return;
                             }
                         }
-                        PRINTF("  Decode output matches reference\r\n");
+                        PRINTF("[CM33 CMD] Decode output matches reference\r\n");
                     }
                     else
                     {
-                        PRINTF("AAC decode complete\r\n");
+                        PRINTF("[CM33 CMD] AAC decode complete\r\n");
                     }
                     break;
 #endif
@@ -978,28 +984,29 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                 case SRTM_Command_MP3:
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("DSP MP3 decoder failed, return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP MP3 decoder failed, return error = %d\r\n", msg->error);
                     }
 
                     if (msg->param[4] == AUDIO_OUTPUT_BUFFER)
                     {
                         size_t ref_buffer_size = sizeof(SRTM_MP3_REFBUFFER);
-                        PRINTF("MP3 decoder read %d bytes and output %d bytes \r\n", msg->param[5], msg->param[6]);
-                        PRINTF("  Checking decode results...\r\n");
+                        PRINTF("[CM33 CMD] MP3 decoder read %d bytes and output %d bytes \r\n", msg->param[5],
+                               msg->param[6]);
+                        PRINTF("[CM33 CMD] Checking decode results...\r\n");
                         for (int i = 0; (i < msg->param[6]) && (i < ref_buffer_size); i++)
                         {
                             if (s_audioOutput[i] != SRTM_MP3_REFBUFFER[i])
                             {
-                                PRINTF("  Output doesn't match @ %d bytes, output = %d ref = %d\r\n", i,
+                                PRINTF("[CM33 CMD] Output doesn't match @ %d bytes, output = %d ref = %d\r\n", i,
                                        s_audioOutput[i], SRTM_MP3_REFBUFFER[i]);
                                 return;
                             }
                         }
-                        PRINTF("  Decode output matches reference\r\n");
+                        PRINTF("[CM33 CMD] Decode output matches reference\r\n");
                     }
                     else
                     {
-                        PRINTF("MP3 decode complete\r\n");
+                        PRINTF("[CM33 CMD] MP3 decode complete\r\n");
                     }
                     break;
 #endif
@@ -1007,7 +1014,7 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                 case SRTM_Command_VORBIS:
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("DSP VORBIS decoder failed, return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP VORBIS decoder failed, return error = %d\r\n", msg->error);
                     }
 
                     if (msg->param[4] == AUDIO_OUTPUT_BUFFER)
@@ -1026,23 +1033,24 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                             ref_buffer_size = sizeof(SRTM_VORBIS_REFBUFFER);
                         }
 
-                        PRINTF("VORBIS decoder read %d bytes and output %d bytes \r\n", msg->param[5], msg->param[6]);
-                        PRINTF("  Checking decode results...\r\n");
+                        PRINTF("[CM33 CMD] VORBIS decoder read %d bytes and output %d bytes \r\n", msg->param[5],
+                               msg->param[6]);
+                        PRINTF("[CM33 CMD] Checking decode results...\r\n");
 
                         for (int i = 0; (i < msg->param[6]) && (i < ref_buffer_size); i++)
                         {
                             if (s_audioOutput[i] != ref_buffer[i])
                             {
-                                PRINTF("  Output doesn't match @ %d bytes, output = %d ref = %d\r\n", i,
+                                PRINTF("[CM33 CMD] Output doesn't match @ %d bytes, output = %d ref = %d\r\n", i,
                                        s_audioOutput[i], ref_buffer[i]);
                                 return;
                             }
                         }
-                        PRINTF("  Decode output matches reference\r\n");
+                        PRINTF("[CM33 CMD] Decode output matches reference\r\n");
                     }
                     else
                     {
-                        PRINTF("VORBIS decode complete\r\n");
+                        PRINTF("[CM33 CMD] VORBIS decode complete\r\n");
                     }
 
                     break;
@@ -1051,28 +1059,29 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                 case SRTM_Command_OPUS_DEC:
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("DSP OPUS decoder failed, return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP OPUS decoder failed, return error = %d\r\n", msg->error);
                     }
 
                     if (msg->param[4] == AUDIO_OUTPUT_BUFFER)
                     {
                         size_t ref_buffer_size = sizeof(SRTM_OPUS_REFBUFFER);
-                        PRINTF("OPUS decoder read %d bytes and output %d bytes \r\n", msg->param[5], msg->param[6]);
-                        PRINTF("  Checking decode results...\r\n");
+                        PRINTF("[CM33 CMD] OPUS decoder read %d bytes and output %d bytes \r\n", msg->param[5],
+                               msg->param[6]);
+                        PRINTF("[CM33 CMD] Checking decode results...\r\n");
                         for (int i = 0; (i < msg->param[6]) && (i < ref_buffer_size); i++)
                         {
                             if (s_audioOutput[i] != SRTM_OPUS_REFBUFFER[i])
                             {
-                                PRINTF("  Output doesn't match @ %d bytes, output = %d ref = %d\r\n", i,
+                                PRINTF("[CM33 CMD] Output doesn't match @ %d bytes, output = %d ref = %d\r\n", i,
                                        s_audioOutput[i], SRTM_OPUS_REFBUFFER[i]);
                                 return;
                             }
                         }
-                        PRINTF("  Decode output matches reference\r\n");
+                        PRINTF("[CM33 CMD] Decode output matches reference\r\n");
                     }
                     else
                     {
-                        PRINTF("OPUS decode complete\r\n");
+                        PRINTF("[CM33 CMD] OPUS decode complete\r\n");
                     }
                     break;
 #endif
@@ -1080,49 +1089,51 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                 case SRTM_Command_OPUS_ENC:
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("DSP OPUS encoder failed, return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP OPUS encoder failed, return error = %d\r\n", msg->error);
                     }
 
-                    PRINTF("OPUS encoder read %d bytes and output %d bytes \r\n", msg->param[4], msg->param[5]);
-                    PRINTF("  Checking encode results...\r\n");
+                    PRINTF("[CM33 CMD] OPUS encoder read %d bytes and output %d bytes \r\n", msg->param[4],
+                           msg->param[5]);
+                    PRINTF("[CM33 CMD] Checking encode results...\r\n");
                     for (int i = 0; (i < msg->param[5]) && (i < sizeof(SRTM_OPUS_ENC_REFBUFFER)); i++)
                     {
                         if (s_audioOutput[i] != SRTM_OPUS_ENC_REFBUFFER[i])
                         {
-                            PRINTF("  Output doesn't match @ %d bytes, output = %d ref = %d\r\n", i, s_audioOutput[i],
-                                   SRTM_OPUS_ENC_REFBUFFER[i]);
+                            PRINTF("[CM33 CMD] Output doesn't match @ %d bytes, output = %d ref = %d\r\n", i,
+                                   s_audioOutput[i], SRTM_OPUS_ENC_REFBUFFER[i]);
                             return;
                         }
                     }
-                    PRINTF("  Encode output matches reference\r\n");
+                    PRINTF("[CM33 CMD] Encode output matches reference\r\n");
                     break;
 #endif
 #if XA_SBC_DECODER
                 case SRTM_Command_SBC_DEC:
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("DSP SBC decoder failed, return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP SBC decoder failed, return error = %d\r\n", msg->error);
                     }
 
                     if (msg->param[4] == AUDIO_OUTPUT_BUFFER)
                     {
                         size_t ref_buffer_size = sizeof(SRTM_SBC_REFBUFFER);
-                        PRINTF("SBC decoder read %d bytes and output %d bytes \r\n", msg->param[5], msg->param[6]);
-                        PRINTF("  Checking decode results...\r\n");
+                        PRINTF("[CM33 CMD] SBC decoder read %d bytes and output %d bytes \r\n", msg->param[5],
+                               msg->param[6]);
+                        PRINTF("[CM33 CMD] Checking decode results...\r\n");
                         for (int i = 0; (i < msg->param[6]) && (i < ref_buffer_size); i++)
                         {
                             if (s_audioOutput[i] != SRTM_SBC_REFBUFFER[i])
                             {
-                                PRINTF("  Output doesn't match @ %d bytes, output = %d ref = %d\r\n", i,
+                                PRINTF("[CM33 CMD] Output doesn't match @ %d bytes, output = %d ref = %d\r\n", i,
                                        s_audioOutput[i], SRTM_SBC_REFBUFFER[i]);
                                 return;
                             }
                         }
-                        PRINTF("  Decode output matches reference\r\n");
+                        PRINTF("[CM33 CMD] Decode output matches reference\r\n");
                     }
                     else
                     {
-                        PRINTF("SBC decode complete\r\n");
+                        PRINTF("[CM33 CMD] SBC decode complete\r\n");
                     }
                     break;
 #endif
@@ -1130,31 +1141,32 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                 case SRTM_Command_SBC_ENC:
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("DSP SBC encoder failed, return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP SBC encoder failed, return error = %d\r\n", msg->error);
                     }
 
-                    PRINTF("SBC encoder read %d bytes and output %d bytes \r\n", msg->param[4], msg->param[5]);
-                    PRINTF("  Checking encode results...\r\n");
+                    PRINTF("[CM33 CMD] SBC encoder read %d bytes and output %d bytes \r\n", msg->param[4],
+                           msg->param[5]);
+                    PRINTF("[CM33 CMD] Checking encode results...\r\n");
                     for (int i = 0; (i < msg->param[5]) && (i < sizeof(SRTM_SBC_ENC_REFBUFFER)); i++)
                     {
                         if (s_audioOutput[i] != SRTM_SBC_ENC_REFBUFFER[i])
                         {
-                            PRINTF("  Output doesn't match @ %d bytes, output = %d ref = %d\r\n", i, s_audioOutput[i],
-                                   SRTM_SBC_ENC_REFBUFFER[i]);
+                            PRINTF("[CM33 CMD] Output doesn't match @ %d bytes, output = %d ref = %d\r\n", i,
+                                   s_audioOutput[i], SRTM_SBC_ENC_REFBUFFER[i]);
                             return;
                         }
                     }
-                    PRINTF("  Encode output matches reference\r\n");
+                    PRINTF("[CM33 CMD] Encode output matches reference\r\n");
                     break;
 #endif
 #if XA_SRC_PP_FX
                 case SRTM_Command_SRC:
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("DSP Sampling Rate Converter failed, return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP Sampling Rate Converter failed, return error = %d\r\n", msg->error);
                     }
 
-                    PRINTF("SRC read %d bytes and output %d bytes \r\n", msg->param[8], msg->param[9]);
+                    PRINTF("[CM33 CMD] SRC read %d bytes and output %d bytes \r\n", msg->param[8], msg->param[9]);
 #endif
 #if XA_PCM_GAIN
                     break;
@@ -1162,10 +1174,11 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                 case SRTM_Command_GAIN:
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("DSP Gain Control Process failed! return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP Gain Control Process failed! return error = %d\r\n", msg->error);
                         break;
                     }
-                    PRINTF("PCM Gain Control read %d bytes and write %d bytes \r\n", msg->param[8], msg->param[9]);
+                    PRINTF("[CM33 CMD] PCM Gain Control read %d bytes and write %d bytes \r\n", msg->param[8],
+                           msg->param[9]);
                     break;
 #endif
                 case SRTM_Print_String:
@@ -1173,18 +1186,18 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                     {
                         string_buff[i] = (char)msg->param[i];
                     }
-                    PRINTF("%s", string_buff);
+                    PRINTF("[CM33 CMD] %s", string_buff);
                     break;
 
                 case SRTM_Command_FileStart:
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("DSP file playback start failed! return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP file playback start failed! return error = %d\r\n", msg->error);
                         file_playing = false;
                     }
                     else
                     {
-                        PRINTF("DSP file playback start\r\n");
+                        PRINTF("[CM33 CMD] DSP file playback start\r\n");
                         BOARD_MuteRightChannel(msg->param[0] == 1);
                     }
 
@@ -1203,7 +1216,7 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                                    msg->param[0] == 0 ? FILE_PLAYBACK_READ_SIZE : msg->param[0], &bytes_read);
                     if (error)
                     {
-                        PRINTF("File read failure: %d\r\n", error);
+                        PRINTF("[CM33 CMD] File read failure: %d\r\n", error);
                         *notify_shell = false;
                         break;
                     }
@@ -1226,14 +1239,14 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                 {
                     FRESULT error;
 
-                    PRINTF("DSP file playback complete\r\n");
+                    PRINTF("[CM33 CMD] DSP file playback complete\r\n");
 
                     file_playing = false;
                     BOARD_MuteRightChannel(false);
                     error = f_close(&app->fileObject);
                     if (error)
                     {
-                        PRINTF("Failed to close file on SD card\r\n");
+                        PRINTF("[CM33 CMD] Failed to close file on SD card\r\n");
                     }
                     *notify_shell = true;
                     break;
@@ -1242,11 +1255,11 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                 {
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("DSP file stop failed! return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP file stop failed! return error = %d\r\n", msg->error);
                     }
                     else
                     {
-                        PRINTF("DSP file stopped\r\n");
+                        PRINTF("[CM33 CMD] DSP file stopped\r\n");
                         file_playing = false;
                         BOARD_MuteRightChannel(false);
                         /* File has stopped playing */
@@ -1258,11 +1271,12 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                 {
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("DSP requested file stop due to error failed! return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP requested file stop due to error failed! return error = %d\r\n",
+                               msg->error);
                     }
                     else
                     {
-                        PRINTF("DSP file stopped, unsupported format.\r\n");
+                        PRINTF("[CM33 CMD] DSP file stopped, unsupported format.\r\n");
                         file_playing = false;
                         BOARD_MuteRightChannel(false);
                         /* File has stopped playing */
@@ -1275,18 +1289,18 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                 {
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("DSP Filter cfg failed! return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP Filter cfg failed! return error = %d\r\n", msg->error);
                     }
                     else
                     {
-                        PRINTF("DSP Filter cfg success!\r\n");
+                        PRINTF("[CM33 CMD] DSP Filter cfg success!\r\n");
                     }
                     *notify_shell = true;
                     break;
                 }
 #endif
                 default:
-                    PRINTF("Incoming unknown message category %d \r\n", msg->head.category);
+                    PRINTF("[CM33 CMD] Incoming unknown message category %d \r\n", msg->head.category);
                     break;
             }
             break;

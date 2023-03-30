@@ -17,6 +17,11 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <ctype.h>
+#ifndef __REDLIB__
+#include <inttypes.h>
+#else
+#define PRIu32 "u"
+#endif
 
 #include "lwip/netif.h"
 #include "lwip/sys.h"
@@ -127,7 +132,7 @@ static int cgi_rtc_data(HTTPSRV_CGI_REQ_STRUCT *param)
     */
 
     /* Calculate content length while saving it to buffer */
-    length                  = snprintf(str, BUFF_SIZE, "%ld\n%ld\n%ld\n", hour, min, sec);
+    length                  = snprintf(str, BUFF_SIZE, "%" PRIu32 "\n%" PRIu32 "\n%" PRIu32 "\n", hour, min, sec);
     response.data           = str;
     response.data_length    = length;
     response.content_length = response.data_length;

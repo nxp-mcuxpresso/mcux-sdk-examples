@@ -8,7 +8,7 @@ output, the overlay region color is OR'ed value of process surface and alpha sur
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- MCUXpresso  11.7.0
 
 Hardware requirements
 =====================

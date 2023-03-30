@@ -28,19 +28,15 @@ After running the "usb_mic" command, the USB device will be enumerated on your h
 User will see the volume levels obtained from the USB host as in the example below.
 This is just an example application. To leverage the values, the demo has to be modified.
 
-Note
-1. When connected to MacBook, change the PCM format from (0x02,0x00,) to (0x01,0x00, ) in
-   g_config_descriptor[CONFIG_DESC_SIZE] in the usb_descriptor.c. Otherwise, it can't be enumerated and
-   noise is present when recording with the QuickTime player because the sampling frequency and bit resolution
-   do not match.
-2. When device functionality is changed, please uninstall the previous PC driver to make sure the device with changed functionality can run normally.
-3. If you're having audio problems on Windows 10 for recorder, please disable signal enhancement as the following if it is enabled and have a try again.
+Notes
+1. When device functionality is changed, please uninstall the previous PC driver to make sure the device with changed functionality can run normally.
+2. If you're having audio problems on Windows 10 for recorder, please disable signal enhancement as the following if it is enabled and have a try again.
 
 
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- MCUXpresso  11.7.0
 
 Hardware requirements
 =====================

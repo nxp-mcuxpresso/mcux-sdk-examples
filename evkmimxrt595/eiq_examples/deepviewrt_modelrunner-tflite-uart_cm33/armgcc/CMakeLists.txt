@@ -153,7 +153,7 @@ include(middleware_eiq_tensorflow_lite_micro_third_party_ruy)
 
 include(middleware_eiq_tensorflow_lite_micro_third_party_cmsis_nn)
 
-include(utilities_misc_utilities_MIMXRT595S_cm33)
+include(utilities_misc_utilities)
 
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  

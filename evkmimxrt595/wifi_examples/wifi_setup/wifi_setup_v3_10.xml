@@ -7,6 +7,7 @@
     <definition extID="middleware.lwip.MIMXRT595S"/>
     <definition extID="middleware.wifi.MIMXRT595S"/>
     <definition extID="middleware.lwip.contrib.ping.MIMXRT595S"/>
+    <definition extID="middleware.edgefast_wifi_nxp.MIMXRT595S"/>
     <definition extID="middleware.freertos-kernel.cm33_nonsecure_port.MIMXRT595S"/>
     <definition extID="platform.drivers.flexcomm_i2c.MIMXRT595S"/>
     <definition extID="driver.pca9420.MIMXRT595S"/>
@@ -40,6 +41,7 @@
     <definition extID="middleware.freertos-kernel.extension.MIMXRT595S"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT595S"/>
     <definition extID="component.wifi_bt_module.tx_pwr_limits.MIMXRT595S"/>
+    <definition extID="middleware.edgefast_wifi.MIMXRT595S"/>
     <definition extID="middleware.wifi.sdio-2.MIMXRT595S"/>
     <definition extID="middleware.sdmmc.osa.freertos.MIMXRT595S"/>
     <definition extID="component.osa_free_rtos.MIMXRT595S"/>
@@ -138,6 +140,7 @@
     </debug_configurations>
     <include_paths>
       <include_path path="." project_relative_path="source" type="c_include"/>
+      <include_path path="../wifi_common" project_relative_path="wifi" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="../common" project_relative_path="board" type="c_include"/>
       <include_path path="../../../../core/boards/evkmimxrt595" project_relative_path="board" type="c_include"/>
@@ -217,6 +220,12 @@
     <source path="armgcc" project_relative_path="MIMXRT595S/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMXRT595Sxxxx_cm33_ram.ld"/>
       <files mask="MIMXRT595Sxxxx_cm33_flash.ld"/>
+    </source>
+    <source path="../wifi_common" project_relative_path="wifi" type="src">
+      <files mask="wpl_nxp.c"/>
+    </source>
+    <source path="../wifi_common" project_relative_path="wifi" type="c_include">
+      <files mask="wpl.h"/>
     </source>
   </example>
 </ksdk:examples>

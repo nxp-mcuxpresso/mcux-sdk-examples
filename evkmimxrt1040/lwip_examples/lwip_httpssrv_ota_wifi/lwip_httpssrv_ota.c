@@ -423,7 +423,7 @@ static int cgi_ota_upload(HTTPSRV_CGI_REQ_STRUCT *param)
             if (prefix_match && filename_ok)
             {
                 int image = atoi(&mpr_ctx->form_data_name[strlen(prefix)]);
-                uint32_t dst_addr, dst_size;
+                partition_t storage;
                 int32_t stored;
                 struct flash_area *fa;
                 status_t status;
@@ -436,13 +436,19 @@ static int cgi_ota_upload(HTTPSRV_CGI_REQ_STRUCT *param)
                     response.status_code = HTTPSRV_CODE_INTERNAL_ERROR;
                     continue;
                 }
-                /* Secondary image slot parameters */
 
-                fa       = &boot_flash_map[FLASH_AREA_IMAGE_SECONDARY(image)];
-                dst_addr = fa->fa_off;
-                dst_size = fa->fa_size;
+                /* Download area parameters */
 
-                stored = store_update_image(mpr_ctx, dst_addr, dst_size);
+                if (bl_get_update_partition_info(image, &storage) != kStatus_Success)
+                {
+                    PRINTF("FAILED to determine address for download\n");
+                    response.status_code = HTTPSRV_CODE_INTERNAL_ERROR;
+                    continue;
+                }
+
+                PRINTF("Downloading new image to slot at 0x%x of size 0x%x B\n", storage.start, storage.size);
+
+                stored = store_update_image(mpr_ctx, storage.start, storage.size);
                 if (stored < 0)
                 {
                     /* Error during upload */
@@ -451,7 +457,7 @@ static int cgi_ota_upload(HTTPSRV_CGI_REQ_STRUCT *param)
                     continue;
                 }
 
-                if (bl_verify_image(dst_addr, stored) <= 0)
+                if (bl_verify_image(storage.start, stored) <= 0)
                 {
                     /* Image validation failed */
                     PRINTF("Image validation failed\n");

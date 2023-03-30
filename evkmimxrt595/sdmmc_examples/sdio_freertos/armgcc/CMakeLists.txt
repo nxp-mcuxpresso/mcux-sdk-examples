@@ -125,7 +125,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT595S_cm33)
 
 include(driver_flexcomm_usart)
 
@@ -149,7 +149,7 @@ include(middleware_sdmmc_osa_freertos)
 
 include(component_osa_free_rtos)
 
-include(utilities_misc_utilities_MIMXRT595S_cm33)
+include(utilities_misc_utilities)
 
 include(driver_iap)
 

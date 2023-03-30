@@ -128,7 +128,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1176_cm4)
 
 include(driver_lpuart)
 
@@ -166,7 +166,7 @@ include(middleware_usb_device_common_header)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities_MIMXRT1176_cm4)
+include(utilities_misc_utilities)
 
 include(device_system_MIMXRT1176_cm4)
 

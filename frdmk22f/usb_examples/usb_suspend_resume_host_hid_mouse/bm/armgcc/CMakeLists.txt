@@ -88,6 +88,7 @@ include(middleware_usb_host_khci)
 
 include(component_pit_adapter)
 
+
 include(middleware_baremetal)
 
 include(middleware_usb_host_hid)
@@ -120,7 +121,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MK22F51212)
 
 include(driver_port)
 
@@ -134,7 +135,7 @@ include(CMSIS_Include_core_cm)
 
 include(middleware_usb_common_header)
 
-include(utilities_misc_utilities_MK22F51212)
+include(utilities_misc_utilities)
 
 include(device_system)
 

@@ -1,0 +1,60 @@
+<!DOCTYPE HTML SYSTEM>
+<html>
+
+<head>
+<title>MCUXpresso SDK HTTP Server Example</title>
+    <style type="text/css">
+        <!--
+        @import"httpsrv.css";
+        -->
+    </style>
+
+    <script src="request.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        var rtc_value = new Array(3);
+        var data_received = 0;
+
+        function parse_vars(data)
+        {
+            var parsed = data.split("\n");
+
+            rtc_value[0] = parsed[0];
+            rtc_value[1] = parsed[1];
+            rtc_value[2] = parsed[2];
+
+            time.innerHTML = check_time(rtc_value[0])+":"+check_time(rtc_value[1])+":"+check_time(rtc_value[2]);
+        }
+
+        function loop()
+        {
+            if (!data_received)
+            {
+                 make_request("rtcdata.cgi");
+            }
+            setTimeout("loop()", 1000);
+        }
+
+        function check_time(i)
+        {
+            if (i < 10)
+            {
+                i = "0" + i;
+            }
+            return i;
+        }
+
+        window.onload = loop;
+    </script>
+
+</head>
+
+<body>
+    <h2>Polling Example</h2>
+    <p>
+       This page demonstrates periodic server polling using CGI and JavaScript. Every second a system time is read from the server and shown below in format HH:MM:SS:
+    </p>
+    <div id="time" class="rtc_data">
+        00:00:00
+    </div>
+</html>

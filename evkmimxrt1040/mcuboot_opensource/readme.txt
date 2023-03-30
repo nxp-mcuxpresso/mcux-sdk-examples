@@ -36,7 +36,7 @@ List of boards with projects supporting flash remapping function:
     - MIMXRT1060-EVKB
     - MIMXRT1064-EVK
     - MIMXRT1170-EVK
-
+    - MIMXRT1170-EVKB
 
 Signing the application image
 -----------------------------
@@ -76,7 +76,7 @@ https://docs.mcuboot.com/imgtool.html
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- MCUXpresso  11.7.0
 
 Hardware requirements
 =====================

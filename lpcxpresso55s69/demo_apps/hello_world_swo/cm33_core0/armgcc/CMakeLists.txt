@@ -113,13 +113,13 @@ include(utility_debug_console)
 
 include(component_usart_adapter)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_LPC55S69_cm33_core0)
 
 include(CMSIS_Include_core_cm)
 
 include(driver_inputmux_connections)
 
-include(utilities_misc_utilities_LPC55S69_cm33_core0)
+include(utilities_misc_utilities)
 
 include(device_system_LPC55S69_cm33_core0)
 

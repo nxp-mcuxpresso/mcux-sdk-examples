@@ -55,6 +55,8 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../wifi_bt_config.c"
 "${ProjDirPath}/../wifi_bt_config.h"
 "${ProjDirPath}/../wifi_config.h"
+"${ProjDirPath}/../../wifi_common/wpl_nxp.c"
+"${ProjDirPath}/../../wifi_common/wpl.h"
 "${SdkRootDirPath}/core/boards/evkmimxrt1060/board.c"
 "${SdkRootDirPath}/core/boards/evkmimxrt1060/board.h"
 "${SdkRootDirPath}/core/boards/evkmimxrt1060/clock_config.c"
@@ -65,6 +67,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
+    ${ProjDirPath}/../../wifi_common
     ${SdkRootDirPath}/core/boards/evkmimxrt1060
     ${SdkRootDirPath}/examples/evkmimxrt1060/wifi_examples/common
 )
@@ -106,7 +109,7 @@ include(utility_debug_console)
 
 include(middleware_wifi_sdio)
 
-include(middleware_wifi_fwdnld_MIMXRT1062)
+include(middleware_wifi_fwdnld)
 
 include(middleware_sdmmc_sdio)
 
@@ -138,7 +141,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1062)
 
 include(driver_lpuart)
 
@@ -170,7 +173,7 @@ include(component_wifi_bt_module_tx_pwr_limits)
 
 include(middleware_wifi_common_files)
 
-include(utilities_misc_utilities_MIMXRT1062)
+include(utilities_misc_utilities)
 
 include(device_system)
 

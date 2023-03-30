@@ -147,13 +147,13 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_LPC55S69_cm33_core0)
 
 include(middleware_usb_device_controller_driver_LPC55S69_cm33_core0)
 
 include(component_osa)
 
-include(middleware_usb_device_ip3511hs_LPC55S69_cm33_core0)
+include(middleware_usb_device_ip3511hs)
 
 include(middleware_usb_device_common_header)
 
@@ -167,7 +167,7 @@ include(middleware_sdmmc_osa_freertos)
 
 include(component_osa_free_rtos)
 
-include(utilities_misc_utilities_LPC55S69_cm33_core0)
+include(utilities_misc_utilities)
 
 include(device_system_LPC55S69_cm33_core0)
 

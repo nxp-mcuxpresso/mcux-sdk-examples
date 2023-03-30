@@ -8,7 +8,7 @@ if the data master received is correct. This example needs to work with spi_inte
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- MCUXpresso  11.7.0
 
 Hardware requirements
 =====================

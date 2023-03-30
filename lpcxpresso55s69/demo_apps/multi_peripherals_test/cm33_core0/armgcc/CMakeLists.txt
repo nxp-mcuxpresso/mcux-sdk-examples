@@ -124,7 +124,7 @@ include(middleware_usb_device_controller_driver_LPC55S69_cm33_core0)
 
 include(component_osa)
 
-include(middleware_usb_device_ip3511hs_LPC55S69_cm33_core0)
+include(middleware_usb_device_ip3511hs)
 
 include(driver_flexcomm_i2c)
 
@@ -156,7 +156,7 @@ include(middleware_sdmmc_host_sdif)
 
 include(middleware_sdmmc_host_sdif_freertos)
 
-include(middleware_fatfs_LPC55S69_cm33_core0)
+include(middleware_fatfs)
 
 include(middleware_fatfs_sd)
 
@@ -184,7 +184,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_LPC55S69_cm33_core0)
 
 include(CMSIS_Include_core_cm)
 
@@ -202,7 +202,7 @@ include(component_osa_free_rtos)
 
 include(driver_wm8904)
 
-include(utilities_misc_utilities_LPC55S69_cm33_core0)
+include(utilities_misc_utilities)
 
 include(device_system_LPC55S69_cm33_core0)
 

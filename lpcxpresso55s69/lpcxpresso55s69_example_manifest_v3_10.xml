@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_lpcxpresso55s69_examples_manifest_v3_10" name="SDK_2.x_lpcxpresso55s69_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2023-01-10 16:36:57.441293-->
-  <!--This manifest is generated based on sdk repo commit: 11a5f6af5190bfe018a89b4d02c239713dc4cfa6-->
+  <!--Timestamp (UTC): 2023-03-27 10:46:54.574398-->
+  <!--This manifest is generated based on sdk repo commit: 7a3cf97dd3582e3ee8a98ede814ff1f2a45ea519-->
   <externalDefinitions>
     <definition extID="LPC55S69JBD100"/>
     <definition extID="armgcc"/>
@@ -785,11 +785,6 @@
         <example id="lpcxpresso55s69_lpc_bod" name="lpc_bod" brief="The bod example shows how to use LPC BOD(Brown-out detector) in the simplest way. To run this example, user should remove the jumper for the power source selector, and connect the adjustable input voltage to the MCU's Vin pin. If the input voltage of the Vin pin is lower than the threshold voltage, the BOD interrupt will be asserted." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/bod" path="driver_examples/bod/cm33_core0">
           <external path="driver_examples/bod/cm33_core0" type="xml">
             <files mask="lpc_bod_v3_10.xml"/>
-          </external>
-        </example>
-        <example id="lpcxpresso55s69_maestro_playback" name="maestro_playback" brief="Audio maestro framework demo example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="audio_examples" path="audio_examples/maestro_playback/cm33_core0">
-          <external path="audio_examples/maestro_playback/cm33_core0" type="xml">
-            <files mask="maestro_playback_v3_10.xml"/>
           </external>
         </example>
         <example id="lpcxpresso55s69_maestro_record" name="maestro_record" brief="Audio maestro framework demo example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="audio_examples" path="audio_examples/maestro_record/cm33_core0">

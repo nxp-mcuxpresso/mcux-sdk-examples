@@ -98,6 +98,7 @@ include(component_osa)
 
 include(middleware_usb_device_ehci_MIMXRT1176_cm7)
 
+
 include(middleware_baremetal)
 
 include(driver_clock)
@@ -108,7 +109,7 @@ include(utility_debug_console)
 
 include(component_lpuart_adapter)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1176_cm7)
 
 include(driver_lpuart)
 
@@ -144,7 +145,7 @@ include(driver_memory)
 
 include(middleware_usb_device_common_header)
 
-include(utilities_misc_utilities_MIMXRT1176_cm7)
+include(utilities_misc_utilities)
 
 include(device_system_MIMXRT1176_cm7)
 

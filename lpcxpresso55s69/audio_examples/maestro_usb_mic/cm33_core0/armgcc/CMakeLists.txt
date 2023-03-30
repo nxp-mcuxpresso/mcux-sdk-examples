@@ -152,7 +152,7 @@ include(middleware_freertos-kernel_heap_4)
 
 include(middleware_maestro_framework)
 
-include(middleware_fatfs_LPC55S69_cm33_core0)
+include(middleware_fatfs)
 
 include(middleware_fatfs_ram)
 
@@ -178,7 +178,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_LPC55S69_cm33_core0)
 
 include(middleware_freertos-kernel_LPC55S69_cm33_core0)
 
@@ -196,7 +196,7 @@ include(middleware_maestro_framework_doc)
 
 include(middleware_maestro_framework_streamer)
 
-include(utilities_misc_utilities_LPC55S69_cm33_core0)
+include(utilities_misc_utilities)
 
 include(device_system_LPC55S69_cm33_core0)
 

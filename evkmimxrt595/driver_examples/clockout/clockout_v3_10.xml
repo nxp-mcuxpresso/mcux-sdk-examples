@@ -138,7 +138,7 @@
       <files mask="clockout.mex" hidden="true"/>
     </source>
     <source path="." project_relative_path="evkmimxrt595/driver_examples/clockout" type="binary">
-      <files mask="syscon_clockout.bin" hidden="true"/>
+      <files mask="clockout.bin" hidden="true"/>
     </source>
     <source path="../../../../core/boards/evkmimxrt595" project_relative_path="board" type="src">
       <files mask="board.c"/>

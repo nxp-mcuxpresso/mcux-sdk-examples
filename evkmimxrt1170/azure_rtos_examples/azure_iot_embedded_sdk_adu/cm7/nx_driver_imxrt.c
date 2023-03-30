@@ -50,7 +50,11 @@
 #endif
 
 #if defined(BOARD_NETWORK_USE_100M_ENET_PORT) && (BOARD_NETWORK_USE_100M_ENET_PORT == 1)
+#ifdef FSL_PHYRTL8201
+#include "fsl_phyrtl8201.h"
+#else
 #include "fsl_phyksz8081.h"
+#endif
 #else
 #include "fsl_phyrtl8211f.h"
 #endif
@@ -64,10 +68,16 @@
 #define EXAMPLE_PHY_ADDRESS BOARD_ENET0_PHY_ADDRESS
 #define EXAMPLE_ENET        ENET
 /* PHY operations. */
-#define EXAMPLE_PHY_OPS     (&phyksz8081_ops)
 #define EXAMPLE_INT         ENET_IRQn
+#ifdef FSL_PHYRTL8201
+#define EXAMPLE_PHY_OPS     (&phyrtl8201_ops)
+
+phy_rtl8201_resource_t g_phy_resource;
+#else
+#define EXAMPLE_PHY_OPS     (&phyksz8081_ops)
 
 phy_ksz8081_resource_t g_phy_resource;
+#endif
 
 #else
 

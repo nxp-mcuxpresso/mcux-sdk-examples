@@ -106,7 +106,7 @@ include(utility_debug_console)
 
 include(middleware_wifi_sdio)
 
-include(middleware_wifi_fwdnld_MIMXRT1042)
+include(middleware_wifi_fwdnld)
 
 include(middleware_sdmmc_sdio)
 
@@ -140,7 +140,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1042)
 
 include(driver_lpuart)
 
@@ -172,7 +172,7 @@ include(component_wifi_bt_module_tx_pwr_limits)
 
 include(middleware_wifi_common_files)
 
-include(utilities_misc_utilities_MIMXRT1042)
+include(utilities_misc_utilities)
 
 include(device_system)
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 NXP
+ * Copyright 2020-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -257,6 +257,17 @@ status_t STREAMER_mic_Create(streamer_handle_t *handle, out_sink_t out_sink, cha
     }
 #endif // VIT_PROC
 
+#if (defined(PLATFORM_RT1170) || defined(PLATFORM_RT1160) || DEMO_CODEC_CS42448)
+#ifndef VOICE_SEEKER_PROC
+    if (params.pipeline_type == STREAM_PIPELINE_VIT)
+    {
+        PRINTF(
+            "[STREAMER] Please enable VoiceSeeker, it must be used if more than one channel is used and VIT is "
+            "enabled.\r\n");
+        return kStatus_Fail;
+    }
+#endif
+
 #if (defined(PLATFORM_RT1170) || defined(PLATFORM_RT1160))
     prop.prop = PROP_AUDIOSRC_SET_FRAME_MS;
     prop.val  = 30;
@@ -265,21 +276,19 @@ status_t STREAMER_mic_Create(streamer_handle_t *handle, out_sink_t out_sink, cha
     prop.prop = PROP_AUDIOSRC_SET_NUM_CHANNELS;
     prop.val  = 2;
     streamer_set_property(handle->streamer, prop, true);
-
-    prop.prop = PROP_AUDIOSRC_SET_BITS_PER_SAMPLE;
-    prop.val  = 32;
-    streamer_set_property(handle->streamer, prop, true);
 #endif
 
 #if DEMO_CODEC_CS42448
     prop.prop = PROP_AUDIOSRC_SET_NUM_CHANNELS;
     prop.val  = 8;
     streamer_set_property(handle->streamer, prop, true);
+#endif
 
     prop.prop = PROP_AUDIOSRC_SET_BITS_PER_SAMPLE;
     prop.val  = 32;
     streamer_set_property(handle->streamer, prop, true);
 #endif
+
     prop.prop = PROP_AUDIOSRC_SET_SAMPLE_RATE;
     prop.val  = 16000;
     streamer_set_property(handle->streamer, prop, true);

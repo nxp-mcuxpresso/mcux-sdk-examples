@@ -89,7 +89,7 @@ set(CMAKE_MODULE_PATH
 )
 
 # include modules
-include(middleware_usb_host_ip3516hs_LPC55S69_cm33_core0)
+include(middleware_usb_host_ip3516hs)
 
 include(middleware_freertos-kernel_cm33_nonsecure_port)
 
@@ -107,7 +107,7 @@ include(middleware_sdmmc_host_sdif)
 
 include(middleware_sdmmc_host_sdif_freertos)
 
-include(middleware_fatfs_LPC55S69_cm33_core0)
+include(middleware_fatfs)
 
 include(middleware_fatfs_sd)
 
@@ -145,7 +145,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_LPC55S69_cm33_core0)
 
 include(middleware_usb_host_stack_LPC55S69_cm33_core0)
 
@@ -165,7 +165,7 @@ include(middleware_sdmmc_osa_freertos)
 
 include(component_osa_free_rtos)
 
-include(utilities_misc_utilities_LPC55S69_cm33_core0)
+include(utilities_misc_utilities)
 
 include(device_system_LPC55S69_cm33_core0)
 

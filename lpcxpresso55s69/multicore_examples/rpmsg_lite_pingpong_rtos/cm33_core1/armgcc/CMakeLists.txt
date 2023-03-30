@@ -83,7 +83,7 @@ include(middleware_multicore_mcmgr_lpc55s69)
 
 include(middleware_multicore_rpmsg_lite_lpcxpresso55s69_freertos)
 
-include(middleware_multicore_rpmsg_lite_LPC55S69_cm33_core1)
+include(middleware_multicore_rpmsg_lite)
 
 include(middleware_multicore_rpmsg_lite_freertos)
 
@@ -127,13 +127,13 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_LPC55S69_cm33_core1)
 
 include(CMSIS_Include_core_cm)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities_LPC55S69_cm33_core1)
+include(utilities_misc_utilities)
 
 include(device_system_LPC55S69_cm33_core1)
 

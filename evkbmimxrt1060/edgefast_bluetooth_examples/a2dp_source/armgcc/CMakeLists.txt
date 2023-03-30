@@ -500,7 +500,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1062)
 
 include(middleware_sdmmc_sdio)
 
@@ -526,7 +526,7 @@ include(middleware_usb_host_ehci_MIMXRT1062)
 
 include(middleware_usb_phy)
 
-include(middleware_fatfs_MIMXRT1062)
+include(middleware_fatfs)
 
 include(middleware_fatfs_usb)
 
@@ -538,7 +538,7 @@ include(utility_shell)
 
 include(middleware_freertos-kernel_MIMXRT1062)
 
-include(middleware_wifi_fwdnld_MIMXRT1062)
+include(middleware_wifi_fwdnld)
 
 include(component_common_task)
 
@@ -558,7 +558,7 @@ include(middleware_mbedtls_port_ksdk)
 
 include(middleware_mbedtls_rt)
 
-include(utilities_misc_utilities_MIMXRT1062)
+include(utilities_misc_utilities)
 
 include(CMSIS_Include_core_cm)
 

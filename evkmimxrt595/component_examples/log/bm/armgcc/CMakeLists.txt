@@ -91,7 +91,7 @@ include(component_serial_manager)
 
 include(driver_common)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT595S_cm33)
 
 include(component_osa_bm)
 
@@ -133,7 +133,7 @@ include(driver_reset)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities_MIMXRT595S_cm33)
+include(utilities_misc_utilities)
 
 include(driver_iap)
 

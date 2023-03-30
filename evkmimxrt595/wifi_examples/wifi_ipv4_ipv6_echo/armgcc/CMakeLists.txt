@@ -59,6 +59,8 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../sdmmc_config.h"
 "${ProjDirPath}/../wifi_bt_config.c"
 "${ProjDirPath}/../wifi_bt_config.h"
+"${ProjDirPath}/../../wifi_common/wpl_nxp.c"
+"${ProjDirPath}/../../wifi_common/wpl.h"
 "${SdkRootDirPath}/core/boards/evkmimxrt595/board.c"
 "${SdkRootDirPath}/core/boards/evkmimxrt595/board.h"
 "${SdkRootDirPath}/core/boards/evkmimxrt595/clock_config.c"
@@ -68,6 +70,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
+    ${ProjDirPath}/../../wifi_common
     ${SdkRootDirPath}/core/boards/evkmimxrt595
     ${SdkRootDirPath}/examples/evkmimxrt595/wifi_examples/common
 )
@@ -124,7 +127,7 @@ include(utility_debug_console)
 
 include(middleware_wifi_sdio)
 
-include(middleware_wifi_fwdnld_MIMXRT595S_cm33)
+include(middleware_wifi_fwdnld)
 
 include(middleware_sdmmc_sdio)
 
@@ -156,7 +159,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT595S_cm33)
 
 include(driver_flexcomm_usart)
 
@@ -188,7 +191,7 @@ include(driver_usdhc)
 
 include(middleware_wifi_common_files)
 
-include(utilities_misc_utilities_MIMXRT595S_cm33)
+include(utilities_misc_utilities)
 
 include(driver_iap)
 

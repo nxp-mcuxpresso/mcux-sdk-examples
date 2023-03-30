@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_evkmimxrt1060_examples_manifest_v3_10" name="SDK_2.x_evkmimxrt1060_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2023-01-10 16:34:32.333895-->
-  <!--This manifest is generated based on sdk repo commit: 11a5f6af5190bfe018a89b4d02c239713dc4cfa6-->
+  <!--Timestamp (UTC): 2023-03-27 10:46:26.187299-->
+  <!--This manifest is generated based on sdk repo commit: 7a3cf97dd3582e3ee8a98ede814ff1f2a45ea519-->
   <externalDefinitions>
     <definition extID="MIMXRT1062DVL6A"/>
     <definition extID="armgcc"/>
@@ -1290,16 +1290,6 @@
         <example id="evkmimxrt1060_lwip_ping_freertos" name="lwip_ping_freertos" brief="The lwip_ping demo application demonstrates a Ping Demo on the lwIP TCP/IP stack which using the ICMP protocol. Theapplication periodically sends the ICMP echo request to a PC and processes the PC reply. Type the &quot;ping $board_address&quot;in the PC command window to send an ICMP echo request to the board. The lwIP stack sends the ICMP echo reply back to thePC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="lwip_examples/lwip_ping/freertos">
           <external path="lwip_examples/lwip_ping/freertos" type="xml">
             <files mask="lwip_ping_freertos_v3_10.xml"/>
-          </external>
-        </example>
-        <example id="evkmimxrt1060_maestro_playback" name="maestro_playback" brief="Audio maestro framework demo example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="audio_examples" path="audio_examples/maestro_playback">
-          <external path="audio_examples/maestro_playback" type="xml">
-            <files mask="maestro_playback_v3_10.xml"/>
-          </external>
-        </example>
-        <example id="evkmimxrt1060_maestro_record" name="maestro_record" brief="Audio maestro framework demo example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="audio_examples" path="audio_examples/maestro_record">
-          <external path="audio_examples/maestro_record" type="xml">
-            <files mask="maestro_record_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1060_maestro_usb_mic" name="maestro_usb_mic" brief="Audio maestro framework USB microphone example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="audio_examples" path="audio_examples/maestro_usb_mic">

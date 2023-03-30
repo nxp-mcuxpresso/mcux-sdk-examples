@@ -110,7 +110,7 @@ set(CMAKE_MODULE_PATH
 )
 
 # include modules
-include(middleware_usb_device_ip3511hs_MIMXRT595S_cm33)
+include(middleware_usb_device_ip3511hs)
 
 include(middleware_usb_phy)
 
@@ -168,7 +168,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT595S_cm33)
 
 include(driver_flash_config_evkmimxrt595)
 
@@ -198,7 +198,7 @@ include(middleware_freertos-kernel_MIMXRT595S_cm33)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities_MIMXRT595S_cm33)
+include(utilities_misc_utilities)
 
 include(driver_iap)
 

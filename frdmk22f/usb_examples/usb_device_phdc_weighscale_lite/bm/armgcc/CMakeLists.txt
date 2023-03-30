@@ -98,6 +98,7 @@ include(utility_debug_console_lite)
 
 include(utility_assert_lite)
 
+
 include(middleware_baremetal)
 
 include(driver_smc)
@@ -132,7 +133,7 @@ include(CMSIS_Include_core_cm)
 
 include(middleware_usb_common_header)
 
-include(utilities_misc_utilities_MK22F51212)
+include(utilities_misc_utilities)
 
 include(device_system)
 

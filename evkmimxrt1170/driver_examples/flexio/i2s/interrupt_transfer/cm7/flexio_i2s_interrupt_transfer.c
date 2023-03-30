@@ -229,7 +229,9 @@ int main(void)
      * config.enableI2S = true;
      */
     FLEXIO_I2S_GetDefaultConfig(&config);
-    config.masterSlave = kFLEXIO_I2S_Master;
+#if defined(DEMO_CODEC_WM8960) || defined(DEMO_CODEC_WM8962)
+    config.bclkPinPolarity = kFLEXIO_PinActiveLow;
+#endif
     FLEXIO_I2S_Init(&base, &config);
 
     /* Configure the audio format */

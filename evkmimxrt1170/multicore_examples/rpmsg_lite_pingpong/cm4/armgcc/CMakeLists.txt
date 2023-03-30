@@ -86,7 +86,7 @@ include(middleware_multicore_mcmgr_imxrt1170)
 
 include(middleware_multicore_rpmsg_lite_imxrt1170_bm)
 
-include(middleware_multicore_rpmsg_lite_MIMXRT1176_cm4)
+include(middleware_multicore_rpmsg_lite)
 
 include(middleware_multicore_rpmsg_lite_bm)
 
@@ -95,6 +95,7 @@ include(utility_debug_console_lite)
 include(utility_assert_lite)
 
 include(driver_clock)
+
 
 include(middleware_baremetal)
 
@@ -132,7 +133,7 @@ include(driver_anatop_ai)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities_MIMXRT1176_cm4)
+include(utilities_misc_utilities)
 
 include(device_system_MIMXRT1176_cm4)
 

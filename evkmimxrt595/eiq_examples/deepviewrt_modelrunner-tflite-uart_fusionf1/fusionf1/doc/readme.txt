@@ -78,6 +78,7 @@ The uri should be http://localhost:10919/serial/<board-serial-id>
 For linux, the serial id can be found in /dev/serial/by-id:
   #ls /dev/serial/by-id/
    usb-NXP_Semiconductors_LPC-LINK2_CMSIS-DAP_V5.224_GRAXBQHR-if01
+For Windows, the serial id is com<x>
 
 - DeepviewRT validator:
  #deepview-validator --input_names input --output_names MobilenetV1/Predictions/Reshape_1 --samples 1 --uri http://localhost:10919/serial/GRAXBQHR --reference mobilenet_v1_1.0_224_pb.npz mobilenet_v1_1.0_224_pb_uint8.tflite

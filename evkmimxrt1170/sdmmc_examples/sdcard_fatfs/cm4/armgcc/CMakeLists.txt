@@ -103,7 +103,7 @@ include(utility_assert_lite)
 
 include(component_igpio_adapter)
 
-include(middleware_fatfs_MIMXRT1176_cm4)
+include(middleware_fatfs)
 
 include(middleware_fatfs_sd)
 
@@ -145,7 +145,7 @@ include(middleware_sdmmc_osa_bm)
 
 include(component_osa_bm)
 
-include(utilities_misc_utilities_MIMXRT1176_cm4)
+include(utilities_misc_utilities)
 
 include(device_system_MIMXRT1176_cm4)
 

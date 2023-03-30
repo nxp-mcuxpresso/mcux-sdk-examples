@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_MIMXRT1040-EVK_manifest_v3_10" name="SDKVersion 2.13.0 SuperSet" brief="This is SDK version 2.13.0 manifest file." format_version="3.10" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2023-01-10 16:33:26.771511-->
-  <!--This manifest is generated based on sdk repo commit: 11a5f6af5190bfe018a89b4d02c239713dc4cfa6-->
+  <!--Timestamp (UTC): 2023-03-27 10:45:58.072988-->
+  <!--This manifest is generated based on sdk repo commit: 7a3cf97dd3582e3ee8a98ede814ff1f2a45ea519-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
@@ -12,7 +12,7 @@
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
   </compilers>
   <toolchainSettings>
-    <toolchainSetting id="com.nxp.mcuxpresso" name="mcuxpresso" version="11.6.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" toolchain="mcuxpresso">
+    <toolchainSetting id="com.nxp.mcuxpresso" name="mcuxpresso" version="11.7.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" toolchain="mcuxpresso">
       <option id="gnu.cpp.compiler.option.optimization.flags" type="string" user_name="">
         <value>-fno-common</value>
       </option>
@@ -35,7 +35,7 @@
   </toolchainSettings>
   <toolchains>
     <toolchain id="armgcc" name="GCC_ARM_Embedded_10-2021.10" version="10.3.1" full_name="GCC ARM Embedded 10-2021.10" compiler="compiler_gcc" type="armgcc" vendor="GCC ARM Embedded" vendor_url="http://launchpad.net/gcc-arm-embedded"/>
-    <toolchain id="mcuxpresso" name="MCUXpresso_IDE" version="11.6.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" type="mcuxpresso" vendor="NXP Semiconductors" vendor_url="http://www.nxp.com">
+    <toolchain id="mcuxpresso" name="MCUXpresso_IDE" version="11.7.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" type="mcuxpresso" vendor="NXP Semiconductors" vendor_url="http://www.nxp.com">
       <debug>
         <debug_configuration id="com.crt.advproject.config.exe.release" name="Release Configuration" probe="LinkServer">
           <scripts>
@@ -1303,16 +1303,6 @@ ${load}</script>
         <example id="evkmimxrt1040_lwip_ping_freertos" name="lwip_ping_freertos" brief="The lwip_ping demo application demonstrates a Ping Demo on the lwIP TCP/IP stack which using the ICMP protocol. Theapplication periodically sends the ICMP echo request to a PC and processes the PC reply. Type the &quot;ping $board_address&quot;in the PC command window to send an ICMP echo request to the board. The lwIP stack sends the ICMP echo reply back to thePC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/evkmimxrt1040/lwip_examples/lwip_ping/freertos">
           <external path="examples/evkmimxrt1040/lwip_examples/lwip_ping/freertos" type="xml">
             <files mask="lwip_ping_freertos_v3_10.xml"/>
-          </external>
-        </example>
-        <example id="evkmimxrt1040_maestro_playback" name="maestro_playback" brief="Audio maestro framework demo example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="audio_examples" path="examples/evkmimxrt1040/audio_examples/maestro_playback">
-          <external path="examples/evkmimxrt1040/audio_examples/maestro_playback" type="xml">
-            <files mask="maestro_playback_v3_10.xml"/>
-          </external>
-        </example>
-        <example id="evkmimxrt1040_maestro_record" name="maestro_record" brief="Audio maestro framework demo example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="audio_examples" path="examples/evkmimxrt1040/audio_examples/maestro_record">
-          <external path="examples/evkmimxrt1040/audio_examples/maestro_record" type="xml">
-            <files mask="maestro_record_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1040_maestro_usb_mic" name="maestro_usb_mic" brief="Audio maestro framework USB microphone example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="audio_examples" path="examples/evkmimxrt1040/audio_examples/maestro_usb_mic">
@@ -3701,6 +3691,9 @@ ${load}</script>
       <source relative_path="port" type="src">
         <files mask="fsl_codec_adapter.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_codec_adapters.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./port" type="c_include"/>
       </include_paths>
@@ -3760,6 +3753,9 @@ ${load}</script>
       </source>
       <source relative_path="port" type="c_include">
         <files mask="fsl_codec_adapter.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="component_cs42448_adapter.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./port/cs42448" type="c_include"/>
@@ -4402,7 +4398,7 @@ ${load}</script>
         <files mask="fsl_component_serial_port_uart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_serial_manager_uart.cmake" hidden="true"/>
+        <files mask="component_serial_manager_uart_MIMXRT1042.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -4503,7 +4499,7 @@ ${load}</script>
         <files mask="fsl_silicon_id.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="component_silicon_id_MIMXRT1042.cmake" hidden="true"/>
+        <files mask="component_silicon_id.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -27757,7 +27753,7 @@ ${load}</script>
         <component_dependency value="middleware.maestro_framework.MIMXRT1042"/>
       </dependencies>
       <source relative_path="./" type="doc">
-        <files mask="Maestro_1.3_Release_Notes.pdf"/>
+        <files mask="Maestro_1.5_Release_Notes.pdf"/>
       </source>
     </component>
     <component id="docs.wifi.MIMXRT1042" name="doc_wifi" brief="Wi-Fi documentation" version="1.0.0" full_name="Wi-Fi documentation" devices="MIMXRT1042xxxxB" device_cores="core0_MIMXRT1042xxxxB" user_visible="true" type="documentation" package_base_path="core/docs/wireless/Wi-Fi" project_base_path="wireless/Wi-Fi">
@@ -28793,6 +28789,9 @@ ${load}</script>
       <source relative_path="./" type="src">
         <files mask="fsl_cs42448.c"/>
       </source>
+      <source toolchain="armgcc" relative_path="." type="workspace">
+        <files mask="driver_cs42448.cmake" hidden="true"/>
+      </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
@@ -29498,7 +29497,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.lpspi.MIMXRT1042" name="lpspi" brief="LPSPI Driver" version="2.4.0" full_name="LPSPI Driver" devices="MIMXRT1042xxxxB" device_cores="core0_MIMXRT1042xxxxB" user_visible="true" type="driver" package_base_path="core/drivers/lpspi" project_base_path="drivers">
+    <component id="platform.drivers.lpspi.MIMXRT1042" name="lpspi" brief="LPSPI Driver" version="2.4.3" full_name="LPSPI Driver" devices="MIMXRT1042xxxxB" device_cores="core0_MIMXRT1042xxxxB" user_visible="true" type="driver" package_base_path="core/drivers/lpspi" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MIMXRT1042"/>
       </dependencies>
@@ -29718,7 +29717,7 @@ ${load}</script>
         <files mask="fsl_phy.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_phy-common_MIMXRT1042.cmake" hidden="true"/>
+        <files mask="driver_phy-common.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -38949,91 +38948,6 @@ ${load}</script>
         <files mask="middleware_baremetal.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.eap.MIMXRT1042" name="eap" brief="Essential Audio Processing library" version="3.0.12" full_name="middleware eap" devices="MIMXRT1042xxxxB" category="Audio/Essential Audio Processing library" user_visible="true" type="middleware" package_base_path="middleware/EAP" project_base_path="EAP">
-      <dependencies>
-        <component_dependency value="middleware.eap.exapp.MIMXRT1042"/>
-      </dependencies>
-      <source toolchain="armgcc mcuxpresso" relative_path="EAP_Includes" type="c_include">
-        <files mask="LVC_Types.h"/>
-      </source>
-      <source toolchain="armgcc mcuxpresso" relative_path="Example_Application/CONFIG_HEADER" type="c_include">
-        <files mask="EAP_Parameter_AllEffectOff.h"/>
-        <files mask="EAP_Parameter_AutoVolumeLeveler.h"/>
-        <files mask="EAP_Parameter_ConcertSound.h"/>
-        <files mask="EAP_Parameter_Crossover2waySpeakers.h"/>
-        <files mask="EAP_Parameter_CrossoverForSubwoofer.h"/>
-        <files mask="EAP_Parameter_Custom.h"/>
-        <files mask="EAP_Parameter_LoudnessMaximiser.h"/>
-        <files mask="EAP_Parameter_MusicEnhancerRMSLimiter.h"/>
-        <files mask="EAP_Parameter_MusicEnhancerRMSLimiter_lowMIPS.h"/>
-        <files mask="EAP_Parameter_TestAllOn.h"/>
-        <files mask="EAP_Parameter_ToneGenerator.h"/>
-        <files mask="EAP_Parameter_VoiceEnhancer.h"/>
-        <files mask="EAP_Parameter_VoiceEnhancer_lowMIPS.h"/>
-      </source>
-      <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_eap.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="Example_Application/CONFIG_HEADER" toolchain="armgcc mcuxpresso" type="c_include"/>
-        <include_path relative_path="EAP_Includes" toolchain="armgcc mcuxpresso" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="middleware.eap.arm.lib.MIMXRT1042" name="eap_arm_lib" brief="Essential Audio Processing library for ARM" version="3.0.12" full_name="EAP lib for ARM" devices="MIMXRT1042xxxxB" category="Audio/Essential Audio Processing library" user_visible="false" type="middleware" package_base_path="middleware/EAP" project_base_path="EAP">
-      <dependencies>
-        <component_dependency value="middleware.eap16.header.MIMXRT1042"/>
-      </dependencies>
-      <source toolchain="armgcc mcuxpresso" relative_path="EAP_Library" type="lib" device_cores="core0_MIMXRT1042xxxxB">
-        <files mask="libEAP16_3_0_12_FP1_CM7.a"/>
-      </source>
-      <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_eap_arm_lib.cmake" hidden="true"/>
-      </source>
-    </component>
-    <component id="middleware.eap.exapp.MIMXRT1042" name="eap" brief="EAP example app" version="3.0.12" full_name="EAP example app" devices="MIMXRT1042xxxxB" category="Audio/Essential Audio Processing library" user_visible="false" type="middleware" package_base_path="middleware/EAP" project_base_path="EAP">
-      <source relative_path="Doc" type="doc">
-        <files mask="EAP_SDK_ApplicationNote.pdf"/>
-        <files mask="EAP_UserGuide.pdf"/>
-      </source>
-      <source exclude="true" relative_path="Example_Application" type="src">
-        <files mask="EAP_ExApp.c"/>
-        <files mask="EAP32_ExApp.c"/>
-      </source>
-      <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_eap_exapp.cmake" hidden="true"/>
-      </source>
-    </component>
-    <component id="middleware.eap.template.MIMXRT1042" name="eap_template" brief="eap template" version="3.0.13" full_name="eap template configuration" devices="MIMXRT1042xxxxB" user_visible="true" type="project_template" package_base_path="middleware/EAP" project_base_path="middleware/EAP">
-      <include_paths>
-        <include_path relative_path="Example_Application/CONFIG_HEADER" type="c_include"/>
-        <include_path relative_path="EAP_Includes" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="middleware.eap16.header.MIMXRT1042" name="eap" brief="Essential Audio Processing library" version="3.0" full_name="middleware eap" devices="MIMXRT1042xxxxB" category="Audio/Essential Audio Processing library" user_visible="false" type="middleware" package_base_path="middleware/EAP" project_base_path="EAP">
-      <dependencies>
-        <component_dependency value="middleware.eap.MIMXRT1042"/>
-      </dependencies>
-      <source toolchain="armgcc mcuxpresso" relative_path="EAP_Includes" type="c_include">
-        <files mask="EAP16.h"/>
-      </source>
-      <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_eap16_header.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="EAP_Includes" toolchain="armgcc mcuxpresso" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="middleware.eap32.header.MIMXRT1042" name="eap" brief="Essential Audio Processing library" version="1.0" full_name="middleware eap" devices="MIMXRT1042xxxxB" category="Audio/Essential Audio Processing library" user_visible="false" type="middleware" package_base_path="middleware/EAP" project_base_path="EAP">
-      <dependencies>
-        <component_dependency value="middleware.eap.MIMXRT1042"/>
-      </dependencies>
-      <source toolchain="armgcc mcuxpresso" relative_path="EAP_Includes" type="c_include">
-        <files mask="EAP32.h"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="EAP_Includes" toolchain="armgcc mcuxpresso" type="c_include"/>
-      </include_paths>
-    </component>
     <component id="middleware.edgefast_wifi.MIMXRT1042" name="edgefast_wifi" brief="Wi-Fi Edgefast Abstraction Layer" version="1.0.0" full_name="Middleware Edgefast Wi-Fi" devices="MIMXRT1042xxxxB" device_cores="core0_MIMXRT1042xxxxB" category="Wireless/Middleware Edgefast Wi-Fi" user_visible="true" type="middleware" package_base_path="middleware/edgefast_wifi" project_base_path="edgefast_wifi">
       <dependencies>
         <component_dependency value="middleware.wifi.MIMXRT1042"/>
@@ -40405,7 +40319,7 @@ ${load}</script>
         <files mask="ff.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_fatfs_MIMXRT1042.cmake" hidden="true"/>
+        <files mask="middleware_fatfs.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="source" type="c_include"/>
@@ -40896,7 +40810,7 @@ ${load}</script>
         <include_path relative_path="template/ARM_CM4F" project_relative_path="../../source" type="c_include" device_cores="core0_MIMXRT1042xxxxB"/>
       </include_paths>
     </component>
-    <component id="cmsis.drivers.include.MIMXRT1042" name="issdk_cmsis_drivers" brief="CMSIS Core header files" version="1.7.0" full_name="Middleware issdk drivers cmsis_drivers" devices="MIMXRT1042xxxxB" user_visible="true" type="middleware" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="cmsis.drivers.include.MIMXRT1042" name="issdk_cmsis_drivers" brief="CMSIS Core header files" version="1.7.0" full_name="Middleware issdk drivers cmsis_drivers" devices="MIMXRT1042xxxxB" user_visible="false" type="middleware" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <source relative_path="./" type="c_include">
         <files mask="Driver_SPI.h"/>
         <files mask="Driver_I2C.h"/>
@@ -41004,7 +40918,7 @@ ${load}</script>
         <include_path relative_path="drivers/gpio" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.drivers.host.MIMXRT1042" name="issdk_host" brief="ISSDK Host Interface Service" version="1.7.0" full_name="Middleware issdk drivers host" devices="MIMXRT1042xxxxB" device_cores="core0_MIMXRT1042xxxxB" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="host">
+    <component id="middleware.issdk.drivers.host.MIMXRT1042" name="issdk_host" brief="ISSDK Host Interface Service" version="1.7.0" full_name="Middleware issdk drivers host" devices="MIMXRT1042xxxxB" device_cores="core0_MIMXRT1042xxxxB" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="host">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.common.MIMXRT1042"/>
@@ -41046,7 +40960,7 @@ ${load}</script>
         <include_path relative_path="drivers/systick" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.allregdefs.MIMXRT1042" name="issdk_allregdefs" brief="ISSDK Sensors RegDefs" version="1.8.0" full_name="Middleware issdk sensor allregdefs" devices="MIMXRT1042xxxxB" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.allregdefs.MIMXRT1042" name="issdk_allregdefs" brief="ISSDK Sensors RegDefs" version="1.8.0" full_name="Middleware issdk sensor allregdefs" devices="MIMXRT1042xxxxB" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT1042"/>
@@ -41200,7 +41114,7 @@ ${load}</script>
         <files mask="fxls8974cf_spi.c"/>
       </source>
     </component>
-    <component id="middleware.issdk.sensor.fxas21002.MIMXRT1042" name="issdk_fxas21002" brief="ISSDK FXAS21002 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxas21002" devices="MIMXRT1042xxxxB" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxas21002.MIMXRT1042" name="issdk_fxas21002" brief="ISSDK FXAS21002 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxas21002" devices="MIMXRT1042xxxxB" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT1042"/>
@@ -41218,7 +41132,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.fxlc95000.MIMXRT1042" name="issdk_fxlc95000" brief="ISSDK FXLC95000 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxlc95000" devices="MIMXRT1042xxxxB" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxlc95000.MIMXRT1042" name="issdk_fxlc95000" brief="ISSDK FXLC95000 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxlc95000" devices="MIMXRT1042xxxxB" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT1042"/>
@@ -41236,7 +41150,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.fxls8471q.MIMXRT1042" name="issdk_fxls8471q" brief="ISSDK FXLS8471 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxls8471q" devices="MIMXRT1042xxxxB" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxls8471q.MIMXRT1042" name="issdk_fxls8471q" brief="ISSDK FXLS8471 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxls8471q" devices="MIMXRT1042xxxxB" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT1042"/>
@@ -41254,7 +41168,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.fxls8962.MIMXRT1042" name="issdk_fxls8962" brief="ISSDK FXLS8962 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxls8962" devices="MIMXRT1042xxxxB" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxls8962.MIMXRT1042" name="issdk_fxls8962" brief="ISSDK FXLS8962 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxls8962" devices="MIMXRT1042xxxxB" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT1042"/>
@@ -41272,7 +41186,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.fxls896xaf.MIMXRT1042" name="issdk_fxls896xaf" brief="ISSDK FXLS896xAF Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor FXLS896xAF" devices="MIMXRT1042xxxxB" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxls896xaf.MIMXRT1042" name="issdk_fxls896xaf" brief="ISSDK FXLS896xAF Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor FXLS896xAF" devices="MIMXRT1042xxxxB" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT1042"/>
@@ -41290,7 +41204,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.fxls8974cf.MIMXRT1042" name="issdk_fxls8974cf" brief="ISSDK FXLS8974CF Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor FXLS8974CF" devices="MIMXRT1042xxxxB" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxls8974cf.MIMXRT1042" name="issdk_fxls8974cf" brief="ISSDK FXLS8974CF Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor FXLS8974CF" devices="MIMXRT1042xxxxB" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT1042"/>
@@ -41311,7 +41225,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.fxos8700.MIMXRT1042" name="issdk_fxos8700" brief="ISSDK FXOS8700 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxos8700" devices="MIMXRT1042xxxxB" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxos8700.MIMXRT1042" name="issdk_fxos8700" brief="ISSDK FXOS8700 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxos8700" devices="MIMXRT1042xxxxB" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT1042"/>
@@ -41329,7 +41243,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.fxpq3115.MIMXRT1042" name="issdk_fxpq3115" brief="ISSDK FXPQ3115 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxpq3115" devices="MIMXRT1042xxxxB" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxpq3115.MIMXRT1042" name="issdk_fxpq3115" brief="ISSDK FXPQ3115 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxpq3115" devices="MIMXRT1042xxxxB" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT1042"/>
@@ -41365,7 +41279,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.interface.common.MIMXRT1042" name="issdk_interfaces" brief="ISSDK Sensor Interface Common" version="1.7.0" full_name="Middleware issdk sensor interface common" devices="MIMXRT1042xxxxB" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="interfaces">
+    <component id="middleware.issdk.sensor.interface.common.MIMXRT1042" name="issdk_interfaces" brief="ISSDK Sensor Interface Common" version="1.7.0" full_name="Middleware issdk sensor interface common" devices="MIMXRT1042xxxxB" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="interfaces">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT1042"/>
@@ -41410,7 +41324,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.mag3110.MIMXRT1042" name="issdk_mag3110" brief="ISSDK MAG3110 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mag3110" devices="MIMXRT1042xxxxB" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.mag3110.MIMXRT1042" name="issdk_mag3110" brief="ISSDK MAG3110 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mag3110" devices="MIMXRT1042xxxxB" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT1042"/>
@@ -41428,7 +41342,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.mma845x.MIMXRT1042" name="issdk_mma845x" brief="ISSDK MMA845x Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma845x" devices="MIMXRT1042xxxxB" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.mma845x.MIMXRT1042" name="issdk_mma845x" brief="ISSDK MMA845x Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma845x" devices="MIMXRT1042xxxxB" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT1042"/>
@@ -41446,7 +41360,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.mma8491q.MIMXRT1042" name="issdk_mma8491q" brief="ISSDK MMA8491 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma8491q" devices="MIMXRT1042xxxxB" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.mma8491q.MIMXRT1042" name="issdk_mma8491q" brief="ISSDK MMA8491 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma8491q" devices="MIMXRT1042xxxxB" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT1042"/>
@@ -41464,7 +41378,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.mma865x.MIMXRT1042" name="issdk_mma865x" brief="ISSDK MMA865x Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma865x" devices="MIMXRT1042xxxxB" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.mma865x.MIMXRT1042" name="issdk_mma865x" brief="ISSDK MMA865x Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma865x" devices="MIMXRT1042xxxxB" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT1042"/>
@@ -41482,7 +41396,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.mma9553.MIMXRT1042" name="issdk_mma9553" brief="ISSDK MMA9553 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma9553" devices="MIMXRT1042xxxxB" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.mma9553.MIMXRT1042" name="issdk_mma9553" brief="ISSDK MMA9553 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma9553" devices="MIMXRT1042xxxxB" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT1042"/>
@@ -41500,7 +41414,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.mpl3115.MIMXRT1042" name="issdk_mpl3115" brief="ISSDK MPL3115 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mpl3115" devices="MIMXRT1042xxxxB" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.mpl3115.MIMXRT1042" name="issdk_mpl3115" brief="ISSDK MPL3115 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mpl3115" devices="MIMXRT1042xxxxB" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT1042"/>
@@ -46331,49 +46245,6 @@ ${load}</script>
         <include_path relative_path="phy" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.vit.cm7.MIMXRT1042" name="vit" brief="Voice intelligent technology library for Cortex M7" version="4.7.5" full_name="middleware vit cm7" devices="MIMXRT1042xxxxB" category="Audio/Voice intelligent technology library" user_visible="true" type="middleware" package_base_path="middleware/vit" project_base_path="vit">
-      <dependencies>
-        <component_dependency value="middleware.vit.template.MIMXRT1042"/>
-      </dependencies>
-      <source toolchain="mcuxpresso" relative_path="CortexM7/Lib" type="c_include">
-        <files mask="VIT.h"/>
-        <files mask="VIT_Model_cn.h"/>
-        <files mask="VIT_Model_en.h"/>
-      </source>
-      <source toolchain="mcuxpresso" relative_path="CortexM7/Lib/Inc" type="c_include">
-        <files mask="PL_memoryRegion.h"/>
-        <files mask="PL_platformTypes_CortexM.h"/>
-      </source>
-      <source toolchain="mcuxpresso" relative_path="CortexM7/Lib" type="lib">
-        <files mask="libVIT_CM7_v04_07_05.a"/>
-      </source>
-      <source exclude="true" relative_path="CortexM7/Doc" type="doc">
-        <files mask="VITIUG.pdf"/>
-      </source>
-      <source exclude="true" relative_path="CortexM7/ExApp" type="src">
-        <files mask="VIT_ExApp.c"/>
-      </source>
-      <source exclude="true" relative_path="CortexM7/ExApp" type="c_include">
-        <files mask="AFE_VoiceSeeker.h"/>
-      </source>
-      <source exclude="true" relative_path="CortexM7" type="doc">
-        <files mask="LICENSE.txt"/>
-        <files mask="ReleaseNotes.txt"/>
-      </source>
-      <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_vit_cm7.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="CortexM7/Lib" toolchain="mcuxpresso" type="c_include"/>
-        <include_path relative_path="CortexM7/Lib/Inc" toolchain="mcuxpresso" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="middleware.vit.template.MIMXRT1042" name="vit_template" brief="vit template" version="4.7.5" full_name="vit template configuration" devices="MIMXRT1042xxxxB" user_visible="false" type="project_template" package_base_path="middleware/vit" project_base_path="vit">
-      <include_paths>
-        <include_path relative_path="RT1060_CortexM7/Lib" type="c_include"/>
-        <include_path relative_path="RT1060_CortexM7/Lib/Inc" type="c_include"/>
-      </include_paths>
-    </component>
     <component id="middleware.wifi.MIMXRT1042" name="wifi_nxp" brief="NXP Wi-Fi functionality enables customers to quickly develop applications of interest to add connectivity to different sensors and appliances" version="1.3.38" full_name="NXP Wi-Fi" devices="MIMXRT1042xxxxB" device_cores="core0_MIMXRT1042xxxxB" category="Wireless/NXP Wi-Fi" user_visible="true" type="middleware" package_base_path="middleware/wifi_nxp" project_base_path="wifi">
       <dependencies>
         <all>
@@ -46536,7 +46407,7 @@ ${load}</script>
         <files mask="firmware_dnld.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="middleware_wifi_fwdnld_MIMXRT1042.cmake" hidden="true"/>
+        <files mask="middleware_wifi_fwdnld.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -46644,6 +46515,10 @@ ${load}</script>
         <files mask="mlan_11n.h"/>
         <files mask="mlan_11n_aggr.h"/>
         <files mask="mlan_11n_rxreorder.h"/>
+        <files mask="mlan_11v.h"/>
+        <files mask="mlan_action.h"/>
+        <files mask="mlan_11k.h"/>
+        <files mask="mlan_mbo.h"/>
         <files mask="mlan_api.h"/>
         <files mask="mlan_fw.h"/>
         <files mask="mlan_ieee.h"/>
@@ -46664,6 +46539,10 @@ ${load}</script>
         <files mask="mlan_11n.c"/>
         <files mask="mlan_11n_aggr.c"/>
         <files mask="mlan_11n_rxreorder.c"/>
+        <files mask="mlan_11v.c"/>
+        <files mask="mlan_action.c"/>
+        <files mask="mlan_11k.c"/>
+        <files mask="mlan_mbo.c"/>
         <files mask="mlan_api.c"/>
         <files mask="mlan_cfp.c"/>
         <files mask="mlan_cmdevt.c"/>
@@ -46714,7 +46593,7 @@ ${load}</script>
         <files mask="fsl_memcpy.S"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="utilities_misc_utilities_MIMXRT1042.cmake" hidden="true"/>
+        <files mask="utilities_misc_utilities.cmake" hidden="true"/>
       </source>
     </component>
     <component id="platform.utilities.assert.MIMXRT1042" name="assert" brief="Utility assert" version="1.0.0" full_name="Utility assert" devices="MIMXRT1042xxxxB" device_cores="core0_MIMXRT1042xxxxB" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">

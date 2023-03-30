@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_LPCXpresso55S69_manifest_v3_10" name="SDKVersion 2.13.0 SuperSet" brief="This is SDK version 2.13.0 manifest file." format_version="3.10" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2023-01-10 16:36:53.428221-->
-  <!--This manifest is generated based on sdk repo commit: 11a5f6af5190bfe018a89b4d02c239713dc4cfa6-->
+  <!--Timestamp (UTC): 2023-03-27 10:46:50.447485-->
+  <!--This manifest is generated based on sdk repo commit: 7a3cf97dd3582e3ee8a98ede814ff1f2a45ea519-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
@@ -15,7 +15,7 @@
     <slave_role id="M33SLAVE" name="Cortex-M33 core1 acts as slave by default"/>
   </core_slave_roles_definitions>
   <toolchainSettings>
-    <toolchainSetting id="com.nxp.mcuxpresso" name="mcuxpresso" version="11.6.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" toolchain="mcuxpresso">
+    <toolchainSetting id="com.nxp.mcuxpresso" name="mcuxpresso" version="11.7.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" toolchain="mcuxpresso">
       <option id="gnu.cpp.compiler.option.optimization.flags" type="string" user_name="">
         <value>-fno-common</value>
       </option>
@@ -38,7 +38,7 @@
   </toolchainSettings>
   <toolchains>
     <toolchain id="armgcc" name="GCC_ARM_Embedded_10-2021.10" version="10.3.1" full_name="GCC ARM Embedded 10-2021.10" compiler="compiler_gcc" type="armgcc" vendor="GCC ARM Embedded" vendor_url="http://launchpad.net/gcc-arm-embedded"/>
-    <toolchain id="mcuxpresso" name="MCUXpresso_IDE" version="11.6.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" type="mcuxpresso" vendor="NXP Semiconductors" vendor_url="http://www.nxp.com">
+    <toolchain id="mcuxpresso" name="MCUXpresso_IDE" version="11.7.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" type="mcuxpresso" vendor="NXP Semiconductors" vendor_url="http://www.nxp.com">
       <debug>
         <debug_configuration id="com.crt.advproject.config.exe.release" name="Release Configuration" probe="LinkServer">
           <scripts>
@@ -865,11 +865,6 @@ ${load}</script>
         <example id="lpcxpresso55s69_lpc_bod" name="lpc_bod" brief="The bod example shows how to use LPC BOD(Brown-out detector) in the simplest way. To run this example, user should remove the jumper for the power source selector, and connect the adjustable input voltage to the MCU's Vin pin. If the input voltage of the Vin pin is lower than the threshold voltage, the BOD interrupt will be asserted." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/bod" path="examples/lpcxpresso55s69/driver_examples/bod/cm33_core0">
           <external path="examples/lpcxpresso55s69/driver_examples/bod/cm33_core0" type="xml">
             <files mask="lpc_bod_v3_10.xml"/>
-          </external>
-        </example>
-        <example id="lpcxpresso55s69_maestro_playback" name="maestro_playback" brief="Audio maestro framework demo example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="audio_examples" path="examples/lpcxpresso55s69/audio_examples/maestro_playback/cm33_core0">
-          <external path="examples/lpcxpresso55s69/audio_examples/maestro_playback/cm33_core0" type="xml">
-            <files mask="maestro_playback_v3_10.xml"/>
           </external>
         </example>
         <example id="lpcxpresso55s69_maestro_record" name="maestro_record" brief="Audio maestro framework demo example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="audio_examples" path="examples/lpcxpresso55s69/audio_examples/maestro_record/cm33_core0">
@@ -3997,10 +3992,10 @@ ${load}</script>
         <files mask="fsl_component_serial_port_uart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
-        <files mask="component_serial_manager_uart.cmake" hidden="true"/>
+        <files mask="component_serial_manager_uart_LPC55S69_cm33_core0.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core1_LPC55S69">
-        <files mask="component_serial_manager_uart.cmake" hidden="true"/>
+        <files mask="component_serial_manager_uart_LPC55S69_cm33_core1.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -27343,7 +27338,7 @@ ${load}</script>
         <component_dependency value="middleware.maestro_framework.LPC55S69"/>
       </dependencies>
       <source relative_path="./" type="doc">
-        <files mask="Maestro_1.3_Release_Notes.pdf"/>
+        <files mask="Maestro_1.5_Release_Notes.pdf"/>
       </source>
     </component>
     <component id="docs.multicore.LPC55S69" name="docs_multicore" brief="Collection of Multicore SDK documentation" version="2.13.0" full_name="Multicore SDK documentation" devices="LPC55S69" user_visible="true" type="documentation" package_base_path="core/docs/MULTICORE" project_base_path="MULTICORE">
@@ -37863,91 +37858,6 @@ ${load}</script>
         <files mask="middleware_baremetal.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.eap.LPC55S69" name="eap" brief="Essential Audio Processing library" version="3.0.12" full_name="middleware eap" devices="LPC55S69" category="Audio/Essential Audio Processing library" user_visible="true" type="middleware" package_base_path="middleware/EAP" project_base_path="EAP">
-      <dependencies>
-        <component_dependency value="middleware.eap.exapp.LPC55S69"/>
-      </dependencies>
-      <source toolchain="armgcc mcuxpresso" relative_path="EAP_Includes" type="c_include">
-        <files mask="LVC_Types.h"/>
-      </source>
-      <source toolchain="armgcc mcuxpresso" relative_path="Example_Application/CONFIG_HEADER" type="c_include">
-        <files mask="EAP_Parameter_AllEffectOff.h"/>
-        <files mask="EAP_Parameter_AutoVolumeLeveler.h"/>
-        <files mask="EAP_Parameter_ConcertSound.h"/>
-        <files mask="EAP_Parameter_Crossover2waySpeakers.h"/>
-        <files mask="EAP_Parameter_CrossoverForSubwoofer.h"/>
-        <files mask="EAP_Parameter_Custom.h"/>
-        <files mask="EAP_Parameter_LoudnessMaximiser.h"/>
-        <files mask="EAP_Parameter_MusicEnhancerRMSLimiter.h"/>
-        <files mask="EAP_Parameter_MusicEnhancerRMSLimiter_lowMIPS.h"/>
-        <files mask="EAP_Parameter_TestAllOn.h"/>
-        <files mask="EAP_Parameter_ToneGenerator.h"/>
-        <files mask="EAP_Parameter_VoiceEnhancer.h"/>
-        <files mask="EAP_Parameter_VoiceEnhancer_lowMIPS.h"/>
-      </source>
-      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
-        <files mask="middleware_eap.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="Example_Application/CONFIG_HEADER" toolchain="armgcc mcuxpresso" type="c_include"/>
-        <include_path relative_path="EAP_Includes" toolchain="armgcc mcuxpresso" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="middleware.eap.arm.lib.LPC55S69" name="eap_arm_lib" brief="Essential Audio Processing library for ARM" version="3.0.12" full_name="EAP lib for ARM" devices="LPC55S69" category="Audio/Essential Audio Processing library" user_visible="false" type="middleware" package_base_path="middleware/EAP" project_base_path="EAP">
-      <dependencies>
-        <component_dependency value="middleware.eap16.header.LPC55S69"/>
-      </dependencies>
-      <source toolchain="armgcc mcuxpresso" relative_path="EAP_Library" type="lib" device_cores="cm33_core0_LPC55S69 cm33_core1_LPC55S69">
-        <files mask="libEAP16_3_0_12_FP2_CM33.a"/>
-      </source>
-      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
-        <files mask="middleware_eap_arm_lib.cmake" hidden="true"/>
-      </source>
-    </component>
-    <component id="middleware.eap.exapp.LPC55S69" name="eap" brief="EAP example app" version="3.0.12" full_name="EAP example app" devices="LPC55S69" category="Audio/Essential Audio Processing library" user_visible="false" type="middleware" package_base_path="middleware/EAP" project_base_path="EAP">
-      <source relative_path="Doc" type="doc">
-        <files mask="EAP_SDK_ApplicationNote.pdf"/>
-        <files mask="EAP_UserGuide.pdf"/>
-      </source>
-      <source exclude="true" relative_path="Example_Application" type="src">
-        <files mask="EAP_ExApp.c"/>
-        <files mask="EAP32_ExApp.c"/>
-      </source>
-      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
-        <files mask="middleware_eap_exapp.cmake" hidden="true"/>
-      </source>
-    </component>
-    <component id="middleware.eap.template.LPC55S69" name="eap_template" brief="eap template" version="3.0.13" full_name="eap template configuration" devices="LPC55S69" user_visible="true" type="project_template" package_base_path="middleware/EAP" project_base_path="middleware/EAP">
-      <include_paths>
-        <include_path relative_path="Example_Application/CONFIG_HEADER" type="c_include"/>
-        <include_path relative_path="EAP_Includes" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="middleware.eap16.header.LPC55S69" name="eap" brief="Essential Audio Processing library" version="3.0" full_name="middleware eap" devices="LPC55S69" category="Audio/Essential Audio Processing library" user_visible="false" type="middleware" package_base_path="middleware/EAP" project_base_path="EAP">
-      <dependencies>
-        <component_dependency value="middleware.eap.LPC55S69"/>
-      </dependencies>
-      <source toolchain="armgcc mcuxpresso" relative_path="EAP_Includes" type="c_include">
-        <files mask="EAP16.h"/>
-      </source>
-      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
-        <files mask="middleware_eap16_header.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="EAP_Includes" toolchain="armgcc mcuxpresso" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="middleware.eap32.header.LPC55S69" name="eap" brief="Essential Audio Processing library" version="1.0" full_name="middleware eap" devices="LPC55S69" category="Audio/Essential Audio Processing library" user_visible="false" type="middleware" package_base_path="middleware/EAP" project_base_path="EAP">
-      <dependencies>
-        <component_dependency value="middleware.eap.LPC55S69"/>
-      </dependencies>
-      <source toolchain="armgcc mcuxpresso" relative_path="EAP_Includes" type="c_include">
-        <files mask="EAP32.h"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="EAP_Includes" toolchain="armgcc mcuxpresso" type="c_include"/>
-      </include_paths>
-    </component>
     <component id="middleware.fatfs.LPC55S69" name="fatfs" brief="FatFs" version="0.14.2" full_name="FAT File System stack" devices="LPC55S69" device_cores="cm33_core0_LPC55S69 cm33_core1_LPC55S69" slave_roles="M33SLAVE" category="File System/FAT File System" user_visible="true" type="middleware" package_base_path="middleware/fatfs" project_base_path="fatfs">
       <dependencies>
         <any_of>
@@ -37980,7 +37890,7 @@ ${load}</script>
         <files mask="ff.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
-        <files mask="middleware_fatfs_LPC55S69_cm33_core0.cmake" hidden="true"/>
+        <files mask="middleware_fatfs.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="source" type="c_include"/>
@@ -38572,7 +38482,7 @@ ${load}</script>
         <include_path relative_path="drivers/ads" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="cmsis.drivers.include.LPC55S69" name="issdk_cmsis_drivers" brief="CMSIS Core header files" version="1.7.0" full_name="Middleware issdk drivers cmsis_drivers" devices="LPC55S69" user_visible="true" type="middleware" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
+    <component id="cmsis.drivers.include.LPC55S69" name="issdk_cmsis_drivers" brief="CMSIS Core header files" version="1.7.0" full_name="Middleware issdk drivers cmsis_drivers" devices="LPC55S69" user_visible="false" type="middleware" package_base_path="core/CMSIS/Driver/Include" project_base_path="CMSIS_driver">
       <source relative_path="./" type="c_include">
         <files mask="Driver_SPI.h"/>
         <files mask="Driver_I2C.h"/>
@@ -38586,7 +38496,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.drivers.gpio_lpc.LPC55S69" name="gpio_lpc" brief="ISSDK GPIO Driver for LPC" version="1.8.0" full_name="Middleware issdk drivers gpio_lpc" devices="LPC55S69" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="gpio_driver">
+    <component id="middleware.issdk.drivers.gpio_lpc.LPC55S69" name="gpio_lpc" brief="ISSDK GPIO Driver for LPC" version="1.8.0" full_name="Middleware issdk drivers gpio_lpc" devices="LPC55S69" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="gpio_driver">
       <dependencies>
         <component_dependency value="cmsis.drivers.include.LPC55S69"/>
       </dependencies>
@@ -38608,7 +38518,7 @@ ${load}</script>
         <include_path relative_path="drivers/gpio" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.drivers.host.LPC55S69" name="issdk_host" brief="ISSDK Host Interface Service" version="1.7.0" full_name="Middleware issdk drivers host" devices="LPC55S69" device_cores="cm33_core0_LPC55S69 cm33_core1_LPC55S69" slave_roles="M33SLAVE" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="host">
+    <component id="middleware.issdk.drivers.host.LPC55S69" name="issdk_host" brief="ISSDK Host Interface Service" version="1.7.0" full_name="Middleware issdk drivers host" devices="LPC55S69" device_cores="cm33_core0_LPC55S69 cm33_core1_LPC55S69" slave_roles="M33SLAVE" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="host">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.common.LPC55S69"/>
@@ -38653,7 +38563,7 @@ ${load}</script>
         <include_path relative_path="drivers/systick" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.allregdefs.LPC55S69" name="issdk_allregdefs" brief="ISSDK Sensors RegDefs" version="1.8.0" full_name="Middleware issdk sensor allregdefs" devices="LPC55S69" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.allregdefs.LPC55S69" name="issdk_allregdefs" brief="ISSDK Sensors RegDefs" version="1.8.0" full_name="Middleware issdk sensor allregdefs" devices="LPC55S69" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.LPC55S69"/>
@@ -39106,7 +39016,7 @@ ${load}</script>
         <files mask="fxls8974cf_spi.c"/>
       </source>
     </component>
-    <component id="middleware.issdk.sensor.fxas21002.LPC55S69" name="issdk_fxas21002" brief="ISSDK FXAS21002 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxas21002" devices="LPC55S69" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxas21002.LPC55S69" name="issdk_fxas21002" brief="ISSDK FXAS21002 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxas21002" devices="LPC55S69" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.LPC55S69"/>
@@ -39127,7 +39037,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.fxlc95000.LPC55S69" name="issdk_fxlc95000" brief="ISSDK FXLC95000 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxlc95000" devices="LPC55S69" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxlc95000.LPC55S69" name="issdk_fxlc95000" brief="ISSDK FXLC95000 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxlc95000" devices="LPC55S69" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.LPC55S69"/>
@@ -39145,7 +39055,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.fxls8471q.LPC55S69" name="issdk_fxls8471q" brief="ISSDK FXLS8471 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxls8471q" devices="LPC55S69" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxls8471q.LPC55S69" name="issdk_fxls8471q" brief="ISSDK FXLS8471 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxls8471q" devices="LPC55S69" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.LPC55S69"/>
@@ -39163,7 +39073,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.fxls8962.LPC55S69" name="issdk_fxls8962" brief="ISSDK FXLS8962 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxls8962" devices="LPC55S69" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxls8962.LPC55S69" name="issdk_fxls8962" brief="ISSDK FXLS8962 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxls8962" devices="LPC55S69" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.LPC55S69"/>
@@ -39181,7 +39091,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.fxls896xaf.LPC55S69" name="issdk_fxls896xaf" brief="ISSDK FXLS896xAF Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor FXLS896xAF" devices="LPC55S69" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxls896xaf.LPC55S69" name="issdk_fxls896xaf" brief="ISSDK FXLS896xAF Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor FXLS896xAF" devices="LPC55S69" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.LPC55S69"/>
@@ -39199,7 +39109,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.fxls8974cf.LPC55S69" name="issdk_fxls8974cf" brief="ISSDK FXLS8974CF Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor FXLS8974CF" devices="LPC55S69" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxls8974cf.LPC55S69" name="issdk_fxls8974cf" brief="ISSDK FXLS8974CF Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor FXLS8974CF" devices="LPC55S69" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.LPC55S69"/>
@@ -39217,7 +39127,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.fxos8700.LPC55S69" name="issdk_fxos8700" brief="ISSDK FXOS8700 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxos8700" devices="LPC55S69" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxos8700.LPC55S69" name="issdk_fxos8700" brief="ISSDK FXOS8700 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxos8700" devices="LPC55S69" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.LPC55S69"/>
@@ -39238,7 +39148,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.fxpq3115.LPC55S69" name="issdk_fxpq3115" brief="ISSDK FXPQ3115 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxpq3115" devices="LPC55S69" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxpq3115.LPC55S69" name="issdk_fxpq3115" brief="ISSDK FXPQ3115 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxpq3115" devices="LPC55S69" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.LPC55S69"/>
@@ -39274,7 +39184,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.interface.common.LPC55S69" name="issdk_interfaces" brief="ISSDK Sensor Interface Common" version="1.7.0" full_name="Middleware issdk sensor interface common" devices="LPC55S69" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="interfaces">
+    <component id="middleware.issdk.sensor.interface.common.LPC55S69" name="issdk_interfaces" brief="ISSDK Sensor Interface Common" version="1.7.0" full_name="Middleware issdk sensor interface common" devices="LPC55S69" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="interfaces">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.LPC55S69"/>
@@ -39319,7 +39229,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.mag3110.LPC55S69" name="issdk_mag3110" brief="ISSDK MAG3110 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mag3110" devices="LPC55S69" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.mag3110.LPC55S69" name="issdk_mag3110" brief="ISSDK MAG3110 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mag3110" devices="LPC55S69" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.LPC55S69"/>
@@ -39337,7 +39247,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.mma845x.LPC55S69" name="issdk_mma845x" brief="ISSDK MMA845x Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma845x" devices="LPC55S69" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.mma845x.LPC55S69" name="issdk_mma845x" brief="ISSDK MMA845x Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma845x" devices="LPC55S69" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.LPC55S69"/>
@@ -39355,7 +39265,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.mma8491q.LPC55S69" name="issdk_mma8491q" brief="ISSDK MMA8491 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma8491q" devices="LPC55S69" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.mma8491q.LPC55S69" name="issdk_mma8491q" brief="ISSDK MMA8491 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma8491q" devices="LPC55S69" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.LPC55S69"/>
@@ -39373,7 +39283,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.mma865x.LPC55S69" name="issdk_mma865x" brief="ISSDK MMA865x Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma865x" devices="LPC55S69" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.mma865x.LPC55S69" name="issdk_mma865x" brief="ISSDK MMA865x Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma865x" devices="LPC55S69" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.LPC55S69"/>
@@ -39391,7 +39301,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.mma9553.LPC55S69" name="issdk_mma9553" brief="ISSDK MMA9553 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma9553" devices="LPC55S69" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.mma9553.LPC55S69" name="issdk_mma9553" brief="ISSDK MMA9553 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma9553" devices="LPC55S69" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.LPC55S69"/>
@@ -39409,7 +39319,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.mpl3115.LPC55S69" name="issdk_mpl3115" brief="ISSDK MPL3115 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mpl3115" devices="LPC55S69" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.mpl3115.LPC55S69" name="issdk_mpl3115" brief="ISSDK MPL3115 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mpl3115" devices="LPC55S69" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.LPC55S69"/>
@@ -45048,10 +44958,10 @@ ${load}</script>
         <files mask="search_r.png" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
-        <files mask="middleware_multicore_rpmsg_lite_LPC55S69_cm33_core0.cmake" hidden="true"/>
+        <files mask="middleware_multicore_rpmsg_lite.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core1_LPC55S69">
-        <files mask="middleware_multicore_rpmsg_lite_LPC55S69_cm33_core1.cmake" hidden="true"/>
+        <files mask="middleware_multicore_rpmsg_lite.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="rpmsg_lite/lib/include" project_relative_path="include" type="c_include"/>
@@ -45680,7 +45590,7 @@ ${load}</script>
         <files mask="usb_device_lpcip3511.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
-        <files mask="middleware_usb_device_ip3511hs_LPC55S69_cm33_core0.cmake" hidden="true"/>
+        <files mask="middleware_usb_device_ip3511hs.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="device" project_relative_path="device/source/lpcip3511" type="c_include"/>
@@ -45889,7 +45799,7 @@ ${load}</script>
         <files mask="usb_host_ip3516hs.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
-        <files mask="middleware_usb_host_ip3516hs_LPC55S69_cm33_core0.cmake" hidden="true"/>
+        <files mask="middleware_usb_host_ip3516hs.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="host" type="c_include"/>
@@ -46065,10 +45975,10 @@ ${load}</script>
         <files mask="fsl_memcpy.S"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core0_LPC55S69">
-        <files mask="utilities_misc_utilities_LPC55S69_cm33_core0.cmake" hidden="true"/>
+        <files mask="utilities_misc_utilities.cmake" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_core1_LPC55S69">
-        <files mask="utilities_misc_utilities_LPC55S69_cm33_core1.cmake" hidden="true"/>
+        <files mask="utilities_misc_utilities.cmake" hidden="true"/>
       </source>
     </component>
     <component id="platform.utilities.assert.LPC55S69" name="assert" brief="Utility assert" version="1.0.0" full_name="Utility assert" devices="LPC55S69" device_cores="cm33_core0_LPC55S69 cm33_core1_LPC55S69" slave_roles="M33SLAVE" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">

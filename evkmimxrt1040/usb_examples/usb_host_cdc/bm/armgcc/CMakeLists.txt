@@ -90,6 +90,7 @@ include(middleware_usb_phy)
 
 include(driver_cache_armv7_m7)
 
+
 include(middleware_baremetal)
 
 include(middleware_usb_host_cdc)
@@ -122,7 +123,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1042)
 
 include(middleware_usb_host_stack_MIMXRT1042)
 
@@ -134,7 +135,7 @@ include(CMSIS_Include_core_cm)
 
 include(middleware_usb_host_common_header)
 
-include(utilities_misc_utilities_MIMXRT1042)
+include(utilities_misc_utilities)
 
 include(device_system)
 

@@ -151,7 +151,7 @@ include(CMSIS_Include_core_cm)
 
 include(driver_memory)
 
-include(utilities_misc_utilities_MIMXRT1176_cm7)
+include(utilities_misc_utilities)
 
 include(device_system_MIMXRT1176_cm7)
 

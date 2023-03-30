@@ -101,7 +101,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1042)
 
 include(driver_lpuart)
 
@@ -123,7 +123,7 @@ include(driver_nor_flash-common)
 
 include(driver_flexspi)
 
-include(utilities_misc_utilities_MIMXRT1042)
+include(utilities_misc_utilities)
 
 include(device_system)
 

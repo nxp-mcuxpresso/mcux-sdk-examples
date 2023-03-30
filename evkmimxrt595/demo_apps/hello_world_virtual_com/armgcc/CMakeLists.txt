@@ -95,7 +95,8 @@ include(middleware_usb_device_controller_driver_MIMXRT595S_cm33)
 
 include(component_osa)
 
-include(middleware_usb_device_ip3511hs_MIMXRT595S_cm33)
+include(middleware_usb_device_ip3511hs)
+
 
 include(middleware_baremetal)
 
@@ -117,7 +118,7 @@ include(driver_flexspi)
 
 include(driver_cache_cache64)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT595S_cm33)
 
 include(driver_flexcomm_usart)
 
@@ -141,7 +142,7 @@ include(middleware_usb_common_header)
 
 include(middleware_usb_device_common_header)
 
-include(utilities_misc_utilities_MIMXRT595S_cm33)
+include(utilities_misc_utilities)
 
 include(driver_iap)
 

@@ -95,7 +95,7 @@ include(utility_debug_console_lite)
 
 include(utility_assert_lite)
 
-include(component_silicon_id_MIMXRT1176_cm7)
+include(component_silicon_id)
 
 include(driver_common)
 
@@ -137,7 +137,7 @@ include(driver_anatop_ai)
 
 include(CMSIS_Include_core_cm)
 
-include(driver_phy-common_MIMXRT1176_cm7)
+include(driver_phy-common)
 
 include(driver_memory)
 
@@ -153,7 +153,7 @@ include(driver_edma_MIMXRT1176_cm7)
 
 include(driver_dmamux)
 
-include(utilities_misc_utilities_MIMXRT1176_cm7)
+include(utilities_misc_utilities)
 
 include(device_system_MIMXRT1176_cm7)
 

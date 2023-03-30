@@ -339,8 +339,8 @@ static status_t boot_swap_ok(int image)
         return status;
     }
 
-#if defined(CONFIG_MCUBOOT_FLASH_REMAP_DOWNGRADE_SUPPORT)
-    /* downgrade support for DIRECT-XIP, erase header of inactive slot */
+#if defined(CONFIG_MCUBOOT_FLASH_REMAP_DOWNGRADE_SUPPORT) && defined(CONFIG_MCUBOOT_FLASH_REMAP_ENABLE)
+    /* downgrade support for DIRECT-XIP achieved by erasing header of inactive slot */
     /* because it can contains image with higher version */
     uint32_t off_header_erase;
 
@@ -364,7 +364,7 @@ static status_t boot_swap_ok(int image)
         PRINTF("%s: failed to erase header of inactive image\r\n, __func__");
         return status;
     }
-#endif
+#endif /* CONFIG_MCUBOOT_FLASH_REMAP_DOWNGRADE_SUPPORT && CONFIG_MCUBOOT_FLASH_REMAP_ENABLE */
 
     return status;
 }

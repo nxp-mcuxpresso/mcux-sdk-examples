@@ -119,7 +119,7 @@ include(driver_xip_board_evkbmimxrt1060)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities_MIMXRT1062)
+include(utilities_misc_utilities)
 
 include(device_system)
 

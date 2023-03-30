@@ -109,7 +109,7 @@ include(CMSIS_DSP_Source)
 
 include(driver_usdhc)
 
-include(middleware_fatfs_MIMXRT1062)
+include(middleware_fatfs)
 
 include(middleware_fatfs_sd)
 
@@ -173,7 +173,7 @@ include(middleware_sdmmc_osa_bm)
 
 include(component_osa_bm)
 
-include(utilities_misc_utilities_MIMXRT1062)
+include(utilities_misc_utilities)
 
 include(device_system)
 

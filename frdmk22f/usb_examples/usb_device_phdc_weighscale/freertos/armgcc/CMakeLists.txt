@@ -129,7 +129,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MK22F51212)
 
 include(driver_port)
 
@@ -145,7 +145,7 @@ include(middleware_usb_common_header)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities_MK22F51212)
+include(utilities_misc_utilities)
 
 include(device_system)
 

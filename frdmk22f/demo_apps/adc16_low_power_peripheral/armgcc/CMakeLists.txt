@@ -114,7 +114,7 @@ include(driver_smc)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities_MK22F51212)
+include(utilities_misc_utilities)
 
 include(device_system)
 

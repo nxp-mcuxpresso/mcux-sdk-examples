@@ -229,7 +229,7 @@ int main(void)
 
     xos_start_main("main", 7, 0);
 
-    PRINTF("DSP starts on core '%s'\r\n", XCHAL_CORE_ID);
+    PRINTF("[DSP Main] DSP starts on core '%s'\r\n", XCHAL_CORE_ID);
 
     DMA_CreateHandle(&s_i2sTxDmaHandle, DEMO_DMA, DEMO_I2S_TX_CHANNEL);
     DMA_CreateHandle(&s_dmicRxDmaHandle, DEMO_DMA, DEMO_DMIC_RX_CHANNEL);
@@ -239,7 +239,7 @@ int main(void)
     DMIC_InstallDMADescriptorMemory(&s_dmicDmaHandle, s_dmaDescriptorPingpong, 2U);
     DMIC_TransferReceiveDMA(DMIC0, &s_dmicDmaHandle, s_receiveXfer, DEMO_DMIC_CHANNEL);
 
-    PRINTF("DMIC->DMA->I2S->CODEC running \r\n\r\n");
+    PRINTF("[DSP Main] DMIC->DMA->I2S->CODEC running \r\n\r\n");
     while (1)
     {
         if (s_emptyBlock < BUFFER_NUM)

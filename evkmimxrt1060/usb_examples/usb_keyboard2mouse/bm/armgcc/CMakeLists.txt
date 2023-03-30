@@ -106,6 +106,7 @@ include(utility_debug_console_lite)
 
 include(utility_assert_lite)
 
+
 include(middleware_baremetal)
 
 include(middleware_usb_host_hid)
@@ -146,7 +147,7 @@ include(middleware_usb_device_common_header)
 
 include(middleware_usb_host_common_header)
 
-include(utilities_misc_utilities_MIMXRT1062)
+include(utilities_misc_utilities)
 
 include(device_system)
 

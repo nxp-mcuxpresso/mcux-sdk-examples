@@ -6,7 +6,7 @@ This is a small ping demo of the high-performance NetX Duo TCP/IP stack.
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- MCUXpresso  11.7.0
 
 Hardware requirements
 =====================

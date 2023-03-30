@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 NXP
+ * Copyright 2022-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -147,8 +147,15 @@ static void echo_loop_tcp(int sck, int is_server)
         ssize_t bytes = read(sck, &buf, sizeof(buf));
         if (bytes > 0)
         {
-            write(sck, &buf, bytes);
-            PRINTF("%dB sent back.\r\n", bytes);
+            bytes = write(sck, &buf, bytes);
+            if (bytes >= 0)
+            {
+                PRINTF("%dB sent back.\r\n", bytes);
+            }
+            else
+            {
+                PRINTF("write() failed (errno=%d)\r\n", errno);
+            }
         }
         else if (!s_run)
         {
@@ -169,8 +176,11 @@ static void echo_loop_tcp(int sck, int is_server)
 
 static void finish_thread(void)
 {
-    close(s_sck);
-    s_sck = -1;
+    if (s_sck != -1)
+    {
+        close(s_sck);
+        s_sck = -1;
+    }
     s_run = 0;
 
     shell_task_set_mode(SHELL_MODE_DEFAULT);
@@ -222,13 +232,13 @@ static void tcp_listen_thread(void *arg)
     }
     if (ret < 0)
     {
-        PRINTF("bind() error\r\n");
+        PRINTF("bind() failed (errno=%d)\r\n", errno);
     }
     else
     {
         PRINTF("Waiting for incoming connection.  Use end command to return...");
         shell_task_set_mode("ECHO_TCP_SERVER>> ");
-        listen(s_sck, 0); // no backlog
+        listen(s_sck, 0); // zero to use the smallest connection backlog possible (see tcp_backlog_set)
         fcntl(s_sck, F_SETFL, O_NONBLOCK);
 
         s_run = 1;
@@ -243,6 +253,8 @@ static void tcp_listen_thread(void *arg)
             else
             {
                 PRINTF("\r\nAccepted connection");
+                close(s_sck); // close listening socket - serve just one connection
+                s_sck = -1;
                 echo_loop_tcp(s_sck_accepted_conn, 1);
                 close(s_sck_accepted_conn);
                 s_sck_accepted_conn = -1;
@@ -269,7 +281,7 @@ static void udp_thread(void *arg)
     }
     if (ret < 0)
     {
-        PRINTF("bind() error\r\n");
+        PRINTF("bind() failed (errno=%d)\r\n", errno);
     }
     else
     {

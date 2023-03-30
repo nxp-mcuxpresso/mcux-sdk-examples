@@ -123,7 +123,7 @@ include(middleware_lwip_apps_mdns)
 
 include(middleware_lwip_enet_ethernetif_MIMXRT1042)
 
-include(driver_phy-common_MIMXRT1042)
+include(driver_phy-common)
 
 include(driver_enet)
 
@@ -145,7 +145,7 @@ include(driver_flexram)
 
 include(driver_soc_flexram_allocate)
 
-include(component_silicon_id_MIMXRT1042)
+include(component_silicon_id)
 
 include(driver_common)
 
@@ -167,7 +167,7 @@ include(component_lpuart_adapter)
 
 include(component_serial_manager)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1042)
 
 include(driver_lpuart)
 
@@ -193,7 +193,7 @@ include(middleware_freertos-kernel_extension)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities_MIMXRT1042)
+include(utilities_misc_utilities)
 
 include(device_system)
 

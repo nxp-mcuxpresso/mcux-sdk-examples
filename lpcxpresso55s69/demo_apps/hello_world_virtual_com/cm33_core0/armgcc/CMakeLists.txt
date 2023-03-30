@@ -95,6 +95,7 @@ include(middleware_usb_device_ip3511fs)
 
 include(driver_lpc_iocon)
 
+
 include(middleware_baremetal)
 
 include(driver_power)
@@ -119,7 +120,7 @@ include(utility_debug_console)
 
 include(component_usart_adapter)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_LPC55S69_cm33_core0)
 
 include(CMSIS_Include_core_cm)
 
@@ -131,7 +132,7 @@ include(middleware_usb_device_common_header)
 
 include(middleware_usb_common_header)
 
-include(utilities_misc_utilities_LPC55S69_cm33_core0)
+include(utilities_misc_utilities)
 
 include(device_system_LPC55S69_cm33_core0)
 

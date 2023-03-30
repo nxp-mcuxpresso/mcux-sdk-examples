@@ -92,6 +92,7 @@ include(component_osa)
 
 include(middleware_usb_device_khci)
 
+
 include(middleware_baremetal)
 
 include(driver_clock)
@@ -102,7 +103,7 @@ include(utility_debug_console)
 
 include(component_uart_adapter)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MK22F51212)
 
 include(driver_uart)
 
@@ -128,7 +129,7 @@ include(middleware_usb_device_common_header)
 
 include(middleware_usb_common_header)
 
-include(utilities_misc_utilities_MK22F51212)
+include(utilities_misc_utilities)
 
 include(device_system)
 

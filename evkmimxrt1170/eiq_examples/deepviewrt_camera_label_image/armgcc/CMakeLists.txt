@@ -212,7 +212,7 @@ include(driver_lcdifv2)
 
 include(middleware_eiq_worker)
 
-include(utilities_misc_utilities_MIMXRT1176_cm7)
+include(utilities_misc_utilities)
 
 include(device_system_MIMXRT1176_cm7)
 

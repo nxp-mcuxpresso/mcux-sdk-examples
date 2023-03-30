@@ -38,8 +38,8 @@
     <definition extID="platform.drivers.iap.MIMXRT595S"/>
     <definition extID="iar"/>
     <definition extID="mdk"/>
-    <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
+    <definition extID="armgcc"/>
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
@@ -56,18 +56,17 @@
     <toolchainSettings>
       <toolchainSetting id_refs="com.nxp.mcuxpresso">
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
-          <value>DSP_IMAGE_COPY_TO_RAM=0</value>
           <value>SDK_DEBUGCONSOLE=1</value>
           <value>CPU_MIMXRT595SFFOC_cm33</value>
           <value>BOOT_HEADER_ENABLE=1</value>
           <value>FSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1</value>
+          <value>DSP_IMAGE_COPY_TO_RAM=1</value>
           <value>DEBUG_CONSOLE_RX_ENABLE=0</value>
           <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
           <value>BOARD_USE_CODEC=1</value>
           <value>CODEC_WM8904_ENABLE</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
           <value>MCUXPRESSO_SDK</value>
-          <value>DSP_IMAGE_COPY_TO_RAM=1</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
@@ -134,14 +133,14 @@
       <files mask="CMakeLists.txt"/>
       <files mask="flags.cmake"/>
       <files mask="config.cmake"/>
-      <files mask="build_flash_debug.bat"/>
-      <files mask="build_flash_debug.sh"/>
-      <files mask="build_flash_release.bat"/>
-      <files mask="build_flash_release.sh"/>
       <files mask="build_debug.bat"/>
       <files mask="build_debug.sh"/>
       <files mask="build_release.bat"/>
       <files mask="build_release.sh"/>
+      <files mask="build_flash_debug.bat"/>
+      <files mask="build_flash_debug.sh"/>
+      <files mask="build_flash_release.bat"/>
+      <files mask="build_flash_release.sh"/>
     </source>
     <source path="." project_relative_path="source" type="src">
       <files mask="main_cm33.c"/>
@@ -182,9 +181,12 @@
       <files mask="readme.txt"/>
     </source>
     <source path="../dsp/binary" project_relative_path="dsp_binary" type="binary">
-      <files mask="dsp_reset_release.bin"/>
-      <files mask="dsp_text_release.bin"/>
+      <files mask="dsp_data_debug.bin"/>
       <files mask="dsp_data_release.bin"/>
+      <files mask="dsp_reset_debug.bin"/>
+      <files mask="dsp_reset_release.bin"/>
+      <files mask="dsp_text_debug.bin"/>
+      <files mask="dsp_text_release.bin"/>
     </source>
     <source path="armgcc" project_relative_path="MIMXRT595S/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMXRT595Sxxxx_cm33_ram.ld"/>

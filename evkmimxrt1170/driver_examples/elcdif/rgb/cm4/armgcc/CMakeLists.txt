@@ -150,7 +150,7 @@ include(driver_soc_mipi_csi2rx)
 
 include(driver_memory)
 
-include(utilities_misc_utilities_MIMXRT1176_cm4)
+include(utilities_misc_utilities)
 
 include(device_system_MIMXRT1176_cm4)
 

@@ -10,7 +10,7 @@ The user can enter a value to update the Duty cycle, when 5 is entered, the duty
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- MCUXpresso  11.7.0
 
 Hardware requirements
 =====================

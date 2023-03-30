@@ -71,6 +71,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../camera_support.h"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
+"${ProjDirPath}/../hal/hal_evkmimxrt1170.c"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
@@ -179,7 +180,7 @@ include(utility_debug_console_lite)
 
 include(utility_assert_lite)
 
-include(middleware_eiq_mpp_MIMXRT1176_cm7)
+include(middleware_eiq_mpp)
 
 include(component_lists)
 
@@ -233,7 +234,7 @@ include(middleware_eiq_tensorflow_lite_micro_third_party_ruy)
 
 include(middleware_eiq_deepviewrt)
 
-include(utilities_misc_utilities_MIMXRT1176_cm7)
+include(utilities_misc_utilities)
 
 include(device_system_MIMXRT1176_cm7)
 

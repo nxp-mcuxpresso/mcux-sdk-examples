@@ -110,9 +110,10 @@ include(utility_debug_console_lite)
 
 include(utility_assert_lite)
 
+
 include(middleware_baremetal)
 
-include(middleware_fatfs_MIMXRT1042)
+include(middleware_fatfs)
 
 include(middleware_fatfs_usb)
 
@@ -154,7 +155,7 @@ include(middleware_usb_device_common_header)
 
 include(middleware_usb_host_msd)
 
-include(utilities_misc_utilities_MIMXRT1042)
+include(utilities_misc_utilities)
 
 include(device_system)
 

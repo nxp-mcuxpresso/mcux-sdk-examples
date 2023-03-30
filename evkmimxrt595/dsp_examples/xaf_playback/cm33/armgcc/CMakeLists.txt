@@ -86,9 +86,12 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/evkmimxrt595/board.h"
 "${SdkRootDirPath}/core/boards/evkmimxrt595/clock_config.c"
 "${SdkRootDirPath}/core/boards/evkmimxrt595/clock_config.h"
-"${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/xaf_playback/dsp/binary/dsp_reset_release.bin"
-"${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/xaf_playback/dsp/binary/dsp_text_release.bin"
+"${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/xaf_playback/dsp/binary/dsp_data_debug.bin"
 "${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/xaf_playback/dsp/binary/dsp_data_release.bin"
+"${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/xaf_playback/dsp/binary/dsp_reset_debug.bin"
+"${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/xaf_playback/dsp/binary/dsp_reset_release.bin"
+"${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/xaf_playback/dsp/binary/dsp_text_debug.bin"
+"${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/xaf_playback/dsp/binary/dsp_text_release.bin"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
@@ -104,6 +107,7 @@ set(CMAKE_MODULE_PATH
     ${SdkRootDirPath}/middleware/multicore
     ${SdkRootDirPath}/rtos/freertos/freertos-kernel
     ${SdkRootDirPath}/core/devices/MIMXRT595S/utilities
+    ${SdkRootDirPath}/core/drivers/sema42
     ${SdkRootDirPath}/core/drivers/lpc_gpio
     ${SdkRootDirPath}/core/drivers/usdhc
     ${SdkRootDirPath}/middleware/sdmmc
@@ -139,13 +143,15 @@ include(driver_clock)
 
 include(driver_flexcomm_i2c)
 
-include(middleware_multicore_rpmsg_lite_MIMXRT595S_cm33)
+include(middleware_multicore_rpmsg_lite)
 
 include(middleware_multicore_rpmsg_lite_freertos)
 
 include(middleware_freertos-kernel_cm33_nonsecure_port)
 
 include(utility_shell)
+
+include(driver_sema42)
 
 include(driver_lpc_gpio)
 
@@ -159,7 +165,7 @@ include(middleware_sdmmc_host_usdhc)
 
 include(middleware_sdmmc_host_usdhc_freertos_MIMXRT595S_cm33)
 
-include(middleware_fatfs_MIMXRT595S_cm33)
+include(middleware_fatfs)
 
 include(middleware_fatfs_sd)
 
@@ -209,7 +215,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT595S_cm33)
 
 include(driver_flexcomm_usart)
 
@@ -235,7 +241,7 @@ include(driver_inputmux_connections)
 
 include(middleware_freertos-kernel_heap_4)
 
-include(utilities_misc_utilities_MIMXRT595S_cm33)
+include(utilities_misc_utilities)
 
 include(driver_iap)
 

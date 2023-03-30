@@ -7,7 +7,7 @@ by comparing secure counter with wrong value. At the end application let the ins
 
 Toolchain supported
 ===================
-- MCUXpresso  11.6.0
+- MCUXpresso  11.7.0
 - GCC ARM Embedded  10.3.1
 
 Hardware requirements

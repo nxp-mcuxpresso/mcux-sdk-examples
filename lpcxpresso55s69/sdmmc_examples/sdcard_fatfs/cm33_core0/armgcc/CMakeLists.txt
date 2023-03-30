@@ -99,7 +99,7 @@ include(utility_debug_console_lite)
 
 include(utility_assert_lite)
 
-include(middleware_fatfs_LPC55S69_cm33_core0)
+include(middleware_fatfs)
 
 include(middleware_fatfs_sd)
 
@@ -129,7 +129,7 @@ include(middleware_sdmmc_osa_bm)
 
 include(component_osa_bm)
 
-include(utilities_misc_utilities_LPC55S69_cm33_core0)
+include(utilities_misc_utilities)
 
 include(device_system_LPC55S69_cm33_core0)
 

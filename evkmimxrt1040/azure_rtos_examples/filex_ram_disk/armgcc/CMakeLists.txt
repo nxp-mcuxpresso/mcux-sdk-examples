@@ -109,7 +109,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1042)
 
 include(driver_lpuart)
 
@@ -131,7 +131,7 @@ include(middleware_azure_rtos_tx)
 
 include(middleware_azure_rtos_tx_template_MIMXRT1042)
 
-include(utilities_misc_utilities_MIMXRT1042)
+include(utilities_misc_utilities)
 
 include(CMSIS_Include_core_cm)
 

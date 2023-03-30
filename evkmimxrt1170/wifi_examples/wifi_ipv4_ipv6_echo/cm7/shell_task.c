@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 NXP
+ * Copyright 2022-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -59,7 +59,7 @@ SHELL_COMMAND_DEFINE(echo_tcp_client,
 
 SHELL_COMMAND_DEFINE(echo_tcp_server,
                      "\r\n\"echo_tcp_server port\":\r\n"
-                     "   Listens for incoming connection and sends back every received data.\r\n"
+                     "   Listens for one incoming connection and sends back every received data.\r\n"
                      " Usage:\r\n"
                      "   port:        TCP port number\r\n",
                      echo_tcp_server,

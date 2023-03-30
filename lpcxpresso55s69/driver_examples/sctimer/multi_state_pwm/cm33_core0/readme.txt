@@ -20,7 +20,7 @@ In State 0, there is only PWM0 output, in State 1, there are both PWM0 and PWM1 
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- MCUXpresso  11.7.0
 
 Hardware requirements
 =====================

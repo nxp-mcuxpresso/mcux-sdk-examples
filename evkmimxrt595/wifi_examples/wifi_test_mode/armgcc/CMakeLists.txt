@@ -120,7 +120,7 @@ include(utility_debug_console)
 
 include(middleware_wifi_sdio)
 
-include(middleware_wifi_fwdnld_MIMXRT595S_cm33)
+include(middleware_wifi_fwdnld)
 
 include(middleware_sdmmc_sdio)
 
@@ -152,7 +152,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT595S_cm33)
 
 include(driver_flexcomm_usart)
 
@@ -184,7 +184,7 @@ include(driver_usdhc)
 
 include(middleware_wifi_common_files)
 
-include(utilities_misc_utilities_MIMXRT595S_cm33)
+include(utilities_misc_utilities)
 
 include(driver_iap)
 

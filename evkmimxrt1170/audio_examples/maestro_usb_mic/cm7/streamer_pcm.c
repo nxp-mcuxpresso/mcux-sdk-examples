@@ -8,7 +8,6 @@
 #include "board.h"
 #include "streamer_pcm_app.h"
 #include "fsl_codec_common.h"
-#include "fsl_wm8960.h"
 #include "app_definitions.h"
 #include "fsl_cache.h"
 #include "audio_microphone.h"
