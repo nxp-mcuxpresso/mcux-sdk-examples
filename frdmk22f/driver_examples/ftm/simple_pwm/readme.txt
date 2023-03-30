@@ -11,7 +11,7 @@ Can be judged by FSL_FEATURE_FTM_IS_TPM_ONLY_INSTANCE(base) macro.
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- MCUXpresso  11.7.0
 
 Hardware requirements
 =====================

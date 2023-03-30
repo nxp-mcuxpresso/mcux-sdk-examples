@@ -131,7 +131,7 @@ include(driver_dmamux)
 
 include(driver_edma_MIMXRT1062)
 
-include(middleware_fatfs_MIMXRT1062)
+include(middleware_fatfs)
 
 include(middleware_fatfs_sd)
 
@@ -163,7 +163,7 @@ include(component_osa_bm)
 
 include(driver_cs42448)
 
-include(utilities_misc_utilities_MIMXRT1062)
+include(utilities_misc_utilities)
 
 include(device_system)
 

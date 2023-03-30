@@ -7,7 +7,7 @@ With an interrupt callback the PWM duty cycle is changed frequently in such a wa
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- MCUXpresso  11.7.0
 
 Hardware requirements
 =====================

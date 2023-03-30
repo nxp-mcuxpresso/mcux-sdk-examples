@@ -103,7 +103,7 @@ include(utility_debug_console_lite)
 
 include(utility_assert_lite)
 
-include(component_silicon_id_MIMXRT1062)
+include(component_silicon_id)
 
 include(component_silicon_id_rt10xx)
 
@@ -139,9 +139,9 @@ include(driver_edma_MIMXRT1062)
 
 include(driver_dmamux)
 
-include(driver_phy-common_MIMXRT1062)
+include(driver_phy-common)
 
-include(utilities_misc_utilities_MIMXRT1062)
+include(utilities_misc_utilities)
 
 include(device_system)
 

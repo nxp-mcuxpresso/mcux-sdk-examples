@@ -121,7 +121,7 @@ include(utility_debug_console)
 
 include(middleware_wifi_sdio)
 
-include(middleware_wifi_fwdnld_MIMXRT1042)
+include(middleware_wifi_fwdnld)
 
 include(middleware_sdmmc_sdio)
 
@@ -143,7 +143,7 @@ include(middleware_lwip_apps_lwiperf)
 
 include(middleware_wifi_cli)
 
-include(middleware_fatfs_MIMXRT1042)
+include(middleware_fatfs)
 
 include(middleware_fatfs_usb)
 
@@ -159,7 +159,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1042)
 
 include(driver_lpuart)
 
@@ -199,7 +199,7 @@ include(middleware_wifi_common_files)
 
 include(middleware_usb_host_msd)
 
-include(utilities_misc_utilities_MIMXRT1042)
+include(utilities_misc_utilities)
 
 include(device_system)
 

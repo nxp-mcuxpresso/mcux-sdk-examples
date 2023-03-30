@@ -11,7 +11,7 @@ The ENC hardware is created with a special synchronize mechanism. There are actu
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- MCUXpresso  11.7.0
 
 Hardware requirements
 =====================

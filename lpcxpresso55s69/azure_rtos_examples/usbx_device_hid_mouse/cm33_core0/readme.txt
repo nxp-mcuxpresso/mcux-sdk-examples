@@ -6,7 +6,7 @@ This example works as a USB HID device. It will appear as a USB mouse device on 
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- MCUXpresso  11.7.0
 
 Hardware requirements
 =====================

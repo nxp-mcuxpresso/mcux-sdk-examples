@@ -197,7 +197,7 @@ include(middleware_eiq_tensorflow_lite_micro_third_party_gemmlowp)
 
 include(middleware_eiq_tensorflow_lite_micro_third_party_ruy)
 
-include(utilities_misc_utilities_MIMXRT1176_cm4)
+include(utilities_misc_utilities)
 
 include(device_system_MIMXRT1176_cm4)
 

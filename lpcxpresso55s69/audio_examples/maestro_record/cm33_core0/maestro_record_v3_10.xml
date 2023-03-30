@@ -64,6 +64,7 @@
           <value>CPU_LPC55S69JBD100_cm33_core0</value>
           <value>STREAMER_ENABLE_AUDIO_PROC</value>
           <value>STREAMER_ENABLE_VIT_SINK</value>
+          <value>I2S_NUM_BUFFERS=3</value>
           <value>DEBUG_CONSOLE_TRANSFER_NON_BLOCKING</value>
           <value>OSA_USED</value>
           <value>SHELL_TASK_STACK_SIZE=4000</value>
@@ -74,7 +75,6 @@
           <value>DEBUG_CONSOLE_RX_ENABLE=0</value>
           <value>PRINTF_ADVANCED_ENABLE=1</value>
           <value>PRINTF_FLOAT_ENABLE=1</value>
-          <value>I2S_NUM_BUFFERS=2</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
           <value>SDK_OS_FREE_RTOS</value>
           <value>CASCFG_PLATFORM_FREERTOS</value>

@@ -80,9 +80,10 @@ set(CMAKE_MODULE_PATH
 )
 
 # include modules
-include(middleware_usb_host_ip3516hs_LPC55S69_cm33_core0)
+include(middleware_usb_host_ip3516hs)
 
 include(middleware_usb_host_ohci)
+
 
 include(middleware_baremetal)
 
@@ -120,7 +121,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_LPC55S69_cm33_core0)
 
 include(middleware_usb_host_stack_LPC55S69_cm33_core0)
 
@@ -132,7 +133,7 @@ include(CMSIS_Include_core_cm)
 
 include(middleware_usb_host_common_header)
 
-include(utilities_misc_utilities_LPC55S69_cm33_core0)
+include(utilities_misc_utilities)
 
 include(device_system_LPC55S69_cm33_core0)
 

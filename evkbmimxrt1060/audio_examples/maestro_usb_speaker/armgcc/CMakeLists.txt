@@ -159,7 +159,7 @@ include(middleware_maestro_framework)
 
 include(utility_shell)
 
-include(middleware_fatfs_MIMXRT1062)
+include(middleware_fatfs)
 
 include(middleware_fatfs_ram)
 
@@ -175,7 +175,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1062)
 
 include(driver_lpuart)
 
@@ -207,7 +207,7 @@ include(middleware_maestro_framework_doc)
 
 include(middleware_maestro_framework_streamer)
 
-include(utilities_misc_utilities_MIMXRT1062)
+include(utilities_misc_utilities)
 
 include(device_system)
 

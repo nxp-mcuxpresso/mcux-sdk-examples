@@ -89,7 +89,7 @@ include(component_serial_manager)
 
 include(driver_common)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_LPC55S69_cm33_core0)
 
 include(component_osa_bm)
 
@@ -125,7 +125,7 @@ include(driver_reset)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities_LPC55S69_cm33_core0)
+include(utilities_misc_utilities)
 
 include(device_system_LPC55S69_cm33_core0)
 

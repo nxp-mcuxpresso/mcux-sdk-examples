@@ -91,7 +91,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1042)
 
 include(driver_lpuart)
 
@@ -107,7 +107,7 @@ include(driver_xip_device)
 
 include(driver_xip_board_evkmimxrt1040)
 
-include(utilities_misc_utilities_MIMXRT1042)
+include(utilities_misc_utilities)
 
 include(CMSIS_Include_core_cm)
 

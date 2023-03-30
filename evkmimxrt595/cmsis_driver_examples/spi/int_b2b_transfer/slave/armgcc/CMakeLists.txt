@@ -133,7 +133,7 @@ include(CMSIS_Driver_Include_SPI)
 
 include(CMSIS_Driver_Include_Common)
 
-include(utilities_misc_utilities_MIMXRT595S_cm33)
+include(utilities_misc_utilities)
 
 include(driver_iap)
 

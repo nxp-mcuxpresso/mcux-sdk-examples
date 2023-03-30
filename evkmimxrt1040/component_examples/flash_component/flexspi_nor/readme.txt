@@ -6,7 +6,7 @@ external flash device.
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- MCUXpresso  11.7.0
 
 Hardware requirements
 =====================
@@ -64,3 +64,6 @@ The log below shows the output of the hello world demo in the terminal window:
 
 ***NOR Flash All Pages Read/Write Success!***
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Known issue
+The MCUX release target and armgcc flexspi_nor_release run fail.

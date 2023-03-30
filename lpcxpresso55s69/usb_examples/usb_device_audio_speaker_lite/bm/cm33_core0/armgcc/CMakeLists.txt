@@ -123,6 +123,7 @@ include(utility_assert_lite)
 
 include(component_audio_flexcomm_i2s_dma_adapter)
 
+
 include(middleware_baremetal)
 
 include(driver_clock)
@@ -153,7 +154,7 @@ include(middleware_usb_device_controller_driver_LPC55S69_cm33_core0)
 
 include(component_osa)
 
-include(middleware_usb_device_ip3511hs_LPC55S69_cm33_core0)
+include(middleware_usb_device_ip3511hs)
 
 include(middleware_usb_device_common_header)
 
@@ -161,7 +162,7 @@ include(CMSIS_Include_core_cm)
 
 include(middleware_usb_common_header)
 
-include(utilities_misc_utilities_LPC55S69_cm33_core0)
+include(utilities_misc_utilities)
 
 include(device_system_LPC55S69_cm33_core0)
 

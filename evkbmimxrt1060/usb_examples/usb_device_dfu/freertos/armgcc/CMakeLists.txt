@@ -140,7 +140,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1062)
 
 include(middleware_usb_device_controller_driver_MIMXRT1062)
 
@@ -156,7 +156,7 @@ include(driver_pit)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities_MIMXRT1062)
+include(utilities_misc_utilities)
 
 include(device_system)
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_EVK-MIMXRT595_manifest_v3_10" name="SDKVersion 2.13.0 SuperSet" brief="This is SDK version 2.13.0 manifest file." format_version="3.10" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2023-01-10 16:34:06.493912-->
-  <!--This manifest is generated based on sdk repo commit: 11a5f6af5190bfe018a89b4d02c239713dc4cfa6-->
+  <!--Timestamp (UTC): 2023-03-27 10:46:08.682372-->
+  <!--This manifest is generated based on sdk repo commit: 7a3cf97dd3582e3ee8a98ede814ff1f2a45ea519-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
@@ -15,7 +15,7 @@
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
   </compilers>
   <toolchainSettings>
-    <toolchainSetting id="com.nxp.mcuxpresso" name="mcuxpresso" version="11.6.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" toolchain="mcuxpresso">
+    <toolchainSetting id="com.nxp.mcuxpresso" name="mcuxpresso" version="11.7.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" toolchain="mcuxpresso">
       <option id="gnu.cpp.compiler.option.optimization.flags" type="string" user_name="">
         <value>-fno-common</value>
       </option>
@@ -38,7 +38,7 @@
   </toolchainSettings>
   <toolchains>
     <toolchain id="armgcc" name="GCC_ARM_Embedded_10-2021.10" version="10.3.1" full_name="GCC ARM Embedded 10-2021.10" compiler="compiler_gcc" type="armgcc" vendor="GCC ARM Embedded" vendor_url="http://launchpad.net/gcc-arm-embedded"/>
-    <toolchain id="mcuxpresso" name="MCUXpresso_IDE" version="11.6.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" type="mcuxpresso" vendor="NXP Semiconductors" vendor_url="http://www.nxp.com">
+    <toolchain id="mcuxpresso" name="MCUXpresso_IDE" version="11.7.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" type="mcuxpresso" vendor="NXP Semiconductors" vendor_url="http://www.nxp.com">
       <debug>
         <debug_configuration id="com.crt.advproject.config.exe.release" name="Release Configuration" probe="LinkServer">
           <scripts>
@@ -1168,6 +1168,11 @@ ${load}</script>
         <example id="evkmimxrt595_power_manager" name="power_manager" brief="The power_manager application shows the usage of normal power mode control APIs for entering the four kinds of low power mode: Sleep mode, Deep Sleep mode, Deep Power Down mode and Full Deep Power Down mode. When the application runs to each low power mode, the device would cut off the power for specific modules to save power. The device can be also waken up by prepared wakeup source from external event. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin circuit would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - In order to meet typedef power consumption of DateSheet manual, Please configure MCU under the following conditions. 1. Configure all pins as GPIO with pull-up resistor disabled in the IOCON block. 2. Configure GPIO pins as outputs using the GPIO DIR register. 3. Write 1 to the GPIO CLR register to drive the outputs LOW. 4. All peripherals disabled." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/evkmimxrt595/demo_apps/power_manager">
           <external path="examples/evkmimxrt595/demo_apps/power_manager" type="xml">
             <files mask="power_manager_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_power_manager_test_bm" name="power_manager_test_bm" brief="The power manager test application demonstrates the basic usage of power manager framework without RTOS. The demo tests all features of power manager framework, including notification manager, wakeup source manager and so on." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/evkmimxrt595/demo_apps/power_manager_test/bm">
+          <external path="examples/evkmimxrt595/demo_apps/power_manager_test/bm" type="xml">
+            <files mask="power_manager_test_bm_v3_10.xml"/>
           </external>
         </example>
         <example id="evkmimxrt595_powerquad_benchmark_fft" name="powerquad_benchmark_fft" brief="This example shows the official CMSIS DSP function performance. It could be compared with the project powerquad_benckmark_fft to show the PowerQuad performance improvement." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/evkmimxrt595/driver_examples/powerquad/benchmark_fft">
@@ -4092,6 +4097,60 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="component.power_manager_core.MIMXRT595S" name="power_manager_core" brief="Component power manager core level" version="2.0.0" full_name="Component power manager core" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="false" type="software_component" package_base_path="core/components/power_manager/core" project_base_path="component/power_manager/core">
+      <defines>
+        <define name="GENERIC_LIST_LIGHT" value="1"/>
+      </defines>
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.common.MIMXRT595S"/>
+          <component_dependency value="component.lists.MIMXRT595S"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_pm_core.h"/>
+        <files mask="fsl_pm_config.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_pm_core.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="component_power_manager_core.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.power_manager_docs.MIMXRT595S" name="power_manager_docs" brief="Power Manager component documentation" version="2.0.0" full_name="Power Manager component documentation" devices="MIMXRT595S" category="Device/SDK Drivers" user_visible="true" type="documentation" package_base_path="core/components/power_manager" project_base_path="component/power_manager">
+      <source relative_path="./" type="other">
+        <files mask="README.md"/>
+      </source>
+      <source relative_path="images" type="image">
+        <files mask="memory_example.png"/>
+        <files mask="SDK_PM_architecture.png"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.power_manager_evkmimxrt595.MIMXRT595S" name="power_manager_EVK-MIMXRT595" brief="Component power manager EVK-MIMXRT595" version="2.0.0" full_name="Component power manager EVK-MIMXRT595" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="true" type="software_component" package_base_path="core/components/power_manager/boards/EVK-MIMXRT595" project_base_path="component/power_manager/boards/EVK-MIMXRT595">
+      <dependencies>
+        <component_dependency value="component.power_manager_core.MIMXRT595S"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_pm_board.h"/>
+        <files mask="fsl_pm_board_config.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_pm_board.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
+        <files mask="component_power_manager_evkmimxrt595.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="component.pwm_ctimer_adapter.MIMXRT595S" name="pwm_ctimer_adapter" brief="Component pwm_ctimer_adapter" version="1.0.0" full_name="Component pwm_ctimer_adapter" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="true" type="abstraction_layer" package_base_path="core/components/pwm" project_base_path="component/pwm">
       <dependencies>
         <all>
@@ -4219,7 +4278,7 @@ ${load}</script>
         <files mask="fsl_component_serial_port_uart.c"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
-        <files mask="component_serial_manager_uart.cmake" hidden="true"/>
+        <files mask="component_serial_manager_uart_MIMXRT595S_cm33.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -8494,7 +8553,7 @@ ${load}</script>
         <files mask="ff.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
-        <files mask="middleware_fatfs_MIMXRT595S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_fatfs.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="source" type="c_include"/>
@@ -11894,7 +11953,7 @@ ${load}</script>
         <files mask="search_r.png" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
-        <files mask="middleware_multicore_rpmsg_lite_MIMXRT595S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_multicore_rpmsg_lite.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="rpmsg_lite/lib/include" project_relative_path="include" type="c_include"/>
@@ -12458,7 +12517,7 @@ ${load}</script>
         <files mask="usb_device_lpcip3511.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
-        <files mask="middleware_usb_device_ip3511hs_MIMXRT595S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_usb_device_ip3511hs.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="device" project_relative_path="device/source/lpcip3511" type="c_include"/>
@@ -12667,7 +12726,7 @@ ${load}</script>
         <files mask="usb_host_ip3516hs.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
-        <files mask="middleware_usb_host_ip3516hs_MIMXRT595S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_usb_host_ip3516hs.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="host" type="c_include"/>
@@ -12801,43 +12860,6 @@ ${load}</script>
       </source>
       <include_paths>
         <include_path relative_path="phy" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="middleware.voice_seeker.fusionf1.MIMXRT595S" name="voice_seeker" brief="Voice seeker library for FusionF1" version="0.6.0" full_name="middleware voice_seeker FusionF1" devices="MIMXRT595S" category="Voice/VoiceSeeker library" user_visible="true" type="middleware" package_base_path="middleware/voice_seeker" project_base_path="voice_seeker">
-      <dependencies>
-        <all>
-          <component_dependency value="middleware.voice_seeker.template.MIMXRT595S"/>
-          <component_dependency value="middleware.voice_seeker.rdsp_utilities_public.MIMXRT595S"/>
-        </all>
-      </dependencies>
-      <source exclude="true" relative_path="./" type="doc">
-        <files mask="license.txt" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="RT595_FusionF1/include" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="middleware.voice_seeker.rdsp_utilities_public.MIMXRT595S" name="voice_seeker memory utils" brief="Voice seeker memory utilities" version="0.6.0" full_name="middleware voice_seeker memory utils" devices="MIMXRT595S" category="Voice/VoiceSeeker library" user_visible="true" type="middleware" package_base_path="middleware/voice_seeker/rdsp_utilities_public" project_base_path="voice_seeker/rdsp_utilities_public">
-      <source toolchain="armgcc mcuxpresso" relative_path="include" type="c_include">
-        <files mask="RdspPlatforms.h"/>
-        <files mask="RdspTypes.h"/>
-      </source>
-      <source toolchain="armgcc mcuxpresso" relative_path="rdsp_memory_utils_public" type="c_include">
-        <files mask="RdspMemoryUtilsPublic.h"/>
-        <files mask="memcheck.h"/>
-      </source>
-      <source toolchain="armgcc mcuxpresso" relative_path="rdsp_memory_utils_public" type="src">
-        <files mask="RdspMemoryUtilsPublic.c"/>
-        <files mask="memcheck.c"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="include" toolchain="armgcc mcuxpresso" type="c_include"/>
-        <include_path relative_path="rdsp_memory_utils_public" toolchain="armgcc mcuxpresso" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="middleware.voice_seeker.template.MIMXRT595S" name="voice_seeker_template" brief="voice_seeker template" version="0.6.0" full_name="voice_seeker template configuration" devices="MIMXRT595S" user_visible="false" type="project_template" package_base_path="middleware/voice_seeker" project_base_path="voice_seeker">
-      <include_paths>
-        <include_path relative_path="ARM_CortexM7/include" type="c_include"/>
       </include_paths>
     </component>
     <component id="middleware.wifi.MIMXRT595S" name="wifi_nxp" brief="NXP Wi-Fi functionality enables customers to quickly develop applications of interest to add connectivity to different sensors and appliances" version="1.3.38" full_name="NXP Wi-Fi" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" category="Wireless/NXP Wi-Fi" user_visible="true" type="middleware" package_base_path="middleware/wifi_nxp" project_base_path="wifi">
@@ -13002,7 +13024,7 @@ ${load}</script>
         <files mask="firmware_dnld.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
-        <files mask="middleware_wifi_fwdnld_MIMXRT595S_cm33.cmake" hidden="true"/>
+        <files mask="middleware_wifi_fwdnld.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -13110,6 +13132,10 @@ ${load}</script>
         <files mask="mlan_11n.h"/>
         <files mask="mlan_11n_aggr.h"/>
         <files mask="mlan_11n_rxreorder.h"/>
+        <files mask="mlan_11v.h"/>
+        <files mask="mlan_action.h"/>
+        <files mask="mlan_11k.h"/>
+        <files mask="mlan_mbo.h"/>
         <files mask="mlan_api.h"/>
         <files mask="mlan_fw.h"/>
         <files mask="mlan_ieee.h"/>
@@ -13130,6 +13156,10 @@ ${load}</script>
         <files mask="mlan_11n.c"/>
         <files mask="mlan_11n_aggr.c"/>
         <files mask="mlan_11n_rxreorder.c"/>
+        <files mask="mlan_11v.c"/>
+        <files mask="mlan_action.c"/>
+        <files mask="mlan_11k.c"/>
+        <files mask="mlan_mbo.c"/>
         <files mask="mlan_api.c"/>
         <files mask="mlan_cfp.c"/>
         <files mask="mlan_cmdevt.c"/>
@@ -13180,7 +13210,7 @@ ${load}</script>
         <files mask="fsl_memcpy.S"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm33_MIMXRT595S">
-        <files mask="utilities_misc_utilities_MIMXRT595S_cm33.cmake" hidden="true"/>
+        <files mask="utilities_misc_utilities.cmake" hidden="true"/>
       </source>
     </component>
     <component id="platform.utilities.assert.MIMXRT595S" name="assert" brief="Utility assert" version="1.0.0" full_name="Utility assert" devices="MIMXRT595S" device_cores="cm33_MIMXRT595S" user_visible="true" type="utilities" package_base_path="core/utilities/assert" project_base_path="utilities">
@@ -36267,7 +36297,7 @@ ${load}</script>
         <include_path relative_path="drivers/systick" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.allregdefs.MIMXRT595S" name="issdk_allregdefs" brief="ISSDK Sensors RegDefs" version="1.8.0" full_name="Middleware issdk sensor allregdefs" devices="MIMXRT595S" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.allregdefs.MIMXRT595S" name="issdk_allregdefs" brief="ISSDK Sensors RegDefs" version="1.8.0" full_name="Middleware issdk sensor allregdefs" devices="MIMXRT595S" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT595S"/>
@@ -36296,7 +36326,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.fxas21002.MIMXRT595S" name="issdk_fxas21002" brief="ISSDK FXAS21002 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxas21002" devices="MIMXRT595S" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxas21002.MIMXRT595S" name="issdk_fxas21002" brief="ISSDK FXAS21002 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxas21002" devices="MIMXRT595S" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT595S"/>
@@ -36317,7 +36347,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.fxlc95000.MIMXRT595S" name="issdk_fxlc95000" brief="ISSDK FXLC95000 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxlc95000" devices="MIMXRT595S" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxlc95000.MIMXRT595S" name="issdk_fxlc95000" brief="ISSDK FXLC95000 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxlc95000" devices="MIMXRT595S" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT595S"/>
@@ -36335,7 +36365,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.fxls8471q.MIMXRT595S" name="issdk_fxls8471q" brief="ISSDK FXLS8471 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxls8471q" devices="MIMXRT595S" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxls8471q.MIMXRT595S" name="issdk_fxls8471q" brief="ISSDK FXLS8471 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxls8471q" devices="MIMXRT595S" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT595S"/>
@@ -36353,7 +36383,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.fxls8962.MIMXRT595S" name="issdk_fxls8962" brief="ISSDK FXLS8962 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxls8962" devices="MIMXRT595S" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxls8962.MIMXRT595S" name="issdk_fxls8962" brief="ISSDK FXLS8962 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxls8962" devices="MIMXRT595S" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT595S"/>
@@ -36371,7 +36401,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.fxls896xaf.MIMXRT595S" name="issdk_fxls896xaf" brief="ISSDK FXLS896xAF Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor FXLS896xAF" devices="MIMXRT595S" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxls896xaf.MIMXRT595S" name="issdk_fxls896xaf" brief="ISSDK FXLS896xAF Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor FXLS896xAF" devices="MIMXRT595S" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT595S"/>
@@ -36389,7 +36419,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.fxls8974cf.MIMXRT595S" name="issdk_fxls8974cf" brief="ISSDK FXLS8974CF Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor FXLS8974CF" devices="MIMXRT595S" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxls8974cf.MIMXRT595S" name="issdk_fxls8974cf" brief="ISSDK FXLS8974CF Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor FXLS8974CF" devices="MIMXRT595S" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT595S"/>
@@ -36407,7 +36437,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.fxos8700.MIMXRT595S" name="issdk_fxos8700" brief="ISSDK FXOS8700 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxos8700" devices="MIMXRT595S" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxos8700.MIMXRT595S" name="issdk_fxos8700" brief="ISSDK FXOS8700 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxos8700" devices="MIMXRT595S" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT595S"/>
@@ -36428,7 +36458,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.fxpq3115.MIMXRT595S" name="issdk_fxpq3115" brief="ISSDK FXPQ3115 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxpq3115" devices="MIMXRT595S" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.fxpq3115.MIMXRT595S" name="issdk_fxpq3115" brief="ISSDK FXPQ3115 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor fxpq3115" devices="MIMXRT595S" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT595S"/>
@@ -36464,7 +36494,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.interface.common.MIMXRT595S" name="issdk_interfaces" brief="ISSDK Sensor Interface Common" version="1.7.0" full_name="Middleware issdk sensor interface common" devices="MIMXRT595S" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="interfaces">
+    <component id="middleware.issdk.sensor.interface.common.MIMXRT595S" name="issdk_interfaces" brief="ISSDK Sensor Interface Common" version="1.7.0" full_name="Middleware issdk sensor interface common" devices="MIMXRT595S" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="interfaces">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT595S"/>
@@ -36509,7 +36539,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.mag3110.MIMXRT595S" name="issdk_mag3110" brief="ISSDK MAG3110 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mag3110" devices="MIMXRT595S" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.mag3110.MIMXRT595S" name="issdk_mag3110" brief="ISSDK MAG3110 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mag3110" devices="MIMXRT595S" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT595S"/>
@@ -36527,7 +36557,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.mma845x.MIMXRT595S" name="issdk_mma845x" brief="ISSDK MMA845x Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma845x" devices="MIMXRT595S" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.mma845x.MIMXRT595S" name="issdk_mma845x" brief="ISSDK MMA845x Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma845x" devices="MIMXRT595S" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT595S"/>
@@ -36545,7 +36575,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.mma8491q.MIMXRT595S" name="issdk_mma8491q" brief="ISSDK MMA8491 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma8491q" devices="MIMXRT595S" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.mma8491q.MIMXRT595S" name="issdk_mma8491q" brief="ISSDK MMA8491 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma8491q" devices="MIMXRT595S" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT595S"/>
@@ -36563,7 +36593,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.mma865x.MIMXRT595S" name="issdk_mma865x" brief="ISSDK MMA865x Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma865x" devices="MIMXRT595S" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.mma865x.MIMXRT595S" name="issdk_mma865x" brief="ISSDK MMA865x Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma865x" devices="MIMXRT595S" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT595S"/>
@@ -36581,7 +36611,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.mma9553.MIMXRT595S" name="issdk_mma9553" brief="ISSDK MMA9553 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma9553" devices="MIMXRT595S" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.mma9553.MIMXRT595S" name="issdk_mma9553" brief="ISSDK MMA9553 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mma9553" devices="MIMXRT595S" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT595S"/>
@@ -36599,7 +36629,7 @@ ${load}</script>
         <include_path relative_path="sensors" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.issdk.sensor.mpl3115.MIMXRT595S" name="issdk_mpl3115" brief="ISSDK MPL3115 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mpl3115" devices="MIMXRT595S" user_visible="true" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
+    <component id="middleware.issdk.sensor.mpl3115.MIMXRT595S" name="issdk_mpl3115" brief="ISSDK MPL3115 Sensor Driver Files" version="1.8.0" full_name="Middleware issdk sensor mpl3115" devices="MIMXRT595S" user_visible="false" type="middleware" package_base_path="middleware/issdk" project_base_path="sensors">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_Driver_Include.I2C.MIMXRT595S"/>

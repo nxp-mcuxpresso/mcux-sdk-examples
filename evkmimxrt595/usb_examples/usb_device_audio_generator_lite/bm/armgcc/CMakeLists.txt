@@ -92,7 +92,7 @@ set(CMAKE_MODULE_PATH
 )
 
 # include modules
-include(middleware_usb_device_ip3511hs_MIMXRT595S_cm33)
+include(middleware_usb_device_ip3511hs)
 
 include(driver_dmic)
 
@@ -105,6 +105,7 @@ include(driver_sctimer)
 include(utility_debug_console_lite)
 
 include(utility_assert_lite)
+
 
 include(middleware_baremetal)
 
@@ -150,7 +151,7 @@ include(middleware_usb_device_common_header)
 
 include(driver_lpc_dma)
 
-include(utilities_misc_utilities_MIMXRT595S_cm33)
+include(utilities_misc_utilities)
 
 include(driver_iap)
 

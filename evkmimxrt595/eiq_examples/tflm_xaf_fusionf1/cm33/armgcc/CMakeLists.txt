@@ -120,11 +120,12 @@ include(driver_wm8904)
 
 include(driver_mu)
 
+
 include(middleware_baremetal)
 
 include(middleware_multicore_rpmsg_lite_evkmimxrt595_bm)
 
-include(middleware_multicore_rpmsg_lite_MIMXRT595S_cm33)
+include(middleware_multicore_rpmsg_lite)
 
 include(middleware_multicore_rpmsg_lite_bm)
 
@@ -168,7 +169,7 @@ include(utility_assert_lite)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities_MIMXRT595S_cm33)
+include(utilities_misc_utilities)
 
 include(driver_iap)
 

@@ -124,7 +124,7 @@ include(CMSIS_Driver_Include_SPI)
 
 include(CMSIS_Driver_Include_Common)
 
-include(utilities_misc_utilities_MIMXRT1042)
+include(utilities_misc_utilities)
 
 include(device_system)
 

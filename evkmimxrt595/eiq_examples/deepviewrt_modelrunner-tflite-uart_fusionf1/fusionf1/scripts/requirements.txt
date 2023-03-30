@@ -1,3 +1,4 @@
 flask
+flask_cors
 pyserial
 pexpect

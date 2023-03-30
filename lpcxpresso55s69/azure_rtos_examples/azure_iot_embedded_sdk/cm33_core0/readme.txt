@@ -58,7 +58,7 @@ Note that these steps assume you use the Azure IoT Hub for the first time.
 
 Toolchain supported
 ===================
-- MCUXpresso  11.6.0
+- MCUXpresso  11.7.0
 - GCC ARM Embedded  10.3.1
 
 Hardware requirements

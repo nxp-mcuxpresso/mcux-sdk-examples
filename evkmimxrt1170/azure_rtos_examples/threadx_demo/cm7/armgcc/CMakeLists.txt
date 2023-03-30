@@ -102,7 +102,7 @@ include(component_serial_manager)
 
 include(driver_common)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1176_cm7)
 
 include(driver_lpuart)
 
@@ -134,7 +134,7 @@ include(utility_debug_console)
 
 include(middleware_azure_rtos_tx_template_MIMXRT1176_cm7)
 
-include(utilities_misc_utilities_MIMXRT1176_cm7)
+include(utilities_misc_utilities)
 
 include(driver_anatop_ai)
 

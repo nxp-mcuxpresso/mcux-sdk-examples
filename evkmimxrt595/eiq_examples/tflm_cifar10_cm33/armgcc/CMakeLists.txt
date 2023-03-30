@@ -150,7 +150,7 @@ include(middleware_eiq_tensorflow_lite_micro_third_party_gemmlowp)
 
 include(middleware_eiq_tensorflow_lite_micro_third_party_ruy)
 
-include(utilities_misc_utilities_MIMXRT595S_cm33)
+include(utilities_misc_utilities)
 
 include(driver_iap)
 

@@ -10,6 +10,7 @@
 #include <string.h>
 #include "main_cm33.h"
 #include "fsl_debug_console.h"
+#include "fsl_sema42.h"
 
 
 #include "pin_mux.h"
@@ -33,6 +34,7 @@
  * Definitions
  ******************************************************************************/
 
+#define APP_SEMA42 SEMA42
 #define APP_TASK_STACK_SIZE (6 * 1024)
 
 /*******************************************************************************
@@ -76,11 +78,11 @@ static app_handle_t app;
 
 int BOARD_CODEC_Init(void)
 {
-    PRINTF("Configure WM8904 codec\r\n");
+    PRINTF("[CM33 Main] Configure WM8904 codec\r\n");
 
     if (CODEC_Init(&g_codecHandle, &g_boardCodecConfig) != kStatus_Success)
     {
-        PRINTF("WM8904_Init failed!\r\n");
+        PRINTF("[CM33 Main] WM8904_Init failed!\r\n");
         return -1;
     }
 
@@ -88,7 +90,7 @@ int BOARD_CODEC_Init(void)
     if (WM8904_WriteRegister((wm8904_handle_t *)g_codecHandle.codecDevHandle, WM8904_AUDIO_IF_0, 0x1850) !=
         kStatus_WM8904_Success)
     {
-        PRINTF("WM8904 configuration failed!\r\n");
+        PRINTF("[CM33 Main] WM8904 configuration failed!\r\n");
         return -1;
     }
 
@@ -222,12 +224,12 @@ void handleShellMessage(srtm_message *msg, void *arg)
 
 void APP_Shell_Task(void *param)
 {
-    PRINTF("[APP_Shell_Task] start\r\n");
+    PRINTF("[CM33 Main][APP_Shell_Task] start\r\n");
 
     /* Handle shell commands.  Return when 'exit' command entered. */
     shellCmd(handleShellMessage, param);
 
-    PRINTF("\r\n[APP_Shell_Task] audio demo end\r\n");
+    PRINTF("\r\n[CM33 Main][APP_Shell_Task] audio demo end\r\n");
     while (1)
         ;
 }
@@ -237,7 +239,7 @@ void APP_DSP_IPC_Task(void *param)
     srtm_message msg;
     app_handle_t *app = (app_handle_t *)param;
 
-    PRINTF("[APP_DSP_IPC_Task] start\r\n");
+    PRINTF("[CM33 Main][APP_DSP_IPC_Task] start\r\n");
 
     while (1)
     {
@@ -260,6 +262,8 @@ int main(void)
     BOARD_InitDebugConsole();
 
     CLOCK_EnableClock(kCLOCK_InputMux);
+    /* Clear SEMA42 reset */
+    RESET_PeripheralReset(kSEMA_RST_SHIFT_RSTn);
 
     /* Clear MUA reset before run DSP core */
     RESET_PeripheralReset(kMU_RST_SHIFT_RSTn);
@@ -277,6 +281,11 @@ int main(void)
     g_wm8904Config.mclk_HZ                       = CLOCK_GetMclkClkFreq();
     USB_DeviceClockInit();
 
+    /* SEMA42 init */
+    SEMA42_Init(APP_SEMA42);
+    /* Reset the sema42 gate */
+    SEMA42_ResetAllGates(APP_SEMA42);
+
     PRINTF("\r\n");
     PRINTF("******************************\r\n");
     PRINTF("DSP audio framework demo start\r\n");
@@ -286,7 +295,7 @@ int main(void)
     ret = BOARD_CODEC_Init();
     if (ret)
     {
-        PRINTF("CODEC_Init failed!\r\n");
+        PRINTF("[CM33 Main] CODEC_Init failed!\r\n");
         return -1;
     }
 
@@ -296,8 +305,18 @@ int main(void)
     /* Copy DSP image to RAM and start DSP core. */
     BOARD_DSP_Init();
 
+    /* Wait for the DSP to lock the semaphore */
+    while (kSEMA42_LockedByProc3 != SEMA42_GetGateStatus(APP_SEMA42, 0))
+    {
+    }
+
+    /* Wait for the DSP to unlock the semaphore */
+    while (SEMA42_GetGateStatus(APP_SEMA42, 0))
+    {
+    }
+
 #if DSP_IMAGE_COPY_TO_RAM
-    PRINTF("DSP image copied to DSP TCM\r\n");
+    PRINTF("[CM33 Main] DSP image copied to DSP TCM\r\n");
 #endif
 
     /* Initialize USB */
@@ -307,7 +326,7 @@ int main(void)
     if (xTaskCreate(APP_DSP_IPC_Task, "DSP Msg Task", APP_TASK_STACK_SIZE, &app, tskIDLE_PRIORITY + 2,
                     &app.ipc_task_handle) != pdPASS)
     {
-        PRINTF("\r\nFailed to create application task\r\n");
+        PRINTF("\r\n[CM33 Main] Failed to create application task\r\n");
         while (1)
             ;
     }
@@ -316,7 +335,7 @@ int main(void)
     if (xTaskCreate(APP_Shell_Task, "Shell Task", APP_TASK_STACK_SIZE, &app, tskIDLE_PRIORITY + 1,
                     &app.shell_task_handle) != pdPASS)
     {
-        PRINTF("\r\nFailed to create application task\r\n");
+        PRINTF("\r\n[CM33 Main] Failed to create application task\r\n");
         while (1)
             ;
     }

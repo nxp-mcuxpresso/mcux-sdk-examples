@@ -429,7 +429,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_LPC55S69_cm33_core0)
 
 include(driver_flexcomm_usart)
 
@@ -465,7 +465,7 @@ include(middleware_azure_rtos_tx_template_LPC55S69_cm33_core0)
 
 include(middleware_azure_rtos_ux_template_LPC55S69_cm33_core0)
 
-include(utilities_misc_utilities_LPC55S69_cm33_core0)
+include(utilities_misc_utilities)
 
 include(device_system_LPC55S69_cm33_core0)
 

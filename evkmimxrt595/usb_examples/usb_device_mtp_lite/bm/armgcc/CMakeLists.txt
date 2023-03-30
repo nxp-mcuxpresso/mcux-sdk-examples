@@ -103,7 +103,7 @@ set(CMAKE_MODULE_PATH
 )
 
 # include modules
-include(middleware_usb_device_ip3511hs_MIMXRT595S_cm33)
+include(middleware_usb_device_ip3511hs)
 
 include(middleware_usb_phy)
 
@@ -117,11 +117,12 @@ include(middleware_sdmmc_host_usdhc)
 
 include(middleware_sdmmc_host_usdhc_interrupt_MIMXRT595S_cm33)
 
-include(middleware_fatfs_MIMXRT595S_cm33)
+include(middleware_fatfs)
 
 include(middleware_fatfs_mmc)
 
 include(component_rt_gpio_adapter)
+
 
 include(middleware_baremetal)
 
@@ -147,7 +148,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT595S_cm33)
 
 include(driver_flexcomm_usart)
 
@@ -177,7 +178,7 @@ include(middleware_sdmmc_osa_bm)
 
 include(component_osa_bm)
 
-include(utilities_misc_utilities_MIMXRT595S_cm33)
+include(utilities_misc_utilities)
 
 include(driver_iap)
 

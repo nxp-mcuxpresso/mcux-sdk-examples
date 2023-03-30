@@ -126,7 +126,7 @@ include(driver_flexcomm_i2c)
 
 include(driver_i3c)
 
-include(middleware_multicore_rpmsg_lite_MIMXRT595S_cm33)
+include(middleware_multicore_rpmsg_lite)
 
 include(middleware_multicore_rpmsg_lite_freertos)
 
@@ -164,7 +164,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT595S_cm33)
 
 include(driver_flexcomm_usart)
 
@@ -188,7 +188,7 @@ include(driver_inputmux_connections)
 
 include(middleware_freertos-kernel_heap_4)
 
-include(utilities_misc_utilities_MIMXRT595S_cm33)
+include(utilities_misc_utilities)
 
 include(driver_iap)
 

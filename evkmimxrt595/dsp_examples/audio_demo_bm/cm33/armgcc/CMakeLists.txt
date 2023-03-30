@@ -30,7 +30,7 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(dsp_audio_demo_bm_cm33)
 
-set(MCUX_BUILD_TYPES flash_debug flash_release debug release)
+set(MCUX_BUILD_TYPES debug release flash_debug flash_release)
 
 set(MCUX_SDK_PROJECT_NAME dsp_audio_demo_bm_cm33.elf)
 
@@ -56,9 +56,12 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/evkmimxrt595/board.h"
 "${SdkRootDirPath}/core/boards/evkmimxrt595/clock_config.c"
 "${SdkRootDirPath}/core/boards/evkmimxrt595/clock_config.h"
-"${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/audio_demo_bm/dsp/binary/dsp_reset_release.bin"
-"${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/audio_demo_bm/dsp/binary/dsp_text_release.bin"
+"${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/audio_demo_bm/dsp/binary/dsp_data_debug.bin"
 "${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/audio_demo_bm/dsp/binary/dsp_data_release.bin"
+"${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/audio_demo_bm/dsp/binary/dsp_reset_debug.bin"
+"${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/audio_demo_bm/dsp/binary/dsp_reset_release.bin"
+"${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/audio_demo_bm/dsp/binary/dsp_text_debug.bin"
+"${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/audio_demo_bm/dsp/binary/dsp_text_release.bin"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
@@ -144,7 +147,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT595S_cm33)
 
 include(driver_flexcomm_usart)
 
@@ -160,7 +163,7 @@ include(CMSIS_Include_core_cm)
 
 include(driver_inputmux_connections)
 
-include(utilities_misc_utilities_MIMXRT595S_cm33)
+include(utilities_misc_utilities)
 
 include(driver_iap)
 

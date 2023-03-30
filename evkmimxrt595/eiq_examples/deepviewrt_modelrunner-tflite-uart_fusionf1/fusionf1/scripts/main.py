@@ -3,7 +3,7 @@
 from flask import Flask, request, Response, make_response
 import base64
 import collections
-import simplejson as json
+import json
 import os
 
 from modelrunner import Dut
@@ -48,7 +48,7 @@ def v1_put(serialId):
         block_count = int(bc)
         buf = b''
         dut = Dut(serialId)
-        dut.reset()
+        #dut.reset()
         del(dut)
         return resp
     for filename in request.files.keys():
@@ -60,19 +60,14 @@ def v1_put(serialId):
             block_count = int(buf)
             buf = b''
             dut = Dut(serialId)
-            dut.reset()
+            #dut.reset()
             del(dut)
             return resp
     if block_count == 0:
        with open('%s/model.tflite' %BasePath, 'wb+') as fd:
            fd.write(buf)
        dut = Dut(serialId)
-       try:
-           dut.send_file("model_loadb" ,"%s/model.tflite" %BasePath)
-       except Exception as e:
-           resp = {
-                   "error": e.args[0]
-                   }
+       dut.send_file("model_loadb" ,"%s/model.tflite" %BasePath)
        del(dut)
 
     return resp
@@ -89,12 +84,8 @@ def v1_post(serialId):
             fd.write(buf)
         tensor = "%s/tmp.input" %BasePath
         dut.send_file("tensor_loadb %s" %filename, tensor)
-    param =request.full_path.split("?")[1].replace("&", " ")
-    try:
-        results = dut.send_cmd("run %s"%param)
-    except Exception as e:
-        results = '{"error": "%s"}' %e.args[0]
-    print(results)
+    param = request.full_path.split("?")[1].replace("&", " ")
+    results = dut.send_cmd("run %s"%param)
     r = json.loads(results)
 
     del(dut)

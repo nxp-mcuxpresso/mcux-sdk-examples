@@ -6,7 +6,7 @@ The sdcard_fatfs_ota demo application demonstrates an OTA update process using M
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- MCUXpresso  11.7.0
 
 Hardware requirements
 =====================

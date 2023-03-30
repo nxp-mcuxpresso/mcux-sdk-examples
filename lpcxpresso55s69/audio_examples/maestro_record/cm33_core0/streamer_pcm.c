@@ -60,6 +60,10 @@ void streamer_pcm_start(pcm_rtos_t *pcm)
 {
     /* Interrupts already enabled - nothing to do.
      * App/streamer can begin writing data to SAI. */
+    if (pcm->isFirstTx == 1)
+    {
+        I2S_Enable(DEMO_I2S_TX);
+    }
 }
 
 void streamer_pcm_close(pcm_rtos_t *pcm)
@@ -129,7 +133,9 @@ int streamer_pcm_read(pcm_rtos_t *pcm, uint8_t *data, uint32_t size)
     {
         /* Wait for the previous transfer to finish */
         if (xSemaphoreTake(pcm->semaphoreRX, portMAX_DELAY) != pdTRUE)
+        {
             return -1;
+        }
     }
 
     /* Start the consecutive transfer */
@@ -232,7 +238,7 @@ int streamer_pcm_setparams(
             I2S_TxInit(DEMO_I2S_TX, &pcmHandle.tx_config);
         }
     }
-    ret = CODEC_SetMute(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight, true);
+
     ret = streamer_pcm_set_volume(pcm, 0);
     if (ret != kStatus_Success)
     {

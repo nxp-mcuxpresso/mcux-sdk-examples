@@ -121,7 +121,7 @@ include(middleware_sdmmc_host_usdhc)
 
 include(middleware_sdmmc_host_usdhc_freertos_MIMXRT1042)
 
-include(middleware_fatfs_MIMXRT1042)
+include(middleware_fatfs)
 
 include(middleware_fatfs_sd)
 
@@ -159,7 +159,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1042)
 
 include(middleware_usb_device_controller_driver_MIMXRT1042)
 
@@ -179,7 +179,7 @@ include(middleware_freertos-kernel_extension)
 
 include(driver_usdhc)
 
-include(utilities_misc_utilities_MIMXRT1042)
+include(utilities_misc_utilities)
 
 include(device_system)
 

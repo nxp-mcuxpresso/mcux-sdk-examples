@@ -26,7 +26,7 @@ With board to board connection, one I2C instance on one board is used as I2C mas
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- MCUXpresso  11.7.0
 
 Hardware requirements
 =====================

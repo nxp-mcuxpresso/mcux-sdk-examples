@@ -500,7 +500,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT595S_cm33)
 
 include(middleware_sdmmc_sdio)
 
@@ -518,11 +518,11 @@ include(middleware_usb_host_stack_MIMXRT595S_cm33)
 
 include(component_osa)
 
-include(middleware_usb_host_ip3516hs_MIMXRT595S_cm33)
+include(middleware_usb_host_ip3516hs)
 
 include(middleware_usb_phy)
 
-include(middleware_fatfs_MIMXRT595S_cm33)
+include(middleware_fatfs)
 
 include(middleware_fatfs_usb)
 
@@ -552,7 +552,7 @@ include(utility_shell)
 
 include(middleware_freertos-kernel_MIMXRT595S_cm33)
 
-include(middleware_wifi_fwdnld_MIMXRT595S_cm33)
+include(middleware_wifi_fwdnld)
 
 include(component_common_task)
 
@@ -584,7 +584,7 @@ include(middleware_mbedtls_port_ksdk)
 
 include(middleware_mbedtls_rt1)
 
-include(utilities_misc_utilities_MIMXRT595S_cm33)
+include(utilities_misc_utilities)
 
 include(CMSIS_Include_core_cm)
 

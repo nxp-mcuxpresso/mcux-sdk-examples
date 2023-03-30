@@ -140,7 +140,7 @@ include(CMSIS_Include_core_cm)
 
 include(driver_cs42448)
 
-include(utilities_misc_utilities_MIMXRT1062)
+include(utilities_misc_utilities)
 
 include(device_system)
 

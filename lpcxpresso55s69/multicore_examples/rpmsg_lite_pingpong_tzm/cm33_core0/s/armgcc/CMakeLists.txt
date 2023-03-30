@@ -96,7 +96,7 @@ include(middleware_multicore_mcmgr_lpc55s69)
 
 include(middleware_multicore_rpmsg_lite_lpcxpresso55s69_bm)
 
-include(middleware_multicore_rpmsg_lite_LPC55S69_cm33_core0)
+include(middleware_multicore_rpmsg_lite)
 
 include(middleware_multicore_rpmsg_lite_bm)
 
@@ -107,6 +107,7 @@ include(utility_assert_lite)
 include(driver_lpc_iocon)
 
 include(driver_mailbox)
+
 
 include(middleware_baremetal)
 
@@ -138,7 +139,7 @@ include(component_lists)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities_LPC55S69_cm33_core0)
+include(utilities_misc_utilities)
 
 include(device_system_LPC55S69_cm33_core0)
 

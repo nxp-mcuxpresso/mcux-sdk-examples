@@ -164,7 +164,7 @@ include(driver_lcdifv2)
 
 include(driver_memory)
 
-include(utilities_misc_utilities_MIMXRT1176_cm4)
+include(utilities_misc_utilities)
 
 include(device_system_MIMXRT1176_cm4)
 

@@ -106,6 +106,7 @@ include(driver_clock)
 
 include(middleware_lwip_contrib_ping)
 
+
 include(middleware_baremetal)
 
 include(driver_common)
@@ -120,7 +121,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1062)
 
 include(driver_lpuart)
 
@@ -142,7 +143,7 @@ include(middleware_usb_common_header)
 
 include(middleware_usb_host_common_header)
 
-include(utilities_misc_utilities_MIMXRT1062)
+include(utilities_misc_utilities)
 
 include(device_system)
 

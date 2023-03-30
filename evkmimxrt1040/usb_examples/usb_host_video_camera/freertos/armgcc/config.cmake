@@ -2,7 +2,7 @@
 set(CONFIG_USE_middleware_sdmmc_host_usdhc true)
 set(CONFIG_USE_middleware_sdmmc_host_usdhc_freertos_MIMXRT1042 true)
 set(CONFIG_USE_middleware_fatfs_sd true)
-set(CONFIG_USE_component_serial_manager_uart true)
+set(CONFIG_USE_component_serial_manager_uart_MIMXRT1042 true)
 set(CONFIG_USE_driver_lpuart true)
 set(CONFIG_USE_middleware_usb_host_ehci_MIMXRT1042 true)
 set(CONFIG_USE_middleware_freertos-kernel_MIMXRT1042 true)

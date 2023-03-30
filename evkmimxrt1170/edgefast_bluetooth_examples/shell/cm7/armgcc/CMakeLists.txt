@@ -483,7 +483,7 @@ set(CMAKE_MODULE_PATH
 )
 
 # include modules
-include(middleware_wifi_fwdnld_MIMXRT1176_cm7)
+include(middleware_wifi_fwdnld)
 
 include(driver_clock)
 
@@ -513,7 +513,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1176_cm7)
 
 include(middleware_sdmmc_sdio)
 
@@ -535,7 +535,7 @@ include(middleware_usb_host_ehci_MIMXRT1176_cm7)
 
 include(middleware_usb_phy)
 
-include(middleware_fatfs_MIMXRT1176_cm7)
+include(middleware_fatfs)
 
 include(middleware_fatfs_usb)
 
@@ -581,7 +581,7 @@ include(driver_memory)
 
 include(middleware_wifi_common_files)
 
-include(utilities_misc_utilities_MIMXRT1176_cm7)
+include(utilities_misc_utilities)
 
 include(device_system_MIMXRT1176_cm7)
 

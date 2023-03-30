@@ -74,9 +74,12 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/evkmimxrt595/board.h"
 "${SdkRootDirPath}/core/boards/evkmimxrt595/clock_config.c"
 "${SdkRootDirPath}/core/boards/evkmimxrt595/clock_config.h"
-"${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/xaf_usb_demo/dsp/binary/dsp_reset_release.bin"
-"${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/xaf_usb_demo/dsp/binary/dsp_text_release.bin"
+"${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/xaf_usb_demo/dsp/binary/dsp_data_debug.bin"
 "${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/xaf_usb_demo/dsp/binary/dsp_data_release.bin"
+"${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/xaf_usb_demo/dsp/binary/dsp_reset_debug.bin"
+"${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/xaf_usb_demo/dsp/binary/dsp_reset_release.bin"
+"${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/xaf_usb_demo/dsp/binary/dsp_text_debug.bin"
+"${SdkRootDirPath}/examples/evkmimxrt595/dsp_examples/xaf_usb_demo/dsp/binary/dsp_text_release.bin"
 "${ProjDirPath}/../usb_device_ch9.c"
 "${ProjDirPath}/../usb_device_ch9.h"
 "${ProjDirPath}/../usb_device_class.c"
@@ -96,6 +99,7 @@ set(CMAKE_MODULE_PATH
     ${SdkRootDirPath}/core/drivers/flexcomm
     ${SdkRootDirPath}/middleware/multicore
     ${SdkRootDirPath}/rtos/freertos/freertos-kernel
+    ${SdkRootDirPath}/core/drivers/sema42
     ${SdkRootDirPath}/core/devices/MIMXRT595S/utilities
     ${SdkRootDirPath}/core/drivers/lpc_gpio
     ${SdkRootDirPath}/core/drivers/common
@@ -130,11 +134,13 @@ include(driver_clock)
 
 include(driver_flexcomm_i2c)
 
-include(middleware_multicore_rpmsg_lite_MIMXRT595S_cm33)
+include(middleware_multicore_rpmsg_lite)
 
 include(middleware_multicore_rpmsg_lite_freertos)
 
 include(middleware_freertos-kernel_cm33_nonsecure_port)
+
+include(driver_sema42)
 
 include(utility_shell)
 
@@ -174,7 +180,7 @@ include(middleware_usb_device_controller_driver_MIMXRT595S_cm33)
 
 include(component_osa)
 
-include(middleware_usb_device_ip3511hs_MIMXRT595S_cm33)
+include(middleware_usb_device_ip3511hs)
 
 include(device_CMSIS)
 
@@ -192,7 +198,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT595S_cm33)
 
 include(driver_flexcomm_usart)
 
@@ -220,7 +226,7 @@ include(middleware_usb_common_header)
 
 include(middleware_usb_device_common_header)
 
-include(utilities_misc_utilities_MIMXRT595S_cm33)
+include(utilities_misc_utilities)
 
 include(driver_iap)
 

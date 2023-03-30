@@ -93,7 +93,7 @@ include(component_serial_manager)
 
 include(driver_common)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1042)
 
 include(component_osa_free_rtos)
 
@@ -133,7 +133,7 @@ include(middleware_freertos-kernel_MIMXRT1042)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities_MIMXRT1042)
+include(utilities_misc_utilities)
 
 include(device_system)
 

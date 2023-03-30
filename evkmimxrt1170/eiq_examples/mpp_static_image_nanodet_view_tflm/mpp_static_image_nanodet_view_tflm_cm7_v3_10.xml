@@ -269,6 +269,9 @@
     <source path="." project_relative_path="board" type="c_include">
       <files mask="pin_mux.h"/>
     </source>
+    <source path="hal" project_relative_path="board/hal" type="src">
+      <files mask="hal_evkmimxrt1170.c"/>
+    </source>
     <source path="../../../../middleware/eiq/mpp/boards/evkmimxrt1170" project_relative_path="MIMXRT1176/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMXRT1176xxxxx_cm7_flexspi_nor_sdram.ld"/>
     </source>

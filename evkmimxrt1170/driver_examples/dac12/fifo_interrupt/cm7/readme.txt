@@ -9,7 +9,7 @@ With this example, user can define the DAC12 output array to generate the differ
 
 Toolchain supported
 ===================
-- MCUXpresso  11.6.0
+- MCUXpresso  11.7.0
 - GCC ARM Embedded  10.3.1
 
 Hardware requirements

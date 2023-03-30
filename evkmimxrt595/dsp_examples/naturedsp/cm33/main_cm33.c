@@ -44,8 +44,8 @@ int main(void)
     /* MUB interrupt signal is selected for DSP interrupt input 1 */
     INPUTMUX_AttachSignal(INPUTMUX, 1U, kINPUTMUX_MuBToDspInterrupt);
 
-    PRINTF("\r\nNatureDSP demo start\r\n");
-    PRINTF("Going to start DSP core...\r\n");
+    PRINTF("\r\n[CM33 Main] NatureDSP demo start\r\n");
+    PRINTF("[CM33 Main] Going to start DSP core...\r\n");
 
     /* Console will be used by the DSP core from now on. */
     DbgConsole_Deinit();

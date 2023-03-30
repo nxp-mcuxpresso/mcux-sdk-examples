@@ -124,7 +124,7 @@ include(utility_assert)
 
 include(device_CMSIS)
 
-include(utilities_misc_utilities_MIMXRT1062)
+include(utilities_misc_utilities)
 
 include(device_system)
 
@@ -170,7 +170,7 @@ include(component_serial_manager)
 
 include(driver_common)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1062)
 
 include(driver_lpuart)
 

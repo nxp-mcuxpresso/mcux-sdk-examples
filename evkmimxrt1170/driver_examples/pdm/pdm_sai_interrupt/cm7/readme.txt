@@ -6,7 +6,7 @@ In this example, pdm gather audio data, and sai send it to codec.
 
 Toolchain supported
 ===================
-- MCUXpresso  11.6.0
+- MCUXpresso  11.7.0
 - GCC ARM Embedded  10.3.1
 
 Hardware requirements

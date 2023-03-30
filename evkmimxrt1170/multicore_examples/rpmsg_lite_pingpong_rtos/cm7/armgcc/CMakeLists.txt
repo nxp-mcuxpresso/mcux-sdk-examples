@@ -96,7 +96,7 @@ include(middleware_multicore_mcmgr_imxrt1170)
 
 include(middleware_multicore_rpmsg_lite_imxrt1170_freertos)
 
-include(middleware_multicore_rpmsg_lite_MIMXRT1176_cm7)
+include(middleware_multicore_rpmsg_lite)
 
 include(middleware_multicore_rpmsg_lite_freertos)
 
@@ -122,7 +122,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1176_cm7)
 
 include(driver_lpuart)
 
@@ -152,7 +152,7 @@ include(CMSIS_Include_core_cm)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities_MIMXRT1176_cm7)
+include(utilities_misc_utilities)
 
 include(device_system_MIMXRT1176_cm7)
 

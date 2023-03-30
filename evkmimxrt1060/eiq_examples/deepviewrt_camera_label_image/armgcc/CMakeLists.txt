@@ -176,7 +176,7 @@ include(CMSIS_Include_core_cm)
 
 include(middleware_eiq_worker)
 
-include(utilities_misc_utilities_MIMXRT1062)
+include(utilities_misc_utilities)
 
 include(device_system)
 

@@ -104,11 +104,11 @@ include(middleware_lwip_enet_ethernetif_MIMXRT1176_cm7)
 
 include(middleware_lwip)
 
-include(driver_phy-common_MIMXRT1176_cm7)
+include(driver_phy-common)
 
 include(driver_enet)
 
-include(component_silicon_id_MIMXRT1176_cm7)
+include(component_silicon_id)
 
 include(driver_common)
 
@@ -132,7 +132,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1176_cm7)
 
 include(driver_lpuart)
 
@@ -166,7 +166,7 @@ include(middleware_freertos-kernel_MIMXRT1176_cm7)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities_MIMXRT1176_cm7)
+include(utilities_misc_utilities)
 
 include(device_system_MIMXRT1176_cm7)
 

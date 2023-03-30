@@ -134,7 +134,7 @@ include(CMSIS_Driver_Include_USART)
 
 include(CMSIS_Driver_Include_Common)
 
-include(utilities_misc_utilities_MIMXRT1176_cm4)
+include(utilities_misc_utilities)
 
 include(device_system_MIMXRT1176_cm4)
 

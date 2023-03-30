@@ -10,7 +10,7 @@ outputs the DAC output voltage through DAC output pin.
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- MCUXpresso  11.7.0
 
 Hardware requirements
 =====================

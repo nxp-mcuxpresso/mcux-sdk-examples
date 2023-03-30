@@ -7,6 +7,7 @@
     <definition extID="middleware.multicore.rpmsg_lite.MIMXRT595S"/>
     <definition extID="middleware.multicore.rpmsg_lite.freertos.MIMXRT595S"/>
     <definition extID="middleware.freertos-kernel.cm33_nonsecure_port.MIMXRT595S"/>
+    <definition extID="platform.drivers.sema42.MIMXRT595S"/>
     <definition extID="utility.shell.MIMXRT595S"/>
     <definition extID="platform.drivers.lpc_gpio.MIMXRT595S"/>
     <definition extID="platform.drivers.common.MIMXRT595S"/>
@@ -59,7 +60,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt595_dsp_xaf_usb_demo_cm33" name="dsp_xaf_usb_demo_cm33" device_core="cm33_MIMXRT595S" dependency="platform.drivers.clock.MIMXRT595S platform.drivers.flexcomm_i2c.MIMXRT595S middleware.multicore.rpmsg_lite.MIMXRT595S middleware.multicore.rpmsg_lite.freertos.MIMXRT595S middleware.freertos-kernel.cm33_nonsecure_port.MIMXRT595S utility.shell.MIMXRT595S platform.drivers.lpc_gpio.MIMXRT595S platform.drivers.common.MIMXRT595S platform.drivers.power.MIMXRT595S platform.drivers.reset.MIMXRT595S platform.drivers.dsp.MIMXRT595S platform.drivers.inputmux.MIMXRT595S middleware.multicore.rpmsg_lite.evkmimxrt595_freertos.MIMXRT595S platform.drivers.mu.MIMXRT595S driver.pca9420.MIMXRT595S driver.wm8904.MIMXRT595S driver.codec.MIMXRT595S component.wm8904_adapter.MIMXRT595S component.codec_i2c.MIMXRT595S component.i3c_adapter.MIMXRT595S platform.drivers.i3c.MIMXRT595S platform.drivers.ctimer.MIMXRT595S middleware.usb.device.controller.driver.MIMXRT595S component.osa.MIMXRT595S middleware.usb.device_controller_ip3511hs.MIMXRT595S device.MIMXRT595S_CMSIS.MIMXRT595S utility.debug_console.MIMXRT595S platform.utilities.assert.MIMXRT595S component.usart_adapter.MIMXRT595S platform.drivers.flexspi.MIMXRT595S platform.drivers.cache_cache64.MIMXRT595S component.serial_manager.MIMXRT595S component.lists.MIMXRT595S component.serial_manager_uart.MIMXRT595S platform.drivers.flexcomm_usart.MIMXRT595S platform.drivers.flash_config.evkmimxrt595.MIMXRT595S device.MIMXRT595S_startup.MIMXRT595S platform.drivers.flexcomm.MIMXRT595S platform.drivers.lpc_iopctl.MIMXRT595S CMSIS_Include_core_cm.MIMXRT595S middleware.freertos-kernel.MIMXRT595S middleware.freertos-kernel.extension.MIMXRT595S platform.drivers.inputmux_connections.MIMXRT595S middleware.freertos-kernel.heap_4.MIMXRT595S middleware.usb.phy.MIMXRT595S middleware.usb.common_header.MIMXRT595S middleware.usb.device.common_header.MIMXRT595S platform.utilities.misc_utilities.MIMXRT595S platform.drivers.iap.MIMXRT595S" category="dsp_examples">
+  <example id="evkmimxrt595_dsp_xaf_usb_demo_cm33" name="dsp_xaf_usb_demo_cm33" device_core="cm33_MIMXRT595S" dependency="platform.drivers.clock.MIMXRT595S platform.drivers.flexcomm_i2c.MIMXRT595S middleware.multicore.rpmsg_lite.MIMXRT595S middleware.multicore.rpmsg_lite.freertos.MIMXRT595S middleware.freertos-kernel.cm33_nonsecure_port.MIMXRT595S platform.drivers.sema42.MIMXRT595S utility.shell.MIMXRT595S platform.drivers.lpc_gpio.MIMXRT595S platform.drivers.common.MIMXRT595S platform.drivers.power.MIMXRT595S platform.drivers.reset.MIMXRT595S platform.drivers.dsp.MIMXRT595S platform.drivers.inputmux.MIMXRT595S middleware.multicore.rpmsg_lite.evkmimxrt595_freertos.MIMXRT595S platform.drivers.mu.MIMXRT595S driver.pca9420.MIMXRT595S driver.wm8904.MIMXRT595S driver.codec.MIMXRT595S component.wm8904_adapter.MIMXRT595S component.codec_i2c.MIMXRT595S component.i3c_adapter.MIMXRT595S platform.drivers.i3c.MIMXRT595S platform.drivers.ctimer.MIMXRT595S middleware.usb.device.controller.driver.MIMXRT595S component.osa.MIMXRT595S middleware.usb.device_controller_ip3511hs.MIMXRT595S device.MIMXRT595S_CMSIS.MIMXRT595S utility.debug_console.MIMXRT595S platform.utilities.assert.MIMXRT595S component.usart_adapter.MIMXRT595S platform.drivers.flexspi.MIMXRT595S platform.drivers.cache_cache64.MIMXRT595S component.serial_manager.MIMXRT595S component.lists.MIMXRT595S component.serial_manager_uart.MIMXRT595S platform.drivers.flexcomm_usart.MIMXRT595S platform.drivers.flash_config.evkmimxrt595.MIMXRT595S device.MIMXRT595S_startup.MIMXRT595S platform.drivers.flexcomm.MIMXRT595S platform.drivers.lpc_iopctl.MIMXRT595S CMSIS_Include_core_cm.MIMXRT595S middleware.freertos-kernel.MIMXRT595S middleware.freertos-kernel.extension.MIMXRT595S platform.drivers.inputmux_connections.MIMXRT595S middleware.freertos-kernel.heap_4.MIMXRT595S middleware.usb.phy.MIMXRT595S middleware.usb.common_header.MIMXRT595S middleware.usb.device.common_header.MIMXRT595S platform.utilities.misc_utilities.MIMXRT595S platform.drivers.iap.MIMXRT595S" category="dsp_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -71,7 +72,6 @@
     <toolchainSettings>
       <toolchainSetting id_refs="com.nxp.mcuxpresso">
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
-          <value>DSP_IMAGE_COPY_TO_RAM=0</value>
           <value>SDK_DEBUGCONSOLE=1</value>
           <value>CPU_MIMXRT595SFFOC_cm33</value>
           <value>BOOT_HEADER_ENABLE=1</value>
@@ -81,6 +81,7 @@
           <value>XA_CLIENT_PROXY=1</value>
           <value>XA_RENDERER</value>
           <value>USB_STACK_FREERTOS</value>
+          <value>DSP_IMAGE_COPY_TO_RAM=1</value>
           <value>USB_STACK_USE_DEDICATED_RAM=1</value>
           <value>DEBUG_CONSOLE_RX_ENABLE=0</value>
           <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
@@ -89,7 +90,6 @@
           <value>SERIAL_PORT_TYPE_UART=1</value>
           <value>SDK_OS_FREE_RTOS</value>
           <value>MCUXPRESSO_SDK</value>
-          <value>DSP_IMAGE_COPY_TO_RAM=1</value>
         </option>
         <option id="com.crt.advproject.gcc.fpu" type="enum">
           <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
@@ -234,9 +234,12 @@
       <files mask="readme.txt"/>
     </source>
     <source path="../dsp/binary" project_relative_path="dsp_binary" type="binary">
-      <files mask="dsp_reset_release.bin"/>
-      <files mask="dsp_text_release.bin"/>
+      <files mask="dsp_data_debug.bin"/>
       <files mask="dsp_data_release.bin"/>
+      <files mask="dsp_reset_debug.bin"/>
+      <files mask="dsp_reset_release.bin"/>
+      <files mask="dsp_text_debug.bin"/>
+      <files mask="dsp_text_release.bin"/>
     </source>
     <source path="armgcc" project_relative_path="evkmimxrt595/dsp_examples/xaf_usb_demo/linker" type="linker" toolchain="armgcc">
       <files mask="MIMXRT595Sxxxx_cm33_flash.ld"/>

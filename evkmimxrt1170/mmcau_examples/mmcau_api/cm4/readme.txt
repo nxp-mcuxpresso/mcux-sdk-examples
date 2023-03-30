@@ -8,7 +8,7 @@ data using AES-CBC, DES3-CBC and Hash algorithms MD5, SHA1 and SHA256.
 
 Toolchain supported
 ===================
-- MCUXpresso  11.6.0
+- MCUXpresso  11.7.0
 - GCC ARM Embedded  10.3.1
 
 Hardware requirements

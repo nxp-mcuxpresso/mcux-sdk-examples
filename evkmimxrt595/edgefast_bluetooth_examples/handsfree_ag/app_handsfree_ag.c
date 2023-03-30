@@ -43,6 +43,7 @@ typedef struct app_hfp_ag_
     uint8_t peerKeyMissed;
     uint8_t appl_acl_initiated;
     uint8_t peer_bd_addr[6];
+    uint8_t selectCodec;
 } app_hfp_ag_t;
 static app_hfp_ag_t g_HfpAg;
 static TimerHandle_t s_xTimers    = 0;
@@ -53,6 +54,7 @@ static void ag_connected(struct bt_hfp_ag *hfp_ag)
 {
     printf("HFP AG Connected!\n");
     s_hfp_in_calling_status = 1;
+    g_HfpAg.selectCodec = 1;
 }
 static void ag_disconnected(struct bt_hfp_ag *hfp_ag)
 {
@@ -245,7 +247,7 @@ int app_hfp_ag_start_twc_incoming_call(void)
 
 void app_hfp_ag_open_audio()
 {
-    bt_hfp_ag_open_audio(g_HfpAg.hfp_agHandle, 0);
+    bt_hfp_ag_open_audio(g_HfpAg.hfp_agHandle, g_HfpAg.selectCodec - 1);
 }
 void app_hfp_ag_close_audio()
 {
@@ -290,6 +292,7 @@ int app_hfp_ag_stop_incoming_call()
 }
 int app_hfp_ag_codec_select(uint8_t codec)
 {
+    g_HfpAg.selectCodec = codec;
     return bt_hfp_ag_codec_selector(g_HfpAg.hfp_agHandle, codec);
 }
 void app_hfp_ag_set_phnum_tag(char *name)

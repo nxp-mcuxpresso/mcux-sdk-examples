@@ -27,7 +27,7 @@ It is necessary to have installed tools capable of sending and receiving data ov
 Toolchain supported
 ===================
 - GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- MCUXpresso  11.7.0
 
 Hardware requirements
 =====================
@@ -75,7 +75,7 @@ Running the demo
 		   port:        TCP port number
 
 		"echo_tcp_server port":
-		   Listens for incoming connection and sends back every received data.
+		   Listens for one incoming connection and sends back every received data.
 		 Usage:
 		   port:        TCP port number
 

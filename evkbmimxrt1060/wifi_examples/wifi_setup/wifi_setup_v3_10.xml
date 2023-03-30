@@ -138,6 +138,7 @@
     </debug_configurations>
     <include_paths>
       <include_path path="." project_relative_path="source" type="c_include"/>
+      <include_path path="../wifi_common" project_relative_path="wifi" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="../common" project_relative_path="board" type="c_include"/>
       <include_path path="../../../../core/boards/evkbmimxrt1060" project_relative_path="board" type="c_include"/>
@@ -217,6 +218,12 @@
     </source>
     <source path="." project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
       <files mask="readme.txt"/>
+    </source>
+    <source path="../wifi_common" project_relative_path="wifi" type="src">
+      <files mask="wpl_nxp.c"/>
+    </source>
+    <source path="../wifi_common" project_relative_path="wifi" type="c_include">
+      <files mask="wpl.h"/>
     </source>
   </example>
 </ksdk:examples>

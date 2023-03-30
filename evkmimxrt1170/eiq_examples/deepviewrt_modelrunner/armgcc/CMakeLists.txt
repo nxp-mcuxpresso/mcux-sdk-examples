@@ -113,7 +113,7 @@ include(middleware_lwip_apps_mdns)
 
 include(middleware_lwip_enet_ethernetif_MIMXRT1176_cm7)
 
-include(driver_phy-common_MIMXRT1176_cm7)
+include(driver_phy-common)
 
 include(driver_enet)
 
@@ -133,7 +133,7 @@ include(driver_semc)
 
 include(driver_gpt)
 
-include(component_silicon_id_MIMXRT1176_cm7)
+include(component_silicon_id)
 
 include(driver_common)
 
@@ -147,7 +147,7 @@ include(component_lpuart_adapter)
 
 include(component_serial_manager)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1176_cm7)
 
 include(driver_lpuart)
 
@@ -181,7 +181,7 @@ include(driver_anatop_ai)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities_MIMXRT1176_cm7)
+include(utilities_misc_utilities)
 
 include(device_system_MIMXRT1176_cm7)
 

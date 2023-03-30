@@ -135,7 +135,7 @@ include(component_serial_manager)
 
 include(component_lists)
 
-include(component_serial_manager_uart)
+include(component_serial_manager_uart_MIMXRT1042)
 
 include(middleware_usb_host_stack_MIMXRT1042)
 
@@ -149,7 +149,7 @@ include(middleware_usb_host_common_header)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities_MIMXRT1042)
+include(utilities_misc_utilities)
 
 include(device_system)
 

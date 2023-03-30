@@ -71,7 +71,8 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
     int ret;
     struct wlan_ip_config addr;
     char ip[16];
-    static int auth_fail = 0;
+    static int auth_fail                      = 0;
+    wlan_uap_client_disassoc_t *disassoc_resp = data;
 
     printSeparator();
     PRINTF("app_cb: WLAN: received event %d\r\n", reason);
@@ -237,12 +238,21 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             PRINTF("Associated with Soft AP\r\n");
             printSeparator();
             break;
-        case WLAN_REASON_UAP_CLIENT_DISSOC:
-            PRINTF("app_cb: WLAN: UAP a Client Dissociated\r\n");
+        case WLAN_REASON_UAP_CLIENT_CONN:
+            PRINTF("app_cb: WLAN: UAP a Client Connected\r\n");
             printSeparator();
             PRINTF("Client => ");
             print_mac((const char *)data);
-            PRINTF("Dis-Associated from Soft AP\r\n");
+            PRINTF("Connected with Soft AP\r\n");
+            printSeparator();
+            break;
+        case WLAN_REASON_UAP_CLIENT_DISSOC:
+            printSeparator();
+            PRINTF("app_cb: WLAN: UAP a Client Dissociated:");
+            PRINTF(" Client MAC => ");
+            print_mac((const char *)(disassoc_resp->sta_addr));
+            PRINTF(" Reason code => ");
+            PRINTF("%d\r\n", disassoc_resp->reason_code);
             printSeparator();
             break;
         case WLAN_REASON_UAP_STOPPED:
@@ -366,7 +376,7 @@ void task_main(void *param)
     result = wlan_reset_cli_init();
 
     assert(WM_SUCCESS == result);
-#endif	
+#endif
 
     while (1)
     {
