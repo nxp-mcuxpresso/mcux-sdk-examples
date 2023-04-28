@@ -36,7 +36,7 @@ endif()
 SET(AppPath "${ProjDirPath}/..")
 SET(SdkDirPath "${SdkRootDirPath}/core")
 SET(MulticorePath "${SdkRootDirPath}/middleware/multicore")
-SET(RtosPath "${SdkRootDirPath}/rtos/freertos/freertos_kernel")
+SET(RtosPath "${SdkRootDirPath}/rtos/freertos/freertos-kernel")
 SET(BoardPath "${SdkRootDirPath}/core/boards/evkmimx8mm_ca53")
 SET(CommonPath "${SdkRootDirPath}/core/rtos/freertos")
 
