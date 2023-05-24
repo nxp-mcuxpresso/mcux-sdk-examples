@@ -82,6 +82,7 @@ void app_destroy_task(void)
 
 static void rpmsg_mailbox_init(void)
 {
+    gen_sw_mailbox_init((void *)RL_GEN_SW_MBOX_BASE);
     irq_register(RL_GEN_SW_MBOX_IRQ, gen_sw_mbox_handler, (void *)RL_GEN_SW_MBOX_BASE, GEN_SW_MBOX_IRQ_PRIO);
 }
 
