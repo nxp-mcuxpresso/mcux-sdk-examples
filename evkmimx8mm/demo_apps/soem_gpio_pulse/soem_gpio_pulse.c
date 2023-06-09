@@ -20,8 +20,6 @@
 #include "fsl_memory.h"
 #endif
 #include "fsl_gpio.h"
-#include "fsl_iomuxc.h"
-#include "fsl_enet_mdio.h"
 #include "fsl_phyar8031.h"
 #include "fsl_gpt.h"
 
@@ -37,6 +35,7 @@
 #include "enet/soem_enet.h"
 #include "soem_port.h"
 
+phy_ar8031_resource_t g_phy_resource;
 
 int _write(int handle, char *buffer, int size)
 {
@@ -65,24 +64,24 @@ int _write(int handle, char *buffer, int size)
 
 
 #define OSEM_PORT_NAME 			"enet"
-#define OSEM_PORT				ENET
+#define OSEM_PORT				ENET1
 #define PHY_ADDRESS				0x00u
 #define PHY_INTERFACE_RGMII
-#define ENET_CLOCK_FREQ 250000000
+#define ENET_CLOCK_FREQ 		CLOCK_GetFreq(kCLOCK_EnetIpgClk)
 
 #define SOEM_PERIOD 125 // 125us
 
 #define EC_TIMEOUTMON 500
 #define EXAMPLE_PHY_INTERFACE_RGMII
 #ifndef PHY_AUTONEGO_TIMEOUT_COUNT
-#define PHY_AUTONEGO_TIMEOUT_COUNT (100000)
+#define PHY_AUTONEGO_TIMEOUT_COUNT (800000U)
 #endif
 #ifndef PHY_STABILITY_DELAY_US
-#define PHY_STABILITY_DELAY_US (0U)
+#define PHY_STABILITY_DELAY_US (500000U)
 #endif
 
-#define ENET_RXBD_NUM          (4)
-#define ENET_TXBD_NUM          (4)
+#define ENET_RXBD_NUM          (1)
+#define ENET_TXBD_NUM          (1)
 
 #define ENET_RXBUFF_SIZE       (ENET_FRAME_MAX_FRAMELEN)
 #define ENET_TXBUFF_SIZE       (ENET_FRAME_MAX_FRAMELEN)
@@ -177,13 +176,27 @@ enet_buffer_config_t buffConfig[] = {{
     NULL,
 }};
 
+static void MDIO_Init(void)
+{
+    (void)CLOCK_EnableClock(s_enetClock[ENET_GetInstance(OSEM_PORT)]);
+    ENET_SetSMI(OSEM_PORT, ENET_CLOCK_FREQ, false);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_MDIOWrite(OSEM_PORT, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_MDIORead(OSEM_PORT, phyAddr, regAddr, pData);
+}
+
 struct enet_if_port if_port;
 
 int if_port_init()
 {
 	memset(&if_port, 0, sizeof(if_port));
-	if_port.mdioHandle.ops = &enet_ops;
-	if_port.phyHandle.ops = &phyar8031_ops;
 	if_port.bufferConfig = buffConfig;
 	if_port.base = OSEM_PORT;
 /* The miiMode should be set according to the different PHY interfaces. */
@@ -192,12 +205,18 @@ int if_port_init()
 #else
 	if_port.mii_mode = kENET_RmiiMode;
 #endif
-	if_port.phy_config.autoNeg = true;
-	if_port.phy_config.phyAddr = PHY_ADDRESS;
-	if_port.srcClock_Hz = ENET_CLOCK_FREQ;
-	if_port.phy_autonego_timeout_count = PHY_AUTONEGO_TIMEOUT_COUNT;
-	if_port.phy_stability_delay_us = PHY_STABILITY_DELAY_US;
-	return register_soem_port(OSEM_PORT_NAME, "enet", &if_port);
+	g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
+
+    if_port.phy_config.autoNeg = true;
+    if_port.phy_config.phyAddr = PHY_ADDRESS;
+	if_port.phy_config.ops = &phyar8031_ops;
+	if_port.phy_config.resource = &g_phy_resource;
+
+    if_port.srcClock_Hz = ENET_CLOCK_FREQ;
+    if_port.phy_autonego_timeout_count = PHY_AUTONEGO_TIMEOUT_COUNT;
+    if_port.phy_stability_delay_us = PHY_STABILITY_DELAY_US;
+    return register_soem_port(OSEM_PORT_NAME, "enet", &if_port);
 }
 
 char IOmap[100];
@@ -299,14 +318,14 @@ void control_task(char *ifname)
 int main(void)
 {
 	/* Hardware Initialization. */
-    BOARD_InitMemory();
     BOARD_RdcInit();
     BOARD_InitPins();
     BOARD_BootClockRUN();
     BOARD_InitDebugConsole();
+	BOARD_InitMemory();
 
     CLOCK_SetRootDivider(kCLOCK_RootEnetAxi, 1U, 1U);
-    CLOCK_SetRootMux(kCLOCK_RootEnetAxi, kCLOCK_EnetAxiRootmuxSysPll2Div4); /* SYSTEM PLL2 divided by 4: 250Mhz */
+    CLOCK_SetRootMux(kCLOCK_RootEnetAxi, kCLOCK_EnetAxiRootmuxSysPll2Div4); /* SYSTEM PLL2 divided by 4: 125Mhz */
 
     CLOCK_SetRootDivider(kCLOCK_RootEnetTimer, 1U, 1U);
     CLOCK_SetRootMux(kCLOCK_RootEnetTimer, kCLOCK_EnetTimerRootmuxSysPll2Div10); /* SYSTEM PLL2 divided by 10: 100Mhz */
@@ -322,8 +341,9 @@ int main(void)
     GPIO_WritePinOutput(GPIO4, 22U, 1);
     SDK_DelayAtLeastUs(30000, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
 
-    EnableIRQ(ENET_MAC0_Rx_Tx_Done1_IRQn);
-    EnableIRQ(ENET_MAC0_Rx_Tx_Done2_IRQn);
+    EnableIRQ(ENET1_MAC0_Rx_Tx_Done1_IRQn);
+    EnableIRQ(ENET1_MAC0_Rx_Tx_Done2_IRQn);
+	MDIO_Init();
 
     osal_timer_init();
     if_port_init();
