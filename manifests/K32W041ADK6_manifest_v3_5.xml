@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_K32W041ADK6" name="K32W041ADK6" brief="This is SDK version 2.6.10 manifest file. It describes the content of the K32W041ADK6 and additional settings for tools that support SDK version 2.6.10" format_version="3.5" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.5.xsd">
-  <!--Timestamp (UTC): 2023-02-21 10:03:26.111102-->
-  <!--This manifest is generated based on sdk repo commit: c729a9619071b72a5f4acd0dded0a69beb1b987e-->
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_K32W041ADK6" name="K32W041ADK6" brief="This is SDK version 2.6.11 manifest file. It describes the content of the K32W041ADK6 and additional settings for tools that support SDK version 2.6.11" format_version="3.5" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.5.xsd">
+  <!--Timestamp (UTC): 2023-06-26 10:23:45.118736-->
+  <!--This manifest is generated based on sdk repo commit: 1756c4345b51d801e221741725718e26ff9b2b13-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
   </defines>
-  <ksdk id="MCUXpressoSDK2610" name="MCUXpressoSDK2610" version="2.6.10"/>
+  <ksdk id="MCUXpressoSDK2611" name="MCUXpressoSDK2611" version="2.6.11"/>
   <compilers>
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
   </compilers>
@@ -5571,6 +5571,12 @@ ${load}</script>
       <source path="core/examples/k32w041adk6/wireless_examples/hybrid/ble_ot/lped_ble_wuart/ble_802_15_4_common" target_path="src" type="c_include">
         <files mask="app_dual_mode_low_power.h"/>
         <files mask="app_dual_mode_switch.h"/>
+      </source>
+      <source path="core/examples/k32w041adk6/wireless_examples/openthread/k32w2ard_itps" target_path="src" type="doc">
+        <files mask="README.txt"/>
+      </source>
+      <source path="core/examples/k32w041adk6/wireless_examples/openthread/k32w2ard_itps" target_path="src" type="c_include">
+        <files mask="board.h"/>
       </source>
       <source path="middleware/wireless/ieee-802.15.4/MacDynamic" target_path="src" type="c_include">
         <files mask="MacDynamic.h"/>

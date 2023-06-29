@@ -79,6 +79,9 @@
     <source path="examples/k32w041adk6/driver_examples/dma/m2m_polling/iar" target_path="src" type="linker" toolchain="iar">
       <files mask="K32W041A_flash.icf"/>
     </source>
+    <source path="examples/k32w041adk6/driver_examples/dma/m2m_polling/iar" target_path="src" type="script" toolchain="iar">
+      <files mask="dk6_iarpostbuild.bat"/>
+    </source>
     <source path="examples/k32w041adk6/driver_examples/dma/m2m_polling/mdk" target_path="src" type="linker" toolchain="mdk">
       <files mask="K32W041A_flash.scf"/>
     </source>

@@ -70,7 +70,6 @@ extern jmp_buf  *exception_buf;
 #define ROM_API_BOOT_ResumeGetCfgWord  THUMB_ENTRY(0x03000ecc)
 #endif
 
-
 /* Avoid using Fro_ClkSel_t that is being moved from fsl_clock.c to fsl_clock.h*/
 typedef enum
 {
@@ -105,12 +104,16 @@ typedef struct
     uint8_t extra_data_hash[32];    /*!< Computed Hash of the extra data - 256 Bits (32 Bytes)*/
 } EXTRA_DATA_HEADER_T;
 
-#endif
+#if defined(gOTAUseCustomOtaEntry) && (gOTAUseCustomOtaEntry == 1)
+#define QSPI_EARLY_START    /* In case both EXTERNAL_FLASH_DATA_OTA & gOTAUseCustomOtaEntry are enabled,  QSPI_EARLY_START must be enabled to fit in 8K */
+#endif /* gOTAUseCustomOtaEntry */
+#endif /* EXTERNAL_FLASH_DATA_OTA */
 
 #define GET_PAGE_MULTIPLE_UP(X, PAGE_SIZE) ((X + PAGE_SIZE-1)/PAGE_SIZE)
 
 
 #define ENABLE_FROCLK(x) PMC->FRO192M |= (1 << (PMC_FRO192M_DIVSEL_SHIFT+(x)))
+
 /************************************************************************************
 *************************************************************************************
 * Private definitions
@@ -118,10 +121,9 @@ typedef struct
 ************************************************************************************/
 
 typedef enum {
-#if EXTERNAL_FLASH_DATA_OTA
-    StatusOta_incorrect_extra_data = -9,
-#endif
-    StatusOTA_downgrade_error = -8,
+    StatusOta_incorrect_extra_data = -10,
+    StatusOta_fatal_error = -9,
+    StatusOta_downgrade_error = -8,
     StatusOta_compatibility_error = -7,
     StatusOta_ciphering_error = -6,
     StatusOta_security_error = -5,
@@ -486,7 +488,7 @@ static bool ssbl_CheckOtaEntryVsImgDir(const image_directory_entry_t *img_direct
     {
         if(img_directory[i].img_type == OTA_UTILS_PSECT_OTA_PARTITION_IMAGE_TYPE)
         {
-            if(ota_img_start != img_directory[i].img_base_addr || ota_img_pages > img_directory[i].img_nb_pages)
+            if(ota_img_start < img_directory[i].img_base_addr || (ota_img_start + FLASH_PAGE_SIZE*ota_img_pages) > (img_directory[i].img_base_addr + FLASH_PAGE_SIZE*img_directory[i].img_nb_pages))
             {
                 res = false;
                 break;
@@ -502,6 +504,14 @@ static otaUtilsResult_t ssbl_EEPROM_ReadData(uint16_t nbBytes, uint32_t address,
     return gOtaUtilsSuccess_c;
 }
 
+#if defined(gOTACustomOtaEntryMemory) && (gOTACustomOtaEntryMemory == OTACustomStorage_Ram)
+static otaUtilsResult_t ssbl_RAM_WriteData(uint16_t nbBytes, uint32_t address, uint8_t *pInbuf)
+{
+    memcpy((void*)(address), pInbuf, nbBytes);
+    return gOtaUtilsSuccess_c;
+}
+#endif
+
 #if EXTERNAL_FLASH_DATA_OTA
 static otaUtilsResult_t ssbl_ComputeExtraDataHash(uint32_t p_extra_data_addr,
                                                   uint32_t extra_data_size,
@@ -515,7 +525,8 @@ static otaUtilsResult_t ssbl_ComputeExtraDataHash(uint32_t p_extra_data_addr,
     uint32_t lastPageNbByteNumber = extra_data_size - (nbPageToRead*EXTRA_BUFFER_SHA_LENGTH);
     uint32_t i = 0;
 
-    do {
+    do
+    {
         uint8_t pageContent[EXTRA_BUFFER_SHA_LENGTH];
         uint8_t digest[32];
         sha_ctx_t hash_ctx;
@@ -523,21 +534,33 @@ static otaUtilsResult_t ssbl_ComputeExtraDataHash(uint32_t p_extra_data_addr,
         /* Initialise SHA clock do not call SHA_ClkInit(SHA0) because the HAL pulls in too much code  */
         SYSCON->AHBCLKCTRLSET[1] = SYSCON_AHBCLKCTRL1_HASH_MASK;
         if (SHA_Init(SHA0, &hash_ctx, kSHA_Sha256) != kStatus_Success)
+        {
             break;
+        }
         for (i=0; i<nbPageToRead; i++)
         {
             if (pFunctionRead(sizeof(pageContent),  p_extra_data_addr+(i*EXTRA_BUFFER_SHA_LENGTH), &pageContent[0], pReadFunctionParam, pFunctionEepromRead) != gOtaUtilsSuccess_c)
-                break;
+            {
+            break;
+            }
             if (SHA_Update(SHA0, &hash_ctx, (const uint8_t*)pageContent, EXTRA_BUFFER_SHA_LENGTH) != kStatus_Success)
-                break;
+            {
+            break;
+            }
         }
         /* Read bytes located on the last page */
         if (pFunctionRead(lastPageNbByteNumber,  p_extra_data_addr+(i*EXTRA_BUFFER_SHA_LENGTH), &pageContent[0], pReadFunctionParam, pFunctionEepromRead) != gOtaUtilsSuccess_c)
-            break;
+        {
+        break;
+        }
         if (SHA_Update(SHA0, &hash_ctx, (const uint8_t*)pageContent, lastPageNbByteNumber) != kStatus_Success)
-                break;
+        {
+        break;
+        }
         if (SHA_Finish(SHA0,  &hash_ctx, &digest[0], &sha_sz) != kStatus_Success)
-            break;
+        {
+        break;
+        }
         /* Compare with the computed Hash */
         res = gOtaUtilsSuccess_c;
         void *p_hash = &digest[0];
@@ -558,6 +581,83 @@ static otaUtilsResult_t ssbl_ComputeExtraDataHash(uint32_t p_extra_data_addr,
 }
 #endif
 
+/*
+ * Validate the image and get its targeted address and the related function/parameters to access it
+ */
+static uint32_t ssbl_GetValidImageAndFunctions(const image_directory_entry_t *p_ota_entry, const image_directory_entry_t * img_directory, const uint8_t *zigbee_password, const IMAGE_CERT_T * root_cert, CipherMethod_t *p_cipher_method, OtaUtils_ReadBytes *pFunction_read, uint8_t *p_param, sOtaUtilsSoftwareKey *p_softKey)
+{
+    uint32_t img_addr_targeted = OTA_UTILS_IMAGE_INVALID_ADDR;
+    *pFunction_read = OtaUtils_ReadFromInternalFlash;
+    *p_cipher_method = NO_CIPHER;
+    do
+    {
+        if ((p_ota_entry->img_base_addr >= FSL_FEATURE_SPIFI_START_ADDR))
+        {
+#ifndef QSPI_EARLY_START
+            if(SPIFI_Flash_Init() < 0)
+            {
+                break;
+            }
+#endif
+            if (p_ota_entry->flags & 0x80)
+            {
+                if (efuse_AESKeyPresent())
+                {
+                    *p_cipher_method = AES_EFUSE_CIPHER;
+                }
+                *pFunction_read = OtaUtils_ReadFromEncryptedExtFlashEfuseKey;
+            }
+            else if (p_ota_entry->flags & 0x40)
+            {
+                *p_cipher_method = AES_PASSWORD_CIPHER;
+                *pFunction_read = OtaUtils_ReadFromEncryptedExtFlashSoftwareKey;
+                p_softKey->pSoftKeyAes = zigbee_password;
+                p_param = (uint8_t *) p_softKey;
+            }
+            if (*p_cipher_method != NO_CIPHER)
+            {
+                if (aesInit() != 0)
+                {
+                    break;
+                }
+            }
+            else
+            {
+                *pFunction_read = OtaUtils_ReadFromUnencryptedExtFlash;
+            }
+
+        }
+
+        /* If OTA partition was not provisioned in PSECT, continue the OTA for backward compatibility */
+        if(!ssbl_CheckOtaEntryVsImgDir(img_directory, p_ota_entry->img_base_addr, p_ota_entry->img_nb_pages))
+        {
+            break;
+        }
+
+        TRY
+        {
+            img_addr_targeted = OtaUtils_ValidateImage(*pFunction_read,
+                                              p_param,
+                                              ssbl_EEPROM_ReadData,
+                                              p_ota_entry->img_base_addr,
+                                              0,
+                                              root_cert,
+                                              TRUE,
+                                              FALSE);
+        }
+        CATCH(BUS_EXCEPTION)
+        {
+            break;
+        }
+        YRT
+
+    } while(false);
+    return img_addr_targeted;
+}
+
+
+
+
 static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
                               const image_directory_entry_t * img_directory,
                               const uint8_t *zigbee_password,
@@ -565,7 +665,6 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
                               const IMAGE_CERT_T * root_cert, uint32_t min_valid_addr)
 {
     StatusOta_t err = StatusOta_ok_so_far;
-    bool_t external_flash_ota = (ota_entry->img_base_addr >= FSL_FEATURE_SPIFI_START_ADDR);
     uint32_t img_addr_ota = ota_entry->img_base_addr;
     uint32_t img_addr_targeted;
     uint32_t internal_img_size = 0;
@@ -582,64 +681,13 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
     uint32_t dest_partition_size;
     uint8_t page_content_ota[FLASH_PAGE_SIZE];
     bool_t ssblUpdate = FALSE;
+#if defined(SSBL_BLOB_LOAD) || EXTERNAL_FLASH_DATA_OTA
+    bool_t external_flash_ota = (ota_entry->img_base_addr >= FSL_FEATURE_SPIFI_START_ADDR);
+#endif
 
     do
     {
-        if (external_flash_ota)
-        {
-#ifndef QSPI_EARLY_START
-            if (SPIFI_Flash_Init() < 0)
-            {
-                RAISE_ERROR(err, StatusOta_operation_error);
-            }
-#endif
-            if (ota_entry->flags & 0x80)
-            {
-                if (efuse_AESKeyPresent())
-                {
-                    cipher_method = AES_EFUSE_CIPHER;
-                }
-                pFunction_read = OtaUtils_ReadFromEncryptedExtFlashEfuseKey;
-            }
-            else if (ota_entry->flags & 0x40)
-            {
-                cipher_method = AES_PASSWORD_CIPHER;
-                pFunction_read = OtaUtils_ReadFromEncryptedExtFlashSoftwareKey;
-                softKey.pSoftKeyAes = zigbee_password;
-                p_param = (uint8_t *) &softKey;
-            }
-            if (cipher_method != NO_CIPHER)
-            {
-                if (aesInit() != 0)
-                    RAISE_ERROR(err, StatusOta_operation_error);
-            }
-            else
-            {
-                pFunction_read = OtaUtils_ReadFromUnencryptedExtFlash;
-            }
-        }
-
-        /* If OTA partition was not provisioned in PSECT, continue the OTA for backward compatibility */
-        if(!ssbl_CheckOtaEntryVsImgDir(img_directory, img_addr_ota, ota_img_nb_pages))
-            RAISE_ERROR(err, StatusOta_incorrect_image_struct);
-
-        TRY
-        {
-            img_addr_targeted = OtaUtils_ValidateImage(pFunction_read,
-                                          p_param,
-                                          pFunction_eeprom_read,
-                                          img_addr_ota,
-                                          min_valid_addr,
-                                          root_cert,
-                                          TRUE,
-                                          FALSE);
-        }
-        CATCH(BUS_EXCEPTION)
-        {
-            RAISE_ERROR(err, StatusOta_bus_fault);
-        }
-        YRT
-
+        img_addr_targeted = ssbl_GetValidImageAndFunctions(ota_entry, img_directory, zigbee_password, root_cert, &cipher_method, &pFunction_read, p_param, &softKey);
         if (img_addr_targeted == OTA_UTILS_IMAGE_INVALID_ADDR)
             RAISE_ERROR(err, StatusOta_incorrect_image_struct);
 
@@ -709,7 +757,7 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
                     if (SOTA_GET_BLOB_MAJOR_VERSION(boot_block_current_img.version) != SOTA_GET_BLOB_MAJOR_VERSION(boot_block_ota.version)
                             || SOTA_GET_BLOB_MINOR_VERSION(boot_block_ota.version) <= SOTA_GET_BLOB_MINOR_VERSION(boot_block_current_img.version))
                     {
-                        RAISE_ERROR(err, StatusOTA_downgrade_error);
+                        RAISE_ERROR(err, StatusOta_downgrade_error);
                     }
 
                     if (!ssbl_CheckCompatibility(img_directory, (IMG_HEADER_T *) dest_dir_entry->img_base_addr, (IMG_HEADER_T *) img_addr_ota))
@@ -746,31 +794,24 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
             {
                 /* Sanity check on extracted descriptor */
                 if(!ssbl_CheckExtFlashDesc(img_directory, extra_data_header.extra_data_lma, extra_data_header.extra_data_size))
-                {
                     /* At this stage nothing as been done - simply exit and keep the current image */
                     RAISE_ERROR(err, StatusOta_incorrect_extra_data);
-                }
 
                 extra_data_src_addr = img_addr_ota + internal_img_size;
                 if(extra_data_src_addr + extra_data_header.extra_data_size >= (FSL_FEATURE_SPIFI_START_ADDR + SPIFI_getSize()))
-                {
                     /* At this stage nothing as been done - simply exit and keep the current image */
                     RAISE_ERROR(err, StatusOta_incorrect_extra_data);
-                }
 
                 if(gOtaUtilsSuccess_c != ssbl_ComputeExtraDataHash(extra_data_src_addr, extra_data_header.extra_data_size, extra_data_header.extra_data_hash, pFunction_read, p_param, pFunction_eeprom_read))
-                {
                     /* At this stage nothing as been done - simply exit and keep the current image */
                     RAISE_ERROR(err, StatusOta_incorrect_extra_data);
-                }
 
                 /* Checks passed - Start erasing the needed area - must be multiple of 4K */
                 uint32_t ext_flash_text_partition = ssbl_GetMaxExtFlashTextSize(img_directory);
                 if(0 != SPIFI_eraseArea(extra_data_header.extra_data_lma - FSL_FEATURE_SPIFI_START_ADDR, (int32_t) GET_PAGE_MULTIPLE_UP(ext_flash_text_partition, SPIFI_getSectorSize())*SPIFI_getSectorSize()))
-                {
-                    /* Exit on failure - TODO: if data already erased, only ISP mode can recover */
-                    RAISE_ERROR(err, StatusOta_operation_error);
-                }
+                    /* Exit on failure - If data already erased, only ISP mode can recover */
+                    RAISE_ERROR(err, StatusOta_fatal_error);
+
                 /* Copy extra data buffers */
                 for (int i= 0 ; i < GET_PAGE_MULTIPLE_UP(extra_data_header.extra_data_size, COPY_BUFFER_LENGTH); i++)
                 {
@@ -785,11 +826,11 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
                     YRT
                     SPIFI_writeData(COPY_BUFFER_LENGTH, extra_data_header.extra_data_lma + i*COPY_BUFFER_LENGTH - FSL_FEATURE_SPIFI_START_ADDR, (uint8_t *)&temp_buff);
                 }
+
                 if(err != StatusOta_ok_so_far)
-                {
-                    /* Exit on failure - TODO: if data already erased, only ISP mode can recover */
-                    RAISE_ERROR(err, StatusOta_operation_error);
-                }
+                    /* Exit on failure - If data already erased, only ISP mode can recover */
+                    RAISE_ERROR(err, StatusOta_fatal_error);
+
                 /* Remove the extra pages from the total image length */
                 ota_img_nb_pages = GET_PAGE_MULTIPLE_UP(ota_img_nb_pages*FLASH_PAGE_SIZE - extra_data_header.extra_data_size, FLASH_PAGE_SIZE);
             }
@@ -1069,11 +1110,11 @@ int main(void)
 
     EnableBusFault();
     SYSCON->MEMORYREMAP = (SYSCON->MEMORYREMAP & 0xfffff) | 0xe400000;
-    do {
+    do
+    {
         bool update_page0_required = false;
         uint32_t image_addr = OTA_UTILS_IMAGE_INVALID_ADDR;
         uint32_t end_of_ssbl;
-
 
         /* Read protected sectors */
         page_state[0] = ProtectedSectorRead(PSECTOR_PAGE0_PART, &page[0]);
@@ -1082,7 +1123,6 @@ int main(void)
         if (page_state[1] < PAGE_STATE_DEGRADED)  break;
 
         IMAGE_CERT_T root_cert_inst;
-
         IMAGE_CERT_T * root_cert = NULL;
 
         if (page[1].pFlash.image_authentication_level !=  AUTH_NONE)
@@ -1100,17 +1140,165 @@ int main(void)
             break;
         }
 
+#ifdef QSPI_EARLY_START
+        if(SPIFI_Flash_Init() < 0)
+        {
+            break;
+        }
+#endif
         /* Check whether an OTA has been pushed */
+#if defined(gOTAUseCustomOtaEntry) && (gOTAUseCustomOtaEntry == 1)
+
+        CustomOtaEntries_t ota_entry = {0};
+        uint16_t ota_entry_size = 0;
+        ota_entry.ota_state = otaNoImage;
+        StatusOta_t procedure_status = StatusOta_ok;
+        uint32_t ota_entry_addr = page[0].page0_v3.ota_entry.img_base_addr;
+        uint8_t ota_entry_flags = page[0].page0_v3.ota_entry.flags;
+
+        if ((ota_entry_flags & OTA_CUSTOM_ENTRY_FLAG) && (ota_entry_addr != 0))
+        {
+            do
+            {
+#ifndef QSPI_EARLY_START
+                if(page[0].page0_v3.ota_entry.img_base_addr > FSL_FEATURE_SPIFI_START_ADDR && (SPIFI_Flash_Init() < 0))
+                {
+                    break;
+                }
+#endif
+                /* ssbl_EEPROM_ReadData can be used for either for Ram or Ext flash storage as it use memcpy */
+                if(gOtaUtilsSuccess_c != OtaUtils_GetCustomOtaEntry(&ota_entry, &ota_entry_size, ssbl_EEPROM_ReadData, ota_entry_addr))
+                {
+                    procedure_status = StatusOta_operation_error;
+                    break;
+                }
+
+                if(ota_entry.number_of_entry > 0)
+                {
+                    /* Is image(s) not yet validated */
+                    if(!(ota_entry_flags & OTA_IMAGE_VALIDATED_FLAG))
+                    {
+                        CipherMethod_t cipher_method = NO_CIPHER;
+                        OtaUtils_ReadBytes pFunction_read = OtaUtils_ReadFromInternalFlash;
+                        uint8_t *p_param = NULL;
+                        sOtaUtilsSoftwareKey softkey;
+                        for(uint8_t i = 0; i < ota_entry.number_of_entry; i++)
+                        {
+                            if(OTA_UTILS_IMAGE_INVALID_ADDR == ssbl_GetValidImageAndFunctions(&ota_entry.entries[i], &page[0].page0_v3.img_directory[0], &page[0].page0_v3.zigbee_password[0], root_cert, &cipher_method, &pFunction_read, p_param, &softkey))
+                            {
+                                procedure_status = StatusOta_operation_error;
+                                break;
+                            }
+                        }
+                        /* Mark the image(s) as validated */
+                        ota_entry_flags = ota_entry_flags | OTA_IMAGE_VALIDATED_FLAG;
+                    }
+
+                    if(procedure_status != StatusOta_ok)
+                    {
+                        break;
+                    }
+
+                    /* Apply first OTA entry */
+                    procedure_status = ssbl_GetOtaFile(&ota_entry.entries[0], &page[0].page0_v3.img_directory[0], &page[0].page0_v3.zigbee_password[0], &page[0].page0_v3.SelectedImageAddress, root_cert, 0);
+
+                    if(procedure_status != StatusOta_ok)
+                    {
+                        break;
+                    }
+
+                    /* Mark the OTA process as started and image(s) as applied */
+                    ota_entry.ota_state = otaStarted;
+                    ota_entry_flags = ota_entry_flags | OTA_IMAGE_APPLIED_FLAG;
+
+                    /* Shift all entries */
+                    ota_entry.number_of_entry --;
+                    if(ota_entry.number_of_entry != 0)
+                    {
+                        memcpy(&ota_entry.entries[0], &ota_entry.entries[1], ota_entry.number_of_entry*sizeof(image_directory_entry_t));
+                    }
+                    else
+                    {
+                        /* Latest image was applied */
+                        ota_entry.ota_state = otaApplied;
+                    }
+                    /* Clear last entry */
+                    memset(&ota_entry.entries[ota_entry.number_of_entry], 0, sizeof(image_directory_entry_t));
+
+                    /* Update ota entry flags */
+                    page[0].page0_v3.ota_entry.flags = ota_entry_flags;
+                }
+                else
+                {
+                    ImgDirectoryEntryClear(&page[0].page0_v3.ota_entry);
+                }
+            } while(false);
+
+#ifdef SSBL_VERSION
+            /* Copy the SSBL version in custom data */
+            ota_entry.custom_data[0] = SSBL_VERSION;
+            ota_entry.custom_data_length = 4;
+#endif
+            /* Trigger the PSECT update */
+            update_page0_required = true;
+
+            if(procedure_status != StatusOta_ok)
+            {
+                ota_entry.number_of_entry = 0;
+                ota_entry.ota_state = otaNotApplied;
+                ImgDirectoryEntryClear(&page[0].page0_v3.ota_entry);
+                if(ota_entry_flags & OTA_IMAGE_APPLIED_FLAG || procedure_status == StatusOta_fatal_error)
+                {
+                    /* Either a part of the OTA already applied or a fatal error occurred during flash copy - go to ISP */
+                    break;
+                }
+            }
+
+            /* In any case, try to store the updated entry table - On error, clear the ota_entry in PSECT */
+#if defined(gOTACustomOtaEntryMemory)
+#if (gOTACustomOtaEntryMemory == OTACustomStorage_ExtFlash)
+#ifndef QSPI_EARLY_START
+            if(SPIFI_Flash_Init() < 0)
+            {
+                break;
+            }
+#endif
+            if(SPIFI_eraseArea((ota_entry_addr - ota_entry_size - FSL_FEATURE_SPIFI_START_ADDR) & ~ (SPIFI_getSectorSize() - 1), SPIFI_getSectorSize()))
+            {
+                ImgDirectoryEntryClear(&page[0].page0_v3.ota_entry);
+                if(ota_entry_flags & OTA_IMAGE_APPLIED_FLAG)
+                {
+                    /* OTA already applied - go to ISP */
+                    break;
+                }
+            }
+            else
+            {
+                OtaUtils_StoreCustomOtaEntry(&ota_entry, (OtaUtils_EEPROM_WriteData) SPIFI_writeData, ota_entry_addr - FSL_FEATURE_SPIFI_START_ADDR);
+            }
+#else
+            OtaUtils_StoreCustomOtaEntry(&ota_entry, ssbl_RAM_WriteData, ota_entry_addr);
+#endif /* gOTACustomOtaEntryMemory */
+#endif
+        }
+        else
+        {
+#endif /* gOTAUseCustomOtaEntry */
         if (page[0].page0_v3.ota_entry.img_nb_pages != 0)
         {
-            ssbl_GetOtaFile(&page[0].page0_v3.ota_entry, &page[0].page0_v3.img_directory[0], &page[0].page0_v3.zigbee_password[0], &page[0].page0_v3.SelectedImageAddress, root_cert, 0);
+            if(StatusOta_fatal_error == ssbl_GetOtaFile(&page[0].page0_v3.ota_entry, &page[0].page0_v3.img_directory[0], &page[0].page0_v3.zigbee_password[0], &page[0].page0_v3.SelectedImageAddress, root_cert, 0))
+            {
+                break; /* Go to ISP */
+            }
+
             /* Will require an update anyway to remove the OTA entry */
             /* If any OTA has necessarily been consumed whether correct or not */
             ImgDirectoryEntryClear(&page[0].page0_v3.ota_entry);
             update_page0_required = true;
-
         }
-
+#if defined(gOTAUseCustomOtaEntry) && (gOTAUseCustomOtaEntry == 1)
+        }
+#endif
         if (page[1].pFlash.image_authentication_level ==  AUTH_ON_FW_UPDATE)
         {
             /* Reset the root_cert to do authentication only on fw update and not at each boot */
@@ -1139,7 +1327,9 @@ int main(void)
         }
 
         if (image_addr == OTA_UTILS_IMAGE_INVALID_ADDR)
+        {
             break;
+        }
 
 #if EXTERNAL_FLASH_DATA_OTA
         /* If here, bootable image is found. Find the extra data descriptor in image if any */
@@ -1162,8 +1352,10 @@ int main(void)
             }
 #endif
             if(gOtaUtilsSuccess_c != ssbl_ComputeExtraDataHash(extra_data_header.extra_data_lma, extra_data_header.extra_data_size, extra_data_header.extra_data_hash, OtaUtils_ReadFromUnencryptedExtFlash, NULL, ssbl_EEPROM_ReadData))
+            {
                 /* Hash comparison failed - Ends up in ISP */
                 break;
+            }
         }
 #endif /* EXTERNAL_FLASH_DATA_OTA */
         /*

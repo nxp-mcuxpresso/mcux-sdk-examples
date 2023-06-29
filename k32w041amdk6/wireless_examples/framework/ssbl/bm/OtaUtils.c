@@ -56,6 +56,11 @@
 
 #define SIGNATURE_WRD_LEN               (SIGNATURE_LEN / 4)
 
+#if defined(gOTAUseCustomOtaEntry) && (gOTAUseCustomOtaEntry == 1)
+#define OTA_ENTRY_TAG                    0x41544F45
+#define ROM_API_HASH_SHA256              THUMB_ENTRY(0x03006210)
+#endif /* gOTAUseCustomOtaEntry */
+
 #define ROM_API_efuse_LoadUniqueKey      THUMB_ENTRY(0x030016f4)
 #define ROM_API_aesLoadKeyFromOTP        THUMB_ENTRY(0x0300146c)
 #define ROM_API_crc_update               THUMB_ENTRY(0x0300229c)
@@ -89,6 +94,33 @@ typedef uint32_t (*crc_update_t)(uint32_t crc, const void* data, size_t data_len
 typedef uint32_t (*boot_CheckVectorSum_t)(const IMG_HEADER_T *image);
 typedef uint32_t (*flash_GetDmaccStatus_t)(uint8_t *address);
 
+#if defined(gOTAUseCustomOtaEntry) && (gOTAUseCustomOtaEntry == 1)
+
+typedef uint32_t (*hash_sha256_t)(uint32_t *addr, uint32_t length, uint32_t *hash);
+
+typedef struct {
+    CustomOtaEntries_t *pEntry;
+    uint32_t short_hash;
+    uint32_t length;
+    uint32_t magic;
+} OtaCustomStorage_t;
+
+#if (gOTACustomOtaEntryMemory == OTACustomStorage_Ram)
+#if defined(__CC_ARM)
+extern uint32_t Image$$__base_RAM$$Base[];
+extern uint32_t Image$$__top_RAM$$Length[];
+extern uint32_t Image$$__base_RAM1$$End[];
+extern uint32_t Image$$__top_RAM1$$Length[];
+#else /* defined(__CC_ARM) */
+extern uint32_t __base_RAM[];
+extern uint32_t __top_RAM[];
+extern uint32_t __base_RAM1[];
+extern uint32_t __top_RAM1[];
+#endif
+#endif /* gOTACustomOtaEntryMemory */
+
+
+#endif /* gOTAUseCustomOtaEntry */
 /************************************************************************************
 *************************************************************************************
 * Private memory declarations
@@ -99,6 +131,10 @@ static const aesLoadKeyFromOTP_t aesLoadKeyFromOTP         = (aesLoadKeyFromOTP_
 static const crc_update_t crc_update                       = (crc_update_t)ROM_API_crc_update;
 static const boot_CheckVectorSum_t boot_CheckVectorSum     = (boot_CheckVectorSum_t)ROM_API_boot_CheckVectorSum;
 static const flash_GetDmaccStatus_t flash_GetDmaccStatus   = (flash_GetDmaccStatus_t) ROM_API_flash_GetDmaccStatus;
+
+#if defined(gOTAUseCustomOtaEntry) && (gOTAUseCustomOtaEntry == 1)
+static const hash_sha256_t hash_sha256     = (hash_sha256_t) ROM_API_HASH_SHA256;
+#endif /* gOTAUseCustomOtaEntry */
 
 /******************************************************************************
 *******************************************************************************
@@ -539,7 +575,7 @@ bool OtaUtils_ImgDirectorySanityCheck(psector_page_data_t * page0, uint32_t ext_
                             uint32_t other_entry_end = other_entry_base + FLASH_PAGE_SIZE * img_directory[j].img_nb_pages - 1;
                             if(OtaUtils_IsInternalFlashAddr(other_entry_base))
                             {
-                                if (((img_base < other_entry_base) && (img_end > other_entry_base)) || /* Partition ends in the middle of another one */
+                                if (((img_base <= other_entry_base) && (img_end > other_entry_base)) || /* Partition ends in the middle of another one */
                                         ((img_base >= other_entry_base) && (img_base < other_entry_end))) /* Partition starts in the middle on another one */
                                 {
                                     overlap = true;
@@ -566,7 +602,7 @@ bool OtaUtils_ImgDirectorySanityCheck(psector_page_data_t * page0, uint32_t ext_
                         uint32_t other_entry_end = other_entry_base + FLASH_PAGE_SIZE * img_directory[j].img_nb_pages;
                         if(OtaUtils_IsExternalFlashAddr(other_entry_base, ext_flash_size))
                         {
-                            if (((img_base < other_entry_base) && (img_end > other_entry_base)) ||
+                            if (((img_base <= other_entry_base) && (img_end > other_entry_base)) ||
                                     ((img_base >= other_entry_base) && (img_base < other_entry_end)))
                             {
                                 overlap = true;
@@ -785,3 +821,121 @@ otaUtilsResult_t OtaUtils_ReconstructRootCert(IMAGE_CERT_T *pCert, const psector
     } while (0);
     return result;
 }
+
+#if defined(gOTAUseCustomOtaEntry) && (gOTAUseCustomOtaEntry == 1)
+otaUtilsResult_t OtaUtils_StoreCustomOtaEntry(CustomOtaEntries_t *pEntry, OtaUtils_EEPROM_WriteData pFunctionWrite, uint32_t storageTopAddr)
+{
+    otaUtilsResult_t res = gOtaUtilsError_c;
+    uint32_t entry_size = sizeof(CustomOtaEntries_t) - (OTAMaxCustomEntryNumber - pEntry->number_of_entry)*sizeof(image_directory_entry_t) - (OTAMaxCustomDataWords*sizeof(uint32_t) - pEntry->custom_data_length);
+    uint32_t total_size = sizeof(OtaCustomStorage_t) - 4 + entry_size; /* -4 because first word is already contained in the "entry" pointer */
+    uint8_t pCustomStorage[sizeof(OtaCustomStorage_t) + sizeof(CustomOtaEntries_t) - 4] = {0}; /* -4 because first word is already contained in the "entry" pointer */
+    uint32_t offset = 0;
+
+    do {
+        if(storageTopAddr < total_size)
+            break;
+
+        uint32_t storage_addr = storageTopAddr - total_size;
+
+        /* Copy the OTA entries */
+        for(uint32_t i=0; i < pEntry->number_of_entry*sizeof(image_directory_entry_t); i++)
+        {
+            pCustomStorage[offset] = *((uint8_t *)((uint32_t)pEntry->entries + i));
+            offset += sizeof(uint8_t);
+        }
+
+        /* Copy custom data */
+         for(uint16_t i=0; i<pEntry->custom_data_length; i++)
+        {
+            pCustomStorage[offset] = *((uint8_t *)((uint32_t)pEntry->custom_data + i));
+            offset += sizeof(uint8_t);
+        }
+
+         /* Copy custom data length */
+         *((uint16_t *)((uint32_t)pCustomStorage + offset)) = pEntry->custom_data_length;
+         offset += sizeof(uint16_t);
+
+         /* Copy OTA status */
+        pCustomStorage[offset] = pEntry->ota_state;
+         offset += sizeof(otaCustomState_t);
+
+        /* Copy the image entries number */
+        pCustomStorage[offset] = pEntry->number_of_entry;
+        offset += sizeof(uint8_t);
+
+        /* Compute HASH of entry */
+        uint32_t hash[8] = {0};
+        if ( 0 != hash_sha256((uint32_t *)pCustomStorage, entry_size, (uint32_t *)&hash))
+            break;
+
+        /*  Fill the Custom storage header */
+         *((uint32_t *)((uint32_t)pCustomStorage + offset)) = hash[0];
+         offset += sizeof(uint32_t);
+         *((uint32_t *)((uint32_t)pCustomStorage + offset)) = entry_size;
+         offset += sizeof(uint32_t);
+         *((uint32_t *)((uint32_t)pCustomStorage + offset)) = OTA_ENTRY_TAG;
+         offset += sizeof(uint32_t);
+
+        /* Copy data at expected location
+         * - Application must ensure this region was cleared before
+         * - Application must ensure the selected storage address is valid
+         */
+        res = pFunctionWrite(total_size, (uint32_t)(storage_addr), pCustomStorage);
+
+    } while (0);
+    return res;
+}
+
+otaUtilsResult_t OtaUtils_GetCustomOtaEntry(CustomOtaEntries_t *pEntry, uint16_t *pLenghtBytes, OtaUtils_EEPROM_ReadData pFunctionRead, uint32_t storageTopAddr)
+{
+    otaUtilsResult_t res = gOtaUtilsError_c;
+    uint8_t pCustomEntry[sizeof(OtaCustomStorage_t) + sizeof(CustomOtaEntries_t) - 4] = {0};
+    do{
+        if(pEntry == NULL || pLenghtBytes == NULL)
+            break;
+
+        if(storageTopAddr < sizeof(OtaCustomStorage_t))
+            break;
+
+        /* Get the Custom storage header */
+        uint32_t storage_addr = storageTopAddr - sizeof(OtaCustomStorage_t);
+        OtaCustomStorage_t extra_storage_header;
+        if( gOtaUtilsSuccess_c != pFunctionRead(sizeof(OtaCustomStorage_t), storage_addr, (uint8_t *)&extra_storage_header))
+            break;
+        if ( extra_storage_header.magic != OTA_ENTRY_TAG)
+            break;
+        *pLenghtBytes = (uint16_t)extra_storage_header.length;
+
+        /* Get the entries */
+        if(storage_addr < (*pLenghtBytes - 4))
+            break;
+        storage_addr = ((uint32_t)storage_addr - *pLenghtBytes + 4);
+        if(gOtaUtilsSuccess_c != pFunctionRead(*pLenghtBytes, (uint32_t)(storage_addr), (uint8_t *)pCustomEntry))
+            break;
+
+        /* Compute HASH of entry */
+        uint32_t hash[8] = {0};
+        if ( 0 != hash_sha256((uint32_t *)pCustomEntry, (uint32_t )*pLenghtBytes, hash))
+            break;
+        if(extra_storage_header.short_hash != hash[0])
+            break;
+
+        /* All data verified - fill the user structure */
+        uint32_t offset = *pLenghtBytes;
+        offset -= sizeof(uint8_t);
+        pEntry->number_of_entry = *((uint8_t *)((uint32_t)pCustomEntry + offset));
+        offset -= sizeof(otaCustomState_t);
+        pEntry->ota_state = *((otaCustomState_t *)((uint32_t)pCustomEntry + offset));
+        offset -= sizeof(uint16_t);
+        pEntry->custom_data_length = *((uint16_t *)((uint32_t)pCustomEntry + offset));
+        offset -= pEntry->custom_data_length;
+        memcpy(pEntry->custom_data, (uint32_t *)((uint32_t)pCustomEntry + offset), pEntry->custom_data_length);
+        memcpy(pEntry->entries, pCustomEntry, pEntry->number_of_entry*sizeof(image_directory_entry_t));
+
+        res = gOtaUtilsSuccess_c;
+
+    } while(0);
+    return res;
+}
+
+#endif /* gOTAUseCustomOtaEntry */

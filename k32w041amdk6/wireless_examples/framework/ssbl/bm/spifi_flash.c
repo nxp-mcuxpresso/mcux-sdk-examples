@@ -65,7 +65,9 @@
 #define MX25R8035F_PAGE_SIZE        256                  /* 256B sectors */
 #define MX25R8035F_SECTOR_SIZE      4096                 /* 4KB sectors */
 #define MX25R8035F_BLOCK_SIZE       QSPIFLASH_SECTOR_SIZE * 8     /* 32KB blocks */
+#ifndef SPIFI_OPTIM_SIZE
 #define QSPIFLASH_BLOCK2_SIZE        QSPIFLASH_BLOCK_SIZE * 2      /* 64KB blocks */
+#endif
 #define MX25R8035F_CHIP_SIZE        QSPIFLASH_SECTOR_SIZE * 256  /* 1MB capacity */
 
 #define QSPIFLASH_PAGE_SIZE        MX25R8035F_PAGE_SIZE
@@ -142,7 +144,11 @@
 #define SPIFI_DUAL_MODE_SUPPORT 0
 #endif
 
+#ifdef SPIFI_OPTIM_SIZE
+#define IS_SPIFI_DUAL_MODE()         (SPIFI_DUAL_MODE_SUPPORT)
+#else
 #define IS_SPIFI_DUAL_MODE()         (CHIP_USING_SPIFI_DUAL_MODE() || SPIFI_DUAL_MODE_SUPPORT)
+#endif
 #define IS_ALIGNED(x, aligment)     (((uint32_t)(x) & (aligment-1)) == 0)
 
 #define IOCON_GPIO_MODE_FUNC        (0U)
@@ -198,17 +204,29 @@ typedef enum _command_t
 //    WRDI,      /* Write Disable */
       WRSR,      /* Write Status Register */
 //    PP4,       /* Quad Page Program */
+#ifdef SPIFI_OPTIM_SIZE
+#if IS_SPIFI_DUAL_MODE()
+      PP,        /* Page Program */
+      DREAD,     /* 1I-2O read */
+#else
       QPP,       /* Quad Input Page Program */
       QREAD,     /* 1I-4O read */
+#endif
+#else
+      QPP,       /* Quad Input Page Program */
+      PP,        /* Page Program */
+      QREAD,     /* 1I-4O read */
+      DREAD,     /* 1I-2O read */
+#endif /* SPIFI_OPTIM_SIZE */
       SE,        /* Sector Erase */
 //    READ,      /* Read */
-      DREAD,     /* 1I-2O read */
 //    READ2,     /* 2I-2O read */
-      PP,        /* Page Program */
 //    READ4,     /* 4I-4O read */
-      BE64K,        /* Block Erase */
-      BE32K,        /* Block Erase */
+#ifndef SPIFI_OPTIM_SIZE
+      BE64K,     /* Block Erase */
       CE,        /* Chip Erase */
+#endif
+      BE32K,     /* Block Erase */
       DP,        /* Deep Power Down */
       MAX_CMD
 } command_t;
@@ -263,7 +281,6 @@ spifi_config_t config = {
         .dualMode = kSPIFI_QuadMode
 };
 
-
 static spifi_command_t command[MAX_CMD] =
 {
     [RDID]  = {4                  , false, kSPIFI_DataInput,  0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeOnly,   0x9F},
@@ -273,17 +290,30 @@ static spifi_command_t command[MAX_CMD] =
 //  [WRDI]  = {0                  , false, kSPIFI_DataOutput, 0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeOnly,   0x04},
     [WRSR]  = {3                  , false, kSPIFI_DataOutput, 0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeOnly,   0x01},
 //  [PP4]   = {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataOutput, 0, kSPIFI_CommandOpcodeSerial, kSPIFI_CommandOpcodeAddrThreeBytes, 0x38},
+#ifdef SPIFI_OPTIM_SIZE
+#if IS_SPIFI_DUAL_MODE()
+    [PP]    =  {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataOutput, 0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeAddrThreeBytes, 0x02},
+    [DREAD] =  {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataInput,  1, kSPIFI_CommandDataQuad,     kSPIFI_CommandOpcodeAddrThreeBytes, 0x3B},
+#else
     [QPP]   = {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataOutput, 0, kSPIFI_CommandDataQuad,     kSPIFI_CommandOpcodeAddrThreeBytes, 0x32},
     [QREAD] = {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataInput,  1, kSPIFI_CommandDataQuad,     kSPIFI_CommandOpcodeAddrThreeBytes, 0x6B},
+#endif
+#else
+    [QPP]   = {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataOutput, 0, kSPIFI_CommandDataQuad,     kSPIFI_CommandOpcodeAddrThreeBytes, 0x32},
+    [PP]    =  {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataOutput, 0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeAddrThreeBytes, 0x02},
+    [QREAD] = {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataInput,  1, kSPIFI_CommandDataQuad,     kSPIFI_CommandOpcodeAddrThreeBytes, 0x6B},
+    [DREAD] =  {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataInput,  1, kSPIFI_CommandDataQuad,     kSPIFI_CommandOpcodeAddrThreeBytes, 0x3B},
+#endif
+
     [SE]    = {0                  , false, kSPIFI_DataOutput, 0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeAddrThreeBytes, 0x20},
 //  [READ]  = {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataInput,  0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeAddrThreeBytes, 0x03},
-    [DREAD] =  {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataInput,  1, kSPIFI_CommandDataQuad,     kSPIFI_CommandOpcodeAddrThreeBytes, 0x3B},
 //  [READ2] =  {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataInput,  1, kSPIFI_CommandOpcodeSerial, kSPIFI_CommandOpcodeAddrThreeBytes, 0xBB},
-    [PP]    =  {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataOutput, 0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeAddrThreeBytes, 0x02},
 //  [READ4] =  {QSPIFLASH_PAGE_SIZE, false, kSPIFI_DataInput,  3, kSPIFI_CommandOpcodeSerial, kSPIFI_CommandOpcodeAddrThreeBytes, 0xEB},
+#ifndef SPIFI_OPTIM_SIZE
     [BE64K] =  {0                  , false, kSPIFI_DataOutput, 0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeAddrThreeBytes, 0xD8},
-    [BE32K] =  {0                  , false, kSPIFI_DataOutput, 0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeAddrThreeBytes, 0x52},
     [CE]    =  {0                  , false, kSPIFI_DataOutput, 0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeOnly,           0x60},
+#endif
+    [BE32K] =  {0                  , false, kSPIFI_DataOutput, 0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeAddrThreeBytes, 0x52},
     [DP]    =  {0                  , false, kSPIFI_DataOutput, 0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeOnly,           0xB9},
 };
 
@@ -391,6 +421,13 @@ static void SPIFI_SetRead(uint32_t Addr)
     SPIFI_SetCommandAddress(SPIFI, FSL_FEATURE_SPIFI_START_ADDR + Addr );
 
     /* Enable read */
+#ifdef SPIFI_OPTIM_SIZE
+#if IS_SPIFI_DUAL_MODE()
+    SPIFI_SetMemoryCommand(SPIFI, &command[DREAD]);
+#else
+    SPIFI_SetMemoryCommand(SPIFI, &command[QREAD]);
+#endif
+#else
     if (IS_SPIFI_DUAL_MODE())
     {
         SPIFI_SetMemoryCommand(SPIFI, &command[DREAD]);
@@ -399,6 +436,7 @@ static void SPIFI_SetRead(uint32_t Addr)
     {
         SPIFI_SetMemoryCommand(SPIFI, &command[QREAD]);
     }
+#endif
 }
 
 /*! *********************************************************************************
@@ -416,6 +454,15 @@ static void SPIFI_WritePage(uint32_t NoOfBytes, uint32_t Addr, uint8_t *Outbuf)
         SPIFI_SetCommand(SPIFI, &command[WREN]);
         SPIFI_SetCommandAddress(SPIFI, Addr + FSL_FEATURE_SPIFI_START_ADDR);
 
+#ifdef SPIFI_OPTIM_SIZE
+#if IS_SPIFI_DUAL_MODE()
+        command[PP].dataLen = NoOfBytes;
+        SPIFI_SetCommand(SPIFI, &command[PP]);
+#else
+        command[QPP].dataLen = NoOfBytes;
+        SPIFI_SetCommand(SPIFI, &command[QPP]);
+#endif
+#else
         if (IS_SPIFI_DUAL_MODE())
         {
             command[PP].dataLen = NoOfBytes;
@@ -426,7 +473,7 @@ static void SPIFI_WritePage(uint32_t NoOfBytes, uint32_t Addr, uint8_t *Outbuf)
             command[QPP].dataLen = NoOfBytes;
             SPIFI_SetCommand(SPIFI, &command[QPP]);
         }
-
+#endif
         SPIFI_WriteBuffer(SPIFI, Outbuf, NoOfBytes);
         qspi_wait_for_completion();
         SPIFI_SetRead(0);
@@ -478,11 +525,18 @@ int SPIFI_Flash_Init(void)
             /* Initialize SPIFI */
             SPIFI_GetDefaultConfig(&config);
             bool dual_mode = false;
+#ifdef SPIFI_OPTIM_SIZE
+#if IS_SPIFI_DUAL_MODE()
+            config.dualMode = kSPIFI_DualMode;
+            dual_mode = true;
+#endif
+#else
             if (IS_SPIFI_DUAL_MODE())
             {
                 config.dualMode = kSPIFI_DualMode;
                 dual_mode = true;
             }
+#endif
             SPIFI_Init(SPIFI, &config);
 
             uint32_t val = SPIFI_readCommand(RDID);
@@ -529,9 +583,17 @@ int SPIFI_Flash_Init(void)
 
             /* Setup memory command */
             SPIFI_SetCommand(SPIFI, &command[WREN]);
+
+#ifdef SPIFI_OPTIM_SIZE
+#if IS_SPIFI_DUAL_MODE()
+            SPIFI_SetMemoryCommand(SPIFI, &command[DREAD]);
+#else
+            SPIFI_SetMemoryCommand(SPIFI, &command[QREAD]);
+#endif
+#else
             command_t read_op =  dual_mode ? DREAD : QREAD;
             SPIFI_SetMemoryCommand(SPIFI, &command[read_op]);
-
+#endif
             initialized = 1;
 
         } while (0);
@@ -583,6 +645,7 @@ uint32_t SPIFI_readCommand (command_t cmd)
     return(SPIFI_ReadData(SPIFI));
 }
 
+#ifndef SPIFI_OPTIM_SIZE
 void SPIFI_ChipErase(void)
 {
     /* Reset the SPIFI to switch to command mode */
@@ -597,6 +660,7 @@ void SPIFI_ChipErase(void)
     while ((SPIFI->STAT & SPIFI_STAT_INTRQ_MASK) == 0U);
 
 }
+#endif
 
 /*! *********************************************************************************
 * \brief   Write a data buffer into the external memory, at a given address
@@ -656,9 +720,11 @@ static void SPIFI_eraseBlock(uint32_t Addr, uint32_t block_size)
     case QSPIFLASH_BLOCK_SIZE:
         cmd = BE32K;
         break;
+#ifndef SPIFI_OPTIM_SIZE
     case QSPIFLASH_BLOCK2_SIZE:
         cmd = BE64K;
         break;
+#endif
     default:
         return;
     }
@@ -702,16 +768,19 @@ uint8_t SPIFI_eraseArea(uint32_t Addr, int32_t size)
         for (erase_addr = Addr; remain_sz > 0; )
         {
             sz = QSPIFLASH_SECTOR_SIZE;
-
+#ifndef SPIFI_OPTIM_SIZE
             if ((IS_ALIGNED(erase_addr, QSPIFLASH_BLOCK2_SIZE) && (remain_sz >= QSPIFLASH_BLOCK2_SIZE)))  /* QSPIFLASH_BLOCK_SIZE*2 */
             {
                 sz = QSPIFLASH_BLOCK2_SIZE;
             }
-            else if ((IS_ALIGNED(erase_addr, QSPIFLASH_BLOCK_SIZE) && (remain_sz >= QSPIFLASH_BLOCK_SIZE))) /* QSPIFLASH_BLOCK_SIZE */
+            else
+#endif
             {
-                sz = QSPIFLASH_BLOCK_SIZE;
+                if ((IS_ALIGNED(erase_addr, QSPIFLASH_BLOCK_SIZE) && (remain_sz >= QSPIFLASH_BLOCK_SIZE))) /* QSPIFLASH_BLOCK_SIZE */
+                {
+                    sz = QSPIFLASH_BLOCK_SIZE;
+                }
             }
-
             SPIFI_eraseBlock(erase_addr, sz);
             erase_addr += sz;
             remain_sz -= sz;

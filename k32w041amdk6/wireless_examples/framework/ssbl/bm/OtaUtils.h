@@ -34,8 +34,32 @@
 #define OTA_UTILS_PSECT_OTA_PARTITION_IMAGE_TYPE                (0xFC)
 #define OTA_UTILS_PSECT_NVM_PARTITION_IMAGE_TYPE                (0xFD)
 #define OTA_UTILS_PSECT_EXT_FLASH_TEXT_PARTITION_IMAGE_TYPE     (0xFE)
-#define OTA_UTILS_PSECT_RESERVED_PARTITION_IMAGE_TYPE (0xFF) /* For reserving some pages for data storage outside PDM */
+#define OTA_UTILS_PSECT_RESERVED_PARTITION_IMAGE_TYPE           (0xFF) /* For reserving some pages for data storage outside PDM */
 
+
+#ifndef BIT
+#define BIT(x) (1<<(x))
+#endif
+
+#define OTA_BOOTABLE_IMAGE_FLAG      BIT(0)
+#define OTA_CUSTOM_ENTRY_FLAG        BIT(2)
+#define OTA_IMAGE_VALIDATED_FLAG     BIT(3)
+#define OTA_IMAGE_APPLIED_FLAG       BIT(4)
+#define OTA_AES_SW_CIPHERING_FLAG    BIT(6)
+#define OTA_AES_FUSED_CIPHERING_FLAG BIT(7)
+
+#if defined (gOTAUseCustomOtaEntry) && (gOTAUseCustomOtaEntry == 1)
+#define OTACustomStorage_Ram         0
+#define OTACustomStorage_ExtFlash    1
+
+#ifndef gOTACustomOtaEntryMemory
+#define gOTACustomOtaEntryMemory     OTACustomStorage_Ram
+#endif
+
+#define OTAMaxCustomEntryNumber     8
+#define OTAMaxCustomDataWords       16 /* 16 words = 64 Bytes */
+
+#endif /* gOTAUseCustomOtaEntry */
 /*! *********************************************************************************
 *************************************************************************************
 * Public type definitions
@@ -76,12 +100,41 @@ typedef struct {
     uint32_t flags;         /* Extra flags, normally 0. */
 } aesContext_t;
 
+#if defined (gOTAUseCustomOtaEntry) && (gOTAUseCustomOtaEntry == 1)
+
+typedef enum {
+    otaNoImage,
+    otaNewImage,
+    otaValidated,
+    otaStarted,
+    otaApplied,
+    otaNotApplied
+}otaCustomState_t;
+
+typedef struct {
+    image_directory_entry_t entries[OTAMaxCustomEntryNumber];   /* All entries */
+    uint32_t custom_data[OTAMaxCustomDataWords];                /* Allow support for custom data */
+    uint16_t custom_data_length;                                /* Size of custom data if needed */
+    otaCustomState_t ota_state;                                 /* State of the OTA procedure - Used by SSBL to specify whether or not the OTA has been applied */
+    uint8_t number_of_entry;                                    /* Number of entry filled */
+} CustomOtaEntries_t;
+#endif /* gOTAUseCustomOtaEntry */
+
 /*
  * Function pointer to read from the flash driver
  */
 typedef otaUtilsResult_t (*OtaUtils_EEPROM_ReadData)(uint16_t nbBytes,
                                                      uint32_t address,
                                                      uint8_t *pInbuf);
+
+#if defined(gOTAUseCustomOtaEntry) && (gOTAUseCustomOtaEntry == 1)
+/*
+ * Function pointer to write to the flash driver
+ */
+typedef otaUtilsResult_t (*OtaUtils_EEPROM_WriteData)(uint16_t nbBytes,
+                                                     uint32_t address,
+                                                     uint8_t *pInbuf);
+#endif
 
 /*
  * Function allowing to read data
@@ -288,6 +341,33 @@ uint32_t OtaUtils_ValidateImage(OtaUtils_ReadBytes pFunctionRead,
 *
 ********************************************************************************** */
 otaUtilsResult_t OtaUtils_ReconstructRootCert(IMAGE_CERT_T *pCert, const psector_page_data_t* pPage0, const psector_page_data_t* pFlashPage);
+
+#if defined(gOTAUseCustomOtaEntry) && (gOTAUseCustomOtaEntry == 1)
+/*! *********************************************************************************
+* \brief  Allows to store custom OTA entry structure in Ram/Flash
+*
+* \param[in] pEntry: OTA entry fields to be stored in RAM/Flash
+* \param[in] pFunctionWrite: function pointer to write data from a memory driver
+* \param[in] storageTopAddr: Top address of the storage
+*
+* \return otaUtilsResult_t
+*
+********************************************************************************** */
+otaUtilsResult_t OtaUtils_StoreCustomOtaEntry(CustomOtaEntries_t *pEntry, OtaUtils_EEPROM_WriteData pFunctionWrite, uint32_t storageTopAddr);
+
+/*! *********************************************************************************
+* \brief  Access custom OTA entry structure in Ram/Flash
+*
+* \param[in/out] data: structure to receive the OTA entry fields from RAM/Flash
+* \param[in/out] lenght_bytes: size in bytes of the data
+* \param[in] pFunctionRead: function pointer to read data from a memory driver
+* \param[in] storageTopAddr: Top address of the storage
+*
+* \return otaUtilsResult_t
+*
+********************************************************************************** */
+otaUtilsResult_t OtaUtils_GetCustomOtaEntry(CustomOtaEntries_t *pEntry, uint16_t *pLenghtBytes, OtaUtils_EEPROM_ReadData pFunctionRead, uint32_t storageTopAddr);
+#endif /* gOTAUseCustomOtaEntry */
 
 #ifdef __cplusplus
 }
