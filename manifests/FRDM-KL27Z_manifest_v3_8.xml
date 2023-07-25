@@ -2430,7 +2430,7 @@ ${load}</script>
         <files mask="middleware_baremetal_MKL27Z644.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.MKL27Z644" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="202007.00.0" full_name="FreeRTOS kernel" devices="MKL27Z32xxx4 MKL27Z64xxx4" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.MKL27Z644" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="202007.00.0" full_name="FreeRTOS kernel" devices="MKL27Z32xxx4 MKL27Z64xxx4" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <defines>
         <define name="FSL_RTOS_FREE_RTOS" value=""/>
         <define name="SDK_OS_FREE_RTOS" value=""/>
@@ -2490,7 +2490,7 @@ ${load}</script>
         <include_path relative_path="portable/GCC/ARM_CM0" toolchain="armgcc mcuxpresso" type="c_include" device_cores="core0_MKL27Z32xxx4 core0_MKL27Z64xxx4"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.armv8m.MKL27Z644" name="FreeRTOS port ARMv8M" brief="FreeRTOS port ARMv8M" version="202007.00.0" full_name="FreeRTOS port ARMv8M" devices="MKL27Z32xxx4 MKL27Z64xxx4" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.armv8m.MKL27Z644" name="FreeRTOS port ARMv8M" brief="FreeRTOS port ARMv8M" version="202007.00.0" full_name="FreeRTOS port ARMv8M" devices="MKL27Z32xxx4 MKL27Z64xxx4" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MKL27Z644"/>
       </dependencies>
@@ -2578,7 +2578,7 @@ ${load}</script>
         <include_path relative_path="portable/ARMv8M/secure/macros" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.extension.MKL27Z644" name="FreeRTOS NXP extension" brief="FreeRTOS NXP extension" version="202007.00.0" full_name="FreeRTOS NXP extension" devices="MKL27Z32xxx4 MKL27Z64xxx4" category="Operating System/FreeRTOS kernel extensions" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.extension.MKL27Z644" name="FreeRTOS NXP extension" brief="FreeRTOS NXP extension" version="202007.00.0" full_name="FreeRTOS NXP extension" devices="MKL27Z32xxx4 MKL27Z64xxx4" category="Operating System/FreeRTOS kernel extensions" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <source relative_path="include" type="c_include">
         <files mask="freertos_tasks_c_additions.h"/>
       </source>
@@ -2589,7 +2589,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.heap_1.MKL27Z644" name="FreeRTOS heap 1" brief="FreeRTOS heap 1" version="202007.00.0" full_name="FreeRTOS heap 1" devices="MKL27Z32xxx4 MKL27Z64xxx4" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_1.MKL27Z644" name="FreeRTOS heap 1" brief="FreeRTOS heap 1" version="202007.00.0" full_name="FreeRTOS heap 1" devices="MKL27Z32xxx4 MKL27Z64xxx4" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MKL27Z644"/>
       </dependencies>
@@ -2597,7 +2597,7 @@ ${load}</script>
         <files mask="heap_1.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_2.MKL27Z644" name="FreeRTOS heap 2" brief="FreeRTOS heap 2" version="202007.00.0" full_name="FreeRTOS heap 2" devices="MKL27Z32xxx4 MKL27Z64xxx4" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_2.MKL27Z644" name="FreeRTOS heap 2" brief="FreeRTOS heap 2" version="202007.00.0" full_name="FreeRTOS heap 2" devices="MKL27Z32xxx4 MKL27Z64xxx4" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MKL27Z644"/>
       </dependencies>
@@ -2605,7 +2605,7 @@ ${load}</script>
         <files mask="heap_2.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_3.MKL27Z644" name="FreeRTOS heap 3" brief="FreeRTOS heap 3" version="202007.00.0" full_name="FreeRTOS heap_3" devices="MKL27Z32xxx4 MKL27Z64xxx4" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_3.MKL27Z644" name="FreeRTOS heap 3" brief="FreeRTOS heap 3" version="202007.00.0" full_name="FreeRTOS heap_3" devices="MKL27Z32xxx4 MKL27Z64xxx4" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MKL27Z644"/>
       </dependencies>
@@ -2613,7 +2613,7 @@ ${load}</script>
         <files mask="heap_3.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_4.MKL27Z644" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="202007.00.0" full_name="FreeRTOS heap 4" devices="MKL27Z32xxx4 MKL27Z64xxx4" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_4.MKL27Z644" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="202007.00.0" full_name="FreeRTOS heap 4" devices="MKL27Z32xxx4 MKL27Z64xxx4" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MKL27Z644"/>
       </dependencies>
@@ -2624,7 +2624,7 @@ ${load}</script>
         <files mask="middleware_freertos-kernel_heap_4_MKL27Z644.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_5.MKL27Z644" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="202007.00.0" full_name="FreeRTOS heap 5" devices="MKL27Z32xxx4 MKL27Z64xxx4" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_5.MKL27Z644" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="202007.00.0" full_name="FreeRTOS heap 5" devices="MKL27Z32xxx4 MKL27Z64xxx4" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MKL27Z644"/>
       </dependencies>
@@ -2632,7 +2632,7 @@ ${load}</script>
         <files mask="heap_5.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_newlib.MKL27Z644" name="FreeRTOS heap newlib" brief="FreeRTOS heap newlib" version="202007.00.0" full_name="FreeRTOS heap newlib" devices="MKL27Z32xxx4 MKL27Z64xxx4" category="Operating System/FreeRTOS kernel extensions" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_newlib.MKL27Z644" name="FreeRTOS heap newlib" brief="FreeRTOS heap newlib" version="202007.00.0" full_name="FreeRTOS heap newlib" devices="MKL27Z32xxx4 MKL27Z64xxx4" category="Operating System/FreeRTOS kernel extensions" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MKL27Z644"/>
       </dependencies>
@@ -2640,7 +2640,7 @@ ${load}</script>
         <files mask="heap_useNewlib.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.mpu_wrappers.MKL27Z644" name="FreeRTOS MPU wrappers" brief="FreeRTOS MPU wrappers" version="202007.00.0" full_name="FreeRTOS MPU wrappers" devices="MKL27Z32xxx4 MKL27Z64xxx4" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.mpu_wrappers.MKL27Z644" name="FreeRTOS MPU wrappers" brief="FreeRTOS MPU wrappers" version="202007.00.0" full_name="FreeRTOS MPU wrappers" devices="MKL27Z32xxx4 MKL27Z64xxx4" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MKL27Z644"/>
       </dependencies>
@@ -2648,7 +2648,7 @@ ${load}</script>
         <files mask="mpu_wrappers.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.template.MKL27Z644" name="FreeRTOS configuration template" brief="Template configuration file to be edited by user. Provides also memory allocator (heap_x), change variant if needed." version="202007.00.0" full_name="FreeRTOS configuration template" devices="MKL27Z32xxx4 MKL27Z64xxx4" category="Operating System/FreeRTOS kernel" user_visible="false" type="project_template" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.template.MKL27Z644" name="FreeRTOS configuration template" brief="Template configuration file to be edited by user. Provides also memory allocator (heap_x), change variant if needed." version="202007.00.0" full_name="FreeRTOS configuration template" devices="MKL27Z32xxx4 MKL27Z64xxx4" category="Operating System/FreeRTOS kernel" user_visible="false" type="project_template" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <source relative_path="template/ARM_CM0" type="c_include" device_cores="core0_MKL27Z32xxx4 core0_MKL27Z64xxx4">
         <files mask="FreeRTOSConfig.h"/>
       </source>
@@ -2666,7 +2666,7 @@ ${load}</script>
         <include_path relative_path="template/ARM_CM0" type="c_include" device_cores="core0_MKL27Z32xxx4 core0_MKL27Z64xxx4"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.unused.MKL27Z644" name="FreeRTOS unused" brief="FreeRTOS unused" version="202007.00.0" full_name="FreeRTOS unused" devices="MKL27Z32xxx4 MKL27Z64xxx4" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.unused.MKL27Z644" name="FreeRTOS unused" brief="FreeRTOS unused" version="202007.00.0" full_name="FreeRTOS unused" devices="MKL27Z32xxx4 MKL27Z64xxx4" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <source relative_path="./" type="doc">
         <files mask="History.txt"/>
         <files mask="readme.txt"/>

@@ -6179,7 +6179,7 @@ ${load}</script>
         <files mask="middleware_baremetal.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.LPC55S36" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="202012.00.0" full_name="FreeRTOS kernel" devices="LPC55S36" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.LPC55S36" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="202012.00.0" full_name="FreeRTOS kernel" devices="LPC55S36" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <defines>
         <define name="SDK_OS_FREE_RTOS" value=""/>
       </defines>
@@ -6231,7 +6231,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.armv8m.LPC55S36" name="FreeRTOS port ARMv8M" brief="FreeRTOS port ARMv8M" version="202012.00.0" full_name="FreeRTOS port ARMv8M" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.armv8m.LPC55S36" name="FreeRTOS port ARMv8M" brief="FreeRTOS port ARMv8M" version="202012.00.0" full_name="FreeRTOS port ARMv8M" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.LPC55S36"/>
       </dependencies>
@@ -6319,7 +6319,7 @@ ${load}</script>
         <include_path relative_path="portable/ARMv8M/secure/macros" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.cm33_nonsecure_port.LPC55S36" name="cm33 nonsecure port" brief="FreeRTOS cm33 nonsecure port" version="202012.00.0" full_name="FreeRTOS cm33 nonsecure port" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="true" type="middleware" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.cm33_nonsecure_port.LPC55S36" name="cm33 nonsecure port" brief="FreeRTOS cm33 nonsecure port" version="202012.00.0" full_name="FreeRTOS cm33 nonsecure port" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="true" type="middleware" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <all>
           <component_dependency value="middleware.freertos-kernel.LPC55S36"/>
@@ -6341,7 +6341,7 @@ ${load}</script>
         <include_path relative_path="portable/GCC/ARM_CM33_NTZ/non_secure" toolchain="armgcc mcuxpresso" type="c_include" device_cores="cm33_core0_LPC55S36"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.cm33_secure_port.LPC55S36" name="cm33 secure port" brief="FreeRTOS cm33 secure port" version="202012.00.0" full_name="FreeRTOS cm33 secure port" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="false" type="middleware" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.cm33_secure_port.LPC55S36" name="cm33 secure port" brief="FreeRTOS cm33 secure port" version="202012.00.0" full_name="FreeRTOS cm33 secure port" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="false" type="middleware" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <all>
           <component_dependency value="middleware.freertos-kernel.LPC55S36"/>
@@ -6444,7 +6444,7 @@ ${load}</script>
         <files mask="global_config.txt"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.extension.LPC55S36" name="FreeRTOS NXP extension" brief="FreeRTOS NXP extension" version="202012.00.0" full_name="FreeRTOS NXP extension" devices="LPC55S36" category="Operating System/FreeRTOS kernel extensions" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.extension.LPC55S36" name="FreeRTOS NXP extension" brief="FreeRTOS NXP extension" version="202012.00.0" full_name="FreeRTOS NXP extension" devices="LPC55S36" category="Operating System/FreeRTOS kernel extensions" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <source relative_path="include" type="c_include">
         <files mask="freertos_tasks_c_additions.h"/>
       </source>
@@ -6455,7 +6455,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.heap_1.LPC55S36" name="FreeRTOS heap 1" brief="FreeRTOS heap 1" version="202012.00.0" full_name="FreeRTOS heap 1" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_1.LPC55S36" name="FreeRTOS heap 1" brief="FreeRTOS heap 1" version="202012.00.0" full_name="FreeRTOS heap 1" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.LPC55S36"/>
       </dependencies>
@@ -6463,7 +6463,7 @@ ${load}</script>
         <files mask="heap_1.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_2.LPC55S36" name="FreeRTOS heap 2" brief="FreeRTOS heap 2" version="202012.00.0" full_name="FreeRTOS heap 2" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_2.LPC55S36" name="FreeRTOS heap 2" brief="FreeRTOS heap 2" version="202012.00.0" full_name="FreeRTOS heap 2" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.LPC55S36"/>
       </dependencies>
@@ -6471,7 +6471,7 @@ ${load}</script>
         <files mask="heap_2.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_3.LPC55S36" name="FreeRTOS heap 3" brief="FreeRTOS heap 3" version="202012.00.0" full_name="FreeRTOS heap_3" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_3.LPC55S36" name="FreeRTOS heap 3" brief="FreeRTOS heap 3" version="202012.00.0" full_name="FreeRTOS heap_3" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.LPC55S36"/>
       </dependencies>
@@ -6479,7 +6479,7 @@ ${load}</script>
         <files mask="heap_3.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_4.LPC55S36" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="202012.00.0" full_name="FreeRTOS heap 4" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_4.LPC55S36" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="202012.00.0" full_name="FreeRTOS heap 4" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.LPC55S36"/>
       </dependencies>
@@ -6490,7 +6490,7 @@ ${load}</script>
         <files mask="middleware_freertos-kernel_heap_4.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_5.LPC55S36" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="202012.00.0" full_name="FreeRTOS heap 5" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_5.LPC55S36" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="202012.00.0" full_name="FreeRTOS heap 5" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.LPC55S36"/>
       </dependencies>
@@ -6498,7 +6498,7 @@ ${load}</script>
         <files mask="heap_5.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.mpu_wrappers.LPC55S36" name="FreeRTOS MPU wrappers" brief="FreeRTOS MPU wrappers" version="202012.00.0" full_name="FreeRTOS MPU wrappers" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.mpu_wrappers.LPC55S36" name="FreeRTOS MPU wrappers" brief="FreeRTOS MPU wrappers" version="202012.00.0" full_name="FreeRTOS MPU wrappers" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.LPC55S36"/>
       </dependencies>
@@ -6509,7 +6509,7 @@ ${load}</script>
         <files mask="middleware_freertos-kernel_mpu_wrappers.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.secure_context.LPC55S36" name="secure context" brief="FreeRTOS Secure Context" version="202012.00.0" full_name="FreeRTOS Secure Context" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="true" type="middleware" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.secure_context.LPC55S36" name="secure context" brief="FreeRTOS Secure Context" version="202012.00.0" full_name="FreeRTOS Secure Context" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="true" type="middleware" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.template.LPC55S36"/>
       </dependencies>
@@ -6533,7 +6533,7 @@ ${load}</script>
         <include_path relative_path="portable/GCC/ARM_CM33/non_secure" toolchain="armgcc mcuxpresso" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.template.LPC55S36" name="FreeRTOS configuration template" brief="Template configuration file to be edited by user. Provides also memory allocator (heap_x), change variant if needed." version="202012.00.0" full_name="FreeRTOS configuration template" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="false" type="project_template" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.template.LPC55S36" name="FreeRTOS configuration template" brief="Template configuration file to be edited by user. Provides also memory allocator (heap_x), change variant if needed." version="202012.00.0" full_name="FreeRTOS configuration template" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="false" type="project_template" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <source toolchain="armgcc mcuxpresso" relative_path="portable/GCC/ARM_CM33_NTZ/non_secure" type="src" device_cores="cm33_core0_LPC55S36">
         <files mask="port.c"/>
         <files mask="portasm.c"/>
@@ -6556,7 +6556,7 @@ ${load}</script>
         <include_path relative_path="portable/GCC/ARM_CM33_NTZ/non_secure" toolchain="armgcc mcuxpresso" type="c_include" device_cores="cm33_core0_LPC55S36"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.unused.LPC55S36" name="FreeRTOS unused" brief="FreeRTOS unused" version="202012.00.0" full_name="FreeRTOS unused" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.unused.LPC55S36" name="FreeRTOS unused" brief="FreeRTOS unused" version="202012.00.0" full_name="FreeRTOS unused" devices="LPC55S36" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <source relative_path="./" type="other">
         <files mask="GitHub-FreeRTOS-Kernel-Home.url"/>
         <files mask="LICENSE.md"/>

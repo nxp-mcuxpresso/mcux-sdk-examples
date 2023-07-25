@@ -4701,7 +4701,7 @@ ${load}</script>
         <include_path relative_path="source/fsl_usb_disk" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.MIMXRT1176" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="10.4.3" revision="1" full_name="FreeRTOS kernel" devices="MIMXRT1176xxxxx" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos/freertos_kernel">
+    <component id="middleware.freertos-kernel.MIMXRT1176" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="10.4.3" revision="1" full_name="FreeRTOS kernel" devices="MIMXRT1176xxxxx" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <defines>
         <define name="SDK_OS_FREE_RTOS" value=""/>
       </defines>
@@ -4760,7 +4760,7 @@ ${load}</script>
         <include_path relative_path="portable/GCC/ARM_CM4F" toolchain="armgcc mcuxpresso" type="c_include" device_cores="cm4_MIMXRT1176xxxxx cm7_MIMXRT1176xxxxx"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.armv8m.MIMXRT1176" name="FreeRTOS port ARMv8M" brief="FreeRTOS port ARMv8M" version="10.4.3" revision="1" full_name="FreeRTOS port ARMv8M" devices="MIMXRT1176xxxxx" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos/freertos_kernel">
+    <component id="middleware.freertos-kernel.armv8m.MIMXRT1176" name="FreeRTOS port ARMv8M" brief="FreeRTOS port ARMv8M" version="10.4.3" revision="1" full_name="FreeRTOS port ARMv8M" devices="MIMXRT1176xxxxx" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MIMXRT1176"/>
       </dependencies>
@@ -4845,7 +4845,7 @@ ${load}</script>
         <include_path relative_path="portable/ARMv8M/secure/macros" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.doc.MIMXRT1176" name="Root FreeRTOS documents." brief="FreeRTOS root documents" version="10.4.3" revision="1" full_name="FreeRTOS root documents" devices="MIMXRT1176xxxxx" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos/freertos_kernel">
+    <component id="middleware.freertos-kernel.doc.MIMXRT1176" name="Root FreeRTOS documents." brief="FreeRTOS root documents" version="10.4.3" revision="1" full_name="FreeRTOS root documents" devices="MIMXRT1176xxxxx" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <source relative_path="./" type="doc">
         <files mask="ChangeLogKSDK.txt"/>
         <files mask="History.txt"/>
@@ -4860,7 +4860,7 @@ ${load}</script>
         <files mask="Use-the-GCC-ports.txt"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.extension.MIMXRT1176" name="FreeRTOS NXP extension" brief="FreeRTOS NXP extension" version="10.4.3" revision="1" full_name="FreeRTOS NXP extension" devices="MIMXRT1176xxxxx" category="Operating System/FreeRTOS kernel extensions" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos/freertos_kernel">
+    <component id="middleware.freertos-kernel.extension.MIMXRT1176" name="FreeRTOS NXP extension" brief="FreeRTOS NXP extension" version="10.4.3" revision="1" full_name="FreeRTOS NXP extension" devices="MIMXRT1176xxxxx" category="Operating System/FreeRTOS kernel extensions" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <source relative_path="include" type="c_include">
         <files mask="freertos_tasks_c_additions.h"/>
       </source>
@@ -4868,7 +4868,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.heap_1.MIMXRT1176" name="FreeRTOS heap 1" brief="FreeRTOS heap 1" version="10.4.3" revision="1" full_name="FreeRTOS heap 1" devices="MIMXRT1176xxxxx" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos/freertos_kernel">
+    <component id="middleware.freertos-kernel.heap_1.MIMXRT1176" name="FreeRTOS heap 1" brief="FreeRTOS heap 1" version="10.4.3" revision="1" full_name="FreeRTOS heap 1" devices="MIMXRT1176xxxxx" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MIMXRT1176"/>
       </dependencies>
@@ -4876,7 +4876,7 @@ ${load}</script>
         <files mask="heap_1.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_2.MIMXRT1176" name="FreeRTOS heap 2" brief="FreeRTOS heap 2" version="10.4.3" revision="1" full_name="FreeRTOS heap 2" devices="MIMXRT1176xxxxx" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos/freertos_kernel">
+    <component id="middleware.freertos-kernel.heap_2.MIMXRT1176" name="FreeRTOS heap 2" brief="FreeRTOS heap 2" version="10.4.3" revision="1" full_name="FreeRTOS heap 2" devices="MIMXRT1176xxxxx" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MIMXRT1176"/>
       </dependencies>
@@ -4884,7 +4884,7 @@ ${load}</script>
         <files mask="heap_2.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_3.MIMXRT1176" name="FreeRTOS heap 3" brief="FreeRTOS heap 3" version="10.4.3" revision="1" full_name="FreeRTOS heap_3" devices="MIMXRT1176xxxxx" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos/freertos_kernel">
+    <component id="middleware.freertos-kernel.heap_3.MIMXRT1176" name="FreeRTOS heap 3" brief="FreeRTOS heap 3" version="10.4.3" revision="1" full_name="FreeRTOS heap_3" devices="MIMXRT1176xxxxx" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MIMXRT1176"/>
       </dependencies>
@@ -4892,7 +4892,7 @@ ${load}</script>
         <files mask="heap_3.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_4.MIMXRT1176" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="10.4.3" revision="1" full_name="FreeRTOS heap 4" devices="MIMXRT1176xxxxx" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos/freertos_kernel">
+    <component id="middleware.freertos-kernel.heap_4.MIMXRT1176" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="10.4.3" revision="1" full_name="FreeRTOS heap 4" devices="MIMXRT1176xxxxx" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MIMXRT1176"/>
       </dependencies>
@@ -4900,7 +4900,7 @@ ${load}</script>
         <files mask="heap_4.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_5.MIMXRT1176" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="10.4.3" revision="1" full_name="FreeRTOS heap 5" devices="MIMXRT1176xxxxx" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos/freertos_kernel">
+    <component id="middleware.freertos-kernel.heap_5.MIMXRT1176" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="10.4.3" revision="1" full_name="FreeRTOS heap 5" devices="MIMXRT1176xxxxx" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MIMXRT1176"/>
       </dependencies>
@@ -4908,7 +4908,7 @@ ${load}</script>
         <files mask="heap_5.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.mpu_wrappers.MIMXRT1176" name="FreeRTOS MPU wrappers" brief="FreeRTOS MPU wrappers" version="10.4.3" revision="1" full_name="FreeRTOS MPU wrappers" devices="MIMXRT1176xxxxx" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos/freertos_kernel">
+    <component id="middleware.freertos-kernel.mpu_wrappers.MIMXRT1176" name="FreeRTOS MPU wrappers" brief="FreeRTOS MPU wrappers" version="10.4.3" revision="1" full_name="FreeRTOS MPU wrappers" devices="MIMXRT1176xxxxx" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MIMXRT1176"/>
       </dependencies>
@@ -4916,7 +4916,7 @@ ${load}</script>
         <files mask="mpu_wrappers.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.template.MIMXRT1176" name="FreeRTOS configuration template" brief="Template configuration file to be edited by user. Provides also memory allocator (heap_x), change variant if needed." version="10.4.3" revision="1" full_name="FreeRTOS configuration template" devices="MIMXRT1176xxxxx" category="Operating System/FreeRTOS kernel" user_visible="false" type="project_template" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos/freertos_kernel">
+    <component id="middleware.freertos-kernel.template.MIMXRT1176" name="FreeRTOS configuration template" brief="Template configuration file to be edited by user. Provides also memory allocator (heap_x), change variant if needed." version="10.4.3" revision="1" full_name="FreeRTOS configuration template" devices="MIMXRT1176xxxxx" category="Operating System/FreeRTOS kernel" user_visible="false" type="project_template" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <source exclude="true" relative_path="portable/MemMang" type="src">
         <files mask="heap_1.c"/>
         <files mask="heap_2.c"/>
