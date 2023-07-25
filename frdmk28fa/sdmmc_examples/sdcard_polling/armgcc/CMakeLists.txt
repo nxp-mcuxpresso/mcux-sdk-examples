@@ -99,11 +99,11 @@ include(device_startup)
 
 include(driver_smc)
 
-include(CMSIS_Include_core_cm4)
+include(CMSIS_Include_core_cm)
 
-include(CMSIS_Include_common)
+include(CMSIS_Include_core_cm)
 
-include(CMSIS_Include_dsp)
+include(CMSIS_DSP_Include)
 
 include(middleware_sdmmc_osa_bm)
 

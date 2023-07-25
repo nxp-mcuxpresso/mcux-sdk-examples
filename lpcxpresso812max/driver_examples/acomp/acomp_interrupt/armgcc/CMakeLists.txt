@@ -88,11 +88,11 @@ include(driver_lpc_miniusart)
 
 include(driver_lpc_iocon_lite)
 
-include(CMSIS_Include_core_cm0plus)
+include(CMSIS_Include_core_cm)
 
-include(CMSIS_Include_common)
+include(CMSIS_Include_core_cm)
 
-include(CMSIS_Include_dsp)
+include(CMSIS_DSP_Include)
 
 include(driver_reset)
 

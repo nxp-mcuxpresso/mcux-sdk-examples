@@ -88,11 +88,11 @@ include(driver_igpio)
 
 include(middleware_mmcau_common_files)
 
-include(CMSIS_Include_core_cm4)
+include(CMSIS_Include_core_cm)
 
-include(CMSIS_Include_common)
+include(CMSIS_Include_core_cm)
 
-include(CMSIS_Include_dsp)
+include(CMSIS_DSP_Include)
 
 include(utilities_misc_utilities)
 
