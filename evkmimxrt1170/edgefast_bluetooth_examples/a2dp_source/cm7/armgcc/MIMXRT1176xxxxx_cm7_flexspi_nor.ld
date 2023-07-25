@@ -93,7 +93,7 @@ SECTIONS
     . = ALIGN(4);
   } > m_flash_config
 
-  ivt_begin= ORIGIN(m_flash_config) + LENGTH(m_flash_config);
+  ivt_begin = ORIGIN(m_flash_config) + LENGTH(m_flash_config);
 
   .ivt : AT(ivt_begin)
   {
