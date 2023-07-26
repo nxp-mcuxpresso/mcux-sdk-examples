@@ -9246,7 +9246,7 @@ ${load}</script>
         <files mask="utility_assert_lite.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="utility.debug_console.LPC55S36" name="debug_console" brief="Utility debug_console" version="1.0.0" full_name="Utility debug_console" devices="LPC55S36" device_cores="cm33_core0_LPC55S36" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console" project_base_path="utilities">
+    <component id="utility.debug_console.LPC55S36" name="debug_console" brief="Utility debug_console" version="1.0.0" full_name="Utility debug_console" devices="LPC55S36" device_cores="cm33_core0_LPC55S36" user_visible="true" type="utilities" package_base_path="core/utilities" project_base_path="utilities">
       <dependencies>
         <all>
           <component_dependency value="component.serial_manager.LPC55S36"/>
@@ -9274,7 +9274,7 @@ ${load}</script>
         <include_path relative_path="debug_console" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="utility.debug_console_lite.LPC55S36" name="debug_console_lite" brief="Utility debug_console_lite" version="1.0.0" full_name="Utility debug_console_lite" devices="LPC55S36" device_cores="cm33_core0_LPC55S36" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console_lite" project_base_path="utilities">
+    <component id="utility.debug_console_lite.LPC55S36" name="debug_console_lite" brief="Utility debug_console_lite" version="1.0.0" full_name="Utility debug_console_lite" devices="LPC55S36" device_cores="cm33_core0_LPC55S36" user_visible="true" type="utilities" package_base_path="core/utilities" project_base_path="utilities">
       <dependencies>
         <all>
           <component_dependency value="component.usart_adapter.LPC55S36"/>

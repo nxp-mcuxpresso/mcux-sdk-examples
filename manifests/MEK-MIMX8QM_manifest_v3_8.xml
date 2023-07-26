@@ -1216,7 +1216,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.Include_common.MIMX8QM6" name="CMSIS_Include_common" brief="Cmsis_include_common" version="5.3.0" full_name="Cmsis_include_common" devices="MIMX8QM6xxxFF" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Include" project_base_path="CMSIS">
+    <component id="platform.Include_common.MIMX8QM6" name="CMSIS_Include_common" brief="Cmsis_include_common" version="5.3.0" full_name="Cmsis_include_common" devices="MIMX8QM6xxxFF" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Core/Include" project_base_path="CMSIS">
       <source relative_path="./" type="c_include">
         <files mask="cmsis_armcc.h"/>
         <files mask="cmsis_armclang.h"/>
@@ -1236,7 +1236,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.Include_core_cm4.MIMX8QM6" name="CMSIS_Include_core_cm4" brief="Cmsis_include_core_cm4" version="5.3.0" full_name="Cmsis_include_core_cm4" devices="MIMX8QM6xxxFF" device_cores="cm4_core0_MIMX8QM6xxxFF cm4_core1_MIMX8QM6xxxFF" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Include" project_base_path="CMSIS">
+    <component id="platform.Include_core_cm4.MIMX8QM6" name="CMSIS_Include_core_cm4" brief="Cmsis_include_core_cm4" version="5.3.0" full_name="Cmsis_include_core_cm4" devices="MIMX8QM6xxxFF" device_cores="cm4_core0_MIMX8QM6xxxFF cm4_core1_MIMX8QM6xxxFF" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Core/Include" project_base_path="CMSIS">
       <dependencies>
         <all>
           <component_dependency value="platform.Include_common.MIMX8QM6"/>
@@ -1257,7 +1257,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.Include_dsp.MIMX8QM6" name="CMSIS_Include_dsp" brief="Cmsis_include_dsp" version="1.7.0" full_name="Cmsis_include_dsp" devices="MIMX8QM6xxxFF" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Include" project_base_path="CMSIS">
+    <component id="platform.Include_dsp.MIMX8QM6" name="CMSIS_Include_dsp" brief="Cmsis_include_dsp" version="1.7.0" full_name="Cmsis_include_dsp" devices="MIMX8QM6xxxFF" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/DSP/Include" project_base_path="CMSIS">
       <source relative_path="./" type="c_include">
         <files mask="arm_common_tables.h"/>
         <files mask="arm_const_structs.h"/>
@@ -4367,7 +4367,7 @@ ${load}</script>
         <files mask="utility_assert_lite_MIMX8QM6_cm4_core1.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="utility.debug_console.MIMX8QM6" name="debug_console" brief="Utility debug_console" version="1.0.0" full_name="Utility debug_console" devices="MIMX8QM6xxxFF" device_cores="cm4_core0_MIMX8QM6xxxFF cm4_core1_MIMX8QM6xxxFF" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console" project_base_path="utilities">
+    <component id="utility.debug_console.MIMX8QM6" name="debug_console" brief="Utility debug_console" version="1.0.0" full_name="Utility debug_console" devices="MIMX8QM6xxxFF" device_cores="cm4_core0_MIMX8QM6xxxFF cm4_core1_MIMX8QM6xxxFF" user_visible="true" type="utilities" package_base_path="core/utilities" project_base_path="utilities">
       <dependencies>
         <all>
           <component_dependency value="component.serial_manager.MIMX8QM6"/>
@@ -4398,7 +4398,7 @@ ${load}</script>
         <include_path relative_path="debug_console" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="utility.debug_console_lite.MIMX8QM6" name="debug_console_lite" brief="Utility debug_console_lite" version="1.0.0" full_name="Utility debug_console_lite" devices="MIMX8QM6xxxFF" device_cores="cm4_core0_MIMX8QM6xxxFF cm4_core1_MIMX8QM6xxxFF" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console_lite" project_base_path="utilities">
+    <component id="utility.debug_console_lite.MIMX8QM6" name="debug_console_lite" brief="Utility debug_console_lite" version="1.0.0" full_name="Utility debug_console_lite" devices="MIMX8QM6xxxFF" device_cores="cm4_core0_MIMX8QM6xxxFF cm4_core1_MIMX8QM6xxxFF" user_visible="true" type="utilities" package_base_path="core/utilities" project_base_path="utilities">
       <dependencies>
         <all>
           <component_dependency value="component.lpuart_adapter.MIMX8QM6"/>

@@ -9502,7 +9502,7 @@ ${load}</script>
         <files mask="utility_assert_lite.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="utility.debug_console.MK64F12" name="debug_console" brief="Utility debug_console" version="1.0.0" full_name="Utility debug_console" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console" project_base_path="utilities">
+    <component id="utility.debug_console.MK64F12" name="debug_console" brief="Utility debug_console" version="1.0.0" full_name="Utility debug_console" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" user_visible="true" type="utilities" package_base_path="core/utilities" project_base_path="utilities">
       <dependencies>
         <all>
           <component_dependency value="component.serial_manager.MK64F12"/>
@@ -9530,7 +9530,7 @@ ${load}</script>
         <include_path relative_path="debug_console" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="utility.debug_console_lite.MK64F12" name="debug_console_lite" brief="Utility debug_console_lite" version="1.0.0" full_name="Utility debug_console_lite" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console_lite" project_base_path="utilities">
+    <component id="utility.debug_console_lite.MK64F12" name="debug_console_lite" brief="Utility debug_console_lite" version="1.0.0" full_name="Utility debug_console_lite" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" user_visible="true" type="utilities" package_base_path="core/utilities" project_base_path="utilities">
       <dependencies>
         <all>
           <component_dependency value="component.uart_adapter.MK64F12"/>
