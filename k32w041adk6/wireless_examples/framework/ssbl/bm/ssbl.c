@@ -855,7 +855,8 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
         if (FLASH_Erase(FLASH, (uint8_t*)img_addr_targeted,
                 (uint8_t*) erase_end_addr) != FLASH_DONE)
         {
-            RAISE_ERROR(err, StatusOta_operation_error);
+            /* Exit on failure - Considering issues during flash erase as fatal error - Directly go to ISP without clearing OTA entry */
+            RAISE_ERROR(err, StatusOta_fatal_error);
         }
 
         /* Before copying the image, check the iterator limit value. If inconsistency is detected, reduce it to the actual application size */
@@ -893,6 +894,10 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
                     (uint32_t*) &page_content_ota[0], FLASH_PAGE_SIZE) != FLASH_DONE)
                 RAISE_ERROR(err, StatusOta_operation_error);
         }
+
+        if(err != StatusOta_ok_so_far)
+            /* Exit on failure - Data already erased and issue occurs during programming - Directly go to ISP without clearing OTA entry */
+            RAISE_ERROR(err, StatusOta_fatal_error);
 
         if (ssblUpdate)
         {

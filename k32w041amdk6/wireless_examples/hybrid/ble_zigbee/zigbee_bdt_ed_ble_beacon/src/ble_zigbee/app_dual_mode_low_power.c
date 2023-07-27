@@ -88,6 +88,15 @@ static sDualModeLpStates dualModeLpStates;
 *************************************************************************************
 ************************************************************************************/
 
+/* recalibration is done on ISR, so the application can ask to skip recalibration if
+ * it detects that this process may touch some FreeRtos structures which are not
+ * designed to work in ISR context.
+ */
+WEAK bool should_skip_recal()
+{
+    return FALSE;
+}
+
 void BleAppWakeupEndCallback(void)
 {
     /* Wake 15.4 up too */
@@ -109,7 +118,7 @@ void BleAppWakeupEndCallback(void)
 void BleAppInactivityCallback(uint32_t inactive_time)
 {
     /* Check if a radio re-calibration is required */
-    if (XCVR_GetRecalDuration() != 0)
+    if (!should_skip_recal() && XCVR_GetRecalDuration())
     {
         BLE_get_sleep_mode();   /* does radio recalibration */
         inactive_time = BLE_TimeBeforeNextBleEvent();

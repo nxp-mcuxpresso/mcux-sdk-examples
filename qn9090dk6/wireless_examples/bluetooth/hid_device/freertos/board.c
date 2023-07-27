@@ -1415,8 +1415,6 @@ void BOARD_common_hw_init(void)
     SYSCON -> MAINCLKSEL = BOARD_MAINCLK_FRO32M;
 #endif
 
-    SYSCON_CPUCTRL &= ~BIT(3); /* power optimization */
-
     /* MODEM master priority = 3 - highest */
     SYSCON -> AHBMATPRIO = 0x00000300;
 
