@@ -114,7 +114,7 @@ include(middleware_freertos-kernel_extension)
 
 include(driver_inputmux_connections)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC54114_cm4)
 
 include(CMSIS_Include_core_cm)
 

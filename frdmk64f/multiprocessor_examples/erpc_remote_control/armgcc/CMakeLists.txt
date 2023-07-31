@@ -143,7 +143,7 @@ include(middleware_freertos-kernel_MK64F12)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MK64F12)
 
 include(device_system)
 

@@ -95,7 +95,7 @@ include(middleware_mmcau_common_files)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MK66F18)
 
 include(device_system)
 

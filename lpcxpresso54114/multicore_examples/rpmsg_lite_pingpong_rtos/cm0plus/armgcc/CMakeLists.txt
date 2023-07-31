@@ -116,7 +116,7 @@ include(middleware_multicore_rpmsg_lite)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC54114_cm0plus)
 
 include(CMSIS_Include_core_cm)
 

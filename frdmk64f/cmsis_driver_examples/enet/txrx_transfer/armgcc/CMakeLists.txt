@@ -118,7 +118,7 @@ include(driver_edma_MK64F12)
 
 include(driver_dmamux)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MK64F12)
 
 include(device_system)
 

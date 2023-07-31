@@ -142,7 +142,7 @@ include(middleware_sdmmc_osa_bm)
 
 include(component_osa_bm)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MK64F12)
 
 include(device_system)
 

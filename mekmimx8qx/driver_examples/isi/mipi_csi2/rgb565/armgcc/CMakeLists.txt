@@ -141,7 +141,7 @@ include(CMSIS_Include_core_cm)
 
 include(CMSIS_DSP_Include)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMX8QX6)
 
 include(device_system)
 

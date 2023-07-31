@@ -129,7 +129,7 @@ include(driver_mdio-common)
 
 include(driver_phy-common)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MK66F18)
 
 include(device_system)
 

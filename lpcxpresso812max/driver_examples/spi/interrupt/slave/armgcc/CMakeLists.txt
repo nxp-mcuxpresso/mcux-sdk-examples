@@ -96,7 +96,7 @@ include(CMSIS_DSP_Include)
 
 include(driver_reset)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC812)
 
 include(driver_swm_connections)
 

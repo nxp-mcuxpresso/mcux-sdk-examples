@@ -106,7 +106,7 @@ include(driver_mdio-common)
 
 include(driver_phy-common)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMX8QM6_cm4_core0)
 
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)

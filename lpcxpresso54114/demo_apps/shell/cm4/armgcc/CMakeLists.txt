@@ -97,7 +97,7 @@ include(component_lists)
 
 include(component_serial_manager_uart)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC54114_cm4)
 
 include(CMSIS_Include_core_cm)
 

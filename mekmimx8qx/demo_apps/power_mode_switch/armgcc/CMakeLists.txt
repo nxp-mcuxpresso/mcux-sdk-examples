@@ -159,7 +159,7 @@ include(middleware_multicore_rpmsg_lite_freertos)
 
 include(middleware_multicore_rpmsg_lite)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMX8QX6)
 
 include(device_system)
 

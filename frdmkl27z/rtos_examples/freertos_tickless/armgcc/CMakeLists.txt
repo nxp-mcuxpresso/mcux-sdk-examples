@@ -110,7 +110,7 @@ include(middleware_freertos-kernel_MKL27Z644)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MKL27Z644)
 
 include(device_system)
 

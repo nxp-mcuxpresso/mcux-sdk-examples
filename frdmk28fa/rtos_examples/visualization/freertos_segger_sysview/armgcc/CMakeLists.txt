@@ -120,7 +120,7 @@ include(middleware_freertos-kernel_MK28FA15)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MK28FA15)
 
 include(device_system)
 

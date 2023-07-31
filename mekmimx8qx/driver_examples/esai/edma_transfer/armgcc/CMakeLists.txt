@@ -112,7 +112,7 @@ include(CMSIS_DSP_Include)
 
 include(driver_memory)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMX8QX6)
 
 include(device_system)
 
