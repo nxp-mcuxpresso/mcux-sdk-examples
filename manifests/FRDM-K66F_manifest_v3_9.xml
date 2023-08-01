@@ -10252,7 +10252,8 @@ ${load}</script>
         <files mask="utility_debug_console_lite.cmake" hidden="true"/>
       </source>
       <include_paths>
-        <include_path relative_path="./" type="c_include"/>
+        <include_path relative_path="str" project_relative_path="./" type="c_include"/>
+        <include_path relative_path="debug_console_lite" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
     <component id="platform.utilities.notifier.MK66F18" name="notifier" brief="Utility notifier" version="1.0.0" full_name="Utility notifier" devices="MK66FN2M0xxx18 MK66FX1M0xxx18" device_cores="core0_MK66FN2M0xxx18 core0_MK66FX1M0xxx18" user_visible="true" type="utilities" package_base_path="core/devices/MK66F18/utilities" project_base_path="utilities/utilities">

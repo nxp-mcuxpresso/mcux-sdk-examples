@@ -9297,7 +9297,8 @@ ${load}</script>
         <files mask="utility_debug_console_lite.cmake" hidden="true"/>
       </source>
       <include_paths>
-        <include_path relative_path="./" type="c_include"/>
+        <include_path relative_path="str" project_relative_path="./" type="c_include"/>
+        <include_path relative_path="debug_console_lite" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
     <component id="platform.utilities.notifier.LPC55S36" name="notifier" brief="Utility notifier" version="1.0.0" full_name="Utility notifier" devices="LPC55S36" device_cores="cm33_core0_LPC55S36" user_visible="true" type="utilities" package_base_path="core/devices/LPC55S36/utilities" project_base_path="utilities/utilities">

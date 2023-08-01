@@ -6265,7 +6265,8 @@ ${load}</script>
         <files mask="utility_debug_console_lite.cmake" hidden="true"/>
       </source>
       <include_paths>
-        <include_path relative_path="./" type="c_include"/>
+        <include_path relative_path="str" project_relative_path="./" type="c_include"/>
+        <include_path relative_path="debug_console_lite" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
     <component id="utility.incbin.LPC54114" name="incbin" brief="Used to include slave core binary into master core binary." version="1.0.0" full_name="utility incbin" devices="LPC54114J256" user_visible="true" type="utilities" package_base_path="core/utilities/misc_utilities" project_base_path="utilities">

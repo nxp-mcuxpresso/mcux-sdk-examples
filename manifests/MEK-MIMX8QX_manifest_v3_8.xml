@@ -3689,7 +3689,8 @@ ${load}</script>
         <files mask="utility_debug_console_lite_MIMX8QX6.cmake" hidden="true"/>
       </source>
       <include_paths>
-        <include_path relative_path="./" type="c_include"/>
+        <include_path relative_path="str" project_relative_path="./" type="c_include"/>
+        <include_path relative_path="debug_console_lite" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
     <component id="platform.utilities.notifier.MIMX8QX6" name="notifier" brief="Utility notifier" version="1.0.0" full_name="Utility notifier" devices="MIMX8QX6xxxDZ MIMX8QX6xxxFZ" device_cores="cm4_MIMX8QX6xxxDZ cm4_MIMX8QX6xxxFZ" user_visible="true" type="utilities" package_base_path="core/devices/MIMX8QX6/utilities" project_base_path="utilities/utilities">

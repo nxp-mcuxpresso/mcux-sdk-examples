@@ -5375,7 +5375,8 @@ ${load}</script>
         <files mask="utility_debug_console_lite_MKL27Z644.cmake" hidden="true"/>
       </source>
       <include_paths>
-        <include_path relative_path="./" type="c_include"/>
+        <include_path relative_path="str" project_relative_path="./" type="c_include"/>
+        <include_path relative_path="debug_console_lite" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
     <component id="platform.utilities.notifier.MKL27Z644" name="notifier" brief="Utility notifier" version="1.0.0" full_name="Utility notifier" devices="MKL27Z32xxx4 MKL27Z64xxx4" device_cores="core0_MKL27Z32xxx4 core0_MKL27Z64xxx4" user_visible="true" type="utilities" package_base_path="core/devices/MKL27Z644/utilities" project_base_path="utilities/utilities">

@@ -6160,7 +6160,8 @@ ${load}</script>
         <files mask="utility_debug_console_lite_MK28FA15.cmake" hidden="true"/>
       </source>
       <include_paths>
-        <include_path relative_path="./" type="c_include"/>
+        <include_path relative_path="str" project_relative_path="./" type="c_include"/>
+        <include_path relative_path="debug_console_lite" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
     <component id="platform.utilities.notifier.MK28FA15" name="notifier" brief="Utility notifier" version="1.0.0" full_name="Utility notifier" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="utilities" package_base_path="core/devices/MK28FA15/utilities" project_base_path="utilities/utilities">
