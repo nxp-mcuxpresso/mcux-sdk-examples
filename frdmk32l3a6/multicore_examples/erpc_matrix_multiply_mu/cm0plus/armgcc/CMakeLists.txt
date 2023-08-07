@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -59,7 +67,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/frdmk32l3a6/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/examples/frdmk32l3a6/multicore_examples/erpc_common
     ${SdkRootDirPath}/examples/frdmk32l3a6/multicore_examples/erpc_common/erpc_matrix_multiply/service
     ${ProjDirPath}/..
@@ -67,76 +75,8 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${SdkRootDirPath}/core/boards/frdmk32l3a6
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/middleware/multicore
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/drivers/gpio
-    ${SdkRootDirPath}/core/drivers/port
-    ${SdkRootDirPath}/core/devices/K32L3A60/drivers
-    ${SdkRootDirPath}/core
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/drivers/msmc
-    ${SdkRootDirPath}/core/drivers/lpuart
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/devices/K32L3A60
-    ${SdkRootDirPath}/core/drivers/mu
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
 
-# include modules
-include(middleware_multicore_mcmgr_k32l3a6)
-
-include(utility_debug_console_lite)
-
-include(utility_assert_lite)
-
-include(driver_gpio)
-
-include(driver_port)
-
-include(driver_clock)
-
-include(middleware_multicore_erpc_eRPC_server)
-
-include(middleware_multicore_erpc_eRPC_mu_c_wrapper)
-
-include(middleware_multicore_erpc_eRPC_mu_transport)
-
-include(middleware_multicore_erpc_eRPC_port_stdlib)
-
-include(middleware_multicore_mcmgr)
-
-include(middleware_multicore_erpc_doc)
-
-include(middleware_baremetal)
-
-include(driver_common)
-
-include(driver_msmc)
-
-include(driver_lpuart)
-
-include(component_lpuart_adapter)
-
-include(component_lists)
-
-include(device_CMSIS)
-
-include(device_startup_K32L3A60_cm0plus)
-
-include(driver_mu)
-
-include(CMSIS_Include_core_cm)
-
-include(middleware_multicore_erpc_common)
-
-include(utilities_misc_utilities_K32L3A60_cm0plus)
-
-include(device_system_K32L3A60_cm0plus)
-
+include(${SdkRootDirPath}/core/devices/K32L3A60/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -150,4 +90,6 @@ TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
 ADD_CUSTOM_COMMAND(TARGET ${MCUX_SDK_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_OBJCOPY}
 -Obinary ${EXECUTABLE_OUTPUT_PATH}/${MCUX_SDK_PROJECT_NAME} ${EXECUTABLE_OUTPUT_PATH}/core1_image.bin)
+
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map;${EXECUTABLE_OUTPUT_PATH}/core1_image.bin")
 

@@ -3,7 +3,7 @@
  *
  *  Copyright The Mbed TLS Contributors
  *  SPDX-License-Identifier: Apache-2.0
- *  Copyright 2017, 2021 NXP. Not a Contribution
+ *  Copyright 2017, 2021, 2022 NXP. Not a Contribution
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may
  *  not use this file except in compliance with the License.
@@ -82,6 +82,12 @@
 #include "css_pkc_mbedtls.h"
 #elif defined(MBEDTLS_MCUX_ELE_S400_API)
 #include "ele_mbedtls.h"
+#elif defined(MBEDTLS_MCUX_ELS_PKC_API)
+#include "platform_hw_ip.h"
+#include "els_pkc_mbedtls.h"
+#elif defined(MBEDTLS_MCUX_ELS_API)
+#include "platform_hw_ip.h"
+#include "els_mbedtls.h"
 #else
 #include "ksdk_mbedtls.h"
 #endif
@@ -299,7 +305,7 @@ const selftest_t selftests[] =
 #if defined(MBEDTLS_ARIA_C)
     {"aria", mbedtls_aria_self_test},
 #endif /* NXP remove CTR_DRBG setftest for CSS PKC since there is different implementation */
-#if defined(MBEDTLS_CTR_DRBG_C) && !defined(MBEDTLS_MCUX_CSS_PKC_API) && !defined(MBEDTLS_MCUX_CSS_API)
+#if defined(MBEDTLS_CTR_DRBG_C) && !defined(MBEDTLS_MCUX_CSS_PKC_API) && !defined(MBEDTLS_MCUX_CSS_API) && !defined(MBEDTLS_MCUX_ELS_PKC_API) && !defined(MBEDTLS_ELS_CSS_API)
     {"ctr_drbg", mbedtls_ctr_drbg_self_test},
 #endif
 #if defined(MBEDTLS_HMAC_DRBG_C)
@@ -361,6 +367,8 @@ static int bench_print_features(void)
     text = "S300 HW accelerated";
 #elif defined(MBEDTLS_MCUX_CSS_PKC_API)
     text = "CSS PKC HW accelerated";
+#elif defined(MBEDTLS_MCUX_ELS_PKC_API)
+    text = "ELS PKC HW accelerated";
 #else
     text = "Software implementation";
 #endif
@@ -380,13 +388,15 @@ static int bench_print_features(void)
 #elif defined(MBEDTLS_FREESCALE_CAAM_AES)
     text = "CAAM HW accelerated";
 #elif defined(MBEDTLS_NXP_SENTINEL200)
-    text = "SW AES, S200 HW accelerated CCM and CMAC";
+    text = "S200 HW accelerated ECB, CBC, CCM and CMAC";
 #elif defined(MBEDTLS_NXP_SENTINEL300)
     text = "SW AES, S300 HW accelerated CCM and CMAC";
 #elif defined(MBEDTLS_MCUX_CSS_PKC_API)
     text = "CSS PKC HW accelerated";
 #elif defined(MBEDTLS_MCUX_ELE_S400)
     text = "ELE S40x HW accelerated";
+#elif defined(MBEDTLS_MCUX_ELS_PKC_API)
+    text = "ELS PKC HW accelerated";
 #else
     text = "Software implementation";
 #endif
@@ -403,6 +413,8 @@ static int bench_print_features(void)
     text = "CAAM HW accelerated";
 #elif defined(MBEDTLS_MCUX_CSS_PKC_API)
     text = "CSS PKC HW accelerated";
+#elif defined(MBEDTLS_MCUX_ELS_PKC_API)
+    text = "ELS PKC HW accelerated";
 #else
     text = "Software implementation";
 #endif
@@ -433,6 +445,10 @@ static int bench_print_features(void)
     text = "S300 HW accelerated ECDSA and ECDH";
 #elif defined(MBEDTLS_MCUX_CSS_PKC_API)
     text = "CSS PKC HW accelerated";
+#elif defined(MBEDTLS_MCUX_ELS_PKC_API)
+    text = "ELS PKC HW accelerated";
+#elif defined(MBEDTLS_MCUX_ELE_S400)
+    text = "ELE S40x HW accelerated RSA";
 #else
     text = "Software implementation";
 #endif

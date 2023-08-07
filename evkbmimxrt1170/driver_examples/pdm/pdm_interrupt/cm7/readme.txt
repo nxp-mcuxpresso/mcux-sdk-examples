@@ -7,8 +7,8 @@ In this example, pdm will trigger interrupt to transfer data when watermark valu
 
 Toolchain supported
 ===================
-- MCUXpresso  11.7.0
-- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.8.0
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

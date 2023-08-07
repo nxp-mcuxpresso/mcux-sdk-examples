@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -9,7 +9,12 @@
 #include "streamer_pcm_app.h"
 #include "fsl_codec_common.h"
 #include "app_definitions.h"
+#if (defined(__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U))
 #include "fsl_cache.h"
+#endif
+#if (defined(DEMO_CODEC_WM8962) && (DEMO_CODEC_WM8962 == 1))
+extern codec_config_t boardCodecConfig;
+#endif
 #include "audio_microphone.h"
 #include "fsl_sai.h"
 
@@ -56,7 +61,7 @@ void streamer_pcm_init(void)
 {
     edma_config_t dmaConfig;
 
-    /* SAI initialization */
+    /* Interrupt and DMA initialization */
     NVIC_SetPriority(LPI2C1_IRQn, 5);
 
     NVIC_SetPriority(DEMO_SAI_RX_IRQ, 5U);
@@ -67,13 +72,16 @@ void streamer_pcm_init(void)
     EDMA_GetDefaultConfig(&dmaConfig);
     EDMA_Init(DEMO_DMA, &dmaConfig);
     /* Create DMA handle. */
-    EDMA_CreateHandle(&pcmHandle.dmaRxHandle, DEMO_DMA, DEMO_RX_CHANNEL);
+    EDMA_CreateHandle(&pcmHandle.dmaRxHandle, DEMO_DMA, DEMO_DMA_RX_CHANNEL);
+#if defined(FSL_FEATURE_EDMA_HAS_CHANNEL_MUX) && FSL_FEATURE_EDMA_HAS_CHANNEL_MUX
+    EDMA_SetChannelMux(DEMO_DMA, DEMO_DMA_RX_CHANNEL, DEMO_SAI_RX_SOURCE);
+#endif
     /* SAI init */
     SAI_Init(DEMO_SAI);
 
     pcmHandle.semaphoreRX = xSemaphoreCreateBinary();
 
-    EnableIRQ(DEMO_SAI_RX_IRQ);
+    EnableIRQ(DEMO_SAI_IRQ);
 }
 
 pcm_rtos_t *streamer_pcm_open(uint32_t num_buffers)
@@ -103,13 +111,18 @@ void streamer_pcm_rx_close(pcm_rtos_t *pcm)
 {
     /* Stop playback.  This will flush the SAI transmit buffers. */
     SAI_TransferTerminateReceiveEDMA(DEMO_SAI, &pcm->saiRxHandle);
+#if defined(FSL_FEATURE_EDMA_HAS_CHANNEL_MUX) && FSL_FEATURE_EDMA_HAS_CHANNEL_MUX
+    /* Release the DMA channel mux */
+    EDMA_SetChannelMux(DEMO_DMA, DEMO_DMA_RX_CHANNEL, DEMO_SAI_RX_SOURCE);
+#endif
     vSemaphoreDelete(pcmHandle.semaphoreRX);
 }
 
 int streamer_pcm_write(pcm_rtos_t *pcm, uint8_t *data, uint32_t size)
 {
+#if (defined(__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U))
     DCACHE_CleanInvalidateByRange((uint32_t)data, size);
-
+#endif
     if (s_audioMicrophone.start)
     {
         memcpy(audioMicDataBuff + s_audioMicrophone.tdWriteNumber, data, size);
@@ -145,8 +158,9 @@ int streamer_pcm_read(pcm_rtos_t *pcm, uint8_t *data, uint32_t size)
     if (xSemaphoreTake(pcm->semaphoreRX, portMAX_DELAY) != pdTRUE)
         return -1;
 
+#if (defined(__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U))
     DCACHE_InvalidateByRange((uint32_t)pcm->saiRx.data, pcm->saiRx.dataSize);
-
+#endif
     /* Start the consecutive transfer */
     SAI_TransferReceiveEDMA(DEMO_SAI, &pcm->saiRxHandle, &pcm->saiRx);
 
@@ -268,10 +282,8 @@ int streamer_pcm_setparams(pcm_rtos_t *pcm,
     {
         /* I2S receive mode configurations */
         SAI_GetClassicI2SConfig(&saiConfig, _pcm_map_word_width(bit_width), format.stereo, 1U << DEMO_SAI_CHANNEL);
-        if (dummy_tx)
-            SAI_GetClassicI2SConfig(&saiConfig, _pcm_map_word_width(bit_width), format.stereo, 1U << DEMO_SAI_CHANNEL);
-        saiConfig.syncMode    = kSAI_ModeAsync;
-        saiConfig.masterSlave = kSAI_Master;
+        saiConfig.syncMode    = DEMO_SAI_RX_SYNC_MODE;
+        saiConfig.masterSlave = DEMO_SAI_MASTER_SLAVE;
 
         SAI_TransferRxSetConfigEDMA(DEMO_SAI, &pcmHandle.saiRxHandle, &saiConfig);
         /* set bit clock divider */
@@ -280,8 +292,8 @@ int streamer_pcm_setparams(pcm_rtos_t *pcm,
 
         if (dummy_tx)
         {
-            saiConfig.syncMode    = kSAI_ModeSync;
-            saiConfig.masterSlave = kSAI_Master;
+            saiConfig.syncMode    = DEMO_SAI_TX_SYNC_MODE;
+            saiConfig.masterSlave = DEMO_SAI_MASTER_SLAVE;
             SAI_TransferTxSetConfigEDMA(DEMO_SAI, &pcmHandle.saiTxHandle, &saiConfig);
             /* set bit clock divider */
             SAI_TxSetBitClockRate(DEMO_SAI, masterClockHz, _pcm_map_sample_rate(sample_rate),
@@ -292,10 +304,17 @@ int streamer_pcm_setparams(pcm_rtos_t *pcm,
 
         /* Enable SAI receive and FIFO error interrupts. */
         SAI_RxEnableInterrupts(DEMO_SAI, kSAI_FIFOErrorInterruptEnable);
+
+#ifdef BOARD_MASTER_CLOCK_CONFIG
+        /* master clock configurations */
+        BOARD_MASTER_CLOCK_CONFIG();
+#endif
     }
 
     streamer_pcm_mute(pcm, true);
-
+#if (defined(DEMO_CODEC_WM8962) && (DEMO_CODEC_WM8962 == 1))
+    CODEC_Init(&codecHandle, &boardCodecConfig);
+#endif
     CODEC_SetFormat(&codecHandle, masterClockHz, format.sampleRate_Hz, format.bitWidth);
 
     streamer_pcm_mute(pcm, false);

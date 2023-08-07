@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2022 NXP
+ * Copyright 2016-2023 NXP
  * All rights reserved.
  *
  *
@@ -41,9 +41,9 @@
 #include "httpsrv_freertos.h"
 #include "lwip/apps/mdns.h"
 
-#include "fsl_phyksz8081.h"
 #include "fsl_iomuxc.h"
 #include "fsl_enet.h"
+#include "fsl_phyksz8081.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -161,12 +161,24 @@ status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
 
 
 
+#if LWIP_IPV6
+static void netif_ipv6_callback(struct netif *cb_netif)
+{
+    
+    PRINTF("IPv6 address update, valid addresses:\r\n");
+    http_server_print_ipv6_addresses(cb_netif);
+    PRINTF("\r\n");
+}
+#endif /* LWIP_IPV6 */
+
 /*!
  * @brief Initializes lwIP stack.
  */
 static void stack_init(void)
 {
+#if LWIP_IPV4
     ip4_addr_t netif_ipaddr, netif_netmask, netif_gw;
+#endif /* LWIP_IPV4 */
     ethernetif_config_t enet_config = {.phyHandle   = &phyHandle,
                                        .phyAddr     = EXAMPLE_PHY_ADDRESS,
                                        .phyOps      = EXAMPLE_PHY_OPS,
@@ -184,14 +196,24 @@ static void stack_init(void)
     (void)SILICONID_ConvertToMacAddr(&enet_config.macAddress);
 #endif
 
+#if LWIP_IPV4
     IP4_ADDR(&netif_ipaddr, configIP_ADDR0, configIP_ADDR1, configIP_ADDR2, configIP_ADDR3);
     IP4_ADDR(&netif_netmask, configNET_MASK0, configNET_MASK1, configNET_MASK2, configNET_MASK3);
     IP4_ADDR(&netif_gw, configGW_ADDR0, configGW_ADDR1, configGW_ADDR2, configGW_ADDR3);
 
     netifapi_netif_add(&netif, &netif_ipaddr, &netif_netmask, &netif_gw, &enet_config, EXAMPLE_NETIF_INIT_FN,
                        tcpip_input);
+#else
+    netifapi_netif_add(&netif, &enet_config, EXAMPLE_NETIF_INIT_FN, tcpip_input);
+#endif /* LWIP_IPV4 */
     netifapi_netif_set_default(&netif);
     netifapi_netif_set_up(&netif);
+
+#if LWIP_IPV6
+    LOCK_TCPIP_CORE();
+    netif_create_ip6_linklocal_address(&netif, 1);
+    UNLOCK_TCPIP_CORE();
+#endif /* LWIP_IPV6 */
 
     while (ethernetif_wait_linkup(&netif, 5000) != ERR_OK)
     {
@@ -200,7 +222,19 @@ static void stack_init(void)
 
     http_server_enable_mdns(&netif, MDNS_HOSTNAME);
 
+#if LWIP_IPV6
+    LOCK_TCPIP_CORE();
+    set_ipv6_valid_state_cb(netif_ipv6_callback);
+    UNLOCK_TCPIP_CORE();
+#endif /* LWIP_IPV6 */
+
+    /*
+     * Lock prints since it could interfere with prints from netif_ipv6_callback
+     * in case IPv6 address would become valid early.
+     */
+    LOCK_TCPIP_CORE();
     http_server_print_ip_cfg(&netif);
+    UNLOCK_TCPIP_CORE();
 }
 
 /*!

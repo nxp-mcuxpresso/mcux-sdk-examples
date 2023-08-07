@@ -6,17 +6,17 @@
  */
 #include "fsl_common.h"
 #include "fsl_pm_core.h"
-#include "fsl_pm_board.h"
+#include "fsl_pm_device.h"
 
 #include "fsl_debug_console.h"
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "board.h"
 
-#include "fsl_inputmux.h"
-#include "pmic_support.h"
 #include "fsl_pint.h"
 #include "fsl_power.h"
+#include "pmic_support.h"
+#include "fsl_inputmux.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -57,10 +57,10 @@
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
-status_t APP_ControlCallback_notify1(pm_event_type_t eventType, uint8_t powerState, void *data);
-status_t APP_ControlCallback_notify2(pm_event_type_t eventType, uint8_t powerState, void *data);
+status_t APP_ControlCallback_notify(pm_event_type_t eventType, uint8_t powerState, void *data);
 void BOARD_ConfigPMICModes(pca9420_modecfg_t *cfg, uint32_t num);
 void APP_InitWakeupSource(void);
+void APP_RegisterNotify(void);
 uint32_t APP_GetWakeupTimeout(void);
 void APP_SetConstraints(uint8_t powerMode);
 void APP_ReleaseConstraints(uint8_t powerMode);
@@ -77,21 +77,14 @@ AT_ALWAYS_ON_DATA(pm_wakeup_source_t g_UserkeyWakeupSource);
 AT_ALWAYS_ON_DATA(pm_wakeup_source_t g_UserkeyWakeupSource1);
 
 AT_ALWAYS_ON_DATA_INIT(pm_notify_element_t g_notify1) = {
-    .notifyCallback = APP_ControlCallback_notify1,
+    .notifyCallback = APP_ControlCallback_notify,
     .data           = NULL,
 };
 
-AT_ALWAYS_ON_DATA_INIT(pm_notify_element_t g_notify2) = {
-    .notifyCallback = APP_ControlCallback_notify2,
-    .data           = NULL,
-};
-AT_ALWAYS_ON_DATA(pm_handle_t g_pmHndle);
+AT_ALWAYS_ON_DATA(pm_handle_t g_pmHandle);
 AT_ALWAYS_ON_DATA(uint8_t g_targetPowerMode);
 AT_ALWAYS_ON_DATA(uint32_t g_irqMask);
 static const char *const g_targetPowerNameArray[APP_TARGET_POWER_NUM] = APP_POWER_NAME;
-
-extern pm_notify_element_t g_notify1;
-extern pm_notify_element_t g_notify2;
 
 /*******************************************************************************
  * Code
@@ -118,29 +111,15 @@ void BOARD_ConfigPMICModes(pca9420_modecfg_t *cfg, uint32_t num)
     cfg[3].enableLdo2Out = false;
 }
 
-status_t APP_ControlCallback_notify1(pm_event_type_t eventType, uint8_t powerState, void *data)
+status_t APP_ControlCallback_notify(pm_event_type_t eventType, uint8_t powerState, void *data)
 {
     if (eventType == kPM_EventEnteringSleep)
     {
-        PRINTF("APP_ControlCallback ENTERING LP -- Notify 1.\r\n");
+        PRINTF("APP_ControlCallback ENTERING LP -- Notify.\r\n");
     }
     else
     {
-        PRINTF("APP_ControlCallback EXITING LP -- Notify 1.\r\n");
-    }
-
-    return kStatus_Success;
-}
-
-status_t APP_ControlCallback_notify2(pm_event_type_t eventType, uint8_t powerState, void *data)
-{
-    if (eventType == kPM_EventEnteringSleep)
-    {
-        PRINTF("APP_ControlCallback ENTERING LP -- Notify 2.\r\n");
-    }
-    else
-    {
-        PRINTF("APP_ControlCallback EXITING LP -- Notify 2.\r\n");
+        PRINTF("APP_ControlCallback EXITING LP -- Notify.\r\n");
     }
 
     return kStatus_Success;
@@ -187,6 +166,12 @@ uint32_t APP_GetWakeupTimeout(void)
 			"User buttons (SW1/SW2) to wakeup from Sleep or DeepSleep, \r\n"
 			"Reset button to wakeup from Deep Power Down or Full Deep Power Down. \r\n\n");
 	return 0;
+}
+
+void APP_RegisterNotify(void)
+{
+   PM_RegisterNotify(kPM_NotifyGroup0, &g_notify1);
+
 }
 
 void APP_SetConstraints(uint8_t powerMode)
@@ -294,10 +279,10 @@ int main(void)
 
     POWER_SetPadVolRange(&vrange);
     PRINTF("\r\nPower Manager Test.\r\n");
-    PM_CreateHandle(&g_pmHndle);
+    PRINTF("\r\nNormal Boot.\r\n");
+    PM_CreateHandle(&g_pmHandle);
 
-    PM_RegisterNotify(kPM_NotifyGroup0, &g_notify1);
-    PM_RegisterNotify(kPM_NotifyGroup2, &g_notify2);
+    APP_RegisterNotify();
     APP_InitWakeupSource();
     while (1)
     {
@@ -307,6 +292,7 @@ int main(void)
             PRINTF("\r\nWrong Input! Please reselect.\r\n");
             continue;
         }
+        PRINTF("Selected to enter %s.\r\n", g_targetPowerNameArray[(uint8_t)g_targetPowerMode]);
         timeoutUs = APP_GetWakeupTimeout();
         APP_SetConstraints(g_targetPowerMode);
         g_irqMask = DisableGlobalIRQ();

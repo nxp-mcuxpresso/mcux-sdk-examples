@@ -10,12 +10,12 @@
 #include "fsl_elcdif.h"
 #include "fsl_debug_console.h"
 
-#include "elcdif_support.h"
 #include "fsl_soc_src.h"
 #include "fsl_gpio.h"
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "board.h"
+#include "elcdif_support.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

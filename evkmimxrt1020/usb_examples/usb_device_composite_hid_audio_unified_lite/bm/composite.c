@@ -32,11 +32,11 @@
 #include "usb_phy.h"
 #endif
 
-#include "fsl_wm8960.h"
 #include "fsl_sai.h"
 #include "fsl_dmamux.h"
 #include "fsl_sai_edma.h"
 #include "fsl_codec_common.h"
+#include "fsl_wm8960.h"
 #include "fsl_codec_adapter.h"
 /*******************************************************************************
  * Definitions

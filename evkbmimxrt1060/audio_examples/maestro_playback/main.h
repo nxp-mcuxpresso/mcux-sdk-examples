@@ -24,6 +24,9 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+#if defined(AAC_DEC) && defined(__ICCARM__)
+#error "AAC decoder is not enabled in IAR."
+#endif
 
 typedef struct _app_handle
 {

@@ -14,8 +14,8 @@
 #include "fsl_sai_edma.h"
 #include "fsl_codec_common.h"
 #include "fsl_codec_adapter.h"
-#include "fsl_cs42448.h"
 #include "fsl_common.h"
+#include "fsl_cs42448.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

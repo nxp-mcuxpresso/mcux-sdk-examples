@@ -13,13 +13,13 @@
 #include "fsl_sai.h"
 #include "music.h"
 #include "fsl_codec_common.h"
+#include "fsl_common.h"
 #include "fsl_wm8960.h"
 #include "fsl_codec_adapter.h"
 #if defined DEMO_CODEC_WM8960
 #else
 #include "fsl_cs42448.h"
 #endif
-#include "fsl_common.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -223,6 +223,7 @@ int main(void)
     sai_transceiver_t saiConfig;
 
     BOARD_ConfigMPU();
+    BOARD_InitBootPins();
 #if DEMO_CODEC_WM8960
     BOARD_InitWM8960Pins();
 #else

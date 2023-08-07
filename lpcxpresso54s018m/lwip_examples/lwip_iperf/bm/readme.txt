@@ -10,13 +10,10 @@ the application with a new value of IPERF_UDP_CLIENT_RATE, you can run the appli
 by using the tradeoff mode from the PC application and determining the rate there.
 For client modes it assumes the PC application it connects to is running on the gateway.
 
-Instead of the command line IPerf application, for more convenience, it is recommended to use the JPerf2 graphical tool, which can be downloaded here: https://sourceforge.net/projects/iperf/files/jperf/jperf%202.0.0/jperf-2.0.0.zip/download
-The example supports IPerf version 2.0.5. JPerf2, downloaded from the link above, contains version 1.7.0 of iperf.exe for Windows however.
-Therefore the iperf.exe version has to be updated when using MS Windows. IPerf 2.0.5b for Windows can be downloaded from the following link:
-https://iperf.fr/download/windows/iperf-2.0.5b-win32.zip
-The contents of the downloaded archive have to be unpacked into jperf-2.0.0/bin folder, overwriting iperf.exe.
-The application has been tested also with IPerf 2.0.10, which can be downloaded here:
-https://sourceforge.net/projects/iperf2/files/
+The example has been tested with iperf 2.1.5, which is not compatible with iperf 2.0.5 used in earlier SDK releases.
+Aside from the lack of reverse mode, which has been added in the version 2.1.0, the format of the settings sent
+between a client and a server is not exactly the same. Therefore please use iperf 2.1.0 or later with this example.
+Iperf 2.1.x can be downloaded from here: https://sourceforge.net/projects/iperf2/files/
 
 To experiment with the receive throughput, try to increase the number of receive buffers.
 For LPC platforms, where zero-copy on receive is implemented, the number of buffers is determined by ENET_RXBD_NUM definition.
@@ -29,8 +26,8 @@ For RTOS applications, DEFAULT_THREAD_PRIO and TCPIP_THREAD_PRIO values can have
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================
@@ -60,8 +57,8 @@ Prepare the Demo
 Running the demo
 ================
 1. When the demo starts, the log would be seen on the terminal like:
-		Initializing PHY...
-        
+        Initializing PHY...
+
         ************************************************
          IPERF example
         ************************************************
@@ -71,57 +68,60 @@ Running the demo
         ************************************************
         Please select one of the following modes to run IPERF with:
 
-            1: TCP server mode (RX test)
-            2: TCP client mode (TX test)
-            3: UDP server mode (RX test)
-            4: UDP client mode (TX test)
+            0: TCP server mode (RX test)
+            1: TCP client mode (TX only test)
+            2: TCP client reverse mode (RX only test)
+            3: TCP client dual mode (TX and RX in parallel)
+            4: TCP client tradeoff mode (TX and RX sequentially)
+            5: UDP server mode (RX test)
+            6: UDP client mode (TX only test)
+            7: UDP client reverse mode (RX only test)
+            8: UDP client dual mode (TX and RX in parallel)
+            9: UDP client tradeoff mode (TX and RX sequentially)
 
         Enter mode number:
 
-2. Start the JPerf application, using the jperf-2.0.0/jperf.bat batch file.
-    It can be downloaded here: https://sourceforge.net/projects/iperf/files/jperf/jperf%202.0.0/jperf-2.0.0.zip/download.
-    When using Windows, replace the content of the jperf-2.0.0/bin folder with the files from the following zip: https://iperf.fr/download/windows/iperf-2.0.5b-win32.zip.
-    When using Linux, iperf binary version 2.0.5 must be installed separately (possibly using package manager) and present on the system path.
-3. To run lwIP IPERF in client mode, select "Server" radio button in JPerf and press the [Run iperf!] button.
-4. To run lwIP IPERF in server mode, select "Client radio button and enter the 192.168.0.102 board IPv4 address
-    to the "Server address" parameter in JPerf.
-5. Enter the desired mode number into the terminal.
-6. If server mode has been selected in the terminal (and client mode in JPerf), press the [Run iperf!] button now.
-7. When the test is finished, the output log of JPerf would be seen like below,
+2. Start the server (on the PC or on the board) first.
+    If you want to run server on the board and client on the PC, enter the number of the desired server mode (TCP or UDP) into the terminal.
+    If you want to run server on the PC and client on the board, start iperf application on the PC:
+        For TCP: iperf.exe -s
+        For UDP: iperf.exe -su
+3. Start the client.
+    If the PC is the client, start iperf application on the PC:
+        For TCP: iperf.exe -c 192.168.0.102
+        For UDP: iperf.exe -c 192.168.0.102
+        Parameters like -d, -r, -R could be appended to the command for dual, tradeoff or reverse test modes.
+        Some other parameters like -t or -b could be appended. The iperf implementation in lwIP does not support all 2.1.x features,
+        so it does not make sense to use some of the modes which require board cooperation, like --full-duplex.
+    If the board is the client, enter the number of the desired client mode into the terminal.
+4. When the test is finished, the output log of iperf.exe would be seen like below,
 	where occurrences of the symbol "N" would be replaced by actual measured values.
     The log will vary depending on the selected mode:
-        bin/iperf.exe -s -P 0 -i 1 -p 5001 -f k
+        iperf.exe -c 192.168.0.102
         ------------------------------------------------------------
-        Server listening on TCP port 5001
-        TCP window size: 63.0 KByte (default)
+        Client connecting to 192.168.0.102, TCP port 5001
+        TCP window size: 64.0 KByte (default)
         ------------------------------------------------------------
-        [  4] local 192.168.0.100 port 5001 connected with 192.168.0.102 port 49156
+        [  1] local 192.168.0.100 port 58135 connected with 192.168.0.102 port 5001
         [ ID] Interval       Transfer     Bandwidth
-        [  4]  0.0- 1.0 sec  N    KBytes  N     Kbits/sec
-        [  4]  1.0- 2.0 sec  N    KBytes  N     Kbits/sec
-        [  4]  2.0- 3.0 sec  N    KBytes  N     Kbits/sec
-        [  4]  3.0- 4.0 sec  N    KBytes  N     Kbits/sec
-        [  4]  4.0- 5.0 sec  N    KBytes  N     Kbits/sec
-        [  4]  5.0- 6.0 sec  N    KBytes  N     Kbits/sec
-        [  4]  6.0- 7.0 sec  N    KBytes  N     Kbits/sec
-        [  4]  7.0- 8.0 sec  N    KBytes  N     Kbits/sec
-        [  4]  8.0- 9.0 sec  N    KBytes  N     Kbits/sec
-        [  4]  0.0-10.0 sec  N    KBytes  N     Kbits/sec
+        [  1] 0.00-10.18 sec     N MBytes     N Mbits/sec
 
-8. Also, when the test is finished, the log would be seen on the terminal like below,
+5. Also, when the test is finished, the log would be seen on the terminal like below,
 	where occurrences of the symbol "N" would be replaced by actual measured values.
     The log will vary depending on the selected mode:
-        Enter mode number: 2
+        Enter mode number: 0
         Press SPACE to abort the test and return to main menu
+        New TCP client (settings flags 0x40010078)
+
         -------------------------------------------------
-         TCP_DONE_CLIENT (TX)
-         Local address : 192.168.0.102  Port 49156
-         Remote address : 192.168.0.100  Port 5001
+         TCP_DONE_SERVER (RX)
+         Local address : 192.168.0.102  Port 5001
+         Remote address : 192.168.0.100  Port 58135
          Bytes Transferred N
          Duration (ms) N
          Bandwidth (kbitpsec) N
 
-9. It is also possible to press the SPACE key when the test is running or finished.
+6. It is also possible to press the SPACE key when the test is running or finished.
     If it is pressed when test is in progress, the running test will be aborted
     and the main menu will appear. If the test is already finished, the main menu
     will appear directly. From the main menu, new test can be run.

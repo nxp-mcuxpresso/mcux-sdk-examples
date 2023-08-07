@@ -11,9 +11,9 @@
 #include "fsl_debug_console.h"
 #include "fsl_sai_sdma.h"
 #include "fsl_codec_common.h"
+#include "fsl_wm8960.h"
 #include "fsl_gpio.h"
 #include "fsl_iomuxc.h"
-#include "fsl_wm8960.h"
 #include "fsl_codec_adapter.h"
 #include "fsl_sai.h"
 /*******************************************************************************
@@ -277,5 +277,5 @@ int main(void)
 void SAI_UserIRQHandler(void)
 {
     SAI_TxClearStatusFlags(DEMO_SAI, kSAI_FIFOErrorFlag);
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }

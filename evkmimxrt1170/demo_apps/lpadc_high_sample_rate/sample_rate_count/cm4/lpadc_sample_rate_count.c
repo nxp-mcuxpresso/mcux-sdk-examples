@@ -67,7 +67,7 @@ void DEMO_PIT_IRQ_HANDLER(void)
     DisableIRQ(DEMO_PIT_IRQn);
     PIT_StopTimer(DEMO_PIT_BASE, DEMO_PIT_CHANNEL_NUM);
     g_timeOut = true;
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 void DEMO_LPADC_IRQ_HANDLER(void)
@@ -79,7 +79,7 @@ void DEMO_LPADC_IRQ_HANDLER(void)
     {
     }
     LPADC_DoSoftwareTrigger(DEMO_LPADC_BASE, 1UL);
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 int main(void)

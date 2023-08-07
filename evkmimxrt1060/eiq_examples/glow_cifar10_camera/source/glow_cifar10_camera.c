@@ -122,7 +122,7 @@ int Rec_y = (272-EXTRACT_HEIGHT)/2;
 #define APP_PS_LRC_X (APP_IMG_WIDTH -1U)
 #define APP_PS_LRC_Y (APP_IMG_HEIGHT- 1U)
 
-#define APP_RED 0xF100U
+#define APP_RED 0xF800U
 #define APP_GREEN 0x07E0U
 #define APP_BLUE 0x001FU
 #define APP_WHITE 0xFFFFU

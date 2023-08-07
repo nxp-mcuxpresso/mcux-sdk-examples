@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 NXP
+ * Copyright 2018-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -19,15 +19,18 @@
 #include "dsp_support.h"
 #include "dsp_ipc.h"
 #include "cmd.h"
-#include "dsp_config.h"
 #include "fsl_wm8904.h"
 #include "fsl_codec_common.h"
 #include "fsl_codec_adapter.h"
+#include "dsp_config.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
 #define DEMO_CODEC_VOLUME (75U)
 #define APP_SEMA42        SEMA42
+#define SEMA_PRINTF_NUM	  0
+#define SEMA_STARTUP_NUM  1
+#define SEMA_CORE_ID_CM33 1
 #define APP_TASK_STACK_SIZE (6 * 1024)
 
 /*******************************************************************************
@@ -92,6 +95,17 @@ void BOARD_MuteRightChannel(bool mute)
     /* The CODEC_SetMute() funtion sets the volume to 100 after unmuting */
     CODEC_SetVolume(&g_codecHandle, kCODEC_PlayChannelHeadphoneRight, mute ? 0 : DEMO_CODEC_VOLUME);
 }
+
+void CM33_PRINTF(const char* ptr, ...)
+{
+    va_list ap;
+    SEMA42_Lock(APP_SEMA42, SEMA_PRINTF_NUM, SEMA_CORE_ID_CM33);
+    va_start(ap, ptr);
+    DbgConsole_Vprintf(ptr, ap);
+    va_end(ap);
+    SEMA42_Unlock(APP_SEMA42, SEMA_PRINTF_NUM);
+}
+
 void handleShellMessage(srtm_message *msg, void *arg)
 {
     /* Send message to the DSP */
@@ -184,12 +198,12 @@ int main(void)
     BOARD_DSP_Init();
 
     /* Wait for the DSP to lock the semaphore */
-    while (kSEMA42_LockedByProc3 != SEMA42_GetGateStatus(APP_SEMA42, 0))
+    while (kSEMA42_LockedByProc3 != SEMA42_GetGateStatus(APP_SEMA42, SEMA_STARTUP_NUM))
     {
     }
 
-    /* Wait for the DSP to unlock the semaphore */
-    while (SEMA42_GetGateStatus(APP_SEMA42, 0))
+    /* Wait for the DSP to unlock the semaphore 1 */
+    while (SEMA42_GetGateStatus(APP_SEMA42, SEMA_STARTUP_NUM))
     {
     }
 

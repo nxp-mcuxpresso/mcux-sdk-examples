@@ -35,7 +35,7 @@
 
 typedef uint16_t pixel_t;
 #define APP_BPP            2U /* Use 16-bit RGB565 format. */
-#define APP_RED            0xF100U
+#define APP_RED            0xF800U
 #define APP_BLUE           0x001FU
 #define APP_GREEN          0x07E0U
 #define APP_YELLOW         (APP_RED | APP_GREEN)

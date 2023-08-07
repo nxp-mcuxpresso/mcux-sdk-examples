@@ -1,6 +1,5 @@
 /*
- * Copyright 2021 NXP
- * All rights reserved.
+ * Copyright 2021-2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -34,10 +33,10 @@ static void i3c_master_ibi_callback(I3C_Type *base,
                                     i3c_ibi_type_t ibiType,
                                     i3c_ibi_state_t ibiState);
 static void i3c_master_callback(I3C_Type *base, i3c_master_handle_t *handle, status_t status, void *userData);
+
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-
 uint8_t g_master_txBuff[I3C_DATA_LENGTH];
 uint8_t g_master_rxBuff[I3C_DATA_LENGTH];
 uint8_t g_master_ibiBuff[10];
@@ -97,9 +96,10 @@ static void i3c_master_callback(I3C_Type *base, i3c_master_handle_t *handle, sta
  */
 int main(void)
 {
+    status_t result           = kStatus_Success;
+    volatile uint32_t timeout = 0U;
     i3c_master_config_t masterConfig;
     i3c_master_transfer_t masterXfer;
-    status_t result = kStatus_Success;
 
     /* Attach main clock to I3C, 500MHz / 10 = 50MHz. */
     CLOCK_AttachClk(kMAIN_CLK_to_I3C_CLK);
@@ -162,7 +162,6 @@ int main(void)
         return result;
     }
 
-    uint32_t timeout = 0U;
     /* Wait for transfer completed. */
     while ((!g_ibiWonFlag) && (!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success) &&
            (++timeout < I3C_TIME_OUT_INDEX))
@@ -173,6 +172,7 @@ int main(void)
     result = g_completionStatus;
     if ((result != kStatus_Success) || (timeout == I3C_TIME_OUT_INDEX))
     {
+        PRINTF("\r\nTransfer error or timeout.\r\n");
         return -1;
     }
     g_masterCompletionFlag = false;
@@ -182,7 +182,7 @@ int main(void)
     /* Wait until the slave is ready for transmit, wait time depend on user's case.
        Slave devices that need some time to process received byte or are not ready yet to
        send the next byte, can pull the clock low to signal to the master that it should wait.*/
-    for (uint32_t i = 0U; i < WAIT_TIME; i++)
+    for (volatile uint32_t i = 0U; i < WAIT_TIME; i++)
     {
         __NOP();
     }
@@ -280,8 +280,6 @@ int main(void)
         return -1;
     }
 
-    PRINTF("\r\nI3C master dynamic address assignment done.\r\n");
-
     uint8_t devCount;
     i3c_device_info_t *devList;
     uint8_t slaveAddr = 0x0U;
@@ -295,9 +293,11 @@ int main(void)
         }
     }
 
-    PRINTF("\r\nStart to do I3C master transfer in I3C SDR mode.");
-    memset(&masterXfer, 0, sizeof(masterXfer));
+    PRINTF("\r\nI3C master dynamic address assignment done.\r\n");
 
+    PRINTF("\r\nStart to do I3C master transfer in I3C SDR mode.");
+
+    memset(&masterXfer, 0, sizeof(masterXfer));
     masterXfer.slaveAddress = slaveAddr;
     masterXfer.data         = g_master_txBuff;
     masterXfer.dataSize     = I3C_DATA_LENGTH;
@@ -327,13 +327,12 @@ int main(void)
     g_masterCompletionFlag = false;
 
     /* Wait until the slave is ready for transmit, wait time depend on user's case.*/
-    for (uint32_t i = 0U; i < WAIT_TIME; i++)
+    for (volatile uint32_t i = 0U; i < WAIT_TIME; i++)
     {
         __NOP();
     }
 
     memset(g_master_rxBuff, 0, I3C_DATA_LENGTH);
-
     masterXfer.slaveAddress = slaveAddr;
     masterXfer.data         = g_master_rxBuff;
     masterXfer.dataSize     = I3C_DATA_LENGTH - 1U;

@@ -38,7 +38,7 @@ void APP_RIT_HANDLER(void)
 {
     RIT_ClearStatusFlags(RIT, kRIT_TimerFlag);
     LED_TOGGLE();
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 /*!
  * @brief Main function

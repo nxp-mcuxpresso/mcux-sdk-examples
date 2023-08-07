@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -8,7 +8,6 @@
 #include "dsp_support.h"
 #include "fsl_debug_console.h"
 
-#include "dsp_config.h"
 #include "fsl_cs42448.h"
 #include "pin_mux.h"
 #include "clock_config.h"
@@ -17,6 +16,7 @@
 #include "fsl_codec_adapter.h"
 #include "fsl_power.h"
 #include "fsl_pca9420.h"
+#include "dsp_config.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -50,11 +50,11 @@ codec_config_t g_boardCodecConfig = {.codecDevType = kCODEC_CS42448, .codecDevCo
 
 int BOARD_CODEC_Init(void)
 {
-    PRINTF("Configure cs42448 codec\r\n");
+    PRINTF("[CM33 Main] Configure cs42448 codec\r\n");
 
     if (CODEC_Init(&g_codecHandle, &g_boardCodecConfig) != kStatus_Success)
     {
-        PRINTF("cs42448_Init failed!\r\n");
+        PRINTF("[CM33 Main] cs42448_Init failed!\r\n");
         return -1;
     }
 
@@ -97,12 +97,12 @@ int main(void)
     g_cs42448Config.i2cConfig.codecI2CSourceClock = CLOCK_GetFlexCommClkFreq(2);
     g_cs42448Config.format.mclk_HZ                = CLOCK_GetMclkClkFreq();
 
-    PRINTF("\r\nAudio demo started. Initialize pins and codec on core 'Cortex-M33'\r\n");
+    PRINTF("\r\n[CM33 Main] Audio demo started. Initialize pins and codec on core 'Cortex-M33'\r\n");
 
     BOARD_CODEC_Init();
 
     /* Print the initial banner */
-    PRINTF("Pins and codec initialized.\r\n");
+    PRINTF("[CM33 Main] Pins and codec initialized.\r\n");
 
     /* Copy DSP image to RAM and start DSP core. */
     BOARD_DSP_Init();

@@ -14,9 +14,9 @@
 #include "fsl_pxp.h"
 #include "fsl_elcdif.h"
 
-#include "elcdif_support.h"
 #include "fsl_soc_src.h"
 #include "fsl_gpio.h"
+#include "elcdif_support.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -45,7 +45,7 @@
 
 typedef uint16_t pixel_t;
 #define APP_BPP            2U /* Use 16-bit RGB565 format. */
-#define APP_RED            0xF100U
+#define APP_RED            0xF800U
 #define APP_GREEN          0x07E0U
 #define APP_BLUE           0x001FU
 #define APP_PXP_PS_FORMAT  kPXP_PsPixelFormatRGB565
@@ -57,11 +57,16 @@ typedef uint16_t pixel_t;
 #else
 
 typedef uint32_t pixel_t;
-#define APP_BPP            4U /* Use 32-bit XRGB888 format. */
-#define APP_RED            0x00FF0000U
-#define APP_GREEN          0x0000FF00U
-#define APP_BLUE           0x000000FFU
-#define APP_PXP_PS_FORMAT  kPXP_PsPixelFormatRGB888
+#define APP_BPP   4U /* Use 32-bit XRGB888 format. */
+#define APP_RED   0x00FF0000U
+#define APP_GREEN 0x0000FF00U
+#define APP_BLUE  0x000000FFU
+#if (!(defined(FSL_FEATURE_PXP_HAS_NO_EXTEND_PIXEL_FORMAT) && FSL_FEATURE_PXP_HAS_NO_EXTEND_PIXEL_FORMAT)) && \
+    (!(defined(FSL_FEATURE_PXP_V3) && FSL_FEATURE_PXP_V3))
+#define APP_PXP_PS_FORMAT kPXP_PsPixelFormatARGB8888
+#else
+#define APP_PXP_PS_FORMAT kPXP_PsPixelFormatRGB888
+#endif
 #define APP_PXP_AS_FORMAT  kPXP_AsPixelFormatRGB888
 #define APP_PXP_OUT_FORMAT kPXP_OutputPixelFormatRGB888
 #define APP_DC_FORMAT      kVIDEO_PixelFormatXRGB8888

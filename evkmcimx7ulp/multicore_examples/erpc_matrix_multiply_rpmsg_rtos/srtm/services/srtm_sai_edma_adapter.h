@@ -54,10 +54,24 @@ typedef struct _srtm_sai_edma_local_buf
 } srtm_sai_edma_local_buf_t;
 #endif
 
-/*! @brief The callback function pointer.  Voice data can be passed to application via callback when the host side is
+/*!
+ * @brief The callback function pointer.  Voice data can be passed to application via callback when the host side is
  * suspend. The callback is also a notification to the application for the host side resumes from suspend when the data
- * and bytes are 0(NULL). */
+ * and bytes are 0(NULL).
+ */
 typedef void (*srtm_sai_edma_data_callback_t)(srtm_sai_adapter_t adapter, void *data, uint32_t bytes, void *params);
+
+/*!
+ * @brief The callback function pointer.  Allow application to do some preparation before copy data from/to DDR, such
+ * as put DDR out of retention
+ */
+typedef void (*srtm_sai_edma_pre_copy_callback_t)(void);
+
+/*!
+ * @brief The callback function pointer.  Allow application to do some clean up after copy data to/from DDR, such as
+ * put DDR into retention again
+ */
+typedef void (*srtm_sai_edma_post_copy_callback_t)(void);
 
 /*******************************************************************************
  * API
@@ -76,7 +90,7 @@ extern "C" {
  * @return SRTM SAI EDMA adapter on success or NULL on failure.
  */
 srtm_sai_adapter_t SRTM_SaiEdmaAdapter_Create(I2S_Type *sai,
-                                              DMA_Type *dma,
+                                              void *dma,
                                               srtm_sai_edma_config_t *txConfig,
                                               srtm_sai_edma_config_t *rxConfig);
 
@@ -109,6 +123,28 @@ void SRTM_SaiEdmaAdapter_SetTxLocalBuf(srtm_sai_adapter_t adapter, srtm_sai_edma
  * @param localBuf Local buffer information to be set to the adapter RX path.
  */
 void SRTM_SaiEdmaAdapter_SetRxLocalBuf(srtm_sai_adapter_t adapter, srtm_sai_edma_local_buf_t *localBuf);
+
+/*!
+ * @brief Set callback function for preparing work (such as init DDR controller) before accessing shared buffer.
+ * NOTE: it must be called before service start.
+ *
+ * @param adapter SAI EDMA adapter to set.
+ * @param preCopyCallback Callback funciton pointer, which will be called when about to access shared buffer in adapter
+ * TX path.
+ */
+void SRTM_SaiEdmaAdapter_SetTxPreCopyCallback(srtm_sai_adapter_t adapter,
+                                              srtm_sai_edma_pre_copy_callback_t preCopyCallback);
+
+/*!
+ * @brief Set callback function for cleanup work (such as shutdown DDR controller) after accessing shared buffer.
+ * NOTE: it must be called before service start.
+ *
+ * @param adapter SAI EDMA adapter to set.
+ * @param postCopyCallback Callback funciton pointer, which will be called after accessing shared buffer in adapter TX
+ * path.
+ */
+void SRTM_SaiEdmaAdapter_SetTxPostCopyCallback(srtm_sai_adapter_t adapter,
+                                               srtm_sai_edma_post_copy_callback_t postCopyCallback);
 #endif
 
 /*!

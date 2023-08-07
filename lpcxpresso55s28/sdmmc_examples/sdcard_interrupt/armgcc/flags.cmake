@@ -30,8 +30,8 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     ${CMAKE_C_FLAGS_DEBUG} \
     -DDEBUG \
     -DCPU_LPC55S28JBD100 \
-    -DSD_ENABLED \
     -DMCUXPRESSO_SDK \
+    -DSD_ENABLED \
     -g \
     -O0 \
     -mcpu=cortex-m33 \
@@ -53,8 +53,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     ${CMAKE_C_FLAGS_RELEASE} \
     -DNDEBUG \
     -DCPU_LPC55S28JBD100 \
-    -DSD_ENABLED \
     -DMCUXPRESSO_SDK \
+    -DSD_ENABLED \
     -Os \
     -mcpu=cortex-m33 \
     -Wall \

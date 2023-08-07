@@ -15,8 +15,8 @@
 #include "message_buffer.h"
 #include "task.h"
 
-#include "mcmgr.h"
 #include "fsl_common.h"
+#include "mcmgr.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -81,6 +81,18 @@ void vApplicationGetIdleTaskMemory(StaticTask_t **ppxIdleTaskTCBBuffer,
 /*******************************************************************************
  * Code
  ******************************************************************************/
+
+/*!
+ * @brief Application-specific implementation of the SystemInitHook() weak function.
+ */
+void SystemInitHook(void)
+{
+    /* Initialize MCMGR - low level multicore management library. Call this
+       function as close to the reset entry as possible to allow CoreUp event
+       triggering. The SystemInitHook() weak function overloading is used in this
+       application. */
+    (void)MCMGR_EarlyInit();
+}
 static volatile uint16_t RemoteAppReadyEventData = 0U;
 static StaticTask_t xTaskBuffer;
 static StackType_t xStack[APP_TASK_STACK_SIZE];
@@ -164,18 +176,6 @@ static void FreeRtosMessageBuffersEventHandler(uint16_t eventData, void *context
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 
     /* No need to clear the interrupt flag here, it is handled by the mcmgr. */
-}
-
-/*!
- * @brief Application-specific implementation of the SystemInitHook() weak function.
- */
-void SystemInitHook(void)
-{
-    /* Initialize MCMGR - low level multicore management library. Call this
-       function as close to the reset entry as possible to allow CoreUp event
-       triggering. The SystemInitHook() weak function overloading is used in this
-       application. */
-    (void)MCMGR_EarlyInit();
 }
 
 static void app_task(void *param)

@@ -96,13 +96,13 @@ include(middleware_freertos-kernel_MIMX8QX6)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMX8QX6)
 
-include(CMSIS_Include_core_cm4)
+include(CMSIS_Include_core_cm)
 
-include(CMSIS_Include_common)
+include(CMSIS_Include_core_cm)
 
-include(CMSIS_Include_dsp)
+include(CMSIS_DSP_Include)
 
 include(device_system)
 

@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_twrkm34z50mv3_examples_manifest_v3_13" name="SDK_2.x_twrkm34z50mv3_examples_manifest_v3_13" format_version="3.13" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.13.xsd">
+
+  <externalDefinitions>
+    <definition extID="MKM34Z128ACLL5"/>
+  </externalDefinitions>
+  <ksdk id="MCUXpressoSDK2140_twrkm34z50mv3_examples_manifest_v3_13" name="MCUXpressoSDK2140_twrkm34z50mv3_examples_manifest_v3_13" version="2.14.0"/>
+  <boards>
+    <board id="twrkm34z50mv3" name="TWR-KM34Z50MV3" href="https://www.nxp.com/pip/TWR-KM34Z50M" version="1.0.0" package="MKM34Z128ACLL5">
+      <examples>
+        <example id="twrkm34z50mv3_hello_world" name="hello_world" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/twrkm34z50mv3/demo_apps/hello_world">
+          <external path="demo_apps/hello_world" type="xml">
+            <files mask="hello_world_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_led_blinky" name="led_blinky" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/twrkm34z50mv3/demo_apps/led_blinky">
+          <external path="demo_apps/led_blinky" type="xml">
+            <files mask="led_blinky_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_slcd_guessnum" name="slcd_guessnum" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/twrkm34z50mv3/demo_apps/slcd_guessnum">
+          <external path="demo_apps/slcd_guessnum" type="xml">
+            <files mask="slcd_guessnum_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_irtc" name="irtc" toolchain="armgcc mcuxpresso" category="driver_examples/irtc" path="examples/twrkm34z50mv3/driver_examples/irtc">
+          <external path="driver_examples/irtc" type="xml">
+            <files mask="irtc_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_qtmr" name="qtmr" toolchain="armgcc mcuxpresso" category="driver_examples/qtmr" path="examples/twrkm34z50mv3/driver_examples/qtmr">
+          <external path="driver_examples/qtmr" type="xml">
+            <files mask="qtmr_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_mcg_pei_blpi" name="mcg_pei_blpi" toolchain="armgcc mcuxpresso" category="driver_examples/mcg" path="examples/twrkm34z50mv3/driver_examples/mcg/pei_blpi">
+          <external path="driver_examples/mcg/pei_blpi" type="xml">
+            <files mask="mcg_pei_blpi_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_mcg_fee_blpi" name="mcg_fee_blpi" toolchain="armgcc mcuxpresso" category="driver_examples/mcg" path="examples/twrkm34z50mv3/driver_examples/mcg/fee_blpi">
+          <external path="driver_examples/mcg/fee_blpi" type="xml">
+            <files mask="mcg_fee_blpi_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_mcg_fei_blpi" name="mcg_fei_blpi" toolchain="armgcc mcuxpresso" category="driver_examples/mcg" path="examples/twrkm34z50mv3/driver_examples/mcg/fei_blpi">
+          <external path="driver_examples/mcg/fei_blpi" type="xml">
+            <files mask="mcg_fei_blpi_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_mcg_pee_blpe" name="mcg_pee_blpe" toolchain="armgcc mcuxpresso" category="driver_examples/mcg" path="examples/twrkm34z50mv3/driver_examples/mcg/pee_blpe">
+          <external path="driver_examples/mcg/pee_blpe" type="xml">
+            <files mask="mcg_pee_blpe_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_mcg_fee_blpe" name="mcg_fee_blpe" toolchain="armgcc mcuxpresso" category="driver_examples/mcg" path="examples/twrkm34z50mv3/driver_examples/mcg/fee_blpe">
+          <external path="driver_examples/mcg/fee_blpe" type="xml">
+            <files mask="mcg_fee_blpe_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_mcg_pee_blpi" name="mcg_pee_blpi" toolchain="armgcc mcuxpresso" category="driver_examples/mcg" path="examples/twrkm34z50mv3/driver_examples/mcg/pee_blpi">
+          <external path="driver_examples/mcg/pee_blpi" type="xml">
+            <files mask="mcg_pee_blpi_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_xbar" name="xbar" toolchain="armgcc mcuxpresso" category="driver_examples/xbar" path="examples/twrkm34z50mv3/driver_examples/xbar">
+          <external path="driver_examples/xbar" type="xml">
+            <files mask="xbar_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_gpio_input_interrupt" name="gpio_input_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/gpio" path="examples/twrkm34z50mv3/driver_examples/gpio/input_interrupt">
+          <external path="driver_examples/gpio/input_interrupt" type="xml">
+            <files mask="gpio_input_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_gpio_led_output" name="gpio_led_output" toolchain="armgcc mcuxpresso" category="driver_examples/gpio" path="examples/twrkm34z50mv3/driver_examples/gpio/led_output">
+          <external path="driver_examples/gpio/led_output" type="xml">
+            <files mask="gpio_led_output_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_slcd" name="slcd" toolchain="armgcc mcuxpresso" category="driver_examples/slcd" path="examples/twrkm34z50mv3/driver_examples/slcd">
+          <external path="driver_examples/slcd" type="xml">
+            <files mask="slcd_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_adc16_interrupt" name="adc16_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/adc16" path="examples/twrkm34z50mv3/driver_examples/adc16/interrupt">
+          <external path="driver_examples/adc16/interrupt" type="xml">
+            <files mask="adc16_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_adc16_polling" name="adc16_polling" toolchain="armgcc mcuxpresso" category="driver_examples/adc16" path="examples/twrkm34z50mv3/driver_examples/adc16/polling">
+          <external path="driver_examples/adc16/polling" type="xml">
+            <files mask="adc16_polling_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_lptmr" name="lptmr" toolchain="armgcc mcuxpresso" category="driver_examples/lptmr" path="examples/twrkm34z50mv3/driver_examples/lptmr">
+          <external path="driver_examples/lptmr" type="xml">
+            <files mask="lptmr_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_pit" name="pit" toolchain="armgcc mcuxpresso" category="driver_examples/pit" path="examples/twrkm34z50mv3/driver_examples/pit">
+          <external path="driver_examples/pit" type="xml">
+            <files mask="pit_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_dma_memory_to_memory" name="dma_memory_to_memory" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/twrkm34z50mv3/driver_examples/dma/memory_to_memory">
+          <external path="driver_examples/dma/memory_to_memory" type="xml">
+            <files mask="dma_memory_to_memory_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_dma_ring_buffer" name="dma_ring_buffer" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/twrkm34z50mv3/driver_examples/dma/ring_buffer">
+          <external path="driver_examples/dma/ring_buffer" type="xml">
+            <files mask="dma_ring_buffer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_dma_channel_link" name="dma_channel_link" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/twrkm34z50mv3/driver_examples/dma/channel_link">
+          <external path="driver_examples/dma/channel_link" type="xml">
+            <files mask="dma_channel_link_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_dma_wrap_transfer" name="dma_wrap_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/twrkm34z50mv3/driver_examples/dma/wrap_transfer">
+          <external path="driver_examples/dma/wrap_transfer" type="xml">
+            <files mask="dma_wrap_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_ewm" name="ewm" toolchain="armgcc mcuxpresso" category="driver_examples/ewm" path="examples/twrkm34z50mv3/driver_examples/ewm">
+          <external path="driver_examples/ewm" type="xml">
+            <files mask="ewm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_wdog" name="wdog" toolchain="armgcc mcuxpresso" category="driver_examples/wdog" path="examples/twrkm34z50mv3/driver_examples/wdog">
+          <external path="driver_examples/wdog" type="xml">
+            <files mask="wdog_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_rnga_random" name="rnga_random" toolchain="armgcc mcuxpresso" category="driver_examples/rnga" path="examples/twrkm34z50mv3/driver_examples/rnga/random">
+          <external path="driver_examples/rnga/random" type="xml">
+            <files mask="rnga_random_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_crc" name="crc" toolchain="armgcc mcuxpresso" category="driver_examples/crc" path="examples/twrkm34z50mv3/driver_examples/crc">
+          <external path="driver_examples/crc" type="xml">
+            <files mask="crc_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_i2c_read_accel_value_transfer" name="i2c_read_accel_value_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/twrkm34z50mv3/driver_examples/i2c/read_accel_value_transfer">
+          <external path="driver_examples/i2c/read_accel_value_transfer" type="xml">
+            <files mask="i2c_read_accel_value_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_i2c_dma_b2b_transfer_master" name="i2c_dma_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/twrkm34z50mv3/driver_examples/i2c/dma_b2b_transfer/master">
+          <external path="driver_examples/i2c/dma_b2b_transfer/master" type="xml">
+            <files mask="i2c_dma_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_i2c_dma_b2b_transfer_slave" name="i2c_dma_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/twrkm34z50mv3/driver_examples/i2c/dma_b2b_transfer/slave">
+          <external path="driver_examples/i2c/dma_b2b_transfer/slave" type="xml">
+            <files mask="i2c_dma_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_i2c_interrupt_b2b_transfer_master" name="i2c_interrupt_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/twrkm34z50mv3/driver_examples/i2c/interrupt_b2b_transfer/master">
+          <external path="driver_examples/i2c/interrupt_b2b_transfer/master" type="xml">
+            <files mask="i2c_interrupt_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_i2c_interrupt_b2b_transfer_slave" name="i2c_interrupt_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/twrkm34z50mv3/driver_examples/i2c/interrupt_b2b_transfer/slave">
+          <external path="driver_examples/i2c/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="i2c_interrupt_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_i2c_polling_b2b_transfer_master" name="i2c_polling_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/twrkm34z50mv3/driver_examples/i2c/polling_b2b_transfer/master">
+          <external path="driver_examples/i2c/polling_b2b_transfer/master" type="xml">
+            <files mask="i2c_polling_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_i2c_polling_b2b_transfer_slave" name="i2c_polling_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/twrkm34z50mv3/driver_examples/i2c/polling_b2b_transfer/slave">
+          <external path="driver_examples/i2c/polling_b2b_transfer/slave" type="xml">
+            <files mask="i2c_polling_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_afe_polling" name="afe_polling" toolchain="armgcc mcuxpresso" category="driver_examples/afe" path="examples/twrkm34z50mv3/driver_examples/afe/polling">
+          <external path="driver_examples/afe/polling" type="xml">
+            <files mask="afe_polling_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_afe_interrupt" name="afe_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/afe" path="examples/twrkm34z50mv3/driver_examples/afe/interrupt">
+          <external path="driver_examples/afe/interrupt" type="xml">
+            <files mask="afe_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_cmp_polling" name="cmp_polling" toolchain="armgcc mcuxpresso" category="driver_examples/cmp" path="examples/twrkm34z50mv3/driver_examples/cmp/polling">
+          <external path="driver_examples/cmp/polling" type="xml">
+            <files mask="cmp_polling_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_cmp_interrupt" name="cmp_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/cmp" path="examples/twrkm34z50mv3/driver_examples/cmp/interrupt">
+          <external path="driver_examples/cmp/interrupt" type="xml">
+            <files mask="cmp_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_pflash" name="pflash" toolchain="armgcc mcuxpresso" category="driver_examples/flash" path="examples/twrkm34z50mv3/driver_examples/flash/pflash">
+          <external path="driver_examples/flash/pflash" type="xml">
+            <files mask="pflash_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_sysmpu" name="sysmpu" toolchain="armgcc mcuxpresso" category="driver_examples/sysmpu" path="examples/twrkm34z50mv3/driver_examples/sysmpu">
+          <external path="driver_examples/sysmpu" type="xml">
+            <files mask="sysmpu_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_spi_polling_b2b_transfer_master" name="spi_polling_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/twrkm34z50mv3/driver_examples/spi/polling_b2b_transfer/master">
+          <external path="driver_examples/spi/polling_b2b_transfer/master" type="xml">
+            <files mask="spi_polling_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_spi_polling_b2b_transfer_slave" name="spi_polling_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/twrkm34z50mv3/driver_examples/spi/polling_b2b_transfer/slave">
+          <external path="driver_examples/spi/polling_b2b_transfer/slave" type="xml">
+            <files mask="spi_polling_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_spi_interrupt_b2b_transfer_master" name="spi_interrupt_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/twrkm34z50mv3/driver_examples/spi/interrupt_b2b_transfer/master">
+          <external path="driver_examples/spi/interrupt_b2b_transfer/master" type="xml">
+            <files mask="spi_interrupt_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_spi_interrupt_b2b_transfer_slave" name="spi_interrupt_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/twrkm34z50mv3/driver_examples/spi/interrupt_b2b_transfer/slave">
+          <external path="driver_examples/spi/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="spi_interrupt_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_spi_dma_b2b_transfer_master" name="spi_dma_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/twrkm34z50mv3/driver_examples/spi/dma_b2b_transfer/master">
+          <external path="driver_examples/spi/dma_b2b_transfer/master" type="xml">
+            <files mask="spi_dma_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_spi_dma_b2b_transfer_slave" name="spi_dma_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/twrkm34z50mv3/driver_examples/spi/dma_b2b_transfer/slave">
+          <external path="driver_examples/spi/dma_b2b_transfer/slave" type="xml">
+            <files mask="spi_dma_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_uart_interrupt_transfer" name="uart_interrupt_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/uart" path="examples/twrkm34z50mv3/driver_examples/uart/interrupt_transfer">
+          <external path="driver_examples/uart/interrupt_transfer" type="xml">
+            <files mask="uart_interrupt_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_uart_polling" name="uart_polling" toolchain="armgcc mcuxpresso" category="driver_examples/uart" path="examples/twrkm34z50mv3/driver_examples/uart/polling">
+          <external path="driver_examples/uart/polling" type="xml">
+            <files mask="uart_polling_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_uart_interrupt" name="uart_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/uart" path="examples/twrkm34z50mv3/driver_examples/uart/interrupt">
+          <external path="driver_examples/uart/interrupt" type="xml">
+            <files mask="uart_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_uart_interrupt_rb_transfer" name="uart_interrupt_rb_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/uart" path="examples/twrkm34z50mv3/driver_examples/uart/interrupt_rb_transfer">
+          <external path="driver_examples/uart/interrupt_rb_transfer" type="xml">
+            <files mask="uart_interrupt_rb_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_uart_dma_transfer" name="uart_dma_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/uart" path="examples/twrkm34z50mv3/driver_examples/uart/dma_transfer">
+          <external path="driver_examples/uart/dma_transfer" type="xml">
+            <files mask="uart_dma_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_adc16_low_power" name="adc16_low_power" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/twrkm34z50mv3/demo_apps/adc16_low_power">
+          <external path="demo_apps/adc16_low_power" type="xml">
+            <files mask="adc16_low_power_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_power_manager" name="power_manager" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/twrkm34z50mv3/demo_apps/power_manager">
+          <external path="demo_apps/power_manager" type="xml">
+            <files mask="power_manager_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_power_mode_switch" name="power_mode_switch" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/twrkm34z50mv3/demo_apps/power_mode_switch">
+          <external path="demo_apps/power_mode_switch" type="xml">
+            <files mask="power_mode_switch_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_adc16_low_power_async_dma" name="adc16_low_power_async_dma" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/twrkm34z50mv3/demo_apps/adc16_low_power_async_dma">
+          <external path="demo_apps/adc16_low_power_async_dma" type="xml">
+            <files mask="adc16_low_power_async_dma_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_spi_interrupt_b2b_master" name="spi_interrupt_b2b_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/twrkm34z50mv3/driver_examples/spi/interrupt_b2b/master">
+          <external path="driver_examples/spi/interrupt_b2b/master" type="xml">
+            <files mask="spi_interrupt_b2b_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_spi_interrupt_b2b_slave" name="spi_interrupt_b2b_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/twrkm34z50mv3/driver_examples/spi/interrupt_b2b/slave">
+          <external path="driver_examples/spi/interrupt_b2b/slave" type="xml">
+            <files mask="spi_interrupt_b2b_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_afe_qtimer" name="afe_qtimer" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/twrkm34z50mv3/demo_apps/afe_qtimer">
+          <external path="demo_apps/afe_qtimer" type="xml">
+            <files mask="afe_qtimer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_adc16_potentiometer" name="adc16_potentiometer" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/twrkm34z50mv3/demo_apps/adc16_potentiometer">
+          <external path="demo_apps/adc16_potentiometer" type="xml">
+            <files mask="adc16_potentiometer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_shell" name="shell" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/twrkm34z50mv3/demo_apps/shell">
+          <external path="demo_apps/shell" type="xml">
+            <files mask="shell_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_log_bm" name="log_bm" toolchain="armgcc mcuxpresso" category="component_examples" path="examples/twrkm34z50mv3/component_examples/log/bm">
+          <external path="component_examples/log/bm" type="xml">
+            <files mask="log_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_log_freertos" name="log_freertos" toolchain="armgcc mcuxpresso" category="component_examples" path="examples/twrkm34z50mv3/component_examples/log/freertos">
+          <external path="component_examples/log/freertos" type="xml">
+            <files mask="log_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_cmsis_spi_interrupt_b2b_transfer_master" name="cmsis_spi_interrupt_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/spi" path="examples/twrkm34z50mv3/cmsis_driver_examples/spi/interrupt_b2b_transfer/master">
+          <external path="cmsis_driver_examples/spi/interrupt_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_interrupt_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_cmsis_spi_interrupt_b2b_transfer_slave" name="cmsis_spi_interrupt_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/spi" path="examples/twrkm34z50mv3/cmsis_driver_examples/spi/interrupt_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/spi/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_interrupt_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_cmsis_spi_dma_b2b_transfer_master" name="cmsis_spi_dma_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/spi" path="examples/twrkm34z50mv3/cmsis_driver_examples/spi/dma_b2b_transfer/master">
+          <external path="cmsis_driver_examples/spi/dma_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_dma_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_cmsis_spi_dma_b2b_transfer_slave" name="cmsis_spi_dma_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/spi" path="examples/twrkm34z50mv3/cmsis_driver_examples/spi/dma_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/spi/dma_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_dma_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_cmsis_i2c_read_accel_value_transfer" name="cmsis_i2c_read_accel_value_transfer" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/i2c" path="examples/twrkm34z50mv3/cmsis_driver_examples/i2c/read_accel_value_transfer">
+          <external path="cmsis_driver_examples/i2c/read_accel_value_transfer" type="xml">
+            <files mask="cmsis_i2c_read_accel_value_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_cmsis_uart_interrupt_transfer" name="cmsis_uart_interrupt_transfer" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/uart" path="examples/twrkm34z50mv3/cmsis_driver_examples/uart/interrupt_transfer">
+          <external path="cmsis_driver_examples/uart/interrupt_transfer" type="xml">
+            <files mask="cmsis_uart_interrupt_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_cmsis_uart_dma_transfer" name="cmsis_uart_dma_transfer" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/uart" path="examples/twrkm34z50mv3/cmsis_driver_examples/uart/dma_transfer">
+          <external path="cmsis_driver_examples/uart/dma_transfer" type="xml">
+            <files mask="cmsis_uart_dma_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_vref_example" name="vref_example" toolchain="armgcc mcuxpresso" category="driver_examples/vref" path="examples/twrkm34z50mv3/driver_examples/vref">
+          <external path="driver_examples/vref" type="xml">
+            <files mask="vref_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_freertos_hello" name="freertos_hello" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/twrkm34z50mv3/freertos_examples/freertos_hello">
+          <external path="freertos_examples/freertos_hello" type="xml">
+            <files mask="freertos_hello_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_freertos_event" name="freertos_event" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/twrkm34z50mv3/freertos_examples/freertos_event">
+          <external path="freertos_examples/freertos_event" type="xml">
+            <files mask="freertos_event_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_freertos_generic" name="freertos_generic" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/twrkm34z50mv3/freertos_examples/freertos_generic">
+          <external path="freertos_examples/freertos_generic" type="xml">
+            <files mask="freertos_generic_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_freertos_queue" name="freertos_queue" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/twrkm34z50mv3/freertos_examples/freertos_queue">
+          <external path="freertos_examples/freertos_queue" type="xml">
+            <files mask="freertos_queue_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_freertos_sem" name="freertos_sem" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/twrkm34z50mv3/freertos_examples/freertos_sem">
+          <external path="freertos_examples/freertos_sem" type="xml">
+            <files mask="freertos_sem_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_freertos_swtimer" name="freertos_swtimer" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/twrkm34z50mv3/freertos_examples/freertos_swtimer">
+          <external path="freertos_examples/freertos_swtimer" type="xml">
+            <files mask="freertos_swtimer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_freertos_mutex" name="freertos_mutex" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/twrkm34z50mv3/freertos_examples/freertos_mutex">
+          <external path="freertos_examples/freertos_mutex" type="xml">
+            <files mask="freertos_mutex_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="twrkm34z50mv3_freertos_tickless" name="freertos_tickless" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/twrkm34z50mv3/freertos_examples/freertos_tickless">
+          <external path="freertos_examples/freertos_tickless" type="xml">
+            <files mask="freertos_tickless_v3_13.xml"/>
+          </external>
+        </example>
+      </examples>
+    </board>
+  </boards>
+</ksdk:manifest>

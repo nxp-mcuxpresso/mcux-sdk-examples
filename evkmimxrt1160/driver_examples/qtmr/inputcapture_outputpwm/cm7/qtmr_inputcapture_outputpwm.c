@@ -58,7 +58,7 @@ void QTMR_IRQ_HANDLER(void)
     qtmrIsrFlag = true;
     /* Add for ARM errata 838869, affects Cortex-M4, Cortex-M4F Store immediate overlapping
       exception return operation might vector to incorrect interrupt */
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

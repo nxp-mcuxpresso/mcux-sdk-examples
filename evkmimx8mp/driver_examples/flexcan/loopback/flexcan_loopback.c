@@ -68,21 +68,42 @@ flexcan_frame_t txFrame, rxFrame;
 
 void EXAMPLE_FLEXCAN_IRQHandler(void)
 {
-#if (defined(FSL_FEATURE_FLEXCAN_HAS_EXTENDED_FLAG_REGISTER)) && (FSL_FEATURE_FLEXCAN_HAS_EXTENDED_FLAG_REGISTER > 0)
-    uint64_t flag = 1U;
-#else
-    uint32_t flag = 1U;
-#endif
     /* If new data arrived. */
-    if (0U != FLEXCAN_GetMbStatusFlags(EXAMPLE_CAN, flag << RX_MESSAGE_BUFFER_NUM))
+#if (defined(FSL_FEATURE_FLEXCAN_HAS_MORE_THAN_64_MB) && FSL_FEATURE_FLEXCAN_HAS_MORE_THAN_64_MB)
+#if (RX_MESSAGE_BUFFER_NUM >= 64U)
+    if (0U != FLEXCAN_GetHigh64MbStatusFlags(EXAMPLE_CAN, (uint64_t)1U << (RX_MESSAGE_BUFFER_NUM - 64U)))
     {
-        FLEXCAN_ClearMbStatusFlags(EXAMPLE_CAN, flag << RX_MESSAGE_BUFFER_NUM);
+        FLEXCAN_ClearHigh64MbStatusFlags(EXAMPLE_CAN, (uint64_t)1U << (RX_MESSAGE_BUFFER_NUM - 64U));
+        rxComplete = true;
+    }
+#else
+    if (0U != FLEXCAN_GetMbStatusFlags(EXAMPLE_CAN, (uint64_t)1U << RX_MESSAGE_BUFFER_NUM))
+    {
+        FLEXCAN_ClearMbStatusFlags(EXAMPLE_CAN, (uint64_t)1U << RX_MESSAGE_BUFFER_NUM);
+        rxComplete = true;
+    }
+#endif
+#elif (defined(FSL_FEATURE_FLEXCAN_HAS_EXTENDED_FLAG_REGISTER) && FSL_FEATURE_FLEXCAN_HAS_EXTENDED_FLAG_REGISTER)
+    if (0U != FLEXCAN_GetMbStatusFlags(EXAMPLE_CAN, (uint64_t)1U << RX_MESSAGE_BUFFER_NUM))
+    {
+        FLEXCAN_ClearMbStatusFlags(EXAMPLE_CAN, (uint64_t)1U << RX_MESSAGE_BUFFER_NUM);
+        rxComplete = true;
+    }
+#else
+    if (0U != FLEXCAN_GetMbStatusFlags(EXAMPLE_CAN, (uint32_t)1U << RX_MESSAGE_BUFFER_NUM))
+    {
+        FLEXCAN_ClearMbStatusFlags(EXAMPLE_CAN, (uint32_t)1U << RX_MESSAGE_BUFFER_NUM);
+        rxComplete = true;
+    }
+#endif
+
+    if (rxComplete)
+    {
 #if (defined(USE_CANFD) && USE_CANFD)
         (void)FLEXCAN_ReadFDRxMb(EXAMPLE_CAN, RX_MESSAGE_BUFFER_NUM, &rxFrame);
 #else
         (void)FLEXCAN_ReadRxMb(EXAMPLE_CAN, RX_MESSAGE_BUFFER_NUM, &rxFrame);
 #endif
-        rxComplete = true;
     }
     SDK_ISR_EXIT_BARRIER;
 }
@@ -94,11 +115,6 @@ int main(void)
 {
     flexcan_config_t flexcanConfig;
     flexcan_rx_mb_config_t mbConfig;
-#if (defined(FSL_FEATURE_FLEXCAN_HAS_EXTENDED_FLAG_REGISTER)) && (FSL_FEATURE_FLEXCAN_HAS_EXTENDED_FLAG_REGISTER > 0)
-    uint64_t flag = 1U;
-#else
-    uint32_t flag = 1U;
-#endif
 
     /* Initialize board hardware. */
     /* M7 has its local cache and enabled by default,
@@ -194,7 +210,19 @@ int main(void)
 #endif
 
     /* Enable Rx Message Buffer interrupt. */
-    FLEXCAN_EnableMbInterrupts(EXAMPLE_CAN, flag << RX_MESSAGE_BUFFER_NUM);
+#if (defined(FSL_FEATURE_FLEXCAN_HAS_MORE_THAN_64_MB) && FSL_FEATURE_FLEXCAN_HAS_MORE_THAN_64_MB)
+#if (RX_MESSAGE_BUFFER_NUM >= 64U)
+    FLEXCAN_EnableHigh64MbInterrupts(EXAMPLE_CAN, (uint64_t)1U << (RX_MESSAGE_BUFFER_NUM - 64U));
+#else
+    FLEXCAN_EnableMbInterrupts(EXAMPLE_CAN, (uint64_t)1U << RX_MESSAGE_BUFFER_NUM);
+
+#endif
+#elif (defined(FSL_FEATURE_FLEXCAN_HAS_EXTENDED_FLAG_REGISTER) && FSL_FEATURE_FLEXCAN_HAS_EXTENDED_FLAG_REGISTER)
+    FLEXCAN_EnableMbInterrupts(EXAMPLE_CAN, (uint64_t)1U << RX_MESSAGE_BUFFER_NUM);
+
+#else
+    FLEXCAN_EnableMbInterrupts(EXAMPLE_CAN, (uint32_t)1U << RX_MESSAGE_BUFFER_NUM);
+#endif
     (void)EnableIRQ(EXAMPLE_FLEXCAN_IRQn);
 
     /* Prepare Tx Frame for sending. */
@@ -204,6 +232,7 @@ int main(void)
     txFrame.length = (uint8_t)DLC;
 #if (defined(USE_CANFD) && USE_CANFD)
     txFrame.brs = 1U;
+    txFrame.edl = 1U;
 #endif
 #if (defined(USE_CANFD) && USE_CANFD)
     uint8_t i = 0;
@@ -253,7 +282,19 @@ int main(void)
 #endif
 
     /* Stop FlexCAN Send & Receive. */
-    FLEXCAN_DisableMbInterrupts(EXAMPLE_CAN, flag << RX_MESSAGE_BUFFER_NUM);
+#if (defined(FSL_FEATURE_FLEXCAN_HAS_MORE_THAN_64_MB) && FSL_FEATURE_FLEXCAN_HAS_MORE_THAN_64_MB)
+#if (RX_MESSAGE_BUFFER_NUM >= 64U)
+    FLEXCAN_DisableHigh64MbInterrupts(EXAMPLE_CAN, (uint64_t)1U << (RX_MESSAGE_BUFFER_NUM - 64U));
+#else
+    FLEXCAN_DisableMbInterrupts(EXAMPLE_CAN, (uint64_t)1U << RX_MESSAGE_BUFFER_NUM);
+
+#endif
+#elif (defined(FSL_FEATURE_FLEXCAN_HAS_EXTENDED_FLAG_REGISTER) && FSL_FEATURE_FLEXCAN_HAS_EXTENDED_FLAG_REGISTER)
+    FLEXCAN_DisableMbInterrupts(EXAMPLE_CAN, (uint64_t)1U << RX_MESSAGE_BUFFER_NUM);
+
+#else
+    FLEXCAN_DisableMbInterrupts(EXAMPLE_CAN, (uint32_t)1U << RX_MESSAGE_BUFFER_NUM);
+#endif
 
     LOG_INFO("\r\n==FlexCAN loopback functional example -- Finish.==\r\n");
 

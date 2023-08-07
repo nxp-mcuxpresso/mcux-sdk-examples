@@ -75,6 +75,34 @@ int controller_hci_uart_get_configuration(controller_hci_uart_config_t *config)
     config->enableTxCTS = 1u;
     return 0;
 }
+#elif defined(BT_THIRD_PARTY_TRANSCEIVER)
+int controller_hci_uart_get_configuration(controller_hci_uart_config_t *config)
+{
+    if (NULL == config)
+    {
+        return -1;
+    }
+    config->clockSrc         = BOARD_BT_UART_CLK_FREQ;
+    config->defaultBaudrate  = 1000000u;
+    config->runningBaudrate  = 1000000u;
+    config->instance         = BOARD_BT_UART_INSTANCE;
+    config->enableRxRTS      = 1u;
+    config->enableTxCTS      = 1u;
+#if (defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U))
+    config->dma_instance     = 0U;
+    config->rx_channel       = 1U;
+    config->tx_channel       = 2U;
+    config->dma_mux_instance = 0U;
+    config->rx_request       = kDmaRequestMuxLPUART7Rx;
+    config->tx_request       = kDmaRequestMuxLPUART7Tx;
+#endif
+    return 0;
+}
+
+void controller_init(void)
+{
+}
+
 #endif
 
 void USB_HostClockInit(void)
@@ -119,6 +147,11 @@ int main(void)
 {
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
+#if (defined(WIFI_88W8987_BOARD_MURATA_1ZM_M2) || defined(WIFI_IW416_BOARD_MURATA_1XK_M2))
+    BOARD_InitM2UARTPins();
+#else
+    BOARD_InitArduinoUARTPins();
+#endif
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 

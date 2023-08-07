@@ -9,7 +9,7 @@ The file 'lpspi_polling_b2b_transfer_master.c' includes the LPSPI master code.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

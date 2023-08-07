@@ -12,7 +12,8 @@
 **     Abstract:
 **         Linker file for the GNU C Compiler
 **
-**     Copyright 2022 NXP
+**     Copyright 2016 Freescale Semiconductor, Inc.
+**     Copyright 2016-2023 NXP
 **     All rights reserved.
 **
 **     SPDX-License-Identifier: BSD-3-Clause
@@ -26,23 +27,17 @@
 /* Entry Point */
 ENTRY(Reset_Handler)
 
-_ROM_START_ = 0x30002400;
-_ROM_END_   = DEFINED(__use_flash64MB__) ? 0x33DBFFFF : 0x30DBFFFF;
-
-m_text_end   = DEFINED(__use_flash64MB__) ? 0x33FBFFFF : 0x30FBFFFF;
-m_text_start = _ROM_START_;
-m_text_size  = DEFINED(__use_flash64MB__) ? 0x03FBDC00 : 0x00FBDC00;
-
-/*** littleFS configuration Start ***/
-EDGEFAST_BT_LITTLEFS_STORAGE_START_ADDRESS = _ROM_END_ + 1;
-EDGEFAST_BT_LITTLEFS_STORAGE_SECTOR_SIZE = 0x1000;  /* 4k flash sector size */
-EDGEFAST_BT_LITTLEFS_STORAGE_MAX_SECTORS = (m_text_end + 1 - EDGEFAST_BT_LITTLEFS_STORAGE_START_ADDRESS) / EDGEFAST_BT_LITTLEFS_STORAGE_SECTOR_SIZE;
-/*** littleFS configuration End ***/
-
 HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x1000;
 STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0400;
 RPMSG_SHMEM_SIZE = DEFINED(__use_shmem__) ? 0x2000 : 0;
 VECTOR_RAM_SIZE = DEFINED(__ram_vector_table__) ? 0x00000400 : 0;
+TEXT_SIZE = DEFINED(__use_flash64MB__) ? 0x03FBDC00 : 0x00FBDC00;
+CORE1IMAGE_START = DEFINED(__use_flash64MB__) ? 0x33FC0000 : 0x30FC0000;
+
+LITTLEFS_REGION_SIZE = 0x00200000;
+
+m_text_start         = 0x30002400;
+m_text_size          = TEXT_SIZE - LITTLEFS_REGION_SIZE;
 
 /* Specify the memory areas */
 MEMORY
@@ -55,8 +50,16 @@ MEMORY
   m_data                (RW)  : ORIGIN = 0x20000000, LENGTH = 0x00040000
   m_data2               (RW)  : ORIGIN = 0x202C0000 + RPMSG_SHMEM_SIZE, LENGTH = 0x00080000 - RPMSG_SHMEM_SIZE
   rpmsg_sh_mem          (RW)  : ORIGIN = 0x202C0000, LENGTH = RPMSG_SHMEM_SIZE
-  m_core1_image         (RX)  : ORIGIN = 0x30FC0000, LENGTH = 0x00040000
+  m_core1_image         (RX)  : ORIGIN = CORE1IMAGE_START, LENGTH = 0x00040000
 }
+
+/* NOTE: The last LITTLEFS_REGION_SIZE Flash( in range (m_text_start + m_text_size) ~ (m_text_start + m_text_size + LITTLEFS_REGION_SIZE -1)) is reserved for litteFS data */
+
+/*** littleFS configuration Start ***/
+EDGEFAST_BT_LITTLEFS_STORAGE_START_ADDRESS = m_text_start + m_text_size;
+EDGEFAST_BT_LITTLEFS_STORAGE_SECTOR_SIZE   = 0x1000;  /* 4k flash sector size */
+EDGEFAST_BT_LITTLEFS_STORAGE_MAX_SECTORS   = LITTLEFS_REGION_SIZE / EDGEFAST_BT_LITTLEFS_STORAGE_SECTOR_SIZE;
+/*** littleFS configuration End ***/
 
 /* Define output sections */
 SECTIONS
@@ -72,7 +75,7 @@ SECTIONS
     . = ALIGN(4);
   } > m_flash_config
 
-  ivt_begin= ORIGIN(m_flash_config) + LENGTH(m_flash_config);
+  ivt_begin = ORIGIN(m_flash_config) + LENGTH(m_flash_config);
 
   .ivt : AT(ivt_begin)
   {
@@ -289,6 +292,7 @@ SECTIONS
     */fsl_flexspi.c.obj
     *(.data)                 /* .data sections */
     *(.data*)                /* .data* sections */
+    *(DataQuickAccess)       /* quick access data section */
     KEEP(*(.jcr*))
     . = ALIGN(4);
     _k_mem_slab_list_start = .;
@@ -347,6 +351,7 @@ SECTIONS
     __bss_end__ = .;
     __END_BSS = .;
   } > m_data2
+
   .heap :
   {
     . = ALIGN(8);
@@ -368,8 +373,8 @@ SECTIONS
   __StackTop   = ORIGIN(m_data) + LENGTH(m_data);
   __StackLimit = __StackTop - STACK_SIZE;
   PROVIDE(__stack = __StackTop);
+
   .ARM.attributes 0 : { *(.ARM.attributes) }
 
   ASSERT(__StackLimit >= __HeapLimit, "region m_data2 overflowed with stack and heap")
 }
-

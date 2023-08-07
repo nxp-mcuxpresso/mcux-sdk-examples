@@ -32,8 +32,8 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DCPU_K32L2B31VLH0A \
     -DFRDM_K32L2B \
     -DFREEDOM \
-    -DSLCD_PANEL_LCD_S401M16KR_H \
     -DMCUXPRESSO_SDK \
+    -DSLCD_PANEL_LCD_S401M16KR_H \
     -g \
     -O0 \
     -mcpu=cortex-m0plus \
@@ -57,8 +57,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DCPU_K32L2B31VLH0A \
     -DFRDM_K32L2B \
     -DFREEDOM \
-    -DSLCD_PANEL_LCD_S401M16KR_H \
     -DMCUXPRESSO_SDK \
+    -DSLCD_PANEL_LCD_S401M16KR_H \
     -Os \
     -mcpu=cortex-m0plus \
     -Wall \

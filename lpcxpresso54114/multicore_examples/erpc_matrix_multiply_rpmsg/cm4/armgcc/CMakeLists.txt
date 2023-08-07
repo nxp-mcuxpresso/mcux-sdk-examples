@@ -123,7 +123,7 @@ include(driver_reset)
 
 include(device_CMSIS)
 
-include(CMSIS_Include_core_cm4)
+include(CMSIS_Include_core_cm)
 
 include(device_startup_LPC54114_cm4)
 
@@ -139,11 +139,11 @@ include(middleware_multicore_rpmsg_lite)
 
 include(middleware_multicore_erpc_common)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_LPC54114_cm4)
 
-include(CMSIS_Include_common)
+include(CMSIS_Include_core_cm)
 
-include(CMSIS_Include_dsp)
+include(CMSIS_DSP_Include)
 
 include(device_system_LPC54114_cm4)
 

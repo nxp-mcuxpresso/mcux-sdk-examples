@@ -57,7 +57,7 @@ SECTIONS
     . = ALIGN(4);
   } > m_flash_config
 
-  ivt_begin= ORIGIN(m_flash_config) + LENGTH(m_flash_config);
+  ivt_begin = ORIGIN(m_flash_config) + LENGTH(m_flash_config);
 
   .ivt : AT(ivt_begin)
   {
@@ -215,6 +215,12 @@ SECTIONS
 
     *(.data)                 /* .data sections */
     *(.data*)                /* .data* sections */
+
+    */sample_azure_iot.c.obj( .bss* )
+    */azure_iot_embedded_sdk.c.obj( .bss* )
+    */azure_iot_embedded_sdk_pnp.c.obj( .bss* )
+    */pnp_temperature_controller.c.obj( .bss* )
+
     KEEP(*(.jcr*))
     . = ALIGN(4);
     __data_end__ = .;        /* define a global symbol at data end */
@@ -248,7 +254,12 @@ SECTIONS
     __bss_start__ = .;
     *(m_usb_dma_noninit_data)
     *(.bss)
-    *(.bss*)
+    *( EXCLUDE_FILE(
+            sample_azure_iot.c.obj
+            azure_iot_embedded_sdk.c.obj
+            azure_iot_embedded_sdk_pnp.c.obj
+            pnp_temperature_controller.c.obj
+      ) .bss*)
     *(COMMON)
     . = ALIGN(4);
     __bss_end__ = .;

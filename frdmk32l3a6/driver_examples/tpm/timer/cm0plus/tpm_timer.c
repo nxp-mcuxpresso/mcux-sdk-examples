@@ -112,5 +112,5 @@ void BOARD_TPM_HANDLER(void)
     /* Clear interrupt flag.*/
     TPM_ClearStatusFlags(BOARD_TPM, kTPM_TimeOverflowFlag);
     tpmIsrFlag = true;
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }

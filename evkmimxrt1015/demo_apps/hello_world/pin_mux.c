@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2022 NXP
+ * Copyright 2019-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -13,11 +13,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v9.0
+product: Pins v14.0
 processor: MIMXRT1015xxxxx
 package_id: MIMXRT1015DAF5A
 mcu_data: ksdk2_0
-processor_version: 9.0.1
+processor_version: 0.14.5
 board: MIMXRT1015-EVK
 pin_labels:
 - {pin_num: '68', pin_signal: GPIO_AD_B0_07, label: LPUART1_RXD, identifier: UART1_RXD}
@@ -42,12 +42,13 @@ void BOARD_InitBootPins(void) {
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitPins:
-- options: {callFromInitBoot: 'true', prefix: BOARD_, coreID: core0, enableClock: 'true'}
+- options: {callFromInitBoot: 'true', coreID: core0, enableClock: 'true'}
 - pin_list:
   - {pin_num: '68', peripheral: LPUART1, signal: RX, pin_signal: GPIO_AD_B0_07, slew_rate: Slow, software_input_on: Disable, open_drain: Disable, speed: MHZ_100,
     drive_strength: R0_6, pull_keeper_select: Keeper, pull_keeper_enable: Enable, pull_up_down_config: Pull_Down_100K_Ohm, hysteresis_enable: Disable}
   - {pin_num: '72', peripheral: LPUART1, signal: TX, pin_signal: GPIO_AD_B0_06, slew_rate: Slow, software_input_on: Disable, open_drain: Disable, speed: MHZ_100,
     drive_strength: R0_6, pull_keeper_select: Keeper, pull_keeper_enable: Enable, pull_up_down_config: Pull_Down_100K_Ohm, hysteresis_enable: Disable}
+  - {pin_num: '64', peripheral: ARM, signal: arm_trace_swo, pin_signal: GPIO_AD_B0_11}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -62,10 +63,11 @@ void BOARD_InitPins(void) {
 
   IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_06_LPUART1_TX, 0U); 
   IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_07_LPUART1_RX, 0U); 
+#if FSL_IOMUXC_DRIVER_VERSION >= MAKE_VERSION(2, 0, 4)
+  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_11_ARM_CM7_TRACE_SWO, 0U); 
+#endif
   IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B0_06_LPUART1_TX, 0x10B0U); 
   IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B0_07_LPUART1_RX, 0x10B0U); 
-
-  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_11_ARM_CM7_TRACE_SWO, 0U); 
 }
 
 /***********************************************************************************************************************

@@ -50,7 +50,7 @@ void SEMA4_IRQHandler(void)
     {
         SEMA4_TryLock(APP_SEMA4, APP_SEMA4_GATE, APP_PROC_NUM);
     }
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

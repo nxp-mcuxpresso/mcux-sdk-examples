@@ -10,8 +10,8 @@
 #include "clock_config.h"
 #include "board.h"
 
-#include "fsl_lpuart_cmsis.h"
 #include "fsl_intmux.h"
+#include "fsl_lpuart_cmsis.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

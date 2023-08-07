@@ -164,6 +164,8 @@ int streamer_pcm_write(pcm_rtos_t *pcm, uint8_t *data, uint32_t size)
             return -1;
     }
 
+    DCACHE_CleanByRange((uint32_t)pcm->saiTx.data, pcm->saiTx.dataSize);
+
     /* Start the consecutive transfer */
     SAI_TransferSendEDMA(DEMO_SAI, &pcm->saiTxHandle, &pcm->saiTx);
     SAI_TransferSendEDMA(DEMO_SAI, &pcm->saiTxHandle, &pcm->saiTx);
@@ -224,9 +226,6 @@ int streamer_pcm_setparams(pcm_rtos_t *pcm,
         SAI_TxSetBitClockRate(DEMO_SAI, DEMO_AUDIO_MASTER_CLOCK, DEMO_AUDIO_SAMPLE_RATE, DEMO_AUDIO_BIT_WIDTH,
                               DEMO_AUDIO_DATA_CHANNEL);
         SAI_TxEnableInterrupts(DEMO_SAI, kSAI_FIFOErrorInterruptEnable);
-
-        /* master clock configurations */
-        BOARD_MASTER_CLOCK_CONFIG();
     }
 
     CODEC_SetVolume(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight, DEMO_VOLUME);

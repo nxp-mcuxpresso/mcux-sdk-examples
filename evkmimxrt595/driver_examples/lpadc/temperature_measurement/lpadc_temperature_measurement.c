@@ -59,7 +59,7 @@ float DEMO_MeasureTemperature(ADC_Type *base, uint32_t commandId, uint32_t index
 {
     lpadc_conv_result_t convResultStruct;
     float Vtemp              = 0.0f;
-    uint32_t convResultShift = 3U;
+    uint32_t convResultShift = 0U;
     float parameterSlope     = DEMO_LPADC_TEMPERATURE_SLOPE;
     float parameterIntercept = DEMO_LPADC_TEMPERATURE_INTERCEPT;
     float temperature        = -273.15f; /* Absolute zero degree as the incorrect return value. */

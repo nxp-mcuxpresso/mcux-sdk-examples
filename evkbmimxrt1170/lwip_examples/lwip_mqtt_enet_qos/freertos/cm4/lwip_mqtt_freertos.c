@@ -22,8 +22,8 @@
 #include "lwip/netifapi.h"
 #include "ethernetif.h"
 
-#include "fsl_phyrtl8211f.h"
 #include "fsl_enet_qos.h"
+#include "fsl_phyrtl8211f.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

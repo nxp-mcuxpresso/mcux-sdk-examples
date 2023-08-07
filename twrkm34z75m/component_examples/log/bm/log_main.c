@@ -38,7 +38,7 @@ LOG_MODULE_DEFINE(log_main, kLOG_LevelTrace);
 #define LED_2_OFF()  LED_GREEN_OFF()
 #define LED_3_ON()   LED_ORANGE_ON()
 #define LED_3_OFF()  LED_ORANGE_OFF()
-#define SHELL_Printf            PRINTF
+ 
 #define APP_LOG_RINGBUFFER_SIZE 512
 
 /*******************************************************************************

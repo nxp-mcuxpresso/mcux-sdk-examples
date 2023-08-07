@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -43,6 +51,12 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
+"${ProjDirPath}/../pin_mux.c"
+"${ProjDirPath}/../pin_mux.h"
+"${ProjDirPath}/../board.c"
+"${ProjDirPath}/../board.h"
+"${ProjDirPath}/../clock_config.c"
+"${ProjDirPath}/../clock_config.h"
 "${ProjDirPath}/../sdmmc_config.c"
 "${ProjDirPath}/../sdmmc_config.h"
 "${ProjDirPath}/../app.h"
@@ -52,123 +66,23 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../ffconf.h"
 "${ProjDirPath}/../usb_host_config.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
-"${ProjDirPath}/../board.c"
-"${ProjDirPath}/../board.h"
-"${ProjDirPath}/../clock_config.c"
-"${ProjDirPath}/../clock_config.h"
-"${ProjDirPath}/../pin_mux.c"
-"${ProjDirPath}/../pin_mux.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${SdkRootDirPath}/examples/lpcxpresso55s69/usb_examples/usb_host_audio_recorder/freertos
     ${SdkRootDirPath}/examples/lpcxpresso55s69
+    ${SdkRootDirPath}/middleware/usb/example/boards/lpcxpresso55s69/usb_host_audio_recorder/freertos/cm33_core0
+    ${SdkRootDirPath}/middleware/usb/example/boards/lpcxpresso55s69/usb_host_audio_recorder/freertos
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/middleware/usb
-    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
-    ${SdkRootDirPath}/core/drivers/lpc_iocon
-    ${SdkRootDirPath}/core/drivers/sdif
-    ${SdkRootDirPath}/core/drivers/flexcomm
-    ${SdkRootDirPath}/middleware/sdmmc
-    ${SdkRootDirPath}/middleware/fatfs
-    ${SdkRootDirPath}/core/devices/LPC55S69/drivers
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/devices/LPC55S69
-    ${SdkRootDirPath}/core/drivers/lpc_gpio
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/components/serial_manager
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/components/osa
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
+set_source_files_properties("${ProjDirPath}/../sdmmc_config.c" PROPERTIES COMPONENT_CONFIG_FILE "middleware_sdmmc_sdif_template")
+set_source_files_properties("${ProjDirPath}/../sdmmc_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_sdmmc_sdif_template")
+set_source_files_properties("${ProjDirPath}/../ffconf.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_fatfs_template_sd")
+set_source_files_properties("${ProjDirPath}/../usb_host_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_usb_host_ip3516hs_config_header middleware_usb_host_ohci_config_header")
+set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")
 
-# include modules
-include(middleware_usb_host_ip3516hs)
-
-include(middleware_freertos-kernel_cm33_nonsecure_port)
-
-include(driver_lpc_iocon)
-
-include(driver_sdif)
-
-include(driver_flexcomm_usart)
-
-include(middleware_sdmmc_sd)
-
-include(middleware_sdmmc_common)
-
-include(middleware_sdmmc_host_sdif)
-
-include(middleware_sdmmc_host_sdif_freertos)
-
-include(middleware_fatfs)
-
-include(middleware_fatfs_sd)
-
-include(middleware_freertos-kernel_heap_4)
-
-include(middleware_freertos-kernel_LPC55S69_cm33_core0)
-
-include(middleware_usb_host_audio)
-
-include(driver_clock)
-
-include(driver_power)
-
-include(driver_common)
-
-include(device_CMSIS)
-
-include(device_startup_LPC55S69_cm33_core0)
-
-include(driver_flexcomm)
-
-include(driver_lpc_gpio)
-
-include(driver_reset)
-
-include(utility_assert)
-
-include(middleware_usb_phy)
-
-include(utility_debug_console)
-
-include(component_usart_adapter)
-
-include(component_serial_manager)
-
-include(component_lists)
-
-include(component_serial_manager_uart_LPC55S69_cm33_core0)
-
-include(middleware_usb_host_stack_LPC55S69_cm33_core0)
-
-include(component_osa)
-
-include(middleware_usb_host_ohci)
-
-include(middleware_usb_common_header)
-
-include(CMSIS_Include_core_cm)
-
-include(middleware_usb_host_common_header)
-
-include(middleware_freertos-kernel_extension)
-
-include(middleware_sdmmc_osa_freertos)
-
-include(component_osa_free_rtos)
-
-include(utilities_misc_utilities)
-
-include(device_system_LPC55S69_cm33_core0)
-
+include(${SdkRootDirPath}/core/devices/LPC55S69/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -180,4 +94,5 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBR
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map")
 

@@ -78,9 +78,10 @@ volatile bool isMasterTransferCompleted = false;
  ******************************************************************************/
 void EXAMPLE_LPSPI_SLAVE_IRQHandler(void)
 {
+    uint8_t rx_count = LPSPI_GetRxFifoCount(EXAMPLE_LPSPI_SLAVE_BASEADDR);
     if (slaveRxCount < TRANSFER_SIZE)
     {
-        while (LPSPI_GetRxFifoCount(EXAMPLE_LPSPI_SLAVE_BASEADDR))
+        while (rx_count--)
         {
             slaveRxData[slaveRxCount] = LPSPI_ReadData(EXAMPLE_LPSPI_SLAVE_BASEADDR);
             slaveRxCount++;
@@ -117,6 +118,8 @@ void EXAMPLE_LPSPI_SLAVE_IRQHandler(void)
 
 void EXAMPLE_LPSPI_MASTER_IRQHandler(void)
 {
+    uint8_t rx_count = LPSPI_GetRxFifoCount(EXAMPLE_LPSPI_MASTER_BASEADDR);
+    uint8_t tx_count = LPSPI_GetTxFifoCount(EXAMPLE_LPSPI_MASTER_BASEADDR);
     if (masterRxCount < TRANSFER_SIZE)
     {
         /* First, disable the interrupts to avoid potentially triggering another interrupt
@@ -125,7 +128,7 @@ void EXAMPLE_LPSPI_MASTER_IRQHandler(void)
          */
         LPSPI_DisableInterrupts(EXAMPLE_LPSPI_MASTER_BASEADDR, kLPSPI_RxInterruptEnable);
 
-        while (LPSPI_GetRxFifoCount(EXAMPLE_LPSPI_MASTER_BASEADDR))
+        while (rx_count--)
         {
             /*Read out the data*/
             masterRxData[masterRxCount] = LPSPI_ReadData(EXAMPLE_LPSPI_MASTER_BASEADDR);
@@ -158,7 +161,7 @@ void EXAMPLE_LPSPI_MASTER_IRQHandler(void)
 
     if (masterTxCount < TRANSFER_SIZE)
     {
-        while ((LPSPI_GetTxFifoCount(EXAMPLE_LPSPI_MASTER_BASEADDR) < g_masterFifoSize) &&
+        while (((tx_count++) < g_masterFifoSize) &&
                (masterTxCount - masterRxCount < g_masterFifoSize))
         {
             /*Write the word to TX register*/
@@ -231,7 +234,10 @@ int main(void)
     LPSPI_MasterGetDefaultConfig(&masterConfig);
     masterConfig.baudRate = TRANSFER_BAUDRATE;
     masterConfig.whichPcs = EXAMPLE_LPSPI_MASTER_PCS_FOR_INIT;
-
+    masterConfig.pcsToSckDelayInNanoSec        = 1000000000U / (masterConfig.baudRate * 2U);
+    masterConfig.lastSckToPcsDelayInNanoSec    = 1000000000U / (masterConfig.baudRate * 2U);
+    masterConfig.betweenTransferDelayInNanoSec = 1000000000U / (masterConfig.baudRate * 2U);
+    
     LPSPI_MasterInit(EXAMPLE_LPSPI_MASTER_BASEADDR, &masterConfig, EXAMPLE_LPSPI_MASTER_CLOCK_FREQ);
 
     /*Slave config*/

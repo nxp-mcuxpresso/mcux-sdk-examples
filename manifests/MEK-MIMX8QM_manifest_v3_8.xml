@@ -1216,7 +1216,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.Include_common.MIMX8QM6" name="CMSIS_Include_common" brief="Cmsis_include_common" version="5.3.0" full_name="Cmsis_include_common" devices="MIMX8QM6xxxFF" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Include" project_base_path="CMSIS">
+    <component id="platform.Include_common.MIMX8QM6" name="CMSIS_Include_common" brief="Cmsis_include_common" version="5.3.0" full_name="Cmsis_include_common" devices="MIMX8QM6xxxFF" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Core/Include" project_base_path="CMSIS">
       <source relative_path="./" type="c_include">
         <files mask="cmsis_armcc.h"/>
         <files mask="cmsis_armclang.h"/>
@@ -1236,7 +1236,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.Include_core_cm4.MIMX8QM6" name="CMSIS_Include_core_cm4" brief="Cmsis_include_core_cm4" version="5.3.0" full_name="Cmsis_include_core_cm4" devices="MIMX8QM6xxxFF" device_cores="cm4_core0_MIMX8QM6xxxFF cm4_core1_MIMX8QM6xxxFF" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Include" project_base_path="CMSIS">
+    <component id="platform.Include_core_cm4.MIMX8QM6" name="CMSIS_Include_core_cm4" brief="Cmsis_include_core_cm4" version="5.3.0" full_name="Cmsis_include_core_cm4" devices="MIMX8QM6xxxFF" device_cores="cm4_core0_MIMX8QM6xxxFF cm4_core1_MIMX8QM6xxxFF" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Core/Include" project_base_path="CMSIS">
       <dependencies>
         <all>
           <component_dependency value="platform.Include_common.MIMX8QM6"/>
@@ -1257,7 +1257,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.Include_dsp.MIMX8QM6" name="CMSIS_Include_dsp" brief="Cmsis_include_dsp" version="1.7.0" full_name="Cmsis_include_dsp" devices="MIMX8QM6xxxFF" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Include" project_base_path="CMSIS">
+    <component id="platform.Include_dsp.MIMX8QM6" name="CMSIS_Include_dsp" brief="Cmsis_include_dsp" version="1.7.0" full_name="Cmsis_include_dsp" devices="MIMX8QM6xxxFF" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/DSP/Include" project_base_path="CMSIS">
       <source relative_path="./" type="c_include">
         <files mask="arm_common_tables.h"/>
         <files mask="arm_const_structs.h"/>
@@ -3734,7 +3734,7 @@ ${load}</script>
         <define name="SDK_OS_BAREMETAL" value=""/>
       </defines>
     </component>
-    <component id="middleware.freertos-kernel.MIMX8QM6" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="202007.00.0" full_name="FreeRTOS kernel" devices="MIMX8QM6xxxFF" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.MIMX8QM6" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="202007.00.0" full_name="FreeRTOS kernel" devices="MIMX8QM6xxxFF" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <defines>
         <define name="FSL_RTOS_FREE_RTOS" value=""/>
         <define name="SDK_OS_FREE_RTOS" value=""/>
@@ -3797,7 +3797,7 @@ ${load}</script>
         <include_path relative_path="portable/GCC/ARM_CM4F" toolchain="armgcc mcuxpresso" type="c_include" device_cores="cm4_core0_MIMX8QM6xxxFF cm4_core1_MIMX8QM6xxxFF"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.armv8m.MIMX8QM6" name="FreeRTOS port ARMv8M" brief="FreeRTOS port ARMv8M" version="202007.00.0" full_name="FreeRTOS port ARMv8M" devices="MIMX8QM6xxxFF" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.armv8m.MIMX8QM6" name="FreeRTOS port ARMv8M" brief="FreeRTOS port ARMv8M" version="202007.00.0" full_name="FreeRTOS port ARMv8M" devices="MIMX8QM6xxxFF" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MIMX8QM6"/>
       </dependencies>
@@ -3885,7 +3885,7 @@ ${load}</script>
         <include_path relative_path="portable/ARMv8M/secure/macros" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.extension.MIMX8QM6" name="FreeRTOS NXP extension" brief="FreeRTOS NXP extension" version="202007.00.0" full_name="FreeRTOS NXP extension" devices="MIMX8QM6xxxFF" category="Operating System/FreeRTOS kernel extensions" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.extension.MIMX8QM6" name="FreeRTOS NXP extension" brief="FreeRTOS NXP extension" version="202007.00.0" full_name="FreeRTOS NXP extension" devices="MIMX8QM6xxxFF" category="Operating System/FreeRTOS kernel extensions" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <source relative_path="include" type="c_include">
         <files mask="freertos_tasks_c_additions.h"/>
       </source>
@@ -3899,7 +3899,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.heap_1.MIMX8QM6" name="FreeRTOS heap 1" brief="FreeRTOS heap 1" version="202007.00.0" full_name="FreeRTOS heap 1" devices="MIMX8QM6xxxFF" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_1.MIMX8QM6" name="FreeRTOS heap 1" brief="FreeRTOS heap 1" version="202007.00.0" full_name="FreeRTOS heap 1" devices="MIMX8QM6xxxFF" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MIMX8QM6"/>
       </dependencies>
@@ -3907,7 +3907,7 @@ ${load}</script>
         <files mask="heap_1.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_2.MIMX8QM6" name="FreeRTOS heap 2" brief="FreeRTOS heap 2" version="202007.00.0" full_name="FreeRTOS heap 2" devices="MIMX8QM6xxxFF" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_2.MIMX8QM6" name="FreeRTOS heap 2" brief="FreeRTOS heap 2" version="202007.00.0" full_name="FreeRTOS heap 2" devices="MIMX8QM6xxxFF" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MIMX8QM6"/>
       </dependencies>
@@ -3915,7 +3915,7 @@ ${load}</script>
         <files mask="heap_2.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_3.MIMX8QM6" name="FreeRTOS heap 3" brief="FreeRTOS heap 3" version="202007.00.0" full_name="FreeRTOS heap_3" devices="MIMX8QM6xxxFF" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_3.MIMX8QM6" name="FreeRTOS heap 3" brief="FreeRTOS heap 3" version="202007.00.0" full_name="FreeRTOS heap_3" devices="MIMX8QM6xxxFF" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MIMX8QM6"/>
       </dependencies>
@@ -3923,7 +3923,7 @@ ${load}</script>
         <files mask="heap_3.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_4.MIMX8QM6" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="202007.00.0" full_name="FreeRTOS heap 4" devices="MIMX8QM6xxxFF" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_4.MIMX8QM6" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="202007.00.0" full_name="FreeRTOS heap 4" devices="MIMX8QM6xxxFF" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MIMX8QM6"/>
       </dependencies>
@@ -3937,7 +3937,7 @@ ${load}</script>
         <files mask="middleware_freertos-kernel_heap_4_MIMX8QM6_cm4_core1.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_5.MIMX8QM6" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="202007.00.0" full_name="FreeRTOS heap 5" devices="MIMX8QM6xxxFF" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_5.MIMX8QM6" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="202007.00.0" full_name="FreeRTOS heap 5" devices="MIMX8QM6xxxFF" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MIMX8QM6"/>
       </dependencies>
@@ -3945,7 +3945,7 @@ ${load}</script>
         <files mask="heap_5.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_newlib.MIMX8QM6" name="FreeRTOS heap newlib" brief="FreeRTOS heap newlib" version="202007.00.0" full_name="FreeRTOS heap newlib" devices="MIMX8QM6xxxFF" category="Operating System/FreeRTOS kernel extensions" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_newlib.MIMX8QM6" name="FreeRTOS heap newlib" brief="FreeRTOS heap newlib" version="202007.00.0" full_name="FreeRTOS heap newlib" devices="MIMX8QM6xxxFF" category="Operating System/FreeRTOS kernel extensions" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MIMX8QM6"/>
       </dependencies>
@@ -3953,7 +3953,7 @@ ${load}</script>
         <files mask="heap_useNewlib.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.mpu_wrappers.MIMX8QM6" name="FreeRTOS MPU wrappers" brief="FreeRTOS MPU wrappers" version="202007.00.0" full_name="FreeRTOS MPU wrappers" devices="MIMX8QM6xxxFF" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.mpu_wrappers.MIMX8QM6" name="FreeRTOS MPU wrappers" brief="FreeRTOS MPU wrappers" version="202007.00.0" full_name="FreeRTOS MPU wrappers" devices="MIMX8QM6xxxFF" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.MIMX8QM6"/>
       </dependencies>
@@ -3961,7 +3961,7 @@ ${load}</script>
         <files mask="mpu_wrappers.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.template.MIMX8QM6" name="FreeRTOS configuration template" brief="Template configuration file to be edited by user. Provides also memory allocator (heap_x), change variant if needed." version="202007.00.0" full_name="FreeRTOS configuration template" devices="MIMX8QM6xxxFF" category="Operating System/FreeRTOS kernel" user_visible="false" type="project_template" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.template.MIMX8QM6" name="FreeRTOS configuration template" brief="Template configuration file to be edited by user. Provides also memory allocator (heap_x), change variant if needed." version="202007.00.0" full_name="FreeRTOS configuration template" devices="MIMX8QM6xxxFF" category="Operating System/FreeRTOS kernel" user_visible="false" type="project_template" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <source relative_path="template/ARM_CM4F" type="c_include" device_cores="cm4_core0_MIMX8QM6xxxFF cm4_core1_MIMX8QM6xxxFF">
         <files mask="FreeRTOSConfig.h"/>
       </source>
@@ -3979,7 +3979,7 @@ ${load}</script>
         <include_path relative_path="template/ARM_CM4F" type="c_include" device_cores="cm4_core0_MIMX8QM6xxxFF cm4_core1_MIMX8QM6xxxFF"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.unused.MIMX8QM6" name="FreeRTOS unused" brief="FreeRTOS unused" version="202007.00.0" full_name="FreeRTOS unused" devices="MIMX8QM6xxxFF" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.unused.MIMX8QM6" name="FreeRTOS unused" brief="FreeRTOS unused" version="202007.00.0" full_name="FreeRTOS unused" devices="MIMX8QM6xxxFF" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <source relative_path="./" type="doc">
         <files mask="History.txt"/>
         <files mask="readme.txt"/>
@@ -4367,7 +4367,7 @@ ${load}</script>
         <files mask="utility_assert_lite_MIMX8QM6_cm4_core1.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="utility.debug_console.MIMX8QM6" name="debug_console" brief="Utility debug_console" version="1.0.0" full_name="Utility debug_console" devices="MIMX8QM6xxxFF" device_cores="cm4_core0_MIMX8QM6xxxFF cm4_core1_MIMX8QM6xxxFF" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console" project_base_path="utilities">
+    <component id="utility.debug_console.MIMX8QM6" name="debug_console" brief="Utility debug_console" version="1.0.0" full_name="Utility debug_console" devices="MIMX8QM6xxxFF" device_cores="cm4_core0_MIMX8QM6xxxFF cm4_core1_MIMX8QM6xxxFF" user_visible="true" type="utilities" package_base_path="core/utilities" project_base_path="utilities">
       <dependencies>
         <all>
           <component_dependency value="component.serial_manager.MIMX8QM6"/>
@@ -4398,17 +4398,23 @@ ${load}</script>
         <include_path relative_path="debug_console" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="utility.debug_console_lite.MIMX8QM6" name="debug_console_lite" brief="Utility debug_console_lite" version="1.0.0" full_name="Utility debug_console_lite" devices="MIMX8QM6xxxFF" device_cores="cm4_core0_MIMX8QM6xxxFF cm4_core1_MIMX8QM6xxxFF" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console_lite" project_base_path="utilities">
+    <component id="utility.debug_console_lite.MIMX8QM6" name="debug_console_lite" brief="Utility debug_console_lite" version="1.0.0" full_name="Utility debug_console_lite" devices="MIMX8QM6xxxFF" device_cores="cm4_core0_MIMX8QM6xxxFF cm4_core1_MIMX8QM6xxxFF" user_visible="true" type="utilities" package_base_path="core/utilities" project_base_path="utilities">
       <dependencies>
         <all>
           <component_dependency value="component.lpuart_adapter.MIMX8QM6"/>
           <component_dependency value="platform.drivers.common.MIMX8QM6"/>
         </all>
       </dependencies>
-      <source relative_path="./" type="src">
+      <source relative_path="str" project_relative_path="./" type="src">
+        <files mask="fsl_str.c"/>
+      </source>
+      <source relative_path="str" project_relative_path="./" type="c_include">
+        <files mask="fsl_str.h"/>
+      </source>
+      <source relative_path="debug_console_lite" project_relative_path="./" type="src">
         <files mask="fsl_debug_console.c"/>
       </source>
-      <source relative_path="./" type="c_include">
+      <source relative_path="debug_console_lite" project_relative_path="./" type="c_include">
         <files mask="fsl_debug_console.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm4_core0_MIMX8QM6xxxFF">
@@ -4418,7 +4424,8 @@ ${load}</script>
         <files mask="utility_debug_console_lite_MIMX8QM6_cm4_core1.cmake" hidden="true"/>
       </source>
       <include_paths>
-        <include_path relative_path="./" type="c_include"/>
+        <include_path relative_path="str" project_relative_path="./" type="c_include"/>
+        <include_path relative_path="debug_console_lite" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
     <component id="platform.utilities.notifier.MIMX8QM6" name="notifier" brief="Utility notifier" version="1.0.0" full_name="Utility notifier" devices="MIMX8QM6xxxFF" device_cores="cm4_core0_MIMX8QM6xxxFF cm4_core1_MIMX8QM6xxxFF" user_visible="true" type="utilities" package_base_path="core/devices/MIMX8QM6/utilities" project_base_path="utilities/utilities">

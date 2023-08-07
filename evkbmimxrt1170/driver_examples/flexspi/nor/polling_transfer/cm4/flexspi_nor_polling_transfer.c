@@ -103,7 +103,7 @@ const uint32_t customLUT[CUSTOM_LUT_LENGTH] = {
 
     /* Enable Quad mode */
     [4 * NOR_CMD_LUT_SEQ_IDX_WRITESTATUSREG] =
-        FLEXSPI_LUT_SEQ(kFLEXSPI_Command_SDR, kFLEXSPI_1PAD, 0x01, kFLEXSPI_Command_WRITE_SDR, kFLEXSPI_1PAD, 0x04),
+        FLEXSPI_LUT_SEQ(kFLEXSPI_Command_SDR, kFLEXSPI_1PAD, 0x31, kFLEXSPI_Command_WRITE_SDR, kFLEXSPI_1PAD, 0x04),
 
     /* Read status register */
     [4 * NOR_CMD_LUT_SEQ_IDX_READSTATUSREG] =

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 NXP
+ * Copyright 2021-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -7,11 +7,11 @@
 
 #include "board_init.h"
 #include "pin_mux.h"
-#include "fsl_debug_console.h"
 #include "board.h"
-#include "fsl_wm8904.h"
+#include "fsl_debug_console.h"
 #include "fsl_codec_common.h"
 #include "fsl_codec_adapter.h"
+#include "fsl_wm8904.h"
 
 /*******************************************************************************
  * Variables
@@ -35,16 +35,66 @@ static codec_handle_t s_codecHandle;
  * Code
  ******************************************************************************/
 
+static void I2C_ReleaseBusDelay(void)
+{
+    uint32_t i = 0;
+    for (i = 0; i < 100; i++)
+    {
+        __NOP();
+    }
+}
+
+static void I3C_ReleaseBus(void)
+{
+    uint8_t i = 0;
+
+    GPIO_PortInit(GPIO, 2);
+    BOARD_InitI3CPinsAsGPIO();
+
+    /* Drive SDA low first to simulate a start */
+    GPIO_PinWrite(GPIO, 2, 30, 0U);
+    I2C_ReleaseBusDelay();
+
+    /* Send 9 pulses on SCL */
+    for (i = 0; i < 9; i++)
+    {
+        GPIO_PinWrite(GPIO, 2, 29, 0U);
+        I2C_ReleaseBusDelay();
+
+        GPIO_PinWrite(GPIO, 2, 30, 1U);
+        I2C_ReleaseBusDelay();
+
+        GPIO_PinWrite(GPIO, 2, 29, 1U);
+        I2C_ReleaseBusDelay();
+        I2C_ReleaseBusDelay();
+    }
+
+    /* Send stop */
+    GPIO_PinWrite(GPIO, 2, 29, 0U);
+    I2C_ReleaseBusDelay();
+
+    GPIO_PinWrite(GPIO, 2, 30, 0U);
+    I2C_ReleaseBusDelay();
+
+    GPIO_PinWrite(GPIO, 2, 29, 1U);
+    I2C_ReleaseBusDelay();
+
+    GPIO_PinWrite(GPIO, 2, 30, 1U);
+    I2C_ReleaseBusDelay();
+}
+
 void BOARD_Init()
 {
-    BOARD_InitBootPins();
+    I3C_ReleaseBus();
+
+    BOARD_InitPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
-    /* Clear MU reset before run DSP core */
-    RESET_PeripheralReset(kMU_RST_SHIFT_RSTn);
-
     CLOCK_EnableClock(kCLOCK_InputMux);
+
+    /* Clear MUA reset before run DSP core */
+    RESET_PeripheralReset(kMU_RST_SHIFT_RSTn);
 
     /* Attach main clock to I3C */
     CLOCK_AttachClk(kMAIN_CLK_to_I3C_CLK);
@@ -59,13 +109,12 @@ void BOARD_Init()
     CLOCK_AttachClk(kAUDIO_PLL_to_MCLK_CLK);
     CLOCK_SetClkDiv(kCLOCK_DivMclkClk, 1);
     SYSCTL1->MCLKPINDIR = SYSCTL1_MCLKPINDIR_MCLKPINDIR_MASK;
-    /* DMIC source from audio pll, divider 12, 24.576 MHz / 12 = 2.048 MHz */
 #ifdef MIMXRT685S_cm33_SERIES
     CLOCK_AttachClk(kAUDIO_PLL_to_DMIC_CLK);
 #else
     CLOCK_AttachClk(kAUDIO_PLL_to_DMIC);
 #endif
-    CLOCK_SetClkDiv(kCLOCK_DivDmicClk, 12);
+    CLOCK_SetClkDiv(kCLOCK_DivDmicClk, BOARD_DMIC_CLOCK_DIV);
 
     s_wm8904Config.i2cConfig.codecI2CSourceClock = CLOCK_GetI3cClkFreq();
     s_wm8904Config.mclk_HZ                       = CLOCK_GetMclkClkFreq();

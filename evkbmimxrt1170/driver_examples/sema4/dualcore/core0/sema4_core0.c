@@ -135,7 +135,7 @@ void DEMO_SEMA4IRQHandler(void)
 
     s_lastNotifyGateNum = notifyGateNum;
 
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 static void DEMO_WaitCore1Stat(uint32_t stat)

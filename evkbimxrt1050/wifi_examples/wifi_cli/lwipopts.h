@@ -41,7 +41,7 @@
 
 #define MAX_SOCKETS_TCP           8
 #define MAX_LISTENING_SOCKETS_TCP 4
-#define MAX_SOCKETS_UDP           6
+#define MAX_SOCKETS_UDP           10
 #define TCP_SND_BUF_COUNT         2
 #define TCPIP_STACK_TX_HEAP_SIZE  0
 #define LWIP_COMPAT_SOCKETS       2
@@ -55,7 +55,7 @@
 #define LWIP_LOOPBACK_MAX_PBUFS            8
 
 #define TCPIP_THREAD_NAME      "tcp/ip"
-#define TCPIP_THREAD_STACKSIZE 768
+#define TCPIP_THREAD_STACKSIZE 1024
 #define TCPIP_THREAD_PRIO      2
 #ifdef CONFIG_NETWORK_HIGH_PERF
 #define TCPIP_MBOX_SIZE 64
@@ -162,7 +162,7 @@
  * CONFIG option available in the SDK
  */
 #ifdef CONFIG_NETWORK_HIGH_PERF
-#define TCP_SND_BUF (12 * TCP_MSS)
+#define TCP_SND_BUF (24 * TCP_MSS)
 #else
 #define TCP_SND_BUF (TCP_SND_BUF_COUNT * TCP_MSS)
 #endif
@@ -225,7 +225,7 @@
  * (requires the LWIP_TCP option)
  */
 #ifdef CONFIG_NETWORK_HIGH_PERF
-#define MEMP_NUM_TCP_SEG 48
+#define MEMP_NUM_TCP_SEG 96
 #else
 #define MEMP_NUM_TCP_SEG 12
 #endif
@@ -245,7 +245,7 @@
    for sequential API communication and incoming packets. Used in
    src/api/tcpip.c. */
 #ifdef CONFIG_NETWORK_HIGH_PERF
-#define MEMP_NUM_TCPIP_MSG_API 16
+#define MEMP_NUM_TCPIP_MSG_API 32
 #else
 #define MEMP_NUM_TCPIP_MSG_API 8
 #endif
@@ -254,7 +254,7 @@
  * MEMP_NUM_SYS_TIMEOUT: the number of simulateously active timeouts.
  * (requires NO_SYS==0)
  */
-#define MEMP_NUM_SYS_TIMEOUT 12
+#define MEMP_NUM_SYS_TIMEOUT 20
 
 /**
  * MEMP_NUM_NETBUF: the number of struct netbufs.
@@ -383,10 +383,15 @@
  * (2 * TCP_MSS) for things to work well
  **/
 #ifdef CONFIG_NETWORK_HIGH_PERF
+#ifdef RW610
+#define TCP_WND (15 * TCP_MSS)
+#else
 #define TCP_WND (32 * TCP_MSS)
+#endif
 #else
 #define TCP_WND (10 * TCP_MSS)
 #endif
+
 
 /**
  * Enable TCP_KEEPALIVE
@@ -401,12 +406,12 @@
 /**
  * LWIP_STATS==1: Enable statistics collection in lwip_stats.
  */
-#define LWIP_STATS 0
+#define LWIP_STATS 1
 
 /**
  * LWIP_STATS_DISPLAY==1: Compile in the statistics output functions.
  */
-#define LWIP_STATS_DISPLAY 0
+#define LWIP_STATS_DISPLAY 1
 
 /*
    ----------------------------------
@@ -507,5 +512,22 @@
 #include "lwip/arch.h"
 u32_t lwip_rand(void);
 #define LWIP_RAND() lwip_rand()
+#endif
+
+#define LWIP_NETIF_TX_SINGLE_PBUF   1
+
+#if (LWIP_NETIF_TX_SINGLE_PBUF)
+#define PBUF_LINK_ENCAPSULATION_HLEN 26
+#endif
+
+/* ---------- Core locking ---------- */
+
+#define LWIP_TCPIP_CORE_LOCKING 1
+
+#ifdef CONFIG_CLOUD_KEEP_ALIVE
+#ifndef LWIP_HOOK_FILENAME
+#define LWIP_HOOK_FILENAME "lwiphooks.h"
+#define LWIP_HOOK_TCP_OUT_ADD_TCPOPTS(p, hdr, pcb, opts) lwip_hook_tcp_out_add_tcpopts(p, hdr, pcb, opts)
+#endif
 #endif
 #endif /* __LWIPOPTS_H__ */

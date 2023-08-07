@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2022 NXP
  * All rights reserved.
  *
  *
@@ -17,7 +17,10 @@
  ******************************************************************************/
 /*${macro:start}*/
 /* SAI instance and clock */
-#define DEMO_CODEC_WM8960
+#define DEMO_CODEC_WM8960 1
+#if !(DEMO_CODEC_WM8960 > 0)
+#error "Codec undefined"
+#endif
 #define DEMO_SAI           SAI1
 #define DEMO_SAI_CHANNEL   (0)
 #define DEMO_SAI_BITWIDTH  (kSAI_WordWidth16bits)
@@ -30,13 +33,17 @@
 #define DEMO_SAI_RX_IRQ SAI1_IRQn
 
 /* DMA */
-#define DEMO_DMA           DMA0
-#define DEMO_DMAMUX        DMAMUX
-#define DEMO_TX_CHANNEL    (0U)
-#define DEMO_RX_CHANNEL    (1U)
-#define DEMO_SAI_TX_SOURCE kDmaRequestMuxSai1Tx
-#define DEMO_SAI_RX_SOURCE kDmaRequestMuxSai1Rx
+#define DEMO_DMA            DMA0
+#define DEMO_DMAMUX         DMAMUX
+#define DEMO_TX_CHANNEL     (0U)
+#define DEMO_DMA_RX_CHANNEL (1U)
+#define DEMO_SAI_TX_SOURCE  kDmaRequestMuxSai1Tx
+#define DEMO_SAI_RX_SOURCE  kDmaRequestMuxSai1Rx
 
+#define DEMO_SAI_RX_SYNC_MODE kSAI_ModeAsync
+#define DEMO_SAI_TX_SYNC_MODE kSAI_ModeSync
+
+#define DEMO_SAI_MASTER_SLAVE kSAI_Master
 /* Select Audio/Video PLL (786.48 MHz) as sai1 clock source */
 #define DEMO_SAI1_CLOCK_SOURCE_SELECT (2U)
 /* Clock pre divider for sai1 clock source */

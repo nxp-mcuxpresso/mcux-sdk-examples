@@ -76,11 +76,10 @@ typedef struct _usb_audio_composite_struct
     uint8_t curClockValid;
     uint8_t curSpeakerVolume20[2];
     uint8_t curMicrophoneVolume20[2];
-
-    uint32_t curRecorderSampleFrequency;
     uint32_t curSpeakerSampleFrequency;
-    usb_device_control_range_layout3_struct_t freqRecorderControlRange;
-    usb_device_control_range_layout3_struct_t freqSpeakerControlRange;
+    uint32_t curRecorderSampleFrequency;
+    usb_device_control_range_layout3_struct_t speakerFreqControlRange;
+    usb_device_control_range_layout3_struct_t recorderFreqControlRange;
     usb_device_control_range_layout2_struct_t volumeControlRange;
 #endif
     uint8_t currentConfiguration;

@@ -22,6 +22,7 @@
 #include "fsl_gpio.h"
 #include "fsl_llwu.h"
 #include "fsl_snvs_lp.h"
+#include "fsl_snvs_hp.h"
 #include "fsl_iomuxc.h"
 #include "fsl_wm8960.h"
 
@@ -1917,12 +1918,25 @@ static void APP_SRTM_InitIoKeyService(void)
     SRTM_Dispatcher_RegisterService(disp, keypadService);
 }
 
-static void APP_SRTM_InitRtcService(void)
+static void APP_SRTM_InitRtcDevice(bool start)
 {
     snvs_lp_srtc_config_t snvsSrtcConfig;
 
+    SNVS_HP_Init(SNVS);
+    SNVS_HP_ResetLP(SNVS);
+
     SNVS_LP_SRTC_GetDefaultConfig(&snvsSrtcConfig);
     SNVS_LP_SRTC_Init(SNVS, &snvsSrtcConfig);
+
+    if (start)
+    {
+        SNVS_LP_SRTC_StartTimer(SNVS);
+    }
+}
+
+static void APP_SRTM_InitRtcService(void)
+{
+    APP_SRTM_InitRtcDevice(false);
 
     rtcAdapter = SRTM_SnvsLpRtcAdapter_Create(SNVS);
     assert(rtcAdapter);
@@ -2301,6 +2315,7 @@ void APP_SRTM_Resume(bool resume)
     if (resume)
     {
         APP_SRTM_InitPeriph(true);
+        APP_SRTM_InitRtcDevice(true);
         APP_SRTM_InitAudioDevice();
         APP_SRTM_InitIoKeyDevice();
         MUA->CR = suspendContext.mu.CR;

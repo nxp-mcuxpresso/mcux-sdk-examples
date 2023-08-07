@@ -32,8 +32,8 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DCPU_MKM35Z512VLQ7 \
     -DTWR_KM35Z75M \
     -DTOWER \
-    -DSLCD_PANEL_GDH_1247WP_H \
     -DMCUXPRESSO_SDK \
+    -DSLCD_PANEL_GDH_1247WP_H \
     -g \
     -O0 \
     -mcpu=cortex-m0plus \
@@ -57,8 +57,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DCPU_MKM35Z512VLQ7 \
     -DTWR_KM35Z75M \
     -DTOWER \
-    -DSLCD_PANEL_GDH_1247WP_H \
     -DMCUXPRESSO_SDK \
+    -DSLCD_PANEL_GDH_1247WP_H \
     -Os \
     -mcpu=cortex-m0plus \
     -Wall \

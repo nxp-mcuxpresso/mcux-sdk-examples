@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2022 NXP
+ * Copyright 2016-2023 NXP
  * All rights reserved.
  *
  *
@@ -11,12 +11,19 @@
  * Includes
  ******************************************************************************/
 
+#include "httpsrv_freertos.h"
+
 #include "lwip/opt.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <ctype.h>
+#ifndef __REDLIB__
+#include <inttypes.h>
+#else
+#define PRIu32 "u"
+#endif
 
 #include "lwip/netif.h"
 #include "lwip/sys.h"
@@ -127,7 +134,7 @@ static int cgi_rtc_data(HTTPSRV_CGI_REQ_STRUCT *param)
     */
 
     /* Calculate content length while saving it to buffer */
-    length                  = snprintf(str, BUFF_SIZE, "%ld\n%ld\n%ld\n", hour, min, sec);
+    length                  = snprintf(str, BUFF_SIZE, "%" PRIu32 "\n%" PRIu32 "\n%" PRIu32 "\n", hour, min, sec);
     response.data           = str;
     response.data_length    = length;
     response.content_length = response.data_length;
@@ -468,12 +475,35 @@ void http_server_socket_init(void)
  */
 void http_server_print_ip_cfg(struct netif *netif)
 {
-    PRINTF("\r\n************************************************\r\n");
+    PRINTF("\r\n***********************************************************\r\n");
     PRINTF(" HTTP Server example\r\n");
-    PRINTF("************************************************\r\n");
+    PRINTF("***********************************************************\r\n");
+#if LWIP_IPV4
     PRINTF(" IPv4 Address     : %s\r\n", ip4addr_ntoa(netif_ip4_addr(netif)));
     PRINTF(" IPv4 Subnet mask : %s\r\n", ip4addr_ntoa(netif_ip4_netmask(netif)));
     PRINTF(" IPv4 Gateway     : %s\r\n", ip4addr_ntoa(netif_ip4_gw(netif)));
+#endif /* LWIP_IPV4 */
+#if LWIP_IPV6
+    http_server_print_ipv6_addresses(netif);
+#endif /* LWIP_IPV6 */
     PRINTF(" mDNS hostname    : %s\r\n", s_mdns_hostname);
-    PRINTF("************************************************\r\n");
+    PRINTF("***********************************************************\r\n");
 }
+
+#if LWIP_IPV6
+/*!
+ * @brief Prints valid IPv6 addresses.
+ */
+void http_server_print_ipv6_addresses(struct netif *netif)
+{
+    for (int i = 0; i < LWIP_IPV6_NUM_ADDRESSES; i++)
+    {
+        const char *str_ip = "-";
+        if (ip6_addr_isvalid(netif_ip6_addr_state(netif, i)))
+        {
+            str_ip = ip6addr_ntoa(netif_ip6_addr(netif, i));
+        }
+        PRINTF(" IPv6 Address%d    : %s\r\n", i, str_ip);
+    }
+}
+#endif /* LWIP_IPV6 */

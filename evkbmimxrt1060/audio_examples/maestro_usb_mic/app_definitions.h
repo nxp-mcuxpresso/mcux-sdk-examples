@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2023 NXP
  * All rights reserved.
  *
  *
@@ -33,12 +33,15 @@
 #define DEMO_SAI_RX_IRQ SAI1_IRQn
 
 /* DMA */
-#define DEMO_DMA           DMA0
-#define DEMO_DMAMUX        DMAMUX
-#define DEMO_TX_CHANNEL    (0U)
-#define DEMO_RX_CHANNEL    (1U)
-#define DEMO_SAI_TX_SOURCE kDmaRequestMuxSai1Tx
-#define DEMO_SAI_RX_SOURCE kDmaRequestMuxSai1Rx
+#define DEMO_DMA            DMA0
+#define DEMO_DMAMUX         DMAMUX
+#define DEMO_TX_CHANNEL     (0U)
+#define DEMO_DMA_RX_CHANNEL (1U)
+#define DEMO_SAI_TX_SOURCE  kDmaRequestMuxSai1Tx
+#define DEMO_SAI_RX_SOURCE  kDmaRequestMuxSai1Rx
+
+#define DEMO_SAI_RX_SYNC_MODE kSAI_ModeAsync
+#define DEMO_SAI_TX_SYNC_MODE kSAI_ModeSync
 
 #define DEMO_WM8960_I2C_INSTANCE       1
 #define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (15U)

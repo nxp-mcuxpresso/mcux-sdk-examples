@@ -44,8 +44,8 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -DXIP_BOOT_HEADER_ENABLE=1 \
     -DXIP_BOOT_HEADER_DCD_ENABLE=1 \
     -DSKIP_SYSCLK_INIT \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -fno-strict-aliasing \
     -Wno-unused-function \
     -mcpu=cortex-m7 \
@@ -77,8 +77,8 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -DXIP_BOOT_HEADER_ENABLE=1 \
     -DXIP_BOOT_HEADER_DCD_ENABLE=1 \
     -DSKIP_SYSCLK_INIT \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -fno-strict-aliasing \
     -Wno-unused-function \
     -mcpu=cortex-m7 \
@@ -100,8 +100,8 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     ${CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE} \
     -DNDEBUG \
     -DCPU_MIMXRT1176DVMAA_cm7 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -mcpu=cortex-m7 \
     -Wall \
     -mthumb \
@@ -122,8 +122,8 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     ${CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG} \
     -DDEBUG \
     -DCPU_MIMXRT1176DVMAA_cm7 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -mcpu=cortex-m7 \
     -Wall \
     -mthumb \
@@ -172,7 +172,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/../../../../../middleware/eiq/deepviewrt/boards/evkmimxrt1170/modelrunner/MIMXRT1176xxxxx_cm7_flexspi_nor_sdram.ld -static \
+    -T${ProjDirPath}/MIMXRT1176xxxxx_cm7_flexspi_nor_sdram.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG} \
@@ -206,5 +206,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/../../../../../middleware/eiq/deepviewrt/boards/evkmimxrt1170/modelrunner/MIMXRT1176xxxxx_cm7_flexspi_nor_sdram.ld -static \
+    -T${ProjDirPath}/MIMXRT1176xxxxx_cm7_flexspi_nor_sdram.ld -static \
 ")

@@ -10,8 +10,8 @@
 #include "board.h"
 #include "mcmgr.h"
 
-#include "fsl_gpio.h"
 #include "fsl_common.h"
+#include "fsl_gpio.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -40,12 +40,6 @@ static void MCMGR_RemoteExceptionEventHandler(uint16_t remoteData, void *context
  * Code
  ******************************************************************************/
 
-static volatile uint16_t RemoteReadyEventData = 0U;
-
-static void RemoteReadyEventHandler(uint16_t eventData, void *context)
-{
-    RemoteReadyEventData = eventData;
-}
 
 /*!
  * @brief Application-specific implementation of the SystemInitHook() weak function.
@@ -57,6 +51,12 @@ void SystemInitHook(void)
        triggering. The SystemInitHook() weak function overloading is used in this
        application. */
     (void)MCMGR_EarlyInit();
+}
+static volatile uint16_t RemoteReadyEventData = 0U;
+
+static void RemoteReadyEventHandler(uint16_t eventData, void *context)
+{
+    RemoteReadyEventData = eventData;
 }
 
 /*!

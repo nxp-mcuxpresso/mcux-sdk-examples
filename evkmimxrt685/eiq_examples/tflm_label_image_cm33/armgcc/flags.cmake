@@ -34,13 +34,12 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -DBOOT_HEADER_ENABLE=1 \
     -DARM_MATH_CM33 \
     -D__FPU_PRESENT=1 \
+    -DMCUXPRESSO_SDK \
     -DTF_LITE_STATIC_MEMORY \
     -DCMSIS_NN \
-    -DMCUXPRESSO_SDK \
     -O3 \
-    -Wall \
-    -Wno-strict-aliasing \
     -mcpu=cortex-m33 \
+    -Wall \
     -mthumb \
     -MMD \
     -MP \
@@ -49,6 +48,7 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -fdata-sections \
     -mapcs \
     -std=gnu99 \
+    -Wno-strict-aliasing \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -60,14 +60,13 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -DBOOT_HEADER_ENABLE=1 \
     -DARM_MATH_CM33 \
     -D__FPU_PRESENT=1 \
+    -DMCUXPRESSO_SDK \
     -DTF_LITE_STATIC_MEMORY \
     -DCMSIS_NN \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
-    -Wall \
-    -Wno-strict-aliasing \
     -mcpu=cortex-m33 \
+    -Wall \
     -mthumb \
     -MMD \
     -MP \
@@ -76,6 +75,7 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -fdata-sections \
     -mapcs \
     -std=gnu99 \
+    -Wno-strict-aliasing \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -86,16 +86,12 @@ SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
     -DBOOT_HEADER_ENABLE=1 \
     -DARM_MATH_CM33 \
     -D__FPU_PRESENT=1 \
+    -DMCUXPRESSO_SDK \
     -DTF_LITE_STATIC_MEMORY \
     -DCMSIS_NN \
-    -DMCUXPRESSO_SDK \
     -O3 \
-    -Wall \
-    -fno-rtti \
-    -fno-exceptions \
-    -Wno-sign-compare \
-    -Wno-strict-aliasing \
     -mcpu=cortex-m33 \
+    -Wall \
     -mthumb \
     -MMD \
     -MP \
@@ -103,6 +99,11 @@ SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
     -ffunction-sections \
     -fdata-sections \
     -mapcs \
+    -fno-rtti \
+    -fno-exceptions \
+    -Wno-sign-compare \
+    -Wno-strict-aliasing \
+    -Wno-deprecated-declarations \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -113,17 +114,13 @@ SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
     -DBOOT_HEADER_ENABLE=1 \
     -DARM_MATH_CM33 \
     -D__FPU_PRESENT=1 \
+    -DMCUXPRESSO_SDK \
     -DTF_LITE_STATIC_MEMORY \
     -DCMSIS_NN \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
-    -Wall \
-    -fno-rtti \
-    -fno-exceptions \
-    -Wno-sign-compare \
-    -Wno-strict-aliasing \
     -mcpu=cortex-m33 \
+    -Wall \
     -mthumb \
     -MMD \
     -MP \
@@ -131,6 +128,11 @@ SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
     -ffunction-sections \
     -fdata-sections \
     -mapcs \
+    -fno-rtti \
+    -fno-exceptions \
+    -Wno-sign-compare \
+    -Wno-strict-aliasing \
+    -Wno-deprecated-declarations \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -141,8 +143,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
     -mthumb \
     -mapcs \
     -Xlinker \
@@ -170,8 +170,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
     -mthumb \
     -mapcs \
     -Xlinker \

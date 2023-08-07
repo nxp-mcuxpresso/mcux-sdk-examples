@@ -7,6 +7,7 @@
 
 #include "tf_benchmark.h"
 #include "get_top_n.h"
+#include "fsl_debug_console.h"
 
 #ifndef __XCC__
 #include <cmsis_compiler.h>
@@ -14,13 +15,11 @@
 #define __ALIGNED(x) __attribute__((aligned(x)))
 #endif
 
-tflite::ErrorReporter* error_reporter = nullptr;
 const tflite::Model* model = nullptr;
 tflite::MicroInterpreter* interpreter = nullptr;
 TfLiteTensor* input = nullptr;
 TfLiteTensor* output = nullptr;
 TfLiteTensor* output_t = nullptr;
-tflite::MicroErrorReporter micro_error_reporter;
 constexpr int kTensorArenaSize = 9 * 1024 * 1024;
 uint8_t tensor_arena[kTensorArenaSize] __ALIGNED(16);
 
@@ -39,7 +38,7 @@ public:
         int64_t end_time = os_clock_now() - start_time_;
         server_->run_ns += end_time;
 #ifdef DEBUG
-        printf("%s - %s took %lld us\r\n", server_->output.name[server_->output.num_outputs], event_tag_, (int64_t)(end_time));
+        PRINTF("%s - %s took %lld us\r\n", server_->output.name[server_->output.num_outputs], event_tag_, (int64_t)(end_time));
 #endif
         server_->output.timing[server_->output.num_outputs] += end_time;
         server_->output.type[server_->output.num_outputs] = (char*)event_tag_;
@@ -99,10 +98,9 @@ int Model_Setup(NNServer* server) {
     model = tflite::GetModel(server->model_upload);
     if (model->version() != TFLITE_SCHEMA_VERSION)
     {
-        TF_LITE_REPORT_ERROR(&micro_error_reporter,
-                             "Model provided is schema version %d not equal "
-                             "to supported version %d.",
-                             model->version(), TFLITE_SCHEMA_VERSION);
+        PRINTF("Model provided is schema version %d not equal "
+               "to supported version %d.",
+               model->version(), TFLITE_SCHEMA_VERSION);
         return kStatus_Fail;
     }
     auto* subgraphs = model->subgraphs();
@@ -170,14 +168,13 @@ int Model_RunInference(NNServer* server) {
 
     // Build an interpreter to run the model with.
     tflite::MicroInterpreter static_interpreter(
-					model, resolver, tensor_arena, kTensorArenaSize, &micro_error_reporter, nullptr, &profiler);
+					model, resolver, tensor_arena, kTensorArenaSize, nullptr, &profiler);
     interpreter = &static_interpreter;
 
     // Allocate memory from the tensor_arena for the model's tensors.
     TfLiteStatus allocate_status = interpreter->AllocateTensors();
     if (allocate_status != kTfLiteOk) {
-        TF_LITE_REPORT_ERROR(error_reporter, "AllocateTensors() failed");
-        printf("tflite allocate tensors failed.\r\n");
+        PRINTF("AllocateTensors() failed");
         return 1;
     }
     input = interpreter->input(0);
@@ -220,18 +217,18 @@ int Model_RunInference(NNServer* server) {
     {
         server->output.num_outputs = 0;
 #ifdef DEBUG
-        printf("loop %d: \r\n", i);
+        PRINTF("loop %d: \r\n", i);
 #endif
         server->run_ns = 0;
         // Run inference, and report any error
         TfLiteStatus invoke_status = interpreter->Invoke();
         if (invoke_status != kTfLiteOk) {
-            TF_LITE_REPORT_ERROR(error_reporter, "Invoke failed\n");
+            PRINTF("Invoke failed\n");
             return -1;
         }
 
 #ifdef DEBUG
-        printf("run ms: %f ", (float)(server->run_ns/1e3));
+        PRINTF("run ms: %f ", (float)(server->run_ns/1e3));
 #endif
 
         run_ns += server->run_ns;

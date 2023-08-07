@@ -12,8 +12,8 @@
 #include "pin_mux.h"
 #include "board.h"
 
-#include "mcmgr.h"
 #include "fsl_common.h"
+#include "mcmgr.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -36,6 +36,18 @@ typedef struct the_message
  * Code
  ******************************************************************************/
 
+/*!
+ * @brief Application-specific implementation of the SystemInitHook() weak function.
+ */
+void SystemInitHook(void)
+{
+    /* Initialize MCMGR - low level multicore management library. Call this
+       function as close to the reset entry as possible to allow CoreUp event
+       triggering. The SystemInitHook() weak function overloading is used in this
+       application. */
+    (void)MCMGR_EarlyInit();
+}
+
 THE_MESSAGE volatile msg    = {0};
 static uint32_t remote_addr = 0;
 
@@ -52,20 +64,6 @@ static int32_t my_ept_read_cb(void *payload, uint32_t payload_len, uint32_t src,
     }
     return RL_RELEASE;
 }
-
-#ifdef MCMGR_USED
-/*!
- * @brief Application-specific implementation of the SystemInitHook() weak function.
- */
-void SystemInitHook(void)
-{
-    /* Initialize MCMGR - low level multicore management library. Call this
-       function as close to the reset entry as possible to allow CoreUp event
-       triggering. The SystemInitHook() weak function overloading is used in this
-       application. */
-    (void)MCMGR_EarlyInit();
-}
-#endif /* MCMGR_USED */
 
 /*!
  * @brief Main function

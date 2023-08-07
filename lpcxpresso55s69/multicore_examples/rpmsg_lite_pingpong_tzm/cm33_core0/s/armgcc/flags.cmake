@@ -31,8 +31,9 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DDEBUG \
     -DCORE1_IMAGE_COPY_TO_RAM \
     -DCPU_LPC55S69JBD100_cm33_core0 \
-    -DMULTICORE_APP=1 \
     -DMCUXPRESSO_SDK \
+    -DSDK_OS_BAREMETAL \
+    -DMULTICORE_APP=1 \
     -g \
     -O0 \
     -mcmse \
@@ -56,8 +57,9 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DNDEBUG \
     -DCORE1_IMAGE_COPY_TO_RAM \
     -DCPU_LPC55S69JBD100_cm33_core0 \
-    -DMULTICORE_APP=1 \
     -DMCUXPRESSO_SDK \
+    -DSDK_OS_BAREMETAL \
+    -DMULTICORE_APP=1 \
     -Os \
     -mcmse \
     -mcpu=cortex-m33 \

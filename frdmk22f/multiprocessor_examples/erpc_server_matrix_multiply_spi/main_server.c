@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2021 NXP
+ * Copyright 2016-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -87,6 +87,9 @@ int main(void)
 #elif defined(ERPC_BOARD_DSPI_BASEADDR)
     transport = erpc_transport_dspi_slave_init((void *)(char *)ERPC_BOARD_DSPI_BASEADDR, ERPC_BOARD_DSPI_BAUDRATE,
                                                ERPC_BOARD_DSPI_CLK_FREQ);
+#elif defined(ERPC_BOARD_LPSPI_BASEADDR)
+    transport = erpc_transport_lpspi_slave_init((void *)(char *)ERPC_BOARD_LPSPI_BASEADDR, ERPC_BOARD_LPSPI_BAUDRATE,
+                                                ERPC_BOARD_LPSPI_CLK_FREQ);
 #endif
 
     /* MessageBufferFactory initialization */

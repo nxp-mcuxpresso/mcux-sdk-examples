@@ -6,8 +6,8 @@ In this example, flexio acts as I2S module to record data from codec line and pl
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.7.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================
@@ -22,10 +22,10 @@ Board settings
 - Uninstall jumper J35,J36,J37,J41 and connect FLEXIO pins to the pad close to U13 as follows:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Pin Name   Board Location     Pin Name    Board Location
-RX_DATA    J33-3              RX_DATA     U25-12   J35
-TX_DATA    J33-4              TX_DATA     U25-13   J36
-SYNC       J33-5              SYNC        U25-14   J37
-BCLK       J33-6              BCLK        U25-16   J41
+RX_DATA    J33-3              RX_DATA     U25-16   J41
+TX_DATA    J33-4              TX_DATA     U25-14   J37
+SYNC       J33-5              SYNC        U25-13   J36
+BCLK       J33-6              BCLK        U25-12   J35
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Prepare the Demo

@@ -4,7 +4,7 @@
  * This file is based on \src\include\lwip\opt.h
  ******************************************************************************
  * Copyright (c) 2013-2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2018, 2022 NXP
+ * Copyright 2016-2018, 2022-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -61,7 +61,8 @@
  * LWIP_ALLOW_MEM_FREE_FROM_OTHER_CONTEXT=1: we need to free PBUF_RAM pbufs
  * from ISR context on LPC.
  */
-#if defined(FSL_FEATURE_SOC_LPC_ENET_COUNT) && (FSL_FEATURE_SOC_LPC_ENET_COUNT > 0)
+#if ((defined(FSL_FEATURE_SOC_LPC_ENET_COUNT) && (FSL_FEATURE_SOC_LPC_ENET_COUNT > 0)) || \
+     (defined(FSL_FEATURE_SOC_MCX_ENET_COUNT) && (FSL_FEATURE_SOC_MCX_ENET_COUNT > 0)))
 #ifndef LWIP_ALLOW_MEM_FREE_FROM_OTHER_CONTEXT
 #define LWIP_ALLOW_MEM_FREE_FROM_OTHER_CONTEXT 1
 #endif
@@ -197,6 +198,15 @@ void sys_check_core_locking(void);
 #endif
 #ifndef UDP_TTL
 #define UDP_TTL 255
+#endif
+
+/* ---------- Socket options ---------- */
+#if !defined SO_REUSE
+#define SO_REUSE 1
+#endif
+
+#if !defined SO_REUSE_RXTOALL
+#define SO_REUSE_RXTOALL 0
 #endif
 
 /* ---------- Statistics options ---------- */

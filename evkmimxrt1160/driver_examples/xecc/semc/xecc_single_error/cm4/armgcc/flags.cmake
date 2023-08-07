@@ -53,8 +53,8 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DDEBUG \
     -DCPU_MIMXRT1166DVM6A_cm4 \
     -DUSE_SDRAM \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m4 \
@@ -79,8 +79,8 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -DNDEBUG \
     -DCPU_MIMXRT1166DVM6A_cm4 \
     -DUSE_SDRAM \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m4 \
     -Wall \
@@ -102,8 +102,8 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DDEBUG \
     -DCPU_MIMXRT1166DVM6A_cm4 \
     -DUSE_SDRAM \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m4 \
@@ -126,8 +126,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DNDEBUG \
     -DCPU_MIMXRT1166DVM6A_cm4 \
     -DUSE_SDRAM \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m4 \
     -Wall \
@@ -148,8 +148,8 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG " \
     ${CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG} \
     -DDEBUG \
     -DCPU_MIMXRT1166DVM6A_cm4 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m4 \
@@ -172,8 +172,8 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${CMAKE_CXX_FLAGS_FLEXSPI_NOR_RELEASE} \
     -DNDEBUG \
     -DCPU_MIMXRT1166DVM6A_cm4 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m4 \
     -Wall \
@@ -195,8 +195,8 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     ${CMAKE_CXX_FLAGS_DEBUG} \
     -DDEBUG \
     -DCPU_MIMXRT1166DVM6A_cm4 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m4 \
@@ -219,8 +219,8 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     ${CMAKE_CXX_FLAGS_RELEASE} \
     -DNDEBUG \
     -DCPU_MIMXRT1166DVM6A_cm4 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m4 \
     -Wall \

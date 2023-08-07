@@ -48,8 +48,8 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DCPU_MIMXRT595SFFOC_cm33 \
     -DBOOT_HEADER_ENABLE=1 \
     -DBOARD_SDMMC_NEED_MANUAL_TUNING \
-    -DSD_ENABLED \
     -DMCUXPRESSO_SDK \
+    -DSD_ENABLED \
     -g \
     -O0 \
     -mcpu=cortex-m33 \
@@ -73,8 +73,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DCPU_MIMXRT595SFFOC_cm33 \
     -DBOOT_HEADER_ENABLE=1 \
     -DBOARD_SDMMC_NEED_MANUAL_TUNING \
-    -DSD_ENABLED \
     -DMCUXPRESSO_SDK \
+    -DSD_ENABLED \
     -Os \
     -mcpu=cortex-m33 \
     -Wall \
@@ -98,8 +98,8 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -DCPU_MIMXRT595SFFOC_cm33 \
     -DBOOT_HEADER_ENABLE=1 \
     -DBOARD_SDMMC_NEED_MANUAL_TUNING \
-    -DSD_ENABLED \
     -DMCUXPRESSO_SDK \
+    -DSD_ENABLED \
     -g \
     -O0 \
     -mcpu=cortex-m33 \
@@ -124,8 +124,8 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -DCPU_MIMXRT595SFFOC_cm33 \
     -DBOOT_HEADER_ENABLE=1 \
     -DBOARD_SDMMC_NEED_MANUAL_TUNING \
-    -DSD_ENABLED \
     -DMCUXPRESSO_SDK \
+    -DSD_ENABLED \
     -Os \
     -mcpu=cortex-m33 \
     -Wall \

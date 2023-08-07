@@ -9,13 +9,13 @@
 #include "board.h"
 #include "mcmgr.h"
 
+#include "fsl_common.h"
+#include "fsl_power.h"
 #include "fsl_gpio.h"
 gpio_pin_config_t led_config = {
     kGPIO_DigitalOutput,
     0,
 };
-#include "fsl_common.h"
-#include "fsl_power.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -31,6 +31,7 @@ gpio_pin_config_t led_config = {
  * Code
  ******************************************************************************/
 
+
 /*!
  * @brief Application-specific implementation of the SystemInitHook() weak function.
  */
@@ -42,7 +43,6 @@ void SystemInitHook(void)
        application. */
     (void)MCMGR_EarlyInit();
 }
-
 /*!
  * @brief Main function
  */

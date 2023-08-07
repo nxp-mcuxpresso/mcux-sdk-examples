@@ -139,7 +139,10 @@ int main(void)
     LPSPI_MasterGetDefaultConfig(&masterConfig);
     masterConfig.baudRate = TRANSFER_BAUDRATE;
     masterConfig.whichPcs = EXAMPLE_LPSPI_MASTER_PCS_FOR_INIT;
-
+    masterConfig.pcsToSckDelayInNanoSec        = 1000000000U / (masterConfig.baudRate * 2U);
+    masterConfig.lastSckToPcsDelayInNanoSec    = 1000000000U / (masterConfig.baudRate * 2U);
+    masterConfig.betweenTransferDelayInNanoSec = 1000000000U / (masterConfig.baudRate * 2U);
+    
     srcClock_Hz = LPSPI_MASTER_CLK_FREQ;
     LPSPI_MasterInit(EXAMPLE_LPSPI_MASTER_BASEADDR, &masterConfig, srcClock_Hz);
 
@@ -160,6 +163,8 @@ int main(void)
     LPSPI_MasterTransferCreateHandleEDMA(EXAMPLE_LPSPI_MASTER_BASEADDR, &g_m_edma_handle, LPSPI_MasterUserCallback,
                                          NULL, &lpspiEdmaMasterRxRegToRxDataHandle,
                                          &lpspiEdmaMasterTxDataToTxRegHandle);
+    
+    LPSPI_MasterTransferPrepareEDMALite(EXAMPLE_LPSPI_MASTER_BASEADDR, &g_m_edma_handle,EXAMPLE_LPSPI_MASTER_PCS_FOR_TRANSFER | kLPSPI_MasterByteSwap | kLPSPI_MasterPcsContinuous);
 
     while (1)
     {
@@ -187,12 +192,9 @@ int main(void)
         masterXfer.txData   = masterTxData;
         masterXfer.rxData   = NULL;
         masterXfer.dataSize = TRANSFER_SIZE;
-        masterXfer.configFlags =
-            EXAMPLE_LPSPI_MASTER_PCS_FOR_TRANSFER | kLPSPI_MasterByteSwap | kLPSPI_MasterPcsContinuous;
-
         isTransferCompleted = false;
-        LPSPI_MasterTransferEDMA(EXAMPLE_LPSPI_MASTER_BASEADDR, &g_m_edma_handle, &masterXfer);
-
+        
+        LPSPI_MasterTransferEDMALite(EXAMPLE_LPSPI_MASTER_BASEADDR, &g_m_edma_handle,&masterXfer);
         /* Wait until transfer completed */
         while (!isTransferCompleted)
         {
@@ -215,11 +217,8 @@ int main(void)
         masterXfer.txData   = NULL;
         masterXfer.rxData   = masterRxData;
         masterXfer.dataSize = TRANSFER_SIZE;
-        masterXfer.configFlags =
-            EXAMPLE_LPSPI_MASTER_PCS_FOR_TRANSFER | kLPSPI_MasterByteSwap | kLPSPI_MasterPcsContinuous;
-
-        LPSPI_MasterTransferEDMA(EXAMPLE_LPSPI_MASTER_BASEADDR, &g_m_edma_handle, &masterXfer);
-
+        
+        LPSPI_MasterTransferEDMALite(EXAMPLE_LPSPI_MASTER_BASEADDR, &g_m_edma_handle,&masterXfer);
         /* Wait until transfer completed */
         while (!isTransferCompleted)
         {

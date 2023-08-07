@@ -11,7 +11,7 @@ Note: Before monitoring the temperature, we must programming the calibration tab
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

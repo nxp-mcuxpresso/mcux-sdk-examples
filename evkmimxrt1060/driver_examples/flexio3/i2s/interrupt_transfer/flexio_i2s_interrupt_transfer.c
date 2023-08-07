@@ -14,8 +14,8 @@
 #include "fsl_codec_common.h"
 
 #include "fsl_wm8960.h"
-#include "fsl_codec_adapter.h"
 #include "fsl_sai.h"
+#include "fsl_codec_adapter.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -112,8 +112,8 @@ static volatile uint32_t sendCount    = 0;
 static volatile uint32_t receiveCount = 0;
 static volatile uint8_t emptyBlock    = 0;
 static volatile bool isZeroBuffer     = true;
-FLEXIO_I2S_Type base;
-#if defined(DEMO_CODEC_WM8960) || defined(DEMO_CODEC_DA7212)
+FLEXIO_I2S_Type s_base;
+#if defined(DEMO_CODEC_WM8960) || defined(DEMO_CODEC_DA7212) || defined(DEMO_CODEC_WM8962)
 #if (defined(FSL_FEATURE_SAI_HAS_MCR) && (FSL_FEATURE_SAI_HAS_MCR)) || \
     (defined(FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER) && (FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER))
 sai_master_clock_t mclkConfig = {
@@ -211,17 +211,17 @@ int main(void)
     PRINTF("FLEXIO_I2S interrupt example started!\n\r");
 
     /* Set flexio i2s pin, shifter and timer */
-    base.bclkPinIndex   = BCLK_PIN;
-    base.fsPinIndex     = FRAME_SYNC_PIN;
-    base.txPinIndex     = TX_DATA_PIN;
-    base.rxPinIndex     = RX_DATA_PIN;
-    base.txShifterIndex = 0;
-    base.rxShifterIndex = 2;
-    base.bclkTimerIndex = 0;
-    base.fsTimerIndex   = 1;
-    base.flexioBase     = DEMO_FLEXIO_BASE;
+    s_base.bclkPinIndex   = BCLK_PIN;
+    s_base.fsPinIndex     = FRAME_SYNC_PIN;
+    s_base.txPinIndex     = TX_DATA_PIN;
+    s_base.rxPinIndex     = RX_DATA_PIN;
+    s_base.txShifterIndex = 0;
+    s_base.rxShifterIndex = 2;
+    s_base.bclkTimerIndex = 0;
+    s_base.fsTimerIndex   = 1;
+    s_base.flexioBase     = DEMO_FLEXIO_BASE;
 
-#if defined(DEMO_CODEC_WM8960) || defined(DEMO_CODEC_DA7212)
+#if defined(DEMO_CODEC_WM8960) || defined(DEMO_CODEC_DA7212) || defined(DEMO_CODEC_WM8962)
     /* SAI init */
     SAI_Init(DEMO_SAI);
 
@@ -254,7 +254,7 @@ int main(void)
 #if defined(DEMO_CODEC_WM8960) || defined(DEMO_CODEC_WM8962)
     config.bclkPinPolarity = kFLEXIO_PinActiveLow;
 #endif
-    FLEXIO_I2S_Init(&base, &config);
+    FLEXIO_I2S_Init(&s_base, &config);
 
     /* Configure the audio format */
     format.bitWidth      = DEMO_AUDIO_BIT_WIDTH;
@@ -266,12 +266,12 @@ int main(void)
         assert(false);
     }
 
-    FLEXIO_I2S_TransferTxCreateHandle(&base, &txHandle, txCallback, NULL);
-    FLEXIO_I2S_TransferRxCreateHandle(&base, &rxHandle, rxCallback, NULL);
+    FLEXIO_I2S_TransferTxCreateHandle(&s_base, &txHandle, txCallback, NULL);
+    FLEXIO_I2S_TransferRxCreateHandle(&s_base, &rxHandle, rxCallback, NULL);
 
     /* Set audio format for tx and rx */
-    FLEXIO_I2S_TransferSetFormat(&base, &txHandle, &format, DEMO_FLEXIO_CLK_FREQ);
-    FLEXIO_I2S_TransferSetFormat(&base, &rxHandle, &format, DEMO_FLEXIO_CLK_FREQ);
+    FLEXIO_I2S_TransferSetFormat(&s_base, &txHandle, &format, DEMO_FLEXIO_CLK_FREQ);
+    FLEXIO_I2S_TransferSetFormat(&s_base, &rxHandle, &format, DEMO_FLEXIO_CLK_FREQ);
 
     emptyBlock = BUFFER_NUM;
     beginCount = PLAY_COUNT;
@@ -279,7 +279,7 @@ int main(void)
     /* send zero buffer fistly to make sure RX data is put into TX queue */
     txXfer.dataSize = ZERO_BUFFER_SIZE;
     txXfer.data     = zeroBuff;
-    FLEXIO_I2S_TransferSendNonBlocking(&base, &txHandle, &txXfer);
+    FLEXIO_I2S_TransferSendNonBlocking(&s_base, &txHandle, &txXfer);
 
     /* Wait until finished */
     while ((isTxFinished != true) || (isRxFinished != true))
@@ -288,7 +288,7 @@ int main(void)
         {
             rxXfer.data     = (uint8_t *)((uint32_t)audioBuff + rxIndex * BUFFER_SIZE);
             rxXfer.dataSize = BUFFER_SIZE;
-            if (FLEXIO_I2S_TransferReceiveNonBlocking(&base, &rxHandle, &rxXfer) == kStatus_Success)
+            if (FLEXIO_I2S_TransferReceiveNonBlocking(&s_base, &rxHandle, &rxXfer) == kStatus_Success)
             {
                 rxIndex = (rxIndex + 1) % BUFFER_NUM;
             }
@@ -298,7 +298,7 @@ int main(void)
         {
             txXfer.data     = (uint8_t *)((uint32_t)audioBuff + txIndex * BUFFER_SIZE);
             txXfer.dataSize = BUFFER_SIZE;
-            if (FLEXIO_I2S_TransferSendNonBlocking(&base, &txHandle, &txXfer) == kStatus_Success)
+            if (FLEXIO_I2S_TransferSendNonBlocking(&s_base, &txHandle, &txXfer) == kStatus_Success)
             {
                 txIndex = (txIndex + 1) % BUFFER_NUM;
             }

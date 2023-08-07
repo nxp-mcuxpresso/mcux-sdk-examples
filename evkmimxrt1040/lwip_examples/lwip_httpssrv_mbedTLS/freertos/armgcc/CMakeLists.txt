@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -57,10 +65,13 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/evkmimxrt1040/dcd.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/evkmimxrt1040
 )
+
+set_source_files_properties("${ProjDirPath}/../lwipopts.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_lwip_template")
+set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")
 
 if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_debug)
      target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="ksdk_mbedtls_config.h")
@@ -70,107 +81,7 @@ if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_release)
      target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="ksdk_mbedtls_config.h")
 endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_release)
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core/components/phy/device/phyksz8081
-    ${SdkRootDirPath}/core/drivers/trng
-    ${SdkRootDirPath}/core/drivers/dcp
-    ${SdkRootDirPath}/core/drivers/cache/armv7-m7
-    ${SdkRootDirPath}/middleware/mbedtls
-    ${SdkRootDirPath}/middleware/lwip
-    ${SdkRootDirPath}/core/components/phy
-    ${SdkRootDirPath}/core/drivers/enet
-    ${SdkRootDirPath}/core/components/silicon_id
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/components/silicon_id/socs/rt10xx
-    ${SdkRootDirPath}/core/devices/MIMXRT1042/drivers
-    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
-    ${SdkRootDirPath}/core/devices/MIMXRT1042
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/components/serial_manager
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/drivers/lpuart
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/drivers/igpio
-    ${SdkRootDirPath}/core/devices/MIMXRT1042/xip
-    ${SdkRootDirPath}/core/boards/evkmimxrt1040/xip
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
-
-# include modules
-include(driver_phy-device-ksz8081)
-
-include(driver_trng)
-
-include(driver_dcp)
-
-include(driver_cache_armv7_m7)
-
-include(middleware_mbedtls_MIMXRT1042)
-
-include(middleware_mbedtls_port_ksdk)
-
-include(middleware_mbedtls_rt)
-
-include(middleware_lwip_enet_ethernetif_MIMXRT1042)
-
-include(middleware_lwip)
-
-include(driver_phy-common)
-
-include(driver_enet)
-
-include(component_silicon_id)
-
-include(driver_common)
-
-include(component_silicon_id_rt10xx)
-
-include(middleware_lwip_apps_httpssrv)
-
-include(driver_clock)
-
-include(middleware_freertos-kernel_heap_3)
-
-include(device_CMSIS)
-
-include(utility_debug_console)
-
-include(component_lpuart_adapter)
-
-include(component_serial_manager)
-
-include(component_lists)
-
-include(component_serial_manager_uart_MIMXRT1042)
-
-include(driver_lpuart)
-
-include(device_startup)
-
-include(driver_iomuxc)
-
-include(utility_assert)
-
-include(driver_igpio)
-
-include(driver_xip_device)
-
-include(driver_xip_board_evkmimxrt1040)
-
-include(CMSIS_Include_core_cm)
-
-include(middleware_lwip_apps_httpsrv)
-
-include(middleware_freertos-kernel_MIMXRT1042)
-
-include(middleware_freertos-kernel_extension)
-
-include(utilities_misc_utilities)
-
-include(device_system)
-
+include(${SdkRootDirPath}/core/devices/MIMXRT1042/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -182,4 +93,5 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBR
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map")
 

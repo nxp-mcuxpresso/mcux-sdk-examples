@@ -100,6 +100,9 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
         case WLAN_REASON_INITIALIZATION_FAILED:
             PRINTF("app_cb: WLAN: initialization failed\r\n");
             break;
+        case WLAN_REASON_AUTH_SUCCESS:
+            PRINTF("app_cb: WLAN: authenticated to network\r\n");
+            break;
         case WLAN_REASON_SUCCESS:
             PRINTF("app_cb: WLAN: connected to network\r\n");
             ret = wlan_get_address(&addr);
@@ -119,6 +122,23 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             }
 
             PRINTF("Connected to following BSS:\r\n");
+            PRINTF("SSID = [%s]\r\n", sta_network.ssid);
+            if (addr.ipv4.address != 0U)
+            {
+                PRINTF("IPv4 Address: [%s]\r\n", ip);
+            }
+#ifdef CONFIG_IPV6
+            int i;
+            for (i = 0; i < CONFIG_MAX_IPV6_ADDRESSES; i++)
+            {
+                if (ip6_addr_isvalid(addr.ipv6[i].addr_state))
+                {
+                    (void)PRINTF("IPv6 Address: %-13s:\t%s (%s)\r\n", ipv6_addr_type_to_desc(&addr.ipv6[i]),
+                                 inet6_ntoa(addr.ipv6[i].address), ipv6_addr_state_to_desc(addr.ipv6[i].addr_state));
+                }
+            }
+            (void)PRINTF("\r\n");
+#endif
             PRINTF("SSID = [%s], IP = [%s]\r\n", sta_network.ssid, ip);
             auth_fail = 0;
             break;

@@ -26,8 +26,8 @@ M7 core application depends on the M4 core, So user could build the M4 core appl
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================

@@ -16,12 +16,12 @@
 
 #include "fsl_debug_console.h"
 
+#include "fsl_wm8962.h"
+#include "app_definitions.h"
 #include "usb_phy.h"
 #include "fsl_codec_common.h"
-#include "fsl_wm8962.h"
 #include "fsl_codec_adapter.h"
 #include "fsl_dmamux.h"
-#include "app_definitions.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -95,7 +95,7 @@ int BOARD_CODEC_Init(void)
     CODEC_Init(&codecHandle, &boardCodecConfig);
 
     /* Initial volume kept low for hearing safety. */
-    CODEC_SetVolume(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight, 50);
+    CODEC_SetVolume(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight, DEMO_VOLUME);
 
     return 0;
 }
@@ -162,9 +162,8 @@ int main(void)
 
     /* Init DMAMUX */
     DMAMUX_Init(DEMO_DMAMUX);
-    DMAMUX_SetSource(DEMO_DMAMUX, DEMO_TX_CHANNEL, (uint8_t)DEMO_SAI_TX_SOURCE);
-    DMAMUX_EnableChannel(DEMO_DMAMUX, DEMO_TX_CHANNEL);
-
+    DMAMUX_SetSource(DEMO_DMAMUX, DEMO_DMA_TX_CHANNEL, (uint8_t)DEMO_SAI_TX_SOURCE);
+    DMAMUX_EnableChannel(DEMO_DMAMUX, DEMO_DMA_TX_CHANNEL);
     /* Clock setting for USB */
     USB_DeviceClockInit();
 

@@ -66,14 +66,15 @@ SET(CMAKE_ASM_FLAGS_FLEXSPI_NOR_RELEASE " \
 ")
 SET(CMAKE_C_FLAGS_DEBUG " \
     ${CMAKE_C_FLAGS_DEBUG} \
-    -D_DEBUG=1 \
     -DDEBUG \
+    -D_DEBUG=1 \
     -DCPU_MIMXRT1176DVMAA_cm4 \
     -DUSB_STACK_BM \
     -DDATA_SECTION_IS_CACHEABLE=1 \
     -DFSL_OSA_BM_TASK_ENABLE=0 \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
     -DMCUXPRESSO_SDK \
+    -DSDK_OS_BAREMETAL \
     -g \
     -O0 \
     -mcpu=cortex-m4 \
@@ -93,14 +94,15 @@ SET(CMAKE_C_FLAGS_DEBUG " \
 ")
 SET(CMAKE_C_FLAGS_RELEASE " \
     ${CMAKE_C_FLAGS_RELEASE} \
-    -D_DEBUG=0 \
     -DNDEBUG \
+    -D_DEBUG=0 \
     -DCPU_MIMXRT1176DVMAA_cm4 \
     -DUSB_STACK_BM \
     -DDATA_SECTION_IS_CACHEABLE=1 \
     -DFSL_OSA_BM_TASK_ENABLE=0 \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
     -DMCUXPRESSO_SDK \
+    -DSDK_OS_BAREMETAL \
     -Os \
     -mcpu=cortex-m4 \
     -Wall \
@@ -127,6 +129,7 @@ SET(CMAKE_C_FLAGS_SDRAM_DEBUG " \
     -DFSL_OSA_BM_TASK_ENABLE=0 \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
     -DMCUXPRESSO_SDK \
+    -DSDK_OS_BAREMETAL \
     -g \
     -O0 \
     -mcpu=cortex-m4 \
@@ -154,6 +157,7 @@ SET(CMAKE_C_FLAGS_SDRAM_RELEASE " \
     -DFSL_OSA_BM_TASK_ENABLE=0 \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
     -DMCUXPRESSO_SDK \
+    -DSDK_OS_BAREMETAL \
     -Os \
     -mcpu=cortex-m4 \
     -Wall \
@@ -181,6 +185,7 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DFSL_OSA_BM_TASK_ENABLE=0 \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
     -DMCUXPRESSO_SDK \
+    -DSDK_OS_BAREMETAL \
     -g \
     -O0 \
     -mcpu=cortex-m4 \
@@ -209,6 +214,7 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -DFSL_OSA_BM_TASK_ENABLE=0 \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
     -DMCUXPRESSO_SDK \
+    -DSDK_OS_BAREMETAL \
     -Os \
     -mcpu=cortex-m4 \
     -Wall \

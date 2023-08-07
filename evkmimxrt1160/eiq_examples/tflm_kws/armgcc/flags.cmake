@@ -34,7 +34,8 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     ${CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE} \
     -DXIP_EXTERNAL_FLASH=1 \
     -DXIP_BOOT_HEADER_ENABLE=1 \
-    -DXIP_BOOT_HEADER_DCD_ENABLE=1 \
+    -DXIP_BOOT_HEADER_DCD_ENABLE=0 \
+    -DXIP_BOOT_HEADER_XMCD_ENABLE=1 \
     -DUSE_SDRAM \
     -DDATA_SECTION_IS_CACHEABLE=1 \
     -DNDEBUG \
@@ -43,17 +44,16 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -D__FPU_PRESENT=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
+    -DMCUXPRESSO_SDK \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8960_ENABLE \
     -DDISABLEFLOAT16 \
     -DTF_LITE_STATIC_MEMORY \
     -DCMSIS_NN \
-    -DMCUXPRESSO_SDK \
     -O3 \
-    -Wall \
-    -Wno-strict-aliasing \
     -mcpu=cortex-m7 \
+    -Wall \
     -mthumb \
     -MMD \
     -MP \
@@ -62,6 +62,7 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -fdata-sections \
     -mapcs \
     -std=gnu99 \
+    -Wno-strict-aliasing \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -69,7 +70,8 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     ${CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG} \
     -DXIP_EXTERNAL_FLASH=1 \
     -DXIP_BOOT_HEADER_ENABLE=1 \
-    -DXIP_BOOT_HEADER_DCD_ENABLE=1 \
+    -DXIP_BOOT_HEADER_DCD_ENABLE=0 \
+    -DXIP_BOOT_HEADER_XMCD_ENABLE=1 \
     -DUSE_SDRAM \
     -DDATA_SECTION_IS_CACHEABLE=1 \
     -DDEBUG \
@@ -78,18 +80,17 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -D__FPU_PRESENT=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
+    -DMCUXPRESSO_SDK \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8960_ENABLE \
     -DDISABLEFLOAT16 \
     -DTF_LITE_STATIC_MEMORY \
     -DCMSIS_NN \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
-    -Wall \
-    -Wno-strict-aliasing \
     -mcpu=cortex-m7 \
+    -Wall \
     -mthumb \
     -MMD \
     -MP \
@@ -98,6 +99,7 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -fdata-sections \
     -mapcs \
     -std=gnu99 \
+    -Wno-strict-aliasing \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -108,16 +110,12 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -DARM_MATH_CM7 \
     -D__FPU_PRESENT=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
+    -DMCUXPRESSO_SDK \
     -DTF_LITE_STATIC_MEMORY \
     -DCMSIS_NN \
-    -DMCUXPRESSO_SDK \
     -O3 \
-    -Wall \
-    -fno-rtti \
-    -fno-exceptions \
-    -Wno-sign-compare \
-    -Wno-strict-aliasing \
     -mcpu=cortex-m7 \
+    -Wall \
     -mthumb \
     -MMD \
     -MP \
@@ -125,6 +123,11 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -ffunction-sections \
     -fdata-sections \
     -mapcs \
+    -fno-rtti \
+    -fno-exceptions \
+    -Wno-sign-compare \
+    -Wno-strict-aliasing \
+    -Wno-deprecated-declarations \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -135,17 +138,13 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -DARM_MATH_CM7 \
     -D__FPU_PRESENT=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
+    -DMCUXPRESSO_SDK \
     -DTF_LITE_STATIC_MEMORY \
     -DCMSIS_NN \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
-    -Wall \
-    -fno-rtti \
-    -fno-exceptions \
-    -Wno-sign-compare \
-    -Wno-strict-aliasing \
     -mcpu=cortex-m7 \
+    -Wall \
     -mthumb \
     -MMD \
     -MP \
@@ -153,6 +152,11 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -ffunction-sections \
     -fdata-sections \
     -mapcs \
+    -fno-rtti \
+    -fno-exceptions \
+    -Wno-sign-compare \
+    -Wno-strict-aliasing \
+    -Wno-deprecated-declarations \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -163,8 +167,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
     -mthumb \
     -mapcs \
     -Xlinker \
@@ -194,8 +196,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
     -mthumb \
     -mapcs \
     -Xlinker \

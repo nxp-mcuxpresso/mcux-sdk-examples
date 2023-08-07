@@ -35,9 +35,9 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DFSL_OSA_MAIN_FUNC_ENABLE=1 \
     -DFRDM_K22F \
     -DFREEDOM \
+    -DMCUXPRESSO_SDK \
     -DDEBUG_CONSOLE_RX_ENABLE=0 \
     -DSERIAL_PORT_TYPE_UART=1 \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
     -mcpu=cortex-m4 \
@@ -64,9 +64,9 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DFSL_OSA_MAIN_FUNC_ENABLE=1 \
     -DFRDM_K22F \
     -DFREEDOM \
+    -DMCUXPRESSO_SDK \
     -DDEBUG_CONSOLE_RX_ENABLE=0 \
     -DSERIAL_PORT_TYPE_UART=1 \
-    -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m4 \
     -Wall \
@@ -87,8 +87,8 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     ${CMAKE_CXX_FLAGS_DEBUG} \
     -DDEBUG \
     -DCPU_MK22FN512VLH12 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m4 \
@@ -111,8 +111,8 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     ${CMAKE_CXX_FLAGS_RELEASE} \
     -DNDEBUG \
     -DCPU_MK22FN512VLH12 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m4 \
     -Wall \

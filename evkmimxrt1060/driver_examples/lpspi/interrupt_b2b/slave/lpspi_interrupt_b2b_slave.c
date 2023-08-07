@@ -157,7 +157,7 @@ int main(void)
     if (g_slaveFifoSize > 1)
     {
         txWatermark        = 1;
-        g_slaveRxWatermark = g_slaveFifoSize / 2;
+        g_slaveRxWatermark = g_slaveFifoSize - 2;
     }
     else
     {

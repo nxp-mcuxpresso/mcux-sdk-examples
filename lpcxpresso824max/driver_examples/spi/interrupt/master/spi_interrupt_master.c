@@ -74,7 +74,7 @@ void SPI_MASTER_IRQHandler(void)
         slaveFinished = true;
         SPI_DisableInterrupts(EXAMPLE_SPI_MASTER, kSPI_RxReadyInterruptEnable);
     }
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 int main(void)

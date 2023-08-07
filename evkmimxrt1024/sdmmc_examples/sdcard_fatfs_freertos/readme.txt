@@ -7,8 +7,8 @@ Note: The output log of the case is not constant, since difference of card acces
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================

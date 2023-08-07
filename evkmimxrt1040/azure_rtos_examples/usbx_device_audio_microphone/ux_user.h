@@ -4,6 +4,12 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+/*
+ * NOTE that if there is any change in this file, please make sure
+ * rebuild the corresponding library and use the new library to
+ * replace the one in your project.
+ */
+
 #ifndef UX_USER_H
 #define UX_USER_H
 
@@ -74,7 +80,7 @@
 #define UX_DEVICE_CLASS_AUDIO_FEEDBACK_SUPPORT
 
 /* Defined, device HID interrupt OUT transfer is supported.  */
-/* #define UX_DEVICE_CLASS_HID_INTERRUPT_OUT_SUPPORT  */
+#define UX_DEVICE_CLASS_HID_INTERRUPT_OUT_SUPPORT
 
 /* Defined, this macro enables device bi-directional-endpoint support.  */
 #define UX_DEVICE_BIDIRECTIONAL_ENDPOINT_SUPPORT

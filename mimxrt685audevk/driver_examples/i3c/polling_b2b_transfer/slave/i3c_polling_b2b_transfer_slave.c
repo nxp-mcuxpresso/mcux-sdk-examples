@@ -1,6 +1,5 @@
 /*
- * Copyright 2019, 2022 NXP
- * All rights reserved.
+ * Copyright 2019, 2022-2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -117,6 +116,7 @@ static void i3c_slave_callback(I3C_Type *base, i3c_slave_transfer_t *xfer, void 
  */
 int main(void)
 {
+    volatile uint32_t timeout_i = 0U;
     i3c_slave_config_t slaveConfig;
     uint32_t eventMask = kI3C_SlaveCompletionEvent;
 #if defined(I3C_ASYNC_WAKE_UP_INTR_CLEAR)
@@ -144,11 +144,9 @@ int main(void)
     PRINTF("\r\nI3C board2board polling example -- Slave transfer.\r\n\r\n");
 
     I3C_SlaveGetDefaultConfig(&slaveConfig);
-
     slaveConfig.staticAddr = I3C_MASTER_SLAVE_ADDR_7BIT;
     slaveConfig.vendorID   = 0x123U;
     slaveConfig.offline    = false;
-
     I3C_SlaveInit(EXAMPLE_SLAVE, &slaveConfig, I3C_SLAVE_CLOCK_FREQUENCY);
 
     /* Create slave handle. */
@@ -165,11 +163,15 @@ int main(void)
     buffer content. */
     memset(g_slave_rxBuff, 0, I3C_DATA_LENGTH);
     /* Wait for master transmit completed. */
-    uint32_t timeout_i = 0U;
     while ((!g_slaveCompletionFlag) && (++timeout_i < 10 * I3C_TIME_OUT_INDEX))
     {
     }
     g_slaveCompletionFlag = false;
+    if (timeout_i == 10 * I3C_TIME_OUT_INDEX)
+    {
+        PRINTF("\r\nTransfer timeout.\r\n");
+        return -1;
+    }
 
     memcpy(g_slave_txBuff, g_slave_rxBuff, I3C_DATA_LENGTH);
     /* Preapre slave tx buffer, the first byte is received device address, second byte is transmit size, following bytes
@@ -180,7 +182,6 @@ int main(void)
     g_deviceBuffSize = g_slave_txBuff[1];
 
     PRINTF("Slave received data :");
-
     for (uint32_t i = 0U; i < I3C_DATA_LENGTH; i++)
     {
         if (i % 8 == 0)
@@ -198,7 +199,6 @@ int main(void)
     {
     }
     g_slaveCompletionFlag = false;
-
     if (timeout_i == I3C_TIME_OUT_INDEX)
     {
         PRINTF("\r\nTransfer timeout.\r\n");

@@ -44,7 +44,7 @@ void EXAMPLE_ADC_ETC_DONE0_Handler(void)
     ADC_ETC_ClearInterruptStatusFlags(DEMO_ADC_ETC_BASE, kADC_ETC_Trg0TriggerSource, kADC_ETC_Done0StatusFlagMask);
     g_AdcConversionDoneFlag = true;
     g_AdcConversionValue = ADC_ETC_GetADCConversionValue(DEMO_ADC_ETC_BASE, 0U, 0U); /* Get trigger0 chain0 result. */
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

@@ -839,5 +839,7 @@ uint32_t LPM_SystemResume(bool resume)
 
     SIM->GPR1 = (SIM->GPR1 & ~SIM_GPR1_USB_PHY_WAKEUP_ISO_DISABLE_MASK) | s_usbWakeup;
 
+    SNVS->HPCOMR |= SNVS_HPCOMR_SSM_ST(1);
+
     return s_psp;
 }

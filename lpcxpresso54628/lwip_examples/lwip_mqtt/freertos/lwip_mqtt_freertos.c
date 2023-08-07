@@ -22,8 +22,8 @@
 #include "lwip/netifapi.h"
 #include "ethernetif.h"
 
-#include "fsl_phylan8720a.h"
 #include "fsl_enet.h"
+#include "fsl_phylan8720a.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

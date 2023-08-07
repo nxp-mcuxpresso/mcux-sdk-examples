@@ -8,8 +8,8 @@ In this example, a flexio simulated slave connect to a lpspi master.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Board settings
 ==============

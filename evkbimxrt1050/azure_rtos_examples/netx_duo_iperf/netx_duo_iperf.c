@@ -67,7 +67,7 @@ extern VOID nx_iperf_entry(NX_PACKET_POOL *pool_ptr,
                            ULONG iperf_stack_size);
 
 /***** Substitute your ethernet driver entry function here *********/
-extern VOID nx_driver_imx(NX_IP_DRIVER *);
+extern VOID nx_link_driver(NX_IP_DRIVER *);
 
 /*******************************************************************************
  * Code
@@ -153,7 +153,7 @@ VOID tx_application_define(void *first_unused_memory)
 #else
                           IP_ADDRESS(192, 168, 111, 2), 0xFFFFFF00UL,
 #endif
-                          &pool_0, nx_driver_imx, (UCHAR *)ip_thread_stack, sizeof(ip_thread_stack), 1);
+                          &pool_0, nx_link_driver, (UCHAR *)ip_thread_stack, sizeof(ip_thread_stack), 1);
 
     /* Check for IP create errors.  */
     if (status)

@@ -100,7 +100,7 @@
 #endif /* SAMPLE_DHCP_DISABLE */
 
 #ifndef SAMPLE_SNTP_SYNC_MAX
-#define SAMPLE_SNTP_SYNC_MAX            1
+#define SAMPLE_SNTP_SYNC_MAX            3
 #endif /* SAMPLE_SNTP_SYNC_MAX */
 
 #ifndef SAMPLE_SNTP_UPDATE_MAX
@@ -183,7 +183,7 @@ static UINT sntp_time_sync();
 static UINT unix_time_get(ULONG *unix_time);
 
 /* Include the platform IP driver. */
-extern VOID nx_driver_imx(NX_IP_DRIVER *driver_req_ptr);
+extern VOID nx_link_driver(NX_IP_DRIVER *driver_req_ptr);
 
 extern uint32_t get_seed(void);
 
@@ -490,7 +490,7 @@ void tx_application_define(void *first_unused_memory)
     /* Create an IP instance.  */
     status = nx_ip_create(&ip_0, "NetX IP Instance 0",
                           SAMPLE_IPV4_ADDRESS, SAMPLE_IPV4_MASK,
-                          &pool_0, nx_driver_imx,
+                          &pool_0, nx_link_driver,
                           (UCHAR*)sample_ip_stack, sizeof(sample_ip_stack),
                           SAMPLE_IP_THREAD_PRIORITY);
 

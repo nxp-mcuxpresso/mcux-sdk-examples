@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -56,77 +64,13 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../evkbmimxrt1170_connect_cm4_cm4side_sdram.jlinkscript"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/evkbmimxrt1170
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core/devices/MIMXRT1176/utilities
-    ${SdkRootDirPath}/core/devices/MIMXRT1176/drivers
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/devices/MIMXRT1176
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/components/serial_manager
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/drivers/lpuart
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/drivers/igpio
-    ${SdkRootDirPath}/core/devices/MIMXRT1176/xip
-    ${SdkRootDirPath}/core/boards/evkbmimxrt1170/xip
-    ${SdkRootDirPath}/core/devices/MIMXRT1176/drivers/cm4
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
 
-# include modules
-include(utility_shell)
-
-include(driver_clock)
-
-include(driver_common)
-
-include(device_CMSIS)
-
-include(utility_debug_console)
-
-include(component_lpuart_adapter)
-
-include(component_serial_manager)
-
-include(component_lists)
-
-include(component_serial_manager_uart_MIMXRT1176_cm4)
-
-include(driver_lpuart)
-
-include(device_startup_MIMXRT1176_cm4)
-
-include(driver_iomuxc)
-
-include(utility_assert)
-
-include(driver_igpio)
-
-include(driver_xip_device)
-
-include(driver_xip_board_evkbmimxrt1170)
-
-include(driver_pmu_1)
-
-include(driver_dcdc_soc)
-
-include(driver_cache_lmem)
-
-include(driver_anatop_ai)
-
-include(CMSIS_Include_core_cm)
-
-include(utilities_misc_utilities)
-
-include(device_system_MIMXRT1176_cm4)
-
+include(${SdkRootDirPath}/core/devices/MIMXRT1176/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -138,4 +82,5 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBR
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map")
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -20,6 +20,13 @@
 #include "PL_platformTypes_HIFI4_FUSIONF1.h"
 #include "VIT_Model_en.h"
 #include "VIT_Model_cn.h"
+#include "VIT_Model_de.h"
+#include "VIT_Model_es.h"
+#include "VIT_Model_fr.h"
+#include "VIT_Model_it.h"
+#include "VIT_Model_ja.h"
+#include "VIT_Model_ko.h"
+#include "VIT_Model_tr.h"
 #endif
 /*${header:end}*/
 
@@ -61,7 +68,7 @@ SHELL_COMMAND_DEFINE(
 #endif
     " and playback on codec\r\n"
 #if (XA_VIT_PRE_PROC == 1)
-    " USAGE: record_dmic [en|cn]\r\n"
+    " USAGE: record_dmic [language]\r\n"
     " For voice recognition say supported WakeWord and in 3s frame supported command.\r\n"
     " If selected model contains strings, then WakeWord and list of commands will be printed in console.\r\n"
 #endif
@@ -137,17 +144,59 @@ static shell_status_t shellRecDMIC(shell_handle_t shellHandle, int32_t argc, cha
     msg.param[2] = 16;
 
 #if (XA_VIT_PRE_PROC == 1)
-    if (strcmp(argv[1], "cn") == 0)
-    {
-        msg.param[3] = (uint32_t)&VIT_Model_cn;
-        msg.param[4] = (uint32_t)sizeof(VIT_Model_cn);
-        PRINTF("Setting VIT language to cn\r\n");
-    }
-    else if (strcmp(argv[1], "en") == 0)
+    if (strcmp(argv[1], "en") == 0)
     {
         msg.param[3] = (uint32_t)&VIT_Model_en;
         msg.param[4] = (uint32_t)sizeof(VIT_Model_en);
-        PRINTF("Setting VIT language to en\r\n");
+        PRINTF("[CM33 CMD] Setting VIT language to en\r\n");
+    }
+    else if (strcmp(argv[1], "cn") == 0)
+    {
+        msg.param[3] = (uint32_t)&VIT_Model_cn;
+        msg.param[4] = (uint32_t)sizeof(VIT_Model_cn);
+        PRINTF("[CM33 CMD] Setting VIT language to cn\r\n");
+    }
+    else if (strcmp(argv[1], "de") == 0)
+    {
+        msg.param[3] = (uint32_t)&VIT_Model_de;
+        msg.param[4] = (uint32_t)sizeof(VIT_Model_de);
+        PRINTF("[CM33 CMD] Setting VIT language to de\r\n");
+    }
+    else if (strcmp(argv[1], "es") == 0)
+    {
+        msg.param[3] = (uint32_t)&VIT_Model_es;
+        msg.param[4] = (uint32_t)sizeof(VIT_Model_es);
+        PRINTF("[CM33 CMD] Setting VIT language to es\r\n");
+    }
+    else if (strcmp(argv[1], "fr") == 0)
+    {
+        msg.param[3] = (uint32_t)&VIT_Model_fr;
+        msg.param[4] = (uint32_t)sizeof(VIT_Model_fr);
+        PRINTF("[CM33 CMD] Setting VIT language to fr\r\n");
+    }
+    else if (strcmp(argv[1], "it") == 0)
+    {
+        msg.param[3] = (uint32_t)&VIT_Model_it;
+        msg.param[4] = (uint32_t)sizeof(VIT_Model_it);
+        PRINTF("[CM33 CMD] Setting VIT language to it\r\n");
+    }
+    else if (strcmp(argv[1], "ja") == 0)
+    {
+        msg.param[3] = (uint32_t)&VIT_Model_ja;
+        msg.param[4] = (uint32_t)sizeof(VIT_Model_ja);
+        PRINTF("[CM33 CMD] Setting VIT language to ja\r\n");
+    }
+    else if (strcmp(argv[1], "ko") == 0)
+    {
+        msg.param[3] = (uint32_t)&VIT_Model_ko;
+        msg.param[4] = (uint32_t)sizeof(VIT_Model_ko);
+        PRINTF("[CM33 CMD] Setting VIT language to ko\r\n");
+    }
+    else if (strcmp(argv[1], "tr") == 0)
+    {
+        msg.param[3] = (uint32_t)&VIT_Model_tr;
+        msg.param[4] = (uint32_t)sizeof(VIT_Model_tr);
+        PRINTF("[CM33 CMD] Setting VIT language to tr\r\n");
     }
 #endif
 
@@ -185,7 +234,8 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
 
     if (msg->head.type == SRTM_MessageTypeResponse)
     {
-        PRINTF("[APP_DSP_IPC_Task] response from DSP, cmd: %d, error: %d\r\n", msg->head.command, msg->error);
+        PRINTF("[CM33 CMD] [APP_DSP_IPC_Task] response from DSP, cmd: %d, error: %d\r\n", msg->head.command,
+               msg->error);
     }
 
     /* Processing returned data*/
@@ -196,17 +246,18 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
             {
                 /* echo returns version info of key components*/
                 case SRTM_Command_ECHO:
-                    PRINTF("Component versions from DSP:\r\n");
-                    PRINTF("Audio Framework version %d.%d \r\n", msg->param[0] >> 16, msg->param[0] & 0xFF);
-                    PRINTF("Audio Framework API version %d.%d\r\n", msg->param[1] >> 16, msg->param[1] & 0xFF);
-                    PRINTF("NatureDSP Lib version %d.%d\r\n", msg->param[2] >> 16, msg->param[2] & 0xFF);
-                    PRINTF("NatureDSP API version %d.%d\r\n", msg->param[3] >> 16, msg->param[3] & 0xFF);
+                    PRINTF("[CM33 CMD] Component versions from DSP:\r\n");
+                    PRINTF("[CM33 CMD] Audio Framework version %d.%d \r\n", msg->param[0] >> 16, msg->param[0] & 0xFF);
+                    PRINTF("[CM33 CMD] Audio Framework API version %d.%d\r\n", msg->param[1] >> 16,
+                           msg->param[1] & 0xFF);
+                    PRINTF("[CM33 CMD] NatureDSP Lib version %d.%d\r\n", msg->param[2] >> 16, msg->param[2] & 0xFF);
+                    PRINTF("[CM33 CMD] NatureDSP API version %d.%d\r\n", msg->param[3] >> 16, msg->param[3] & 0xFF);
                     break;
 
                 case SRTM_Command_SYST:
                     break;
                 default:
-                    PRINTF("Incoming unknown message command %d from category %d \r\n", msg->head.command,
+                    PRINTF("[CM33 CMD] Incoming unknown message command %d from category %d \r\n", msg->head.command,
                            msg->head.category);
             }
             break;
@@ -217,23 +268,23 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                 case SRTM_Command_REC_DMIC:
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("DSP Recording start failed! return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP Recording start failed! return error = %d\r\n", msg->error);
                         break;
                     }
-                    PRINTF("DSP DMIC Recording started\r\n");
+                    PRINTF("[CM33 CMD] DSP DMIC Recording started\r\n");
                     vTaskSuspend(app->shell_task_handle);
                     break;
 
                 case SRTM_Command_REC_I2S:
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("DSP Recording start failed! return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP Recording start failed! return error = %d\r\n", msg->error);
                     }
                     break;
 
                 case SRTM_Command_VIT:
-                    PRINTF("DSP DMIC Recording started\r\n");
-                    PRINTF("To see VIT functionality say wakeword and command\r\n");
+                    PRINTF("[CM33 CMD] DSP DMIC Recording started\r\n");
+                    PRINTF("[CM33 CMD] To see VIT functionality say wakeword and command\r\n");
                     vTaskSuspend(app->shell_task_handle);
                     break;
 
@@ -242,11 +293,11 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                     {
                         string_buff[i] = (char)msg->param[i];
                     }
-                    PRINTF("%s", string_buff);
+                    PRINTF("[CM33 CMD] %s", string_buff);
                     break;
 
                 default:
-                    PRINTF("Incoming unknown message category %d \r\n", msg->head.category);
+                    PRINTF("[CM33 CMD] Incoming unknown message category %d \r\n", msg->head.category);
                     break;
             }
             break;

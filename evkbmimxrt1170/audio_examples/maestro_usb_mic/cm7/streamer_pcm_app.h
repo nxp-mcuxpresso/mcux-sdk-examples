@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -8,7 +8,6 @@
 #ifndef _FSL_STREAMER_PCM_APP_H_
 #define _FSL_STREAMER_PCM_APP_H_
 
-#include "fsl_dmamux.h"
 #include "fsl_sai_edma.h"
 #include "FreeRTOS.h"
 #include "portable.h"

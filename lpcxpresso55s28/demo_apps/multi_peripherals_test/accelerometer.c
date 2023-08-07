@@ -8,6 +8,8 @@
 #include "board.h"
 #include "demo_config.h"
 
+#ifdef ACCELEROMETER_EXISTS
+
 #include "task.h"
 #include "event_groups.h"
 
@@ -67,3 +69,4 @@ static void acc_task(void *pvParameters)
     }
     vTaskSuspend(NULL);
 }
+#endif

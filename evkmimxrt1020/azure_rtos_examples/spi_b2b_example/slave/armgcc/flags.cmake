@@ -15,7 +15,6 @@ SET(CMAKE_ASM_FLAGS_DEBUG " \
     -DDEBUG \
     -D__STARTUP_CLEAR_BSS \
     -D__STARTUP_INITIALIZE_NONCACHEDATA \
-    -DTX_ENABLE_FPU_SUPPORT=1 \
     -mcpu=cortex-m7 \
     -mthumb \
     -x \
@@ -27,7 +26,6 @@ SET(CMAKE_ASM_FLAGS_RELEASE " \
     -DNDEBUG \
     -D__STARTUP_CLEAR_BSS \
     -D__STARTUP_INITIALIZE_NONCACHEDATA \
-    -DTX_ENABLE_FPU_SUPPORT=1 \
     -mcpu=cortex-m7 \
     -mthumb \
     -x \
@@ -39,7 +37,6 @@ SET(CMAKE_ASM_FLAGS_FLEXSPI_NOR_DEBUG " \
     -D__STARTUP_CLEAR_BSS \
     -DDEBUG \
     -D__STARTUP_INITIALIZE_NONCACHEDATA \
-    -DTX_ENABLE_FPU_SUPPORT=1 \
     -mcpu=cortex-m7 \
     -mthumb \
     -x \
@@ -51,7 +48,6 @@ SET(CMAKE_ASM_FLAGS_FLEXSPI_NOR_RELEASE " \
     -D__STARTUP_CLEAR_BSS \
     -DNDEBUG \
     -D__STARTUP_INITIALIZE_NONCACHEDATA \
-    -DTX_ENABLE_FPU_SUPPORT=1 \
     -mcpu=cortex-m7 \
     -mthumb \
     -x \
@@ -69,9 +65,9 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DSAMPLE_PACKET_COUNT=20 \
     -DDATA_SECTION_IS_CACHEABLE=1 \
+    -DMCUXPRESSO_SDK \
     -DTX_INCLUDE_USER_DEFINE_FILE \
     -DFSL_RTOS_THREADX \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -100,9 +96,9 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DSAMPLE_PACKET_COUNT=20 \
     -DDATA_SECTION_IS_CACHEABLE=1 \
+    -DMCUXPRESSO_SDK \
     -DTX_INCLUDE_USER_DEFINE_FILE \
     -DFSL_RTOS_THREADX \
-    -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
@@ -132,9 +128,9 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DSAMPLE_PACKET_COUNT=20 \
     -DDATA_SECTION_IS_CACHEABLE=1 \
+    -DMCUXPRESSO_SDK \
     -DTX_INCLUDE_USER_DEFINE_FILE \
     -DFSL_RTOS_THREADX \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -165,9 +161,9 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DSAMPLE_PACKET_COUNT=20 \
     -DDATA_SECTION_IS_CACHEABLE=1 \
+    -DMCUXPRESSO_SDK \
     -DTX_INCLUDE_USER_DEFINE_FILE \
     -DFSL_RTOS_THREADX \
-    -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
@@ -187,8 +183,8 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
 SET(CMAKE_CXX_FLAGS_DEBUG " \
     ${CMAKE_CXX_FLAGS_DEBUG} \
     -DDEBUG \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -210,8 +206,8 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
 SET(CMAKE_CXX_FLAGS_RELEASE " \
     ${CMAKE_CXX_FLAGS_RELEASE} \
     -DNDEBUG \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
@@ -232,8 +228,8 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
 SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG " \
     ${CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG} \
     -DDEBUG \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -255,8 +251,8 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG " \
 SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${CMAKE_CXX_FLAGS_FLEXSPI_NOR_RELEASE} \
     -DNDEBUG \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
@@ -297,8 +293,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -Xlinker \
     -Map=output.map \
     -Wl,--print-memory-usage \
-    -Xlinker \
-    --print-memory-usage \
     ${FPU} \
     ${SPECS} \
     -T${ProjDirPath}/MIMXRT1021xxxxx_ram.ld -static \
@@ -325,8 +319,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -Xlinker \
     -Map=output.map \
     -Wl,--print-memory-usage \
-    -Xlinker \
-    --print-memory-usage \
     ${FPU} \
     ${SPECS} \
     -T${ProjDirPath}/MIMXRT1021xxxxx_ram.ld -static \
@@ -354,8 +346,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     -Xlinker \
     -Map=output.map \
     -Wl,--print-memory-usage \
-    -Xlinker \
-    --print-memory-usage \
     ${FPU} \
     ${SPECS} \
     -T${ProjDirPath}/MIMXRT1021xxxxx_flexspi_nor.ld -static \
@@ -382,8 +372,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     -Xlinker \
     -Map=output.map \
     -Wl,--print-memory-usage \
-    -Xlinker \
-    --print-memory-usage \
     ${FPU} \
     ${SPECS} \
     -T${ProjDirPath}/MIMXRT1021xxxxx_flexspi_nor.ld -static \

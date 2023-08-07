@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2021 NXP
+ * Copyright 2019-2021, 2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -50,9 +50,17 @@
 #define DEMO_USE_XRGB8888 0
 #endif
 
+/* Use LCDIF LUT (or named color palette) which is 8-bit per-pixel */
+#ifndef DEMO_USE_LUT8
+#define DEMO_USE_LUT8 0
+#endif
+
 #if DEMO_USE_XRGB8888
 #define DEMO_BUFFER_PIXEL_FORMAT   kVIDEO_PixelFormatXRGB8888
 #define DEMO_BUFFER_BYTE_PER_PIXEL 4
+#elif DEMO_USE_LUT8
+#define DEMO_BUFFER_PIXEL_FORMAT   kVIDEO_PixelFormatLUT8
+#define DEMO_BUFFER_BYTE_PER_PIXEL 1
 #else
 #define DEMO_BUFFER_PIXEL_FORMAT   kVIDEO_PixelFormatRGB565
 #define DEMO_BUFFER_BYTE_PER_PIXEL 2

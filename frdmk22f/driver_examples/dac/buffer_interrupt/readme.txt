@@ -13,8 +13,8 @@ The terminal would also display the log that shows the current buffer pointer's 
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.7.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================

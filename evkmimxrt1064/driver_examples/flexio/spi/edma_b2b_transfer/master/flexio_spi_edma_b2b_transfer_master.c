@@ -11,8 +11,8 @@
 #include "board.h"
 #include "fsl_debug_console.h"
 
-#include "fsl_dmamux.h"
 #include "fsl_common.h"
+#include "fsl_dmamux.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

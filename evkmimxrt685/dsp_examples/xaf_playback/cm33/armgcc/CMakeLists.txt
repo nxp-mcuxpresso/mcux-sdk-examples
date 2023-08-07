@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -43,6 +51,7 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
+"${ProjDirPath}/../dsp_config.h"
 "${ProjDirPath}/../main_cm33.c"
 "${ProjDirPath}/../main_cm33.h"
 "${ProjDirPath}/../cmd.c"
@@ -50,7 +59,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../dsp_ipc.c"
 "${ProjDirPath}/../dsp_ipc.h"
 "${ProjDirPath}/../ffconf.h"
-"${ProjDirPath}/../dsp_config.h"
 "${ProjDirPath}/../srtm_config.h"
 "${ProjDirPath}/../srtm_config_audio.h"
 "${ProjDirPath}/../srtm_config_nn.h"
@@ -75,6 +83,12 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../incbin.S"
+"${SdkRootDirPath}/examples/evkmimxrt685/dsp_examples/xaf_playback/dsp/binary/dsp_data_debug.bin"
+"${SdkRootDirPath}/examples/evkmimxrt685/dsp_examples/xaf_playback/dsp/binary/dsp_data_release.bin"
+"${SdkRootDirPath}/examples/evkmimxrt685/dsp_examples/xaf_playback/dsp/binary/dsp_ncache_debug.bin"
+"${SdkRootDirPath}/examples/evkmimxrt685/dsp_examples/xaf_playback/dsp/binary/dsp_ncache_release.bin"
+"${SdkRootDirPath}/examples/evkmimxrt685/dsp_examples/xaf_playback/dsp/binary/dsp_text_debug.bin"
+"${SdkRootDirPath}/examples/evkmimxrt685/dsp_examples/xaf_playback/dsp/binary/dsp_text_release.bin"
 "${ProjDirPath}/../dsp_support.c"
 "${ProjDirPath}/../dsp_support.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
@@ -86,157 +100,21 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/evkmimxrt685/board.h"
 "${SdkRootDirPath}/core/boards/evkmimxrt685/clock_config.c"
 "${SdkRootDirPath}/core/boards/evkmimxrt685/clock_config.h"
-"${SdkRootDirPath}/examples/evkmimxrt685/dsp_examples/xaf_playback/dsp/binary/dsp_text_release.bin"
-"${SdkRootDirPath}/examples/evkmimxrt685/dsp_examples/xaf_playback/dsp/binary/dsp_data_release.bin"
-"${SdkRootDirPath}/examples/evkmimxrt685/dsp_examples/xaf_playback/dsp/binary/dsp_ncache_release.bin"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
-    ${ProjDirPath}/..
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/examples/evkmimxrt685/dsp_examples/xaf_playback/dsp/binary
+    ${ProjDirPath}/..
     ${SdkRootDirPath}/examples/evkmimxrt685
     ${SdkRootDirPath}/core/boards/evkmimxrt685
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core/devices/MIMXRT685S/drivers
-    ${SdkRootDirPath}/core/drivers/flexcomm
-    ${SdkRootDirPath}/middleware/multicore
-    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
-    ${SdkRootDirPath}/core/devices/MIMXRT685S/utilities
-    ${SdkRootDirPath}/core/drivers/lpc_gpio
-    ${SdkRootDirPath}/core/drivers/usdhc
-    ${SdkRootDirPath}/middleware/sdmmc
-    ${SdkRootDirPath}/middleware/fatfs
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/drivers/inputmux
-    ${SdkRootDirPath}/core/drivers/mu
-    ${SdkRootDirPath}/core/components/pca9420
-    ${SdkRootDirPath}/core/components/codec/wm8904
-    ${SdkRootDirPath}/core/components/codec
-    ${SdkRootDirPath}/core/components/codec/
-    ${SdkRootDirPath}/core/components/codec/i2c
-    ${SdkRootDirPath}/core/components/i2c
-    ${SdkRootDirPath}/core/drivers/i3c
-    ${SdkRootDirPath}/core/components/gpio
-    ${SdkRootDirPath}/core/devices/MIMXRT685S
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/boards/evkmimxrt685/flash_config
-    ${SdkRootDirPath}/core/drivers/flexspi
-    ${SdkRootDirPath}/core/drivers/cache/cache64
-    ${SdkRootDirPath}/core/components/serial_manager
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/drivers/lpc_iopctl
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/components/osa
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
+set_source_files_properties("${ProjDirPath}/../ffconf.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_fatfs_template_sd")
+set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")
+set_source_files_properties("${ProjDirPath}/../sdmmc_config.c" PROPERTIES COMPONENT_CONFIG_FILE "middleware_sdmmc_usdhc_template")
+set_source_files_properties("${ProjDirPath}/../sdmmc_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_sdmmc_usdhc_template")
 
-# include modules
-include(driver_clock)
-
-include(driver_flexcomm_i2c)
-
-include(middleware_multicore_rpmsg_lite_MIMXRT685S_cm33)
-
-include(middleware_multicore_rpmsg_lite_freertos)
-
-include(middleware_freertos-kernel_cm33_nonsecure_port)
-
-include(utility_shell)
-
-include(driver_lpc_gpio)
-
-include(driver_usdhc)
-
-include(middleware_sdmmc_sd)
-
-include(middleware_sdmmc_common)
-
-include(middleware_sdmmc_host_usdhc)
-
-include(middleware_sdmmc_host_usdhc_freertos_MIMXRT685S_cm33)
-
-include(middleware_fatfs_MIMXRT685S_cm33)
-
-include(middleware_fatfs_sd)
-
-include(driver_common)
-
-include(driver_power)
-
-include(driver_reset)
-
-include(driver_dsp)
-
-include(driver_inputmux)
-
-include(middleware_multicore_rpmsg_lite_evkmimxrt685_freertos)
-
-include(driver_mu)
-
-include(driver_pca9420)
-
-include(driver_wm8904)
-
-include(driver_codec)
-
-include(component_wm8904_adapter)
-
-include(component_codec_i2c_MIMXRT685S_cm33)
-
-include(component_i3c_adapter)
-
-include(driver_i3c)
-
-include(component_rt_gpio_adapter)
-
-include(device_CMSIS)
-
-include(utility_debug_console)
-
-include(utility_assert)
-
-include(component_usart_adapter)
-
-include(driver_flash_config_evkmimxrt685)
-
-include(driver_flexspi)
-
-include(driver_cache_cache64)
-
-include(component_serial_manager)
-
-include(component_lists)
-
-include(component_serial_manager_uart)
-
-include(driver_flexcomm_usart)
-
-include(device_startup)
-
-include(driver_flexcomm)
-
-include(driver_lpc_iopctl)
-
-include(CMSIS_Include_core_cm)
-
-include(middleware_freertos-kernel_MIMXRT685S_cm33)
-
-include(middleware_freertos-kernel_extension)
-
-include(middleware_sdmmc_osa_freertos)
-
-include(component_osa_free_rtos)
-
-include(driver_inputmux_connections)
-
-include(middleware_freertos-kernel_heap_4)
-
-include(utilities_misc_utilities_MIMXRT685S_cm33)
-
+include(${SdkRootDirPath}/core/devices/MIMXRT685S/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -250,4 +128,6 @@ TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
 ADD_CUSTOM_COMMAND(TARGET ${MCUX_SDK_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_OBJCOPY}
 -Obinary ${EXECUTABLE_OUTPUT_PATH}/${MCUX_SDK_PROJECT_NAME} ${EXECUTABLE_OUTPUT_PATH}/sdk20-app.bin)
+
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map;${EXECUTABLE_OUTPUT_PATH}/sdk20-app.bin")
 

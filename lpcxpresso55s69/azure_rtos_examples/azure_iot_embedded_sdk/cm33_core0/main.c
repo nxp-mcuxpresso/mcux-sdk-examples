@@ -19,7 +19,7 @@
 #define USBX_MEMORY_SIZE    (64 * 1024)
 #endif
 
-#define DEMO_STACK_SIZE     2048
+#define DEMO_STACK_SIZE     (1024 * 4)
 #define IP_STACK_SIZE       2048
 #define ARP_CACHE_SIZE      1024
 #define PACKET_PAYLOAD      (1536 + sizeof(NX_PACKET))

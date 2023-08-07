@@ -21,7 +21,7 @@
  ******************************************************************************/
 /*Master related*/
 #define TRANSFER_SIZE     256U    /*! Transfer dataSize */
-#define TRANSFER_BAUDRATE 150000U /*! Transfer baudrate - 150k */
+#define TRANSFER_BAUDRATE 500000U /*! Transfer baudrate - 500k */
 
 #define MASTER_FLEXIO_SPI_BASEADDR (FLEXIO2)
 #define FLEXIO_SPI_SOUT_PIN        12U

@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -57,95 +65,16 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/evkmimxrt1040/dcd.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/evkmimxrt1040
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core/drivers/igpio
-    ${SdkRootDirPath}/core/drivers/cache/armv7-m7
-    ${SdkRootDirPath}/core/drivers/usdhc
-    ${SdkRootDirPath}/middleware/sdmmc
-    ${SdkRootDirPath}/core/components/gpio
-    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
-    ${SdkRootDirPath}/core/devices/MIMXRT1042/drivers
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/devices/MIMXRT1042
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/components/serial_manager
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/drivers/lpuart
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/devices/MIMXRT1042/xip
-    ${SdkRootDirPath}/core/boards/evkmimxrt1040/xip
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/components/osa
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
+set_source_files_properties("${ProjDirPath}/../sdmmc_config.c" PROPERTIES COMPONENT_CONFIG_FILE "middleware_sdmmc_usdhc_template")
+set_source_files_properties("${ProjDirPath}/../sdmmc_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_sdmmc_usdhc_template")
+set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")
 
-# include modules
-include(driver_igpio)
-
-include(driver_cache_armv7_m7)
-
-include(driver_usdhc)
-
-include(middleware_sdmmc_mmc)
-
-include(middleware_sdmmc_common)
-
-include(middleware_sdmmc_host_usdhc)
-
-include(middleware_sdmmc_host_usdhc_freertos_MIMXRT1042)
-
-include(component_igpio_adapter)
-
-include(middleware_freertos-kernel_MIMXRT1042)
-
-include(middleware_freertos-kernel_heap_4)
-
-include(driver_clock)
-
-include(driver_common)
-
-include(device_CMSIS)
-
-include(utility_debug_console)
-
-include(component_lpuart_adapter)
-
-include(component_serial_manager)
-
-include(component_lists)
-
-include(component_serial_manager_uart_MIMXRT1042)
-
-include(driver_lpuart)
-
-include(device_startup)
-
-include(driver_iomuxc)
-
-include(utility_assert)
-
-include(driver_xip_device)
-
-include(driver_xip_board_evkmimxrt1040)
-
-include(CMSIS_Include_core_cm)
-
-include(middleware_sdmmc_osa_freertos)
-
-include(component_osa_free_rtos)
-
-include(middleware_freertos-kernel_extension)
-
-include(utilities_misc_utilities)
-
-include(device_system)
-
+include(${SdkRootDirPath}/core/devices/MIMXRT1042/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -157,4 +86,5 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBR
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map")
 

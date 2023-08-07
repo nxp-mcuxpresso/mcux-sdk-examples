@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -15,6 +15,9 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+#define DbgConsole_Printf CM33_PRINTF
+
+int CM33_PRINTF(const char* ptr, ...);
 
 typedef struct _app_handle
 {

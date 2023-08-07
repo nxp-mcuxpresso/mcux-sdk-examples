@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -30,7 +38,7 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(dev_hid_mouse_lite_bm)
 
-set(MCUX_BUILD_TYPES release flash_release debug flash_debug)
+set(MCUX_BUILD_TYPES flash_release release flash_debug debug)
 
 set(MCUX_SDK_PROJECT_NAME dev_hid_mouse_lite_bm.elf)
 
@@ -44,6 +52,12 @@ include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
 "${ProjDirPath}/../usb_hsdcd_config.h"
+"${ProjDirPath}/../pin_mux.c"
+"${ProjDirPath}/../pin_mux.h"
+"${ProjDirPath}/../board.c"
+"${ProjDirPath}/../board.h"
+"${ProjDirPath}/../clock_config.c"
+"${ProjDirPath}/../clock_config.h"
 "${ProjDirPath}/../mouse.c"
 "${ProjDirPath}/../mouse.h"
 "${ProjDirPath}/../usb_device_descriptor.c"
@@ -53,99 +67,18 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../usb_device_hid.c"
 "${ProjDirPath}/../usb_device_hid.h"
 "${ProjDirPath}/../usb_device_config.h"
-"${ProjDirPath}/../board.c"
-"${ProjDirPath}/../board.h"
-"${ProjDirPath}/../clock_config.c"
-"${ProjDirPath}/../clock_config.h"
-"${ProjDirPath}/../pin_mux.c"
-"${ProjDirPath}/../pin_mux.h"
-"${SdkRootDirPath}/middleware/usb/dcd/usb_hsdcd.c"
-"${SdkRootDirPath}/middleware/usb/dcd/usb_hsdcd.h"
-"${SdkRootDirPath}/middleware/usb/dcd/usb_charger_detect.h"
+"${ProjDirPath}/../usb_hsdcd.c"
+"${ProjDirPath}/../usb_hsdcd.h"
+"${ProjDirPath}/../usb_charger_detect.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${SdkRootDirPath}/middleware/usb/dcd
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/middleware/usb
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core
-    ${SdkRootDirPath}/core/devices/MIMXRT595S/drivers
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/devices/MIMXRT595S
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/drivers/flexspi
-    ${SdkRootDirPath}/core/drivers/cache/cache64
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/drivers/flexcomm
-    ${SdkRootDirPath}/core/boards/evkmimxrt595/flash_config
-    ${SdkRootDirPath}/core/drivers/lpc_iopctl
-    ${SdkRootDirPath}/core/drivers/lpc_gpio
-    ${SdkRootDirPath}/core/components/osa
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
+set_source_files_properties("${ProjDirPath}/../usb_device_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_usb_device_ip3511hs_config_header")
 
-# include modules
-include(middleware_usb_device_ip3511hs)
-
-include(middleware_usb_phy)
-
-include(utility_debug_console_lite)
-
-include(utility_assert_lite)
-
-
-include(middleware_baremetal)
-
-include(driver_clock)
-
-include(driver_common)
-
-include(device_CMSIS)
-
-include(component_usart_adapter)
-
-include(driver_power)
-
-include(driver_flexspi)
-
-include(driver_cache_cache64)
-
-include(component_lists)
-
-include(driver_flexcomm_usart)
-
-include(driver_flash_config_evkmimxrt595)
-
-include(device_startup)
-
-include(driver_flexcomm)
-
-include(driver_lpc_iopctl)
-
-include(driver_lpc_gpio)
-
-include(driver_reset)
-
-include(middleware_usb_device_controller_driver_MIMXRT595S_cm33)
-
-include(component_osa)
-
-include(middleware_usb_common_header)
-
-include(CMSIS_Include_core_cm)
-
-include(middleware_usb_device_common_header)
-
-include(utilities_misc_utilities)
-
-include(driver_iap)
-
+include(${SdkRootDirPath}/core/devices/MIMXRT595S/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -159,4 +92,6 @@ TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
 ADD_CUSTOM_COMMAND(TARGET ${MCUX_SDK_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_OBJCOPY}
 -Obinary ${EXECUTABLE_OUTPUT_PATH}/${MCUX_SDK_PROJECT_NAME} ${EXECUTABLE_OUTPUT_PATH}/sdk20-app.bin)
+
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map;${EXECUTABLE_OUTPUT_PATH}/sdk20-app.bin")
 

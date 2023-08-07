@@ -35,8 +35,8 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DDEBUG_CONSOLE_PRINTF_MAX_LOG_LEN=200 \
     -DFRDM_K32L2B \
     -DFREEDOM \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m0plus \
@@ -63,8 +63,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DDEBUG_CONSOLE_PRINTF_MAX_LOG_LEN=200 \
     -DFRDM_K32L2B \
     -DFREEDOM \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m0plus \
     -Wall \
@@ -85,8 +85,8 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     ${CMAKE_CXX_FLAGS_DEBUG} \
     -DDEBUG \
     -DCPU_K32L2B31VLH0A \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m0plus \
@@ -109,8 +109,8 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     ${CMAKE_CXX_FLAGS_RELEASE} \
     -DNDEBUG \
     -DCPU_K32L2B31VLH0A \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m0plus \
     -Wall \

@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -39,6 +47,7 @@ if (NOT DEFINED SdkRootDirPath)
 endif()
 
 include(${ProjDirPath}/flags.cmake)
+
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
@@ -51,71 +60,13 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/lpcxpresso804/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/lpcxpresso804
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/drivers/wkt
-    ${SdkRootDirPath}/core/drivers/lpc_gpio
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/devices/LPC804/drivers
-    ${SdkRootDirPath}/core/devices/LPC804
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/drivers/lpc_miniusart
-    ${SdkRootDirPath}/core/drivers/lpc_iocon_lite
-    ${SdkRootDirPath}/core/drivers/swm
-    ${SdkRootDirPath}/core/drivers/syscon
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
 
-# include modules
-include(utility_debug_console_lite)
-
-include(utility_assert_lite)
-
-include(driver_wkt)
-
-include(driver_lpc_gpio)
-
-include(driver_common)
-
-include(driver_clock)
-
-include(driver_power_no_lib)
-
-include(device_CMSIS)
-
-include(component_miniusart_adapter)
-
-include(device_startup)
-
-include(driver_lpc_miniusart)
-
-include(driver_lpc_iocon_lite)
-
-include(driver_swm)
-
-include(driver_syscon)
-
-include(driver_rom_api)
-
-include(driver_reset)
-
-include(CMSIS_Include_core_cm)
-
-include(utilities_misc_utilities_LPC804)
-
-include(device_system)
-
-include(driver_swm_connections)
-
-include(driver_syscon_connections)
-
+include(${SdkRootDirPath}/core/devices/LPC804/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -127,4 +78,5 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBR
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map")
 

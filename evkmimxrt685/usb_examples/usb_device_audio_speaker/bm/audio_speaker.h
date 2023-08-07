@@ -148,7 +148,8 @@ typedef struct _usb_audio_speaker_struct
     volatile int32_t audioPllTickEmaFrac;
     volatile int32_t audioPllTickBasedPrecision;
     volatile uint8_t stopDataLengthAudioAdjust;
-#if defined(USB_DEVICE_CONFIG_LPCIP3511FS) && (USB_DEVICE_CONFIG_LPCIP3511FS > 0U)
+#if ((defined(USB_DEVICE_CONFIG_LPCIP3511FS) && (USB_DEVICE_CONFIG_LPCIP3511FS > 0U)) || \
+     (defined(USB_DEVICE_CONFIG_KHCI) && (USB_DEVICE_CONFIG_KHCI > 0U)))
     volatile uint32_t froTrimIntervalCount;
     volatile uint32_t usbFroTicksPrev;
     volatile int32_t usbFroTicksEma;

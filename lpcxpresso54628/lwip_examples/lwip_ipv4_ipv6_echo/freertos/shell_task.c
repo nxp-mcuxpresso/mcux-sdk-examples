@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 NXP
+ * Copyright 2022-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -34,7 +34,6 @@ static shell_status_t echo_tcp_client(shell_handle_t shellHandle, int32_t argc, 
 static shell_status_t echo_tcp_server(shell_handle_t shellHandle, int32_t argc, char **argv);
 static shell_status_t echo_udp(shell_handle_t shellHandle, int32_t argc, char **argv);
 static shell_status_t end(shell_handle_t shellHandle, int32_t argc, char **argv);
-
 static shell_status_t print_ip_cfg(shell_handle_t shellHandle, int32_t argc, char **argv);
 
 /*******************************************************************************
@@ -59,7 +58,7 @@ SHELL_COMMAND_DEFINE(echo_tcp_client,
 
 SHELL_COMMAND_DEFINE(echo_tcp_server,
                      "\r\n\"echo_tcp_server port\":\r\n"
-                     "   Listens for incoming connection and sends back every received data.\r\n"
+                     "   Listens for one incoming connection and sends back every received data.\r\n"
                      " Usage:\r\n"
                      "   port:        TCP port number\r\n",
                      echo_tcp_server,
@@ -74,7 +73,6 @@ SHELL_COMMAND_DEFINE(echo_udp,
                      1);
 
 SHELL_COMMAND_DEFINE(end, "\r\n\"end\": Ends echo_* command.\r\n", end, 0);
-
 SHELL_COMMAND_DEFINE(print_ip_cfg, "\r\n\"print_ip_cfg\": Prints IP configuration.\r\n", print_ip_cfg, 0);
 
 /*******************************************************************************

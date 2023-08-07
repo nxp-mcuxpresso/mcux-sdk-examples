@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -7,6 +7,7 @@
 
 #include "fsl_common.h"
 #include "fsl_debug_console.h"
+#include "app_definitions.h"
 
 #include "app_streamer.h"
 #include "streamer_pcm_app.h"
@@ -155,22 +156,22 @@ status_t STREAMER_speaker_Create(streamer_handle_t *handle)
     prop.prop = PROP_AUDIOSRC_SET_SAMPLE_RATE;
     prop.val  = AUDIO_SAMPLING_RATE;
 
-    streamer_set_property(handle->streamer, prop, true);
+    streamer_set_property(handle->streamer, 0, prop, true);
 
     prop.prop = PROP_AUDIOSRC_SET_NUM_CHANNELS;
     prop.val  = 2;
 
-    streamer_set_property(handle->streamer, prop, true);
+    streamer_set_property(handle->streamer, 0, prop, true);
 
     prop.prop = PROP_AUDIOSRC_SET_FRAME_MS;
     prop.val  = 1;
 
-    streamer_set_property(handle->streamer, prop, true);
+    streamer_set_property(handle->streamer, 0, prop, true);
 
     prop.prop = PROP_AUDIOSINK_SET_VOLUME;
-    prop.val  = 80;
+    prop.val  = DEMO_VOLUME;
 
-    streamer_set_property(handle->streamer, prop, true);
+    streamer_set_property(handle->streamer, 0, prop, true);
 
     return kStatus_Success;
 }

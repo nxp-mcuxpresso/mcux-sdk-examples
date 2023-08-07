@@ -18,9 +18,9 @@
 #include "task.h"
 #include "mcmgr.h"
 
-#include "fsl_gpio.h"
 #include "fsl_common.h"
 #include "fsl_power.h"
+#include "fsl_gpio.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -94,14 +94,6 @@ uint32_t get_core1_image_size(void)
 #endif
 
 /*!
- * @brief eRPC server side ready event handler
- */
-static void eRPCReadyEventHandler(uint16_t eventData, void *context)
-{
-    eRPCReadyEventData = eventData;
-}
-
-/*!
  * @brief Application-specific implementation of the SystemInitHook() weak function.
  */
 void SystemInitHook(void)
@@ -111,6 +103,14 @@ void SystemInitHook(void)
        triggering. The SystemInitHook() weak function overloading is used in this
        application. */
     (void)MCMGR_EarlyInit();
+}
+
+/*!
+ * @brief eRPC server side ready event handler
+ */
+static void eRPCReadyEventHandler(uint16_t eventData, void *context)
+{
+    eRPCReadyEventData = eventData;
 }
 
 /* Implementation of RPC function increaseNumber. */

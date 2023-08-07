@@ -1,6 +1,5 @@
 /*
- * Copyright 2020 NXP
- * All rights reserved.
+ * Copyright 2020, 2022 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -202,12 +201,21 @@ int main(void)
         return -1;
     }
 
+    /* Wait for 1ms for FIFO data ready with 1KHz sensor sample rate. */
+    SDK_DelayAtLeastUs(1000, SystemCoreClock);
+
     icm42688p_sensor_data_t sensorData = {0};
     while (!icm42688p_ibiFlag)
     {
         result = ICM42688P_ReadSensorData(&icmp42688p_handle, &sensorData);
         if (result != kStatus_Success)
         {
+            if (result == kStatus_NoData)
+            {
+                /* Wait for 1ms for FIFO data ready with 1KHz sensor sample rate. */
+                SDK_DelayAtLeastUs(1000, SystemCoreClock);
+                continue;
+            }
             PRINTF("\r\nRead sensor data failed.\r\n");
             return -1;
         }

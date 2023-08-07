@@ -301,16 +301,6 @@ p
 	color: #545454;
 }
 
-#section_networks .wifi_network.wpa3_network {
-	color: #8a8a8a;
-	background: #cecece;
-}
-
-#section_networks .wifi_network.wpa3_network:hover {
-	background: #a0a0a0;
-	color: #545454;
-}
-
 #section_networks .wifi_network.enterprise_network {
 	color: #8a8a8a;
 	background: #cecece;

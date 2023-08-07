@@ -2729,24 +2729,31 @@ ${load}</script>
         <files mask="utility_assert_lite.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="utility.debug_console_lite.MKE04Z4" name="debug_console_lite" brief="Utility debug_console_lite" version="1.0.0" full_name="Utility debug_console_lite" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console_lite" project_base_path="utilities">
+    <component id="utility.debug_console_lite.MKE04Z4" name="debug_console_lite" brief="Utility debug_console_lite" version="1.0.0" full_name="Utility debug_console_lite" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="utilities" package_base_path="core/utilities" project_base_path="utilities">
       <dependencies>
         <all>
           <component_dependency value="component.uart_adapter.MKE04Z4"/>
           <component_dependency value="platform.drivers.common.MKE04Z4"/>
         </all>
       </dependencies>
-      <source relative_path="./" type="src">
+      <source relative_path="str" project_relative_path="./" type="src">
+        <files mask="fsl_str.c"/>
+      </source>
+      <source relative_path="str" project_relative_path="./" type="c_include">
+        <files mask="fsl_str.h"/>
+      </source>
+      <source relative_path="debug_console_lite" project_relative_path="./" type="src">
         <files mask="fsl_debug_console.c"/>
       </source>
-      <source relative_path="./" type="c_include">
+      <source relative_path="debug_console_lite" project_relative_path="./" type="c_include">
         <files mask="fsl_debug_console.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="utility_debug_console_lite.cmake" hidden="true"/>
       </source>
       <include_paths>
-        <include_path relative_path="./" type="c_include"/>
+        <include_path relative_path="str" project_relative_path="./" type="c_include"/>
+        <include_path relative_path="debug_console_lite" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
     <component id="platform.utilities.notifier.MKE04Z4" name="notifier" brief="Utility notifier" version="1.0.0" full_name="Utility notifier" devices="MKE04Z8xxx4" device_cores="core0_MKE04Z8xxx4" user_visible="true" type="utilities" package_base_path="core/devices/MKE04Z4/utilities" project_base_path="utilities/utilities">

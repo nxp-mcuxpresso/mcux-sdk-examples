@@ -1,5 +1,5 @@
 /*
- * Copyright  2018 ,2021 NXP
+ * Copyright  2018 ,2021, 2023 NXP
  * All rights reserved.
  *
  *
@@ -36,6 +36,7 @@ void BOARD_InitBootPins(void);
 #define IOCON_PIO_CLKDIV0 0x00u      /*!<@brief IOCONCLKDIV0 */
 #define IOCON_PIO_HYS_DI 0x00u       /*!<@brief Disable hysteresis */
 #define IOCON_PIO_INV_DI 0x00u       /*!<@brief Input not invert */
+#define IOCON_PIO_MODE_INACT 0x00u   /*!<@brief No addition pin function */
 #define IOCON_PIO_MODE_PULLUP 0x10u  /*!<@brief Selects pull-up function */
 #define IOCON_PIO_OD_DI 0x00u        /*!<@brief Disables Open-drain function */
 #define IOCON_PIO_SMODE_BYPASS 0x00u /*!<@brief Bypass input filter */

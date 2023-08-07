@@ -10,65 +10,29 @@ IF(NOT DEFINED DEBUG_CONSOLE_CONFIG)
     SET(DEBUG_CONSOLE_CONFIG "-DSDK_DEBUGCONSOLE_UART")  
 ENDIF()  
 
-SET(CMAKE_ASM_FLAGS_FLEXSPI_NOR_RELEASE " \
-    ${CMAKE_ASM_FLAGS_FLEXSPI_NOR_RELEASE} \
-    -D__STARTUP_CLEAR_BSS \
-    -DNDEBUG \
-    -D__STARTUP_INITIALIZE_NONCACHEDATA \
-    -DTX_ENABLE_FPU_SUPPORT=1 \
-    -mcpu=cortex-m7 \
-    -mthumb \
-    -x \
-    assembler-with-cpp \
-    ${FPU} \
-")
 SET(CMAKE_ASM_FLAGS_FLEXSPI_NOR_DEBUG " \
     ${CMAKE_ASM_FLAGS_FLEXSPI_NOR_DEBUG} \
+    -D__STARTUP_INITIALIZE_RAMFUNCTION \
     -D__STARTUP_CLEAR_BSS \
     -DDEBUG \
     -D__STARTUP_INITIALIZE_NONCACHEDATA \
-    -DTX_ENABLE_FPU_SUPPORT=1 \
     -mcpu=cortex-m7 \
     -mthumb \
     -x \
     assembler-with-cpp \
     ${FPU} \
 ")
-SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
-    ${CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE} \
-    -DXIP_EXTERNAL_FLASH=1 \
-    -DXIP_BOOT_HEADER_ENABLE=1 \
+SET(CMAKE_ASM_FLAGS_FLEXSPI_NOR_RELEASE " \
+    ${CMAKE_ASM_FLAGS_FLEXSPI_NOR_RELEASE} \
+    -D__STARTUP_INITIALIZE_RAMFUNCTION \
+    -D__STARTUP_CLEAR_BSS \
     -DNDEBUG \
-    -DCPU_MIMXRT1166DVM6A_cm7 \
-    -DFSL_FEATURE_PHYKSZ8081_USE_RMII50M_MODE \
-    -DPRINTF_FLOAT_ENABLE=1 \
-    -DSCANF_FLOAT_ENABLE=1 \
-    -DPRINTF_ADVANCED_ENABLE=1 \
-    -DSCANF_ADVANCED_ENABLE=0 \
-    -DSERIAL_PORT_TYPE_UART=1 \
-    -DAZ_NO_PRECONDITION_CHECKING \
-    -DCACHE_MODE_WRITE_THROUGH=1 \
-    -DCRYPTO_USE_DRIVER_CAAM \
-    -DNX_INCLUDE_USER_DEFINE_FILE \
-    -DFX_INCLUDE_USER_DEFINE_FILE \
-    -DTX_INCLUDE_USER_DEFINE_FILE \
-    -DFSL_RTOS_THREADX \
-    -DMCUXPRESSO_SDK \
-    -O1 \
+    -D__STARTUP_INITIALIZE_NONCACHEDATA \
     -mcpu=cortex-m7 \
-    -Wall \
     -mthumb \
-    -MMD \
-    -MP \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
+    -x \
+    assembler-with-cpp \
     ${FPU} \
-    ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     ${CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG} \
@@ -77,11 +41,13 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DDEBUG \
     -DCPU_MIMXRT1166DVM6A_cm7 \
     -DFSL_FEATURE_PHYKSZ8081_USE_RMII50M_MODE \
+    -DNXD_MQTT_OVER_WEBSOCKET \
     -DPRINTF_FLOAT_ENABLE=1 \
     -DSCANF_FLOAT_ENABLE=1 \
     -DPRINTF_ADVANCED_ENABLE=1 \
     -DSCANF_ADVANCED_ENABLE=0 \
     -DSERIAL_PORT_TYPE_UART=1 \
+    -DMCUXPRESSO_SDK \
     -DAZ_NO_PRECONDITION_CHECKING \
     -DCACHE_MODE_WRITE_THROUGH=1 \
     -DCRYPTO_USE_DRIVER_CAAM \
@@ -89,9 +55,9 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DFX_INCLUDE_USER_DEFINE_FILE \
     -DTX_INCLUDE_USER_DEFINE_FILE \
     -DFSL_RTOS_THREADX \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
+    -Wno-misleading-indentation \
     -mcpu=cortex-m7 \
     -Wall \
     -mthumb \
@@ -107,12 +73,74 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
+SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
+    ${CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE} \
+    -DXIP_EXTERNAL_FLASH=1 \
+    -DXIP_BOOT_HEADER_ENABLE=1 \
+    -DNDEBUG \
+    -DCPU_MIMXRT1166DVM6A_cm7 \
+    -DFSL_FEATURE_PHYKSZ8081_USE_RMII50M_MODE \
+    -DNXD_MQTT_OVER_WEBSOCKET \
+    -DPRINTF_FLOAT_ENABLE=1 \
+    -DSCANF_FLOAT_ENABLE=1 \
+    -DPRINTF_ADVANCED_ENABLE=1 \
+    -DSCANF_ADVANCED_ENABLE=0 \
+    -DSERIAL_PORT_TYPE_UART=1 \
+    -DMCUXPRESSO_SDK \
+    -DAZ_NO_PRECONDITION_CHECKING \
+    -DCACHE_MODE_WRITE_THROUGH=1 \
+    -DCRYPTO_USE_DRIVER_CAAM \
+    -DNX_INCLUDE_USER_DEFINE_FILE \
+    -DFX_INCLUDE_USER_DEFINE_FILE \
+    -DTX_INCLUDE_USER_DEFINE_FILE \
+    -DFSL_RTOS_THREADX \
+    -O1 \
+    -Wno-misleading-indentation \
+    -mcpu=cortex-m7 \
+    -Wall \
+    -mthumb \
+    -MMD \
+    -MP \
+    -fno-common \
+    -ffunction-sections \
+    -fdata-sections \
+    -ffreestanding \
+    -fno-builtin \
+    -mapcs \
+    -std=gnu99 \
+    ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
+")
+SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG " \
+    ${CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG} \
+    -DDEBUG \
+    -DCPU_MIMXRT1166DVM6A_cm7 \
+    -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
+    -g \
+    -O0 \
+    -mcpu=cortex-m7 \
+    -Wall \
+    -mthumb \
+    -MMD \
+    -MP \
+    -fno-common \
+    -ffunction-sections \
+    -fdata-sections \
+    -ffreestanding \
+    -fno-builtin \
+    -mapcs \
+    -fno-rtti \
+    -fno-exceptions \
+    ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
+")
 SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${CMAKE_CXX_FLAGS_FLEXSPI_NOR_RELEASE} \
     -DNDEBUG \
     -DCPU_MIMXRT1166DVM6A_cm7 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -O1 \
     -mcpu=cortex-m7 \
     -Wall \
@@ -129,58 +157,6 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_RELEASE " \
     -fno-exceptions \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
-")
-SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG " \
-    ${CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG} \
-    -DDEBUG \
-    -DCPU_MIMXRT1166DVM6A_cm7 \
-    -DSERIAL_PORT_TYPE_UART=1 \
-    -DMCUXPRESSO_SDK \
-    -g \
-    -O0 \
-    -mcpu=cortex-m7 \
-    -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -fno-rtti \
-    -fno-exceptions \
-    ${FPU} \
-    ${DEBUG_CONSOLE_CONFIG} \
-")
-SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
-    ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE} \
-    -mcpu=cortex-m7 \
-    -Wall \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mthumb \
-    -mapcs \
-    -Xlinker \
-    --gc-sections \
-    -Xlinker \
-    -static \
-    -Xlinker \
-    -z \
-    -Xlinker \
-    muldefs \
-    -Xlinker \
-    -Map=output.map \
-    -Wl,--print-memory-usage \
-    -Xlinker \
-    --print-memory-usage \
-    ${FPU} \
-    ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1166xxxxx_cm7_flexspi_nor.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG} \
@@ -205,8 +181,32 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     -Xlinker \
     -Map=output.map \
     -Wl,--print-memory-usage \
+    ${FPU} \
+    ${SPECS} \
+    -T${ProjDirPath}/MIMXRT1166xxxxx_cm7_flexspi_nor.ld -static \
+")
+SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
+    ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE} \
+    -mcpu=cortex-m7 \
+    -Wall \
+    -fno-common \
+    -ffunction-sections \
+    -fdata-sections \
+    -ffreestanding \
+    -fno-builtin \
+    -mthumb \
+    -mapcs \
     -Xlinker \
-    --print-memory-usage \
+    --gc-sections \
+    -Xlinker \
+    -static \
+    -Xlinker \
+    -z \
+    -Xlinker \
+    muldefs \
+    -Xlinker \
+    -Map=output.map \
+    -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
     -T${ProjDirPath}/MIMXRT1166xxxxx_cm7_flexspi_nor.ld -static \

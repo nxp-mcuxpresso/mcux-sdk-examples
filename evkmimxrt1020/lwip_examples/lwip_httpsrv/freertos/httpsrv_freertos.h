@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 NXP
+ * Copyright 2022-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -36,6 +36,15 @@ void http_server_socket_init(void);
  * @param netif  netif whose cfg. shall be printed
  */
 void http_server_print_ip_cfg(struct netif *netif);
+
+#if LWIP_IPV6
+/*!
+ * @brief Prints valid IPv6 addresses.
+ *
+ * @param netif  netif whose addresses shall be printed
+ */
+void http_server_print_ipv6_addresses(struct netif *netif);
+#endif /* LWIP_IPV6 */
 
 /*******************************************************************************
  * Variables

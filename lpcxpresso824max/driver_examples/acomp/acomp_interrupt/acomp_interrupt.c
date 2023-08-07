@@ -46,7 +46,7 @@ void DEMO_ACOMP_IRQ_HANDLER_FUNC(void)
     {
         LED_RED_OFF();
     }
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 /*!
  * @brief Main function

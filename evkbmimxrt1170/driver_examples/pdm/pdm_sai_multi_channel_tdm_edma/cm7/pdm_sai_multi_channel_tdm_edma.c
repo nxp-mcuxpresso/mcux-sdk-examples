@@ -247,13 +247,13 @@ void PDM_ERROR_IRQHandler(void)
     {
         PDM_ClearFIFOStatus(DEMO_PDM, fifoStatus);
     }
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 void SAI_UserIRQHandler(void)
 {
     SAI_TxClearStatusFlags(DEMO_SAI, kSAI_FIFOErrorFlag);
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

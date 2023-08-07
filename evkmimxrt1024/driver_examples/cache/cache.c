@@ -12,11 +12,11 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "board.h"
-#include <stdint.h>
-#include <stdbool.h>
 #include "fsl_dmamux.h"
 #include "fsl_edma.h"
 #include "fsl_semc.h"
+#include <stdint.h>
+#include <stdbool.h>
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

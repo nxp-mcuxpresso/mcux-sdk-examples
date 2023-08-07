@@ -69,7 +69,7 @@ void DEMO_PF1550_INTB_HANDLER(void)
     PORT_SetPinInterruptConfig(DEMO_PF1550_INTB_PORT, DEMO_PF1550_INTB_PIN, kPORT_InterruptOrDMADisabled);
     /* Inform main loop PF1550 INTB Pad Interrupt is asserted. */
     pf1550IntFlag = true;
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 static void lpi2c_master_callback(LPI2C_Type *base, lpi2c_master_handle_t *handle, status_t status, void *userData)

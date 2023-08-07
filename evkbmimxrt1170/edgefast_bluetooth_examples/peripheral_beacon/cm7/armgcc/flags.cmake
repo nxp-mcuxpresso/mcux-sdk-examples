@@ -30,7 +30,7 @@ SET(CMAKE_ASM_FLAGS_FLEXSPI_NOR_RELEASE " \
 ")
 SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     ${CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG} \
-    -include ${ProjDirPath}/../app_config.h \
+    -include ${ProjDirPath}/../app_bluetooth_config.h \
     -DXIP_EXTERNAL_FLASH=1 \
     -DXIP_BOOT_HEADER_ENABLE=1 \
     -DDEBUG \
@@ -40,9 +40,6 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DGATT_CLIENT \
     -DGATT_DB \
     -DFSL_DRIVER_TRANSFER_DOUBLE_WEAK_IRQ=0 \
-    -DSDK_COMPONENT_INTEGRATION=1 \
-    -DgNvStorageIncluded_d=1 \
-    -DgNvTableKeptInRam_d=1 \
     -DIOT_WIFI_ENABLE_SAVE_NETWORK=1 \
     -DFSL_OSA_MAIN_FUNC_ENABLE=0 \
     -DHAL_UART_ADAPTER_FIFO=1 \
@@ -52,22 +49,25 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DPRINTF_ADVANCED_ENABLE=1 \
     -DSDK_OS_FREE_RTOS \
     -DFSL_OSA_TASK_ENABLE=1 \
-    -DDEBUG_CONSOLE_TRANSFER_NON_BLOCKING \
+    -DDEBUG_CONSOLE_TRANSFER_NON_BLOCKING=1 \
     -DCFG_BLE \
-    -DNVM_NO_COMPONNET=1 \
     -DSDIO_ENABLED=1 \
     -DHAL_UART_DMA_ENABLE=1 \
     -DHAL_AUDIO_DMA_INIT_ENABLE=0 \
     -DLFS_NO_INTRINSICS=1 \
     -DLFS_NO_ERROR=1 \
+    -DCONFIG_ARM=1 \
+    -DMCUXPRESSO_SDK \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DLOG_ENABLE_ASYNC_MODE=1 \
     -DLOG_MAX_ARGUMENT_COUNT=10 \
     -DLOG_ENABLE_OVERWRITE=0 \
-    -DCONFIG_ARM=1 \
-    -DMCUXPRESSO_SDK \
     -DCACHE_MODE_WRITE_THROUGH=1 \
     -DCRYPTO_USE_DRIVER_CAAM \
+    -DLWIP_DNS=1 \
+    -DLWIP_NETIF_HOSTNAME=1 \
+    -DLWIP_NETIF_STATUS_CALLBACK=1 \
+    -DLWIP_IGMP=1 \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -75,8 +75,6 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -mthumb \
     -MMD \
     -MP \
-    -fomit-frame-pointer \
-    -Wno-unused-function \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
@@ -89,7 +87,7 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
 ")
 SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE} \
-    -include ${ProjDirPath}/../app_config.h \
+    -include ${ProjDirPath}/../app_bluetooth_config.h \
     -DXIP_EXTERNAL_FLASH=1 \
     -DXIP_BOOT_HEADER_ENABLE=1 \
     -DNDEBUG \
@@ -99,9 +97,6 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -DGATT_CLIENT \
     -DGATT_DB \
     -DFSL_DRIVER_TRANSFER_DOUBLE_WEAK_IRQ=0 \
-    -DSDK_COMPONENT_INTEGRATION=1 \
-    -DgNvStorageIncluded_d=1 \
-    -DgNvTableKeptInRam_d=1 \
     -DIOT_WIFI_ENABLE_SAVE_NETWORK=1 \
     -DFSL_OSA_MAIN_FUNC_ENABLE=0 \
     -DHAL_UART_ADAPTER_FIFO=1 \
@@ -111,30 +106,31 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -DPRINTF_ADVANCED_ENABLE=1 \
     -DSDK_OS_FREE_RTOS \
     -DFSL_OSA_TASK_ENABLE=1 \
-    -DDEBUG_CONSOLE_TRANSFER_NON_BLOCKING \
+    -DDEBUG_CONSOLE_TRANSFER_NON_BLOCKING=1 \
     -DCFG_BLE \
-    -DNVM_NO_COMPONNET=1 \
     -DSDIO_ENABLED=1 \
     -DHAL_UART_DMA_ENABLE=1 \
     -DHAL_AUDIO_DMA_INIT_ENABLE=0 \
     -DLFS_NO_INTRINSICS=1 \
     -DLFS_NO_ERROR=1 \
+    -DCONFIG_ARM=1 \
+    -DMCUXPRESSO_SDK \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DLOG_ENABLE_ASYNC_MODE=1 \
     -DLOG_MAX_ARGUMENT_COUNT=10 \
     -DLOG_ENABLE_OVERWRITE=0 \
-    -DCONFIG_ARM=1 \
-    -DMCUXPRESSO_SDK \
     -DCACHE_MODE_WRITE_THROUGH=1 \
     -DCRYPTO_USE_DRIVER_CAAM \
+    -DLWIP_DNS=1 \
+    -DLWIP_NETIF_HOSTNAME=1 \
+    -DLWIP_NETIF_STATUS_CALLBACK=1 \
+    -DLWIP_IGMP=1 \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
     -mthumb \
     -MMD \
     -MP \
-    -fomit-frame-pointer \
-    -Wno-unused-function \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
@@ -149,8 +145,8 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG " \
     ${CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG} \
     -DDEBUG \
     -DCPU_MIMXRT1176DVMAA_cm7 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -173,8 +169,8 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${CMAKE_CXX_FLAGS_FLEXSPI_NOR_RELEASE} \
     -DNDEBUG \
     -DCPU_MIMXRT1176DVMAA_cm7 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \

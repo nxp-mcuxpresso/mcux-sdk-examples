@@ -7,6 +7,7 @@ Depending on target platform there are different features of the demo enabled.
 
     - File decoding and playback
     - EAP effects during file playback
+    - Multi-channel playback
 
 The application is controlled by commands from a shell interface using serial console.
 
@@ -40,8 +41,8 @@ Type "help" to see the command list. Similar description will be displayed on se
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================
@@ -57,7 +58,7 @@ Board settings
 Make sure resistors R368/R347/R349/R365/R363 are removed to be able to use SD-Card.
 
 For Audio board:
-    1.Insert AUDIO board into J23 if on board codec is not used
+    1.Insert AUDIO expansion board into J23 to be able to use the CS42448 codec for multichannel output.
     2.Uninstall J41
     3.Define DEMO_CODEC_CS42448 1 in app_definitions.h
 For on board codec:
@@ -72,6 +73,13 @@ Prepare the Demo
     - DEMO_CODEC_CS42448, set to 1 if cs42448 used
     Please do not set above macros to 1 together, as the demo support one codec only.
 
+- This development board also supports multi-channel example. The example demonstrates playback of raw PCM files from an SD-card with up to 8 channels, 96kHz sample rate and 32 bit width.
+    - To enable multi-channel example:
+        1. Connect the Audio board to the development board
+        2. Define the MULTICHANNEL_EXAMPLE macro in the project settings
+        3. Set the DEMO_CODEC_CS42448 macro to 1 in the app_definitions.h file
+        4. Remove the EAP16 library from the MCU Linker Libraries
+
 1.  Connect a micro USB cable between the PC host and the debug USB port on the board
 2.  Open a serial terminal with the following settings:
     - 115200 baud rate
@@ -83,8 +91,8 @@ Prepare the Demo
 Steps for WM8960:
 4. Insert the headphones into the headphone jack on MIMXRT1060-EVKB board (J34).
 Steps for CS42448:
-4. Insert the headphones into the headphone jack J6 and line in line into J12 on the audio board.
-5. Either press the reset button on your board or launch the debugger in your IDE to begin running the demo.
+5. Insert the headphones into the headphone jack J6 and line in line into J12 on the audio board.
+6. Either press the reset button on your board or launch the debugger in your IDE to begin running the demo.
 
 Note:
 - For the full output range of the EAP crossover options when applied to a stereo audio file, define XO_USE_FULL_STEREO in the eap_proc.h file
@@ -96,6 +104,7 @@ Note:
    2. Undefine EAP_PROC in the project settings
 
 - The AAC decoder is only supported in MCUXpresso and ARMGCC.
+
 Running the demo
 ================
 When the example runs successfully, you should see similar output on the serial terminal as below:
@@ -111,3 +120,9 @@ Copyright  2022  NXP
 [APP_Shell_Task] start
 
 >> [APP_SDCARD_Task] SD card drive mounted
+
+Known issues
+
+1. MP3 decoder has issues with some of the files. One of the channels can be sometimes distorted or missing parts of the signal.
+2. When using EAP crossover feature together with SSRC, after finishing the playback, it might be necessary to reset
+   the board in order to have correct sound output. Otherwise the sound output may be distorted.

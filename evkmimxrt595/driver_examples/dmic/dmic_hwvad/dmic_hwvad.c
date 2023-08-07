@@ -14,8 +14,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "fsl_power.h"
 #include <stdbool.h>
+#include "fsl_power.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

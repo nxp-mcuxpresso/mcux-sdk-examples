@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -77,7 +85,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../dcd.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws
     ${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/audio
@@ -86,117 +94,8 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${SdkRootDirPath}/middleware/eiq/common
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core/components/codec/wm8962
-    ${SdkRootDirPath}/core/components/codec
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/components/codec/
-    ${SdkRootDirPath}/core/components/codec/i2c
-    ${SdkRootDirPath}/core/components/i2c
-    ${SdkRootDirPath}/core/drivers/sai
-    ${SdkRootDirPath}/core/drivers/dmamux
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/middleware/eiq
-    ${SdkRootDirPath}/core/CMSIS/DSP
-    ${SdkRootDirPath}/middleware/eiq/tensorflow-lite
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/drivers/lpuart
-    ${SdkRootDirPath}/core/devices/MIMXRT1176
-    ${SdkRootDirPath}/core/devices/MIMXRT1176/drivers
-    ${SdkRootDirPath}/core/drivers/igpio
-    ${SdkRootDirPath}/core/drivers/lpi2c
-    ${SdkRootDirPath}/core/devices/MIMXRT1176/xip
-    ${SdkRootDirPath}/core/boards/evkbmimxrt1170/xip
-    ${SdkRootDirPath}/core/boards/evkbmimxrt1170/xmcd
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/drivers/edma
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-    ${SdkRootDirPath}/middleware/eiq/tensorflow-lite/third_party/cmsis
-)
 
-# include modules
-include(driver_wm8962)
-
-include(driver_codec)
-
-include(driver_common)
-
-include(component_wm8962_adapter)
-
-include(component_codec_i2c_MIMXRT1176_cm7)
-
-include(component_lpi2c_adapter)
-
-include(driver_sai)
-
-include(driver_sai_edma)
-
-include(driver_dmamux)
-
-include(utility_debug_console_lite)
-
-include(utility_assert_lite)
-
-include(middleware_eiq_worker_audio)
-
-include(CMSIS_DSP_Source)
-
-include(middleware_eiq_tensorflow_lite_micro)
-
-include(component_lists)
-
-include(component_lpuart_adapter)
-
-include(driver_lpuart)
-
-include(device_CMSIS)
-
-include(device_startup_MIMXRT1176_cm7)
-
-include(driver_dcdc_soc)
-
-include(driver_pmu_1)
-
-include(driver_clock)
-
-include(driver_igpio)
-
-include(driver_iomuxc)
-
-include(driver_lpi2c)
-
-include(driver_xip_device)
-
-include(driver_xip_board_evkbmimxrt1170)
-
-include(middleware_eiq_tensorflow_lite_micro_cmsis_nn)
-
-include(driver_xmcd_evkbmimxrt1170)
-
-include(driver_anatop_ai)
-
-include(CMSIS_Include_core_cm)
-
-include(driver_edma_MIMXRT1176_cm7)
-
-include(driver_memory)
-
-include(middleware_eiq_worker)
-
-include(middleware_eiq_tensorflow_lite_micro_third_party_flatbuffers)
-
-include(middleware_eiq_tensorflow_lite_micro_third_party_gemmlowp)
-
-include(middleware_eiq_tensorflow_lite_micro_third_party_ruy)
-
-include(utilities_misc_utilities)
-
-include(device_system_MIMXRT1176_cm7)
-
-include(middleware_eiq_tensorflow_lite_micro_third_party_cmsis_nn)
-
+include(${SdkRootDirPath}/core/devices/MIMXRT1176/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -208,4 +107,5 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBR
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map")
 

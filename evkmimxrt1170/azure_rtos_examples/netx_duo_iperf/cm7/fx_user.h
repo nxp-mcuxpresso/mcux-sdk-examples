@@ -4,6 +4,12 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+/*
+ * NOTE that if there is any change in this file, please make sure
+ * rebuild the corresponding library and use the new library to
+ * replace the one in your project.
+ */
+
 #ifndef FX_USER_H
 #define FX_USER_H
 

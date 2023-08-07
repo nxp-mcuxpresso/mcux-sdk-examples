@@ -120,7 +120,7 @@ include(driver_edma_MK66F18)
 
 include(driver_dmamux)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MK66F18)
 
 include(device_system)
 

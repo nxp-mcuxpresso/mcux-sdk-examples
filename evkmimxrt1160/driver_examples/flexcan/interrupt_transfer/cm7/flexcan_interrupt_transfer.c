@@ -262,7 +262,8 @@ int main(void)
             frame.type   = (uint8_t)kFLEXCAN_FrameTypeData;
             frame.length = (uint8_t)DLC;
 #if (defined(USE_CANFD) && USE_CANFD)
-            frame.brs = (uint8_t)1U;
+            frame.brs = 1U;
+            frame.edl = 1U;
 #endif
             txXfer.mbIdx = (uint8_t)TX_MESSAGE_BUFFER_NUM;
 #if (defined(USE_CANFD) && USE_CANFD)
@@ -336,7 +337,6 @@ int main(void)
             frame.id     = FLEXCAN_ID_STD(txIdentifier);
             txXfer.mbIdx = (uint8_t)TX_MESSAGE_BUFFER_NUM;
 #if (defined(USE_CANFD) && USE_CANFD)
-            frame.brs      = 1;
             txXfer.framefd = &frame;
             (void)FLEXCAN_TransferFDSendNonBlocking(EXAMPLE_CAN, &flexcanHandle, &txXfer);
 #else

@@ -51,6 +51,20 @@ extern "C" {
  */
 void STREAMER_Init(void);
 
+#ifdef MULTICHANNEL_EXAMPLE
+/*!
+ * @brief Create an Maestro streamer interface handle
+ *
+ * This function creates an Maestro streamer interface and starts a task for
+ * handling pcm files
+ *
+ * @param handle Pointer to input handle
+ * @param out sink type
+ * @return kStatus_Success on success, otherwise an error.
+ */
+
+status_t STREAMER_PCM_Create(char *filename, int volume);
+#else
 /*!
  * @brief Create an Maestro streamer interface handle
  *
@@ -63,6 +77,7 @@ void STREAMER_Init(void);
  */
 
 status_t STREAMER_file_Create(char *filename, int volume);
+#endif
 
 /*!
  * @brief Destroy an Maestro streamer interface handle

@@ -149,13 +149,23 @@ static void SetPluInputSource(void)
                 assert(false);
                 break;
         }
+#if defined(DEMO_NO_HAS_GPIO_PORT_PARAM) && DEMO_NO_HAS_GPIO_PORT_PARAM
+        GPIO_PinWrite(DEMO_GPIO_BASE, gpioPluSrcPin, value);
+#else
         GPIO_PinWrite(DEMO_GPIO_BASE, DEMO_GPIO_PORT, gpioPluSrcPin, value);
+#endif
     }
     else
     {
+#if defined(DEMO_NO_HAS_GPIO_PORT_PARAM) && DEMO_NO_HAS_GPIO_PORT_PARAM
+        GPIO_PinWrite(DEMO_GPIO_BASE, DEMO_GPIO_PLU_SRC_2_PIN, (value & 4U) >> 2U);
+        GPIO_PinWrite(DEMO_GPIO_BASE, DEMO_GPIO_PLU_SRC_1_PIN, (value & 2U) >> 1U);
+        GPIO_PinWrite(DEMO_GPIO_BASE, DEMO_GPIO_PLU_SRC_0_PIN, value & 1U);
+#else
         GPIO_PinWrite(DEMO_GPIO_BASE, DEMO_GPIO_PORT, DEMO_GPIO_PLU_SRC_2_PIN, (value & 4U) >> 2U);
         GPIO_PinWrite(DEMO_GPIO_BASE, DEMO_GPIO_PORT, DEMO_GPIO_PLU_SRC_1_PIN, (value & 2U) >> 1U);
         GPIO_PinWrite(DEMO_GPIO_BASE, DEMO_GPIO_PORT, DEMO_GPIO_PLU_SRC_0_PIN, value & 1U);
+#endif
     }
 }
 

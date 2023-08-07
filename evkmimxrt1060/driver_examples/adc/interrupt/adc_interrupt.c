@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2013 - 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2018, 2021 NXP
+ * Copyright 2016-2018, 2021, 2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -70,7 +70,7 @@ int main(void)
      *  config->enableHighSpeed =               false;
      *  config->enableLowPower =                false;
      *  config->enableLongSample =              false;
-     *  config->referenceVoltageSource =        kADC_ReferenceVoltageSourceVref;
+     *  config->referenceVoltageSource =        kADC_ReferenceVoltageSourceAlt0;
      *  config->samplePeriodMode =              kADC_SamplePeriod2or12Clocks;
      *  config->clockSource =                   kADC_ClockSourceAD;
      *  config->clockDriver =                   kADC_ClockDriver1;
@@ -104,10 +104,10 @@ int main(void)
         GETCHAR();
         g_AdcConversionDoneFlag = false;
         /*
-            When in software trigger mode, each conversion would be launched once calling the "ADC16_ChannelConfigure()"
+            When in software trigger mode, each conversion would be launched once calling the "ADC_SetChannelConfig()"
             function, which works like writing a conversion command and executing it. For another channel's conversion,
             just to change the "channelNumber" field in channel configuration structure, and call the function
-            "ADC_ChannelConfigure()"" again.
+            "ADC_SetChannelConfig()"" again.
             Also, the "enableInterruptOnConversionCompleted" inside the channel configuration structure is a parameter
            for
             the conversion command. It takes affect just for the current conversion. If the interrupt is still required

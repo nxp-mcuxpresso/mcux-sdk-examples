@@ -71,9 +71,9 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DDEBUG \
     -DCPU_MIMX8ML8DVNLZ \
     -DCPU_MIMX8ML8DVNLZ_cm7 \
+    -DMCUXPRESSO_SDK \
     -DSDK_OS_FREE_RTOS \
     -DSERIAL_PORT_TYPE_UART=1 \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -97,9 +97,9 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DNDEBUG \
     -DCPU_MIMX8ML8DVNLZ \
     -DCPU_MIMX8ML8DVNLZ_cm7 \
+    -DMCUXPRESSO_SDK \
     -DSDK_OS_FREE_RTOS \
     -DSERIAL_PORT_TYPE_UART=1 \
-    -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
@@ -122,9 +122,9 @@ SET(CMAKE_C_FLAGS_DDR_DEBUG " \
     -DDEBUG \
     -DCPU_MIMX8ML8DVNLZ \
     -DCPU_MIMX8ML8DVNLZ_cm7 \
+    -DMCUXPRESSO_SDK \
     -DSDK_OS_FREE_RTOS \
     -DSERIAL_PORT_TYPE_UART=1 \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -148,9 +148,9 @@ SET(CMAKE_C_FLAGS_DDR_RELEASE " \
     -DNDEBUG \
     -DCPU_MIMX8ML8DVNLZ \
     -DCPU_MIMX8ML8DVNLZ_cm7 \
+    -DMCUXPRESSO_SDK \
     -DSDK_OS_FREE_RTOS \
     -DSERIAL_PORT_TYPE_UART=1 \
-    -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
@@ -174,9 +174,9 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -DFLASH_TARGET \
     -DCPU_MIMX8ML8DVNLZ \
     -DCPU_MIMX8ML8DVNLZ_cm7 \
+    -DMCUXPRESSO_SDK \
     -DSDK_OS_FREE_RTOS \
     -DSERIAL_PORT_TYPE_UART=1 \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -201,9 +201,9 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -DFLASH_TARGET \
     -DCPU_MIMX8ML8DVNLZ \
     -DCPU_MIMX8ML8DVNLZ_cm7 \
+    -DMCUXPRESSO_SDK \
     -DSDK_OS_FREE_RTOS \
     -DSERIAL_PORT_TYPE_UART=1 \
-    -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
@@ -226,8 +226,8 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     -DDEBUG \
     -DCPU_MIMX8ML8DVNLZ \
     -DCPU_MIMX8ML8DVNLZ_cm7 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -252,8 +252,8 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -DNDEBUG \
     -DCPU_MIMX8ML8DVNLZ \
     -DCPU_MIMX8ML8DVNLZ_cm7 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
@@ -277,8 +277,8 @@ SET(CMAKE_CXX_FLAGS_DDR_DEBUG " \
     -DDEBUG \
     -DCPU_MIMX8ML8DVNLZ \
     -DCPU_MIMX8ML8DVNLZ_cm7 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -303,8 +303,8 @@ SET(CMAKE_CXX_FLAGS_DDR_RELEASE " \
     -DNDEBUG \
     -DCPU_MIMX8ML8DVNLZ \
     -DCPU_MIMX8ML8DVNLZ_cm7 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
@@ -329,8 +329,8 @@ SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
     -DFLASH_TARGET \
     -DCPU_MIMX8ML8DVNLZ \
     -DCPU_MIMX8ML8DVNLZ_cm7 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -356,8 +356,8 @@ SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
     -DFLASH_TARGET \
     -DCPU_MIMX8ML8DVNLZ \
     -DCPU_MIMX8ML8DVNLZ_cm7 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \

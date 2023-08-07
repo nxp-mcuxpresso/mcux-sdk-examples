@@ -49,7 +49,6 @@ static uint8_t destBuff[BUFFER_SIZE];
 static uint32_t txIndex             = BUFFER_SIZE;
 static uint32_t rxIndex             = BUFFER_SIZE;
 static volatile bool masterFinished = false;
-static volatile bool slaveFinished  = false;
 
 /*******************************************************************************
  * Code

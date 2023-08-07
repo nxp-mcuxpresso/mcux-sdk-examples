@@ -43,6 +43,12 @@
 /*                                                                        */
 /**************************************************************************/
 
+/*
+ * NOTE that if there is any change in this file, please make sure
+ * rebuild the corresponding library and use the new library to
+ * replace the one in your project.
+ */
+
 #ifndef GX_USER_H
 #define GX_USER_H
 
@@ -60,7 +66,7 @@
    change GUIX System Timer value. */
 /* #define GX_SYSTEM_TIMER_MS  20 */
 
-/* This can be defined to insert an application specific data 
+/* This can be defined to insert an application specific data
    field into the GX_WIDGET control block */
 /* #define GX_WIDGET_USER_DATA */
 #endif

@@ -81,6 +81,18 @@ void vApplicationGetIdleTaskMemory(StaticTask_t **ppxIdleTaskTCBBuffer,
 /*******************************************************************************
  * Code
  ******************************************************************************/
+
+/*!
+ * @brief Application-specific implementation of the SystemInitHook() weak function.
+ */
+void SystemInitHook(void)
+{
+    /* Initialize MCMGR - low level multicore management library. Call this
+       function as close to the reset entry as possible to allow CoreUp event
+       triggering. The SystemInitHook() weak function overloading is used in this
+       application. */
+    (void)MCMGR_EarlyInit();
+}
 static volatile uint16_t RemoteAppReadyEventData = 0U;
 static StaticTask_t xTaskBuffer;
 static StackType_t xStack[APP_TASK_STACK_SIZE];
@@ -166,18 +178,6 @@ static void FreeRtosMessageBuffersEventHandler(uint16_t eventData, void *context
     /* No need to clear the interrupt flag here, it is handled by the mcmgr. */
 }
 
-/*!
- * @brief Application-specific implementation of the SystemInitHook() weak function.
- */
-void SystemInitHook(void)
-{
-    /* Initialize MCMGR - low level multicore management library. Call this
-       function as close to the reset entry as possible to allow CoreUp event
-       triggering. The SystemInitHook() weak function overloading is used in this
-       application. */
-    (void)MCMGR_EarlyInit();
-}
-
 static void app_task(void *param)
 {
     /* Create the Secondary-To-Primary message buffer, statically allocated at a known location
@@ -243,6 +243,7 @@ int main(void)
     /* Initialize standard SDK demo application pins */
     BOARD_ConfigMPU();
     BOARD_InitPins();
+    SystemCoreClock = CLOCK_GetRootClockFreq(kCLOCK_Root_M4);
 
     /* Initialize MCMGR before calling its API */
     (void)MCMGR_Init();

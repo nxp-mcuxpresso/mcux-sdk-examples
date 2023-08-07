@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2019 NXP
+ * Copyright 2016-2019, 2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -153,12 +153,12 @@ int main(void)
      * config.enableRx = false;
      */
     USART_GetDefaultConfig(&config);
-    config.baudRate_Bps = EXAMPLE_UART_BAUDRATE;
-    config.enableTx     = true;
-    config.enableRx     = true;
+    config.baudRate_Bps  = EXAMPLE_UART_BAUDRATE;
+    config.enableTx      = true;
+    config.enableRx      = true;
+    config.enableMode32k = true;
 
     USART_Init(EXAMPLE_USART, &config, EXAMPLE_USART_CLK_FREQ);
-    EXAMPLE_USART->CFG |= USART_CFG_MODE32K_MASK;
 
     /* Configure DMA. */
     DMA_Init(EXAMPLE_UART_DMA_BASEADDR);

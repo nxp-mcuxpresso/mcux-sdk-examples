@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2019 NXP
+ * Copyright 2016-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -30,21 +30,24 @@
 #define FXOS8700_WHOAMI    (0xC7U)
 #define MMA8451_WHOAMI     (0x1AU)
 #define LSM6DSO_WHOAMI     (0x6CU)
+#define FXL8974_WHOAMI     (0x86U)
 #define ACCEL_STATUS       (0x00U)
 #define ACCEL_XYZ_DATA_CFG (0x0EU)
 #define ACCEL_CTRL_REG1    (0x2AU)
 /* FXOS8700 and MMA8451 have the same who_am_i register address. */
-#define ACCEL_WHOAMI_REG         (0x0DU)
-#define LSM6DSO_WHOAMI_REG       (0x0FU)
-#define ACCEL_READ_TIMES         (10U)
-#define SENSOR_MODEL_NUMBERS     3U
-#define READ_SEQ_COMMAND_NUMBERS 2U
-
+#define ACCEL_WHOAMI_REG                  (0x0DU)
+#define LSM6DSO_WHOAMI_REG                (0x0FU)
+#define FXL8974_WHOAMI_REG                (0x13U)
+#define ACCEL_READ_TIMES                  (10U)
+#define SENSOR_MODEL_NUMBERS              4U
+#define READ_SEQ_COMMAND_NUMBERS          2U
+#define FXLS8974_INT_STATUS_SRC_DRDY_MASK ((uint8_t)0x80)
 typedef enum _sensor_model
 {
     FXOS8700 = 0U,
     MMA8451  = 1U,
     LSM6DSO  = 2U,
+    FXL8974  = 3U,
 } sensor_model;
 
 typedef enum _read_seq_command
@@ -76,18 +79,21 @@ static bool I2C_read_accel_regs(
  * Variables
  ******************************************************************************/
 
-uint8_t g_whoami_reg_addr[SENSOR_MODEL_NUMBERS] = {ACCEL_WHOAMI_REG, ACCEL_WHOAMI_REG, LSM6DSO_WHOAMI_REG};
+uint8_t g_whoami_reg_addr[SENSOR_MODEL_NUMBERS] = {ACCEL_WHOAMI_REG, ACCEL_WHOAMI_REG, LSM6DSO_WHOAMI_REG,
+                                                   FXL8974_WHOAMI_REG};
 
 /*
  * device address:
  * FXOS8700(0x1c, 0x1d, 0x1e, 0x1f),
  * MMA8451(0x1c, 0x1d, 0x1e, 0x1f ),
  * LSM6SDO(0x6a, 0x6b).
+ * FXL8974(0x18).
  */
 const uint8_t g_accel_addr[SENSOR_MODEL_NUMBERS][4] = {
     {0x1CU, 0x1DU, 0x1EU, 0x1FU}, /* FXOS8700 */
     {0x1CU, 0x1DU, 0x1EU, 0x1FU}, /* MMA8451 */
-    {0x6AU, 0x6BU, 0x00U, 0x00U}  /* LSM6SDO */
+    {0x6AU, 0x6BU, 0x00U, 0x00U}, /* LSM6SDO */
+    {0x18U, 0x00U, 0x00U, 0x00U}  /* FXL8974 */
 };
 
 /* Each entry in a regWriteList is composed of: register address, value to write, bit-mask to apply to write */
@@ -133,6 +139,29 @@ regList_t LSM6DSOInitSeq[] = {
     /*   CTRL1_XL[7:4] = 1011,  12.5 Hz(high performance) */
     {0x10, 0xb0, 0x01},
 };
+/* For FXL8974 */
+regList_t FXL8974InitSeq[] = {
+    /* for FXL8974 */
+    /*  write 0001 0201 = 0x00 to SENS_CONFIG1_REG(0x15) */
+    /*  SENS_CONFIG1_REG[0]=0 standby mode */
+    {0x15, 0x00, 0x01},
+
+    /*  write 0001 0111 = 0x90 to SENS_CONFIG3_REG(0x17) */
+    /*   SENS_CONFIG3_REG = 0x90, set ODR 6.25Hz */
+    {0x17, 0x90, 0x01},
+
+    /*  write 0001 0110 = 0x00 to SENS_CONFIG2_REG(0x16) */
+    /*   SENS_CONFIG2_REG = 0,  set SENS_CONFIG2_REG */
+    {0x16, 0x00, 0x01},
+
+    /*  write 0001 1000 = 0x01 to SENS_CONFIG4_REG(0x18) */
+    /*   SENS_CONFIG4_REG[0] = 1,  set INT_POL active high */
+    {0x18, 0x01, 0x01},
+
+    /*  write 0001 0101 = 0x00 to SENS_CONFIG1_REG(0x15) */
+    /*  SENS_CONFIG1_REG[0]=1 active mode */
+    {0x15, 0x01, 0x01},
+};
 
 /*  SENSOR_MODEL_NUMBERS * READ_SEQ_COMMAND_NUMBERS */
 regList_t readSeq[] = {
@@ -153,6 +182,12 @@ regList_t readSeq[] = {
     {0x1e, 0x05, 0x01}, /* READ_STATUS */
     /* read acceleration value from OUTX_L_A, OUTX_H_A, OUTY_L_A, OUTY_H_A, OUTZ_L_A, OUTZ_H_A */
     {0x28, 0x00, 0x06}, /* READ_ACCEL_DATA */
+
+    /* for FXL8974 */
+    /* read BUF_STATUS(0x00) */
+    {0x00, 0x81, 0x01}, /* READ_STATUS */
+    /* read acceleration value from BUF_X_LSB, BUF_X_MSB, BUF_Y_LSB, BUF_Y_MSB, BUF_Z_LSB, BUF_Z_MSB */
+    {0x04, 0x00, 0x06}, /* READ_ACCEL_DATA */
 };
 
 flexio_i2c_master_handle_t g_m_handle;
@@ -283,10 +318,14 @@ static bool I2C_example_readAccelWhoAmI(void)
                 PRINTF("Found a LSDM6DSO on board, the device address is 0x%02X. \r\n", masterXfer.slaveAddress);
                 result = true;
                 break;
+            case FXL8974_WHOAMI:
+                PRINTF("Found a FXL8974 on board, the device address is 0x%02X. \r\n", masterXfer.slaveAddress);
+                result = true;
+                break;
             default:
 
                 PRINTF("Found a device, the WhoAmI value is 0x%02X\r\n", who_am_i_value);
-                PRINTF("It's not MMA8451 or FXOS8700 or LSM6DSO. \r\n");
+                PRINTF("It's not MMA8451 or FXOS8700 or LSM6DSO or FXL8974. \r\n");
                 PRINTF("The device address is 0x%02X. \r\n", masterXfer.slaveAddress);
                 result = false;
                 break;
@@ -387,6 +426,11 @@ void I2C_InitSensor(uint8_t model)
         commandNums = sizeof(LSM6DSOInitSeq) / sizeof(LSM6DSOInitSeq[0]);
         pRegList    = LSM6DSOInitSeq;
     }
+    else if (model == FXL8974)
+    {
+        commandNums = sizeof(FXL8974InitSeq) / sizeof(FXL8974InitSeq[0]);
+        pRegList    = FXL8974InitSeq;
+    }
     else
     {
         PRINTF("\r\n Failed to initialize sensor\r\n");
@@ -440,10 +484,21 @@ int main(void)
         {
             status0_value = 0;
             /*  wait for new data are ready. */
-            while (status0_value != readSeq[g_model * 2 + READ_STATUS].val)
+            if (g_model == FXL8974)
             {
-                I2C_read_accel_regs(&i2cDev, g_device_addr_found, readSeq[g_model * 2 + READ_STATUS].reg,
-                                    &status0_value, readSeq[g_model * 2 + READ_STATUS].size);
+                while (0 == (status0_value & FXLS8974_INT_STATUS_SRC_DRDY_MASK))
+                {
+                    I2C_read_accel_regs(&i2cDev, g_device_addr_found, readSeq[g_model * 2 + READ_STATUS].reg,
+                                        &status0_value, readSeq[g_model * 2 + READ_STATUS].size);
+                }
+            }
+            else
+            {
+                while (status0_value != readSeq[g_model * 2 + READ_STATUS].val)
+                {
+                    I2C_read_accel_regs(&i2cDev, g_device_addr_found, readSeq[g_model * 2 + READ_STATUS].reg,
+                                        &status0_value, readSeq[g_model * 2 + READ_STATUS].size);
+                }
             }
             /* Delay 10us for the data to be ready. */
             SDK_DelayAtLeastUs(10, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
@@ -451,10 +506,18 @@ int main(void)
             /*  Multiple-byte Read from acceleration registers */
             I2C_read_accel_regs(&i2cDev, g_device_addr_found, readSeq[g_model * 2 + READ_ACCEL_DATA].reg, readBuff,
                                 readSeq[g_model * 2 + READ_ACCEL_DATA].size);
-            x = ((int16_t)(((readBuff[0] << 8U) | readBuff[1]))) >> ((g_model == LSM6DSO) ? (0U) : (2U));
-            y = ((int16_t)(((readBuff[2] << 8U) | readBuff[3]))) >> ((g_model == LSM6DSO) ? (0U) : (2U));
-            z = ((int16_t)(((readBuff[4] << 8U) | readBuff[5]))) >> ((g_model == LSM6DSO) ? (0U) : (2U));
-
+            if (g_model == FXL8974)
+            {
+                x = ((int16_t)(((readBuff[1] << 8U) | readBuff[0])));
+                y = ((int16_t)(((readBuff[3] << 8U) | readBuff[2])));
+                z = ((int16_t)(((readBuff[5] << 8U) | readBuff[4])));
+            }
+            else
+            {
+                x = ((int16_t)(((readBuff[0] << 8U) | readBuff[1]))) >> ((g_model == LSM6DSO) ? (0U) : (2U));
+                y = ((int16_t)(((readBuff[2] << 8U) | readBuff[3]))) >> ((g_model == LSM6DSO) ? (0U) : (2U));
+                z = ((int16_t)(((readBuff[4] << 8U) | readBuff[5]))) >> ((g_model == LSM6DSO) ? (0U) : (2U));
+            }
             PRINTF("status_reg = 0x%x , x = %5d , y = %5d , z = %5d \r\n", status0_value, x, y, z);
         }
     }

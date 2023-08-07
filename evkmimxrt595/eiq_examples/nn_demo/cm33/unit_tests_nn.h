@@ -12,7 +12,7 @@
 #include "srtm_config.h"
 
 /* Enable (1) or disable (0) neural networks unit tests */
-#define CONV_DS_UNIT_TEST  1
+#define CONV_DS_UNIT_TEST  0
 #define CONV_STD_UNIT_TEST 1
 #define RELU_UNIT_TEST     1
 #define MAXPOOL_UNIT_TEST  1

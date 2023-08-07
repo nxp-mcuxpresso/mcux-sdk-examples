@@ -6,7 +6,7 @@ In this example, pdm gather audio data, and sai send it to codec.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

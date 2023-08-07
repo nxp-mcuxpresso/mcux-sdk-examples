@@ -26,8 +26,8 @@ For more information about Wi-Fi module connection see:
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.7.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================
@@ -49,7 +49,7 @@ Prepare the Demo
     - No parity
     - One stop bit
     - No flow control
-3.  Connect the WiFi module to SD card slot.
+3.  Connect the WiFi module to SD card slot or M.2 slot.
 4.  Download the program to the target board.
 5.  Either press the reset button on your board or launch the debugger in your IDE to begin running the demo.
 
@@ -60,55 +60,44 @@ Running the demo
 2. After that, device will wait for connection and configuration:
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Starting webconfig DEMO
 [i] Trying to load data from mflash.
-[i] Initializing WiFi connection...
-
-AsyncInterrupt is not supported
-WLAN MAC Address : A0:C9:A0:3D:F9:2F
-WLAN Firmware    : wl0: Feb 12 2018 04:08:14 version 7.79.2 (r683798 CY) FWID 01-27b63357
-WLAN CLM         : API: 12.2 Data: 9.10.39 Compiler: 1.29.4 ClmImport: 1.36.3 Creation: 2018-02-12 04:00:50
-[i] Successfully initialized WiFi module
-Scanning available networks...
-scan completed
-
-#001 SSID          : nxp
-     BSSID         : 00:1F:7B:31:03:9A
-     RSSI          : -34dBm (off-channel)
-     Max Data Rate : 72 Mbits/s
-     Network Type  : Infrastructure
-     Security      : WPA2 AES
-     Radio Band    : 2.4GHz
-     Channel       : 5
-
-[i] Starting Access Point: SSID: nxp_configuration_access_point, Chnl: 1
-[i] Connect to access point on this IP to configure device:  192.168.1.1
-[i] Waiting....
+[i] Nothing stored yet
+[i] Initializing Wi-Fi connection...
+MAC Address: 9C:50:D1:44:67:5F
+[i] Successfully initialized Wi-Fi module
+Starting Access Point: SSID: nxp_configuration_access_point, Chnl: 1
+[wlcm] Warn: NOTE: uAP will automatically switch to the channel that station is on.
+ Now join that network on your device and connect to this IP: 192.168.1.1
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-4. Connect to the access point and in your web browser enter 192.168.1.1
-5. Wait for the scan to finish and click on the desired network to join.
-6. Enter the network password and click on connect.
+3. Connect to the access point and in your web browser enter 192.168.1.1
+4. Wait for the scan to finish - the demo terminal will print something like:
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Initiating scan...
+
+nxptp
+     BSSID         : B0:A7:B9:99:27:52
+     RSSI          : -34dBm
+     Channel       : 3
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+5. In your web browser you should also see the scan results, click on the network
+   you want to add, fill in the credentials and click connect.
 6. After you send credentials, device will try connecting to the AP and if successful saves the credentials to the mflash.
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-[i] Chosen ssid: nxp
-[i] Chosen passphrase: NXP0123456789
+[i] Chosen ssid: nxptp
+[i] Chosen passphrase: "NXP01234"
+[i] Chosen security methods: "WPA2 WPA3_SAE"
+[i] Joining: nxptp
+[i] Successfully joined: nxptp
+ Now join that network on your device and connect to this IP: 192.168.0.209
+[i] mflash_save_file success
 [i] Stopping AP!
-[i] Trying to load data from mflash.
-[i] Loaded data: nxp;NXP0123456789
-[i] Initializing WiFi connection...
-
-AsyncInterrupt is not supported
-WLAN MAC Address : A0:C9:A0:3D:F9:2F
-WLAN Firmware    : wl0: Feb 12 2018 04:08:14 version 7.79.2 (r683798 CY) FWID 01-27b63357
-WLAN CLM         : API: 12.2 Data: 9.10.39 Compiler: 1.29.4 ClmImport: 1.36.3 Creation: 2018-02-12 04:00:50
-[i] Successfully initialized WiFi module
-[i] Joining: nxp
-[i] Successfully joined: nxp
-Getting IP address from DHCP server
-IPv4 Address got from DHCP  : 192.168.14.5
-[i] Changed web data: connected;nxp;
-[i] Waiting....
-
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+7. The device is now in station mode and is joined to the selected network.
+   Now join this network on your PC and enter the IP from demo terminal.
+8. You can try to join different networks or reset the board back to AP mode and start again.

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -15,6 +15,9 @@ extern "C" {
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+
+/* DMIC source from audio pll, divider 8, 24.576 MHz / 8 = 3.072 MHz */
+#define BOARD_DMIC_CLOCK_DIV 8
 
 void BOARD_Init();
 

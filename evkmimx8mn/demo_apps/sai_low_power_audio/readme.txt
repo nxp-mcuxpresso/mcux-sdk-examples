@@ -9,7 +9,7 @@ If there is no audio palyback, M core will enter the STOP mode, and the whole SO
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

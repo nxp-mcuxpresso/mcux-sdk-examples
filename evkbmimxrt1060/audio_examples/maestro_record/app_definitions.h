@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2023 NXP
  * All rights reserved.
  *
  *
@@ -39,7 +39,7 @@
 #define DEMO_SAI_TX_SOURCE kDmaRequestMuxSai1Tx
 #define DEMO_SAI_RX_SOURCE kDmaRequestMuxSai1Rx
 
-#if DEMO_CODEC_CS42448
+#if (defined(DEMO_CODEC_CS42448) && (DEMO_CODEC_CS42448 == 1))
 #define DEMO_SAI_BITWIDTH              (kSAI_WordWidth32bits)
 #define DEMO_VOLUME                    (100)
 #define DEMO_CHANNEL_NUM               8
@@ -79,7 +79,7 @@
 
 /*${macro:end}*/
 
-#if defined DEMO_CODEC_CS42448
+#if (defined(DEMO_CODEC_CS42448) && (DEMO_CODEC_CS42448 == 1))
 void BORAD_CodecReset(bool state);
 #endif
 

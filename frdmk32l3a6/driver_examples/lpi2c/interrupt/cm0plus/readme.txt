@@ -9,7 +9,7 @@ In this example , one lpi2c instance used as lpi2c master and another lpi2c inst
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

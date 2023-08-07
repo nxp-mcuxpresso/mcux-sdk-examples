@@ -47,6 +47,8 @@ SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -Wall")
 
 SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -fsigned-char")
 
+SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -Wno-unused")
+
 SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -Wno-missing-braces")
 
 SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -fmessage-length=0")
@@ -68,6 +70,8 @@ SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} --xtensa-system=${XTENSA_SYS
 SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Wall")
 
 SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -fsigned-char")
+
+SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Wno-unused")
 
 SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Wno-missing-braces")
 
@@ -93,6 +97,8 @@ SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
 
 SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsigned-char")
 
+SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-unused")
+
 SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-missing-braces")
 
 SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fmessage-length=0")
@@ -114,6 +120,8 @@ SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} --xtensa-system=${XTENSA
 SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall")
 
 SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fsigned-char")
+
+SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wno-unused")
 
 SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wno-missing-braces")
 
@@ -139,7 +147,7 @@ include_directories(${ProjDirPath}/..)
 
 include_directories(${ProjDirPath}/../../../../../../core/components/uart)
 
-include_directories(${ProjDirPath}/../../../../../../core/drivers/flexcomm)
+include_directories(${ProjDirPath}/../../../../../../core/drivers/flexcomm/usart)
 
 include_directories(${ProjDirPath}/../../../../../../core/utilities/str)
 
@@ -147,17 +155,19 @@ include_directories(${ProjDirPath}/../../../../../../core/utilities/debug_consol
 
 include_directories(${ProjDirPath}/../../../../../../core/drivers/lpc_gpio)
 
-include_directories(${ProjDirPath}/../../../../../../core/drivers/common)
-
 include_directories(${ProjDirPath}/../../../../../../core/components/lists)
 
 include_directories(${ProjDirPath}/../../../../../../core/drivers/lpc_iopctl)
 
+include_directories(${ProjDirPath}/../../../../../../core/drivers/common)
+
 include_directories(${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/drivers)
+
+include_directories(${ProjDirPath}/../../../../../../core/drivers/flexcomm)
 
 include_directories(${ProjDirPath}/../../../../../../core/devices/MIMXRT685S)
 
-include_directories(${ProjDirPath}/../../../../../../CMSIS/Core/Include)
+include_directories(${ProjDirPath}/../../../../../../core/CMSIS/Core/Include)
 
 add_executable(dsp_hello_world_usart_hifi4.elf 
 "${ProjDirPath}/../main_dsp.c"
@@ -167,8 +177,8 @@ add_executable(dsp_hello_world_usart_hifi4.elf
 "${ProjDirPath}/../board_hifi4.h"
 "${ProjDirPath}/../../../../../../core/components/uart/fsl_adapter_uart.h"
 "${ProjDirPath}/../../../../../../core/components/uart/fsl_adapter_usart.c"
-"${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_usart.h"
-"${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_usart.c"
+"${ProjDirPath}/../../../../../../core/drivers/flexcomm/usart/fsl_usart.h"
+"${ProjDirPath}/../../../../../../core/drivers/flexcomm/usart/fsl_usart.c"
 "${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.c"
 "${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.h"
 "${ProjDirPath}/../../../../../../core/utilities/debug_console_lite/fsl_debug_console.c"
@@ -176,23 +186,23 @@ add_executable(dsp_hello_world_usart_hifi4.elf
 "${ProjDirPath}/../../../../../../core/utilities/assert/fsl_assert.c"
 "${ProjDirPath}/../../../../../../core/drivers/lpc_gpio/fsl_gpio.h"
 "${ProjDirPath}/../../../../../../core/drivers/lpc_gpio/fsl_gpio.c"
+"${ProjDirPath}/../../../../../../core/components/lists/fsl_component_generic_list.h"
+"${ProjDirPath}/../../../../../../core/components/lists/fsl_component_generic_list.c"
+"${ProjDirPath}/../../../../../../core/drivers/lpc_iopctl/fsl_iopctl.h"
 "${ProjDirPath}/../../../../../../core/drivers/common/fsl_common.h"
 "${ProjDirPath}/../../../../../../core/drivers/common/fsl_common.c"
 "${ProjDirPath}/../../../../../../core/drivers/common/fsl_common_dsp.c"
 "${ProjDirPath}/../../../../../../core/drivers/common/fsl_common_dsp.h"
-"${ProjDirPath}/../../../../../../core/components/lists/fsl_component_generic_list.h"
-"${ProjDirPath}/../../../../../../core/components/lists/fsl_component_generic_list.c"
-"${ProjDirPath}/../../../../../../core/drivers/lpc_iopctl/fsl_iopctl.h"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/drivers/fsl_clock.h"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/drivers/fsl_clock.c"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/drivers/fsl_reset.h"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/drivers/fsl_reset.c"
+"${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_flexcomm.h"
+"${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_flexcomm.c"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/MIMXRT685S_dsp.h"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/MIMXRT685S_dsp_features.h"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/system_MIMXRT685S_dsp.c"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/system_MIMXRT685S_dsp.h"
-"${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_flexcomm.h"
-"${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_flexcomm.c"
 )
 
 

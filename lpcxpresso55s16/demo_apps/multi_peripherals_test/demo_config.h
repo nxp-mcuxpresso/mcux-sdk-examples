@@ -37,4 +37,6 @@
 #define DEMO_I2S_TX      (I2S7)
 #define DEMO_I2S_RX      (I2S6)
 
+#define ACCELEROMETER_EXISTS
+
 #endif /* _DEMO_CONFIG_H_ */

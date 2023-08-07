@@ -95,17 +95,17 @@ include(driver_smc)
 
 include(utility_assert)
 
-include(CMSIS_Include_core_cm0plus)
+include(CMSIS_Include_core_cm)
 
-include(CMSIS_Include_common)
+include(CMSIS_Include_core_cm)
 
-include(CMSIS_Include_dsp)
+include(CMSIS_DSP_Include)
 
 include(middleware_freertos-kernel_MKL27Z644)
 
 include(middleware_freertos-kernel_extension)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MKL27Z644)
 
 include(device_system)
 

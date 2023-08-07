@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -54,13 +54,13 @@ static int wlan_event_callback(enum wlan_event_reason event, void *data)
             ret = wlan_get_address(&addr);
             if (ret != WM_SUCCESS)
             {
-                PRINTF("failed to get IP address\r\n");
+                PRINTF("[CM33 Wlan] failed to get IP address\r\n");
                 return 0;
             }
 
             net_inet_ntoa(addr.ipv4.address, ip);
 
-            PRINTF("Connected to \"%s\" with IP = [%s]\r\n", network.name, ip);
+            PRINTF("[CM33 Wlan] Connected to \"%s\" with IP = [%s]\r\n", network.name, ip);
 
             if (xJoinTaskNotify != NULL)
             {
@@ -71,23 +71,23 @@ static int wlan_event_callback(enum wlan_event_reason event, void *data)
             break;
 
         case WLAN_REASON_NETWORK_NOT_FOUND:
-            PRINTF("Network \"%s\" not found\r\n", network.name);
+            PRINTF("[CM33 Wlan] Network \"%s\" not found\r\n", network.name);
             break;
 
         case WLAN_REASON_NETWORK_AUTH_FAILED:
-            PRINTF("Authentication to network \"%s\" failed\r\n", network.name);
+            PRINTF("[CM33 Wlan] Authentication to network \"%s\" failed\r\n", network.name);
             break;
 
         case WLAN_REASON_USER_DISCONNECT:
-            PRINTF("Disconnected from \"%s\"\r\n", network.name);
+            PRINTF("[CM33 Wlan] Disconnected from \"%s\"\r\n", network.name);
             break;
 
         case WLAN_REASON_INITIALIZED:
-            PRINTF("WLAN initialized\r\n");
+            PRINTF("[CM33 Wlan] WLAN initialized\r\n");
 
             /* Print WLAN FW Version */
             wifi_get_device_firmware_version_ext(&ver);
-            PRINTF("WLAN FW version: %s\r\n", ver.version_str);
+            PRINTF("[CM33 Wlan] WLAN FW version: %s\r\n", ver.version_str);
 
             if (xInitTaskNotify != NULL)
             {
@@ -97,7 +97,7 @@ static int wlan_event_callback(enum wlan_event_reason event, void *data)
             break;
 
         default:
-            PRINTF("Unhandled wlan_event_callback: event=%d\r\n", event);
+            PRINTF("[CM33 Wlan] Unhandled wlan_event_callback: event=%d\r\n", event);
             break;
     }
 
@@ -108,7 +108,7 @@ static void wifi_client_wlan_validate(app_handle_t *app)
 {
     if ((WIFI_SSID == NULL) || (strlen(WIFI_SSID) == 0))
     {
-        PRINTF("[!] SSID is not set!\r\n");
+        PRINTF("[CM33 Wlan] [!] SSID is not set!\r\n");
         while (true)
         {
         }
@@ -116,7 +116,7 @@ static void wifi_client_wlan_validate(app_handle_t *app)
 
     if (strlen(WIFI_SSID) > IEEEtypes_SSID_SIZE)
     {
-        PRINTF("[!] SSID is too long!\r\n");
+        PRINTF("[CM33 Wlan] [!] SSID is too long!\r\n");
         while (true)
         {
         }
@@ -124,7 +124,7 @@ static void wifi_client_wlan_validate(app_handle_t *app)
 
     if (WIFI_PASSWORD == NULL)
     {
-        PRINTF("[!] Password is not set!\r\n");
+        PRINTF("[CM33 Wlan] [!] Password is not set!\r\n");
         while (true)
         {
         }
@@ -132,7 +132,7 @@ static void wifi_client_wlan_validate(app_handle_t *app)
 
     if (strlen(WIFI_PASSWORD) > (WLAN_PSK_MAX_LENGTH - 1))
     {
-        PRINTF("[!] Password is too long!\r\n");
+        PRINTF("[CM33 Wlan] [!] Password is too long!\r\n");
         while (true)
         {
         }
@@ -143,13 +143,13 @@ static void wifi_client_wlan_init(app_handle_t *app)
 {
     int32_t result;
 
-    PRINTF("Initializing WLAN\r\n");
+    PRINTF("[CM33 Wlan] Initializing WLAN\r\n");
 
     result = wlan_init(wlan_fw_bin, wlan_fw_bin_len);
 
     if (result != WM_SUCCESS)
     {
-        PRINTF("WLAN initialization failed\r\n");
+        PRINTF("[CM33 Wlan] WLAN initialization failed\r\n");
         while (true)
         {
         }
@@ -160,14 +160,14 @@ static void wifi_client_wlan_start(app_handle_t *app)
 {
     int32_t result;
 
-    PRINTF("Starting WLAN\r\n");
+    PRINTF("[CM33 Wlan] Starting WLAN\r\n");
 
     xInitTaskNotify = xTaskGetCurrentTaskHandle();
     result          = wlan_start(wlan_event_callback);
 
     if (result != WM_SUCCESS)
     {
-        PRINTF("WLAN failed to start\r\n");
+        PRINTF("[CM33 Wlan] WLAN failed to start\r\n");
         while (true)
         {
         }
@@ -213,18 +213,18 @@ static void wifi_client_wlan_connect(app_handle_t *app)
     result = wlan_add_network(&network);
     if (result != WM_SUCCESS)
     {
-        (void)PRINTF("Failed to add network \"%s\"\r\n", network.name);
+        (void)PRINTF("[CM33 Wlan] Failed to add network \"%s\"\r\n", network.name);
         while (true)
         {
         }
     }
 
-    (void)PRINTF("Connecting to \"%s\"\r\n", network.name);
+    (void)PRINTF("[CM33 Wlan] Connecting to \"%s\"\r\n", network.name);
     result = wlan_connect(network.name);
 
     if (result != WM_SUCCESS)
     {
-        (void)PRINTF("Failed to connect %d\r\n", result);
+        (void)PRINTF("[CM33 Wlan] Failed to connect %d\r\n", result);
         while (true)
         {
         }
@@ -233,7 +233,7 @@ static void wifi_client_wlan_connect(app_handle_t *app)
     // Wait for response
     if (pdPASS != ulTaskNotifyTake(pdTRUE, portMAX_DELAY))
     {
-        (void)PRINTF("ulTaskNotifyTake failed\r\n");
+        (void)PRINTF("[CM33 Wlan] ulTaskNotifyTake failed\r\n");
         while (true)
         {
         }
@@ -244,7 +244,7 @@ static void wifi_client_task(void *param)
 {
     app_handle_t *app = (app_handle_t *)param;
 
-    PRINTF("[wifi_client_task] start\r\n");
+    PRINTF("[CM33][wifi_client_task] start\r\n");
 
     wifi_client_wlan_validate(app);
     wifi_client_wlan_init(app);
@@ -253,7 +253,7 @@ static void wifi_client_task(void *param)
 
     xTaskNotifyGive(app->rtp_receiver_task_handle);
 
-    PRINTF("[wifi_client_task] done\r\n");
+    PRINTF("[CM33][wifi_client_task] done\r\n");
 
     vTaskDelete(NULL);
 }
@@ -265,7 +265,7 @@ void wifi_client_init(app_handle_t *app)
     if (xTaskCreate(wifi_client_task, "wifi_client_task", WIFI_CLIENT_TASK_STACK_SIZE / sizeof(configSTACK_DEPTH_TYPE),
                     app, WIFI_CLIENT_TASK_PRIORITY, &taskHandle) != pdPASS)
     {
-        PRINTF("\r\nFailed to create WiFi client task\r\n");
+        PRINTF("\r\n[CM33] Failed to create WiFi client task\r\n");
         while (true)
         {
         }

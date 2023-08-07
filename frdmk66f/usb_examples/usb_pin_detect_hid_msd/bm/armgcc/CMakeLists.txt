@@ -137,7 +137,7 @@ include(middleware_usb_device_common_header)
 
 include(middleware_usb_host_msd)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MK66F18)
 
 include(device_system)
 

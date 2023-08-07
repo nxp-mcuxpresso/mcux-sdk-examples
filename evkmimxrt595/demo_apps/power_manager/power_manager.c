@@ -21,6 +21,9 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+#define DEMO_IS_XIP_FLEXSPI0()                                                                                  \
+    ((((uint32_t)BOARD_InitDebugConsole >= 0x08000000U) && ((uint32_t)BOARD_InitDebugConsole < 0x10000000U)) || \
+     (((uint32_t)BOARD_InitDebugConsole >= 0x18000000U) && ((uint32_t)BOARD_InitDebugConsole < 0x20000000U)))
 /*
  * The option is used for measurement of the deep sleep wake-up latency. When the application calls
  * POWER_EnterDeepSleep(), the power library will control the PLL power depending on the
@@ -54,9 +57,6 @@
 
 #define APP_EXCLUDE_FROM_DEEP_POWERDOWN      (((const uint32_t[]){0, 0, 0, 0}))
 #define APP_EXCLUDE_FROM_FULL_DEEP_POWERDOWN (((const uint32_t[]){0, 0, 0, 0}))
-#define DEMO_IS_XIP_FLEXSPI0()                                                                                  \
-    ((((uint32_t)BOARD_InitDebugConsole >= 0x08000000U) && ((uint32_t)BOARD_InitDebugConsole < 0x10000000U)) || \
-     (((uint32_t)BOARD_InitDebugConsole >= 0x18000000U) && ((uint32_t)BOARD_InitDebugConsole < 0x20000000U)))
 const char *gWakeupInfoStr[] = {"Sleep [Press the user key to wakeup]", "Deep Sleep [Press the user key to wakeup]",
 #if (defined(FSL_FEATURE_SYSCON_HAS_POWERDOWN_MODE) && FSL_FEATURE_SYSCON_HAS_POWERDOWN_MODE)
                                 "Powerdown [Reset to wakeup]", "Deep Powerdown [Reset to wakeup]"};

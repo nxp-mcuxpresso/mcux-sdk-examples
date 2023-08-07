@@ -306,6 +306,8 @@ void peripheral_hfp_hf_task(void *pvParameters)
 {
     int err = 0;
 
+    PRINTF("Bluetooth Handsfree demo start...\n");
+
     /* Initializate BT Host stack */
     err = bt_enable(bt_ready);
     if (err)

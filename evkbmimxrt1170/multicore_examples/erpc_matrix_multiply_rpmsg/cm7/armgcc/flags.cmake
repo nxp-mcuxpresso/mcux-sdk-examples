@@ -36,8 +36,9 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DCORE1_IMAGE_COPY_TO_RAM \
     -DCPU_MIMXRT1176DVMAA_cm7 \
     -D__USE_SHMEM \
-    -DMULTICORE_APP=1 \
     -DMCUXPRESSO_SDK \
+    -DSDK_OS_BAREMETAL \
+    -DMULTICORE_APP=1 \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -63,8 +64,9 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -DCORE1_IMAGE_COPY_TO_RAM \
     -DCPU_MIMXRT1176DVMAA_cm7 \
     -D__USE_SHMEM \
-    -DMULTICORE_APP=1 \
     -DMCUXPRESSO_SDK \
+    -DSDK_OS_BAREMETAL \
+    -DMULTICORE_APP=1 \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \

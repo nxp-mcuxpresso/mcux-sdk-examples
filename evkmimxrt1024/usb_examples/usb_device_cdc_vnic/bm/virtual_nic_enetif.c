@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016 - 2017, 2020 - 2022 NXP
+ * Copyright 2016 - 2017, 2020 - 2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -297,9 +297,9 @@ enet_err_t ENETIF_Init(void)
         config.miiDuplex = (enet_mii_duplex_t)duplex;
         config.interrupt = kENET_RxFrameInterrupt | kENET_TxFrameInterrupt;
     }
+    config.callback = ENETIF_Callback;
 
     ENET_Init(BOARD_ENET_BASEADDR, &g_handle, &config, &buffCfg[0], &g_hwaddr[0], BOARD_PHY_SYS_CLOCK);
-    ENET_SetCallback(&g_handle, ENETIF_Callback, NULL);
 
     ENET_ActiveRead(BOARD_ENET_BASEADDR);
 

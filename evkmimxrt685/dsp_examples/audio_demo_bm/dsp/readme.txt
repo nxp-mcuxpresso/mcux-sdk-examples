@@ -52,5 +52,5 @@ The following lines are printed to the serial terminal when the demo program is 
     Configure I2S
 
 This example transfers data from DMIC to Codec. Connect headphone/earphone on audio out of the board.
-Speak into the DMIC or play audio near the DMIC (U40, U41), and you will hear sound on the left channel of
+Speak into the DMIC or play audio near the DMIC (U41), and you will hear sound on the left channel of
 headphone/earphone.

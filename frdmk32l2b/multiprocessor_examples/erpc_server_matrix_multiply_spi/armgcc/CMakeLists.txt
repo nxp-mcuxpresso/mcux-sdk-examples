@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -59,79 +67,15 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/frdmk32l2b/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/examples/frdmk32l2b/multiprocessor_examples/erpc_common
     ${SdkRootDirPath}/examples/frdmk32l2b/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/frdmk32l2b
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/middleware/multicore
-    ${SdkRootDirPath}/core/drivers/spi
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/drivers/gpio
-    ${SdkRootDirPath}/core/drivers/port
-    ${SdkRootDirPath}/core/devices/K32L2B31A/drivers
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/devices/K32L2B31A
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/drivers/lpuart
-    ${SdkRootDirPath}/core/drivers/uart
-    ${SdkRootDirPath}/core/drivers/smc
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
 
-# include modules
-include(middleware_multicore_erpc_eRPC_spi_slave_transport)
-
-include(middleware_multicore_erpc_eRPC_spi_slave_c_wrapper)
-
-include(driver_spi)
-
-include(utility_debug_console_lite)
-
-include(utility_assert_lite)
-
-include(driver_gpio)
-
-include(driver_port)
-
-include(middleware_multicore_erpc_eRPC_server)
-
-include(middleware_multicore_erpc_eRPC_port_stdlib)
-
-include(middleware_multicore_erpc_doc)
-
-include(driver_clock)
-
-include(driver_common)
-
-include(device_CMSIS)
-
-include(component_lpuart_adapter)
-
-include(component_lists)
-
-include(driver_lpuart)
-
-include(device_startup)
-
-include(driver_uart)
-
-include(driver_smc)
-
-include(middleware_multicore_erpc_common)
-
-include(CMSIS_Include_core_cm)
-
-include(utilities_misc_utilities_K32L2B31A)
-
-include(device_system)
-
+include(${SdkRootDirPath}/core/devices/K32L2B31A/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lstdc++ -lm -lc -lgcc -lnosys")  
@@ -145,4 +89,5 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBR
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map")
 

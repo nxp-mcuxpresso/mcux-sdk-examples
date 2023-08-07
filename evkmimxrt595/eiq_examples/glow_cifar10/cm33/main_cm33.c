@@ -49,7 +49,11 @@ extern const char output_section[];
 #define NN_APP_TASK_STACK_SIZE (512)
 
 //--------------------------- Glow Bundle API ----------------------------------
+#if INFERENCE_CONTROL == INFERENCE_CONTROL_MCU
 #include "model.h"
+#elif INFERENCE_CONTROL == INFERENCE_CONTROL_DSP
+#include "../../dsp/glow_bundle/model.h"
+#endif
 #include "glow_bundle_utils.h"
 
 // Statically allocate memory for constant weights.
@@ -108,6 +112,10 @@ void nn_app_task(void *param)
     float time_ms;
     float accuracy = 0.0;
 
+    // Wait for a message signaling DSP is ready
+    srtm_message msg;
+    dsp_ipc_recv_sync(&msg);
+
     // Print start banner
     PRINTF("---- Cifar10 Quantized Demo ----- \r\n");
 
@@ -133,15 +141,15 @@ void nn_app_task(void *param)
         // Get classification top1 result and confidence
         float *out_data  = (float *)(bundleOutAddr);
         float max_val    = 0.0;
-		uint32_t max_idx = 0;
-		for (int i = 0; i < OUTPUT_NUM_CLASS; i++)
-		{
-			if (out_data[i] > max_val)
-			{
-			   max_val = out_data[i];
-			   max_idx = i;
-			}
-		}
+        uint32_t max_idx = 0;
+        for (int i = 0; i < OUTPUT_NUM_CLASS; i++)
+        {
+            if (out_data[i] > max_val)
+            {
+                max_val = out_data[i];
+                max_idx = i;
+            }
+        }
         // Get reference class and update accuracy
         int ref_idx = ((int *)OUTPUT_DATA_START)[idx];
         accuracy += ((max_idx == ref_idx) ? 1.0 : 0.0);
@@ -149,15 +157,15 @@ void nn_app_task(void *param)
         // Print classification results
         PRINTF("Top1 class = %d\r\n", max_idx);
         PRINTF("Ref class = %d\r\n", ref_idx);
-        PRINTF("Confidence = %.18f\r\n", max_val);
-        PRINTF("Inference = %.3f (ms)\r\n", time_ms);
-        PRINTF("Throughput = %.1f fps\r\n", 1000 / time_ms);
+        PRINTF("Confidence = %.18f\r\n", (double)max_val);
+        PRINTF("Inference = %.3f (ms)\r\n", (double)time_ms);
+        PRINTF("Throughput = %.1f fps\r\n", (double)(1000 / time_ms));
         PRINTF("\r\n");
     }
 
     // Print accuracy
     PRINTF("\r\n");
-    PRINTF("Overall accuracy = %4.2f %%\r\n", accuracy / ((float)NUM_IMAGES) * 100.0);
+    PRINTF("Overall accuracy = %4.2f %%\r\n", (double)accuracy / ((float)NUM_IMAGES) * 100.0);
 
     while (1)
         ;

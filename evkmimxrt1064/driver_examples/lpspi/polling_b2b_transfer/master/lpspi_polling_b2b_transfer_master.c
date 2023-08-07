@@ -89,7 +89,10 @@ int main(void)
     LPSPI_MasterGetDefaultConfig(&masterConfig);
     masterConfig.baudRate = TRANSFER_BAUDRATE;
     masterConfig.whichPcs = EXAMPLE_LPSPI_MASTER_PCS_FOR_INIT;
-
+    masterConfig.pcsToSckDelayInNanoSec        = 1000000000U / (masterConfig.baudRate * 2U);
+    masterConfig.lastSckToPcsDelayInNanoSec    = 1000000000U / (masterConfig.baudRate * 2U);
+    masterConfig.betweenTransferDelayInNanoSec = 1000000000U / (masterConfig.baudRate * 2U);
+    
     srcClock_Hz = LPSPI_MASTER_CLK_FREQ;
     LPSPI_MasterInit(EXAMPLE_LPSPI_MASTER_BASEADDR, &masterConfig, srcClock_Hz);
 

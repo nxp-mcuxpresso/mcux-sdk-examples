@@ -91,20 +91,6 @@ static void app_nameservice_isr_cb(uint32_t new_ept, const char *new_ept_name, u
 {
 }
 
-#ifdef MCMGR_USED
-/*!
- * @brief Application-specific implementation of the SystemInitHook() weak function.
- */
-void SystemInitHook(void)
-{
-    /* Initialize MCMGR - low level multicore management library. Call this
-       function as close to the reset entry as possible to allow CoreUp event
-       triggering. The SystemInitHook() weak function overloading is used in this
-       application. */
-    (void)MCMGR_EarlyInit();
-}
-#endif /* MCMGR_USED */
-
 static void app_task(void *param)
 {
     volatile uint32_t remote_addr;

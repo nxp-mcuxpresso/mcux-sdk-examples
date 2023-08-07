@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 NXP
+ * Copyright 2018-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -10,28 +10,33 @@
 #include <string.h>
 #include "dsp_ipc.h"
 #include "fsl_debug_console.h"
+#include "fsl_sema42.h"
 
 
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "board.h"
-#include "main_cm33.h"
 #include "app_dsp_ipc.h"
 #include "dsp_support.h"
 #include "rtp_buffer.h"
 #include "rtp_receiver.h"
 #include "wifi_client.h"
+#include "main_cm33.h"
 
-#include "dsp_config.h"
 #include "fsl_cs42448.h"
 #include "fsl_codec_common.h"
 #include "fsl_codec_adapter.h"
 #include "fsl_power.h"
 #include "fsl_pca9420.h"
+#include "dsp_config.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
 #define DEMO_CODEC_VOLUME 100U
+#define APP_SEMA42        SEMA42
+#define SEMA_PRINTF_NUM	  0
+#define SEMA_STARTUP_NUM  1
+#define SEMA_CORE_ID_CM33 1
 
 /*******************************************************************************
  * Prototypes
@@ -64,11 +69,11 @@ static app_handle_t app;
 
 int BOARD_CODEC_Init(void)
 {
-    PRINTF("Configure cs42448 codec\r\n");
+    PRINTF("[CM33 Main] Configure cs42448 codec\r\n");
 
     if (CODEC_Init(&g_codecHandle, &g_boardCodecConfig) != kStatus_Success)
     {
-        PRINTF("cs42448_Init failed!\r\n");
+        PRINTF("[CM33 Main] cs42448_Init failed!\r\n");
         return -1;
     }
 
@@ -81,6 +86,16 @@ int BOARD_CODEC_Init(void)
     return 0;
 }
 
+int CM33_PRINTF(const char* ptr, ...)
+{
+    va_list ap;
+    SEMA42_Lock(APP_SEMA42, SEMA_PRINTF_NUM, SEMA_CORE_ID_CM33);
+    va_start(ap, ptr);
+    DbgConsole_Vprintf(ptr, ap);
+    va_end(ap);
+    SEMA42_Unlock(APP_SEMA42, SEMA_PRINTF_NUM);
+    return 0;
+}
 /*!
  * @brief Main function.
  */
@@ -93,6 +108,9 @@ int main(void)
     BOARD_InitDebugConsole();
 
     CLOCK_EnableClock(kCLOCK_InputMux);
+
+    /* Clear SEMA42 reset */
+    RESET_PeripheralReset(kSEMA_RST_SHIFT_RSTn);
 
     /* Clear MUA reset before run DSP core */
     RESET_PeripheralReset(kMU_RST_SHIFT_RSTn);
@@ -108,6 +126,12 @@ int main(void)
     g_cs42448Config.i2cConfig.codecI2CSourceClock = CLOCK_GetFlexCommClkFreq(2);
     g_cs42448Config.format.mclk_HZ                = CLOCK_GetMclkClkFreq();
 
+    /* SEMA42 init */
+    SEMA42_Init(APP_SEMA42);
+    /* Reset the sema42 gate */
+    SEMA42_ResetAllGates(APP_SEMA42);
+
+
     PRINTF("\r\n");
     PRINTF("******************************\r\n");
     PRINTF("RTP demo start\r\n");
@@ -118,7 +142,7 @@ int main(void)
     ret = BOARD_CODEC_Init();
     if (ret)
     {
-        PRINTF("CODEC_Init failed!\r\n");
+        PRINTF("[CM33] CODEC_Init failed!\r\n");
         return -1;
     }
 
@@ -129,7 +153,7 @@ int main(void)
     BOARD_DSP_Init();
 
 #if DSP_IMAGE_COPY_TO_RAM
-    PRINTF("DSP image copied to DSP TCM\r\n");
+    PRINTF("[CM33] DSP image copied to DSP TCM\r\n");
 #endif
 
     /* Initialize application context */

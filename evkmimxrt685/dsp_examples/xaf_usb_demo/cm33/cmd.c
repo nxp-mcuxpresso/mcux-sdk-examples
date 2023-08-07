@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -140,7 +140,7 @@ static shell_status_t shellUsbSpeaker(shell_handle_t shellHandle, int32_t argc, 
     {
         if (usb_recording)
         {
-            PRINTF("Stop the USB microphone first, then start the USB speaker again\r\n");
+            PRINTF("[CM33 CMD] Stop the USB microphone first, then start the USB speaker again\r\n");
             return kStatus_SHELL_Error;
         }
         if (!usb_playing)
@@ -178,7 +178,7 @@ static shell_status_t shellUsbSpeaker(shell_handle_t shellHandle, int32_t argc, 
         }
         else
         {
-            PRINTF("USB is already playing \r\n");
+            PRINTF("[CM33 CMD] USB is already playing \r\n");
             return kStatus_SHELL_Error;
         }
     }
@@ -192,13 +192,13 @@ static shell_status_t shellUsbSpeaker(shell_handle_t shellHandle, int32_t argc, 
         }
         else
         {
-            PRINTF("USB is not playing \r\n");
+            PRINTF("[CM33 CMD] USB is not playing \r\n");
             return kStatus_SHELL_Error;
         }
     }
     else
     {
-        PRINTF("Unknown parameter\r\n");
+        PRINTF("[CM33 CMD] Unknown parameter\r\n");
         return kStatus_SHELL_Error;
     }
 
@@ -217,7 +217,7 @@ static shell_status_t shellUsbMic(shell_handle_t shellHandle, int32_t argc, char
     {
         if (usb_playing)
         {
-            PRINTF("Stop the USB speaker first, then start the USB microphone again\r\n");
+            PRINTF("[CM33 CMD] Stop the USB speaker first, then start the USB microphone again\r\n");
             return kStatus_SHELL_Error;
         }
         if (!usb_recording)
@@ -253,7 +253,7 @@ static shell_status_t shellUsbMic(shell_handle_t shellHandle, int32_t argc, char
         }
         else
         {
-            PRINTF("USB is already recording\r\n");
+            PRINTF("[CM33 CMD] USB is already recording\r\n");
             return kStatus_SHELL_Error;
         }
     }
@@ -267,13 +267,13 @@ static shell_status_t shellUsbMic(shell_handle_t shellHandle, int32_t argc, char
         }
         else
         {
-            PRINTF("USB is not recording\r\n");
+            PRINTF("[CM33 CMD] USB is not recording\r\n");
             return kStatus_SHELL_Error;
         }
     }
     else
     {
-        PRINTF("Unknown parameter\r\n");
+        PRINTF("[CM33 CMD] Unknown parameter\r\n");
         return kStatus_SHELL_Error;
     }
 
@@ -323,7 +323,7 @@ static shell_status_t shellEAPeffect(shell_handle_t shellHandle, int32_t argc, c
     }
     else
     {
-        PRINTF("Effect parameter is out of range! Please see help. \r\n");
+        PRINTF("[CM33 CMD] Effect parameter is out of range! Please see help. \r\n");
         return kStatus_SHELL_Error;
     }
 }
@@ -361,7 +361,8 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
 
     if (msg->head.type == SRTM_MessageTypeResponse)
     {
-        PRINTF("[APP_DSP_IPC_Task] response from DSP, cmd: %d, error: %d\r\n", msg->head.command, msg->error);
+        PRINTF("[CM33 CMD] [APP_DSP_IPC_Task] response from DSP, cmd: %d, error: %d\r\n", msg->head.command,
+               msg->error);
     }
 
     /* Processing returned data*/
@@ -372,17 +373,18 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
             {
                 /* echo returns version info of key components*/
                 case SRTM_Command_ECHO:
-                    PRINTF("Component versions from DSP:\r\n");
-                    PRINTF("Audio Framework version %d.%d \r\n", msg->param[0] >> 16, msg->param[0] & 0xFF);
-                    PRINTF("Audio Framework API version %d.%d\r\n", msg->param[1] >> 16, msg->param[1] & 0xFF);
-                    PRINTF("NatureDSP Lib version %d.%d\r\n", msg->param[2] >> 16, msg->param[2] & 0xFF);
-                    PRINTF("NatureDSP API version %d.%d\r\n", msg->param[3] >> 16, msg->param[3] & 0xFF);
+                    PRINTF("[CM33 CMD] Component versions from DSP:\r\n");
+                    PRINTF("[CM33 CMD] Audio Framework version %d.%d \r\n", msg->param[0] >> 16, msg->param[0] & 0xFF);
+                    PRINTF("[CM33 CMD] Audio Framework API version %d.%d\r\n", msg->param[1] >> 16,
+                           msg->param[1] & 0xFF);
+                    PRINTF("[CM33 CMD] NatureDSP Lib version %d.%d\r\n", msg->param[2] >> 16, msg->param[2] & 0xFF);
+                    PRINTF("[CM33 CMD] NatureDSP API version %d.%d\r\n", msg->param[3] >> 16, msg->param[3] & 0xFF);
                     break;
 
                 case SRTM_Command_SYST:
                     break;
                 default:
-                    PRINTF("Incoming unknown message command %d from category %d \r\n", msg->head.command,
+                    PRINTF("[CM33 CMD] Incoming unknown message command %d from category %d \r\n", msg->head.command,
                            msg->head.category);
             }
             break;
@@ -391,12 +393,12 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
             if (usb_playing && (msg->head.command != SRTM_Command_FilterCfg) &&
                 (msg->head.command < SRTM_Command_UsbSpeakerStart || msg->head.command > SRTM_Command_UsbSpeakerError))
             {
-                PRINTF("This command cannot be processed at this time because USB is being played!\r\n");
+                PRINTF("[CM33 CMD] This command cannot be processed at this time because USB is being played!\r\n");
                 break;
             }
             else if (!usb_playing && msg->head.command == SRTM_Command_FilterCfg)
             {
-                PRINTF("Please play usb first, then apply an EAP preset.\r\n");
+                PRINTF("[CM33 CMD] Please play usb first, then apply an EAP preset.\r\n");
                 break;
             }
             switch (msg->head.command)
@@ -406,20 +408,20 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                     {
                         string_buff[i] = (char)msg->param[i];
                     }
-                    PRINTF("%s", string_buff);
+                    PRINTF("[CM33 CMD] %s", string_buff);
                     break;
 
                 case SRTM_Command_UsbSpeakerStart:
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("DSP USB playback start failed! return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP USB playback start failed! return error = %d\r\n", msg->error);
                         USB_DeviceStop(g_composite.deviceHandle);
                         USB_DeviceAudioSpeakerStatusReset();
                         usb_playing = false;
                     }
                     else
                     {
-                        PRINTF("DSP USB playback start\r\n");
+                        PRINTF("[CM33 CMD] DSP USB playback start\r\n");
                     }
 
                     /* Release shell to be able to set different EAP presets*/
@@ -480,7 +482,7 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                     break;
 
                 case SRTM_Command_UsbSpeakerEnd:
-                    PRINTF("DSP USB playback complete\r\n");
+                    PRINTF("[CM33 CMD] DSP USB playback complete\r\n");
 
                     USB_DeviceStop(g_composite.deviceHandle);
                     USB_DeviceAudioSpeakerStatusReset();
@@ -492,11 +494,11 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                 case SRTM_Command_UsbSpeakerStop:
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("DSP USB stop failed! return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP USB stop failed! return error = %d\r\n", msg->error);
                     }
                     else
                     {
-                        PRINTF("DSP USB stopped\r\n");
+                        PRINTF("[CM33 CMD] DSP USB stopped\r\n");
                         USB_DeviceStop(g_composite.deviceHandle);
                         USB_DeviceAudioSpeakerStatusReset();
                         usb_playing = false;
@@ -508,11 +510,12 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                 case SRTM_Command_UsbSpeakerError:
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("DSP requested USB stop due to error failed! return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP requested USB stop due to error failed! return error = %d\r\n",
+                               msg->error);
                     }
                     else
                     {
-                        PRINTF("DSP USB stopped, unsupported format!!!.\r\n");
+                        PRINTF("[CM33 CMD] DSP USB stopped, unsupported format!!!.\r\n");
                         USB_DeviceStop(g_composite.deviceHandle);
                         USB_DeviceAudioSpeakerStatusReset();
                         usb_playing = false;
@@ -524,13 +527,13 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                 case SRTM_Command_UsbMicStart:
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("DSP USB record start failed! return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP USB record start failed! return error = %d\r\n", msg->error);
                         USB_DeviceStop(g_composite.deviceHandle);
                         usb_recording = false;
                     }
                     else
                     {
-                        PRINTF("DSP USB record start\r\n");
+                        PRINTF("[CM33 CMD] DSP USB record start\r\n");
                     }
 
                     /* Release shell to be able to send different command */
@@ -543,7 +546,7 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                     break;
 
                 case SRTM_Command_UsbMicEnd:
-                    PRINTF("DSP USB recording complete\r\n");
+                    PRINTF("[CM33 CMD] DSP USB recording complete\r\n");
 
                     USB_DeviceStop(g_composite.deviceHandle);
                     USB_DeviceAudioRecorderStatusReset();
@@ -555,11 +558,11 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                 case SRTM_Command_UsbMicStop:
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("DSP USB stop failed! return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP USB stop failed! return error = %d\r\n", msg->error);
                     }
                     else
                     {
-                        PRINTF("DSP USB stopped\r\n");
+                        PRINTF("[CM33 CMD] DSP USB stopped\r\n");
                         USB_DeviceStop(g_composite.deviceHandle);
                         USB_DeviceAudioRecorderStatusReset();
                         usb_recording = false;
@@ -571,11 +574,12 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                 case SRTM_Command_UsbMicError:
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("DSP requested USB stop due to error failed! return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP requested USB stop due to error failed! return error = %d\r\n",
+                               msg->error);
                     }
                     else
                     {
-                        PRINTF("DSP USB stopped\r\n");
+                        PRINTF("[CM33 CMD] DSP USB stopped\r\n");
                         USB_DeviceStop(g_composite.deviceHandle);
                         USB_DeviceAudioRecorderStatusReset();
                         usb_recording = false;
@@ -589,18 +593,18 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                 {
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("DSP Filter cfg failed! return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP Filter cfg failed! return error = %d\r\n", msg->error);
                     }
                     else
                     {
-                        PRINTF("DSP Filter cfg success!\r\n");
+                        PRINTF("[CM33 CMD] DSP Filter cfg success!\r\n");
                     }
                     *notify_shell = true;
                     break;
                 }
 #endif
                 default:
-                    PRINTF("Incoming unknown message category %d \r\n", msg->head.category);
+                    PRINTF("[CM33 CMD] Incoming unknown message category %d \r\n", msg->head.category);
                     break;
             }
             break;

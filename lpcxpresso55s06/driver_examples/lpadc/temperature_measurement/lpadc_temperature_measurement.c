@@ -63,7 +63,7 @@ float DEMO_MeasureTemperature(ADC_Type *base, uint32_t commandId, uint32_t index
     lpadc_conv_result_t convResultStruct;
     uint16_t Vbe1            = 0U;
     uint16_t Vbe8            = 0U;
-    uint32_t convResultShift = 3U;
+    uint32_t convResultShift = 0U;
     float parameterSlope     = DEMO_LPADC_TEMP_PARAMETER_A;
     float parameterOffset    = DEMO_LPADC_TEMP_PARAMETER_B;
     float parameterAlpha     = DEMO_LPADC_TEMP_PARAMETER_ALPHA;

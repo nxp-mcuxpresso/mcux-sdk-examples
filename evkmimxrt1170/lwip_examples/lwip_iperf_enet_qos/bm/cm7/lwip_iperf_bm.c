@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2020,2022 NXP
+ * Copyright 2016-2020,2022-2023 NXP
  * All rights reserved.
  *
  *
@@ -28,8 +28,8 @@
 #include "pin_mux.h"
 #include "board.h"
 
-#include "fsl_phyrtl8211f.h"
 #include "fsl_enet_qos.h"
+#include "fsl_phyrtl8211f.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -202,14 +202,18 @@ void SysTick_Handler(void)
 
 /* Report state => string */
 const char *report_type_str[] = {
-    "TCP_DONE_SERVER (RX)",        /* LWIPERF_TCP_DONE_SERVER,*/
-    "TCP_DONE_CLIENT (TX)",        /* LWIPERF_TCP_DONE_CLIENT,*/
+    "TCP_DONE_SERVER (RX)",        /* LWIPERF_TCP_DONE_SERVER_RX,*/
+    "TCP_DONE_SERVER (TX)",        /* LWIPERF_TCP_DONE_SERVER_TX,*/
+    "TCP_DONE_CLIENT (TX)",        /* LWIPERF_TCP_DONE_CLIENT_TX,*/
+    "TCP_DONE_CLIENT (RX)",        /* LWIPERF_TCP_DONE_CLIENT_RX,*/
     "TCP_ABORTED_LOCAL",           /* LWIPERF_TCP_ABORTED_LOCAL, */
     "TCP_ABORTED_LOCAL_DATAERROR", /* LWIPERF_TCP_ABORTED_LOCAL_DATAERROR, */
     "TCP_ABORTED_LOCAL_TXERROR",   /* LWIPERF_TCP_ABORTED_LOCAL_TXERROR, */
     "TCP_ABORTED_REMOTE",          /* LWIPERF_TCP_ABORTED_REMOTE, */
-    "UDP_DONE_SERVER (RX)",        /* LWIPERF_UDP_DONE_SERVER, */
-    "UDP_DONE_CLIENT (TX)",        /* LWIPERF_UDP_DONE_CLIENT, */
+    "UDP_DONE_SERVER (RX)",        /* LWIPERF_UDP_DONE_SERVER_RX, */
+    "UDP_DONE_SERVER (TX)",        /* LWIPERF_UDP_DONE_SERVER_TX, */
+    "UDP_DONE_CLIENT (TX)",        /* LWIPERF_UDP_DONE_CLIENT_TX, */
+    "UDP_DONE_CLIENT (RX)",        /* LWIPERF_UDP_DONE_CLIENT_RX, */
     "UDP_ABORTED_LOCAL",           /* LWIPERF_UDP_ABORTED_LOCAL, */
     "UDP_ABORTED_LOCAL_DATAERROR", /* LWIPERF_UDP_ABORTED_LOCAL_DATAERROR, */
     "UDP_ABORTED_LOCAL_TXERROR",   /* LWIPERF_UDP_ABORTED_LOCAL_TXERROR, */
@@ -260,18 +264,16 @@ static void select_mode(bool *server_mode, bool *tcp, enum lwiperf_client_type *
     while (true)
     {
         PRINTF("Please select one of the following modes to run IPERF with:\r\n\r\n");
-        //        PRINTF("    1: TCP server mode (RX only test)\r\n");
-        //        PRINTF("    2: TCP client mode (TX only test)\r\n");
-        //        PRINTF("    3: TCP client dual mode (TX and RX in parallel)\r\n");
-        //        PRINTF("    4: TCP client tradeoff mode (TX and RX sequentially)\r\n");
-        //        PRINTF("    5: UDP server mode (RX only test)\r\n");
-        //        PRINTF("    6: UDP client mode (TX only test)\r\n");
-        //        PRINTF("    7: UDP client dual mode (TX and RX in parallel)\r\n");
-        //        PRINTF("    8: UDP client tradeoff mode (TX and RX sequentially)\r\n\r\n");
-        PRINTF("    1: TCP server mode (RX test)\r\n");
-        PRINTF("    2: TCP client mode (TX test)\r\n");
-        PRINTF("    3: UDP server mode (RX test)\r\n");
-        PRINTF("    4: UDP client mode (TX test)\r\n\r\n");
+        PRINTF("    0: TCP server mode (RX test)\r\n");
+        PRINTF("    1: TCP client mode (TX only test)\r\n");
+        PRINTF("    2: TCP client reverse mode (RX only test)\r\n");
+        PRINTF("    3: TCP client dual mode (TX and RX in parallel)\r\n");
+        PRINTF("    4: TCP client tradeoff mode (TX and RX sequentially)\r\n");
+        PRINTF("    5: UDP server mode (RX test)\r\n");
+        PRINTF("    6: UDP client mode (TX only test)\r\n");
+        PRINTF("    7: UDP client reverse mode (RX only test)\r\n");
+        PRINTF("    8: UDP client dual mode (TX and RX in parallel)\r\n");
+        PRINTF("    9: UDP client tradeoff mode (TX and RX sequentially)\r\n\r\n");
         PRINTF("Enter mode number: ");
 
         option = GETCHAR();
@@ -280,46 +282,56 @@ static void select_mode(bool *server_mode, bool *tcp, enum lwiperf_client_type *
 
         switch (option)
         {
-            case '1':
+            case '0':
                 *server_mode = true;
+                *tcp         = true;
+                *client_type = LWIPERF_CLIENT;
+                return;
+            case '1':
+                *server_mode = false;
                 *tcp         = true;
                 *client_type = LWIPERF_CLIENT;
                 return;
             case '2':
                 *server_mode = false;
                 *tcp         = true;
-                *client_type = LWIPERF_CLIENT;
+                *client_type = LWIPERF_REVERSE;
                 return;
-                //            case '3':
-                //                *server_mode = false;
-                //                *tcp         = true;
-                //                *client_type = LWIPERF_DUAL;
-                //                return;
-                //            case '4':
-                //                *server_mode = false;
-                //                *tcp         = true;
-                //                *client_type = LWIPERF_TRADEOFF;
-                //                return;
             case '3':
+                *server_mode = false;
+                *tcp         = true;
+                *client_type = LWIPERF_DUAL;
+                return;
+            case '4':
+                *server_mode = false;
+                *tcp         = true;
+                *client_type = LWIPERF_TRADEOFF;
+                return;
+            case '5':
                 *server_mode = true;
                 *tcp         = false;
                 *client_type = LWIPERF_CLIENT;
                 return;
-            case '4':
+            case '6':
                 *server_mode = false;
                 *tcp         = false;
                 *client_type = LWIPERF_CLIENT;
                 return;
-                //            case '7':
-                //                *server_mode = false;
-                //                *tcp         = false;
-                //                *client_type = LWIPERF_DUAL;
-                //                return;
-                //            case '8':
-                //                *server_mode = false;
-                //                *tcp         = false;
-                //                *client_type = LWIPERF_TRADEOFF;
-                //                return;
+            case '7':
+                *server_mode = false;
+                *tcp         = false;
+                *client_type = LWIPERF_REVERSE;
+                return;
+            case '8':
+                *server_mode = false;
+                *tcp         = false;
+                *client_type = LWIPERF_DUAL;
+                return;
+            case '9':
+                *server_mode = false;
+                *tcp         = false;
+                *client_type = LWIPERF_TRADEOFF;
+                return;
         }
     }
 }
@@ -348,13 +360,13 @@ static void *start_iperf(ip4_addr_t *remote_addr)
     {
         if (tcp)
         {
-            iperf_session = lwiperf_start_tcp_client(remote_addr, EXAMPLE_PORT, client_type, IPERF_CLIENT_AMOUNT,
-                                                     lwiperf_report, 0);
+            iperf_session = lwiperf_start_tcp_client(remote_addr, EXAMPLE_PORT, client_type, IPERF_CLIENT_AMOUNT, 0,
+                                                     LWIPERF_TOS_DEFAULT, lwiperf_report, 0);
         }
         else
         {
             iperf_session = lwiperf_start_udp_client(netif_ip_addr4(netif_default), EXAMPLE_PORT, remote_addr,
-                                                     EXAMPLE_PORT, client_type, IPERF_CLIENT_AMOUNT,
+                                                     EXAMPLE_PORT, client_type, IPERF_CLIENT_AMOUNT, 0,
                                                      IPERF_UDP_CLIENT_RATE, 0, lwiperf_report, NULL);
         }
     }
@@ -425,7 +437,7 @@ int main(void)
 #endif
 
     /* Get clock after hardware init. */
-    enet_config.srcClockHz = EXAMPLE_CLOCK_FREQ;
+        enet_config.srcClockHz = EXAMPLE_CLOCK_FREQ;
 
     IP4_ADDR(&netif_ipaddr, configIP_ADDR0, configIP_ADDR1, configIP_ADDR2, configIP_ADDR3);
     IP4_ADDR(&netif_netmask, configNET_MASK0, configNET_MASK1, configNET_MASK2, configNET_MASK3);

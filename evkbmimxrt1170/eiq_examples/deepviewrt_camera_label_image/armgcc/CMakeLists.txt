@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -70,155 +78,15 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../dcd.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../source
     ${ProjDirPath}/..
     ${SdkRootDirPath}/middleware/eiq/common
     ${SdkRootDirPath}/middleware/eiq/common/image
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core/components/video/camera/device
-    ${SdkRootDirPath}/core/components/video/camera/receiver
-    ${SdkRootDirPath}/core/components/video/camera/device/sccb
-    ${SdkRootDirPath}/core/components/video/camera/device/ov5640
-    ${SdkRootDirPath}/core/components/video/display/rm68191
-    ${SdkRootDirPath}/core/components/video/display/rm68200
-    ${SdkRootDirPath}/core/components/video/display/hx8394
-    ${SdkRootDirPath}/core/components/video/camera
-    ${SdkRootDirPath}/core/components/video/camera/receiver/csi
-    ${SdkRootDirPath}/core/drivers/csi
-    ${SdkRootDirPath}/core/components/video
-    ${SdkRootDirPath}/core/components/video/i2c
-    ${SdkRootDirPath}/core/drivers/elcdif
-    ${SdkRootDirPath}/core/drivers/pxp
-    ${SdkRootDirPath}/core/components/video/display/dc
-    ${SdkRootDirPath}/core/components/video/display/dc/elcdif
-    ${SdkRootDirPath}/core/components/video/display/dc/lcdifv2
-    ${SdkRootDirPath}/core/components/video/display
-    ${SdkRootDirPath}/core/components/video/display/mipi_dsi_cmd
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/drivers/mipi_dsi_split
-    ${SdkRootDirPath}/core/drivers/igpio
-    ${SdkRootDirPath}/core/drivers/lpi2c
-    ${SdkRootDirPath}/core/drivers/mipi_csi2rx
-    ${SdkRootDirPath}/core/devices/MIMXRT1176/drivers
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/middleware/eiq
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/drivers/lpuart
-    ${SdkRootDirPath}/core/devices/MIMXRT1176
-    ${SdkRootDirPath}/core/devices/MIMXRT1176/xip
-    ${SdkRootDirPath}/core/boards/evkbmimxrt1170/xip
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/drivers/lcdifv2
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-    ${SdkRootDirPath}/core/boards/evkbmimxrt1170/xmcd
-)
 
-# include modules
-include(driver_camera-device-common)
-
-include(driver_camera-receiver-common)
-
-include(driver_camera-device-sccb)
-
-include(driver_camera-device-ov5640)
-
-include(driver_display-rm68191)
-
-include(driver_display-rm68200)
-
-include(driver_display-hx8394)
-
-include(driver_camera-common)
-
-include(driver_camera-receiver-csi)
-
-include(driver_csi)
-
-include(driver_video-common)
-
-include(driver_video-i2c)
-
-include(driver_elcdif)
-
-include(driver_pxp)
-
-include(driver_dc-fb-common)
-
-include(driver_dc-fb-elcdif)
-
-include(driver_dc-fb-lcdifv2)
-
-include(driver_display-common)
-
-include(driver_display-mipi-dsi-cmd)
-
-include(driver_common)
-
-include(driver_mipi_dsi_split)
-
-include(driver_igpio)
-
-include(driver_lpi2c)
-
-include(driver_mipi_csi2rx)
-
-include(driver_soc_mipi_csi2rx)
-
-include(driver_soc_src)
-
-include(utility_debug_console_lite)
-
-include(utility_assert_lite)
-
-include(middleware_eiq_worker_video_MIMXRT1176_cm7)
-
-include(middleware_eiq_gui_printf)
-
-include(middleware_eiq_deepviewrt)
-
-include(component_lists)
-
-include(component_lpuart_adapter)
-
-include(driver_lpuart)
-
-include(device_CMSIS)
-
-include(device_startup_MIMXRT1176_cm7)
-
-include(driver_dcdc_soc)
-
-include(driver_pmu_1)
-
-include(driver_clock)
-
-include(driver_iomuxc)
-
-include(driver_xip_device)
-
-include(driver_xip_board_evkbmimxrt1170)
-
-include(driver_anatop_ai)
-
-include(CMSIS_Include_core_cm)
-
-include(driver_memory)
-
-include(driver_lcdifv2)
-
-include(middleware_eiq_worker)
-
-include(utilities_misc_utilities)
-
-include(driver_xmcd_evkbmimxrt1170)
-
-include(device_system_MIMXRT1176_cm7)
-
+include(${SdkRootDirPath}/core/devices/MIMXRT1176/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -228,14 +96,7 @@ TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
-if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/eiq/deepviewrt/lib/libdeepview-rt-cortex-m7f.a)
-endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_release)
-
-if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/eiq/deepviewrt/lib/libdeepview-rt-cortex-m7f.a)
-endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_sdram_debug)
-
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map")
 

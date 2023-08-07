@@ -78,7 +78,7 @@ void DEMO_UART_IRQHandler(uint32_t giccIar, void *param)
         UART_ClearStatusFlag(DEMO_UART, kUART_WakeFlag);
     }
     UART_TransferSdmaHandleIRQ(DEMO_UART, &g_uartSdmaHandle);
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /* UART user callback */

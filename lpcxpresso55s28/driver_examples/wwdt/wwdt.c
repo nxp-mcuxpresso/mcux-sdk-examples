@@ -14,9 +14,9 @@
 #include "pin_mux.h"
 #include "board.h"
 #include "fsl_wwdt.h"
-#include "fsl_power.h"
 
 #include <stdbool.h>
+#include "fsl_power.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -104,19 +104,23 @@ int main(void)
 
     /* Initialize the LED port. */
     LED_RED_INIT(LOGIC_LED_OFF);
-
-    /* Set Red LED to initially be high */
-    APP_LED_INIT;
-
+    
 #if !defined(FSL_FEATURE_WWDT_HAS_NO_PDCFG) || (!FSL_FEATURE_WWDT_HAS_NO_PDCFG)
     POWER_DisablePD(kPDRUNCFG_PD_WDT_OSC);
 #endif
+
+    /* Set Red LED to initially be high */
+    APP_LED_INIT;
 
     /* Enable the WWDT time out to reset the CPU. */
     timeOutResetEnable = true;
 
     /* Check if reset is due to Watchdog */
+#ifdef IS_WWDT_RESET
+    if (IS_WWDT_RESET)
+#else
     if (WWDT_GetStatusFlags(WWDT) & kWWDT_TimeoutFlag)
+#endif
     {
         APP_LED_ON;
         PRINTF("Watchdog reset occurred\r\n");

@@ -20,11 +20,11 @@
 #include "fsl_sd_disk.h"
 #include "fsl_codec_common.h"
 #include "sdmmc_config.h"
+#include "fsl_common.h"
 #include "fsl_gpio.h"
 #include "fsl_cs42448.h"
 #include "fsl_codec_adapter.h"
 
-#include "fsl_common.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -63,6 +63,10 @@
 #define DEMO_CODEC_RESET_GPIO     GPIO1
 #define DEMO_CODEC_RESET_GPIO_PIN 18
 #define BOARD_MASTER_CLOCK_CONFIG()
+#ifndef DEMO_DMAMUX
+#define DEMO_DMAMUX DMAMUX0
+#endif
+
 #define BUFFER_SIZE (2048U)
 #define BUFFER_NUM  (4U)
 
@@ -79,7 +83,7 @@
  * Prototypes
  ******************************************************************************/
 void BORAD_CodecReset(bool state);
-static void callback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData);
+static void tx_callback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData);
 static status_t DEMO_MountFileSystem(void);
 extern void BORAD_CodecReset(bool state);
 static void DEMO_InitCodec(void);
@@ -112,9 +116,9 @@ const clock_audio_pll_config_t audioPllConfig = {
     .denominator = 100, /* 30 bit denominator of fractional loop divider */
 };
 AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t txHandle);
-edma_handle_t dmaHandle = {0};
+edma_handle_t dmaTxHandle = {0};
 extern codec_config_t boardCodecConfig;
-AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t s_buffer[BUFFER_NUM * BUFFER_SIZE], 4);
+AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t s_buffer[BUFFER_NUM][BUFFER_SIZE], 4);
 volatile bool isFinished      = false;
 volatile uint32_t finishIndex = 0U;
 volatile uint32_t emptyBlock  = BUFFER_NUM;
@@ -128,6 +132,25 @@ static FIL s_fileObject;
 static FILINFO s_fileInfo;
 static volatile bool s_saiTransferFinish = false;
 codec_handle_t codecHandle;
+
+sai_transfer_t saiTxPingPongTransfer[4U] = {
+    {
+        .data     = s_buffer[0],
+        .dataSize = BUFFER_SIZE,
+    },
+    {
+        .data     = s_buffer[1],
+        .dataSize = BUFFER_SIZE,
+    },
+    {
+        .data     = s_buffer[2],
+        .dataSize = BUFFER_SIZE,
+    },
+    {
+        .data     = s_buffer[3],
+        .dataSize = BUFFER_SIZE,
+    },
+};
 
 /*******************************************************************************
  * Code
@@ -156,8 +179,7 @@ void BORAD_CodecReset(bool state)
         GPIO_PinWrite(DEMO_CODEC_RESET_GPIO, DEMO_CODEC_RESET_GPIO_PIN, 0U);
     }
 }
-
-static void callback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData)
+static void tx_callback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData)
 {
     if (kStatus_SAI_RxError == status)
     {
@@ -173,7 +195,6 @@ static void callback(I2S_Type *base, sai_edma_handle_t *handle, status_t status,
  */
 int main(void)
 {
-    sai_transfer_t xfer;
     edma_config_t dmaConfig = {0};
     sai_transceiver_t saiConfig;
     UINT oneTimeRW = 0U;
@@ -211,12 +232,12 @@ int main(void)
      */
     EDMA_GetDefaultConfig(&dmaConfig);
     EDMA_Init(EXAMPLE_DMA, &dmaConfig);
-    EDMA_CreateHandle(&dmaHandle, EXAMPLE_DMA, EXAMPLE_CHANNEL);
+    EDMA_CreateHandle(&dmaTxHandle, EXAMPLE_DMA, EXAMPLE_CHANNEL);
 
 #if defined(FSL_FEATURE_SOC_DMAMUX_COUNT) && FSL_FEATURE_SOC_DMAMUX_COUNT
-    DMAMUX_Init(DMAMUX0);
-    DMAMUX_SetSource(DMAMUX0, EXAMPLE_CHANNEL, EXAMPLE_SAI_TX_SOURCE);
-    DMAMUX_EnableChannel(DMAMUX0, EXAMPLE_CHANNEL);
+    DMAMUX_Init(DEMO_DMAMUX);
+    DMAMUX_SetSource(DEMO_DMAMUX, EXAMPLE_CHANNEL, EXAMPLE_SAI_TX_SOURCE);
+    DMAMUX_EnableChannel(DEMO_DMAMUX, EXAMPLE_CHANNEL);
 #endif
 
     if (DEMO_MountFileSystem() != kStatus_Success)
@@ -227,7 +248,7 @@ int main(void)
 
     /* SAI init */
     SAI_Init(DEMO_SAI);
-    SAI_TransferTxCreateHandleEDMA(DEMO_SAI, &txHandle, callback, NULL, &dmaHandle);
+    SAI_TransferTxCreateHandleEDMA(DEMO_SAI, &txHandle, tx_callback, NULL, &dmaTxHandle);
 
     /* TDM mode configurations */
     SAI_GetTDMConfig(&saiConfig, DEMO_FRMAE_SYNC_LEN, DEMO_AUDIO_BIT_WIDTH, DEMO_AUDIO_DATA_CHANNEL, DEMO_SAI_CHANNEL);
@@ -270,39 +291,18 @@ int main(void)
     oneTimeRW   = BUFFER_SIZE;
 
     PRINTF("\r\nStart play 8_TDM.wav file.\n\r");
+    SAI_TransferSendLoopEDMA(DEMO_SAI, &txHandle, &saiTxPingPongTransfer[0], 4U);
 
     while (leftWAVData > BUFFER_SIZE)
     {
-        /* wait at least one buffer block is full */
-        if (s_emptyBlock < BUFFER_NUM)
+        if ((s_saiTransferFinish))
         {
-            if (s_writeIndex >= BUFFER_NUM)
-            {
-                s_writeIndex = 0U;
-            }
-
-            /* xfer structure */
-            xfer.data     = (uint8_t *)((uint32_t)s_buffer + BUFFER_SIZE * s_writeIndex);
-            xfer.dataSize = BUFFER_SIZE;
-            /* Wait for available queue. */
-            if (kStatus_Success == SAI_TransferSendEDMA(DEMO_SAI, &txHandle, &xfer))
-            {
-                s_writeIndex++;
-                s_emptyBlock++;
-            }
-        }
-        /* wait at least one buffer block is empty and transfer done. */
-        if ((s_emptyBlock) && (s_saiTransferFinish))
-        {
-            s_saiTransferFinish = false;
-
             if (s_readIndex >= BUFFER_NUM)
             {
                 s_readIndex = 0U;
             }
 
-            error = f_read(&s_fileObject, (uint8_t *)((uint32_t)s_buffer + s_readIndex * BUFFER_SIZE), BUFFER_SIZE,
-                           &bytesRead);
+            error = f_read(&s_fileObject, (uint8_t *)((uint32_t)s_buffer[s_readIndex]), BUFFER_SIZE, &bytesRead);
             if ((error) || (bytesRead != BUFFER_SIZE))
             {
                 PRINTF("Read file failed.\r\n");
@@ -310,14 +310,15 @@ int main(void)
             }
 
             s_readIndex++;
-            s_emptyBlock--;
             leftWAVData -= BUFFER_SIZE;
+            s_saiTransferFinish = false;
         }
     }
     f_close(&s_fileObject);
     /* Once transfer finish, disable SAI instance. */
     SAI_TransferAbortSendEDMA(DEMO_SAI, &txHandle);
     SAI_Deinit(DEMO_SAI);
+    CODEC_Deinit(&codecHandle);
     PRINTF("\r\nSAI TDM EDMA example finished.\n\r ");
     while (1)
     {

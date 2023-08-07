@@ -19,7 +19,7 @@ auto-negotiation when phy is in loop back mode. However, the auto-negotiation fa
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================
@@ -35,6 +35,8 @@ Hardware requirements
 Board settings
 ==============
 J501 connected with network switch through RJ45 network cable.
+Two types of base boards(ENET PHY is RTL8211F or AR8031) are supported and the default is for RTL8211F. For base boards with 
+ENET PHY AR8031(older version than RevD) need define macro "EXAMPLE_ENET_PHY_PHYAR8031" to 1 in example source code.
 
 #### Please note this application can't support running with Linux BSP! ####
 This example aims to show the basic usage of the IP's function, some of the used Pads/Resources are also used by Cortex-A core.

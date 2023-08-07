@@ -754,6 +754,16 @@ void main(void)
     CLOCK_DisableClock(kCLOCK_Usbhsl0);
 #endif
 
+#if (defined USB_RAM_MPU_CONFIG_NORMAL_RAM) && (USB_RAM_MPU_CONFIG_NORMAL_RAM)
+    MPU->RNR   = 1;
+    MPU->RBAR  = FSL_FEATURE_USB_USB_RAM_BASE_ADDRESS | MPU_RBAR_XN_Msk;
+    MPU->MAIR0 = 0xFFU << MPU_MAIR0_Attr1_Pos;
+    MPU->RLAR  = (((FSL_FEATURE_USB_USB_RAM_BASE_ADDRESS & MPU_RBAR_BASE_Msk) + FSL_FEATURE_USB_USB_RAM - 1) &
+                 MPU_RLAR_LIMIT_Msk) |
+                (1 << MPU_RLAR_AttrIndx_Pos) | MPU_RLAR_EN_Msk;
+    MPU->CTRL = MPU_CTRL_PRIVDEFENA_Msk | MPU_CTRL_ENABLE_Msk;
+#endif
+
     USB_DeviceApplicationInit();
 
     while (1U)

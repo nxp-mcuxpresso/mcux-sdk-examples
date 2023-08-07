@@ -146,12 +146,22 @@ static void memcpy_channel_callback(struct _dma_handle *handle, void *userData, 
 static void DEMO_DMAChannelConfigurations(void);
 static void DEMO_PreparingRecordDMIC(void);
 static void DEMO_DMICChannelConfigurations(void);
+#ifdef DMIC_FLASH_TARGET
+static void ReceiverTransferConfig(dmic_transfer_t *startAddress,
+                                   void *dataAddr,
+                                   uint32_t xferNum,
+                                   uint32_t dataWidth,
+                                   uint32_t dataSizePerTransfer,
+                                   uint32_t interleaveSize,
+                                   uint32_t startChannel);
+#else
 static void ReceiverTransferConfig(dmic_transfer_t *startAddress,
                                    void *dataAddr,
                                    uint32_t xferNum,
                                    uint32_t dataWidth,
                                    uint32_t dataSizePerTransfer,
                                    uint32_t interleaveSize);
+#endif
 extern void BORAD_CodecReset(bool state);
 static void DEMO_DMAMemcpyChannelConfigurations(void);
 static void dmic_Callback(DMIC_Type *base, dmic_dma_handle_t *handle, status_t status, void *userData);
@@ -693,6 +703,25 @@ static void DEMO_DMICChannelConfigurations(void)
     DisableDeepSleepIRQ(HWVAD0_IRQn);
     DisableIRQ(HWVAD0_IRQn);
 
+#ifdef DMIC_FLASH_TARGET
+    DMA_EnableChannelPeriphRq(DEMO_DMA, DEMO_DMIC_DMA_RX_CHANNEL_0);
+    DMA_EnableChannelPeriphRq(DEMO_DMA, DEMO_DMIC_DMA_RX_CHANNEL_1);
+    DMA_EnableChannelPeriphRq(DEMO_DMA, DEMO_DMIC_DMA_RX_CHANNEL_2);
+    DMA_EnableChannelPeriphRq(DEMO_DMA, DEMO_DMIC_DMA_RX_CHANNEL_3);
+    DMA_EnableChannelPeriphRq(DEMO_DMA, DEMO_DMIC_DMA_RX_CHANNEL_4);
+    DMA_EnableChannelPeriphRq(DEMO_DMA, DEMO_DMIC_DMA_RX_CHANNEL_5);
+    DMA_EnableChannelPeriphRq(DEMO_DMA, DEMO_DMIC_DMA_RX_CHANNEL_6);
+    DMA_EnableChannelPeriphRq(DEMO_DMA, DEMO_DMIC_DMA_RX_CHANNEL_7);
+
+    DMIC_EnableChannelDma(DMIC0, DEMO_DMIC_CHANNEL_0, true);
+    DMIC_EnableChannelDma(DMIC0, DEMO_DMIC_CHANNEL_1, true);
+    DMIC_EnableChannelDma(DMIC0, DEMO_DMIC_CHANNEL_2, true);
+    DMIC_EnableChannelDma(DMIC0, DEMO_DMIC_CHANNEL_3, true);
+    DMIC_EnableChannelDma(DMIC0, DEMO_DMIC_CHANNEL_4, true);
+    DMIC_EnableChannelDma(DMIC0, DEMO_DMIC_CHANNEL_5, true);
+    DMIC_EnableChannelDma(DMIC0, DEMO_DMIC_CHANNEL_6, true);
+    DMIC_EnableChannelDma(DMIC0, DEMO_DMIC_CHANNEL_7, true);
+#else
     DMIC_EnableChannnel(DMIC0, DMIC_CHANEN_EN_CH0(1));
     DMIC_EnableChannnel(DMIC0, DMIC_CHANEN_EN_CH1(1));
     DMIC_EnableChannnel(DMIC0, DMIC_CHANEN_EN_CH2(1));
@@ -702,6 +731,7 @@ static void DEMO_DMICChannelConfigurations(void)
     DMIC_EnableChannnel(DMIC0, DMIC_CHANEN_EN_CH5(1));
     DMIC_EnableChannnel(DMIC0, DMIC_CHANEN_EN_CH6(1));
     DMIC_EnableChannnel(DMIC0, DMIC_CHANEN_EN_CH7(1));
+#endif
 
     DMIC_FilterResetHwvad(DMIC0, true);
     DMIC_FilterResetHwvad(DMIC0, false);
@@ -743,6 +773,41 @@ static void i2s_Callback(I2S_Type *base, i2s_dma_handle_t *handle, status_t comp
     }
 }
 
+#ifdef DMIC_FLASH_TARGET
+static void ReceiverTransferConfig(dmic_transfer_t *startAddress,
+                                   void *dataAddr,
+                                   uint32_t xferNum,
+                                   uint32_t dataWidth,
+                                   uint32_t dataSizePerTransfer,
+                                   uint32_t interleaveSize,
+                                   uint32_t startChannel)
+{
+    uint32_t i = 0, offset = 0U;
+
+    for (i = 0; i < xferNum; i += 2)
+    {
+        DMA_SetupDescriptor(&(s_dmaDescriptorPingpong[i + startChannel * 2U]),
+                            DMA_CHANNEL_XFER(true, false, false, true, 2U, kDMA_AddressInterleave0xWidth,
+                                             interleaveSize, dataSizePerTransfer),
+                            (uint32_t *)DMIC_FifoGetAddress(DMIC0, i / 2U + startChannel),
+                            (uint8_t *)((uint32_t)dataAddr + offset),
+                            &(s_dmaDescriptorPingpong[i + 1 + startChannel * 2U]));
+
+        DMA_SetupDescriptor(&(s_dmaDescriptorPingpong[i + 1 + startChannel * 2U]),
+                            DMA_CHANNEL_XFER(true, false, false, true, 2U, kDMA_AddressInterleave0xWidth,
+                                             interleaveSize, dataSizePerTransfer),
+                            (uint32_t *)DMIC_FifoGetAddress(DMIC0, i / 2U + startChannel),
+                            (uint8_t *)((uint32_t)dataAddr + dataSizePerTransfer * interleaveSize + offset),
+                            &(s_dmaDescriptorPingpong[i + startChannel * 2U]));
+
+        offset += dataWidth;
+        /* must make sure the memcpy buffer index is not confilct with the DMIC filling buffer index */
+        DMA_SubmitChannelDescriptor(&s_dmaHandle[i / 2U + startChannel],
+                                    &(s_dmaDescriptorPingpong[i + startChannel * 2U]));
+        DMA_StartTransfer(&s_dmaHandle[i / 2U + startChannel]);
+    }
+}
+#else
 static void ReceiverTransferConfig(dmic_transfer_t *startAddress,
                                    void *dataAddr,
                                    uint32_t xferNum,
@@ -769,7 +834,48 @@ static void ReceiverTransferConfig(dmic_transfer_t *startAddress,
         offset += dataWidth;
     }
 }
+#endif
 
+#ifdef DMIC_FLASH_TARGET
+static void DEMO_PreparingRecordDMIC(void)
+{
+    ReceiverTransferConfig(s_receiveXfer0, s_recordBuffer0, RECORD_BUFFER_NUM / 2, sizeof(uint16_t), RECORD_BUFFER_SIZE,
+                           kDMA_AddressInterleave4xWidth, 0U);
+    ReceiverTransferConfig(s_receiveXfer1, s_recordBuffer1, RECORD_BUFFER_NUM / 2, sizeof(uint16_t), RECORD_BUFFER_SIZE,
+                           kDMA_AddressInterleave4xWidth, 4U);
+
+    DMIC_EnableChannnel(DMIC0,
+#if DEMO_ENABLE_DMIC_0
+                        DMIC_CHANEN_EN_CH0(1) |
+#endif
+#if DEMO_ENABLE_DMIC_1
+                            DMIC_CHANEN_EN_CH1(1) |
+#endif
+#if DEMO_ENABLE_DMIC_2
+                            DMIC_CHANEN_EN_CH2(1) |
+#endif
+#if DEMO_ENABLE_DMIC_3
+                            DMIC_CHANEN_EN_CH3(1) |
+#endif
+
+#if DEMO_ENABLE_DMIC_4
+                            DMIC_CHANEN_EN_CH4(1) |
+#endif
+
+#if DEMO_ENABLE_DMIC_5
+                            DMIC_CHANEN_EN_CH5(1) |
+#endif
+
+#if DEMO_ENABLE_DMIC_6
+                            DMIC_CHANEN_EN_CH6(1) |
+#endif
+
+#if DEMO_ENABLE_DMIC_7
+                            DMIC_CHANEN_EN_CH7(1)
+#endif
+    );
+}
+#else
 static void DEMO_PreparingRecordDMIC(void)
 {
     ReceiverTransferConfig(s_receiveXfer0, s_recordBuffer0, RECORD_BUFFER_NUM / 2, sizeof(uint16_t), RECORD_BUFFER_SIZE,
@@ -809,3 +915,4 @@ static void DEMO_PreparingRecordDMIC(void)
     DMIC_TransferReceiveDMA(DMIC0, &s_dmicDmaHandle[7], &s_receiveXfer1[6], DEMO_DMIC_CHANNEL_7);
 #endif
 }
+#endif

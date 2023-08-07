@@ -73,21 +73,33 @@ SECTIONS
         /* Exclude flash and frequently executed functions from XIP */
         */flexspi_octal_flash_ops.c.obj
         */fsl_flexspi.c.obj
+        */fsl_memcpy.S.obj
+        *libc_a-memcpy-stub.o
+        *libc_a-memset.o
     ) .text)                 /* .text sections (code) */
     *(EXCLUDE_FILE(
         /* Exclude flash and frequently executed functions from XIP */
         */flexspi_octal_flash_ops.c.obj
         */fsl_flexspi.c.obj
+        */fsl_memcpy.S.obj
+        *libc_a-memcpy-stub.o
+        *libc_a-memset.o
     ) .text*)                /* .text* sections (code) */
     *(EXCLUDE_FILE(
         /* Exclude flash and frequently executed functions from XIP */
         */flexspi_octal_flash_ops.c.obj
         */fsl_flexspi.c.obj
+        */fsl_memcpy.S.obj
+        *libc_a-memcpy-stub.o
+        *libc_a-memset.o
     ) .rodata)               /* .rodata sections (constants, strings, etc.) */
     *(EXCLUDE_FILE(
         /* Exclude flash and frequently executed functions from XIP */
         */flexspi_octal_flash_ops.c.obj
         */fsl_flexspi.c.obj
+        */fsl_memcpy.S.obj
+        *libc_a-memcpy-stub.o
+        *libc_a-memset.o
     ) .rodata*)              /* .rodata* sections (constants, strings, etc.) */
     *(.glue_7)               /* glue arm to thumb code */
     *(.glue_7t)              /* glue thumb to arm code */
@@ -193,6 +205,9 @@ SECTIONS
     *(DataQuickAccess)       /* DataQuickAccess sections */
     /* Explicit placement of flash and frequently executed functions in RAM */
     */fsl_flexspi.c.obj(.text .text* .rodata .rodata*)
+    */fsl_memcpy.S.obj(.text .text* .rodata .rodata*)
+    *libc_a-memcpy-stub.o(.text .text* .rodata .rodata*)
+    *libc_a-memset.o(.text .text* .rodata .rodata*)
     */flexspi_octal_flash_ops.c.obj(.text .text* .rodata .rodata*)
     *(.data)                 /* .data sections */
     *(.data*)                /* .data* sections */

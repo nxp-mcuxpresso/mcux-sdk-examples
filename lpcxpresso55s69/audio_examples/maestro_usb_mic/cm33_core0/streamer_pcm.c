@@ -17,11 +17,14 @@ extern codec_handle_t codecHandle;
 extern usb_audio_microphone_struct_t s_audioMicrophone;
 extern uint8_t audioMicDataBuff[AUDIO_MICROPHONE_DATA_WHOLE_BUFFER_LENGTH * FS_ISO_IN_ENDP_PACKET_SIZE];
 
+volatile int rx_data_valid = 0;
+
 static void RxCallback(I2S_Type *base, i2s_dma_handle_t *handle, status_t completionStatus, void *userData)
 {
     pcm_rtos_t *pcm       = (pcm_rtos_t *)userData;
     BaseType_t reschedule = -1;
     xSemaphoreGiveFromISR(pcm->semaphoreRX, &reschedule);
+    rx_data_valid++;
     portYIELD_FROM_ISR(reschedule);
 }
 
@@ -32,6 +35,9 @@ void streamer_pcm_init(void)
     DMA_EnableChannel(DEMO_DMA, DEMO_I2S_RX_CHANNEL);
     DMA_SetChannelPriority(DEMO_DMA, DEMO_I2S_RX_CHANNEL, kDMA_ChannelPriority2);
     DMA_CreateHandle(&pcmHandle.i2sRxDmaHandle, DEMO_DMA, DEMO_I2S_RX_CHANNEL);
+
+    pcmHandle.isFirstRx = 0;
+    rx_data_valid       = 0;
 }
 
 pcm_rtos_t *streamer_pcm_open(uint32_t num_buffers)
@@ -41,8 +47,6 @@ pcm_rtos_t *streamer_pcm_open(uint32_t num_buffers)
 
 pcm_rtos_t *streamer_pcm_rx_open(uint32_t num_buffers)
 {
-    I2S_RxTransferCreateHandleDMA(DEMO_I2S_RX, &pcmHandle.i2sRxHandle, &pcmHandle.i2sRxDmaHandle, RxCallback,
-                                  (void *)&pcmHandle);
     pcmHandle.semaphoreRX = xSemaphoreCreateBinary();
     return &pcmHandle;
 }
@@ -55,17 +59,16 @@ void streamer_pcm_start(pcm_rtos_t *pcm)
 
 void streamer_pcm_close(pcm_rtos_t *pcm)
 {
-    I2S_TransferAbortDMA(DEMO_I2S_TX, &pcm->i2sRxHandle);
-    CLOCK_DisableClock(kCLOCK_FlexComm7);
     return;
 }
 
 void streamer_pcm_rx_close(pcm_rtos_t *pcm)
 {
-    I2S_TransferAbortDMA(DEMO_I2S_RX, &pcm->i2sRxHandle);
-    CLOCK_DisableClock(kCLOCK_FlexComm6);
+    if (pcm->i2sRxHandle.state != 0)
+    {
+        I2S_TransferAbortDMA(DEMO_I2S_RX, &pcm->i2sRxHandle);
+    }
     vSemaphoreDelete(pcmHandle.semaphoreRX);
-    return;
 }
 
 int streamer_pcm_write(pcm_rtos_t *pcm, uint8_t *data, uint32_t size)
@@ -93,25 +96,36 @@ int streamer_pcm_read(pcm_rtos_t *pcm, uint8_t *data, uint32_t size)
     /* Start the first transfer */
     if (pcm->isFirstRx)
     {
-        /* Need to queue two receive buffers so when the first one is filled,
-         * the other one immediatelly starts to be filled */
-        I2S_RxTransferReceiveDMA(DEMO_I2S_RX, &pcm->i2sRxHandle, pcm->i2sRxTransfer);
         I2S_RxTransferReceiveDMA(DEMO_I2S_RX, &pcm->i2sRxHandle, pcm->i2sRxTransfer);
         pcm->isFirstRx = 0;
-    }
-    else
-    {
-        /* Wait for the previous transfer to finish */
-        if (xSemaphoreTake(pcm->semaphoreRX, portMAX_DELAY) != pdTRUE)
-            return -1;
+        rx_data_valid--;
     }
 
     /* Start the consecutive transfer */
-    I2S_RxTransferReceiveDMA(DEMO_I2S_RX, &pcm->i2sRxHandle, pcm->i2sRxTransfer);
+    while (I2S_RxTransferReceiveDMA(DEMO_I2S_RX, &pcm->i2sRxHandle, pcm->i2sRxTransfer) == kStatus_I2S_Busy)
+    {
+        /* Wait for transfer to finish */
+        if (xSemaphoreTake(pcm->semaphoreRX, portMAX_DELAY) != pdTRUE)
+        {
+            return -1;
+        }
+    }
 
     /* Enable I2S Tx due to clock availability for the codec (see board schematic).*/
     if (pcm->dummy_tx_enable)
         I2S_Enable(DEMO_I2S_TX);
+
+    if (rx_data_valid > 0)
+    {
+        rx_data_valid--;
+        /* Signal that data are already ready for processing */
+        return 0;
+    }
+    else
+    {
+        /* Signal that data are not ready for processing yet */
+        return 1;
+    }
 
     return 0;
 }
@@ -119,16 +133,43 @@ int streamer_pcm_read(pcm_rtos_t *pcm, uint8_t *data, uint32_t size)
 int streamer_pcm_setparams(
     pcm_rtos_t *pcm, uint32_t sample_rate, uint32_t bit_width, uint8_t num_channels, bool tx, bool dummy_tx, int volume)
 {
-    int ret = 0;
+    int ret     = 0;
+    int divider = 0;
+
     /* channelNum multiplied by two, because the codec gets data from two channel (CH0 0x00 CH0 0x00...) */
     uint8_t channelNum = num_channels == 1 ? 2 : num_channels;
-    int divider        = (CLOCK_GetPll0OutFreq() / sample_rate / bit_width / num_channels);
 
     pcm->isFirstRx    = tx ? pcm->isFirstRx : 1U;
     pcm->sample_rate  = sample_rate;
     pcm->bit_width    = bit_width;
     pcm->num_channels = num_channels;
     pcm->dummy_tx_enable |= dummy_tx;
+
+    if (sample_rate % 8000 == 0 || sample_rate % 6000 == 0)
+    {
+        const pll_setup_t pll0Setup = {
+            .pllctrl = SYSCON_PLL0CTRL_CLKEN_MASK | SYSCON_PLL0CTRL_SELI(8U) | SYSCON_PLL0CTRL_SELP(31U),
+            .pllndec = SYSCON_PLL0NDEC_NDIV(125U),
+            .pllpdec = SYSCON_PLL0PDEC_PDIV(8U),
+            .pllsscg = {0x0U, (SYSCON_PLL0SSCG1_MDIV_EXT(3072U) | SYSCON_PLL0SSCG1_SEL_EXT_MASK)},
+            .pllRate = 24576000U,
+            .flags   = PLL_SETUPFLAG_WAITLOCK};
+        /*!< Configure PLL to the desired values */
+        CLOCK_SetPLL0Freq(&pll0Setup);
+    }
+    else if (sample_rate % 11025 == 0)
+    {
+        const pll_setup_t pll0Setup = {
+            .pllctrl = SYSCON_PLL0CTRL_CLKEN_MASK | SYSCON_PLL0CTRL_SELI(8U) | SYSCON_PLL0CTRL_SELP(31U),
+            .pllndec = SYSCON_PLL0NDEC_NDIV(202U),
+            .pllpdec = SYSCON_PLL0PDEC_PDIV(8U),
+            .pllsscg = {0x0U, (SYSCON_PLL0SSCG1_MDIV_EXT(4561U) | SYSCON_PLL0SSCG1_SEL_EXT_MASK)},
+            .pllRate = 22579200U,
+            .flags   = PLL_SETUPFLAG_WAITLOCK};
+        CLOCK_SetPLL0Freq(&pll0Setup); /*!< Configure PLL0 to the desired values */
+    }
+
+    divider = (CLOCK_GetPll0OutFreq() / sample_rate / bit_width / channelNum);
 
     /*
      * masterSlave = kI2S_MasterSlaveNormalMaster;
@@ -150,39 +191,40 @@ int streamer_pcm_setparams(
     if (!tx)
     {
         I2S_RxGetDefaultConfig(&pcmHandle.rx_config);
-        pcmHandle.rx_config.oneChannel = num_channels == 1;
+
         /* As slave, divider need to set to 1 according to the spec. */
-        pcmHandle.rx_config.divider     = DEMO_I2S_RX_MODE == kI2S_MasterSlaveNormalSlave ? 1 : divider;
-        pcmHandle.rx_config.dataLength  = bit_width;
-        pcmHandle.rx_config.frameLength = bit_width * channelNum;
+        pcmHandle.rx_config.divider     = divider;
         pcmHandle.rx_config.masterSlave = DEMO_I2S_RX_MODE;
+        pcmHandle.rx_config.oneChannel  = num_channels == 1;
         I2S_RxInit(DEMO_I2S_RX, &pcmHandle.rx_config);
+        I2S_RxTransferCreateHandleDMA(DEMO_I2S_RX, &pcmHandle.i2sRxHandle, &pcmHandle.i2sRxDmaHandle, RxCallback,
+                                      (void *)&pcmHandle);
 
         if (dummy_tx)
         {
             I2S_TxGetDefaultConfig(&pcmHandle.tx_config);
-            pcmHandle.tx_config.oneChannel = num_channels == 1;
             /* As slave, divider need to set to 1 according to the spec. */
-            pcmHandle.tx_config.divider     = DEMO_I2S_TX_MODE == kI2S_MasterSlaveNormalSlave ? 1 : divider;
-            pcmHandle.tx_config.dataLength  = bit_width;
-            pcmHandle.tx_config.frameLength = bit_width * channelNum;
+            pcmHandle.tx_config.divider     = divider;
             pcmHandle.tx_config.masterSlave = DEMO_I2S_TX_MODE;
+            pcmHandle.tx_config.oneChannel  = num_channels == 1;
             I2S_TxInit(DEMO_I2S_TX, &pcmHandle.tx_config);
         }
     }
 
-    if (streamer_pcm_mute(pcm, true) == 1)
-    {
-        return 1;
-    }
-
-    ret = CODEC_SetFormat(&codecHandle, DEMO_I2S_MASTER_CLOCK_FREQUENCY, sample_rate, bit_width);
+    ret = streamer_pcm_mute(pcm, true);
     if (ret != kStatus_Success)
     {
         return 1;
     }
 
-    if (streamer_pcm_mute(pcm, false) == 1)
+    ret = CODEC_SetFormat(&codecHandle, CLOCK_GetPll0OutFreq(), sample_rate, bit_width);
+    if (ret != kStatus_Success)
+    {
+        return 1;
+    }
+
+    ret = streamer_pcm_mute(pcm, false);
+    if (ret != kStatus_Success)
     {
         return 1;
     }

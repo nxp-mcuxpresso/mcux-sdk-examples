@@ -150,7 +150,7 @@ void DEMO_PDM_ERROR_IRQHandler(void)
         PDM_ClearOutputStatus(DEMO_PDM, status);
     }
 #endif
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

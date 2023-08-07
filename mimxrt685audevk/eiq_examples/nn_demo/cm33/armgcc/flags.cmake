@@ -50,12 +50,14 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -DPRINTF_FLOAT_ENABLE=1 \
     -DSCANF_ADVANCED_ENABLE=1 \
     -DSCANF_FLOAT_ENABLE=1 \
+    -DMCUXPRESSO_SDK \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DSDK_OS_FREE_RTOS \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
+    -Wno-unused-variable \
+    -Wno-unused-function \
     -mcpu=cortex-m33 \
     -Wall \
     -mthumb \
@@ -83,11 +85,13 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -DPRINTF_FLOAT_ENABLE=1 \
     -DSCANF_ADVANCED_ENABLE=1 \
     -DSCANF_FLOAT_ENABLE=1 \
+    -DMCUXPRESSO_SDK \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DSDK_OS_FREE_RTOS \
-    -DMCUXPRESSO_SDK \
     -Os \
+    -Wno-unused-variable \
+    -Wno-unused-function \
     -mcpu=cortex-m33 \
     -Wall \
     -mthumb \
@@ -106,8 +110,8 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
 SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
     ${CMAKE_CXX_FLAGS_FLASH_DEBUG} \
     -DDEBUG \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m33 \
@@ -129,8 +133,8 @@ SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
 SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
     ${CMAKE_CXX_FLAGS_FLASH_RELEASE} \
     -DNDEBUG \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m33 \
     -Wall \

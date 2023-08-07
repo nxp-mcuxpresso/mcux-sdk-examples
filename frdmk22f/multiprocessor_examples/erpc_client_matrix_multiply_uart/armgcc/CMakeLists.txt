@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -59,95 +67,16 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/frdmk22f/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/examples/frdmk22f/multiprocessor_examples/erpc_common
     ${SdkRootDirPath}/examples/frdmk22f/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/frdmk22f
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core/drivers/uart
-    ${SdkRootDirPath}/core/cmsis_drivers/uart
-    ${SdkRootDirPath}/core/drivers/gpio
-    ${SdkRootDirPath}/core/drivers/port
-    ${SdkRootDirPath}/core/drivers/edma
-    ${SdkRootDirPath}/core/drivers/dmamux
-    ${SdkRootDirPath}/middleware/multicore
-    ${SdkRootDirPath}/core/devices/MK22F51212/drivers
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/devices/MK22F51212
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/components/serial_manager
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/drivers/lpuart
-    ${SdkRootDirPath}/core/drivers/smc
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/CMSIS/Driver/Include
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
+set_source_files_properties("${ProjDirPath}/../RTE_Device.h" PROPERTIES COMPONENT_CONFIG_FILE "RTE_Device.MK22F51212")
 
-# include modules
-include(driver_uart)
-
-include(driver_uart_edma)
-
-include(driver_cmsis_uart)
-
-include(driver_gpio)
-
-include(driver_port)
-
-include(driver_edma_MK22F51212)
-
-include(driver_dmamux)
-
-include(middleware_multicore_erpc_eRPC_client)
-
-include(middleware_multicore_erpc_eRPC_uart_cmsis_transport)
-
-include(middleware_multicore_erpc_eRPC_port_stdlib)
-
-include(middleware_multicore_erpc_doc)
-
-include(driver_clock)
-
-include(driver_common)
-
-include(device_CMSIS)
-
-include(utility_debug_console)
-
-include(component_uart_adapter)
-
-include(component_serial_manager)
-
-include(component_lists)
-
-include(component_serial_manager_uart_MK22F51212)
-
-include(device_startup)
-
-include(driver_lpuart)
-
-include(driver_smc)
-
-include(utility_assert)
-
-include(CMSIS_Include_core_cm)
-
-include(CMSIS_Driver_Include_USART)
-
-include(CMSIS_Driver_Include_Common)
-
-include(middleware_multicore_erpc_common)
-
-include(utilities_misc_utilities)
-
-include(device_system)
-
+include(${SdkRootDirPath}/core/devices/MK22F51212/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lstdc++ -lm -lc -lgcc -lnosys")  
@@ -161,4 +90,5 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBR
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map")
 

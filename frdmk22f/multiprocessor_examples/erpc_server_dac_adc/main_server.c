@@ -22,9 +22,9 @@
 #include "fsl_dac.h"
 #endif
 
-#include "fsl_uart_cmsis.h"
 #include "fsl_port.h"
 #include "fsl_common.h"
+#include "fsl_uart_cmsis.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

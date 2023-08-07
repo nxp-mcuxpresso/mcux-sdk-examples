@@ -234,20 +234,20 @@ status_t STREAMER_mic_Create(streamer_handle_t *handle, out_sink_t out_sink, cha
         EXT_PROCESS_DESC_T voice_seeker_proc = {VoiceSeeker_Initialize_func, VoiceSeeker_Execute_func,
                                                 VoiceSeeker_Deinit_func, NULL};
 
-        prop.prop = PROP_AUDIO_PROC_FUNCPTR;
+        prop.prop = PROP_VOICESEEKER_PROC_FUNCPTR;
         prop.val  = (uintptr_t)&voice_seeker_proc;
-        streamer_set_property(handle->streamer, prop, true);
-
-        prop.prop = PROP_AUDIOSRC_SET_FRAME_MS;
-        prop.val  = 30;
-        streamer_set_property(handle->streamer, prop, true);
+        streamer_set_property(handle->streamer, 0, prop, true);
 
 #endif // VOICE_SEEKER_PROC
-        EXT_PROCESS_DESC_T vit_proc = {VIT_Initialize_func, VIT_Execute_func, VIT_Deinit_func, &Vit_Language};
+        prop.prop = PROP_AUDIOSRC_SET_FRAME_MS;
+        prop.val  = 30;
+        streamer_set_property(handle->streamer, 0, prop, true);
 
-        prop.prop = PROP_VITSINK_FPOINT;
+        EXT_PROCESS_DESC_T vit_proc = {VIT_Initialize_func, VIT_Execute_func, VIT_Deinit_func, NULL};
+
+        prop.prop = PROP_VITSINK_PROC_FUNCPTR;
         prop.val  = (uintptr_t)&vit_proc;
-        streamer_set_property(handle->streamer, prop, true);
+        streamer_set_property(handle->streamer, 0, prop, true);
     } // STREAM_PIPELINE_VIT
 #else
     if (params.pipeline_type == STREAM_PIPELINE_VIT)
@@ -271,27 +271,28 @@ status_t STREAMER_mic_Create(streamer_handle_t *handle, out_sink_t out_sink, cha
 #if (defined(PLATFORM_RT1170) || defined(PLATFORM_RT1160))
     prop.prop = PROP_AUDIOSRC_SET_FRAME_MS;
     prop.val  = 30;
-    streamer_set_property(handle->streamer, prop, true);
+    streamer_set_property(handle->streamer, 0, prop, true);
 
     prop.prop = PROP_AUDIOSRC_SET_NUM_CHANNELS;
     prop.val  = 2;
-    streamer_set_property(handle->streamer, prop, true);
+    streamer_set_property(handle->streamer, 0, prop, true);
 #endif
 
 #if DEMO_CODEC_CS42448
     prop.prop = PROP_AUDIOSRC_SET_NUM_CHANNELS;
     prop.val  = 8;
-    streamer_set_property(handle->streamer, prop, true);
+    streamer_set_property(handle->streamer, 0, prop, true);
 #endif
 
+#if (defined(PLATFORM_RT1170) || defined(PLATFORM_RT1160) || defined(MCXN548_cm33_core0_SERIES) || DEMO_CODEC_CS42448)
     prop.prop = PROP_AUDIOSRC_SET_BITS_PER_SAMPLE;
     prop.val  = 32;
-    streamer_set_property(handle->streamer, prop, true);
+    streamer_set_property(handle->streamer, 0, prop, true);
 #endif
-
+#endif //(defined(PLATFORM_RT1170) || defined(PLATFORM_RT1160) || DEMO_CODEC_CS42448)
     prop.prop = PROP_AUDIOSRC_SET_SAMPLE_RATE;
     prop.val  = 16000;
-    streamer_set_property(handle->streamer, prop, true);
+    streamer_set_property(handle->streamer, 0, prop, true);
 
     if (out_sink == FILE_SINK)
     {
@@ -301,7 +302,7 @@ status_t STREAMER_mic_Create(streamer_handle_t *handle, out_sink_t out_sink, cha
 
         prop.prop = PROP_FILESINK_LOCATION;
         prop.val  = (uintptr_t)file_name_val;
-        streamer_set_property(handle->streamer, prop, true);
+        streamer_set_property(handle->streamer, 0, prop, true);
     }
 
     return kStatus_Success;
@@ -345,7 +346,7 @@ status_t STREAMER_opusmem2mem_Create(streamer_handle_t *handle,
 
     prop.prop = PROP_MEMSRC_SET_BUFF;
     prop.val  = (uintptr_t)inBuf;
-    ret       = streamer_set_property(handle->streamer, prop, true);
+    ret       = streamer_set_property(handle->streamer, 0, prop, true);
     if (ret != STREAM_OK)
     {
         streamer_destroy(handle->streamer);
@@ -356,7 +357,7 @@ status_t STREAMER_opusmem2mem_Create(streamer_handle_t *handle,
 
     prop.prop = PROP_MEMSINK_BUFFER_DESC;
     prop.val  = (uintptr_t)outBuf;
-    ret       = streamer_set_property(handle->streamer, prop, true);
+    ret       = streamer_set_property(handle->streamer, 0, prop, true);
     if (ret != STREAM_OK)
     {
         streamer_destroy(handle->streamer);
@@ -367,7 +368,7 @@ status_t STREAMER_opusmem2mem_Create(streamer_handle_t *handle,
 
     prop.prop = PROP_ENCODER_TYPE;
     prop.val  = (uintptr_t)CEIENC_OPUS;
-    ret       = streamer_set_property(handle->streamer, prop, true);
+    ret       = streamer_set_property(handle->streamer, 0, prop, true);
     if (ret != STREAM_OK)
     {
         streamer_destroy(handle->streamer);
@@ -378,7 +379,7 @@ status_t STREAMER_opusmem2mem_Create(streamer_handle_t *handle,
 
     prop.prop = PROP_ENCODER_BITSTREAMINFO;
     prop.val  = (uintptr_t)info;
-    ret       = streamer_set_property(handle->streamer, prop, true);
+    ret       = streamer_set_property(handle->streamer, 0, prop, true);
     if (ret != STREAM_OK)
     {
         streamer_destroy(handle->streamer);

@@ -174,6 +174,10 @@
 /*! @brief Whether the device charger detect feature is enabled or not. */
 #define USB_DEVICE_CONFIG_CHARGER_DETECT (1U)
 
+/*! @brief Whether using MPU to change USB RAM as normal RAM.
+    Note that please remove the complie option -mno-unaligned-access if enable this macro */
+#define USB_RAM_MPU_CONFIG_NORMAL_RAM (0U)
+
 /* @} */
 
 #endif /* _USB_DEVICE_CONFIG_H_ */

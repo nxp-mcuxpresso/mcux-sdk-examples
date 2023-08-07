@@ -7,6 +7,11 @@
 #ifndef TX_USER_H
 #define TX_USER_H
 
+/*
+ * NOTE that if there is any change in this file, please make sure
+ * rebuild the corresponding library and use the new library to
+ * replace the one in your project.
+ */
 
 #define TX_ENABLE_FPU_SUPPORT
 

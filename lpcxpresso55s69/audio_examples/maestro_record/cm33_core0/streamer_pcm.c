@@ -15,6 +15,8 @@ pcm_rtos_t pcmHandle = {0};
 
 extern codec_handle_t codecHandle;
 
+volatile int rx_data_valid = 0;
+
 static void TxCallback(I2S_Type *base, i2s_dma_handle_t *handle, status_t completionStatus, void *userData)
 {
     pcm_rtos_t *pcm       = (pcm_rtos_t *)userData;
@@ -28,6 +30,8 @@ static void RxCallback(I2S_Type *base, i2s_dma_handle_t *handle, status_t comple
     pcm_rtos_t *pcm       = (pcm_rtos_t *)userData;
     BaseType_t reschedule = -1;
     xSemaphoreGiveFromISR(pcm->semaphoreRX, &reschedule);
+    rx_data_valid++;
+
     portYIELD_FROM_ISR(reschedule);
 }
 
@@ -42,6 +46,10 @@ void streamer_pcm_init(void)
     DMA_EnableChannel(DEMO_DMA, DEMO_I2S_RX_CHANNEL);
     DMA_SetChannelPriority(DEMO_DMA, DEMO_I2S_RX_CHANNEL, kDMA_ChannelPriority2);
     DMA_CreateHandle(&pcmHandle.i2sRxDmaHandle, DEMO_DMA, DEMO_I2S_RX_CHANNEL);
+
+    pcmHandle.isFirstRx = 0;
+    pcmHandle.isFirstTx = 0;
+    rx_data_valid       = 0;
 }
 
 pcm_rtos_t *streamer_pcm_open(uint32_t num_buffers)
@@ -123,27 +131,36 @@ int streamer_pcm_read(pcm_rtos_t *pcm, uint8_t *data, uint32_t size)
     /* Start the first transfer */
     if (pcm->isFirstRx)
     {
-        /* need to queue two receive buffers so when the first one is filled,
-         * the other is immediatelly starts to be filled */
-        I2S_RxTransferReceiveDMA(DEMO_I2S_RX, &pcm->i2sRxHandle, pcm->i2sRxTransfer);
         I2S_RxTransferReceiveDMA(DEMO_I2S_RX, &pcm->i2sRxHandle, pcm->i2sRxTransfer);
         pcm->isFirstRx = 0;
+        rx_data_valid--;
     }
-    else
+
+    /* Start the consecutive transfer */
+    while (I2S_RxTransferReceiveDMA(DEMO_I2S_RX, &pcm->i2sRxHandle, pcm->i2sRxTransfer) == kStatus_I2S_Busy)
     {
-        /* Wait for the previous transfer to finish */
+        /* Wait for transfer to finish */
         if (xSemaphoreTake(pcm->semaphoreRX, portMAX_DELAY) != pdTRUE)
         {
             return -1;
         }
     }
 
-    /* Start the consecutive transfer */
-    I2S_RxTransferReceiveDMA(DEMO_I2S_RX, &pcm->i2sRxHandle, pcm->i2sRxTransfer);
-
-    /* Enable I2S Tx due to clock availability for the codec (see board schematic). */
+    /* Enable I2S Tx due to clock availability for the codec (see board schematic).*/
     if (pcm->dummy_tx_enable)
         I2S_Enable(DEMO_I2S_TX);
+
+    if (rx_data_valid > 0)
+    {
+        rx_data_valid--;
+        /* Signal that data are already ready for processing */
+        return 0;
+    }
+    else
+    {
+        /* Signal that data are not ready for processing yet */
+        return 1;
+    }
 
     return 0;
 }

@@ -28,14 +28,15 @@ SET(CMAKE_ASM_FLAGS_DEBUG " \
 ")
 SET(CMAKE_C_FLAGS_RELEASE " \
     ${CMAKE_C_FLAGS_RELEASE} \
-    -D_DEBUG=0 \
     -DNDEBUG \
+    -D_DEBUG=0 \
     -DCPU_LPC55S28JBD100=1 \
     -DUSB_STACK_BM \
     -DUSB_STACK_USE_DEDICATED_RAM=1 \
     -DFSL_OSA_BM_TASK_ENABLE=0 \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
     -DMCUXPRESSO_SDK \
+    -DSDK_OS_BAREMETAL \
     -mno-unaligned-access \
     -Os \
     -mcpu=cortex-m33 \
@@ -55,14 +56,15 @@ SET(CMAKE_C_FLAGS_RELEASE " \
 ")
 SET(CMAKE_C_FLAGS_DEBUG " \
     ${CMAKE_C_FLAGS_DEBUG} \
-    -D_DEBUG=1 \
     -DDEBUG \
+    -D_DEBUG=1 \
     -DCPU_LPC55S28JBD100=1 \
     -DUSB_STACK_BM \
     -DUSB_STACK_USE_DEDICATED_RAM=1 \
     -DFSL_OSA_BM_TASK_ENABLE=0 \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
     -DMCUXPRESSO_SDK \
+    -DSDK_OS_BAREMETAL \
     -g \
     -O0 \
     -mcpu=cortex-m33 \

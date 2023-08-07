@@ -62,7 +62,7 @@ void APP_ConfigMPU(void)
     MPU->RASR = ARM_MPU_RASR(0, ARM_MPU_AP_FULL, 0, 0, 1, 0, 0, ARM_MPU_REGION_SIZE_64MB);
 
     /* Enable MPU */
-    ARM_MPU_Enable(MPU_CTRL_PRIVDEFENA_Msk);
+    ARM_MPU_Enable(MPU_CTRL_PRIVDEFENA_Msk | MPU_CTRL_HFNMIENA_Msk);
 
     /* Enable code bus cache and system bus cache */
     L1CACHE_EnableSystemCache();

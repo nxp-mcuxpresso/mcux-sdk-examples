@@ -67,7 +67,7 @@ extern VOID nx_iperf_entry(NX_PACKET_POOL *pool_ptr,
                            ULONG iperf_stack_size);
 
 /***** Substitute your ethernet driver entry function here *********/
-extern VOID nx_driver_imx(NX_IP_DRIVER *);
+extern VOID nx_link_driver(NX_IP_DRIVER *);
 
 /*******************************************************************************
  * Code
@@ -108,13 +108,11 @@ int main(void)
 
     IOMUXC_EnableMode(IOMUXC_GPR, kIOMUXC_GPR_ENET1TxClkOutputDir, true);
 
-    GPIO_PinInit(GPIO1, 9, &gpio_config);
-    GPIO_PinInit(GPIO1, 10, &gpio_config);
-    /* pull up the ENET_INT before RESET. */
-    GPIO_WritePinOutput(GPIO1, 10, 1);
-    GPIO_WritePinOutput(GPIO1, 9, 0);
+    /* Reset PHY */
+    GPIO_PinInit(GPIO3, 4, &gpio_config);
+    GPIO_WritePinOutput(GPIO3, 4, 0);
     delay();
-    GPIO_WritePinOutput(GPIO1, 9, 1);
+    GPIO_WritePinOutput(GPIO3, 4, 1);
 
     PRINTF("Start the iperf example...\r\n");
 
@@ -149,7 +147,7 @@ VOID tx_application_define(void *first_unused_memory)
 #else
                           IP_ADDRESS(192, 168, 111, 2), 0xFFFFFF00UL,
 #endif
-                          &pool_0, nx_driver_imx, (UCHAR *)ip_thread_stack, sizeof(ip_thread_stack), 1);
+                          &pool_0, nx_link_driver, (UCHAR *)ip_thread_stack, sizeof(ip_thread_stack), 1);
 
     /* Check for IP create errors.  */
     if (status)

@@ -12,8 +12,8 @@ For more information about Wi-Fi module connection see:
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.7.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================
@@ -35,7 +35,7 @@ Prepare the Demo
     - No parity
     - One stop bit
     - No flow control
-3.  Connect the WiFi module to SD card slot.
+3.  Connect the Wi-Fi module.
 4.  Connect a micro USB Mass Storage Device to the host platform.
 5.  Ensure that CONFIG_WIFI_FW_DEBUG config option is defined in the wifi_config.h file.
 6.  Download the program to the target board.

@@ -324,14 +324,14 @@ int EAP_Init(void *arg)
 
 int EAP_Execute(void *arg, void *inputBuffer, int size)
 {
-    StreamBuffer *buf                 = (StreamBuffer *)inputBuffer;
-    int8_t *pkt_hdr_size              = arg;
-    AudioPacketHeader *data_packet    = NULL;
-    int8_t *data_ptr                  = NULL;
-    int8_t num_channel                = 0;
-    int8_t byte_width                 = 0;
-    int8_t *outBuffer[NUM_OUT_BUFFES] = {NULL, NULL};
-    LVM_ReturnStatus_en LVM_Status    = LVM_SUCCESS;
+    StreamBuffer *buf                  = (StreamBuffer *)inputBuffer;
+    int8_t *pkt_hdr_size               = arg;
+    AudioPacketHeader *data_packet     = NULL;
+    int8_t *data_ptr                   = NULL;
+    int8_t num_channel                 = 0;
+    int8_t byte_width                  = 0;
+    int8_t *outBuffer[NUM_OUT_BUFFERS] = {NULL, NULL};
+    LVM_ReturnStatus_en LVM_Status     = LVM_SUCCESS;
 
     if ((buf == NULL) || (pkt_hdr_size == NULL))
     {
@@ -382,7 +382,7 @@ int EAP_Execute(void *arg, void *inputBuffer, int size)
             }
 
             eap_xo_out_buf_size = (uint16_t)size;
-            eap_xo_out_buffer   = (int8_t *)OSA_MemoryAllocate(size * NUM_OUT_BUFFES + *pkt_hdr_size);
+            eap_xo_out_buffer   = (int8_t *)OSA_MemoryAllocate(size * NUM_OUT_BUFFERS + *pkt_hdr_size);
             if (eap_xo_out_buffer == NULL)
             {
                 return LVM_NULLADDRESS;
@@ -398,11 +398,16 @@ int EAP_Execute(void *arg, void *inputBuffer, int size)
 
     EAP_AudioTime += LVM_FRAME_SIZE_MS;
 
-    LVM_Status = LVM_Process(EAP_hInstance,           /* Instance handle */
+    LVM_Status = LVM_Process(EAP_hInstance, /* Instance handle */
+#ifdef MULTICHANNEL_EXAMPLE
+                             (LVM_INT32 *)data_ptr,   /* Input buffer */
+                             (LVM_INT32 **)outBuffer, /* Output buffer */
+#else
                              (LVM_INT16 *)data_ptr,   /* Input buffer */
                              (LVM_INT16 **)outBuffer, /* Output buffer */
-                             size / num_channel,      /* Number of samples to process */
-                             EAP_AudioTime);          /* Audio Time*/
+#endif
+                             size / num_channel, /* Number of samples to process */
+                             EAP_AudioTime);     /* Audio Time*/
 
 #if (ALGORITHM_XO == 1)
 
@@ -516,9 +521,11 @@ LVM_ReturnStatus_en EAP_SetFSandChannels(ext_proc_args *args)
         case 48000:
             control->controlParam->SampleRate = LVM_FS_48000;
             break;
+        case 96000:
+            control->controlParam->SampleRate = LVM_FS_96000;
+            break;
         case 64000:
         case 88200:
-        case 96000:
         case 128000:
         case 176400:
         case 192000:
@@ -588,10 +595,10 @@ eap_att_code_t register_post_process(void *streamer)
 
     EXT_PROCESS_DESC_T eap_proc = {EAP_Init, EAP_Execute, EAP_Deinit, &get_app_data()->eap_args};
 
-    prop.prop = PROP_AUDIO_PROC_FUNCPTR;
+    prop.prop = PROP_EAP_PROC_FUNCPTR;
     prop.val  = (uintptr_t)&eap_proc;
 
-    if (streamer_set_property(streamer, prop, true) == 0)
+    if (streamer_set_property(streamer, 0, prop, true) == 0)
     {
         return kEapAttCodeOk;
     }

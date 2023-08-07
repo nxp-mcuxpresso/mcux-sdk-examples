@@ -180,7 +180,7 @@ static UCHAR language_id_framework[] = {
 VOID thread_ping_entry(ULONG thread_input);
 #endif
 VOID thread_usb_entry(ULONG thread_input);
-VOID nx_driver_imx(NX_IP_DRIVER *driver_req_ptr);
+VOID nx_link_driver(NX_IP_DRIVER *driver_req_ptr);
 /* Define external function prototypes. */
 extern VOID _fx_ram_driver(FX_MEDIA *media_ptr);
 void demo_write_to_file(void);
@@ -278,13 +278,11 @@ int main(void)
 
     IOMUXC_EnableMode(IOMUXC_GPR, kIOMUXC_GPR_ENET1TxClkOutputDir, true);
 
-    GPIO_PinInit(GPIO1, 9, &gpio_config);
-    GPIO_PinInit(GPIO1, 10, &gpio_config);
-    /* pull up the ENET_INT before RESET. */
-    GPIO_WritePinOutput(GPIO1, 10, 1);
-    GPIO_WritePinOutput(GPIO1, 9, 0);
+    /* Reset PHY */
+    GPIO_PinInit(GPIO3, 4, &gpio_config);
+    GPIO_WritePinOutput(GPIO3, 4, 0);
     delay();
-    GPIO_WritePinOutput(GPIO1, 9, 1);
+    GPIO_WritePinOutput(GPIO3, 4, 1);
 
     PRINTF("Start the combine_usbx_netxduo_filex example...\r\n");
 
@@ -316,7 +314,7 @@ static void network_service_initialize(void)
 #else
                           IP_ADDRESS(192, 2, 2, 149), 0xFFFFFF00UL,
 #endif
-                          &pool_0, nx_driver_imx, (UCHAR *)ip_thread_stack, sizeof(ip_thread_stack), 1);
+                          &pool_0, nx_link_driver, (UCHAR *)ip_thread_stack, sizeof(ip_thread_stack), 1);
 
     /* Check for IP create errors.  */
     if (status)

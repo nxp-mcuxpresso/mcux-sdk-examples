@@ -599,7 +599,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.Include_common.LPC812" name="CMSIS_Include_common" brief="Cmsis_include_common" version="5.3.0" full_name="Cmsis_include_common" devices="LPC812" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Include" project_base_path="CMSIS">
+    <component id="platform.Include_common.LPC812" name="CMSIS_Include_common" brief="Cmsis_include_common" version="5.3.0" full_name="Cmsis_include_common" devices="LPC812" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Core/Include" project_base_path="CMSIS">
       <source relative_path="./" type="c_include">
         <files mask="cmsis_armcc.h"/>
         <files mask="cmsis_armclang.h"/>
@@ -616,7 +616,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.Include_core_cm0plus.LPC812" name="CMSIS_Include_core_cm0plus" brief="Cmsis_include_core_cm0plus" version="5.3.0" full_name="Cmsis_include_core_cm0plus" devices="LPC812" device_cores="core0_LPC812" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Include" project_base_path="CMSIS">
+    <component id="platform.Include_core_cm0plus.LPC812" name="CMSIS_Include_core_cm0plus" brief="Cmsis_include_core_cm0plus" version="5.3.0" full_name="Cmsis_include_core_cm0plus" devices="LPC812" device_cores="core0_LPC812" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Core/Include" project_base_path="CMSIS">
       <dependencies>
         <all>
           <component_dependency value="platform.Include_common.LPC812"/>
@@ -634,7 +634,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.Include_dsp.LPC812" name="CMSIS_Include_dsp" brief="Cmsis_include_dsp" version="1.7.0" full_name="Cmsis_include_dsp" devices="LPC812" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Include" project_base_path="CMSIS">
+    <component id="platform.Include_dsp.LPC812" name="CMSIS_Include_dsp" brief="Cmsis_include_dsp" version="1.7.0" full_name="Cmsis_include_dsp" devices="LPC812" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/DSP/Include" project_base_path="CMSIS">
       <source relative_path="./" type="c_include">
         <files mask="arm_common_tables.h"/>
         <files mask="arm_const_structs.h"/>
@@ -1357,24 +1357,31 @@ ${load}</script>
         <files mask="utility_assert_lite_LPC812.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="utility.debug_console_lite.LPC812" name="debug_console_lite" brief="Utility debug_console_lite" version="1.0.0" full_name="Utility debug_console_lite" devices="LPC812" device_cores="core0_LPC812" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console_lite" project_base_path="utilities">
+    <component id="utility.debug_console_lite.LPC812" name="debug_console_lite" brief="Utility debug_console_lite" version="1.0.0" full_name="Utility debug_console_lite" devices="LPC812" device_cores="core0_LPC812" user_visible="true" type="utilities" package_base_path="core/utilities" project_base_path="utilities">
       <dependencies>
         <all>
           <component_dependency value="component.miniusart_adapter.LPC812"/>
           <component_dependency value="platform.drivers.common.LPC812"/>
         </all>
       </dependencies>
-      <source relative_path="./" type="src">
+      <source relative_path="str" project_relative_path="./" type="src">
+        <files mask="fsl_str.c"/>
+      </source>
+      <source relative_path="str" project_relative_path="./" type="c_include">
+        <files mask="fsl_str.h"/>
+      </source>
+      <source relative_path="debug_console_lite" project_relative_path="./" type="src">
         <files mask="fsl_debug_console.c"/>
       </source>
-      <source relative_path="./" type="c_include">
+      <source relative_path="debug_console_lite" project_relative_path="./" type="c_include">
         <files mask="fsl_debug_console.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace">
         <files mask="utility_debug_console_lite_LPC812.cmake" hidden="true"/>
       </source>
       <include_paths>
-        <include_path relative_path="./" type="c_include"/>
+        <include_path relative_path="str" project_relative_path="./" type="c_include"/>
+        <include_path relative_path="debug_console_lite" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
   </components>

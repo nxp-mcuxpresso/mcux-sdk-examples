@@ -71,7 +71,7 @@ usb_device_endpoint_struct_t g_UsbDeviceAudioControlEndpoints[USB_AUDIO_CONTROL_
 usb_device_audio_entity_struct_t g_UsbDeviceAudioRecorderEntity[] = {
 #if (USB_DEVICE_CONFIG_AUDIO_CLASS_2_0)
     {
-        USB_AUDIO_RECORDER_CONTROL_CLOCK_SOURCE_ENTITY_ID,
+        USB_AUDIO_CONTROL_RECORDER_CLOCK_SOURCE_ENTITY_ID,
         USB_DESCRIPTOR_SUBTYPE_AUDIO_CONTROL_CLOCK_SOURCE_UNIT,
         0U,
     },
@@ -96,7 +96,7 @@ usb_device_audio_entity_struct_t g_UsbDeviceAudioRecorderEntity[] = {
 usb_device_audio_entity_struct_t g_UsbDeviceAudioSpeakerEntity[] = {
 #if (USB_DEVICE_CONFIG_AUDIO_CLASS_2_0)
     {
-        USB_AUDIO_SPEAKER_CONTROL_CLOCK_SOURCE_ENTITY_ID,
+        USB_AUDIO_CONTROL_SPEAKER_CLOCK_SOURCE_ENTITY_ID,
         USB_DESCRIPTOR_SUBTYPE_AUDIO_CONTROL_CLOCK_SOURCE_UNIT,
         0U,
     },
@@ -365,7 +365,7 @@ uint8_t g_UsbDeviceConfigurationDescriptor[] = {
     USB_AUDIO_CLOCK_SOURCE_LENGTH,                          /* Size of the descriptor, in bytes  */
     USB_DESCRIPTOR_TYPE_AUDIO_CS_INTERFACE,                 /* CS_INTERFACE Descriptor Type  */
     USB_DESCRIPTOR_SUBTYPE_AUDIO_CONTROL_CLOCK_SOURCE_UNIT, /* CLOCK_SOURCE descriptor subtype  */
-    USB_AUDIO_RECORDER_CONTROL_CLOCK_SOURCE_ENTITY_ID, /* Constant uniquely identifying the Clock Source Entity within
+    USB_AUDIO_CONTROL_RECORDER_CLOCK_SOURCE_ENTITY_ID, /* Constant uniquely identifying the Clock Source Entity within
                                                         * the audio funcion
                                                         */
     0x01U,                                             /* D1..0: 01: Internal Fixed Clock
@@ -385,7 +385,7 @@ uint8_t g_UsbDeviceConfigurationDescriptor[] = {
     0x01U,
     0x02U, /* A generic microphone that does not fit under any of the other classifications.  */
     0x00U, /* This Input Terminal has no association   */
-    USB_AUDIO_RECORDER_CONTROL_CLOCK_SOURCE_ENTITY_ID, /* ID of the Clock Entity to which this Input Terminal is
+    USB_AUDIO_CONTROL_RECORDER_CLOCK_SOURCE_ENTITY_ID, /* ID of the Clock Entity to which this Input Terminal is
                                                           connected.  */
     0x10, /* This Terminal's output audio channel cluster has 16 logical output channels   */
     0xFFU,
@@ -498,7 +498,7 @@ uint8_t g_UsbDeviceConfigurationDescriptor[] = {
            AudioStreaming interface descriptor points to the associated Terminal through the bTerminalLink field.  */
     0x00U, /* This Output Terminal has no association  */
     USB_AUDIO_RECORDER_CONTROL_FEATURE_UNIT_ID, /* ID of the Unit or Terminal to which this Terminal is connected.  */
-    USB_AUDIO_RECORDER_CONTROL_CLOCK_SOURCE_ENTITY_ID, /* ID of the Clock Entity to which this Output Terminal is
+    USB_AUDIO_CONTROL_RECORDER_CLOCK_SOURCE_ENTITY_ID, /* ID of the Clock Entity to which this Output Terminal is
                                                           connected  */
     0x00U,
     0x00U, /* bmControls:   D1..0: Copy Protect Control is not present
@@ -512,7 +512,7 @@ uint8_t g_UsbDeviceConfigurationDescriptor[] = {
     USB_AUDIO_CLOCK_SOURCE_LENGTH,                    /* Size of the descriptor, in bytes  */
     USB_DESCRIPTOR_TYPE_AUDIO_CS_INTERFACE,           /* CS_INTERFACE Descriptor Type  */
     0x0AU,                                            /* CLOCK_SOURCE descriptor subtype  */
-    USB_AUDIO_SPEAKER_CONTROL_CLOCK_SOURCE_ENTITY_ID, /* Constant uniquely identifying the Clock Source Entity within
+    USB_AUDIO_CONTROL_SPEAKER_CLOCK_SOURCE_ENTITY_ID, /* Constant uniquely identifying the Clock Source Entity within
                                                        * the audio funcion
                                                        */
     0x01U,                                            /* D1..0: 01: Internal Fixed Clock
@@ -533,7 +533,7 @@ uint8_t g_UsbDeviceConfigurationDescriptor[] = {
     0x01U, /* A Terminal dealing with a signal carried over an endpoint in an AudioStreaming interface. The
               AudioStreaming interface descriptor points to the associated Terminal through the bTerminalLink field. */
     0x00U, /* This Input Terminal has no association   */
-    USB_AUDIO_SPEAKER_CONTROL_CLOCK_SOURCE_ENTITY_ID, /* ID of the Clock Entity to which this Input Terminal is
+    USB_AUDIO_CONTROL_SPEAKER_CLOCK_SOURCE_ENTITY_ID, /* ID of the Clock Entity to which this Input Terminal is
                                                          connected.  */
     0x10U, /* This Terminal's output audio channel cluster has 16 logical output channels   */
     0xFFU,
@@ -645,7 +645,7 @@ uint8_t g_UsbDeviceConfigurationDescriptor[] = {
     0x03U, /* A generic speaker or set of speakers that does not fit under any of the other classifications. */
     0x00U, /* This Output Terminal has no association  */
     USB_AUDIO_SPEAKER_CONTROL_FEATURE_UNIT_ID, /* ID of the Unit or Terminal to which this Terminal is connected.  */
-    USB_AUDIO_SPEAKER_CONTROL_CLOCK_SOURCE_ENTITY_ID, /* ID of the Clock Entity to which this Output Terminal is
+    USB_AUDIO_CONTROL_SPEAKER_CLOCK_SOURCE_ENTITY_ID, /* ID of the Clock Entity to which this Output Terminal is
                                                          connected  */
     0x00U,
     0x00U, /* bmControls:   D1..0: Copy Protect Control is not present

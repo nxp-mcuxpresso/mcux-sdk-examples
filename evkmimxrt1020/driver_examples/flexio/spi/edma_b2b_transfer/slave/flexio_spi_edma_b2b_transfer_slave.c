@@ -11,8 +11,8 @@
 #include "board.h"
 #include "fsl_debug_console.h"
 
-#include "fsl_dmamux.h"
 #include "fsl_common.h"
+#include "fsl_dmamux.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -49,8 +49,8 @@
  ******************************************************************************/
 
 static flexio_spi_slave_edma_handle_t g_spiHandle;
-static edma_handle_t txHandle;
-static edma_handle_t rxHandle;
+static edma_handle_t s_txHandle;
+static edma_handle_t s_rxHandle;
 FLEXIO_SPI_Type spiDev;
 AT_NONCACHEABLE_SECTION_INIT(static uint8_t sendBuff[BUFFER_SIZE]) = {0U};
 AT_NONCACHEABLE_SECTION_INIT(static uint8_t recvBuff[BUFFER_SIZE]) = {0U};
@@ -127,8 +127,8 @@ int main(void)
 #endif
     EDMA_GetDefaultConfig(&config);
     EDMA_Init(EXAMPLE_FLEXIO_SPI_DMA_BASEADDR, &config);
-    EDMA_CreateHandle(&txHandle, EXAMPLE_FLEXIO_SPI_DMA_BASEADDR, FLEXIO_SPI_TX_DMA_CHANNEL);
-    EDMA_CreateHandle(&rxHandle, EXAMPLE_FLEXIO_SPI_DMA_BASEADDR, FLEXIO_SPI_RX_DMA_CHANNEL);
+    EDMA_CreateHandle(&s_txHandle, EXAMPLE_FLEXIO_SPI_DMA_BASEADDR, FLEXIO_SPI_TX_DMA_CHANNEL);
+    EDMA_CreateHandle(&s_rxHandle, EXAMPLE_FLEXIO_SPI_DMA_BASEADDR, FLEXIO_SPI_RX_DMA_CHANNEL);
 
 #if defined(FSL_FEATURE_EDMA_HAS_CHANNEL_MUX) && FSL_FEATURE_EDMA_HAS_CHANNEL_MUX
     EDMA_SetChannelMux(EXAMPLE_FLEXIO_SPI_DMA_BASEADDR, FLEXIO_SPI_TX_DMA_CHANNEL, dma_request_source_tx);
@@ -148,8 +148,8 @@ int main(void)
     xfer.rxData   = recvBuff;
     xfer.dataSize = BUFFER_SIZE;
     xfer.flags    = kFLEXIO_SPI_8bitMsb;
-    FLEXIO_SPI_SlaveTransferCreateHandleEDMA(&spiDev, &g_spiHandle, spi_slave_completionCallback, NULL, &txHandle,
-                                             &rxHandle);
+    FLEXIO_SPI_SlaveTransferCreateHandleEDMA(&spiDev, &g_spiHandle, spi_slave_completionCallback, NULL, &s_txHandle,
+                                             &s_rxHandle);
     FLEXIO_SPI_SlaveTransferEDMA(&spiDev, &g_spiHandle, &xfer);
     while (!completeFlag)
     {

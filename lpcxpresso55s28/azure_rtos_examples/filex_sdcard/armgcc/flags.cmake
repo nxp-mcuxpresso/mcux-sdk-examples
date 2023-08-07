@@ -15,7 +15,6 @@ SET(CMAKE_ASM_FLAGS_DEBUG " \
     -DDEBUG \
     -D__STARTUP_CLEAR_BSS \
     -DTX_SINGLE_MODE_SECURE \
-    -DTX_ENABLE_FPU_SUPPORT=1 \
     -mcpu=cortex-m33 \
     -mthumb \
     -x \
@@ -27,7 +26,6 @@ SET(CMAKE_ASM_FLAGS_RELEASE " \
     -DNDEBUG \
     -D__STARTUP_CLEAR_BSS \
     -DTX_SINGLE_MODE_SECURE \
-    -DTX_ENABLE_FPU_SUPPORT=1 \
     -mcpu=cortex-m33 \
     -mthumb \
     -x \
@@ -47,9 +45,9 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DSCANF_ADVANCED_ENABLE=0 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DTX_SINGLE_MODE_SECURE \
+    -DMCUXPRESSO_SDK \
     -DFX_INCLUDE_USER_DEFINE_FILE \
     -DTX_INCLUDE_USER_DEFINE_FILE \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
     -mcpu=cortex-m33 \
@@ -80,9 +78,9 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DSCANF_ADVANCED_ENABLE=0 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DTX_SINGLE_MODE_SECURE \
+    -DMCUXPRESSO_SDK \
     -DFX_INCLUDE_USER_DEFINE_FILE \
     -DTX_INCLUDE_USER_DEFINE_FILE \
-    -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m33 \
     -Wall \
@@ -103,8 +101,8 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     ${CMAKE_CXX_FLAGS_DEBUG} \
     -DDEBUG \
     -DCPU_LPC55S28JBD100 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m33 \
@@ -127,8 +125,8 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     ${CMAKE_CXX_FLAGS_RELEASE} \
     -DNDEBUG \
     -DCPU_LPC55S28JBD100 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m33 \
     -Wall \
@@ -169,8 +167,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -Xlinker \
     -Map=output.map \
     -Wl,--print-memory-usage \
-    -Xlinker \
-    --print-memory-usage \
     ${FPU} \
     ${SPECS} \
     -T${ProjDirPath}/LPC55S28_flash.ld -static \
@@ -197,8 +193,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -Xlinker \
     -Map=output.map \
     -Wl,--print-memory-usage \
-    -Xlinker \
-    --print-memory-usage \
     ${FPU} \
     ${SPECS} \
     -T${ProjDirPath}/LPC55S28_flash.ld -static \

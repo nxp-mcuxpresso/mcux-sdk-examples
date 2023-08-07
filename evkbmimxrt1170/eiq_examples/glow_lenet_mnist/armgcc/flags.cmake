@@ -49,8 +49,8 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -DFSL_RTOS_BM \
     -DSKIP_SYSCLK_INIT \
     -DSDK_OS_BAREMETAL \
-    -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
     -DMCUXPRESSO_SDK \
+    -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
     -g \
     -O0 \
     -fno-strict-aliasing \
@@ -88,8 +88,8 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -DFSL_RTOS_BM \
     -DSKIP_SYSCLK_INIT \
     -DSDK_OS_BAREMETAL \
-    -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
     -DMCUXPRESSO_SDK \
+    -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
     -Os \
     -fno-strict-aliasing \
     -mcpu=cortex-m7 \
@@ -175,6 +175,9 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -g \
     -Xlinker \
     --no-wchar-size-warning \
+    -Xlinker \
+    -z \
+    noexecstack \
     -mcpu=cortex-m7 \
     -Wall \
     -fno-common \
@@ -199,12 +202,15 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     --defsym=__use_flash64MB__=1 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/../../../../../core/devices/MIMXRT1176/gcc/MIMXRT1176xxxxx_cm7_flexspi_nor_sdram.ld -static \
+    -T${ProjDirPath}/MIMXRT1176xxxxx_cm7_flexspi_nor_sdram.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE} \
     -Xlinker \
     --no-wchar-size-warning \
+    -Xlinker \
+    -z \
+    noexecstack \
     -mcpu=cortex-m7 \
     -Wall \
     -fno-common \
@@ -229,5 +235,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     --defsym=__use_flash64MB__=1 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/../../../../../core/devices/MIMXRT1176/gcc/MIMXRT1176xxxxx_cm7_flexspi_nor_sdram.ld -static \
+    -T${ProjDirPath}/MIMXRT1176xxxxx_cm7_flexspi_nor_sdram.ld -static \
 ")

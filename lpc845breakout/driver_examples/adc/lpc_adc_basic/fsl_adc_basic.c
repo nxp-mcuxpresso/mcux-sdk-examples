@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2019 NXP
+ * Copyright 2016-2019, 2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -82,6 +82,9 @@ int main(void)
     {
         PRINTF("ADC Calibration Failed.\r\n");
     }
+#if defined(FSL_FEATURE_ADC_CALIBRATION_CLOCK_LOWER_THAN_30MHz) && FSL_FEATURE_ADC_CALIBRATION_CLOCK_LOWER_THAN_30MHz
+    ReInitSystemclock();
+#endif
 #endif /* FSL_FEATURE_ADC_HAS_NO_CALIB_FUNC */
 
     /* Configure the converter and work mode. */
@@ -141,6 +144,9 @@ static void ADC_Configuration(void)
 #endif /* FSL_FEATURE_ADC_HAS_NO_INSEL. */
 
     /* Enable channel DEMO_ADC_SAMPLE_CHANNEL_NUMBER's conversion in Sequence A. */
+#if defined(FSL_FEATURE_ADC_HAS_SEQ_CTRL_TSAMP) & FSL_FEATURE_ADC_HAS_SEQ_CTRL_TSAMP
+    adcConvSeqConfigStruct.seqSampleTimeNumber = 0U;
+#endif /* FSL_FEATURE_ADC_HAS_SEQ_CTRL_TSAMP */
     adcConvSeqConfigStruct.channelMask =
         (1U << DEMO_ADC_SAMPLE_CHANNEL_NUMBER); /* Includes channel DEMO_ADC_SAMPLE_CHANNEL_NUMBER. */
     adcConvSeqConfigStruct.triggerMask      = 0U;

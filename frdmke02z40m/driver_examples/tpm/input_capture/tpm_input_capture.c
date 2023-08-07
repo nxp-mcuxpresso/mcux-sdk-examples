@@ -50,7 +50,7 @@ void TPM_INPUT_CAPTURE_HANDLER(void)
 
     /* Clear interrupt flag.*/
     TPM_ClearStatusFlags(DEMO_TPM_BASEADDR, TPM_CHANNEL_FLAG);
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

@@ -86,6 +86,18 @@ uint32_t get_core1_image_size(void)
 #endif
 
 /*!
+ * @brief Application-specific implementation of the SystemInitHook() weak function.
+ */
+void SystemInitHook(void)
+{
+    /* Initialize MCMGR - low level multicore management library. Call this
+       function as close to the reset entry as possible to allow CoreUp event
+       triggering. The SystemInitHook() weak function overloading is used in this
+       application. */
+    (void)MCMGR_EarlyInit();
+}
+
+/*!
  * @brief Fill matrices by random values
  */
 static void fill_matrices(Matrix matrix1_ptr, Matrix matrix2_ptr)
@@ -126,18 +138,6 @@ static void print_matrix(Matrix matrix_ptr)
 static void eRPCReadyEventHandler(uint16_t eventData, void *context)
 {
     eRPCReadyEventData = eventData;
-}
-
-/*!
- * @brief Application-specific implementation of the SystemInitHook() weak function.
- */
-void SystemInitHook(void)
-{
-    /* Initialize MCMGR - low level multicore management library. Call this
-       function as close to the reset entry as possible to allow CoreUp event
-       triggering. The SystemInitHook() weak function overloading is used in this
-       application. */
-    (void)MCMGR_EarlyInit();
 }
 
 /*!

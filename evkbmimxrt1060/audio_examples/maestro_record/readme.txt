@@ -26,25 +26,32 @@ Type "help" to see the command list. Similar description will be displayed on se
      - playback on codec
      - store samples to file.
 
-     USAGE: record_mic [audio|file|<file_name>|vit] 20 [en|cn]
+     USAGE: record_mic [audio|file|<file_name>|vit] 20 [<language>]
      The number defines length of recording in seconds.
+     Please see the project defined symbols for the languages supported.
+     Then specify one of: en/cn/de/es/fr/it/ja/ko/tr as the language parameter.
      For voice recognition say supported WakeWord and in 3s frame supported command.
      Please note that this VIT demo is near-field and uses 1 on-board microphone.
-     NOTES: This command returns to shell after record finished.
-             To store samples to a file, the "file" option can be used to create a file
-             with a predefined name, or any file name (without whitespaces) can be specified
-             instead of the "file" option.
+     To store samples to a file, the "file" option can be used to create a file
+     with a predefined name, or any file name (without whitespaces) can be specified
+     instead of the "file" option.
+     This command returns to shell after the recording is finished.
 
     "opus_encode": Initializes the streamer with the Opus memory-to-memory pipeline and
     encodes a hardcoded buffer.
 
 For custom VIT model generation (defining own wake words and voice commands) please use https://vit.nxp.com/
 
+Notes:
+    - VIT and VoiceSeeker libraries are only supported in the MCUXpresso IDE.
+    - If more than one channel is used and VIT is enabled, please enable VoiceSeeker.
+        - The VoiceSeeker that combines multiple channels into one must be used, as VIT can only work with one channel.
+
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================
@@ -53,16 +60,17 @@ Hardware requirements
 - MIMXRT1060-EVKB board
 - Personal Computer
 - Headphones with 3.5 mm stereo jack
-- Audio expansion board AUD-EXP-42448 (REV B)
+- Audio expansion board AUD-EXP-42448 (REV B) - optional
 
 Board settings
 ==============
 Make sure resistors R368/R347/R349/R365/R363 are removed to be able to use SD-Card.
-
+Please insert the SDCARD into the card slot in order to record to a file
 For Audio expansion board:
     1.Insert AUDIO board into J23 if on board codec is not used
     2.Uninstall J41
     3.Define DEMO_CODEC_CS42448 1 in app_definitions.h
+    4.Define VOICE_SEEKER_PROC on the project level (see note below)
 For on board codec:
     1.Make sure J41 is installed
     2.Define DEMO_CODEC_WM8960 1 in app_definitions.h
@@ -84,7 +92,7 @@ Prepare the Demo
     - No flow control
 3.  Download the program to the target board.
 Steps for WM8960:
-4. Insert the headphones into the headphone jack on MIMXRT1060-EVKB board (J34).
+4. Connect the headphones into the headphone jack on MIMXRT1060-EVKB board (J34).
 Steps for CS42448:
 4. For the loopback (record_mic audio) and for the file output (record_mic file) the audio stream is as follows:
     Stereo INPUT 1 (J12) -> LINE 1&2 OUTPUT (J6)
@@ -99,6 +107,7 @@ Steps for CS42448:
 
 Note:
 In order to enable VoiceSeeker it is necessary to add VOICE_SEEKER_PROC to preprocessor defines on project level and either connect the AUD-EXP board or provide another multi-channel data to VoiceSeeker.
+
 Running the demo
 ================
 When the example runs successfully, you should see similar output on the serial terminal as below:

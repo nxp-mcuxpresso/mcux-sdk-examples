@@ -1,0 +1,7 @@
+<#if memory.name=="SRAM">
+       */mflash_drv.o(.text .text* .rodata .rodata*)
+       */fsl_flexspi.o(.text .text* .rodata .rodata*)
+       */fsl_cache.o(.text .text* .rodata .rodata*)
+       */bignum.o(.text .text* .rodata .rodata*)
+</#if>
+       *(.data*)

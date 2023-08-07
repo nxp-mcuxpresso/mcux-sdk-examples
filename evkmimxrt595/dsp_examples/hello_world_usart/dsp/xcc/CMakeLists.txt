@@ -105,7 +105,7 @@ include_directories(${ProjDirPath}/..)
 
 include_directories(${ProjDirPath}/../../../../../../core/components/uart)
 
-include_directories(${ProjDirPath}/../../../../../../core/drivers/flexcomm)
+include_directories(${ProjDirPath}/../../../../../../core/drivers/flexcomm/usart)
 
 include_directories(${ProjDirPath}/../../../../../../core/utilities/str)
 
@@ -113,17 +113,19 @@ include_directories(${ProjDirPath}/../../../../../../core/utilities/debug_consol
 
 include_directories(${ProjDirPath}/../../../../../../core/drivers/lpc_gpio)
 
-include_directories(${ProjDirPath}/../../../../../../core/drivers/common)
-
 include_directories(${ProjDirPath}/../../../../../../core/components/lists)
 
 include_directories(${ProjDirPath}/../../../../../../core/drivers/lpc_iopctl)
+
+include_directories(${ProjDirPath}/../../../../../../core/drivers/common)
 
 include_directories(${ProjDirPath}/../../../../../../core/devices/MIMXRT595S/drivers)
 
 include_directories(${ProjDirPath}/../../../../../../core/devices/MIMXRT595S)
 
-include_directories(${ProjDirPath}/../../../../../../CMSIS/Core/Include)
+include_directories(${ProjDirPath}/../../../../../../core/drivers/flexcomm)
+
+include_directories(${ProjDirPath}/../../../../../../core/CMSIS/Core/Include)
 
 add_executable(dsp_hello_world_usart_fusionf1.elf 
 "${ProjDirPath}/../main_dsp.c"
@@ -133,8 +135,8 @@ add_executable(dsp_hello_world_usart_fusionf1.elf
 "${ProjDirPath}/../board_fusionf1.h"
 "${ProjDirPath}/../../../../../../core/components/uart/fsl_adapter_uart.h"
 "${ProjDirPath}/../../../../../../core/components/uart/fsl_adapter_usart.c"
-"${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_usart.h"
-"${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_usart.c"
+"${ProjDirPath}/../../../../../../core/drivers/flexcomm/usart/fsl_usart.h"
+"${ProjDirPath}/../../../../../../core/drivers/flexcomm/usart/fsl_usart.c"
 "${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.c"
 "${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.h"
 "${ProjDirPath}/../../../../../../core/utilities/debug_console_lite/fsl_debug_console.c"
@@ -142,13 +144,13 @@ add_executable(dsp_hello_world_usart_fusionf1.elf
 "${ProjDirPath}/../../../../../../core/utilities/assert/fsl_assert.c"
 "${ProjDirPath}/../../../../../../core/drivers/lpc_gpio/fsl_gpio.h"
 "${ProjDirPath}/../../../../../../core/drivers/lpc_gpio/fsl_gpio.c"
+"${ProjDirPath}/../../../../../../core/components/lists/fsl_component_generic_list.h"
+"${ProjDirPath}/../../../../../../core/components/lists/fsl_component_generic_list.c"
+"${ProjDirPath}/../../../../../../core/drivers/lpc_iopctl/fsl_iopctl.h"
 "${ProjDirPath}/../../../../../../core/drivers/common/fsl_common.h"
 "${ProjDirPath}/../../../../../../core/drivers/common/fsl_common.c"
 "${ProjDirPath}/../../../../../../core/drivers/common/fsl_common_dsp.c"
 "${ProjDirPath}/../../../../../../core/drivers/common/fsl_common_dsp.h"
-"${ProjDirPath}/../../../../../../core/components/lists/fsl_component_generic_list.h"
-"${ProjDirPath}/../../../../../../core/components/lists/fsl_component_generic_list.c"
-"${ProjDirPath}/../../../../../../core/drivers/lpc_iopctl/fsl_iopctl.h"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT595S/drivers/fsl_clock.h"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT595S/drivers/fsl_clock.c"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT595S/drivers/fsl_reset.h"

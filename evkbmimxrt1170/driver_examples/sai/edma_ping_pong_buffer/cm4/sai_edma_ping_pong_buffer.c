@@ -15,8 +15,8 @@
 #include "fsl_debug_console.h"
 #include "fsl_sai_edma.h"
 #include "fsl_codec_common.h"
-#if defined DEMO_CODEC_WM8962
 #include "fsl_wm8962.h"
+#if defined DEMO_CODEC_WM8962
 #else
 #include "fsl_cs42448.h"
 #endif

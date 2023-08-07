@@ -1315,7 +1315,7 @@ void SCTIMER_SOF_TOGGLE_HANDLER_PLL()
 
             err     = g_UsbDeviceAudioSpeaker.audioPllTicksEma - AUDIO_PLL_USB_SOF_INTERVAL_TICK_COUNT;
             abs_err = abs(err);
-            if (abs_err > g_UsbDeviceAudioSpeaker.audioPllTickBasedPrecision)
+            if (abs_err >= g_UsbDeviceAudioSpeaker.audioPllTickBasedPrecision)
             {
                 if (err > 0)
                 {

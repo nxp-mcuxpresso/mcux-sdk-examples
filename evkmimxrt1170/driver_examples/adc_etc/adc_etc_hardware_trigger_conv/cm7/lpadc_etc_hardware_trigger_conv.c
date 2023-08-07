@@ -72,7 +72,7 @@ void DEMO_ADC_ETC_DONE0_Handler(void)
     {
         g_AdcConversionValue0 = ((g_LpadcResultConfigStruct.convValue) >> 3U);
     }
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 void DEMO_ADC_ETC_DONE1_Handler(void)
@@ -83,7 +83,7 @@ void DEMO_ADC_ETC_DONE1_Handler(void)
     {
         g_AdcConversionValue1 = ((g_LpadcResultConfigStruct.convValue) >> 3U);
     }
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

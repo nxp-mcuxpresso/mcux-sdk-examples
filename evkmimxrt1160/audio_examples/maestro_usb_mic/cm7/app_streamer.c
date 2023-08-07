@@ -157,22 +157,22 @@ status_t STREAMER_mic_Create(streamer_handle_t *handle)
     prop.prop = PROP_AUDIOSRC_SET_DUMMY_TX_ENABLE;
     prop.val  = true;
 
-    streamer_set_property(handle->streamer, prop, true);
+    streamer_set_property(handle->streamer, 0, prop, true);
 
     prop.prop = PROP_AUDIOSRC_SET_SAMPLE_RATE;
     prop.val  = AUDIO_SAMPLING_RATE;
 
-    streamer_set_property(handle->streamer, prop, true);
+    streamer_set_property(handle->streamer, 0, prop, true);
 
     prop.prop = PROP_AUDIOSRC_SET_NUM_CHANNELS;
     prop.val  = 1;
 
-    streamer_set_property(handle->streamer, prop, true);
+    streamer_set_property(handle->streamer, 0, prop, true);
 
     prop.prop = PROP_AUDIOSRC_SET_FRAME_MS;
     prop.val  = 1;
 
-    streamer_set_property(handle->streamer, prop, true);
+    streamer_set_property(handle->streamer, 0, prop, true);
 
     return kStatus_Success;
 }

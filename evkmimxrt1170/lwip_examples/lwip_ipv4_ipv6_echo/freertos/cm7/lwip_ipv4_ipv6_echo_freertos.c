@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2020, 2022 NXP
+ * Copyright 2016-2020, 2022-2023 NXP
  * All rights reserved.
  *
  *
@@ -21,7 +21,7 @@
 
 #include "pin_mux.h"
 #include "board.h"
-#ifndef configMAC_ADDR
+#if !defined(configMAC_ADDR) || !defined(configMAC_ADDR1)
 #include "fsl_silicon_id.h"
 #endif
 #include "fsl_phy.h"
@@ -33,19 +33,17 @@
 
 #include "shell_task.h"
 
-#if BOARD_NETWORK_USE_100M_ENET_PORT
-#include "fsl_phyksz8081.h"
-#else
-#include "fsl_phyrtl8211f.h"
-#endif
 #include "fsl_enet.h"
+#include "ethernetif_priv.h"
+#include "fsl_phyksz8081.h"
+#include "fsl_phyrtl8211f.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
 
 /* @TEST_ANCHOR */
 
-/* IP address configuration. */
+/* IP address configuration port 0. */
 #ifndef configIP_ADDR0
 #define configIP_ADDR0 192
 #endif
@@ -59,7 +57,7 @@
 #define configIP_ADDR3 102
 #endif
 
-/* Netmask configuration. */
+/* Netmask configuration port 0. */
 #ifndef configNET_MASK0
 #define configNET_MASK0 255
 #endif
@@ -73,7 +71,7 @@
 #define configNET_MASK3 0
 #endif
 
-/* Gateway address configuration. */
+/* Gateway address configuration port 0. */
 #ifndef configGW_ADDR0
 #define configGW_ADDR0 192
 #endif
@@ -87,45 +85,94 @@
 #define configGW_ADDR3 100
 #endif
 
-#if BOARD_NETWORK_USE_100M_ENET_PORT
-#define EXAMPLE_ENET ENET
-/* Address of PHY interface. */
-#define EXAMPLE_PHY_ADDRESS BOARD_ENET0_PHY_ADDRESS
-/* PHY operations. */
-#define EXAMPLE_PHY_OPS &phyksz8081_ops
-/* ENET instance select. */
-#define EXAMPLE_NETIF_INIT_FN ethernetif0_init
-
-extern phy_ksz8081_resource_t g_phy_resource;
-#else
-#define EXAMPLE_ENET          ENET_1G
-/* Address of PHY interface. */
-#define EXAMPLE_PHY_ADDRESS   BOARD_ENET1_PHY_ADDRESS
-/* PHY operations. */
-#define EXAMPLE_PHY_OPS       &phyrtl8211f_ops
-/* ENET instance select. */
-#define EXAMPLE_NETIF_INIT_FN ethernetif1_init
-
-extern phy_rtl8211f_resource_t g_phy_resource;
+/* IP address configuration port 1. */
+#ifndef configIP1_ADDR0
+#define configIP1_ADDR0 192
+#endif
+#ifndef configIP1_ADDR1
+#define configIP1_ADDR1 168
+#endif
+#ifndef configIP1_ADDR2
+#define configIP1_ADDR2 1
+#endif
+#ifndef configIP1_ADDR3
+#define configIP1_ADDR3 103
 #endif
 
-/* PHY resource. */
+/* Netmask configuration port 1. */
+#ifndef configNET1_MASK0
+#define configNET1_MASK0 255
+#endif
+#ifndef configNET1_MASK1
+#define configNET1_MASK1 255
+#endif
+#ifndef configNET1_MASK2
+#define configNET1_MASK2 255
+#endif
+#ifndef configNET1_MASK3
+#define configNET1_MASK3 0
+#endif
+
+/* Gateway address configuration port 1. */
+#ifndef configGW1_ADDR0
+#define configGW1_ADDR0 192
+#endif
+#ifndef configGW1_ADDR1
+#define configGW1_ADDR1 168
+#endif
+#ifndef configGW1_ADDR2
+#define configGW1_ADDR2 1
+#endif
+#ifndef configGW1_ADDR3
+#define configGW1_ADDR3 200
+#endif
+
+
+#define EXAMPLE_ENET          ENET
+#define EXAMPLE_PHY_ADDRESS   BOARD_ENET0_PHY_ADDRESS
+#define EXAMPLE_PHY_OPS       &phyksz8081_ops
+extern phy_ksz8081_resource_t g_phy_resource;
 #define EXAMPLE_PHY_RESOURCE &g_phy_resource
+#define EXAMPLE_NETIF_INIT_FN ethernetif0_init
+#define configMAC_ADDR                    \
+    {                                      \
+        0x02, 0x12, 0x13, 0x10, 0x15, 0x11 \
+    }
+
+
+#define EXAMPLE_ENET_1G        ENET_1G
+#define EXAMPLE_PHY1_ADDRESS   BOARD_ENET1_PHY_ADDRESS
+#define EXAMPLE_PHY1_OPS       &phyrtl8211f_ops
+extern phy_rtl8211f_resource_t g_phy1_resource;
+#define EXAMPLE_PHY1_RESOURCE &g_phy1_resource
+#define EXAMPLE_NETIF1_INIT_FN ethernetif1_init
+#define configMAC_ADDR1                    \
+    {                                      \
+        0x02, 0x12, 0x13, 0x10, 0x15, 0x12 \
+    }
 
 /* ENET clock frequency. */
 #define EXAMPLE_CLOCK_FREQ CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
 
+/* Tell the app to build 2 network interface configurations */
+#define BOARD_NETWORK_USE_DUAL_ENET
 
-#ifndef EXAMPLE_NETIF_INIT_FN
-/*! @brief Network interface initialization function. */
-#define EXAMPLE_NETIF_INIT_FN ethernetif0_init
-#endif /* EXAMPLE_NETIF_INIT_FN */
 
 /*! @brief Stack size of the temporary lwIP initialization thread. */
 #define INIT_THREAD_STACKSIZE 1024
 
 /*! @brief Priority of the temporary lwIP initialization thread. */
 #define INIT_THREAD_PRIO DEFAULT_THREAD_PRIO
+
+#ifndef EXAMPLE_NETIF_INIT_FN
+#define EXAMPLE_NETIF_INIT_FN ethernetif0_init
+#endif
+
+#if defined(BOARD_NETWORK_USE_DUAL_ENET)
+#define BOARD_PHY_COUNT 2
+#else
+#define BOARD_PHY_COUNT 1
+#endif
 
 /*******************************************************************************
  * Prototypes
@@ -134,13 +181,19 @@ extern phy_rtl8211f_resource_t g_phy_resource;
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+
 #if BOARD_NETWORK_USE_100M_ENET_PORT
-phy_ksz8081_resource_t g_phy_resource;
-#else
-phy_rtl8211f_resource_t g_phy_resource;
+#error "BOARD_NETWORK_USE_100M_ENET_PORT is set: this demo initializes both ENETs on evkmimxrt1170"
 #endif
 
+phy_ksz8081_resource_t g_phy_resource;
+phy_rtl8211f_resource_t g_phy1_resource;
+
+
 static phy_handle_t phyHandle;
+#if defined(BOARD_NETWORK_USE_DUAL_ENET)
+static phy_handle_t phyHandle1;
+#endif
 
 /*******************************************************************************
  * Code
@@ -152,32 +205,37 @@ void BOARD_InitModuleClock(void)
     };
     CLOCK_InitSysPll1(&sysPll1Config);
 
-#if BOARD_NETWORK_USE_100M_ENET_PORT
-    clock_root_config_t rootCfg = {.mux = 4, .div = 10}; /* Generate 50M root clock. */
-    CLOCK_SetRootClock(kCLOCK_Root_Enet1, &rootCfg);
-#else
-    clock_root_config_t rootCfg = {.mux = 4, .div = 4}; /* Generate 125M root clock. */
-    CLOCK_SetRootClock(kCLOCK_Root_Enet2, &rootCfg);
-#endif
+    clock_root_config_t rootCfg0 = {.mux = 4, .div = 10}; /* Generate 50M root clock. */
+    CLOCK_SetRootClock(kCLOCK_Root_Enet1, &rootCfg0);
+
+    clock_root_config_t rootCfg1 = {.mux = 4, .div = 4}; /* Generate 125M root clock. */
+    CLOCK_SetRootClock(kCLOCK_Root_Enet2, &rootCfg1);
 }
 
 void IOMUXC_SelectENETClock(void)
 {
-#if BOARD_NETWORK_USE_100M_ENET_PORT
     IOMUXC_GPR->GPR4 |= IOMUXC_GPR_GPR4_ENET_REF_CLK_DIR_MASK; /* 50M ENET_REF_CLOCK output to PHY and ENET module. */
-#else
+
     IOMUXC_GPR->GPR5 |= IOMUXC_GPR_GPR5_ENET1G_RGMII_EN_MASK; /* bit1:iomuxc_gpr_enet_clk_dir
                                                                  bit0:GPR_ENET_TX_CLK_SEL(internal or OSC) */
-#endif
 }
 
 void BOARD_ENETFlexibleConfigure(enet_config_t *config)
 {
-#if BOARD_NETWORK_USE_100M_ENET_PORT
-    config->miiMode = kENET_RmiiMode;
-#else
-    config->miiMode = kENET_RgmiiMode;
-#endif
+    phy_handle_t *phy_ = ethernetif_get_phy((struct netif *)config->userData);
+
+    if (phy_->phyAddr == BOARD_ENET0_PHY_ADDRESS)
+    {
+        config->miiMode = kENET_RmiiMode;
+    }
+    else if (phy_->phyAddr == BOARD_ENET1_PHY_ADDRESS)
+    {
+        config->miiMode = kENET_RgmiiMode;
+    }
+    else
+    {
+        // Unknown PHY addr
+    }
 }
 
 static void MDIO_Init(void)
@@ -196,6 +254,22 @@ static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
     return ENET_MDIORead(EXAMPLE_ENET, phyAddr, regAddr, pData);
 }
 
+static void MDIO_Init_1G(void)
+{
+    (void)CLOCK_EnableClock(s_enetClock[ENET_GetInstance(EXAMPLE_ENET_1G)]);
+    ENET_SetSMI(EXAMPLE_ENET_1G, EXAMPLE_CLOCK_FREQ, false);
+}
+
+static status_t MDIO_Write_1G(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_MDIOWrite(EXAMPLE_ENET_1G, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read_1G(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_MDIORead(EXAMPLE_ENET_1G, phyAddr, regAddr, pData);
+}
+
 
 
 /*!
@@ -205,40 +279,75 @@ static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
  */
 static void stack_init(void *arg)
 {
-    ip4_addr_t netif_ipaddr, netif_netmask, netif_gw;
-    ethernetif_config_t enet_config = {.phyHandle   = &phyHandle,
-                                       .phyAddr     = EXAMPLE_PHY_ADDRESS,
-                                       .phyOps      = EXAMPLE_PHY_OPS,
-                                       .phyResource = EXAMPLE_PHY_RESOURCE,
-                                       .srcClockHz  = EXAMPLE_CLOCK_FREQ,
-#ifdef configMAC_ADDR
-                                       .macAddress = configMAC_ADDR
-#endif
-    };
-    static struct netif s_netif;
-
     LWIP_UNUSED_ARG(arg);
 
-    /* Set MAC address. */
-#ifndef configMAC_ADDR
-    (void)SILICONID_ConvertToMacAddr(&enet_config.macAddress);
+    ip4_addr_t netif0_ipaddr, netif0_netmask, netif0_gw;
+    static struct netif s_netif0;
+    ethernetif_config_t enet0_config = {.phyHandle   = &phyHandle,
+                                        .phyAddr     = EXAMPLE_PHY_ADDRESS,
+                                        .phyOps      = EXAMPLE_PHY_OPS,
+                                        .phyResource = EXAMPLE_PHY_RESOURCE,
+                                        .srcClockHz  = EXAMPLE_CLOCK_FREQ,
+#ifdef configMAC_ADDR
+                                        .macAddress = configMAC_ADDR
 #endif
-
-    IP4_ADDR(&netif_ipaddr, configIP_ADDR0, configIP_ADDR1, configIP_ADDR2, configIP_ADDR3);
-    IP4_ADDR(&netif_netmask, configNET_MASK0, configNET_MASK1, configNET_MASK2, configNET_MASK3);
-    IP4_ADDR(&netif_gw, configGW_ADDR0, configGW_ADDR1, configGW_ADDR2, configGW_ADDR3);
+    };
+#ifndef configMAC_ADDR
+    (void)SILICONID_ConvertToMacAddr(&enet0_config.macAddress);
+#endif
 
     tcpip_init(NULL, NULL);
 
-    netifapi_netif_add(&s_netif, &netif_ipaddr, &netif_netmask, &netif_gw, &enet_config, EXAMPLE_NETIF_INIT_FN,
+    IP4_ADDR(&netif0_ipaddr, configIP_ADDR0, configIP_ADDR1, configIP_ADDR2, configIP_ADDR3);
+    IP4_ADDR(&netif0_netmask, configNET_MASK0, configNET_MASK1, configNET_MASK2, configNET_MASK3);
+    IP4_ADDR(&netif0_gw, configGW_ADDR0, configGW_ADDR1, configGW_ADDR2, configGW_ADDR3);
+    netifapi_netif_add(&s_netif0, &netif0_ipaddr, &netif0_netmask, &netif0_gw, &enet0_config, EXAMPLE_NETIF_INIT_FN,
                        tcpip_input);
-    netifapi_netif_set_default(&s_netif);
-    netifapi_netif_set_up(netif_default);
+    netifapi_netif_set_up(&s_netif0);
+
+#if defined(BOARD_NETWORK_USE_DUAL_ENET)
+    ip4_addr_t netif1_ipaddr, netif1_netmask, netif1_gw;
+    ethernetif_config_t enet1_config = {.phyHandle   = &phyHandle1,
+                                        .phyAddr     = EXAMPLE_PHY1_ADDRESS,
+                                        .phyOps      = EXAMPLE_PHY1_OPS,
+                                        .phyResource = EXAMPLE_PHY1_RESOURCE,
+                                        .srcClockHz  = EXAMPLE_CLOCK_FREQ,
+#ifdef configMAC_ADDR1
+                                        .macAddress = configMAC_ADDR1
+#endif
+    };
+    static struct netif s_netif1;
+#ifndef configMAC_ADDR1
+    (void)SILICONID_ConvertToMacAddr(&enet1_config.macAddress);
+#endif
+    IP4_ADDR(&netif1_ipaddr, configIP1_ADDR0, configIP1_ADDR1, configIP1_ADDR2, configIP1_ADDR3);
+    IP4_ADDR(&netif1_netmask, configNET1_MASK0, configNET1_MASK1, configNET1_MASK2, configNET1_MASK3);
+    IP4_ADDR(&netif1_gw, configGW1_ADDR0, configGW1_ADDR1, configGW1_ADDR2, configGW1_ADDR3);
+    netifapi_netif_add(&s_netif1, &netif1_ipaddr, &netif1_netmask, &netif1_gw, &enet1_config, EXAMPLE_NETIF1_INIT_FN,
+                       tcpip_input);
+    netifapi_netif_set_up(&s_netif1);
+#else
+    /*
+     * Single netif is used, set is as default to avoid
+     * the need to append zone indices to link-local IPv6 addresses.
+     */
+    netifapi_netif_set_default(&s_netif0);
+#endif /* defined(BOARD_NETWORK_USE_DUAL_ENET) */
+
     LOCK_TCPIP_CORE();
-    netif_create_ip6_linklocal_address(netif_default, 1);
+    netif_create_ip6_linklocal_address(&s_netif0, 1);
+#if defined(BOARD_NETWORK_USE_DUAL_ENET)
+    netif_create_ip6_linklocal_address(&s_netif1, 1);
+#endif
     UNLOCK_TCPIP_CORE();
 
-    while (ethernetif_wait_linkup(&s_netif, 5000) != ERR_OK)
+    struct netif *netif_array[BOARD_PHY_COUNT];
+    netif_array[0] = &s_netif0;
+#if defined(BOARD_NETWORK_USE_DUAL_ENET)
+    netif_array[1] = &s_netif1;
+#endif
+
+    while (ethernetif_wait_linkup_array(netif_array, BOARD_PHY_COUNT, 5000) != ERR_OK)
     {
         PRINTF("PHY Auto-negotiation failed. Please check the cable connection and link partner setting.\r\n");
     }
@@ -263,14 +372,13 @@ int main(void)
 
     IOMUXC_SelectENETClock();
 
-#if BOARD_NETWORK_USE_100M_ENET_PORT
     BOARD_InitEnetPins();
     GPIO_PinInit(GPIO12, 12, &gpio_config);
     GPIO_WritePinOutput(GPIO12, 12, 0);
     SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
     GPIO_WritePinOutput(GPIO12, 12, 1);
     SDK_DelayAtLeastUs(6, CLOCK_GetFreq(kCLOCK_CpuClk));
-#else
+
     BOARD_InitEnet1GPins();
     GPIO_PinInit(GPIO11, 14, &gpio_config);
     /* For a complete PHY reset of RTL8211FDI-CG, this pin must be asserted low for at least 10ms. And
@@ -279,14 +387,16 @@ int main(void)
     SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
     GPIO_WritePinOutput(GPIO11, 14, 1);
     SDK_DelayAtLeastUs(30000, CLOCK_GetFreq(kCLOCK_CpuClk));
-
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_1_IRQn);
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_2_IRQn);
-#endif
 
     MDIO_Init();
     g_phy_resource.read  = MDIO_Read;
     g_phy_resource.write = MDIO_Write;
+
+    MDIO_Init_1G();
+    g_phy1_resource.read  = MDIO_Read_1G;
+    g_phy1_resource.write = MDIO_Write_1G;
 
     /* Initialize lwIP from thread */
     if (sys_thread_new("main", stack_init, NULL, INIT_THREAD_STACKSIZE, INIT_THREAD_PRIO) == NULL)

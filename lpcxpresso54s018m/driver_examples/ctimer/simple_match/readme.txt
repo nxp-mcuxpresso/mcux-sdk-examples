@@ -5,8 +5,8 @@ In this example, the match feature of the CTimer is used to toggle the output le
 
 Toolchain supported
 ===================
-- MCUXpresso  11.6.0
-- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.8.0
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

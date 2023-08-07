@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -73,7 +81,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../board_init.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/label_image
     ${SdkRootDirPath}/middleware/eiq/common
     ${SdkRootDirPath}/middleware/eiq/common/image
@@ -82,80 +90,8 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/middleware/eiq/tensorflow-lite
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/drivers/flexcomm
-    ${SdkRootDirPath}/core/devices/MIMXRT595S
-    ${SdkRootDirPath}/core/drivers/cache/cache64
-    ${SdkRootDirPath}/core/devices/MIMXRT595S/drivers
-    ${SdkRootDirPath}/core/boards/evkmimxrt595/flash_config
-    ${SdkRootDirPath}/core/drivers/flexspi
-    ${SdkRootDirPath}/core/drivers/lpc_gpio
-    ${SdkRootDirPath}/core/drivers/lpc_iopctl
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/middleware/eiq
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-    ${SdkRootDirPath}/middleware/eiq/tensorflow-lite/third_party/cmsis
-)
 
-# include modules
-include(utility_debug_console_lite)
-
-include(utility_assert_lite)
-
-include(middleware_eiq_tensorflow_lite_micro)
-
-include(component_lists)
-
-include(driver_common)
-
-include(component_usart_adapter)
-
-include(driver_flexcomm_usart)
-
-include(device_CMSIS)
-
-include(device_startup)
-
-include(driver_cache_cache64)
-
-include(driver_clock)
-
-include(driver_flash_config_evkmimxrt595)
-
-include(driver_flexcomm)
-
-include(driver_flexspi)
-
-include(driver_lpc_gpio)
-
-include(driver_lpc_iopctl)
-
-include(driver_power)
-
-include(driver_reset)
-
-include(middleware_eiq_tensorflow_lite_micro_cmsis_nn)
-
-include(CMSIS_Include_core_cm)
-
-include(middleware_eiq_tensorflow_lite_micro_third_party_flatbuffers)
-
-include(middleware_eiq_tensorflow_lite_micro_third_party_gemmlowp)
-
-include(middleware_eiq_tensorflow_lite_micro_third_party_ruy)
-
-include(utilities_misc_utilities)
-
-include(driver_iap)
-
-include(middleware_eiq_tensorflow_lite_micro_third_party_cmsis_nn)
-
+include(${SdkRootDirPath}/core/devices/MIMXRT595S/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -167,4 +103,5 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBR
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map")
 

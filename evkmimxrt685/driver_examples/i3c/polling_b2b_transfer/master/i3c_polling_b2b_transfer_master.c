@@ -1,6 +1,5 @@
 /*
- * Copyright 2019 NXP
- * All rights reserved.
+ * Copyright 2019,2022 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -33,7 +32,6 @@
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-
 uint8_t g_master_txBuff[I3C_DATA_LENGTH];
 uint8_t g_master_rxBuff[I3C_DATA_LENGTH];
 
@@ -108,12 +106,10 @@ int main(void)
         return -1;
     }
 
-    PRINTF("Receive sent data from slave :");
-
     /* Wait until the slave is ready for transmit, wait time depend on user's case.
        Slave devices that need some time to process received byte or are not ready yet to
        send the next byte, can pull the clock low to signal to the master that it should wait.*/
-    for (uint32_t i = 0U; i < WAIT_TIME; i++)
+    for (volatile uint32_t i = 0U; i < WAIT_TIME; i++)
     {
         __NOP();
     }
@@ -135,6 +131,7 @@ int main(void)
         return -1;
     }
 
+    PRINTF("Receive sent data from slave :");
     for (uint32_t i = 0U; i < I3C_DATA_LENGTH - 1U; i++)
     {
         if (i % 8 == 0)
@@ -160,7 +157,6 @@ int main(void)
 
     /* Reset dynamic address before DAA */
     memset(&masterXfer, 0, sizeof(masterXfer));
-
     masterXfer.slaveAddress   = 0x7EU; /* Broadcast address */
     masterXfer.subaddress     = 0x06U; /* CCC command RSTDAA */
     masterXfer.subaddressSize = 1U;
@@ -197,8 +193,8 @@ int main(void)
     }
 
     PRINTF("\r\nStart to do I3C master transfer in I3C SDR mode.");
-    memset(&masterXfer, 0, sizeof(masterXfer));
 
+    memset(&masterXfer, 0, sizeof(masterXfer));
     masterXfer.slaveAddress = slaveAddr;
     masterXfer.data         = g_master_txBuff;
     masterXfer.dataSize     = I3C_DATA_LENGTH;
@@ -213,13 +209,12 @@ int main(void)
     }
 
     /* Wait until the slave is ready for transmit, wait time depend on user's case.*/
-    for (uint32_t i = 0U; i < WAIT_TIME; i++)
+    for (volatile uint32_t i = 0U; i < WAIT_TIME; i++)
     {
         __NOP();
     }
 
     memset(g_master_rxBuff, 0, I3C_DATA_LENGTH);
-
     masterXfer.slaveAddress = slaveAddr;
     masterXfer.data         = g_master_rxBuff;
     masterXfer.dataSize     = I3C_DATA_LENGTH - 1U;

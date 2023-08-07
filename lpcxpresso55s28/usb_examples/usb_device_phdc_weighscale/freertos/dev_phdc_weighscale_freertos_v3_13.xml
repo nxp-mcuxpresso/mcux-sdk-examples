@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="middleware.freertos-kernel.cm33_non_trustzone.LPC55S28"/>
+    <definition extID="middleware.usb.device_controller_ip3511fs.LPC55S28"/>
+    <definition extID="middleware.freertos-kernel.LPC55S28"/>
+    <definition extID="middleware.freertos-kernel.heap_4.LPC55S28"/>
+    <definition extID="component.lists.LPC55S28"/>
+    <definition extID="component.serial_manager_uart.LPC55S28"/>
+    <definition extID="component.serial_manager.LPC55S28"/>
+    <definition extID="platform.drivers.flexcomm_usart.LPC55S28"/>
+    <definition extID="component.usart_adapter.LPC55S28"/>
+    <definition extID="device.LPC55S28_CMSIS.LPC55S28"/>
+    <definition extID="device.LPC55S28_startup.LPC55S28"/>
+    <definition extID="platform.drivers.clock.LPC55S28"/>
+    <definition extID="platform.drivers.common.LPC55S28"/>
+    <definition extID="platform.drivers.flexcomm.LPC55S28"/>
+    <definition extID="platform.drivers.lpc_gpio.LPC55S28"/>
+    <definition extID="platform.drivers.lpc_iocon.LPC55S28"/>
+    <definition extID="platform.drivers.power.LPC55S28"/>
+    <definition extID="platform.drivers.reset.LPC55S28"/>
+    <definition extID="middleware.usb.device.controller.driver.LPC55S28"/>
+    <definition extID="middleware.usb.device_controller_ip3511hs.LPC55S28"/>
+    <definition extID="middleware.usb.phy.LPC55S28"/>
+    <definition extID="platform.utilities.assert.LPC55S28"/>
+    <definition extID="utility.debug_console.LPC55S28"/>
+    <definition extID="platform.utilities.misc_utilities.LPC55S28"/>
+    <definition extID="middleware.usb.device.ip3511fs_config_header.LPC55S28"/>
+    <definition extID="middleware.usb.device.common_header.LPC55S28"/>
+    <definition extID="component.osa.LPC55S28"/>
+    <definition extID="middleware.usb.common_header.LPC55S28"/>
+    <definition extID="middleware.freertos-kernel.template.LPC55S28"/>
+    <definition extID="middleware.freertos-kernel.extension.LPC55S28"/>
+    <definition extID="CMSIS_Include_core_cm.LPC55S28"/>
+    <definition extID="device.LPC55S28_system.LPC55S28"/>
+    <definition extID="middleware.usb.device.ip3511hs_config_header.LPC55S28"/>
+    <definition extID="armgcc"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+  </externalDefinitions>
+  <example id="lpcxpresso55s28_dev_phdc_weighscale_freertos" name="dev_phdc_weighscale_freertos" dependency="middleware.freertos-kernel.cm33_non_trustzone.LPC55S28 middleware.usb.device_controller_ip3511fs.LPC55S28 middleware.freertos-kernel.LPC55S28 middleware.freertos-kernel.heap_4.LPC55S28 component.lists.LPC55S28 component.serial_manager_uart.LPC55S28 component.serial_manager.LPC55S28 platform.drivers.flexcomm_usart.LPC55S28 component.usart_adapter.LPC55S28 device.LPC55S28_CMSIS.LPC55S28 device.LPC55S28_startup.LPC55S28 platform.drivers.clock.LPC55S28 platform.drivers.common.LPC55S28 platform.drivers.flexcomm.LPC55S28 platform.drivers.lpc_gpio.LPC55S28 platform.drivers.lpc_iocon.LPC55S28 platform.drivers.power.LPC55S28 platform.drivers.reset.LPC55S28 middleware.usb.device.controller.driver.LPC55S28 middleware.usb.device_controller_ip3511hs.LPC55S28 middleware.usb.phy.LPC55S28 platform.utilities.assert.LPC55S28 utility.debug_console.LPC55S28 platform.utilities.misc_utilities.LPC55S28 middleware.usb.device.ip3511fs_config_header.LPC55S28 middleware.usb.device.common_header.LPC55S28 component.osa.LPC55S28 middleware.usb.common_header.LPC55S28 middleware.freertos-kernel.template.LPC55S28 middleware.freertos-kernel.extension.LPC55S28 CMSIS_Include_core_cm.LPC55S28 device.LPC55S28_system.LPC55S28 middleware.usb.device.ip3511hs_config_header.LPC55S28" category="usb_examples">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>_DEBUG=1</value>
+          <value>CPU_LPC55S28JBD100=1</value>
+          <value>USB_STACK_FREERTOS</value>
+          <value>USB_STACK_FREERTOS_HEAP_SIZE=16384</value>
+          <value>USB_STACK_USE_DEDICATED_RAM=1</value>
+          <value>FSL_OSA_BM_TASK_ENABLE=0</value>
+          <value>FSL_OSA_BM_TIMER_CONFIG=0</value>
+          <value>SDK_DEBUGCONSOLE=1</value>
+          <value>MCUXPRESSO_SDK</value>
+          <value>SDK_OS_FREE_RTOS</value>
+          <value>SERIAL_PORT_TYPE_UART=1</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-mno-unaligned-access -mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.heapAndStack" type="string">
+          <value>&amp;Heap:Default;Default;0x100&amp;Stack:Default;Default;0x2000</value>
+        </option>
+        <option id="gnu.c.link.option.other" type="stringList">
+          <value>-no-warn-rwx-segments</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <include_paths>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="source/ieee11073_agent" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="c_include"/>
+      <include_path path="../../.." project_relative_path="source" type="c_include"/>
+      <include_path path="." project_relative_path="usb/device/class/phdc" type="c_include"/>
+      <include_path path="." project_relative_path="usb/device/source" type="c_include"/>
+      <include_path path="." project_relative_path="usb/device/class" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="asm_include"/>
+      <include_path path="../../.." project_relative_path="source" type="asm_include"/>
+    </include_paths>
+    <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_release.bat"/>
+      <files mask="build_release.sh"/>
+      <files mask="build_debug.bat"/>
+      <files mask="build_debug.sh"/>
+    </source>
+    <source path="../../../../../core/devices/LPC55S28" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="all_lib_device.cmake"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="." project_relative_path="lpcxpresso55s28/usb_examples/usb_device_phdc_weighscale/freertos" type="doc">
+      <files mask="readme.pdf" hidden="true"/>
+    </source>
+    <source path="." project_relative_path="source/ieee11073_agent" type="src">
+      <files mask="ieee11073_agent.c"/>
+      <files mask="ieee11073_timer.c"/>
+    </source>
+    <source path="." project_relative_path="source/ieee11073_agent" type="c_include">
+      <files mask="ieee11073_agent.h"/>
+      <files mask="ieee11073_types.h"/>
+      <files mask="ieee11073_timer.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="usb_device_descriptor.c"/>
+      <files mask="usb_shim_agent.c"/>
+      <files mask="weighscale.c"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="usb_device_descriptor.h"/>
+      <files mask="usb_shim_agent.h"/>
+      <files mask="weighscale.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include" config="true">
+      <files mask="usb_device_config.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include" config="true">
+      <files mask="FreeRTOSConfig.h"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso">
+      <files mask="readme.txt"/>
+    </source>
+    <source path="armgcc" project_relative_path="LPC55S28/gcc" type="linker" toolchain="armgcc">
+      <files mask="LPC55S28_flash.ld"/>
+    </source>
+    <source path="." project_relative_path="usb/device/class/phdc" type="src">
+      <files mask="usb_device_phdc.c"/>
+    </source>
+    <source path="." project_relative_path="usb/device/class/phdc" type="c_include">
+      <files mask="usb_device_phdc.h"/>
+    </source>
+    <source path="." project_relative_path="usb/device/source" type="src">
+      <files mask="usb_device_ch9.c"/>
+    </source>
+    <source path="." project_relative_path="usb/device/source" type="c_include">
+      <files mask="usb_device_ch9.h"/>
+    </source>
+    <source path="." project_relative_path="usb/device/class" type="src">
+      <files mask="usb_device_class.c"/>
+    </source>
+    <source path="." project_relative_path="usb/device/class" type="c_include">
+      <files mask="usb_device_class.h"/>
+    </source>
+  </example>
+</ksdk:examples>

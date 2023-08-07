@@ -16,9 +16,9 @@
 #include "fsl_debug_console.h"
 #include "fsl_sai_edma.h"
 #include "fsl_codec_common.h"
+#include "fsl_wm8960.h"
 #include "fsl_gpio.h"
 #include "fsl_iomuxc.h"
-#include "fsl_wm8960.h"
 #include "fsl_codec_adapter.h"
 /*******************************************************************************
  * Definitions

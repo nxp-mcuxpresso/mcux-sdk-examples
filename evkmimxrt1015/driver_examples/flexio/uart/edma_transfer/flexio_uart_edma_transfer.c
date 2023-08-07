@@ -150,6 +150,9 @@ int main(void)
     DMAMUX_EnableChannel(EXAMPLE_FLEXIO_UART_DMAMUX_BASEADDR, FLEXIO_UART_RX_DMA_CHANNEL);
 #endif
     EDMA_GetDefaultConfig(&config);
+#if defined(BOARD_GetEDMAConfig)
+    BOARD_GetEDMAConfig(config);
+#endif
     EDMA_Init(EXAMPLE_FLEXIO_UART_DMA_BASEADDR, &config);
 
     EDMA_CreateHandle(&g_uartTxEdmaHandle, EXAMPLE_FLEXIO_UART_DMA_BASEADDR, FLEXIO_UART_TX_DMA_CHANNEL);

@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -58,7 +66,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/evkmimx8mm/board.h"
 "${SdkRootDirPath}/core/boards/evkmimx8mm/clock_config.c"
 "${SdkRootDirPath}/core/boards/evkmimx8mm/clock_config.h"
-"${ProjDirPath}/../fsl_iomuxc.h"
+"${SdkRootDirPath}/core/devices/MIMX8MM6/drivers/fsl_iomuxc.h"
 "${ProjDirPath}/../srtm_config.h"
 "${ProjDirPath}/../app_srtm.c"
 "${ProjDirPath}/../app_srtm.h"
@@ -76,133 +84,17 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/components/srtm/services/srtm_wm8524_adapter.c"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/evkmimx8mm
+    ${SdkRootDirPath}/core/devices/MIMX8MM6/drivers
     ${SdkRootDirPath}/core/components/srtm/channels
     ${SdkRootDirPath}/core/components/srtm/services
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core/drivers/igpio
-    ${SdkRootDirPath}/core/drivers/iuart
-    ${SdkRootDirPath}/core/drivers/gpc_2
-    ${SdkRootDirPath}/core/drivers/gpt
-    ${SdkRootDirPath}/core/components/codec
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/components/codec/
-    ${SdkRootDirPath}/core/drivers/pdm
-    ${SdkRootDirPath}/core/components/codec/i2c
-    ${SdkRootDirPath}/core/components/i2c
-    ${SdkRootDirPath}/middleware/multicore
-    ${SdkRootDirPath}/core/devices/MIMX8MM6/drivers
-    ${SdkRootDirPath}/core/drivers/sai
-    ${SdkRootDirPath}/core/drivers/rdc
-    ${SdkRootDirPath}/core/devices/MIMX8MM6
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/components/serial_manager
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/drivers/sdma
-    ${SdkRootDirPath}/core/drivers/mu
-    ${SdkRootDirPath}/core/components/codec/ak4497
-    ${SdkRootDirPath}/core/components/srtm/port
-    ${SdkRootDirPath}/core/components/srtm
-    ${SdkRootDirPath}/core/drivers/ii2c
-    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
-    ${SdkRootDirPath}/core/components/codec/wm8524
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
+set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")
 
-# include modules
-include(driver_igpio)
-
-include(driver_iuart)
-
-include(driver_gpc_2)
-
-include(driver_gpt)
-
-include(driver_codec)
-
-include(driver_common)
-
-include(component_codec_adapters)
-
-include(driver_pdm_sdma)
-
-include(component_codec_i2c_MIMX8MM6)
-
-include(component_ii2c_adapter)
-
-include(component_ak4497_adapter)
-
-include(component_wm8524_adapter)
-
-include(middleware_multicore_rpmsg_lite_MIMX8MM6)
-
-include(middleware_multicore_rpmsg_lite_freertos)
-
-include(driver_clock)
-
-include(driver_sai)
-
-include(driver_sai_sdma)
-
-include(driver_rdc)
-
-include(device_CMSIS)
-
-include(utility_debug_console)
-
-include(component_iuart_adapter)
-
-include(component_serial_manager)
-
-include(component_lists)
-
-include(component_serial_manager_uart)
-
-include(device_startup)
-
-include(utility_assert)
-
-include(CMSIS_Include_core_cm)
-
-include(driver_sdma)
-
-include(driver_memory)
-
-include(driver_mu)
-
-include(driver_ak4497)
-
-include(driver_srtm_freertos)
-
-include(driver_srtm_MIMX8MM6)
-
-include(driver_ii2c_freertos)
-
-include(driver_ii2c)
-
-include(middleware_freertos-kernel_MIMX8MM6)
-
-include(middleware_freertos-kernel_extension)
-
-include(middleware_multicore_rpmsg_lite_imx8mm_m4_freertos)
-
-include(middleware_freertos-kernel_heap_4)
-
-include(driver_pdm)
-
-include(driver_wm8524)
-
-include(utilities_misc_utilities_MIMX8MM6)
-
-include(device_system)
-
+include(${SdkRootDirPath}/core/devices/MIMX8MM6/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -216,4 +108,6 @@ TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
 ADD_CUSTOM_COMMAND(TARGET ${MCUX_SDK_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_OBJCOPY}
 -Obinary ${EXECUTABLE_OUTPUT_PATH}/${MCUX_SDK_PROJECT_NAME} ${EXECUTABLE_OUTPUT_PATH}/sai_low_power_audio.bin)
+
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map;${EXECUTABLE_OUTPUT_PATH}/sai_low_power_audio.bin")
 

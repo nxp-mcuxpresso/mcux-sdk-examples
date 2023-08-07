@@ -14,9 +14,9 @@
 #include "music.h"
 #include "fsl_codec_common.h"
 
+#include "fsl_wm8524.h"
 #include "fsl_common.h"
 #include "fsl_gpio.h"
-#include "fsl_wm8524.h"
 #include "fsl_codec_adapter.h"
 /*******************************************************************************
  * Definitions

@@ -7,8 +7,8 @@ Users can use some tools such as EXCEL to recover the input signal based on thos
 
 Toolchain supported
 ===================
-- MCUXpresso  11.6.0
-- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.8.0
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

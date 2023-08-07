@@ -23,6 +23,9 @@ typedef struct _app_data
     int lastPreset;          // buffer for last active preset selection
     int logEnabled;          // enable log to increase debug verbosity
     ext_proc_args eap_args;
+#ifdef MULTICHANNEL_EXAMPLE
+    uint8_t num_channels; // number of channels set with cli
+#endif
 } app_data_t;
 
 app_data_t *get_app_data();

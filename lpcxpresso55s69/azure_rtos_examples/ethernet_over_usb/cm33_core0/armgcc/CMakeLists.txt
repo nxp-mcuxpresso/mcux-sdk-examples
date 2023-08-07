@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -61,39 +69,6 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_asynchronous_endpoint_create.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_asynchronous_endpoint_destroy.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_controller_disable.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_done_queue_process.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_endpoint_reset.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_entry.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_frame_number_get.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_frame_number_set.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516.h"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_initialize.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_interrupt_endpoint_create.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_interrupt_endpoint_destroy.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_interrupt_handler.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_isochronous_endpoint_create.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_isochronous_endpoint_destroy.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_least_traffic_list_get.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_port_disable.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_port_reset.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_port_resume.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_port_status_get.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_port_suspend.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_power_down_port.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_power_on_port.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_power_root_hubs.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_register_read.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_register_write.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_request_bulk_transfer.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_request_control_transfer.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_request_interrupt_transfer.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_request_isochronous_transfer.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_request_transfer.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_transfer_abort.c"
-"${ProjDirPath}/../usbx_host_controllers_ip3516/ux_hcd_ip3516_transfer_request_process.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../board_setup.c"
@@ -105,107 +80,27 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../fx_user.h"
 "${ProjDirPath}/../nx_user.h"
 "${ProjDirPath}/../ux_user.h"
-"${ProjDirPath}/../board.c"
-"${ProjDirPath}/../board.h"
-"${ProjDirPath}/../clock_config.c"
-"${ProjDirPath}/../clock_config.h"
+"${SdkRootDirPath}/core/boards/lpcxpresso55s69/board.c"
+"${SdkRootDirPath}/core/boards/lpcxpresso55s69/board.h"
+"${SdkRootDirPath}/core/boards/lpcxpresso55s69/clock_config.c"
+"${SdkRootDirPath}/core/boards/lpcxpresso55s69/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
-    ${ProjDirPath}/../usbx_host_controllers_ip3516
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
+    ${SdkRootDirPath}/core/boards/lpcxpresso55s69
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/middleware/usb
-    ${SdkRootDirPath}/rtos/azure-rtos
-    ${SdkRootDirPath}/core/devices/LPC55S69/drivers
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/devices/LPC55S69
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/components/serial_manager
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/drivers/flexcomm
-    ${SdkRootDirPath}/core/drivers/lpc_iocon
-    ${SdkRootDirPath}/core/drivers/lpc_gpio
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/components/osa
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
 
-# include modules
-include(middleware_usb_phy)
+include(${SdkRootDirPath}/core/devices/LPC55S69/all_lib_device.cmake)
 
-include(middleware_azure_rtos_ux_sp)
+add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/usbx ${SdkRootDirPath}/rtos/azure-rtos/build/libusbx)
 
-include(driver_clock)
+add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/netxduo ${SdkRootDirPath}/rtos/azure-rtos/build/libnetxduo)
 
-include(driver_power)
+add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/filex ${SdkRootDirPath}/rtos/azure-rtos/build/libfilex)
 
-include(driver_common)
-
-include(device_CMSIS)
-
-include(utility_debug_console)
-
-include(component_usart_adapter)
-
-include(component_serial_manager)
-
-include(component_lists)
-
-include(component_serial_manager_uart_LPC55S69_cm33_core0)
-
-include(driver_flexcomm_usart)
-
-include(device_startup_LPC55S69_cm33_core0)
-
-include(driver_flexcomm)
-
-include(driver_lpc_iocon)
-
-include(driver_lpc_gpio)
-
-include(utility_assert)
-
-include(component_osa_thread)
-
-include(middleware_usb_common_header)
-
-include(component_osa)
-
-include(driver_reset)
-
-include(CMSIS_Include_core_cm)
-
-include(middleware_azure_rtos_ux_template_LPC55S69_cm33_core0)
-
-include(middleware_azure_rtos_nxd_sp)
-
-include(middleware_azure_rtos_nxd_template_LPC55S69_cm33_core0)
-
-include(middleware_azure_rtos_fx_sp)
-
-include(middleware_azure_rtos_fx_template_LPC55S69_cm33_core0)
-
-include(middleware_azure_rtos_tx_sp)
-
-include(middleware_azure_rtos_tx_template_LPC55S69_cm33_core0)
-
-include(utilities_misc_utilities)
-
-include(device_system_LPC55S69_cm33_core0)
-
-
-add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/threadx ./CMakeFiles/libthreadx)
-
-add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/filex ./CMakeFiles/libfilex)
-
-add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/netxduo ./CMakeFiles/libnetxduo)
-
-add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/usbx ./CMakeFiles/libusbx)
+add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/threadx ${SdkRootDirPath}/rtos/azure-rtos/build/libthreadx)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -222,4 +117,5 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBR
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map")
 

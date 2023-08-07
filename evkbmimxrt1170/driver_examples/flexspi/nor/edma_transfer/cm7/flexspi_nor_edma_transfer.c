@@ -111,7 +111,7 @@ const uint32_t customLUT[CUSTOM_LUT_LENGTH] = {
 
     /* Enable Quad mode */
     [4 * NOR_CMD_LUT_SEQ_IDX_WRITESTATUSREG] =
-        FLEXSPI_LUT_SEQ(kFLEXSPI_Command_SDR, kFLEXSPI_1PAD, 0x01, kFLEXSPI_Command_WRITE_SDR, kFLEXSPI_1PAD, 0x04),
+        FLEXSPI_LUT_SEQ(kFLEXSPI_Command_SDR, kFLEXSPI_1PAD, 0x31, kFLEXSPI_Command_WRITE_SDR, kFLEXSPI_1PAD, 0x04),
 
     /* Read status register */
     [4 * NOR_CMD_LUT_SEQ_IDX_READSTATUSREG] =
@@ -166,6 +166,9 @@ int main(void)
      * userConfig.enableDebugMode = false;
      */
     EDMA_GetDefaultConfig(&userConfig);
+#if defined(BOARD_GetEDMAConfig)
+    BOARD_GetEDMAConfig(userConfig);
+#endif
     EDMA_Init(EXAMPLE_FLEXSPI_DMA, &userConfig);
 
     /* Create the EDMA channel handles */
@@ -227,7 +230,7 @@ int main(void)
     }
 
 #if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
-    DCACHE_InvalidateByRange(EXAMPLE_FLEXSPI_AMBA_BASE + EXAMPLE_SECTOR * SECTOR_SIZE, FLASH_PAGE_SIZE);
+    DCACHE_InvalidateByRange(EXAMPLE_FLEXSPI_AMBA_BASE + EXAMPLE_SECTOR * SECTOR_SIZE, SECTOR_SIZE);
 #endif
 
     memset(s_nor_program_buffer, 0xFFU, sizeof(s_nor_program_buffer));
@@ -248,6 +251,10 @@ int main(void)
     {
         s_nor_program_buffer[i] = i;
     }
+
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    DCACHE_CleanByRange((uint32_t)s_nor_program_buffer, sizeof(s_nor_program_buffer));
+#endif
 
 #if defined(__ICACHE_PRESENT) && (__ICACHE_PRESENT == 1U)
     /* Disable I cache. */

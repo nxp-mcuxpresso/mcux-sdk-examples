@@ -187,7 +187,7 @@ static void Fault_Handler(void)
 
         RDC_ClearMemViolationFlag(APP_RDC, APP_RDC_MEM);
     }
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 void HardFault_Handler(void)

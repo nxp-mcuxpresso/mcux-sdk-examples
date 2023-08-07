@@ -17,8 +17,8 @@
 #include <stdlib.h>
 #include "mcmgr.h"
 
-#include "fsl_gpio.h"
 #include "fsl_common.h"
+#include "fsl_gpio.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -53,6 +53,18 @@ static volatile uint16_t eRPCReadyEventData = 0;
 /*******************************************************************************
  * Code
  ******************************************************************************/
+
+/*!
+ * @brief Application-specific implementation of the SystemInitHook() weak function.
+ */
+void SystemInitHook(void)
+{
+    /* Initialize MCMGR - low level multicore management library. Call this
+       function as close to the reset entry as possible to allow CoreUp event
+       triggering. The SystemInitHook() weak function overloading is used in this
+       application. */
+    (void)MCMGR_EarlyInit();
+}
 static TaskHandle_t app_task_handle = NULL;
 
 /*!
@@ -96,18 +108,6 @@ static void print_matrix(Matrix matrix_ptr)
 static void eRPCReadyEventHandler(uint16_t eventData, void *context)
 {
     eRPCReadyEventData = eventData;
-}
-
-/*!
- * @brief Application-specific implementation of the SystemInitHook() weak function.
- */
-void SystemInitHook(void)
-{
-    /* Initialize MCMGR - low level multicore management library. Call this
-       function as close to the reset entry as possible to allow CoreUp event
-       triggering. The SystemInitHook() weak function overloading is used in this
-       application. */
-    (void)MCMGR_EarlyInit();
 }
 
 static void app_task(void *param)

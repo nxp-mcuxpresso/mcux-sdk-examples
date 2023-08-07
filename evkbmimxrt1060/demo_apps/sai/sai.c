@@ -8,6 +8,7 @@
 
 #include "sai.h"
 
+#include "fsl_common.h"
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "board.h"
@@ -19,7 +20,6 @@
 #endif
 #include "fsl_codec_adapter.h"
 #include "fsl_dmamux.h"
-#include "fsl_common.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -543,5 +543,5 @@ void SAI_UserIRQHandler(void)
     {
         SAI_UserRxIRQHandler();
     }
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }

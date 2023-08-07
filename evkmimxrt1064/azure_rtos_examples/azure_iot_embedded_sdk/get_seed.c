@@ -15,17 +15,18 @@ static void delay(void)
 
 uint32_t get_seed(void)
 {
+    TRNG_Type *base_ptr = (TRNG_Type *[])TRNG_BASE_PTRS[0];
     uint32_t random_val = 0;
     trng_config_t trngConfig;
 
     TRNG_GetDefaultConfig(&trngConfig);
     trngConfig.sampleMode = kTRNG_SampleModeVonNeumann;
-    TRNG_Init(TRNG, &trngConfig);
+    TRNG_Init(base_ptr, &trngConfig);
 
     /* delay */
     delay();
 
-    TRNG_GetRandomData(TRNG, (void *)&random_val, sizeof(random_val));
+    TRNG_GetRandomData(base_ptr, (void *)&random_val, sizeof(random_val));
 
     return random_val;
 }

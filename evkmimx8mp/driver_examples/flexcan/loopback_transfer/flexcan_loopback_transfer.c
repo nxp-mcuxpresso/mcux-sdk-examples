@@ -215,6 +215,7 @@ int main(void)
     txFrame.length = (uint8_t)DLC;
 #if (defined(USE_CANFD) && USE_CANFD)
     txFrame.brs = 1U;
+    txFrame.edl = 1U;
 #endif
 #if (defined(USE_CANFD) && USE_CANFD)
     uint8_t i = 0;

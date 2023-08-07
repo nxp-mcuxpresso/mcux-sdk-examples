@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -75,107 +83,25 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../gx_touch_driver_imxrt10xx_capacitive.c"
 "${ProjDirPath}/../gx_display_driver_imxrt10xx_565rgb.c"
 "${ProjDirPath}/../gx_driver_imxrt10xx_irq.c"
-"${ProjDirPath}/../board.c"
-"${ProjDirPath}/../board.h"
-"${ProjDirPath}/../clock_config.c"
-"${ProjDirPath}/../clock_config.h"
-"${ProjDirPath}/../dcd.c"
-"${ProjDirPath}/../dcd.h"
+"${SdkRootDirPath}/core/boards/evkbmimxrt1060/board.c"
+"${SdkRootDirPath}/core/boards/evkbmimxrt1060/board.h"
+"${SdkRootDirPath}/core/boards/evkbmimxrt1060/clock_config.c"
+"${SdkRootDirPath}/core/boards/evkbmimxrt1060/clock_config.h"
+"${SdkRootDirPath}/core/boards/evkbmimxrt1060/dcd.c"
+"${SdkRootDirPath}/core/boards/evkbmimxrt1060/dcd.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
+    ${SdkRootDirPath}/core/boards/evkbmimxrt1060
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/rtos/azure-rtos
-    ${SdkRootDirPath}/core/components/ft5406_rt
-    ${SdkRootDirPath}/core/components/gt911
-    ${SdkRootDirPath}/core/components/video/display/dc/elcdif
-    ${SdkRootDirPath}/core/drivers/lpi2c
-    ${SdkRootDirPath}/core/drivers/pxp
-    ${SdkRootDirPath}/core/devices/MIMXRT1062/drivers
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/devices/MIMXRT1062
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/components/serial_manager
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/drivers/lpuart
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/drivers/igpio
-    ${SdkRootDirPath}/core/devices/MIMXRT1062/xip
-    ${SdkRootDirPath}/core/boards/evkbmimxrt1060/xip
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/components/video/display/dc
-    ${SdkRootDirPath}/core/components/video
-    ${SdkRootDirPath}/core/drivers/elcdif
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
 
-# include modules
-include(middleware_azure_rtos_gx)
+include(${SdkRootDirPath}/core/devices/MIMXRT1062/all_lib_device.cmake)
 
-include(driver_ft5406_rt)
+add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/guix ${SdkRootDirPath}/rtos/azure-rtos/build/libguix)
 
-include(driver_gt911)
-
-include(driver_dc-fb-elcdif)
-
-include(driver_lpi2c)
-
-include(driver_pxp)
-
-include(driver_clock)
-
-include(driver_common)
-
-include(device_CMSIS)
-
-include(utility_debug_console)
-
-include(component_lpuart_adapter)
-
-include(component_serial_manager)
-
-include(component_lists)
-
-include(component_serial_manager_uart_MIMXRT1062)
-
-include(driver_lpuart)
-
-include(device_startup)
-
-include(driver_iomuxc)
-
-include(utility_assert)
-
-include(driver_igpio)
-
-include(driver_xip_device)
-
-include(driver_xip_board_evkbmimxrt1060)
-
-include(middleware_azure_rtos_tx)
-
-include(middleware_azure_rtos_tx_template_MIMXRT1062)
-
-include(CMSIS_Include_core_cm)
-
-include(driver_dc-fb-common)
-
-include(driver_video-common)
-
-include(driver_elcdif)
-
-include(utilities_misc_utilities)
-
-include(device_system)
-
-
-add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/threadx ./CMakeFiles/libthreadx)
-
-add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/guix ./CMakeFiles/libguix)
+add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/threadx ${SdkRootDirPath}/rtos/azure-rtos/build/libthreadx)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -190,4 +116,5 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBR
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map")
 

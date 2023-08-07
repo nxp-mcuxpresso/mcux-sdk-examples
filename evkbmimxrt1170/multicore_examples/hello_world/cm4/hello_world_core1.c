@@ -42,6 +42,7 @@ volatile bool g_pinSet = false;
 /*******************************************************************************
  * Code
  ******************************************************************************/
+
 /*!
  * @brief Application-specific implementation of the SystemInitHook() weak function.
  */
@@ -53,7 +54,6 @@ void SystemInitHook(void)
        application. */
     (void)MCMGR_EarlyInit();
 }
-
 /*!
  * @brief Main function
  */
@@ -65,6 +65,7 @@ int main(void)
     /* Init board hardware.*/
     BOARD_ConfigMPU();
     BOARD_InitPins();
+    SystemCoreClock = CLOCK_GetRootClockFreq(kCLOCK_Root_M4);
 
     /* Initialize MCMGR, install generic event handlers */
     (void)MCMGR_Init();

@@ -29,9 +29,9 @@
 #include "fsl_phy.h"
 #include "modelrunner.h"
 
-#include "fsl_phyksz8081.h"
 #include "fsl_iomuxc.h"
 #include "fsl_enet.h"
+#include "fsl_phyksz8081.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

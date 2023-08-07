@@ -8,7 +8,7 @@ Note: If DATA3 is used as the card detect PIN, please make sure DATA3 is pull do
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

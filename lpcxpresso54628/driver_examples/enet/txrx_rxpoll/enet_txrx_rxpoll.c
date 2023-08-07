@@ -12,9 +12,9 @@
 #include "fsl_enet.h"
 #include "fsl_phy.h"
 
+#include "fsl_phylan8720a.h"
 #include "pin_mux.h"
 #include "board.h"
-#include "fsl_phylan8720a.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

@@ -33,13 +33,13 @@ SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DDEBUG")
 
 SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DSDK_DEBUGCONSOLE=1")
 
-SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DSERIAL_PORT_TYPE_UART=1")
-
-SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DDEBUG_CONSOLE_RX_ENABLE=0")
-
 SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DCPU_MIMXRT685SFVKB_dsp")
 
 SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DMCUXPRESSO_SDK")
+
+SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DSERIAL_PORT_TYPE_UART=1")
+
+SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DDEBUG_CONSOLE_RX_ENABLE=0")
 
 SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -g")
 
@@ -53,6 +53,8 @@ SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -Wall")
 
 SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -fsigned-char")
 
+SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -Wno-unused")
+
 SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -Wno-missing-braces")
 
 SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -fmessage-length=0")
@@ -63,13 +65,13 @@ SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DNDEBUG")
 
 SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DSDK_DEBUGCONSOLE=1")
 
-SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DSERIAL_PORT_TYPE_UART=1")
-
-SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DDEBUG_CONSOLE_RX_ENABLE=0")
-
 SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DCPU_MIMXRT685SFVKB_dsp")
 
 SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DMCUXPRESSO_SDK")
+
+SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DSERIAL_PORT_TYPE_UART=1")
+
+SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DDEBUG_CONSOLE_RX_ENABLE=0")
 
 SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Os")
 
@@ -81,6 +83,8 @@ SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Wall")
 
 SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -fsigned-char")
 
+SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Wno-unused")
+
 SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Wno-missing-braces")
 
 SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -fmessage-length=0")
@@ -89,11 +93,11 @@ SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -std=gnu99")
 
 SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG")
 
-SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DSERIAL_PORT_TYPE_UART=1")
-
 SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DCPU_MIMXRT685SFVKB_dsp")
 
 SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DMCUXPRESSO_SDK")
+
+SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DSERIAL_PORT_TYPE_UART=1")
 
 SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g")
 
@@ -107,6 +111,8 @@ SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
 
 SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsigned-char")
 
+SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-unused")
+
 SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-missing-braces")
 
 SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fmessage-length=0")
@@ -115,11 +121,11 @@ SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -std=c++11")
 
 SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DNDEBUG")
 
-SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DSERIAL_PORT_TYPE_UART=1")
-
 SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DCPU_MIMXRT685SFVKB_dsp")
 
 SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DMCUXPRESSO_SDK")
+
+SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DSERIAL_PORT_TYPE_UART=1")
 
 SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Os")
 
@@ -130,6 +136,8 @@ SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} --xtensa-system=${XTENSA
 SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall")
 
 SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fsigned-char")
+
+SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wno-unused")
 
 SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wno-missing-braces")
 
@@ -153,11 +161,15 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} --xtensa-s
 
 include_directories(${ProjDirPath}/..)
 
-include_directories(${ProjDirPath}/../../../../../../core/drivers/flexcomm)
+include_directories(${ProjDirPath}/../../../../../../core/drivers/flexcomm/i2c)
+
+include_directories(${ProjDirPath}/../../../../../../core/drivers/flexcomm/i2s)
 
 include_directories(${ProjDirPath}/../../../../../../core/drivers/inputmux)
 
 include_directories(${ProjDirPath}/../../../../../../core/drivers/lpc_dma)
+
+include_directories(${ProjDirPath}/../../../../../../core/drivers/flexcomm/usart)
 
 include_directories(${ProjDirPath}/../../../../../../core/components/serial_manager)
 
@@ -169,23 +181,25 @@ include_directories(${ProjDirPath}/../../../../../../core/drivers/dmic)
 
 include_directories(${ProjDirPath}/../../../../../../core/drivers/lpc_gpio)
 
-include_directories(${ProjDirPath}/../../../../../../core/drivers/common)
-
-include_directories(${ProjDirPath}/../../../../../../core/components/lists)
-
 include_directories(${ProjDirPath}/../../../../../../core/utilities/str)
 
 include_directories(${ProjDirPath}/../../../../../../core/utilities/debug_console)
 
+include_directories(${ProjDirPath}/../../../../../../core/components/lists)
+
 include_directories(${ProjDirPath}/../../../../../../core/drivers/lpc_iopctl)
 
-include_directories(${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/utilities)
+include_directories(${ProjDirPath}/../../../../../../core/utilities/shell)
+
+include_directories(${ProjDirPath}/../../../../../../core/drivers/common)
 
 include_directories(${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/drivers)
 
+include_directories(${ProjDirPath}/../../../../../../core/drivers/flexcomm)
+
 include_directories(${ProjDirPath}/../../../../../../core/devices/MIMXRT685S)
 
-include_directories(${ProjDirPath}/../../../../../../CMSIS/Core/Include)
+include_directories(${ProjDirPath}/../../../../../../core/CMSIS/Core/Include)
 
 add_executable(dsp_audio_demo_bm_hifi4.elf 
 "${ProjDirPath}/../main_dsp.c"
@@ -194,27 +208,24 @@ add_executable(dsp_audio_demo_bm_hifi4.elf
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../board_hifi4.c"
 "${ProjDirPath}/../board_hifi4.h"
-"${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_i2c.h"
-"${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_i2c.c"
-"${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_i2c_dma.c"
-"${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_i2c_dma.h"
-"${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_i2s.h"
-"${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_i2s.c"
-"${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_i2s_dma.h"
-"${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_i2s_dma.c"
+"${ProjDirPath}/../../../../../../core/drivers/flexcomm/i2c/fsl_i2c.h"
+"${ProjDirPath}/../../../../../../core/drivers/flexcomm/i2c/fsl_i2c.c"
+"${ProjDirPath}/../../../../../../core/drivers/flexcomm/i2c/fsl_i2c_dma.c"
+"${ProjDirPath}/../../../../../../core/drivers/flexcomm/i2c/fsl_i2c_dma.h"
+"${ProjDirPath}/../../../../../../core/drivers/flexcomm/i2s/fsl_i2s.h"
+"${ProjDirPath}/../../../../../../core/drivers/flexcomm/i2s/fsl_i2s.c"
+"${ProjDirPath}/../../../../../../core/drivers/flexcomm/i2s/fsl_i2s_dma.h"
+"${ProjDirPath}/../../../../../../core/drivers/flexcomm/i2s/fsl_i2s_dma.c"
 "${ProjDirPath}/../../../../../../core/drivers/inputmux/fsl_inputmux.h"
 "${ProjDirPath}/../../../../../../core/drivers/inputmux/fsl_inputmux.c"
 "${ProjDirPath}/../../../../../../core/drivers/lpc_dma/fsl_dma.c"
 "${ProjDirPath}/../../../../../../core/drivers/lpc_dma/fsl_dma.h"
+"${ProjDirPath}/../../../../../../core/drivers/flexcomm/usart/fsl_usart.h"
+"${ProjDirPath}/../../../../../../core/drivers/flexcomm/usart/fsl_usart.c"
 "${ProjDirPath}/../../../../../../core/components/serial_manager/fsl_component_serial_port_uart.h"
 "${ProjDirPath}/../../../../../../core/components/serial_manager/fsl_component_serial_port_uart.c"
 "${ProjDirPath}/../../../../../../core/components/uart/fsl_adapter_uart.h"
 "${ProjDirPath}/../../../../../../core/components/uart/fsl_adapter_usart.c"
-"${ProjDirPath}/../../../../../../core/components/serial_manager/fsl_component_serial_manager.h"
-"${ProjDirPath}/../../../../../../core/components/serial_manager/fsl_component_serial_port_internal.h"
-"${ProjDirPath}/../../../../../../core/components/serial_manager/fsl_component_serial_manager.c"
-"${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_usart.h"
-"${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_usart.c"
 "${ProjDirPath}/../../../../../../core/drivers/pint/fsl_pint.h"
 "${ProjDirPath}/../../../../../../core/drivers/pint/fsl_pint.c"
 "${ProjDirPath}/../../../../../../core/drivers/dmic/fsl_dmic.c"
@@ -223,22 +234,25 @@ add_executable(dsp_audio_demo_bm_hifi4.elf
 "${ProjDirPath}/../../../../../../core/drivers/dmic/fsl_dmic_dma.h"
 "${ProjDirPath}/../../../../../../core/drivers/lpc_gpio/fsl_gpio.h"
 "${ProjDirPath}/../../../../../../core/drivers/lpc_gpio/fsl_gpio.c"
-"${ProjDirPath}/../../../../../../core/drivers/common/fsl_common.h"
-"${ProjDirPath}/../../../../../../core/drivers/common/fsl_common.c"
-"${ProjDirPath}/../../../../../../core/drivers/common/fsl_common_dsp.c"
-"${ProjDirPath}/../../../../../../core/drivers/common/fsl_common_dsp.h"
-"${ProjDirPath}/../../../../../../core/components/lists/fsl_component_generic_list.h"
-"${ProjDirPath}/../../../../../../core/components/lists/fsl_component_generic_list.c"
-"${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_usart_dma.h"
-"${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_usart_dma.c"
+"${ProjDirPath}/../../../../../../core/components/serial_manager/fsl_component_serial_manager.h"
+"${ProjDirPath}/../../../../../../core/components/serial_manager/fsl_component_serial_port_internal.h"
+"${ProjDirPath}/../../../../../../core/components/serial_manager/fsl_component_serial_manager.c"
+"${ProjDirPath}/../../../../../../core/drivers/flexcomm/usart/fsl_usart_dma.h"
+"${ProjDirPath}/../../../../../../core/drivers/flexcomm/usart/fsl_usart_dma.c"
 "${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.c"
 "${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.h"
 "${ProjDirPath}/../../../../../../core/utilities/debug_console/fsl_debug_console.c"
 "${ProjDirPath}/../../../../../../core/utilities/debug_console/fsl_debug_console.h"
 "${ProjDirPath}/../../../../../../core/utilities/debug_console/fsl_debug_console_conf.h"
+"${ProjDirPath}/../../../../../../core/components/lists/fsl_component_generic_list.h"
+"${ProjDirPath}/../../../../../../core/components/lists/fsl_component_generic_list.c"
 "${ProjDirPath}/../../../../../../core/drivers/lpc_iopctl/fsl_iopctl.h"
-"${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/utilities/fsl_shell.c"
-"${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/utilities/fsl_shell.h"
+"${ProjDirPath}/../../../../../../core/utilities/shell/fsl_shell.c"
+"${ProjDirPath}/../../../../../../core/utilities/shell/fsl_shell.h"
+"${ProjDirPath}/../../../../../../core/drivers/common/fsl_common.h"
+"${ProjDirPath}/../../../../../../core/drivers/common/fsl_common.c"
+"${ProjDirPath}/../../../../../../core/drivers/common/fsl_common_dsp.c"
+"${ProjDirPath}/../../../../../../core/drivers/common/fsl_common_dsp.h"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/drivers/fsl_clock.h"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/drivers/fsl_clock.c"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/drivers/fsl_reset.h"

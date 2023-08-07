@@ -31,8 +31,8 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DDEBUG \
     -DCPU_LPC54628 \
     -DCPU_LPC54628J512ET180=1 \
-    -DMMC_ENABLED \
     -DMCUXPRESSO_SDK \
+    -DMMC_ENABLED \
     -g \
     -O0 \
     -mcpu=cortex-m4 \
@@ -55,8 +55,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DNDEBUG \
     -DCPU_LPC54628 \
     -DCPU_LPC54628J512ET180=1 \
-    -DMMC_ENABLED \
     -DMCUXPRESSO_SDK \
+    -DMMC_ENABLED \
     -Os \
     -mcpu=cortex-m4 \
     -Wall \

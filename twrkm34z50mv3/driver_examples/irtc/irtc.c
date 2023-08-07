@@ -92,12 +92,15 @@ int main(void)
     {
         return 1;
     }
-
+    
+#if !defined(FSL_FEATURE_RTC_HAS_NO_GP_DATA_REG) || (!FSL_FEATURE_RTC_HAS_NO_GP_DATA_REG)
     /* Enable the RTC 32KHz oscillator at CFG0 by writing a 0 */
     IRTC_Enable32kClkDuringRegisterWrite(RTC, true);
-
+#endif
+#if !defined(FSL_FEATURE_RTC_HAS_NO_TAMPER_FEATURE) || (!FSL_FEATURE_RTC_HAS_NO_TAMPER_FEATURE)
     /* Clear all Tamper events by writing a 1 to the bits */
     IRTC_ClearTamperStatusFlag(RTC);
+#endif
 
     PRINTF("RTC Example START:\r\n");
 

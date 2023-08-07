@@ -9,8 +9,8 @@ The file 'spi_dma_b2b_transfer_master.c' includes the SPI master code.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================

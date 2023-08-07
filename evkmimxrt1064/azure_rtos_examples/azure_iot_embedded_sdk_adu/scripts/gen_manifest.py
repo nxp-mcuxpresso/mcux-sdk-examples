@@ -93,6 +93,7 @@ def generate_adu_manifest(infile,
     manifest["compatibility"][0]["deviceModel"] = device_model
 
     manifest["instructions"]["steps"][0]["files"][0] = infile_name
+    manifest["instructions"]["steps"][0]["handlerProperties"]["installedCriteria"] = fm_version
 
     with open(infile, 'rb') as f:
         date = f.read()

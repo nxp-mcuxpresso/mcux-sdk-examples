@@ -46,8 +46,8 @@
 /* App 1 service code, client part */
 #include "erpc_remote_control_app_1.h"
 
-#include "fsl_uart_cmsis.h"
 #include "fsl_common.h"
+#include "fsl_uart_cmsis.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

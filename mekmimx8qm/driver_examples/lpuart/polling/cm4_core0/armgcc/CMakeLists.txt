@@ -84,13 +84,13 @@ include(component_lpuart_adapter)
 
 include(component_lists)
 
-include(CMSIS_Include_core_cm4)
+include(CMSIS_Include_core_cm)
 
-include(CMSIS_Include_common)
+include(CMSIS_Include_core_cm)
 
-include(CMSIS_Include_dsp)
+include(CMSIS_DSP_Include)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MIMX8QM6_cm4_core0)
 
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -22,7 +22,6 @@
 
 #include "composite.h"
 
-#include "dsp_config.h"
 #include "fsl_wm8904.h"
 #include "fsl_codec_common.h"
 #include "fsl_codec_adapter.h"
@@ -30,23 +29,26 @@
 #if defined(USB_DEVICE_AUDIO_USE_SYNC_MODE) && (USB_DEVICE_AUDIO_USE_SYNC_MODE > 0U)
 #include "fsl_ctimer.h"
 #endif
+#include "dsp_config.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-
-#define APP_SEMA42 SEMA42
+#define APP_SEMA42        SEMA42
+#define SEMA_PRINTF_NUM	  0
+#define SEMA_STARTUP_NUM  1
+#define SEMA_CORE_ID_CM33 1
 #define APP_TASK_STACK_SIZE (6 * 1024)
 
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
-int BOARD_CODEC_Init(void);
 void USB_DeviceClockInit(void);
 #if defined(USB_DEVICE_AUDIO_USE_SYNC_MODE) && (USB_DEVICE_AUDIO_USE_SYNC_MODE > 0U)
 void CTIMER_SOF_TOGGLE_HANDLER_PLL(uint32_t i);
 #else
 extern void USB_DeviceCalculateFeedback(void);
 #endif
+int BOARD_CODEC_Init(void);
 int BOARD_CODEC_Init(void);
 /*******************************************************************************
  * Variables
@@ -213,6 +215,16 @@ void USB_DeviceTaskFn(void *deviceHandle)
 }
 #endif
 
+void CM33_PRINTF(const char* ptr, ...)
+{
+    va_list ap;
+    SEMA42_Lock(APP_SEMA42, SEMA_PRINTF_NUM, SEMA_CORE_ID_CM33);
+    va_start(ap, ptr);
+    DbgConsole_Vprintf(ptr, ap);
+    va_end(ap);
+    SEMA42_Unlock(APP_SEMA42, SEMA_PRINTF_NUM);
+}
+
 void handleShellMessage(srtm_message *msg, void *arg)
 {
     /* Send message to the DSP */
@@ -280,7 +292,6 @@ int main(void)
     g_wm8904Config.i2cConfig.codecI2CSourceClock = CLOCK_GetI3cClkFreq();
     g_wm8904Config.mclk_HZ                       = CLOCK_GetMclkClkFreq();
     USB_DeviceClockInit();
-
     /* SEMA42 init */
     SEMA42_Init(APP_SEMA42);
     /* Reset the sema42 gate */
@@ -306,12 +317,12 @@ int main(void)
     BOARD_DSP_Init();
 
     /* Wait for the DSP to lock the semaphore */
-    while (kSEMA42_LockedByProc3 != SEMA42_GetGateStatus(APP_SEMA42, 0))
+    while (kSEMA42_LockedByProc3 != SEMA42_GetGateStatus(APP_SEMA42, SEMA_STARTUP_NUM))
     {
     }
 
-    /* Wait for the DSP to unlock the semaphore */
-    while (SEMA42_GetGateStatus(APP_SEMA42, 0))
+    /* Wait for the DSP to unlock the semaphore 1 */
+    while (SEMA42_GetGateStatus(APP_SEMA42, SEMA_STARTUP_NUM))
     {
     }
 

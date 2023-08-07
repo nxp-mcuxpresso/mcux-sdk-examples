@@ -4,25 +4,18 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+/*
+ * NOTE that if there is any change in this file, please make sure
+ * rebuild the corresponding library and use the new library to
+ * replace the one in your project.
+ */
+
 #ifndef NX_USER_H
 #define NX_USER_H
 
 /* Refer to nx_user_sample.h for more information. */
 
-/* The driver enables the checksum offload feature. Therefore
- * the following symbols must be defined.
- */
-
 #define NX_PACKET_ALIGNMENT 32
-
-#define NX_DISABLE_ICMPV4_RX_CHECKSUM
-#define NX_DISABLE_ICMPV4_TX_CHECKSUM
-#define NX_DISABLE_IP_RX_CHECKSUM
-#define NX_DISABLE_IP_TX_CHECKSUM
-#define NX_DISABLE_TCP_RX_CHECKSUM
-#define NX_DISABLE_TCP_TX_CHECKSUM
-#define NX_DISABLE_UDP_RX_CHECKSUM
-#define NX_DISABLE_UDP_TX_CHECKSUM
 
 #define NX_DISABLE_ERROR_CHECKING
 #define NX_TCP_ACK_EVERY_N_PACKETS 2
@@ -58,5 +51,14 @@
 #define NX_SECURE_ENABLE
 #define NX_SECURE_TLS_DISABLE_TLS_1_1
 #define NX_ENABLE_IP_PACKET_FILTER
+
+/* This option enables deferred driver packet handling. This allows the driver to place a raw
+   packet on the IP instance and have the driver's real processing routine called from the NetX internal
+   IP helper thread.  */
+#define NX_DRIVER_DEFERRED_PROCESSING
+
+/* The link driver is able to specify extra capability, such as checksum offloading features. */
+#define NX_ENABLE_INTERFACE_CAPABILITY
+
 
 #endif /* NX_USER_H */

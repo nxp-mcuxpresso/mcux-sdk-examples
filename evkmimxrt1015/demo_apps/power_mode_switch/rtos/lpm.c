@@ -1,16 +1,10 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020, 2023 NXP
  * All rights reserved.
  *
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
-
-#ifdef SDK_OS_FREE_RTOS
-#include "FreeRTOS.h"
-#include "task.h"
-#include "semphr.h"
-#endif
 
 #include "lpm.h"
 #include "fsl_gpc.h"
@@ -18,6 +12,12 @@
 #include "fsl_gpt.h"
 #include "power_mode_switch.h"
 #include "specific.h"
+
+#ifdef SDK_OS_FREE_RTOS
+#include "FreeRTOS.h"
+#include "task.h"
+#include "semphr.h"
+#endif
 
 /*******************************************************************************
  * Definitions

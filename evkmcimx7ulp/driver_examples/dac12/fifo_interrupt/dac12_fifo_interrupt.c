@@ -124,5 +124,5 @@ void DEMO_DAC12_HANDLER_FUNC(void)
         }
     }
     g_DacInterruptDone = true;
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }

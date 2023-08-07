@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -54,94 +62,22 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/frdmk32l3a6/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/frdmk32l3a6
 )
 
+set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")
+
 if(CMAKE_BUILD_TYPE STREQUAL debug)
-    target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC ${SdkRootDirPath}/examples/frdmk32l3a6/multicore_examples/rpmsg_lite_pingpong_rtos/cm0plus/armgcc/debug)
+    target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../cm0plus/armgcc/debug)
 endif(CMAKE_BUILD_TYPE STREQUAL debug)
 
 if(CMAKE_BUILD_TYPE STREQUAL release)
-    target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC ${SdkRootDirPath}/examples/frdmk32l3a6/multicore_examples/rpmsg_lite_pingpong_rtos/cm0plus/armgcc/release)
+    target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../cm0plus/armgcc/release)
 endif(CMAKE_BUILD_TYPE STREQUAL release)
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/middleware/multicore
-    ${SdkRootDirPath}/core/drivers/gpio
-    ${SdkRootDirPath}/core/drivers/port
-    ${SdkRootDirPath}/core/devices/K32L3A60/drivers
-    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/drivers/msmc
-    ${SdkRootDirPath}/core/drivers/lpuart
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/components/serial_manager
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/devices/K32L3A60
-    ${SdkRootDirPath}/core/drivers/mu
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-)
-
-# include modules
-include(middleware_multicore_mcmgr_k32l3a6)
-
-include(middleware_multicore_rpmsg_lite_k32l3a6_freertos)
-
-include(middleware_multicore_rpmsg_lite_K32L3A60_cm4)
-
-include(middleware_multicore_rpmsg_lite_freertos)
-
-include(driver_gpio)
-
-include(driver_port)
-
-include(driver_clock)
-
-include(middleware_freertos-kernel_K32L3A60_cm4)
-
-include(middleware_multicore_mcmgr)
-
-include(middleware_freertos-kernel_heap_4)
-
-include(utility_incbin)
-
-include(driver_common)
-
-include(driver_msmc)
-
-include(driver_lpuart)
-
-include(utility_assert)
-
-include(utility_debug_console)
-
-include(component_lpuart_adapter)
-
-include(component_serial_manager)
-
-include(component_lists)
-
-include(component_serial_manager_uart)
-
-include(device_CMSIS)
-
-include(device_startup_K32L3A60_cm4)
-
-include(driver_mu)
-
-include(CMSIS_Include_core_cm)
-
-include(middleware_freertos-kernel_extension)
-
-include(utilities_misc_utilities_K32L3A60_cm4)
-
-include(device_system_K32L3A60_cm4)
-
+include(${SdkRootDirPath}/core/devices/K32L3A60/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -153,4 +89,5 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBR
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map")
 

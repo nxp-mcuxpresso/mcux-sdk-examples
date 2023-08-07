@@ -10,7 +10,7 @@ Note: The example echo every 8 characters, so input 8 characters every time.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

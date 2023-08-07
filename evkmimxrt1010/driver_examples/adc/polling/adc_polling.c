@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2013 - 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2018, 2021 NXP
+ * Copyright 2016-2018, 2021, 2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -54,7 +54,7 @@ int main(void)
      *  config->enableHighSpeed =               false;
      *  config->enableLowPower =                false;
      *  config->enableLongSample =              false;
-     *  config->referenceVoltageSource =        kADC_ReferenceVoltageSourceVref;
+     *  config->referenceVoltageSource =        kADC_ReferenceVoltageSourceAlt0;
      *  config->samplePeriodMode =              kADC_SamplePeriod2or12Clocks;
      *  config->clockSource =                   kADC_ClockSourceAD;
      *  config->clockDriver =                   kADC_ClockDriver1;
@@ -86,10 +86,10 @@ int main(void)
         PRINTF("Press any key to get user channel's ADC value.\r\n");
         GETCHAR();
         /*
-         When in software trigger mode, each conversion would be launched once calling the "ADC_ChannelConfigure()"
+         When in software trigger mode, each conversion would be launched once calling the "ADC_SetChannelConfig()"
          function, which works like writing a conversion command and executing it. For another channel's conversion,
          just to change the "channelNumber" field in channel's configuration structure, and call the
-         "ADC_ChannelConfigure() again.
+         "ADC_SetChannelConfig() again.
         */
         ADC_SetChannelConfig(DEMO_ADC_BASE, DEMO_ADC_CHANNEL_GROUP, &adcChannelConfigStruct);
         while (0U == ADC_GetChannelStatusFlags(DEMO_ADC_BASE, DEMO_ADC_CHANNEL_GROUP))

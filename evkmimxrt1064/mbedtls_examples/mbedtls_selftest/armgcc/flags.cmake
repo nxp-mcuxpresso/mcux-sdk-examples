@@ -69,8 +69,8 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DDEBUG \
     -DCPU_MIMXRT1064DVL6A \
     -DFREESCALE_KSDK_BM \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -mcpu=cortex-m7 \
     -Wall \
     -mthumb \
@@ -96,8 +96,8 @@ SET(CMAKE_C_FLAGS_SDRAM_DEBUG " \
     -DDEBUG \
     -DCPU_MIMXRT1064DVL6A \
     -DFREESCALE_KSDK_BM \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -mcpu=cortex-m7 \
     -Wall \
     -mthumb \
@@ -121,8 +121,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DNDEBUG \
     -DCPU_MIMXRT1064DVL6A \
     -DFREESCALE_KSDK_BM \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -fomit-frame-pointer \
     -Wno-unused-function \
@@ -148,8 +148,8 @@ SET(CMAKE_C_FLAGS_SDRAM_RELEASE " \
     -DNDEBUG \
     -DCPU_MIMXRT1064DVL6A \
     -DFREESCALE_KSDK_BM \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -fomit-frame-pointer \
     -Wno-unused-function \
@@ -175,8 +175,8 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DDEBUG \
     -DCPU_MIMXRT1064DVL6A \
     -DFREESCALE_KSDK_BM \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -fomit-frame-pointer \
@@ -203,8 +203,8 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -DNDEBUG \
     -DCPU_MIMXRT1064DVL6A \
     -DFREESCALE_KSDK_BM \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -fomit-frame-pointer \
     -Wno-unused-function \
@@ -227,8 +227,8 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     ${CMAKE_CXX_FLAGS_DEBUG} \
     -DDEBUG \
     -DCPU_MIMXRT1064DVL6A \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -mcpu=cortex-m7 \
     -Wall \
     -mthumb \
@@ -252,8 +252,8 @@ SET(CMAKE_CXX_FLAGS_SDRAM_DEBUG " \
     ${CMAKE_CXX_FLAGS_SDRAM_DEBUG} \
     -DDEBUG \
     -DCPU_MIMXRT1064DVL6A \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -mcpu=cortex-m7 \
     -Wall \
     -mthumb \
@@ -277,8 +277,8 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     ${CMAKE_CXX_FLAGS_RELEASE} \
     -DNDEBUG \
     -DCPU_MIMXRT1064DVL6A \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
@@ -300,8 +300,8 @@ SET(CMAKE_CXX_FLAGS_SDRAM_RELEASE " \
     ${CMAKE_CXX_FLAGS_SDRAM_RELEASE} \
     -DNDEBUG \
     -DCPU_MIMXRT1064DVL6A \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
@@ -323,8 +323,8 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG " \
     ${CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG} \
     -DDEBUG \
     -DCPU_MIMXRT1064DVL6A \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -347,8 +347,8 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${CMAKE_CXX_FLAGS_FLEXSPI_NOR_RELEASE} \
     -DNDEBUG \
     -DCPU_MIMXRT1064DVL6A \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \

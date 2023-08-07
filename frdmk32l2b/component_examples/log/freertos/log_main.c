@@ -43,7 +43,6 @@ LOG_MODULE_DEFINE(log_main, kLOG_LevelTrace);
 #define LED_1_OFF()  LED_RED_OFF()
 #define LED_2_ON()   LED_GREEN_ON()
 #define LED_2_OFF()  LED_GREEN_OFF()
-#define SHELL_Printf            PRINTF
 #define APP_LOG_RINGBUFFER_SIZE 512
 /* Task priorities. */
 #define APP_LOG_PRIORITY   (configMAX_PRIORITIES - 1)

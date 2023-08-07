@@ -20,8 +20,8 @@
 #include "fsl_puf.h"
 #include "fsl_hashcrypt.h"
 
-#include "fsl_rng.h"
 #include "fsl_power.h"
+#include "fsl_rng.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

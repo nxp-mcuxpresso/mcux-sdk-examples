@@ -7,6 +7,7 @@ Depending on target platform there are different features of the demo enabled.
 
     - File decoding and playback
     - EAP effects during file playback
+    - Multi-channel playback
 
 The application is controlled by commands from a shell interface using serial console.
 
@@ -40,8 +41,8 @@ Type "help" to see the command list. Similar description will be displayed on se
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================
@@ -73,6 +74,7 @@ Note: MCUXpresso IDE project default debug console is semihost
 Note:
 There is limited RAM on this platform, which brings following limitations:
  - EAP is enabled just with mp3 files
+ - for low sample rates SSRC doesn't work together with EAP - either undefine EAP_PROC or SSRC_PROC
  - OPUS decoder is disabled due to insufficient memory
  - To enable AAC decoding and playback it is necessary to disable EAP:
     1. Define AAC_DEC=1 in the project settings
@@ -83,7 +85,9 @@ There is limited RAM on this platform, which brings following limitations:
  - To enable FLAC decoding and playback it is necessary to disable EAP:
     1. Define FLAC_DEC=1 in the project settings
     2. Undefine EAP_PROC in the project settings
+ - When playing FLAC audio files with too small frame size (block size), the audio output may be distorted because the board is not fast enough.
  - The AAC decoder is only supported in MCUXpresso and ARMGCC.
+
 Running the demo
 ================
 When the example runs successfully, you should see similar output on the serial terminal as below:
@@ -99,3 +103,9 @@ Copyright  2022  NXP
 [APP_Shell_Task] start
 
 >> [APP_SDCARD_Task] SD card drive mounted
+
+Known issues
+
+1. MP3 decoder has issues with some of the files. One of the channels can be sometimes distorted or missing parts of the signal.
+2. When using EAP crossover feature together with SSRC, after finishing the playback, it might be necessary to reset
+   the board in order to have correct sound output. Otherwise the sound output may be distorted.

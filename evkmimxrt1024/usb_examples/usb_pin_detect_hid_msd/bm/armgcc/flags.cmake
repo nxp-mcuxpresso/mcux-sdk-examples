@@ -10,24 +10,6 @@ IF(NOT DEFINED DEBUG_CONSOLE_CONFIG)
     SET(DEBUG_CONSOLE_CONFIG "-DSDK_DEBUGCONSOLE=1")  
 ENDIF()  
 
-SET(CMAKE_ASM_FLAGS_RELEASE " \
-    ${CMAKE_ASM_FLAGS_RELEASE} \
-    -DNDEBUG \
-    -D__STARTUP_CLEAR_BSS \
-    -D__STARTUP_INITIALIZE_NONCACHEDATA \
-    -mcpu=cortex-m7 \
-    -mthumb \
-    ${FPU} \
-")
-SET(CMAKE_ASM_FLAGS_SDRAM_RELEASE " \
-    ${CMAKE_ASM_FLAGS_SDRAM_RELEASE} \
-    -D__STARTUP_CLEAR_BSS \
-    -DNDEBUG \
-    -D__STARTUP_INITIALIZE_NONCACHEDATA \
-    -mcpu=cortex-m7 \
-    -mthumb \
-    ${FPU} \
-")
 SET(CMAKE_ASM_FLAGS_FLEXSPI_NOR_DEBUG " \
     ${CMAKE_ASM_FLAGS_FLEXSPI_NOR_DEBUG} \
     -D__STARTUP_CLEAR_BSS \
@@ -46,52 +28,23 @@ SET(CMAKE_ASM_FLAGS_FLEXSPI_NOR_RELEASE " \
     -mthumb \
     ${FPU} \
 ")
-SET(CMAKE_C_FLAGS_RELEASE " \
-    ${CMAKE_C_FLAGS_RELEASE} \
-    -DDATA_SECTION_IS_CACHEABLE=0 \
+SET(CMAKE_ASM_FLAGS_RELEASE " \
+    ${CMAKE_ASM_FLAGS_RELEASE} \
     -DNDEBUG \
-    -DCPU_MIMXRT1024DAG5A \
-    -DUSB_STACK_BM \
-    -DMCUXPRESSO_SDK \
-    -Os \
+    -D__STARTUP_CLEAR_BSS \
+    -D__STARTUP_INITIALIZE_NONCACHEDATA \
     -mcpu=cortex-m7 \
-    -Wall \
     -mthumb \
-    -MMD \
-    -MP \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
     ${FPU} \
-    ${DEBUG_CONSOLE_CONFIG} \
 ")
-SET(CMAKE_C_FLAGS_SDRAM_RELEASE " \
-    ${CMAKE_C_FLAGS_SDRAM_RELEASE} \
-    -DDATA_SECTION_IS_CACHEABLE=1 \
-    -DSKIP_SYSCLK_INIT \
+SET(CMAKE_ASM_FLAGS_SDRAM_RELEASE " \
+    ${CMAKE_ASM_FLAGS_SDRAM_RELEASE} \
+    -D__STARTUP_CLEAR_BSS \
     -DNDEBUG \
-    -DCPU_MIMXRT1024DAG5A \
-    -DUSB_STACK_BM \
-    -DMCUXPRESSO_SDK \
-    -Os \
+    -D__STARTUP_INITIALIZE_NONCACHEDATA \
     -mcpu=cortex-m7 \
-    -Wall \
     -mthumb \
-    -MMD \
-    -MP \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
     ${FPU} \
-    ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     ${CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG} \
@@ -102,6 +55,7 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DCPU_MIMXRT1024DAG5A \
     -DUSB_STACK_BM \
     -DMCUXPRESSO_SDK \
+    -DSDK_OS_BAREMETAL \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -128,6 +82,7 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -DCPU_MIMXRT1024DAG5A \
     -DUSB_STACK_BM \
     -DMCUXPRESSO_SDK \
+    -DSDK_OS_BAREMETAL \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
@@ -144,10 +99,14 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
-SET(CMAKE_CXX_FLAGS_RELEASE " \
-    ${CMAKE_CXX_FLAGS_RELEASE} \
+SET(CMAKE_C_FLAGS_RELEASE " \
+    ${CMAKE_C_FLAGS_RELEASE} \
+    -DDATA_SECTION_IS_CACHEABLE=0 \
     -DNDEBUG \
+    -DCPU_MIMXRT1024DAG5A \
+    -DUSB_STACK_BM \
     -DMCUXPRESSO_SDK \
+    -DSDK_OS_BAREMETAL \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
@@ -160,15 +119,19 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -ffreestanding \
     -fno-builtin \
     -mapcs \
-    -fno-rtti \
-    -fno-exceptions \
+    -std=gnu99 \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
-SET(CMAKE_CXX_FLAGS_SDRAM_RELEASE " \
-    ${CMAKE_CXX_FLAGS_SDRAM_RELEASE} \
+SET(CMAKE_C_FLAGS_SDRAM_RELEASE " \
+    ${CMAKE_C_FLAGS_SDRAM_RELEASE} \
+    -DDATA_SECTION_IS_CACHEABLE=1 \
+    -DSKIP_SYSCLK_INIT \
     -DNDEBUG \
+    -DCPU_MIMXRT1024DAG5A \
+    -DUSB_STACK_BM \
     -DMCUXPRESSO_SDK \
+    -DSDK_OS_BAREMETAL \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
@@ -181,8 +144,7 @@ SET(CMAKE_CXX_FLAGS_SDRAM_RELEASE " \
     -ffreestanding \
     -fno-builtin \
     -mapcs \
-    -fno-rtti \
-    -fno-exceptions \
+    -std=gnu99 \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -228,6 +190,109 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_RELEASE " \
     -fno-exceptions \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
+")
+SET(CMAKE_CXX_FLAGS_RELEASE " \
+    ${CMAKE_CXX_FLAGS_RELEASE} \
+    -DNDEBUG \
+    -DMCUXPRESSO_SDK \
+    -Os \
+    -mcpu=cortex-m7 \
+    -Wall \
+    -mthumb \
+    -MMD \
+    -MP \
+    -fno-common \
+    -ffunction-sections \
+    -fdata-sections \
+    -ffreestanding \
+    -fno-builtin \
+    -mapcs \
+    -fno-rtti \
+    -fno-exceptions \
+    ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
+")
+SET(CMAKE_CXX_FLAGS_SDRAM_RELEASE " \
+    ${CMAKE_CXX_FLAGS_SDRAM_RELEASE} \
+    -DNDEBUG \
+    -DMCUXPRESSO_SDK \
+    -Os \
+    -mcpu=cortex-m7 \
+    -Wall \
+    -mthumb \
+    -MMD \
+    -MP \
+    -fno-common \
+    -ffunction-sections \
+    -fdata-sections \
+    -ffreestanding \
+    -fno-builtin \
+    -mapcs \
+    -fno-rtti \
+    -fno-exceptions \
+    ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
+")
+SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
+    ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG} \
+    -g \
+    -mcpu=cortex-m7 \
+    -Wall \
+    -fno-common \
+    -ffunction-sections \
+    -fdata-sections \
+    -ffreestanding \
+    -fno-builtin \
+    -mthumb \
+    -mapcs \
+    -Xlinker \
+    --gc-sections \
+    -Xlinker \
+    -static \
+    -Xlinker \
+    -z \
+    -Xlinker \
+    muldefs \
+    -Xlinker \
+    -Map=output.map \
+    -Wl,--print-memory-usage \
+    -Xlinker \
+    --defsym=__stack_size__=0x2000 \
+    -Xlinker \
+    --defsym=__heap_size__=0x2000 \
+    ${FPU} \
+    ${SPECS} \
+    -T${ProjDirPath}/MIMXRT1024xxxxx_flexspi_nor.ld -static \
+")
+SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
+    ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE} \
+    -mcpu=cortex-m7 \
+    -Wall \
+    -fno-common \
+    -ffunction-sections \
+    -fdata-sections \
+    -ffreestanding \
+    -fno-builtin \
+    -mthumb \
+    -mapcs \
+    -Xlinker \
+    --gc-sections \
+    -Xlinker \
+    -static \
+    -Xlinker \
+    -z \
+    -Xlinker \
+    muldefs \
+    -Xlinker \
+    -Map=output.map \
+    -Wl,--print-memory-usage \
+    -Xlinker \
+    --defsym=__stack_size__=0x2000 \
+    -Xlinker \
+    --defsym=__heap_size__=0x2000 \
+    ${FPU} \
+    ${SPECS} \
+    -T${ProjDirPath}/MIMXRT1024xxxxx_flexspi_nor.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -290,65 +355,4 @@ SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_RELEASE " \
     ${FPU} \
     ${SPECS} \
     -T${ProjDirPath}/MIMXRT1024xxxxx_sdram.ld -static \
-")
-SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
-    ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG} \
-    -g \
-    -mcpu=cortex-m7 \
-    -Wall \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mthumb \
-    -mapcs \
-    -Xlinker \
-    --gc-sections \
-    -Xlinker \
-    -static \
-    -Xlinker \
-    -z \
-    -Xlinker \
-    muldefs \
-    -Xlinker \
-    -Map=output.map \
-    -Wl,--print-memory-usage \
-    -Xlinker \
-    --defsym=__stack_size__=0x2000 \
-    -Xlinker \
-    --defsym=__heap_size__=0x2000 \
-    ${FPU} \
-    ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1024xxxxx_flexspi_nor.ld -static \
-")
-SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
-    ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE} \
-    -mcpu=cortex-m7 \
-    -Wall \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mthumb \
-    -mapcs \
-    -Xlinker \
-    --gc-sections \
-    -Xlinker \
-    -static \
-    -Xlinker \
-    -z \
-    -Xlinker \
-    muldefs \
-    -Xlinker \
-    -Map=output.map \
-    -Wl,--print-memory-usage \
-    -Xlinker \
-    --defsym=__stack_size__=0x2000 \
-    -Xlinker \
-    --defsym=__heap_size__=0x2000 \
-    ${FPU} \
-    ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1024xxxxx_flexspi_nor.ld -static \
 ")

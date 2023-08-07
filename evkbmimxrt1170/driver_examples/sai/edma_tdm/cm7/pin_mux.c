@@ -91,8 +91,6 @@ BOARD_InitPins:
   - {pin_num: B16, peripheral: USDHC1, signal: usdhc_cmd, pin_signal: GPIO_SD_B1_00, software_input_on: Enable, pull_down_pull_up_config: Pull_Up}
   - {pin_num: D15, peripheral: USDHC1, signal: usdhc_clk, pin_signal: GPIO_SD_B1_01, software_input_on: Enable, pull_down_pull_up_config: No_Pull}
   - {pin_num: J16, peripheral: USDHC1, signal: usdhc_vselect, pin_signal: GPIO_AD_34}
-  - {pin_num: L13, peripheral: LPUART1, signal: TXD, pin_signal: GPIO_AD_24}
-  - {pin_num: M15, peripheral: LPUART1, signal: RXD, pin_signal: GPIO_AD_25, software_input_on: Enable}
   - {pin_num: G17, peripheral: GPIO10, signal: 'gpio_io, 02', pin_signal: GPIO_AD_35}
   - {pin_num: K16, peripheral: CM7_GPIO3, signal: 'gpio_mux_io_cm7, 31', pin_signal: GPIO_AD_32}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********

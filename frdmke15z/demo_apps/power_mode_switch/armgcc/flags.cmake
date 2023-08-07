@@ -32,8 +32,8 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DCPU_MKE15Z256VLL7 \
     -DFRDM_KE15Z \
     -DFREEDOM \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m0plus \
@@ -57,8 +57,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DCPU_MKE15Z256VLL7 \
     -DFRDM_KE15Z \
     -DFREEDOM \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m0plus \
     -Wall \
@@ -78,8 +78,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
 SET(CMAKE_CXX_FLAGS_DEBUG " \
     ${CMAKE_CXX_FLAGS_DEBUG} \
     -DDEBUG \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m0plus \
@@ -101,8 +101,8 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
 SET(CMAKE_CXX_FLAGS_RELEASE " \
     ${CMAKE_CXX_FLAGS_RELEASE} \
     -DNDEBUG \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m0plus \
     -Wall \

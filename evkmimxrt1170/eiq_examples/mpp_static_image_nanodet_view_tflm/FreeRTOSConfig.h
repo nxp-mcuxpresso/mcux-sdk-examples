@@ -1,6 +1,8 @@
 /*
- * FreeRTOS Kernel V10.4.3
- * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * FreeRTOS Kernel V10.5.1
+ * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ *
+ * SPDX-License-Identifier: MIT
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -77,7 +79,7 @@
 #define configUSE_IDLE_HOOK                     0
 #define configUSE_TICK_HOOK                     0
 #define configCHECK_FOR_STACK_OVERFLOW          1
-#define configUSE_MALLOC_FAILED_HOOK            0
+#define configUSE_MALLOC_FAILED_HOOK            1
 #define configUSE_DAEMON_TASK_STARTUP_HOOK      0
 
 /* Run time and task stats gathering related definitions. */

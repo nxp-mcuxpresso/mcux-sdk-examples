@@ -205,7 +205,6 @@ SECTIONS
   {
     . = ALIGN(32);
     __ram_function_start__ = .;
-    *(CodeQuickAccess)
     . = ALIGN(128);
     __ram_function_end__ = .;
   } > m_qacode
@@ -234,6 +233,7 @@ SECTIONS
   {
     . = ALIGN(4);
     *(DataQuickAccess)       /* quick access data section */
+    *(CodeQuickAccess)
     . = ALIGN(4);
   } > m_data2
 

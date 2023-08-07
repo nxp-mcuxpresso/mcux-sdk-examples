@@ -61,11 +61,13 @@ SHELL_COMMAND_DEFINE(record_mic,
 #endif
                      " - playback on codec\r\n"
 #ifdef SD_ENABLED
-                     " - store samples to file.\r\n"
+                     " - store samples to a file.\r\n"
 #endif
                      "\r\n"
 #if (defined(VIT_PROC) && defined(SD_ENABLED))
-                     " USAGE: record_mic [audio|file|<file_name>|vit] 20 [en|cn]\r\n"
+                     " USAGE: record_mic [audio|file|<file_name>|vit] 20 [<language>]\r\n"
+#elif (defined(VIT_PROC))
+                     " USAGE: record_mic [audio|vit] 20 [<language>]\r\n"
 #elif (defined(SD_ENABLED))
                      " USAGE: record_mic [audio|file|<file_name>] 20\r\n"
 #else
@@ -73,6 +75,8 @@ SHELL_COMMAND_DEFINE(record_mic,
 #endif
                      " The number defines length of recording in seconds.\r\n"
 #ifdef VIT_PROC
+                     " Please see the project defined symbols for the languages supported."
+                     " Then specify one of: en/cn/de/es/fr/it/ja/ko/tr as the language parameter."
                      " For voice recognition say supported WakeWord and in 3s frame supported command.\r\n"
                      " Please note that this VIT demo is near-field and uses 1 on-board microphone.\r\n"
 #endif
@@ -111,7 +115,7 @@ streamer_handle_t streamerHandle;
 
 static shell_status_t shellEcho(shell_handle_t shellHandle, int32_t argc, char **argv)
 {
-    PRINTF(" Maestro version: 1.2\r\n");
+    PRINTF(" Maestro version: 1.6\r\n");
 
 #ifdef VIT_PROC
     PRINTF(" VIT version: 5.4.0\r\n");
@@ -127,7 +131,7 @@ static shell_status_t shellRecMIC(shell_handle_t shellHandle, int32_t argc, char
     int duration    = 20;
     char *file_name = NULL;
 #ifdef VIT_PROC
-    Vit_Language = EN;
+    Vit_Language = VIT_LANGUAGE_MAX;
 #endif
 
     if ((argc > 1) && (strcmp(argv[1], "audio") == 0))
@@ -169,9 +173,72 @@ static shell_status_t shellRecMIC(shell_handle_t shellHandle, int32_t argc, char
 #ifdef VIT_PROC
     if ((argc > 3))
     {
+#ifdef VIT_MODEL_EN
+        if (strcmp(argv[3], "en") == 0)
+        {
+            Vit_Language = EN;
+        }
+        else
+#endif
+#ifdef VIT_MODEL_CN
         if (strcmp(argv[3], "cn") == 0)
         {
             Vit_Language = CN;
+        }
+        else
+#endif
+#ifdef VIT_MODEL_DE
+        if (strcmp(argv[3], "de") == 0)
+        {
+            Vit_Language = DE;
+        }
+        else
+#endif
+#ifdef VIT_MODEL_ES
+        if (strcmp(argv[3], "es") == 0)
+        {
+            Vit_Language = ES;
+        }
+        else
+#endif
+#ifdef VIT_MODEL_FR
+        if (strcmp(argv[3], "fr") == 0)
+        {
+            Vit_Language = FR;
+        }
+        else
+#endif
+#ifdef VIT_MODEL_IT
+        if (strcmp(argv[3], "it") == 0)
+        {
+            Vit_Language = IT;
+        }
+        else
+#endif
+#ifdef VIT_MODEL_JA
+        if (strcmp(argv[3], "ja") == 0)
+        {
+            Vit_Language = JA;
+        }
+        else
+#endif
+#ifdef VIT_MODEL_KO
+        if (strcmp(argv[3], "ko") == 0)
+        {
+            Vit_Language = KO;
+        }
+        else
+#endif
+#ifdef VIT_MODEL_TR
+        if (strcmp(argv[3], "tr") == 0)
+        {
+            Vit_Language = TR;
+        }
+        else
+#endif
+        {
+            PRINTF("Language not supported. Please select another language. \r\n");
+            return kStatus_SHELL_Success;
         }
     }
 #endif
@@ -269,12 +336,12 @@ static shell_status_t shellOpusEncode(shell_handle_t shellHandle, int32_t argc, 
     }
 
     CeiOpusConfig cfg;
-    streamer_get_property(streamerHandle.streamer, PROP_ENCODER_CONFIG, (uint32_t *)&cfg, true);
+    streamer_get_property(streamerHandle.streamer, 0, PROP_ENCODER_CONFIG, (uint32_t *)&cfg, true);
 
     cfg.bitrate            = 512000;
     cfg.application        = OPUS_APPLICATION_AUDIO;
     cfg.predictionDisabled = 1;
-    streamer_set_property(streamerHandle.streamer,
+    streamer_set_property(streamerHandle.streamer, 0,
                           (ELEMENT_PROPERTY_T){.prop = PROP_ENCODER_CONFIG, .val = (uintptr_t)&cfg}, true);
 
     PRINTF("Start encoding...\r\n");

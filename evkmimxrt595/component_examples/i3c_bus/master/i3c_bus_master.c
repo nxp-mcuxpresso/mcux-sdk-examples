@@ -49,9 +49,9 @@ i3c_device_control_info_t i3cMasterCtlInfo        = {
  */
 int main(void)
 {
-    /* Attach main clock to I3C, 396MHz / 4 = 99MHz. */
-    CLOCK_AttachClk(kMAIN_CLK_to_I3C_CLK);
-    CLOCK_SetClkDiv(kCLOCK_DivI3cClk, 4);
+    /* Attach 24MHz to I3C. */
+    CLOCK_AttachClk(kFRO_DIV8_to_I3C_CLK);
+    CLOCK_SetClkDiv(kCLOCK_DivI3cClk, 1);
 
     BOARD_InitBootPins();
     BOARD_BootClockRUN();

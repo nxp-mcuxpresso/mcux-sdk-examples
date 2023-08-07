@@ -9,7 +9,7 @@ The file 'ecspi_polling_b2b_transfer_master.c' includes the ECSPI master code.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

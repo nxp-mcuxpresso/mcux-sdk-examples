@@ -11,7 +11,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#if (defined EAP_PROC || defined EAP32_PROC)
+#ifdef EAP_PROC
 // @formatter:off
 LVM_EQNB_BandDef_t EQNB_BandDefs_UserEq1_internal[LVM_EQNB_MAX_BANDS_NBR] = {
     {-15, 50, 50}, // gain(dB), freq(Hz) , Qfactor *100
@@ -217,7 +217,7 @@ eap_att_control_t att_control = {.attVersion      = 4,
                                  .volume          = 75,
                                  .seek_time       = 0,
 
-#if (defined EAP_PROC || defined EAP32_PROC)
+#ifdef EAP_PROC
                                  .controlParam     = &ControlParamSet_internal,
                                  .instParams       = &InstParams_internal,
                                  .headroomParams   = &HeadroomParams_internal,
@@ -232,7 +232,7 @@ eap_att_control_t *get_eap_att_control(void)
 
 void eap_att_process(void)
 {
-#if (defined EAP_PROC || defined EAP32_PROC)
+#ifdef EAP_PROC
     if (attProcessIterator++ == 0)
     {
         LVM_VersionInfo_st eapVersionInfo;
@@ -271,7 +271,6 @@ void eap_att_process(void)
             }
 
             att_control.status = kAttRunning;
-
             att_control.logme("[EAP_ATT] Playback started for %s\r\n", att_control.input);
 
             break;
@@ -308,7 +307,7 @@ void eap_att_process(void)
         case kAttCmdSeek:
             att_control.lastError = seek_wrapper(att_control.seek_time);
             break;
-#if (defined EAP_PROC || defined EAP32_PROC)
+#ifdef EAP_PROC
         case kAttCmdSetConfig:
         {
             att_control.logme("[EAP_ATT] Set config\r\n");
@@ -337,10 +336,6 @@ void eap_att_process(void)
             {
                 att_control.lastError = set_volume_wrapper(att_control.volume);
             }
-            else
-            {
-                att_control.logme("[EAP_ATT] First, play an audio file.\r\n");
-            }
             break;
         }
         default:
@@ -355,10 +350,15 @@ void eap_att_process(void)
         att_control.logme("[EAP_ATT] Error occurred %d for command %d\r\n", att_control.lastError, att_control.command);
         if (att_control.status == kAttRunning)
         {
-            att_control.logme("[EAP_ATT] Error occurred, trying to stop...\r\n");
             stop_wrapper();
+            att_control.logme("[EAP_ATT] Error occurred, playback stopped\r\n");
+            att_control.lastError = kEapAttCodeOk;
+            att_control.status    = kAttIdle;
         }
-        att_control.status = kAttError;
+        else
+        {
+            att_control.status = kAttError;
+        }
     }
 
     att_control.command = kAttCmdNone;
@@ -449,7 +449,7 @@ eap_att_code_t set_volume(int value)
     return kEapAttCodeOk; // let implementation on user if needed
 }
 
-#if (defined EAP_PROC || defined EAP32_PROC)
+#ifdef EAP_PROC
 
 static eap_att_code_t update_wrapper(void)
 {

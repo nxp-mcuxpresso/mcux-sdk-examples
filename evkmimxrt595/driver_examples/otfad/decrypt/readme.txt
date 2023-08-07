@@ -9,8 +9,8 @@ It including configure AES key and counter into OTFAD and OTFAD will decryption 
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.7.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================

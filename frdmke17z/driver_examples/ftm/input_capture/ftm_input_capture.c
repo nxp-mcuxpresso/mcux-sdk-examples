@@ -51,7 +51,7 @@ void FTM_INPUT_CAPTURE_HANDLER(void)
         FTM_ClearStatusFlags(BOARD_FTM_BASEADDR, FTM_CHANNEL_FLAG);
     }
     ftmIsrFlag = true;
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

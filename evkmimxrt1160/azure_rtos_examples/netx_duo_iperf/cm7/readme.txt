@@ -5,8 +5,8 @@ This is a small Iperf demo of the high-performance NetX Duo TCP/IP stack.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================
@@ -69,3 +69,9 @@ Test Time(milliseconds): 10000
 Number of Packets Transmitted: 30328
 Number of Bytes Transmitted: 44582160
 Throughput(Mbps):35
+
+
+Note that in UDP receive test, Linux host limits the default bandwidth of UDP packet,
+use "-b" to specify the bandwidth, for example:
+
+  $ iperf -i 1 -u -b 100m -c 10.193.20.10

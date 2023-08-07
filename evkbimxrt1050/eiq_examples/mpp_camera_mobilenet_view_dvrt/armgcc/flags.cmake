@@ -30,73 +30,73 @@ SET(CMAKE_ASM_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
 ")
 SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     ${CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG} \
-    -DXIP_BOOT_HEADER_DCD_ENABLE=1 \
-    -DXIP_BOOT_HEADER_XMCD_ENABLE=0 \
     -DXIP_EXTERNAL_FLASH=1 \
     -DXIP_BOOT_HEADER_ENABLE=1 \
     -DSKIP_SYSCLK_INIT \
     -DDATA_SECTION_IS_CACHEABLE=1 \
     -DDEBUG \
     -DCPU_MIMXRT1052DVL6B \
-    -DTFLITE_CUSTOM_OPS_DUMMY_RESOLVER=1 \
     -DINFERENCE_ENGINE_DeepViewRT \
     -DARM_MATH_CM7 \
     -D__FPU_PRESENT=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
+    -DMCUXPRESSO_SDK \
+    -DXIP_BOOT_HEADER_DCD_ENABLE=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DMPP_STATIC_MEMORY \
     -DSDK_OS_FREE_RTOS \
     -DTF_LITE_STATIC_MEMORY \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
-    -Wall \
-    -Wno-strict-aliasing \
     -mcpu=cortex-m7 \
+    -Wall \
     -mthumb \
     -MMD \
     -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
+    -ffreestanding \
+    -fno-builtin \
     -mapcs \
     -std=gnu99 \
     -O3 \
+    -Wno-strict-aliasing \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     ${CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE} \
-    -DXIP_BOOT_HEADER_DCD_ENABLE=1 \
-    -DXIP_BOOT_HEADER_XMCD_ENABLE=0 \
     -DXIP_EXTERNAL_FLASH=1 \
     -DXIP_BOOT_HEADER_ENABLE=1 \
     -DSKIP_SYSCLK_INIT \
     -DDATA_SECTION_IS_CACHEABLE=1 \
     -DNDEBUG \
     -DCPU_MIMXRT1052DVL6B \
-    -DTFLITE_CUSTOM_OPS_DUMMY_RESOLVER=1 \
     -DINFERENCE_ENGINE_DeepViewRT \
     -DARM_MATH_CM7 \
     -D__FPU_PRESENT=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
+    -DMCUXPRESSO_SDK \
+    -DXIP_BOOT_HEADER_DCD_ENABLE=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DMPP_STATIC_MEMORY \
     -DSDK_OS_FREE_RTOS \
     -DTF_LITE_STATIC_MEMORY \
-    -DMCUXPRESSO_SDK \
     -O3 \
-    -Wall \
-    -Wno-strict-aliasing \
     -mcpu=cortex-m7 \
+    -Wall \
     -mthumb \
     -MMD \
     -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
+    -ffreestanding \
+    -fno-builtin \
     -mapcs \
     -std=gnu99 \
+    -Wno-strict-aliasing \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -104,30 +104,32 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     ${CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG} \
     -DDEBUG \
     -DCPU_MIMXRT1052DVL6B \
-    -DTFLITE_CUSTOM_OPS_DUMMY_RESOLVER=1 \
     -DINFERENCE_ENGINE_DeepViewRT \
     -DARM_MATH_CM7 \
     -D__FPU_PRESENT=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
+    -DMCUXPRESSO_SDK \
     -DMPP_STATIC_MEMORY \
     -DTF_LITE_STATIC_MEMORY \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
-    -Wall \
-    -fno-rtti \
-    -fno-exceptions \
-    -Wno-sign-compare \
-    -Wno-strict-aliasing \
     -mcpu=cortex-m7 \
+    -Wall \
     -mthumb \
     -MMD \
     -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
+    -ffreestanding \
+    -fno-builtin \
     -mapcs \
+    -fno-rtti \
+    -fno-exceptions \
     -O3 \
+    -Wno-sign-compare \
+    -Wno-strict-aliasing \
+    -Wno-deprecated-declarations \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -135,28 +137,30 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     ${CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE} \
     -DNDEBUG \
     -DCPU_MIMXRT1052DVL6B \
-    -DTFLITE_CUSTOM_OPS_DUMMY_RESOLVER=1 \
     -DINFERENCE_ENGINE_DeepViewRT \
     -DARM_MATH_CM7 \
     -D__FPU_PRESENT=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
+    -DMCUXPRESSO_SDK \
     -DMPP_STATIC_MEMORY \
     -DTF_LITE_STATIC_MEMORY \
-    -DMCUXPRESSO_SDK \
     -O3 \
-    -Wall \
-    -fno-rtti \
-    -fno-exceptions \
-    -Wno-sign-compare \
-    -Wno-strict-aliasing \
     -mcpu=cortex-m7 \
+    -Wall \
     -mthumb \
     -MMD \
     -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
+    -ffreestanding \
+    -fno-builtin \
     -mapcs \
+    -fno-rtti \
+    -fno-exceptions \
+    -Wno-sign-compare \
+    -Wno-strict-aliasing \
+    -Wno-deprecated-declarations \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -189,7 +193,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     --defsym=__heap_size__=0x80000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/../../../../../middleware/eiq/mpp/boards/evkbimxrt1050/MIMXRT1052xxxxx_flexspi_nor_sdram.ld -static \
+    -T${ProjDirPath}/MIMXRT1052xxxxx_flexspi_nor_sdram.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE} \
@@ -219,5 +223,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     --defsym=__heap_size__=0x80000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/../../../../../middleware/eiq/mpp/boards/evkbimxrt1050/MIMXRT1052xxxxx_flexspi_nor_sdram.ld -static \
+    -T${ProjDirPath}/MIMXRT1052xxxxx_flexspi_nor_sdram.ld -static \
 ")

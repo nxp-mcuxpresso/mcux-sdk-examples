@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -161,6 +161,10 @@ void USB_OTG1_IRQHandler(void)
 }
 
 void USB_OTG2_IRQHandler(void)
+{
+    USB_DeviceEhciIsrFunction(s_audioMicrophone.deviceHandle);
+}
+void USB1_HS_IRQHandler(void)
 {
     USB_DeviceEhciIsrFunction(s_audioMicrophone.deviceHandle);
 }

@@ -66,7 +66,9 @@ void USB_DeviceTaskFn(void *deviceHandle);
 
 extern void led_blinky_init(void);
 extern void rtc_init(void);
+#ifdef ACCELEROMETER_EXISTS
 extern void acc_init(void);
+#endif
 extern void sdcard_init(void);
 extern void audio_init(void);
 extern void mouse_init(void);
@@ -286,7 +288,9 @@ void main(void)
     audio_init();
     mouse_init();
     led_blinky_init();
+#ifdef ACCELEROMETER_EXISTS
     acc_init();
+#endif
 #ifndef DEMO_SDCARD_NOSPORT
     sdcard_init();
 #endif

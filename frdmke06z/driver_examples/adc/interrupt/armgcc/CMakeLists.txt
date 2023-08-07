@@ -86,7 +86,7 @@ include(driver_gpio_1)
 
 include(CMSIS_Include_core_cm)
 
-include(utilities_misc_utilities)
+include(utilities_misc_utilities_MKE06Z4)
 
 include(device_system)
 

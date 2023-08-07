@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2021 NXP
+ * Copyright 2019-2021, 2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -220,7 +220,11 @@ const dc_fb_elcdif_config_t s_dcFbElcdifConfig = {
     .vfp           = DEMO_VFP,
     .vbp           = DEMO_VBP,
     .polarityFlags = DEMO_LCDIF_POL_FLAGS,
+#if (!DEMO_USE_XRGB8888) && (DEMO_USE_LUT8)
+    .dataBus       = kELCDIF_DataBus8Bit,
+#else
     .dataBus       = kELCDIF_DataBus24Bit,
+#endif
 };
 
 const dc_fb_t g_dc = {

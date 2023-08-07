@@ -11,6 +11,8 @@
 
 #include <stdio.h>
 
+#include "fsl_debug_console.h"
+
 #include "nx_api.h"
 #include "nx_azure_iot_hub_client.h"
 #include "nx_azure_iot_provisioning_client.h"
@@ -19,10 +21,11 @@
 #include "nx_azure_iot_cert.h"
 #include "nx_azure_iot_ciphersuites.h"
 #include "sample_config.h"
-#include "fsl_debug_console.h"
 
 /* Define Azure RTOS TLS info.  */
 static NX_SECURE_X509_CERT root_ca_cert;
+static NX_SECURE_X509_CERT root_ca_cert_2;
+static NX_SECURE_X509_CERT root_ca_cert_3;
 static UCHAR nx_azure_iot_tls_metadata_buffer[NX_AZURE_IOT_TLS_METADATA_BUFFER_SIZE];
 static ULONG nx_azure_iot_thread_stack[NX_AZURE_IOT_STACK_SIZE / sizeof(ULONG)];
 
@@ -49,7 +52,10 @@ static SAMPLE_CLIENT                                client;
 #ifdef ENABLE_DPS_SAMPLE
 #define prov_client client.prov_client
 #endif /* ENABLE_DPS_SAMPLE */
- 
+
+static volatile UINT sample_connection_status = NX_AZURE_IOT_NOT_INITIALIZED;
+static volatile UINT sample_properties_request_sent = NX_FALSE;
+
 /* Using X509 certificate authenticate to connect to IoT Hub,
    set the device certificate as your device.  */
 #if (USE_DEVICE_CERTIFICATE == 1)
@@ -116,6 +122,10 @@ static void sample_direct_method_thread_entry(ULONG parameter);
 static void sample_device_twin_thread_entry(ULONG parameter);
 #endif /* DISABLE_DEVICE_TWIN_SAMPLE */
 
+/* Include the connection monitor function from sample_azure_iot_embedded_sdk_connect.c.  */
+extern VOID sample_connection_monitor(NX_IP *ip_ptr, NX_AZURE_IOT_HUB_CLIENT *iothub_client_ptr, UINT connection_status,
+                                      UINT (*iothub_init)(NX_AZURE_IOT_HUB_CLIENT *hub_client_ptr));
+
 static VOID printf_packet(NX_PACKET *packet_ptr)
 {
     while (packet_ptr != NX_NULL)
@@ -137,6 +147,8 @@ static VOID connection_status_callback(NX_AZURE_IOT_HUB_CLIENT *hub_client_ptr, 
     {
         PRINTF("Connected to IoTHub.\r\n");
     }
+
+    sample_connection_status = status;
 }
 
 static UINT sample_initialize_iothub(NX_AZURE_IOT_HUB_CLIENT *iothub_client_ptr)
@@ -185,14 +197,24 @@ static UINT sample_initialize_iothub(NX_AZURE_IOT_HUB_CLIENT *iothub_client_ptr)
         return(status);
     }
 
+    /* Add more CA certificates.  */
+    if ((status = nx_azure_iot_hub_client_trusted_cert_add(iothub_client_ptr, &root_ca_cert_2)))
+    {
+        PRINTF("Failed on nx_azure_iot_hub_client_trusted_cert_add!: error code = 0x%08x\r\n", status);
+    }
+    else if ((status = nx_azure_iot_hub_client_trusted_cert_add(iothub_client_ptr, &root_ca_cert_3)))
+    {
+        PRINTF("Failed on nx_azure_iot_hub_client_trusted_cert_add!: error code = 0x%08x\r\n", status);
+    }
+
 #if (USE_DEVICE_CERTIFICATE == 1)
 
     /* Initialize the device certificate.  */
-    if ((status = nx_secure_x509_certificate_initialize(&device_certificate,
-                                                        (UCHAR *)sample_device_cert_ptr, (USHORT)sample_device_cert_len,
-                                                        NX_NULL, 0,
-                                                        (UCHAR *)sample_device_private_key_ptr, (USHORT)sample_device_private_key_len,
-                                                        DEVICE_KEY_TYPE)))
+    else if ((status = nx_secure_x509_certificate_initialize(&device_certificate,
+                                                             (UCHAR *)sample_device_cert_ptr, (USHORT)sample_device_cert_len,
+                                                             NX_NULL, 0,
+                                                             (UCHAR *)sample_device_private_key_ptr, (USHORT)sample_device_private_key_len,
+                                                             DEVICE_KEY_TYPE)))
     {
         PRINTF("Failed on nx_secure_x509_certificate_initialize!: error code = 0x%08x\r\n", status);
     }
@@ -205,13 +227,22 @@ static UINT sample_initialize_iothub(NX_AZURE_IOT_HUB_CLIENT *iothub_client_ptr)
 #else
 
     /* Set symmetric key.  */
-    if ((status = nx_azure_iot_hub_client_symmetric_key_set(iothub_client_ptr,
-                                                            (UCHAR *)DEVICE_SYMMETRIC_KEY,
-                                                            sizeof(DEVICE_SYMMETRIC_KEY) - 1)))
+    else if ((status = nx_azure_iot_hub_client_symmetric_key_set(iothub_client_ptr,
+                                                                 (UCHAR *)DEVICE_SYMMETRIC_KEY,
+                                                                 sizeof(DEVICE_SYMMETRIC_KEY) - 1)))
     {
         PRINTF("Failed on nx_azure_iot_hub_client_symmetric_key_set!\r\n");
     }
 #endif /* USE_DEVICE_CERTIFICATE */
+
+#ifdef NXD_MQTT_OVER_WEBSOCKET
+
+    /* Enable MQTT over WebSocket to connect to IoT Hub  */
+    else if ((status = nx_azure_iot_hub_client_websocket_enable(iothub_client_ptr)))
+    {
+        PRINTF("Failed on nx_azure_iot_hub_client_websocket_enable!\r\n");
+    }
+#endif /* NXD_MQTT_OVER_WEBSOCKET */
 
     /* Set connection status callback.  */
     else if ((status = nx_azure_iot_hub_client_connection_status_callback_set(iothub_client_ptr,
@@ -270,7 +301,7 @@ void sample_entry(NX_IP *ip_ptr, NX_PACKET_POOL *pool_ptr, NX_DNS *dns_ptr, UINT
         return;
     }
 
-    /* Initialize CA certificate.  */
+    /* Initialize CA certificates.  */
     if ((status = nx_secure_x509_certificate_initialize(&root_ca_cert, (UCHAR *)_nx_azure_iot_root_cert,
                                                         (USHORT)_nx_azure_iot_root_cert_size,
                                                         NX_NULL, 0, NULL, 0, NX_SECURE_X509_KEY_TYPE_NONE)))
@@ -279,22 +310,35 @@ void sample_entry(NX_IP *ip_ptr, NX_PACKET_POOL *pool_ptr, NX_DNS *dns_ptr, UINT
         nx_azure_iot_delete(&nx_azure_iot);
         return;
     }
-    
-    if ((status = sample_initialize_iothub(&iothub_client)))
+
+    if ((status = nx_secure_x509_certificate_initialize(&root_ca_cert_2, (UCHAR *)_nx_azure_iot_root_cert_2,
+                                                        (USHORT)_nx_azure_iot_root_cert_size_2,
+                                                        NX_NULL, 0, NULL, 0, NX_SECURE_X509_KEY_TYPE_NONE)))
     {
-        PRINTF("Failed to initialize iothub client: error code = 0x%08x\r\n", status);
+        PRINTF("Failed to initialize ROOT CA certificate!: error code = 0x%08x\r\n", status);
         nx_azure_iot_delete(&nx_azure_iot);
         return;
     }
 
-    if (nx_azure_iot_hub_client_connect(&iothub_client, NX_TRUE, NX_WAIT_FOREVER))
+    if ((status = nx_secure_x509_certificate_initialize(&root_ca_cert_3, (UCHAR *)_nx_azure_iot_root_cert_3,
+                                                        (USHORT)_nx_azure_iot_root_cert_size_3,
+                                                        NX_NULL, 0, NULL, 0, NX_SECURE_X509_KEY_TYPE_NONE)))
     {
-        PRINTF("Failed on nx_azure_iot_hub_client_connect!\r\n");
-        nx_azure_iot_hub_client_deinitialize(&iothub_client);
+        PRINTF("Failed to initialize ROOT CA certificate!: error code = 0x%08x\r\n", status);
         nx_azure_iot_delete(&nx_azure_iot);
         return;
     }
-    
+
+    if ((status = sample_initialize_iothub(&iothub_client)))
+    {
+        PRINTF("Failed to initialize iothub client: error code = 0x%08x\r\n", status);
+        sample_connection_status = NX_AZURE_IOT_NOT_INITIALIZED;
+    }
+    else if ((sample_connection_status = nx_azure_iot_hub_client_connect(&iothub_client, NX_TRUE, NX_WAIT_FOREVER)))
+    {
+        PRINTF("Failed on nx_azure_iot_hub_client_connect!\r\n");
+    }
+
 #ifndef DISABLE_TELEMETRY_SAMPLE
 
     /* Create Telemetry sample thread.  */
@@ -347,11 +391,18 @@ void sample_entry(NX_IP *ip_ptr, NX_PACKET_POOL *pool_ptr, NX_DNS *dns_ptr, UINT
     }
 #endif /* DISABLE_DEVICE_TWIN_SAMPLE */
 
-    /* Simply loop in sample.  */
     while (loop)
     {
+
+        /* Connection monitor.  */
+        sample_connection_monitor(ip_ptr, &iothub_client, sample_connection_status, sample_initialize_iothub);
+
         tx_thread_sleep(NX_IP_PERIODIC_RATE);
     }
+
+    /* Cleanup.  */
+    nx_azure_iot_hub_client_deinitialize(&iothub_client);
+    nx_azure_iot_delete(&nx_azure_iot);
 }
 
 #ifdef ENABLE_DPS_SAMPLE
@@ -383,11 +434,21 @@ static UINT sample_dps_entry(UCHAR **iothub_hostname, UINT *iothub_hostname_leng
     *iothub_hostname_length = sizeof(sample_iothub_hostname);
     *iothub_device_id_length = sizeof(sample_iothub_device_id);
 
+    /* Add more CA certificates.  */
+    if ((status = nx_azure_iot_provisioning_client_trusted_cert_add(&prov_client, &root_ca_cert_2)))
+    {
+        PRINTF("Failed on nx_azure_iot_provisioning_client_trusted_cert_add!: error code = 0x%08x\r\n", status);
+    }
+    else if ((status = nx_azure_iot_provisioning_client_trusted_cert_add(&prov_client, &root_ca_cert_3)))
+    {
+        PRINTF("Failed on nx_azure_iot_provisioning_client_trusted_cert_add!: error code = 0x%08x\r\n", status);
+    }
+
 #if (USE_DEVICE_CERTIFICATE == 1)
 
     /* Initialize the device certificate.  */
-    if ((status = nx_secure_x509_certificate_initialize(&device_certificate, (UCHAR *)sample_device_cert_ptr, (USHORT)sample_device_cert_len, NX_NULL, 0,
-                                                        (UCHAR *)sample_device_private_key_ptr, (USHORT)sample_device_private_key_len, DEVICE_KEY_TYPE)))
+    else if ((status = nx_secure_x509_certificate_initialize(&device_certificate, (UCHAR *)sample_device_cert_ptr, (USHORT)sample_device_cert_len, NX_NULL, 0,
+                                                             (UCHAR *)sample_device_private_key_ptr, (USHORT)sample_device_private_key_len, DEVICE_KEY_TYPE)))
     {
         PRINTF("Failed on nx_secure_x509_certificate_initialize!: error code = 0x%08x\r\n", status);
     }
@@ -400,12 +461,21 @@ static UINT sample_dps_entry(UCHAR **iothub_hostname, UINT *iothub_hostname_leng
 #else
 
     /* Set symmetric key.  */
-    if ((status = nx_azure_iot_provisioning_client_symmetric_key_set(&prov_client, (UCHAR *)DEVICE_SYMMETRIC_KEY,
-                                                                     sizeof(DEVICE_SYMMETRIC_KEY) - 1)))
+    else if ((status = nx_azure_iot_provisioning_client_symmetric_key_set(&prov_client, (UCHAR *)DEVICE_SYMMETRIC_KEY,
+                                                                          sizeof(DEVICE_SYMMETRIC_KEY) - 1)))
     {
         PRINTF("Failed on nx_azure_iot_hub_client_symmetric_key_set!: error code = 0x%08x\r\n", status);
     }
 #endif /* USE_DEVICE_CERTIFICATE */
+
+#ifdef NXD_MQTT_OVER_WEBSOCKET
+
+    /* Enable MQTT over WebSocket.  */
+    else if ((status = nx_azure_iot_provisioning_client_websocket_enable(&prov_client)))
+    {
+        PRINTF("Failed on nx_azure_iot_provisioning_client_websocket_enable!\r\n");
+    }
+#endif /* NXD_MQTT_OVER_WEBSOCKET */
 
     /* Register device */
     else if ((status = nx_azure_iot_provisioning_client_register(&prov_client, NX_WAIT_FOREVER)))
@@ -449,12 +519,17 @@ void sample_telemetry_thread_entry(ULONG parameter)
     /* Loop to send telemetry message.  */
     while (loop)
     {
+        if (sample_connection_status != NX_SUCCESS)
+        {
+            tx_thread_sleep(NX_IP_PERIODIC_RATE);
+            continue;
+        }
 
         /* Create a telemetry message packet.  */
         if ((status = nx_azure_iot_hub_client_telemetry_message_create(&iothub_client, &packet_ptr, NX_WAIT_FOREVER)))
         {
             PRINTF("Telemetry message create failed!: error code = 0x%08x\r\n", status);
-            break;
+            continue;
         }
 
         /* Add properties to telemetry message.  */
@@ -476,7 +551,7 @@ void sample_telemetry_thread_entry(ULONG parameter)
         if (status)
         {
             nx_azure_iot_hub_client_telemetry_message_delete(packet_ptr);
-            break;
+            continue;
         }
 
         buffer_length = (UINT)snprintf(buffer, sizeof(buffer), "{\"Message ID\":%u}", i++);
@@ -485,7 +560,7 @@ void sample_telemetry_thread_entry(ULONG parameter)
         {
             PRINTF("Telemetry message send failed!: error code = 0x%08x\r\n", status);
             nx_azure_iot_hub_client_telemetry_message_delete(packet_ptr);
-            break;
+            continue;
         }
         PRINTF("Telemetry message send: %s.\r\n", buffer);
 
@@ -508,10 +583,16 @@ void sample_c2d_thread_entry(ULONG parameter)
     /* Loop to receive c2d message.  */
     while (loop)
     {
+        if (sample_connection_status != NX_SUCCESS)
+        {
+            tx_thread_sleep(NX_IP_PERIODIC_RATE);
+            continue;
+        }
+
         if ((status = nx_azure_iot_hub_client_cloud_message_receive(&iothub_client, &packet_ptr, NX_WAIT_FOREVER)))
         {
             PRINTF("C2D receive failed!: error code = 0x%08x\r\n", status);
-            break;
+            continue;
         }
 
         if ((status = nx_azure_iot_hub_client_cloud_message_property_get(&iothub_client, packet_ptr,
@@ -548,13 +629,19 @@ void sample_direct_method_thread_entry(ULONG parameter)
     /* Loop to receive direct method message.  */
     while (loop)
     {
+        if (sample_connection_status != NX_SUCCESS)
+        {
+            tx_thread_sleep(NX_IP_PERIODIC_RATE);
+            continue;
+        }
+
         if ((status = nx_azure_iot_hub_client_direct_method_message_receive(&iothub_client,
-                                                                            (const UCHAR**)&method_name_ptr, &method_name_length,
+                                                                            &method_name_ptr, &method_name_length,
                                                                             &context_ptr, &context_length,
                                                                             &packet_ptr, NX_WAIT_FOREVER)))
         {
             PRINTF("Direct method receive failed!: error code = 0x%08x\r\n", status);
-            break;
+            continue;
         }
 
         PRINTF("Receive method call: %.*s, with payload:", (INT)method_name_length, (CHAR *)method_name_ptr);
@@ -568,7 +655,7 @@ void sample_direct_method_thread_entry(ULONG parameter)
         {
             PRINTF("Direct method response failed!: error code = 0x%08x\r\n", status);
             nx_packet_release(packet_ptr);
-            break;
+            continue;
         }
 
         nx_packet_release(packet_ptr);
@@ -588,31 +675,42 @@ void sample_device_twin_thread_entry(ULONG parameter)
 
     NX_PARAMETER_NOT_USED(parameter);
 
-    if ((status = nx_azure_iot_hub_client_device_twin_properties_request(&iothub_client, NX_WAIT_FOREVER)))
-    {
-        PRINTF("device twin document request failed!: error code = 0x%08x\r\n", status);
-        return;
-    }
-
-    if ((status = nx_azure_iot_hub_client_device_twin_properties_receive(&iothub_client, &packet_ptr, NX_WAIT_FOREVER)))
-    {
-        PRINTF("device twin document receive failed!: error code = 0x%08x\r\n", status);
-        return;
-    }
-
-    PRINTF("Receive twin properties :");
-    printf_packet(packet_ptr);
-    PRINTF("\r\n");
-    nx_packet_release(packet_ptr);
-
     /* Loop to receive device twin message.  */
     while (loop)
     {
+        if (sample_connection_status != NX_SUCCESS)
+        {
+            tx_thread_sleep(NX_IP_PERIODIC_RATE);
+            continue;
+        }
+
+        /* Only one properties request.  */
+        if (sample_properties_request_sent == NX_FALSE)
+        {
+            if ((status = nx_azure_iot_hub_client_device_twin_properties_request(&iothub_client, NX_WAIT_FOREVER)))
+            {
+                PRINTF("device twin document request failed!: error code = 0x%08x\r\n", status);
+                continue;
+            }
+
+            if ((status = nx_azure_iot_hub_client_device_twin_properties_receive(&iothub_client, &packet_ptr, NX_WAIT_FOREVER)))
+            {
+                PRINTF("device twin document receive failed!: error code = 0x%08x\r\n", status);
+                continue;
+            }
+
+            PRINTF("Receive twin properties :");
+            printf_packet(packet_ptr);
+            PRINTF("\r\n");
+            nx_packet_release(packet_ptr);
+            sample_properties_request_sent = NX_TRUE;
+        }
+
         if ((status = nx_azure_iot_hub_client_device_twin_desired_properties_receive(&iothub_client, &packet_ptr,
                                                                                      NX_WAIT_FOREVER)))
         {
             PRINTF("Receive desired property receive failed!: error code = 0x%08x\r\n", status);
-            break;
+            continue;
         }
 
         PRINTF("Receive desired property call: ");
@@ -627,13 +725,12 @@ void sample_device_twin_thread_entry(ULONG parameter)
                                                                                    NX_WAIT_FOREVER)))
         {
             PRINTF("Device twin reported properties failed!: error code = 0x%08x\r\n", status);
-            break;
+            continue;
         }
 
         if ((response_status < 200) || (response_status >= 300))
         {
             PRINTF("device twin report properties failed with code : %d\r\n", response_status);
-            break;
         }
     }
 }

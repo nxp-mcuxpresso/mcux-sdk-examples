@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -59,6 +67,37 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
+"${ProjDirPath}/../pin_mux.c"
+"${ProjDirPath}/../pin_mux.h"
+"${ProjDirPath}/../main.c"
+"${ProjDirPath}/../azure_iot_embedded_sdk_pnp.c"
+"${ProjDirPath}/../azure_iot_embedded_sdk_adu.c"
+"${ProjDirPath}/../sample_azure_iot_embedded_sdk_connect.c"
+"${ProjDirPath}/../secure_storage.c"
+"${ProjDirPath}/../get_seed.c"
+"${ProjDirPath}/../sample_config.h"
+"${ProjDirPath}/../nx_azure_iot_cert.c"
+"${ProjDirPath}/../nx_azure_iot_cert.h"
+"${ProjDirPath}/../nx_azure_iot_ciphersuites.c"
+"${ProjDirPath}/../nx_azure_iot_ciphersuites.h"
+"${ProjDirPath}/../sample_device_identity.c"
+"${ProjDirPath}/../tx_user.h"
+"${ProjDirPath}/../nx_azure_iot_adu_agent_mflash_driver.c"
+"${ProjDirPath}/../nx_user.h"
+"${ProjDirPath}/../fx_user.h"
+"${ProjDirPath}/../scripts/sign_image.py"
+"${ProjDirPath}/../scripts/gen_manifest.py"
+"${ProjDirPath}/../keys/sign-rsa2048-pub.pem"
+"${ProjDirPath}/../keys/sign-rsa2048-priv.pem"
+"${ProjDirPath}/../mcuboot/mcuboot_app_support.c"
+"${ProjDirPath}/../mcuboot/mcuboot_app_support.h"
+"${ProjDirPath}/../mcuboot/flash_map.h"
+"${ProjDirPath}/../mcuboot/sbldef.h"
+"${ProjDirPath}/../mcuboot/mcuboot_config.h"
+"${ProjDirPath}/../mcuboot/sysflash/sysflash.h"
+"${ProjDirPath}/../mcuboot/sblconfig.h"
+"${ProjDirPath}/../mcuboot/flash_partitioning.c"
+"${ProjDirPath}/../mcuboot/flash_partitioning.h"
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/inc/azure/az_core.h"
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/inc/azure/az_iot.h"
 "${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/inc/azure/core/_az_cfg.h"
@@ -312,49 +351,17 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../azure_iot/nx_azure_iot_json_writer.h"
 "${ProjDirPath}/../azure_iot/nx_azure_iot_provisioning_client.c"
 "${ProjDirPath}/../azure_iot/nx_azure_iot_provisioning_client.h"
-"${ProjDirPath}/../pin_mux.c"
-"${ProjDirPath}/../pin_mux.h"
-"${ProjDirPath}/../main.c"
-"${ProjDirPath}/../azure_iot_embedded_sdk_pnp.c"
-"${ProjDirPath}/../azure_iot_embedded_sdk_adu.c"
-"${ProjDirPath}/../sample_azure_iot_embedded_sdk_connect.c"
-"${ProjDirPath}/../secure_storage.c"
-"${ProjDirPath}/../get_seed.c"
-"${ProjDirPath}/../sample_config.h"
-"${ProjDirPath}/../nx_azure_iot_cert.c"
-"${ProjDirPath}/../nx_azure_iot_cert.h"
-"${ProjDirPath}/../nx_azure_iot_ciphersuites.c"
-"${ProjDirPath}/../nx_azure_iot_ciphersuites.h"
-"${ProjDirPath}/../sample_device_identity.c"
-"${ProjDirPath}/../tx_user.h"
-"${ProjDirPath}/../nx_driver_imxrt_irq.c"
-"${ProjDirPath}/../nx_driver_imxrt.c"
-"${ProjDirPath}/../nx_driver_imxrt.h"
-"${ProjDirPath}/../nx_azure_iot_adu_agent_mflash_driver.c"
-"${ProjDirPath}/../nx_user.h"
-"${ProjDirPath}/../fx_user.h"
-"${ProjDirPath}/../board.c"
-"${ProjDirPath}/../board.h"
-"${ProjDirPath}/../clock_config.c"
-"${ProjDirPath}/../clock_config.h"
-"${ProjDirPath}/../scripts/sign_image.py"
-"${ProjDirPath}/../scripts/gen_manifest.py"
-"${ProjDirPath}/../keys/sign-rsa2048-pub.pem"
-"${ProjDirPath}/../keys/sign-rsa2048-priv.pem"
-"${ProjDirPath}/../mcuboot/mcuboot_app_support.c"
-"${ProjDirPath}/../mcuboot/mcuboot_app_support.h"
-"${ProjDirPath}/../mcuboot/flash_map.h"
-"${ProjDirPath}/../mcuboot/sbldef.h"
-"${ProjDirPath}/../mcuboot/sblconfig.h"
-"${ProjDirPath}/../mcuboot/mcuboot_config.h"
-"${ProjDirPath}/../mcuboot/flash_partitioning.c"
-"${ProjDirPath}/../mcuboot/flash_partitioning.h"
-"${ProjDirPath}/../mcuboot/sysflash/sysflash.h"
-"${ProjDirPath}/../dcd.c"
-"${ProjDirPath}/../dcd.h"
+"${SdkRootDirPath}/core/boards/evkbmimxrt1060/board.c"
+"${SdkRootDirPath}/core/boards/evkbmimxrt1060/board.h"
+"${SdkRootDirPath}/core/boards/evkbmimxrt1060/clock_config.c"
+"${SdkRootDirPath}/core/boards/evkbmimxrt1060/clock_config.h"
+"${SdkRootDirPath}/core/boards/evkbmimxrt1060/dcd.c"
+"${SdkRootDirPath}/core/boards/evkbmimxrt1060/dcd.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+    ${ProjDirPath}/..
+    ${ProjDirPath}/../mcuboot
     ${ProjDirPath}/../azure_iot/azure-sdk-for-c/sdk/inc
     ${ProjDirPath}/../azure_iot
     ${ProjDirPath}/../azure_iot/azure_iot_security_module
@@ -363,108 +370,17 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/../azure_iot/azure_iot_security_module/iot-security-module-core/inc
     ${ProjDirPath}/../azure_iot/azure_iot_security_module/iot-security-module-core/deps/flatcc/src/runtime
     ${ProjDirPath}/../azure_iot/azure_iot_security_module/iot-security-module-core/deps/flatcc/include
-    ${ProjDirPath}/..
-    ${ProjDirPath}/../mcuboot
+    ${SdkRootDirPath}/core/boards/evkbmimxrt1060
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/rtos/azure-rtos
-    ${SdkRootDirPath}/core/drivers/enet
-    ${SdkRootDirPath}/core/components/phy/device/phyksz8081
-    ${SdkRootDirPath}/core/drivers/trng
-    ${SdkRootDirPath}/core/drivers/flexspi
-    ${SdkRootDirPath}/core/drivers/dcp
-    ${SdkRootDirPath}/core/components/flash/mflash
-    ${SdkRootDirPath}/core/components/flash/mflash/mimxrt1062
-    ${SdkRootDirPath}/core/devices/MIMXRT1062/drivers
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/devices/MIMXRT1062
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/components/serial_manager
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/drivers/lpuart
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/drivers/igpio
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/components/phy
-    ${SdkRootDirPath}/core/drivers/cache/armv7-m7
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
 
-# include modules
-include(middleware_azure_rtos_azure_iot)
+include(${SdkRootDirPath}/core/devices/MIMXRT1062/all_lib_device.cmake)
 
-include(middleware_azure_rtos_nxd)
+add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/netxduo ${SdkRootDirPath}/rtos/azure-rtos/build/libnetxduo)
 
-include(driver_enet)
+add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/filex ${SdkRootDirPath}/rtos/azure-rtos/build/libfilex)
 
-include(driver_phy-device-ksz8081)
-
-include(driver_trng)
-
-include(driver_flexspi)
-
-include(driver_dcp)
-
-include(component_mflash_file_MIMXRT1062)
-
-include(component_mflash_rt1060)
-
-include(driver_clock)
-
-include(driver_common)
-
-include(device_CMSIS)
-
-include(utility_debug_console)
-
-include(component_lpuart_adapter)
-
-include(component_serial_manager)
-
-include(component_lists)
-
-include(component_serial_manager_uart_MIMXRT1062)
-
-include(driver_lpuart)
-
-include(device_startup)
-
-include(driver_iomuxc)
-
-include(utility_assert)
-
-include(driver_igpio)
-
-include(middleware_azure_rtos_nxd_template_MIMXRT1062)
-
-include(middleware_azure_rtos_fx)
-
-include(middleware_azure_rtos_fx_template_MIMXRT1062)
-
-include(middleware_azure_rtos_tx)
-
-include(middleware_azure_rtos_tx_template_MIMXRT1062)
-
-include(CMSIS_Include_core_cm)
-
-include(driver_phy-common)
-
-include(driver_cache_armv7_m7)
-
-include(component_mflash_common)
-
-include(utilities_misc_utilities)
-
-include(device_system)
-
-
-add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/netxduo ./CMakeFiles/libnetxduo)
-
-add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/filex ./CMakeFiles/libfilex)
-
-add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/threadx ./CMakeFiles/libthreadx)
+add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/threadx ${SdkRootDirPath}/rtos/azure-rtos/build/libthreadx)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -482,4 +398,6 @@ TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
 ADD_CUSTOM_COMMAND(TARGET ${MCUX_SDK_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_OBJCOPY}
 -Obinary ${EXECUTABLE_OUTPUT_PATH}/${MCUX_SDK_PROJECT_NAME} ${EXECUTABLE_OUTPUT_PATH}/azure_iot_embedded_sdk_adu.bin)
+
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map;${EXECUTABLE_OUTPUT_PATH}/azure_iot_embedded_sdk_adu.bin")
 

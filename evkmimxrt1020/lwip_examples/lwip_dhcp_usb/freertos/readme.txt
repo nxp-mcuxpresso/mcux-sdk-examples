@@ -9,7 +9,7 @@ The application will get ip adress www.nxp.com and ping the ip address.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

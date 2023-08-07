@@ -1010,7 +1010,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.Include_common.LPC54114" name="CMSIS_Include_common" brief="Cmsis_include_common" version="5.3.0" full_name="Cmsis_include_common" devices="LPC54114J256" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Include" project_base_path="CMSIS">
+    <component id="platform.Include_common.LPC54114" name="CMSIS_Include_common" brief="Cmsis_include_common" version="5.3.0" full_name="Cmsis_include_common" devices="LPC54114J256" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Core/Include" project_base_path="CMSIS">
       <source relative_path="./" type="c_include">
         <files mask="cmsis_armcc.h"/>
         <files mask="cmsis_armclang.h"/>
@@ -1030,7 +1030,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.Include_core_cm0plus.LPC54114" name="CMSIS_Include_core_cm0plus" brief="Cmsis_include_core_cm0plus" version="5.3.0" full_name="Cmsis_include_core_cm0plus" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Include" project_base_path="CMSIS">
+    <component id="platform.Include_core_cm0plus.LPC54114" name="CMSIS_Include_core_cm0plus" brief="Cmsis_include_core_cm0plus" version="5.3.0" full_name="Cmsis_include_core_cm0plus" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Core/Include" project_base_path="CMSIS">
       <dependencies>
         <all>
           <component_dependency value="platform.Include_common.LPC54114"/>
@@ -1048,7 +1048,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.Include_core_cm4.LPC54114" name="CMSIS_Include_core_cm4" brief="Cmsis_include_core_cm4" version="5.3.0" full_name="Cmsis_include_core_cm4" devices="LPC54114J256" device_cores="cm4_LPC54114J256" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Include" project_base_path="CMSIS">
+    <component id="platform.Include_core_cm4.LPC54114" name="CMSIS_Include_core_cm4" brief="Cmsis_include_core_cm4" version="5.3.0" full_name="Cmsis_include_core_cm4" devices="LPC54114J256" device_cores="cm4_LPC54114J256" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Core/Include" project_base_path="CMSIS">
       <dependencies>
         <all>
           <component_dependency value="platform.Include_common.LPC54114"/>
@@ -1066,7 +1066,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.Include_dsp.LPC54114" name="CMSIS_Include_dsp" brief="Cmsis_include_dsp" version="1.7.0" full_name="Cmsis_include_dsp" devices="LPC54114J256" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Include" project_base_path="CMSIS">
+    <component id="platform.Include_dsp.LPC54114" name="CMSIS_Include_dsp" brief="Cmsis_include_dsp" version="1.7.0" full_name="Cmsis_include_dsp" devices="LPC54114J256" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/DSP/Include" project_base_path="CMSIS">
       <source relative_path="./" type="c_include">
         <files mask="arm_common_tables.h"/>
         <files mask="arm_const_structs.h"/>
@@ -2866,7 +2866,7 @@ ${load}</script>
         <files mask="middleware_baremetal.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.LPC54114" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="202007.00.0" full_name="FreeRTOS kernel" devices="LPC54114J256" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.LPC54114" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="202007.00.0" full_name="FreeRTOS kernel" devices="LPC54114J256" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <defines>
         <define name="SDK_OS_FREE_RTOS" value=""/>
       </defines>
@@ -2935,7 +2935,7 @@ ${load}</script>
         <include_path relative_path="portable/GCC/ARM_CM4F" toolchain="armgcc mcuxpresso" type="c_include" device_cores="cm4_LPC54114J256"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.armv8m.LPC54114" name="FreeRTOS port ARMv8M" brief="FreeRTOS port ARMv8M" version="202007.00.0" full_name="FreeRTOS port ARMv8M" devices="LPC54114J256" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.armv8m.LPC54114" name="FreeRTOS port ARMv8M" brief="FreeRTOS port ARMv8M" version="202007.00.0" full_name="FreeRTOS port ARMv8M" devices="LPC54114J256" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.LPC54114"/>
       </dependencies>
@@ -3023,7 +3023,7 @@ ${load}</script>
         <include_path relative_path="portable/ARMv8M/secure/macros" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.extension.LPC54114" name="FreeRTOS NXP extension" brief="FreeRTOS NXP extension" version="202007.00.0" full_name="FreeRTOS NXP extension" devices="LPC54114J256" category="Operating System/FreeRTOS kernel extensions" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.extension.LPC54114" name="FreeRTOS NXP extension" brief="FreeRTOS NXP extension" version="202007.00.0" full_name="FreeRTOS NXP extension" devices="LPC54114J256" category="Operating System/FreeRTOS kernel extensions" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <source relative_path="include" type="c_include">
         <files mask="freertos_tasks_c_additions.h"/>
       </source>
@@ -3037,7 +3037,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.heap_1.LPC54114" name="FreeRTOS heap 1" brief="FreeRTOS heap 1" version="202007.00.0" full_name="FreeRTOS heap 1" devices="LPC54114J256" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_1.LPC54114" name="FreeRTOS heap 1" brief="FreeRTOS heap 1" version="202007.00.0" full_name="FreeRTOS heap 1" devices="LPC54114J256" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.LPC54114"/>
       </dependencies>
@@ -3045,7 +3045,7 @@ ${load}</script>
         <files mask="heap_1.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_2.LPC54114" name="FreeRTOS heap 2" brief="FreeRTOS heap 2" version="202007.00.0" full_name="FreeRTOS heap 2" devices="LPC54114J256" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_2.LPC54114" name="FreeRTOS heap 2" brief="FreeRTOS heap 2" version="202007.00.0" full_name="FreeRTOS heap 2" devices="LPC54114J256" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.LPC54114"/>
       </dependencies>
@@ -3053,7 +3053,7 @@ ${load}</script>
         <files mask="heap_2.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_3.LPC54114" name="FreeRTOS heap 3" brief="FreeRTOS heap 3" version="202007.00.0" full_name="FreeRTOS heap_3" devices="LPC54114J256" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_3.LPC54114" name="FreeRTOS heap 3" brief="FreeRTOS heap 3" version="202007.00.0" full_name="FreeRTOS heap_3" devices="LPC54114J256" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.LPC54114"/>
       </dependencies>
@@ -3067,7 +3067,7 @@ ${load}</script>
         <files mask="middleware_freertos-kernel_heap_3.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_4.LPC54114" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="202007.00.0" full_name="FreeRTOS heap 4" devices="LPC54114J256" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_4.LPC54114" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="202007.00.0" full_name="FreeRTOS heap 4" devices="LPC54114J256" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.LPC54114"/>
       </dependencies>
@@ -3078,7 +3078,7 @@ ${load}</script>
         <files mask="middleware_freertos-kernel_heap_4.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_5.LPC54114" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="202007.00.0" full_name="FreeRTOS heap 5" devices="LPC54114J256" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_5.LPC54114" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="202007.00.0" full_name="FreeRTOS heap 5" devices="LPC54114J256" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.LPC54114"/>
       </dependencies>
@@ -3086,7 +3086,7 @@ ${load}</script>
         <files mask="heap_5.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_newlib.LPC54114" name="FreeRTOS heap newlib" brief="FreeRTOS heap newlib" version="202007.00.0" full_name="FreeRTOS heap newlib" devices="LPC54114J256" category="Operating System/FreeRTOS kernel extensions" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.heap_newlib.LPC54114" name="FreeRTOS heap newlib" brief="FreeRTOS heap newlib" version="202007.00.0" full_name="FreeRTOS heap newlib" devices="LPC54114J256" category="Operating System/FreeRTOS kernel extensions" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.LPC54114"/>
       </dependencies>
@@ -3094,7 +3094,7 @@ ${load}</script>
         <files mask="heap_useNewlib.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.mpu_wrappers.LPC54114" name="FreeRTOS MPU wrappers" brief="FreeRTOS MPU wrappers" version="202007.00.0" full_name="FreeRTOS MPU wrappers" devices="LPC54114J256" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.mpu_wrappers.LPC54114" name="FreeRTOS MPU wrappers" brief="FreeRTOS MPU wrappers" version="202007.00.0" full_name="FreeRTOS MPU wrappers" devices="LPC54114J256" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <dependencies>
         <component_dependency value="middleware.freertos-kernel.LPC54114"/>
       </dependencies>
@@ -3102,7 +3102,7 @@ ${load}</script>
         <files mask="mpu_wrappers.c"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.template.LPC54114" name="FreeRTOS configuration template" brief="Template configuration file to be edited by user. Provides also memory allocator (heap_x), change variant if needed." version="202007.00.0" full_name="FreeRTOS configuration template" devices="LPC54114J256" category="Operating System/FreeRTOS kernel" user_visible="false" type="project_template" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.template.LPC54114" name="FreeRTOS configuration template" brief="Template configuration file to be edited by user. Provides also memory allocator (heap_x), change variant if needed." version="202007.00.0" full_name="FreeRTOS configuration template" devices="LPC54114J256" category="Operating System/FreeRTOS kernel" user_visible="false" type="project_template" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <source relative_path="template/ARM_CM0" type="c_include" device_cores="cm0plus_LPC54114J256">
         <files mask="FreeRTOSConfig.h"/>
       </source>
@@ -3124,7 +3124,7 @@ ${load}</script>
         <include_path relative_path="template/ARM_CM4F" type="c_include" device_cores="cm4_LPC54114J256"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.unused.LPC54114" name="FreeRTOS unused" brief="FreeRTOS unused" version="202007.00.0" full_name="FreeRTOS unused" devices="LPC54114J256" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos_kernel" project_base_path="freertos">
+    <component id="middleware.freertos-kernel.unused.LPC54114" name="FreeRTOS unused" brief="FreeRTOS unused" version="202007.00.0" full_name="FreeRTOS unused" devices="LPC54114J256" category="Operating System/FreeRTOS kernel" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos">
       <source relative_path="./" type="doc">
         <files mask="History.txt"/>
         <files mask="readme.txt"/>
@@ -6208,7 +6208,7 @@ ${load}</script>
         <files mask="utility_assert_lite.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="utility.debug_console.LPC54114" name="debug_console" brief="Utility debug_console" version="1.0.0" full_name="Utility debug_console" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console" project_base_path="utilities">
+    <component id="utility.debug_console.LPC54114" name="debug_console" brief="Utility debug_console" version="1.0.0" full_name="Utility debug_console" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="utilities" package_base_path="core/utilities" project_base_path="utilities">
       <dependencies>
         <all>
           <component_dependency value="component.serial_manager.LPC54114"/>
@@ -6239,17 +6239,23 @@ ${load}</script>
         <include_path relative_path="debug_console" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="utility.debug_console_lite.LPC54114" name="debug_console_lite" brief="Utility debug_console_lite" version="1.0.0" full_name="Utility debug_console_lite" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="utilities" package_base_path="core/utilities/debug_console_lite" project_base_path="utilities">
+    <component id="utility.debug_console_lite.LPC54114" name="debug_console_lite" brief="Utility debug_console_lite" version="1.0.0" full_name="Utility debug_console_lite" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="utilities" package_base_path="core/utilities" project_base_path="utilities">
       <dependencies>
         <all>
           <component_dependency value="component.usart_adapter.LPC54114"/>
           <component_dependency value="platform.drivers.common.LPC54114"/>
         </all>
       </dependencies>
-      <source relative_path="./" type="src">
+      <source relative_path="str" project_relative_path="./" type="src">
+        <files mask="fsl_str.c"/>
+      </source>
+      <source relative_path="str" project_relative_path="./" type="c_include">
+        <files mask="fsl_str.h"/>
+      </source>
+      <source relative_path="debug_console_lite" project_relative_path="./" type="src">
         <files mask="fsl_debug_console.c"/>
       </source>
-      <source relative_path="./" type="c_include">
+      <source relative_path="debug_console_lite" project_relative_path="./" type="c_include">
         <files mask="fsl_debug_console.h"/>
       </source>
       <source toolchain="armgcc" relative_path="." type="workspace" device_cores="cm0plus_LPC54114J256">
@@ -6259,7 +6265,8 @@ ${load}</script>
         <files mask="utility_debug_console_lite.cmake" hidden="true"/>
       </source>
       <include_paths>
-        <include_path relative_path="./" type="c_include"/>
+        <include_path relative_path="str" project_relative_path="./" type="c_include"/>
+        <include_path relative_path="debug_console_lite" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
     <component id="utility.incbin.LPC54114" name="incbin" brief="Used to include slave core binary into master core binary." version="1.0.0" full_name="utility incbin" devices="LPC54114J256" user_visible="true" type="utilities" package_base_path="core/utilities/misc_utilities" project_base_path="utilities">

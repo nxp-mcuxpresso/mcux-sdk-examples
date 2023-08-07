@@ -36,10 +36,9 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DCPU_MIMXRT1176DVMAA_cm4 \
     -D__USE_SHMEM \
     -DFLEXSPI_IN_USE \
-    -DSDK_OS_FREE_RTOS \
-    -DMULTICORE_APP=1 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DMULTICORE_APP=1 \
+    -DSDK_OS_FREE_RTOS \
     -g \
     -O0 \
     -mcpu=cortex-m4 \
@@ -63,10 +62,9 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DCPU_MIMXRT1176DVMAA_cm4 \
     -D__USE_SHMEM \
     -DFLEXSPI_IN_USE \
-    -DSDK_OS_FREE_RTOS \
-    -DMULTICORE_APP=1 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DMULTICORE_APP=1 \
+    -DSDK_OS_FREE_RTOS \
     -Os \
     -mcpu=cortex-m4 \
     -Wall \
@@ -87,7 +85,6 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     ${CMAKE_CXX_FLAGS_DEBUG} \
     -DDEBUG \
     -DCPU_MIMXRT1176DVMAA_cm4 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
     -g \
     -O0 \
@@ -111,7 +108,6 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     ${CMAKE_CXX_FLAGS_RELEASE} \
     -DNDEBUG \
     -DCPU_MIMXRT1176DVMAA_cm4 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m4 \

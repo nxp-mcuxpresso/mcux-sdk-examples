@@ -173,7 +173,7 @@ static void pdm_error_irqHandler(void)
 void PDM_ERROR_IRQHandler(void)
 {
     pdm_error_irqHandler();
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 #endif
 
@@ -201,7 +201,7 @@ void PDM_EVENT_IRQHandler(void)
     }
 
     PDM_ClearStatus(DEMO_PDM, status);
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

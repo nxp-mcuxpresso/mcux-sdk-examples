@@ -111,12 +111,7 @@ function populateWifiNetworks(networks) {
             otherClasses += 'hidden_network ';
         }
 
-        if (net.security.includes("WPA3")) {
-            otherClasses += 'wpa3_network ';
-        }
-
         let enterprise = /ENT/i.test(net.security);
-
 
         if(enterprise) {
             otherClasses += 'enterprise_network ';
@@ -193,11 +188,6 @@ function connect_net(ssid, open, ent, security){
         return;
     }
 
-    if(security.includes("WPA3")){
-        open_success_dialogue("Connecting to WPA3 networks is not supported.", "Connecting to WPA3 Wi-Fi");
-        return;
-    }
-
     if (g_state == "client") {
         open_cJoin_dialogue();
         return;
@@ -205,6 +195,7 @@ function connect_net(ssid, open, ent, security){
 
 
     document.getElementById("post_ssid").value = ssid;
+    document.getElementById("post_security").value = security;
     document.getElementById("post_password").value = "";
     document.getElementById("post_errors").innerHTML = "";
     openDialogue("ap_password_page", true)
@@ -283,7 +274,8 @@ function attemptConnect(){
 
     var ssid =  document.getElementById("post_ssid").value;
     var password =  document.getElementById("post_password").value;
-    var params = `post_ssid=${ssid}&post_passphrase=${password}`
+    var security =  document.getElementById("post_security").value;
+    var params = `post_ssid=${ssid}&post_passphrase=${password}&post_security=${security}`
 
     mkRequest("POST", "post.cgi", params, (err, data)=>{
         if(err){
@@ -355,10 +347,6 @@ function scan(){
     }, 30000);
 
 }
-
-
-
-
 
 /* Make request to server */
 

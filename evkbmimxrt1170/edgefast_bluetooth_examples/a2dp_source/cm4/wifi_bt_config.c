@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 NXP
+ * Copyright 2021-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -8,6 +8,11 @@
 #include "wifi_bt_config.h"
 #include "pin_mux.h"
 #include "fsl_gpio.h"
+
+#if defined(WIFI_IW61x_BOARD_RD_USD)
+#define CONTROLLER_RESET_GPIO GPIO3
+#define CONTROLLER_RESET_PIN  9U
+#endif
 
 /*******************************************************************************
  * Definitions
@@ -40,7 +45,7 @@ void BOARD_WIFI_BT_Enable(bool enable)
         vTaskDelay(pdMS_TO_TICKS(100));
 #elif defined(WIFI_BT_USE_USD_INTERFACE)
         /* Enable power supply for SD */
-        GPIO_PinWrite(BOARD_SDMMC_SD_POWER_RESET_GPIO_BASE, BOARD_SDMMC_SD_POWER_RESET_GPIO_PIN, 0);
+        GPIO_PinWrite(CONTROLLER_RESET_GPIO, CONTROLLER_RESET_PIN, 1);
         vTaskDelay(pdMS_TO_TICKS(100));
 #endif /* WIFI_BT_USE_M2_INTERFACE */
     }
@@ -54,7 +59,7 @@ void BOARD_WIFI_BT_Enable(bool enable)
         GPIO_PortClear(BOARD_INITPINSM2_SDIO_RST_GPIO, BOARD_INITPINSM2_SDIO_RST_GPIO_PIN_MASK);
 #elif defined(WIFI_BT_USE_USD_INTERFACE)
         /* Disable power supply for SD */
-        GPIO_PinWrite(BOARD_SDMMC_SD_POWER_RESET_GPIO_BASE, BOARD_SDMMC_SD_POWER_RESET_GPIO_PIN, 1);
+        GPIO_PinWrite(CONTROLLER_RESET_GPIO, CONTROLLER_RESET_PIN, 0);
 #endif /* WIFI_BT_USE_M2_INTERFACE */
         vTaskDelay(pdMS_TO_TICKS(100));
     }
