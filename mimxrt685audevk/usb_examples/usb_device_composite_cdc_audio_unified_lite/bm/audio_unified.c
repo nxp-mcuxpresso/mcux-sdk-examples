@@ -1087,8 +1087,8 @@ usb_status_t USB_DeviceAudioSetRequestInterface(usb_device_handle handle,
     {
     }
 #if (USB_DEVICE_CONFIG_AUDIO_CLASS_2_0)
-    if ((USB_AUDIO_RECORDER_CONTROL_CLOCK_SOURCE_ENTITY_ID == entityId) ||
-        (USB_AUDIO_SPEAKER_CONTROL_CLOCK_SOURCE_ENTITY_ID == entityId))
+    if ((USB_AUDIO_CONTROL_SPEAKER_CLOCK_SOURCE_ENTITY_ID == entityId) ||
+        (USB_AUDIO_CONTROL_RECORDER_CLOCK_SOURCE_ENTITY_ID == entityId))
     {
         error = USB_DeviceAudioSetClockSource(handle, setup, length, buffer);
     }
@@ -1121,8 +1121,8 @@ usb_status_t USB_DeviceAudioGetRequestInterface(usb_device_handle handle,
     {
     }
 #if (USB_DEVICE_CONFIG_AUDIO_CLASS_2_0)
-    if ((USB_AUDIO_RECORDER_CONTROL_CLOCK_SOURCE_ENTITY_ID == entityId) ||
-        (USB_AUDIO_SPEAKER_CONTROL_CLOCK_SOURCE_ENTITY_ID == entityId))
+    if ((USB_AUDIO_CONTROL_SPEAKER_CLOCK_SOURCE_ENTITY_ID == entityId) ||
+        (USB_AUDIO_CONTROL_RECORDER_CLOCK_SOURCE_ENTITY_ID == entityId))
     {
         error = USB_DeviceAudioGetClockSource(handle, setup, length, buffer);
     }
@@ -1492,15 +1492,15 @@ usb_status_t USB_DeviceAudioProcessTerminalRequest(uint32_t audioCommand,
             break;
 #if (USB_DEVICE_CONFIG_AUDIO_CLASS_2_0)
         case USB_DEVICE_AUDIO_CS_GET_CUR_SAMPLING_FREQ_CONTROL:
-            if (entityOrEndpoint == USB_AUDIO_RECORDER_CONTROL_CLOCK_SOURCE_ENTITY_ID)
-            {
-                *buffer = (uint8_t *)&g_deviceComposite->audioUnified.curRecorderSampleFrequency;
-                *length = sizeof(g_deviceComposite->audioUnified.curRecorderSampleFrequency);
-            }
-            else if (entityOrEndpoint == USB_AUDIO_SPEAKER_CONTROL_CLOCK_SOURCE_ENTITY_ID)
+            if (entityOrEndpoint == USB_AUDIO_CONTROL_SPEAKER_CLOCK_SOURCE_ENTITY_ID)
             {
                 *buffer = (uint8_t *)&g_deviceComposite->audioUnified.curSpeakerSampleFrequency;
                 *length = sizeof(g_deviceComposite->audioUnified.curSpeakerSampleFrequency);
+            }
+            else if (entityOrEndpoint == USB_AUDIO_CONTROL_RECORDER_CLOCK_SOURCE_ENTITY_ID)
+            {
+                *buffer = (uint8_t *)&g_deviceComposite->audioUnified.curRecorderSampleFrequency;
+                *length = sizeof(g_deviceComposite->audioUnified.curRecorderSampleFrequency);
             }
             else
             {
@@ -1508,13 +1508,13 @@ usb_status_t USB_DeviceAudioProcessTerminalRequest(uint32_t audioCommand,
             }
             break;
         case USB_DEVICE_AUDIO_CS_SET_CUR_SAMPLING_FREQ_CONTROL:
-            if (entityOrEndpoint == USB_AUDIO_RECORDER_CONTROL_CLOCK_SOURCE_ENTITY_ID)
-            {
-                g_deviceComposite->audioUnified.curRecorderSampleFrequency = *(uint32_t *)(*buffer);
-            }
-            else if (entityOrEndpoint == USB_AUDIO_SPEAKER_CONTROL_CLOCK_SOURCE_ENTITY_ID)
+            if (entityOrEndpoint == USB_AUDIO_CONTROL_SPEAKER_CLOCK_SOURCE_ENTITY_ID)
             {
                 g_deviceComposite->audioUnified.curSpeakerSampleFrequency = *(uint32_t *)(*buffer);
+            }
+            else if (entityOrEndpoint == USB_AUDIO_CONTROL_RECORDER_CLOCK_SOURCE_ENTITY_ID)
+            {
+                g_deviceComposite->audioUnified.curRecorderSampleFrequency = *(uint32_t *)(*buffer);
             }
             else
             {
@@ -1533,15 +1533,15 @@ usb_status_t USB_DeviceAudioProcessTerminalRequest(uint32_t audioCommand,
             *length = sizeof(g_deviceComposite->audioUnified.volumeControlRange);
             break;
         case USB_DEVICE_AUDIO_CS_GET_RANGE_SAMPLING_FREQ_CONTROL:
-            if (entityOrEndpoint == USB_AUDIO_RECORDER_CONTROL_CLOCK_SOURCE_ENTITY_ID)
+            if (USB_AUDIO_CONTROL_SPEAKER_CLOCK_SOURCE_ENTITY_ID == entityOrEndpoint)
             {
-                *buffer = (uint8_t *)&g_deviceComposite->audioUnified.freqRecorderControlRange;
-                *length = sizeof(g_deviceComposite->audioUnified.freqRecorderControlRange);
+                *buffer = (uint8_t *)&g_deviceComposite->audioUnified.speakerFreqControlRange;
+                *length = sizeof(g_deviceComposite->audioUnified.speakerFreqControlRange);
             }
-            else if (entityOrEndpoint == USB_AUDIO_SPEAKER_CONTROL_CLOCK_SOURCE_ENTITY_ID)
+            else if (USB_AUDIO_CONTROL_RECORDER_CLOCK_SOURCE_ENTITY_ID == entityOrEndpoint)
             {
-                *buffer = (uint8_t *)&g_deviceComposite->audioUnified.freqSpeakerControlRange;
-                *length = sizeof(g_deviceComposite->audioUnified.freqSpeakerControlRange);
+                *buffer = (uint8_t *)&g_deviceComposite->audioUnified.recorderFreqControlRange;
+                *length = sizeof(g_deviceComposite->audioUnified.recorderFreqControlRange);
             }
             else
             {
@@ -1885,7 +1885,7 @@ void CTIMER_SOF_TOGGLE_HANDLER_FRO(uint32_t i)
 
             err     = g_composite.audioUnified.usbFroTicksEma - AUDIO_FRO_USB_SOF_INTERVAL_TICK_COUNT;
             abs_err = abs(err);
-            if (abs_err > g_composite.audioUnified.usbFroTickBasedPrecision)
+            if (abs_err >= g_composite.audioUnified.usbFroTickBasedPrecision)
             {
                 if (err > 0)
                 {
@@ -1996,7 +1996,7 @@ void CTIMER_SOF_TOGGLE_HANDLER_PLL(uint32_t i)
 
             err     = g_composite.audioUnified.audioPllTicksEma - AUDIO_PLL_USB_SOF_INTERVAL_TICK_COUNT;
             abs_err = abs(err);
-            if (abs_err > g_composite.audioUnified.audioPllTickBasedPrecision)
+            if (abs_err >= g_composite.audioUnified.audioPllTickBasedPrecision)
             {
                 if (err > 0)
                 {
@@ -2310,24 +2310,22 @@ usb_status_t USB_DeviceAudioUnifiedInit(usb_device_composite_struct_t *deviceCom
     g_deviceComposite->audioUnified.curMicrophoneVolume20[0] = 0x00U;
     g_deviceComposite->audioUnified.curMicrophoneVolume20[1] = 0x1FU;
 
-    g_deviceComposite->audioUnified.curRecorderSampleFrequency = 16000U;
-    g_deviceComposite->audioUnified.curSpeakerSampleFrequency  = 48000U;
+    g_deviceComposite->audioUnified.curSpeakerSampleFrequency             = AUDIO_OUT_SAMPLING_RATE;
+    g_deviceComposite->audioUnified.speakerFreqControlRange.wNumSubRanges = 1U;
+    g_deviceComposite->audioUnified.speakerFreqControlRange.wMIN          = 48000U;
+    g_deviceComposite->audioUnified.speakerFreqControlRange.wMAX          = 48000U;
+    g_deviceComposite->audioUnified.speakerFreqControlRange.wRES          = 0U;
 
-    g_deviceComposite->audioUnified.freqRecorderControlRange.wNumSubRanges = 1U;
-    g_deviceComposite->audioUnified.freqRecorderControlRange.wMIN          = 16000U;
-    g_deviceComposite->audioUnified.freqRecorderControlRange.wMAX          = 16000U;
-    g_deviceComposite->audioUnified.freqRecorderControlRange.wRES          = 0U;
-
-    g_deviceComposite->audioUnified.freqSpeakerControlRange.wNumSubRanges = 1U;
-    g_deviceComposite->audioUnified.freqSpeakerControlRange.wMIN          = 48000U;
-    g_deviceComposite->audioUnified.freqSpeakerControlRange.wMAX          = 48000U;
-    g_deviceComposite->audioUnified.freqSpeakerControlRange.wRES          = 0U;
+    g_deviceComposite->audioUnified.curRecorderSampleFrequency             = AUDIO_IN_SAMPLING_RATE;
+    g_deviceComposite->audioUnified.recorderFreqControlRange.wNumSubRanges = 1U;
+    g_deviceComposite->audioUnified.recorderFreqControlRange.wMIN          = 16000U;
+    g_deviceComposite->audioUnified.recorderFreqControlRange.wMAX          = 16000U;
+    g_deviceComposite->audioUnified.recorderFreqControlRange.wRES          = 0U;
 
     g_deviceComposite->audioUnified.volumeControlRange.wNumSubRanges = 1U;
     g_deviceComposite->audioUnified.volumeControlRange.wMIN          = 0x8001U;
     g_deviceComposite->audioUnified.volumeControlRange.wMAX          = 0x7FFFU;
     g_deviceComposite->audioUnified.volumeControlRange.wRES          = 1U;
-
 #endif
     g_deviceComposite->audioUnified.tdReadNumberPlay              = 0;
     g_deviceComposite->audioUnified.tdWriteNumberPlay             = 0;

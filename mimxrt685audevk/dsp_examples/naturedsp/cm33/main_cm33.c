@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -10,9 +10,9 @@
 #include "board.h"
 #include "fsl_debug_console.h"
 
+#include "fsl_inputmux.h"
 #include "dsp_config.h"
 #include "dsp_support.h"
-#include "fsl_inputmux.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -44,8 +44,8 @@ int main(void)
     /* MUB interrupt signal is selected for DSP interrupt input 1 */
     INPUTMUX_AttachSignal(INPUTMUX, 1U, kINPUTMUX_MuBToDspInterrupt);
 
-    PRINTF("\r\nNatureDSP demo start\r\n");
-    PRINTF("Going to start DSP core...\r\n");
+    PRINTF("\r\n[CM33 Main] NatureDSP demo start\r\n");
+    PRINTF("[CM33 Main] Going to start DSP core...\r\n");
 
     /* Console will be used by the DSP core from now on. */
     DbgConsole_Deinit();

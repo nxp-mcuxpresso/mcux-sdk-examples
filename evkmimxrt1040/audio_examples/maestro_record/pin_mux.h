@@ -1,6 +1,7 @@
 /*
- * Copyright 2021 NXP
+ * Copyright  2021-2023 NXP
  * All rights reserved.
+ *
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -44,28 +45,248 @@ extern "C" {
  */
 void BOARD_InitBootPins(void);
 
-#define BOARD_INITPINS_IOMUXC_GPR_GPR26_GPIO_MUX1_GPIO_SEL_MASK 0x040020U /*!< GPIO1 and GPIO6 share same IO MUX function, GPIO_MUX1 selects one GPIO function: affected bits mask */
-#define BOARD_INITPINS_IOMUXC_GPR_GPR27_GPIO_MUX2_GPIO_SEL_MASK 0x10000000U /*!< GPIO2 and GPIO7 share same IO MUX function, GPIO_MUX2 selects one GPIO function: affected bits mask */
+#define BOARD_INITCS42448PINS_IOMUXC_GPR_GPR27_GPIO_MUX2_GPIO_SEL_MASK 0x0140U /*!< GPIO2 and GPIO7 share same IO MUX function, GPIO_MUX2 selects one GPIO function: affected bits mask */
 
-/* GPIO_AD_B1_02 (coord K11), SDIO0_SD1_SEL */
+/* GPIO_B0_13 (coord C10), LCDIF_D9/J49[A19]/BT_CFG[9] */
 /* Routed pin properties */
-#define BOARD_SDIO0_SD1_SEL_PERIPHERAL                                     GPIO1   /*!< Peripheral name */
-#define BOARD_SDIO0_SD1_SEL_SIGNAL                                       gpio_io   /*!< Signal name */
-#define BOARD_SDIO0_SD1_SEL_CHANNEL                                          18U   /*!< Signal channel */
+#define BOARD_INITCS42448PINS_LCDIF_D9_PERIPHERAL                           SAI1   /*!< Peripheral name */
+#define BOARD_INITCS42448PINS_LCDIF_D9_SIGNAL                           sai_mclk   /*!< Signal name */
+
+/* GPIO_B1_00 (coord A11), LCDIF_D12/J49[A9] */
+/* Routed pin properties */
+#define BOARD_INITCS42448PINS_LCDIF_D12_PERIPHERAL                          SAI1   /*!< Peripheral name */
+#define BOARD_INITCS42448PINS_LCDIF_D12_SIGNAL                      sai_rx_data0   /*!< Signal name */
+
+/* GPIO_B1_02 (coord E12), LCDIF_D14/J49[A11] */
+/* Routed pin properties */
+#define BOARD_INITCS42448PINS_LCDIF_D14_PERIPHERAL                          SAI1   /*!< Peripheral name */
+#define BOARD_INITCS42448PINS_LCDIF_D14_SIGNAL                       sai_tx_bclk   /*!< Signal name */
+
+/* GPIO_B1_01 (coord A12), LCDIF_D13/J49[A10] */
+/* Routed pin properties */
+#define BOARD_INITCS42448PINS_LCDIF_D13_PERIPHERAL                          SAI1   /*!< Peripheral name */
+#define BOARD_INITCS42448PINS_LCDIF_D13_SIGNAL                      sai_tx_data0   /*!< Signal name */
+
+/* GPIO_B1_03 (coord E10), LCDIF_D15/J49[A12] */
+/* Routed pin properties */
+#define BOARD_INITCS42448PINS_LCDIF_D15_PERIPHERAL                          SAI1   /*!< Peripheral name */
+#define BOARD_INITCS42448PINS_LCDIF_D15_SIGNAL                       sai_tx_sync   /*!< Signal name */
+
+/* GPIO_B0_15 (coord D11), LCDIF_D11/J49[A8]/BT_CFG[11] */
+/* Routed pin properties */
+#define BOARD_INITCS42448PINS_LCDIF_D11_PERIPHERAL                          SAI1   /*!< Peripheral name */
+#define BOARD_INITCS42448PINS_LCDIF_D11_SIGNAL                       sai_rx_bclk   /*!< Signal name */
+
+/* GPIO_B0_14 (coord C11), LCDIF_D10/J49[A20]/BT_CFG[10] */
+/* Routed pin properties */
+#define BOARD_INITCS42448PINS_LCDIF_D10_PERIPHERAL                          SAI1   /*!< Peripheral name */
+#define BOARD_INITCS42448PINS_LCDIF_D10_SIGNAL                       sai_rx_sync   /*!< Signal name */
+
+/* GPIO_B0_12 (coord D10), LCDIF_D8/J49[A18]/BT_CFG[8] */
+/* Routed pin properties */
+#define BOARD_INITCS42448PINS_LCDIF_D8_PERIPHERAL                           SAI1   /*!< Peripheral name */
+#define BOARD_INITCS42448PINS_LCDIF_D8_SIGNAL                       sai_tx_data1   /*!< Signal name */
+
+/* GPIO_B0_11 (coord B9), LCDIF_D7/J49[A17]/BT_CFG[7] */
+/* Routed pin properties */
+#define BOARD_INITCS42448PINS_LCDIF_D7_PERIPHERAL                           SAI1   /*!< Peripheral name */
+#define BOARD_INITCS42448PINS_LCDIF_D7_SIGNAL                       sai_tx_data2   /*!< Signal name */
+
+/* GPIO_B0_10 (coord D9), LCDIF_D6/J49[A16]/BT_CFG[6] */
+/* Routed pin properties */
+#define BOARD_INITCS42448PINS_LCDIF_D6_PERIPHERAL                           SAI1   /*!< Peripheral name */
+#define BOARD_INITCS42448PINS_LCDIF_D6_SIGNAL                       sai_tx_data3   /*!< Signal name */
+
+/* GPIO_AD_B1_07 (coord J10), J33[6]/I2C3_SCL/J23[13]/J24[3]/U66[5] */
+/* Routed pin properties */
+#define BOARD_INITCS42448PINS_I2C3_SCL_PERIPHERAL                         LPI2C3   /*!< Peripheral name */
+#define BOARD_INITCS42448PINS_I2C3_SCL_SIGNAL                                SCL   /*!< Signal name */
+
+/* GPIO_AD_B1_06 (coord H10), J33[5]/I2C3_SDA/J23[15]/J24[5]/U66[4] */
+/* Routed pin properties */
+#define BOARD_INITCS42448PINS_I2C3_SDA_PERIPHERAL                         LPI2C3   /*!< Peripheral name */
+#define BOARD_INITCS42448PINS_I2C3_SDA_SIGNAL                                SDA   /*!< Signal name */
+
+/* GPIO_B0_06 (coord B8), LCDIF_D2/J49[A26]/BT_CFG[2] */
+/* Routed pin properties */
+#define BOARD_INITCS42448PINS_LCDIF_D2_PERIPHERAL                          GPIO2   /*!< Peripheral name */
+#define BOARD_INITCS42448PINS_LCDIF_D2_SIGNAL                            gpio_io   /*!< Signal name */
+#define BOARD_INITCS42448PINS_LCDIF_D2_CHANNEL                                6U   /*!< Signal channel */
 
 /* Symbols to be used with GPIO driver */
-#define BOARD_SDIO0_SD1_SEL_GPIO                                           GPIO1   /*!< GPIO peripheral base pointer */
-#define BOARD_SDIO0_SD1_SEL_GPIO_PIN                                         18U   /*!< GPIO pin number */
-#define BOARD_SDIO0_SD1_SEL_GPIO_PIN_MASK                            (1U << 18U)   /*!< GPIO pin mask */
-#define BOARD_SDIO0_SD1_SEL_PORT                                           GPIO1   /*!< PORT peripheral base pointer */
-#define BOARD_SDIO0_SD1_SEL_PIN                                              18U   /*!< PORT pin number */
-#define BOARD_SDIO0_SD1_SEL_PIN_MASK                                 (1U << 18U)   /*!< PORT pin mask */
+#define BOARD_INITCS42448PINS_LCDIF_D2_GPIO                                GPIO2   /*!< GPIO peripheral base pointer */
+#define BOARD_INITCS42448PINS_LCDIF_D2_GPIO_PIN                               6U   /*!< GPIO pin number */
+#define BOARD_INITCS42448PINS_LCDIF_D2_GPIO_PIN_MASK                  (1U << 6U)   /*!< GPIO pin mask */
+#define BOARD_INITCS42448PINS_LCDIF_D2_PORT                                GPIO2   /*!< PORT peripheral base pointer */
+#define BOARD_INITCS42448PINS_LCDIF_D2_PIN                                    6U   /*!< PORT pin number */
+#define BOARD_INITCS42448PINS_LCDIF_D2_PIN_MASK                       (1U << 6U)   /*!< PORT pin mask */
+
+/* GPIO_B0_08 (coord A10), LCDIF_D4/J49[A28]/BT_CFG[4] */
+/* Routed pin properties */
+#define BOARD_INITCS42448PINS_LCDIF_D4_PERIPHERAL                          GPIO2   /*!< Peripheral name */
+#define BOARD_INITCS42448PINS_LCDIF_D4_SIGNAL                            gpio_io   /*!< Signal name */
+#define BOARD_INITCS42448PINS_LCDIF_D4_CHANNEL                                8U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITCS42448PINS_LCDIF_D4_GPIO                                GPIO2   /*!< GPIO peripheral base pointer */
+#define BOARD_INITCS42448PINS_LCDIF_D4_GPIO_PIN                               8U   /*!< GPIO pin number */
+#define BOARD_INITCS42448PINS_LCDIF_D4_GPIO_PIN_MASK                  (1U << 8U)   /*!< GPIO pin mask */
+#define BOARD_INITCS42448PINS_LCDIF_D4_PORT                                GPIO2   /*!< PORT peripheral base pointer */
+#define BOARD_INITCS42448PINS_LCDIF_D4_PIN                                    8U   /*!< PORT pin number */
+#define BOARD_INITCS42448PINS_LCDIF_D4_PIN_MASK                       (1U << 8U)   /*!< PORT pin mask */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
  */
-void BOARD_InitPins(void);
+void BOARD_InitCS42448Pins(void);
+
+/* GPIO_AD_B1_00 (coord H9), J17[10]/I2C1_SCL/J49[B4]/U25[17] */
+/* Routed pin properties */
+#define BOARD_INITWM8960PINS_I2C1_SCL_PERIPHERAL                          LPI2C1   /*!< Peripheral name */
+#define BOARD_INITWM8960PINS_I2C1_SCL_SIGNAL                                 SCL   /*!< Signal name */
+
+/* GPIO_AD_B1_01 (coord K12), J17[9]/I2C1_SDA/J49[B5]/U25[18] */
+/* Routed pin properties */
+#define BOARD_INITWM8960PINS_I2C1_SDA_PERIPHERAL                          LPI2C1   /*!< Peripheral name */
+#define BOARD_INITWM8960PINS_I2C1_SDA_SIGNAL                                 SDA   /*!< Signal name */
+
+/* GPIO_B0_13 (coord C10), LCDIF_D9/J49[A19]/BT_CFG[9] */
+/* Routed pin properties */
+#define BOARD_INITWM8960PINS_LCDIF_D9_PERIPHERAL                            SAI1   /*!< Peripheral name */
+#define BOARD_INITWM8960PINS_LCDIF_D9_SIGNAL                            sai_mclk   /*!< Signal name */
+
+/* GPIO_B1_00 (coord A11), LCDIF_D12/J49[A9] */
+/* Routed pin properties */
+#define BOARD_INITWM8960PINS_LCDIF_D12_PERIPHERAL                           SAI1   /*!< Peripheral name */
+#define BOARD_INITWM8960PINS_LCDIF_D12_SIGNAL                       sai_rx_data0   /*!< Signal name */
+
+/* GPIO_B1_02 (coord E12), LCDIF_D14/J49[A11] */
+/* Routed pin properties */
+#define BOARD_INITWM8960PINS_LCDIF_D14_PERIPHERAL                           SAI1   /*!< Peripheral name */
+#define BOARD_INITWM8960PINS_LCDIF_D14_SIGNAL                        sai_tx_bclk   /*!< Signal name */
+
+/* GPIO_B1_01 (coord A12), LCDIF_D13/J49[A10] */
+/* Routed pin properties */
+#define BOARD_INITWM8960PINS_LCDIF_D13_PERIPHERAL                           SAI1   /*!< Peripheral name */
+#define BOARD_INITWM8960PINS_LCDIF_D13_SIGNAL                       sai_tx_data0   /*!< Signal name */
+
+/* GPIO_B1_03 (coord E10), LCDIF_D15/J49[A12] */
+/* Routed pin properties */
+#define BOARD_INITWM8960PINS_LCDIF_D15_PERIPHERAL                           SAI1   /*!< Peripheral name */
+#define BOARD_INITWM8960PINS_LCDIF_D15_SIGNAL                        sai_tx_sync   /*!< Signal name */
+
+/*!
+ * @brief Configures pin routing and optionally pin electrical features.
+ *
+ */
+void BOARD_InitWM8960Pins(void);
+
+/* GPIO_AD_B0_13 (coord J11), UART1_RXD/J11[2] */
+/* Routed pin properties */
+#define BOARD_INITDEBUGCONSOLEPINS_UART1_RXD_PERIPHERAL                  LPUART1   /*!< Peripheral name */
+#define BOARD_INITDEBUGCONSOLEPINS_UART1_RXD_SIGNAL                           RX   /*!< Signal name */
+
+/* GPIO_AD_B0_12 (coord J12), UART1_TXD/J13[2] */
+/* Routed pin properties */
+#define BOARD_INITDEBUGCONSOLEPINS_UART1_TXD_PERIPHERAL                  LPUART1   /*!< Peripheral name */
+#define BOARD_INITDEBUGCONSOLEPINS_UART1_TXD_SIGNAL                           TX   /*!< Signal name */
+
+/*!
+ * @brief Configures pin routing and optionally pin electrical features.
+ *
+ */
+void BOARD_InitDebugConsolePins(void);
+
+#define BOARD_INITUSDHCPINS_IOMUXC_GPR_GPR26_GPIO_MUX1_GPIO_SEL_MASK 0x040020U /*!< GPIO1 and GPIO6 share same IO MUX function, GPIO_MUX1 selects one GPIO function: affected bits mask */
+#define BOARD_INITUSDHCPINS_IOMUXC_GPR_GPR27_GPIO_MUX2_GPIO_SEL_MASK 0x10000000U /*!< GPIO2 and GPIO7 share same IO MUX function, GPIO_MUX2 selects one GPIO function: affected bits mask */
+
+/* GPIO_SD_B0_01 (coord K3), J17[3]/U63[7] */
+/* Routed pin properties */
+#define BOARD_INITUSDHCPINS_GPIO_SD_B0_01_PERIPHERAL                      USDHC1   /*!< Peripheral name */
+#define BOARD_INITUSDHCPINS_GPIO_SD_B0_01_SIGNAL                       usdhc_clk   /*!< Signal name */
+
+/* GPIO_SD_B0_00 (coord H3), J17[6]/U63[8] */
+/* Routed pin properties */
+#define BOARD_INITUSDHCPINS_GPIO_SD_B0_00_PERIPHERAL                      USDHC1   /*!< Peripheral name */
+#define BOARD_INITUSDHCPINS_GPIO_SD_B0_00_SIGNAL                       usdhc_cmd   /*!< Signal name */
+
+/* GPIO_SD_B0_02 (coord J3), J17[4]/U64[8] */
+/* Routed pin properties */
+#define BOARD_INITUSDHCPINS_GPIO_SD_B0_02_PERIPHERAL                      USDHC1   /*!< Peripheral name */
+#define BOARD_INITUSDHCPINS_GPIO_SD_B0_02_SIGNAL                      usdhc_data   /*!< Signal name */
+#define BOARD_INITUSDHCPINS_GPIO_SD_B0_02_CHANNEL                             0U   /*!< Signal channel */
+
+/* GPIO_SD_B0_03 (coord J2), J17[5]/U64[7] */
+/* Routed pin properties */
+#define BOARD_INITUSDHCPINS_GPIO_SD_B0_03_PERIPHERAL                      USDHC1   /*!< Peripheral name */
+#define BOARD_INITUSDHCPINS_GPIO_SD_B0_03_SIGNAL                      usdhc_data   /*!< Signal name */
+#define BOARD_INITUSDHCPINS_GPIO_SD_B0_03_CHANNEL                             1U   /*!< Signal channel */
+
+/* GPIO_SD_B0_04 (coord J4), U65[8] */
+/* Routed pin properties */
+#define BOARD_INITUSDHCPINS_GPIO_SD_B0_04_PERIPHERAL                      USDHC1   /*!< Peripheral name */
+#define BOARD_INITUSDHCPINS_GPIO_SD_B0_04_SIGNAL                      usdhc_data   /*!< Signal name */
+#define BOARD_INITUSDHCPINS_GPIO_SD_B0_04_CHANNEL                             2U   /*!< Signal channel */
+
+/* GPIO_SD_B0_05 (coord J1), U65[7] */
+/* Routed pin properties */
+#define BOARD_INITUSDHCPINS_GPIO_SD_B0_05_PERIPHERAL                      USDHC1   /*!< Peripheral name */
+#define BOARD_INITUSDHCPINS_GPIO_SD_B0_05_SIGNAL                      usdhc_data   /*!< Signal name */
+#define BOARD_INITUSDHCPINS_GPIO_SD_B0_05_CHANNEL                             3U   /*!< Signal channel */
+
+/* GPIO_B1_14 (coord E13), SD0_VSELECT/J17[1] */
+/* Routed pin properties */
+#define BOARD_INITUSDHCPINS_SD0_VSELECT_PERIPHERAL                        USDHC1   /*!< Peripheral name */
+#define BOARD_INITUSDHCPINS_SD0_VSELECT_SIGNAL                     usdhc_vselect   /*!< Signal name */
+
+/* GPIO_AD_B1_02 (coord K11), J16[7]/SPDIF_OUT/SDIO0_SD1_SEL/U63[9]/U64[9]/U65[9] */
+/* Routed pin properties */
+#define BOARD_INITUSDHCPINS_SPDIF_OUT_PERIPHERAL                           GPIO1   /*!< Peripheral name */
+#define BOARD_INITUSDHCPINS_SPDIF_OUT_SIGNAL                             gpio_io   /*!< Signal name */
+#define BOARD_INITUSDHCPINS_SPDIF_OUT_CHANNEL                                18U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITUSDHCPINS_SPDIF_OUT_GPIO                                 GPIO1   /*!< GPIO peripheral base pointer */
+#define BOARD_INITUSDHCPINS_SPDIF_OUT_GPIO_PIN                               18U   /*!< GPIO pin number */
+#define BOARD_INITUSDHCPINS_SPDIF_OUT_GPIO_PIN_MASK                  (1U << 18U)   /*!< GPIO pin mask */
+#define BOARD_INITUSDHCPINS_SPDIF_OUT_PORT                                 GPIO1   /*!< PORT peripheral base pointer */
+#define BOARD_INITUSDHCPINS_SPDIF_OUT_PIN                                    18U   /*!< PORT pin number */
+#define BOARD_INITUSDHCPINS_SPDIF_OUT_PIN_MASK                       (1U << 18U)   /*!< PORT pin mask */
+
+/* GPIO_AD_B0_05 (coord H12), BT_PCM_BCLK/U9[7]/U10[17]/CAN_STBY/U23[8]/BOOT_MODE[1] */
+/* Routed pin properties */
+#define BOARD_INITUSDHCPINS_CAN_STBY_PERIPHERAL                            GPIO1   /*!< Peripheral name */
+#define BOARD_INITUSDHCPINS_CAN_STBY_SIGNAL                              gpio_io   /*!< Signal name */
+#define BOARD_INITUSDHCPINS_CAN_STBY_CHANNEL                                  5U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITUSDHCPINS_CAN_STBY_GPIO                                  GPIO1   /*!< GPIO peripheral base pointer */
+#define BOARD_INITUSDHCPINS_CAN_STBY_GPIO_PIN                                 5U   /*!< GPIO pin number */
+#define BOARD_INITUSDHCPINS_CAN_STBY_GPIO_PIN_MASK                    (1U << 5U)   /*!< GPIO pin mask */
+#define BOARD_INITUSDHCPINS_CAN_STBY_PORT                                  GPIO1   /*!< PORT peripheral base pointer */
+#define BOARD_INITUSDHCPINS_CAN_STBY_PIN                                      5U   /*!< PORT pin number */
+#define BOARD_INITUSDHCPINS_CAN_STBY_PIN_MASK                         (1U << 5U)   /*!< PORT pin mask */
+
+/* GPIO_B1_12 (coord F13), SD_CD_SW/J22[9] */
+/* Routed pin properties */
+#define BOARD_INITUSDHCPINS_SD_CD_SW_PERIPHERAL                            GPIO2   /*!< Peripheral name */
+#define BOARD_INITUSDHCPINS_SD_CD_SW_SIGNAL                              gpio_io   /*!< Signal name */
+#define BOARD_INITUSDHCPINS_SD_CD_SW_CHANNEL                                 28U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITUSDHCPINS_SD_CD_SW_GPIO                                  GPIO2   /*!< GPIO peripheral base pointer */
+#define BOARD_INITUSDHCPINS_SD_CD_SW_GPIO_PIN                                28U   /*!< GPIO pin number */
+#define BOARD_INITUSDHCPINS_SD_CD_SW_GPIO_PIN_MASK                   (1U << 28U)   /*!< GPIO pin mask */
+#define BOARD_INITUSDHCPINS_SD_CD_SW_PORT                                  GPIO2   /*!< PORT peripheral base pointer */
+#define BOARD_INITUSDHCPINS_SD_CD_SW_PIN                                     28U   /*!< PORT pin number */
+#define BOARD_INITUSDHCPINS_SD_CD_SW_PIN_MASK                        (1U << 28U)   /*!< PORT pin mask */
+
+/*!
+ * @brief Configures pin routing and optionally pin electrical features.
+ *
+ */
+void BOARD_InitUSDHCPins(void);
 
 #if defined(__cplusplus)
 }

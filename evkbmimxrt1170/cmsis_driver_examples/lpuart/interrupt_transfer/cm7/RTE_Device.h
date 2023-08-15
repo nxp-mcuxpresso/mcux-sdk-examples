@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2020 NXP
+ * Copyright 2018 NXP
  * All rights reserved.
  *
  *
@@ -11,8 +11,6 @@
 
 extern void LPUART1_InitPins();
 extern void LPUART1_DeinitPins();
-extern void LPUART8_InitPins();
-extern void LPUART8_DeinitPins();
 
 /* Driver name mapping. */
 /* User needs to provide the implementation of LPUARTX_GetFreq/LPUARTX_InitPins/LPUARTX_DeinitPins for the enabled

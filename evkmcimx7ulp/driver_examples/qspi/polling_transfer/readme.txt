@@ -13,7 +13,7 @@ program command uses quad mode, the write frequency is 48MHz * 4 = 192MHz.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

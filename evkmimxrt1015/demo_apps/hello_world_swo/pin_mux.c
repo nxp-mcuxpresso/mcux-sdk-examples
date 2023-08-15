@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2022 NXP
+ * Copyright 2019-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -13,11 +13,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v12.0
+product: Pins v14.0
 processor: MIMXRT1015xxxxx
 package_id: MIMXRT1015DAF5A
 mcu_data: ksdk2_0
-processor_version: 0.12.10
+processor_version: 0.14.5
 board: MIMXRT1015-EVK
 pin_labels:
 - {pin_num: '68', pin_signal: GPIO_AD_B0_07, label: LPUART1_RXD, identifier: UART1_RXD}
@@ -45,6 +45,7 @@ BOARD_InitPins:
 - options: {callFromInitBoot: 'true', coreID: core0, enableClock: 'true'}
 - pin_list:
   - {pin_num: '1', peripheral: GPIO2, signal: 'gpio_io, 09', pin_signal: GPIO_EMC_09, pull_keeper_select: Pull, pull_up_down_config: Pull_Up_22K_Ohm, hysteresis_enable: Enable}
+  - {pin_num: '64', peripheral: ARM, signal: arm_trace_swo, pin_signal: GPIO_AD_B0_11}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -57,10 +58,11 @@ BOARD_InitPins:
 void BOARD_InitPins(void) {
   CLOCK_EnableClock(kCLOCK_Iomuxc);           
 
+#if FSL_IOMUXC_DRIVER_VERSION >= MAKE_VERSION(2, 0, 4)
+  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_11_ARM_CM7_TRACE_SWO, 0U); 
+#endif
   IOMUXC_SetPinMux(IOMUXC_GPIO_EMC_09_GPIO2_IO09, 0U); 
   IOMUXC_SetPinConfig(IOMUXC_GPIO_EMC_09_GPIO2_IO09, 0x01F0B0U); 
-
-  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_11_ARM_CM7_TRACE_SWO, 0U); 
 }
 
 /***********************************************************************************************************************

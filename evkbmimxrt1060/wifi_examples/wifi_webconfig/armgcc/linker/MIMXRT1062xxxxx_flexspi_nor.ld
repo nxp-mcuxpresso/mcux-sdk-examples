@@ -59,7 +59,7 @@ SECTIONS
     . = ALIGN(4);
   } > m_flash_config
 
-  ivt_begin= ORIGIN(m_flash_config) + LENGTH(m_flash_config);
+  ivt_begin = ORIGIN(m_flash_config) + LENGTH(m_flash_config);
 
   .ivt : AT(ivt_begin)
   {
@@ -191,6 +191,8 @@ SECTIONS
     */fsl_flexspi.c.obj(.text .text* .rodata .rodata*)
     *(.data)                 /* .data sections */
     *(.data*)                /* .data* sections */
+    *(DataQuickAccess)       /* quick access data section */
+    *(.wlan_data .wlan_data.*)
     KEEP(*(.jcr*))
     . = ALIGN(4);
     __data_end__ = .;        /* define a global symbol at data end */
@@ -264,4 +266,3 @@ SECTIONS
 
   ASSERT(__StackLimit >= __HeapLimit, "region m_data overflowed with stack and heap")
 }
-

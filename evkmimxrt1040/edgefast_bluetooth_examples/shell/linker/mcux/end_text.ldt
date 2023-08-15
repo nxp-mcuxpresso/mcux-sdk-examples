@@ -58,7 +58,5 @@
 
   .LITTLEFS_FLASH_region :
   {
-    FILL(0xFFFFFFFF)
     . = ORIGIN(LITTLEFS_FLASH_region) + LENGTH(LITTLEFS_FLASH_region) - 1;
-    BYTE(0xFF);
   } > LITTLEFS_FLASH_region

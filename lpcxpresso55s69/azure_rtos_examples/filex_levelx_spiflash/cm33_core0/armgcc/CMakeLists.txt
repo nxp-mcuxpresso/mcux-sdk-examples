@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -69,96 +77,25 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../tx_spi.h"
 "${ProjDirPath}/../tx_user.h"
 "${ProjDirPath}/../fx_user.h"
-"${ProjDirPath}/../board.c"
-"${ProjDirPath}/../board.h"
-"${ProjDirPath}/../clock_config.c"
-"${ProjDirPath}/../clock_config.h"
+"${SdkRootDirPath}/core/boards/lpcxpresso55s69/board.c"
+"${SdkRootDirPath}/core/boards/lpcxpresso55s69/board.h"
+"${SdkRootDirPath}/core/boards/lpcxpresso55s69/clock_config.c"
+"${SdkRootDirPath}/core/boards/lpcxpresso55s69/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
+    ${SdkRootDirPath}/core/boards/lpcxpresso55s69
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/rtos/azure-rtos
-    ${SdkRootDirPath}/core/components/flash/nor
-    ${SdkRootDirPath}/core/drivers/flexcomm
-    ${SdkRootDirPath}/core/devices/LPC55S69/drivers
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/devices/LPC55S69
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/components/serial_manager
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/drivers/lpc_iocon
-    ${SdkRootDirPath}/core/drivers/lpc_gpio
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/components/osa
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
 
-# include modules
-include(middleware_azure_rtos_fx_sp)
+include(${SdkRootDirPath}/core/devices/LPC55S69/all_lib_device.cmake)
 
-include(middleware_azure_rtos_lx)
+add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/levelx ${SdkRootDirPath}/rtos/azure-rtos/build/liblevelx)
 
-include(driver_nor_flash-common)
+add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/filex ${SdkRootDirPath}/rtos/azure-rtos/build/libfilex)
 
-include(driver_flexcomm_spi)
-
-include(driver_clock)
-
-include(driver_power)
-
-include(driver_common)
-
-include(device_CMSIS)
-
-include(utility_debug_console)
-
-include(component_usart_adapter)
-
-include(component_serial_manager)
-
-include(component_lists)
-
-include(component_serial_manager_uart_LPC55S69_cm33_core0)
-
-include(driver_flexcomm_usart)
-
-include(device_startup_LPC55S69_cm33_core0)
-
-include(driver_flexcomm)
-
-include(driver_lpc_iocon)
-
-include(driver_lpc_gpio)
-
-include(utility_assert)
-
-include(component_osa_thread)
-
-include(middleware_azure_rtos_fx_template_LPC55S69_cm33_core0)
-
-include(middleware_azure_rtos_tx_sp)
-
-include(middleware_azure_rtos_tx_template_LPC55S69_cm33_core0)
-
-include(driver_reset)
-
-include(CMSIS_Include_core_cm)
-
-include(utilities_misc_utilities)
-
-include(device_system_LPC55S69_cm33_core0)
-
-
-add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/threadx ./CMakeFiles/libthreadx)
-
-add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/filex ./CMakeFiles/libfilex)
-
-add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/levelx ./CMakeFiles/liblevelx)
+add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/threadx ${SdkRootDirPath}/rtos/azure-rtos/build/libthreadx)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -174,4 +111,5 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBR
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map")
 

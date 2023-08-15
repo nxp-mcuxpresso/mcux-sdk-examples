@@ -1,5 +1,5 @@
 /*
- * Copyright  2018 ,2021 NXP
+ * Copyright  2018 ,2021, 2023 NXP
  * All rights reserved.
  *
  *
@@ -50,7 +50,7 @@ BOARD_InitPins:
     clkdiv: div0}
   - {pin_num: '22', peripheral: USART0, signal: TXD, pin_signal: PIO0_7/ADC_0, mode: pullUp, invert: disabled, hysteresis: disabled, opendrain: disabled, smode: bypass,
     clkdiv: div0}
-  - {pin_num: '23', peripheral: ADC0, signal: 'CH, 1', pin_signal: PIO0_6/ADC_1/VDDCMP, mode: pullUp, invert: disabled, hysteresis: disabled, opendrain: disabled,
+  - {pin_num: '23', peripheral: ADC0, signal: 'CH, 1', pin_signal: PIO0_6/ADC_1/VDDCMP, mode: inactive, invert: disabled, hysteresis: disabled, opendrain: disabled,
     smode: bypass, clkdiv: div0}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -85,8 +85,8 @@ void BOARD_InitPins(void)
     /* PIO0 PIN18 (coords: 31) is configured as USART0, RXD. */
     IOCON_PinMuxSet(IOCON, IOCON_INDEX_PIO0_18, IOCON_INDEX_PIO0_18_config);
 
-    const uint32_t IOCON_INDEX_PIO0_6_config = (/* Selects pull-up function */
-                                                IOCON_PIO_MODE_PULLUP |
+    const uint32_t IOCON_INDEX_PIO0_6_config = (/* No addition pin function */
+                                                IOCON_PIO_MODE_INACT |
                                                 /* Disable hysteresis */
                                                 IOCON_PIO_HYS_DI |
                                                 /* Input not invert */

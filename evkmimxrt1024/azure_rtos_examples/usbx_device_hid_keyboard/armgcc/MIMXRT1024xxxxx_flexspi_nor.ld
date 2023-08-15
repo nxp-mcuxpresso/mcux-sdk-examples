@@ -214,6 +214,12 @@ SECTIONS
 
     *(.data)                 /* .data sections */
     *(.data*)                /* .data* sections */
+
+    */sample_azure_iot.c.obj( .bss* )
+    */azure_iot_embedded_sdk.c.obj( .bss* )
+    */azure_iot_embedded_sdk_pnp.c.obj( .bss* )
+    */pnp_temperature_controller.c.obj( .bss* )
+
     *(DataQuickAccess)       /* quick access data section */
     KEEP(*(.jcr*))
     . = ALIGN(4);
@@ -260,7 +266,12 @@ SECTIONS
     __bss_start__ = .;
     *(m_usb_dma_noninit_data)
     *(.bss)
-    *(.bss*)
+    *( EXCLUDE_FILE(
+            sample_azure_iot.c.obj
+            azure_iot_embedded_sdk.c.obj
+            azure_iot_embedded_sdk_pnp.c.obj
+            pnp_temperature_controller.c.obj
+      ) .bss*)
     *(COMMON)
     . = ALIGN(4);
     __bss_end__ = .;

@@ -86,6 +86,18 @@ uint32_t get_core1_image_size(void)
     return image_size;
 }
 #endif
+
+/*!
+ * @brief Application-specific implementation of the SystemInitHook() weak function.
+ */
+void SystemInitHook(void)
+{
+    /* Initialize MCMGR - low level multicore management library. Call this
+       function as close to the reset entry as possible to allow CoreUp event
+       triggering. The SystemInitHook() weak function overloading is used in this
+       application. */
+    (void)MCMGR_EarlyInit();
+}
 static THE_MESSAGE volatile msg = {0};
 
 /* This is the read callback, note we are in a task context when this callback
@@ -109,18 +121,6 @@ static void RPMsgRemoteReadyEventHandler(uint16_t eventData, void *context)
     uint16_t *data = (uint16_t *)context;
 
     *data = eventData;
-}
-
-/*!
- * @brief Application-specific implementation of the SystemInitHook() weak function.
- */
-void SystemInitHook(void)
-{
-    /* Initialize MCMGR - low level multicore management library. Call this
-       function as close to the reset entry as possible to allow CoreUp event
-       triggering. The SystemInitHook() weak function overloading is used in this
-       application. */
-    (void)MCMGR_EarlyInit();
 }
 
 /*!

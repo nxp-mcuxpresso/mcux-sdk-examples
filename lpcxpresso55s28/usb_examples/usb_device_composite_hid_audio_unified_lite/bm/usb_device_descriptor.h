@@ -223,7 +223,8 @@ to initialize out and in sample rate respectively*/
 #define USB_AUDIO_EP_GENERAL_DESCRIPTOR_SUBTYPE (0x01)
 
 #if (USB_DEVICE_CONFIG_AUDIO_CLASS_2_0)
-#define USB_AUDIO_CONTROL_CLOCK_SOURCE_ENTITY_ID (0x10)
+#define USB_AUDIO_CONTROL_SPEAKER_CLOCK_SOURCE_ENTITY_ID  (0x10)
+#define USB_AUDIO_CONTROL_RECORDER_CLOCK_SOURCE_ENTITY_ID (0x20)
 #endif
 
 #define USB_AUDIO_RECORDER_CONTROL_INPUT_TERMINAL_ID  (0x01)
@@ -235,6 +236,7 @@ to initialize out and in sample rate respectively*/
 #define USB_AUDIO_SPEAKER_CONTROL_OUTPUT_TERMINAL_ID (0x06)
 
 #define USB_HID_KEYBOARD_REPORT_LENGTH (0x01U)
+
 /*******************************************************************************
  * API
  ******************************************************************************/

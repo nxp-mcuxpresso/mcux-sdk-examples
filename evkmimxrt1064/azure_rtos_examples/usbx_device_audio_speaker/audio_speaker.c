@@ -4,9 +4,12 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include "board.h"
 #include "pin_mux.h"
+#ifdef CODEC_WM8962_ENABLE
+#include "fsl_wm8962.h"
+#else
 #include "fsl_wm8960.h"
+#endif
 #include "fsl_codec_adapter.h"
 #include "fsl_sai.h"
 #include "fsl_sai_edma.h"
@@ -14,6 +17,7 @@
 #include "fsl_debug_console.h"
 #include "usb.h"
 #include "audio_speaker.h"
+#include "board.h"
 
 #ifndef DEMO_CODEC_VOLUME
 #define DEMO_CODEC_VOLUME 100
@@ -39,6 +43,43 @@ uint8_t audioTxBuff[BUFFER_SIZE * BUFFER_NUM];
 USB_DMA_INIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE)
 codec_handle_t codecHandle;
 
+#ifdef CODEC_WM8962_ENABLE
+wm8962_config_t wm8962Config = {
+    .i2cConfig = {.codecI2CInstance = BOARD_CODEC_I2C_INSTANCE, .codecI2CSourceClock = BOARD_CODEC_I2C_CLOCK_FREQ},
+    .route =
+        {
+            .enableLoopBack            = false,
+            .leftInputPGASource        = kWM8962_InputPGASourceInput1,
+            .leftInputMixerSource      = kWM8962_InputMixerSourceInputPGA,
+            .rightInputPGASource       = kWM8962_InputPGASourceInput3,
+            .rightInputMixerSource     = kWM8962_InputMixerSourceInputPGA,
+            .leftHeadphoneMixerSource  = kWM8962_OutputMixerDisabled,
+            .leftHeadphonePGASource    = kWM8962_OutputPGASourceDAC,
+            .rightHeadphoneMixerSource = kWM8962_OutputMixerDisabled,
+            .rightHeadphonePGASource   = kWM8962_OutputPGASourceDAC,
+        },
+    .slaveAddress = WM8962_I2C_ADDR,
+    .bus          = kWM8962_BusI2S,
+    .format       = {.mclk_HZ    = 24576000U,
+                     .sampleRate = kWM8962_AudioSampleRate48KHz,
+                     .bitWidth   = kWM8962_AudioBitWidth16bit},
+    .masterSlave  = false,
+};
+
+codec_config_t boardCodecConfig = {.codecDevType = kCODEC_WM8962, .codecDevConfig = &wm8962Config};
+
+/*
+ * AUDIO PLL setting: Frequency = Fref * (DIV_SELECT + NUM / DENOM) / Divider
+ *                              = 24 * (32 + 96/125) / 1
+ *                              = 786.432 MHz
+ */
+const clock_audio_pll_config_t audioPllConfig = {
+    .loopDivider = 32,  /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
+    .postDivider = 1,   /* Divider after the PLL, should only be 1, 2, 4, 8, 16. */
+    .numerator   = 96,  /* 30 bit numerator of fractional loop divider. */
+    .denominator = 125, /* 30 bit denominator of fractional loop divider */
+};
+#else
 wm8960_config_t wm8960Config = {
     .i2cConfig = {.codecI2CInstance = BOARD_CODEC_I2C_INSTANCE, .codecI2CSourceClock = BOARD_CODEC_I2C_CLOCK_FREQ},
     .route     = kWM8960_RoutePlaybackandRecord,
@@ -66,6 +107,7 @@ const clock_audio_pll_config_t audioPllConfig = {
     .numerator   = 77,  /* 30 bit numerator of fractional loop divider. */
     .denominator = 100, /* 30 bit denominator of fractional loop divider */
 };
+#endif
 
 static void BOARD_EnableSaiMclkOutput(bool enable)
 {

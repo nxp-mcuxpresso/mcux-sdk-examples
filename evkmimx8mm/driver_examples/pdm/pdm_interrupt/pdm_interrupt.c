@@ -111,7 +111,7 @@ static void pdm_error_irqHandler(void)
 void PDM_ERROR_IRQHandler(void)
 {
     pdm_error_irqHandler();
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 #endif
 
@@ -154,7 +154,7 @@ void PDM_EVENT_IRQHandler(void)
         s_dataReadFinishedFlag = true;
         PDM_Enable(DEMO_PDM, false);
     }
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

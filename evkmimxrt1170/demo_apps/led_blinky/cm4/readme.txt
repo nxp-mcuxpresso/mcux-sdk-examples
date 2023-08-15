@@ -7,8 +7,8 @@ The code of this demo has been prepared and updated for use with the MCUXpresso 
 
 Toolchain supported
 ===================
-- MCUXpresso  11.7.0
-- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.8.0
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

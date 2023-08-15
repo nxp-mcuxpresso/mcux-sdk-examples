@@ -12,7 +12,7 @@
 #include "fx_api.h"
 #include "lx_api.h"
 
-#define DEMO_STACK_SIZE         2048
+#define DEMO_STACK_SIZE         (1024 * 4)
 
 #ifndef DEMO_DISK_SIZE_KB
 #define DEMO_DISK_SIZE_KB       (512UL)       /* disk size is 512 KB */

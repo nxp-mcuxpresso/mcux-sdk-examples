@@ -1,9 +1,9 @@
 Overview
 ========
 The ACMP Interrupt project is a simple demonstration program that uses the SDK software. It
-compares the selected analog input with ACMP internal DAC output continuously and toggle the LED
-when the final comparison result changed. The purpose of this demo is to show how to use the
-ACMP driver in SDK software by interrupt way. The ACMP can be configured based on default
+compares the selected analog input with ACMP internal DAC output continuously and print information
+corresponding to different comparison result in terminal. The purpose of this demo is to show how to
+use the ACMP driver in SDK software by interrupt way. The ACMP can be configured based on default
 configuration returned by the API ACMP_GetDefaultConfig(). The default configuration is: high
 speed is not enabled, invert output is not enabled, unfiltered output is not enabled, pin out
 is not enabled, offset level is level 0, hysteresis level is level 0.
@@ -11,8 +11,8 @@ is not enabled, offset level is level 0, hysteresis level is level 0.
 
 Toolchain supported
 ===================
-- MCUXpresso  11.6.0
-- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.8.0
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

@@ -22,7 +22,7 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-
+#define CDOG_AppIRQHandler CDOG_DriverIRQHandler
 
 /*******************************************************************************
  * Variables
@@ -37,7 +37,7 @@ volatile uint32_t s_start = 0x00U;
  * Code
  ******************************************************************************/
 
-void CDOG_DriverIRQHandler(void)
+void CDOG_AppIRQHandler(void)
 {
     NVIC_DisableIRQ(CDOG_IRQn);
 
@@ -77,6 +77,14 @@ void CDOG_DriverIRQHandler(void)
     CDOG_Start(CDOG, 0xFFFFFFU, s_start);
     NVIC_EnableIRQ(CDOG_IRQn);
 }
+
+#if defined(CDOG1)
+
+void CDOG1_DriverIRQHandler(void)
+{
+    /* CDOG1 is not used in example */
+}
+#endif
 
 void SecureCounterExample()
 {

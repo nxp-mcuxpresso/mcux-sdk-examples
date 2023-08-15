@@ -12,7 +12,7 @@ In this example, the ENET transmits 20 number broadcast frames and will print th
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

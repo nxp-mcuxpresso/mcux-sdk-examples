@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2021 NXP
+ * Copyright 2016-2023 NXP
  * All rights reserved.
  *
  *
@@ -59,6 +59,7 @@ struct board_state_variables
     board_wifi_states wifiState;
     char ssid[WPL_WIFI_SSID_LENGTH];
     char password[WPL_WIFI_PASSWORD_LENGTH];
+    char security[WIFI_SECURITY_LENGTH];
     bool connected;
     TaskHandle_t mainTask;
 };
@@ -146,6 +147,7 @@ static int CGI_HandlePost(HTTPSRV_CGI_REQ_STRUCT *param)
     uint32_t read   = 0;
     char posted_passphrase[WPL_WIFI_PASSWORD_LENGTH + 1];
     char posted_ssid[WPL_WIFI_SSID_LENGTH + 1];
+    char posted_security[WIFI_SECURITY_LENGTH + 1];
 
     int32_t result = WPLRET_FAIL;
     bool err       = false;
@@ -165,14 +167,19 @@ static int CGI_HandlePost(HTTPSRV_CGI_REQ_STRUCT *param)
             buffer[length] = '\0';
             cgi_get_varval(buffer, "post_ssid", posted_ssid, sizeof(posted_ssid));
             cgi_get_varval(buffer, "post_passphrase", posted_passphrase, sizeof(posted_passphrase));
+            cgi_get_varval(buffer, "post_security", posted_security, sizeof(posted_security));
             cgi_urldecode(posted_ssid);
             cgi_urldecode(posted_passphrase);
+            cgi_urldecode(posted_security);
 
             /* Any post processing of the posted data (sanitation, validation) */
             format_post_data(posted_ssid);
             format_post_data(posted_passphrase);
+            format_post_data(posted_security);
 
-            WC_DEBUG("[i] Chosen ssid: %s\r\n[i] Chosen passphrase: \"%s\" \r\n", posted_ssid, posted_passphrase);
+            WC_DEBUG("[i] Chosen ssid: %s\r\n", posted_ssid);
+            WC_DEBUG("[i] Chosen passphrase: \"%s\" \r\n", posted_passphrase);
+            WC_DEBUG("[i] Chosen security methods: \"%s\" \r\n", posted_security);
         }
         else
         {
@@ -183,7 +190,15 @@ static int CGI_HandlePost(HTTPSRV_CGI_REQ_STRUCT *param)
     if (err == false)
     {
         /* Add Wi-Fi network */
-        result = WPL_AddNetwork(posted_ssid, posted_passphrase, WIFI_NETWORK_LABEL);
+        if (strstr(posted_security, "WPA3_SAE"))
+        {
+            result = WPL_AddNetworkWithSecurity(posted_ssid, posted_passphrase, WIFI_NETWORK_LABEL, WPL_SECURITY_WPA3_SAE);
+        }
+        else
+        {
+            result = WPL_AddNetworkWithSecurity(posted_ssid, posted_passphrase, WIFI_NETWORK_LABEL, WPL_SECURITY_WILDCARD);
+        }
+        
         if (result != WPLRET_SUCCESS)
         {
             err = true;
@@ -233,7 +248,7 @@ static int CGI_HandlePost(HTTPSRV_CGI_REQ_STRUCT *param)
         g_BoardState.wifiState = WIFI_STATE_CLIENT;
         g_BoardState.connected = true;
         /* Since the Joining was successful, we can save the credentials to the Flash */
-        save_wifi_credentials(CONNECTION_INFO_FILENAME, posted_ssid, posted_passphrase);
+        save_wifi_credentials(CONNECTION_INFO_FILENAME, posted_ssid, posted_passphrase, posted_security);
 
         /* Resume the main task, this will make sure to clean up and shut down the AP*/
         /* Since g_BoardState.connected == true, the reconnection to AP will be skipped and
@@ -375,17 +390,19 @@ static void main_task(void *arg)
 
     char ssid[WPL_WIFI_SSID_LENGTH];
     char password[WPL_WIFI_PASSWORD_LENGTH];
+    char security[WIFI_SECURITY_LENGTH];
 
-    result = get_saved_wifi_credentials(CONNECTION_INFO_FILENAME, ssid, password);
+    result = get_saved_wifi_credentials(CONNECTION_INFO_FILENAME, ssid, password, security);
 
     if (result == 0 && strcmp(ssid, "") != 0)
     {
         /* Credentials from last time have been found. The board will attempt to
          * connect to this network as a client */
-        WC_DEBUG("[i] Saved SSID: %s, Password: %s\r\n", ssid, password);
+        WC_DEBUG("[i] Saved SSID: %s, Password: %s, Security: %s\r\n", ssid, password, security);
         g_BoardState.wifiState = WIFI_STATE_CLIENT;
         strcpy(g_BoardState.ssid, ssid);
         strcpy(g_BoardState.password, password);
+        strcpy(g_BoardState.security, security);
     }
     else
     {
@@ -507,10 +524,17 @@ static uint32_t SetBoardToClient()
     if (!g_BoardState.connected)
     {
         /* Add Wi-Fi network */
-        result = WPL_AddNetwork(g_BoardState.ssid, g_BoardState.password, WIFI_NETWORK_LABEL);
+        if (strstr(g_BoardState.security, "WPA3_SAE"))
+        {
+            result = WPL_AddNetworkWithSecurity(g_BoardState.ssid, g_BoardState.password, WIFI_NETWORK_LABEL, WPL_SECURITY_WPA3_SAE);
+        }
+        else
+        {
+            result = WPL_AddNetworkWithSecurity(g_BoardState.ssid, g_BoardState.password, WIFI_NETWORK_LABEL, WPL_SECURITY_WILDCARD);
+        }
         if (result == WPLRET_SUCCESS)
         {
-            PRINTF("Connecting as client to ssid: %s with password %s\r\n\t", g_BoardState.ssid, g_BoardState.password);
+            PRINTF("Connecting as client to ssid: %s with password %s\r\n", g_BoardState.ssid, g_BoardState.password);
             result = WPL_Join(WIFI_NETWORK_LABEL);
         }
 

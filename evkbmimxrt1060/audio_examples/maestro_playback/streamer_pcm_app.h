@@ -8,7 +8,6 @@
 #ifndef _FSL_STREAMER_PCM_APP_H_
 #define _FSL_STREAMER_PCM_APP_H_
 
-#include "fsl_dmamux.h"
 #include "fsl_sai_edma.h"
 #include "FreeRTOS.h"
 #include "portable.h"
@@ -32,6 +31,7 @@ struct _pcm_rtos_t
     uint8_t num_channels;
 
     SemaphoreHandle_t semaphoreTX;
+    uint32_t isFirstTx;
 
     bool dummy_tx_enable;
 };

@@ -25,8 +25,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DPRINTF_ADVANCED_ENABLE=1 \
     -DPRINTF_FLOAT_ENABLE=1 \
     -DFREESCALE_KSDK_BM \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -fomit-frame-pointer \
     -Wno-unused-function \
@@ -49,8 +49,8 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     ${CMAKE_CXX_FLAGS_RELEASE} \
     -DNDEBUG \
     -DCPU_K32L3A60VPJ1A_cm0plus \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m0plus \
     -Wall \

@@ -4,17 +4,20 @@ This is the Wi-Fi CLI example to demonstrate the CLI support usage. The CLI modu
 Currently only WLAN connection Manager CLIs are available.
 
 Before building the example application select Wi-Fi module macro in the app_config.h. (see #define WIFI_<SoC Name>_BOARD_<Module Name>).
+
+If Wi-Fi module Redfinch is used, please note that the application is for Redfinch A1 by default. If you are using Redfinch A0, please
+undefine flag CONFIG_RW610_A1 in wifi_config.h before compiling application.
+
 For more information about Wi-Fi module connection see:
     readme_modules.txt
     Getting started guide on supported modules configuration:
     https://www.nxp.com/document/guide/getting-started-with-nxp-wi-fi-modules-using-i-mx-rt-platform:GS-WIFI-MODULES-IMXRT-PLATFORM
 
 
-
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================
@@ -36,7 +39,7 @@ Prepare the Demo
     - No parity
     - One stop bit
     - No flow control
-3.  Connect the WiFi module to SD card slot.
+3.  Connect the Wi-Fi module.
 4.  Download the program to the target board.
 5.  Either press the reset button on your board or launch the debugger in your IDE to begin running the demo.
 

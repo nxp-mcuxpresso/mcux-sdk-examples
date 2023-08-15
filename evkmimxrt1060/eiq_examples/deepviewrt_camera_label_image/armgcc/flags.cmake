@@ -47,9 +47,9 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -DXIP_BOOT_HEADER_DCD_ENABLE=1 \
     -DFSL_RTOS_BM \
     -DSDK_OS_BAREMETAL \
+    -DMCUXPRESSO_SDK \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DEIQ_GUI_PRINTF \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
     -fno-strict-aliasing \
@@ -88,9 +88,9 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -DXIP_BOOT_HEADER_DCD_ENABLE=1 \
     -DFSL_RTOS_BM \
     -DSDK_OS_BAREMETAL \
+    -DMCUXPRESSO_SDK \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DEIQ_GUI_PRINTF \
-    -DMCUXPRESSO_SDK \
     -Os \
     -fno-strict-aliasing \
     -Wno-unused-function \
@@ -123,8 +123,8 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -DFSL_RTOS_BM \
     -DSKIP_SYSCLK_INIT \
     -DSDK_OS_BAREMETAL \
-    -DEIQ_GUI_PRINTF \
     -DMCUXPRESSO_SDK \
+    -DEIQ_GUI_PRINTF \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -157,8 +157,8 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -DFSL_RTOS_BM \
     -DSKIP_SYSCLK_INIT \
     -DSDK_OS_BAREMETAL \
-    -DEIQ_GUI_PRINTF \
     -DMCUXPRESSO_SDK \
+    -DEIQ_GUI_PRINTF \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \

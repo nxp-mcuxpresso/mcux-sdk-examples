@@ -12,7 +12,7 @@
 
 #define CONFIG_MAX_AP_ENTRIES 10
 
-#if defined(SD8978) || defined(SD8987)
+#if defined(SD8978) || defined(SD8987) || defined(RW610)
 #define CONFIG_5GHz_SUPPORT 1
 #endif
 

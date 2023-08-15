@@ -22,12 +22,12 @@
 #include "lwip/netifapi.h"
 #include "ethernetif.h"
 
+#include "fsl_enet.h"
 #if BOARD_NETWORK_USE_100M_ENET_PORT
 #include "fsl_phyrtl8201.h"
 #else
 #include "fsl_phyrtl8211f.h"
 #endif
-#include "fsl_enet.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

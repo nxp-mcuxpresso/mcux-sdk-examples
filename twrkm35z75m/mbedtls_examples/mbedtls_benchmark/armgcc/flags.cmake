@@ -27,8 +27,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DFREESCALE_KSDK_BM \
     -DTWR_KM35Z75M \
     -DTOWER \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -fomit-frame-pointer \
     -Wno-unused-function \
@@ -50,8 +50,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
 SET(CMAKE_CXX_FLAGS_RELEASE " \
     ${CMAKE_CXX_FLAGS_RELEASE} \
     -DNDEBUG \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m0plus \
     -Wall \

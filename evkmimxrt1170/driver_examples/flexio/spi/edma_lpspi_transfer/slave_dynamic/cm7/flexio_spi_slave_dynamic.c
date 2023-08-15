@@ -64,7 +64,9 @@ void LPSPI_MasterUserCallback(LPSPI_Type *base, lpspi_master_handle_t *handle, s
 AT_NONCACHEABLE_SECTION_INIT(uint8_t masterTxData[TRANSFER_SIZE]) = {0U};
 AT_NONCACHEABLE_SECTION_INIT(uint8_t masterRxData[TRANSFER_SIZE]) = {0U};
 AT_NONCACHEABLE_SECTION_INIT(uint8_t slaveTxData[TRANSFER_SIZE])  = {0U};
-AT_NONCACHEABLE_SECTION_INIT(uint8_t slaveRxData[TRANSFER_SIZE])  = {0U};
+//In DMA transmit, extra byte will be loaded when CS rising edge interrupt, so we need reserve a byte to prevent array out of bounds. 
+AT_NONCACHEABLE_SECTION_INIT(uint8_t slaveRxData[TRANSFER_SIZE + 1])  = {0U};
+
 
 lpspi_master_handle_t g_m_handle;
 FLEXIO_SPI_Type spiDev;

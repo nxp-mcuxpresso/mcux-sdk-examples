@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -61,21 +69,6 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${ProjDirPath}/../usbx_device_controllers/ux_dcd_nxp_dci.h"
-"${ProjDirPath}/../usbx_device_controllers/ux_dcd_nxp_dci_callback.c"
-"${ProjDirPath}/../usbx_device_controllers/ux_dcd_nxp_dci_control_callback.c"
-"${ProjDirPath}/../usbx_device_controllers/ux_dcd_nxp_dci_endpoint_create.c"
-"${ProjDirPath}/../usbx_device_controllers/ux_dcd_nxp_dci_endpoint_destroy.c"
-"${ProjDirPath}/../usbx_device_controllers/ux_dcd_nxp_dci_endpoint_reset.c"
-"${ProjDirPath}/../usbx_device_controllers/ux_dcd_nxp_dci_endpoint_stall.c"
-"${ProjDirPath}/../usbx_device_controllers/ux_dcd_nxp_dci_endpoint_status.c"
-"${ProjDirPath}/../usbx_device_controllers/ux_dcd_nxp_dci_frame_number_get.c"
-"${ProjDirPath}/../usbx_device_controllers/ux_dcd_nxp_dci_function.c"
-"${ProjDirPath}/../usbx_device_controllers/ux_dcd_nxp_dci_initialize.c"
-"${ProjDirPath}/../usbx_device_controllers/ux_dcd_nxp_dci_initialize_complete.c"
-"${ProjDirPath}/../usbx_device_controllers/ux_dcd_nxp_dci_transfer_callback.c"
-"${ProjDirPath}/../usbx_device_controllers/ux_dcd_nxp_dci_transfer_request.c"
-"${ProjDirPath}/../usbx_device_controllers/ux_dcd_nxp_dci_uninitialize.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../board_setup.c"
@@ -86,114 +79,30 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../fx_user.h"
 "${ProjDirPath}/../nx_user.h"
 "${ProjDirPath}/../ux_user.h"
-"${ProjDirPath}/../board.c"
-"${ProjDirPath}/../board.h"
-"${ProjDirPath}/../clock_config.c"
-"${ProjDirPath}/../clock_config.h"
-"${ProjDirPath}/../dcd.c"
-"${ProjDirPath}/../dcd.h"
+"${SdkRootDirPath}/core/boards/evkbimxrt1050/board.c"
+"${SdkRootDirPath}/core/boards/evkbimxrt1050/board.h"
+"${SdkRootDirPath}/core/boards/evkbimxrt1050/clock_config.c"
+"${SdkRootDirPath}/core/boards/evkbimxrt1050/clock_config.h"
+"${SdkRootDirPath}/core/boards/evkbimxrt1050/dcd.c"
+"${SdkRootDirPath}/core/boards/evkbimxrt1050/dcd.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
-    ${ProjDirPath}/../usbx_device_controllers
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
+    ${SdkRootDirPath}/core/boards/evkbimxrt1050
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/rtos/azure-rtos
-    ${SdkRootDirPath}/core/components/osa
-    ${SdkRootDirPath}/middleware/usb
-    ${SdkRootDirPath}/core/devices/MIMXRT1052/drivers
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/devices/MIMXRT1052
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/components/serial_manager
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/drivers/lpuart
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/drivers/igpio
-    ${SdkRootDirPath}/core/devices/MIMXRT1052/xip
-    ${SdkRootDirPath}/core/boards/evkbimxrt1050/xip
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
+set_source_files_properties("${ProjDirPath}/../usb_device_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_usb_device_ehci_config_header")
 
-# include modules
-include(middleware_azure_rtos_ux)
+include(${SdkRootDirPath}/core/devices/MIMXRT1052/all_lib_device.cmake)
 
-include(component_osa_thread)
+add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/usbx ${SdkRootDirPath}/rtos/azure-rtos/build/libusbx)
 
-include(middleware_usb_device_controller_driver_MIMXRT1052)
+add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/netxduo ${SdkRootDirPath}/rtos/azure-rtos/build/libnetxduo)
 
-include(component_osa)
+add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/filex ${SdkRootDirPath}/rtos/azure-rtos/build/libfilex)
 
-include(middleware_usb_device_ehci_MIMXRT1052)
-
-include(middleware_usb_phy)
-
-include(driver_clock)
-
-include(driver_common)
-
-include(device_CMSIS)
-
-include(utility_debug_console)
-
-include(component_lpuart_adapter)
-
-include(component_serial_manager)
-
-include(component_lists)
-
-include(component_serial_manager_uart)
-
-include(driver_lpuart)
-
-include(device_startup)
-
-include(driver_iomuxc)
-
-include(utility_assert)
-
-include(driver_igpio)
-
-include(driver_xip_device)
-
-include(driver_xip_board_evkbimxrt1050)
-
-include(middleware_azure_rtos_ux_template_MIMXRT1052)
-
-include(middleware_azure_rtos_nxd)
-
-include(middleware_azure_rtos_nxd_template_MIMXRT1052)
-
-include(middleware_azure_rtos_fx)
-
-include(middleware_azure_rtos_fx_template_MIMXRT1052)
-
-include(middleware_azure_rtos_tx)
-
-include(middleware_azure_rtos_tx_template_MIMXRT1052)
-
-include(CMSIS_Include_core_cm)
-
-include(middleware_usb_common_header)
-
-include(middleware_usb_device_common_header)
-
-include(utilities_misc_utilities_MIMXRT1052)
-
-include(device_system)
-
-
-add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/threadx ./CMakeFiles/libthreadx)
-
-add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/filex ./CMakeFiles/libfilex)
-
-add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/netxduo ./CMakeFiles/libnetxduo)
-
-add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/usbx ./CMakeFiles/libusbx)
+add_subdirectory(${SdkRootDirPath}/rtos/azure-rtos/threadx ${SdkRootDirPath}/rtos/azure-rtos/build/libthreadx)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -210,4 +119,5 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBR
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map")
 

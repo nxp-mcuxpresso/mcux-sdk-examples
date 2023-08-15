@@ -178,6 +178,9 @@ int main(void)
      * userConfig.enableDebugMode = false;
      */
     EDMA_GetDefaultConfig(&userConfig);
+#if defined(BOARD_GetEDMAConfig)
+    BOARD_GetEDMAConfig(userConfig);
+#endif
     EDMA_Init(EXAMPLE_FLEXSPI_DMA, &userConfig);
 
     /* Create the EDMA channel handles */
@@ -239,7 +242,7 @@ int main(void)
     }
 
 #if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
-    DCACHE_InvalidateByRange(EXAMPLE_FLEXSPI_AMBA_BASE + EXAMPLE_SECTOR * SECTOR_SIZE, FLASH_PAGE_SIZE);
+    DCACHE_InvalidateByRange(EXAMPLE_FLEXSPI_AMBA_BASE + EXAMPLE_SECTOR * SECTOR_SIZE, SECTOR_SIZE);
 #endif
 
     memset(s_nor_program_buffer, 0xFFU, sizeof(s_nor_program_buffer));
@@ -260,6 +263,10 @@ int main(void)
     {
         s_nor_program_buffer[i] = i;
     }
+
+#if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
+    DCACHE_CleanByRange((uint32_t)s_nor_program_buffer, sizeof(s_nor_program_buffer));
+#endif
 
 #if defined(__ICACHE_PRESENT) && (__ICACHE_PRESENT == 1U)
     /* Disable I cache. */

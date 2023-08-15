@@ -175,6 +175,9 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -g \
     -Xlinker \
     --no-wchar-size-warning \
+    -Xlinker \
+    -z \
+    noexecstack \
     -mcpu=cortex-m7 \
     -Wall \
     -fno-common \
@@ -197,12 +200,15 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/../../../../../core/devices/MIMXRT1042/gcc/MIMXRT1042xxxxx_flexspi_nor_sdram.ld -static \
+    -T${ProjDirPath}/MIMXRT1042xxxxx_flexspi_nor_sdram.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE} \
     -Xlinker \
     --no-wchar-size-warning \
+    -Xlinker \
+    -z \
+    noexecstack \
     -mcpu=cortex-m7 \
     -Wall \
     -fno-common \
@@ -225,5 +231,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/../../../../../core/devices/MIMXRT1042/gcc/MIMXRT1042xxxxx_flexspi_nor_sdram.ld -static \
+    -T${ProjDirPath}/MIMXRT1042xxxxx_flexspi_nor_sdram.ld -static \
 ")

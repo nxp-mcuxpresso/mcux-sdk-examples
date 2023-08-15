@@ -222,7 +222,7 @@ void DEMO_ADC_IRQ_HANDLER0(void)
     {
         u16Result0B[u16CycleTimes] = ADC16_GetChannelConversionValue(DEMO_ADC_BASE0, DEMO_ADC_CHANNEL_GROUP1);
     }
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 void DEMO_ADC_IRQ_HANDLER1(void)
@@ -246,7 +246,7 @@ void DEMO_ADC_IRQ_HANDLER1(void)
             u16CycleTimes = 0;
         }
     }
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

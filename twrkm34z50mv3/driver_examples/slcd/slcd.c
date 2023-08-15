@@ -52,8 +52,6 @@ static void SLCD_Blink(void);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-extern slcd_clock_config_t slcdClkConfig;
-extern const uint8_t slcd_lcd_gpio_seg_pin[];
 slcd_clock_config_t slcdClkConfig = {kSLCD_DefaultClk, kSLCD_AltClkDivFactor1, kSLCD_ClkPrescaler01
 #if FSL_FEATURE_SLCD_HAS_FAST_FRAME_RATE
                                      ,
@@ -63,6 +61,8 @@ slcd_clock_config_t slcdClkConfig = {kSLCD_DefaultClk, kSLCD_AltClkDivFactor1, k
 
 const uint8_t slcd_lcd_gpio_seg_pin[] = {43, 37, 36, 35, 34, 33, 32, 31, 28, 27,
                                          26, 25, 24, 23, 22, 21, 20, 19, 18, 17};
+extern slcd_clock_config_t slcdClkConfig;
+extern const uint8_t slcd_lcd_gpio_seg_pin[];
 tSLCD_Engine slcdEngine;
 
 /*******************************************************************************

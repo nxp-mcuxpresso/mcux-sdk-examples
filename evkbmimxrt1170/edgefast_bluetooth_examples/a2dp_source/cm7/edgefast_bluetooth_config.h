@@ -214,7 +214,7 @@ Select this for LE Peripheral role support.
  * NULL termination). Can be empty string.
  */
 #ifndef CONFIG_BT_DEVICE_NAME
-    #define CONFIG_BT_DEVICE_NAME "BLE Peripheral"
+    #define CONFIG_BT_DEVICE_NAME "BLE_Peripheral"
 #endif
 
 /*! @brief Runtime Bluetooth Appearance changing
@@ -332,6 +332,15 @@ Select this for LE Peripheral role support.
  */
 #ifndef CONFIG_BT_CONN_TX_MAX
     #define CONFIG_BT_CONN_TX_MAX CONFIG_BT_L2CAP_TX_BUF_COUNT
+#endif
+
+/*! @brief CONFIG_BT_CONN_DISABLE_SECURITY is enabled.
+ * Security is disabled for incoming requests for GATT attributes and L2CAP
+ * channels that would otherwise require encryption/authentication in order to be accessed.
+ * Do not use in production.
+ */
+#ifndef CONFIG_BT_CONN_DISABLE_SECURITY
+    #define CONFIG_BT_CONN_DISABLE_SECURITY 0
 #endif
 
 #if CONFIG_BT_PHY_UPDATE
@@ -467,7 +476,7 @@ Select this for LE Peripheral role support.
 /*! @brief Privacy Feature, if the macro is set to 0, feature is disabled, if 1, feature is enabled.
  * Enable Privacy Feature support. This makes it possible to generate and use
  * Resolvable Private Addresses (RPAs).
- * 
+ *
  * Disabling this will remove the capability to resolve private addresses.
  */
 #ifndef CONFIG_BT_PRIVACY
@@ -478,48 +487,48 @@ Select this for LE Peripheral role support.
  * Enabling this option will cause the Host to ignore controller-provided
  * identity roots (IR). The Host will instead use bt_rand to generate
  * identity resolving keys (IRK) and store them in the settings subsystem.
- * 
+ *
  * Setting this config may come with a performance penalty to boot time,
  * as the hardware RNG may need time to generate entropy and will block
  * Bluetooth initialization.
- * 
+ *
  * This option increases privacy, as explained in the following text.
- * 
+ *
  * The IR determines the IRK of the identity. The IRK is used to both
  * generate and resolve (recognize) the private addresses of an identity.
  * The IRK is a shared secret, distributed to peers bonded to that
  * identity.
- * 
+ *
  * An attacker that has stolen or once bonded and retained the IRK can
  * forever resolve addresses from that IRK, even if that bond has been
  * deleted locally.
- * 
+ *
  * Deleting an identity should ideally delete the IRK as well and thereby
  * restore anonymity from previously bonded peers. But unless this config
  * is set, this does not always happen.
- * 
+ *
  * In particular, a factory reset function that wipes the data in the
  * settings subsystem may not affect the controller-provided IRs. If
  * those IRs are reused, this device can be tracked across factory resets.
- * 
+ *
  * For optimal privacy, a new IRK (i.e., identity) should be used per
  * bond. However, this naturally limits advertisements from that identity
  * to be recognizable by only that one bonded device.
- * 
+ *
  * A description of the exact effect of this setting follows.
- * 
+ *
  * If the application has not setup an identity before calling
  * settings_load()/settings_load_subtree("bt") after bt_enable(), the
  * Host will automatically try to load saved identities from the settings
  * subsystem, and if there are none, set up the default identity
  * (BT_ID_DEFAULT).
- * 
+ *
  * If the controller has a public address (HCI_Read_BD_ADDR), that becomes
  * the address of the default identity. The Host will by default try to
  * obtain the IR for that identity from the controller (by Zephyr HCI
  * Read_Key_Hierarchy_Roots). Setting this config randomizes the IR
  * instead.
- * 
+ *
  * If the controller does not have a public address, the Host will try
  * to source the default identity from the static address information
  * from controller (Zephyr HCI Read_Static_Addresses). This results in an
@@ -963,12 +972,12 @@ Select this for LE Peripheral role support.
  * Sets the time (in milliseconds) during which consecutive GATT
  * notifications will be tentatively appended to form a single
  * ATT_MULTIPLE_HANDLE_VALUE_NTF PDU.
- * 
+ *
  * If set to 0, batching is disabled. Then, the only way to send
  * ATT_MULTIPLE_HANDLE_VALUE_NTF PDUs is to use bt_gatt_notify_multiple.
- * 
+ *
  * See the documentation of bt_gatt_notify() for more details.
- * 
+ *
  * Valid range 0 ~ 4000
  */
 #ifndef CONFIG_BT_GATT_NOTIFY_MULTIPLE_FLUSH_MS

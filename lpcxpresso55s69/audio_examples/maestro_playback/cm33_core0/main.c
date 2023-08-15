@@ -151,6 +151,9 @@ status_t list_files(bool autoInput)
             /* Check file for supported audio extension */
             dot = strrchr(fileInformation.fname, '.');
             if (
+#ifdef MULTICHANNEL_EXAMPLE
+                (dot && strncmp(dot + 1, "pcm", 4) == 0)
+#else
 #if (OGG_OPUS_DEC == 1)
                 (dot && strncmp(dot + 1, "opus", 4) == 0) || (dot && strncmp(dot + 1, "ogg", 3) == 0) ||
 #endif
@@ -163,13 +166,19 @@ status_t list_files(bool autoInput)
 #if (FLAC_DEC == 1)
                 (dot && strncmp(dot + 1, "flac", 3) == 0) ||
 #endif
-                (dot && strncmp(dot + 1, "mp3", 3) == 0))
+                (dot && strncmp(dot + 1, "mp3", 3) == 0)
+#endif
+            )
             {
                 if (count < MAX_FILES_LIST)
                 {
-                    strcpy(get_eap_att_control()->availableInputs[count], fileInformation.fname);
-                    PRINTF("  %s\r\n", fileInformation.fname);
-                    count++;
+                    if (strlen(fileInformation.fname) < MAX_FILE_NAME_LENGTH)
+                    {
+                        strncpy(get_eap_att_control()->availableInputs[count], fileInformation.fname,
+                                MAX_FILE_NAME_LENGTH - 1);
+                        PRINTF("  %s\r\n", get_eap_att_control()->availableInputs[count]);
+                        count++;
+                    }
                 }
                 else
                 {

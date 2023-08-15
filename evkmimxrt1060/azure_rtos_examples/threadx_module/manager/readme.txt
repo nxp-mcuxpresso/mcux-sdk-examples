@@ -7,7 +7,8 @@ and unloading.
 
 Toolchain supported
 ===================
-- MCUXpresso  11.7.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================

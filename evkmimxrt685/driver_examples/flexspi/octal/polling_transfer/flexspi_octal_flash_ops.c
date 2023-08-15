@@ -158,6 +158,7 @@ status_t flexspi_nor_wait_bus_busy(FLEXSPI_Type *base, bool enableOctal)
 
     do
     {
+        readValue = 0;
         status = FLEXSPI_TransferBlocking(base, &flashXfer);
 
         if (status != kStatus_Success)
@@ -192,6 +193,7 @@ status_t flexspi_nor_wait_bus_busy(FLEXSPI_Type *base, bool enableOctal)
     return status;
 }
 
+#if defined(FLASH_ENABLE_OCTAL_CMD)
 status_t flexspi_nor_enable_octal_mode(FLEXSPI_Type *base)
 {
     flexspi_transfer_t flashXfer;
@@ -419,6 +421,7 @@ status_t flexspi_nor_enable_octal_mode(FLEXSPI_Type *base)
 
     return status;
 }
+#endif
 
 status_t flexspi_nor_flash_erase_sector(FLEXSPI_Type *base, uint32_t address)
 {
@@ -430,7 +433,7 @@ status_t flexspi_nor_flash_erase_sector(FLEXSPI_Type *base, uint32_t address)
     flexspi_nor_disable_cache(&cacheStatus);
 #endif
 
-    /* Write neable */
+    /* Write enable */
     status = flexspi_nor_write_enable(base, 0, true);
 
     if (status != kStatus_Success)

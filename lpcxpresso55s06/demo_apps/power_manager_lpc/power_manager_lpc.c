@@ -72,21 +72,7 @@ void RTC_IRQHandler(void)
 }
 void DEMO_PreLowPower(void)
 {
-    /*!< Configure RTC OSC */
-    POWER_EnablePD(kPDRUNCFG_PD_XTAL32K); /*!< Powered down the XTAL 32 kHz RTC oscillator */
-    POWER_DisablePD(kPDRUNCFG_PD_FRO32K); /*!< Powered the FRO 32 kHz RTC oscillator */
-    CLOCK_AttachClk(kFRO32K_to_OSC32K);   /*!< Switch OSC32K to FRO32K */
-
-    CLOCK_SetFLASHAccessCyclesForFreq(32768U); /*!< Set FLASH wait states for core */
-
-    /*!< Set up dividers */
-    CLOCK_SetClkDiv(kCLOCK_DivAhbClk, 1U, false); /*!< Set AHBCLKDIV divider to value 1 */
-
-    /*!< Set up clock selectors - Attach clocks to the peripheries */
-    CLOCK_AttachClk(kOSC32K_to_MAIN_CLK); /*!< Switch MAIN_CLK to OSC32K */
-
-    /*< Set SystemCoreClock variable. */
-    SystemCoreClock = 32768U;
+    /*!< Nothing to do */
 }
 void DEMO_PowerDownWakeup(void)
 {
@@ -125,17 +111,6 @@ void DEMO_PreDeepPowerDown(void)
     POWER_EnablePD(kPDRUNCFG_PD_XTAL32K); /*!< Powered down the XTAL 32 kHz RTC oscillator */
     POWER_DisablePD(kPDRUNCFG_PD_FRO32K); /*!< Powered the FRO 32 kHz RTC oscillator */
     CLOCK_AttachClk(kFRO32K_to_OSC32K);   /*!< Switch OSC32K to FRO32K */
-
-    CLOCK_SetFLASHAccessCyclesForFreq(32768U); /*!< Set FLASH wait states for core */
-
-    /*!< Set up dividers */
-    CLOCK_SetClkDiv(kCLOCK_DivAhbClk, 1U, false); /*!< Set AHBCLKDIV divider to value 1 */
-
-    /*!< Set up clock selectors - Attach clocks to the peripheries */
-    CLOCK_AttachClk(kOSC32K_to_MAIN_CLK); /*!< Switch MAIN_CLK to OSC32K */
-
-    /*< Set SystemCoreClock variable. */
-    SystemCoreClock = 32768U;
 
     /* Init RTC */
     RTC_Init(RTC);

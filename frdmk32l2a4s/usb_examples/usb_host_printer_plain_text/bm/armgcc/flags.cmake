@@ -28,13 +28,14 @@ SET(CMAKE_ASM_FLAGS_RELEASE " \
 ")
 SET(CMAKE_C_FLAGS_DEBUG " \
     ${CMAKE_C_FLAGS_DEBUG} \
-    -D_DEBUG=1 \
     -DDEBUG \
+    -D_DEBUG=1 \
     -DCPU_K32L2A41VLL1A \
     -DUSB_STACK_BM \
     -DFSL_OSA_BM_TASK_ENABLE=0 \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
     -DMCUXPRESSO_SDK \
+    -DSDK_OS_BAREMETAL \
     -g \
     -O0 \
     -mcpu=cortex-m0plus \
@@ -54,13 +55,14 @@ SET(CMAKE_C_FLAGS_DEBUG " \
 ")
 SET(CMAKE_C_FLAGS_RELEASE " \
     ${CMAKE_C_FLAGS_RELEASE} \
-    -D_DEBUG=0 \
     -DNDEBUG \
+    -D_DEBUG=0 \
     -DCPU_K32L2A41VLL1A \
     -DUSB_STACK_BM \
     -DFSL_OSA_BM_TASK_ENABLE=0 \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
     -DMCUXPRESSO_SDK \
+    -DSDK_OS_BAREMETAL \
     -Os \
     -mcpu=cortex-m0plus \
     -Wall \

@@ -21,8 +21,13 @@
 #define APP_IMG_WIDTH  DEMO_BUFFER_WIDTH
 #define APP_IMG_HEIGHT DEMO_BUFFER_HEIGHT
 
-#define APP_BPP            4U /* Use 32-bit XRGB888 format. */
-#define APP_PXP_PS_FORMAT  kPXP_PsPixelFormatRGB888
+#define APP_BPP 4U /* Use 32-bit XRGB888 format. */
+#if (!(defined(FSL_FEATURE_PXP_HAS_NO_EXTEND_PIXEL_FORMAT) && FSL_FEATURE_PXP_HAS_NO_EXTEND_PIXEL_FORMAT)) && \
+    (!(defined(FSL_FEATURE_PXP_V3) && FSL_FEATURE_PXP_V3))
+#define APP_PXP_PS_FORMAT kPXP_PsPixelFormatARGB8888
+#else
+#define APP_PXP_PS_FORMAT kPXP_PsPixelFormatRGB888
+#endif
 #define APP_PXP_AS_FORMAT  kPXP_AsPixelFormatARGB8888
 #define APP_PXP_OUT_FORMAT kPXP_OutputPixelFormatARGB8888
 #define APP_DC_FORMAT      kVIDEO_PixelFormatXRGB8888
@@ -211,6 +216,7 @@ static void APP_PorterDuff(void)
     {
         PRINTF("Currently show %s mode\r\n\r\n", s_porterDuffModeNameTable[modeIndex].name);
 
+        /* Alternative API PXP_GetPorterDuffConfigExt can be used here. */
         PXP_GetPorterDuffConfig(s_porterDuffModeNameTable[modeIndex].mode, &pxpPorterDuffConfig);
 
         modeIndex++;

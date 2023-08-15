@@ -3,7 +3,7 @@
  *
  *  Copyright The Mbed TLS Contributors
  *  SPDX-License-Identifier: Apache-2.0
- *  Copyright 2017, 2021 NXP. Not a Contribution
+ *  Copyright 2017, 2021, 2022 NXP. Not a Contribution
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may
  *  not use this file except in compliance with the License.
@@ -49,6 +49,12 @@
 #elif defined(MBEDTLS_MCUX_CSS_PKC_API)
 #include "platform_hw_ip.h"
 #include "css_pkc_mbedtls.h"
+#elif defined(MBEDTLS_MCUX_ELS_PKC_API)
+#include "platform_hw_ip.h"
+#include "els_pkc_mbedtls.h"
+#elif defined(MBEDTLS_MCUX_ELS_API)
+#include "platform_hw_ip.h"
+#include "els_mbedtls.h"
 #else
 #include "ksdk_mbedtls.h"
 #endif
@@ -199,8 +205,8 @@ int main(void)
         else                                                                                             \
         {                                                                                                \
             mbedtls_printf("%6.2f KB/s,  %6.2f cycles/byte\r\n",                                         \
-                           (ii * BUFSIZE / 1024) / (((double)(tsc2 - tsc1)) / CLOCK_GetCoreSysClkFreq()), \
-                           (((double)(benchmark_mbedtls_timing_hardclock() - tsc2)) / (jj * BUFSIZE)));   \
+                 (double)((ii * BUFSIZE / 1024) / (((float)(tsc2 - tsc1)) / CLOCK_GetCoreSysClkFreq())), \
+                   (double)(((float)(benchmark_mbedtls_timing_hardclock() - tsc2)) / (jj * BUFSIZE)));   \
         }                                                                                                \
     } while (0)
 
@@ -263,7 +269,7 @@ int main(void)
         else                                                                                                          \
         {                                                                                                             \
             mbedtls_printf("%6.2f " TYPE "/s",                                                                        \
-                           ((double)ii) / ((benchmark_mbedtls_timing_hardclock() - tsc) / CLOCK_GetCoreSysClkFreq())); \
+                 (double)(((float)ii) / ((benchmark_mbedtls_timing_hardclock() - tsc) / CLOCK_GetCoreSysClkFreq()))); \
             MEMORY_MEASURE_PRINT(sizeof(TYPE) + 1);                                                                   \
             mbedtls_printf("\r\n");                                                                                   \
         }                                                                                                             \
@@ -437,6 +443,10 @@ static int bench_print_features(void)
     text = "S200 HW accelerated";
 #elif defined(MBEDTLS_NXP_SENTINEL300)
     text = "S300 HW accelerated";
+#elif defined(MBEDTLS_MCUX_ELS_PKC_API)
+    text = "ELS PKC HW accelerated";
+#elif defined(MBEDTLS_MCUX_ELS_API)
+    text = "ELS HW accelerated";
 #else
     text = "Software implementation";
 #endif
@@ -456,9 +466,13 @@ static int bench_print_features(void)
 #elif defined(MBEDTLS_FREESCALE_CAAM_AES)
     text = "CAAM HW accelerated";
 #elif defined(MBEDTLS_NXP_SENTINEL200)
-    text = "SW AES, S200 HW accelerated CCM and CMAC";
+    text = "S200 HW accelerated ECB, CBC, CCM and CMAC";
 #elif defined(MBEDTLS_NXP_SENTINEL300)
     text = "SW AES, S300 HW accelerated CCM and CMAC";
+#elif defined(MBEDTLS_MCUX_ELS_PKC_API)
+    text = "ELS PKC HW accelerated";
+#elif defined(MBEDTLS_MCUX_ELS_API)
+    text = "ELS HW accelerated";
 #else
     text = "Software implementation";
 #endif
@@ -473,6 +487,10 @@ static int bench_print_features(void)
     text = "CAU3 HW accelerated";
 #elif defined(MBEDTLS_FREESCALE_CAAM_AES)
     text = "CAAM HW accelerated";
+#elif defined(MBEDTLS_MCUX_ELS_PKC_API)
+    text = "ELS PKC HW accelerated";
+#elif defined(MBEDTLS_MCUX_ELS_API)
+    text = "ELS HW accelerated";
 #else
     text = "Software implementation";
 #endif
@@ -501,6 +519,8 @@ static int bench_print_features(void)
     text = "S200 HW accelerated ECDSA and ECDH";
 #elif defined(MBEDTLS_NXP_SENTINEL300)
     text = "S300 HW accelerated ECDSA and ECDH";
+#elif defined(MBEDTLS_MCUX_ELS_PKC_API)
+    text = "ELS PKC HW accelerated";
 #else
     text = "Software implementation";
 #endif
@@ -528,9 +548,12 @@ int main( int argc, char *argv[] )
     
 #if defined(MBEDTLS_ECP_C)
     (void) curve_list; /* Unused in some configurations where no benchmark uses ECC */
+    (void) single_curve; /* Unused in some configurations where no benchmark uses ECC */
     (void) set_ecp_curve; /* Unused in some configurations where no benchmark uses ECC */
 #endif    
 
+    (void) i;
+    
 #if defined(FREESCALE_KSDK_BM)
     /* HW init */
     BOARD_ConfigMPU();
@@ -820,7 +843,7 @@ int main( int argc, char *argv[] )
 #endif
 #if defined(MBEDTLS_CCM_C)
     if( todo.aes_ccm )
-    {
+    {      
         int keysize;
         mbedtls_ccm_context ccm;
 
@@ -1013,7 +1036,7 @@ int main( int argc, char *argv[] )
         TIME_AND_TSC( "CTR_DRBG (NOPR)",
                 mbedtls_ctr_drbg_random( &ctr_drbg, buf, BUFSIZE ) );
         mbedtls_ctr_drbg_free( &ctr_drbg );
-
+#if !defined(MBEDTLS_MCUX_CSS_PKC_API) && !defined(MBEDTLS_MCUX_CSS_API) && !defined(MBEDTLS_MCUX_ELS_PKC_API) && !defined(MBEDTLS_ELS_CSS_API)
         mbedtls_ctr_drbg_init( &ctr_drbg );
         if( mbedtls_ctr_drbg_seed( &ctr_drbg, myrand, NULL, NULL, 0 ) != 0 )
             mbedtls_exit(1);
@@ -1021,6 +1044,7 @@ int main( int argc, char *argv[] )
         TIME_AND_TSC( "CTR_DRBG (PR)",
                 mbedtls_ctr_drbg_random( &ctr_drbg, buf, BUFSIZE ) );
         mbedtls_ctr_drbg_free( &ctr_drbg );
+#endif
     }
 #endif
 
@@ -1177,7 +1201,7 @@ int main( int argc, char *argv[] )
             mbedtls_snprintf( title, sizeof( title ), "ECDSA-%s",
                                               curve_info->name );
             TIME_PUBLIC( title, "sign",
-                    ret = mbedtls_ecdsa_write_signature( &ecdsa, MBEDTLS_MD_SHA256, buf, curve_info->bit_size,
+                    ret = mbedtls_ecdsa_write_signature( &ecdsa, MBEDTLS_MD_SHA256, buf, (curve_info->bit_size / 8u),
                                                 tmp, &sig_len, myrand, NULL ) );
 
             mbedtls_ecdsa_free( &ecdsa );
@@ -1193,7 +1217,7 @@ int main( int argc, char *argv[] )
             mbedtls_ecdsa_init( &ecdsa );
 
             if( mbedtls_ecdsa_genkey( &ecdsa, curve_info->grp_id, myrand, NULL ) != 0 ||
-                mbedtls_ecdsa_write_signature( &ecdsa, MBEDTLS_MD_SHA256, buf, curve_info->bit_size,
+                mbedtls_ecdsa_write_signature( &ecdsa, MBEDTLS_MD_SHA256, buf, (curve_info->bit_size / 8u),
                                                tmp, &sig_len, myrand, NULL ) != 0 )
             {
                 mbedtls_exit( 1 );
@@ -1203,7 +1227,7 @@ int main( int argc, char *argv[] )
             mbedtls_snprintf( title, sizeof( title ), "ECDSA-%s",
                                               curve_info->name );
             TIME_PUBLIC( title, "verify",
-                    ret = mbedtls_ecdsa_read_signature( &ecdsa, buf, curve_info->bit_size,
+                    ret = mbedtls_ecdsa_read_signature( &ecdsa, buf, (curve_info->bit_size / 8u),
                                                 tmp, sig_len ) );
 
             mbedtls_ecdsa_free( &ecdsa );

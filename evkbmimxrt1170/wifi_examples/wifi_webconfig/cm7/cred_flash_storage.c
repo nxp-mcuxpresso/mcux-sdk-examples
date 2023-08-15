@@ -50,7 +50,7 @@ uint32_t init_flash_storage(char *filename)
     return 0;
 }
 
-uint32_t save_wifi_credentials(char *filename, char *ssid, char *passphrase)
+uint32_t save_wifi_credentials(char *filename, char *ssid, char *passphrase, char *security)
 {
     if (filename == NULL || (strlen(filename) > 63))
     {
@@ -70,14 +70,22 @@ uint32_t save_wifi_credentials(char *filename, char *ssid, char *passphrase)
                WPL_WIFI_PASSWORD_LENGTH, strlen(passphrase));
         return 1;
     }
+    
+    if (strlen(security) > WIFI_SECURITY_LENGTH)
+    {
+        PRINTF("[!] Security string is too long.\n");
+        return 1;
+    }
 
-    char credentials_buf[sizeof(FILE_HEADER) + WPL_WIFI_SSID_LENGTH + WPL_WIFI_PASSWORD_LENGTH + 3];
+    char credentials_buf[sizeof(FILE_HEADER) + WPL_WIFI_SSID_LENGTH + WPL_WIFI_PASSWORD_LENGTH + WIFI_SECURITY_LENGTH + 4];
     uint32_t data_len;
 
     strcpy(credentials_buf, FILE_HEADER);
     strcat(credentials_buf, ssid);
     strcat(credentials_buf, "\n");
     strcat(credentials_buf, passphrase);
+    strcat(credentials_buf, "\n");
+    strcat(credentials_buf, security);
     strcat(credentials_buf, "\n");
 
     data_len = strlen(credentials_buf) + 1; // Need to also store \0
@@ -90,13 +98,14 @@ uint32_t save_wifi_credentials(char *filename, char *ssid, char *passphrase)
     return 0;
 }
 
-uint32_t get_saved_wifi_credentials(char *filename, char *ssid, char *passphrase)
+uint32_t get_saved_wifi_credentials(char *filename, char *ssid, char *passphrase, char *security)
 {
     uint8_t *credentials_buf;
     uint32_t data_len = 0;
     status_t status;
     ssid[0]       = '\0';
     passphrase[0] = '\0';
+    security[0] = '\0';
 
     if (filename == NULL || (strlen(filename) > 63))
     {
@@ -129,6 +138,17 @@ uint32_t get_saved_wifi_credentials(char *filename, char *ssid, char *passphrase
                 credentials_buf++;
             };
             passphrase[pos] = '\0';
+            credentials_buf++;
+            pos = 0;
+            
+            while (*credentials_buf != '\n' && pos <= WIFI_SECURITY_LENGTH)
+            {
+                security[pos] = *credentials_buf;
+                pos++;
+                credentials_buf++;
+            };
+            security[pos] = '\0';
+            
         }
 
         return 0;

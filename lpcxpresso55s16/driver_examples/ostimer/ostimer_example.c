@@ -10,8 +10,8 @@
 #include "clock_config.h"
 #include "board.h"
 #include "fsl_ostimer.h"
-#include "fsl_power.h"
 
+#include "fsl_power.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

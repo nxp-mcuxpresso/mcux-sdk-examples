@@ -15,7 +15,7 @@ Quotient of 10 and 5 is 2
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

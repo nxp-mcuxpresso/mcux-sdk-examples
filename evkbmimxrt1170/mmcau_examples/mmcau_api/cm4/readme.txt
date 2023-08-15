@@ -8,8 +8,8 @@ data using AES-CBC, DES3-CBC and Hash algorithms MD5, SHA1 and SHA256.
 
 Toolchain supported
 ===================
-- MCUXpresso  11.7.0
-- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.8.0
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================
@@ -33,11 +33,11 @@ No special settings are required.
 
 Running the demo
 ================
-The log below shows the output of the hello world demo in the terminal window:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-............................. MMCAU  DRIVER  EXAMPLE ............................. 
+When the demo runs successfully, from the terminal you can see:
 
-Testing input string: 
+............................. MMCAU  DRIVER  EXAMPLE .............................
+
+Testing input string:
           Once upon a midnight dreary,
            while I pondered weak and weary,
           Over many a quaint and curious volume of forgotten lore,
@@ -50,12 +50,50 @@ Testing input string:
            tapping at my chamber doorOnly this,
            and nothing more.
 
------------------------------------ AES-CBC method --------------------------------------
-AES CBC Encryption of 320 bytes.
-AES CBC encryption finished. Speed 1.554970 MB/s.
+----------------------------------- AES-128-CBC method --------------------------------------
+AES-128 CBC Encryption of 320 bytes.
+AES-128 CBC encryption finished. Speed 0.788520 MB/s.
 
-AES CBC Decryption of 320 bytes.
-AES CBC decryption finished. Speed 1.613277 MB/s.
+AES-128 CBC Decryption of 320 bytes.
+AES-128 CBC decryption finished. Speed 0.879958 MB/s.
+Decrypted string :
+          Once upon a midnight dreary,
+           while I pondered weak and weary,
+          Over many a quaint and curious volume of forgotten lore,
+          While I nodded,
+           nearly napping,
+           suddenly there came a tapping,
+          As of some one gently rapping,
+           rapping at my chamber doorIts some visitor,
+           I muttered,
+           tapping at my chamber doorOnly this,
+           and nothing more.
+
+----------------------------------- AES-192-CBC method --------------------------------------
+AES-192 CBC Encryption of 320 bytes.
+AES-192 CBC encryption finished. Speed 0.733355 MB/s.
+
+AES-192 CBC Decryption of 320 bytes.
+AES-192 CBC decryption finished. Speed 0.874051 MB/s.
+Decrypted string :
+          Once upon a midnight dreary,
+           while I pondered weak and weary,
+          Over many a quaint and curious volume of forgotten lore,
+          While I nodded,
+           nearly napping,
+           suddenly there came a tapping,
+          As of some one gently rapping,
+           rapping at my chamber doorIts some visitor,
+           I muttered,
+           tapping at my chamber doorOnly this,
+           and nothing more.
+
+----------------------------------- AES-256-CBC method --------------------------------------
+AES-256 CBC Encryption of 320 bytes.
+AES-256 CBC encryption finished. Speed 0.729700 MB/s.
+
+AES-256 CBC Decryption of 320 bytes.
+AES-256 CBC decryption finished. Speed 0.868863 MB/s.
 Decrypted string :
           Once upon a midnight dreary,
            while I pondered weak and weary,
@@ -71,10 +109,10 @@ Decrypted string :
 
 ----------------------------------- DES3-CBC method --------------------------------------
 DES3 CBC Encryption of 320 bytes.
-DES3 CBC encryption finished. Speed 0.738141 MB/s.
+DES3 CBC encryption finished. Speed 0.642086 MB/s.
 
 DES3 CBC decryption of 320 bytes.
-DES3 CBC decryption finished. Speed 0.746226 MB/s.
+DES3 CBC decryption finished. Speed 0.748056 MB/s.
 Decrypted string :
           Once upon a midnight dreary,
            while I pondered weak and weary,
@@ -89,18 +127,21 @@ Decrypted string :
            and nothing more.
 
 --------------------------------------- HASH ------------------------------------------
-Computing hash of 64 bytes. 
-Input string: 
-          The quick brown fox jumps over the lazy dog
+Computing hash of 128 bytes.
+Input string:
+          Once upon a midnight dreary,
+           while I pondered,
+           weak and weary,
+           Over many a quaint and curious volume of forgotten lore.
 
-Computed SHA1 at speed 2.992902 MB/s:
-2fd4e1c67a2d28fced849ee1bb76e7391b93eb12
+Computed SHA1 at speed 0.320078 MB/s:
+29479755d6408ea49cb74c79949f6c303e1f4549
 
-Computed SHA256 at speed 1.943140 MB/s:
-d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592
+Computed SHA256 at speed 0.368955 MB/s:
+15ae3b1120b98cfb516bafe14ba2d6a2fcada8727584111c95f355e1033bf89d
 
-Computed MD5 at speed 5.926416 MB/s:
+Computed MD5 at speed 0.190410 MB/s:
 9e107d9d372bb6826bd81d3542a419d6
 
 .............. THE  END  OF  THE  MMCAU  DRIVER  EXAMPLE ................................
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+

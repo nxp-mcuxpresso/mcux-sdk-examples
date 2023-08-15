@@ -5,8 +5,8 @@ The example is use the continuous column and rows as 4*4 or 8*8 matrix to show t
 
 Toolchain supported
 ===================
-- MCUXpresso  11.7.0
-- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.8.0
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

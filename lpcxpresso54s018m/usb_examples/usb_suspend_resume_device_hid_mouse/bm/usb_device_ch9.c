@@ -932,7 +932,7 @@ static usb_status_t USB_DeviceControlCallbackFeedback(usb_device_handle handle,
                                                       uint8_t **buffer,
                                                       uint32_t *length)
 {
-    usb_status_t status;
+    usb_status_t status = kStatus_USB_InvalidRequest;
 
     if (kStatus_USB_InvalidRequest == error)
     {

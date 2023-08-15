@@ -31,6 +31,18 @@
  ******************************************************************************/
 
 /*!
+ * @brief Application-specific implementation of the SystemInitHook() weak function.
+ */
+void SystemInitHook(void)
+{
+    /* Initialize MCMGR - low level multicore management library. Call this
+       function as close to the reset entry as possible to allow CoreUp event
+       triggering. The SystemInitHook() weak function overloading is used in this
+       application. */
+    (void)MCMGR_EarlyInit();
+}
+
+/*!
  * @brief erpcMatrixMultiply function implementation.
  *
  * This is the implementation of the erpcMatrixMultiply function called by the primary core.
@@ -72,18 +84,6 @@ static void SignalReady(void)
 }
 
 /*!
- * @brief Application-specific implementation of the SystemInitHook() weak function.
- */
-void SystemInitHook(void)
-{
-    /* Initialize MCMGR - low level multicore management library. Call this
-       function as close to the reset entry as possible to allow CoreUp event
-       triggering. The SystemInitHook() weak function overloading is used in this
-       application. */
-    (void)MCMGR_EarlyInit();
-}
-
-/*!
  * @brief Main function
  */
 int main(void)
@@ -93,6 +93,7 @@ int main(void)
 
     BOARD_ConfigMPU();
     BOARD_InitPins();
+    SystemCoreClock = CLOCK_GetRootClockFreq(kCLOCK_Root_M4);
 
     /* Initialize MCMGR before calling its API */
     (void)MCMGR_Init();

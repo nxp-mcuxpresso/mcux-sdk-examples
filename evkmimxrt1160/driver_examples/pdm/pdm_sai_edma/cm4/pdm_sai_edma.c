@@ -159,7 +159,7 @@ static void saiCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t stat
 void DEMO_SAI_IRQ_HANDLER(void)
 {
     SAI_TxClearStatusFlags(DEMO_SAI, kSAI_FIFOErrorFlag);
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

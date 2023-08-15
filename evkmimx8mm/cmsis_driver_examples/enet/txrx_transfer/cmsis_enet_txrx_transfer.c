@@ -20,12 +20,17 @@
 #include "fsl_silicon_id.h"
 
 #include "fsl_phyar8031.h"
+#include "fsl_phyrtl8211f.h"
 #include "fsl_gpio.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
 #define EXAMPLE_ENET     Driver_ETH_MAC0
 #define EXAMPLE_ENET_PHY Driver_ETH_PHY0
+
+#ifndef EXAMPLE_ENET_PHY_PHYAR8031
+#define EXAMPLE_ENET_PHY_PHYAR8031 0U
+#endif
 #define ENET_DATA_LENGTH        (1000)
 #define ENET_EXAMPLE_LOOP_COUNT (20U)
 
@@ -49,7 +54,12 @@
  ******************************************************************************/
 cmsis_enet_mac_resource_t ENET0_Resource;
 cmsis_enet_phy_resource_t ENETPHY0_Resource;
+
+#if EXAMPLE_ENET_PHY_PHYAR8031
 static phy_ar8031_resource_t g_phy_resource;
+#else
+static phy_rtl8211f_resource_t g_phy_resource;
+#endif
 uint8_t g_frame[ENET_DATA_LENGTH + 14];
 volatile uint32_t g_testTxNum  = 0;
 uint8_t g_macAddr[6]           = MAC_ADDRESS;
@@ -175,7 +185,11 @@ int main(void)
     ENET0_Resource.base           = ENET1;
     ENET0_Resource.GetFreq        = ENET_GetFreq;
     ENETPHY0_Resource.phyAddr     = RTE_ENET_PHY_ADDRESS;
+#if EXAMPLE_ENET_PHY_PHYAR8031
     ENETPHY0_Resource.ops         = &phyar8031_ops;
+#else
+    ENETPHY0_Resource.ops         = &phyrtl8211f_ops;
+#endif /* EXAMPLE_ENET_PHY_PHYAR8031 */
     ENETPHY0_Resource.opsResource = &g_phy_resource;
 
     MDIO_Init();

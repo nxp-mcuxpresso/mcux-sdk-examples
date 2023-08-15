@@ -30,8 +30,8 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     ${CMAKE_C_FLAGS_DEBUG} \
     -DDEBUG \
     -DCPU_K32L3A60VPJ1A_cm4 \
-    -DSD_ENABLED \
     -DMCUXPRESSO_SDK \
+    -DSD_ENABLED \
     -g \
     -O0 \
     -mcpu=cortex-m4 \
@@ -53,8 +53,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     ${CMAKE_C_FLAGS_RELEASE} \
     -DNDEBUG \
     -DCPU_K32L3A60VPJ1A_cm4 \
-    -DSD_ENABLED \
     -DMCUXPRESSO_SDK \
+    -DSD_ENABLED \
     -Os \
     -mcpu=cortex-m4 \
     -Wall \

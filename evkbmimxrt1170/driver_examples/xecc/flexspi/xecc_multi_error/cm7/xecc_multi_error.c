@@ -260,7 +260,7 @@ void ConfigMPU(void)
     }
 
     /* Enable MPU */
-    ARM_MPU_Enable(MPU_CTRL_PRIVDEFENA_Msk);
+    ARM_MPU_Enable(MPU_CTRL_PRIVDEFENA_Msk | MPU_CTRL_HFNMIENA_Msk);
 
     /* Enable I cache and D cache */
 #if defined(__DCACHE_PRESENT) && __DCACHE_PRESENT

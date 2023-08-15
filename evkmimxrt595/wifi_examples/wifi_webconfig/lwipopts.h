@@ -95,6 +95,9 @@
 #define SOCKETS_DEBUG    LWIP_DBG_OFF // | LWIP_DBG_MASK_LEVEL
 
 #define IP_DEBUG         LWIP_DBG_OFF
+#define IP6_DEBUG        LWIP_DBG_OFF
+#define ICMP6_DEBUG      LWIP_DBG_OFF
+#define DHCP6_DEBUG      LWIP_DBG_OFF
 #define ETHARP_DEBUG     LWIP_DBG_OFF
 #define NETIF_DEBUG      LWIP_DBG_OFF
 #define PBUF_DEBUG       LWIP_DBG_OFF
@@ -301,11 +304,16 @@
  */
 #define LWIP_RAW 1
 
-/* Enable IPv4 Auto IP	*/
-#ifdef CONFIG_AUTOIP
-#define LWIP_AUTOIP                 1
-#define LWIP_DHCP_AUTOIP_COOP       1
-#define LWIP_DHCP_AUTOIP_COOP_TRIES 5
+/*
+   ---------------------------------------
+   ---------- IPv6 options ---------------
+   ---------------------------------------
+*/
+/**
+ * LWIP_IPV6==1: Enable IPv6
+ */
+#ifdef CONFIG_IPV6
+#define LWIP_IPV6 1
 #endif
 
 #define LWIP_DNS_SECURE 0

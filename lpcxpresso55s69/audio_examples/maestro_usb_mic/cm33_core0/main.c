@@ -175,7 +175,7 @@ int main(void)
 /*!< Set up PLL, use FRO for full speed */
 #if (defined USB_DEVICE_CONFIG_LPCIP3511FS) && (USB_DEVICE_CONFIG_LPCIP3511FS)
     const pll_setup_t pll0Setup = {
-        .pllctrl = SYSCON_PLL0CTRL_CLKEN_MASK | SYSCON_PLL0CTRL_SELI(2U) | SYSCON_PLL0CTRL_SELP(31U),
+        .pllctrl = SYSCON_PLL0CTRL_CLKEN_MASK | SYSCON_PLL0CTRL_SELI(8U) | SYSCON_PLL0CTRL_SELP(31U),
         .pllndec = SYSCON_PLL0NDEC_NDIV(125U),
         .pllpdec = SYSCON_PLL0PDEC_PDIV(8U),
         .pllsscg = {0x0U, (SYSCON_PLL0SSCG1_MDIV_EXT(3072U) | SYSCON_PLL0SSCG1_SEL_EXT_MASK)},

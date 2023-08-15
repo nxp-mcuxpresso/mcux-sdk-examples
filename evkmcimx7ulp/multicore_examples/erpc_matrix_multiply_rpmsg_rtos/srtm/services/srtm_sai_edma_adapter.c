@@ -52,6 +52,8 @@ struct _srtm_sai_edma_local_runtime
     uint32_t periodSize;
     struct _srtm_sai_edma_buf_runtime bufRtm;
     struct _srtm_sai_edma_local_period periodsInfo[SRTM_SAI_EDMA_MAX_LOCAL_BUF_PERIODS];
+    srtm_sai_edma_pre_copy_callback_t preCopyCallback;   /* Callback function to prepare for data copy */
+    srtm_sai_edma_post_copy_callback_t postCopyCallback; /* Callback function to cleanup after data copy */
 };
 #endif
 
@@ -89,7 +91,7 @@ typedef struct _srtm_sai_edma_adapter
     uint32_t index;
 
     I2S_Type *sai;
-    DMA_Type *dma;
+    void *dma;
     srtm_sai_edma_config_t txConfig;
     srtm_sai_edma_config_t rxConfig;
     edma_handle_t txDmaHandle;
@@ -276,6 +278,7 @@ static void SRTM_SaiEdmaAdapter_CopyData(srtm_sai_edma_adapter_t handle)
     uint32_t srcSize, dstSize, size;
     srtm_sai_edma_buf_runtime_t srcRtm, dstRtm;
     uint8_t *src, *dst;
+    bool preCopyCallbackCalled = false;
 
     rtm    = &handle->txRtm;
     srcRtm = &rtm->bufRtm;
@@ -283,6 +286,11 @@ static void SRTM_SaiEdmaAdapter_CopyData(srtm_sai_edma_adapter_t handle)
 
     while ((srcRtm->remainingLoadPeriods != 0U) && ((rtm->localBuf.periods - dstRtm->remainingPeriods) != 0U))
     {
+        if ((rtm->localRtm.preCopyCallback != NULL) && (preCopyCallbackCalled == false))
+        {
+            rtm->localRtm.preCopyCallback();
+            preCopyCallbackCalled = true;
+        }
         src     = rtm->bufAddr + srcRtm->loadIdx * rtm->periodSize;
         dst     = rtm->localBuf.buf + dstRtm->leadIdx * rtm->localRtm.periodSize;
         srcSize = rtm->periodSize - srcRtm->offset;
@@ -311,6 +319,10 @@ static void SRTM_SaiEdmaAdapter_CopyData(srtm_sai_edma_adapter_t handle)
             dstRtm->remainingLoadPeriods++;
             dstRtm->offset = 0U;
         }
+    }
+    if ((rtm->localRtm.postCopyCallback != NULL) && (preCopyCallbackCalled == true))
+    {
+        rtm->localRtm.postCopyCallback();
     }
 }
 
@@ -691,31 +703,6 @@ static srtm_status_t SRTM_SaiEdmaAdapter_Open(srtm_sai_adapter_t adapter, srtm_a
     return SRTM_Status_Success;
 }
 
-static srtm_status_t SRTM_SaiEdmaAdapter_Close(srtm_sai_adapter_t adapter, srtm_audio_dir_t dir, uint8_t index)
-{
-    srtm_sai_edma_adapter_t handle = (srtm_sai_edma_adapter_t)(void *)adapter;
-    srtm_sai_edma_runtime_t rtm    = dir == SRTM_AudioDirTx ? &handle->txRtm : &handle->rxRtm;
-
-    SRTM_DEBUG_MESSAGE(SRTM_DEBUG_VERBOSE_INFO, "%s: %s%d\r\n", __func__, saiDirection[dir], index);
-
-    if (rtm->state == SRTM_AudioStateClosed)
-    {
-        /* Stop may called when audio service reset. */
-        return SRTM_Status_Success;
-    }
-
-    if (rtm->state != SRTM_AudioStateOpened)
-    {
-        SRTM_DEBUG_MESSAGE(SRTM_DEBUG_VERBOSE_WARN, "%s: %s in wrong state %d!\r\n", __func__, saiDirection[dir],
-                           rtm->state);
-        return SRTM_Status_InvalidState;
-    }
-
-    rtm->state = SRTM_AudioStateClosed;
-
-    return SRTM_Status_Success;
-}
-
 static srtm_status_t SRTM_SaiEdmaAdapter_Start(srtm_sai_adapter_t adapter, srtm_audio_dir_t dir, uint8_t index)
 {
     srtm_sai_edma_adapter_t handle = (srtm_sai_edma_adapter_t)(void *)adapter;
@@ -927,6 +914,29 @@ static srtm_status_t SRTM_SaiEdmaAdapter_End(srtm_sai_adapter_t adapter, srtm_au
     thisRtm->bufRtm.leadIdx = thisRtm->bufRtm.chaseIdx;
 
     thisRtm->state = SRTM_AudioStateOpened;
+
+    return SRTM_Status_Success;
+}
+
+static srtm_status_t SRTM_SaiEdmaAdapter_Close(srtm_sai_adapter_t adapter, srtm_audio_dir_t dir, uint8_t index)
+{
+    srtm_sai_edma_adapter_t handle = (srtm_sai_edma_adapter_t)(void *)adapter;
+    srtm_sai_edma_runtime_t rtm    = dir == SRTM_AudioDirTx ? &handle->txRtm : &handle->rxRtm;
+
+    SRTM_DEBUG_MESSAGE(SRTM_DEBUG_VERBOSE_INFO, "%s: %s%d\r\n", __func__, saiDirection[dir], index);
+
+    if (rtm->state == SRTM_AudioStateClosed)
+    {
+        /* Stop may called when audio service reset. */
+        return SRTM_Status_Success;
+    }
+
+    if (rtm->state != SRTM_AudioStateOpened)
+    {
+        (void)SRTM_SaiEdmaAdapter_End(adapter, dir, index, true);
+    }
+
+    rtm->state = SRTM_AudioStateClosed;
 
     return SRTM_Status_Success;
 }
@@ -1190,7 +1200,7 @@ static srtm_status_t SRTM_SaiEdmaAdapter_PeriodReady(srtm_sai_adapter_t adapter,
 }
 
 srtm_sai_adapter_t SRTM_SaiEdmaAdapter_Create(I2S_Type *sai,
-                                              DMA_Type *dma,
+                                              void *dma,
                                               srtm_sai_edma_config_t *txConfig,
                                               srtm_sai_edma_config_t *rxConfig)
 {
@@ -1292,6 +1302,38 @@ void SRTM_SaiEdmaAdapter_SetTxLocalBuf(srtm_sai_adapter_t adapter, srtm_sai_edma
 void SRTM_SaiEdmaAdapter_SetRxLocalBuf(srtm_sai_adapter_t adapter, srtm_sai_edma_local_buf_t *localBuf)
 {
     SRTM_SaiEdmaAdapter_SetLocalBuf(adapter, localBuf, SRTM_AudioDirRx);
+}
+
+void SRTM_SaiEdmaAdapter_SetPreCopyCallback(srtm_sai_adapter_t adapter,
+                                            srtm_sai_edma_pre_copy_callback_t preCopyCallback,
+                                            srtm_audio_dir_t dir)
+{
+    srtm_sai_edma_adapter_t handle = (srtm_sai_edma_adapter_t)adapter;
+    srtm_sai_edma_runtime_t rtm    = dir == SRTM_AudioDirTx ? &handle->txRtm : &handle->rxRtm;
+
+    rtm->localRtm.preCopyCallback = preCopyCallback;
+}
+
+void SRTM_SaiEdmaAdapter_SetTxPreCopyCallback(srtm_sai_adapter_t adapter,
+                                              srtm_sai_edma_pre_copy_callback_t preCopyCallback)
+{
+    SRTM_SaiEdmaAdapter_SetPreCopyCallback(adapter, preCopyCallback, SRTM_AudioDirTx);
+}
+
+void SRTM_SaiEdmaAdapter_SetPostCopyCallback(srtm_sai_adapter_t adapter,
+                                             srtm_sai_edma_post_copy_callback_t postCopyCallback,
+                                             srtm_audio_dir_t dir)
+{
+    srtm_sai_edma_adapter_t handle = (srtm_sai_edma_adapter_t)adapter;
+    srtm_sai_edma_runtime_t rtm    = dir == SRTM_AudioDirTx ? &handle->txRtm : &handle->rxRtm;
+
+    rtm->localRtm.postCopyCallback = postCopyCallback;
+}
+
+void SRTM_SaiEdmaAdapter_SetTxPostCopyCallback(srtm_sai_adapter_t adapter,
+                                               srtm_sai_edma_post_copy_callback_t postCopyCallback)
+{
+    SRTM_SaiEdmaAdapter_SetPostCopyCallback(adapter, postCopyCallback, SRTM_AudioDirTx);
 }
 #endif
 

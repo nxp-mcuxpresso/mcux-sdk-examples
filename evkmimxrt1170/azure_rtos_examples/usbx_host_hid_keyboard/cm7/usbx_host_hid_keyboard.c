@@ -10,12 +10,10 @@
 
 /* Define constants. */
 #define DEMO_STACK_SIZE (4 * 1024)
-#define KEYBOARD_QUEUE_SIZE (1024)
 
 /* Define global variables. */
 TX_THREAD demo_thread;
 
-ULONG keyboard_queue[KEYBOARD_QUEUE_SIZE / sizeof(ULONG)];
 ULONG demo_stack[DEMO_STACK_SIZE / sizeof(ULONG)];
 
 static UINT usbx_host_change_callback(ULONG event, UX_HOST_CLASS *host_class, VOID *instance)
@@ -82,9 +80,7 @@ static void demo_thread_entry(ULONG arg)
     UX_HOST_CLASS_HID_KEYBOARD *keyboard;
     ULONG keyboard_char;
     ULONG keyboard_state;
-    UINT keyboard_queue_index;
     UINT status;
-    UCHAR *queue = (UCHAR *)keyboard_queue;
 
     /* Find the HID class */
     status = demo_class_hid_get(&hid);
@@ -101,27 +97,13 @@ static void demo_thread_entry(ULONG arg)
     /* Get the keyboard instance */
     keyboard = (UX_HOST_CLASS_HID_KEYBOARD *)hid_client->ux_host_class_hid_client_local_instance;
 
-    /* Init the keyboard queue index.  */
-    keyboard_queue_index = 0;
-
     while (1)
     {
         /* Get a key/state from the keyboard.  */
         status = ux_host_class_hid_keyboard_key_get(keyboard, &keyboard_char, &keyboard_state);
         if (status == UX_SUCCESS)
         {
-            /* We have a character in the queue.  */
-            queue[keyboard_queue_index] = (UCHAR)keyboard_char;
-
-            PRINTF("Input: %s\r\n", (CHAR *)&keyboard_char);
-
-            /* Can we accept more ?  */
-            if (keyboard_queue_index < KEYBOARD_QUEUE_SIZE)
-                /* Increment the index.  */
-                keyboard_queue_index++;
-            else
-                /* Back to the beginning of the array.  */
-                keyboard_queue_index = 0;
+            PRINTF("Input: %c\r\n", (char)keyboard_char);
         }
 
         tx_thread_sleep(10);

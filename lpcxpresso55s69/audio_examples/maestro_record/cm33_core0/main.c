@@ -32,7 +32,7 @@
  * Definitions
  ******************************************************************************/
 #include "app_definitions.h"
-#define APP_SHELL_TASK_STACK_SIZE (1024)
+#define APP_SHELL_TASK_STACK_SIZE (256)
 #define SDCARD_TASK_STACK_SIZE    (512)
 
 /*******************************************************************************

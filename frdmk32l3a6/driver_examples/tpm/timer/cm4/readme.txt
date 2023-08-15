@@ -6,8 +6,8 @@ When the TPM interrupt is triggered 1000 times, a message is printed on the UART
 
 Toolchain supported
 ===================
-- MCUXpresso  11.6.0
-- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.8.0
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

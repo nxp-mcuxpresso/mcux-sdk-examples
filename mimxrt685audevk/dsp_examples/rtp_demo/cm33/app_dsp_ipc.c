@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -31,7 +31,7 @@ static void app_dsp_ipc_task(void *param)
     app_handle_t *app = (app_handle_t *)param;
     message_t msg;
 
-    PRINTF("[app_dsp_ipc] start\r\n");
+    PRINTF("[CM33][app_dsp_ipc] start\r\n");
 
     while (true)
     {
@@ -42,7 +42,7 @@ static void app_dsp_ipc_task(void *param)
         app_dsp_ipc_handle_message(app, &msg);
     }
 
-    /* PRINTF("[app_dsp_ipc] done\r\n"); */
+    /* PRINTF("[CM33][app_dsp_ipc] done\r\n"); */
     /* vTaskDelete(NULL); */
 }
 
@@ -53,7 +53,7 @@ void app_dsp_ipc_init(app_handle_t *app)
     if (xTaskCreate(app_dsp_ipc_task, "app_dsp_ipc", APP_DSP_IPC_TASK_STACK_SIZE / sizeof(configSTACK_DEPTH_TYPE), app,
                     APP_DSP_IPC_TASK_PRIORITY, &taskHandle) != pdPASS)
     {
-        PRINTF("\r\nFailed to create DSP IPC task\r\n");
+        PRINTF("\r\n[CM33] Failed to create DSP IPC task\r\n");
         while (true)
         {
         }

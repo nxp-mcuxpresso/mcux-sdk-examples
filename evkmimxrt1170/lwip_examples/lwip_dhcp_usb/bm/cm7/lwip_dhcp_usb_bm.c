@@ -338,10 +338,9 @@ int main(void)
     IOMUXC_SelectENETClock();
 
     GPIO_PinInit(GPIO12, 12, &gpio_config);
-    GPIO_WritePinOutput(GPIO12, 12, 0);
     SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
     GPIO_WritePinOutput(GPIO12, 12, 1);
-    SDK_DelayAtLeastUs(6, CLOCK_GetFreq(kCLOCK_CpuClk));
+    SDK_DelayAtLeastUs(150000, CLOCK_GetFreq(kCLOCK_CpuClk));
 
     time_init();
 

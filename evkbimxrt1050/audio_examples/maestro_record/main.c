@@ -23,6 +23,8 @@
 
 #include "fsl_debug_console.h"
 
+#include "fsl_wm8960.h"
+#include "app_definitions.h"
 #include "fsl_gpio.h"
 #include "fsl_iomuxc.h"
 #include "fsl_dmamux.h"
@@ -31,12 +33,10 @@
 #ifdef __MCUXPRESSO
 #include "fsl_flexram.h"
 #endif
-#include "fsl_wm8960.h"
-#include "app_definitions.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define APP_SHELL_TASK_STACK_SIZE (1024)
+#define APP_SHELL_TASK_STACK_SIZE (256)
 #define SDCARD_TASK_STACK_SIZE    (512)
 
 /*******************************************************************************
@@ -112,7 +112,7 @@ int BOARD_CODEC_Init(void)
 void SystemInitHook(void)
 {
 #if defined(__MCUXPRESSO)
-    IOMUXC_GPR->GPR17 = (kFLEXRAM_BankDTCM << 0) | (kFLEXRAM_BankOCRAM << 2) | (kFLEXRAM_BankOCRAM << 4) |
+    IOMUXC_GPR->GPR17 = (kFLEXRAM_BankDTCM << 0) | (kFLEXRAM_BankDTCM << 2) | (kFLEXRAM_BankOCRAM << 4) |
                         (kFLEXRAM_BankOCRAM << 6) | (kFLEXRAM_BankOCRAM << 8) | (kFLEXRAM_BankOCRAM << 10) |
                         (kFLEXRAM_BankOCRAM << 12) | (kFLEXRAM_BankOCRAM << 14) | (kFLEXRAM_BankOCRAM << 16) |
                         (kFLEXRAM_BankOCRAM << 18) | (kFLEXRAM_BankOCRAM << 20) | (kFLEXRAM_BankOCRAM << 22) |
@@ -164,7 +164,7 @@ void update_MPU_config(void)
     MPU->RASR = ARM_MPU_RASR(0, ARM_MPU_AP_FULL, 0, 0, 1, 1, 0, ARM_MPU_REGION_SIZE_512KB);
 
     /* Enable MPU */
-    ARM_MPU_Enable(MPU_CTRL_PRIVDEFENA_Msk);
+    ARM_MPU_Enable(MPU_CTRL_PRIVDEFENA_Msk | MPU_CTRL_HFNMIENA_Msk);
 
     /* Enable I cache and D cache */
     SCB_EnableDCache();

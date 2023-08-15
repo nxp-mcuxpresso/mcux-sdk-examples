@@ -7,8 +7,8 @@ In this example, dmic channel 0, 1, 2, 3, 4, 5, 6, 7 will be used to record audi
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================

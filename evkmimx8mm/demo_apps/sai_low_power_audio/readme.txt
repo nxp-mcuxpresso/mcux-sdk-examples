@@ -9,7 +9,7 @@ If there is no audio palyback, M core will enter the STOP mode, and the whole SO
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================
@@ -62,7 +62,9 @@ NOTE
     u-boot=>printenv mmcargs
         For example, "mmcargs=setenv bootargs ${jh_clk} ${mcore_clk} console=${console} root=${mmcroot}" is printed, then set the mmcargs using the following command. 
     u-boot=>setenv mmcargs 'setenv bootargs ${jh_clk} ${mcore_clk} console=${console} root=${mmcroot} snd_pcm.max_alloc_per_card=134217728'
+    u-boot=>setenv prepare_mcore 'setenv mcore_clk clk-imx8mm.mcore_booted'
     u-boot=>saveenv
+    u-boot=>run prepare_mcore
 5.  Please make sure here exists xxx.wav file in the SD card.
     If the music file is placed at the Windows FAT32 paritions, after the linux kernel boot up and logged as root,
     using the "mount /dev/mmcblk1p1 /mnt" and then go to "/mnt" folder to playabck the music using the playback command.

@@ -31,10 +31,10 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DDEBUG \
     -DCPU_K32L3A60VPJ1A_cm4 \
     -DDEBUG_CONSOLE_TRANSFER_NON_BLOCKING \
+    -DMCUXPRESSO_SDK \
     -DSD_ENABLED \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DSDK_OS_FREE_RTOS \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
     -mcpu=cortex-m4 \
@@ -57,10 +57,10 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DNDEBUG \
     -DCPU_K32L3A60VPJ1A_cm4 \
     -DDEBUG_CONSOLE_TRANSFER_NON_BLOCKING \
+    -DMCUXPRESSO_SDK \
     -DSD_ENABLED \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DSDK_OS_FREE_RTOS \
-    -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m4 \
     -Wall \
@@ -81,8 +81,8 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     ${CMAKE_CXX_FLAGS_DEBUG} \
     -DDEBUG \
     -DCPU_K32L3A60VPJ1A_cm4 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m4 \
@@ -105,8 +105,8 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     ${CMAKE_CXX_FLAGS_RELEASE} \
     -DNDEBUG \
     -DCPU_K32L3A60VPJ1A_cm4 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m4 \
     -Wall \

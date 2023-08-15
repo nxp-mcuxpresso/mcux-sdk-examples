@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -54,94 +62,13 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/evkmimxrt595/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/evkmimxrt595
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core/drivers/lpc_gpio
-    ${SdkRootDirPath}/core/drivers/lpc_iopctl
-    ${SdkRootDirPath}/core/drivers/pint
-    ${SdkRootDirPath}/core/drivers/inputmux
-    ${SdkRootDirPath}/core/devices/MIMXRT595S/drivers
-    ${SdkRootDirPath}/core/drivers/flexcomm
-    ${SdkRootDirPath}/core/components/pca9420
-    ${SdkRootDirPath}/core/components/power_manager/boards/EVK-MIMXRT595
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/devices/MIMXRT595S
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/drivers/flexspi
-    ${SdkRootDirPath}/core/drivers/cache/cache64
-    ${SdkRootDirPath}/core/components/serial_manager
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/boards/evkmimxrt595/flash_config
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/components/power_manager/core
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
 
-# include modules
-include(driver_lpc_gpio)
-
-include(driver_lpc_iopctl)
-
-include(driver_pint)
-
-include(driver_inputmux)
-
-include(driver_inputmux_connections)
-
-include(driver_flexcomm_i2c)
-
-include(driver_pca9420)
-
-include(component_power_manager_evkmimxrt595)
-
-include(driver_clock)
-
-include(driver_common)
-
-include(driver_power)
-
-include(driver_reset)
-
-include(device_CMSIS)
-
-include(utility_debug_console)
-
-include(utility_assert)
-
-include(component_usart_adapter)
-
-include(driver_flexspi)
-
-include(driver_cache_cache64)
-
-include(component_serial_manager)
-
-include(component_lists)
-
-include(component_serial_manager_uart_MIMXRT595S_cm33)
-
-include(driver_flexcomm_usart)
-
-include(driver_flash_config_evkmimxrt595)
-
-include(device_startup)
-
-include(driver_flexcomm)
-
-include(CMSIS_Include_core_cm)
-
-include(component_power_manager_core)
-
-include(utilities_misc_utilities)
-
-include(driver_iap)
-
+include(${SdkRootDirPath}/core/devices/MIMXRT595S/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -155,4 +82,6 @@ TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
 ADD_CUSTOM_COMMAND(TARGET ${MCUX_SDK_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_OBJCOPY}
 -Obinary ${EXECUTABLE_OUTPUT_PATH}/${MCUX_SDK_PROJECT_NAME} ${EXECUTABLE_OUTPUT_PATH}/sdk20-app.bin)
+
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map;${EXECUTABLE_OUTPUT_PATH}/sdk20-app.bin")
 

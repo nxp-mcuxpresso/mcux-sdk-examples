@@ -1,6 +1,5 @@
 /*
- * Copyright 2021 NXP
- * All rights reserved.
+ * Copyright 2021-2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -24,7 +23,7 @@
 #define SENSOR_ADDR                0x09U
 #define STATIC_I2C_ADDR            0x69U
 #define I3C_TIME_OUT_INDEX         100000000U
-
+#define SENSOR_MIPI_VENDOR_ID      0x235U
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -184,8 +183,12 @@ static const i3c_master_transfer_callback_t masterCallback = {
  */
 int main(void)
 {
-    i3c_master_config_t masterConfig;
     status_t result = kStatus_Success;
+    uint8_t addressList[3] = {0x08, 0x09, 0x0A};
+    uint8_t slaveAddr = 0;
+    i3c_master_config_t masterConfig;
+    i3c_device_info_t *devList;
+    uint8_t devCount;
 
     /* Attach main clock to I3C, 500MHz / 20 = 25MHZ. */
     CLOCK_AttachClk(kMAIN_CLK_to_I3C_CLK);
@@ -206,24 +209,42 @@ int main(void)
 
     I3C_MasterTransferCreateHandle(EXAMPLE_MASTER, &g_i3c_m_handle, &masterCallback, NULL);
 
-    i3c_register_ibi_addr_t ibiRecord = {.address = {SENSOR_ADDR}, .ibiHasPayload = true};
-    I3C_MasterRegisterIBI(EXAMPLE_MASTER, &ibiRecord);
-
     PRINTF("\r\nI3C master do dynamic address assignment to the sensor slave.\r\n");
 
-    uint8_t addressList[1] = {SENSOR_ADDR};
-    result                 = I3C_MasterProcessDAA(EXAMPLE_MASTER, addressList, sizeof(addressList));
+    /* Reset dynamic address. */
+    result = I3C_WriteSensor(0x7E, 0x06, NULL, 0);
     if (result != kStatus_Success)
     {
         return -1;
     }
 
-    PRINTF("\r\nI3C master dynamic address assignment done, sensor address: 0x%2x\r\n", SENSOR_ADDR);
+    result = I3C_MasterProcessDAA(EXAMPLE_MASTER, addressList, sizeof(addressList));
+    if (result != kStatus_Success)
+    {
+        return -1;
+    }
+
+    devList = I3C_MasterGetDeviceListAfterDAA(EXAMPLE_MASTER, &devCount);
+    for (uint8_t devIndex = 0; devIndex < devCount; devIndex++)
+    {
+        if (devList[devIndex].vendorID == SENSOR_MIPI_VENDOR_ID)
+        {
+            slaveAddr = devList[devIndex].dynamicAddr;
+            break;
+        }
+    }
+
+    if (slaveAddr == 0U)
+    {
+        PRINTF("I3C master dynamic address assignment failed.\r\n");
+        return -1;
+    }
+    PRINTF("I3C master dynamic address assignment done, sensor address: 0x%2x.\r\n", slaveAddr);
 
     icm42688p_config_t sensorConfig;
     sensorConfig.Sensor_WriteTransfer = (sensor_write_transfer_func_t)I3C_WriteSensor;
     sensorConfig.Sensor_ReadTransfer  = (sensor_read_transfer_func_t)I3C_ReadSensor;
-    sensorConfig.sensorAddress        = SENSOR_ADDR;
+    sensorConfig.sensorAddress        = slaveAddr;
     sensorConfig.isReset              = true;
 
     result = ICM42688P_Init(&icmp42688p_handle, &sensorConfig);
@@ -233,13 +254,41 @@ int main(void)
         return -1;
     }
 
-    PRINTF("\r\nSensor reset is done, re-assgin dynamic address\r\n");
+    PRINTF("\r\nSensor reset is done, re-assgin dynamic address.\r\n");
+
+    /* Reset dynamic address. */
+    result = I3C_WriteSensor(0x7E, 0x06, NULL, 0);
+    if (result != kStatus_Success)
+    {
+        return -1;
+    }
 
     result = I3C_MasterProcessDAA(EXAMPLE_MASTER, addressList, sizeof(addressList));
     if (result != kStatus_Success)
     {
         return -1;
     }
+
+    devList = I3C_MasterGetDeviceListAfterDAA(EXAMPLE_MASTER, &devCount);
+    slaveAddr = 0;
+    for (uint8_t devIndex = 0; devIndex < devCount; devIndex++)
+    {
+        if (devList[devIndex].vendorID == SENSOR_MIPI_VENDOR_ID)
+        {
+            slaveAddr = devList[devIndex].dynamicAddr;
+            break;
+        }
+    }
+
+    if (slaveAddr == 0U)
+    {
+        PRINTF("I3C master dynamic address assignment failed.\r\n");
+        return -1;
+    }
+    PRINTF("I3C master dynamic address assignment done, sensor address: 0x%2x.\r\n", slaveAddr);
+
+    i3c_register_ibi_addr_t ibiRecord = {.address = {slaveAddr}, .ibiHasPayload = true};
+    I3C_MasterRegisterIBI(EXAMPLE_MASTER, &ibiRecord);
 
     result = ICM42688P_EnableSensors(&icmp42688p_handle);
     if (result != kStatus_Success)
@@ -264,13 +313,21 @@ int main(void)
         return -1;
     }
 
-    icm42688p_sensor_data_t sensorData = {0};
+    /* Wait for 1ms for FIFO data ready with 1KHz sensor sample rate. */
+    SDK_DelayAtLeastUs(1000, SystemCoreClock);
 
+    icm42688p_sensor_data_t sensorData = {0};
     while (!g_ibiWonFlag)
     {
         result = ICM42688P_ReadSensorData(&icmp42688p_handle, &sensorData);
         if (result != kStatus_Success)
         {
+            if (result == kStatus_NoData)
+            {
+                /* Wait for 1ms for FIFO data ready with 1KHz sensor sample rate. */
+                SDK_DelayAtLeastUs(1000, SystemCoreClock);
+                continue;
+            }
             PRINTF("\r\nRead sensor data failed.\r\n");
             return -1;
         }

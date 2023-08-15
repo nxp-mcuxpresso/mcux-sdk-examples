@@ -102,7 +102,7 @@ void APP_FLEXRAM_IRQ_HANDLER(void)
         FLEXRAM_ClearInterruptStatus(APP_FLEXRAM, kFLEXRAM_ITCMAccessError);
     }
 
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

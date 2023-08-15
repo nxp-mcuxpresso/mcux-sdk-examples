@@ -107,5 +107,5 @@ void BOARD_FTM_HANDLER(void)
     /* Clear interrupt flag.*/
     FTM_ClearStatusFlags(BOARD_FTM_BASEADDR, kFTM_TimeOverflowFlag);
     ftmIsrFlag = true;
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }

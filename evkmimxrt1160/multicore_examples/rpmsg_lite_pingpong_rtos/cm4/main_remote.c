@@ -18,8 +18,8 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
-#include "mcmgr.h"
 #include "fsl_common.h"
+#include "mcmgr.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -49,6 +49,18 @@ static char helloMsg[13];
 /*******************************************************************************
  * Code
  ******************************************************************************/
+
+/*!
+ * @brief Application-specific implementation of the SystemInitHook() weak function.
+ */
+void SystemInitHook(void)
+{
+    /* Initialize MCMGR - low level multicore management library. Call this
+       function as close to the reset entry as possible to allow CoreUp event
+       triggering. The SystemInitHook() weak function overloading is used in this
+       application. */
+    (void)MCMGR_EarlyInit();
+}
 static TaskHandle_t app_task_handle = NULL;
 
 static struct rpmsg_lite_instance *volatile my_rpmsg = NULL;
@@ -86,20 +98,6 @@ void app_destroy_task(void)
 static void app_nameservice_isr_cb(uint32_t new_ept, const char *new_ept_name, uint32_t flags, void *user_data)
 {
 }
-
-#ifdef MCMGR_USED
-/*!
- * @brief Application-specific implementation of the SystemInitHook() weak function.
- */
-void SystemInitHook(void)
-{
-    /* Initialize MCMGR - low level multicore management library. Call this
-       function as close to the reset entry as possible to allow CoreUp event
-       triggering. The SystemInitHook() weak function overloading is used in this
-       application. */
-    (void)MCMGR_EarlyInit();
-}
-#endif /* MCMGR_USED */
 
 static void app_task(void *param)
 {
@@ -194,6 +192,7 @@ int main(void)
     /* Initialize standard SDK demo application pins */
     BOARD_ConfigMPU();
     BOARD_InitPins();
+    SystemCoreClock = CLOCK_GetRootClockFreq(kCLOCK_Root_M4);
 
 #ifdef MCMGR_USED
     /* Initialize MCMGR before calling its API */

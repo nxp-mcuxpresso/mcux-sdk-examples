@@ -16,6 +16,7 @@
  * Definitions
  ******************************************************************************/
 #define DRIVER_MASTER_SPI Driver_SPI5
+#define EXAMPLE_LPSPI_MASTER_DMA_BASEADDR       DMA0
 
 #define TRANSFER_SIZE     64U     /* Transfer dataSize */
 #define TRANSFER_BAUDRATE 500000U /* Transfer baudrate - 500k */
@@ -80,7 +81,8 @@ int main(void)
     uint32_t errorCount;
     uint32_t i;
 
-    /*SPI master init*/
+    /* Init DMA for example*/
+    DMA_Init(EXAMPLE_LPSPI_MASTER_DMA_BASEADDR);
     DRIVER_MASTER_SPI.Initialize(SPI_MasterSignalEvent_t);
     DRIVER_MASTER_SPI.PowerControl(ARM_POWER_FULL);
     DRIVER_MASTER_SPI.Control(ARM_SPI_MODE_MASTER, TRANSFER_BAUDRATE);

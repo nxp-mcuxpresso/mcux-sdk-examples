@@ -34,6 +34,18 @@
 /*******************************************************************************
  * Code
  ******************************************************************************/
+
+/*!
+ * @brief Application-specific implementation of the SystemInitHook() weak function.
+ */
+void SystemInitHook(void)
+{
+    /* Initialize MCMGR - low level multicore management library. Call this
+       function as close to the reset entry as possible to allow CoreUp event
+       triggering. The SystemInitHook() weak function overloading is used in this
+       application. */
+    (void)MCMGR_EarlyInit();
+}
 static TaskHandle_t app_task_handle = NULL;
 #ifdef MCMGR_USED
 static uint32_t startupData;
@@ -78,18 +90,6 @@ static void SignalReady(void)
 {
     /* Signal the other core we are ready by triggering the event and passing the APP_ERPC_READY_EVENT_DATA */
     (void)MCMGR_TriggerEvent(kMCMGR_RemoteApplicationEvent, APP_ERPC_READY_EVENT_DATA);
-}
-
-/*!
- * @brief Application-specific implementation of the SystemInitHook() weak function.
- */
-void SystemInitHook(void)
-{
-    /* Initialize MCMGR - low level multicore management library. Call this
-       function as close to the reset entry as possible to allow CoreUp event
-       triggering. The SystemInitHook() weak function overloading is used in this
-       application. */
-    (void)MCMGR_EarlyInit();
 }
 #endif /* MCMGR_USED */
 
@@ -168,6 +168,7 @@ int main(void)
 {
     BOARD_ConfigMPU();
     BOARD_InitPins();
+    SystemCoreClock = CLOCK_GetRootClockFreq(kCLOCK_Root_M4);
 
 #ifdef MCMGR_USED
 

@@ -62,7 +62,6 @@ static const pdm_channel_config_t channelConfig = {
 #endif
     .gain = kPDM_DfOutputGain4,
 };
-const short g_sdma_multi_fifo_script[] = FSL_SDMA_MULTI_FIFO_SCRIPT;
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -102,7 +101,7 @@ void PDM_ERROR_IRQHandler(void)
     }
 #endif
 
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!
@@ -142,8 +141,6 @@ int main(void)
     SDMA_Init(DEMO_DMA, &dmaConfig);
     SDMA_CreateHandle(&dmaHandle, DEMO_DMA, DEMO_DMA_CHANNEL, &sdma_context);
     SDMA_SetChannelPriority(DEMO_DMA, DEMO_DMA_CHANNEL, 2);
-    SDMA_LoadScript(DEMO_DMA, FSL_SDMA_SCRIPT_CODE_START_ADDR, (void *)g_sdma_multi_fifo_script,
-                    FSL_SDMA_SCRIPT_CODE_SIZE);
     /* Set up pdm */
     PDM_Init(DEMO_PDM, &pdmConfig);
     PDM_TransferCreateHandleSDMA(DEMO_PDM, &pdmRxHandle, pdmSdmallback, NULL, &dmaHandle, DEMO_PDM_DMA_REQUEST_SOURCE);

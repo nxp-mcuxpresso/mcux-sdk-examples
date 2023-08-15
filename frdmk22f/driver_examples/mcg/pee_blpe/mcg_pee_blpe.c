@@ -161,6 +161,7 @@ int main(void)
     oscConfig.capLoad                = 0U;
     oscConfig.workMode               = kOSC_ModeOscLowPower;
     oscConfig.oscerConfig.enableMode = kOSC_ErClkEnable;
+    oscConfig.oscerConfig.erclkDiv   = 0U;
 
     BOARD_InitBootPins();
     CLOCK_InitOsc0(&oscConfig);

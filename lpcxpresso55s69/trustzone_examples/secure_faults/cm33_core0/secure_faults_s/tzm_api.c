@@ -47,11 +47,23 @@ void TZM_JumpToNormalWorld(uint32_t nonsecVtorAddress)
    a exception.
    After IAR fixed this issue ,this code must be deleted.*/
 #if defined(IAR_FP_VLSTM_ASSIGNED_ISSUE) && (IAR_FP_VLSTM_ASSIGNED_ISSUE == 1U)
-    asm volatile("PUSH {r12}");
+    {
+        register unsigned int tmpSp;
+        asm volatile("MOV %0, SP\n" : "=r"(tmpSp));
+
+        if (tmpSp % 8)
+            asm volatile("PUSH {r12}");
+    }
 #endif
     /* Call non-secure application - jump to normal world */
     ResetHandler_ns();
 #if defined(IAR_FP_VLSTM_ASSIGNED_ISSUE) && (IAR_FP_VLSTM_ASSIGNED_ISSUE == 1U)
-    asm volatile("POP {r12}");
+    {
+        register unsigned int tmpSp;
+        asm volatile("MOV %0, SP\n" : "=r"(tmpSp));
+
+        if (tmpSp % 8)
+            asm volatile("POP {r12}");
+    }
 #endif
 }

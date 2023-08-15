@@ -45,10 +45,12 @@
 #ifndef _EAP_ATT_H_
 #define _EAP_ATT_H_
 
-#if defined EAP_PROC
-#include <EAP16.h>
-#elif defined EAP32_PROC
+#ifdef EAP_PROC
+#ifdef MULTICHANNEL_EXAMPLE
 #include <EAP32.h>
+#else
+#include <EAP16.h>
+#endif
 #endif
 #include <stdint.h>
 
@@ -61,7 +63,7 @@ extern "C" {
 #endif
 
 #ifndef MAX_FILE_NAME_LENGTH
-#define MAX_FILE_NAME_LENGTH 32
+#define MAX_FILE_NAME_LENGTH 64
 #endif
 
 enum
@@ -145,7 +147,7 @@ typedef struct _eap_att_control
     eap_att_code_t (*update)(void);       /* This is called when EAP config structures were changed by the tool. */
     int (*logme)(const char *fmt_s, ...); /* This function is mapped to stdio::printf() by default. */
 
-#if (defined EAP_PROC || defined EAP32_PROC)
+#ifdef EAP_PROC
     eap_att_code_t (*normalize_params)(void); /* Normalizes params definition structures i.e. bands elements count. */
 
     // EAP references
@@ -169,7 +171,7 @@ eap_att_control_t *get_eap_att_control(void);
  */
 void eap_att_process(void);
 
-#if (defined EAP_PROC || defined EAP32_PROC)
+#ifdef EAP_PROC
 /*
  * Register the LVM handle into EAP ATT control structure when this handle will be available.
  * Be sure that handle is registered at least immediately after eap_att_control_t.play() handler will be called.

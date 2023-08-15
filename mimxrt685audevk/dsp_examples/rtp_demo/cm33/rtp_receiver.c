@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 NXP
+ * Copyright 2020-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -40,7 +40,7 @@ static void rtp_receiver_task(void *param)
     int received_packets = 0;
     size_t received_bytes;
 
-    PRINTF("[rtp_receiver_task] start\r\n");
+    PRINTF("[CM33][rtp_receiver_task] start\r\n");
 
     /* Initialize RTP stream address. */
     if (RTP_RECV_MCAST_ADDRESS == NULL)
@@ -130,7 +130,7 @@ static void rtp_receiver_task(void *param)
     /* Close the socket. */
     /* lwip_close(sock); */
 
-    /* PRINTF("[rtp_receiver_task] done\r\n"); */
+    /* PRINTF("[CM33][rtp_receiver_task] done\r\n"); */
 
     /* vTaskDelete(NULL); */
 }
@@ -141,7 +141,7 @@ void rtp_receiver_init(app_handle_t *app)
                     RTP_RECEIVER_TASK_STACK_SIZE / sizeof(configSTACK_DEPTH_TYPE), app, RTP_RECEIVER_TASK_PRIORITY,
                     &app->rtp_receiver_task_handle) != pdPASS)
     {
-        PRINTF("\r\nFailed to create RTP client task\r\n");
+        PRINTF("\r\n[CM33] Failed to create RTP client task\r\n");
         while (true)
         {
         }

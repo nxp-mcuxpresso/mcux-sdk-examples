@@ -124,7 +124,7 @@ static UINT dns_create();
 extern VOID sample_entry(NX_IP *ip_ptr, NX_PACKET_POOL *pool_ptr, NX_DNS *dns_ptr);
 
 /* Include the platform IP driver. */
-extern VOID nx_driver_imx(NX_IP_DRIVER *driver_req_ptr);
+extern VOID nx_link_driver(NX_IP_DRIVER *driver_req_ptr);
 
 extern uint32_t get_seed(void);
 
@@ -169,13 +169,11 @@ int main(void)
 
     IOMUXC_EnableMode(IOMUXC_GPR, kIOMUXC_GPR_ENET1TxClkOutputDir, true);
 
-    GPIO_PinInit(GPIO1, 9, &gpio_config);
-    GPIO_PinInit(GPIO1, 10, &gpio_config);
-    /* pull up the ENET_INT before RESET. */
-    GPIO_WritePinOutput(GPIO1, 10, 1);
-    GPIO_WritePinOutput(GPIO1, 9, 0);
+    /* Reset PHY */
+    GPIO_PinInit(GPIO3, 4, &gpio_config);
+    GPIO_WritePinOutput(GPIO3, 4, 0);
     delay();
-    GPIO_WritePinOutput(GPIO1, 9, 1);
+    GPIO_WritePinOutput(GPIO3, 4, 1);
 
     PRINTF("Start the azure_iot_mqtt example...\r\n");
 
@@ -205,7 +203,7 @@ void tx_application_define(void *first_unused_memory)
     }
 
     /* Create an IP instance.  */
-    status = nx_ip_create(&ip_0, "NetX IP Instance 0", SAMPLE_IPV4_ADDRESS, SAMPLE_IPV4_MASK, &pool_0, nx_driver_imx,
+    status = nx_ip_create(&ip_0, "NetX IP Instance 0", SAMPLE_IPV4_ADDRESS, SAMPLE_IPV4_MASK, &pool_0, nx_link_driver,
                           (UCHAR *)sample_ip_stack, sizeof(sample_ip_stack), SAMPLE_IP_THREAD_PRIORITY);
 
     /* Check for IP create errors.  */

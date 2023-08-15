@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -10,9 +10,9 @@
 #include "board.h"
 #include "fsl_debug_console.h"
 
+#include "fsl_inputmux.h"
 #include "dsp_config.h"
 #include "dsp_support.h"
-#include "fsl_inputmux.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

@@ -9,8 +9,8 @@
 #include "clock_config.h"
 #include "board.h"
 
-#include "fsl_uart_cmsis.h"
 #include "fsl_rdc.h"
+#include "fsl_uart_cmsis.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

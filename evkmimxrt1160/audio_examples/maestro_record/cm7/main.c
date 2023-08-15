@@ -23,6 +23,7 @@
 
 #include "fsl_debug_console.h"
 
+#include "app_definitions.h"
 #include "fsl_codec_common.h"
 #include "fsl_wm8960.h"
 #include "fsl_codec_adapter.h"
@@ -30,11 +31,10 @@
 #include "fsl_pdm.h"
 #include "fsl_flexram.h"
 #include "fsl_flexram_allocate.h"
-#include "app_definitions.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define APP_SHELL_TASK_STACK_SIZE (1024)
+#define APP_SHELL_TASK_STACK_SIZE (256)
 #define SDCARD_TASK_STACK_SIZE    (512)
 
 /*******************************************************************************
@@ -180,7 +180,7 @@ void update_MPU_config(void)
     MPU->RASR = ARM_MPU_RASR(0, ARM_MPU_AP_FULL, 0, 0, 1, 1, 0, ARM_MPU_REGION_SIZE_1MB);
 
     /* Enable MPU */
-    ARM_MPU_Enable(MPU_CTRL_PRIVDEFENA_Msk);
+    ARM_MPU_Enable(MPU_CTRL_PRIVDEFENA_Msk | MPU_CTRL_HFNMIENA_Msk);
 
     /* Enable I cache and D cache */
     SCB_EnableDCache();

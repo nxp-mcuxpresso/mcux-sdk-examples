@@ -37,18 +37,17 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -D__SEMIHOST_HARDFAULT_DISABLE=1 \
     -DDEMO_CODEC_WM8962 \
+    -DMCUXPRESSO_SDK \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8962_ENABLE \
     -DDISABLEFLOAT16 \
     -DTF_LITE_STATIC_MEMORY \
     -DCMSIS_NN \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
-    -Wall \
-    -Wno-strict-aliasing \
     -mcpu=cortex-m4 \
+    -Wall \
     -mthumb \
     -MMD \
     -MP \
@@ -57,6 +56,7 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -fdata-sections \
     -mapcs \
     -std=gnu99 \
+    -Wno-strict-aliasing \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -69,17 +69,16 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -D__SEMIHOST_HARDFAULT_DISABLE=1 \
     -DDEMO_CODEC_WM8962 \
+    -DMCUXPRESSO_SDK \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8962_ENABLE \
     -DDISABLEFLOAT16 \
     -DTF_LITE_STATIC_MEMORY \
     -DCMSIS_NN \
-    -DMCUXPRESSO_SDK \
     -Os \
-    -Wall \
-    -Wno-strict-aliasing \
     -mcpu=cortex-m4 \
+    -Wall \
     -mthumb \
     -MMD \
     -MP \
@@ -88,6 +87,7 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -fdata-sections \
     -mapcs \
     -std=gnu99 \
+    -Wno-strict-aliasing \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -99,17 +99,13 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     -D__FPU_PRESENT=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DDEMO_CODEC_WM8962 \
+    -DMCUXPRESSO_SDK \
     -DTF_LITE_STATIC_MEMORY \
     -DCMSIS_NN \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
-    -Wall \
-    -fno-rtti \
-    -fno-exceptions \
-    -Wno-sign-compare \
-    -Wno-strict-aliasing \
     -mcpu=cortex-m4 \
+    -Wall \
     -mthumb \
     -MMD \
     -MP \
@@ -117,6 +113,11 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     -ffunction-sections \
     -fdata-sections \
     -mapcs \
+    -fno-rtti \
+    -fno-exceptions \
+    -Wno-sign-compare \
+    -Wno-strict-aliasing \
+    -Wno-deprecated-declarations \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -128,16 +129,12 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -D__FPU_PRESENT=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DDEMO_CODEC_WM8962 \
+    -DMCUXPRESSO_SDK \
     -DTF_LITE_STATIC_MEMORY \
     -DCMSIS_NN \
-    -DMCUXPRESSO_SDK \
     -Os \
-    -Wall \
-    -fno-rtti \
-    -fno-exceptions \
-    -Wno-sign-compare \
-    -Wno-strict-aliasing \
     -mcpu=cortex-m4 \
+    -Wall \
     -mthumb \
     -MMD \
     -MP \
@@ -145,6 +142,11 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -ffunction-sections \
     -fdata-sections \
     -mapcs \
+    -fno-rtti \
+    -fno-exceptions \
+    -Wno-sign-compare \
+    -Wno-strict-aliasing \
+    -Wno-deprecated-declarations \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -156,8 +158,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
     -mthumb \
     -mapcs \
     -Xlinker \
@@ -186,8 +186,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
     -mthumb \
     -mapcs \
     -Xlinker \

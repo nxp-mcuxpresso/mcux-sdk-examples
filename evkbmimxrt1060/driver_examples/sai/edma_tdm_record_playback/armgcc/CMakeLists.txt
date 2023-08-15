@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -54,88 +62,13 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/evkbmimxrt1060/dcd.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/evkbmimxrt1060
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core/drivers/lpi2c
-    ${SdkRootDirPath}/core/components/codec/i2c
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/components/i2c
-    ${SdkRootDirPath}/core/components/codec
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/devices/MIMXRT1062/drivers
-    ${SdkRootDirPath}/core/drivers/sai
-    ${SdkRootDirPath}/core/drivers/dmamux
-    ${SdkRootDirPath}/core/drivers/edma
-    ${SdkRootDirPath}/core/devices/MIMXRT1062
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/drivers/lpuart
-    ${SdkRootDirPath}/core/drivers/igpio
-    ${SdkRootDirPath}/core/devices/MIMXRT1062/xip
-    ${SdkRootDirPath}/core/boards/evkbmimxrt1060/xip
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/components/codec/cs42448
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
 
-# include modules
-include(driver_lpi2c)
-
-include(component_codec_i2c_MIMXRT1062)
-
-include(driver_common)
-
-include(component_lpi2c_adapter)
-
-include(driver_codec)
-
-include(component_cs42448_adapter)
-
-include(utility_debug_console_lite)
-
-include(utility_assert_lite)
-
-include(driver_clock)
-
-include(driver_sai)
-
-include(driver_sai_edma)
-
-include(driver_dmamux)
-
-include(driver_edma_MIMXRT1062)
-
-include(device_CMSIS)
-
-include(component_lpuart_adapter)
-
-include(component_lists)
-
-include(driver_lpuart)
-
-include(device_startup)
-
-include(driver_iomuxc)
-
-include(driver_igpio)
-
-include(driver_xip_device)
-
-include(driver_xip_board_evkbmimxrt1060)
-
-include(CMSIS_Include_core_cm)
-
-include(driver_cs42448)
-
-include(utilities_misc_utilities)
-
-include(device_system)
-
+include(${SdkRootDirPath}/core/devices/MIMXRT1062/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -147,4 +80,5 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBR
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map")
 

@@ -180,7 +180,7 @@ static UCHAR language_id_framework[] = {
 VOID thread_ping_entry(ULONG thread_input);
 #endif
 VOID thread_usb_entry(ULONG thread_input);
-VOID nx_driver_imx(NX_IP_DRIVER *driver_req_ptr);
+VOID nx_link_driver(NX_IP_DRIVER *driver_req_ptr);
 /* Define external function prototypes. */
 extern VOID _fx_ram_driver(FX_MEDIA *media_ptr);
 void demo_write_to_file(void);
@@ -320,7 +320,7 @@ static void network_service_initialize(void)
 #else
                           IP_ADDRESS(192, 2, 2, 149), 0xFFFFFF00UL,
 #endif
-                          &pool_0, nx_driver_imx, (UCHAR *)ip_thread_stack, sizeof(ip_thread_stack), 1);
+                          &pool_0, nx_link_driver, (UCHAR *)ip_thread_stack, sizeof(ip_thread_stack), 1);
 
     /* Check for IP create errors.  */
     if (status)

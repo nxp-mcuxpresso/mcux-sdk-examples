@@ -5,8 +5,8 @@ This example works as a USB host CDC ACM. It can communicate with a USB CDC ACM 
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.7.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================

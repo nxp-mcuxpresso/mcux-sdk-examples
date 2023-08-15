@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2019, 2022 NXP
  * All rights reserved.
  *
  *
@@ -22,6 +22,13 @@ extern pca9420_handle_t pca9420Handle;
 #if defined(__cplusplus)
 extern "C" {
 #endif /* __cplusplus*/
+
+/**
+ * @brief   Set PMIC volatage for VDDCORE.
+ * @param   millivolt : expected VDDCORE voltage in mV
+ */
+void BOARD_SetVddCoreVoltage(uint32_t millivolt);
+
 /**
  * @brief   Set PMIC volatage for particular frequency.
  * NOTE: The API is only valid when MAINPLLCLKDIV[7:0] and DSPPLLCLKDIV[7:0] are 0.

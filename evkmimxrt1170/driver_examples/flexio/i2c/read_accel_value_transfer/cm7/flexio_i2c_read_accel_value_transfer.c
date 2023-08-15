@@ -146,6 +146,10 @@ regList_t FXL8974InitSeq[] = {
     /*  SENS_CONFIG1_REG[0]=0 standby mode */
     {0x15, 0x00, 0x01},
 
+    /*  write 0001 0111 = 0x90 to SENS_CONFIG3_REG(0x17) */
+    /*   SENS_CONFIG3_REG = 0x90, set ODR 6.25Hz */
+    {0x17, 0x90, 0x01},
+
     /*  write 0001 0110 = 0x00 to SENS_CONFIG2_REG(0x16) */
     /*   SENS_CONFIG2_REG = 0,  set SENS_CONFIG2_REG */
     {0x16, 0x00, 0x01},

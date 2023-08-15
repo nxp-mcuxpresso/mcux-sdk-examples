@@ -30,8 +30,8 @@
 #include "pin_mux.h"
 #include "board.h"
 
-#include "fsl_phyrtl8211f.h"
 #include "fsl_enet_qos.h"
+#include "fsl_phyrtl8211f.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

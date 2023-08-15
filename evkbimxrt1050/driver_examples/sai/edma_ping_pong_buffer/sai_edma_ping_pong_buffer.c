@@ -76,6 +76,9 @@
 #ifndef DEMO_CODEC_INIT_DELAY_MS
 #define DEMO_CODEC_INIT_DELAY_MS (1000U)
 #endif
+#ifndef DEMO_CODEC_VOLUME
+#define DEMO_CODEC_VOLUME 100U
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -251,7 +254,11 @@ int main(void)
     {
         assert(false);
     }
-
+    if (CODEC_SetVolume(&s_codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight,
+                        DEMO_CODEC_VOLUME) != kStatus_Success)
+    {
+        assert(false);
+    }
     /* delay for codec output stable */
     DelayMS(DEMO_CODEC_INIT_DELAY_MS);
 

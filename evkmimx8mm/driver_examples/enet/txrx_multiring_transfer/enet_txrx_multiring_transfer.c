@@ -1,6 +1,5 @@
 /*
- * Copyright 2017-2022 NXP
- * All rights reserved.
+ * Copyright 2017-2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -15,14 +14,26 @@
 #include "fsl_memory.h"
 #endif
 
-#include "fsl_phyar8031.h"
 #include "fsl_gpio.h"
+#include "fsl_phyar8031.h"
+#include "fsl_phyrtl8211f.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+#ifndef EXAMPLE_ENET_PHY_PHYAR8031
+#define EXAMPLE_ENET_PHY_PHYAR8031 0U
+#endif
+
+#if EXAMPLE_ENET_PHY_PHYAR8031
+#define EXAMPLE_PHY_OPS &phyar8031_ops
+extern phy_ar8031_resource_t g_phy_resource;
+#else
+#define EXAMPLE_PHY_OPS &phyrtl8211f_ops
+extern phy_rtl8211f_resource_t g_phy_resource;
+#endif /* EXAMPLE_ENET_PHY_PHYAR8031 */
+
 #define EXAMPLE_ENET         ENET1
 #define EXAMPLE_PHY_ADDRESS  0U
-#define EXAMPLE_PHY_OPS      &phyar8031_ops
 #define EXAMPLE_PHY_RESOURCE &g_phy_resource
 #define EXAMPLE_CLOCK_FREQ   CLOCK_GetFreq(kCLOCK_EnetIpgClk)
 #define ENET_RXBD_NUM                     (2)
@@ -76,7 +87,11 @@ static void ENET_BuildFrame(void);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+#if EXAMPLE_ENET_PHY_PHYAR8031
 phy_ar8031_resource_t g_phy_resource;
+#else
+phy_rtl8211f_resource_t g_phy_resource;
+#endif
 /*! @brief Buffer descriptors should be in non-cacheable region and should be align to "ENET_BUFF_ALIGNMENT". */
 AT_NONCACHEABLE_SECTION_ALIGN(enet_rx_bd_struct_t g_rxBuffDescrip[FSL_FEATURE_ENET_QUEUE][ENET_RXBD_NUM],
                               ENET_BUFF_ALIGNMENT);
@@ -416,20 +431,18 @@ int main(void)
     config.miiMode   = kENET_RgmiiMode;
     config.interrupt = ENET_TX_INTERRUPT | ENET_RX_INTERRUPT;
     config.ringNum   = 3;
+    config.callback  = ENET_IntCallback;
 
     /* Initialize ENET. */
     ENET_Init(EXAMPLE_ENET, &g_handle, &config, &buffConfig[0], &g_macAddr[0], EXAMPLE_CLOCK_FREQ);
+
     /* Ring 1 BW fraction is 0.5 = 1/(1+ 512/512), Ring 2 BW fraction is 0.2 = 1/(1 + 512/128)  */
     avbConfig.idleSlope[0] = kENET_IdleSlope512;
     avbConfig.idleSlope[1] = kENET_IdleSlope128;
     /* Receive classification for ring 1 and ring 2 */
     avbConfig.rxClassifyMatch[0] = ENET_RCMR_CMP0(1) | ENET_RCMR_CMP1(2) | ENET_RCMR_CMP2(3) | ENET_RCMR_CMP3(4);
     avbConfig.rxClassifyMatch[1] = ENET_RCMR_CMP0(5) | ENET_RCMR_CMP1(6) | ENET_RCMR_CMP2(7) | ENET_RCMR_CMP3(7);
-
     ENET_AVBConfigure(EXAMPLE_ENET, &g_handle, &avbConfig);
-
-    /* Setup callback. */
-    ENET_SetCallback(&g_handle, ENET_IntCallback, NULL);
 
     /* Build broadcast for sending and active for receiving. */
     ENET_BuildFrame();

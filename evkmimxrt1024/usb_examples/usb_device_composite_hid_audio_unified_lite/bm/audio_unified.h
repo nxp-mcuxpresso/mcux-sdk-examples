@@ -76,8 +76,10 @@ typedef struct _usb_audio_composite_struct
     uint8_t curClockValid;
     uint8_t curSpeakerVolume20[2];
     uint8_t curMicrophoneVolume20[2];
-    uint32_t curSampleFrequency;
-    usb_device_control_range_layout3_struct_t freqControlRange;
+    uint32_t curSpeakerSampleFrequency;
+    uint32_t curRecorderSampleFrequency;
+    usb_device_control_range_layout3_struct_t speakerFreqControlRange;
+    usb_device_control_range_layout3_struct_t recorderFreqControlRange;
     usb_device_control_range_layout2_struct_t volumeControlRange;
 #endif
     uint8_t currentConfiguration;
@@ -117,7 +119,8 @@ typedef struct _usb_audio_composite_struct
     volatile int32_t audioPllTickEmaFrac;
     volatile int32_t audioPllTickBasedPrecision;
     volatile uint8_t stopDataLengthAudioAdjust;
-#if defined(USB_DEVICE_CONFIG_LPCIP3511FS) && (USB_DEVICE_CONFIG_LPCIP3511FS > 0U)
+#if ((defined(USB_DEVICE_CONFIG_LPCIP3511FS) && (USB_DEVICE_CONFIG_LPCIP3511FS > 0U)) || \
+     (defined(USB_DEVICE_CONFIG_KHCI) && (USB_DEVICE_CONFIG_KHCI > 0U)))
     volatile uint32_t froTrimIntervalCount;
     volatile uint32_t usbFroTicksPrev;
     volatile int32_t usbFroTicksEma;

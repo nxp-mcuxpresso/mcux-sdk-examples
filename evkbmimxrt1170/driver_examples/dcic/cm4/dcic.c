@@ -35,7 +35,7 @@ typedef union
     uint16_t u;
 } pixel_t;
 
-#define APP_RED       0xF100U
+#define APP_RED       0xF800U
 #define APP_GREEN     0x07E0U
 #define APP_BLUE      0x001FU
 #define APP_WHITE     0xFFFFU

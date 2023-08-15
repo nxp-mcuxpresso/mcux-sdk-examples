@@ -314,7 +314,7 @@ void HardFault_Handler(void)
         APP_CheckAndResolvePeriphAccessError(&error);
         g_hardfaultFlag = true;
     }
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

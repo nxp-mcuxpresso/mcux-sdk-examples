@@ -75,6 +75,9 @@
 #define configOVERRIDE_DEFAULT_TICK_CONFIGURATION    0
 #define configRECORD_STACK_HIGH_ADDRESS              1
 
+/* Used memory allocation (heap_x.c) */
+#define configFRTOS_MEMORY_SCHEME 4
+
 /* Co-routine definitions. */
 #define configUSE_CO_ROUTINES                        0
 #define configMAX_CO_ROUTINE_PRIORITIES              ( 2 )

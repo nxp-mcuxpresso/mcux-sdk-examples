@@ -100,7 +100,7 @@ void BusFault_Handler(void)
 
     PRINTF("\r\nCore is granted write access permission.\r\n");
     g_busFaultFlag = true;
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

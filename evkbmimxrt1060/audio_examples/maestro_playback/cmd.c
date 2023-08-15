@@ -15,6 +15,7 @@
 #include "fsl_shell.h"
 #include "ff.h"
 
+#include "app_definitions.h"
 #include "app_streamer.h"
 
 #include "eap_att.h"
@@ -49,17 +50,25 @@ SHELL_COMMAND_DEFINE(
     file,
     "\r\n\"file\": Perform audio file decode and playback\r\n"
     "\r\n"
-    "  USAGE: file [start|stop|pause|seek|volume|"
+    "  USAGE: file [start|stop|pause|volume|"
+#ifndef MULTICHANNEL_EXAMPLE
+    "seek|"
+#endif
 #ifdef EAP_PROC
     "update|set|get|"
 #endif
     "track|list|info]\r\n"
-    "    start             Play default (first found) or specified audio track file.\r\n"
+#ifdef MULTICHANNEL_EXAMPLE
+    "    start             Play default (first found) file with default (8) channels.\r\n"
+#else
+                     "    start             Play default (first found) or specified audio track file.\r\n"
+#endif
     "    stop              Stops actual playback.\r\n"
     "    pause             Pause actual track or resume if already paused.\r\n"
-	"    seek=<seek_time>  Seek currently paused track. Seek time is absolute time in milliseconds.\r\n"
 	"    volume=<volume>   Set volume. The volume can be set from 0 to 100.\r\n"
-
+#ifndef MULTICHANNEL_EXAMPLE
+    "    seek=<seek_time>  Seek currently paused track. Seek time is absolute time in milliseconds.\r\n"
+#endif
 #ifdef EAP_PROC
     "    update=<preset>   Apply current EAP parameters without attribute value\r\n"
     "                      or switch to preset 1-"TO_STR(EAP_MAX_PRESET)"\r\n"
@@ -68,16 +77,29 @@ SHELL_COMMAND_DEFINE(
     "    get               Sync actual EAP parameters from library to ATT config structures.\r\n"
 
 #endif
-    "    track=<filename>  Select audio track to play.\r\n"
+#ifdef MULTICHANNEL_EXAMPLE
+    "    track <filename> [num_channels]  Select audio track to play. Select 2 or 8 channels. \r\n"
+    "                                    - If channel number not specified, default 8 is used. \r\n"
+#else
+                     "    track=<filename>  Select audio track to play.\r\n"
+#endif
     "    list              List audio files available on mounted SD card.\r\n"
-    "    info              Prints playback info.\r\n",
-
+    "    info              Prints playback info.\r\n"
+#ifdef MULTICHANNEL_EXAMPLE
+    "  NOTE: Selected audio track must always meet the following parameters:\r\n"
+	"                  - Sample rate:        96 kHz\r\n"
+    "                  - Width:              32 bit\r\n"
+    "                  - Number of channels: Depending on the [num_channels] parameter\r\n"
+#ifdef EAP_PROC
+	"  NOTE: Only when 2 channels are selected EAP can be applied to the audio track."
+#endif
+#endif
+,
     shellFile,
     SHELL_IGNORE_PARAMETER_COUNT);
 
 SDK_ALIGN(static uint8_t s_shellHandleBuffer[SHELL_HANDLE_SIZE], 4);
 static shell_handle_t s_shellHandle;
-
 extern serial_handle_t g_serialHandle;
 extern app_handle_t app;
 streamer_handle_t streamerHandle;
@@ -143,7 +165,7 @@ static uint32_t isFileOnSDcard(char *filename)
 
 static shell_status_t shellEcho(shell_handle_t shellHandle, int32_t argc, char **argv)
 {
-    PRINTF(" Maestro version: 1.2\r\n");
+    PRINTF(" Maestro version: 1.6\r\n");
 
 #ifdef EAP_PROC
     PRINTF(" EAP version: 3.0.12\r\n");
@@ -155,7 +177,9 @@ static shell_status_t shellEcho(shell_handle_t shellHandle, int32_t argc, char *
 static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char **argv)
 {
     char *dot;
-
+#ifdef MULTICHANNEL_EXAMPLE
+    uint8_t num_channels = DEMO_CHANNEL_NUM; // default number of channels is 8
+#endif
     shell_status_t retVal = kStatus_SHELL_Success;
 
     if (!app.sdcardInserted)
@@ -170,6 +194,9 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
     {
         if (strcmp(argv[1], "start") == 0)
         {
+#ifdef MULTICHANNEL_EXAMPLE
+            get_app_data()->num_channels = DEMO_CHANNEL_NUM; // set default channel number = 8
+#endif
             get_eap_att_control()->command = kAttCmdStart;
         }
         else if (strcmp(argv[1], "stop") == 0)
@@ -180,6 +207,7 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
         {
             get_eap_att_control()->command = kAttCmdPause;
         }
+#ifndef MULTICHANNEL_EXAMPLE
         else if (strcmp(argv[1], "seek") == 0)
         {
             if ((get_eap_att_control()->status != kAttPaused) && (get_eap_att_control()->status != kAttRunning))
@@ -223,6 +251,7 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
                 }
             }
         }
+#endif
 #if defined(EAP_PROC) && (ALGORITHM_XO == 1)
         else if (strcmp(argv[1], "xo") == 0) // this option is good for testing but could be removed for production
         {
@@ -271,6 +300,7 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
                 {
                     get_eap_att_control()->volume  = value;
                     get_eap_att_control()->command = kAttCmdVolume;
+                    PRINTF("[CMD] Volume has been set to %d.\r\n", value);
                 }
                 else
                 {
@@ -290,10 +320,10 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
             if (argc == 3)
             {
                 int preset = abs(atoi((argv[2])));
-                if (preset < 0 || preset > EAP_MAX_PRESET)
+                if (preset <= 0 || preset > EAP_MAX_PRESET)
                 {
                     PRINTF("[CMD] EAP preset number out of range, setting EAP all effects OFF.\r\n");
-                    preset = 0;
+                    preset = 1;
                 }
                 get_eap_att_control()->eapPreset = preset;
             }
@@ -314,6 +344,9 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
                     {
                         dot = strrchr(argv[2], '.');
                         if (
+#ifdef MULTICHANNEL_EXAMPLE
+                            (dot && strncmp(dot + 1, "pcm", 4) == 0)
+#else
 #if (OGG_OPUS_DEC == 1)
                             (dot && strncmp(dot + 1, "opus", 4) == 0) || (dot && strncmp(dot + 1, "ogg", 3) == 0) ||
 #endif
@@ -326,7 +359,9 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
 #if (FLAC_DEC == 1)
                             (dot && strncmp(dot + 1, "flac", 3) == 0) ||
 #endif
-                            (dot && strncmp(dot + 1, "mp3", 3) == 0))
+                        	(dot && strncmp(dot + 1, "mp3", 3) == 0)
+#endif
+                        )
                         {
                             strcpy(get_eap_att_control()->input, argv[2]);
                             get_eap_att_control()->command = kAttCmdStart;
@@ -334,22 +369,47 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
                         else
                         {
                             PRINTF(
-                                "[CMD] Input audio file name has to match one of the .mp3"
+                                "[CMD] Input audio file name has to match one of the"
+#ifdef MULTICHANNEL_EXAMPLE
+                                " .pcm"
+#else
+                            " .mp3"
 #if (OGG_OPUS_DEC == 1)
-                                "|.opus|.ogg"
+                            "|.opus|.ogg"
 #endif
 #if (AAC_DEC == 1)
-                                "|.aac"
+                            "|.aac"
 #endif
 #if (WAV_DEC == 1)
-                                "|.wav"
+                            "|.wav"
 #endif
 #if (FLAC_DEC == 1)
-                                "|.flac"
+                            "|.flac"
 #endif
-                                " formats.\r\n");
+#endif
+                                " format.\r\n");
+
                             retVal = kStatus_SHELL_Error;
                         }
+#ifdef MULTICHANNEL_EXAMPLE
+                        if (argc == 4)
+                        {
+                            num_channels = abs(atoi((argv[3])));
+                            if (num_channels == 2 || num_channels == 8)
+                            {
+                                get_app_data()->num_channels = num_channels;
+                            }
+                            else
+                            {
+                                PRINTF("Number of channels not allowed (2 or 8 allowed).\r\n");
+                                retVal = kStatus_SHELL_Error;
+                            }
+                        }
+                        else
+                        {
+                            get_app_data()->num_channels = num_channels;
+                        }
+#endif
                     }
                     else
                     {

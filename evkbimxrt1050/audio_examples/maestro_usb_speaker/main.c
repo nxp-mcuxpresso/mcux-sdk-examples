@@ -16,13 +16,13 @@
 
 #include "fsl_debug_console.h"
 
+#include "fsl_wm8960.h"
+#include "app_definitions.h"
 #include "usb_phy.h"
 #include "fsl_gpio.h"
 #include "fsl_iomuxc.h"
 #include "fsl_dmamux.h"
 #include "fsl_codec_common.h"
-#include "fsl_wm8960.h"
-#include "app_definitions.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -156,8 +156,8 @@ int main(void)
     BOARD_EnableSaiMclkOutput(true);
 
     DMAMUX_Init(DEMO_DMAMUX);
-    DMAMUX_SetSource(DEMO_DMAMUX, DEMO_TX_CHANNEL, (uint8_t)DEMO_SAI_TX_SOURCE);
-    DMAMUX_EnableChannel(DEMO_DMAMUX, DEMO_TX_CHANNEL);
+    DMAMUX_SetSource(DEMO_DMAMUX, DEMO_DMA_TX_CHANNEL, (uint8_t)DEMO_SAI_TX_SOURCE);
+    DMAMUX_EnableChannel(DEMO_DMAMUX, DEMO_DMA_TX_CHANNEL);
 
     /*Clock setting for USB*/
     USB_DeviceClockInit();

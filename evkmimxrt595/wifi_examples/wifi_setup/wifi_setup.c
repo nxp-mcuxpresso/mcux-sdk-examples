@@ -21,7 +21,6 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-
 #define APP_DEBUG_UART_TYPE     kSerialPort_Uart
 #define APP_DEBUG_UART_INSTANCE 12U
 #define APP_DEBUG_UART_CLK_FREQ CLOCK_GetFlexcommClkFreq(12)
@@ -29,6 +28,7 @@
     (&(const clock_frg_clk_config_t){12U, kCLOCK_FrgPllDiv, 255U, 0U}) /*!< Select FRG0 mux as frg_pll */
 #define APP_DEBUG_UART_CLK_ATTACH kFRG_to_FLEXCOMM12
 #define APP_DEBUG_UART_BAUDRATE   115200
+
 
 #ifndef main_task_PRIORITY
 #define main_task_PRIORITY 0

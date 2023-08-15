@@ -24,7 +24,7 @@
 #define DEMO_IMG_WIDTH          (DEMO_PANEL_WIDTH / 2)
 #define DEMO_IMG_BYTES_PER_LINE (DEMO_PANEL_WIDTH * DEMO_BYTE_PER_PIXEL)
 
-#define COLOR_RGB565_RED  0xF100U
+#define COLOR_RGB565_RED  0xF800U
 #define COLOR_RGB565_BLUE 0x001FU
 
 /*******************************************************************************

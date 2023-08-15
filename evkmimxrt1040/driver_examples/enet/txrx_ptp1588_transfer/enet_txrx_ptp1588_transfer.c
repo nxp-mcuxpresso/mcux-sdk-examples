@@ -1,7 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2022 NXP
- * All rights reserved.
+ * Copyright 2016-2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -13,8 +12,8 @@
 #include "pin_mux.h"
 #include "board.h"
 
-#include "fsl_phyksz8081.h"
 #include "fsl_iomuxc.h"
+#include "fsl_phyksz8081.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -183,7 +182,7 @@ int main(void)
     status_t status;
 
     /* Hardware Initialization. */
-    gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
+    gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 1, kGPIO_NoIntmode};
 
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
@@ -191,13 +190,11 @@ int main(void)
     BOARD_InitDebugConsole();
     BOARD_InitModuleClock();
 
-    GPIO_PinInit(GPIO1, 9, &gpio_config);
-    GPIO_PinInit(GPIO1, 10, &gpio_config);
-    /* Pull up the ENET_INT before RESET. */
-    GPIO_WritePinOutput(GPIO1, 10, 1);
-    GPIO_WritePinOutput(GPIO1, 9, 0);
+    GPIO_PinInit(GPIO3, 4, &gpio_config);
+    GPIO_WritePinOutput(GPIO3, 4, 0);
     SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
-    GPIO_WritePinOutput(GPIO1, 9, 1);
+    GPIO_WritePinOutput(GPIO3, 4, 1);
+    SDK_DelayAtLeastUs(100, CLOCK_GetFreq(kCLOCK_CpuClk));
 
     MDIO_Init();
     g_phy_resource.read  = MDIO_Read;
@@ -233,6 +230,7 @@ int main(void)
      * config.rxMaxFrameLen = ENET_FRAME_MAX_FRAMELEN;
      */
     ENET_GetDefaultConfig(&config);
+    config.callback  = enetCallback;
 
     /* The miiMode should be set according to the different PHY interfaces. */
 #ifdef EXAMPLE_PHY_INTERFACE_RGMII
@@ -299,7 +297,6 @@ int main(void)
 
     /* Enable Tx Reclaim and set callback to get timestamp */
     ENET_SetTxReclaim(&g_handle, true, 0);
-    ENET_SetCallback(&g_handle, enetCallback, NULL);
 
     /* Check if the timestamp is running */
     for (count = 1; count <= 10; count++)

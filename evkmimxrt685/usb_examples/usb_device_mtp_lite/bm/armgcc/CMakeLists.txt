@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -30,7 +38,7 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(dev_mtp_lite_bm)
 
-set(MCUX_BUILD_TYPES release flash_release debug flash_debug)
+set(MCUX_BUILD_TYPES flash_release release flash_debug debug)
 
 set(MCUX_SDK_PROJECT_NAME dev_mtp_lite_bm.elf)
 
@@ -43,6 +51,12 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
+"${ProjDirPath}/../pin_mux.c"
+"${ProjDirPath}/../pin_mux.h"
+"${ProjDirPath}/../board.c"
+"${ProjDirPath}/../board.h"
+"${ProjDirPath}/../clock_config.c"
+"${ProjDirPath}/../clock_config.h"
 "${ProjDirPath}/../sdmmc_config.c"
 "${ProjDirPath}/../sdmmc_config.h"
 "${ProjDirPath}/../ffconf.h"
@@ -63,127 +77,20 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../usb_device_mtp_operation.c"
 "${ProjDirPath}/../usb_device_mtp_operation.h"
 "${ProjDirPath}/../usb_device_config.h"
-"${ProjDirPath}/../board.c"
-"${ProjDirPath}/../board.h"
-"${ProjDirPath}/../clock_config.c"
-"${ProjDirPath}/../clock_config.h"
-"${ProjDirPath}/../pin_mux.c"
-"${ProjDirPath}/../pin_mux.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
-    ${SdkRootDirPath}/examples/evkmimxrt685
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
+    ${SdkRootDirPath}/examples/evkmimxrt685
+    ${SdkRootDirPath}/middleware/usb/example/boards/evkmimxrt685/usb_device_mtp_lite/bm
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/middleware/usb
-    ${SdkRootDirPath}/core/drivers/usdhc
-    ${SdkRootDirPath}/middleware/sdmmc
-    ${SdkRootDirPath}/middleware/fatfs
-    ${SdkRootDirPath}/core/drivers/flexcomm
-    ${SdkRootDirPath}/core/components/pca9420
-    ${SdkRootDirPath}/core/components/gpio
-    ${SdkRootDirPath}/core
-    ${SdkRootDirPath}/core/devices/MIMXRT685S/drivers
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/devices/MIMXRT685S
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/boards/evkmimxrt685/flash_config
-    ${SdkRootDirPath}/core/components/serial_manager
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/drivers/cache/cache64
-    ${SdkRootDirPath}/core/drivers/flexspi
-    ${SdkRootDirPath}/core/drivers/lpc_iopctl
-    ${SdkRootDirPath}/core/drivers/lpc_gpio
-    ${SdkRootDirPath}/core/components/osa
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
+set_source_files_properties("${ProjDirPath}/../sdmmc_config.c" PROPERTIES COMPONENT_CONFIG_FILE "middleware_sdmmc_usdhc_template")
+set_source_files_properties("${ProjDirPath}/../sdmmc_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_sdmmc_usdhc_template")
+set_source_files_properties("${ProjDirPath}/../ffconf.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_fatfs_template_sd")
+set_source_files_properties("${ProjDirPath}/../usb_device_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_usb_device_ip3511hs_config_header")
 
-# include modules
-include(middleware_usb_device_ip3511hs_MIMXRT685S_cm33)
-
-include(middleware_usb_phy)
-
-include(driver_usdhc)
-
-include(middleware_sdmmc_sd)
-
-include(middleware_sdmmc_common)
-
-include(middleware_sdmmc_host_usdhc)
-
-include(middleware_sdmmc_host_usdhc_interrupt_MIMXRT685S_cm33)
-
-include(middleware_fatfs_MIMXRT685S_cm33)
-
-include(middleware_fatfs_sd)
-
-include(driver_flexcomm_i2c)
-
-include(driver_pca9420)
-
-include(component_rt_gpio_adapter)
-
-include(middleware_baremetal)
-
-include(driver_clock)
-
-include(driver_common)
-
-include(device_CMSIS)
-
-include(utility_debug_console)
-
-include(utility_assert)
-
-include(component_usart_adapter)
-
-include(driver_power)
-
-include(driver_flash_config_evkmimxrt685)
-
-include(component_serial_manager)
-
-include(component_lists)
-
-include(component_serial_manager_uart)
-
-include(driver_flexcomm_usart)
-
-include(driver_cache_cache64)
-
-include(driver_flexspi)
-
-include(device_startup)
-
-include(driver_flexcomm)
-
-include(driver_lpc_iopctl)
-
-include(driver_lpc_gpio)
-
-include(driver_reset)
-
-include(middleware_usb_device_controller_driver_MIMXRT685S_cm33)
-
-include(component_osa)
-
-include(middleware_usb_common_header)
-
-include(CMSIS_Include_core_cm)
-
-include(middleware_usb_device_common_header)
-
-include(middleware_sdmmc_osa_bm)
-
-include(component_osa_bm)
-
-include(utilities_misc_utilities_MIMXRT685S_cm33)
-
+include(${SdkRootDirPath}/core/devices/MIMXRT685S/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -197,4 +104,6 @@ TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
 ADD_CUSTOM_COMMAND(TARGET ${MCUX_SDK_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_OBJCOPY}
 -Obinary ${EXECUTABLE_OUTPUT_PATH}/${MCUX_SDK_PROJECT_NAME} ${EXECUTABLE_OUTPUT_PATH}/sdk20-app.bin)
+
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map;${EXECUTABLE_OUTPUT_PATH}/sdk20-app.bin")
 

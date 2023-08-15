@@ -18,8 +18,8 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
-#include "mcmgr.h"
 #include "fsl_common.h"
+#include "mcmgr.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -94,6 +94,18 @@ uint32_t get_core1_image_size(void)
     return image_size;
 }
 #endif
+
+/*!
+ * @brief Application-specific implementation of the SystemInitHook() weak function.
+ */
+void SystemInitHook(void)
+{
+    /* Initialize MCMGR - low level multicore management library. Call this
+       function as close to the reset entry as possible to allow CoreUp event
+       triggering. The SystemInitHook() weak function overloading is used in this
+       application. */
+    (void)MCMGR_EarlyInit();
+}
 static TaskHandle_t app_task_handle = NULL;
 
 static void app_nameservice_isr_cb(uint32_t new_ept, const char *new_ept_name, uint32_t flags, void *user_data)
@@ -112,17 +124,6 @@ static void RPMsgRemoteReadyEventHandler(uint16_t eventData, void *context)
     *data = eventData;
 }
 
-/*!
- * @brief Application-specific implementation of the SystemInitHook() weak function.
- */
-void SystemInitHook(void)
-{
-    /* Initialize MCMGR - low level multicore management library. Call this
-       function as close to the reset entry as possible to allow CoreUp event
-       triggering. The SystemInitHook() weak function overloading is used in this
-       application. */
-    (void)MCMGR_EarlyInit();
-}
 #endif /* MCMGR_USED */
 
 static void app_task(void *param)

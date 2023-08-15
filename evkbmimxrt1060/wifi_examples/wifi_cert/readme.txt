@@ -13,8 +13,8 @@ For more information about Wi-Fi module connection see:
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.7.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================
@@ -36,7 +36,7 @@ Prepare the Demo
     - No parity
     - One stop bit
     - No flow control
-3.  Connect the WiFi module to SD card slot.
+3.  Connect the Wi-Fi module.
 4.  Download the program to the target board.
 5.  Either press the reset button on your board or launch the debugger in your IDE to begin running the demo.
 
@@ -321,3 +321,10 @@ Running the demo
     #
 
 
+Customization options
+=====================
+The following commands are not supported by RW610.
+    wlan-set-antcfg <ant mode> [evaluate_time]
+    wlan-get-antcfg
+    wlan-set-ed-mac-mode <ed_ctrl_2g> <ed_offset_2g> <ed_ctrl_5g> <ed_offset_5g>
+    wlan-get-ed-mac-mode

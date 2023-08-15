@@ -1,1 +1,0 @@
-        *(EXCLUDE_FILE(*fsl_lpspi.o) .text*)

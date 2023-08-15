@@ -17,9 +17,6 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define EXAMPLE_NOR_INSTANCE       0U        /* FLEXSPI */
-#define NOR_FLASH_OP_START_ADDRESS 0x200000U /* Operation on 2MB offset */
-#define NOR_FLASH_OP_SIZE          0x2000U   /* Test 8KB region */
 #define FLASH_CONFIG_BLOCK_TAG     (0x42464346)
 #define FLASH_CONFIG_BLOCK_VERSION (0x56010400)
 
@@ -45,6 +42,9 @@
 #define FLEXSPI_LUT_SEQ(cmd0, pad0, op0, cmd1, pad1, op1)                                                              \
     (FLEXSPI_LUT_OPERAND0(op0) | FLEXSPI_LUT_NUM_PADS0(pad0) | FLEXSPI_LUT_OPCODE0(cmd0) | FLEXSPI_LUT_OPERAND1(op1) | \
      FLEXSPI_LUT_NUM_PADS1(pad1) | FLEXSPI_LUT_OPCODE1(cmd1))
+#define EXAMPLE_NOR_INSTANCE       0U        /* FLEXSPI */
+#define NOR_FLASH_OP_START_ADDRESS 0x200000U /* Operation on 2MB offset */
+#define NOR_FLASH_OP_SIZE          0x2000U   /* Test 8KB region */
 
 /*******************************************************************************
  * Prototypes

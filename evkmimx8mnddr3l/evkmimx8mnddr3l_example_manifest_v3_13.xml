@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_evkmimx8mnddr3l_examples_manifest_v3_13" name="SDK_2.x_evkmimx8mnddr3l_examples_manifest_v3_13" format_version="3.13" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.13.xsd">
+
+  <externalDefinitions>
+    <definition extID="MIMX8MN6DVTJZ"/>
+  </externalDefinitions>
+  <ksdk id="MCUXpressoSDK2140_evkmimx8mnddr3l_examples_manifest_v3_13" name="MCUXpressoSDK2140_evkmimx8mnddr3l_examples_manifest_v3_13" version="2.14.0"/>
+  <boards>
+    <board id="evkmimx8mnddr3l" name="EVK-MIMX8MNDDR3L" href="https://www.nxp.com/pip/8MNANOD3L-EVK" version="1.0.0" package="MIMX8MN6DVTJZ">
+      <examples>
+        <example id="evkmimx8mnddr3l_hello_world" name="hello_world" toolchain="armgcc" category="demo_apps" path="examples/evkmimx8mnddr3l/demo_apps/hello_world">
+          <external path="demo_apps/hello_world" type="xml">
+            <files mask="hello_world_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_gpt_timer" name="gpt_timer" toolchain="armgcc" category="driver_examples/gpt" path="examples/evkmimx8mnddr3l/driver_examples/gpt/timer">
+          <external path="driver_examples/gpt/timer" type="xml">
+            <files mask="gpt_timer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_gpt_capture" name="gpt_capture" toolchain="armgcc" category="driver_examples/gpt" path="examples/evkmimx8mnddr3l/driver_examples/gpt/capture">
+          <external path="driver_examples/gpt/capture" type="xml">
+            <files mask="gpt_capture_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_ipwm" name="ipwm" toolchain="armgcc" category="driver_examples/pwm" path="examples/evkmimx8mnddr3l/driver_examples/pwm">
+          <external path="driver_examples/pwm" type="xml">
+            <files mask="ipwm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_rdc" name="rdc" toolchain="armgcc" category="driver_examples/rdc" path="examples/evkmimx8mnddr3l/driver_examples/rdc">
+          <external path="driver_examples/rdc" type="xml">
+            <files mask="rdc_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_sema4_uboot" name="sema4_uboot" toolchain="armgcc" category="driver_examples/sema4" path="examples/evkmimx8mnddr3l/driver_examples/sema4/uboot">
+          <external path="driver_examples/sema4/uboot" type="xml">
+            <files mask="sema4_uboot_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_wdog01" name="wdog01" toolchain="armgcc" category="driver_examples/wdog" path="examples/evkmimx8mnddr3l/driver_examples/wdog">
+          <external path="driver_examples/wdog" type="xml">
+            <files mask="wdog01_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_ii2c_polling_b2b_transfer_master" name="ii2c_polling_b2b_transfer_master" toolchain="armgcc" category="driver_examples/i2c" path="examples/evkmimx8mnddr3l/driver_examples/i2c/polling_b2b_transfer/master">
+          <external path="driver_examples/i2c/polling_b2b_transfer/master" type="xml">
+            <files mask="ii2c_polling_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_ii2c_polling_b2b_transfer_slave" name="ii2c_polling_b2b_transfer_slave" toolchain="armgcc" category="driver_examples/i2c" path="examples/evkmimx8mnddr3l/driver_examples/i2c/polling_b2b_transfer/slave">
+          <external path="driver_examples/i2c/polling_b2b_transfer/slave" type="xml">
+            <files mask="ii2c_polling_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_ii2c_interrupt_b2b_transfer_master" name="ii2c_interrupt_b2b_transfer_master" toolchain="armgcc" category="driver_examples/i2c" path="examples/evkmimx8mnddr3l/driver_examples/i2c/interrupt_b2b_transfer/master">
+          <external path="driver_examples/i2c/interrupt_b2b_transfer/master" type="xml">
+            <files mask="ii2c_interrupt_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_ii2c_interrupt_b2b_transfer_slave" name="ii2c_interrupt_b2b_transfer_slave" toolchain="armgcc" category="driver_examples/i2c" path="examples/evkmimx8mnddr3l/driver_examples/i2c/interrupt_b2b_transfer/slave">
+          <external path="driver_examples/i2c/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="ii2c_interrupt_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_iuart_interrupt" name="iuart_interrupt" toolchain="armgcc" category="driver_examples/uart" path="examples/evkmimx8mnddr3l/driver_examples/uart/interrupt">
+          <external path="driver_examples/uart/interrupt" type="xml">
+            <files mask="iuart_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_iuart_interrupt_transfer" name="iuart_interrupt_transfer" toolchain="armgcc" category="driver_examples/uart" path="examples/evkmimx8mnddr3l/driver_examples/uart/interrupt_transfer">
+          <external path="driver_examples/uart/interrupt_transfer" type="xml">
+            <files mask="iuart_interrupt_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_iuart_interrupt_rb_transfer" name="iuart_interrupt_rb_transfer" toolchain="armgcc" category="driver_examples/uart" path="examples/evkmimx8mnddr3l/driver_examples/uart/interrupt_rb_transfer">
+          <external path="driver_examples/uart/interrupt_rb_transfer" type="xml">
+            <files mask="iuart_interrupt_rb_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_iuart_auto_baudrate_detect" name="iuart_auto_baudrate_detect" toolchain="armgcc" category="driver_examples/uart" path="examples/evkmimx8mnddr3l/driver_examples/uart/auto_baudrate_detect">
+          <external path="driver_examples/uart/auto_baudrate_detect" type="xml">
+            <files mask="iuart_auto_baudrate_detect_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_iuart_polling" name="iuart_polling" toolchain="armgcc" category="driver_examples/uart" path="examples/evkmimx8mnddr3l/driver_examples/uart/polling">
+          <external path="driver_examples/uart/polling" type="xml">
+            <files mask="iuart_polling_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_igpio_led_output" name="igpio_led_output" toolchain="armgcc" category="driver_examples/gpio" path="examples/evkmimx8mnddr3l/driver_examples/gpio/led_output">
+          <external path="driver_examples/gpio/led_output" type="xml">
+            <files mask="igpio_led_output_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_sai_interrupt_transfer" name="sai_interrupt_transfer" toolchain="armgcc" category="driver_examples/sai" path="examples/evkmimx8mnddr3l/driver_examples/sai/interrupt_transfer">
+          <external path="driver_examples/sai/interrupt_transfer" type="xml">
+            <files mask="sai_interrupt_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_ecspi_loopback" name="ecspi_loopback" toolchain="armgcc" category="driver_examples/ecspi" path="examples/evkmimx8mnddr3l/driver_examples/ecspi/ecspi_loopback">
+          <external path="driver_examples/ecspi/ecspi_loopback" type="xml">
+            <files mask="ecspi_loopback_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_ecspi_polling_b2b_transfer_master" name="ecspi_polling_b2b_transfer_master" toolchain="armgcc" category="driver_examples/ecspi" path="examples/evkmimx8mnddr3l/driver_examples/ecspi/polling_b2b_transfer/master">
+          <external path="driver_examples/ecspi/polling_b2b_transfer/master" type="xml">
+            <files mask="ecspi_polling_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_ecspi_polling_b2b_transfer_slave" name="ecspi_polling_b2b_transfer_slave" toolchain="armgcc" category="driver_examples/ecspi" path="examples/evkmimx8mnddr3l/driver_examples/ecspi/polling_b2b_transfer/slave">
+          <external path="driver_examples/ecspi/polling_b2b_transfer/slave" type="xml">
+            <files mask="ecspi_polling_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_ecspi_interrupt_b2b_transfer_master" name="ecspi_interrupt_b2b_transfer_master" toolchain="armgcc" category="driver_examples/ecspi" path="examples/evkmimx8mnddr3l/driver_examples/ecspi/interrupt_b2b_transfer/master">
+          <external path="driver_examples/ecspi/interrupt_b2b_transfer/master" type="xml">
+            <files mask="ecspi_interrupt_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_ecspi_interrupt_b2b_transfer_slave" name="ecspi_interrupt_b2b_transfer_slave" toolchain="armgcc" category="driver_examples/ecspi" path="examples/evkmimx8mnddr3l/driver_examples/ecspi/interrupt_b2b_transfer/slave">
+          <external path="driver_examples/ecspi/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="ecspi_interrupt_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_sdma_memory_to_memory" name="sdma_memory_to_memory" toolchain="armgcc" category="driver_examples/sdma" path="examples/evkmimx8mnddr3l/driver_examples/sdma/memory_to_memory">
+          <external path="driver_examples/sdma/memory_to_memory" type="xml">
+            <files mask="sdma_memory_to_memory_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_sdma_scatter_gather" name="sdma_scatter_gather" toolchain="armgcc" category="driver_examples/sdma/scatter_gather" path="examples/evkmimx8mnddr3l/driver_examples/sdma/scatter_gather">
+          <external path="driver_examples/sdma/scatter_gather" type="xml">
+            <files mask="sdma_scatter_gather_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_iuart_sdma_transfer" name="iuart_sdma_transfer" toolchain="armgcc" category="driver_examples/uart" path="examples/evkmimx8mnddr3l/driver_examples/uart/sdma_transfer">
+          <external path="driver_examples/uart/sdma_transfer" type="xml">
+            <files mask="iuart_sdma_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_iuart_idle_detect_sdma_transfer" name="iuart_idle_detect_sdma_transfer" toolchain="armgcc" category="driver_examples/uart" path="examples/evkmimx8mnddr3l/driver_examples/uart/idle_detect_sdma_transfer">
+          <external path="driver_examples/uart/idle_detect_sdma_transfer" type="xml">
+            <files mask="iuart_idle_detect_sdma_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_sai_sdma_transfer" name="sai_sdma_transfer" toolchain="armgcc" category="driver_examples/sai" path="examples/evkmimx8mnddr3l/driver_examples/sai/sdma_transfer">
+          <external path="driver_examples/sai/sdma_transfer" type="xml">
+            <files mask="sai_sdma_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_cmsis_iuart_interrupt_transfer" name="cmsis_iuart_interrupt_transfer" toolchain="armgcc" category="cmsis_driver_examples/uart" path="examples/evkmimx8mnddr3l/cmsis_driver_examples/uart/interrupt_transfer">
+          <external path="cmsis_driver_examples/uart/interrupt_transfer" type="xml">
+            <files mask="cmsis_iuart_interrupt_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_cmsis_iuart_sdma_transfer" name="cmsis_iuart_sdma_transfer" toolchain="armgcc" category="cmsis_driver_examples/uart" path="examples/evkmimx8mnddr3l/cmsis_driver_examples/uart/sdma_transfer">
+          <external path="cmsis_driver_examples/uart/sdma_transfer" type="xml">
+            <files mask="cmsis_iuart_sdma_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_cmsis_ii2c_int_b2b_transfer_master" name="cmsis_ii2c_int_b2b_transfer_master" toolchain="armgcc" category="cmsis_driver_examples/i2c" path="examples/evkmimx8mnddr3l/cmsis_driver_examples/i2c/int_b2b_transfer/master">
+          <external path="cmsis_driver_examples/i2c/int_b2b_transfer/master" type="xml">
+            <files mask="cmsis_ii2c_int_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_cmsis_ii2c_int_b2b_transfer_slave" name="cmsis_ii2c_int_b2b_transfer_slave" toolchain="armgcc" category="cmsis_driver_examples/i2c" path="examples/evkmimx8mnddr3l/cmsis_driver_examples/i2c/int_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/i2c/int_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_ii2c_int_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_cmsis_ecspi_int_loopback_transfer" name="cmsis_ecspi_int_loopback_transfer" toolchain="armgcc" category="cmsis_driver_examples/ecspi" path="examples/evkmimx8mnddr3l/cmsis_driver_examples/ecspi/int_loopback_transfer">
+          <external path="cmsis_driver_examples/ecspi/int_loopback_transfer" type="xml">
+            <files mask="cmsis_ecspi_int_loopback_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_cmsis_ecspi_sdma_loopback_transfer" name="cmsis_ecspi_sdma_loopback_transfer" toolchain="armgcc" category="cmsis_driver_examples/ecspi" path="examples/evkmimx8mnddr3l/cmsis_driver_examples/ecspi/sdma_loopback_transfer">
+          <external path="cmsis_driver_examples/ecspi/sdma_loopback_transfer" type="xml">
+            <files mask="cmsis_ecspi_sdma_loopback_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_rpmsg_lite_pingpong_rtos_linux_remote" name="rpmsg_lite_pingpong_rtos_linux_remote" toolchain="armgcc" category="multicore_examples" path="examples/evkmimx8mnddr3l/multicore_examples/rpmsg_lite_pingpong_rtos/linux_remote">
+          <external path="multicore_examples/rpmsg_lite_pingpong_rtos/linux_remote" type="xml">
+            <files mask="rpmsg_lite_pingpong_rtos_linux_remote_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_rpmsg_lite_str_echo_rtos_imxcm7" name="rpmsg_lite_str_echo_rtos_imxcm7" toolchain="armgcc" category="multicore_examples" path="examples/evkmimx8mnddr3l/multicore_examples/rpmsg_lite_str_echo_rtos">
+          <external path="multicore_examples/rpmsg_lite_str_echo_rtos" type="xml">
+            <files mask="rpmsg_lite_str_echo_rtos_imxcm7_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_pdm_sdma_transfer" name="pdm_sdma_transfer" toolchain="armgcc" category="driver_examples/pdm" path="examples/evkmimx8mnddr3l/driver_examples/pdm/pdm_sdma_transfer">
+          <external path="driver_examples/pdm/pdm_sdma_transfer" type="xml">
+            <files mask="pdm_sdma_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_pdm_sai_sdma" name="pdm_sai_sdma" toolchain="armgcc" category="driver_examples/pdm" path="examples/evkmimx8mnddr3l/driver_examples/pdm/pdm_sai_sdma">
+          <external path="driver_examples/pdm/pdm_sai_sdma" type="xml">
+            <files mask="pdm_sai_sdma_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_pdm_sai_interrupt" name="pdm_sai_interrupt" toolchain="armgcc" category="driver_examples/pdm" path="examples/evkmimx8mnddr3l/driver_examples/pdm/pdm_sai_interrupt">
+          <external path="driver_examples/pdm/pdm_sai_interrupt" type="xml">
+            <files mask="pdm_sai_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_pdm_sai_interrupt_transfer" name="pdm_sai_interrupt_transfer" toolchain="armgcc" category="driver_examples/pdm" path="examples/evkmimx8mnddr3l/driver_examples/pdm/pdm_sai_interrupt_transfer">
+          <external path="driver_examples/pdm/pdm_sai_interrupt_transfer" type="xml">
+            <files mask="pdm_sai_interrupt_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_pdm_interrupt" name="pdm_interrupt" toolchain="armgcc" category="driver_examples/pdm" path="examples/evkmimx8mnddr3l/driver_examples/pdm/pdm_interrupt">
+          <external path="driver_examples/pdm/pdm_interrupt" type="xml">
+            <files mask="pdm_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_pdm_hwvad" name="pdm_hwvad" toolchain="armgcc" category="driver_examples/pdm" path="examples/evkmimx8mnddr3l/driver_examples/pdm/pdm_hwvad">
+          <external path="driver_examples/pdm/pdm_hwvad" type="xml">
+            <files mask="pdm_hwvad_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_tmu_monitor_threshold" name="tmu_monitor_threshold" toolchain="armgcc" category="driver_examples/tmu" path="examples/evkmimx8mnddr3l/driver_examples/tmu/monitor_threshold">
+          <external path="driver_examples/tmu/monitor_threshold" type="xml">
+            <files mask="tmu_monitor_threshold_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_tmu_temperature_polling" name="tmu_temperature_polling" toolchain="armgcc" category="driver_examples/tmu" path="examples/evkmimx8mnddr3l/driver_examples/tmu/temperature_polling">
+          <external path="driver_examples/tmu/temperature_polling" type="xml">
+            <files mask="tmu_temperature_polling_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_asrc_m2m_sdma" name="asrc_m2m_sdma" toolchain="armgcc" category="driver_examples/asrc" path="examples/evkmimx8mnddr3l/driver_examples/asrc/asrc_m2m_sdma">
+          <external path="driver_examples/asrc/asrc_m2m_sdma" type="xml">
+            <files mask="asrc_m2m_sdma_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_asrc_p2p_out_sdma" name="asrc_p2p_out_sdma" toolchain="armgcc" category="driver_examples/asrc" path="examples/evkmimx8mnddr3l/driver_examples/asrc/asrc_p2p_out_sdma">
+          <external path="driver_examples/asrc/asrc_p2p_out_sdma" type="xml">
+            <files mask="asrc_p2p_out_sdma_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_asrc_m2m_polling" name="asrc_m2m_polling" toolchain="armgcc" category="driver_examples/asrc" path="examples/evkmimx8mnddr3l/driver_examples/asrc/asrc_m2m_polling">
+          <external path="driver_examples/asrc/asrc_m2m_polling" type="xml">
+            <files mask="asrc_m2m_polling_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_sai_low_power_audio" name="sai_low_power_audio" toolchain="armgcc" category="demo_apps" path="examples/evkmimx8mnddr3l/demo_apps/sai_low_power_audio">
+          <external path="demo_apps/sai_low_power_audio" type="xml">
+            <files mask="sai_low_power_audio_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_freertos_hello" name="freertos_hello" toolchain="armgcc" category="freertos_examples" path="examples/evkmimx8mnddr3l/freertos_examples/freertos_hello">
+          <external path="freertos_examples/freertos_hello" type="xml">
+            <files mask="freertos_hello_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_freertos_swtimer" name="freertos_swtimer" toolchain="armgcc" category="freertos_examples" path="examples/evkmimx8mnddr3l/freertos_examples/freertos_swtimer">
+          <external path="freertos_examples/freertos_swtimer" type="xml">
+            <files mask="freertos_swtimer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_freertos_generic" name="freertos_generic" toolchain="armgcc" category="freertos_examples" path="examples/evkmimx8mnddr3l/freertos_examples/freertos_generic">
+          <external path="freertos_examples/freertos_generic" type="xml">
+            <files mask="freertos_generic_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_freertos_event" name="freertos_event" toolchain="armgcc" category="freertos_examples" path="examples/evkmimx8mnddr3l/freertos_examples/freertos_event">
+          <external path="freertos_examples/freertos_event" type="xml">
+            <files mask="freertos_event_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_freertos_tickless" name="freertos_tickless" toolchain="armgcc" category="freertos_examples" path="examples/evkmimx8mnddr3l/freertos_examples/freertos_tickless">
+          <external path="freertos_examples/freertos_tickless" type="xml">
+            <files mask="freertos_tickless_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_freertos_queue" name="freertos_queue" toolchain="armgcc" category="freertos_examples" path="examples/evkmimx8mnddr3l/freertos_examples/freertos_queue">
+          <external path="freertos_examples/freertos_queue" type="xml">
+            <files mask="freertos_queue_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_freertos_sem" name="freertos_sem" toolchain="armgcc" category="freertos_examples" path="examples/evkmimx8mnddr3l/freertos_examples/freertos_sem">
+          <external path="freertos_examples/freertos_sem" type="xml">
+            <files mask="freertos_sem_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkmimx8mnddr3l_freertos_mutex" name="freertos_mutex" toolchain="armgcc" category="freertos_examples" path="examples/evkmimx8mnddr3l/freertos_examples/freertos_mutex">
+          <external path="freertos_examples/freertos_mutex" type="xml">
+            <files mask="freertos_mutex_v3_13.xml"/>
+          </external>
+        </example>
+      </examples>
+    </board>
+  </boards>
+</ksdk:manifest>

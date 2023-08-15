@@ -109,6 +109,8 @@ static UINT sample_dps_entry(NX_AZURE_IOT_PROVISIONING_CLIENT *prov_client_ptr,
 
 /* Define Azure RTOS TLS info.  */
 static NX_SECURE_X509_CERT root_ca_cert;
+static NX_SECURE_X509_CERT root_ca_cert_2;
+static NX_SECURE_X509_CERT root_ca_cert_3;
 static UCHAR nx_azure_iot_tls_metadata_buffer[NX_AZURE_IOT_TLS_METADATA_BUFFER_SIZE];
 static ULONG nx_azure_iot_thread_stack[NX_AZURE_IOT_STACK_SIZE / sizeof(ULONG)];
 
@@ -519,10 +521,20 @@ static VOID sample_initialize_iothub(SAMPLE_CONTEXT *context)
         return;
     }
 
+    /* Add more CA certificates.  */
+    if ((status = nx_azure_iot_hub_client_trusted_cert_add(iothub_client_ptr, &root_ca_cert_2)))
+    {
+        PRINTF("Failed on nx_azure_iot_hub_client_trusted_cert_add!: error code = 0x%08x\r\n", status);
+    }
+    else if ((status = nx_azure_iot_hub_client_trusted_cert_add(iothub_client_ptr, &root_ca_cert_3)))
+    {
+        PRINTF("Failed on nx_azure_iot_hub_client_trusted_cert_add!: error code = 0x%08x\r\n", status);
+    }
+
 #if (USE_DEVICE_CERTIFICATE == 1)
 
     /* Initialize the device certificate.  */
-    if ((status = nx_secure_x509_certificate_initialize(&device_certificate,
+    else if ((status = nx_secure_x509_certificate_initialize(&device_certificate,
                                                         (UCHAR *)sample_device_cert_ptr, (USHORT)sample_device_cert_len,
                                                         NX_NULL, 0,
                                                         (UCHAR *)sample_device_private_key_ptr, (USHORT)sample_device_private_key_len,
@@ -538,13 +550,22 @@ static VOID sample_initialize_iothub(SAMPLE_CONTEXT *context)
 #else
 
     /* Set symmetric key.  */
-    if ((status = nx_azure_iot_hub_client_symmetric_key_set(iothub_client_ptr,
+    else if ((status = nx_azure_iot_hub_client_symmetric_key_set(iothub_client_ptr,
                                                             (UCHAR *)DEVICE_SYMMETRIC_KEY,
                                                             sizeof(DEVICE_SYMMETRIC_KEY) - 1)))
     {
         PRINTF("Failed on nx_azure_iot_hub_client_symmetric_key_set! error: 0x%08x\r\n", status);
     }
 #endif /* USE_DEVICE_CERTIFICATE */
+
+#ifdef NXD_MQTT_OVER_WEBSOCKET
+
+    /* Enable MQTT over WebSocket to connect to IoT Hub  */
+    else if ((status = nx_azure_iot_hub_client_websocket_enable(iothub_client_ptr)))
+    {
+        PRINTF("Failed on nx_azure_iot_hub_client_websocket_enable!\r\n");
+    }
+#endif /* NXD_MQTT_OVER_WEBSOCKET */
 
     /* Set connection status callback. */
     else if ((status = nx_azure_iot_hub_client_connection_status_callback_set(iothub_client_ptr,
@@ -975,10 +996,20 @@ static UINT sample_dps_entry(NX_AZURE_IOT_PROVISIONING_CLIENT *prov_client_ptr,
     *iothub_hostname_length = sizeof(sample_iothub_hostname);
     *iothub_device_id_length = sizeof(sample_iothub_device_id);
 
+    /* Add more CA certificates.  */
+    if ((status = nx_azure_iot_provisioning_client_trusted_cert_add(&prov_client, &root_ca_cert_2)))
+    {
+        PRINTF("Failed on nx_azure_iot_provisioning_client_trusted_cert_add!: error code = 0x%08x\r\n", status);
+    }
+    else if ((status = nx_azure_iot_provisioning_client_trusted_cert_add(&prov_client, &root_ca_cert_3)))
+    {
+        PRINTF("Failed on nx_azure_iot_provisioning_client_trusted_cert_add!: error code = 0x%08x\r\n", status);
+    }
+
 #if (USE_DEVICE_CERTIFICATE == 1)
 
     /* Initialize the device certificate.  */
-    if ((status = nx_secure_x509_certificate_initialize(&device_certificate, (UCHAR *)sample_device_cert_ptr, (USHORT)sample_device_cert_len, NX_NULL, 0,
+    else if ((status = nx_secure_x509_certificate_initialize(&device_certificate, (UCHAR *)sample_device_cert_ptr, (USHORT)sample_device_cert_len, NX_NULL, 0,
                                                         (UCHAR *)sample_device_private_key_ptr, (USHORT)sample_device_private_key_len, DEVICE_KEY_TYPE)))
     {
         PRINTF("Failed on nx_secure_x509_certificate_initialize!: error code = 0x%08x\r\n", status);
@@ -992,12 +1023,22 @@ static UINT sample_dps_entry(NX_AZURE_IOT_PROVISIONING_CLIENT *prov_client_ptr,
 #else
 
     /* Set symmetric key.  */
-    if ((status = nx_azure_iot_provisioning_client_symmetric_key_set(prov_client_ptr, (UCHAR *)DEVICE_SYMMETRIC_KEY,
+    else if ((status = nx_azure_iot_provisioning_client_symmetric_key_set(prov_client_ptr, (UCHAR *)DEVICE_SYMMETRIC_KEY,
                                                                      sizeof(DEVICE_SYMMETRIC_KEY) - 1)))
     {
         PRINTF("Failed on nx_azure_iot_hub_client_symmetric_key_set!: error code = 0x%08x\r\n", status);
     }
 #endif /* USE_DEVICE_CERTIFICATE */
+
+#ifdef NXD_MQTT_OVER_WEBSOCKET
+
+    /* Enable MQTT over WebSocket.  */
+    else if ((status = nx_azure_iot_provisioning_client_websocket_enable(&prov_client)))
+    {
+        PRINTF("Failed on nx_azure_iot_provisioning_client_websocket_enable!\r\n");
+    }
+#endif /* NXD_MQTT_OVER_WEBSOCKET */
+
     else if ((status = nx_azure_iot_provisioning_client_registration_payload_set(prov_client_ptr, (UCHAR *)SAMPLE_PNP_DPS_PAYLOAD,
                                                                                  sizeof(SAMPLE_PNP_DPS_PAYLOAD) - 1)))
     {
@@ -1200,6 +1241,24 @@ VOID sample_entry(NX_IP *ip_ptr, NX_PACKET_POOL *pool_ptr, NX_DNS *dns_ptr, UINT
     /* Initialize CA certificate. */
     if ((status = nx_secure_x509_certificate_initialize(&root_ca_cert, (UCHAR *)_nx_azure_iot_root_cert,
                                                         (USHORT)_nx_azure_iot_root_cert_size,
+                                                        NX_NULL, 0, NULL, 0, NX_SECURE_X509_KEY_TYPE_NONE)))
+    {
+        PRINTF("Failed to initialize ROOT CA certificate!: error code = 0x%08x\r\n", status);
+        nx_azure_iot_delete(&nx_azure_iot);
+        return;
+    }
+
+    if ((status = nx_secure_x509_certificate_initialize(&root_ca_cert_2, (UCHAR *)_nx_azure_iot_root_cert_2,
+                                                        (USHORT)_nx_azure_iot_root_cert_size_2,
+                                                        NX_NULL, 0, NULL, 0, NX_SECURE_X509_KEY_TYPE_NONE)))
+    {
+        PRINTF("Failed to initialize ROOT CA certificate!: error code = 0x%08x\r\n", status);
+        nx_azure_iot_delete(&nx_azure_iot);
+        return;
+    }
+
+    if ((status = nx_secure_x509_certificate_initialize(&root_ca_cert_3, (UCHAR *)_nx_azure_iot_root_cert_3,
+                                                        (USHORT)_nx_azure_iot_root_cert_size_3,
                                                         NX_NULL, 0, NULL, 0, NX_SECURE_X509_KEY_TYPE_NONE)))
     {
         PRINTF("Failed to initialize ROOT CA certificate!: error code = 0x%08x\r\n", status);

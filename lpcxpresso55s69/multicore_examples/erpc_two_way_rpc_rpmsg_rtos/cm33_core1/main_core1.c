@@ -17,9 +17,9 @@
 #include "task.h"
 #include "fsl_debug_console.h"
 
-#include "mcmgr.h"
 #include "fsl_common.h"
 #include "fsl_power.h"
+#include "mcmgr.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -53,12 +53,6 @@ static mcmgr_status_t mcmgrStatus;
 /*******************************************************************************
  * Code
  ******************************************************************************/
-#ifdef MCMGR_USED
-static void SignalReady(void)
-{
-    /* Signal the other core we are ready by triggering the event and passing the APP_ERPC_READY_EVENT_DATA */
-    (void)MCMGR_TriggerEvent(kMCMGR_RemoteApplicationEvent, APP_ERPC_READY_EVENT_DATA);
-}
 
 /*!
  * @brief Application-specific implementation of the SystemInitHook() weak function.
@@ -71,6 +65,13 @@ void SystemInitHook(void)
        application. */
     (void)MCMGR_EarlyInit();
 }
+#ifdef MCMGR_USED
+static void SignalReady(void)
+{
+    /* Signal the other core we are ready by triggering the event and passing the APP_ERPC_READY_EVENT_DATA */
+    (void)MCMGR_TriggerEvent(kMCMGR_RemoteApplicationEvent, APP_ERPC_READY_EVENT_DATA);
+}
+
 #endif
 
 /* Implementation of RPC function setGetNumberFunction. */

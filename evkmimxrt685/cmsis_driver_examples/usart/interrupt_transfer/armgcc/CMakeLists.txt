@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -53,86 +61,14 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/evkmimxrt685/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/evkmimxrt685
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/drivers/flexcomm
-    ${SdkRootDirPath}/core/drivers/lpc_dma
-    ${SdkRootDirPath}/core/cmsis_drivers/flexcomm
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/devices/MIMXRT685S/drivers
-    ${SdkRootDirPath}/core/drivers/inputmux
-    ${SdkRootDirPath}/core/devices/MIMXRT685S
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/boards/evkmimxrt685/flash_config
-    ${SdkRootDirPath}/core/drivers/flexspi
-    ${SdkRootDirPath}/core/drivers/cache/cache64
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/drivers/lpc_iopctl
-    ${SdkRootDirPath}/core/drivers/lpc_gpio
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/CMSIS/Driver/Include
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
+set_source_files_properties("${ProjDirPath}/../RTE_Device.h" PROPERTIES COMPONENT_CONFIG_FILE "RTE_Device.MIMXRT685S")
 
-# include modules
-include(utility_debug_console_lite)
-
-include(utility_assert_lite)
-
-include(driver_flexcomm_usart)
-
-include(driver_lpc_dma)
-
-include(driver_flexcomm_usart_dma)
-
-include(driver_cmsis_flexcomm_usart)
-
-include(driver_common)
-
-include(driver_clock)
-
-include(driver_power)
-
-include(driver_inputmux)
-
-include(driver_inputmux_connections)
-
-include(device_CMSIS)
-
-include(component_usart_adapter)
-
-include(driver_flash_config_evkmimxrt685)
-
-include(driver_flexspi)
-
-include(driver_cache_cache64)
-
-include(component_lists)
-
-include(device_startup)
-
-include(driver_flexcomm)
-
-include(driver_lpc_iopctl)
-
-include(driver_lpc_gpio)
-
-include(driver_reset)
-
-include(CMSIS_Include_core_cm)
-
-include(CMSIS_Driver_Include_USART)
-
-include(CMSIS_Driver_Include_Common)
-
-include(utilities_misc_utilities_MIMXRT685S_cm33)
-
+include(${SdkRootDirPath}/core/devices/MIMXRT685S/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -146,4 +82,6 @@ TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
 ADD_CUSTOM_COMMAND(TARGET ${MCUX_SDK_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_OBJCOPY}
 -Obinary ${EXECUTABLE_OUTPUT_PATH}/${MCUX_SDK_PROJECT_NAME} ${EXECUTABLE_OUTPUT_PATH}/sdk20-app.bin)
+
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map;${EXECUTABLE_OUTPUT_PATH}/sdk20-app.bin")
 

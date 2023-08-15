@@ -38,8 +38,8 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DPRINTF_FLOAT_ENABLE=1 \
     -DFREESCALE_KSDK_BM \
     -DCPU_LPC54S018JET180=1 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -fno-strict-aliasing \
@@ -68,8 +68,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DPRINTF_FLOAT_ENABLE=1 \
     -DFREESCALE_KSDK_BM \
     -DCPU_LPC54S018JET180=1 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -fno-strict-aliasing \
     -fomit-frame-pointer \
@@ -92,8 +92,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
 SET(CMAKE_CXX_FLAGS_DEBUG " \
     ${CMAKE_CXX_FLAGS_DEBUG} \
     -DDEBUG \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m4 \
@@ -115,8 +115,8 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
 SET(CMAKE_CXX_FLAGS_RELEASE " \
     ${CMAKE_CXX_FLAGS_RELEASE} \
     -DNDEBUG \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m4 \
     -Wall \

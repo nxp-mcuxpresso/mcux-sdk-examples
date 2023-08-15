@@ -4,7 +4,7 @@
  * This file is based on \src\include\lwip\opt.h
  ******************************************************************************
  * Copyright (c) 2013-2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2018, 2022 NXP
+ * Copyright 2016-2018, 2022-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -120,7 +120,7 @@ void sys_mark_tcpip_thread(void);
 /* MEMP_NUM_SYS_TIMEOUT: the number of simulateously active
    timeouts. */
 #ifndef MEMP_NUM_SYS_TIMEOUT
-#define MEMP_NUM_SYS_TIMEOUT 10
+#define MEMP_NUM_SYS_TIMEOUT 20
 #endif
 /* MEMP_NUM_REASS_DATA: The number of whole IP packets
    queued for reassembly. */
@@ -252,6 +252,25 @@ Some MCU allow computing and verifying the IP, UDP, TCP and ICMP checksums by ha
 /* CHECKSUM_CHECK_TCP==1: Check checksums in software for incoming TCP packets.*/
 #define CHECKSUM_CHECK_TCP 1
 #endif
+
+/*
+   ---------------------------------------
+   ---------- IPv6 options ---------------
+   ---------------------------------------
+*/
+
+/**
+ * LWIP_IPV6==1: Enable IPv6
+ */
+#ifndef LWIP_IPV6
+#define LWIP_IPV6 1
+#endif
+
+/*
+   ------------------------------------
+   ---------- Thread options ----------
+   ------------------------------------
+*/
 
 /**
  * DEFAULT_THREAD_STACKSIZE: The stack size used by any other lwIP thread.

@@ -36,8 +36,8 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DCPU_LPC55S69JBD100_cm33_core1 \
     -DMCMGR_HANDLE_EXCEPTIONS=1 \
     -D__SEMIHOST_HARDFAULT_DISABLE=1 \
-    -DMULTICORE_APP=1 \
     -DMCUXPRESSO_SDK \
+    -DMULTICORE_APP=1 \
     -g \
     -O0 \
     -mcpu=cortex-m33+nodsp \
@@ -61,8 +61,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DCPU_LPC55S69JBD100_cm33_core1 \
     -DMCMGR_HANDLE_EXCEPTIONS=1 \
     -D__SEMIHOST_HARDFAULT_DISABLE=1 \
-    -DMULTICORE_APP=1 \
     -DMCUXPRESSO_SDK \
+    -DMULTICORE_APP=1 \
     -Os \
     -mcpu=cortex-m33+nodsp \
     -Wall \

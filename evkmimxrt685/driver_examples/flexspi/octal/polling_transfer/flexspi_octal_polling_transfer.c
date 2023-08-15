@@ -184,21 +184,18 @@ int main(void)
         return status;
     }
     PRINTF("Vendor ID: 0x%x\r\n", vendorID);
+#endif
 
-    /* Enter quad mode. */
+#if defined(FLASH_ENABLE_OCTAL_CMD)
+    /* Enter octal mode unless the FLASH boots in octal mode after reset */
     status = flexspi_nor_enable_octal_mode(EXAMPLE_FLEXSPI);
     if (status != kStatus_Success)
     {
         return status;
     }
-#else
-    /* Enter quad mode. */
-    status = flexspi_nor_enable_octal_mode(EXAMPLE_FLEXSPI);
-    if (status != kStatus_Success)
-    {
-        return status;
-    }
+#endif
 
+#if !(defined(FLASH_ADESTO) && FLASH_ADESTO)
     /* Get vendor ID. */
     status = flexspi_nor_get_vendor_id(EXAMPLE_FLEXSPI, &vendorID);
     if (status != kStatus_Success)

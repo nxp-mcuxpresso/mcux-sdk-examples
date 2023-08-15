@@ -44,9 +44,7 @@ void EXAMPLE_GPT_IRQHandler(void)
     gptIsrFlag = true;
 /* Add for ARM errata 838869, affects Cortex-M4, Cortex-M4F, Cortex-M7, Cortex-M7F Store immediate overlapping
   exception return operation might vector to incorrect interrupt */
-#if defined __CORTEX_M && (__CORTEX_M == 4U || __CORTEX_M == 7U)
-    __DSB();
-#endif
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

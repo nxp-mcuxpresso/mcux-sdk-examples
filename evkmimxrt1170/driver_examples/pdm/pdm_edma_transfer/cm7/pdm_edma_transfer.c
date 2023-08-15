@@ -6,12 +6,12 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include "pin_mux.h"
-#include "clock_config.h"
-#include "board.h"
 #include "fsl_pdm.h"
 #include "fsl_debug_console.h"
 #include "fsl_pdm_edma.h"
+#include "pin_mux.h"
+#include "clock_config.h"
+#include "board.h"
 #include "fsl_dmamux.h"
 /*******************************************************************************
  * Definitions
@@ -119,7 +119,7 @@ void DEMO_PDM_ERROR_IRQHandler(void)
         PDM_ClearOutputStatus(DEMO_PDM, status);
     }
 #endif
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

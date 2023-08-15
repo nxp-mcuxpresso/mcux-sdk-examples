@@ -6,7 +6,7 @@ asscess policy using RDC and RDC_SEMA42
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

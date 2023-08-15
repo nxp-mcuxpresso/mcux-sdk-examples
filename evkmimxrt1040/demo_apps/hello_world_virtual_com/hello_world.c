@@ -19,8 +19,8 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-
 #define CONTROLLER_ID kSerialManager_UsbControllerEhci0
+
 
 /*******************************************************************************
  * Prototypes
@@ -81,7 +81,7 @@ void BOARD_ConfigUSBMPU()
     MPU->RBAR = ARM_MPU_RBAR(7, 0x80000000U);
     MPU->RASR = ARM_MPU_RASR(0, ARM_MPU_AP_FULL, 0, 1, 1, 1, 0, ARM_MPU_REGION_SIZE_32MB);
     /* Enable MPU */
-    ARM_MPU_Enable(MPU_CTRL_PRIVDEFENA_Msk);
+    ARM_MPU_Enable(MPU_CTRL_PRIVDEFENA_Msk | MPU_CTRL_HFNMIENA_Msk);
 
     /* Enable I cache and D cache */
     SCB_EnableDCache();

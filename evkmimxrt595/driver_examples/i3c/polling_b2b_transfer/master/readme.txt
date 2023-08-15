@@ -1,14 +1,17 @@
 Overview
 ========
-The example shows how to use i3c driver as master to do board to board transfer
-using polling method:
+The example shows how to use i3c driver as master to do board to board transfer using polling method.
 
-In this example, one i3c instance as master and another i3c instance on the other board as slave. Master first sends a piece of data to slave in I2C mode, and receive a piece of data from slave and check if the data received from slave is correct. Then master will enter dynamic address cycle to assign address to the connected slave, after success, will use I3C SDR mode to transfer data, then receive data from the connected I3C slave and check the data consistency.
+In this example, one i3c instance as master and another i3c instance on the other board as slave. Master
+first sends a piece of data to slave in I2C mode, and receive a piece of data from slave and check if the
+data received from slave is correct. Then master will enter dynamic address cycle to assign address to the
+connected slave, after success, will use I3C SDR mode to transfer data, then receive data from the connected
+I3C slave and check the data consistency.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.7.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================

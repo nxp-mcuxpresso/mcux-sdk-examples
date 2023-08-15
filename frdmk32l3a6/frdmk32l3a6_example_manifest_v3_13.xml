@@ -1,0 +1,1249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_frdmk32l3a6_examples_manifest_v3_13" name="SDK_2.x_frdmk32l3a6_examples_manifest_v3_13" format_version="3.13" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.13.xsd">
+
+  <externalDefinitions>
+    <definition extID="K32L3A60VPJ1A"/>
+  </externalDefinitions>
+  <ksdk id="MCUXpressoSDK2140_frdmk32l3a6_examples_manifest_v3_13" name="MCUXpressoSDK2140_frdmk32l3a6_examples_manifest_v3_13" version="2.14.0"/>
+  <boards>
+    <board id="frdmk32l3a6" name="FRDM-K32L3A6" href="https://www.nxp.com/pip/FRDM-K32L3A6" version="1.0.0" package="K32L3A60VPJ1A">
+      <examples>
+        <example id="frdmk32l3a6_hello_world_demo_cm0plus" name="hello_world_demo_cm0plus" toolchain="armgcc" category="demo_apps" path="examples/frdmk32l3a6/demo_apps/hello_world/cm0plus">
+          <external path="demo_apps/hello_world/cm0plus" type="xml">
+            <files mask="hello_world_demo_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_bubble_cm0plus" name="bubble_cm0plus" toolchain="armgcc" category="demo_apps" path="examples/frdmk32l3a6/demo_apps/bubble/cm0plus">
+          <external path="demo_apps/bubble/cm0plus" type="xml">
+            <files mask="bubble_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_cau3_cm0plus" name="cau3_cm0plus" toolchain="armgcc" category="driver_examples/cau3" path="examples/frdmk32l3a6/driver_examples/cau3/cm0plus">
+          <external path="driver_examples/cau3/cm0plus" type="xml">
+            <files mask="cau3_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_mbedtls_selftest_cm0plus" name="mbedtls_selftest_cm0plus" toolchain="armgcc" category="mbedtls_examples" path="examples/frdmk32l3a6/mbedtls_examples/mbedtls_selftest/cm0plus">
+          <external path="mbedtls_examples/mbedtls_selftest/cm0plus" type="xml">
+            <files mask="mbedtls_selftest_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_mbedtls_benchmark_cm0plus" name="mbedtls_benchmark_cm0plus" toolchain="armgcc" category="mbedtls_examples" path="examples/frdmk32l3a6/mbedtls_examples/mbedtls_benchmark/cm0plus">
+          <external path="mbedtls_examples/mbedtls_benchmark/cm0plus" type="xml">
+            <files mask="mbedtls_benchmark_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_cmsis_lpi2c_int_b2b_transfer_master_cm0plus" name="cmsis_lpi2c_int_b2b_transfer_master_cm0plus" toolchain="armgcc" category="cmsis_driver_examples/lpi2c" path="examples/frdmk32l3a6/cmsis_driver_examples/lpi2c/int_b2b_transfer/master/cm0plus">
+          <external path="cmsis_driver_examples/lpi2c/int_b2b_transfer/master/cm0plus" type="xml">
+            <files mask="cmsis_lpi2c_int_b2b_transfer_master_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_cmsis_lpi2c_int_b2b_transfer_slave_cm0plus" name="cmsis_lpi2c_int_b2b_transfer_slave_cm0plus" toolchain="armgcc" category="cmsis_driver_examples/lpi2c" path="examples/frdmk32l3a6/cmsis_driver_examples/lpi2c/int_b2b_transfer/slave/cm0plus">
+          <external path="cmsis_driver_examples/lpi2c/int_b2b_transfer/slave/cm0plus" type="xml">
+            <files mask="cmsis_lpi2c_int_b2b_transfer_slave_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_cmsis_lpi2c_edma_b2b_transfer_master_cm0plus" name="cmsis_lpi2c_edma_b2b_transfer_master_cm0plus" toolchain="armgcc" category="cmsis_driver_examples/lpi2c" path="examples/frdmk32l3a6/cmsis_driver_examples/lpi2c/edma_b2b_transfer/master/cm0plus">
+          <external path="cmsis_driver_examples/lpi2c/edma_b2b_transfer/master/cm0plus" type="xml">
+            <files mask="cmsis_lpi2c_edma_b2b_transfer_master_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_cmsis_lpi2c_edma_b2b_transfer_slave_cm0plus" name="cmsis_lpi2c_edma_b2b_transfer_slave_cm0plus" toolchain="armgcc" category="cmsis_driver_examples/lpi2c" path="examples/frdmk32l3a6/cmsis_driver_examples/lpi2c/edma_b2b_transfer/slave/cm0plus">
+          <external path="cmsis_driver_examples/lpi2c/edma_b2b_transfer/slave/cm0plus" type="xml">
+            <files mask="cmsis_lpi2c_edma_b2b_transfer_slave_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_cmsis_lpuart_interrupt_transfer_cm0plus" name="cmsis_lpuart_interrupt_transfer_cm0plus" toolchain="armgcc" category="cmsis_driver_examples/lpuart" path="examples/frdmk32l3a6/cmsis_driver_examples/lpuart/interrupt_transfer/cm0plus">
+          <external path="cmsis_driver_examples/lpuart/interrupt_transfer/cm0plus" type="xml">
+            <files mask="cmsis_lpuart_interrupt_transfer_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_cmsis_lpspi_int_b2b_transfer_master_cm0plus" name="cmsis_lpspi_int_b2b_transfer_master_cm0plus" toolchain="armgcc" category="cmsis_driver_examples/lpspi" path="examples/frdmk32l3a6/cmsis_driver_examples/lpspi/int_b2b_transfer/master/cm0plus">
+          <external path="cmsis_driver_examples/lpspi/int_b2b_transfer/master/cm0plus" type="xml">
+            <files mask="cmsis_lpspi_int_b2b_transfer_master_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_cmsis_lpspi_int_b2b_transfer_slave_cm0plus" name="cmsis_lpspi_int_b2b_transfer_slave_cm0plus" toolchain="armgcc" category="cmsis_driver_examples/lpspi" path="examples/frdmk32l3a6/cmsis_driver_examples/lpspi/int_b2b_transfer/slave/cm0plus">
+          <external path="cmsis_driver_examples/lpspi/int_b2b_transfer/slave/cm0plus" type="xml">
+            <files mask="cmsis_lpspi_int_b2b_transfer_slave_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_cmsis_lpspi_edma_b2b_transfer_master_cm0plus" name="cmsis_lpspi_edma_b2b_transfer_master_cm0plus" toolchain="armgcc" category="cmsis_driver_examples/lpspi" path="examples/frdmk32l3a6/cmsis_driver_examples/lpspi/edma_b2b_transfer/master/cm0plus">
+          <external path="cmsis_driver_examples/lpspi/edma_b2b_transfer/master/cm0plus" type="xml">
+            <files mask="cmsis_lpspi_edma_b2b_transfer_master_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_cmsis_lpspi_edma_b2b_transfer_slave_cm0plus" name="cmsis_lpspi_edma_b2b_transfer_slave_cm0plus" toolchain="armgcc" category="cmsis_driver_examples/lpspi" path="examples/frdmk32l3a6/cmsis_driver_examples/lpspi/edma_b2b_transfer/slave/cm0plus">
+          <external path="cmsis_driver_examples/lpspi/edma_b2b_transfer/slave/cm0plus" type="xml">
+            <files mask="cmsis_lpspi_edma_b2b_transfer_slave_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_crc_cm0plus" name="crc_cm0plus" toolchain="armgcc" category="driver_examples/crc" path="examples/frdmk32l3a6/driver_examples/crc/cm0plus">
+          <external path="driver_examples/crc/cm0plus" type="xml">
+            <files mask="crc_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dac_1_basic_cm0plus" name="dac_1_basic_cm0plus" toolchain="armgcc" category="driver_examples/dac" path="examples/frdmk32l3a6/driver_examples/dac/dac_basic/cm0plus">
+          <external path="driver_examples/dac/dac_basic/cm0plus" type="xml">
+            <files mask="dac_1_basic_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dac_1_buffer_interrupt_cm0plus" name="dac_1_buffer_interrupt_cm0plus" toolchain="armgcc" category="driver_examples/dac" path="examples/frdmk32l3a6/driver_examples/dac/dac_buffer_interrupt/cm0plus">
+          <external path="driver_examples/dac/dac_buffer_interrupt/cm0plus" type="xml">
+            <files mask="dac_1_buffer_interrupt_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_edma_memory_to_memory_cm0plus" name="edma_memory_to_memory_cm0plus" toolchain="armgcc" category="driver_examples/edma" path="examples/frdmk32l3a6/driver_examples/edma/memory_to_memory/cm0plus">
+          <external path="driver_examples/edma/memory_to_memory/cm0plus" type="xml">
+            <files mask="edma_memory_to_memory_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_edma_channel_link_cm0plus" name="edma_channel_link_cm0plus" toolchain="armgcc" category="driver_examples/edma" path="examples/frdmk32l3a6/driver_examples/edma/channel_link/cm0plus">
+          <external path="driver_examples/edma/channel_link/cm0plus" type="xml">
+            <files mask="edma_channel_link_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_edma_scatter_gather_cm0plus" name="edma_scatter_gather_cm0plus" toolchain="armgcc" category="driver_examples/edma" path="examples/frdmk32l3a6/driver_examples/edma/scatter_gather/cm0plus">
+          <external path="driver_examples/edma/scatter_gather/cm0plus" type="xml">
+            <files mask="edma_scatter_gather_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_edma_interleave_transfer_cm0plus" name="edma_interleave_transfer_cm0plus" toolchain="armgcc" category="driver_examples/edma" path="examples/frdmk32l3a6/driver_examples/edma/interleave_transfer/cm0plus">
+          <external path="driver_examples/edma/interleave_transfer/cm0plus" type="xml">
+            <files mask="edma_interleave_transfer_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_edma_ping_pong_transfer_cm0plus" name="edma_ping_pong_transfer_cm0plus" toolchain="armgcc" category="driver_examples/edma" path="examples/frdmk32l3a6/driver_examples/edma/ping_pong_transfer/cm0plus">
+          <external path="driver_examples/edma/ping_pong_transfer/cm0plus" type="xml">
+            <files mask="edma_ping_pong_transfer_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_edma_wrap_transfer_cm0plus" name="edma_wrap_transfer_cm0plus" toolchain="armgcc" category="driver_examples/edma" path="examples/frdmk32l3a6/driver_examples/edma/wrap_transfer/cm0plus">
+          <external path="driver_examples/edma/wrap_transfer/cm0plus" type="xml">
+            <files mask="edma_wrap_transfer_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_gpio_input_interrupt_cm0plus" name="gpio_input_interrupt_cm0plus" toolchain="armgcc" category="driver_examples/gpio" path="examples/frdmk32l3a6/driver_examples/gpio/input_interrupt/cm0plus">
+          <external path="driver_examples/gpio/input_interrupt/cm0plus" type="xml">
+            <files mask="gpio_input_interrupt_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_gpio_led_output_cm0plus" name="gpio_led_output_cm0plus" toolchain="armgcc" category="driver_examples/gpio" path="examples/frdmk32l3a6/driver_examples/gpio/led_output/cm0plus">
+          <external path="driver_examples/gpio/led_output/cm0plus" type="xml">
+            <files mask="gpio_led_output_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpadc_polling_cm0plus" name="lpadc_polling_cm0plus" toolchain="armgcc" category="driver_examples/lpadc" path="examples/frdmk32l3a6/driver_examples/lpadc/polling/cm0plus">
+          <external path="driver_examples/lpadc/polling/cm0plus" type="xml">
+            <files mask="lpadc_polling_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpadc_interrupt_cm0plus" name="lpadc_interrupt_cm0plus" toolchain="armgcc" category="driver_examples/lpadc" path="examples/frdmk32l3a6/driver_examples/lpadc/interrupt/cm0plus">
+          <external path="driver_examples/lpadc/interrupt/cm0plus" type="xml">
+            <files mask="lpadc_interrupt_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpcmp_interrupt_cm0plus" name="lpcmp_interrupt_cm0plus" toolchain="armgcc" category="driver_examples/lpcmp" path="examples/frdmk32l3a6/driver_examples/lpcmp/interrupt/cm0plus">
+          <external path="driver_examples/lpcmp/interrupt/cm0plus" type="xml">
+            <files mask="lpcmp_interrupt_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpcmp_polling_cm0plus" name="lpcmp_polling_cm0plus" toolchain="armgcc" category="driver_examples/lpcmp" path="examples/frdmk32l3a6/driver_examples/lpcmp/polling/cm0plus">
+          <external path="driver_examples/lpcmp/polling/cm0plus" type="xml">
+            <files mask="lpcmp_polling_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpit_single_channel_cm0plus" name="lpit_single_channel_cm0plus" toolchain="armgcc" category="driver_examples/lpit" path="examples/frdmk32l3a6/driver_examples/lpit/single_channel/cm0plus">
+          <external path="driver_examples/lpit/single_channel/cm0plus" type="xml">
+            <files mask="lpit_single_channel_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpit_chained_channel_cm0plus" name="lpit_chained_channel_cm0plus" toolchain="armgcc" category="driver_examples/lpit" path="examples/frdmk32l3a6/driver_examples/lpit/chained_channel/cm0plus">
+          <external path="driver_examples/lpit/chained_channel/cm0plus" type="xml">
+            <files mask="lpit_chained_channel_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_mmdvsq_cm0plus" name="mmdvsq_cm0plus" toolchain="armgcc" category="driver_examples/mmdvsq" path="examples/frdmk32l3a6/driver_examples/mmdvsq/cm0plus">
+          <external path="driver_examples/mmdvsq/cm0plus" type="xml">
+            <files mask="mmdvsq_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_rtc_cm0plus" name="rtc_cm0plus" toolchain="armgcc" category="driver_examples/rtc" path="examples/frdmk32l3a6/driver_examples/rtc/cm0plus">
+          <external path="driver_examples/rtc/cm0plus" type="xml">
+            <files mask="rtc_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_rtc_func_cm0plus" name="rtc_func_cm0plus" toolchain="armgcc" category="demo_apps" path="examples/frdmk32l3a6/demo_apps/rtc_func/cm0plus">
+          <external path="demo_apps/rtc_func/cm0plus" type="xml">
+            <files mask="rtc_func_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpuart_interrupt_cm0plus" name="lpuart_interrupt_cm0plus" toolchain="armgcc" category="driver_examples/lpuart" path="examples/frdmk32l3a6/driver_examples/lpuart/interrupt/cm0plus">
+          <external path="driver_examples/lpuart/interrupt/cm0plus" type="xml">
+            <files mask="lpuart_interrupt_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpuart_interrupt_transfer_cm0plus" name="lpuart_interrupt_transfer_cm0plus" toolchain="armgcc" category="driver_examples/lpuart" path="examples/frdmk32l3a6/driver_examples/lpuart/interrupt_transfer/cm0plus">
+          <external path="driver_examples/lpuart/interrupt_transfer/cm0plus" type="xml">
+            <files mask="lpuart_interrupt_transfer_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpuart_9bit_interrupt_transfer_cm0plus" name="lpuart_9bit_interrupt_transfer_cm0plus" toolchain="armgcc" category="driver_examples/lpuart" path="examples/frdmk32l3a6/driver_examples/lpuart/9bit_interrupt_transfer/cm0plus">
+          <external path="driver_examples/lpuart/9bit_interrupt_transfer/cm0plus" type="xml">
+            <files mask="lpuart_9bit_interrupt_transfer_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpuart_polling_cm0plus" name="lpuart_polling_cm0plus" toolchain="armgcc" category="driver_examples/lpuart" path="examples/frdmk32l3a6/driver_examples/lpuart/polling/cm0plus">
+          <external path="driver_examples/lpuart/polling/cm0plus" type="xml">
+            <files mask="lpuart_polling_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpuart_interrupt_rb_transfer_cm0plus" name="lpuart_interrupt_rb_transfer_cm0plus" toolchain="armgcc" category="driver_examples/lpuart" path="examples/frdmk32l3a6/driver_examples/lpuart/interrupt_rb_transfer/cm0plus">
+          <external path="driver_examples/lpuart/interrupt_rb_transfer/cm0plus" type="xml">
+            <files mask="lpuart_interrupt_rb_transfer_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpuart_interrupt_transfer_seven_bits_cm0plus" name="lpuart_interrupt_transfer_seven_bits_cm0plus" toolchain="armgcc" category="driver_examples/lpuart" path="examples/frdmk32l3a6/driver_examples/lpuart/interrupt_transfer_seven_bits/cm0plus">
+          <external path="driver_examples/lpuart/interrupt_transfer_seven_bits/cm0plus" type="xml">
+            <files mask="lpuart_interrupt_transfer_seven_bits_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpuart_polling_seven_bits_cm0plus" name="lpuart_polling_seven_bits_cm0plus" toolchain="armgcc" category="driver_examples/lpuart" path="examples/frdmk32l3a6/driver_examples/lpuart/polling_seven_bits/cm0plus">
+          <external path="driver_examples/lpuart/polling_seven_bits/cm0plus" type="xml">
+            <files mask="lpuart_polling_seven_bits_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_mu_polling_core1" name="mu_polling_core1" toolchain="armgcc mcuxpresso" category="driver_examples/mu" path="examples/frdmk32l3a6/driver_examples/mu/polling/core1">
+          <external path="driver_examples/mu/polling/core1" type="xml">
+            <files mask="mu_polling_core1_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_mu_interrupt_core1" name="mu_interrupt_core1" toolchain="armgcc mcuxpresso" category="driver_examples/mu" path="examples/frdmk32l3a6/driver_examples/mu/interrupt/core1">
+          <external path="driver_examples/mu/interrupt/core1" type="xml">
+            <files mask="mu_interrupt_core1_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_sema42_dual_core_core1" name="sema42_dual_core_core1" toolchain="armgcc mcuxpresso" category="driver_examples/sema42" path="examples/frdmk32l3a6/driver_examples/sema42/dual_core/core1">
+          <external path="driver_examples/sema42/dual_core/core1" type="xml">
+            <files mask="sema42_dual_core_core1_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_power_mode_switch_cm0plus" name="power_mode_switch_cm0plus" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/frdmk32l3a6/demo_apps/power_mode_switch/cm0plus">
+          <external path="demo_apps/power_mode_switch/cm0plus" type="xml">
+            <files mask="power_mode_switch_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_shell_cm0plus" name="shell_cm0plus" toolchain="armgcc" category="demo_apps" path="examples/frdmk32l3a6/demo_apps/shell/cm0plus">
+          <external path="demo_apps/shell/cm0plus" type="xml">
+            <files mask="shell_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_log_bm_cm0plus" name="log_bm_cm0plus" toolchain="armgcc" category="component_examples" path="examples/frdmk32l3a6/component_examples/log/bm/cm0plus">
+          <external path="component_examples/log/bm/cm0plus" type="xml">
+            <files mask="log_bm_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_log_freertos_cm0plus" name="log_freertos_cm0plus" toolchain="armgcc" category="component_examples" path="examples/frdmk32l3a6/component_examples/log/freertos/cm0plus">
+          <external path="component_examples/log/freertos/cm0plus" type="xml">
+            <files mask="log_freertos_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_tpm_combine_pwm_cm0plus" name="tpm_combine_pwm_cm0plus" toolchain="armgcc" category="driver_examples/tpm" path="examples/frdmk32l3a6/driver_examples/tpm/combine_pwm/cm0plus">
+          <external path="driver_examples/tpm/combine_pwm/cm0plus" type="xml">
+            <files mask="tpm_combine_pwm_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_tpm_dual_edge_capture_cm0plus" name="tpm_dual_edge_capture_cm0plus" toolchain="armgcc" category="driver_examples/tpm" path="examples/frdmk32l3a6/driver_examples/tpm/dual_edge_capture/cm0plus">
+          <external path="driver_examples/tpm/dual_edge_capture/cm0plus" type="xml">
+            <files mask="tpm_dual_edge_capture_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_tpm_input_capture_cm0plus" name="tpm_input_capture_cm0plus" toolchain="armgcc" category="driver_examples/tpm" path="examples/frdmk32l3a6/driver_examples/tpm/input_capture/cm0plus">
+          <external path="driver_examples/tpm/input_capture/cm0plus" type="xml">
+            <files mask="tpm_input_capture_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_tpm_output_compare_cm0plus" name="tpm_output_compare_cm0plus" toolchain="armgcc" category="driver_examples/tpm" path="examples/frdmk32l3a6/driver_examples/tpm/output_compare/cm0plus">
+          <external path="driver_examples/tpm/output_compare/cm0plus" type="xml">
+            <files mask="tpm_output_compare_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_tpm_pwm_twochannel_cm0plus" name="tpm_pwm_twochannel_cm0plus" toolchain="armgcc" category="driver_examples/tpm" path="examples/frdmk32l3a6/driver_examples/tpm/pwm_twochannel/cm0plus">
+          <external path="driver_examples/tpm/pwm_twochannel/cm0plus" type="xml">
+            <files mask="tpm_pwm_twochannel_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_tpm_simple_pwm_cm0plus" name="tpm_simple_pwm_cm0plus" toolchain="armgcc" category="driver_examples/tpm" path="examples/frdmk32l3a6/driver_examples/tpm/simple_pwm/cm0plus">
+          <external path="driver_examples/tpm/simple_pwm/cm0plus" type="xml">
+            <files mask="tpm_simple_pwm_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_tpm_timer_cm0plus" name="tpm_timer_cm0plus" toolchain="armgcc" category="driver_examples/tpm" path="examples/frdmk32l3a6/driver_examples/tpm/timer/cm0plus">
+          <external path="driver_examples/tpm/timer/cm0plus" type="xml">
+            <files mask="tpm_timer_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_trng_random_cm0plus" name="trng_random_cm0plus" toolchain="armgcc" category="driver_examples/trng" path="examples/frdmk32l3a6/driver_examples/trng/random/cm0plus">
+          <external path="driver_examples/trng/random/cm0plus" type="xml">
+            <files mask="trng_random_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_tstmr_cm0plus" name="tstmr_cm0plus" toolchain="armgcc" category="driver_examples/tstmr" path="examples/frdmk32l3a6/driver_examples/tstmr/cm0plus">
+          <external path="driver_examples/tstmr/cm0plus" type="xml">
+            <files mask="tstmr_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lptmr_cm0plus" name="lptmr_cm0plus" toolchain="armgcc" category="driver_examples/lptmr" path="examples/frdmk32l3a6/driver_examples/lptmr/cm0plus">
+          <external path="driver_examples/lptmr/cm0plus" type="xml">
+            <files mask="lptmr_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_ewm_cm0plus" name="ewm_cm0plus" toolchain="armgcc" category="driver_examples/ewm" path="examples/frdmk32l3a6/driver_examples/ewm/cm0plus">
+          <external path="driver_examples/ewm/cm0plus" type="xml">
+            <files mask="ewm_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_flexio_uart_polling_transfer_cm0plus" name="flexio_uart_polling_transfer_cm0plus" toolchain="armgcc" category="driver_examples/flexio" path="examples/frdmk32l3a6/driver_examples/flexio/uart/polling_transfer/cm0plus">
+          <external path="driver_examples/flexio/uart/polling_transfer/cm0plus" type="xml">
+            <files mask="flexio_uart_polling_transfer_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_flexio_uart_interrupt_transfer_cm0plus" name="flexio_uart_interrupt_transfer_cm0plus" toolchain="armgcc" category="driver_examples/flexio" path="examples/frdmk32l3a6/driver_examples/flexio/uart/interrupt_transfer/cm0plus">
+          <external path="driver_examples/flexio/uart/interrupt_transfer/cm0plus" type="xml">
+            <files mask="flexio_uart_interrupt_transfer_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_flexio_uart_int_rb_transfer_cm0plus" name="flexio_uart_int_rb_transfer_cm0plus" toolchain="armgcc" category="driver_examples/flexio" path="examples/frdmk32l3a6/driver_examples/flexio/uart/int_rb_transfer/cm0plus">
+          <external path="driver_examples/flexio/uart/int_rb_transfer/cm0plus" type="xml">
+            <files mask="flexio_uart_int_rb_transfer_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_flexio_uart_edma_transfer_cm0plus" name="flexio_uart_edma_transfer_cm0plus" toolchain="armgcc" category="driver_examples/flexio" path="examples/frdmk32l3a6/driver_examples/flexio/uart/edma_transfer/cm0plus">
+          <external path="driver_examples/flexio/uart/edma_transfer/cm0plus" type="xml">
+            <files mask="flexio_uart_edma_transfer_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_flexio_i2c_interrupt_lpi2c_transfer_cm0plus" name="flexio_i2c_interrupt_lpi2c_transfer_cm0plus" toolchain="armgcc" category="driver_examples/flexio" path="examples/frdmk32l3a6/driver_examples/flexio/i2c/interrupt_lpi2c_transfer/cm0plus">
+          <external path="driver_examples/flexio/i2c/interrupt_lpi2c_transfer/cm0plus" type="xml">
+            <files mask="flexio_i2c_interrupt_lpi2c_transfer_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_flexio_i2c_read_accel_value_transfer_cm0plus" name="flexio_i2c_read_accel_value_transfer_cm0plus" toolchain="armgcc" category="driver_examples/flexio" path="examples/frdmk32l3a6/driver_examples/flexio/i2c/read_accel_value_transfer/cm0plus">
+          <external path="driver_examples/flexio/i2c/read_accel_value_transfer/cm0plus" type="xml">
+            <files mask="flexio_i2c_read_accel_value_transfer_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_flexio_spi_edma_lpspi_transfer_master_cm0plus" name="flexio_spi_edma_lpspi_transfer_master_cm0plus" toolchain="armgcc" category="driver_examples/flexio" path="examples/frdmk32l3a6/driver_examples/flexio/spi/edma_lpspi_transfer/master/cm0plus">
+          <external path="driver_examples/flexio/spi/edma_lpspi_transfer/master/cm0plus" type="xml">
+            <files mask="flexio_spi_edma_lpspi_transfer_master_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_flexio_spi_edma_lpspi_transfer_slave_cm0plus" name="flexio_spi_edma_lpspi_transfer_slave_cm0plus" toolchain="armgcc" category="driver_examples/flexio" path="examples/frdmk32l3a6/driver_examples/flexio/spi/edma_lpspi_transfer/slave/cm0plus">
+          <external path="driver_examples/flexio/spi/edma_lpspi_transfer/slave/cm0plus" type="xml">
+            <files mask="flexio_spi_edma_lpspi_transfer_slave_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_flexio_spi_int_lpspi_transfer_master_cm0plus" name="flexio_spi_int_lpspi_transfer_master_cm0plus" toolchain="armgcc" category="driver_examples/flexio" path="examples/frdmk32l3a6/driver_examples/flexio/spi/int_lpspi_transfer/master/cm0plus">
+          <external path="driver_examples/flexio/spi/int_lpspi_transfer/master/cm0plus" type="xml">
+            <files mask="flexio_spi_int_lpspi_transfer_master_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_flexio_spi_int_lpspi_transfer_slave_cm0plus" name="flexio_spi_int_lpspi_transfer_slave_cm0plus" toolchain="armgcc" category="driver_examples/flexio" path="examples/frdmk32l3a6/driver_examples/flexio/spi/int_lpspi_transfer/slave/cm0plus">
+          <external path="driver_examples/flexio/spi/int_lpspi_transfer/slave/cm0plus" type="xml">
+            <files mask="flexio_spi_int_lpspi_transfer_slave_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpi2c_interrupt_cm0plus" name="lpi2c_interrupt_cm0plus" toolchain="armgcc" category="driver_examples/lpi2c" path="examples/frdmk32l3a6/driver_examples/lpi2c/interrupt/cm0plus">
+          <external path="driver_examples/lpi2c/interrupt/cm0plus" type="xml">
+            <files mask="lpi2c_interrupt_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpi2c_read_accel_value_transfer_cm0plus" name="lpi2c_read_accel_value_transfer_cm0plus" toolchain="armgcc" category="driver_examples/lpi2c" path="examples/frdmk32l3a6/driver_examples/lpi2c/read_accel_value_transfer/cm0plus">
+          <external path="driver_examples/lpi2c/read_accel_value_transfer/cm0plus" type="xml">
+            <files mask="lpi2c_read_accel_value_transfer_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpi2c_interrupt_b2b_transfer_master_cm0plus" name="lpi2c_interrupt_b2b_transfer_master_cm0plus" toolchain="armgcc" category="driver_examples/lpi2c" path="examples/frdmk32l3a6/driver_examples/lpi2c/interrupt_b2b_transfer/master/cm0plus">
+          <external path="driver_examples/lpi2c/interrupt_b2b_transfer/master/cm0plus" type="xml">
+            <files mask="lpi2c_interrupt_b2b_transfer_master_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpi2c_interrupt_b2b_transfer_slave_cm0plus" name="lpi2c_interrupt_b2b_transfer_slave_cm0plus" toolchain="armgcc" category="driver_examples/lpi2c" path="examples/frdmk32l3a6/driver_examples/lpi2c/interrupt_b2b_transfer/slave/cm0plus">
+          <external path="driver_examples/lpi2c/interrupt_b2b_transfer/slave/cm0plus" type="xml">
+            <files mask="lpi2c_interrupt_b2b_transfer_slave_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpi2c_edma_b2b_transfer_master_cm0plus" name="lpi2c_edma_b2b_transfer_master_cm0plus" toolchain="armgcc" category="driver_examples/lpi2c" path="examples/frdmk32l3a6/driver_examples/lpi2c/edma_b2b_transfer/master/cm0plus">
+          <external path="driver_examples/lpi2c/edma_b2b_transfer/master/cm0plus" type="xml">
+            <files mask="lpi2c_edma_b2b_transfer_master_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpi2c_edma_b2b_transfer_slave_cm0plus" name="lpi2c_edma_b2b_transfer_slave_cm0plus" toolchain="armgcc" category="driver_examples/lpi2c" path="examples/frdmk32l3a6/driver_examples/lpi2c/edma_b2b_transfer/slave/cm0plus">
+          <external path="driver_examples/lpi2c/edma_b2b_transfer/slave/cm0plus" type="xml">
+            <files mask="lpi2c_edma_b2b_transfer_slave_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpspi_interrupt_cm0plus" name="lpspi_interrupt_cm0plus" toolchain="armgcc" category="driver_examples/lpspi" path="examples/frdmk32l3a6/driver_examples/lpspi/interrupt/cm0plus">
+          <external path="driver_examples/lpspi/interrupt/cm0plus" type="xml">
+            <files mask="lpspi_interrupt_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpspi_polling_b2b_transfer_master_cm0plus" name="lpspi_polling_b2b_transfer_master_cm0plus" toolchain="armgcc" category="driver_examples/lpspi" path="examples/frdmk32l3a6/driver_examples/lpspi/polling_b2b_transfer/master/cm0plus">
+          <external path="driver_examples/lpspi/polling_b2b_transfer/master/cm0plus" type="xml">
+            <files mask="lpspi_polling_b2b_transfer_master_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpspi_polling_b2b_transfer_slave_cm0plus" name="lpspi_polling_b2b_transfer_slave_cm0plus" toolchain="armgcc" category="driver_examples/lpspi" path="examples/frdmk32l3a6/driver_examples/lpspi/polling_b2b_transfer/slave/cm0plus">
+          <external path="driver_examples/lpspi/polling_b2b_transfer/slave/cm0plus" type="xml">
+            <files mask="lpspi_polling_b2b_transfer_slave_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpspi_interrupt_b2b_master_cm0plus" name="lpspi_interrupt_b2b_master_cm0plus" toolchain="armgcc" category="driver_examples/lpspi" path="examples/frdmk32l3a6/driver_examples/lpspi/interrupt_b2b/master/cm0plus">
+          <external path="driver_examples/lpspi/interrupt_b2b/master/cm0plus" type="xml">
+            <files mask="lpspi_interrupt_b2b_master_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpspi_interrupt_b2b_slave_cm0plus" name="lpspi_interrupt_b2b_slave_cm0plus" toolchain="armgcc" category="driver_examples/lpspi" path="examples/frdmk32l3a6/driver_examples/lpspi/interrupt_b2b/slave/cm0plus">
+          <external path="driver_examples/lpspi/interrupt_b2b/slave/cm0plus" type="xml">
+            <files mask="lpspi_interrupt_b2b_slave_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpspi_interrupt_b2b_transfer_master_cm0plus" name="lpspi_interrupt_b2b_transfer_master_cm0plus" toolchain="armgcc" category="driver_examples/lpspi" path="examples/frdmk32l3a6/driver_examples/lpspi/interrupt_b2b_transfer/master/cm0plus">
+          <external path="driver_examples/lpspi/interrupt_b2b_transfer/master/cm0plus" type="xml">
+            <files mask="lpspi_interrupt_b2b_transfer_master_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpspi_interrupt_b2b_transfer_slave_cm0plus" name="lpspi_interrupt_b2b_transfer_slave_cm0plus" toolchain="armgcc" category="driver_examples/lpspi" path="examples/frdmk32l3a6/driver_examples/lpspi/interrupt_b2b_transfer/slave/cm0plus">
+          <external path="driver_examples/lpspi/interrupt_b2b_transfer/slave/cm0plus" type="xml">
+            <files mask="lpspi_interrupt_b2b_transfer_slave_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpspi_edma_b2b_transfer_master_cm0plus" name="lpspi_edma_b2b_transfer_master_cm0plus" toolchain="armgcc" category="driver_examples/lpspi" path="examples/frdmk32l3a6/driver_examples/lpspi/edma_b2b_transfer/master/cm0plus">
+          <external path="driver_examples/lpspi/edma_b2b_transfer/master/cm0plus" type="xml">
+            <files mask="lpspi_edma_b2b_transfer_master_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpspi_edma_b2b_transfer_slave_cm0plus" name="lpspi_edma_b2b_transfer_slave_cm0plus" toolchain="armgcc" category="driver_examples/lpspi" path="examples/frdmk32l3a6/driver_examples/lpspi/edma_b2b_transfer/slave/cm0plus">
+          <external path="driver_examples/lpspi/edma_b2b_transfer/slave/cm0plus" type="xml">
+            <files mask="lpspi_edma_b2b_transfer_slave_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_flexio_pwm_cm0plus" name="flexio_pwm_cm0plus" toolchain="armgcc" category="driver_examples/flexio" path="examples/frdmk32l3a6/driver_examples/flexio/pwm/cm0plus">
+          <external path="driver_examples/flexio/pwm/cm0plus" type="xml">
+            <files mask="flexio_pwm_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_xrdc_cm0plus" name="xrdc_cm0plus" toolchain="armgcc" category="driver_examples/xrdc" path="examples/frdmk32l3a6/driver_examples/xrdc/cm0plus">
+          <external path="driver_examples/xrdc/cm0plus" type="xml">
+            <files mask="xrdc_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_pflash_cm0plus" name="pflash_cm0plus" toolchain="armgcc" category="driver_examples/flash" path="examples/frdmk32l3a6/driver_examples/flash/pflash/cm0plus">
+          <external path="driver_examples/flash/pflash/cm0plus" type="xml">
+            <files mask="pflash_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_hello_world_cm0plus" name="hello_world_cm0plus" toolchain="armgcc mcuxpresso" category="multicore_examples" path="examples/frdmk32l3a6/multicore_examples/hello_world/cm0plus">
+          <external path="multicore_examples/hello_world/cm0plus" type="xml">
+            <files mask="hello_world_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_multicore_manager_cm0plus" name="multicore_manager_cm0plus" toolchain="armgcc mcuxpresso" category="multicore_examples" path="examples/frdmk32l3a6/multicore_examples/multicore_manager/cm0plus">
+          <external path="multicore_examples/multicore_manager/cm0plus" type="xml">
+            <files mask="multicore_manager_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_rpmsg_lite_pingpong_cm0plus" name="rpmsg_lite_pingpong_cm0plus" toolchain="armgcc mcuxpresso" category="multicore_examples" path="examples/frdmk32l3a6/multicore_examples/rpmsg_lite_pingpong/cm0plus">
+          <external path="multicore_examples/rpmsg_lite_pingpong/cm0plus" type="xml">
+            <files mask="rpmsg_lite_pingpong_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_rpmsg_lite_pingpong_rtos_cm0plus" name="rpmsg_lite_pingpong_rtos_cm0plus" toolchain="armgcc mcuxpresso" category="multicore_examples" path="examples/frdmk32l3a6/multicore_examples/rpmsg_lite_pingpong_rtos/cm0plus">
+          <external path="multicore_examples/rpmsg_lite_pingpong_rtos/cm0plus" type="xml">
+            <files mask="rpmsg_lite_pingpong_rtos_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_freertos_message_buffers_cm0plus" name="freertos_message_buffers_cm0plus" toolchain="armgcc mcuxpresso" category="multicore_examples" path="examples/frdmk32l3a6/multicore_examples/freertos_message_buffers/cm0plus">
+          <external path="multicore_examples/freertos_message_buffers/cm0plus" type="xml">
+            <files mask="freertos_message_buffers_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_erpc_matrix_multiply_rpmsg_cm0plus" name="erpc_matrix_multiply_rpmsg_cm0plus" toolchain="armgcc mcuxpresso" category="multicore_examples" path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_rpmsg/cm0plus">
+          <external path="multicore_examples/erpc_matrix_multiply_rpmsg/cm0plus" type="xml">
+            <files mask="erpc_matrix_multiply_rpmsg_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_erpc_matrix_multiply_rpmsg_rtos_cm0plus" name="erpc_matrix_multiply_rpmsg_rtos_cm0plus" toolchain="armgcc mcuxpresso" category="multicore_examples" path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm0plus">
+          <external path="multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm0plus" type="xml">
+            <files mask="erpc_matrix_multiply_rpmsg_rtos_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_erpc_matrix_multiply_mu_cm0plus" name="erpc_matrix_multiply_mu_cm0plus" toolchain="armgcc mcuxpresso" category="multicore_examples" path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_mu/cm0plus">
+          <external path="multicore_examples/erpc_matrix_multiply_mu/cm0plus" type="xml">
+            <files mask="erpc_matrix_multiply_mu_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_erpc_matrix_multiply_mu_rtos_cm0plus" name="erpc_matrix_multiply_mu_rtos_cm0plus" toolchain="armgcc mcuxpresso" category="multicore_examples" path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_mu_rtos/cm0plus">
+          <external path="multicore_examples/erpc_matrix_multiply_mu_rtos/cm0plus" type="xml">
+            <files mask="erpc_matrix_multiply_mu_rtos_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_erpc_two_way_rpc_rpmsg_rtos_cm0plus" name="erpc_two_way_rpc_rpmsg_rtos_cm0plus" toolchain="armgcc mcuxpresso" category="multicore_examples" path="examples/frdmk32l3a6/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm0plus">
+          <external path="multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm0plus" type="xml">
+            <files mask="erpc_two_way_rpc_rpmsg_rtos_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_sdcard_polling_cm0plus" name="sdcard_polling_cm0plus" toolchain="armgcc" category="sdmmc_examples/sdcard_polling" path="examples/frdmk32l3a6/sdmmc_examples/sdcard_polling/cm0plus">
+          <external path="sdmmc_examples/sdcard_polling/cm0plus" type="xml">
+            <files mask="sdcard_polling_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_sdcard_interrupt_cm0plus" name="sdcard_interrupt_cm0plus" toolchain="armgcc" category="sdmmc_examples/sdcard_interrupt" path="examples/frdmk32l3a6/sdmmc_examples/sdcard_interrupt/cm0plus">
+          <external path="sdmmc_examples/sdcard_interrupt/cm0plus" type="xml">
+            <files mask="sdcard_interrupt_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_sdcard_fatfs_freertos_cm0plus" name="sdcard_fatfs_freertos_cm0plus" toolchain="armgcc" category="sdmmc_examples/sdcard_fatfs_freertos" path="examples/frdmk32l3a6/sdmmc_examples/sdcard_fatfs_freertos/cm0plus">
+          <external path="sdmmc_examples/sdcard_fatfs_freertos/cm0plus" type="xml">
+            <files mask="sdcard_fatfs_freertos_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_sdcard_fatfs_cm0plus" name="sdcard_fatfs_cm0plus" toolchain="armgcc" category="sdmmc_examples/sdcard_fatfs" path="examples/frdmk32l3a6/sdmmc_examples/sdcard_fatfs/cm0plus">
+          <external path="sdmmc_examples/sdcard_fatfs/cm0plus" type="xml">
+            <files mask="sdcard_fatfs_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_sdcard_freertos_cm0plus" name="sdcard_freertos_cm0plus" toolchain="armgcc" category="sdmmc_examples/sdcard_freertos" path="examples/frdmk32l3a6/sdmmc_examples/sdcard_freertos/cm0plus">
+          <external path="sdmmc_examples/sdcard_freertos/cm0plus" type="xml">
+            <files mask="sdcard_freertos_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpi2c_polling_b2b_master_cm0plus" name="lpi2c_polling_b2b_master_cm0plus" toolchain="armgcc" category="driver_examples/lpi2c" path="examples/frdmk32l3a6/driver_examples/lpi2c/polling_b2b/master/cm0plus">
+          <external path="driver_examples/lpi2c/polling_b2b/master/cm0plus" type="xml">
+            <files mask="lpi2c_polling_b2b_master_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpi2c_polling_b2b_slave_cm0plus" name="lpi2c_polling_b2b_slave_cm0plus" toolchain="armgcc" category="driver_examples/lpi2c" path="examples/frdmk32l3a6/driver_examples/lpi2c/polling_b2b/slave/cm0plus">
+          <external path="driver_examples/lpi2c/polling_b2b/slave/cm0plus" type="xml">
+            <files mask="lpi2c_polling_b2b_slave_cm0plus_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_audio_generator_bm" name="dev_audio_generator_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_audio_generator/bm/cm4">
+          <external path="usb_examples/usb_device_audio_generator/bm/cm4" type="xml">
+            <files mask="dev_audio_generator_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_audio_generator_lite_bm" name="dev_audio_generator_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_audio_generator_lite/bm/cm4">
+          <external path="usb_examples/usb_device_audio_generator_lite/bm/cm4" type="xml">
+            <files mask="dev_audio_generator_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_cdc_vcom_bm" name="dev_cdc_vcom_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_cdc_vcom/bm/cm4">
+          <external path="usb_examples/usb_device_cdc_vcom/bm/cm4" type="xml">
+            <files mask="dev_cdc_vcom_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_cdc_vcom_lite_bm" name="dev_cdc_vcom_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_cdc_vcom_lite/bm/cm4">
+          <external path="usb_examples/usb_device_cdc_vcom_lite/bm/cm4" type="xml">
+            <files mask="dev_cdc_vcom_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_composite_cdc_msc_bm" name="dev_composite_cdc_msc_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_composite_cdc_msc/bm/cm4">
+          <external path="usb_examples/usb_device_composite_cdc_msc/bm/cm4" type="xml">
+            <files mask="dev_composite_cdc_msc_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_composite_cdc_msc_lite_bm" name="dev_composite_cdc_msc_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_composite_cdc_msc_lite/bm/cm4">
+          <external path="usb_examples/usb_device_composite_cdc_msc_lite/bm/cm4" type="xml">
+            <files mask="dev_composite_cdc_msc_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_composite_hid_audio_bm" name="dev_composite_hid_audio_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_composite_hid_audio/bm/cm4">
+          <external path="usb_examples/usb_device_composite_hid_audio/bm/cm4" type="xml">
+            <files mask="dev_composite_hid_audio_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_composite_hid_audio_lite_bm" name="dev_composite_hid_audio_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_composite_hid_audio_lite/bm/cm4">
+          <external path="usb_examples/usb_device_composite_hid_audio_lite/bm/cm4" type="xml">
+            <files mask="dev_composite_hid_audio_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_composite_hid_mouse_hid_keyboard_bm" name="dev_composite_hid_mouse_hid_keyboard_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_composite_hid_mouse_hid_keyboard/bm/cm4">
+          <external path="usb_examples/usb_device_composite_hid_mouse_hid_keyboard/bm/cm4" type="xml">
+            <files mask="dev_composite_hid_mouse_hid_keyboard_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_composite_hid_mouse_hid_keyboard_lite_bm" name="dev_composite_hid_mouse_hid_keyboard_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_composite_hid_mouse_hid_keyboard_lite/bm/cm4">
+          <external path="usb_examples/usb_device_composite_hid_mouse_hid_keyboard_lite/bm/cm4" type="xml">
+            <files mask="dev_composite_hid_mouse_hid_keyboard_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_hid_generic_bm" name="dev_hid_generic_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_hid_generic/bm/cm4">
+          <external path="usb_examples/usb_device_hid_generic/bm/cm4" type="xml">
+            <files mask="dev_hid_generic_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_hid_generic_lite_bm" name="dev_hid_generic_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_hid_generic_lite/bm/cm4">
+          <external path="usb_examples/usb_device_hid_generic_lite/bm/cm4" type="xml">
+            <files mask="dev_hid_generic_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_hid_mouse_bm" name="dev_hid_mouse_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_hid_mouse/bm/cm4">
+          <external path="usb_examples/usb_device_hid_mouse/bm/cm4" type="xml">
+            <files mask="dev_hid_mouse_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_hid_mouse_lite_bm" name="dev_hid_mouse_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_hid_mouse_lite/bm/cm4">
+          <external path="usb_examples/usb_device_hid_mouse_lite/bm/cm4" type="xml">
+            <files mask="dev_hid_mouse_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_msc_ramdisk_bm" name="dev_msc_ramdisk_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_msc_ramdisk/bm/cm4">
+          <external path="usb_examples/usb_device_msc_ramdisk/bm/cm4" type="xml">
+            <files mask="dev_msc_ramdisk_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_msc_ramdisk_lite_bm" name="dev_msc_ramdisk_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_msc_ramdisk_lite/bm/cm4">
+          <external path="usb_examples/usb_device_msc_ramdisk_lite/bm/cm4" type="xml">
+            <files mask="dev_msc_ramdisk_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_phdc_weighscale_bm" name="dev_phdc_weighscale_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_phdc_weighscale/bm/cm4">
+          <external path="usb_examples/usb_device_phdc_weighscale/bm/cm4" type="xml">
+            <files mask="dev_phdc_weighscale_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_phdc_weighscale_lite_bm" name="dev_phdc_weighscale_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_phdc_weighscale_lite/bm/cm4">
+          <external path="usb_examples/usb_device_phdc_weighscale_lite/bm/cm4" type="xml">
+            <files mask="dev_phdc_weighscale_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_printer_virtual_plain_text_bm" name="dev_printer_virtual_plain_text_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_printer_virtual_plain_text/bm/cm4">
+          <external path="usb_examples/usb_device_printer_virtual_plain_text/bm/cm4" type="xml">
+            <files mask="dev_printer_virtual_plain_text_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_printer_virtual_plain_text_lite_bm" name="dev_printer_virtual_plain_text_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_printer_virtual_plain_text_lite/bm/cm4">
+          <external path="usb_examples/usb_device_printer_virtual_plain_text_lite/bm/cm4" type="xml">
+            <files mask="dev_printer_virtual_plain_text_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_suspend_resume_hid_mouse_lite_bm" name="dev_suspend_resume_hid_mouse_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_suspend_resume_device_hid_mouse_lite/bm/cm4">
+          <external path="usb_examples/usb_suspend_resume_device_hid_mouse_lite/bm/cm4" type="xml">
+            <files mask="dev_suspend_resume_hid_mouse_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_video_virtual_camera_bm" name="dev_video_virtual_camera_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_video_virtual_camera/bm/cm4">
+          <external path="usb_examples/usb_device_video_virtual_camera/bm/cm4" type="xml">
+            <files mask="dev_video_virtual_camera_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_video_virtual_camera_lite_bm" name="dev_video_virtual_camera_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_video_virtual_camera_lite/bm/cm4">
+          <external path="usb_examples/usb_device_video_virtual_camera_lite/bm/cm4" type="xml">
+            <files mask="dev_video_virtual_camera_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_audio_generator_freertos" name="dev_audio_generator_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_audio_generator/freertos/cm4">
+          <external path="usb_examples/usb_device_audio_generator/freertos/cm4" type="xml">
+            <files mask="dev_audio_generator_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_cdc_vcom_freertos" name="dev_cdc_vcom_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_cdc_vcom/freertos/cm4">
+          <external path="usb_examples/usb_device_cdc_vcom/freertos/cm4" type="xml">
+            <files mask="dev_cdc_vcom_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_composite_cdc_msc_freertos" name="dev_composite_cdc_msc_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_composite_cdc_msc/freertos/cm4">
+          <external path="usb_examples/usb_device_composite_cdc_msc/freertos/cm4" type="xml">
+            <files mask="dev_composite_cdc_msc_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_composite_hid_audio_freertos" name="dev_composite_hid_audio_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_composite_hid_audio/freertos/cm4">
+          <external path="usb_examples/usb_device_composite_hid_audio/freertos/cm4" type="xml">
+            <files mask="dev_composite_hid_audio_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_composite_hid_mouse_hid_keyboard_freertos" name="dev_composite_hid_mouse_hid_keyboard_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_composite_hid_mouse_hid_keyboard/freertos/cm4">
+          <external path="usb_examples/usb_device_composite_hid_mouse_hid_keyboard/freertos/cm4" type="xml">
+            <files mask="dev_composite_hid_mouse_hid_keyboard_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_hid_generic_freertos" name="dev_hid_generic_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_hid_generic/freertos/cm4">
+          <external path="usb_examples/usb_device_hid_generic/freertos/cm4" type="xml">
+            <files mask="dev_hid_generic_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_hid_mouse_freertos" name="dev_hid_mouse_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_hid_mouse/freertos/cm4">
+          <external path="usb_examples/usb_device_hid_mouse/freertos/cm4" type="xml">
+            <files mask="dev_hid_mouse_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_msc_ramdisk_freertos" name="dev_msc_ramdisk_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_msc_ramdisk/freertos/cm4">
+          <external path="usb_examples/usb_device_msc_ramdisk/freertos/cm4" type="xml">
+            <files mask="dev_msc_ramdisk_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_phdc_weighscale_freertos" name="dev_phdc_weighscale_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_phdc_weighscale/freertos/cm4">
+          <external path="usb_examples/usb_device_phdc_weighscale/freertos/cm4" type="xml">
+            <files mask="dev_phdc_weighscale_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_printer_virtual_plain_text_freertos" name="dev_printer_virtual_plain_text_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_printer_virtual_plain_text/freertos/cm4">
+          <external path="usb_examples/usb_device_printer_virtual_plain_text/freertos/cm4" type="xml">
+            <files mask="dev_printer_virtual_plain_text_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_suspend_resume_hid_mouse_freertos" name="dev_suspend_resume_hid_mouse_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_suspend_resume_device_hid_mouse/freertos/cm4">
+          <external path="usb_examples/usb_suspend_resume_device_hid_mouse/freertos/cm4" type="xml">
+            <files mask="dev_suspend_resume_hid_mouse_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_video_virtual_camera_freertos" name="dev_video_virtual_camera_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_video_virtual_camera/freertos/cm4">
+          <external path="usb_examples/usb_device_video_virtual_camera/freertos/cm4" type="xml">
+            <files mask="dev_video_virtual_camera_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dev_hid_mouse_freertos_static" name="dev_hid_mouse_freertos_static" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/frdmk32l3a6/usb_examples/usb_device_hid_mouse/freertos_static/cm4">
+          <external path="usb_examples/usb_device_hid_mouse/freertos_static/cm4" type="xml">
+            <files mask="dev_hid_mouse_freertos_static_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_hello_world_demo_cm4" name="hello_world_demo_cm4" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/frdmk32l3a6/demo_apps/hello_world/cm4">
+          <external path="demo_apps/hello_world/cm4" type="xml">
+            <files mask="hello_world_demo_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_bubble_cm4" name="bubble_cm4" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/frdmk32l3a6/demo_apps/bubble/cm4">
+          <external path="demo_apps/bubble/cm4" type="xml">
+            <files mask="bubble_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_cau3_cm4" name="cau3_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/cau3" path="examples/frdmk32l3a6/driver_examples/cau3/cm4">
+          <external path="driver_examples/cau3/cm4" type="xml">
+            <files mask="cau3_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_mbedtls_selftest_cm4" name="mbedtls_selftest_cm4" toolchain="armgcc mcuxpresso" category="mbedtls_examples" path="examples/frdmk32l3a6/mbedtls_examples/mbedtls_selftest/cm4">
+          <external path="mbedtls_examples/mbedtls_selftest/cm4" type="xml">
+            <files mask="mbedtls_selftest_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_mbedtls_benchmark_cm4" name="mbedtls_benchmark_cm4" toolchain="armgcc mcuxpresso" category="mbedtls_examples" path="examples/frdmk32l3a6/mbedtls_examples/mbedtls_benchmark/cm4">
+          <external path="mbedtls_examples/mbedtls_benchmark/cm4" type="xml">
+            <files mask="mbedtls_benchmark_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_cmsis_lpi2c_int_b2b_transfer_master_cm4" name="cmsis_lpi2c_int_b2b_transfer_master_cm4" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/lpi2c" path="examples/frdmk32l3a6/cmsis_driver_examples/lpi2c/int_b2b_transfer/master/cm4">
+          <external path="cmsis_driver_examples/lpi2c/int_b2b_transfer/master/cm4" type="xml">
+            <files mask="cmsis_lpi2c_int_b2b_transfer_master_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_cmsis_lpi2c_int_b2b_transfer_slave_cm4" name="cmsis_lpi2c_int_b2b_transfer_slave_cm4" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/lpi2c" path="examples/frdmk32l3a6/cmsis_driver_examples/lpi2c/int_b2b_transfer/slave/cm4">
+          <external path="cmsis_driver_examples/lpi2c/int_b2b_transfer/slave/cm4" type="xml">
+            <files mask="cmsis_lpi2c_int_b2b_transfer_slave_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_cmsis_lpi2c_edma_b2b_transfer_master_cm4" name="cmsis_lpi2c_edma_b2b_transfer_master_cm4" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/lpi2c" path="examples/frdmk32l3a6/cmsis_driver_examples/lpi2c/edma_b2b_transfer/master/cm4">
+          <external path="cmsis_driver_examples/lpi2c/edma_b2b_transfer/master/cm4" type="xml">
+            <files mask="cmsis_lpi2c_edma_b2b_transfer_master_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_cmsis_lpi2c_edma_b2b_transfer_slave_cm4" name="cmsis_lpi2c_edma_b2b_transfer_slave_cm4" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/lpi2c" path="examples/frdmk32l3a6/cmsis_driver_examples/lpi2c/edma_b2b_transfer/slave/cm4">
+          <external path="cmsis_driver_examples/lpi2c/edma_b2b_transfer/slave/cm4" type="xml">
+            <files mask="cmsis_lpi2c_edma_b2b_transfer_slave_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_cmsis_lpuart_edma_transfer_cm4" name="cmsis_lpuart_edma_transfer_cm4" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/lpuart" path="examples/frdmk32l3a6/cmsis_driver_examples/lpuart/edma_transfer/cm4">
+          <external path="cmsis_driver_examples/lpuart/edma_transfer/cm4" type="xml">
+            <files mask="cmsis_lpuart_edma_transfer_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_cmsis_lpuart_interrupt_transfer_cm4" name="cmsis_lpuart_interrupt_transfer_cm4" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/lpuart" path="examples/frdmk32l3a6/cmsis_driver_examples/lpuart/interrupt_transfer/cm4">
+          <external path="cmsis_driver_examples/lpuart/interrupt_transfer/cm4" type="xml">
+            <files mask="cmsis_lpuart_interrupt_transfer_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_cmsis_lpspi_int_b2b_transfer_master_cm4" name="cmsis_lpspi_int_b2b_transfer_master_cm4" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/lpspi" path="examples/frdmk32l3a6/cmsis_driver_examples/lpspi/int_b2b_transfer/master/cm4">
+          <external path="cmsis_driver_examples/lpspi/int_b2b_transfer/master/cm4" type="xml">
+            <files mask="cmsis_lpspi_int_b2b_transfer_master_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_cmsis_lpspi_int_b2b_transfer_slave_cm4" name="cmsis_lpspi_int_b2b_transfer_slave_cm4" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/lpspi" path="examples/frdmk32l3a6/cmsis_driver_examples/lpspi/int_b2b_transfer/slave/cm4">
+          <external path="cmsis_driver_examples/lpspi/int_b2b_transfer/slave/cm4" type="xml">
+            <files mask="cmsis_lpspi_int_b2b_transfer_slave_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_cmsis_lpspi_edma_b2b_transfer_master_cm4" name="cmsis_lpspi_edma_b2b_transfer_master_cm4" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/lpspi" path="examples/frdmk32l3a6/cmsis_driver_examples/lpspi/edma_b2b_transfer/master/cm4">
+          <external path="cmsis_driver_examples/lpspi/edma_b2b_transfer/master/cm4" type="xml">
+            <files mask="cmsis_lpspi_edma_b2b_transfer_master_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_cmsis_lpspi_edma_b2b_transfer_slave_cm4" name="cmsis_lpspi_edma_b2b_transfer_slave_cm4" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/lpspi" path="examples/frdmk32l3a6/cmsis_driver_examples/lpspi/edma_b2b_transfer/slave/cm4">
+          <external path="cmsis_driver_examples/lpspi/edma_b2b_transfer/slave/cm4" type="xml">
+            <files mask="cmsis_lpspi_edma_b2b_transfer_slave_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_crc_cm4" name="crc_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/crc" path="examples/frdmk32l3a6/driver_examples/crc/cm4">
+          <external path="driver_examples/crc/cm4" type="xml">
+            <files mask="crc_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dac_1_basic_cm4" name="dac_1_basic_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/dac" path="examples/frdmk32l3a6/driver_examples/dac/dac_basic/cm4">
+          <external path="driver_examples/dac/dac_basic/cm4" type="xml">
+            <files mask="dac_1_basic_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dac_1_buffer_interrupt_cm4" name="dac_1_buffer_interrupt_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/dac" path="examples/frdmk32l3a6/driver_examples/dac/dac_buffer_interrupt/cm4">
+          <external path="driver_examples/dac/dac_buffer_interrupt/cm4" type="xml">
+            <files mask="dac_1_buffer_interrupt_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_edma_memory_to_memory_cm4" name="edma_memory_to_memory_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/edma" path="examples/frdmk32l3a6/driver_examples/edma/memory_to_memory/cm4">
+          <external path="driver_examples/edma/memory_to_memory/cm4" type="xml">
+            <files mask="edma_memory_to_memory_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_edma_channel_link_cm4" name="edma_channel_link_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/edma" path="examples/frdmk32l3a6/driver_examples/edma/channel_link/cm4">
+          <external path="driver_examples/edma/channel_link/cm4" type="xml">
+            <files mask="edma_channel_link_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_edma_scatter_gather_cm4" name="edma_scatter_gather_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/edma" path="examples/frdmk32l3a6/driver_examples/edma/scatter_gather/cm4">
+          <external path="driver_examples/edma/scatter_gather/cm4" type="xml">
+            <files mask="edma_scatter_gather_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_edma_interleave_transfer_cm4" name="edma_interleave_transfer_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/edma" path="examples/frdmk32l3a6/driver_examples/edma/interleave_transfer/cm4">
+          <external path="driver_examples/edma/interleave_transfer/cm4" type="xml">
+            <files mask="edma_interleave_transfer_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_edma_ping_pong_transfer_cm4" name="edma_ping_pong_transfer_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/edma" path="examples/frdmk32l3a6/driver_examples/edma/ping_pong_transfer/cm4">
+          <external path="driver_examples/edma/ping_pong_transfer/cm4" type="xml">
+            <files mask="edma_ping_pong_transfer_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_edma_wrap_transfer_cm4" name="edma_wrap_transfer_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/edma" path="examples/frdmk32l3a6/driver_examples/edma/wrap_transfer/cm4">
+          <external path="driver_examples/edma/wrap_transfer/cm4" type="xml">
+            <files mask="edma_wrap_transfer_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_gpio_input_interrupt_cm4" name="gpio_input_interrupt_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/gpio" path="examples/frdmk32l3a6/driver_examples/gpio/input_interrupt/cm4">
+          <external path="driver_examples/gpio/input_interrupt/cm4" type="xml">
+            <files mask="gpio_input_interrupt_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_gpio_led_output_cm4" name="gpio_led_output_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/gpio" path="examples/frdmk32l3a6/driver_examples/gpio/led_output/cm4">
+          <external path="driver_examples/gpio/led_output/cm4" type="xml">
+            <files mask="gpio_led_output_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpadc_polling_cm4" name="lpadc_polling_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpadc" path="examples/frdmk32l3a6/driver_examples/lpadc/polling/cm4">
+          <external path="driver_examples/lpadc/polling/cm4" type="xml">
+            <files mask="lpadc_polling_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpadc_interrupt_cm4" name="lpadc_interrupt_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpadc" path="examples/frdmk32l3a6/driver_examples/lpadc/interrupt/cm4">
+          <external path="driver_examples/lpadc/interrupt/cm4" type="xml">
+            <files mask="lpadc_interrupt_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpcmp_interrupt_cm4" name="lpcmp_interrupt_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpcmp" path="examples/frdmk32l3a6/driver_examples/lpcmp/interrupt/cm4">
+          <external path="driver_examples/lpcmp/interrupt/cm4" type="xml">
+            <files mask="lpcmp_interrupt_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpcmp_polling_cm4" name="lpcmp_polling_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpcmp" path="examples/frdmk32l3a6/driver_examples/lpcmp/polling/cm4">
+          <external path="driver_examples/lpcmp/polling/cm4" type="xml">
+            <files mask="lpcmp_polling_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpit_single_channel_cm4" name="lpit_single_channel_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpit" path="examples/frdmk32l3a6/driver_examples/lpit/single_channel/cm4">
+          <external path="driver_examples/lpit/single_channel/cm4" type="xml">
+            <files mask="lpit_single_channel_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpit_chained_channel_cm4" name="lpit_chained_channel_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpit" path="examples/frdmk32l3a6/driver_examples/lpit/chained_channel/cm4">
+          <external path="driver_examples/lpit/chained_channel/cm4" type="xml">
+            <files mask="lpit_chained_channel_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_rtc_cm4" name="rtc_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/rtc" path="examples/frdmk32l3a6/driver_examples/rtc/cm4">
+          <external path="driver_examples/rtc/cm4" type="xml">
+            <files mask="rtc_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_rtc_func_cm4" name="rtc_func_cm4" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/frdmk32l3a6/demo_apps/rtc_func/cm4">
+          <external path="demo_apps/rtc_func/cm4" type="xml">
+            <files mask="rtc_func_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpuart_interrupt_cm4" name="lpuart_interrupt_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpuart" path="examples/frdmk32l3a6/driver_examples/lpuart/interrupt/cm4">
+          <external path="driver_examples/lpuart/interrupt/cm4" type="xml">
+            <files mask="lpuart_interrupt_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpuart_interrupt_transfer_cm4" name="lpuart_interrupt_transfer_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpuart" path="examples/frdmk32l3a6/driver_examples/lpuart/interrupt_transfer/cm4">
+          <external path="driver_examples/lpuart/interrupt_transfer/cm4" type="xml">
+            <files mask="lpuart_interrupt_transfer_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpuart_9bit_interrupt_transfer_cm4" name="lpuart_9bit_interrupt_transfer_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpuart" path="examples/frdmk32l3a6/driver_examples/lpuart/9bit_interrupt_transfer/cm4">
+          <external path="driver_examples/lpuart/9bit_interrupt_transfer/cm4" type="xml">
+            <files mask="lpuart_9bit_interrupt_transfer_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpuart_polling_cm4" name="lpuart_polling_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpuart" path="examples/frdmk32l3a6/driver_examples/lpuart/polling/cm4">
+          <external path="driver_examples/lpuart/polling/cm4" type="xml">
+            <files mask="lpuart_polling_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpuart_interrupt_rb_transfer_cm4" name="lpuart_interrupt_rb_transfer_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpuart" path="examples/frdmk32l3a6/driver_examples/lpuart/interrupt_rb_transfer/cm4">
+          <external path="driver_examples/lpuart/interrupt_rb_transfer/cm4" type="xml">
+            <files mask="lpuart_interrupt_rb_transfer_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpuart_edma_transfer_cm4" name="lpuart_edma_transfer_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpuart" path="examples/frdmk32l3a6/driver_examples/lpuart/edma_transfer/cm4">
+          <external path="driver_examples/lpuart/edma_transfer/cm4" type="xml">
+            <files mask="lpuart_edma_transfer_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpuart_interrupt_transfer_seven_bits_cm4" name="lpuart_interrupt_transfer_seven_bits_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpuart" path="examples/frdmk32l3a6/driver_examples/lpuart/interrupt_transfer_seven_bits/cm4">
+          <external path="driver_examples/lpuart/interrupt_transfer_seven_bits/cm4" type="xml">
+            <files mask="lpuart_interrupt_transfer_seven_bits_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpuart_polling_seven_bits_cm4" name="lpuart_polling_seven_bits_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpuart" path="examples/frdmk32l3a6/driver_examples/lpuart/polling_seven_bits/cm4">
+          <external path="driver_examples/lpuart/polling_seven_bits/cm4" type="xml">
+            <files mask="lpuart_polling_seven_bits_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_mu_interrupt_core0" name="mu_interrupt_core0" toolchain="armgcc mcuxpresso" category="driver_examples/mu" linked_projects="frdmk32l3a6_mu_interrupt_core1" path="examples/frdmk32l3a6/driver_examples/mu/interrupt/core0">
+          <external path="driver_examples/mu/interrupt/core0" type="xml">
+            <files mask="mu_interrupt_core0_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_mu_polling_core0" name="mu_polling_core0" toolchain="armgcc mcuxpresso" category="driver_examples/mu" linked_projects="frdmk32l3a6_mu_polling_core1" path="examples/frdmk32l3a6/driver_examples/mu/polling/core0">
+          <external path="driver_examples/mu/polling/core0" type="xml">
+            <files mask="mu_polling_core0_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_sema42_dual_core_core0" name="sema42_dual_core_core0" toolchain="armgcc mcuxpresso" category="driver_examples/sema42" linked_projects="frdmk32l3a6_sema42_dual_core_core1" path="examples/frdmk32l3a6/driver_examples/sema42/dual_core/core0">
+          <external path="driver_examples/sema42/dual_core/core0" type="xml">
+            <files mask="sema42_dual_core_core0_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_power_mode_switch_cm4" name="power_mode_switch_cm4" toolchain="armgcc mcuxpresso" category="demo_apps" linked_projects="frdmk32l3a6_power_mode_switch_cm0plus" path="examples/frdmk32l3a6/demo_apps/power_mode_switch/cm4">
+          <external path="demo_apps/power_mode_switch/cm4" type="xml">
+            <files mask="power_mode_switch_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_shell_cm4" name="shell_cm4" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/frdmk32l3a6/demo_apps/shell/cm4">
+          <external path="demo_apps/shell/cm4" type="xml">
+            <files mask="shell_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_log_bm_cm4" name="log_bm_cm4" toolchain="armgcc mcuxpresso" category="component_examples" path="examples/frdmk32l3a6/component_examples/log/bm/cm4">
+          <external path="component_examples/log/bm/cm4" type="xml">
+            <files mask="log_bm_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_log_freertos_cm4" name="log_freertos_cm4" toolchain="armgcc mcuxpresso" category="component_examples" path="examples/frdmk32l3a6/component_examples/log/freertos/cm4">
+          <external path="component_examples/log/freertos/cm4" type="xml">
+            <files mask="log_freertos_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_tpm_combine_pwm_cm4" name="tpm_combine_pwm_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/tpm" path="examples/frdmk32l3a6/driver_examples/tpm/combine_pwm/cm4">
+          <external path="driver_examples/tpm/combine_pwm/cm4" type="xml">
+            <files mask="tpm_combine_pwm_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_tpm_dual_edge_capture_cm4" name="tpm_dual_edge_capture_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/tpm" path="examples/frdmk32l3a6/driver_examples/tpm/dual_edge_capture/cm4">
+          <external path="driver_examples/tpm/dual_edge_capture/cm4" type="xml">
+            <files mask="tpm_dual_edge_capture_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_tpm_input_capture_cm4" name="tpm_input_capture_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/tpm" path="examples/frdmk32l3a6/driver_examples/tpm/input_capture/cm4">
+          <external path="driver_examples/tpm/input_capture/cm4" type="xml">
+            <files mask="tpm_input_capture_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_tpm_output_compare_cm4" name="tpm_output_compare_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/tpm" path="examples/frdmk32l3a6/driver_examples/tpm/output_compare/cm4">
+          <external path="driver_examples/tpm/output_compare/cm4" type="xml">
+            <files mask="tpm_output_compare_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_tpm_pwm_twochannel_cm4" name="tpm_pwm_twochannel_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/tpm" path="examples/frdmk32l3a6/driver_examples/tpm/pwm_twochannel/cm4">
+          <external path="driver_examples/tpm/pwm_twochannel/cm4" type="xml">
+            <files mask="tpm_pwm_twochannel_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_tpm_simple_pwm_cm4" name="tpm_simple_pwm_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/tpm" path="examples/frdmk32l3a6/driver_examples/tpm/simple_pwm/cm4">
+          <external path="driver_examples/tpm/simple_pwm/cm4" type="xml">
+            <files mask="tpm_simple_pwm_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_tpm_timer_cm4" name="tpm_timer_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/tpm" path="examples/frdmk32l3a6/driver_examples/tpm/timer/cm4">
+          <external path="driver_examples/tpm/timer/cm4" type="xml">
+            <files mask="tpm_timer_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_trng_random_cm4" name="trng_random_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/trng" path="examples/frdmk32l3a6/driver_examples/trng/random/cm4">
+          <external path="driver_examples/trng/random/cm4" type="xml">
+            <files mask="trng_random_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_tstmr_cm4" name="tstmr_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/tstmr" path="examples/frdmk32l3a6/driver_examples/tstmr/cm4">
+          <external path="driver_examples/tstmr/cm4" type="xml">
+            <files mask="tstmr_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lptmr_cm4" name="lptmr_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lptmr" path="examples/frdmk32l3a6/driver_examples/lptmr/cm4">
+          <external path="driver_examples/lptmr/cm4" type="xml">
+            <files mask="lptmr_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_wdog32_cm4" name="wdog32_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/wdog32" path="examples/frdmk32l3a6/driver_examples/wdog32/cm4">
+          <external path="driver_examples/wdog32/cm4" type="xml">
+            <files mask="wdog32_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_ewm_cm4" name="ewm_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/ewm" path="examples/frdmk32l3a6/driver_examples/ewm/cm4">
+          <external path="driver_examples/ewm/cm4" type="xml">
+            <files mask="ewm_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_flexio_uart_polling_transfer_cm4" name="flexio_uart_polling_transfer_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/flexio" path="examples/frdmk32l3a6/driver_examples/flexio/uart/polling_transfer/cm4">
+          <external path="driver_examples/flexio/uart/polling_transfer/cm4" type="xml">
+            <files mask="flexio_uart_polling_transfer_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_flexio_uart_interrupt_transfer_cm4" name="flexio_uart_interrupt_transfer_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/flexio" path="examples/frdmk32l3a6/driver_examples/flexio/uart/interrupt_transfer/cm4">
+          <external path="driver_examples/flexio/uart/interrupt_transfer/cm4" type="xml">
+            <files mask="flexio_uart_interrupt_transfer_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_flexio_uart_int_rb_transfer_cm4" name="flexio_uart_int_rb_transfer_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/flexio" path="examples/frdmk32l3a6/driver_examples/flexio/uart/int_rb_transfer/cm4">
+          <external path="driver_examples/flexio/uart/int_rb_transfer/cm4" type="xml">
+            <files mask="flexio_uart_int_rb_transfer_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_flexio_uart_edma_transfer_cm4" name="flexio_uart_edma_transfer_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/flexio" path="examples/frdmk32l3a6/driver_examples/flexio/uart/edma_transfer/cm4">
+          <external path="driver_examples/flexio/uart/edma_transfer/cm4" type="xml">
+            <files mask="flexio_uart_edma_transfer_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_flexio_i2c_interrupt_lpi2c_transfer_cm4" name="flexio_i2c_interrupt_lpi2c_transfer_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/flexio" path="examples/frdmk32l3a6/driver_examples/flexio/i2c/interrupt_lpi2c_transfer/cm4">
+          <external path="driver_examples/flexio/i2c/interrupt_lpi2c_transfer/cm4" type="xml">
+            <files mask="flexio_i2c_interrupt_lpi2c_transfer_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_flexio_i2c_read_accel_value_transfer_cm4" name="flexio_i2c_read_accel_value_transfer_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/flexio" path="examples/frdmk32l3a6/driver_examples/flexio/i2c/read_accel_value_transfer/cm4">
+          <external path="driver_examples/flexio/i2c/read_accel_value_transfer/cm4" type="xml">
+            <files mask="flexio_i2c_read_accel_value_transfer_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_flexio_spi_edma_lpspi_transfer_master_cm4" name="flexio_spi_edma_lpspi_transfer_master_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/flexio" path="examples/frdmk32l3a6/driver_examples/flexio/spi/edma_lpspi_transfer/master/cm4">
+          <external path="driver_examples/flexio/spi/edma_lpspi_transfer/master/cm4" type="xml">
+            <files mask="flexio_spi_edma_lpspi_transfer_master_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_flexio_spi_edma_lpspi_transfer_slave_cm4" name="flexio_spi_edma_lpspi_transfer_slave_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/flexio" path="examples/frdmk32l3a6/driver_examples/flexio/spi/edma_lpspi_transfer/slave/cm4">
+          <external path="driver_examples/flexio/spi/edma_lpspi_transfer/slave/cm4" type="xml">
+            <files mask="flexio_spi_edma_lpspi_transfer_slave_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_flexio_spi_int_lpspi_transfer_master_cm4" name="flexio_spi_int_lpspi_transfer_master_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/flexio" path="examples/frdmk32l3a6/driver_examples/flexio/spi/int_lpspi_transfer/master/cm4">
+          <external path="driver_examples/flexio/spi/int_lpspi_transfer/master/cm4" type="xml">
+            <files mask="flexio_spi_int_lpspi_transfer_master_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_flexio_spi_int_lpspi_transfer_slave_cm4" name="flexio_spi_int_lpspi_transfer_slave_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/flexio" path="examples/frdmk32l3a6/driver_examples/flexio/spi/int_lpspi_transfer/slave/cm4">
+          <external path="driver_examples/flexio/spi/int_lpspi_transfer/slave/cm4" type="xml">
+            <files mask="flexio_spi_int_lpspi_transfer_slave_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpi2c_interrupt_cm4" name="lpi2c_interrupt_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpi2c" path="examples/frdmk32l3a6/driver_examples/lpi2c/interrupt/cm4">
+          <external path="driver_examples/lpi2c/interrupt/cm4" type="xml">
+            <files mask="lpi2c_interrupt_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpi2c_read_accel_value_transfer_cm4" name="lpi2c_read_accel_value_transfer_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpi2c" path="examples/frdmk32l3a6/driver_examples/lpi2c/read_accel_value_transfer/cm4">
+          <external path="driver_examples/lpi2c/read_accel_value_transfer/cm4" type="xml">
+            <files mask="lpi2c_read_accel_value_transfer_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpi2c_interrupt_b2b_transfer_master_cm4" name="lpi2c_interrupt_b2b_transfer_master_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpi2c" path="examples/frdmk32l3a6/driver_examples/lpi2c/interrupt_b2b_transfer/master/cm4">
+          <external path="driver_examples/lpi2c/interrupt_b2b_transfer/master/cm4" type="xml">
+            <files mask="lpi2c_interrupt_b2b_transfer_master_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpi2c_interrupt_b2b_transfer_slave_cm4" name="lpi2c_interrupt_b2b_transfer_slave_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpi2c" path="examples/frdmk32l3a6/driver_examples/lpi2c/interrupt_b2b_transfer/slave/cm4">
+          <external path="driver_examples/lpi2c/interrupt_b2b_transfer/slave/cm4" type="xml">
+            <files mask="lpi2c_interrupt_b2b_transfer_slave_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpi2c_edma_b2b_transfer_master_cm4" name="lpi2c_edma_b2b_transfer_master_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpi2c" path="examples/frdmk32l3a6/driver_examples/lpi2c/edma_b2b_transfer/master/cm4">
+          <external path="driver_examples/lpi2c/edma_b2b_transfer/master/cm4" type="xml">
+            <files mask="lpi2c_edma_b2b_transfer_master_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpi2c_edma_b2b_transfer_slave_cm4" name="lpi2c_edma_b2b_transfer_slave_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpi2c" path="examples/frdmk32l3a6/driver_examples/lpi2c/edma_b2b_transfer/slave/cm4">
+          <external path="driver_examples/lpi2c/edma_b2b_transfer/slave/cm4" type="xml">
+            <files mask="lpi2c_edma_b2b_transfer_slave_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpspi_interrupt_cm4" name="lpspi_interrupt_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpspi" path="examples/frdmk32l3a6/driver_examples/lpspi/interrupt/cm4">
+          <external path="driver_examples/lpspi/interrupt/cm4" type="xml">
+            <files mask="lpspi_interrupt_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpspi_polling_b2b_transfer_master_cm4" name="lpspi_polling_b2b_transfer_master_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpspi" path="examples/frdmk32l3a6/driver_examples/lpspi/polling_b2b_transfer/master/cm4">
+          <external path="driver_examples/lpspi/polling_b2b_transfer/master/cm4" type="xml">
+            <files mask="lpspi_polling_b2b_transfer_master_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpspi_polling_b2b_transfer_slave_cm4" name="lpspi_polling_b2b_transfer_slave_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpspi" path="examples/frdmk32l3a6/driver_examples/lpspi/polling_b2b_transfer/slave/cm4">
+          <external path="driver_examples/lpspi/polling_b2b_transfer/slave/cm4" type="xml">
+            <files mask="lpspi_polling_b2b_transfer_slave_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpspi_interrupt_b2b_master_cm4" name="lpspi_interrupt_b2b_master_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpspi" path="examples/frdmk32l3a6/driver_examples/lpspi/interrupt_b2b/master/cm4">
+          <external path="driver_examples/lpspi/interrupt_b2b/master/cm4" type="xml">
+            <files mask="lpspi_interrupt_b2b_master_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpspi_interrupt_b2b_slave_cm4" name="lpspi_interrupt_b2b_slave_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpspi" path="examples/frdmk32l3a6/driver_examples/lpspi/interrupt_b2b/slave/cm4">
+          <external path="driver_examples/lpspi/interrupt_b2b/slave/cm4" type="xml">
+            <files mask="lpspi_interrupt_b2b_slave_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpspi_interrupt_b2b_transfer_master_cm4" name="lpspi_interrupt_b2b_transfer_master_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpspi" path="examples/frdmk32l3a6/driver_examples/lpspi/interrupt_b2b_transfer/master/cm4">
+          <external path="driver_examples/lpspi/interrupt_b2b_transfer/master/cm4" type="xml">
+            <files mask="lpspi_interrupt_b2b_transfer_master_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpspi_interrupt_b2b_transfer_slave_cm4" name="lpspi_interrupt_b2b_transfer_slave_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpspi" path="examples/frdmk32l3a6/driver_examples/lpspi/interrupt_b2b_transfer/slave/cm4">
+          <external path="driver_examples/lpspi/interrupt_b2b_transfer/slave/cm4" type="xml">
+            <files mask="lpspi_interrupt_b2b_transfer_slave_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpspi_edma_b2b_transfer_master_cm4" name="lpspi_edma_b2b_transfer_master_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpspi" path="examples/frdmk32l3a6/driver_examples/lpspi/edma_b2b_transfer/master/cm4">
+          <external path="driver_examples/lpspi/edma_b2b_transfer/master/cm4" type="xml">
+            <files mask="lpspi_edma_b2b_transfer_master_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpspi_edma_b2b_transfer_slave_cm4" name="lpspi_edma_b2b_transfer_slave_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpspi" path="examples/frdmk32l3a6/driver_examples/lpspi/edma_b2b_transfer/slave/cm4">
+          <external path="driver_examples/lpspi/edma_b2b_transfer/slave/cm4" type="xml">
+            <files mask="lpspi_edma_b2b_transfer_slave_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_flexio_pwm_cm4" name="flexio_pwm_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/flexio" path="examples/frdmk32l3a6/driver_examples/flexio/pwm/cm4">
+          <external path="driver_examples/flexio/pwm/cm4" type="xml">
+            <files mask="flexio_pwm_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_xrdc_cm4" name="xrdc_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/xrdc" path="examples/frdmk32l3a6/driver_examples/xrdc/cm4">
+          <external path="driver_examples/xrdc/cm4" type="xml">
+            <files mask="xrdc_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_pflash_cm4" name="pflash_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/flash" path="examples/frdmk32l3a6/driver_examples/flash/pflash/cm4">
+          <external path="driver_examples/flash/pflash/cm4" type="xml">
+            <files mask="pflash_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_hello_world_cm4" name="hello_world_cm4" toolchain="armgcc mcuxpresso" category="multicore_examples" linked_projects="frdmk32l3a6_hello_world_cm0plus" path="examples/frdmk32l3a6/multicore_examples/hello_world/cm4">
+          <external path="multicore_examples/hello_world/cm4" type="xml">
+            <files mask="hello_world_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_multicore_manager_cm4" name="multicore_manager_cm4" toolchain="armgcc mcuxpresso" category="multicore_examples" linked_projects="frdmk32l3a6_multicore_manager_cm0plus" path="examples/frdmk32l3a6/multicore_examples/multicore_manager/cm4">
+          <external path="multicore_examples/multicore_manager/cm4" type="xml">
+            <files mask="multicore_manager_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_rpmsg_lite_pingpong_cm4" name="rpmsg_lite_pingpong_cm4" toolchain="armgcc mcuxpresso" category="multicore_examples" linked_projects="frdmk32l3a6_rpmsg_lite_pingpong_cm0plus" path="examples/frdmk32l3a6/multicore_examples/rpmsg_lite_pingpong/cm4">
+          <external path="multicore_examples/rpmsg_lite_pingpong/cm4" type="xml">
+            <files mask="rpmsg_lite_pingpong_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_rpmsg_lite_pingpong_rtos_cm4" name="rpmsg_lite_pingpong_rtos_cm4" toolchain="armgcc mcuxpresso" category="multicore_examples" linked_projects="frdmk32l3a6_rpmsg_lite_pingpong_rtos_cm0plus" path="examples/frdmk32l3a6/multicore_examples/rpmsg_lite_pingpong_rtos/cm4">
+          <external path="multicore_examples/rpmsg_lite_pingpong_rtos/cm4" type="xml">
+            <files mask="rpmsg_lite_pingpong_rtos_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_freertos_message_buffers_cm4" name="freertos_message_buffers_cm4" toolchain="armgcc mcuxpresso" category="multicore_examples" linked_projects="frdmk32l3a6_freertos_message_buffers_cm0plus" path="examples/frdmk32l3a6/multicore_examples/freertos_message_buffers/cm4">
+          <external path="multicore_examples/freertos_message_buffers/cm4" type="xml">
+            <files mask="freertos_message_buffers_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_erpc_matrix_multiply_rpmsg_cm4" name="erpc_matrix_multiply_rpmsg_cm4" toolchain="armgcc mcuxpresso" category="multicore_examples" linked_projects="frdmk32l3a6_erpc_matrix_multiply_rpmsg_cm0plus" path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_rpmsg/cm4">
+          <external path="multicore_examples/erpc_matrix_multiply_rpmsg/cm4" type="xml">
+            <files mask="erpc_matrix_multiply_rpmsg_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_erpc_matrix_multiply_rpmsg_rtos_cm4" name="erpc_matrix_multiply_rpmsg_rtos_cm4" toolchain="armgcc mcuxpresso" category="multicore_examples" linked_projects="frdmk32l3a6_erpc_matrix_multiply_rpmsg_rtos_cm0plus" path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4">
+          <external path="multicore_examples/erpc_matrix_multiply_rpmsg_rtos/cm4" type="xml">
+            <files mask="erpc_matrix_multiply_rpmsg_rtos_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_erpc_matrix_multiply_mu_cm4" name="erpc_matrix_multiply_mu_cm4" toolchain="armgcc mcuxpresso" category="multicore_examples" linked_projects="frdmk32l3a6_erpc_matrix_multiply_mu_cm0plus" path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_mu/cm4">
+          <external path="multicore_examples/erpc_matrix_multiply_mu/cm4" type="xml">
+            <files mask="erpc_matrix_multiply_mu_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_erpc_matrix_multiply_mu_rtos_cm4" name="erpc_matrix_multiply_mu_rtos_cm4" toolchain="armgcc mcuxpresso" category="multicore_examples" linked_projects="frdmk32l3a6_erpc_matrix_multiply_mu_rtos_cm0plus" path="examples/frdmk32l3a6/multicore_examples/erpc_matrix_multiply_mu_rtos/cm4">
+          <external path="multicore_examples/erpc_matrix_multiply_mu_rtos/cm4" type="xml">
+            <files mask="erpc_matrix_multiply_mu_rtos_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_erpc_two_way_rpc_rpmsg_rtos_cm4" name="erpc_two_way_rpc_rpmsg_rtos_cm4" toolchain="armgcc mcuxpresso" category="multicore_examples" linked_projects="frdmk32l3a6_erpc_two_way_rpc_rpmsg_rtos_cm0plus" path="examples/frdmk32l3a6/multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm4">
+          <external path="multicore_examples/erpc_two_way_rpc_rpmsg_rtos/cm4" type="xml">
+            <files mask="erpc_two_way_rpc_rpmsg_rtos_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_sdcard_polling_cm4" name="sdcard_polling_cm4" toolchain="armgcc mcuxpresso" category="sdmmc_examples/sdcard_polling" path="examples/frdmk32l3a6/sdmmc_examples/sdcard_polling/cm4">
+          <external path="sdmmc_examples/sdcard_polling/cm4" type="xml">
+            <files mask="sdcard_polling_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_sdcard_interrupt_cm4" name="sdcard_interrupt_cm4" toolchain="armgcc mcuxpresso" category="sdmmc_examples/sdcard_interrupt" path="examples/frdmk32l3a6/sdmmc_examples/sdcard_interrupt/cm4">
+          <external path="sdmmc_examples/sdcard_interrupt/cm4" type="xml">
+            <files mask="sdcard_interrupt_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_sdcard_fatfs_freertos_cm4" name="sdcard_fatfs_freertos_cm4" toolchain="armgcc mcuxpresso" category="sdmmc_examples/sdcard_fatfs_freertos" path="examples/frdmk32l3a6/sdmmc_examples/sdcard_fatfs_freertos/cm4">
+          <external path="sdmmc_examples/sdcard_fatfs_freertos/cm4" type="xml">
+            <files mask="sdcard_fatfs_freertos_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_sdcard_fatfs_cm4" name="sdcard_fatfs_cm4" toolchain="armgcc mcuxpresso" category="sdmmc_examples/sdcard_fatfs" path="examples/frdmk32l3a6/sdmmc_examples/sdcard_fatfs/cm4">
+          <external path="sdmmc_examples/sdcard_fatfs/cm4" type="xml">
+            <files mask="sdcard_fatfs_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_dcdc_framework_cm4" name="dcdc_framework_cm4" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/frdmk32l3a6/demo_apps/dcdc_framework/cm4">
+          <external path="demo_apps/dcdc_framework/cm4" type="xml">
+            <files mask="dcdc_framework_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_sdcard_freertos_cm4" name="sdcard_freertos_cm4" toolchain="armgcc mcuxpresso" category="sdmmc_examples/sdcard_freertos" path="examples/frdmk32l3a6/sdmmc_examples/sdcard_freertos/cm4">
+          <external path="sdmmc_examples/sdcard_freertos/cm4" type="xml">
+            <files mask="sdcard_freertos_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpi2c_polling_b2b_master_cm4" name="lpi2c_polling_b2b_master_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpi2c" path="examples/frdmk32l3a6/driver_examples/lpi2c/polling_b2b/master/cm4">
+          <external path="driver_examples/lpi2c/polling_b2b/master/cm4" type="xml">
+            <files mask="lpi2c_polling_b2b_master_cm4_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="frdmk32l3a6_lpi2c_polling_b2b_slave_cm4" name="lpi2c_polling_b2b_slave_cm4" toolchain="armgcc mcuxpresso" category="driver_examples/lpi2c" path="examples/frdmk32l3a6/driver_examples/lpi2c/polling_b2b/slave/cm4">
+          <external path="driver_examples/lpi2c/polling_b2b/slave/cm4" type="xml">
+            <files mask="lpi2c_polling_b2b_slave_cm4_v3_13.xml"/>
+          </external>
+        </example>
+      </examples>
+    </board>
+  </boards>
+</ksdk:manifest>

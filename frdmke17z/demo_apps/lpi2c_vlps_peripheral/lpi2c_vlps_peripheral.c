@@ -16,8 +16,8 @@
 #include "pin_mux.h"
 #include "peripherals.h"
 #include "board.h"
-#include "fsl_smc.h"
 #include "fsl_common.h"
+#include "fsl_smc.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

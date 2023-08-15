@@ -40,8 +40,8 @@ Note
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.7.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================
@@ -69,6 +69,7 @@ Prepare the Demo
 5. Connect the second micro USB cable between the PC host and the USB (full speed) port on the board.
 6. Connect the earphone/headphone at Audio Line Out port of target board.
 7. Either press the reset button on your board or launch the debugger in your IDE to begin running the demo.
+
 Running the demo
 ================
 When the example runs successfully, you should see similar output on the serial terminal as below:

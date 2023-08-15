@@ -69,8 +69,8 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DDEBUG \
     -DCPU_MIMXRT1176DVMAA_cm7 \
     -DISO7816_CARD_SUPPORT \
-    -DUSING_PHY_EMVSIM \
     -DMCUXPRESSO_SDK \
+    -DUSING_PHY_EMVSIM \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -93,8 +93,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DNDEBUG \
     -DCPU_MIMXRT1176DVMAA_cm7 \
     -DISO7816_CARD_SUPPORT \
-    -DUSING_PHY_EMVSIM \
     -DMCUXPRESSO_SDK \
+    -DUSING_PHY_EMVSIM \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
@@ -118,8 +118,8 @@ SET(CMAKE_C_FLAGS_SDRAM_DEBUG " \
     -DDEBUG \
     -DCPU_MIMXRT1176DVMAA_cm7 \
     -DISO7816_CARD_SUPPORT \
-    -DUSING_PHY_EMVSIM \
     -DMCUXPRESSO_SDK \
+    -DUSING_PHY_EMVSIM \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -144,8 +144,8 @@ SET(CMAKE_C_FLAGS_SDRAM_RELEASE " \
     -DNDEBUG \
     -DCPU_MIMXRT1176DVMAA_cm7 \
     -DISO7816_CARD_SUPPORT \
-    -DUSING_PHY_EMVSIM \
     -DMCUXPRESSO_SDK \
+    -DUSING_PHY_EMVSIM \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
@@ -169,8 +169,8 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DDEBUG \
     -DCPU_MIMXRT1176DVMAA_cm7 \
     -DISO7816_CARD_SUPPORT \
-    -DUSING_PHY_EMVSIM \
     -DMCUXPRESSO_SDK \
+    -DUSING_PHY_EMVSIM \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -195,8 +195,8 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -DNDEBUG \
     -DCPU_MIMXRT1176DVMAA_cm7 \
     -DISO7816_CARD_SUPPORT \
-    -DUSING_PHY_EMVSIM \
     -DMCUXPRESSO_SDK \
+    -DUSING_PHY_EMVSIM \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2017, 2022 NXP
+ * Copyright 2016-2017 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -60,7 +60,7 @@ void PWT_EXAMPLE_HANDLER(void)
         PWT_ClearStatusFlags(PWT, kPWT_CounterOverflowFlag);
         overflowFlag = true;
     }
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

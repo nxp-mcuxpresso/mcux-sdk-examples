@@ -125,7 +125,7 @@ static UINT dns_create();
 extern VOID sample_entry(NX_IP *ip_ptr, NX_PACKET_POOL *pool_ptr, NX_DNS *dns_ptr);
 
 /* Include the platform IP driver. */
-extern VOID nx_driver_imx(NX_IP_DRIVER *driver_req_ptr);
+extern VOID nx_link_driver(NX_IP_DRIVER *driver_req_ptr);
 
 extern uint32_t get_seed(void);
 
@@ -206,7 +206,7 @@ void tx_application_define(void *first_unused_memory)
     }
 
     /* Create an IP instance.  */
-    status = nx_ip_create(&ip_0, "NetX IP Instance 0", SAMPLE_IPV4_ADDRESS, SAMPLE_IPV4_MASK, &pool_0, nx_driver_imx,
+    status = nx_ip_create(&ip_0, "NetX IP Instance 0", SAMPLE_IPV4_ADDRESS, SAMPLE_IPV4_MASK, &pool_0, nx_link_driver,
                           (UCHAR *)sample_ip_stack, sizeof(sample_ip_stack), SAMPLE_IP_THREAD_PRIORITY);
 
     /* Check for IP create errors.  */

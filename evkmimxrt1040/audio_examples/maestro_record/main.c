@@ -23,20 +23,24 @@
 
 #include "fsl_debug_console.h"
 
+#include "app_definitions.h"
 #include "fsl_gpio.h"
 #include "fsl_iomuxc.h"
 #include "fsl_dmamux.h"
+#if defined DEMO_CODEC_WM8960
+#include "fsl_wm8960.h"
+#else
+#include "fsl_cs42448.h"
+#endif
 #include "fsl_codec_common.h"
 /* Flexram reallocation needed in MCUXpresso for VIT support to extend OCRAM */
 #ifdef __MCUXPRESSO
 #include "fsl_flexram.h"
 #endif
-#include "fsl_wm8960.h"
-#include "app_definitions.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define APP_SHELL_TASK_STACK_SIZE (1024)
+#define APP_SHELL_TASK_STACK_SIZE (256)
 #define SDCARD_TASK_STACK_SIZE    (512)
 
 /*******************************************************************************
@@ -51,7 +55,8 @@ static void APP_SDCARD_DetectCallBack(bool isInserted, void *userData);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-codec_handle_t codecHandle   = {0};
+codec_handle_t codecHandle = {0};
+#if DEMO_CODEC_WM8960
 wm8960_config_t wm8960Config = {
     .i2cConfig = {.codecI2CInstance = BOARD_CODEC_I2C_INSTANCE, .codecI2CSourceClock = BOARD_CODEC_I2C_CLOCK_FREQ},
     .route     = kWM8960_RoutePlaybackandRecord,
@@ -64,6 +69,22 @@ wm8960_config_t wm8960Config = {
     .master_slave = false,
 };
 codec_config_t boardCodecConfig = {.codecDevType = kCODEC_WM8960, .codecDevConfig = &wm8960Config};
+#elif DEMO_CODEC_CS42448
+cs42448_config_t cs42448Config = {
+    .DACMode      = kCS42448_ModeSlave,
+    .ADCMode      = kCS42448_ModeSlave,
+    .reset        = BORAD_CodecReset,
+    .master       = false,
+    .i2cConfig    = {.codecI2CInstance = DEMO_CS42448_I2C_INSTANCE, .codecI2CSourceClock = BOARD_CODEC_I2C_CLOCK_FREQ},
+    .format       = {.mclk_HZ = 16384000U, .sampleRate = 16000U, .bitWidth = 24U},
+    .bus          = kCS42448_BusTDM,
+    .slaveAddress = CS42448_I2C_ADDR,
+};
+
+codec_config_t boardCodecConfig = {.codecDevType = kCODEC_CS42448, .codecDevConfig = &cs42448Config};
+#else
+#error "no codec enabled, please check."
+#endif
 
 static app_handle_t app;
 /*******************************************************************************
@@ -107,7 +128,7 @@ int BOARD_CODEC_Init(void)
 void SystemInitHook(void)
 {
 #if defined(__MCUXPRESSO)
-    IOMUXC_GPR->GPR17 = (kFLEXRAM_BankDTCM << 0) | (kFLEXRAM_BankOCRAM << 2) | (kFLEXRAM_BankOCRAM << 4) |
+    IOMUXC_GPR->GPR17 = (kFLEXRAM_BankDTCM << 0) | (kFLEXRAM_BankDTCM << 2) | (kFLEXRAM_BankOCRAM << 4) |
                         (kFLEXRAM_BankOCRAM << 6) | (kFLEXRAM_BankOCRAM << 8) | (kFLEXRAM_BankOCRAM << 10) |
                         (kFLEXRAM_BankOCRAM << 12) | (kFLEXRAM_BankOCRAM << 14) | (kFLEXRAM_BankOCRAM << 16) |
                         (kFLEXRAM_BankOCRAM << 18) | (kFLEXRAM_BankOCRAM << 20) | (kFLEXRAM_BankOCRAM << 22) |
@@ -140,6 +161,20 @@ void SystemInitHook(void)
 #endif
 }
 
+
+#if DEMO_CODEC_CS42448
+void BORAD_CodecReset(bool state)
+{
+    if (state)
+    {
+        GPIO_PinWrite(DEMO_CODEC_RESET_GPIO, DEMO_CODEC_RESET_GPIO_PIN, 1U);
+    }
+    else
+    {
+        GPIO_PinWrite(DEMO_CODEC_RESET_GPIO, DEMO_CODEC_RESET_GPIO_PIN, 0U);
+    }
+}
+#endif
 
 #ifdef SD_ENABLED
 static void APP_SDCARD_DetectCallBack(bool isInserted, void *userData)
@@ -233,8 +268,12 @@ int main(void)
 
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
-    BOARD_BootClockRUN();
-    /* 1. Init SAI clock .*/
+#if DEMO_CODEC_WM8960
+    BOARD_InitWM8960Pins();
+#else
+    BOARD_InitCS42448Pins();
+#endif
+    BOARD_InitBootClocks();
     CLOCK_InitAudioPll(&audioPllConfig);
     BOARD_InitDebugConsole();
 
@@ -254,6 +293,11 @@ int main(void)
     DMAMUX_EnableChannel(DEMO_DMAMUX, DEMO_TX_CHANNEL);
     DMAMUX_SetSource(DEMO_DMAMUX, DEMO_RX_CHANNEL, (uint8_t)DEMO_SAI_RX_SOURCE);
     DMAMUX_EnableChannel(DEMO_DMAMUX, DEMO_RX_CHANNEL);
+
+#if DEMO_CODEC_CS42448
+    /* enable codec power */
+    GPIO_PinWrite(DEMO_CODEC_POWER_GPIO, DEMO_CODEC_POWER_GPIO_PIN, 1U);
+#endif
 
     PRINTF("\r\n");
     PRINTF("*******************************\r\n");

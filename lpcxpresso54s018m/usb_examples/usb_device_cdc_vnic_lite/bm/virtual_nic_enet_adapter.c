@@ -26,8 +26,8 @@
 #if (defined(FSL_FEATURE_SOC_SYSMPU_COUNT) && (FSL_FEATURE_SOC_SYSMPU_COUNT > 0U))
 #include "fsl_sysmpu.h"
 #endif /* FSL_FEATURE_SOC_SYSMPU_COUNT */
-#if (!FSL_FEATURE_SOC_LPC_ENET_COUNT)
-#error This application requires FSL_FEATURE_SOC_LPC_ENET_COUNT defined non-zero.
+#if (!FSL_FEATURE_SOC_LPC_ENET_COUNT) && (!FSL_FEATURE_SOC_MCX_ENET_COUNT)
+#error This application requires FSL_FEATURE_SOC_LPC_ENET_COUNT or FSL_FEATURE_SOC_MCX_ENET_COUNT defined non-zero.
 #endif
 /*******************************************************************************
  * Definitions

@@ -52,12 +52,6 @@ static mcmgr_status_t mcmgrStatus;
 /*******************************************************************************
  * Code
  ******************************************************************************/
-#ifdef MCMGR_USED
-static void SignalReady(void)
-{
-    /* Signal the other core we are ready by triggering the event and passing the APP_ERPC_READY_EVENT_DATA */
-    (void)MCMGR_TriggerEvent(kMCMGR_RemoteApplicationEvent, APP_ERPC_READY_EVENT_DATA);
-}
 
 /*!
  * @brief Application-specific implementation of the SystemInitHook() weak function.
@@ -70,6 +64,13 @@ void SystemInitHook(void)
        application. */
     (void)MCMGR_EarlyInit();
 }
+#ifdef MCMGR_USED
+static void SignalReady(void)
+{
+    /* Signal the other core we are ready by triggering the event and passing the APP_ERPC_READY_EVENT_DATA */
+    (void)MCMGR_TriggerEvent(kMCMGR_RemoteApplicationEvent, APP_ERPC_READY_EVENT_DATA);
+}
+
 #endif
 
 /* Implementation of RPC function setGetNumberFunction. */
@@ -208,6 +209,7 @@ int main(void)
 {
     BOARD_ConfigMPU();
     BOARD_InitPins();
+    SystemCoreClock = CLOCK_GetRootClockFreq(kCLOCK_Root_M4);
 
 #ifdef MCMGR_USED
 

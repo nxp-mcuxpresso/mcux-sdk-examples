@@ -210,6 +210,90 @@ void BOARD_InitUSDHCPins(void) {
                                                  Domain write protection lock: Neither of DWP bits is locked */
 }
 
+/*
+ * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+BOARD_InitArduinoUARTPins:
+- options: {callFromInitBoot: 'true', coreID: cm7, enableClock: 'true'}
+- pin_list:
+  - {pin_num: R13, peripheral: LPUART7, signal: CTS_B, pin_signal: GPIO_AD_02, software_input_on: Disable, pull_keeper_select: Keeper}
+  - {pin_num: P15, peripheral: LPUART7, signal: RTS_B, pin_signal: GPIO_AD_03, software_input_on: Disable, pull_keeper_select: Keeper}
+  - {pin_num: N12, peripheral: LPUART7, signal: TXD, pin_signal: GPIO_AD_00, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper}
+  - {pin_num: R14, peripheral: LPUART7, signal: RXD, pin_signal: GPIO_AD_01, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper}
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
+ */
+
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_InitArduinoUARTPins, assigned for the Cortex-M7F core.
+ * Description   : Configures pin routing and optionally pin electrical features.
+ *
+ * END ****************************************************************************************************************/
+void BOARD_InitArduinoUARTPins(void) {
+  CLOCK_EnableClock(kCLOCK_Iomuxc);           /* LPCG on: LPCG is ON. */
+
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_AD_02_LPUART7_CTS_B,        /* GPIO_AD_02 is configured as LPUART7_CTS_B */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_AD_03_LPUART7_RTS_B,        /* GPIO_AD_03 is configured as LPUART7_RTS_B */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_AD_00_LPUART7_TXD,          /* GPIO_AD_00 is configured as LPUART7_TXD */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_AD_01_LPUART7_RXD,          /* GPIO_AD_01 is configured as LPUART7_RXD */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinConfig(
+      IOMUXC_GPIO_AD_02_LPUART7_CTS_B,        /* GPIO_AD_02 PAD functional properties : */
+      0x02U);                                 /* Slew Rate Field: Slow Slew Rate
+                                                 Drive Strength Field: high drive strength
+                                                 Pull / Keep Select Field: Pull Disable, Highz
+                                                 Pull Up / Down Config. Field: Weak pull down
+                                                 Open Drain Field: Disabled
+                                                 Domain write protection: Both cores are allowed
+                                                 Domain write protection lock: Neither of DWP bits is locked */
+  IOMUXC_SetPinConfig(
+      IOMUXC_GPIO_AD_03_LPUART7_RTS_B,        /* GPIO_AD_03 PAD functional properties : */
+      0x02U);                                 /* Slew Rate Field: Slow Slew Rate
+                                                 Drive Strength Field: high drive strength
+                                                 Pull / Keep Select Field: Pull Disable, Highz
+                                                 Pull Up / Down Config. Field: Weak pull down
+                                                 Open Drain Field: Disabled
+                                                 Domain write protection: Both cores are allowed
+                                                 Domain write protection lock: Neither of DWP bits is locked */
+  IOMUXC_SetPinConfig(
+      IOMUXC_GPIO_AD_00_LPUART7_TXD,          /* GPIO_AD_00 PAD functional properties : */
+      0x02U);                                 /* Slew Rate Field: Slow Slew Rate
+                                                 Drive Strength Field: high drive strength
+                                                 Pull / Keep Select Field: Pull Disable, Highz
+                                                 Pull Up / Down Config. Field: Weak pull down
+                                                 Open Drain Field: Disabled
+                                                 Domain write protection: Both cores are allowed
+                                                 Domain write protection lock: Neither of DWP bits is locked */
+  IOMUXC_SetPinConfig(
+      IOMUXC_GPIO_AD_01_LPUART7_RXD,          /* GPIO_AD_01 PAD functional properties : */
+      0x02U);                                 /* Slew Rate Field: Slow Slew Rate
+                                                 Drive Strength Field: high drive strength
+                                                 Pull / Keep Select Field: Pull Disable, Highz
+                                                 Pull Up / Down Config. Field: Weak pull down
+                                                 Open Drain Field: Disabled
+                                                 Domain write protection: Both cores are allowed
+                                                 Domain write protection lock: Neither of DWP bits is locked */
+
+  /* GPIO configuration of WL_RST on GPIO_AD_31 (pin J17) */
+  gpio_pin_config_t WL_RST_config = {
+      .direction = kGPIO_DigitalOutput,
+      .outputLogic = 0U,
+      .interruptMode = kGPIO_NoIntmode
+  };
+  /* Initialize GPIO functionality on GPIO_AD_31 (pin J17) */
+  GPIO_PinInit(GPIO9, 30U, &WL_RST_config);
+
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_AD_31_GPIO9_IO30,           /* GPIO_AD_31 is configured as GPIO9_IO30 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  
+}
 
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************

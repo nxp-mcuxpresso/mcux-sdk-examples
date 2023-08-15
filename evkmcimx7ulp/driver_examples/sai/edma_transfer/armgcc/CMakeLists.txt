@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -54,87 +62,13 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../empty_rsc_table.c"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/evkmcimx7ulp
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core/drivers/lpi2c
-    ${SdkRootDirPath}/core/components/codec/wm8960
-    ${SdkRootDirPath}/core/components/codec
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/components/codec/
-    ${SdkRootDirPath}/core/components/codec/i2c
-    ${SdkRootDirPath}/core/components/i2c
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/drivers/port
-    ${SdkRootDirPath}/core/drivers/gpio
-    ${SdkRootDirPath}/core/devices/MCIMX7U5/drivers
-    ${SdkRootDirPath}/core/drivers/sai
-    ${SdkRootDirPath}/core/drivers/dmamux
-    ${SdkRootDirPath}/core/drivers/edma
-    ${SdkRootDirPath}/core/devices/MCIMX7U5
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/drivers/lpuart
-    ${SdkRootDirPath}/core/drivers/msmc
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
 
-# include modules
-include(driver_lpi2c)
-
-include(driver_wm8960)
-
-include(driver_codec)
-
-include(driver_common)
-
-include(component_wm8960_adapter)
-
-include(component_codec_i2c_MCIMX7U5)
-
-include(component_lpi2c_adapter)
-
-include(utility_debug_console_lite)
-
-include(utility_assert_lite)
-
-include(driver_port)
-
-include(driver_gpio)
-
-include(driver_clock)
-
-include(driver_sai)
-
-include(driver_sai_edma)
-
-include(driver_dmamux)
-
-include(driver_edma_MCIMX7U5)
-
-include(driver_iomuxc)
-
-include(device_CMSIS)
-
-include(component_lpuart_adapter)
-
-include(component_lists)
-
-include(driver_lpuart)
-
-include(device_startup)
-
-include(driver_msmc)
-
-include(CMSIS_Include_core_cm)
-
-include(utilities_misc_utilities_MCIMX7U5)
-
+include(${SdkRootDirPath}/core/devices/MCIMX7U5/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -148,4 +82,6 @@ TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
 ADD_CUSTOM_COMMAND(TARGET ${MCUX_SDK_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_OBJCOPY}
 -Obinary ${EXECUTABLE_OUTPUT_PATH}/${MCUX_SDK_PROJECT_NAME} ${EXECUTABLE_OUTPUT_PATH}/sdk20-app.bin)
+
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map;${EXECUTABLE_OUTPUT_PATH}/sdk20-app.bin")
 

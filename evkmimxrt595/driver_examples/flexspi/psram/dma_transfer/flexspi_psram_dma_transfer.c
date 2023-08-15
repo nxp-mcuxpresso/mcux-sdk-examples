@@ -101,6 +101,7 @@ status_t flexspi_hyper_ram_dmacommand_write_data(FLEXSPI_Type *base,
     /*  Wait for transfer completed. */
     while (!g_completionFlag)
     {
+        SDK_DelayAtLeastUs(100, SystemCoreClock);
     }
     g_completionFlag = false;
 
@@ -131,6 +132,7 @@ status_t flexspi_hyper_ram_dmacommand_read_data(FLEXSPI_Type *base, uint32_t add
     /*  Wait for transfer completed. */
     while (!g_completionFlag)
     {
+        SDK_DelayAtLeastUs(100, SystemCoreClock);
     }
     g_completionFlag = false;
 

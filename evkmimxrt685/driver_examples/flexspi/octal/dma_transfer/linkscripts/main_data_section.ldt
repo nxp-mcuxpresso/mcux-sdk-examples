@@ -12,6 +12,11 @@
        *fsl_flexspi.o(.text .text* .rodata .rodata*)
        *fsl_dma.o(.text .text* .rodata .rodata*)
        *fsl_flexspi_dma.o(.text .text* .rodata .rodata*)
+       *libc_a-memcpy-stub.o(.text .text* .rodata .rodata*)
+       *libc_a-memset.o(.text .text* .rodata .rodata*)
+       *fsl_memcpy.o(.text .text* .rodata .rodata*)
+       *memcpy.o(.text .text* .rodata .rodata*)
+       *memset.o(.text .text* .rodata .rodata*)
        *(.data*)
        . = ALIGN(128);
        __VECTOR_RAM = .;

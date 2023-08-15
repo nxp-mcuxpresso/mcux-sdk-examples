@@ -36,7 +36,7 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -DSKIP_SYSCLK_INIT \
     -DDATA_SECTION_IS_CACHEABLE=1 \
     -DNDEBUG \
-    -DCPU_MIMXRT1062DVL6A \
+    -DCPU_MIMXRT1062DVL6B \
     -D__REDLIB__ \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
@@ -50,10 +50,11 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -DXIP_BOOT_HEADER_DCD_ENABLE=1 \
     -DFSL_RTOS_BM \
     -DSDK_OS_BAREMETAL \
+    -DCPU_MIMXRT1062DVL6A \
+    -DMCUXPRESSO_SDK \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DDISABLEFLOAT16 \
-    -DMCUXPRESSO_SDK \
     -O3 \
     -fno-strict-aliasing \
     -mcpu=cortex-m7 \
@@ -79,7 +80,7 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -DSKIP_SYSCLK_INIT \
     -DDATA_SECTION_IS_CACHEABLE=1 \
     -DDEBUG \
-    -DCPU_MIMXRT1062DVL6A \
+    -DCPU_MIMXRT1062DVL6B \
     -D__REDLIB__ \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
@@ -93,10 +94,11 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -DXIP_BOOT_HEADER_DCD_ENABLE=1 \
     -DFSL_RTOS_BM \
     -DSDK_OS_BAREMETAL \
+    -DCPU_MIMXRT1062DVL6A \
+    -DMCUXPRESSO_SDK \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DDISABLEFLOAT16 \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
     -fno-strict-aliasing \
@@ -118,7 +120,7 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
 SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     ${CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE} \
     -DNDEBUG \
-    -DCPU_MIMXRT1062DVL6A \
+    -DCPU_MIMXRT1062DVL6B \
     -DARM_MATH_CM7 \
     -D__FPU_PRESENT=1 \
     -DPRINTF_FLOAT_ENABLE=1 \
@@ -129,8 +131,9 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -DFSL_RTOS_BM \
     -DSKIP_SYSCLK_INIT \
     -DSDK_OS_BAREMETAL \
-    -DSERIAL_PORT_TYPE_UART=1 \
+    -DCPU_MIMXRT1062DVL6A \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -O3 \
     -mcpu=cortex-m7 \
     -Wall \
@@ -151,7 +154,7 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
 SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     ${CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG} \
     -DDEBUG \
-    -DCPU_MIMXRT1062DVL6A \
+    -DCPU_MIMXRT1062DVL6B \
     -DARM_MATH_CM7 \
     -D__FPU_PRESENT=1 \
     -DPRINTF_FLOAT_ENABLE=1 \
@@ -162,8 +165,9 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -DFSL_RTOS_BM \
     -DSKIP_SYSCLK_INIT \
     -DSDK_OS_BAREMETAL \
-    -DSERIAL_PORT_TYPE_UART=1 \
+    -DCPU_MIMXRT1062DVL6A \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -186,6 +190,9 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE} \
     -Xlinker \
     --no-wchar-size-warning \
+    -Xlinker \
+    -z \
+    noexecstack \
     -mcpu=cortex-m7 \
     -Wall \
     -fno-common \
@@ -208,13 +215,16 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/../../../../../core/devices/MIMXRT1062/gcc/MIMXRT1062xxxxx_flexspi_nor_sdram.ld -static \
+    -T${ProjDirPath}/MIMXRT1062xxxxx_flexspi_nor_sdram.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG} \
     -g \
     -Xlinker \
     --no-wchar-size-warning \
+    -Xlinker \
+    -z \
+    noexecstack \
     -mcpu=cortex-m7 \
     -Wall \
     -fno-common \
@@ -237,5 +247,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/../../../../../core/devices/MIMXRT1062/gcc/MIMXRT1062xxxxx_flexspi_nor_sdram.ld -static \
+    -T${ProjDirPath}/MIMXRT1062xxxxx_flexspi_nor_sdram.ld -static \
 ")

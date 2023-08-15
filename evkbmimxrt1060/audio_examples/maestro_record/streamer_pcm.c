@@ -8,9 +8,11 @@
 #include "board.h"
 #include "streamer_pcm_app.h"
 #include "fsl_codec_common.h"
-#include "fsl_wm8960.h"
 #include "app_definitions.h"
 #include "fsl_cache.h"
+#if (defined(DEMO_CODEC_WM8962) && (DEMO_CODEC_WM8962 == 1))
+extern codec_config_t boardCodecConfig;
+#endif
 
 AT_NONCACHEABLE_SECTION_INIT(static pcm_rtos_t pcmHandle) = {0};
 extern codec_handle_t codecHandle;
@@ -343,6 +345,9 @@ int streamer_pcm_setparams(pcm_rtos_t *pcm,
 
     streamer_pcm_set_volume(pcm, 0);
 
+#if (defined(DEMO_CODEC_WM8962) && (DEMO_CODEC_WM8962 == 1))
+    CODEC_Init(&codecHandle, &boardCodecConfig);
+#endif
     CODEC_SetFormat(&codecHandle, masterClockHz, format.sampleRate_Hz, format.bitWidth);
 
     streamer_pcm_set_volume(pcm, DEMO_VOLUME);
@@ -381,7 +386,7 @@ int streamer_pcm_set_volume(pcm_rtos_t *pcm, int volume)
 int streamer_set_master_clock(int sample_rate)
 {
     int master_clock;
-#if DEMO_CODEC_CS42448
+#if (defined(DEMO_CODEC_CS42448) && (DEMO_CODEC_CS42448 == 1))
     int divider    = DEMO_SAI1_CLOCK_SOURCE_DIVIDER;
     int predivider = DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER;
 #endif
@@ -408,7 +413,8 @@ int streamer_set_master_clock(int sample_rate)
         };
         CLOCK_InitAudioPll(&audioPllConfig);
     }
-#if DEMO_CODEC_CS42448
+
+#if (defined(DEMO_CODEC_CS42448) && (DEMO_CODEC_CS42448 == 1))
     switch (sample_rate)
     {
         case 11025:

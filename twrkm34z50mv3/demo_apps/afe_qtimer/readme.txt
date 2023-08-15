@@ -7,8 +7,8 @@ channel 2 and 3. And monitor AC frequency on two pins of channel 2.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================

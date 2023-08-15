@@ -79,7 +79,7 @@ void FTM_INPUT_CAPTURE_HANDLER(void)
     else
     {
     }
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

@@ -46,7 +46,7 @@ void PIT_LED_HANDLER(void)
      * CPU can run out of the interrupt handler before the interrupt flag being cleared, resulting in the
      * CPU's entering the handler again and again. Adding DSB can prevent the issue from happening.
      */
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

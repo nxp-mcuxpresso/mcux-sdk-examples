@@ -16,7 +16,7 @@
  * Definitions
  ******************************************************************************/
 #define DRIVER_SLAVE_SPI Driver_SPI5
-
+#define EXAMPLE_LPSPI_MASTER_DMA_BASEADDR       DMA0
 #define TRANSFER_SIZE 64U /* Transfer dataSize */
 
 /*******************************************************************************
@@ -60,7 +60,8 @@ int main(void)
 
     uint32_t i          = 0U;
     uint32_t errorCount = 0U;
-
+    /* Init DMA for example*/
+    DMA_Init(EXAMPLE_LPSPI_MASTER_DMA_BASEADDR);
     /*SPI slave init*/
     DRIVER_SLAVE_SPI.Initialize(SPI_SlaveSignalEvent_t);
     DRIVER_SLAVE_SPI.PowerControl(ARM_POWER_FULL);

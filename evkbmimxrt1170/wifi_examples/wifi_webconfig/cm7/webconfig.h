@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 NXP
+ * Copyright 2020-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -13,6 +13,8 @@
  ******************************************************************************/
 
 /* @TEST_ANCHOR */
+
+#define WIFI_SECURITY_LENGTH  63
 
 /* Common Wi-Fi parameters */
 #ifndef WIFI_SSID

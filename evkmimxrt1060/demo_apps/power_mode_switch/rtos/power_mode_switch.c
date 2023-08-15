@@ -602,6 +602,36 @@ int main(void)
 
     /* Init board hardware. */
     BOARD_ConfigMPU();
+
+#ifndef SKIP_SYSCLK_INIT
+    /*
+     * This is generally workaround to prevent CM7 core from speculatively access
+     * SDRAM address space(even software doesn't require explicitly) when SDRAM
+     * is not initialized.
+     *
+     * Note:
+     * In SDK projects, macro SKIP_SYSCLK_INIT is defined in project setttings for
+     * those build configurations where SDRAM (configured by SEMC) should be
+     * initialized via either debug script or dcd.
+     */
+#define SDRAM_BASE_ADDR 0x80000000UL
+    uint32_t i, n;
+
+    /* MPU region number */
+    n = (MPU->TYPE & MPU_TYPE_DREGION_Msk) >> MPU_TYPE_DREGION_Pos;
+
+    /* Go through MPU region to disable regions settings for SDRAM address space */
+    for (i = 0; i < n; i++)
+    {
+        MPU->RNR = i;
+        if ((MPU->RBAR & MPU_RBAR_ADDR_Msk) == SDRAM_BASE_ADDR)
+        {
+            MPU->RBAR = 0U;
+            MPU->RASR = 0U;
+        }
+    }
+#endif /* ifndef SKIP_SYSCLK_INIT */
+
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
 

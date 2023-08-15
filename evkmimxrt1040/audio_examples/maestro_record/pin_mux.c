@@ -1,6 +1,7 @@
 /*
- * Copyright 2021 NXP
+ * Copyright  2021-2023 NXP
  * All rights reserved.
+ *
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -13,11 +14,12 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v9.0
+product: Pins v13.0
 processor: MIMXRT1042xxxxB
 package_id: MIMXRT1042XJM5B
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 13.0.1
+board: MIMXRT1040-EVK
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -33,22 +35,101 @@ processor_version: 0.0.0
  * 
  * END ****************************************************************************************************************/
 void BOARD_InitBootPins(void) {
-    BOARD_InitPins();
+    BOARD_InitDebugConsolePins();
+    BOARD_InitUSDHCPins();
 }
 
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-BOARD_InitPins:
-- options: {callFromInitBoot: 'true', coreID: core0, enableClock: 'true'}
+BOARD_InitCS42448Pins:
+- options: {callFromInitBoot: 'false', coreID: core0, enableClock: 'true'}
 - pin_list:
-  - {pin_num: H12, peripheral: GPIO1, signal: 'gpio_io, 05', pin_signal: GPIO_AD_B0_05, software_input_on: Disable, hysteresis_enable: Disable, pull_up_down_config: Pull_Down_100K_Ohm,
+  - {pin_num: C10, peripheral: SAI1, signal: sai_mclk, pin_signal: GPIO_B0_13, software_input_on: Enable, hysteresis_enable: Disable, pull_up_down_config: Pull_Down_100K_Ohm,
     pull_keeper_select: Keeper, pull_keeper_enable: Enable, open_drain: Disable, speed: MHZ_100, drive_strength: R0_6, slew_rate: Slow}
-  - {pin_num: F13, peripheral: GPIO2, signal: 'gpio_io, 28', pin_signal: GPIO_B1_12, software_input_on: Disable, hysteresis_enable: Enable, pull_up_down_config: Pull_Up_47K_Ohm,
-    pull_keeper_select: Pull, pull_keeper_enable: Enable, open_drain: Disable, speed: MHZ_100, drive_strength: R0, slew_rate: Fast}
-  - {pin_num: J11, peripheral: LPUART1, signal: RX, pin_signal: GPIO_AD_B0_13, software_input_on: Disable, hysteresis_enable: Disable, pull_up_down_config: Pull_Down_100K_Ohm,
+  - {pin_num: A11, peripheral: SAI1, signal: sai_rx_data0, pin_signal: GPIO_B1_00, software_input_on: Enable, hysteresis_enable: Disable, pull_up_down_config: Pull_Down_100K_Ohm,
     pull_keeper_select: Keeper, pull_keeper_enable: Enable, open_drain: Disable, speed: MHZ_100, drive_strength: R0_6, slew_rate: Slow}
-  - {pin_num: J12, peripheral: LPUART1, signal: TX, pin_signal: GPIO_AD_B0_12, software_input_on: Disable, hysteresis_enable: Disable, pull_up_down_config: Pull_Down_100K_Ohm,
+  - {pin_num: E12, peripheral: SAI1, signal: sai_tx_bclk, pin_signal: GPIO_B1_02, software_input_on: Enable, hysteresis_enable: Disable, pull_up_down_config: Pull_Down_100K_Ohm,
     pull_keeper_select: Keeper, pull_keeper_enable: Enable, open_drain: Disable, speed: MHZ_100, drive_strength: R0_6, slew_rate: Slow}
+  - {pin_num: A12, peripheral: SAI1, signal: sai_tx_data0, pin_signal: GPIO_B1_01, software_input_on: Enable, hysteresis_enable: Disable, pull_up_down_config: Pull_Down_100K_Ohm,
+    pull_keeper_select: Keeper, pull_keeper_enable: Enable, open_drain: Disable, speed: MHZ_100, drive_strength: R0_6, slew_rate: Slow}
+  - {pin_num: E10, peripheral: SAI1, signal: sai_tx_sync, pin_signal: GPIO_B1_03, software_input_on: Enable, hysteresis_enable: Disable, pull_up_down_config: Pull_Down_100K_Ohm,
+    pull_keeper_select: Keeper, pull_keeper_enable: Enable, open_drain: Disable, speed: MHZ_100, drive_strength: R0_6, slew_rate: Slow}
+  - {pin_num: D11, peripheral: SAI1, signal: sai_rx_bclk, pin_signal: GPIO_B0_15}
+  - {pin_num: C11, peripheral: SAI1, signal: sai_rx_sync, pin_signal: GPIO_B0_14}
+  - {pin_num: D10, peripheral: SAI1, signal: sai_tx_data1, pin_signal: GPIO_B0_12}
+  - {pin_num: B9, peripheral: SAI1, signal: sai_tx_data2, pin_signal: GPIO_B0_11}
+  - {pin_num: D9, peripheral: SAI1, signal: sai_tx_data3, pin_signal: GPIO_B0_10}
+  - {pin_num: J10, peripheral: LPI2C3, signal: SCL, pin_signal: GPIO_AD_B1_07, software_input_on: Enable, pull_up_down_config: Pull_Up_22K_Ohm, open_drain: Enable}
+  - {pin_num: H10, peripheral: LPI2C3, signal: SDA, pin_signal: GPIO_AD_B1_06, software_input_on: Enable, pull_up_down_config: Pull_Up_22K_Ohm, open_drain: Enable}
+  - {pin_num: B8, peripheral: GPIO2, signal: 'gpio_io, 06', pin_signal: GPIO_B0_06, direction: OUTPUT, hysteresis_enable: Enable, pull_up_down_config: Pull_Up_47K_Ohm,
+    drive_strength: R0, slew_rate: Fast}
+  - {pin_num: A10, peripheral: GPIO2, signal: 'gpio_io, 08', pin_signal: GPIO_B0_08, direction: OUTPUT, hysteresis_enable: Enable, pull_up_down_config: Pull_Up_47K_Ohm,
+    drive_strength: R0, slew_rate: Fast}
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
+ */
+
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_InitCS42448Pins
+ * Description   : Configures pin routing and optionally pin electrical features.
+ *
+ * END ****************************************************************************************************************/
+void BOARD_InitCS42448Pins(void) {
+  CLOCK_EnableClock(kCLOCK_Iomuxc);           
+
+  /* GPIO configuration of LCDIF_D2 on GPIO_B0_06 (pin B8) */
+  gpio_pin_config_t LCDIF_D2_config = {
+      .direction = kGPIO_DigitalOutput,
+      .outputLogic = 0U,
+      .interruptMode = kGPIO_NoIntmode
+  };
+  /* Initialize GPIO functionality on GPIO_B0_06 (pin B8) */
+  GPIO_PinInit(GPIO2, 6U, &LCDIF_D2_config);
+
+  /* GPIO configuration of LCDIF_D4 on GPIO_B0_08 (pin A10) */
+  gpio_pin_config_t LCDIF_D4_config = {
+      .direction = kGPIO_DigitalOutput,
+      .outputLogic = 0U,
+      .interruptMode = kGPIO_NoIntmode
+  };
+  /* Initialize GPIO functionality on GPIO_B0_08 (pin A10) */
+  GPIO_PinInit(GPIO2, 8U, &LCDIF_D4_config);
+
+  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B1_06_LPI2C3_SDA, 1U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B1_07_LPI2C3_SCL, 1U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_B0_06_GPIO2_IO06, 0U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_B0_08_GPIO2_IO08, 0U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_B0_10_SAI1_TX_DATA03, 0U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_B0_11_SAI1_TX_DATA02, 0U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_B0_12_SAI1_TX_DATA01, 0U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_B0_13_SAI1_MCLK, 1U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_B0_14_SAI1_RX_SYNC, 0U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_B0_15_SAI1_RX_BCLK, 0U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_B1_00_SAI1_RX_DATA00, 1U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_B1_01_SAI1_TX_DATA00, 1U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_B1_02_SAI1_TX_BCLK, 1U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_B1_03_SAI1_TX_SYNC, 1U); 
+  IOMUXC_GPR->GPR27 = ((IOMUXC_GPR->GPR27 &
+    (~(BOARD_INITCS42448PINS_IOMUXC_GPR_GPR27_GPIO_MUX2_GPIO_SEL_MASK))) 
+      | IOMUXC_GPR_GPR27_GPIO_MUX2_GPIO_SEL(0x00U) 
+    );
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B1_06_LPI2C3_SDA, 0xD8B0U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B1_07_LPI2C3_SCL, 0xD8B0U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_06_GPIO2_IO06, 0x015089U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_08_GPIO2_IO08, 0x015089U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_13_SAI1_MCLK, 0x10B0U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_00_SAI1_RX_DATA00, 0x10B0U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_01_SAI1_TX_DATA00, 0x10B0U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_02_SAI1_TX_BCLK, 0x10B0U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_03_SAI1_TX_SYNC, 0x10B0U); 
+}
+
+
+/*
+ * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+BOARD_InitWM8960Pins:
+- options: {callFromInitBoot: 'false', coreID: core0, enableClock: 'true'}
+- pin_list:
   - {pin_num: H9, peripheral: LPI2C1, signal: SCL, pin_signal: GPIO_AD_B1_00, software_input_on: Enable, hysteresis_enable: Disable, pull_up_down_config: Pull_Up_22K_Ohm,
     pull_keeper_select: Keeper, pull_keeper_enable: Enable, open_drain: Enable, speed: MHZ_100, drive_strength: R0_6, slew_rate: Slow}
   - {pin_num: K12, peripheral: LPI2C1, signal: SDA, pin_signal: GPIO_AD_B1_01, software_input_on: Enable, hysteresis_enable: Disable, pull_up_down_config: Pull_Up_22K_Ohm,
@@ -63,6 +144,68 @@ BOARD_InitPins:
     pull_keeper_select: Keeper, pull_keeper_enable: Enable, open_drain: Disable, speed: MHZ_100, drive_strength: R0_6, slew_rate: Slow}
   - {pin_num: E10, peripheral: SAI1, signal: sai_tx_sync, pin_signal: GPIO_B1_03, software_input_on: Enable, hysteresis_enable: Disable, pull_up_down_config: Pull_Down_100K_Ohm,
     pull_keeper_select: Keeper, pull_keeper_enable: Enable, open_drain: Disable, speed: MHZ_100, drive_strength: R0_6, slew_rate: Slow}
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
+ */
+
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_InitWM8960Pins
+ * Description   : Configures pin routing and optionally pin electrical features.
+ *
+ * END ****************************************************************************************************************/
+void BOARD_InitWM8960Pins(void) {
+  CLOCK_EnableClock(kCLOCK_Iomuxc);           
+
+  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B1_00_LPI2C1_SCL, 1U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B1_01_LPI2C1_SDA, 1U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_B0_13_SAI1_MCLK, 1U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_B1_00_SAI1_RX_DATA00, 1U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_B1_01_SAI1_TX_DATA00, 1U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_B1_02_SAI1_TX_BCLK, 1U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_B1_03_SAI1_TX_SYNC, 1U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B1_00_LPI2C1_SCL, 0xD8B0U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B1_01_LPI2C1_SDA, 0xD8B0U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_13_SAI1_MCLK, 0x10B0U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_00_SAI1_RX_DATA00, 0x10B0U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_01_SAI1_TX_DATA00, 0x10B0U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_02_SAI1_TX_BCLK, 0x10B0U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_03_SAI1_TX_SYNC, 0x10B0U); 
+}
+
+
+/*
+ * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+BOARD_InitDebugConsolePins:
+- options: {callFromInitBoot: 'true', coreID: core0, enableClock: 'true'}
+- pin_list:
+  - {pin_num: J11, peripheral: LPUART1, signal: RX, pin_signal: GPIO_AD_B0_13, software_input_on: Disable, hysteresis_enable: Disable, pull_up_down_config: Pull_Down_100K_Ohm,
+    pull_keeper_select: Keeper, pull_keeper_enable: Enable, open_drain: Disable, speed: MHZ_100, drive_strength: R0_6, slew_rate: Slow}
+  - {pin_num: J12, peripheral: LPUART1, signal: TX, pin_signal: GPIO_AD_B0_12, software_input_on: Disable, hysteresis_enable: Disable, pull_up_down_config: Pull_Down_100K_Ohm,
+    pull_keeper_select: Keeper, pull_keeper_enable: Enable, open_drain: Disable, speed: MHZ_100, drive_strength: R0_6, slew_rate: Slow}
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
+ */
+
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_InitDebugConsolePins
+ * Description   : Configures pin routing and optionally pin electrical features.
+ *
+ * END ****************************************************************************************************************/
+void BOARD_InitDebugConsolePins(void) {
+  CLOCK_EnableClock(kCLOCK_Iomuxc);           
+
+  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_12_LPUART1_TX, 0U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_13_LPUART1_RX, 0U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B0_12_LPUART1_TX, 0x10B0U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B0_13_LPUART1_RX, 0x10B0U); 
+}
+
+
+/*
+ * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+BOARD_InitUSDHCPins:
+- options: {callFromInitBoot: 'true', coreID: core0, enableClock: 'true'}
+- pin_list:
   - {pin_num: K3, peripheral: USDHC1, signal: usdhc_clk, pin_signal: GPIO_SD_B0_01, software_input_on: Disable, hysteresis_enable: Enable, pull_up_down_config: Pull_Up_47K_Ohm,
     pull_keeper_select: Keeper, pull_keeper_enable: Disable, open_drain: Disable, speed: MHZ_100, drive_strength: R0, slew_rate: Fast}
   - {pin_num: H3, peripheral: USDHC1, signal: usdhc_cmd, pin_signal: GPIO_SD_B0_00, software_input_on: Disable, hysteresis_enable: Enable, pull_up_down_config: Pull_Up_47K_Ohm,
@@ -79,37 +222,32 @@ BOARD_InitPins:
     pull_keeper_select: Pull, pull_keeper_enable: Enable, open_drain: Disable, speed: MHZ_100, drive_strength: R0_4, slew_rate: Fast}
   - {pin_num: K11, peripheral: GPIO1, signal: 'gpio_io, 18', pin_signal: GPIO_AD_B1_02, direction: OUTPUT, gpio_init_state: 'true', software_input_on: Disable, hysteresis_enable: Disable,
     pull_up_down_config: Pull_Down_100K_Ohm, pull_keeper_select: Keeper, pull_keeper_enable: Enable, open_drain: Disable, speed: MHZ_100, drive_strength: R0_6, slew_rate: Slow}
+  - {pin_num: H12, peripheral: GPIO1, signal: 'gpio_io, 05', pin_signal: GPIO_AD_B0_05, software_input_on: Disable, hysteresis_enable: Disable, pull_up_down_config: Pull_Down_100K_Ohm,
+    pull_keeper_select: Keeper, pull_keeper_enable: Enable, open_drain: Disable, speed: MHZ_100, drive_strength: R0_6, slew_rate: Slow}
+  - {pin_num: F13, peripheral: GPIO2, signal: 'gpio_io, 28', pin_signal: GPIO_B1_12, software_input_on: Disable, hysteresis_enable: Enable, pull_up_down_config: Pull_Up_47K_Ohm,
+    pull_keeper_select: Pull, pull_keeper_enable: Enable, open_drain: Disable, speed: MHZ_100, drive_strength: R0, slew_rate: Fast}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
 /* FUNCTION ************************************************************************************************************
  *
- * Function Name : BOARD_InitPins
+ * Function Name : BOARD_InitUSDHCPins
  * Description   : Configures pin routing and optionally pin electrical features.
  *
  * END ****************************************************************************************************************/
-void BOARD_InitPins(void) {
+void BOARD_InitUSDHCPins(void) {
   CLOCK_EnableClock(kCLOCK_Iomuxc);           
 
-  /* GPIO configuration of SDIO0_SD1_SEL on GPIO_AD_B1_02 (pin K11) */
-  gpio_pin_config_t SDIO0_SD1_SEL_config = {
+  /* GPIO configuration of SPDIF_OUT on GPIO_AD_B1_02 (pin K11) */
+  gpio_pin_config_t SPDIF_OUT_config = {
       .direction = kGPIO_DigitalOutput,
       .outputLogic = 1U,
       .interruptMode = kGPIO_NoIntmode
   };
   /* Initialize GPIO functionality on GPIO_AD_B1_02 (pin K11) */
-  GPIO_PinInit(GPIO1, 18U, &SDIO0_SD1_SEL_config);
+  GPIO_PinInit(GPIO1, 18U, &SPDIF_OUT_config);
 
   IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_05_GPIO1_IO05, 0U); 
-  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_12_LPUART1_TX, 0U); 
-  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_13_LPUART1_RX, 0U); 
-  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B1_00_LPI2C1_SCL, 1U); 
-  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B1_01_LPI2C1_SDA, 1U); 
-  IOMUXC_SetPinMux(IOMUXC_GPIO_B0_13_SAI1_MCLK, 1U); 
-  IOMUXC_SetPinMux(IOMUXC_GPIO_B1_00_SAI1_RX_DATA00, 1U); 
-  IOMUXC_SetPinMux(IOMUXC_GPIO_B1_01_SAI1_TX_DATA00, 1U); 
-  IOMUXC_SetPinMux(IOMUXC_GPIO_B1_02_SAI1_TX_BCLK, 1U); 
-  IOMUXC_SetPinMux(IOMUXC_GPIO_B1_03_SAI1_TX_SYNC, 1U); 
   IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B1_02_GPIO1_IO18, 0U); 
   IOMUXC_SetPinMux(IOMUXC_GPIO_B1_12_GPIO2_IO28, 0U); 
   IOMUXC_SetPinMux(IOMUXC_GPIO_B1_14_USDHC1_VSELECT, 0U); 
@@ -120,23 +258,14 @@ void BOARD_InitPins(void) {
   IOMUXC_SetPinMux(IOMUXC_GPIO_SD_B0_04_USDHC1_DATA2, 0U); 
   IOMUXC_SetPinMux(IOMUXC_GPIO_SD_B0_05_USDHC1_DATA3, 0U); 
   IOMUXC_GPR->GPR26 = ((IOMUXC_GPR->GPR26 &
-    (~(BOARD_INITPINS_IOMUXC_GPR_GPR26_GPIO_MUX1_GPIO_SEL_MASK))) 
+    (~(BOARD_INITUSDHCPINS_IOMUXC_GPR_GPR26_GPIO_MUX1_GPIO_SEL_MASK))) 
       | IOMUXC_GPR_GPR26_GPIO_MUX1_GPIO_SEL(0x00U) 
     );
   IOMUXC_GPR->GPR27 = ((IOMUXC_GPR->GPR27 &
-    (~(BOARD_INITPINS_IOMUXC_GPR_GPR27_GPIO_MUX2_GPIO_SEL_MASK))) 
+    (~(BOARD_INITUSDHCPINS_IOMUXC_GPR_GPR27_GPIO_MUX2_GPIO_SEL_MASK))) 
       | IOMUXC_GPR_GPR27_GPIO_MUX2_GPIO_SEL(0x00U) 
     );
   IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B0_05_GPIO1_IO05, 0x10B0U); 
-  IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B0_12_LPUART1_TX, 0x10B0U); 
-  IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B0_13_LPUART1_RX, 0x10B0U); 
-  IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B1_00_LPI2C1_SCL, 0xD8B0U); 
-  IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B1_01_LPI2C1_SDA, 0xD8B0U); 
-  IOMUXC_SetPinConfig(IOMUXC_GPIO_B0_13_SAI1_MCLK, 0x10B0U); 
-  IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_00_SAI1_RX_DATA00, 0x10B0U); 
-  IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_01_SAI1_TX_DATA00, 0x10B0U); 
-  IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_02_SAI1_TX_BCLK, 0x10B0U); 
-  IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_03_SAI1_TX_SYNC, 0x10B0U); 
   IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B1_02_GPIO1_IO18, 0x10B0U); 
   IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_12_GPIO2_IO28, 0x017089U); 
   IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_14_USDHC1_VSELECT, 0x0170A1U); 

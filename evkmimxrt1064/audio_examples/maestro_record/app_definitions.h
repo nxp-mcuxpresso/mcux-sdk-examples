@@ -17,7 +17,7 @@
  ******************************************************************************/
 /*${macro:start}*/
 /* SAI instance and clock */
-#define DEMO_CODEC_WM8960
+#define DEMO_CODEC_WM8960  1
 #define DEMO_SAI           SAI1
 #define DEMO_SAI_CHANNEL   (0)
 #define DEMO_SAI_BITWIDTH  (kSAI_WordWidth16bits)

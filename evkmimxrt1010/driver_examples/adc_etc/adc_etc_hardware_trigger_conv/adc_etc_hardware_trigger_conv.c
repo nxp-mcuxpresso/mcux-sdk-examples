@@ -60,7 +60,7 @@ void EXAMPLE_ADC_ETC_DONE0_Handler(void)
     g_AdcConversionDoneFlag |= ADC_ETC_DONE0_FLAG;
     ADC_ETC_ClearInterruptStatusFlags(DEMO_ADC_ETC_BASE, kADC_ETC_Trg0TriggerSource, kADC_ETC_Done0StatusFlagMask);
     g_AdcConversionValue0 = ADC_ETC_GetADCConversionValue(DEMO_ADC_ETC_BASE, 0U, 0U); /* Get trigger0 chain0 result. */
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 void EXAMPLE_ADC_ETC_DONE1_Handler(void)
@@ -68,7 +68,7 @@ void EXAMPLE_ADC_ETC_DONE1_Handler(void)
     g_AdcConversionDoneFlag |= ADC_ETC_DONE1_FLAG;
     ADC_ETC_ClearInterruptStatusFlags(DEMO_ADC_ETC_BASE, kADC_ETC_Trg0TriggerSource, kADC_ETC_Done1StatusFlagMask);
     g_AdcConversionValue1 = ADC_ETC_GetADCConversionValue(DEMO_ADC_ETC_BASE, 0U, 1U); /* Get trigger0 chain1 result. */
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

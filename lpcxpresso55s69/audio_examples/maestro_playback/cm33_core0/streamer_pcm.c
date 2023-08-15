@@ -72,25 +72,39 @@ int streamer_pcm_write(pcm_rtos_t *pcm, uint8_t *data, uint32_t size)
 {
     /* Ensure write size is a multiple of 32, otherwise EDMA will assert
      * failure.  Round down for the last chunk of a file/stream. */
-    pcm->i2sTxTransfer.dataSize = size - (size % 32);
-    pcm->i2sTxTransfer.data     = data;
+    int32_t local_size = size - (size % 32);
+    uint32_t offset    = 0;
+    uint16_t dataSize  = 0;
 
-    /* Start the consecutive transfer */
-    while (I2S_TxTransferSendDMA(DEMO_I2S_TX, &pcm->i2sTxHandle, pcm->i2sTxTransfer) == kStatus_I2S_Busy)
+    while (local_size > 0)
     {
-        /* Wait for transfer to finish */
-        if (xSemaphoreTake(pcm->semaphoreTX, portMAX_DELAY) != pdTRUE)
+        /* Make sure the data size is not larger than 2048 bytes for a oneChannel configuration, as the I2S EDMA driver
+         * does not allow this yet. */
+        dataSize =
+            ((pcm->num_channels == 1) && (local_size > 2048)) ? ((local_size - 2048) > 1024 ? 2048 : 1024) : local_size;
+        pcm->i2sTxTransfer.dataSize = pcm->isFirstTx ? (dataSize / 2) : dataSize;
+        pcm->i2sTxTransfer.data     = data + offset;
+        local_size -= dataSize;
+        offset += dataSize;
+
+        /* Start the consecutive transfer */
+        while (I2S_TxTransferSendDMA(DEMO_I2S_TX, &pcm->i2sTxHandle, pcm->i2sTxTransfer) == kStatus_I2S_Busy)
         {
-            return -1;
+            /* Wait for transfer to finish */
+            if (xSemaphoreTake(pcm->semaphoreTX, portMAX_DELAY) != pdTRUE)
+            {
+                return -1;
+            }
         }
-    }
 
-    if (pcm->isFirstTx)
-    {
-        /* Need to queue two transmit buffers so when the first one
-         * finishes transfer, the other immediatelly starts */
-        I2S_TxTransferSendDMA(DEMO_I2S_TX, &pcm->i2sTxHandle, pcm->i2sTxTransfer);
-        pcm->isFirstTx = 0;
+        if (pcm->isFirstTx)
+        {
+            pcm->i2sTxTransfer.data += pcm->i2sTxTransfer.dataSize;
+            /* Need to queue two transmit buffers so when the first one
+             * finishes transfer, the other immediatelly starts */
+            I2S_TxTransferSendDMA(DEMO_I2S_TX, &pcm->i2sTxHandle, pcm->i2sTxTransfer);
+            pcm->isFirstTx = 0;
+        }
     }
 
     return 0;

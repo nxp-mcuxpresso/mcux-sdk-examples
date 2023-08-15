@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -91,7 +99,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../srtm/services/srtm_sensor_service.c"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${SdkRootDirPath}/examples/evkmcimx7ulp/multicore_examples/erpc_common
     ${SdkRootDirPath}/examples/evkmcimx7ulp/multicore_examples/erpc_common/erpc_matrix_multiply/service
@@ -100,150 +108,9 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/../srtm/services
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core/components/codec/i2c
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/components/i2c
-    ${SdkRootDirPath}/core/components/codec
-    ${SdkRootDirPath}/core/components/codec/
-    ${SdkRootDirPath}/middleware/multicore
-    ${SdkRootDirPath}/core/drivers/gpio
-    ${SdkRootDirPath}/core/drivers/port
-    ${SdkRootDirPath}/core/devices/MCIMX7U5/drivers
-    ${SdkRootDirPath}/core/drivers/mu
-    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
-    ${SdkRootDirPath}/core/devices/MCIMX7U5
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/components/serial_manager
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/drivers/lpuart
-    ${SdkRootDirPath}/core/drivers/msmc
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/drivers/dmamux
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/drivers/edma
-    ${SdkRootDirPath}/core/drivers/lpi2c
-    ${SdkRootDirPath}/core/drivers/pmc0
-    ${SdkRootDirPath}/core/drivers/llwu
-    ${SdkRootDirPath}/core/drivers/snvs_lp
-    ${SdkRootDirPath}/core/components/pf1550
-    ${SdkRootDirPath}/core/drivers/sai
-    ${SdkRootDirPath}/core/components/codec/wm8960
-    ${SdkRootDirPath}/core/components/srtm/port
-    ${SdkRootDirPath}/core/components/srtm
-    ${SdkRootDirPath}/core/middleware/issdk
-    ${SdkRootDirPath}/core/CMSIS/Driver/Include
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
+set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")
 
-# include modules
-include(component_codec_i2c_MCIMX7U5)
-
-include(driver_common)
-
-include(component_lpi2c_adapter)
-
-include(driver_codec)
-
-include(component_wm8960_adapter)
-
-include(middleware_multicore_rpmsg_lite_MCIMX7U5)
-
-include(middleware_multicore_rpmsg_lite_freertos)
-
-include(driver_gpio)
-
-include(driver_port)
-
-include(driver_clock)
-
-include(driver_mu)
-
-include(middleware_multicore_erpc_eRPC_server)
-
-include(middleware_multicore_erpc_eRPC_rpmsg_tty_rtos_remote_c_wrapper)
-
-include(middleware_multicore_erpc_eRPC_rpmsg_tty_rtos_transport)
-
-include(middleware_multicore_erpc_eRPC_port_freertos)
-
-include(middleware_multicore_erpc_doc)
-
-include(middleware_freertos-kernel_MCIMX7U5)
-
-include(driver_iomuxc)
-
-include(device_CMSIS)
-
-include(utility_debug_console)
-
-include(component_lpuart_adapter)
-
-include(component_serial_manager)
-
-include(component_lists)
-
-include(component_serial_manager_uart)
-
-include(driver_lpuart)
-
-include(device_startup)
-
-include(driver_msmc)
-
-include(utility_assert)
-
-include(driver_dmamux)
-
-include(CMSIS_Include_core_cm)
-
-include(driver_edma_MCIMX7U5)
-
-include(driver_lpi2c)
-
-include(driver_lpi2c_freertos)
-
-include(middleware_freertos-kernel_extension)
-
-include(driver_pmc0)
-
-include(driver_llwu)
-
-include(driver_snvs_lp)
-
-include(driver_pf1550)
-
-include(driver_sai)
-
-include(driver_sai_edma)
-
-include(driver_wm8960)
-
-include(driver_srtm_freertos)
-
-include(driver_srtm_MCIMX7U5)
-
-include(middleware_multicore_rpmsg_lite_imx7ulp_m4_freertos)
-
-include(middleware_freertos-kernel_heap_4)
-
-include(middleware_issdk_sensor_allregdefs)
-
-include(CMSIS_Driver_Include_I2C)
-
-include(CMSIS_Driver_Include_Common)
-
-include(CMSIS_Driver_Include_SPI)
-
-include(middleware_issdk_algorithms_pedometer_lib_cm4)
-
-include(middleware_issdk_algorithms_pedometer_common)
-
-include(middleware_multicore_erpc_common)
-
-include(utilities_misc_utilities_MCIMX7U5)
-
+include(${SdkRootDirPath}/core/devices/MCIMX7U5/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lstdc++ -lm -lc -lgcc -lnosys")  
@@ -255,20 +122,10 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE g)
 
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
-if(CMAKE_BUILD_TYPE STREQUAL release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/middleware/issdk/algorithms/pedometer/lib/libpedometerm4.a)
-endif(CMAKE_BUILD_TYPE STREQUAL release)
-
-if(CMAKE_BUILD_TYPE STREQUAL flash_debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/middleware/issdk/algorithms/pedometer/lib/libpedometerm4.a)
-endif(CMAKE_BUILD_TYPE STREQUAL flash_debug)
-
-if(CMAKE_BUILD_TYPE STREQUAL flash_release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/middleware/issdk/algorithms/pedometer/lib/libpedometerm4.a)
-endif(CMAKE_BUILD_TYPE STREQUAL flash_release)
-
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
 ADD_CUSTOM_COMMAND(TARGET ${MCUX_SDK_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_OBJCOPY}
 -Obinary ${EXECUTABLE_OUTPUT_PATH}/${MCUX_SDK_PROJECT_NAME} ${EXECUTABLE_OUTPUT_PATH}/erpc_matrix_multiply_rpmsg_rtos_imxcm4.bin)
+
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map;${EXECUTABLE_OUTPUT_PATH}/erpc_matrix_multiply_rpmsg_rtos_imxcm4.bin")
 

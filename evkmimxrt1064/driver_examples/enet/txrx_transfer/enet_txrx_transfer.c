@@ -1,7 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2022 NXP
- * All rights reserved.
+ * Copyright 2016-2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -13,17 +12,18 @@
 #include "pin_mux.h"
 #include "board.h"
 
-#include "fsl_phyksz8081.h"
 #include "fsl_iomuxc.h"
+#include "fsl_phyksz8081.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
 extern phy_ksz8081_resource_t g_phy_resource;
-#define EXAMPLE_ENET         ENET
-#define EXAMPLE_PHY_ADDRESS  0x02U
-#define EXAMPLE_PHY_OPS      &phyksz8081_ops
-#define EXAMPLE_PHY_RESOURCE &g_phy_resource
-#define EXAMPLE_CLOCK_FREQ   CLOCK_GetFreq(kCLOCK_IpgClk)
+#define EXAMPLE_ENET                  ENET
+#define EXAMPLE_PHY_ADDRESS           0x02U
+#define EXAMPLE_PHY_OPS               &phyksz8081_ops
+#define EXAMPLE_PHY_RESOURCE          &g_phy_resource
+#define EXAMPLE_CLOCK_FREQ            CLOCK_GetFreq(kCLOCK_IpgClk)
+#define EXAMPLE_PHY_LINK_INTR_SUPPORT (1U)
 #define ENET_RXBD_NUM          (4)
 #define ENET_TXBD_NUM          (4)
 #define ENET_RXBUFF_SIZE       (ENET_FRAME_MAX_FRAMELEN)
@@ -38,6 +38,9 @@ extern phy_ksz8081_resource_t g_phy_resource;
 #endif
 #ifndef PHY_STABILITY_DELAY_US
 #define PHY_STABILITY_DELAY_US (0U)
+#endif
+#ifndef EXAMPLE_PHY_LINK_INTR_SUPPORT
+#define EXAMPLE_PHY_LINK_INTR_SUPPORT (0U)
 #endif
 
 /* @TEST_ANCHOR */
@@ -54,14 +57,20 @@ extern phy_ksz8081_resource_t g_phy_resource;
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
-
 /*! @brief Build ENET broadcast frame. */
 static void ENET_BuildBroadCastFrame(void);
+
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+void GPIO_EnableLinkIntr(void);
+#endif
 
 /*******************************************************************************
  * Variables
  ******************************************************************************/
 phy_ksz8081_resource_t g_phy_resource;
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+extern void PHY_LinkStatusChange(void);
+#endif
 /*! @brief Buffer descriptors should be in non-cacheable region and should be align to "ENET_BUFF_ALIGNMENT". */
 AT_NONCACHEABLE_SECTION_ALIGN(enet_rx_bd_struct_t g_rxBuffDescrip[ENET_RXBD_NUM], ENET_BUFF_ALIGNMENT);
 AT_NONCACHEABLE_SECTION_ALIGN(enet_tx_bd_struct_t g_txBuffDescrip[ENET_TXBD_NUM], ENET_BUFF_ALIGNMENT);
@@ -74,13 +83,18 @@ SDK_ALIGN(uint8_t g_rxDataBuff[ENET_RXBD_NUM][SDK_SIZEALIGN(ENET_RXBUFF_SIZE, AP
 SDK_ALIGN(uint8_t g_txDataBuff[ENET_TXBD_NUM][SDK_SIZEALIGN(ENET_TXBUFF_SIZE, APP_ENET_BUFF_ALIGNMENT)],
           APP_ENET_BUFF_ALIGNMENT);
 
-enet_handle_t g_handle;
-uint8_t g_frame[ENET_DATA_LENGTH + 14];
+/*! @brief MAC transfer. */
+static enet_handle_t g_handle;
+static uint8_t g_frame[ENET_DATA_LENGTH + 14];
 
 /*! @brief The MAC address for ENET device. */
 uint8_t g_macAddr[6] = MAC_ADDRESS;
 
+/*! @brief PHY status. */
 static phy_handle_t phyHandle;
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+static bool linkChange = false;
+#endif
 
 /*******************************************************************************
  * Code
@@ -115,6 +129,24 @@ static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
     return ENET_MDIORead(EXAMPLE_ENET, phyAddr, regAddr, pData);
 }
 
+
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+void GPIO_EnableLinkIntr(void)
+{
+    GPIO_EnableInterrupts(GPIO1, BOARD_INITENETPINS_PHY_INTR_GPIO_PIN_MASK);
+}
+
+void GPIO1_Combined_0_15_IRQHandler(void)
+{
+    if (0U != (GPIO_GetPinsInterruptFlags(GPIO1) & BOARD_INITENETPINS_PHY_INTR_GPIO_PIN_MASK))
+    {
+        PHY_LinkStatusChange();
+        GPIO_DisableInterrupts(GPIO1, BOARD_INITENETPINS_PHY_INTR_GPIO_PIN_MASK);
+        GPIO_ClearPinsInterruptFlags(GPIO1, BOARD_INITENETPINS_PHY_INTR_GPIO_PIN_MASK);
+    }
+    SDK_ISR_EXIT_BARRIER;
+}
+#endif
 /*! @brief Build Frame for transmit. */
 static void ENET_BuildBroadCastFrame(void)
 {
@@ -135,39 +167,48 @@ static void ENET_BuildBroadCastFrame(void)
     }
 }
 
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+void PHY_LinkStatusChange(void)
+{
+    linkChange = true;
+}
+#endif
+
 /*!
  * @brief Main function
  */
 int main(void)
 {
-    enet_config_t config;
+    volatile uint32_t count = 0;
     phy_config_t phyConfig = {0};
+    uint32_t testTxNum = 0;
     uint32_t length        = 0;
-    bool link              = false;
     bool autonego          = false;
+    bool link              = false;
+    bool tempLink          = false;
+    enet_data_error_stats_t eErrStatic;
+    enet_config_t config;
     phy_speed_t speed;
     phy_duplex_t duplex;
-    uint32_t testTxNum = 0;
     status_t status;
-    enet_data_error_stats_t eErrStatic;
-    volatile uint32_t count = 0;
 
     /* Hardware Initialization. */
-    gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
-
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     BOARD_InitModuleClock();
 
-    GPIO_PinInit(GPIO1, 9, &gpio_config);
-    GPIO_PinInit(GPIO1, 10, &gpio_config);
-    /* Pull up the ENET_INT before RESET. */
-    GPIO_WritePinOutput(GPIO1, 10, 1);
+    /* Hardware reset PHY. */
     GPIO_WritePinOutput(GPIO1, 9, 0);
     SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
     GPIO_WritePinOutput(GPIO1, 9, 1);
+    SDK_DelayAtLeastUs(100, CLOCK_GetFreq(kCLOCK_CpuClk));
+
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+    IRQ_ClearPendingIRQ(GPIO1_Combined_0_15_IRQn);
+    EnableIRQ(GPIO1_Combined_0_15_IRQn);
+#endif
 
     MDIO_Init();
     g_phy_resource.read  = MDIO_Read;
@@ -209,6 +250,9 @@ int main(void)
     phyConfig.autoNeg  = true;
     phyConfig.ops      = EXAMPLE_PHY_OPS;
     phyConfig.resource = EXAMPLE_PHY_RESOURCE;
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+    phyConfig.intrType = kPHY_IntrActiveLow;
+#endif
 
     /* Initialize PHY and wait auto-negotiation over. */
     PRINTF("Wait for PHY init...\r\n");
@@ -222,11 +266,14 @@ int main(void)
             count = PHY_AUTONEGO_TIMEOUT_COUNT;
             do
             {
-                PHY_GetAutoNegotiationStatus(&phyHandle, &autonego);
                 PHY_GetLinkStatus(&phyHandle, &link);
-                if (autonego && link)
+                if (link)
                 {
-                    break;
+                    PHY_GetAutoNegotiationStatus(&phyHandle, &autonego);
+                    if (autonego)
+                    {
+                        break;
+                    }
                 }
             } while (--count);
             if (!autonego)
@@ -260,6 +307,24 @@ int main(void)
 
     while (1)
     {
+        /* PHY link status update. */
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+        if (linkChange)
+        {
+            linkChange = false;
+            PHY_ClearInterrupt(&phyHandle);
+            PHY_GetLinkStatus(&phyHandle, &link);
+            GPIO_EnableLinkIntr();
+        }
+#else
+        PHY_GetLinkStatus(&phyHandle, &link);
+#endif
+        if (tempLink != link)
+        {
+            PRINTF("PHY link changed, link status = %u\r\n", link);
+            tempLink = link;
+        }
+
         /* Get the Frame size */
         status = ENET_GetRxFrameSize(&g_handle, &length, 0);
         /* Call ENET_ReadFrame when there is a received frame. */
@@ -289,20 +354,17 @@ int main(void)
         if (testTxNum < ENET_TRANSMIT_DATA_NUM)
         {
             /* Send a multicast frame when the PHY is link up. */
-            if (kStatus_Success == PHY_GetLinkStatus(&phyHandle, &link))
+            if (link)
             {
-                if (link)
+                testTxNum++;
+                if (kStatus_Success ==
+                    ENET_SendFrame(EXAMPLE_ENET, &g_handle, &g_frame[0], ENET_DATA_LENGTH, 0, false, NULL))
                 {
-                    testTxNum++;
-                    if (kStatus_Success ==
-                        ENET_SendFrame(EXAMPLE_ENET, &g_handle, &g_frame[0], ENET_DATA_LENGTH, 0, false, NULL))
-                    {
-                        PRINTF("The %d frame transmitted success!\r\n", testTxNum);
-                    }
-                    else
-                    {
-                        PRINTF(" \r\nTransmit frame failed!\r\n");
-                    }
+                    PRINTF("The %d frame transmitted success!\r\n", testTxNum);
+                }
+                else
+                {
+                    PRINTF(" \r\nTransmit frame failed!\r\n");
                 }
             }
         }

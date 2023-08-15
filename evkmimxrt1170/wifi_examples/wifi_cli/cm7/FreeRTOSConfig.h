@@ -100,7 +100,7 @@
 #define configUSE_TIMERS             1
 #define configTIMER_TASK_PRIORITY    4
 #define configTIMER_QUEUE_LENGTH     5
-#define configTIMER_TASK_STACK_DEPTH (configMINIMAL_STACK_SIZE)
+#define configTIMER_TASK_STACK_DEPTH (configMINIMAL_STACK_SIZE * 2U)
 
 /* Define to trap errors during development. */
 #define configASSERT(x)           \
@@ -127,6 +127,7 @@
 #define INCLUDE_xTaskAbortDelay             0
 #define INCLUDE_xTaskGetHandle              0
 #define INCLUDE_xTaskResumeFromISR          1
+#define INCLUDE_pcTaskGetTaskName           1
 
 
 

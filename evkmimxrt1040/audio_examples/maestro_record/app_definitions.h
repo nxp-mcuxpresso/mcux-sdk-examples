@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2023 NXP
  * All rights reserved.
  *
  *
@@ -9,7 +9,7 @@
 #define _APP_DEFINITIONS_H_
 
 /*${header:start}*/
-#include "fsl_wm8960.h"
+#include "fsl_common.h"
 /*${header:end}*/
 
 /*******************************************************************************
@@ -17,15 +17,15 @@
  ******************************************************************************/
 /*${macro:start}*/
 /* SAI instance and clock */
-#define DEMO_CODEC_WM8960
+#define DEMO_CODEC_WM8960  1
+#define DEMO_CODEC_CS42448 0
+#if DEMO_CODEC_WM8960 && DEMO_CODEC_CS42448
+#error "Duplicate codec defined"
+#endif
 #define DEMO_SAI           SAI1
 #define DEMO_SAI_CHANNEL   (0)
-#define DEMO_SAI_BITWIDTH  (kSAI_WordWidth16bits)
 #define DEMO_SAI_IRQ       SAI1_IRQn
 #define SAI_UserIRQHandler SAI1_IRQHandler
-#define DEMO_CHANNEL_NUM   2
-#define DEMO_VOLUME        75
-#define DEMO_CODEC_CHANNEL kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight
 
 /* IRQ */
 #define DEMO_SAI_TX_IRQ SAI1_IRQn
@@ -39,19 +39,36 @@
 #define DEMO_SAI_TX_SOURCE kDmaRequestMuxSai1Tx
 #define DEMO_SAI_RX_SOURCE kDmaRequestMuxSai1Rx
 
+#if DEMO_CODEC_CS42448
+#define DEMO_SAI_BITWIDTH              (kSAI_WordWidth32bits)
+#define DEMO_VOLUME                    (100)
+#define DEMO_CHANNEL_NUM               8
+#define DEMO_CODEC_CHANNEL             0xFF
+#define DEMO_CS42448_I2C_INSTANCE      3
+#define DEMO_CODEC_POWER_GPIO          GPIO2
+#define DEMO_CODEC_POWER_GPIO_PIN      8
+#define DEMO_CODEC_RESET_GPIO          GPIO2
+#define DEMO_CODEC_RESET_GPIO_PIN      6
+#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (11U)
+#define DEMO_SAI_MASTER_SLAVE          kSAI_Master
+#else
+#define DEMO_VOLUME                    (75)
+#define DEMO_WM8960_I2C_INSTANCE       1
+#define DEMO_CHANNEL_NUM               2
+#define DEMO_CODEC_CHANNEL             kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight
+#define DEMO_SAI_BITWIDTH              (kSAI_WordWidth16bits)
+#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (15U)
+#define DEMO_SAI_MASTER_SLAVE          kSAI_Master
+#endif
+
 /* Select Audio/Video PLL (786.48 MHz) as sai1 clock source */
 #define DEMO_SAI1_CLOCK_SOURCE_SELECT (2U)
 /* Clock pre divider for sai1 clock source */
 #define DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER (3U)
-/* Clock divider for sai1 clock source */
-#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (15U)
 /* Get frequency of sai1 clock */
 #define DEMO_SAI_CLK_FREQ                                                        \
     (CLOCK_GetFreq(kCLOCK_AudioPllClk) / (DEMO_SAI1_CLOCK_SOURCE_DIVIDER + 1U) / \
      (DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER + 1U))
-
-/* I2C instance and clock */
-#define DEMO_I2C LPI2C1
 
 /* Select USB1 PLL (480 MHz) as master lpi2c clock source */
 #define DEMO_LPI2C_CLOCK_SOURCE_SELECT (0U)
@@ -61,5 +78,9 @@
 #define DEMO_I2C_CLK_FREQ ((CLOCK_GetFreq(kCLOCK_Usb1PllClk) / 8) / (DEMO_LPI2C_CLOCK_SOURCE_DIVIDER + 1U))
 
 /*${macro:end}*/
+
+#if defined DEMO_CODEC_CS42448
+void BORAD_CodecReset(bool state);
+#endif
 
 #endif /* _APP_DEFINITIONS_H_ */

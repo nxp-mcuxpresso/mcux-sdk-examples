@@ -23,21 +23,21 @@
 
 #include "fsl_debug_console.h"
 
+#include "app_definitions.h"
 #include "fsl_gpio.h"
 #include "fsl_iomuxc.h"
 #include "fsl_dmamux.h"
-#if defined DEMO_CODEC_WM8960
+#if (defined(DEMO_CODEC_WM8960) && (DEMO_CODEC_WM8960 == 1))
 #include "fsl_wm8960.h"
 #else
 #include "fsl_cs42448.h"
 #endif
 #include "fsl_codec_common.h"
 #include "fsl_codec_adapter.h"
-#include "app_definitions.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define APP_SHELL_TASK_STACK_SIZE (1024)
+#define APP_SHELL_TASK_STACK_SIZE (256)
 #define SDCARD_TASK_STACK_SIZE    (512)
 
 /*******************************************************************************
@@ -53,7 +53,7 @@ static void APP_SDCARD_DetectCallBack(bool isInserted, void *userData);
  * Variables
  ******************************************************************************/
 codec_handle_t codecHandle = {0};
-#if DEMO_CODEC_WM8960
+#if (defined(DEMO_CODEC_WM8960) && (DEMO_CODEC_WM8960 == 1))
 wm8960_config_t wm8960Config = {
     .i2cConfig = {.codecI2CInstance = BOARD_CODEC_I2C_INSTANCE, .codecI2CSourceClock = BOARD_CODEC_I2C_CLOCK_FREQ},
     .route     = kWM8960_RoutePlaybackandRecord,
@@ -123,7 +123,7 @@ int BOARD_CODEC_Init(void)
 }
 
 
-#if DEMO_CODEC_CS42448
+#if (defined(DEMO_CODEC_CS42448) && (DEMO_CODEC_CS42448 == 1))
 void BORAD_CodecReset(bool state)
 {
     if (state)
@@ -229,7 +229,7 @@ int main(void)
 
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
-#if DEMO_CODEC_WM8960
+#if (defined(DEMO_CODEC_WM8960) && (DEMO_CODEC_WM8960 == 1))
     BOARD_InitWM8960Pins();
 #else
     BOARD_InitCS42448Pins();
@@ -255,7 +255,7 @@ int main(void)
     DMAMUX_SetSource(DEMO_DMAMUX, DEMO_RX_CHANNEL, (uint8_t)DEMO_SAI_RX_SOURCE);
     DMAMUX_EnableChannel(DEMO_DMAMUX, DEMO_RX_CHANNEL);
 
-#if DEMO_CODEC_CS42448
+#if (defined(DEMO_CODEC_CS42448) && (DEMO_CODEC_CS42448 == 1))
     /* enable codec power */
     GPIO_PinWrite(DEMO_CODEC_POWER_GPIO, DEMO_CODEC_POWER_GPIO_PIN, 1U);
 #endif

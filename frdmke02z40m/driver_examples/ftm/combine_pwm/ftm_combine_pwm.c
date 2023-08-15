@@ -93,7 +93,7 @@ void FTM_LED_HANDLER(void)
         /* Clear interrupt flag.*/
         FTM_ClearStatusFlags(BOARD_FTM_BASEADDR, FTM_CHANNEL_FLAG);
     }
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

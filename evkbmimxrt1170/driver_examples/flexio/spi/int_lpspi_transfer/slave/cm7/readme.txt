@@ -8,8 +8,8 @@ In this example, a flexio simulated slave connect to a lpspi master.
 
 Toolchain supported
 ===================
-- MCUXpresso  11.7.0
-- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.8.0
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================
@@ -74,8 +74,12 @@ LPSPI master <-> FLEXIO SPI slave transfer all data matched!
 End of Example.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Known issue: 
-	project: flexio_spi_int_lpspi_transfer_slave@cm7
-	compilers and targets: mcux: debug 
-	                       mdk: flexspi_nor_release	
-	issue: cannot transfer data successfully. Issues will be fixed on next release.
+This case use flexio to simulate spi protocol, 
+
+Owing to this simulate process is software and executed in qspi_flash for flexspi_nor target, 
+
+but external flash's speed can not support to the rate of SPI transmit because of effected by performance. 
+
+So the settings for baudrate of transmission do not more than 150k.
+
+Effect project: flexio_spi_int_lpspi_transfer_slave_cm7(MDK flexspi_nor_release)

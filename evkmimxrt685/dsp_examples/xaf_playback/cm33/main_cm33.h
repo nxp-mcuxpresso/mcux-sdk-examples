@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -24,6 +24,11 @@
 #define FILE_PLAYBACK_INITIAL_READ_SIZE (16 * 1024)
 /* Data bytes to send during playback */
 #define FILE_PLAYBACK_READ_SIZE (4 * 1024)
+
+#undef PRINTF
+#define PRINTF CM33_PRINTF
+
+void CM33_PRINTF(const char* ptr, ...);
 
 typedef struct _app_handle
 {

@@ -9,6 +9,10 @@
 #include "fsl_debug_console.h"
 #include "fsl_cache.h"
 
+#include "pin_mux.h"
+#include "clock_config.h"
+#include "board.h"
+#include "fsl_common.h"
 /*${header:start}*/
 /*******************************************************************************
  * Definitions
@@ -20,10 +24,6 @@
 #define FLASH_PAGE_SIZE           512UL       /* 512Bytes */
 #define FLASH_SECTOR_SIZE         0x40000UL   /* 256KBytes */
 #define FLASH_BLOCK_SIZE          0x40000UL   /* 256KBytes */
-#include "pin_mux.h"
-#include "clock_config.h"
-#include "board.h"
-#include "fsl_common.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

@@ -2,14 +2,14 @@ Overview
 ========
 Application demonstrating the BLE Peripheral role, This application implements types of beacon applications .
 Beacon: A simple application demonstrating the BLE Broadcaster role functionality by advertising Company Identifier, Beacon Identifier, UUID, A, B, C, RSSI.
-Eddystone : The Eddystone Configuration Service runs as a GATT service on the beacon while it is connectable and allows configuration of the advertised data, the broadcast power levels, and the advertising intervals. 
+Eddystone : The Eddystone Configuration Service runs as a GATT service on the beacon while it is connectable and allows configuration of the advertised data, the broadcast power levels, and the advertising intervals.
 iBeacon: This simple application demonstrates the BLE Broadcaster role functionality by advertising an Apple iBeacon.
 
 
 Toolchain supported
 ===================
-- MCUXpresso  11.7.0
-- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.8.0
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================
@@ -33,6 +33,8 @@ The hardware should be reworked according to the Hardware Rework Guide for MIMXR
 The hardware should be reworked according to the Hardware Rework Guide for MIMXRT1170-EVKB and Murata 1ZM M.2 Adapter in document Hardware Rework Guide for EdgeFast BT PAL.
 
 Note:
+To ensure that the LITTLEFS flash region has been cleaned,
+all flash sectors need to be erased before downloading example code.
 After downloaded binary into qspiflash and boot from qspiflash directly,
 please reset the board by pressing SW4 or power off and on the board to run the application.
 Prepare the Demo
@@ -55,7 +57,7 @@ Prepare the Demo
 
 Running the demo
 ================
-Form the app_config.h file we can select witch application is starting. Default Beacon (#define BEACON_APP 1) application is starting. 
+Form the app_bluetooth_config.h file we can select witch application is starting. Default Beacon (#define BEACON_APP 1) application is starting.
 To start the Eddystone set #define EDDYSTONE 1 and others to 0. To start the iBeacon set #define IBEACON_APP 1 and others to 0.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 If BEACON_APP is 1 (and IBEACON_APP and EDDYSTONE are set to 0) the Beacon application is started.

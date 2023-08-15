@@ -73,12 +73,6 @@ uint32_t get_core1_image_size(void)
     return image_size;
 }
 #endif
-static volatile uint16_t RemoteReadyEventData = 0U;
-
-static void RemoteReadyEventHandler(uint16_t eventData, void *context)
-{
-    RemoteReadyEventData = eventData;
-}
 
 /*!
  * @brief Application-specific implementation of the SystemInitHook() weak function.
@@ -90,6 +84,12 @@ void SystemInitHook(void)
        triggering. The SystemInitHook() weak function overloading is used in this
        application. */
     (void)MCMGR_EarlyInit();
+}
+static volatile uint16_t RemoteReadyEventData = 0U;
+
+static void RemoteReadyEventHandler(uint16_t eventData, void *context)
+{
+    RemoteReadyEventData = eventData;
 }
 
 /*!

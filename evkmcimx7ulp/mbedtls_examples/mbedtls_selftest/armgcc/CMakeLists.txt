@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -53,10 +61,11 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../empty_rsc_table.c"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/evkmcimx7ulp
 )
+
 
 if(CMAKE_BUILD_TYPE STREQUAL flash_debug)
      target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="ksdk_mbedtls_config.h")
@@ -66,76 +75,7 @@ if(CMAKE_BUILD_TYPE STREQUAL flash_release)
      target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="ksdk_mbedtls_config.h")
 endif(CMAKE_BUILD_TYPE STREQUAL flash_release)
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core/drivers/ltc
-    ${SdkRootDirPath}/core/drivers/trng
-    ${SdkRootDirPath}/core/middleware/mmcau
-    ${SdkRootDirPath}/middleware/mbedtls
-    ${SdkRootDirPath}/core/drivers/port
-    ${SdkRootDirPath}/core/devices/MCIMX7U5/drivers
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/devices/MCIMX7U5
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/components/serial_manager
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/drivers/lpuart
-    ${SdkRootDirPath}/core/drivers/gpio
-    ${SdkRootDirPath}/core/drivers/msmc
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
-
-# include modules
-include(driver_ltc)
-
-include(driver_trng)
-
-include(middleware_mmcau_cm4_cm7)
-
-include(middleware_mbedtls_MCIMX7U5)
-
-include(middleware_mbedtls_port_ksdk)
-
-include(middleware_mbedtls_kinetis5)
-
-include(driver_port)
-
-include(driver_clock)
-
-include(driver_iomuxc)
-
-include(driver_common)
-
-include(device_CMSIS)
-
-include(utility_debug_console)
-
-include(component_lpuart_adapter)
-
-include(component_serial_manager)
-
-include(component_lists)
-
-include(component_serial_manager_uart)
-
-include(driver_lpuart)
-
-include(device_startup)
-
-include(driver_gpio)
-
-include(driver_msmc)
-
-include(utility_assert)
-
-include(CMSIS_Include_core_cm)
-
-include(middleware_mmcau_common_files)
-
-include(utilities_misc_utilities_MCIMX7U5)
-
+include(${SdkRootDirPath}/core/devices/MCIMX7U5/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -145,16 +85,10 @@ TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
-if(CMAKE_BUILD_TYPE STREQUAL flash_debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/middleware/mmcau/asm-cm4-cm7/lib_mmcau.a)
-endif(CMAKE_BUILD_TYPE STREQUAL flash_debug)
-
-if(CMAKE_BUILD_TYPE STREQUAL flash_release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/core/middleware/mmcau/asm-cm4-cm7/lib_mmcau.a)
-endif(CMAKE_BUILD_TYPE STREQUAL flash_release)
-
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
 ADD_CUSTOM_COMMAND(TARGET ${MCUX_SDK_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_OBJCOPY}
 -Obinary ${EXECUTABLE_OUTPUT_PATH}/${MCUX_SDK_PROJECT_NAME} ${EXECUTABLE_OUTPUT_PATH}/sdk20-app.bin)
+
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map;${EXECUTABLE_OUTPUT_PATH}/sdk20-app.bin")
 

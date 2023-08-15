@@ -26,25 +26,32 @@ Type "help" to see the command list. Similar description will be displayed on se
      - playback on codec
      - store samples to file.
 
-     USAGE: record_mic [audio|file|<file_name>|vit] 20 [en|cn]
+     USAGE: record_mic [audio|file|<file_name>|vit] 20 [<language>]
      The number defines length of recording in seconds.
+     Please see the project defined symbols for the languages supported.
+     Then specify one of: en/cn/de/es/fr/it/ja/ko/tr as the language parameter.
      For voice recognition say supported WakeWord and in 3s frame supported command.
      Please note that this VIT demo is near-field and uses 1 on-board microphone.
-     NOTES: This command returns to shell after record finished.
-             To store samples to a file, the "file" option can be used to create a file
-             with a predefined name, or any file name (without whitespaces) can be specified
-             instead of the "file" option.
+     To store samples to a file, the "file" option can be used to create a file
+     with a predefined name, or any file name (without whitespaces) can be specified
+     instead of the "file" option.
+     This command returns to shell after the recording is finished.
 
     "opus_encode": Initializes the streamer with the Opus memory-to-memory pipeline and
     encodes a hardcoded buffer.
 
 For custom VIT model generation (defining own wake words and voice commands) please use https://vit.nxp.com/
 
+Notes:
+    - VIT and VoiceSeeker libraries are only supported in the MCUXpresso IDE.
+    - If more than one channel is used and VIT is enabled, please enable VoiceSeeker.
+        - The VoiceSeeker that combines multiple channels into one must be used, as VIT can only work with one channel.
+
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================
@@ -73,6 +80,7 @@ Prepare the Demo
 
 Note:
 In order to enable VoiceSeeker it is necessary to add VOICE_SEEKER_PROC to preprocessor defines on project level.
+
 Running the demo
 ================
 When the example runs successfully, you should see similar output on the serial terminal as below:

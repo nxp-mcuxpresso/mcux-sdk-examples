@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -52,80 +60,17 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/frdmk32l3a6/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/frdmk32l3a6
 )
+
 
 if(CMAKE_BUILD_TYPE STREQUAL release)
      target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="ksdk_mbedtls_config.h")
 endif(CMAKE_BUILD_TYPE STREQUAL release)
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core/drivers/cau3
-    ${SdkRootDirPath}/core/drivers/trng
-    ${SdkRootDirPath}/middleware/mbedtls
-    ${SdkRootDirPath}/core/drivers/port
-    ${SdkRootDirPath}/core/devices/K32L3A60/drivers
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/drivers/msmc
-    ${SdkRootDirPath}/core/drivers/lpuart
-    ${SdkRootDirPath}/core/drivers/gpio
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/components/serial_manager
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/devices/K32L3A60
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
-
-# include modules
-include(driver_cau3)
-
-include(driver_trng)
-
-include(middleware_mbedtls_K32L3A60_cm4)
-
-include(middleware_mbedtls_port_ksdk)
-
-include(middleware_mbedtls_kinetis3)
-
-include(driver_port)
-
-include(driver_clock)
-
-include(driver_common)
-
-include(driver_msmc)
-
-include(driver_lpuart)
-
-include(driver_gpio)
-
-include(utility_assert)
-
-include(utility_debug_console)
-
-include(component_lpuart_adapter)
-
-include(component_serial_manager)
-
-include(component_lists)
-
-include(component_serial_manager_uart)
-
-include(device_CMSIS)
-
-include(device_startup_K32L3A60_cm4)
-
-include(CMSIS_Include_core_cm)
-
-include(utilities_misc_utilities_K32L3A60_cm4)
-
-include(device_system_K32L3A60_cm4)
-
+include(${SdkRootDirPath}/core/devices/K32L3A60/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -137,4 +82,5 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBR
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map")
 

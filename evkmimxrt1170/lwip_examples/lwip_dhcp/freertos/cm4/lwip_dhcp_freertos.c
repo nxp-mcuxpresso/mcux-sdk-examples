@@ -29,12 +29,12 @@
 #endif
 #include "fsl_phy.h"
 
+#include "fsl_enet.h"
 #if BOARD_NETWORK_USE_100M_ENET_PORT
 #include "fsl_phyksz8081.h"
 #else
 #include "fsl_phyrtl8211f.h"
 #endif
-#include "fsl_enet.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

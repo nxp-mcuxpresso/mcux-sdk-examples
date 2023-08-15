@@ -46,6 +46,10 @@ void app_nameservice_isr_cb(unsigned int new_ept, const char *new_ept_name, unsi
 static TaskHandle_t nn_app_task_handle = NULL;
 void nn_app_task(void *param)
 {
+    // Wait for a message signaling DSP is ready
+    srtm_message msg;
+    dsp_ipc_recv_sync(&msg);
+
 #if ECHO_UNIT_TEST == 1
     nn_echo_unit_test(UNIT_TEST_SYNC);
 #endif

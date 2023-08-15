@@ -178,7 +178,7 @@ static void Fault_Handler(void)
             ;
     }
 
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 void HardFault_Handler(void)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2022 NXP
  * All rights reserved.
  *
  *
@@ -20,6 +20,7 @@
 #define DEMO_DMA                        (DMA0)
 #define DEMO_I2S_TX_CHANNEL             (19)
 #define DEMO_I2S_TX_MODE                (kI2S_MasterSlaveNormalMaster)
+#define DEMO_VOLUME                     75
 /*${macro:end}*/
 
 #endif /* _APP_DEFINITIONS_H_ */

@@ -29,12 +29,12 @@
 #include "fsl_phy.h"
 #include "modelrunner.h"
 
+#include "fsl_enet.h"
 #if BOARD_NETWORK_USE_100M_ENET_PORT
 #include "fsl_phyksz8081.h"
 #else
 #include "fsl_phyrtl8211f.h"
 #endif
-#include "fsl_enet.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -324,7 +324,7 @@ static void print_dhcp_state(void* arg)
 {
     stack_init();
     /* create modelrunner thread in RTOS */
-    if (sys_thread_new("modelrunner", modelrunner_task, NULL, 18192, DEFAULT_THREAD_PRIO) == NULL){
+    if (sys_thread_new("modelrunner", modelrunner_task, NULL, 28192, DEFAULT_THREAD_PRIO) == NULL){
         PRINTF("modelrunner_task(): Task creation failed\r\n");
     }
     vTaskDelete(NULL);

@@ -39,7 +39,6 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -DUSE_SDRAM \
     -DDATA_SECTION_IS_CACHEABLE=1 \
     -DNDEBUG \
-    -DLWIP_TIMEVAL_PRIVATE=0 \
     -DCPU_MIMXRT1176DVMAA_cm7 \
     -DFSL_RTOS_FREE_RTOS \
     -DFSL_FEATURE_PHYKSZ8081_USE_RMII50M_MODE \
@@ -52,13 +51,14 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -DARM_MATH_CM7 \
     -D__FPU_PRESENT=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
+    -DMCUXPRESSO_SDK \
+    -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
     -DUSE_RTOS=1 \
     -DLWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS=1 \
+    -DLWIP_TIMEVAL_PRIVATE=0 \
     -DCMSIS_NN \
-    -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DTF_LITE_STATIC_MEMORY \
-    -DMCUXPRESSO_SDK \
     -O1 \
     -Wno-strict-aliasing \
     -fno-strict-aliasing \
@@ -72,6 +72,7 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -fdata-sections \
     -mapcs \
     -std=gnu99 \
+    -Wall \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -84,7 +85,6 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -DUSE_SDRAM \
     -DDATA_SECTION_IS_CACHEABLE=1 \
     -DDEBUG \
-    -DLWIP_TIMEVAL_PRIVATE=0 \
     -DCPU_MIMXRT1176DVMAA_cm7 \
     -DFSL_RTOS_FREE_RTOS \
     -DFSL_FEATURE_PHYKSZ8081_USE_RMII50M_MODE \
@@ -97,13 +97,14 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -DARM_MATH_CM7 \
     -D__FPU_PRESENT=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
+    -DMCUXPRESSO_SDK \
+    -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
     -DUSE_RTOS=1 \
     -DLWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS=1 \
+    -DLWIP_TIMEVAL_PRIVATE=0 \
     -DCMSIS_NN \
-    -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DTF_LITE_STATIC_MEMORY \
-    -DMCUXPRESSO_SDK \
     -O1 \
     -g \
     -O0 \
@@ -119,6 +120,7 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -fdata-sections \
     -mapcs \
     -std=gnu99 \
+    -Wall \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -131,10 +133,10 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -DARM_MATH_CM7 \
     -D__FPU_PRESENT=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
+    -DMCUXPRESSO_SDK \
     -DCMSIS_NN \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DTF_LITE_STATIC_MEMORY \
-    -DMCUXPRESSO_SDK \
     -O2 \
     -O3 \
     -fno-rtti \
@@ -149,6 +151,8 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -ffunction-sections \
     -fdata-sections \
     -mapcs \
+    -Wall \
+    -Wno-deprecated-declarations \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -161,10 +165,10 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -DARM_MATH_CM7 \
     -D__FPU_PRESENT=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
+    -DMCUXPRESSO_SDK \
     -DCMSIS_NN \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DTF_LITE_STATIC_MEMORY \
-    -DMCUXPRESSO_SDK \
     -O2 \
     -g \
     -O0 \
@@ -180,6 +184,8 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -ffunction-sections \
     -fdata-sections \
     -mapcs \
+    -Wall \
+    -Wno-deprecated-declarations \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -216,7 +222,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     --defsym=__stack_size__=0x10000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/../../../../../middleware/eiq/deepviewrt/boards/evkbmimxrt1170/modelrunner/MIMXRT1176xxxxx_cm7_flexspi_nor_sdram.ld -static \
+    -T${ProjDirPath}/MIMXRT1176xxxxx_cm7_flexspi_nor_sdram.ld -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG} \
@@ -252,5 +258,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     --defsym=__stack_size__=0x10000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/../../../../../middleware/eiq/deepviewrt/boards/evkbmimxrt1170/modelrunner/MIMXRT1176xxxxx_cm7_flexspi_nor_sdram.ld -static \
+    -T${ProjDirPath}/MIMXRT1176xxxxx_cm7_flexspi_nor_sdram.ld -static \
 ")

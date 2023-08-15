@@ -209,7 +209,7 @@ status_t flexspi_nor_enable_quad_mode(FLEXSPI_Type *base)
     flashXfer.SeqNumber     = 1;
     flashXfer.seqIndex      = NOR_CMD_LUT_SEQ_IDX_WRITESTATUSREG;
     flashXfer.data          = &writeValue;
-    flashXfer.dataSize      = 1;
+    flashXfer.dataSize      = writeValue <= 0xFFU ? 1 : 2;
 
     status = FLEXSPI_TransferBlocking(base, &flashXfer);
     if (status != kStatus_Success)

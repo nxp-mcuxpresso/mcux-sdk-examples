@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015 - 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2017, 2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,6 +14,8 @@
 #include "fsl_smartcard.h"
 #if defined(FSL_FEATURE_SOC_EMVSIM_COUNT) && FSL_FEATURE_SOC_EMVSIM_COUNT
 #include "fsl_smartcard_emvsim.h"
+#elif defined(FSL_FEATURE_SOC_USIM_COUNT) && FSL_FEATURE_SOC_USIM_COUNT
+#include "fsl_smartcard_usim.h"
 #else
 #include "fsl_smartcard_uart.h"
 #endif
@@ -63,6 +65,8 @@ static void send_data(smartcard_context_t *context, uint8_t *buff, uint16_t leng
  ******************************************************************************/
 #if defined(FSL_FEATURE_SOC_EMVSIM_COUNT) && FSL_FEATURE_SOC_EMVSIM_COUNT
 static EMVSIM_Type *base = BOARD_SMARTCARD_MODULE;
+#elif defined(FSL_FEATURE_SOC_USIM_COUNT) && FSL_FEATURE_SOC_USIM_COUNT
+static USIM_Type *base = BOARD_SMARTCARD_MODULE;
 #else
 static UART_Type *base = BOARD_SMARTCARD_MODULE;
 #endif
@@ -102,11 +106,11 @@ static void smartcard_interrupts_config(void)
 #if defined(USING_PHY_TDA8035)
     NVIC_SetPriority(BOARD_SMARTCARD_IRQ_PIN_IRQ, 6u);
 #endif /* USING_TDA8035_INTERFACE */
-       /* Set external PIT timer interrupt priority
+       /* Set external PIT/CTIMER timer interrupt priority
         * (used for initial TS char detection time-out) */
 #if !(defined(FSL_FEATURE_SOC_EMVSIM_COUNT) && (FSL_FEATURE_SOC_EMVSIM_COUNT))
 #if !defined(BOARD_SMARTCARD_TS_TIMER_IRQ)
-#error "Please specify external PIT timer interrupt !"
+#error "Please specify external timer interrupt !"
 #else
     NVIC_SetPriority(BOARD_SMARTCARD_TS_TIMER_IRQ, 6u);
 #endif

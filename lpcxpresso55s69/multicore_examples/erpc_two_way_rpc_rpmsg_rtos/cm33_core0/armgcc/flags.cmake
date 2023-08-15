@@ -31,10 +31,10 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DDEBUG \
     -DCORE1_IMAGE_COPY_TO_RAM \
     -DCPU_LPC55S69JBD100_cm33_core0 \
-    -DMULTICORE_APP=1 \
-    -DSDK_OS_FREE_RTOS \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DMULTICORE_APP=1 \
+    -DSERIAL_PORT_TYPE_UART=1 \
+    -DSDK_OS_FREE_RTOS \
     -g \
     -O0 \
     -mcpu=cortex-m33 \
@@ -57,10 +57,10 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DNDEBUG \
     -DCORE1_IMAGE_COPY_TO_RAM \
     -DCPU_LPC55S69JBD100_cm33_core0 \
-    -DMULTICORE_APP=1 \
-    -DSDK_OS_FREE_RTOS \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DMULTICORE_APP=1 \
+    -DSERIAL_PORT_TYPE_UART=1 \
+    -DSDK_OS_FREE_RTOS \
     -Os \
     -mcpu=cortex-m33 \
     -Wall \
@@ -81,8 +81,8 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     ${CMAKE_CXX_FLAGS_DEBUG} \
     -DDEBUG \
     -DCPU_LPC55S69JBD100_cm33_core0 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m33 \
@@ -105,8 +105,8 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     ${CMAKE_CXX_FLAGS_RELEASE} \
     -DNDEBUG \
     -DCPU_LPC55S69JBD100_cm33_core0 \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DMCUXPRESSO_SDK \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m33 \
     -Wall \

@@ -107,7 +107,6 @@ static const pdm_channel_config_t channelConfig = {
 codec_handle_t codecHandle;
 
 extern codec_config_t boardCodecConfig;
-const short g_sdma_multi_fifo_script[] = FSL_SDMA_MULTI_FIFO_SCRIPT;
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -153,13 +152,13 @@ void PDM_ERROR_IRQHandler(void)
     {
         PDM_ClearFIFOStatus(DEMO_PDM, fifoStatus);
     }
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 void SAI_UserIRQHandler(void)
 {
     SAI_TxClearStatusFlags(DEMO_SAI, kSAI_FIFOErrorFlag);
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!
@@ -199,8 +198,6 @@ int main(void)
     SDMA_Init(DEMO_SAI_DMA, &dmaConfig);
     SDMA_CreateHandle(&s_pdmDmaHandle, DEMO_PDM_DMA, DEMO_PDM_DMA_CHANNEL, &s_pdmSdmaContext);
     SDMA_SetChannelPriority(DEMO_PDM_DMA, DEMO_PDM_DMA_CHANNEL, DEMO_PDM_DMA_CHANNEL_PRIORITY);
-    SDMA_LoadScript(DEMO_PDM_DMA, FSL_SDMA_SCRIPT_CODE_START_ADDR, (void *)g_sdma_multi_fifo_script,
-                    FSL_SDMA_SCRIPT_CODE_SIZE);
 
     SDMA_CreateHandle(&s_saiDmaHandle, DEMO_SAI_DMA, DEMO_SAI_DMA_CHANNEL, &s_saiSdmaContext);
     SDMA_SetChannelPriority(DEMO_SAI_DMA, DEMO_SAI_DMA_CHANNEL, DEMO_SAI_DMA_CHANNEL_PRIORITY);

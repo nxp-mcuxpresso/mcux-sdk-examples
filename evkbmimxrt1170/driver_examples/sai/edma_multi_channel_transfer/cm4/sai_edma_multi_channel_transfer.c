@@ -15,9 +15,9 @@
 #include "fsl_debug_console.h"
 #include "fsl_sai_edma.h"
 #include "fsl_codec_common.h"
+#include "fsl_common.h"
 #include "fsl_cs42448.h"
 #include "fsl_codec_adapter.h"
-#include "fsl_common.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -185,13 +185,12 @@ int main(void)
 
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
-    // BOARD_InitCS42448Pins();
     BOARD_BootClockRUN();
     CLOCK_InitAudioPll(&audioPllConfig);
     BOARD_InitDebugConsole();
 
     /*Clock setting for LPI2C*/
-    CLOCK_SetRootClockMux(kCLOCK_Root_Lpspi6, 1);
+    CLOCK_SetRootClockMux(kCLOCK_Root_Lpi2c6, 1);
 
     /*Clock setting for SAI1*/
     CLOCK_SetRootClockMux(kCLOCK_Root_Sai1, 4);

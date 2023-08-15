@@ -329,6 +329,8 @@ void app_a2dp_source_task(void *pvParameters)
     int err = 0;
     (void)err;
 
+    PRINTF("Bluetooth A2dp Source demo start...\n");
+
     /* Initializate BT Host stack */
     err = bt_enable(bt_ready);
     if (err) {

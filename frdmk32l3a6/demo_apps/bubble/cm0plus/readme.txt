@@ -6,7 +6,7 @@ level utilizes two axes to visually show deviation from a level plane (0 degrees
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

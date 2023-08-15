@@ -1,7 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2022 NXP
- * All rights reserved.
+ * Copyright 2016-2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -13,19 +12,20 @@
 #include "fsl_silicon_id.h"
 #include "fsl_cache.h"
 
+#include "fsl_phyrtl8211f.h"
 #include "pin_mux.h"
 #include "board.h"
-#include "fsl_phyrtl8211f.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
 extern phy_rtl8211f_resource_t g_phy_resource;
-#define EXAMPLE_ENET_QOS_BASE ENET_QOS
-#define EXAMPLE_PHY_ADDR      0x01U
-#define EXAMPLE_PHY_OPS       &phyrtl8211f_ops
-#define EXAMPLE_PHY_RESOURCE  &g_phy_resource
-#define CORE_CLK_FREQ         CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
-#define ENET_PTP_REF_CLK      50000000UL
+#define EXAMPLE_ENET_QOS_BASE         ENET_QOS
+#define EXAMPLE_PHY_ADDR              0x01U
+#define EXAMPLE_PHY_OPS               &phyrtl8211f_ops
+#define EXAMPLE_PHY_RESOURCE          &g_phy_resource
+#define CORE_CLK_FREQ                 CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
+#define ENET_PTP_REF_CLK              50000000UL
+#define EXAMPLE_PHY_LINK_INTR_SUPPORT (1U)
 #define ENET_QOS_RXBD_NUM               (4)
 #define ENET_QOS_TXBD_NUM               (4)
 #define ENET_QOS_RXBUFF_SIZE            (ENET_QOS_FRAME_MAX_FRAMELEN)
@@ -61,6 +61,9 @@ extern phy_rtl8211f_resource_t g_phy_resource;
 #ifndef PHY_STABILITY_DELAY_US
 #define PHY_STABILITY_DELAY_US (500000U)
 #endif
+#ifndef EXAMPLE_PHY_LINK_INTR_SUPPORT
+#define EXAMPLE_PHY_LINK_INTR_SUPPORT (0U)
+#endif
 
 /* @TEST_ANCHOR */
 
@@ -84,10 +87,17 @@ extern phy_rtl8211f_resource_t g_phy_resource;
  ******************************************************************************/
 static void ENET_QOS_BuildPtpEventFrame(void);
 
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+void GPIO_EnableLinkIntr(void);
+#endif
+
 /*******************************************************************************
  * Variables
  ******************************************************************************/
 phy_rtl8211f_resource_t g_phy_resource;
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+extern void PHY_LinkStatusChange(void);
+#endif
 AT_NONCACHEABLE_SECTION_ALIGN(enet_qos_rx_bd_struct_t g_rxBuffDescrip[ENET_QOS_RXBD_NUM], ENET_QOS_BUFF_ALIGNMENT);
 AT_NONCACHEABLE_SECTION_ALIGN(enet_qos_tx_bd_struct_t g_txBuffDescrip[ENET_QOS_TXBD_NUM], ENET_QOS_BUFF_ALIGNMENT);
 
@@ -104,6 +114,10 @@ uint8_t g_txbuffIdx  = 0;
 uint8_t g_txCosumIdx = 0;
 uint32_t g_testIdx   = 0;
 static phy_handle_t phyHandle;
+
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+static bool linkChange = false;
+#endif
 
 /*******************************************************************************
  * Code
@@ -176,6 +190,24 @@ static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
     return ENET_QOS_MDIORead(EXAMPLE_ENET_QOS_BASE, phyAddr, regAddr, pData);
 }
 
+
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+void GPIO_EnableLinkIntr(void)
+{
+    GPIO_EnableInterrupts(GPIO5, 1U << 13);
+}
+
+void GPIO5_Combined_0_15_IRQHandler(void)
+{
+    if (0U != (GPIO_GetPinsInterruptFlags(GPIO5) & (1U << 13)))
+    {
+        PHY_LinkStatusChange();
+        GPIO_DisableInterrupts(GPIO5, 1U << 13);
+        GPIO_ClearPinsInterruptFlags(GPIO5, 1U << 13);
+    }
+    SDK_ISR_EXIT_BARRIER;
+}
+#endif
 static void ENET_QOS_BuildPtpEventFrame(void)
 {
     uint8_t index;
@@ -217,6 +249,13 @@ void ENET_QOS_IntCallback(
     }
 }
 
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+void PHY_LinkStatusChange(void)
+{
+    linkChange = true;
+}
+#endif
+
 int main(void)
 {
     enet_qos_config_t config;
@@ -234,12 +273,11 @@ int main(void)
     uint64_t second;
     uint32_t nanosecond;
     bool link              = false;
+    bool tempLink          = false;
     bool autonego          = false;
     phy_config_t phyConfig = {0};
 
     /* Hardware Initialization. */
-    gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
-
     /* Hardware Initialization. */
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
@@ -250,16 +288,20 @@ int main(void)
     IOMUXC_GPR->GPR6 |= IOMUXC_GPR_GPR6_ENET_QOS_RGMII_EN_MASK; /* Set this bit to enable ENET_QOS RGMII TX clock output
                                                                    on TX_CLK pad. */
 
-    GPIO_PinInit(GPIO11, 14, &gpio_config);
     /* For a complete PHY reset of RTL8211FDI-CG, this pin must be asserted low for at least 10ms. And
      * wait for a further 30ms(for internal circuits settling time) before accessing the PHY register */
     GPIO_WritePinOutput(GPIO11, 14, 0);
-    SDK_DelayAtLeastUs(10000, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
+    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
     GPIO_WritePinOutput(GPIO11, 14, 1);
-    SDK_DelayAtLeastUs(30000, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
+    SDK_DelayAtLeastUs(30000, CLOCK_GetFreq(kCLOCK_CpuClk));
 
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_1_IRQn);
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_2_IRQn);
+
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+    IRQ_ClearPendingIRQ(GPIO5_Combined_0_15_IRQn);
+    EnableIRQ(GPIO5_Combined_0_15_IRQn);
+#endif
 
     MDIO_Init();
     g_phy_resource.read  = MDIO_Read;
@@ -304,6 +346,9 @@ int main(void)
     phyConfig.autoNeg  = true;
     phyConfig.ops      = EXAMPLE_PHY_OPS;
     phyConfig.resource = EXAMPLE_PHY_RESOURCE;
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+    phyConfig.intrType = kPHY_IntrActiveLow;
+#endif
 
     /* Initialize PHY and wait auto-negotiation over. */
     PRINTF("Wait for PHY init...\r\n");
@@ -401,6 +446,24 @@ int main(void)
 
     while (1)
     {
+        /* PHY link status update. */
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+        if (linkChange)
+        {
+            linkChange = false;
+            PHY_ClearInterrupt(&phyHandle);
+            PHY_GetLinkStatus(&phyHandle, &link);
+            GPIO_EnableLinkIntr();
+        }
+#else
+        PHY_GetLinkStatus(&phyHandle, &link);
+#endif
+        if (tempLink != link)
+        {
+            PRINTF("PHY link changed, link status = %u\r\n", link);
+            tempLink = link;
+        }
+
         /* Get the Frame size */
         length = 0;
         status = ENET_QOS_GetRxFrameSize(EXAMPLE_ENET_QOS_BASE, &g_handle, &length, 0);
@@ -438,7 +501,6 @@ int main(void)
         if (g_testIdx < ENET_QOS_EXAMPLE_SEND_COUNT)
         {
             /* Send a multicast frame when the PHY is link up. */
-            PHY_GetLinkStatus(&phyHandle, &link);
             if (link)
             {
                 /* Create the frame to be send. */
@@ -456,7 +518,7 @@ int main(void)
                     DCACHE_CleanByRange((uint32_t)buffer, ENET_QOS_EXAMPLE_FRAME_SIZE);
 
                     if (kStatus_Success == ENET_QOS_SendFrame(EXAMPLE_ENET_QOS_BASE, &g_handle, buffer,
-                                                              ENET_QOS_EXAMPLE_FRAME_SIZE, 0, true, buffer))
+                                                              ENET_QOS_EXAMPLE_FRAME_SIZE, 0, true, buffer, kENET_QOS_TxOffloadDisable))
                     {
                         g_testIdx++;
                         PRINTF("The %d frame transmitted success!\r\n", g_testIdx);
@@ -473,10 +535,6 @@ int main(void)
                 {
                     PRINTF("No avail tx buffers\r\n");
                 }
-            }
-            else
-            {
-                PRINTF(" \r\nThe PHY link down!\r\n");
             }
         }
     }

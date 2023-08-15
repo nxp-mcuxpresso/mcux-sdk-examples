@@ -236,7 +236,12 @@ static void DEMO_CSI_MIPI_RGB(void)
     void *lcdFrameAddr;
 
     pxp_ps_buffer_config_t psBufferConfig = {
+#if (!(defined(FSL_FEATURE_PXP_HAS_NO_EXTEND_PIXEL_FORMAT) && FSL_FEATURE_PXP_HAS_NO_EXTEND_PIXEL_FORMAT)) || \
+    (!(defined(FSL_FEATURE_PXP_V3) && FSL_FEATURE_PXP_V3))
+        .pixelFormat = kPXP_PsPixelFormatARGB8888,
+#else
         .pixelFormat = kPXP_PsPixelFormatRGB888, /* Note: This is 32-bit per pixel */
+#endif
         .swapByte    = false,
         .bufferAddrU = 0U,
         .bufferAddrV = 0U,
@@ -253,8 +258,8 @@ static void DEMO_CSI_MIPI_RGB(void)
         .width  = DEMO_BUFFER_HEIGHT,
         .height = DEMO_BUFFER_WIDTH,
 #else
-        .width  = DEMO_BUFFER_WIDTH,
-        .height = DEMO_BUFFER_HEIGHT,
+        .width       = DEMO_BUFFER_WIDTH,
+        .height      = DEMO_BUFFER_HEIGHT,
 #endif
     };
 

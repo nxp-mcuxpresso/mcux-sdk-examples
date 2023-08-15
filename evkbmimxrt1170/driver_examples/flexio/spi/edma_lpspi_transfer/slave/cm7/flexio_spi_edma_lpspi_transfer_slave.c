@@ -21,7 +21,7 @@
  ******************************************************************************/
 /*Master related*/
 #define TRANSFER_SIZE     256U    /*! Transfer dataSize */
-#define TRANSFER_BAUDRATE 400000U /*! Transfer baudrate - 400k */
+#define TRANSFER_BAUDRATE 500000U /*! Transfer baudrate - 500k */
 
 #define MASTER_LPSPI_BASEADDR   (LPSPI1)
 #define MASTER_LPSPI_IRQ_HANDLE (LPSPI1_DriverIRQHandler)

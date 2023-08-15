@@ -4,7 +4,7 @@ The Shell Demo application demonstrates ram and flash memory access commands.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

@@ -63,7 +63,7 @@ void DEMO_TMU_IRQ_HANDLER_FUNC(void)
             PRINTF("site 1 immediate temperature is too high. %d celsius degree\r\n", temp);
         }
     }
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

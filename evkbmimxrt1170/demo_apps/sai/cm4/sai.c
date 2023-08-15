@@ -8,11 +8,11 @@
 
 #include "sai.h"
 
+#include "fsl_wm8962.h"
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "board.h"
 #include "fsl_codec_common.h"
-#include "fsl_wm8962.h"
 #include "fsl_codec_adapter.h"
 #include "fsl_dmamux.h"
 /*******************************************************************************
@@ -481,5 +481,5 @@ void SAI_UserIRQHandler(void)
     {
         SAI_UserRxIRQHandler();
     }
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }

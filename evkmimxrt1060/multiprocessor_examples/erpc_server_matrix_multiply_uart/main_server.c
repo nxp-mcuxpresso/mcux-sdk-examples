@@ -14,8 +14,8 @@
 #include "erpc_matrix_multiply.h"
 #include "erpc_error_handler.h"
 
-#include "fsl_lpuart_cmsis.h"
 #include "fsl_device_registers.h"
+#include "fsl_lpuart_cmsis.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

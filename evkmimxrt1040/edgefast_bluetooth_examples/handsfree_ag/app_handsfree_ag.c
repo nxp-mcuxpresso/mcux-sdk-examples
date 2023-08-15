@@ -308,6 +308,8 @@ void peripheral_hfp_ag_task(void *pvParameters)
 {
     int err = 0;
 
+    PRINTF("Bluetooth Handsfree AG demo start...\n");
+
     /* Initializate BT Host stack */
     err = bt_enable(bt_ready);
     if (err)

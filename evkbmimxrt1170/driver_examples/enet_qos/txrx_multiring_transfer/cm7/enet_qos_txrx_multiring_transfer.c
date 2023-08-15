@@ -1,6 +1,5 @@
 /*
- * Copyright 2020-2022 NXP
- * All rights reserved.
+ * Copyright 2020-2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -12,9 +11,9 @@
 #include "fsl_silicon_id.h"
 #include "fsl_cache.h"
 
+#include "fsl_phyrtl8211f.h"
 #include "pin_mux.h"
 #include "board.h"
-#include "fsl_phyrtl8211f.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -623,8 +622,13 @@ int main(void)
             {
                 testTxNum++;
                 while (kStatus_Success != ENET_QOS_SendFrame(EXAMPLE_ENET_QOS_BASE, &g_handle, &g_frame[ringId][0],
-                                                             ENET_QOS_FRAME_LENGTH, ringId, false, NULL))
+                                                             ENET_QOS_FRAME_LENGTH, ringId, false, NULL, kENET_QOS_TxOffloadDisable))
                 {
+                }
+                /* Wait for Rx over every three frames to prevent Rx FIFO overflow when Rx interrupt handling is slow. */
+                if (ringId == 0U)
+                {
+                    while (g_rxIndex != (testTxNum / 3U));
                 }
 
                 ringId = (ringId + 2) % 3;

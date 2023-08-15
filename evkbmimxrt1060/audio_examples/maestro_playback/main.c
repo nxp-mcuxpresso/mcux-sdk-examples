@@ -18,17 +18,17 @@
 
 #include "fsl_debug_console.h"
 
+#include "app_definitions.h"
 #include "fsl_gpio.h"
 #include "fsl_iomuxc.h"
 #include "fsl_dmamux.h"
-#if defined DEMO_CODEC_WM8960
+#if (defined(DEMO_CODEC_WM8960) && (DEMO_CODEC_WM8960 == 1))
 #include "fsl_wm8960.h"
 #else
 #include "fsl_cs42448.h"
 #endif
 #include "fsl_codec_common.h"
 #include "fsl_codec_adapter.h"
-#include "app_definitions.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -47,7 +47,7 @@ static void APP_SDCARD_DetectCallBack(bool isInserted, void *userData);
  * Variables
  ******************************************************************************/
 codec_handle_t codecHandle = {0};
-#if DEMO_CODEC_WM8960
+#if (defined(DEMO_CODEC_WM8960) && (DEMO_CODEC_WM8960 == 1))
 wm8960_config_t wm8960Config = {
     .i2cConfig = {.codecI2CInstance = BOARD_CODEC_I2C_INSTANCE, .codecI2CSourceClock = BOARD_CODEC_I2C_CLOCK_FREQ},
     .route     = kWM8960_RoutePlaybackandRecord,
@@ -106,7 +106,7 @@ void BOARD_EnableSaiMclkOutput(bool enable)
     }
 }
 
-#if DEMO_CODEC_CS42448
+#if (defined(DEMO_CODEC_CS42448) && (DEMO_CODEC_CS42448 == 1))
 /*!
  * @brief Function for changing codec settings according to selected parameters.
  *
@@ -132,14 +132,20 @@ int BOARD_CodecChangeSettings(uint8_t nchannel)
 
 int BOARD_CODEC_Init(void)
 {
-    CODEC_Init(&codecHandle, &boardCodecConfig);
-    /* Initial volume kept low for hearing safety. */
-    CODEC_SetVolume(&codecHandle, ~0U, DEMO_VOLUME);
+    if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
+    {
+        assert(false);
+    }
+    if (CODEC_SetVolume(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight,
+            DEMO_VOLUME) != kStatus_Success)
+    {
+        assert(false);
+    }
     return 0;
 }
 
 
-#if DEMO_CODEC_CS42448
+#if (defined(DEMO_CODEC_CS42448) && (DEMO_CODEC_CS42448 == 1))
 void BORAD_CodecReset(bool state)
 {
     if (state)
@@ -216,6 +222,9 @@ status_t list_files(bool autoInput)
             /* Check file for supported audio extension */
             dot = strrchr(fileInformation.fname, '.');
             if (
+#ifdef MULTICHANNEL_EXAMPLE
+                (dot && strncmp(dot + 1, "pcm", 4) == 0)
+#else
 #if (OGG_OPUS_DEC == 1)
                 (dot && strncmp(dot + 1, "opus", 4) == 0) || (dot && strncmp(dot + 1, "ogg", 3) == 0) ||
 #endif
@@ -228,13 +237,19 @@ status_t list_files(bool autoInput)
 #if (FLAC_DEC == 1)
                 (dot && strncmp(dot + 1, "flac", 3) == 0) ||
 #endif
-                (dot && strncmp(dot + 1, "mp3", 3) == 0))
+                (dot && strncmp(dot + 1, "mp3", 3) == 0)
+#endif
+            )
             {
                 if (count < MAX_FILES_LIST)
                 {
-                    strcpy(get_eap_att_control()->availableInputs[count], fileInformation.fname);
-                    PRINTF("  %s\r\n", fileInformation.fname);
-                    count++;
+                    if (strlen(fileInformation.fname) < MAX_FILE_NAME_LENGTH)
+                    {
+                        strncpy(get_eap_att_control()->availableInputs[count], fileInformation.fname,
+                                MAX_FILE_NAME_LENGTH - 1);
+                        PRINTF("  %s\r\n", get_eap_att_control()->availableInputs[count]);
+                        count++;
+                    }
                 }
                 else
                 {
@@ -353,7 +368,7 @@ int main(void)
 
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
-#if DEMO_CODEC_WM8960
+#if (defined(DEMO_CODEC_WM8960) && (DEMO_CODEC_WM8960 == 1))
     BOARD_InitWM8960Pins();
 #else
     BOARD_InitCS42448Pins();
@@ -374,10 +389,10 @@ int main(void)
     BOARD_EnableSaiMclkOutput(true);
 
     DMAMUX_Init(DEMO_DMAMUX);
-    DMAMUX_SetSource(DEMO_DMAMUX, DEMO_TX_CHANNEL, (uint8_t)DEMO_SAI_TX_SOURCE);
-    DMAMUX_EnableChannel(DEMO_DMAMUX, DEMO_TX_CHANNEL);
+    DMAMUX_SetSource(DEMO_DMAMUX, DEMO_TX_EDMA_CHANNEL, (uint8_t)DEMO_SAI_TX_SOURCE);
+    DMAMUX_EnableChannel(DEMO_DMAMUX, DEMO_TX_EDMA_CHANNEL);
 
-#if DEMO_CODEC_CS42448
+#if (defined(DEMO_CODEC_CS42448) && (DEMO_CODEC_CS42448 == 1))
     /* enable codec power */
     GPIO_PinWrite(DEMO_CODEC_POWER_GPIO, DEMO_CODEC_POWER_GPIO_PIN, 1U);
 #endif

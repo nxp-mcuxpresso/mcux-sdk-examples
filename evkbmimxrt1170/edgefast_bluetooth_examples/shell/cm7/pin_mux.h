@@ -56,6 +56,12 @@ void BOARD_InitUSDHCPins(void);               /* Function assigned for the Corte
  * @brief Configures pin routing and optionally pin electrical features.
  *
  */
+void BOARD_InitArduinoUARTPins(void);         /* Function assigned for the Cortex-M7F */
+
+/*!
+ * @brief Configures pin routing and optionally pin electrical features.
+ *
+ */
 void BOARD_InitSPIPins(void);                 /* Function assigned for the Cortex-M7F */
 
 /*!

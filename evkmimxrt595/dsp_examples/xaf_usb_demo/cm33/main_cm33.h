@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -18,6 +18,11 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+#undef PRINTF
+#define PRINTF CM33_PRINTF
+
+void CM33_PRINTF(const char* ptr, ...);
+
 typedef struct _app_handle
 {
     TaskHandle_t shell_task_handle;

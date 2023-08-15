@@ -41,6 +41,7 @@
 
 /* Ensure stdint is only used by the compiler, and not the assembler. */
 #if defined( __ICCARM__ ) || defined( __ARMCC_VERSION ) || defined( __GNUC__)
+    #include "fsl_device_registers.h"
     #include <stdint.h>
     extern uint32_t SystemCoreClock;
     extern int DbgConsole_Printf( const char *fmt_s, ... );
@@ -69,9 +70,9 @@
 /* Memory allocation related definitions. */
 #define configSUPPORT_STATIC_ALLOCATION         0
 #define configSUPPORT_DYNAMIC_ALLOCATION        1
-#if (defined(CPU_MIMXRT1051DVL6B) || defined(CPU_MIMXRT1052DVL6B) || defined(CPU_MIMXRT1041XJM5B) || defined(CPU_MIMXRT1042XJM5B))
+#if (defined(MIMXRT1051_SERIES) || defined(MIMXRT1052_SERIES) || defined(MIMXRT1041_SERIES) || defined(MIMXRT1042_SERIES) || defined(MCXN548_cm33_core0_SERIES))
 #define configTOTAL_HEAP_SIZE                   ((size_t) (255 * 1024))
-#elif defined(CPU_LPC55S69JBD100_cm33_core0)
+#elif (defined(LPC55S69_cm33_core0_SERIES) || defined(RW610_SERIES))
 #define configTOTAL_HEAP_SIZE                   ((size_t) (210 * 1024))
 #else
 #define configTOTAL_HEAP_SIZE                   ((size_t) (734 * 1024))

@@ -33,8 +33,9 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DDEBUG \
     -DCPU_MIMXRT1176DVMAA_cm4 \
     -DFLEXSPI_IN_USE \
-    -DMULTICORE_APP=1 \
     -DMCUXPRESSO_SDK \
+    -DMULTICORE_APP=1 \
+    -DSDK_OS_BAREMETAL \
     -g \
     -O0 \
     -mcpu=cortex-m4 \
@@ -57,8 +58,9 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DNDEBUG \
     -DCPU_MIMXRT1176DVMAA_cm4 \
     -DFLEXSPI_IN_USE \
-    -DMULTICORE_APP=1 \
     -DMCUXPRESSO_SDK \
+    -DMULTICORE_APP=1 \
+    -DSDK_OS_BAREMETAL \
     -Os \
     -mcpu=cortex-m4 \
     -Wall \

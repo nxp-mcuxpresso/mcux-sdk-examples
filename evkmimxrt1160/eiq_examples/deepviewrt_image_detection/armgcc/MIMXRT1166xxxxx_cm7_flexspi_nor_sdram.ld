@@ -27,7 +27,7 @@
 /* Entry Point */
 ENTRY(Reset_Handler)
 
-HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x1000000;
+HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x800000;
 STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x10000;
 VECTOR_RAM_SIZE = DEFINED(__ram_vector_table__) ? 0x00000400 : 0;
 NCACHE_HEAP_START = DEFINED(__heap_noncacheable__) ? 0x84000000 - HEAP_SIZE : 0x83000000 - HEAP_SIZE;
@@ -205,7 +205,6 @@ SECTIONS
   {
     . = ALIGN(32);
     __ram_function_start__ = .;
-    *(CodeQuickAccess)
     . = ALIGN(128);
     __ram_function_end__ = .;
   } > m_qacode
@@ -234,6 +233,7 @@ SECTIONS
   {
     . = ALIGN(4);
     *(DataQuickAccess)       /* quick access data section */
+    *(CodeQuickAccess)
     . = ALIGN(4);
   } > m_data2
 

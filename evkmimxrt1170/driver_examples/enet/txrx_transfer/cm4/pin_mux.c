@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 NXP
+ * Copyright 2022-2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -16,12 +16,17 @@ product: Pins v12.0
 processor: MIMXRT1176xxxxx
 package_id: MIMXRT1176DVMAA
 mcu_data: ksdk2_0
-processor_version: 12.0.0
+processor_version: 12.0.1
+board: MIMXRT1170-EVK
+pin_labels:
+- {pin_num: U5, pin_signal: GPIO_LPSR_12, label: 'JTAG_TDI/J1[5]/J58[8]/LPSPI6_SDI/J26[5]/DMIC_DATA3/U45[5]/ENET_RST/U7[32]', identifier: PHY_RESET}
+- {pin_num: P17, pin_signal: GPIO_AD_12, label: 'SPDIF_LOCK/J26[6]/ENET_INT/U7[21]', identifier: hgjgh;PHY_INTR}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
 #include "fsl_common.h"
 #include "fsl_iomuxc.h"
+#include "fsl_gpio.h"
 #include "pin_mux.h"
 
 /* FUNCTION ************************************************************************************************************
@@ -32,6 +37,7 @@ processor_version: 12.0.0
  * END ****************************************************************************************************************/
 void BOARD_InitBootPins(void) {
     BOARD_InitPins();
+    BOARD_InitENETPins();
 }
 
 /*
@@ -39,32 +45,8 @@ void BOARD_InitBootPins(void) {
 BOARD_InitPins:
 - options: {callFromInitBoot: 'true', coreID: cm7, enableClock: 'true'}
 - pin_list:
-  - {pin_num: M15, peripheral: LPUART1, signal: RXD, pin_signal: GPIO_AD_25, software_input_on: Enable, pull_up_down_config: Pull_Down, pull_keeper_select: Pull,
-    open_drain: Disable, drive_strength: High, slew_rate: Slow}
-  - {pin_num: L13, peripheral: LPUART1, signal: TXD, pin_signal: GPIO_AD_24, software_input_on: Disable, pull_up_down_config: Pull_Down, pull_keeper_select: Pull,
-    open_drain: Disable, drive_strength: High, slew_rate: Slow}
-  - {pin_num: P17, peripheral: GPIO9, signal: 'gpio_io, 11', pin_signal: GPIO_AD_12, software_input_on: Disable, pull_up_down_config: Pull_Down, pull_keeper_select: Pull,
-    open_drain: Disable, drive_strength: High, slew_rate: Slow}
-  - {pin_num: U5, peripheral: GPIO12, signal: 'gpio_io, 12', pin_signal: GPIO_LPSR_12, software_input_on: Disable, pull_up_down_config: Pull_Up, pull_keeper_select: Pull,
-    open_drain: Disable, drive_strength: High, slew_rate: Slow}
-  - {pin_num: C6, peripheral: ENET, signal: 'enet_rdata, 00', pin_signal: GPIO_DISP_B2_06, software_input_on: Enable, pull_up_down_config: Pull_Down, pull_keeper_select: Pull,
-    open_drain: Disable, drive_strength: High, slew_rate: Slow}
-  - {pin_num: D6, peripheral: ENET, signal: 'enet_rdata, 01', pin_signal: GPIO_DISP_B2_07, software_input_on: Enable, pull_up_down_config: Pull_Down, pull_keeper_select: Pull,
-    open_drain: Disable, drive_strength: High, slew_rate: Slow}
-  - {pin_num: B5, peripheral: ENET, signal: enet_rx_en, pin_signal: GPIO_DISP_B2_08, software_input_on: Disable, pull_up_down_config: Pull_Down, pull_keeper_select: Pull,
-    open_drain: Disable, drive_strength: High, slew_rate: Slow}
-  - {pin_num: E9, peripheral: ENET, signal: 'enet_tdata, 00', pin_signal: GPIO_DISP_B2_02, software_input_on: Disable, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper,
-    open_drain: Disable, drive_strength: High, slew_rate: Slow}
-  - {pin_num: D7, peripheral: ENET, signal: 'enet_tdata, 01', pin_signal: GPIO_DISP_B2_03, software_input_on: Disable, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper,
-    open_drain: Disable, drive_strength: High, slew_rate: Slow}
-  - {pin_num: C7, peripheral: ENET, signal: enet_tx_en, pin_signal: GPIO_DISP_B2_04, software_input_on: Disable, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper,
-    open_drain: Disable, drive_strength: High, slew_rate: Slow}
-  - {pin_num: C9, peripheral: ENET, signal: enet_ref_clk, pin_signal: GPIO_DISP_B2_05, direction: OUTPUT, software_input_on: Enable, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper,
-    open_drain: Disable, drive_strength: High, slew_rate: Fast}
-  - {pin_num: D8, peripheral: ENET, signal: enet_rx_er, pin_signal: GPIO_DISP_B2_09, software_input_on: Disable, pull_up_down_config: Pull_Down, pull_keeper_select: Pull,
-    open_drain: Disable}
-  - {pin_num: K16, peripheral: ENET, signal: enet_mdc, pin_signal: GPIO_AD_32}
-  - {pin_num: H17, peripheral: ENET, signal: enet_mdio, pin_signal: GPIO_AD_33}
+  - {pin_num: L13, peripheral: LPUART1, signal: TXD, pin_signal: GPIO_AD_24, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper}
+  - {pin_num: M15, peripheral: LPUART1, signal: RXD, pin_signal: GPIO_AD_25, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -76,17 +58,87 @@ BOARD_InitPins:
  * END ****************************************************************************************************************/
 void BOARD_InitPins(void) {
   CLOCK_EnableClock(kCLOCK_Iomuxc);           /* LPCG on: LPCG is ON. */
-  CLOCK_EnableClock(kCLOCK_Iomuxc_Lpsr);      /* LPCG on: LPCG is ON. */
 
-  IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_12_GPIO9_IO11,           /* GPIO_AD_12 is configured as GPIO9_IO11 */
-      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_AD_24_LPUART1_TXD,          /* GPIO_AD_24 is configured as LPUART1_TXD */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_AD_25_LPUART1_RXD,          /* GPIO_AD_25 is configured as LPUART1_RXD */
-      1U);                                    /* Software Input On Field: Force input path of pad GPIO_AD_25 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinConfig(
+      IOMUXC_GPIO_AD_24_LPUART1_TXD,          /* GPIO_AD_24 PAD functional properties : */
+      0x02U);                                 /* Slew Rate Field: Slow Slew Rate
+                                                 Drive Strength Field: high drive strength
+                                                 Pull / Keep Select Field: Pull Disable, Highz
+                                                 Pull Up / Down Config. Field: Weak pull down
+                                                 Open Drain Field: Disabled
+                                                 Domain write protection: Both cores are allowed
+                                                 Domain write protection lock: Neither of DWP bits is locked */
+  IOMUXC_SetPinConfig(
+      IOMUXC_GPIO_AD_25_LPUART1_RXD,          /* GPIO_AD_25 PAD functional properties : */
+      0x02U);                                 /* Slew Rate Field: Slow Slew Rate
+                                                 Drive Strength Field: high drive strength
+                                                 Pull / Keep Select Field: Pull Disable, Highz
+                                                 Pull Up / Down Config. Field: Weak pull down
+                                                 Open Drain Field: Disabled
+                                                 Domain write protection: Both cores are allowed
+                                                 Domain write protection lock: Neither of DWP bits is locked */
+}
+
+
+/*
+ * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+BOARD_InitENETPins:
+- options: {callFromInitBoot: 'true', coreID: cm7, enableClock: 'true'}
+- pin_list:
+  - {pin_num: U5, peripheral: GPIO12, signal: 'gpio_io, 12', pin_signal: GPIO_LPSR_12, direction: OUTPUT, gpio_init_state: 'true', slew_rate: Slow}
+  - {pin_num: P17, peripheral: GPIO3, signal: 'gpio_mux_io, 11', pin_signal: GPIO_AD_12, identifier: PHY_INTR, direction: INPUT, gpio_interrupt: kGPIO_IntLowLevel}
+  - {pin_num: K16, peripheral: ENET, signal: enet_mdc, pin_signal: GPIO_AD_32, slew_rate: Slow}
+  - {pin_num: H17, peripheral: ENET, signal: enet_mdio, pin_signal: GPIO_AD_33, slew_rate: Slow}
+  - {pin_num: C9, peripheral: ENET, signal: enet_ref_clk, pin_signal: GPIO_DISP_B2_05, direction: OUTPUT, software_input_on: Enable, slew_rate: Fast}
+  - {pin_num: C7, peripheral: ENET, signal: enet_tx_en, pin_signal: GPIO_DISP_B2_04, slew_rate: Slow}
+  - {pin_num: E9, peripheral: ENET, signal: 'enet_tdata, 00', pin_signal: GPIO_DISP_B2_02, slew_rate: Slow}
+  - {pin_num: D7, peripheral: ENET, signal: 'enet_tdata, 01', pin_signal: GPIO_DISP_B2_03, slew_rate: Slow}
+  - {pin_num: B5, peripheral: ENET, signal: enet_rx_en, pin_signal: GPIO_DISP_B2_08, slew_rate: Slow}
+  - {pin_num: D8, peripheral: ENET, signal: enet_rx_er, pin_signal: GPIO_DISP_B2_09, slew_rate: Slow}
+  - {pin_num: C6, peripheral: ENET, signal: 'enet_rdata, 00', pin_signal: GPIO_DISP_B2_06, slew_rate: Slow}
+  - {pin_num: D6, peripheral: ENET, signal: 'enet_rdata, 01', pin_signal: GPIO_DISP_B2_07, slew_rate: Slow}
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
+ */
+
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_InitENETPins, assigned for the Cortex-M7F core.
+ * Description   : Configures pin routing and optionally pin electrical features.
+ *
+ * END ****************************************************************************************************************/
+void BOARD_InitENETPins(void) {
+  CLOCK_EnableClock(kCLOCK_Iomuxc);           /* LPCG on: LPCG is ON. */
+  CLOCK_EnableClock(kCLOCK_Iomuxc_Lpsr);      /* LPCG on: LPCG is ON. */
+
+  /* GPIO configuration of PHY_INTR on GPIO_AD_12 (pin P17) */
+  gpio_pin_config_t PHY_INTR_config = {
+      .direction = kGPIO_DigitalInput,
+      .outputLogic = 0U,
+      .interruptMode = kGPIO_IntLowLevel
+  };
+  /* Initialize GPIO functionality on GPIO_AD_12 (pin P17) */
+  GPIO_PinInit(GPIO3, 11U, &PHY_INTR_config);
+  /* Enable GPIO pin interrupt on GPIO_AD_12 (pin P17) */
+  GPIO_PortEnableInterrupts(GPIO3, 1U << 11U);
+
+  /* GPIO configuration of PHY_RESET on IOMUXC_LPSR_SW_MUX_CTL_PAD_GPIO_LPSR_12 (pin U5) */
+  gpio_pin_config_t PHY_RESET_config = {
+      .direction = kGPIO_DigitalOutput,
+      .outputLogic = 1U,
+      .interruptMode = kGPIO_NoIntmode
+  };
+  /* Initialize GPIO functionality on IOMUXC_LPSR_SW_MUX_CTL_PAD_GPIO_LPSR_12 (pin U5) */
+  GPIO_PinInit(GPIO12, 12U, &PHY_RESET_config);
+
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_AD_12_GPIO_MUX3_IO11,       /* GPIO_AD_12 is configured as GPIO_MUX3_IO11 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_AD_32_ENET_MDC,             /* GPIO_AD_32 is configured as ENET_MDC */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
@@ -107,10 +159,10 @@ void BOARD_InitPins(void) {
       1U);                                    /* Software Input On Field: Force input path of pad GPIO_DISP_B2_05 */
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_DISP_B2_06_ENET_RX_DATA00,  /* GPIO_DISP_B2_06 is configured as ENET_RX_DATA00 */
-      1U);                                    /* Software Input On Field: Force input path of pad GPIO_DISP_B2_06 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_DISP_B2_07_ENET_RX_DATA01,  /* GPIO_DISP_B2_07 is configured as ENET_RX_DATA01 */
-      1U);                                    /* Software Input On Field: Force input path of pad GPIO_DISP_B2_07 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_DISP_B2_08_ENET_RX_EN,      /* GPIO_DISP_B2_08 is configured as ENET_RX_EN */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
@@ -121,11 +173,15 @@ void BOARD_InitPins(void) {
     (~(IOMUXC_GPR_GPR4_ENET_REF_CLK_DIR_MASK))) /* Mask bits to zero which are setting */
       | IOMUXC_GPR_GPR4_ENET_REF_CLK_DIR(0x01U) /* ENET_REF_CLK direction control: 0x01U */
     );
+  IOMUXC_GPR->GPR42 = ((IOMUXC_GPR->GPR42 &
+    (~(BOARD_INITENETPINS_IOMUXC_GPR_GPR42_GPIO_MUX3_GPIO_SEL_LOW_MASK))) /* Mask bits to zero which are setting */
+      | IOMUXC_GPR_GPR42_GPIO_MUX3_GPIO_SEL_LOW(0x00U) /* GPIO3 and CM7_GPIO3 share same IO MUX function, GPIO_MUX3 selects one GPIO function: 0x00U */
+    );
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_LPSR_12_GPIO12_IO12,        /* GPIO_LPSR_12 is configured as GPIO12_IO12 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinConfig(
-      IOMUXC_GPIO_AD_12_GPIO9_IO11,           /* GPIO_AD_12 PAD functional properties : */
+      IOMUXC_GPIO_AD_32_ENET_MDC,             /* GPIO_AD_32 PAD functional properties : */
       0x06U);                                 /* Slew Rate Field: Slow Slew Rate
                                                  Drive Strength Field: high drive strength
                                                  Pull / Keep Select Field: Pull Enable
@@ -134,16 +190,7 @@ void BOARD_InitPins(void) {
                                                  Domain write protection: Both cores are allowed
                                                  Domain write protection lock: Neither of DWP bits is locked */
   IOMUXC_SetPinConfig(
-      IOMUXC_GPIO_AD_24_LPUART1_TXD,          /* GPIO_AD_24 PAD functional properties : */
-      0x06U);                                 /* Slew Rate Field: Slow Slew Rate
-                                                 Drive Strength Field: high drive strength
-                                                 Pull / Keep Select Field: Pull Enable
-                                                 Pull Up / Down Config. Field: Weak pull down
-                                                 Open Drain Field: Disabled
-                                                 Domain write protection: Both cores are allowed
-                                                 Domain write protection lock: Neither of DWP bits is locked */
-  IOMUXC_SetPinConfig(
-      IOMUXC_GPIO_AD_25_LPUART1_RXD,          /* GPIO_AD_25 PAD functional properties : */
+      IOMUXC_GPIO_AD_33_ENET_MDIO,            /* GPIO_AD_33 PAD functional properties : */
       0x06U);                                 /* Slew Rate Field: Slow Slew Rate
                                                  Drive Strength Field: high drive strength
                                                  Pull / Keep Select Field: Pull Enable

@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -30,7 +38,7 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(wifi_cli)
 
-set(MCUX_BUILD_TYPES debug release flash_debug flash_release)
+set(MCUX_BUILD_TYPES flash_debug flash_release)
 
 set(MCUX_SDK_PROJECT_NAME wifi_cli.elf)
 
@@ -43,11 +51,13 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
+"${ProjDirPath}/../app_config.h"
 "${ProjDirPath}/../main.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../lwipopts.h"
 "${ProjDirPath}/../lwippools.h"
+"${ProjDirPath}/../lwiphooks.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
 "${ProjDirPath}/../wifi_config.h"
 "${ProjDirPath}/../sdmmc_config.c"
@@ -58,134 +68,24 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/mimxrt685audevk/board.h"
 "${SdkRootDirPath}/core/boards/mimxrt685audevk/clock_config.c"
 "${SdkRootDirPath}/core/boards/mimxrt685audevk/clock_config.h"
-"${ProjDirPath}/../app_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/mimxrt685audevk
     ${SdkRootDirPath}/examples/mimxrt685audevk/wifi_examples/common
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
-    ${SdkRootDirPath}/middleware/lwip
-    ${SdkRootDirPath}/middleware/wifi_nxp
-    ${SdkRootDirPath}/core/drivers/flexcomm
-    ${SdkRootDirPath}/core/components/pca9420
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/middleware/sdmmc
-    ${SdkRootDirPath}/core/components/gpio
-    ${SdkRootDirPath}/core/devices/MIMXRT685S/drivers
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/devices/MIMXRT685S
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/boards/mimxrt685audevk/flash_config
-    ${SdkRootDirPath}/core/drivers/flexspi
-    ${SdkRootDirPath}/core/drivers/cache/cache64
-    ${SdkRootDirPath}/core/components/serial_manager
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/drivers/lpc_iopctl
-    ${SdkRootDirPath}/core/drivers/lpc_gpio
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/components/wifi_bt_module
-    ${SdkRootDirPath}/core/components/osa
-    ${SdkRootDirPath}/core/drivers/usdhc
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
+set_source_files_properties("${ProjDirPath}/../app_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
+set_source_files_properties("${ProjDirPath}/../lwipopts.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_lwip_template")
+set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")
+set_source_files_properties("${ProjDirPath}/../wifi_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
+set_source_files_properties("${ProjDirPath}/../sdmmc_config.c" PROPERTIES COMPONENT_CONFIG_FILE "middleware_sdmmc_usdhc_template")
+set_source_files_properties("${ProjDirPath}/../sdmmc_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_sdmmc_usdhc_template")
+set_source_files_properties("${ProjDirPath}/../wifi_bt_config.c" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
+set_source_files_properties("${ProjDirPath}/../wifi_bt_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
 
-# include modules
-include(middleware_freertos-kernel_MIMXRT685S_cm33)
-
-include(middleware_freertos-kernel_heap_4)
-
-include(middleware_lwip)
-
-include(middleware_wifi)
-
-include(middleware_lwip_apps_lwiperf)
-
-include(middleware_wifi_cli)
-
-include(middleware_freertos-kernel_cm33_nonsecure_port)
-
-include(driver_flexcomm_i2c)
-
-include(driver_pca9420)
-
-include(middleware_wifi_wifidriver)
-
-include(utility_debug_console)
-
-include(middleware_wifi_sdio)
-
-include(middleware_wifi_fwdnld_MIMXRT685S_cm33)
-
-include(middleware_sdmmc_sdio)
-
-include(middleware_sdmmc_common)
-
-include(middleware_sdmmc_host_usdhc)
-
-include(middleware_sdmmc_host_usdhc_freertos_MIMXRT685S_cm33)
-
-include(component_rt_gpio_adapter)
-
-include(driver_clock)
-
-include(driver_common)
-
-include(device_CMSIS)
-
-include(utility_assert)
-
-include(component_usart_adapter)
-
-include(driver_power)
-
-include(driver_flash_config_mimxrt685audevk)
-
-include(driver_flexspi)
-
-include(driver_cache_cache64)
-
-include(component_serial_manager)
-
-include(component_lists)
-
-include(component_serial_manager_uart)
-
-include(driver_flexcomm_usart)
-
-include(device_startup)
-
-include(driver_flexcomm)
-
-include(driver_lpc_iopctl)
-
-include(driver_lpc_gpio)
-
-include(driver_reset)
-
-include(middleware_freertos-kernel_extension)
-
-include(CMSIS_Include_core_cm)
-
-include(component_wifi_bt_module_tx_pwr_limits)
-
-include(middleware_wifi_sdio-2)
-
-include(middleware_sdmmc_osa_freertos)
-
-include(component_osa_free_rtos)
-
-include(driver_usdhc)
-
-include(middleware_wifi_common_files)
-
-include(utilities_misc_utilities_MIMXRT685S_cm33)
-
+include(${SdkRootDirPath}/core/devices/MIMXRT685S/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -199,4 +99,6 @@ TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
 ADD_CUSTOM_COMMAND(TARGET ${MCUX_SDK_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_OBJCOPY}
 -Obinary ${EXECUTABLE_OUTPUT_PATH}/${MCUX_SDK_PROJECT_NAME} ${EXECUTABLE_OUTPUT_PATH}/sdk20-app.bin)
+
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map;${EXECUTABLE_OUTPUT_PATH}/sdk20-app.bin")
 

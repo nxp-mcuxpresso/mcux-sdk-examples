@@ -1,7 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2022 NXP
- * All rights reserved.
+ * Copyright 2016-2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -13,16 +12,27 @@
 #include "pin_mux.h"
 #include "board.h"
 
-#include "fsl_phyar8031.h"
 #include "fsl_gpio.h"
+#include "fsl_phyar8031.h"
+#include "fsl_phyrtl8211f.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+#ifndef EXAMPLE_ENET_PHY_PHYAR8031
+#define EXAMPLE_ENET_PHY_PHYAR8031 0U
+#endif
+
+#if EXAMPLE_ENET_PHY_PHYAR8031
+#define EXAMPLE_PHY_OPS &phyar8031_ops
 extern phy_ar8031_resource_t g_phy_resource;
+#else
+#define EXAMPLE_PHY_OPS &phyrtl8211f_ops
+extern phy_rtl8211f_resource_t g_phy_resource;
+#endif /* EXAMPLE_ENET_PHY_PHYAR8031 */
+
 #define EXAMPLE_ENET        ENET1
 #define EXAMPLE_PHY_ADDRESS 0U
 #define EXAMPLE_PHY_INTERFACE_RGMII
-#define EXAMPLE_PHY_OPS      &phyar8031_ops
 #define EXAMPLE_PHY_RESOURCE &g_phy_resource
 #define EXAMPLE_CLOCK_FREQ   CLOCK_GetFreq(kCLOCK_EnetIpgClk)
 #define PTP_CLK_FREQ         100000000U
@@ -64,7 +74,11 @@ static void ENET_BuildPtpEventFrame(void);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+#if EXAMPLE_ENET_PHY_PHYAR8031
 phy_ar8031_resource_t g_phy_resource;
+#else
+phy_rtl8211f_resource_t g_phy_resource;
+#endif
 /*! @brief Buffer descriptors should be in non-cacheable region and should be align to "ENET_BUFF_ALIGNMENT". */
 AT_NONCACHEABLE_SECTION_ALIGN(static enet_rx_bd_struct_t g_rxBuffDescrip[ENET_RXBD_NUM], ENET_BUFF_ALIGNMENT);
 AT_NONCACHEABLE_SECTION_ALIGN(static enet_tx_bd_struct_t g_txBuffDescrip[ENET_TXBD_NUM], ENET_BUFF_ALIGNMENT);
@@ -234,6 +248,7 @@ int main(void)
      * config.rxMaxFrameLen = ENET_FRAME_MAX_FRAMELEN;
      */
     ENET_GetDefaultConfig(&config);
+    config.callback  = enetCallback;
 
     /* The miiMode should be set according to the different PHY interfaces. */
 #ifdef EXAMPLE_PHY_INTERFACE_RGMII
@@ -300,7 +315,6 @@ int main(void)
 
     /* Enable Tx Reclaim and set callback to get timestamp */
     ENET_SetTxReclaim(&g_handle, true, 0);
-    ENET_SetCallback(&g_handle, enetCallback, NULL);
 
     /* Check if the timestamp is running */
     for (count = 1; count <= 10; count++)

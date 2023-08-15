@@ -9,8 +9,8 @@ The file 'lpspi_polling_b2b_transfer_slave.c' includes the LPSPI slave code.
 
 Toolchain supported
 ===================
-- MCUXpresso  11.7.0
-- GCC ARM Embedded  10.3.1
+- MCUXpresso  11.8.0
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

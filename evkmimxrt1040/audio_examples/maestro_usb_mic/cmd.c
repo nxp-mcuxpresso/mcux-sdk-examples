@@ -71,7 +71,7 @@ streamer_handle_t streamerHandle;
 
 static shell_status_t shellEcho(shell_handle_t shellHandle, int32_t argc, char **argv)
 {
-    PRINTF(" Maestro version: 1.2\r\n");
+    PRINTF(" Maestro version: 1.6\r\n");
     return kStatus_SHELL_Success;
 }
 

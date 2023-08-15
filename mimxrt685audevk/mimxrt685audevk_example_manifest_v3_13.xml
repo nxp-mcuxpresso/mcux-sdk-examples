@@ -1,0 +1,1329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_mimxrt685audevk_examples_manifest_v3_13" name="SDK_2.x_mimxrt685audevk_examples_manifest_v3_13" format_version="3.13" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.13.xsd">
+
+  <externalDefinitions>
+    <definition extID="MIMXRT685SFVKB"/>
+  </externalDefinitions>
+  <ksdk id="MCUXpressoSDK2140_mimxrt685audevk_examples_manifest_v3_13" name="MCUXpressoSDK2140_mimxrt685audevk_examples_manifest_v3_13" version="2.14.0"/>
+  <boards>
+    <board id="mimxrt685audevk" name="MIMXRT685-AUD-EVK" version="1.0.0" package="MIMXRT685SFVKB">
+      <examples>
+        <example id="mimxrt685audevk_dev_audio_generator_bm" name="dev_audio_generator_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_audio_generator/bm">
+          <external path="usb_examples/usb_device_audio_generator/bm" type="xml">
+            <files mask="dev_audio_generator_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_audio_generator_lite_bm" name="dev_audio_generator_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_audio_generator_lite/bm">
+          <external path="usb_examples/usb_device_audio_generator_lite/bm" type="xml">
+            <files mask="dev_audio_generator_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_audio_speaker_bm" name="dev_audio_speaker_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_audio_speaker/bm">
+          <external path="usb_examples/usb_device_audio_speaker/bm" type="xml">
+            <files mask="dev_audio_speaker_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_audio_speaker_lite_bm" name="dev_audio_speaker_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_audio_speaker_lite/bm">
+          <external path="usb_examples/usb_device_audio_speaker_lite/bm" type="xml">
+            <files mask="dev_audio_speaker_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_cdc_vcom_bm" name="dev_cdc_vcom_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_cdc_vcom/bm">
+          <external path="usb_examples/usb_device_cdc_vcom/bm" type="xml">
+            <files mask="dev_cdc_vcom_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_cdc_vcom_lite_bm" name="dev_cdc_vcom_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_cdc_vcom_lite/bm">
+          <external path="usb_examples/usb_device_cdc_vcom_lite/bm" type="xml">
+            <files mask="dev_cdc_vcom_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_composite_audio_multi_ch_unified_bm" name="dev_composite_audio_multi_ch_unified_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_composite_audio_multi_ch_unified/bm">
+          <external path="usb_examples/usb_device_composite_audio_multi_ch_unified/bm" type="xml">
+            <files mask="dev_composite_audio_multi_ch_unified_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_composite_audio_multi_ch_unified_lite_bm" name="dev_composite_audio_multi_ch_unified_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_composite_audio_multi_ch_unified_lite/bm">
+          <external path="usb_examples/usb_device_composite_audio_multi_ch_unified_lite/bm" type="xml">
+            <files mask="dev_composite_audio_multi_ch_unified_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_composite_cdc_audio_unified_bm" name="dev_composite_cdc_audio_unified_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_composite_cdc_audio_unified/bm">
+          <external path="usb_examples/usb_device_composite_cdc_audio_unified/bm" type="xml">
+            <files mask="dev_composite_cdc_audio_unified_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_composite_cdc_audio_unified_lite_bm" name="dev_composite_cdc_audio_unified_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_composite_cdc_audio_unified_lite/bm">
+          <external path="usb_examples/usb_device_composite_cdc_audio_unified_lite/bm" type="xml">
+            <files mask="dev_composite_cdc_audio_unified_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_composite_cdc_msc_bm" name="dev_composite_cdc_msc_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_composite_cdc_msc/bm">
+          <external path="usb_examples/usb_device_composite_cdc_msc/bm" type="xml">
+            <files mask="dev_composite_cdc_msc_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_composite_cdc_msc_disk_bm" name="dev_composite_cdc_msc_disk_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_composite_cdc_msc_disk/bm">
+          <external path="usb_examples/usb_device_composite_cdc_msc_disk/bm" type="xml">
+            <files mask="dev_composite_cdc_msc_disk_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_composite_cdc_msc_disk_lite_bm" name="dev_composite_cdc_msc_disk_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_composite_cdc_msc_disk_lite/bm">
+          <external path="usb_examples/usb_device_composite_cdc_msc_disk_lite/bm" type="xml">
+            <files mask="dev_composite_cdc_msc_disk_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_composite_cdc_msc_lite_bm" name="dev_composite_cdc_msc_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_composite_cdc_msc_lite/bm">
+          <external path="usb_examples/usb_device_composite_cdc_msc_lite/bm" type="xml">
+            <files mask="dev_composite_cdc_msc_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_composite_cdc_vcom_cdc_vcom_bm" name="dev_composite_cdc_vcom_cdc_vcom_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_composite_cdc_vcom_cdc_vcom/bm">
+          <external path="usb_examples/usb_device_composite_cdc_vcom_cdc_vcom/bm" type="xml">
+            <files mask="dev_composite_cdc_vcom_cdc_vcom_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_composite_cdc_vcom_cdc_vcom_lite_bm" name="dev_composite_cdc_vcom_cdc_vcom_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_composite_cdc_vcom_cdc_vcom_lite/bm">
+          <external path="usb_examples/usb_device_composite_cdc_vcom_cdc_vcom_lite/bm" type="xml">
+            <files mask="dev_composite_cdc_vcom_cdc_vcom_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_composite_hid_audio_unified_bm" name="dev_composite_hid_audio_unified_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_composite_hid_audio_unified/bm">
+          <external path="usb_examples/usb_device_composite_hid_audio_unified/bm" type="xml">
+            <files mask="dev_composite_hid_audio_unified_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_composite_hid_audio_unified_lite_bm" name="dev_composite_hid_audio_unified_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_composite_hid_audio_unified_lite/bm">
+          <external path="usb_examples/usb_device_composite_hid_audio_unified_lite/bm" type="xml">
+            <files mask="dev_composite_hid_audio_unified_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_composite_hid_mouse_hid_keyboard_bm" name="dev_composite_hid_mouse_hid_keyboard_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_composite_hid_mouse_hid_keyboard/bm">
+          <external path="usb_examples/usb_device_composite_hid_mouse_hid_keyboard/bm" type="xml">
+            <files mask="dev_composite_hid_mouse_hid_keyboard_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_composite_hid_mouse_hid_keyboard_lite_bm" name="dev_composite_hid_mouse_hid_keyboard_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_composite_hid_mouse_hid_keyboard_lite/bm">
+          <external path="usb_examples/usb_device_composite_hid_mouse_hid_keyboard_lite/bm" type="xml">
+            <files mask="dev_composite_hid_mouse_hid_keyboard_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_dfu_bm" name="dev_dfu_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_dfu/bm">
+          <external path="usb_examples/usb_device_dfu/bm" type="xml">
+            <files mask="dev_dfu_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_dfu_lite_bm" name="dev_dfu_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_dfu_lite/bm">
+          <external path="usb_examples/usb_device_dfu_lite/bm" type="xml">
+            <files mask="dev_dfu_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_hid_generic_bm" name="dev_hid_generic_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_hid_generic/bm">
+          <external path="usb_examples/usb_device_hid_generic/bm" type="xml">
+            <files mask="dev_hid_generic_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_hid_generic_lite_bm" name="dev_hid_generic_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_hid_generic_lite/bm">
+          <external path="usb_examples/usb_device_hid_generic_lite/bm" type="xml">
+            <files mask="dev_hid_generic_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_hid_mouse_bm" name="dev_hid_mouse_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_hid_mouse/bm">
+          <external path="usb_examples/usb_device_hid_mouse/bm" type="xml">
+            <files mask="dev_hid_mouse_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_hid_mouse_lite_bm" name="dev_hid_mouse_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_hid_mouse_lite/bm">
+          <external path="usb_examples/usb_device_hid_mouse_lite/bm" type="xml">
+            <files mask="dev_hid_mouse_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_lpm_hid_mouse_bm" name="dev_lpm_hid_mouse_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_lpm_device_hid_mouse/bm">
+          <external path="usb_examples/usb_lpm_device_hid_mouse/bm" type="xml">
+            <files mask="dev_lpm_hid_mouse_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_lpm_hid_mouse_lite_bm" name="dev_lpm_hid_mouse_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_lpm_device_hid_mouse_lite/bm">
+          <external path="usb_examples/usb_lpm_device_hid_mouse_lite/bm" type="xml">
+            <files mask="dev_lpm_hid_mouse_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_msc_disk_bm" name="dev_msc_disk_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_msc_disk/bm">
+          <external path="usb_examples/usb_device_msc_disk/bm" type="xml">
+            <files mask="dev_msc_disk_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_msc_disk_lite_bm" name="dev_msc_disk_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_msc_disk_lite/bm">
+          <external path="usb_examples/usb_device_msc_disk_lite/bm" type="xml">
+            <files mask="dev_msc_disk_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_msc_ramdisk_bm" name="dev_msc_ramdisk_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_msc_ramdisk/bm">
+          <external path="usb_examples/usb_device_msc_ramdisk/bm" type="xml">
+            <files mask="dev_msc_ramdisk_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_msc_ramdisk_lite_bm" name="dev_msc_ramdisk_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_msc_ramdisk_lite/bm">
+          <external path="usb_examples/usb_device_msc_ramdisk_lite/bm" type="xml">
+            <files mask="dev_msc_ramdisk_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_mtp_bm" name="dev_mtp_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_mtp/bm">
+          <external path="usb_examples/usb_device_mtp/bm" type="xml">
+            <files mask="dev_mtp_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_mtp_lite_bm" name="dev_mtp_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_mtp_lite/bm">
+          <external path="usb_examples/usb_device_mtp_lite/bm" type="xml">
+            <files mask="dev_mtp_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_phdc_weighscale_bm" name="dev_phdc_weighscale_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_phdc_weighscale/bm">
+          <external path="usb_examples/usb_device_phdc_weighscale/bm" type="xml">
+            <files mask="dev_phdc_weighscale_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_phdc_weighscale_lite_bm" name="dev_phdc_weighscale_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_phdc_weighscale_lite/bm">
+          <external path="usb_examples/usb_device_phdc_weighscale_lite/bm" type="xml">
+            <files mask="dev_phdc_weighscale_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_printer_virtual_plain_text_bm" name="dev_printer_virtual_plain_text_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_printer_virtual_plain_text/bm">
+          <external path="usb_examples/usb_device_printer_virtual_plain_text/bm" type="xml">
+            <files mask="dev_printer_virtual_plain_text_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_printer_virtual_plain_text_lite_bm" name="dev_printer_virtual_plain_text_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_printer_virtual_plain_text_lite/bm">
+          <external path="usb_examples/usb_device_printer_virtual_plain_text_lite/bm" type="xml">
+            <files mask="dev_printer_virtual_plain_text_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_suspend_resume_hid_mouse_bm" name="dev_suspend_resume_hid_mouse_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_suspend_resume_device_hid_mouse/bm">
+          <external path="usb_examples/usb_suspend_resume_device_hid_mouse/bm" type="xml">
+            <files mask="dev_suspend_resume_hid_mouse_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_suspend_resume_hid_mouse_lite_bm" name="dev_suspend_resume_hid_mouse_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_suspend_resume_device_hid_mouse_lite/bm">
+          <external path="usb_examples/usb_suspend_resume_device_hid_mouse_lite/bm" type="xml">
+            <files mask="dev_suspend_resume_hid_mouse_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_video_virtual_camera_bm" name="dev_video_virtual_camera_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_video_virtual_camera/bm">
+          <external path="usb_examples/usb_device_video_virtual_camera/bm" type="xml">
+            <files mask="dev_video_virtual_camera_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_video_virtual_camera_lite_bm" name="dev_video_virtual_camera_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_video_virtual_camera_lite/bm">
+          <external path="usb_examples/usb_device_video_virtual_camera_lite/bm" type="xml">
+            <files mask="dev_video_virtual_camera_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_audio_generator_freertos" name="dev_audio_generator_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_audio_generator/freertos">
+          <external path="usb_examples/usb_device_audio_generator/freertos" type="xml">
+            <files mask="dev_audio_generator_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_audio_speaker_freertos" name="dev_audio_speaker_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_audio_speaker/freertos">
+          <external path="usb_examples/usb_device_audio_speaker/freertos" type="xml">
+            <files mask="dev_audio_speaker_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_cdc_vcom_freertos" name="dev_cdc_vcom_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_cdc_vcom/freertos">
+          <external path="usb_examples/usb_device_cdc_vcom/freertos" type="xml">
+            <files mask="dev_cdc_vcom_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_composite_audio_multi_ch_unified_freertos" name="dev_composite_audio_multi_ch_unified_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_composite_audio_multi_ch_unified/freertos">
+          <external path="usb_examples/usb_device_composite_audio_multi_ch_unified/freertos" type="xml">
+            <files mask="dev_composite_audio_multi_ch_unified_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_composite_cdc_audio_unified_freertos" name="dev_composite_cdc_audio_unified_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_composite_cdc_audio_unified/freertos">
+          <external path="usb_examples/usb_device_composite_cdc_audio_unified/freertos" type="xml">
+            <files mask="dev_composite_cdc_audio_unified_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_composite_cdc_msc_disk_freertos" name="dev_composite_cdc_msc_disk_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_composite_cdc_msc_disk/freertos">
+          <external path="usb_examples/usb_device_composite_cdc_msc_disk/freertos" type="xml">
+            <files mask="dev_composite_cdc_msc_disk_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_composite_cdc_msc_freertos" name="dev_composite_cdc_msc_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_composite_cdc_msc/freertos">
+          <external path="usb_examples/usb_device_composite_cdc_msc/freertos" type="xml">
+            <files mask="dev_composite_cdc_msc_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_composite_cdc_vcom_cdc_vcom_freertos" name="dev_composite_cdc_vcom_cdc_vcom_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_composite_cdc_vcom_cdc_vcom/freertos">
+          <external path="usb_examples/usb_device_composite_cdc_vcom_cdc_vcom/freertos" type="xml">
+            <files mask="dev_composite_cdc_vcom_cdc_vcom_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_composite_hid_audio_unified_freertos" name="dev_composite_hid_audio_unified_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_composite_hid_audio_unified/freertos">
+          <external path="usb_examples/usb_device_composite_hid_audio_unified/freertos" type="xml">
+            <files mask="dev_composite_hid_audio_unified_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_composite_hid_mouse_hid_keyboard_freertos" name="dev_composite_hid_mouse_hid_keyboard_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_composite_hid_mouse_hid_keyboard/freertos">
+          <external path="usb_examples/usb_device_composite_hid_mouse_hid_keyboard/freertos" type="xml">
+            <files mask="dev_composite_hid_mouse_hid_keyboard_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_dfu_freertos" name="dev_dfu_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_dfu/freertos">
+          <external path="usb_examples/usb_device_dfu/freertos" type="xml">
+            <files mask="dev_dfu_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_hid_generic_freertos" name="dev_hid_generic_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_hid_generic/freertos">
+          <external path="usb_examples/usb_device_hid_generic/freertos" type="xml">
+            <files mask="dev_hid_generic_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_hid_mouse_freertos" name="dev_hid_mouse_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_hid_mouse/freertos">
+          <external path="usb_examples/usb_device_hid_mouse/freertos" type="xml">
+            <files mask="dev_hid_mouse_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_lpm_hid_mouse_freertos" name="dev_lpm_hid_mouse_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_lpm_device_hid_mouse/freertos">
+          <external path="usb_examples/usb_lpm_device_hid_mouse/freertos" type="xml">
+            <files mask="dev_lpm_hid_mouse_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_msc_disk_freertos" name="dev_msc_disk_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_msc_disk/freertos">
+          <external path="usb_examples/usb_device_msc_disk/freertos" type="xml">
+            <files mask="dev_msc_disk_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_msc_ramdisk_freertos" name="dev_msc_ramdisk_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_msc_ramdisk/freertos">
+          <external path="usb_examples/usb_device_msc_ramdisk/freertos" type="xml">
+            <files mask="dev_msc_ramdisk_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_mtp_freertos" name="dev_mtp_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_mtp/freertos">
+          <external path="usb_examples/usb_device_mtp/freertos" type="xml">
+            <files mask="dev_mtp_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_phdc_weighscale_freertos" name="dev_phdc_weighscale_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_phdc_weighscale/freertos">
+          <external path="usb_examples/usb_device_phdc_weighscale/freertos" type="xml">
+            <files mask="dev_phdc_weighscale_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_printer_virtual_plain_text_freertos" name="dev_printer_virtual_plain_text_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_printer_virtual_plain_text/freertos">
+          <external path="usb_examples/usb_device_printer_virtual_plain_text/freertos" type="xml">
+            <files mask="dev_printer_virtual_plain_text_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_suspend_resume_hid_mouse_freertos" name="dev_suspend_resume_hid_mouse_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_suspend_resume_device_hid_mouse/freertos">
+          <external path="usb_examples/usb_suspend_resume_device_hid_mouse/freertos" type="xml">
+            <files mask="dev_suspend_resume_hid_mouse_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dev_video_virtual_camera_freertos" name="dev_video_virtual_camera_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_device_video_virtual_camera/freertos">
+          <external path="usb_examples/usb_device_video_virtual_camera/freertos" type="xml">
+            <files mask="dev_video_virtual_camera_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_audio_speaker_bm" name="host_audio_speaker_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_audio_speaker/bm">
+          <external path="usb_examples/usb_host_audio_speaker/bm" type="xml">
+            <files mask="host_audio_speaker_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_cdc_bm" name="host_cdc_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_cdc/bm">
+          <external path="usb_examples/usb_host_cdc/bm" type="xml">
+            <files mask="host_cdc_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_hid_generic_bm" name="host_hid_generic_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_hid_generic/bm">
+          <external path="usb_examples/usb_host_hid_generic/bm" type="xml">
+            <files mask="host_hid_generic_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_hid_mouse_bm" name="host_hid_mouse_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_hid_mouse/bm">
+          <external path="usb_examples/usb_host_hid_mouse/bm" type="xml">
+            <files mask="host_hid_mouse_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_hid_mouse_keyboard_bm" name="host_hid_mouse_keyboard_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_hid_mouse_keyboard/bm">
+          <external path="usb_examples/usb_host_hid_mouse_keyboard/bm" type="xml">
+            <files mask="host_hid_mouse_keyboard_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_lpm_hid_mouse_bm" name="host_lpm_hid_mouse_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_lpm_host_hid_mouse/bm">
+          <external path="usb_examples/usb_lpm_host_hid_mouse/bm" type="xml">
+            <files mask="host_lpm_hid_mouse_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_msd_command_bm" name="host_msd_command_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_msd_command/bm">
+          <external path="usb_examples/usb_host_msd_command/bm" type="xml">
+            <files mask="host_msd_command_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_msd_fatfs_bm" name="host_msd_fatfs_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_msd_fatfs/bm">
+          <external path="usb_examples/usb_host_msd_fatfs/bm" type="xml">
+            <files mask="host_msd_fatfs_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_phdc_manager_bm" name="host_phdc_manager_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_phdc_manager/bm">
+          <external path="usb_examples/usb_host_phdc_manager/bm" type="xml">
+            <files mask="host_phdc_manager_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_printer_plain_text_bm" name="host_printer_plain_text_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_printer_plain_text/bm">
+          <external path="usb_examples/usb_host_printer_plain_text/bm" type="xml">
+            <files mask="host_printer_plain_text_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_suspend_resume_hid_mouse_bm" name="host_suspend_resume_hid_mouse_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_suspend_resume_host_hid_mouse/bm">
+          <external path="usb_examples/usb_suspend_resume_host_hid_mouse/bm" type="xml">
+            <files mask="host_suspend_resume_hid_mouse_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_audio_recorder_freertos" name="host_audio_recorder_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_audio_recorder/freertos">
+          <external path="usb_examples/usb_host_audio_recorder/freertos" type="xml">
+            <files mask="host_audio_recorder_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_audio_speaker_freertos" name="host_audio_speaker_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_audio_speaker/freertos">
+          <external path="usb_examples/usb_host_audio_speaker/freertos" type="xml">
+            <files mask="host_audio_speaker_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_cdc_freertos" name="host_cdc_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_cdc/freertos">
+          <external path="usb_examples/usb_host_cdc/freertos" type="xml">
+            <files mask="host_cdc_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_hid_generic_freertos" name="host_hid_generic_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_hid_generic/freertos">
+          <external path="usb_examples/usb_host_hid_generic/freertos" type="xml">
+            <files mask="host_hid_generic_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_hid_mouse_freertos" name="host_hid_mouse_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_hid_mouse/freertos">
+          <external path="usb_examples/usb_host_hid_mouse/freertos" type="xml">
+            <files mask="host_hid_mouse_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_hid_mouse_keyboard_freertos" name="host_hid_mouse_keyboard_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_hid_mouse_keyboard/freertos">
+          <external path="usb_examples/usb_host_hid_mouse_keyboard/freertos" type="xml">
+            <files mask="host_hid_mouse_keyboard_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_lpm_hid_mouse_freertos" name="host_lpm_hid_mouse_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_lpm_host_hid_mouse/freertos">
+          <external path="usb_examples/usb_lpm_host_hid_mouse/freertos" type="xml">
+            <files mask="host_lpm_hid_mouse_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_msd_command_freertos" name="host_msd_command_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_msd_command/freertos">
+          <external path="usb_examples/usb_host_msd_command/freertos" type="xml">
+            <files mask="host_msd_command_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_msd_fatfs_freertos" name="host_msd_fatfs_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_msd_fatfs/freertos">
+          <external path="usb_examples/usb_host_msd_fatfs/freertos" type="xml">
+            <files mask="host_msd_fatfs_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_phdc_manager_freertos" name="host_phdc_manager_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_phdc_manager/freertos">
+          <external path="usb_examples/usb_host_phdc_manager/freertos" type="xml">
+            <files mask="host_phdc_manager_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_printer_plain_text_freertos" name="host_printer_plain_text_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_printer_plain_text/freertos">
+          <external path="usb_examples/usb_host_printer_plain_text/freertos" type="xml">
+            <files mask="host_printer_plain_text_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_suspend_resume_hid_mouse_freertos" name="host_suspend_resume_hid_mouse_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_suspend_resume_host_hid_mouse/freertos">
+          <external path="usb_examples/usb_suspend_resume_host_hid_mouse/freertos" type="xml">
+            <files mask="host_suspend_resume_hid_mouse_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_video_camera_freertos" name="host_video_camera_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_video_camera/freertos">
+          <external path="usb_examples/usb_host_video_camera/freertos" type="xml">
+            <files mask="host_video_camera_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_hashcrypt" name="hashcrypt" toolchain="armgcc mcuxpresso" category="driver_examples/hashcrypt" path="examples/mimxrt685audevk/driver_examples/hashcrypt">
+          <external path="driver_examples/hashcrypt" type="xml">
+            <files mask="hashcrypt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_mbedtls_selftest" name="mbedtls_selftest" toolchain="armgcc mcuxpresso" category="mbedtls_examples" path="examples/mimxrt685audevk/mbedtls_examples/mbedtls_selftest">
+          <external path="mbedtls_examples/mbedtls_selftest" type="xml">
+            <files mask="mbedtls_selftest_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_mbedtls_benchmark" name="mbedtls_benchmark" toolchain="armgcc mcuxpresso" category="mbedtls_examples" path="examples/mimxrt685audevk/mbedtls_examples/mbedtls_benchmark">
+          <external path="mbedtls_examples/mbedtls_benchmark" type="xml">
+            <files mask="mbedtls_benchmark_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_pca9420" name="pca9420" toolchain="armgcc mcuxpresso" category="driver_examples/pca9420" path="examples/mimxrt685audevk/driver_examples/pca9420">
+          <external path="driver_examples/pca9420" type="xml">
+            <files mask="pca9420_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_cmsis_usart_interrupt_transfer" name="cmsis_usart_interrupt_transfer" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/usart" path="examples/mimxrt685audevk/cmsis_driver_examples/usart/interrupt_transfer">
+          <external path="cmsis_driver_examples/usart/interrupt_transfer" type="xml">
+            <files mask="cmsis_usart_interrupt_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_cmsis_usart_dma_transfer" name="cmsis_usart_dma_transfer" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/usart" path="examples/mimxrt685audevk/cmsis_driver_examples/usart/dma_transfer">
+          <external path="cmsis_driver_examples/usart/dma_transfer" type="xml">
+            <files mask="cmsis_usart_dma_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_cmsis_i2c_int_b2b_transfer_master" name="cmsis_i2c_int_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/i2c" path="examples/mimxrt685audevk/cmsis_driver_examples/i2c/int_b2b_transfer/master">
+          <external path="cmsis_driver_examples/i2c/int_b2b_transfer/master" type="xml">
+            <files mask="cmsis_i2c_int_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_cmsis_i2c_int_b2b_transfer_slave" name="cmsis_i2c_int_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/i2c" path="examples/mimxrt685audevk/cmsis_driver_examples/i2c/int_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/i2c/int_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_i2c_int_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_cmsis_i2c_dma_b2b_transfer_master" name="cmsis_i2c_dma_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/i2c" path="examples/mimxrt685audevk/cmsis_driver_examples/i2c/dma_b2b_transfer/master">
+          <external path="cmsis_driver_examples/i2c/dma_b2b_transfer/master" type="xml">
+            <files mask="cmsis_i2c_dma_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_cmsis_i2c_dma_b2b_transfer_slave" name="cmsis_i2c_dma_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/i2c" path="examples/mimxrt685audevk/cmsis_driver_examples/i2c/dma_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/i2c/dma_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_i2c_dma_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_cmsis_spi_int_b2b_transfer_master" name="cmsis_spi_int_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/spi" path="examples/mimxrt685audevk/cmsis_driver_examples/spi/int_b2b_transfer/master">
+          <external path="cmsis_driver_examples/spi/int_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_int_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_cmsis_spi_int_b2b_transfer_slave" name="cmsis_spi_int_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/spi" path="examples/mimxrt685audevk/cmsis_driver_examples/spi/int_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/spi/int_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_int_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_cmsis_spi_dma_b2b_transfer_master" name="cmsis_spi_dma_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/spi" path="examples/mimxrt685audevk/cmsis_driver_examples/spi/dma_b2b_transfer/master">
+          <external path="cmsis_driver_examples/spi/dma_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_dma_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_cmsis_spi_dma_b2b_transfer_slave" name="cmsis_spi_dma_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/spi" path="examples/mimxrt685audevk/cmsis_driver_examples/spi/dma_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/spi/dma_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_dma_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_otfad_decrypt" name="otfad_decrypt" toolchain="armgcc mcuxpresso" category="driver_examples/otfad/decrypt" path="examples/mimxrt685audevk/driver_examples/otfad/decrypt">
+          <external path="driver_examples/otfad/decrypt" type="xml">
+            <files mask="otfad_decrypt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_hello_world" name="hello_world" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/mimxrt685audevk/demo_apps/hello_world">
+          <external path="demo_apps/hello_world" type="xml">
+            <files mask="hello_world_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_hello_world_hybrid" name="hello_world_hybrid" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/mimxrt685audevk/demo_apps/hello_world_hybrid">
+          <external path="demo_apps/hello_world_hybrid" type="xml">
+            <files mask="hello_world_hybrid_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_hello_world_swo" name="hello_world_swo" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/mimxrt685audevk/demo_apps/hello_world_swo">
+          <external path="demo_apps/hello_world_swo" type="xml">
+            <files mask="hello_world_swo_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_hello_world_virtual_com" name="hello_world_virtual_com" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/mimxrt685audevk/demo_apps/hello_world_virtual_com">
+          <external path="demo_apps/hello_world_virtual_com" type="xml">
+            <files mask="hello_world_virtual_com_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_hello_world_s" name="hello_world_s" toolchain="armgcc mcuxpresso" category="trustzone_examples" linked_projects="mimxrt685audevk_hello_world_ns" path="examples/mimxrt685audevk/trustzone_examples/hello_world/hello_world_s">
+          <external path="trustzone_examples/hello_world/hello_world_s" type="xml">
+            <files mask="hello_world_s_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_hello_world_ns" name="hello_world_ns" toolchain="armgcc mcuxpresso" category="trustzone_examples" linked_projects="mimxrt685audevk_hello_world_s" path="examples/mimxrt685audevk/trustzone_examples/hello_world/hello_world_ns">
+          <external path="trustzone_examples/hello_world/hello_world_ns" type="xml">
+            <files mask="hello_world_ns_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_secure_gpio_s" name="secure_gpio_s" toolchain="armgcc mcuxpresso" category="trustzone_examples" linked_projects="mimxrt685audevk_secure_gpio_ns" path="examples/mimxrt685audevk/trustzone_examples/secure_gpio/secure_gpio_s">
+          <external path="trustzone_examples/secure_gpio/secure_gpio_s" type="xml">
+            <files mask="secure_gpio_s_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_secure_gpio_ns" name="secure_gpio_ns" toolchain="armgcc mcuxpresso" category="trustzone_examples" linked_projects="mimxrt685audevk_secure_gpio_s" path="examples/mimxrt685audevk/trustzone_examples/secure_gpio/secure_gpio_ns">
+          <external path="trustzone_examples/secure_gpio/secure_gpio_ns" type="xml">
+            <files mask="secure_gpio_ns_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_secure_faults_s" name="secure_faults_s" toolchain="armgcc mcuxpresso" category="trustzone_examples" linked_projects="mimxrt685audevk_secure_faults_ns" path="examples/mimxrt685audevk/trustzone_examples/secure_faults/secure_faults_s">
+          <external path="trustzone_examples/secure_faults/secure_faults_s" type="xml">
+            <files mask="secure_faults_s_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_secure_faults_ns" name="secure_faults_ns" toolchain="armgcc mcuxpresso" category="trustzone_examples" linked_projects="mimxrt685audevk_secure_faults_s" path="examples/mimxrt685audevk/trustzone_examples/secure_faults/secure_faults_ns">
+          <external path="trustzone_examples/secure_faults/secure_faults_ns" type="xml">
+            <files mask="secure_faults_ns_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_sx1502_led_control" name="sx1502_led_control" toolchain="armgcc mcuxpresso" category="component_examples" path="examples/mimxrt685audevk/component_examples/sx1502_led_control">
+          <external path="component_examples/sx1502_led_control" type="xml">
+            <files mask="sx1502_led_control_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_shell" name="shell" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/mimxrt685audevk/demo_apps/shell">
+          <external path="demo_apps/shell" type="xml">
+            <files mask="shell_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_log_bm" name="log_bm" toolchain="armgcc mcuxpresso" category="component_examples" path="examples/mimxrt685audevk/component_examples/log/bm">
+          <external path="component_examples/log/bm" type="xml">
+            <files mask="log_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_log_freertos" name="log_freertos" toolchain="armgcc mcuxpresso" category="component_examples" path="examples/mimxrt685audevk/component_examples/log/freertos">
+          <external path="component_examples/log/freertos" type="xml">
+            <files mask="log_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_powerquad_math" name="powerquad_math" toolchain="armgcc mcuxpresso" category="driver_examples/powerquad" path="examples/mimxrt685audevk/driver_examples/powerquad/math">
+          <external path="driver_examples/powerquad/math" type="xml">
+            <files mask="powerquad_math_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_powerquad_cmsis" name="powerquad_cmsis" toolchain="armgcc mcuxpresso" category="driver_examples/powerquad" path="examples/mimxrt685audevk/driver_examples/powerquad/cmsis">
+          <external path="driver_examples/powerquad/cmsis" type="xml">
+            <files mask="powerquad_cmsis_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_powerquad_filter" name="powerquad_filter" toolchain="armgcc mcuxpresso" category="driver_examples/powerquad" path="examples/mimxrt685audevk/driver_examples/powerquad/filter">
+          <external path="driver_examples/powerquad/filter" type="xml">
+            <files mask="powerquad_filter_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_powerquad_matrix" name="powerquad_matrix" toolchain="armgcc mcuxpresso" category="driver_examples/powerquad" path="examples/mimxrt685audevk/driver_examples/powerquad/matrix">
+          <external path="driver_examples/powerquad/matrix" type="xml">
+            <files mask="powerquad_matrix_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_powerquad_transform" name="powerquad_transform" toolchain="armgcc mcuxpresso" category="driver_examples/powerquad" path="examples/mimxrt685audevk/driver_examples/powerquad/transform">
+          <external path="driver_examples/powerquad/transform" type="xml">
+            <files mask="powerquad_transform_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_powerquad_fir_fast" name="powerquad_fir_fast" toolchain="armgcc mcuxpresso" category="driver_examples/powerquad" path="examples/mimxrt685audevk/driver_examples/powerquad/fir_fast">
+          <external path="driver_examples/powerquad/fir_fast" type="xml">
+            <files mask="powerquad_fir_fast_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_powerquad_benchmark_vector" name="powerquad_benchmark_vector" toolchain="armgcc mcuxpresso" category="driver_examples/powerquad" path="examples/mimxrt685audevk/driver_examples/powerquad/benchmark_vector">
+          <external path="driver_examples/powerquad/benchmark_vector" type="xml">
+            <files mask="powerquad_benchmark_vector_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_powerquad_benchmark_matrix" name="powerquad_benchmark_matrix" toolchain="armgcc mcuxpresso" category="driver_examples/powerquad" path="examples/mimxrt685audevk/driver_examples/powerquad/benchmark_matrix">
+          <external path="driver_examples/powerquad/benchmark_matrix" type="xml">
+            <files mask="powerquad_benchmark_matrix_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_powerquad_benchmark_math" name="powerquad_benchmark_math" toolchain="armgcc mcuxpresso" category="driver_examples/powerquad" path="examples/mimxrt685audevk/driver_examples/powerquad/benchmark_math">
+          <external path="driver_examples/powerquad/benchmark_math" type="xml">
+            <files mask="powerquad_benchmark_math_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_powerquad_benchmark_filter" name="powerquad_benchmark_filter" toolchain="armgcc mcuxpresso" category="driver_examples/powerquad" path="examples/mimxrt685audevk/driver_examples/powerquad/benchmark_filter">
+          <external path="driver_examples/powerquad/benchmark_filter" type="xml">
+            <files mask="powerquad_benchmark_filter_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_powerquad_benchmark_fft" name="powerquad_benchmark_fft" toolchain="armgcc mcuxpresso" category="driver_examples/powerquad" path="examples/mimxrt685audevk/driver_examples/powerquad/benchmark_fft">
+          <external path="driver_examples/powerquad/benchmark_fft" type="xml">
+            <files mask="powerquad_benchmark_fft_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_powerquad_benchmark_sw_matrix" name="powerquad_benchmark_sw_matrix" toolchain="armgcc mcuxpresso" category="driver_examples/powerquad" path="examples/mimxrt685audevk/driver_examples/powerquad/benchmark_sw_matrix">
+          <external path="driver_examples/powerquad/benchmark_sw_matrix" type="xml">
+            <files mask="powerquad_benchmark_sw_matrix_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_powerquad_benchmark_sw_math" name="powerquad_benchmark_sw_math" toolchain="armgcc mcuxpresso" category="driver_examples/powerquad" path="examples/mimxrt685audevk/driver_examples/powerquad/benchmark_sw_math">
+          <external path="driver_examples/powerquad/benchmark_sw_math" type="xml">
+            <files mask="powerquad_benchmark_sw_math_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_powerquad_benchmark_sw_filter" name="powerquad_benchmark_sw_filter" toolchain="armgcc mcuxpresso" category="driver_examples/powerquad" path="examples/mimxrt685audevk/driver_examples/powerquad/benchmark_sw_filter">
+          <external path="driver_examples/powerquad/benchmark_sw_filter" type="xml">
+            <files mask="powerquad_benchmark_sw_filter_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_powerquad_benchmark_sw_fft" name="powerquad_benchmark_sw_fft" toolchain="armgcc mcuxpresso" category="driver_examples/powerquad" path="examples/mimxrt685audevk/driver_examples/powerquad/benchmark_sw_fft">
+          <external path="driver_examples/powerquad/benchmark_sw_fft" type="xml">
+            <files mask="powerquad_benchmark_sw_fft_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_power_manager" name="power_manager" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/mimxrt685audevk/demo_apps/power_manager">
+          <external path="demo_apps/power_manager" type="xml">
+            <files mask="power_manager_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_puf" name="puf" toolchain="armgcc mcuxpresso" category="driver_examples/puf" path="examples/mimxrt685audevk/driver_examples/puf">
+          <external path="driver_examples/puf" type="xml">
+            <files mask="puf_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_sdio" name="sdio" toolchain="armgcc mcuxpresso" category="sdmmc_examples" path="examples/mimxrt685audevk/sdmmc_examples/sdio">
+          <external path="sdmmc_examples/sdio" type="xml">
+            <files mask="sdio_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_crc" name="crc" toolchain="armgcc mcuxpresso" category="driver_examples/crc" path="examples/mimxrt685audevk/driver_examples/crc">
+          <external path="driver_examples/crc" type="xml">
+            <files mask="crc_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_casper" name="casper" toolchain="armgcc mcuxpresso" category="driver_examples/casper" path="examples/mimxrt685audevk/driver_examples/casper">
+          <external path="driver_examples/casper" type="xml">
+            <files mask="casper_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_fmeas" name="fmeas" toolchain="armgcc mcuxpresso" category="driver_examples/fmeas" path="examples/mimxrt685audevk/driver_examples/fmeas">
+          <external path="driver_examples/fmeas" type="xml">
+            <files mask="fmeas_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_clockout" name="clockout" toolchain="armgcc mcuxpresso" category="driver_examples/syscon" path="examples/mimxrt685audevk/driver_examples/clockout">
+          <external path="driver_examples/clockout" type="xml">
+            <files mask="clockout_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_trng_random" name="trng_random" toolchain="armgcc mcuxpresso" category="driver_examples/trng" path="examples/mimxrt685audevk/driver_examples/trng/random">
+          <external path="driver_examples/trng/random" type="xml">
+            <files mask="trng_random_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_usart_polling" name="usart_polling" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/mimxrt685audevk/driver_examples/usart/polling">
+          <external path="driver_examples/usart/polling" type="xml">
+            <files mask="usart_polling_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_usart_interrupt" name="usart_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/mimxrt685audevk/driver_examples/usart/interrupt">
+          <external path="driver_examples/usart/interrupt" type="xml">
+            <files mask="usart_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_usart_interrupt_transfer" name="usart_interrupt_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/mimxrt685audevk/driver_examples/usart/interrupt_transfer">
+          <external path="driver_examples/usart/interrupt_transfer" type="xml">
+            <files mask="usart_interrupt_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_usart_9bit_interrupt_transfer" name="usart_9bit_interrupt_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/uart" path="examples/mimxrt685audevk/driver_examples/usart/9bit_interrupt_transfer">
+          <external path="driver_examples/usart/9bit_interrupt_transfer" type="xml">
+            <files mask="usart_9bit_interrupt_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_usart_interrupt_rb_transfer" name="usart_interrupt_rb_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/mimxrt685audevk/driver_examples/usart/interrupt_rb_transfer">
+          <external path="driver_examples/usart/interrupt_rb_transfer" type="xml">
+            <files mask="usart_interrupt_rb_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_usart_dma_transfer" name="usart_dma_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/mimxrt685audevk/driver_examples/usart/dma_transfer">
+          <external path="driver_examples/usart/dma_transfer" type="xml">
+            <files mask="usart_dma_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_usart_dma_double_buffer_transfer" name="usart_dma_double_buffer_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/mimxrt685audevk/driver_examples/usart/dma_double_buffer_transfer">
+          <external path="driver_examples/usart/dma_double_buffer_transfer" type="xml">
+            <files mask="usart_dma_double_buffer_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_usart_dma_low_power" name="usart_dma_low_power" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/mimxrt685audevk/driver_examples/usart/dma_low_power">
+          <external path="driver_examples/usart/dma_low_power" type="xml">
+            <files mask="usart_dma_low_power_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_i2s_interrupt_transfer" name="i2s_interrupt_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/i2s" path="examples/mimxrt685audevk/driver_examples/i2s/interrupt_transfer">
+          <external path="driver_examples/i2s/interrupt_transfer" type="xml">
+            <files mask="i2s_interrupt_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_i2s_dma_transfer" name="i2s_dma_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/i2s" path="examples/mimxrt685audevk/driver_examples/i2s/dma_transfer">
+          <external path="driver_examples/i2s/dma_transfer" type="xml">
+            <files mask="i2s_dma_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_i2s_interrupt_record_playback" name="i2s_interrupt_record_playback" toolchain="armgcc mcuxpresso" category="driver_examples/i2s" path="examples/mimxrt685audevk/driver_examples/i2s/interrupt_record_playback">
+          <external path="driver_examples/i2s/interrupt_record_playback" type="xml">
+            <files mask="i2s_interrupt_record_playback_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_i2s_dma_record_playback" name="i2s_dma_record_playback" toolchain="armgcc mcuxpresso" category="driver_examples/i2s" path="examples/mimxrt685audevk/driver_examples/i2s/dma_record_playback">
+          <external path="driver_examples/i2s/dma_record_playback" type="xml">
+            <files mask="i2s_dma_record_playback_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_i2s_dma_ping_pong_buffer" name="i2s_dma_ping_pong_buffer" toolchain="armgcc mcuxpresso" category="driver_examples/i2s" path="examples/mimxrt685audevk/driver_examples/i2s/dma_ping_pong_buffer">
+          <external path="driver_examples/i2s/dma_ping_pong_buffer" type="xml">
+            <files mask="i2s_dma_ping_pong_buffer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_i2s_dma_tdm_record_playback" name="i2s_dma_tdm_record_playback" toolchain="armgcc mcuxpresso" category="driver_examples/i2s" path="examples/mimxrt685audevk/driver_examples/i2s/dma_tdm_record_playback">
+          <external path="driver_examples/i2s/dma_tdm_record_playback" type="xml">
+            <files mask="i2s_dma_tdm_record_playback_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_i2s_dma_tdm" name="i2s_dma_tdm" toolchain="armgcc mcuxpresso" category="driver_examples/i2s" path="examples/mimxrt685audevk/driver_examples/i2s/dma_tdm">
+          <external path="driver_examples/i2s/dma_tdm" type="xml">
+            <files mask="i2s_dma_tdm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_spi_polling_b2b_transfer_master" name="spi_polling_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/mimxrt685audevk/driver_examples/spi/polling_b2b_transfer/master">
+          <external path="driver_examples/spi/polling_b2b_transfer/master" type="xml">
+            <files mask="spi_polling_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_spi_polling_b2b_transfer_slave" name="spi_polling_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/mimxrt685audevk/driver_examples/spi/polling_b2b_transfer/slave">
+          <external path="driver_examples/spi/polling_b2b_transfer/slave" type="xml">
+            <files mask="spi_polling_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_spi_interrupt_b2b_transfer_master" name="spi_interrupt_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/mimxrt685audevk/driver_examples/spi/interrupt_b2b_transfer/master">
+          <external path="driver_examples/spi/interrupt_b2b_transfer/master" type="xml">
+            <files mask="spi_interrupt_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_spi_interrupt_b2b_transfer_slave" name="spi_interrupt_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/mimxrt685audevk/driver_examples/spi/interrupt_b2b_transfer/slave">
+          <external path="driver_examples/spi/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="spi_interrupt_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_spi_interrupt_b2b_master" name="spi_interrupt_b2b_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/mimxrt685audevk/driver_examples/spi/interrupt_b2b/master">
+          <external path="driver_examples/spi/interrupt_b2b/master" type="xml">
+            <files mask="spi_interrupt_b2b_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_spi_interrupt_b2b_slave" name="spi_interrupt_b2b_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/mimxrt685audevk/driver_examples/spi/interrupt_b2b/slave">
+          <external path="driver_examples/spi/interrupt_b2b/slave" type="xml">
+            <files mask="spi_interrupt_b2b_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_spi_dma_b2b_transfer_master" name="spi_dma_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/mimxrt685audevk/driver_examples/spi/dma_b2b_transfer/master">
+          <external path="driver_examples/spi/dma_b2b_transfer/master" type="xml">
+            <files mask="spi_dma_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_spi_dma_b2b_transfer_slave" name="spi_dma_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/mimxrt685audevk/driver_examples/spi/dma_b2b_transfer/slave">
+          <external path="driver_examples/spi/dma_b2b_transfer/slave" type="xml">
+            <files mask="spi_dma_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_i2c_interrupt_b2b_transfer_master" name="i2c_interrupt_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/mimxrt685audevk/driver_examples/i2c/interrupt_b2b_transfer/master">
+          <external path="driver_examples/i2c/interrupt_b2b_transfer/master" type="xml">
+            <files mask="i2c_interrupt_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_i2c_interrupt_b2b_transfer_slave" name="i2c_interrupt_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/mimxrt685audevk/driver_examples/i2c/interrupt_b2b_transfer/slave">
+          <external path="driver_examples/i2c/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="i2c_interrupt_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_i2c_dma_b2b_transfer_master" name="i2c_dma_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/mimxrt685audevk/driver_examples/i2c/dma_b2b_transfer/master">
+          <external path="driver_examples/i2c/dma_b2b_transfer/master" type="xml">
+            <files mask="i2c_dma_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_i2c_dma_b2b_transfer_slave" name="i2c_dma_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/mimxrt685audevk/driver_examples/i2c/dma_b2b_transfer/slave">
+          <external path="driver_examples/i2c/dma_b2b_transfer/slave" type="xml">
+            <files mask="i2c_dma_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_i2c_polling_b2b_master" name="i2c_polling_b2b_master" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/mimxrt685audevk/driver_examples/i2c/polling_b2b/master">
+          <external path="driver_examples/i2c/polling_b2b/master" type="xml">
+            <files mask="i2c_polling_b2b_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_i2c_polling_b2b_slave" name="i2c_polling_b2b_slave" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/mimxrt685audevk/driver_examples/i2c/polling_b2b/slave">
+          <external path="driver_examples/i2c/polling_b2b/slave" type="xml">
+            <files mask="i2c_polling_b2b_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_gpio_led_output" name="gpio_led_output" toolchain="armgcc mcuxpresso" category="driver_examples/gpio" path="examples/mimxrt685audevk/driver_examples/gpio/led_output">
+          <external path="driver_examples/gpio/led_output" type="xml">
+            <files mask="gpio_led_output_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_gpio_input_interrupt" name="gpio_input_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/gpio" path="examples/mimxrt685audevk/driver_examples/gpio/input_interrupt">
+          <external path="driver_examples/gpio/input_interrupt" type="xml">
+            <files mask="gpio_input_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dma_memory_to_memory" name="dma_memory_to_memory" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/mimxrt685audevk/driver_examples/dma/memory_to_memory">
+          <external path="driver_examples/dma/memory_to_memory" type="xml">
+            <files mask="dma_memory_to_memory_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dma_channel_chain" name="dma_channel_chain" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/mimxrt685audevk/driver_examples/dma/channel_chain">
+          <external path="driver_examples/dma/channel_chain" type="xml">
+            <files mask="dma_channel_chain_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dma_linked_transfer" name="dma_linked_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/mimxrt685audevk/driver_examples/dma/linked_transfer">
+          <external path="driver_examples/dma/linked_transfer" type="xml">
+            <files mask="dma_linked_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dma_interleave_transfer" name="dma_interleave_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/mimxrt685audevk/driver_examples/dma/interleave_transfer">
+          <external path="driver_examples/dma/interleave_transfer" type="xml">
+            <files mask="dma_interleave_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dma_hardware_trigger" name="dma_hardware_trigger" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/mimxrt685audevk/driver_examples/dma/hardware_trigger">
+          <external path="driver_examples/dma/hardware_trigger" type="xml">
+            <files mask="dma_hardware_trigger_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_flexspi_psram_polling_transfer" name="flexspi_psram_polling_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/flexspi" path="examples/mimxrt685audevk/driver_examples/flexspi/psram/polling_transfer">
+          <external path="driver_examples/flexspi/psram/polling_transfer" type="xml">
+            <files mask="flexspi_psram_polling_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_flexspi_psram_dma_transfer" name="flexspi_psram_dma_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/flexspi" path="examples/mimxrt685audevk/driver_examples/flexspi/psram/dma_transfer">
+          <external path="driver_examples/flexspi/psram/dma_transfer" type="xml">
+            <files mask="flexspi_psram_dma_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_rtc_example" name="rtc_example" toolchain="armgcc mcuxpresso" category="driver_examples/rtc" path="examples/mimxrt685audevk/driver_examples/rtc">
+          <external path="driver_examples/rtc" type="xml">
+            <files mask="rtc_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_ostimer_example" name="ostimer_example" toolchain="armgcc mcuxpresso" category="driver_examples/ostimer" path="examples/mimxrt685audevk/driver_examples/ostimer">
+          <external path="driver_examples/ostimer" type="xml">
+            <files mask="ostimer_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_mrt_example" name="mrt_example" toolchain="armgcc mcuxpresso" category="driver_examples/mrt" path="examples/mimxrt685audevk/driver_examples/mrt">
+          <external path="driver_examples/mrt" type="xml">
+            <files mask="mrt_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_sctimer_simple_pwm" name="sctimer_simple_pwm" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/mimxrt685audevk/driver_examples/sctimer/simple_pwm">
+          <external path="driver_examples/sctimer/simple_pwm" type="xml">
+            <files mask="sctimer_simple_pwm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_sctimer_pwm_with_dutycyle_change" name="sctimer_pwm_with_dutycyle_change" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/mimxrt685audevk/driver_examples/sctimer/pwm_with_dutycyle_change">
+          <external path="driver_examples/sctimer/pwm_with_dutycyle_change" type="xml">
+            <files mask="sctimer_pwm_with_dutycyle_change_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_sctimer_multi_state_pwm" name="sctimer_multi_state_pwm" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/mimxrt685audevk/driver_examples/sctimer/multi_state_pwm">
+          <external path="driver_examples/sctimer/multi_state_pwm" type="xml">
+            <files mask="sctimer_multi_state_pwm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_sctimer_16bit_counter" name="sctimer_16bit_counter" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/mimxrt685audevk/driver_examples/sctimer/16bit_counter">
+          <external path="driver_examples/sctimer/16bit_counter" type="xml">
+            <files mask="sctimer_16bit_counter_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_utick" name="utick" toolchain="armgcc mcuxpresso" category="driver_examples/utick" path="examples/mimxrt685audevk/driver_examples/utick">
+          <external path="driver_examples/utick" type="xml">
+            <files mask="utick_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_ctimer_pwm_example" name="ctimer_pwm_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/mimxrt685audevk/driver_examples/ctimer/simple_pwm">
+          <external path="driver_examples/ctimer/simple_pwm" type="xml">
+            <files mask="ctimer_pwm_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_ctimer_pwm_interrupt_example" name="ctimer_pwm_interrupt_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/mimxrt685audevk/driver_examples/ctimer/simple_pwm_interrupt">
+          <external path="driver_examples/ctimer/simple_pwm_interrupt" type="xml">
+            <files mask="ctimer_pwm_interrupt_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_ctimer_match_example" name="ctimer_match_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/mimxrt685audevk/driver_examples/ctimer/simple_match">
+          <external path="driver_examples/ctimer/simple_match" type="xml">
+            <files mask="ctimer_match_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_pint_pin_interrupt" name="pint_pin_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/pint" path="examples/mimxrt685audevk/driver_examples/pint/pin_interrupt">
+          <external path="driver_examples/pint/pin_interrupt" type="xml">
+            <files mask="pint_pin_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_pint_pattern_match" name="pint_pattern_match" toolchain="armgcc mcuxpresso" category="driver_examples/pint" path="examples/mimxrt685audevk/driver_examples/pint/pattern_match">
+          <external path="driver_examples/pint/pattern_match" type="xml">
+            <files mask="pint_pattern_match_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_ctimer_match_interrupt_example" name="ctimer_match_interrupt_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/mimxrt685audevk/driver_examples/ctimer/simple_match_interrupt">
+          <external path="driver_examples/ctimer/simple_match_interrupt" type="xml">
+            <files mask="ctimer_match_interrupt_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_wwdt_example" name="wwdt_example" toolchain="armgcc mcuxpresso" category="driver_examples/wwdt" path="examples/mimxrt685audevk/driver_examples/wwdt">
+          <external path="driver_examples/wwdt" type="xml">
+            <files mask="wwdt_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dmic_dma" name="dmic_dma" toolchain="armgcc mcuxpresso" category="driver_examples/dmic" path="examples/mimxrt685audevk/driver_examples/dmic/dmic_dma">
+          <external path="driver_examples/dmic/dmic_dma" type="xml">
+            <files mask="dmic_dma_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dmic_hwvad" name="dmic_hwvad" toolchain="armgcc mcuxpresso" category="driver_examples/dmic" path="examples/mimxrt685audevk/driver_examples/dmic/dmic_hwvad">
+          <external path="driver_examples/dmic/dmic_hwvad" type="xml">
+            <files mask="dmic_hwvad_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dmic_i2s_dma" name="dmic_i2s_dma" toolchain="armgcc mcuxpresso" category="driver_examples/dmic" path="examples/mimxrt685audevk/driver_examples/dmic/dmic_i2s_dma">
+          <external path="driver_examples/dmic/dmic_i2s_dma" type="xml">
+            <files mask="dmic_i2s_dma_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dmic_multi_channel" name="dmic_multi_channel" toolchain="armgcc mcuxpresso" category="driver_examples/dmic" path="examples/mimxrt685audevk/driver_examples/dmic/dmic_multi_channel">
+          <external path="driver_examples/dmic/dmic_multi_channel" type="xml">
+            <files mask="dmic_multi_channel_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dmic_i2s_hwvad" name="dmic_i2s_hwvad" toolchain="armgcc mcuxpresso" category="demo_apps/dmic_i2s_hwvad" path="examples/mimxrt685audevk/demo_apps/dmic_i2s_hwvad">
+          <external path="demo_apps/dmic_i2s_hwvad" type="xml">
+            <files mask="dmic_i2s_hwvad_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_sdcard_polling" name="sdcard_polling" toolchain="armgcc mcuxpresso" category="sdmmc_examples/sdcard_polling" path="examples/mimxrt685audevk/sdmmc_examples/sdcard_polling">
+          <external path="sdmmc_examples/sdcard_polling" type="xml">
+            <files mask="sdcard_polling_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_sdcard_interrupt" name="sdcard_interrupt" toolchain="armgcc mcuxpresso" category="sdmmc_examples/sdcard_interrupt" path="examples/mimxrt685audevk/sdmmc_examples/sdcard_interrupt">
+          <external path="sdmmc_examples/sdcard_interrupt" type="xml">
+            <files mask="sdcard_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_sdcard_freertos" name="sdcard_freertos" toolchain="armgcc mcuxpresso" category="sdmmc_examples/sdcard_freertos" path="examples/mimxrt685audevk/sdmmc_examples/sdcard_freertos">
+          <external path="sdmmc_examples/sdcard_freertos" type="xml">
+            <files mask="sdcard_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_mpi_loader_dsp_hello_world" name="mpi_loader_dsp_hello_world" toolchain="armgcc mcuxpresso" category="component_examples" path="examples/mimxrt685audevk/component_examples/mpi_loader/dsp_hello_world">
+          <external path="component_examples/mpi_loader/dsp_hello_world" type="xml">
+            <files mask="mpi_loader_dsp_hello_world_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_mpi_loader_extram_loader" name="mpi_loader_extram_loader" toolchain="armgcc mcuxpresso" category="component_examples" path="examples/mimxrt685audevk/component_examples/mpi_loader/extram_loader">
+          <external path="component_examples/mpi_loader/extram_loader" type="xml">
+            <files mask="mpi_loader_extram_loader_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_mpi_loader_extram_hello_world" name="mpi_loader_extram_hello_world" toolchain="armgcc mcuxpresso" category="component_examples" path="examples/mimxrt685audevk/component_examples/mpi_loader/extram_hello_world">
+          <external path="component_examples/mpi_loader/extram_hello_world" type="xml">
+            <files mask="mpi_loader_extram_hello_world_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_lpadc_single_polling" name="lpadc_single_polling" toolchain="armgcc mcuxpresso" category="driver_examples/lpadc" path="examples/mimxrt685audevk/driver_examples/lpadc/single_polling">
+          <external path="driver_examples/lpadc/single_polling" type="xml">
+            <files mask="lpadc_single_polling_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_lpadc_single_interrupt" name="lpadc_single_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/lpadc" path="examples/mimxrt685audevk/driver_examples/lpadc/single_interrupt">
+          <external path="driver_examples/lpadc/single_interrupt" type="xml">
+            <files mask="lpadc_single_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_lpadc_polling" name="lpadc_polling" toolchain="armgcc mcuxpresso" category="driver_examples/lpadc" path="examples/mimxrt685audevk/driver_examples/lpadc/polling">
+          <external path="driver_examples/lpadc/polling" type="xml">
+            <files mask="lpadc_polling_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_lpadc_interrupt" name="lpadc_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/lpadc" path="examples/mimxrt685audevk/driver_examples/lpadc/interrupt">
+          <external path="driver_examples/lpadc/interrupt" type="xml">
+            <files mask="lpadc_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_lpadc_dma" name="lpadc_dma" toolchain="armgcc mcuxpresso" category="driver_examples/lpadc" path="examples/mimxrt685audevk/driver_examples/lpadc/dma">
+          <external path="driver_examples/lpadc/dma" type="xml">
+            <files mask="lpadc_dma_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_lpadc_temperature_measurement" name="lpadc_temperature_measurement" toolchain="armgcc mcuxpresso" category="driver_examples/lpadc" path="examples/mimxrt685audevk/driver_examples/lpadc/temperature_measurement">
+          <external path="driver_examples/lpadc/temperature_measurement" type="xml">
+            <files mask="lpadc_temperature_measurement_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_sdio_freertos" name="sdio_freertos" toolchain="armgcc mcuxpresso" category="sdmmc_examples/sdio_freertos" path="examples/mimxrt685audevk/sdmmc_examples/sdio_freertos">
+          <external path="sdmmc_examples/sdio_freertos" type="xml">
+            <files mask="sdio_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_acmp_polling" name="acmp_polling" toolchain="armgcc mcuxpresso" category="driver_examples/acmp" path="examples/mimxrt685audevk/driver_examples/acmp/polling">
+          <external path="driver_examples/acmp/polling" type="xml">
+            <files mask="acmp_polling_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_acmp_interrupt" name="acmp_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/acmp" path="examples/mimxrt685audevk/driver_examples/acmp/interrupt">
+          <external path="driver_examples/acmp/interrupt" type="xml">
+            <files mask="acmp_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_acmp_round_robin" name="acmp_round_robin" toolchain="armgcc mcuxpresso" category="driver_examples/acmp" path="examples/mimxrt685audevk/driver_examples/acmp/round_robin">
+          <external path="driver_examples/acmp/round_robin" type="xml">
+            <files mask="acmp_round_robin_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_wifi_webconfig" name="wifi_webconfig" toolchain="armgcc mcuxpresso" category="wifi_examples" path="examples/mimxrt685audevk/wifi_examples/wifi_webconfig">
+          <external path="wifi_examples/wifi_webconfig" type="xml">
+            <files mask="wifi_webconfig_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_iap_flash_fcb" name="iap_flash_fcb" toolchain="armgcc mcuxpresso" category="driver_examples/iap3" path="examples/mimxrt685audevk/driver_examples/iap/flash_fcb">
+          <external path="driver_examples/iap/flash_fcb" type="xml">
+            <files mask="iap_flash_fcb_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_iap_boot" name="iap_boot" toolchain="armgcc mcuxpresso" category="driver_examples/iap3" path="examples/mimxrt685audevk/driver_examples/iap/iap_boot">
+          <external path="driver_examples/iap/iap_boot" type="xml">
+            <files mask="iap_boot_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_iap_otp" name="iap_otp" toolchain="armgcc mcuxpresso" category="driver_examples/iap3" path="examples/mimxrt685audevk/driver_examples/iap/iap_otp">
+          <external path="driver_examples/iap/iap_otp" type="xml">
+            <files mask="iap_otp_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_iap_flash" name="iap_flash" toolchain="armgcc mcuxpresso" category="driver_examples/iap3" path="examples/mimxrt685audevk/driver_examples/iap/iap_flash">
+          <external path="driver_examples/iap/iap_flash" type="xml">
+            <files mask="iap_flash_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dsp_hello_world_usart_cm33" name="dsp_hello_world_usart_cm33" toolchain="armgcc mcuxpresso" category="dsp_examples" path="examples/mimxrt685audevk/dsp_examples/hello_world_usart/cm33">
+          <external path="dsp_examples/hello_world_usart/cm33" type="xml">
+            <files mask="dsp_hello_world_usart_cm33_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dsp_mu_polling_cm33" name="dsp_mu_polling_cm33" toolchain="armgcc mcuxpresso" category="dsp_examples" path="examples/mimxrt685audevk/dsp_examples/mu_polling/cm33">
+          <external path="dsp_examples/mu_polling/cm33" type="xml">
+            <files mask="dsp_mu_polling_cm33_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dsp_sema42_cm33" name="dsp_sema42_cm33" toolchain="armgcc mcuxpresso" category="dsp_examples" path="examples/mimxrt685audevk/dsp_examples/sema42/cm33">
+          <external path="dsp_examples/sema42/cm33" type="xml">
+            <files mask="dsp_sema42_cm33_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dsp_mu_interrupt_cm33" name="dsp_mu_interrupt_cm33" toolchain="armgcc mcuxpresso" category="dsp_examples" path="examples/mimxrt685audevk/dsp_examples/mu_interrupt/cm33">
+          <external path="dsp_examples/mu_interrupt/cm33" type="xml">
+            <files mask="dsp_mu_interrupt_cm33_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dsp_rtp_demo_cm33" name="dsp_rtp_demo_cm33" toolchain="armgcc mcuxpresso" category="dsp_examples" path="examples/mimxrt685audevk/dsp_examples/rtp_demo/cm33">
+          <external path="dsp_examples/rtp_demo/cm33" type="xml">
+            <files mask="dsp_rtp_demo_cm33_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dsp_xaf_playback_cm33" name="dsp_xaf_playback_cm33" toolchain="armgcc mcuxpresso" category="dsp_examples" path="examples/mimxrt685audevk/dsp_examples/xaf_playback/cm33">
+          <external path="dsp_examples/xaf_playback/cm33" type="xml">
+            <files mask="dsp_xaf_playback_cm33_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dsp_xaf_record_cm33" name="dsp_xaf_record_cm33" toolchain="armgcc mcuxpresso" category="dsp_examples" path="examples/mimxrt685audevk/dsp_examples/xaf_record/cm33">
+          <external path="dsp_examples/xaf_record/cm33" type="xml">
+            <files mask="dsp_xaf_record_cm33_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dsp_xaf_usb_demo_cm33" name="dsp_xaf_usb_demo_cm33" toolchain="armgcc mcuxpresso" category="dsp_examples" path="examples/mimxrt685audevk/dsp_examples/xaf_usb_demo/cm33">
+          <external path="dsp_examples/xaf_usb_demo/cm33" type="xml">
+            <files mask="dsp_xaf_usb_demo_cm33_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dsp_naturedsp_cm33" name="dsp_naturedsp_cm33" toolchain="armgcc mcuxpresso" category="dsp_examples" path="examples/mimxrt685audevk/dsp_examples/naturedsp/cm33">
+          <external path="dsp_examples/naturedsp/cm33" type="xml">
+            <files mask="dsp_naturedsp_cm33_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dsp_nn_demo_cm33" name="dsp_nn_demo_cm33" toolchain="armgcc mcuxpresso" category="eiq_examples" path="examples/mimxrt685audevk/eiq_examples/nn_demo/cm33">
+          <external path="eiq_examples/nn_demo/cm33" type="xml">
+            <files mask="dsp_nn_demo_cm33_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_glow_cifar10_cm33" name="glow_cifar10_cm33" toolchain="armgcc mcuxpresso" category="eiq_examples" path="examples/mimxrt685audevk/eiq_examples/glow_cifar10/cm33">
+          <external path="eiq_examples/glow_cifar10/cm33" type="xml">
+            <files mask="glow_cifar10_cm33_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_sdcard_fatfs" name="sdcard_fatfs" toolchain="armgcc mcuxpresso" category="sdmmc_examples/sdcard_fatfs" path="examples/mimxrt685audevk/sdmmc_examples/sdcard_fatfs">
+          <external path="sdmmc_examples/sdcard_fatfs" type="xml">
+            <files mask="sdcard_fatfs_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_flexspi_nor_polling_transfer" name="flexspi_nor_polling_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/flexspi" path="examples/mimxrt685audevk/driver_examples/flexspi/nor/polling_transfer">
+          <external path="driver_examples/flexspi/nor/polling_transfer" type="xml">
+            <files mask="flexspi_nor_polling_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_flexspi_nor_dma_transfer" name="flexspi_nor_dma_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/flexspi" path="examples/mimxrt685audevk/driver_examples/flexspi/nor/dma_transfer">
+          <external path="driver_examples/flexspi/nor/dma_transfer" type="xml">
+            <files mask="flexspi_nor_dma_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_i3c_polling_b2b_transfer_master" name="i3c_polling_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/i3c" path="examples/mimxrt685audevk/driver_examples/i3c/polling_b2b_transfer/master">
+          <external path="driver_examples/i3c/polling_b2b_transfer/master" type="xml">
+            <files mask="i3c_polling_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_i3c_polling_b2b_transfer_slave" name="i3c_polling_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/i3c" path="examples/mimxrt685audevk/driver_examples/i3c/polling_b2b_transfer/slave">
+          <external path="driver_examples/i3c/polling_b2b_transfer/slave" type="xml">
+            <files mask="i3c_polling_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_dsp_audio_demo_bm_cm33" name="dsp_audio_demo_bm_cm33" toolchain="armgcc mcuxpresso" category="dsp_examples" path="examples/mimxrt685audevk/dsp_examples/audio_demo_bm/cm33">
+          <external path="dsp_examples/audio_demo_bm/cm33" type="xml">
+            <files mask="dsp_audio_demo_bm_cm33_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_wifi_setup" name="wifi_setup" toolchain="armgcc mcuxpresso" category="wifi_examples" path="examples/mimxrt685audevk/wifi_examples/wifi_setup">
+          <external path="wifi_examples/wifi_setup" type="xml">
+            <files mask="wifi_setup_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_wifi_cli" name="wifi_cli" toolchain="armgcc mcuxpresso" category="wifi_examples" path="examples/mimxrt685audevk/wifi_examples/wifi_cli">
+          <external path="wifi_examples/wifi_cli" type="xml">
+            <files mask="wifi_cli_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_wifi_test_mode" name="wifi_test_mode" toolchain="armgcc mcuxpresso" category="wifi_examples" path="examples/mimxrt685audevk/wifi_examples/wifi_test_mode">
+          <external path="wifi_examples/wifi_test_mode" type="xml">
+            <files mask="wifi_test_mode_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_ota_mcuboot_server_wifi" name="ota_mcuboot_server_wifi" toolchain="armgcc mcuxpresso" category="ota_examples" path="examples/mimxrt685audevk/ota_examples/ota_mcuboot_server/wifi">
+          <external path="ota_examples/ota_mcuboot_server/wifi" type="xml">
+            <files mask="ota_mcuboot_server_wifi_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_i3c_bus_master" name="i3c_bus_master" toolchain="armgcc mcuxpresso" category="component_examples/i3c" path="examples/mimxrt685audevk/component_examples/i3c_bus/master">
+          <external path="component_examples/i3c_bus/master" type="xml">
+            <files mask="i3c_bus_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_i3c_bus_slave" name="i3c_bus_slave" toolchain="armgcc mcuxpresso" category="component_examples/i3c" path="examples/mimxrt685audevk/component_examples/i3c_bus/slave">
+          <external path="component_examples/i3c_bus/slave" type="xml">
+            <files mask="i3c_bus_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_i3c_interrupt_b2b_transfer_master" name="i3c_interrupt_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/i3c" path="examples/mimxrt685audevk/driver_examples/i3c/interrupt_b2b_transfer/master">
+          <external path="driver_examples/i3c/interrupt_b2b_transfer/master" type="xml">
+            <files mask="i3c_interrupt_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_i3c_interrupt_b2b_transfer_slave" name="i3c_interrupt_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/i3c" path="examples/mimxrt685audevk/driver_examples/i3c/interrupt_b2b_transfer/slave">
+          <external path="driver_examples/i3c/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="i3c_interrupt_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_i3c_master_read_sensor_icm42688p" name="i3c_master_read_sensor_icm42688p" toolchain="armgcc mcuxpresso" category="driver_examples/i3c" path="examples/mimxrt685audevk/driver_examples/i3c/master_read_sensor_icm42688p">
+          <external path="driver_examples/i3c/master_read_sensor_icm42688p" type="xml">
+            <files mask="i3c_master_read_sensor_icm42688p_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_i3c_bus_master_read_icm42688p" name="i3c_bus_master_read_icm42688p" toolchain="armgcc mcuxpresso" category="component_examples/i3c" path="examples/mimxrt685audevk/component_examples/i3c_bus/read_sensor">
+          <external path="component_examples/i3c_bus/read_sensor" type="xml">
+            <files mask="i3c_bus_master_read_icm42688p_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_mcuboot_opensource" name="mcuboot_opensource" toolchain="armgcc mcuxpresso" category="ota_examples" path="examples/mimxrt685audevk/ota_examples/mcuboot_opensource">
+          <external path="ota_examples/mcuboot_opensource" type="xml">
+            <files mask="mcuboot_opensource_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_freertos_hello" name="freertos_hello" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/mimxrt685audevk/freertos_examples/freertos_hello">
+          <external path="freertos_examples/freertos_hello" type="xml">
+            <files mask="freertos_hello_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_freertos_event" name="freertos_event" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/mimxrt685audevk/freertos_examples/freertos_event">
+          <external path="freertos_examples/freertos_event" type="xml">
+            <files mask="freertos_event_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_freertos_generic" name="freertos_generic" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/mimxrt685audevk/freertos_examples/freertos_generic">
+          <external path="freertos_examples/freertos_generic" type="xml">
+            <files mask="freertos_generic_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_freertos_mutex" name="freertos_mutex" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/mimxrt685audevk/freertos_examples/freertos_mutex">
+          <external path="freertos_examples/freertos_mutex" type="xml">
+            <files mask="freertos_mutex_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_freertos_queue" name="freertos_queue" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/mimxrt685audevk/freertos_examples/freertos_queue">
+          <external path="freertos_examples/freertos_queue" type="xml">
+            <files mask="freertos_queue_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_freertos_sem" name="freertos_sem" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/mimxrt685audevk/freertos_examples/freertos_sem">
+          <external path="freertos_examples/freertos_sem" type="xml">
+            <files mask="freertos_sem_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_freertos_swtimer" name="freertos_swtimer" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/mimxrt685audevk/freertos_examples/freertos_swtimer">
+          <external path="freertos_examples/freertos_swtimer" type="xml">
+            <files mask="freertos_swtimer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_freertos_tickless" name="freertos_tickless" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/mimxrt685audevk/freertos_examples/freertos_tickless">
+          <external path="freertos_examples/freertos_tickless" type="xml">
+            <files mask="freertos_tickless_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_freertos_mpu_ns" name="freertos_mpu_ns" toolchain="armgcc mcuxpresso" category="freertos_examples" linked_projects="mimxrt685audevk_freertos_mpu_s" path="examples/mimxrt685audevk/freertos_examples/freertos_mpu/freertos_mpu_ns">
+          <external path="freertos_examples/freertos_mpu/freertos_mpu_ns" type="xml">
+            <files mask="freertos_mpu_ns_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_freertos_mpu_s" name="freertos_mpu_s" toolchain="armgcc mcuxpresso" category="freertos_examples" linked_projects="mimxrt685audevk_freertos_mpu_ns" path="examples/mimxrt685audevk/freertos_examples/freertos_mpu/freertos_mpu_s">
+          <external path="freertos_examples/freertos_mpu/freertos_mpu_s" type="xml">
+            <files mask="freertos_mpu_s_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_tflm_cifar10_hifi4_cm33" name="tflm_cifar10_hifi4_cm33" toolchain="armgcc mcuxpresso" category="eiq_examples" path="examples/mimxrt685audevk/eiq_examples/tflm_cifar10_hifi4/cm33">
+          <external path="eiq_examples/tflm_cifar10_hifi4/cm33" type="xml">
+            <files mask="tflm_cifar10_hifi4_cm33_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_tflm_label_image_hifi4_cm33" name="tflm_label_image_hifi4_cm33" toolchain="armgcc mcuxpresso" category="eiq_examples" path="examples/mimxrt685audevk/eiq_examples/tflm_label_image_hifi4/cm33">
+          <external path="eiq_examples/tflm_label_image_hifi4/cm33" type="xml">
+            <files mask="tflm_label_image_hifi4_cm33_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_tflm_kws_hifi4_cm33" name="tflm_kws_hifi4_cm33" toolchain="armgcc mcuxpresso" category="eiq_examples" path="examples/mimxrt685audevk/eiq_examples/tflm_kws_hifi4/cm33">
+          <external path="eiq_examples/tflm_kws_hifi4/cm33" type="xml">
+            <files mask="tflm_kws_hifi4_cm33_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_tflm_xaf_hifi4_cm33" name="tflm_xaf_hifi4_cm33" toolchain="armgcc mcuxpresso" category="eiq_examples" path="examples/mimxrt685audevk/eiq_examples/tflm_xaf_hifi4/cm33">
+          <external path="eiq_examples/tflm_xaf_hifi4/cm33" type="xml">
+            <files mask="tflm_xaf_hifi4_cm33_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_tflm_cifar10_cm33" name="tflm_cifar10_cm33" toolchain="armgcc mcuxpresso" category="eiq_examples" path="examples/mimxrt685audevk/eiq_examples/tflm_cifar10_cm33">
+          <external path="eiq_examples/tflm_cifar10_cm33" type="xml">
+            <files mask="tflm_cifar10_cm33_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_tflm_label_image_cm33" name="tflm_label_image_cm33" toolchain="armgcc mcuxpresso" category="eiq_examples" path="examples/mimxrt685audevk/eiq_examples/tflm_label_image_cm33">
+          <external path="eiq_examples/tflm_label_image_cm33" type="xml">
+            <files mask="tflm_label_image_cm33_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_tflm_kws_cm33" name="tflm_kws_cm33" toolchain="armgcc mcuxpresso" category="eiq_examples" path="examples/mimxrt685audevk/eiq_examples/tflm_kws_cm33">
+          <external path="eiq_examples/tflm_kws_cm33" type="xml">
+            <files mask="tflm_kws_cm33_v3_13.xml"/>
+          </external>
+        </example>
+      </examples>
+    </board>
+  </boards>
+</ksdk:manifest>

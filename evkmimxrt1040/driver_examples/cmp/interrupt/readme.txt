@@ -15,8 +15,8 @@ detecting the output's falling edge.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.7.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================
@@ -26,7 +26,7 @@ Hardware requirements
 
 Board settings
 ==============
-No special settings are required.
+Remove jumper J80.
 
 Prepare the Demo
 ================

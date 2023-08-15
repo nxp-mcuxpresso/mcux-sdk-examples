@@ -29,9 +29,9 @@
 #include "fsl_phy.h"
 #include "modelrunner.h"
 
-#include "fsl_phyksz8081.h"
 #include "fsl_iomuxc.h"
 #include "fsl_enet.h"
+#include "fsl_phyksz8081.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -268,7 +268,7 @@ static void print_dhcp_state(void* arg)
 {
     stack_init();
     /* create modelrunner thread in RTOS */
-    if (sys_thread_new("modelrunner", modelrunner_task, NULL, 18192, DEFAULT_THREAD_PRIO) == NULL){
+    if (sys_thread_new("modelrunner", modelrunner_task, NULL, 28192, DEFAULT_THREAD_PRIO) == NULL){
         PRINTF("modelrunner_task(): Task creation failed\r\n");
     }
     vTaskDelete(NULL);

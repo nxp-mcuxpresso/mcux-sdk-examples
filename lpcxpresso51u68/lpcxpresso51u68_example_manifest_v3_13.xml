@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_lpcxpresso51u68_examples_manifest_v3_13" name="SDK_2.x_lpcxpresso51u68_examples_manifest_v3_13" format_version="3.13" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.13.xsd">
+
+  <externalDefinitions>
+    <definition extID="LPC51U68JBD64"/>
+  </externalDefinitions>
+  <ksdk id="MCUXpressoSDK2140_lpcxpresso51u68_examples_manifest_v3_13" name="MCUXpressoSDK2140_lpcxpresso51u68_examples_manifest_v3_13" version="2.14.0"/>
+  <boards>
+    <board id="lpcxpresso51u68" name="LPCXpresso51U68" href="https://www.nxp.com/pip/OM40005" version="1.0.0" package="LPC51U68JBD64">
+      <examples>
+        <example id="lpcxpresso51u68_dev_cdc_vcom_bm" name="dev_cdc_vcom_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_cdc_vcom/bm">
+          <external path="usb_examples/usb_device_cdc_vcom/bm" type="xml">
+            <files mask="dev_cdc_vcom_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_cdc_vcom_lite_bm" name="dev_cdc_vcom_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_cdc_vcom_lite/bm">
+          <external path="usb_examples/usb_device_cdc_vcom_lite/bm" type="xml">
+            <files mask="dev_cdc_vcom_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_composite_cdc_msc_bm" name="dev_composite_cdc_msc_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_composite_cdc_msc/bm">
+          <external path="usb_examples/usb_device_composite_cdc_msc/bm" type="xml">
+            <files mask="dev_composite_cdc_msc_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_composite_cdc_msc_lite_bm" name="dev_composite_cdc_msc_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_composite_cdc_msc_lite/bm">
+          <external path="usb_examples/usb_device_composite_cdc_msc_lite/bm" type="xml">
+            <files mask="dev_composite_cdc_msc_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_composite_cdc_vcom_cdc_vcom_bm" name="dev_composite_cdc_vcom_cdc_vcom_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_composite_cdc_vcom_cdc_vcom/bm">
+          <external path="usb_examples/usb_device_composite_cdc_vcom_cdc_vcom/bm" type="xml">
+            <files mask="dev_composite_cdc_vcom_cdc_vcom_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_composite_cdc_vcom_cdc_vcom_lite_bm" name="dev_composite_cdc_vcom_cdc_vcom_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_composite_cdc_vcom_cdc_vcom_lite/bm">
+          <external path="usb_examples/usb_device_composite_cdc_vcom_cdc_vcom_lite/bm" type="xml">
+            <files mask="dev_composite_cdc_vcom_cdc_vcom_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_composite_hid_mouse_hid_keyboard_bm" name="dev_composite_hid_mouse_hid_keyboard_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_composite_hid_mouse_hid_keyboard/bm">
+          <external path="usb_examples/usb_device_composite_hid_mouse_hid_keyboard/bm" type="xml">
+            <files mask="dev_composite_hid_mouse_hid_keyboard_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_composite_hid_mouse_hid_keyboard_lite_bm" name="dev_composite_hid_mouse_hid_keyboard_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_composite_hid_mouse_hid_keyboard_lite/bm">
+          <external path="usb_examples/usb_device_composite_hid_mouse_hid_keyboard_lite/bm" type="xml">
+            <files mask="dev_composite_hid_mouse_hid_keyboard_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_hid_generic_bm" name="dev_hid_generic_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_hid_generic/bm">
+          <external path="usb_examples/usb_device_hid_generic/bm" type="xml">
+            <files mask="dev_hid_generic_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_hid_generic_lite_bm" name="dev_hid_generic_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_hid_generic_lite/bm">
+          <external path="usb_examples/usb_device_hid_generic_lite/bm" type="xml">
+            <files mask="dev_hid_generic_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_hid_mouse_bm" name="dev_hid_mouse_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_hid_mouse/bm">
+          <external path="usb_examples/usb_device_hid_mouse/bm" type="xml">
+            <files mask="dev_hid_mouse_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_hid_mouse_lite_bm" name="dev_hid_mouse_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_hid_mouse_lite/bm">
+          <external path="usb_examples/usb_device_hid_mouse_lite/bm" type="xml">
+            <files mask="dev_hid_mouse_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_msc_ramdisk_bm" name="dev_msc_ramdisk_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_msc_ramdisk/bm">
+          <external path="usb_examples/usb_device_msc_ramdisk/bm" type="xml">
+            <files mask="dev_msc_ramdisk_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_msc_ramdisk_lite_bm" name="dev_msc_ramdisk_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_msc_ramdisk_lite/bm">
+          <external path="usb_examples/usb_device_msc_ramdisk_lite/bm" type="xml">
+            <files mask="dev_msc_ramdisk_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_phdc_weighscale_bm" name="dev_phdc_weighscale_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_phdc_weighscale/bm">
+          <external path="usb_examples/usb_device_phdc_weighscale/bm" type="xml">
+            <files mask="dev_phdc_weighscale_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_phdc_weighscale_lite_bm" name="dev_phdc_weighscale_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_phdc_weighscale_lite/bm">
+          <external path="usb_examples/usb_device_phdc_weighscale_lite/bm" type="xml">
+            <files mask="dev_phdc_weighscale_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_printer_virtual_plain_text_bm" name="dev_printer_virtual_plain_text_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_printer_virtual_plain_text/bm">
+          <external path="usb_examples/usb_device_printer_virtual_plain_text/bm" type="xml">
+            <files mask="dev_printer_virtual_plain_text_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_printer_virtual_plain_text_lite_bm" name="dev_printer_virtual_plain_text_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_printer_virtual_plain_text_lite/bm">
+          <external path="usb_examples/usb_device_printer_virtual_plain_text_lite/bm" type="xml">
+            <files mask="dev_printer_virtual_plain_text_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_video_virtual_camera_bm" name="dev_video_virtual_camera_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_video_virtual_camera/bm">
+          <external path="usb_examples/usb_device_video_virtual_camera/bm" type="xml">
+            <files mask="dev_video_virtual_camera_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_video_virtual_camera_lite_bm" name="dev_video_virtual_camera_lite_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_video_virtual_camera_lite/bm">
+          <external path="usb_examples/usb_device_video_virtual_camera_lite/bm" type="xml">
+            <files mask="dev_video_virtual_camera_lite_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_cdc_vcom_freertos" name="dev_cdc_vcom_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_cdc_vcom/freertos">
+          <external path="usb_examples/usb_device_cdc_vcom/freertos" type="xml">
+            <files mask="dev_cdc_vcom_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_composite_cdc_msc_freertos" name="dev_composite_cdc_msc_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_composite_cdc_msc/freertos">
+          <external path="usb_examples/usb_device_composite_cdc_msc/freertos" type="xml">
+            <files mask="dev_composite_cdc_msc_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_composite_cdc_vcom_cdc_vcom_freertos" name="dev_composite_cdc_vcom_cdc_vcom_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_composite_cdc_vcom_cdc_vcom/freertos">
+          <external path="usb_examples/usb_device_composite_cdc_vcom_cdc_vcom/freertos" type="xml">
+            <files mask="dev_composite_cdc_vcom_cdc_vcom_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_composite_hid_mouse_hid_keyboard_freertos" name="dev_composite_hid_mouse_hid_keyboard_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_composite_hid_mouse_hid_keyboard/freertos">
+          <external path="usb_examples/usb_device_composite_hid_mouse_hid_keyboard/freertos" type="xml">
+            <files mask="dev_composite_hid_mouse_hid_keyboard_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_hid_generic_freertos" name="dev_hid_generic_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_hid_generic/freertos">
+          <external path="usb_examples/usb_device_hid_generic/freertos" type="xml">
+            <files mask="dev_hid_generic_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_hid_mouse_freertos" name="dev_hid_mouse_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_hid_mouse/freertos">
+          <external path="usb_examples/usb_device_hid_mouse/freertos" type="xml">
+            <files mask="dev_hid_mouse_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_msc_ramdisk_freertos" name="dev_msc_ramdisk_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_msc_ramdisk/freertos">
+          <external path="usb_examples/usb_device_msc_ramdisk/freertos" type="xml">
+            <files mask="dev_msc_ramdisk_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_phdc_weighscale_freertos" name="dev_phdc_weighscale_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_phdc_weighscale/freertos">
+          <external path="usb_examples/usb_device_phdc_weighscale/freertos" type="xml">
+            <files mask="dev_phdc_weighscale_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_printer_virtual_plain_text_freertos" name="dev_printer_virtual_plain_text_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_printer_virtual_plain_text/freertos">
+          <external path="usb_examples/usb_device_printer_virtual_plain_text/freertos" type="xml">
+            <files mask="dev_printer_virtual_plain_text_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_video_virtual_camera_freertos" name="dev_video_virtual_camera_freertos" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_video_virtual_camera/freertos">
+          <external path="usb_examples/usb_device_video_virtual_camera/freertos" type="xml">
+            <files mask="dev_video_virtual_camera_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dev_hid_mouse_freertos_static" name="dev_hid_mouse_freertos_static" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_device_hid_mouse/freertos_static">
+          <external path="usb_examples/usb_device_hid_mouse/freertos_static" type="xml">
+            <files mask="dev_hid_mouse_freertos_static_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_rom_dev_audio_bm" name="rom_dev_audio_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_rom_device_audio/bm">
+          <external path="usb_examples/usb_rom_device_audio/bm" type="xml">
+            <files mask="rom_dev_audio_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_rom_dev_cdc_bm" name="rom_dev_cdc_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_rom_device_cdc/bm">
+          <external path="usb_examples/usb_rom_device_cdc/bm" type="xml">
+            <files mask="rom_dev_cdc_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_rom_dev_msc_ram_bm" name="rom_dev_msc_ram_bm" toolchain="armgcc mcuxpresso" category="usb_examples" path="examples/lpcxpresso51u68/usb_examples/usb_rom_device_msc_ram/bm">
+          <external path="usb_examples/usb_rom_device_msc_ram/bm" type="xml">
+            <files mask="rom_dev_msc_ram_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_hello_world" name="hello_world" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/lpcxpresso51u68/demo_apps/hello_world">
+          <external path="demo_apps/hello_world" type="xml">
+            <files mask="hello_world_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_i2c_interrupt_b2b_transfer_master" name="i2c_interrupt_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/lpcxpresso51u68/driver_examples/i2c/interrupt_b2b_transfer/master">
+          <external path="driver_examples/i2c/interrupt_b2b_transfer/master" type="xml">
+            <files mask="i2c_interrupt_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_i2c_interrupt_b2b_transfer_slave" name="i2c_interrupt_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/lpcxpresso51u68/driver_examples/i2c/interrupt_b2b_transfer/slave">
+          <external path="driver_examples/i2c/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="i2c_interrupt_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_i2c_dma_b2b_transfer_master" name="i2c_dma_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/lpcxpresso51u68/driver_examples/i2c/dma_b2b_transfer/master">
+          <external path="driver_examples/i2c/dma_b2b_transfer/master" type="xml">
+            <files mask="i2c_dma_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_i2c_dma_b2b_transfer_slave" name="i2c_dma_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/lpcxpresso51u68/driver_examples/i2c/dma_b2b_transfer/slave">
+          <external path="driver_examples/i2c/dma_b2b_transfer/slave" type="xml">
+            <files mask="i2c_dma_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_crc" name="crc" toolchain="armgcc mcuxpresso" category="driver_examples/crc" path="examples/lpcxpresso51u68/driver_examples/crc">
+          <external path="driver_examples/crc" type="xml">
+            <files mask="crc_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_iap_flash" name="iap_flash" toolchain="armgcc mcuxpresso" category="driver_examples/iap" path="examples/lpcxpresso51u68/driver_examples/iap/iap_flash">
+          <external path="driver_examples/iap/iap_flash" type="xml">
+            <files mask="iap_flash_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_flashiap" name="flashiap" toolchain="armgcc mcuxpresso" category="driver_examples/flashiap" path="examples/lpcxpresso51u68/driver_examples/flashiap">
+          <external path="driver_examples/flashiap" type="xml">
+            <files mask="flashiap_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_fmeas" name="fmeas" toolchain="armgcc mcuxpresso" category="driver_examples/fmeas" path="examples/lpcxpresso51u68/driver_examples/fmeas">
+          <external path="driver_examples/fmeas" type="xml">
+            <files mask="fmeas_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_gpio_led_output" name="gpio_led_output" toolchain="armgcc mcuxpresso" category="driver_examples/gpio" path="examples/lpcxpresso51u68/driver_examples/gpio/led_output">
+          <external path="driver_examples/gpio/led_output" type="xml">
+            <files mask="gpio_led_output_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_spi_polling_b2b_transfer_master" name="spi_polling_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso51u68/driver_examples/spi/polling_b2b_transfer/master">
+          <external path="driver_examples/spi/polling_b2b_transfer/master" type="xml">
+            <files mask="spi_polling_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_spi_polling_b2b_transfer_slave" name="spi_polling_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso51u68/driver_examples/spi/polling_b2b_transfer/slave">
+          <external path="driver_examples/spi/polling_b2b_transfer/slave" type="xml">
+            <files mask="spi_polling_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_spi_interrupt_b2b_transfer_master" name="spi_interrupt_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso51u68/driver_examples/spi/interrupt_b2b_transfer/master">
+          <external path="driver_examples/spi/interrupt_b2b_transfer/master" type="xml">
+            <files mask="spi_interrupt_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_spi_interrupt_b2b_transfer_slave" name="spi_interrupt_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso51u68/driver_examples/spi/interrupt_b2b_transfer/slave">
+          <external path="driver_examples/spi/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="spi_interrupt_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_spi_interrupt_b2b_master" name="spi_interrupt_b2b_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso51u68/driver_examples/spi/interrupt_b2b/master">
+          <external path="driver_examples/spi/interrupt_b2b/master" type="xml">
+            <files mask="spi_interrupt_b2b_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_spi_interrupt_b2b_slave" name="spi_interrupt_b2b_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso51u68/driver_examples/spi/interrupt_b2b/slave">
+          <external path="driver_examples/spi/interrupt_b2b/slave" type="xml">
+            <files mask="spi_interrupt_b2b_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_spi_interrupt" name="spi_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso51u68/driver_examples/spi/interrupt">
+          <external path="driver_examples/spi/interrupt" type="xml">
+            <files mask="spi_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_spi_dma_transfer" name="spi_dma_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso51u68/driver_examples/spi/dma_transfer">
+          <external path="driver_examples/spi/dma_transfer" type="xml">
+            <files mask="spi_dma_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_usart_sync_transfer_master" name="usart_sync_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpcxpresso51u68/driver_examples/usart/sync_transfer/master">
+          <external path="driver_examples/usart/sync_transfer/master" type="xml">
+            <files mask="usart_sync_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_usart_sync_transfer_slave" name="usart_sync_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpcxpresso51u68/driver_examples/usart/sync_transfer/slave">
+          <external path="driver_examples/usart/sync_transfer/slave" type="xml">
+            <files mask="usart_sync_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_usart_wakeup_deepsleep" name="usart_wakeup_deepsleep" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpcxpresso51u68/driver_examples/usart/wakeup_deepsleep">
+          <external path="driver_examples/usart/wakeup_deepsleep" type="xml">
+            <files mask="usart_wakeup_deepsleep_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_usart_polling" name="usart_polling" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpcxpresso51u68/driver_examples/usart/polling">
+          <external path="driver_examples/usart/polling" type="xml">
+            <files mask="usart_polling_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_usart_interrupt" name="usart_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpcxpresso51u68/driver_examples/usart/interrupt">
+          <external path="driver_examples/usart/interrupt" type="xml">
+            <files mask="usart_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_usart_interrupt_transfer" name="usart_interrupt_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpcxpresso51u68/driver_examples/usart/interrupt_transfer">
+          <external path="driver_examples/usart/interrupt_transfer" type="xml">
+            <files mask="usart_interrupt_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_usart_9bit_interrupt_transfer" name="usart_9bit_interrupt_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/uart" path="examples/lpcxpresso51u68/driver_examples/usart/9bit_interrupt_transfer">
+          <external path="driver_examples/usart/9bit_interrupt_transfer" type="xml">
+            <files mask="usart_9bit_interrupt_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_usart_interrupt_rb_transfer" name="usart_interrupt_rb_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpcxpresso51u68/driver_examples/usart/interrupt_rb_transfer">
+          <external path="driver_examples/usart/interrupt_rb_transfer" type="xml">
+            <files mask="usart_interrupt_rb_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dma_memory_to_memory" name="dma_memory_to_memory" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpcxpresso51u68/driver_examples/dma/memory_to_memory">
+          <external path="driver_examples/dma/memory_to_memory" type="xml">
+            <files mask="dma_memory_to_memory_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dma_m2m_polling" name="dma_m2m_polling" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpcxpresso51u68/driver_examples/dma/m2m_polling">
+          <external path="driver_examples/dma/m2m_polling" type="xml">
+            <files mask="dma_m2m_polling_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dma_hardware_trigger" name="dma_hardware_trigger" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpcxpresso51u68/driver_examples/dma/hardware_trigger">
+          <external path="driver_examples/dma/hardware_trigger" type="xml">
+            <files mask="dma_hardware_trigger_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_usart_dma_transfer" name="usart_dma_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpcxpresso51u68/driver_examples/usart/dma_transfer">
+          <external path="driver_examples/usart/dma_transfer" type="xml">
+            <files mask="usart_dma_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_usart_dma_rb_transfer" name="usart_dma_rb_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpcxpresso51u68/driver_examples/usart/dma_rb_transfer">
+          <external path="driver_examples/usart/dma_rb_transfer" type="xml">
+            <files mask="usart_dma_rb_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_usart_dma_double_buffer_transfer" name="usart_dma_double_buffer_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpcxpresso51u68/driver_examples/usart/dma_double_buffer_transfer">
+          <external path="driver_examples/usart/dma_double_buffer_transfer" type="xml">
+            <files mask="usart_dma_double_buffer_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_rtc_example" name="rtc_example" toolchain="armgcc mcuxpresso" category="driver_examples/rtc" path="examples/lpcxpresso51u68/driver_examples/rtc">
+          <external path="driver_examples/rtc" type="xml">
+            <files mask="rtc_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_sctimer_simple_pwm" name="sctimer_simple_pwm" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/lpcxpresso51u68/driver_examples/sctimer/simple_pwm">
+          <external path="driver_examples/sctimer/simple_pwm" type="xml">
+            <files mask="sctimer_simple_pwm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_sctimer_pwm_with_dutycyle_change" name="sctimer_pwm_with_dutycyle_change" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/lpcxpresso51u68/driver_examples/sctimer/pwm_with_dutycyle_change">
+          <external path="driver_examples/sctimer/pwm_with_dutycyle_change" type="xml">
+            <files mask="sctimer_pwm_with_dutycyle_change_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_sctimer_multi_state_pwm" name="sctimer_multi_state_pwm" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/lpcxpresso51u68/driver_examples/sctimer/multi_state_pwm">
+          <external path="driver_examples/sctimer/multi_state_pwm" type="xml">
+            <files mask="sctimer_multi_state_pwm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_sctimer_16bit_counter" name="sctimer_16bit_counter" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/lpcxpresso51u68/driver_examples/sctimer/16bit_counter">
+          <external path="driver_examples/sctimer/16bit_counter" type="xml">
+            <files mask="sctimer_16bit_counter_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_wwdt_example" name="wwdt_example" toolchain="armgcc mcuxpresso" category="driver_examples/wwdt" path="examples/lpcxpresso51u68/driver_examples/wwdt">
+          <external path="driver_examples/wwdt" type="xml">
+            <files mask="wwdt_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_mrt_example" name="mrt_example" toolchain="armgcc mcuxpresso" category="driver_examples/mrt" path="examples/lpcxpresso51u68/driver_examples/mrt">
+          <external path="driver_examples/mrt" type="xml">
+            <files mask="mrt_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_lpc_adc_basic" name="lpc_adc_basic" toolchain="armgcc mcuxpresso" category="driver_examples/adc" path="examples/lpcxpresso51u68/driver_examples/adc/lpc_adc_basic">
+          <external path="driver_examples/adc/lpc_adc_basic" type="xml">
+            <files mask="lpc_adc_basic_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_lpc_adc_interrupt" name="lpc_adc_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/adc" path="examples/lpcxpresso51u68/driver_examples/adc/lpc_adc_interrupt">
+          <external path="driver_examples/adc/lpc_adc_interrupt" type="xml">
+            <files mask="lpc_adc_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_lpc_adc_burst" name="lpc_adc_burst" toolchain="armgcc mcuxpresso" category="driver_examples/adc" path="examples/lpcxpresso51u68/driver_examples/adc/lpc_adc_burst">
+          <external path="driver_examples/adc/lpc_adc_burst" type="xml">
+            <files mask="lpc_adc_burst_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_lpc_adc_dma" name="lpc_adc_dma" toolchain="armgcc mcuxpresso" category="driver_examples/adc" path="examples/lpcxpresso51u68/driver_examples/adc/lpc_adc_dma">
+          <external path="driver_examples/adc/lpc_adc_dma" type="xml">
+            <files mask="lpc_adc_dma_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_ctimer_pwm_example" name="ctimer_pwm_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/lpcxpresso51u68/driver_examples/ctimer/simple_pwm">
+          <external path="driver_examples/ctimer/simple_pwm" type="xml">
+            <files mask="ctimer_pwm_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_ctimer_pwm_interrupt_example" name="ctimer_pwm_interrupt_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/lpcxpresso51u68/driver_examples/ctimer/simple_pwm_interrupt">
+          <external path="driver_examples/ctimer/simple_pwm_interrupt" type="xml">
+            <files mask="ctimer_pwm_interrupt_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_ctimer_match_example" name="ctimer_match_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/lpcxpresso51u68/driver_examples/ctimer/simple_match">
+          <external path="driver_examples/ctimer/simple_match" type="xml">
+            <files mask="ctimer_match_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_ctimer_match_interrupt_example" name="ctimer_match_interrupt_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/lpcxpresso51u68/driver_examples/ctimer/simple_match_interrupt">
+          <external path="driver_examples/ctimer/simple_match_interrupt" type="xml">
+            <files mask="ctimer_match_interrupt_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_gint" name="gint" toolchain="armgcc mcuxpresso" category="driver_examples/gint" path="examples/lpcxpresso51u68/driver_examples/gint">
+          <external path="driver_examples/gint" type="xml">
+            <files mask="gint_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_pint_pin_interrupt" name="pint_pin_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/pint" path="examples/lpcxpresso51u68/driver_examples/pint/pin_interrupt">
+          <external path="driver_examples/pint/pin_interrupt" type="xml">
+            <files mask="pint_pin_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_pint_pattern_match" name="pint_pattern_match" toolchain="armgcc mcuxpresso" category="driver_examples/pint" path="examples/lpcxpresso51u68/driver_examples/pint/pattern_match">
+          <external path="driver_examples/pint/pattern_match" type="xml">
+            <files mask="pint_pattern_match_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_utick_wakeup" name="utick_wakeup" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/lpcxpresso51u68/demo_apps/utick_wakeup">
+          <external path="demo_apps/utick_wakeup" type="xml">
+            <files mask="utick_wakeup_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_utick_wakeup_peripheral" name="utick_wakeup_peripheral" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/lpcxpresso51u68/demo_apps/utick_wakeup_peripheral">
+          <external path="demo_apps/utick_wakeup_peripheral" type="xml">
+            <files mask="utick_wakeup_peripheral_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_i2s_interrupt_transfer" name="i2s_interrupt_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/i2s" path="examples/lpcxpresso51u68/driver_examples/i2s/interrupt_transfer">
+          <external path="driver_examples/i2s/interrupt_transfer" type="xml">
+            <files mask="i2s_interrupt_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_i2s_dma_transfer" name="i2s_dma_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/i2s" path="examples/lpcxpresso51u68/driver_examples/i2s/dma_transfer">
+          <external path="driver_examples/i2s/dma_transfer" type="xml">
+            <files mask="i2s_dma_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_i2s_interrupt_record_playback" name="i2s_interrupt_record_playback" toolchain="armgcc mcuxpresso" category="driver_examples/i2s" path="examples/lpcxpresso51u68/driver_examples/i2s/interrupt_record_playback">
+          <external path="driver_examples/i2s/interrupt_record_playback" type="xml">
+            <files mask="i2s_interrupt_record_playback_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_i2s_dma_record_playback" name="i2s_dma_record_playback" toolchain="armgcc mcuxpresso" category="driver_examples/i2s" path="examples/lpcxpresso51u68/driver_examples/i2s/dma_record_playback">
+          <external path="driver_examples/i2s/dma_record_playback" type="xml">
+            <files mask="i2s_dma_record_playback_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_cmsis_i2c_int_b2b_transfer_master" name="cmsis_i2c_int_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/i2c" path="examples/lpcxpresso51u68/cmsis_driver_examples/i2c/int_b2b_transfer/master">
+          <external path="cmsis_driver_examples/i2c/int_b2b_transfer/master" type="xml">
+            <files mask="cmsis_i2c_int_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_cmsis_i2c_int_b2b_transfer_slave" name="cmsis_i2c_int_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/i2c" path="examples/lpcxpresso51u68/cmsis_driver_examples/i2c/int_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/i2c/int_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_i2c_int_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_cmsis_i2c_dma_b2b_transfer_master" name="cmsis_i2c_dma_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/i2c" path="examples/lpcxpresso51u68/cmsis_driver_examples/i2c/dma_b2b_transfer/master">
+          <external path="cmsis_driver_examples/i2c/dma_b2b_transfer/master" type="xml">
+            <files mask="cmsis_i2c_dma_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_cmsis_i2c_dma_b2b_transfer_slave" name="cmsis_i2c_dma_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/i2c" path="examples/lpcxpresso51u68/cmsis_driver_examples/i2c/dma_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/i2c/dma_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_i2c_dma_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_cmsis_usart_interrupt_transfer" name="cmsis_usart_interrupt_transfer" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/usart" path="examples/lpcxpresso51u68/cmsis_driver_examples/usart/interrupt_transfer">
+          <external path="cmsis_driver_examples/usart/interrupt_transfer" type="xml">
+            <files mask="cmsis_usart_interrupt_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_cmsis_usart_dma_transfer" name="cmsis_usart_dma_transfer" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/usart" path="examples/lpcxpresso51u68/cmsis_driver_examples/usart/dma_transfer">
+          <external path="cmsis_driver_examples/usart/dma_transfer" type="xml">
+            <files mask="cmsis_usart_dma_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_power_manager_lpc" name="power_manager_lpc" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/lpcxpresso51u68/demo_apps/power_manager_lpc">
+          <external path="demo_apps/power_manager_lpc" type="xml">
+            <files mask="power_manager_lpc_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_shell" name="shell" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/lpcxpresso51u68/demo_apps/shell">
+          <external path="demo_apps/shell" type="xml">
+            <files mask="shell_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_log_bm" name="log_bm" toolchain="armgcc mcuxpresso" category="component_examples" path="examples/lpcxpresso51u68/component_examples/log/bm">
+          <external path="component_examples/log/bm" type="xml">
+            <files mask="log_bm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_log_freertos" name="log_freertos" toolchain="armgcc mcuxpresso" category="component_examples" path="examples/lpcxpresso51u68/component_examples/log/freertos">
+          <external path="component_examples/log/freertos" type="xml">
+            <files mask="log_freertos_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_spi_half_duplex_polling_master" name="spi_half_duplex_polling_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso51u68/driver_examples/spi/half_duplex_transfer/polling/master">
+          <external path="driver_examples/spi/half_duplex_transfer/polling/master" type="xml">
+            <files mask="spi_half_duplex_polling_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_spi_half_duplex_polling_slave" name="spi_half_duplex_polling_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso51u68/driver_examples/spi/half_duplex_transfer/polling/slave">
+          <external path="driver_examples/spi/half_duplex_transfer/polling/slave" type="xml">
+            <files mask="spi_half_duplex_polling_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_spi_half_duplex_int_master" name="spi_half_duplex_int_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso51u68/driver_examples/spi/half_duplex_transfer/int/master">
+          <external path="driver_examples/spi/half_duplex_transfer/int/master" type="xml">
+            <files mask="spi_half_duplex_int_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_spi_half_duplex_int_slave" name="spi_half_duplex_int_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso51u68/driver_examples/spi/half_duplex_transfer/int/slave">
+          <external path="driver_examples/spi/half_duplex_transfer/int/slave" type="xml">
+            <files mask="spi_half_duplex_int_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_cmsis_spi_int_b2b_transfer_master" name="cmsis_spi_int_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/spi" path="examples/lpcxpresso51u68/cmsis_driver_examples/spi/int_b2b_transfer/master">
+          <external path="cmsis_driver_examples/spi/int_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_int_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_cmsis_spi_int_b2b_transfer_slave" name="cmsis_spi_int_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/spi" path="examples/lpcxpresso51u68/cmsis_driver_examples/spi/int_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/spi/int_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_int_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_cmsis_spi_dma_b2b_transfer_master" name="cmsis_spi_dma_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/spi" path="examples/lpcxpresso51u68/cmsis_driver_examples/spi/dma_b2b_transfer/master">
+          <external path="cmsis_driver_examples/spi/dma_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_dma_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_cmsis_spi_dma_b2b_transfer_slave" name="cmsis_spi_dma_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/spi" path="examples/lpcxpresso51u68/cmsis_driver_examples/spi/dma_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/spi/dma_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_dma_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dma_channel_chain" name="dma_channel_chain" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpcxpresso51u68/driver_examples/dma/channel_chain">
+          <external path="driver_examples/dma/channel_chain" type="xml">
+            <files mask="dma_channel_chain_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dma_interleave_transfer" name="dma_interleave_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpcxpresso51u68/driver_examples/dma/interleave_transfer">
+          <external path="driver_examples/dma/interleave_transfer" type="xml">
+            <files mask="dma_interleave_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dma_linked_transfer" name="dma_linked_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpcxpresso51u68/driver_examples/dma/linked_transfer">
+          <external path="driver_examples/dma/linked_transfer" type="xml">
+            <files mask="dma_linked_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_dma_wrap_transfer" name="dma_wrap_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpcxpresso51u68/driver_examples/dma/wrap_transfer">
+          <external path="driver_examples/dma/wrap_transfer" type="xml">
+            <files mask="dma_wrap_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_i2c_polling_b2b_master" name="i2c_polling_b2b_master" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/lpcxpresso51u68/driver_examples/i2c/polling_b2b/master">
+          <external path="driver_examples/i2c/polling_b2b/master" type="xml">
+            <files mask="i2c_polling_b2b_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_i2c_polling_b2b_slave" name="i2c_polling_b2b_slave" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/lpcxpresso51u68/driver_examples/i2c/polling_b2b/slave">
+          <external path="driver_examples/i2c/polling_b2b/slave" type="xml">
+            <files mask="i2c_polling_b2b_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_lpc_bod" name="lpc_bod" toolchain="armgcc mcuxpresso" category="driver_examples/bod" path="examples/lpcxpresso51u68/driver_examples/bod">
+          <external path="driver_examples/bod" type="xml">
+            <files mask="lpc_bod_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_freertos_event" name="freertos_event" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/lpcxpresso51u68/freertos_examples/freertos_event">
+          <external path="freertos_examples/freertos_event" type="xml">
+            <files mask="freertos_event_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_freertos_generic" name="freertos_generic" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/lpcxpresso51u68/freertos_examples/freertos_generic">
+          <external path="freertos_examples/freertos_generic" type="xml">
+            <files mask="freertos_generic_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_freertos_hello" name="freertos_hello" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/lpcxpresso51u68/freertos_examples/freertos_hello">
+          <external path="freertos_examples/freertos_hello" type="xml">
+            <files mask="freertos_hello_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_freertos_mutex" name="freertos_mutex" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/lpcxpresso51u68/freertos_examples/freertos_mutex">
+          <external path="freertos_examples/freertos_mutex" type="xml">
+            <files mask="freertos_mutex_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_freertos_queue" name="freertos_queue" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/lpcxpresso51u68/freertos_examples/freertos_queue">
+          <external path="freertos_examples/freertos_queue" type="xml">
+            <files mask="freertos_queue_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_freertos_sem" name="freertos_sem" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/lpcxpresso51u68/freertos_examples/freertos_sem">
+          <external path="freertos_examples/freertos_sem" type="xml">
+            <files mask="freertos_sem_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_freertos_swtimer" name="freertos_swtimer" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/lpcxpresso51u68/freertos_examples/freertos_swtimer">
+          <external path="freertos_examples/freertos_swtimer" type="xml">
+            <files mask="freertos_swtimer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso51u68_freertos_tickless" name="freertos_tickless" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/lpcxpresso51u68/freertos_examples/freertos_tickless">
+          <external path="freertos_examples/freertos_tickless" type="xml">
+            <files mask="freertos_tickless_v3_13.xml"/>
+          </external>
+        </example>
+      </examples>
+    </board>
+  </boards>
+</ksdk:manifest>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 NXP
+ * Copyright 2018-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -17,15 +17,17 @@
 #include "fsl_dmic_dma.h"
 
 #include "pin_mux.h"
-#include "dsp_config.h"
 #include "board_hifi4.h"
 #include "fsl_common.h"
 #include "fsl_gpio.h"
 #include "fsl_inputmux.h"
 #include "fsl_i2s.h"
+#include "dsp_config.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+#define BOARD_XTAL_SYS_CLK_HZ 24000000U /*!< Board xtal_sys frequency in Hz */
+#define BOARD_XTAL32K_CLK_HZ  32768U    /*!< Board xtal32K frequency in Hz */
 #define DMAREQ_DMIC0                    16U
 #define DEMO_I2S_MASTER_CLOCK_FREQUENCY CLOCK_GetMclkClkFreq()
 #define DEMO_I2S_TX                     (I2S3)
@@ -46,8 +48,6 @@
 #define FIFO_DEPTH               (15U)
 #define BUFFER_SIZE              (128)
 #define BUFFER_NUM               (2U)
-#define BOARD_XTAL_SYS_CLK_HZ 24000000U /*!< Board xtal_sys frequency in Hz */
-#define BOARD_XTAL32K_CLK_HZ  32768U    /*!< Board xtal32K frequency in Hz */
 
 /*******************************************************************************
  * Variables
@@ -236,7 +236,7 @@ int main(void)
 
     xos_start_main("main", 7, 0);
 
-    PRINTF("DSP starts on core '%s'\r\n", XCHAL_CORE_ID);
+    PRINTF("[DSP Main] DSP starts on core '%s'\r\n", XCHAL_CORE_ID);
 
     DMA_CreateHandle(&s_i2sTxDmaHandle, DEMO_DMA, DEMO_I2S_TX_CHANNEL);
     DMA_CreateHandle(&s_dmicRxDmaHandle, DEMO_DMA, DEMO_DMIC_RX_CHANNEL);
@@ -246,7 +246,7 @@ int main(void)
     DMIC_InstallDMADescriptorMemory(&s_dmicDmaHandle, s_dmaDescriptorPingpong, 2U);
     DMIC_TransferReceiveDMA(DMIC0, &s_dmicDmaHandle, s_receiveXfer, DEMO_DMIC_CHANNEL);
 
-    PRINTF("DMIC->DMA->I2S->CODEC running \r\n\r\n");
+    PRINTF("[DSP Main] DMIC->DMA->I2S->CODEC running \r\n\r\n");
     while (1)
     {
         if (s_emptyBlock < BUFFER_NUM)

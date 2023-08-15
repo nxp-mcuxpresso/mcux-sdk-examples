@@ -1,7 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2022 NXP
- * All rights reserved.
+ * Copyright 2016-2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -13,9 +12,9 @@
 #include "fsl_silicon_id.h"
 #include "fsl_cache.h"
 
+#include "fsl_phyrtl8211f.h"
 #include "pin_mux.h"
 #include "board.h"
-#include "fsl_phyrtl8211f.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -61,6 +60,9 @@ extern phy_rtl8211f_resource_t g_phy_resource;
 #ifndef PHY_STABILITY_DELAY_US
 #define PHY_STABILITY_DELAY_US (500000U)
 #endif
+#ifndef EXAMPLE_PHY_LINK_INTR_SUPPORT
+#define EXAMPLE_PHY_LINK_INTR_SUPPORT (0U)
+#endif
 
 /* @TEST_ANCHOR */
 
@@ -84,6 +86,10 @@ extern phy_rtl8211f_resource_t g_phy_resource;
  ******************************************************************************/
 static void ENET_QOS_BuildPtpEventFrame(void);
 
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+void GPIO_EnableLinkIntr(void);
+#endif
+
 /*******************************************************************************
  * Variables
  ******************************************************************************/
@@ -104,6 +110,10 @@ uint8_t g_txbuffIdx  = 0;
 uint8_t g_txCosumIdx = 0;
 uint32_t g_testIdx   = 0;
 static phy_handle_t phyHandle;
+
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+static bool linkChange = false;
+#endif
 
 /*******************************************************************************
  * Code
@@ -217,6 +227,13 @@ void ENET_QOS_IntCallback(
     }
 }
 
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+void PHY_LinkStatusChange(void)
+{
+    linkChange = true;
+}
+#endif
+
 int main(void)
 {
     enet_qos_config_t config;
@@ -234,6 +251,7 @@ int main(void)
     uint64_t second;
     uint32_t nanosecond;
     bool link              = false;
+    bool tempLink          = false;
     bool autonego          = false;
     phy_config_t phyConfig = {0};
 
@@ -303,6 +321,9 @@ int main(void)
     phyConfig.autoNeg  = true;
     phyConfig.ops      = EXAMPLE_PHY_OPS;
     phyConfig.resource = EXAMPLE_PHY_RESOURCE;
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+    phyConfig.intrType = kPHY_IntrActiveLow;
+#endif
 
     /* Initialize PHY and wait auto-negotiation over. */
     PRINTF("Wait for PHY init...\r\n");
@@ -400,6 +421,24 @@ int main(void)
 
     while (1)
     {
+        /* PHY link status update. */
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+        if (linkChange)
+        {
+            linkChange = false;
+            PHY_ClearInterrupt(&phyHandle);
+            PHY_GetLinkStatus(&phyHandle, &link);
+            GPIO_EnableLinkIntr();
+        }
+#else
+        PHY_GetLinkStatus(&phyHandle, &link);
+#endif
+        if (tempLink != link)
+        {
+            PRINTF("PHY link changed, link status = %u\r\n", link);
+            tempLink = link;
+        }
+
         /* Get the Frame size */
         length = 0;
         status = ENET_QOS_GetRxFrameSize(EXAMPLE_ENET_QOS_BASE, &g_handle, &length, 0);
@@ -437,7 +476,6 @@ int main(void)
         if (g_testIdx < ENET_QOS_EXAMPLE_SEND_COUNT)
         {
             /* Send a multicast frame when the PHY is link up. */
-            PHY_GetLinkStatus(&phyHandle, &link);
             if (link)
             {
                 /* Create the frame to be send. */
@@ -455,7 +493,7 @@ int main(void)
                     DCACHE_CleanByRange((uint32_t)buffer, ENET_QOS_EXAMPLE_FRAME_SIZE);
 
                     if (kStatus_Success == ENET_QOS_SendFrame(EXAMPLE_ENET_QOS_BASE, &g_handle, buffer,
-                                                              ENET_QOS_EXAMPLE_FRAME_SIZE, 0, true, buffer))
+                                                              ENET_QOS_EXAMPLE_FRAME_SIZE, 0, true, buffer, kENET_QOS_TxOffloadDisable))
                     {
                         g_testIdx++;
                         PRINTF("The %d frame transmitted success!\r\n", g_testIdx);
@@ -472,10 +510,6 @@ int main(void)
                 {
                     PRINTF("No avail tx buffers\r\n");
                 }
-            }
-            else
-            {
-                PRINTF(" \r\nThe PHY link down!\r\n");
             }
         }
     }

@@ -47,7 +47,7 @@ void DEMO_ADC_ETC_DONE0_Handler(void)
     g_AdcConversionDoneFlag = true;
     /* Get result from the trigger source chain 0. */
     g_AdcConversionValue = ADC_ETC_GetADCConversionValue(DEMO_ADC_ETC_BASE, DEMO_ADC_ETC_TRIGGER_GROUP, 0U);
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

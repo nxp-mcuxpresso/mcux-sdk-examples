@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -349,12 +349,12 @@ void USB_DeviceApplicationInit(void)
     if (kStatus_USB_Success !=
         USB_DeviceClassInit(CONTROLLER_ID, &g_UsbDeviceCompositeConfigList, &g_composite.deviceHandle))
     {
-        usb_echo("USB device composite demo init failed\r\n");
+        usb_echo("[CM33 USB] USB device composite demo init failed\r\n");
         return;
     }
     else
     {
-        usb_echo("USB device composite demo\r\n");
+        usb_echo("[CM33 USB] USB device composite demo\r\n");
 
         g_composite.audioUnified.audioRecorderHandle = g_UsbDeviceCompositeConfigList.config[0].classHandle;
         g_composite.audioUnified.audioSpeakerHandle  = g_UsbDeviceCompositeConfigList.config[1].classHandle;

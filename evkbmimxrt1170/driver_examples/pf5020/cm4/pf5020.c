@@ -11,10 +11,10 @@
 #include "clock_config.h"
 #include "board.h"
 #include "fsl_lpi2c.h"
-#include "fsl_gpio.h"
 #include "fsl_pf5020.h"
-#include "fsl_pgmc.h"
 
+#include "fsl_gpio.h"
+#include "fsl_pgmc.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -25,7 +25,6 @@
 #define DEMO_INTB_GPIO GPIO11
 #define DEMO_INTB_PIN  (1U)
 #define DEMO_INTB_IRQ_HANDLER
-#define SKIP_DCDC_CONFIGURATION (1U)
 #define DEMO_REGULATOR_NAME_ARRAY     \
     {                                 \
         "SW1", "SW2", "SWND1", "LDO1" \
@@ -37,6 +36,7 @@
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
+void APP_TriggerPMICStandby(bool enable);
 static status_t I2C_SendFunc(
     uint8_t deviceAddress, uint32_t subAddress, uint8_t subAddressSize, uint8_t *txBuff, uint8_t txBuffSize);
 static status_t I2C_ReceiveFunc(
@@ -59,10 +59,15 @@ static pf5020_handle_t g_pf5020Handle;
 static uint8_t regBuffer[120];
 
 char *g_regulatorNameArray[4] = DEMO_REGULATOR_NAME_ARRAY;
-uint8_t g_regulatorModeReg[]    = DEMO_REGULATOR_MODE_REG;
+uint8_t g_regulatorModeReg[]  = DEMO_REGULATOR_MODE_REG;
 /*******************************************************************************
  * Code
  ******************************************************************************/
+void APP_TriggerPMICStandby(bool enable)
+{
+    PGMC_PPC_TriggerPMICStandbySoftMode(PGMC_PPC0, enable);
+}
+
 
 
 static void lpi2c_master_callback(LPI2C_Type *base, lpi2c_master_handle_t *handle, status_t status, void *userData)
@@ -805,8 +810,8 @@ static void DEMO_EnterStandbyState(void)
     PRINTF("\r\nIn standby state, internal regulators work as the setting in Regulators Setting Menu\r\n");
     PRINTF("\r\nPlease press any key to set PF5020 to standby state.\r\n");
     GETCHAR();
-    PGMC_PPC_TriggerPMICStandbySoftMode(PGMC_PPC0, true);
+    APP_TriggerPMICStandby(true);
     PRINTF("\r\nPlease press any key to set PF5020 to run state.\r\n");
     GETCHAR();
-    PGMC_PPC_TriggerPMICStandbySoftMode(PGMC_PPC0, false);
+    APP_TriggerPMICStandby(false);
 }

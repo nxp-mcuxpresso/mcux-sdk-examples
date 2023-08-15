@@ -20,11 +20,7 @@
  */
 #if (USB_DEVICE_CONFIG_AUDIO_CLASS_2_0)
 #if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
-#if defined(USB_DEVICE_AUDIO_USE_SYNC_MODE) && (USB_DEVICE_AUDIO_USE_SYNC_MODE > 0U)
-#define HS_ISO_OUT_ENDP_INTERVAL (0x01)
-#else
-#define HS_ISO_OUT_ENDP_INTERVAL (0x02) /* consider the capbility of CPU for some Socs, use 2 microframes interval */
-#endif
+#define HS_ISO_OUT_ENDP_INTERVAL (0x03) /* consider the capbility of CPU for some Socs, use 3 microframes interval */
 #elif (defined(USB_DEVICE_CONFIG_EHCI) && (USB_DEVICE_CONFIG_EHCI > 0U))
 #if (defined(USB_DEVICE_AUDIO_SPEAKER_DEDICATED_INTERVAL) && (USB_DEVICE_AUDIO_SPEAKER_DEDICATED_INTERVAL > 0U))
 #define HS_ISO_OUT_ENDP_INTERVAL (0x02)
@@ -44,10 +40,10 @@
 #if defined(USB_DEVICE_AUDIO_USE_SYNC_MODE) && (USB_DEVICE_AUDIO_USE_SYNC_MODE > 0U)
 #if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
 /* the threshold transfer count that can tolerance by frame */
-#define AUDIO_SYNC_DATA_BASED_ADJUST_THRESHOLD (16U)
+#define AUDIO_SYNC_DATA_BASED_ADJUST_THRESHOLD (6U)
 #else
 /* the threshold transfer count that can tolerance by frame */
-#define AUDIO_SYNC_DATA_BASED_ADJUST_THRESHOLD (4U)
+#define AUDIO_SYNC_DATA_BASED_ADJUST_THRESHOLD (5U)
 #endif
 #endif
 
@@ -57,14 +53,14 @@
 #if (USB_DEVICE_CONFIG_AUDIO_CLASS_2_0)
 #if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
 #if defined(USB_DEVICE_AUDIO_USE_SYNC_MODE) && (USB_DEVICE_AUDIO_USE_SYNC_MODE > 0U)
-/* 6 means 16 mico frames (24*125us), make sure the latency is smaller than 1ms for sync mode */
-#define AUDIO_CLASS_2_0_HS_LOW_LATENCY_TRANSFER_COUNT (24U)
+/* 6 means 16 mico frames (8*500us) */
+#define AUDIO_CLASS_2_0_HS_LOW_LATENCY_TRANSFER_COUNT (8U)
 /* 2 units size buffer (1 unit means the size to play during 1ms) */
-#define AUDIO_SPEAKER_DATA_WHOLE_BUFFER_COUNT (7U)
+#define AUDIO_SPEAKER_DATA_WHOLE_BUFFER_COUNT (8U)
 #else
-#define AUDIO_CLASS_2_0_HS_LOW_LATENCY_TRANSFER_COUNT (0x08U) /* 0x08 means 8 transfer count */
+#define AUDIO_CLASS_2_0_HS_LOW_LATENCY_TRANSFER_COUNT (10U) /* 0x08 means 8 transfer count */
 #define AUDIO_SPEAKER_DATA_WHOLE_BUFFER_COUNT \
-    (0x06U) /* 6 units size buffer (1 unit means the size to play during 1ms) */
+    (10U) /* 6 units size buffer (1 unit means the size to play during 1ms) */
 #endif
 #elif (defined(USB_DEVICE_CONFIG_EHCI) && (USB_DEVICE_CONFIG_EHCI > 0U))
 #if (defined(USB_DEVICE_AUDIO_SPEAKER_DEDICATED_INTERVAL) && (USB_DEVICE_AUDIO_SPEAKER_DEDICATED_INTERVAL > 0U))

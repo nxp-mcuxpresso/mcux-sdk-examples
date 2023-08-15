@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -64,137 +72,19 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/lpcxpresso55s69/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${SdkRootDirPath}/examples/lpcxpresso55s69/audio_examples/maestro_record
     ${SdkRootDirPath}/examples/lpcxpresso55s69
     ${SdkRootDirPath}/core/boards/lpcxpresso55s69
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
-    ${SdkRootDirPath}/core/components/codec/wm8904
-    ${SdkRootDirPath}/core/components/codec
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/components/codec/
-    ${SdkRootDirPath}/core/components/codec/i2c
-    ${SdkRootDirPath}/core/components/i2c
-    ${SdkRootDirPath}/core/drivers/sysctl
-    ${SdkRootDirPath}/middleware/sdmmc
-    ${SdkRootDirPath}/core/drivers/lpc_iocon
-    ${SdkRootDirPath}/core/drivers/flexcomm
-    ${SdkRootDirPath}/core/devices/LPC55S69/utilities
-    ${SdkRootDirPath}/core/drivers/lpc_dma
-    ${SdkRootDirPath}/middleware/fatfs
-    ${SdkRootDirPath}/middleware/maestro
-    ${SdkRootDirPath}/core/devices/LPC55S69/drivers
-    ${SdkRootDirPath}/core/devices/LPC55S69
-    ${SdkRootDirPath}/core/drivers/lpc_gpio
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/components/serial_manager
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/components/osa
-    ${SdkRootDirPath}/core/drivers/sdif
-    ${SdkRootDirPath}/middleware/maestro/streamer
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
+set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")
+set_source_files_properties("${ProjDirPath}/../ffconf.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_fatfs_template_ram middleware_fatfs_template_sd")
+set_source_files_properties("${ProjDirPath}/../sdmmc_config.c" PROPERTIES COMPONENT_CONFIG_FILE "middleware_sdmmc_sdif_template")
+set_source_files_properties("${ProjDirPath}/../sdmmc_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_sdmmc_sdif_template")
 
-# include modules
-include(middleware_freertos-kernel_cm33_nonsecure_port)
-
-include(driver_wm8904)
-
-include(driver_codec)
-
-include(driver_common)
-
-include(component_wm8904_adapter)
-
-include(component_codec_i2c_LPC55S69_cm33_core0)
-
-include(component_flexcomm_i2c_adapter)
-
-include(driver_sysctl)
-
-include(middleware_sdmmc_sd)
-
-include(middleware_sdmmc_common)
-
-include(middleware_sdmmc_host_sdif)
-
-include(middleware_sdmmc_host_sdif_freertos)
-
-include(driver_lpc_iocon)
-
-include(driver_flexcomm_i2c)
-
-include(driver_flexcomm_i2s)
-
-include(utility_shell)
-
-include(driver_flexcomm_usart)
-
-include(driver_lpc_dma)
-
-include(driver_flexcomm_i2s_dma)
-
-include(middleware_fatfs)
-
-include(middleware_fatfs_sd)
-
-include(middleware_freertos-kernel_heap_4)
-
-include(middleware_maestro_framework)
-
-include(driver_clock)
-
-include(driver_power)
-
-include(device_CMSIS)
-
-include(device_startup_LPC55S69_cm33_core0)
-
-include(driver_flexcomm)
-
-include(driver_lpc_gpio)
-
-include(utility_assert)
-
-include(utility_debug_console)
-
-include(component_usart_adapter)
-
-include(component_serial_manager)
-
-include(component_lists)
-
-include(component_serial_manager_uart_LPC55S69_cm33_core0)
-
-include(middleware_freertos-kernel_LPC55S69_cm33_core0)
-
-include(middleware_freertos-kernel_extension)
-
-include(driver_reset)
-
-include(CMSIS_Include_core_cm)
-
-include(middleware_sdmmc_osa_freertos)
-
-include(component_osa_free_rtos)
-
-include(driver_sdif)
-
-include(middleware_maestro_framework_doc)
-
-include(middleware_maestro_framework_streamer)
-
-include(utilities_misc_utilities)
-
-include(device_system_LPC55S69_cm33_core0)
-
+include(${SdkRootDirPath}/core/devices/LPC55S69/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
@@ -204,38 +94,7 @@ TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
-if(CMAKE_BUILD_TYPE STREQUAL debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/maestro/libs/cm33f/armgcc/release/libmp3.a)
-endif(CMAKE_BUILD_TYPE STREQUAL debug)
-
-if(CMAKE_BUILD_TYPE STREQUAL debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/maestro/libs/cm33f/armgcc/release/libwav.a)
-endif(CMAKE_BUILD_TYPE STREQUAL debug)
-
-if(CMAKE_BUILD_TYPE STREQUAL debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/maestro/libs/cm33f/armgcc/release/libaac.a)
-endif(CMAKE_BUILD_TYPE STREQUAL debug)
-
-if(CMAKE_BUILD_TYPE STREQUAL debug)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/maestro/libs/cm33f/armgcc/release/libflac.a)
-endif(CMAKE_BUILD_TYPE STREQUAL debug)
-
-if(CMAKE_BUILD_TYPE STREQUAL release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/maestro/libs/cm33f/armgcc/release/libmp3.a)
-endif(CMAKE_BUILD_TYPE STREQUAL release)
-
-if(CMAKE_BUILD_TYPE STREQUAL release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/maestro/libs/cm33f/armgcc/release/libwav.a)
-endif(CMAKE_BUILD_TYPE STREQUAL release)
-
-if(CMAKE_BUILD_TYPE STREQUAL release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/maestro/libs/cm33f/armgcc/release/libaac.a)
-endif(CMAKE_BUILD_TYPE STREQUAL release)
-
-if(CMAKE_BUILD_TYPE STREQUAL release)
-    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/middleware/maestro/libs/cm33f/armgcc/release/libflac.a)
-endif(CMAKE_BUILD_TYPE STREQUAL release)
-
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map")
 

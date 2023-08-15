@@ -31,9 +31,9 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DDEBUG \
     -DCPU_K32L3A60VPJ1A_cm0plus \
     -DDEBUG_CONSOLE_TRANSFER_NON_BLOCKING \
+    -DMCUXPRESSO_SDK \
     -DSD_ENABLED \
     -DSDK_OS_FREE_RTOS \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
     -mcpu=cortex-m0plus \
@@ -56,9 +56,9 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DNDEBUG \
     -DCPU_K32L3A60VPJ1A_cm0plus \
     -DDEBUG_CONSOLE_TRANSFER_NON_BLOCKING \
+    -DMCUXPRESSO_SDK \
     -DSD_ENABLED \
     -DSDK_OS_FREE_RTOS \
-    -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m0plus \
     -Wall \

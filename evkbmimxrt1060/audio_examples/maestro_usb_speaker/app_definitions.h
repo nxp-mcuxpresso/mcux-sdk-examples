@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2023 NXP
  * All rights reserved.
  *
  *
@@ -28,17 +28,18 @@
 #define DEMO_SAI_IRQ       SAI1_IRQn
 #define SAI_UserIRQHandler SAI1_IRQHandler
 #define DEMO_CHANNEL_NUM   2
+#define DEMO_VOLUME        75
 
 /* IRQ */
 #define DEMO_SAI_TX_IRQ SAI1_IRQn
 
 /* DMA */
-#define DEMO_DMA           DMA0
-#define DEMO_DMAMUX        DMAMUX
-#define DEMO_TX_CHANNEL    (0U)
-#define DEMO_SAI_TX_SOURCE kDmaRequestMuxSai1Tx
+#define DEMO_DMA            DMA0
+#define DEMO_DMAMUX         DMAMUX
+#define DEMO_DMA_TX_CHANNEL (0U)
+#define DEMO_SAI_TX_SOURCE  kDmaRequestMuxSai1Tx
 
-#if DEMO_CODEC_CS42448
+#if (defined(DEMO_CODEC_CS42448) && (DEMO_CODEC_CS42448 == 1))
 #define DEMO_CS42448_I2C_INSTANCE      3
 #define DEMO_CODEC_POWER_GPIO          GPIO1
 #define DEMO_CODEC_POWER_GPIO_PIN      0
@@ -70,7 +71,7 @@
 
 /*${macro:end}*/
 
-#if defined DEMO_CODEC_CS42448
+#if (defined(DEMO_CODEC_CS42448) && (DEMO_CODEC_CS42448 == 1))
 void BORAD_CodecReset(bool state);
 #endif
 

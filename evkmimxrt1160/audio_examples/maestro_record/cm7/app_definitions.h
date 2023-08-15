@@ -17,7 +17,7 @@
  ******************************************************************************/
 /*${macro:start}*/
 /* SAI instance and clock */
-#define DEMO_CODEC_WM8960
+#define DEMO_CODEC_WM8960             1
 #define DEMO_PDM                      PDM
 #define DEMO_SAI                      SAI1
 #define DEMO_SAI_MASTER_SLAVE         kSAI_Master
@@ -58,8 +58,6 @@
 
 #define DEMO_CHANNEL_NUM   2
 #define DEMO_CODEC_CHANNEL kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight
-
-#define BOARD_MASTER_CLOCK_CONFIG()
 
 #define DEMO_VOLUME (100)
 /*${macro:end}*/

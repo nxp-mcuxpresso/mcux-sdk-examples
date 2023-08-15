@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_lpcxpresso55s06_examples_manifest_v3_13" name="SDK_2.x_lpcxpresso55s06_examples_manifest_v3_13" format_version="3.13" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.13.xsd">
+
+  <externalDefinitions>
+    <definition extID="LPC55S06JBD64"/>
+  </externalDefinitions>
+  <ksdk id="MCUXpressoSDK2140_lpcxpresso55s06_examples_manifest_v3_13" name="MCUXpressoSDK2140_lpcxpresso55s06_examples_manifest_v3_13" version="2.14.0"/>
+  <boards>
+    <board id="lpcxpresso55s06" name="LPCXpresso55S06" href="https://www.nxp.com/pip/LPC55S06-EVK" version="1.0.0" package="LPC55S06JBD64">
+      <examples>
+        <example id="lpcxpresso55s06_led_blinky" name="led_blinky" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/lpcxpresso55s06/demo_apps/led_blinky">
+          <external path="demo_apps/led_blinky" type="xml">
+            <files mask="led_blinky_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_hello_world_s" name="hello_world_s" toolchain="armgcc mcuxpresso" category="trustzone_examples" linked_projects="lpcxpresso55s06_hello_world_ns" path="examples/lpcxpresso55s06/trustzone_examples/hello_world/hello_world_s">
+          <external path="trustzone_examples/hello_world/hello_world_s" type="xml">
+            <files mask="hello_world_s_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_hello_world_ns" name="hello_world_ns" toolchain="armgcc mcuxpresso" category="trustzone_examples" linked_projects="lpcxpresso55s06_hello_world_s" path="examples/lpcxpresso55s06/trustzone_examples/hello_world/hello_world_ns">
+          <external path="trustzone_examples/hello_world/hello_world_ns" type="xml">
+            <files mask="hello_world_ns_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_secure_gpio_s" name="secure_gpio_s" toolchain="armgcc mcuxpresso" category="trustzone_examples" linked_projects="lpcxpresso55s06_secure_gpio_ns" path="examples/lpcxpresso55s06/trustzone_examples/secure_gpio/secure_gpio_s">
+          <external path="trustzone_examples/secure_gpio/secure_gpio_s" type="xml">
+            <files mask="secure_gpio_s_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_secure_gpio_ns" name="secure_gpio_ns" toolchain="armgcc mcuxpresso" category="trustzone_examples" linked_projects="lpcxpresso55s06_secure_gpio_s" path="examples/lpcxpresso55s06/trustzone_examples/secure_gpio/secure_gpio_ns">
+          <external path="trustzone_examples/secure_gpio/secure_gpio_ns" type="xml">
+            <files mask="secure_gpio_ns_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_secure_faults_s" name="secure_faults_s" toolchain="armgcc mcuxpresso" category="trustzone_examples" linked_projects="lpcxpresso55s06_secure_faults_ns" path="examples/lpcxpresso55s06/trustzone_examples/secure_faults/secure_faults_s">
+          <external path="trustzone_examples/secure_faults/secure_faults_s" type="xml">
+            <files mask="secure_faults_s_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_secure_faults_ns" name="secure_faults_ns" toolchain="armgcc mcuxpresso" category="trustzone_examples" linked_projects="lpcxpresso55s06_secure_faults_s" path="examples/lpcxpresso55s06/trustzone_examples/secure_faults/secure_faults_ns">
+          <external path="trustzone_examples/secure_faults/secure_faults_ns" type="xml">
+            <files mask="secure_faults_ns_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_hello_world" name="hello_world" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/lpcxpresso55s06/demo_apps/hello_world">
+          <external path="demo_apps/hello_world" type="xml">
+            <files mask="hello_world_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_hello_world_swo" name="hello_world_swo" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/lpcxpresso55s06/demo_apps/hello_world_swo">
+          <external path="demo_apps/hello_world_swo" type="xml">
+            <files mask="hello_world_swo_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_power_manager_lpc" name="power_manager_lpc" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/lpcxpresso55s06/demo_apps/power_manager_lpc">
+          <external path="demo_apps/power_manager_lpc" type="xml">
+            <files mask="power_manager_lpc_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_shell" name="shell" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/lpcxpresso55s06/demo_apps/shell">
+          <external path="demo_apps/shell" type="xml">
+            <files mask="shell_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_utick_wakeup" name="utick_wakeup" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/lpcxpresso55s06/demo_apps/utick_wakeup">
+          <external path="demo_apps/utick_wakeup" type="xml">
+            <files mask="utick_wakeup_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_mrt_example" name="mrt_example" toolchain="armgcc mcuxpresso" category="driver_examples/mrt" path="examples/lpcxpresso55s06/driver_examples/mrt">
+          <external path="driver_examples/mrt" type="xml">
+            <files mask="mrt_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_gpio_led_output" name="gpio_led_output" toolchain="armgcc mcuxpresso" category="driver_examples/gpio" path="examples/lpcxpresso55s06/driver_examples/gpio/led_output">
+          <external path="driver_examples/gpio/led_output" type="xml">
+            <files mask="gpio_led_output_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_gint" name="gint" toolchain="armgcc mcuxpresso" category="driver_examples/gint" path="examples/lpcxpresso55s06/driver_examples/gint">
+          <external path="driver_examples/gint" type="xml">
+            <files mask="gint_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_spi_polling_b2b_transfer_master" name="spi_polling_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso55s06/driver_examples/spi/polling_b2b_transfer/master">
+          <external path="driver_examples/spi/polling_b2b_transfer/master" type="xml">
+            <files mask="spi_polling_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_spi_polling_b2b_transfer_slave" name="spi_polling_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso55s06/driver_examples/spi/polling_b2b_transfer/slave">
+          <external path="driver_examples/spi/polling_b2b_transfer/slave" type="xml">
+            <files mask="spi_polling_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_spi_interrupt_b2b_transfer_master" name="spi_interrupt_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso55s06/driver_examples/spi/interrupt_b2b_transfer/master">
+          <external path="driver_examples/spi/interrupt_b2b_transfer/master" type="xml">
+            <files mask="spi_interrupt_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_spi_interrupt_b2b_transfer_slave" name="spi_interrupt_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso55s06/driver_examples/spi/interrupt_b2b_transfer/slave">
+          <external path="driver_examples/spi/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="spi_interrupt_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_spi_interrupt_b2b_master" name="spi_interrupt_b2b_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso55s06/driver_examples/spi/interrupt_b2b/master">
+          <external path="driver_examples/spi/interrupt_b2b/master" type="xml">
+            <files mask="spi_interrupt_b2b_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_spi_interrupt_b2b_slave" name="spi_interrupt_b2b_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso55s06/driver_examples/spi/interrupt_b2b/slave">
+          <external path="driver_examples/spi/interrupt_b2b/slave" type="xml">
+            <files mask="spi_interrupt_b2b_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_spi_interrupt" name="spi_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso55s06/driver_examples/spi/interrupt">
+          <external path="driver_examples/spi/interrupt" type="xml">
+            <files mask="spi_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_spi_dma_b2b_transfer_master" name="spi_dma_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso55s06/driver_examples/spi/dma_b2b_transfer/master">
+          <external path="driver_examples/spi/dma_b2b_transfer/master" type="xml">
+            <files mask="spi_dma_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_spi_dma_b2b_transfer_slave" name="spi_dma_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso55s06/driver_examples/spi/dma_b2b_transfer/slave">
+          <external path="driver_examples/spi/dma_b2b_transfer/slave" type="xml">
+            <files mask="spi_dma_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_spi_HS_LSPI_dma_b2b_transfer_master" name="spi_HS_LSPI_dma_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso55s06/driver_examples/spi/HS_LSPI_dma_b2b_transfer/master">
+          <external path="driver_examples/spi/HS_LSPI_dma_b2b_transfer/master" type="xml">
+            <files mask="spi_HS_LSPI_dma_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_spi_HS_LSPI_dma_b2b_transfer_slave" name="spi_HS_LSPI_dma_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpcxpresso55s06/driver_examples/spi/HS_LSPI_dma_b2b_transfer/slave">
+          <external path="driver_examples/spi/HS_LSPI_dma_b2b_transfer/slave" type="xml">
+            <files mask="spi_HS_LSPI_dma_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_rtc_example" name="rtc_example" toolchain="armgcc mcuxpresso" category="driver_examples/rtc" path="examples/lpcxpresso55s06/driver_examples/rtc">
+          <external path="driver_examples/rtc" type="xml">
+            <files mask="rtc_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_pint_pin_interrupt" name="pint_pin_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/pint" path="examples/lpcxpresso55s06/driver_examples/pint/pin_interrupt">
+          <external path="driver_examples/pint/pin_interrupt" type="xml">
+            <files mask="pint_pin_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_pint_pattern_match" name="pint_pattern_match" toolchain="armgcc mcuxpresso" category="driver_examples/pint" path="examples/lpcxpresso55s06/driver_examples/pint/pattern_match">
+          <external path="driver_examples/pint/pattern_match" type="xml">
+            <files mask="pint_pattern_match_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_wwdt_example" name="wwdt_example" toolchain="armgcc mcuxpresso" category="driver_examples/wwdt" path="examples/lpcxpresso55s06/driver_examples/wwdt">
+          <external path="driver_examples/wwdt" type="xml">
+            <files mask="wwdt_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_crc" name="crc" toolchain="armgcc mcuxpresso" category="driver_examples/crc" path="examples/lpcxpresso55s06/driver_examples/crc">
+          <external path="driver_examples/crc" type="xml">
+            <files mask="crc_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_sctimer_simple_pwm" name="sctimer_simple_pwm" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/lpcxpresso55s06/driver_examples/sctimer/simple_pwm">
+          <external path="driver_examples/sctimer/simple_pwm" type="xml">
+            <files mask="sctimer_simple_pwm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_sctimer_pwm_with_dutycyle_change" name="sctimer_pwm_with_dutycyle_change" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/lpcxpresso55s06/driver_examples/sctimer/pwm_with_dutycyle_change">
+          <external path="driver_examples/sctimer/pwm_with_dutycyle_change" type="xml">
+            <files mask="sctimer_pwm_with_dutycyle_change_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_sctimer_multi_state_pwm" name="sctimer_multi_state_pwm" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/lpcxpresso55s06/driver_examples/sctimer/multi_state_pwm">
+          <external path="driver_examples/sctimer/multi_state_pwm" type="xml">
+            <files mask="sctimer_multi_state_pwm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_sctimer_16bit_counter" name="sctimer_16bit_counter" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/lpcxpresso55s06/driver_examples/sctimer/16bit_counter">
+          <external path="driver_examples/sctimer/16bit_counter" type="xml">
+            <files mask="sctimer_16bit_counter_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_i2c_interrupt_b2b_transfer_master" name="i2c_interrupt_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/lpcxpresso55s06/driver_examples/i2c/interrupt_b2b_transfer/master">
+          <external path="driver_examples/i2c/interrupt_b2b_transfer/master" type="xml">
+            <files mask="i2c_interrupt_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_i2c_interrupt_b2b_transfer_slave" name="i2c_interrupt_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/lpcxpresso55s06/driver_examples/i2c/interrupt_b2b_transfer/slave">
+          <external path="driver_examples/i2c/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="i2c_interrupt_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_i2c_dma_b2b_transfer_master" name="i2c_dma_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/lpcxpresso55s06/driver_examples/i2c/dma_b2b_transfer/master">
+          <external path="driver_examples/i2c/dma_b2b_transfer/master" type="xml">
+            <files mask="i2c_dma_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_i2c_dma_b2b_transfer_slave" name="i2c_dma_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/lpcxpresso55s06/driver_examples/i2c/dma_b2b_transfer/slave">
+          <external path="driver_examples/i2c/dma_b2b_transfer/slave" type="xml">
+            <files mask="i2c_dma_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_i2c_polling_b2b_master" name="i2c_polling_b2b_master" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/lpcxpresso55s06/driver_examples/i2c/polling_b2b/master">
+          <external path="driver_examples/i2c/polling_b2b/master" type="xml">
+            <files mask="i2c_polling_b2b_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_i2c_polling_b2b_slave" name="i2c_polling_b2b_slave" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/lpcxpresso55s06/driver_examples/i2c/polling_b2b/slave">
+          <external path="driver_examples/i2c/polling_b2b/slave" type="xml">
+            <files mask="i2c_polling_b2b_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_i2c_read_accel_value_transfer" name="i2c_read_accel_value_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/i2c" path="examples/lpcxpresso55s06/driver_examples/i2c/read_accel_value_transfer">
+          <external path="driver_examples/i2c/read_accel_value_transfer" type="xml">
+            <files mask="i2c_read_accel_value_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_usart_wakeup_deepsleep" name="usart_wakeup_deepsleep" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpcxpresso55s06/driver_examples/usart/wakeup_deepsleep">
+          <external path="driver_examples/usart/wakeup_deepsleep" type="xml">
+            <files mask="usart_wakeup_deepsleep_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_usart_polling" name="usart_polling" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpcxpresso55s06/driver_examples/usart/polling">
+          <external path="driver_examples/usart/polling" type="xml">
+            <files mask="usart_polling_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_usart_interrupt" name="usart_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpcxpresso55s06/driver_examples/usart/interrupt">
+          <external path="driver_examples/usart/interrupt" type="xml">
+            <files mask="usart_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_usart_interrupt_transfer" name="usart_interrupt_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpcxpresso55s06/driver_examples/usart/interrupt_transfer">
+          <external path="driver_examples/usart/interrupt_transfer" type="xml">
+            <files mask="usart_interrupt_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_usart_9bit_interrupt_transfer" name="usart_9bit_interrupt_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/uart" path="examples/lpcxpresso55s06/driver_examples/usart/9bit_interrupt_transfer">
+          <external path="driver_examples/usart/9bit_interrupt_transfer" type="xml">
+            <files mask="usart_9bit_interrupt_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_usart_interrupt_rb_transfer" name="usart_interrupt_rb_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpcxpresso55s06/driver_examples/usart/interrupt_rb_transfer">
+          <external path="driver_examples/usart/interrupt_rb_transfer" type="xml">
+            <files mask="usart_interrupt_rb_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_usart_dma_transfer" name="usart_dma_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpcxpresso55s06/driver_examples/usart/dma_transfer">
+          <external path="driver_examples/usart/dma_transfer" type="xml">
+            <files mask="usart_dma_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_usart_dma_double_buffer_transfer" name="usart_dma_double_buffer_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpcxpresso55s06/driver_examples/usart/dma_double_buffer_transfer">
+          <external path="driver_examples/usart/dma_double_buffer_transfer" type="xml">
+            <files mask="usart_dma_double_buffer_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_mcan_loopback" name="mcan_loopback" toolchain="armgcc mcuxpresso" category="driver_examples/mcan" path="examples/lpcxpresso55s06/driver_examples/mcan/loopback">
+          <external path="driver_examples/mcan/loopback" type="xml">
+            <files mask="mcan_loopback_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_mcan_interrupt_transfer" name="mcan_interrupt_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/mcan" path="examples/lpcxpresso55s06/driver_examples/mcan/interrupt_transfer">
+          <external path="driver_examples/mcan/interrupt_transfer" type="xml">
+            <files mask="mcan_interrupt_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_ctimer_pwm_example" name="ctimer_pwm_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/lpcxpresso55s06/driver_examples/ctimer/simple_pwm">
+          <external path="driver_examples/ctimer/simple_pwm" type="xml">
+            <files mask="ctimer_pwm_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_ctimer_pwm_interrupt_example" name="ctimer_pwm_interrupt_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/lpcxpresso55s06/driver_examples/ctimer/simple_pwm_interrupt">
+          <external path="driver_examples/ctimer/simple_pwm_interrupt" type="xml">
+            <files mask="ctimer_pwm_interrupt_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_ctimer_match_example" name="ctimer_match_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/lpcxpresso55s06/driver_examples/ctimer/simple_match">
+          <external path="driver_examples/ctimer/simple_match" type="xml">
+            <files mask="ctimer_match_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_ctimer_match_interrupt_example" name="ctimer_match_interrupt_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/lpcxpresso55s06/driver_examples/ctimer/simple_match_interrupt">
+          <external path="driver_examples/ctimer/simple_match_interrupt" type="xml">
+            <files mask="ctimer_match_interrupt_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_dma_memory_to_memory" name="dma_memory_to_memory" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpcxpresso55s06/driver_examples/dma/memory_to_memory">
+          <external path="driver_examples/dma/memory_to_memory" type="xml">
+            <files mask="dma_memory_to_memory_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_dma_channel_chain" name="dma_channel_chain" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpcxpresso55s06/driver_examples/dma/channel_chain">
+          <external path="driver_examples/dma/channel_chain" type="xml">
+            <files mask="dma_channel_chain_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_dma_linked_transfer" name="dma_linked_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpcxpresso55s06/driver_examples/dma/linked_transfer">
+          <external path="driver_examples/dma/linked_transfer" type="xml">
+            <files mask="dma_linked_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_dma_interleave_transfer" name="dma_interleave_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpcxpresso55s06/driver_examples/dma/interleave_transfer">
+          <external path="driver_examples/dma/interleave_transfer" type="xml">
+            <files mask="dma_interleave_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_dma_wrap_transfer" name="dma_wrap_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpcxpresso55s06/driver_examples/dma/wrap_transfer">
+          <external path="driver_examples/dma/wrap_transfer" type="xml">
+            <files mask="dma_wrap_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_dma_hardware_trigger" name="dma_hardware_trigger" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpcxpresso55s06/driver_examples/dma/hardware_trigger">
+          <external path="driver_examples/dma/hardware_trigger" type="xml">
+            <files mask="dma_hardware_trigger_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_rng_random" name="rng_random" toolchain="armgcc mcuxpresso" category="driver_examples/rng" path="examples/lpcxpresso55s06/driver_examples/rng/random">
+          <external path="driver_examples/rng/random" type="xml">
+            <files mask="rng_random_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_casper" name="casper" toolchain="armgcc mcuxpresso" category="driver_examples/casper" path="examples/lpcxpresso55s06/driver_examples/casper">
+          <external path="driver_examples/casper" type="xml">
+            <files mask="casper_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_mbedtls_selftest" name="mbedtls_selftest" toolchain="armgcc mcuxpresso" category="mbedtls_examples" path="examples/lpcxpresso55s06/mbedtls_examples/mbedtls_selftest">
+          <external path="mbedtls_examples/mbedtls_selftest" type="xml">
+            <files mask="mbedtls_selftest_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_mbedtls_benchmark" name="mbedtls_benchmark" toolchain="armgcc mcuxpresso" category="mbedtls_examples" path="examples/lpcxpresso55s06/mbedtls_examples/mbedtls_benchmark">
+          <external path="mbedtls_examples/mbedtls_benchmark" type="xml">
+            <files mask="mbedtls_benchmark_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_hashcrypt" name="hashcrypt" toolchain="armgcc mcuxpresso" category="driver_examples/hashcrypt" path="examples/lpcxpresso55s06/driver_examples/hashcrypt">
+          <external path="driver_examples/hashcrypt" type="xml">
+            <files mask="hashcrypt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_prince" name="prince" toolchain="armgcc mcuxpresso" category="driver_examples/prince" path="examples/lpcxpresso55s06/driver_examples/prince">
+          <external path="driver_examples/prince" type="xml">
+            <files mask="prince_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_flashiap1" name="flashiap1" toolchain="armgcc mcuxpresso" category="driver_examples/flashiap1" path="examples/lpcxpresso55s06/driver_examples/flashiap">
+          <external path="driver_examples/flashiap" type="xml">
+            <files mask="flashiap1_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_puf" name="puf" toolchain="armgcc mcuxpresso" category="driver_examples/puf" path="examples/lpcxpresso55s06/driver_examples/puf">
+          <external path="driver_examples/puf" type="xml">
+            <files mask="puf_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_cmsis_usart_interrupt_transfer" name="cmsis_usart_interrupt_transfer" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/usart" path="examples/lpcxpresso55s06/cmsis_driver_examples/usart/interrupt_transfer">
+          <external path="cmsis_driver_examples/usart/interrupt_transfer" type="xml">
+            <files mask="cmsis_usart_interrupt_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_cmsis_usart_dma_transfer" name="cmsis_usart_dma_transfer" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/usart" path="examples/lpcxpresso55s06/cmsis_driver_examples/usart/dma_transfer">
+          <external path="cmsis_driver_examples/usart/dma_transfer" type="xml">
+            <files mask="cmsis_usart_dma_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_cmsis_i2c_int_b2b_transfer_master" name="cmsis_i2c_int_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/i2c" path="examples/lpcxpresso55s06/cmsis_driver_examples/i2c/int_b2b_transfer/master">
+          <external path="cmsis_driver_examples/i2c/int_b2b_transfer/master" type="xml">
+            <files mask="cmsis_i2c_int_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_cmsis_i2c_int_b2b_transfer_slave" name="cmsis_i2c_int_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/i2c" path="examples/lpcxpresso55s06/cmsis_driver_examples/i2c/int_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/i2c/int_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_i2c_int_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_cmsis_i2c_dma_b2b_transfer_master" name="cmsis_i2c_dma_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/i2c" path="examples/lpcxpresso55s06/cmsis_driver_examples/i2c/dma_b2b_transfer/master">
+          <external path="cmsis_driver_examples/i2c/dma_b2b_transfer/master" type="xml">
+            <files mask="cmsis_i2c_dma_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_cmsis_i2c_dma_b2b_transfer_slave" name="cmsis_i2c_dma_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/i2c" path="examples/lpcxpresso55s06/cmsis_driver_examples/i2c/dma_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/i2c/dma_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_i2c_dma_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_cmsis_spi_int_b2b_transfer_master" name="cmsis_spi_int_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/spi" path="examples/lpcxpresso55s06/cmsis_driver_examples/spi/int_b2b_transfer/master">
+          <external path="cmsis_driver_examples/spi/int_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_int_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_cmsis_spi_int_b2b_transfer_slave" name="cmsis_spi_int_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/spi" path="examples/lpcxpresso55s06/cmsis_driver_examples/spi/int_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/spi/int_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_int_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_cmsis_spi_dma_b2b_transfer_master" name="cmsis_spi_dma_b2b_transfer_master" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/spi" path="examples/lpcxpresso55s06/cmsis_driver_examples/spi/dma_b2b_transfer/master">
+          <external path="cmsis_driver_examples/spi/dma_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_dma_b2b_transfer_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_cmsis_spi_dma_b2b_transfer_slave" name="cmsis_spi_dma_b2b_transfer_slave" toolchain="armgcc mcuxpresso" category="cmsis_driver_examples/spi" path="examples/lpcxpresso55s06/cmsis_driver_examples/spi/dma_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/spi/dma_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_dma_b2b_transfer_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_ostimer_example" name="ostimer_example" toolchain="armgcc mcuxpresso" category="driver_examples/ostimer" path="examples/lpcxpresso55s06/driver_examples/ostimer">
+          <external path="driver_examples/ostimer" type="xml">
+            <files mask="ostimer_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_lpadc_interrupt" name="lpadc_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/lpadc" path="examples/lpcxpresso55s06/driver_examples/lpadc/interrupt">
+          <external path="driver_examples/lpadc/interrupt" type="xml">
+            <files mask="lpadc_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_lpadc_polling" name="lpadc_polling" toolchain="armgcc mcuxpresso" category="driver_examples/lpadc" path="examples/lpcxpresso55s06/driver_examples/lpadc/polling">
+          <external path="driver_examples/lpadc/polling" type="xml">
+            <files mask="lpadc_polling_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_lpadc_dma" name="lpadc_dma" toolchain="armgcc mcuxpresso" category="driver_examples/lpadc" path="examples/lpcxpresso55s06/driver_examples/lpadc/dma">
+          <external path="driver_examples/lpadc/dma" type="xml">
+            <files mask="lpadc_dma_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_lpadc_temperature_measurement" name="lpadc_temperature_measurement" toolchain="armgcc mcuxpresso" category="driver_examples/lpadc" path="examples/lpcxpresso55s06/driver_examples/lpadc/temperature_measurement">
+          <external path="driver_examples/lpadc/temperature_measurement" type="xml">
+            <files mask="lpadc_temperature_measurement_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_cmp_polling" name="cmp_polling" toolchain="armgcc mcuxpresso" category="driver_examples/cmp" path="examples/lpcxpresso55s06/driver_examples/cmp/polling">
+          <external path="driver_examples/cmp/polling" type="xml">
+            <files mask="cmp_polling_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_cmp_interrupt" name="cmp_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/cmp" path="examples/lpcxpresso55s06/driver_examples/cmp/interrupt">
+          <external path="driver_examples/cmp/interrupt" type="xml">
+            <files mask="cmp_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_anactrl_measure_frequency" name="anactrl_measure_frequency" toolchain="armgcc mcuxpresso" category="driver_examples/anactrl" path="examples/lpcxpresso55s06/driver_examples/anactrl/measure_frequency">
+          <external path="driver_examples/anactrl/measure_frequency" type="xml">
+            <files mask="anactrl_measure_frequency_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_cdog" name="cdog" toolchain="armgcc mcuxpresso" category="driver_examples/cdog" path="examples/lpcxpresso55s06/driver_examples/cdog">
+          <external path="driver_examples/cdog" type="xml">
+            <files mask="cdog_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_puf_hashcrypt_crypto" name="puf_hashcrypt_crypto" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/lpcxpresso55s06/demo_apps/puf_hashcrypt_crypto">
+          <external path="demo_apps/puf_hashcrypt_crypto" type="xml">
+            <files mask="puf_hashcrypt_crypto_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_lpc_bod" name="lpc_bod" toolchain="armgcc mcuxpresso" category="driver_examples/bod" path="examples/lpcxpresso55s06/driver_examples/bod">
+          <external path="driver_examples/bod" type="xml">
+            <files mask="lpc_bod_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_freertos_event" name="freertos_event" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/lpcxpresso55s06/freertos_examples/freertos_event">
+          <external path="freertos_examples/freertos_event" type="xml">
+            <files mask="freertos_event_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_freertos_generic" name="freertos_generic" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/lpcxpresso55s06/freertos_examples/freertos_generic">
+          <external path="freertos_examples/freertos_generic" type="xml">
+            <files mask="freertos_generic_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_freertos_hello" name="freertos_hello" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/lpcxpresso55s06/freertos_examples/freertos_hello">
+          <external path="freertos_examples/freertos_hello" type="xml">
+            <files mask="freertos_hello_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_freertos_mutex" name="freertos_mutex" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/lpcxpresso55s06/freertos_examples/freertos_mutex">
+          <external path="freertos_examples/freertos_mutex" type="xml">
+            <files mask="freertos_mutex_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_freertos_queue" name="freertos_queue" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/lpcxpresso55s06/freertos_examples/freertos_queue">
+          <external path="freertos_examples/freertos_queue" type="xml">
+            <files mask="freertos_queue_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_freertos_sem" name="freertos_sem" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/lpcxpresso55s06/freertos_examples/freertos_sem">
+          <external path="freertos_examples/freertos_sem" type="xml">
+            <files mask="freertos_sem_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_freertos_swtimer" name="freertos_swtimer" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/lpcxpresso55s06/freertos_examples/freertos_swtimer">
+          <external path="freertos_examples/freertos_swtimer" type="xml">
+            <files mask="freertos_swtimer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_freertos_tickless" name="freertos_tickless" toolchain="armgcc mcuxpresso" category="freertos_examples" path="examples/lpcxpresso55s06/freertos_examples/freertos_tickless">
+          <external path="freertos_examples/freertos_tickless" type="xml">
+            <files mask="freertos_tickless_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_threadx_lib" name="threadx_lib" toolchain="armgcc mcuxpresso" category="azure_rtos_libs" path="examples/lpcxpresso55s06/azure_rtos_examples/threadx_lib">
+          <external path="azure_rtos_examples/threadx_lib" type="xml">
+            <files mask="threadx_lib_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_filex_lib" name="filex_lib" toolchain="armgcc mcuxpresso" category="azure_rtos_libs" path="examples/lpcxpresso55s06/azure_rtos_examples/filex_lib">
+          <external path="azure_rtos_examples/filex_lib" type="xml">
+            <files mask="filex_lib_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_threadx_demo" name="threadx_demo" toolchain="armgcc mcuxpresso" category="azure_rtos_examples" path="examples/lpcxpresso55s06/azure_rtos_examples/threadx_demo">
+          <external path="azure_rtos_examples/threadx_demo" type="xml">
+            <files mask="threadx_demo_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_filex_ram_disk" name="filex_ram_disk" toolchain="armgcc mcuxpresso" category="azure_rtos_examples" path="examples/lpcxpresso55s06/azure_rtos_examples/filex_ram_disk">
+          <external path="azure_rtos_examples/filex_ram_disk" type="xml">
+            <files mask="filex_ram_disk_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_i2c_example" name="i2c_example" toolchain="armgcc mcuxpresso" category="azure_rtos_examples" path="examples/lpcxpresso55s06/azure_rtos_examples/i2c_example">
+          <external path="azure_rtos_examples/i2c_example" type="xml">
+            <files mask="i2c_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_spi_example" name="spi_example" toolchain="armgcc mcuxpresso" category="azure_rtos_examples" path="examples/lpcxpresso55s06/azure_rtos_examples/spi_example">
+          <external path="azure_rtos_examples/spi_example" type="xml">
+            <files mask="spi_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_uart_example" name="uart_example" toolchain="armgcc mcuxpresso" category="azure_rtos_examples" path="examples/lpcxpresso55s06/azure_rtos_examples/uart_example">
+          <external path="azure_rtos_examples/uart_example" type="xml">
+            <files mask="uart_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06_filex_levelx_spiflash" name="filex_levelx_spiflash" toolchain="armgcc mcuxpresso" category="azure_rtos_examples" path="examples/lpcxpresso55s06/azure_rtos_examples/filex_levelx_spiflash">
+          <external path="azure_rtos_examples/filex_levelx_spiflash" type="xml">
+            <files mask="filex_levelx_spiflash_v3_13.xml"/>
+          </external>
+        </example>
+      </examples>
+    </board>
+  </boards>
+</ksdk:manifest>

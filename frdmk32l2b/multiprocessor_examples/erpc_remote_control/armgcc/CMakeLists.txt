@@ -3,8 +3,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
 
 # THE VERSION NUMBER
-SET (Tutorial_VERSION_MAJOR 1)
-SET (Tutorial_VERSION_MINOR 0)
+SET (MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION 2)
+SET (MCUXPRESSO_CMAKE_FORMAT_MINOR_VERSION 0)
+
+include(ide_overrides.cmake OPTIONAL)
+
+if(CMAKE_SCRIPT_MODE_FILE)
+  message("${MCUXPRESSO_CMAKE_FORMAT_MAJOR_VERSION}")
+  return()
+endif()
+
 
 # ENABLE ASM
 ENABLE_LANGUAGE(ASM)
@@ -64,114 +72,17 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/frdmk32l2b/clock_config.h"
 )
 
-target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
+target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${SdkRootDirPath}/examples/frdmk32l2b/multiprocessor_examples/erpc_common
     ${ProjDirPath}/../service
     ${SdkRootDirPath}/core/boards/frdmk32l2b
 )
 
-set(CMAKE_MODULE_PATH
-    ${SdkRootDirPath}/core/drivers/dma
-    ${SdkRootDirPath}/core/drivers/lpuart
-    ${SdkRootDirPath}/core/drivers/dac
-    ${SdkRootDirPath}/core/components/fxos8700cq
-    ${SdkRootDirPath}/core/cmsis_drivers/lpuart
-    ${SdkRootDirPath}/core/drivers/gpio
-    ${SdkRootDirPath}/core/drivers/port
-    ${SdkRootDirPath}/core/drivers/i2c
-    ${SdkRootDirPath}/core/drivers/adc16
-    ${SdkRootDirPath}/core/drivers/dmamux
-    ${SdkRootDirPath}/middleware/multicore
-    ${SdkRootDirPath}/rtos/freertos/freertos-kernel
-    ${SdkRootDirPath}/core/devices/K32L2B31A/drivers
-    ${SdkRootDirPath}/core/drivers/common
-    ${SdkRootDirPath}/core/devices/K32L2B31A
-    ${SdkRootDirPath}/core/utilities
-    ${SdkRootDirPath}/core/components/uart
-    ${SdkRootDirPath}/core/components/serial_manager
-    ${SdkRootDirPath}/core/components/lists
-    ${SdkRootDirPath}/core/drivers/uart
-    ${SdkRootDirPath}/core/drivers/smc
-    ${SdkRootDirPath}/core/utilities/assert
-    ${SdkRootDirPath}/core/CMSIS/Core/Include
-    ${SdkRootDirPath}/core/CMSIS/Driver/Include
-    ${SdkRootDirPath}/core/utilities/misc_utilities
-)
+set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")
+set_source_files_properties("${ProjDirPath}/../RTE_Device.h" PROPERTIES COMPONENT_CONFIG_FILE "RTE_Device.K32L2B31A")
 
-# include modules
-include(driver_dma)
-
-include(driver_lpuart)
-
-include(driver_lpuart_dma)
-
-include(driver_dac)
-
-include(driver_fxos8700cq)
-
-include(driver_cmsis_lpuart)
-
-include(driver_gpio)
-
-include(driver_port)
-
-include(driver_i2c)
-
-include(driver_adc16)
-
-include(driver_dmamux)
-
-include(middleware_multicore_erpc_eRPC_arbitrator)
-
-include(middleware_multicore_erpc_eRPC_port_freertos)
-
-include(middleware_multicore_erpc_eRPC_uart_cmsis_transport)
-
-include(middleware_freertos-kernel_heap_4)
-
-include(middleware_multicore_erpc_doc)
-
-include(driver_clock)
-
-include(driver_common)
-
-include(device_CMSIS)
-
-include(utility_debug_console)
-
-include(component_lpuart_adapter)
-
-include(component_serial_manager)
-
-include(component_lists)
-
-include(component_serial_manager_uart)
-
-include(device_startup)
-
-include(driver_uart)
-
-include(driver_smc)
-
-include(utility_assert)
-
-include(CMSIS_Include_core_cm)
-
-include(CMSIS_Driver_Include_USART)
-
-include(CMSIS_Driver_Include_Common)
-
-include(middleware_multicore_erpc_common)
-
-include(middleware_freertos-kernel_K32L2B31A)
-
-include(middleware_freertos-kernel_extension)
-
-include(utilities_misc_utilities_K32L2B31A)
-
-include(device_system)
-
+include(${SdkRootDirPath}/core/devices/K32L2B31A/all_lib_device.cmake)
 
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
     SET(TARGET_LINK_SYSTEM_LIBRARIES "-lstdc++ -lm -lc -lgcc -lnosys")  
@@ -185,4 +96,5 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBR
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
+set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map")
 

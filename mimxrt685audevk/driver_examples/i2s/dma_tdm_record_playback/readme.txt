@@ -6,8 +6,8 @@ In this example, one i2s instance reocrd and one i2s instance playbacks the audi
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.3.1
-- MCUXpresso  11.6.0
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================

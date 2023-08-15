@@ -13,8 +13,8 @@
 #include "board.h"
 #include "fsl_debug_console.h"
 
-#include "dsp_support.h"
 #include "fsl_mpi_loader.h"
+#include "dsp_support.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

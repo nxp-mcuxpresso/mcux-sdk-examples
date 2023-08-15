@@ -12,7 +12,7 @@
 #elif defined(FSL_FEATURE_SOC_DCP_COUNT) && (FSL_FEATURE_SOC_DCP_COUNT > 0)
 #include "fsl_dcp.h"
 #else
-#error "The platform does not support DCP or CAAM."
+#error "NOTE: The platform does not support DCP or CAAM. Will store plaintext."
 #endif
 
 #include "fsl_debug_console.h"
@@ -25,7 +25,7 @@
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t in_buffer[CIPHER_KEY_SIZE_BYTES], 64);
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t out_buffer[CIPHER_KEY_SIZE_BYTES], 64);
 
-#ifdef FSL_FEATURE_SOC_CAAM_COUNT
+#if defined(FSL_FEATURE_SOC_CAAM_COUNT) && (FSL_FEATURE_SOC_CAAM_COUNT > 0)
 
 /*! @brief CAAM job ring interface 0 in system memory. */
 AT_NONCACHEABLE_SECTION(static caam_job_ring_interface_t s_jrif0);
@@ -82,7 +82,7 @@ static status_t do_crypto(uint8_t *data, uint8_t *output, uint32_t *data_len, bo
     return status;
 }
 
-static status_t init_caam(void)
+static status_t init_sec_engine(void)
 {
     caam_config_t caamConfig;
 
@@ -105,7 +105,8 @@ uint32_t get_seed(void)
 
     return random_val;
 }
-#else
+
+#elif defined(FSL_FEATURE_SOC_DCP_COUNT) && (FSL_FEATURE_SOC_DCP_COUNT > 0)
 
 typedef enum _dcp_otp_key_select
 {
@@ -210,7 +211,7 @@ static status_t do_crypto(uint8_t *data, uint8_t *output, uint32_t *data_len, bo
     return kStatus_Success;
 }
 
-static status_t init_dcp(void)
+static status_t init_sec_engine(void)
 {
     dcp_config_t dcpConfig;
     status_t status;
@@ -230,6 +231,22 @@ static status_t init_dcp(void)
 
     return kStatus_Success;
 }
+
+#else
+
+/* When there is no supported engine for acceleration, just use plaintext. */
+static status_t do_crypto(uint8_t *data, uint8_t *output, uint32_t *data_len, bool encrypt)
+{
+    memcpy(output, data, *data_len);
+
+    return kStatus_Success;
+}
+
+static status_t init_sec_engine(void)
+{
+    return kStatus_Success;
+}
+
 #endif /* FSL_FEATURE_SOC_CAAM_COUNT */
 
 status_t secure_storage_init(char *filename)
@@ -244,11 +261,7 @@ status_t secure_storage_init(char *filename)
         {0}
     };
 
-#ifdef FSL_FEATURE_SOC_CAAM_COUNT
-    status = init_caam();
-#else
-    status = init_dcp();
-#endif
+    status = init_sec_engine();
     if (status != kStatus_Success)
     {
         return status;

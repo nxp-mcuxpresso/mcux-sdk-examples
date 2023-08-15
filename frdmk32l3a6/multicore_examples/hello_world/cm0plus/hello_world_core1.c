@@ -9,8 +9,8 @@
 #include "board.h"
 #include "mcmgr.h"
 
-#include "fsl_gpio.h"
 #include "fsl_common.h"
+#include "fsl_gpio.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -30,6 +30,7 @@
  * Code
  ******************************************************************************/
 
+
 /*!
  * @brief Application-specific implementation of the SystemInitHook() weak function.
  */
@@ -41,7 +42,6 @@ void SystemInitHook(void)
        application. */
     (void)MCMGR_EarlyInit();
 }
-
 /*!
  * @brief Main function
  */

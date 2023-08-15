@@ -39,7 +39,7 @@ void DEMO_DAC_IRQ_HANDLER_FUNC(void)
     {
         windex = 0;
     }
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

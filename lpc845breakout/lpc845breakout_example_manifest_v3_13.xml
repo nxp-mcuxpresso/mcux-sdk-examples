@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_lpc845breakout_examples_manifest_v3_13" name="SDK_2.x_lpc845breakout_examples_manifest_v3_13" format_version="3.13" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.13.xsd">
+
+  <externalDefinitions>
+    <definition extID="LPC845M301JBD48"/>
+  </externalDefinitions>
+  <ksdk id="MCUXpressoSDK2140_lpc845breakout_examples_manifest_v3_13" name="MCUXpressoSDK2140_lpc845breakout_examples_manifest_v3_13" version="2.14.0"/>
+  <boards>
+    <board id="lpc845breakout" name="LPC845BREAKOUT" href="https://www.nxp.com/pip/LPC845-BRK" version="1.0.0" package="LPC845M301JBD48">
+      <examples>
+        <example id="lpc845breakout_crc" name="crc" toolchain="armgcc mcuxpresso" category="driver_examples/crc" path="examples/lpc845breakout/driver_examples/crc">
+          <external path="driver_examples/crc" type="xml">
+            <files mask="crc_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_hello_world" name="hello_world" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/lpc845breakout/demo_apps/hello_world">
+          <external path="demo_apps/hello_world" type="xml">
+            <files mask="hello_world_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_capt_key" name="capt_key" toolchain="armgcc mcuxpresso" category="touch_examples" path="examples/lpc845breakout/touch_examples/capt_key">
+          <external path="touch_examples/capt_key" type="xml">
+            <files mask="capt_key_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_power_mode_switch_lpc" name="power_mode_switch_lpc" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/lpc845breakout/demo_apps/power_mode_switch_lpc">
+          <external path="demo_apps/power_mode_switch_lpc" type="xml">
+            <files mask="power_mode_switch_lpc_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_gpio_led_output" name="gpio_led_output" toolchain="armgcc mcuxpresso" category="driver_examples/gpio" path="examples/lpc845breakout/driver_examples/gpio/led_output">
+          <external path="driver_examples/gpio/led_output" type="xml">
+            <files mask="gpio_led_output_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_pint_pin_interrupt" name="pint_pin_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/pint" path="examples/lpc845breakout/driver_examples/pint/pin_interrupt">
+          <external path="driver_examples/pint/pin_interrupt" type="xml">
+            <files mask="pint_pin_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_pint_pattern_match" name="pint_pattern_match" toolchain="armgcc mcuxpresso" category="driver_examples/pint" path="examples/lpc845breakout/driver_examples/pint/pattern_match">
+          <external path="driver_examples/pint/pattern_match" type="xml">
+            <files mask="pint_pattern_match_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_usart_polling_example" name="usart_polling_example" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/polling">
+          <external path="driver_examples/usart/polling" type="xml">
+            <files mask="usart_polling_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_usart_terminal" name="usart_terminal" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/terminal">
+          <external path="driver_examples/usart/terminal" type="xml">
+            <files mask="usart_terminal_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_usart_transfer_interrupt" name="usart_transfer_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/transfer_interrupt">
+          <external path="driver_examples/usart/transfer_interrupt" type="xml">
+            <files mask="usart_transfer_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_usart_transfer_ring_buffer" name="usart_transfer_ring_buffer" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/transfer_ring_buffer">
+          <external path="driver_examples/usart/transfer_ring_buffer" type="xml">
+            <files mask="usart_transfer_ring_buffer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_usart_transfer_sync_mode" name="usart_transfer_sync_mode" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/transfer_sync_mode">
+          <external path="driver_examples/usart/transfer_sync_mode" type="xml">
+            <files mask="usart_transfer_sync_mode_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_usart_transfer_dma" name="usart_transfer_dma" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/transfer_dma">
+          <external path="driver_examples/usart/transfer_dma" type="xml">
+            <files mask="usart_transfer_dma_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_lpc_adc_basic" name="lpc_adc_basic" toolchain="armgcc mcuxpresso" category="driver_examples/adc" path="examples/lpc845breakout/driver_examples/adc/lpc_adc_basic">
+          <external path="driver_examples/adc/lpc_adc_basic" type="xml">
+            <files mask="lpc_adc_basic_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_lpc_adc_interrupt" name="lpc_adc_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/adc" path="examples/lpc845breakout/driver_examples/adc/lpc_adc_interrupt">
+          <external path="driver_examples/adc/lpc_adc_interrupt" type="xml">
+            <files mask="lpc_adc_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_lpc_adc_burst" name="lpc_adc_burst" toolchain="armgcc mcuxpresso" category="driver_examples/adc" path="examples/lpc845breakout/driver_examples/adc/lpc_adc_burst">
+          <external path="driver_examples/adc/lpc_adc_burst" type="xml">
+            <files mask="lpc_adc_burst_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_lpc_adc_dma" name="lpc_adc_dma" toolchain="armgcc mcuxpresso" category="driver_examples/adc" path="examples/lpc845breakout/driver_examples/adc/lpc_adc_dma">
+          <external path="driver_examples/adc/lpc_adc_dma" type="xml">
+            <files mask="lpc_adc_dma_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_lpc_dac_basic" name="lpc_dac_basic" toolchain="armgcc mcuxpresso" category="driver_examples/dac" path="examples/lpc845breakout/driver_examples/dac/lpc_dac_basic">
+          <external path="driver_examples/dac/lpc_dac_basic" type="xml">
+            <files mask="lpc_dac_basic_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_lpc_dac_interrupt" name="lpc_dac_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/dac" path="examples/lpc845breakout/driver_examples/dac/lpc_dac_interrupt">
+          <external path="driver_examples/dac/lpc_dac_interrupt" type="xml">
+            <files mask="lpc_dac_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_lpc_dac_dma" name="lpc_dac_dma" toolchain="armgcc mcuxpresso" category="driver_examples/dac" path="examples/lpc845breakout/driver_examples/dac/lpc_dac_dma">
+          <external path="driver_examples/dac/lpc_dac_dma" type="xml">
+            <files mask="lpc_dac_dma_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_spi_interrupt_master" name="spi_interrupt_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/interrupt/master">
+          <external path="driver_examples/spi/interrupt/master" type="xml">
+            <files mask="spi_interrupt_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_spi_interrupt_slave" name="spi_interrupt_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/interrupt/slave">
+          <external path="driver_examples/spi/interrupt/slave" type="xml">
+            <files mask="spi_interrupt_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_spi_transfer_interrupt_master" name="spi_transfer_interrupt_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/transfer_interrupt/master">
+          <external path="driver_examples/spi/transfer_interrupt/master" type="xml">
+            <files mask="spi_transfer_interrupt_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_spi_transfer_interrupt_slave" name="spi_transfer_interrupt_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/transfer_interrupt/slave">
+          <external path="driver_examples/spi/transfer_interrupt/slave" type="xml">
+            <files mask="spi_transfer_interrupt_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_spi_polling_master" name="spi_polling_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/polling/master">
+          <external path="driver_examples/spi/polling/master" type="xml">
+            <files mask="spi_polling_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_spi_polling_slave" name="spi_polling_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/polling/slave">
+          <external path="driver_examples/spi/polling/slave" type="xml">
+            <files mask="spi_polling_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_spi_transfer_dma_master" name="spi_transfer_dma_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/transfer_dma/master">
+          <external path="driver_examples/spi/transfer_dma/master" type="xml">
+            <files mask="spi_transfer_dma_master_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_spi_transfer_dma_slave" name="spi_transfer_dma_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/transfer_dma/slave">
+          <external path="driver_examples/spi/transfer_dma/slave" type="xml">
+            <files mask="spi_transfer_dma_slave_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_led_blinky" name="led_blinky" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/lpc845breakout/demo_apps/led_blinky">
+          <external path="demo_apps/led_blinky" type="xml">
+            <files mask="led_blinky_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_acomp_basic" name="acomp_basic" toolchain="armgcc mcuxpresso" category="driver_examples/acomp" path="examples/lpc845breakout/driver_examples/acomp/acomp_basic">
+          <external path="driver_examples/acomp/acomp_basic" type="xml">
+            <files mask="acomp_basic_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_acomp_interrupt" name="acomp_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/acomp" path="examples/lpc845breakout/driver_examples/acomp/acomp_interrupt">
+          <external path="driver_examples/acomp/acomp_interrupt" type="xml">
+            <files mask="acomp_interrupt_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_mrt_example" name="mrt_example" toolchain="armgcc mcuxpresso" category="driver_examples/mrt" path="examples/lpc845breakout/driver_examples/mrt">
+          <external path="driver_examples/mrt" type="xml">
+            <files mask="mrt_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_dma_memory_to_memory" name="dma_memory_to_memory" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/memory_to_memory">
+          <external path="driver_examples/dma/memory_to_memory" type="xml">
+            <files mask="dma_memory_to_memory_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_dma_m2m_polling" name="dma_m2m_polling" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/m2m_polling">
+          <external path="driver_examples/dma/m2m_polling" type="xml">
+            <files mask="dma_m2m_polling_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_wwdt_example" name="wwdt_example" toolchain="armgcc mcuxpresso" category="driver_examples/wwdt" path="examples/lpc845breakout/driver_examples/wwdt">
+          <external path="driver_examples/wwdt" type="xml">
+            <files mask="wwdt_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_sctimer_simple_pwm" name="sctimer_simple_pwm" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/lpc845breakout/driver_examples/sctimer/simple_pwm">
+          <external path="driver_examples/sctimer/simple_pwm" type="xml">
+            <files mask="sctimer_simple_pwm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_sctimer_pwm_with_dutycyle_change" name="sctimer_pwm_with_dutycyle_change" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/lpc845breakout/driver_examples/sctimer/pwm_with_dutycyle_change">
+          <external path="driver_examples/sctimer/pwm_with_dutycyle_change" type="xml">
+            <files mask="sctimer_pwm_with_dutycyle_change_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_sctimer_multi_state_pwm" name="sctimer_multi_state_pwm" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/lpc845breakout/driver_examples/sctimer/multi_state_pwm">
+          <external path="driver_examples/sctimer/multi_state_pwm" type="xml">
+            <files mask="sctimer_multi_state_pwm_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_sctimer_16bit_counter" name="sctimer_16bit_counter" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/lpc845breakout/driver_examples/sctimer/16bit_counter">
+          <external path="driver_examples/sctimer/16bit_counter" type="xml">
+            <files mask="sctimer_16bit_counter_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_ctimer_pwm_example" name="ctimer_pwm_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/lpc845breakout/driver_examples/ctimer/simple_pwm">
+          <external path="driver_examples/ctimer/simple_pwm" type="xml">
+            <files mask="ctimer_pwm_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_ctimer_pwm_interrupt_example" name="ctimer_pwm_interrupt_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/lpc845breakout/driver_examples/ctimer/simple_pwm_interrupt">
+          <external path="driver_examples/ctimer/simple_pwm_interrupt" type="xml">
+            <files mask="ctimer_pwm_interrupt_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_ctimer_match_example" name="ctimer_match_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/lpc845breakout/driver_examples/ctimer/simple_match">
+          <external path="driver_examples/ctimer/simple_match" type="xml">
+            <files mask="ctimer_match_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_ctimer_match_interrupt_example" name="ctimer_match_interrupt_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/lpc845breakout/driver_examples/ctimer/simple_match_interrupt">
+          <external path="driver_examples/ctimer/simple_match_interrupt" type="xml">
+            <files mask="ctimer_match_interrupt_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_wkt_example" name="wkt_example" toolchain="armgcc mcuxpresso" category="driver_examples/wkt" path="examples/lpc845breakout/driver_examples/wkt">
+          <external path="driver_examples/wkt" type="xml">
+            <files mask="wkt_example_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_capt_basic" name="capt_basic" toolchain="armgcc mcuxpresso" category="driver_examples/capt" path="examples/lpc845breakout/driver_examples/capt/capt_basic">
+          <external path="driver_examples/capt/capt_basic" type="xml">
+            <files mask="capt_basic_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_capt_acomp" name="capt_acomp" toolchain="armgcc mcuxpresso" category="driver_examples/capt" path="examples/lpc845breakout/driver_examples/capt/capt_acomp">
+          <external path="driver_examples/capt/capt_acomp" type="xml">
+            <files mask="capt_acomp_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_capt_basic_continuous" name="capt_basic_continuous" toolchain="armgcc mcuxpresso" category="driver_examples/capt" path="examples/lpc845breakout/driver_examples/capt/capt_basic_continuous">
+          <external path="driver_examples/capt/capt_basic_continuous" type="xml">
+            <files mask="capt_basic_continuous_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_capt_acomp_continuous" name="capt_acomp_continuous" toolchain="armgcc mcuxpresso" category="driver_examples/capt" path="examples/lpc845breakout/driver_examples/capt/capt_acomp_continuous">
+          <external path="driver_examples/capt/capt_acomp_continuous" type="xml">
+            <files mask="capt_acomp_continuous_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_dma_channel_chain" name="dma_channel_chain" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/channel_chain">
+          <external path="driver_examples/dma/channel_chain" type="xml">
+            <files mask="dma_channel_chain_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_dma_interleave_transfer" name="dma_interleave_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/interleave_transfer">
+          <external path="driver_examples/dma/interleave_transfer" type="xml">
+            <files mask="dma_interleave_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_dma_linked_transfer" name="dma_linked_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/linked_transfer">
+          <external path="driver_examples/dma/linked_transfer" type="xml">
+            <files mask="dma_linked_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_dma_wrap_transfer" name="dma_wrap_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/wrap_transfer">
+          <external path="driver_examples/dma/wrap_transfer" type="xml">
+            <files mask="dma_wrap_transfer_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_iap_basic" name="iap_basic" toolchain="armgcc mcuxpresso" category="driver_examples/iap" path="examples/lpc845breakout/driver_examples/iap/iap_basic">
+          <external path="driver_examples/iap/iap_basic" type="xml">
+            <files mask="iap_basic_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_iap_flash" name="iap_flash" toolchain="armgcc mcuxpresso" category="driver_examples/iap" path="examples/lpc845breakout/driver_examples/iap/iap_flash">
+          <external path="driver_examples/iap/iap_flash" type="xml">
+            <files mask="iap_flash_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="lpc845breakout_iap_faim" name="iap_faim" toolchain="armgcc mcuxpresso" category="driver_examples/iap" path="examples/lpc845breakout/driver_examples/iap/iap_faim">
+          <external path="driver_examples/iap/iap_faim" type="xml">
+            <files mask="iap_faim_v3_13.xml"/>
+          </external>
+        </example>
+      </examples>
+    </board>
+  </boards>
+</ksdk:manifest>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 ,2021 NXP
+ * Copyright 2019, 2021, 2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -46,13 +46,13 @@ void BOARD_InitBootPins(void);
 
 /* GPIO_AD_B0_07 (number 68), LPUART1_RXD */
 /* Routed pin properties */
-#define BOARD_UART1_RXD_PERIPHERAL                                       LPUART1   /*!< Peripheral name */
-#define BOARD_UART1_RXD_SIGNAL                                                RX   /*!< Signal name */
+#define BOARD_INITPINS_UART1_RXD_PERIPHERAL                              LPUART1   /*!< Peripheral name */
+#define BOARD_INITPINS_UART1_RXD_SIGNAL                                       RX   /*!< Signal name */
 
 /* GPIO_AD_B0_06 (number 72), LPUART1_TXD */
 /* Routed pin properties */
-#define BOARD_UART1_TXD_PERIPHERAL                                       LPUART1   /*!< Peripheral name */
-#define BOARD_UART1_TXD_SIGNAL                                                TX   /*!< Signal name */
+#define BOARD_INITPINS_UART1_TXD_PERIPHERAL                              LPUART1   /*!< Peripheral name */
+#define BOARD_INITPINS_UART1_TXD_SIGNAL                                       TX   /*!< Signal name */
 
 
 /*!

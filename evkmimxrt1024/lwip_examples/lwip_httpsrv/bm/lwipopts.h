@@ -4,7 +4,7 @@
  * This file is based on \src\include\lwip\opt.h
  ******************************************************************************
  * Copyright (c) 2013-2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2018, 2022 NXP
+ * Copyright 2016-2018, 2022-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -61,7 +61,8 @@
  * LWIP_ALLOW_MEM_FREE_FROM_OTHER_CONTEXT=1: we need to free PBUF_RAM pbufs
  * from ISR context on LPC.
  */
-#if defined(FSL_FEATURE_SOC_LPC_ENET_COUNT) && (FSL_FEATURE_SOC_LPC_ENET_COUNT > 0)
+#if ((defined(FSL_FEATURE_SOC_LPC_ENET_COUNT) && (FSL_FEATURE_SOC_LPC_ENET_COUNT > 0)) || \
+     (defined(FSL_FEATURE_SOC_MCX_ENET_COUNT) && (FSL_FEATURE_SOC_MCX_ENET_COUNT > 0)))
 #ifndef LWIP_ALLOW_MEM_FREE_FROM_OTHER_CONTEXT
 #define LWIP_ALLOW_MEM_FREE_FROM_OTHER_CONTEXT 1
 #endif
@@ -121,7 +122,7 @@ void sys_check_core_locking(void);
 /* MEMP_NUM_SYS_TIMEOUT: the number of simulateously active
    timeouts. */
 #ifndef MEMP_NUM_SYS_TIMEOUT
-#define MEMP_NUM_SYS_TIMEOUT 10
+#define MEMP_NUM_SYS_TIMEOUT 12
 #endif
 /* MEMP_NUM_REASS_DATA: The number of whole IP packets
    queued for reassembly. */
@@ -138,6 +139,16 @@ void sys_check_core_locking(void);
 /* PBUF_POOL_BUFSIZE: the size of each pbuf in the pbuf pool. */
 /* Default value is defined in lwip\src\include\lwip\opt.h as
  * LWIP_MEM_ALIGN_SIZE(TCP_MSS+40+PBUF_LINK_ENCAPSULATION_HLEN+PBUF_LINK_HLEN)*/
+
+/* ---------- Network Interfaces options ---------- */
+/*
+ * LWIP_NETIF_EXT_STATUS_CALLBACK==1: Support an extended callback function
+ * for several netif related event that supports multiple subscribers.
+ * @see netif_ext_status_callback
+ */
+#ifndef LWIP_NETIF_EXT_STATUS_CALLBACK
+#define LWIP_NETIF_EXT_STATUS_CALLBACK 1
+#endif
 
 /* ---------- TCP options ---------- */
 #ifndef LWIP_TCP
@@ -247,6 +258,25 @@ Some MCU allow computing and verifying the IP, UDP, TCP and ICMP checksums by ha
 /* CHECKSUM_CHECK_TCP==1: Check checksums in software for incoming TCP packets.*/
 #define CHECKSUM_CHECK_TCP 1
 #endif
+
+/*
+   ---------------------------------------
+   ---------- IPv6 options ---------------
+   ---------------------------------------
+*/
+
+/**
+ * LWIP_IPV6==1: Enable IPv6
+ */
+#ifndef LWIP_IPV6
+#define LWIP_IPV6 1
+#endif
+
+/*
+   ------------------------------------
+   ---------- Thread options ----------
+   ------------------------------------
+*/
 
 /**
  * DEFAULT_THREAD_STACKSIZE: The stack size used by any other lwIP thread.

@@ -368,14 +368,10 @@ int main(void)
 
     IOMUXC_SelectENETClock();
 
-    GPIO_PinInit(GPIO9, 11, &gpio_config);
     GPIO_PinInit(GPIO12, 12, &gpio_config);
-    /* Pull up the ENET_INT before RESET. */
-    GPIO_WritePinOutput(GPIO9, 11, 1);
-    GPIO_WritePinOutput(GPIO12, 12, 0);
     SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
     GPIO_WritePinOutput(GPIO12, 12, 1);
-    SDK_DelayAtLeastUs(3, CLOCK_GetFreq(kCLOCK_CpuClk));
+    SDK_DelayAtLeastUs(150000, CLOCK_GetFreq(kCLOCK_CpuClk));
 
     /* Initialize lwIP from thread */
     if (sys_thread_new("main", stack_init, NULL, INIT_THREAD_STACKSIZE, INIT_THREAD_PRIO) == NULL)

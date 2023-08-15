@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2022 NXP
+ * Copyright 2016-2023 NXP
  * All rights reserved.
  *
  *
@@ -48,12 +48,12 @@
 // dm #include "certs_buff.h"
 #include "mbedtls/certs.h"
 
+#include "fsl_enet.h"
 #if BOARD_NETWORK_USE_100M_ENET_PORT
 #include "fsl_phyksz8081.h"
 #else
 #include "fsl_phyrtl8211f.h"
 #endif
-#include "fsl_enet.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -579,12 +579,36 @@ WS_PLUGIN_STRUCT ws_tbl[] = {{"/echo", ws_echo_connect, ws_echo_message, ws_echo
 static HTTPSRV_TLS_PARAM_STRUCT tls_params;
 #endif
 
+#if LWIP_IPV6
+static void print_ipv6_addresses(struct netif *netif)
+{
+    for (int i = 0; i < LWIP_IPV6_NUM_ADDRESSES; i++)
+    {
+        const char *str_ip = "-";
+        if (ip6_addr_isvalid(netif_ip6_addr_state(netif, i)))
+        {
+            str_ip = ip6addr_ntoa(netif_ip6_addr(netif, i));
+        }
+        PRINTF(" IPv6 Address%d    : %s\r\n", i, str_ip);
+    }
+}
+
+static void netif_ipv6_callback(struct netif *cb_netif)
+{
+    PRINTF("IPv6 address update, valid addresses:\r\n");
+    print_ipv6_addresses(cb_netif);
+    PRINTF("\r\n");
+}
+#endif /* LWIP_IPV6 */
+
 /*!
  * @brief Initializes lwIP stack.
  */
 static void stack_init(void)
 {
+#if LWIP_IPV4
     ip4_addr_t netif_ipaddr, netif_netmask, netif_gw;
+#endif /* LWIP_IPV4 */
     ethernetif_config_t enet_config = {.phyHandle   = &phyHandle,
                                        .phyAddr     = EXAMPLE_PHY_ADDRESS,
                                        .phyOps      = EXAMPLE_PHY_OPS,
@@ -604,30 +628,57 @@ static void stack_init(void)
     (void)SILICONID_ConvertToMacAddr(&enet_config.macAddress);
 #endif
 
+#if LWIP_IPV4
     IP4_ADDR(&netif_ipaddr, configIP_ADDR0, configIP_ADDR1, configIP_ADDR2, configIP_ADDR3);
     IP4_ADDR(&netif_netmask, configNET_MASK0, configNET_MASK1, configNET_MASK2, configNET_MASK3);
     IP4_ADDR(&netif_gw, configGW_ADDR0, configGW_ADDR1, configGW_ADDR2, configGW_ADDR3);
 
     netifapi_netif_add(&netif, &netif_ipaddr, &netif_netmask, &netif_gw, &enet_config, EXAMPLE_NETIF_INIT_FN,
                        tcpip_input);
+#else
+    netifapi_netif_add(&netif, &enet_config, EXAMPLE_NETIF_INIT_FN, tcpip_input);
+#endif /* LWIP_IPV4 */
     netifapi_netif_set_default(&netif);
     netifapi_netif_set_up(&netif);
+
+#if LWIP_IPV6
+    LOCK_TCPIP_CORE();
+    netif_create_ip6_linklocal_address(&netif, 1);
+    UNLOCK_TCPIP_CORE();
+#endif /* LWIP_IPV6 */
 
     while (ethernetif_wait_linkup(&netif, 5000) != ERR_OK)
     {
         PRINTF("PHY Auto-negotiation failed. Please check the cable connection and link partner setting.\r\n");
     }
 
-    LWIP_PLATFORM_DIAG(("\r\n************************************************"));
+#if LWIP_IPV6
+    LOCK_TCPIP_CORE();
+    set_ipv6_valid_state_cb(netif_ipv6_callback);
+    UNLOCK_TCPIP_CORE();
+#endif /* LWIP_IPV6 */
+
+    /*
+     * Lock prints since it could interfere with prints from netif_ipv6_callback
+     * in case IPv6 address would become valid early.
+     */
+    LOCK_TCPIP_CORE();
+    LWIP_PLATFORM_DIAG(("\r\n***********************************************************"));
     LWIP_PLATFORM_DIAG(("mbedTLS HTTPS Server example"));
-    LWIP_PLATFORM_DIAG(("************************************************"));
+    LWIP_PLATFORM_DIAG(("***********************************************************"));
+#if LWIP_IPV4
     LWIP_PLATFORM_DIAG((" IPv4 Address     : %u.%u.%u.%u", ((u8_t *)&netif_ipaddr)[0], ((u8_t *)&netif_ipaddr)[1],
                         ((u8_t *)&netif_ipaddr)[2], ((u8_t *)&netif_ipaddr)[3]));
     LWIP_PLATFORM_DIAG((" IPv4 Subnet mask : %u.%u.%u.%u", ((u8_t *)&netif_netmask)[0], ((u8_t *)&netif_netmask)[1],
                         ((u8_t *)&netif_netmask)[2], ((u8_t *)&netif_netmask)[3]));
     LWIP_PLATFORM_DIAG((" IPv4 Gateway     : %u.%u.%u.%u", ((u8_t *)&netif_gw)[0], ((u8_t *)&netif_gw)[1],
                         ((u8_t *)&netif_gw)[2], ((u8_t *)&netif_gw)[3]));
-    LWIP_PLATFORM_DIAG(("************************************************"));
+#endif /* LWIP_IPV4 */
+#if LWIP_IPV6
+    print_ipv6_addresses(&netif);
+#endif /* LWIP_IPV6 */
+    LWIP_PLATFORM_DIAG(("***********************************************************"));
+    UNLOCK_TCPIP_CORE();
 }
 
 /*!

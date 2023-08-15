@@ -94,7 +94,7 @@ void USART0_IRQHandler(void)
             }
         }
     }
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }
 
 /*!

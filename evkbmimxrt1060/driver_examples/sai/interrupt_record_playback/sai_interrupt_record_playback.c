@@ -13,13 +13,13 @@
 #include "fsl_sai.h"
 #include "fsl_codec_common.h"
 
+#include "fsl_common.h"
 #if defined DEMO_CODEC_WM8960
 #include "fsl_wm8960.h"
 #else
 #include "fsl_cs42448.h"
 #endif
 #include "fsl_codec_adapter.h"
-#include "fsl_common.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

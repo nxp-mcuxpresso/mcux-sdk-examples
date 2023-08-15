@@ -15,9 +15,9 @@
 #include "fsl_asrc_sdma.h"
 #include "fsl_asrc.h"
 
+#include "fsl_wm8524.h"
 #include "fsl_common.h"
 #include "fsl_gpio.h"
-#include "fsl_wm8524.h"
 #include "fsl_codec_adapter.h"
 #include "fsl_sai.h"
 /*******************************************************************************
@@ -291,5 +291,5 @@ static void asrcConvertAudio(void *in, void *out, uint32_t dataSize)
 void SAI_UserIRQHandler(void)
 {
     SAI_TxClearStatusFlags(DEMO_SAI, kSAI_FIFOErrorFlag);
-    __DSB();
+    SDK_ISR_EXIT_BARRIER;
 }

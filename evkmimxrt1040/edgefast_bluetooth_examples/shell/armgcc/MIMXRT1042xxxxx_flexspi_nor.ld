@@ -27,11 +27,10 @@
 /* Entry Point */
 ENTRY(Reset_Handler)
 
-/*** littleFS configuration Start ***/
-EDGEFAST_BT_LITTLEFS_STORAGE_START_ADDRESS = 0x60600000;
-EDGEFAST_BT_LITTLEFS_STORAGE_SECTOR_SIZE = 0x1000;  /* 4k flash sector size */
-EDGEFAST_BT_LITTLEFS_STORAGE_MAX_SECTORS = (0x60800000 - EDGEFAST_BT_LITTLEFS_STORAGE_START_ADDRESS) / EDGEFAST_BT_LITTLEFS_STORAGE_SECTOR_SIZE;
-/*** littleFS configuration End ***/
+LITTLEFS_REGION_SIZE = 0x00200000;
+
+m_text_start         = 0x60002400;
+m_text_size          = 0x005FDC00;
 
 HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x0400;
 STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0400;
@@ -43,11 +42,19 @@ MEMORY
   m_flash_config        (RX)  : ORIGIN = 0x60000000, LENGTH = 0x00001000
   m_ivt                 (RX)  : ORIGIN = 0x60001000, LENGTH = 0x00001000
   m_interrupts          (RX)  : ORIGIN = 0x60002000, LENGTH = 0x00000400
-  m_text                (RX)  : ORIGIN = 0x60002400, LENGTH = 0x005FDC00
+  m_text                (RX)  : ORIGIN = m_text_start, LENGTH = m_text_size
   m_qacode              (RX)  : ORIGIN = 0x00000000, LENGTH = 0x00020000
   m_data2               (RW)  : ORIGIN = 0x20000000, LENGTH = 0x00020000
   m_data                (RW)  : ORIGIN = 0x20200000, LENGTH = 0x00040000
 }
+
+/* NOTE: The last LITTLEFS_REGION_SIZE Flash( in range (m_text_start + m_text_size) ~ (m_text_start + m_text_size + LITTLEFS_REGION_SIZE -1)) is reserved for litteFS data */
+
+/*** littleFS configuration Start ***/
+EDGEFAST_BT_LITTLEFS_STORAGE_START_ADDRESS = m_text_start + m_text_size;
+EDGEFAST_BT_LITTLEFS_STORAGE_SECTOR_SIZE   = 0x1000;  /* 4k flash sector size */
+EDGEFAST_BT_LITTLEFS_STORAGE_MAX_SECTORS   = LITTLEFS_REGION_SIZE / EDGEFAST_BT_LITTLEFS_STORAGE_SECTOR_SIZE;
+/*** littleFS configuration End ***/
 
 /* Define output sections */
 SECTIONS
@@ -91,14 +98,12 @@ SECTIONS
     *(EXCLUDE_FILE(
         /* Exclude flash and frequently executed functions from XIP */
         */fsl_adapter_flexspi_nor_flash.c.obj
-        */NV_Flash.c.obj
         */mflash_drv.c.obj
         */fsl_flexspi.c.obj
     ) .text)                 /* .text sections (code) */
     *(EXCLUDE_FILE(
         /* Exclude flash and frequently executed functions from XIP */
         */fsl_adapter_flexspi_nor_flash.c.obj
-        */NV_Flash.c.obj
         */mflash_drv.c.obj
         */fsl_flexspi.c.obj
     ) .text*)                /* .text* sections (code) */
@@ -290,7 +295,6 @@ SECTIONS
     __ram_function_start__ = .;
     /* Explicit placement of flash and frequently executed functions in RAM */
     */fsl_adapter_flexspi_nor_flash.c.obj
-    */NV_Flash.c.obj
     */mflash_drv.c.obj
     */fsl_flexspi.c.obj
     *(CodeQuickAccess)

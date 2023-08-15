@@ -8,10 +8,14 @@
 #include "board.h"
 #include "streamer_pcm_app.h"
 #include "fsl_codec_common.h"
-#include "fsl_wm8960.h"
 #include "app_definitions.h"
-#include "fsl_cache.h"
 #include "fsl_debug_console.h"
+#if (defined(__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U))
+#include "fsl_cache.h"
+#endif
+#if (defined(DEMO_CODEC_WM8962) && (DEMO_CODEC_WM8962 == 1))
+extern codec_config_t boardCodecConfig;
+#endif
 
 AT_NONCACHEABLE_SECTION_INIT(static pcm_rtos_t pcmHandle) = {0};
 extern codec_handle_t codecHandle;
@@ -66,11 +70,14 @@ void streamer_pcm_init(void)
     EDMA_GetDefaultConfig(&dmaConfig);
     EDMA_Init(DEMO_DMA, &dmaConfig);
     /* Create DMA handle. */
-    EDMA_CreateHandle(&pcmHandle.dmaTxHandle, DEMO_DMA, DEMO_TX_CHANNEL);
+    EDMA_CreateHandle(&pcmHandle.dmaTxHandle, DEMO_DMA, DEMO_TX_EDMA_CHANNEL);
+#if defined(FSL_FEATURE_EDMA_HAS_CHANNEL_MUX) && FSL_FEATURE_EDMA_HAS_CHANNEL_MUX
+    EDMA_SetChannelMux(DEMO_DMA, DEMO_TX_EDMA_CHANNEL, DEMO_SAI_TX_EDMA_CHANNEL);
+#endif
     /* SAI init */
     SAI_Init(DEMO_SAI);
 
-    EnableIRQ(DEMO_SAI_TX_IRQ);
+    EnableIRQ(DEMO_SAI_IRQ);
 }
 
 pcm_rtos_t *streamer_pcm_open(uint32_t num_buffers)
@@ -96,6 +103,10 @@ void streamer_pcm_close(pcm_rtos_t *pcm)
 {
     /* Stop playback.  This will flush the SAI transmit buffers. */
     SAI_TransferTerminateSendEDMA(DEMO_SAI, &pcm->saiTxHandle);
+#if defined(FSL_FEATURE_EDMA_HAS_CHANNEL_MUX) && FSL_FEATURE_EDMA_HAS_CHANNEL_MUX
+    /* Release the DMA channel mux */
+    EDMA_SetChannelMux(DEMO_DMA, DEMO_TX_EDMA_CHANNEL, DEMO_SAI_TX_EDMA_CHANNEL);
+#endif
     vSemaphoreDelete(pcmHandle.semaphoreTX);
 }
 
@@ -110,9 +121,16 @@ int streamer_pcm_write(pcm_rtos_t *pcm, uint8_t *data, uint32_t size)
     pcm->saiTx.dataSize = size - (size % ((pcm->bit_width == 16) ? 32 : 64));
     pcm->saiTx.data     = data;
 
-    DCACHE_CleanByRange((uint32_t)pcm->saiTx.data, pcm->saiTx.dataSize);
+    /* Split the first transfer into two to ensure the continuity */
+    if (pcm->isFirstTx)
+    {
+        pcm->saiTx.dataSize /= 2;
+    }
 
-    /* Start the consecutive transfer */
+#if (defined(__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U))
+    DCACHE_CleanByRange((uint32_t)pcm->saiTx.data, pcm->saiTx.dataSize);
+#endif
+    /* Start the transfer */
     while (SAI_TransferSendEDMA(DEMO_SAI, &pcm->saiTxHandle, &pcm->saiTx) == kStatus_SAI_QueueFull)
     {
         /* Wait for transfer to finish */
@@ -122,6 +140,13 @@ int streamer_pcm_write(pcm_rtos_t *pcm, uint8_t *data, uint32_t size)
         }
     }
 
+    if (pcm->isFirstTx)
+    {
+        pcm->saiTx.data += pcm->saiTx.dataSize;
+        /* Start the consecutive transfer */
+        SAI_TransferSendEDMA(DEMO_SAI, &pcm->saiTxHandle, &pcm->saiTx);
+        pcm->isFirstTx = 0;
+    }
     return 0;
 }
 
@@ -151,6 +176,8 @@ static sai_sample_rate_t _pcm_map_sample_rate(uint32_t sample_rate)
             return kSAI_SampleRate32KHz;
         case 44100:
             return kSAI_SampleRate44100Hz;
+        case 96000:
+            return kSAI_SampleRate96KHz;
         case 48000:
         default:
             return kSAI_SampleRate48KHz;
@@ -196,6 +223,7 @@ int streamer_pcm_setparams(pcm_rtos_t *pcm,
     sai_transceiver_t saiConfig;
     uint32_t masterClockHz = 0U;
 
+    pcm->isFirstTx       = transfer ? 1U : pcm->isFirstTx;
     pcm->sample_rate     = sample_rate;
     pcm->bit_width       = bit_width;
     pcm->num_channels    = num_channels;
@@ -211,7 +239,7 @@ int streamer_pcm_setparams(pcm_rtos_t *pcm,
     format.masterClockHz = masterClockHz;
 #endif
 
-#if DEMO_CODEC_CS42448
+#if (defined(DEMO_CODEC_CS42448) && (DEMO_CODEC_CS42448 == 1))
     if (num_channels > 2)
     {
         pcm->bit_width    = 32;
@@ -243,21 +271,28 @@ int streamer_pcm_setparams(pcm_rtos_t *pcm,
 
     SAI_GetClassicI2SConfig(&saiConfig, _pcm_map_word_width(bit_width), format.stereo, 1U << DEMO_SAI_CHANNEL);
     saiConfig.syncMode    = kSAI_ModeAsync;
-    saiConfig.masterSlave = kSAI_Master;
+    saiConfig.masterSlave = DEMO_SAI_MASTER_SLAVE;
 #endif
 
     SAI_TransferTerminateSendEDMA(DEMO_SAI, &pcm->saiTxHandle);
     SAI_TransferTxSetConfigEDMA(DEMO_SAI, &pcmHandle.saiTxHandle, &saiConfig);
     /* set bit clock divider */
     SAI_TxSetBitClockRate(DEMO_SAI, masterClockHz, _pcm_map_sample_rate(sample_rate),
-                          _pcm_map_word_width(pcm->bit_width), DEMO_CHANNEL_NUM);
+                          _pcm_map_word_width(pcm->bit_width), (pcm->num_channels == 1) ? 2 : pcm->num_channels);
     /* Enable SAI transmit and FIFO error interrupts. */
     SAI_TxEnableInterrupts(DEMO_SAI, kSAI_FIFOErrorInterruptEnable);
 
+#ifdef BOARD_MASTER_CLOCK_CONFIG
+    /* master clock configurations */
+    BOARD_MASTER_CLOCK_CONFIG();
+#endif
     streamer_pcm_set_volume(pcm, 0);
 
-#if DEMO_CODEC_CS42448
+#if (defined(DEMO_CODEC_CS42448) && (DEMO_CODEC_CS42448 == 1))
     BOARD_CodecChangeSettings(pcm->num_channels);
+    volume = CODEC_VOLUME_MAX_VALUE;
+#elif (defined(DEMO_CODEC_WM8962) && (DEMO_CODEC_WM8962 == 1))
+    CODEC_Init(&codecHandle, &boardCodecConfig);
 #endif
 
     CODEC_SetFormat(&codecHandle, masterClockHz, format.sampleRate_Hz, format.bitWidth);
@@ -313,7 +348,7 @@ int streamer_pcm_set_volume(pcm_rtos_t *pcm, int volume)
 int streamer_set_master_clock(int sample_rate)
 {
     int master_clock;
-#if DEMO_CODEC_CS42448
+#if (defined(DEMO_CODEC_CS42448) && (DEMO_CODEC_CS42448 == 1))
     int divider    = DEMO_SAI1_CLOCK_SOURCE_DIVIDER;
     int predivider = DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER;
 #endif
@@ -340,7 +375,8 @@ int streamer_set_master_clock(int sample_rate)
         };
         CLOCK_InitAudioPll(&audioPllConfig);
     }
-#if DEMO_CODEC_CS42448
+
+#if (defined(DEMO_CODEC_CS42448) && (DEMO_CODEC_CS42448 == 1))
     switch (sample_rate)
     {
         case 11025:
@@ -365,6 +401,11 @@ int streamer_set_master_clock(int sample_rate)
             divider = 5;
             break;
         }
+        case 96000:
+        {
+            divider = 3;
+            break;
+        }
         case 22050:
         case 44100:
         case 48000:
@@ -377,7 +418,7 @@ int streamer_set_master_clock(int sample_rate)
     CLOCK_SetDiv(kCLOCK_Sai1Div, divider);
     master_clock = CLOCK_GetFreq(kCLOCK_AudioPllClk) / (divider + 1U) / (predivider + 1U);
 #else
-    master_clock          = DEMO_SAI_CLK_FREQ;
+    master_clock = DEMO_SAI_CLK_FREQ;
 #endif
     return master_clock;
 }

@@ -12,8 +12,8 @@
 #include "fsl_mu.h"
 #include "fsl_sema42.h"
 
-#include "board_fusionf1.h"
 #include "pin_mux.h"
+#include "board_fusionf1.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

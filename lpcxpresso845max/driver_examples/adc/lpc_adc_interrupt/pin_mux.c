@@ -1,5 +1,5 @@
 /*
- * Copyright  2018 ,2021 NXP
+ * Copyright  2018 ,2021, 2023 NXP
  * All rights reserved.
  *
  *
@@ -15,11 +15,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v9.0
+product: Pins v13.0
 processor: LPC845
 package_id: LPC845M301JBD64
 mcu_data: ksdk2_0
-processor_version: 9.0.0
+processor_version: 0.13.3
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -50,7 +50,7 @@ BOARD_InitPins:
     clkdiv: div0}
   - {pin_num: '37', peripheral: USART0, signal: TXD, pin_signal: PIO1_17, mode: pullUp, invert: disabled, hysteresis: enabled, opendrain: disabled, smode: bypass,
     clkdiv: div0}
-  - {pin_num: '45', peripheral: ADC0, signal: 'CH, 0', pin_signal: PIO0_7/ADC_0, mode: pullUp, invert: disabled, hysteresis: enabled, opendrain: disabled, smode: bypass,
+  - {pin_num: '45', peripheral: ADC0, signal: 'CH, 0', pin_signal: PIO0_7/ADC_0, mode: inactive, invert: disabled, hysteresis: enabled, opendrain: disabled, smode: bypass,
     clkdiv: div0}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -70,8 +70,8 @@ void BOARD_InitPins(void)
     /* Enables clock for switch matrix.: enable */
     CLOCK_EnableClock(kCLOCK_Swm);
 
-    const uint32_t IOCON_INDEX_PIO0_7_config = (/* Selects pull-up function */
-                                                IOCON_PIO_MODE_PULLUP |
+    const uint32_t IOCON_INDEX_PIO0_7_config = (/* No addition pin function */
+                                                IOCON_PIO_MODE_INACT |
                                                 /* Enable hysteresis */
                                                 IOCON_PIO_HYS_EN |
                                                 /* Input not invert */

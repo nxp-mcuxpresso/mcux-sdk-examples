@@ -1,0 +1,14 @@
+        *(.data.$${memory.alias})
+        *(.data.$${memory.name})
+        *(.data.$${memory.alias}.*)
+        *(.data.$${memory.name}.*)
+
+       <#if memory.name=="SRAM_ITC">
+        *mflash_drv.o(.text .text* .rodata .rodata*)
+        *fsl_flexspi.o(.text .text* .rodata .rodata*)
+        </#if>
+
+        <#if memory.name=="SRAM_DTC">
+        *(.data*)
+        *(.wlan_data*)
+        </#if>

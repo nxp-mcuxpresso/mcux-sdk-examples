@@ -1,1 +1,4 @@
-        *(EXCLUDE_FILE(*flexspi_octal_flash_ops.o *fsl_flexspi.o) .text*)
+        *(EXCLUDE_FILE(*flexspi_octal_flash_ops.o *fsl_flexspi.o *libc_a-memcpy-stub.o *libc_a-memset.o *fsl_memcpy.o *memcpy.o *memset.o) .text)
+        *(EXCLUDE_FILE(*flexspi_octal_flash_ops.o *fsl_flexspi.o *libc_a-memcpy-stub.o *libc_a-memset.o *fsl_memcpy.o *memcpy.o *memset.o) .text*)
+        *(EXCLUDE_FILE(*flexspi_octal_flash_ops.o *fsl_flexspi.o *libc_a-memcpy-stub.o *libc_a-memset.o *fsl_memcpy.o *memcpy.o *memset.o) .rodata)
+        *(EXCLUDE_FILE(*flexspi_octal_flash_ops.o *fsl_flexspi.o *libc_a-memcpy-stub.o *libc_a-memset.o *fsl_memcpy.o *memcpy.o *memset.o) .rodata*)
