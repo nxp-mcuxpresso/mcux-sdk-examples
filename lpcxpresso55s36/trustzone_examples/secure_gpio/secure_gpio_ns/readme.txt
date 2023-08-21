@@ -10,28 +10,41 @@ controller has build in feature GPIO mask for all GPIO pins. It is recommended t
 for all peripherals assigned to secure domain in order to eliminate information leak from GPIO pins.
 For example UART is assigned to secure world. But GPIO peripheral still allows to read state of
 TxD and RxD pins. This information can be use to decode UART communication from normal world, which
-can lead to unwanted information leak.
+can lead to unwanted information leak. 
 
-This Secure GPIO demo uses one user button (let’s call it LED button), which is read from both secure 
-(using “secure” GPIO) and normal world (using “standard GPIO)”, and two LED diodes, one controlled from 
-secure and second one from normal world. Once LED button is pressed, both secure and non-secure 
-worlds detect this user action (logical zero is read) and both LEDs are switched ON (first LED is controlled 
+This Secure GPIO demo uses one user button (let's call it LED button), which is read from both secure
+(using "secure" GPIO) and normal world (using "standard" GPIO), and two LED diodes, one controlled from
+secure and second one from normal world. Once LED button is pressed, both secure and non-secure
+worlds detect this user action (logical zero is read) and both LEDs are switched ON (first LED is controlled
 from secure world and second one from non-secure world). So both LEDs are controlled by LED button.
-The second part of the demo demonstrates AHB secure controller GPIO mask feature. This feature is 
-controlled by second user button (let’s call it MASK button). If the MASK button is not pressed, the GPIO 
-mask feature is disabled and normal world can read the state of LED button. Therefore LED button still 
+The second part of the demo demonstrates AHB secure controller GPIO mask feature. This feature is
+controlled by second user button (let's call it MASK button). If the MASK button is not pressed, the GPIO
+mask feature is disabled and normal world can read the state of LED button. Therefore LED button still
 controls both LEDs as described in previous paragraph.
-If the MASK button is pressed, the GPIO mask feature is enabled. In this case normal world cannot read 
-state of state of first button and logical zero is read only. Since logical zero corresponds to pressed LED 
-button, the LED, controlled from normal world, is immediately switched ON regardless of the state of LED 
-button. The LED, controlled from secure world, can be still controlled by LED button, because the state of 
-this button is still available to the secure world via GPIO assigned to secure world.
-For user buttons and LEDs assignment on particular board, see chapter “Running the demo”.
+If the MASK button is pressed, the GPIO mask feature is enabled. In this case normal world cannot read
+state of state of first button and logical zero is read only. Since logical zero corresponds to pressed LED
+button, the LED, controlled from normal world, is immediately switched ON regardless of the state of LED
+button. The LED, controlled from secure world, can be still controlled by LED button, because the state of
+this button is still available to the secure world via GPIO assigned to secure world. Below is a table
+illustrating the individual button and LED states.
+For user buttons and LEDs assignment on particular board, see chapter "Running the demo".
+
++---------------------++---------------------+
+|        Input        ||       Ouptut        |
++---------------------++---------------------+
+|   LED    |   MASK   || "secure" | "normal" |
+|  button  |  button  ||   LED    |   LED    |
++--------------------------------------------+
+| PRESSED  | RELEASED ||   ON     |   ON     |
+| RELEASED | RELEASED ||   OFF    |   OFF    |
+| PRESSED  | PRESSED  ||   ON     |   ON     |
+| RELEASED | PRESSED  ||   OFF    |   ON     |
++--------------------------------------------+
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.1
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================

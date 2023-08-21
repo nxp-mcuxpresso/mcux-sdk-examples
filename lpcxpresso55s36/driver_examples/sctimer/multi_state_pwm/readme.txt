@@ -2,13 +2,25 @@ Overview
 ========
 The SCTImer multi-state project is a demonstration program of the SCTimer state machine. It shows how to set up events to be triggered in a certain state
 and transitioning between states.
-State 0 has 2 events that generate a PWM signal, it also has an event linked to an input signal to transition to State 1.
-State 1 has 4 events that generate 2 PWM signals, it also has an event linked to an input signal to transition to State 0.
+This project has two states: State 0 and State 1.
+
+For State 0, PWM0 (24kHz 10% duty cycle) is setup, PWM0 works based on event eventFirstNumberOutput
+and event (eventFirstNumberOutput + 1). Meanwhile, another event is scheduled to monitor the rising edge on input 1,
+when rising edge detected on input 1, the SCTimer switches to State 1.
+
+For State 1, PWM1 (24kHz 50% duty cycle) is setup, PWM1 works based on event eventSecondNumberOutput
+and event (eventSecondNumberOutput + 1). Meanwhile, another event is scheduled to monitor the rising edge on input 1,
+when rising edge detected on input 1, then SCTimer switches to State 0. To make PWM0 also work in State 1, the PWM0's
+events eventFirstNumberOutput and (eventFirstNumberOutput + 1) are also enabled in State 1, using API
+SCTIMER_ScheduleEvent. As a result, both PWM0 and PWM1 works in State 1.
+
+The SCTimer input 1 is routed to a button GPIO, when press the button, the SCTimer switches between State 0 and State 1.
+In State 0, there is only PWM0 output, in State 1, there are both PWM0 and PWM1 output.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.1
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================

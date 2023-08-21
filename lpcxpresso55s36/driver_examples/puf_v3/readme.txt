@@ -22,8 +22,8 @@ Usual use consists of these steps:
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.1
+- MCUXpresso  11.8.0
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================

@@ -8,8 +8,8 @@ Example will first erase the sector and program a page into the flash, at last c
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.1
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================
@@ -19,8 +19,8 @@ Hardware requirements
 
 Board settings
 ==============
-Connect pin 1-2 of JP41,JP42,JP44,JP45,JP64 and JP65.
-Close JP66,JP67,JP68 and JP69.
+Connect pin 1-2 of JP41,JP42,JP43,JP44,JP45,JP62,JP64 and JP65.
+Close JP63,JP66,JP67,JP68 and JP69.
 
 Prepare the Demo
 ================

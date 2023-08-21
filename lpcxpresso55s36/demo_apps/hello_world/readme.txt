@@ -9,8 +9,8 @@ just define DEBUG_CONSOLE_TRANSFER_NON_BLOCKING in your project to use the advan
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.1
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================

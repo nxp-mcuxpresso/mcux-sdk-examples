@@ -20,13 +20,13 @@
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-
 uint32_t excludeFromDS[2];
 uint32_t wakeupFromDS[4];
 uint32_t excludeFromPD[1];
 uint32_t wakeupFromPD[4];
 uint32_t excludeFromDPD[1];
 uint32_t wakeupFromDPD[2];
+
 const char *g_wakeupInfoStr[] = {"Sleep [Press the user key to wakeup]", "Deep Sleep [Press the user key to wakeup]",
                                  "Powerdown [Reset to wakeup]", "Deep Powerdown [Reset to wakeup]"};
 uint32_t g_currentPowerMode;
@@ -82,21 +82,7 @@ void RTC_IRQHandler(void)
 }
 void DEMO_PreLowPower(void)
 {
-    /*!< Configure RTC OSC */
-    POWER_EnablePD(kPDRUNCFG_PD_XTAL32K); /*!< Powered down the XTAL 32 kHz RTC oscillator */
-    POWER_DisablePD(kPDRUNCFG_PD_FRO32K); /*!< Powered the FRO 32 kHz RTC oscillator */
-    CLOCK_AttachClk(kFRO32K_to_OSC32K);   /*!< Switch OSC32K to FRO32K */
-
-    CLOCK_SetFLASHAccessCyclesForFreq(32768U); /*!< Set FLASH wait states for core */
-
-    /*!< Set up dividers */
-    CLOCK_SetClkDiv(kCLOCK_DivAhbClk, 1U, false); /*!< Set AHBCLKDIV divider to value 1 */
-
-    /*!< Set up clock selectors - Attach clocks to the peripheries */
-    CLOCK_AttachClk(kOSC32K_to_MAIN_CLK); /*!< Switch MAIN_CLK to OSC32K */
-
-    /*< Set SystemCoreClock variable. */
-    SystemCoreClock = 32768U;
+    /*!< Nothing to do */
 }
 void DEMO_PowerDownWakeup(void)
 {
@@ -178,6 +164,10 @@ int main(void)
     manage_evk_io_optimization();
     BOARD_BootClockFRO12M();
     BOARD_InitDebugConsole();
+#if !defined(DONOT_ENABLE_FLASH_PREFETCH)
+    /* enable flash prefetch for better performance */
+    SYSCON->FMCCR |= SYSCON_FMCCR_PREFEN_MASK;
+#endif
 
     excludeFromDS[0]  = kPDRUNCFG_PD_DCDC | kPDRUNCFG_PD_FRO192M | kPDRUNCFG_PD_FRO32K;
     excludeFromDS[1]  = 0;

@@ -36,8 +36,8 @@ To run PC side as a client with a board connected as a server to COM3 execute:
 
 Toolchain supported
 ===================
-- MCUXpresso  11.4.1
-- GCC ARM Embedded  10.2.1
+- MCUXpresso  11.8.0
+- GCC ARM Embedded  12.2
 
 Hardware requirements
 =====================
@@ -47,7 +47,8 @@ Hardware requirements
 
 Board settings
 ==============
-No special settings are required.
+MCU Link firmware version 2.263 and above needs to be used
+Use libusbsio Python module version 2.1.11 (https://pypi.org/project/libusbsio/2.1.11)
 
 Prepare the Demo
 ================
@@ -65,6 +66,9 @@ For detailed instructions, see the appropriate board User's Guide.
 
 Running the demo
 ================
+When the target device application is running execute Python run_uart.py from boards\lpcxpresso55s36\multiprocessor_examples\erpc_common\erpc_matrix_multiply folder:
+python run_uart.py --client --port <COMxx port of the MCU-LINK>
+
 When the demo runs successfully, the log below shows the output of the Client eRPC Matrix Multiply demo
 in the Python Shell window:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

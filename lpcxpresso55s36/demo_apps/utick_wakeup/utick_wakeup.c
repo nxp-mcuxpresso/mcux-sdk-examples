@@ -62,6 +62,10 @@ int main(void)
     BOARD_InitPins();
     BOARD_BootClockPLL150M();
     BOARD_InitDebugConsole();
+#if !defined(DONOT_ENABLE_FLASH_PREFETCH)
+    /* enable flash prefetch for better performance */
+    SYSCON->FMCCR |= SYSCON_FMCCR_PREFEN_MASK;
+#endif
 
     /* Enable FRO 1M clock for UTICK module.
      * Note: the FRO1MHZ_FREQM bit must be set.

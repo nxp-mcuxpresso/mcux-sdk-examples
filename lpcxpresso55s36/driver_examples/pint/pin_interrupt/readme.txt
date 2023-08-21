@@ -4,8 +4,8 @@ This example shows how to use SDK drivers to use the Pin interrupt & pattern mat
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.1
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================

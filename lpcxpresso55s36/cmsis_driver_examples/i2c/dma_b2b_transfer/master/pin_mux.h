@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021, 2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -45,12 +45,12 @@ void BOARD_InitBootPins(void);
  */
 void BOARD_InitPins(void); /* Function assigned for the Cortex-M33 */
 
-#define IOCON_PIO_DIGITAL_EN 0x0100u  /*!<@brief Enables digital function */
-#define IOCON_PIO_FUNC1 0x01u         /*!<@brief Selects pin function 1 */
-#define IOCON_PIO_INV_DI 0x00u        /*!<@brief Input function is not inverted */
-#define IOCON_PIO_MODE_PULLUP 0x20u   /*!<@brief Selects pull-up function */
-#define IOCON_PIO_OPENDRAIN_DI 0x00u  /*!<@brief Open drain is disabled */
-#define IOCON_PIO_SLEW_STANDARD 0x00u /*!<@brief Standard mode, output slew rate control is enabled */
+#define IOCON_PIO_DIGITAL_EN 0x0100u   /*!<@brief Enables digital function */
+#define IOCON_PIO_FUNC1 0x01u          /*!<@brief Selects pin function 1 */
+#define IOCON_PIO_INV_DI 0x00u         /*!<@brief Input function is not inverted */
+#define IOCON_PIO_MODE_PULLUP 0x20u    /*!<@brief Selects pull-up function */
+#define IOCON_PIO_OPENDRAIN_EN 0x0200u /*!<@brief Open drain is enabled */
+#define IOCON_PIO_SLEW_STANDARD 0x00u  /*!<@brief Standard mode, output slew rate control is enabled */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

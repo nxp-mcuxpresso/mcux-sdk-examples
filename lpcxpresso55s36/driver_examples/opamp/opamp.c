@@ -17,6 +17,8 @@
 #include "fsl_dac.h"
 
 #include "fsl_power.h"
+
+
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -24,14 +26,18 @@
 #define DEMO_DAC_VREF       kDAC_ReferenceVoltageSourceAlt1
 #define DEMO_OPAMP_BASEADDR OPAMP0
 #define DEMO_DAC_VOLT_STEP  0.806f
-#define DAC_VALUE_TO_MVOLT(dacValue) ((float)(dacValue)*DEMO_DAC_VOLT_STEP)
+
+#define DAC_VALUE_TO_MVOLT(dacValue) ((double)(dacValue)*DEMO_DAC_VOLT_STEP)
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
 void DEMO_InitDAC(void);
+
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+
 
 
 /*******************************************************************************

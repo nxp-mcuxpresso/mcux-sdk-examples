@@ -3,19 +3,19 @@ Overview
 The DMA channel chain transfer example is a simple demonstration program about how to use channel chain feaute with the SDK software.
 In this example three channel is used, 
           
-          ------->channel1------->channel0
+          ------->channel1
           |
-channel0-->
+channel0-->------>channel0
           |
           ------->channel2
 
-Channel0 is configured with two descriptor, first descriptor is linked to the second, then trigger the channel0 by software, after channel0 first descriptor finish, it will trigger channel1 and channel2 start transfer, after channel1 descriptor exhaust it will trigger channel0, then channel0 second descritpor will be carried out, after second descriptor exhaust, example finish.
+Channel0 is configured with two descriptor, first descriptor is linked to the second, then trigger the channel0 by software, after channel0 first descriptor finish, it will trigger channel1 and channel2 start transfer, and trigger channel0 again, then channel0 second descritpor will be carried out, after second descriptor exhaust, example finish.
 
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.1
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================

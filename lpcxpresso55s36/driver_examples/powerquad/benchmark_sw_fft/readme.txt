@@ -5,8 +5,8 @@ It could be compared with the project powerquad_benckmark_fft to show the PowerQ
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.1
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================

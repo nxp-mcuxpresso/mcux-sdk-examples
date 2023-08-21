@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2013 - 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2021 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -31,8 +30,8 @@ void BOARD_InitDebugConsoleSWO(uint32_t port, uint32_t baudrate);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-volatile bool g_userPress          = false;
-volatile bool g_timeOut            = false;
+volatile bool g_userPress = false;
+volatile bool g_timeOut = false;
 volatile uint32_t g_systickCounter = 1000U;
 /*******************************************************************************
  * Code
@@ -76,16 +75,16 @@ void BOARD_InitDebugConsoleSWO(uint32_t port, uint32_t baudrate)
     DbgConsole_Init(port, baudrate, kSerialPort_Swo, clkSrcFreq);
 }
 
-void SysTick_Handler(void)
+ void SysTick_Handler(void)
 {
     if (g_systickCounter != 0U)
     {
         g_systickCounter--;
     }
-    else
+    else 
     {
         g_systickCounter = 1000U;
-        g_timeOut        = true;
+        g_timeOut = true;
     }
 }
 
@@ -103,6 +102,10 @@ int main(void)
     BOARD_InitPins();
     BOARD_BootClockFROHF96M();
     BOARD_InitDebugConsole();
+#if !defined(DONOT_ENABLE_FLASH_PREFETCH)
+    /* enable flash prefetch for better performance */
+    SYSCON->FMCCR |= SYSCON_FMCCR_PREFEN_MASK;
+#endif
     BOARD_InitKey();
 
     CLOCK_SetClkDiv(kCLOCK_DivArmTrClkDiv, 0U, true);

@@ -40,6 +40,10 @@ int main(void)
     BOARD_InitPins();
     BOARD_BootClockPLL150M();
     BOARD_InitDebugConsole();
+#if !defined(DONOT_ENABLE_FLASH_PREFETCH)
+    /* enable flash prefetch for better performance */
+    SYSCON->FMCCR |= SYSCON_FMCCR_PREFEN_MASK;
+#endif
 
     PRINTF("hello world.\r\n");
 

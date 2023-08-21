@@ -11,8 +11,8 @@ the VREF output voltage under different trim value.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.1
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================
@@ -22,6 +22,8 @@ Hardware requirements
 
 Board settings
 ==============
+Populate the R555
+
 Connect J12-16(VREF_OUT) with J9-3(PIO0_31,ADC CH8A)
 
 Prepare the Demo

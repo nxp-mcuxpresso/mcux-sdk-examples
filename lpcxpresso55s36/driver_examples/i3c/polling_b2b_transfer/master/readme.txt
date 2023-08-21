@@ -1,14 +1,17 @@
 Overview
 ========
-The example shows how to use i3c driver as master to do board to board transfer
-using polling method:
+The example shows how to use i3c driver as master to do board to board transfer using polling method.
 
-In this example, one i3c instance as master and another i3c instance on the other board as slave. Master first sends a piece of data to slave in I2C mode, and receive a piece of data from slave and check if the data received from slave is correct. Then master will enter dynamic address cycle to assign address to the connected slave, after success, will use I3C SDR mode to transfer data, then receive data from the connected I3C slave and check the data consistency.
+In this example, one i3c instance as master and another i3c instance on the other board as slave. Master
+first sends a piece of data to slave in I2C mode, and receive a piece of data from slave and check if the
+data received from slave is correct. Then master will enter dynamic address cycle to assign address to the
+connected slave, after success, will use I3C SDR mode to transfer data, then receive data from the connected
+I3C slave and check the data consistency.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.1
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================
@@ -29,10 +32,7 @@ P0_24      J9-18              P0_24      J9-18
 GND        J9-14              GND        J9-14
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Power from J2(external power), use external FTDI USB-2-UART for printf on JP3.
-Short JP26, remove JP12. 
-
-Note: Please use ISP mode to download image.
+Connect the jumper resistor R554 2-3.
 
 Prepare the Demo
 ================
@@ -44,8 +44,7 @@ Prepare the Demo
     - One stop bit
     - No flow control
 3.  Download the program to the target board.
-4.  Remove jumper J43 3-4.
-5.  Press reset button to begin running the demo.
+4.  Press reset button to begin running the demo.
 
 Running the demo
 ================

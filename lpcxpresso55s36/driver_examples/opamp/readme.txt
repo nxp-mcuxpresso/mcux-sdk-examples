@@ -1,17 +1,14 @@
 Overview
 ========
 
-This project shows how to use the OPAMP driver. In this example, both positive input and
-negative input should be connected to GND, the positive reference voltage is set as DAC
-output, the OPAMP output is 1X of DAC output. When DAC output changes, the OPAMP changes
-accordingly.
-The calculating formula is:
-    OUT =   ((NGAIN + 1) / (1 + 1/PGAIN)) * Vinp - (NGAIN * Vinn) + ((1 + NGAIN) / (1 + PGAIN)) * Vpref
+This project shows how to use the OPAMP driver. In this example, the OPAMP
+work in internal gain mode, the OPAMP output is set to 2X of DAC output.
+When DAC output changes, the OPAMP output changes accordingly.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.1
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================

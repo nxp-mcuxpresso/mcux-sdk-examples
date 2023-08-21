@@ -48,6 +48,9 @@ int main(void)
     CLOCK_SetClkDiv(kCLOCK_DivDac0Clk, 1U, true);
     CLOCK_AttachClk(kMAIN_CLK_to_DAC0);
 
+    /* Disable VREF power down */
+    POWER_DisablePD(kPDRUNCFG_PD_VREF);
+
     /* Disable DAC0 power down */
     POWER_DisablePD(kPDRUNCFG_PD_DAC0);
 

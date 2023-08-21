@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -144,8 +144,8 @@ int main(void)
         voltage  = DEMO_LPADC_VREF_VOLTAGE * ((float)adcValue / (float)g_Lpadc_FullRange);
         PRINTF("\r\nUse trim value: %d\r\n", trimVal);
         PRINTF("ADC conversion result: %d\r\n", adcValue);
-        PRINTF("Expected voltage on VREF_OUT: %.3fV\r\n", 1.000f + (0.100f * (float)trimVal));
-        PRINTF("Actual voltage on VREF_OUT: %.3fV\r\n", voltage);
+        PRINTF("Expected voltage on VREF_OUT: %.3fV\r\n", 1.000f + (0.100f * (double)trimVal));
+        PRINTF("Actual voltage on VREF_OUT: %.3fV\r\n", (double)voltage);
     }
 
     while (1)

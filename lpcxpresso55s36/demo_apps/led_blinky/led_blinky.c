@@ -52,6 +52,10 @@ int main(void)
     /* Board pin init */
     BOARD_InitPins();
     BOARD_BootClockPLL150M();
+#if !defined(DONOT_ENABLE_FLASH_PREFETCH)
+    /* enable flash prefetch for better performance */
+    SYSCON->FMCCR |= SYSCON_FMCCR_PREFEN_MASK;
+#endif
 
     /* Set systick reload value to generate 1ms interrupt */
     if (SysTick_Config(SystemCoreClock / 1000U))

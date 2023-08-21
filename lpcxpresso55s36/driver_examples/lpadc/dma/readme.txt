@@ -1,18 +1,18 @@
 Overview
 ========
 
-The lpdc_dma example shows how to use ADC to trigger a DMA transfer.
+The lpadc_dma example shows how to use ADC to trigger a DMA transfer.
 
 In this example, user should indicate a channel to provide a voltage signal (can be controlled by user) as the LPADC's
 sample input. When running the project, typing any key into debug console would trigger the conversion, the software trigger
 API is called to start the conversion. When the ADC conversion is completed, it would trigger the DMA in ping-pong transfer
 mode to move the ADC conversion result from ADC conversion data register to user indicated memory. Then the main loop waits
-for the transfer to be done and print the result to terminal.
+for the transfer to be done and print the latest ADC conversion word and ADC conversion value average to terminal.
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.1
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
 
 Hardware requirements
 =====================
