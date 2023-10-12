@@ -29,7 +29,14 @@
 #define AUDIO_DUMMY_SIZE (64U)
 #define HFP_STREAMER_TASK_PRIORITY (6U)
 
-#define HFP_CODEC_DAC_VOLUME (100U) /* Range: 0 ~ 100 */
+#if defined(CODEC_WM8962_ENABLE) || defined(CODEC_WM8904_ENABLE)
+#define HFP_CODEC_DAC_VOLUME (75U) /* Range: 0 ~ 100 */
+#elif defined(CODEC_WM8960_ENABLE)
+#define HFP_CODEC_DAC_VOLUME  (100U) /* Range: 0 ~ 100 */
+#else
+#define HFP_CODEC_DAC_VOLUME  (100U) /* Range: 0 ~ 100 */
+#endif
+
 #define HFP_CODEC_HP_VOLUME  (70U)  /* Range: 0 ~ 100 */
 
 /* --------------------------------------------- External Global Variables */

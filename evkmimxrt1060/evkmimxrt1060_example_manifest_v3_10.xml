@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_evkmimxrt1060_examples_manifest_v3_10" name="SDK_2.x_evkmimxrt1060_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
-  <!--Timestamp (UTC): 2023-01-10 16:34:32.333895-->
-  <!--This manifest is generated based on sdk repo commit: 11a5f6af5190bfe018a89b4d02c239713dc4cfa6-->
+  <!--Timestamp (UTC): 2023-10-12 02:54:22.552142-->
+  <!--This manifest is generated based on sdk repo commit: 2d0fe97d690410eb241d6c4e1718da4ce5f59551-->
   <externalDefinitions>
     <definition extID="MIMXRT1062DVL6A"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="compiler_gcc"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2130_evkmimxrt1060_examples_manifest_v3_10" name="MCUXpressoSDK2130_evkmimxrt1060_examples_manifest_v3_10" version="2.13.0"/>
+  <ksdk id="MCUXpressoSDK2132_evkmimxrt1060_examples_manifest_v3_10" name="MCUXpressoSDK2132_evkmimxrt1060_examples_manifest_v3_10" version="2.13.2"/>
   <boards>
     <board id="evkmimxrt1060" name="EVK-MIMXRT1060" href="https://www.nxp.com/pip/MIMXRT1060-EVK" version="1.0.0" package="MIMXRT1062DVL6A">
       <examples>

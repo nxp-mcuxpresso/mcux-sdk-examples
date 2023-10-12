@@ -125,6 +125,14 @@ Select this for LE Peripheral role support.
     #define CONFIG_BT_LIM_ADV_TIMEOUT 30
 #endif
 
+/*! @brief Necessary user_data size for allowing packet fragmentation when
+ *	  sending over HCI. See `struct tx_meta` in conn.c.
+ *    The default value is 8, and default 16 if 64BIT.
+ */
+#ifndef CONFIG_BT_CONN_TX_USER_DATA_SIZE
+    #define CONFIG_BT_CONN_TX_USER_DATA_SIZE 8
+#endif
+
 /*! @brief Maximum size of a fragmented periodic advertising report.
  * The default value is 0, and the valid range should be 0-1650.
  */
@@ -162,6 +170,21 @@ Select this for LE Peripheral role support.
 #define CONFIG_BT_PER_ADV 0
 #endif
 
+/*! @brief Periodic Advertising with Responses support [EXPERIMENTAL]
+ *
+ *  Select this to enable Periodic Advertising with Responses
+ *  API support.
+ */
+#ifndef CONFIG_BT_PER_ADV_RSP
+#define CONFIG_BT_PER_ADV_RSP 0
+#endif
+
+#if (defined(CONFIG_BT_PER_ADV_RSP) && (CONFIG_BT_PER_ADV_RSP > 0))
+    #if !(defined(CONFIG_BT_PER_ADV) && (CONFIG_BT_PER_ADV > 0))
+        #error CONFIG_BT_PER_ADV_RSP depends on CONFIG_BT_PER_ADV
+    #endif
+#endif
+
 /*! @brief Periodic advertising sync support [EXPERIMENTAL]
  *
  *  Syncing with a periodic advertiser allows the device to periodically
@@ -175,6 +198,21 @@ Select this for LE Peripheral role support.
 #define CONFIG_BT_PER_ADV_SYNC 0
 #endif /* CONFIG_BT_OBSERVER */
 #endif /* CONFIG_BT_PER_ADV_SYNC */
+
+/*! @brief Periodic Advertising with Responses sync support [EXPERIMENTAL]
+ *
+ *  Select this to enable Periodic Advertising with Responses Sync
+ *  API support.
+ */
+#ifndef CONFIG_BT_PER_ADV_SYNC_RSP
+#define CONFIG_BT_PER_ADV_SYNC_RSP 0
+#endif
+
+#if (defined(CONFIG_BT_PER_ADV_SYNC_RSP) && (CONFIG_BT_PER_ADV_SYNC_RSP > 0))
+    #if !(defined(CONFIG_BT_OBSERVER) && (CONFIG_BT_OBSERVER > 0))
+        #error CONFIG_BT_PER_ADV_SYNC_RSP depends on CONFIG_BT_OBSERVER
+    #endif
+#endif
 
 #if CONFIG_BT_PER_ADV_SYNC
 /*! @brief Maximum number of simultaneous periodic advertising syncs, range 1 to 64
@@ -214,7 +252,7 @@ Select this for LE Peripheral role support.
  * NULL termination). Can be empty string.
  */
 #ifndef CONFIG_BT_DEVICE_NAME
-    #define CONFIG_BT_DEVICE_NAME "BLE Peripheral"
+    #define CONFIG_BT_DEVICE_NAME "BLE_Peripheral"
 #endif
 
 /*! @brief Runtime Bluetooth Appearance changing
@@ -309,6 +347,18 @@ Select this for LE Peripheral role support.
     #define CONFIG_BT_DATA_LEN_UPDATE 0
 #endif
 
+/*! @brief Periodic Advertising Sync Transfer receiver, if the macro is set to 0, feature is disabled, if 1, feature is enabled.
+ */
+#ifndef CONFIG_BT_PER_ADV_SYNC_TRANSFER_RECEIVER
+    #define CONFIG_BT_PER_ADV_SYNC_TRANSFER_RECEIVER 0
+#endif
+
+/*! @brief Periodic Advertising Sync Transfer sender,if the macro is set to 0, feature is disabled, if 1, feature is enabled.
+ */
+#ifndef CONFIG_BT_PER_ADV_SYNC_TRANSFER_SENDER
+    #define CONFIG_BT_PER_ADV_SYNC_TRANSFER_SENDER 0
+#endif
+
 /*! @brief Timeout for pending LE Create Connection command in seconds.
  */
 #ifndef CONFIG_BT_CREATE_CONN_TIMEOUT
@@ -332,6 +382,15 @@ Select this for LE Peripheral role support.
  */
 #ifndef CONFIG_BT_CONN_TX_MAX
     #define CONFIG_BT_CONN_TX_MAX CONFIG_BT_L2CAP_TX_BUF_COUNT
+#endif
+
+/*! @brief CONFIG_BT_CONN_DISABLE_SECURITY is enabled.
+ * Security is disabled for incoming requests for GATT attributes and L2CAP
+ * channels that would otherwise require encryption/authentication in order to be accessed.
+ * Do not use in production.
+ */
+#ifndef CONFIG_BT_CONN_DISABLE_SECURITY
+    #define CONFIG_BT_CONN_DISABLE_SECURITY 0
 #endif
 
 #if CONFIG_BT_PHY_UPDATE
@@ -464,10 +523,19 @@ Select this for LE Peripheral role support.
 
 #endif /* !(CONFIG_BT_SMP_SC_PAIR_ONLY || CONFIG_BT_SMP_SC_ONLY || CONFIG_BT_SMP_OOB_LEGACY_PAIR_ONLY) */
 
+/*! @brief Passkey Keypress Notification support [EXPERIMENTAL] Feature, if the macro is set to 0, 
+ * feature is disabled, if 1, feature is enabled.
+ * Enable support for receiving and sending Keypress Notifications during
+ * Passkey Entry during pairing..
+ */
+#ifndef CONFIG_BT_PASSKEY_KEYPRESS
+    #define CONFIG_BT_PASSKEY_KEYPRESS 0
+#endif
+
 /*! @brief Privacy Feature, if the macro is set to 0, feature is disabled, if 1, feature is enabled.
  * Enable Privacy Feature support. This makes it possible to generate and use
  * Resolvable Private Addresses (RPAs).
- * 
+ *
  * Disabling this will remove the capability to resolve private addresses.
  */
 #ifndef CONFIG_BT_PRIVACY
@@ -478,48 +546,48 @@ Select this for LE Peripheral role support.
  * Enabling this option will cause the Host to ignore controller-provided
  * identity roots (IR). The Host will instead use bt_rand to generate
  * identity resolving keys (IRK) and store them in the settings subsystem.
- * 
+ *
  * Setting this config may come with a performance penalty to boot time,
  * as the hardware RNG may need time to generate entropy and will block
  * Bluetooth initialization.
- * 
+ *
  * This option increases privacy, as explained in the following text.
- * 
+ *
  * The IR determines the IRK of the identity. The IRK is used to both
  * generate and resolve (recognize) the private addresses of an identity.
  * The IRK is a shared secret, distributed to peers bonded to that
  * identity.
- * 
+ *
  * An attacker that has stolen or once bonded and retained the IRK can
  * forever resolve addresses from that IRK, even if that bond has been
  * deleted locally.
- * 
+ *
  * Deleting an identity should ideally delete the IRK as well and thereby
  * restore anonymity from previously bonded peers. But unless this config
  * is set, this does not always happen.
- * 
+ *
  * In particular, a factory reset function that wipes the data in the
  * settings subsystem may not affect the controller-provided IRs. If
  * those IRs are reused, this device can be tracked across factory resets.
- * 
+ *
  * For optimal privacy, a new IRK (i.e., identity) should be used per
  * bond. However, this naturally limits advertisements from that identity
  * to be recognizable by only that one bonded device.
- * 
+ *
  * A description of the exact effect of this setting follows.
- * 
+ *
  * If the application has not setup an identity before calling
  * settings_load()/settings_load_subtree("bt") after bt_enable(), the
  * Host will automatically try to load saved identities from the settings
  * subsystem, and if there are none, set up the default identity
  * (BT_ID_DEFAULT).
- * 
+ *
  * If the controller has a public address (HCI_Read_BD_ADDR), that becomes
  * the address of the default identity. The Host will by default try to
  * obtain the IR for that identity from the controller (by Zephyr HCI
  * Read_Key_Hierarchy_Roots). Setting this config randomizes the IR
  * instead.
- * 
+ *
  * If the controller does not have a public address, the Host will try
  * to source the default identity from the static address information
  * from controller (Zephyr HCI Read_Static_Addresses). This results in an
@@ -644,6 +712,57 @@ Select this for LE Peripheral role support.
     #define CONFIG_BT_SMP_ALLOW_UNAUTH_OVERWRITE 0
 #endif
 
+/*! @brief This option allows unauthenticated pairing attempts made by the
+ * peer where an unauthenticated bond already exists on other local
+ * identity. This configuration still blocks unauthenticated pairing
+ * attempts on the same local identity. To allow the pairing procedure
+ * unconditionally, please see the BT_SMP_ALLOW_UNAUTH_OVERWRITE
+ * configuration.
+ */
+#ifndef CONFIG_BT_ID_ALLOW_UNAUTH_OVERWRITE
+    #define CONFIG_BT_ID_ALLOW_UNAUTH_OVERWRITE 0
+#endif
+
+/*! @brief 	  When a bond is about to complete, find any other bond with the same
+ * peer address (or IRK) and `bt_unpair` that bond before the event
+ * pairing_complete`.
+ * 
+ * Important: If this option is not enabled, the current implementation
+ * will automatically fail the bonding. See "RL limitation" below.
+ * 
+ * Important: If this option is not enabled, as Peripheral, it may be too
+ * late to abort the bonding. The pairing is failed locally, but it may
+ * still be reported as successful on the Central. When this situation
+ * occurs, the Zephyr Peripheral will immediately disconnect. See "SMP
+ * limitation" below.
+ * 
+ * RL limitation]:
+ * The Host implementors have considered it unlikely that applications
+ * would ever want to have multiple bonds with the same peer. The
+ * implementors prioritize the simplicity of the implementation over this
+ * capability.
+ * 
+ * The Resolve List on a Controller is not able to accommodate multiple
+ * local addresses/IRKs for a single remote address. This would prevent
+ * the Host from setting up a one-to-one correspondence between the Host
+ * bond database and the Controller Resolve List. The implementation
+ * relies on that capability when using the Resolve List. For performance
+ * reasons, there is the wish to not fallback to Host Address Resolution
+ * in this case.
+
+ * [SMP Limitation]:
+ * The Paring Failed command of the Security Manager Protocol cannot be
+ * sent outside of a Pairing Process. A Pairing Process ends when the
+ * last Transport Specific Key to be distributed is acknowledged at
+ * link-layer. The Host does not have control over this acknowledgment,
+ * and the order of distribution is fixed by the specification.
+ */
+ 
+#ifndef CONFIG_BT_ID_UNPAIR_MATCHING_BONDS
+    #define CONFIG_BT_ID_UNPAIR_MATCHING_BONDS 0
+#endif
+
+
 /*! @brief Use a fixed passkey for pairing, set passkey to fixed or not.
  * With this option enabled, the application will be able to call the
  * bt_passkey_set() API to set a fixed passkey. If set, the
@@ -742,6 +861,17 @@ Select this for LE Peripheral role support.
 
 #endif /* CONFIG_BT_SETTINGS && CONFIG_BT_KEYS_OVERWRITE_OLDEST */
 
+/*! @brief Encrypted Advertising Data [EXPERIMENTAL].
+ * Enable the Encrypted Advertising Data.
+ */
+#ifndef CONFIG_BT_EAD
+    #define CONFIG_BT_EAD 0
+#endif
+
+#if (defined(CONFIG_BT_EAD) && (CONFIG_BT_EAD > 0))
+#define CONFIG_BT_HOST_CCM 1
+#endif
+
 /*! @brief Enable host side AES-CCM module.
  * Enables the software based AES-CCM engine in the host. Will use the
  * controller's AES encryption functions if available, or BT_HOST_CRYPTO
@@ -750,6 +880,7 @@ Select this for LE Peripheral role support.
 #ifndef CONFIG_BT_HOST_CCM
     #define CONFIG_BT_HOST_CCM 0
 #endif
+
 
 /*! @brief "Minimum encryption key size accepted in octets, rangeing from 7 to 16
  * This option sets the minimum encryption key size accepted during pairing.
@@ -799,6 +930,31 @@ Select this for LE Peripheral role support.
     #define CONFIG_BT_L2CAP_TX_MTU 23
     #endif
 #endif
+
+/*! @brief Delay between retries for sending L2CAP segment. Necessary because the
+ *	  stack might not be able to allocate enough conn contexts and might not
+ *	  have enough credits, leading to a state where an SDU is stuck
+ *	  mid-transfer and never resumes.
+ *
+ *	  Note that this should seldom happen, this is just to work around a few
+ *	  edge cases.
+ */
+#ifndef CONFIG_BT_L2CAP_RESCHED_MS
+    #define CONFIG_BT_L2CAP_RESCHED_MS 1000
+#endif
+
+/*! @briefL2CAP Receive segment direct API [EXPERIMENTAL]
+ * 	 Enable API for direct receiving of L2CAP SDU segments, bypassing the
+ *	 Host's fixed-function SDU re-assembler, RX SDU buffer management and
+ *	 credit issuer.
+ *   This API enforces conformance with L2CAP TS, but is otherwise as
+ *   flexible and semantically simple as possible.
+ */
+#ifndef CONFIG_BT_L2CAP_SEG_RECV
+    #define CONFIG_BT_L2CAP_SEG_RECV 0
+#endif
+
+
 
 #if ((defined(CONFIG_BT_SMP)) && (CONFIG_BT_SMP > 0))
 /*! @brief L2CAP Dynamic Channel support.
@@ -928,6 +1084,22 @@ Select this for LE Peripheral role support.
 #ifndef CONFIG_BT_GATT_SERVICE_CHANGED
     #define CONFIG_BT_GATT_SERVICE_CHANGED 1
 #endif
+
+/*! @brief Automatic re-subscription to characteristics, upon re-establishing a bonded connection, assumes the remote
+ *	  forgot the CCC values and sets them again. If this behavior is not desired for a particular subscription, set the
+ *	  `BT_GATT_SUBSCRIBE_FLAG_NO_RESUB` flag. This also means that upon a reconnection,
+ *	  the application will get an unprompted call to its `subscribe` callback.
+ */
+#ifndef CONFIG_BT_GATT_AUTO_RESUBSCRIBE
+    #define CONFIG_BT_GATT_AUTO_RESUBSCRIBE 0
+#endif
+
+#if (defined(CONFIG_BT_GATT_AUTO_RESUBSCRIBE) && (CONFIG_BT_GATT_AUTO_RESUBSCRIBE > 0))
+    #if !(defined(CONFIG_BT_GATT_CLIENT) && (CONFIG_BT_GATT_CLIENT > 0))
+        #error CONFIG_BT_GATT_AUTO_RESUBSCRIBE depends on CONFIG_BT_GATT_CLIENT
+    #endif
+#endif
+
 /*! @brief GATT dynamic database support*/
 #if CONFIG_BT_GATT_SERVICE_CHANGED
 /*! @brief GATT dynamic database support, if the macro is set to 0, feature is disabled, if 1, feature is enabled.
@@ -963,12 +1135,12 @@ Select this for LE Peripheral role support.
  * Sets the time (in milliseconds) during which consecutive GATT
  * notifications will be tentatively appended to form a single
  * ATT_MULTIPLE_HANDLE_VALUE_NTF PDU.
- * 
+ *
  * If set to 0, batching is disabled. Then, the only way to send
  * ATT_MULTIPLE_HANDLE_VALUE_NTF PDUs is to use bt_gatt_notify_multiple.
- * 
+ *
  * See the documentation of bt_gatt_notify() for more details.
- * 
+ *
  * Valid range 0 ~ 4000
  */
 #ifndef CONFIG_BT_GATT_NOTIFY_MULTIPLE_FLUSH_MS
@@ -1393,6 +1565,18 @@ Select this for LE Peripheral role support.
     #define CONFIG_BT_SETTINGS_CCC_STORE_ON_WRITE 1
 #endif
 
+/*! @brief Store CF value immediately after it has been written, if the macro is set to 0, feature is disabled, if 1, feature is enabled.
+ * Store Client Supported Features value right after it has
+ * been updated
+ * By default, CF is only stored on disconnection.
+ * Choosing this option is safer for battery-powered devices or devices
+ * that expect to be reset suddenly. However, it requires additional
+ * workqueue stack space.
+ */
+#ifndef CONFIG_BT_SETTINGS_CF_STORE_ON_WRITE
+    #define CONFIG_BT_SETTINGS_CF_STORE_ON_WRITE 1
+#endif
+
 /*! @brief Use snprintf to encode Bluetooth settings key strings, if the macro is set to 0, feature is disabled, if 1, feature is enabled.
  * When selected, Bluetooth settings will use snprintf to encode
  * key strings
@@ -1404,6 +1588,17 @@ Select this for LE Peripheral role support.
     #define CONFIG_BT_SETTINGS_USE_PRINTK 1
 #endif
 
+
+
+/*! @brief Bluetooth BR/EDR settings delayed store enable
+ * This option enables Bluetooth BR/EDR settings delayed store support, 	 
+ * Triggers the storage of the CF and CCC right after a write.
+ * This is done in the workqueue context, in order to not block the BT RX
+ * thread for too long.
+ */
+#ifndef CONFIG_BT_SETTINGS_DELAYED_STORE
+    #define CONFIG_BT_SETTINGS_DELAYED_STORE 1
+#endif
 #endif /* CONFIG_BT_SETTINGS */
 
 /*! @brief Bluetooth BR/EDR support [EXPERIMENTAL]

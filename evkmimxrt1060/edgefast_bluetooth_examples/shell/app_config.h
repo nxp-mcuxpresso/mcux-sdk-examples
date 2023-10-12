@@ -50,11 +50,11 @@
 #define CONFIG_BT_A2DP_SOURCE               1
 #define CONFIG_BT_A2DP_SINK                 1
 #define CONFIG_BT_A2DP_CP_SERVICE           1
-#define CONFIG_BT_A2DP_RECOVERY_SERVICE     1
-#define CONFIG_BT_A2DP_REPORTING_SERVICE    1
+#define CONFIG_BT_A2DP_RECOVERY_SERVICE     0
+#define CONFIG_BT_A2DP_REPORTING_SERVICE    0
 #define CONFIG_BT_A2DP_DR_SERVICE           1
-#define CONFIG_BT_A2DP_HC_SERVICE           1
-#define CONFIG_BT_A2DP_MULTIPLEXING_SERVICE 1
+#define CONFIG_BT_A2DP_HC_SERVICE           0
+#define CONFIG_BT_A2DP_MULTIPLEXING_SERVICE 0
 #define CONFIG_BT_AVRCP                     1
 #define CONFIG_BT_AVRCP_CT                  1
 #define CONFIG_BT_AVRCP_TG                  1

@@ -58,6 +58,8 @@ void spp_task(void *pvParameters)
 {
     int err;
 
+    PRINTF("Bluetooth SPP demo start...\n");
+
     /* Initialize BT Host stack */
     err = bt_enable(bt_ready);
     if (err)

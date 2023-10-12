@@ -67,9 +67,9 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../bt_module_config.h"
 "${ProjDirPath}/../dcd.c"
 "${ProjDirPath}/../dcd.h"
-"${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/controller/configs/lwipopts.h"
-"${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/controller/configs/lwippools.h"
-"${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/controller/configs/wifi_config.h"
+"${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/controller/configs/lwip/lwipopts.h"
+"${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/controller/configs/lwip/lwippools.h"
+"${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/controller/configs/wifi/wifi_config.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/platform/bt_ble_platform.c"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/platform/bt_ble_platform.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/platform/bt_ble_settings.c"
@@ -87,6 +87,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/eOSAL/eBT_serial.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/eOSAL/eBT_timer.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/include/BT_a2dp_api.h"
+"${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/include/BT_analyzer.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/include/BT_api.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/include/BT_assigned_numbers.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/include/BT_at_parser_api.h"
@@ -267,6 +268,8 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_avdtp_internal.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_conn.c"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_conn_internal.h"
+"${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_data.c"
+"${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_ead.c"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_crypto.c"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_crypto_internal.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_gatt_internal.h"
@@ -283,6 +286,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_ecc.c"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_ecc.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_addr.c"
+"${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_addr_internal.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_buf.c"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_direction.c"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/host/bt_pal_direction_internal.h"
@@ -331,7 +335,9 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/bluetooth/gap.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/bluetooth/gatt.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/bluetooth/hci.h"
-"${SdkRootDirPath}/middleware/edgefast_bluetooth/include/bluetooth/hci_err.h"
+"${SdkRootDirPath}/middleware/edgefast_bluetooth/include/bluetooth/byteorder.h"
+"${SdkRootDirPath}/middleware/edgefast_bluetooth/include/bluetooth/hci_types.h"
+"${SdkRootDirPath}/middleware/edgefast_bluetooth/include/bluetooth/ead.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/bluetooth/hci_raw.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/bluetooth/hci_vs.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/bluetooth/hfp_hf.h"
@@ -351,6 +357,10 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/porting/porting.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/porting/errno/errno.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/porting/utf8.c"
+"${SdkRootDirPath}/middleware/edgefast_bluetooth/source/porting/fifo/fifo.c"
+"${SdkRootDirPath}/middleware/edgefast_bluetooth/source/porting/fifo/fifo.h"
+"${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/crypto/bt_crypto.c"
+"${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/crypto/bt_crypto.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/porting/work_queue.c"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/sys/work_queue.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/toolchain/common.h"
@@ -365,6 +375,9 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/sys/dlist.h"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/source/porting/atomic_c.c"
 "${SdkRootDirPath}/middleware/edgefast_bluetooth/include/sys/atomic.h"
+"${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/lc3/LC3_os.h"
+"${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include/LC3_api.h"
+"${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/config/LC3_limits.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/hci_uart.c"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/hci_uart.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/controller/controller.h"
@@ -374,9 +387,10 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
-    ${SdkRootDirPath}/middleware/edgefast_bluetooth/edgefast/bluetooth/pal/bt_ble/configs
-    ${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/controller
     ${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/controller/configs
+    ${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/controller
+    ${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/controller/configs/wifi
+    ${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/controller/configs/lwip
     ${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/platform
     ${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/platform/configs
     ${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind
@@ -418,6 +432,10 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${SdkRootDirPath}/middleware/edgefast_bluetooth/include
     ${SdkRootDirPath}/middleware/edgefast_bluetooth/include/bluetooth
     ${SdkRootDirPath}/middleware/edgefast_bluetooth/source/porting
+    ${SdkRootDirPath}/middleware/edgefast_bluetooth/source/impl/ethermind/crypto
+    ${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/lc3
+    ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include
+    ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/config
     ${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/controller
 )
 

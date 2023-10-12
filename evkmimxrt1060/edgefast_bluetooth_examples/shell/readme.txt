@@ -5,7 +5,7 @@ Application demonstrating the shell mode of the simplified Adapter APIs.
 
 Toolchain supported
 ===================
-- MCUXpresso  11.6.0
+- MCUXpresso  11.7.0
 - GCC ARM Embedded  10.3.1
 
 Hardware requirements
@@ -133,6 +133,8 @@ Prepare the Demo
 Running the demo
 ================
 The log below shows the output of the example in the terminal window. 
+
+Note: Please note that whether the commands described in the document are supported depends on the specific hardware. Please use the command "help" to view the specific commands supported by the example.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 BLE shell demo start...
