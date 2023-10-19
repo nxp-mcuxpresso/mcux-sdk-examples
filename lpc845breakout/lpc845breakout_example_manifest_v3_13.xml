@@ -8,279 +8,279 @@
   <boards>
     <board id="lpc845breakout" name="LPC845BREAKOUT" href="https://www.nxp.com/pip/LPC845-BRK" version="1.0.0" package="LPC845M301JBD48">
       <examples>
-        <example id="lpc845breakout_crc" name="crc" brief="The CRC Example project is a demonstration program that uses the KSDK software to generate checksumsfor an ASCII string. Several CRC protocols are implemented using the CRC driver API." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/crc" path="examples/lpc845breakout/driver_examples/crc">
-          <external path="driver_examples/crc" type="xml">
-            <files mask="crc_v3_13.xml"/>
+        <example id="lpc845breakout_crc" name="crc" toolchain="armgcc mcuxpresso" category="driver_examples/crc" path="examples/lpc845breakout/driver_examples/crc">
+          <external path="driver_examples" type="xml">
+            <files mask="crc"/>
           </external>
         </example>
-        <example id="lpc845breakout_hello_world" name="hello_world" brief="The HelloWorld demo prints the &quot;Hello World&quot; string to the terminal using the SDK UART drivers and repeat what user input. The purpose of this demo is to show how to use the UART, and to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpc845breakout/demo_apps/hello_world">
-          <external path="demo_apps/hello_world" type="xml">
-            <files mask="hello_world_v3_13.xml"/>
+        <example id="lpc845breakout_hello_world" name="hello_world" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/lpc845breakout/demo_apps/hello_world">
+          <external path="demo_apps" type="xml">
+            <files mask="hello_world"/>
           </external>
         </example>
-        <example id="lpc845breakout_capt_key" name="capt_key" brief="This example shows how to use CAPT to detect key touch event. When the key is touched, LED on the board is on accordingly." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="touch_examples" path="examples/lpc845breakout/touch_examples/capt_key">
-          <external path="touch_examples/capt_key" type="xml">
-            <files mask="capt_key_v3_13.xml"/>
+        <example id="lpc845breakout_capt_key" name="capt_key" toolchain="armgcc mcuxpresso" category="touch_examples" path="examples/lpc845breakout/touch_examples/capt_key">
+          <external path="touch_examples" type="xml">
+            <files mask="capt_key"/>
           </external>
         </example>
-        <example id="lpc845breakout_power_mode_switch_lpc" name="power_mode_switch_lpc" brief="The power_mode_switch application shows the usage of normal power mode control APIs for entering the three kinds oflow power mode: Sleep mode, Deep Sleep mode and Power Down mode, deep power down mode. When the application runs to each low powermode, the device would cut off the power for specific modules to save energy. The device can be also waken up by prepared wakeup source from external event. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - In order to meet typedef power consumption of DateSheet manual, Please configure MCU under the following conditions.     鈥? Configure all pins as GPIO with pull-up resistor disabled in the IOCON block.     鈥? Configure GPIO pins as outputs using the GPIO DIR register.     鈥?Write 1 to the GPIO CLR register to drive the outputs LOW.     鈥?All peripherals disabled." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpc845breakout/demo_apps/power_mode_switch_lpc">
-          <external path="demo_apps/power_mode_switch_lpc" type="xml">
-            <files mask="power_mode_switch_lpc_v3_13.xml"/>
+        <example id="lpc845breakout_power_mode_switch_lpc" name="power_mode_switch_lpc" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/lpc845breakout/demo_apps/power_mode_switch_lpc">
+          <external path="demo_apps" type="xml">
+            <files mask="power_mode_switch_lpc"/>
           </external>
         </example>
-        <example id="lpc845breakout_gpio_led_output" name="gpio_led_output" brief="The GPIO Example project is a demonstration program that uses the KSDK software to manipulate the general-purposeoutputs. The example use LEDs and buttons to demonstrates GPIO API for port and pin manipulation (init, set,clear, and toggle)." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/gpio" path="examples/lpc845breakout/driver_examples/gpio/led_output">
-          <external path="driver_examples/gpio/led_output" type="xml">
-            <files mask="gpio_led_output_v3_13.xml"/>
+        <example id="lpc845breakout_gpio_led_output" name="gpio_led_output" toolchain="armgcc mcuxpresso" category="driver_examples/gpio" path="examples/lpc845breakout/driver_examples/gpio/led_output">
+          <external path="driver_examples/gpio" type="xml">
+            <files mask="led_output"/>
           </external>
         </example>
-        <example id="lpc845breakout_pint_pin_interrupt" name="pint_pin_interrupt" brief="This example shows how to use SDK drivers to use the Pin interrupt &amp; pattern match peripheral." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/pint" path="examples/lpc845breakout/driver_examples/pint/pin_interrupt">
-          <external path="driver_examples/pint/pin_interrupt" type="xml">
-            <files mask="pint_pin_interrupt_v3_13.xml"/>
+        <example id="lpc845breakout_pint_pin_interrupt" name="pint_pin_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/pint" path="examples/lpc845breakout/driver_examples/pint/pin_interrupt">
+          <external path="driver_examples/pint" type="xml">
+            <files mask="pin_interrupt"/>
           </external>
         </example>
-        <example id="lpc845breakout_pint_pattern_match" name="pint_pattern_match" brief="This example shows how to use SDK drivers to use the Pin interrupt &amp; pattern match peripheral." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/pint" path="examples/lpc845breakout/driver_examples/pint/pattern_match">
-          <external path="driver_examples/pint/pattern_match" type="xml">
-            <files mask="pint_pattern_match_v3_13.xml"/>
+        <example id="lpc845breakout_pint_pattern_match" name="pint_pattern_match" toolchain="armgcc mcuxpresso" category="driver_examples/pint" path="examples/lpc845breakout/driver_examples/pint/pattern_match">
+          <external path="driver_examples/pint" type="xml">
+            <files mask="pattern_match"/>
           </external>
         </example>
-        <example id="lpc845breakout_usart_polling_example" name="usart_polling_example" brief="The uart_polling example shows how to use uart driver in polling way:In this example, one uart instance connect to PC, the board will send back all characters that PCsend to the board. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/polling">
-          <external path="driver_examples/usart/polling" type="xml">
-            <files mask="usart_polling_example_v3_13.xml"/>
+        <example id="lpc845breakout_usart_polling_example" name="usart_polling_example" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/polling">
+          <external path="driver_examples/usart" type="xml">
+            <files mask="polling"/>
           </external>
         </example>
-        <example id="lpc845breakout_usart_terminal" name="usart_terminal" brief="This example demonstrate configuration and use of the USART module in interrupt-driven &#10;asynchronous mode on communication with a terminal emulator calling the USART &#10;transactional APIs. USART will echo back every character to terminal emulator, and send&#10;back all received characters once users press [Enter] key.&#10;" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/terminal">
-          <external path="driver_examples/usart/terminal" type="xml">
-            <files mask="usart_terminal_v3_13.xml"/>
+        <example id="lpc845breakout_usart_terminal" name="usart_terminal" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/terminal">
+          <external path="driver_examples/usart" type="xml">
+            <files mask="terminal"/>
           </external>
         </example>
-        <example id="lpc845breakout_usart_transfer_interrupt" name="usart_transfer_interrupt" brief="usart_transfer_interrupt" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/transfer_interrupt">
-          <external path="driver_examples/usart/transfer_interrupt" type="xml">
-            <files mask="usart_transfer_interrupt_v3_13.xml"/>
+        <example id="lpc845breakout_usart_transfer_interrupt" name="usart_transfer_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/transfer_interrupt">
+          <external path="driver_examples/usart" type="xml">
+            <files mask="transfer_interrupt"/>
           </external>
         </example>
-        <example id="lpc845breakout_usart_transfer_ring_buffer" name="usart_transfer_ring_buffer" brief="The usart_interrupt_rb_transfer example shows how to use usart driver in interrupt way withRX ring buffer enabled.In this example, one uart instance connect to PC through, the board will send back all charactersthat PC send to the board.Note: The example echo every 8 characters." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/transfer_ring_buffer">
-          <external path="driver_examples/usart/transfer_ring_buffer" type="xml">
-            <files mask="usart_transfer_ring_buffer_v3_13.xml"/>
+        <example id="lpc845breakout_usart_transfer_ring_buffer" name="usart_transfer_ring_buffer" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/transfer_ring_buffer">
+          <external path="driver_examples/usart" type="xml">
+            <files mask="transfer_ring_buffer"/>
           </external>
         </example>
-        <example id="lpc845breakout_usart_transfer_sync_mode" name="usart_transfer_sync_mode" brief="The usart_interrupt_sync_transfer example shows how to use usart API in synchronous mode:In this example, one usart instance will be selected as master ,and another as slave. The master will send data to slave in polling way, and slave will receive data in nonblocking way.After all data has been received by slave, info will be printed by debug console." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/transfer_sync_mode">
-          <external path="driver_examples/usart/transfer_sync_mode" type="xml">
-            <files mask="usart_transfer_sync_mode_v3_13.xml"/>
+        <example id="lpc845breakout_usart_transfer_sync_mode" name="usart_transfer_sync_mode" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/transfer_sync_mode">
+          <external path="driver_examples/usart" type="xml">
+            <files mask="transfer_sync_mode"/>
           </external>
         </example>
-        <example id="lpc845breakout_usart_transfer_dma" name="usart_transfer_dma" brief="This example shows how to use the DMA driver to implement a double buffer receive scheme from the USART The example shows the double buffer constructed using two descriptors (g_pingpong_desc). These descriptors are cycled from one to the other.Things to note- The descriptors of the ping pong transfer need to be aligned to size 16- The initial transfer will perform the same job as first descriptor of ping pong, so the first linkeage   is to go to g_pingpong_desc[1]- g_pingpong_desc[1] then chains the g_pingpong_desc[0] as the next descriptor- The properties are set up such that g_pingpong_desc[0] (and the initial configuration uses INTA to signal  back to the callback)- g_pingpong_desc[1] uses INTB to signal to the callback- The scheduled callback uses this information to know which data was last writtenA note on Performance The intent of this example is to illustrate how a double-buffer scheme can be implemented using the dma. The performance of this example will be limited to how quickly the echo printer can read-out the data from the ping pong buffer and display it. This means that the example will work well if characters are entered at a rate where the DMA callback to echo the string can keep up with the input stream. Connecting the USARTRX to a continuous fast speed will cause the DMA to fall behind.  " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/transfer_dma">
-          <external path="driver_examples/usart/transfer_dma" type="xml">
-            <files mask="usart_transfer_dma_v3_13.xml"/>
+        <example id="lpc845breakout_usart_transfer_dma" name="usart_transfer_dma" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/transfer_dma">
+          <external path="driver_examples/usart" type="xml">
+            <files mask="transfer_dma"/>
           </external>
         </example>
-        <example id="lpc845breakout_lpc_adc_basic" name="lpc_adc_basic" brief="The lpc_adc_basic example shows how to use LPC ADC driver in the simplest way.In this example, the internal temperature sensor is used to created the input analog signal. When user type in any key from the keyboard, the software trigger API is called to start the conversion. Then it polls the conversion sequence A's flag till the conversion is completed. When the conversion is completed, just print the conversion result to terminal.Project Information1.what are ADC conversion sequences?  A conversion sequence is a single pass through a series of A/D conversions performed on a selected set of  A/D channels. Software can set-up two independent conversion sequences, either of which can be triggered   by software or by a transition on one of the hardware triggers. Each sequence can be triggered by a different   hardware trigger. One of these conversion sequences is referred to as the A sequence and the other as the B  sequence. It is not necessary to employ both sequences. An optional single-step mode allows advancing through  the channels of a sequence one at a time on each successive occurrence of a trigger. The user can select whether  a trigger on the B sequence can interrupt an already-in-progress A sequence. The B sequence, however, can never be  interrupted by an A trigger.  2. How to use software-triggered conversion?   There are two ways that software can trigger a conversion sequence:      1. Start Bit: The first way to software-trigger an sequence is by setting the START bit in         the corresponding SEQn_CTRL register. The response to this is identical to         occurrence of a hardware trigger on that sequence. Specifically, one cycle of         conversions through that conversion sequence will be immediately triggered except         as indicated above. (In this example, we use this way.)      2. Burst Mode: The other way to initiate conversions is to set the BURST bit in the         SEQn_CTRL register. As long as this bit is 1 the designated conversion sequence will         be continuously and repetitively cycled through. Any new software or hardware trigger         on this sequence will be ignored.  Program Flow1.This example demonstrates how to configure the A sequences with polling, assigning one channel with software  trigger, you can configure channel via &quot;DEMO_ADC_SAMPLE_CHANNEL_NUMBER&quot;.  2.Before configuration of the ADC begins, the ADC is put through a self-calibration cycle.    3.After ADC channels are assigned to each of the sequences, the software trigger is chosen. Setting   SEQA_CTRL_START to '1' will trigger sequence A.  4.After ADC channels are assigned to each of the sequences, if the user enters any key via terminal, software trigger will start. 5.Read the corresponding DATAVALID field with polling to judge whether the conversion completes and the result is ready.  If the result is ready, the example will printf result information to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc" path="examples/lpc845breakout/driver_examples/adc/lpc_adc_basic">
-          <external path="driver_examples/adc/lpc_adc_basic" type="xml">
-            <files mask="lpc_adc_basic_v3_13.xml"/>
+        <example id="lpc845breakout_lpc_adc_basic" name="lpc_adc_basic" toolchain="armgcc mcuxpresso" category="driver_examples/adc" path="examples/lpc845breakout/driver_examples/adc/lpc_adc_basic">
+          <external path="driver_examples/adc" type="xml">
+            <files mask="lpc_adc_basic"/>
           </external>
         </example>
-        <example id="lpc845breakout_lpc_adc_interrupt" name="lpc_adc_interrupt" brief="The lpc_adc_interrupt example shows how to use interrupt with LPC ADC driver.In this example, the internal temperature sensor is used to created the input analog signal. When user type in any key from the keyboard, the software trigger API is called to start the conversion. Then it polls the flag variable which would be asserted when the conversion completed ISR is executed. Then just print the conversion result to terminal.Project Information1.what are ADC conversion sequences?  A conversion sequence is a single pass through a series of A/D conversions performed on a selected set of  A/D channels. Software can set-up two independent conversion sequences, either of which can be triggered   by software or by a transition on one of the hardware triggers. Each sequence can be triggered by a different   hardware trigger. One of these conversion sequences is referred to as the A sequence and the other as the B  sequence. It is not necessary to employ both sequences. An optional single-step mode allows advancing through  the channels of a sequence one at a time on each successive occurrence of a trigger. The user can select whether  a trigger on the B sequence can interrupt an already-in-progress A sequence. The B sequence, however, can never be  interrupted by an A trigger.  2. How to use software-triggered conversion?   There are two ways that software can trigger a conversion sequence:      1. Start Bit: The first way to software-trigger an sequence is by setting the START bit in         the corresponding SEQn_CTRL register. The response to this is identical to         occurrence of a hardware trigger on that sequence. Specifically, one cycle of         conversions through that conversion sequence will be immediately triggered except         as indicated above. (In this example, we use this way.)      2. Burst Mode: The other way to initiate conversions is to set the BURST bit in the         SEQn_CTRL register. As long as this bit is 1 the designated conversion sequence will         be continuously and repetitively cycled through. Any new software or hardware trigger         on this sequence will be ignored.          3. What kinds of interrupt do ADC have?   There are four interrupts that can be generated by the ADC:     • Conversion-Complete or Sequence-Complete interrupts for sequences A and B     • Threshold-Compare Out-of-Range Interrupt     • Data Overrun Interrupt   Any of these interrupt requests may be individually enabled or disabled in the INTEN register.  Program Flow1.This example demonstrates how to configure the A sequences with interrupt, assigning one channel with software  trigger, you can configure channel via &quot;DEMO_ADC_SAMPLE_CHANNEL_NUMBER&quot;.  2.Before configuration of the ADC begins, the ADC is put through a self-calibration cycle.  3.Enable the Conversion-Complete or Sequence-Complete interrupt for sequences A.  4.After ADC channels are assigned to each of the sequences, if the user enters any key via terminal, software trigger will start.    5.When the conversion completes, the interrupt would be triggered. The ISR will print conversion result to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc" path="examples/lpc845breakout/driver_examples/adc/lpc_adc_interrupt">
-          <external path="driver_examples/adc/lpc_adc_interrupt" type="xml">
-            <files mask="lpc_adc_interrupt_v3_13.xml"/>
+        <example id="lpc845breakout_lpc_adc_interrupt" name="lpc_adc_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/adc" path="examples/lpc845breakout/driver_examples/adc/lpc_adc_interrupt">
+          <external path="driver_examples/adc" type="xml">
+            <files mask="lpc_adc_interrupt"/>
           </external>
         </example>
-        <example id="lpc845breakout_lpc_adc_burst" name="lpc_adc_burst" brief="The lpc_adc_burst example shows how to use LPC ADC driver with the burst mode.In this example, the internal temperature sensor is used to created the input analog signal.When user type in any key from the keyboard, the burst mode is enabled. Then the conversion sequence A would be started automatically, till the burst would be disabled in conversion completed ISR. Project Information1.what are ADC conversion sequences?  A conversion sequence is a single pass through a series of A/D conversions performed on a selected set of  A/D channels. Software can set-up two independent conversion sequences, either of which can be triggered   by software or by a transition on one of the hardware triggers. Each sequence can be triggered by a different   hardware trigger. One of these conversion sequences is referred to as the A sequence and the other as the B  sequence. It is not necessary to employ both sequences. An optional single-step mode allows advancing through  the channels of a sequence one at a time on each successive occurrence of a trigger. The user can select whether  a trigger on the B sequence can interrupt an already-in-progress A sequence. The B sequence, however, can never be  interrupted by an A trigger.  2. How to use software-triggered conversion?   There are two ways that software can trigger a conversion sequence:      1. Start Bit: The first way to software-trigger an sequence is by setting the START bit in         the corresponding SEQn_CTRL register. The response to this is identical to         occurrence of a hardware trigger on that sequence. Specifically, one cycle of         conversions through that conversion sequence will be immediately triggered except         as indicated above.       2. Burst Mode: The other way to initiate conversions is to set the BURST bit in the         SEQn_CTRL register. As long as this bit is 1 the designated conversion sequence will         be continuously and repetitively cycled through. Any new software or hardware trigger         on this sequence will be ignored. (In this example, we use this way.)         3. What kinds of interrupt do ADC have?   There are four interrupts that can be generated by the ADC:     • Conversion-Complete or Sequence-Complete interrupts for sequences A and B     • Threshold-Compare Out-of-Range Interrupt     • Data Overrun Interrupt   Any of these interrupt requests may be individually enabled or disabled in the INTEN register.  Program Flow1.This example demonstrates how to configure the A sequences with burst mode, you can configure channel via   &quot;DEMO_ADC_SAMPLE_CHANNEL_NUMBER&quot;.  2.Before configuration of the ADC begins, the ADC is put through a self-calibration cycle.  3.Enable the Conversion-Complete or Sequence-Complete interrupt for sequences A.  4.After ADC channels are assigned to each of the sequences, if the user enters any key via terminal, burst mode will start.    5.When the first conversion completes, the interrupt would be triggered. The ISR will stop the burst mode and print conversion result   to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc" path="examples/lpc845breakout/driver_examples/adc/lpc_adc_burst">
-          <external path="driver_examples/adc/lpc_adc_burst" type="xml">
-            <files mask="lpc_adc_burst_v3_13.xml"/>
+        <example id="lpc845breakout_lpc_adc_burst" name="lpc_adc_burst" toolchain="armgcc mcuxpresso" category="driver_examples/adc" path="examples/lpc845breakout/driver_examples/adc/lpc_adc_burst">
+          <external path="driver_examples/adc" type="xml">
+            <files mask="lpc_adc_burst"/>
           </external>
         </example>
-        <example id="lpc845breakout_lpc_adc_dma" name="lpc_adc_dma" brief="The lpc_adc_dma example shows how to use LPC ADC driver with DMA.In this example, the internal temperature sensor is used to created the input analog signal. When user type in any key from the keyboard, the software trigger API is called to start the conversion. When the ADC conversion is completed, it would trigger the DMA to move the ADC conversion result from ADC conversion data register to user indicated memory. Then the main loop waits for the transfer to be done and print the result to terminal.Project Information1.what are ADC conversion sequences?  A conversion sequence is a single pass through a series of A/D conversions performed on a selected set of  A/D channels. Software can set-up two independent conversion sequences, either of which can be triggered   by software or by a transition on one of the hardware triggers. Each sequence can be triggered by a different   hardware trigger. One of these conversion sequences is referred to as the A sequence and the other as the B  sequence. It is not necessary to employ both sequences. An optional single-step mode allows advancing through  the channels of a sequence one at a time on each successive occurrence of a trigger. The user can select whether  a trigger on the B sequence can interrupt an already-in-progress A sequence. The B sequence, however, can never be  interrupted by an A trigger.  2. How to use software-triggered conversion?   There are two ways that software can trigger a conversion sequence:      1. Start Bit: The first way to software-trigger an sequence is by setting the START bit in         the corresponding SEQn_CTRL register. The response to this is identical to         occurrence of a hardware trigger on that sequence. Specifically, one cycle of         conversions through that conversion sequence will be immediately triggered except         as indicated above. (In this example, we use this way.)      2. Burst Mode: The other way to initiate conversions is to set the BURST bit in the         SEQn_CTRL register. As long as this bit is 1 the designated conversion sequence will         be continuously and repetitively cycled through. Any new software or hardware trigger         on this sequence will be ignored.          3. How to use DMA to work with ADC?   The sequence-A or sequence-B conversion/sequence-complete interrupts may also be   used to generate a DMA trigger. To trigger a DMA transfer, the same conditions must be   met as the conditions for generating an interrupt.   Remark: If the DMA is used, the ADC interrupt must be disabled in the NVIC.   Program Flow1.This example demonstrates how to configure the A sequences with interrupt, assigning one channel with software  trigger, you can configure channel via &quot;DEMO_ADC_SAMPLE_CHANNEL_NUMBER&quot;.  2.Before configuration of the ADC begins, the ADC is put through a self-calibration cycle.  3.Configure the DMA and DMAMUX to work with ADC sequences.4.Enable the Conversion-Complete or Sequence-Complete DMA for sequences A.  5.After ADC channels are assigned to each of the sequences, if the user enters any key via terminal, software trigger will start.    6.When the conversion completes, the DMA would be requested.7.When the DMA transfer completes, DMA will trigger a interrupt. ISR would set the &quot;bDmaTransferDone&quot; to 'true'. Then main function will   print conversion result to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc" path="examples/lpc845breakout/driver_examples/adc/lpc_adc_dma">
-          <external path="driver_examples/adc/lpc_adc_dma" type="xml">
-            <files mask="lpc_adc_dma_v3_13.xml"/>
+        <example id="lpc845breakout_lpc_adc_dma" name="lpc_adc_dma" toolchain="armgcc mcuxpresso" category="driver_examples/adc" path="examples/lpc845breakout/driver_examples/adc/lpc_adc_dma">
+          <external path="driver_examples/adc" type="xml">
+            <files mask="lpc_adc_dma"/>
           </external>
         </example>
-        <example id="lpc845breakout_lpc_dac_basic" name="lpc_dac_basic" brief="The dac_basic example shows how to use DAC module simply as the general DAC converter.When the DAC's double-buffer feature is not enabled, the CR register is used as the DAC output data register directly.The converter would always output the value of the CR register. In this example, it gets the value from terminal,outputs the DAC output voltage through DAC output pin." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dac" path="examples/lpc845breakout/driver_examples/dac/lpc_dac_basic">
-          <external path="driver_examples/dac/lpc_dac_basic" type="xml">
-            <files mask="lpc_dac_basic_v3_13.xml"/>
+        <example id="lpc845breakout_lpc_dac_basic" name="lpc_dac_basic" toolchain="armgcc mcuxpresso" category="driver_examples/dac" path="examples/lpc845breakout/driver_examples/dac/lpc_dac_basic">
+          <external path="driver_examples/dac" type="xml">
+            <files mask="lpc_dac_basic"/>
           </external>
         </example>
-        <example id="lpc845breakout_lpc_dac_interrupt" name="lpc_dac_interrupt" brief="The dac_interrupt example shows how to use DAC with interrupts and produce an arbitrary, user-defined waveform ofselectable frequency.The output can be observed with an oscilloscope. When the DAC's double-buffer feature is enabled, any write to the CR register will only load the pre-buffer, whichshares its register address with the CR register. The CR itself will be loaded from the pre-buffer whenever the counter reaches zero and the interrupt would occur. At the same time the counter is reloaded with the COUNTVALregister value. In the DAC ISR, user-defined waveform array would be transfered to pre-buffer in order." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dac" path="examples/lpc845breakout/driver_examples/dac/lpc_dac_interrupt">
-          <external path="driver_examples/dac/lpc_dac_interrupt" type="xml">
-            <files mask="lpc_dac_interrupt_v3_13.xml"/>
+        <example id="lpc845breakout_lpc_dac_interrupt" name="lpc_dac_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/dac" path="examples/lpc845breakout/driver_examples/dac/lpc_dac_interrupt">
+          <external path="driver_examples/dac" type="xml">
+            <files mask="lpc_dac_interrupt"/>
           </external>
         </example>
-        <example id="lpc845breakout_lpc_dac_dma" name="lpc_dac_dma" brief="The dac_dma example shows how to use DAC with dma and produce an arbitrary, user-defined waveform ofselectable frequency.The output can be observed with an oscilloscope. When the DAC's double-buffer feature is enabled, any write to the CR register will only load the pre-buffer, whichshares its register address with the CR register. The CR itself will be loaded from the pre-buffer whenever the counter reaches zero and the DMA request would be raised. At the same time the counter is reloaded with the COUNTVALregister value. user-defined waveform array would be transfered to pre-buffer in order by DMA." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dac" path="examples/lpc845breakout/driver_examples/dac/lpc_dac_dma">
-          <external path="driver_examples/dac/lpc_dac_dma" type="xml">
-            <files mask="lpc_dac_dma_v3_13.xml"/>
+        <example id="lpc845breakout_lpc_dac_dma" name="lpc_dac_dma" toolchain="armgcc mcuxpresso" category="driver_examples/dac" path="examples/lpc845breakout/driver_examples/dac/lpc_dac_dma">
+          <external path="driver_examples/dac" type="xml">
+            <files mask="lpc_dac_dma"/>
           </external>
         </example>
-        <example id="lpc845breakout_spi_interrupt_master" name="spi_interrupt_master" brief="The spi_interrupt_master example shows how to use spi functional API to do interrupt transfer as a master:In this example, the spi instance as master. Master sends a piece of data to slave, receive data from slave,and check if the data master received is correct. This example needs to work with spi_interrupt_slave example. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/interrupt/master">
-          <external path="driver_examples/spi/interrupt/master" type="xml">
-            <files mask="spi_interrupt_master_v3_13.xml"/>
+        <example id="lpc845breakout_spi_interrupt_master" name="spi_interrupt_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/interrupt/master">
+          <external path="driver_examples/spi/interrupt" type="xml">
+            <files mask="master"/>
           </external>
         </example>
-        <example id="lpc845breakout_spi_interrupt_slave" name="spi_interrupt_slave" brief="The spi_interrupt_slave example shows how to use spi driver as slave to receive data from master.In this example, one spi instance as slave and another spi instance on other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from master is correct. This example should work with spi_interrupt_master example. And this example should start first. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/interrupt/slave">
-          <external path="driver_examples/spi/interrupt/slave" type="xml">
-            <files mask="spi_interrupt_slave_v3_13.xml"/>
+        <example id="lpc845breakout_spi_interrupt_slave" name="spi_interrupt_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/interrupt/slave">
+          <external path="driver_examples/spi/interrupt" type="xml">
+            <files mask="slave"/>
           </external>
         </example>
-        <example id="lpc845breakout_spi_transfer_interrupt_master" name="spi_transfer_interrupt_master" brief="The spi_interrupt_transfer_master example shows how to use spi driver as master to do board to boardtransfer in interrupt way:In this example, one spi instance as master and another spi instance on othere board as slave. Mastersends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct. This example need to work with spi_interrupt_transfer_slave example. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/transfer_interrupt/master">
-          <external path="driver_examples/spi/transfer_interrupt/master" type="xml">
-            <files mask="spi_transfer_interrupt_master_v3_13.xml"/>
+        <example id="lpc845breakout_spi_transfer_interrupt_master" name="spi_transfer_interrupt_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/transfer_interrupt/master">
+          <external path="driver_examples/spi/transfer_interrupt" type="xml">
+            <files mask="master"/>
           </external>
         </example>
-        <example id="lpc845breakout_spi_transfer_interrupt_slave" name="spi_transfer_interrupt_slave" brief="The spi_interrupt_transfer_slave example shows how to use spi driver as slave to receive data from master.In this example, one spi instance as slave and another spi instance on other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from master is correct. This example should work with spi_interrupt_transfer_master example. And this example should start first. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/transfer_interrupt/slave">
-          <external path="driver_examples/spi/transfer_interrupt/slave" type="xml">
-            <files mask="spi_transfer_interrupt_slave_v3_13.xml"/>
+        <example id="lpc845breakout_spi_transfer_interrupt_slave" name="spi_transfer_interrupt_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/transfer_interrupt/slave">
+          <external path="driver_examples/spi/transfer_interrupt" type="xml">
+            <files mask="slave"/>
           </external>
         </example>
-        <example id="lpc845breakout_spi_polling_master" name="spi_polling_master" brief="The spi_polling_transfer_master example shows how to use spi driver as master to do board to boardtransfer with polling:In this example, one spi instance as master and another spi instance on othere board as slave. Mastersends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct. This example need to work with spi_polling_transfer_slave example. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/polling/master">
-          <external path="driver_examples/spi/polling/master" type="xml">
-            <files mask="spi_polling_master_v3_13.xml"/>
+        <example id="lpc845breakout_spi_polling_master" name="spi_polling_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/polling/master">
+          <external path="driver_examples/spi/polling" type="xml">
+            <files mask="master"/>
           </external>
         </example>
-        <example id="lpc845breakout_spi_polling_slave" name="spi_polling_slave" brief="The spi_polling_transfer_slave example shows how to use spi driver as slave to receive data from master.In this example, one spi instance as slave and another spi instance on other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from master is correct. This example should work with spi_polling_transfer_master example. And this example should start first." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/polling/slave">
-          <external path="driver_examples/spi/polling/slave" type="xml">
-            <files mask="spi_polling_slave_v3_13.xml"/>
+        <example id="lpc845breakout_spi_polling_slave" name="spi_polling_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/polling/slave">
+          <external path="driver_examples/spi/polling" type="xml">
+            <files mask="slave"/>
           </external>
         </example>
-        <example id="lpc845breakout_spi_transfer_dma_master" name="spi_transfer_dma_master" brief="The spi_dma_transfer_master example shows how to use driver API to transfer in DMA way.  In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checksif the data received from slave is correct. This example needs to work with spi_dma_transfer_slave example. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/transfer_dma/master">
-          <external path="driver_examples/spi/transfer_dma/master" type="xml">
-            <files mask="spi_transfer_dma_master_v3_13.xml"/>
+        <example id="lpc845breakout_spi_transfer_dma_master" name="spi_transfer_dma_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/transfer_dma/master">
+          <external path="driver_examples/spi/transfer_dma" type="xml">
+            <files mask="master"/>
           </external>
         </example>
-        <example id="lpc845breakout_spi_transfer_dma_slave" name="spi_transfer_dma_slave" brief="The spi_dma_transfer_slave example shows how to use driver API to transfer in DMA way.  In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checksif the data received from slave is correct. This example needs to work with spi_dma_transfer_master example. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/transfer_dma/slave">
-          <external path="driver_examples/spi/transfer_dma/slave" type="xml">
-            <files mask="spi_transfer_dma_slave_v3_13.xml"/>
+        <example id="lpc845breakout_spi_transfer_dma_slave" name="spi_transfer_dma_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/transfer_dma/slave">
+          <external path="driver_examples/spi/transfer_dma" type="xml">
+            <files mask="slave"/>
           </external>
         </example>
-        <example id="lpc845breakout_led_blinky" name="led_blinky" brief="The LED Blinky demo application provides a sanity check for the new SDK build environments and board bring up. The LED Blinky demo uses the systick interrupt to realize the function of timing delay. The example takes turns to shine the LED. The purpose of this demo is to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpc845breakout/demo_apps/led_blinky">
-          <external path="demo_apps/led_blinky" type="xml">
-            <files mask="led_blinky_v3_13.xml"/>
+        <example id="lpc845breakout_led_blinky" name="led_blinky" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/lpc845breakout/demo_apps/led_blinky">
+          <external path="demo_apps" type="xml">
+            <files mask="led_blinky"/>
           </external>
         </example>
-        <example id="lpc845breakout_acomp_basic" name="acomp_basic" brief="The ACOMP Basic Example shows the simplest way to use ACOMP driver and help user with a quick start.In this example, user should indicate an input channel to capture a voltage signal (can be controlled by user) as the ACOMP's negative channel input. On the postive side, the internal voltage ladder is used to generate the fixed voltage abouthalf value of reference voltage.When running the project, change the input voltage of user-defined channel, then the comparator's output would changebetween logic one and zero when the user's voltage crosses the internal ladder's output. The endless loop in main() functionwould detect the logic value of comparator's output, and change the LED. The LED would be turned on when the compareoutput is logic one, or turned off when zero." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/acomp" path="examples/lpc845breakout/driver_examples/acomp/acomp_basic">
-          <external path="driver_examples/acomp/acomp_basic" type="xml">
-            <files mask="acomp_basic_v3_13.xml"/>
+        <example id="lpc845breakout_acomp_basic" name="acomp_basic" toolchain="armgcc mcuxpresso" category="driver_examples/acomp" path="examples/lpc845breakout/driver_examples/acomp/acomp_basic">
+          <external path="driver_examples/acomp" type="xml">
+            <files mask="acomp_basic"/>
           </external>
         </example>
-        <example id="lpc845breakout_acomp_interrupt" name="acomp_interrupt" brief="The ACOMP Interrupt Example shows how to use interrupt with ACOMP driver.In this example, user should indicate an input channel to capture a voltage signal (can be controlled by user) as the ACOMP's negative channel input. On the postive side, the internal voltage ladder is used to generate the fixed voltage abouthalf value of reference voltage.When running the project, change the input voltage of user-defined channel, then the comparator's output would changebetween logic one and zero when the user-defined channel's voltage crosses the internal ladder's output. The change ofcomparator's output would generate the falling and rising edge events with their interrupts enabled. When any ACOMP interrupt happens, the ACOMP's ISR would turn on/off the LED light." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/acomp" path="examples/lpc845breakout/driver_examples/acomp/acomp_interrupt">
-          <external path="driver_examples/acomp/acomp_interrupt" type="xml">
-            <files mask="acomp_interrupt_v3_13.xml"/>
+        <example id="lpc845breakout_acomp_interrupt" name="acomp_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/acomp" path="examples/lpc845breakout/driver_examples/acomp/acomp_interrupt">
+          <external path="driver_examples/acomp" type="xml">
+            <files mask="acomp_interrupt"/>
           </external>
         </example>
-        <example id="lpc845breakout_mrt_example" name="mrt_example" brief="The MRT project is a simple demonstration program of the SDK MRT driver. It sets up the MRThardware block to trigger a periodic interrupt after every 250 milliseconds. When the PIT interrupt is triggereda message a printed on the UART terminal and an LED is toggled on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/mrt" path="examples/lpc845breakout/driver_examples/mrt">
-          <external path="driver_examples/mrt" type="xml">
-            <files mask="mrt_example_v3_13.xml"/>
+        <example id="lpc845breakout_mrt_example" name="mrt_example" toolchain="armgcc mcuxpresso" category="driver_examples/mrt" path="examples/lpc845breakout/driver_examples/mrt">
+          <external path="driver_examples" type="xml">
+            <files mask="mrt"/>
           </external>
         </example>
-        <example id="lpc845breakout_dma_memory_to_memory" name="dma_memory_to_memory" brief="The DMA memory to memory example is a simple demonstration program that uses the SDK software.It executes one shot transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA and to provide a simple example fordebugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/memory_to_memory">
-          <external path="driver_examples/dma/memory_to_memory" type="xml">
-            <files mask="dma_memory_to_memory_v3_13.xml"/>
+        <example id="lpc845breakout_dma_memory_to_memory" name="dma_memory_to_memory" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/memory_to_memory">
+          <external path="driver_examples/dma" type="xml">
+            <files mask="memory_to_memory"/>
           </external>
         </example>
-        <example id="lpc845breakout_dma_m2m_polling" name="dma_m2m_polling" brief="The DMA memory to memory example is a simple demonstration program that uses the SDK software.It executes one shot polling transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA and to provide a simple example for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/m2m_polling">
-          <external path="driver_examples/dma/m2m_polling" type="xml">
-            <files mask="dma_m2m_polling_v3_13.xml"/>
+        <example id="lpc845breakout_dma_m2m_polling" name="dma_m2m_polling" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/m2m_polling">
+          <external path="driver_examples/dma" type="xml">
+            <files mask="m2m_polling"/>
           </external>
         </example>
-        <example id="lpc845breakout_wwdt_example" name="wwdt_example" brief="The WDOG Example project is to demonstrate usage of the KSDK wdog driver.In this example,quick test is first implemented to test the wdog.And then after 5 times of refreshing the watchdog, a timeout reset is generated." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/wwdt" path="examples/lpc845breakout/driver_examples/wwdt">
-          <external path="driver_examples/wwdt" type="xml">
-            <files mask="wwdt_example_v3_13.xml"/>
+        <example id="lpc845breakout_wwdt_example" name="wwdt_example" toolchain="armgcc mcuxpresso" category="driver_examples/wwdt" path="examples/lpc845breakout/driver_examples/wwdt">
+          <external path="driver_examples" type="xml">
+            <files mask="wwdt"/>
           </external>
         </example>
-        <example id="lpc845breakout_sctimer_simple_pwm" name="sctimer_simple_pwm" brief="The SCTimer project is a simple demonstration program of the SDK SCTimer's driver capabiltiy to generate PWM signals." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="examples/lpc845breakout/driver_examples/sctimer/simple_pwm">
-          <external path="driver_examples/sctimer/simple_pwm" type="xml">
-            <files mask="sctimer_simple_pwm_v3_13.xml"/>
+        <example id="lpc845breakout_sctimer_simple_pwm" name="sctimer_simple_pwm" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/lpc845breakout/driver_examples/sctimer/simple_pwm">
+          <external path="driver_examples/sctimer" type="xml">
+            <files mask="simple_pwm"/>
           </external>
         </example>
-        <example id="lpc845breakout_sctimer_pwm_with_dutycyle_change" name="sctimer_pwm_with_dutycyle_change" brief="This SCTIMer project is a demonstration program of the SDK SCTimer driver's PWM generation. It sets up a PWM signaland periodically updates the PWM signals dutycycle." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="examples/lpc845breakout/driver_examples/sctimer/pwm_with_dutycyle_change">
-          <external path="driver_examples/sctimer/pwm_with_dutycyle_change" type="xml">
-            <files mask="sctimer_pwm_with_dutycyle_change_v3_13.xml"/>
+        <example id="lpc845breakout_sctimer_pwm_with_dutycyle_change" name="sctimer_pwm_with_dutycyle_change" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/lpc845breakout/driver_examples/sctimer/pwm_with_dutycyle_change">
+          <external path="driver_examples/sctimer" type="xml">
+            <files mask="pwm_with_dutycyle_change"/>
           </external>
         </example>
-        <example id="lpc845breakout_sctimer_multi_state_pwm" name="sctimer_multi_state_pwm" brief="The SCTImer multi-state project is a demonstration program of the SCTimer state machine. It shows how to set up events to be triggered in a certain stateand transitioning between states.State 0 has 2 events that generate a PWM signal, it also has an event linked to an input signal to transition to State 1.State 1 has 4 events that generate 2 PWM signals, it also has an event linked to an input signal to transition to State 0." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="examples/lpc845breakout/driver_examples/sctimer/multi_state_pwm">
-          <external path="driver_examples/sctimer/multi_state_pwm" type="xml">
-            <files mask="sctimer_multi_state_pwm_v3_13.xml"/>
+        <example id="lpc845breakout_sctimer_multi_state_pwm" name="sctimer_multi_state_pwm" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/lpc845breakout/driver_examples/sctimer/multi_state_pwm">
+          <external path="driver_examples/sctimer" type="xml">
+            <files mask="multi_state_pwm"/>
           </external>
         </example>
-        <example id="lpc845breakout_sctimer_16bit_counter" name="sctimer_16bit_counter" brief="The SCTimer 16-bit counter project is a demonstration program of the SDK SCTimer driver operation when using the SCTimer counteras two 16-bit counters.The example toggles an output per counter when a match occurs." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="examples/lpc845breakout/driver_examples/sctimer/16bit_counter">
-          <external path="driver_examples/sctimer/16bit_counter" type="xml">
-            <files mask="sctimer_16bit_counter_v3_13.xml"/>
+        <example id="lpc845breakout_sctimer_16bit_counter" name="sctimer_16bit_counter" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/lpc845breakout/driver_examples/sctimer/16bit_counter">
+          <external path="driver_examples/sctimer" type="xml">
+            <files mask="16bit_counter"/>
           </external>
         </example>
-        <example id="lpc845breakout_ctimer_pwm_example" name="ctimer_pwm_example" brief="The CTimer Example project is to demonstrate usage of the KSDK ctimer driver.In this example, CTimer is used to generate a PWM signal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ctimer" path="examples/lpc845breakout/driver_examples/ctimer/simple_pwm">
-          <external path="driver_examples/ctimer/simple_pwm" type="xml">
-            <files mask="ctimer_pwm_example_v3_13.xml"/>
+        <example id="lpc845breakout_ctimer_pwm_example" name="ctimer_pwm_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/lpc845breakout/driver_examples/ctimer/simple_pwm">
+          <external path="driver_examples/ctimer" type="xml">
+            <files mask="simple_pwm"/>
           </external>
         </example>
-        <example id="lpc845breakout_ctimer_pwm_interrupt_example" name="ctimer_pwm_interrupt_example" brief="The Simple PWM Interrupt project is to demonstrate usage of the SDK CTimer driver as a PWM with interrupt callback functionsIn this example an IO pin connected to the LED is used as a PWM output line to generate a PWM signal.With an interrupt callback the PWM duty cycle is changed frequently in such a way that the LED brightness can be varied." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ctimer" path="examples/lpc845breakout/driver_examples/ctimer/simple_pwm_interrupt">
-          <external path="driver_examples/ctimer/simple_pwm_interrupt" type="xml">
-            <files mask="ctimer_pwm_interrupt_example_v3_13.xml"/>
+        <example id="lpc845breakout_ctimer_pwm_interrupt_example" name="ctimer_pwm_interrupt_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/lpc845breakout/driver_examples/ctimer/simple_pwm_interrupt">
+          <external path="driver_examples/ctimer" type="xml">
+            <files mask="simple_pwm_interrupt"/>
           </external>
         </example>
-        <example id="lpc845breakout_ctimer_match_example" name="ctimer_match_example" brief="The CTimer Example project is to demonstrate usage of the KSDK ctimer driver.In this example, the match feature of the CTimer is used to toggle the output level." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ctimer" path="examples/lpc845breakout/driver_examples/ctimer/simple_match">
-          <external path="driver_examples/ctimer/simple_match" type="xml">
-            <files mask="ctimer_match_example_v3_13.xml"/>
+        <example id="lpc845breakout_ctimer_match_example" name="ctimer_match_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/lpc845breakout/driver_examples/ctimer/simple_match">
+          <external path="driver_examples/ctimer" type="xml">
+            <files mask="simple_match"/>
           </external>
         </example>
-        <example id="lpc845breakout_ctimer_match_interrupt_example" name="ctimer_match_interrupt_example" brief="The Simple Match Interrupt project is to demonstrate usage of the SDK CTimer driver with interrupt callback functionsIn this example the upon match and IO pin connected to the LED is toggled and the timer is reset, so it would generate a square wave.With an interrupt callback the match value is changed frequently in such a way that the frequency of the output square wave is increased gradually." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ctimer" path="examples/lpc845breakout/driver_examples/ctimer/simple_match_interrupt">
-          <external path="driver_examples/ctimer/simple_match_interrupt" type="xml">
-            <files mask="ctimer_match_interrupt_example_v3_13.xml"/>
+        <example id="lpc845breakout_ctimer_match_interrupt_example" name="ctimer_match_interrupt_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/lpc845breakout/driver_examples/ctimer/simple_match_interrupt">
+          <external path="driver_examples/ctimer" type="xml">
+            <files mask="simple_match_interrupt"/>
           </external>
         </example>
-        <example id="lpc845breakout_wkt_example" name="wkt_example" brief="The WKT project is a simple demonstration program of the SDK WKT driver. It sets up the WKT hardware block to trigger a periodic interrupt after loading a counter value and counting down to 0. When the WKT interrupt is triggered a message printed on the UART terminal and the LED is toggled on the board.Depending on the clock source, the WKT can be used for waking up the part from any low power mode or for general-purposetiming." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/wkt" path="examples/lpc845breakout/driver_examples/wkt">
-          <external path="driver_examples/wkt" type="xml">
-            <files mask="wkt_example_v3_13.xml"/>
+        <example id="lpc845breakout_wkt_example" name="wkt_example" toolchain="armgcc mcuxpresso" category="driver_examples/wkt" path="examples/lpc845breakout/driver_examples/wkt">
+          <external path="driver_examples" type="xml">
+            <files mask="wkt"/>
           </external>
         </example>
-        <example id="lpc845breakout_capt_basic" name="capt_basic" brief="This example shows how to capture touch data using CAPT poll-now mode." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/capt" path="examples/lpc845breakout/driver_examples/capt/capt_basic">
-          <external path="driver_examples/capt/capt_basic" type="xml">
-            <files mask="capt_basic_v3_13.xml"/>
+        <example id="lpc845breakout_capt_basic" name="capt_basic" toolchain="armgcc mcuxpresso" category="driver_examples/capt" path="examples/lpc845breakout/driver_examples/capt/capt_basic">
+          <external path="driver_examples/capt" type="xml">
+            <files mask="capt_basic"/>
           </external>
         </example>
-        <example id="lpc845breakout_capt_acomp" name="capt_acomp" brief="This example shows how to capture touch data using CAPT poll-now mode. This example uses ACOMP instead of GPIO in measurement stage." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/capt" path="examples/lpc845breakout/driver_examples/capt/capt_acomp">
-          <external path="driver_examples/capt/capt_acomp" type="xml">
-            <files mask="capt_acomp_v3_13.xml"/>
+        <example id="lpc845breakout_capt_acomp" name="capt_acomp" toolchain="armgcc mcuxpresso" category="driver_examples/capt" path="examples/lpc845breakout/driver_examples/capt/capt_acomp">
+          <external path="driver_examples/capt" type="xml">
+            <files mask="capt_acomp"/>
           </external>
         </example>
-        <example id="lpc845breakout_capt_basic_continuous" name="capt_basic_continuous" brief="This example shows how to capture touch data using CAPT continuous mode." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/capt" path="examples/lpc845breakout/driver_examples/capt/capt_basic_continuous">
-          <external path="driver_examples/capt/capt_basic_continuous" type="xml">
-            <files mask="capt_basic_continuous_v3_13.xml"/>
+        <example id="lpc845breakout_capt_basic_continuous" name="capt_basic_continuous" toolchain="armgcc mcuxpresso" category="driver_examples/capt" path="examples/lpc845breakout/driver_examples/capt/capt_basic_continuous">
+          <external path="driver_examples/capt" type="xml">
+            <files mask="capt_basic_continuous"/>
           </external>
         </example>
-        <example id="lpc845breakout_capt_acomp_continuous" name="capt_acomp_continuous" brief="This example shows how to capture touch data using CAPT continuous mode. This example uses ACOMP instead of GPIO in measurement stage." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/capt" path="examples/lpc845breakout/driver_examples/capt/capt_acomp_continuous">
-          <external path="driver_examples/capt/capt_acomp_continuous" type="xml">
-            <files mask="capt_acomp_continuous_v3_13.xml"/>
+        <example id="lpc845breakout_capt_acomp_continuous" name="capt_acomp_continuous" toolchain="armgcc mcuxpresso" category="driver_examples/capt" path="examples/lpc845breakout/driver_examples/capt/capt_acomp_continuous">
+          <external path="driver_examples/capt" type="xml">
+            <files mask="capt_acomp_continuous"/>
           </external>
         </example>
-        <example id="lpc845breakout_dma_channel_chain" name="dma_channel_chain" brief="The DMA channel chain example is a simple demonstration program that uses the SDK software.The purpose of this example is to show how to use the DMA channel chain feature." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/channel_chain">
-          <external path="driver_examples/dma/channel_chain" type="xml">
-            <files mask="dma_channel_chain_v3_13.xml"/>
+        <example id="lpc845breakout_dma_channel_chain" name="dma_channel_chain" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/channel_chain">
+          <external path="driver_examples/dma" type="xml">
+            <files mask="channel_chain"/>
           </external>
         </example>
-        <example id="lpc845breakout_dma_interleave_transfer" name="dma_interleave_transfer" brief="The DMA interleave transfer example is a simple demonstration program that uses the SDK software.It executes a linked transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA interleave feature." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/interleave_transfer">
-          <external path="driver_examples/dma/interleave_transfer" type="xml">
-            <files mask="dma_interleave_transfer_v3_13.xml"/>
+        <example id="lpc845breakout_dma_interleave_transfer" name="dma_interleave_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/interleave_transfer">
+          <external path="driver_examples/dma" type="xml">
+            <files mask="interleave_transfer"/>
           </external>
         </example>
-        <example id="lpc845breakout_dma_linked_transfer" name="dma_linked_transfer" brief="The DMA linked transfer example is a simple demonstration program that uses the SDK software.It executes a linked transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA and to provide a linked trnasfer example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/linked_transfer">
-          <external path="driver_examples/dma/linked_transfer" type="xml">
-            <files mask="dma_linked_transfer_v3_13.xml"/>
+        <example id="lpc845breakout_dma_linked_transfer" name="dma_linked_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/linked_transfer">
+          <external path="driver_examples/dma" type="xml">
+            <files mask="linked_transfer"/>
           </external>
         </example>
-        <example id="lpc845breakout_dma_wrap_transfer" name="dma_wrap_transfer" brief="The DMA wrap transfer example is a simple demonstration program that uses the SDK software.It executes a wrap transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA wrap feature." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/wrap_transfer">
-          <external path="driver_examples/dma/wrap_transfer" type="xml">
-            <files mask="dma_wrap_transfer_v3_13.xml"/>
+        <example id="lpc845breakout_dma_wrap_transfer" name="dma_wrap_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/wrap_transfer">
+          <external path="driver_examples/dma" type="xml">
+            <files mask="wrap_transfer"/>
           </external>
         </example>
-        <example id="lpc845breakout_iap_basic" name="iap_basic" brief="The IAP project is a simple demonstration program of the SDK IAP driver. It reads part id, boot code version, unique id and reinvoke ISP. A message a printed on the UART terminal as various bascial iap operations are performed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/iap" path="examples/lpc845breakout/driver_examples/iap/iap_basic">
-          <external path="driver_examples/iap/iap_basic" type="xml">
-            <files mask="iap_basic_v3_13.xml"/>
+        <example id="lpc845breakout_iap_basic" name="iap_basic" toolchain="armgcc mcuxpresso" category="driver_examples/iap" path="examples/lpc845breakout/driver_examples/iap/iap_basic">
+          <external path="driver_examples/iap" type="xml">
+            <files mask="iap_basic"/>
           </external>
         </example>
-        <example id="lpc845breakout_iap_flash" name="iap_flash" brief="The IAP Flash project is a simple demonstration program of the SDK IAP driver. It erases and programs a portion of on-chip flash memory. A message a printed on the UART terminal as various operations on flash memory are performed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/iap" path="examples/lpc845breakout/driver_examples/iap/iap_flash">
-          <external path="driver_examples/iap/iap_flash" type="xml">
-            <files mask="iap_flash_v3_13.xml"/>
+        <example id="lpc845breakout_iap_flash" name="iap_flash" toolchain="armgcc mcuxpresso" category="driver_examples/iap" path="examples/lpc845breakout/driver_examples/iap/iap_flash">
+          <external path="driver_examples/iap" type="xml">
+            <files mask="iap_flash"/>
           </external>
         </example>
-        <example id="lpc845breakout_iap_faim" name="iap_faim" brief="The IAP FAIM project is a simple demonstration program of the SDK IAP driver. It writes and reads the FAIM page. A message a printed on the UART terminal as FAIM read and write operations are performed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/iap" path="examples/lpc845breakout/driver_examples/iap/iap_faim">
-          <external path="driver_examples/iap/iap_faim" type="xml">
-            <files mask="iap_faim_v3_13.xml"/>
+        <example id="lpc845breakout_iap_faim" name="iap_faim" toolchain="armgcc mcuxpresso" category="driver_examples/iap" path="examples/lpc845breakout/driver_examples/iap/iap_faim">
+          <external path="driver_examples/iap" type="xml">
+            <files mask="iap_faim"/>
           </external>
         </example>
       </examples>
