@@ -68,7 +68,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/eiq/glow/examples/multicore_secure_ml/m4/app.h"
 "${SdkRootDirPath}/middleware/eiq/glow/examples/multicore_secure_ml/m4/hardware_init.c"
 "${SdkRootDirPath}/middleware/eiq/glow/examples/multicore_secure_ml/m4/main_m4.c"
-"${ProjDirPath}/../../erpc_config.h"
+"${SdkRootDirPath}/middleware/multicore/erpc/internal/boards/freertos/mu/erpc_config.h"
 "${SdkRootDirPath}/middleware/eiq/glow/examples/multicore_secure_ml/m4/demo_config.h"
 "${SdkRootDirPath}/middleware/eiq/glow/examples/multicore_secure_ml/m4/image_data.h"
 "${SdkRootDirPath}/middleware/eiq/glow/examples/multicore_secure_ml/source/input_image.inc"

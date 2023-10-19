@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_lpcxpresso55s06cp_examples_manifest_v3_10" name="SDK_2.x_lpcxpresso55s06cp_examples_manifest_v3_10" format_version="3.10" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.10.xsd">
+  <!--Timestamp (UTC): 2023-01-10 16:35:53.389515-->
+  <!--This manifest is generated based on sdk repo commit: 11a5f6af5190bfe018a89b4d02c239713dc4cfa6-->
+  <externalDefinitions>
+    <definition extID="LPC5506JHI48CPXXXX"/>
+    <definition extID="armgcc"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="compiler_gcc"/>
+  </externalDefinitions>
+  <ksdk id="MCUXpressoSDK2130_lpcxpresso55s06cp_examples_manifest_v3_10" name="MCUXpressoSDK2130_lpcxpresso55s06cp_examples_manifest_v3_10" version="2.13.0"/>
+  <boards>
+    <board id="lpcxpresso55s06cp" name="LPCXpresso55S06CP" href="" version="1.0.0" package="LPC5506JHI48CPXXXX">
+      <examples>
+        <example id="lpcxpresso55s06cp_anactrl_measure_frequency" name="anactrl_measure_frequency" brief="The anactrl_measure_frequency Example project is to demonstrate usage of the KSDK anactrl driver. In the example, you can set a reference clock and target clock. The project will calculate the frequency of the target clock according to the reference clock frequency." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/anactrl" path="driver_examples/anactrl/measure_frequency">
+          <external path="driver_examples/anactrl/measure_frequency" type="xml">
+            <files mask="anactrl_measure_frequency_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_cdog" name="cdog" brief="The CDOG Example project is a demonstration program that uses the KSDK software to show funcionality of Code Watchdog Timer." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/cdog" path="driver_examples/cdog">
+          <external path="driver_examples/cdog" type="xml">
+            <files mask="cdog_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_cmp_interrupt" name="cmp_interrupt" brief="The CMP interrupt Example shows how to use interrupt with CMP driver." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/cmp" path="driver_examples/cmp/interrupt">
+          <external path="driver_examples/cmp/interrupt" type="xml">
+            <files mask="cmp_interrupt_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_cmp_polling" name="cmp_polling" brief="The CMP polling Example shows the simplest way to use CMP driver" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/cmp" path="driver_examples/cmp/polling">
+          <external path="driver_examples/cmp/polling" type="xml">
+            <files mask="cmp_polling_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_cmsis_i2c_dma_b2b_transfer_master" name="cmsis_i2c_dma_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_i2c_dma_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with DMA:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="cmsis_driver_examples/i2c/dma_b2b_transfer/master">
+          <external path="cmsis_driver_examples/i2c/dma_b2b_transfer/master" type="xml">
+            <files mask="cmsis_i2c_dma_b2b_transfer_master_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_cmsis_i2c_dma_b2b_transfer_slave" name="cmsis_i2c_dma_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_i2c_dma_b2b_transfer_slave example shows how to use i2c driver as slave to do board to board transfer with a DMA master:In this example, one i2c instance as slave and another i2c instance on the other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="cmsis_driver_examples/i2c/dma_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/i2c/dma_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_i2c_dma_b2b_transfer_slave_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_cmsis_i2c_int_b2b_transfer_master" name="cmsis_i2c_int_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The i2c_interrupt_b2b_transfer_master example shows how to use CMSIS i2c driver as master to do board to board transfer with interrupt:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="cmsis_driver_examples/i2c/int_b2b_transfer/master">
+          <external path="cmsis_driver_examples/i2c/int_b2b_transfer/master" type="xml">
+            <files mask="cmsis_i2c_int_b2b_transfer_master_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_cmsis_i2c_int_b2b_transfer_slave" name="cmsis_i2c_int_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The i2c_interrupt_b2b_transfer_master example shows how to use CMSIS i2c driver as master to do board to board transfer with interrupt:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="cmsis_driver_examples/i2c/int_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/i2c/int_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_i2c_int_b2b_transfer_slave_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_cmsis_spi_dma_b2b_transfer_master" name="cmsis_spi_dma_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_spi_dma_b2b_transfer_master example shows how to use spi driver as master to do board to board transfer with DMA:In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="cmsis_driver_examples/spi/dma_b2b_transfer/master">
+          <external path="cmsis_driver_examples/spi/dma_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_dma_b2b_transfer_master_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_cmsis_spi_dma_b2b_transfer_slave" name="cmsis_spi_dma_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_spi_dma_b2b_transfer_slave example shows how to use spi driver as master to do board to board transfer with DMA:In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="cmsis_driver_examples/spi/dma_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/spi/dma_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_dma_b2b_transfer_slave_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_cmsis_spi_int_b2b_transfer_master" name="cmsis_spi_int_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_spi_interrupt_b2b_transfer_master example shows how to use CMSIS spi driver as master to do board to board transfer with interrupt:In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="cmsis_driver_examples/spi/int_b2b_transfer/master">
+          <external path="cmsis_driver_examples/spi/int_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_int_b2b_transfer_master_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_cmsis_spi_int_b2b_transfer_slave" name="cmsis_spi_int_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_spi_interrupt_b2b_transfer_slave example shows how to use CMSIS spi driver as master to do board to board transfer with interrupt:In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="cmsis_driver_examples/spi/int_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/spi/int_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_int_b2b_transfer_slave_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_cmsis_usart_dma_transfer" name="cmsis_usart_dma_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_uart_edma_transfer example shows how to use uart cmsis  driver with EDMA:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/usart" path="cmsis_driver_examples/usart/dma_transfer">
+          <external path="cmsis_driver_examples/usart/dma_transfer" type="xml">
+            <files mask="cmsis_usart_dma_transfer_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_cmsis_usart_interrupt_transfer" name="cmsis_usart_interrupt_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_uart_interrupt_transfer example shows how to use uart cmsis driver in interrupt way:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/usart" path="cmsis_driver_examples/usart/interrupt_transfer">
+          <external path="cmsis_driver_examples/usart/interrupt_transfer" type="xml">
+            <files mask="cmsis_usart_interrupt_transfer_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_crc" name="crc" brief="The CRC Example project is a demonstration program that uses the KSDK software to generate checksumsfor an ASCII string. Several CRC protocols are implemented using the CRC driver API." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/crc" path="driver_examples/crc">
+          <external path="driver_examples/crc" type="xml">
+            <files mask="crc_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_ctimer_match_example" name="ctimer_match_example" brief="The CTimer Example project is to demonstrate usage of the KSDK ctimer driver.In this example, the match feature of the CTimer is used to toggle the output level." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ctimer" path="driver_examples/ctimer/simple_match">
+          <external path="driver_examples/ctimer/simple_match" type="xml">
+            <files mask="ctimer_match_example_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_ctimer_match_interrupt_example" name="ctimer_match_interrupt_example" brief="The Simple Match Interrupt project is to demonstrate usage of the SDK CTimer driver with interrupt callback functionsIn this example the upon match and IO pin connected to the LED is toggled and the timer is reset, so it would generate a square wave.With an interrupt callback the match value is changed frequently in such a way that the frequency of the output square wave is increased gradually." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ctimer" path="driver_examples/ctimer/simple_match_interrupt">
+          <external path="driver_examples/ctimer/simple_match_interrupt" type="xml">
+            <files mask="ctimer_match_interrupt_example_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_ctimer_pwm_example" name="ctimer_pwm_example" brief="The CTimer Example project is to demonstrate usage of the KSDK ctimer driver.In this example, CTimer is used to generate a PWM signal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ctimer" path="driver_examples/ctimer/simple_pwm">
+          <external path="driver_examples/ctimer/simple_pwm" type="xml">
+            <files mask="ctimer_pwm_example_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_ctimer_pwm_interrupt_example" name="ctimer_pwm_interrupt_example" brief="The Simple PWM Interrupt project is to demonstrate usage of the SDK CTimer driver as a PWM with interrupt callback functionsIn this example an IO pin connected to the LED is used as a PWM output line to generate a PWM signal.With an interrupt callback the PWM duty cycle is changed frequently in such a way that the LED brightness can be varied." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ctimer" path="driver_examples/ctimer/simple_pwm_interrupt">
+          <external path="driver_examples/ctimer/simple_pwm_interrupt" type="xml">
+            <files mask="ctimer_pwm_interrupt_example_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_dma_channel_chain" name="dma_channel_chain" brief="The DMA channel chain example is a simple demonstration program that uses the SDK software.The purpose of this example is to show how to use the DMA channel chain feature." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="driver_examples/dma/channel_chain">
+          <external path="driver_examples/dma/channel_chain" type="xml">
+            <files mask="dma_channel_chain_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_dma_interleave_transfer" name="dma_interleave_transfer" brief="The DMA interleave transfer example is a simple demonstration program that uses the SDK software.It executes a linked transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA interleave feature." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="driver_examples/dma/interleave_transfer">
+          <external path="driver_examples/dma/interleave_transfer" type="xml">
+            <files mask="dma_interleave_transfer_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_dma_linked_transfer" name="dma_linked_transfer" brief="The DMA linked transfer example is a simple demonstration program that uses the SDK software.It executes a linked transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA and to provide a linked trnasfer example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="driver_examples/dma/linked_transfer">
+          <external path="driver_examples/dma/linked_transfer" type="xml">
+            <files mask="dma_linked_transfer_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_dma_memory_to_memory" name="dma_memory_to_memory" brief="The DMA memory to memory example is a simple demonstration program that uses the SDK software.It executes one shot transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA and to provide a simple example fordebugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="driver_examples/dma/memory_to_memory">
+          <external path="driver_examples/dma/memory_to_memory" type="xml">
+            <files mask="dma_memory_to_memory_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_dma_wrap_transfer" name="dma_wrap_transfer" brief="The DMA wrap transfer example is a simple demonstration program that uses the SDK software.It executes a wrap transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA wrap feature." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="driver_examples/dma/wrap_transfer">
+          <external path="driver_examples/dma/wrap_transfer" type="xml">
+            <files mask="dma_wrap_transfer_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_flashiap1" name="flashiap1" brief="The FLASIAP project is a simple demonstration program of the SDK FLASIAP driver. It erases and programs a portion of on-chip flash memory. A message a printed on the UART terminal as various operations on flash memory are performed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/flashiap1" path="driver_examples/flashiap">
+          <external path="driver_examples/flashiap" type="xml">
+            <files mask="flashiap1_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_freertos_event" name="freertos_event" brief="This document explains the freertos_event example. It shows how task waits for an event (defined setof bits in event group). This event can be set by any other process or interrupt in the system.The example application creates three tasks. Two write tasks write_task_1 and write_task_2continuously setting event bit 0 and bit 1.Read_task is waiting for any event bit and printing actual state on console. Event bits areautomatically cleared after read task is entered.Three possible states can occurre:Both bits are set.zBit B0 is set.Bit B1 is set." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="rtos_examples/freertos_event">
+          <external path="rtos_examples/freertos_event" type="xml">
+            <files mask="freertos_event_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_freertos_generic" name="freertos_generic" brief="This document explains the freertos_generic example. It is based on code FreeRTOS documentation fromhttp://www.freertos.org/Hardware-independent-RTOS-example.html. It shows combination of severaltasks with queue, software timer, tick hook and semaphore.The example application creates three tasks. The prvQueueSendTask periodically sending data toxQueue queue. The prvQueueReceiveTask is waiting for incoming message and counting number ofreceived messages. Task prvEventSemaphoreTask is waiting for xEventSemaphore semaphore given fromvApplicationTickHook. Tick hook give semaphore every 500 ms.Other hook types used for RTOS and resource statistics are also demonstrated in example:* vApplicationIdleHook* vApplicationStackOverflowHook* vApplicationMallocFailedHook" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="rtos_examples/freertos_generic">
+          <external path="rtos_examples/freertos_generic" type="xml">
+            <files mask="freertos_generic_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART drivere incombination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="rtos_examples/freertos_hello">
+          <external path="rtos_examples/freertos_hello" type="xml">
+            <files mask="freertos_hello_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_freertos_i2c" name="freertos_i2c" brief="The freertos_i2c example shows an application using RTOS tasks with I2C driver:The example supports 2 different connections:On board connection and board to board connection.With one board connection, 2 I2C instances of the same board are used. One i2c instance used as I2C master and another I2C instance used as I2C slave .    Default settings in freertos_i2c.c (in folder boards/&lt;board&gt;/rtos_examples/freertos_i2c) is applied.    Two tasks are created. One task is associated with an I2C master operation and another task deals with I2C slave operation.    1. I2C master task sends data to I2C slave task.    2. I2C master task reads data sent back from I2C slave task.    The transmit data and the receive data of both I2C master task and I2C slave task are printed out on terminal.With board to board connection, one I2C instance on one board is used as I2C master and the I2C instance on other board is used as I2C slave. Tasks are created to run on each board to handle I2C communication.    File freertos_i2c.c should have following definitions:    #define EXAMPLE_CONNECT_I2C BOARD_TO_BOARD    For board used as I2C master:        #define I2C_MASTER_SLAVE isMASTER    For board used as I2C slave:        #define I2C_MASTER_SLAVE isSLAVE" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="rtos_examples/freertos_i2c">
+          <external path="rtos_examples/freertos_i2c" type="xml">
+            <files mask="freertos_i2c_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_freertos_mutex" name="freertos_mutex" brief="This document explains the freertos_mutex example. It shows how mutex manage access to commonresource (terminal output).The example application creates two identical instances of write_task. Each task will lock the mutexbefore printing and unlock it after printing to ensure that the outputs from tasks are not mixedtogether.The test_task accept output message during creation as function parameter. Output message have twoparts. If xMutex is unlocked, the write_task_1 acquire xMutex and print first part of message. Thenrescheduling is performed. In this moment scheduler check if some other task could run, but secondtask write_task+_2 is blocked because xMutex is already locked by first write task. The firstwrite_task_1 continue from last point by printing of second message part. Finaly the xMutex isunlocked and second instance of write_task_2 is executed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="rtos_examples/freertos_mutex">
+          <external path="rtos_examples/freertos_mutex" type="xml">
+            <files mask="freertos_mutex_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_freertos_queue" name="freertos_queue" brief="This document explains the freertos_queue example. This example introduce simple logging mechanismbased on message passing.Example could be devided in two parts. First part is logger. It contain three tasks:log_add().....Add new message into the log. Call xQueueSend function to pass new message into              message queue.log_init()....Initialize logger (create logging task and message queue log_queue).log_task()....Task responsible for printing of log output.Second part is application of this simple logging mechanism. Each of two tasks write_task_1 andwrite_task_2 print 5 messages into log." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="rtos_examples/freertos_queue">
+          <external path="rtos_examples/freertos_queue" type="xml">
+            <files mask="freertos_queue_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_freertos_sem" name="freertos_sem" brief="This document explains the freertos_sem example, what to expect when running it and a briefintroduction to the API. The freertos_sem example code shows how semaphores works. Two differenttasks are synchronized in bilateral rendezvous model.The example uses four tasks. One producer_task and three consumer_tasks. The producer_task starts bycreating of two semaphores (xSemaphore_producer and xSemaphore_consumer). These semaphores controlaccess to virtual item. The synchronization is based on bilateral rendezvous pattern. Both ofconsumer and producer must be prepared to enable transaction." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="rtos_examples/freertos_sem">
+          <external path="rtos_examples/freertos_sem" type="xml">
+            <files mask="freertos_sem_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_freertos_swtimer" name="freertos_swtimer" brief="This document explains the freertos_swtimer example. It shows usage of software timer and itscallback.The example application creates one software timer SwTimer. The timer’s callback SwTimerCallback isperiodically executed and text &quot;Tick.&quot; is printed to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="rtos_examples/freertos_swtimer">
+          <external path="rtos_examples/freertos_swtimer" type="xml">
+            <files mask="freertos_swtimer_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_freertos_tickless" name="freertos_tickless" brief="This document explains the freertos_tickless example. It shows the CPU enter at sleep mode and then&#10;it is waked up by expired time delay that using RTC module or occur any a hardware interrupt.&#10;&#10;" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="rtos_examples/freertos_tickless">
+          <external path="rtos_examples/freertos_tickless" type="xml">
+            <files mask="freertos_tickless_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_freertos_usart" name="freertos_usart" brief="The USART example for FreeRTOS demonstrates the possibility to use the USART driver in the RTOS.The example uses single instance of USART IP and writes string into, then reads back chars.After every 4B received, these are sent back on USART." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="rtos_examples" path="rtos_examples/freertos_usart">
+          <external path="rtos_examples/freertos_usart" type="xml">
+            <files mask="freertos_usart_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_gint" name="gint" brief="This example shows how to use SDK drivers to use the Group GPIO input interrupt peripheral." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/gint" path="driver_examples/gint">
+          <external path="driver_examples/gint" type="xml">
+            <files mask="gint_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_gpio_led_output" name="gpio_led_output" brief="The GPIO Example project is a demonstration program that uses the KSDK software to manipulate the general-purposeoutputs. The example use LEDs and buttons to demonstrates GPIO API for port and pin manipulation (init, set,clear, and toggle)." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/gpio" path="driver_examples/gpio/led_output">
+          <external path="driver_examples/gpio/led_output" type="xml">
+            <files mask="gpio_led_output_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_hello_world" name="hello_world" brief="The HelloWorld demo prints the &quot;Hello World&quot; string to the terminal using the SDK UART drivers and repeat what user input. The purpose of this demo is to show how to use the UART, and to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="demo_apps/hello_world">
+          <external path="demo_apps/hello_world" type="xml">
+            <files mask="hello_world_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_hello_world_swo" name="hello_world_swo" brief="The Hello World SWO demo prints the &quot;SWO: Hello World&quot; string to the SWO viewer. The purpose of this demo is to show how to use the swo, and to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="demo_apps/hello_world_swo">
+          <external path="demo_apps/hello_world_swo" type="xml">
+            <files mask="hello_world_swo_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_i2c_dma_b2b_transfer_master" name="i2c_dma_b2b_transfer_master" brief="The i2c_dma_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with DMA:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="driver_examples/i2c/dma_b2b_transfer/master">
+          <external path="driver_examples/i2c/dma_b2b_transfer/master" type="xml">
+            <files mask="i2c_dma_b2b_transfer_master_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_i2c_dma_b2b_transfer_slave" name="i2c_dma_b2b_transfer_slave" brief="The i2c_dma_b2b_transfer_slave example shows how to use i2c driver as slave to do board to board transfer with a DMA master:In this example, one i2c instance as slave and another i2c instance on the other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="driver_examples/i2c/dma_b2b_transfer/slave">
+          <external path="driver_examples/i2c/dma_b2b_transfer/slave" type="xml">
+            <files mask="i2c_dma_b2b_transfer_slave_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_i2c_interrupt_b2b_transfer_master" name="i2c_interrupt_b2b_transfer_master" brief="The i2c_interrupt_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with interrupt:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="driver_examples/i2c/interrupt_b2b_transfer/master">
+          <external path="driver_examples/i2c/interrupt_b2b_transfer/master" type="xml">
+            <files mask="i2c_interrupt_b2b_transfer_master_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_i2c_interrupt_b2b_transfer_slave" name="i2c_interrupt_b2b_transfer_slave" brief="The i2c_interrupt_b2b_transfer_slave example shows how to use i2c driver as slave to do board to board transfer with interrupt:In this example, one i2c instance as slave and another i2c instance on the other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="driver_examples/i2c/interrupt_b2b_transfer/slave">
+          <external path="driver_examples/i2c/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="i2c_interrupt_b2b_transfer_slave_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_i2c_polling_b2b_master" name="i2c_polling_b2b_master" brief="The i2c_polling_b2b_master example shows how to use i2c driver as master to do board to board transfer using polling method:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="driver_examples/i2c/polling_b2b/master">
+          <external path="driver_examples/i2c/polling_b2b/master" type="xml">
+            <files mask="i2c_polling_b2b_master_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_i2c_polling_b2b_slave" name="i2c_polling_b2b_slave" brief="The i2c_polling_b2b_slave example shows how to use i2c driver as slave to do board to board transfer with a polling master:In this example, one i2c instance as slave and another i2c instance on the other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="driver_examples/i2c/polling_b2b/slave">
+          <external path="driver_examples/i2c/polling_b2b/slave" type="xml">
+            <files mask="i2c_polling_b2b_slave_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_i2c_read_accel_value_transfer" name="i2c_read_accel_value_transfer" brief="The i2c_read_accel_value example shows how to use I2C driver to communicate with an i2c device: 1. How to use the i2c driver to read a i2c device who_am_I register. 2. How to use the i2c driver to write/read the device registers.In this example, the values of three-axis accelerometer print to the serial terminal on PC throughthe virtual serial port on board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="driver_examples/i2c/read_accel_value_transfer">
+          <external path="driver_examples/i2c/read_accel_value_transfer" type="xml">
+            <files mask="i2c_read_accel_value_transfer_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_led_blinky" name="led_blinky" brief="The LED Blinky demo application provides a sanity check for the new SDK build environments and board bring up. The LED Blinky demo uses the systick interrupt to realize the function of timing delay. The example takes turns to shine the LED. The purpose of this demo is to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="demo_apps/led_blinky">
+          <external path="demo_apps/led_blinky" type="xml">
+            <files mask="led_blinky_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_lpadc_dma" name="lpadc_dma" brief="The lpdc_dma example shows how to use ADC to trigger a DMA transfer. In this example, user should indicate a channel to provide a voltage signal (can be controlled by user) as the LPADC's sample input. When running the project, typing any key into debug console would trigger the conversion, the software trigger API is called to start the conversion. When the ADC conversion is completed, it would trigger the DMA in ping-pong transfer mode to move the ADC conversion result from ADC conversion data register to user indicated memory. Then the main loop waits for the transfer to be done and print the result to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpadc" path="driver_examples/lpadc/dma">
+          <external path="driver_examples/lpadc/dma" type="xml">
+            <files mask="lpadc_dma_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_lpadc_interrupt" name="lpadc_interrupt" brief="The lpdc_single_interrupt example shows how to use interrupt with LPADC driver.In this example, user should indicate a channel to provide a voltage signal (can be controlled by user) as the LPADC'ssample input. When running the project, typing any key into debug console would trigger the conversion. ADC watermark interrupt would be asserted once the number of datawords stored in the ADC Result FIFO is greater than watermark value.In ADC ISR, the watermark flag would be cleared by reading the conversion result value. Also, result information wouldbe printed when the execution return to the main function." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpadc" path="driver_examples/lpadc/interrupt">
+          <external path="driver_examples/lpadc/interrupt" type="xml">
+            <files mask="lpadc_interrupt_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_lpadc_polling" name="lpadc_polling" brief="The lpadc_single_polling example shows the simplest way to use LPADC driver.In this example, user should indicate a channel to provide a voltage signal (can be controlled by user) as the LPADC'ssample input. When running the project, typing any key into debug console would trigger the conversion. The execution would check the FIFO valid flag in loop until the flag is asserted, which means the conversion is completed. Then read the conversion result value and print it to debug console.Note, the default setting of initialization for the ADC converter is just an available configuration. User can changethe configuration structure's setting in application to fit the special requirement." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpadc" path="driver_examples/lpadc/polling">
+          <external path="driver_examples/lpadc/polling" type="xml">
+            <files mask="lpadc_polling_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_lpadc_temperature_measurement" name="lpadc_temperature_measurement" brief="The lpadc_temperature_measurement example shows how to measure the temperature within the internal sensor. In this example, the ADC input channel is mapped to an internal temperature sensor. When running the project, typing any key into debug console would trigger the conversion. ADC watermark interrupt would be asserted once the number of datawords stored in the ADC Result FIFO is greater than watermark value. In ADC ISR, the watermark flag would be cleared by reading the conversion result value. When the conversion done, two valid result will be put in the FIFO, then the temperature can be calculated within the two results and a specific formula." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpadc" path="driver_examples/lpadc/temperature_measurement">
+          <external path="driver_examples/lpadc/temperature_measurement" type="xml">
+            <files mask="lpadc_temperature_measurement_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_mcan_interrupt_transfer" name="mcan_interrupt_transfer" brief="The mcan_interrupt example shows how to use MCAN driver in none-blocking interrupt way:In this example, 2 boards are connected through CAN bus. Endpoint A(board A) send a CAN Message toEndpoint B(board B) when users press space key in terminal. Endpoint B receives the message, printsthe message content to terminal and echoes back the message. Endpoint A will increase the receivedmessage and wait for the next transmission the users initiate." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/mcan" path="driver_examples/mcan/interrupt_transfer">
+          <external path="driver_examples/mcan/interrupt_transfer" type="xml">
+            <files mask="mcan_interrupt_transfer_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_mcan_loopback" name="mcan_loopback" brief="The mcan_loopback example shows how to use the loopback test mode to debug your CAN Bus design:To demonstrate this example, only one board is needed. The example will config Tx Buffer to sendand Rx Fifo to receive. After that, the example will send a CAN Message throuth internal loopbackinterconnect and print out the Message payload to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/mcan" path="driver_examples/mcan/loopback">
+          <external path="driver_examples/mcan/loopback" type="xml">
+            <files mask="mcan_loopback_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_mrt_example" name="mrt_example" brief="The MRT project is a simple demonstration program of the SDK MRT driver. It sets up the MRThardware block to trigger a periodic interrupt after every 250 milliseconds. When the PIT interrupt is triggereda message a printed on the UART terminal and an LED is toggled on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/mrt" path="driver_examples/mrt">
+          <external path="driver_examples/mrt" type="xml">
+            <files mask="mrt_example_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_ostimer_example" name="ostimer_example" brief="The OSTIMER project is a simple demonstration program of the SDK OSTIMER driver. It sets the OSTIMER as the wakeup source from deep-sleep mode. After wakeup from deep-sleep mode, OS timer will set match value to trigger the interrupt while the timer count tick reach the match value about every 2 seconds." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ostimer" path="driver_examples/ostimer">
+          <external path="driver_examples/ostimer" type="xml">
+            <files mask="ostimer_example_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_pint_pattern_match" name="pint_pattern_match" brief="This example shows how to use SDK drivers to use the Pin interrupt &amp; pattern match peripheral." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/pint" path="driver_examples/pint/pattern_match">
+          <external path="driver_examples/pint/pattern_match" type="xml">
+            <files mask="pint_pattern_match_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_pint_pin_interrupt" name="pint_pin_interrupt" brief="This example shows how to use SDK drivers to use the Pin interrupt &amp; pattern match peripheral." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/pint" path="driver_examples/pint/pin_interrupt">
+          <external path="driver_examples/pint/pin_interrupt" type="xml">
+            <files mask="pint_pin_interrupt_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_power_manager_lpc" name="power_manager_lpc" brief="The power_manager_lpc application shows the usage of normal power mode control APIs for entering the three kinds of low power mode: Sleep mode, Deep Sleep mode and Sleep Power Down mode. When the application runs to each low power mode, the device would cut off the power for specific modules to save energy. The device can be also waken up by prepared wakeup source from external event.&#10;Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - In order to meet typedef power consumption of DateSheet manual, Please configure MCU under the following conditions. 鈥?Configure all pins as GPIO with pull-up resistor disabled in the IOCON block. 鈥?Configure GPIO pins as outputs using the GPIO DIR register. 鈥?Write 1 to the GPIO CLR register to drive the outputs LOW. 鈥?All peripherals disabled." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="demo_apps/power_manager_lpc">
+          <external path="demo_apps/power_manager_lpc" type="xml">
+            <files mask="power_manager_lpc_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_rng_random" name="rng_random" brief="The RNG example project is a demonstration program that uses the KSDK software to generate random numbersand prints them to the terminal. 32 32-bit numbers are read and skipped per one 32-bit number read and used.This is to get a better entropy as suggested by user manual." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/rng" path="driver_examples/rng/random">
+          <external path="driver_examples/rng/random" type="xml">
+            <files mask="rng_random_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_rtc_example" name="rtc_example" brief="The RTC project is a simple demonstration program of the SDK RTC driver. It sets up the RTChardware block to trigger an alarm after a user specified time period. The test will set the currentdate and time to a predefined value. The alarm will be set with reference to this predefined dateand time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/rtc" path="driver_examples/rtc">
+          <external path="driver_examples/rtc" type="xml">
+            <files mask="rtc_example_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_sctimer_16bit_counter" name="sctimer_16bit_counter" brief="The SCTimer 16-bit counter project is a demonstration program of the SDK SCTimer driver operation when using the SCTimer counteras two 16-bit counters.The example toggles an output per counter when a match occurs." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="driver_examples/sctimer/16bit_counter">
+          <external path="driver_examples/sctimer/16bit_counter" type="xml">
+            <files mask="sctimer_16bit_counter_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_sctimer_multi_state_pwm" name="sctimer_multi_state_pwm" brief="The SCTImer multi-state project is a demonstration program of the SCTimer state machine. It shows how to set up events to be triggered in a certain stateand transitioning between states.State 0 has 2 events that generate a PWM signal, it also has an event linked to an input signal to transition to State 1.State 1 has 4 events that generate 2 PWM signals, it also has an event linked to an input signal to transition to State 0." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="driver_examples/sctimer/multi_state_pwm">
+          <external path="driver_examples/sctimer/multi_state_pwm" type="xml">
+            <files mask="sctimer_multi_state_pwm_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_sctimer_pwm_with_dutycyle_change" name="sctimer_pwm_with_dutycyle_change" brief="This SCTIMer project is a demonstration program of the SDK SCTimer driver's PWM generation. It sets up a PWM signaland periodically updates the PWM signals dutycycle." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="driver_examples/sctimer/pwm_with_dutycyle_change">
+          <external path="driver_examples/sctimer/pwm_with_dutycyle_change" type="xml">
+            <files mask="sctimer_pwm_with_dutycyle_change_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_sctimer_simple_pwm" name="sctimer_simple_pwm" brief="The SCTimer project is a simple demonstration program of the SDK SCTimer's driver capabiltiy to generate PWM signals." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="driver_examples/sctimer/simple_pwm">
+          <external path="driver_examples/sctimer/simple_pwm" type="xml">
+            <files mask="sctimer_simple_pwm_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_shell" name="shell" brief="The Shell Demo application demonstrates to control Leds by commands." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="demo_apps/shell">
+          <external path="demo_apps/shell" type="xml">
+            <files mask="shell_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_spi_HS_LSPI_dma_b2b_transfer_master" name="spi_HS_LSPI_dma_b2b_transfer_master" brief="The spi_HS_LSPI_dma_b2b_transfer_master example shows how to use driver API to transfer in DMA way.  In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checksif the data received from slave is correct. This example needs to work with spi_dma_b2b_transfer_slave example.Note: This example will run in master mode, please prepare another board for slave, and the slave       board should be started first.Project Infomation1.How to set the baudrate of SPI?  The baudrate of SPI is easy to set, just make sure the source clock of SPI." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="driver_examples/spi/HS_LSPI_dma_b2b_transfer/master">
+          <external path="driver_examples/spi/HS_LSPI_dma_b2b_transfer/master" type="xml">
+            <files mask="spi_HS_LSPI_dma_b2b_transfer_master_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_spi_HS_LSPI_dma_b2b_transfer_slave" name="spi_HS_LSPI_dma_b2b_transfer_slave" brief="The spi_HS_LSPI_dma_b2b_transfer_slave example shows how to use driver API to transfer in DMA way.  In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checksif the data received from master is correct. This example needs to work with spi_HS_LSPI_dma_b2b_transfer_master example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="driver_examples/spi/HS_LSPI_dma_b2b_transfer/slave">
+          <external path="driver_examples/spi/HS_LSPI_dma_b2b_transfer/slave" type="xml">
+            <files mask="spi_HS_LSPI_dma_b2b_transfer_slave_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_spi_dma_b2b_transfer_master" name="spi_dma_b2b_transfer_master" brief="The spi_dma_b2b_transfer_master example shows how to use driver API to transfer in DMA way.  In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checksif the data received from slave is correct. This example needs to work with spi_dma_b2b_transfer_slave example.Note: This example will run in master mode, please prepare another board for slave, and the slave       board should be started first.Project Information1.How to set the baudrate of SPI?  The baudrate of SPI is easy to set, just make sure the source clock of SPI." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="driver_examples/spi/dma_b2b_transfer/master">
+          <external path="driver_examples/spi/dma_b2b_transfer/master" type="xml">
+            <files mask="spi_dma_b2b_transfer_master_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_spi_dma_b2b_transfer_slave" name="spi_dma_b2b_transfer_slave" brief="The spi_dma_b2b_transfer_slave example shows how to use driver API to transfer in DMA way.  In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checksif the data received from master is correct. This example needs to work with spi_dma_b2b_transfer_master example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="driver_examples/spi/dma_b2b_transfer/slave">
+          <external path="driver_examples/spi/dma_b2b_transfer/slave" type="xml">
+            <files mask="spi_dma_b2b_transfer_slave_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_spi_interrupt_b2b_master" name="spi_interrupt_b2b_master" brief="The spi_interrupt_b2b_master example shows how to use spi functional API to do interrupt transfer as a master:In this example, the spi instance as master. Master sends a piece of data to slave, receive data from slave,and checkif the data master received is correct. This example needs to work with spi_interrupt_b2b_slave example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="driver_examples/spi/interrupt_b2b/master">
+          <external path="driver_examples/spi/interrupt_b2b/master" type="xml">
+            <files mask="spi_interrupt_b2b_master_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_spi_interrupt_b2b_slave" name="spi_interrupt_b2b_slave" brief="The spi_interrupt_b2b_slave example shows how to use spi functional API to do interrupt transfer as a slave:In this example, the spi instance as slave. Slave receives data froma master and send a peiece of data to master,and check if the data slave received is correct. This example needs to work with spi_interrupt_b2b_master example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="driver_examples/spi/interrupt_b2b/slave">
+          <external path="driver_examples/spi/interrupt_b2b/slave" type="xml">
+            <files mask="spi_interrupt_b2b_slave_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_spi_interrupt_b2b_transfer_master" name="spi_interrupt_b2b_transfer_master" brief="The spi_interrupt_board2board_master example shows how to use spi driver as master to do board to board transfer withinterrupt:In this example, one spi instance as master and another spi instance on othereboard as slave. Master sends a piece ofdata to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="driver_examples/spi/interrupt_b2b_transfer/master">
+          <external path="driver_examples/spi/interrupt_b2b_transfer/master" type="xml">
+            <files mask="spi_interrupt_b2b_transfer_master_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_spi_interrupt_b2b_transfer_slave" name="spi_interrupt_b2b_transfer_slave" brief="The spi_interrupt_board2board_slave example shows how to use spi driver as slave to do board to board transfer with interrupt:In this example, one spi instance as slave and another spi instance on other board as master. Master sends a piece ofdata to slave, and receive a piece of data from slave. This example checks if the data received from master is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="driver_examples/spi/interrupt_b2b_transfer/slave">
+          <external path="driver_examples/spi/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="spi_interrupt_b2b_transfer_slave_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_spi_polling_b2b_transfer_master" name="spi_polling_b2b_transfer_master" brief="The spi_polling_board2board_master example shows how to use spi driver as master to do board to board transfer with polling:In this example, one spi instance as master and another spi instance on othereboard as slave. Master sends a piece ofdata to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="driver_examples/spi/polling_b2b_transfer/master">
+          <external path="driver_examples/spi/polling_b2b_transfer/master" type="xml">
+            <files mask="spi_polling_b2b_transfer_master_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_spi_polling_b2b_transfer_slave" name="spi_polling_b2b_transfer_slave" brief="The spi_polling_board2board_slave example shows how to use spi driver as slave to do board to board transfer withpolling:Notice: The SPI slave of this example uses interrupt mode, as there is no polling mode for SPI slave.In this example, one spi instance as slave and another spi instance on other board as master. Master sends a piece ofdata to slave, and receive a piece of data from slave. This example checks if the data received from master is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="driver_examples/spi/polling_b2b_transfer/slave">
+          <external path="driver_examples/spi/polling_b2b_transfer/slave" type="xml">
+            <files mask="spi_polling_b2b_transfer_slave_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_usart_dma_double_buffer_transfer" name="usart_dma_double_buffer_transfer" brief="This example shows how to use the DMA driver to implement a double buffer receive scheme from the USARTThe example shows the double buffer constructed using two descriptors (g_pingpong_desc). These descriptors are cycled from one to the other.Things to note- The descriptors of the ping pong transfer need to be aligned to size 16- The inital transfer will perform the same job as first descriptor of ping pong, so the first linkeage is to go to g_pingpong_desc[1]- g_pingpong_desc[1] then chains the g_pingpong_desc[0] as the next descriptor- The properties are set up such that g_pingpong_desc[0] (and the initial configuration uses INTA to signal back to the callback)- g_pingpong_desc[1] uses INTB to signal to the callback- The scheduled callback uses this information to know which data was last writtenA note on PerformanceThe intent of this example is to illustrate how a double-buffer scheme can be implemented using the dma. The performance of this example will be limited to how quickly the echo printer can read-out the data from the ping pong buffer and display it. This means that the example will work well if characters are entered at a rate where the DMA callback to echo the string can keep up with the input stream. Connecting the USARTRX to a continuous fast speed will cause the DMA to fall behind. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="driver_examples/usart/dma_double_buffer_transfer">
+          <external path="driver_examples/usart/dma_double_buffer_transfer" type="xml">
+            <files mask="usart_dma_double_buffer_transfer_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_usart_dma_transfer" name="usart_dma_transfer" brief="The usart_dma example shows how to use usart driver with DMA:In this example, one usart instance connect to PC through usart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="driver_examples/usart/dma_transfer">
+          <external path="driver_examples/usart/dma_transfer" type="xml">
+            <files mask="usart_dma_transfer_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_usart_interrupt" name="usart_interrupt" brief="The uart_functioncal_interrupt example shows how to use uart driver functionalAPI to receive data with interrupt method:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="driver_examples/usart/interrupt">
+          <external path="driver_examples/usart/interrupt" type="xml">
+            <files mask="usart_interrupt_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_usart_interrupt_rb_transfer" name="usart_interrupt_rb_transfer" brief="The uart_interrupt_ring_buffer example shows how to use uart driver in interrupt way withRX ring buffer enabled:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="driver_examples/usart/interrupt_rb_transfer">
+          <external path="driver_examples/usart/interrupt_rb_transfer" type="xml">
+            <files mask="usart_interrupt_rb_transfer_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_usart_interrupt_transfer" name="usart_interrupt_transfer" brief="The uart_interrupt example shows how to use uart driver in interrupt way:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="driver_examples/usart/interrupt_transfer">
+          <external path="driver_examples/usart/interrupt_transfer" type="xml">
+            <files mask="usart_interrupt_transfer_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_usart_polling" name="usart_polling" brief="The uart_polling example shows how to use uart driver in polling way:In this example, one uart instance connect to PC through uart, the board will send back all characters that PCsend to the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="driver_examples/usart/polling">
+          <external path="driver_examples/usart/polling" type="xml">
+            <files mask="usart_polling_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_utick_wakeup" name="utick_wakeup" brief="The purpose of this demo is to show wakeup from deep sleep mode using MicroTick timer.The demo sets the MicroTick Timer as a wake up source and puts the device in deep-sleep mode. The MicroTick timer wakes up the device. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="demo_apps/utick_wakeup">
+          <external path="demo_apps/utick_wakeup" type="xml">
+            <files mask="utick_wakeup_v3_10.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s06cp_wwdt_example" name="wwdt_example" brief="The WDOG Example project is to demonstrate usage of the KSDK wdog driver.In this example,quick test is first implemented to test the wdog.And then after 5 times of refreshing the watchdog, a timeout reset is generated." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/wwdt" path="driver_examples/wwdt">
+          <external path="driver_examples/wwdt" type="xml">
+            <files mask="wwdt_example_v3_10.xml"/>
+          </external>
+        </example>
+      </examples>
+    </board>
+  </boards>
+</ksdk:manifest>

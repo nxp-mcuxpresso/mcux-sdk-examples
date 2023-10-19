@@ -46,7 +46,6 @@ if (NOT DEFINED SdkRootDirPath)
     SET(SdkRootDirPath ${SdkRootDirPath})
 endif()
 
-include(${SdkRootDirPath}/core/cmake/mcux.cmake)
 include(${ProjDirPath}/flags.cmake)
 
 include(${ProjDirPath}/config.cmake)

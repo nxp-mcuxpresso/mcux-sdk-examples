@@ -62,7 +62,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/eiq/glow/examples/multicore_secure_ml/source/lenet_mnist.weights.bin"
 "${SdkRootDirPath}/middleware/eiq/glow/examples/multicore_secure_ml/source/lenet_mnist.weights.txt"
 "${SdkRootDirPath}/middleware/eiq/glow/examples/multicore_secure_ml/source/FreeRTOSConfig.h"
-"${ProjDirPath}/../../erpc_config.h"
+"${SdkRootDirPath}/middleware/multicore/erpc/internal/boards/freertos/mu/erpc_config.h"
 "${SdkRootDirPath}/middleware/multicore/mcmgr/src/mcmgr.h"
 "${SdkRootDirPath}/middleware/multicore/mcmgr/src/mcmgr_internal_core_api.h"
 "${SdkRootDirPath}/middleware/multicore/mcmgr/src/mcmgr.c"
