@@ -47746,7 +47746,7 @@ ${load}</script>
         <include_path relative_path="common/video" project_relative_path="video" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.devices.MIMXRT1062_debugger.MIMXRT1062" name="MIMXRT1062" brief="Device MIMXRT1062_debugger" version="1.0.0" full_name="Device MIMXRT1062_debugger" devices="MIMXRT1062xxxxB MIMXRT1062xxxxA" user_visible="true" type="debugger" package_base_path="core/devices/MIMXRT1062" project_base_path="svd">
+    <component id="platform.devices.MIMXRT1062_debugger.MIMXRT1062" name="MIMXRT1062" brief="Device MIMXRT1062_debugger" version="1.0.0" full_name="Device MIMXRT1062_debugger" devices="MIMXRT1062xxxxB MIMXRT1062xxxxA" user_visible="true" type="debugger" package_base_path="svd/MIMXRT1062" project_base_path="svd">
       <source relative_path="./" type="xml">
         <files mask="MIMXRT1062.xml"/>
       </source>
