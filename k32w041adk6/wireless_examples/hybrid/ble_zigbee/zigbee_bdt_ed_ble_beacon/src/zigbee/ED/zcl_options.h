@@ -74,8 +74,11 @@ enum
 #define CLD_ONOFF
 #define ONOFF_SERVER
 
+#ifndef DISABLE_OTA
 #define CLD_OTA
 #define OTA_CLIENT
+#endif
+
 #define OTA_NO_CERTIFICATE
 
 /****************************************************************************/

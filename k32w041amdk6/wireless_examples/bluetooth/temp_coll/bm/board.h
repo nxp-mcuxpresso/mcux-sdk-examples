@@ -501,7 +501,10 @@ status_t BOARD_DeinitDebugConsole(void);
 /* Function to initialize/deinitialize ADC on board configuration. */
 void BOARD_InitAdc(void);
 void BOARD_ADCWakeupInit(void);
-void BOARD_CheckADCReady(void);
+void BOARD_SetBlockingAdcRead(void);
+void BOARD_ResetBlockingAdcRead(void);
+bool BOARD_GetBlockingAdcReadState(void);
+bool BOARD_CheckADCReady(void);
 void BOARD_ADCMeasure(void);
 void BOARD_EnableAdc(void);
 void BOARD_DeInitAdc(void);

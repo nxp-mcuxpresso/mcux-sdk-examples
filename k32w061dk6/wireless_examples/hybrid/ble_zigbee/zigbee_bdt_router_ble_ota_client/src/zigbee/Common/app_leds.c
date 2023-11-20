@@ -1,5 +1,5 @@
 /*
-* Copyright 2019 NXP
+* Copyright 2019,2023 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -12,10 +12,8 @@
 #include <EmbeddedTypes.h>
 #include "dbg.h"
 #include "app.h"
-#include "fsl_gpio.h"
-#include "fsl_debug_console.h"
-#include "fsl_iocon.h"
-#include "fsl_inputmux.h"
+#include "app_leds.h"
+#include "zb_platform.h"
 
 /****************************************************************************/
 /***        Macro Definitions                                             ***/
@@ -49,20 +47,12 @@
  *
  * PARAMETER: void
  *
- * RETURNS: bool_t
+ * RETURNS: void
  *
  ****************************************************************************/
 void APP_vLedInitialise(void)
 {
-
-    /* Define the init structure for the output LED pin*/
-    gpio_pin_config_t led_config = {
-            kGPIO_DigitalOutput, OFF,
-    };
-
-    GPIO_PinInit(GPIO, APP_BOARD_GPIO_PORT, APP_BASE_BOARD_LED1_PIN, &led_config);
-    GPIO_PinInit(GPIO, APP_BOARD_GPIO_PORT, APP_BASE_BOARD_LED2_PIN, &led_config);
-
+    (void)zbPlatLedInit(APP_LEDS_NUM);
 }
 
 /****************************************************************************
@@ -72,33 +62,31 @@ void APP_vLedInitialise(void)
  * DESCRIPTION:
  * set the state ofthe given application led
  *
- * PARAMETER:
+ * PARAMETER: void
  *
- * RETURNS:
+ * RETURNS: void
  *
  ****************************************************************************/
 void APP_vSetLed(uint8_t u8Led, bool_t bState)
 {
-    uint32_t u32LedPin = 0;
-    switch (u8Led)
-    {
-    case LED1:
-    	u32LedPin = APP_BASE_BOARD_LED1_PIN;
-    	bState = (bState == OFF);
-        break;
-    case LED2:
-    	u32LedPin = APP_BASE_BOARD_LED2_PIN;
-    	bState = (bState == OFF);
-        break;
-    default:
-        u32LedPin -= 1;
-        break;
-    }
+    zbPlatLedSetState(u8Led, bState);
+}
 
-    if (u32LedPin != 0xffffffff)
-    {
-        GPIO_PinWrite(GPIO, APP_BOARD_GPIO_PORT, u32LedPin, bState);
-    }
+/****************************************************************************
+ *
+ * NAME: APP_u8GetLedStates
+ *
+ * DESCRIPTION:
+ * Get leds state as bit mask
+ *
+ * PARAMETER: void
+ *
+ * RETURNS: uint8_t bitmask
+ *
+ ****************************************************************************/
+uint8_t APP_u8GetLedStates(void)
+{
+	return zbPlatLedGetStates();
 }
 
 

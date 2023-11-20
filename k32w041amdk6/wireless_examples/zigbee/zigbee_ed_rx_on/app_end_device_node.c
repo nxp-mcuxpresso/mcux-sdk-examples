@@ -1,5 +1,5 @@
 /*
-* Copyright 2019 NXP
+* Copyright 2019,2023 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -8,7 +8,9 @@
 #include "bdb_api.h"
 #include "app_common.h"
 #include "PDM.h"
+#ifdef CLD_OTA
 #include "app_ota_client.h"
+#endif
 #include "PDM_IDs.h"
 #include "app_zcl_task.h"
 #include "app_reporting.h"
@@ -52,7 +54,7 @@
 static void vAppHandleAfEvent( BDB_tsZpsAfEvent *psZpsAfEvent);
 static void vAppHandleZdoEvents( BDB_tsZpsAfEvent *psZpsAfEvent);
 static void APP_vBdbInit(void);
-static void vDeletePDMOnButtonPress(uint8_t u8ButtonDIO);
+static void vDeletePDMOnButtonPress(uint8_t u8ButtonID);
 static void vPrintAPSTable(void);
 
 /****************************************************************************/
@@ -108,7 +110,9 @@ void APP_vInitialiseEndDevice(void)
     uint16 u16ByteRead;
     PDM_teStatus eStatusReportReload;
 
+#ifdef CLD_OTA
     vLoadOTAPersistedData();
+#endif
     sDeviceDesc.eNodeState = E_STARTUP;
     PDM_eReadDataFromRecord(PDM_ID_APP_END_DEVICE,
                             &sDeviceDesc,
@@ -134,12 +138,13 @@ void APP_vInitialiseEndDevice(void)
    APP_vBdbInit();
    /* Initialise LEDs and buttons */
    APP_vLedInitialise();
+
 #ifndef USART1_FTDI
    /* GPIO1 is used for USART1 RX */
    APP_bButtonInitialise();
 #endif
    /* Delete PDM if required */
-   vDeletePDMOnButtonPress(APP_BOARD_SW0_PIN);
+   vDeletePDMOnButtonPress(APP_E_BUTTONS_BUTTON_1);
 
    DBG_vPrintf(TRACE_APP, "Start Up State %d On Network %d\r\n",
             sDeviceDesc.eNodeState,
@@ -193,7 +198,7 @@ void APP_vBdbCallback(BDB_tsBdbEvent *psBdbEvent)
                 DBG_vPrintf(TRACE_APP, "BDB Init go Running");
                 sDeviceDesc.eNodeState = E_RUNNING;
                 PDM_eSaveRecordData(PDM_ID_APP_END_DEVICE,&sDeviceDesc,sizeof(tsDeviceDesc));
-                APP_vSetLed(LED2, ON);
+                APP_vSetLed(APP_E_LEDS_LED_2, APP_E_LED_ON);
             }
 
             break;
@@ -207,14 +212,14 @@ void APP_vBdbCallback(BDB_tsBdbEvent *psBdbEvent)
             DBG_vPrintf(TRACE_APP,"APP: NwkSteering Success \r\n");
             sDeviceDesc.eNodeState = E_RUNNING;
             PDM_eSaveRecordData(PDM_ID_APP_END_DEVICE,&sDeviceDesc,sizeof(tsDeviceDesc));
-            APP_vSetLed(LED2, ON);
+            APP_vSetLed(APP_E_LEDS_LED_2, APP_E_LED_ON);
             break;
         case BDB_EVENT_FB_OVER_AT_TARGET:
         	if(u32Togglems == 250)
         	{
         		ZTIMER_eStop(u8LedTimer);
         	}
-        	APP_vSetLed(LED2, ON);
+        	APP_vSetLed(APP_E_LEDS_LED_2, APP_E_LED_ON);
         	break;
         default:
             break;
@@ -333,7 +338,7 @@ static void vAppHandleZdoEvents( BDB_tsZpsAfEvent *psZpsAfEvent)
             {
                 DBG_vPrintf(TRACE_APP, "\r\nAPP: Failed to start poll");
             }
-			APP_vSetLed(LED2, ON);
+			APP_vSetLed(APP_E_LEDS_LED_2, APP_E_LED_ON);
         	break;
         case ZPS_EVENT_APS_DATA_INDICATION:
             DBG_vPrintf(TRACE_APP, "APP-ZDO: Data Indication Status %02x from %04x Src Ep Dst %d Ep %d Profile %04x Cluster %04x\r\n",
@@ -473,8 +478,10 @@ void APP_vFactoryResetRecords(void)
     ZPS_vSetKeys();
     /* save everything */
     sDeviceDesc.eNodeState = E_STARTUP;
+#ifdef CLD_OTA
     vResetOTADiscovery();
     vOTAResetPersist();
+#endif
     PDM_eSaveRecordData(PDM_ID_APP_END_DEVICE,&sDeviceDesc,sizeof(tsDeviceDesc));
     ZPS_vSaveAllZpsRecords();
 }
@@ -499,13 +506,13 @@ static void APP_vBdbInit(void)
     BDB_vInit(&sInitArgs);
     if(sDeviceDesc.eNodeState >= E_RUNNING)
     {
-      	APP_vSetLed(LED1, OFF);
-       	APP_vSetLed(LED2, ON);
+      	APP_vSetLed(APP_E_LEDS_LED_1, APP_E_LED_OFF);
+       	APP_vSetLed(APP_E_LEDS_LED_2, APP_E_LED_ON);
     }
     else
     {
-       	APP_vSetLed(LED1, OFF);
-        APP_vSetLed(LED2, OFF);
+       	APP_vSetLed(APP_E_LEDS_LED_1, APP_E_LED_OFF);
+        APP_vSetLed(APP_E_LEDS_LED_2, APP_E_LED_OFF);
     }
 }
 
@@ -520,14 +527,14 @@ static void APP_vBdbInit(void)
  * void
  *
  ****************************************************************************/
-static void vDeletePDMOnButtonPress(uint8_t u8ButtonDIO)
+static void vDeletePDMOnButtonPress(uint8_t u8ButtonID)
 {
     bool_t bDeleteRecords = FALSE;
     uint8_t u8Status;
 
-    uint32_t u32Buttons = APP_u32GetSwitchIOState() & (1 << u8ButtonDIO);
+    bool_t bButtonPressed = APP_u32GetButtonsState() & (1 << u8ButtonID);
 
-    if (u32Buttons == 0)
+    if (bButtonPressed)
     {
         bDeleteRecords = TRUE;
     }
@@ -544,9 +551,9 @@ static void vDeletePDMOnButtonPress(uint8_t u8ButtonDIO)
     if(bDeleteRecords)
     {
         /* wait for button release */
-        while (u32Buttons == 0)
+        while (bButtonPressed)
         {
-            u32Buttons = APP_u32GetSwitchIOState() & (1 << u8ButtonDIO);
+            bButtonPressed = APP_u32GetButtonsState() & (1 << u8ButtonID);
         }
         u8Status = ZPS_eAplZdoLeaveNetwork(0, FALSE,FALSE);
         if (ZPS_E_SUCCESS !=  u8Status )
@@ -555,7 +562,13 @@ static void vDeletePDMOnButtonPress(uint8_t u8ButtonDIO)
             DBG_vPrintf(TRACE_APP,"Leave failed status %x Deleting the PDM\r\n", u8Status);
             APP_vFactoryResetRecords();
             MICRO_DISABLE_INTERRUPTS();
+// TODO: Making SW reset abstracted
+#ifndef K32W1480_SERIES
+            vMMAC_Disable();
             RESET_SystemReset();
+#else
+            NVIC_SystemReset();
+#endif
         } else { DBG_vPrintf(TRACE_APP, "RESET: Sent Leave\r\n"); }
     }
 }
@@ -621,10 +634,12 @@ teNodeState eGetNodeState(void)
  *
  ****************************************************************************/
 
+#ifdef CLD_OTA
 tsOTA_PersistedData sGetOTACallBackPersistdata(void)
 {
     return sBaseDevice.sCLD_OTA_CustomDataStruct.sOTACallBackMessage.sPersistedData;
 }
+#endif
 /****************************************************************************
  *
  * NAME: APP_u8GetDeviceEndpoint

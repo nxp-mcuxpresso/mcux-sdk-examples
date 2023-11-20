@@ -33,7 +33,6 @@ void APP_cbTimerPoll( void *pvParam);
 /***        External Variables                                            ***/
 /****************************************************************************/
 
-extern uint8_t u8TimerButtonScan;
 extern uint8_t  u8LedTimer;
 extern uint8_t  u8TimerPoll;
 extern tszQueue APP_msgBdbEvents;

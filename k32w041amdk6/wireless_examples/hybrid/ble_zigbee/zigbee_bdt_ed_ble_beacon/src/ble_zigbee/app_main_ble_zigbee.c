@@ -36,6 +36,7 @@
 #include "board.h"
 
 /* zigbee includes */
+#include "app.h"
 #include "app_main.h"
 #include "app_end_device_node.h"
 #include "dbg.h"

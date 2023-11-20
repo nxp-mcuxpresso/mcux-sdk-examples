@@ -47,7 +47,9 @@ void APP_vInitialiseEndDevice(bool_t bColdStart);
 void APP_vFactoryResetRecords(void);
 void APP_taskEndDevicNode(void);
 teNodeState eGetNodeState(void);
+#ifdef CLD_OTA
 tsOTA_PersistedData sGetOTACallBackPersistdata(void);
+#endif
 #ifdef OT_ZB_SUPPORT
 extern void APP_vSetSchedPolicy(uint8_t u8ProtoId, APP_teState eState);
 extern void vNsTryNwkJoinAppCb(ZPS_tsNwkNetworkDescr  *pNwkDescr);

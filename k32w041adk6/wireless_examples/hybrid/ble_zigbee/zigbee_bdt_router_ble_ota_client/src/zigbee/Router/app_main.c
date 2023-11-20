@@ -29,19 +29,31 @@
 #include "fsl_gpio.h"
 #include "RNG_Interface.h"
 #include "SecLib.h"
+#ifdef K32W1480_SERIES
+#include "fwk_platform.h"
+#include "fwk_platform_ics.h"
+#include "fsl_component_mem_manager.h"
+#else
 #include "MemManager.h"
+#include "TimersManager.h"
+#endif
 #include "app_buttons.h"
 #include "app_main.h"
 #include "app_router_node.h"
 #include "app_leds.h"
+
+#ifdef K32W1480_SERIES
+int PLATFORM_SwitchToOsc32k();
+#endif
+
 /****************************************************************************/
 /***        Macro Definitions                                             ***/
 /****************************************************************************/
 
 #if defined(LNT_MODE_APP) || defined(KPI_MODE_APP)
-#define APP_NUM_STD_TMRS             (3)
-#else
 #define APP_NUM_STD_TMRS             (2)
+#else
+#define APP_NUM_STD_TMRS             (1)
 #endif
 #define APP_QUEUE_SIZE               (1)
 #define APP_ZTIMER_STORAGE           ( APP_NUM_STD_TMRS )
@@ -58,7 +70,6 @@
 /****************************************************************************/
 /***        Exported Variables                                            ***/
 /****************************************************************************/
-uint8_t  u8TimerButtonScan;
 uint8_t  u8LedTimer;
 
 #ifdef LNT_MODE_APP
@@ -115,9 +126,27 @@ void main_task (uint32_t parameter)
     {
         /* place initialization code here... */
         initialized = TRUE;
+
+#ifndef K32W1480_SERIES
+        TMR_Init();
+#else
+        PLATFORM_SwitchToOsc32k();
+        PLATFORM_InitTimerManager();
+#endif
         RNG_Init();
         SecLib_Init();
         MEM_Init();
+
+#ifdef K32W1480_SERIES
+#if defined(USE_NBU) && (USE_NBU == 1)
+        PLATFORM_InitNbu();
+        PLATFORM_InitMulticore();
+        PLATFORM_FwkSrvInit();
+        PLATFORM_SendChipRevision();
+        PLATFORM_LoadHwParams();
+#endif
+#endif
+
         vAppMain();
 #if defined(FSL_RTOS_FREE_RTOS) && DEBUG_STACK_DEPTH
         uxHighWaterMark = uxTaskGetStackHighWaterMark( NULL );
@@ -160,7 +189,6 @@ void APP_vInitResources(void)
     ZTIMER_eInit(asTimers, sizeof(asTimers) / sizeof(ZTIMER_tsTimer));
 
     /* Create Z timers */
-    ZTIMER_eOpen(&u8TimerButtonScan,         APP_cbTimerButtonScan,  NULL, ZTIMER_FLAG_PREVENT_SLEEP);
     ZTIMER_eOpen(&u8LedTimer,           APP_cbTimerLed,         NULL, ZTIMER_FLAG_PREVENT_SLEEP);
 #ifdef LNT_MODE_APP
     ZTIMER_eOpen(&u8LntTimerTick,       APP_cbLntTimerTick,		NULL, ZTIMER_FLAG_PREVENT_SLEEP);
@@ -184,7 +212,8 @@ void APP_vInitResources(void)
 void APP_cbTimerLed(void *pvParam)
 {
 	static bool_t bCurrentState = TRUE;
-	APP_vSetLed(LED2, bCurrentState);
+
+	APP_vSetLed(APP_E_LEDS_LED_2, bCurrentState);
 
 	if( ZPS_bGetPermitJoiningStatus()|| u32Togglems != 250)
 	{
@@ -194,7 +223,7 @@ void APP_cbTimerLed(void *pvParam)
 	}
 	else
 	{
-		APP_vSetLed(LED2, ON);
+		APP_vSetLed(APP_E_LEDS_LED_2, APP_E_LED_ON);
 	}
 }
 /****************************************************************************/

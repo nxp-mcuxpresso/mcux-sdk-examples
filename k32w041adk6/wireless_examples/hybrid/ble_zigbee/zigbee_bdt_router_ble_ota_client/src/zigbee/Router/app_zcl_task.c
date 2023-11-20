@@ -104,8 +104,7 @@ void APP_ZCL_vInitialise(void)
 #ifdef CLD_OTA
     vAppInitOTA();
 #endif
-    APP_vSetLed(LED1, sBaseDevice.sOnOffServerCluster.bOnOff);
-
+    APP_vSetLed(APP_E_LEDS_LED_1, sBaseDevice.sOnOffServerCluster.bOnOff);
 }
 
 
@@ -407,7 +406,7 @@ void APP_vHandleIdentify(uint16_t u16Time)
             /*
              * Restore to off/off state
              */
-        APP_vSetLed(LED1, sBaseDevice.sOnOffServerCluster.bOnOff);
+        APP_vSetLed(APP_E_LEDS_LED_1, sBaseDevice.sOnOffServerCluster.bOnOff);
         bActive = FALSE;
     }
     else
@@ -417,7 +416,7 @@ void APP_vHandleIdentify(uint16_t u16Time)
             bActive = TRUE;
             u8IdentifyCount = 5;
             bIdentifyState = TRUE;
-            APP_vSetLed(LED1, TRUE );
+            APP_vSetLed(APP_E_LEDS_LED_1, APP_E_LED_ON);
         }
     }
 }
@@ -446,7 +445,7 @@ void vIdEffectTick(uint8_t u8Endpoint)
         {
             u8IdentifyCount = 5;
             bIdentifyState = (bIdentifyState)? FALSE: TRUE;
-            APP_vSetLed(LED1, bIdentifyState);
+            APP_vSetLed(APP_E_LEDS_LED_1, bIdentifyState);
         }
     }
 }
@@ -469,7 +468,7 @@ static void APP_vHandleClusterCustomCommands(tsZCL_CallBackEvent *psEvent)
     {
         case GENERAL_CLUSTER_ID_ONOFF:
         {
-            APP_vSetLed(LED1, sBaseDevice.sOnOffServerCluster.bOnOff);
+            APP_vSetLed(APP_E_LEDS_LED_1, sBaseDevice.sOnOffServerCluster.bOnOff);
         }
         break;
 

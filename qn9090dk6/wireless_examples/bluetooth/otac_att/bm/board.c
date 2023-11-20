@@ -128,11 +128,19 @@ static  gpioInputPinConfig_t resetPin = {
 #endif
 
 #if gAdcUsed_d
+#define ADC_IDLE_LOOPS 2000000
+
+#define ADC_STATE_IDLE  0
+#define ADC_STATE_TEMP  1
+#define ADC_STATE_BAT   2
 static adc_config_t adcConfigStruct;
 static adc_conv_seq_config_t adcConvSeqConfigStruct;
+static bool do_battery_measure = false;
+static uint8_t battery_level = 0;
 
-/*  set if adc measurements are done */
-static bool adc_measure_done = false;
+static bool blocking_measure = true;
+/*  ADC measurements state machine */
+static uint8_t adc_measure_state = ADC_STATE_TEMP;
 #endif
 
 #if (gKBD_KeysCount_c > 0)
@@ -714,33 +722,37 @@ void BOARD_SetDEBUG_UART_LowPower(void)
 #if gAdcUsed_d
 uint8_t BOARD_GetBatteryLevel(void)
 {
-    static uint8_t    battery_lvl = 0;
-    bool do_measure   = false;
+    uint8_t battery_lvl = 0xFF;
     adc_result_info_t adcResultInfoStruct;
 
     ADC_DBG_LOG("");
 
     /*  do battery measurement if ADC is enabled or if battery level has never been measured */
-    if( BOARD_IsADCEnabled() )
+    if (do_battery_measure == false)
     {
-        ADC_DBG_LOG("ADC not enabled");
+        if( BOARD_IsADCEnabled() )
+        {
+            ADC_DBG_LOG("ADC not enabled");
 
-        BOARD_CheckADCReady();
+            if (BOARD_CheckADCReady())
+            {
+                do_battery_measure = true;
+            }
+        }
+        else if(battery_lvl == 0)
+        {
+            ADC_DBG_LOG("ADC not initialised");
 
-        do_measure = true;
+            BOARD_InitAdc();
+
+            if (BOARD_CheckADCReady())
+            {
+                do_battery_measure = true;
+            }
+        }
     }
-    else if(battery_lvl == 0)
-    {
-        ADC_DBG_LOG("ADC not initialised");
 
-        BOARD_InitAdc();
-
-        CLOCK_uDelay(ADC_WAIT_TIME_US);
-
-        do_measure = true;
-    }
-
-    if(do_measure)
+    if(do_battery_measure)
     {
         BOARD_ADCChannelSet(ADC_BAT_LEVEL_CHANNEL, true);
 
@@ -754,22 +766,29 @@ uint8_t BOARD_GetBatteryLevel(void)
         /* battery_lvl = ADCoutputData/4095*ADCFullScale/ADCFrontEndGain/FullVoltageRange*100*/
         uint32_t voltageValMv = ADC_TO_MV(adcResultInfoStruct.result);
         battery_lvl  = (uint8_t)ADC_MV_TO_PERCENT(voltageValMv);
-    }
+        do_battery_measure = false;
 
-    //PRINTF("BOARD_GetBatteryLevel =%d \r\n", battery_lvl);
-    ADC_DBG_LOG("Battery level=%d", battery_lvl);
+        /* If blocking state is false, meaning that conversion is asynchronous, set it to true to be able to read in one go for
+         * modules that need backward compatibility */
+        if(BOARD_GetBlockingAdcReadState() == false)
+        {
+            BOARD_SetBlockingAdcRead();
+        }
+
+        ADC_DBG_LOG("Battery level=%d", battery_lvl);
+    }
 
     return battery_lvl;
 }
 
 /* Store time when ADC is initialised, then enabling could be done at least 230us later */
 #if gTimestampUseWtimer_c
-static uint64_t ADCInit_time = 0;
+static uint64_t ADCInit_time_us = 0;
 
 static void BOARD_StoreADCInitTime(uint64_t time)
 {
     ADC_DBG_LOG("ADCInit_time: %d", (uint32_t )(0xFFFFFFFF & time));
-    ADCInit_time = time;
+    ADCInit_time_us = time;
 }
 #endif
 
@@ -792,7 +811,7 @@ void BOARD_InitAdc(void)
         BOARD_StoreADCInitTime(Timestamp_Get_uSec());
 #endif
         /* ADC just initialized, measurements should be done before going to low power */
-        adc_measure_done = false;
+        adc_measure_state = ADC_STATE_TEMP;
     }
 
     LpIoSet(1, 1);
@@ -818,21 +837,52 @@ void BOARD_ADCWakeupInit(void)
     }
 }
 
+void BOARD_SetBlockingAdcRead(void)
+{
+    blocking_measure = true;
+}
+
+void BOARD_ResetBlockingAdcRead(void)
+{
+    blocking_measure = false;
+}
+
+bool BOARD_GetBlockingAdcReadState(void)
+{
+    return blocking_measure;
+}
+
 /* Verify that ADC init has been done at least ADC_WAIT_TIME_US earlier */
-void BOARD_CheckADCReady(void)
+bool BOARD_CheckADCReady()
 {
 #if gTimestampUseWtimer_c
     uint64_t time;
 
-    time = Timestamp_Get_uSec() - ADCInit_time ;
+    time = Timestamp_Get_uSec() - ADCInit_time_us ;
 
     if (time < ADC_WAIT_TIME_US)
     {
-        CLOCK_uDelay(ADC_WAIT_TIME_US - time);
+        if (blocking_measure == true)
+        {
+            /* Check is blocking so CPU blocks for (ADC_WAIT_TIME_US - time) us */
+            CLOCK_uDelay(ADC_WAIT_TIME_US - time);
+            return true;
+        }
+        else
+        {
+            /* ADC is not ready and task should be let to run */
+            return false;
+        }
+    }
+    else
+    {
+        /* ADC is ready and task should process it */
+        return true;
     }
 #else
     /* when no time stamp, wait for ADC_WAIT_TIME_US */
     CLOCK_uDelay(ADC_WAIT_TIME_US);
+    return true;
 #endif
 }
 
@@ -851,19 +901,68 @@ void BOARD_EnableAdc(void)
 /*  Do ADC measurements before going to low power */
 void BOARD_ADCMeasure(void)
 {
-    int32_t temperature;
-
+	static uint32_t adcIdleLoopCounts = 0;
+    int32_t temperature = 0;
     /* check ADC is initialized and measurements not already done */
-    if( BOARD_IsADCEnabled() && (adc_measure_done == false) )
+    if( BOARD_IsADCEnabled() )
     {
-        adc_measure_done = true;
-        BOARD_GetBatteryLevel();
-        temperature = BOARD_GetTemperature();
-#if gSupportBle
-        XCVR_TemperatureUpdate(temperature);
-#else
-        vRadio_Temp_Update((int16_t) (2*temperature));
+        switch (adc_measure_state)
+        {
+            case ADC_STATE_IDLE:
+                if (adcIdleLoopCounts >= ADC_IDLE_LOOPS)
+                {
+                    adc_measure_state = ADC_STATE_TEMP;
+                    adcIdleLoopCounts = 0;
+                }
+                else
+                {
+                    adcIdleLoopCounts++;
+                }
+                break;
+
+            case ADC_STATE_TEMP:
+                /* By default, ADC is set to block task until read is done. Using BOARD_ResetBlockingAdcRead(),
+                 * task can be unblocked until ADC finishes the conversion. */
+                if (BOARD_GetBlockingAdcReadState() == true)
+                {
+#if (cPWR_FullPowerDownMode)
+                    PWR_DisallowDeviceToSleep();
 #endif
+                    BOARD_ResetBlockingAdcRead();
+                }
+
+                temperature = BOARD_GetTemperature();
+
+                /* Temperature value will be invalid until conversion is done and BOARD_GetTemperature can return
+                 * the converted value*/
+                if (temperature != 0xFFFFFFFF)
+                {
+#if gSupportBle
+                    XCVR_TemperatureUpdate(temperature);
+#else
+                    vRadio_Temp_Update((int16_t) (2*temperature));
+#endif
+                    adc_measure_state = ADC_STATE_BAT;
+                }
+
+            case ADC_STATE_BAT:
+                battery_level = BOARD_GetBatteryLevel();
+
+                /* Battery value will be invalid until conversion is done and BOARD_GetBatteryLevel can return
+                 * the converted value*/
+                if (battery_level != 0xFF)
+                {
+                    adc_measure_state = ADC_STATE_IDLE;
+#if (cPWR_FullPowerDownMode)
+                    PWR_AllowDeviceToSleep();
+#endif
+                }
+
+                break;
+
+            default:
+                break;
+        }
     }
 }
 
@@ -1184,7 +1283,7 @@ static void _BOARD_DeInitSPIFIPins(void)
     /* Turn all pins into analog inputs */
     for (int i = 0; i < 6; i++)
     {
-    	if ((i == 1 || i == 4) && IS_SPIFI_DUAL_MODE())
+        if ((i == 1 || i == 4) && IS_SPIFI_DUAL_MODE())
             continue;
 
         /* Initialize GPIO functionality on each pin : all inputs */
@@ -1236,7 +1335,7 @@ static uint8_t BOARD_SPIFI_FLASH_isBusy(void)
 
 static void BOARD_SPIFI_FLASH_Config(void)
 {
-	if (IS_SPIFI_DUAL_MODE())
+    if (IS_SPIFI_DUAL_MODE())
     {
         spifi_command_t DP_cmd = {0, false, kSPIFI_DataInput,  0, kSPIFI_CommandAllSerial,    kSPIFI_CommandOpcodeOnly, 0xB9};
 
@@ -1500,8 +1599,8 @@ void BOARD_common_hw_init(void)
     /* If the device is waking up from power down, the stacks may have been compressed, so need to be restored */
     if(reset_cause == RESET_WAKE_PD)
     {
-    	/* will have no effect if stack was kept in retention */
-    	OSA_LowPowerRestoreStacksToActualLocation();
+        /* will have no effect if stack was kept in retention */
+        OSA_LowPowerRestoreStacksToActualLocation();
     }
 #endif
 #if !defined(gPWR_BleWakeupTimeOptimDisabled) || (gPWR_BleWakeupTimeOptimDisabled == 0)

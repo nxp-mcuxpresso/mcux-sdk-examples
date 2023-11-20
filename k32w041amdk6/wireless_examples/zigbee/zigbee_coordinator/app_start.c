@@ -1,5 +1,5 @@
 /*
-* Copyright 2019 NXP
+* Copyright 2019, 2023 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -21,6 +21,11 @@
 #ifdef ENABLE_SUBG_IF
 #include "MDI_ReadFirmVer.h"
 #include "MDI_Programmer.h"
+#endif
+#ifdef NCP_HOST
+#include <pthread.h>
+#include "dbg.h"
+#include "serial_link_ctrl.h"
 #endif
 /****************************************************************************/
 /***        Macro Definitions                                             ***/
@@ -71,7 +76,19 @@ void vAppMain(void)
     BDB_vStart();
 }
 
+#ifdef NCP_HOST
+extern void HOST_TO_JN_UART_ISR(void);
+pthread_mutex_t host_to_jn_uart_isr_lock = PTHREAD_MUTEX_INITIALIZER;
 
+void *SL_thread_routine(void *param)
+{
+    while (1 != 0)
+    {
+        HOST_TO_JN_UART_ISR();
+    }
+    return NULL;
+}
+#endif
 /****************************************************************************/
 /***        Local Functions                                               ***/
 /****************************************************************************/
@@ -96,7 +113,19 @@ static void APP_vInitialise(void)
     APP_vCheckMtgState();
 #endif
     UART_vInit();
-    UART_vRtsStartFlow();
+#ifdef NCP_HOST
+    (void)eSL_SerialInit();
+    DBG_vPrintf(TRUE, "serial Link initialised\n");
+
+    pthread_t cThread;
+    if (pthread_create(&cThread, NULL, SL_thread_routine, NULL))
+    {
+        perror("ERROR creating SL thread.");
+    }
+    extern uint8_t rxDmaTimerHandle;
+    ZTIMER_eStart(rxDmaTimerHandle, 100);
+#endif
+
     /* Initialise application */
     APP_vInitialiseCoordinator();
 }

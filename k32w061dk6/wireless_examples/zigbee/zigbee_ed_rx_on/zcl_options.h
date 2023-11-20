@@ -1,5 +1,5 @@
 /*
-* Copyright 2019 NXP
+* Copyright 2019,2023 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -74,8 +74,11 @@ enum
 #define CLD_ONOFF
 #define ONOFF_SERVER
 
+#ifndef DISABLE_OTA
 #define CLD_OTA
 #define OTA_CLIENT
+#endif
+
 #define OTA_NO_CERTIFICATE
 
 /****************************************************************************/

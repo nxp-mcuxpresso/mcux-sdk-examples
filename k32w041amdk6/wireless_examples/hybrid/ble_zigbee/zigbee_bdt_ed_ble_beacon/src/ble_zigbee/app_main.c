@@ -42,7 +42,6 @@
 /****************************************************************************/
 /***        Exported Variables                                            ***/
 /****************************************************************************/
-uint8_t  u8TimerButtonScan;
 uint8_t  u8TimerPoll;
 uint8_t  u8LedTimer;
 /* queue handles */
@@ -127,7 +126,6 @@ void APP_vInitResources(void)
     ZTIMER_eInit(asTimers, sizeof(asTimers) / sizeof(ZTIMER_tsTimer));
 
     /* Create Z timers */
-    ZTIMER_eOpen(&u8TimerButtonScan,    APP_cbTimerButtonScan,  NULL, ZTIMER_FLAG_ALLOW_SLEEP);
     ZTIMER_eOpen(&u8TimerPoll,          APP_cbTimerPoll,  NULL, ZTIMER_FLAG_ALLOW_SLEEP);
     ZTIMER_eOpen(&u8LedTimer,           APP_cbTimerLed,         NULL, ZTIMER_FLAG_PREVENT_SLEEP);
     ZQ_vQueueCreate(&APP_msgAppEvents,  APP_QUEUE_SIZE,       sizeof(APP_tsEvent),         NULL);
@@ -149,7 +147,7 @@ void APP_vInitResources(void)
 void APP_cbTimerLed(void *pvParam)
 {
     static bool_t bCurrentState = TRUE;
-    APP_vSetLed(LED2, bCurrentState);
+    APP_vSetLed(APP_E_LEDS_LED_2, bCurrentState);
 
     bCurrentState = !bCurrentState;
 }

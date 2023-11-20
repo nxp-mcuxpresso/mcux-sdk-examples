@@ -55,7 +55,7 @@
 /****************************************************************************/
 static void vAppHandleAfEvent( BDB_tsZpsAfEvent *psZpsAfEvent);
 static void vAppHandleZdoEvents( BDB_tsZpsAfEvent *psZpsAfEvent);
-static void vDeletePDMOnButtonPress(uint8_t u8ButtonDIO);
+static void vDeletePDMOnButtonPress(uint8_t u8ButtonID);
 static void vPrintAPSTable(void);
 void APP_vBdbInit(bool_t bColdStart);
 
@@ -181,7 +181,7 @@ void APP_vInitialiseEndDevice(bool_t bColdStart)
         APP_vBdbInit(bColdStart);
 #ifndef DM_SWITCH_IO_DEBUG_ENABLED
        /* Delete PDM if required */
-       vDeletePDMOnButtonPress(APP_BOARD_SW0_PIN);
+       vDeletePDMOnButtonPress(APP_E_BUTTONS_BUTTON_1);
 #endif
        DBG_vPrintf(TRACE_APP, "Start Up State %d On Network %d\r\n",
                 sDeviceDesc.eNodeState,
@@ -563,14 +563,14 @@ void APP_vBdbInit(bool_t bColdStart)
  * void
  *
  ****************************************************************************/
-static void vDeletePDMOnButtonPress(uint8_t u8ButtonDIO)
+static void vDeletePDMOnButtonPress(uint8_t u8ButtonID)
 {
     bool_t bDeleteRecords = FALSE;
     uint8_t u8Status;
 
-    uint32_t u32Buttons = APP_u32GetSwitchIOState() & (1 << u8ButtonDIO);
+    bool_t bButtonPressed = APP_u32GetButtonsState() & (1 << u8ButtonID);
 
-    if (u32Buttons == 0)
+    if (bButtonPressed)
     {
         bDeleteRecords = TRUE;
     }
@@ -587,9 +587,9 @@ static void vDeletePDMOnButtonPress(uint8_t u8ButtonDIO)
     if(bDeleteRecords)
     {
         /* wait for button release */
-        while (u32Buttons == 0)
+        while (bButtonPressed)
         {
-            u32Buttons = APP_u32GetSwitchIOState() & (1 << u8ButtonDIO);
+            bButtonPressed = APP_u32GetButtonsState() & (1 << u8ButtonID);
         }
         u8Status = ZPS_eAplZdoLeaveNetwork(0, FALSE,FALSE);
         if (ZPS_E_SUCCESS !=  u8Status )

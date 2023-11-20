@@ -1,5 +1,5 @@
 /*
-* Copyright 2019 NXP
+* Copyright 2019,2023 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -16,7 +16,9 @@
 #include "ZTimer.h"
 #include "dbg.h"
 #include "zigbee_config.h"
+#ifdef CLD_OTA
 #include "app_ota_client.h"
+#endif
 #include "app_leds.h"
 #include "app.h"
 #include "app_common.h"
@@ -84,6 +86,26 @@ void APP_ZCL_vStartTimers (void)
 
 /****************************************************************************
  *
+ * NAME: APP_vUpdateZCLTimer
+ *
+ * DESCRIPTION:
+ * Updates ZCL Timer with 1 tick (1 second)
+ *
+ * RETURNS:
+ * void
+ *
+ ****************************************************************************/
+void APP_vUpdateZCLTimer(void)
+{
+    tsZCL_CallBackEvent sCallBackEvent;
+
+    sCallBackEvent.pZPSevent = NULL;
+    sCallBackEvent.eEventType = E_ZCL_CBET_TIMER;
+    vZCL_EventHandler(&sCallBackEvent);
+}
+
+/****************************************************************************
+ *
  * NAME: APP_vAlignStatesAfterSleep
  *
  * DESCRIPTION:
@@ -95,11 +117,8 @@ void APP_ZCL_vStartTimers (void)
  ****************************************************************************/
 void APP_vAlignStatesAfterSleep(void)
 {
-    tsZCL_CallBackEvent sCallBackEvent;
     /* Drive ZCL */
-    sCallBackEvent.pZPSevent = NULL;
-    sCallBackEvent.eEventType = E_ZCL_CBET_TIMER;
-    vZCL_EventHandler(&sCallBackEvent);
+    APP_vUpdateZCLTimer();
     #ifdef CLD_OTA
         /* Update for 1 second (1000ms) */
         vRunAppOTAStateMachine(1000);
@@ -148,13 +167,17 @@ void APP_ZCL_vInitialise(bool_t bColdStart)
     APP_vZCL_DeviceSpecific_Init();
     if(bColdStart)
     {
+#ifdef CLD_OTA
         vAppInitOTA();
+#endif
     }
     else
     {
         vZCL_SetUTCTime(U32UTCTimeBeforeSleep);
+
+#ifdef CLD_OTA
         bInitialiseOTAClusterAndAttributes();
-        sBaseDevice.sOnOffServerCluster.bOnOff = bOnOffStatePersist;
+
         /*ZCL time data is not retained so , OTA is. This make OTA think ti's registered while
          * it isn't.
          */
@@ -164,10 +187,10 @@ void APP_ZCL_vInitialise(bool_t bColdStart)
         {
             DBG_vPrintf(TRACE_ZCL, "Failed to register the timer\n");
         }
-        APP_vSetLed(LED1, sBaseDevice.sOnOffServerCluster.bOnOff);
+#endif
+        sBaseDevice.sOnOffServerCluster.bOnOff = bOnOffStatePersist;
+        APP_vSetLed(APP_E_LEDS_LED_1, sBaseDevice.sOnOffServerCluster.bOnOff);
     }
-    
-
 }
 
 
@@ -470,7 +493,7 @@ PUBLIC void APP_vHandleIdentify(uint16_t u16Time)
             /*
              * Restore to off/off state
              */
-        APP_vSetLed(LED1, sBaseDevice.sOnOffServerCluster.bOnOff);
+        APP_vSetLed(APP_E_LEDS_LED_1, sBaseDevice.sOnOffServerCluster.bOnOff);
         bActive = FALSE;
     }
     else
@@ -480,7 +503,7 @@ PUBLIC void APP_vHandleIdentify(uint16_t u16Time)
             bActive = TRUE;
             u8IdentifyCount = 5;
             bIdentifyState = TRUE;
-            APP_vSetLed(LED1, TRUE );
+            APP_vSetLed(APP_E_LEDS_LED_1, APP_E_LED_ON );
         }
     }
 }
@@ -509,7 +532,7 @@ void vIdEffectTick(uint8_t u8Endpoint)
         {
             u8IdentifyCount = 5;
             bIdentifyState = (bIdentifyState)? FALSE: TRUE;
-            APP_vSetLed(LED1, bIdentifyState);
+            APP_vSetLed(APP_E_LEDS_LED_1, bIdentifyState);
         }
     }
 }
@@ -532,7 +555,7 @@ static void APP_vHandleClusterCustomCommands(tsZCL_CallBackEvent *psEvent)
     {
         case GENERAL_CLUSTER_ID_ONOFF:
         {
-            APP_vSetLed(LED1, sBaseDevice.sOnOffServerCluster.bOnOff);
+            APP_vSetLed(APP_E_LEDS_LED_1, sBaseDevice.sOnOffServerCluster.bOnOff);
             bOnOffStatePersist = sBaseDevice.sOnOffServerCluster.bOnOff;
         }
         break;
@@ -557,7 +580,9 @@ static void APP_vHandleClusterCustomCommands(tsZCL_CallBackEvent *psEvent)
                 DBG_vPrintf(TRACE_ZCL, "Basic Factory Reset Received\r\n");
                 memset(&sBaseDevice,0,sizeof(tsZHA_BaseDevice));
                 APP_vZCL_DeviceSpecific_Init();
+#ifdef CLD_OTA
                 vAppInitOTA();
+#endif
                 eZHA_RegisterBaseDeviceEndPoint(APP_u8GetDeviceEndpoint(),
                                                 &APP_ZCL_cbEndpointCallback,
                                                 &sBaseDevice);
@@ -566,6 +591,7 @@ static void APP_vHandleClusterCustomCommands(tsZCL_CallBackEvent *psEvent)
         }
         break;
 
+#ifdef CLD_OTA
         case OTA_CLUSTER_ID:
         {
             tsOTA_CallBackMessage *psCallBackMessage = (tsOTA_CallBackMessage *)psEvent->uMessage.sClusterCustomMessage.pvCustomData;
@@ -575,6 +601,7 @@ static void APP_vHandleClusterCustomCommands(tsZCL_CallBackEvent *psEvent)
 
         }
         break;
+#endif
     }
 }
 

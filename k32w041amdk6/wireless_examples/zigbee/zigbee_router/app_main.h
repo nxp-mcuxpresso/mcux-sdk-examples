@@ -34,7 +34,6 @@ void APP_cbTimerLed(void *pvParam);
 /***        External Variables                                            ***/
 /****************************************************************************/
 
-extern uint8_t u8TimerButtonScan;
 extern uint8_t u8LedTimer;
 extern uint32_t u32Togglems;
 extern tszQueue APP_msgBdbEvents;

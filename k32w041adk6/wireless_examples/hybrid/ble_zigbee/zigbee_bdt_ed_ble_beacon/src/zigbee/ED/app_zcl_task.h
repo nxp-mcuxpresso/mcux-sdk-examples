@@ -1,5 +1,5 @@
 /*
-* Copyright 2019 NXP
+* Copyright 2019,2023 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -45,6 +45,7 @@ void APP_cbTimerZclTick(void *pvParam);
 void APP_ZCL_vTask(void);
 void APP_ZCL_vEventHandler(ZPS_tsAfEvent *psStackEvent);
 void APP_vAlignStatesAfterSleep(void);
+void APP_vUpdateZCLTimer(void);
 void APP_ZCL_vStartTimers (void);
 #ifdef CLD_IDENTIFY_10HZ_TICK
     void vIdEffectTick(uint8_t u8Endpoint);

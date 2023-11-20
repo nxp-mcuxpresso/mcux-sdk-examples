@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_K32W061DK6" name="K32W061DK6" brief="This is SDK version 2.6.12 manifest file. It describes the content of the K32W061DK6 and additional settings for tools that support SDK version 2.6.12" format_version="3.5" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.5.xsd">
-  <!--Timestamp (UTC): 2023-07-25 14:46:46.978750-->
-  <!--This manifest is generated based on sdk repo commit: 643d9203abe15c73d18e2871fd53e3d0b628a8dd-->
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_K32W061DK6" name="K32W061DK6" brief="This is SDK version 2.6.13 manifest file. It describes the content of the K32W061DK6 and additional settings for tools that support SDK version 2.6.13" format_version="3.5" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.5.xsd">
+  <!--Timestamp (UTC): 2023-11-20 10:45:10.574437-->
+  <!--This manifest is generated based on sdk repo commit: 2c7e8a07c859775fe402a066863eced0af2878bf-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
   </defines>
-  <ksdk id="MCUXpressoSDK2612" name="MCUXpressoSDK2612" version="2.6.12"/>
+  <ksdk id="MCUXpressoSDK2613" name="MCUXpressoSDK2613" version="2.6.13"/>
   <compilers>
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
   </compilers>
@@ -4031,7 +4031,6 @@ ${load}</script>
         <files mask="JN-UG-3133-Core-Utilities.pdf"/>
         <files mask="JN-UG-3134-Zigbee3-Green-Power.pdf"/>
         <files mask="JN-UG-3135-Encyption-Tool.pdf"/>
-        <files mask="ZigBee Demo Applications User's Guide.pdf"/>
       </source>
       <source path="core/docs/wireless/Zigbee/html/ZigBee Demo Applications User's Guide/ZBDAUG_files" target_path="src" type="doc">
         <files mask="GUID-020F0A13-2BEF-47D7-ADEC-2B6BA9E2DDED.html"/>
@@ -5810,6 +5809,17 @@ ${load}</script>
         <files mask="sign_images.sh"/>
       </source>
     </component>
+    <component id="middleware.wireless.zigbee.platform.k32w0.K32W061" name="Wireless zigbee examples" version="1.0.0" full_name="Wireless zigbee platform" devices="K32W061 K32W041" user_visible="false" type="middleware">
+      <source path="middleware/wireless/zigbee/platform/K32W0/platform" target_path="platform/source" type="src">
+        <files mask="buttons.c"/>
+        <files mask="leds.c"/>
+        <files mask="timer.c"/>
+        <files mask="uart.c"/>
+      </source>
+      <source path="middleware/wireless/zigbee/platform" target_path="platform/include" type="c_include">
+        <files mask="zb_platform.h"/>
+      </source>
+    </component>
     <component id="middleware.wireless.zigbee_BuildConfig.K32W061" name="wireless zigbee BuildConfig#IDE will show this as component name" version="1.0.0" full_name="wireless zigbee BuildConfig" devices="K32W061 K32W041" user_visible="false" type="middleware">
       <source toolchain="mcuxpresso" path="middleware/wireless/zigbee/BuildConfig/ZBPro/Build" target_path="src" type="script">
         <files mask="config_OSA.mk"/>
@@ -5924,7 +5934,6 @@ ${load}</script>
         <files mask="PowerProfile.h"/>
         <files mask="Scenes.h"/>
         <files mask="TC.h"/>
-        <files mask="Time.h"/>
         <files mask="WWAH.h"/>
         <files mask="ZclTime.h"/>
       </source>
@@ -6400,7 +6409,7 @@ ${load}</script>
       </source>
     </component>
     <component id="middleware.wireless.zigbee_core_ZED_lib.K32W061" name="wireless zigbee core ZED lib#IDE will show this as component name" version="1.0.0" full_name="wireless zigbee core ZED lib" devices="K32W061 K32W041" user_visible="false" type="middleware">
-      <source toolchain="mcuxpresso" path="middleware/wireless/zigbee/Library" target_path="libs" type="lib">
+      <source toolchain="mcuxpresso" path="middleware/wireless/zigbee/platform/K32W0/libs" target_path="libs" type="lib">
         <files mask="libZPSAPL.a"/>
         <files mask="libZPSGP_ZED.a"/>
         <files mask="libZPSIPAN_ZED.a"/>
@@ -6410,7 +6419,7 @@ ${load}</script>
       </source>
     </component>
     <component id="middleware.wireless.zigbee_core_all_libs.K32W061" name="wireless zigbee core all libs#IDE will show this as component name" version="1.0.0" full_name="wireless zigbee core all libs" devices="K32W061 K32W041" user_visible="false" type="middleware">
-      <source toolchain="mcuxpresso" path="middleware/wireless/zigbee/Library" target_path="libs" type="lib">
+      <source toolchain="mcuxpresso" path="middleware/wireless/zigbee/platform/K32W0/libs" target_path="libs" type="lib">
         <files mask="libATJParser.a"/>
         <files mask="libSerialMiniMacUpper_JN518x.a"/>
         <files mask="libZPSAPL.a"/>
@@ -6566,7 +6575,7 @@ ${load}</script>
       </source>
     </component>
     <component id="middleware.wireless.zigbee_core_lib.K32W061" name="wireless zigbee core lib#IDE will show this as component name" version="1.0.0" full_name="wireless zigbee core lib" devices="K32W061 K32W041" user_visible="false" type="middleware">
-      <source toolchain="mcuxpresso" path="middleware/wireless/zigbee/Library" target_path="libs" type="lib">
+      <source toolchain="mcuxpresso" path="middleware/wireless/zigbee/platform/K32W0/libs" target_path="libs" type="lib">
         <files mask="libZPSAPL.a"/>
         <files mask="libZPSGP.a"/>
         <files mask="libZPSIPAN.a"/>
@@ -6576,7 +6585,7 @@ ${load}</script>
       </source>
     </component>
     <component id="middleware.wireless.zigbee_core_lib_subg.K32W061" name="wireless zigbee core lib for subg#IDE will show this as component name" version="1.0.0" full_name="wireless zigbee core lib for subg" devices="K32W061 K32W041" user_visible="false" type="middleware">
-      <source toolchain="mcuxpresso" path="middleware/wireless/zigbee/Library" target_path="libs" type="lib">
+      <source toolchain="mcuxpresso" path="middleware/wireless/zigbee/platform/K32W0/libs" target_path="libs" type="lib">
         <files mask="libSerialMiniMacUpper_JN518x.a"/>
         <files mask="libZPSAPL.a"/>
         <files mask="libZPSGP.a"/>

@@ -1,5 +1,5 @@
 /*
-* Copyright 2019 NXP
+* Copyright 2019, 2023 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -16,14 +16,33 @@
 #include "pdum_gen.h"
 #include "app_zcl_task.h"
 #include "app_common.h"
+#if defined(NCP_COPRO)
+#include "serial_link_cmds_wkr.h"
+#endif
+#if !(defined(K32W1480_SERIES) || defined(NCP_HOST) || defined(NCP_COPRO))
 #include "fsl_rng.h"
+#endif
 #include "bdb_DeviceCommissioning.h"
 
+#ifdef NCP_HOST
+#include "dbg.h"
+#endif
 uint8_t u8TimerZCL;
 
+#if !defined(NCP_COPRO)
 tszQueue APP_msgBdbEvents;
+#else
+tszQueue sAPP_msgZpsEvents;
+tszQueue APP_msgSerialRx;
+#endif
 
+#ifdef NCP_HOST
+uint8_t rxDmaTimerHandle;
 
+PRIVATE uint8 au8PdumBufferPool[ZB_BUFFER_SIZE] __attribute__ ((aligned (4)));
+
+PUBLIC void APP_vRxDmaTimerCallbackFnct(void *p_arg);
+#endif
 /****************************************************************************
 *
 * NAME: APP_vStopZigbeeTimers
@@ -54,10 +73,14 @@ void APP_vStopZigbeeTimers(void)
  ****************************************************************************/
 void APP_vRunZigbee(void)
 {
+
 		zps_taskZPS();
-        bdb_taskBDB();        
+#ifndef NCP_COPRO
+        bdb_taskBDB();
+#endif
 }
 
+#if !(defined(NCP_COPRO)) && !(defined(NCP_HOST))
 /****************************************************************************
  *
  * NAME: APP_vInitZigbeeResources
@@ -72,14 +95,62 @@ void APP_vRunZigbee(void)
 void APP_vInitZigbeeResources(void)
 {
     ZTIMER_eOpen(&u8TimerZCL,           APP_cbTimerZclTick ,    NULL, ZTIMER_FLAG_PREVENT_SLEEP);
-    ZQ_vQueueCreate(&APP_msgBdbEvents,        BDB_QUEUE_SIZE,          sizeof(BDB_tsZpsAfEvent),    NULL);    
+    ZQ_vQueueCreate(&APP_msgBdbEvents,        BDB_QUEUE_SIZE,          sizeof(BDB_tsZpsAfEvent),    NULL);
     ZQ_vQueueCreate(&zps_msgMlmeDcfmInd,      MLME_QUEQUE_SIZE,        sizeof(MAC_tsMlmeVsDcfmInd), NULL);
     ZQ_vQueueCreate(&zps_msgMcpsDcfmInd,      MCPS_QUEUE_SIZE,         sizeof(MAC_tsMcpsVsDcfmInd), NULL);
     ZQ_vQueueCreate(&zps_msgMcpsDcfm,         MCPS_DCFM_QUEUE_SIZE,    sizeof(MAC_tsMcpsVsCfmData), NULL);
     ZQ_vQueueCreate(&zps_TimeEvents,          TIMER_QUEUE_SIZE,        sizeof(zps_tsTimeEvent),     NULL);
+
     PDUM_vInit();
 }
+#elif (defined(NCP_COPRO))
+/****************************************************************************
+ *
+ * NAME: APP_vInitZigbeeResources
+ *
+ * DESCRIPTION:
+ * Main  execution loop
+ *
+ * RETURNS:
+ * Never
+ *
+ ****************************************************************************/
+void APP_vInitZigbeeResources(void)
+{
+    ZQ_vQueueCreate(&sAPP_msgZpsEvents,     ZPS_EVENT_QUEUE_SIZE,      sizeof(ZPS_tsAfEvent), NULL);
+    ZQ_vQueueCreate(&APP_msgSerialRx,       SERIAL_MSG_QUEUE_SIZE,     sizeof(uint8), NULL);
+    ZQ_vQueueCreate(&zps_msgMlmeDcfmInd,    MLME_QUEQUE_SIZE,        sizeof(MAC_tsMlmeVsDcfmInd), NULL);
+    ZQ_vQueueCreate(&zps_msgMcpsDcfmInd,    MCPS_QUEUE_SIZE,         sizeof(MAC_tsMcpsVsDcfmInd), NULL);
+    ZQ_vQueueCreate(&zps_msgMcpsDcfm,       MCPS_DCFM_QUEUE_SIZE,    sizeof(MAC_tsMcpsVsCfmData), NULL);
+    ZQ_vQueueCreate(&zps_TimeEvents,        TIMER_QUEUE_SIZE,        sizeof(zps_tsTimeEvent),     NULL);
 
+    PDUM_vInit();
+}
+#elif (defined(NCP_HOST))
+/****************************************************************************
+ *
+ * NAME: APP_vInitZigbeeResources
+ *
+ * DESCRIPTION:
+ * Main  execution loop
+ *
+ * RETURNS:
+ * Never
+ *
+ ****************************************************************************/
+void APP_vInitZigbeeResources(void)
+{
+    ZTIMER_eOpen(&u8TimerZCL,           APP_cbTimerZclTick ,    NULL, ZTIMER_FLAG_PREVENT_SLEEP);
+    ZQ_vQueueCreate(&APP_msgBdbEvents,	BDB_QUEUE_SIZE,          sizeof(BDB_tsZpsAfEvent),    NULL);
+    ZTIMER_eOpen(&rxDmaTimerHandle, APP_vRxDmaTimerCallbackFnct, NULL, ZTIMER_FLAG_PREVENT_SLEEP);
+
+    uint16_t u16NoOfBuffers;
+    bPdumInit(au8PdumBufferPool, APDU_PAYLOAD_SIZE, NUM_OF_APDU_BUFFERS,  sizeof(au8PdumBufferPool), &u16NoOfBuffers);
+    DBG_vPrintf(TRUE, "Allocated %d buffers in poll\n", u16NoOfBuffers);
+}
+#endif
+
+#ifndef NCP_HOST
 /* Out Of Band Commissioning */
 static struct dev_info app_dev_info;
 static bool_t valid_dev_info;
@@ -95,8 +166,10 @@ static void APP_dev_info_init()
     if (!valid_dev_info)
     {
         app_dev_info.addr = ZPS_u64AplZdoGetIeeeAddr();
+
         if (!bGetInstallCode(app_dev_info.instCode))
         {
+#if !(defined(K32W1480_SERIES))
             trng_config_t trng_config;
 
             /* Generate random install code */
@@ -104,6 +177,7 @@ static void APP_dev_info_init()
             TRNG_Init(RNG, &trng_config);
             TRNG_GetRandomData(RNG, app_dev_info.instCode, ZB_OOB_KEY_SIZE);
             TRNG_Deinit(RNG);
+#endif
         }
         app_dev_info.crc = ZPS_u16crc(app_dev_info.instCode, ZB_OOB_KEY_SIZE);
         valid_dev_info = TRUE;
@@ -250,7 +324,7 @@ void APP_SetMaxTxPower()
 	if (CHIP_IS_HITXPOWER_CAPABLE())
 		ZPS_eMacPlmeSet(PHY_PIB_ATTR_TX_POWER, HIGH_TX_PWR_LIMIT);
 }
-
+#endif
 /****************************************************************************/
 /***        END OF FILE                                                   ***/
 /****************************************************************************/

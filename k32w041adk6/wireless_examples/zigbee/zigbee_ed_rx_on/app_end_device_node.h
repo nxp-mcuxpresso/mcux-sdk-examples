@@ -1,5 +1,5 @@
 /*
-* Copyright 2019 NXP
+* Copyright 2019,2023 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -28,7 +28,9 @@ void APP_vInitialiseEndDevice(void);
 void APP_vFactoryResetRecords(void);
 void APP_taskEndDevicNode(void);
 teNodeState eGetNodeState(void);
+#ifdef CLD_OTA
 tsOTA_PersistedData sGetOTACallBackPersistdata(void);
+#endif
 
 /****************************************************************************/
 /***        External Variables                                            ***/

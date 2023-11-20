@@ -1,5 +1,5 @@
 /*
-* Copyright 2019 NXP
+* Copyright 2019,2023 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -16,7 +16,9 @@
 #include "ZTimer.h"
 #include "dbg.h"
 #include "zigbee_config.h"
+#ifdef CLD_OTA
 #include "app_ota_client.h"
+#endif
 #include "app_leds.h"
 #include "app.h"
 #include "app_common.h"
@@ -98,9 +100,10 @@ void APP_ZCL_vInitialise(void)
 
     APP_vZCL_DeviceSpecific_Init();
 
+#ifdef CLD_OTA
     vAppInitOTA();
-    APP_vSetLed(LED1, sBaseDevice.sOnOffServerCluster.bOnOff);
-
+#endif
+    APP_vSetLed(APP_E_LEDS_LED_1, sBaseDevice.sOnOffServerCluster.bOnOff);
 }
 
 
@@ -402,7 +405,7 @@ void APP_vHandleIdentify(uint16_t u16Time)
             /*
              * Restore to off/off state
              */
-        APP_vSetLed(LED1, sBaseDevice.sOnOffServerCluster.bOnOff);
+        APP_vSetLed(APP_E_LEDS_LED_1, sBaseDevice.sOnOffServerCluster.bOnOff);
         bActive = FALSE;
     }
     else
@@ -412,7 +415,7 @@ void APP_vHandleIdentify(uint16_t u16Time)
             bActive = TRUE;
             u8IdentifyCount = 5;
             bIdentifyState = TRUE;
-            APP_vSetLed(LED1, TRUE );
+            APP_vSetLed(APP_E_LEDS_LED_1, APP_E_LED_ON );
         }
     }
 }
@@ -441,7 +444,7 @@ void vIdEffectTick(uint8_t u8Endpoint)
         {
             u8IdentifyCount = 5;
             bIdentifyState = (bIdentifyState)? FALSE: TRUE;
-            APP_vSetLed(LED1, bIdentifyState);
+            APP_vSetLed(APP_E_LEDS_LED_1, bIdentifyState);
         }
     }
 }
@@ -464,7 +467,7 @@ static void APP_vHandleClusterCustomCommands(tsZCL_CallBackEvent *psEvent)
     {
         case GENERAL_CLUSTER_ID_ONOFF:
         {
-            APP_vSetLed(LED1, sBaseDevice.sOnOffServerCluster.bOnOff);
+            APP_vSetLed(APP_E_LEDS_LED_1, sBaseDevice.sOnOffServerCluster.bOnOff);
         }
         break;
 
@@ -486,7 +489,9 @@ static void APP_vHandleClusterCustomCommands(tsZCL_CallBackEvent *psEvent)
                 DBG_vPrintf(TRACE_ZCL, "Basic Factory Reset Received\r\n");
                 memset(&sBaseDevice,0,sizeof(tsZHA_BaseDevice));
                 APP_vZCL_DeviceSpecific_Init();
+#ifdef CLD_OTA
                 vAppInitOTA();
+#endif
                 eZHA_RegisterBaseDeviceEndPoint(APP_u8GetDeviceEndpoint(),
                                                 &APP_ZCL_cbEndpointCallback,
                                                 &sBaseDevice);
@@ -495,6 +500,7 @@ static void APP_vHandleClusterCustomCommands(tsZCL_CallBackEvent *psEvent)
         }
         break;
 
+#ifdef CLD_OTA
         case OTA_CLUSTER_ID:
         {
             tsOTA_CallBackMessage *psCallBackMessage = (tsOTA_CallBackMessage *)psEvent->uMessage.sClusterCustomMessage.pvCustomData;
@@ -513,6 +519,9 @@ static void APP_vHandleClusterCustomCommands(tsZCL_CallBackEvent *psEvent)
             }
             vHandleAppOtaClient(psCallBackMessage);
         }
+        break;
+#endif
+        default:
         break;
     }
 }

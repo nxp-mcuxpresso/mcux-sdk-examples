@@ -47,6 +47,7 @@
 /* OM15076 Carrier Board */
 #define APP_BOARD_SW0_PIN       (1)   /* USERINTERFACE */
 #define APP_BOARD_SWISP_PIN     (5)   /* ISP */
+#define APP_BUTTONS_DIO_MASK    (1 << APP_BOARD_SW0_PIN)
 
 /* base board leds Pin High == OFF */
 #define APP_BASE_BOARD_LED1_PIN (0)  /* base bord led 1 */

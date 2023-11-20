@@ -1,5 +1,5 @@
 /*
-* Copyright 2019 NXP
+* Copyright 2019, 2023 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -18,7 +18,9 @@
 #include "OTA.h"
 #include "zcl_options.h"
 #include "app_ota_client.h"
+#ifndef NCP_HOST
 #include "OtaSupport.h"
+#endif
 #ifdef EndDevice
 #include "app_end_device_node.h"
 #endif
@@ -27,7 +29,9 @@
 #endif
 #include "app_common.h"
 #include "rnd_pub.h"
+#ifndef NCP_HOST
 #include "fsl_wwdt.h"
+#endif
 #include "base_device.h"
 #include "app_leds.h"
 #include "app.h"

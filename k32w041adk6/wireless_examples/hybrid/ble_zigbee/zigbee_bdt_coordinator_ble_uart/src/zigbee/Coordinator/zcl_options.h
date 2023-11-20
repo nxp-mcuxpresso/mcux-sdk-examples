@@ -69,8 +69,10 @@
 #define CLD_ONOFF
 #define ONOFF_CLIENT
 
+#ifndef DISABLE_OTA
 #define CLD_OTA
 #define OTA_SERVER
+#endif
 #define OTA_NO_CERTIFICATE
 #define OTA_MAX_BLOCK_SIZE                                                (48)
 

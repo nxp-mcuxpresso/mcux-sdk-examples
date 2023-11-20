@@ -34,6 +34,7 @@
 #include "fsl_xcvr.h"
 
 /* KSDK */
+#include "app.h"
 #include "board.h"
 #include "fsl_reset.h"
 #include "MicroSpecific.h"

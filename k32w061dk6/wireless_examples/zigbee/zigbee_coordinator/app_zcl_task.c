@@ -98,7 +98,9 @@ void APP_ZCL_vInitialise(void)
     }
 
     APP_vZCL_DeviceSpecific_Init();
+#ifdef CLD_OTA
     vAppInitOTA();
+#endif
 }
 
 
@@ -403,7 +405,7 @@ static void APP_vHandleClusterCustomCommands(tsZCL_CallBackEvent *psEvent)
         }
         break;
 
-
+#ifdef CLD_OTA
         case OTA_CLUSTER_ID:
         {
             tsOTA_CallBackMessage *psCallBackMessage = (tsOTA_CallBackMessage *)psEvent->uMessage.sClusterCustomMessage.pvCustomData;
@@ -418,6 +420,7 @@ static void APP_vHandleClusterCustomCommands(tsZCL_CallBackEvent *psEvent)
                 eOTA_SetServerParams(APP_u8GetDeviceEndpoint(),0,&sOTAData);
             }
         }
+#endif
         break;
     }
 }

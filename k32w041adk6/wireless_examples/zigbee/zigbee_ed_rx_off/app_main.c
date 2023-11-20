@@ -16,19 +16,28 @@
 #include "fsl_gpio.h"
 #include "RNG_Interface.h"
 #include "SecLib.h"
+#ifdef K32W1480_SERIES
+#include "fwk_platform.h"
+#include "fwk_platform_ics.h"
+#include "fsl_component_mem_manager.h"
+#include "fsl_component_timer_manager.h"
+#else
 #include "MemManager.h"
+#include "TimersManager.h"
+#endif
 #include "app_buttons.h"
 #include "app_main.h"
 #include "app_end_device_node.h"
 #include "app_leds.h"
 #include "PWR_Interface.h"
+#include "pwrm.h"
 /****************************************************************************/
 /***        Macro Definitions                                             ***/
 /****************************************************************************/
 #ifndef OT_ZB_SUPPORT
-#define APP_NUM_STD_TMRS             (2)
+#define APP_NUM_STD_TMRS             (1)
 #else
-#define APP_NUM_STD_TMRS             (3)
+#define APP_NUM_STD_TMRS             (2)
 #endif
 #define APP_QUEUE_SIZE               (1)
 #define APP_ZTIMER_STORAGE           ( APP_NUM_STD_TMRS )
@@ -45,10 +54,10 @@
 /****************************************************************************/
 /***        Exported Variables                                            ***/
 /****************************************************************************/
-uint8_t  u8TimerButtonScan;
 uint8_t  u8TimerPoll;
 #ifdef OT_ZB_SUPPORT
 uint8_t  u8TimerScan;
+uint8_t  u8TimerFb;
 #endif
 /* queue handles */
 tszQueue APP_msgAppEvents;
@@ -89,10 +98,29 @@ void main_task (uint32_t parameter)
     {
         /* place initialization code here... */
         initialized = TRUE;
+
+#ifdef K32W1480_SERIES
+        PLATFORM_SwitchToOsc32k();
+        PLATFORM_InitTimerManager();
+#endif
         PWR_vColdStart();
+#ifndef K32W1480_SERIES
+        TMR_Init();
+#endif
+
         RNG_Init();
         SecLib_Init();
         MEM_Init();
+
+#ifdef K32W1480_SERIES
+#if defined(USE_NBU) && (USE_NBU == 1)
+        PLATFORM_InitNbu();
+        PLATFORM_InitMulticore();
+        PLATFORM_FwkSrvInit();
+        PLATFORM_SendChipRevision();
+        PLATFORM_LoadHwParams();
+#endif
+#endif
         vAppMain(TRUE);
     }
 
@@ -105,7 +133,12 @@ void main_task (uint32_t parameter)
 
         APP_taskEndDevicNode();
 
+#ifndef K32W1480_SERIES
         PWR_EnterLowPower();
+#else
+        PWR_EnterLowPower(0);
+#endif
+
         if(!gUseRtos_c)
         {
             break;
@@ -130,10 +163,10 @@ void APP_vInitResources(void)
     ZTIMER_eInit(asTimers, sizeof(asTimers) / sizeof(ZTIMER_tsTimer));
 
     /* Create Z timers */
-    ZTIMER_eOpen(&u8TimerButtonScan,    APP_cbTimerButtonScan,  NULL, ZTIMER_FLAG_PREVENT_SLEEP);
     ZTIMER_eOpen(&u8TimerPoll,          APP_cbTimerPoll,        NULL, ZTIMER_FLAG_PREVENT_SLEEP);
 #ifdef OT_ZB_SUPPORT
     ZTIMER_eOpen(&u8TimerScan,          APP_cbTimerScan,        NULL, ZTIMER_FLAG_PREVENT_SLEEP);
+    ZTIMER_eOpen(&u8TimerFb,            APP_cbTimerFb,          NULL, ZTIMER_FLAG_PREVENT_SLEEP);
 #endif
     ZQ_vQueueCreate(&APP_msgAppEvents,  APP_QUEUE_SIZE,       sizeof(APP_tsEvent),         NULL);
 

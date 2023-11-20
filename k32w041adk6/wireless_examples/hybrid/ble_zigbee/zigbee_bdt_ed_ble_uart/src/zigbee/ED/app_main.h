@@ -32,13 +32,13 @@ extern void APP_cbTimerPoll( void *pvParam);
 extern void vWakeCallBack(void);
 #ifdef OT_ZB_SUPPORT
 extern void APP_cbTimerScan(void *pvParam);
+extern void APP_cbTimerFb(void *pvParam);
 #endif
 
 /****************************************************************************/
 /***        External Variables                                            ***/
 /****************************************************************************/
 
-extern uint8_t u8TimerButtonScan;
 extern uint8_t  u8LedTimer;
 extern uint8_t  u8TimerPoll;
 extern tszQueue APP_msgBdbEvents;
