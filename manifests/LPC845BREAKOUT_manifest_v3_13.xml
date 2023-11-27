@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_LPC845BREAKOUT_manifest_v3_13" name="SDK Version Superset" brief="SDK Superset" format_version="3.13" api_version="2.0.0" configuration="db2b10111f92f5ab05f933dfaf13b7880e4f3f38" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.13.xsd">
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_LPC845BREAKOUT_manifest_v3_13" name="SDK 2.14.0 Superset" brief="SDK Superset" format_version="3.13" api_version="2.0.0" configuration="db2b10111f92f5ab05f933dfaf13b7880e4f3f38" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.13.xsd">
 
   <externalDefinitions>
     <definition extID="lpcxpresso845max"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2140" name="MCUXpresso SDK2140" version="2.14.0" revision="Provided by Script"/>
+  <ksdk id="MCUXpressoSDK2140" name="MCUXpresso SDK2140" version="2.14.0" revision="2.14.0"/>
   <compilers>
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
   </compilers>
@@ -86,277 +86,277 @@ ${load}</script>
         <files mask="lpc845breakout.png"/>
       </image>
       <examples>
-        <example id="lpc845breakout_crc" name="crc" toolchain="armgcc mcuxpresso" category="driver_examples/crc" path="examples/lpc845breakout/driver_examples/crc">
+        <example id="lpc845breakout_crc" name="crc" brief="The CRC Example project is a demonstration program that uses the KSDK software to generate checksumsfor an ASCII string. Several CRC protocols are implemented using the CRC driver API." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/crc" path="examples/lpc845breakout/driver_examples/crc">
           <external path="examples/lpc845breakout/driver_examples/crc" type="xml">
             <files mask="crc_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_hello_world" name="hello_world" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/lpc845breakout/demo_apps/hello_world">
+        <example id="lpc845breakout_hello_world" name="hello_world" brief="The HelloWorld demo prints the &quot;Hello World&quot; string to the terminal using the SDK UART drivers and repeat what user input. The purpose of this demo is to show how to use the UART, and to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpc845breakout/demo_apps/hello_world">
           <external path="examples/lpc845breakout/demo_apps/hello_world" type="xml">
             <files mask="hello_world_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_capt_key" name="capt_key" toolchain="armgcc mcuxpresso" category="touch_examples" path="examples/lpc845breakout/touch_examples/capt_key">
+        <example id="lpc845breakout_capt_key" name="capt_key" brief="This example shows how to use CAPT to detect key touch event. When the key is touched, LED on the board is on accordingly." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="touch_examples" path="examples/lpc845breakout/touch_examples/capt_key">
           <external path="examples/lpc845breakout/touch_examples/capt_key" type="xml">
             <files mask="capt_key_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_power_mode_switch_lpc" name="power_mode_switch_lpc" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/lpc845breakout/demo_apps/power_mode_switch_lpc">
+        <example id="lpc845breakout_power_mode_switch_lpc" name="power_mode_switch_lpc" brief="The power_mode_switch application shows the usage of normal power mode control APIs for entering the three kinds oflow power mode: Sleep mode, Deep Sleep mode and Power Down mode, deep power down mode. When the application runs to each low powermode, the device would cut off the power for specific modules to save energy. The device can be also waken up by prepared wakeup source from external event. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - In order to meet typedef power consumption of DateSheet manual, Please configure MCU under the following conditions.     鈥? Configure all pins as GPIO with pull-up resistor disabled in the IOCON block.     鈥? Configure GPIO pins as outputs using the GPIO DIR register.     鈥?Write 1 to the GPIO CLR register to drive the outputs LOW.     鈥?All peripherals disabled." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpc845breakout/demo_apps/power_mode_switch_lpc">
           <external path="examples/lpc845breakout/demo_apps/power_mode_switch_lpc" type="xml">
             <files mask="power_mode_switch_lpc_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_gpio_led_output" name="gpio_led_output" toolchain="armgcc mcuxpresso" category="driver_examples/gpio" path="examples/lpc845breakout/driver_examples/gpio/led_output">
+        <example id="lpc845breakout_gpio_led_output" name="gpio_led_output" brief="The GPIO Example project is a demonstration program that uses the KSDK software to manipulate the general-purposeoutputs. The example use LEDs and buttons to demonstrates GPIO API for port and pin manipulation (init, set,clear, and toggle)." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/gpio" path="examples/lpc845breakout/driver_examples/gpio/led_output">
           <external path="examples/lpc845breakout/driver_examples/gpio/led_output" type="xml">
             <files mask="gpio_led_output_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_pint_pin_interrupt" name="pint_pin_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/pint" path="examples/lpc845breakout/driver_examples/pint/pin_interrupt">
+        <example id="lpc845breakout_pint_pin_interrupt" name="pint_pin_interrupt" brief="This example shows how to use SDK drivers to use the Pin interrupt &amp; pattern match peripheral." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/pint" path="examples/lpc845breakout/driver_examples/pint/pin_interrupt">
           <external path="examples/lpc845breakout/driver_examples/pint/pin_interrupt" type="xml">
             <files mask="pint_pin_interrupt_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_pint_pattern_match" name="pint_pattern_match" toolchain="armgcc mcuxpresso" category="driver_examples/pint" path="examples/lpc845breakout/driver_examples/pint/pattern_match">
+        <example id="lpc845breakout_pint_pattern_match" name="pint_pattern_match" brief="This example shows how to use SDK drivers to use the Pin interrupt &amp; pattern match peripheral." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/pint" path="examples/lpc845breakout/driver_examples/pint/pattern_match">
           <external path="examples/lpc845breakout/driver_examples/pint/pattern_match" type="xml">
             <files mask="pint_pattern_match_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_usart_polling_example" name="usart_polling_example" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/polling">
+        <example id="lpc845breakout_usart_polling_example" name="usart_polling_example" brief="The uart_polling example shows how to use uart driver in polling way:In this example, one uart instance connect to PC, the board will send back all characters that PCsend to the board. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/polling">
           <external path="examples/lpc845breakout/driver_examples/usart/polling" type="xml">
             <files mask="usart_polling_example_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_usart_terminal" name="usart_terminal" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/terminal">
+        <example id="lpc845breakout_usart_terminal" name="usart_terminal" brief="This example demonstrate configuration and use of the USART module in interrupt-driven &#10;asynchronous mode on communication with a terminal emulator calling the USART &#10;transactional APIs. USART will echo back every character to terminal emulator, and send&#10;back all received characters once users press [Enter] key.&#10;" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/terminal">
           <external path="examples/lpc845breakout/driver_examples/usart/terminal" type="xml">
             <files mask="usart_terminal_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_usart_transfer_interrupt" name="usart_transfer_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/transfer_interrupt">
+        <example id="lpc845breakout_usart_transfer_interrupt" name="usart_transfer_interrupt" brief="usart_transfer_interrupt" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/transfer_interrupt">
           <external path="examples/lpc845breakout/driver_examples/usart/transfer_interrupt" type="xml">
             <files mask="usart_transfer_interrupt_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_usart_transfer_ring_buffer" name="usart_transfer_ring_buffer" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/transfer_ring_buffer">
+        <example id="lpc845breakout_usart_transfer_ring_buffer" name="usart_transfer_ring_buffer" brief="The usart_interrupt_rb_transfer example shows how to use usart driver in interrupt way withRX ring buffer enabled.In this example, one uart instance connect to PC through, the board will send back all charactersthat PC send to the board.Note: The example echo every 8 characters." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/transfer_ring_buffer">
           <external path="examples/lpc845breakout/driver_examples/usart/transfer_ring_buffer" type="xml">
             <files mask="usart_transfer_ring_buffer_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_usart_transfer_sync_mode" name="usart_transfer_sync_mode" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/transfer_sync_mode">
+        <example id="lpc845breakout_usart_transfer_sync_mode" name="usart_transfer_sync_mode" brief="The usart_interrupt_sync_transfer example shows how to use usart API in synchronous mode:In this example, one usart instance will be selected as master ,and another as slave. The master will send data to slave in polling way, and slave will receive data in nonblocking way.After all data has been received by slave, info will be printed by debug console." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/transfer_sync_mode">
           <external path="examples/lpc845breakout/driver_examples/usart/transfer_sync_mode" type="xml">
             <files mask="usart_transfer_sync_mode_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_usart_transfer_dma" name="usart_transfer_dma" toolchain="armgcc mcuxpresso" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/transfer_dma">
+        <example id="lpc845breakout_usart_transfer_dma" name="usart_transfer_dma" brief="This example shows how to use the DMA driver to implement a double buffer receive scheme from the USART The example shows the double buffer constructed using two descriptors (g_pingpong_desc). These descriptors are cycled from one to the other.Things to note- The descriptors of the ping pong transfer need to be aligned to size 16- The initial transfer will perform the same job as first descriptor of ping pong, so the first linkeage   is to go to g_pingpong_desc[1]- g_pingpong_desc[1] then chains the g_pingpong_desc[0] as the next descriptor- The properties are set up such that g_pingpong_desc[0] (and the initial configuration uses INTA to signal  back to the callback)- g_pingpong_desc[1] uses INTB to signal to the callback- The scheduled callback uses this information to know which data was last writtenA note on Performance The intent of this example is to illustrate how a double-buffer scheme can be implemented using the dma. The performance of this example will be limited to how quickly the echo printer can read-out the data from the ping pong buffer and display it. This means that the example will work well if characters are entered at a rate where the DMA callback to echo the string can keep up with the input stream. Connecting the USARTRX to a continuous fast speed will cause the DMA to fall behind.  " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpc845breakout/driver_examples/usart/transfer_dma">
           <external path="examples/lpc845breakout/driver_examples/usart/transfer_dma" type="xml">
             <files mask="usart_transfer_dma_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_lpc_adc_basic" name="lpc_adc_basic" toolchain="armgcc mcuxpresso" category="driver_examples/adc" path="examples/lpc845breakout/driver_examples/adc/lpc_adc_basic">
+        <example id="lpc845breakout_lpc_adc_basic" name="lpc_adc_basic" brief="The lpc_adc_basic example shows how to use LPC ADC driver in the simplest way.In this example, the internal temperature sensor is used to created the input analog signal. When user type in any key from the keyboard, the software trigger API is called to start the conversion. Then it polls the conversion sequence A's flag till the conversion is completed. When the conversion is completed, just print the conversion result to terminal.Project Information1.what are ADC conversion sequences?  A conversion sequence is a single pass through a series of A/D conversions performed on a selected set of  A/D channels. Software can set-up two independent conversion sequences, either of which can be triggered   by software or by a transition on one of the hardware triggers. Each sequence can be triggered by a different   hardware trigger. One of these conversion sequences is referred to as the A sequence and the other as the B  sequence. It is not necessary to employ both sequences. An optional single-step mode allows advancing through  the channels of a sequence one at a time on each successive occurrence of a trigger. The user can select whether  a trigger on the B sequence can interrupt an already-in-progress A sequence. The B sequence, however, can never be  interrupted by an A trigger.  2. How to use software-triggered conversion?   There are two ways that software can trigger a conversion sequence:      1. Start Bit: The first way to software-trigger an sequence is by setting the START bit in         the corresponding SEQn_CTRL register. The response to this is identical to         occurrence of a hardware trigger on that sequence. Specifically, one cycle of         conversions through that conversion sequence will be immediately triggered except         as indicated above. (In this example, we use this way.)      2. Burst Mode: The other way to initiate conversions is to set the BURST bit in the         SEQn_CTRL register. As long as this bit is 1 the designated conversion sequence will         be continuously and repetitively cycled through. Any new software or hardware trigger         on this sequence will be ignored.  Program Flow1.This example demonstrates how to configure the A sequences with polling, assigning one channel with software  trigger, you can configure channel via &quot;DEMO_ADC_SAMPLE_CHANNEL_NUMBER&quot;.  2.Before configuration of the ADC begins, the ADC is put through a self-calibration cycle.    3.After ADC channels are assigned to each of the sequences, the software trigger is chosen. Setting   SEQA_CTRL_START to '1' will trigger sequence A.  4.After ADC channels are assigned to each of the sequences, if the user enters any key via terminal, software trigger will start. 5.Read the corresponding DATAVALID field with polling to judge whether the conversion completes and the result is ready.  If the result is ready, the example will printf result information to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc" path="examples/lpc845breakout/driver_examples/adc/lpc_adc_basic">
           <external path="examples/lpc845breakout/driver_examples/adc/lpc_adc_basic" type="xml">
             <files mask="lpc_adc_basic_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_lpc_adc_interrupt" name="lpc_adc_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/adc" path="examples/lpc845breakout/driver_examples/adc/lpc_adc_interrupt">
+        <example id="lpc845breakout_lpc_adc_interrupt" name="lpc_adc_interrupt" brief="The lpc_adc_interrupt example shows how to use interrupt with LPC ADC driver.In this example, the internal temperature sensor is used to created the input analog signal. When user type in any key from the keyboard, the software trigger API is called to start the conversion. Then it polls the flag variable which would be asserted when the conversion completed ISR is executed. Then just print the conversion result to terminal.Project Information1.what are ADC conversion sequences?  A conversion sequence is a single pass through a series of A/D conversions performed on a selected set of  A/D channels. Software can set-up two independent conversion sequences, either of which can be triggered   by software or by a transition on one of the hardware triggers. Each sequence can be triggered by a different   hardware trigger. One of these conversion sequences is referred to as the A sequence and the other as the B  sequence. It is not necessary to employ both sequences. An optional single-step mode allows advancing through  the channels of a sequence one at a time on each successive occurrence of a trigger. The user can select whether  a trigger on the B sequence can interrupt an already-in-progress A sequence. The B sequence, however, can never be  interrupted by an A trigger.  2. How to use software-triggered conversion?   There are two ways that software can trigger a conversion sequence:      1. Start Bit: The first way to software-trigger an sequence is by setting the START bit in         the corresponding SEQn_CTRL register. The response to this is identical to         occurrence of a hardware trigger on that sequence. Specifically, one cycle of         conversions through that conversion sequence will be immediately triggered except         as indicated above. (In this example, we use this way.)      2. Burst Mode: The other way to initiate conversions is to set the BURST bit in the         SEQn_CTRL register. As long as this bit is 1 the designated conversion sequence will         be continuously and repetitively cycled through. Any new software or hardware trigger         on this sequence will be ignored.          3. What kinds of interrupt do ADC have?   There are four interrupts that can be generated by the ADC:     • Conversion-Complete or Sequence-Complete interrupts for sequences A and B     • Threshold-Compare Out-of-Range Interrupt     • Data Overrun Interrupt   Any of these interrupt requests may be individually enabled or disabled in the INTEN register.  Program Flow1.This example demonstrates how to configure the A sequences with interrupt, assigning one channel with software  trigger, you can configure channel via &quot;DEMO_ADC_SAMPLE_CHANNEL_NUMBER&quot;.  2.Before configuration of the ADC begins, the ADC is put through a self-calibration cycle.  3.Enable the Conversion-Complete or Sequence-Complete interrupt for sequences A.  4.After ADC channels are assigned to each of the sequences, if the user enters any key via terminal, software trigger will start.    5.When the conversion completes, the interrupt would be triggered. The ISR will print conversion result to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc" path="examples/lpc845breakout/driver_examples/adc/lpc_adc_interrupt">
           <external path="examples/lpc845breakout/driver_examples/adc/lpc_adc_interrupt" type="xml">
             <files mask="lpc_adc_interrupt_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_lpc_adc_burst" name="lpc_adc_burst" toolchain="armgcc mcuxpresso" category="driver_examples/adc" path="examples/lpc845breakout/driver_examples/adc/lpc_adc_burst">
+        <example id="lpc845breakout_lpc_adc_burst" name="lpc_adc_burst" brief="The lpc_adc_burst example shows how to use LPC ADC driver with the burst mode.In this example, the internal temperature sensor is used to created the input analog signal.When user type in any key from the keyboard, the burst mode is enabled. Then the conversion sequence A would be started automatically, till the burst would be disabled in conversion completed ISR. Project Information1.what are ADC conversion sequences?  A conversion sequence is a single pass through a series of A/D conversions performed on a selected set of  A/D channels. Software can set-up two independent conversion sequences, either of which can be triggered   by software or by a transition on one of the hardware triggers. Each sequence can be triggered by a different   hardware trigger. One of these conversion sequences is referred to as the A sequence and the other as the B  sequence. It is not necessary to employ both sequences. An optional single-step mode allows advancing through  the channels of a sequence one at a time on each successive occurrence of a trigger. The user can select whether  a trigger on the B sequence can interrupt an already-in-progress A sequence. The B sequence, however, can never be  interrupted by an A trigger.  2. How to use software-triggered conversion?   There are two ways that software can trigger a conversion sequence:      1. Start Bit: The first way to software-trigger an sequence is by setting the START bit in         the corresponding SEQn_CTRL register. The response to this is identical to         occurrence of a hardware trigger on that sequence. Specifically, one cycle of         conversions through that conversion sequence will be immediately triggered except         as indicated above.       2. Burst Mode: The other way to initiate conversions is to set the BURST bit in the         SEQn_CTRL register. As long as this bit is 1 the designated conversion sequence will         be continuously and repetitively cycled through. Any new software or hardware trigger         on this sequence will be ignored. (In this example, we use this way.)         3. What kinds of interrupt do ADC have?   There are four interrupts that can be generated by the ADC:     • Conversion-Complete or Sequence-Complete interrupts for sequences A and B     • Threshold-Compare Out-of-Range Interrupt     • Data Overrun Interrupt   Any of these interrupt requests may be individually enabled or disabled in the INTEN register.  Program Flow1.This example demonstrates how to configure the A sequences with burst mode, you can configure channel via   &quot;DEMO_ADC_SAMPLE_CHANNEL_NUMBER&quot;.  2.Before configuration of the ADC begins, the ADC is put through a self-calibration cycle.  3.Enable the Conversion-Complete or Sequence-Complete interrupt for sequences A.  4.After ADC channels are assigned to each of the sequences, if the user enters any key via terminal, burst mode will start.    5.When the first conversion completes, the interrupt would be triggered. The ISR will stop the burst mode and print conversion result   to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc" path="examples/lpc845breakout/driver_examples/adc/lpc_adc_burst">
           <external path="examples/lpc845breakout/driver_examples/adc/lpc_adc_burst" type="xml">
             <files mask="lpc_adc_burst_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_lpc_adc_dma" name="lpc_adc_dma" toolchain="armgcc mcuxpresso" category="driver_examples/adc" path="examples/lpc845breakout/driver_examples/adc/lpc_adc_dma">
+        <example id="lpc845breakout_lpc_adc_dma" name="lpc_adc_dma" brief="The lpc_adc_dma example shows how to use LPC ADC driver with DMA.In this example, the internal temperature sensor is used to created the input analog signal. When user type in any key from the keyboard, the software trigger API is called to start the conversion. When the ADC conversion is completed, it would trigger the DMA to move the ADC conversion result from ADC conversion data register to user indicated memory. Then the main loop waits for the transfer to be done and print the result to terminal.Project Information1.what are ADC conversion sequences?  A conversion sequence is a single pass through a series of A/D conversions performed on a selected set of  A/D channels. Software can set-up two independent conversion sequences, either of which can be triggered   by software or by a transition on one of the hardware triggers. Each sequence can be triggered by a different   hardware trigger. One of these conversion sequences is referred to as the A sequence and the other as the B  sequence. It is not necessary to employ both sequences. An optional single-step mode allows advancing through  the channels of a sequence one at a time on each successive occurrence of a trigger. The user can select whether  a trigger on the B sequence can interrupt an already-in-progress A sequence. The B sequence, however, can never be  interrupted by an A trigger.  2. How to use software-triggered conversion?   There are two ways that software can trigger a conversion sequence:      1. Start Bit: The first way to software-trigger an sequence is by setting the START bit in         the corresponding SEQn_CTRL register. The response to this is identical to         occurrence of a hardware trigger on that sequence. Specifically, one cycle of         conversions through that conversion sequence will be immediately triggered except         as indicated above. (In this example, we use this way.)      2. Burst Mode: The other way to initiate conversions is to set the BURST bit in the         SEQn_CTRL register. As long as this bit is 1 the designated conversion sequence will         be continuously and repetitively cycled through. Any new software or hardware trigger         on this sequence will be ignored.          3. How to use DMA to work with ADC?   The sequence-A or sequence-B conversion/sequence-complete interrupts may also be   used to generate a DMA trigger. To trigger a DMA transfer, the same conditions must be   met as the conditions for generating an interrupt.   Remark: If the DMA is used, the ADC interrupt must be disabled in the NVIC.   Program Flow1.This example demonstrates how to configure the A sequences with interrupt, assigning one channel with software  trigger, you can configure channel via &quot;DEMO_ADC_SAMPLE_CHANNEL_NUMBER&quot;.  2.Before configuration of the ADC begins, the ADC is put through a self-calibration cycle.  3.Configure the DMA and DMAMUX to work with ADC sequences.4.Enable the Conversion-Complete or Sequence-Complete DMA for sequences A.  5.After ADC channels are assigned to each of the sequences, if the user enters any key via terminal, software trigger will start.    6.When the conversion completes, the DMA would be requested.7.When the DMA transfer completes, DMA will trigger a interrupt. ISR would set the &quot;bDmaTransferDone&quot; to 'true'. Then main function will   print conversion result to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc" path="examples/lpc845breakout/driver_examples/adc/lpc_adc_dma">
           <external path="examples/lpc845breakout/driver_examples/adc/lpc_adc_dma" type="xml">
             <files mask="lpc_adc_dma_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_lpc_dac_basic" name="lpc_dac_basic" toolchain="armgcc mcuxpresso" category="driver_examples/dac" path="examples/lpc845breakout/driver_examples/dac/lpc_dac_basic">
+        <example id="lpc845breakout_lpc_dac_basic" name="lpc_dac_basic" brief="The dac_basic example shows how to use DAC module simply as the general DAC converter.When the DAC's double-buffer feature is not enabled, the CR register is used as the DAC output data register directly.The converter would always output the value of the CR register. In this example, it gets the value from terminal,outputs the DAC output voltage through DAC output pin." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dac" path="examples/lpc845breakout/driver_examples/dac/lpc_dac_basic">
           <external path="examples/lpc845breakout/driver_examples/dac/lpc_dac_basic" type="xml">
             <files mask="lpc_dac_basic_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_lpc_dac_interrupt" name="lpc_dac_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/dac" path="examples/lpc845breakout/driver_examples/dac/lpc_dac_interrupt">
+        <example id="lpc845breakout_lpc_dac_interrupt" name="lpc_dac_interrupt" brief="The dac_interrupt example shows how to use DAC with interrupts and produce an arbitrary, user-defined waveform ofselectable frequency.The output can be observed with an oscilloscope. When the DAC's double-buffer feature is enabled, any write to the CR register will only load the pre-buffer, whichshares its register address with the CR register. The CR itself will be loaded from the pre-buffer whenever the counter reaches zero and the interrupt would occur. At the same time the counter is reloaded with the COUNTVALregister value. In the DAC ISR, user-defined waveform array would be transfered to pre-buffer in order." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dac" path="examples/lpc845breakout/driver_examples/dac/lpc_dac_interrupt">
           <external path="examples/lpc845breakout/driver_examples/dac/lpc_dac_interrupt" type="xml">
             <files mask="lpc_dac_interrupt_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_lpc_dac_dma" name="lpc_dac_dma" toolchain="armgcc mcuxpresso" category="driver_examples/dac" path="examples/lpc845breakout/driver_examples/dac/lpc_dac_dma">
+        <example id="lpc845breakout_lpc_dac_dma" name="lpc_dac_dma" brief="The dac_dma example shows how to use DAC with dma and produce an arbitrary, user-defined waveform ofselectable frequency.The output can be observed with an oscilloscope. When the DAC's double-buffer feature is enabled, any write to the CR register will only load the pre-buffer, whichshares its register address with the CR register. The CR itself will be loaded from the pre-buffer whenever the counter reaches zero and the DMA request would be raised. At the same time the counter is reloaded with the COUNTVALregister value. user-defined waveform array would be transfered to pre-buffer in order by DMA." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dac" path="examples/lpc845breakout/driver_examples/dac/lpc_dac_dma">
           <external path="examples/lpc845breakout/driver_examples/dac/lpc_dac_dma" type="xml">
             <files mask="lpc_dac_dma_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_spi_interrupt_master" name="spi_interrupt_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/interrupt/master">
+        <example id="lpc845breakout_spi_interrupt_master" name="spi_interrupt_master" brief="The spi_interrupt_master example shows how to use spi functional API to do interrupt transfer as a master:In this example, the spi instance as master. Master sends a piece of data to slave, receive data from slave,and check if the data master received is correct. This example needs to work with spi_interrupt_slave example. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/interrupt/master">
           <external path="examples/lpc845breakout/driver_examples/spi/interrupt/master" type="xml">
             <files mask="spi_interrupt_master_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_spi_interrupt_slave" name="spi_interrupt_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/interrupt/slave">
+        <example id="lpc845breakout_spi_interrupt_slave" name="spi_interrupt_slave" brief="The spi_interrupt_slave example shows how to use spi driver as slave to receive data from master.In this example, one spi instance as slave and another spi instance on other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from master is correct. This example should work with spi_interrupt_master example. And this example should start first. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/interrupt/slave">
           <external path="examples/lpc845breakout/driver_examples/spi/interrupt/slave" type="xml">
             <files mask="spi_interrupt_slave_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_spi_transfer_interrupt_master" name="spi_transfer_interrupt_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/transfer_interrupt/master">
+        <example id="lpc845breakout_spi_transfer_interrupt_master" name="spi_transfer_interrupt_master" brief="The spi_interrupt_transfer_master example shows how to use spi driver as master to do board to boardtransfer in interrupt way:In this example, one spi instance as master and another spi instance on othere board as slave. Mastersends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct. This example need to work with spi_interrupt_transfer_slave example. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/transfer_interrupt/master">
           <external path="examples/lpc845breakout/driver_examples/spi/transfer_interrupt/master" type="xml">
             <files mask="spi_transfer_interrupt_master_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_spi_transfer_interrupt_slave" name="spi_transfer_interrupt_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/transfer_interrupt/slave">
+        <example id="lpc845breakout_spi_transfer_interrupt_slave" name="spi_transfer_interrupt_slave" brief="The spi_interrupt_transfer_slave example shows how to use spi driver as slave to receive data from master.In this example, one spi instance as slave and another spi instance on other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from master is correct. This example should work with spi_interrupt_transfer_master example. And this example should start first. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/transfer_interrupt/slave">
           <external path="examples/lpc845breakout/driver_examples/spi/transfer_interrupt/slave" type="xml">
             <files mask="spi_transfer_interrupt_slave_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_spi_polling_master" name="spi_polling_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/polling/master">
+        <example id="lpc845breakout_spi_polling_master" name="spi_polling_master" brief="The spi_polling_transfer_master example shows how to use spi driver as master to do board to boardtransfer with polling:In this example, one spi instance as master and another spi instance on othere board as slave. Mastersends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct. This example need to work with spi_polling_transfer_slave example. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/polling/master">
           <external path="examples/lpc845breakout/driver_examples/spi/polling/master" type="xml">
             <files mask="spi_polling_master_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_spi_polling_slave" name="spi_polling_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/polling/slave">
+        <example id="lpc845breakout_spi_polling_slave" name="spi_polling_slave" brief="The spi_polling_transfer_slave example shows how to use spi driver as slave to receive data from master.In this example, one spi instance as slave and another spi instance on other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from master is correct. This example should work with spi_polling_transfer_master example. And this example should start first." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/polling/slave">
           <external path="examples/lpc845breakout/driver_examples/spi/polling/slave" type="xml">
             <files mask="spi_polling_slave_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_spi_transfer_dma_master" name="spi_transfer_dma_master" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/transfer_dma/master">
+        <example id="lpc845breakout_spi_transfer_dma_master" name="spi_transfer_dma_master" brief="The spi_dma_transfer_master example shows how to use driver API to transfer in DMA way.  In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checksif the data received from slave is correct. This example needs to work with spi_dma_transfer_slave example. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/transfer_dma/master">
           <external path="examples/lpc845breakout/driver_examples/spi/transfer_dma/master" type="xml">
             <files mask="spi_transfer_dma_master_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_spi_transfer_dma_slave" name="spi_transfer_dma_slave" toolchain="armgcc mcuxpresso" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/transfer_dma/slave">
+        <example id="lpc845breakout_spi_transfer_dma_slave" name="spi_transfer_dma_slave" brief="The spi_dma_transfer_slave example shows how to use driver API to transfer in DMA way.  In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checksif the data received from slave is correct. This example needs to work with spi_dma_transfer_master example. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpc845breakout/driver_examples/spi/transfer_dma/slave">
           <external path="examples/lpc845breakout/driver_examples/spi/transfer_dma/slave" type="xml">
             <files mask="spi_transfer_dma_slave_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_led_blinky" name="led_blinky" toolchain="armgcc mcuxpresso" category="demo_apps" path="examples/lpc845breakout/demo_apps/led_blinky">
+        <example id="lpc845breakout_led_blinky" name="led_blinky" brief="The LED Blinky demo application provides a sanity check for the new SDK build environments and board bring up. The LED Blinky demo uses the systick interrupt to realize the function of timing delay. The example takes turns to shine the LED. The purpose of this demo is to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpc845breakout/demo_apps/led_blinky">
           <external path="examples/lpc845breakout/demo_apps/led_blinky" type="xml">
             <files mask="led_blinky_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_acomp_basic" name="acomp_basic" toolchain="armgcc mcuxpresso" category="driver_examples/acomp" path="examples/lpc845breakout/driver_examples/acomp/acomp_basic">
+        <example id="lpc845breakout_acomp_basic" name="acomp_basic" brief="The ACOMP Basic Example shows the simplest way to use ACOMP driver and help user with a quick start.In this example, user should indicate an input channel to capture a voltage signal (can be controlled by user) as the ACOMP's negative channel input. On the postive side, the internal voltage ladder is used to generate the fixed voltage abouthalf value of reference voltage.When running the project, change the input voltage of user-defined channel, then the comparator's output would changebetween logic one and zero when the user's voltage crosses the internal ladder's output. The endless loop in main() functionwould detect the logic value of comparator's output, and change the LED. The LED would be turned on when the compareoutput is logic one, or turned off when zero." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/acomp" path="examples/lpc845breakout/driver_examples/acomp/acomp_basic">
           <external path="examples/lpc845breakout/driver_examples/acomp/acomp_basic" type="xml">
             <files mask="acomp_basic_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_acomp_interrupt" name="acomp_interrupt" toolchain="armgcc mcuxpresso" category="driver_examples/acomp" path="examples/lpc845breakout/driver_examples/acomp/acomp_interrupt">
+        <example id="lpc845breakout_acomp_interrupt" name="acomp_interrupt" brief="The ACOMP Interrupt Example shows how to use interrupt with ACOMP driver.In this example, user should indicate an input channel to capture a voltage signal (can be controlled by user) as the ACOMP's negative channel input. On the postive side, the internal voltage ladder is used to generate the fixed voltage abouthalf value of reference voltage.When running the project, change the input voltage of user-defined channel, then the comparator's output would changebetween logic one and zero when the user-defined channel's voltage crosses the internal ladder's output. The change ofcomparator's output would generate the falling and rising edge events with their interrupts enabled. When any ACOMP interrupt happens, the ACOMP's ISR would turn on/off the LED light." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/acomp" path="examples/lpc845breakout/driver_examples/acomp/acomp_interrupt">
           <external path="examples/lpc845breakout/driver_examples/acomp/acomp_interrupt" type="xml">
             <files mask="acomp_interrupt_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_mrt_example" name="mrt_example" toolchain="armgcc mcuxpresso" category="driver_examples/mrt" path="examples/lpc845breakout/driver_examples/mrt">
+        <example id="lpc845breakout_mrt_example" name="mrt_example" brief="The MRT project is a simple demonstration program of the SDK MRT driver. It sets up the MRThardware block to trigger a periodic interrupt after every 250 milliseconds. When the PIT interrupt is triggereda message a printed on the UART terminal and an LED is toggled on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/mrt" path="examples/lpc845breakout/driver_examples/mrt">
           <external path="examples/lpc845breakout/driver_examples/mrt" type="xml">
             <files mask="mrt_example_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_dma_memory_to_memory" name="dma_memory_to_memory" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/memory_to_memory">
+        <example id="lpc845breakout_dma_memory_to_memory" name="dma_memory_to_memory" brief="The DMA memory to memory example is a simple demonstration program that uses the SDK software.It executes one shot transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA and to provide a simple example fordebugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/memory_to_memory">
           <external path="examples/lpc845breakout/driver_examples/dma/memory_to_memory" type="xml">
             <files mask="dma_memory_to_memory_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_dma_m2m_polling" name="dma_m2m_polling" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/m2m_polling">
+        <example id="lpc845breakout_dma_m2m_polling" name="dma_m2m_polling" brief="The DMA memory to memory example is a simple demonstration program that uses the SDK software.It executes one shot polling transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA and to provide a simple example for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/m2m_polling">
           <external path="examples/lpc845breakout/driver_examples/dma/m2m_polling" type="xml">
             <files mask="dma_m2m_polling_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_wwdt_example" name="wwdt_example" toolchain="armgcc mcuxpresso" category="driver_examples/wwdt" path="examples/lpc845breakout/driver_examples/wwdt">
+        <example id="lpc845breakout_wwdt_example" name="wwdt_example" brief="The WDOG Example project is to demonstrate usage of the KSDK wdog driver.In this example,quick test is first implemented to test the wdog.And then after 5 times of refreshing the watchdog, a timeout reset is generated." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/wwdt" path="examples/lpc845breakout/driver_examples/wwdt">
           <external path="examples/lpc845breakout/driver_examples/wwdt" type="xml">
             <files mask="wwdt_example_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_sctimer_simple_pwm" name="sctimer_simple_pwm" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/lpc845breakout/driver_examples/sctimer/simple_pwm">
+        <example id="lpc845breakout_sctimer_simple_pwm" name="sctimer_simple_pwm" brief="The SCTimer project is a simple demonstration program of the SDK SCTimer's driver capabiltiy to generate PWM signals." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="examples/lpc845breakout/driver_examples/sctimer/simple_pwm">
           <external path="examples/lpc845breakout/driver_examples/sctimer/simple_pwm" type="xml">
             <files mask="sctimer_simple_pwm_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_sctimer_pwm_with_dutycyle_change" name="sctimer_pwm_with_dutycyle_change" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/lpc845breakout/driver_examples/sctimer/pwm_with_dutycyle_change">
+        <example id="lpc845breakout_sctimer_pwm_with_dutycyle_change" name="sctimer_pwm_with_dutycyle_change" brief="This SCTIMer project is a demonstration program of the SDK SCTimer driver's PWM generation. It sets up a PWM signaland periodically updates the PWM signals dutycycle." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="examples/lpc845breakout/driver_examples/sctimer/pwm_with_dutycyle_change">
           <external path="examples/lpc845breakout/driver_examples/sctimer/pwm_with_dutycyle_change" type="xml">
             <files mask="sctimer_pwm_with_dutycyle_change_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_sctimer_multi_state_pwm" name="sctimer_multi_state_pwm" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/lpc845breakout/driver_examples/sctimer/multi_state_pwm">
+        <example id="lpc845breakout_sctimer_multi_state_pwm" name="sctimer_multi_state_pwm" brief="The SCTImer multi-state project is a demonstration program of the SCTimer state machine. It shows how to set up events to be triggered in a certain stateand transitioning between states.State 0 has 2 events that generate a PWM signal, it also has an event linked to an input signal to transition to State 1.State 1 has 4 events that generate 2 PWM signals, it also has an event linked to an input signal to transition to State 0." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="examples/lpc845breakout/driver_examples/sctimer/multi_state_pwm">
           <external path="examples/lpc845breakout/driver_examples/sctimer/multi_state_pwm" type="xml">
             <files mask="sctimer_multi_state_pwm_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_sctimer_16bit_counter" name="sctimer_16bit_counter" toolchain="armgcc mcuxpresso" category="driver_examples/sctimer" path="examples/lpc845breakout/driver_examples/sctimer/16bit_counter">
+        <example id="lpc845breakout_sctimer_16bit_counter" name="sctimer_16bit_counter" brief="The SCTimer 16-bit counter project is a demonstration program of the SDK SCTimer driver operation when using the SCTimer counteras two 16-bit counters.The example toggles an output per counter when a match occurs." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="examples/lpc845breakout/driver_examples/sctimer/16bit_counter">
           <external path="examples/lpc845breakout/driver_examples/sctimer/16bit_counter" type="xml">
             <files mask="sctimer_16bit_counter_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_ctimer_pwm_example" name="ctimer_pwm_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/lpc845breakout/driver_examples/ctimer/simple_pwm">
+        <example id="lpc845breakout_ctimer_pwm_example" name="ctimer_pwm_example" brief="The CTimer Example project is to demonstrate usage of the KSDK ctimer driver.In this example, CTimer is used to generate a PWM signal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ctimer" path="examples/lpc845breakout/driver_examples/ctimer/simple_pwm">
           <external path="examples/lpc845breakout/driver_examples/ctimer/simple_pwm" type="xml">
             <files mask="ctimer_pwm_example_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_ctimer_pwm_interrupt_example" name="ctimer_pwm_interrupt_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/lpc845breakout/driver_examples/ctimer/simple_pwm_interrupt">
+        <example id="lpc845breakout_ctimer_pwm_interrupt_example" name="ctimer_pwm_interrupt_example" brief="The Simple PWM Interrupt project is to demonstrate usage of the SDK CTimer driver as a PWM with interrupt callback functionsIn this example an IO pin connected to the LED is used as a PWM output line to generate a PWM signal.With an interrupt callback the PWM duty cycle is changed frequently in such a way that the LED brightness can be varied." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ctimer" path="examples/lpc845breakout/driver_examples/ctimer/simple_pwm_interrupt">
           <external path="examples/lpc845breakout/driver_examples/ctimer/simple_pwm_interrupt" type="xml">
             <files mask="ctimer_pwm_interrupt_example_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_ctimer_match_example" name="ctimer_match_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/lpc845breakout/driver_examples/ctimer/simple_match">
+        <example id="lpc845breakout_ctimer_match_example" name="ctimer_match_example" brief="The CTimer Example project is to demonstrate usage of the KSDK ctimer driver.In this example, the match feature of the CTimer is used to toggle the output level." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ctimer" path="examples/lpc845breakout/driver_examples/ctimer/simple_match">
           <external path="examples/lpc845breakout/driver_examples/ctimer/simple_match" type="xml">
             <files mask="ctimer_match_example_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_ctimer_match_interrupt_example" name="ctimer_match_interrupt_example" toolchain="armgcc mcuxpresso" category="driver_examples/ctimer" path="examples/lpc845breakout/driver_examples/ctimer/simple_match_interrupt">
+        <example id="lpc845breakout_ctimer_match_interrupt_example" name="ctimer_match_interrupt_example" brief="The Simple Match Interrupt project is to demonstrate usage of the SDK CTimer driver with interrupt callback functionsIn this example the upon match and IO pin connected to the LED is toggled and the timer is reset, so it would generate a square wave.With an interrupt callback the match value is changed frequently in such a way that the frequency of the output square wave is increased gradually." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ctimer" path="examples/lpc845breakout/driver_examples/ctimer/simple_match_interrupt">
           <external path="examples/lpc845breakout/driver_examples/ctimer/simple_match_interrupt" type="xml">
             <files mask="ctimer_match_interrupt_example_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_wkt_example" name="wkt_example" toolchain="armgcc mcuxpresso" category="driver_examples/wkt" path="examples/lpc845breakout/driver_examples/wkt">
+        <example id="lpc845breakout_wkt_example" name="wkt_example" brief="The WKT project is a simple demonstration program of the SDK WKT driver. It sets up the WKT hardware block to trigger a periodic interrupt after loading a counter value and counting down to 0. When the WKT interrupt is triggered a message printed on the UART terminal and the LED is toggled on the board.Depending on the clock source, the WKT can be used for waking up the part from any low power mode or for general-purposetiming." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/wkt" path="examples/lpc845breakout/driver_examples/wkt">
           <external path="examples/lpc845breakout/driver_examples/wkt" type="xml">
             <files mask="wkt_example_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_capt_basic" name="capt_basic" toolchain="armgcc mcuxpresso" category="driver_examples/capt" path="examples/lpc845breakout/driver_examples/capt/capt_basic">
+        <example id="lpc845breakout_capt_basic" name="capt_basic" brief="This example shows how to capture touch data using CAPT poll-now mode." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/capt" path="examples/lpc845breakout/driver_examples/capt/capt_basic">
           <external path="examples/lpc845breakout/driver_examples/capt/capt_basic" type="xml">
             <files mask="capt_basic_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_capt_acomp" name="capt_acomp" toolchain="armgcc mcuxpresso" category="driver_examples/capt" path="examples/lpc845breakout/driver_examples/capt/capt_acomp">
+        <example id="lpc845breakout_capt_acomp" name="capt_acomp" brief="This example shows how to capture touch data using CAPT poll-now mode. This example uses ACOMP instead of GPIO in measurement stage." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/capt" path="examples/lpc845breakout/driver_examples/capt/capt_acomp">
           <external path="examples/lpc845breakout/driver_examples/capt/capt_acomp" type="xml">
             <files mask="capt_acomp_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_capt_basic_continuous" name="capt_basic_continuous" toolchain="armgcc mcuxpresso" category="driver_examples/capt" path="examples/lpc845breakout/driver_examples/capt/capt_basic_continuous">
+        <example id="lpc845breakout_capt_basic_continuous" name="capt_basic_continuous" brief="This example shows how to capture touch data using CAPT continuous mode." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/capt" path="examples/lpc845breakout/driver_examples/capt/capt_basic_continuous">
           <external path="examples/lpc845breakout/driver_examples/capt/capt_basic_continuous" type="xml">
             <files mask="capt_basic_continuous_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_capt_acomp_continuous" name="capt_acomp_continuous" toolchain="armgcc mcuxpresso" category="driver_examples/capt" path="examples/lpc845breakout/driver_examples/capt/capt_acomp_continuous">
+        <example id="lpc845breakout_capt_acomp_continuous" name="capt_acomp_continuous" brief="This example shows how to capture touch data using CAPT continuous mode. This example uses ACOMP instead of GPIO in measurement stage." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/capt" path="examples/lpc845breakout/driver_examples/capt/capt_acomp_continuous">
           <external path="examples/lpc845breakout/driver_examples/capt/capt_acomp_continuous" type="xml">
             <files mask="capt_acomp_continuous_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_dma_channel_chain" name="dma_channel_chain" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/channel_chain">
+        <example id="lpc845breakout_dma_channel_chain" name="dma_channel_chain" brief="The DMA channel chain example is a simple demonstration program that uses the SDK software.The purpose of this example is to show how to use the DMA channel chain feature." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/channel_chain">
           <external path="examples/lpc845breakout/driver_examples/dma/channel_chain" type="xml">
             <files mask="dma_channel_chain_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_dma_interleave_transfer" name="dma_interleave_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/interleave_transfer">
+        <example id="lpc845breakout_dma_interleave_transfer" name="dma_interleave_transfer" brief="The DMA interleave transfer example is a simple demonstration program that uses the SDK software.It executes a linked transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA interleave feature." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/interleave_transfer">
           <external path="examples/lpc845breakout/driver_examples/dma/interleave_transfer" type="xml">
             <files mask="dma_interleave_transfer_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_dma_linked_transfer" name="dma_linked_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/linked_transfer">
+        <example id="lpc845breakout_dma_linked_transfer" name="dma_linked_transfer" brief="The DMA linked transfer example is a simple demonstration program that uses the SDK software.It executes a linked transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA and to provide a linked trnasfer example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/linked_transfer">
           <external path="examples/lpc845breakout/driver_examples/dma/linked_transfer" type="xml">
             <files mask="dma_linked_transfer_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_dma_wrap_transfer" name="dma_wrap_transfer" toolchain="armgcc mcuxpresso" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/wrap_transfer">
+        <example id="lpc845breakout_dma_wrap_transfer" name="dma_wrap_transfer" brief="The DMA wrap transfer example is a simple demonstration program that uses the SDK software.It executes a wrap transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA wrap feature." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/lpc845breakout/driver_examples/dma/wrap_transfer">
           <external path="examples/lpc845breakout/driver_examples/dma/wrap_transfer" type="xml">
             <files mask="dma_wrap_transfer_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_iap_basic" name="iap_basic" toolchain="armgcc mcuxpresso" category="driver_examples/iap" path="examples/lpc845breakout/driver_examples/iap/iap_basic">
+        <example id="lpc845breakout_iap_basic" name="iap_basic" brief="The IAP project is a simple demonstration program of the SDK IAP driver. It reads part id, boot code version, unique id and reinvoke ISP. A message a printed on the UART terminal as various bascial iap operations are performed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/iap" path="examples/lpc845breakout/driver_examples/iap/iap_basic">
           <external path="examples/lpc845breakout/driver_examples/iap/iap_basic" type="xml">
             <files mask="iap_basic_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_iap_flash" name="iap_flash" toolchain="armgcc mcuxpresso" category="driver_examples/iap" path="examples/lpc845breakout/driver_examples/iap/iap_flash">
+        <example id="lpc845breakout_iap_flash" name="iap_flash" brief="The IAP Flash project is a simple demonstration program of the SDK IAP driver. It erases and programs a portion of on-chip flash memory. A message a printed on the UART terminal as various operations on flash memory are performed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/iap" path="examples/lpc845breakout/driver_examples/iap/iap_flash">
           <external path="examples/lpc845breakout/driver_examples/iap/iap_flash" type="xml">
             <files mask="iap_flash_v3_13.xml"/>
           </external>
         </example>
-        <example id="lpc845breakout_iap_faim" name="iap_faim" toolchain="armgcc mcuxpresso" category="driver_examples/iap" path="examples/lpc845breakout/driver_examples/iap/iap_faim">
+        <example id="lpc845breakout_iap_faim" name="iap_faim" brief="The IAP FAIM project is a simple demonstration program of the SDK IAP driver. It writes and reads the FAIM page. A message a printed on the UART terminal as FAIM read and write operations are performed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/iap" path="examples/lpc845breakout/driver_examples/iap/iap_faim">
           <external path="examples/lpc845breakout/driver_examples/iap/iap_faim" type="xml">
             <files mask="iap_faim_v3_13.xml"/>
           </external>
@@ -542,562 +542,562 @@ ${load}</script>
       </include_paths>
     </component>
     <!--<component id="container.CMSIS_all_files.LPC845" name="LPC845" version="1.0.0" package_base_path="core/CMSIS" project_base_path="./">
-  <source relative_path="./" type="src">
-    <files mask="Driver_WiFi.c"/>
-    <files mask="Driver_CAN.c"/>
-    <files mask="Driver_NAND.c"/>
-    <files mask="Driver_I2C.c"/>
-    <files mask="Driver_MCI.c"/>
-    <files mask="Driver_SPI.c"/>
-    <files mask="Driver_USBH.c"/>
-    <files mask="Driver_Flash.c"/>
-    <files mask="Driver_Storage.c"/>
-    <files mask="Driver_ETH_PHY.c"/>
-    <files mask="Driver_ETH_MAC.c"/>
-    <files mask="Driver_SAI.c"/>
-    <files mask="Driver_USBD.c"/>
-    <files mask="Driver_USART.c"/>
-    <files mask="vio_memory.c"/>
-    <files mask="vio.c"/>
-    <files mask="arm_braycurtis_distance_f16.c"/>
-    <files mask="arm_minkowski_distance_f16.c"/>
-    <files mask="arm_jensenshannon_distance_f16.c"/>
-    <files mask="arm_kulsinski_distance.c"/>
-    <files mask="arm_cosine_distance_f16.c"/>
-    <files mask="arm_sokalmichener_distance.c"/>
-    <files mask="arm_russellrao_distance.c"/>
-    <files mask="arm_canberra_distance_f16.c"/>
-    <files mask="arm_rogerstanimoto_distance.c"/>
-    <files mask="arm_jensenshannon_distance_f32.c"/>
-    <files mask="arm_cosine_distance_f32.c"/>
-    <files mask="arm_euclidean_distance_f32.c"/>
-    <files mask="arm_correlation_distance_f16.c"/>
-    <files mask="arm_jaccard_distance.c"/>
-    <files mask="arm_hamming_distance.c"/>
-    <files mask="arm_yule_distance.c"/>
-    <files mask="arm_minkowski_distance_f32.c"/>
-    <files mask="arm_dice_distance.c"/>
-    <files mask="arm_sokalsneath_distance.c"/>
-    <files mask="arm_euclidean_distance_f16.c"/>
-    <files mask="arm_cityblock_distance_f32.c"/>
-    <files mask="arm_braycurtis_distance_f32.c"/>
-    <files mask="arm_cityblock_distance_f16.c"/>
-    <files mask="arm_boolean_distance.c"/>
-    <files mask="arm_chebyshev_distance_f32.c"/>
-    <files mask="DistanceFunctions.c"/>
-    <files mask="arm_chebyshev_distance_f16.c"/>
-    <files mask="arm_correlation_distance_f32.c"/>
-    <files mask="arm_canberra_distance_f32.c"/>
-    <files mask="DistanceFunctionsF16.c"/>
-    <files mask="arm_quaternion_product_f32.c"/>
-    <files mask="arm_quaternion_normalize_f32.c"/>
-    <files mask="arm_rotation2quaternion_f32.c"/>
-    <files mask="arm_quaternion_product_single_f32.c"/>
-    <files mask="arm_quaternion_norm_f32.c"/>
-    <files mask="arm_quaternion_inverse_f32.c"/>
-    <files mask="QuaternionMathFunctions.c"/>
-    <files mask="arm_quaternion_conjugate_f32.c"/>
-    <files mask="arm_quaternion2rotation_f32.c"/>
-    <files mask="arm_not_u16.c"/>
-    <files mask="arm_mult_q15.c"/>
-    <files mask="arm_clip_f32.c"/>
-    <files mask="arm_offset_f16.c"/>
-    <files mask="arm_negate_f32.c"/>
-    <files mask="arm_mult_f32.c"/>
-    <files mask="arm_scale_f32.c"/>
-    <files mask="arm_clip_q31.c"/>
-    <files mask="arm_offset_q15.c"/>
-    <files mask="arm_sub_q15.c"/>
-    <files mask="arm_xor_u32.c"/>
-    <files mask="arm_negate_q15.c"/>
-    <files mask="arm_mult_f16.c"/>
-    <files mask="arm_abs_q7.c"/>
-    <files mask="arm_shift_q31.c"/>
-    <files mask="arm_scale_q31.c"/>
-    <files mask="arm_dot_prod_q15.c"/>
-    <files mask="arm_and_u8.c"/>
-    <files mask="arm_abs_q31.c"/>
-    <files mask="arm_shift_q15.c"/>
-    <files mask="arm_xor_u16.c"/>
-    <files mask="arm_abs_f32.c"/>
-    <files mask="arm_sub_f16.c"/>
-    <files mask="arm_clip_q7.c"/>
-    <files mask="arm_dot_prod_f32.c"/>
-    <files mask="arm_or_u32.c"/>
-    <files mask="arm_clip_q15.c"/>
-    <files mask="arm_add_f32.c"/>
-    <files mask="BasicMathFunctions.c"/>
-    <files mask="arm_or_u16.c"/>
-    <files mask="arm_not_u32.c"/>
-    <files mask="arm_dot_prod_f16.c"/>
-    <files mask="arm_clip_f16.c"/>
-    <files mask="arm_not_u8.c"/>
-    <files mask="arm_scale_f16.c"/>
-    <files mask="arm_offset_q31.c"/>
-    <files mask="arm_add_f16.c"/>
-    <files mask="arm_scale_q15.c"/>
-    <files mask="arm_mult_q7.c"/>
-    <files mask="arm_abs_q15.c"/>
-    <files mask="arm_mult_q31.c"/>
-    <files mask="arm_sub_f32.c"/>
-    <files mask="arm_dot_prod_q31.c"/>
-    <files mask="arm_negate_q31.c"/>
-    <files mask="arm_add_q7.c"/>
-    <files mask="arm_shift_q7.c"/>
-    <files mask="arm_negate_q7.c"/>
-    <files mask="arm_add_q15.c"/>
-    <files mask="BasicMathFunctionsF16.c"/>
-    <files mask="arm_offset_f32.c"/>
-    <files mask="arm_add_q31.c"/>
-    <files mask="arm_sub_q31.c"/>
-    <files mask="arm_dot_prod_q7.c"/>
-    <files mask="arm_scale_q7.c"/>
-    <files mask="arm_xor_u8.c"/>
-    <files mask="arm_or_u8.c"/>
-    <files mask="arm_abs_f16.c"/>
-    <files mask="arm_and_u32.c"/>
-    <files mask="arm_and_u16.c"/>
-    <files mask="arm_sub_q7.c"/>
-    <files mask="arm_offset_q7.c"/>
-    <files mask="arm_negate_f16.c"/>
-    <files mask="InterpolationFunctionsF16.c"/>
-    <files mask="arm_bilinear_interp_f16.c"/>
-    <files mask="arm_linear_interp_f16.c"/>
-    <files mask="arm_linear_interp_q7.c"/>
-    <files mask="arm_spline_interp_f32.c"/>
-    <files mask="arm_linear_interp_q15.c"/>
-    <files mask="arm_bilinear_interp_q7.c"/>
-    <files mask="arm_bilinear_interp_q31.c"/>
-    <files mask="arm_bilinear_interp_f32.c"/>
-    <files mask="arm_spline_interp_init_f32.c"/>
-    <files mask="arm_linear_interp_f32.c"/>
-    <files mask="InterpolationFunctions.c"/>
-    <files mask="arm_linear_interp_q31.c"/>
-    <files mask="arm_bilinear_interp_q15.c"/>
-    <files mask="arm_bubble_sort_f32.c"/>
-    <files mask="arm_insertion_sort_f32.c"/>
-    <files mask="arm_sort_f32.c"/>
-    <files mask="arm_q31_to_q7.c"/>
-    <files mask="arm_q15_to_q31.c"/>
-    <files mask="arm_copy_q31.c"/>
-    <files mask="arm_q15_to_q7.c"/>
-    <files mask="arm_copy_f32.c"/>
-    <files mask="arm_q31_to_q15.c"/>
-    <files mask="arm_fill_f16.c"/>
-    <files mask="arm_copy_q7.c"/>
-    <files mask="arm_q7_to_q15.c"/>
-    <files mask="arm_fill_q7.c"/>
-    <files mask="arm_sort_init_f32.c"/>
-    <files mask="arm_barycenter_f16.c"/>
-    <files mask="arm_q31_to_float.c"/>
-    <files mask="SupportFunctions.c"/>
-    <files mask="arm_float_to_q7.c"/>
-    <files mask="arm_weighted_sum_f32.c"/>
-    <files mask="SupportFunctionsF16.c"/>
-    <files mask="arm_q7_to_float.c"/>
-    <files mask="arm_barycenter_f32.c"/>
-    <files mask="arm_bitonic_sort_f32.c"/>
-    <files mask="arm_fill_q15.c"/>
-    <files mask="arm_fill_q31.c"/>
-    <files mask="arm_q15_to_f16.c"/>
-    <files mask="arm_float_to_f16.c"/>
-    <files mask="arm_heap_sort_f32.c"/>
-    <files mask="arm_copy_f16.c"/>
-    <files mask="arm_float_to_q15.c"/>
-    <files mask="arm_merge_sort_f32.c"/>
-    <files mask="arm_quick_sort_f32.c"/>
-    <files mask="arm_weighted_sum_f16.c"/>
-    <files mask="arm_q15_to_float.c"/>
-    <files mask="arm_f16_to_q15.c"/>
-    <files mask="arm_merge_sort_init_f32.c"/>
-    <files mask="arm_q7_to_q31.c"/>
-    <files mask="arm_float_to_q31.c"/>
-    <files mask="arm_copy_q15.c"/>
-    <files mask="arm_f16_to_float.c"/>
-    <files mask="arm_fill_f32.c"/>
-    <files mask="arm_selection_sort_f32.c"/>
-    <files mask="arm_svm_linear_init_f16.c"/>
-    <files mask="arm_svm_sigmoid_predict_f32.c"/>
-    <files mask="arm_svm_rbf_init_f32.c"/>
-    <files mask="arm_svm_sigmoid_predict_f16.c"/>
-    <files mask="arm_svm_linear_init_f32.c"/>
-    <files mask="arm_svm_linear_predict_f32.c"/>
-    <files mask="arm_svm_linear_predict_f16.c"/>
-    <files mask="SVMFunctions.c"/>
-    <files mask="arm_svm_polynomial_init_f32.c"/>
-    <files mask="arm_svm_sigmoid_init_f32.c"/>
-    <files mask="arm_svm_polynomial_predict_f16.c"/>
-    <files mask="SVMFunctionsF16.c"/>
-    <files mask="arm_svm_sigmoid_init_f16.c"/>
-    <files mask="arm_svm_polynomial_init_f16.c"/>
-    <files mask="arm_svm_polynomial_predict_f32.c"/>
-    <files mask="arm_svm_rbf_init_f16.c"/>
-    <files mask="arm_svm_rbf_predict_f32.c"/>
-    <files mask="arm_svm_rbf_predict_f16.c"/>
-    <files mask="arm_cfft_radix2_q15.c"/>
-    <files mask="arm_cfft_radix4_init_f32.c"/>
-    <files mask="arm_cfft_radix2_f16.c"/>
-    <files mask="arm_cfft_q15.c"/>
-    <files mask="arm_cfft_radix4_init_q15.c"/>
-    <files mask="arm_dct4_q31.c"/>
-    <files mask="TransformFunctions.c"/>
-    <files mask="arm_cfft_f32.c"/>
-    <files mask="arm_rfft_init_q15.c"/>
-    <files mask="arm_cfft_radix2_init_f32.c"/>
-    <files mask="arm_dct4_q15.c"/>
-    <files mask="arm_bitreversal_f16.c"/>
-    <files mask="arm_cfft_f64.c"/>
-    <files mask="arm_dct4_init_q31.c"/>
-    <files mask="arm_rfft_q15.c"/>
-    <files mask="arm_bitreversal.c"/>
-    <files mask="arm_cfft_radix2_init_q15.c"/>
-    <files mask="arm_cfft_radix4_init_q31.c"/>
-    <files mask="arm_rfft_fast_init_f64.c"/>
-    <files mask="arm_cfft_radix8_f16.c"/>
-    <files mask="arm_cfft_radix4_f32.c"/>
-    <files mask="arm_rfft_fast_f32.c"/>
-    <files mask="arm_cfft_init_f32.c"/>
-    <files mask="arm_rfft_init_f32.c"/>
-    <files mask="arm_dct4_init_q15.c"/>
-    <files mask="arm_dct4_init_f32.c"/>
-    <files mask="arm_rfft_fast_init_f16.c"/>
-    <files mask="arm_cfft_radix2_q31.c"/>
-    <files mask="arm_cfft_init_q31.c"/>
-    <files mask="arm_cfft_init_f64.c"/>
-    <files mask="arm_cfft_radix4_q15.c"/>
-    <files mask="arm_cfft_init_f16.c"/>
-    <files mask="arm_cfft_radix2_f32.c"/>
-    <files mask="arm_dct4_f32.c"/>
-    <files mask="arm_rfft_fast_init_f32.c"/>
-    <files mask="arm_cfft_f16.c"/>
-    <files mask="arm_cfft_radix4_f16.c"/>
-    <files mask="arm_cfft_radix8_f32.c"/>
-    <files mask="arm_cfft_radix4_q31.c"/>
-    <files mask="arm_cfft_q31.c"/>
-    <files mask="arm_rfft_init_q31.c"/>
-    <files mask="arm_cfft_radix2_init_q31.c"/>
-    <files mask="arm_cfft_init_q15.c"/>
-    <files mask="arm_rfft_fast_f16.c"/>
-    <files mask="arm_rfft_fast_f64.c"/>
-    <files mask="arm_bitreversal2.c"/>
-    <files mask="TransformFunctionsF16.c"/>
-    <files mask="arm_rfft_f32.c"/>
-    <files mask="arm_rfft_q31.c"/>
-    <files mask="arm_cfft_radix2_init_f16.c"/>
-    <files mask="arm_cfft_radix4_init_f16.c"/>
-    <files mask="arm_cos_q31.c"/>
-    <files mask="arm_sqrt_q15.c"/>
-    <files mask="arm_sin_f32.c"/>
-    <files mask="FastMathFunctionsF16.c"/>
-    <files mask="arm_cos_q15.c"/>
-    <files mask="arm_vlog_f32.c"/>
-    <files mask="FastMathFunctions.c"/>
-    <files mask="arm_vexp_f32.c"/>
-    <files mask="arm_divide_q15.c"/>
-    <files mask="arm_cos_f32.c"/>
-    <files mask="arm_sin_q15.c"/>
-    <files mask="arm_vinverse_f16.c"/>
-    <files mask="arm_sqrt_q31.c"/>
-    <files mask="arm_sin_q31.c"/>
-    <files mask="arm_vexp_f16.c"/>
-    <files mask="arm_vlog_f16.c"/>
-    <files mask="BayesFunctions.c"/>
-    <files mask="arm_gaussian_naive_bayes_predict_f32.c"/>
-    <files mask="arm_gaussian_naive_bayes_predict_f16.c"/>
-    <files mask="BayesFunctionsF16.c"/>
-    <files mask="arm_mat_cmplx_mult_q15.c"/>
-    <files mask="arm_mat_cmplx_mult_q31.c"/>
-    <files mask="arm_mat_init_q31.c"/>
-    <files mask="arm_mat_scale_f32.c"/>
-    <files mask="arm_mat_trans_q31.c"/>
-    <files mask="arm_mat_add_q31.c"/>
-    <files mask="arm_mat_sub_q15.c"/>
-    <files mask="arm_mat_mult_f16.c"/>
-    <files mask="arm_mat_init_q15.c"/>
-    <files mask="arm_mat_vec_mult_q7.c"/>
-    <files mask="arm_mat_scale_f16.c"/>
-    <files mask="arm_mat_add_f32.c"/>
-    <files mask="arm_mat_mult_fast_q31.c"/>
-    <files mask="arm_mat_solve_upper_triangular_f32.c"/>
-    <files mask="arm_mat_solve_lower_triangular_f16.c"/>
-    <files mask="arm_mat_trans_q7.c"/>
-    <files mask="arm_mat_mult_f64.c"/>
-    <files mask="arm_mat_trans_q15.c"/>
-    <files mask="arm_mat_sub_f64.c"/>
-    <files mask="arm_mat_cholesky_f32.c"/>
-    <files mask="arm_mat_mult_q15.c"/>
-    <files mask="arm_mat_cmplx_mult_f16.c"/>
-    <files mask="arm_mat_sub_f32.c"/>
-    <files mask="arm_mat_solve_lower_triangular_f64.c"/>
-    <files mask="arm_mat_trans_f32.c"/>
-    <files mask="arm_mat_sub_f16.c"/>
-    <files mask="arm_mat_inverse_f32.c"/>
-    <files mask="arm_mat_cholesky_f16.c"/>
-    <files mask="MatrixFunctionsF16.c"/>
-    <files mask="arm_mat_ldlt_f64.c"/>
-    <files mask="arm_mat_cmplx_mult_f32.c"/>
-    <files mask="arm_mat_vec_mult_f16.c"/>
-    <files mask="arm_mat_cmplx_trans_q15.c"/>
-    <files mask="arm_mat_scale_q15.c"/>
-    <files mask="arm_mat_sub_q31.c"/>
-    <files mask="arm_mat_cmplx_trans_q31.c"/>
-    <files mask="arm_mat_mult_q31.c"/>
-    <files mask="arm_mat_inverse_f16.c"/>
-    <files mask="arm_mat_solve_lower_triangular_f32.c"/>
-    <files mask="arm_mat_ldlt_f32.c"/>
-    <files mask="arm_mat_cmplx_trans_f16.c"/>
-    <files mask="arm_mat_mult_q7.c"/>
-    <files mask="arm_mat_cmplx_trans_f32.c"/>
-    <files mask="arm_mat_init_f32.c"/>
-    <files mask="arm_mat_scale_q31.c"/>
-    <files mask="MatrixFunctions.c"/>
-    <files mask="arm_mat_mult_fast_q15.c"/>
-    <files mask="arm_mat_mult_f32.c"/>
-    <files mask="arm_mat_cholesky_f64.c"/>
-    <files mask="arm_mat_init_f16.c"/>
-    <files mask="arm_mat_vec_mult_q15.c"/>
-    <files mask="arm_mat_solve_upper_triangular_f64.c"/>
-    <files mask="arm_mat_trans_f16.c"/>
-    <files mask="arm_mat_add_f16.c"/>
-    <files mask="arm_mat_vec_mult_q31.c"/>
-    <files mask="arm_mat_inverse_f64.c"/>
-    <files mask="arm_mat_add_q15.c"/>
-    <files mask="arm_mat_vec_mult_f32.c"/>
-    <files mask="arm_mat_trans_f64.c"/>
-    <files mask="arm_mat_solve_upper_triangular_f16.c"/>
-    <files mask="arm_absmax_q31.c"/>
-    <files mask="arm_max_f32.c"/>
-    <files mask="arm_var_q15.c"/>
-    <files mask="arm_std_q15.c"/>
-    <files mask="arm_rms_q31.c"/>
-    <files mask="arm_entropy_f16.c"/>
-    <files mask="arm_std_f16.c"/>
-    <files mask="arm_kullback_leibler_f32.c"/>
-    <files mask="arm_mean_q31.c"/>
-    <files mask="arm_absmin_f32.c"/>
-    <files mask="arm_absmin_f16.c"/>
-    <files mask="arm_max_no_idx_f32.c"/>
-    <files mask="StatisticsFunctionsF16.c"/>
-    <files mask="arm_max_q7.c"/>
-    <files mask="arm_logsumexp_f16.c"/>
-    <files mask="arm_max_q31.c"/>
-    <files mask="arm_logsumexp_dot_prod_f32.c"/>
-    <files mask="arm_absmin_q7.c"/>
-    <files mask="arm_std_q31.c"/>
-    <files mask="arm_logsumexp_dot_prod_f16.c"/>
-    <files mask="arm_max_no_idx_f16.c"/>
-    <files mask="arm_mean_q7.c"/>
-    <files mask="arm_logsumexp_f32.c"/>
-    <files mask="arm_power_q31.c"/>
-    <files mask="arm_mean_f16.c"/>
-    <files mask="arm_min_q15.c"/>
-    <files mask="arm_kullback_leibler_f16.c"/>
-    <files mask="arm_absmax_q7.c"/>
-    <files mask="arm_power_f32.c"/>
-    <files mask="arm_min_f32.c"/>
-    <files mask="arm_absmin_q31.c"/>
-    <files mask="arm_var_q31.c"/>
-    <files mask="arm_var_f16.c"/>
-    <files mask="arm_power_q7.c"/>
-    <files mask="arm_power_f16.c"/>
-    <files mask="arm_rms_q15.c"/>
-    <files mask="arm_absmax_f16.c"/>
-    <files mask="arm_mean_q15.c"/>
-    <files mask="arm_absmax_f32.c"/>
-    <files mask="arm_absmax_q15.c"/>
-    <files mask="arm_var_f32.c"/>
-    <files mask="arm_kullback_leibler_f64.c"/>
-    <files mask="arm_rms_f32.c"/>
-    <files mask="arm_min_f16.c"/>
-    <files mask="arm_absmin_q15.c"/>
-    <files mask="arm_std_f32.c"/>
-    <files mask="arm_max_f16.c"/>
-    <files mask="arm_max_q15.c"/>
-    <files mask="arm_entropy_f32.c"/>
-    <files mask="StatisticsFunctions.c"/>
-    <files mask="arm_min_q31.c"/>
-    <files mask="arm_mean_f32.c"/>
-    <files mask="arm_rms_f16.c"/>
-    <files mask="arm_power_q15.c"/>
-    <files mask="arm_entropy_f64.c"/>
-    <files mask="arm_min_q7.c"/>
-    <files mask="arm_sin_cos_f32.c"/>
-    <files mask="arm_sin_cos_q31.c"/>
-    <files mask="ControllerFunctions.c"/>
-    <files mask="arm_pid_init_f32.c"/>
-    <files mask="arm_pid_reset_f32.c"/>
-    <files mask="arm_pid_reset_q15.c"/>
-    <files mask="arm_pid_init_q15.c"/>
-    <files mask="arm_pid_init_q31.c"/>
-    <files mask="arm_pid_reset_q31.c"/>
-    <files mask="arm_mve_tables.c"/>
-    <files mask="CommonTables.c"/>
-    <files mask="arm_common_tables.c"/>
-    <files mask="arm_mve_tables_f16.c"/>
-    <files mask="arm_const_structs_f16.c"/>
-    <files mask="arm_const_structs.c"/>
-    <files mask="CommonTablesF16.c"/>
-    <files mask="arm_common_tables_f16.c"/>
-    <files mask="arm_fir_decimate_init_q15.c"/>
-    <files mask="arm_correlate_fast_q31.c"/>
-    <files mask="arm_conv_opt_q7.c"/>
-    <files mask="arm_conv_q31.c"/>
-    <files mask="arm_biquad_cascade_df1_init_q31.c"/>
-    <files mask="arm_biquad_cascade_df1_f32.c"/>
-    <files mask="FilteringFunctionsF16.c"/>
-    <files mask="arm_biquad_cascade_stereo_df2T_f32.c"/>
-    <files mask="arm_iir_lattice_init_q15.c"/>
-    <files mask="arm_lms_norm_q15.c"/>
-    <files mask="arm_biquad_cascade_df1_fast_q15.c"/>
-    <files mask="arm_fir_sparse_q7.c"/>
-    <files mask="arm_lms_norm_init_q31.c"/>
-    <files mask="arm_levinson_durbin_q31.c"/>
-    <files mask="arm_lms_init_f32.c"/>
-    <files mask="arm_conv_fast_q15.c"/>
-    <files mask="arm_biquad_cascade_df2T_f64.c"/>
-    <files mask="arm_biquad_cascade_df1_fast_q31.c"/>
-    <files mask="arm_iir_lattice_init_f32.c"/>
-    <files mask="arm_lms_init_q15.c"/>
-    <files mask="arm_lms_norm_init_f32.c"/>
-    <files mask="arm_fir_decimate_fast_q31.c"/>
-    <files mask="arm_biquad_cascade_df2T_init_f32.c"/>
-    <files mask="arm_fir_init_q15.c"/>
-    <files mask="arm_correlate_q7.c"/>
-    <files mask="arm_biquad_cascade_df2T_f16.c"/>
-    <files mask="arm_fir_decimate_init_q31.c"/>
-    <files mask="arm_conv_opt_q15.c"/>
-    <files mask="arm_fir_f16.c"/>
-    <files mask="arm_fir_sparse_init_q15.c"/>
-    <files mask="arm_conv_partial_fast_q15.c"/>
-    <files mask="arm_conv_partial_opt_q7.c"/>
-    <files mask="arm_iir_lattice_init_q31.c"/>
-    <files mask="arm_conv_partial_f32.c"/>
-    <files mask="arm_biquad_cascade_df1_init_f32.c"/>
-    <files mask="arm_fir_sparse_q31.c"/>
-    <files mask="arm_lms_norm_init_q15.c"/>
-    <files mask="arm_conv_q15.c"/>
-    <files mask="arm_fir_decimate_init_f32.c"/>
-    <files mask="arm_lms_q31.c"/>
-    <files mask="arm_fir_interpolate_init_q15.c"/>
-    <files mask="arm_lms_f32.c"/>
-    <files mask="arm_fir_q7.c"/>
-    <files mask="arm_fir_decimate_fast_q15.c"/>
-    <files mask="arm_iir_lattice_q15.c"/>
-    <files mask="arm_fir_sparse_f32.c"/>
-    <files mask="arm_fir_interpolate_init_f32.c"/>
-    <files mask="arm_fir_lattice_init_q31.c"/>
-    <files mask="arm_fir_sparse_q15.c"/>
-    <files mask="arm_fir_sparse_init_q31.c"/>
-    <files mask="arm_correlate_fast_opt_q15.c"/>
-    <files mask="arm_fir_sparse_init_q7.c"/>
-    <files mask="arm_fir_interpolate_q15.c"/>
-    <files mask="arm_fir_sparse_init_f32.c"/>
-    <files mask="arm_conv_partial_q31.c"/>
-    <files mask="arm_fir_q31.c"/>
-    <files mask="arm_biquad_cascade_df1_q15.c"/>
-    <files mask="arm_conv_q7.c"/>
-    <files mask="arm_conv_partial_fast_opt_q15.c"/>
-    <files mask="arm_biquad_cascade_df2T_init_f64.c"/>
-    <files mask="arm_fir_lattice_f32.c"/>
-    <files mask="arm_lms_norm_f32.c"/>
-    <files mask="arm_levinson_durbin_f16.c"/>
-    <files mask="arm_fir_fast_q15.c"/>
-    <files mask="arm_fir_lattice_init_q15.c"/>
-    <files mask="arm_fir_decimate_q15.c"/>
-    <files mask="FilteringFunctions.c"/>
-    <files mask="arm_conv_f32.c"/>
-    <files mask="arm_biquad_cascade_df1_q31.c"/>
-    <files mask="arm_biquad_cascade_df1_32x64_q31.c"/>
-    <files mask="arm_lms_q15.c"/>
-    <files mask="arm_fir_q15.c"/>
-    <files mask="arm_biquad_cascade_stereo_df2T_init_f16.c"/>
-    <files mask="arm_correlate_fast_q15.c"/>
-    <files mask="arm_conv_partial_opt_q15.c"/>
-    <files mask="arm_fir_lattice_init_f32.c"/>
-    <files mask="arm_fir_init_f32.c"/>
-    <files mask="arm_fir_interpolate_q31.c"/>
-    <files mask="arm_conv_fast_q31.c"/>
-    <files mask="arm_biquad_cascade_df1_init_f16.c"/>
-    <files mask="arm_fir_init_f16.c"/>
-    <files mask="arm_biquad_cascade_df2T_init_f16.c"/>
-    <files mask="arm_conv_partial_q15.c"/>
-    <files mask="arm_fir_decimate_f32.c"/>
-    <files mask="arm_lms_norm_q31.c"/>
-    <files mask="arm_biquad_cascade_df1_init_q15.c"/>
-    <files mask="arm_conv_partial_fast_q31.c"/>
-    <files mask="arm_fir_lattice_q31.c"/>
-    <files mask="arm_fir_interpolate_init_q31.c"/>
-    <files mask="arm_fir_f32.c"/>
-    <files mask="arm_correlate_opt_q7.c"/>
-    <files mask="arm_correlate_f32.c"/>
-    <files mask="arm_iir_lattice_q31.c"/>
-    <files mask="arm_fir_decimate_q31.c"/>
-    <files mask="arm_fir_init_q7.c"/>
-    <files mask="arm_correlate_q15.c"/>
-    <files mask="arm_levinson_durbin_f32.c"/>
-    <files mask="arm_biquad_cascade_df1_f16.c"/>
-    <files mask="arm_fir_lattice_q15.c"/>
-    <files mask="arm_correlate_f16.c"/>
-    <files mask="arm_correlate_q31.c"/>
-    <files mask="arm_conv_fast_opt_q15.c"/>
-    <files mask="arm_fir_init_q31.c"/>
-    <files mask="arm_fir_fast_q31.c"/>
-    <files mask="arm_lms_init_q31.c"/>
-    <files mask="arm_biquad_cascade_stereo_df2T_f16.c"/>
-    <files mask="arm_biquad_cascade_df1_32x64_init_q31.c"/>
-    <files mask="arm_correlate_opt_q15.c"/>
-    <files mask="arm_fir_interpolate_f32.c"/>
-    <files mask="arm_conv_partial_q7.c"/>
-    <files mask="arm_biquad_cascade_df2T_f32.c"/>
-    <files mask="arm_biquad_cascade_stereo_df2T_init_f32.c"/>
-    <files mask="arm_iir_lattice_f32.c"/>
-    <files mask="arm_cmplx_mag_squared_f32.c"/>
-    <files mask="arm_cmplx_mag_f16.c"/>
-    <files mask="arm_cmplx_dot_prod_f32.c"/>
-    <files mask="arm_cmplx_dot_prod_q15.c"/>
-    <files mask="arm_cmplx_mag_f32.c"/>
-    <files mask="arm_cmplx_conj_f16.c"/>
-    <files mask="arm_cmplx_dot_prod_q31.c"/>
-    <files mask="arm_cmplx_mult_real_f16.c"/>
-    <files mask="arm_cmplx_mag_q15.c"/>
-    <files mask="arm_cmplx_mult_cmplx_q15.c"/>
-    <files mask="arm_cmplx_mag_squared_q31.c"/>
-    <files mask="ComplexMathFunctions.c"/>
-    <files mask="arm_cmplx_mag_q31.c"/>
-    <files mask="arm_cmplx_conj_q31.c"/>
-    <files mask="arm_cmplx_mult_real_q31.c"/>
-    <files mask="arm_cmplx_mult_real_q15.c"/>
-    <files mask="arm_cmplx_dot_prod_f16.c"/>
-    <files mask="arm_cmplx_mult_real_f32.c"/>
-    <files mask="arm_cmplx_mult_cmplx_f32.c"/>
-    <files mask="arm_cmplx_conj_q15.c"/>
-    <files mask="arm_cmplx_mult_cmplx_f16.c"/>
-    <files mask="arm_cmplx_mag_squared_f16.c"/>
-    <files mask="ComplexMathFunctionsF16.c"/>
-    <files mask="arm_cmplx_conj_f32.c"/>
-    <files mask="arm_cmplx_mag_squared_q15.c"/>
-    <files mask="arm_cmplx_mult_cmplx_q31.c"/>
-  </source>
   <source relative_path="./" type="c_include">
-    <files mask="Driver_USB.h"/>
-    <files mask="Driver_ETH_PHY.h"/>
-    <files mask="Driver_NAND.h"/>
-    <files mask="Driver_Storage.h"/>
-    <files mask="Driver_ETH_MAC.h"/>
-    <files mask="Driver_SPI.h"/>
-    <files mask="Driver_WiFi.h"/>
-    <files mask="Driver_I2C.h"/>
-    <files mask="Driver_ETH.h"/>
-    <files mask="Driver_SAI.h"/>
-    <files mask="Driver_MCI.h"/>
-    <files mask="Driver_CAN.h"/>
-    <files mask="Driver_Common.h"/>
     <files mask="Driver_USBD.h"/>
     <files mask="Driver_USBH.h"/>
     <files mask="Driver_Flash.h"/>
     <files mask="Driver_USART.h"/>
+    <files mask="Driver_ETH_PHY.h"/>
+    <files mask="Driver_ETH.h"/>
+    <files mask="Driver_ETH_MAC.h"/>
+    <files mask="Driver_Storage.h"/>
+    <files mask="Driver_USB.h"/>
+    <files mask="Driver_CAN.h"/>
+    <files mask="Driver_MCI.h"/>
+    <files mask="Driver_Common.h"/>
+    <files mask="Driver_SPI.h"/>
+    <files mask="Driver_NAND.h"/>
+    <files mask="Driver_SAI.h"/>
+    <files mask="Driver_I2C.h"/>
+    <files mask="Driver_WiFi.h"/>
     <files mask="cmsis_vio.h"/>
     <files mask="arm_boolean_distance_template.h"/>
+  </source>
+  <source relative_path="./" type="src">
+    <files mask="Driver_USART.c"/>
+    <files mask="Driver_NAND.c"/>
+    <files mask="Driver_SAI.c"/>
+    <files mask="Driver_MCI.c"/>
+    <files mask="Driver_SPI.c"/>
+    <files mask="Driver_Flash.c"/>
+    <files mask="Driver_USBD.c"/>
+    <files mask="Driver_ETH_MAC.c"/>
+    <files mask="Driver_CAN.c"/>
+    <files mask="Driver_WiFi.c"/>
+    <files mask="Driver_I2C.c"/>
+    <files mask="Driver_USBH.c"/>
+    <files mask="Driver_Storage.c"/>
+    <files mask="Driver_ETH_PHY.c"/>
+    <files mask="vio_memory.c"/>
+    <files mask="vio.c"/>
+    <files mask="arm_svm_rbf_init_f32.c"/>
+    <files mask="arm_svm_polynomial_init_f16.c"/>
+    <files mask="arm_svm_linear_init_f16.c"/>
+    <files mask="arm_svm_sigmoid_predict_f32.c"/>
+    <files mask="SVMFunctionsF16.c"/>
+    <files mask="arm_svm_linear_init_f32.c"/>
+    <files mask="arm_svm_linear_predict_f16.c"/>
+    <files mask="arm_svm_polynomial_predict_f32.c"/>
+    <files mask="arm_svm_linear_predict_f32.c"/>
+    <files mask="arm_svm_rbf_predict_f16.c"/>
+    <files mask="arm_svm_rbf_predict_f32.c"/>
+    <files mask="arm_svm_polynomial_predict_f16.c"/>
+    <files mask="arm_svm_polynomial_init_f32.c"/>
+    <files mask="arm_svm_sigmoid_init_f16.c"/>
+    <files mask="SVMFunctions.c"/>
+    <files mask="arm_svm_sigmoid_init_f32.c"/>
+    <files mask="arm_svm_rbf_init_f16.c"/>
+    <files mask="arm_svm_sigmoid_predict_f16.c"/>
+    <files mask="arm_rfft_fast_init_f32.c"/>
+    <files mask="arm_cfft_radix2_init_q31.c"/>
+    <files mask="arm_rfft_fast_init_f16.c"/>
+    <files mask="arm_rfft_init_f32.c"/>
+    <files mask="arm_rfft_f32.c"/>
+    <files mask="arm_cfft_init_f64.c"/>
+    <files mask="arm_rfft_fast_f16.c"/>
+    <files mask="arm_cfft_f32.c"/>
+    <files mask="arm_rfft_q15.c"/>
+    <files mask="arm_cfft_radix2_init_f32.c"/>
+    <files mask="TransformFunctions.c"/>
+    <files mask="arm_cfft_radix2_f32.c"/>
+    <files mask="arm_cfft_radix4_init_q31.c"/>
+    <files mask="arm_cfft_radix4_f32.c"/>
+    <files mask="arm_rfft_init_q15.c"/>
+    <files mask="arm_cfft_q31.c"/>
+    <files mask="arm_bitreversal2.c"/>
+    <files mask="arm_dct4_init_f32.c"/>
+    <files mask="arm_cfft_q15.c"/>
+    <files mask="arm_rfft_fast_init_f64.c"/>
+    <files mask="arm_cfft_radix2_init_f16.c"/>
+    <files mask="arm_cfft_init_f32.c"/>
+    <files mask="arm_bitreversal.c"/>
+    <files mask="arm_cfft_radix2_init_q15.c"/>
+    <files mask="arm_cfft_radix2_f16.c"/>
+    <files mask="arm_dct4_init_q31.c"/>
+    <files mask="arm_bitreversal_f16.c"/>
+    <files mask="arm_cfft_radix8_f32.c"/>
+    <files mask="arm_cfft_init_q15.c"/>
+    <files mask="arm_cfft_radix2_q31.c"/>
+    <files mask="arm_cfft_radix4_init_q15.c"/>
+    <files mask="arm_rfft_q31.c"/>
+    <files mask="arm_cfft_radix2_q15.c"/>
+    <files mask="arm_cfft_f64.c"/>
+    <files mask="arm_cfft_radix4_init_f32.c"/>
+    <files mask="arm_dct4_init_q15.c"/>
+    <files mask="arm_rfft_fast_f32.c"/>
+    <files mask="arm_dct4_q15.c"/>
+    <files mask="arm_rfft_fast_f64.c"/>
+    <files mask="arm_cfft_init_q31.c"/>
+    <files mask="arm_cfft_radix4_q31.c"/>
+    <files mask="arm_cfft_init_f16.c"/>
+    <files mask="TransformFunctionsF16.c"/>
+    <files mask="arm_dct4_q31.c"/>
+    <files mask="arm_cfft_f16.c"/>
+    <files mask="arm_cfft_radix8_f16.c"/>
+    <files mask="arm_rfft_init_q31.c"/>
+    <files mask="arm_cfft_radix4_f16.c"/>
+    <files mask="arm_cfft_radix4_q15.c"/>
+    <files mask="arm_cfft_radix4_init_f16.c"/>
+    <files mask="arm_dct4_f32.c"/>
+    <files mask="arm_vexp_f32.c"/>
+    <files mask="arm_cos_f32.c"/>
+    <files mask="arm_vinverse_f16.c"/>
+    <files mask="arm_sqrt_q15.c"/>
+    <files mask="arm_divide_q15.c"/>
+    <files mask="arm_vlog_f16.c"/>
+    <files mask="arm_sin_q31.c"/>
+    <files mask="FastMathFunctions.c"/>
+    <files mask="arm_sin_q15.c"/>
+    <files mask="arm_cos_q15.c"/>
+    <files mask="arm_vexp_f16.c"/>
+    <files mask="arm_cos_q31.c"/>
+    <files mask="arm_sin_f32.c"/>
+    <files mask="arm_vlog_f32.c"/>
+    <files mask="FastMathFunctionsF16.c"/>
+    <files mask="arm_sqrt_q31.c"/>
+    <files mask="arm_cmplx_conj_q15.c"/>
+    <files mask="arm_cmplx_conj_f32.c"/>
+    <files mask="arm_cmplx_mag_q31.c"/>
+    <files mask="arm_cmplx_mult_real_f32.c"/>
+    <files mask="arm_cmplx_mag_f16.c"/>
+    <files mask="arm_cmplx_mag_squared_q31.c"/>
+    <files mask="arm_cmplx_mag_q15.c"/>
+    <files mask="arm_cmplx_mult_cmplx_f16.c"/>
+    <files mask="arm_cmplx_mag_squared_f16.c"/>
+    <files mask="arm_cmplx_mult_real_f16.c"/>
+    <files mask="arm_cmplx_mult_cmplx_q31.c"/>
+    <files mask="arm_cmplx_mag_f32.c"/>
+    <files mask="arm_cmplx_mult_cmplx_f32.c"/>
+    <files mask="arm_cmplx_dot_prod_q31.c"/>
+    <files mask="ComplexMathFunctions.c"/>
+    <files mask="arm_cmplx_mult_cmplx_q15.c"/>
+    <files mask="ComplexMathFunctionsF16.c"/>
+    <files mask="arm_cmplx_dot_prod_f32.c"/>
+    <files mask="arm_cmplx_mag_squared_f32.c"/>
+    <files mask="arm_cmplx_conj_f16.c"/>
+    <files mask="arm_cmplx_conj_q31.c"/>
+    <files mask="arm_cmplx_mult_real_q31.c"/>
+    <files mask="arm_cmplx_mult_real_q15.c"/>
+    <files mask="arm_cmplx_dot_prod_f16.c"/>
+    <files mask="arm_cmplx_dot_prod_q15.c"/>
+    <files mask="arm_cmplx_mag_squared_q15.c"/>
+    <files mask="arm_spline_interp_init_f32.c"/>
+    <files mask="arm_linear_interp_q31.c"/>
+    <files mask="InterpolationFunctionsF16.c"/>
+    <files mask="arm_bilinear_interp_q7.c"/>
+    <files mask="arm_bilinear_interp_f32.c"/>
+    <files mask="InterpolationFunctions.c"/>
+    <files mask="arm_linear_interp_f32.c"/>
+    <files mask="arm_bilinear_interp_q31.c"/>
+    <files mask="arm_bilinear_interp_f16.c"/>
+    <files mask="arm_bilinear_interp_q15.c"/>
+    <files mask="arm_linear_interp_f16.c"/>
+    <files mask="arm_linear_interp_q15.c"/>
+    <files mask="arm_linear_interp_q7.c"/>
+    <files mask="arm_spline_interp_f32.c"/>
+    <files mask="arm_iir_lattice_f32.c"/>
+    <files mask="arm_conv_fast_q31.c"/>
+    <files mask="arm_fir_fast_q15.c"/>
+    <files mask="arm_biquad_cascade_df1_q15.c"/>
+    <files mask="arm_fir_init_q31.c"/>
+    <files mask="arm_fir_sparse_q31.c"/>
+    <files mask="arm_biquad_cascade_df2T_init_f64.c"/>
+    <files mask="arm_conv_fast_opt_q15.c"/>
+    <files mask="arm_fir_interpolate_q31.c"/>
+    <files mask="arm_fir_lattice_init_q31.c"/>
+    <files mask="arm_correlate_fast_q15.c"/>
+    <files mask="arm_fir_fast_q31.c"/>
+    <files mask="arm_fir_lattice_init_q15.c"/>
+    <files mask="arm_biquad_cascade_df1_init_f32.c"/>
+    <files mask="arm_fir_init_q15.c"/>
+    <files mask="arm_iir_lattice_init_q31.c"/>
+    <files mask="arm_fir_decimate_f32.c"/>
+    <files mask="arm_correlate_opt_q15.c"/>
+    <files mask="arm_conv_partial_fast_opt_q15.c"/>
+    <files mask="arm_conv_partial_q15.c"/>
+    <files mask="arm_correlate_fast_opt_q15.c"/>
+    <files mask="arm_fir_decimate_q31.c"/>
+    <files mask="arm_lms_norm_init_f32.c"/>
+    <files mask="arm_fir_lattice_f32.c"/>
+    <files mask="arm_biquad_cascade_stereo_df2T_init_f32.c"/>
+    <files mask="arm_fir_interpolate_f32.c"/>
+    <files mask="arm_fir_sparse_init_q7.c"/>
+    <files mask="arm_correlate_q7.c"/>
+    <files mask="arm_biquad_cascade_df2T_f32.c"/>
+    <files mask="arm_conv_partial_q31.c"/>
+    <files mask="arm_fir_lattice_q15.c"/>
+    <files mask="arm_biquad_cascade_df1_f32.c"/>
+    <files mask="arm_fir_decimate_fast_q31.c"/>
+    <files mask="arm_conv_q31.c"/>
+    <files mask="arm_conv_partial_f32.c"/>
+    <files mask="arm_fir_interpolate_init_q15.c"/>
+    <files mask="arm_conv_partial_q7.c"/>
+    <files mask="arm_fir_decimate_init_q31.c"/>
+    <files mask="arm_fir_decimate_q15.c"/>
+    <files mask="arm_conv_fast_q15.c"/>
+    <files mask="arm_conv_q7.c"/>
+    <files mask="arm_biquad_cascade_stereo_df2T_f32.c"/>
+    <files mask="arm_lms_norm_q31.c"/>
+    <files mask="arm_conv_partial_fast_q15.c"/>
+    <files mask="FilteringFunctionsF16.c"/>
+    <files mask="arm_biquad_cascade_stereo_df2T_f16.c"/>
+    <files mask="arm_biquad_cascade_df1_32x64_init_q31.c"/>
+    <files mask="arm_fir_interpolate_init_q31.c"/>
+    <files mask="arm_iir_lattice_init_q15.c"/>
+    <files mask="arm_levinson_durbin_q31.c"/>
+    <files mask="arm_fir_sparse_f32.c"/>
+    <files mask="arm_biquad_cascade_df2T_f16.c"/>
+    <files mask="arm_fir_sparse_init_f32.c"/>
+    <files mask="arm_lms_q15.c"/>
+    <files mask="arm_lms_norm_init_q31.c"/>
+    <files mask="arm_conv_partial_opt_q15.c"/>
+    <files mask="arm_fir_lattice_q31.c"/>
+    <files mask="arm_biquad_cascade_df2T_f64.c"/>
+    <files mask="arm_fir_init_q7.c"/>
+    <files mask="arm_conv_partial_opt_q7.c"/>
+    <files mask="arm_conv_f32.c"/>
+    <files mask="arm_lms_init_q15.c"/>
+    <files mask="arm_biquad_cascade_df1_q31.c"/>
+    <files mask="arm_biquad_cascade_df2T_init_f32.c"/>
+    <files mask="arm_conv_q15.c"/>
+    <files mask="arm_levinson_durbin_f32.c"/>
+    <files mask="arm_correlate_opt_q7.c"/>
+    <files mask="arm_lms_norm_f32.c"/>
+    <files mask="arm_lms_f32.c"/>
+    <files mask="arm_iir_lattice_init_f32.c"/>
+    <files mask="arm_lms_init_f32.c"/>
+    <files mask="arm_biquad_cascade_df1_init_q31.c"/>
+    <files mask="arm_fir_init_f16.c"/>
+    <files mask="arm_correlate_q31.c"/>
+    <files mask="arm_biquad_cascade_df1_fast_q31.c"/>
+    <files mask="arm_fir_q31.c"/>
+    <files mask="arm_fir_interpolate_q15.c"/>
+    <files mask="arm_biquad_cascade_df2T_init_f16.c"/>
+    <files mask="arm_fir_decimate_init_f32.c"/>
+    <files mask="arm_fir_sparse_q15.c"/>
+    <files mask="arm_iir_lattice_q15.c"/>
+    <files mask="arm_biquad_cascade_stereo_df2T_init_f16.c"/>
+    <files mask="arm_lms_q31.c"/>
+    <files mask="arm_conv_opt_q15.c"/>
+    <files mask="arm_fir_sparse_q7.c"/>
+    <files mask="arm_iir_lattice_q31.c"/>
+    <files mask="arm_correlate_f32.c"/>
+    <files mask="arm_lms_norm_q15.c"/>
+    <files mask="arm_correlate_f16.c"/>
+    <files mask="arm_conv_opt_q7.c"/>
+    <files mask="arm_conv_partial_fast_q31.c"/>
+    <files mask="arm_fir_f16.c"/>
+    <files mask="arm_lms_init_q31.c"/>
+    <files mask="arm_fir_q7.c"/>
+    <files mask="arm_fir_decimate_fast_q15.c"/>
+    <files mask="arm_biquad_cascade_df1_init_f16.c"/>
+    <files mask="arm_biquad_cascade_df1_f16.c"/>
+    <files mask="arm_fir_interpolate_init_f32.c"/>
+    <files mask="arm_fir_sparse_init_q31.c"/>
+    <files mask="arm_levinson_durbin_f16.c"/>
+    <files mask="arm_fir_sparse_init_q15.c"/>
+    <files mask="arm_fir_decimate_init_q15.c"/>
+    <files mask="arm_fir_q15.c"/>
+    <files mask="arm_fir_f32.c"/>
+    <files mask="arm_biquad_cascade_df1_32x64_q31.c"/>
+    <files mask="arm_biquad_cascade_df1_init_q15.c"/>
+    <files mask="arm_fir_init_f32.c"/>
+    <files mask="FilteringFunctions.c"/>
+    <files mask="arm_biquad_cascade_df1_fast_q15.c"/>
+    <files mask="arm_correlate_fast_q31.c"/>
+    <files mask="arm_correlate_q15.c"/>
+    <files mask="arm_lms_norm_init_q15.c"/>
+    <files mask="arm_fir_lattice_init_f32.c"/>
+    <files mask="arm_sort_f32.c"/>
+    <files mask="arm_q7_to_float.c"/>
+    <files mask="arm_f16_to_float.c"/>
+    <files mask="arm_float_to_q31.c"/>
+    <files mask="arm_merge_sort_init_f32.c"/>
+    <files mask="arm_q15_to_f16.c"/>
+    <files mask="arm_q15_to_q7.c"/>
+    <files mask="arm_quick_sort_f32.c"/>
+    <files mask="arm_copy_f16.c"/>
+    <files mask="arm_q7_to_q15.c"/>
+    <files mask="arm_copy_q15.c"/>
+    <files mask="arm_bubble_sort_f32.c"/>
+    <files mask="arm_q15_to_float.c"/>
+    <files mask="arm_fill_q15.c"/>
+    <files mask="arm_selection_sort_f32.c"/>
+    <files mask="arm_f16_to_q15.c"/>
+    <files mask="arm_fill_f32.c"/>
+    <files mask="arm_q7_to_q31.c"/>
+    <files mask="arm_barycenter_f32.c"/>
+    <files mask="arm_merge_sort_f32.c"/>
+    <files mask="arm_q15_to_q31.c"/>
+    <files mask="SupportFunctions.c"/>
+    <files mask="arm_float_to_q7.c"/>
+    <files mask="arm_barycenter_f16.c"/>
+    <files mask="arm_bitonic_sort_f32.c"/>
+    <files mask="arm_q31_to_float.c"/>
+    <files mask="arm_weighted_sum_f16.c"/>
+    <files mask="SupportFunctionsF16.c"/>
+    <files mask="arm_heap_sort_f32.c"/>
+    <files mask="arm_q31_to_q15.c"/>
+    <files mask="arm_weighted_sum_f32.c"/>
+    <files mask="arm_sort_init_f32.c"/>
+    <files mask="arm_q31_to_q7.c"/>
+    <files mask="arm_fill_q7.c"/>
+    <files mask="arm_copy_f32.c"/>
+    <files mask="arm_insertion_sort_f32.c"/>
+    <files mask="arm_float_to_f16.c"/>
+    <files mask="arm_copy_q7.c"/>
+    <files mask="arm_fill_q31.c"/>
+    <files mask="arm_fill_f16.c"/>
+    <files mask="arm_copy_q31.c"/>
+    <files mask="arm_float_to_q15.c"/>
+    <files mask="arm_gaussian_naive_bayes_predict_f16.c"/>
+    <files mask="BayesFunctionsF16.c"/>
+    <files mask="arm_gaussian_naive_bayes_predict_f32.c"/>
+    <files mask="BayesFunctions.c"/>
+    <files mask="arm_mve_tables_f16.c"/>
+    <files mask="arm_const_structs.c"/>
+    <files mask="arm_mve_tables.c"/>
+    <files mask="arm_const_structs_f16.c"/>
+    <files mask="arm_common_tables.c"/>
+    <files mask="arm_common_tables_f16.c"/>
+    <files mask="CommonTables.c"/>
+    <files mask="CommonTablesF16.c"/>
+    <files mask="arm_quaternion_product_f32.c"/>
+    <files mask="arm_quaternion_product_single_f32.c"/>
+    <files mask="arm_quaternion2rotation_f32.c"/>
+    <files mask="arm_quaternion_normalize_f32.c"/>
+    <files mask="QuaternionMathFunctions.c"/>
+    <files mask="arm_quaternion_norm_f32.c"/>
+    <files mask="arm_quaternion_conjugate_f32.c"/>
+    <files mask="arm_quaternion_inverse_f32.c"/>
+    <files mask="arm_rotation2quaternion_f32.c"/>
+    <files mask="arm_max_q31.c"/>
+    <files mask="arm_absmax_f32.c"/>
+    <files mask="arm_min_q7.c"/>
+    <files mask="arm_kullback_leibler_f64.c"/>
+    <files mask="arm_max_q15.c"/>
+    <files mask="arm_logsumexp_f16.c"/>
+    <files mask="arm_power_f32.c"/>
+    <files mask="arm_entropy_f16.c"/>
+    <files mask="arm_absmin_q31.c"/>
+    <files mask="arm_kullback_leibler_f32.c"/>
+    <files mask="arm_mean_f32.c"/>
+    <files mask="arm_absmax_q7.c"/>
+    <files mask="arm_var_q15.c"/>
+    <files mask="arm_logsumexp_f32.c"/>
+    <files mask="arm_absmin_f16.c"/>
+    <files mask="arm_entropy_f32.c"/>
+    <files mask="arm_mean_f16.c"/>
+    <files mask="arm_max_no_idx_f16.c"/>
+    <files mask="arm_var_q31.c"/>
+    <files mask="arm_std_f32.c"/>
+    <files mask="arm_min_f32.c"/>
+    <files mask="arm_absmin_q15.c"/>
+    <files mask="StatisticsFunctionsF16.c"/>
+    <files mask="arm_absmax_q15.c"/>
+    <files mask="arm_var_f32.c"/>
+    <files mask="arm_mean_q15.c"/>
+    <files mask="arm_power_f16.c"/>
+    <files mask="arm_min_f16.c"/>
+    <files mask="StatisticsFunctions.c"/>
+    <files mask="arm_max_f16.c"/>
+    <files mask="arm_power_q15.c"/>
+    <files mask="arm_max_no_idx_f32.c"/>
+    <files mask="arm_min_q15.c"/>
+    <files mask="arm_std_q31.c"/>
+    <files mask="arm_power_q31.c"/>
+    <files mask="arm_rms_q15.c"/>
+    <files mask="arm_logsumexp_dot_prod_f16.c"/>
+    <files mask="arm_rms_q31.c"/>
+    <files mask="arm_max_f32.c"/>
+    <files mask="arm_logsumexp_dot_prod_f32.c"/>
+    <files mask="arm_mean_q7.c"/>
+    <files mask="arm_std_f16.c"/>
+    <files mask="arm_absmax_f16.c"/>
+    <files mask="arm_absmin_q7.c"/>
+    <files mask="arm_var_f16.c"/>
+    <files mask="arm_absmin_f32.c"/>
+    <files mask="arm_std_q15.c"/>
+    <files mask="arm_power_q7.c"/>
+    <files mask="arm_rms_f32.c"/>
+    <files mask="arm_max_q7.c"/>
+    <files mask="arm_min_q31.c"/>
+    <files mask="arm_entropy_f64.c"/>
+    <files mask="arm_absmax_q31.c"/>
+    <files mask="arm_rms_f16.c"/>
+    <files mask="arm_kullback_leibler_f16.c"/>
+    <files mask="arm_mean_q31.c"/>
+    <files mask="arm_sin_cos_f32.c"/>
+    <files mask="arm_pid_reset_f32.c"/>
+    <files mask="arm_sin_cos_q31.c"/>
+    <files mask="arm_pid_init_q31.c"/>
+    <files mask="arm_pid_reset_q15.c"/>
+    <files mask="arm_pid_init_f32.c"/>
+    <files mask="arm_pid_init_q15.c"/>
+    <files mask="ControllerFunctions.c"/>
+    <files mask="arm_pid_reset_q31.c"/>
+    <files mask="arm_jaccard_distance.c"/>
+    <files mask="arm_cosine_distance_f16.c"/>
+    <files mask="arm_correlation_distance_f32.c"/>
+    <files mask="arm_braycurtis_distance_f32.c"/>
+    <files mask="arm_boolean_distance.c"/>
+    <files mask="arm_hamming_distance.c"/>
+    <files mask="DistanceFunctionsF16.c"/>
+    <files mask="arm_dice_distance.c"/>
+    <files mask="arm_chebyshev_distance_f32.c"/>
+    <files mask="arm_canberra_distance_f16.c"/>
+    <files mask="arm_euclidean_distance_f32.c"/>
+    <files mask="arm_chebyshev_distance_f16.c"/>
+    <files mask="arm_correlation_distance_f16.c"/>
+    <files mask="arm_canberra_distance_f32.c"/>
+    <files mask="arm_euclidean_distance_f16.c"/>
+    <files mask="arm_kulsinski_distance.c"/>
+    <files mask="arm_cityblock_distance_f32.c"/>
+    <files mask="arm_jensenshannon_distance_f32.c"/>
+    <files mask="arm_yule_distance.c"/>
+    <files mask="arm_sokalmichener_distance.c"/>
+    <files mask="arm_cityblock_distance_f16.c"/>
+    <files mask="arm_cosine_distance_f32.c"/>
+    <files mask="arm_minkowski_distance_f32.c"/>
+    <files mask="arm_jensenshannon_distance_f16.c"/>
+    <files mask="arm_rogerstanimoto_distance.c"/>
+    <files mask="arm_sokalsneath_distance.c"/>
+    <files mask="arm_minkowski_distance_f16.c"/>
+    <files mask="arm_russellrao_distance.c"/>
+    <files mask="DistanceFunctions.c"/>
+    <files mask="arm_braycurtis_distance_f16.c"/>
+    <files mask="arm_mat_mult_q31.c"/>
+    <files mask="arm_mat_vec_mult_q15.c"/>
+    <files mask="arm_mat_cholesky_f64.c"/>
+    <files mask="arm_mat_solve_upper_triangular_f16.c"/>
+    <files mask="arm_mat_inverse_f64.c"/>
+    <files mask="arm_mat_init_f32.c"/>
+    <files mask="arm_mat_ldlt_f64.c"/>
+    <files mask="arm_mat_sub_q31.c"/>
+    <files mask="arm_mat_mult_f16.c"/>
+    <files mask="arm_mat_sub_f64.c"/>
+    <files mask="arm_mat_cmplx_mult_f16.c"/>
+    <files mask="arm_mat_cmplx_trans_f32.c"/>
+    <files mask="arm_mat_trans_f32.c"/>
+    <files mask="arm_mat_cholesky_f16.c"/>
+    <files mask="arm_mat_trans_f16.c"/>
+    <files mask="arm_mat_inverse_f32.c"/>
+    <files mask="arm_mat_solve_lower_triangular_f32.c"/>
+    <files mask="MatrixFunctionsF16.c"/>
+    <files mask="arm_mat_trans_q31.c"/>
+    <files mask="arm_mat_sub_f32.c"/>
+    <files mask="arm_mat_cholesky_f32.c"/>
+    <files mask="arm_mat_trans_q15.c"/>
+    <files mask="arm_mat_mult_fast_q15.c"/>
+    <files mask="arm_mat_mult_f64.c"/>
+    <files mask="arm_mat_cmplx_trans_q31.c"/>
+    <files mask="arm_mat_solve_lower_triangular_f16.c"/>
+    <files mask="arm_mat_sub_f16.c"/>
+    <files mask="arm_mat_trans_q7.c"/>
+    <files mask="arm_mat_vec_mult_q7.c"/>
+    <files mask="arm_mat_mult_q15.c"/>
+    <files mask="arm_mat_add_f16.c"/>
+    <files mask="arm_mat_init_q31.c"/>
+    <files mask="arm_mat_mult_fast_q31.c"/>
+    <files mask="arm_mat_sub_q15.c"/>
+    <files mask="arm_mat_solve_lower_triangular_f64.c"/>
+    <files mask="arm_mat_vec_mult_f16.c"/>
+    <files mask="arm_mat_scale_f16.c"/>
+    <files mask="arm_mat_scale_q15.c"/>
+    <files mask="arm_mat_cmplx_mult_f32.c"/>
+    <files mask="MatrixFunctions.c"/>
+    <files mask="arm_mat_trans_f64.c"/>
+    <files mask="arm_mat_inverse_f16.c"/>
+    <files mask="arm_mat_vec_mult_f32.c"/>
+    <files mask="arm_mat_scale_f32.c"/>
+    <files mask="arm_mat_cmplx_trans_q15.c"/>
+    <files mask="arm_mat_add_q31.c"/>
+    <files mask="arm_mat_mult_q7.c"/>
+    <files mask="arm_mat_add_q15.c"/>
+    <files mask="arm_mat_cmplx_trans_f16.c"/>
+    <files mask="arm_mat_solve_upper_triangular_f64.c"/>
+    <files mask="arm_mat_scale_q31.c"/>
+    <files mask="arm_mat_ldlt_f32.c"/>
+    <files mask="arm_mat_cmplx_mult_q31.c"/>
+    <files mask="arm_mat_init_q15.c"/>
+    <files mask="arm_mat_cmplx_mult_q15.c"/>
+    <files mask="arm_mat_add_f32.c"/>
+    <files mask="arm_mat_vec_mult_q31.c"/>
+    <files mask="arm_mat_init_f16.c"/>
+    <files mask="arm_mat_mult_f32.c"/>
+    <files mask="arm_mat_solve_upper_triangular_f32.c"/>
+    <files mask="arm_shift_q15.c"/>
+    <files mask="arm_abs_q7.c"/>
+    <files mask="arm_mult_q7.c"/>
+    <files mask="arm_mult_q31.c"/>
+    <files mask="arm_add_f32.c"/>
+    <files mask="arm_and_u32.c"/>
+    <files mask="arm_scale_q31.c"/>
+    <files mask="arm_or_u32.c"/>
+    <files mask="arm_sub_q31.c"/>
+    <files mask="arm_mult_f16.c"/>
+    <files mask="arm_abs_q15.c"/>
+    <files mask="arm_sub_q7.c"/>
+    <files mask="arm_dot_prod_q15.c"/>
+    <files mask="arm_sub_f32.c"/>
+    <files mask="arm_negate_q31.c"/>
+    <files mask="arm_not_u16.c"/>
+    <files mask="arm_negate_q7.c"/>
+    <files mask="arm_negate_f32.c"/>
+    <files mask="BasicMathFunctionsF16.c"/>
+    <files mask="arm_dot_prod_f16.c"/>
+    <files mask="arm_abs_f16.c"/>
+    <files mask="arm_clip_q15.c"/>
+    <files mask="arm_scale_f16.c"/>
+    <files mask="arm_add_f16.c"/>
+    <files mask="arm_mult_f32.c"/>
+    <files mask="arm_negate_q15.c"/>
+    <files mask="arm_not_u8.c"/>
+    <files mask="arm_xor_u8.c"/>
+    <files mask="arm_xor_u32.c"/>
+    <files mask="arm_offset_f16.c"/>
+    <files mask="arm_negate_f16.c"/>
+    <files mask="arm_add_q7.c"/>
+    <files mask="arm_clip_f16.c"/>
+    <files mask="arm_and_u16.c"/>
+    <files mask="arm_offset_f32.c"/>
+    <files mask="arm_abs_f32.c"/>
+    <files mask="arm_add_q31.c"/>
+    <files mask="arm_clip_f32.c"/>
+    <files mask="arm_abs_q31.c"/>
+    <files mask="arm_offset_q7.c"/>
+    <files mask="arm_mult_q15.c"/>
+    <files mask="arm_clip_q7.c"/>
+    <files mask="arm_offset_q31.c"/>
+    <files mask="arm_not_u32.c"/>
+    <files mask="arm_sub_q15.c"/>
+    <files mask="arm_clip_q31.c"/>
+    <files mask="arm_scale_q15.c"/>
+    <files mask="arm_or_u8.c"/>
+    <files mask="arm_scale_q7.c"/>
+    <files mask="arm_offset_q15.c"/>
+    <files mask="arm_add_q15.c"/>
+    <files mask="arm_shift_q7.c"/>
+    <files mask="BasicMathFunctions.c"/>
+    <files mask="arm_or_u16.c"/>
+    <files mask="arm_dot_prod_q7.c"/>
+    <files mask="arm_xor_u16.c"/>
+    <files mask="arm_and_u8.c"/>
+    <files mask="arm_dot_prod_q31.c"/>
+    <files mask="arm_shift_q31.c"/>
+    <files mask="arm_dot_prod_f32.c"/>
+    <files mask="arm_scale_f32.c"/>
+    <files mask="arm_sub_f16.c"/>
   </source>
   <source relative_path="./" type="other">
     <files mask="cmsis_vio.scvd"/>
@@ -2235,375 +2235,375 @@ ${load}</script>
         <files mask="MCUXpresso SDK API Reference Manual_LPC845.pdf"/>
       </source>
       <source relative_path="MCUXpresso SDK API Reference Manual_LPC845" type="doc">
-        <files mask="a00020.html"/>
-        <files mask="dir_22cbbd27e16e87caa10f675e5ce8b9df.html"/>
-        <files mask="a00098.html"/>
-        <files mask="a00093.html"/>
-        <files mask="a00012.js"/>
-        <files mask="dir_51c73ba289f0e8fe50ccaff542140dcf.html"/>
-        <files mask="a00014.js"/>
-        <files mask="a00092.js"/>
-        <files mask="a00023.html"/>
-        <files mask="a00089.js"/>
-        <files mask="a00100.js"/>
-        <files mask="a00015.js"/>
-        <files mask="dir_07b86ffc266b39efa5bbdc0e9fdb330a.html"/>
-        <files mask="dir_d0b0cea4c1afa919405231e98537b73c.html"/>
-        <files mask="navtreeindex2.js"/>
-        <files mask="sync_on.png"/>
-        <files mask="tab_b.png"/>
-        <files mask="a00096.js"/>
-        <files mask="ftv2vertline.png"/>
-        <files mask="a00019.html"/>
-        <files mask="resize.js"/>
-        <files mask="bdwn.png"/>
-        <files mask="a00089.html"/>
-        <files mask="a00002.html"/>
-        <files mask="dir_f116f7633d12361ea112ee9d6dd3a804.html"/>
-        <files mask="a00090.js"/>
-        <files mask="a00018.html"/>
-        <files mask="a00011.html"/>
-        <files mask="a00024.html"/>
-        <files mask="navtreeindex3.js"/>
-        <files mask="a00017.html"/>
-        <files mask="a00004.html"/>
-        <files mask="ftv2lastnode.png"/>
-        <files mask="customdoxygen.css"/>
-        <files mask="dir_5b772dd4d456f495cb29becefd143ee2.html"/>
-        <files mask="dir_2056c7e4f19697e9c34230a1d3554841.html"/>
-        <files mask="a00008.js"/>
-        <files mask="a00006.html"/>
-        <files mask="ftv2mnode.png"/>
-        <files mask="a00023.js"/>
-        <files mask="a00099.html"/>
-        <files mask="a00026.html"/>
-        <files mask="dir_c48a66ee7236adaad29cf263b70b3b16.html"/>
-        <files mask="tabs.css"/>
-        <files mask="a00024.js"/>
-        <files mask="ftv2folderopen.png"/>
-        <files mask="dir_97879f77cafaedc6c6b7c8e7e6bcf419.html"/>
-        <files mask="a00021.html"/>
-        <files mask="a00090.html"/>
-        <files mask="doxygen.css"/>
-        <files mask="ftv2plastnode.png"/>
-        <files mask="doxygen.png"/>
-        <files mask="fs_logo.gif"/>
         <files mask="dir_9e0a0b363f74c0efadbd1d6e4c01cac5.html"/>
-        <files mask="a00095.js"/>
+        <files mask="a00010.js"/>
+        <files mask="a00096.js"/>
+        <files mask="a00009.js"/>
         <files mask="a00013.js"/>
-        <files mask="a00022.html"/>
-        <files mask="a00094.html"/>
-        <files mask="pages.html"/>
-        <files mask="dir_3d87c2df58032c55a697acbe8461844d.html"/>
+        <files mask="a00089.js"/>
+        <files mask="bc_s.png"/>
+        <files mask="tab_b.png"/>
+        <files mask="a00023.js"/>
         <files mask="a00092.html"/>
+        <files mask="tab_s.png"/>
+        <files mask="a00024.js"/>
+        <files mask="a00012.js"/>
+        <files mask="a00093.html"/>
+        <files mask="sync_on.png"/>
+        <files mask="navtreeindex6.js"/>
+        <files mask="navtreeindex5.js"/>
+        <files mask="dir_75214fd834f54a955adf2012023f7050.html"/>
+        <files mask="navtree.css"/>
+        <files mask="a00008.js"/>
+        <files mask="a00023.html"/>
+        <files mask="a00026.html"/>
+        <files mask="a00088.html"/>
+        <files mask="navtree.js"/>
+        <files mask="a00100.html"/>
+        <files mask="navtreeindex2.js"/>
+        <files mask="navtreeindex4.js"/>
+        <files mask="jquery.js"/>
+        <files mask="customdoxygen.css"/>
+        <files mask="nxp_logo_small.png"/>
+        <files mask="dir_b81d5557345932eec08d61eeb5afa2f0.html"/>
+        <files mask="dynsections.js"/>
+        <files mask="dir_a343a3e9cbb710280ccd0de2056b945d.html"/>
+        <files mask="a00013.html"/>
+        <files mask="dir_2056c7e4f19697e9c34230a1d3554841.html"/>
+        <files mask="a00012.html"/>
+        <files mask="navtreeindex1.js"/>
+        <files mask="ftv2plastnode.png"/>
+        <files mask="a00019.html"/>
+        <files mask="index.html"/>
+        <files mask="sync_off.png"/>
+        <files mask="dir_ea982a4a90bbf64c8a612131ad2f0fcb.html"/>
+        <files mask="a00090.js"/>
+        <files mask="a00098.html"/>
+        <files mask="a00015.js"/>
+        <files mask="dir_d0b0cea4c1afa919405231e98537b73c.html"/>
+        <files mask="a00004.html"/>
+        <files mask="ftv2folderclosed.png"/>
+        <files mask="dir_a2da420fdde962bd10156eaa17d1670b.html"/>
+        <files mask="arm_logo.png"/>
+        <files mask="ftv2ns.png"/>
+        <files mask="a00022.html"/>
+        <files mask="a00019.js"/>
+        <files mask="dir_c48a66ee7236adaad29cf263b70b3b16.html"/>
+        <files mask="a00091.html"/>
+        <files mask="dir_5b772dd4d456f495cb29becefd143ee2.html"/>
+        <files mask="a00009.html"/>
+        <files mask="a00097.js"/>
+        <files mask="doxygen.css"/>
+        <files mask="dir_51c73ba289f0e8fe50ccaff542140dcf.html"/>
+        <files mask="dir_eb78a2695df30cd843f578001c009203.html"/>
+        <files mask="ftv2node.png"/>
+        <files mask="nav_f.png"/>
+        <files mask="ftv2mnode.png"/>
+        <files mask="a00096.html"/>
+        <files mask="tabs.css"/>
+        <files mask="a00024.html"/>
+        <files mask="dir_f116f7633d12361ea112ee9d6dd3a804.html"/>
+        <files mask="fs_logo.gif"/>
+        <files mask="dir_3803c7c40becdc1a8f991e020a425f6b.html"/>
+        <files mask="a00017.html"/>
+        <files mask="ftv2vertline.png"/>
+        <files mask="closed.png"/>
+        <files mask="ftv2splitbar.png"/>
+        <files mask="a00002.html"/>
+        <files mask="dir_2a1dd0fbcd48f3a218ef69b90ad172e4.html"/>
         <files mask="a00094.js"/>
-        <files mask="dir_d488d26126eac48f68b56f6b2e0f43d9.html"/>
-        <files mask="ftv2mlastnode.png"/>
+        <files mask="a00014.js"/>
+        <files mask="a00011.js"/>
+        <files mask="a00017.js"/>
+        <files mask="a00092.js"/>
+        <files mask="open.png"/>
+        <files mask="dir_97879f77cafaedc6c6b7c8e7e6bcf419.html"/>
+        <files mask="a00008.html"/>
+        <files mask="a00094.html"/>
+        <files mask="dir_c7e9d45afd61725c3e80b2f8c629533d.html"/>
+        <files mask="a00088.js"/>
+        <files mask="a00099.js"/>
+        <files mask="a00020.html"/>
+        <files mask="ftv2pnode.png"/>
+        <files mask="a00093.js"/>
+        <files mask="a00022.js"/>
+        <files mask="pages.html"/>
+        <files mask="tab_h.png"/>
+        <files mask="a00010.html"/>
+        <files mask="dir_22cbbd27e16e87caa10f675e5ce8b9df.html"/>
+        <files mask="doxygen.png"/>
+        <files mask="ftv2cl.png"/>
+        <files mask="a00011.html"/>
+        <files mask="nav_g.png"/>
+        <files mask="a00097.html"/>
+        <files mask="a00090.html"/>
+        <files mask="ftv2mo.png"/>
+        <files mask="navtreeindex3.js"/>
+        <files mask="dir_8ceb0280e3a6924da33c684985152a52.html"/>
+        <files mask="a00015.html"/>
+        <files mask="a00098.js"/>
+        <files mask="ftv2blank.png"/>
+        <files mask="a00021.html"/>
         <files mask="ftv2doc.png"/>
-        <files mask="a00026.js"/>
+        <files mask="a00103.html"/>
+        <files mask="navtreeindex0.js"/>
+        <files mask="modules.html"/>
+        <files mask="dir_83c4f67939b2e50b6dc50fe3fc259b2d.html"/>
+        <files mask="ftv2mlastnode.png"/>
+        <files mask="ftv2link.png"/>
         <files mask="a00016.js"/>
+        <files mask="a00026.js"/>
         <files mask="modules.js"/>
+        <files mask="dir_d488d26126eac48f68b56f6b2e0f43d9.html"/>
+        <files mask="a00100.js"/>
+        <files mask="dir_8072ca6cdeca8c705203cc0f896a3705.html"/>
+        <files mask="a00021.js"/>
         <files mask="a00014.html"/>
         <files mask="a00016.html"/>
-        <files mask="a00011.js"/>
-        <files mask="dir_8072ca6cdeca8c705203cc0f896a3705.html"/>
-        <files mask="ftv2ns.png"/>
-        <files mask="a00020.js"/>
-        <files mask="dir_2c6aa0e2bbb2234cdccf71ce9920a505.html"/>
-        <files mask="navtreeindex5.js"/>
-        <files mask="a00096.html"/>
-        <files mask="dir_1331922326a697e1e9aa2323d085217f.html"/>
-        <files mask="dir_c7e9d45afd61725c3e80b2f8c629533d.html"/>
-        <files mask="navtreeindex6.js"/>
-        <files mask="navtreeindex1.js"/>
-        <files mask="a00025.html"/>
-        <files mask="index.html"/>
-        <files mask="a00018.js"/>
-        <files mask="dir_c5a52a81292cf9a5167198f4f346d6d9.html"/>
-        <files mask="a00095.html"/>
-        <files mask="a00017.js"/>
-        <files mask="a00091.js"/>
-        <files mask="tab_h.png"/>
-        <files mask="navtreeindex0.js"/>
-        <files mask="a00088.html"/>
-        <files mask="a00009.html"/>
-        <files mask="ftv2folderclosed.png"/>
-        <files mask="dir_b81d5557345932eec08d61eeb5afa2f0.html"/>
-        <files mask="dir_ea982a4a90bbf64c8a612131ad2f0fcb.html"/>
-        <files mask="a00010.js"/>
-        <files mask="a00100.html"/>
-        <files mask="a00022.js"/>
-        <files mask="a00019.js"/>
-        <files mask="a00088.js"/>
-        <files mask="dynsections.js"/>
-        <files mask="dir_8240c85063e108bd95ef29fb603f8af8.html"/>
-        <files mask="Kinetis_SDK_Block_Diagram.jpg"/>
-        <files mask="ftv2link.png"/>
-        <files mask="dir_a2da420fdde962bd10156eaa17d1670b.html"/>
-        <files mask="dir_a3e8f1feb8c30c12d24fc9c7995a15c1.html"/>
-        <files mask="a00021.js"/>
         <files mask="nav_h.png"/>
-        <files mask="dir_83c4f67939b2e50b6dc50fe3fc259b2d.html"/>
-        <files mask="a00008.html"/>
-        <files mask="modules.html"/>
-        <files mask="navtree.css"/>
-        <files mask="dir_8ceb0280e3a6924da33c684985152a52.html"/>
-        <files mask="a00013.html"/>
-        <files mask="a00103.html"/>
+        <files mask="dir_c5a52a81292cf9a5167198f4f346d6d9.html"/>
+        <files mask="a00089.html"/>
+        <files mask="dir_07b86ffc266b39efa5bbdc0e9fdb330a.html"/>
+        <files mask="Kinetis_SDK_Block_Diagram.jpg"/>
+        <files mask="a00020.js"/>
+        <files mask="dir_8240c85063e108bd95ef29fb603f8af8.html"/>
+        <files mask="ftv2folderopen.png"/>
+        <files mask="dir_3d87c2df58032c55a697acbe8461844d.html"/>
         <files mask="a00025.js"/>
-        <files mask="dir_3803c7c40becdc1a8f991e020a425f6b.html"/>
-        <files mask="ftv2pnode.png"/>
-        <files mask="tab_a.png"/>
-        <files mask="arm_logo.png"/>
-        <files mask="a00097.html"/>
-        <files mask="nxp_logo_small.png"/>
-        <files mask="navtreeindex4.js"/>
-        <files mask="navtree.js"/>
-        <files mask="dir_eb78a2695df30cd843f578001c009203.html"/>
-        <files mask="a00010.html"/>
-        <files mask="a00009.js"/>
-        <files mask="a00015.html"/>
+        <files mask="a00006.html"/>
+        <files mask="a00018.js"/>
+        <files mask="bdwn.png"/>
+        <files mask="dir_a3e8f1feb8c30c12d24fc9c7995a15c1.html"/>
+        <files mask="dir_1331922326a697e1e9aa2323d085217f.html"/>
         <files mask="navtreeindex7.js"/>
-        <files mask="ftv2blank.png"/>
-        <files mask="ftv2mo.png"/>
-        <files mask="a00099.js"/>
-        <files mask="a00098.js"/>
-        <files mask="a00097.js"/>
-        <files mask="a00093.js"/>
-        <files mask="dir_2a1dd0fbcd48f3a218ef69b90ad172e4.html"/>
-        <files mask="sync_off.png"/>
-        <files mask="a00012.html"/>
-        <files mask="ftv2splitbar.png"/>
-        <files mask="jquery.js"/>
-        <files mask="open.png"/>
-        <files mask="tab_s.png"/>
-        <files mask="dir_a343a3e9cbb710280ccd0de2056b945d.html"/>
-        <files mask="closed.png"/>
-        <files mask="ftv2cl.png"/>
-        <files mask="a00101.html"/>
-        <files mask="ftv2node.png"/>
-        <files mask="a00091.html"/>
-        <files mask="nav_f.png"/>
-        <files mask="bc_s.png"/>
         <files mask="dir_597e7b4abe9370d09efc17ad39621bb9.html"/>
-        <files mask="nav_g.png"/>
-        <files mask="dir_75214fd834f54a955adf2012023f7050.html"/>
+        <files mask="tab_a.png"/>
+        <files mask="a00095.js"/>
+        <files mask="dir_2c6aa0e2bbb2234cdccf71ce9920a505.html"/>
+        <files mask="a00095.html"/>
+        <files mask="resize.js"/>
+        <files mask="a00101.html"/>
+        <files mask="ftv2lastnode.png"/>
+        <files mask="a00091.js"/>
+        <files mask="a00018.html"/>
+        <files mask="a00025.html"/>
+        <files mask="a00099.html"/>
       </source>
       <source relative_path="MCUXpresso SDK API Reference Manual_LPC845/search" type="doc">
-        <files mask="variables_76.js"/>
-        <files mask="groups_77.js"/>
-        <files mask="functions_65.js"/>
-        <files mask="variables_70.html"/>
-        <files mask="enums_6d.html"/>
-        <files mask="search_l.png"/>
-        <files mask="all_66.html"/>
-        <files mask="classes_63.html"/>
-        <files mask="all_70.js"/>
-        <files mask="typedefs_70.js"/>
-        <files mask="functions_63.html"/>
-        <files mask="typedefs_73.html"/>
-        <files mask="enums_75.js"/>
-        <files mask="variables_76.html"/>
-        <files mask="all_72.js"/>
-        <files mask="all_6c.js"/>
-        <files mask="all_79.js"/>
-        <files mask="all_73.html"/>
-        <files mask="groups_67.html"/>
-        <files mask="groups_6d.js"/>
-        <files mask="enums_67.js"/>
-        <files mask="search_r.png"/>
-        <files mask="enums_64.html"/>
-        <files mask="enums_77.js"/>
-        <files mask="groups_72.js"/>
-        <files mask="enums_61.js"/>
-        <files mask="pages_74.js"/>
-        <files mask="functions_69.js"/>
-        <files mask="groups_6c.js"/>
-        <files mask="groups_6c.html"/>
-        <files mask="classes_75.js"/>
-        <files mask="typedefs_75.js"/>
-        <files mask="all_6d.js"/>
-        <files mask="variables_72.js"/>
-        <files mask="enums_5f.js"/>
-        <files mask="all_63.js"/>
-        <files mask="functions_73.html"/>
-        <files mask="groups_75.js"/>
-        <files mask="functions_64.html"/>
-        <files mask="groups_63.html"/>
-        <files mask="variables_77.js"/>
-        <files mask="pages_74.html"/>
-        <files mask="all_76.js"/>
-        <files mask="all_70.html"/>
-        <files mask="all_67.js"/>
-        <files mask="all_71.js"/>
-        <files mask="enums_63.js"/>
-        <files mask="all_65.js"/>
-        <files mask="enums_75.html"/>
-        <files mask="all_6d.html"/>
-        <files mask="variables_62.html"/>
-        <files mask="functions_72.js"/>
-        <files mask="variables_69.js"/>
-        <files mask="all_69.html"/>
-        <files mask="typedefs_70.html"/>
-        <files mask="all_5f.js"/>
-        <files mask="variables_6c.js"/>
-        <files mask="all_62.js"/>
-        <files mask="groups_69.html"/>
-        <files mask="all_63.html"/>
-        <files mask="typedefs_69.js"/>
-        <files mask="variables_64.js"/>
-        <files mask="variables_78.js"/>
-        <files mask="variables_6f.js"/>
-        <files mask="all_62.html"/>
-        <files mask="all_78.html"/>
-        <files mask="all_61.js"/>
-        <files mask="variables_75.js"/>
-        <files mask="variables_63.js"/>
-        <files mask="functions_6d.js"/>
-        <files mask="all_79.html"/>
-        <files mask="groups_72.html"/>
+        <files mask="functions_6d.html"/>
         <files mask="enums_6d.js"/>
-        <files mask="variables_75.html"/>
-        <files mask="nomatches.html"/>
-        <files mask="enums_64.js"/>
-        <files mask="enums_61.html"/>
-        <files mask="classes_69.js"/>
-        <files mask="enums_67.html"/>
-        <files mask="variables_79.js"/>
-        <files mask="search.css"/>
-        <files mask="classes_64.html"/>
-        <files mask="all_64.html"/>
-        <files mask="variables_69.html"/>
-        <files mask="variables_71.js"/>
+        <files mask="variables_76.html"/>
+        <files mask="functions_63.html"/>
+        <files mask="functions_61.js"/>
         <files mask="pages_64.js"/>
         <files mask="groups_70.js"/>
-        <files mask="groups_73.js"/>
-        <files mask="functions_70.html"/>
-        <files mask="all_65.html"/>
-        <files mask="groups_64.html"/>
-        <files mask="all_76.html"/>
-        <files mask="enums_69.js"/>
-        <files mask="functions_6d.html"/>
-        <files mask="all_78.js"/>
-        <files mask="all_6e.js"/>
-        <files mask="all_6f.html"/>
-        <files mask="classes_63.js"/>
-        <files mask="classes_5f.js"/>
-        <files mask="all_68.js"/>
-        <files mask="enums_69.html"/>
-        <files mask="enums_63.html"/>
-        <files mask="functions_61.js"/>
-        <files mask="classes_67.html"/>
-        <files mask="all_6b.js"/>
-        <files mask="classes_73.js"/>
-        <files mask="classes_69.html"/>
-        <files mask="groups_61.js"/>
-        <files mask="classes_6d.html"/>
-        <files mask="variables_65.js"/>
-        <files mask="enums_77.html"/>
-        <files mask="all_74.html"/>
-        <files mask="typedefs_73.js"/>
-        <files mask="pages_69.html"/>
-        <files mask="classes_75.html"/>
-        <files mask="groups_67.js"/>
-        <files mask="classes_73.html"/>
-        <files mask="functions_73.js"/>
-        <files mask="functions_72.html"/>
-        <files mask="variables_64.html"/>
-        <files mask="enumvalues_6b.js"/>
-        <files mask="variables_78.html"/>
-        <files mask="variables_61.js"/>
-        <files mask="classes_64.js"/>
-        <files mask="variables_74.html"/>
-        <files mask="variables_66.js"/>
-        <files mask="all_68.html"/>
-        <files mask="variables_74.js"/>
-        <files mask="all_73.js"/>
-        <files mask="variables_71.html"/>
-        <files mask="functions_77.html"/>
-        <files mask="functions_77.js"/>
-        <files mask="typedefs_69.html"/>
-        <files mask="all_67.html"/>
-        <files mask="all_6e.html"/>
-        <files mask="variables_6c.html"/>
-        <files mask="groups_61.html"/>
-        <files mask="close.png"/>
-        <files mask="pages_61.html"/>
-        <files mask="all_61.html"/>
-        <files mask="all_6b.html"/>
-        <files mask="all_5f.html"/>
-        <files mask="groups_69.js"/>
-        <files mask="functions_65.html"/>
-        <files mask="enumvalues_6b.html"/>
-        <files mask="variables_61.html"/>
-        <files mask="variables_6f.html"/>
-        <files mask="all_75.html"/>
-        <files mask="pages_69.js"/>
-        <files mask="enums_70.html"/>
-        <files mask="all_71.html"/>
-        <files mask="classes_77.html"/>
-        <files mask="variables_72.html"/>
-        <files mask="variables_6e.js"/>
-        <files mask="variables_6d.js"/>
-        <files mask="groups_70.html"/>
-        <files mask="functions_63.js"/>
-        <files mask="functions_67.html"/>
-        <files mask="variables_77.html"/>
-        <files mask="all_6f.js"/>
-        <files mask="enums_73.js"/>
-        <files mask="groups_63.js"/>
-        <files mask="classes_61.html"/>
-        <files mask="functions_67.js"/>
-        <files mask="pages_61.js"/>
-        <files mask="all_77.html"/>
-        <files mask="classes_77.js"/>
-        <files mask="all_75.js"/>
-        <files mask="variables_70.js"/>
-        <files mask="typedefs_64.html"/>
-        <files mask="variables_68.html"/>
-        <files mask="all_72.html"/>
-        <files mask="classes_67.js"/>
-        <files mask="variables_73.html"/>
-        <files mask="variables_65.html"/>
-        <files mask="variables_62.js"/>
-        <files mask="functions_61.html"/>
-        <files mask="groups_73.html"/>
-        <files mask="functions_70.js"/>
-        <files mask="functions_64.js"/>
-        <files mask="functions_75.js"/>
-        <files mask="mag_sel.png"/>
-        <files mask="groups_6d.html"/>
-        <files mask="variables_68.js"/>
-        <files mask="variables_66.html"/>
-        <files mask="variables_6e.html"/>
-        <files mask="functions_75.html"/>
-        <files mask="groups_77.html"/>
-        <files mask="all_66.js"/>
-        <files mask="functions_69.html"/>
-        <files mask="all_77.js"/>
-        <files mask="all_64.js"/>
-        <files mask="search.js"/>
-        <files mask="variables_6d.html"/>
-        <files mask="all_69.js"/>
-        <files mask="groups_64.js"/>
-        <files mask="typedefs_75.html"/>
-        <files mask="classes_5f.html"/>
-        <files mask="enums_70.js"/>
-        <files mask="all_74.js"/>
-        <files mask="classes_6d.js"/>
-        <files mask="variables_67.js"/>
-        <files mask="variables_79.html"/>
-        <files mask="search_m.png"/>
-        <files mask="classes_61.js"/>
-        <files mask="enums_73.html"/>
-        <files mask="typedefs_64.js"/>
-        <files mask="variables_73.js"/>
-        <files mask="variables_63.html"/>
-        <files mask="all_6c.html"/>
-        <files mask="variables_67.html"/>
-        <files mask="enums_5f.html"/>
         <files mask="groups_75.html"/>
+        <files mask="groups_73.html"/>
+        <files mask="classes_6d.html"/>
+        <files mask="classes_61.html"/>
+        <files mask="variables_74.js"/>
         <files mask="pages_64.html"/>
+        <files mask="all_72.html"/>
+        <files mask="all_66.js"/>
+        <files mask="all_68.js"/>
+        <files mask="all_77.html"/>
+        <files mask="typedefs_75.js"/>
+        <files mask="all_61.js"/>
+        <files mask="classes_5f.html"/>
+        <files mask="search.js"/>
+        <files mask="classes_63.js"/>
+        <files mask="groups_6d.js"/>
+        <files mask="mag_sel.png"/>
+        <files mask="pages_74.html"/>
+        <files mask="classes_63.html"/>
+        <files mask="functions_69.js"/>
+        <files mask="variables_6d.html"/>
+        <files mask="classes_6d.js"/>
+        <files mask="enums_69.js"/>
+        <files mask="variables_69.js"/>
+        <files mask="variables_6d.js"/>
+        <files mask="variables_75.html"/>
+        <files mask="enumvalues_6b.js"/>
+        <files mask="functions_73.js"/>
+        <files mask="variables_6e.html"/>
+        <files mask="groups_6c.html"/>
+        <files mask="functions_67.html"/>
+        <files mask="functions_65.js"/>
+        <files mask="functions_75.js"/>
+        <files mask="all_69.js"/>
+        <files mask="variables_63.js"/>
+        <files mask="pages_61.js"/>
+        <files mask="typedefs_64.js"/>
+        <files mask="functions_61.html"/>
+        <files mask="typedefs_75.html"/>
+        <files mask="variables_78.js"/>
+        <files mask="groups_64.js"/>
+        <files mask="classes_69.html"/>
+        <files mask="all_61.html"/>
+        <files mask="classes_75.js"/>
+        <files mask="enums_70.js"/>
+        <files mask="variables_63.html"/>
+        <files mask="groups_69.html"/>
+        <files mask="close.png"/>
+        <files mask="all_75.js"/>
+        <files mask="variables_6f.js"/>
+        <files mask="functions_67.js"/>
+        <files mask="all_65.html"/>
+        <files mask="variables_72.js"/>
+        <files mask="search_r.png"/>
+        <files mask="classes_67.html"/>
+        <files mask="all_79.js"/>
+        <files mask="all_78.html"/>
+        <files mask="enums_73.html"/>
+        <files mask="typedefs_73.html"/>
+        <files mask="all_70.html"/>
+        <files mask="all_76.js"/>
+        <files mask="functions_75.html"/>
+        <files mask="variables_76.js"/>
+        <files mask="all_76.html"/>
+        <files mask="typedefs_69.js"/>
+        <files mask="functions_64.js"/>
+        <files mask="classes_64.js"/>
+        <files mask="variables_66.js"/>
+        <files mask="all_6f.js"/>
+        <files mask="groups_69.js"/>
+        <files mask="groups_6d.html"/>
+        <files mask="all_69.html"/>
+        <files mask="all_6d.html"/>
+        <files mask="all_67.js"/>
+        <files mask="all_6b.html"/>
+        <files mask="all_6d.js"/>
+        <files mask="pages_74.js"/>
+        <files mask="enumvalues_6b.html"/>
+        <files mask="groups_61.js"/>
+        <files mask="classes_73.js"/>
+        <files mask="variables_73.html"/>
+        <files mask="typedefs_70.html"/>
+        <files mask="variables_79.html"/>
+        <files mask="groups_67.html"/>
+        <files mask="enums_67.html"/>
+        <files mask="all_68.html"/>
+        <files mask="classes_77.js"/>
+        <files mask="groups_61.html"/>
+        <files mask="all_77.js"/>
+        <files mask="all_6c.js"/>
+        <files mask="enums_63.html"/>
+        <files mask="variables_65.js"/>
+        <files mask="classes_75.html"/>
+        <files mask="variables_69.html"/>
+        <files mask="variables_61.html"/>
+        <files mask="functions_65.html"/>
+        <files mask="functions_6d.js"/>
+        <files mask="variables_61.js"/>
+        <files mask="enums_77.html"/>
+        <files mask="all_5f.js"/>
+        <files mask="all_6e.html"/>
+        <files mask="variables_67.js"/>
+        <files mask="functions_70.html"/>
+        <files mask="all_64.html"/>
+        <files mask="enums_61.html"/>
+        <files mask="enums_5f.js"/>
+        <files mask="groups_63.js"/>
+        <files mask="search_l.png"/>
+        <files mask="all_70.js"/>
+        <files mask="groups_73.js"/>
+        <files mask="all_71.js"/>
+        <files mask="all_78.js"/>
+        <files mask="enums_70.html"/>
+        <files mask="groups_63.html"/>
+        <files mask="functions_70.js"/>
+        <files mask="nomatches.html"/>
+        <files mask="enums_64.html"/>
+        <files mask="classes_69.js"/>
+        <files mask="variables_78.html"/>
+        <files mask="all_67.html"/>
+        <files mask="variables_6c.js"/>
+        <files mask="all_74.html"/>
+        <files mask="variables_6c.html"/>
+        <files mask="variables_71.html"/>
+        <files mask="pages_69.js"/>
+        <files mask="search.css"/>
+        <files mask="enums_73.js"/>
+        <files mask="groups_64.html"/>
+        <files mask="groups_72.html"/>
+        <files mask="variables_70.html"/>
+        <files mask="variables_62.js"/>
+        <files mask="enums_6d.html"/>
+        <files mask="all_63.js"/>
+        <files mask="functions_72.js"/>
+        <files mask="all_63.html"/>
+        <files mask="variables_6f.html"/>
+        <files mask="variables_72.html"/>
+        <files mask="groups_77.html"/>
+        <files mask="enums_75.html"/>
+        <files mask="typedefs_70.js"/>
+        <files mask="all_73.html"/>
+        <files mask="groups_77.js"/>
+        <files mask="typedefs_73.js"/>
+        <files mask="classes_77.html"/>
+        <files mask="variables_66.html"/>
+        <files mask="typedefs_69.html"/>
+        <files mask="variables_77.js"/>
+        <files mask="all_64.js"/>
+        <files mask="variables_74.html"/>
+        <files mask="variables_71.js"/>
+        <files mask="variables_68.html"/>
+        <files mask="all_6e.js"/>
+        <files mask="all_6c.html"/>
+        <files mask="all_74.js"/>
+        <files mask="all_62.html"/>
+        <files mask="all_73.js"/>
+        <files mask="enums_63.js"/>
+        <files mask="variables_77.html"/>
+        <files mask="variables_70.js"/>
+        <files mask="pages_61.html"/>
+        <files mask="classes_61.js"/>
+        <files mask="variables_75.js"/>
+        <files mask="variables_68.js"/>
+        <files mask="groups_72.js"/>
+        <files mask="enums_67.js"/>
+        <files mask="variables_62.html"/>
+        <files mask="all_75.html"/>
+        <files mask="variables_6e.js"/>
+        <files mask="functions_64.html"/>
+        <files mask="variables_64.html"/>
+        <files mask="classes_73.html"/>
+        <files mask="all_65.js"/>
+        <files mask="groups_6c.js"/>
+        <files mask="enums_75.js"/>
+        <files mask="enums_64.js"/>
+        <files mask="all_66.html"/>
+        <files mask="variables_73.js"/>
+        <files mask="enums_69.html"/>
+        <files mask="all_6b.js"/>
+        <files mask="all_5f.html"/>
+        <files mask="groups_70.html"/>
+        <files mask="classes_67.js"/>
+        <files mask="functions_73.html"/>
+        <files mask="variables_67.html"/>
+        <files mask="all_62.js"/>
+        <files mask="pages_69.html"/>
+        <files mask="classes_64.html"/>
+        <files mask="all_72.js"/>
+        <files mask="enums_5f.html"/>
+        <files mask="groups_75.js"/>
+        <files mask="enums_61.js"/>
+        <files mask="functions_72.html"/>
+        <files mask="functions_63.js"/>
+        <files mask="functions_77.js"/>
+        <files mask="variables_79.js"/>
+        <files mask="groups_67.js"/>
+        <files mask="all_6f.html"/>
+        <files mask="search_m.png"/>
+        <files mask="all_79.html"/>
+        <files mask="functions_77.html"/>
+        <files mask="variables_64.js"/>
+        <files mask="functions_69.html"/>
+        <files mask="classes_5f.js"/>
+        <files mask="enums_77.js"/>
+        <files mask="all_71.html"/>
+        <files mask="variables_65.html"/>
+        <files mask="typedefs_64.html"/>
       </source>
     </component>
     <component id="platform.drivers.inputmux_connections.LPC845" name="inputmux_connections" brief="Inputmux_connections Driver" version="2.0.1" full_name="Inputmux_connections Driver" devices="LPC845" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/devices/LPC845/drivers" project_base_path="drivers">
@@ -3671,7 +3671,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.devices.LPC845_debugger.LPC845" name="LPC845" brief="Device LPC845_debugger" version="1.0.0" full_name="Device LPC845_debugger" devices="LPC845" user_visible="true" type="debugger" package_base_path="core/devices/LPC845" project_base_path="svd">
+    <component id="platform.devices.LPC845_debugger.LPC845" name="LPC845" brief="Device LPC845_debugger" version="1.0.0" full_name="Device LPC845_debugger" devices="LPC845" user_visible="true" type="debugger" package_base_path="svd/LPC845" project_base_path="svd">
       <source relative_path="./" type="xml">
         <files mask="LPC845.xml"/>
       </source>
