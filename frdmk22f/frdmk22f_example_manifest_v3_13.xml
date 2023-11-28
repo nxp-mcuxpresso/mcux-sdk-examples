@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="MK22FN512VLH12"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2140_frdmk22f_examples_manifest_v3_13" name="MCUXpressoSDK2140_frdmk22f_examples_manifest_v3_13" version="2.14.0" revision="Provided by Script"/>
+  <ksdk id="MCUXpressoSDK2140_frdmk22f_examples_manifest_v3_13" name="MCUXpressoSDK2140_frdmk22f_examples_manifest_v3_13" version="2.14.0" revision="2.14.0"/>
   <boards>
     <board id="frdmk22f" name="FRDM-K22F" href="https://www.nxp.com/pip/FRDM-K22F" version="1.0.0" package="MK22FN512VLH12">
       <examples>

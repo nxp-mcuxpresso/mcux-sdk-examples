@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="MKE17Z256VLL7"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2140_frdmke17z_examples_manifest_v3_13" name="MCUXpressoSDK2140_frdmke17z_examples_manifest_v3_13" version="2.14.0" revision="Provided by Script"/>
+  <ksdk id="MCUXpressoSDK2140_frdmke17z_examples_manifest_v3_13" name="MCUXpressoSDK2140_frdmke17z_examples_manifest_v3_13" version="2.14.0" revision="2.14.0"/>
   <boards>
     <board id="frdmke17z" name="FRDM-KE17Z" href="https://www.nxp.com/pip/FRDM-KE17Z" version="1.0.0" package="MKE17Z256VLL7">
       <examples>

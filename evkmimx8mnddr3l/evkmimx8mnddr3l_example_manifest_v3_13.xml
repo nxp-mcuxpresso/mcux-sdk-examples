@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="MIMX8MN6DVTJZ"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2140_evkmimx8mnddr3l_examples_manifest_v3_13" name="MCUXpressoSDK2140_evkmimx8mnddr3l_examples_manifest_v3_13" version="2.14.0" revision="Provided by Script"/>
+  <ksdk id="MCUXpressoSDK2140_evkmimx8mnddr3l_examples_manifest_v3_13" name="MCUXpressoSDK2140_evkmimx8mnddr3l_examples_manifest_v3_13" version="2.14.0" revision="2.14.0"/>
   <boards>
     <board id="evkmimx8mnddr3l" name="EVK-MIMX8MNDDR3L" href="https://www.nxp.com/pip/8MNANOD3L-EVK" version="1.0.0" package="MIMX8MN6DVTJZ">
       <examples>

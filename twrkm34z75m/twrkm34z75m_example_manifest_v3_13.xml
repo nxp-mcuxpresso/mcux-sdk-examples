@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="MKM34Z256VLQ7"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2140_twrkm34z75m_examples_manifest_v3_13" name="MCUXpressoSDK2140_twrkm34z75m_examples_manifest_v3_13" version="2.14.0" revision="Provided by Script"/>
+  <ksdk id="MCUXpressoSDK2140_twrkm34z75m_examples_manifest_v3_13" name="MCUXpressoSDK2140_twrkm34z75m_examples_manifest_v3_13" version="2.14.0" revision="2.14.0"/>
   <boards>
     <board id="twrkm34z75m" name="TWR-KM34Z75M" href="https://www.nxp.com/pip/TWR-KM34Z75M" version="1.0.0" package="MKM34Z256VLQ7">
       <examples>

@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="K32L2B31VLH0A"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2140_frdmk32l2b_examples_manifest_v3_13" name="MCUXpressoSDK2140_frdmk32l2b_examples_manifest_v3_13" version="2.14.0" revision="Provided by Script"/>
+  <ksdk id="MCUXpressoSDK2140_frdmk32l2b_examples_manifest_v3_13" name="MCUXpressoSDK2140_frdmk32l2b_examples_manifest_v3_13" version="2.14.0" revision="2.14.0"/>
   <boards>
     <board id="frdmk32l2b" name="FRDM-K32L2B" href="https://www.nxp.com/pip/FRDM-K32L2B3" version="1.0.0" package="K32L2B31VLH0A">
       <examples>

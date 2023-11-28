@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="LPC845M301JBD64"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2140_lpcxpresso845max_examples_manifest_v3_13" name="MCUXpressoSDK2140_lpcxpresso845max_examples_manifest_v3_13" version="2.14.0" revision="Provided by Script"/>
+  <ksdk id="MCUXpressoSDK2140_lpcxpresso845max_examples_manifest_v3_13" name="MCUXpressoSDK2140_lpcxpresso845max_examples_manifest_v3_13" version="2.14.0" revision="2.14.0"/>
   <boards>
     <board id="lpcxpresso845max" name="LPCXpresso845MAX" href="https://www.nxp.com/pip/OM13097" version="1.0.0" package="LPC845M301JBD64">
       <examples>

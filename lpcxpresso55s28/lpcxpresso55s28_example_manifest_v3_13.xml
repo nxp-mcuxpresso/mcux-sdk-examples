@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="LPC55S28JBD100"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2140_lpcxpresso55s28_examples_manifest_v3_13" name="MCUXpressoSDK2140_lpcxpresso55s28_examples_manifest_v3_13" version="2.14.0" revision="Provided by Script"/>
+  <ksdk id="MCUXpressoSDK2140_lpcxpresso55s28_examples_manifest_v3_13" name="MCUXpressoSDK2140_lpcxpresso55s28_examples_manifest_v3_13" version="2.14.0" revision="2.14.0"/>
   <boards>
     <board id="lpcxpresso55s28" name="LPCXpresso55S28" href="https://www.nxp.com/pip/LPC55S28-EVK" version="1.0.0" package="LPC55S28JBD100">
       <examples>

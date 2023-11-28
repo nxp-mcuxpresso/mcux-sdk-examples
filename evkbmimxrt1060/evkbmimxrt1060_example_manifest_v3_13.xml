@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="MIMXRT1062DVL6B"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2140_evkbmimxrt1060_examples_manifest_v3_13" name="MCUXpressoSDK2140_evkbmimxrt1060_examples_manifest_v3_13" version="2.14.0" revision="Provided by Script"/>
+  <ksdk id="MCUXpressoSDK2140_evkbmimxrt1060_examples_manifest_v3_13" name="MCUXpressoSDK2140_evkbmimxrt1060_examples_manifest_v3_13" version="2.14.0" revision="2.14.0"/>
   <boards>
     <board id="evkbmimxrt1060" name="MIMXRT1060-EVKB" href="https://www.nxp.com/pip/MIMXRT1060-EVK" version="1.0.0" package="MIMXRT1062DVL6B">
       <examples>
@@ -1376,6 +1376,11 @@
         <example id="evkbmimxrt1060_wifi_cert" name="wifi_cert" brief="wifi_cert" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/evkbmimxrt1060/wifi_examples/wifi_cert">
           <external path="wifi_examples/wifi_cert" type="xml">
             <files mask="wifi_cert_v3_13.xml"/>
+          </external>
+        </example>
+        <example id="evkbmimxrt1060_uart_wifi_bridge" name="uart_wifi_bridge" brief="uart_wifi_bridge" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/evkbmimxrt1060/wifi_examples/uart_wifi_bridge">
+          <external path="wifi_examples/uart_wifi_bridge" type="xml">
+            <files mask="uart_wifi_bridge_v3_13.xml"/>
           </external>
         </example>
         <example id="evkbmimxrt1060_wifi_cli" name="wifi_cli" brief="wifi_cli" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/evkbmimxrt1060/wifi_examples/wifi_cli">

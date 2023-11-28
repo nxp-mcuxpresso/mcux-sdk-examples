@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="MIMXRT685SFVKB"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2140_mimxrt685audevk_examples_manifest_v3_13" name="MCUXpressoSDK2140_mimxrt685audevk_examples_manifest_v3_13" version="2.14.0" revision="Provided by Script"/>
+  <ksdk id="MCUXpressoSDK2140_mimxrt685audevk_examples_manifest_v3_13" name="MCUXpressoSDK2140_mimxrt685audevk_examples_manifest_v3_13" version="2.14.0" revision="2.14.0"/>
   <boards>
     <board id="mimxrt685audevk" name="MIMXRT685-AUD-EVK" version="1.0.0" package="MIMXRT685SFVKB">
       <examples>
