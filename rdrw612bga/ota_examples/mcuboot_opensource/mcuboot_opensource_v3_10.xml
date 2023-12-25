@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="component.mflash.rdrw610.RW612"/>
+    <definition extID="middleware.mbedtls.port.els_pkc.RW612"/>
+    <definition extID="component.els_pkc.platform.rw61x.RW612"/>
+    <definition extID="platform.drivers.trng.RW612"/>
+    <definition extID="middleware.mcuboot.bootutil.RW612"/>
+    <definition extID="middleware.mbedtls.RW612"/>
+    <definition extID="platform.drivers.clock.RW612"/>
+    <definition extID="platform.drivers.common.RW612"/>
+    <definition extID="device.RW612_CMSIS.RW612"/>
+    <definition extID="utility.debug_console.RW612"/>
+    <definition extID="platform.utilities.assert.RW612"/>
+    <definition extID="component.usart_adapter.RW612"/>
+    <definition extID="platform.drivers.power.RW612"/>
+    <definition extID="platform.drivers.flash_config.rdrw612bga.RW612"/>
+    <definition extID="platform.drivers.flexspi.RW612"/>
+    <definition extID="platform.drivers.cache_cache64.RW612"/>
+    <definition extID="component.serial_manager.RW612"/>
+    <definition extID="component.lists.RW612"/>
+    <definition extID="component.serial_manager_uart.RW612"/>
+    <definition extID="platform.drivers.flexcomm_usart.RW612"/>
+    <definition extID="device.RW612_startup.RW612"/>
+    <definition extID="platform.drivers.flexcomm.RW612"/>
+    <definition extID="platform.drivers.lpc_gpio.RW612"/>
+    <definition extID="platform.drivers.reset.RW612"/>
+    <definition extID="platform.drivers.cns_io_mux.RW612"/>
+    <definition extID="component.silicon_id.RW612"/>
+    <definition extID="component.silicon_id_rw610.RW612"/>
+    <definition extID="component.els_pkc.platform.rw61x_standalone_clib_gdet_sensor.RW612"/>
+    <definition extID="platform.drivers.ocotp.RW612"/>
+    <definition extID="component.mflash.common.RW612"/>
+    <definition extID="CMSIS_Include_core_cm.RW612"/>
+    <definition extID="middleware.mbedtls.port.els.RW612"/>
+    <definition extID="component.els_pkc.RW612"/>
+    <definition extID="component.els_pkc.els.RW612"/>
+    <definition extID="component.els_pkc.hash.RW612"/>
+    <definition extID="component.els_pkc.session.RW612"/>
+    <definition extID="component.els_pkc.flow_protection.RW612"/>
+    <definition extID="component.els_pkc.core.RW612"/>
+    <definition extID="component.els_pkc.secure_counter.RW612"/>
+    <definition extID="component.els_pkc.pre_processor.RW612"/>
+    <definition extID="component.els_pkc.memory.RW612"/>
+    <definition extID="component.els_pkc.param_integrity.RW612"/>
+    <definition extID="component.els_pkc.data_integrity.RW612"/>
+    <definition extID="component.els_pkc.toolchain.RW612"/>
+    <definition extID="component.els_pkc.random.RW612"/>
+    <definition extID="component.els_pkc.random_modes.RW612"/>
+    <definition extID="component.els_pkc.aes.RW612"/>
+    <definition extID="component.els_pkc.key.RW612"/>
+    <definition extID="component.els_pkc.ecc.RW612"/>
+    <definition extID="component.els_pkc.pkc.RW612"/>
+    <definition extID="component.els_pkc.math.RW612"/>
+    <definition extID="component.els_pkc.rsa.RW612"/>
+    <definition extID="component.els_pkc.trng.RW612"/>
+    <definition extID="component.els_pkc.prng.RW612"/>
+    <definition extID="component.els_pkc.hashmodes.RW612"/>
+    <definition extID="component.els_pkc.hmac.RW612"/>
+    <definition extID="component.els_pkc.mac_modes.RW612"/>
+    <definition extID="component.els_pkc.mac.RW612"/>
+    <definition extID="component.els_pkc.padding.RW612"/>
+    <definition extID="component.els_pkc.aead_modes.RW612"/>
+    <definition extID="component.els_pkc.aead.RW612"/>
+    <definition extID="component.els_pkc.cipher_modes.RW612"/>
+    <definition extID="component.els_pkc.cipher.RW612"/>
+    <definition extID="component.els_pkc.els_header_only.RW612"/>
+    <definition extID="component.els_pkc.els_common.RW612"/>
+    <definition extID="component.els_pkc.standalone_keyManagement.RW612"/>
+    <definition extID="component.els_pkc.standalone_gdet.RW612"/>
+    <definition extID="component.els_pkc.platform.rw61x_interface_files.RW612"/>
+    <definition extID="component.els_pkc.trng.type_rng4.RW612"/>
+    <definition extID="middleware.mbedtls.els_pkc.config.RW612"/>
+    <definition extID="platform.utilities.misc_utilities.RW612"/>
+    <definition extID="iar"/>
+    <definition extID="armgcc"/>
+    <definition extID="mdk"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+    <definition extID="com.crt.advproject.config.exe.debug"/>
+    <definition extID="com.crt.advproject.config.exe.release"/>
+  </externalDefinitions>
+  <example id="rdrw612bga_mcuboot_opensource" name="mcuboot_opensource" dependency="component.mflash.rdrw610.RW612 middleware.mbedtls.port.els_pkc.RW612 component.els_pkc.platform.rw61x.RW612 platform.drivers.trng.RW612 middleware.mcuboot.bootutil.RW612 middleware.mbedtls.RW612 platform.drivers.clock.RW612 platform.drivers.common.RW612 device.RW612_CMSIS.RW612 utility.debug_console.RW612 platform.utilities.assert.RW612 component.usart_adapter.RW612 platform.drivers.power.RW612 platform.drivers.flash_config.rdrw612bga.RW612 platform.drivers.flexspi.RW612 platform.drivers.cache_cache64.RW612 component.serial_manager.RW612 component.lists.RW612 component.serial_manager_uart.RW612 platform.drivers.flexcomm_usart.RW612 device.RW612_startup.RW612 platform.drivers.flexcomm.RW612 platform.drivers.lpc_gpio.RW612 platform.drivers.reset.RW612 platform.drivers.cns_io_mux.RW612 component.silicon_id.RW612 component.silicon_id_rw610.RW612 component.els_pkc.platform.rw61x_standalone_clib_gdet_sensor.RW612 platform.drivers.ocotp.RW612 component.mflash.common.RW612 CMSIS_Include_core_cm.RW612 middleware.mbedtls.port.els.RW612 component.els_pkc.RW612 component.els_pkc.els.RW612 component.els_pkc.hash.RW612 component.els_pkc.session.RW612 component.els_pkc.flow_protection.RW612 component.els_pkc.core.RW612 component.els_pkc.secure_counter.RW612 component.els_pkc.pre_processor.RW612 component.els_pkc.memory.RW612 component.els_pkc.param_integrity.RW612 component.els_pkc.data_integrity.RW612 component.els_pkc.toolchain.RW612 component.els_pkc.random.RW612 component.els_pkc.random_modes.RW612 component.els_pkc.aes.RW612 component.els_pkc.key.RW612 component.els_pkc.ecc.RW612 component.els_pkc.pkc.RW612 component.els_pkc.math.RW612 component.els_pkc.rsa.RW612 component.els_pkc.trng.RW612 component.els_pkc.prng.RW612 component.els_pkc.hashmodes.RW612 component.els_pkc.hmac.RW612 component.els_pkc.mac_modes.RW612 component.els_pkc.mac.RW612 component.els_pkc.padding.RW612 component.els_pkc.aead_modes.RW612 component.els_pkc.aead.RW612 component.els_pkc.cipher_modes.RW612 component.els_pkc.cipher.RW612 component.els_pkc.els_header_only.RW612 component.els_pkc.els_common.RW612 component.els_pkc.standalone_keyManagement.RW612 component.els_pkc.standalone_gdet.RW612 component.els_pkc.platform.rw61x_interface_files.RW612 component.els_pkc.trng.type_rng4.RW612 middleware.mbedtls.els_pkc.config.RW612 platform.utilities.misc_utilities.RW612" category="ota_examples">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <memory>
+      <memoryBlock id="QSPI_FLASH_RW612" name="QSPI_FLASH" addr="08000000" size="00020000" type="ExtFlash" access="RO"/>
+      <memoryBlock id="SRAM_RW612" name="SRAM" addr="20000000" size="00130000" type="RAM" access="RW"/>
+    </memory>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>CPU_RW612ETA1I</value>
+          <value>BOOT_HEADER_ENABLE=1</value>
+          <value>FSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1</value>
+          <value>MBEDTLS_CONFIG_FILE='"els_pkc_mbedtls_config.h"'</value>
+          <value>MFLASH_FILE_BASEADDR=7340032</value>
+          <value>MBEDTLS_MCUX_ELS_PKC_API</value>
+          <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>MBEDTLS_MCUX_ELS_API</value>
+          <value>MCUXPRESSO_SDK</value>
+        </option>
+        <option id="com.crt.advproject.gas.hdrlib" type="enum">
+          <value>com.crt.advproject.gas.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gas.specs" type="enum">
+          <value>com.crt.advproject.gas.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gcc.specs" type="enum">
+          <value>com.crt.advproject.gcc.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.link.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.link.hdrlib.newlibnano.nohost</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.heapAndStack" type="string">
+          <value>&amp;Heap:Default;Default;0x8000&amp;Stack:Default;Default;0x2000</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-fomit-frame-pointer -mcpu=cortex-m33+nodsp -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <debug_configurations>
+      <debug_configuration id_refs="com.crt.advproject.config.exe.debug com.crt.advproject.config.exe.release">
+        <drivers>
+          <driver id_refs="QSPI_FLASH_RW612">
+            <driverBinary path="../../../../core/devices/RW612/mcuxpresso" project_relative_path="binary" type="binary">
+              <files mask="RW61X_FlexSPI_A_SFDP_QSPI.cfx"/>
+            </driverBinary>
+          </driver>
+        </drivers>
+      </debug_configuration>
+    </debug_configurations>
+    <include_paths>
+      <include_path path="." project_relative_path="source" type="c_include"/>
+      <include_path path="include" project_relative_path="include" type="c_include"/>
+      <include_path path="include/mcuboot_config" project_relative_path="include/mcuboot_config" type="c_include"/>
+      <include_path path="include/sysflash" project_relative_path="include/sysflash" type="c_include"/>
+      <include_path path="flashapi" project_relative_path="flashapi" type="c_include"/>
+      <include_path path="keys" project_relative_path="keys" type="c_include"/>
+      <include_path path="../../../../core/boards/rdrw612bga" project_relative_path="board" type="c_include"/>
+    </include_paths>
+    <source path="iar" project_relative_path="./" type="workspace" toolchain="iar">
+      <files mask="mcuboot_opensource.ewd"/>
+      <files mask="mcuboot_opensource.ewp"/>
+      <files mask="mcuboot_opensource.eww"/>
+    </source>
+    <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_flash_debug.bat"/>
+      <files mask="build_flash_debug.sh"/>
+      <files mask="build_flash_release.bat"/>
+      <files mask="build_flash_release.sh"/>
+    </source>
+    <source path="mdk" project_relative_path="./" type="workspace" toolchain="mdk">
+      <files mask="mcuboot_opensource.uvoptx"/>
+      <files mask="mcuboot_opensource.uvprojx"/>
+      <files mask="JLinkSettings.ini"/>
+      <files mask="mcuboot_opensource.uvmpw"/>
+    </source>
+    <source path="mcux/linkscripts" project_relative_path="linkscripts" type="src" toolchain="mcuxpresso">
+      <files mask="main_data.ldt"/>
+      <files mask="main_text.ldt"/>
+    </source>
+    <source path="armgcc" project_relative_path="project-root-path/armgcc/linker" type="linker" toolchain="armgcc">
+      <files mask="RW610_flash.ld"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="boot.c"/>
+      <files mask="bootutil_hooks.c"/>
+      <files mask="keys.c"/>
+      <files mask="os.c"/>
+      <files mask="sbl_boot.c"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="boot.h"/>
+    </source>
+    <source path="include" project_relative_path="include" type="c_include">
+      <files mask="mbedtls_config.h"/>
+      <files mask="sbl.h"/>
+      <files mask="sbldef.h"/>
+      <files mask="flash_map.h"/>
+    </source>
+    <source path="include/mcuboot_config" project_relative_path="include/mcuboot_config" type="c_include">
+      <files mask="mcuboot_config.h"/>
+      <files mask="mcuboot_logging.h"/>
+    </source>
+    <source path="include/flash_map_backend" project_relative_path="include/flash_map_backend" type="c_include">
+      <files mask="flash_map_backend.h"/>
+    </source>
+    <source path="include/os" project_relative_path="include/os" type="c_include">
+      <files mask="os_malloc.h"/>
+    </source>
+    <source path="include/sysflash" project_relative_path="include/sysflash" type="c_include">
+      <files mask="sysflash.h"/>
+    </source>
+    <source path="flashapi" project_relative_path="flashapi" type="src">
+      <files mask="flash_api.c"/>
+    </source>
+    <source path="keys" project_relative_path="keys" type="src" exclude="true">
+      <files mask="sign-rsa2048-pub.c"/>
+      <files mask="sign-rsa2048-priv.c"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="main.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="sblconfig.h"/>
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="flash_partitioning.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="flash_partitioning.c"/>
+    </source>
+    <source path="keys" project_relative_path="keys" type="other" exclude="true">
+      <files mask="sign-rsa2048-pub.pem" hidden="true"/>
+      <files mask="sign-rsa2048-priv.pem" hidden="true"/>
+    </source>
+    <source path="../../../../core/boards/rdrw612bga" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="../../../../core/boards/rdrw612bga" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="iar mdk mcuxpresso armgcc">
+      <files mask="readme.txt"/>
+    </source>
+  </example>
+</ksdk:examples>

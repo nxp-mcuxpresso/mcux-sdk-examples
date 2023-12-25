@@ -1,0 +1,18 @@
+/*
+ *  Copyright 2020-2021 NXP
+ *  All rights reserved.
+ *
+ *  SPDX-License-Identifier: BSD-3-Clause
+ */
+
+#define USB_HOST_CONFIG_EHCI (1U)
+#define CONTROLLER_ID        kUSB_ControllerEhci0
+
+#define CONFIG_BT_PERIPHERAL            1
+#define CONFIG_BT_DEVICE_NAME           "peripheral_fmp"
+#define CONFIG_BT_SMP                   1
+#define CONFIG_BT_SETTINGS              1
+#define CONFIG_BT_HOST_CRYPTO           1
+#define CONFIG_BT_KEYS_OVERWRITE_OLDEST 1
+
+#include "edgefast_bluetooth_config.h"
