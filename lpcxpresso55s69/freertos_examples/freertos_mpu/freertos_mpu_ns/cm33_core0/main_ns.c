@@ -147,9 +147,9 @@ void SystemInit(void)
     SCB->CPACR |= ((3UL << 10 * 2) | (3UL << 11 * 2)); /* set CP10, CP11 Full Access */
 #endif                                                 /* ((__FPU_PRESENT == 1) && (__FPU_USED == 1)) */
 
-    SCB->CPACR |= ((3UL << 0 * 2) | (3UL << 1 * 2)); /* set CP0, CP1 Full Access (enable PowerQuad) */
+    SCB->CPACR |= ((3UL << 0 * 2) | (3UL << 1 * 2));   /* set CP0, CP1 Full Access (enable PowerQuad) */
 
-    SCB->NSACR |= ((3UL << 0) | (3UL << 10)); /* enable CP0, CP1, CP10, CP11 Non-secure Access */
+    SCB->NSACR |= ((3UL << 0) | (3UL << 10));          /* enable CP0, CP1, CP10, CP11 Non-secure Access */
 }
 
 

@@ -120,6 +120,11 @@ phy_ksz8081_resource_t g_phy_resource;
 static phy_handle_t phyHandle;
 #if defined(BOARD_NETWORK_USE_DUAL_ENET)
 static phy_handle_t phyHandle1;
+
+#if LWIP_SINGLE_NETIF == 1
+#error \
+    "Single netif limitation in lwIP must be disabled if this example were to use both interfaces. (LWIP_SINGLE_NETIF = 0)"
+#endif // LWIP_SINGLE_NETIF == 1
 #endif
 
 /*******************************************************************************

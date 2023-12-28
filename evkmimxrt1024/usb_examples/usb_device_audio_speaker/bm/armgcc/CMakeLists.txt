@@ -38,7 +38,7 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(dev_audio_speaker_bm)
 
-set(MCUX_BUILD_TYPES sdram_debug flexspi_nor_debug flexspi_nor_release release sdram_release)
+set(MCUX_BUILD_TYPES flexspi_nor_debug flexspi_nor_release release sdram_release)
 
 set(MCUX_SDK_PROJECT_NAME dev_audio_speaker_bm.elf)
 

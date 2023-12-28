@@ -19,7 +19,6 @@
 #include <fsl_debug_console.h>
 
 #include <app_data.h>
-#include <eap_att.h>
 
 /*******************************************************************************
  * Definitions

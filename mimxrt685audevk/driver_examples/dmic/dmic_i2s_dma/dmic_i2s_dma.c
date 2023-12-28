@@ -228,7 +228,7 @@ int main(void)
 
     dmic_channel_cfg.divhfclk            = kDMIC_PdmDiv1;
     dmic_channel_cfg.osr                 = 32U;
-    dmic_channel_cfg.gainshft            = 3U;
+    dmic_channel_cfg.gainshft            = 4U;
     dmic_channel_cfg.preac2coef          = kDMIC_CompValueZero;
     dmic_channel_cfg.preac4coef          = kDMIC_CompValueZero;
     dmic_channel_cfg.dc_cut_level        = kDMIC_DcCut155;
@@ -258,12 +258,11 @@ int main(void)
     DMIC_FifoChannel(DMIC0, DEMO_DMIC_CHANNEL_1, FIFO_DEPTH, true, true);
 #endif
 
-    DMIC_EnableChannnel(DMIC0, DEMO_DMIC_CHANNEL_ENABLE);
-
+    DMIC_EnableChannnel(DMIC0, DEMO_DMIC_CHANNEL_ENABLE
 #if DEMO_DMIC_NUMS == 2U
-    DMIC_EnableChannnel(DMIC0, DEMO_DMIC_CHANNEL_1_ENABLE);
+                             | DEMO_DMIC_CHANNEL_1_ENABLE
 #endif
-
+    );
     PRINTF("Configure I2S\r\n");
 
     /*

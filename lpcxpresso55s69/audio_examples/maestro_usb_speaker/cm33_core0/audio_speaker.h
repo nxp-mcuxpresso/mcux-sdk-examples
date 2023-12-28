@@ -98,10 +98,10 @@ typedef struct _usb_audio_speaker_struct
     uint8_t maxTreble;
     uint8_t resTreble;
     uint8_t curAutomaticGain;
-    uint8_t curDelay[4]; /* need to consider the endians */
-    uint8_t minDelay[4]; /* need to consider the endians */
-    uint8_t maxDelay[4]; /* need to consider the endians */
-    uint8_t resDelay[4]; /* need to consider the endians */
+    uint8_t curDelay[4];             /* need to consider the endians */
+    uint8_t minDelay[4];             /* need to consider the endians */
+    uint8_t maxDelay[4];             /* need to consider the endians */
+    uint8_t resDelay[4];             /* need to consider the endians */
     uint8_t curLoudness;
     uint8_t curSamplingFrequency[3]; /* need to consider the endians */
     uint8_t minSamplingFrequency[3]; /* need to consider the endians */

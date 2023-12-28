@@ -83,6 +83,24 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../scripts/glow_process_sound.py"
 "${ProjDirPath}/../scripts/glow_show_detections.py"
 "${ProjDirPath}/../scripts/glow_show_segmentation.py"
+"${ProjDirPath}/../source/common/eiq_common.h"
+"${ProjDirPath}/../source/common/eiq_iui.h"
+"${ProjDirPath}/../source/common/eiq_iworker.h"
+"${ProjDirPath}/../source/video/eiq_camera_conf.c"
+"${ProjDirPath}/../source/video/eiq_display_conf.c"
+"${ProjDirPath}/../source/video/eiq_camera.h"
+"${ProjDirPath}/../source/video/eiq_camera_conf.h"
+"${ProjDirPath}/../source/video/eiq_display.h"
+"${ProjDirPath}/../source/video/eiq_display_conf.h"
+"${ProjDirPath}/../source/video/eiq_pxp.h"
+"${ProjDirPath}/../source/video/eiq_video_worker.h"
+"${ProjDirPath}/../source/video/eiq_camera.c"
+"${ProjDirPath}/../source/video/eiq_display.c"
+"${ProjDirPath}/../source/video/eiq_pxp.c"
+"${ProjDirPath}/../source/video/eiq_video_worker.c"
+"${ProjDirPath}/../source/gprintf/chgui.h"
+"${ProjDirPath}/../source/gprintf/font.h"
+"${ProjDirPath}/../source/gprintf/chgui.c"
 "${ProjDirPath}/../dcd.c"
 "${ProjDirPath}/../dcd.h"
 )
@@ -95,6 +113,8 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../board
     ${SdkRootDirPath}/middleware/eiq/glow/examples/lenet_mnist_camera/evkbmimxrt1170
     ${ProjDirPath}/..
+    ${ProjDirPath}/../source/common
+    ${ProjDirPath}/../source/gprintf
 )
 
 

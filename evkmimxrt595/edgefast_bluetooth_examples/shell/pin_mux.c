@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -447,8 +447,8 @@ void BOARD_InitM2UARTPins(void)
                                         IOPCTL_PIO_PUPD_DI |
                                         /* Enable pull-down function */
                                         IOPCTL_PIO_PULLDOWN_EN |
-                                        /* Disable input buffer function */
-                                        IOPCTL_PIO_INBUF_DI |
+                                        /* Enable input buffer function */
+                                        IOPCTL_PIO_INBUF_EN |
                                         /* Normal mode */
                                         IOPCTL_PIO_SLEW_RATE_NORMAL |
                                         /* Normal drive */
@@ -766,6 +766,7 @@ BOARD_InitPinsM2:
   - {pin_num: M14, peripheral: GPIO, signal: 'PIO4, 3', pin_signal: PIO4_3/FC7_CTS_SDA_SSEL0, direction: OUTPUT}
   - {pin_num: D12, peripheral: GPIO, signal: 'PIO0, 31', pin_signal: PIO0_31/FC4_CTS_SDA_SSEL0/SCT0_GPI0/SCT0_OUT6/CTIMER4_MAT3/FC3_SSEL2/SEC_PIO0_31, direction: OUTPUT}
   - {pin_num: D6, peripheral: GPIO, signal: 'PIO3, 20', pin_signal: PIO3_20/SD1_RESET_N/LCD_D21/CTIMER4_MAT2, direction: OUTPUT, gpio_init_state: 'false'}
+  - {pin_num: E15, peripheral: CLKCTL, signal: 32KHZ_CLKOUT, pin_signal: PIO2_14/SCT0_OUT8/CTIMER_INP1/32KHZ_CLKOUT/SMARTDMA_PIO14/CMP0_A}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -1358,8 +1359,8 @@ void BOARD_InitArduinoUARTPins(void)
                                         IOPCTL_PIO_PUPD_DI |
                                         /* Enable pull-down function */
                                         IOPCTL_PIO_PULLDOWN_EN |
-                                        /* Disable input buffer function */
-                                        IOPCTL_PIO_INBUF_DI |
+                                        /* Enable input buffer function */
+                                        IOPCTL_PIO_INBUF_EN |
                                         /* Normal mode */
                                         IOPCTL_PIO_SLEW_RATE_NORMAL |
                                         /* Normal drive */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,6 +14,8 @@
 #include "fsl_shell.h"
 
 #include "app_streamer.h"
+#include "app_definitions.h"
+#include "streamer.h"
 #ifdef SD_ENABLED
 #include "fsl_sd_disk.h"
 #endif
@@ -52,7 +54,7 @@ static shell_status_t shellOpusEncode(shell_handle_t shellHandle, int32_t argc, 
 SHELL_COMMAND_DEFINE(version, "\r\n\"version\": Display component versions\r\n", shellEcho, 0);
 
 SHELL_COMMAND_DEFINE(record_mic,
-                     "\r\n\"record_mic\": Record MIC audio and either:\r\n"
+                     "\r\n\"record_mic\": Record MIC audio and perform one (or more) of following actions:\r\n"
 #ifdef VOICE_SEEKER_PROC
                      " - perform VoiceSeeker processing\r\n"
 #endif
@@ -65,9 +67,9 @@ SHELL_COMMAND_DEFINE(record_mic,
 #endif
                      "\r\n"
 #if (defined(VIT_PROC) && defined(SD_ENABLED))
-                     " USAGE: record_mic [audio|file|<file_name>|vit] 20 [<language>]\r\n"
+                     " USAGE: record_mic [audio|file|<file_name>|vit] 20 <language>\r\n"
 #elif (defined(VIT_PROC))
-                     " USAGE: record_mic [audio|vit] 20 [<language>]\r\n"
+                     " USAGE: record_mic [audio|vit] 20 <language>\r\n"
 #elif (defined(SD_ENABLED))
                      " USAGE: record_mic [audio|file|<file_name>] 20\r\n"
 #else
@@ -75,8 +77,8 @@ SHELL_COMMAND_DEFINE(record_mic,
 #endif
                      " The number defines length of recording in seconds.\r\n"
 #ifdef VIT_PROC
-                     " Please see the project defined symbols for the languages supported."
-                     " Then specify one of: en/cn/de/es/fr/it/ja/ko/tr as the language parameter."
+                     " Please see the project defined symbols for the languages supported.\r\n"
+                     " Then specify one of: en/cn/de/es/fr/it/ja/ko/tr as the language parameter.\r\n"
                      " For voice recognition say supported WakeWord and in 3s frame supported command.\r\n"
                      " Please note that this VIT demo is near-field and uses 1 on-board microphone.\r\n"
 #endif
@@ -115,10 +117,10 @@ streamer_handle_t streamerHandle;
 
 static shell_status_t shellEcho(shell_handle_t shellHandle, int32_t argc, char **argv)
 {
-    PRINTF(" Maestro version: 1.6\r\n");
+    PRINTF(" Maestro version: %s\r\n", STREAMER_VERSION);
 
 #ifdef VIT_PROC
-    PRINTF(" VIT version: 5.4.0\r\n");
+    PRINTF(" VIT version: 4.9.0\r\n");
 #endif
 
     return kStatus_SHELL_Success;
@@ -127,7 +129,7 @@ static shell_status_t shellEcho(shell_handle_t shellHandle, int32_t argc, char *
 static shell_status_t shellRecMIC(shell_handle_t shellHandle, int32_t argc, char **argv)
 {
     status_t ret;
-    out_sink_t out_sink;
+    ElementIndex out_sink;
     int duration    = 20;
     char *file_name = NULL;
 #ifdef VIT_PROC
@@ -136,30 +138,30 @@ static shell_status_t shellRecMIC(shell_handle_t shellHandle, int32_t argc, char
 
     if ((argc > 1) && (strcmp(argv[1], "audio") == 0))
     {
-        out_sink = AUDIO_SINK;
+        out_sink = ELEMENT_SPEAKER_INDEX;
     }
 #ifdef SD_ENABLED
     else if ((argc > 1) && (strcmp(argv[1], "file") == 0))
     {
-        out_sink = FILE_SINK;
+        out_sink = ELEMENT_FILE_SINK_INDEX;
     }
 #endif
 #ifdef VIT_PROC
     else if ((argc > 1) && (strcmp(argv[1], "vit") == 0))
     {
-        out_sink = VIT_SINK;
+        out_sink = ELEMENT_VIT_INDEX;
     }
 #endif
     else
     {
 #ifdef SD_ENABLED
         /* Save the samples to the file with the defined name */
-        out_sink  = FILE_SINK;
+        out_sink  = ELEMENT_FILE_SINK_INDEX;
         file_name = argv[1];
 #else
         PRINTF("Sink parameter not specified!\r\n");
         PRINTF("Default audio sink will be used.\r\n");
-        out_sink = AUDIO_SINK;
+        out_sink = ELEMENT_SPEAKER_INDEX;
 #endif
     }
 
@@ -181,56 +183,56 @@ static shell_status_t shellRecMIC(shell_handle_t shellHandle, int32_t argc, char
         else
 #endif
 #ifdef VIT_MODEL_CN
-        if (strcmp(argv[3], "cn") == 0)
+            if (strcmp(argv[3], "cn") == 0)
         {
             Vit_Language = CN;
         }
         else
 #endif
 #ifdef VIT_MODEL_DE
-        if (strcmp(argv[3], "de") == 0)
+            if (strcmp(argv[3], "de") == 0)
         {
             Vit_Language = DE;
         }
         else
 #endif
 #ifdef VIT_MODEL_ES
-        if (strcmp(argv[3], "es") == 0)
+            if (strcmp(argv[3], "es") == 0)
         {
             Vit_Language = ES;
         }
         else
 #endif
 #ifdef VIT_MODEL_FR
-        if (strcmp(argv[3], "fr") == 0)
+            if (strcmp(argv[3], "fr") == 0)
         {
             Vit_Language = FR;
         }
         else
 #endif
 #ifdef VIT_MODEL_IT
-        if (strcmp(argv[3], "it") == 0)
+            if (strcmp(argv[3], "it") == 0)
         {
             Vit_Language = IT;
         }
         else
 #endif
 #ifdef VIT_MODEL_JA
-        if (strcmp(argv[3], "ja") == 0)
+            if (strcmp(argv[3], "ja") == 0)
         {
             Vit_Language = JA;
         }
         else
 #endif
 #ifdef VIT_MODEL_KO
-        if (strcmp(argv[3], "ko") == 0)
+            if (strcmp(argv[3], "ko") == 0)
         {
             Vit_Language = KO;
         }
         else
 #endif
 #ifdef VIT_MODEL_TR
-        if (strcmp(argv[3], "tr") == 0)
+            if (strcmp(argv[3], "tr") == 0)
         {
             Vit_Language = TR;
         }
@@ -241,7 +243,12 @@ static shell_status_t shellRecMIC(shell_handle_t shellHandle, int32_t argc, char
             return kStatus_SHELL_Success;
         }
     }
-#endif
+    else if (out_sink == ELEMENT_VIT_INDEX)
+    {
+        PRINTF("Language is not selected. Please select one of the language.\r\n");
+        return kStatus_SHELL_Success;
+    }
+#endif // VIT_PROC
 
     if (duration <= 0)
     {
@@ -250,7 +257,7 @@ static shell_status_t shellRecMIC(shell_handle_t shellHandle, int32_t argc, char
     }
 
 #ifdef SD_ENABLED
-    if (out_sink == FILE_SINK)
+    if (out_sink == ELEMENT_FILE_SINK_INDEX)
     {
         if (!SDCARD_inserted())
         {
@@ -276,7 +283,7 @@ static shell_status_t shellRecMIC(shell_handle_t shellHandle, int32_t argc, char
 
     PRINTF("Starting recording\r\n");
 #ifdef VIT_PROC
-    if (out_sink == VIT_SINK)
+    if (out_sink == ELEMENT_VIT_INDEX)
     {
         PRINTF("\r\nTo see VIT functionality say wake-word and command.\r\n");
     }

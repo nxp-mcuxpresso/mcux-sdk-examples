@@ -14,8 +14,8 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define DEMO_USART            USART4
-#define DEMO_USART_CLK_FREQ   CLOCK_GetFlexCommClkFreq(4U)
+#define DEMO_USART          USART4
+#define DEMO_USART_CLK_FREQ CLOCK_GetFlexCommClkFreq(4U)
 
 #define EXAMPLE_ADDRESS 0x7EU
 #define TRANSFER_SIZE   16U

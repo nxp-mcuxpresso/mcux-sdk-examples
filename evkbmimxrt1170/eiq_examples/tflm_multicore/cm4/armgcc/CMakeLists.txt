@@ -51,28 +51,40 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${SdkRootDirPath}/middleware/eiq/common/demo_info.h"
-"${SdkRootDirPath}/middleware/eiq/common/model/get_top_n.cpp"
-"${SdkRootDirPath}/middleware/eiq/common/model/get_top_n.h"
-"${SdkRootDirPath}/middleware/eiq/common/model/model.h"
-"${SdkRootDirPath}/middleware/eiq/common/model/output_postproc.h"
-"${SdkRootDirPath}/middleware/eiq/common/audio/audio.h"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/audio/kws_mfcc.cpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/audio/kws_mfcc.hpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/audio/mfcc.cpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/audio/mfcc.hpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/model.cpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/multicore/m4/output_postproc.cpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws/audio_data.h"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws/demo_config.h"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/demo_info.cpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws/labels.h"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/multicore/m4/main.cpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws/model_data.h"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws/model_ds_cnn_ops_micro.cpp"
-"${SdkRootDirPath}/middleware/eiq/common/audio/audio_capture.cpp"
-"${SdkRootDirPath}/middleware/eiq/common/timer.h"
-"${SdkRootDirPath}/middleware/eiq/common/timer.c"
+"${ProjDirPath}/../source/demo_info.h"
+"${ProjDirPath}/../source/model/get_top_n.cpp"
+"${ProjDirPath}/../source/model/get_top_n.h"
+"${ProjDirPath}/../source/model/model.h"
+"${ProjDirPath}/../source/model/output_postproc.h"
+"${ProjDirPath}/../source/audio/audio.h"
+"${ProjDirPath}/../source/audio/kws_mfcc.cpp"
+"${ProjDirPath}/../source/audio/kws_mfcc.hpp"
+"${ProjDirPath}/../source/audio/mfcc.cpp"
+"${ProjDirPath}/../source/audio/mfcc.hpp"
+"${ProjDirPath}/../source/model/model.cpp"
+"${ProjDirPath}/../source/model/output_postproc.cpp"
+"${ProjDirPath}/../source/audio_data.h"
+"${ProjDirPath}/../source/demo_config.h"
+"${ProjDirPath}/../source/demo_info.cpp"
+"${ProjDirPath}/../source/labels.h"
+"${ProjDirPath}/../source/main.cpp"
+"${ProjDirPath}/../source/model/model_data.h"
+"${ProjDirPath}/../source/model/model_ds_cnn_ops_micro.cpp"
+"${ProjDirPath}/../source/audio/audio_capture.cpp"
+"${ProjDirPath}/../source/audio/eiq_audio_worker.h"
+"${ProjDirPath}/../source/audio/eiq_micro.h"
+"${ProjDirPath}/../source/audio/eiq_micro_conf.h"
+"${ProjDirPath}/../source/audio/eiq_speaker.h"
+"${ProjDirPath}/../source/audio/eiq_speaker_conf.h"
+"${ProjDirPath}/../source/audio/eiq_audio_worker.c"
+"${ProjDirPath}/../source/audio/eiq_micro.c"
+"${ProjDirPath}/../source/audio/eiq_speaker.c"
+"${ProjDirPath}/../source/audio/eiq_speaker_conf.c"
+"${ProjDirPath}/../source/timer.h"
+"${ProjDirPath}/../source/timer.c"
+"${ProjDirPath}/../source/common/eiq_common.h"
+"${ProjDirPath}/../source/common/eiq_iui.h"
+"${ProjDirPath}/../source/common/eiq_iworker.h"
 "${ProjDirPath}/../clock_config.c"
 "${ProjDirPath}/../clock_config.h"
 "${ProjDirPath}/../dcd.c"
@@ -86,11 +98,10 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/multicore/m4
-    ${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws
-    ${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/audio
-    ${SdkRootDirPath}/middleware/eiq/common/audio
-    ${SdkRootDirPath}/middleware/eiq/common/model
+    ${ProjDirPath}/../source
+    ${ProjDirPath}/../source/audio
+    ${ProjDirPath}/../source/model
+    ${ProjDirPath}/../source/common
     ${ProjDirPath}/..
 )
 

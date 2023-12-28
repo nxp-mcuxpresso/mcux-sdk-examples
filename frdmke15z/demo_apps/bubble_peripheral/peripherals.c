@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019,2021 NXP
+ * Copyright 2018-2019,2021,2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -13,15 +13,15 @@
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Peripherals v8.0
+product: Peripherals v13.0
 processor: MKE15Z256xxx7
 package_id: MKE15Z256VLL7
 mcu_data: ksdk2_0
-processor_version: 0.9.0
+processor_version: 0.14.5
 board: FRDM-KE15Z
 functionalGroups:
 - name: BOARD_InitPeripherals
-  UUID: 0a8d0a7a-bf14-4629-ae3b-052b483c2d16
+  UUID: 4484da62-4b8a-4dfe-a27a-2cbe299f7857
   called_from_default_init: true
   id_prefix: BOARD_
   selectedCore: core0
@@ -34,6 +34,22 @@ component:
 - global_system_definitions:
   - user_definitions: ''
   - user_includes: ''
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+component:
+- type: 'uart_cmsis_common'
+- type_id: 'uart_cmsis_common_9cb8e302497aa696fdbb5a4fd622c2a8'
+- global_USART_CMSIS_common:
+  - quick_selection: 'default'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+component:
+- type: 'gpio_adapter_common'
+- type_id: 'gpio_adapter_common_57579b9ac814fe26bf95df0a384c36b6'
+- global_gpio_adapter_common:
+  - quick_selection: 'default'
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 
@@ -55,7 +71,7 @@ instance:
 - type: 'ftm'
 - mode: 'EdgeAligned'
 - custom_name_enabled: 'true'
-- type_id: 'ftm_5e037045c21cf6f361184c371dbbbab2'
+- type_id: 'ftm_fa7b7bf76007cb716873768750c05c17'
 - functional_group: 'BOARD_InitPeripherals'
 - peripheral: 'FTM0'
 - config_sets:
@@ -63,18 +79,42 @@ instance:
     - ftm_config:
       - clockSource: 'kFTM_SystemClock'
       - clockSourceFreq: 'GetFreq'
-      - prescale: 'kFTM_Prescale_Divide_1'
-      - timerFrequency: '24000'
-      - bdmMode: 'kFTM_BdmMode_0'
-      - pwmSyncMode: 'kFTM_SoftwareTrigger'
-      - reloadPoints: ''
+      - timerPrescaler: '1'
+      - timerOutputFrequency: '10 kHz'
+      - enableHalfCycleReloadInit: 'false'
+      - halfCycleReloadPeriod: ''
+      - systemClockSource: 'BusInterfaceClock'
+      - systemClockSourceFreq: 'mirrored_value'
       - faultMode: 'kFTM_Fault_Disable'
-      - faultFilterValue: '0'
+      - inputFilterPeriod: '1'
+      - faultInputs:
+        - 0:
+          - enableFaultInput: 'false'
+          - faultLevelVal: 'low'
+          - useFaultFilter: 'false'
+        - 1:
+          - enableFaultInput: 'false'
+          - faultLevelVal: 'low'
+          - useFaultFilter: 'false'
+        - 2:
+          - enableFaultInput: 'false'
+          - faultLevelVal: 'low'
+          - useFaultFilter: 'false'
+        - 3:
+          - enableFaultInput: 'false'
+          - faultLevelVal: 'low'
+          - useFaultFilter: 'false'
       - deadTimePrescale: 'kFTM_Deadtime_Prescale_1'
-      - deadTimeValue: '0'
+      - deadTimePeriod: '0'
+      - pwmSyncMode: 'kFTM_SoftwareTrigger'
+      - swTriggerResetCount: 'true'
+      - hwTriggerResetCount: 'false'
+      - loadFrequency: '1'
+      - reloadPoints: ''
       - extTriggers: ''
       - chnlInitState: ''
       - chnlPolarity: ''
+      - bdmMode: 'kFTM_BdmMode_0'
       - useGlobalTimeBase: 'false'
     - timer_interrupts: ''
     - enable_irq: 'false'
@@ -88,52 +128,58 @@ instance:
   - ftm_edge_aligned_mode:
     - ftm_edge_aligned_channels_config:
       - 0:
+        - channelId: ''
         - edge_aligned_mode: 'kFTM_EdgeAlignedPwm'
         - edge_aligned_pwm:
           - chnlNumber: 'kFTM_Chnl_2'
           - level: 'kFTM_LowTrue'
-          - dutyCyclePercent: '0'
+          - dutyValueStr: '0'
           - enable_chan_irq: 'false'
       - 1:
+        - channelId: ''
         - edge_aligned_mode: 'kFTM_EdgeAlignedPwm'
         - edge_aligned_pwm:
           - chnlNumber: 'kFTM_Chnl_1'
           - level: 'kFTM_LowTrue'
-          - dutyCyclePercent: '0'
+          - dutyValueStr: '0'
           - enable_chan_irq: 'false'
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 const ftm_config_t BOARD_TIMER_config = {
   .prescale = kFTM_Prescale_Divide_1,
-  .bdmMode = kFTM_BdmMode_0,
-  .pwmSyncMode = kFTM_SoftwareTrigger,
-  .reloadPoints = 0,
   .faultMode = kFTM_Fault_Disable,
-  .faultFilterValue = 0U,
+  .faultFilterValue = 0,
   .deadTimePrescale = kFTM_Deadtime_Prescale_1,
-  .deadTimeValue = 0UL,
+  .deadTimeValue = 0,
+  .pwmSyncMode = kFTM_SoftwareTrigger,
+  .swTriggerResetCount = true,
+  .hwTriggerResetCount = false,
+  .reloadPoints = 0,
   .extTriggers = 0,
   .chnlInitState = 0,
   .chnlPolarity = 0,
+  .bdmMode = kFTM_BdmMode_0,
   .useGlobalTimeBase = false
 };
 
-const ftm_chnl_pwm_signal_param_t BOARD_TIMER_pwmSignalParams[] = { 
+const ftm_chnl_pwm_config_param_t BOARD_TIMER_pwmSignalParams[] = { 
   {
     .chnlNumber = kFTM_Chnl_2,
     .level = kFTM_LowTrue,
-    .dutyCyclePercent = 0U
+    .dutyValue = 0,
   },
   {
     .chnlNumber = kFTM_Chnl_1,
     .level = kFTM_LowTrue,
-    .dutyCyclePercent = 0U
+    .dutyValue = 0,
   }
 };
 
 static void BOARD_TIMER_init(void) {
   FTM_Init(BOARD_TIMER_PERIPHERAL, &BOARD_TIMER_config);
-  FTM_SetupPwm(BOARD_TIMER_PERIPHERAL, BOARD_TIMER_pwmSignalParams, sizeof(BOARD_TIMER_pwmSignalParams) / sizeof(ftm_chnl_pwm_signal_param_t), kFTM_EdgeAlignedPwm, 24000U, BOARD_TIMER_CLOCK_SOURCE);
+  FTM_SetLoadFreq(BOARD_TIMER_PERIPHERAL, 0);
+  FTM_SetTimerPeriod(BOARD_TIMER_PERIPHERAL, BOARD_TIMER_TIMER_MODULO_VALUE);
+  FTM_SetupPwmMode(BOARD_TIMER_PERIPHERAL, BOARD_TIMER_pwmSignalParams, sizeof(BOARD_TIMER_pwmSignalParams) / sizeof(ftm_chnl_pwm_config_param_t), kFTM_EdgeAlignedPwm);
 }
 
 /***********************************************************************************************************************
@@ -146,20 +192,14 @@ instance:
 - type: 'lpi2c'
 - mode: 'master'
 - custom_name_enabled: 'true'
-- type_id: 'lpi2c_540b08a1d4a23952ca7a6ac43c82d1e6'
+- type_id: 'lpi2c_6b71962515c3208facfccd030afebc98'
 - functional_group: 'BOARD_InitPeripherals'
 - peripheral: 'LPI2C0'
 - config_sets:
   - main:
     - clockSource: 'Lpi2cClock'
     - clockSourceFreq: 'GetIpFreq'
-    - interrupt:
-      - IRQn: 'LPI2C0_IRQn'
-      - enable_interrrupt: 'enabled'
-      - enable_priority: 'false'
-      - priority: '0'
-      - enable_custom_name: 'false'
-    - quick_selection: 'qs_interrupt'
+  - interrupt_vector: []
   - master:
     - mode: 'transfer'
     - config:
@@ -185,6 +225,8 @@ instance:
       - direction: 'kLPI2C_Write'
       - subaddress: '0'
       - subaddressSize: '1'
+      - blocking_buffer: 'false'
+      - enable_custom_buffer: 'false'
       - dataSize: '1'
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */

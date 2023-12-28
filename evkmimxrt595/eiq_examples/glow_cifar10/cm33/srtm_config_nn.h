@@ -163,7 +163,7 @@ typedef enum _srtm_rt600_nn_command
     SRTM_Command_resizenearest_f32,
     SRTM_Command_resizenearest_8,
     SRTM_Command_inference,
-	SRTM_Command_check_version,
+    SRTM_Command_check_version,
     SRTM_Command_NN_MAX
 } srtm_nn_command_t;
 

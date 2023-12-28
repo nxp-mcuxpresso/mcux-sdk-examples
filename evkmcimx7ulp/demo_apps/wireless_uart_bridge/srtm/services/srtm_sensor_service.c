@@ -48,7 +48,7 @@ typedef struct _srtm_sensor_service
     srtm_sensor_adapter_t sensor;
     /* Currently assume just one peer core, to support multiple peer cores, channel need to be a list */
     srtm_channel_t channel;
-} * srtm_sensor_service_t;
+} *srtm_sensor_service_t;
 
 /*******************************************************************************
  * Prototypes

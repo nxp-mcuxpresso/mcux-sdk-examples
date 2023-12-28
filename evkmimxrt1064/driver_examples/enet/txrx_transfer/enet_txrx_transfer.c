@@ -200,10 +200,7 @@ int main(void)
     BOARD_InitModuleClock();
 
     /* Hardware reset PHY. */
-    GPIO_WritePinOutput(GPIO1, 9, 0);
-    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
-    GPIO_WritePinOutput(GPIO1, 9, 1);
-    SDK_DelayAtLeastUs(100, CLOCK_GetFreq(kCLOCK_CpuClk));
+    BOARD_ENET_PHY_RESET;
 
 #if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
     IRQ_ClearPendingIRQ(GPIO1_Combined_0_15_IRQn);

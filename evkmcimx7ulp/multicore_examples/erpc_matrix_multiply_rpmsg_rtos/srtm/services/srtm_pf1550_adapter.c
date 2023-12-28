@@ -19,7 +19,7 @@ typedef struct _srtm_pf1550_adapter
 {
     struct _srtm_pmic_adapter adapter;
     pf1550_handle_t *driver;
-} * srtm_pf1550_adapter_t;
+} *srtm_pf1550_adapter_t;
 
 /*******************************************************************************
  * Prototypes

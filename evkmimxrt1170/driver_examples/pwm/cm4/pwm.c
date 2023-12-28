@@ -67,12 +67,22 @@ static void PWM_DRV_Init3PhPwm(void)
                  pwmSourceClockInHz);
 
     /*********** PWMA_SM1 - phase B configuration, setup PWM A channel only ************/
+#ifdef DEMO_PWM_CLOCK_DEVIDER
+    PWM_SetupPwm(BOARD_PWM_BASEADDR, kPWM_Module_1, pwmSignal, 1, kPWM_SignedCenterAligned, pwmFrequencyInHz,
+                 pwmSourceClockInHz / (1 << DEMO_PWM_CLOCK_DEVIDER));
+#else
     PWM_SetupPwm(BOARD_PWM_BASEADDR, kPWM_Module_1, pwmSignal, 1, kPWM_SignedCenterAligned, pwmFrequencyInHz,
                  pwmSourceClockInHz);
+#endif
 
     /*********** PWMA_SM2 - phase C configuration, setup PWM A channel only ************/
+#ifdef DEMO_PWM_CLOCK_DEVIDER
+    PWM_SetupPwm(BOARD_PWM_BASEADDR, kPWM_Module_2, pwmSignal, 1, kPWM_SignedCenterAligned, pwmFrequencyInHz,
+                 pwmSourceClockInHz / (1 << DEMO_PWM_CLOCK_DEVIDER));
+#else
     PWM_SetupPwm(BOARD_PWM_BASEADDR, kPWM_Module_2, pwmSignal, 1, kPWM_SignedCenterAligned, pwmFrequencyInHz,
                  pwmSourceClockInHz);
+#endif
 }
 
 /*!

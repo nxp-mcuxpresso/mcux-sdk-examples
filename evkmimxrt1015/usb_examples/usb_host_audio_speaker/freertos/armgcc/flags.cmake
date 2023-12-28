@@ -166,7 +166,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     --defsym=__heap_size__=0x400 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1015xxxxx_flexspi_nor_ocram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1015xxxxx_flexspi_nor_ocram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE} \
@@ -196,5 +196,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     --defsym=__heap_size__=0x400 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1015xxxxx_flexspi_nor_ocram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1015xxxxx_flexspi_nor_ocram.ld\" -static \
 ")

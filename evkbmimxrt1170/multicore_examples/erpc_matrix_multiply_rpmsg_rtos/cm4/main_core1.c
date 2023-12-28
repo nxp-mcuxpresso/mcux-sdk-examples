@@ -11,8 +11,8 @@
 #include "clock_config.h"
 #include "board.h"
 #include "erpc_server_setup.h"
-#include "erpc_matrix_multiply_server.h"
-#include "erpc_matrix_multiply.h"
+#include "c_erpc_matrix_multiply_server.h"
+#include "erpc_matrix_multiply_common.h"
 #include "erpc_error_handler.h"
 #include "FreeRTOS.h"
 #include "task.h"
@@ -106,7 +106,7 @@ static void app_task(void *param)
     transport = erpc_transport_rpmsg_lite_rtos_remote_init(101U, 100U, (void *)(char *)startupData,
                                                            ERPC_TRANSPORT_RPMSG_LITE_LINK_ID, SignalReady, NULL);
 #elif defined(RPMSG_LITE_MASTER_IS_LINUX)
-    transport              = erpc_transport_rpmsg_lite_tty_rtos_remote_init(101U, 1024U, (void *)RPMSG_LITE_SHMEM_BASE,
+    transport = erpc_transport_rpmsg_lite_tty_rtos_remote_init(101U, 1024U, (void *)RPMSG_LITE_SHMEM_BASE,
                                                                ERPC_TRANSPORT_RPMSG_LITE_LINK_ID, NULL,
                                                                RPMSG_LITE_NS_ANNOUNCE_STRING);
 #else
@@ -116,11 +116,7 @@ static void app_task(void *param)
     /* MessageBufferFactory initialization */
     erpc_mbf_t message_buffer_factory;
 
-#ifdef RPMSG_LITE_MASTER_IS_LINUX
-    message_buffer_factory = erpc_mbf_rpmsg_tty_init(transport);
-#else
     message_buffer_factory = erpc_mbf_rpmsg_init(transport);
-#endif
 
     /* eRPC server side initialization */
     server = erpc_server_init(transport, message_buffer_factory);

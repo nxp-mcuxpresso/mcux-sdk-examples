@@ -4,7 +4,7 @@
  * This file is based on \src\include\lwip\opt.h
  ******************************************************************************
  * Copyright (c) 2013-2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2021 NXP
+ * Copyright 2016-2021,2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -253,7 +253,7 @@ Some MCU allow computing and verifying the IP, UDP, TCP and ICMP checksums by ha
  - To use this feature let the following define uncommented.
  - To disable it and process by CPU comment the  the checksum.
 */
-//#define CHECKSUM_BY_HARDWARE
+// #define CHECKSUM_BY_HARDWARE
 
 #ifdef CHECKSUM_BY_HARDWARE
 /* CHECKSUM_GEN_IP==0: Generate checksums by hardware for outgoing IP packets.*/
@@ -307,14 +307,14 @@ Some MCU allow computing and verifying the IP, UDP, TCP and ICMP checksums by ha
    ------------------------------------
 */
 
-//#define LWIP_DEBUG
-//#define TCP_DEBUG                       LWIP_DBG_ON
-//#define ETHARP_DEBUG                    LWIP_DBG_ON
-//#define PBUF_DEBUG                      LWIP_DBG_ON
-//#define IP_DEBUG                        LWIP_DBG_ON
-//#define TCPIP_DEBUG                     LWIP_DBG_ON
-//#define DHCP_DEBUG                      LWIP_DBG_ON
-//#define UDP_DEBUG                       LWIP_DBG_ON
+// #define LWIP_DEBUG
+// #define TCP_DEBUG                       LWIP_DBG_ON
+// #define ETHARP_DEBUG                    LWIP_DBG_ON
+// #define PBUF_DEBUG                      LWIP_DBG_ON
+// #define IP_DEBUG                        LWIP_DBG_ON
+// #define TCPIP_DEBUG                     LWIP_DBG_ON
+// #define DHCP_DEBUG                      LWIP_DBG_ON
+// #define UDP_DEBUG                       LWIP_DBG_ON
 
 #ifdef LWIP_DEBUG
 #define U8_F  "c"
@@ -366,6 +366,24 @@ Some MCU allow computing and verifying the IP, UDP, TCP and ICMP checksums by ha
 #include "lwip/arch.h"
 u32_t lwip_rand(void);
 #define LWIP_RAND() lwip_rand()
+#endif
+
+/*
+   ------------------------------------------------
+   ---------- Network Interfaces options ----------
+   ------------------------------------------------
+*/
+/**
+ * @defgroup lwip_opts_netif NETIF
+ * @ingroup lwip_opts
+ * @{
+ */
+/**
+ * LWIP_SINGLE_NETIF==1: use a single netif only. This is the common case for
+ * small real-life targets. Some code like routing etc. can be left out.
+ */
+#ifndef LWIP_SINGLE_NETIF
+#define LWIP_SINGLE_NETIF 1
 #endif
 
 #endif /* __LWIPOPTS_H__ */

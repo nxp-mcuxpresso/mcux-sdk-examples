@@ -62,13 +62,13 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../source/FreeRTOSConfig.h"
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../pin_mux.c"
-"${ProjDirPath}/../board.h"
-"${ProjDirPath}/../board.c"
-"${ProjDirPath}/../dcd.h"
-"${ProjDirPath}/../dcd.c"
 "${ProjDirPath}/../cr_section_macros.h"
+"${ProjDirPath}/../dcd.c"
+"${ProjDirPath}/../dcd.h"
 "${ProjDirPath}/../clock_config.c"
 "${ProjDirPath}/../clock_config.h"
+"${ProjDirPath}/../board.c"
+"${ProjDirPath}/../board.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE

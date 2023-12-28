@@ -51,12 +51,6 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${SdkRootDirPath}/examples/evkmimxrt1170/multiprocessor_examples/erpc_common/erpc_error_handler.h"
-"${SdkRootDirPath}/examples/evkmimxrt1170/multiprocessor_examples/erpc_common/erpc_error_handler.cpp"
-"${SdkRootDirPath}/examples/evkmimxrt1170/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.erpc"
-"${SdkRootDirPath}/examples/evkmimxrt1170/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.h"
-"${SdkRootDirPath}/examples/evkmimxrt1170/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply_server.h"
-"${SdkRootDirPath}/examples/evkmimxrt1170/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply_server.cpp"
 "${ProjDirPath}/../main_server.c"
 "${ProjDirPath}/../erpc_config.h"
 "${ProjDirPath}/../pin_mux.c"
@@ -72,8 +66,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${SdkRootDirPath}/examples/evkmimxrt1170/multiprocessor_examples/erpc_common
-    ${SdkRootDirPath}/examples/evkmimxrt1170/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/evkmimxrt1170
 )

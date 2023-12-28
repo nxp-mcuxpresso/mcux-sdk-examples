@@ -1,6 +1,5 @@
 /*
- * Copyright 2021 NXP
- * All rights reserved.
+ * Copyright 2021, 2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -31,6 +30,17 @@ extern "C" {
  *
  */
 void BOARD_InitBootPins(void);
+
+/* GPIO_DISP_B2_13 (coord A5), PHY_RESET */
+/* Routed pin properties */
+#define BOARD_INITPINS_PHY_RESET_PERIPHERAL                               GPIO11   /*!< Peripheral name */
+#define BOARD_INITPINS_PHY_RESET_SIGNAL                                  gpio_io   /*!< Signal name */
+#define BOARD_INITPINS_PHY_RESET_CHANNEL                                     14U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_PHY_RESET_GPIO                                     GPIO11   /*!< GPIO peripheral base pointer */
+#define BOARD_INITPINS_PHY_RESET_GPIO_PIN                                    14U   /*!< GPIO pin number */
+#define BOARD_INITPINS_PHY_RESET_GPIO_PIN_MASK                       (1U << 14U)   /*!< GPIO pin mask */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

@@ -14,9 +14,8 @@
 #include "sduartIW416_mfg_wlan_bt.h"
 #elif defined(SD8987)
 #include "sduart8987_mfg_wlan_bt.h"
-#elif defined(RW610)
-const unsigned char *wlan_fw_bin   = (void *)0;
-const unsigned int wlan_fw_bin_len = 0;
+#elif defined(SD9177)
+#include "sduart_nw61x_mfg_se.h"
 #endif
 
 #endif /* __MFG_WLAN_BT_FW_H__ */

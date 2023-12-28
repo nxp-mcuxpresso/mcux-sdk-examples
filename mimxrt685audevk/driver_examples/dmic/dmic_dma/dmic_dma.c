@@ -26,12 +26,15 @@
 #define APP_DMAREQ_CHANNEL      DMAREQ_DMIC0
 #define APP_DMIC_CHANNEL        kDMIC_Channel0
 #define APP_DMIC_CHANNEL_ENABLE DMIC_CHANEN_EN_CH0(1)
+#define APP_DMIC_FIFO_DELAY_MS  15U
 #define FIFO_DEPTH    15U
 #define BUFFER_LENGTH 32U
 #if defined(FSL_FEATURE_DMIC_CHANNEL_HAS_SIGNEXTEND) && (FSL_FEATURE_DMIC_CHANNEL_HAS_SIGNEXTEND)
 #define DEMO_DMIC_DATA_WIDTH uint32_t
+#define VALUE_LENGTH          4U
 #else
 #define DEMO_DMIC_DATA_WIDTH uint16_t
+#define VALUE_LENGTH          2U
 #endif
 /*******************************************************************************
 
@@ -59,6 +62,14 @@ void DMIC_UserCallback(DMIC_Type *base, dmic_dma_handle_t *handle, status_t stat
     if (status == kStatus_DMIC_Idle)
     {
         g_Transfer_Done = true;
+    }
+}
+
+void DelayMS(uint32_t ms)
+{
+    for (uint32_t i = 0; i < ms; i++)
+    {
+        SDK_DelayAtLeastUs(1000, SystemCoreClock);
     }
 }
 
@@ -113,6 +124,8 @@ int main(void)
     DMIC_FifoChannel(DMIC0, APP_DMIC_CHANNEL, FIFO_DEPTH, true, true);
 
     DMIC_EnableChannnel(DMIC0, APP_DMIC_CHANNEL_ENABLE);
+    DelayMS(APP_DMIC_FIFO_DELAY_MS);
+    DMIC_DoFifoReset(DMIC0, APP_DMIC_CHANNEL);
     PRINTF("Configure DMA\r\n");
 
     DMA_Init(DMA0);
@@ -124,7 +137,7 @@ int main(void)
 
     /* Create DMIC DMA handle. */
     DMIC_TransferCreateHandleDMA(DMIC0, &g_dmicDmaHandle, DMIC_UserCallback, NULL, &g_dmicRxDmaHandle);
-    receiveXfer.dataSize               = 2 * BUFFER_LENGTH;
+    receiveXfer.dataSize               = VALUE_LENGTH * BUFFER_LENGTH;
     receiveXfer.data                   = g_rxBuffer;
     receiveXfer.dataAddrInterleaveSize = kDMA_AddressInterleave1xWidth;
     receiveXfer.dataWidth              = sizeof(DEMO_DMIC_DATA_WIDTH);

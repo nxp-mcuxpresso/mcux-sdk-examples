@@ -232,7 +232,7 @@ static const usb_standard_request_callback_t s_UsbDeviceStandardRequest[] = {
     (usb_standard_request_callback_t)NULL,
     USB_DeviceCh9SetAddress,
     USB_DeviceCh9GetDescriptor,
-    (usb_standard_request_callback_t)NULL,
+    (usb_standard_request_callback_t)NULL, /* USB_DeviceCh9SetDescriptor */
     USB_DeviceCh9GetConfiguration,
     USB_DeviceCh9SetConfiguration,
     USB_DeviceCh9GetInterface,
@@ -549,7 +549,7 @@ static usb_status_t USB_DeviceCh9GetConfiguration(usb_device_handle handle,
 
     USB_DeviceGetStatus(handle, kUSB_DeviceStatusDeviceState, &state);
 
-    if ((kUSB_DeviceStateAddress != state) && (kUSB_DeviceStateConfigured != state))
+    if ((kUSB_DeviceStateAddress != state) && ((kUSB_DeviceStateConfigured != state)))
     {
         return kStatus_USB_InvalidRequest;
     }
@@ -798,7 +798,7 @@ static usb_status_t USB_DeviceControlCallbackFeedback(usb_device_handle handle,
 /*!
  * @brief Control endpoint callback function.
  *
- * This callback function is used to notify uplayer the transfser result of a transfer.
+ * This callback function is used to notify upper layer the transfered result of a transfer.
  * This callback pointer is passed when a specified endpoint initialized by calling API USB_DeviceInitEndpoint.
  *
  * @param handle          The device handle. It equals the value returned from USB_DeviceInit.
@@ -819,6 +819,7 @@ usb_status_t USB_DeviceControlCallback(usb_device_handle handle,
     uint32_t length         = 0U;
     usb_status_t error      = kStatus_USB_InvalidRequest;
     uint8_t state;
+
     /* endpoint callback length is USB_CANCELLED_TRANSFER_LENGTH (0xFFFFFFFFU) when transfer is canceled */
     if (USB_CANCELLED_TRANSFER_LENGTH == message->length)
     {

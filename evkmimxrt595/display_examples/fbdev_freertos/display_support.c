@@ -891,7 +891,7 @@ static status_t BOARD_DSI_MemWrite(uint8_t virtualChannel, const uint8_t *data, 
 
     return DSI_TransferWriteMemorySMARTDMA(DEMO_MIPI_DSI, &s_dsiDriverHandle, &xfer);
 
-#else /* DEMO_RM67162_USE_DSI_SMARTDMA */
+#else  /* DEMO_RM67162_USE_DSI_SMARTDMA */
 
     status_t status;
 

@@ -55,8 +55,8 @@ int main(void)
     RTC->CTRL &= ~RTC_CTRL_SWRESET_MASK;    /* Make sure the reset bit is cleared */
     RTC->CTRL &= ~RTC_CTRL_RTC_OSC_PD_MASK; /* The RTC Oscillator is powered up */
 
-    CLOCK_InitSysPfd(kCLOCK_Pfd1, 24); /* Enable DSP PLL clock */
-    CLOCK_InitSysPfd(kCLOCK_Pfd3, 24); /* Enable AUX1 PLL clock */
+    CLOCK_InitSysPfd(kCLOCK_Pfd1, 24);      /* Enable DSP PLL clock */
+    CLOCK_InitSysPfd(kCLOCK_Pfd3, 24);      /* Enable AUX1 PLL clock */
 
     PRINTF("\r\nClock Output Driver Example.\r\n");
 

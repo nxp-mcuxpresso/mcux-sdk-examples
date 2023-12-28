@@ -26,6 +26,7 @@
 #include <stdbool.h>
 #include "fsl_codec_adapter.h"
 #include "tfa_config_TFA9894N2.h"
+#include "fsl_i2s_bridge.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -131,9 +132,11 @@ int main(void)
     tfa9xxxConfigRight.i2cConfig.codecI2CSourceClock = tfa9xxxConfigLeft.i2cConfig.codecI2CSourceClock;
 
     /* Set shared signal set 0: SCK, WS from Flexcomm1 */
-    SYSCTL1->SHAREDCTRLSET[0] = SYSCTL1_SHAREDCTRLSET_SHAREDSCKSEL(1) | SYSCTL1_SHAREDCTRLSET_SHAREDWSSEL(1);
+    I2S_BRIDGE_SetShareSignalSrc(kI2S_BRIDGE_ShareSet0, kI2S_BRIDGE_SignalSCK, kI2S_BRIDGE_Flexcomm1);
+    I2S_BRIDGE_SetShareSignalSrc(kI2S_BRIDGE_ShareSet0, kI2S_BRIDGE_SignalWS, kI2S_BRIDGE_Flexcomm1);
     /* Set flexcomm3 SCK, WS from shared signal set 0 */
-    SYSCTL1->FCCTRLSEL[3] = SYSCTL1_FCCTRLSEL_SCKINSEL(1) | SYSCTL1_FCCTRLSEL_WSINSEL(1);
+    I2S_BRIDGE_SetFlexcommSignalShareSet(kI2S_BRIDGE_Flexcomm3, kI2S_BRIDGE_SignalSCK, kI2S_BRIDGE_ShareSet0);
+    I2S_BRIDGE_SetFlexcommSignalShareSet(kI2S_BRIDGE_Flexcomm3, kI2S_BRIDGE_SignalWS, kI2S_BRIDGE_ShareSet0);
 
     // System Tick Configuration, generate 1ms interrupt
     SysTick_Config(SystemCoreClock / 1000U);

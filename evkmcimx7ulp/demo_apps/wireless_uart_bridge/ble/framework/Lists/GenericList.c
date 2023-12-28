@@ -279,15 +279,15 @@ listStatus_t ListRemoveElement(listElementHandle_t element)
 
     OSA_InterruptDisable();
 
-    if (element->prev == NULL) /*Element is head or solo*/
+    if (element->prev == NULL)               /*Element is head or solo*/
     {
         element->list->head = element->next; /*is null if solo*/
     }
-    if (element->next == NULL) /*Element is tail or solo*/
+    if (element->next == NULL)               /*Element is tail or solo*/
     {
         element->list->tail = element->prev; /*is null if solo*/
     }
-    if (element->prev != NULL) /*Element is not head*/
+    if (element->prev != NULL)               /*Element is not head*/
     {
         element->prev->next = element->next;
     }

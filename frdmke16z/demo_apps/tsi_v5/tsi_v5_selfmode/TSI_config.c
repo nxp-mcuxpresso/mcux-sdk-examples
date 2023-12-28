@@ -16,8 +16,8 @@ key_tsi_mapping_t key_TSI[] = {
     /* Note: .TSI_channel_rx = 0xFF, indicates it's selfmode */
 
     /* config key in self mode */
-    {TSI, {kTSI_Chnl_0}, 0xFF, 1000U, 0U, 0U, 0U, 0U, 0U}, /* KEY 0 */
-    {TSI, {kTSI_Chnl_1}, 0xFF, 1000U, 0U, 0U, 0U, 0U, 0U}, /* KEY 1 */
+    {TSI, {kTSI_Chnl_0}, 0xFF, 0.05F, 0U, 0U, 0U, 0U, 0U}, /* KEY 0 */
+    {TSI, {kTSI_Chnl_1}, 0xFF, 0.05F, 0U, 0U, 0U, 0U, 0U}, /* KEY 1 */
 
     /* Do NOT move {0xFFU, 0xFFU, 0xFFU, 0xFFU} which indicates the end of the array */
     {TSI, {0xFFU}, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU} /* The end of the array */

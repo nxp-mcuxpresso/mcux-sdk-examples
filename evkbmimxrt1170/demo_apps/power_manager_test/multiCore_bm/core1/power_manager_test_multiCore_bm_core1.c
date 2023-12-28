@@ -4,8 +4,8 @@
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
-#include "fsl_common.h"	
-#include "fsl_debug_console.h"	
+#include "fsl_common.h"
+#include "fsl_debug_console.h"
 #include "fsl_mu.h"
 
 #include "pin_mux.h"
@@ -19,30 +19,25 @@
  * Definitions
  ******************************************************************************/
 
-
-#define APP_CHN_MU_REG_NUM (0U)
-#define APP_MU_GENINT_ENABLE (kMU_GenInt0InterruptEnable)
+#define APP_CHN_MU_REG_NUM      (0U)
+#define APP_MU_GENINT_ENABLE    (kMU_GenInt0InterruptEnable)
 #define APP_MU_RXFULLINT_ENABLE (kMU_Rx0FullInterruptEnable)
 
-#define APP_SETPOINT0_CONSTRAINTS       \
-    1U, PM_RESC_CORE_DOMAIN_WAIT
-#define APP_SETPOINT1_CONSTRAINTS       \
-    3U, PM_RESC_CORE_DOMAIN_WAIT, PM_RESC_SYS_PLL1_ON, PM_RESC_LPSR_DIG_LDO_OFF
-#define APP_SETPOINT10_CONSTRAINTS      \
-    2U, PM_RESC_CORE_DOMAIN_SUSPEND, PM_RESC_WAKEUP_MIX_ON
-#define APP_SETPOINT15_CONSTRAINTS      \
-    2U, PM_RESC_CORE_DOMAIN_SUSPEND, PM_RESC_OSC_RC_16M_ON
+#define APP_SETPOINT0_CONSTRAINTS  1U, PM_RESC_CORE_DOMAIN_WAIT
+#define APP_SETPOINT1_CONSTRAINTS  3U, PM_RESC_CORE_DOMAIN_WAIT, PM_RESC_SYS_PLL1_ON, PM_RESC_LPSR_DIG_LDO_OFF
+#define APP_SETPOINT10_CONSTRAINTS 2U, PM_RESC_CORE_DOMAIN_SUSPEND, PM_RESC_WAKEUP_MIX_ON
+#define APP_SETPOINT15_CONSTRAINTS 2U, PM_RESC_CORE_DOMAIN_SUSPEND, PM_RESC_OSC_RC_16M_ON
 
 /*******************************************************************************
-* Prototypes
-******************************************************************************/
+ * Prototypes
+ ******************************************************************************/
 void APP_InitWakeupSource(void);
 void APP_RegisterNotify(void);
 void APP_SetConstraints(uint8_t powerMode);
 void APP_ReleaseConstraints(uint8_t powerMode);
 uint32_t APP_GetWakeupTimeout(void);
-#define BOOT_FLAG 0x01U
-#define REV_TARGET_MODE_FLAG 0x02U
+#define BOOT_FLAG              0x01U
+#define REV_TARGET_MODE_FLAG   0x02U
 #define REV_TIMEOUT_VALUE_FLAG 0x03U
 /*******************************************************************************
  * Variables
@@ -72,7 +67,7 @@ void APP_InitWakeupSource(void)
 
 void APP_SetConstraints(uint8_t powerState)
 {
-    switch(powerState)
+    switch (powerState)
     {
         // setpoint 0
         case 0:
@@ -103,7 +98,7 @@ void APP_SetConstraints(uint8_t powerState)
 
 void APP_ReleaseConstraints(uint8_t powerState)
 {
-    switch(powerState)
+    switch (powerState)
     {
         // setpoint 0
         case 0:
@@ -153,7 +148,7 @@ int main(void)
 {
     /* Init board hardware. */
     BOARD_ConfigMPU();
-  
+
     MU_Init(MU_BASE);
 
     // Sync with primary core.
@@ -170,19 +165,19 @@ int main(void)
     while (1)
     {
         // Polling to get target power mode from primary core.
-        while(!isMsgReceived)
+        while (!isMsgReceived)
         {
         }
-        isMsgReceived = false;
+        isMsgReceived     = false;
         g_targetPowerMode = (uint8_t)g_msgRecv;
 
         // Inform primary core that target power mode is received.
         MU_SetFlags(MU_BASE, REV_TARGET_MODE_FLAG);
 
-        while(!isMsgReceived)
+        while (!isMsgReceived)
         {
         }
-        isMsgReceived = false;
+        isMsgReceived      = false;
         uint32_t timeoutUs = g_msgRecv;
         // Inform primary core that timeout is received.
         MU_SetFlags(MU_BASE, REV_TIMEOUT_VALUE_FLAG);

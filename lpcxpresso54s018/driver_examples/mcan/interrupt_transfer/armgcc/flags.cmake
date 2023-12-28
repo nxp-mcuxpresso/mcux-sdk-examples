@@ -145,7 +145,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     --sort-section=alignment \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/LPC54S018_spifi_flash.ld -static \
+    -T\"${ProjDirPath}/LPC54S018_spifi_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -173,5 +173,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     --sort-section=alignment \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/LPC54S018_spifi_flash.ld -static \
+    -T\"${ProjDirPath}/LPC54S018_spifi_flash.ld\" -static \
 ")

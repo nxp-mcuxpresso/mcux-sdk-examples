@@ -18,7 +18,7 @@
 #endif
 
 #include "audio_microphone.h"
-#include "streamer_pcm_app.h"
+#include "streamer_pcm.h"
 
 /*******************************************************************************
  * Definitions
@@ -791,14 +791,14 @@ void USB_AudioCodecTask(void)
     if (s_audioMicrophone.codecTask & MUTE_CODEC_TASK)
     {
         PRINTF("Set Cur Mute : %x\r\n", s_audioMicrophone.curMute);
-        streamer_pcm_mute(NULL, true);
+        streamer_pcm_mute(true);
         s_audioMicrophone.codecTask &= ~MUTE_CODEC_TASK;
         g_CodecMuteUnmute = true;
     }
     if (s_audioMicrophone.codecTask & UNMUTE_CODEC_TASK)
     {
         PRINTF("Set Cur Mute : %x\r\n", s_audioMicrophone.curMute);
-        streamer_pcm_mute(NULL, false);
+        streamer_pcm_mute(false);
         s_audioMicrophone.codecTask &= ~UNMUTE_CODEC_TASK;
         g_CodecMuteUnmute = true;
     }

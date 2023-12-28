@@ -9,7 +9,7 @@
 #include "fsl_debug_console.h"
 
 #include "app_streamer.h"
-#include "streamer_pcm_app.h"
+#include "streamer_pcm.h"
 #include "maestro_logging.h"
 #ifdef VIT_PROC
 #include "vit_proc.h"
@@ -18,6 +18,9 @@
 #include "voice_seeker.h"
 #endif
 #include "app_definitions.h"
+#if (((defined(VIT_PROC) && !defined(VOICE_SEEKER_PROC))) && DEMO_CODEC_CS42448 == 1)
+#error "Please define VOICE_SEEKER_PROC in order to use VIT with DEMO_CODEC_CS42448"
+#endif
 
 #define APP_STREAMER_MSG_QUEUE     "app_queue"
 #define STREAMER_TASK_NAME         "Streamer"
@@ -174,41 +177,48 @@ void STREAMER_Stop(streamer_handle_t *handle)
     }
 }
 
-status_t STREAMER_mic_Create(streamer_handle_t *handle, out_sink_t out_sink, char *file_name)
+status_t STREAMER_mic_Create(streamer_handle_t *handle, ElementIndex out_sink, char *file_name)
 {
     STREAMER_CREATE_PARAM params;
     osa_task_def_t thread_attr;
     ELEMENT_PROPERTY_T prop;
-    int ret;
+    int ret, num_elements = 3;
+    ElementIndex element_ids[3];
+
+    /* There are several possibilities how the pipeline will be constructed:
+     * 1) out_sink is VIT
+     * 	  a) VoiceSeeker is used => Microphone -> VoiceSeeker -> VIT
+     * 	  b) No VoiceSeeker => Microphone -> VIT
+     * 2) out sink is a speaker or a file
+     *    a) VIT can be used just with 1 channel input
+     *    b) VIT processing is not part of the pipeline
+     */
+    element_ids[0] = ELEMENT_MICROPHONE_INDEX;
+#ifdef VIT_PROC
+    if (out_sink == ELEMENT_VIT_INDEX)
+    {
+#ifdef VOICE_SEEKER_PROC
+        element_ids[1] = ELEMENT_VOICESEEKER_INDEX;
+        element_ids[2] = out_sink;
+#else
+        element_ids[1] = out_sink;
+        num_elements   = 2;
+#endif // VOICE_SEEKER_PROC
+    }
+    else
+#endif // VIT_PROC
+    {
+        element_ids[1] = out_sink;
+        num_elements   = 2;
+    }
+    PipelineElements pipelineElements = {element_ids, num_elements};
 
     /* Create streamer */
     strcpy(params.out_mq_name, APP_STREAMER_MSG_QUEUE);
-    params.stack_size = STREAMER_TASK_STACK_SIZE;
-
-    switch (out_sink)
-    {
-        case AUDIO_SINK:
-            params.pipeline_type = STREAM_PIPELINE_PCM;
-            params.out_dev_name  = "";
-            break;
-
-        case FILE_SINK:
-            params.pipeline_type = STREAM_PIPELINE_MIC2FILE;
-            params.out_dev_name  = "file";
-            break;
-
-        case VIT_SINK:
-            params.pipeline_type = STREAM_PIPELINE_VIT;
-            params.out_dev_name  = "";
-            break;
-
-        default:
-            PRINTF("[STREAMER ERR] wrong type of sink\r\n");
-            return kStatus_InvalidArgument;
-    }
-
+    params.stack_size  = STREAMER_TASK_STACK_SIZE;
     params.task_name   = STREAMER_TASK_NAME;
     params.in_dev_name = "microphone";
+    params.elements    = pipelineElements;
 
     handle->streamer = streamer_create(&params);
     if (!handle->streamer)
@@ -227,39 +237,33 @@ status_t STREAMER_mic_Create(streamer_handle_t *handle, out_sink_t out_sink, cha
         return kStatus_Fail;
     }
 
-#ifdef VIT_PROC
-    if (params.pipeline_type == STREAM_PIPELINE_VIT)
-    {
 #ifdef VOICE_SEEKER_PROC
+    if (is_element_in_pipeline(pipelineElements, ELEMENT_VOICESEEKER_INDEX))
+    {
         EXT_PROCESS_DESC_T voice_seeker_proc = {VoiceSeeker_Initialize_func, VoiceSeeker_Execute_func,
                                                 VoiceSeeker_Deinit_func, NULL};
-
-        prop.prop = PROP_VOICESEEKER_PROC_FUNCPTR;
-        prop.val  = (uintptr_t)&voice_seeker_proc;
+        prop.prop                            = PROP_VOICESEEKER_FUNCPTR;
+        prop.val                             = (uintptr_t)&voice_seeker_proc;
         streamer_set_property(handle->streamer, 0, prop, true);
-
+    }
 #endif // VOICE_SEEKER_PROC
-        prop.prop = PROP_AUDIOSRC_SET_FRAME_MS;
-        prop.val  = 30;
-        streamer_set_property(handle->streamer, 0, prop, true);
-
+#ifdef VIT_PROC
+    if (is_element_in_pipeline(pipelineElements, ELEMENT_VIT_INDEX) ||
+        is_element_in_pipeline(pipelineElements, ELEMENT_VIT_PROC_INDEX))
+    {
         EXT_PROCESS_DESC_T vit_proc = {VIT_Initialize_func, VIT_Execute_func, VIT_Deinit_func, NULL};
 
-        prop.prop = PROP_VITSINK_PROC_FUNCPTR;
-        prop.val  = (uintptr_t)&vit_proc;
+        if (is_element_in_pipeline(pipelineElements, ELEMENT_VIT_INDEX))
+            prop.prop = PROP_VITSINK_FUNCPTR;
+        else if (is_element_in_pipeline(pipelineElements, ELEMENT_VIT_PROC_INDEX))
+            prop.prop = PROP_VIT_PROC_FUNCPTR;
+        prop.val = (uintptr_t)&vit_proc;
         streamer_set_property(handle->streamer, 0, prop, true);
-    } // STREAM_PIPELINE_VIT
-#else
-    if (params.pipeline_type == STREAM_PIPELINE_VIT)
-    {
-        PRINTF("[STREAMER] VIT pipeline not available for this config\r\n switching to audio sink");
-        params.pipeline_type = STREAM_PIPELINE_PCM;
     }
 #endif // VIT_PROC
 
-#if (defined(PLATFORM_RT1170) || defined(PLATFORM_RT1160) || DEMO_CODEC_CS42448)
-#ifndef VOICE_SEEKER_PROC
-    if (params.pipeline_type == STREAM_PIPELINE_VIT)
+#if ((DEMO_CHANNEL_NUM > 2) && !defined(VOICE_SEEKER_PROC))
+    if (out_sink == ELEMENT_VIT_INDEX)
     {
         PRINTF(
             "[STREAMER] Please enable VoiceSeeker, it must be used if more than one channel is used and VIT is "
@@ -268,33 +272,59 @@ status_t STREAMER_mic_Create(streamer_handle_t *handle, out_sink_t out_sink, cha
     }
 #endif
 
-#if (defined(PLATFORM_RT1170) || defined(PLATFORM_RT1160))
-    prop.prop = PROP_AUDIOSRC_SET_FRAME_MS;
-    prop.val  = 30;
+    prop.prop = PROP_MICROPHONE_SET_NUM_CHANNELS;
+    prop.val  = DEMO_MIC_CHANNEL_NUM;
     streamer_set_property(handle->streamer, 0, prop, true);
 
-    prop.prop = PROP_AUDIOSRC_SET_NUM_CHANNELS;
-    prop.val  = 2;
-    streamer_set_property(handle->streamer, 0, prop, true);
-#endif
-
-#if DEMO_CODEC_CS42448
-    prop.prop = PROP_AUDIOSRC_SET_NUM_CHANNELS;
-    prop.val  = 8;
-    streamer_set_property(handle->streamer, 0, prop, true);
-#endif
-
-#if (defined(PLATFORM_RT1170) || defined(PLATFORM_RT1160) || defined(MCXN548_cm33_core0_SERIES) || DEMO_CODEC_CS42448)
-    prop.prop = PROP_AUDIOSRC_SET_BITS_PER_SAMPLE;
-    prop.val  = 32;
-    streamer_set_property(handle->streamer, 0, prop, true);
-#endif
-#endif //(defined(PLATFORM_RT1170) || defined(PLATFORM_RT1160) || DEMO_CODEC_CS42448)
-    prop.prop = PROP_AUDIOSRC_SET_SAMPLE_RATE;
-    prop.val  = 16000;
+    prop.prop = PROP_MICROPHONE_SET_BITS_PER_SAMPLE;
+    prop.val  = DEMO_AUDIO_BIT_WIDTH;
     streamer_set_property(handle->streamer, 0, prop, true);
 
-    if (out_sink == FILE_SINK)
+    prop.prop = PROP_MICROPHONE_SET_FRAME_MS;
+    prop.val  = DEMO_MIC_FRAME_SIZE;
+    streamer_set_property(handle->streamer, 0, prop, true);
+
+    prop.prop = PROP_MICROPHONE_SET_SAMPLE_RATE;
+    prop.val  = DEMO_AUDIO_SAMPLE_RATE;
+    streamer_set_property(handle->streamer, 0, prop, true);
+
+    EXT_AUDIOELEMENT_DESC_T appFunctions = {
+        .open_func      = streamer_pcm_rx_open,
+        .close_func     = streamer_pcm_rx_close,
+        .start_func     = NULL,
+        .process_func   = streamer_pcm_read,
+        .set_param_func = streamer_pcm_setparams,
+        .get_param_func = streamer_pcm_getparams,
+        .mute_func      = streamer_pcm_mute,
+        .volume_func    = streamer_pcm_set_volume,
+    };
+    prop.prop = PROP_MICROPHONE_SET_APP_FUNCTIONS;
+    prop.val  = (uintptr_t)&appFunctions;
+    streamer_set_property(handle->streamer, 0, prop, true);
+
+    if (out_sink == ELEMENT_SPEAKER_INDEX)
+    {
+        appFunctions.open_func      = streamer_pcm_tx_open;
+        appFunctions.close_func     = streamer_pcm_tx_close;
+        appFunctions.start_func     = NULL;
+        appFunctions.process_func   = streamer_pcm_write;
+        appFunctions.set_param_func = streamer_pcm_setparams;
+        appFunctions.get_param_func = streamer_pcm_getparams;
+        appFunctions.mute_func      = streamer_pcm_mute;
+        appFunctions.volume_func    = streamer_pcm_set_volume;
+
+        prop.prop = PROP_SPEAKER_SET_APP_FUNCTIONS;
+        prop.val  = (uintptr_t)&appFunctions;
+        streamer_set_property(handle->streamer, 0, prop, true);
+    }
+    else
+    {
+        prop.prop = PROP_MICROPHONE_SET_DUMMY_TX_ENABLE;
+        prop.val  = true;
+        streamer_set_property(handle->streamer, 0, prop, true);
+    }
+
+    if (out_sink == ELEMENT_FILE_SINK_INDEX)
     {
         char file_name_val[MAX_FILE_NAME_LENGTH];
         memcpy(file_name_val, file_name == NULL ? "tmp" : file_name, MAX_FILE_NAME_LENGTH);
@@ -318,14 +348,17 @@ status_t STREAMER_opusmem2mem_Create(streamer_handle_t *handle,
     osa_task_def_t thread_attr;
     ELEMENT_PROPERTY_T prop;
     int ret;
+    ElementIndex element_ids[]        = {ELEMENT_MEM_SRC_INDEX, ELEMENT_ENCODER_INDEX, ELEMENT_MEM_SINK_INDEX};
+    int num_elements                  = sizeof(element_ids) / sizeof(ElementIndex);
+    PipelineElements pipelineElements = {element_ids, num_elements};
 
     /* Create streamer */
     strcpy(params.out_mq_name, APP_STREAMER_MSG_QUEUE);
-    params.stack_size    = STREAMER_OPUS_TASK_STACK_SIZE;
-    params.pipeline_type = STREAM_PIPELINE_OPUS_MEM2MEM;
-    params.task_name     = STREAMER_TASK_NAME;
-    params.in_dev_name   = "";
-    params.out_dev_name  = "";
+    params.stack_size   = STREAMER_OPUS_TASK_STACK_SIZE;
+    params.task_name    = STREAMER_TASK_NAME;
+    params.in_dev_name  = "";
+    params.out_dev_name = "";
+    params.elements     = pipelineElements;
 
     handle->streamer = streamer_create(&params);
     if (!handle->streamer)

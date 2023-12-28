@@ -1,10 +1,8 @@
 /*
  * Copyright 2022-2023 NXP.
- * This software is owned or controlled by NXP and may only be used strictly in accordance with the
- * license terms that accompany it. By expressly accepting such terms or by downloading, installing,
- * activating and/or otherwise using the software, you are agreeing that you have read, and that you
- * agree to comply with and are bound by, such license terms. If you do not agree to be bound by the
- * applicable license terms, then you may not retain, install, activate or otherwise use the software.
+ * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
  */
 
 #include <FreeRTOS.h>
@@ -23,6 +21,7 @@ int HAL_GfxDev_PXP_Register(gfx_dev_t *dev);
 hal_graphics_setup_t gfx_setup[] =
 {
     {"gfx_PXP", HAL_GfxDev_PXP_Register},
+	{"gfx_CPU", HAL_GfxDev_CPU_Register},
 };
 
 int setup_graphic_dev(hal_graphics_setup_t gfx_setup[], int graphic_nb,

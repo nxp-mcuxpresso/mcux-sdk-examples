@@ -214,10 +214,10 @@ typedef enum
     gBleGattCmdInitOpCode_c  = gBleGattCmdFirstOpCode_c, /*! Gatt_Init command operation code */
     gBleGattCmdGetMtuOpCode_c,                           /*! Gatt_GetMtu command operation code */
 
-    gBleGattCmdClientInitOpCode_c,                      /*! GattClient_Init command operation code */
-    gBleGattCmdClientResetProceduresOpCode_c,           /*! GattClient_ResetProcedures command operation code */
-    gBleGattCmdClientRegisterProcedureCallbackOpCode_c, /*! GattClient_RegisterProcedureCallback command operation code
-                                                         */
+    gBleGattCmdClientInitOpCode_c,                       /*! GattClient_Init command operation code */
+    gBleGattCmdClientResetProceduresOpCode_c,            /*! GattClient_ResetProcedures command operation code */
+    gBleGattCmdClientRegisterProcedureCallbackOpCode_c,  /*! GattClient_RegisterProcedureCallback command operation code
+                                                          */
     gBleGattCmdClientRegisterNotificationCallbackOpCode_c, /*! GattClient_RegisterNotificationCallback command operation
                                                               code */
     gBleGattCmdClientRegisterIndicationCallbackOpCode_c,   /*! GattClient_RegisterIndicationCallback command operation
@@ -245,8 +245,8 @@ typedef enum
     gBleGattCmdClientWriteCharacteristicDescriptorsOpCode_c, /*! GattClient_WriteCharacteristicDescriptors command
                                                                 operation code */
 
-    gBleGattCmdServerInitOpCode_c,             /*! GattServer_Init command operation code */
-    gBleGattCmdServerRegisterCallbackOpCode_c, /*! GattServer_RegisterCallback command operation code */
+    gBleGattCmdServerInitOpCode_c,                           /*! GattServer_Init command operation code */
+    gBleGattCmdServerRegisterCallbackOpCode_c,               /*! GattServer_RegisterCallback command operation code */
     gBleGattCmdServerRegisterHandlesForWriteNotificationsOpCode_c, /*! GattServer_RegisterHandlesForWriteNotifications
                                                                       command operation code */
     gBleGattCmdServerSendAttributeWrittenStatusOpCode_c,   /*! GattServer_SendAttributeWrittenStatus command operation
@@ -261,13 +261,13 @@ typedef enum
                                                                      command operation code */
     gBleGattCmdServerSendAttributeReadStatusOpCode_c, /*! GattServer_SendAttributeReadStatus command operation code */
 
-    gBleGattStatusOpCode_c = 0x80, /*! GAP status operation code */
+    gBleGattStatusOpCode_c = 0x80,                    /*! GAP status operation code */
 
     gBleGattEvtFirstOpCode_c  = 0x81,
     gBleGattEvtGetMtuOpCode_c = gBleGattEvtFirstOpCode_c, /*! Gatt_GetMtu command out parameter event operation code */
 
-    gBleGattEvtClientProcedureExchangeMtuOpCode_c,                   /*! gattClientProcedureCallback (procedureType ==
-                                                                        gGattProcExchangeMtu_c) event operation code */
+    gBleGattEvtClientProcedureExchangeMtuOpCode_c,        /*! gattClientProcedureCallback (procedureType ==
+                                                             gGattProcExchangeMtu_c) event operation code */
     gBleGattEvtClientProcedureDiscoverAllPrimaryServicesOpCode_c,    /*! gattClientProcedureCallback (procedureType ==
                                                                         gGattProcDiscoverAllPrimaryServices_c) event
                                                                         operation code */

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding= "UTF-8" ?>
-<configuration name="MIMXRT1062xxxxB" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.8 http://mcuxpresso.nxp.com/XSD/mex_configuration_1.8.xsd" uuid="f31a7228-81de-44ea-afbc-69e670ab0bd4" version="1.8" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<configuration name="MIMXRT1062xxxxB" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_14 http://mcuxpresso.nxp.com/XSD/mex_configuration_14.xsd" uuid="f31a7228-81de-44ea-afbc-69e670ab0bd4" version="14" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_14" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <common>
       <processor>MIMXRT1062xxxxB</processor>
       <package>MIMXRT1062DVL6B</package>
@@ -14,17 +14,19 @@
       <validate_boot_init_only>true</validate_boot_init_only>
       <generate_extended_information>false</generate_extended_information>
       <generate_code_modified_registers_only>false</generate_code_modified_registers_only>
+      <update_include_paths>true</update_include_paths>
+      <generate_registers_defines>false</generate_registers_defines>
    </preferences>
    <tools>
-      <pins name="Pins" version="8.0" enabled="true" update_project_code="true">
+      <pins name="Pins" version="13.1" enabled="true" update_project_code="true">
          <pins_profile>
-            <processor_version>0.8.11</processor_version>
-            <power_domains/>
+            <processor_version>0.14.9</processor_version>
             <pin_labels>
                <pin_label pin_num="F13" pin_signal="GPIO_AD_B0_08" label="USER_LED" identifier="USER_LED"/>
                <pin_label pin_num="J11" pin_signal="GPIO_AD_B1_00" label="I2C1_SCL/CSI_I2C_SCL/J35[20]/J23[6]/U13[17]/U32[4]" identifier="I2C_SCL_FXOS8700CQ;CSI_I2C_SCL;I2C_SCL;I2C1_SCL"/>
                <pin_label pin_num="K11" pin_signal="GPIO_AD_B1_01" label="I2C1_SDA/CSI_I2C_SDA/J35[22]/J23[5]/U13[18]/U32[6]" identifier="I2C_SDA_FXOS8700CQ;CSI_I2C_SDA;I2C1_SDA"/>
             </pin_labels>
+            <power_domains/>
          </pins_profile>
          <functions_list>
             <function name="BOARD_InitPins">
@@ -167,12 +169,12 @@
             </function>
          </functions_list>
       </pins>
-      <clocks name="Clocks" version="7.0" enabled="true" update_project_code="true">
+      <clocks name="Clocks" version="11.0" enabled="true" update_project_code="true">
          <clocks_profile>
-            <processor_version>0.8.11</processor_version>
+            <processor_version>0.14.9</processor_version>
          </clocks_profile>
          <clock_configurations>
-            <clock_configuration name="BOARD_BootClockRUN">
+            <clock_configuration name="BOARD_BootClockRUN" id_prefix="" prefix_user_defined="false">
                <description></description>
                <options/>
                <dependencies>
@@ -237,9 +239,7 @@
                   <clock_output id="CLK_1M.outFreq" value="1 MHz" locked="false" accuracy=""/>
                   <clock_output id="CLK_24M.outFreq" value="24 MHz" locked="false" accuracy=""/>
                   <clock_output id="CSI_CLK_ROOT.outFreq" value="12 MHz" locked="false" accuracy=""/>
-                  <clock_output id="ENET1_TX_CLK.outFreq" value="2.4 MHz" locked="false" accuracy=""/>
                   <clock_output id="ENET2_125M_CLK.outFreq" value="1.2 MHz" locked="false" accuracy=""/>
-                  <clock_output id="ENET2_TX_CLK.outFreq" value="1.2 MHz" locked="false" accuracy=""/>
                   <clock_output id="ENET_125M_CLK.outFreq" value="2.4 MHz" locked="false" accuracy=""/>
                   <clock_output id="ENET_25M_REF_CLK.outFreq" value="1.2 MHz" locked="false" accuracy=""/>
                   <clock_output id="FLEXIO1_CLK_ROOT.outFreq" value="30 MHz" locked="false" accuracy=""/>
@@ -320,7 +320,7 @@
       </clocks>
       <dcdx name="DCDx" version="3.0" enabled="true" update_project_code="true">
          <dcdx_profile>
-            <processor_version>0.8.11</processor_version>
+            <processor_version>0.14.9</processor_version>
             <output_format>c_array</output_format>
          </dcdx_profile>
          <dcdx_configurations>
@@ -461,31 +461,36 @@
             </dcdx_configuration>
          </dcdx_configurations>
       </dcdx>
-      <periphs name="Peripherals" version="8.0" enabled="true" update_project_code="true">
+      <periphs name="Peripherals" version="12.0" enabled="true" update_project_code="true">
          <dependencies>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpi2c" description="LPI2C Driver not found in the toolchain/IDE project. Project will not compile!" problem_level="2" source="Peripherals">
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpi2c" description="LPI2C Driver is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
                <feature name="enabled" evaluation="equal">
                   <data type="Boolean">true</data>
                </feature>
             </dependency>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpi2c" description="Unsupported version of the LPI2C Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. Project might not compile correctly." problem_level="1" source="Peripherals">
-               <feature name="version" evaluation="equivalent">
-                  <data type="Version">2.1.5</data>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpi2c" description="An unsupported version of the LPI2C Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="greaterOrEqual">
+                  <data type="Version">2.2.0</data>
                </feature>
             </dependency>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.qtmr" description="QTMR Driver not found in the toolchain/IDE project. Project will not compile!" problem_level="2" source="Peripherals">
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.qtmr" description="QTMR Driver is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
                <feature name="enabled" evaluation="equal">
                   <data type="Boolean">true</data>
                </feature>
             </dependency>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.qtmr" description="Unsupported version of the QTMR Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. Project might not compile correctly." problem_level="1" source="Peripherals">
-               <feature name="version" evaluation="equivalent">
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.qtmr" description="An unsupported version of the QTMR Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="greaterOrEqual">
                   <data type="Version">2.0.0</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="Tool" resourceId="Clocks" description="The Clocks tool is required by the Peripherals tool, but it is disabled." problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data>true</data>
                </feature>
             </dependency>
          </dependencies>
          <peripherals_profile>
-            <processor_version>0.8.11</processor_version>
+            <processor_version>0.14.9</processor_version>
          </peripherals_profile>
          <functional_groups>
             <functional_group name="BOARD_InitPeripherals" uuid="b7d246ac-e2d5-4313-a11e-5bb794e72faf" called_from_default_init="true" id_prefix="" core="core0">
@@ -497,12 +502,12 @@
                         <data type="Frequency" unit="Hz">0</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPI2C1.lpi2c_scl" description="Signal serial clock of the peripheral LPI2C1 is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPI2C1.lpi2c_scl" description="Signal serial clock is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="routed" evaluation="">
                         <data type="Boolean">true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPI2C1.lpi2c_sda" description="Signal serial data of the peripheral LPI2C1 is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPI2C1.lpi2c_sda" description="Signal serial data is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="routed" evaluation="">
                         <data type="Boolean">true</data>
                      </feature>
@@ -524,17 +529,12 @@
                   </dependency>
                </dependencies>
                <instances>
-                  <instance name="ACCEL_I2C" uuid="1ae366bf-01f0-4201-9317-d378acb44b34" type="lpi2c" type_id="lpi2c_db68d4f4f06a22e25ab51fe9bd6db4d2" mode="master" peripheral="LPI2C1" enabled="true" comment="" custom_name_enabled="true">
+                  <instance name="ACCEL_I2C" uuid="1ae366bf-01f0-4201-9317-d378acb44b34" type="lpi2c" type_id="lpi2c_6b71962515c3208facfccd030afebc98" mode="master" peripheral="LPI2C1" enabled="true" comment="" custom_name_enabled="true" editing_lock="false">
                      <config_set name="main" quick_selection="qs_interrupt">
                         <setting name="clockSource" value="Lpi2cClock"/>
                         <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
-                        <struct name="interrupt">
-                           <setting name="IRQn" value="LPI2C1_IRQn"/>
-                           <setting name="enable_priority" value="false"/>
-                           <setting name="priority" value="0"/>
-                           <setting name="enable_custom_name" value="false"/>
-                        </struct>
                      </config_set>
+                     <config_set name="interrupt_vector"/>
                      <config_set name="master" quick_selection="qs_master_transfer">
                         <setting name="mode" value="transfer"/>
                         <struct name="config">
@@ -553,9 +553,17 @@
                               <setting name="source" value="kLPI2C_HostRequestExternalPin"/>
                               <setting name="polarity" value="kLPI2C_HostRequestPinActiveHigh"/>
                            </struct>
+                           <set name="edmaRequestSources">
+                              <selected/>
+                           </set>
                         </struct>
                         <struct name="transfer">
                            <setting name="blocking" value="false"/>
+                           <setting name="enable_custom_handle" value="false"/>
+                           <struct name="callback">
+                              <setting name="name" value=""/>
+                              <setting name="userData" value=""/>
+                           </struct>
                            <set name="flags">
                               <selected/>
                            </set>
@@ -563,15 +571,13 @@
                            <setting name="direction" value="kLPI2C_Write"/>
                            <setting name="subaddress" value="0"/>
                            <setting name="subaddressSize" value="1"/>
+                           <setting name="blocking_buffer" value="false"/>
+                           <setting name="enable_custom_buffer" value="false"/>
                            <setting name="dataSize" value="1"/>
-                           <struct name="callback">
-                              <setting name="name" value=""/>
-                              <setting name="userData" value=""/>
-                           </struct>
                         </struct>
                      </config_set>
                   </instance>
-                  <instance name="TIMER" uuid="468b155e-79d7-4f83-bf68-49eea98a2cc2" type="qtmr" type_id="qtmr_460dd7aa3f3371843c2548acd54252b0" mode="general" peripheral="TMR3" enabled="true" comment="" custom_name_enabled="true">
+                  <instance name="TIMER" uuid="468b155e-79d7-4f83-bf68-49eea98a2cc2" type="qtmr" type_id="qtmr_460dd7aa3f3371843c2548acd54252b0" mode="general" peripheral="TMR3" enabled="true" comment="" custom_name_enabled="true" editing_lock="false">
                      <config_set name="fsl_qtmr">
                         <setting name="clockSource" value="BusInterfaceClock"/>
                         <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
@@ -606,6 +612,7 @@
                            <setting name="enable_irq" value="true"/>
                            <struct name="interrupt">
                               <setting name="IRQn" value="TMR3_IRQn"/>
+                              <setting name="enable_interrrupt" value="enabled"/>
                               <setting name="enable_priority" value="false"/>
                               <setting name="priority" value="0"/>
                               <setting name="enable_custom_name" value="true"/>
@@ -614,12 +621,23 @@
                         </struct>
                      </config_set>
                   </instance>
+                  <instance name="NVIC" uuid="8d97f442-d195-49cf-943c-b922931a142b" type="nvic" type_id="nvic_57b5eef3774cc60acaede6f5b8bddc67" mode="general" peripheral="NVIC" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="nvic">
+                        <array name="interrupt_table">
+                           <struct name="0"/>
+                        </array>
+                        <array name="interrupts"/>
+                     </config_set>
+                  </instance>
                </instances>
             </functional_group>
          </functional_groups>
          <components>
             <component name="system" uuid="4c606822-cc69-4bad-8508-22d73ae33295" type_id="system_54b53072540eeeb8f8e9343e71f28176">
-               <config_set_global name="global_system_definitions"/>
+               <config_set_global name="global_system_definitions">
+                  <setting name="user_definitions" value=""/>
+                  <setting name="user_includes" value=""/>
+               </config_set_global>
             </component>
             <component name="msg" uuid="6643035b-9cdd-4bea-aa31-f57acc63fb30" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
                <config_set_global name="global_messages"/>
@@ -630,14 +648,21 @@
             <component name="generic_can" uuid="1ad8ecad-0fae-4c4f-be52-afcb33d3754d" type_id="generic_can_1bfdd78b1af214566c1f23cf6a582d80">
                <config_set_global name="global_can"/>
             </component>
+            <component name="uart_cmsis_common" uuid="611cb94b-8916-4f1f-9fce-806643913c1d" type_id="uart_cmsis_common_9cb8e302497aa696fdbb5a4fd622c2a8">
+               <config_set_global name="global_USART_CMSIS_common" quick_selection="default"/>
+            </component>
+            <component name="gpio_adapter_common" uuid="3e390f20-26de-410b-99ea-91b1c4742337" type_id="gpio_adapter_common_57579b9ac814fe26bf95df0a384c36b6">
+               <config_set_global name="global_gpio_adapter_common" quick_selection="default"/>
+            </component>
+            <component name="generic_enet" uuid="63bee2d5-4bcc-4514-8af7-980a1a0f2545" type_id="generic_enet_74db5c914f0ddbe47d86af40cb77a619">
+               <config_set_global name="global_enet"/>
+            </component>
          </components>
       </periphs>
       <tee name="TEE" version="2.0" enabled="false" update_project_code="true">
          <tee_profile>
             <processor_version>N/A</processor_version>
          </tee_profile>
-         <global_options/>
-         <user_memory_regions/>
       </tee>
    </tools>
 </configuration>

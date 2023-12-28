@@ -49,14 +49,14 @@ typedef struct _srtm_keypad_key
     srtm_notification_t notif[SRTM_KEYPAD_NTF_NUM_PER_KEY]; /* SRTM notification message for keypad event */
     srtm_keypad_service_conf_t confKEvent;
     void *param;
-} * srtm_keypad_key_t;
+} *srtm_keypad_key_t;
 
 /* Service handle */
 typedef struct _srtm_keypad_service
 {
     struct _srtm_service service;
     srtm_list_t keys; /*!< SRTM keypad keys list */
-} * srtm_keypad_service_t;
+} *srtm_keypad_service_t;
 
 /*******************************************************************************
  * Prototypes

@@ -11,8 +11,8 @@
 #include "board.h"
 
 #include "erpc_server_setup.h"
-#include "erpc_matrix_multiply_server.h"
-#include "erpc_matrix_multiply.h"
+#include "c_erpc_matrix_multiply_server.h"
+#include "erpc_matrix_multiply_common.h"
 #include "erpc_error_handler.h"
 #include "mcmgr.h"
 

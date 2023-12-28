@@ -1,6 +1,5 @@
 /*
- * Copyright 2018-2020,2023 NXP
- * All rights reserved.
+ * Copyright 2018-2020, 2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -13,15 +12,14 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v13.1
+product: Pins v12.0
 processor: MIMXRT1042xxxxB
 package_id: MIMXRT1042XJM5B
 mcu_data: ksdk2_0
-processor_version: 0.14.5
-board: MIMXRT1040-EVK
+processor_version: 0.12.14
 pin_labels:
-- {pin_num: G10, pin_signal: GPIO_AD_B0_10, label: 'J16[6]/JTAG_TDO/J2[13]/J3[2]/INT1_COMBO/U66[8]/ENET_INT/U18[21]', identifier: INT1_COMBO;PHY_INTR}
-- {pin_num: N2, pin_signal: GPIO_SD_B1_04, label: 'WIFI_RST_B/U9[3]', identifier: WIFI_EST_B;ENET_RST;PHY_RST;PHY_RESET}
+- {pin_num: G10, pin_signal: GPIO_AD_B0_10, label: PHY_INTR, identifier: PHY_INTR}
+- {pin_num: N2, pin_signal: GPIO_SD_B1_04, label: PHY_RESET, identifier: PHY_RESET}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -69,10 +67,10 @@ BOARD_InitPins:
     pull_keeper_select: Pull, pull_keeper_enable: Enable, open_drain: Disable, speed: MHZ_200, drive_strength: R0_5, slew_rate: Fast}
   - {pin_num: B13, peripheral: ENET, signal: enet_tx_en, pin_signal: GPIO_B1_09, software_input_on: Disable, hysteresis_enable: Disable, pull_up_down_config: Pull_Up_100K_Ohm,
     pull_keeper_select: Pull, pull_keeper_enable: Enable, open_drain: Disable, speed: MHZ_200, drive_strength: R0_5, slew_rate: Fast}
-  - {pin_num: N2, peripheral: GPIO3, signal: 'gpio_io, 04', pin_signal: GPIO_SD_B1_04, identifier: PHY_RESET, direction: OUTPUT, gpio_init_state: 'true', pull_up_down_config: Pull_Up_100K_Ohm,
-    speed: MHZ_50, drive_strength: R0_5}
-  - {pin_num: G10, peripheral: GPIO1, signal: 'gpio_io, 10', pin_signal: GPIO_AD_B0_10, identifier: PHY_INTR, direction: INPUT, pull_keeper_select: Pull, speed: MHZ_100_01,
-    drive_strength: R0_5}
+  - {pin_num: G10, peripheral: GPIO1, signal: 'gpio_io, 10', pin_signal: GPIO_AD_B0_10, direction: INPUT, gpio_interrupt: kGPIO_IntLowLevel, software_input_on: Disable,
+    hysteresis_enable: Disable, pull_up_down_config: Pull_Up_100K_Ohm, pull_keeper_select: Pull, pull_keeper_enable: Enable, open_drain: Disable, speed: MHZ_100,
+    drive_strength: R0_5, slew_rate: Fast}
+  - {pin_num: N2, peripheral: GPIO3, signal: 'gpio_io, 04', pin_signal: GPIO_SD_B1_04, direction: OUTPUT, gpio_init_state: 'true'}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -89,10 +87,12 @@ void BOARD_InitPins(void) {
   gpio_pin_config_t PHY_INTR_config = {
       .direction = kGPIO_DigitalInput,
       .outputLogic = 0U,
-      .interruptMode = kGPIO_NoIntmode
+      .interruptMode = kGPIO_IntLowLevel
   };
   /* Initialize GPIO functionality on GPIO_AD_B0_10 (pin G10) */
   GPIO_PinInit(GPIO1, 10U, &PHY_INTR_config);
+  /* Enable GPIO pin interrupt on GPIO_AD_B0_10 (pin G10) */
+  GPIO_PortEnableInterrupts(GPIO1, 1U << 10U);
 
   /* GPIO configuration of PHY_RESET on GPIO_SD_B1_04 (pin N2) */
   gpio_pin_config_t PHY_RESET_config = {
@@ -125,7 +125,7 @@ void BOARD_InitPins(void) {
     (~(BOARD_INITPINS_IOMUXC_GPR_GPR28_GPIO_MUX3_GPIO_SEL_MASK))) 
       | IOMUXC_GPR_GPR28_GPIO_MUX3_GPIO_SEL(0x00U) 
     );
-  IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B0_10_GPIO1_IO10, 0xB069U); 
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B0_10_GPIO1_IO10, 0xB0A9U); 
   IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B0_12_LPUART1_TX, 0x10B0U); 
   IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B0_13_LPUART1_RX, 0x10B0U); 
   IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_04_ENET_RX_DATA00, 0xB0E9U); 
@@ -138,7 +138,6 @@ void BOARD_InitPins(void) {
   IOMUXC_SetPinConfig(IOMUXC_GPIO_B1_11_ENET_RX_ER, 0xB0E9U); 
   IOMUXC_SetPinConfig(IOMUXC_GPIO_EMC_40_ENET_MDC, 0xB0E9U); 
   IOMUXC_SetPinConfig(IOMUXC_GPIO_EMC_41_ENET_MDIO, 0xB829U); 
-  IOMUXC_SetPinConfig(IOMUXC_GPIO_SD_B1_04_GPIO3_IO04, 0x9028U); 
 }
 
 /***********************************************************************************************************************

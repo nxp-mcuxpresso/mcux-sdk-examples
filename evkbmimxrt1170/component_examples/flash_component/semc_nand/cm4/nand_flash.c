@@ -66,10 +66,10 @@ semc_nand_config_t semcNandConfig = {
     .ipgMemsize_kbytes = 2 * 1024 * 1024,                     /*!< The memory size is 8*1024*2*1024*1024 = 16Gb. */
     .rdyactivePolarity = kSEMC_RdyActiveLow,                  /*!< Wait ready polarity. */
     .arrayAddrOption   = kSEMC_NandAddrOption_5byte_CA2RA3,
-    .edoModeEnabled    = false,                 /*!< Address mode. */
-    .columnAddrBitNum  = kSEMC_NandColum_12bit, /*!< 12bit + 1bit to access the spare area. */
-    .burstLen          = kSEMC_Nand_BurstLen64, /*!< Burst length. */
-    .portSize          = kSEMC_PortSize8Bit,    /*!< Port size. */
+    .edoModeEnabled    = false,                               /*!< Address mode. */
+    .columnAddrBitNum  = kSEMC_NandColum_12bit,               /*!< 12bit + 1bit to access the spare area. */
+    .burstLen          = kSEMC_Nand_BurstLen64,               /*!< Burst length. */
+    .portSize          = kSEMC_PortSize8Bit,                  /*!< Port size. */
     .timingConfig      = NULL,
 };
 

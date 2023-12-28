@@ -73,10 +73,10 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../incbin.S"
 "${ProjDirPath}/../wifi_config.h"
+"${SdkRootDirPath}/examples/mimxrt685audevk/dsp_examples/rtp_demo/dsp/binary/dsp_literal_release.bin"
 "${SdkRootDirPath}/examples/mimxrt685audevk/dsp_examples/rtp_demo/dsp/binary/dsp_text_release.bin"
 "${SdkRootDirPath}/examples/mimxrt685audevk/dsp_examples/rtp_demo/dsp/binary/dsp_data_release.bin"
 "${SdkRootDirPath}/examples/mimxrt685audevk/dsp_examples/rtp_demo/dsp/binary/dsp_ncache_release.bin"
-"${ProjDirPath}/../app_config.h"
 "${ProjDirPath}/../dsp_support.c"
 "${ProjDirPath}/../dsp_support.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
@@ -86,6 +86,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/examples/mimxrt685audevk/wifi_bt_config.h"
 "${ProjDirPath}/../pmic_support.c"
 "${ProjDirPath}/../pmic_support.h"
+"${ProjDirPath}/../app_config.h"
 "${SdkRootDirPath}/core/boards/mimxrt685audevk/board.c"
 "${SdkRootDirPath}/core/boards/mimxrt685audevk/board.h"
 "${SdkRootDirPath}/core/boards/mimxrt685audevk/clock_config.c"
@@ -101,12 +102,12 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
 
 set_source_files_properties("${ProjDirPath}/../lwipopts.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_lwip_template")
 set_source_files_properties("${ProjDirPath}/../wifi_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
-set_source_files_properties("${ProjDirPath}/../app_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
 set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")
 set_source_files_properties("${SdkRootDirPath}/examples/mimxrt685audevk/sdmmc_config.c" PROPERTIES COMPONENT_CONFIG_FILE "middleware_sdmmc_usdhc_template")
 set_source_files_properties("${SdkRootDirPath}/examples/mimxrt685audevk/sdmmc_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_sdmmc_usdhc_template")
 set_source_files_properties("${SdkRootDirPath}/examples/mimxrt685audevk/wifi_bt_config.c" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
 set_source_files_properties("${SdkRootDirPath}/examples/mimxrt685audevk/wifi_bt_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
+set_source_files_properties("${ProjDirPath}/../app_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
 
 include(${SdkRootDirPath}/core/devices/MIMXRT685S/all_lib_device.cmake)
 

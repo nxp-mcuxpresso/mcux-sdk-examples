@@ -56,12 +56,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../rpmsg_config.h"
 "${ProjDirPath}/../erpc_config.h"
-"${SdkRootDirPath}/examples/evkmcimx7ulp/multicore_examples/erpc_common/erpc_error_handler.h"
-"${SdkRootDirPath}/examples/evkmcimx7ulp/multicore_examples/erpc_common/erpc_error_handler.cpp"
-"${SdkRootDirPath}/examples/evkmcimx7ulp/multicore_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.erpc"
-"${SdkRootDirPath}/examples/evkmcimx7ulp/multicore_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.h"
-"${SdkRootDirPath}/examples/evkmcimx7ulp/multicore_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply_server.h"
-"${SdkRootDirPath}/examples/evkmcimx7ulp/multicore_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply_server.cpp"
 "${ProjDirPath}/../FreeRTOSConfig.h"
 "${ProjDirPath}/../rsc_table.c"
 "${ProjDirPath}/../rsc_table.h"
@@ -101,8 +95,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${SdkRootDirPath}/examples/evkmcimx7ulp/multicore_examples/erpc_common
-    ${SdkRootDirPath}/examples/evkmcimx7ulp/multicore_examples/erpc_common/erpc_matrix_multiply/service
     ${SdkRootDirPath}/core/boards/evkmcimx7ulp
     ${ProjDirPath}/../srtm/channels
     ${ProjDirPath}/../srtm/services

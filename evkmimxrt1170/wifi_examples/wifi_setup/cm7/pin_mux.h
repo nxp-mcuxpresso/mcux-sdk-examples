@@ -65,6 +65,12 @@ void BOARD_InitPins(void);                    /* Function assigned for the Corte
  * @brief Configures pin routing and optionally pin electrical features.
  *
  */
+void BOARD_InitResetPins(void);               /* Function assigned for the Cortex-M7F */
+
+/*!
+ * @brief Configures pin routing and optionally pin electrical features.
+ *
+ */
 void BOARD_InitPinsM2(void);                  /* Function assigned for the Cortex-M7F */
 
 #if defined(__cplusplus)

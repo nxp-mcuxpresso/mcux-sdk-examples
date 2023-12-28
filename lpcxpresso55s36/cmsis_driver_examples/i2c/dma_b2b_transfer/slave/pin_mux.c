@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 NXP
+ * Copyright 2021, 2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v9.0
+product: Pins v12.0
 processor: LPC55S36
 package_id: LPC55S36JBD100
 mcu_data: ksdk2_0
-processor_version: 0.10.0
+processor_version: 0.12.6
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -103,9 +103,9 @@ I2C2_InitPins:
 - options: {callFromInitBoot: 'true', coreID: cm33_core0, enableClock: 'true'}
 - pin_list:
   - {pin_num: '68', peripheral: FLEXCOMM2, signal: CTS_SDA_SSEL0, pin_signal: PIO1_26/FC2_CTS_SDA_SSEL0/SCT0_OUT3/CT_INP3/UTICK_CAP1/HS_SPI_SSEL3/PWM0_A1/QSPI_CS1_DIS/AOI1_OUT2,
-    mode: pullUp, slew_rate: standard, invert: disabled, open_drain: disabled}
+    mode: pullUp, slew_rate: standard, invert: disabled, open_drain: enabled}
   - {pin_num: '77', peripheral: FLEXCOMM2, signal: TXD_SCL_MISO_WS, pin_signal: PIO1_25/FC2_TXD_SCL_MISO_WS/SCT0_OUT2/UTICK_CAP0/PWM1_A2/SPI_SCLK/AOI0_OUT3, mode: pullUp,
-    slew_rate: standard, invert: disabled, open_drain: disabled}
+    slew_rate: standard, invert: disabled, open_drain: enabled}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -132,8 +132,8 @@ void I2C2_InitPins(void)
                                          IOCON_PIO_INV_DI |
                                          /* Enables digital function */
                                          IOCON_PIO_DIGITAL_EN |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+                                         /* Open drain is enabled */
+                                         IOCON_PIO_OPENDRAIN_EN);
     /* PORT1 PIN25 (coords: 77) is configured as FC2_TXD_SCL_MISO_WS */
     IOCON_PinMuxSet(IOCON, 1U, 25U, port1_pin25_config);
 
@@ -147,8 +147,8 @@ void I2C2_InitPins(void)
                                          IOCON_PIO_INV_DI |
                                          /* Enables digital function */
                                          IOCON_PIO_DIGITAL_EN |
-                                         /* Open drain is disabled */
-                                         IOCON_PIO_OPENDRAIN_DI);
+                                         /* Open drain is enabled */
+                                         IOCON_PIO_OPENDRAIN_EN);
     /* PORT1 PIN26 (coords: 68) is configured as FC2_CTS_SDA_SSEL0 */
     IOCON_PinMuxSet(IOCON, 1U, 26U, port1_pin26_config);
 }

@@ -414,3 +414,8 @@ void AfterResetTarget(void) {
     SetSemcClock();
     SDRAMInit();
 }
+
+int HandleBeforeFlashProg(void) {
+ JLINK_ExecCommand("SetFlashDLNoRMWThreshold = 0xffffffff"); 
+ return 0;
+}

@@ -49,9 +49,9 @@ volatile bool txBufferFull                                           = false;
 volatile bool txOnGoing                                              = false;
 volatile bool rxOnGoing                                              = false;
 #if (defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) && DEMO_EDMA_HAS_CHANNEL_CONFIG)
-extern edma_config_t config;
+extern edma_config_t userConfig;
 #else
-edma_config_t config;
+edma_config_t userConfig;
 #endif
 /*******************************************************************************
  * Code
@@ -116,9 +116,9 @@ int main(void)
 #endif
     /* Init the EDMA module */
 #if (!defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) || (defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) && !DEMO_EDMA_HAS_CHANNEL_CONFIG))
-    EDMA_GetDefaultConfig(&config);
+    EDMA_GetDefaultConfig(&userConfig);
 #endif
-    EDMA_Init(EXAMPLE_LPUART_DMA_BASEADDR, &config);
+    EDMA_Init(EXAMPLE_LPUART_DMA_BASEADDR, &userConfig);
     EDMA_CreateHandle(&g_lpuartTxEdmaHandle, EXAMPLE_LPUART_DMA_BASEADDR, LPUART_TX_DMA_CHANNEL);
     EDMA_CreateHandle(&g_lpuartRxEdmaHandle, EXAMPLE_LPUART_DMA_BASEADDR, LPUART_RX_DMA_CHANNEL);
 #if defined(FSL_FEATURE_EDMA_HAS_CHANNEL_MUX) && FSL_FEATURE_EDMA_HAS_CHANNEL_MUX

@@ -186,7 +186,7 @@ int main(void)
     mLpadcCommandConfigStruct.sampleScaleMode = kLPADC_SampleFullScale;
 #endif
     mLpadcCommandConfigStruct.sampleChannelMode =
-        kLPADC_SampleChannelDiffBothSideAB; /* ADC Temperature: differential mode. */
+        kLPADC_SampleChannelDiffBothSideAB;                              /* ADC Temperature: differential mode. */
     mLpadcCommandConfigStruct.hardwareAverageMode =
         kLPADC_HardwareAverageCount128;                                  /* ADC Temperature: Maximum averaging. */
     mLpadcCommandConfigStruct.sampleTimeMode = kLPADC_SampleTimeADCK131; /* ADC Temperature: Maximum sample time. */

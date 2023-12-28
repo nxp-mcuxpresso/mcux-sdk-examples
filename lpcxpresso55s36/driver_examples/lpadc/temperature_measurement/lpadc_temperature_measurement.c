@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 NXP
+ * Copyright 2019-2022 NXP
  * All rights reserved.
  *
  *
@@ -64,7 +64,7 @@ float DEMO_MeasureTemperature(ADC_Type *base, uint32_t commandId, uint32_t index
     lpadc_conv_result_t convResultStruct;
     uint16_t Vbe1            = 0U;
     uint16_t Vbe8            = 0U;
-    uint32_t convResultShift = 3U;
+    uint32_t convResultShift = 0U;
     float parameterSlope     = DEMO_LPADC_TEMP_PARAMETER_A;
     float parameterOffset    = DEMO_LPADC_TEMP_PARAMETER_B;
     float parameterAlpha     = DEMO_LPADC_TEMP_PARAMETER_ALPHA;
@@ -125,9 +125,7 @@ int main(void)
     POWER_DisablePD(kPDRUNCFG_PD_VREF);
 
     VREF_GetDefaultConfig(&vrefConfig);
-    vrefConfig.bufferMode                     = kVREF_ModeBandgapOnly;
-    vrefConfig.enableInternalVoltageRegulator = false;
-    vrefConfig.enableVrefOut                  = false;
+    vrefConfig.bufferMode = kVREF_ModeBandgapOnly;
     VREF_Init(VREF, &vrefConfig);
 
     PRINTF("LPADC Temperature Measurement Example\r\n");
@@ -151,11 +149,12 @@ int main(void)
     while (1)
     {
         GETCHAR();
+        g_LpadcConversionCompletedFlag = false;
         LPADC_DoSoftwareTrigger(DEMO_LPADC_BASE, 1U); /* 1U is trigger0 mask. */
         while (false == g_LpadcConversionCompletedFlag)
         {
         }
-        PRINTF("Current temperature: %6.3f\r\n", g_CurrentTemperature);
+        PRINTF("Current temperature: %6.3f\r\n", (double)g_CurrentTemperature);
     }
 }
 
@@ -226,10 +225,6 @@ static void ADC_Configuration(void)
     EnableIRQ(DEMO_LPADC_IRQn);
 
     /* Eliminate the first two inaccurate results. */
-    LPADC_DoSoftwareTrigger(DEMO_LPADC_BASE, 1U); /* 1U is trigger0 mask. */
-    while (false == g_LpadcConversionCompletedFlag)
-    {
-    }
     LPADC_DoSoftwareTrigger(DEMO_LPADC_BASE, 1U); /* 1U is trigger0 mask. */
     while (false == g_LpadcConversionCompletedFlag)
     {

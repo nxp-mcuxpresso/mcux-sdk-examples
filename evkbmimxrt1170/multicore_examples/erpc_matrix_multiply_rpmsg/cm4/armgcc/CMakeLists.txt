@@ -55,12 +55,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../board.h"
 "${ProjDirPath}/../clock_config.c"
 "${ProjDirPath}/../clock_config.h"
-"${SdkRootDirPath}/examples/evkbmimxrt1170/multicore_examples/erpc_common/erpc_error_handler.h"
-"${SdkRootDirPath}/examples/evkbmimxrt1170/multicore_examples/erpc_common/erpc_error_handler.cpp"
-"${SdkRootDirPath}/examples/evkbmimxrt1170/multicore_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.erpc"
-"${SdkRootDirPath}/examples/evkbmimxrt1170/multicore_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.h"
-"${SdkRootDirPath}/examples/evkbmimxrt1170/multicore_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply_server.h"
-"${SdkRootDirPath}/examples/evkbmimxrt1170/multicore_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply_server.cpp"
 "${ProjDirPath}/../main_core1.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
@@ -73,8 +67,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/core/boards/evkbmimxrt1170
-    ${SdkRootDirPath}/examples/evkbmimxrt1170/multicore_examples/erpc_common
-    ${SdkRootDirPath}/examples/evkbmimxrt1170/multicore_examples/erpc_common/erpc_matrix_multiply/service
     ${ProjDirPath}/..
     ${SdkRootDirPath}/examples/evkbmimxrt1170/multicore_examples/erpc_matrix_multiply_rpmsg
 )

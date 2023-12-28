@@ -187,7 +187,11 @@ void USB_HostIsrEnable(void)
 
 int main(void)
 {
-    BOARD_InitBootPins();
+	RESET_ClearPeripheralReset(kHSGPIO0_RST_SHIFT_RSTn);
+    RESET_ClearPeripheralReset(kHSGPIO3_RST_SHIFT_RSTn);
+    RESET_ClearPeripheralReset(kHSGPIO4_RST_SHIFT_RSTn);
+
+	BOARD_InitBootPins();
     BOARD_InitBootClocks();
 
 #if defined(K32W061_TRANSCEIVER)
@@ -201,6 +205,14 @@ int main(void)
     /* attach FRG0 clock to FLEXCOMM0 */
     CLOCK_SetFRGClock(BOARD_BT_UART_FRG_CLK);
     CLOCK_AttachClk(BOARD_BT_UART_CLK_ATTACH);
+#endif
+
+
+#if defined(WIFI_88W8987_BOARD_MURATA_1ZM_M2)
+    CLOCK_EnableOsc32K(true);               /* Enable 32KHz Oscillator clock */
+    CLOCK_EnableClock(kCLOCK_Rtc);          /* Enable the RTC peripheral clock */
+    RTC->CTRL &= ~RTC_CTRL_SWRESET_MASK;    /* Make sure the reset bit is cleared */
+    RTC->CTRL &= ~RTC_CTRL_RTC_OSC_PD_MASK; /* The RTC Oscillator is powered up */
 #endif
 
     /* Set FlexSPI clock: source AUX0_PLL, divide by 4 */

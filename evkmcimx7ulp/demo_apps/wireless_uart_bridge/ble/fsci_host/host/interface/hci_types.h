@@ -239,36 +239,36 @@ typedef uint8_t hciEventMaskShiftsPage1_t;
 typedef enum
 {
     /* 8 octets - 0x0000000000000000 = No Event Specified */
-    gHciEventMaskShiftInuiryComplete_c                       = 0,  /* 0x0000000000000001 */
-    gHciEventMaskShiftInuiryResult_c                         = 1,  /* 0x0000000000000002 */
-    gHciEventMaskShiftConnectionComplete_c                   = 2,  /* 0x0000000000000004 */
-    gHciEventMaskShiftConnectionRequest_c                    = 3,  /* 0x0000000000000008 */
-    gHciEventMaskShiftDisconnectionComplete_c                = 4,  /* 0x0000000000000010 */
-    gHciEventMaskShiftAuthenticationComplete_c               = 5,  /* 0x0000000000000020 */
-    gHciEventMaskShiftRemoteNameRequestComplete_c            = 6,  /* 0x0000000000000040 */
-    gHciEventMaskShiftEncryptionChange_c                     = 7,  /* 0x0000000000000080 */
-    gHciEventMaskShiftChangeConnectionLinkKeyComplete_c      = 8,  /* 0x0000000000000100 */
-    gHciEventMaskShiftMasterLinkKeyComplete_c                = 9,  /* 0x0000000000000200 */
-    gHciEventMaskShiftReadRemoteSupportedFeaturesComplete_c  = 10, /* 0x0000000000000400 */
-    gHciEventMaskShiftReadRemoteVersionInformationComplete_c = 11, /* 0x0000000000000800 */
-    gHciEventMaskShiftQosSetupComplete_c                     = 12, /* 0x0000000000001000 */
-    gHciEventMaskShiftReserved13_c                           = 13, /* 0x0000000000002000 */
-    gHciEventMaskShiftReserved14_c                           = 14, /* 0x0000000000004000 */
-    gHciEventMaskShiftHardwareError_c                        = 15, /* 0x0000000000008000 */
-    gHciEventMaskShiftFlushOccured_c                         = 16, /* 0x0000000000010000 */
-    gHciEventMaskShiftRoleChange_c                           = 17, /* 0x0000000000020000 */
-    gHciEventMaskShiftReserved18_c                           = 18, /* 0x0000000000040000 */
-    gHciEventMaskShiftModeChange_c                           = 19, /* 0x0000000000080000 */
-    gHciEventMaskShiftReturnLinkKeys_c                       = 20, /* 0x0000000000100000 */
-    gHciEventMaskShiftPinCodeRequest_c                       = 21, /* 0x0000000000200000 */
-    gHciEventMaskShiftLinkKeyRequest_c                       = 22, /* 0x0000000000400000 */
-    gHciEventMaskShiftLinkKeyNotification_c                  = 23, /* 0x0000000000800000 */
-    gHciEventMaskShiftLoopbackCommandn_c                     = 24, /* 0x0000000001000000 */
-    gHciEventMaskShiftDataBufferOferflow_c                   = 25, /* 0x0000000002000000 */
-    gHciEventMaskShiftMaxSlotsChange_c                       = 26, /* 0x0000000004000000 */
-    gHciEventMaskShiftReadClockOffsetComplete_c              = 27, /* 0x0000000008000000 */
-    gHciEventMaskShiftConnectionPacketType_c                 = 28, /* 0x0000000010000000 */
-    gHciEventMaskShiftQosViolation_c                         = 29, /* 0x0000000020000000 */
+    gHciEventMaskShiftInuiryComplete_c                       = 0,     /* 0x0000000000000001 */
+    gHciEventMaskShiftInuiryResult_c                         = 1,     /* 0x0000000000000002 */
+    gHciEventMaskShiftConnectionComplete_c                   = 2,     /* 0x0000000000000004 */
+    gHciEventMaskShiftConnectionRequest_c                    = 3,     /* 0x0000000000000008 */
+    gHciEventMaskShiftDisconnectionComplete_c                = 4,     /* 0x0000000000000010 */
+    gHciEventMaskShiftAuthenticationComplete_c               = 5,     /* 0x0000000000000020 */
+    gHciEventMaskShiftRemoteNameRequestComplete_c            = 6,     /* 0x0000000000000040 */
+    gHciEventMaskShiftEncryptionChange_c                     = 7,     /* 0x0000000000000080 */
+    gHciEventMaskShiftChangeConnectionLinkKeyComplete_c      = 8,     /* 0x0000000000000100 */
+    gHciEventMaskShiftMasterLinkKeyComplete_c                = 9,     /* 0x0000000000000200 */
+    gHciEventMaskShiftReadRemoteSupportedFeaturesComplete_c  = 10,    /* 0x0000000000000400 */
+    gHciEventMaskShiftReadRemoteVersionInformationComplete_c = 11,    /* 0x0000000000000800 */
+    gHciEventMaskShiftQosSetupComplete_c                     = 12,    /* 0x0000000000001000 */
+    gHciEventMaskShiftReserved13_c                           = 13,    /* 0x0000000000002000 */
+    gHciEventMaskShiftReserved14_c                           = 14,    /* 0x0000000000004000 */
+    gHciEventMaskShiftHardwareError_c                        = 15,    /* 0x0000000000008000 */
+    gHciEventMaskShiftFlushOccured_c                         = 16,    /* 0x0000000000010000 */
+    gHciEventMaskShiftRoleChange_c                           = 17,    /* 0x0000000000020000 */
+    gHciEventMaskShiftReserved18_c                           = 18,    /* 0x0000000000040000 */
+    gHciEventMaskShiftModeChange_c                           = 19,    /* 0x0000000000080000 */
+    gHciEventMaskShiftReturnLinkKeys_c                       = 20,    /* 0x0000000000100000 */
+    gHciEventMaskShiftPinCodeRequest_c                       = 21,    /* 0x0000000000200000 */
+    gHciEventMaskShiftLinkKeyRequest_c                       = 22,    /* 0x0000000000400000 */
+    gHciEventMaskShiftLinkKeyNotification_c                  = 23,    /* 0x0000000000800000 */
+    gHciEventMaskShiftLoopbackCommandn_c                     = 24,    /* 0x0000000001000000 */
+    gHciEventMaskShiftDataBufferOferflow_c                   = 25,    /* 0x0000000002000000 */
+    gHciEventMaskShiftMaxSlotsChange_c                       = 26,    /* 0x0000000004000000 */
+    gHciEventMaskShiftReadClockOffsetComplete_c              = 27,    /* 0x0000000008000000 */
+    gHciEventMaskShiftConnectionPacketType_c                 = 28,    /* 0x0000000010000000 */
+    gHciEventMaskShiftQosViolation_c                         = 29,    /* 0x0000000020000000 */
     gHciEventMaskShiftPageScanModeChange_c                   = 30,
     /* 0x0000000040000000 */                                          /* Deprecated */
     gHciEventMaskShiftPageScanRepetitionModeChange_c            = 31, /* 0x0000000080000000 */
@@ -701,9 +701,9 @@ typedef enum
     gHciSlaveInitiatedFeaturesExchange_c       = BIT(0 * 8 + 3), /* 3 */
     gHciLePing_c                               = BIT(0 * 8 + 4), /* 4 */
 #if (gBLE42_d == TRUE)
-    gHciLeDataPacketLengthExtension_c   = BIT(0 * 8 + 5), /* 5 */
-    gHciLlPrivacy_c                     = BIT(0 * 8 + 6), /* 6 */
-    gHciExtendedScannerFilterPolicies_c = BIT(0 * 8 + 7), /* 7 */
+    gHciLeDataPacketLengthExtension_c   = BIT(0 * 8 + 5),        /* 5 */
+    gHciLlPrivacy_c                     = BIT(0 * 8 + 6),        /* 6 */
+    gHciExtendedScannerFilterPolicies_c = BIT(0 * 8 + 7),        /* 7 */
 #endif
 } hciLeSupportedFeatures_tag;
 

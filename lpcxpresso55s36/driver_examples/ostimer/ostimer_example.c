@@ -10,8 +10,8 @@
 #include "clock_config.h"
 #include "board.h"
 #include "fsl_ostimer.h"
-#include "fsl_power.h"
 
+#include "fsl_power.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -95,6 +95,8 @@ int main(void)
     CLOCK_AttachClk(kXTAL32K_to_OSC32K);
     CLOCK_AttachClk(kOSC32K_to_OSTIMER);
 
+    PRINTF("Press any key to start example.\r\n\r\n");
+    GETCHAR();
     PRINTF("Board will enter power deep sleep mode, and then wakeup by OS timer after about 5 seconds.\r\n");
     PRINTF("After Board wakeup, the OS timer will trigger the match interrupt about every 2 seconds.\r\n");
 

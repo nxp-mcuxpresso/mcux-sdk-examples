@@ -47,7 +47,7 @@
 #define DEMO_SAI_MASTER_SLAVE          kSAI_Master
 #define DEMO_AUDIO_MASTER_CLOCK        24576000
 
-/* Select Audio/Video PLL (393.24 MHz) as sai1 clock source */
+/* Select Audio/Video PLL (393.216 MHz) as sai1 clock source */
 #define DEMO_SAI1_CLOCK_SOURCE_SELECT (2U)
 /* Clock pre divider for sai1 clock source */
 #define DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER (0U)
@@ -101,14 +101,14 @@ cs42448_config_t cs42448Config = {
 codec_config_t boardCodecConfig = {.codecDevType = kCODEC_CS42448, .codecDevConfig = &cs42448Config};
 /*
  * AUDIO PLL setting: Frequency = Fref * (DIV_SELECT + NUM / DENOM)
- *                              = 24 * (32 + 77/100)
- *                              = 786.48 MHz
+ *                              = 24 * (32 + 768/1000)
+ *                              = 786.432 MHz
  */
 const clock_audio_pll_config_t audioPllConfig = {
-    .loopDivider = 32,  /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
-    .postDivider = 1,   /* Divider after the PLL, should only be 1, 2, 4, 8, 16. */
-    .numerator   = 77,  /* 30 bit numerator of fractional loop divider. */
-    .denominator = 100, /* 30 bit denominator of fractional loop divider */
+    .loopDivider = 32,   /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
+    .postDivider = 1,    /* Divider after the PLL, should only be 1, 2, 4, 8, 16. */
+    .numerator   = 768,  /* 30 bit numerator of fractional loop divider. */
+    .denominator = 1000, /* 30 bit denominator of fractional loop divider */
 };
 AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t txHandle);
 edma_handle_t g_dmaHandle = {0};
@@ -207,7 +207,7 @@ int main(void)
     /* enable codec power */
     GPIO_PinWrite(DEMO_CODEC_POWER_GPIO, DEMO_CODEC_POWER_GPIO_PIN, 1U);
 
-    PRINTF("SAI EDMA multi channel transfer example started!\n\r");
+    PRINTF("SAI EDMA multi channel transfer example started!\r\n");
 
     /* Create EDMA handle */
     /*

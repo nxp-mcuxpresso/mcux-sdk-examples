@@ -53,7 +53,11 @@
 #define configUSE_PREEMPTION                         1
 #define configUSE_IDLE_HOOK                          0
 #define configUSE_TICK_HOOK                          0
+
+#ifndef configUSE_TICKLESS_IDLE
 #define configUSE_TICKLESS_IDLE                      0
+#endif
+
 #define configUSE_DAEMON_TASK_STARTUP_HOOK           0
 #define configCPU_CLOCK_HZ                           ( SystemCoreClock )
 #define configTICK_RATE_HZ                           ( ( TickType_t ) 1000 )
@@ -74,6 +78,9 @@
 #define configGENERATE_RUN_TIME_STATS                0
 #define configOVERRIDE_DEFAULT_TICK_CONFIGURATION    0
 #define configRECORD_STACK_HIGH_ADDRESS              1
+
+/* Used memory allocation (heap_x.c) */
+#define configFRTOS_MEMORY_SCHEME 4
 
 /* Co-routine definitions. */
 #define configUSE_CO_ROUTINES                        0

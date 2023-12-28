@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v9.0
+product: Pins v13.0
 processor: LPC55S36
 package_id: LPC55S36JBD100
 mcu_data: ksdk2_0
-processor_version: 0.10.1
+processor_version: 0.13.4
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -44,13 +44,13 @@ void BOARD_InitBootPins(void)
 BOARD_InitPins:
 - options: {callFromInitBoot: 'true', coreID: cm33_core0, enableClock: 'true'}
 - pin_list:
+  - {pin_num: '66', peripheral: I3C0, signal: PUR, pin_signal: PIO0_28/TAMPER1/FC0_SCK/CT_INP11/SCT0_OUT7/TRACEDATA3/USB0_OVERCURRENTN/I3C0_PUR/SECURE_GPIO0_28/PWM0_A2/QSPI_CS0_DIS,
+    mode: inactive, slew_rate: standard, invert: disabled, open_drain: disabled}
   - {pin_num: '93', peripheral: FLEXCOMM0, signal: RXD_SDA_MOSI_DATA, pin_signal: PIO0_29/FC0_RXD_SDA_MOSI_DATA/CTIMER2_MAT3/SCT0_OUT8/TRACEDATA2/FC6_RXD_SDA_MOSI_DATA/CMP0_OUT/SECURE_GPIO0_29/PWM0_A1/SPI_DIN/EXTTRIG_IN3,
     mode: inactive, slew_rate: standard, invert: disabled, open_drain: disabled}
   - {pin_num: '95', peripheral: FLEXCOMM0, signal: TXD_SCL_MISO_WS, pin_signal: PIO0_30/FC0_TXD_SCL_MISO_WS/CTIMER0_MAT0/SCT0_OUT9/TRACEDATA1/CAN0_TD/FC6_TXD_SCL_MISO_WS/SECURE_GPIO0_30/PWM1_A1/AOI1_OUT0,
     mode: inactive, slew_rate: standard, invert: disabled, open_drain: disabled}
-  - {pin_num: '66', peripheral: I3C0, signal: PUR, pin_signal: PIO0_28/TAMPER1/FC0_SCK/CT_INP11/SCT0_OUT7/TRACEDATA3/USB0_OVERCURRENTN/I3C0_PUR/SECURE_GPIO0_28/PWM0_A2/QSPI_CS0_DIS,
-    mode: inactive, slew_rate: standard, invert: disabled, open_drain: disabled}
-  - {pin_num: '55', peripheral: I3C0, signal: SCL, pin_signal: PIO0_9/FC3_SSEL2/FC5_TXD_SCL_MISO_WS/I3C0_SCL/SWDIO/SECURE_GPIO0_9/PWM1_A2/TRIGOUT_2/ACMP0_B, mode: inactive,
+  - {pin_num: '23', peripheral: I3C0, signal: SCL, pin_signal: PIO0_31/FC0_CTS_SDA_SSEL0/CTIMER0_MAT1/SCT0_OUT3/SECURE_GPIO0_31/AOI0_OUT0/I3C0_SCL/ADC0_8A, mode: inactive,
     slew_rate: standard, invert: disabled, open_drain: disabled, asw0: disabled}
   - {pin_num: '69', peripheral: I3C0, signal: SDA, pin_signal: PIO0_24/FC0_RXD_SDA_MOSI_DATA/CT_INP8/SCT_GPI0/I3C0_SDA/TRACEDATA0/SECURE_GPIO0_24/PWM0_A1/SPI_CS0_DIS/PWM0_X0/HSCMP0_IN0,
     mode: inactive, slew_rate: standard, invert: disabled, open_drain: disabled, asw0: disabled}
@@ -132,22 +132,23 @@ void BOARD_InitPins(void)
     /* PORT0 PIN30 (coords: 95) is configured as FC0_TXD_SCL_MISO_WS */
     IOCON_PinMuxSet(IOCON, 0U, 30U, port0_pin30_config);
 
-    const uint32_t port0_pin9_config = (/* Pin is configured as I3C0_SCL */
-                                        IOCON_PIO_FUNC7 |
-                                        /* No addition pin function */
-                                        IOCON_PIO_MODE_INACT |
-                                        /* Standard mode, output slew rate control is enabled */
-                                        IOCON_PIO_SLEW_STANDARD |
-                                        /* Input function is not inverted */
-                                        IOCON_PIO_INV_DI |
-                                        /* Enables digital function */
-                                        IOCON_PIO_DIGITAL_EN |
-                                        /* Open drain is disabled */
-                                        IOCON_PIO_OPENDRAIN_DI |
-                                        /* Analog switch 0 is open (disabled) */
-                                        IOCON_PIO_ASW0_DI);
-    /* PORT0 PIN9 (coords: 55) is configured as I3C0_SCL */
-    IOCON_PinMuxSet(IOCON, 0U, 9U, port0_pin9_config);
+    /* Note: PIO0_31 I3C0_SCL only works on A1 chip. */
+    const uint32_t port0_pin31_config = (/* Pin is configured as I3C0_SCL */
+                                         IOCON_PIO_FUNC15 |
+                                         /* No addition pin function */
+                                         IOCON_PIO_MODE_INACT |
+                                         /* Standard mode, output slew rate control is enabled */
+                                         IOCON_PIO_SLEW_STANDARD |
+                                         /* Input function is not inverted */
+                                         IOCON_PIO_INV_DI |
+                                         /* Enables digital function */
+                                         IOCON_PIO_DIGITAL_EN |
+                                         /* Open drain is disabled */
+                                         IOCON_PIO_OPENDRAIN_DI |
+                                         /* Analog switch 0 is open (disabled) */
+                                         IOCON_PIO_ASW0_DI);
+    /* PORT0 PIN31 (coords: 23) is configured as I3C0_SCL */
+    IOCON_PinMuxSet(IOCON, 0U, 31U, port0_pin31_config);
 }
 /***********************************************************************************************************************
  * EOF

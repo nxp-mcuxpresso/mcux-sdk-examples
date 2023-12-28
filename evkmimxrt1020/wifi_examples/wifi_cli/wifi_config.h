@@ -16,7 +16,7 @@
 #define CONFIG_5GHz_SUPPORT 1
 #endif
 
-//#define CONFIG_SDIO_MULTI_PORT_RX_AGGR 1
+// #define CONFIG_SDIO_MULTI_PORT_RX_AGGR 1
 
 #if defined(SD8987)
 #define CONFIG_11AC

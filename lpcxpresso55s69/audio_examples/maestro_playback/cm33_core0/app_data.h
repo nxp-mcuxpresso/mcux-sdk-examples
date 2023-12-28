@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -11,18 +11,40 @@
 #include <stdint.h>
 #include <streamer_element_properties.h>
 
-#ifdef CPU_LPC55S69JBD100_cm33_core0
-#define EAP_MAX_PRESET 6
-#else
-#define EAP_MAX_PRESET 10
+#ifndef MAX_FILES_LIST
+#define MAX_FILES_LIST 256
 #endif
+
+#ifndef MAX_FILE_NAME_LENGTH
+#define MAX_FILE_NAME_LENGTH 64
+#endif
+
+typedef enum _app_status
+{
+    kAppIdle    = 0, /*!< application is idle */
+    kAppRunning = 1, /*!< application is running */
+    kAppPaused  = 2, /*!< application is running with paused playback */
+    kAppError   = -1 /*!< signals any kind of error, read error message and restart*/
+} app_status_t;
+
+typedef enum _app_error_code
+{
+    kAppCodeOk    = 0, /*!< No problem */
+    kAppCodeError = 1, /*!< Status for generic error */
+} app_error_code_t;
 
 typedef struct _app_data
 {
-    int lastXOOperatingMode; // buffer for Crossover enable/disable request handling
-    int lastPreset;          // buffer for last active preset selection
-    int logEnabled;          // enable log to increase debug verbosity
-    ext_proc_args eap_args;
+    int logEnabled;
+    app_status_t status;
+    app_error_code_t lastError;
+    int trackTotal;                   // audio track duration in [ms]
+    int trackCurrent;                 // audio track actual time in [ms]
+    char input[MAX_FILE_NAME_LENGTH]; /* Set default input on startup or retrieve current value modified in ATT UI. */
+    char availableInputs[MAX_FILES_LIST][MAX_FILE_NAME_LENGTH]; /* Fill available inputs data if wanted. */
+    int volume;                                                 // Volume in range 0-100%, 0 is muted
+    int32_t seek_time;                                          // Seek time
+    ext_proc_args proc_args;
 #ifdef MULTICHANNEL_EXAMPLE
     uint8_t num_channels; // number of channels set with cli
 #endif

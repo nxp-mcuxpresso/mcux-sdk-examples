@@ -166,7 +166,8 @@ static const CHAR rebootCommand[] = "reboot";
 static const INT working_set_minimum = 1000;
 static const INT working_set_random_modulo = 500;
 
-static UCHAR scratch_buffer[512];
+static UCHAR scratch_buffer[128];
+static UCHAR recv_buffer[400];
 
 static UINT sample_pnp_temp_controller_reboot_command(NX_PACKET *packet_ptr, UCHAR *buffer,
                                                      UINT buffer_size, UINT *bytes_copied)
@@ -207,6 +208,7 @@ static UINT sample_pnp_temp_controller_telemetry_send(NX_AZURE_IOT_HUB_CLIENT *i
     az_json_writer json_writer;
     UINT buffer_length;
     INT working_set;
+    UCHAR temp_buffer[64];
 
     working_set = working_set_minimum + (rand() % working_set_random_modulo);
 
@@ -219,7 +221,7 @@ static UINT sample_pnp_temp_controller_telemetry_send(NX_AZURE_IOT_HUB_CLIENT *i
     }
 
     /* Build telemetry JSON payload */
-    if(!(az_result_succeeded(az_json_writer_init(&json_writer, AZ_SPAN_FROM_BUFFER(scratch_buffer), NULL)) &&
+    if(!(az_result_succeeded(az_json_writer_init(&json_writer, AZ_SPAN_FROM_BUFFER(temp_buffer), NULL)) &&
          az_result_succeeded(az_json_writer_append_begin_object(&json_writer)) &&
          az_result_succeeded(az_json_writer_append_property_name(&json_writer, working_set_span)) &&
          az_result_succeeded(az_json_writer_append_int32(&json_writer, working_set)) &&
@@ -232,14 +234,14 @@ static UINT sample_pnp_temp_controller_telemetry_send(NX_AZURE_IOT_HUB_CLIENT *i
 
     buffer_length = (UINT)az_span_size(az_json_writer_get_bytes_used_in_destination(&json_writer));
     if ((status = nx_azure_iot_hub_client_telemetry_send(iothub_client_ptr, packet_ptr,
-                                                         (UCHAR *)scratch_buffer, buffer_length, NX_WAIT_FOREVER)))
+                                                         (UCHAR *)temp_buffer, buffer_length, NX_WAIT_FOREVER)))
     {
         PRINTF("Telemetry message send failed!: error code = 0x%08x\r\n", status);
         nx_azure_iot_hub_client_telemetry_message_delete(packet_ptr);
         return(status);
     }
 
-    PRINTF("Temp Controller Telemetry message send: %.*s.\r\n", buffer_length, scratch_buffer);
+    PRINTF("Temp Controller Telemetry message send: %.*s.\r\n", buffer_length, temp_buffer);
 
     return(status);
 }
@@ -672,6 +674,7 @@ static VOID sample_trigger_action(SAMPLE_CONTEXT *context)
         case SAMPLE_STATE_CONNECT:
         {
             tx_event_flags_set(&(context -> sample_events), SAMPLE_CONNECT_EVENT, TX_OR);
+            context -> last_periodic_action_tick = tx_time_get();
         }
         break;
 
@@ -829,7 +832,7 @@ static VOID sample_device_twin_desired_property_action(SAMPLE_CONTEXT *context)
 
     if ((status = nx_azure_iot_pnp_helper_twin_data_parse(packet_ptr, NX_TRUE,
                                                           (CHAR **)sample_components, sample_components_num,
-                                                          scratch_buffer, sizeof(scratch_buffer),
+                                                          recv_buffer, sizeof(recv_buffer),
                                                           sample_desired_property_callback,
                                                           (VOID *)&(context -> iothub_client))))
     {
@@ -931,7 +934,7 @@ static VOID sample_device_twin_get_action(SAMPLE_CONTEXT *context)
 
     if ((status = nx_azure_iot_pnp_helper_twin_data_parse(packet_ptr, NX_FALSE,
                                                           (CHAR **)sample_components, sample_components_num,
-                                                          scratch_buffer, sizeof(scratch_buffer),
+                                                          recv_buffer, sizeof(recv_buffer),
                                                           sample_desired_property_callback,
                                                           (VOID *)&(context -> iothub_client))))
     {
@@ -1145,14 +1148,14 @@ static VOID sample_event_loop(SAMPLE_CONTEXT *context)
             sample_device_twin_desired_property_action(context);
         }
 
-        if (app_events & SAMPLE_TELEMETRY_SEND_EVENT)
-        {
-            sample_telemetry_action(context);
-        }
-
         if (app_events & SAMPLE_DEVICE_TWIN_REPORTED_PROPERTY_EVENT)
         {
             sample_device_twin_reported_property_action(context);
+        }
+
+        if (app_events & SAMPLE_TELEMETRY_SEND_EVENT)
+        {
+            sample_telemetry_action(context);
         }
 
         if (app_events & SAMPLE_DISCONNECT_EVENT)

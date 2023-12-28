@@ -39,11 +39,9 @@ typedef enum _srtm_rt600_audio_command
     SRTM_Command_FileEnd,   /*!< Streaming decode from remote file complete */
     SRTM_Command_FileStop,  /*!< Stop playback */
     SRTM_Command_FileError, /*!< Stop playback due to file error*/
-    SRTM_Command_FilterCfg, /*!< Configure EAP filter */
     SRTM_Command_AUDIO_MAX, /*!< Request message */
     SRTM_Command_VIT,       /*!< VIT started */
     SRTM_Print_String,      /*!< Print out string */
 } srtm_audio_command_t;
 
 #endif /* __SRTM_CONFIG_AUDIO_H__ */
-

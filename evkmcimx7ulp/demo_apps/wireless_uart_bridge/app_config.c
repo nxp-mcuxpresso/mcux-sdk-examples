@@ -110,17 +110,17 @@ gapSmpKeys_t gSmpKeys = {
 static const gapSecurityRequirements_t masterSecurity = gGapDefaultSecurityRequirements_d;
 gapServiceSecurityRequirements_t serviceSecurity[3]   = {
     {.requirements  = {.securityModeLevel        = gSecurityMode_1_Level_3_c,
-                      .authorization            = FALSE,
-                      .minimumEncryptionKeySize = gDefaultEncryptionKeySize_d},
-     .serviceHandle = gGattDbInvalidHandle_d},
+                         .authorization            = FALSE,
+                         .minimumEncryptionKeySize = gDefaultEncryptionKeySize_d},
+       .serviceHandle = gGattDbInvalidHandle_d},
     {.requirements  = {.securityModeLevel        = gSecurityMode_1_Level_3_c,
-                      .authorization            = FALSE,
-                      .minimumEncryptionKeySize = gDefaultEncryptionKeySize_d},
-     .serviceHandle = gGattDbInvalidHandle_d},
+                         .authorization            = FALSE,
+                         .minimumEncryptionKeySize = gDefaultEncryptionKeySize_d},
+       .serviceHandle = gGattDbInvalidHandle_d},
     {.requirements  = {.securityModeLevel        = gSecurityMode_1_Level_3_c,
-                      .authorization            = FALSE,
-                      .minimumEncryptionKeySize = gDefaultEncryptionKeySize_d},
-     .serviceHandle = gGattDbInvalidHandle_d}};
+                         .authorization            = FALSE,
+                         .minimumEncryptionKeySize = gDefaultEncryptionKeySize_d},
+       .serviceHandle = gGattDbInvalidHandle_d}};
 
 gapDeviceSecurityRequirements_t deviceSecurityRequirements = {.pMasterSecurityRequirements  = (void *)&masterSecurity,
                                                               .cNumServices                 = 2,

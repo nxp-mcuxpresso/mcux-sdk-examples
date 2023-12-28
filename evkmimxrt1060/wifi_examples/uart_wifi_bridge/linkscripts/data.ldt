@@ -5,11 +5,8 @@
 
         <#if memory.name=="SRAM_ITC">
         *queue.o(.text*)
-        *tcp_out.o(.text*)
         *mlan_11n_rxreorder.o(.text*)
         *lib_a-memcpy-stub.o(.text*)
-        *tcp_in.o(.text*)
-        *inet_chksum.o(.text*)
         *timers.o(.text*)
         *fsl_usdhc.o(.text*)
         *port.o(.text*)

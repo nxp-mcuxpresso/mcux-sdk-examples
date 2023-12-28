@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 NXP
+ * Copyright 2021-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -12,7 +12,8 @@
 
 #if defined(APP_LOWPOWER_ENABLED) && (APP_LOWPOWER_ENABLED > 0)
 #include "PWR_Interface.h"
-#endif
+#include "fwk_platform_lowpower.h"
+#endif /* APP_LOWPOWER_ENABLED */
 
 #include "central_ht.h"
 
@@ -45,6 +46,7 @@
  * Prototypes
  ******************************************************************************/
 extern void BOARD_InitHardware(void);
+extern void APP_InitServices(void);
 
 /*******************************************************************************
  * Variables
@@ -57,7 +59,8 @@ extern void app_audio_streamer_task_signal(void);
  * Code
  ******************************************************************************/
 
-#if (defined(WIFI_88W8987_BOARD_MURATA_1ZM_M2) || defined(WIFI_IW416_BOARD_MURATA_1XK_M2))
+#if (defined(WIFI_88W8987_BOARD_MURATA_1ZM_M2) || defined(WIFI_IW416_BOARD_MURATA_1XK_M2) || \
+     defined(WIFI_IW612_BOARD_MURATA_2EL_M2))
 int controller_hci_uart_get_configuration(controller_hci_uart_config_t *config)
 {
     if (NULL == config)
@@ -140,6 +143,11 @@ int main(void)
     CRYPTO_InitHardware();
 #endif /* CONFIG_BT_SMP */
 
+#if (defined(APP_LOWPOWER_ENABLED) && (APP_LOWPOWER_ENABLED > 0))|| \
+    (defined(APP_USE_SENSORS) && (APP_USE_SENSORS > 0))
+    APP_InitServices();
+#endif
+
     if (xTaskCreate(central_ht_task, "central_ht_task", configMINIMAL_STACK_SIZE * 8, NULL, tskIDLE_PRIORITY + 1, NULL) != pdPASS)
     {
         PRINTF("central ht task creation failed!\r\n");
@@ -159,19 +167,29 @@ void vPortSuppressTicksAndSleep(TickType_t xExpectedIdleTime)
     uint64_t expectedIdleTimeUs, actualIdleTimeUs;
     uint32_t irqMask = DisableGlobalIRQ();
 
-    /* Disable and prepare systicks for low power */
+    /* Disable and prepare systicks for low power. */
     abortIdle = PWR_SysticksPreProcess((uint32_t)xExpectedIdleTime, &expectedIdleTimeUs);
+
+#if defined(WIFI_IW416_BOARD_MURATA_1XK_M2)
+    /* Check if host is allowed to enter low power mode. */
+    if(0 == PLATFORM_AllowEnterLowPower())
+    {
+        abortIdle = true;
+        SysTick->CTRL |= (SysTick_CTRL_TICKINT_Msk | SysTick_CTRL_ENABLE_Msk);
+    }
+#endif
 
     if (abortIdle == false)
     {
-        /* Enter low power with a maximal timeout */
+        /* Enter low power with a maximal timeout. */
         actualIdleTimeUs = PWR_EnterLowPower(expectedIdleTimeUs);
 
-        /* Re enable systicks and compensate systick timebase */
+        /* Re enable systicks and compensate systick timebase. */
         PWR_SysticksPostProcess(expectedIdleTimeUs, actualIdleTimeUs);
     }
 
-    /* Exit from critical section */
+    /* Exit from critical section. */
     EnableGlobalIRQ(irqMask);
 }
 #endif /* APP_LOWPOWER_ENABLED */
+

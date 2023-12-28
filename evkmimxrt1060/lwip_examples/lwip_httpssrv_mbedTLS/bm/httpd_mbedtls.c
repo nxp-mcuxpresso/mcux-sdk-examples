@@ -204,7 +204,7 @@ enum tag_check_state
 
 struct http_ssi_state
 {
-    const char *parsed; /* Pointer to the first unparsed byte in buf. */
+    const char *parsed;      /* Pointer to the first unparsed byte in buf. */
 #if !LWIP_HTTPD_SSI_INCLUDE_TAG
     const char *tag_started; /* Pointer to the first opening '<' of the tag. */
 #endif                       /* !LWIP_HTTPD_SSI_INCLUDE_TAG */
@@ -213,14 +213,14 @@ struct http_ssi_state
     u16_t tag_index;         /* Counter used by tag parsing state machine */
     u16_t tag_insert_len;    /* Length of insert in string tag_insert */
 #if LWIP_HTTPD_SSI_MULTIPART
-    u16_t tag_part;    /* Counter passed to and changed by tag insertion function to insert multiple times */
-#endif                 /* LWIP_HTTPD_SSI_MULTIPART */
-    u8_t tag_name_len; /* Length of the tag name in string tag_name */
+    u16_t tag_part;          /* Counter passed to and changed by tag insertion function to insert multiple times */
+#endif                       /* LWIP_HTTPD_SSI_MULTIPART */
+    u8_t tag_name_len;       /* Length of the tag name in string tag_name */
     char tag_name[LWIP_HTTPD_MAX_TAG_NAME_LEN + 1];     /* Last tag name extracted */
     char tag_insert[LWIP_HTTPD_MAX_TAG_INSERT_LEN + 1]; /* Insert string for tag_name */
     enum tag_check_state tag_state;                     /* State of the tag processor */
 };
-#endif /* LWIP_HTTPD_SSI */
+#endif                                                  /* LWIP_HTTPD_SSI */
 
 struct http_state
 {
@@ -247,18 +247,18 @@ struct http_state
 #endif /* LWIP_HTTPD_SUPPORT_11_KEEPALIVE */
 #if LWIP_HTTPD_SSI
     struct http_ssi_state *ssi;
-#endif /* LWIP_HTTPD_SSI */
+#endif                                               /* LWIP_HTTPD_SSI */
 #if LWIP_HTTPD_CGI
     char *params[LWIP_HTTPD_MAX_CGI_PARAMETERS];     /* Params extracted from the request URI */
     char *param_vals[LWIP_HTTPD_MAX_CGI_PARAMETERS]; /* Values for each extracted param */
 #endif                                               /* LWIP_HTTPD_CGI */
 #if LWIP_HTTPD_DYNAMIC_HEADERS
-    const char *hdrs[NUM_FILE_HDR_STRINGS]; /* HTTP headers to be sent. */
+    const char *hdrs[NUM_FILE_HDR_STRINGS];          /* HTTP headers to be sent. */
     char hdr_content_len[LWIP_HTTPD_MAX_CONTENT_LEN_SIZE];
-    u16_t hdr_pos;   /* The position of the first unsent header byte in the
-                        current string */
-    u16_t hdr_index; /* The index of the hdr string currently being sent. */
-#endif               /* LWIP_HTTPD_DYNAMIC_HEADERS */
+    u16_t hdr_pos;                                   /* The position of the first unsent header byte in the
+                                                        current string */
+    u16_t hdr_index;                                 /* The index of the hdr string currently being sent. */
+#endif                                               /* LWIP_HTTPD_DYNAMIC_HEADERS */
 #if LWIP_HTTPD_TIMING
     u32_t time_started;
 #endif /* LWIP_HTTPD_TIMING */
@@ -1091,9 +1091,9 @@ static void get_http_headers(struct http_state *hs, const char *uri)
     else
 #endif /* LWIP_HTTPD_SSI */
         if ((hs->handle == NULL) || ((hs->handle->flags & FS_FILE_FLAGS_HEADER_PERSISTENT) == 0))
-    {
-        add_content_len = 0;
-    }
+        {
+            add_content_len = 0;
+        }
     if (add_content_len)
     {
         size_t len;
@@ -1856,7 +1856,7 @@ static err_t http_find_error_file(struct http_state *hs, u16_t error_nr)
     }
     return http_init_file(hs, &hs->file_handle, 0, NULL, 0, NULL);
 }
-#else /* LWIP_HTTPD_SUPPORT_EXTSTATUS */
+#else  /* LWIP_HTTPD_SUPPORT_EXTSTATUS */
 #define http_find_error_file(hs, error_nr) ERR_ARG
 #endif /* LWIP_HTTPD_SUPPORT_EXTSTATUS */
 
@@ -2018,7 +2018,7 @@ static err_t http_post_request(
                     /* trim http header */
                     *crlfcrlf = 0;
                     err       = httpd_post_begin(hs, uri, hdr_start_after_uri, hdr_data_len, content_len, http_uri_buf,
-                                           LWIP_HTTPD_URI_BUF_LEN, &post_auto_wnd);
+                                                 LWIP_HTTPD_URI_BUF_LEN, &post_auto_wnd);
                     if (err == ERR_OK)
                     {
                         /* try to pass in data of the first pbuf(s) */
@@ -2177,7 +2177,7 @@ static err_t http_parse_request(struct pbuf *inp, struct http_state *hs, struct 
 #endif /* LWIP_HTTPD_SUPPORT_REQUESTLIST */
 #if LWIP_HTTPD_SUPPORT_POST
     err_t err;
-#endif /* LWIP_HTTPD_SUPPORT_POST */
+#endif                    /* LWIP_HTTPD_SUPPORT_POST */
 
     LWIP_UNUSED_ARG(pcb); /* only used for post */
     LWIP_ASSERT("p != NULL", p != NULL);

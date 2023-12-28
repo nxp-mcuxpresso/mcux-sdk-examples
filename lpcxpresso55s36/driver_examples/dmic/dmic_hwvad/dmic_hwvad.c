@@ -14,8 +14,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "fsl_power.h"
 #include <stdbool.h>
+#include "fsl_power.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -114,8 +114,13 @@ int main(void)
     DMIC_Use2fs(DMIC0, true);
     DMIC_EnableChannelInterrupt(DMIC0, kDMIC_Channel0, true);
     DMIC_EnableChannelInterrupt(DMIC0, kDMIC_Channel1, true);
+#if defined(BOARD_DMIC_CHANNEL_STEREO_SIDE_SWAP) && (BOARD_DMIC_CHANNEL_STEREO_SIDE_SWAP)
+    DMIC_ConfigChannel(DMIC0, kDMIC_Channel0, kDMIC_Right, &dmic_channel_cfg);
+    DMIC_ConfigChannel(DMIC0, kDMIC_Channel1, kDMIC_Left, &dmic_channel_cfg);
+#else
     DMIC_ConfigChannel(DMIC0, kDMIC_Channel0, kDMIC_Left, &dmic_channel_cfg);
     DMIC_ConfigChannel(DMIC0, kDMIC_Channel1, kDMIC_Right, &dmic_channel_cfg);
+#endif
     DMIC_FifoChannel(DMIC0, kDMIC_Channel0, FIFO_DEPTH, true, true);
     DMIC_FifoChannel(DMIC0, kDMIC_Channel1, FIFO_DEPTH, true, true);
 

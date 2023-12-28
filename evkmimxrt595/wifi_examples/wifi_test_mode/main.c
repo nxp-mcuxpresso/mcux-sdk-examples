@@ -86,10 +86,6 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
     char ip[16];
     static int auth_fail = 0;
 
-    printSeparator();
-    PRINTF("app_cb: WLAN: received event %d\r\n", reason);
-    printSeparator();
-
     switch (reason)
     {
         case WLAN_REASON_INITIALIZED:
@@ -153,7 +149,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             {
                 if (ip6_addr_isvalid(addr.ipv6[i].addr_state))
                 {
-                    (void)PRINTF("IPv6 Address: %-13s:\t%s (%s)\r\n", ipv6_addr_type_to_desc(&addr.ipv6[i]),
+                    (void)PRINTF("IPv6 Address: %-13s:\t%s (%s)\r\n", ipv6_addr_type_to_desc((struct net_ipv6_config *)&addr.ipv6[i]),
                                  inet6_ntoa(addr.ipv6[i].address), ipv6_addr_state_to_desc(addr.ipv6[i].addr_state));
                 }
             }
@@ -241,10 +237,8 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             printSeparator();
             break;
         case WLAN_REASON_PS_ENTER:
-            PRINTF("app_cb: WLAN: PS_ENTER\r\n");
             break;
         case WLAN_REASON_PS_EXIT:
-            PRINTF("app_cb: WLAN: PS EXIT\r\n");
             break;
         default:
             PRINTF("app_cb: WLAN: Unknown Event: %d\r\n", reason);
@@ -292,9 +286,20 @@ int main(void)
     BaseType_t result = 0;
     (void)result;
 
+    RESET_ClearPeripheralReset(kHSGPIO0_RST_SHIFT_RSTn);
+    RESET_ClearPeripheralReset(kHSGPIO3_RST_SHIFT_RSTn);
+    RESET_ClearPeripheralReset(kHSGPIO4_RST_SHIFT_RSTn);
+
     BOARD_InitBootPins();
+    BOARD_InitPinsM2();
     BOARD_InitBootClocks();
     APP_InitAppDebugConsole();
+
+    /* Configure 32K OSC clock. */
+    CLOCK_EnableOsc32K(true);               /* Enable 32KHz Oscillator clock */
+    CLOCK_EnableClock(kCLOCK_Rtc);          /* Enable the RTC peripheral clock */
+    RTC->CTRL &= ~RTC_CTRL_SWRESET_MASK;    /* Make sure the reset bit is cleared */
+    RTC->CTRL &= ~RTC_CTRL_RTC_OSC_PD_MASK; /* The RTC Oscillator is powered up */
 
     printSeparator();
     PRINTF("wifi test mode demo\r\n");

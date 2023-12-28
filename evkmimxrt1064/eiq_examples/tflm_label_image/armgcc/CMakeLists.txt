@@ -51,35 +51,53 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${SdkRootDirPath}/middleware/eiq/common/image/image_conv.c"
-"${SdkRootDirPath}/middleware/eiq/common/demo_info.h"
-"${SdkRootDirPath}/middleware/eiq/common/image/image.h"
-"${SdkRootDirPath}/middleware/eiq/common/image/image_decode_raw.c"
-"${SdkRootDirPath}/middleware/eiq/common/image/image_utils.h"
-"${SdkRootDirPath}/middleware/eiq/common/model/get_top_n.cpp"
-"${SdkRootDirPath}/middleware/eiq/common/model/get_top_n.h"
-"${SdkRootDirPath}/middleware/eiq/common/model/model.h"
-"${SdkRootDirPath}/middleware/eiq/common/model/output_postproc.h"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/model/output_postproc.cpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/label_image/demo_config.h"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/demo_info.cpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/label_image/image_data.h"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/label_image/labels.h"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/model.cpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/image/main.cpp"
+"${ProjDirPath}/../source/image/image_conv.c"
+"${ProjDirPath}/../source/demo_info.h"
+"${ProjDirPath}/../source/image/image.h"
+"${ProjDirPath}/../source/image/image_decode_raw.c"
+"${ProjDirPath}/../source/image/image_utils.h"
+"${ProjDirPath}/../source/model/get_top_n.cpp"
+"${ProjDirPath}/../source/model/get_top_n.h"
+"${ProjDirPath}/../source/model/model.h"
+"${ProjDirPath}/../source/model/output_postproc.h"
+"${ProjDirPath}/../source/model/output_postproc.cpp"
+"${ProjDirPath}/../source/demo_config.h"
+"${ProjDirPath}/../source/demo_info.cpp"
+"${ProjDirPath}/../source/image/image_data.h"
+"${ProjDirPath}/../source/labels.h"
+"${ProjDirPath}/../source/model/model.cpp"
+"${ProjDirPath}/../source/main.cpp"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/model_all_ops_micro.cpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/label_image/pcq/model_data.h"
-"${SdkRootDirPath}/middleware/eiq/common/image/image_capture.c"
-"${SdkRootDirPath}/middleware/eiq/common/image/image_draw.c"
-"${SdkRootDirPath}/middleware/eiq/common/image/image_resize_nearest.c"
-"${SdkRootDirPath}/middleware/eiq/common/timer.h"
-"${SdkRootDirPath}/middleware/eiq/common/timer.c"
+"${ProjDirPath}/../source/model/model_mobilenet_ops_micro.cpp"
+"${ProjDirPath}/../source/model/model_data.h"
+"${ProjDirPath}/../source/image/image_capture.c"
+"${ProjDirPath}/../source/image/image_draw.c"
+"${ProjDirPath}/../source/image/image_resize_nearest.c"
+"${ProjDirPath}/../source/timer.h"
+"${ProjDirPath}/../source/timer.c"
 "${ProjDirPath}/../board_init.c"
 "${ProjDirPath}/../board_init.h"
 "${ProjDirPath}/../board.c"
 "${ProjDirPath}/../board.h"
+"${ProjDirPath}/../source/common/eiq_common.h"
+"${ProjDirPath}/../source/common/eiq_iui.h"
+"${ProjDirPath}/../source/common/eiq_iworker.h"
+"${ProjDirPath}/../source/video/eiq_camera_conf.c"
+"${ProjDirPath}/../source/video/eiq_display_conf.c"
+"${ProjDirPath}/../source/video/eiq_camera.h"
+"${ProjDirPath}/../source/video/eiq_camera_conf.h"
+"${ProjDirPath}/../source/video/eiq_display.h"
+"${ProjDirPath}/../source/video/eiq_display_conf.h"
+"${ProjDirPath}/../source/video/eiq_pxp.h"
+"${ProjDirPath}/../source/video/eiq_video_worker.h"
+"${ProjDirPath}/../source/video/eiq_camera.c"
+"${ProjDirPath}/../source/video/eiq_display.c"
+"${ProjDirPath}/../source/video/eiq_pxp.c"
+"${ProjDirPath}/../source/video/eiq_video_worker.c"
+"${ProjDirPath}/../source/gprintf/chgui.h"
+"${ProjDirPath}/../source/gprintf/font.h"
+"${ProjDirPath}/../source/gprintf/chgui.c"
 "${ProjDirPath}/../clock_config.c"
 "${ProjDirPath}/../clock_config.h"
 "${ProjDirPath}/../dcd.c"
@@ -87,12 +105,13 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/label_image
-    ${SdkRootDirPath}/middleware/eiq/common
-    ${SdkRootDirPath}/middleware/eiq/common/image
-    ${SdkRootDirPath}/middleware/eiq/common/model
+    ${ProjDirPath}/../source
+    ${ProjDirPath}/../source/image
+    ${ProjDirPath}/../source/model
     ${ProjDirPath}/..
-    ${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/label_image/pcq
+    ${ProjDirPath}/../source/common
+    ${ProjDirPath}/../source/video
+    ${ProjDirPath}/../source/gprintf
 )
 
 

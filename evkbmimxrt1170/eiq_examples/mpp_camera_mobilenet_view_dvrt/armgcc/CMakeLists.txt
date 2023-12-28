@@ -51,16 +51,16 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/camera_mobilenet_view/camera_mobilenet_view.c"
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/camera_mobilenet_view/mpp_config.h"
-"${SdkRootDirPath}/middleware/eiq/mpp/boards/evkbmimxrt1170/inc/board_config.h"
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/models/get_top_n.cpp"
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/models/mobilenet_v1_0.25_128_quant_int8_cm7/mobilenet_model_data_dvrt.h"
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/models/mobilenet_v1_0.25_128_quant_int8_cm7/mobilenetv1_labels.h"
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/models/mobilenet_v1_0.25_128_quant_int8_cm7/mobilenetv1_output_postproc.cpp"
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/models/mobilenet_v1_0.25_128_quant_int8_cm7/mobilenetv1_output_postproc.h"
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/models/get_top_n.h"
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/models/utils.h"
+"${ProjDirPath}/../gpt_config.c"
+"${ProjDirPath}/../models/mobilenet_v1_0.25_128_quant_int8/mobilenet_model_data_dvrt.h"
+"${ProjDirPath}/../camera_mobilenet_view.c"
+"${ProjDirPath}/../mpp_config.h"
+"${ProjDirPath}/../models/get_top_n.cpp"
+"${ProjDirPath}/../models/mobilenet_v1_0.25_128_quant_int8/mobilenetv1_labels.h"
+"${ProjDirPath}/../models/mobilenet_v1_0.25_128_quant_int8/mobilenetv1_output_postproc.cpp"
+"${ProjDirPath}/../models/mobilenet_v1_0.25_128_quant_int8/mobilenetv1_output_postproc.h"
+"${ProjDirPath}/../models/get_top_n.h"
+"${ProjDirPath}/../models/utils.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
 "${ProjDirPath}/../board_init.h"
 "${ProjDirPath}/../board_init.c"
@@ -68,7 +68,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../board.h"
 "${ProjDirPath}/../clock_config.c"
 "${ProjDirPath}/../clock_config.h"
-"${SdkRootDirPath}/middleware/eiq/mpp/README.md"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../dcd.c"
@@ -82,9 +81,9 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${SdkRootDirPath}/middleware/eiq/mpp/examples/camera_mobilenet_view
     ${SdkRootDirPath}/middleware/eiq/mpp/examples
-    ${SdkRootDirPath}/middleware/eiq/mpp/boards/evkbmimxrt1170/inc
+    ${SdkRootDirPath}/middleware/eiq/mpp/boards/evkbmimxrt1170/examples/camera_mobilenet_view
+    ${ProjDirPath}/../models/mobilenet_v1_0.25_128_quant_int8
 )
 
 set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")

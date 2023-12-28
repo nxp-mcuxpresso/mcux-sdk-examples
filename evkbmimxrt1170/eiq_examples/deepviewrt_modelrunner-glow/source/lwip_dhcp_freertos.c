@@ -31,7 +31,7 @@
 
 #include "fsl_enet.h"
 #if BOARD_NETWORK_USE_100M_ENET_PORT
-#include "fsl_phyksz8081.h"
+#include "fsl_phyrtl8201.h"
 #else
 #include "fsl_phyrtl8211f.h"
 #endif
@@ -84,16 +84,16 @@
 #endif
 
 #if BOARD_NETWORK_USE_100M_ENET_PORT
+extern phy_rtl8201_resource_t g_phy_resource;
 #define EXAMPLE_ENET ENET
 /* Address of PHY interface. */
 #define EXAMPLE_PHY_ADDRESS BOARD_ENET0_PHY_ADDRESS
 /* PHY operations. */
-#define EXAMPLE_PHY_OPS &phyksz8081_ops
+#define EXAMPLE_PHY_OPS &phyrtl8201_ops
 /* ENET instance select. */
 #define EXAMPLE_NETIF_INIT_FN ethernetif0_init
-
-extern phy_ksz8081_resource_t g_phy_resource;
 #else
+extern phy_rtl8211f_resource_t g_phy_resource;
 #define EXAMPLE_ENET          ENET_1G
 /* Address of PHY interface. */
 #define EXAMPLE_PHY_ADDRESS   BOARD_ENET1_PHY_ADDRESS
@@ -101,8 +101,6 @@ extern phy_ksz8081_resource_t g_phy_resource;
 #define EXAMPLE_PHY_OPS       &phyrtl8211f_ops
 /* ENET instance select. */
 #define EXAMPLE_NETIF_INIT_FN ethernetif1_init
-
-extern phy_rtl8211f_resource_t g_phy_resource;
 #endif
 
 /* PHY resource. */
@@ -134,7 +132,7 @@ extern phy_rtl8211f_resource_t g_phy_resource;
  * Variables
  ******************************************************************************/
 #if BOARD_NETWORK_USE_100M_ENET_PORT
-phy_ksz8081_resource_t g_phy_resource;
+phy_rtl8201_resource_t g_phy_resource;
 #else
 phy_rtl8211f_resource_t g_phy_resource;
 #endif
@@ -155,7 +153,7 @@ void BOARD_InitModuleClock(void)
     clock_root_config_t rootCfg = {.mux = 4, .div = 10}; /* Generate 50M root clock. */
     CLOCK_SetRootClock(kCLOCK_Root_Enet1, &rootCfg);
 #else
-    clock_root_config_t rootCfg = {.mux = 4, .div = 4}; /* Generate 125M root clock. */
+    clock_root_config_t rootCfg = {.mux = 4, .div = 4};       /* Generate 125M root clock. */
     CLOCK_SetRootClock(kCLOCK_Root_Enet2, &rootCfg);
 #endif
 }
@@ -355,16 +353,14 @@ int main(void)
 #if BOARD_NETWORK_USE_100M_ENET_PORT
     BOARD_InitEnetPins();
     GPIO_PinInit(GPIO12, 12, &gpio_config);
-    GPIO_WritePinOutput(GPIO12, 12, 0);
     SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
     GPIO_WritePinOutput(GPIO12, 12, 1);
-    SDK_DelayAtLeastUs(6, CLOCK_GetFreq(kCLOCK_CpuClk));
+    SDK_DelayAtLeastUs(150000, CLOCK_GetFreq(kCLOCK_CpuClk));
 #else
     BOARD_InitEnet1GPins();
     GPIO_PinInit(GPIO11, 14, &gpio_config);
     /* For a complete PHY reset of RTL8211FDI-CG, this pin must be asserted low for at least 10ms. And
      * wait for a further 30ms(for internal circuits settling time) before accessing the PHY register */
-    GPIO_WritePinOutput(GPIO11, 14, 0);
     SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
     GPIO_WritePinOutput(GPIO11, 14, 1);
     SDK_DelayAtLeastUs(30000, CLOCK_GetFreq(kCLOCK_CpuClk));

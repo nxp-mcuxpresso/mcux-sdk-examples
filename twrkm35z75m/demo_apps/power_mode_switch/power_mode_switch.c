@@ -23,8 +23,8 @@
 #define APP_DEBUG_UART_BAUDRATE    9600          /* Debug console baud rate. */
 #define APP_DEBUG_UART_CLKSRC_NAME kCLOCK_BusClk /* Bus clock. */
 
-#define LLWU_LPTMR_IDX       0U  /* LLWU_M0IF */
-#define LLWU_WAKEUP_PIN_IDX  15U /* LLWU_P15 */
+#define LLWU_LPTMR_IDX       0U                  /* LLWU_M0IF */
+#define LLWU_WAKEUP_PIN_IDX  15U                 /* LLWU_P15 */
 #define LLWU_WAKEUP_PIN_TYPE kLLWU_ExternalPinRisingEdge
 
 #define APP_WAKEUP_BUTTON_GPIO        BOARD_SW1_GPIO

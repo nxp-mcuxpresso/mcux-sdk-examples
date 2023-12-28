@@ -17,11 +17,12 @@
  * Definitions
  ******************************************************************************/
 extern phy_rtl8201_resource_t g_phy_resource;
-#define EXAMPLE_ENET         ENET
-#define EXAMPLE_PHY_ADDRESS  0x03U
-#define EXAMPLE_PHY_OPS      &phyrtl8201_ops
-#define EXAMPLE_PHY_RESOURCE &g_phy_resource
-#define EXAMPLE_CLOCK_FREQ   CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
+#define EXAMPLE_ENET                  ENET
+#define EXAMPLE_PHY_ADDRESS           0x03U
+#define EXAMPLE_PHY_OPS               &phyrtl8201_ops
+#define EXAMPLE_PHY_RESOURCE          &g_phy_resource
+#define EXAMPLE_CLOCK_FREQ            CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
+#define EXAMPLE_PHY_LINK_INTR_SUPPORT (1U)
 #define ENET_RXBD_NUM          (4)
 #define ENET_TXBD_NUM          (4)
 #define ENET_RXBUFF_SIZE       (ENET_FRAME_MAX_FRAMELEN)
@@ -66,6 +67,9 @@ void GPIO_EnableLinkIntr(void);
  * Variables
  ******************************************************************************/
 phy_rtl8201_resource_t g_phy_resource;
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+extern void PHY_LinkStatusChange(void);
+#endif
 /*! @brief Buffer descriptors should be in non-cacheable region and should be align to "ENET_BUFF_ALIGNMENT". */
 AT_NONCACHEABLE_SECTION_ALIGN(enet_rx_bd_struct_t g_rxBuffDescrip[ENET_RXBD_NUM], ENET_BUFF_ALIGNMENT);
 AT_NONCACHEABLE_SECTION_ALIGN(enet_tx_bd_struct_t g_txBuffDescrip[ENET_TXBD_NUM], ENET_BUFF_ALIGNMENT);
@@ -120,6 +124,24 @@ static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
     return ENET_MDIORead(EXAMPLE_ENET, phyAddr, regAddr, pData);
 }
 
+
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+void GPIO_EnableLinkIntr(void)
+{
+    GPIO_EnableInterrupts(GPIO3, 1U << 11);
+}
+
+void GPIO3_Combined_0_15_IRQHandler(void)
+{
+    if (0U != (GPIO_GetPinsInterruptFlags(GPIO3) & (1U << 11)))
+    {
+        PHY_LinkStatusChange();
+        GPIO_DisableInterrupts(GPIO3, 1U << 11);
+        GPIO_ClearPinsInterruptFlags(GPIO3, 1U << 11);
+    }
+    SDK_ISR_EXIT_BARRIER;
+}
+#endif
 /*! @brief Build Frame for transmit. */
 static void ENET_BuildBroadCastFrame(void)
 {
@@ -187,6 +209,11 @@ int main(void)
     SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
     GPIO_WritePinOutput(GPIO12, 12, 1);
     SDK_DelayAtLeastUs(150000, CLOCK_GetFreq(kCLOCK_CpuClk));
+
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+    IRQ_ClearPendingIRQ(GPIO3_Combined_0_15_IRQn);
+    EnableIRQ(GPIO3_Combined_0_15_IRQn);
+#endif
 
     MDIO_Init();
     g_phy_resource.read  = MDIO_Read;

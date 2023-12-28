@@ -4,7 +4,7 @@
  * This file is based on \src\include\lwip\opt.h
  ******************************************************************************
  * Copyright (c) 2013-2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2018, 2022 NXP
+ * Copyright 2016-2018, 2022-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -219,39 +219,48 @@ void sys_check_core_locking(void);
    --------------------------------------
 */
 
-/*
-Some MCU allow computing and verifying the IP, UDP, TCP and ICMP checksums by hardware:
- - To use this feature let the following define uncommented.
- - To disable it and process by CPU comment the  the checksum.
-*/
-//#define CHECKSUM_BY_HARDWARE
-
-#ifdef CHECKSUM_BY_HARDWARE
-/* CHECKSUM_GEN_IP==0: Generate checksums by hardware for outgoing IP packets.*/
+/**
+ * Checksum computation verification and computation enabled by default.
+ * If not desired, define all of these symbols as 1.
+ */
+#ifndef CHECKSUM_GEN_IP
 #define CHECKSUM_GEN_IP 0
-/* CHECKSUM_GEN_UDP==0: Generate checksums by hardware for outgoing UDP packets.*/
+#endif
+
+#ifndef CHECKSUM_GEN_UDP
 #define CHECKSUM_GEN_UDP 0
-/* CHECKSUM_GEN_TCP==0: Generate checksums by hardware for outgoing TCP packets.*/
+#endif
+
+#ifndef CHECKSUM_GEN_TCP
 #define CHECKSUM_GEN_TCP 0
-/* CHECKSUM_CHECK_IP==0: Check checksums by hardware for incoming IP packets.*/
+#endif
+
+#ifndef CHECKSUM_GEN_ICMP
+#define CHECKSUM_GEN_ICMP 0
+#endif
+
+#ifndef CHECKSUM_GEN_ICMP6
+#define CHECKSUM_GEN_ICMP6 0
+#endif
+
+#ifndef CHECKSUM_CHECK_IP
 #define CHECKSUM_CHECK_IP 0
-/* CHECKSUM_CHECK_UDP==0: Check checksums by hardware for incoming UDP packets.*/
+#endif
+
+#ifndef CHECKSUM_CHECK_UDP
 #define CHECKSUM_CHECK_UDP 0
-/* CHECKSUM_CHECK_TCP==0: Check checksums by hardware for incoming TCP packets.*/
+#endif
+
+#ifndef CHECKSUM_CHECK_TCP
 #define CHECKSUM_CHECK_TCP 0
-#else
-/* CHECKSUM_GEN_IP==1: Generate checksums in software for outgoing IP packets.*/
-#define CHECKSUM_GEN_IP    1
-/* CHECKSUM_GEN_UDP==1: Generate checksums in software for outgoing UDP packets.*/
-#define CHECKSUM_GEN_UDP   1
-/* CHECKSUM_GEN_TCP==1: Generate checksums in software for outgoing TCP packets.*/
-#define CHECKSUM_GEN_TCP   1
-/* CHECKSUM_CHECK_IP==1: Check checksums in software for incoming IP packets.*/
-#define CHECKSUM_CHECK_IP  1
-/* CHECKSUM_CHECK_UDP==1: Check checksums in software for incoming UDP packets.*/
-#define CHECKSUM_CHECK_UDP 1
-/* CHECKSUM_CHECK_TCP==1: Check checksums in software for incoming TCP packets.*/
-#define CHECKSUM_CHECK_TCP 1
+#endif
+
+#ifndef CHECKSUM_CHECK_ICMP
+#define CHECKSUM_CHECK_ICMP 0
+#endif
+
+#ifndef CHECKSUM_CHECK_ICMP6
+#define CHECKSUM_CHECK_ICMP6 0
 #endif
 
 /**
@@ -337,6 +346,24 @@ u32_t lwip_rand(void);
  */
 #ifndef IP_REASS_MAX_PBUFS
 #define IP_REASS_MAX_PBUFS 4
+#endif
+
+/*
+   ------------------------------------------------
+   ---------- Network Interfaces options ----------
+   ------------------------------------------------
+*/
+/**
+ * @defgroup lwip_opts_netif NETIF
+ * @ingroup lwip_opts
+ * @{
+ */
+/**
+ * LWIP_SINGLE_NETIF==1: use a single netif only. This is the common case for
+ * small real-life targets. Some code like routing etc. can be left out.
+ */
+#ifndef LWIP_SINGLE_NETIF
+#define LWIP_SINGLE_NETIF 1
 #endif
 
 #endif /* __LWIPOPTS_H__ */

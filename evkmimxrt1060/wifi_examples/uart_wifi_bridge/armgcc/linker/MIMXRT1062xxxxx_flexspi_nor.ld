@@ -88,10 +88,7 @@ SECTIONS
     ) .text)                 /* .text sections (code) */
     *(EXCLUDE_FILE(
         *queue.c.obj
-        *tcp_out.c.obj
         *mlan_11n_rxreorder.c.obj
-        *tcp_in.c.obj
-        *inet_chksum.c.obj
         *timers.c.obj
         *fsl_usdhc.c.obj
         *port.c.obj
@@ -224,10 +221,7 @@ SECTIONS
     __ram_function_start__ = .;
     *(CodeQuickAccess)
     *queue.c.obj(.text*)
-    *tcp_out.c.obj(.text*)
     *mlan_11n_rxreorder.c.obj(.text*)
-    *tcp_in.c.obj(.text*)
-    *inet_chksum.c.obj(.text*)
     *timers.c.obj(.text*)
     *fsl_usdhc.c.obj(.text*)
     *port.c.obj(.text*)

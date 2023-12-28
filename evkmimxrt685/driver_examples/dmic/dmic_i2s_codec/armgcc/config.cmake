@@ -5,6 +5,7 @@
 set(CONFIG_COMPILER gcc)
 set(CONFIG_TOOLCHAIN armgcc)
 set(CONFIG_USE_COMPONENT_CONFIGURATION false)
+set(CONFIG_USE_driver_i2s_bridge true)
 set(CONFIG_USE_driver_i3c true)
 set(CONFIG_USE_component_i3c_adapter true)
 set(CONFIG_USE_component_codec_i2c true)

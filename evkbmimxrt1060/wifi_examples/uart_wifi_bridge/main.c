@@ -2,7 +2,7 @@
  *
  *  @brief main file
  *
- *  Copyright 2020-2021 NXP
+ *  Copyright 2020-2021,2023 NXP
  *  All rights reserved.
  *
  *  SPDX-License-Identifier: BSD-3-Clause
@@ -21,6 +21,11 @@
 #include "fsl_common.h"
 #include "fsl_component_serial_manager.h"
 
+#if defined(RW610_SERIES) || defined(RW612_SERIES)
+#include "fsl_adapter_rfimu.h"
+#include "fsl_usart_freertos.h"
+#include "fsl_loader.h"
+#else
 #include "mfg_wlan_bt_fw.h"
 #include "wlan.h"
 #include "wifi.h"
@@ -36,6 +41,10 @@
 #include "fsl_lpuart_freertos.h"
 #include "fsl_lpuart.h"
 #include "fsl_sdmmc_host.h"
+#if defined(MIMXRT1176_cm7_SERIES)
+#include "fsl_lpspi.h"
+#endif
+#endif
 
 /*******************************************************************************
  * Definitions
@@ -54,9 +63,9 @@
 #define CHECKSUM_LEN            4
 #define CRC32_POLY              0x04c11db7
 
-#if defined(MIMXRT1176_cm7_SERIES)
 #define LABTOOL_HCI_RESP_HDR_LEN 3
 
+#if defined(MIMXRT1176_cm7_SERIES)
 /* SPI related */
 #define LPSPI_MASTER_BASEADDR         (LPSPI1)
 #define LPSPI_MASTER_IRQN             (LPSPI1_IRQn)
@@ -81,11 +90,8 @@
 #define TYPE_15_4       0x0004
 #define RET_TYPE_ZIGBEE 3
 
-// #define MLAN_TYPE_CMD   1
-// #define INTF_HEADER_LEN 4
 #define SDIOPKTTYPE_CMD 0x1
-#define BUF_LEN         1024
-// #define SDIO_OUTBUF_LEN 2048
+#define BUF_LEN         2048
 
 #if defined(RW610_SERIES) || defined(RW612_SERIES)
 #define CONFIG_WIFI_MAX_PRIO (configMAX_PRIORITIES - 1)
@@ -100,8 +106,6 @@
 #define REMOTE_EPT_ADDR_ZIGBEE (20U)
 #define LOCAL_EPT_ADDR_ZIGBEE  (10U)
 
-#define EVENT_ACCESS_BY_HOST 0x00000098
-
 #define WIFI_REG8(x)  (*(volatile unsigned char *)(x))
 #define WIFI_REG16(x) (*(volatile unsigned short *)(x))
 #define WIFI_REG32(x) (*(volatile unsigned int *)(x))
@@ -110,36 +114,22 @@
 #define WIFI_WRITE_REG16(reg, val) (WIFI_REG16(reg) = (val))
 #define WIFI_WRITE_REG32(reg, val) (WIFI_REG32(reg) = (val))
 
-#define EVENT_PAYLOAD_OFFSET 8
-
-/** Return the byte offset of a field in the given structure */
-#define MLAN_FIELD_OFFSET(type, field) ((uint32_t)(uint32_t) & (((type *)0)->field))
-
-#if defined(RW610_SERIES) || defined(RW612_SERIES)
 /* Set default mode of fw download */
 #ifndef CONFIG_SUPPORT_WIFI
 #define CONFIG_SUPPORT_WIFI 1
 #endif
 #ifndef CONFIG_SUPPORT_BLE
-#define CONFIG_SUPPORT_BLE 0
+#define CONFIG_SUPPORT_BLE 1
 #endif
 #ifndef CONFIG_SUPPORT_15D4
-#define CONFIG_SUPPORT_15D4 0
-#endif
+#define CONFIG_SUPPORT_15D4 1
 #endif
 
-/* enum for event access mem by host action */
-enum
-{
-    EVENT_ACCESS_ACTION_WRITE = 0,
-    EVENT_ACCESS_ACTION_READ  = 1
-};
+#define WLAN_CAU_ENABLE_ADDR         (0x45004008U)
+#define WLAN_CAU_TEMPERATURE_ADDR    (0x4500400CU)
+#define WLAN_CAU_TEMPERATURE_FW_ADDR (0x41382490U)
+#define WLAN_FW_WAKE_STATUS_ADDR     (0x40031068U)
 
-enum
-{
-    EVENT_ACCESS_TYPE_REG    = 0,
-    EVENT_ACCESS_TYPE_EEPROM = 1
-};
 #endif
 
 enum
@@ -163,6 +153,7 @@ uint8_t background_buffer[UART_BUF_SIZE];
 #if defined(RW610_SERIES) || defined(RW612_SERIES)
 usart_rtos_handle_t handle;
 struct _usart_handle t_handle;
+TimerHandle_t g_wifi_cau_temperature_timer = NULL;
 
 struct rtos_usart_config usart_config = {
     .baudrate    = 115200,
@@ -191,7 +182,6 @@ lpuart_rtos_config_t lpuart_config = {
     .buffer_size = sizeof(background_buffer),
 };
 
-// #if defined(MIMXRT1176_cm7_SERIES)
 uint8_t background_buffer_bt[UART_BUF_SIZE];
 
 lpuart_rtos_handle_t handle_bt;
@@ -206,7 +196,6 @@ lpuart_rtos_config_t lpuart_config_bt = {
     .enableRxRTS = true,
     .enableTxCTS = true,
 };
-// #endif
 #endif
 
 typedef struct _uart_cb
@@ -219,9 +208,7 @@ typedef struct _uart_cb
 } uart_cb;
 
 static uart_cb uartcb;
-#if defined(MIMXRT1176_cm7_SERIES)
 static uart_cb uartcb_bt;
-#endif
 
 /** UART start pattern*/
 typedef struct _uart_header
@@ -249,7 +236,7 @@ typedef struct _cmd_header
 
 static uint8_t rx_buf[BUF_LEN];
 static cmd_header last_cmd_hdr;
-uint8_t local_outbuf[SDIO_OUTBUF_LEN];
+static uint8_t local_outbuf[BUF_LEN];
 
 #if defined(MIMXRT1176_cm7_SERIES)
 lpspi_master_config_t spiConfig;
@@ -270,12 +257,6 @@ const int TASK_MAIN_STACK_SIZE = 3 * 2048;
 
 portSTACK_TYPE *task_main_stack = NULL;
 TaskHandle_t task_main_task_handler;
-
-// #define SDK_VERSION "NXPSDK_v1.3.r13.p1"
-
-#if defined(RW610_SERIES) || defined(RW612_SERIES)
-static void wifi_handle_event_access_by_host(uint8_t *evt_buff);
-#endif
 
 static void uart_init_crc32(uart_cb *uartcb)
 {
@@ -452,7 +433,7 @@ int rpmsg_raw_packet_send(uint8_t *buf, int m_len, uint8_t t_type)
 
     return t_type;
 }
-#elif defined(MIMXRT1176_cm7_SERIES)
+#else
 int bt_raw_packet_send(uint8_t *buf, int m_len)
 {
     uint32_t payloadlen;
@@ -473,6 +454,7 @@ int bt_raw_packet_send(uint8_t *buf, int m_len)
     return RET_TYPE_BT;
 }
 
+#if defined(MIMXRT1176_cm7_SERIES)
 int zigbee_raw_packet_send(uint8_t *buf, int m_len)
 {
     uint32_t payloadlen;
@@ -499,6 +481,8 @@ int zigbee_raw_packet_send(uint8_t *buf, int m_len)
     return RET_TYPE_ZIGBEE;
 }
 #endif
+#endif
+
 /*
  process_input_cmd() sends command to the wlan
  card
@@ -529,7 +513,6 @@ int process_input_cmd(uint8_t *buf, int m_len)
                 *d++ = *s++;
             }
         }
-
         d = (uint8_t *)&last_cmd_hdr;
         s = (uint8_t *)buf + sizeof(uart_header);
 
@@ -552,7 +535,7 @@ int process_input_cmd(uint8_t *buf, int m_len)
     {
 #if defined(RW610_SERIES) || defined(RW612_SERIES)
         ret = rpmsg_raw_packet_send(buf, m_len, RET_TYPE_BT);
-#elif defined(MIMXRT1176_cm7_SERIES)
+#else
         ret = bt_raw_packet_send(buf, m_len);
 #endif
     }
@@ -607,7 +590,7 @@ void send_rpmsg_response_to_uart(uint8_t *resp, int msg_len)
     USART_RTOS_Send(&handle, rx_buf, payloadlen + sizeof(cmd_header) + sizeof(uart_header) + 4);
     memset(rx_buf, 0, BUF_LEN);
 }
-#elif defined(MIMXRT1176_cm7_SERIES)
+#else
 void send_bt_response_to_uart(uart_cb *uart_bt, int msg_len)
 {
     uint32_t bridge_chksum = 0;
@@ -648,6 +631,7 @@ void send_bt_response_to_uart(uart_cb *uart_bt, int msg_len)
     memset(rx_buf, 0, BUF_LEN);
 }
 
+#if defined(MIMXRT1176_cm7_SERIES)
 void send_zigbee_response_to_uart(uint8_t *rxData, uint32_t payloadlen)
 {
     uint32_t bridge_chksum = 0;
@@ -685,6 +669,7 @@ void send_zigbee_response_to_uart(uint8_t *rxData, uint32_t payloadlen)
     memset(rx_buf, 0, BUF_LEN);
 }
 #endif
+#endif
 
 /*
  read_wlan_resp() handles the responses from the wlan card.
@@ -702,20 +687,6 @@ hal_rpmsg_status_t read_wlan_resp(IMU_Msg_t *pImuMsg, uint32_t len)
     uart_cb *uart = &uartcb;
 
     send_response_to_uart(uart, (uint8_t *)(pImuMsg->PayloadPtr[0]), 1);
-
-    return kStatus_HAL_RpmsgSuccess;
-}
-
-hal_rpmsg_status_t rpmsg_event_handler(IMU_Msg_t *pImuMsg, uint32_t len)
-{
-    assert(NULL != pImuMsg);
-    assert(0 != len);
-    assert(IMU_MSG_EVENT == pImuMsg->Hdr.type);
-
-    uint32_t event_cause = *((uint32_t *)((uint8_t *)(pImuMsg->PayloadPtr[0]) + INTF_HEADER_LEN));
-
-    if (event_cause == EVENT_ACCESS_BY_HOST)
-        wifi_handle_event_access_by_host((uint8_t *)(pImuMsg->PayloadPtr[0]));
 
     return kStatus_HAL_RpmsgSuccess;
 }
@@ -744,7 +715,7 @@ void read_wlan_resp()
         //            send_response_to_uart(uart, packet, 1);
     }
 }
-#if defined(MIMXRT1176_cm7_SERIES)
+
 void read_bt_resp()
 {
     uart_cb *uart_bt = &uartcb_bt;
@@ -788,6 +759,7 @@ void read_bt_resp()
     memset(uart_bt->uart_buf, 0, sizeof(uart_bt->uart_buf));
 }
 
+#if defined(MIMXRT1176_cm7_SERIES)
 void read_zigbee_resp()
 {
     handle_spi.txData   = NULL;
@@ -816,8 +788,6 @@ static hal_rpmsg_status_t imu_wifi_config()
 
     HAL_ImuInstallCallback(kIMU_LinkCpu1Cpu3, read_wlan_resp, IMU_MSG_COMMAND_RESPONSE);
 
-    HAL_ImuInstallCallback(kIMU_LinkCpu1Cpu3, rpmsg_event_handler, IMU_MSG_EVENT);
-
     return state;
 }
 
@@ -827,7 +797,7 @@ static hal_rpmsg_status_t rpmsg_config(uint32_t linkId)
 {
     hal_rpmsg_status_t state = kStatus_HAL_RpmsgSuccess;
 
-    hal_rpmsg_config_t config;
+    hal_rpmsg_config_t config = {0};
     /* Init RPMSG/IMU Channel */
     config.local_addr  = local_ept_list[linkId];
     config.remote_addr = remote_ept_list[linkId];
@@ -864,112 +834,31 @@ static hal_rpmsg_status_t rpmsg_init()
     return state;
 }
 
-/* access cpu registers, only write(1)/read(0) actions are valid */
-static void wifi_handle_event_access_reg(event_access_t *info, uint8_t *dst)
+static void wifi_cau_temperature_enable()
 {
-    if (info->action == EVENT_ACCESS_ACTION_WRITE)
-    {
-        switch (info->size)
-        {
-            case 1:
-                WIFI_WRITE_REG8(info->addr, info->data[0]);
-                break;
-            case 2:
-                WIFI_WRITE_REG16(info->addr, *((uint16_t *)(&info->data[0])));
-                break;
-            case 4:
-                WIFI_WRITE_REG32(info->addr, *((uint32_t *)(&info->data[0])));
-                break;
-            default:
-                PRINTF("unknown access reg size %hu", info->size);
-                break;
-        }
-    }
-    else if (info->action == EVENT_ACCESS_ACTION_READ)
-    {
-        switch (info->size)
-        {
-            case 1:
-                *dst = WIFI_REG8(info->addr);
-                break;
-            case 2:
-                *((uint16_t *)dst) = WIFI_REG16(info->addr);
-                break;
-            case 4:
-                *((uint32_t *)dst) = WIFI_REG32(info->addr);
-                break;
-            default:
-                PRINTF("unknown access reg size %hu", info->size);
-                break;
-        }
-    }
-    else
-    {
-        PRINTF("unknown access reg action %hhu", info->action);
-    }
+    uint32_t val;
+
+    val = WIFI_REG32(WLAN_CAU_ENABLE_ADDR);
+    val &= ~(0xC);
+    val |= (2 << 2);
+    WIFI_WRITE_REG32(WLAN_CAU_ENABLE_ADDR, val);
 }
 
-/* TODO: implement */
-static void wifi_handle_event_access_eeprom(event_access_t *info, uint8_t *dst)
+static void wifi_cau_temperature_write_to_firmware()
 {
-    switch (info->action)
-    {
-        case EVENT_ACCESS_ACTION_READ:
-            /* TODO: read eeprom mem */
-            break;
-        case EVENT_ACCESS_ACTION_WRITE:
-            /* TODO: write eeprom mem */
-            break;
-        default:
-            PRINTF("unknown access eeprom action %hhu", info->action);
-            break;
-    }
+    uint32_t val;
+
+    val = WIFI_REG32(WLAN_CAU_TEMPERATURE_ADDR);
+    WIFI_WRITE_REG32(WLAN_CAU_TEMPERATURE_FW_ADDR, val);
 }
 
-/* use local buffer to handle access event from FW, copy data back to IMU in read action */
-static void wifi_handle_event_access_by_host(uint8_t *evt_buff)
+static void wifi_cau_temperature_timer_cb(TimerHandle_t timer)
 {
-    SDIOPkt *evt_pkt            = (SDIOPkt *)evt_buff;
-    event_access_t *local       = NULL;
-    uint16_t payload_size       = evt_pkt->size - EVENT_PAYLOAD_OFFSET;
-    uint16_t max_data_size      = payload_size - MLAN_FIELD_OFFSET(event_access_t, data);
-    uint8_t *payload_start_addr = evt_buff + EVENT_PAYLOAD_OFFSET;
-
-    if (payload_size < sizeof(event_access_t))
+    /* write CAU temperature to CPU1 when it is not sleeping */
+    if ((WIFI_REG32(WLAN_FW_WAKE_STATUS_ADDR) & 0x0CU) != 0x0CU)
     {
-        PRINTF("event access by host invalid payload size %d", payload_size);
-        return;
+        wifi_cau_temperature_write_to_firmware();
     }
-
-    local = (event_access_t *)pvPortMalloc(payload_size);
-    if (local == NULL)
-    {
-        PRINTF("event access by host malloc fail size %hu", payload_size);
-        return;
-    }
-
-    memcpy(local, payload_start_addr, payload_size);
-
-    if (local->size > max_data_size)
-    {
-        PRINTF("event access by host invalid size %hu, max_size %hu", local->size, max_data_size);
-        vPortFree(local);
-        return;
-    }
-
-    switch (local->type)
-    {
-        case EVENT_ACCESS_TYPE_REG:
-            wifi_handle_event_access_reg(local, payload_start_addr + MLAN_FIELD_OFFSET(event_access_t, data));
-            break;
-        case EVENT_ACCESS_TYPE_EEPROM:
-            wifi_handle_event_access_eeprom(local, payload_start_addr + MLAN_FIELD_OFFSET(event_access_t, data));
-        default:
-            PRINTF("event access by host unknown type %hhu", local->type);
-            break;
-    }
-
-    vPortFree(local);
 }
 #endif
 
@@ -1003,11 +892,6 @@ void task_main(void *param)
             case MLAN_STATUS_FW_NOT_DETECTED:
                 result = -WIFI_ERROR_FW_NOT_DETECTED;
                 break;
-#ifdef CONFIG_XZ_DECOMPRESSION
-            case MLAN_STATUS_FW_XZ_FAILED:
-                result = -WIFI_ERROR_FW_XZ_FAILED;
-                break;
-#endif /* CONFIG_XZ_DECOMPRESSION */
             case MLAN_STATUS_FW_NOT_READY:
                 result = -WIFI_ERROR_FW_NOT_READY;
                 break;
@@ -1029,7 +913,11 @@ void task_main(void *param)
     }
 #else
     NVIC_SetPriority(LPUART1_IRQn, 5);
+#if defined(MIMXRT1176_cm7_SERIES)
+    NVIC_SetPriority(LPUART7_IRQn, HAL_UART_ISR_PRIORITY);
+#else
     NVIC_SetPriority(LPUART3_IRQn, HAL_UART_ISR_PRIORITY);
+#endif
 
     lpuart_config.srcclk = DEMO_LPUART_CLK_FREQ;
     lpuart_config.base   = DEMO_LPUART;
@@ -1039,24 +927,18 @@ void task_main(void *param)
         vTaskSuspend(NULL);
     }
 
-    // #if defined(MIMXRT1176_cm7_SERIES)
     lpuart_config_bt.srcclk = BOARD_BT_UART_CLK_FREQ;
-    lpuart_config_bt.base   = LPUART3;
+#if defined(MIMXRT1176_cm7_SERIES)
+    lpuart_config_bt.base   = LPUART7;
+#else
+    lpuart_config_bt.base = LPUART3;
+#endif
 
     if (kStatus_Success != LPUART_RTOS_Init(&handle_bt, &t_handle_bt, &lpuart_config_bt))
     {
         vTaskSuspend(NULL);
     }
-// #endif
 #endif
-
-    //    local_outbuf = os_mem_alloc(SDIO_OUTBUF_LEN);
-
-    if (local_outbuf == NULL)
-    {
-        PRINTF("Failed to allocate buffer\r\n");
-        return;
-    }
 
 #if defined(MIMXRT1176_cm7_SERIES)
     LPSPI_MasterGetDefaultConfig(&spiConfig);
@@ -1094,6 +976,27 @@ void task_main(void *param)
 
     /* Initialize rpmsg */
     rpmsg_init();
+
+    /* Initialize CAU temperature timer */
+    wifi_cau_temperature_enable();
+    g_wifi_cau_temperature_timer =
+        xTimerCreate("CAU Timer", 5000 / portTICK_PERIOD_MS, pdTRUE, NULL, wifi_cau_temperature_timer_cb);
+    if (g_wifi_cau_temperature_timer == NULL)
+    {
+        PRINTF("Failed to create CAU temperature timer\r\n");
+        while (1)
+        {
+        }
+    }
+
+    result = xTimerStart(g_wifi_cau_temperature_timer, 5000 / portTICK_PERIOD_MS);
+    if (result != pdPASS)
+    {
+        PRINTF("Failed to start CAU temperature timer\r\n");
+        while (1)
+        {
+        }
+    }
 #endif
     size_t uart_rx_len = 0;
     int len            = 0;
@@ -1154,11 +1057,11 @@ void task_main(void *param)
                     send_response_to_uart(uart, host_resp_buf, RET_TYPE_WLAN, reqd_resp_len);
                 }
             }
-#if defined(MIMXRT1176_cm7_SERIES)
             else if (ret == RET_TYPE_BT)
             {
                 read_bt_resp();
             }
+#if defined(MIMXRT1176_cm7_SERIES)
             else if (ret == RET_TYPE_ZIGBEE)
             {
                 read_zigbee_resp();
@@ -1185,8 +1088,8 @@ int main(void)
     BOARD_ConfigMPU();
     BOARD_InitPins();
     BOARD_InitBootClocks();
-    BOARD_InitDebugConsole();
     BOARD_InitBTUARTPins();
+    BOARD_InitDebugConsole();
     BOARD_InitSpiPins();
 #else
     extern void BOARD_InitHardware(void);

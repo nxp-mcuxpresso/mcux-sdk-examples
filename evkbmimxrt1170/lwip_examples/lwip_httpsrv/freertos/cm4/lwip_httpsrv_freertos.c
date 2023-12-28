@@ -170,7 +170,7 @@ void BOARD_InitModuleClock(void)
     clock_root_config_t rootCfg = {.mux = 4, .div = 10}; /* Generate 50M root clock. */
     CLOCK_SetRootClock(kCLOCK_Root_Enet1, &rootCfg);
 #else
-    clock_root_config_t rootCfg = {.mux = 4, .div = 4}; /* Generate 125M root clock. */
+    clock_root_config_t rootCfg = {.mux = 4, .div = 4};       /* Generate 125M root clock. */
     CLOCK_SetRootClock(kCLOCK_Root_Enet2, &rootCfg);
 #endif
 }
@@ -214,7 +214,6 @@ static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
 #if LWIP_IPV6
 static void netif_ipv6_callback(struct netif *cb_netif)
 {
-    
     PRINTF("IPv6 address update, valid addresses:\r\n");
     http_server_print_ipv6_addresses(cb_netif);
     PRINTF("\r\n");

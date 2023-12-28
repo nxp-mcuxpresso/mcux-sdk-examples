@@ -182,7 +182,7 @@
    ---------- Internal Memory Pool Sizes ----------
    ------------------------------------------------
 */
-#define MEMP_USE_CUSTOM_POOLS 1
+//#define MEMP_USE_CUSTOM_POOLS 1
 
 /**
  * MEMP_NUM_PBUF: the number of memp struct pbufs (used for PBUF_ROM and PBUF_REF).
@@ -328,24 +328,7 @@
  */
 #define LWIP_RAW 1
 
-#ifdef CONFIG_IPV6
-#define LWIP_IPV6 1
-
-/**
- * LWIP_NETIF_IPV6_STATUS_CALLBACK==1: Support a callback function
- * whenever IPv6 address state is changed - Invalid, valid, preferred,
- * tentative, deprecated
- */
-
-#define LWIP_NETIF_IPV6_STATUS_CALLBACK LWIP_IPV6
-#endif
-
 /* Enable IPv4 Auto IP	*/
-#ifdef CONFIG_AUTOIP
-#define LWIP_AUTOIP                 1
-#define LWIP_DHCP_AUTOIP_COOP       1
-#define LWIP_DHCP_AUTOIP_COOP_TRIES 5
-#endif
 
 #define LWIP_DNS_SECURE 0
 
@@ -408,8 +391,7 @@
 /**
  * LWIP_DHCP==1: Enable DHCP module.
  */
-#define LWIP_DHCP                  1
-#define LWIP_NETIF_STATUS_CALLBACK 1
+#define LWIP_DHCP                      1
 #define LWIP_NETIF_EXT_STATUS_CALLBACK 1
 
 /**

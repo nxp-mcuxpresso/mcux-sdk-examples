@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="cm33_MIMX8UD7"/>
+    <definition extID="component.lpi2c_adapter.MIMX8UD7"/>
+    <definition extID="component.codec_i2c.MIMX8UD7"/>
+    <definition extID="component.wm8960_adapter.MIMX8UD7"/>
+    <definition extID="driver.codec.MIMX8UD7"/>
+    <definition extID="middleware.freertos-kernel.cm33_non_trustzone.MIMX8UD7"/>
+    <definition extID="middleware.freertos-kernel.heap_4.MIMX8UD7"/>
+    <definition extID="platform.drivers.mu1.MIMX8UD7"/>
+    <definition extID="platform.drivers.rtd_cmc.MIMX8UD7"/>
+    <definition extID="platform.drivers.sentinel.MIMX8UD7"/>
+    <definition extID="middleware.multicore.rpmsg_lite.freertos.MIMX8UD7"/>
+    <definition extID="middleware.multicore.rpmsg_lite.MIMX8UD7"/>
+    <definition extID="platform.drivers.lptmr.MIMX8UD7"/>
+    <definition extID="platform.drivers.clock.MIMX8UD7"/>
+    <definition extID="platform.drivers.common.MIMX8UD7"/>
+    <definition extID="platform.devices.MIMX8UD7_CMSIS.MIMX8UD7"/>
+    <definition extID="utility.debug_console.MIMX8UD7"/>
+    <definition extID="platform.utilities.assert.MIMX8UD7"/>
+    <definition extID="component.lpuart_adapter.MIMX8UD7"/>
+    <definition extID="platform.drivers.flexspi.MIMX8UD7"/>
+    <definition extID="component.serial_manager_uart.MIMX8UD7"/>
+    <definition extID="component.serial_manager.MIMX8UD7"/>
+    <definition extID="platform.drivers.lpuart.MIMX8UD7"/>
+    <definition extID="component.lists.MIMX8UD7"/>
+    <definition extID="platform.devices.MIMX8UD7_startup.MIMX8UD7"/>
+    <definition extID="platform.drivers.cache_cache64.MIMX8UD7"/>
+    <definition extID="platform.drivers.iomuxc.MIMX8UD7"/>
+    <definition extID="platform.drivers.reset.MIMX8UD7"/>
+    <definition extID="platform.drivers.upower.MIMX8UD7"/>
+    <definition extID="platform.drivers.rgpio.MIMX8UD7"/>
+    <definition extID="platform.drivers.fusion.MIMX8UD7"/>
+    <definition extID="platform.drivers.trdc.MIMX8UD7"/>
+    <definition extID="platform.drivers.dma3.MIMX8UD7"/>
+    <definition extID="platform.drivers.lpi2c.MIMX8UD7"/>
+    <definition extID="platform.drivers.sai_edma.MIMX8UD7"/>
+    <definition extID="platform.drivers.wuu.MIMX8UD7"/>
+    <definition extID="driver.pca6416a.MIMX8UD7"/>
+    <definition extID="driver.lsm6dso.MIMX8UD7"/>
+    <definition extID="driver.srtm.freertos.MIMX8UD7"/>
+    <definition extID="middleware.multicore.rpmsg_lite.imx8ulp_m33_freertos.MIMX8UD7"/>
+    <definition extID="component.pwm_tpm_adapter.MIMX8UD7"/>
+    <definition extID="component.rtc_bbnsm_adapter.MIMX8UD7"/>
+    <definition extID="platform.utilities.misc_utilities.MIMX8UD7"/>
+    <definition extID="driver.wm8960.MIMX8UD7"/>
+    <definition extID="middleware.freertos-kernel.MIMX8UD7"/>
+    <definition extID="middleware.freertos-kernel.template.MIMX8UD7"/>
+    <definition extID="middleware.freertos-kernel.extension.MIMX8UD7"/>
+    <definition extID="CMSIS_Include_core_cm.MIMX8UD7"/>
+    <definition extID="platform.drivers.sai.MIMX8UD7"/>
+    <definition extID="driver.srtm.MIMX8UD7"/>
+    <definition extID="platform.drivers.tpm.MIMX8UD7"/>
+    <definition extID="platform.drivers.bbnsm.MIMX8UD7"/>
+    <definition extID="armgcc"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+  </externalDefinitions>
+  <example id="evkmimx8ulp_power_mode_switch" name="power_mode_switch" device_core="cm33_MIMX8UD7" dependency="component.lpi2c_adapter.MIMX8UD7 component.codec_i2c.MIMX8UD7 component.wm8960_adapter.MIMX8UD7 driver.codec.MIMX8UD7 middleware.freertos-kernel.cm33_non_trustzone.MIMX8UD7 middleware.freertos-kernel.heap_4.MIMX8UD7 platform.drivers.mu1.MIMX8UD7 platform.drivers.rtd_cmc.MIMX8UD7 platform.drivers.sentinel.MIMX8UD7 middleware.multicore.rpmsg_lite.freertos.MIMX8UD7 middleware.multicore.rpmsg_lite.MIMX8UD7 platform.drivers.lptmr.MIMX8UD7 platform.drivers.clock.MIMX8UD7 platform.drivers.common.MIMX8UD7 platform.devices.MIMX8UD7_CMSIS.MIMX8UD7 utility.debug_console.MIMX8UD7 platform.utilities.assert.MIMX8UD7 component.lpuart_adapter.MIMX8UD7 platform.drivers.flexspi.MIMX8UD7 component.serial_manager_uart.MIMX8UD7 component.serial_manager.MIMX8UD7 platform.drivers.lpuart.MIMX8UD7 component.lists.MIMX8UD7 platform.devices.MIMX8UD7_startup.MIMX8UD7 platform.drivers.cache_cache64.MIMX8UD7 platform.drivers.iomuxc.MIMX8UD7 platform.drivers.reset.MIMX8UD7 platform.drivers.upower.MIMX8UD7 platform.drivers.rgpio.MIMX8UD7 platform.drivers.fusion.MIMX8UD7 platform.drivers.trdc.MIMX8UD7 platform.drivers.dma3.MIMX8UD7 platform.drivers.lpi2c.MIMX8UD7 platform.drivers.sai_edma.MIMX8UD7 platform.drivers.wuu.MIMX8UD7 driver.pca6416a.MIMX8UD7 driver.lsm6dso.MIMX8UD7 driver.srtm.freertos.MIMX8UD7 middleware.multicore.rpmsg_lite.imx8ulp_m33_freertos.MIMX8UD7 component.pwm_tpm_adapter.MIMX8UD7 component.rtc_bbnsm_adapter.MIMX8UD7 platform.utilities.misc_utilities.MIMX8UD7 driver.wm8960.MIMX8UD7 middleware.freertos-kernel.MIMX8UD7 middleware.freertos-kernel.template.MIMX8UD7 middleware.freertos-kernel.extension.MIMX8UD7 CMSIS_Include_core_cm.MIMX8UD7 platform.drivers.sai.MIMX8UD7 driver.srtm.MIMX8UD7 platform.drivers.tpm.MIMX8UD7 platform.drivers.bbnsm.MIMX8UD7" category="demo_apps">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>CPU_MIMX8UD7DVP08_cm33</value>
+          <value>FSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1</value>
+          <value>ENABLE_RAM_VECTOR_TABLE</value>
+          <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
+          <value>BOARD_USE_PCA6416A=1</value>
+          <value>BOARD_USE_TPM=1</value>
+          <value>MCUXPRESSO_SDK</value>
+          <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
+          <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>RTC_LEGACY_FUNCTION_PROTOTYPE=0</value>
+          <value>BOARD_USE_CODEC=1</value>
+          <value>CODEC_WM8960_ENABLE</value>
+          <value>SDK_OS_FREE_RTOS</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="gnu.c.link.option.other" type="stringList">
+          <value>-no-warn-rwx-segments</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <include_paths>
+      <include_path path="." project_relative_path="remoteproc" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimx8ulp/demo_apps/power_mode_switch/drivers/lpi2c" type="c_include"/>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="../.." project_relative_path="source" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimx8ulp/demo_apps/power_mode_switch" type="c_include"/>
+      <include_path path="../../../../core/boards/evkmimx8ulp" project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="evkmimx8ulp" type="c_include"/>
+      <include_path path="srtm/channels" project_relative_path="srtm/channels" type="c_include"/>
+      <include_path path="srtm/services" project_relative_path="srtm/services" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="asm_include"/>
+    </include_paths>
+    <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_debug.bat"/>
+      <files mask="build_debug.sh"/>
+      <files mask="build_release.bat"/>
+      <files mask="build_release.sh"/>
+      <files mask="build_flash_debug.bat"/>
+      <files mask="build_flash_debug.sh"/>
+      <files mask="build_flash_release.bat"/>
+      <files mask="build_flash_release.sh"/>
+    </source>
+    <source path="../../../../core/devices/MIMX8UD7" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="all_lib_device.cmake"/>
+    </source>
+    <source path="." project_relative_path="remoteproc" type="src">
+      <files mask="rsc_table.c"/>
+    </source>
+    <source path="." project_relative_path="remoteproc" type="c_include">
+      <files mask="rsc_table.h"/>
+    </source>
+    <source path="." project_relative_path="remoteproc" type="c_include">
+      <files mask="remoteproc.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="rpmsg_config.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="srtm_config.h"/>
+    </source>
+    <source path="." project_relative_path="evkmimx8ulp/demo_apps/power_mode_switch/drivers/lpi2c" type="src">
+      <files mask="fsl_lpi2c_freertos.c"/>
+    </source>
+    <source path="." project_relative_path="evkmimx8ulp/demo_apps/power_mode_switch/drivers/lpi2c" type="c_include">
+      <files mask="fsl_lpi2c_freertos.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="power_mode_switch.c"/>
+      <files mask="lpm.c"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="power_mode_switch.h"/>
+      <files mask="lpm.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include" config="true">
+      <files mask="FreeRTOSConfig.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="." project_relative_path="evkmimx8ulp/demo_apps/power_mode_switch" type="binary">
+      <files mask="power_mode_switch.bin" hidden="true"/>
+    </source>
+    <source path="../../../../core/boards/evkmimx8ulp" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="../../../../core/boards/evkmimx8ulp" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="armgcc">
+      <files mask="readme.md"/>
+    </source>
+    <source path="armgcc" project_relative_path="MIMX8UD7/gcc" type="linker" toolchain="armgcc">
+      <files mask="MIMX8UD7xxxxx_cm33_ram.ld"/>
+      <files mask="MIMX8UD7xxxxx_cm33_flash.ld"/>
+    </source>
+    <source path="." project_relative_path="remoteproc" type="src">
+      <files mask="empty_rsc_table.c"/>
+    </source>
+    <source path="." project_relative_path="evkmimx8ulp" type="src">
+      <files mask="app_srtm.c"/>
+    </source>
+    <source path="." project_relative_path="evkmimx8ulp" type="c_include">
+      <files mask="app_srtm.h"/>
+    </source>
+    <source path="srtm/channels" project_relative_path="srtm/channels" type="c_include">
+      <files mask="srtm_rpmsg_endpoint.h"/>
+    </source>
+    <source path="srtm/channels" project_relative_path="srtm/channels" type="src">
+      <files mask="srtm_rpmsg_endpoint.c"/>
+    </source>
+    <source path="srtm/services" project_relative_path="srtm/services" type="c_include">
+      <files mask="srtm_audio_service.h"/>
+      <files mask="srtm_sai_edma_adapter.h"/>
+      <files mask="srtm_i2c_service.h"/>
+      <files mask="srtm_sensor_service.h"/>
+      <files mask="srtm_io_service.h"/>
+      <files mask="srtm_keypad_service.h"/>
+      <files mask="srtm_pwm_service.h"/>
+      <files mask="srtm_pwm_adapter.h"/>
+      <files mask="srtm_rtc_service.h"/>
+      <files mask="srtm_rtc_adapter.h"/>
+      <files mask="srtm_lfcl_service.h"/>
+    </source>
+    <source path="srtm/services" project_relative_path="srtm/services" type="src">
+      <files mask="srtm_audio_service.c"/>
+      <files mask="srtm_sai_edma_adapter.c"/>
+      <files mask="srtm_i2c_service.c"/>
+      <files mask="srtm_sensor_service.c"/>
+      <files mask="srtm_io_service.c"/>
+      <files mask="srtm_keypad_service.c"/>
+      <files mask="srtm_pwm_service.c"/>
+      <files mask="srtm_pwm_adapter.c"/>
+      <files mask="srtm_rtc_service.c"/>
+      <files mask="srtm_rtc_adapter.c"/>
+      <files mask="srtm_lfcl_service.c"/>
+    </source>
+  </example>
+</ksdk:examples>

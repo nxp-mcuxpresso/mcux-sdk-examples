@@ -33,7 +33,6 @@ SET(CMAKE_ASM_FLAGS_FLEXSPI_NOR_RELEASE " \
 SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     ${CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG} \
     -include ${ProjDirPath}/../app_config.h \
-    -include ${ProjDirPath}/../app_config.h \
     -DXIP_EXTERNAL_FLASH=1 \
     -DXIP_BOOT_HEADER_ENABLE=1 \
     -DDEBUG \
@@ -69,7 +68,6 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
 ")
 SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE} \
-    -include ${ProjDirPath}/../app_config.h \
     -include ${ProjDirPath}/../app_config.h \
     -DXIP_EXTERNAL_FLASH=1 \
     -DXIP_BOOT_HEADER_ENABLE=1 \
@@ -179,7 +177,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     --defsym=__heap_size__=0x400 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/linker/MIMXRT1062xxxxx_flexspi_nor.ld -static \
+    -T\"${ProjDirPath}/linker/MIMXRT1062xxxxx_flexspi_nor.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE} \
@@ -209,5 +207,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     --defsym=__heap_size__=0x400 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/linker/MIMXRT1062xxxxx_flexspi_nor.ld -static \
+    -T\"${ProjDirPath}/linker/MIMXRT1062xxxxx_flexspi_nor.ld\" -static \
 ")

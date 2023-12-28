@@ -127,22 +127,22 @@
 #define configGW1_ADDR3 200
 #endif
 
-#define EXAMPLE_ENET          ENET
-#define EXAMPLE_PHY_ADDRESS   BOARD_ENET0_PHY_ADDRESS
-#define EXAMPLE_PHY_OPS       &phyrtl8201_ops
+#define EXAMPLE_ENET        ENET
+#define EXAMPLE_PHY_ADDRESS BOARD_ENET0_PHY_ADDRESS
+#define EXAMPLE_PHY_OPS     &phyrtl8201_ops
 extern phy_rtl8201_resource_t g_phy_resource;
-#define EXAMPLE_PHY_RESOURCE &g_phy_resource
+#define EXAMPLE_PHY_RESOURCE  &g_phy_resource
 #define EXAMPLE_NETIF_INIT_FN ethernetif0_init
-#define configMAC_ADDR                    \
+#define configMAC_ADDR                     \
     {                                      \
         0x02, 0x12, 0x13, 0x10, 0x15, 0x11 \
     }
 
-#define EXAMPLE_ENET_1G        ENET_1G
-#define EXAMPLE_PHY1_ADDRESS   BOARD_ENET1_PHY_ADDRESS
-#define EXAMPLE_PHY1_OPS       &phyrtl8211f_ops
+#define EXAMPLE_ENET_1G      ENET_1G
+#define EXAMPLE_PHY1_ADDRESS BOARD_ENET1_PHY_ADDRESS
+#define EXAMPLE_PHY1_OPS     &phyrtl8211f_ops
 extern phy_rtl8211f_resource_t g_phy1_resource;
-#define EXAMPLE_PHY1_RESOURCE &g_phy1_resource
+#define EXAMPLE_PHY1_RESOURCE  &g_phy1_resource
 #define EXAMPLE_NETIF1_INIT_FN ethernetif1_init
 #define configMAC_ADDR1                    \
     {                                      \
@@ -190,6 +190,11 @@ phy_rtl8211f_resource_t g_phy1_resource;
 static phy_handle_t phyHandle;
 #if defined(BOARD_NETWORK_USE_DUAL_ENET)
 static phy_handle_t phyHandle1;
+
+#if LWIP_SINGLE_NETIF == 1
+#error \
+    "Single netif limitation in lwIP must be disabled if this example were to use both interfaces. (LWIP_SINGLE_NETIF = 0)"
+#endif // LWIP_SINGLE_NETIF == 1
 #endif
 
 /*******************************************************************************
@@ -212,8 +217,8 @@ void BOARD_InitModuleClock(void)
 void IOMUXC_SelectENETClock(void)
 {
     IOMUXC_GPR->GPR4 |= IOMUXC_GPR_GPR4_ENET_REF_CLK_DIR_MASK; /* 50M ENET_REF_CLOCK output to PHY and ENET module. */
-    IOMUXC_GPR->GPR5 |= IOMUXC_GPR_GPR5_ENET1G_RGMII_EN_MASK; /* bit1:iomuxc_gpr_enet_clk_dir
-                                                                 bit0:GPR_ENET_TX_CLK_SEL(internal or OSC) */
+    IOMUXC_GPR->GPR5 |= IOMUXC_GPR_GPR5_ENET1G_RGMII_EN_MASK;  /* bit1:iomuxc_gpr_enet_clk_dir
+                                                                  bit0:GPR_ENET_TX_CLK_SEL(internal or OSC) */
 }
 
 void BOARD_ENETFlexibleConfigure(enet_config_t *config)
@@ -366,7 +371,6 @@ int main(void)
     BOARD_InitModuleClock();
 
     IOMUXC_SelectENETClock();
-
 
     BOARD_InitEnetPins();
     GPIO_PinInit(GPIO12, 12, &gpio_config);

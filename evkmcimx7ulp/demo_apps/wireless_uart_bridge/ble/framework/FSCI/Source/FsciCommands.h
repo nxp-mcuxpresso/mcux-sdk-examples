@@ -25,8 +25,8 @@
 /* Define the message types that Fsci recognizes and/or generates. */
 enum
 {
-    mFsciMsgModeSelectReq_c = 0x00, /* Fsci-ModeSelect.Request.              */
-    mFsciMsgGetModeReq_c    = 0x02, /* Fsci-GetMode.Request.                 */
+    mFsciMsgModeSelectReq_c = 0x00,               /* Fsci-ModeSelect.Request.              */
+    mFsciMsgGetModeReq_c    = 0x02,               /* Fsci-GetMode.Request.                 */
 
     mFsciMsgAFResetReq_c                  = 0x05, /* Fsci-AFReset.Request.                 */
     mFsciMsgAPSResetReq_c                 = 0x06, /* Fsci-APSReset.Request.                */
@@ -72,9 +72,9 @@ enum
 
     mFsciEnableBootloaderReq_c = 0xCF,
 
-    mFsciLowLevelMemoryWriteBlock_c = 0x30, /* Fsci-WriteRAMMemoryBlock.Request     */
-    mFsciLowLevelMemoryReadBlock_c  = 0x31, /* Fsci-ReadMemoryBlock.Request         */
-    mFsciLowLevelPing_c             = 0x38, /* Fsci-Ping.Request                    */
+    mFsciLowLevelMemoryWriteBlock_c = 0x30,    /* Fsci-WriteRAMMemoryBlock.Request     */
+    mFsciLowLevelMemoryReadBlock_c  = 0x31,    /* Fsci-ReadMemoryBlock.Request         */
+    mFsciLowLevelPing_c             = 0x38,    /* Fsci-Ping.Request                    */
 
     mFsciMsgGetApsDeviceKeyPairSet_c   = 0x3B, /* Fsci-GetApsDeviceKeyPairSet         */
     mFsciMsgGetApsDeviceKey_c          = 0x3C,
@@ -111,18 +111,18 @@ enum
 
     mFsciMsgWriteNwkMngAddressReq_c = 0xAD, /* Fsci-WriteNwkMngAddr.Request         */
 
-    mFsciMsgReadExtendedAdrReq_c   = 0xD2, /* Fsci-ReadExtAddr.Request             */
-    mFsciMsgReadNwkMngAddressReq_c = 0xDA, /* Fsci-ReadNwkMngAddr.Request          */
-    mFsciMsgWriteExtendedAdrReq_c  = 0xDB, /* Fsci-WriteExtAddr.Request            */
-    mFsciMsgStopNwkReq_c           = 0xDC, /* Fsci-StopNwk.Request                 */
-    mFsciMsgStartNwkReq_c          = 0xDF, /* Fsci-StartNwk.Request                */
-    mFsciMsgStartNwkExReq_c        = 0xE7, /* Fsci-StartNwkEx.Request              */
-    mFsciMsgStopNwkExReq_c         = 0xE8, /* Fsci-StopNwkEx.Request               */
-    mFsciMsgRestartNwkReq_c        = 0xE0, /* Fsci-RestartNwk.Request              */
+    mFsciMsgReadExtendedAdrReq_c   = 0xD2,  /* Fsci-ReadExtAddr.Request             */
+    mFsciMsgReadNwkMngAddressReq_c = 0xDA,  /* Fsci-ReadNwkMngAddr.Request          */
+    mFsciMsgWriteExtendedAdrReq_c  = 0xDB,  /* Fsci-WriteExtAddr.Request            */
+    mFsciMsgStopNwkReq_c           = 0xDC,  /* Fsci-StopNwk.Request                 */
+    mFsciMsgStartNwkReq_c          = 0xDF,  /* Fsci-StartNwk.Request                */
+    mFsciMsgStartNwkExReq_c        = 0xE7,  /* Fsci-StartNwkEx.Request              */
+    mFsciMsgStopNwkExReq_c         = 0xE8,  /* Fsci-StopNwkEx.Request               */
+    mFsciMsgRestartNwkReq_c        = 0xE0,  /* Fsci-RestartNwk.Request              */
 
-    mFsciMsgAck_c        = 0xFD, /* Fsci acknowledgment.                 */
-    mFsciMsgError_c      = 0xFE, /* Fsci internal error.                 */
-    mFsciMsgDebugPrint_c = 0xFF, /* printf()-style debug message.        */
+    mFsciMsgAck_c        = 0xFD,            /* Fsci acknowledgment.                 */
+    mFsciMsgError_c      = 0xFE,            /* Fsci internal error.                 */
+    mFsciMsgDebugPrint_c = 0xFF,            /* printf()-style debug message.        */
 };
 
 typedef PACKED_STRUCT gFsciErrorMsg_tag

@@ -21,7 +21,7 @@
 #ifndef __ALIGN_BEGIN
 #if defined(__CC_ARM) || defined(__ARMCC_VERSION) /* ARM Compiler */
 #define __ALIGN_BEGIN __attribute__((aligned(4)))
-#elif defined(__ICCARM__) /* IAR Compiler */
+#elif defined(__ICCARM__)                         /* IAR Compiler */
 #define __ALIGN_BEGIN
 #endif
 #endif

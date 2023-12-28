@@ -100,8 +100,8 @@ int main(void)
         /*
          * wdogConfig->enableWdog = true;
          * wdogConfig->workMode.enableWait = true;
-         * wdogConfig->workMode.enableStop = false;
-         * wdogConfig->workMode.enableDebug = false;
+         * wdogConfig->workMode.enableStop = true;
+         * wdogConfig->workMode.enableDebug = true;
          * wdogConfig->enableInterrupt = false;
          * wdogConfig->enablePowerdown = false;
          * wdogConfig->resetExtension = flase;

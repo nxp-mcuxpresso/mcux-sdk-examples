@@ -87,10 +87,9 @@ AT_QUICKACCESS_SECTION_CODE(void SwitchFlexspiRootClock(bool pllLdoDisabled));
 lpi2c_master_handle_t g_lpi2cHandle;
 extern pf5020_handle_t g_pf5020Handle;
 static volatile bool g_lpi2cIntFlag;
-const uint8_t sw1Volt[16] = PF5020_SW1_OUTPUT_VOLT;
+const uint8_t sw1Volt[16]                                = PF5020_SW1_OUTPUT_VOLT;
 const pf5020_buck_regulator_operate_mode_t swnd1Mode[16] = PF5020_SWND1_OPERATE_MODE;
 #endif /* #if (defined(BOARD_USE_EXT_PMIC) && BOARD_USE_EXT_PMIC) */
-
 
 /*******************************************************************************
  * Code
@@ -232,11 +231,11 @@ static void APP_InitPMIC(void)
     lpi2c_master_config_t masterConfig;
     pf5020_config_t pmicConfig;
     clock_root_config_t rootCfg = {0};
- 
+
     rootCfg.mux = kCLOCK_LPI2C6_ClockRoot_MuxOscRc16M;
     rootCfg.div = 1;
     CLOCK_SetRootClock(kCLOCK_Root_Lpi2c6, &rootCfg);
-    
+
     LPI2C_MasterGetDefaultConfig(&masterConfig);
     masterConfig.baudRate_Hz = DEMO_PF5020_LPI2C_BAUDRATE;
     /* Initialize the LPI2C master peripheral */
@@ -254,8 +253,8 @@ static void APP_InitPMIC(void)
     uint8_t currentSp;
     uint8_t preSpSw1OutVolt;
     uint8_t curSpSw1OutVolt;
-    preSp = GPC_SP_GetPreviousSetPoint(GPC_SET_POINT_CTRL);
-    currentSp = GPC_SP_GetCurrentSetPoint(GPC_SET_POINT_CTRL);
+    preSp           = GPC_SP_GetPreviousSetPoint(GPC_SET_POINT_CTRL);
+    currentSp       = GPC_SP_GetCurrentSetPoint(GPC_SET_POINT_CTRL);
     preSpSw1OutVolt = sw1Volt[preSp];
     curSpSw1OutVolt = sw1Volt[currentSp];
     if (preSpSw1OutVolt != curSpSw1OutVolt)
@@ -432,7 +431,7 @@ void SwitchFlexspiRootClock(bool pllLdoDisabled)
     {
         SCB_DisableICache();
     }
-#endif    
+#endif
 
 #if (defined(XIP_EXTERNAL_FLASH) && (XIP_EXTERNAL_FLASH == 1))
 
@@ -446,13 +445,14 @@ void SwitchFlexspiRootClock(bool pllLdoDisabled)
     CCM->LPCG[kCLOCK_Flexspi1].DOMAINr = 0UL;
     /* Disable clock gate of flexspi. */
     CCM->LPCG[kCLOCK_Flexspi1].DIRECT &= ~CCM_LPCG_DIRECT_ON_MASK;
-    
+
     __DSB();
     __ISB();
-    
-    while(CCM->LPCG[kCLOCK_Flexspi1].STATUS0 & CCM_LPCG_STATUS0_ON_MASK)
-    {}
-    
+
+    while (CCM->LPCG[kCLOCK_Flexspi1].STATUS0 & CCM_LPCG_STATUS0_ON_MASK)
+    {
+    }
+
 #endif
 
     if (pllLdoDisabled)
@@ -474,9 +474,10 @@ void SwitchFlexspiRootClock(bool pllLdoDisabled)
     CCM->LPCG[kCLOCK_Flexspi1].DOMAINr |= 0x4UL;
     __DSB();
     __ISB();
-    
-    while(!(CCM->LPCG[kCLOCK_Flexspi1].STATUS0 & CCM_LPCG_STATUS0_ON_MASK))
-    {}
+
+    while (!(CCM->LPCG[kCLOCK_Flexspi1].STATUS0 & CCM_LPCG_STATUS0_ON_MASK))
+    {
+    }
 
     uint32_t status;
     uint32_t lastStatus;
@@ -530,7 +531,7 @@ void SwitchFlexspiRootClock(bool pllLdoDisabled)
 
 #if (__CORTEX_M == 7)
     SCB_EnableICache();
-#endif    
+#endif
 #endif
 }
 
@@ -664,7 +665,7 @@ void TypicalSetPointTransition(void)
         PRINTF("Press 'Q' to exit\r\n");
         PRINTF("\r\nWaiting for select...\r\n");
 
-        //get current setpoint of the system.
+        // get current setpoint of the system.
         currentSp = (GPC_CPU_MODE_CTRL_0->CM_SP_STAT) & (GPC_CPU_MODE_CTRL_CM_SP_STAT_CPU_SP_CURRENT_MASK);
 
         /* Wait for user response */
@@ -746,20 +747,21 @@ void TypicalSetPointTransition(void)
 
             if (stbyEn)
             {
-                (void)PF5020_SW1_SetStandbyStateOption(&g_pf5020Handle, sw1Volt[targetSp], kPF5020_BuckRegulatorPWMMode);
+                (void)PF5020_SW1_SetStandbyStateOption(&g_pf5020Handle, sw1Volt[targetSp],
+                                                       kPF5020_BuckRegulatorPWMMode);
 
-                 if ((currentSp == 5) && ((target == 11)))
+                if ((currentSp == 5) && ((target == 11)))
                 {
                     PRINTF("Do not support this selection, please retry! \r\n");
                     continue;
                 }
 
-                 uint32_t currentSpAllowedSps = GPC_CPU_MODE_CTRL_0->CM_SP_MAPPING[currentSp];
-                 uint32_t targetSpAllowedSps = GPC_CPU_MODE_CTRL_1->CM_SP_MAPPING[targetSp];
-                 uint32_t allowedSps = currentSpAllowedSps & targetSpAllowedSps;
-                 uint8_t maxIndex = 15U;
-                 if (allowedSps != 0UL)
-                 {
+                uint32_t currentSpAllowedSps = GPC_CPU_MODE_CTRL_0->CM_SP_MAPPING[currentSp];
+                uint32_t targetSpAllowedSps  = GPC_CPU_MODE_CTRL_1->CM_SP_MAPPING[targetSp];
+                uint32_t allowedSps          = currentSpAllowedSps & targetSpAllowedSps;
+                uint8_t maxIndex             = 15U;
+                if (allowedSps != 0UL)
+                {
                     // Find allowed setpoint.
                     while ((allowedSps & (1 << maxIndex)) == 0UL)
                     {
@@ -767,11 +769,11 @@ void TypicalSetPointTransition(void)
                     }
                     if (sw1Volt[maxIndex] > currentSw1OutVolt)
                     {
-                        (void)PF5020_SW1_SetRunStateOption(&g_pf5020Handle, sw1Volt[maxIndex], kPF5020_BuckRegulatorPWMMode);
+                        (void)PF5020_SW1_SetRunStateOption(&g_pf5020Handle, sw1Volt[maxIndex],
+                                                           kPF5020_BuckRegulatorPWMMode);
                     }
-                 }
-                 
-                
+                }
+
 #ifdef CORE1_GET_INPUT_FROM_CORE0
                 /* Send message to another core */
                 MU_SendMsg(MU_BASE, CHN_MU_REG_NUM, ch);
@@ -805,7 +807,7 @@ void TypicalSetPointTransition(void)
                 delay();
 #endif
                 /* Polling until success to switch into target setpoint. */
-                while(GPC_SP_GetCurrentSetPoint(GPC_SET_POINT_CTRL) != targetSp)
+                while (GPC_SP_GetCurrentSetPoint(GPC_SET_POINT_CTRL) != targetSp)
                 {
                     ;
                 }
@@ -836,11 +838,12 @@ void TypicalSetPointTransition(void)
 
                     /* Until now CPU is wake from low power mode */
                     /* 4. Increase voltage level. */
-                    (void)PF5020_SW1_SetRunStateOption(&g_pf5020Handle, currentSw1OutVolt, kPF5020_BuckRegulatorPWMMode);
+                    (void)PF5020_SW1_SetRunStateOption(&g_pf5020Handle, currentSw1OutVolt,
+                                                       kPF5020_BuckRegulatorPWMMode);
                     /* 5. Change to previous setpoint. */
                     GPC_CM_RequestRunModeSetPointTransition(GPC_CPU_MODE_CTRL, currentSp);
                     /* Reqest another core switch to target setpoint. */
-                    switch(currentSp)
+                    switch (currentSp)
                     {
                         case 1:
                         {
@@ -873,7 +876,7 @@ void TypicalSetPointTransition(void)
                     delay();
 #endif
                     /* Polling until success to switch into target setpoint. */
-                    while(GPC_SP_GetCurrentSetPoint(GPC_SET_POINT_CTRL) != currentSp)
+                    while (GPC_SP_GetCurrentSetPoint(GPC_SET_POINT_CTRL) != currentSp)
                     {
                         ;
                     }
@@ -894,7 +897,7 @@ void TypicalSetPointTransition(void)
                 delay();
 #endif
                 /* Polling until success to switch into target setpoint. */
-                while(GPC_SP_GetCurrentSetPoint(GPC_SET_POINT_CTRL) != targetSp)
+                while (GPC_SP_GetCurrentSetPoint(GPC_SET_POINT_CTRL) != targetSp)
                 {
                     ;
                 }
@@ -923,9 +926,9 @@ void TypicalSetPointTransition(void)
                     /* Until now CPU is wake from low power mode */
                     /* 4. Change to previous setpoint. */
                     GPC_CM_RequestRunModeSetPointTransition(GPC_CPU_MODE_CTRL, currentSp);
-                    
+
                     /* Reqest another core switch to target setpoint. */
-                    switch(currentSp)
+                    switch (currentSp)
                     {
                         case 1:
                         {
@@ -958,13 +961,14 @@ void TypicalSetPointTransition(void)
                     delay();
 #endif
                     /* Polling until success to switch into target setpoint. */
-                    while(GPC_SP_GetCurrentSetPoint(GPC_SET_POINT_CTRL) != currentSp)
+                    while (GPC_SP_GetCurrentSetPoint(GPC_SET_POINT_CTRL) != currentSp)
                     {
                         ;
                     }
 
                     /* 5. Increase voltage level. */
-                    (void)PF5020_SW1_SetRunStateOption(&g_pf5020Handle, currentSw1OutVolt, kPF5020_BuckRegulatorPWMMode);
+                    (void)PF5020_SW1_SetRunStateOption(&g_pf5020Handle, currentSw1OutVolt,
+                                                       kPF5020_BuckRegulatorPWMMode);
                 }
             }
             else
@@ -979,7 +983,7 @@ void TypicalSetPointTransition(void)
                 delay();
 #endif
                 /* Polling until success to switch into target setpoint. */
-                while(GPC_SP_GetCurrentSetPoint(GPC_SET_POINT_CTRL) != targetSp)
+                while (GPC_SP_GetCurrentSetPoint(GPC_SET_POINT_CTRL) != targetSp)
                 {
                     ;
                 }
@@ -1007,9 +1011,9 @@ void TypicalSetPointTransition(void)
                     /* Until now CPU is wake from low power mode */
                     /* Change to previous setpoint. */
                     GPC_CM_RequestRunModeSetPointTransition(GPC_CPU_MODE_CTRL, currentSp);
-                    
+
                     /* Reqest another core switch to previous setpoint. */
-                    switch(currentSp)
+                    switch (currentSp)
                     {
                         case 1:
                         {
@@ -1037,12 +1041,12 @@ void TypicalSetPointTransition(void)
                             break;
                         }
                     }
-#ifdef CORE1_GET_INPUT_FROM_CORE0                    
+#ifdef CORE1_GET_INPUT_FROM_CORE0
                     MU_SendMsg(MU_BASE, CHN_MU_REG_NUM, ch);
                     delay();
 #endif
                     /* Polling until success to switch into target setpoint. */
-                    while(GPC_SP_GetCurrentSetPoint(GPC_SET_POINT_CTRL) != currentSp)
+                    while (GPC_SP_GetCurrentSetPoint(GPC_SET_POINT_CTRL) != currentSp)
                     {
                         ;
                     }
@@ -1277,7 +1281,7 @@ int main(void)
     if (preCpuMode != kGPC_RunMode)
     {
 #ifdef CORE1_GET_INPUT_FROM_CORE0
-          MU_SendMsg(MU_BASE, CHN_MU_REG_NUM, 'Q');
+        MU_SendMsg(MU_BASE, CHN_MU_REG_NUM, 'Q');
 #endif
         PRINTF("\r\nSystem wake up from reset!\r\n");
     }
@@ -1330,7 +1334,7 @@ int main(void)
     (void)PF5020_SW1_SetRunStateOption(&g_pf5020Handle, sw1Volt[currentSp], kPF5020_BuckRegulatorPWMMode);
 #endif /* (defined(BOARD_USE_EXT_PMIC) && BOARD_USE_EXT_PMIC) */
     PrintSystemStatus();
-    
+
     while (1)
     {
         PRINTF("\r\nPlease select the desired operation:\r\n");

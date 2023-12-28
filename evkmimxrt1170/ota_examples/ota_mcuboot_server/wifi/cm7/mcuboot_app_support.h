@@ -52,19 +52,6 @@ struct image_tlv_info
     uint16_t it_tlv_tot; /* size of TLV area (including tlv_info header) */
 };
 
-#define BOOT_MAX_ALIGN 8
-#define BOOT_FLAG_SET  1
-
-struct image_trailer
-{
-    uint8_t swap_type;
-    uint8_t pad1[BOOT_MAX_ALIGN - 1];
-    uint8_t copy_done;
-    uint8_t pad2[BOOT_MAX_ALIGN - 1];
-    uint8_t image_ok;
-    uint8_t pad3[BOOT_MAX_ALIGN - 1];
-    uint8_t magic[16];
-};
 
 /* Bootloader helper API */
 enum

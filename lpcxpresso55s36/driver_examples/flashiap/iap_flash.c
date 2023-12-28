@@ -214,6 +214,14 @@ PFLASH_PAGE_INDEX = 2 means (the last page -1 )...
         error_trap();
     }
 
+    /* Check if the flash page is blank before reading to avoid hardfault. */
+    status = FLASH_VerifyErase(&s_flashDriver, destAdrss, PflashPageSize);
+    if (status == kStatus_Success)
+    {
+        PRINTF("Error: trying to Read blank flash page!\n");
+        error_trap();
+    }
+
     /* Verify programming by reading back from flash directly */
     for (uint32_t i = 0; i < BUFFER_LEN; i++)
     {

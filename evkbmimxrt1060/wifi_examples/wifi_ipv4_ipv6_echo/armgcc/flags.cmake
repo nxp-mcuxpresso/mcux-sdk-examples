@@ -40,6 +40,7 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DUSE_RTOS=1 \
     -DPRINTF_ADVANCED_ENABLE=1 \
     -DSHELL_BUFFER_SIZE=160U \
+    -DCPU_MIMXRT1062DVL6B_cm7 \
     -DMCUXPRESSO_SDK \
     -DSDIO_ENABLED \
     -DSDK_OS_FREE_RTOS \
@@ -77,6 +78,7 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -DUSE_RTOS=1 \
     -DPRINTF_ADVANCED_ENABLE=1 \
     -DSHELL_BUFFER_SIZE=160U \
+    -DCPU_MIMXRT1062DVL6B_cm7 \
     -DMCUXPRESSO_SDK \
     -DSDIO_ENABLED \
     -DSDK_OS_FREE_RTOS \
@@ -179,7 +181,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     --defsym=__heap_size__=0x400 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/linker/MIMXRT1062xxxxx_flexspi_nor.ld -static \
+    -T\"${ProjDirPath}/linker/MIMXRT1062xxxxx_flexspi_nor.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE} \
@@ -209,5 +211,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     --defsym=__heap_size__=0x400 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/linker/MIMXRT1062xxxxx_flexspi_nor.ld -static \
+    -T\"${ProjDirPath}/linker/MIMXRT1062xxxxx_flexspi_nor.ld\" -static \
 ")

@@ -145,7 +145,7 @@ static void print_ipv6_addresses(struct netif *netif)
 }
 
 static void netif_ipv6_callback(struct netif *cb_netif)
-{    
+{
     PRINTF("IPv6 address update, valid addresses:\r\n");
     print_ipv6_addresses(cb_netif);
     PRINTF("\r\n");
@@ -186,11 +186,8 @@ int main(void)
 
     IOMUXC_EnableMode(IOMUXC_GPR, kIOMUXC_GPR_ENET1TxClkOutputDir, true);
 
-    /* Reset PHY */
-    GPIO_PinWrite(BOARD_INITPINS_PHY_RESET_GPIO, BOARD_INITPINS_PHY_RESET_GPIO_PIN, 0);
-    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
-    GPIO_PinWrite(BOARD_INITPINS_PHY_RESET_GPIO, BOARD_INITPINS_PHY_RESET_GPIO_PIN, 1);
-    SDK_DelayAtLeastUs(100, CLOCK_GetFreq(kCLOCK_CpuClk));
+    /* PHY hardware reset. */
+    BOARD_ENET_PHY_RESET;
 
     MDIO_Init();
     g_phy_resource.read  = MDIO_Read;

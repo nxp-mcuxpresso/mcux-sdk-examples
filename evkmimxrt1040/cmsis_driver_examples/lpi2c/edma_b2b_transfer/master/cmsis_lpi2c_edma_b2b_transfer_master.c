@@ -91,6 +91,9 @@ int main(void)
 #endif
     edma_config_t edmaConfig = {0};
     EDMA_GetDefaultConfig(&edmaConfig);
+#if defined(BOARD_GetEDMAConfig)
+    BOARD_GetEDMAConfig(edmaConfig);
+#endif
     EDMA_Init(EXAMPLE_LPI2C_DMA_BASEADDR, &edmaConfig);
 
     /* Initialize the LPI2C master peripheral */

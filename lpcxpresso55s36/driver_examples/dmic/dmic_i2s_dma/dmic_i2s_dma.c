@@ -140,6 +140,53 @@ codec_handle_t codecHandle;
 /*******************************************************************************
  * Code
  ******************************************************************************/
+static void i2c_release_bus_delay(void)
+{
+    uint32_t i = 0;
+    for (i = 0; i < 100; i++)
+    {
+        __NOP();
+    }
+}
+
+void BOARD_I2C_ReleaseBus(void)
+{
+    uint8_t i = 0;
+
+    GPIO_PortInit(GPIO, 1);
+    BOARD_InitI2CPinsAsGPIO();
+
+    /* Drive SDA low first to simulate a start */
+    GPIO_PinWrite(GPIO, 1, 21, 0U);
+    i2c_release_bus_delay();
+
+    /* Send 9 pulses on SCL */
+    for (i = 0; i < 9; i++)
+    {
+        GPIO_PinWrite(GPIO, 1, 30, 0U);
+        i2c_release_bus_delay();
+
+        GPIO_PinWrite(GPIO, 1, 21, 1U);
+        i2c_release_bus_delay();
+
+        GPIO_PinWrite(GPIO, 1, 30, 1U);
+        i2c_release_bus_delay();
+        i2c_release_bus_delay();
+    }
+
+    /* Send stop */
+    GPIO_PinWrite(GPIO, 1, 30, 0U);
+    i2c_release_bus_delay();
+
+    GPIO_PinWrite(GPIO, 1, 21, 0U);
+    i2c_release_bus_delay();
+
+    GPIO_PinWrite(GPIO, 1, 30, 1U);
+    i2c_release_bus_delay();
+
+    GPIO_PinWrite(GPIO, 1, 21, 1U);
+    i2c_release_bus_delay();
+}
 
 void APP_InitDebugConsole(void)
 {
@@ -252,6 +299,8 @@ int main(void)
     BOARD_InitPins();
     BOARD_BootClockFROHF96M();
     APP_InitDebugConsole();
+    BOARD_I2C_ReleaseBus();
+    BOARD_InitI2CPins();
 
     PRINTF("Configure codec\r\n");
 
@@ -293,7 +342,7 @@ int main(void)
 
     dmic_channel_cfg.divhfclk            = kDMIC_PdmDiv1;
     dmic_channel_cfg.osr                 = 32U;
-    dmic_channel_cfg.gainshft            = 3U;
+    dmic_channel_cfg.gainshft            = 4U;
     dmic_channel_cfg.preac2coef          = kDMIC_CompValueZero;
     dmic_channel_cfg.preac4coef          = kDMIC_CompValueZero;
     dmic_channel_cfg.dc_cut_level        = kDMIC_DcCut155;
@@ -306,21 +355,28 @@ int main(void)
 #endif
     DMIC_Use2fs(DMIC0, true);
     DMIC_EnableChannelDma(DMIC0, DEMO_DMIC_CHANNEL, true);
+#if defined(BOARD_DMIC_CHANNEL_STEREO_SIDE_SWAP) && (BOARD_DMIC_CHANNEL_STEREO_SIDE_SWAP)
+    DMIC_ConfigChannel(DMIC0, DEMO_DMIC_CHANNEL, kDMIC_Right, &dmic_channel_cfg);
+#else
     DMIC_ConfigChannel(DMIC0, DEMO_DMIC_CHANNEL, kDMIC_Left, &dmic_channel_cfg);
+#endif
     DMIC_FifoChannel(DMIC0, DEMO_DMIC_CHANNEL, FIFO_DEPTH, true, true);
 
 #if DEMO_DMIC_NUMS == 2U
     DMIC_EnableChannelDma(DMIC0, DEMO_DMIC_CHANNEL_1, true);
+#if defined(BOARD_DMIC_CHANNEL_STEREO_SIDE_SWAP) && (BOARD_DMIC_CHANNEL_STEREO_SIDE_SWAP)
+    DMIC_ConfigChannel(DMIC0, DEMO_DMIC_CHANNEL_1, kDMIC_Left, &dmic_channel_cfg);
+#else
     DMIC_ConfigChannel(DMIC0, DEMO_DMIC_CHANNEL_1, kDMIC_Right, &dmic_channel_cfg);
+#endif
     DMIC_FifoChannel(DMIC0, DEMO_DMIC_CHANNEL_1, FIFO_DEPTH, true, true);
 #endif
 
-    DMIC_EnableChannnel(DMIC0, DEMO_DMIC_CHANNEL_ENABLE);
-
+    DMIC_EnableChannnel(DMIC0, DEMO_DMIC_CHANNEL_ENABLE
 #if DEMO_DMIC_NUMS == 2U
-    DMIC_EnableChannnel(DMIC0, DEMO_DMIC_CHANNEL_1_ENABLE);
+                             | DEMO_DMIC_CHANNEL_1_ENABLE
 #endif
-
+    );
     PRINTF("Configure I2S\r\n");
 
     /*

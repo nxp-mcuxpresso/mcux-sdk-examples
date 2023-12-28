@@ -32,6 +32,47 @@ extern "C" {
  */
 void BOARD_InitBootPins(void);
 
+#define IOPCTL_PIO_ANAMUX_DI 0x00u        /*!<@brief Analog mux is disabled */
+#define IOPCTL_PIO_FULLDRIVE_DI 0x00u     /*!<@brief Normal drive */
+#define IOPCTL_PIO_FUNC0 0x00u            /*!<@brief Selects pin function 0 */
+#define IOPCTL_PIO_INBUF_DI 0x00u         /*!<@brief Disable input buffer function */
+#define IOPCTL_PIO_INV_DI 0x00u           /*!<@brief Input function is not inverted */
+#define IOPCTL_PIO_PSEDRAIN_DI 0x00u      /*!<@brief Pseudo Output Drain is disabled */
+#define IOPCTL_PIO_PULLDOWN_EN 0x00u      /*!<@brief Enable pull-down function */
+#define IOPCTL_PIO_PUPD_DI 0x00u          /*!<@brief Disable pull-up / pull-down function */
+#define IOPCTL_PIO_SLEW_RATE_NORMAL 0x00u /*!<@brief Normal mode */
+
+/*! @name PIO4_5 (coord P16), RESET_OSPI_MEM
+  @{ */
+/* Routed pin properties */
+/*!
+ * @brief Peripheral name */
+#define BOARD_INITPINS_RESET_OSPI_MEM_PERIPHERAL GPIO
+/*!
+ * @brief Signal name */
+#define BOARD_INITPINS_RESET_OSPI_MEM_SIGNAL PIO4
+/*!
+ * @brief Signal channel */
+#define BOARD_INITPINS_RESET_OSPI_MEM_CHANNEL 5
+
+/* Symbols to be used with GPIO driver */
+/*!
+ * @brief GPIO peripheral base pointer */
+#define BOARD_INITPINS_RESET_OSPI_MEM_GPIO GPIO
+/*!
+ * @brief GPIO pin mask */
+#define BOARD_INITPINS_RESET_OSPI_MEM_GPIO_PIN_MASK (1U << 5U)
+/*!
+ * @brief PORT peripheral base pointer */
+#define BOARD_INITPINS_RESET_OSPI_MEM_PORT 4U
+/*!
+ * @brief PORT pin number */
+#define BOARD_INITPINS_RESET_OSPI_MEM_PIN 5U
+/*!
+ * @brief PORT pin mask */
+#define BOARD_INITPINS_RESET_OSPI_MEM_PIN_MASK (1U << 5U)
+/* @} */
+
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *

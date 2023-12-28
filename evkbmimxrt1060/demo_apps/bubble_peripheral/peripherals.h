@@ -1,6 +1,5 @@
 /*
- * Copyright 2021 NXP
- * All rights reserved.
+ * Copyright 2021-2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -36,12 +35,14 @@ extern "C" {
 #define ACCEL_I2C_CLOCK_FREQ 60000000UL
 /* Transfer buffer size */
 #define ACCEL_I2C_MASTER_BUFFER_SIZE 1
+/* Definition of slave address */
+#define ACCEL_I2C_MASTER_SLAVE_ADDRESS 0
 /* Definition of peripheral ID */
 #define TIMER_PERIPHERAL TMR3
 /* Definition of the timer channel Channel_0. */
 #define TIMER_CHANNEL_0_CHANNEL kQTMR_Channel_0
 /* Definition of the timer channel Channel_0 clock source frequency. */
-#define TIMER_CHANNEL_0_CLOCK_SOURCE 1172000UL
+#define TIMER_CHANNEL_0_CLOCK_SOURCE 1171875UL
 /* TIMER interrupt vector ID (number). */
 #define TIMER_IRQN TMR3_IRQn
 /* TIMER interrupt handler identifier. */
@@ -59,6 +60,7 @@ extern const qtmr_config_t TIMER_Channel_0_config;
 /***********************************************************************************************************************
  * Initialization functions
  **********************************************************************************************************************/
+
 void BOARD_InitPeripherals(void);
 
 /***********************************************************************************************************************

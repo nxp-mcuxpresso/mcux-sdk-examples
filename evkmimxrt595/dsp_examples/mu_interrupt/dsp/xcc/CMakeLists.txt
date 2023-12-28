@@ -41,7 +41,7 @@ SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -g")
 
 SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O0")
 
-SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} --xtensa-core=nxp_rt500_RI2021_8_newlib")
+SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} --xtensa-core=nxp_rt500_RI23_11_newlib")
 
 SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} --xtensa-system=${XTENSA_SYSTEM}")
 
@@ -67,7 +67,7 @@ SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DMCUXPRESSO_SDK")
 
 SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Os")
 
-SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} --xtensa-core=nxp_rt500_RI2021_8_newlib")
+SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} --xtensa-core=nxp_rt500_RI23_11_newlib")
 
 SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} --xtensa-system=${XTENSA_SYSTEM}")
 
@@ -95,15 +95,19 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -mlsp=${ProjDi
 
 SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -g")
 
-SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} --xtensa-core=nxp_rt500_RI2021_8_newlib")
+SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} --xtensa-core=nxp_rt500_RI23_11_newlib")
 
 SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} --xtensa-system=${XTENSA_SYSTEM}")
 
+SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -Wl,--orphan-handling=place")
+
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -mlsp=${ProjDirPath}/../../../../../../core/devices/MIMXRT595S/xtensa/min-rt")
 
-SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} --xtensa-core=nxp_rt500_RI2021_8_newlib")
+SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} --xtensa-core=nxp_rt500_RI23_11_newlib")
 
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} --xtensa-system=${XTENSA_SYSTEM}")
+
+SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -Wl,--orphan-handling=place")
 
 include_directories(${ProjDirPath}/..)
 
@@ -116,6 +120,8 @@ include_directories(${ProjDirPath}/../../../../../../core/drivers/flexcomm/usart
 include_directories(${ProjDirPath}/../../../../../../core/utilities/str)
 
 include_directories(${ProjDirPath}/../../../../../../core/utilities/debug_console_lite)
+
+include_directories(${ProjDirPath}/../../../../../../core/utilities/assert)
 
 include_directories(${ProjDirPath}/../../../../../../core/drivers/lpc_gpio)
 
@@ -152,6 +158,7 @@ add_executable(dsp_mu_interrupt_fusionf1.elf
 "${ProjDirPath}/../../../../../../core/utilities/debug_console_lite/fsl_debug_console.c"
 "${ProjDirPath}/../../../../../../core/utilities/debug_console_lite/fsl_debug_console.h"
 "${ProjDirPath}/../../../../../../core/utilities/assert/fsl_assert.c"
+"${ProjDirPath}/../../../../../../core/utilities/assert/fsl_assert.h"
 "${ProjDirPath}/../../../../../../core/drivers/lpc_gpio/fsl_gpio.h"
 "${ProjDirPath}/../../../../../../core/drivers/lpc_gpio/fsl_gpio.c"
 "${ProjDirPath}/../../../../../../core/drivers/mu/fsl_mu.h"
@@ -190,14 +197,14 @@ TARGET_LINK_LIBRARIES(dsp_mu_interrupt_fusionf1.elf -Wl,--end-group)
 
 ADD_CUSTOM_COMMAND(TARGET dsp_mu_interrupt_fusionf1.elf POST_BUILD COMMAND ${CMAKE_OBJCOPY}
 --xtensa-params= -Obinary ${EXECUTABLE_OUTPUT_PATH}/dsp_mu_interrupt_fusionf1.elf ${EXECUTABLE_OUTPUT_PATH}/../../../../../../../examples/evkmimxrt595/dsp_examples/mu_interrupt/dsp/binary/dsp_reset_${CMAKE_BUILD_TYPE}.bin
---xtensa-core=nxp_rt500_RI2021_8_newlib
+--xtensa-core=nxp_rt500_RI23_11_newlib
 --xtensa-system=${XTENSA_SYSTEM}
 --only-section=.ResetVector.text
 )
 
 ADD_CUSTOM_COMMAND(TARGET dsp_mu_interrupt_fusionf1.elf POST_BUILD COMMAND ${CMAKE_OBJCOPY}
 --xtensa-params= -Obinary ${EXECUTABLE_OUTPUT_PATH}/dsp_mu_interrupt_fusionf1.elf ${EXECUTABLE_OUTPUT_PATH}/../../../../../../../examples/evkmimxrt595/dsp_examples/mu_interrupt/dsp/binary/dsp_text_${CMAKE_BUILD_TYPE}.bin
---xtensa-core=nxp_rt500_RI2021_8_newlib
+--xtensa-core=nxp_rt500_RI23_11_newlib
 --xtensa-system=${XTENSA_SYSTEM}
 --only-section=.WindowVectors.text
 --only-section=.Level2InterruptVector.text
@@ -215,7 +222,7 @@ ADD_CUSTOM_COMMAND(TARGET dsp_mu_interrupt_fusionf1.elf POST_BUILD COMMAND ${CMA
 
 ADD_CUSTOM_COMMAND(TARGET dsp_mu_interrupt_fusionf1.elf POST_BUILD COMMAND ${CMAKE_OBJCOPY}
 --xtensa-params= -Obinary ${EXECUTABLE_OUTPUT_PATH}/dsp_mu_interrupt_fusionf1.elf ${EXECUTABLE_OUTPUT_PATH}/../../../../../../../examples/evkmimxrt595/dsp_examples/mu_interrupt/dsp/binary/dsp_data_${CMAKE_BUILD_TYPE}.bin
---xtensa-core=nxp_rt500_RI2021_8_newlib
+--xtensa-core=nxp_rt500_RI23_11_newlib
 --xtensa-system=${XTENSA_SYSTEM}
 --only-section=.clib.rodata
 --only-section=.rtos.rodata

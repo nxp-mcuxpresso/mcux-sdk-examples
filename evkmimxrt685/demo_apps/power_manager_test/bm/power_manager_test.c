@@ -20,22 +20,21 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define APP_POWER_NAME                                         \
-    {                                                          \
+#define APP_POWER_NAME                                                   \
+    {                                                                    \
         "Sleep", "Deep Sleep", "Deep Power Down", "Full Deep Power Down" \
     }
 #define APP_TARGET_POWER_NUM (4U)
 
-#define APP_SLEEP_CONSTRAINTS                                                                            \
-    13U, PM_RESC_SYSXTAL_ON, PM_RESC_LPOSC_ON, PM_RESC_SYSPLLLDO_ON,                                     \
-         PM_RESC_SYSPLLANA_ON, PM_RESC_FLEXSPI_SRAM_ACTIVE, PM_RESC_SRAM12_128KB_ACTIVE,                 \
-         PM_RESC_SRAM13_128KB_ACTIVE, PM_RESC_SRAM14_128KB_ACTIVE, PM_RESC_SRAM15_128KB_ACTIVE,          \
-         PM_RESC_SRAM16_256KB_ACTIVE, PM_RESC_SRAM17_256KB_ACTIVE,  PM_RESC_SRAM18_256KB_ACTIVE,         \
-         PM_RESC_SRAM19_256KB_ACTIVE
+#define APP_SLEEP_CONSTRAINTS                                                                  \
+    13U, PM_RESC_SYSXTAL_ON, PM_RESC_LPOSC_ON, PM_RESC_SYSPLLLDO_ON, PM_RESC_SYSPLLANA_ON,     \
+        PM_RESC_FLEXSPI_SRAM_ACTIVE, PM_RESC_SRAM12_128KB_ACTIVE, PM_RESC_SRAM13_128KB_ACTIVE, \
+        PM_RESC_SRAM14_128KB_ACTIVE, PM_RESC_SRAM15_128KB_ACTIVE, PM_RESC_SRAM16_256KB_ACTIVE, \
+        PM_RESC_SRAM17_256KB_ACTIVE, PM_RESC_SRAM18_256KB_ACTIVE, PM_RESC_SRAM19_256KB_ACTIVE
 
-#define APP_DEEP_SLEEP_CONSTRAINTS                                                                       \
-    9U, PM_RESC_FLEXSPI_SRAM_RETENTION, PM_RESC_SRAM12_128KB_RETENTION, PM_RESC_SRAM13_128KB_RETENTION,  \
-        PM_RESC_SRAM14_128KB_RETENTION, PM_RESC_SRAM15_128KB_RETENTION, PM_RESC_SRAM16_256KB_RETENTION,  \
+#define APP_DEEP_SLEEP_CONSTRAINTS                                                                      \
+    9U, PM_RESC_FLEXSPI_SRAM_RETENTION, PM_RESC_SRAM12_128KB_RETENTION, PM_RESC_SRAM13_128KB_RETENTION, \
+        PM_RESC_SRAM14_128KB_RETENTION, PM_RESC_SRAM15_128KB_RETENTION, PM_RESC_SRAM16_256KB_RETENTION, \
         PM_RESC_SRAM17_256KB_RETENTION, PM_RESC_SRAM18_256KB_RETENTION, PM_RESC_SRAM19_256KB_RETENTION
 
 #define APP_DEEP_POWER_DOWN_CONSTRAINTS 0U
@@ -124,44 +123,45 @@ status_t APP_ControlCallback_notify(pm_event_type_t eventType, uint8_t powerStat
 
 void APP_InitWakeupSource(void)
 {
-	PM_InitWakeupSource(&g_UserkeyWakeupSource, (uint32_t)PIN_INT0_IRQn, NULL, true);
-	gpio_pin_config_t gpioPinConfigStruct;
+    PM_InitWakeupSource(&g_UserkeyWakeupSource, (uint32_t)PIN_INT0_IRQn, NULL, true);
+    gpio_pin_config_t gpioPinConfigStruct;
 
-	/* Set SW pin as GPIO input. */
-	gpioPinConfigStruct.pinDirection = kGPIO_DigitalInput;
-	GPIO_PinInit(APP_USER_WAKEUP_KEY_GPIO, APP_USER_WAKEUP_KEY_PORT, APP_USER_WAKEUP_KEY_PIN, &gpioPinConfigStruct);
+    /* Set SW pin as GPIO input. */
+    gpioPinConfigStruct.pinDirection = kGPIO_DigitalInput;
+    GPIO_PinInit(APP_USER_WAKEUP_KEY_GPIO, APP_USER_WAKEUP_KEY_PORT, APP_USER_WAKEUP_KEY_PIN, &gpioPinConfigStruct);
 
-	/* Configure the Input Mux block and connect the trigger source to PinInt channle. */
-	INPUTMUX_Init(INPUTMUX);
-	INPUTMUX_AttachSignal(INPUTMUX, kPINT_PinInt0, APP_USER_WAKEUP_KEY_INPUTMUX_SEL); /* Using channel 1. */
+    /* Configure the Input Mux block and connect the trigger source to PinInt channle. */
+    INPUTMUX_Init(INPUTMUX);
+    INPUTMUX_AttachSignal(INPUTMUX, kPINT_PinInt0, APP_USER_WAKEUP_KEY_INPUTMUX_SEL); /* Using channel 1. */
 
-	/* Configure the interrupt for SW pin. */
-	PINT_Init(PINT);
-	PINT_PinInterruptConfig(PINT, kPINT_PinInt0, kPINT_PinIntEnableFallEdge, NULL);
+    /* Configure the interrupt for SW pin. */
+    PINT_Init(PINT);
+    PINT_PinInterruptConfig(PINT, kPINT_PinInt0, kPINT_PinIntEnableFallEdge, NULL);
 
-	PM_InitWakeupSource(&g_UserkeyWakeupSource1, (uint32_t)PIN_INT1_IRQn, NULL, true);
-	gpio_pin_config_t gpioPinConfigStruct1;
-	gpioPinConfigStruct1.pinDirection = kGPIO_DigitalInput;
-	GPIO_PinInit(APP_USER_WAKEUP_KEY1_GPIO, APP_USER_WAKEUP_KEY1_PORT, APP_USER_WAKEUP_KEY1_PIN, &gpioPinConfigStruct1);
+    PM_InitWakeupSource(&g_UserkeyWakeupSource1, (uint32_t)PIN_INT1_IRQn, NULL, true);
+    gpio_pin_config_t gpioPinConfigStruct1;
+    gpioPinConfigStruct1.pinDirection = kGPIO_DigitalInput;
+    GPIO_PinInit(APP_USER_WAKEUP_KEY1_GPIO, APP_USER_WAKEUP_KEY1_PORT, APP_USER_WAKEUP_KEY1_PIN, &gpioPinConfigStruct1);
 
-	INPUTMUX_AttachSignal(INPUTMUX, kPINT_PinInt1, APP_USER_WAKEUP_KEY1_INPUTMUX_SEL); /* Using channel 0. */
-	INPUTMUX_Deinit(INPUTMUX); /* Turnoff clock to inputmux to save power. Clock is only needed to make changes */
+    INPUTMUX_AttachSignal(INPUTMUX, kPINT_PinInt1, APP_USER_WAKEUP_KEY1_INPUTMUX_SEL); /* Using channel 0. */
+    INPUTMUX_Deinit(INPUTMUX); /* Turnoff clock to inputmux to save power. Clock is only needed to make changes */
 
-	PINT_PinInterruptConfig(PINT, kPINT_PinInt1, kPINT_PinIntEnableFallEdge, NULL);
-	PINT_EnableCallback(PINT); /* Enable callbacks for PINT */
+    PINT_PinInterruptConfig(PINT, kPINT_PinInt1, kPINT_PinIntEnableFallEdge, NULL);
+    PINT_EnableCallback(PINT); /* Enable callbacks for PINT */
 }
 
 uint32_t APP_GetWakeupTimeout(void)
 {
-	PRINTF("TIMER NOT IMPLEMENTED -- Please use:\r\n"
-			"User buttons (SW1/SW2) to wakeup from Sleep or DeepSleep, \r\n"
-			"Reset button to wakeup from Deep Power Down or Full Deep Power Down. \r\n\n");
-	return 0;
+    PRINTF(
+        "TIMER NOT IMPLEMENTED -- Please use:\r\n"
+        "User buttons (SW1/SW2) to wakeup from Sleep or DeepSleep, \r\n"
+        "Reset button to wakeup from Deep Power Down or Full Deep Power Down. \r\n\n");
+    return 0;
 }
 
 void APP_RegisterNotify(void)
 {
-   PM_RegisterNotify(kPM_NotifyGroup0, &g_notify1);
+    PM_RegisterNotify(kPM_NotifyGroup0, &g_notify1);
 }
 
 void APP_SetConstraints(uint8_t powerMode)
@@ -236,16 +236,17 @@ int main(void)
 {
     uint32_t timeoutUs = 0UL;
 
-   /* Init board hardware. */
-      pca9420_modecfg_t pca9420ModeCfg[4];
-      uint32_t i;
+    /* Init board hardware. */
+    pca9420_modecfg_t pca9420ModeCfg[4];
+    uint32_t i;
 
-      /* BE CAUTIOUS TO SET CORRECT VOLTAGE RANGE ACCORDING TO YOUR BOARD/APPLICATION. PAD SUPPLY BEYOND THE RANGE DO
-         HARM TO THE SILICON. */
-      power_pad_vrange_t vrange = {.Vdde0Range = kPadVol_171_198,
-                                   .Vdde1Range = kPadVol_171_198,
-                                   .Vdde2Range = kPadVol_171_198,
-                                  };
+    /* BE CAUTIOUS TO SET CORRECT VOLTAGE RANGE ACCORDING TO YOUR BOARD/APPLICATION. PAD SUPPLY BEYOND THE RANGE DO
+       HARM TO THE SILICON. */
+    power_pad_vrange_t vrange = {
+        .Vdde0Range = kPadVol_171_198,
+        .Vdde1Range = kPadVol_171_198,
+        .Vdde2Range = kPadVol_171_198,
+    };
 
     BOARD_InitPins();
     BOARD_BootClockRUN();

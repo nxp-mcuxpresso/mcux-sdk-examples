@@ -1,6 +1,5 @@
 /*
- * Copyright 2018-2020 NXP
- * All rights reserved.
+ * Copyright 2018-2020, 2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -44,12 +43,117 @@ extern "C" {
  */
 void BOARD_InitBootPins(void);
 
-
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
  */
 void BOARD_InitPins(void);
+
+/* GPIO_AD_B0_12 (coord K14), UART1_TXD */
+/* Routed pin properties */
+#define BOARD_INITDEBUG_UARTPINS_UART1_TXD_PERIPHERAL                    LPUART1   /*!< Peripheral name */
+#define BOARD_INITDEBUG_UARTPINS_UART1_TXD_SIGNAL                             TX   /*!< Signal name */
+
+/* GPIO_AD_B0_13 (coord L14), UART1_RXD */
+/* Routed pin properties */
+#define BOARD_INITDEBUG_UARTPINS_UART1_RXD_PERIPHERAL                    LPUART1   /*!< Peripheral name */
+#define BOARD_INITDEBUG_UARTPINS_UART1_RXD_SIGNAL                             RX   /*!< Signal name */
+
+/*!
+ * @brief Configures pin routing and optionally pin electrical features.
+ *
+ */
+void BOARD_InitDEBUG_UARTPins(void);
+
+#define BOARD_INITENETPINS_IOMUXC_GPR_GPR26_GPIO_MUX1_GPIO_SEL_MASK 0x0600U /*!< GPIO1 and GPIO6 share same IO MUX function, GPIO_MUX1 selects one GPIO function: affected bits mask */
+
+/* GPIO_EMC_40 (coord A7), ENET_MDC */
+/* Routed pin properties */
+#define BOARD_INITENETPINS_ENET_MDC_PERIPHERAL                              ENET   /*!< Peripheral name */
+#define BOARD_INITENETPINS_ENET_MDC_SIGNAL                              enet_mdc   /*!< Signal name */
+
+/* GPIO_EMC_41 (coord C7), ENET_MDIO */
+/* Routed pin properties */
+#define BOARD_INITENETPINS_ENET_MDIO_PERIPHERAL                             ENET   /*!< Peripheral name */
+#define BOARD_INITENETPINS_ENET_MDIO_SIGNAL                            enet_mdio   /*!< Signal name */
+
+/* GPIO_B1_10 (coord B13), ENET_TX_CLK */
+/* Routed pin properties */
+#define BOARD_INITENETPINS_ENET_TX_CLK_PERIPHERAL                           ENET   /*!< Peripheral name */
+#define BOARD_INITENETPINS_ENET_TX_CLK_SIGNAL                       enet_ref_clk   /*!< Signal name */
+
+/* GPIO_B1_04 (coord E12), ENET_RXD0 */
+/* Routed pin properties */
+#define BOARD_INITENETPINS_ENET_RXD0_PERIPHERAL                             ENET   /*!< Peripheral name */
+#define BOARD_INITENETPINS_ENET_RXD0_SIGNAL                         enet_rx_data   /*!< Signal name */
+#define BOARD_INITENETPINS_ENET_RXD0_CHANNEL                                  0U   /*!< Signal channel */
+
+/* GPIO_B1_05 (coord D12), ENET_RXD1 */
+/* Routed pin properties */
+#define BOARD_INITENETPINS_ENET_RXD1_PERIPHERAL                             ENET   /*!< Peripheral name */
+#define BOARD_INITENETPINS_ENET_RXD1_SIGNAL                         enet_rx_data   /*!< Signal name */
+#define BOARD_INITENETPINS_ENET_RXD1_CHANNEL                                  1U   /*!< Signal channel */
+
+/* GPIO_B1_06 (coord C12), ENET_CRS_DV */
+/* Routed pin properties */
+#define BOARD_INITENETPINS_ENET_CRS_DV_PERIPHERAL                           ENET   /*!< Peripheral name */
+#define BOARD_INITENETPINS_ENET_CRS_DV_SIGNAL                         enet_rx_en   /*!< Signal name */
+
+/* GPIO_B1_11 (coord C13), ENET_RXER */
+/* Routed pin properties */
+#define BOARD_INITENETPINS_ENET_RXER_PERIPHERAL                             ENET   /*!< Peripheral name */
+#define BOARD_INITENETPINS_ENET_RXER_SIGNAL                           enet_rx_er   /*!< Signal name */
+
+/* GPIO_B1_07 (coord B12), ENET_TXD0 */
+/* Routed pin properties */
+#define BOARD_INITENETPINS_ENET_TXD0_PERIPHERAL                             ENET   /*!< Peripheral name */
+#define BOARD_INITENETPINS_ENET_TXD0_SIGNAL                         enet_tx_data   /*!< Signal name */
+#define BOARD_INITENETPINS_ENET_TXD0_CHANNEL                                  0U   /*!< Signal channel */
+
+/* GPIO_B1_08 (coord A12), ENET_TXD1 */
+/* Routed pin properties */
+#define BOARD_INITENETPINS_ENET_TXD1_PERIPHERAL                             ENET   /*!< Peripheral name */
+#define BOARD_INITENETPINS_ENET_TXD1_SIGNAL                         enet_tx_data   /*!< Signal name */
+#define BOARD_INITENETPINS_ENET_TXD1_CHANNEL                                  1U   /*!< Signal channel */
+
+/* GPIO_B1_09 (coord A13), ENET_TXEN */
+/* Routed pin properties */
+#define BOARD_INITENETPINS_ENET_TXEN_PERIPHERAL                             ENET   /*!< Peripheral name */
+#define BOARD_INITENETPINS_ENET_TXEN_SIGNAL                           enet_tx_en   /*!< Signal name */
+
+/* GPIO_AD_B0_09 (coord F14), JTAG_TDI/J21[5]/ENET_RST/J22[5] */
+/* Routed pin properties */
+#define BOARD_INITENETPINS_PHY_RESET_PERIPHERAL                            GPIO1   /*!< Peripheral name */
+#define BOARD_INITENETPINS_PHY_RESET_SIGNAL                              gpio_io   /*!< Signal name */
+#define BOARD_INITENETPINS_PHY_RESET_CHANNEL                                  9U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITENETPINS_PHY_RESET_GPIO                                  GPIO1   /*!< GPIO peripheral base pointer */
+#define BOARD_INITENETPINS_PHY_RESET_GPIO_PIN                                 9U   /*!< GPIO pin number */
+#define BOARD_INITENETPINS_PHY_RESET_GPIO_PIN_MASK                    (1U << 9U)   /*!< GPIO pin mask */
+#define BOARD_INITENETPINS_PHY_RESET_PORT                                  GPIO1   /*!< PORT peripheral base pointer */
+#define BOARD_INITENETPINS_PHY_RESET_PIN                                      9U   /*!< PORT pin number */
+#define BOARD_INITENETPINS_PHY_RESET_PIN_MASK                         (1U << 9U)   /*!< PORT pin mask */
+
+/* GPIO_AD_B0_10 (coord G13), JTAG_TDO/J21[13]/INT1_COMBO/ENET_INT/J22[6]/U32[11] */
+/* Routed pin properties */
+#define BOARD_INITENETPINS_PHY_INTR_PERIPHERAL                             GPIO1   /*!< Peripheral name */
+#define BOARD_INITENETPINS_PHY_INTR_SIGNAL                               gpio_io   /*!< Signal name */
+#define BOARD_INITENETPINS_PHY_INTR_CHANNEL                                  10U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITENETPINS_PHY_INTR_GPIO                                   GPIO1   /*!< GPIO peripheral base pointer */
+#define BOARD_INITENETPINS_PHY_INTR_GPIO_PIN                                 10U   /*!< GPIO pin number */
+#define BOARD_INITENETPINS_PHY_INTR_GPIO_PIN_MASK                    (1U << 10U)   /*!< GPIO pin mask */
+#define BOARD_INITENETPINS_PHY_INTR_PORT                                   GPIO1   /*!< PORT peripheral base pointer */
+#define BOARD_INITENETPINS_PHY_INTR_PIN                                      10U   /*!< PORT pin number */
+#define BOARD_INITENETPINS_PHY_INTR_PIN_MASK                         (1U << 10U)   /*!< PORT pin mask */
+
+/*!
+ * @brief Configures pin routing and optionally pin electrical features.
+ *
+ */
+void BOARD_InitENETPins(void);
 
 #if defined(__cplusplus)
 }

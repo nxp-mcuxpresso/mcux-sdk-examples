@@ -46,6 +46,22 @@
 #define TCPIP_STACK_TX_HEAP_SIZE  0
 #define LWIP_COMPAT_SOCKETS       2
 
+/* ---------- Core locking ---------- */
+
+#define LWIP_TCPIP_CORE_LOCKING 1
+
+void sys_lock_tcpip_core(void);
+#define LOCK_TCPIP_CORE() sys_lock_tcpip_core()
+
+void sys_unlock_tcpip_core(void);
+#define UNLOCK_TCPIP_CORE() sys_unlock_tcpip_core()
+
+void sys_check_core_locking(void);
+#define LWIP_ASSERT_CORE_LOCKED() sys_check_core_locking()
+
+void sys_mark_tcpip_thread(void);
+#define LWIP_MARK_TCPIP_THREAD() sys_mark_tcpip_thread()
+
 /**
  * Loopback demo related options.
  */
@@ -451,4 +467,12 @@
 #define TCP_RESOURCE_FAIL_RETRY_LIMIT 50
 
 #define LWIP_COMPAT_MUTEX_ALLOWED 1
+
+#if (LWIP_DNS || LWIP_IGMP || LWIP_IPV6) && !defined(LWIP_RAND)
+/* When using IGMP or IPv6, LWIP_RAND() needs to be defined to a random-function returning an u32_t random value*/
+#include "lwip/arch.h"
+u32_t lwip_rand(void);
+#define LWIP_RAND() lwip_rand()
+#endif
+
 #endif /* __LWIPOPTS_H__ */

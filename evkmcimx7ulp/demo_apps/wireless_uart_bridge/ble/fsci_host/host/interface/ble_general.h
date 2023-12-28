@@ -405,12 +405,12 @@ typedef enum
      * GAP result values
      *
      */
-    gGapStatusBase_c = 0x0700,        /*!< GAP status base. */
-    gGapSuccess_c    = gBleSuccess_c, /*!< Alias. */
+    gGapStatusBase_c = 0x0700,                      /*!< GAP status base. */
+    gGapSuccess_c    = gBleSuccess_c,               /*!< Alias. */
 
     gGapAdvDataTooLong_c = gGapStatusBase_c | 0x01, /*!< Trying to set too many bytes in the advertising payload. */
     gGapScanRspDataTooLong_c =
-        gGapStatusBase_c | 0x02, /*!< Trying to set too many bytes in the scan response payload. */
+        gGapStatusBase_c | 0x02,                    /*!< Trying to set too many bytes in the scan response payload. */
     gGapDeviceNotBonded_c =
         gGapStatusBase_c | 0x03, /*!< Trying to execute an API that is only available for bonded devices. */
 
@@ -434,8 +434,8 @@ typedef enum
      * GATT_DB result values
      *
      */
-    gGattDbStatusBase_c = 0x0900,        /*!< GATT Database status base. */
-    gGattDbSuccess_c    = gBleSuccess_c, /*!< Alias. */
+    gGattDbStatusBase_c = 0x0900,                                 /*!< GATT Database status base. */
+    gGattDbSuccess_c    = gBleSuccess_c,                          /*!< Alias. */
 
     gGattDbInvalidHandle_c          = gGattDbStatusBase_c | 0x01, /*!< An invalid handle was passed as parameter. */
     gGattDbCharacteristicNotFound_c = gGattDbStatusBase_c | 0x02, /*!< Characteristic was not found. */
@@ -754,8 +754,8 @@ typedef struct gapGenericEvent_tag
         bleResult_t setupFailError;  /*!< Data for the gAdvertisingSetupFailed_c event. The error that occurred during
                                         the advertising setup. */
         int8_t advTxPowerLevel_dBm;  /*!< Data for the gAdvTxPowerLevelRead_c event. Value in dBm. */
-        bool_t verified; /*!< Data for the gPrivateResolvableAddressVerified_c event. TRUE if the PRA was resolved with
-                            the given IRK. */
+        bool_t verified;  /*!< Data for the gPrivateResolvableAddressVerified_c event. TRUE if the PRA was resolved with
+                             the given IRK. */
         gapLeScOobData_t
             localOobData; /*!< Data for the gLeScLocalOobData_c event. Contains local OOB data for LESC Pairing. */
         bool_t newControllerPrivacyState; /*!< Data for the gControllerPrivacyStateChanged_c event. TRUE if enabled,

@@ -51,18 +51,26 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${SdkRootDirPath}/examples/frdmk22f/multiprocessor_examples/erpc_common/erpc_error_handler.h"
-"${SdkRootDirPath}/examples/frdmk22f/multiprocessor_examples/erpc_common/erpc_error_handler.cpp"
 "${ProjDirPath}/../remote_control.c"
 "${ProjDirPath}/../FreeRTOSConfig.h"
 "${ProjDirPath}/../erpc_config.h"
 "${ProjDirPath}/../service/erpc_remote_control.erpc"
-"${ProjDirPath}/../service/erpc_remote_control.h"
-"${ProjDirPath}/../service/erpc_remote_control_app_0.h"
-"${ProjDirPath}/../service/erpc_remote_control_app_0_server.h"
+"${ProjDirPath}/../service/erpc_remote_control_app_0_common.h"
+"${ProjDirPath}/../service/erpc_remote_control_app_0_common.hpp"
+"${ProjDirPath}/../service/erpc_remote_control_app_1_common.h"
+"${ProjDirPath}/../service/erpc_remote_control_app_1_common.hpp"
+"${ProjDirPath}/../service/erpc_remote_control_app_0_interface.hpp"
+"${ProjDirPath}/../service/erpc_remote_control_app_0_interface.cpp"
+"${ProjDirPath}/../service/erpc_remote_control_app_1_interface.hpp"
+"${ProjDirPath}/../service/erpc_remote_control_app_1_interface.cpp"
+"${ProjDirPath}/../service/erpc_remote_control_app_0_server.hpp"
 "${ProjDirPath}/../service/erpc_remote_control_app_0_server.cpp"
-"${ProjDirPath}/../service/erpc_remote_control_app_1.h"
+"${ProjDirPath}/../service/c_erpc_remote_control_app_0_server.h"
+"${ProjDirPath}/../service/c_erpc_remote_control_app_0_server.cpp"
+"${ProjDirPath}/../service/erpc_remote_control_app_1_client.hpp"
 "${ProjDirPath}/../service/erpc_remote_control_app_1_client.cpp"
+"${ProjDirPath}/../service/c_erpc_remote_control_app_1_client.h"
+"${ProjDirPath}/../service/c_erpc_remote_control_app_1_client.cpp"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../RTE_Device.h"
@@ -74,7 +82,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${SdkRootDirPath}/examples/frdmk22f/multiprocessor_examples/erpc_common
     ${ProjDirPath}/../service
     ${SdkRootDirPath}/core/boards/frdmk22f
 )

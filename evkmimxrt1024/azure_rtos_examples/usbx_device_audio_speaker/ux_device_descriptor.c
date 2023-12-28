@@ -217,7 +217,7 @@ unsigned char device_framework_high_speed[] = {
 /* ------------------------------------- Endpoint Descriptor */
 /* 0  bLength, bDescriptorType                                */ 7,               0x05,
 /* 2  bEndpointAddress, bmAttributes                          */ 0x02,            UX_DEMO_EP_ATTRIBUTES,
-/* 4  wMaxPacketSize, bInterval                               */ D0(256),D1(256), 1,
+/* 4  wMaxPacketSize, bInterval                               */ D0(256),D1(256), 4,
 /* ---------- Audio 2.0 AS ISO Audio Data Endpoint Descriptor */
 /* 0  bLength, bDescriptorType, bDescriptorSubtype            */ 8,    0x25,      0x01,
 /* 3  bmAttributes, bmControls                                */ 0x00, 0x00,

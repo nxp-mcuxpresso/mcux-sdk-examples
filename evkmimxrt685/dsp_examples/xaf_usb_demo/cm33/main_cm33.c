@@ -35,7 +35,7 @@
  * Definitions
  ******************************************************************************/
 #define APP_SEMA42        SEMA42
-#define SEMA_PRINTF_NUM	  0
+#define SEMA_PRINTF_NUM   0
 #define SEMA_STARTUP_NUM  1
 #define SEMA_CORE_ID_CM33 1
 #define APP_TASK_STACK_SIZE (6 * 1024)

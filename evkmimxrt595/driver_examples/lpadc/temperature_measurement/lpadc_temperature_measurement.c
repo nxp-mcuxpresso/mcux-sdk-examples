@@ -18,9 +18,9 @@
 #define DEMO_LPADC_BASE              ADC0
 #define DEMO_LPADC_TEMP_SENS_CHANNEL 7U
 #define DEMO_LPADC_USER_CMDID        15U /* The available command numbers are 1-15 */
-#define DEMO_LPADC_TEMPERATURE_SLOPE                                  \
-    -1.5738f /* Temperature sensor slope with the unit as mV/Celsius. \
-             Please refer to the Data Sheet for details. */
+#define DEMO_LPADC_TEMPERATURE_SLOPE                                                              \
+    -1.5738f                             /* Temperature sensor slope with the unit as mV/Celsius. \
+                                         Please refer to the Data Sheet for details. */
 #define DEMO_LPADC_TEMPERATURE_INTERCEPT                                                       \
     809.55f /* The voltage of the temperature sensor channel at 0 Celsius with the unit as mV. \
            Please refer to the Data Sheet for details. */

@@ -66,9 +66,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../FreeRTOSConfig.h"
 "${ProjDirPath}/../dcd.c"
 "${ProjDirPath}/../dcd.h"
-"${ProjDirPath}/../usb_phydcd.c"
-"${ProjDirPath}/../usb_phydcd.h"
-"${ProjDirPath}/../usb_charger_detect.h"
 "${ProjDirPath}/../usb_device_hid.c"
 "${ProjDirPath}/../usb_device_hid.h"
 "${ProjDirPath}/../usb_device_ch9.c"
@@ -82,6 +79,7 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/examples/evkbimxrt1050
 )
 
+set_source_files_properties("${ProjDirPath}/../usb_phydcd_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_usb_phydcd_config_header")
 set_source_files_properties("${ProjDirPath}/../usb_device_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_usb_device_ehci_config_header")
 set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")
 

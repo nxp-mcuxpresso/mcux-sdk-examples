@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2017, 2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -166,8 +166,28 @@ const scg_sys_clk_config_t s_sysClkConfigSysPllInHsrun = {.divSlow = kSCG_SysClk
 #endif
                                                           .divCore = kSCG_SysClkDivBy1,
                                                           .src     = kSCG_SysClkSrcSysPll};
+#endif /* FSL_FEATURE_SCG_HAS_SPLL */
+
+#if defined(FSL_FEATURE_SCG_HAS_LPFLL) && FSL_FEATURE_SCG_HAS_LPFLL
+/*
+ * System clock configuration while using LPFLL in HSRUN mode.
+ * Core clock : 48MHz
+ * Plat clock : 48MHz
+ * Bus clock  : 24MHz
+ * Slow clock : 24MHz
+ */
+const scg_sys_clk_config_t s_sysClkConfigLpFllInHsrun = {.divSlow = kSCG_SysClkDivBy2,
+#if (defined(FSL_FEATURE_SCG_HAS_DIVBUS) && FSL_FEATURE_SCG_HAS_DIVBUS)
+                                                         .divBus = kSCG_SysClkDivBy2,
 #endif
+#if (defined(FSL_FEATURE_SCG_HAS_DIVPLAT) && FSL_FEATURE_SCG_HAS_DIVPLAT)
+                                                         .divPlat = kSCG_SysClkDivBy1,
 #endif
+                                                         .divCore = kSCG_SysClkDivBy1,
+                                                         .src     = kSCG_SysClkSrcLpFll};
+#endif /* FSL_FEATURE_SCG_HAS_LPFLL */
+
+#endif /* FSL_FEATURE_SMC_HAS_HIGH_SPEED_RUN_MODE */
 
 /*******************************************************************************
  * Prototypes
@@ -270,6 +290,9 @@ int main(void)
 #if defined(FSL_FEATURE_SCG_HAS_SPLL) && FSL_FEATURE_SCG_HAS_SPLL
     CLOCK_SetHsrunModeSysClkConfig(&s_sysClkConfigSysPllInHsrun);
 #endif
+#if defined(FSL_FEATURE_SCG_HAS_LPFLL) && FSL_FEATURE_SCG_HAS_LPFLL
+    CLOCK_SetHsrunModeSysClkConfig(&s_sysClkConfigLpFllInHsrun);
+#endif
 #endif
 
     PRINTF("\r\nSCG clock source frequency\r\n");
@@ -337,6 +360,7 @@ int main(void)
 #endif
 
 #if (defined(FSL_FEATURE_SMC_HAS_HIGH_SPEED_RUN_MODE) && FSL_FEATURE_SMC_HAS_HIGH_SPEED_RUN_MODE)
+#if (defined(FSL_FEATURE_SCG_HAS_SPLL) && FSL_FEATURE_SCG_HAS_SPLL)
     /*
      * Then system clock configuration is s_sysClkConfigSysPllInHsrun.
      * Core clock : 72MHz
@@ -348,6 +372,20 @@ int main(void)
     while (!CLOCK_IsSysPllValid())
     {
     }
+#endif /* FSL_FEATURE_SCG_HAS_SPLL */
+#if (defined(FSL_FEATURE_SCG_HAS_LPFLL) && FSL_FEATURE_SCG_HAS_LPFLL)
+    /*
+     * Then system clock configuration is s_sysClkConfigLpFllInHsrun.
+     * Core clock : 72MHz
+     * Slow clock : 24MHz
+     */
+    /*
+     * LPFLL is diabled in VLPR mode, before change to HSRUN mode, wait it valid.
+     */
+    while (!CLOCK_IsLpFllValid())
+    {
+    }
+#endif /* FSL_FEATURE_SCG_HAS_LPFLL */
 
     SMC_SetPowerModeHsrun(SMC);
     while (kSMC_PowerStateHsrun != SMC_GetPowerModeState(SMC))

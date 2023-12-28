@@ -186,7 +186,7 @@ static void print_ipv6_addresses(struct netif *netif)
 }
 
 static void netif_ipv6_callback(struct netif *cb_netif)
-{    
+{
     PRINTF("IPv6 address update, valid addresses:\r\n");
     print_ipv6_addresses(cb_netif);
     PRINTF("\r\n");
@@ -219,8 +219,6 @@ int main(void)
 #endif
     };
 
-    gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
-
     /* Hardware Initialization. */
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
@@ -231,13 +229,8 @@ int main(void)
     IOMUXC_GPR->GPR6 |= IOMUXC_GPR_GPR6_ENET_QOS_RGMII_EN_MASK; /* Set this bit to enable ENET_QOS RGMII TX clock output
                                                                    on TX_CLK pad. */
 
-    GPIO_PinInit(GPIO11, 14, &gpio_config);
-    /* For a complete PHY reset of RTL8211FDI-CG, this pin must be asserted low for at least 10ms. And
-     * wait for a further 30ms(for internal circuits settling time) before accessing the PHY register */
-    GPIO_WritePinOutput(GPIO11, 14, 0);
-    SDK_DelayAtLeastUs(10000, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
-    GPIO_WritePinOutput(GPIO11, 14, 1);
-    SDK_DelayAtLeastUs(30000, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
+    /* PHY hardware reset. */
+    BOARD_ENET_PHY1_RESET;
 
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_1_IRQn);
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_2_IRQn);

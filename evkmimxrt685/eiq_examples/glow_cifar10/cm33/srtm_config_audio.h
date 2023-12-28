@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2021 NXP
+ * Copyright 2019-2021.2023 NXP
  * All rights reserved.
  *
  *
@@ -22,13 +22,8 @@ typedef enum _srtm_audio_component
 
 typedef enum _srtm_rt600_audio_command
 {
-    SRTM_Command_MP3,             /*!< MP3 decoder */
-    SRTM_Command_AAC,             /*!< AAC+ decoder */
-    SRTM_Command_VORBIS,          /*!< VORBIS decoder */
-    SRTM_Command_OPUS_DEC,        /*!< OPUS decoder */
-    SRTM_Command_OPUS_ENC,        /*!< OPUS encoder */
-    SRTM_Command_SBC_DEC,         /*!< SBC decoder */
-    SRTM_Command_SBC_ENC,         /*!< SBC encoder */
+    SRTM_Command_Decode,          /*!< Decode audio data stored in memory */
+    SRTM_Command_Encode,          /*!< Encode PCM data stored in memory */
     SRTM_Command_MIX,             /*!< Mix of two channels */
     SRTM_Command_SRC,             /*!< Sampling rate converter */
     SRTM_Command_GAIN,            /*!< PCM Gain control */
@@ -39,7 +34,6 @@ typedef enum _srtm_rt600_audio_command
     SRTM_Command_FileEnd,         /*!< Streaming decode from remote file complete */
     SRTM_Command_FileStop,        /*!< Stop playback */
     SRTM_Command_FileError,       /*!< Stop playback due to file error*/
-    SRTM_Command_FilterCfg,       /*!< Configure EAP EQNB filter */
     SRTM_Command_AUDIO_MAX,       /*!< Request message */
     SRTM_Command_VIT,             /*!< VIT started */
     SRTM_Print_String,            /*!< Print out string */
@@ -54,5 +48,23 @@ typedef enum _srtm_rt600_audio_command
     SRTM_Command_UsbMicStop,      /*!< Stop recording from USB */
     SRTM_Command_UsbMicError,     /*!< Stop record due to USB error*/
 } srtm_audio_command_t;
+
+typedef enum _srtm_rt600_audio_decoder
+{
+    SRTM_Decoder_MP3 = 0,    /*!< MP3 decoder */
+    SRTM_Decoder_AAC,        /*!< AAC+ decoder */
+    SRTM_Decoder_OPUS,       /*!< OPUS decoder */
+    SRTM_Decoder_SBC,        /*!< SBC decoder */
+    SRTM_Decoder_VORBIS_OGG, /*!< OGG VORBIS decoder */
+    SRTM_Decoder_VORBIS_RAW, /*!< RAW VORBIS decoder */
+    SRTM_Decoder_MAX,        /*!< Maximum number of supported decoders */
+} srtm_audio_decoder_t;
+
+typedef enum _srtm_rt600_audio_encoder
+{
+    SRTM_Encoder_OPUS = 0, /*!< OPUS encoder */
+    SRTM_Encoder_SBC,      /*!< SBC encoder */
+    SRTM_Encoder_MAX,      /*!< Maximum number of supported encoders */
+} srtm_audio_encoder_t;
 
 #endif /* __SRTM_CONFIG_AUDIO_H__ */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2022 NXP
+ * Copyright 2019-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -17,8 +17,8 @@
 
 #include "app_definitions.h"
 #include "app_streamer.h"
+#include "streamer.h"
 
-#include "eap_att.h"
 /*${header:end}*/
 
 /*******************************************************************************
@@ -54,47 +54,33 @@ SHELL_COMMAND_DEFINE(
 #ifndef MULTICHANNEL_EXAMPLE
     "seek|"
 #endif
-#ifdef EAP_PROC
-    "update|set|get|"
-#endif
     "track|list|info]\r\n"
 #ifdef MULTICHANNEL_EXAMPLE
     "    start             Play default (first found) file with default (8) channels.\r\n"
 #else
-                     "    start             Play default (first found) or specified audio track file.\r\n"
+    "    start             Play default (first found) or specified audio track file.\r\n"
 #endif
     "    stop              Stops actual playback.\r\n"
     "    pause             Pause actual track or resume if already paused.\r\n"
-	"    volume=<volume>   Set volume. The volume can be set from 0 to 100.\r\n"
+    "    volume=<volume>   Set volume. The volume can be set from 0 to 100.\r\n"
 #ifndef MULTICHANNEL_EXAMPLE
     "    seek=<seek_time>  Seek currently paused track. Seek time is absolute time in milliseconds.\r\n"
-#endif
-#ifdef EAP_PROC
-    "    update=<preset>   Apply current EAP parameters without attribute value\r\n"
-    "                      or switch to preset 1-"TO_STR(EAP_MAX_PRESET)"\r\n"
-    "    set=<preset>      Apply current EAP parameters without attribute value\r\n"
-    "                      or switch to preset 1-"TO_STR(EAP_MAX_PRESET)"\r\n"
-    "    get               Sync actual EAP parameters from library to ATT config structures.\r\n"
-
 #endif
 #ifdef MULTICHANNEL_EXAMPLE
     "    track <filename> [num_channels]  Select audio track to play. Select 2 or 8 channels. \r\n"
     "                                    - If channel number not specified, default 8 is used. \r\n"
 #else
-                     "    track=<filename>  Select audio track to play.\r\n"
+    "    track=<filename>  Select audio track to play.\r\n"
 #endif
     "    list              List audio files available on mounted SD card.\r\n"
     "    info              Prints playback info.\r\n"
 #ifdef MULTICHANNEL_EXAMPLE
     "  NOTE: Selected audio track must always meet the following parameters:\r\n"
-	"                  - Sample rate:        96 kHz\r\n"
+    "                  - Sample rate:        96 kHz\r\n"
     "                  - Width:              32 bit\r\n"
     "                  - Number of channels: Depending on the [num_channels] parameter\r\n"
-#ifdef EAP_PROC
-	"  NOTE: Only when 2 channels are selected EAP can be applied to the audio track."
 #endif
-#endif
-,
+    ,
     shellFile,
     SHELL_IGNORE_PARAMETER_COUNT);
 
@@ -103,6 +89,7 @@ static shell_handle_t s_shellHandle;
 extern serial_handle_t g_serialHandle;
 extern app_handle_t app;
 streamer_handle_t streamerHandle;
+OSA_SEMAPHORE_HANDLE_DEFINE(streamer_semaphore);
 
 /*${variable:end}*/
 
@@ -165,23 +152,12 @@ static uint32_t isFileOnSDcard(char *filename)
 
 static shell_status_t shellEcho(shell_handle_t shellHandle, int32_t argc, char **argv)
 {
-    PRINTF(" Maestro version: 1.6\r\n");
-
-#ifdef EAP_PROC
-    PRINTF(" EAP version: 3.0.12\r\n");
-#endif
-
+    PRINTF(" Maestro version: %s\r\n", STREAMER_VERSION);
     return kStatus_SHELL_Success;
 }
 
 static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char **argv)
 {
-    char *dot;
-#ifdef MULTICHANNEL_EXAMPLE
-    uint8_t num_channels = DEMO_CHANNEL_NUM; // default number of channels is 8
-#endif
-    shell_status_t retVal = kStatus_SHELL_Success;
-
     if (!app.sdcardInserted)
     {
         PRINTF("[CMD] Please insert an SD card with audio files and retry this command\r\n");
@@ -192,269 +168,79 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
     // be sure that this routine is as short as possible without any complex logic
     if (argc >= 2)
     {
+        OSA_SemaphoreWait(streamer_semaphore, osaWaitForever_c);
         if (strcmp(argv[1], "start") == 0)
         {
 #ifdef MULTICHANNEL_EXAMPLE
             get_app_data()->num_channels = DEMO_CHANNEL_NUM; // set default channel number = 8
 #endif
-            get_eap_att_control()->command = kAttCmdStart;
+            cmdStart();
         }
-        else if (strcmp(argv[1], "stop") == 0)
+        else if (strcmp(argv[1], "list") == 0)
         {
-            get_eap_att_control()->command = kAttCmdStop;
+            cmdList();
+        }
+        else if (strcmp(argv[1], "track") == 0)
+        {
+            cmdTrack(argc, argv);
         }
         else if (strcmp(argv[1], "pause") == 0)
         {
-            get_eap_att_control()->command = kAttCmdPause;
+            cmdPause();
+        }
+        else if (strcmp(argv[1], "volume") == 0)
+        {
+            cmdVolume(argc, argv);
         }
 #ifndef MULTICHANNEL_EXAMPLE
         else if (strcmp(argv[1], "seek") == 0)
         {
-            if ((get_eap_att_control()->status != kAttPaused) && (get_eap_att_control()->status != kAttRunning))
-            {
-                PRINTF("[CMD] First select an audio track to play.\r\n");
-                retVal = kStatus_SHELL_Error;
-            }
-            else if (get_eap_att_control()->status != kAttPaused)
-            {
-                PRINTF("[CMD] First pause the track.\r\n");
-                retVal = kStatus_SHELL_Error;
-            }
-            else
-            {
-                if (argc >= 3)
-                {
-                    dot = strrchr(get_eap_att_control()->input, '.');
-                    if ((dot && strncmp(dot + 1, "aac", 3) == 0) && (get_eap_att_control()->status == kAttPaused))
-                    {
-                        PRINTF("[CMD] The AAC decoder does not support the seek command.\r\n");
-                        retVal = kStatus_SHELL_Error;
-                    }
-                    else
-                    {
-                        if (atoi(argv[2]) < 0)
-                        {
-                            PRINTF("[CMD] The seek time must be a positive value.\r\n");
-                            retVal = kStatus_SHELL_Error;
-                        }
-                        else
-                        {
-                            get_eap_att_control()->seek_time = atoi(argv[2]);
-                            get_eap_att_control()->command   = kAttCmdSeek;
-                        }
-                    }
-                }
-                else
-                {
-                    PRINTF("[CMD] Enter a seek time value.\r\n");
-                    retVal = kStatus_SHELL_Error;
-                }
-            }
+            cmdSeek(argc, argv);
         }
 #endif
-#if defined(EAP_PROC) && (ALGORITHM_XO == 1)
-        else if (strcmp(argv[1], "xo") == 0) // this option is good for testing but could be removed for production
+        else if (strcmp(argv[1], "stop") == 0)
         {
-            if (argc >= 3)
-            {
-                int value = abs(atoi((argv[2])));
-                if (value == 0)
-                {
-                    get_eap_att_control()->controlParam->XO_OperatingMode = LVM_XO_MODE_OFF;
-                }
-                else if (value == 1)
-                {
-                    get_eap_att_control()->controlParam->XO_OperatingMode = LVM_XO_MODE_ON;
-                }
-                else if (value >= 60 && value <= 6000)
-                {
-                    get_eap_att_control()->controlParam->XO_OperatingMode   = LVM_XO_MODE_ON;
-                    get_eap_att_control()->controlParam->XO_cutoffFrequency = value;
-                }
-                else
-                {
-                    PRINTF(
-                        "[CMD] Undefined Crossover parameter. Use 'att xo 0|1|<60,6000>' where 0|1 are for "
-                        "disable|enable or "
-                        "specify frequency from range.\r\n");
-                    return retVal;
-                }
-                get_eap_att_control()->command = kAttCmdSetConfig;
-            }
-            else
-            {
-                PRINTF(
-                    "[CMD] Undefined Crossover parameter. Use 'att xo 0|1|<60,6000>' where 0|1 are for disable|enable "
-                    "or "
-                    "specify frequency from range.\r\n");
-                retVal = kStatus_SHELL_Error;
-            }
-        }
-#endif
-        else if (strcmp(argv[1], "volume") == 0)
-        {
-            if (argc >= 3)
-            {
-                int value = atoi((argv[2]));
-                if (value >= 0 && value <= 100)
-                {
-                    get_eap_att_control()->volume  = value;
-                    get_eap_att_control()->command = kAttCmdVolume;
-                    PRINTF("[CMD] Volume has been set to %d.\r\n", value);
-                }
-                else
-                {
-                    PRINTF("[CMD] Ignoring wrong volume parameter.\r\n");
-                    retVal = kStatus_SHELL_Error;
-                }
-            }
-            else
-            {
-                PRINTF("[CMD] Enter volume parameter.\r\n");
-                retVal = kStatus_SHELL_Error;
-            }
-        }
-#if defined(EAP_PROC)
-        else if (strcmp(argv[1], "set") == 0 || strcmp(argv[1], "update") == 0)
-        {
-            if (argc == 3)
-            {
-                int preset = abs(atoi((argv[2])));
-                if (preset <= 0 || preset > EAP_MAX_PRESET)
-                {
-                    PRINTF("[CMD] EAP preset number out of range, setting EAP all effects OFF.\r\n");
-                    preset = 1;
-                }
-                get_eap_att_control()->eapPreset = preset;
-            }
-            get_eap_att_control()->command = kAttCmdSetConfig;
-        }
-        else if (strcmp(argv[1], "get") == 0)
-        {
-            get_eap_att_control()->command = kAttCmdGetConfig;
-        }
-#endif
-        else if (strcmp(argv[1], "track") == 0)
-        {
-            if (get_eap_att_control()->status == kAttIdle || get_eap_att_control()->status == kAttRunning)
-            {
-                if (argc >= 3)
-                {
-                    if (isFileOnSDcard(argv[2]))
-                    {
-                        dot = strrchr(argv[2], '.');
-                        if (
-#ifdef MULTICHANNEL_EXAMPLE
-                            (dot && strncmp(dot + 1, "pcm", 4) == 0)
-#else
-#if (OGG_OPUS_DEC == 1)
-                            (dot && strncmp(dot + 1, "opus", 4) == 0) || (dot && strncmp(dot + 1, "ogg", 3) == 0) ||
-#endif
-#if (AAC_DEC == 1)
-                            (dot && strncmp(dot + 1, "aac", 3) == 0) ||
-#endif
-#if (WAV_DEC == 1)
-                            (dot && strncmp(dot + 1, "wav", 3) == 0) ||
-#endif
-#if (FLAC_DEC == 1)
-                            (dot && strncmp(dot + 1, "flac", 3) == 0) ||
-#endif
-                        	(dot && strncmp(dot + 1, "mp3", 3) == 0)
-#endif
-                        )
-                        {
-                            strcpy(get_eap_att_control()->input, argv[2]);
-                            get_eap_att_control()->command = kAttCmdStart;
-                        }
-                        else
-                        {
-                            PRINTF(
-                                "[CMD] Input audio file name has to match one of the"
-#ifdef MULTICHANNEL_EXAMPLE
-                                " .pcm"
-#else
-                            " .mp3"
-#if (OGG_OPUS_DEC == 1)
-                            "|.opus|.ogg"
-#endif
-#if (AAC_DEC == 1)
-                            "|.aac"
-#endif
-#if (WAV_DEC == 1)
-                            "|.wav"
-#endif
-#if (FLAC_DEC == 1)
-                            "|.flac"
-#endif
-#endif
-                                " format.\r\n");
-
-                            retVal = kStatus_SHELL_Error;
-                        }
-#ifdef MULTICHANNEL_EXAMPLE
-                        if (argc == 4)
-                        {
-                            num_channels = abs(atoi((argv[3])));
-                            if (num_channels == 2 || num_channels == 8)
-                            {
-                                get_app_data()->num_channels = num_channels;
-                            }
-                            else
-                            {
-                                PRINTF("Number of channels not allowed (2 or 8 allowed).\r\n");
-                                retVal = kStatus_SHELL_Error;
-                            }
-                        }
-                        else
-                        {
-                            get_app_data()->num_channels = num_channels;
-                        }
-#endif
-                    }
-                    else
-                    {
-                        PRINTF("[CMD] File is not on the SD card, please enter valid filename.\r\n");
-                        retVal = kStatus_SHELL_Error;
-                    }
-                }
-                else
-                {
-                    PRINTF("[CMD] Enter name of audio file.\r\n");
-                    retVal = kStatus_SHELL_Error;
-                }
-            }
-            else
-            {
-                PRINTF("[CMD] Use the stop command first.\r\n");
-                retVal = kStatus_SHELL_Error;
-            }
-        }
-        else if (strcmp(argv[1], "list") == 0)
-        {
-            if (list_files(false) != kStatus_Success)
-            {
-                retVal = kStatus_SHELL_Error;
-            }
+            cmdStop();
         }
         else if (strcmp(argv[1], "info") == 0)
         {
-            PRINTF("[CMD] status: %d (last error: %d), (%d/%d)[%s]\r\n", get_eap_att_control()->status,
-                   get_eap_att_control()->lastError, get_eap_att_control()->trackCurrent,
-                   get_eap_att_control()->trackTotal, get_eap_att_control()->input);
+            PRINTF("[CMD] status: %d (last error: %d), (%d/%d)[%s]\r\n", get_app_data()->status,
+                   get_app_data()->lastError, get_app_data()->trackCurrent, get_app_data()->trackTotal,
+                   get_app_data()->input);
         }
         else
         {
             PRINTF("[CMD] Undefined att command option. \r\n");
-            retVal = kStatus_SHELL_Error;
+            OSA_SemaphorePost(streamer_semaphore);
+            return kStatus_SHELL_Error;
         }
+
+        if (get_app_data()->lastError != kAppCodeOk && get_app_data()->status != kAppError)
+        {
+            PRINTF("[CMD] Error occurred %d\r\n", get_app_data()->lastError);
+            if (get_app_data()->status == kAppRunning)
+            {
+                get_app_data()->lastError = stop();
+                PRINTF("[CMD] Error occurred, playback stopped\r\n");
+            }
+            else
+            {
+                get_app_data()->status = kAppError;
+            }
+
+            OSA_SemaphorePost(streamer_semaphore);
+            return kStatus_SHELL_Error;
+        }
+
+        OSA_SemaphorePost(streamer_semaphore);
     }
     else
     {
         PRINTF("[CMD] Enter correct command option. \r\n");
-        retVal = kStatus_SHELL_Error;
+        return kStatus_SHELL_Error;
     }
-    // unlock APP mutex
-    return retVal;
+
+    return kStatus_SHELL_Success;
 }
 
 void shellCmd(void)
@@ -473,5 +259,237 @@ void shellCmd(void)
         SHELL_Task(s_shellHandle);
     }
 #endif
+
+    OSA_SemaphoreCreateBinary(streamer_semaphore);
+    OSA_SemaphorePost(streamer_semaphore);
+}
+
+void cmdStart()
+{
+    if (get_app_data()->status == kAppPaused)
+    {
+        get_app_data()->lastError = resume();
+    }
+    else
+    {
+        if (get_app_data()->status == kAppRunning)
+        {
+            get_app_data()->lastError    = stop();
+            get_app_data()->trackCurrent = 0;
+            get_app_data()->trackTotal   = 0;
+        }
+        if (get_app_data()->lastError == kAppCodeOk)
+        {
+            get_app_data()->lastError = play();
+        }
+    }
+
+    get_app_data()->status = kAppRunning;
+    PRINTF("[CMD] Playback started for %s\r\n", get_app_data()->input);
+}
+
+void cmdList()
+{
+    if (list_files(false) != kStatus_Success)
+    {
+        get_app_data()->lastError = kAppCodeOk;
+    }
+    else
+    {
+        get_app_data()->lastError = kAppCodeOk;
+    }
+}
+
+void cmdTrack(int32_t argc, char **argv)
+{
+    char *dot = NULL;
+
+#ifdef MULTICHANNEL_EXAMPLE
+    uint8_t num_channels = DEMO_CHANNEL_NUM; // default number of channels is 8
+#endif
+
+    if (get_app_data()->status == kAppIdle)
+    {
+        if (argc >= 3)
+        {
+            if (isFileOnSDcard(argv[2]))
+            {
+                dot = strrchr(argv[2], '.');
+                if (
+#ifdef MULTICHANNEL_EXAMPLE
+                    (dot && strncmp(dot + 1, "pcm", 4) == 0)
+#else
+#if (OGG_OPUS_DEC == 1)
+                    (dot && strncmp(dot + 1, "opus", 4) == 0) || (dot && strncmp(dot + 1, "ogg", 3) == 0) ||
+#endif
+#if (AAC_DEC == 1)
+                    (dot && strncmp(dot + 1, "aac", 3) == 0) ||
+#endif
+#if (WAV_DEC == 1)
+                    (dot && strncmp(dot + 1, "wav", 3) == 0) ||
+#endif
+#if (FLAC_DEC == 1)
+                    (dot && strncmp(dot + 1, "flac", 3) == 0) ||
+#endif
+                    (dot && strncmp(dot + 1, "mp3", 3) == 0)
+#endif
+                )
+                {
+                    strcpy(get_app_data()->input, argv[2]);
+                }
+                else
+                {
+                    PRINTF(
+                        "[CMD] Input audio file name has to match one of the"
+#ifdef MULTICHANNEL_EXAMPLE
+                        " .pcm"
+#else
+                        " .mp3"
+#if (OGG_OPUS_DEC == 1)
+                        "|.opus|.ogg"
+#endif
+#if (AAC_DEC == 1)
+                        "|.aac"
+#endif
+#if (WAV_DEC == 1)
+                        "|.wav"
+#endif
+#if (FLAC_DEC == 1)
+                        "|.flac"
+#endif
+#endif
+                        " format.\r\n");
+
+                    get_app_data()->lastError = kAppCodeOk;
+                    return;
+                }
+#ifdef MULTICHANNEL_EXAMPLE
+                if (argc == 4)
+                {
+                    num_channels = abs(atoi((argv[3])));
+                    if (num_channels == 2 || num_channels == 8)
+                    {
+                        get_app_data()->num_channels = num_channels;
+                    }
+                    else
+                    {
+                        PRINTF("Number of channels not allowed (2 or 8 allowed).\r\n");
+                        get_app_data()->lastError = kAppCodeOk;
+                        return;
+                    }
+                }
+                else
+                {
+                    get_app_data()->num_channels = num_channels;
+                }
+#endif
+                cmdStart();
+            }
+            else
+            {
+                PRINTF("[CMD] File is not on the SD card, please enter valid filename.\r\n");
+                get_app_data()->lastError = kAppCodeOk;
+            }
+        }
+        else
+        {
+            PRINTF("[CMD] Enter name of audio file.\r\n");
+            get_app_data()->lastError = kAppCodeOk;
+        }
+    }
+    else
+    {
+        PRINTF("[CMD] Use the stop command first.\r\n");
+        get_app_data()->lastError = kAppCodeOk;
+    }
+}
+
+void cmdPause()
+{
+    if (get_app_data()->status == kAppPaused)
+    {
+        get_app_data()->lastError = resume();
+        get_app_data()->status    = kAppRunning;
+        PRINTF("[CMD] Playback continued\r\n");
+    }
+    else if (get_app_data()->status == kAppRunning)
+    {
+        get_app_data()->lastError = pause();
+        get_app_data()->status    = kAppPaused;
+        PRINTF("[CMD] Playback paused\r\n");
+    }
+}
+
+void cmdVolume(int32_t argc, char **argv)
+{
+    if (argc >= 3)
+    {
+        int value = atoi((argv[2]));
+        if (value >= 0 && value <= 100)
+        {
+            get_app_data()->volume    = value;
+            get_app_data()->lastError = volume();
+        }
+        else
+        {
+            PRINTF("[CMD] Ignoring wrong volume parameter.\r\n");
+            get_app_data()->lastError = kAppCodeOk;
+        }
+    }
+    else
+    {
+        PRINTF("[CMD] Enter volume parameter.\r\n");
+        get_app_data()->lastError = kAppCodeOk;
+    }
+}
+
+void cmdSeek(int32_t argc, char **argv)
+{
+    char *dot = NULL;
+    if ((get_app_data()->status != kAppPaused) && (get_app_data()->status != kAppRunning))
+    {
+        PRINTF("[CMD] First select an audio track to play.\r\n");
+        get_app_data()->lastError = kAppCodeOk;
+    }
+    else if (get_app_data()->status != kAppPaused)
+    {
+        PRINTF("[CMD] First pause the track.\r\n");
+        get_app_data()->lastError = kAppCodeOk;
+    }
+    else
+    {
+        if (argc >= 3)
+        {
+            dot = strrchr(get_app_data()->input, '.');
+            if ((dot && strncmp(dot + 1, "aac", 3) == 0) && (get_app_data()->status == kAppPaused))
+            {
+                PRINTF("[CMD] The AAC decoder does not support the seek command.\r\n");
+                get_app_data()->lastError = kAppCodeOk;
+            }
+            else
+            {
+                if (atoi(argv[2]) < 0)
+                {
+                    PRINTF("[CMD] The seek time must be a positive value.\r\n");
+                    get_app_data()->lastError = kAppCodeOk;
+                }
+                else
+                {
+                    get_app_data()->seek_time = atoi(argv[2]);
+                    get_app_data()->lastError = seek();
+                }
+            }
+        }
+        else
+        {
+            PRINTF("[CMD] Enter a seek time value.\r\n");
+            get_app_data()->lastError = kAppCodeOk;
+        }
+    }
+}
+
+void cmdStop()
+{
+    get_app_data()->lastError = stop();
 }
 /*${function:end}*/

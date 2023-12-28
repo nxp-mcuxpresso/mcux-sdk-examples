@@ -16,6 +16,7 @@
 #include "usb.h"
 #include "audio_speaker.h"
 #include "app_streamer.h"
+#include "streamer.h"
 
 /*${header:end}*/
 
@@ -71,7 +72,7 @@ streamer_handle_t streamerHandle;
 
 static shell_status_t shellEcho(shell_handle_t shellHandle, int32_t argc, char **argv)
 {
-    PRINTF(" Maestro version: 1.6\r\n");
+    PRINTF(" Maestro version: %s\r\n", STREAMER_VERSION);
     return kStatus_SHELL_Success;
 }
 

@@ -1,0 +1,1154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_lpcxpresso54628_examples_manifest_v3_14" name="SDK_2.x_lpcxpresso54628_examples_manifest_v3_14" format_version="3.14" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.14.xsd">
+
+  <externalDefinitions>
+    <definition extID="LPC54628J512ET180"/>
+  </externalDefinitions>
+  <ksdk id="MCUXpressoSDK2150_lpcxpresso54628_examples_manifest_v3_14" name="MCUXpressoSDK2150_lpcxpresso54628_examples_manifest_v3_14" version="2.15.0" revision="2.15.0"/>
+  <boards>
+    <board id="lpcxpresso54628" name="LPCXpresso54628" href="https://www.nxp.com/pip/OM13098" version="1.0.0" package="LPC54628J512ET180">
+      <examples>
+        <example id="lpcxpresso54628_dev_audio_generator_bm" name="dev_audio_generator_bm" brief="The USB Audio Generator application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a recording device and users can record the sound from this device via the &quot;Sound Recorder&quot; in the Windows Accessories." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_audio_generator/bm">
+          <external path="usb_examples/usb_device_audio_generator/bm" type="xml">
+            <files mask="dev_audio_generator_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_audio_generator_lite_bm" name="dev_audio_generator_lite_bm" brief="The USB Audio Generator application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a recording device and users can record the sound from this device via the &quot;Sound Recorder&quot; in the Windows Accessories." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_audio_generator_lite/bm">
+          <external path="usb_examples/usb_device_audio_generator_lite/bm" type="xml">
+            <files mask="dev_audio_generator_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_audio_speaker_bm" name="dev_audio_speaker_bm" brief="The USB Audio Speaker application is a simple demonstration program based on the MCUXpresso SDK. It is enumerated as a playback device and users can play music using the device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_audio_speaker/bm">
+          <external path="usb_examples/usb_device_audio_speaker/bm" type="xml">
+            <files mask="dev_audio_speaker_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_audio_speaker_lite_bm" name="dev_audio_speaker_lite_bm" brief="The USB Audio Speaker application is a simple demonstration program based on the MCUXpresso SDK. It is enumerated as a playback device and users can play music using the device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_audio_speaker_lite/bm">
+          <external path="usb_examples/usb_device_audio_speaker_lite/bm" type="xml">
+            <files mask="dev_audio_speaker_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_cdc_vcom_bm" name="dev_cdc_vcom_bm" brief="The Virtual COM project is enumerated as a COM port, which the users can open using terminal tools, such as TeraTerm. The demo echoes back any character it receives." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_cdc_vcom/bm">
+          <external path="usb_examples/usb_device_cdc_vcom/bm" type="xml">
+            <files mask="dev_cdc_vcom_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_cdc_vcom_lite_bm" name="dev_cdc_vcom_lite_bm" brief="The Virtual COM project enumerated as a COM port, which the users can open using terminal tools, such as TeraTerm. The demo echoes back any character it receives." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_cdc_vcom_lite/bm">
+          <external path="usb_examples/usb_device_cdc_vcom_lite/bm" type="xml">
+            <files mask="dev_cdc_vcom_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_cdc_vnic_bm" name="dev_cdc_vnic_bm" brief="The Virtual NIC project is enumerated as a network adapter. Users can access the network by properly configuring this network adapter." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_cdc_vnic/bm">
+          <external path="usb_examples/usb_device_cdc_vnic/bm" type="xml">
+            <files mask="dev_cdc_vnic_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_cdc_vnic_lite_bm" name="dev_cdc_vnic_lite_bm" brief="The Virtual NIC project is a simple demonstration program based on the MCUXpresso SDK.  It is enumerated as a network adapter. Users can access the network by properly configuring this network adapter." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_cdc_vnic_lite/bm">
+          <external path="usb_examples/usb_device_cdc_vnic_lite/bm" type="xml">
+            <files mask="dev_cdc_vnic_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_composite_cdc_msc_bm" name="dev_composite_cdc_msc_bm" brief="The Composite CDC_MSC project is a simple demonstration program based on the MCUXpresso SDK.  It is enumerated as a COM port and a RAM disk, which can be opened using terminal tools, such as TeraTerm. The demo echoes back any character it receives. The RAM disk can be formatted.." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_composite_cdc_msc/bm">
+          <external path="usb_examples/usb_device_composite_cdc_msc/bm" type="xml">
+            <files mask="dev_composite_cdc_msc_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_composite_cdc_msc_disk_bm" name="dev_composite_cdc_msc_disk_bm" brief="The Composite CDC_MSC project is a simple demonstration program based on the MCUXpresso SDK.  It is enumerated as a COM port and a RAM disk, which can be opened using terminal tools, such as TeraTerm. The demo echoes back any character it receives. The RAM disk can be formatted." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_composite_cdc_msc_disk/bm">
+          <external path="usb_examples/usb_device_composite_cdc_msc_disk/bm" type="xml">
+            <files mask="dev_composite_cdc_msc_disk_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_composite_cdc_msc_disk_lite_bm" name="dev_composite_cdc_msc_disk_lite_bm" brief="The Composite CDC_MSC project is a simple demonstration program based on the MCUXpresso SDK.  It is enumerated as a COM port and a U-disk. The COM  port can be opened using terminal tools, such as TeraTerm. The demo echoes back any character it receives. The U-disk can be read and write as a standard SD card." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_composite_cdc_msc_disk_lite/bm">
+          <external path="usb_examples/usb_device_composite_cdc_msc_disk_lite/bm" type="xml">
+            <files mask="dev_composite_cdc_msc_disk_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_composite_cdc_msc_lite_bm" name="dev_composite_cdc_msc_lite_bm" brief="The Composite CDC_MSC project is a simple demonstration program based on the MCUXpresso SDK.  It is enumerated as a COM port and a RAM disk, which can be opened using terminal tools, such as TeraTerm. The demo echoes back any character it receives. The RAM disk can be formatted." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_composite_cdc_msc_lite/bm">
+          <external path="usb_examples/usb_device_composite_cdc_msc_lite/bm" type="xml">
+            <files mask="dev_composite_cdc_msc_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_composite_cdc_vcom_cdc_vcom_bm" name="dev_composite_cdc_vcom_cdc_vcom_bm" brief="The Composite CDC_VCOM_CDC_VCOM project is a simple demonstration program based on the MCUXpresso SDK.  It is enumerated as two COM port, which can be opened using terminal tools, such as TeraTerm. The demo echoes back any character it receives." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_composite_cdc_vcom_cdc_vcom/bm">
+          <external path="usb_examples/usb_device_composite_cdc_vcom_cdc_vcom/bm" type="xml">
+            <files mask="dev_composite_cdc_vcom_cdc_vcom_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_composite_cdc_vcom_cdc_vcom_lite_bm" name="dev_composite_cdc_vcom_cdc_vcom_lite_bm" brief="The Composite CDC_VCOM_CDC_VCOM project is a simple demonstration program based on the MCUXpresso SDK.  It is enumerated as two COM port, which can be opened using terminal tools, such as TeraTerm. The demo echoes back any character it receives." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_composite_cdc_vcom_cdc_vcom_lite/bm">
+          <external path="usb_examples/usb_device_composite_cdc_vcom_cdc_vcom_lite/bm" type="xml">
+            <files mask="dev_composite_cdc_vcom_cdc_vcom_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_composite_hid_audio_unified_bm" name="dev_composite_hid_audio_unified_bm" brief="The USB Composite device application is a simple demonstration program based on the MCUXpresso SDK. It is enumerated as a recording device. Users can record the sound from this device via the &quot;Sound Recorder&quot; in the Windows Accessories with an HID mouse device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_composite_hid_audio_unified/bm">
+          <external path="usb_examples/usb_device_composite_hid_audio_unified/bm" type="xml">
+            <files mask="dev_composite_hid_audio_unified_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_composite_hid_audio_unified_lite_bm" name="dev_composite_hid_audio_unified_lite_bm" brief="The USB Composite HID and Audio Unified application is a simple demonstration program based on the MCUXpresso SDK. It is enumerated as a playback and recording device. Users can record the sound from this device via the &quot;Sound Recorder&quot; in the Windows Accessories and play music with the device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_composite_hid_audio_unified_lite/bm">
+          <external path="usb_examples/usb_device_composite_hid_audio_unified_lite/bm" type="xml">
+            <files mask="dev_composite_hid_audio_unified_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_composite_hid_mouse_hid_keyboard_bm" name="dev_composite_hid_mouse_hid_keyboard_bm" brief="The application is a simple demonstration program based on the MCUXpresso SDK. The application is enumerated as HID-compliant mouse and keyboard devices." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_composite_hid_mouse_hid_keyboard/bm">
+          <external path="usb_examples/usb_device_composite_hid_mouse_hid_keyboard/bm" type="xml">
+            <files mask="dev_composite_hid_mouse_hid_keyboard_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_composite_hid_mouse_hid_keyboard_lite_bm" name="dev_composite_hid_mouse_hid_keyboard_lite_bm" brief="The application is a simple demonstration program based on the MCUXpresso SDK. The application is enumerated as HID-compliant mouse and keyboard devices." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_composite_hid_mouse_hid_keyboard_lite/bm">
+          <external path="usb_examples/usb_device_composite_hid_mouse_hid_keyboard_lite/bm" type="xml">
+            <files mask="dev_composite_hid_mouse_hid_keyboard_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_hid_generic_bm" name="dev_hid_generic_bm" brief="The USB HID generic application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a HID-compliant device. A PC application can be used to exchange data with the device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_hid_generic/bm">
+          <external path="usb_examples/usb_device_hid_generic/bm" type="xml">
+            <files mask="dev_hid_generic_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_hid_generic_lite_bm" name="dev_hid_generic_lite_bm" brief="The USB HID generic application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a HID-compliant device. A PC application can be used to exchange data with the device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_hid_generic_lite/bm">
+          <external path="usb_examples/usb_device_hid_generic_lite/bm" type="xml">
+            <files mask="dev_hid_generic_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_hid_mouse_bm" name="dev_hid_mouse_bm" brief="The USB HID mouse application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a mouse. Users can see the mouse arrow moving on the PC screen according in a rectangular fashion." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_hid_mouse/bm">
+          <external path="usb_examples/usb_device_hid_mouse/bm" type="xml">
+            <files mask="dev_hid_mouse_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_hid_mouse_lite_bm" name="dev_hid_mouse_lite_bm" brief="The USB HID mouse application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a mouse. Users can see the mouse arrow moving on the PC screen according in a rectangular fashion." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_hid_mouse_lite/bm">
+          <external path="usb_examples/usb_device_hid_mouse_lite/bm" type="xml">
+            <files mask="dev_hid_mouse_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_lpm_hid_mouse_bm" name="dev_lpm_hid_mouse_bm" brief="This is one example support LPM(Link Power Management)." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_lpm_device_hid_mouse/bm">
+          <external path="usb_examples/usb_lpm_device_hid_mouse/bm" type="xml">
+            <files mask="dev_lpm_hid_mouse_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_lpm_hid_mouse_lite_bm" name="dev_lpm_hid_mouse_lite_bm" brief="This is one example support LPM(Link Power Management)." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_lpm_device_hid_mouse_lite/bm">
+          <external path="usb_examples/usb_lpm_device_hid_mouse_lite/bm" type="xml">
+            <files mask="dev_lpm_hid_mouse_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_msc_disk_bm" name="dev_msc_disk_bm" brief="The USB MSC RAM disk application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a U-disk. Users can read and write the SD card or MMC as a standard U-disk." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_msc_disk/bm">
+          <external path="usb_examples/usb_device_msc_disk/bm" type="xml">
+            <files mask="dev_msc_disk_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_msc_disk_lite_bm" name="dev_msc_disk_lite_bm" brief="The USB MSC RAM disk application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a U-disk. Users can read and write the SD card or MMC as a standard U-disk." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_msc_disk_lite/bm">
+          <external path="usb_examples/usb_device_msc_disk_lite/bm" type="xml">
+            <files mask="dev_msc_disk_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_msc_ramdisk_bm" name="dev_msc_ramdisk_bm" brief="The USB MSC RAM disk application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a U-disk and can be read and written to as a normal U-disk ." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_msc_ramdisk/bm">
+          <external path="usb_examples/usb_device_msc_ramdisk/bm" type="xml">
+            <files mask="dev_msc_ramdisk_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_msc_ramdisk_lite_bm" name="dev_msc_ramdisk_lite_bm" brief="The USB MSC RAM disk application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a U-disk and can be read and written to as a normal U-disk ." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_msc_ramdisk_lite/bm">
+          <external path="usb_examples/usb_device_msc_ramdisk_lite/bm" type="xml">
+            <files mask="dev_msc_ramdisk_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_phdc_weighscale_bm" name="dev_phdc_weighscale_bm" brief="The USB PHDC WeighScale application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a weight scale device and the HealthLink software is used to interact with thisdevice to simulate the personal weight scale data, such as body mass and body mass index." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_phdc_weighscale/bm">
+          <external path="usb_examples/usb_device_phdc_weighscale/bm" type="xml">
+            <files mask="dev_phdc_weighscale_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_phdc_weighscale_lite_bm" name="dev_phdc_weighscale_lite_bm" brief="The USB PHDC WeighScale application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a weight scale device and the HealthLink software is used to interact with thisdevice to simulate the personal weight scale data, such as body mass and body mass index." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_phdc_weighscale_lite/bm">
+          <external path="usb_examples/usb_device_phdc_weighscale_lite/bm" type="xml">
+            <files mask="dev_phdc_weighscale_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_printer_virtual_plain_text_bm" name="dev_printer_virtual_plain_text_bm" brief="The USB virtual printer application is a simple application to demonstrate a virtual printer functionality.Because there is no printer language parsing, the received raw data is output directly in the debug console.As a result, only plain text is suitable for testing. For other printer language support, such as postscript, implement the corresponding parser." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_printer_virtual_plain_text/bm">
+          <external path="usb_examples/usb_device_printer_virtual_plain_text/bm" type="xml">
+            <files mask="dev_printer_virtual_plain_text_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_printer_virtual_plain_text_lite_bm" name="dev_printer_virtual_plain_text_lite_bm" brief="The USB virtual printer application is a simple application to demonstrate a virtual printer functionality.Because there is no printer language parsing, the received raw data is output directly in the debug console.As a result, only plain text is suitable for testing. For other printer language support, such as postscript, implement the corresponding parser." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_printer_virtual_plain_text_lite/bm">
+          <external path="usb_examples/usb_device_printer_virtual_plain_text_lite/bm" type="xml">
+            <files mask="dev_printer_virtual_plain_text_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_suspend_resume_hid_mouse_bm" name="dev_suspend_resume_hid_mouse_bm" brief="the application is enumerated as a mouse. When host releases the USB Bus, the device will enter into low power mode. The device can be waked up when resume signal is detected on the bus. Or the device can remote wake-up the host by delivering the resume signal when the remote wake-up is enabled by the host." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_suspend_resume_device_hid_mouse/bm">
+          <external path="usb_examples/usb_suspend_resume_device_hid_mouse/bm" type="xml">
+            <files mask="dev_suspend_resume_hid_mouse_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_suspend_resume_hid_mouse_lite_bm" name="dev_suspend_resume_hid_mouse_lite_bm" brief="the application is enumerated as a mouse. When host releases the USB Bus, the device will enter into low power mode. The device can be waked up when resume signal is detected on the bus. Or the device can remote wake-up the host by delivering the resume signal when the remote wake-up is enabled by the host." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_suspend_resume_device_hid_mouse_lite/bm">
+          <external path="usb_examples/usb_suspend_resume_device_hid_mouse_lite/bm" type="xml">
+            <files mask="dev_suspend_resume_hid_mouse_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_video_virtual_camera_bm" name="dev_video_virtual_camera_bm" brief="The USB video virtual camera application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a camera and users can see the video of the device by using a PC test tool." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_video_virtual_camera/bm">
+          <external path="usb_examples/usb_device_video_virtual_camera/bm" type="xml">
+            <files mask="dev_video_virtual_camera_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_video_virtual_camera_lite_bm" name="dev_video_virtual_camera_lite_bm" brief="The USB video virtual camera application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a camera and users can see the video of the device by using a PC test tool." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_video_virtual_camera_lite/bm">
+          <external path="usb_examples/usb_device_video_virtual_camera_lite/bm" type="xml">
+            <files mask="dev_video_virtual_camera_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_audio_generator_freertos" name="dev_audio_generator_freertos" brief="The USB Audio Generator application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a recording device and users can record the sound from this device via the &quot;Sound Recorder&quot; in the Windows Accessories." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_audio_generator/freertos">
+          <external path="usb_examples/usb_device_audio_generator/freertos" type="xml">
+            <files mask="dev_audio_generator_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_audio_speaker_freertos" name="dev_audio_speaker_freertos" brief="The USB Audio Speaker application is a simple demonstration program based on the MCUXpresso SDK. It is enumerated as a playback device and users can play music using the device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_audio_speaker/freertos">
+          <external path="usb_examples/usb_device_audio_speaker/freertos" type="xml">
+            <files mask="dev_audio_speaker_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_cdc_vcom_freertos" name="dev_cdc_vcom_freertos" brief="The Virtual COM project is  enumerated as a COM port, which the users can open using terminal tools, such as TeraTerm. The demo echoes back any character it receives." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_cdc_vcom/freertos">
+          <external path="usb_examples/usb_device_cdc_vcom/freertos" type="xml">
+            <files mask="dev_cdc_vcom_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_cdc_vnic_freertos" name="dev_cdc_vnic_freertos" brief="The Virtual NIC project is a simple demonstration program based on the MCUXpresso SDK.  It is enumerated as a network adapter. Users can access the network by properly configuring this network adapter." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_cdc_vnic/freertos">
+          <external path="usb_examples/usb_device_cdc_vnic/freertos" type="xml">
+            <files mask="dev_cdc_vnic_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_composite_cdc_msc_disk_freertos" name="dev_composite_cdc_msc_disk_freertos" brief="The Composite CDC_MSC project is a simple demonstration program based on the MCUXpresso SDK.  It is enumerated as a COM port and a RAM disk, which can be opened using terminal tools, such as TeraTerm. The demo echoes back any character it receives. The RAM disk can be formatted." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_composite_cdc_msc_disk/freertos">
+          <external path="usb_examples/usb_device_composite_cdc_msc_disk/freertos" type="xml">
+            <files mask="dev_composite_cdc_msc_disk_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_composite_cdc_msc_freertos" name="dev_composite_cdc_msc_freertos" brief="The Composite CDC_MSC project is a simple demonstration program based on the MCUXpresso SDK.  It is enumerated as a COM port and a RAM disk, which can be opened using terminal tools, such as TeraTerm. The demo echoes back any character it receives. The RAM disk can be formatted." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_composite_cdc_msc/freertos">
+          <external path="usb_examples/usb_device_composite_cdc_msc/freertos" type="xml">
+            <files mask="dev_composite_cdc_msc_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_composite_cdc_vcom_cdc_vcom_freertos" name="dev_composite_cdc_vcom_cdc_vcom_freertos" brief="The Composite CDC_VCOM_CDC_VCOM project is a simple demonstration program based on the MCUXpresso SDK.  It is enumerated as two COM port, which can be opened using terminal tools, such as TeraTerm. The demo echoes back any character it receives." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_composite_cdc_vcom_cdc_vcom/freertos">
+          <external path="usb_examples/usb_device_composite_cdc_vcom_cdc_vcom/freertos" type="xml">
+            <files mask="dev_composite_cdc_vcom_cdc_vcom_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_composite_hid_audio_unified_freertos" name="dev_composite_hid_audio_unified_freertos" brief="The USB Composite device application is a simple demonstration program based on the MCUXpresso SDK. It is enumerated as a recording device. Users can record the sound from this device via the &quot;Sound Recorder&quot; in the Windows Accessories with an HID mouse device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_composite_hid_audio_unified/freertos">
+          <external path="usb_examples/usb_device_composite_hid_audio_unified/freertos" type="xml">
+            <files mask="dev_composite_hid_audio_unified_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_composite_hid_mouse_hid_keyboard_freertos" name="dev_composite_hid_mouse_hid_keyboard_freertos" brief="The application is a simple demonstration program based on the MCUXpresso SDK. The application is enumerated as HID-compliant mouse and keyboard devices." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_composite_hid_mouse_hid_keyboard/freertos">
+          <external path="usb_examples/usb_device_composite_hid_mouse_hid_keyboard/freertos" type="xml">
+            <files mask="dev_composite_hid_mouse_hid_keyboard_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_hid_generic_freertos" name="dev_hid_generic_freertos" brief="The USB HID generic application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a HID-compliant device. A PC application can be used to exchange data with the device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_hid_generic/freertos">
+          <external path="usb_examples/usb_device_hid_generic/freertos" type="xml">
+            <files mask="dev_hid_generic_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_hid_mouse_freertos" name="dev_hid_mouse_freertos" brief="The USB HID mouse application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a mouse. Users can see the mouse arrow moving on the PC screen according in a rectangular fashion." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_hid_mouse/freertos">
+          <external path="usb_examples/usb_device_hid_mouse/freertos" type="xml">
+            <files mask="dev_hid_mouse_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_lpm_hid_mouse_freertos" name="dev_lpm_hid_mouse_freertos" brief="This is one example support LPM(Link Power Management)." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_lpm_device_hid_mouse/freertos">
+          <external path="usb_examples/usb_lpm_device_hid_mouse/freertos" type="xml">
+            <files mask="dev_lpm_hid_mouse_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_msc_disk_freertos" name="dev_msc_disk_freertos" brief="The USB MSC RAM disk application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a U-disk. Users can read and write the SD card or MMC as a standard U-disk." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_msc_disk/freertos">
+          <external path="usb_examples/usb_device_msc_disk/freertos" type="xml">
+            <files mask="dev_msc_disk_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_msc_ramdisk_freertos" name="dev_msc_ramdisk_freertos" brief="The USB MSC RAM disk application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a U-disk and can be read and written to as a normal U-disk ." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_msc_ramdisk/freertos">
+          <external path="usb_examples/usb_device_msc_ramdisk/freertos" type="xml">
+            <files mask="dev_msc_ramdisk_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_phdc_weighscale_freertos" name="dev_phdc_weighscale_freertos" brief="The USB PHDC WeighScale application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a weight scale device and the HealthLink software is used to interact with thisdevice to simulate the personal weight scale data, such as body mass and body mass index." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_phdc_weighscale/freertos">
+          <external path="usb_examples/usb_device_phdc_weighscale/freertos" type="xml">
+            <files mask="dev_phdc_weighscale_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_printer_virtual_plain_text_freertos" name="dev_printer_virtual_plain_text_freertos" brief="The USB virtual printer application is a simple application to demonstrate a virtual printer functionality.Because there is no printer language parsing, the received raw data is output directly in the debug console.As a result, only plain text is suitable for testing. For other printer language support, such as postscript, implement the corresponding parser." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_printer_virtual_plain_text/freertos">
+          <external path="usb_examples/usb_device_printer_virtual_plain_text/freertos" type="xml">
+            <files mask="dev_printer_virtual_plain_text_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_suspend_resume_hid_mouse_freertos" name="dev_suspend_resume_hid_mouse_freertos" brief="the application is enumerated as a mouse. When host releases the USB Bus, the device will enter into low power mode. The device can be waked up when resume signal is detected on the bus. Or the device can remote wake-up the host by delivering the resume signal when the remote wake-up is enabled by the host." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_suspend_resume_device_hid_mouse/freertos">
+          <external path="usb_examples/usb_suspend_resume_device_hid_mouse/freertos" type="xml">
+            <files mask="dev_suspend_resume_hid_mouse_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_video_virtual_camera_freertos" name="dev_video_virtual_camera_freertos" brief="The USB video virtual camera application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a camera and users can see the video of the device by using a PC test tool." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_video_virtual_camera/freertos">
+          <external path="usb_examples/usb_device_video_virtual_camera/freertos" type="xml">
+            <files mask="dev_video_virtual_camera_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dev_hid_mouse_freertos_static" name="dev_hid_mouse_freertos_static" brief="The USB HID mouse application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a mouse. Users can see the mouse arrow moving on the PC screen according in a rectangular fashion." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_device_hid_mouse/freertos_static">
+          <external path="usb_examples/usb_device_hid_mouse/freertos_static" type="xml">
+            <files mask="dev_hid_mouse_freertos_static_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_rom_dev_audio_bm" name="rom_dev_audio_bm" brief="The example shows how to use USBD ROM stack to create and USB AUDIO class device. This device supports 2 channel audio in (MIC/LINE_IN) and 2 channel audio out (SPEAKERS/HEADPHONE)." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_rom_device_audio/bm">
+          <external path="usb_examples/usb_rom_device_audio/bm" type="xml">
+            <files mask="rom_dev_audio_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_rom_dev_audio_dmic_bm" name="rom_dev_audio_dmic_bm" brief="The example shows how to use USBD ROM stack to create and USB AUDIO class device. This device supports 2 channels audio in." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_rom_device_audio_dmic/bm">
+          <external path="usb_examples/usb_rom_device_audio_dmic/bm" type="xml">
+            <files mask="rom_dev_audio_dmic_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_rom_dev_cdc_bm" name="rom_dev_cdc_bm" brief="The example shows how to use USBD ROM stack to create a virtual comm port. When the USB on J3 is connected to a PC, the host would recognize the USB connection as a new serial port." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_rom_device_cdc/bm">
+          <external path="usb_examples/usb_rom_device_cdc/bm" type="xml">
+            <files mask="rom_dev_cdc_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_rom_dev_hid_generic_bm" name="rom_dev_hid_generic_bm" brief="The example shows how to us USBD ROM stack to creates a generic HID device. The example supports 1 byte report and loops back the data received in SET_REPORT message.." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_rom_device_hid_generic/bm">
+          <external path="usb_examples/usb_rom_device_hid_generic/bm" type="xml">
+            <files mask="rom_dev_hid_generic_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_rom_dev_msc_ram_bm" name="rom_dev_msc_ram_bm" brief="The example shows how to use USBD ROM stack to create a RAM disk. When the USB on J3 is connected to a PC, the host would recognize the USB connection as a mass storage device. Note that the storage happens on the RAM and is not a persistent storage.." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_rom_device_msc_ram/bm">
+          <external path="usb_examples/usb_rom_device_msc_ram/bm" type="xml">
+            <files mask="rom_dev_msc_ram_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_audio_speaker_bm" name="host_audio_speaker_bm" brief="The Host Audio example supports the audio speaker device. @n The application prints the audio speaker information when the USB speaker device is attached." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_host_audio_speaker/bm">
+          <external path="usb_examples/usb_host_audio_speaker/bm" type="xml">
+            <files mask="host_audio_speaker_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_cdc_bm" name="host_cdc_bm" brief="The host CDC project is a simple demonstration program based on the MCUXpresso SDK. It enumerates a COM port and echoes back the data from the UART." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_host_cdc/bm">
+          <external path="usb_examples/usb_host_cdc/bm" type="xml">
+            <files mask="host_cdc_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_hid_generic_bm" name="host_hid_generic_bm" brief="This application implements a simple HID interrupt in-and-out endpoint bi-directional communication.The application sends one test string to the device. The device receives and sends back the string. The application receives the string and prints it." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_host_hid_generic/bm">
+          <external path="usb_examples/usb_host_hid_generic/bm" type="xml">
+            <files mask="host_hid_generic_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_hid_mouse_bm" name="host_hid_mouse_bm" brief="The application supports the mouse device. It prints the mouse operation when the mouse device is attached." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_host_hid_mouse/bm">
+          <external path="usb_examples/usb_host_hid_mouse/bm" type="xml">
+            <files mask="host_hid_mouse_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_hid_mouse_keyboard_bm" name="host_hid_mouse_keyboard_bm" brief="This example supports the mouse device and the keyboard device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_host_hid_mouse_keyboard/bm">
+          <external path="usb_examples/usb_host_hid_mouse_keyboard/bm" type="xml">
+            <files mask="host_hid_mouse_keyboard_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_lpm_hid_mouse_bm" name="host_lpm_hid_mouse_bm" brief="This is one example support LPM(Link Power Management)." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_lpm_host_hid_mouse/bm">
+          <external path="usb_examples/usb_lpm_host_hid_mouse/bm" type="xml">
+            <files mask="host_lpm_hid_mouse_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_msd_command_bm" name="host_msd_command_bm" brief="This Host MSD example supports the UFI and SCSI U-disk device. The application prints the attached device information when the U-disk device is attached.The application executes UFI commands to test the attached device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_host_msd_command/bm">
+          <external path="usb_examples/usb_host_msd_command/bm" type="xml">
+            <files mask="host_msd_command_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_msd_fatfs_bm" name="host_msd_fatfs_bm" brief="This Host FatFs example supports UFI and SCSI U-disk device. The application prints the attached device information when U-disk device is attached.The application executes some FatFs APIs to test the attached device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_host_msd_fatfs/bm">
+          <external path="usb_examples/usb_host_msd_fatfs/bm" type="xml">
+            <files mask="host_msd_fatfs_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_phdc_manager_bm" name="host_phdc_manager_bm" brief="The Host PHDC Manager Example is a simple demonstration program based on the MCUXpresso SDK.The application supports the USB weight scale device. It prints out the body mass and body mass index information when the USB weight scale device is attached." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_host_phdc_manager/bm">
+          <external path="usb_examples/usb_host_phdc_manager/bm" type="xml">
+            <files mask="host_phdc_manager_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_printer_plain_text_bm" name="host_printer_plain_text_bm" brief="The host printer example demonstrates how to get the status of the printer deviceand how to print a certain test string." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_host_printer_plain_text/bm">
+          <external path="usb_examples/usb_host_printer_plain_text/bm" type="xml">
+            <files mask="host_printer_plain_text_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_suspend_resume_hid_mouse_bm" name="host_suspend_resume_hid_mouse_bm" brief="This is one example support suspend/resume." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_suspend_resume_host_hid_mouse/bm">
+          <external path="usb_examples/usb_suspend_resume_host_hid_mouse/bm" type="xml">
+            <files mask="host_suspend_resume_hid_mouse_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_audio_recorder_freertos" name="host_audio_recorder_freertos" brief="The Host Audio example supports the audio recorder device. @n The application prints the audio recorder information when the USB recorder device is attached." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_host_audio_recorder/freertos">
+          <external path="usb_examples/usb_host_audio_recorder/freertos" type="xml">
+            <files mask="host_audio_recorder_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_audio_speaker_freertos" name="host_audio_speaker_freertos" brief="The Host Audio example supports the audio speaker device. @n The application prints the audio speaker information when the USB speaker device is attached." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_host_audio_speaker/freertos">
+          <external path="usb_examples/usb_host_audio_speaker/freertos" type="xml">
+            <files mask="host_audio_speaker_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_cdc_freertos" name="host_cdc_freertos" brief="The host CDC project is a simple demonstration program based on the MCUXpresso SDK. It enumerates a COM port and echoes back the data from the UART ." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_host_cdc/freertos">
+          <external path="usb_examples/usb_host_cdc/freertos" type="xml">
+            <files mask="host_cdc_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_hid_generic_freertos" name="host_hid_generic_freertos" brief="This application implements a simple HID interrupt in-and-out endpoint bi-directional communication.The application sends one test string to the device. The device receives and sends back the string. The application receives the string and prints it." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_host_hid_generic/freertos">
+          <external path="usb_examples/usb_host_hid_generic/freertos" type="xml">
+            <files mask="host_hid_generic_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_hid_mouse_freertos" name="host_hid_mouse_freertos" brief="The application supports the mouse device. It prints the mouse operation when the mouse device is attached." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_host_hid_mouse/freertos">
+          <external path="usb_examples/usb_host_hid_mouse/freertos" type="xml">
+            <files mask="host_hid_mouse_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_hid_mouse_keyboard_freertos" name="host_hid_mouse_keyboard_freertos" brief="This example supports the mouse device and the keyboard device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_host_hid_mouse_keyboard/freertos">
+          <external path="usb_examples/usb_host_hid_mouse_keyboard/freertos" type="xml">
+            <files mask="host_hid_mouse_keyboard_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_lpm_hid_mouse_freertos" name="host_lpm_hid_mouse_freertos" brief="This is one example demo support LPM(Link Power Management)." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_lpm_host_hid_mouse/freertos">
+          <external path="usb_examples/usb_lpm_host_hid_mouse/freertos" type="xml">
+            <files mask="host_lpm_hid_mouse_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_msd_command_freertos" name="host_msd_command_freertos" brief="This Host MSD example supports the UFI and SCSI U-disk device.  The application prints the attached device information when the U-disk device is attached.The application executes UFI commands to test the attached device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_host_msd_command/freertos">
+          <external path="usb_examples/usb_host_msd_command/freertos" type="xml">
+            <files mask="host_msd_command_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_msd_fatfs_freertos" name="host_msd_fatfs_freertos" brief="This Host FatFs example supports UFI and SCSI U-disk device. The application prints the attached device information when U-disk device is attached.The application executes some FatFs APIs to test the attached device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_host_msd_fatfs/freertos">
+          <external path="usb_examples/usb_host_msd_fatfs/freertos" type="xml">
+            <files mask="host_msd_fatfs_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_phdc_manager_freertos" name="host_phdc_manager_freertos" brief="The Host PHDC Manager Example is a simple demonstration program based on the MCUXpresso SDK.The application supports the USB weight scale device. It prints out the body mass and body mass index information when the USB weight scale device is attached." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_host_phdc_manager/freertos">
+          <external path="usb_examples/usb_host_phdc_manager/freertos" type="xml">
+            <files mask="host_phdc_manager_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_printer_plain_text_freertos" name="host_printer_plain_text_freertos" brief="The host printer example demonstrates how to get the status of the printer deviceand how to print a certain test string.." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_host_printer_plain_text/freertos">
+          <external path="usb_examples/usb_host_printer_plain_text/freertos" type="xml">
+            <files mask="host_printer_plain_text_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_host_suspend_resume_hid_mouse_freertos" name="host_suspend_resume_hid_mouse_freertos" brief="This is one example support suspend/resume." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_suspend_resume_host_hid_mouse/freertos">
+          <external path="usb_examples/usb_suspend_resume_host_hid_mouse/freertos" type="xml">
+            <files mask="host_suspend_resume_hid_mouse_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_keyboard2mouse_bm" name="keyboard2mouse_bm" brief="This example implements the host and the device, where the one controller works as a host and the other controller works as a device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_keyboard2mouse/bm">
+          <external path="usb_examples/usb_keyboard2mouse/bm" type="xml">
+            <files mask="keyboard2mouse_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_keyboard2mouse_freertos" name="keyboard2mouse_freertos" brief="This example implements the host and the device, where the one controller works as a host and the other controller works as a device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso54628/usb_examples/usb_keyboard2mouse/freertos">
+          <external path="usb_examples/usb_keyboard2mouse/freertos" type="xml">
+            <files mask="keyboard2mouse_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_hello_world" name="hello_world" brief="The HelloWorld demo prints the &quot;Hello World&quot; string to the terminal using the SDK UART drivers and repeat what user input. The purpose of this demo is to show how to use the UART, and to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso54628/demo_apps/hello_world">
+          <external path="demo_apps/hello_world" type="xml">
+            <files mask="hello_world_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_hello_world_virtual_com" name="hello_world_virtual_com" brief="Hello World Virtual Com demonstrates the use of virtual com to print the &quot;Hello World&quot; string to the terminal. Different with Hello World demo (a HW UART peripheral is used to transmit data), the demo transmits data based on a serial port simulated by the USB device stack on target board side via USB peripheral. The purpose of this demo is to demonstrate how to use virtual com and provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso54628/demo_apps/hello_world_virtual_com">
+          <external path="demo_apps/hello_world_virtual_com" type="xml">
+            <files mask="hello_world_virtual_com_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_i2c_interrupt_b2b_transfer_master" name="i2c_interrupt_b2b_transfer_master" brief="The i2c_interrupt_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with interrupt:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/lpcxpresso54628/driver_examples/i2c/interrupt_b2b_transfer/master">
+          <external path="driver_examples/i2c/interrupt_b2b_transfer/master" type="xml">
+            <files mask="i2c_interrupt_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_i2c_interrupt_b2b_transfer_slave" name="i2c_interrupt_b2b_transfer_slave" brief="The i2c_interrupt_b2b_transfer_slave example shows how to use i2c driver as slave to do board to board transfer with interrupt:In this example, one i2c instance as slave and another i2c instance on the other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/lpcxpresso54628/driver_examples/i2c/interrupt_b2b_transfer/slave">
+          <external path="driver_examples/i2c/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="i2c_interrupt_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_i2c_dma_b2b_transfer_master" name="i2c_dma_b2b_transfer_master" brief="The i2c_dma_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with DMA:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/lpcxpresso54628/driver_examples/i2c/dma_b2b_transfer/master">
+          <external path="driver_examples/i2c/dma_b2b_transfer/master" type="xml">
+            <files mask="i2c_dma_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_i2c_dma_b2b_transfer_slave" name="i2c_dma_b2b_transfer_slave" brief="The i2c_dma_b2b_transfer_slave example shows how to use i2c driver as slave to do board to board transfer with a DMA master:In this example, one i2c instance as slave and another i2c instance on the other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/lpcxpresso54628/driver_examples/i2c/dma_b2b_transfer/slave">
+          <external path="driver_examples/i2c/dma_b2b_transfer/slave" type="xml">
+            <files mask="i2c_dma_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_crc" name="crc" brief="The CRC Example project is a demonstration program that uses the KSDK software to generate checksumsfor an ASCII string. Several CRC protocols are implemented using the CRC driver API." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/crc" path="examples/lpcxpresso54628/driver_examples/crc">
+          <external path="driver_examples/crc" type="xml">
+            <files mask="crc_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_iap_basic" name="iap_basic" brief="The IAP project is a simple demonstration program of the SDK IAP driver. It reads part id, boot code version, unique id and reinvoke ISP. A message a printed on the UART terminal as various bascial iap operations are performed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/iap" path="examples/lpcxpresso54628/driver_examples/iap/iap_basic">
+          <external path="driver_examples/iap/iap_basic" type="xml">
+            <files mask="iap_basic_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_iap_eeprom" name="iap_eeprom" brief="The IAP EEPROM project is a simple demonstration program of the SDK IAP driver. It writes and reads the EEPROM page. A message a printed on the UART terminal as EEPROM read and write operations are performed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/iap" path="examples/lpcxpresso54628/driver_examples/iap/iap_eeprom">
+          <external path="driver_examples/iap/iap_eeprom" type="xml">
+            <files mask="iap_eeprom_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_iap_flash" name="iap_flash" brief="The IAP Flash project is a simple demonstration program of the SDK IAP driver. It erases and programs a portion of on-chip flash memory. A message a printed on the UART terminal as various operations on flash memory are performed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/iap" path="examples/lpcxpresso54628/driver_examples/iap/iap_flash">
+          <external path="driver_examples/iap/iap_flash" type="xml">
+            <files mask="iap_flash_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_flashiap" name="flashiap" brief="The FLASIAP project is a simple demonstration program of the SDK FLASIAP driver. It erases and programs a portion of on-chip flash memory. A message a printed on the UART terminal as various operations on flash memory are performed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/flashiap" path="examples/lpcxpresso54628/driver_examples/flashiap">
+          <external path="driver_examples/flashiap" type="xml">
+            <files mask="flashiap_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_fmeas" name="fmeas" brief="This example shows how to use SDK drivers to use the Frequency Measure feature of SYSCON module on LPC devices.It shows how to measure a target frequency using a (faster) reference frequency. The example uses the internal main clock as the reference frequency to measure the frequencies of the RTC, watchdog oscillator, and internal RC oscillator." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/fmeas" path="examples/lpcxpresso54628/driver_examples/fmeas">
+          <external path="driver_examples/fmeas" type="xml">
+            <files mask="fmeas_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_gpio_led_output" name="gpio_led_output" brief="The GPIO Example project is a demonstration program that uses the KSDK software to manipulate the general-purposeoutputs. The example use LEDs and buttons to demonstrates GPIO API for port and pin manipulation (init, set,clear, and toggle)." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/gpio" path="examples/lpcxpresso54628/driver_examples/gpio/led_output">
+          <external path="driver_examples/gpio/led_output" type="xml">
+            <files mask="gpio_led_output_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_lcdc_cursor" name="lcdc_cursor" brief="The lcdc_cursor example shows how to use LCD hardware cursor.In this example, a 32x32 cursor is shown. The cursor's position is changed atthe end of every frame.The background is:+++                                                ++                    Red                         ++                                                ++            +--+              ++            +                    +              ++            +      Blank         +              ++            +                    +              ++            +--+              ++                                                ++                                                ++                                                +++" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lcdc" path="examples/lpcxpresso54628/driver_examples/lcdc/lcdc_cursor">
+          <external path="driver_examples/lcdc/lcdc_cursor" type="xml">
+            <files mask="lcdc_cursor_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_lcdc_tft" name="lcdc_tft" brief="The lcdc_tft example shows how to use LCD driver to drive TFT panel.In this example, the cursor palette is used. A rectangle is shown in the panel,its color and position are changed every frame." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lcdc" path="examples/lpcxpresso54628/driver_examples/lcdc/lcdc_tft">
+          <external path="driver_examples/lcdc/lcdc_tft" type="xml">
+            <files mask="lcdc_tft_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_emc_sdram" name="emc_sdram" brief="The emc_sdram example shows how to access the SDRAM.In this example, user shall initialize the EMC (external memory controller), initialize theEMC dynamic memory controller before access the external SDRAM.If the sdram example fails, please make sure to check the following points:1. Please take refer to the board.readme to check the jumper settings on your board.2. Please take refer to the EMC chapter in API RM to do the delay calibration to found the best delay for your board, then update the delay to the EMC clock delay control registers in the system configure module registers." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/emc" path="examples/lpcxpresso54628/driver_examples/emc/sdram">
+          <external path="driver_examples/emc/sdram" type="xml">
+            <files mask="emc_sdram_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_spi_polling_b2b_transfer_master" name="spi_polling_b2b_transfer_master" brief="The spi_polling_board2board_master example shows how to use spi driver as master to do board to board transfer with polling:In this example, one spi instance as master and another spi instance on othereboard as slave. Master sends a piece ofdata to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpcxpresso54628/driver_examples/spi/polling_b2b_transfer/master">
+          <external path="driver_examples/spi/polling_b2b_transfer/master" type="xml">
+            <files mask="spi_polling_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_spi_polling_b2b_transfer_slave" name="spi_polling_b2b_transfer_slave" brief="The spi_polling_board2board_slave example shows how to use spi driver as slave to do board to board transfer withpolling:Notice: The SPI slave of this example uses interrupt mode, as there is no polling mode for SPI slave.In this example, one spi instance as slave and another spi instance on other board as master. Master sends a piece ofdata to slave, and receive a piece of data from slave. This example checks if the data received from master is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpcxpresso54628/driver_examples/spi/polling_b2b_transfer/slave">
+          <external path="driver_examples/spi/polling_b2b_transfer/slave" type="xml">
+            <files mask="spi_polling_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_spi_interrupt_b2b_transfer_master" name="spi_interrupt_b2b_transfer_master" brief="The spi_interrupt_board2board_master example shows how to use spi driver as master to do board to board transfer withinterrupt:In this example, one spi instance as master and another spi instance on othereboard as slave. Master sends a piece ofdata to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpcxpresso54628/driver_examples/spi/interrupt_b2b_transfer/master">
+          <external path="driver_examples/spi/interrupt_b2b_transfer/master" type="xml">
+            <files mask="spi_interrupt_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_spi_interrupt_b2b_transfer_slave" name="spi_interrupt_b2b_transfer_slave" brief="The spi_interrupt_board2board_slave example shows how to use spi driver as slave to do board to board transfer with interrupt:In this example, one spi instance as slave and another spi instance on other board as master. Master sends a piece ofdata to slave, and receive a piece of data from slave. This example checks if the data received from master is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpcxpresso54628/driver_examples/spi/interrupt_b2b_transfer/slave">
+          <external path="driver_examples/spi/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="spi_interrupt_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_spi_interrupt_b2b_master" name="spi_interrupt_b2b_master" brief="The spi_interrupt_b2b_master example shows how to use spi functional API to do interrupt transfer as a master:In this example, the spi instance as master. Master sends a piece of data to slave, receive data from slave,and checkif the data master received is correct. This example needs to work with spi_interrupt_b2b_slave example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpcxpresso54628/driver_examples/spi/interrupt_b2b/master">
+          <external path="driver_examples/spi/interrupt_b2b/master" type="xml">
+            <files mask="spi_interrupt_b2b_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_spi_interrupt_b2b_slave" name="spi_interrupt_b2b_slave" brief="The spi_interrupt_b2b_slave example shows how to use spi functional API to do interrupt transfer as a slave:In this example, the spi instance as slave. Slave receives data froma master and send a peiece of data to master,and check if the data slave received is correct. This example needs to work with spi_interrupt_b2b_master example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpcxpresso54628/driver_examples/spi/interrupt_b2b/slave">
+          <external path="driver_examples/spi/interrupt_b2b/slave" type="xml">
+            <files mask="spi_interrupt_b2b_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_spi_interrupt" name="spi_interrupt" brief="The spi_interrupt example shows how to use spi functional API to do interrupt transfer:In this example, one spi instance as master and another spi instance as slave. Master sends a piece of data to slave,and check if the data slave received is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpcxpresso54628/driver_examples/spi/interrupt">
+          <external path="driver_examples/spi/interrupt" type="xml">
+            <files mask="spi_interrupt_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_usart_sync_transfer_master" name="usart_sync_transfer_master" brief="The usart synchronous transfer example shows how to use usart driver in synchronous way." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpcxpresso54628/driver_examples/usart/sync_transfer/master">
+          <external path="driver_examples/usart/sync_transfer/master" type="xml">
+            <files mask="usart_sync_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_usart_sync_transfer_slave" name="usart_sync_transfer_slave" brief="The usart synchronous transfer example shows how to use usart driver in synchronous way." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpcxpresso54628/driver_examples/usart/sync_transfer/slave">
+          <external path="driver_examples/usart/sync_transfer/slave" type="xml">
+            <files mask="usart_sync_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_usart_wakeup_deepsleep" name="usart_wakeup_deepsleep" brief="The usart_wakeup_deepsleep example shows how to use usart driver in 32kHz clocking mode to wake up soc from deep sleep. In this example, one usart instance connect to PC, the board will enter deep sleep mode and wake up according to user input." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpcxpresso54628/driver_examples/usart/wakeup_deepsleep">
+          <external path="driver_examples/usart/wakeup_deepsleep" type="xml">
+            <files mask="usart_wakeup_deepsleep_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_usart_polling" name="usart_polling" brief="The uart_polling example shows how to use uart driver in polling way:In this example, one uart instance connect to PC through uart, the board will send back all characters that PCsend to the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpcxpresso54628/driver_examples/usart/polling">
+          <external path="driver_examples/usart/polling" type="xml">
+            <files mask="usart_polling_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_usart_interrupt" name="usart_interrupt" brief="The uart_functioncal_interrupt example shows how to use uart driver functionalAPI to receive data with interrupt method:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpcxpresso54628/driver_examples/usart/interrupt">
+          <external path="driver_examples/usart/interrupt" type="xml">
+            <files mask="usart_interrupt_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_usart_interrupt_transfer" name="usart_interrupt_transfer" brief="The uart_interrupt example shows how to use uart driver in interrupt way:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpcxpresso54628/driver_examples/usart/interrupt_transfer">
+          <external path="driver_examples/usart/interrupt_transfer" type="xml">
+            <files mask="usart_interrupt_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_usart_9bit_interrupt_transfer" name="usart_9bit_interrupt_transfer" brief="The usart_9bit_interrupt_transfer example shows how to use usart driver in 9-bit mode in multi-slave system. Master can send data to slave with certain address specifically, and slave can only receive data when it is addressed. In this example, one usart instance is used with address configured. Its TX and RX pins are connected together. First it sends a piece of data out, then addresses itself, after that sends the other piece of data. Only data sent after the address can be received by itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/uart" path="examples/lpcxpresso54628/driver_examples/usart/9bit_interrupt_transfer">
+          <external path="driver_examples/usart/9bit_interrupt_transfer" type="xml">
+            <files mask="usart_9bit_interrupt_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_usart_interrupt_rb_transfer" name="usart_interrupt_rb_transfer" brief="The uart_interrupt_ring_buffer example shows how to use uart driver in interrupt way withRX ring buffer enabled:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpcxpresso54628/driver_examples/usart/interrupt_rb_transfer">
+          <external path="driver_examples/usart/interrupt_rb_transfer" type="xml">
+            <files mask="usart_interrupt_rb_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dma_memory_to_memory" name="dma_memory_to_memory" brief="The DMA memory to memory example is a simple demonstration program that uses the SDK software.It executes one shot transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA and to provide a simple example fordebugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/lpcxpresso54628/driver_examples/dma/memory_to_memory">
+          <external path="driver_examples/dma/memory_to_memory" type="xml">
+            <files mask="dma_memory_to_memory_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dma_m2m_polling" name="dma_m2m_polling" brief="The DMA memory to memory example is a simple demonstration program that uses the SDK software.It executes one shot polling transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA and to provide a simple example for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/lpcxpresso54628/driver_examples/dma/m2m_polling">
+          <external path="driver_examples/dma/m2m_polling" type="xml">
+            <files mask="dma_m2m_polling_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_usart_dma_transfer" name="usart_dma_transfer" brief="The usart_dma example shows how to use usart driver with DMA:In this example, one usart instance connect to PC through usart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpcxpresso54628/driver_examples/usart/dma_transfer">
+          <external path="driver_examples/usart/dma_transfer" type="xml">
+            <files mask="usart_dma_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_usart_dma_rb_transfer" name="usart_dma_rb_transfer" brief="The usart_dma ring buffer example shows how to use usart driver with DMA:In this example, one usart instance connect to PC through usart, the board will send back all characters that PC send to the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpcxpresso54628/driver_examples/usart/dma_rb_transfer">
+          <external path="driver_examples/usart/dma_rb_transfer" type="xml">
+            <files mask="usart_dma_rb_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_usart_dma_double_buffer_transfer" name="usart_dma_double_buffer_transfer" brief="This example shows how to use the DMA driver to implement a double buffer receive scheme from the USARTThe example shows the double buffer constructed using two descriptors (g_pingpong_desc). These descriptors are cycled from one to the other.Things to note- The descriptors of the ping pong transfer need to be aligned to size 16- The inital transfer will perform the same job as first descriptor of ping pong, so the first linkeage is to go to g_pingpong_desc[1]- g_pingpong_desc[1] then chains the g_pingpong_desc[0] as the next descriptor- The properties are set up such that g_pingpong_desc[0] (and the initial configuration uses INTA to signal back to the callback)- g_pingpong_desc[1] uses INTB to signal to the callback- The scheduled callback uses this information to know which data was last writtenA note on PerformanceThe intent of this example is to illustrate how a double-buffer scheme can be implemented using the dma. The performance of this example will be limited to how quickly the echo printer can read-out the data from the ping pong buffer and display it. This means that the example will work well if characters are entered at a rate where the DMA callback to echo the string can keep up with the input stream. Connecting the USARTRX to a continuous fast speed will cause the DMA to fall behind. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpcxpresso54628/driver_examples/usart/dma_double_buffer_transfer">
+          <external path="driver_examples/usart/dma_double_buffer_transfer" type="xml">
+            <files mask="usart_dma_double_buffer_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_usart_hardware_flow_control" name="usart_hardware_flow_control" brief="The usart_hardware_flow_control example project demonstrates the usage of the hardware flow control function. This example sends data to itself(loopback), and hardware flow control is enabled in the example. The CTS(clear-to-send) pin is for transmiter to check if receiver is ready, if the CTS pin is asserted, transmiter starts to send data. The RTS(request-to-send) pin is for receiver to inform the transmiter if receiver is ready to receive data. So, please connect RTS to CTS pin directly." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/lpcxpresso54628/driver_examples/usart/hardware_flow_control">
+          <external path="driver_examples/usart/hardware_flow_control" type="xml">
+            <files mask="usart_hardware_flow_control_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_rtc_example" name="rtc_example" brief="The RTC project is a simple demonstration program of the SDK RTC driver. It sets up the RTChardware block to trigger an alarm after a user specified time period. The test will set the currentdate and time to a predefined value. The alarm will be set with reference to this predefined dateand time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/rtc" path="examples/lpcxpresso54628/driver_examples/rtc">
+          <external path="driver_examples/rtc" type="xml">
+            <files mask="rtc_example_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_sctimer_simple_pwm" name="sctimer_simple_pwm" brief="The SCTimer project is a simple demonstration program of the SDK SCTimer's driver capabiltiy to generate PWM signals." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="examples/lpcxpresso54628/driver_examples/sctimer/simple_pwm">
+          <external path="driver_examples/sctimer/simple_pwm" type="xml">
+            <files mask="sctimer_simple_pwm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_sctimer_pwm_with_dutycyle_change" name="sctimer_pwm_with_dutycyle_change" brief="This SCTIMer project is a demonstration program of the SDK SCTimer driver's PWM generation. It sets up a PWM signaland periodically updates the PWM signals dutycycle." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="examples/lpcxpresso54628/driver_examples/sctimer/pwm_with_dutycyle_change">
+          <external path="driver_examples/sctimer/pwm_with_dutycyle_change" type="xml">
+            <files mask="sctimer_pwm_with_dutycyle_change_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_sctimer_multi_state_pwm" name="sctimer_multi_state_pwm" brief="The SCTImer multi-state project is a demonstration program of the SCTimer state machine. It shows how to set up events to be triggered in a certain stateand transitioning between states.State 0 has 2 events that generate a PWM signal, it also has an event linked to an input signal to transition to State 1.State 1 has 4 events that generate 2 PWM signals, it also has an event linked to an input signal to transition to State 0." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="examples/lpcxpresso54628/driver_examples/sctimer/multi_state_pwm">
+          <external path="driver_examples/sctimer/multi_state_pwm" type="xml">
+            <files mask="sctimer_multi_state_pwm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_sctimer_16bit_counter" name="sctimer_16bit_counter" brief="The SCTimer 16-bit counter project is a demonstration program of the SDK SCTimer driver operation when using the SCTimer counteras two 16-bit counters.The example toggles an output per counter when a match occurs." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="examples/lpcxpresso54628/driver_examples/sctimer/16bit_counter">
+          <external path="driver_examples/sctimer/16bit_counter" type="xml">
+            <files mask="sctimer_16bit_counter_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_wwdt_example" name="wwdt_example" brief="The WDOG Example project is to demonstrate usage of the KSDK wdog driver.In this example,quick test is first implemented to test the wdog.And then after 5 times of refreshing the watchdog, a timeout reset is generated." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/wwdt" path="examples/lpcxpresso54628/driver_examples/wwdt">
+          <external path="driver_examples/wwdt" type="xml">
+            <files mask="wwdt_example_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_mrt_example" name="mrt_example" brief="The MRT project is a simple demonstration program of the SDK MRT driver. It sets up the MRThardware block to trigger a periodic interrupt after every 250 milliseconds. When the PIT interrupt is triggereda message a printed on the UART terminal and an LED is toggled on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/mrt" path="examples/lpcxpresso54628/driver_examples/mrt">
+          <external path="driver_examples/mrt" type="xml">
+            <files mask="mrt_example_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_lpc_adc_basic" name="lpc_adc_basic" brief="The lpc_adc_basic example shows how to use LPC ADC driver in the simplest way.In this example, the internal temperature sensor is used to created the input analog signal. When user type in any key from the keyboard, the software trigger API is called to start the conversion. Then it polls the conversion sequence A's flag till the conversion is completed. When the conversion is completed, just print the conversion result to terminal.Project Information1.what are ADC conversion sequences?  A conversion sequence is a single pass through a series of A/D conversions performed on a selected set of  A/D channels. Software can set-up two independent conversion sequences, either of which can be triggered   by software or by a transition on one of the hardware triggers. Each sequence can be triggered by a different   hardware trigger. One of these conversion sequences is referred to as the A sequence and the other as the B  sequence. It is not necessary to employ both sequences. An optional single-step mode allows advancing through  the channels of a sequence one at a time on each successive occurrence of a trigger. The user can select whether  a trigger on the B sequence can interrupt an already-in-progress A sequence. The B sequence, however, can never be  interrupted by an A trigger.  2. How to use software-triggered conversion?   There are two ways that software can trigger a conversion sequence:      1. Start Bit: The first way to software-trigger an sequence is by setting the START bit in         the corresponding SEQn_CTRL register. The response to this is identical to         occurrence of a hardware trigger on that sequence. Specifically, one cycle of         conversions through that conversion sequence will be immediately triggered except         as indicated above. (In this example, we use this way.)      2. Burst Mode: The other way to initiate conversions is to set the BURST bit in the         SEQn_CTRL register. As long as this bit is 1 the designated conversion sequence will         be continuously and repetitively cycled through. Any new software or hardware trigger         on this sequence will be ignored.  Program Flow1.This example demonstrates how to configure the A sequences with polling, assigning one channel with software  trigger, you can configure channel via &quot;DEMO_ADC_SAMPLE_CHANNEL_NUMBER&quot;.  2.Before configuration of the ADC begins, the ADC is put through a self-calibration cycle.    3.After ADC channels are assigned to each of the sequences, the software trigger is chosen. Setting   SEQA_CTRL_START to '1' will trigger sequence A.  4.After ADC channels are assigned to each of the sequences, if the user enters any key via terminal, software trigger will start. 5.Read the corresponding DATAVALID field with polling to judge whether the conversion completes and the result is ready.  If the result is ready, the example will printf result information to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc" path="examples/lpcxpresso54628/driver_examples/adc/lpc_adc_basic">
+          <external path="driver_examples/adc/lpc_adc_basic" type="xml">
+            <files mask="lpc_adc_basic_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_lpc_adc_interrupt" name="lpc_adc_interrupt" brief="The lpc_adc_interrupt example shows how to use interrupt with LPC ADC driver.In this example, the internal temperature sensor is used to created the input analog signal. When user type in any key from the keyboard, the software trigger API is called to start the conversion. Then it polls the flag variable which would be asserted when the conversion completed ISR is executed. Then just print the conversion result to terminal.Project Information1.what are ADC conversion sequences?  A conversion sequence is a single pass through a series of A/D conversions performed on a selected set of  A/D channels. Software can set-up two independent conversion sequences, either of which can be triggered   by software or by a transition on one of the hardware triggers. Each sequence can be triggered by a different   hardware trigger. One of these conversion sequences is referred to as the A sequence and the other as the B  sequence. It is not necessary to employ both sequences. An optional single-step mode allows advancing through  the channels of a sequence one at a time on each successive occurrence of a trigger. The user can select whether  a trigger on the B sequence can interrupt an already-in-progress A sequence. The B sequence, however, can never be  interrupted by an A trigger.  2. How to use software-triggered conversion?   There are two ways that software can trigger a conversion sequence:      1. Start Bit: The first way to software-trigger an sequence is by setting the START bit in         the corresponding SEQn_CTRL register. The response to this is identical to         occurrence of a hardware trigger on that sequence. Specifically, one cycle of         conversions through that conversion sequence will be immediately triggered except         as indicated above. (In this example, we use this way.)      2. Burst Mode: The other way to initiate conversions is to set the BURST bit in the         SEQn_CTRL register. As long as this bit is 1 the designated conversion sequence will         be continuously and repetitively cycled through. Any new software or hardware trigger         on this sequence will be ignored.          3. What kinds of interrupt do ADC have?   There are four interrupts that can be generated by the ADC:     • Conversion-Complete or Sequence-Complete interrupts for sequences A and B     • Threshold-Compare Out-of-Range Interrupt     • Data Overrun Interrupt   Any of these interrupt requests may be individually enabled or disabled in the INTEN register.  Program Flow1.This example demonstrates how to configure the A sequences with interrupt, assigning one channel with software  trigger, you can configure channel via &quot;DEMO_ADC_SAMPLE_CHANNEL_NUMBER&quot;.  2.Before configuration of the ADC begins, the ADC is put through a self-calibration cycle.  3.Enable the Conversion-Complete or Sequence-Complete interrupt for sequences A.  4.After ADC channels are assigned to each of the sequences, if the user enters any key via terminal, software trigger will start.    5.When the conversion completes, the interrupt would be triggered. The ISR will print conversion result to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc" path="examples/lpcxpresso54628/driver_examples/adc/lpc_adc_interrupt">
+          <external path="driver_examples/adc/lpc_adc_interrupt" type="xml">
+            <files mask="lpc_adc_interrupt_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_lpc_adc_burst" name="lpc_adc_burst" brief="The lpc_adc_burst example shows how to use LPC ADC driver with the burst mode.In this example, the internal temperature sensor is used to created the input analog signal.When user type in any key from the keyboard, the burst mode is enabled. Then the conversion sequence A would be started automatically, till the burst would be disabled in conversion completed ISR. Project Information1.what are ADC conversion sequences?  A conversion sequence is a single pass through a series of A/D conversions performed on a selected set of  A/D channels. Software can set-up two independent conversion sequences, either of which can be triggered   by software or by a transition on one of the hardware triggers. Each sequence can be triggered by a different   hardware trigger. One of these conversion sequences is referred to as the A sequence and the other as the B  sequence. It is not necessary to employ both sequences. An optional single-step mode allows advancing through  the channels of a sequence one at a time on each successive occurrence of a trigger. The user can select whether  a trigger on the B sequence can interrupt an already-in-progress A sequence. The B sequence, however, can never be  interrupted by an A trigger.  2. How to use software-triggered conversion?   There are two ways that software can trigger a conversion sequence:      1. Start Bit: The first way to software-trigger an sequence is by setting the START bit in         the corresponding SEQn_CTRL register. The response to this is identical to         occurrence of a hardware trigger on that sequence. Specifically, one cycle of         conversions through that conversion sequence will be immediately triggered except         as indicated above.       2. Burst Mode: The other way to initiate conversions is to set the BURST bit in the         SEQn_CTRL register. As long as this bit is 1 the designated conversion sequence will         be continuously and repetitively cycled through. Any new software or hardware trigger         on this sequence will be ignored. (In this example, we use this way.)         3. What kinds of interrupt do ADC have?   There are four interrupts that can be generated by the ADC:     • Conversion-Complete or Sequence-Complete interrupts for sequences A and B     • Threshold-Compare Out-of-Range Interrupt     • Data Overrun Interrupt   Any of these interrupt requests may be individually enabled or disabled in the INTEN register.  Program Flow1.This example demonstrates how to configure the A sequences with burst mode, you can configure channel via   &quot;DEMO_ADC_SAMPLE_CHANNEL_NUMBER&quot;.  2.Before configuration of the ADC begins, the ADC is put through a self-calibration cycle.  3.Enable the Conversion-Complete or Sequence-Complete interrupt for sequences A.  4.After ADC channels are assigned to each of the sequences, if the user enters any key via terminal, burst mode will start.    5.When the first conversion completes, the interrupt would be triggered. The ISR will stop the burst mode and print conversion result   to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc" path="examples/lpcxpresso54628/driver_examples/adc/lpc_adc_burst">
+          <external path="driver_examples/adc/lpc_adc_burst" type="xml">
+            <files mask="lpc_adc_burst_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_lpc_adc_dma" name="lpc_adc_dma" brief="The lpc_adc_dma example shows how to use LPC ADC driver with DMA.In this example, the internal temperature sensor is used to created the input analog signal. When user type in any key from the keyboard, the software trigger API is called to start the conversion. When the ADC conversion is completed, it would trigger the DMA to move the ADC conversion result from ADC conversion data register to user indicated memory. Then the main loop waits for the transfer to be done and print the result to terminal.Project Information1.what are ADC conversion sequences?  A conversion sequence is a single pass through a series of A/D conversions performed on a selected set of  A/D channels. Software can set-up two independent conversion sequences, either of which can be triggered   by software or by a transition on one of the hardware triggers. Each sequence can be triggered by a different   hardware trigger. One of these conversion sequences is referred to as the A sequence and the other as the B  sequence. It is not necessary to employ both sequences. An optional single-step mode allows advancing through  the channels of a sequence one at a time on each successive occurrence of a trigger. The user can select whether  a trigger on the B sequence can interrupt an already-in-progress A sequence. The B sequence, however, can never be  interrupted by an A trigger.  2. How to use software-triggered conversion?   There are two ways that software can trigger a conversion sequence:      1. Start Bit: The first way to software-trigger an sequence is by setting the START bit in         the corresponding SEQn_CTRL register. The response to this is identical to         occurrence of a hardware trigger on that sequence. Specifically, one cycle of         conversions through that conversion sequence will be immediately triggered except         as indicated above. (In this example, we use this way.)      2. Burst Mode: The other way to initiate conversions is to set the BURST bit in the         SEQn_CTRL register. As long as this bit is 1 the designated conversion sequence will         be continuously and repetitively cycled through. Any new software or hardware trigger         on this sequence will be ignored.          3. How to use DMA to work with ADC?   The sequence-A or sequence-B conversion/sequence-complete interrupts may also be   used to generate a DMA trigger. To trigger a DMA transfer, the same conditions must be   met as the conditions for generating an interrupt.   Remark: If the DMA is used, the ADC interrupt must be disabled in the NVIC.   Program Flow1.This example demonstrates how to configure the A sequences with interrupt, assigning one channel with software  trigger, you can configure channel via &quot;DEMO_ADC_SAMPLE_CHANNEL_NUMBER&quot;.  2.Before configuration of the ADC begins, the ADC is put through a self-calibration cycle.  3.Configure the DMA and DMAMUX to work with ADC sequences.4.Enable the Conversion-Complete or Sequence-Complete DMA for sequences A.  5.After ADC channels are assigned to each of the sequences, if the user enters any key via terminal, software trigger will start.    6.When the conversion completes, the DMA would be requested.7.When the DMA transfer completes, DMA will trigger a interrupt. ISR would set the &quot;bDmaTransferDone&quot; to 'true'. Then main function will   print conversion result to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc" path="examples/lpcxpresso54628/driver_examples/adc/lpc_adc_dma">
+          <external path="driver_examples/adc/lpc_adc_dma" type="xml">
+            <files mask="lpc_adc_dma_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_ctimer_pwm_example" name="ctimer_pwm_example" brief="The CTimer Example project is to demonstrate usage of the KSDK ctimer driver.In this example, CTimer is used to generate a PWM signal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ctimer" path="examples/lpcxpresso54628/driver_examples/ctimer/simple_pwm">
+          <external path="driver_examples/ctimer/simple_pwm" type="xml">
+            <files mask="ctimer_pwm_example_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_ctimer_pwm_interrupt_example" name="ctimer_pwm_interrupt_example" brief="The Simple PWM Interrupt project is to demonstrate usage of the SDK CTimer driver as a PWM with interrupt callback functionsIn this example an IO pin connected to the LED is used as a PWM output line to generate a PWM signal.With an interrupt callback the PWM duty cycle is changed frequently in such a way that the LED brightness can be varied." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ctimer" path="examples/lpcxpresso54628/driver_examples/ctimer/simple_pwm_interrupt">
+          <external path="driver_examples/ctimer/simple_pwm_interrupt" type="xml">
+            <files mask="ctimer_pwm_interrupt_example_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_ctimer_match_example" name="ctimer_match_example" brief="The CTimer Example project is to demonstrate usage of the KSDK ctimer driver.In this example, the match feature of the CTimer is used to toggle the output level." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ctimer" path="examples/lpcxpresso54628/driver_examples/ctimer/simple_match">
+          <external path="driver_examples/ctimer/simple_match" type="xml">
+            <files mask="ctimer_match_example_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_ctimer_match_interrupt_example" name="ctimer_match_interrupt_example" brief="The Simple Match Interrupt project is to demonstrate usage of the SDK CTimer driver with interrupt callback functionsIn this example the upon match and IO pin connected to the LED is toggled and the timer is reset, so it would generate a square wave.With an interrupt callback the match value is changed frequently in such a way that the frequency of the output square wave is increased gradually." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ctimer" path="examples/lpcxpresso54628/driver_examples/ctimer/simple_match_interrupt">
+          <external path="driver_examples/ctimer/simple_match_interrupt" type="xml">
+            <files mask="ctimer_match_interrupt_example_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_gint" name="gint" brief="This example shows how to use SDK drivers to use the Group GPIO input interrupt peripheral." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/gint" path="examples/lpcxpresso54628/driver_examples/gint">
+          <external path="driver_examples/gint" type="xml">
+            <files mask="gint_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_pint_pin_interrupt" name="pint_pin_interrupt" brief="This example shows how to use SDK drivers to use the Pin interrupt &amp; pattern match peripheral." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/pint" path="examples/lpcxpresso54628/driver_examples/pint/pin_interrupt">
+          <external path="driver_examples/pint/pin_interrupt" type="xml">
+            <files mask="pint_pin_interrupt_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_pint_pattern_match" name="pint_pattern_match" brief="This example shows how to use SDK drivers to use the Pin interrupt &amp; pattern match peripheral." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/pint" path="examples/lpcxpresso54628/driver_examples/pint/pattern_match">
+          <external path="driver_examples/pint/pattern_match" type="xml">
+            <files mask="pint_pattern_match_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_utick_wakeup" name="utick_wakeup" brief="The purpose of this demo is to show wakeup from deep sleep mode using MicroTick timer.The demo sets the MicroTick Timer as a wake up source and puts the device in deep-sleep mode. The MicroTick timer wakes up the device. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso54628/demo_apps/utick_wakeup">
+          <external path="demo_apps/utick_wakeup" type="xml">
+            <files mask="utick_wakeup_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_utick_wakeup_peripheral" name="utick_wakeup_peripheral" brief="The purpose of this demo is to show wakeup from deep sleep mode using MicroTick timer.The demo sets the MicroTick Timer as a wake up source and puts the device in deep-sleep mode. The MicroTick timer wakes up the device. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso54628/demo_apps/utick_wakeup_peripheral">
+          <external path="demo_apps/utick_wakeup_peripheral" type="xml">
+            <files mask="utick_wakeup_peripheral_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_i2s_interrupt_transfer" name="i2s_interrupt_transfer" brief="The I2S example project uses one I2S interface to continuously record input sound to a bufferand another I2S interface to playback the buffer to output - digital loopback.It requires NXP Mic/Audio/Oled Shield with WM8904 codec.It needs to have 1-2 connected on JP3." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2s" path="examples/lpcxpresso54628/driver_examples/i2s/interrupt_transfer">
+          <external path="driver_examples/i2s/interrupt_transfer" type="xml">
+            <files mask="i2s_interrupt_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_i2s_dma_transfer" name="i2s_dma_transfer" brief="The I2S example project uses one I2S interface to continuously record input sound to a bufferand another I2S interface to playback the buffer to output - digital loopback.It requires NXP Mic/Audio/Oled Shield with WM8904 codec.It needs to have 1-2 connected on JP3." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2s" path="examples/lpcxpresso54628/driver_examples/i2s/dma_transfer">
+          <external path="driver_examples/i2s/dma_transfer" type="xml">
+            <files mask="i2s_dma_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_i2s_interrupt_record_playback" name="i2s_interrupt_record_playback" brief="The I2S example project uses one I2S interface to continuously record input sound to a bufferand another I2S interface to playback the buffer to output - digital loopback.It requires NXP Mic/Audio/Oled Shield with WM8904 codec.It needs to have 1-2 connected on JP3." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2s" path="examples/lpcxpresso54628/driver_examples/i2s/interrupt_record_playback">
+          <external path="driver_examples/i2s/interrupt_record_playback" type="xml">
+            <files mask="i2s_interrupt_record_playback_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_i2s_dma_record_playback" name="i2s_dma_record_playback" brief="The I2S example project uses one I2S interface to continuously record input sound to a bufferand another I2S interface to playback the buffer to output - digital loopback.It requires NXP Mic/Audio/Oled Shield with WM8904 codec.It needs to have 1-2 connected on JP3." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2s" path="examples/lpcxpresso54628/driver_examples/i2s/dma_record_playback">
+          <external path="driver_examples/i2s/dma_record_playback" type="xml">
+            <files mask="i2s_dma_record_playback_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dmic_i2s_dma" name="dmic_i2s_dma" brief="Demonstrates the DMIC working with I2S. Audio is converted to samples in the DMIC module.Then, the data is placed memory buffer. Last, it is send data to the I2S buffer and send to the CODEC, then the audio data will be output to Lineout of CODEC.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dmic" path="examples/lpcxpresso54628/driver_examples/dmic/dmic_i2s_dma">
+          <external path="driver_examples/dmic/dmic_i2s_dma" type="xml">
+            <files mask="dmic_i2s_dma_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dmic_dma" name="dmic_dma" brief="This example shows how to use DMA to transfer data from DMIC to memory." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dmic" path="examples/lpcxpresso54628/driver_examples/dmic/dmic_dma">
+          <external path="driver_examples/dmic/dmic_dma" type="xml">
+            <files mask="dmic_dma_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_eeprom" name="eeprom" brief="The EEPROM Example project is a demonstration program that uses the KSDK software to program eeprom memoryand verify the program." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/eeprom" path="examples/lpcxpresso54628/driver_examples/eeprom">
+          <external path="driver_examples/eeprom" type="xml">
+            <files mask="eeprom_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_spifi_polling_transfer" name="spifi_polling_transfer" brief="The SPIFI Polling Example project is a demonstration program that uses the KSDK software to program external serialflash using polling and read through AHB bus." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spifi" path="examples/lpcxpresso54628/driver_examples/spifi/polling_transfer">
+          <external path="driver_examples/spifi/polling_transfer" type="xml">
+            <files mask="spifi_polling_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_spifi_dma_transfer" name="spifi_dma_transfer" brief="The SPIFI DMA Example project is a demonstration program that uses the KSDK software to program external serialflash using DMA and read through AHB bus." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spifi" path="examples/lpcxpresso54628/driver_examples/spifi/dma_transfer">
+          <external path="driver_examples/spifi/dma_transfer" type="xml">
+            <files mask="spifi_dma_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_cmsis_spi_int_b2b_transfer_master" name="cmsis_spi_int_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_spi_interrupt_b2b_transfer_master example shows how to use CMSIS spi driver as master to do board to board transfer with interrupt:In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/lpcxpresso54628/cmsis_driver_examples/spi/int_b2b_transfer/master">
+          <external path="cmsis_driver_examples/spi/int_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_int_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_cmsis_spi_int_b2b_transfer_slave" name="cmsis_spi_int_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_spi_interrupt_b2b_transfer_slave example shows how to use CMSIS spi driver as master to do board to board transfer with interrupt:In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/lpcxpresso54628/cmsis_driver_examples/spi/int_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/spi/int_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_int_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_cmsis_spi_dma_b2b_transfer_master" name="cmsis_spi_dma_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_spi_dma_b2b_transfer_master example shows how to use spi driver as master to do board to board transfer with DMA:In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/lpcxpresso54628/cmsis_driver_examples/spi/dma_b2b_transfer/master">
+          <external path="cmsis_driver_examples/spi/dma_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_dma_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_cmsis_spi_dma_b2b_transfer_slave" name="cmsis_spi_dma_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_spi_dma_b2b_transfer_slave example shows how to use spi driver as master to do board to board transfer with DMA:In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/lpcxpresso54628/cmsis_driver_examples/spi/dma_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/spi/dma_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_dma_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_touch_cursor" name="touch_cursor" brief="The touch_cursor demo shows how to use LCD hardware cursor and position it using touch panel.In this example, a 32x32 cursor is shown. The cursor's position is changed in reaction to detected touch." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso54628/demo_apps/touch_cursor">
+          <external path="demo_apps/touch_cursor" type="xml">
+            <files mask="touch_cursor_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_power_manager_lpc" name="power_manager_lpc" brief="The power_manager_lpc application shows the usage of normal power mode control APIs for entering the three kinds of low power mode: Sleep mode, Deep Sleep mode and Sleep Power Down mode. When the application runs to each low power mode, the device would cut off the power for specific modules to save energy. The device can be also waken up by prepared wakeup source from external event.&#10;Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - In order to meet typedef power consumption of DateSheet manual, Please configure MCU under the following conditions. 鈥?Configure all pins as GPIO with pull-up resistor disabled in the IOCON block. 鈥?Configure GPIO pins as outputs using the GPIO DIR register. 鈥?Write 1 to the GPIO CLR register to drive the outputs LOW. 鈥?All peripherals disabled." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso54628/demo_apps/power_manager_lpc">
+          <external path="demo_apps/power_manager_lpc" type="xml">
+            <files mask="power_manager_lpc_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_mmccard_interrupt" name="mmccard_interrupt" brief="The MMCCARD Interrupt project is a demonstration program that uses the SDK software. It reads/writes/erases the MMC card continusly. The purpose of this example is to show how to use MMCCARD driver andshow how to use interrupt based transfer API in SDK software driver to access MMC card.Note:User can use MMC plus card or emmc(on board IC, but not recommand use emmc socket,due to high speed timing restriction)" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/mmccard" path="examples/lpcxpresso54628/sdmmc_examples/mmccard_interrupt">
+          <external path="sdmmc_examples/mmccard_interrupt" type="xml">
+            <files mask="mmccard_interrupt_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_mmccard_polling" name="mmccard_polling" brief="The MMCCARD Polling project is a demonstration program that uses the SDK software. It reads/writes/erases the MMC card continusly. The purpose of this example is to show how to use MMCCARD driver andshow how to use polling based transfer API in SDK software driver to access MMC card.Note:User can use MMC plus card or emmc(on board IC, but not recommand use emmc socket,due to high speed timing restriction)" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/mmccard" path="examples/lpcxpresso54628/sdmmc_examples/mmccard_polling">
+          <external path="sdmmc_examples/mmccard_polling" type="xml">
+            <files mask="mmccard_polling_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_mmccard_fatfs" name="mmccard_fatfs" brief="The MMCCARD FATFS project is a demonstration program that uses the SDK software. Tt mounts a file system based on a MMC card then does &quot;creat directory/read directory/create file/write file/read file&quot; operation. The file sdhc_config.h has default SDHC configuration which can be adjusted to letcard driver has different performance. The purpose of this example is to show how to use MMCCARD driver based FATFS disk in SDK software.Note:User can use MMC plus card or emmc(on board IC, but not recommand use emmc socket,due to high speed timing restriction)" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/mmccard_fatfs" path="examples/lpcxpresso54628/sdmmc_examples/mmccard_fatfs">
+          <external path="sdmmc_examples/mmccard_fatfs" type="xml">
+            <files mask="mmccard_fatfs_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_sdcard_interrupt" name="sdcard_interrupt" brief="The SDCARD Interrupt project is a demonstration program that uses the SDK software. It reads/writes/erases the SD card continusly. The purpose of this example is to show how to use SDCARD driver andshow how to use interrupt based transfer API in SDHC driver in SDK software to access SD card.Note: If DATA3 is used as the card detect PIN, please make sure DATA3 is pull down, no matter internal or external, at the same time, make sure the card can pull DATA3 up, then host can detect card through DATA3.And SDHC do not support detect card through CD by host, card can be detected through DATA3 or GPIO.No matter detect card through host or gpio, make sure the pinmux configuration is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/sdcard_interrupt" path="examples/lpcxpresso54628/sdmmc_examples/sdcard_interrupt">
+          <external path="sdmmc_examples/sdcard_interrupt" type="xml">
+            <files mask="sdcard_interrupt_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_sdcard_polling" name="sdcard_polling" brief="The SDCARD Polling project is a demonstration program that uses the SDK software. It reads/writes/erases the SD card continusly. The purpose of this example is to show how to use SDCARD driver andshow how to use polling based transfer API in SDHC driver in SDK software to access SD card.Note: If DATA3 is used as the card detect PIN, please make sure DATA3 is pull down, no matter internal or external, at the same time, make sure the card can pull DATA3 up, then host can detect card through DATA3.And SDHC do not support detect card through CD by host, card can be detected through DATA3 or GPIO.No matter detect card through host or gpio, make sure the pinmux configuration is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/sdcard_polling" path="examples/lpcxpresso54628/sdmmc_examples/sdcard_polling">
+          <external path="sdmmc_examples/sdcard_polling" type="xml">
+            <files mask="sdcard_polling_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_sdcard_fatfs" name="sdcard_fatfs" brief="The SDCARD FATFS project is a demonstration program that uses the SDK software. Tt mounts a file system based on a SD card then does &quot;creat directory/read directory/create file/write file/read file&quot;operation. The file sdhc_config.h has default SDHC configuration which can be adjusted to let carddriver has different performance. The purpose of this example is to show how to use SDCARD driver based FATFS disk in SDK software." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/sdcard_fatfs" path="examples/lpcxpresso54628/sdmmc_examples/sdcard_fatfs">
+          <external path="sdmmc_examples/sdcard_fatfs" type="xml">
+            <files mask="sdcard_fatfs_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_rit_example" name="rit_example" brief="The RIT project is a simple demonstration program of the SDK RIT driver. It sets up the RIThardware block to trigger a periodic interrupt at 1 second period interval to toggel a specifiedLED on board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/rit" path="examples/lpcxpresso54628/driver_examples/rit">
+          <external path="driver_examples/rit" type="xml">
+            <files mask="rit_example_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_rng_random" name="rng_random" brief="The RNG example project is a demonstration program that uses the KSDK software to generate random numbersand prints them to the terminal. 32 32-bit numbers are read and skipped per one 32-bit number read and used.This is to get a better entropy as suggested by user manual." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/rng" path="examples/lpcxpresso54628/driver_examples/rng/random">
+          <external path="driver_examples/rng/random" type="xml">
+            <files mask="rng_random_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_sdio" name="sdio" brief="The SDIO project is a demonstration program that uses the SDK software. It reads/writes the SDIO card reigister. The purpose of this example is to show how to use SDio driver and this is a very simple example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples" path="examples/lpcxpresso54628/sdmmc_examples/sdio">
+          <external path="sdmmc_examples/sdio" type="xml">
+            <files mask="sdio_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_otp" name="otp" brief="The OTP example project is a demonstration program that uses the KSDK software to access OTP ROM API.It just prints the version of API at the moment." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/otp" path="examples/lpcxpresso54628/driver_examples/otp">
+          <external path="driver_examples/otp" type="xml">
+            <files mask="otp_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_enet_txrx_transfer_rxpoll" name="enet_txrx_transfer_rxpoll" brief="The enet_rxtx_rxinterrupt example shows the simplest way to use ENET transactional tx/rx API for simple frame receive and transmit.1. This example shows how to initialize the ENET.2. How to use ENET to receive frame in polling and to transmit frame.The example transmits 20 number broadcast frame, print the number and the mac address of the recieved frames." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/enet" path="examples/lpcxpresso54628/driver_examples/enet/txrx_transfer_rxpoll">
+          <external path="driver_examples/enet/txrx_transfer_rxpoll" type="xml">
+            <files mask="enet_txrx_transfer_rxpoll_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_enet_txrx_transfer_rxinterrupt" name="enet_txrx_transfer_rxinterrupt" brief="The enet_rxtx_rxinterrupt example shows the simplest way to use ENET transactional tx/rx API for simple frame receive and transmit.1. This example shows how to initialize the ENET.2. How to use ENET to receive frame in interrupt irq handler and to transmit frame.The example transmits 20 number broadcast frame, print the number of recieved frames. To avoidthe receive number overflow, the transmit/receive loop with automatically break when 20 numberare received." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/enet" path="examples/lpcxpresso54628/driver_examples/enet/txrx_transfer_rxinterrupt">
+          <external path="driver_examples/enet/txrx_transfer_rxinterrupt" type="xml">
+            <files mask="enet_txrx_transfer_rxinterrupt_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_enet_txrx_rxpoll" name="enet_txrx_rxpoll" brief="The enet_rxtx_rxinterrupt example shows the simplest way to use ENET functional tx/rx API for simple frame receive and transmit.1. This example shows how to initialize the ENET.2. How to use ENET to receive frame in polling and to transmit frame.The example transmits 20 number broadcast frame, print the number and the mac address of the recieved frames." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/enet" path="examples/lpcxpresso54628/driver_examples/enet/txrx_rxpoll">
+          <external path="driver_examples/enet/txrx_rxpoll" type="xml">
+            <files mask="enet_txrx_rxpoll_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_enet_txrx_rxinterrupt" name="enet_txrx_rxinterrupt" brief="The enet_rxtx_rxinterrupt example shows the simplest way to use ENET functional tx/rx API for simple frame receive and transmit.1. This example shows how to initialize the ENET.2. How to use ENET to receive frame in interrupt irq handler and to transmit frame.The example transmits 20 number broadcast frame, print the number of recieved frames. To avoidthe receive number overflow, the transmit/receive loop with automatically break when 20 numberare received." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/enet" path="examples/lpcxpresso54628/driver_examples/enet/txrx_rxinterrupt">
+          <external path="driver_examples/enet/txrx_rxinterrupt" type="xml">
+            <files mask="enet_txrx_rxinterrupt_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_enet_txrx_ptp1588_transfer" name="enet_txrx_ptp1588_transfer" brief="The enet_rxtx_ptp1588_transfer example shows the way to use ENET driver to   receive and transmit frame in the 1588 feature required cases.1. This example shows how to initialize the ENET.2. How to get the time stamp of the PTP 1588 timer.3. How to use Get the ENET transmit and receive frame time stamp.The example transmits 20 number PTP event frame, shows the timestamp of the transmitted frame.The length, source MAC address and destination MAC address of the received frame will be print. The time stamp of the received timestamp will be print when the PTP message frame is received(the outside loopback cable can be used to see the right rx time-stamping log since we send the ptp message). " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/enet" path="examples/lpcxpresso54628/driver_examples/enet/txrx_ptp1588_transfer">
+          <external path="driver_examples/enet/txrx_ptp1588_transfer" type="xml">
+            <files mask="enet_txrx_ptp1588_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_mcan_loopback" name="mcan_loopback" brief="The mcan_loopback example shows how to use the loopback test mode to debug your CAN Bus design:To demonstrate this example, only one board is needed. The example will config Tx Buffer to sendand Rx Fifo to receive. After that, the example will send a CAN Message throuth internal loopbackinterconnect and print out the Message payload to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/mcan" path="examples/lpcxpresso54628/driver_examples/mcan/loopback">
+          <external path="driver_examples/mcan/loopback" type="xml">
+            <files mask="mcan_loopback_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_mcan_interrupt_transfer" name="mcan_interrupt_transfer" brief="The mcan_interrupt example shows how to use MCAN driver in none-blocking interrupt way:In this example, 2 boards are connected through CAN bus. Endpoint A(board A) send a CAN Message toEndpoint B(board B) when users press space key in terminal. Endpoint B receives the message, printsthe message content to terminal and echoes back the message. Endpoint A will increase the receivedmessage and wait for the next transmission the users initiate." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/mcan" path="examples/lpcxpresso54628/driver_examples/mcan/interrupt_transfer">
+          <external path="driver_examples/mcan/interrupt_transfer" type="xml">
+            <files mask="mcan_interrupt_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_lwip_ping_freertos" name="lwip_ping_freertos" brief="The lwip_ping demo application demonstrates a Ping Demo on the lwIP TCP/IP stack which using the ICMP protocol. Theapplication periodically sends the ICMP echo request to a PC and processes the PC reply. Type the &quot;ping $board_address&quot;in the PC command window to send an ICMP echo request to the board. The lwIP stack sends the ICMP echo reply back to thePC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/lpcxpresso54628/lwip_examples/lwip_ping/freertos">
+          <external path="lwip_examples/lwip_ping/freertos" type="xml">
+            <files mask="lwip_ping_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_lwip_ping_bm" name="lwip_ping_bm" brief="The lwip_ping demo application demonstrates a Ping Demo on the lwIP TCP/IP stack, which uses the ICMP protocol. Theapplication periodically sends the ICMP echo request to a PC, and processes the PC reply. Type &quot;ping $board_address&quot;in the PC command window to send an ICMP echo request to the board. The lwIP stack sends the ICMP echo reply back to thePC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/lpcxpresso54628/lwip_examples/lwip_ping/bm">
+          <external path="lwip_examples/lwip_ping/bm" type="xml">
+            <files mask="lwip_ping_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_lwip_iperf_bm" name="lwip_iperf_bm" brief="This is the IPerf server example to check your bandwidth using the network performance measurement IPerf application on a PC as a client.It is currently a minimal implementation providing an IPv4 TCP server only.Instead of the command line IPerf application, for more convenience, it is recommended to use the JPerf2 graphical tool, which can be downloaded here: https://sourceforge.net/projects/iperf/files/jperf/jperf%202.0.0/jperf-2.0.0.zip/download" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/lpcxpresso54628/lwip_examples/lwip_iperf/bm">
+          <external path="lwip_examples/lwip_iperf/bm" type="xml">
+            <files mask="lwip_iperf_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_lwip_httpsrv_freertos" name="lwip_httpsrv_freertos" brief="The lwip_httpsrv demo application demonstrates an HTTPServer on the lwIP TCP/IP stack with bare metal SDK or FreeRTOS.The user uses an Internet browser to send a request for connection. The board acts as an HTTP server and sends a Webpage back to the PC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/lpcxpresso54628/lwip_examples/lwip_httpsrv/freertos">
+          <external path="lwip_examples/lwip_httpsrv/freertos" type="xml">
+            <files mask="lwip_httpsrv_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_lwip_httpsrv_bm" name="lwip_httpsrv_bm" brief="The lwip_httpsrv demo application demonstrates an HTTPServer on the lwIP TCP/IP stack with bare metal SDK or FreeRTOS.The user uses an Internet browser to send a request for connection. The board acts as an HTTP server and sends a Webpage back to the PC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/lpcxpresso54628/lwip_examples/lwip_httpsrv/bm">
+          <external path="lwip_examples/lwip_httpsrv/bm" type="xml">
+            <files mask="lwip_httpsrv_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_lwip_httpssrv_mbedTLS_bm" name="lwip_httpssrv_mbedTLS_bm" brief="The lwip_httpsrv_mbedTSL_bm demo application demonstrates an HTTPS Serverset up on lwIP TCP/IP and the mbedTLS stack with bare metal. The useruses an Internet browser to send an https request for connection.The board acts as an HTTPS server and sends a Web page back to the PC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/lpcxpresso54628/lwip_examples/lwip_httpssrv_mbedTLS/bm">
+          <external path="lwip_examples/lwip_httpssrv_mbedTLS/bm" type="xml">
+            <files mask="lwip_httpssrv_mbedTLS_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_lwip_httpssrv_mbedTLS_freertos" name="lwip_httpssrv_mbedTLS_freertos" brief="The lwip_httpsrv_mbedTLS demo application demonstrates an HTTPServer set up on lwIP TCP/IP and the MbedTLS stack withFreeRTOS. The user uses an Internet browser to send an https request for connection. The board acts as an HTTP serverand sends a Web page back to the PC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/lpcxpresso54628/lwip_examples/lwip_httpssrv_mbedTLS/freertos">
+          <external path="lwip_examples/lwip_httpssrv_mbedTLS/freertos" type="xml">
+            <files mask="lwip_httpssrv_mbedTLS_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_lwip_ipv4_ipv6_echo_freertos" name="lwip_ipv4_ipv6_echo_freertos" brief="The lwip_ipv4_ipv6_echo demo application demonstrates a TCP or UDP echo demo on the lwIP TCP/IP stack with FreeRTOS. The demo uses the TCP or UDP protocol over both IPv4 and IPv6 and acts as an echo server. The application sends back the received TCP or UDP packets from the PC, which can be used to test whether a TCP or UDP is available." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/lpcxpresso54628/lwip_examples/lwip_ipv4_ipv6_echo/freertos">
+          <external path="lwip_examples/lwip_ipv4_ipv6_echo/freertos" type="xml">
+            <files mask="lwip_ipv4_ipv6_echo_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_lwip_mqtt_freertos" name="lwip_mqtt_freertos" brief="The lwip_mqtt demo application demonstrates MQTT client connecting to MQTT broker via unsecured socket. The application obtains IP and DNS addresses from DHCP and resolves broker's hostname if needed. Then it connects to the broker and subscribes to the &quot;lwip_topic/#&quot; and &quot;lwip_other/#&quot; topics. Further it publishes five messages to the &quot;lwip_topic/100&quot; which are also received back as the board is subscribed to the &quot;lwip_topic/#&quot;. Meanwhile it continues to receive messages published to the subscribed topics from other clients." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/lpcxpresso54628/lwip_examples/lwip_mqtt/freertos">
+          <external path="lwip_examples/lwip_mqtt/freertos" type="xml">
+            <files mask="lwip_mqtt_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_lwip_dhcp_freertos" name="lwip_dhcp_freertos" brief="The lwip_dhcp demo application demonstrates a DHCP demo on the lwIP TCP/IP stack.The application acts as a DHCP client and prints the status as it is progressing.Once the interface is being bound to an IP address obtained from DHCP server, address information is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/lpcxpresso54628/lwip_examples/lwip_dhcp/freertos">
+          <external path="lwip_examples/lwip_dhcp/freertos" type="xml">
+            <files mask="lwip_dhcp_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_lwip_dhcp_usb_bm" name="lwip_dhcp_usb_bm" brief="The lwip_dhcp_usb demo application demonstrates a DHCP demo on the lwIP TCP/IP stack.The application acts as a DHCP client and prints the status as it is progressing.Once the interface is being bound to an IP address obtained from DHCP server, address information is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/lpcxpresso54628/lwip_examples/lwip_dhcp_usb/bm">
+          <external path="lwip_examples/lwip_dhcp_usb/bm" type="xml">
+            <files mask="lwip_dhcp_usb_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_lwip_dhcp_usb_freertos" name="lwip_dhcp_usb_freertos" brief="The lwip_dhcp_usb demo application demonstrates a DHCP demo on the lwIP TCP/IP stack.The application acts as a DHCP client and prints the status as it is progressing.Once the interface is being bound to an IP address obtained from DHCP server, address information is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/lpcxpresso54628/lwip_examples/lwip_dhcp_usb/freertos">
+          <external path="lwip_examples/lwip_dhcp_usb/freertos" type="xml">
+            <files mask="lwip_dhcp_usb_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_lwip_dhcp_bm" name="lwip_dhcp_bm" brief="The lwip_dhcp demo application demonstrates a DHCP demo on the lwIP TCP/IP stack.The application acts as a DHCP client and prints the status as it is progressing.Once the interface is being bound to an IP address obtained from DHCP server, address information is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/lpcxpresso54628/lwip_examples/lwip_dhcp/bm">
+          <external path="lwip_examples/lwip_dhcp/bm" type="xml">
+            <files mask="lwip_dhcp_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_cmsis_usart_interrupt_transfer" name="cmsis_usart_interrupt_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_uart_interrupt_transfer example shows how to use uart cmsis driver in interrupt way:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/usart" path="examples/lpcxpresso54628/cmsis_driver_examples/usart/interrupt_transfer">
+          <external path="cmsis_driver_examples/usart/interrupt_transfer" type="xml">
+            <files mask="cmsis_usart_interrupt_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_cmsis_usart_dma_transfer" name="cmsis_usart_dma_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_uart_edma_transfer example shows how to use uart cmsis  driver with EDMA:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/usart" path="examples/lpcxpresso54628/cmsis_driver_examples/usart/dma_transfer">
+          <external path="cmsis_driver_examples/usart/dma_transfer" type="xml">
+            <files mask="cmsis_usart_dma_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_cmsis_i2c_int_b2b_transfer_master" name="cmsis_i2c_int_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The i2c_interrupt_b2b_transfer_master example shows how to use CMSIS i2c driver as master to do board to board transfer with interrupt:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/lpcxpresso54628/cmsis_driver_examples/i2c/int_b2b_transfer/master">
+          <external path="cmsis_driver_examples/i2c/int_b2b_transfer/master" type="xml">
+            <files mask="cmsis_i2c_int_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_cmsis_i2c_int_b2b_transfer_slave" name="cmsis_i2c_int_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The i2c_interrupt_b2b_transfer_master example shows how to use CMSIS i2c driver as master to do board to board transfer with interrupt:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/lpcxpresso54628/cmsis_driver_examples/i2c/int_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/i2c/int_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_i2c_int_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_cmsis_i2c_dma_b2b_transfer_master" name="cmsis_i2c_dma_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_i2c_dma_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with DMA:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/lpcxpresso54628/cmsis_driver_examples/i2c/dma_b2b_transfer/master">
+          <external path="cmsis_driver_examples/i2c/dma_b2b_transfer/master" type="xml">
+            <files mask="cmsis_i2c_dma_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_cmsis_i2c_dma_b2b_transfer_slave" name="cmsis_i2c_dma_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_i2c_dma_b2b_transfer_slave example shows how to use i2c driver as slave to do board to board transfer with a DMA master:In this example, one i2c instance as slave and another i2c instance on the other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/lpcxpresso54628/cmsis_driver_examples/i2c/dma_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/i2c/dma_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_i2c_dma_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_fmc_signature_generation" name="fmc_signature_generation" brief="The fmc example project is a demonstration program that uses the KSDK software to generate flash signaturefor a specified flash address range and prints them to the terminal. This example also implements the softwaresignature algorithm, compares the hardware signature result and software signature result. This is to verify flash contents as suggested by user manual." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/fmc" path="examples/lpcxpresso54628/driver_examples/fmc/signature_generation">
+          <external path="driver_examples/fmc/signature_generation" type="xml">
+            <files mask="fmc_signature_generation_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_sha" name="sha" brief="The SHA Example project is a demonstration program that uses the KSDK software to generate SHA checksums." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sha" path="examples/lpcxpresso54628/driver_examples/sha">
+          <external path="driver_examples/sha" type="xml">
+            <files mask="sha_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_mbedtls_selftest" name="mbedtls_selftest" brief="The mbdedTLS SelfTest program performs cryptographic algorithm testing and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="examples/lpcxpresso54628/mbedtls_examples/mbedtls_selftest">
+          <external path="mbedtls_examples/mbedtls_selftest" type="xml">
+            <files mask="mbedtls_selftest_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_mbedtls_benchmark" name="mbedtls_benchmark" brief="The mbdedTLS Benchmark demo application performs cryptographic algorithm benchmarking and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="examples/lpcxpresso54628/mbedtls_examples/mbedtls_benchmark">
+          <external path="mbedtls_examples/mbedtls_benchmark" type="xml">
+            <files mask="mbedtls_benchmark_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_shell" name="shell" brief="The Shell Demo application demonstrates to control Leds by commands." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/lpcxpresso54628/demo_apps/shell">
+          <external path="demo_apps/shell" type="xml">
+            <files mask="shell_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_log_bm" name="log_bm" brief="The log demo is used to demonstrate how to use log component. The main function of the demo is to prompt the LOG level string according to the user input log level command." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="examples/lpcxpresso54628/component_examples/log/bm">
+          <external path="component_examples/log/bm" type="xml">
+            <files mask="log_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_log_freertos" name="log_freertos" brief="The log demo is used to demonstrate how to use log component. The main function of the demo is to prompt the LOG level string according to the user input log level command." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="examples/lpcxpresso54628/component_examples/log/freertos">
+          <external path="component_examples/log/freertos" type="xml">
+            <files mask="log_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_spi_half_duplex_polling_master" name="spi_half_duplex_polling_master" brief="The spi_half_duplex_polling_transfer_master example shows how to use driver API to transfer in half-duplex way.  In this example, one spi instance as master and another spi instance on the othere board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct.Besides, master will transfer data in polling way. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpcxpresso54628/driver_examples/spi/half_duplex_transfer/polling/master">
+          <external path="driver_examples/spi/half_duplex_transfer/polling/master" type="xml">
+            <files mask="spi_half_duplex_polling_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_spi_half_duplex_polling_slave" name="spi_half_duplex_polling_slave" brief="The spi_half_duplex_polling_transfer_slave example shows how to receive and transmit data to master board.Notice: The SPI slave of this example uses interrupt mode. The data transfer size(not buffer size) is twice ofthe master's transfer size. The first half of the transmission will receive data, and the second half will senddata back to master, so the address of the receive buffer is &amp;rxDataPolling[64].In this example, one spi instance as slave and another spi instance on the other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from master is correct. And slave will print what it received." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpcxpresso54628/driver_examples/spi/half_duplex_transfer/polling/slave">
+          <external path="driver_examples/spi/half_duplex_transfer/polling/slave" type="xml">
+            <files mask="spi_half_duplex_polling_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_spi_half_duplex_int_master" name="spi_half_duplex_int_master" brief="The spi_half_duplex_int_transfer_master example shows how to use driver API to transfer in half-duplex way.  In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct.Besides, master will transfer data in interrupt way. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpcxpresso54628/driver_examples/spi/half_duplex_transfer/int/master">
+          <external path="driver_examples/spi/half_duplex_transfer/int/master" type="xml">
+            <files mask="spi_half_duplex_int_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_spi_half_duplex_int_slave" name="spi_half_duplex_int_slave" brief="The spi_half_duplex_int_transfer_slave example shows how to receive and transmit data to master board.Notice: The SPI slave of this example uses interrupt mode. The data transfer size(not buffer size) is twice ofthe master's transfer size. The first half of the transmission will receive data, and the second half will senddata back to master, so the address of the receive buffer is &amp;rxDataPolling[64].In this example, one spi instance as slave and another spi instance on the other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from master is correct. And slave will print what it received." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpcxpresso54628/driver_examples/spi/half_duplex_transfer/int/slave">
+          <external path="driver_examples/spi/half_duplex_transfer/int/slave" type="xml">
+            <files mask="spi_half_duplex_int_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_spi_half_duplex_dma_master" name="spi_half_duplex_dma_master" brief="The spi_half_duplex_dma_transfer_master example shows how to use driver API to transfer in half-duplex way.  In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct.Besides, master will transfer data in DMA way. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpcxpresso54628/driver_examples/spi/half_duplex_transfer/dma/master">
+          <external path="driver_examples/spi/half_duplex_transfer/dma/master" type="xml">
+            <files mask="spi_half_duplex_dma_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_spi_half_duplex_dma_slave" name="spi_half_duplex_dma_slave" brief="The spi_half_duplex_dma transfer_slave example shows how to receive and transmit data to master board.Notice: The SPI slave of this example uses dma mode. The data transfer size(not buffer size) is twice ofthe master's transfer size. The first half of the transmission will receive data, and the second half will senddata back to master, so the address of the receive buffer is &amp;rxDataPolling[64].In this example, one spi instance as slave and another spi instance on the other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from master is correct. And slave will print what it received." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpcxpresso54628/driver_examples/spi/half_duplex_transfer/dma/slave">
+          <external path="driver_examples/spi/half_duplex_transfer/dma/slave" type="xml">
+            <files mask="spi_half_duplex_dma_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_spi_dma_b2b_transfer_master" name="spi_dma_b2b_transfer_master" brief="The spi_dma_b2b_transfer_master example shows how to use driver API to transfer in DMA way.  In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checksif the data received from slave is correct. This example needs to work with spi_dma_b2b_transfer_slave example.Note: This example will run in master mode, please prepare another board for slave, and the slave       board should be started first.Project Information1.How to set the baudrate of SPI?  The baudrate of SPI is easy to set, just make sure the source clock of SPI." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpcxpresso54628/driver_examples/spi/dma_b2b_transfer/master">
+          <external path="driver_examples/spi/dma_b2b_transfer/master" type="xml">
+            <files mask="spi_dma_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_spi_dma_b2b_transfer_slave" name="spi_dma_b2b_transfer_slave" brief="The spi_dma_b2b_transfer_slave example shows how to use driver API to transfer in DMA way.  In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checksif the data received from master is correct. This example needs to work with spi_dma_b2b_transfer_master example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/lpcxpresso54628/driver_examples/spi/dma_b2b_transfer/slave">
+          <external path="driver_examples/spi/dma_b2b_transfer/slave" type="xml">
+            <files mask="spi_dma_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_led_control_bm" name="led_control_bm" brief="The LED demo is used to demonstrate how to use new components. The main function of the demo is to control the led by using the shell or button. For shell, please enter \&quot;help\&quot; to get the help information firstly. Turn on LED by using command \&quot;led on\&quot;. And turn off LED by using command \&quot;led off\&quot;. For button, please press the corresponding button to control LED. Turn on LED when the button is pressed with long press or double click event. And turn off LED when the button is pressed with short press or one click event." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="examples/lpcxpresso54628/component_examples/led_control/bm">
+          <external path="component_examples/led_control/bm" type="xml">
+            <files mask="led_control_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_led_control_freertos" name="led_control_freertos" brief="The LED demo is used to demonstrate how to use new components. The main function of the demo is to control the led by using the shell or button. For shell, please enter \&quot;help\&quot; to get the help information firstly. Turn on LED by using command \&quot;led on\&quot;. And turn off LED by using command \&quot;led off\&quot;. For button, please press the corresponding button to control LED. Turn on LED when the button is pressed with long press or double click event. And turn off LED when the button is pressed with short press or one click event." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples" path="examples/lpcxpresso54628/component_examples/led_control/freertos">
+          <external path="component_examples/led_control/freertos" type="xml">
+            <files mask="led_control_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_sdcard_freertos" name="sdcard_freertos" brief="The SDCARD FreeRTOS project is a demonstration program that uses the SDK software. It reads/writes/erases the SD card continusly. The purpose of this example is to show how to use SDCARD driver with FreeRTOS in SDK software to access SD card.Note: If DATA3 is used as the card detect PIN, please make sure DATA3 is pull down, no matter internal or external, at the same time, make sure the card can pull DATA3 up, then host can detect card through DATA3.And SDHC do not support detect card through CD by host, card can be detected through DATA3 or GPIO.No matter detect card through host or gpio, make sure the pinmux configuration is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/sdcard_freertos" path="examples/lpcxpresso54628/sdmmc_examples/sdcard_freertos">
+          <external path="sdmmc_examples/sdcard_freertos" type="xml">
+            <files mask="sdcard_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_mmccard_freertos" name="mmccard_freertos" brief="The MMCCARD FreeRTOS project is a demonstration program that uses the SDK software. It reads/writes/erases the MMC card continusly. The purpose of this example is to show how to use MMCCARD driverwith FreeRTOS in SDK software to access MMC card.Note:User can use MMC plus card or emmc(on board IC, but not recommand use emmc socket,due to high speed timing restriction)" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/mmccard_freertos" path="examples/lpcxpresso54628/sdmmc_examples/mmccard_freertos">
+          <external path="sdmmc_examples/mmccard_freertos" type="xml">
+            <files mask="mmccard_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dma_channel_chain" name="dma_channel_chain" brief="The DMA channel chain example is a simple demonstration program that uses the SDK software.The purpose of this example is to show how to use the DMA channel chain feature." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/lpcxpresso54628/driver_examples/dma/channel_chain">
+          <external path="driver_examples/dma/channel_chain" type="xml">
+            <files mask="dma_channel_chain_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dma_interleave_transfer" name="dma_interleave_transfer" brief="The DMA interleave transfer example is a simple demonstration program that uses the SDK software.It executes a linked transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA interleave feature." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/lpcxpresso54628/driver_examples/dma/interleave_transfer">
+          <external path="driver_examples/dma/interleave_transfer" type="xml">
+            <files mask="dma_interleave_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dma_linked_transfer" name="dma_linked_transfer" brief="The DMA linked transfer example is a simple demonstration program that uses the SDK software.It executes a linked transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA and to provide a linked trnasfer example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/lpcxpresso54628/driver_examples/dma/linked_transfer">
+          <external path="driver_examples/dma/linked_transfer" type="xml">
+            <files mask="dma_linked_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_dma_wrap_transfer" name="dma_wrap_transfer" brief="The DMA wrap transfer example is a simple demonstration program that uses the SDK software.It executes a wrap transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA wrap feature." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/lpcxpresso54628/driver_examples/dma/wrap_transfer">
+          <external path="driver_examples/dma/wrap_transfer" type="xml">
+            <files mask="dma_wrap_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_sdcard_fatfs_freertos" name="sdcard_fatfs_freertos" brief="The SDCARD FATFS FREERTOS project is a demonstration program that uses the SDK software. The purpose of this example is to show how to use SDCARD with fatfs and freertos." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/sdcard_fatfs_freertos" path="examples/lpcxpresso54628/sdmmc_examples/sdcard_fatfs_freertos">
+          <external path="sdmmc_examples/sdcard_fatfs_freertos" type="xml">
+            <files mask="sdcard_fatfs_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_i2c_polling_b2b_master" name="i2c_polling_b2b_master" brief="The i2c_polling_b2b_master example shows how to use i2c driver as master to do board to board transfer using polling method:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/lpcxpresso54628/driver_examples/i2c/polling_b2b/master">
+          <external path="driver_examples/i2c/polling_b2b/master" type="xml">
+            <files mask="i2c_polling_b2b_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_i2c_polling_b2b_slave" name="i2c_polling_b2b_slave" brief="The i2c_polling_b2b_slave example shows how to use i2c driver as slave to do board to board transfer with a polling master:In this example, one i2c instance as slave and another i2c instance on the other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/lpcxpresso54628/driver_examples/i2c/polling_b2b/slave">
+          <external path="driver_examples/i2c/polling_b2b/slave" type="xml">
+            <files mask="i2c_polling_b2b_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_lpc_bod" name="lpc_bod" brief="The bod example shows how to use LPC BOD(Brown-out detector) in the simplest way. To run this example, user should remove the jumper for the power source selector, and connect the adjustable input voltage to the MCU's Vin pin. If the input voltage of the Vin pin is lower than the threshold voltage, the BOD interrupt will be asserted." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/bod" path="examples/lpcxpresso54628/driver_examples/bod">
+          <external path="driver_examples/bod" type="xml">
+            <files mask="lpc_bod_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_freertos_event" name="freertos_event" brief="This document explains the freertos_event example. It shows how task waits for an event (defined setof bits in event group). This event can be set by any other process or interrupt in the system.The example application creates three tasks. Two write tasks write_task_1 and write_task_2continuously setting event bit 0 and bit 1.Read_task is waiting for any event bit and printing actual state on console. Event bits areautomatically cleared after read task is entered.Three possible states can occurre:Both bits are set.zBit B0 is set.Bit B1 is set." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/lpcxpresso54628/freertos_examples/freertos_event">
+          <external path="freertos_examples/freertos_event" type="xml">
+            <files mask="freertos_event_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_freertos_generic" name="freertos_generic" brief="This document explains the freertos_generic example. It is based on code FreeRTOS documentation fromhttp://www.freertos.org/Hardware-independent-RTOS-example.html. It shows combination of severaltasks with queue, software timer, tick hook and semaphore.The example application creates three tasks. The prvQueueSendTask periodically sending data toxQueue queue. The prvQueueReceiveTask is waiting for incoming message and counting number ofreceived messages. Task prvEventSemaphoreTask is waiting for xEventSemaphore semaphore given fromvApplicationTickHook. Tick hook give semaphore every 500 ms.Other hook types used for RTOS and resource statistics are also demonstrated in example:* vApplicationIdleHook* vApplicationStackOverflowHook* vApplicationMallocFailedHook" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/lpcxpresso54628/freertos_examples/freertos_generic">
+          <external path="freertos_examples/freertos_generic" type="xml">
+            <files mask="freertos_generic_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART drivere incombination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/lpcxpresso54628/freertos_examples/freertos_hello">
+          <external path="freertos_examples/freertos_hello" type="xml">
+            <files mask="freertos_hello_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_freertos_mutex" name="freertos_mutex" brief="This document explains the freertos_mutex example. It shows how mutex manage access to commonresource (terminal output).The example application creates two identical instances of write_task. Each task will lock the mutexbefore printing and unlock it after printing to ensure that the outputs from tasks are not mixedtogether.The test_task accept output message during creation as function parameter. Output message have twoparts. If xMutex is unlocked, the write_task_1 acquire xMutex and print first part of message. Thenrescheduling is performed. In this moment scheduler check if some other task could run, but secondtask write_task+_2 is blocked because xMutex is already locked by first write task. The firstwrite_task_1 continue from last point by printing of second message part. Finaly the xMutex isunlocked and second instance of write_task_2 is executed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/lpcxpresso54628/freertos_examples/freertos_mutex">
+          <external path="freertos_examples/freertos_mutex" type="xml">
+            <files mask="freertos_mutex_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_freertos_queue" name="freertos_queue" brief="This document explains the freertos_queue example. This example introduce simple logging mechanismbased on message passing.Example could be devided in two parts. First part is logger. It contain three tasks:log_add().....Add new message into the log. Call xQueueSend function to pass new message into              message queue.log_init()....Initialize logger (create logging task and message queue log_queue).log_task()....Task responsible for printing of log output.Second part is application of this simple logging mechanism. Each of two tasks write_task_1 andwrite_task_2 print 5 messages into log." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/lpcxpresso54628/freertos_examples/freertos_queue">
+          <external path="freertos_examples/freertos_queue" type="xml">
+            <files mask="freertos_queue_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_freertos_sem" name="freertos_sem" brief="This document explains the freertos_sem example, what to expect when running it and a briefintroduction to the API. The freertos_sem example code shows how semaphores works. Two differenttasks are synchronized in bilateral rendezvous model.The example uses four tasks. One producer_task and three consumer_tasks. The producer_task starts bycreating of two semaphores (xSemaphore_producer and xSemaphore_consumer). These semaphores controlaccess to virtual item. The synchronization is based on bilateral rendezvous pattern. Both ofconsumer and producer must be prepared to enable transaction." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/lpcxpresso54628/freertos_examples/freertos_sem">
+          <external path="freertos_examples/freertos_sem" type="xml">
+            <files mask="freertos_sem_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_freertos_swtimer" name="freertos_swtimer" brief="This document explains the freertos_swtimer example. It shows usage of software timer and itscallback.The example application creates one software timer SwTimer. The timer's callback SwTimerCallback isperiodically executed and text &quot;Tick.&quot; is printed to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/lpcxpresso54628/freertos_examples/freertos_swtimer">
+          <external path="freertos_examples/freertos_swtimer" type="xml">
+            <files mask="freertos_swtimer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso54628_freertos_tickless" name="freertos_tickless" brief="This document explains the freertos_tickless example. It shows the CPU enter at sleep mode and then it is waked up by expired time delay that using timer module." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/lpcxpresso54628/freertos_examples/freertos_tickless">
+          <external path="freertos_examples/freertos_tickless" type="xml">
+            <files mask="freertos_tickless_v3_14.xml"/>
+          </external>
+        </example>
+      </examples>
+    </board>
+  </boards>
+</ksdk:manifest>

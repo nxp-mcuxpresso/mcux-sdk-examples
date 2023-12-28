@@ -36,7 +36,7 @@ toolOptions:
 
 /* MPU region boundaries for BOARD_InitTEE function */
 #define MPU_REGION_0_BASE 0x20360000U
-#define MPU_REGION_0_END 0x2037FFFFU
+#define MPU_REGION_0_END  0x2037FFFFU
 
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
@@ -620,7 +620,7 @@ functional_group:
 /* FUNCTION ************************************************************************************************************
  *
  * Function Name : BOARD_InitTEE
- * Description   : 
+ * Description   :
  *
  * END ****************************************************************************************************************/
 
@@ -630,7 +630,7 @@ functional_group:
 void BOARD_InitMPU()
 {
     /* MPU ARM v7 configuration */
-    
+
 #if defined(__ICACHE_PRESENT) && __ICACHE_PRESENT
     /* Disable I cache and D cache */
     if (SCB_CCR_IC_Msk == (SCB_CCR_IC_Msk & SCB->CCR))
@@ -644,28 +644,23 @@ void BOARD_InitMPU()
         SCB_DisableDCache();
     }
 #endif
-    
+
     /* Disable MPU */
     ARM_MPU_Disable();
-    
+
     /* Set MPU region 0 */
-    MPU->RBAR = (MPU_REGION_0_BASE & MPU_RBAR_ADDR_Msk)
-        | ((0U << MPU_RBAR_REGION_Pos) & MPU_RBAR_REGION_Msk)
-        | ((1U << MPU_RBAR_VALID_Pos) & MPU_RBAR_VALID_Msk);
-    MPU->RASR = ((1U << MPU_RASR_XN_Pos) & MPU_RASR_XN_Msk)
-        | ((3U << MPU_RASR_AP_Pos) & MPU_RASR_AP_Msk)
-        | ((1U << MPU_RASR_TEX_Pos) & MPU_RASR_TEX_Msk)
-        | ((0U << MPU_RASR_S_Pos) & MPU_RASR_S_Msk)
-        | ((0U << MPU_RASR_C_Pos) & MPU_RASR_C_Msk)
-        | ((0U << MPU_RASR_B_Pos) & MPU_RASR_B_Msk)
-        | ((0U << MPU_RASR_SRD_Pos) & MPU_RASR_SRD_Msk)
-        | ((16U << MPU_RASR_SIZE_Pos) & MPU_RASR_SIZE_Msk)
-        | ((1U << MPU_RASR_ENABLE_Pos) & MPU_RASR_ENABLE_Msk);
-    
+    MPU->RBAR = (MPU_REGION_0_BASE & MPU_RBAR_ADDR_Msk) | ((0U << MPU_RBAR_REGION_Pos) & MPU_RBAR_REGION_Msk) |
+                ((1U << MPU_RBAR_VALID_Pos) & MPU_RBAR_VALID_Msk);
+    MPU->RASR = ((1U << MPU_RASR_XN_Pos) & MPU_RASR_XN_Msk) | ((3U << MPU_RASR_AP_Pos) & MPU_RASR_AP_Msk) |
+                ((1U << MPU_RASR_TEX_Pos) & MPU_RASR_TEX_Msk) | ((0U << MPU_RASR_S_Pos) & MPU_RASR_S_Msk) |
+                ((0U << MPU_RASR_C_Pos) & MPU_RASR_C_Msk) | ((0U << MPU_RASR_B_Pos) & MPU_RASR_B_Msk) |
+                ((0U << MPU_RASR_SRD_Pos) & MPU_RASR_SRD_Msk) | ((16U << MPU_RASR_SIZE_Pos) & MPU_RASR_SIZE_Msk) |
+                ((1U << MPU_RASR_ENABLE_Pos) & MPU_RASR_ENABLE_Msk);
+
     /* Enable MPU */
-    ARM_MPU_Enable(((1U << MPU_CTRL_PRIVDEFENA_Pos) & MPU_CTRL_PRIVDEFENA_Msk)
-        | ((0U << MPU_CTRL_HFNMIENA_Pos) & MPU_CTRL_HFNMIENA_Msk));
-    
+    ARM_MPU_Enable(((1U << MPU_CTRL_PRIVDEFENA_Pos) & MPU_CTRL_PRIVDEFENA_Msk) |
+                   ((0U << MPU_CTRL_HFNMIENA_Pos) & MPU_CTRL_HFNMIENA_Msk));
+
     /* Enable I cache and D cache */
 #if defined(__DCACHE_PRESENT) && __DCACHE_PRESENT
     SCB_EnableDCache();
@@ -673,7 +668,6 @@ void BOARD_InitMPU()
 #if defined(__ICACHE_PRESENT) && __ICACHE_PRESENT
     SCB_EnableICache();
 #endif
-    
 }
 
 /***********************************************************************************************************************
@@ -683,7 +677,6 @@ void BOARD_InitTEE()
 {
     BOARD_InitMPU();
 }
-
 
 /***********************************************************************************************************************
  * BOARD_InitBootTEE function

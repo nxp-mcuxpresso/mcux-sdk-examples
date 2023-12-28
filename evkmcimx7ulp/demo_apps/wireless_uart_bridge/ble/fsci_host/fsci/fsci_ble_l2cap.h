@@ -59,7 +59,7 @@ typedef enum
     gBleL2capCmdSendLeCbDataOpCode_c,          /*! L2ca_SendLeCbData command operation code */
     gBleL2capCmdSendLeCreditOpCode_c,          /*! L2ca_SendLeCredit command operation code */
 
-    gBleL2capStatusOpCode_c = 0x80, /*! L2CAP status operation code */
+    gBleL2capStatusOpCode_c = 0x80,            /*! L2CAP status operation code */
 
     /* Events */
     gBleL2capEvtLePsmConnectRequestOpCode_c =

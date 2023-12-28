@@ -83,7 +83,7 @@ status_t STREAMER_Create(streamer_handle_t *handle);
  * @return kStatus_Success on success, otherwise an error.
  */
 
-status_t STREAMER_mic_Create(streamer_handle_t *handle, out_sink_t out_sink, char *file_name);
+status_t STREAMER_mic_Create(streamer_handle_t *handle, ElementIndex out_sink, char *file_name);
 
 #ifdef OPUS_ENCODE
 status_t STREAMER_opusmem2mem_Create(streamer_handle_t *handle,

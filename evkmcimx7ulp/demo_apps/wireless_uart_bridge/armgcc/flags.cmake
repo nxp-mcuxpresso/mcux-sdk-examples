@@ -97,5 +97,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -Map=output.map \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MCIMX7U5xxxxx_cm4_ram.ld -static \
+    -T\"${ProjDirPath}/MCIMX7U5xxxxx_cm4_ram.ld\" -static \
 ")

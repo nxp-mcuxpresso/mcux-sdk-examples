@@ -220,29 +220,11 @@ static void PowerModeSwitch(lpm_power_mode_t mode)
     }
 }
 
-void lpm_SystemWait()
+void mcu_suspend()
 {
     PowerModeSwitch(LPM_PowerModeSysIdle);
 }
 
-void lpm_LowPwrIdle()
-{
-    PowerModeSwitch(LPM_PowerModeLPIdle);
-}
-
-void lpm_Suspend()
-{
-    PowerModeSwitch(LPM_PowerModeSuspend);
-}
-
-void lpm_Shutdown()
-{
-    PowerModeSwitch(LPM_PowerModeSNVS);
-}
-
-/*!
- * @brief main demo function.
- */
 int hostsleep_init(void)
 {
     if (true != LPM_Init(s_curRunMode))

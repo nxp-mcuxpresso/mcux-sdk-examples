@@ -72,6 +72,7 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DSCANF_FLOAT_ENABLE=0 \
     -DPRINTF_ADVANCED_ENABLE=0 \
     -DSCANF_ADVANCED_ENABLE=0 \
+    -DCPU_MIMXRT1062DVL6B_cm7 \
     -DMCUXPRESSO_SDK \
     -g \
     -O0 \
@@ -99,6 +100,7 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DSCANF_FLOAT_ENABLE=0 \
     -DPRINTF_ADVANCED_ENABLE=0 \
     -DSCANF_ADVANCED_ENABLE=0 \
+    -DCPU_MIMXRT1062DVL6B_cm7 \
     -DMCUXPRESSO_SDK \
     -Os \
     -flto \
@@ -127,6 +129,7 @@ SET(CMAKE_C_FLAGS_SDRAM_DEBUG " \
     -DSCANF_FLOAT_ENABLE=0 \
     -DPRINTF_ADVANCED_ENABLE=0 \
     -DSCANF_ADVANCED_ENABLE=0 \
+    -DCPU_MIMXRT1062DVL6B_cm7 \
     -DMCUXPRESSO_SDK \
     -g \
     -O0 \
@@ -156,6 +159,7 @@ SET(CMAKE_C_FLAGS_SDRAM_RELEASE " \
     -DSCANF_FLOAT_ENABLE=0 \
     -DPRINTF_ADVANCED_ENABLE=0 \
     -DSCANF_ADVANCED_ENABLE=0 \
+    -DCPU_MIMXRT1062DVL6B_cm7 \
     -DMCUXPRESSO_SDK \
     -Os \
     -flto \
@@ -184,6 +188,7 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DSCANF_FLOAT_ENABLE=0 \
     -DPRINTF_ADVANCED_ENABLE=0 \
     -DSCANF_ADVANCED_ENABLE=0 \
+    -DCPU_MIMXRT1062DVL6B_cm7 \
     -DMCUXPRESSO_SDK \
     -g \
     -O0 \
@@ -213,6 +218,7 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -DSCANF_FLOAT_ENABLE=0 \
     -DPRINTF_ADVANCED_ENABLE=0 \
     -DSCANF_ADVANCED_ENABLE=0 \
+    -DCPU_MIMXRT1062DVL6B_cm7 \
     -DMCUXPRESSO_SDK \
     -Os \
     -flto \
@@ -392,7 +398,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1062xxxxx_ram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1062xxxxx_ram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -419,7 +425,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1062xxxxx_ram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1062xxxxx_ram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_SDRAM_DEBUG} \
@@ -447,7 +453,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_DEBUG " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1062xxxxx_sdram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1062xxxxx_sdram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_SDRAM_RELEASE} \
@@ -474,7 +480,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_RELEASE " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1062xxxxx_sdram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1062xxxxx_sdram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG} \
@@ -502,7 +508,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1062xxxxx_flexspi_nor.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1062xxxxx_flexspi_nor.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE} \
@@ -529,5 +535,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1062xxxxx_flexspi_nor.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1062xxxxx_flexspi_nor.ld\" -static \
 ")

@@ -50,14 +50,14 @@ typedef struct _srtm_io_pin
     srtm_io_service_get_input_t getInput;
     srtm_io_service_conf_input_t confIEvent;
     void *param;
-} * srtm_io_pin_t;
+} *srtm_io_pin_t;
 
 /* Service handle */
 typedef struct _srtm_io_service
 {
     struct _srtm_service service;
     srtm_list_t pins; /*!< SRTM IO pins list */
-} * srtm_io_service_t;
+} *srtm_io_service_t;
 
 /*******************************************************************************
  * Prototypes
@@ -109,9 +109,9 @@ static srtm_io_pin_t SRTM_IoService_FindPin(srtm_io_service_t handle, uint16_t i
             }
             if (notify)
             {
-                notif      = pin->notif;
+                notif = pin->notif;
                 /* If channel is destoryed, the notif of pin should be recycled */
-                if(pin->channel)
+                if (pin->channel)
                 {
                     pin->notif = NULL;
                 }

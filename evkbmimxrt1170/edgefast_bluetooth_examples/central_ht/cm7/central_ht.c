@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2020 SixOctets Systems
- * Copyright 2021-2022 NXP
+ * Copyright 2021-2023 NXP
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -21,7 +21,13 @@
 
 #if defined(APP_LOWPOWER_ENABLED) && (APP_LOWPOWER_ENABLED > 0)
 #include "PWR_Interface.h"
-#endif
+#include "fwk_platform_lowpower.h"
+#endif /* APP_LOWPOWER_ENABLED */
+
+#if defined(APP_MEM_POWER_OPT) && (APP_MEM_POWER_OPT > 0)
+#include "fsl_mmc.h"
+#include "sdmmc_config.h"
+#endif /* APP_MEM_POWER_OPT */
 
 /*******************************************************************************
  * Prototypes
@@ -38,6 +44,10 @@ static struct bt_gatt_subscribe_params subscribe_params;
 
 /* Bit shift definitions */
 #define BIT0              0x01U
+
+#if defined(APP_MEM_POWER_OPT) && (APP_MEM_POWER_OPT > 0)
+extern mmc_card_t g_mmc;
+#endif /* APP_MEM_POWER_OPT */
 
 /*******************************************************************************
  * Code
@@ -364,6 +374,11 @@ static void bt_ready(int err)
     bt_conn_auth_cb_register(&auth_cb_display);
 #endif
 
+#if defined(APP_LOWPOWER_ENABLED) && (APP_LOWPOWER_ENABLED > 0) && (!defined(RW612_SERIES))
+    /* Initialize and configure the lowpower feature of controller. */
+    PLATFORM_ControllerLowPowerInit();
+#endif /* APP_LOWPOWER_ENABLED */
+
     /* Start scanning */
     err = scan_start();
     if (err)
@@ -387,6 +402,10 @@ static void bt_ready(int err)
 void central_ht_task(void *pvParameters)
 {
     int err;
+
+#if defined(APP_MEM_POWER_OPT) && (APP_MEM_POWER_OPT > 0)
+    MMC_Init(&g_mmc);
+#endif /* APP_MEM_POWER_OPT */
 
     PRINTF("BLE Central HT demo start...\n");
     err = bt_enable(bt_ready);

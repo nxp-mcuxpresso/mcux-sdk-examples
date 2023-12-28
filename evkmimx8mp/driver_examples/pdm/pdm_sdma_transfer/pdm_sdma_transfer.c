@@ -49,6 +49,9 @@ static volatile bool s_fifoErrorFlag = false;
 static volatile bool s_pdmRxFinished = false;
 
 static const pdm_config_t pdmConfig = {
+#if defined(FSL_FEATURE_PDM_HAS_DECIMATION_FILTER_BYPASS) && FSL_FEATURE_PDM_HAS_DECIMATION_FILTER_BYPASS
+    .enableFilterBypass = false,
+#endif
     .enableDoze        = false,
     .fifoWatermark     = DEMO_PDM_FIFO_WATERMARK,
     .qualityMode       = DEMO_PDM_QUALITY_MODE,

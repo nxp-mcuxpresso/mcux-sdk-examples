@@ -68,13 +68,13 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../source/model.o"
 "${ProjDirPath}/../source/model.weights.txt"
 "${ProjDirPath}/../source/bald_eagle.inc"
+"${ProjDirPath}/../cr_section_macros.h"
+"${ProjDirPath}/../dcd.c"
+"${ProjDirPath}/../dcd.h"
 "${ProjDirPath}/../board.h"
 "${ProjDirPath}/../board.c"
 "${ProjDirPath}/../clock_config.h"
 "${ProjDirPath}/../clock_config.c"
-"${ProjDirPath}/../dcd.h"
-"${ProjDirPath}/../dcd.c"
-"${ProjDirPath}/../cr_section_macros.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE

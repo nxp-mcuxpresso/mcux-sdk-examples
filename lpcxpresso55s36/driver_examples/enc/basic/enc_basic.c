@@ -45,7 +45,7 @@ int main(void)
 
     /* reset FLEXCOMM for USART */
     RESET_PeripheralReset(kFC0_RST_SHIFT_RSTn);
-    
+
     BOARD_InitBootPins();
     BOARD_BootClockPLL150M();
     BOARD_InitDebugConsole();

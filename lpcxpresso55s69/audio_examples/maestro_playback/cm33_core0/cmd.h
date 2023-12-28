@@ -32,6 +32,14 @@ typedef void handleShellMessageCallback_t(void *arg);
  * @param[in] arg Data to pass to callback handler.
  */
 void shellCmd(void);
+
+void cmdStart();
+void cmdList();
+void cmdTrack(int32_t argc, char **argv);
+void cmdPause();
+void cmdVolume(int32_t argc, char **argv);
+void cmdSeek(int32_t argc, char **argv);
+void cmdStop();
 /*${prototype:end}*/
 
 #endif

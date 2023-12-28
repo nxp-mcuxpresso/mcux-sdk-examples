@@ -165,7 +165,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     --defsym=__heap_size__=0x100 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/K32L2A41xxxxA_flash.ld -static \
+    -T\"${ProjDirPath}/K32L2A41xxxxA_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -195,5 +195,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     --defsym=__heap_size__=0x100 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/K32L2A41xxxxA_flash.ld -static \
+    -T\"${ProjDirPath}/K32L2A41xxxxA_flash.ld\" -static \
 ")

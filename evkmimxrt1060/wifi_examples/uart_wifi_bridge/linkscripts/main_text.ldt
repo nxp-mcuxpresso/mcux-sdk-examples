@@ -1,10 +1,7 @@
         *(EXCLUDE_FILE(
             *queue.o
-            *tcp_out.o
             *mlan_11n_rxreorder.o
             *lib_a-memcpy-stub.o
-            *tcp_in.o
-            *inet_chksum.o
             *timers.o
             *fsl_usdhc.o
             *port.o

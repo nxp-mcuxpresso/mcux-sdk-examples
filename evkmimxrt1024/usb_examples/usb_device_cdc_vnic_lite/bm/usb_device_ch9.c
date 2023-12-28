@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 - 2016, Freescale Semiconductor, Inc.
+ * Copyright (c) 2015 - 2016, Freescale Semiconductor, Inc.
  * Copyright 2016, 2019 NXP
  * All rights reserved.
  *
@@ -71,7 +71,7 @@ extern usb_status_t USB_DeviceProcessClassRequest(usb_device_handle handle,
  * @brief Get the buffer to save the class specific data sent from host.
  *
  * The function is used to get the buffer to save the class specific data sent from host.
- * The function will be called when the device receives a setup pakcet, and the host needs to send data to the device in
+ * The function will be called when the device receives a setup packet, and the host needs to send data to the device in
  * the data stage.
  *
  * @param handle              The device handle.
@@ -161,8 +161,8 @@ extern usb_status_t USB_DeviceGetInterface(usb_device_handle handle, uint8_t int
  * The function is used to configure a specified endpoint status, idle or halt.
  *
  * @param handle              The device handle.
- * @param endpointAddress    The endpoint address, the BIT7 is the direction, 0U - USB_OUT, 1U - USB_IN.
- * @param status              The new status of the endpoint, 0U - idle, 1U - halt.
+ * @param endpointAddress    The endpoint address, the BIT7 is the direction, 0 - USB_OUT, 1 - USB_IN.
+ * @param status              The new status of the endpoint, 0 - idle, 1 - halt.
  *
  * @return A USB error code or kStatus_USB_Success.
  */
@@ -173,10 +173,10 @@ extern usb_status_t USB_DeviceConfigureEndpointStatus(usb_device_handle handle,
 /*!
  * @brief Configure the device remote wakeup feature.
  *
- * The function is used to configure the device remote wakeup feature, enable or disbale the remote wakeup feature.
+ * The function is used to configure the device remote wakeup feature, enable or disable the remote wakeup feature.
  *
  * @param handle              The device handle.
- * @param enable              The new feature value of the device remote wakeup, 0U - disable, 1U - enable.
+ * @param enable              The new feature value of the device remote wakeup, 0 - disable, 1 - enable.
  *
  * @return A USB error code or kStatus_USB_Success.
  */
@@ -232,7 +232,7 @@ static const usb_standard_request_callback_t s_UsbDeviceStandardRequest[] = {
     (usb_standard_request_callback_t)NULL,
     USB_DeviceCh9SetAddress,
     USB_DeviceCh9GetDescriptor,
-    (usb_standard_request_callback_t)NULL,
+    (usb_standard_request_callback_t)NULL, /* USB_DeviceCh9SetDescriptor */
     USB_DeviceCh9GetConfiguration,
     USB_DeviceCh9SetConfiguration,
     USB_DeviceCh9GetInterface,
@@ -373,6 +373,9 @@ static usb_status_t USB_DeviceCh9SetClearFeature(usb_device_handle handle,
         /* Set or Clear the device feature. */
         if (USB_REQUEST_STANDARD_FEATURE_SELECTOR_DEVICE_REMOTE_WAKEUP == setup->wValue)
         {
+#if ((defined(USB_DEVICE_CONFIG_REMOTE_WAKEUP)) && (USB_DEVICE_CONFIG_REMOTE_WAKEUP > 0U))
+            USB_DeviceSetStatus(handle, kUSB_DeviceStatusRemoteWakeup, &isSet);
+#endif
             /* Set or Clear the device remote wakeup feature. */
             error = USB_DeviceConfigureRemoteWakeup(handle, isSet);
         }
@@ -795,7 +798,7 @@ static usb_status_t USB_DeviceControlCallbackFeedback(usb_device_handle handle,
 /*!
  * @brief Control endpoint callback function.
  *
- * This callback function is used to notify uplayer the transfser result of a transfer.
+ * This callback function is used to notify upper layer the transfered result of a transfer.
  * This callback pointer is passed when a specified endpoint initialized by calling API USB_DeviceInitEndpoint.
  *
  * @param handle          The device handle. It equals the value returned from USB_DeviceInit.

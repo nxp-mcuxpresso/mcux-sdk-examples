@@ -1,0 +1,326 @@
+/*
+ * Copyright (c) 2015, Freescale Semiconductor, Inc.
+ * Copyright 2016-2019 NXP
+ * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+#include "pin_mux.h"
+#include "clock_config.h"
+#include "board.h"
+#include "fsl_flexio_i2s.h"
+#include "fsl_debug_console.h"
+#include "fsl_codec_common.h"
+
+#include "fsl_wm8962.h"
+#include "fsl_sai.h"
+#include "fsl_codec_adapter.h"
+/*******************************************************************************
+ * Definitions
+ ******************************************************************************/
+/* SAI and I2C instance and clock */
+#define DEMO_CODEC_WM8962
+#define DEMO_I2C         LPI2C1
+#define DEMO_FLEXIO_BASE FLEXIO3
+#define DEMO_SAI         SAI1
+/* Select Audio PLL (393.216 MHz) as sai1 clock source */
+#define DEMO_SAI1_CLOCK_SOURCE_SELECT (2U)
+/* Clock pre divider for sai1 clock source */
+#define DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER (3U)
+/* Clock divider for sai1 clock source */
+#define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (15U)
+/* Get frequency of sai1 clock */
+#define DEMO_SAI_CLK_FREQ                                                            \
+    (CLOCK_GetFreq(kCLOCK_AudioPllClk) / (DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER + 1U) / \
+     (DEMO_SAI1_CLOCK_SOURCE_DIVIDER + 1U))
+
+/* Select USB1 PLL (480 MHz) as master lpi2c clock source */
+#define DEMO_LPI2C_CLOCK_SOURCE_SELECT (0U)
+/* Clock divider for master lpi2c clock source */
+#define DEMO_LPI2C_CLOCK_SOURCE_DIVIDER (5U)
+/* Get frequency of lpi2c clock */
+#define DEMO_I2C_CLK_FREQ ((CLOCK_GetFreq(kCLOCK_Usb1PllClk) / 8) / (DEMO_LPI2C_CLOCK_SOURCE_DIVIDER + 1U))
+
+/* Select Audio PLL (393.216 MHz) as flexio clock source, need to sync with sai clock, or the codec may not work */
+#define DEMO_FLEXIO_CLKSRC_SEL (0U)
+/* Clock pre divider for flexio clock source */
+#define DEMO_FLEXIO_CLKSRC_PRE_DIV (3U)
+/* Clock divider for flexio clock source */
+#define DEMO_FLEXIO_CLKSRC_DIV (15U)
+#define DEMO_FLEXIO_CLK_FREQ \
+    (CLOCK_GetFreq(kCLOCK_AudioPllClk) / (DEMO_FLEXIO_CLKSRC_PRE_DIV + 1U) / (DEMO_FLEXIO_CLKSRC_DIV + 1U))
+
+#define BCLK_PIN       (4U)
+#define FRAME_SYNC_PIN (5U)
+#define TX_DATA_PIN    (6U)
+#define RX_DATA_PIN    (7U)
+#define OVER_SAMPLE_RATE (384)
+#define BUFFER_SIZE      (256)
+#define BUFFER_NUM       (4)
+#define PLAY_COUNT       (5000 * 2U)
+#define ZERO_BUFFER_SIZE (BUFFER_SIZE * 2)
+/* demo audio sample rate */
+#define DEMO_AUDIO_SAMPLE_RATE (kFLEXIO_I2S_SampleRate16KHz)
+/* demo audio master clock */
+#if (defined FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER && FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER) || \
+    (defined FSL_FEATURE_PCC_HAS_SAI_DIVIDER && FSL_FEATURE_PCC_HAS_SAI_DIVIDER)
+#define DEMO_AUDIO_MASTER_CLOCK OVER_SAMPLE_RATE *DEMO_AUDIO_SAMPLE_RATE
+#else
+#define DEMO_AUDIO_MASTER_CLOCK DEMO_SAI_CLK_FREQ
+#endif
+/* demo audio data channel */
+#define DEMO_AUDIO_DATA_CHANNEL (2U)
+/* demo audio bit width */
+#define DEMO_AUDIO_BIT_WIDTH (kFLEXIO_I2S_WordWidth32bits)
+
+/*******************************************************************************
+ * Prototypes
+ ******************************************************************************/
+
+/*******************************************************************************
+ * Variables
+ ******************************************************************************/
+wm8962_config_t wm8962Config = {
+    .i2cConfig = {.codecI2CInstance = BOARD_CODEC_I2C_INSTANCE, .codecI2CSourceClock = BOARD_CODEC_I2C_CLOCK_FREQ},
+    .route =
+        {
+            .enableLoopBack            = false,
+            .leftInputPGASource        = kWM8962_InputPGASourceInput1,
+            .leftInputMixerSource      = kWM8962_InputMixerSourceInputPGA,
+            .rightInputPGASource       = kWM8962_InputPGASourceInput3,
+            .rightInputMixerSource     = kWM8962_InputMixerSourceInputPGA,
+            .leftHeadphoneMixerSource  = kWM8962_OutputMixerDisabled,
+            .leftHeadphonePGASource    = kWM8962_OutputPGASourceDAC,
+            .rightHeadphoneMixerSource = kWM8962_OutputMixerDisabled,
+            .rightHeadphonePGASource   = kWM8962_OutputPGASourceDAC,
+        },
+    .slaveAddress = WM8962_I2C_ADDR,
+    .bus          = kWM8962_BusI2S,
+    .format       = {.mclk_HZ    = 24576000U,
+                     .sampleRate = kWM8962_AudioSampleRate16KHz,
+                     .bitWidth   = kWM8962_AudioBitWidth16bit},
+    .masterSlave  = false,
+};
+codec_config_t boardCodecConfig = {.codecDevType = kCODEC_WM8962, .codecDevConfig = &wm8962Config};
+/*
+ * AUDIO PLL setting: Frequency = Fref * (DIV_SELECT + NUM / DENOM) / Divider
+ *                              = 24 * (30 + 10/100) / 4
+ *                              = 180.6 MHz
+ */
+const clock_audio_pll_config_t audioPllConfig = {
+    .loopDivider = 32,   /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
+    .postDivider = 1,    /* Divider after the PLL, should only be 0, 1, 2, 3, 4, 5 */
+    .numerator   = 768,  /* 30 bit numerator of fractional loop divider. */
+    .denominator = 1000, /* 30 bit denominator of fractional loop divider */
+};
+flexio_i2s_handle_t txHandle      = {0};
+flexio_i2s_handle_t rxHandle      = {0};
+static volatile bool isTxFinished = false;
+static volatile bool isRxFinished = false;
+AT_NONCACHEABLE_SECTION_ALIGN(uint8_t audioBuff[BUFFER_SIZE * BUFFER_NUM], 4);
+AT_NONCACHEABLE_SECTION_ALIGN_INIT(static uint8_t zeroBuff[ZERO_BUFFER_SIZE], 4) = {0};
+extern codec_config_t boardCodecConfig;
+static volatile uint32_t beginCount   = 0;
+static volatile uint32_t sendCount    = 0;
+static volatile uint32_t receiveCount = 0;
+static volatile uint8_t emptyBlock    = 0;
+static volatile bool isZeroBuffer     = true;
+FLEXIO_I2S_Type s_base;
+#if defined(DEMO_CODEC_WM8960) || defined(DEMO_CODEC_DA7212) || defined(DEMO_CODEC_WM8962)
+#if (defined(FSL_FEATURE_SAI_HAS_MCR) && (FSL_FEATURE_SAI_HAS_MCR)) || \
+    (defined(FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER) && (FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER))
+sai_master_clock_t mclkConfig = {
+#if defined(FSL_FEATURE_SAI_HAS_MCR) && (FSL_FEATURE_SAI_HAS_MCR)
+    .mclkOutputEnable = true,
+#if !(defined(FSL_FEATURE_SAI_HAS_NO_MCR_MICS) && (FSL_FEATURE_SAI_HAS_NO_MCR_MICS))
+    .mclkSource = kSAI_MclkSourceSysclk,
+#endif
+#endif
+};
+#endif
+#endif
+codec_handle_t codecHandle;
+
+/*******************************************************************************
+ * Code
+ ******************************************************************************/
+void BOARD_EnableSaiMclkOutput(bool enable)
+{
+    if (enable)
+    {
+        IOMUXC_GPR->GPR1 |= IOMUXC_GPR_GPR1_SAI1_MCLK_DIR_MASK;
+    }
+    else
+    {
+        IOMUXC_GPR->GPR1 &= (~IOMUXC_GPR_GPR1_SAI1_MCLK_DIR_MASK);
+    }
+}
+
+static void txCallback(FLEXIO_I2S_Type *i2sBase, flexio_i2s_handle_t *handle, status_t status, void *userData)
+{
+    if ((emptyBlock < BUFFER_NUM) && (!isZeroBuffer))
+    {
+        emptyBlock++;
+        sendCount++;
+    }
+
+    if (isZeroBuffer)
+    {
+        isZeroBuffer = false;
+    }
+
+    if (sendCount == beginCount)
+    {
+        isTxFinished = true;
+    }
+}
+
+static void rxCallback(FLEXIO_I2S_Type *i2sBase, flexio_i2s_handle_t *handle, status_t status, void *userData)
+{
+    if (emptyBlock > 0)
+    {
+        emptyBlock--;
+        receiveCount++;
+    }
+
+    if (receiveCount == beginCount)
+    {
+        isRxFinished = true;
+    }
+}
+
+/*!
+ * @brief Main function
+ */
+int main(void)
+{
+    flexio_i2s_config_t config;
+    flexio_i2s_format_t format;
+    flexio_i2s_transfer_t txXfer, rxXfer;
+    uint8_t txIndex = 0, rxIndex = 0;
+
+    BOARD_ConfigMPU();
+    BOARD_InitBootPins();
+    BOARD_I2C_ConfigurePins();
+    BOARD_FLEXIO_ConfigurePins();
+    BOARD_InitBootClocks();
+    BOARD_InitDebugConsole();
+    BOARD_SAI_ConfigurePins();
+    CLOCK_InitAudioPll(&audioPllConfig);
+
+    /* Clock setting for LPI2C */
+    CLOCK_SetMux(kCLOCK_Lpi2cMux, DEMO_LPI2C_CLOCK_SOURCE_SELECT);
+    CLOCK_SetDiv(kCLOCK_Lpi2cDiv, DEMO_LPI2C_CLOCK_SOURCE_DIVIDER);
+    /* Clock setting for FLEXIO */
+    CLOCK_SetMux(kCLOCK_Flexio2Mux, DEMO_FLEXIO_CLKSRC_SEL);
+    CLOCK_SetDiv(kCLOCK_Flexio2PreDiv, DEMO_FLEXIO_CLKSRC_PRE_DIV);
+    CLOCK_SetDiv(kCLOCK_Flexio2Div, DEMO_FLEXIO_CLKSRC_DIV);
+    /* Clock setting for SAI1 */
+    CLOCK_SetMux(kCLOCK_Sai1Mux, DEMO_SAI1_CLOCK_SOURCE_SELECT);
+    CLOCK_SetDiv(kCLOCK_Sai1PreDiv, DEMO_SAI1_CLOCK_SOURCE_PRE_DIVIDER);
+    CLOCK_SetDiv(kCLOCK_Sai1Div, DEMO_SAI1_CLOCK_SOURCE_DIVIDER);
+    /* Enable SAI1 MCLK output */
+    BOARD_EnableSaiMclkOutput(true);
+    PRINTF("FLEXIO_I2S interrupt example started!\n\r");
+
+    /* Set flexio i2s pin, shifter and timer */
+    s_base.bclkPinIndex   = BCLK_PIN;
+    s_base.fsPinIndex     = FRAME_SYNC_PIN;
+    s_base.txPinIndex     = TX_DATA_PIN;
+    s_base.rxPinIndex     = RX_DATA_PIN;
+    s_base.txShifterIndex = 0;
+    s_base.rxShifterIndex = 2;
+    s_base.bclkTimerIndex = 0;
+    s_base.fsTimerIndex   = 1;
+    s_base.flexioBase     = DEMO_FLEXIO_BASE;
+
+#if defined(DEMO_CODEC_WM8960) || defined(DEMO_CODEC_DA7212) || defined(DEMO_CODEC_WM8962)
+    /* SAI init */
+    SAI_Init(DEMO_SAI);
+
+    /* I2S mode configurations */
+    sai_transceiver_t saiConfig;
+    SAI_GetClassicI2SConfig(&saiConfig, (sai_word_width_t)DEMO_AUDIO_BIT_WIDTH, kSAI_Stereo, kSAI_Channel0Mask);
+    SAI_TxSetConfig(DEMO_SAI, &saiConfig);
+
+    /* set bit clock divider */
+    SAI_TxSetBitClockRate(DEMO_SAI, DEMO_AUDIO_MASTER_CLOCK, DEMO_AUDIO_SAMPLE_RATE, DEMO_AUDIO_BIT_WIDTH,
+                          DEMO_AUDIO_DATA_CHANNEL);
+
+    /* master clock configurations */
+#if (defined(FSL_FEATURE_SAI_HAS_MCR) && (FSL_FEATURE_SAI_HAS_MCR)) || \
+    (defined(FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER) && (FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER))
+#if defined(FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER) && (FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER)
+    mclkConfig.mclkHz          = DEMO_AUDIO_MASTER_CLOCK;
+    mclkConfig.mclkSourceClkHz = DEMO_SAI_CLK_FREQ;
+#endif
+    SAI_SetMasterClockConfig(DEMO_SAI, &mclkConfig);
+#endif
+
+    SAI_TxEnable(DEMO_SAI, true);
+#endif
+
+    /*
+     * config.enableI2S = true;
+     */
+    FLEXIO_I2S_GetDefaultConfig(&config);
+#if defined(DEMO_CODEC_WM8960) || defined(DEMO_CODEC_WM8962)
+    config.bclkPinPolarity = kFLEXIO_PinActiveLow;
+#endif
+    FLEXIO_I2S_Init(&s_base, &config);
+
+    /* Configure the audio format */
+    format.bitWidth      = DEMO_AUDIO_BIT_WIDTH;
+    format.sampleRate_Hz = DEMO_AUDIO_SAMPLE_RATE;
+
+    /* Use default setting to init codec */
+    if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
+    {
+        assert(false);
+    }
+
+    FLEXIO_I2S_TransferTxCreateHandle(&s_base, &txHandle, txCallback, NULL);
+    FLEXIO_I2S_TransferRxCreateHandle(&s_base, &rxHandle, rxCallback, NULL);
+
+    /* Set audio format for tx and rx */
+    FLEXIO_I2S_TransferSetFormat(&s_base, &txHandle, &format, DEMO_FLEXIO_CLK_FREQ);
+    FLEXIO_I2S_TransferSetFormat(&s_base, &rxHandle, &format, DEMO_FLEXIO_CLK_FREQ);
+
+    emptyBlock = BUFFER_NUM;
+    beginCount = PLAY_COUNT;
+
+    /* send zero buffer fistly to make sure RX data is put into TX queue */
+    txXfer.dataSize = ZERO_BUFFER_SIZE;
+    txXfer.data     = zeroBuff;
+    FLEXIO_I2S_TransferSendNonBlocking(&s_base, &txHandle, &txXfer);
+
+    /* Wait until finished */
+    while ((isTxFinished != true) || (isRxFinished != true))
+    {
+        if (emptyBlock > 0)
+        {
+            rxXfer.data     = (uint8_t *)((uint32_t)audioBuff + rxIndex * BUFFER_SIZE);
+            rxXfer.dataSize = BUFFER_SIZE;
+            if (FLEXIO_I2S_TransferReceiveNonBlocking(&s_base, &rxHandle, &rxXfer) == kStatus_Success)
+            {
+                rxIndex = (rxIndex + 1) % BUFFER_NUM;
+            }
+        }
+
+        if ((emptyBlock < BUFFER_NUM))
+        {
+            txXfer.data     = (uint8_t *)((uint32_t)audioBuff + txIndex * BUFFER_SIZE);
+            txXfer.dataSize = BUFFER_SIZE;
+            if (FLEXIO_I2S_TransferSendNonBlocking(&s_base, &txHandle, &txXfer) == kStatus_Success)
+            {
+                txIndex = (txIndex + 1) % BUFFER_NUM;
+            }
+        }
+    }
+    PRINTF("\n\r FLEXIO_I2S interrupt example finished!\n\r ");
+
+    while (1)
+    {
+    }
+}

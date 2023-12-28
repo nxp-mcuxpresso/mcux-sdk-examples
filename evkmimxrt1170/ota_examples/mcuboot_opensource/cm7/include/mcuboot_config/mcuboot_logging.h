@@ -8,18 +8,14 @@
 #define __MCUBOOT_LOGGING_H__
 
 #include "fsl_debug_console.h"
-///*
-// * When building for targets running Zephyr, delegate to its native
-// * logging subsystem.
-// */
 
 #ifdef NDEBUG
 #undef assert
 #define assert(x) ((void)(x))
 #endif
 
-#define MCUBOOT_LOG_MODULE_DECLARE(domain)  // LOG_MODULE_DECLARE(domain, CONFIG_MCUBOOT_LOG_LEVEL)
-#define MCUBOOT_LOG_MODULE_REGISTER(domain) // LOG_MODULE_REGISTER(domain, CONFIG_MCUBOOT_LOG_LEVEL)
+#define MCUBOOT_LOG_MODULE_DECLARE(domain)
+#define MCUBOOT_LOG_MODULE_REGISTER(domain)
 
 #define MCUBOOT_LOG_ERR(...)            \
     {                                   \

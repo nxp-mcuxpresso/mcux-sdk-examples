@@ -51,28 +51,28 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${SdkRootDirPath}/middleware/eiq/common/demo_info.h"
-"${SdkRootDirPath}/middleware/eiq/common/image/image.h"
-"${SdkRootDirPath}/middleware/eiq/common/image/image_decode_raw.c"
-"${SdkRootDirPath}/middleware/eiq/common/image/image_utils.h"
-"${SdkRootDirPath}/middleware/eiq/common/model/get_top_n.cpp"
-"${SdkRootDirPath}/middleware/eiq/common/model/get_top_n.h"
-"${SdkRootDirPath}/middleware/eiq/common/model/model.h"
-"${SdkRootDirPath}/middleware/eiq/common/model/output_postproc.h"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/model/output_postproc.cpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/cifar10/demo_config.h"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/demo_info.cpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/cifar10/image_data.h"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/cifar10/labels.h"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/model.cpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/image/main.cpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/cifar10/model_cifarnet_ops_micro.cpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/cifar10/pcq/model_data.h"
-"${SdkRootDirPath}/middleware/eiq/common/timer.h"
-"${SdkRootDirPath}/middleware/eiq/common/timer.c"
+"${ProjDirPath}/../source/demo_info.h"
+"${ProjDirPath}/../source/image/image.h"
+"${ProjDirPath}/../source/image/image_decode_raw.c"
+"${ProjDirPath}/../source/image/image_utils.h"
+"${ProjDirPath}/../source/model/get_top_n.cpp"
+"${ProjDirPath}/../source/model/get_top_n.h"
+"${ProjDirPath}/../source/model/model.h"
+"${ProjDirPath}/../source/model/output_postproc.h"
+"${ProjDirPath}/../source/model/output_postproc.cpp"
+"${ProjDirPath}/../source/demo_config.h"
+"${ProjDirPath}/../source/demo_info.cpp"
+"${ProjDirPath}/../source/image/image_data.h"
+"${ProjDirPath}/../source/labels.h"
+"${ProjDirPath}/../source/model/model.cpp"
+"${ProjDirPath}/../source/main.cpp"
+"${ProjDirPath}/../source/model/model_cifarnet_ops_micro.cpp"
+"${ProjDirPath}/../source/model/model_data.h"
+"${ProjDirPath}/../source/timer.h"
+"${ProjDirPath}/../source/timer.c"
 "${ProjDirPath}/../clock_config.c"
 "${ProjDirPath}/../clock_config.h"
-"${SdkRootDirPath}/middleware/eiq/common/image/image_load.c"
+"${ProjDirPath}/../source/image/image_load.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../board.c"
@@ -82,11 +82,9 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/cifar10
-    ${SdkRootDirPath}/middleware/eiq/common
-    ${SdkRootDirPath}/middleware/eiq/common/image
-    ${SdkRootDirPath}/middleware/eiq/common/model
-    ${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/cifar10/pcq
+    ${ProjDirPath}/../source
+    ${ProjDirPath}/../source/image
+    ${ProjDirPath}/../source/model
     ${ProjDirPath}/..
 )
 

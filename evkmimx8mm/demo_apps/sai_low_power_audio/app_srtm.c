@@ -268,7 +268,7 @@ static void APP_SRTM_PowerOnAudioBoard(void)
 
     I2C_MasterTransferBlocking(APP_SRTM_I2C, &masterXfer);
 
-    i2c_release_bus_delay(); /* Ensure the I2C bus free. */
+    i2c_release_bus_delay();                /* Ensure the I2C bus free. */
     temp                      = 0xFF;
     masterXfer.subaddress     = 0x2U;       /* Select the outputregister for port 0 */
     masterXfer.direction      = kI2C_Write; /* Make P0_1 output high level */
@@ -444,7 +444,7 @@ static void APP_SRTM_InitAudioService(void)
 
     /* Create SAI SDMA adapter */
     SAI_GetClassicI2SConfig(&saiTxConfig.config, kSAI_WordWidth16bits, kSAI_Stereo,
-                            kSAI_Channel0Mask); /* SAI channel 0 used by default */
+                            kSAI_Channel0Mask);  /* SAI channel 0 used by default */
     saiTxConfig.dataLine1                  = 0U;
     saiTxConfig.dataLine2                  = 4U; /* SAI channel 4 is used as the another channel for the DSD stream */
     saiTxConfig.config.fifo.fifoWatermark  = FSL_FEATURE_SAI_FIFO_COUNTn(APP_SRTM_SAI) / 2U;

@@ -32,7 +32,8 @@
 #define DEMO_AUDIO_MASTER_CLOCK DEMO_SAI_CLK_FREQ
 
 /* IRQ */
-#define DEMO_SAI_TX_IRQ SAI1_IRQn
+#define DEMO_DMA_TX_IRQ DMA0_DMA16_IRQn
+#define DEMO_I2C_IRQ    LPI2C1_IRQn
 
 /* DMA */
 #define DEMO_DMA             DMA0
@@ -51,7 +52,6 @@
 
 #define DEMO_CHANNEL_NUM 2
 
-#define BOARD_MASTER_CLOCK_CONFIG()
 /*${macro:end}*/
 
 #endif /* _APP_DEFINITIONS_H_ */

@@ -38,7 +38,7 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(sai_interrupt_transfer)
 
-set(MCUX_BUILD_TYPES debug release ddr_debug ddr_release flash_debug flash_release)
+set(MCUX_BUILD_TYPES flash_release debug release ddr_debug ddr_release flash_debug)
 
 set(MCUX_SDK_PROJECT_NAME sai_interrupt_transfer.elf)
 

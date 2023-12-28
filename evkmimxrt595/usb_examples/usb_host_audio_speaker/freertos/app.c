@@ -214,9 +214,6 @@ void USB_HostTask(void *hostHandle)
 {
     while (1)
     {
-#if ((defined USB_HOST_CONFIG_EHCI) && (USB_HOST_CONFIG_EHCI))
-        USB_HostEhciTaskFunction(g_hostHandle);
-#endif
         USB_HostTaskFn(g_hostHandle);
     }
 }

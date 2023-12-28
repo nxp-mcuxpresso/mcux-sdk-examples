@@ -1,6 +1,5 @@
 /*
- * Copyright 2018 ,2021 NXP
- * All rights reserved.
+ * Copyright 2018, 2021, 2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -13,16 +12,20 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v9.0
+product: Pins v12.0
 processor: MIMXRT1021xxxxx
 package_id: MIMXRT1021DAG5A
 mcu_data: ksdk2_0
-processor_version: 9.0.1
+processor_version: 0.12.10
+pin_labels:
+- {pin_num: '107', pin_signal: GPIO_AD_B0_04, label: PHY_RESET, identifier: PHY_RESET}
+- {pin_num: '84', pin_signal: GPIO_AD_B1_06, label: PHY_INTR, identifier: PHY_INTR}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
 #include "fsl_common.h"
 #include "fsl_iomuxc.h"
+#include "fsl_gpio.h"
 #include "pin_mux.h"
 
 /* FUNCTION ************************************************************************************************************
@@ -64,10 +67,10 @@ BOARD_InitPins:
     drive_strength: R0_5, pull_keeper_select: Pull, pull_keeper_enable: Enable, pull_up_down_config: Pull_Up_100K_Ohm, hysteresis_enable: Disable}
   - {pin_num: '115', peripheral: ENET, signal: enet_mdc, pin_signal: GPIO_EMC_41, slew_rate: Fast, software_input_on: Disable, open_drain: Disable, speed: MHZ_200,
     drive_strength: R0_5, pull_keeper_select: Pull, pull_keeper_enable: Enable, pull_up_down_config: Pull_Up_100K_Ohm, hysteresis_enable: Disable}
-  - {pin_num: '107', peripheral: GPIO1, signal: 'gpio_io, 04', pin_signal: GPIO_AD_B0_04, slew_rate: Fast, software_input_on: Disable, open_drain: Disable, speed: MHZ_100,
-    drive_strength: R0_5, pull_keeper_select: Pull, pull_keeper_enable: Enable, pull_up_down_config: Pull_Up_100K_Ohm, hysteresis_enable: Disable}
-  - {pin_num: '84', peripheral: GPIO1, signal: 'gpio_io, 22', pin_signal: GPIO_AD_B1_06, slew_rate: Fast, software_input_on: Disable, open_drain: Disable, speed: MHZ_100,
-    drive_strength: R0_5, pull_keeper_select: Pull, pull_keeper_enable: Enable, pull_up_down_config: Pull_Up_100K_Ohm, hysteresis_enable: Disable}
+  - {pin_num: '107', peripheral: GPIO1, signal: 'gpio_io, 04', pin_signal: GPIO_AD_B0_04, direction: OUTPUT, gpio_init_state: 'true', slew_rate: Fast, software_input_on: Disable,
+    open_drain: Disable, speed: MHZ_100, drive_strength: R0_5, pull_keeper_select: Pull, pull_keeper_enable: Enable, pull_up_down_config: Pull_Up_100K_Ohm, hysteresis_enable: Disable}
+  - {pin_num: '84', peripheral: GPIO1, signal: 'gpio_io, 22', pin_signal: GPIO_AD_B1_06, direction: INPUT, gpio_interrupt: kGPIO_IntLowLevel, slew_rate: Fast, software_input_on: Disable,
+    open_drain: Disable, speed: MHZ_100, drive_strength: R0_5, pull_keeper_select: Pull, pull_keeper_enable: Enable, pull_up_down_config: Pull_Up_100K_Ohm, hysteresis_enable: Disable}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -79,6 +82,26 @@ BOARD_InitPins:
  * END ****************************************************************************************************************/
 void BOARD_InitPins(void) {
   CLOCK_EnableClock(kCLOCK_Iomuxc);           
+
+  /* GPIO configuration of PHY_RESET on GPIO_AD_B0_04 (pin 107) */
+  gpio_pin_config_t PHY_RESET_config = {
+      .direction = kGPIO_DigitalOutput,
+      .outputLogic = 1U,
+      .interruptMode = kGPIO_NoIntmode
+  };
+  /* Initialize GPIO functionality on GPIO_AD_B0_04 (pin 107) */
+  GPIO_PinInit(GPIO1, 4U, &PHY_RESET_config);
+
+  /* GPIO configuration of PHY_INTR on GPIO_AD_B1_06 (pin 84) */
+  gpio_pin_config_t PHY_INTR_config = {
+      .direction = kGPIO_DigitalInput,
+      .outputLogic = 0U,
+      .interruptMode = kGPIO_IntLowLevel
+  };
+  /* Initialize GPIO functionality on GPIO_AD_B1_06 (pin 84) */
+  GPIO_PinInit(GPIO1, 22U, &PHY_INTR_config);
+  /* Enable GPIO pin interrupt on GPIO_AD_B1_06 (pin 84) */
+  GPIO_PortEnableInterrupts(GPIO1, 1U << 22U);
 
   IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_04_GPIO1_IO04, 0U); 
   IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_06_LPUART1_TX, 0U); 

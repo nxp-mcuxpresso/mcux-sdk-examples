@@ -22,7 +22,6 @@
 #define DEMO_SAI_CHANNEL      (0)
 #define DEMO_SAI_BITWIDTH     (kSAI_WordWidth16bits)
 #define DEMO_SAI_IRQ          SAI1_IRQn
-#define DEMO_SAITxIRQHandler  SAI1_IRQHandler
 #define DEMO_SAI_TX_SYNC_MODE kSAI_ModeAsync
 #define DEMO_SAI_RX_SYNC_MODE kSAI_ModeSync
 #define DEMO_SAI_MASTER_SLAVE kSAI_Master
@@ -33,15 +32,13 @@
 #define DEMO_AUDIO_MASTER_CLOCK DEMO_SAI_CLK_FREQ
 
 /* IRQ */
-#define DEMO_SAI_TX_IRQ SAI1_IRQn
-#define DEMO_SAI_RX_IRQ SAI1_IRQn
+#define DEMO_DMA_RX_IRQ DMA1_DMA17_IRQn
+#define DEMO_I2C_IRQ    LPI2C1_IRQn
 
 /* DMA */
 #define DEMO_DMA            DMA0
 #define DEMO_DMAMUX         DMAMUX0
-#define DEMO_TX_CHANNEL     (0U)
 #define DEMO_DMA_RX_CHANNEL (1U)
-#define DEMO_SAI_TX_SOURCE  kDmaRequestMuxSai1Tx
 #define DEMO_SAI_RX_SOURCE  kDmaRequestMuxSai1Rx
 
 /* Select Audio/Video PLL (786.48 MHz) as sai1 clock source */
@@ -55,7 +52,6 @@
 
 #define DEMO_CHANNEL_NUM 2
 
-#define BOARD_MASTER_CLOCK_CONFIG()
 /*${macro:end}*/
 
 #endif /* _APP_DEFINITIONS_H_ */

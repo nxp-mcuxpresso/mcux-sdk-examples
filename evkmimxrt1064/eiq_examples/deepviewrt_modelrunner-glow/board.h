@@ -1,6 +1,5 @@
 /*
- * Copyright 2018 NXP
- * All rights reserved.
+ * Copyright 2018, 2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -45,7 +44,7 @@
 
 #define USER_LED_INIT(output)                                            \
     GPIO_PinWrite(BOARD_USER_LED_GPIO, BOARD_USER_LED_GPIO_PIN, output); \
-    BOARD_USER_LED_GPIO->GDIR |= (1U << BOARD_USER_LED_GPIO_PIN) /*!< Enable target USER_LED */
+    BOARD_USER_LED_GPIO->GDIR |= (1U << BOARD_USER_LED_GPIO_PIN)                        /*!< Enable target USER_LED */
 #define USER_LED_ON() \
     GPIO_PortClear(BOARD_USER_LED_GPIO, 1U << BOARD_USER_LED_GPIO_PIN)                  /*!< Turn off target USER_LED */
 #define USER_LED_OFF() GPIO_PortSet(BOARD_USER_LED_GPIO, 1U << BOARD_USER_LED_GPIO_PIN) /*!<Turn on target USER_LED*/
@@ -70,6 +69,20 @@
 /*! @brief The ENET PHY address. */
 #define BOARD_ENET0_PHY_ADDRESS (0x02U) /* Phy address of enet port 0. */
 
+/*! @brief The ENET PHY used for board. */
+#ifndef BOARD_ENET_PHY_RESET_GPIO
+#define BOARD_ENET_PHY_RESET_GPIO GPIO1
+#endif
+#ifndef BOARD_ENET_PHY_RESET_GPIO_PIN
+#define BOARD_ENET_PHY_RESET_GPIO_PIN (9U)
+#endif
+
+#define BOARD_ENET_PHY_RESET                                                          \
+    GPIO_WritePinOutput(BOARD_ENET_PHY_RESET_GPIO, BOARD_ENET_PHY_RESET_GPIO_PIN, 0); \
+    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));                          \
+    GPIO_WritePinOutput(BOARD_ENET_PHY_RESET_GPIO, BOARD_ENET_PHY_RESET_GPIO_PIN, 1); \
+    SDK_DelayAtLeastUs(100, CLOCK_GetFreq(kCLOCK_CpuClk))
+
 /* USB PHY condfiguration */
 #define BOARD_USB_PHY_D_CAL     (0x0CU)
 #define BOARD_USB_PHY_TXCAL45DP (0x06U)
@@ -78,39 +91,6 @@
 #define BOARD_ARDUINO_INT_IRQ   (GPIO1_INT3_IRQn)
 #define BOARD_ARDUINO_I2C_IRQ   (LPI2C1_IRQn)
 #define BOARD_ARDUINO_I2C_INDEX (1)
-
-/*! @brief The WIFI-QCA shield pin. */
-#define BOARD_INITGT202SHIELD_PWRON_GPIO      GPIO1               /*!< GPIO device name: GPIO */
-#define BOARD_INITGT202SHIELD_PWRON_PORT      1U                  /*!< PORT device index: 1 */
-#define BOARD_INITGT202SHIELD_PWRON_GPIO_PIN  3U                  /*!< PIO4 pin index: 3 */
-#define BOARD_INITGT202SHIELD_PWRON_PIN_NAME  GPIO1_3             /*!< Pin name */
-#define BOARD_INITGT202SHIELD_PWRON_LABEL     "PWRON"             /*!< Label */
-#define BOARD_INITGT202SHIELD_PWRON_NAME      "PWRON"             /*!< Identifier name */
-#define BOARD_INITGT202SHIELD_PWRON_DIRECTION kGPIO_DigitalOutput /*!< Direction */
-
-#define BOARD_INITGT202SHIELD_IRQ_GPIO      GPIO1              /*!< GPIO device name: GPIO */
-#define BOARD_INITGT202SHIELD_IRQ_PORT      1U                 /*!< PORT device index: 1 */
-#define BOARD_INITGT202SHIELD_IRQ_GPIO_PIN  19U                /*!< PIO1 pin index: 19 */
-#define BOARD_INITGT202SHIELD_IRQ_PIN_NAME  GPIO1_19           /*!< Pin name */
-#define BOARD_INITGT202SHIELD_IRQ_LABEL     "IRQ"              /*!< Label */
-#define BOARD_INITGT202SHIELD_IRQ_NAME      "IRQ"              /*!< Identifier name */
-#define BOARD_INITGT202SHIELD_IRQ_DIRECTION kGPIO_DigitalInput /*!< Direction */
-
-#define BOARD_INITSILEX2401SHIELD_PWRON_GPIO      GPIO1               /*!< GPIO device name: GPIO */
-#define BOARD_INITSILEX2401SHIELD_PWRON_PORT      1U                  /*!< PORT device index: 1 */
-#define BOARD_INITSILEX2401SHIELD_PWRON_GPIO_PIN  9U                  /*!< PIO4 pin index: 9 */
-#define BOARD_INITSILEX2401SHIELD_PWRON_PIN_NAME  GPIO1_9             /*!< Pin name */
-#define BOARD_INITSILEX2401SHIELD_PWRON_LABEL     "PWRON"             /*!< Label */
-#define BOARD_INITSILEX2401SHIELD_PWRON_NAME      "PWRON"             /*!< Identifier name */
-#define BOARD_INITSILEX2401SHIELD_PWRON_DIRECTION kGPIO_DigitalOutput /*!< Direction */
-
-#define BOARD_INITSILEX2401SHIELD_IRQ_GPIO      GPIO1              /*!< GPIO device name: GPIO */
-#define BOARD_INITSILEX2401SHIELD_IRQ_PORT      1U                 /*!< PORT device index: 1 */
-#define BOARD_INITSILEX2401SHIELD_IRQ_GPIO_PIN  11U                /*!< PIO1 pin index: 11 */
-#define BOARD_INITSILEX2401SHIELD_IRQ_PIN_NAME  GPIO1_11           /*!< Pin name */
-#define BOARD_INITSILEX2401SHIELD_IRQ_LABEL     "IRQ"              /*!< Label */
-#define BOARD_INITSILEX2401SHIELD_IRQ_NAME      "IRQ"              /*!< Identifier name */
-#define BOARD_INITSILEX2401SHIELD_IRQ_DIRECTION kGPIO_DigitalInput /*!< Direction */
 
 /* @Brief Board accelerator sensor configuration */
 #define BOARD_ACCEL_I2C_BASEADDR LPI2C1
@@ -138,7 +118,14 @@
 #define BOARD_CAMERA_I2C_SDA_GPIO GPIO1
 #define BOARD_CAMERA_I2C_SDA_PIN  17
 #define BOARD_CAMERA_PWDN_GPIO    GPIO1
-#define BOARD_CAMERA_PWDN_PIN     4
+#define BOARD_CAMERA_PWDN_PIN     18
+
+/* @Brief Board touch panel configuration */
+#define BOARD_TOUCH_I2C_BASEADDR LPI2C1
+#define BOARD_TOUCH_RST_GPIO     GPIO1
+#define BOARD_TOUCH_RST_PIN      2
+#define BOARD_TOUCH_INT_GPIO     GPIO1
+#define BOARD_TOUCH_INT_PIN      11
 
 /* @Brief Board Bluetooth HCI UART configuration */
 #define BOARD_BT_UART_BASEADDR    LPUART3
@@ -159,7 +146,6 @@ extern "C" {
 uint32_t BOARD_DebugConsoleSrcFreq(void);
 
 void BOARD_InitDebugConsole(void);
-void BOARD_InitHyperFlash(void);
 
 void BOARD_ConfigMPU(void);
 #if defined(SDK_I2C_BASED_COMPONENT_USED) && SDK_I2C_BASED_COMPONENT_USED
@@ -206,6 +192,10 @@ status_t BOARD_Camera_I2C_Receive(
 status_t BOARD_Camera_I2C_SendSCCB(
     uint8_t deviceAddress, uint32_t subAddress, uint8_t subAddressSize, const uint8_t *txBuff, uint8_t txBuffSize);
 status_t BOARD_Camera_I2C_ReceiveSCCB(
+    uint8_t deviceAddress, uint32_t subAddress, uint8_t subAddressSize, uint8_t *rxBuff, uint8_t rxBuffSize);
+status_t BOARD_Touch_I2C_Send(
+    uint8_t deviceAddress, uint32_t subAddress, uint8_t subAddressSize, const uint8_t *txBuff, uint8_t txBuffSize);
+status_t BOARD_Touch_I2C_Receive(
     uint8_t deviceAddress, uint32_t subAddress, uint8_t subAddressSize, uint8_t *rxBuff, uint8_t rxBuffSize);
 #endif /* SDK_I2C_BASED_COMPONENT_USED */
 

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<configuration name="MIMX8UD7xxx08" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_14 http://mcuxpresso.nxp.com/XSD/mex_configuration_14.xsd" uuid="9b6fad8e-cdfa-4923-b804-ac5c34453de9" version="14" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_14" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <common>
+      <processor>MIMX8UD7xxx08</processor>
+      <package>MIMX8UD7DVP08</package>
+      <mcu_data>ksdk2_0</mcu_data>
+      <cores selected="cm33">
+         <core name="Cortex-A35" id="ca35" description=""/>
+         <core name="Cortex-M33" id="cm33" description=""/>
+      </cores>
+      <description></description>
+   </common>
+   <preferences>
+      <validate_boot_init_only>true</validate_boot_init_only>
+      <generate_extended_information>false</generate_extended_information>
+      <generate_code_modified_registers_only>false</generate_code_modified_registers_only>
+      <update_include_paths>true</update_include_paths>
+      <generate_registers_defines>false</generate_registers_defines>
+   </preferences>
+   <tools>
+      <pins name="Pins" version="13.1" enabled="true" update_project_code="true">
+         <generated_project_files>
+            <file path="board/pin_mux.c" update_enabled="true"/>
+            <file path="board/pin_mux.dts" update_enabled="true"/>
+            <file path="board/pin_mux.h" update_enabled="true"/>
+         </generated_project_files>
+         <pins_profile>
+            <processor_version>0.14.3</processor_version>
+            <power_domains/>
+         </pins_profile>
+         <functions_list>
+            <function name="BOARD_InitPins">
+               <description>Configures pin routing and optionally pin electrical features.</description>
+               <options>
+                  <callFromInitBoot>false</callFromInitBoot>
+                  <coreID>cm33</coreID>
+               </options>
+               <dependencies/>
+               <pins>
+                  <pin peripheral="LPUART1" signal="lpuart_tx" pin_num="AH2" pin_signal="PTA10">
+                     <pin_features>
+                        <pin_feature name="PS" value="UP"/>
+                        <pin_feature name="PE" value="ENABLED"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="LPUART1" signal="lpuart_rx" pin_num="AH3" pin_signal="PTA11">
+                     <pin_features>
+                        <pin_feature name="PS" value="UP"/>
+                        <pin_feature name="PE" value="ENABLED"/>
+                     </pin_features>
+                  </pin>
+               </pins>
+            </function>
+         </functions_list>
+      </pins>
+      <clocks name="Clocks" version="11.0" enabled="false" update_project_code="true">
+         <generated_project_files/>
+         <clocks_profile>
+            <processor_version>N/A</processor_version>
+         </clocks_profile>
+         <clock_configurations/>
+      </clocks>
+      <ddr name="DDR" version="" enabled="false" update_project_code="true">
+         <components/>
+      </ddr>
+      <dcdx name="DCDx" version="3.0" enabled="false" update_project_code="true">
+         <generated_project_files/>
+         <dcdx_profile>
+            <processor_version>N/A</processor_version>
+         </dcdx_profile>
+         <dcdx_configurations/>
+      </dcdx>
+      <periphs name="Peripherals" version="9.0" enabled="false" update_project_code="true">
+         <generated_project_files/>
+         <peripherals_profile>
+            <processor_version>N/A</processor_version>
+         </peripherals_profile>
+         <functional_groups/>
+         <components/>
+      </periphs>
+      <tee name="TEE" version="5.0" enabled="false" update_project_code="true">
+         <generated_project_files/>
+         <tee_profile>
+            <processor_version>N/A</processor_version>
+         </tee_profile>
+      </tee>
+   </tools>
+</configuration>

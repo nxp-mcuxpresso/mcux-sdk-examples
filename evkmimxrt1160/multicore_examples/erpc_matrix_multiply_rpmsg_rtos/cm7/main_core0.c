@@ -12,7 +12,8 @@
 #include "board.h"
 #include "erpc_client_setup.h"
 #include "erpc_error_handler.h"
-#include "erpc_matrix_multiply.h"
+#include "c_erpc_matrix_multiply_client.h"
+#include "erpc_matrix_multiply_common.h"
 #include "fsl_debug_console.h"
 #include "FreeRTOS.h"
 #include "task.h"
@@ -197,6 +198,7 @@ static void app_task(void *param)
 
     /* eRPC client side initialization */
     client = erpc_client_init(transport, message_buffer_factory);
+    initMatrixMultiplyService_client(client);
 
     /* Set default error handler */
     erpc_client_set_error_handler(client, erpc_error_handler);

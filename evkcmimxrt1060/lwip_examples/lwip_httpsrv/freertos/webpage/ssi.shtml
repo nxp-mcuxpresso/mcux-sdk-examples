@@ -1,0 +1,105 @@
+<!DOCTYPE HTML SYSTEM>
+<html>
+
+<head>
+<title>MCUXpresso SDK HTTP Server Example</title>
+    <style type="text/css">
+    <!--
+    @import"httpsrv.css";
+    -->
+    </style>
+</head>
+
+<body>
+    <h2>SSI example</h2>
+    <p>
+       This page demonstrates Server Side Includes by inserting server configuration parameters:<br><br>
+        <table>
+          <tr>
+            <th>Parameter</th>
+            <th>Value</th>
+          </tr>
+          <tr>
+            <td>HTTPSRV_CFG_SERVER_STACK_SIZE</td>
+            <td><%config:SERVER_STACK_SIZE%></td>
+          </tr>
+          <tr>
+            <td>HTTPSRV_CFG_HTTP_SESSION_STACK_SIZE</td>
+            <td><%config:HTTP_SESSION_STACK_SIZE%></td>
+          </tr>
+          <tr>
+            <td>HTTPSRV_CFG_HTTPS_SESSION_STACK_SIZE</td>
+            <td><%config:HTTPS_SESSION_STACK_SIZE%></td>
+          </tr>
+          <tr>
+            <td>HTTPSRV_CFG_DEFAULT_PRIORITY</td>
+            <td><%config:DEFAULT_PRIORITY%></td>
+          </tr>
+          <tr>
+            <td>HTTPSRV_CFG_DEFAULT_HTTP_PORT</td>
+            <td><%config:DEFAULT_HTTP_PORT%></td>
+          </tr>
+          <tr>
+            <td>HTTPSRV_CFG_DEFAULT_HTTPS_PORT</td>
+            <td><%config:DEFAULT_HTTPS_PORT%></td>
+          </tr>
+          <tr>
+            <td>HTTPSRV_CFG_DEFAULT_INDEX_PAGE</td>
+            <td><%config:DEFAULT_INDEX_PAGE%></td>
+          </tr>
+          <tr>
+            <td>HTTPSRV_CFG_CACHE_MAXAGE</td>
+            <td><%config:CACHE_MAXAGE%></td>
+          </tr>
+          <tr>
+            <td>HTTPSRV_CFG_DEFAULT_SES_CNT</td>
+            <td><%config:DEFAULT_SES_CNT%></td>
+          </tr>
+          <tr>
+            <td>HTTPSRV_CFG_SES_BUFFER_SIZE</td>
+            <td><%config:SES_BUFFER_SIZE%></td>
+          </tr>
+          <tr>
+            <td>HTTPSRV_CFG_DEFAULT_URL_LEN</td>
+            <td><%config:DEFAULT_URL_LEN%></td>
+          </tr>
+          <tr>
+            <td>HTTPSRV_CFG_MAX_SCRIPT_LN</td>
+            <td><%config:MAX_SCRIPT_LN%></td>
+          </tr>
+          <tr>
+            <td>HTTPSRV_CFG_KEEPALIVE_ENABLED</td>
+            <td><%config:KEEPALIVE_ENABLED%></td>
+          </tr>
+          <tr>
+            <td>HTTPSRV_CFG_KEEPALIVE_TIMEOUT</td>
+            <td><%config:KEEPALIVE_TIMEOUT%></td>
+          </tr>
+          <tr>
+            <td>HTTPSRV_CFG_SES_TIMEOUT</td>
+            <td><%config:SES_TIMEOUT%></td>
+          </tr>
+          <tr>
+            <td>HTTPSRV_CFG_SEND_TIMEOUT</td>
+            <td><%config:SEND_TIMEOUT%></td>
+          </tr>
+          <tr>
+            <td>HTTPSRV_CFG_RECEIVE_TIMEOUT</td>
+            <td><%config:RECEIVE_TIMEOUT%></td>
+          </tr>
+          <tr>
+            <td>HTTPSRV_CFG_WEBSOCKET_ENABLED</td>
+            <td><%config:WEBSOCKET_ENABLED%></td>
+          </tr>
+          <tr>
+            <td>HTTPSRV_CFG_WOLFSSL_ENABLE</td>
+            <td><%config:WOLFSSL_ENABLE%></td>
+          </tr>
+          <tr>
+            <td>HTTPSRV_CFG_MBEDTLS_ENABLE</td>
+            <td><%config:MBEDTLS_ENABLE%></td>
+          </tr>
+        </table>
+    </p>
+</body>
+</html>

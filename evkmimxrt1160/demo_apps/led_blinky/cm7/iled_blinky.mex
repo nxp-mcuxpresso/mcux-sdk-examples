@@ -198,7 +198,7 @@
                   <setting id="ANADIG_OSC_OSC_24M_CTRL_LP_EN_CFG" value="Low" locked="false"/>
                   <setting id="ANADIG_OSC_OSC_24M_CTRL_OSC_EN_CFG" value="Enabled" locked="false"/>
                   <setting id="ANADIG_PLL.ARM_PLL_POST_DIV.scale" value="4" locked="false"/>
-                  <setting id="ANADIG_PLL.ARM_PLL_VDIV.scale" value="100" locked="false"/>
+                  <setting id="ANADIG_PLL.ARM_PLL_VDIV.scale" value="200" locked="false"/>
                   <setting id="ANADIG_PLL.PLL_AUDIO_BYPASS.sel" value="ANADIG_OSC.OSC_24M" locked="false"/>
                   <setting id="ANADIG_PLL.PLL_VIDEO.denom" value="960000" locked="false"/>
                   <setting id="ANADIG_PLL.PLL_VIDEO.div" value="41" locked="false"/>

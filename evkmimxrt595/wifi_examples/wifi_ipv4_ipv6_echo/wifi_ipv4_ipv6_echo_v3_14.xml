@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="cm33_MIMXRT595S"/>
+    <definition extID="middleware.freertos-kernel.cm33_non_trustzone.MIMXRT595S"/>
+    <definition extID="platform.drivers.flexcomm_i2c.MIMXRT595S"/>
+    <definition extID="driver.pca9420.MIMXRT595S"/>
+    <definition extID="middleware.wifi.sdio.MIMXRT595S"/>
+    <definition extID="middleware.wifi.wifidriver.MIMXRT595S"/>
+    <definition extID="middleware.sdmmc.host.usdhc.MIMXRT595S"/>
+    <definition extID="middleware.sdmmc.sdio.MIMXRT595S"/>
+    <definition extID="middleware.sdmmc.host.usdhc.freertos.MIMXRT595S"/>
+    <definition extID="component.rt_gpio_adapter.MIMXRT595S"/>
+    <definition extID="middleware.freertos-kernel.MIMXRT595S"/>
+    <definition extID="middleware.freertos-kernel.heap_4.MIMXRT595S"/>
+    <definition extID="middleware.wifi.MIMXRT595S"/>
+    <definition extID="middleware.lwip.MIMXRT595S"/>
+    <definition extID="middleware.edgefast_wifi_nxp.MIMXRT595S"/>
+    <definition extID="utility.shell.MIMXRT595S"/>
+    <definition extID="platform.drivers.clock.MIMXRT595S"/>
+    <definition extID="platform.drivers.common.MIMXRT595S"/>
+    <definition extID="device.MIMXRT595S_CMSIS.MIMXRT595S"/>
+    <definition extID="utility.debug_console.MIMXRT595S"/>
+    <definition extID="platform.utilities.assert.MIMXRT595S"/>
+    <definition extID="component.usart_adapter.MIMXRT595S"/>
+    <definition extID="platform.drivers.power.MIMXRT595S"/>
+    <definition extID="platform.drivers.flexspi.MIMXRT595S"/>
+    <definition extID="platform.drivers.cache_cache64.MIMXRT595S"/>
+    <definition extID="component.serial_manager_uart.MIMXRT595S"/>
+    <definition extID="component.serial_manager.MIMXRT595S"/>
+    <definition extID="platform.drivers.flexcomm_usart.MIMXRT595S"/>
+    <definition extID="component.lists.MIMXRT595S"/>
+    <definition extID="platform.drivers.flash_config.evkmimxrt595.MIMXRT595S"/>
+    <definition extID="device.MIMXRT595S_startup.MIMXRT595S"/>
+    <definition extID="platform.drivers.flexcomm.MIMXRT595S"/>
+    <definition extID="platform.drivers.lpc_iopctl.MIMXRT595S"/>
+    <definition extID="platform.drivers.lpc_gpio.MIMXRT595S"/>
+    <definition extID="platform.drivers.reset.MIMXRT595S"/>
+    <definition extID="platform.utilities.misc_utilities.MIMXRT595S"/>
+    <definition extID="middleware.wifi.mlan_sdio.MIMXRT595S"/>
+    <definition extID="middleware.wifi.template.MIMXRT595S"/>
+    <definition extID="middleware.wifi.common_files.MIMXRT595S"/>
+    <definition extID="component.wifi_bt_module.tx_pwr_limits.MIMXRT595S"/>
+    <definition extID="component.wifi_bt_module.config.MIMXRT595S"/>
+    <definition extID="middleware.wifi.fwdnld.MIMXRT595S"/>
+    <definition extID="middleware.wifi.fwdnld_intf_abs.MIMXRT595S"/>
+    <definition extID="middleware.sdmmc.common.MIMXRT595S"/>
+    <definition extID="middleware.sdmmc.osa.freertos.MIMXRT595S"/>
+    <definition extID="middleware.sdmmc.usdhc.template.MIMXRT595S"/>
+    <definition extID="middleware.sdmmc.host.usdhc.cache.MIMXRT595S"/>
+    <definition extID="platform.drivers.usdhc.MIMXRT595S"/>
+    <definition extID="component.osa_free_rtos.MIMXRT595S"/>
+    <definition extID="component.osa_interface.MIMXRT595S"/>
+    <definition extID="middleware.freertos-kernel.template.MIMXRT595S"/>
+    <definition extID="middleware.freertos-kernel.extension.MIMXRT595S"/>
+    <definition extID="middleware.lwip.template.MIMXRT595S"/>
+    <definition extID="utility.str.MIMXRT595S"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT595S"/>
+    <definition extID="platform.drivers.iap.MIMXRT595S"/>
+    <definition extID="armgcc"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+    <definition extID="com.crt.advproject.config.exe.debug"/>
+    <definition extID="com.crt.advproject.config.exe.release"/>
+  </externalDefinitions>
+  <example id="evkmimxrt595_wifi_ipv4_ipv6_echo" name="wifi_ipv4_ipv6_echo" device_core="cm33_MIMXRT595S" dependency="middleware.freertos-kernel.cm33_non_trustzone.MIMXRT595S platform.drivers.flexcomm_i2c.MIMXRT595S driver.pca9420.MIMXRT595S middleware.wifi.sdio.MIMXRT595S middleware.wifi.wifidriver.MIMXRT595S middleware.sdmmc.host.usdhc.MIMXRT595S middleware.sdmmc.sdio.MIMXRT595S middleware.sdmmc.host.usdhc.freertos.MIMXRT595S component.rt_gpio_adapter.MIMXRT595S middleware.freertos-kernel.MIMXRT595S middleware.freertos-kernel.heap_4.MIMXRT595S middleware.wifi.MIMXRT595S middleware.lwip.MIMXRT595S middleware.edgefast_wifi_nxp.MIMXRT595S utility.shell.MIMXRT595S platform.drivers.clock.MIMXRT595S platform.drivers.common.MIMXRT595S device.MIMXRT595S_CMSIS.MIMXRT595S utility.debug_console.MIMXRT595S platform.utilities.assert.MIMXRT595S component.usart_adapter.MIMXRT595S platform.drivers.power.MIMXRT595S platform.drivers.flexspi.MIMXRT595S platform.drivers.cache_cache64.MIMXRT595S component.serial_manager_uart.MIMXRT595S component.serial_manager.MIMXRT595S platform.drivers.flexcomm_usart.MIMXRT595S component.lists.MIMXRT595S platform.drivers.flash_config.evkmimxrt595.MIMXRT595S device.MIMXRT595S_startup.MIMXRT595S platform.drivers.flexcomm.MIMXRT595S platform.drivers.lpc_iopctl.MIMXRT595S platform.drivers.lpc_gpio.MIMXRT595S platform.drivers.reset.MIMXRT595S platform.utilities.misc_utilities.MIMXRT595S middleware.wifi.mlan_sdio.MIMXRT595S middleware.wifi.template.MIMXRT595S middleware.wifi.common_files.MIMXRT595S component.wifi_bt_module.tx_pwr_limits.MIMXRT595S component.wifi_bt_module.config.MIMXRT595S middleware.wifi.fwdnld.MIMXRT595S middleware.wifi.fwdnld_intf_abs.MIMXRT595S middleware.sdmmc.common.MIMXRT595S middleware.sdmmc.osa.freertos.MIMXRT595S middleware.sdmmc.usdhc.template.MIMXRT595S middleware.sdmmc.host.usdhc.cache.MIMXRT595S platform.drivers.usdhc.MIMXRT595S component.osa_free_rtos.MIMXRT595S component.osa_interface.MIMXRT595S middleware.freertos-kernel.template.MIMXRT595S middleware.freertos-kernel.extension.MIMXRT595S middleware.lwip.template.MIMXRT595S utility.str.MIMXRT595S CMSIS_Include_core_cm.MIMXRT595S platform.drivers.iap.MIMXRT595S" category="wifi_examples">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <memory>
+      <memoryBlock id="QSPI_FLASH_MIMXRT595S" name="QSPI_FLASH" addr="08000000" size="04000000" type="ExtFlash" access="RO"/>
+      <memoryBlock id="SRAM_MIMXRT595S" name="SRAM" addr="20280000" size="00280000" type="RAM" access="RW"/>
+      <memoryBlock id="USB_RAM_MIMXRT595S" name="USB_RAM" addr="40140000" size="00004000" type="RAM" access="RW"/>
+    </memory>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>CPU_MIMXRT595SFFOC_cm33</value>
+          <value>BOOT_HEADER_ENABLE=1</value>
+          <value>FSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1</value>
+          <value>USE_RTOS=1</value>
+          <value>PRINTF_ADVANCED_ENABLE=1</value>
+          <value>SHELL_BUFFER_SIZE=160U</value>
+          <value>MCUXPRESSO_SDK</value>
+          <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
+          <value>SDIO_ENABLED</value>
+          <value>SDK_OS_FREE_RTOS</value>
+          <value>DEBUG_CONSOLE_RX_ENABLE=0</value>
+          <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>LWIP_DNS=1</value>
+          <value>LWIP_NETIF_HOSTNAME=1</value>
+          <value>LWIP_NETIF_STATUS_CALLBACK=1</value>
+          <value>LWIP_IGMP=1</value>
+        </option>
+        <option id="com.crt.advproject.gas.hdrlib" type="enum">
+          <value>com.crt.advproject.gas.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gas.specs" type="enum">
+          <value>com.crt.advproject.gas.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gcc.specs" type="enum">
+          <value>com.crt.advproject.gcc.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.link.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.link.hdrlib.newlibnano.nohost</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.heapAndStack" type="string">
+          <value>&amp;Heap:Default;Default;0x400&amp;Stack:Default;Default;0x400</value>
+        </option>
+        <option id="gnu.c.link.option.other" type="stringList">
+          <value>-no-warn-rwx-segments</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <debug_configurations>
+      <debug_configuration id_refs="com.crt.advproject.config.exe.debug com.crt.advproject.config.exe.release">
+        <drivers>
+          <driver id_refs="QSPI_FLASH_MIMXRT595S">
+            <driverBinary path="../../../../devices/MIMXRT595S/mcuxpresso" project_relative_path="binary" type="binary">
+              <files mask="MIMXRT500_SFDP_MXIC_OSPI.cfx"/>
+            </driverBinary>
+          </driver>
+        </drivers>
+      </debug_configuration>
+    </debug_configurations>
+    <include_paths>
+      <include_path path="." project_relative_path="source" type="c_include"/>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="../common" project_relative_path="board" type="c_include"/>
+      <include_path path="../../../../core/boards/evkmimxrt595" project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="asm_include"/>
+      <include_path path="../../../../core/boards/evkmimxrt595" project_relative_path="board" type="asm_include"/>
+    </include_paths>
+    <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_flash_debug.bat"/>
+      <files mask="build_flash_debug.sh"/>
+      <files mask="build_flash_release.bat"/>
+      <files mask="build_flash_release.sh"/>
+    </source>
+    <source path="../../../../core/devices/MIMXRT595S" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="all_lib_device.cmake"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="main.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" exclude="true">
+      <files mask="readme_modules.txt"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="shell_task.c"/>
+      <files mask="socket_task.c"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="shell_task.h"/>
+      <files mask="shell_task_mode.h"/>
+      <files mask="socket_task.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include" config="true">
+      <files mask="lwipopts.h"/>
+      <files mask="FreeRTOSConfig.h"/>
+      <files mask="wifi_config.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="lwippools.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="src" config="true">
+      <files mask="sdmmc_config.c"/>
+      <files mask="wifi_bt_config.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include" config="true">
+      <files mask="sdmmc_config.h"/>
+      <files mask="wifi_bt_config.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_preinclude" config="true">
+      <files mask="app_config.h"/>
+    </source>
+    <source path="../../../../core/boards/evkmimxrt595" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="../../../../core/boards/evkmimxrt595" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
+      <files mask="readme.md"/>
+    </source>
+    <source path="armgcc" project_relative_path="MIMXRT595S/gcc" type="linker" toolchain="armgcc">
+      <files mask="MIMXRT595Sxxxx_cm33_flash.ld"/>
+    </source>
+  </example>
+</ksdk:examples>

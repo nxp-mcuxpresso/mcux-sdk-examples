@@ -51,6 +51,7 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
+"${SdkRootDirPath}/examples/evkmimxrt685/eiq_examples/tflm_label_image_hifi4/hifi4/binary/dsp_literal_release.bin"
 "${SdkRootDirPath}/examples/evkmimxrt685/eiq_examples/tflm_label_image_hifi4/hifi4/binary/dsp_text_release.bin"
 "${SdkRootDirPath}/examples/evkmimxrt685/eiq_examples/tflm_label_image_hifi4/hifi4/binary/dsp_data_release.bin"
 "${ProjDirPath}/../board.c"

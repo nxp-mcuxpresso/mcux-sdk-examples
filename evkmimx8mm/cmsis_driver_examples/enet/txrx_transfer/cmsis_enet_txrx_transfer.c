@@ -182,13 +182,13 @@ int main(void)
     g_phy_resource.read  = MDIO_Read;
     g_phy_resource.write = MDIO_Write;
 
-    ENET0_Resource.base           = ENET1;
-    ENET0_Resource.GetFreq        = ENET_GetFreq;
-    ENETPHY0_Resource.phyAddr     = RTE_ENET_PHY_ADDRESS;
+    ENET0_Resource.base       = ENET1;
+    ENET0_Resource.GetFreq    = ENET_GetFreq;
+    ENETPHY0_Resource.phyAddr = RTE_ENET_PHY_ADDRESS;
 #if EXAMPLE_ENET_PHY_PHYAR8031
-    ENETPHY0_Resource.ops         = &phyar8031_ops;
+    ENETPHY0_Resource.ops = &phyar8031_ops;
 #else
-    ENETPHY0_Resource.ops         = &phyrtl8211f_ops;
+    ENETPHY0_Resource.ops = &phyrtl8211f_ops;
 #endif /* EXAMPLE_ENET_PHY_PHYAR8031 */
     ENETPHY0_Resource.opsResource = &g_phy_resource;
 

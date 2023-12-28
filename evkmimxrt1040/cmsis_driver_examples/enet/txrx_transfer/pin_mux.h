@@ -1,6 +1,5 @@
 /*
- * Copyright 2020 NXP
- * All rights reserved.
+ * Copyright 2020, 2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -43,6 +42,36 @@ extern "C" {
  */
 void BOARD_InitBootPins(void);
 
+#define BOARD_INITPINS_IOMUXC_GPR_GPR26_GPIO_MUX1_GPIO_SEL_MASK 0x0400U /*!< GPIO1 and GPIO6 share same IO MUX function, GPIO_MUX1 selects one GPIO function: affected bits mask */
+#define BOARD_INITPINS_IOMUXC_GPR_GPR28_GPIO_MUX3_GPIO_SEL_MASK 0x10U /*!< GPIO3 and GPIO8 share same IO MUX function, GPIO_MUX3 selects one GPIO function: affected bits mask */
+
+/* GPIO_AD_B0_10 (coord G10), PHY_INTR */
+/* Routed pin properties */
+#define BOARD_INITPINS_PHY_INTR_PERIPHERAL                                 GPIO1   /*!< Peripheral name */
+#define BOARD_INITPINS_PHY_INTR_SIGNAL                                   gpio_io   /*!< Signal name */
+#define BOARD_INITPINS_PHY_INTR_CHANNEL                                      10U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_PHY_INTR_GPIO                                       GPIO1   /*!< GPIO peripheral base pointer */
+#define BOARD_INITPINS_PHY_INTR_GPIO_PIN                                     10U   /*!< GPIO pin number */
+#define BOARD_INITPINS_PHY_INTR_GPIO_PIN_MASK                        (1U << 10U)   /*!< GPIO pin mask */
+#define BOARD_INITPINS_PHY_INTR_PORT                                       GPIO1   /*!< PORT peripheral base pointer */
+#define BOARD_INITPINS_PHY_INTR_PIN                                          10U   /*!< PORT pin number */
+#define BOARD_INITPINS_PHY_INTR_PIN_MASK                             (1U << 10U)   /*!< PORT pin mask */
+
+/* GPIO_SD_B1_04 (coord N2), PHY_RESET */
+/* Routed pin properties */
+#define BOARD_INITPINS_PHY_RESET_PERIPHERAL                                GPIO3   /*!< Peripheral name */
+#define BOARD_INITPINS_PHY_RESET_SIGNAL                                  gpio_io   /*!< Signal name */
+#define BOARD_INITPINS_PHY_RESET_CHANNEL                                      4U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_PHY_RESET_GPIO                                      GPIO3   /*!< GPIO peripheral base pointer */
+#define BOARD_INITPINS_PHY_RESET_GPIO_PIN                                     4U   /*!< GPIO pin number */
+#define BOARD_INITPINS_PHY_RESET_GPIO_PIN_MASK                        (1U << 4U)   /*!< GPIO pin mask */
+#define BOARD_INITPINS_PHY_RESET_PORT                                      GPIO3   /*!< PORT peripheral base pointer */
+#define BOARD_INITPINS_PHY_RESET_PIN                                          4U   /*!< PORT pin number */
+#define BOARD_INITPINS_PHY_RESET_PIN_MASK                             (1U << 4U)   /*!< PORT pin mask */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
@@ -50,13 +79,11 @@ void BOARD_InitBootPins(void);
  */
 void BOARD_InitPins(void);
 
-
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
  */
 void ENET0_InitPins(void);
-
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

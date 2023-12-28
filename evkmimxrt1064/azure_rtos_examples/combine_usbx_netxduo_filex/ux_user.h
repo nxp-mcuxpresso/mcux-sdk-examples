@@ -112,4 +112,7 @@ extern void usbphy_set_highspeed_mode(void *regs, int on_off);
 /* Defined, this value will enable split transaction on EHCI host. */
 #define UX_HCD_EHCI_SPLIT_TRANSFER_ENABLE
 
+/* For USB BOS descriptor */
+#define UX_DEVICE_ENABLE_GET_STRING_WITH_ZERO_LANGUAGE_ID
+
 #endif

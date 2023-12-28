@@ -27,9 +27,6 @@
 #include "wifi_ping.h"
 #include "iperf.h"
 
-#ifdef RW610
-#include "fsl_power.h"
-#endif
 
 #ifdef CONFIG_WIFI_FW_DEBUG
 #include "usb_api.h"
@@ -39,9 +36,11 @@
 #include "usb_host.h"
 #include "usb_support.h"
 #include "usb_phy.h"
+#include "fsl_common.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+
 
 
 /*******************************************************************************
@@ -104,6 +103,13 @@ void USB_HostIsrEnable(void)
 void USB_HostTaskFn(void *param)
 {
     USB_HostEhciTaskFunction(param);
+}
+void BOARD_InitHardware(void)
+{
+    BOARD_ConfigMPU();
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
+    BOARD_InitDebugConsole();
 }
 
 const int TASK_MAIN_PRIO       = OS_PRIO_3;
@@ -219,7 +225,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             {
                 if (ip6_addr_isvalid(addr.ipv6[i].addr_state))
                 {
-                    (void)PRINTF("IPv6 Address: %-13s:\t%s (%s)\r\n", ipv6_addr_type_to_desc(&addr.ipv6[i]),
+                    (void)PRINTF("IPv6 Address: %-13s:\t%s (%s)\r\n", ipv6_addr_type_to_desc((struct net_ipv6_config *)&addr.ipv6[i]),
                                  inet6_ntoa(addr.ipv6[i].address), ipv6_addr_state_to_desc(addr.ipv6[i].addr_state));
                 }
             }
@@ -363,9 +369,6 @@ int main(void)
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
-#ifdef RW610
-    POWER_PowerOffBle();
-#endif
 
 #ifdef CONFIG_WIFI_FW_DEBUG
     //SCB_DisableDCache();

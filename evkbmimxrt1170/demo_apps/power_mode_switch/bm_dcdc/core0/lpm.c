@@ -168,7 +168,7 @@ void GPC_ConfigSetpointTransitionFlow()
 #if (defined(BOARD_USE_EXT_PMIC) && BOARD_USE_EXT_PMIC)
     tranStepConfig.enableStep = true;
     tranStepConfig.cntMode    = kGPC_StepCounterDisableMode;
-#endif /* (defined(BOARD_USE_EXT_PMIC) && BOARD_USE_EXT_PMIC) */    
+#endif /* (defined(BOARD_USE_EXT_PMIC) && BOARD_USE_EXT_PMIC) */
     GPC_SP_ConfigSetPointTransitionStep(GPC_SET_POINT_CTRL, kGPC_SP_LdoPost, &tranStepConfig);
     GPC_SP_ConfigSetPointTransitionStep(GPC_SET_POINT_CTRL, kGPC_SP_BandgapPllLdoOn, &tranStepConfig);
     GPC_SP_ConfigSetPointTransitionStep(GPC_SET_POINT_CTRL, kGPC_SP_BiasOn, &tranStepConfig);
@@ -871,8 +871,8 @@ void ChipInitConfig(void)
     CLOCK_SetRootClock(kCLOCK_Root_M4, &rootCfg);
     rootCfg.mux = kCLOCK_BUS_LPSR_ClockRoot_MuxSysPll3Out;
     rootCfg.div = 4;
-    CLOCK_SetRootClock(kCLOCK_Root_Bus_Lpsr, &rootCfg);   
-    
+    CLOCK_SetRootClock(kCLOCK_Root_Bus_Lpsr, &rootCfg);
+
     GPC_InitConfig();
 #if !(defined(BOARD_USE_EXT_PMIC) && BOARD_USE_EXT_PMIC)
     DCDC_InitConfig();
@@ -906,7 +906,7 @@ void PrintSystemStatus(void)
 
     PRINTF("System previous setpoint is %d\r\n", GPC_SP_GetPreviousSetPoint(GPC_SET_POINT_CTRL));
     PRINTF("System current setpoint is %d\r\n", GPC_SP_GetCurrentSetPoint(GPC_SET_POINT_CTRL));
-    
+
     preCpuMode = GPC_CM_GetPreviousCpuMode(GPC_CPU_MODE_CTRL_0);
     curCpuMode = GPC_CM_GetCurrentCpuMode(GPC_CPU_MODE_CTRL_0);
     PRINTF("M7 previous CPU mode is %s\r\n", GET_CPU_MODE_NAME(preCpuMode));
@@ -1075,4 +1075,3 @@ core_status_t getCore1Status(uint8_t setpoint)
 
     return status;
 }
-

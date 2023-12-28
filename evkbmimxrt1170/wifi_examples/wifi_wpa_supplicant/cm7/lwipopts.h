@@ -80,7 +80,7 @@
  * to sys_mbox_new() when the recvmbox is created.
  */
 #ifdef CONFIG_NETWORK_HIGH_PERF
-#define DEFAULT_UDP_RECVMBOX_SIZE 32
+#define DEFAULT_UDP_RECVMBOX_SIZE 64
 #else
 #define DEFAULT_UDP_RECVMBOX_SIZE 12
 #endif
@@ -91,7 +91,7 @@
  * to sys_mbox_new() when the recvmbox is created.
  */
 #ifdef CONFIG_NETWORK_HIGH_PERF
-#define DEFAULT_TCP_RECVMBOX_SIZE 32
+#define DEFAULT_TCP_RECVMBOX_SIZE 64
 #else
 #define DEFAULT_TCP_RECVMBOX_SIZE 12
 #endif
@@ -110,11 +110,11 @@
 #define LWIP_DEBUG_TRACE 0
 #define SOCKETS_DEBUG    LWIP_DBG_OFF // | LWIP_DBG_MASK_LEVEL
 
-#define IP_DEBUG         LWIP_DBG_OFF
+#define IP_DEBUG LWIP_DBG_OFF
 
-#define IP6_DEBUG        LWIP_DBG_OFF
-#define ICMP6_DEBUG      LWIP_DBG_OFF
-#define DHCP6_DEBUG      LWIP_DBG_OFF
+#define IP6_DEBUG   LWIP_DBG_OFF
+#define ICMP6_DEBUG LWIP_DBG_OFF
+#define DHCP6_DEBUG LWIP_DBG_OFF
 
 #define ETHARP_DEBUG     LWIP_DBG_OFF
 #define NETIF_DEBUG      LWIP_DBG_OFF
@@ -236,7 +236,7 @@
  * (only needed if you use tcpip.c)
  */
 #ifdef CONFIG_NETWORK_HIGH_PERF
-#define MEMP_NUM_TCPIP_MSG_INPKT 32
+#define MEMP_NUM_TCPIP_MSG_INPKT 80
 #else
 #define MEMP_NUM_TCPIP_MSG_INPKT 16
 #endif
@@ -245,7 +245,7 @@
    for sequential API communication and incoming packets. Used in
    src/api/tcpip.c. */
 #ifdef CONFIG_NETWORK_HIGH_PERF
-#define MEMP_NUM_TCPIP_MSG_API 32
+#define MEMP_NUM_TCPIP_MSG_API 80
 #else
 #define MEMP_NUM_TCPIP_MSG_API 8
 #endif
@@ -279,7 +279,7 @@
 /**
  * PBUF_POOL_SIZE: the number of buffers in the pbuf pool.
  */
-#define PBUF_POOL_SIZE 40
+#define PBUF_POOL_SIZE 80
 
 /*
    ----------------------------------
@@ -392,7 +392,6 @@
 #define TCP_WND (10 * TCP_MSS)
 #endif
 
-
 /**
  * Enable TCP_KEEPALIVE
  */
@@ -475,7 +474,7 @@
 #define LWIP_PROVIDE_ERRNO 1
 #define ERRNO              1
 
-//#define LWIP_SNMP 1
+// #define LWIP_SNMP 1
 
 /*
    ------------------------------------------------
@@ -514,13 +513,13 @@ u32_t lwip_rand(void);
 #define LWIP_RAND() lwip_rand()
 #endif
 
-#define LWIP_NETIF_TX_SINGLE_PBUF   1
+#define LWIP_NETIF_TX_SINGLE_PBUF 1
 
 #if (LWIP_NETIF_TX_SINGLE_PBUF)
 #define PBUF_LINK_ENCAPSULATION_HLEN 26
 #endif
 
-#define LWIP_NUM_NETIF_CLIENT_DATA  2
+#define LWIP_NUM_NETIF_CLIENT_DATA 2
 
 /* ---------- Core locking ---------- */
 
@@ -528,7 +527,7 @@ u32_t lwip_rand(void);
 
 #ifdef CONFIG_CLOUD_KEEP_ALIVE
 #ifndef LWIP_HOOK_FILENAME
-#define LWIP_HOOK_FILENAME "lwiphooks.h"
+#define LWIP_HOOK_FILENAME                               "lwiphooks.h"
 #define LWIP_HOOK_TCP_OUT_ADD_TCPOPTS(p, hdr, pcb, opts) lwip_hook_tcp_out_add_tcpopts(p, hdr, pcb, opts)
 #endif
 #endif

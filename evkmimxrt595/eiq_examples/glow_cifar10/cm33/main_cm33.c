@@ -122,7 +122,7 @@ void nn_app_task(void *param)
     memcpy(constantWeight, WEIGHT_DATA_START, MODEL_CONSTANT_MEM_SIZE);
 
     // Run inference for all images
-    for  (int idx = 0; idx < NUM_IMAGES; idx++)
+    for (int idx = 0; idx < NUM_IMAGES; idx++)
     {
         // Load input data from FLASH to SRAM
         memcpy(bundleInpAddr, ((char *)INPUT_DATA_START) + idx * INPUT_IMAGE_SIZE, INPUT_IMAGE_SIZE);

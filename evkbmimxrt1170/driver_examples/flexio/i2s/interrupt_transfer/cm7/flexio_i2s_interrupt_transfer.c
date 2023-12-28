@@ -79,18 +79,18 @@ wm8962_config_t wm8962Config = {
         },
     .slaveAddress = WM8962_I2C_ADDR,
     .bus          = kWM8962_BusI2S,
-    .format       = {.mclk_HZ    = 12000000U,
-               .sampleRate = kWM8962_AudioSampleRate16KHz,
-               .bitWidth   = kWM8962_AudioBitWidth16bit},
+    .format       = {.mclk_HZ    = 12288000U,
+                     .sampleRate = kWM8962_AudioSampleRate16KHz,
+                     .bitWidth   = kWM8962_AudioBitWidth16bit},
     .masterSlave  = false,
 };
 codec_config_t boardCodecConfig = {.codecDevType = kCODEC_WM8962, .codecDevConfig = &wm8962Config};
 /* USB1 PLL configuration for RUN mode */
 const clock_audio_pll_config_t audioPllConfig = {
-    .loopDivider = 30,  /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
-    .postDivider = 1,   /* Divider after the PLL, should only be 0, 1, 2, 3, 4, 5 */
-    .numerator   = 200, /* 30 bit numerator of fractional loop divider. */
-    .denominator = 100, /* 30 bit denominator of fractional loop divider */
+    .loopDivider = 32,   /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
+    .postDivider = 1,    /* Divider after the PLL, should only be 0, 1, 2, 3, 4, 5 */
+    .numerator   = 768,  /* 30 bit numerator of fractional loop divider. */
+    .denominator = 1000, /* 30 bit denominator of fractional loop divider */
 };
 flexio_i2s_handle_t txHandle      = {0};
 flexio_i2s_handle_t rxHandle      = {0};

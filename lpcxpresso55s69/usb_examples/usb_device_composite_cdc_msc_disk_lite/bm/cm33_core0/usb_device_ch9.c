@@ -37,6 +37,7 @@ typedef usb_status_t (*usb_standard_request_callback_t)(usb_device_handle handle
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
+
 /*!
  * @brief Get the setup packet buffer.
  *
@@ -257,6 +258,7 @@ static usb_status_t USB_DeviceCh9SynchFrame(usb_device_handle handle,
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+
 /* The function list to handle the standard request. */
 static const usb_standard_request_callback_t s_UsbDeviceStandardRequest[] = {
     USB_DeviceCh9GetStatus,
@@ -288,6 +290,7 @@ static uint16_t s_UsbDeviceStandardRx;
 /*******************************************************************************
  * Code
  ******************************************************************************/
+
 /*!
  * @brief Handle get status request.
  *
@@ -406,6 +409,9 @@ static usb_status_t USB_DeviceCh9SetClearFeature(usb_device_handle handle,
         /* Set or Clear the device feature. */
         if (USB_REQUEST_STANDARD_FEATURE_SELECTOR_DEVICE_REMOTE_WAKEUP == setup->wValue)
         {
+#if ((defined(USB_DEVICE_CONFIG_REMOTE_WAKEUP)) && (USB_DEVICE_CONFIG_REMOTE_WAKEUP > 0U))
+            USB_DeviceSetStatus(handle, kUSB_DeviceStatusRemoteWakeup, &isSet);
+#endif
             /* Set or Clear the device remote wakeup feature. */
             error = USB_DeviceConfigureRemoteWakeup(handle, isSet);
         }
@@ -877,6 +883,7 @@ usb_status_t USB_DeviceControlCallback(usb_device_handle handle,
         }
         /* Receive a setup request */
         usb_setup_struct_t *setup = (usb_setup_struct_t *)(message->buffer);
+
         /* Copy the setup packet to the application buffer */
         deviceSetup->wValue        = USB_SHORT_FROM_LITTLE_ENDIAN(setup->wValue);
         deviceSetup->wIndex        = USB_SHORT_FROM_LITTLE_ENDIAN(setup->wIndex);

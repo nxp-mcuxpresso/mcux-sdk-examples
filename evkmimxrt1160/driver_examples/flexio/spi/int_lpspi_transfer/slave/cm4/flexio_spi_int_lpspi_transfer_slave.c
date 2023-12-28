@@ -116,6 +116,7 @@ int main(void)
     flexio_spi_transfer_t slaveXfer;
 
     /*Master config*/
+    LPSPI_MasterGetDefaultConfig(&masterConfig);
     masterConfig.baudRate     = TRANSFER_BAUDRATE;
     masterConfig.bitsPerFrame = 8;
     masterConfig.cpol         = kLPSPI_ClockPolarityActiveHigh;

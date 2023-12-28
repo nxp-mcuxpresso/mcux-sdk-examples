@@ -52,7 +52,7 @@ typedef struct _srtm_lfcl_callback
     srtm_list_t node;
     srtm_lfcl_service_cb_t callback;
     void *param;
-} * srtm_lfcl_callback_t;
+} *srtm_lfcl_callback_t;
 
 /* Service handle */
 typedef struct _srtm_lfcl_service
@@ -60,7 +60,7 @@ typedef struct _srtm_lfcl_service
     struct _srtm_service service;
     srtm_list_t subscribers; /*!< SRTM life cycle event subscribers */
     srtm_mutex_t mutex;
-} * srtm_lfcl_service_t;
+} *srtm_lfcl_service_t;
 
 /*******************************************************************************
  * Prototypes

@@ -329,7 +329,7 @@ typedef enum
     gBleGapCmdGetBondedDevicesIdentityInformationOpCode_c, /*! Gap_GetBondedDevicesIdentityInformation command operation
                                                               code */
 
-    gBleGapStatusOpCode_c = 0x80, /*! GAP status operation code */
+    gBleGapStatusOpCode_c = 0x80,                          /*! GAP status operation code */
 
     gBleGapEvtFirstOpCode_c = 0x81,
     gBleGapEvtCheckNotificationStatusOpCode_c =
@@ -452,8 +452,8 @@ typedef enum
                                                                     gControllerPrivacyStateChanged_c) event operation
                                                                     code */
 
-    gBleGapEvtGetBondedDevicesIdentityInformationOpCode_c, /*! Gap_GetBondedDevicesIdentityInformation command out
-                                                              parameters event operation code */
+    gBleGapEvtGetBondedDevicesIdentityInformationOpCode_c,       /*! Gap_GetBondedDevicesIdentityInformation command out
+                                                                    parameters event operation code */
 
 } fsciBleGapOpCode_t;
 

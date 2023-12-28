@@ -45,7 +45,7 @@ typedef struct _srtm_rtc_service
     /* Currently assume just one peer core, to support multiple peer cores, channel need to be a list */
     srtm_channel_t channel;
     srtm_notification_t notif;
-} * srtm_rtc_service_t;
+} *srtm_rtc_service_t;
 
 /*******************************************************************************
  * Prototypes

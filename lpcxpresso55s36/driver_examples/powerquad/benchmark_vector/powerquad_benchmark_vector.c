@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -125,18 +125,18 @@ static void PQ_BiquadCascadedf2Q31Test(void);
 static void TEST_InitTime(void);
 static uint32_t TEST_GetTime(void);
 
-static void PQ_Vector16BiqaudDf2FX(int32_t *pSrc, int32_t *pDst);
+static void PQ_Vector16BiquadDf2FX(int32_t *pSrc, int32_t *pDst);
 static void PQ_16ByteBiquadCascadeDf2FX(const pq_biquad_cascade_df2_instance *S,
                                         int32_t *pSrc,
                                         int32_t *pDst,
                                         uint32_t blockSize);
-static void PQ_Vector16BiqaudCascadeDf2FX(int32_t *pSrc, int32_t *pDst);
+static void PQ_Vector16BiquadCascadeDf2FX(int32_t *pSrc, int32_t *pDst);
 static void PQ_16ByteBiquadCascadeDf2FP(const pq_biquad_cascade_df2_instance *S,
                                         float *pSrc,
                                         float *pDst,
                                         uint32_t blockSize);
-static void PQ_Vector16BiqaudDf2FP(float *pSrc, float *pDst);
-static void PQ_Vector16BiqaudCascadeDf2FP(float *pSrc, float *pDst);
+static void PQ_Vector16BiquadDf2FP(float *pSrc, float *pDst);
+static void PQ_Vector16BiquadCascadeDf2FP(float *pSrc, float *pDst);
 static void PQ_Vector32EtonxFX(int32_t *pSrc, int32_t *pDst);
 static void PQ_Vector32EtonxFP(float *pSrc, float *pDst);
 static void PQ_Vector32EtoxFX(int32_t *pSrc, int32_t *pDst);
@@ -266,7 +266,7 @@ static void PQ_VectorSqrtQ15Test(void)
     {
         inputFloat = (float)i / (float)VECTOR_INPUT_LEN;
         input[i]   = FLOAT_2_Q15(inputFloat);
-        ref[i]     = FLOAT_2_Q15(sqrt(inputFloat));
+        ref[i]     = FLOAT_2_Q15(sqrt((double)inputFloat));
     }
 
     PQ_SetCoprocessorScaler(POWERQUAD, &prescale);
@@ -310,7 +310,7 @@ static void PQ_VectorSinF32Test(void)
 
     for (i = 0; i < VECTOR_INPUT_LEN; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(result[i] - ref[i]) <= 0.00005);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(result[i] - ref[i])) <= 0.00005);
     }
 }
 
@@ -328,7 +328,7 @@ static void PQ_VectorSinQ31Test(void)
     {
         inputFloat = ((float)i * 2.0f / (float)VECTOR_INPUT_LEN) - 1.0f;
         input[i]   = FLOAT_2_Q31(inputFloat);
-        ref[i]     = FLOAT_2_Q31(sin(inputFloat * MATH_PI));
+        ref[i]     = FLOAT_2_Q31(sin((double)(inputFloat)*MATH_PI));
     }
 
     oldTime = TEST_GetTime();
@@ -359,7 +359,7 @@ static void PQ_VectorSinQ15Test(void)
     {
         inputFloat = ((float)i * 2.0f / (float)VECTOR_INPUT_LEN) - 1.0f;
         input[i]   = FLOAT_2_Q15(inputFloat);
-        ref[i]     = FLOAT_2_Q15(sin(inputFloat * MATH_PI));
+        ref[i]     = FLOAT_2_Q15(sin((double)(inputFloat)*MATH_PI));
     }
 
     oldTime = TEST_GetTime();
@@ -401,7 +401,7 @@ static void PQ_VectorCosF32Test(void)
 
     for (i = 0; i < VECTOR_INPUT_LEN; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(result[i] - ref[i]) <= 0.00005);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(result[i] - ref[i])) <= 0.00005);
     }
 }
 
@@ -419,7 +419,7 @@ static void PQ_VectorCosQ31Test(void)
     {
         inputFloat = ((float)i * 2.0f / (float)VECTOR_INPUT_LEN) - 1.0f;
         input[i]   = FLOAT_2_Q31(inputFloat);
-        ref[i]     = FLOAT_2_Q31(cos(inputFloat * MATH_PI));
+        ref[i]     = FLOAT_2_Q31(cos((double)(inputFloat)*MATH_PI));
     }
 
     oldTime = TEST_GetTime();
@@ -450,7 +450,7 @@ static void PQ_VectorCosQ15Test(void)
     {
         inputFloat = ((float)i * 2.0f / (float)VECTOR_INPUT_LEN) - 1.0f;
         input[i]   = FLOAT_2_Q15(inputFloat);
-        ref[i]     = FLOAT_2_Q15(cos(inputFloat * MATH_PI));
+        ref[i]     = FLOAT_2_Q15(cos((double)(inputFloat)*MATH_PI));
     }
 
     oldTime = TEST_GetTime();
@@ -488,7 +488,7 @@ static void PQ_VectorLnFPTest(void)
 
     for (int i = 0; i < 32; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(lnRef[i] - result[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(lnRef[i] - result[i])) < 0.00001);
     }
 }
 
@@ -530,7 +530,7 @@ static void PQ_VectorInvFPTest(void)
 
     for (int i = 0; i < 32; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(invRef[i] - result[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(invRef[i] - result[i])) < 0.00001);
     }
 }
 
@@ -575,7 +575,7 @@ static void PQ_VectorSqrtFPTest(void)
 
     for (int i = 0; i < 32; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(sqrtRef[i] - result[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(sqrtRef[i] - result[i])) < 0.00001);
     }
 }
 
@@ -619,7 +619,7 @@ static void PQ_VectorInvSqrtFPTest(void)
 
     for (int i = 0; i < 32; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(invSqrtRef[i] - result[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(invSqrtRef[i] - result[i])) < 0.00001);
     }
 }
 
@@ -665,7 +665,7 @@ static void PQ_VectorEtoxFPTest(void)
 
     for (int i = 0; i < 32; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(etoxRef[i] - result[i]) < 0.001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(etoxRef[i] - result[i])) < 0.001);
     }
 }
 
@@ -710,7 +710,7 @@ static void PQ_VectorEtonxFPTest(void)
 
     for (int i = 0; i < 32; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(etonxRef[i] - result[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(etonxRef[i] - result[i])) < 0.00001);
     }
 }
 
@@ -759,7 +759,7 @@ static void PQ_16ByteBiquadCascadedf2FPTest(void)
 
     for (uint32_t i = 0; i < 16; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(biquadRef[i] - biquadResult[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(biquadRef[i] - biquadResult[i])) < 0.00001);
     }
 }
 
@@ -810,7 +810,7 @@ static void PQ_VectorLnF32Test(void)
 
     for (int i = 0; i < 8; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(lnRef[i] - result[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(lnRef[i] - result[i])) < 0.00001);
     }
 }
 
@@ -852,7 +852,7 @@ static void PQ_VectorInvF32Test(void)
 
     for (int i = 0; i < 8; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(invRef[i] - result[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(invRef[i] - result[i])) < 0.00001);
     }
 }
 
@@ -897,7 +897,7 @@ static void PQ_VectorSqrtF32Test(void)
 
     for (int i = 0; i < 8; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(sqrtRef[i] - result[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(sqrtRef[i] - result[i])) < 0.00001);
     }
 }
 
@@ -941,7 +941,7 @@ static void PQ_VectorInvSqrtF32Test(void)
 
     for (int i = 0; i < 8; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(invSqrtRef[i] - result[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(invSqrtRef[i] - result[i])) < 0.00001);
     }
 }
 
@@ -987,7 +987,7 @@ static void PQ_VectorEtoxF32Test(void)
 
     for (int i = 0; i < 8; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(etoxRef[i] - result[i]) < 0.001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(etoxRef[i] - result[i])) < 0.001);
     }
 }
 
@@ -1032,7 +1032,7 @@ static void PQ_VectorEtonxF32Test(void)
 
     for (int i = 0; i < 8; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(etonxRef[i] - result[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(etonxRef[i] - result[i])) < 0.00001);
     }
 }
 
@@ -1081,7 +1081,7 @@ static void PQ_BiquadCascadedf2F32Test(void)
 
     for (uint32_t i = 0; i < 16; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(biquadRef[i] - biquadResult[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(biquadRef[i] - biquadResult[i])) < 0.00001);
     }
 }
 
@@ -1139,7 +1139,7 @@ static void PQ_16ByteBiquadCascadeDf2FX(const pq_biquad_cascade_df2_instance *S,
     {
         PQ_BiquadRestoreInternalState(POWERQUAD, 0, states);
 
-        PQ_Vector16BiqaudDf2FX(pSrc, pDst);
+        PQ_Vector16BiquadDf2FX(pSrc, pDst);
 
         PQ_BiquadBackUpInternalState(POWERQUAD, 0, states);
 
@@ -1153,7 +1153,7 @@ static void PQ_16ByteBiquadCascadeDf2FX(const pq_biquad_cascade_df2_instance *S,
         states++;
         PQ_BiquadRestoreInternalState(POWERQUAD, 1, states);
 
-        PQ_Vector16BiqaudCascadeDf2FX(pDst, pDst);
+        PQ_Vector16BiquadCascadeDf2FX(pDst, pDst);
 
         states--;
         PQ_BiquadBackUpInternalState(POWERQUAD, 0, states);
@@ -1169,9 +1169,9 @@ static void PQ_16ByteBiquadCascadeDf2FX(const pq_biquad_cascade_df2_instance *S,
    resulting in disruption of the execution order of the original code in MDK release mode with -O3.
    Resolution: add noinline attribute to assembly code API to prevent inline optimization by compiler. */
 #if (defined(__ARMCC_VERSION))
-static void PQ_Vector16BiqaudDf2FX(int32_t *pSrc, int32_t *pDst) __attribute__((noinline))
+static void PQ_Vector16BiquadDf2FX(int32_t *pSrc, int32_t *pDst) __attribute__((noinline))
 #else
-static void PQ_Vector16BiqaudDf2FX(int32_t *pSrc, int32_t *pDst)
+static void PQ_Vector16BiquadDf2FX(int32_t *pSrc, int32_t *pDst)
 #endif
 {
     PQ_Initiate_Vector_Func(pSrc, pDst);
@@ -1184,9 +1184,9 @@ static void PQ_Vector16BiqaudDf2FX(int32_t *pSrc, int32_t *pDst)
    resulting in disruption of the execution order of the original code in MDK release mode with -O3.
    Resolution: add noinline attribute to assembly code API to prevent inline optimization by compiler. */
 #if (defined(__ARMCC_VERSION))
-static void PQ_Vector16BiqaudCascadeDf2FX(int32_t *pSrc, int32_t *pDst) __attribute__((noinline))
+static void PQ_Vector16BiquadCascadeDf2FX(int32_t *pSrc, int32_t *pDst) __attribute__((noinline))
 #else
-static void PQ_Vector16BiqaudCascadeDf2FX(int32_t *pSrc, int32_t *pDst)
+static void PQ_Vector16BiquadCascadeDf2FX(int32_t *pSrc, int32_t *pDst)
 #endif
 {
     PQ_Initiate_Vector_Func(pSrc, pDst);
@@ -1222,7 +1222,7 @@ static void PQ_16ByteBiquadCascadeDf2FP(const pq_biquad_cascade_df2_instance *S,
     {
         PQ_BiquadRestoreInternalState(POWERQUAD, 0, states);
 
-        PQ_Vector16BiqaudDf2FP(pSrc, pDst);
+        PQ_Vector16BiquadDf2FP(pSrc, pDst);
 
         PQ_BiquadBackUpInternalState(POWERQUAD, 0, states);
 
@@ -1236,7 +1236,7 @@ static void PQ_16ByteBiquadCascadeDf2FP(const pq_biquad_cascade_df2_instance *S,
         states++;
         PQ_BiquadRestoreInternalState(POWERQUAD, 0, states);
 
-        PQ_Vector16BiqaudCascadeDf2FP(pDst, pDst);
+        PQ_Vector16BiquadCascadeDf2FP(pDst, pDst);
 
         states--;
         PQ_BiquadBackUpInternalState(POWERQUAD, 1, states);
@@ -1253,9 +1253,9 @@ static void PQ_16ByteBiquadCascadeDf2FP(const pq_biquad_cascade_df2_instance *S,
    resulting in disruption of the execution order of the original code in MDK release mode with -O3.
    Resolution: add noinline attribute to assembly code API to prevent inline optimization by compiler. */
 #if (defined(__ARMCC_VERSION))
-static void PQ_Vector16BiqaudDf2FP(float *pSrc, float *pDst) __attribute__((noinline))
+static void PQ_Vector16BiquadDf2FP(float *pSrc, float *pDst) __attribute__((noinline))
 #else
-static void PQ_Vector16BiqaudDf2FP(float *pSrc, float *pDst)
+static void PQ_Vector16BiquadDf2FP(float *pSrc, float *pDst)
 #endif
 {
     PQ_Initiate_Vector_Func(pSrc, pDst);
@@ -1268,9 +1268,9 @@ static void PQ_Vector16BiqaudDf2FP(float *pSrc, float *pDst)
    resulting in disruption of the execution order of the original code in MDK release mode with -O3.
    Resolution: add noinline attribute to assembly code API to prevent inline optimization by compiler. */
 #if (defined(__ARMCC_VERSION))
-static void PQ_Vector16BiqaudCascadeDf2FP(float *pSrc, float *pDst) __attribute__((noinline))
+static void PQ_Vector16BiquadCascadeDf2FP(float *pSrc, float *pDst) __attribute__((noinline))
 #else
-static void PQ_Vector16BiqaudCascadeDf2FP(float *pSrc, float *pDst)
+static void PQ_Vector16BiquadCascadeDf2FP(float *pSrc, float *pDst)
 #endif
 {
     PQ_Initiate_Vector_Func(pSrc, pDst);

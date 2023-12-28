@@ -29,8 +29,8 @@
 #define QTMR_IRQ_HANDLER TMR3_IRQHandler
 
 /* QTMR Clock source divider for Ipg clock source, the value of two macros below should be aligned. */
-#define QTMR_PRIMARY_SOURCE       (kQTMR_ClockDivide_128)
-#define QTMR_CLOCK_SOURCE_DIVIDER (128U)
+#define QTMR_PRIMARY_SOURCE       (kQTMR_ClockDivide_16)
+#define QTMR_CLOCK_SOURCE_DIVIDER (16U)
 /* The frequency of the source clock after divided. */
 #define QTMR_SOURCE_CLOCK (CLOCK_GetFreq(kCLOCK_IpgClk) / QTMR_CLOCK_SOURCE_DIVIDER)
 

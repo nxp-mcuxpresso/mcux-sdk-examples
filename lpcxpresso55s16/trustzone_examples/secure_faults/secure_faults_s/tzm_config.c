@@ -26,13 +26,11 @@ board: LPCXpresso55S16
  **********************************************************************************************************************/
 /* SAU region boundaries */
 #define SAU_REGION_0_BASE 0
-#define SAU_REGION_0_END 0x0FFFFFFFU
+#define SAU_REGION_0_END  0x0FFFFFFFU
 #define SAU_REGION_1_BASE 0x20000000U
-#define SAU_REGION_1_END 0xDFFFFFFFU
+#define SAU_REGION_1_END  0xDFFFFFFFU
 #define SAU_REGION_2_BASE 0x1000FE00U
-#define SAU_REGION_2_END 0x1000FFFFU
-
-
+#define SAU_REGION_2_END  0x1000FFFFU
 
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
@@ -135,46 +133,42 @@ functional_group:
 void BOARD_InitTrustZone()
 {
     /* SAU configuration */
-    
+
     /* Set SAU Control register: Disable SAU and All Secure */
     SAU->CTRL = 0;
-    
+
     /* Set SAU region number */
     SAU->RNR = 0;
     /* Region base address */
     SAU->RBAR = SAU_REGION_0_BASE & SAU_RBAR_BADDR_Msk;
     /* Region end address */
-    SAU->RLAR = (SAU_REGION_0_END & SAU_RLAR_LADDR_Msk)
-        | ((0U << SAU_RLAR_NSC_Pos) & SAU_RLAR_NSC_Msk)
-        | ((1U << SAU_RLAR_ENABLE_Pos) & SAU_RLAR_ENABLE_Msk);
-    
+    SAU->RLAR = (SAU_REGION_0_END & SAU_RLAR_LADDR_Msk) | ((0U << SAU_RLAR_NSC_Pos) & SAU_RLAR_NSC_Msk) |
+                ((1U << SAU_RLAR_ENABLE_Pos) & SAU_RLAR_ENABLE_Msk);
+
     /* Set SAU region number */
     SAU->RNR = 1;
     /* Region base address */
     SAU->RBAR = SAU_REGION_1_BASE & SAU_RBAR_BADDR_Msk;
     /* Region end address */
-    SAU->RLAR = (SAU_REGION_1_END & SAU_RLAR_LADDR_Msk)
-        | ((0U << SAU_RLAR_NSC_Pos) & SAU_RLAR_NSC_Msk)
-        | ((1U << SAU_RLAR_ENABLE_Pos) & SAU_RLAR_ENABLE_Msk);
-    
+    SAU->RLAR = (SAU_REGION_1_END & SAU_RLAR_LADDR_Msk) | ((0U << SAU_RLAR_NSC_Pos) & SAU_RLAR_NSC_Msk) |
+                ((1U << SAU_RLAR_ENABLE_Pos) & SAU_RLAR_ENABLE_Msk);
+
     /* Set SAU region number */
     SAU->RNR = 2;
     /* Region base address */
     SAU->RBAR = SAU_REGION_2_BASE & SAU_RBAR_BADDR_Msk;
     /* Region end address */
-    SAU->RLAR = (SAU_REGION_2_END & SAU_RLAR_LADDR_Msk)
-        | ((1U << SAU_RLAR_NSC_Pos) & SAU_RLAR_NSC_Msk)
-        | ((1U << SAU_RLAR_ENABLE_Pos) & SAU_RLAR_ENABLE_Msk);
-    
+    SAU->RLAR = (SAU_REGION_2_END & SAU_RLAR_LADDR_Msk) | ((1U << SAU_RLAR_NSC_Pos) & SAU_RLAR_NSC_Msk) |
+                ((1U << SAU_RLAR_ENABLE_Pos) & SAU_RLAR_ENABLE_Msk);
+
     /* Force memory writes before continuing */
     __DSB();
     /* Flush and refill pipeline with updated permissions */
     __ISB();
-    
+
     /* Set SAU Control register: Enable SAU and All Secure (applied only if disabled) */
-    SAU->CTRL = ((0U << SAU_CTRL_ALLNS_Pos) & SAU_CTRL_ALLNS_Msk)
-        | ((1U << SAU_CTRL_ENABLE_Pos) & SAU_CTRL_ENABLE_Msk);
-    
+    SAU->CTRL = ((0U << SAU_CTRL_ALLNS_Pos) & SAU_CTRL_ALLNS_Msk) | ((1U << SAU_CTRL_ENABLE_Pos) & SAU_CTRL_ENABLE_Msk);
+
     /* AHB configuration */
 
     /*--------------------------------------------------------------------
@@ -190,15 +184,15 @@ void BOARD_InitTrustZone()
 
     /* Security level configuration of MPC checker */
     AHB_SECURE_CTRL->SEC_CTRL_FLASH_ROM[0].SEC_CTRL_FLASH_MEM_RULE[0] = 0x00000033U;
-    AHB_SECURE_CTRL->SEC_CTRL_FLASH_ROM[0].SEC_CTRL_ROM_MEM_RULE[0] = 0;
-    AHB_SECURE_CTRL->SEC_CTRL_FLASH_ROM[0].SEC_CTRL_ROM_MEM_RULE[1] = 0;
-    AHB_SECURE_CTRL->SEC_CTRL_FLASH_ROM[0].SEC_CTRL_ROM_MEM_RULE[2] = 0;
-    AHB_SECURE_CTRL->SEC_CTRL_FLASH_ROM[0].SEC_CTRL_ROM_MEM_RULE[3] = 0;
-    AHB_SECURE_CTRL->SEC_CTRL_RAMX[0].MEM_RULE[0] = 0;
-    AHB_SECURE_CTRL->SEC_CTRL_RAM0[0].MEM_RULE[0] = 0x33333333U;
-    AHB_SECURE_CTRL->SEC_CTRL_RAM1[0].MEM_RULE[0] = 0;
-    AHB_SECURE_CTRL->SEC_CTRL_RAM2[0].MEM_RULE[0] = 0x00000003U;
-    AHB_SECURE_CTRL->SEC_CTRL_USB_HS[0].MEM_RULE[0] = 0;
+    AHB_SECURE_CTRL->SEC_CTRL_FLASH_ROM[0].SEC_CTRL_ROM_MEM_RULE[0]   = 0;
+    AHB_SECURE_CTRL->SEC_CTRL_FLASH_ROM[0].SEC_CTRL_ROM_MEM_RULE[1]   = 0;
+    AHB_SECURE_CTRL->SEC_CTRL_FLASH_ROM[0].SEC_CTRL_ROM_MEM_RULE[2]   = 0;
+    AHB_SECURE_CTRL->SEC_CTRL_FLASH_ROM[0].SEC_CTRL_ROM_MEM_RULE[3]   = 0;
+    AHB_SECURE_CTRL->SEC_CTRL_RAMX[0].MEM_RULE[0]                     = 0;
+    AHB_SECURE_CTRL->SEC_CTRL_RAM0[0].MEM_RULE[0]                     = 0x33333333U;
+    AHB_SECURE_CTRL->SEC_CTRL_RAM1[0].MEM_RULE[0]                     = 0;
+    AHB_SECURE_CTRL->SEC_CTRL_RAM2[0].MEM_RULE[0]                     = 0x00000003U;
+    AHB_SECURE_CTRL->SEC_CTRL_USB_HS[0].MEM_RULE[0]                   = 0;
 
     /* Security level configuration of PPC checker */
     AHB_SECURE_CTRL->SEC_CTRL_APB_BRIDGE[0].SEC_CTRL_APB_BRIDGE0_MEM_CTRL0 = 0xFCCCCCFFU;
@@ -208,15 +202,15 @@ void BOARD_InitTrustZone()
     AHB_SECURE_CTRL->SEC_CTRL_APB_BRIDGE[0].SEC_CTRL_APB_BRIDGE1_MEM_CTRL1 = 0xFFCCFCCCU;
     AHB_SECURE_CTRL->SEC_CTRL_APB_BRIDGE[0].SEC_CTRL_APB_BRIDGE1_MEM_CTRL2 = 0xFFCCFFFFU;
     AHB_SECURE_CTRL->SEC_CTRL_APB_BRIDGE[0].SEC_CTRL_APB_BRIDGE1_MEM_CTRL3 = 0xFFCFCCFCU;
-    AHB_SECURE_CTRL->SEC_CTRL_AHB_PORT7_SLAVE0_RULE = 0xCFCCFCFFU;
-    AHB_SECURE_CTRL->SEC_CTRL_AHB_PORT7_SLAVE1_RULE = 0xFFFCFCCCU;
-    AHB_SECURE_CTRL->SEC_CTRL_AHB_PORT8_SLAVE0_RULE = 0xCCCCFFFFU;
-    AHB_SECURE_CTRL->SEC_CTRL_AHB_PORT8_SLAVE1_RULE = 0xCFCCFFFCU;
-    AHB_SECURE_CTRL->SEC_CTRL_AHB_PORT9[0].SLAVE0_RULE = 0xCFCCCCFCU;
-    AHB_SECURE_CTRL->SEC_CTRL_AHB_PORT9[0].SLAVE1_RULE = 0xFFFFFFCCU;
+    AHB_SECURE_CTRL->SEC_CTRL_AHB_PORT7_SLAVE0_RULE                        = 0xCFCCFCFFU;
+    AHB_SECURE_CTRL->SEC_CTRL_AHB_PORT7_SLAVE1_RULE                        = 0xFFFCFCCCU;
+    AHB_SECURE_CTRL->SEC_CTRL_AHB_PORT8_SLAVE0_RULE                        = 0xCCCCFFFFU;
+    AHB_SECURE_CTRL->SEC_CTRL_AHB_PORT8_SLAVE1_RULE                        = 0xCFCCFFFCU;
+    AHB_SECURE_CTRL->SEC_CTRL_AHB_PORT9[0].SLAVE0_RULE                     = 0xCFCCCCFCU;
+    AHB_SECURE_CTRL->SEC_CTRL_AHB_PORT9[0].SLAVE1_RULE                     = 0xFFFFFFCCU;
 
     /* Security level configuration of masters */
-    AHB_SECURE_CTRL->MASTER_SEC_LEVEL = 0x80000000U;
+    AHB_SECURE_CTRL->MASTER_SEC_LEVEL        = 0x80000000U;
     AHB_SECURE_CTRL->MASTER_SEC_ANTI_POL_REG = 0xBFFFFFFFU;
 
     /*--------------------------------------------------------------------
@@ -241,12 +235,12 @@ void BOARD_InitTrustZone()
     SCB->AIRCR = (SCB->AIRCR & 0x000009FF7U) | 0x005FA0000U;
     SCB->SCR &= 0x0FFFFFFF7U;
     SCB->SHCSR &= 0x0FFF7FFFFU;
-    SCB->NSACR = 0x00000C03U;
-    SCnSCB->CPPWR = 0;
-    AHB_SECURE_CTRL->SEC_MASK_LOCK = 0x00000AAAU;
-    AHB_SECURE_CTRL->MASTER_SEC_LEVEL = (AHB_SECURE_CTRL->MASTER_SEC_LEVEL & 0x03FFFFFFFU) | 0x080000000U;
+    SCB->NSACR                               = 0x00000C03U;
+    SCnSCB->CPPWR                            = 0;
+    AHB_SECURE_CTRL->SEC_MASK_LOCK           = 0x00000AAAU;
+    AHB_SECURE_CTRL->MASTER_SEC_LEVEL        = (AHB_SECURE_CTRL->MASTER_SEC_LEVEL & 0x03FFFFFFFU) | 0x080000000U;
     AHB_SECURE_CTRL->MASTER_SEC_ANTI_POL_REG = (AHB_SECURE_CTRL->MASTER_SEC_ANTI_POL_REG & 0x03FFFFFFFU) | 0x080000000U;
-    AHB_SECURE_CTRL->CPU0_LOCK_REG = 0x800002AAU;
-    AHB_SECURE_CTRL->MISC_CTRL_REG = (AHB_SECURE_CTRL->MISC_CTRL_REG & 0x0FFFF0003U) | 0x00000AAA4U;
-    AHB_SECURE_CTRL->MISC_CTRL_DP_REG = 0x0000AAA5U;
+    AHB_SECURE_CTRL->CPU0_LOCK_REG           = 0x800002AAU;
+    AHB_SECURE_CTRL->MISC_CTRL_REG           = (AHB_SECURE_CTRL->MISC_CTRL_REG & 0x0FFFF0003U) | 0x00000AAA4U;
+    AHB_SECURE_CTRL->MISC_CTRL_DP_REG        = 0x0000AAA5U;
 }

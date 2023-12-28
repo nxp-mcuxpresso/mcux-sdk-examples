@@ -63,9 +63,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../usb_device_descriptor.c"
 "${ProjDirPath}/../usb_device_descriptor.h"
 "${ProjDirPath}/../usb_device_config.h"
-"${ProjDirPath}/../usb_phydcd.c"
-"${ProjDirPath}/../usb_phydcd.h"
-"${ProjDirPath}/../usb_charger_detect.h"
 "${ProjDirPath}/../usb_device_hid.c"
 "${ProjDirPath}/../usb_device_hid.h"
 "${ProjDirPath}/../usb_device_ch9.c"
@@ -78,6 +75,7 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
 )
 
+set_source_files_properties("${ProjDirPath}/../usb_phydcd_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_usb_phydcd_config_header")
 set_source_files_properties("${ProjDirPath}/../usb_device_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_usb_device_ehci_config_header")
 
 include(${SdkRootDirPath}/core/devices/MIMXRT1015/all_lib_device.cmake)

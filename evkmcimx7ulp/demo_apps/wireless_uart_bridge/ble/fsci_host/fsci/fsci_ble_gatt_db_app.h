@@ -188,7 +188,7 @@ typedef enum
     gBleGattDbAppCmdRemoveServiceOpCode_c,        /*! GattDbDynamic_RemoveService command operation code */
     gBleGattDbAppCmdRemoveCharacteristicOpCode_c, /*! GattDbDynamic_RemoveCharacteristic command operation code */
 
-    gBleGattDbAppStatusOpCode_c = 0x80, /*! GATT Database (application) status operation code */
+    gBleGattDbAppStatusOpCode_c = 0x80,           /*! GATT Database (application) status operation code */
 
     gBleGattDbAppEvtFirstOpCode_c = 0x81,
     gBleGattDbAppEvtReadAttributeValueOpCode_c =

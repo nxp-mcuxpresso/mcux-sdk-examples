@@ -36,6 +36,7 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -DBOOT_HEADER_ENABLE=1 \
     -DDSP_IMAGE_COPY_TO_RAM=1 \
     -DMCUXPRESSO_SDK \
+    -DSDK_I3C_BASED_COMPONENT_USED=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8904_ENABLE \
@@ -65,6 +66,7 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -DBOOT_HEADER_ENABLE=1 \
     -DDSP_IMAGE_COPY_TO_RAM=1 \
     -DMCUXPRESSO_SDK \
+    -DSDK_I3C_BASED_COMPONENT_USED=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8904_ENABLE \
@@ -157,7 +159,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash.ld -static \
+    -T\"${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE} \
@@ -183,5 +185,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash.ld -static \
+    -T\"${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash.ld\" -static \
 ")

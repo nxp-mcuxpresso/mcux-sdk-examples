@@ -75,6 +75,8 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../incbin.S"
 "${SdkRootDirPath}/examples/mimxrt685audevk/dsp_examples/xaf_usb_demo/dsp/binary/dsp_data_debug.bin"
 "${SdkRootDirPath}/examples/mimxrt685audevk/dsp_examples/xaf_usb_demo/dsp/binary/dsp_data_release.bin"
+"${SdkRootDirPath}/examples/mimxrt685audevk/dsp_examples/xaf_usb_demo/dsp/binary/dsp_literal_debug.bin"
+"${SdkRootDirPath}/examples/mimxrt685audevk/dsp_examples/xaf_usb_demo/dsp/binary/dsp_literal_release.bin"
 "${SdkRootDirPath}/examples/mimxrt685audevk/dsp_examples/xaf_usb_demo/dsp/binary/dsp_ncache_debug.bin"
 "${SdkRootDirPath}/examples/mimxrt685audevk/dsp_examples/xaf_usb_demo/dsp/binary/dsp_ncache_release.bin"
 "${SdkRootDirPath}/examples/mimxrt685audevk/dsp_examples/xaf_usb_demo/dsp/binary/dsp_text_debug.bin"

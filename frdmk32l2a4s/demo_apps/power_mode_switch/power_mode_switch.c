@@ -23,8 +23,8 @@
  ******************************************************************************/
 #define APP_DEBUG_UART_BAUDRATE 9600 /* Debug console baud rate.           */
 
-#define LLWU_LPTMR_IDX       0U /* LLWU_M0IF */
-#define LLWU_WAKEUP_PIN_IDX  2U /* LLWU_P2  */
+#define LLWU_LPTMR_IDX       0U      /* LLWU_M0IF */
+#define LLWU_WAKEUP_PIN_IDX  2U      /* LLWU_P2  */
 #define LLWU_WAKEUP_PIN_TYPE kLLWU_ExternalPinFallingEdge
 
 #define APP_WAKEUP_BUTTON_GPIO        BOARD_SW3_GPIO

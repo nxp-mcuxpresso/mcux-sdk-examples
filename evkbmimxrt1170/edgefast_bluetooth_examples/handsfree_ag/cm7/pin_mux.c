@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 NXP
+ * Copyright 2022-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -43,6 +43,7 @@ void BOARD_InitBootPins(void) {
     BOARD_InitM2UARTPins();
     BOARD_InitM2ScoPins();
     BOARD_InitCodecPins();
+    BOARD_InitPinsM2();
 }
 
 /*

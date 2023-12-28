@@ -24,6 +24,15 @@
 #define I3C_MASTER_SLAVE_ADDR_7BIT 0x1E
 #define WAIT_TIME                  1000
 #define I3C_DATA_LENGTH            33
+#ifndef I3C_MASTER_SLAVE_ADDR_7BIT
+#define I3C_MASTER_SLAVE_ADDR_7BIT 0x1EU
+#endif
+#ifndef I3C_DATA_LENGTH
+#define I3C_DATA_LENGTH 33U
+#endif
+#ifndef EXAMPLE_I3C_HDR_SUPPORT
+#define EXAMPLE_I3C_HDR_SUPPORT 0
+#endif
 
 /*******************************************************************************
  * Prototypes
@@ -46,7 +55,7 @@ const i3c_master_transfer_callback_t masterCallback = {
 volatile bool g_masterCompletionFlag = false;
 volatile bool g_ibiWonFlag           = false;
 volatile status_t g_completionStatus = kStatus_Success;
-#define I3C_TIME_OUT_INDEX 100000000U
+static uint8_t g_ibiUserBuff[10U];
 
 /*******************************************************************************
  * Code
@@ -65,7 +74,7 @@ static void i3c_master_ibi_callback(I3C_Type *base,
             }
             else
             {
-                /* Handle ibi data*/
+                memcpy(g_ibiUserBuff, (void *)handle->ibiBuff, handle->ibiPayloadSize);
             }
             break;
 
@@ -96,8 +105,7 @@ static void i3c_master_callback(I3C_Type *base, i3c_master_handle_t *handle, sta
  */
 int main(void)
 {
-    status_t result           = kStatus_Success;
-    volatile uint32_t timeout = 0U;
+    status_t result = kStatus_Success;
     i3c_master_config_t masterConfig;
     i3c_master_transfer_t masterXfer;
 
@@ -124,11 +132,11 @@ int main(void)
     PRINTF("Master will send data :");
     for (uint32_t i = 0U; i < I3C_DATA_LENGTH - 1U; i++)
     {
-        if (i % 8 == 0)
+        if (i % 8U == 0U)
         {
             PRINTF("\r\n");
         }
-        PRINTF("0x%2x  ", g_master_txBuff[i + 1]);
+        PRINTF("0x%2x  ", g_master_txBuff[i + 1U]);
     }
     PRINTF("\r\n\r\n");
 
@@ -138,8 +146,6 @@ int main(void)
     masterConfig.baudRate_Hz.i3cOpenDrainBaud = EXAMPLE_I3C_OD_BAUDRATE;
     masterConfig.enableOpenDrainStop          = false;
     I3C_MasterInit(EXAMPLE_MASTER, &masterConfig, I3C_MASTER_CLOCK_FREQUENCY);
-
-    /* Create I3C handle. */
     I3C_MasterTransferCreateHandle(EXAMPLE_MASTER, &g_i3c_m_handle, &masterCallback, NULL);
 
     memset(&masterXfer, 0, sizeof(masterXfer));
@@ -163,21 +169,18 @@ int main(void)
     }
 
     /* Wait for transfer completed. */
-    while ((!g_ibiWonFlag) && (!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success) &&
-           (++timeout < I3C_TIME_OUT_INDEX))
+    while ((!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success))
     {
         __NOP();
     }
 
     result = g_completionStatus;
-    if ((result != kStatus_Success) || (timeout == I3C_TIME_OUT_INDEX))
+    if (result != kStatus_Success)
     {
-        PRINTF("\r\nTransfer error or timeout.\r\n");
+        PRINTF("\r\nTransfer error.\r\n");
         return -1;
     }
     g_masterCompletionFlag = false;
-
-    PRINTF("Receive sent data from slave :");
 
     /* Wait until the slave is ready for transmit, wait time depend on user's case.
        Slave devices that need some time to process received byte or are not ready yet to
@@ -204,21 +207,20 @@ int main(void)
         return result;
     }
 
-    timeout = 0U;
     /* Wait for transfer completed. */
-    while ((!g_ibiWonFlag) && (!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success) &&
-           (++timeout < I3C_TIME_OUT_INDEX))
+    while ((!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success))
     {
         __NOP();
     }
 
     result = g_completionStatus;
-    if ((result != kStatus_Success) || (timeout == I3C_TIME_OUT_INDEX))
+    if (result != kStatus_Success)
     {
         return -1;
     }
     g_masterCompletionFlag = false;
 
+    PRINTF("Receive sent data from slave :");
     for (uint32_t i = 0U; i < I3C_DATA_LENGTH - 1U; i++)
     {
         if (i % 8 == 0)
@@ -258,16 +260,14 @@ int main(void)
         return result;
     }
 
-    timeout = 0U;
     /* Wait for transfer completed. */
-    while ((!g_ibiWonFlag) && (!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success) &&
-           (++timeout < I3C_TIME_OUT_INDEX))
+    while ((!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success))
     {
         __NOP();
     }
 
     result = g_completionStatus;
-    if ((result != kStatus_Success) || (timeout == I3C_TIME_OUT_INDEX))
+    if (result != kStatus_Success)
     {
         return -1;
     }
@@ -292,10 +292,20 @@ int main(void)
             break;
         }
     }
+    if (slaveAddr == 0U)
+    {
+        return -1;
+    }
 
     PRINTF("\r\nI3C master dynamic address assignment done.\r\n");
 
-    PRINTF("\r\nStart to do I3C master transfer in I3C SDR mode.");
+#if defined(EXAMPLE_I3C_IBI_SUPPORT)
+    /* Set the I3C In-band interrupt. */
+    i3c_register_ibi_addr_t ibiRecord = {.address = {slaveAddr}, .ibiHasPayload = true};
+    I3C_MasterRegisterIBI(EXAMPLE_MASTER, &ibiRecord);
+#endif
+
+    PRINTF("\r\nStart to do I3C master transfer in I3C SDR mode.\r\n");
 
     memset(&masterXfer, 0, sizeof(masterXfer));
     masterXfer.slaveAddress = slaveAddr;
@@ -311,26 +321,33 @@ int main(void)
         return result;
     }
 
-    timeout = 0U;
     /* Wait for transfer completed. */
-    while ((!g_ibiWonFlag) && (!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success) &&
-           (++timeout < I3C_TIME_OUT_INDEX))
+    while ((!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success))
     {
         __NOP();
     }
 
     result = g_completionStatus;
-    if ((result != kStatus_Success) || (timeout == I3C_TIME_OUT_INDEX))
+    if (result != kStatus_Success)
     {
         return -1;
     }
     g_masterCompletionFlag = false;
 
+#if defined(EXAMPLE_I3C_IBI_SUPPORT)
+    /* Wait for IBI event. */
+    while (!g_ibiWonFlag)
+    {
+    }
+    g_ibiWonFlag = false;
+    g_completionStatus = kStatus_Success;
+#else
     /* Wait until the slave is ready for transmit, wait time depend on user's case.*/
     for (volatile uint32_t i = 0U; i < WAIT_TIME; i++)
     {
         __NOP();
     }
+#endif
 
     memset(g_master_rxBuff, 0, I3C_DATA_LENGTH);
     masterXfer.slaveAddress = slaveAddr;
@@ -346,20 +363,28 @@ int main(void)
         return result;
     }
 
-    timeout = 0U;
     /* Wait for transfer completed. */
-    while ((!g_ibiWonFlag) && (!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success) &&
-           (++timeout < I3C_TIME_OUT_INDEX))
+    while ((!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success))
     {
         __NOP();
     }
 
     result = g_completionStatus;
-    if ((result != kStatus_Success) || (timeout == I3C_TIME_OUT_INDEX))
+    if (result != kStatus_Success)
     {
         return -1;
     }
     g_masterCompletionFlag = false;
+
+    PRINTF("Receive sent data from slave :");
+    for (uint32_t i = 0U; i < (I3C_DATA_LENGTH - 1U); i++)
+    {
+        if (i % 8U == 0U)
+        {
+            PRINTF("\r\n");
+        }
+        PRINTF("0x%2x  ", g_master_rxBuff[i]);
+    }
 
     for (uint32_t i = 0U; i < g_master_txBuff[0]; i++)
     {
@@ -371,6 +396,100 @@ int main(void)
     }
 
     PRINTF("\r\nI3C master transfer successful in I3C SDR mode.\r\n");
+
+#if defined(EXAMPLE_I3C_HDR_SUPPORT) && (EXAMPLE_I3C_HDR_SUPPORT)
+    PRINTF("\r\nStart to do I3C master transfer in I3C HDR mode.\r\n");
+
+    /* Wait for IBI event. */
+    while (!g_ibiWonFlag)
+    {
+    }
+    g_ibiWonFlag = false;
+    g_completionStatus = kStatus_Success;
+
+    memset(&masterXfer, 0, sizeof(masterXfer));
+    masterXfer.slaveAddress = slaveAddr;
+    masterXfer.subaddress     = 0x0U; /* HDR-DDR command */
+    masterXfer.subaddressSize = 1U;
+    masterXfer.data         = g_master_txBuff;
+    masterXfer.dataSize     = I3C_DATA_LENGTH;
+    masterXfer.direction    = kI3C_Write;
+    masterXfer.busType      = kI3C_TypeI3CDdr;
+    masterXfer.flags        = kI3C_TransferDefaultFlag;
+    masterXfer.ibiResponse  = kI3C_IbiRespAckMandatory;
+    result                  = I3C_MasterTransferNonBlocking(EXAMPLE_MASTER, &g_i3c_m_handle, &masterXfer);
+    if (kStatus_Success != result)
+    {
+        return result;
+    }
+
+    /* Wait for transfer completed. */
+    while ((!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success))
+    {
+    }
+
+    result = g_completionStatus;
+    if (result != kStatus_Success)
+    {
+        return -1;
+    }
+    g_masterCompletionFlag = false;
+
+    /* Wait for IBI event. */
+    while (g_completionStatus != kStatus_I3C_IBIWon)
+    {
+    }
+    g_completionStatus = kStatus_Success;
+
+    memset(g_master_rxBuff, 0, I3C_DATA_LENGTH);
+    masterXfer.slaveAddress = slaveAddr;
+    masterXfer.subaddress     = 0x80U; /* HDR-DDR command */
+    masterXfer.subaddressSize = 1U;
+    masterXfer.data         = g_master_rxBuff;
+    masterXfer.dataSize     = I3C_DATA_LENGTH - 1U;
+    masterXfer.direction    = kI3C_Read;
+    masterXfer.busType      = kI3C_TypeI3CDdr;
+    masterXfer.flags        = kI3C_TransferDefaultFlag;
+    masterXfer.ibiResponse  = kI3C_IbiRespAckMandatory;
+    result                  = I3C_MasterTransferNonBlocking(EXAMPLE_MASTER, &g_i3c_m_handle, &masterXfer);
+    if (kStatus_Success != result)
+    {
+        return result;
+    }
+
+    /* Wait for transfer completed. */
+    while ((!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success))
+    {
+    }
+
+    result = g_completionStatus;
+    if (result != kStatus_Success)
+    {
+        return -1;
+    }
+    g_masterCompletionFlag = false;
+
+    PRINTF("Receive sent data from slave :");
+    for (uint32_t i = 0U; i < (I3C_DATA_LENGTH - 1U); i++)
+    {
+        if (i % 8U == 0U)
+        {
+            PRINTF("\r\n");
+        }
+        PRINTF("0x%2x  ", g_master_rxBuff[i]);
+    }
+
+    for (uint32_t i = 0U; i < g_master_txBuff[0]; i++)
+    {
+        if (g_master_rxBuff[i] != g_master_txBuff[i + 1])
+        {
+            PRINTF("\r\nError occurred in the transfer!\r\n");
+            return -1;
+        }
+    }
+
+    PRINTF("\r\nI3C master transfer successful in I3C HDR mode.\r\n");
+#endif
 
     while (1)
     {

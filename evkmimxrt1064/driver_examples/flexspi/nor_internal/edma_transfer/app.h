@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 NXP
+ * Copyright 2022 ~ 2023 NXP
  * All rights reserved.
  *
  *
@@ -15,13 +15,14 @@
  * Definitions
  ******************************************************************************/
 /*${macro:start}*/
-#define EXAMPLE_FLEXSPI           FLEXSPI2
-#define FLASH_SIZE                0x1000 /* 32Mb/KByte */
-#define EXAMPLE_FLEXSPI_AMBA_BASE FlexSPI2_AMBA_BASE
-#define FLASH_PAGE_SIZE           256
-#define EXAMPLE_SECTOR            10
-#define SECTOR_SIZE               0x1000 /* 4K */
-#define EXAMPLE_FLEXSPI_CLOCK     kCLOCK_FlexSpi2
+#define EXAMPLE_FLEXSPI                 FLEXSPI2
+#define FLASH_SIZE                      0x1000 /* 32Mb/KByte */
+#define EXAMPLE_FLEXSPI_AMBA_BASE       FlexSPI2_AMBA_BASE
+#define FLASH_PAGE_SIZE                 256
+#define EXAMPLE_SECTOR                  10
+#define SECTOR_SIZE                     0x1000 /* 4K */
+#define EXAMPLE_FLEXSPI_CLOCK           kCLOCK_FlexSpi2
+#define EXAMPLE_FLEXSPI_RX_SAMPLE_CLOCK kFLEXSPI_ReadSampleClkLoopbackFromDqsPad
 
 #define NOR_CMD_LUT_SEQ_IDX_READ_NORMAL        0
 #define NOR_CMD_LUT_SEQ_IDX_READ_FAST          1

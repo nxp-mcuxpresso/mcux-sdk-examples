@@ -143,7 +143,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     --defsym=XIP_IMAGE=1 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/LPC54S018J4M_spifi_flash.ld -static \
+    -T\"${ProjDirPath}/LPC54S018J4M_spifi_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -171,5 +171,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     --defsym=XIP_IMAGE=1 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/LPC54S018J4M_spifi_flash.ld -static \
+    -T\"${ProjDirPath}/LPC54S018J4M_spifi_flash.ld\" -static \
 ")

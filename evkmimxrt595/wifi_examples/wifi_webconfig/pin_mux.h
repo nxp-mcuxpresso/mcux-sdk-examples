@@ -45,17 +45,33 @@ void BOARD_InitBootPins(void);
 /*! @name PIO4_5 (coord P16), RESET_OSPI_MEM
   @{ */
 /* Routed pin properties */
-#define BOARD_INITPINS_RESET_OSPI_MEM_PERIPHERAL GPIO          /*!<@brief Peripheral name */
-#define BOARD_INITPINS_RESET_OSPI_MEM_SIGNAL PIO4              /*!<@brief Signal name */
-#define BOARD_INITPINS_RESET_OSPI_MEM_CHANNEL 5                /*!<@brief Signal channel */
+/*!
+ * @brief Peripheral name */
+#define BOARD_INITPINS_RESET_OSPI_MEM_PERIPHERAL GPIO
+/*!
+ * @brief Signal name */
+#define BOARD_INITPINS_RESET_OSPI_MEM_SIGNAL PIO4
+/*!
+ * @brief Signal channel */
+#define BOARD_INITPINS_RESET_OSPI_MEM_CHANNEL 5
 
 /* Symbols to be used with GPIO driver */
-#define BOARD_INITPINS_RESET_OSPI_MEM_GPIO GPIO                /*!<@brief GPIO peripheral base pointer */
-#define BOARD_INITPINS_RESET_OSPI_MEM_GPIO_PIN_MASK (1U << 5U) /*!<@brief GPIO pin mask */
-#define BOARD_INITPINS_RESET_OSPI_MEM_PORT 4U                  /*!<@brief PORT peripheral base pointer */
-#define BOARD_INITPINS_RESET_OSPI_MEM_PIN 5U                   /*!<@brief PORT pin number */
-#define BOARD_INITPINS_RESET_OSPI_MEM_PIN_MASK (1U << 5U)      /*!<@brief PORT pin mask */
-                                                               /* @} */
+/*!
+ * @brief GPIO peripheral base pointer */
+#define BOARD_INITPINS_RESET_OSPI_MEM_GPIO GPIO
+/*!
+ * @brief GPIO pin mask */
+#define BOARD_INITPINS_RESET_OSPI_MEM_GPIO_PIN_MASK (1U << 5U)
+/*!
+ * @brief PORT peripheral base pointer */
+#define BOARD_INITPINS_RESET_OSPI_MEM_PORT 4U
+/*!
+ * @brief PORT pin number */
+#define BOARD_INITPINS_RESET_OSPI_MEM_PIN 5U
+/*!
+ * @brief PORT pin mask */
+#define BOARD_INITPINS_RESET_OSPI_MEM_PIN_MASK (1U << 5U)
+/* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

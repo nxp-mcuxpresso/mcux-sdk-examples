@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2021 NXP
+ * Copyright 2016-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -10,8 +10,8 @@
 #include "clock_config.h"
 #include "board.h"
 #include "erpc_server_setup.h"
-#include "erpc_matrix_multiply_server.h"
-#include "erpc_matrix_multiply.h"
+#include "c_erpc_matrix_multiply_server.h"
+#include "erpc_matrix_multiply_common.h"
 #include "erpc_error_handler.h"
 
 #include "fsl_device_registers.h"

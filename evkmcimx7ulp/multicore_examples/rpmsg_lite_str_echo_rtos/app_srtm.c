@@ -587,10 +587,10 @@ static srtm_status_t APP_IO_ConfInput(uint8_t inputIdx, srtm_io_event_t event, b
 
     assert(gpioIdx < 2U || gpioIdx == 0xFFU); /* We only support GPIOA and GPIOB, or the special SNVS power IO */
     assert(pinIdx < 32U || gpioIdx == 0xFFU);
-    assert(llwuIdx <= ARRAY_SIZE(llwuPins)); /* When llwuIdx == ARRAY_SIZE(llwuPins),
-                                                it means there's no LLWU pin for ioId. */
+    assert(llwuIdx <= ARRAY_SIZE(llwuPins));  /* When llwuIdx == ARRAY_SIZE(llwuPins),
+                                                 it means there's no LLWU pin for ioId. */
 
-    if (gpioIdx == 0xFFU) /* SNVS button */
+    if (gpioIdx == 0xFFU)                     /* SNVS button */
     {
         if (wakeup && event != SRTM_IoEventNone)
         {
@@ -1790,15 +1790,15 @@ static void APP_SRTM_InitAudioService(void)
     SAI_GetClassicI2SConfig(&saiTxConfig.config, kSAI_WordWidth16bits, kSAI_Stereo, kSAI_Channel0Mask);
     saiTxConfig.config.syncMode = kSAI_ModeAsync; /* Tx in async mode */
     saiTxConfig.mclk            = CLOCK_GetIpFreq(kCLOCK_Sai0);
-    saiTxConfig.stopOnSuspend   = true;       /* Audio data is in DRAM which is not accessable in A7 suspend. */
-    saiTxConfig.threshold       = UINT32_MAX; /* Every period transmitted triggers periodDone message to A7. */
+    saiTxConfig.stopOnSuspend   = true;           /* Audio data is in DRAM which is not accessable in A7 suspend. */
+    saiTxConfig.threshold       = UINT32_MAX;     /* Every period transmitted triggers periodDone message to A7. */
     saiTxConfig.dmaChannel      = APP_SAI_TX_DMA_CHANNEL;
 
     SAI_GetClassicI2SConfig(&saiRxConfig.config, kSAI_WordWidth16bits, kSAI_Stereo, kSAI_Channel0Mask);
     saiRxConfig.config.syncMode = kSAI_ModeSync; /* Rx in sync mode */
     saiRxConfig.mclk            = saiTxConfig.mclk;
-    saiRxConfig.stopOnSuspend   = true;       /* Audio data is in DRAM which is not accessable in A7 suspend. */
-    saiRxConfig.threshold       = UINT32_MAX; /* Every period received triggers periodDone message to A7. */
+    saiRxConfig.stopOnSuspend   = true;          /* Audio data is in DRAM which is not accessable in A7 suspend. */
+    saiRxConfig.threshold       = UINT32_MAX;    /* Every period received triggers periodDone message to A7. */
     saiRxConfig.dmaChannel      = APP_SAI_RX_DMA_CHANNEL;
 
     saiAdapter = SRTM_SaiEdmaAdapter_Create(I2S0, DMA0, &saiTxConfig, &saiRxConfig);

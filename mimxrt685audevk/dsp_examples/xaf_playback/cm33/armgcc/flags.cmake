@@ -47,7 +47,6 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -DXA_VORBIS_DECODER=1 \
     -DXA_PCM_GAIN=1 \
     -DXA_SRC_PP_FX=1 \
-    -DXA_CLIENT_PROXY=1 \
     -DXA_RENDERER=1 \
     -DDSP_IMAGE_COPY_TO_RAM=1 \
     -DMCUXPRESSO_SDK \
@@ -91,7 +90,6 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -DXA_VORBIS_DECODER=1 \
     -DXA_PCM_GAIN=1 \
     -DXA_SRC_PP_FX=1 \
-    -DXA_CLIENT_PROXY=1 \
     -DXA_RENDERER=1 \
     -DDSP_IMAGE_COPY_TO_RAM=1 \
     -DMCUXPRESSO_SDK \
@@ -187,7 +185,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash.ld -static \
+    -T\"${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE} \
@@ -213,5 +211,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash.ld -static \
+    -T\"${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash.ld\" -static \
 ")

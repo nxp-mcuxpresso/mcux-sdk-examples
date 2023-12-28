@@ -138,7 +138,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/LPC55S06_flash_ns.ld -static \
+    -T\"${ProjDirPath}/LPC55S06_flash_ns.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_DEBUG} \
@@ -165,5 +165,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/LPC55S06_flash_ns.ld -static \
+    -T\"${ProjDirPath}/LPC55S06_flash_ns.ld\" -static \
 ")

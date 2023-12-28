@@ -29,8 +29,8 @@ void BOARD_InitDebugConsoleSWO(uint32_t port, uint32_t baudrate);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-volatile bool g_userPress = false;
-volatile bool g_timeOut = false;
+volatile bool g_userPress          = false;
+volatile bool g_timeOut            = false;
 volatile uint32_t g_systickCounter = 1000U;
 /*******************************************************************************
  * Code
@@ -76,16 +76,16 @@ void BOARD_InitDebugConsoleSWO(uint32_t port, uint32_t baudrate)
     DbgConsole_Init(port, baudrate, kSerialPort_Swo, clkSrcFreq);
 }
 
- void SysTick_Handler(void)
+void SysTick_Handler(void)
 {
     if (g_systickCounter != 0U)
     {
         g_systickCounter--;
     }
-    else 
+    else
     {
         g_systickCounter = 1000U;
-        g_timeOut = true;
+        g_timeOut        = true;
     }
 }
 

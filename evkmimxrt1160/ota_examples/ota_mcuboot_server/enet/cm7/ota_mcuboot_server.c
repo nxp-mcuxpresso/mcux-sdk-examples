@@ -114,7 +114,7 @@ void BOARD_InitModuleClock(void)
     clock_root_config_t rootCfg = {.mux = 4, .div = 10}; /* Generate 50M root clock. */
     CLOCK_SetRootClock(kCLOCK_Root_Enet1, &rootCfg);
 #else
-    clock_root_config_t rootCfg = {.mux = 4, .div = 4}; /* Generate 125M root clock. */
+    clock_root_config_t rootCfg = {.mux = 4, .div = 4};       /* Generate 125M root clock. */
     CLOCK_SetRootClock(kCLOCK_Root_Enet2, &rootCfg);
 #endif
 }
@@ -227,17 +227,23 @@ static int ssi_ota_image_info(HTTPSRV_SSI_PARAM_STRUCT *param)
 
         for (int slot = 0; slot < 2; slot++)
         {
-            int faid                = image * 2 + slot;
-            struct flash_area *fa   = &boot_flash_map[faid];
-            uint32_t slotaddr       = fa->fa_off + BOOT_FLASH_BASE;
-            struct image_header *ih = (void *)slotaddr;
+            int faid              = image * 2 + slot;
+            struct flash_area *fa = &boot_flash_map[faid];
+            static struct image_header ih;
             char versionstr[40];
+            int slotused;
 
-            int slotused = ih->ih_magic == IMAGE_MAGIC;
+            status = mflash_drv_read(fa->fa_off, (uint32_t *)&ih, sizeof(ih));
+            if (status != kStatus_Success)
+            {
+                PRINTF("Failed to read image header/n");
+                return 0;
+            }
+            slotused = ih.ih_magic == IMAGE_MAGIC;
 
             if (slotused)
             {
-                struct image_version *iv = &ih->ih_ver;
+                struct image_version *iv = &ih.ih_ver;
                 snprintf(versionstr, sizeof(versionstr), "%u.%u.%u-%lu", iv->iv_major, iv->iv_minor, iv->iv_revision,
                          iv->iv_build_num);
             }
@@ -248,7 +254,7 @@ static int ssi_ota_image_info(HTTPSRV_SSI_PARAM_STRUCT *param)
             /* slot; name; version; size */
 
             snprintf(buf, sizeof(buf), "<td>%d</td><td>%s</td><td>%s</td><td>%lu</td>", faid, fa->fa_name,
-                     slotused ? versionstr : "-", slotused ? ih->ih_img_size : 0);
+                     slotused ? versionstr : "-", slotused ? ih.ih_img_size : 0);
             HTTPSRV_ssi_write(param->ses_handle, buf, strlen(buf));
 
             /* Primary slots only */
@@ -774,7 +780,7 @@ static void http_server_socket_init(void)
     httpsrv_handle = HTTPSRV_init(&params);
     if (httpsrv_handle == 0)
     {
-        LWIP_PLATFORM_DIAG(("HTTPSRV_init() is Failed"));
+        PRINTF(("HTTPSRV_init() is Failed\n"));
     }
 }
 
@@ -836,11 +842,7 @@ int main(void)
 
 #if BOARD_NETWORK_USE_100M_ENET_PORT
     BOARD_InitEnetPins();
-    GPIO_PinInit(GPIO9, 11, &gpio_config);
     GPIO_PinInit(GPIO12, 12, &gpio_config);
-    /* Pull up the ENET_INT before RESET. */
-    GPIO_WritePinOutput(GPIO9, 11, 1);
-    GPIO_WritePinOutput(GPIO12, 12, 0);
     SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
     GPIO_WritePinOutput(GPIO12, 12, 1);
     SDK_DelayAtLeastUs(6, CLOCK_GetFreq(kCLOCK_CpuClk));
@@ -849,7 +851,6 @@ int main(void)
     GPIO_PinInit(GPIO11, 14, &gpio_config);
     /* For a complete PHY reset of RTL8211FDI-CG, this pin must be asserted low for at least 10ms. And
      * wait for a further 30ms(for internal circuits settling time) before accessing the PHY register */
-    GPIO_WritePinOutput(GPIO11, 14, 0);
     SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
     GPIO_WritePinOutput(GPIO11, 14, 1);
     SDK_DelayAtLeastUs(30000, CLOCK_GetFreq(kCLOCK_CpuClk));

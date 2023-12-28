@@ -37,7 +37,7 @@
 #endif
 
 #ifndef WIFI_AP_IP_ADDR
-#define WIFI_AP_IP_ADDR  "192.168.1.1"
+#define WIFI_AP_IP_ADDR "192.168.1.1"
 #endif
 #ifndef WIFI_AP_NET_MASK
 #define WIFI_AP_NET_MASK "255.255.0.0" /* IP address configuration. */

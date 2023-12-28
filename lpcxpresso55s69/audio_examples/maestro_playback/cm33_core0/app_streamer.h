@@ -11,8 +11,9 @@
 /* streamer library includes. */
 #include "streamer_api.h"
 #include "streamer_element_properties.h"
-#include "eap_att.h"
 #include "ringbuffer.h"
+
+#include "app_data.h"
 
 /*******************************************************************************
  * Definitions
@@ -144,7 +145,14 @@ int STREAMER_Write(uint8_t *data, uint32_t size);
  */
 int STREAMER_Read(uint8_t *data, uint32_t size);
 
-eap_att_code_t set_volume(int volume);
+app_error_code_t play();
+app_error_code_t pause();
+app_error_code_t resume();
+app_error_code_t volume();
+app_error_code_t seek();
+app_error_code_t stop();
+void destroy();
+void progress(int current, int total);
 
 #if defined(__cplusplus)
 }

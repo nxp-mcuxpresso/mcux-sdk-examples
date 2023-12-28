@@ -161,7 +161,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -Map=output.map \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMX8ML8xxxxx_cm7_lpa_ram.ld -static \
+    -T\"${ProjDirPath}/MIMX8ML8xxxxx_cm7_lpa_ram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -187,5 +187,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -Map=output.map \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMX8ML8xxxxx_cm7_lpa_ram.ld -static \
+    -T\"${ProjDirPath}/MIMX8ML8xxxxx_cm7_lpa_ram.ld\" -static \
 ")

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,9 +14,9 @@
 #include "fsl_gpio.h"
 #include "erpc_server_setup.h"
 #include "erpc_transport_setup.h"
-#include "erpc_dac_adc_server.h"
+#include "c_erpc_dac_adc_server.h"
 #include "erpc_error_handler.h"
-#include "erpc_dac_adc.h"
+#include "erpc_dac_adc_common.h"
 #include "string.h" //strcpy
 #ifdef BOARD_DAC_BASEADDR
 #include "fsl_dac.h"

@@ -40,7 +40,6 @@ static void MCMGR_RemoteExceptionEventHandler(uint16_t remoteData, void *context
  * Code
  ******************************************************************************/
 
-
 /*!
  * @brief Application-specific implementation of the SystemInitHook() weak function.
  */

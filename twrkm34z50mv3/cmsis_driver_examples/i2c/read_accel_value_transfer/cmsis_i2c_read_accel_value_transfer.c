@@ -21,7 +21,7 @@
  ******************************************************************************/
 #define EXAMPLE_I2C_MASTER Driver_I2C0
 #define I2C_MASTER_CLK_SRC I2C0_CLK_SRC
-//#define I2C_BAUDRATE       400000U
+// #define I2C_BAUDRATE       400000U
 
 #define I2C_RELEASE_SCL_GPIO       GPIOD
 #define I2C_RELEASE_SCL_PORT       PORTD

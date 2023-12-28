@@ -105,19 +105,19 @@ typedef struct gattServerEvent_tag
     union
     {
         gattServerMtuChangedEvent_t
-            mtuChangedEvent; /*!< For event type gEvtMtuChanged_c: the new value of the ATT_MTU. */
+            mtuChangedEvent;       /*!< For event type gEvtMtuChanged_c: the new value of the ATT_MTU. */
         gattServerAttributeWrittenEvent_t
             attributeWrittenEvent; /*!< For event types gEvtAttributeWritten_c, gEvtAttributeWrittenWithoutResponse_c:
                                       handle and value of the attempted write. */
         gattServerCccdWrittenEvent_t
-            charCccdWrittenEvent; /*!< For event type gEvtCharacteristicCccdWritten_c: handle and value of the CCCD. */
+            charCccdWrittenEvent;  /*!< For event type gEvtCharacteristicCccdWritten_c: handle and value of the CCCD. */
         gattServerProcedureError_t
             procedureError; /*!< For event type gEvtError_c: error that terminated a Server-initiated procedure. */
         gattServerLongCharacteristicWrittenEvent_t
             longCharWrittenEvent; /*!< For event type gEvtLongCharacteristicWritten_c: handle and value. */
         gattServerAttributeReadEvent_t
-            attributeReadEvent; /*!< For event types gEvtAttributeRead_c: handle of the attempted read. */
-    } eventData;                /*!< Event data : selected according to event type. */
+            attributeReadEvent;   /*!< For event types gEvtAttributeRead_c: handle of the attempted read. */
+    } eventData;                  /*!< Event data : selected according to event type. */
 } gattServerEvent_t;
 
 /*! GATT Server Callback prototype */

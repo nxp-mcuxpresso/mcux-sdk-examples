@@ -934,7 +934,7 @@ void PowerModeSwitchTask(void *pvParameters)
 
     /* Setup LPTMR. */
     LPTMR_GetDefaultConfig(&lptmrConfig);
-    lptmrConfig.prescalerClockSource = kLPTMR_PrescalerClock_1; /* Use LPO 1KHz as clock source. */
+    lptmrConfig.prescalerClockSource = kLPTMR_PrescalerClock_1;  /* Use LPO 1KHz as clock source. */
     lptmrConfig.bypassPrescaler      = false;
     lptmrConfig.value                = kLPTMR_Prescale_Glitch_3; /* Divide clock source by 16. */
     LPTMR_Init(LPTMR1, &lptmrConfig);

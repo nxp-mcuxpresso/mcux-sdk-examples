@@ -45,7 +45,7 @@ typedef struct _srtm_pmic_service
 {
     struct _srtm_service service;
     srtm_pmic_adapter_t adapter;
-} * srtm_pmic_service_t;
+} *srtm_pmic_service_t;
 
 /*******************************************************************************
  * Prototypes
@@ -117,8 +117,8 @@ static srtm_status_t SRTM_PmicService_Request(srtm_service_t service, srtm_reque
                 break;
             case SRTM_PMIC_CMD_IS_ENABLED:
                 assert(adapter->isEnabled);
-                pmicResp->status = adapter->isEnabled(adapter, pmicReq->reg) ? SRTM_PMIC_REGULATOR_STATUS_ENABLED :
-                                                                               SRTM_PMIC_REGULATOR_STATUS_DISABLED;
+                pmicResp->status  = adapter->isEnabled(adapter, pmicReq->reg) ? SRTM_PMIC_REGULATOR_STATUS_ENABLED :
+                                                                                SRTM_PMIC_REGULATOR_STATUS_DISABLED;
                 pmicResp->retCode = SRTM_PMIC_RETURN_CODE_SUCEESS;
                 break;
             case SRTM_PMIC_CMD_SET_VOLTAGE:

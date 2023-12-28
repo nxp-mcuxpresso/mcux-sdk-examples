@@ -68,7 +68,7 @@ static int ip_port_str_to_sockaddr(const char *ip_str,
         ipv6->sin6_scope_id = netif_get_index(netif_default);
 
         LOCK_TCPIP_CORE();
-        ret                 = inet_pton(af, ip_str, &ipv6->sin6_addr.s6_addr);
+        ret = inet_pton(af, ip_str, &ipv6->sin6_addr.s6_addr);
         UNLOCK_TCPIP_CORE();
 
         if (ret != 1)
@@ -77,6 +77,7 @@ static int ip_port_str_to_sockaddr(const char *ip_str,
             return -1;
         }
 
+#if LWIP_IPV6_SCOPES == 1
         /* IPv6 string can contain scope id, check if any netif matches */
         ip6_addr_t addr;
         LOCK_TCPIP_CORE();
@@ -86,6 +87,7 @@ static int ip_port_str_to_sockaddr(const char *ip_str,
         {
             ipv6->sin6_scope_id = addr.zone;
         }
+#endif
     }
 
     return af;
@@ -111,7 +113,7 @@ static void echo_udp(int sck)
 
     struct sockaddr_storage sender_addr;
     socklen_t sender_addr_len = sizeof(sender_addr);
-    
+
     PRINTF("Use end command to return...");
     shell_task_set_mode("ECHO_UDP>> ");
 
@@ -123,8 +125,7 @@ static void echo_udp(int sck)
 
     while (1)
     {
-        ssize_t bytes =
-            recvfrom(sck, &buf, sizeof(buf), 0, (struct sockaddr *)&sender_addr, &sender_addr_len);
+        ssize_t bytes = recvfrom(sck, &buf, sizeof(buf), 0, (struct sockaddr *)&sender_addr, &sender_addr_len);
 
         if (bytes > 0)
         {
@@ -240,11 +241,10 @@ static void tcp_connect_thread(void *arg)
 static void tcp_server_thread(void *arg)
 {
     int sck = *((int *)arg);
-    
+
     echo_loop_tcp(sck);
-    
+
     finish_thread(sck);
-    
 }
 
 static void tcp_listen_thread(void *arg)
@@ -272,7 +272,7 @@ static void tcp_listen_thread(void *arg)
         listen(sockinfo->sck, 0); // zero to use the smallest connection backlog possible (see tcp_backlog_set)
         fcntl(sockinfo->sck, F_SETFL, O_NONBLOCK);
 
-        run = 1;
+        run                  = 1;
         int accepted_sck_cnt = 0;
         while (run)
         {
@@ -291,11 +291,11 @@ static void tcp_listen_thread(void *arg)
             else
             {
                 PRINTF("\r\nAccepted connection\r\n");
-                
+
                 // Create thread that serves this connection
-                sys_thread_t thread = sys_thread_new("tcp_server_thread", tcp_server_thread, 
-                                                     (void *)&(sockinfo->sck_accepted[accepted_sck_cnt]), 
-                                                     1024, DEFAULT_THREAD_PRIO);
+                sys_thread_t thread =
+                    sys_thread_new("tcp_server_thread", tcp_server_thread,
+                                   (void *)&(sockinfo->sck_accepted[accepted_sck_cnt]), 1024, DEFAULT_THREAD_PRIO);
 
                 if (thread == NULL)
                 {
@@ -303,7 +303,7 @@ static void tcp_listen_thread(void *arg)
                     close(sockinfo->sck_accepted[accepted_sck_cnt]);
                     sockinfo->sck_accepted[accepted_sck_cnt] = -1;
                 }
-                else 
+                else
                 {
                     accepted_sck_cnt += 1;
                 }
@@ -344,7 +344,6 @@ static void udp_thread(void *arg)
 
 int socket_task_init(int is_tcp, const char *ip_str, const char *port_str)
 {
-
     example_sockinfo_t *sockinfo = &s_sockinfo;
     void (*thread_func_ptr)(void *);
 
@@ -382,7 +381,7 @@ int socket_task_init(int is_tcp, const char *ip_str, const char *port_str)
     {
         thread_func_ptr = (void (*)(void *))udp_thread;
     }
-    
+
     run = 1;
 
     sys_thread_t thread = sys_thread_new("socket_thread", thread_func_ptr, (void *)sockinfo, 1024, DEFAULT_THREAD_PRIO);
@@ -405,7 +404,8 @@ void socket_task_terminate(void)
 
 void socket_task_print_ips(void)
 {
-    for (struct netif *netif_ = netif_list; netif_ != NULL; netif_ = netif_->next)
+    struct netif *netif_;
+    NETIF_FOREACH(netif_)
     {
         PRINTF("************************************************\r\n");
         PRINTF(" Interface name   : %s%d\r\n", netif_->name, netif_->num);

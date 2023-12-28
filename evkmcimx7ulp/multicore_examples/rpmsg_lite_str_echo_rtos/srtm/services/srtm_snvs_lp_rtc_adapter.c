@@ -18,7 +18,7 @@ typedef struct _srtm_snvs_lp_rtc_adapter
 {
     struct _srtm_rtc_adapter adapter;
     SNVS_Type *base;
-} * srtm_snvs_lp_rtc_adapter_t;
+} *srtm_snvs_lp_rtc_adapter_t;
 
 /*******************************************************************************
  * Prototypes

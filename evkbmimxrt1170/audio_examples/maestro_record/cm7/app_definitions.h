@@ -51,10 +51,11 @@
 /* Clock divider for sai1 clock source */
 #define DEMO_SAI1_CLOCK_SOURCE_DIVIDER (63U)
 
-#define DEMO_CHANNEL_NUM   2
-#define DEMO_CODEC_CHANNEL kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight
-
-#define BOARD_MASTER_CLOCK_CONFIG()
+#define DEMO_MIC_CHANNEL_NUM 2
+#define DEMO_MIC_SAMPLE_SIZE 32
+#define DEMO_MIC_SAMPLE_RATE 16000
+#define DEMO_MIC_FRAME_SIZE  30
+#define DEMO_CODEC_CHANNEL   kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight
 
 #define DEMO_VOLUME (60)
 /*${macro:end}*/

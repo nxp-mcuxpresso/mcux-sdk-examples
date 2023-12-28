@@ -16,11 +16,11 @@
 #include "board.h"
 #include "fsl_i2c.h"
 #include "fsl_i2s.h"
-#include "fsl_wm8904.h"
 #include "music.h"
 #include "fsl_codec_common.h"
 #include <stdbool.h>
 #include "fsl_sysctl.h"
+#include "fsl_wm8904.h"
 #include "fsl_codec_adapter.h"
 #include "fsl_power.h"
 /*******************************************************************************
@@ -35,7 +35,9 @@
 #define DEMO_AUDIO_BIT_WIDTH            (16)
 #define DEMO_AUDIO_SAMPLE_RATE          (48000)
 #define DEMO_AUDIO_PROTOCOL             kCODEC_BusI2S
-
+#ifndef DEMO_CODEC_VOLUME
+#define DEMO_CODEC_VOLUME 30U
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -70,6 +72,53 @@ codec_handle_t codecHandle;
 /*******************************************************************************
  * Code
  ******************************************************************************/
+static void i2c_release_bus_delay(void)
+{
+    uint32_t i = 0;
+    for (i = 0; i < 100; i++)
+    {
+        __NOP();
+    }
+}
+
+void BOARD_I2C_ReleaseBus(void)
+{
+    uint8_t i = 0;
+
+    GPIO_PortInit(GPIO, 1);
+    BOARD_InitI2CPinsAsGPIO();
+
+    /* Drive SDA low first to simulate a start */
+    GPIO_PinWrite(GPIO, 1, 21, 0U);
+    i2c_release_bus_delay();
+
+    /* Send 9 pulses on SCL */
+    for (i = 0; i < 9; i++)
+    {
+        GPIO_PinWrite(GPIO, 1, 30, 0U);
+        i2c_release_bus_delay();
+
+        GPIO_PinWrite(GPIO, 1, 21, 1U);
+        i2c_release_bus_delay();
+
+        GPIO_PinWrite(GPIO, 1, 30, 1U);
+        i2c_release_bus_delay();
+        i2c_release_bus_delay();
+    }
+
+    /* Send stop */
+    GPIO_PinWrite(GPIO, 1, 30, 0U);
+    i2c_release_bus_delay();
+
+    GPIO_PinWrite(GPIO, 1, 21, 0U);
+    i2c_release_bus_delay();
+
+    GPIO_PinWrite(GPIO, 1, 30, 1U);
+    i2c_release_bus_delay();
+
+    GPIO_PinWrite(GPIO, 1, 21, 1U);
+    i2c_release_bus_delay();
+}
 
 void APP_InitDebugConsole(void)
 {
@@ -157,8 +206,10 @@ int main(void)
     BOARD_InitPins();
     BOARD_BootClockFROHF96M();
     APP_InitDebugConsole();
+    BOARD_I2C_ReleaseBus();
+    BOARD_InitI2CPins();
 
-    PRINTF("Configure WM8904 codec\r\n");
+    PRINTF("Configure codec\r\n");
 
     /* protocol: i2s
      * sampleRate: 48K
@@ -166,15 +217,15 @@ int main(void)
      */
     if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
     {
-        PRINTF("WM8904_Init failed!\r\n");
+        PRINTF("codec_Init failed!\r\n");
         assert(false);
     }
 
     /* Initial volume kept low for hearing safety.
      * Adjust it to your needs, 0-100, 0 for mute, 100 for maximum volume.
      */
-    if (CODEC_SetVolume(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight, 30U) !=
-        kStatus_Success)
+    if (CODEC_SetVolume(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight,
+                        DEMO_CODEC_VOLUME) != kStatus_Success)
     {
         assert(false);
     }

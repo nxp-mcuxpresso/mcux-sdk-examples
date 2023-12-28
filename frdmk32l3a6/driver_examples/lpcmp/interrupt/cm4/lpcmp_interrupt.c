@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
+ * Copyright 2016-2023 NXP
  * All rights reserved.
  *
  *
@@ -60,6 +61,7 @@ int main(void)
      *   k_LpcmpConfigStruct->enableInvertOutput  = false;
      *   k_LpcmpConfigStruct->hysteresisMode      = kLPCMP_HysteresisLevel0;
      *   k_LpcmpConfigStruct->powerMode           = kLPCMP_LowSpeedPowerMode;
+     *   k_LpcmpConfigStruct->functionalSourceClock = kLPCMP_FunctionalClockSource0;
      */
     LPCMP_GetDefaultConfig(&mLpcmpConfigStruct);
     /* Init the LPCMP module. */
@@ -80,7 +82,7 @@ int main(void)
 
     /* Enable the interrupt. */
     EnableIRQ(DEMO_LPCMP_IRQ_ID);
-    LPCMP_EnableInterrupts(DEMO_LPCMP_BASE, kLPCMP_OutputRisingEventFlag | kLPCMP_OutputFallingEventFlag);
+    LPCMP_EnableInterrupts(DEMO_LPCMP_BASE, kLPCMP_OutputRisingInterruptEnable | kLPCMP_OutputFallingInterruptEnable);
 
     while (1)
     {

@@ -220,8 +220,8 @@ static void APP_SRTM_InitAudioService(void)
         saiTxConfig.mclkConfig.mclkSourceClkHz;     /* Set the output mclk equal to its source clk by default */
     saiTxConfig.mclkConfig.mclkOutputEnable = true; /* Enable the MCLK output */
 
-    saiTxConfig.stopOnSuspend = false; /* Keep playing audio on A53 suspend. */
-    saiTxConfig.threshold     = 1U;    /* Under the threshold value would trigger periodDone message to A53 */
+    saiTxConfig.stopOnSuspend = false;              /* Keep playing audio on A53 suspend. */
+    saiTxConfig.threshold     = 1U; /* Under the threshold value would trigger periodDone message to A53 */
     saiTxConfig.guardTime =
         1000; /* Unit:ms. This is a lower limit that M core should reserve such time data to wakeup A core. */
     saiTxConfig.dmaChannel                = APP_SAI_TX_DMA_CHANNEL;

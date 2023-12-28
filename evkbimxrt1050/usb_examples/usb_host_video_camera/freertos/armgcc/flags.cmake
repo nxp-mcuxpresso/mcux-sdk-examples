@@ -297,7 +297,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     --defsym=__heap_size__=0x2000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1052xxxxx_flexspi_nor.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1052xxxxx_flexspi_nor.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE} \
@@ -327,7 +327,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     --defsym=__heap_size__=0x2000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1052xxxxx_flexspi_nor.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1052xxxxx_flexspi_nor.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_SDRAM_DEBUG} \
@@ -358,7 +358,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_DEBUG " \
     --defsym=__heap_size__=0x2000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1052xxxxx_sdram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1052xxxxx_sdram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_SDRAM_RELEASE} \
@@ -388,5 +388,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_RELEASE " \
     --defsym=__heap_size__=0x2000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1052xxxxx_sdram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1052xxxxx_sdram.ld\" -static \
 ")

@@ -2,7 +2,7 @@
  *
  *  @brief This file contains lwip hooks interface definitions
  *
- *  Copyright 2020 NXP
+ *  Copyright 2023 NXP
  *  All rights reserved.
  */
 #ifndef __LWIPHOOKS_H__

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 NXP
+ * Copyright 2022-2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -36,6 +36,23 @@ void BOARD_InitBootPins(void);
  *
  */
 void BOARD_InitDebugConsolePins(void);        /* Function assigned for the Cortex-M7F */
+
+/* GPIO_DISP_B2_13 (coord A5), PHY_RESET */
+/* Routed pin properties */
+#define BOARD_INITENETPINS_PHY_RESET_PERIPHERAL                           GPIO11   /*!< Peripheral name */
+#define BOARD_INITENETPINS_PHY_RESET_SIGNAL                              gpio_io   /*!< Signal name */
+#define BOARD_INITENETPINS_PHY_RESET_CHANNEL                                 14U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITENETPINS_PHY_RESET_GPIO                                 GPIO11   /*!< GPIO peripheral base pointer */
+#define BOARD_INITENETPINS_PHY_RESET_GPIO_PIN                                14U   /*!< GPIO pin number */
+#define BOARD_INITENETPINS_PHY_RESET_GPIO_PIN_MASK                   (1U << 14U)   /*!< GPIO pin mask */
+
+/* GPIO_DISP_B2_12 (coord B6), PHY_INTR */
+/* Routed pin properties */
+#define BOARD_INITENETPINS_PHY_INTR_PERIPHERAL                             GPIO5   /*!< Peripheral name */
+#define BOARD_INITENETPINS_PHY_INTR_SIGNAL                           gpio_mux_io   /*!< Signal name */
+#define BOARD_INITENETPINS_PHY_INTR_CHANNEL                                  13U   /*!< Signal channel */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

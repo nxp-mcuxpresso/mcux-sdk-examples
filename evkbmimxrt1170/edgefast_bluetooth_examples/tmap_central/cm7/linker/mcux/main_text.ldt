@@ -1,0 +1,1 @@
+*(EXCLUDE_FILE(*fsl_adapter_flexspi_nor_flash.o *fsl_flexspi.o *mflash_drv.o *libethermind_lc3_common.a *libethermind_lc3_encoder.a *libethermind_lc3_decoder.a) .text*)

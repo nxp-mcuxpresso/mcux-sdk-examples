@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2020 NXP
+ * Copyright 2016-2020,2023 NXP
  * All rights reserved.
  *
  *
@@ -19,6 +19,7 @@
 #include "lwip/ip_addr.h"
 #include "lwip/init.h"
 #include "lwip/dhcp.h"
+#include "lwip/netif.h"
 #include "lwip/prot/dhcp.h"
 #include "netif/ethernet.h"
 #include "ethernetif.h"
@@ -130,6 +131,7 @@ phy_rtl8211f_resource_t g_phy_resource;
 #endif
 
 static phy_handle_t phyHandle;
+static netif_ext_callback_t linkStatusCallbackInfo;
 
 /*******************************************************************************
  * Code
@@ -145,7 +147,7 @@ void BOARD_InitModuleClock(void)
     clock_root_config_t rootCfg = {.mux = 4, .div = 10}; /* Generate 50M root clock. */
     CLOCK_SetRootClock(kCLOCK_Root_Enet1, &rootCfg);
 #else
-    clock_root_config_t rootCfg = {.mux = 4, .div = 4}; /* Generate 125M root clock. */
+    clock_root_config_t rootCfg = {.mux = 4, .div = 4};       /* Generate 125M root clock. */
     CLOCK_SetRootClock(kCLOCK_Root_Enet2, &rootCfg);
 #endif
 }
@@ -185,6 +187,55 @@ static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
     return ENET_MDIORead(EXAMPLE_ENET, phyAddr, regAddr, pData);
 }
 
+
+/*!
+ * @brief Link status callback - prints link status events.
+ */
+static void linkStatusCallback(struct netif *netif_, netif_nsc_reason_t reason, const netif_ext_callback_args_t *args)
+{
+    if (reason != LWIP_NSC_LINK_CHANGED)
+        return;
+
+    PRINTF("[LINK STATE] netif=%d, state=%s", netif_->num, args->link_changed.state ? "up" : "down");
+
+    if (args->link_changed.state)
+    {
+        char *speedStr;
+        switch (ethernetif_get_link_speed(netif_))
+        {
+            case kPHY_Speed10M:
+                speedStr = "10M";
+                break;
+            case kPHY_Speed100M:
+                speedStr = "100M";
+                break;
+            case kPHY_Speed1000M:
+                speedStr = "1000M";
+                break;
+            default:
+                speedStr = "N/A";
+                break;
+        }
+
+        char *duplexStr;
+        switch (ethernetif_get_link_duplex(netif_))
+        {
+            case kPHY_HalfDuplex:
+                duplexStr = "half";
+                break;
+            case kPHY_FullDuplex:
+                duplexStr = "full";
+                break;
+            default:
+                duplexStr = "N/A";
+                break;
+        }
+
+        PRINTF(", speed=%s_%s", speedStr, duplexStr);
+    }
+
+    PRINTF("\r\n");
+}
 
 /*!
  * @brief Interrupt service for SysTick timer.
@@ -323,6 +374,8 @@ int main(void)
     enet_config.srcClockHz = EXAMPLE_CLOCK_FREQ;
 
     lwip_init();
+
+    netif_add_ext_callback(&linkStatusCallbackInfo, linkStatusCallback);
 
     netif_add(&netif, NULL, NULL, NULL, &enet_config, EXAMPLE_NETIF_INIT_FN, ethernet_input);
     netif_set_default(&netif);

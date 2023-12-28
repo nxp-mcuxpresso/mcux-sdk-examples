@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2020 NXP
+ * Copyright 2018-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -12,8 +12,9 @@
 #include "erpc_arbitrated_client_setup.h"
 #include "erpc_server_setup.h"
 #include "erpc_error_handler.h"
-#include "erpc_two_way_rpc_Core0Interface.h"
-#include "erpc_two_way_rpc_Core1Interface_server.h"
+#include "erpc_two_way_rpc_Core0Interface_common.h"
+#include "c_erpc_two_way_rpc_Core1Interface_server.h"
+#include "c_erpc_two_way_rpc_Core0Interface_client.h"
 #include "fsl_debug_console.h"
 #include "FreeRTOS.h"
 #include "task.h"
@@ -61,7 +62,7 @@ static getNumberCallback_t s_getNumberCallbackPtr = NULL;
 static erpc_server_t s_server                     = NULL;
 static erpc_client_t s_client                     = NULL;
 extern bool g_erpc_error_occurred;
-static uint32_t s_number                    = 0U;
+static volatile uint32_t s_number           = 0U;
 static volatile uint16_t eRPCReadyEventData = 0U;
 
 /*******************************************************************************
@@ -119,24 +120,10 @@ void increaseNumber(uint32_t *number)
     s_number = *number;
 }
 
-/* Implementation of RPC function getGetCallbackFunction. */
-void getGetCallbackFunction(getNumberCallback_t *getNumberCallbackParam)
-{
-    *getNumberCallbackParam = s_getNumberCallbackPtr;
-}
-
-/* Implementation of RPC function getNumberFromCore0. */
-void getNumberFromCore0(uint32_t *number)
-{
-    *number = s_number;
-    (void)PRINTF("getNumberFromCore0 function call: Actual number is %d\r\n", *number);
-}
-
 static void client_task(void *param)
 {
-    int32_t core = 0;
     uint32_t number;
-    (void)PRINTF("\r\nPrimary core started\r\n");
+    (void)PRINTF("\r\nPrimary core started\r\n\n");
 
 #ifdef CORE1_IMAGE_COPY_TO_RAM
     /* This section ensures the secondary core image is copied from flash location to the target RAM memory.
@@ -181,6 +168,7 @@ static void client_task(void *param)
 
     /* eRPC client side initialization */
     s_client = erpc_arbitrated_client_init(transport, message_buffer_factory, &s_transportArbitrator);
+    initCore0Interface_client(s_client);
 
     /* Set default error handler */
     erpc_arbitrated_client_set_error_handler(s_client, erpc_error_handler);
@@ -199,52 +187,24 @@ static void client_task(void *param)
        To be sure that second core server is ready before rpc call. */
     vTaskDelay(500);
 
+    /* RPC call to set callback function on the core1 side. */
+    setGetNumberFunction(s_getNumberCallbackPtr);
+
+    s_getNumberCallbackPtr = NULL;
+
+    /* RPC call to get callback function from second side. */
+    getGetNumberFunction(&s_getNumberCallbackPtr);
+    erpc_assert(s_getNumberCallbackPtr == &getNumberFromCore1);
+
     while (g_erpc_error_occurred == false)
     {
-        /* RPC call to set callback function to second side. */
-        setGetNumberFunction(s_getNumberCallbackPtr);
-
-        /* Not necessary to set NULL. It is only for example purposes. */
-        s_getNumberCallbackPtr = NULL;
-
-        /* RPC call to get callback function from second side. */
-        getGetNumberFunction(&s_getNumberCallbackPtr);
-
-        /* Compare received address. */
-        if (s_getNumberCallbackPtr == &getNumberFromCore1)
-        {
-            core = 1;
-        }
-        else
-        {
-            core = 0;
-        }
-
-        (void)PRINTF("Get number from core%d:\r\n", core);
+        (void)PRINTF("Get number from core1:\r\n");
         s_getNumberCallbackPtr(&number);
         (void)PRINTF("Got number: %d\r\n", number);
 
-        (void)PRINTF("Start ");
-        if (core == 0)
-        {
-            (void)PRINTF("nested");
-        }
-        else
-        {
-            (void)PRINTF("normal");
-        }
-        (void)PRINTF(" rpc call example.\r\n");
+        (void)PRINTF("Start normal rpc call example.\r\n");
         nestedCallGetNumber(s_getNumberCallbackPtr);
         (void)PRINTF("RPC call example finished.\r\n\n\n");
-
-        if (s_getNumberCallbackPtr == &getNumberFromCore1)
-        {
-            s_getNumberCallbackPtr = &getNumberFromCore0;
-        }
-        else
-        {
-            s_getNumberCallbackPtr = &getNumberFromCore1;
-        }
 
         vTaskDelay(700);
     }

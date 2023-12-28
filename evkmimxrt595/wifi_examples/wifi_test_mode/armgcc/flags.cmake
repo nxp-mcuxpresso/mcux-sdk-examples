@@ -173,7 +173,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     --defsym=__heap_size__=0x400 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT595Sxxxx_cm33_flash.ld -static \
+    -T\"${ProjDirPath}/MIMXRT595Sxxxx_cm33_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE} \
@@ -203,5 +203,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     --defsym=__heap_size__=0x400 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT595Sxxxx_cm33_flash.ld -static \
+    -T\"${ProjDirPath}/MIMXRT595Sxxxx_cm33_flash.ld\" -static \
 ")

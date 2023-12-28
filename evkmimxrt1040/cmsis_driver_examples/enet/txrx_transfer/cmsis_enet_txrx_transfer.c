@@ -152,8 +152,6 @@ int main(void)
     ARM_ETH_LINK_INFO linkInfo;
 
     /* Hardware Initialization. */
-    gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
-
     BOARD_ConfigMPU();
     BOARD_InitPins();
     BOARD_BootClockRUN();
@@ -162,11 +160,8 @@ int main(void)
 
     IOMUXC_EnableMode(IOMUXC_GPR, kIOMUXC_GPR_ENET1TxClkOutputDir, true);
 
-    /* Reset PHY. */
-    GPIO_PinInit(GPIO1, 9, &gpio_config);
-    GPIO_WritePinOutput(GPIO1, 9, 0);
-    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
-    GPIO_WritePinOutput(GPIO1, 9, 1);
+    /* PHY hardware reset. */
+    BOARD_ENET_PHY_RESET;
 
     g_phy_resource.read  = MDIO_Read;
     g_phy_resource.write = MDIO_Write;

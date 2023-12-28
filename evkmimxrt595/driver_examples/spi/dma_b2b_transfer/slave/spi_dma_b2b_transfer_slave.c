@@ -174,6 +174,7 @@ static void EXAMPLE_SlaveStartDMATransfer(void)
     slaveXfer.txData   = (uint8_t *)&slaveTxData;
     slaveXfer.rxData   = (uint8_t *)&slaveRxData;
     slaveXfer.dataSize = TRANSFER_SIZE * sizeof(slaveTxData[0]);
+    slaveXfer.configFlags = kSPI_FrameAssert;
 
     /* Start transfer, when transmission complete, the SPI_SlaveUserCallback will be called. */
     if (kStatus_Success != SPI_SlaveTransferDMA(EXAMPLE_SPI_SLAVE, &slaveHandle, &slaveXfer))

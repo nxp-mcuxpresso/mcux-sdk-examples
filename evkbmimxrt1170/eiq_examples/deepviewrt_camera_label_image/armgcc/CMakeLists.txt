@@ -56,33 +56,54 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../demo_config.h"
 "${ProjDirPath}/../image_data.h"
 "${ProjDirPath}/../startup/demo_config.h"
-"${SdkRootDirPath}/middleware/eiq/common/image/image_draw.c"
-"${SdkRootDirPath}/middleware/eiq/common/image/image_capture.c"
-"${SdkRootDirPath}/middleware/eiq/common/image/image_resize_nearest.c"
-"${SdkRootDirPath}/middleware/eiq/common/image/image_decode_raw.c"
-"${SdkRootDirPath}/middleware/eiq/common/image/image_utils.h"
-"${SdkRootDirPath}/middleware/eiq/common/image/image.h"
-"${SdkRootDirPath}/middleware/eiq/common/image/image_conv_rotate.c"
+"${ProjDirPath}/../source/image/image_draw.c"
+"${ProjDirPath}/../source/image/image_capture.c"
+"${ProjDirPath}/../source/image/image_resize_nearest.c"
+"${ProjDirPath}/../source/image/image_decode_raw.c"
+"${ProjDirPath}/../source/image/image_utils.h"
+"${ProjDirPath}/../source/image/image.h"
+"${ProjDirPath}/../source/image/image_conv_rotate.c"
 "${ProjDirPath}/../source/models/mobilenet_v1_0.25_160.rtm"
+"${ProjDirPath}/../source/video/eiq_camera_conf.c"
+"${ProjDirPath}/../source/video/eiq_display_conf.c"
+"${ProjDirPath}/../source/video/eiq_camera.h"
+"${ProjDirPath}/../source/video/eiq_camera_conf.h"
+"${ProjDirPath}/../source/video/eiq_display.h"
+"${ProjDirPath}/../source/video/eiq_display_conf.h"
+"${ProjDirPath}/../source/video/eiq_pxp.h"
+"${ProjDirPath}/../source/video/eiq_video_worker.h"
+"${ProjDirPath}/../source/video/eiq_camera.c"
+"${ProjDirPath}/../source/video/eiq_display.c"
+"${ProjDirPath}/../source/video/eiq_pxp.c"
+"${ProjDirPath}/../source/video/eiq_video_worker.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
-"${SdkRootDirPath}/middleware/eiq/common/timer.h"
-"${SdkRootDirPath}/middleware/eiq/common/timer.c"
+"${ProjDirPath}/../source/common/eiq_common.h"
+"${ProjDirPath}/../source/common/eiq_iui.h"
+"${ProjDirPath}/../source/common/eiq_iworker.h"
+"${ProjDirPath}/../source/gprintf/chgui.h"
+"${ProjDirPath}/../source/gprintf/font.h"
+"${ProjDirPath}/../source/gprintf/chgui.c"
+"${ProjDirPath}/../source/timer.h"
+"${ProjDirPath}/../source/timer.c"
 "${ProjDirPath}/../board_init.c"
 "${ProjDirPath}/../board_init.h"
 "${ProjDirPath}/../board.c"
 "${ProjDirPath}/../board.h"
-"${ProjDirPath}/../clock_config.c"
-"${ProjDirPath}/../clock_config.h"
 "${ProjDirPath}/../dcd.c"
 "${ProjDirPath}/../dcd.h"
+"${ProjDirPath}/../clock_config.c"
+"${ProjDirPath}/../clock_config.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../source
     ${ProjDirPath}/..
     ${SdkRootDirPath}/middleware/eiq/common
-    ${SdkRootDirPath}/middleware/eiq/common/image
+    ${ProjDirPath}/../source/image
+    ${ProjDirPath}/../source/video
+    ${ProjDirPath}/../source/common
+    ${ProjDirPath}/../source/gprintf
 )
 
 

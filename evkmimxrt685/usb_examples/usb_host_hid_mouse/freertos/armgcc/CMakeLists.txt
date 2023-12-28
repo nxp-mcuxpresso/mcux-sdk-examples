@@ -64,9 +64,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../host_mouse.h"
 "${ProjDirPath}/../usb_host_config.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
-"${ProjDirPath}/../usb_hsdcd.c"
-"${ProjDirPath}/../usb_hsdcd.h"
-"${ProjDirPath}/../usb_charger_detect.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
@@ -74,6 +71,7 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/examples/evkmimxrt685
 )
 
+set_source_files_properties("${ProjDirPath}/../usb_hsdcd_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_usb_hsdcd_config_header")
 set_source_files_properties("${ProjDirPath}/../usb_host_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_usb_host_ip3516hs_config_header")
 set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")
 

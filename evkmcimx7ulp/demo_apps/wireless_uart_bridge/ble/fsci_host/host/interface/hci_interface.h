@@ -1330,7 +1330,7 @@ typedef enum
     gBlePBFlagContinuingFragmentOfHigherLayerPktMsg_c        = 0x01, /* LE || H2C : Allowed      || C2H : Allowed     */
     gBlePBFlagStartAutomaticallyFlushableHigherLayerPktMsg_c = 0x02, /* LE || H2C : Not Allowed  || C2H : Allowed     */
     gBlePBFlagCompleteAutomaticallyFlushableHigherLayerPktMsg_c =
-        0x03, /* LE || H2C : Not Allowed  || C2H : Not Allowed */
+        0x03,                                                        /* LE || H2C : Not Allowed  || C2H : Not Allowed */
 } blePacketBoundaryFlagType_t;
 
 /*! HCI Data Packet Broadcast Flag Type  - Host To Controller */
@@ -1466,9 +1466,9 @@ bleResult_t Hci_LeReadRemoteUsedFeatures(hciLeReadRemoteUsedFeaturesCommand_t *p
 /* Connection State Group */
 bleResult_t Hci_LeConnectionUpdate(hciLeConnectionUpdateCommand_t *pParam); /* 8.18 */
 bleResult_t Hci_LeRemoteConnectionParameterRequestReply(
-    hciLeRemoteConnectionParameterRequestReplyCommand_t *pParam); /* 8.31 */
+    hciLeRemoteConnectionParameterRequestReplyCommand_t *pParam);           /* 8.31 */
 bleResult_t Hci_LeRemoteConnectionParameterRequestNegativeReply(
-    hciLeRemoteConnectionParameterRequestNegativeReplyCommand_t *pParam); /* 8.32 */
+    hciLeRemoteConnectionParameterRequestNegativeReplyCommand_t *pParam);   /* 8.32 */
 
 /* Physical Links Group */
 bleResult_t Hci_LeSetHostChannelClassification(hciLeSetHostChannelClassificationCommand_t *pParam); /* 8.19 */
@@ -1479,13 +1479,13 @@ bleResult_t Hci_SetControllerToHostFlowControl(hciSetControllerToHostFlowControl
 bleResult_t Hci_HostNumberOfCompletedPackets(hciHostNumberOfCompletedPacketsCommand_t *pParam);     /* 3.40 */
 bleResult_t Hci_SetEventMask(hciSetEventMaskCommand_t *pParam);                                     /* 3.1 */
 #if (gLePingIsSupported_d == TRUE)
-bleResult_t Hci_SetEventMaskPage2(hciSetEventMaskPage2Command_t *pParam); /* 3.69 */
+bleResult_t Hci_SetEventMaskPage2(hciSetEventMaskPage2Command_t *pParam);                           /* 3.69 */
 #endif
-bleResult_t Hci_LeAddDeviceToWhiteList(hciLeAddDeviceToWhiteListCommand_t *pParam);           /* 8.16 */
-bleResult_t Hci_LeClearWhiteList(void);                                                       /* 8.15 */
-bleResult_t Hci_LeReadWhiteListSize(void);                                                    /* 8.14 */
-bleResult_t Hci_LeRemoveDeviceFromWhiteList(hciLeRemoveDeviceFromWhiteListCommand_t *pParam); /* 8.17 */
-bleResult_t Hci_LeSetEventMask(hciLeSetEventMaskCommand_t *pParam);                           /* 8.1 */
+bleResult_t Hci_LeAddDeviceToWhiteList(hciLeAddDeviceToWhiteListCommand_t *pParam);                 /* 8.16 */
+bleResult_t Hci_LeClearWhiteList(void);                                                             /* 8.15 */
+bleResult_t Hci_LeReadWhiteListSize(void);                                                          /* 8.14 */
+bleResult_t Hci_LeRemoveDeviceFromWhiteList(hciLeRemoveDeviceFromWhiteListCommand_t *pParam);       /* 8.17 */
+bleResult_t Hci_LeSetEventMask(hciLeSetEventMaskCommand_t *pParam);                                 /* 8.1 */
 
 /* Link Information Group */
 bleResult_t Hci_ReadTransmitPowerLevel(hciReadTransmitPowerLevelCommand_t *pParam); /* 3.35 */
@@ -1504,8 +1504,8 @@ bleResult_t Hci_LeLongTermKeyRequestNegativeReply(hciLeLongTermKeyRequestNegativ
 bleResult_t Hci_LeRand(void);                                                                             /* 8.23 */
 bleResult_t Hci_LeStartEncryption(hciLeStartEncryptionCommand_t *pParam);                                 /* 8.24 */
 #if (gLePingIsSupported_d == TRUE)
-bleResult_t Hci_ReadAuthenticatedPayloadTimeout(hciReadAuthenticatedPayloadTimeoutCommand_t *pParam);   /* 3.93 */
-bleResult_t Hci_WriteAuthenticatedPayloadTimeout(hciWriteAuthenticatedPayloadTimeoutCommand_t *pParam); /* 3.94 */
+bleResult_t Hci_ReadAuthenticatedPayloadTimeout(hciReadAuthenticatedPayloadTimeoutCommand_t *pParam);     /* 3.93 */
+bleResult_t Hci_WriteAuthenticatedPayloadTimeout(hciWriteAuthenticatedPayloadTimeoutCommand_t *pParam);   /* 3.94 */
 #endif
 
 /* Testing Group */
@@ -1531,9 +1531,9 @@ bleResult_t Hci_LeReadPeerResolvableAddress(hciLeReadPeerResolvableAddressComman
 bleResult_t Hci_LeReadLocalResolvableAddress(hciLeReadLocalResolvableAddressCommand_t *pParam);           /* 8.43 */
 bleResult_t Hci_LeSetAddressResolutionEnable(hciLeSetAddressResolutionEnableCommand_t *pParam);           /* 8.44 */
 bleResult_t Hci_LeSetResolvablePrivateAddressTimeout(
-    hciLeSetResolvablePrivateAddressTimeoutCommand_t *pParam); /* 8.45 */
-bleResult_t Hci_LeReadMaximumDataLength(void);                 /* 8.46 */
-#endif                                                         /* gBLE42_d */
+    hciLeSetResolvablePrivateAddressTimeoutCommand_t *pParam);                                            /* 8.45 */
+bleResult_t Hci_LeReadMaximumDataLength(void);                                                            /* 8.46 */
+#endif                                                                                                    /* gBLE42_d */
 
 #ifdef __cplusplus
 }

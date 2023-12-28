@@ -1,13 +1,5 @@
 	    *(.data*)
 	    . = ALIGN(4);
-	    PROVIDE(__start_NVM_TABLE = .);
-	    KEEP(*(.NVM_TABLE));
-	    PROVIDE(__stop_NVM_TABLE = .);
-	    . = ALIGN(4);
-	    PROVIDE(__start_NVM_ADAPTER_TABLE = .);
-	    KEEP(*(.NVM_ADAPTER_TABLE));
-	    PROVIDE(__stop_NVM_ADAPTER_TABLE = .);
-	    . = ALIGN(4);
 	    _net_buf_pool_list = .;
 	    KEEP(*(SORT(._net_buf_pool*)))
 	    . = ALIGN(4);
@@ -18,6 +10,5 @@
         <#if memory.name=="SRAM">
         *fsl_adapter_flexspi_nor_flash.o(.text .text* .rodata .rodata*)
         *fsl_flexspi.o(.text .text* .rodata .rodata*)
-        *NV_Flash.o(.text .text* .rodata .rodata*)
         *mflash_drv.o(.text .text* .rodata .rodata*)
         </#if>

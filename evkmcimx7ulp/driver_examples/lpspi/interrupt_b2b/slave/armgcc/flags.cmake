@@ -271,7 +271,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -Map=output.map \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MCIMX7U5xxxxx_cm4_ram.ld -static \
+    -T\"${ProjDirPath}/MCIMX7U5xxxxx_cm4_ram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -297,7 +297,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -Map=output.map \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MCIMX7U5xxxxx_cm4_ram.ld -static \
+    -T\"${ProjDirPath}/MCIMX7U5xxxxx_cm4_ram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG} \
@@ -326,7 +326,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     --defsym=__ram_vector_table__=1 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MCIMX7U5xxxxx_cm4_flash.ld -static \
+    -T\"${ProjDirPath}/MCIMX7U5xxxxx_cm4_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE} \
@@ -354,5 +354,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     --defsym=__ram_vector_table__=1 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MCIMX7U5xxxxx_cm4_flash.ld -static \
+    -T\"${ProjDirPath}/MCIMX7U5xxxxx_cm4_flash.ld\" -static \
 ")

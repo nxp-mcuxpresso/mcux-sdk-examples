@@ -38,7 +38,7 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(lwip_dhcp_freertos_cm4)
 
-set(MCUX_BUILD_TYPES debug release sdram_debug sdram_release flexspi_nor_debug flexspi_nor_release)
+set(MCUX_BUILD_TYPES debug sdram_debug release sdram_release flexspi_nor_debug flexspi_nor_release)
 
 set(MCUX_SDK_PROJECT_NAME lwip_dhcp_freertos_cm4.elf)
 

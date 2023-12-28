@@ -37,7 +37,7 @@ bool deepsleep = false;
 
 void BOARD_SwitchBackClockSrc()
 {
-	BOARD_BootClockPLL150M();
+    BOARD_BootClockPLL150M();
 }
 void DEMO_USART_IRQHandler(void)
 {

@@ -373,7 +373,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -Map=output.map \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMX8MN6xxxxx_cm7_ram_ddr3l.ld -static \
+    -T\"${ProjDirPath}/MIMX8MN6xxxxx_cm7_ram_ddr3l.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -399,7 +399,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -Map=output.map \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMX8MN6xxxxx_cm7_ram_ddr3l.ld -static \
+    -T\"${ProjDirPath}/MIMX8MN6xxxxx_cm7_ram_ddr3l.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_DDR_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_DDR_DEBUG} \
@@ -426,7 +426,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DDR_DEBUG " \
     -Map=output.map \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMX8MN6xxxxx_cm7_ddr_ram_ddr3l.ld -static \
+    -T\"${ProjDirPath}/MIMX8MN6xxxxx_cm7_ddr_ram_ddr3l.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_DDR_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_DDR_RELEASE} \
@@ -452,7 +452,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DDR_RELEASE " \
     -Map=output.map \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMX8MN6xxxxx_cm7_ddr_ram_ddr3l.ld -static \
+    -T\"${ProjDirPath}/MIMX8MN6xxxxx_cm7_ddr_ram_ddr3l.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG} \
@@ -479,7 +479,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     -Map=output.map \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMX8MN6xxxxx_cm7_flash_ddr3l.ld -static \
+    -T\"${ProjDirPath}/MIMX8MN6xxxxx_cm7_flash_ddr3l.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE} \
@@ -505,5 +505,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     -Map=output.map \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMX8MN6xxxxx_cm7_flash_ddr3l.ld -static \
+    -T\"${ProjDirPath}/MIMX8MN6xxxxx_cm7_flash_ddr3l.ld\" -static \
 ")

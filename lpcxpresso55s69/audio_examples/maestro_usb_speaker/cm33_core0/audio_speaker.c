@@ -19,7 +19,7 @@
 #endif
 
 #include "audio_speaker.h"
-#include "streamer_pcm_app.h"
+#include "streamer_pcm.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -1210,13 +1210,13 @@ void USB_AudioCodecTask(void)
 {
     if (g_UsbDeviceAudioSpeaker.codecTask & MUTE_CODEC_TASK)
     {
-        streamer_pcm_mute(NULL, true);
+        streamer_pcm_mute(true);
         usb_echo("Set Cur Mute : %x\r\n", g_UsbDeviceAudioSpeaker.curMute);
         g_UsbDeviceAudioSpeaker.codecTask &= ~MUTE_CODEC_TASK;
     }
     if (g_UsbDeviceAudioSpeaker.codecTask & UNMUTE_CODEC_TASK)
     {
-        streamer_pcm_mute(NULL, false);
+        streamer_pcm_mute(false);
         usb_echo("Set Cur Mute : %x\r\n", g_UsbDeviceAudioSpeaker.curMute);
         g_UsbDeviceAudioSpeaker.codecTask &= ~UNMUTE_CODEC_TASK;
     }

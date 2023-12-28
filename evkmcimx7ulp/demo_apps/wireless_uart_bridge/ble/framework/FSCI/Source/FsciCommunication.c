@@ -555,7 +555,7 @@ void FSCI_transmitPayload(uint8_t OG, uint8_t OC, void *pMsg, uint16_t msgLen, u
     }
     buffer_ptr[index++] = gFSCI_EndMarker_c;
 
-#else /* gFsciUseEscapeSeq_c */
+#else  /* gFsciUseEscapeSeq_c */
     FLib_MemCpy(&buffer_ptr[index], &header, sizeof(header));
     index += sizeof(header);
     FLib_MemCpy(&buffer_ptr[index], pMsg, msgLen);
@@ -916,7 +916,7 @@ static void FSCI_SendPacketToSerialManager(uint32_t fsciInterface, uint8_t *pPac
     MEM_BufferFree(pPacket);
 
     OSA_MutexUnlock(pCommData->syncTxRxAckMutexId);
-#else /* gFsciRxAck_c */
+#else  /* gFsciRxAck_c */
 #if gFsciUseBlockingTx_c
     if (gFsciTxBlocking)
     {

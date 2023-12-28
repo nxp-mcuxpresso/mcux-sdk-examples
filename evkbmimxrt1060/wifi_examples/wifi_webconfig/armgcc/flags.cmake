@@ -40,6 +40,7 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DLWIP_NETIF_API=1 \
     -DHTTPSRV_CFG_WEBSOCKET_ENABLED=1 \
     -DHTTPSRV_CFG_DEFAULT_SES_CNT=8 \
+    -DCPU_MIMXRT1062DVL6B_cm7 \
     -DMCUXPRESSO_SDK \
     -DMFLASH_FILE_BASEADDR=7340032 \
     -DSDIO_ENABLED \
@@ -79,6 +80,7 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -DLWIP_NETIF_API=1 \
     -DHTTPSRV_CFG_WEBSOCKET_ENABLED=1 \
     -DHTTPSRV_CFG_DEFAULT_SES_CNT=8 \
+    -DCPU_MIMXRT1062DVL6B_cm7 \
     -DMCUXPRESSO_SDK \
     -DMFLASH_FILE_BASEADDR=7340032 \
     -DSDIO_ENABLED \
@@ -181,7 +183,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     --defsym=__heap_size__=90000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/linker/MIMXRT1062xxxxx_flexspi_nor.ld -static \
+    -T\"${ProjDirPath}/linker/MIMXRT1062xxxxx_flexspi_nor.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE} \
@@ -211,5 +213,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     --defsym=__heap_size__=90000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/linker/MIMXRT1062xxxxx_flexspi_nor.ld -static \
+    -T\"${ProjDirPath}/linker/MIMXRT1062xxxxx_flexspi_nor.ld\" -static \
 ")

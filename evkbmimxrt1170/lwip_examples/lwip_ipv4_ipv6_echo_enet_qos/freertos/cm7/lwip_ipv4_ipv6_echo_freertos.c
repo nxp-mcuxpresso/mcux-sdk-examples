@@ -85,10 +85,10 @@
 
 /* Ethernet configuration. */
 extern phy_rtl8211f_resource_t g_phy_resource;
-#define EXAMPLE_PHY_ADDRESS  0x01U
-#define EXAMPLE_PHY_OPS      &phyrtl8211f_ops
-#define EXAMPLE_PHY_RESOURCE &g_phy_resource
-#define EXAMPLE_CLOCK_FREQ   CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
+#define EXAMPLE_PHY_ADDRESS   0x01U
+#define EXAMPLE_PHY_OPS       &phyrtl8211f_ops
+#define EXAMPLE_PHY_RESOURCE  &g_phy_resource
+#define EXAMPLE_CLOCK_FREQ    CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
 #define EXAMPLE_NETIF_INIT_FN ethernetif0_init
 
 /* ENET IRQ priority. Used in FreeRTOS. */
@@ -125,6 +125,11 @@ phy_rtl8211f_resource_t g_phy_resource;
 static phy_handle_t phyHandle;
 #if defined(BOARD_NETWORK_USE_DUAL_ENET)
 static phy_handle_t phyHandle1;
+
+#if LWIP_SINGLE_NETIF == 1
+#error \
+    "Single netif limitation in lwIP must be disabled if this example were to use both interfaces. (LWIP_SINGLE_NETIF = 0)"
+#endif // LWIP_SINGLE_NETIF == 1
 #endif
 
 /*******************************************************************************

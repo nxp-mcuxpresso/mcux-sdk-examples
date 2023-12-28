@@ -54,7 +54,6 @@ static char rpmsg_lite_base[SH_MEM_TOTAL_SIZE] __attribute__((section(".noinit.$
  * Code
  ******************************************************************************/
 
-
 /*!
  * @brief Application-specific implementation of the SystemInitHook() weak function.
  */

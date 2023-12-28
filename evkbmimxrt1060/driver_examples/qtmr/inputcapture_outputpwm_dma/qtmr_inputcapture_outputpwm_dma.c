@@ -13,7 +13,9 @@
 #include "clock_config.h"
 #include "board.h"
 #include "fsl_edma.h"
+#if defined(FSL_FEATURE_SOC_DMAMUX_COUNT) && FSL_FEATURE_SOC_DMAMUX_COUNT
 #include "fsl_dmamux.h"
+#endif
 #include "fsl_qtmr.h"
 
 /*******************************************************************************
@@ -119,10 +121,12 @@ int main(void)
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
+#if defined(FSL_FEATURE_SOC_DMAMUX_COUNT) && FSL_FEATURE_SOC_DMAMUX_COUNT
     /* DMAMUX init */
     DMAMUX_Init(EXAMPLE_QTMR_DMA_MUX);
     DMAMUX_SetSource(EXAMPLE_QTMR_DMA_MUX, 0, QTMR_EDMA_REQUEST_CAPT_SOURCE);
     DMAMUX_EnableChannel(EXAMPLE_QTMR_DMA_MUX, 0);
+#endif
 
     /* EDMA init */
     /*
@@ -131,10 +135,18 @@ int main(void)
      * userConfig.enableContinuousLinkMode = false;
      * userConfig.enableDebugMode = false;
      */
+
     EDMA_GetDefaultConfig(&userConfig);
+#if defined(BOARD_SetEDMAConfig)
+    BOARD_SetEDMAConfig(userConfig);
+#endif
+
     EDMA_Init(EXAMPLE_QTMR_DMA, &userConfig);
     EDMA_CreateHandle(&g_EDMA_Handle, EXAMPLE_QTMR_DMA, 0);
     EDMA_SetCallback(&g_EDMA_Handle, EDMA_Callback, NULL);
+#if defined(FSL_FEATURE_EDMA_HAS_CHANNEL_MUX) && FSL_FEATURE_EDMA_HAS_CHANNEL_MUX
+    EDMA_SetChannelMux(EXAMPLE_QTMR_DMA, 0, QTMR_EDMA_REQUEST_CAPT_SOURCE);
+#endif
 
     /*
      * qtmrConfig.debugMode = kQTMR_RunNormalInDebug;
@@ -164,6 +176,7 @@ int main(void)
                          (uint16_t *)&BOARD_QTMR_BASEADDR->CHANNEL[BOARD_QTMR_INPUT_CAPTURE_CHANNEL].CAPT, 2,
                          &captValue, 2, 2, 2, kEDMA_PeripheralToMemory);
     EDMA_SubmitTransfer(&g_EDMA_Handle, &transferConfig);
+
     /* Start the input capture channel to count on rising edge of the primary source clock */
     QTMR_StartTimer(BOARD_QTMR_BASEADDR, BOARD_QTMR_INPUT_CAPTURE_CHANNEL, kQTMR_PriSrcRiseEdge);
 
@@ -189,9 +202,16 @@ int main(void)
     PRINTF("\r\nCaptured Period time=%d us\n", timeCapt * 1000U / counterClock);
     QTMR_DisableDma(BOARD_QTMR_BASEADDR, BOARD_QTMR_INPUT_CAPTURE_CHANNEL, kQTMR_InputEdgeFlagDmaEnable);
 
+#if defined(FSL_FEATURE_SOC_DMAMUX_COUNT) && FSL_FEATURE_SOC_DMAMUX_COUNT
     DMAMUX_DisableChannel(EXAMPLE_QTMR_DMA_MUX, 0);
     DMAMUX_SetSource(EXAMPLE_QTMR_DMA_MUX, 0, QTMR_EDMA_REQUEST_CMPLD_SOURCE);
     DMAMUX_EnableChannel(EXAMPLE_QTMR_DMA_MUX, 0);
+#endif
+
+#if defined(FSL_FEATURE_EDMA_HAS_CHANNEL_MUX) && FSL_FEATURE_EDMA_HAS_CHANNEL_MUX
+    EDMA_SetChannelMux(EXAMPLE_QTMR_DMA, 0, 0);
+    EDMA_SetChannelMux(EXAMPLE_QTMR_DMA, 0, QTMR_EDMA_REQUEST_CMPLD_SOURCE);
+#endif
 
     PRINTF("\r\n****Output pwm dma example.****\n");
     PRINTF("\r\n*********Make sure to connect an oscilloscope.*********\n");

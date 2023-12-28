@@ -51,19 +51,19 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/static_image_nanodet_view/static_image_nanodet_view.c"
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/static_image_nanodet_view/mpp_config.h"
-"${SdkRootDirPath}/middleware/eiq/mpp/boards/evkbmimxrt1170/inc/board_config.h"
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/images/skigirl_COCO_320_320_bgra.h"
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/models/get_top_n.cpp"
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/models/utils.cpp"
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/models/nanodet_m_320_quant_int8_cm7/nanodet_m_0.5x_nhwc_tflite.h"
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/models/nanodet_m_320_quant_int8_cm7/nanodet_m_ops_micro_tflite.cpp"
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/models/nanodet_m_320_quant_int8_cm7/nanodet_labels.h"
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/models/nanodet_m_320_quant_int8_cm7/nanodet_m_output_postproc.cpp"
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/models/nanodet_m_320_quant_int8_cm7/nanodet_m_output_postproc.h"
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/models/get_top_n.h"
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/models/utils.h"
+"${ProjDirPath}/../gpt_config.c"
+"${ProjDirPath}/../models/nanodet_m_320_quant_int8/nanodet_m_0.5x_nhwc_tflite.h"
+"${ProjDirPath}/../static_image_nanodet_view.c"
+"${ProjDirPath}/../mpp_config.h"
+"${ProjDirPath}/../images/skigirl_COCO_320_320_bgra.h"
+"${ProjDirPath}/../models/get_top_n.cpp"
+"${ProjDirPath}/../models/utils.cpp"
+"${ProjDirPath}/../models/nanodet_m_320_quant_int8/nanodet_m_ops_micro_tflite.cpp"
+"${ProjDirPath}/../models/nanodet_m_320_quant_int8/nanodet_labels.h"
+"${ProjDirPath}/../models/nanodet_m_320_quant_int8/nanodet_m_output_postproc.cpp"
+"${ProjDirPath}/../models/nanodet_m_320_quant_int8/nanodet_m_output_postproc.h"
+"${ProjDirPath}/../models/get_top_n.h"
+"${ProjDirPath}/../models/utils.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
 "${ProjDirPath}/../board_init.h"
 "${ProjDirPath}/../board_init.c"
@@ -71,7 +71,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../board.h"
 "${ProjDirPath}/../clock_config.c"
 "${ProjDirPath}/../clock_config.h"
-"${SdkRootDirPath}/middleware/eiq/mpp/README.md"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../dcd.c"
@@ -85,9 +84,9 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${SdkRootDirPath}/middleware/eiq/mpp/examples/static_image_nanodet_view
     ${SdkRootDirPath}/middleware/eiq/mpp/examples
-    ${SdkRootDirPath}/middleware/eiq/mpp/boards/evkbmimxrt1170/inc
+    ${SdkRootDirPath}/middleware/eiq/mpp/boards/evkbmimxrt1170/examples/static_image_nanodet_view
+    ${ProjDirPath}/../models/nanodet_m_320_quant_int8
 )
 
 set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")

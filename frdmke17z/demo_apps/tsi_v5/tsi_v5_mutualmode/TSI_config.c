@@ -11,10 +11,10 @@
  */
 key_tsi_mapping_t key_TSI[] = {
     /* TSI allocation for Mutual Key (2 TSI channels are connected to 1 mutual-key)*/
-    {TSI0, {kTSI_Chnl_5}, kTSI_Chnl_7, 40U, 0U, 0U, 0U, 0U, 0U}, /* Mutual KEY 1 on FRDM-TOUCH board */
-    {TSI0, {kTSI_Chnl_5}, kTSI_Chnl_6, 32U, 0U, 0U, 0U, 0U, 0U}, /* Mutual KEY 2 on FRDM-TOUCH board */
-    {TSI0, {kTSI_Chnl_4}, kTSI_Chnl_7, 80U, 0U, 0U, 0U, 0U, 0U}, /* Mutual KEY 3 on FRDM-TOUCH board */
-    {TSI0, {kTSI_Chnl_4}, kTSI_Chnl_6, 45U, 0U, 0U, 0U, 0U, 0U}, /* Mutual KEY 4 on FRDM-TOUCH board */
+    {TSI0, {kTSI_Chnl_5}, kTSI_Chnl_7, 0.04F, 0U, 0U, 0U, 0U, 0U}, /* Mutual KEY 1 on FRDM-TOUCH board */
+    {TSI0, {kTSI_Chnl_5}, kTSI_Chnl_6, 0.04F, 0U, 0U, 0U, 0U, 0U}, /* Mutual KEY 2 on FRDM-TOUCH board */
+    {TSI0, {kTSI_Chnl_4}, kTSI_Chnl_7, 0.04F, 0U, 0U, 0U, 0U, 0U}, /* Mutual KEY 3 on FRDM-TOUCH board */
+    {TSI0, {kTSI_Chnl_4}, kTSI_Chnl_6, 0.04F, 0U, 0U, 0U, 0U, 0U}, /* Mutual KEY 4 on FRDM-TOUCH board */
 
     /* Do NOT move {0xFFU, 0xFFU, 0xFFU, 0xFFU} which indicates the end of the array */
     {TSI0, {0xFFU}, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU} /* The end of the array */

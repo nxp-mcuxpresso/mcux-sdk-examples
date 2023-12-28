@@ -25,8 +25,8 @@
 #define TSI0_IRQHandler TSI_IRQHandler
 #define TSI0_IRQn       TSI_IRQn
 
-/* Define the delta value to indicate a touch event */
-#define TOUCH_DELTA_VALUE 100U
+/* Define the delta percentage to caculate delta value */
+#define TOUCH_DELTA_PERCENT (3.5F / 100.0F)
 
 /* TSI indication led of electrode 1 */
 #define LED1_INIT()   LED_GREEN1_INIT(LOGIC_LED_OFF)
@@ -62,7 +62,7 @@ void TSI0_IRQHandler(void)
 {
     if (TSI_GetSelfCapMeasuredChannel(APP_TSI) == BOARD_TSI_ELECTRODE_1)
     {
-        if (TSI_GetCounter(APP_TSI) < (uint16_t)(buffer.calibratedData[BOARD_TSI_ELECTRODE_1] - TOUCH_DELTA_VALUE))
+        if (TSI_GetCounter(APP_TSI) < (uint16_t)((float)buffer.calibratedData[BOARD_TSI_ELECTRODE_1] * (1.0F - TOUCH_DELTA_PERCENT)))
         {
             LED1_TOGGLE(); /* Toggle the touch event indicating LED */
         }

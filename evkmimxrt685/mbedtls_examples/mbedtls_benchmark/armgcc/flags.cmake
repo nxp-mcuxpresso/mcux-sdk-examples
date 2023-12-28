@@ -55,8 +55,6 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -g \
     -O0 \
     -fno-strict-aliasing \
-    -fomit-frame-pointer \
-    -Wno-unused-function \
     -mcpu=cortex-m33 \
     -Wall \
     -mthumb \
@@ -69,6 +67,8 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
+    -fomit-frame-pointer \
+    -Wno-unused-function \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -84,8 +84,6 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -fno-strict-aliasing \
-    -fomit-frame-pointer \
-    -Wno-unused-function \
     -mcpu=cortex-m33 \
     -Wall \
     -mthumb \
@@ -98,6 +96,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
+    -fomit-frame-pointer \
+    -Wno-unused-function \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -115,8 +115,6 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -g \
     -O0 \
     -fno-strict-aliasing \
-    -fomit-frame-pointer \
-    -Wno-unused-function \
     -mcpu=cortex-m33 \
     -Wall \
     -mthumb \
@@ -129,6 +127,8 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
+    -fomit-frame-pointer \
+    -Wno-unused-function \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -145,8 +145,6 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -fno-strict-aliasing \
-    -fomit-frame-pointer \
-    -Wno-unused-function \
     -mcpu=cortex-m33 \
     -Wall \
     -mthumb \
@@ -159,6 +157,8 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
+    -fomit-frame-pointer \
+    -Wno-unused-function \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -289,7 +289,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     --defsym=__heap_size__=0x8000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT685Sxxxx_cm33_ram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT685Sxxxx_cm33_ram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -319,7 +319,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     --defsym=__heap_size__=0x8000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT685Sxxxx_cm33_ram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT685Sxxxx_cm33_ram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG} \
@@ -350,7 +350,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     --defsym=__heap_size__=0x8000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash.ld -static \
+    -T\"${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE} \
@@ -380,5 +380,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     --defsym=__heap_size__=0x8000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash.ld -static \
+    -T\"${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash.ld\" -static \
 ")

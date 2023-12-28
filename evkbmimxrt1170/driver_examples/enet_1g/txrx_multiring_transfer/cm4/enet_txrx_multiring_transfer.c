@@ -59,8 +59,8 @@ extern phy_rtl8211f_resource_t g_phy_resource;
 
 /* @TEST_ANCHOR */
 
-#ifndef MAC_ADDRESS
-#define MAC_ADDRESS                        \
+#ifndef MAC_ADDR
+#define MAC_ADDR                        \
     {                                      \
         0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60 \
     }
@@ -101,7 +101,7 @@ SDK_ALIGN(uint8_t g_txDataBuff2[ENET_TXBD_NUM][SDK_SIZEALIGN(ENET_TXBUFF_SIZE, A
 enet_handle_t g_handle;
 
 /* The MAC address for ENET device. */
-uint8_t g_macAddr[6] = MAC_ADDRESS;
+uint8_t g_macAddr[6] = MAC_ADDR;
 uint8_t g_frame[FSL_FEATURE_ENET_QUEUE][ENET_FRAME_LENGTH];
 uint32_t g_rxIndex       = 0;
 uint32_t g_rxIndex1      = 0;

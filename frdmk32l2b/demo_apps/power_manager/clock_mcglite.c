@@ -35,7 +35,7 @@ void APP_SetClockRunFromVlpr(void)
     const sim_clock_config_t simConfig = {
         .clkdiv1 = 0x00010000U, /* SIM_CLKDIV1. */
 #if (defined(FSL_FEATURE_SIM_OPT_HAS_OSC32K_SELECTION) && FSL_FEATURE_SIM_OPT_HAS_OSC32K_SELECTION)
-        .er32kSrc = 0U, /* SIM_SOPT1[OSC32KSEL]. */
+        .er32kSrc = 0U,         /* SIM_SOPT1[OSC32KSEL]. */
 #endif
     };
 
@@ -61,7 +61,7 @@ void APP_SetClockVlpr(void)
     const sim_clock_config_t simConfig = {
         .clkdiv1 = 0x00010000U, /* SIM_CLKDIV1. */
 #if (defined(FSL_FEATURE_SIM_OPT_HAS_OSC32K_SELECTION) && FSL_FEATURE_SIM_OPT_HAS_OSC32K_SELECTION)
-        .er32kSrc = 0U, /* SIM_SOPT1[OSC32KSEL]. */
+        .er32kSrc = 0U,         /* SIM_SOPT1[OSC32KSEL]. */
 #endif
     };
 

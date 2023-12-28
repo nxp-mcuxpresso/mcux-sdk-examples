@@ -27,7 +27,7 @@ int32_t FILTER_Output(glitch_filter_handle_t *handle, int32_t inputRaw)
             handle->newOutput        = inputRaw;
             handle->filterLevelCount = 1u; /* Start to count the new input value. */
         }
-        else /* inputRaw == handle->newOutput */
+        else                               /* inputRaw == handle->newOutput */
         {
             if (handle->filterLevelCount < handle->filterLevelMax)
             {

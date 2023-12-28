@@ -52,24 +52,20 @@ include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
 "${ProjDirPath}/../streamer_pcm.c"
-"${ProjDirPath}/../streamer_pcm_app.h"
+"${ProjDirPath}/../streamer_pcm.h"
 "${ProjDirPath}/../app_data.h"
 "${ProjDirPath}/../app_streamer.c"
 "${ProjDirPath}/../app_streamer.h"
 "${ProjDirPath}/../cmd.c"
 "${ProjDirPath}/../cmd.h"
-"${ProjDirPath}/../eap_proc.c"
-"${ProjDirPath}/../eap_proc.h"
 "${ProjDirPath}/../ssrc_proc.c"
 "${ProjDirPath}/../ssrc_proc.h"
 "${ProjDirPath}/../main.c"
 "${ProjDirPath}/../main.h"
-"${SdkRootDirPath}/examples/lpcxpresso55s69/audio_examples/maestro_playback/pin_mux.c"
-"${SdkRootDirPath}/examples/lpcxpresso55s69/audio_examples/maestro_playback/pin_mux.h"
+"${ProjDirPath}/../pin_mux.c"
+"${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
 "${ProjDirPath}/../ffconf.h"
-"${SdkRootDirPath}/examples/lpcxpresso55s69/audio_examples/common/att/eap_att.c"
-"${SdkRootDirPath}/examples/lpcxpresso55s69/audio_examples/common/att/eap_att.h"
 "${ProjDirPath}/../sdmmc_config.c"
 "${ProjDirPath}/../sdmmc_config.h"
 "${ProjDirPath}/../app_definitions.h"
@@ -82,11 +78,12 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${SdkRootDirPath}/examples/lpcxpresso55s69/audio_examples/maestro_playback
-    ${SdkRootDirPath}/examples/lpcxpresso55s69/audio_examples/common/att
     ${SdkRootDirPath}/examples/lpcxpresso55s69
     ${SdkRootDirPath}/core/boards/lpcxpresso55s69
 )
 
+set_source_files_properties("${ProjDirPath}/../streamer_pcm.c" PROPERTIES COMPONENT_CONFIG_FILE "middleware_maestro_framework_template")
+set_source_files_properties("${ProjDirPath}/../streamer_pcm.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_maestro_framework_template")
 set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")
 set_source_files_properties("${ProjDirPath}/../ffconf.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_fatfs_template_sd")
 set_source_files_properties("${ProjDirPath}/../sdmmc_config.c" PROPERTIES COMPONENT_CONFIG_FILE "middleware_sdmmc_sdif_template")

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -45,7 +45,7 @@ void ITRC0_DriverIRQHandler(void)
     ITRC_Demo_Status_Print();
 
     PRINTF("Clear ITRC IRQ and SW Event 0 STATUS\r\n\r\n");
-    ITRC_ClearStatus(ITRC, ((uint32_t)kITRC_Irq | (uint32_t)kITRC_SwEvent1));
+    ITRC_ClearStatus(ITRC, ((uint32_t)kITRC_Irq | (uint32_t)kITRC_SwEvent0));
 
     NVIC_EnableIRQ(ITRC0_IRQn);
 }
@@ -137,18 +137,30 @@ int main(void)
     }
 
     /* Test if event or action already occured */
-    if ((ITRC_GetStatus(ITRC) & (IN_EVENTS_MASK | OUT_ACTIONS_MASK)) == 0u)
+    if ((ITRC_GetStatus(ITRC) & (IN_0_15_EVENTS_MASK | OUT_ACTIONS_MASK)) == 0u)
     {
-        PRINTF("Pass: No Event/Action triggered after Init\r\n\r\n");
+        PRINTF("Pass: No Event/Action triggered in STATUS after Init\r\n\r\n");
     }
     else
     {
         PRINTF("Fail: Action Triggered after Init!!");
     }
 
+#if defined(ITRC_STATUS1_IN16_STATUS_MASK)
+    /* Test if event or action already occured */
+    if ((ITRC_GetStatus1(ITRC) & (IN_16_47_EVENTS_MASK)) == 0u)
+    {
+        PRINTF("Pass: No Event triggered in STATUS1 after Init\r\n\r\n");
+    }
+    else
+    {
+        PRINTF("Fail: Action Triggered after Init!!");
+    }
+#endif /* ITRC_STATUS1_IN16_STATUS_MASK */
+
     /* Set ITRC IRQ action upon SW Event 0 */
     PRINTF("Enable ITRC IRQ Action response to SW Event 0\r\n\r\n");
-    ITRC_SetActionToEvent(ITRC, kITRC_Irq, kITRC_SwEvent1, kITRC_Unlock, kITRC_Enable);
+    ITRC_SetActionToEvent(ITRC, kITRC_Irq, kITRC_SwEvent0, kITRC_Unlock, kITRC_Enable);
     if (result != kStatus_Success)
     {
         PRINTF("Error seting ITRC.\r\n");
@@ -165,7 +177,7 @@ int main(void)
 
     /* Disable ITRC IRQ action upon SW Event 0 */
     PRINTF("Disable ITRC IRQ Action response to SW Event 0\r\n\r\n");
-    ITRC_SetActionToEvent(ITRC, kITRC_Irq, kITRC_SwEvent1, kITRC_Unlock, kITRC_Disable);
+    ITRC_SetActionToEvent(ITRC, kITRC_Irq, kITRC_SwEvent0, kITRC_Unlock, kITRC_Disable);
     if (result != kStatus_Success)
     {
         PRINTF("Error seting ITRC.\r\n");

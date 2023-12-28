@@ -21,7 +21,7 @@
 #define LED_OFF()  LED_RED_OFF()
 
 #define DEMO_CMP_BASE             CMP0
-#define DEMO_CMP_USER_CHANNEL     1U /* PTC7, CMP0_IN1 */
+#define DEMO_CMP_USER_CHANNEL     1U             /* PTC7, CMP0_IN1 */
 #define DEMO_CMP_DAC_CHANNEL      7U
 #define DEMO_CMP_IRQ_ID           INTMUX0_0_IRQn /* CMP0 in interrupt mux */
 #define DEMO_CMP_IRQ_HANDLER_FUNC CMP0_IRQHandler

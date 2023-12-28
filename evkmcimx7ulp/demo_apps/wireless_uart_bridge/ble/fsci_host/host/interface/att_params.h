@@ -66,7 +66,7 @@ typedef struct attFindInformationResponseParams_tag
     union
     {
         attFindInfoHandleUuid16Pair_t
-            handleUuid16[(gAttMaxDataSize_d(gAttMaxMtu_c) - 1) / 4]; /* 4 = 2+2 bytes per handle-UUID pair */
+            handleUuid16[(gAttMaxDataSize_d(gAttMaxMtu_c) - 1) / 4];   /* 4 = 2+2 bytes per handle-UUID pair */
         attFindInfoHandleUuid128Pair_t
             handleUuid128[(gAttMaxDataSize_d(gAttMaxMtu_c) - 1) / 18]; /* 18 = 2+16 bytes per handle-UUID pair */
     } informationData;

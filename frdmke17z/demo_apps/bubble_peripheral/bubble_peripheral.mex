@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding= "UTF-8" ?>
-<configuration name="" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_10 http://mcuxpresso.nxp.com/XSD/mex_configuration_10.xsd" uuid="692f2996-c6b4-4e87-aef8-53774ec03c77" version="10" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_10" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<configuration name="" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_14 http://mcuxpresso.nxp.com/XSD/mex_configuration_14.xsd" uuid="e53dc6db-63a2-47d7-83fc-30f637cf24bc" version="14" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_14" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <common>
       <processor>MKE17Z256xxx7</processor>
       <package>MKE17Z256VLL7</package>
@@ -11,15 +11,16 @@
       <description></description>
    </common>
    <preferences>
-      <validate_boot_init_only>false</validate_boot_init_only>
+      <validate_boot_init_only>true</validate_boot_init_only>
       <generate_extended_information>false</generate_extended_information>
       <generate_code_modified_registers_only>false</generate_code_modified_registers_only>
       <update_include_paths>true</update_include_paths>
+      <generate_registers_defines>false</generate_registers_defines>
    </preferences>
    <tools>
-      <pins name="Pins" version="10.0" enabled="true" update_project_code="true">
+      <pins name="Pins" version="14.0" enabled="true" update_project_code="true">
          <pins_profile>
-            <processor_version>0.10.1</processor_version>
+            <processor_version>14.0.0</processor_version>
          </pins_profile>
          <functions_list>
             <function name="BOARD_InitPins">
@@ -164,12 +165,12 @@
             </function>
          </functions_list>
       </pins>
-      <clocks name="Clocks" version="8.0" enabled="true" update_project_code="true">
+      <clocks name="Clocks" version="12.0" enabled="true" update_project_code="true">
          <clocks_profile>
-            <processor_version>0.10.1</processor_version>
+            <processor_version>14.0.0</processor_version>
          </clocks_profile>
          <clock_configurations>
-            <clock_configuration name="BOARD_BootClockRUN">
+            <clock_configuration name="BOARD_BootClockRUN" id_prefix="" prefix_user_defined="false">
                <description></description>
                <options/>
                <dependencies>
@@ -235,7 +236,7 @@
                </clock_settings>
                <called_from_default_init>true</called_from_default_init>
             </clock_configuration>
-            <clock_configuration name="BOARD_BootClockVLPR">
+            <clock_configuration name="BOARD_BootClockVLPR" id_prefix="" prefix_user_defined="false">
                <description></description>
                <options/>
                <dependencies>
@@ -311,31 +312,36 @@
          </dcdx_profile>
          <dcdx_configurations/>
       </dcdx>
-      <periphs name="Peripherals" version="10.0" enabled="true" update_project_code="true">
+      <periphs name="Peripherals" version="13.0" enabled="true" update_project_code="true">
          <dependencies>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.ftm" description="FTM Driver not found in the toolchain/IDE project. Project will not compile!" problem_level="2" source="Peripherals">
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.ftm" description="FTM Driver is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
                <feature name="enabled" evaluation="equal">
                   <data type="Boolean">true</data>
                </feature>
             </dependency>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.ftm" description="Unsupported version of the FTM Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. Project might not compile correctly." problem_level="1" source="Peripherals">
-               <feature name="version" evaluation="greaterOrEqual">
-                  <data type="Version">2.3.0</data>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.ftm" description="An unsupported version of the FTM Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="equivalent">
+                  <data type="Version">2.6.0</data>
                </feature>
             </dependency>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpi2c" description="LPI2C Driver not found in the toolchain/IDE project. Project will not compile!" problem_level="2" source="Peripherals">
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpi2c" description="LPI2C Driver is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
                <feature name="enabled" evaluation="equal">
                   <data type="Boolean">true</data>
                </feature>
             </dependency>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpi2c" description="Unsupported version of the LPI2C Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. Project might not compile correctly." problem_level="1" source="Peripherals">
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpi2c" description="An unsupported version of the LPI2C Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
                <feature name="version" evaluation="greaterOrEqual">
                   <data type="Version">2.2.0</data>
                </feature>
             </dependency>
+            <dependency resourceType="Tool" resourceId="Clocks" description="The Clocks tool is required by the Peripherals tool, but it is disabled." problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data>true</data>
+               </feature>
+            </dependency>
          </dependencies>
          <peripherals_profile>
-            <processor_version>0.10.1</processor_version>
+            <processor_version>14.0.0</processor_version>
          </peripherals_profile>
          <functional_groups>
             <functional_group name="BOARD_InitPeripherals" uuid="31fae3d8-53a8-41de-bd1c-e992d84c47fb" called_from_default_init="true" id_prefix="BOARD_" core="core0">
@@ -347,7 +353,7 @@
                         <data type="Frequency" unit="Hz">0</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="ClockOutput" resourceId="System_clock" description="System clock is inactive." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                  <dependency resourceType="ClockOutput" resourceId="System_clock" description="System clock is inactive." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="frequency" evaluation="greaterThan">
                         <data type="Frequency" unit="Hz">0</data>
                      </feature>
@@ -377,25 +383,27 @@
                         <data type="Frequency" unit="Hz">0</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPI2C0.lpi2c_scl" description="Signal serial clock of the peripheral LPI2C0 is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPI2C0.lpi2c_scl" description="Signal serial clock is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="routed" evaluation="">
                         <data type="Boolean">true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPI2C0.lpi2c_sda" description="Signal serial data of the peripheral LPI2C0 is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPI2C0.lpi2c_sda" description="Signal serial data is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="routed" evaluation="">
                         <data type="Boolean">true</data>
                      </feature>
                   </dependency>
                </dependencies>
                <instances>
-                  <instance name="TIMER" uuid="edcab644-90d2-4f01-ac84-0096168d8558" type="ftm" type_id="ftm_a206ca22312775f3c8a462078188c129" mode="EdgeAligned" peripheral="FTM2" enabled="true" comment="" custom_name_enabled="true" editing_lock="false">
+                  <instance name="TIMER" type="ftm" type_id="ftm_fa7b7bf76007cb716873768750c05c17" mode="EdgeAligned" peripheral="FTM2" enabled="true" comment="" custom_name_enabled="true" editing_lock="false">
                      <config_set name="ftm_main_config">
                         <struct name="ftm_config">
                            <setting name="clockSource" value="kFTM_SystemClock"/>
                            <setting name="clockSourceFreq" value="GetFreq"/>
                            <setting name="timerPrescaler" value="1"/>
                            <setting name="timerOutputFrequency" value="24 kHz"/>
+                           <setting name="enableHalfCycleReloadInit" value="false"/>
+                           <setting name="halfCycleReloadPeriod" value=""/>
                            <setting name="systemClockSource" value="BusInterfaceClock"/>
                            <setting name="systemClockSourceFreq" value="mirrored_value"/>
                            <setting name="faultMode" value="kFTM_Fault_Disable"/>
@@ -429,6 +437,9 @@
                                  <id>kFTM_SoftwareTrigger</id>
                               </selected>
                            </set>
+                           <setting name="swTriggerResetCount" value="true"/>
+                           <setting name="hwTriggerResetCount" value="false"/>
+                           <setting name="loadFrequency" value="1"/>
                            <set name="reloadPoints">
                               <selected/>
                            </set>
@@ -482,7 +493,7 @@
                         </array>
                      </config_set>
                   </instance>
-                  <instance name="ACCEL_I2C" uuid="8ec783be-cf6c-4bc3-9b86-0496882340e8" type="lpi2c" type_id="lpi2c_6b71962515c3208facfccd030afebc98" mode="master" peripheral="LPI2C0" enabled="true" comment="" custom_name_enabled="true" editing_lock="false">
+                  <instance name="ACCEL_I2C" type="lpi2c" type_id="lpi2c_6b71962515c3208facfccd030afebc98" mode="master" peripheral="LPI2C0" enabled="true" comment="" custom_name_enabled="true" editing_lock="false">
                      <config_set name="main">
                         <setting name="clockSource" value="Lpi2cClock"/>
                         <setting name="clockSourceFreq" value="GetIpFreq"/>
@@ -525,7 +536,7 @@
                         </struct>
                      </config_set>
                   </instance>
-                  <instance name="NVIC" uuid="7ce5a38d-a8a4-4882-8dd3-261864be0fa6" type="nvic" type_id="nvic_57b5eef3774cc60acaede6f5b8bddc67" mode="general" peripheral="NVIC" enabled="false" comment="" custom_name_enabled="false" editing_lock="false">
+                  <instance name="NVIC" type="nvic" type_id="nvic_57b5eef3774cc60acaede6f5b8bddc67" mode="general" peripheral="NVIC" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
                      <config_set name="nvic">
                         <array name="interrupt_table"/>
                         <array name="interrupts"/>
@@ -535,30 +546,33 @@
             </functional_group>
          </functional_groups>
          <components>
-            <component name="system" uuid="c41f6099-d7ba-4a12-9d19-d93c83f27361" type_id="system_54b53072540eeeb8f8e9343e71f28176">
+            <component name="system" type_id="system_54b53072540eeeb8f8e9343e71f28176">
                <config_set_global name="global_system_definitions">
                   <setting name="user_definitions" value=""/>
                   <setting name="user_includes" value=""/>
                </config_set_global>
             </component>
-            <component name="uart_cmsis_common" uuid="62147a38-649c-48e0-972f-f7149e3c4a0e" type_id="uart_cmsis_common_9cb8e302497aa696fdbb5a4fd622c2a8">
+            <component name="uart_cmsis_common" type_id="uart_cmsis_common_9cb8e302497aa696fdbb5a4fd622c2a8">
                <config_set_global name="global_USART_CMSIS_common" quick_selection="default"/>
             </component>
-            <component name="msg" uuid="d32e70f4-7c63-41f3-8d5c-ead999bea17a" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
+            <component name="gpio_adapter_common" type_id="gpio_adapter_common_57579b9ac814fe26bf95df0a384c36b6">
+               <config_set_global name="global_gpio_adapter_common" quick_selection="default"/>
+            </component>
+            <component name="msg" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
                <config_set_global name="global_messages"/>
             </component>
-            <component name="generic_uart" uuid="54e6dfea-aad8-46f8-9347-8a9f57051a12" type_id="generic_uart_8cae00565451cf2346eb1b8c624e73a6">
+            <component name="generic_uart" type_id="generic_uart_8cae00565451cf2346eb1b8c624e73a6">
                <config_set_global name="global_uart"/>
             </component>
-            <component name="generic_enet" uuid="3122241c-ea9b-4c0b-89c9-eeb43c6781ef" type_id="generic_enet_74db5c914f0ddbe47d86af40cb77a619">
+            <component name="generic_enet" type_id="generic_enet_74db5c914f0ddbe47d86af40cb77a619">
                <config_set_global name="global_enet"/>
             </component>
-            <component name="generic_can" uuid="f82bb1d9-7c6e-406d-a970-26d9b5b96147" type_id="generic_can_1bfdd78b1af214566c1f23cf6a582d80">
+            <component name="generic_can" type_id="generic_can_1bfdd78b1af214566c1f23cf6a582d80">
                <config_set_global name="global_can"/>
             </component>
          </components>
       </periphs>
-      <tee name="TEE" version="4.0" enabled="false" update_project_code="true">
+      <tee name="TEE" version="5.0" enabled="false" update_project_code="true">
          <tee_profile>
             <processor_version>N/A</processor_version>
          </tee_profile>

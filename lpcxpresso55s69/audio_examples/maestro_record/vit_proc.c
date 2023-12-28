@@ -53,23 +53,11 @@
 #define VIT_CMD_TIME_SPAN  3.0
 #define VIT_OPERATING_MODE VIT_WAKEWORD_ENABLE | VIT_VOICECMD_ENABLE
 
-#if defined(PLATFORM_RT1040)
-#define DEVICE_ID      VIT_IMXRT1040
-#define MODEL_LOCATION VIT_MODEL_IN_FAST_MEM
-
-#elif defined(PLATFORM_RT1050)
-#define DEVICE_ID      VIT_IMXRT1050
-#define MODEL_LOCATION VIT_MODEL_IN_SLOW_MEM
-
-#elif defined(PLATFORM_RT1060)
+#if defined(PLATFORM_RT1060)
 #define DEVICE_ID      VIT_IMXRT1060
 #define MODEL_LOCATION VIT_MODEL_IN_SLOW_MEM
 
-#elif defined(PLATFORM_RT1160)
-#define DEVICE_ID      VIT_IMXRT1160
-#define MODEL_LOCATION VIT_MODEL_IN_SLOW_MEM
-
-#elif defined(PLATFORM_RT1170)
+#elif defined(PLATFORM_RT1170_EVKB)
 #define DEVICE_ID      VIT_IMXRT1170
 #define MODEL_LOCATION VIT_MODEL_IN_SLOW_MEM
 
@@ -87,7 +75,7 @@ extern RETUNE_VOICESEEKERLIGHT_plugin_t vsl;
 #endif
 
 #define SAMPLES_PER_FRAME VIT_SAMPLES_PER_30MS_FRAME
-#define MEMORY_ALIGNMENT 8                    // in bytes
+#define MEMORY_ALIGNMENT  8                   // in bytes
 
 static VIT_Handle_t VITHandle = PL_NULL;      // VIT handle pointer
 static VIT_InstanceParams_st VITInstParams;   // VIT instance parameters structure
