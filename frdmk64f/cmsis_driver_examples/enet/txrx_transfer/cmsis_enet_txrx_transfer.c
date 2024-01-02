@@ -21,7 +21,6 @@
 #include "fsl_common.h"
 #include "fsl_sysmpu.h"
 #include "fsl_phyksz8081.h"
-#include "fsl_enet_mdio.h"
 #include "RTE_Device.h"
 /*******************************************************************************
  * Definitions
@@ -45,21 +44,40 @@
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+cmsis_enet_mac_resource_t ENET0_Resource;
+cmsis_enet_phy_resource_t ENETPHY0_Resource;
+static phy_ksz8081_resource_t g_phy_resource;
 uint8_t g_frame[ENET_DATA_LENGTH + 14];
 volatile uint32_t g_testTxNum  = 0;
 uint8_t g_macAddr[6]           = MAC_ADDRESS;
 volatile uint32_t g_rxIndex    = 0;
 volatile uint32_t g_rxCheckIdx = 0;
 volatile uint32_t g_txCheckIdx = 0;
+phy_handle_t phyHandle;
 /*******************************************************************************
  * Code
  ******************************************************************************/
-mdio_handle_t mdioHandle = {.ops = &enet_ops};
-phy_handle_t phyHandle   = {.phyAddr = RTE_ENET_PHY_ADDRESS, .mdioHandle = &mdioHandle, .ops = &phyksz8081_ops};
+
 
 uint32_t ENET0_GetFreq(void)
 {
     return CLOCK_GetFreq(kCLOCK_CoreSysClk);
+}
+
+static void MDIO_Init(void)
+{
+    (void)CLOCK_EnableClock(s_enetClock[ENET_GetInstance(ENET)]);
+    ENET_SetSMI(ENET, ENET0_GetFreq(), false);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_MDIOWrite(ENET, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_MDIORead(ENET, phyAddr, regAddr, pData);
 }
 
 void ENET_SignalEvent_t(uint32_t event)
@@ -133,8 +151,13 @@ int main(void)
     /* Disable SYSMPU. */
     SYSMPU_Enable(SYSMPU, false);
 
-    mdioHandle.resource.base        = ENET;
-    mdioHandle.resource.csrClock_Hz = ENET0_GetFreq();
+    ENET0_Resource.base           = ENET;
+    ENET0_Resource.GetFreq        = ENET0_GetFreq;
+    ENETPHY0_Resource.phyAddr     = RTE_ENET_PHY_ADDRESS;
+    ENETPHY0_Resource.ops         = &phyksz8081_ops;
+    ENETPHY0_Resource.opsResource = &g_phy_resource;
+
+    MDIO_Init();
 
     PRINTF("\r\nENET example start.\r\n");
 

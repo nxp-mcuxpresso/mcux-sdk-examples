@@ -61,8 +61,6 @@ set(CMAKE_MODULE_PATH
 include(all_devices)
 
 # include modules
-include(driver_mdio-enet)
-
 include(driver_phy-device-ksz8081)
 
 include(utility_debug_console_lite)
@@ -98,8 +96,6 @@ include(device_startup)
 include(driver_lpuart)
 
 include(driver_smc)
-
-include(driver_mdio-common)
 
 include(CMSIS_Include_core_cm)
 

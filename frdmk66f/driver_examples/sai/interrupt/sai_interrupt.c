@@ -117,7 +117,7 @@ void DEMO_SAITxIRQHandler(void)
 
     if (SAI_TxGetStatusFlag(DEMO_SAI) & kSAI_FIFOWarningFlag)
     {
-        for (i = 0; i < FSL_FEATURE_SAI_FIFO_COUNT; i++)
+        for (i = 0; i < FSL_FEATURE_SAI_FIFO_COUNTn(DEMO_SAI); i++)
         {
             data = 0;
             for (j = 0; j < DEMO_AUDIO_BIT_WIDTH / 8U; j++)

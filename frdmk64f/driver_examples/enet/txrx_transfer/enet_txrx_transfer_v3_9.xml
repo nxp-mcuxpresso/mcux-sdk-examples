@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
   <externalDefinitions>
-    <definition extID="driver.mdio-enet.MK64F12"/>
     <definition extID="driver.phy-device-ksz8081.MK64F12"/>
     <definition extID="utility.debug_console_lite.MK64F12"/>
     <definition extID="platform.utilities.assert_lite.MK64F12"/>
@@ -19,7 +18,6 @@
     <definition extID="platform.drivers.common.MK64F12"/>
     <definition extID="component.lists.MK64F12"/>
     <definition extID="device.MK64F12_startup.MK64F12"/>
-    <definition extID="driver.mdio-common.MK64F12"/>
     <definition extID="CMSIS_Include_core_cm.MK64F12"/>
     <definition extID="driver.phy-common.MK64F12"/>
     <definition extID="platform.utilities.misc_utilities.MK64F12"/>
@@ -30,7 +28,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="frdmk64f_enet_txrx_transfer" name="enet_txrx_transfer" dependency="driver.mdio-enet.MK64F12 driver.phy-device-ksz8081.MK64F12 utility.debug_console_lite.MK64F12 platform.utilities.assert_lite.MK64F12 platform.drivers.port.MK64F12 platform.drivers.sysmpu.MK64F12 platform.drivers.sim.MK64F12 platform.drivers.gpio.MK64F12 platform.drivers.clock.MK64F12 platform.drivers.enet.MK64F12 platform.drivers.flash.MK64F12 platform.drivers.uart.MK64F12 platform.drivers.smc.MK64F12 device.MK64F12_CMSIS.MK64F12 component.uart_adapter.MK64F12 platform.drivers.common.MK64F12 component.lists.MK64F12 device.MK64F12_startup.MK64F12 driver.mdio-common.MK64F12 CMSIS_Include_core_cm.MK64F12 driver.phy-common.MK64F12 platform.utilities.misc_utilities.MK64F12 device.MK64F12_system.MK64F12" category="driver_examples/enet">
+  <example id="frdmk64f_enet_txrx_transfer" name="enet_txrx_transfer" dependency="driver.phy-device-ksz8081.MK64F12 utility.debug_console_lite.MK64F12 platform.utilities.assert_lite.MK64F12 platform.drivers.port.MK64F12 platform.drivers.sysmpu.MK64F12 platform.drivers.sim.MK64F12 platform.drivers.gpio.MK64F12 platform.drivers.clock.MK64F12 platform.drivers.enet.MK64F12 platform.drivers.flash.MK64F12 platform.drivers.uart.MK64F12 platform.drivers.smc.MK64F12 device.MK64F12_CMSIS.MK64F12 component.uart_adapter.MK64F12 platform.drivers.common.MK64F12 component.lists.MK64F12 device.MK64F12_startup.MK64F12 CMSIS_Include_core_cm.MK64F12 driver.phy-common.MK64F12 platform.utilities.misc_utilities.MK64F12 device.MK64F12_system.MK64F12" category="driver_examples/enet">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>

@@ -1,7 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2020 NXP
- * All rights reserved.
+ * Copyright 2016-2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -15,21 +14,18 @@
 #if defined(FSL_FEATURE_MEMORY_HAS_ADDRESS_OFFSET) && FSL_FEATURE_MEMORY_HAS_ADDRESS_OFFSET
 #include "fsl_memory.h"
 #endif
-#include "fsl_enet_mdio.h"
 #include "fsl_phyksz8081.h"
 #include "fsl_common.h"
 #include "fsl_sysmpu.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-/* ENET base address */
+extern phy_ksz8081_resource_t g_phy_resource;
 #define EXAMPLE_ENET        ENET
 #define EXAMPLE_PHY_ADDRESS 0x00U
-
-/* MDIO operations. */
-#define EXAMPLE_MDIO_OPS enet_ops
 /* PHY operations. */
-#define EXAMPLE_PHY_OPS phyksz8081_ops
+#define EXAMPLE_PHY_OPS &phyksz8081_ops
+#define EXAMPLE_PHY_RESOURCE &g_phy_resource
 /* ENET clock frequency. */
 #define EXAMPLE_CLOCK_FREQ CLOCK_GetFreq(kCLOCK_CoreSysClk)
 #define ENET_RXBD_NUM          (4)
@@ -46,6 +42,9 @@
 #endif
 #ifndef PHY_STABILITY_DELAY_US
 #define PHY_STABILITY_DELAY_US (0U)
+#endif
+#ifndef EXAMPLE_PHY_LINK_INTR_SUPPORT
+#define EXAMPLE_PHY_LINK_INTR_SUPPORT (0U)
 #endif
 
 /* @TEST_ANCHOR */
@@ -64,6 +63,7 @@ static void ENET_BuildBroadCastFrame(void);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+phy_ksz8081_resource_t g_phy_resource;
 /*! @brief Buffer descriptors should be in non-cacheable region and should be align to "ENET_BUFF_ALIGNMENT". */
 AT_NONCACHEABLE_SECTION_ALIGN(enet_rx_bd_struct_t g_rxBuffDescrip[ENET_RXBD_NUM], ENET_BUFF_ALIGNMENT);
 AT_NONCACHEABLE_SECTION_ALIGN(enet_tx_bd_struct_t g_txBuffDescrip[ENET_TXBD_NUM], ENET_BUFF_ALIGNMENT);
@@ -82,13 +82,27 @@ uint8_t g_frame[ENET_DATA_LENGTH + 14];
 /*! @brief The MAC address for ENET device. */
 uint8_t g_macAddr[6] = MAC_ADDRESS;
 
-/*! @brief Enet PHY and MDIO interface handler. */
-static mdio_handle_t mdioHandle = {.ops = &EXAMPLE_MDIO_OPS};
-static phy_handle_t phyHandle   = {.phyAddr = EXAMPLE_PHY_ADDRESS, .mdioHandle = &mdioHandle, .ops = &EXAMPLE_PHY_OPS};
+/*! @brief PHY status. */
+static phy_handle_t phyHandle;
 
 /*******************************************************************************
  * Code
  ******************************************************************************/
+static void MDIO_Init(void)
+{
+    (void)CLOCK_EnableClock(s_enetClock[ENET_GetInstance(EXAMPLE_ENET)]);
+    ENET_SetSMI(EXAMPLE_ENET, EXAMPLE_CLOCK_FREQ, false);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_MDIOWrite(EXAMPLE_ENET, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_MDIORead(EXAMPLE_ENET, phyAddr, regAddr, pData);
+}
 /*! @brief Build Frame for transmit. */
 static void ENET_BuildBroadCastFrame(void)
 {
@@ -133,6 +147,10 @@ int main(void)
     /* Disable SYSMPU. */
     SYSMPU_Enable(SYSMPU, false);
 
+    MDIO_Init();
+    g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
+
     PRINTF("\r\nENET example start.\r\n");
 
     /* Prepare the buffer configuration. */
@@ -167,8 +185,11 @@ int main(void)
 #endif
     phyConfig.phyAddr               = EXAMPLE_PHY_ADDRESS;
     phyConfig.autoNeg               = true;
-    mdioHandle.resource.base        = EXAMPLE_ENET;
-    mdioHandle.resource.csrClock_Hz = EXAMPLE_CLOCK_FREQ;
+    phyConfig.ops      = EXAMPLE_PHY_OPS;
+    phyConfig.resource = EXAMPLE_PHY_RESOURCE;
+#if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
+    phyConfig.intrType = kPHY_IntrActiveLow;
+#endif
 
     /* Initialize PHY and wait auto-negotiation over. */
     PRINTF("Wait for PHY init...\r\n");

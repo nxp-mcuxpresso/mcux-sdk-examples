@@ -65,8 +65,6 @@ include(driver_irqsteer)
 
 include(driver_memory)
 
-include(driver_mdio-enet)
-
 include(driver_phy-device-ar8031)
 
 include(driver_cache_lmem)
@@ -100,8 +98,6 @@ include(CMSIS_Include_core_cm)
 include(CMSIS_Include_core_cm)
 
 include(CMSIS_DSP_Include)
-
-include(driver_mdio-common)
 
 include(driver_phy-common)
 

@@ -39,13 +39,14 @@
     <definition extID="component.osa_bm.MK66F18"/>
     <definition extID="platform.utilities.misc_utilities.MK66F18"/>
     <definition extID="device.MK66F18_system.MK66F18"/>
+    <definition extID="CMSIS_DSP_Source.MK66F18"/>
     <definition extID="mdk"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="iar"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="frdmk66f_sai" name="sai" dependency="platform.drivers.i2c.MK66F18 driver.dialog7212.MK66F18 driver.codec.MK66F18 platform.drivers.common.MK66F18 component.da7212_adapter.MK66F18 component.codec_i2c.MK66F18 component.i2c_adapter.MK66F18 platform.drivers.sdhc.MK66F18 middleware.fatfs.MK66F18 middleware.fatfs.sd.MK66F18 CMSIS_DSP_Library.MK66F18 middleware.sdmmc.sd.MK66F18 middleware.sdmmc.common.MK66F18 middleware.sdmmc.host.sdhc.MK66F18 middleware.sdmmc.host.sdhc.interrupt.MK66F18 utility.debug_console_lite.MK66F18 platform.utilities.assert_lite.MK66F18 platform.drivers.port.MK66F18 platform.drivers.gpio.MK66F18 platform.drivers.clock.MK66F18 platform.drivers.sai.MK66F18 platform.drivers.sai_edma.MK66F18 platform.drivers.dmamux.MK66F18 platform.drivers.edma.MK66F18 platform.drivers.sysmpu.MK66F18 platform.drivers.flash.MK66F18 device.MK66F18_CMSIS.MK66F18 component.uart_adapter.MK66F18 component.lists.MK66F18 platform.drivers.uart.MK66F18 device.MK66F18_startup.MK66F18 platform.drivers.lpuart.MK66F18 platform.drivers.smc.MK66F18 CMSIS_Include_core_cm.MK66F18 middleware.sdmmc.osa.bm.MK66F18 component.osa_bm.MK66F18 platform.utilities.misc_utilities.MK66F18 device.MK66F18_system.MK66F18" category="demo_apps">
+  <example id="frdmk66f_sai" name="sai" dependency="platform.drivers.i2c.MK66F18 driver.dialog7212.MK66F18 driver.codec.MK66F18 platform.drivers.common.MK66F18 component.da7212_adapter.MK66F18 component.codec_i2c.MK66F18 component.i2c_adapter.MK66F18 platform.drivers.sdhc.MK66F18 middleware.fatfs.MK66F18 middleware.fatfs.sd.MK66F18 CMSIS_DSP_Library.MK66F18 middleware.sdmmc.sd.MK66F18 middleware.sdmmc.common.MK66F18 middleware.sdmmc.host.sdhc.MK66F18 middleware.sdmmc.host.sdhc.interrupt.MK66F18 utility.debug_console_lite.MK66F18 platform.utilities.assert_lite.MK66F18 platform.drivers.port.MK66F18 platform.drivers.gpio.MK66F18 platform.drivers.clock.MK66F18 platform.drivers.sai.MK66F18 platform.drivers.sai_edma.MK66F18 platform.drivers.dmamux.MK66F18 platform.drivers.edma.MK66F18 platform.drivers.sysmpu.MK66F18 platform.drivers.flash.MK66F18 device.MK66F18_CMSIS.MK66F18 component.uart_adapter.MK66F18 component.lists.MK66F18 platform.drivers.uart.MK66F18 device.MK66F18_startup.MK66F18 platform.drivers.lpuart.MK66F18 platform.drivers.smc.MK66F18 CMSIS_Include_core_cm.MK66F18 middleware.sdmmc.osa.bm.MK66F18 component.osa_bm.MK66F18 platform.utilities.misc_utilities.MK66F18 device.MK66F18_system.MK66F18 CMSIS_DSP_Source.MK66F18" category="demo_apps">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>

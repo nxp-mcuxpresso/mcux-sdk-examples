@@ -2167,7 +2167,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_i2c.LPC54114" name="i2c" brief="I2C Driver" version="2.1.0" full_name="FLEXCOMM I2C Driver" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers">
+    <component id="platform.drivers.flexcomm_i2c.LPC54114" name="i2c" brief="I2C Driver" version="2.1.0" full_name="FLEXCOMM I2C Driver" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/i2c" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.LPC54114"/>
@@ -2190,7 +2190,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_i2c_dma.LPC54114" name="i2c_dma" brief="I2C Driver" version="2.1.0" full_name="FLEXCOMM I2C DMA Driver" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers">
+    <component id="platform.drivers.flexcomm_i2c_dma.LPC54114" name="i2c_dma" brief="I2C Driver" version="2.1.0" full_name="FLEXCOMM I2C DMA Driver" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/i2c" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.LPC54114"/>
@@ -2212,7 +2212,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_i2c_freertos.LPC54114" name="i2c_freertos" brief="I2C Driver" version="2.0.8" full_name="FLEXCOMM I2C FREERTOS Driver" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers/freertos">
+    <component id="platform.drivers.flexcomm_i2c_freertos.LPC54114" name="i2c_freertos" brief="I2C Driver" version="2.0.8" full_name="FLEXCOMM I2C FREERTOS Driver" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/i2c" project_base_path="drivers/freertos">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.LPC54114"/>
@@ -2234,7 +2234,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_i2s.LPC54114" name="flexcomm_i2s" brief="I2S Driver" version="2.2.2" full_name="FLEXCOMM I2S Driver" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers">
+    <component id="platform.drivers.flexcomm_i2s.LPC54114" name="flexcomm_i2s" brief="I2S Driver" version="2.2.2" full_name="FLEXCOMM I2S Driver" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/i2s" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.LPC54114"/>
@@ -2254,7 +2254,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_i2s_dma.LPC54114" name="flexcomm_i2s_dma" brief="I2S Driver" version="2.2.2" full_name="FLEXCOMM I2S DMA Driver" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers">
+    <component id="platform.drivers.flexcomm_i2s_dma.LPC54114" name="flexcomm_i2s_dma" brief="I2S Driver" version="2.2.2" full_name="FLEXCOMM I2S DMA Driver" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/i2s" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm_i2s.LPC54114"/>
@@ -2274,7 +2274,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_spi.LPC54114" name="spi" brief="SPI Driver" version="2.2.1" full_name="FLEXCOMM SPI Driver" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers">
+    <component id="platform.drivers.flexcomm_spi.LPC54114" name="spi" brief="SPI Driver" version="2.2.1" full_name="FLEXCOMM SPI Driver" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/spi" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.LPC54114"/>
@@ -2294,7 +2294,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_spi_dma.LPC54114" name="spi_dma" brief="SPI Driver" version="2.1.1" full_name="FLEXCOMM SPI DMA Driver" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers">
+    <component id="platform.drivers.flexcomm_spi_dma.LPC54114" name="spi_dma" brief="SPI Driver" version="2.1.1" full_name="FLEXCOMM SPI DMA Driver" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/spi" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.LPC54114"/>
@@ -2315,7 +2315,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_spi_freertos.LPC54114" name="spi_freertos" brief="SPI Driver" version="2.1.0" full_name="FLEXCOMM SPI FREERTOS Driver" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers/freertos">
+    <component id="platform.drivers.flexcomm_spi_freertos.LPC54114" name="spi_freertos" brief="SPI Driver" version="2.1.0" full_name="FLEXCOMM SPI FREERTOS Driver" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/spi" project_base_path="drivers/freertos">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.LPC54114"/>
@@ -2337,7 +2337,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_usart.LPC54114" name="usart" brief="USART Driver" version="2.4.0" full_name="FLEXCOMM USART Driver" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers">
+    <component id="platform.drivers.flexcomm_usart.LPC54114" name="usart" brief="USART Driver" version="2.4.0" full_name="FLEXCOMM USART Driver" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/usart" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.flexcomm.LPC54114"/>
       </dependencies>
@@ -2357,7 +2357,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_usart_dma.LPC54114" name="usart_dma" brief="USART Driver" version="2.3.1" full_name="FLEXCOMM USART DMA Driver" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers">
+    <component id="platform.drivers.flexcomm_usart_dma.LPC54114" name="usart_dma" brief="USART Driver" version="2.3.1" full_name="FLEXCOMM USART DMA Driver" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/usart" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.LPC54114"/>
@@ -2378,7 +2378,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_usart_freertos.LPC54114" name="usart_freertos" brief="USART Driver" version="2.3.1" full_name="FLEXCOMM USART FREERTOS Driver" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers/freertos">
+    <component id="platform.drivers.flexcomm_usart_freertos.LPC54114" name="usart_freertos" brief="USART Driver" version="2.3.1" full_name="FLEXCOMM USART FREERTOS Driver" devices="LPC54114J256" device_cores="cm0plus_LPC54114J256 cm4_LPC54114J256" slave_roles="M0SLAVE" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/usart" project_base_path="drivers/freertos">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.LPC54114"/>

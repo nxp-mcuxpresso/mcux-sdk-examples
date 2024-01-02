@@ -6,7 +6,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include <stdlib.h>
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "board.h"
@@ -19,20 +18,17 @@
 #include "fsl_lpuart.h"
 #include "svc/misc/misc_api.h"
 #include "fsl_irqsteer.h"
-#include "fsl_enet_mdio.h"
 #include "fsl_phyar8031.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+extern phy_ar8031_resource_t g_phy_resource;
 #define EXAMPLE_ENET        CONNECTIVITY__ENET0
 #define EXAMPLE_PHY_ADDRESS (0x00U)
 #define PTP_CLK_FREQ        (125000000U)
 #define EXAMPLE_PHY_INTERFACE_RGMII
-
-/* MDIO operations. */
-#define EXAMPLE_MDIO_OPS enet_ops
-/* PHY operations. */
-#define EXAMPLE_PHY_OPS phyar8031_ops
+#define EXAMPLE_PHY_OPS &phyar8031_ops
+#define EXAMPLE_PHY_RESOURCE &g_phy_resource
 /* ENET clock frequency. */
 #define EXAMPLE_CLOCK_FREQ (167000000U)
 #define ENET_RXBD_NUM          (4)
@@ -62,6 +58,7 @@ static void ENET_BuildPtpEventFrame(void);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+phy_ar8031_resource_t g_phy_resource;
 /*! @brief Buffer descriptors should be in non-cacheable region and should be align to "ENET_BUFF_ALIGNMENT". */
 AT_NONCACHEABLE_SECTION_ALIGN(enet_rx_bd_struct_t g_rxBuffDescrip[ENET_RXBD_NUM], ENET_BUFF_ALIGNMENT);
 AT_NONCACHEABLE_SECTION_ALIGN(enet_tx_bd_struct_t g_txBuffDescrip[ENET_TXBD_NUM], ENET_BUFF_ALIGNMENT);
@@ -86,12 +83,27 @@ static volatile bool tx_frame_over   = false;
 static enet_frame_info_t txFrameInfo = {0};
 
 /*! @brief Enet PHY and MDIO interface handler. */
-static mdio_handle_t mdioHandle = {.ops = &EXAMPLE_MDIO_OPS};
-static phy_handle_t phyHandle   = {.phyAddr = EXAMPLE_PHY_ADDRESS, .mdioHandle = &mdioHandle, .ops = &EXAMPLE_PHY_OPS};
+static phy_handle_t phyHandle;
 
 /*******************************************************************************
  * Code
  ******************************************************************************/
+static void MDIO_Init(void)
+{
+    (void)CLOCK_EnableClock(s_enetClock[ENET_GetInstance(EXAMPLE_ENET)]);
+    ENET_SetSMI(EXAMPLE_ENET, EXAMPLE_CLOCK_FREQ, false);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_MDIOWrite(EXAMPLE_ENET, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_MDIORead(EXAMPLE_ENET, phyAddr, regAddr, pData);
+}
+
 void BOARD_EnableNVIC(void)
 {
     /* Enable IRQ STEER */
@@ -210,6 +222,10 @@ int main(void)
     }
     BOARD_EnableNVIC();
 
+    MDIO_Init();
+    g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
+
     PRINTF("\r\nENET PTP 1588 example start.\r\n");
 
     /* prepare the buffer configuration. */
@@ -241,6 +257,7 @@ int main(void)
      * config.rxMaxFrameLen = ENET_FRAME_MAX_FRAMELEN;
      */
     ENET_GetDefaultConfig(&config);
+    config.callback  = enetCallback;
 
     /* The miiMode should be set according to the different PHY interfaces. */
 #ifdef EXAMPLE_PHY_INTERFACE_RGMII
@@ -248,10 +265,10 @@ int main(void)
 #else
     config.miiMode = kENET_RmiiMode;
 #endif
-    phyConfig.phyAddr               = EXAMPLE_PHY_ADDRESS;
-    phyConfig.autoNeg               = true;
-    mdioHandle.resource.base        = EXAMPLE_ENET;
-    mdioHandle.resource.csrClock_Hz = EXAMPLE_CLOCK_FREQ;
+    phyConfig.phyAddr  = EXAMPLE_PHY_ADDRESS;
+    phyConfig.ops      = EXAMPLE_PHY_OPS;
+    phyConfig.resource = EXAMPLE_PHY_RESOURCE;
+    phyConfig.autoNeg  = true;
 
     /* Initialize PHY and wait auto-negotiation over. */
     PRINTF("Wait for PHY init...\r\n");
@@ -302,7 +319,6 @@ int main(void)
 
     /* Enable Tx Reclaim and set callback to get timestamp */
     ENET_SetTxReclaim(&g_handle, true, 0);
-    ENET_SetCallback(&g_handle, enetCallback, NULL);
 
     /* Check if the timestamp is running */
     for (count = 1; count <= 10; count++)
