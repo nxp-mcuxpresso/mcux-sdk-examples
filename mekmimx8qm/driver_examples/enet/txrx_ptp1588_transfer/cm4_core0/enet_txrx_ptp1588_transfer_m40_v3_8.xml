@@ -4,7 +4,6 @@
     <definition extID="cm4_core0_MIMX8QM6xxxFF"/>
     <definition extID="platform.drivers.irqsteer.MIMX8QM6"/>
     <definition extID="platform.drivers.memory.MIMX8QM6"/>
-    <definition extID="driver.mdio-enet.MIMX8QM6"/>
     <definition extID="driver.phy-device-ar8031.MIMX8QM6"/>
     <definition extID="platform.drivers.cache_lmem.MIMX8QM6"/>
     <definition extID="utility.debug_console_lite.MIMX8QM6"/>
@@ -22,7 +21,6 @@
     <definition extID="platform.Include_core_cm4.MIMX8QM6"/>
     <definition extID="platform.Include_common.MIMX8QM6"/>
     <definition extID="platform.Include_dsp.MIMX8QM6"/>
-    <definition extID="driver.mdio-common.MIMX8QM6"/>
     <definition extID="driver.phy-common.MIMX8QM6"/>
     <definition extID="platform.utilities.misc_utilities.MIMX8QM6"/>
     <definition extID="iar"/>
@@ -31,7 +29,7 @@
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="mdk"/>
   </externalDefinitions>
-  <example id="mekmimx8qm_enet_txrx_ptp1588_transfer_m40" name="enet_txrx_ptp1588_transfer_m40" device_core="cm4_core0_MIMX8QM6xxxFF" dependency="platform.drivers.irqsteer.MIMX8QM6 platform.drivers.memory.MIMX8QM6 driver.mdio-enet.MIMX8QM6 driver.phy-device-ar8031.MIMX8QM6 platform.drivers.cache_lmem.MIMX8QM6 utility.debug_console_lite.MIMX8QM6 platform.utilities.assert_lite.MIMX8QM6 platform.drivers.clock.MIMX8QM6 platform.drivers.enet.MIMX8QM6 platform.drivers.common.MIMX8QM6 platform.devices.MIMX8QM6_CMSIS.MIMX8QM6 platform.devices.MIMX8QM6_startup.MIMX8QM6 platform.drivers.lpuart.MIMX8QM6 platform.drivers.igpio.MIMX8QM6 platform.drivers.scfwapi.MIMX8QM6 component.lpuart_adapter.MIMX8QM6 component.lists.MIMX8QM6 platform.Include_core_cm4.MIMX8QM6 platform.Include_common.MIMX8QM6 platform.Include_dsp.MIMX8QM6 driver.mdio-common.MIMX8QM6 driver.phy-common.MIMX8QM6 platform.utilities.misc_utilities.MIMX8QM6" category="driver_examples/enet">
+  <example id="mekmimx8qm_enet_txrx_ptp1588_transfer_m40" name="enet_txrx_ptp1588_transfer_m40" device_core="cm4_core0_MIMX8QM6xxxFF" dependency="platform.drivers.irqsteer.MIMX8QM6 platform.drivers.memory.MIMX8QM6 driver.phy-device-ar8031.MIMX8QM6 platform.drivers.cache_lmem.MIMX8QM6 utility.debug_console_lite.MIMX8QM6 platform.utilities.assert_lite.MIMX8QM6 platform.drivers.clock.MIMX8QM6 platform.drivers.enet.MIMX8QM6 platform.drivers.common.MIMX8QM6 platform.devices.MIMX8QM6_CMSIS.MIMX8QM6 platform.devices.MIMX8QM6_startup.MIMX8QM6 platform.drivers.lpuart.MIMX8QM6 platform.drivers.igpio.MIMX8QM6 platform.drivers.scfwapi.MIMX8QM6 component.lpuart_adapter.MIMX8QM6 component.lists.MIMX8QM6 platform.Include_core_cm4.MIMX8QM6 platform.Include_common.MIMX8QM6 platform.Include_dsp.MIMX8QM6 driver.phy-common.MIMX8QM6 platform.utilities.misc_utilities.MIMX8QM6" category="driver_examples/enet">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>

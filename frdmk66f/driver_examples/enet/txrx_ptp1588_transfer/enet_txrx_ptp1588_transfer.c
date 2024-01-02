@@ -1,7 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2020 NXP
- * All rights reserved.
+ * Copyright 2016-2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -15,21 +14,19 @@
 #if defined(FSL_FEATURE_MEMORY_HAS_ADDRESS_OFFSET) && FSL_FEATURE_MEMORY_HAS_ADDRESS_OFFSET
 #include "fsl_memory.h"
 #endif
-#include "fsl_enet_mdio.h"
 #include "fsl_phyksz8081.h"
 #include "fsl_sysmpu.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-/* ENET base address */
-#define EXAMPLE_ENET        ENET
+extern phy_ksz8081_resource_t g_phy_resource;
+#define EXAMPLE_ENET         ENET
 #define EXAMPLE_PHY_ADDRESS 0x00U
 #define PTP_CLK_FREQ        CLOCK_GetFreq(kCLOCK_Osc0ErClk)
 
-/* MDIO operations. */
-#define EXAMPLE_MDIO_OPS enet_ops
 /* PHY operations. */
-#define EXAMPLE_PHY_OPS phyksz8081_ops
+#define EXAMPLE_PHY_OPS      &phyksz8081_ops
+#define EXAMPLE_PHY_RESOURCE &g_phy_resource
 /* ENET clock frequency. */
 #define EXAMPLE_CLOCK_FREQ CLOCK_GetFreq(kCLOCK_CoreSysClk)
 #define ENET_RXBD_NUM          (4)
@@ -65,22 +62,23 @@ static void ENET_BuildPtpEventFrame(void);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+phy_ksz8081_resource_t g_phy_resource;
 /*! @brief Buffer descriptors should be in non-cacheable region and should be align to "ENET_BUFF_ALIGNMENT". */
-AT_NONCACHEABLE_SECTION_ALIGN(enet_rx_bd_struct_t g_rxBuffDescrip[ENET_RXBD_NUM], ENET_BUFF_ALIGNMENT);
-AT_NONCACHEABLE_SECTION_ALIGN(enet_tx_bd_struct_t g_txBuffDescrip[ENET_TXBD_NUM], ENET_BUFF_ALIGNMENT);
+AT_NONCACHEABLE_SECTION_ALIGN(static enet_rx_bd_struct_t g_rxBuffDescrip[ENET_RXBD_NUM], ENET_BUFF_ALIGNMENT);
+AT_NONCACHEABLE_SECTION_ALIGN(static enet_tx_bd_struct_t g_txBuffDescrip[ENET_TXBD_NUM], ENET_BUFF_ALIGNMENT);
 /*! @brief The data buffers can be in cacheable region or in non-cacheable region.
  * If use cacheable region, the alignment size should be the maximum size of "CACHE LINE SIZE" and "ENET_BUFF_ALIGNMENT"
  * If use non-cache region, the alignment size is the "ENET_BUFF_ALIGNMENT".
  */
-SDK_ALIGN(uint8_t g_rxDataBuff[ENET_RXBD_NUM][SDK_SIZEALIGN(ENET_RXBUFF_SIZE, APP_ENET_BUFF_ALIGNMENT)],
+SDK_ALIGN(static uint8_t g_rxDataBuff[ENET_RXBD_NUM][SDK_SIZEALIGN(ENET_RXBUFF_SIZE, APP_ENET_BUFF_ALIGNMENT)],
           APP_ENET_BUFF_ALIGNMENT);
-SDK_ALIGN(uint8_t g_txDataBuff[ENET_TXBD_NUM][SDK_SIZEALIGN(ENET_TXBUFF_SIZE, APP_ENET_BUFF_ALIGNMENT)],
+SDK_ALIGN(static uint8_t g_txDataBuff[ENET_TXBD_NUM][SDK_SIZEALIGN(ENET_TXBUFF_SIZE, APP_ENET_BUFF_ALIGNMENT)],
           APP_ENET_BUFF_ALIGNMENT);
 
-enet_handle_t g_handle;
-uint8_t g_frame[ENET_DATA_LENGTH + 14];
-uint32_t g_testTxNum = 0;
-enet_frame_info_t txFrameInfoArray[ENET_TXBD_NUM];
+static enet_handle_t g_handle;
+static uint8_t g_frame[ENET_DATA_LENGTH + 14];
+static uint32_t g_testTxNum = 0;
+static enet_frame_info_t txFrameInfoArray[ENET_TXBD_NUM];
 
 /* The MAC address for ENET device. */
 uint8_t g_macAddr[6] = MAC_ADDRESS;
@@ -89,12 +87,27 @@ static volatile bool tx_frame_over   = false;
 static enet_frame_info_t txFrameInfo = {0};
 
 /*! @brief Enet PHY and MDIO interface handler. */
-static mdio_handle_t mdioHandle = {.ops = &EXAMPLE_MDIO_OPS};
-static phy_handle_t phyHandle   = {.phyAddr = EXAMPLE_PHY_ADDRESS, .mdioHandle = &mdioHandle, .ops = &EXAMPLE_PHY_OPS};
+static phy_handle_t phyHandle;
 
 /*******************************************************************************
  * Code
  ******************************************************************************/
+static void MDIO_Init(void)
+{
+    (void)CLOCK_EnableClock(s_enetClock[ENET_GetInstance(EXAMPLE_ENET)]);
+    ENET_SetSMI(EXAMPLE_ENET, EXAMPLE_CLOCK_FREQ, false);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_MDIOWrite(EXAMPLE_ENET, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_MDIORead(EXAMPLE_ENET, phyAddr, regAddr, pData);
+}
+
 /*! @brief Build Frame for transmit. */
 static void ENET_BuildPtpEventFrame(void)
 {
@@ -168,6 +181,10 @@ int main(void)
     /* Set the enet 1588 timer src. */
     CLOCK_SetEnetTime0Clock(2);
 
+    MDIO_Init();
+    g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
+
     PRINTF("\r\nENET PTP 1588 example start.\r\n");
 
     /* prepare the buffer configuration. */
@@ -199,6 +216,7 @@ int main(void)
      * config.rxMaxFrameLen = ENET_FRAME_MAX_FRAMELEN;
      */
     ENET_GetDefaultConfig(&config);
+    config.callback  = enetCallback;
 
     /* The miiMode should be set according to the different PHY interfaces. */
 #ifdef EXAMPLE_PHY_INTERFACE_RGMII
@@ -206,10 +224,10 @@ int main(void)
 #else
     config.miiMode = kENET_RmiiMode;
 #endif
-    phyConfig.phyAddr               = EXAMPLE_PHY_ADDRESS;
-    phyConfig.autoNeg               = true;
-    mdioHandle.resource.base        = EXAMPLE_ENET;
-    mdioHandle.resource.csrClock_Hz = EXAMPLE_CLOCK_FREQ;
+    phyConfig.phyAddr  = EXAMPLE_PHY_ADDRESS;
+    phyConfig.ops      = EXAMPLE_PHY_OPS;
+    phyConfig.resource = EXAMPLE_PHY_RESOURCE;
+    phyConfig.autoNeg  = true;
 
     /* Initialize PHY and wait auto-negotiation over. */
     PRINTF("Wait for PHY init...\r\n");
@@ -260,7 +278,6 @@ int main(void)
 
     /* Enable Tx Reclaim and set callback to get timestamp */
     ENET_SetTxReclaim(&g_handle, true, 0);
-    ENET_SetCallback(&g_handle, enetCallback, NULL);
 
     /* Check if the timestamp is running */
     for (count = 1; count <= 10; count++)

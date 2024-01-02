@@ -4742,40 +4742,6 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="driver.mdio-common.MK64F12" name="mdio-common" brief="Driver mdio-common" version="2.0.0" full_name="Driver mdio-common" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" user_visible="true" type="board_component" package_base_path="core/components/phy" project_base_path="mdio">
-      <dependencies>
-        <component_dependency value="platform.drivers.common.MK64F12"/>
-      </dependencies>
-      <source relative_path="./" type="c_include">
-        <files mask="fsl_mdio.h"/>
-      </source>
-      <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_mdio-common.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="./" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="driver.mdio-enet.MK64F12" name="mdio-enet" brief="Driver mdio-enet" version="2.0.0" full_name="Driver mdio-enet" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" user_visible="true" type="board_component" package_base_path="core/components/phy/mdio/enet" project_base_path="mdio">
-      <dependencies>
-        <all>
-          <component_dependency value="driver.mdio-common.MK64F12"/>
-          <component_dependency value="platform.drivers.enet.MK64F12"/>
-        </all>
-      </dependencies>
-      <source relative_path="./" type="c_include">
-        <files mask="fsl_enet_mdio.h"/>
-      </source>
-      <source relative_path="./" type="src">
-        <files mask="fsl_enet_mdio.c"/>
-      </source>
-      <source toolchain="armgcc" relative_path="." type="workspace">
-        <files mask="driver_mdio-enet.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="./" type="c_include"/>
-      </include_paths>
-    </component>
     <component id="platform.drivers.pdb.MK64F12" name="pdb" brief="PDB Driver" version="2.0.4" full_name="PDB Driver" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" user_visible="true" type="driver" package_base_path="core/drivers/pdb" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.common.MK64F12"/>
@@ -4794,9 +4760,6 @@ ${load}</script>
       </include_paths>
     </component>
     <component id="driver.phy-common.MK64F12" name="phy-common" brief="Driver phy-common" version="2.0.0" full_name="Driver phy-common" devices="MK64FN1M0xxx12 MK64FX512xxx12" device_cores="core0_MK64FN1M0xxx12 core0_MK64FX512xxx12" user_visible="true" type="software_component" package_base_path="core/components/phy" project_base_path="phy">
-      <dependencies>
-        <component_dependency value="driver.mdio-common.MK64F12"/>
-      </dependencies>
       <source relative_path="./" type="c_include">
         <files mask="fsl_phy.h"/>
       </source>

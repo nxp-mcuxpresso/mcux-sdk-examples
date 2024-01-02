@@ -2208,7 +2208,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexio_camera.MK28FA15" name="flexio_camera" brief="FLEXIO Driver" version="2.1.3" full_name="FLEXIO CAMERA Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/flexio" project_base_path="drivers">
+    <component id="platform.drivers.flexio_camera.MK28FA15" name="flexio_camera" brief="FLEXIO Driver" version="2.1.3" full_name="FLEXIO CAMERA Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/flexio/camera" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.flexio.MK28FA15"/>
       </dependencies>
@@ -2222,7 +2222,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexio_camera_edma.MK28FA15" name="flexio_camera_edma" brief="FLEXIO CAMERA EDMA Driver" version="2.1.3" full_name="FLEXIO CAMERA EDMA Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/flexio" project_base_path="drivers">
+    <component id="platform.drivers.flexio_camera_edma.MK28FA15" name="flexio_camera_edma" brief="FLEXIO CAMERA EDMA Driver" version="2.1.3" full_name="FLEXIO CAMERA EDMA Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/flexio/camera" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexio_camera.MK28FA15"/>
@@ -2239,7 +2239,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexio_i2c_master.MK28FA15" name="flexio_i2c_master" brief="FLEXIO I2C Driver" version="2.4.0" full_name="FLEXIO I2C Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/flexio" project_base_path="drivers">
+    <component id="platform.drivers.flexio_i2c_master.MK28FA15" name="flexio_i2c_master" brief="FLEXIO I2C Driver" version="2.4.0" full_name="FLEXIO I2C Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/flexio/i2c" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.flexio.MK28FA15"/>
       </dependencies>
@@ -2256,7 +2256,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexio_i2s.MK28FA15" name="flexio_i2s" brief="FLEXIO I2S Driver" version="2.2.0" full_name="FLEXIO I2S Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/flexio" project_base_path="drivers">
+    <component id="platform.drivers.flexio_i2s.MK28FA15" name="flexio_i2s" brief="FLEXIO I2S Driver" version="2.2.0" full_name="FLEXIO I2S Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/flexio/i2s" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.flexio.MK28FA15"/>
       </dependencies>
@@ -2270,7 +2270,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexio_i2s_edma.MK28FA15" name="flexio_i2s_edma" brief="FLEXIO I2S EDMA Driver" version="2.1.7" full_name="FLEXIO I2S EDMA Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/flexio" project_base_path="drivers">
+    <component id="platform.drivers.flexio_i2s_edma.MK28FA15" name="flexio_i2s_edma" brief="FLEXIO I2S EDMA Driver" version="2.1.7" full_name="FLEXIO I2S EDMA Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/flexio/i2s" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.edma.MK28FA15"/>
@@ -2287,7 +2287,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexio_mculcd.MK28FA15" name="flexio_mculcd" brief="FLEXIO MCULCD Driver" version="2.0.5" full_name="FLEXIO MCULCD Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/flexio" project_base_path="drivers">
+    <component id="platform.drivers.flexio_mculcd.MK28FA15" name="flexio_mculcd" brief="FLEXIO MCULCD Driver" version="2.0.5" full_name="FLEXIO MCULCD Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/flexio/mculcd" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.flexio.MK28FA15"/>
       </dependencies>
@@ -2304,7 +2304,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexio_mculcd_edma.MK28FA15" name="flexio_mculcd_edma" brief="FLEXIO MCULCD EDMA Driver" version="2.0.4" full_name="FLEXIO MCULCD EDMA Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/flexio" project_base_path="drivers">
+    <component id="platform.drivers.flexio_mculcd_edma.MK28FA15" name="flexio_mculcd_edma" brief="FLEXIO MCULCD EDMA Driver" version="2.0.4" full_name="FLEXIO MCULCD EDMA Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/flexio/mculcd" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexio_mculcd.MK28FA15"/>
@@ -2324,7 +2324,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexio_spi.MK28FA15" name="flexio_spi" brief="FLEXIO SPI Driver" version="2.2.0" full_name="FLEXIO SPI Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/flexio" project_base_path="drivers">
+    <component id="platform.drivers.flexio_spi.MK28FA15" name="flexio_spi" brief="FLEXIO SPI Driver" version="2.2.0" full_name="FLEXIO SPI Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/flexio/spi" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.flexio.MK28FA15"/>
       </dependencies>
@@ -2341,7 +2341,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexio_spi_edma.MK28FA15" name="flexio_spi_edma" brief="FLEXIO SPI EDMA Driver" version="2.2.0" full_name="FLEXIO SPI EDMA Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/flexio" project_base_path="drivers">
+    <component id="platform.drivers.flexio_spi_edma.MK28FA15" name="flexio_spi_edma" brief="FLEXIO SPI EDMA Driver" version="2.2.0" full_name="FLEXIO SPI EDMA Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/flexio/spi" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.edma.MK28FA15"/>
@@ -2361,7 +2361,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexio_uart.MK28FA15" name="flexio_uart" brief="FLEXIO UART Driver" version="2.3.0" full_name="FLEXIO UART Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/flexio" project_base_path="drivers">
+    <component id="platform.drivers.flexio_uart.MK28FA15" name="flexio_uart" brief="FLEXIO UART Driver" version="2.3.0" full_name="FLEXIO UART Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/flexio/uart" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.flexio.MK28FA15"/>
       </dependencies>
@@ -2378,7 +2378,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexio_uart_edma.MK28FA15" name="flexio_uart_edma" brief="FLEXIO UART EDMA Driver" version="2.3.0" full_name="FLEXIO UART EDMA Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/flexio" project_base_path="drivers">
+    <component id="platform.drivers.flexio_uart_edma.MK28FA15" name="flexio_uart_edma" brief="FLEXIO UART EDMA Driver" version="2.3.0" full_name="FLEXIO UART EDMA Driver" devices="MK28FN2M0Axxx15" device_cores="core0_MK28FN2M0Axxx15" user_visible="true" type="driver" package_base_path="core/drivers/flexio/uart" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexio_uart.MK28FA15"/>

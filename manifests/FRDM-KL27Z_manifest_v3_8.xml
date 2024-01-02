@@ -1856,7 +1856,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexio_i2c_master.MKL27Z644" name="flexio_i2c_master" brief="FLEXIO I2C Driver" version="2.4.0" full_name="FLEXIO I2C Driver" devices="MKL27Z32xxx4 MKL27Z64xxx4" device_cores="core0_MKL27Z32xxx4 core0_MKL27Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/flexio" project_base_path="drivers">
+    <component id="platform.drivers.flexio_i2c_master.MKL27Z644" name="flexio_i2c_master" brief="FLEXIO I2C Driver" version="2.4.0" full_name="FLEXIO I2C Driver" devices="MKL27Z32xxx4 MKL27Z64xxx4" device_cores="core0_MKL27Z32xxx4 core0_MKL27Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/flexio/i2c" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.flexio.MKL27Z644"/>
       </dependencies>
@@ -1873,7 +1873,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexio_i2s.MKL27Z644" name="flexio_i2s" brief="FLEXIO I2S Driver" version="2.2.0" full_name="FLEXIO I2S Driver" devices="MKL27Z32xxx4 MKL27Z64xxx4" device_cores="core0_MKL27Z32xxx4 core0_MKL27Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/flexio" project_base_path="drivers">
+    <component id="platform.drivers.flexio_i2s.MKL27Z644" name="flexio_i2s" brief="FLEXIO I2S Driver" version="2.2.0" full_name="FLEXIO I2S Driver" devices="MKL27Z32xxx4 MKL27Z64xxx4" device_cores="core0_MKL27Z32xxx4 core0_MKL27Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/flexio/i2s" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.flexio.MKL27Z644"/>
       </dependencies>
@@ -1887,7 +1887,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexio_i2s_dma.MKL27Z644" name="flexio_i2s_dma" brief="FLEXIO I2S DMA Driver" version="2.1.7" full_name="FLEXIO I2S DMA Driver" devices="MKL27Z32xxx4 MKL27Z64xxx4" device_cores="core0_MKL27Z32xxx4 core0_MKL27Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/flexio" project_base_path="drivers">
+    <component id="platform.drivers.flexio_i2s_dma.MKL27Z644" name="flexio_i2s_dma" brief="FLEXIO I2S DMA Driver" version="2.1.7" full_name="FLEXIO I2S DMA Driver" devices="MKL27Z32xxx4 MKL27Z64xxx4" device_cores="core0_MKL27Z32xxx4 core0_MKL27Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/flexio/i2s" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexio_i2s.MKL27Z644"/>
@@ -1904,7 +1904,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexio_spi.MKL27Z644" name="flexio_spi" brief="FLEXIO SPI Driver" version="2.2.0" full_name="FLEXIO SPI Driver" devices="MKL27Z32xxx4 MKL27Z64xxx4" device_cores="core0_MKL27Z32xxx4 core0_MKL27Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/flexio" project_base_path="drivers">
+    <component id="platform.drivers.flexio_spi.MKL27Z644" name="flexio_spi" brief="FLEXIO SPI Driver" version="2.2.0" full_name="FLEXIO SPI Driver" devices="MKL27Z32xxx4 MKL27Z64xxx4" device_cores="core0_MKL27Z32xxx4 core0_MKL27Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/flexio/spi" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.flexio.MKL27Z644"/>
       </dependencies>
@@ -1921,7 +1921,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexio_spi_dma.MKL27Z644" name="flexio_spi_dma" brief="FLEXIO SPI DMA Driver" version="2.2.0" full_name="FLEXIO SPI DMA Driver" devices="MKL27Z32xxx4 MKL27Z64xxx4" device_cores="core0_MKL27Z32xxx4 core0_MKL27Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/flexio" project_base_path="drivers">
+    <component id="platform.drivers.flexio_spi_dma.MKL27Z644" name="flexio_spi_dma" brief="FLEXIO SPI DMA Driver" version="2.2.0" full_name="FLEXIO SPI DMA Driver" devices="MKL27Z32xxx4 MKL27Z64xxx4" device_cores="core0_MKL27Z32xxx4 core0_MKL27Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/flexio/spi" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.dma.MKL27Z644"/>
@@ -1941,7 +1941,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexio_uart.MKL27Z644" name="flexio_uart" brief="FLEXIO UART Driver" version="2.3.0" full_name="FLEXIO UART Driver" devices="MKL27Z32xxx4 MKL27Z64xxx4" device_cores="core0_MKL27Z32xxx4 core0_MKL27Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/flexio" project_base_path="drivers">
+    <component id="platform.drivers.flexio_uart.MKL27Z644" name="flexio_uart" brief="FLEXIO UART Driver" version="2.3.0" full_name="FLEXIO UART Driver" devices="MKL27Z32xxx4 MKL27Z64xxx4" device_cores="core0_MKL27Z32xxx4 core0_MKL27Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/flexio/uart" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.flexio.MKL27Z644"/>
       </dependencies>
@@ -1958,7 +1958,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexio_uart_dma.MKL27Z644" name="flexio_uart_dma" brief="FLEXIO UART DMA Driver" version="2.3.0" full_name="FLEXIO UART DMA Driver" devices="MKL27Z32xxx4 MKL27Z64xxx4" device_cores="core0_MKL27Z32xxx4 core0_MKL27Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/flexio" project_base_path="drivers">
+    <component id="platform.drivers.flexio_uart_dma.MKL27Z644" name="flexio_uart_dma" brief="FLEXIO UART DMA Driver" version="2.3.0" full_name="FLEXIO UART DMA Driver" devices="MKL27Z32xxx4 MKL27Z64xxx4" device_cores="core0_MKL27Z32xxx4 core0_MKL27Z64xxx4" user_visible="true" type="driver" package_base_path="core/drivers/flexio/uart" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.dma.MKL27Z644"/>

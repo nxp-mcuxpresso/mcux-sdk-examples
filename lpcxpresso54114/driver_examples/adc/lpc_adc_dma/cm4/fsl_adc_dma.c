@@ -40,16 +40,7 @@ uint32_t g_AdcConvResult[1];         /* Keep the ADC conversion resulut moved fr
 volatile bool g_DmaTransferDoneFlag; /* Flag of DMA transfer done trigger by ADC conversion. */
 /* DMA descripter table used for ping-pong mode. */
 DMA_ALLOCATE_LINK_DESCRIPTORS(s_dma_table, DMA_DESCRIPTOR_NUM);
-const uint32_t g_XferConfig =
-    DMA_CHANNEL_XFER(true,                          /* Reload link descriptor after current exhaust, */
-                     true,                          /* Clear trigger status. */
-                     true,                          /* Enable interruptA. */
-                     false,                         /* Not enable interruptB. */
-                     sizeof(uint32_t),              /* Dma transfer width. */
-                     kDMA_AddressInterleave0xWidth, /* Dma source address no interleave  */
-                     kDMA_AddressInterleave0xWidth, /* Dma destination address no interleave  */
-                     sizeof(uint32_t)               /* Dma transfer byte. */
-    );
+uint32_t g_XferConfig;
 const uint32_t g_Adc_12bitFullRange = 4096U;
 
 /*******************************************************************************
@@ -110,6 +101,9 @@ int main(void)
     {
         PRINTF("ADC Calibration Failed.\r\n");
     }
+#if defined(FSL_FEATURE_ADC_CALIBRATION_CLOCK_LOWER_THAN_30MHz) && FSL_FEATURE_ADC_CALIBRATION_CLOCK_LOWER_THAN_30MHz
+    ReInitSystemclock();
+#endif
 #endif /* FSL_FEATURE_ADC_HAS_NO_CALIB_FUNC */
 
     ADC_Configuration();
@@ -176,6 +170,9 @@ static void ADC_Configuration(void)
 #endif /* FSL_FEATURE_ADC_HAS_NO_INSEL. */
 
     /* Enable channel DEMO_ADC_SAMPLE_CHANNEL_NUMBER's conversion in Sequence A. */
+#if defined(FSL_FEATURE_ADC_HAS_SEQ_CTRL_TSAMP) & FSL_FEATURE_ADC_HAS_SEQ_CTRL_TSAMP
+    adcConvSeqConfigStruct.seqSampleTimeNumber = 0U;
+#endif /* FSL_FEATURE_ADC_HAS_SEQ_CTRL_TSAMP */
     adcConvSeqConfigStruct.channelMask =
         (1U << DEMO_ADC_SAMPLE_CHANNEL_NUMBER); /* Includes channel DEMO_ADC_SAMPLE_CHANNEL_NUMBER. */
     adcConvSeqConfigStruct.triggerMask      = 0U;
@@ -211,6 +208,15 @@ static void DMA_Configfuation(void)
     dma_channel_config_t dmaChannelConfigStruct;
     dma_channel_trigger_t dmaChannelTriggerStruct;
 
+    g_XferConfig = DMA_CHANNEL_XFER(true,                          /* Reload link descriptor after current exhaust, */
+                                    true,                          /* Clear trigger status. */
+                                    true,                          /* Enable interruptA. */
+                                    false,                         /* Not enable interruptB. */
+                                    sizeof(uint32_t),              /* Dma transfer width. */
+                                    kDMA_AddressInterleave0xWidth, /* Dma source address no interleave  */
+                                    kDMA_AddressInterleave0xWidth, /* Dma destination address no interleave  */
+                                    sizeof(uint32_t)               /* Dma transfer byte. */
+    );
     /* Init DMA. This must be set before INPUTMUX_Init() for DMA peripheral reset will clear the mux setting. */
     DMA_Init(DEMO_DMA_BASE);
 
