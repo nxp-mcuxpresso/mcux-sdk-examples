@@ -19,6 +19,7 @@
 #include "fsl_codec_common.h"
 #include <stdbool.h>
 #include "fsl_codec_adapter.h"
+#include "fsl_i2s_bridge.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -174,13 +175,15 @@ int main(void)
     wm8904Config.i2cConfig.codecI2CSourceClock = CLOCK_GetI3cClkFreq();
     wm8904Config.mclk_HZ                       = CLOCK_GetMclkClkFreq();
 
-    /* Set shared signal set 0: SCK, WS from Flexcomm1 */
-    SYSCTL1->SHAREDCTRLSET[0] = SYSCTL1_SHAREDCTRLSET_SHAREDSCKSEL(1) | SYSCTL1_SHAREDCTRLSET_SHAREDWSSEL(1) |
-                                SYSCTL1_SHAREDCTRLSET_FC0DATAOUTEN(1) | SYSCTL1_SHAREDCTRLSET_FC3DATAOUTEN(1);
-    /* Set flexcomm3 SCK, WS from shared signal set 0 */
-    SYSCTL1->FCCTRLSEL[0] = SYSCTL1_FCCTRLSEL_SCKINSEL(1) | SYSCTL1_FCCTRLSEL_WSINSEL(1);
+    /* Set shared signal set 0: SCK, WS from Flexcomm1, enable Flexcomm0 and Flexcomm3 DATAOUT output. */
+    I2S_BRIDGE_SetShareSetSrc(kI2S_BRIDGE_ShareSet0, kI2S_BRIDGE_Flexcomm1, kI2S_BRIDGE_Flexcomm1, 0U,
+                              kI2S_BRIDGE_Flexcomm0DataOut | kI2S_BRIDGE_Flexcomm3DataOut);
+    /* Set flexcomm0 SCK, WS from shared signal set 0 */
+    I2S_BRIDGE_SetFlexcommShareSet(kI2S_BRIDGE_Flexcomm0, kI2S_BRIDGE_ShareSet0, kI2S_BRIDGE_ShareSet0,
+                                   kI2S_BRIDGE_OriginalSignal, kI2S_BRIDGE_OriginalSignal);
     /* Set flexcomm3 data out from shared signal set 0 */
-    SYSCTL1->FCCTRLSEL[3] = SYSCTL1_FCCTRLSEL_DATAOUTSEL(1);
+    I2S_BRIDGE_SetFlexcommShareSet(kI2S_BRIDGE_Flexcomm3, kI2S_BRIDGE_OriginalSignal, kI2S_BRIDGE_OriginalSignal,
+                                   kI2S_BRIDGE_OriginalSignal, kI2S_BRIDGE_ShareSet0);
 
     PRINTF("Configure WM8904 codec\r\n");
 

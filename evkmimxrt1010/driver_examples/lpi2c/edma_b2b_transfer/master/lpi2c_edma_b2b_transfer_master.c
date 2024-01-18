@@ -117,6 +117,9 @@ int main(void)
      * userConfig.enableDebugMode = false;
      */
     EDMA_GetDefaultConfig(&userConfig);
+#if defined(BOARD_GetEDMAConfig)
+    BOARD_GetEDMAConfig(userConfig);
+#endif
     EDMA_Init(EXAMPLE_LPI2C_MASTER_DMA, &userConfig);
 
     /* Set up i2c master to send data to slave*/

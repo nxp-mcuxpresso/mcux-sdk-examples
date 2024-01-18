@@ -157,7 +157,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/LPC54S018J4M_spifi_flash.ld -static \
+    -T\"${ProjDirPath}/LPC54S018J4M_spifi_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -183,5 +183,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/LPC54S018J4M_spifi_flash.ld -static \
+    -T\"${ProjDirPath}/LPC54S018J4M_spifi_flash.ld\" -static \
 ")

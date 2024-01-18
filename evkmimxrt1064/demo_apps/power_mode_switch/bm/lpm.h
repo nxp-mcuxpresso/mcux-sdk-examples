@@ -26,7 +26,7 @@ typedef enum _lpm_power_mode
 {
     LPM_PowerModeOverRun = 0, /* Over RUN mode, CPU won't stop running */
 
-    LPM_PowerModeFullRun, /* Full RUN mode, CPU won't stop running */
+    LPM_PowerModeFullRun,     /* Full RUN mode, CPU won't stop running */
 
     LPM_PowerModeLowSpeedRun,
 
@@ -56,7 +56,7 @@ typedef enum _lpm_power_mode
      */
     LPM_PowerModeSuspend, /* Deep Sleep mode, suspend. */
 
-    LPM_PowerModeSNVS, /* Power off mode, or shutdown mode */
+    LPM_PowerModeSNVS,    /* Power off mode, or shutdown mode */
 
     LPM_PowerModeEnd = LPM_PowerModeSNVS
 } lpm_power_mode_t;

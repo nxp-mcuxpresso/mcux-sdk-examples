@@ -54,7 +54,7 @@ static void APP_BootClockRUN()
 
     /* Configure Audio PLL clock source */
     CLOCK_InitAudioPll(&g_audioPllConfig_BOARD_BootClockRUN);
-    CLOCK_InitAudioPfd(kCLOCK_Pfd0, 26); /* Enable Audio PLL clock */
+    CLOCK_InitAudioPfd(kCLOCK_Pfd0, 26);         /* Enable Audio PLL clock */
 
     CLOCK_SetClkDiv(kCLOCK_DivSysCpuAhbClk, 2U); /* Set SYSCPUAHBCLKDIV divider to value 2 */
 

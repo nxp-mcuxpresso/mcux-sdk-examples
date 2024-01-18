@@ -62,13 +62,13 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../source/lwip_dhcp_freertos.c"
 "${ProjDirPath}/../source/lwipopts.h"
 "${ProjDirPath}/../source/FreeRTOSConfig.h"
+"${ProjDirPath}/../cr_section_macros.h"
+"${ProjDirPath}/../dcd.c"
+"${ProjDirPath}/../dcd.h"
 "${ProjDirPath}/../board.h"
 "${ProjDirPath}/../board.c"
-"${ProjDirPath}/../dcd.h"
-"${ProjDirPath}/../dcd.c"
-"${ProjDirPath}/../cr_section_macros.h"
-"${ProjDirPath}/../clock_config.c"
 "${ProjDirPath}/../clock_config.h"
+"${ProjDirPath}/../clock_config.c"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE

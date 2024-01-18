@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2022 NXP
+ * Copyright 2020-2023 NXP
  * All rights reserved.
  *
  *
@@ -116,6 +116,8 @@ status_t flexspi_nor_enable_quad_mode(FLEXSPI_Type *base)
 {
     flexspi_transfer_t flashXfer;
     status_t status;
+
+#if defined(FLASH_QUAD_ENABLE) && FLASH_QUAD_ENABLE
     uint32_t writeValue = FLASH_QUAD_ENABLE;
 
     /* Make sure external flash is not in busy status. */
@@ -124,6 +126,7 @@ status_t flexspi_nor_enable_quad_mode(FLEXSPI_Type *base)
     {
         return status;
     }
+#endif
 
     /* Write enable */
     status = flexspi_nor_write_enable(base, 0);
@@ -136,11 +139,18 @@ status_t flexspi_nor_enable_quad_mode(FLEXSPI_Type *base)
     /* Enable quad mode. */
     flashXfer.deviceAddress = 0;
     flashXfer.port          = kFLEXSPI_PortA1;
+#if defined(FLASH_QUAD_ENABLE) && FLASH_QUAD_ENABLE
     flashXfer.cmdType       = kFLEXSPI_Write;
     flashXfer.SeqNumber     = 1;
     flashXfer.seqIndex      = NOR_CMD_LUT_SEQ_IDX_WRITESTATUSREG;
     flashXfer.data          = &writeValue;
     flashXfer.dataSize      = 1;
+#endif
+#if defined(MT25Q_FLASH_QUAD_ENABLE) && MT25Q_FLASH_QUAD_ENABLE
+    flashXfer.cmdType       = kFLEXSPI_Command;
+    flashXfer.SeqNumber     = 1;
+    flashXfer.seqIndex      = NOR_CMD_LUT_SEQ_IDX_ENABLEQUAD;
+#endif
 
     status = FLEXSPI_TransferBlocking(base, &flashXfer);
     if (status != kStatus_Success)
@@ -470,7 +480,7 @@ void flexspi_nor_flash_init(FLEXSPI_Type *base)
     config.ahbConfig.enableAHBBufferable  = true;
     config.ahbConfig.enableReadAddressOpt = true;
     config.ahbConfig.enableAHBCachable    = true;
-    config.rxSampleClock                  = kFLEXSPI_ReadSampleClkLoopbackFromDqsPad;
+    config.rxSampleClock                  = EXAMPLE_FLEXSPI_RX_SAMPLE_CLOCK;
     FLEXSPI_Init(base, &config);
 
     /* Configure flash settings according to serial flash feature. */

@@ -8,7 +8,6 @@
 
 #include "fsl_common.h"
 #include "fsl_mu.h"
-#include "fsl_gpio.h"
 #include "pin_mux.h"
 #include "board.h"
 

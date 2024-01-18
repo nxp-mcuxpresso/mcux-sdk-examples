@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2019 NXP
+ * Copyright 2016-2019, 2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -206,9 +206,15 @@ static void APP_CopyCore1Image(void)
 #if defined(__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
     SCB_CleanInvalidateDCache_by_Addr((void *)CORE1_BOOT_ADDRESS, core1_image_size);
 #endif
+#ifdef CORE1_IMAGE_FLUSH_CACHE
+    CORE1_IMAGE_FLUSH_CACHE(CORE1_BOOT_ADDRESS, core1_image_size);
+#endif
     memcpy((void *)CORE1_BOOT_ADDRESS, (void *)CORE1_IMAGE_START, core1_image_size);
 #if defined(__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
     SCB_CleanInvalidateDCache_by_Addr((void *)CORE1_BOOT_ADDRESS, core1_image_size);
+#endif
+#ifdef CORE1_IMAGE_FLUSH_CACHE
+    CORE1_IMAGE_FLUSH_CACHE(CORE1_BOOT_ADDRESS, core1_image_size);
 #endif
 #endif
 }
@@ -235,7 +241,7 @@ int main(void)
 #if CORE0_BOOT_CORE1
     /* Boot core 1. */
 #if BOOT_CORE1_BY_MU
-    MU_BootCoreB(APP_MU, APP_CORE1_BOOT_MODE);
+    MU_BootOtherCore(APP_MU, APP_CORE1_BOOT_MODE);
 #else
     APP_BootCore1();
 #endif

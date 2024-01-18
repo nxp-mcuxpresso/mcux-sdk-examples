@@ -47,7 +47,7 @@
 #define APP_EXCLUDE_FROM_DEEPPOWERDOWN (kPDRUNCFG_PD_LDOMEM | kPDRUNCFG_PD_FRO32K)
 
 #define APP_SYSCON_STARTER_MASK SYSCON_STARTERSET_GPIO_INT00_SET_MASK
-//#define INPUTMUX INPUTMUX0
+// #define INPUTMUX INPUTMUX0
 const char *gWakeupInfoStr[] = {"Sleep [Press the user key to wakeup]", "Deep Sleep [Press the user key to wakeup]",
 #if (defined(FSL_FEATURE_SYSCON_HAS_POWERDOWN_MODE) && FSL_FEATURE_SYSCON_HAS_POWERDOWN_MODE)
                                 "Powerdown [Reset to wakeup]", "Deep Powerdown [Reset to wakeup]"};

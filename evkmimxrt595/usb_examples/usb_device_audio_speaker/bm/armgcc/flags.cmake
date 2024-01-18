@@ -56,6 +56,7 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -DFSL_OSA_BM_TASK_ENABLE=0 \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
     -DMCUXPRESSO_SDK \
+    -DSDK_I3C_BASED_COMPONENT_USED=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8904_ENABLE \
@@ -91,6 +92,7 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DFSL_OSA_BM_TASK_ENABLE=0 \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
     -DMCUXPRESSO_SDK \
+    -DSDK_I3C_BASED_COMPONENT_USED=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8904_ENABLE \
@@ -126,6 +128,7 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -DFSL_OSA_BM_TASK_ENABLE=0 \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
     -DMCUXPRESSO_SDK \
+    -DSDK_I3C_BASED_COMPONENT_USED=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8904_ENABLE \
@@ -161,6 +164,7 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DFSL_OSA_BM_TASK_ENABLE=0 \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
     -DMCUXPRESSO_SDK \
+    -DSDK_I3C_BASED_COMPONENT_USED=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8904_ENABLE \
@@ -294,7 +298,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     --defsym=__stack_size__=0x1000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT595Sxxxx_cm33_flash.ld -static \
+    -T\"${ProjDirPath}/MIMXRT595Sxxxx_cm33_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -322,7 +326,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     --defsym=__stack_size__=0x1000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT595Sxxxx_cm33_ram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT595Sxxxx_cm33_ram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG} \
@@ -351,7 +355,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     --defsym=__stack_size__=0x1000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT595Sxxxx_cm33_flash.ld -static \
+    -T\"${ProjDirPath}/MIMXRT595Sxxxx_cm33_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_DEBUG} \
@@ -380,5 +384,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     --defsym=__stack_size__=0x1000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT595Sxxxx_cm33_ram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT595Sxxxx_cm33_ram.ld\" -static \
 ")

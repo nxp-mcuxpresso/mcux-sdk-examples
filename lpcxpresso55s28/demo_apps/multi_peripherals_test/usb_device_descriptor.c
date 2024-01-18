@@ -39,7 +39,7 @@ usb_device_endpoint_struct_t g_UsbDeviceHidMouseEndpoints[USB_HID_MOUSE_ENDPOINT
 
 /* HID mouse interface information */
 usb_device_interface_struct_t g_UsbDeviceHidMouseInterface[] = {{
-    0U, /* The alternate setting of the interface */
+    0U,                               /* The alternate setting of the interface */
     {
         USB_HID_MOUSE_ENDPOINT_COUNT, /* Endpoint count */
         g_UsbDeviceHidMouseEndpoints, /* Endpoints handle */
@@ -73,8 +73,8 @@ usb_device_class_struct_t g_UsbDeviceHidMouseConfig = {
 
 USB_DMA_INIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE)
 uint8_t g_UsbDeviceDescriptor[] = {
-    USB_DESCRIPTOR_LENGTH_DEVICE, /* Size of this descriptor in bytes */
-    USB_DESCRIPTOR_TYPE_DEVICE,   /* DEVICE Descriptor Type */
+    USB_DESCRIPTOR_LENGTH_DEVICE,                        /* Size of this descriptor in bytes */
+    USB_DESCRIPTOR_TYPE_DEVICE,                          /* DEVICE Descriptor Type */
     USB_SHORT_GET_LOW(USB_DEVICE_SPECIFIC_BCD_VERSION),
     USB_SHORT_GET_HIGH(USB_DEVICE_SPECIFIC_BCD_VERSION), /* USB Specification Release Number in
                                                             Binary-Coded Decimal (i.e., 2.10 is 210H). */
@@ -84,16 +84,16 @@ uint8_t g_UsbDeviceDescriptor[] = {
     USB_CONTROL_MAX_PACKET_SIZE,                         /* Maximum packet size for endpoint zero
                                                             (only 8, 16, 32, or 64 are valid) */
     0xC9U,
-    0x1FU, /* Vendor ID (assigned by the USB-IF) */
+    0x1FU,                                               /* Vendor ID (assigned by the USB-IF) */
     0x91U,
-    0x00U, /* Product ID (assigned by the manufacturer) */
+    0x00U,                                               /* Product ID (assigned by the manufacturer) */
     USB_SHORT_GET_LOW(USB_DEVICE_DEMO_BCD_VERSION),
-    USB_SHORT_GET_HIGH(USB_DEVICE_DEMO_BCD_VERSION), /* Device release number in binary-coded decimal */
-    0x01U,                                           /* Index of string descriptor describing manufacturer */
-    0x02U,                                           /* Index of string descriptor describing product */
-    0x00U,                                           /* Index of string descriptor describing the
-                                                        device's serial number */
-    USB_DEVICE_CONFIGURATION_COUNT,                  /* Number of possible configurations */
+    USB_SHORT_GET_HIGH(USB_DEVICE_DEMO_BCD_VERSION),     /* Device release number in binary-coded decimal */
+    0x01U,                                               /* Index of string descriptor describing manufacturer */
+    0x02U,                                               /* Index of string descriptor describing product */
+    0x00U,                                               /* Index of string descriptor describing the
+                                                            device's serial number */
+    USB_DEVICE_CONFIGURATION_COUNT,                      /* Number of possible configurations */
 };
 
 USB_DMA_INIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE)
@@ -172,17 +172,17 @@ uint8_t g_UsbDeviceConfigurationDescriptor[] = {
     USB_HID_MOUSE_PROTOCOL,          /* Protocol code (assigned by the USB). */
     0x00U,                           /* Index of string descriptor describing this interface */
 
-    USB_DESCRIPTOR_LENGTH_HID,      /* Numeric expression that is the total size of the
-                                       HID descriptor. */
-    USB_DESCRIPTOR_TYPE_HID,        /* Constant name specifying type of HID
-                                       descriptor. */
-    0x00U, 0x01U,                   /* Numeric expression identifying the HID Class
-                                       Specification release. */
-    0x00U,                          /* Numeric expression identifying country code of
-                                       the localized hardware */
-    0x01U,                          /* Numeric expression specifying the number of
-                                       class descriptors(at least one report descriptor) */
-    USB_DESCRIPTOR_TYPE_HID_REPORT, /* Constant name identifying type of class descriptor. */
+    USB_DESCRIPTOR_LENGTH_HID,       /* Numeric expression that is the total size of the
+                                        HID descriptor. */
+    USB_DESCRIPTOR_TYPE_HID,         /* Constant name specifying type of HID
+                                        descriptor. */
+    0x00U, 0x01U,                    /* Numeric expression identifying the HID Class
+                                        Specification release. */
+    0x00U,                           /* Numeric expression identifying country code of
+                                        the localized hardware */
+    0x01U,                           /* Numeric expression specifying the number of
+                                        class descriptors(at least one report descriptor) */
+    USB_DESCRIPTOR_TYPE_HID_REPORT,  /* Constant name identifying type of class descriptor. */
     USB_SHORT_GET_LOW(USB_DESCRIPTOR_LENGTH_HID_MOUSE_REPORT),
     USB_SHORT_GET_HIGH(USB_DESCRIPTOR_LENGTH_HID_MOUSE_REPORT),
     /* Numeric expression that is the total size of the
@@ -203,8 +203,8 @@ uint8_t g_UsbDeviceConfigurationDescriptor[] = {
 #if (defined(USB_DEVICE_CONFIG_CV_TEST) && (USB_DEVICE_CONFIG_CV_TEST > 0U))
 USB_DMA_INIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE)
 uint8_t g_UsbDeviceQualifierDescriptor[USB_DESCRIPTOR_LENGTH_DEVICE_QUALITIER] = {
-    USB_DESCRIPTOR_LENGTH_DEVICE_QUALITIER, /* Size of this descriptor in bytes */
-    USB_DESCRIPTOR_TYPE_DEVICE_QUALITIER,   /* DEVICE Descriptor Type */
+    USB_DESCRIPTOR_LENGTH_DEVICE_QUALITIER,              /* Size of this descriptor in bytes */
+    USB_DESCRIPTOR_TYPE_DEVICE_QUALITIER,                /* DEVICE Descriptor Type */
     USB_SHORT_GET_LOW(USB_DEVICE_SPECIFIC_BCD_VERSION),
     USB_SHORT_GET_HIGH(USB_DEVICE_SPECIFIC_BCD_VERSION), /* USB Specification Release Number in
                                                             Binary-Coded Decimal (i.e., 2.10 is 210H). */

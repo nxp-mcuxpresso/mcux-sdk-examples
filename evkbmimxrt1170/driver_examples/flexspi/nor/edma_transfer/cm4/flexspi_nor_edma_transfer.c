@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020-2023 NXP
  * All rights reserved.
  *
  *
@@ -182,13 +182,7 @@ int main(void)
     /* FLEXSPI init */
     flexspi_nor_flash_init(EXAMPLE_FLEXSPI);
 
-    /* Enter quad mode. */
-    status = flexspi_nor_enable_quad_mode(EXAMPLE_FLEXSPI);
-    if (status != kStatus_Success)
-    {
-        return status;
-    }
-
+#if defined(MT25Q_FLASH_QUAD_ENABLE) && MT25Q_FLASH_QUAD_ENABLE
     /* Get vendor ID. */
     status = flexspi_nor_get_vendor_id(EXAMPLE_FLEXSPI, &vendorID);
     if (status != kStatus_Success)
@@ -196,6 +190,24 @@ int main(void)
         return status;
     }
     PRINTF("Vendor ID: 0x%x\r\n", vendorID);
+#endif
+
+    /* Enter quad mode. */
+    status = flexspi_nor_enable_quad_mode(EXAMPLE_FLEXSPI);
+    if (status != kStatus_Success)
+    {
+        return status;
+    }
+
+#if defined(FLASH_QUAD_ENABLE) && FLASH_QUAD_ENABLE
+    /* Get vendor ID. */
+    status = flexspi_nor_get_vendor_id(EXAMPLE_FLEXSPI, &vendorID);
+    if (status != kStatus_Success)
+    {
+        return status;
+    }
+    PRINTF("Vendor ID: 0x%x\r\n", vendorID);
+#endif
 
     /* Erase sectors. */
     PRINTF("Erasing Serial NOR over FlexSPI...\r\n");

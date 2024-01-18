@@ -44,8 +44,6 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
-    -fomit-frame-pointer \
-    -Wno-unused-function \
     -mcpu=cortex-m4 \
     -Wall \
     -Wno-address-of-packed-member \
@@ -59,6 +57,8 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
+    -fomit-frame-pointer \
+    -Wno-unused-function \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -75,8 +75,6 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -DMCUXPRESSO_SDK \
     -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
-    -fomit-frame-pointer \
-    -Wno-unused-function \
     -mcpu=cortex-m4 \
     -Wall \
     -Wno-address-of-packed-member \
@@ -90,6 +88,8 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
+    -fomit-frame-pointer \
+    -Wno-unused-function \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -179,7 +179,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     --defsym=__heap_size__=0x8000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MCIMX7U5xxxxx_cm4_flash.ld -static \
+    -T\"${ProjDirPath}/MCIMX7U5xxxxx_cm4_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE} \
@@ -211,5 +211,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     --defsym=__heap_size__=0x8000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MCIMX7U5xxxxx_cm4_flash.ld -static \
+    -T\"${ProjDirPath}/MCIMX7U5xxxxx_cm4_flash.ld\" -static \
 ")

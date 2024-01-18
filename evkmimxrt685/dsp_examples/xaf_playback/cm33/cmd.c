@@ -16,42 +16,40 @@
 
 /* Enable AAC decoder*/
 #if XA_AAC_DECODER
-/* Demo media file includes */
-#include "aac.adts.h"
-#include "aac.ref.h"
+#include "aac.h"
 #endif
 /* Enable MP3 decoder*/
-#if (XA_MP3_DECODER == 1 || XA_PCM_GAIN == 1 || XA_SRC_PP_FX == 1)
-#include "hihat.mp3.h"
-#include "hihat_48k.mp3.h"
-#include "hihat_dec_out.pcm.h"
+#if (XA_MP3_DECODER == 1)
+#include "mp3.h"
 #endif
+
 /* Enable Vorbis decoder*/
 #if XA_VORBIS_DECODER
-#include "hihat_vor.h"
-#include "hihat_pcm.h"
-#include "hihat.ogg.h"
-#include "hihat_vorbis_dec_out_trim.pcm.h"
+#include "rawvorbis.h"
+#include "oggvorbis.h"
 #endif
 /* Enable Opus decoder*/
 #if XA_OPUS_DECODER
 #include "testvector04.bit.h"
-#include "testvector04-48000-2ch_trim.out.h"
+#include "opus.h"
+#endif
+/* Enable SBC decoder*/
+#if XA_SBC_DECODER
+#include "sbc.h"
 #endif
 /* Enable Opus encoder*/
 #if XA_OPUS_ENCODER
 #include "testvector11-16000-1ch_trim.out.h"
 #include "testvector11-16kHz-1ch-20kbps_trim.bit.h"
 #endif
-/* Enable SBC decoder*/
-#if XA_SBC_DECODER
-#include "sbc_test_02_trim.sbc.h"
-#include "sbc_test_02_trim.out.h"
-#endif
 /* Enable SBC encoder*/
 #if XA_SBC_ENCODER
 #include "hihat_trim.pcm.h"
 #include "hihat_trim.sbc.h"
+#endif
+
+#if (XA_PCM_GAIN == 1 || XA_SRC_PP_FX == 1)
+#include "hihat_dec_out.pcm.h"
 #endif
 
 /*${header:end}*/
@@ -90,26 +88,12 @@ static void initMessage(srtm_message *msg);
 static shell_status_t shellEcho(shell_handle_t shellHandle, int32_t argc, char **argv);
 
 /* Enable just aac and mp3 to save memory*/
-#if XA_AAC_DECODER
-static shell_status_t shellAAC(shell_handle_t shellHandle, int32_t argc, char **argv);
+
+#if (XA_AAC_DECODER || XA_MP3_DECODER || XA_VORBIS_DECODER || XA_OPUS_DECODER || XA_SBC_DECODER)
+static shell_status_t shellDecoder(shell_handle_t shellHandle, int32_t argc, char **argv);
 #endif
-#if XA_MP3_DECODER
-static shell_status_t shellMP3(shell_handle_t shellHandle, int32_t argc, char **argv);
-#endif
-#if XA_OPUS_DECODER
-static shell_status_t shellOpusDec(shell_handle_t shellHandle, int32_t argc, char **argv);
-#endif
-#if XA_OPUS_ENCODER
-static shell_status_t shellOpusEnc(shell_handle_t shellHandle, int32_t argc, char **argv);
-#endif
-#if XA_SBC_DECODER
-static shell_status_t shellSbcDec(shell_handle_t shellHandle, int32_t argc, char **argv);
-#endif
-#if XA_SBC_ENCODER
-static shell_status_t shellSbcEnc(shell_handle_t shellHandle, int32_t argc, char **argv);
-#endif
-#if XA_VORBIS_DECODER
-static shell_status_t shellVORBIS(shell_handle_t shellHandle, int32_t argc, char **argv);
+#if (XA_OPUS_ENCODER || XA_SBC_ENCODER)
+static shell_status_t shellEncoder(shell_handle_t shellHandle, int32_t argc, char **argv);
 #endif
 static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char **argv);
 #if XA_SRC_PP_FX
@@ -117,9 +101,6 @@ static shell_status_t shellSRC(shell_handle_t shellHandle, int32_t argc, char **
 #endif
 #if XA_PCM_GAIN
 static shell_status_t shellGAIN(shell_handle_t shellHandle, int32_t argc, char **argv);
-#endif
-#if XA_CLIENT_PROXY
-static shell_status_t shellEAPeffect(shell_handle_t shellHandle, int32_t argc, char **argv);
 #endif
 
 /*${prototype:end}*/
@@ -144,72 +125,70 @@ SHELL_COMMAND_DEFINE(file,
 #ifdef MULTICHANNEL
                      "    <nchannel>    Select the number of channels (2 or 8 can be selected).\r\n"
 #endif
-#if XA_CLIENT_PROXY
-                     "  NOTE: Only when 2 channels are selected EAP can be applied to the audio file.\r\n"
-#endif
                      ,
                      shellFile,
                      SHELL_IGNORE_PARAMETER_COUNT);
 #endif
 
 /* Enable just aac and mp3 to save memory*/
+#if (XA_AAC_DECODER || XA_MP3_DECODER || XA_OPUS_DECODER || XA_SBC_DECODER || XA_VORBIS_DECODER)
+SHELL_COMMAND_DEFINE(decoder,
+                     "\r\n\"decoder\": Perform decode on DSP and play to speaker.\r\n"
+                     "  USAGE: decoder ["
 #if XA_AAC_DECODER
-SHELL_COMMAND_DEFINE(aac,
-                     "\r\n\"aac\": Perform AAC decode on DSP\r\n"
-                     "  USAGE: aac [buffer|codec]\r\n"
-                     "  OPTIONS:\r\n"
-                     "    buffer  Output decoded data to memory buffer\r\n"
-                     "    codec   Output decoded data to codec for speaker playback\r\n",
-                     shellAAC,
-                     1);
+                     "aac|"
 #endif
 #if XA_MP3_DECODER
-SHELL_COMMAND_DEFINE(mp3,
-                     "\r\n\"mp3\": Perform MP3 decode on DSP\r\n"
-                     "  USAGE: mp3 [buffer|codec]\r\n"
-                     "  OPTIONS:\r\n"
-                     "    buffer  Output decoded data to memory buffer\r\n"
-                     "    codec   Output decoded data to codec for speaker playback\r\n",
-                     shellMP3,
-                     1);
+                     "mp3|"
 #endif
 #if XA_OPUS_DECODER
-SHELL_COMMAND_DEFINE(opusdec,
-                     "\r\n\"opusdec\": Perform OPUS decode on DSP\r\n"
-                     "  USAGE: opusdec [buffer|codec]\r\n"
-                     "  OPTIONS:\r\n"
-                     "    buffer  Output decoded data to memory buffer\r\n"
-                     "    codec   Output decoded data to codec for speaker playback\r\n",
-                     shellOpusDec,
-                     1);
-#endif
-#if XA_OPUS_ENCODER
-SHELL_COMMAND_DEFINE(opusenc, "\r\n\"opusenc\": Perform OPUS encode on DSP\r\n", shellOpusEnc, 0);
+                     "opus|"
 #endif
 #if XA_SBC_DECODER
-SHELL_COMMAND_DEFINE(sbcdec,
-                     "\r\n\"sbcdec\": Perform SBC decode on DSP\r\n"
-                     "  USAGE: sbcdec [buffer|codec]\r\n"
-                     "  OPTIONS:\r\n"
-                     "    buffer  Output decoded data to memory buffer\r\n"
-                     "    codec   Output decoded data to codec for speaker playback\r\n",
-                     shellSbcDec,
-                     1);
-#endif
-#if XA_SBC_ENCODER
-SHELL_COMMAND_DEFINE(sbcenc, "\r\n\"sbcenc\": Perform SBC encode on DSP\r\n", shellSbcEnc, 0);
+                     "sbc|"
 #endif
 #if XA_VORBIS_DECODER
-SHELL_COMMAND_DEFINE(vorbis,
-                     "\r\n\"vorbis\": Perform VORBIS decode on DSP\r\n"
-                     "  USAGE: vorbis [buffer|codec] [ogg|raw]\r\n"
-                     "  OPTIONS:\r\n"
-                     "    buffer  Output decoded data to memory buffer\r\n"
-                     "    codec   Output decoded data to codec for speaker playback\r\n"
-                     "    ogg     Decode OGG VORBIS data\r\n"
-                     "    raw     Decode raw VORBIS data\r\n",
-                     shellVORBIS,
-                     2);
+                     "vorbis_ogg|vorbis_raw"
+#endif
+                     "]\r\n"
+#if XA_AAC_DECODER
+                     "   aac:        Decode aac data\r\n"
+#endif
+#if XA_MP3_DECODER
+                     "   mp3:        Decode mp3 data\r\n"
+#endif
+#if XA_OPUS_DECODER
+                     "   opus:       Decode opus data\r\n"
+#endif
+#if XA_SBC_DECODER
+                     "   sbc:        Decode sbc data\r\n"
+#endif
+#if XA_VORBIS_DECODER
+                     "   vorbis_ogg: Decode OGG VORBIS data\r\n"
+                     "   vorbis_raw: Decode raw VORBIS data\r\n"
+#endif
+                     , shellDecoder,
+                     1);
+
+#endif
+#if (XA_OPUS_ENCODER || XA_SBC_ENCODER)
+SHELL_COMMAND_DEFINE(encoder, "\r\n\"encoder\": Encode PCM data on DSP and compare with reference data.\r\n"
+                     "  USAGE: encoder ["
+#if XA_OPUS_ENCODER
+                     "opus|"
+#endif
+#if XA_SBC_ENCODER
+                     "sbc"
+#endif
+                     "]\r\n"
+#if XA_OPUS_ENCODER
+                     "   opus: Encode pcm data using opus encoder\r\n"
+#endif
+#if XA_SBC_ENCODER
+                     "   sbc:  Encode pcm data using sbc encoder\r\n"
+#endif
+                     , shellEncoder,
+                     1);
 #endif
 #if XA_SRC_PP_FX
 SHELL_COMMAND_DEFINE(src, "\r\n\"src\" Perform sample rate conversion on DSP\r\n", shellSRC, 0);
@@ -217,31 +196,8 @@ SHELL_COMMAND_DEFINE(src, "\r\n\"src\" Perform sample rate conversion on DSP\r\n
 #if XA_PCM_GAIN
 SHELL_COMMAND_DEFINE(gain, "\r\n\"gain\": Perform PCM gain adjustment on DSP\r\n", shellGAIN, 0);
 #endif
-#if XA_CLIENT_PROXY
-SHELL_COMMAND_DEFINE(eap,
-                     "\r\n\"eap\": Set EAP parameters\r\n"
-                     "  USAGE: eap [1|2|3|4|5|6|7|+|-|l|r]\r\n"
-                     "  OPTIONS:\r\n"
-                     "    1:	All effect Off \r\n"
-                     "    2:	Voice enhancer \r\n"
-                     "    3:	Music enhancer \r\n"
-                     "    4:	Auto volume leveler \r\n"
-                     "    5:	Loudness maximiser  \r\n"
-                     "    6:	3D Concert sound  \r\n"
-                     "    7:	Custom\r\n"
-                     "    8:	Tone Generator\r\n"
-                     "    9:	Crossover 2 way speaker\r\n"
-                     "   10:	Crossover for subwoofer\r\n"
-                     "    +:	Volume up\r\n"
-                     "    -:	Volume down\r\n"
-                     "    l:	Balance left\r\n"
-                     "    r:	Balance right\r\n",
-                     shellEAPeffect,
-                     1);
-#endif
 
 static bool file_playing = false;
-static uint8_t nchannel;
 
 SDK_ALIGN(static uint8_t s_shellHandleBuffer[SHELL_HANDLE_SIZE], 4);
 static shell_handle_t s_shellHandle;
@@ -251,6 +207,7 @@ static handleShellMessageCallback_t *g_handleShellMessageCallback;
 static void *g_handleShellMessageCallbackData;
 
 #ifdef MULTICHANNEL
+static uint8_t nchannel;
 extern int BOARD_CodecChangeSettings(uint8_t nchannel, uint32_t sample_rate, uint32_t bit_width);
 #endif
 /*${variable:end}*/
@@ -395,7 +352,8 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
     }
     else if (!file_playing)
     {
-        if (argc > 2)
+#ifdef MULTICHANNEL
+      if (argc > 2)
         {
             switch (atoi(argv[2]))
             {
@@ -410,6 +368,7 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
         }
         else
             nchannel = 2;
+#endif
         filename         = argv[1];
         file_ptr         = (char *)AUDIO_SHARED_BUFFER_1;
         msg.head.command = SRTM_Command_FileStart;
@@ -504,285 +463,158 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
     return kStatus_SHELL_Success;
 }
 
-/* Enable just aac and mp3 to save memory*/
+#if (XA_AAC_DECODER || XA_MP3_DECODER || XA_VORBIS_DECODER || XA_OPUS_DECODER || XA_SBC_DECODER)
+static shell_status_t shellDecoder(shell_handle_t shellHandle, int32_t argc, char **argv)
+{
+    srtm_message msg    = {0};
+    void * encoded_data = NULL;
+
+    initMessage(&msg);
+    /* Param 0 Decoder type */
+    /* Param 1 Buffer address with encoded data */
+    /* Param 2 Encoded data size */
+
+    msg.head.command = SRTM_Command_Decode;
+    msg.head.category = SRTM_MessageCategory_AUDIO;
+    msg.param[1]      = (uint32_t)AUDIO_SHARED_BUFFER_1;
+
+    if(false == true)
+    {
+      ;
+    }
 #if XA_AAC_DECODER
-static shell_status_t shellAAC(shell_handle_t shellHandle, int32_t argc, char **argv)
-{
-    srtm_message msg = {0};
-    initMessage(&msg);
-
-    /* Param 0 AAC input buffer address*/
-    /* Param 1 AAC input buffer size*/
-    /* Param 2 PCM output buffer address*/
-    /* Param 3 PCM output buffer size*/
-    /* Param 4 decode output location */
-    /* Param 5 return parameter, MP3 output actual size*/
-    /* Param 6 return parameter, actual read size*/
-
-    msg.head.category = SRTM_MessageCategory_AUDIO;
-    msg.head.command  = SRTM_Command_AAC;
-    /* Param 1 AAC input buffer address*/
-    msg.param[0] = (unsigned int)(&s_audioInput[0]);
-    /* Param 2 AAC input buffer size*/
-    msg.param[1] = sizeof(AACBUFFER);
-    /* Param 3 AAC output buffer address*/
-    msg.param[2] = (unsigned int)&s_audioOutput[0];
-    /* Param 4 AAC output buffer size*/
-    msg.param[3] = AUDIO_MAX_OUTPUT_BUFFER;
-
-    /* Parse shell arg for output type */
-    if (strcmp(argv[1], "codec") == 0)
+    else if (strcmp(argv[1], "aac") == 0)
     {
-        PRINTF("[CM33 CMD] Setting decode output to codec renderer\r\n");
-        msg.param[4] = AUDIO_OUTPUT_RENDERER;
+        msg.param[0] = SRTM_Decoder_AAC;
+        msg.param[2] = sizeof(AACBUFFER);
+        encoded_data = (void *)AACBUFFER;
     }
-    else
-    {
-        PRINTF("[CM33 CMD] Setting decode output to audio buffer\r\n");
-        msg.param[4] = AUDIO_OUTPUT_BUFFER;
-    }
-
-    /* Copy encoded audio clip into shared memory buffer */
-    memcpy(s_audioInput, AACBUFFER, sizeof(AACBUFFER));
-
-    g_handleShellMessageCallback(&msg, g_handleShellMessageCallbackData);
-    return kStatus_SHELL_Success;
-}
 #endif
-
 #if XA_MP3_DECODER
-static shell_status_t shellMP3(shell_handle_t shellHandle, int32_t argc, char **argv)
-{
-    srtm_message msg = {0};
-    initMessage(&msg);
-
-    msg.head.category = SRTM_MessageCategory_AUDIO;
-    msg.head.command  = SRTM_Command_MP3;
-    /* Param 0 MP3 input buffer address*/
-    /* Param 1 MP3 input buffer size*/
-    /* Param 2 PCM output buffer address*/
-    /* Param 3 PCM output buffer size*/
-    /* Param 4 decode output location */
-    /* Param 5 return parameter, MP3 output actual size*/
-    /* Param 6 return parameter, actual read size*/
-
-    msg.param[0] = (unsigned int)&s_audioInput[0];
-    msg.param[2] = (unsigned int)&s_audioOutput[0];
-    msg.param[3] = AUDIO_MAX_OUTPUT_BUFFER;
-
-    /* Parse shell arg for output type */
-    if (strcmp(argv[1], "codec") == 0)
+    else if (strcmp(argv[1], "mp3") == 0)
     {
-        PRINTF("[CM33 CMD] Setting decode output to codec renderer\r\n");
-        msg.param[4] = AUDIO_OUTPUT_RENDERER;
-
-        /* Copy encoded audio clip into shared memory buffer */
-        memcpy(s_audioInput, SRTM_MP3_48K_INPUTBUFFER, sizeof(SRTM_MP3_48K_INPUTBUFFER));
-        msg.param[1] = sizeof(SRTM_MP3_48K_INPUTBUFFER);
+        msg.param[0] = SRTM_Decoder_MP3;
+        msg.param[2] = sizeof(MP3BUFFER);
+        encoded_data = (void *)MP3BUFFER;
     }
-    else
-    {
-        PRINTF("[CM33 CMD] Setting decode output to audio buffer\r\n");
-        msg.param[4] = AUDIO_OUTPUT_BUFFER;
-
-        /* Copy encoded audio clip into shared memory buffer */
-        memcpy(s_audioInput, SRTM_MP3_INPUTBUFFER, sizeof(SRTM_MP3_INPUTBUFFER));
-        msg.param[1] = sizeof(SRTM_MP3_INPUTBUFFER);
-    }
-
-    g_handleShellMessageCallback(&msg, g_handleShellMessageCallbackData);
-    return kStatus_SHELL_Success;
-}
 #endif
-
-#if XA_VORBIS_DECODER
-static shell_status_t shellVORBIS(shell_handle_t shellHandle, int32_t argc, char **argv)
-{
-    srtm_message msg = {0};
-    initMessage(&msg);
-
-    msg.head.category = SRTM_MessageCategory_AUDIO;
-    msg.head.command  = SRTM_Command_VORBIS;
-    /* Param 0 VORBIS input buffer address */
-    /* Param 1 VORBIS input buffer size */
-    /* Param 2 PCM output buffer address */
-    /* Param 3 PCM output buffer size */
-    /* Param 4 decode output location */
-    /* Param 5 return parameter, actual read size */
-    /* Param 6 return parameter, actual write size */
-    /* Param 7 VORBIS input buffer is raw (1) or OGG encapsulated (0) */
-
-    msg.param[0] = (unsigned int)&s_audioInput[0];
-    msg.param[2] = (unsigned int)&s_audioOutput[0];
-    msg.param[3] = AUDIO_MAX_OUTPUT_BUFFER;
-
-    /* Parse shell arg for output type */
-
-    if ((strcmp(argv[1], "codec") == 0) || (strcmp(argv[2], "codec") == 0))
-    {
-        PRINTF("[CM33 CMD] Setting decode output to codec renderer\r\n");
-        msg.param[4] = AUDIO_OUTPUT_RENDERER;
-    }
-    else
-    {
-        PRINTF("[CM33 CMD] Setting decode output to audio buffer\r\n");
-        msg.param[4] = AUDIO_OUTPUT_BUFFER;
-    }
-
-    if ((strcmp(argv[1], "ogg") == 0) || (strcmp(argv[2], "ogg") == 0))
-    {
-        PRINTF("[CM33 CMD] Setting OGG VORBIS as decode input\r\n");
-        msg.param[7] = AUDIO_VORBIS_INPUT_OGG;
-
-        /* Copy encoded audio clip into shared memory buffer */
-        memcpy(s_audioInput, SRTM_OGG_VORBIS_INPUTBUFFER, sizeof(SRTM_OGG_VORBIS_INPUTBUFFER));
-        msg.param[1] = sizeof(SRTM_OGG_VORBIS_INPUTBUFFER);
-    }
-    else
-    {
-        PRINTF("[CM33 CMD] Setting raw VORBIS as decode input\r\n");
-        msg.param[7] = AUDIO_VORBIS_INPUT_RAW;
-
-        /* Copy encoded audio clip into shared memory buffer */
-        memcpy(s_audioInput, SRTM_VORBIS_INPUTBUFFER, sizeof(SRTM_VORBIS_INPUTBUFFER));
-        msg.param[1] = sizeof(SRTM_VORBIS_INPUTBUFFER);
-    }
-
-    g_handleShellMessageCallback(&msg, g_handleShellMessageCallbackData);
-    return kStatus_SHELL_Success;
-}
-#endif
-
 #if XA_OPUS_DECODER
-static shell_status_t shellOpusDec(shell_handle_t shellHandle, int32_t argc, char **argv)
-{
-    srtm_message msg = {0};
-    initMessage(&msg);
-
-    msg.head.category = SRTM_MessageCategory_AUDIO;
-    msg.head.command  = SRTM_Command_OPUS_DEC;
-    /* Param 0 OPUS input buffer address*/
-    /* Param 1 OPUS input buffer size*/
-    /* Param 2 PCM output buffer address*/
-    /* Param 3 PCM output buffer size*/
-    /* Param 4 decode output location */
-    /* Param 5 return parameter, actual read size */
-    /* Param 6 return parameter, actual write size */
-
-    msg.param[0] = (unsigned int)&s_audioInput[0];
-    msg.param[2] = (unsigned int)&s_audioOutput[0];
-    msg.param[3] = AUDIO_MAX_OUTPUT_BUFFER;
-
-    if (strcmp(argv[1], "codec") == 0)
+    else if(strcmp(argv[1], "opus") == 0)
     {
-        PRINTF("[CM33 CMD] Setting decode output to codec renderer\r\n");
-        msg.param[4] = AUDIO_OUTPUT_RENDERER;
+        msg.param[0] = SRTM_Decoder_OPUS;
+        msg.param[2] = sizeof(SRTM_OPUS_INPUTBUFFER);
+        encoded_data = (void *)SRTM_OPUS_INPUTBUFFER;
     }
-    else
-    {
-        PRINTF("[CM33 CMD] Setting decode output to audio buffer\r\n");
-        msg.param[4] = AUDIO_OUTPUT_BUFFER;
-    }
-
-    /* Copy encoded audio clip into shared memory buffer */
-    memcpy(s_audioInput, SRTM_OPUS_INPUTBUFFER, sizeof(SRTM_OPUS_INPUTBUFFER));
-    msg.param[1] = sizeof(SRTM_OPUS_INPUTBUFFER);
-
-    g_handleShellMessageCallback(&msg, g_handleShellMessageCallbackData);
-    return kStatus_SHELL_Success;
-}
 #endif
-
-#if XA_OPUS_ENCODER
-static shell_status_t shellOpusEnc(shell_handle_t shellHandle, int32_t argc, char **argv)
-{
-    srtm_message msg = {0};
-    initMessage(&msg);
-
-    msg.head.category = SRTM_MessageCategory_AUDIO;
-    msg.head.command  = SRTM_Command_OPUS_ENC;
-    /* Param 0 PCM input buffer address*/
-    /* Param 1 PCM input buffer size*/
-    /* Param 2 OPUS output buffer address*/
-    /* Param 3 OPUS output buffer size*/
-    /* Param 4 return parameter, actual read size */
-    /* Param 5 return parameter, actual write size */
-
-    msg.param[0] = (unsigned int)&s_audioInput[0];
-    msg.param[2] = (unsigned int)&s_audioOutput[0];
-    msg.param[3] = AUDIO_MAX_OUTPUT_BUFFER;
-
-    /* Copy pcm audio clip into shared memory buffer */
-    memcpy(s_audioInput, SRTM_OPUS_ENC_INPUTBUFFER, sizeof(SRTM_OPUS_ENC_INPUTBUFFER));
-    msg.param[1] = sizeof(SRTM_OPUS_ENC_INPUTBUFFER);
-
-    g_handleShellMessageCallback(&msg, g_handleShellMessageCallbackData);
-    return kStatus_SHELL_Success;
-}
-#endif
-
 #if XA_SBC_DECODER
-static shell_status_t shellSbcDec(shell_handle_t shellHandle, int32_t argc, char **argv)
-{
-    srtm_message msg = {0};
-    initMessage(&msg);
-
-    msg.head.category = SRTM_MessageCategory_AUDIO;
-    msg.head.command  = SRTM_Command_SBC_DEC;
-    /* Param 0 SBC input buffer address*/
-    /* Param 1 SBC input buffer size*/
-    /* Param 2 PCM output buffer address*/
-    /* Param 3 PCM output buffer size*/
-    /* Param 4 decode output location */
-    /* Param 5 return parameter, actual read size */
-    /* Param 6 return parameter, actual write size */
-
-    msg.param[0] = (unsigned int)&s_audioInput[0];
-    msg.param[2] = (unsigned int)&s_audioOutput[0];
-    msg.param[3] = AUDIO_MAX_OUTPUT_BUFFER;
-
-    if (strcmp(argv[1], "codec") == 0)
+    else if(strcmp(argv[1], "sbc") == 0)
     {
-        PRINTF("[CM33 CMD] Setting decode output to codec renderer\r\n");
-        msg.param[4] = AUDIO_OUTPUT_RENDERER;
+        msg.param[0] = SRTM_Decoder_SBC;
+        msg.param[2] = sizeof(SBCBUFFER);
+        encoded_data = (void *)SBCBUFFER;
     }
+#endif
+#if XA_VORBIS_DECODER
+    else if(strcmp(argv[1], "vorbis_ogg") == 0)
+    {
+        msg.param[0] = SRTM_Decoder_VORBIS_OGG;
+        msg.param[2] = sizeof(OGGVORBISBUFFER);
+        encoded_data = (void *)OGGVORBISBUFFER;
+    }
+    else if(strcmp(argv[1], "vorbis_raw") == 0)
+    {
+        msg.param[0] = SRTM_Decoder_VORBIS_RAW;
+        msg.param[2] = sizeof(RAWVORBISBUFFER);
+        encoded_data = (void *)RAWVORBISBUFFER;
+    }
+#endif
     else
     {
-        PRINTF("[CM33 CMD] Setting decode output to audio buffer\r\n");
-        msg.param[4] = AUDIO_OUTPUT_BUFFER;
+        PRINTF("[CM33 CMD] Unsupported decoder\r\n");
+        return kStatus_SHELL_Error;
+    }
+
+    if(encoded_data == NULL || msg.param[2] == 0)
+    {
+        PRINTF("[CM33 CMD] Invalid data for decoding\r\n");
+        return kStatus_SHELL_Error;
+    }
+
+    if(msg.param[2] > (size_t)(AUDIO_SHARED_BUFFER_1_SIZE + AUDIO_SHARED_BUFFER_2_SIZE) )
+    {
+        PRINTF("[CM33 CMD] Encoded data is too large (maximum value is %d kB)\r\n", (AUDIO_SHARED_BUFFER_1_SIZE + AUDIO_SHARED_BUFFER_2_SIZE) / 1024);
+        return kStatus_SHELL_Error;
     }
 
     /* Copy encoded audio clip into shared memory buffer */
-    memcpy(s_audioInput, SRTM_SBC_INPUTBUFFER, sizeof(SRTM_SBC_INPUTBUFFER));
-    msg.param[1] = sizeof(SRTM_SBC_INPUTBUFFER);
+    memcpy(s_audioInput, encoded_data, msg.param[2]);
 
     g_handleShellMessageCallback(&msg, g_handleShellMessageCallbackData);
     return kStatus_SHELL_Success;
 }
 #endif
 
-#if XA_SBC_ENCODER
-static shell_status_t shellSbcEnc(shell_handle_t shellHandle, int32_t argc, char **argv)
+#if (XA_OPUS_ENCODER || XA_SBC_ENCODER)
+static shell_status_t shellEncoder(shell_handle_t shellHandle, int32_t argc, char **argv)
 {
     srtm_message msg = {0};
+    void * pcm_data = NULL;
+
     initMessage(&msg);
+    /* Param 0 Encoder type */
+    /* Param 1 Buffer address with PCM data */
+    /* Param 2 PCM data size */
+    /* Param 3 Buffer address to store encoded data */
+    /* Param 4 Buffer size to store encoded data */
+    /* Param 5 Return parameter, actual read size */
+    /* Param 6 Return parameter, actual write size */
 
     msg.head.category = SRTM_MessageCategory_AUDIO;
-    msg.head.command  = SRTM_Command_SBC_ENC;
-    /* Param 0 PCM input buffer address*/
-    /* Param 1 PCM input buffer size*/
-    /* Param 2 SBC output buffer address*/
-    /* Param 3 SBC output buffer size*/
-    /* Param 4 return parameter, actual read size */
-    /* Param 5 return parameter, actual write size */
+    msg.head.command  = SRTM_Command_Encode;
+    msg.param[1]      = (uint32_t)&s_audioInput[0];
+    msg.param[3]      = (uint32_t)&s_audioOutput[0];
+    msg.param[4]      = AUDIO_MAX_OUTPUT_BUFFER;
 
-    msg.param[0] = (unsigned int)&s_audioInput[0];
-    msg.param[2] = (unsigned int)&s_audioOutput[0];
-    msg.param[3] = AUDIO_MAX_OUTPUT_BUFFER;
+    if(false == true)
+    {
+      ;
+    }
+#if XA_OPUS_ENCODER
+    else if (strcmp(argv[1], "opus") == 0)
+    {
+        msg.param[0] = SRTM_Encoder_OPUS;
+        msg.param[2] = sizeof(SRTM_OPUS_ENC_INPUTBUFFER);
+        pcm_data     = (void *)SRTM_OPUS_ENC_INPUTBUFFER;
+    }
+#endif
+#if XA_SBC_ENCODER
+    else if (strcmp(argv[1], "sbc") == 0)
+    {
+        msg.param[0] = SRTM_Encoder_SBC;
+        msg.param[2] = sizeof(SRTM_SBC_ENC_INPUTBUFFER);
+        pcm_data     = (void *)SRTM_SBC_ENC_INPUTBUFFER;
+    }
+#endif
+    else
+    {
+        PRINTF("[CM33 CMD] Unsupported encoder\r\n");
+        return kStatus_SHELL_Error;
+    }
+
+    if(pcm_data == NULL || msg.param[2] == 0)
+    {
+        PRINTF("[CM33 CMD] Invalid data for encoding\r\n");
+        return kStatus_SHELL_Error;
+    }
+
+    if(msg.param[2] > (size_t)AUDIO_SHARED_BUFFER_1_SIZE)
+    {
+        PRINTF("[CM33 CMD] Input data is too large (maximum value is %d kB)\r\n", AUDIO_SHARED_BUFFER_1_SIZE / 1024);
+        return kStatus_SHELL_Error;
+    }
 
     /* Copy pcm audio clip into shared memory buffer */
-    memcpy(s_audioInput, SRTM_SBC_ENC_INPUTBUFFER, sizeof(SRTM_SBC_ENC_INPUTBUFFER));
-    msg.param[1] = sizeof(SRTM_SBC_ENC_INPUTBUFFER);
+    memcpy(s_audioInput, pcm_data, msg.param[2]);
 
     g_handleShellMessageCallback(&msg, g_handleShellMessageCallbackData);
     return kStatus_SHELL_Success;
@@ -816,6 +648,12 @@ static shell_status_t shellSRC(shell_handle_t shellHandle, int32_t argc, char **
     msg.param[5]      = (unsigned int)(&s_audioOutput[0]);
     msg.param[6]      = AUDIO_MAX_OUTPUT_BUFFER;
     msg.param[7]      = 48000;
+
+    if(sizeof(SRTM_MP3_REFBUFFER) > (size_t)AUDIO_SHARED_BUFFER_1_SIZE)
+    {
+        PRINTF("[CM33 CMD] Input data is too large (maximum value is %d kB)\r\n", AUDIO_SHARED_BUFFER_1_SIZE / 1024);
+        return kStatus_SHELL_Error;
+    }
 
     memcpy(s_audioInput, SRTM_MP3_REFBUFFER, sizeof(SRTM_MP3_REFBUFFER));
 
@@ -853,65 +691,16 @@ static shell_status_t shellGAIN(shell_handle_t shellHandle, int32_t argc, char *
     msg.param[6] = 16;
     msg.param[7] = 4;
 
+    if(sizeof(SRTM_MP3_REFBUFFER) > (size_t)AUDIO_SHARED_BUFFER_1_SIZE)
+    {
+        PRINTF("[CM33 CMD] Input data is too large (maximum value is %d kB)\r\n", AUDIO_SHARED_BUFFER_1_SIZE / 1024);
+        return kStatus_SHELL_Error;
+    }
+
     memcpy(s_audioInput, SRTM_MP3_REFBUFFER, sizeof(SRTM_MP3_REFBUFFER));
 
     g_handleShellMessageCallback(&msg, g_handleShellMessageCallbackData);
     return kStatus_SHELL_Success;
-}
-#endif
-
-#if XA_CLIENT_PROXY
-static shell_status_t shellEAPeffect(shell_handle_t shellHandle, int32_t argc, char **argv)
-{
-    srtm_message msg = {0};
-    int effectNum    = atoi(argv[1]);
-    initMessage(&msg);
-
-    if (file_playing && (nchannel != 2))
-    {
-        PRINTF("EAP can only be applied to a 2-channel audio file! Please see help.\r\n");
-        return kStatus_SHELL_Error;
-    }
-
-    msg.head.category = SRTM_MessageCategory_AUDIO;
-    msg.head.command  = SRTM_Command_FilterCfg;
-    /* Param 0 Number of EAP config*/
-
-    if (effectNum > 0 && effectNum < 11)
-    {
-        msg.param[0] = effectNum;
-        g_handleShellMessageCallback(&msg, g_handleShellMessageCallbackData);
-        return kStatus_SHELL_Success;
-    }
-    else if (strcmp(argv[1], "+") == 0)
-    {
-        msg.param[0] = 11;
-        g_handleShellMessageCallback(&msg, g_handleShellMessageCallbackData);
-        return kStatus_SHELL_Success;
-    }
-    else if (strcmp(argv[1], "-") == 0)
-    {
-        msg.param[0] = 12;
-        g_handleShellMessageCallback(&msg, g_handleShellMessageCallbackData);
-        return kStatus_SHELL_Success;
-    }
-    else if (strcmp(argv[1], "l") == 0)
-    {
-        msg.param[0] = 13;
-        g_handleShellMessageCallback(&msg, g_handleShellMessageCallbackData);
-        return kStatus_SHELL_Success;
-    }
-    else if (strcmp(argv[1], "r") == 0)
-    {
-        msg.param[0] = 14;
-        g_handleShellMessageCallback(&msg, g_handleShellMessageCallbackData);
-        return kStatus_SHELL_Success;
-    }
-    else
-    {
-        PRINTF("[CM33 CMD] Effect parameter is out of range! Please see help. \r\n");
-        return kStatus_SHELL_Error;
-    }
 }
 #endif
 
@@ -923,26 +712,11 @@ void shellCmd(handleShellMessageCallback_t *handleShellMessageCallback, void *ar
 
     /* Add new command to commands list */
     SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(version));
-#if XA_AAC_DECODER
-    SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(aac));
+#if (XA_AAC_DECODER || XA_MP3_DECODER || XA_VORBIS_DECODER || XA_OPUS_DECODER || XA_SBC_DECODER)
+    SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(decoder));
 #endif
-#if XA_MP3_DECODER
-    SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(mp3));
-#endif
-#if XA_OPUS_DECODER
-    SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(opusdec));
-#endif
-#if XA_OPUS_ENCODER
-    SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(opusenc));
-#endif
-#if XA_SBC_DECODER
-    SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(sbcdec));
-#endif
-#if XA_SBC_ENCODER
-    SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(sbcenc));
-#endif
-#if XA_VORBIS_DECODER
-    SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(vorbis));
+#if (XA_OPUS_ENCODER || XA_SBC_ENCODER)
+    SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(encoder));
 #endif
     SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(file));
 #if XA_SRC_PP_FX
@@ -950,9 +724,6 @@ void shellCmd(handleShellMessageCallback_t *handleShellMessageCallback, void *ar
 #endif
 #if XA_PCM_GAIN
     SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(gain));
-#endif
-#if XA_CLIENT_PROXY
-    SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(eap));
 #endif
 
     g_handleShellMessageCallback     = handleShellMessageCallback;
@@ -1009,228 +780,78 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
             break;
 
         case SRTM_MessageCategory_AUDIO:
-            if (file_playing &&
-                (msg->head.command < SRTM_Command_FileStart || msg->head.command > SRTM_Command_FilterCfg))
+            if (file_playing && (msg->head.command < SRTM_Command_FileStart))
             {
                 PRINTF(
                     "[CM33 CMD] This command is not possible to process now since a file from SD card is being "
                     "played!\r\n");
                 break;
             }
-            else if (!file_playing && msg->head.command == SRTM_Command_FilterCfg)
-            {
-                PRINTF("[CM33 CMD] Please play a file first, then apply an EAP preset.\r\n");
-                break;
-            }
+
             switch (msg->head.command)
             {
-/* Enable just aac and mp3 to save memory*/
-#if XA_AAC_DECODER
-                case SRTM_Command_AAC:
+                case SRTM_Command_Decode:
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("[CM33 CMD] DSP AAC decoder failed, return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP decoder failed, return error = %d\r\n", msg->error);
                     }
 
-                    if (msg->param[4] == AUDIO_OUTPUT_BUFFER)
-                    {
-                        size_t ref_buffer_size = sizeof(SRTM_AAC_REFBUFFER);
-                        PRINTF("[CM33 CMD] AAC decoder read %d bytes and output %d bytes \r\n", msg->param[5],
-                               msg->param[6]);
-                        PRINTF("[CM33 CMD] Checking decode results...\r\n");
-                        for (int i = 0; (i < msg->param[6]) && (i < ref_buffer_size); i++)
-                        {
-                            if (s_audioOutput[i] != SRTM_AAC_REFBUFFER[i])
-                            {
-                                PRINTF("[CM33 CMD] Output doesn't match @ %d bytes, output = %d ref = %d\r\n", i,
-                                       s_audioOutput[i], SRTM_AAC_REFBUFFER[i]);
-                                return;
-                            }
-                        }
-                        PRINTF("[CM33 CMD] Decode output matches reference\r\n");
-                    }
-                    else
-                    {
-                        PRINTF("[CM33 CMD] AAC decode complete\r\n");
-                    }
-                    break;
-#endif
-#if XA_MP3_DECODER
-                case SRTM_Command_MP3:
-                    if (msg->error != SRTM_Status_Success)
-                    {
-                        PRINTF("[CM33 CMD] DSP MP3 decoder failed, return error = %d\r\n", msg->error);
-                    }
-
-                    if (msg->param[4] == AUDIO_OUTPUT_BUFFER)
-                    {
-                        size_t ref_buffer_size = sizeof(SRTM_MP3_REFBUFFER);
-                        PRINTF("[CM33 CMD] MP3 decoder read %d bytes and output %d bytes \r\n", msg->param[5],
-                               msg->param[6]);
-                        PRINTF("[CM33 CMD] Checking decode results...\r\n");
-                        for (int i = 0; (i < msg->param[6]) && (i < ref_buffer_size); i++)
-                        {
-                            if (s_audioOutput[i] != SRTM_MP3_REFBUFFER[i])
-                            {
-                                PRINTF("[CM33 CMD] Output doesn't match @ %d bytes, output = %d ref = %d\r\n", i,
-                                       s_audioOutput[i], SRTM_MP3_REFBUFFER[i]);
-                                return;
-                            }
-                        }
-                        PRINTF("[CM33 CMD] Decode output matches reference\r\n");
-                    }
-                    else
-                    {
-                        PRINTF("[CM33 CMD] MP3 decode complete\r\n");
-                    }
-                    break;
-#endif
-#if XA_VORBIS_DECODER
-                case SRTM_Command_VORBIS:
-                    if (msg->error != SRTM_Status_Success)
-                    {
-                        PRINTF("[CM33 CMD] DSP VORBIS decoder failed, return error = %d\r\n", msg->error);
-                    }
-
-                    if (msg->param[4] == AUDIO_OUTPUT_BUFFER)
-                    {
-                        const unsigned char *ref_buffer;
-                        size_t ref_buffer_size;
-
-                        if (msg->param[7] == AUDIO_VORBIS_INPUT_OGG)
-                        {
-                            ref_buffer      = SRTM_OGG_VORBIS_REFBUFFER;
-                            ref_buffer_size = sizeof(SRTM_OGG_VORBIS_REFBUFFER);
-                        }
-                        else
-                        {
-                            ref_buffer      = SRTM_VORBIS_REFBUFFER;
-                            ref_buffer_size = sizeof(SRTM_VORBIS_REFBUFFER);
-                        }
-
-                        PRINTF("[CM33 CMD] VORBIS decoder read %d bytes and output %d bytes \r\n", msg->param[5],
-                               msg->param[6]);
-                        PRINTF("[CM33 CMD] Checking decode results...\r\n");
-
-                        for (int i = 0; (i < msg->param[6]) && (i < ref_buffer_size); i++)
-                        {
-                            if (s_audioOutput[i] != ref_buffer[i])
-                            {
-                                PRINTF("[CM33 CMD] Output doesn't match @ %d bytes, output = %d ref = %d\r\n", i,
-                                       s_audioOutput[i], ref_buffer[i]);
-                                return;
-                            }
-                        }
-                        PRINTF("[CM33 CMD] Decode output matches reference\r\n");
-                    }
-                    else
-                    {
-                        PRINTF("[CM33 CMD] VORBIS decode complete\r\n");
-                    }
+                    PRINTF("[CM33 CMD] Decode complete\r\n");
 
                     break;
-#endif
-#if XA_OPUS_DECODER
-                case SRTM_Command_OPUS_DEC:
+#if (XA_OPUS_ENCODER || XA_SBC_ENCODER)
+                case SRTM_Command_Encode:
                     if (msg->error != SRTM_Status_Success)
                     {
-                        PRINTF("[CM33 CMD] DSP OPUS decoder failed, return error = %d\r\n", msg->error);
+                        PRINTF("[CM33 CMD] DSP encoder failed, return error = %d\r\n", msg->error);
                     }
 
-                    if (msg->param[4] == AUDIO_OUTPUT_BUFFER)
-                    {
-                        size_t ref_buffer_size = sizeof(SRTM_OPUS_REFBUFFER);
-                        PRINTF("[CM33 CMD] OPUS decoder read %d bytes and output %d bytes \r\n", msg->param[5],
-                               msg->param[6]);
-                        PRINTF("[CM33 CMD] Checking decode results...\r\n");
-                        for (int i = 0; (i < msg->param[6]) && (i < ref_buffer_size); i++)
-                        {
-                            if (s_audioOutput[i] != SRTM_OPUS_REFBUFFER[i])
-                            {
-                                PRINTF("[CM33 CMD] Output doesn't match @ %d bytes, output = %d ref = %d\r\n", i,
-                                       s_audioOutput[i], SRTM_OPUS_REFBUFFER[i]);
-                                return;
-                            }
-                        }
-                        PRINTF("[CM33 CMD] Decode output matches reference\r\n");
-                    }
-                    else
-                    {
-                        PRINTF("[CM33 CMD] OPUS decode complete\r\n");
-                    }
-                    break;
-#endif
-#if XA_OPUS_ENCODER
-                case SRTM_Command_OPUS_ENC:
-                    if (msg->error != SRTM_Status_Success)
-                    {
-                        PRINTF("[CM33 CMD] DSP OPUS encoder failed, return error = %d\r\n", msg->error);
-                    }
-
-                    PRINTF("[CM33 CMD] OPUS encoder read %d bytes and output %d bytes \r\n", msg->param[4],
-                           msg->param[5]);
+                    PRINTF("[CM33 CMD] Encoder read %d bytes and output %d bytes \r\n", msg->param[5], msg->param[6]);
                     PRINTF("[CM33 CMD] Checking encode results...\r\n");
-                    for (int i = 0; (i < msg->param[5]) && (i < sizeof(SRTM_OPUS_ENC_REFBUFFER)); i++)
                     {
-                        if (s_audioOutput[i] != SRTM_OPUS_ENC_REFBUFFER[i])
+                        uint8_t *reference_data    = NULL;
+                        size_t reference_data_size = 0;
+                        if(false == true)
                         {
-                            PRINTF("[CM33 CMD] Output doesn't match @ %d bytes, output = %d ref = %d\r\n", i,
-                                   s_audioOutput[i], SRTM_OPUS_ENC_REFBUFFER[i]);
-                            return;
+                            ;
                         }
-                    }
-                    PRINTF("[CM33 CMD] Encode output matches reference\r\n");
-                    break;
-#endif
-#if XA_SBC_DECODER
-                case SRTM_Command_SBC_DEC:
-                    if (msg->error != SRTM_Status_Success)
-                    {
-                        PRINTF("[CM33 CMD] DSP SBC decoder failed, return error = %d\r\n", msg->error);
-                    }
-
-                    if (msg->param[4] == AUDIO_OUTPUT_BUFFER)
-                    {
-                        size_t ref_buffer_size = sizeof(SRTM_SBC_REFBUFFER);
-                        PRINTF("[CM33 CMD] SBC decoder read %d bytes and output %d bytes \r\n", msg->param[5],
-                               msg->param[6]);
-                        PRINTF("[CM33 CMD] Checking decode results...\r\n");
-                        for (int i = 0; (i < msg->param[6]) && (i < ref_buffer_size); i++)
+#if XA_OPUS_ENCODER
+                        else if(msg->param[0] == SRTM_Encoder_OPUS)
                         {
-                            if (s_audioOutput[i] != SRTM_SBC_REFBUFFER[i])
-                            {
-                                PRINTF("[CM33 CMD] Output doesn't match @ %d bytes, output = %d ref = %d\r\n", i,
-                                       s_audioOutput[i], SRTM_SBC_REFBUFFER[i]);
-                                return;
-                            }
+                            reference_data = (uint8_t *)SRTM_OPUS_ENC_REFBUFFER;
+                            reference_data_size = sizeof(SRTM_OPUS_ENC_REFBUFFER);
                         }
-                        PRINTF("[CM33 CMD] Decode output matches reference\r\n");
-                    }
-                    else
-                    {
-                        PRINTF("[CM33 CMD] SBC decode complete\r\n");
-                    }
-                    break;
 #endif
 #if XA_SBC_ENCODER
-                case SRTM_Command_SBC_ENC:
-                    if (msg->error != SRTM_Status_Success)
-                    {
-                        PRINTF("[CM33 CMD] DSP SBC encoder failed, return error = %d\r\n", msg->error);
-                    }
-
-                    PRINTF("[CM33 CMD] SBC encoder read %d bytes and output %d bytes \r\n", msg->param[4],
-                           msg->param[5]);
-                    PRINTF("[CM33 CMD] Checking encode results...\r\n");
-                    for (int i = 0; (i < msg->param[5]) && (i < sizeof(SRTM_SBC_ENC_REFBUFFER)); i++)
-                    {
-                        if (s_audioOutput[i] != SRTM_SBC_ENC_REFBUFFER[i])
+                        else if (msg->param[0] == SRTM_Encoder_SBC)
                         {
-                            PRINTF("[CM33 CMD] Output doesn't match @ %d bytes, output = %d ref = %d\r\n", i,
-                                   s_audioOutput[i], SRTM_SBC_ENC_REFBUFFER[i]);
+                            reference_data = (uint8_t *)SRTM_SBC_ENC_REFBUFFER;
+                            reference_data_size = sizeof(SRTM_SBC_ENC_REFBUFFER);
+                        }
+#endif
+                        else
+                        {
+                            PRINTF("[CM33 CMD] Unsupported encoder\r\n");
                             return;
                         }
+
+                        if((reference_data == NULL )|| (reference_data_size == 0))
+                        {
+                            PRINTF("[CM33 CMD] Invalid reference data\r\n");
+                            return;
+                        }
+
+                        for (int i = 0; (i < msg->param[6]) && (i < reference_data_size); i++)
+                        {
+                            if (s_audioOutput[i] != reference_data[i])
+                            {
+                                PRINTF("[CM33 CMD] Output doesn't match @ %d bytes, output = %d ref = %d\r\n", i,
+                                    s_audioOutput[i], reference_data[i]);
+                                return;
+                            }
+                        }
                     }
+
                     PRINTF("[CM33 CMD] Encode output matches reference\r\n");
                     break;
 #endif
@@ -1276,7 +897,7 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                         BOARD_MuteRightChannel(msg->param[0] == 1);
                     }
 
-                    /* Release shell to be able to set different EAP presets*/
+                    /* Release shell to be able to set different commands */
                     *notify_shell = true;
                     break;
 
@@ -1359,21 +980,6 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                     *notify_shell = true;
                     break;
                 }
-#if XA_CLIENT_PROXY
-                case SRTM_Command_FilterCfg:
-                {
-                    if (msg->error != SRTM_Status_Success)
-                    {
-                        PRINTF("[CM33 CMD] DSP Filter cfg failed! return error = %d\r\n", msg->error);
-                    }
-                    else
-                    {
-                        PRINTF("[CM33 CMD] DSP Filter cfg success!\r\n");
-                    }
-                    *notify_shell = true;
-                    break;
-                }
-#endif
                 default:
                     PRINTF("[CM33 CMD] Incoming unknown message category %d \r\n", msg->head.category);
                     break;

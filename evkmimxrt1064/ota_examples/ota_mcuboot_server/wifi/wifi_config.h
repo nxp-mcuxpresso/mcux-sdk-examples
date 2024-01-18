@@ -1,5 +1,5 @@
 /*
- *  Copyright 2020-2022 NXP
+ *  Copyright 2020-2023 NXP
  *  All rights reserved.
  *
  *  SPDX-License-Identifier: BSD-3-Clause
@@ -16,7 +16,7 @@
 #define CONFIG_MAX_AP_ENTRIES 30
 #endif
 
-#if defined(SD8977) || defined(SD8978) || defined(SD8987) || defined(RW610)
+#if defined(SD8978) || defined(SD8987) || defined(RW610) || defined(SD9177)
 #define CONFIG_5GHz_SUPPORT 1
 #endif
 
@@ -24,9 +24,21 @@
 #define CONFIG_SDIO_MULTI_PORT_RX_AGGR 1
 #endif
 
-#if defined(SD8987) || defined(RW610)
+#if defined(SD8987) || defined(RW610) || defined(SD9177)
 #define CONFIG_11AC
 #undef CONFIG_WMM
+#endif
+
+#if defined(SD9177)
+#undef CONFIG_WMM
+#undef CONFIG_SDIO_MULTI_PORT_TX_AGGR
+#define CONFIG_COMPRESS_TX_PWTBL
+#define CONFIG_COMPRESS_RU_TX_PWTBL
+#undef CONFIG_WIFI_FEATURES
+#undef ENABLE_OFFLOAD
+#ifdef CONFIG_11AC
+#define CONFIG_11AX
+#endif
 #endif
 
 #if defined(RW610)
@@ -70,9 +82,6 @@
 #define CONFIG_EXT_SCAN_SUPPORT
 #define CONFIG_COMPRESS_TX_PWTBL
 #endif
-
-//#define CONFIG_IPV6               1
-//#define CONFIG_MAX_IPV6_ADDRESSES 3
 
 /* Logs */
 #define CONFIG_ENABLE_ERROR_LOGS   1

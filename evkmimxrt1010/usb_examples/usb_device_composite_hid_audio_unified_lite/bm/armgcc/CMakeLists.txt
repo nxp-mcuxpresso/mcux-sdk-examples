@@ -38,7 +38,7 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(dev_composite_hid_audio_unified_lite_bm)
 
-set(MCUX_BUILD_TYPES flexspi_nor_debug flexspi_nor_release release)
+set(MCUX_BUILD_TYPES flexspi_nor_debug flexspi_nor_release)
 
 set(MCUX_SDK_PROJECT_NAME dev_composite_hid_audio_unified_lite_bm.elf)
 

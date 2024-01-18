@@ -63,6 +63,13 @@ void APP_WDT_IRQ_HANDLER(void)
          * check the period between warning interrupt and timeout.
          */
     }
+
+#if (defined(LPC55S36_WORKAROUND) && LPC55S36_WORKAROUND)
+    /* Set PMC register value that could run with GDET enable */
+    PMC->LDOPMU   = 0x0109CF18;
+    PMC->DCDC0    = 0x010A767E;
+    PMC->LDOCORE0 = 0x2801006B;
+#endif
     SDK_ISR_EXIT_BARRIER;
 }
 
@@ -104,7 +111,7 @@ int main(void)
 
     /* Initialize the LED port. */
     LED_RED_INIT(LOGIC_LED_OFF);
-    
+
 #if !defined(FSL_FEATURE_WWDT_HAS_NO_PDCFG) || (!FSL_FEATURE_WWDT_HAS_NO_PDCFG)
     POWER_DisablePD(kPDRUNCFG_PD_WDT_OSC);
 #endif

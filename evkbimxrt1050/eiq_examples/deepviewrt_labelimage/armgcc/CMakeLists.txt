@@ -61,12 +61,12 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../cr_section_macros.h"
 "${ProjDirPath}/../board_init.h"
 "${ProjDirPath}/../board_init.c"
-"${ProjDirPath}/../clock_config.c"
-"${ProjDirPath}/../clock_config.h"
 "${ProjDirPath}/../dcd.c"
 "${ProjDirPath}/../dcd.h"
 "${ProjDirPath}/../board.h"
 "${ProjDirPath}/../board.c"
+"${ProjDirPath}/../clock_config.h"
+"${ProjDirPath}/../clock_config.c"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE

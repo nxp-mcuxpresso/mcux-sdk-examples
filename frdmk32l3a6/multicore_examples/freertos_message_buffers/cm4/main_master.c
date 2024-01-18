@@ -50,7 +50,7 @@ extern unsigned char rpmsg_sh_mem_end[];
 extern unsigned char Image$$RPMSG_SH_MEM$$Base;
 extern unsigned char Image$$RPMSG_SH_MEM$$Length;
 #define APP_SH_MEM_BASE &Image$$RPMSG_SH_MEM$$Base
-#elif defined(__GNUC__) /* GCC */
+#elif defined(__GNUC__)                             /* GCC */
 unsigned char rpmsg_sh_mem[SH_MEM_TOTAL_SIZE] __attribute__((section(".noinit.$rpmsg_sh_mem")));
 #define APP_SH_MEM_BASE (uint32_t) & rpmsg_sh_mem
 #else
@@ -84,7 +84,6 @@ void vApplicationGetIdleTaskMemory(StaticTask_t **ppxIdleTaskTCBBuffer,
 /*******************************************************************************
  * Code
  ******************************************************************************/
-
 
 /*!
  * @brief Application-specific implementation of the SystemInitHook() weak function.

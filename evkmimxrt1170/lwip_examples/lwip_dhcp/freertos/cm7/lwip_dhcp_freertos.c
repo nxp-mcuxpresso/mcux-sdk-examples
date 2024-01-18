@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2020,2022 NXP
+ * Copyright 2016-2020,2022-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -21,6 +21,8 @@
 #include "lwip/tcpip.h"
 #include "lwip/sys.h"
 #include "ethernetif.h"
+
+#include "fsl_adapter_gpio.h"
 
 #include "pin_mux.h"
 #include "board.h"
@@ -129,6 +131,35 @@ extern phy_rtl8211f_resource_t g_phy_resource;
 /*! @brief Priority of the thread which prints DHCP info. */
 #define PRINT_THREAD_PRIO DEFAULT_THREAD_PRIO
 
+/*! @brief Selection of GPIO perihperal and its pin for the reception of PHY interrupts. */
+#if ETH_LINK_POLLING_INTERVAL_MS == 0
+#ifndef EXAMPLE_PHY_INT_PORT
+#if (!defined(BOARD_NETWORK_USE_100M_ENET_PORT) || !BOARD_NETWORK_USE_100M_ENET_PORT) && \
+    defined(BOARD_INITENET1GPINS_PHY_INTR_PERIPHERAL)
+#define EXAMPLE_PHY_INT_PORT BOARD_INITENET1GPINS_PHY_INTR_PERIPHERAL
+#elif defined(BOARD_INITENETPINS_PHY_INTR_PERIPHERAL)
+#define EXAMPLE_PHY_INT_PORT BOARD_INITENETPINS_PHY_INTR_PERIPHERAL
+#elif defined(BOARD_INITPINS_PHY_INTR_PERIPHERAL)
+#define EXAMPLE_PHY_INT_PORT BOARD_INITPINS_PHY_INTR_PERIPHERAL
+#else
+#error "Interrupt-based link-state detection was enabled on an unsupported board."
+#endif
+#endif // #ifndef EXAMPLE_PHY_INT_PORT
+
+#ifndef EXAMPLE_PHY_INT_PIN
+#if (!defined(BOARD_NETWORK_USE_100M_ENET_PORT) || !BOARD_NETWORK_USE_100M_ENET_PORT) && \
+    defined(BOARD_INITENET1GPINS_PHY_INTR_CHANNEL)
+#define EXAMPLE_PHY_INT_PIN BOARD_INITENET1GPINS_PHY_INTR_CHANNEL
+#elif defined(BOARD_INITENETPINS_PHY_INTR_CHANNEL)
+#define EXAMPLE_PHY_INT_PIN BOARD_INITENETPINS_PHY_INTR_CHANNEL
+#elif defined(BOARD_INITPINS_PHY_INTR_CHANNEL)
+#define EXAMPLE_PHY_INT_PIN BOARD_INITPINS_PHY_INTR_CHANNEL
+#else
+#error "Interrupt-based link-state detection was enabled on an unsupported board."
+#endif
+#endif // #ifndef EXAMPLE_PHY_INT_PIN
+#endif // #if ETH_LINK_POLLING_INTERVAL_MS == 0
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -145,6 +176,7 @@ phy_rtl8211f_resource_t g_phy_resource;
 #endif
 
 static phy_handle_t phyHandle;
+static netif_ext_callback_t linkStatusCallbackInfo;
 
 /*******************************************************************************
  * Code
@@ -160,7 +192,7 @@ void BOARD_InitModuleClock(void)
     clock_root_config_t rootCfg = {.mux = 4, .div = 10}; /* Generate 50M root clock. */
     CLOCK_SetRootClock(kCLOCK_Root_Enet1, &rootCfg);
 #else
-    clock_root_config_t rootCfg = {.mux = 4, .div = 4}; /* Generate 125M root clock. */
+    clock_root_config_t rootCfg = {.mux = 4, .div = 4};       /* Generate 125M root clock. */
     CLOCK_SetRootClock(kCLOCK_Root_Enet2, &rootCfg);
 #endif
 }
@@ -202,6 +234,55 @@ static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
 
 
 /*!
+ * @brief Link status callback - prints link status events.
+ */
+static void linkStatusCallback(struct netif *netif_, netif_nsc_reason_t reason, const netif_ext_callback_args_t *args)
+{
+    if (reason != LWIP_NSC_LINK_CHANGED)
+        return;
+
+    PRINTF("[LINK STATE] netif=%d, state=%s", netif_->num, args->link_changed.state ? "up" : "down");
+
+    if (args->link_changed.state)
+    {
+        char *speedStr;
+        switch (ethernetif_get_link_speed(netif_))
+        {
+            case kPHY_Speed10M:
+                speedStr = "10M";
+                break;
+            case kPHY_Speed100M:
+                speedStr = "100M";
+                break;
+            case kPHY_Speed1000M:
+                speedStr = "1000M";
+                break;
+            default:
+                speedStr = "N/A";
+                break;
+        }
+
+        char *duplexStr;
+        switch (ethernetif_get_link_duplex(netif_))
+        {
+            case kPHY_HalfDuplex:
+                duplexStr = "half";
+                break;
+            case kPHY_FullDuplex:
+                duplexStr = "full";
+                break;
+            default:
+                duplexStr = "N/A";
+                break;
+        }
+
+        PRINTF(", speed=%s_%s", speedStr, duplexStr);
+    }
+
+    PRINTF("\r\n");
+}
+
+/*!
  * @brief Initializes lwIP stack.
  *
  * @param arg unused
@@ -209,13 +290,18 @@ static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
 static void stack_init(void *arg)
 {
     static struct netif netif;
-    ethernetif_config_t enet_config = {.phyHandle   = &phyHandle,
-                                       .phyAddr     = EXAMPLE_PHY_ADDRESS,
-                                       .phyOps      = EXAMPLE_PHY_OPS,
-                                       .phyResource = EXAMPLE_PHY_RESOURCE,
-                                       .srcClockHz  = EXAMPLE_CLOCK_FREQ,
+    ethernetif_config_t enet_config = {
+        .phyHandle   = &phyHandle,
+        .phyAddr     = EXAMPLE_PHY_ADDRESS,
+        .phyOps      = EXAMPLE_PHY_OPS,
+        .phyResource = EXAMPLE_PHY_RESOURCE,
+        .srcClockHz  = EXAMPLE_CLOCK_FREQ,
 #ifdef configMAC_ADDR
-                                       .macAddress = configMAC_ADDR
+        .macAddress = configMAC_ADDR,
+#endif
+#if ETH_LINK_POLLING_INTERVAL_MS == 0
+        .phyIntGpio    = EXAMPLE_PHY_INT_PORT,
+        .phyIntGpioPin = EXAMPLE_PHY_INT_PIN
 #endif
     };
 
@@ -226,7 +312,13 @@ static void stack_init(void *arg)
     (void)SILICONID_ConvertToMacAddr(&enet_config.macAddress);
 #endif
 
+    HAL_GpioPreInit();
+
     tcpip_init(NULL, NULL);
+
+    LOCK_TCPIP_CORE();
+    netif_add_ext_callback(&linkStatusCallbackInfo, linkStatusCallback);
+    UNLOCK_TCPIP_CORE();
 
     netifapi_netif_add(&netif, NULL, NULL, NULL, &enet_config, EXAMPLE_NETIF_INIT_FN, tcpip_input);
     netifapi_netif_set_default(&netif);
@@ -336,8 +428,6 @@ static void print_dhcp_state(void *arg)
  */
 int main(void)
 {
-    gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
-
     BOARD_ConfigMPU();
     BOARD_InitPins();
     BOARD_BootClockRUN();
@@ -348,20 +438,10 @@ int main(void)
 
 #if BOARD_NETWORK_USE_100M_ENET_PORT
     BOARD_InitEnetPins();
-    GPIO_PinInit(GPIO12, 12, &gpio_config);
-    GPIO_WritePinOutput(GPIO12, 12, 0);
-    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
-    GPIO_WritePinOutput(GPIO12, 12, 1);
-    SDK_DelayAtLeastUs(6, CLOCK_GetFreq(kCLOCK_CpuClk));
+    BOARD_ENET_PHY0_RESET;
 #else
     BOARD_InitEnet1GPins();
-    GPIO_PinInit(GPIO11, 14, &gpio_config);
-    /* For a complete PHY reset of RTL8211FDI-CG, this pin must be asserted low for at least 10ms. And
-     * wait for a further 30ms(for internal circuits settling time) before accessing the PHY register */
-    GPIO_WritePinOutput(GPIO11, 14, 0);
-    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
-    GPIO_WritePinOutput(GPIO11, 14, 1);
-    SDK_DelayAtLeastUs(30000, CLOCK_GetFreq(kCLOCK_CpuClk));
+    BOARD_ENET_PHY1_RESET;
 
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_1_IRQn);
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_2_IRQn);

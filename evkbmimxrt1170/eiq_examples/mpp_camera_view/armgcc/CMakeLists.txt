@@ -51,9 +51,8 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/camera_view/camera_view.c"
-"${SdkRootDirPath}/middleware/eiq/mpp/examples/camera_view/mpp_config.h"
-"${SdkRootDirPath}/middleware/eiq/mpp/boards/evkbmimxrt1170/inc/board_config.h"
+"${ProjDirPath}/../camera_view.c"
+"${ProjDirPath}/../mpp_config.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
 "${ProjDirPath}/../board_init.h"
 "${ProjDirPath}/../board_init.c"
@@ -61,7 +60,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../board.h"
 "${ProjDirPath}/../clock_config.c"
 "${ProjDirPath}/../clock_config.h"
-"${SdkRootDirPath}/middleware/eiq/mpp/README.md"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../dcd.c"
@@ -75,8 +73,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${SdkRootDirPath}/middleware/eiq/mpp/examples/camera_view
-    ${SdkRootDirPath}/middleware/eiq/mpp/boards/evkbmimxrt1170/inc
+    ${SdkRootDirPath}/middleware/eiq/mpp/boards/evkbmimxrt1170/examples/camera_view
 )
 
 set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")

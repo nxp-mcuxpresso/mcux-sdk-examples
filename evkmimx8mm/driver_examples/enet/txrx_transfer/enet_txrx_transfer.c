@@ -182,11 +182,11 @@ int main(void)
     BOARD_InitMemory();
 
     CLOCK_SetRootDivider(kCLOCK_RootEnetAxi, 1U, 1U);
-    CLOCK_SetRootMux(kCLOCK_RootEnetAxi, kCLOCK_EnetAxiRootmuxSysPll2Div4); /* SYSTEM PLL2 divided by 4: 125Mhz */
+    CLOCK_SetRootMux(kCLOCK_RootEnetAxi, kCLOCK_EnetAxiRootmuxSysPll2Div4);      /* SYSTEM PLL2 divided by 4: 125Mhz */
     CLOCK_SetRootDivider(kCLOCK_RootEnetTimer, 1U, 1U);
     CLOCK_SetRootMux(kCLOCK_RootEnetTimer, kCLOCK_EnetTimerRootmuxSysPll2Div10); /* SYSTEM PLL2 divided by 10: 100Mhz */
     CLOCK_SetRootDivider(kCLOCK_RootEnetRef, 1U, 1U);
-    CLOCK_SetRootMux(kCLOCK_RootEnetRef, kCLOCK_EnetRefRootmuxSysPll2Div8); /* SYSTEM PLL2 divided by 8: 125Mhz */
+    CLOCK_SetRootMux(kCLOCK_RootEnetRef, kCLOCK_EnetRefRootmuxSysPll2Div8);      /* SYSTEM PLL2 divided by 8: 125Mhz */
 
     gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
     GPIO_PinInit(GPIO4, 22U, &gpio_config);

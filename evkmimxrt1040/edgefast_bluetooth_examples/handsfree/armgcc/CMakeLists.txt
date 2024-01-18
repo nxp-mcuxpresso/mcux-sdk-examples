@@ -38,7 +38,7 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(handsfree)
 
-set(MCUX_BUILD_TYPES flexspi_nor_debug flexspi_nor_release)
+set(MCUX_BUILD_TYPES flexspi_nor_release flexspi_nor_debug)
 
 set(MCUX_SDK_PROJECT_NAME handsfree.elf)
 
@@ -52,6 +52,7 @@ include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
 "${ProjDirPath}/../FreeRTOSConfig.h"
+"${ProjDirPath}/../app_config.h"
 "${ProjDirPath}/../app_bluetooth_config.h"
 "${ProjDirPath}/../sdmmc_config.c"
 "${ProjDirPath}/../sdmmc_config.h"
@@ -68,11 +69,12 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../sco_audio_pl_ext.c"
 "${ProjDirPath}/../ringtone.h"
 "${ProjDirPath}/../edgefast_bluetooth_config.h"
+"${ProjDirPath}/../edgefast_bluetooth_debug_config.h"
 "${ProjDirPath}/../board.c"
 "${ProjDirPath}/../board.h"
 "${ProjDirPath}/../clock_config.c"
 "${ProjDirPath}/../clock_config.h"
-"${ProjDirPath}/../bt_module_config.h"
+"${ProjDirPath}/../wifi_bt_module_config.h"
 "${SdkRootDirPath}/core/boards/evkmimxrt1040/dcd.c"
 "${SdkRootDirPath}/core/boards/evkmimxrt1040/dcd.h"
 "${ProjDirPath}/../platform/configs/ffconf.h"
@@ -92,23 +94,26 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
 )
 
 set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")
+set_source_files_properties("${ProjDirPath}/../app_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
 set_source_files_properties("${ProjDirPath}/../app_bluetooth_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_edgefast_bluetooth_config_template")
 set_source_files_properties("${ProjDirPath}/../sdmmc_config.c" PROPERTIES COMPONENT_CONFIG_FILE "middleware_sdmmc_usdhc_template")
 set_source_files_properties("${ProjDirPath}/../sdmmc_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_sdmmc_usdhc_template")
 set_source_files_properties("${ProjDirPath}/../wifi_bt_config.c" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
 set_source_files_properties("${ProjDirPath}/../wifi_bt_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
 set_source_files_properties("${ProjDirPath}/../controller/configs/mbedtls/mbedtls_config_client.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_edgefast_bluetooth_template")
+set_source_files_properties("${ProjDirPath}/../edgefast_bluetooth_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_edgefast_bluetooth_config_template")
+set_source_files_properties("${ProjDirPath}/../edgefast_bluetooth_debug_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_edgefast_bluetooth_config_template")
 set_source_files_properties("${ProjDirPath}/../platform/configs/ffconf.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_fatfs_template_usb")
 set_source_files_properties("${ProjDirPath}/../platform/configs/usb_host_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_usb_host_ehci_config_header")
 set_source_files_properties("${ProjDirPath}/../controller/configs/wifi/wifi_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
 
-if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
-     target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE CONFIG_BT_DEVICE_NAME="edgefast_hfp" MBEDTLS_CONFIG_FILE="ksdk_mbedtls_config.h")
-endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
-
 if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
      target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE CONFIG_BT_DEVICE_NAME="edgefast_hfp" MBEDTLS_CONFIG_FILE="ksdk_mbedtls_config.h")
 endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
+
+if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
+     target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE CONFIG_BT_DEVICE_NAME="edgefast_hfp" MBEDTLS_CONFIG_FILE="ksdk_mbedtls_config.h")
+endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
 
 include(${SdkRootDirPath}/core/devices/MIMXRT1042/all_lib_device.cmake)
 

@@ -165,7 +165,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     --defsym=__heap_size__=0x1000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/LPC55S69_cm33_core0_flash.ld -static \
+    -T\"${ProjDirPath}/LPC55S69_cm33_core0_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -195,5 +195,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     --defsym=__heap_size__=0x1000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/LPC55S69_cm33_core0_flash.ld -static \
+    -T\"${ProjDirPath}/LPC55S69_cm33_core0_flash.ld\" -static \
 ")

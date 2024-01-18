@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021,2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -46,9 +46,9 @@ BOARD_InitPins:
 - pin_list:
   - {pin_num: '93', peripheral: FLEXCOMM0, signal: RXD_SDA_MOSI_DATA, pin_signal: PIO0_29/FC0_RXD_SDA_MOSI_DATA/CTIMER2_MAT3/SCT0_OUT8/TRACEDATA2/FC6_RXD_SDA_MOSI_DATA/CMP0_OUT/SECURE_GPIO0_29/PWM0_A1/SPI_DIN/EXTTRIG_IN3,
     mode: inactive, slew_rate: standard, invert: disabled, open_drain: disabled}
-  - {pin_num: '9', peripheral: SYSCON, signal: 'FREQME, A', pin_signal: PIO0_11/FC6_RXD_SDA_MOSI_DATA/CTIMER2_MAT2/FREQME_GPIO_CLK_A/SECURE_GPIO0_11/AOI1_OUT2/ADC1_2A,
+  - {pin_num: '9', peripheral: FREQME, signal: 'FREQME, A', pin_signal: PIO0_11/FC6_RXD_SDA_MOSI_DATA/CTIMER2_MAT2/FREQME_GPIO_CLK_A/SECURE_GPIO0_11/AOI1_OUT2/ADC1_2A,
     mode: pullDown, slew_rate: fast, invert: disabled, open_drain: disabled}
-  - {pin_num: '10', peripheral: SYSCON, signal: 'FREQME, B', pin_signal: PIO0_12/FC3_TXD_SCL_MISO_WS/FREQME_GPIO_CLK_B/SCT_GPI7/FC6_TXD_SCL_MISO_WS/SECURE_GPIO0_12/AOI1_OUT1/ADC1_3A,
+  - {pin_num: '10', peripheral: FREQME, signal: 'FREQME, B', pin_signal: PIO0_12/FC3_TXD_SCL_MISO_WS/FREQME_GPIO_CLK_B/SCT_GPI7/FC6_TXD_SCL_MISO_WS/SECURE_GPIO0_12/AOI1_OUT1/ADC1_3A,
     mode: pullDown, slew_rate: fast, invert: disabled, open_drain: disabled}
   - {pin_num: '95', peripheral: FLEXCOMM0, signal: TXD_SCL_MISO_WS, pin_signal: PIO0_30/FC0_TXD_SCL_MISO_WS/CTIMER0_MAT0/SCT0_OUT9/TRACEDATA1/CAN0_TD/FC6_TXD_SCL_MISO_WS/SECURE_GPIO0_30/PWM1_A1/AOI1_OUT0,
     mode: inactive, slew_rate: standard, invert: disabled, open_drain: disabled}

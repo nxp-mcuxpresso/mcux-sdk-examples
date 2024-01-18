@@ -30,7 +30,7 @@
 #define MASTER_LPSPI_PCS_FOR_INIT     (kLPSPI_Pcs0)
 #define MASTER_LPSPI_PCS_FOR_TRANSFER (kLPSPI_MasterPcs0)
 
-/* Select USB1 PLL PFD0 (720 MHz) as lpspi clock source */
+/* Select USB1 PLL PFD0 (480 MHz) as lpspi clock source */
 #define MASTER_LPSPI_CLOCK_SELECT (1U)
 /* Clock divider for lpspi clock source */
 #define MASTER_LPSPI_CLOCK_DIVIDER   (7U)
@@ -154,6 +154,7 @@ int main(void)
     edma_config_t config;
 
     /*Master config*/
+    LPSPI_MasterGetDefaultConfig(&masterConfig);
     masterConfig.baudRate     = TRANSFER_BAUDRATE;
     masterConfig.bitsPerFrame = 8;
     masterConfig.cpol         = kLPSPI_ClockPolarityActiveHigh;

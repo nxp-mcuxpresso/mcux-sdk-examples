@@ -85,10 +85,10 @@
 
 /* Ethernet configuration. */
 extern phy_rtl8211f_resource_t g_phy_resource;
-#define EXAMPLE_PHY_ADDRESS  0x01U
-#define EXAMPLE_PHY_OPS      &phyrtl8211f_ops
-#define EXAMPLE_PHY_RESOURCE &g_phy_resource
-#define EXAMPLE_CLOCK_FREQ   CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
+#define EXAMPLE_PHY_ADDRESS   0x01U
+#define EXAMPLE_PHY_OPS       &phyrtl8211f_ops
+#define EXAMPLE_PHY_RESOURCE  &g_phy_resource
+#define EXAMPLE_CLOCK_FREQ    CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
 #define EXAMPLE_NETIF_INIT_FN ethernetif0_init
 
 /* ENET IRQ priority. Used in FreeRTOS. */
@@ -125,6 +125,11 @@ phy_rtl8211f_resource_t g_phy_resource;
 static phy_handle_t phyHandle;
 #if defined(BOARD_NETWORK_USE_DUAL_ENET)
 static phy_handle_t phyHandle1;
+
+#if LWIP_SINGLE_NETIF == 1
+#error \
+    "Single netif limitation in lwIP must be disabled if this example were to use both interfaces. (LWIP_SINGLE_NETIF = 0)"
+#endif // LWIP_SINGLE_NETIF == 1
 #endif
 
 /*******************************************************************************
@@ -287,8 +292,6 @@ static void stack_init(void *arg)
  */
 int main(void)
 {
-    gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
-
     /* Hardware Initialization. */
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
@@ -299,13 +302,8 @@ int main(void)
     IOMUXC_GPR->GPR6 |= IOMUXC_GPR_GPR6_ENET_QOS_RGMII_EN_MASK; /* Set this bit to enable ENET_QOS RGMII TX clock output
                                                                    on TX_CLK pad. */
 
-    GPIO_PinInit(GPIO11, 14, &gpio_config);
-    /* For a complete PHY reset of RTL8211FDI-CG, this pin must be asserted low for at least 10ms. And
-     * wait for a further 30ms(for internal circuits settling time) before accessing the PHY register */
-    GPIO_WritePinOutput(GPIO11, 14, 0);
-    SDK_DelayAtLeastUs(10000, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
-    GPIO_WritePinOutput(GPIO11, 14, 1);
-    SDK_DelayAtLeastUs(30000, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
+    /* PHY hardware reset. */
+    BOARD_ENET_PHY1_RESET;
 
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_1_IRQn);
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_2_IRQn);

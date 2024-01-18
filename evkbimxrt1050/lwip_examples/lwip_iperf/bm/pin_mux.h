@@ -1,6 +1,5 @@
 /*
- * Copyright 2017-2020 NXP
- * All rights reserved.
+ * Copyright 2017-2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -43,6 +42,34 @@ extern "C" {
  *
  */
 void BOARD_InitBootPins(void);
+
+/* GPIO_AD_B0_09 (coord F14), PHY_RESET */
+/* Routed pin properties */
+#define BOARD_INITPINS_PHY_RESET_PERIPHERAL                                GPIO1   /*!< Peripheral name */
+#define BOARD_INITPINS_PHY_RESET_SIGNAL                                  gpio_io   /*!< Signal name */
+#define BOARD_INITPINS_PHY_RESET_CHANNEL                                      9U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_PHY_RESET_GPIO                                      GPIO1   /*!< GPIO peripheral base pointer */
+#define BOARD_INITPINS_PHY_RESET_GPIO_PIN                                     9U   /*!< GPIO pin number */
+#define BOARD_INITPINS_PHY_RESET_GPIO_PIN_MASK                        (1U << 9U)   /*!< GPIO pin mask */
+#define BOARD_INITPINS_PHY_RESET_PORT                                      GPIO1   /*!< PORT peripheral base pointer */
+#define BOARD_INITPINS_PHY_RESET_PIN                                          9U   /*!< PORT pin number */
+#define BOARD_INITPINS_PHY_RESET_PIN_MASK                             (1U << 9U)   /*!< PORT pin mask */
+
+/* GPIO_AD_B0_10 (coord G13), PHY_INTR */
+/* Routed pin properties */
+#define BOARD_INITPINS_PHY_INTR_PERIPHERAL                                 GPIO1   /*!< Peripheral name */
+#define BOARD_INITPINS_PHY_INTR_SIGNAL                                   gpio_io   /*!< Signal name */
+#define BOARD_INITPINS_PHY_INTR_CHANNEL                                      10U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_PHY_INTR_GPIO                                       GPIO1   /*!< GPIO peripheral base pointer */
+#define BOARD_INITPINS_PHY_INTR_GPIO_PIN                                     10U   /*!< GPIO pin number */
+#define BOARD_INITPINS_PHY_INTR_GPIO_PIN_MASK                        (1U << 10U)   /*!< GPIO pin mask */
+#define BOARD_INITPINS_PHY_INTR_PORT                                       GPIO1   /*!< PORT peripheral base pointer */
+#define BOARD_INITPINS_PHY_INTR_PIN                                          10U   /*!< PORT pin number */
+#define BOARD_INITPINS_PHY_INTR_PIN_MASK                             (1U << 10U)   /*!< PORT pin mask */
 
 
 /*!

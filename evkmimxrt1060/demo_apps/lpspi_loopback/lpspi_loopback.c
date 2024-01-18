@@ -25,7 +25,7 @@
 #define BOARD_LPSPI_PCS_FOR_INIT     kLPSPI_Pcs0
 #define BOARD_LPSPI_PCS_FOR_TRANSFER kLPSPI_MasterPcs0
 
-/* Select USB1 PLL PFD0 (720 MHz) as lpspi clock source */
+/* Select USB1 PLL PFD0 (480 MHz) as lpspi clock source */
 #define EXAMPLE_LPSPI_CLOCK_SOURCE_SELECT (1U)
 /* Clock divider for master lpspi clock source */
 #define EXAMPLE_LPSPI_CLOCK_SOURCE_DIVIDER (7U)
@@ -42,6 +42,7 @@ static void LPSPI_Init(void)
     lpspi_master_config_t masterConfig;
 
     /* Master config */
+    LPSPI_MasterGetDefaultConfig(&masterConfig);
     masterConfig.baudRate                      = 500000U;
     masterConfig.bitsPerFrame                  = 8;
     masterConfig.cpol                          = kLPSPI_ClockPolarityActiveHigh;
@@ -55,7 +56,7 @@ static void LPSPI_Init(void)
     masterConfig.lastSckToPcsDelayInNanoSec    = 1000000000 / masterConfig.baudRate;
     masterConfig.betweenTransferDelayInNanoSec = 1000000000 / masterConfig.baudRate;
     masterConfig.enableInputDelay              = false;
-
+    
     LPSPI_MasterInit(BOARD_EEPROM_LPSPI_BASEADDR, &masterConfig, BOARD_LPSPI_CLK_FREQ);
 }
 

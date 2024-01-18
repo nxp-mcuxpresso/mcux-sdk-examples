@@ -1,0 +1,3 @@
+        *(EXCLUDE_FILE(*controller_low_power.o *board_lp.o *fwk_platform.o *fwk_platform_lowpower.o *fsl_pm_core.o *fsl_pm_device.o *fsl_power.o *fsl_gpio.o *fsl_adapter_rt_gpio.o*fsl_component_generic_list.o *fsl_common_arm.o) .rodata*)
+        *(EXCLUDE_FILE(*controller_low_power.o *board_lp.o *fwk_platform.o *fwk_platform_lowpower.o *fsl_pm_core.o *fsl_pm_device.o *fsl_power.o *fsl_gpio.o *fsl_adapter_rt_gpio.o*fsl_component_generic_list.o *fsl_common_arm.o) .rodata)
+        

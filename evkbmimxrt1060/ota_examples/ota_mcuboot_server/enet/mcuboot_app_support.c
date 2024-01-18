@@ -18,12 +18,74 @@
 #define PRIMARY_SLOT_ACTIVE   0
 #define SECONDARY_SLOT_ACTIVE 1
 
-const uint32_t boot_img_magic[] = {
-    0xf395c277,
-    0x7fefd260,
-    0x0f505235,
-    0x8079b62c,
+
+#ifdef MCUBOOT_BOOT_MAX_ALIGN
+
+_Static_assert(MCUBOOT_BOOT_MAX_ALIGN >= 8 && MCUBOOT_BOOT_MAX_ALIGN <= 32,
+               "Unsupported value for MCUBOOT_BOOT_MAX_ALIGN");
+
+#define BOOT_MAX_ALIGN          MCUBOOT_BOOT_MAX_ALIGN
+#define BOOT_MAGIC_ALIGN_SIZE   ALIGN_UP(BOOT_MAGIC_SZ, BOOT_MAX_ALIGN)
+#else
+#define BOOT_MAX_ALIGN          8
+#define BOOT_MAGIC_ALIGN_SIZE   BOOT_MAGIC_SZ
+#endif
+
+#define BOOT_MAGIC_SZ  16
+
+#define BOOT_FLAG_SET  1
+
+struct image_trailer {
+    uint8_t swap_type;
+    uint8_t pad1[BOOT_MAX_ALIGN - 1];
+    uint8_t copy_done;
+    uint8_t pad2[BOOT_MAX_ALIGN - 1];
+    uint8_t image_ok;
+    uint8_t pad3[BOOT_MAX_ALIGN - 1];
+#if BOOT_MAX_ALIGN > BOOT_MAGIC_SZ
+    uint8_t pad4[BOOT_MAGIC_ALIGN_SIZE - BOOT_MAGIC_SZ];
+#endif
+    uint8_t magic[BOOT_MAGIC_SZ];
 };
+
+union boot_img_magic_t
+{
+    struct {
+        uint16_t align;
+        uint8_t magic[14];
+    };
+    uint8_t val[16];
+};
+
+#if BOOT_MAX_ALIGN == 8
+const union boot_img_magic_t boot_img_magic = {
+    .val = {
+        0x77, 0xc2, 0x95, 0xf3,
+        0x60, 0xd2, 0xef, 0x7f,
+        0x35, 0x52, 0x50, 0x0f,
+        0x2c, 0xb6, 0x79, 0x80
+    }
+};
+#else
+const union boot_img_magic_t boot_img_magic = {
+    .align = BOOT_MAX_ALIGN,
+    .magic = {
+        0x2d, 0xe1,
+        0x5d, 0x29, 0x41, 0x0b,
+        0x8d, 0x77, 0x67, 0x9c,
+        0x11, 0x0f, 0x1f, 0x8a
+    }
+};
+#endif
+
+#define BOOT_IMG_MAGIC  (boot_img_magic.val)
+
+#if BOOT_MAX_ALIGN == 8
+#define BOOT_IMG_ALIGN  (BOOT_MAX_ALIGN)
+#else
+#define BOOT_IMG_ALIGN  (boot_img_magic.align)
+#endif
+
 
 /** Find out what slot is currently booted.
  *
@@ -199,24 +261,11 @@ static int check_unset(uint8_t *p, int len)
     return 1;
 }
 
-static int boot_img_magic_check(uint8_t *p)
+static int boot_img_magic_check(const uint8_t *magic)
 {
-    int len    = sizeof(boot_img_magic);
-    uint8_t *q = (uint8_t *)boot_img_magic;
-
-    while ((len > 0) && (*p == *q))
-    {
-        len--;
-        p++;
-        q++;
-    }
-
-    if (len == 0)
-    {
-        /* all bytes matched the magic */
+    if (memcmp(magic, BOOT_IMG_MAGIC, BOOT_MAGIC_SZ) == 0) {
         return 1;
     }
-
     return 0;
 }
 
@@ -249,7 +298,7 @@ static status_t boot_swap_test(uint32_t image)
     off = fa->fa_off + fa->fa_size;
 
     memset(buf, 0xff, MFLASH_PAGE_SIZE);
-    memcpy(image_trailer_p->magic, boot_img_magic, sizeof(boot_img_magic));
+    memcpy(image_trailer_p->magic, BOOT_IMG_MAGIC, BOOT_MAGIC_SZ);
 
     PRINTF("write magic number offset = 0x%x\r\n", off - MFLASH_PAGE_SIZE);
 
@@ -272,7 +321,7 @@ static status_t boot_swap_test(uint32_t image)
 
 static status_t boot_swap_ok(int image)
 {
-    uint32_t off_replace;
+    uint32_t off;
     status_t status;
     int faid;
     struct flash_area *fa;
@@ -296,9 +345,9 @@ static status_t boot_swap_ok(int image)
     }
 
     fa          = &boot_flash_map[faid];
-    off_replace = fa->fa_off + fa->fa_size;
+    off = fa->fa_off + fa->fa_size;
 
-    status = flash_read(off_replace - MFLASH_PAGE_SIZE, buf, MFLASH_PAGE_SIZE);
+    status = flash_read(off - MFLASH_PAGE_SIZE, buf, MFLASH_PAGE_SIZE);
     if (status != kStatus_Success)
     {
         PRINTF("%s: failed to read trailer\r\n", __func__);
@@ -324,7 +373,7 @@ static status_t boot_swap_ok(int image)
     image_trailer_p->image_ok = BOOT_FLAG_SET;
 
     /* erase trailer */
-    status = mflash_drv_sector_erase(off_replace - MFLASH_SECTOR_SIZE);
+    status = mflash_drv_sector_erase(off - MFLASH_SECTOR_SIZE);
     if (status != kStatus_Success)
     {
         PRINTF("%s: failed to erase trailer1\r\n, __func__");
@@ -332,7 +381,7 @@ static status_t boot_swap_ok(int image)
     }
 
     /* write trailer */
-    status = mflash_drv_page_program(off_replace - MFLASH_PAGE_SIZE, buf);
+    status = mflash_drv_page_program(off - MFLASH_PAGE_SIZE, buf);
     if (status != kStatus_Success)
     {
         PRINTF("%s: failed to write trailer1\r\n, __func__");
@@ -470,7 +519,7 @@ status_t bl_get_update_partition_info(uint32_t image, partition_t *ptn)
     ret = bl_get_image_state(image, &state);
     if (ret != kStatus_Success)
         goto error;
-    if (state == kSwapType_ReadyForTest || state == kSwapType_Testing)
+    if (state == kSwapType_Testing)
     {
         PRINTF("Test state detected, OTA update is forbidden\n");
         goto error;
@@ -604,7 +653,6 @@ status_t bl_get_image_state(uint32_t image, uint32_t *state)
         else if (image_trailer_future->image_ok == 0x01)
         {
             /* State II (image marked for permanent change) */
-            /* TODO - Rework to avoid ambiguous Permanent state (kSwapType_None vs kSwapType_Permanent) */
             *state = kSwapType_Permanent;
             return kStatus_Success;
         }

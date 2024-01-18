@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 NXP
+ * Copyright 2018-2019 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -12,7 +12,6 @@
 #include "fsl_lpi2c.h"
 #endif /* SDK_I2C_BASED_COMPONENT_USED */
 #include "fsl_iomuxc.h"
-#include "flexspi_hyper_flash_ops.h"
 
 /*******************************************************************************
  * Variables
@@ -21,28 +20,6 @@
 /*******************************************************************************
  * Code
  ******************************************************************************/
-
-extern void flexspi_hyper_flash_init(void);
-extern status_t flexspi_nor_hyperflash_cfi(FLEXSPI_Type *base);
-
-void BOARD_InitHyperFlash(void)
-{
-    //HyperFlash init
-    flexspi_hyper_flash_init();
-    status_t status = 0;
-
-    status = flexspi_nor_hyperflash_cfi(EXAMPLE_FLEXSPI);
-    // Get vendor ID.
-    if (status != kStatus_Success)
-    {
-    	PRINTF("No Hyperflash found. Modelrunner server will not work\r\n");
-    	for(;;) __asm("NOP");
-    }
-    else
-    {
-        PRINTF("Found the HyperFlash by CFI\r\n");
-    }
-}
 
 /* Get debug console frequency. */
 uint32_t BOARD_DebugConsoleSrcFreq(void)
@@ -253,6 +230,19 @@ status_t BOARD_Camera_I2C_ReceiveSCCB(
     return BOARD_LPI2C_ReceiveSCCB(BOARD_CAMERA_I2C_BASEADDR, deviceAddress, subAddress, subAddressSize, rxBuff,
                                    rxBuffSize);
 }
+
+status_t BOARD_Touch_I2C_Send(
+    uint8_t deviceAddress, uint32_t subAddress, uint8_t subAddressSize, const uint8_t *txBuff, uint8_t txBuffSize)
+{
+    return BOARD_LPI2C_Send(BOARD_TOUCH_I2C_BASEADDR, deviceAddress, subAddress, subAddressSize, (uint8_t *)txBuff,
+                            txBuffSize);
+}
+
+status_t BOARD_Touch_I2C_Receive(
+    uint8_t deviceAddress, uint32_t subAddress, uint8_t subAddressSize, uint8_t *rxBuff, uint8_t rxBuffSize)
+{
+    return BOARD_LPI2C_Receive(BOARD_TOUCH_I2C_BASEADDR, deviceAddress, subAddress, subAddressSize, rxBuff, rxBuffSize);
+}
 #endif /* SDK_I2C_BASED_COMPONENT_USED */
 
 /* MPU configuration. */
@@ -265,8 +255,8 @@ void BOARD_ConfigMPU(void)
     extern uint32_t Image$$RW_m_ncache_unused$$ZI$$Limit[];
     uint32_t nonCacheStart = (uint32_t)Image$$RW_m_ncache$$Base;
     uint32_t size          = ((uint32_t)Image$$RW_m_ncache_unused$$Base == nonCacheStart) ?
-                        0 :
-                        ((uint32_t)Image$$RW_m_ncache_unused$$ZI$$Limit - nonCacheStart);
+                                 0 :
+                                 ((uint32_t)Image$$RW_m_ncache_unused$$ZI$$Limit - nonCacheStart);
 #elif defined(__MCUXPRESSO)
     extern uint32_t __base_NCACHE_REGION;
     extern uint32_t __top_NCACHE_REGION;
@@ -304,7 +294,7 @@ void BOARD_ConfigMPU(void)
      *      Use MACROS defined in mpu_armv7.h:
      * ARM_MPU_AP_NONE/ARM_MPU_AP_PRIV/ARM_MPU_AP_URO/ARM_MPU_AP_FULL/ARM_MPU_AP_PRO/ARM_MPU_AP_RO
      * Combine TypeExtField/IsShareable/IsCacheable/IsBufferable to configure MPU memory access attributes.
-     *  TypeExtField  IsShareable  IsCacheable  IsBufferable   Memory Attribtue    Shareability        Cache
+     *  TypeExtField  IsShareable  IsCacheable  IsBufferable   Memory Attribute    Shareability        Cache
      *     0             x           0           0             Strongly Ordered    shareable
      *     0             x           0           1              Device             shareable
      *     0             0           1           0              Normal             not shareable   Outer and inner write
@@ -338,13 +328,13 @@ void BOARD_ConfigMPU(void)
      */
     /* Region 0 setting: Instruction access disabled, No data access permission. */
     MPU->RBAR = ARM_MPU_RBAR(0, 0x00000000U);
-    MPU->RASR = ARM_MPU_RASR(1, ARM_MPU_AP_NONE, 2, 0, 0, 0, 0, ARM_MPU_REGION_SIZE_4GB);
+    MPU->RASR = ARM_MPU_RASR(1, ARM_MPU_AP_NONE, 0, 0, 0, 0, 0, ARM_MPU_REGION_SIZE_4GB);
 
     /* Region 1 setting: Memory with Device type, not shareable, non-cacheable. */
     MPU->RBAR = ARM_MPU_RBAR(1, 0x80000000U);
     MPU->RASR = ARM_MPU_RASR(0, ARM_MPU_AP_FULL, 2, 0, 0, 0, 0, ARM_MPU_REGION_SIZE_512MB);
 
-    /* Region 2 setting: Memory with Device type, not shareable, non-cacheable. */
+    /* Region 2 setting: Memory with Device type, not shareable,  non-cacheable. */
     MPU->RBAR = ARM_MPU_RBAR(2, 0x60000000U);
     MPU->RASR = ARM_MPU_RASR(0, ARM_MPU_AP_FULL, 2, 0, 0, 0, 0, ARM_MPU_REGION_SIZE_512MB);
 
@@ -364,7 +354,7 @@ void BOARD_ConfigMPU(void)
 
     /* Region 6 setting: Memory with Normal type, not shareable, outer/inner write back */
     MPU->RBAR = ARM_MPU_RBAR(6, 0x20000000U);
-    MPU->RASR = ARM_MPU_RASR(0, ARM_MPU_AP_FULL, 0, 0, 1, 1, 0, ARM_MPU_REGION_SIZE_512KB);
+    MPU->RASR = ARM_MPU_RASR(0, ARM_MPU_AP_FULL, 0, 0, 1, 1, 0, ARM_MPU_REGION_SIZE_128KB);
 
     /* Region 7 setting: Memory with Normal type, not shareable, outer/inner write back */
     MPU->RBAR = ARM_MPU_RBAR(7, 0x20200000U);
@@ -403,12 +393,8 @@ void BOARD_ConfigMPU(void)
     MPU->RBAR = ARM_MPU_RBAR(12, 0x42000000);
     MPU->RASR = ARM_MPU_RASR(0, ARM_MPU_AP_FULL, 2, 0, 0, 0, 0, ARM_MPU_REGION_SIZE_1MB);
 
-    /* Region 13 setting: Memory with Normal type, not shareable, outer/inner write back. */
-    MPU->RBAR = ARM_MPU_RBAR(13, 0x60000000U);
-    MPU->RASR = ARM_MPU_RASR(0, ARM_MPU_AP_RO, 0, 0, 1, 1, 0, ARM_MPU_REGION_SIZE_64MB);
-
     /* Enable MPU */
-    ARM_MPU_Enable(MPU_CTRL_PRIVDEFENA_Msk);
+    ARM_MPU_Enable(MPU_CTRL_PRIVDEFENA_Msk | MPU_CTRL_HFNMIENA_Msk);
 
     /* Enable I cache and D cache */
     SCB_EnableDCache();

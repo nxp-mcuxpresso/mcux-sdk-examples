@@ -15,13 +15,14 @@
  * Definitions
  ******************************************************************************/
 /*${macro:start}*/
-#define EXAMPLE_FLEXSPI           FLEXSPI
-#define FLASH_SIZE                0x4000 /* 128Mb/KByte */
-#define EXAMPLE_FLEXSPI_AMBA_BASE FlexSPI_AMBA_BASE
-#define FLASH_PAGE_SIZE           256
-#define EXAMPLE_SECTOR            50
-#define SECTOR_SIZE               0x1000 /* 4K */
-#define EXAMPLE_FLEXSPI_CLOCK     kCLOCK_FlexSpi
+#define EXAMPLE_FLEXSPI                 FLEXSPI
+#define FLASH_SIZE                      0x4000 /* 128Mb/KByte */
+#define EXAMPLE_FLEXSPI_AMBA_BASE       FlexSPI_AMBA_BASE
+#define FLASH_PAGE_SIZE                 256
+#define EXAMPLE_SECTOR                  50
+#define SECTOR_SIZE                     0x1000 /* 4K */
+#define EXAMPLE_FLEXSPI_CLOCK           kCLOCK_FlexSpi
+#define EXAMPLE_FLEXSPI_RX_SAMPLE_CLOCK kFLEXSPI_ReadSampleClkLoopbackFromDqsPad
 
 #define NOR_CMD_LUT_SEQ_IDX_READ_NORMAL        7
 #define NOR_CMD_LUT_SEQ_IDX_READ_FAST          13

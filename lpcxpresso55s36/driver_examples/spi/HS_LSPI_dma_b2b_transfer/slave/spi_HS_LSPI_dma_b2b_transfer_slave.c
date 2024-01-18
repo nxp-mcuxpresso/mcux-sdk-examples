@@ -74,11 +74,11 @@ int main(void)
     BOARD_BootClockPLL150M();
     BOARD_InitDebugConsole();
 
-    CLOCK_SetClkDiv(kCLOCK_DivPllClk, 0U, true);            /*!< Reset PLLDIV divider counter and halt it */
-    CLOCK_SetClkDiv(kCLOCK_DivPllClk, 3U, false);           /*!< Set PLLDIV divider to value 3 */
+    CLOCK_SetClkDiv(kCLOCK_DivPllClk, 0U, true);  /*!< Reset PLLDIV divider counter and halt it */
+    CLOCK_SetClkDiv(kCLOCK_DivPllClk, 3U, false); /*!< Set PLLDIV divider to value 3 */
 
     /* attach 50 MHz clock to HSLSPI */
-    CLOCK_AttachClk(kPLL0_to_PLLCLKDIV);                 /*!< Switch PLLCLKDIV to PLL0 */
+    CLOCK_AttachClk(kPLL0_to_PLLCLKDIV); /*!< Switch PLLCLKDIV to PLL0 */
     CLOCK_AttachClk(kPLL_CLK_DIV_to_HSLSPI);
 
     /* Print project information. */
@@ -151,6 +151,7 @@ static void EXAMPLE_SlaveStartDMATransfer(void)
     slaveXfer.txData   = (uint8_t *)&slaveTxData;
     slaveXfer.rxData   = (uint8_t *)&slaveRxData;
     slaveXfer.dataSize = TRANSFER_SIZE * sizeof(slaveTxData[0]);
+    slaveXfer.configFlags = kSPI_FrameAssert;
 
     /* Start transfer, when transmission complete, the SPI_SlaveUserCallback will be called. */
     if (kStatus_Success != SPI_SlaveTransferDMA(EXAMPLE_SPI_SLAVE, &slaveHandle, &slaveXfer))

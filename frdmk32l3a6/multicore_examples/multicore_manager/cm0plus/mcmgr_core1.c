@@ -30,7 +30,6 @@ gpio_pin_config_t led_config = {
  * Code
  ******************************************************************************/
 
-
 /*!
  * @brief Application-specific implementation of the SystemInitHook() weak function.
  */

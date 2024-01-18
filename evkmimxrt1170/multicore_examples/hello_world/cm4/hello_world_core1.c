@@ -22,7 +22,7 @@ volatile bool g_pinSet = false;
     };                               \
     GPIO_PinInit(BOARD_USER_LED_GPIO, BOARD_USER_LED_GPIO_PIN, &led_config);
 
-//#define LED_TOGGLE() GPIO_PortToggle(BOARD_USER_LED_GPIO, 1u << BOARD_USER_LED_GPIO_PIN);
+// #define LED_TOGGLE() GPIO_PortToggle(BOARD_USER_LED_GPIO, 1u << BOARD_USER_LED_GPIO_PIN);
 #define LED_TOGGLE()                                                     \
     if (g_pinSet)                                                        \
     {                                                                    \

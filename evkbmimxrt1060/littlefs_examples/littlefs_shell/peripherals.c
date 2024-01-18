@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2022 NXP
+ * Copyright 2018-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -13,11 +13,11 @@
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Peripherals v9.0
+product: Peripherals v14.0
 processor: MIMXRT1062xxxxB
 package_id: MIMXRT1062DVL6B
 mcu_data: ksdk2_0
-processor_version: 9.0.0
+processor_version: 0.15.1
 board: MIMXRT1060-EVKB
 functionalGroups:
 - name: BOARD_InitPeripherals
@@ -34,6 +34,22 @@ component:
   - user_definitions: '#define LITTLEFS_START_ADDR 0x400000\n'
   - user_includes: '#include "lfs_mflash.h"\n'
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+component:
+- type: 'uart_cmsis_common'
+- type_id: 'uart_cmsis_common_9cb8e302497aa696fdbb5a4fd622c2a8'
+- global_USART_CMSIS_common:
+  - quick_selection: 'default'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+component:
+- type: 'gpio_adapter_common'
+- type_id: 'gpio_adapter_common_57579b9ac814fe26bf95df0a384c36b6'
+- global_gpio_adapter_common:
+  - quick_selection: 'default'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 
 /***********************************************************************************************************************
@@ -45,6 +61,30 @@ component:
  * BOARD_InitPeripherals functional group
  **********************************************************************************************************************/
 /***********************************************************************************************************************
+ * NVIC initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'NVIC'
+- type: 'nvic'
+- mode: 'general'
+- custom_name_enabled: 'false'
+- type_id: 'nvic_57b5eef3774cc60acaede6f5b8bddc67'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'NVIC'
+- config_sets:
+  - nvic:
+    - interrupt_table: []
+    - interrupts: []
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+
+/* Empty initialization function (commented out)
+static void NVIC_init(void) {
+} */
+
+/***********************************************************************************************************************
  * LittleFS initialization code
  **********************************************************************************************************************/
 /* clang-format off */
@@ -54,24 +94,28 @@ instance:
 - type: 'littlefs'
 - mode: 'general'
 - custom_name_enabled: 'false'
-- type_id: 'littlefs_2fd9081a6d702e2c6a27590ee19148f3'
+- type_id: 'littlefs_7e89bf6c938031bfd17176a3aacf1bc3'
 - functional_group: 'BOARD_InitPeripherals'
 - config_sets:
   - general_config:
+    - moduleInclude: ''
     - lfsConfig:
       - enableUserContext: 'true'
       - userContext:
         - contextVar: '(void*)&LittleFS_ctx'
-        - contextDef: 'struct lfs_mflash_ctx LittleFS_ctx'
-        - disableContextDeclaration: 'true'
+        - contextDef: ''
+        - contextExternalDef: 'struct lfs_mflash_ctx LittleFS_ctx'
       - userCallbacks:
         - read: 'lfs_mflash_read'
         - prog: 'lfs_mflash_prog'
         - erase: 'lfs_mflash_erase'
         - sync: 'lfs_mflash_sync'
+        - lock: ''
+        - unlock: ''
       - readSize: '16'
       - progSize: '256'
       - blockSize: '4096'
+      - firstBlock: ''
       - blockCount: '1024'
       - blockCycles: '100'
       - cacheSize: '256'
@@ -90,6 +134,7 @@ instance:
         - name_max: '255'
         - file_max: '0x7FFFFFFF'
         - attr_max: '1022'
+        - metadata_max: '4096'
     - initLFS: 'false'
     - initConfig:
       - lfsObj: 'LittleFS_system'
@@ -102,11 +147,15 @@ const struct lfs_config LittleFS_config = {
   .prog = lfs_mflash_prog,
   .erase = lfs_mflash_erase,
   .sync = lfs_mflash_sync,
+#ifdef LFS_THREADSAFE
+  .lock = NULL,
+  .unlock = NULL,
+#endif
   .read_size = LITTLEFS_READ_SIZE,
   .prog_size = LITTLEFS_PROG_SIZE,
   .block_size = LITTLEFS_BLOCK_SIZE,
-  .block_count = 1024,
-  .block_cycles = 100,
+  .block_count = LITTLEFS_BLOCK_COUNT,
+  .block_cycles = LITTLEFS_BLOCK_CYCLES,
   .cache_size = LITTLEFS_CACHE_SIZE,
   .lookahead_size = LITTLEFS_LOOKAHEAD_SIZE
 };

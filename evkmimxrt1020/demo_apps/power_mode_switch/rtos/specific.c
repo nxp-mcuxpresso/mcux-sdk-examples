@@ -56,7 +56,7 @@ void SwitchSystemClocks(lpm_power_mode_t power_mode)
     switch (power_mode)
     {
         case LPM_PowerModeOverRun:
-            CLOCK_SET_DIV(kCLOCK_SemcDiv, 3); // SEMC CLK should not exceed 166MHz
+            CLOCK_SET_DIV(kCLOCK_SemcDiv, 3);    // SEMC CLK should not exceed 166MHz
             CLOCK_SET_DIV(kCLOCK_FlexspiDiv, 3);
             CLOCK_SET_MUX(kCLOCK_FlexspiMux, 3); // FLEXSPI mux to PLL3 PFD0
             /* CORE CLK to 500MHz, AHB, IPG to 125MHz, PERCLK to 62.5MHz */
@@ -68,7 +68,7 @@ void SwitchSystemClocks(lpm_power_mode_t power_mode)
             CLOCK_SET_MUX(kCLOCK_PeriphMux, 0);    // PERIPH_CLK mux to PRE_PERIPH_CLK
             break;
         case LPM_PowerModeFullRun:
-            CLOCK_SET_DIV(kCLOCK_SemcDiv, 3); // SEMC CLK should not exceed 166MHz
+            CLOCK_SET_DIV(kCLOCK_SemcDiv, 3);    // SEMC CLK should not exceed 166MHz
             CLOCK_SET_DIV(kCLOCK_FlexspiDiv, 3);
             CLOCK_SET_MUX(kCLOCK_FlexspiMux, 3); // FLEXSPI mux to PLL3 PFD0
             /* CORE CLK to 396MHz, AHB, IPG to 132MHz, PERCLK to 66MHz */
@@ -81,7 +81,7 @@ void SwitchSystemClocks(lpm_power_mode_t power_mode)
             break;
         case LPM_PowerModeLowSpeedRun:
         case LPM_PowerModeSysIdle:
-            CLOCK_SET_DIV(kCLOCK_SemcDiv, 3); // SEMC CLK should not exceed 166MHz
+            CLOCK_SET_DIV(kCLOCK_SemcDiv, 3);    // SEMC CLK should not exceed 166MHz
             CLOCK_SET_DIV(kCLOCK_FlexspiDiv, 3);
             CLOCK_SET_MUX(kCLOCK_FlexspiMux, 2); // FLEXSPI mux to PLL2 PFD2
             /* CORE CLK to 132MHz and AHB, IPG, PERCLK to 33MHz */
@@ -98,9 +98,9 @@ void SwitchSystemClocks(lpm_power_mode_t power_mode)
             CLOCK_SET_MUX(kCLOCK_PeriphClk2Mux, 1); // PERIPH_CLK2 mux to OSC
             CLOCK_SET_MUX(kCLOCK_PeriphMux, 1);     // PERIPH_CLK mux to PERIPH_CLK2
             CLOCK_SET_DIV(kCLOCK_SemcDiv, 0);
-            CLOCK_SET_MUX(kCLOCK_SemcMux, 0); // SEMC mux to PERIPH_CLK
+            CLOCK_SET_MUX(kCLOCK_SemcMux, 0);       // SEMC mux to PERIPH_CLK
             CLOCK_SET_DIV(kCLOCK_FlexspiDiv, 0);
-            CLOCK_SET_MUX(kCLOCK_FlexspiMux, 0); // FLEXSPI mux to semc_clk_root_pre
+            CLOCK_SET_MUX(kCLOCK_FlexspiMux, 0);    // FLEXSPI mux to semc_clk_root_pre
             /* CORE CLK to 24MHz and AHB, IPG, PERCLK to 12MHz */
             CLOCK_SET_DIV(kCLOCK_PerclkDiv, 0);
             CLOCK_SET_DIV(kCLOCK_IpgDiv, 1);

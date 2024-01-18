@@ -161,7 +161,6 @@ static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
 #if LWIP_IPV6
 static void netif_ipv6_callback(struct netif *cb_netif)
 {
-    
     PRINTF("IPv6 address update, valid addresses:\r\n");
     http_server_print_ipv6_addresses(cb_netif);
     PRINTF("\r\n");

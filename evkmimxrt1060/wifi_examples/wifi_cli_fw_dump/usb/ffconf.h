@@ -5,7 +5,7 @@
 /  FatFs Functional Configurations
 /---------------------------------------------------------------------------*/
 
-#define FFCONF_DEF 86631 /* Revision ID */
+#define FFCONF_DEF 80286 /* Revision ID */
 
 /*---------------------------------------------------------------------------/
 / MSDK adaptation configuration

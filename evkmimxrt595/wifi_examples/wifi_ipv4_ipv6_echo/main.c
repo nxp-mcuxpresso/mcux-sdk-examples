@@ -243,9 +243,20 @@ int main(void)
     BaseType_t result = 0;
     (void)result;
 
+    RESET_ClearPeripheralReset(kHSGPIO0_RST_SHIFT_RSTn);
+    RESET_ClearPeripheralReset(kHSGPIO3_RST_SHIFT_RSTn);
+    RESET_ClearPeripheralReset(kHSGPIO4_RST_SHIFT_RSTn);
+
     BOARD_InitBootPins();
+    BOARD_InitPinsM2();
     BOARD_InitBootClocks();
     APP_InitAppDebugConsole();
+
+    /* Configure 32K OSC clock. */
+    CLOCK_EnableOsc32K(true);               /* Enable 32KHz Oscillator clock */
+    CLOCK_EnableClock(kCLOCK_Rtc);          /* Enable the RTC peripheral clock */
+    RTC->CTRL &= ~RTC_CTRL_SWRESET_MASK;    /* Make sure the reset bit is cleared */
+    RTC->CTRL &= ~RTC_CTRL_RTC_OSC_PD_MASK; /* The RTC Oscillator is powered up */
 
     printSeparator();
 

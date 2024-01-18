@@ -24,8 +24,8 @@
 #define DEMO_TMU_AVERAGE_THRESOLD          (0U << 7 | 50U)
 #define DEMO_TMU_AVERAGE_CRITICAL_THRESOLD (0U << 7 | 88U)
 #endif
-#define DEMO_TMU_IRQ                       ANAMIX_IRQn
-#define DEMO_TMU_IRQ_HANDLER_FUNC          ANAMIX_IRQHandler
+#define DEMO_TMU_IRQ              ANAMIX_IRQn
+#define DEMO_TMU_IRQ_HANDLER_FUNC ANAMIX_IRQHandler
 
 /*******************************************************************************
  * Prototypes

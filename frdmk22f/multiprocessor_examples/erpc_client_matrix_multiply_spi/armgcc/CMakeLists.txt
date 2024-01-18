@@ -51,11 +51,6 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${SdkRootDirPath}/examples/frdmk22f/multiprocessor_examples/erpc_common/erpc_error_handler.h"
-"${SdkRootDirPath}/examples/frdmk22f/multiprocessor_examples/erpc_common/erpc_error_handler.cpp"
-"${SdkRootDirPath}/examples/frdmk22f/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.erpc"
-"${SdkRootDirPath}/examples/frdmk22f/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.h"
-"${SdkRootDirPath}/examples/frdmk22f/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply_client.cpp"
 "${ProjDirPath}/../main_client.c"
 "${ProjDirPath}/../erpc_config.h"
 "${ProjDirPath}/../pin_mux.c"
@@ -67,8 +62,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${SdkRootDirPath}/examples/frdmk22f/multiprocessor_examples/erpc_common
-    ${SdkRootDirPath}/examples/frdmk22f/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/frdmk22f
 )

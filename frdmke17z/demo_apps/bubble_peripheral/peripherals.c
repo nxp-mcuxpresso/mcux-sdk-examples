@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -13,11 +13,11 @@
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Peripherals v10.0
+product: Peripherals v13.0
 processor: MKE17Z256xxx7
 package_id: MKE17Z256VLL7
 mcu_data: ksdk2_0
-processor_version: 0.10.1
+processor_version: 14.0.0
 board: FRDM-KE17Z
 functionalGroups:
 - name: BOARD_InitPeripherals
@@ -43,6 +43,14 @@ component:
 - global_USART_CMSIS_common:
   - quick_selection: 'default'
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+component:
+- type: 'gpio_adapter_common'
+- type_id: 'gpio_adapter_common_57579b9ac814fe26bf95df0a384c36b6'
+- global_gpio_adapter_common:
+  - quick_selection: 'default'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 
 /***********************************************************************************************************************
@@ -63,7 +71,7 @@ instance:
 - type: 'ftm'
 - mode: 'EdgeAligned'
 - custom_name_enabled: 'true'
-- type_id: 'ftm_a206ca22312775f3c8a462078188c129'
+- type_id: 'ftm_fa7b7bf76007cb716873768750c05c17'
 - functional_group: 'BOARD_InitPeripherals'
 - peripheral: 'FTM2'
 - config_sets:
@@ -73,6 +81,8 @@ instance:
       - clockSourceFreq: 'GetFreq'
       - timerPrescaler: '1'
       - timerOutputFrequency: '24 kHz'
+      - enableHalfCycleReloadInit: 'false'
+      - halfCycleReloadPeriod: ''
       - systemClockSource: 'BusInterfaceClock'
       - systemClockSourceFreq: 'mirrored_value'
       - faultMode: 'kFTM_Fault_Disable'
@@ -97,6 +107,9 @@ instance:
       - deadTimePrescale: 'kFTM_Deadtime_Prescale_1'
       - deadTimePeriod: '0'
       - pwmSyncMode: 'kFTM_SoftwareTrigger'
+      - swTriggerResetCount: 'true'
+      - hwTriggerResetCount: 'false'
+      - loadFrequency: '1'
       - reloadPoints: ''
       - extTriggers: ''
       - chnlInitState: ''
@@ -139,6 +152,8 @@ const ftm_config_t BOARD_TIMER_config = {
   .deadTimePrescale = kFTM_Deadtime_Prescale_1,
   .deadTimeValue = 0,
   .pwmSyncMode = kFTM_SoftwareTrigger,
+  .swTriggerResetCount = true,
+  .hwTriggerResetCount = false,
   .reloadPoints = 0,
   .extTriggers = 0,
   .chnlInitState = 0,
@@ -162,6 +177,7 @@ const ftm_chnl_pwm_config_param_t BOARD_TIMER_pwmSignalParams[] = {
 
 static void BOARD_TIMER_init(void) {
   FTM_Init(BOARD_TIMER_PERIPHERAL, &BOARD_TIMER_config);
+  FTM_SetLoadFreq(BOARD_TIMER_PERIPHERAL, 0);
   FTM_SetTimerPeriod(BOARD_TIMER_PERIPHERAL, BOARD_TIMER_TIMER_MODULO_VALUE);
   FTM_SetupPwmMode(BOARD_TIMER_PERIPHERAL, BOARD_TIMER_pwmSignalParams, sizeof(BOARD_TIMER_pwmSignalParams) / sizeof(ftm_chnl_pwm_config_param_t), kFTM_EdgeAlignedPwm);
 }
@@ -263,3 +279,4 @@ void BOARD_InitBootPeripherals(void)
 {
   BOARD_InitPeripherals();
 }
+

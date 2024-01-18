@@ -2,20 +2,19 @@
 ** ###################################################################
 **     Processors:          LPC55S69JBD100_cm33_core0
 **                          LPC55S69JBD64_cm33_core0
+**                          LPC55S69JEV59_cm33_core0
 **                          LPC55S69JEV98_cm33_core0
 **
 **     Compiler:            GNU C Compiler
 **     Reference manual:    LPC55S6x/LPC55S2x/LPC552x User manual(UM11126) Rev.1.3  16 May 2019
 **     Version:             rev. 1.1, 2019-05-16
-**     Build:               b210928
+**     Build:               b231019
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2021 NXP
-**     All rights reserved.
-**
+**     Copyright 2016-2023 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -30,7 +29,7 @@
 ENTRY(Reset_Handler)
 
 HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x2000;
-STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x800;
+STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x400;
 RPMSG_SHMEM_SIZE = DEFINED(__use_shmem__) ? 0x1800 : 0;
 
 /* Specify the memory areas */

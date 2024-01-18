@@ -239,7 +239,7 @@ static void arm_sin_f32Example(void)
 
     Result = arm_sin_f32(input);
 
-    EXAMPLE_ASSERT_TRUE(fabs(sinRef - Result) < 0.00001);
+    EXAMPLE_ASSERT_TRUE(fabs((double)(sinRef - Result)) < 0.00001);
 }
 
 /* Q15 cos */
@@ -280,7 +280,7 @@ static void arm_cos_f32Example(void)
 
     Result = arm_cos_f32(input);
 
-    EXAMPLE_ASSERT_TRUE(fabs(cosRef - Result) < 0.00001);
+    EXAMPLE_ASSERT_TRUE(fabs((double)(cosRef - Result)) < 0.00001);
 }
 
 /* Q15 Matrix Addition */
@@ -682,7 +682,7 @@ static void arm_mat_inverse_f32Example(void)
 
     for (uint32_t i = 0; i < 4; i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(inverseRef[i] - inverseMatrixR.pData[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(inverseRef[i] - inverseMatrixR.pData[i])) < 0.00001);
     }
 }
 
@@ -1039,7 +1039,7 @@ static void arm_fir_f32Example(void)
 
     for (i = 0; i < ARRAY_SIZE(FIRRef); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(FIRRef[i] - FIRResult[i]) < 0.0001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(FIRRef[i] - FIRResult[i])) < 0.0001);
     }
 
     /* Incremental method. */
@@ -1051,7 +1051,7 @@ static void arm_fir_f32Example(void)
 
     for (i = 0; i < ARRAY_SIZE(FIRRef); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(FIRRef[i] - FIRResult[i]) < 0.0001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(FIRRef[i] - FIRResult[i])) < 0.0001);
     }
 }
 
@@ -1155,7 +1155,7 @@ static void arm_conv_f32Example(void)
 
     for (uint32_t i = 0; i < ARRAY_SIZE(ref); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(ref[i] - result[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref[i] - result[i])) < 0.00001);
     }
 }
 
@@ -1259,7 +1259,7 @@ static void arm_correlate_f32Example(void)
 
     for (uint32_t i = 0; i < ARRAY_SIZE(ref); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(ref[i] - result[i]) < 0.00001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref[i] - result[i])) < 0.00001);
     }
 }
 

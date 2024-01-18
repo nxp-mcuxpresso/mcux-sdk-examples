@@ -383,11 +383,7 @@
  * (2 * TCP_MSS) for things to work well
  **/
 #ifdef CONFIG_NETWORK_HIGH_PERF
-#ifdef RW610
-#define TCP_WND (15 * TCP_MSS)
-#else
 #define TCP_WND (32 * TCP_MSS)
-#endif
 #else
 #define TCP_WND (10 * TCP_MSS)
 #endif
@@ -530,4 +526,5 @@ u32_t lwip_rand(void);
 #define LWIP_HOOK_TCP_OUT_ADD_TCPOPTS(p, hdr, pcb, opts) lwip_hook_tcp_out_add_tcpopts(p, hdr, pcb, opts)
 #endif
 #endif
+
 #endif /* __LWIPOPTS_H__ */

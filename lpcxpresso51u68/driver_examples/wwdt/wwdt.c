@@ -110,7 +110,11 @@ int main(void)
     timeOutResetEnable = true;
 
     /* Check if reset is due to Watchdog */
+#ifdef IS_WWDT_RESET
+    if (IS_WWDT_RESET)
+#else
     if (WWDT_GetStatusFlags(WWDT) & kWWDT_TimeoutFlag)
+#endif
     {
         APP_LED_ON;
         PRINTF("Watchdog reset occurred\r\n");

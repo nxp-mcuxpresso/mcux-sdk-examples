@@ -10,6 +10,14 @@ IF(NOT DEFINED DEBUG_CONSOLE_CONFIG)
     SET(DEBUG_CONSOLE_CONFIG "-DSDK_DEBUGCONSOLE=1")  
 ENDIF()  
 
+SET(CMAKE_ASM_FLAGS_FLASH_RELEASE " \
+    ${CMAKE_ASM_FLAGS_FLASH_RELEASE} \
+    -D__STARTUP_CLEAR_BSS \
+    -D__STARTUP_INITIALIZE_NONCACHEDATA \
+    -mcpu=cortex-m7 \
+    -mthumb \
+    ${FPU} \
+")
 SET(CMAKE_ASM_FLAGS_DEBUG " \
     ${CMAKE_ASM_FLAGS_DEBUG} \
     -DDEBUG \
@@ -52,13 +60,32 @@ SET(CMAKE_ASM_FLAGS_FLASH_DEBUG " \
     -mthumb \
     ${FPU} \
 ")
-SET(CMAKE_ASM_FLAGS_FLASH_RELEASE " \
-    ${CMAKE_ASM_FLAGS_FLASH_RELEASE} \
-    -D__STARTUP_CLEAR_BSS \
-    -D__STARTUP_INITIALIZE_NONCACHEDATA \
+SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
+    ${CMAKE_C_FLAGS_FLASH_RELEASE} \
+    -DFLASH_TARGET \
+    -DCPU_MIMX8MN6DVTJZ \
+    -DCPU_MIMX8MN6DVTJZ_cm7 \
+    -DSDK_DELAY_USE_DWT \
+    -DMCUXPRESSO_SDK \
+    -DSDK_I2C_BASED_COMPONENT_USED=1 \
+    -DBOARD_USE_CODEC=1 \
+    -DCODEC_WM8524_ENABLE \
+    -O2 \
     -mcpu=cortex-m7 \
+    -Wall \
+    -Wno-address-of-packed-member \
     -mthumb \
+    -MMD \
+    -MP \
+    -fno-common \
+    -ffunction-sections \
+    -fdata-sections \
+    -ffreestanding \
+    -fno-builtin \
+    -mapcs \
+    -std=gnu99 \
     ${FPU} \
+    ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_C_FLAGS_DEBUG " \
     ${CMAKE_C_FLAGS_DEBUG} \
@@ -196,16 +223,11 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
-SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
-    ${CMAKE_C_FLAGS_FLASH_RELEASE} \
-    -DFLASH_TARGET \
+SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
+    ${CMAKE_CXX_FLAGS_FLASH_RELEASE} \
     -DCPU_MIMX8MN6DVTJZ \
     -DCPU_MIMX8MN6DVTJZ_cm7 \
-    -DSDK_DELAY_USE_DWT \
     -DMCUXPRESSO_SDK \
-    -DSDK_I2C_BASED_COMPONENT_USED=1 \
-    -DBOARD_USE_CODEC=1 \
-    -DCODEC_WM8524_ENABLE \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
@@ -219,7 +241,8 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -ffreestanding \
     -fno-builtin \
     -mapcs \
-    -std=gnu99 \
+    -fno-rtti \
+    -fno-exceptions \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -343,28 +366,31 @@ SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
-SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
-    ${CMAKE_CXX_FLAGS_FLASH_RELEASE} \
-    -DCPU_MIMX8MN6DVTJZ \
-    -DCPU_MIMX8MN6DVTJZ_cm7 \
-    -DMCUXPRESSO_SDK \
-    -Os \
+SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
+    ${CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE} \
     -mcpu=cortex-m7 \
     -Wall \
-    -Wno-address-of-packed-member \
-    -mthumb \
-    -MMD \
-    -MP \
+    -Wl,--print-memory-usage \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
     -ffreestanding \
     -fno-builtin \
+    -mthumb \
     -mapcs \
-    -fno-rtti \
-    -fno-exceptions \
+    -Xlinker \
+    --gc-sections \
+    -Xlinker \
+    -static \
+    -Xlinker \
+    -z \
+    -Xlinker \
+    muldefs \
+    -Xlinker \
+    -Map=output.map \
     ${FPU} \
-    ${DEBUG_CONSOLE_CONFIG} \
+    ${SPECS} \
+    -T\"${ProjDirPath}/MIMX8MN6xxxxx_cm7_flash_ddr3l.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_DEBUG} \
@@ -391,7 +417,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -Map=output.map \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMX8MN6xxxxx_cm7_ram_ddr3l.ld -static \
+    -T\"${ProjDirPath}/MIMX8MN6xxxxx_cm7_ram_ddr3l.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -417,7 +443,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -Map=output.map \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMX8MN6xxxxx_cm7_ram_ddr3l.ld -static \
+    -T\"${ProjDirPath}/MIMX8MN6xxxxx_cm7_ram_ddr3l.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_DDR_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_DDR_DEBUG} \
@@ -444,7 +470,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DDR_DEBUG " \
     -Map=output.map \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMX8MN6xxxxx_cm7_ddr_ram_ddr3l.ld -static \
+    -T\"${ProjDirPath}/MIMX8MN6xxxxx_cm7_ddr_ram_ddr3l.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_DDR_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_DDR_RELEASE} \
@@ -470,7 +496,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DDR_RELEASE " \
     -Map=output.map \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMX8MN6xxxxx_cm7_ddr_ram_ddr3l.ld -static \
+    -T\"${ProjDirPath}/MIMX8MN6xxxxx_cm7_ddr_ram_ddr3l.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG} \
@@ -497,31 +523,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     -Map=output.map \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMX8MN6xxxxx_cm7_flash_ddr3l.ld -static \
-")
-SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
-    ${CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE} \
-    -mcpu=cortex-m7 \
-    -Wall \
-    -Wl,--print-memory-usage \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mthumb \
-    -mapcs \
-    -Xlinker \
-    --gc-sections \
-    -Xlinker \
-    -static \
-    -Xlinker \
-    -z \
-    -Xlinker \
-    muldefs \
-    -Xlinker \
-    -Map=output.map \
-    ${FPU} \
-    ${SPECS} \
-    -T${ProjDirPath}/MIMX8MN6xxxxx_cm7_flash_ddr3l.ld -static \
+    -T\"${ProjDirPath}/MIMX8MN6xxxxx_cm7_flash_ddr3l.ld\" -static \
 ")

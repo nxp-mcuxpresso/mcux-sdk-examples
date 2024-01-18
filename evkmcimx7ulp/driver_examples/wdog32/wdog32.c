@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2019 NXP
+ * Copyright 2016-2019, 2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -66,6 +66,24 @@ AT_QUICKACCESS_SECTION_DATA(static wdog32_config_t config);
 /*******************************************************************************
  * Code
  ******************************************************************************/
+#if defined(FSL_FEATURE_WDOG_HAS_ERRATA_010536) && FSL_FEATURE_WDOG_HAS_ERRATA_010536
+/*
+ * ERR010536: WDOG: After getting RCS assertion by polling, 4 LPO clock-time delay
+ * is the minimum requirement before the next block
+ *
+ * Description
+ * WDOG cannot be unlocked if the unlock magic word are executed immediately after
+ * the RCS assert.
+ *
+ * Workaround
+ * After getting RCS assertion by polling, 4 LPO clock-time delay is the minimum
+ * requirement before next block.
+ */
+static inline void Wdog32Errata010536(void)
+{
+    SDK_DelayAtLeastUs(4U * 1000000UL / LPO_CLK_FREQ, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
+}
+#endif
 
 /*!
  * @brief Get current test mode.
@@ -207,6 +225,12 @@ void Wdog32FastTesting(void)
             config.enableWdog32 = false;
 
             WDOG32_Init(wdog32_base, &config);
+#if defined(FSL_FEATURE_WDOG_HAS_ERRATA_010536) && FSL_FEATURE_WDOG_HAS_ERRATA_010536
+            /* Becaues of ERR010536, application need to wait at least 4 LPO clock
+             * after WDOG32_Init before any other WDOG32 operations.
+             */
+            Wdog32Errata010536();
+#endif
         }
     }
     else
@@ -251,6 +275,12 @@ void Wdog32RefreshTest(void)
     config.enableWdog32     = true;
 
     WDOG32_Init(wdog32_base, &config);
+#if defined(FSL_FEATURE_WDOG_HAS_ERRATA_010536) && FSL_FEATURE_WDOG_HAS_ERRATA_010536
+    /* Becaues of ERR010536, application need to wait at least 4 LPO clock
+     * after WDOG32_Init before any other WDOG32 operations.
+     */
+    Wdog32Errata010536();
+#endif
 
     for (int i = 0; i < 10; i++)
     {
@@ -285,6 +315,12 @@ void Wdog32RefreshTest(void)
     config.prescaler = kWDOG32_ClockPrescalerDivide1;
 
     WDOG32_Init(wdog32_base, &config);
+#if defined(FSL_FEATURE_WDOG_HAS_ERRATA_010536) && FSL_FEATURE_WDOG_HAS_ERRATA_010536
+    /* Becaues of ERR010536, application need to wait at least 4 LPO clock
+     * after WDOG32_Init before any other WDOG32 operations.
+     */
+    Wdog32Errata010536();
+#endif
     for (int i = 6; i < 9; i++)
     {
         for (;;)
@@ -303,6 +339,12 @@ void Wdog32RefreshTest(void)
     config.testMode     = kWDOG32_TestModeDisabled;
 
     WDOG32_Init(wdog32_base, &config);
+#if defined(FSL_FEATURE_WDOG_HAS_ERRATA_010536) && FSL_FEATURE_WDOG_HAS_ERRATA_010536
+    /* Becaues of ERR010536, application need to wait at least 4 LPO clock
+     * after WDOG32_Init before any other WDOG32 operations.
+     */
+    Wdog32Errata010536();
+#endif
 
     PRINTF("----- Refresh test success  -----\r\n\r\n");
 }

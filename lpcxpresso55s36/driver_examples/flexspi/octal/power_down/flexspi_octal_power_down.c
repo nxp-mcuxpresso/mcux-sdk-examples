@@ -145,7 +145,7 @@ int main(void)
     CLOCK_SetClkDiv(kCLOCK_DivFlexSpiClk, 0U, true);  /*!< Reset FLEXSPICLKDIV divider counter and halt it */
     CLOCK_SetClkDiv(kCLOCK_DivFlexSpiClk, 3U, false); /*!< Set FLEXSPICLKDIV divider to value 3 */
 
-    CLOCK_AttachClk(kPLL0_to_FLEXSPI); /*!< Switch FLEXSPI to PLL0 */
+    CLOCK_AttachClk(kPLL0_to_FLEXSPI);                /*!< Switch FLEXSPI to PLL0 */
 
     excludeFromPD[0] = kPDRUNCFG_PD_LDOMEM | kPDRUNCFG_PD_FRO32K;
     wakeupFromPD[0]  = WAKEUP_RTC_ALARM_WAKEUP;
@@ -309,7 +309,7 @@ void DEMO_PostPowerDown(void)
     CLOCK_SetClkDiv(kCLOCK_DivFlexSpiClk, 0U, true);  /*!< Reset FLEXSPICLKDIV divider counter and halt it */
     CLOCK_SetClkDiv(kCLOCK_DivFlexSpiClk, 3U, false); /*!< Set FLEXSPICLKDIV divider to value 3 */
 
-    CLOCK_AttachClk(kPLL0_to_FLEXSPI); /*!< Switch FLEXSPI to PLL0 */
+    CLOCK_AttachClk(kPLL0_to_FLEXSPI);                /*!< Switch FLEXSPI to PLL0 */
 }
 
 void RTC_IRQHandler(void)

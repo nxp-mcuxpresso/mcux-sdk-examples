@@ -29,9 +29,15 @@
 #define DEMO_LPADC_OFFSET_VALUE_A        0x10U
 #define DEMO_LPADC_OFFSET_VALUE_B        0x10U
 #define DEMO_LPADC_USE_HIGH_RESOLUTION   true
-#define DEMO_LPADC_TEMP_PARAMETER_A      FSL_FEATURE_LPADC_TEMP_PARAMETER_A
-#define DEMO_LPADC_TEMP_PARAMETER_B      FSL_FEATURE_LPADC_TEMP_PARAMETER_B
-#define DEMO_LPADC_TEMP_PARAMETER_ALPHA  FSL_FEATURE_LPADC_TEMP_PARAMETER_ALPHA
+#define DEMO_LPADC_TEMP_PARAMETER_A                                                 \
+    ((Chip_GetVersion() == 0x00) ? FSL_FEATURE_LPADC_TEMP_PARAMETER_A_CHIP_REV_0A : \
+                                   FSL_FEATURE_LPADC_TEMP_PARAMETER_A_CHIP_REV_1B)
+#define DEMO_LPADC_TEMP_PARAMETER_B                                                 \
+    ((Chip_GetVersion() == 0x00) ? FSL_FEATURE_LPADC_TEMP_PARAMETER_B_CHIP_REV_0A : \
+                                   FSL_FEATURE_LPADC_TEMP_PARAMETER_B_CHIP_REV_1B)
+#define DEMO_LPADC_TEMP_PARAMETER_ALPHA                                                 \
+    ((Chip_GetVersion() == 0x00) ? FSL_FEATURE_LPADC_TEMP_PARAMETER_ALPHA_CHIP_REV_0A : \
+                                   FSL_FEATURE_LPADC_TEMP_PARAMETER_ALPHA_CHIP_REV_1B)
 
 
 /*******************************************************************************
@@ -136,7 +142,7 @@ int main(void)
     CLOCK_SetClkDiv(kCLOCK_DivAdcAsyncClk, 0U, true);  /*!< Reset ADCCLKDIV divider counter and halt it */
     CLOCK_SetClkDiv(kCLOCK_DivAdcAsyncClk, 4U, false); /*!< Set ADCCLKDIV divider to value 4 */
 
-    CLOCK_AttachClk(kPLL0_to_ADC_CLK); /*!< Switch ADC_CLK to PLL0 */
+    CLOCK_AttachClk(kPLL0_to_ADC_CLK);                 /*!< Switch ADC_CLK to PLL0 */
 
     /* Disable LDOGPADC power down */
     POWER_DisablePD(kPDRUNCFG_PD_LDOGPADC);

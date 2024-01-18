@@ -38,7 +38,7 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(flash_component_nor)
 
-set(MCUX_BUILD_TYPES debug release sdram_debug sdram_release flexspi_nor_release)
+set(MCUX_BUILD_TYPES debug release sdram_debug sdram_release flexspi_nor_debug flexspi_nor_release)
 
 set(MCUX_SDK_PROJECT_NAME flash_component_nor.elf)
 

@@ -42,29 +42,27 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -D__FPU_PRESENT=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
+    -DTF_LITE_STATIC_MEMORY \
     -DMCUXPRESSO_SDK \
     -DXIP_BOOT_HEADER_DCD_ENABLE=1 \
     -DXIP_BOOT_HEADER_XMCD_ENABLE=0 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
-    -DMPP_STATIC_MEMORY \
     -DSDK_OS_FREE_RTOS \
-    -DTF_LITE_STATIC_MEMORY \
     -g \
     -O0 \
-    -mcpu=cortex-m7 \
     -Wall \
+    -Wno-maybe-uninitialized \
+    -Wno-strict-aliasing \
+    -mcpu=cortex-m7 \
     -mthumb \
     -MMD \
     -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
     -mapcs \
     -std=gnu99 \
     -O3 \
-    -Wno-strict-aliasing \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -80,27 +78,25 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -D__FPU_PRESENT=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
+    -DTF_LITE_STATIC_MEMORY \
     -DMCUXPRESSO_SDK \
     -DXIP_BOOT_HEADER_DCD_ENABLE=1 \
     -DXIP_BOOT_HEADER_XMCD_ENABLE=0 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
-    -DMPP_STATIC_MEMORY \
     -DSDK_OS_FREE_RTOS \
-    -DTF_LITE_STATIC_MEMORY \
     -O3 \
-    -mcpu=cortex-m7 \
     -Wall \
+    -Wno-maybe-uninitialized \
+    -Wno-strict-aliasing \
+    -mcpu=cortex-m7 \
     -mthumb \
     -MMD \
     -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
     -mapcs \
     -std=gnu99 \
-    -Wno-strict-aliasing \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -111,28 +107,26 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -DARM_MATH_CM7 \
     -D__FPU_PRESENT=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
-    -DMCUXPRESSO_SDK \
-    -DMPP_STATIC_MEMORY \
     -DTF_LITE_STATIC_MEMORY \
+    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
-    -mcpu=cortex-m7 \
     -Wall \
+    -fno-rtti \
+    -fno-exceptions \
+    -Wno-maybe-uninitialized \
+    -Wno-sign-compare \
+    -Wno-strict-aliasing \
+    -Wno-deprecated-declarations \
+    -mcpu=cortex-m7 \
     -mthumb \
     -MMD \
     -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
     -mapcs \
-    -fno-rtti \
-    -fno-exceptions \
     -O3 \
-    -Wno-sign-compare \
-    -Wno-strict-aliasing \
-    -Wno-deprecated-declarations \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -143,26 +137,24 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -DARM_MATH_CM7 \
     -D__FPU_PRESENT=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
-    -DMCUXPRESSO_SDK \
-    -DMPP_STATIC_MEMORY \
     -DTF_LITE_STATIC_MEMORY \
+    -DMCUXPRESSO_SDK \
     -O3 \
-    -mcpu=cortex-m7 \
     -Wall \
+    -fno-rtti \
+    -fno-exceptions \
+    -Wno-maybe-uninitialized \
+    -Wno-sign-compare \
+    -Wno-strict-aliasing \
+    -Wno-deprecated-declarations \
+    -mcpu=cortex-m7 \
     -mthumb \
     -MMD \
     -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
     -mapcs \
-    -fno-rtti \
-    -fno-exceptions \
-    -Wno-sign-compare \
-    -Wno-strict-aliasing \
-    -Wno-deprecated-declarations \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -174,8 +166,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
     -mthumb \
     -mapcs \
     -Xlinker \
@@ -195,7 +185,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     --defsym=__heap_size__=0x80000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1176xxxxx_cm7_flexspi_nor_sdram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1176xxxxx_cm7_flexspi_nor_sdram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE} \
@@ -204,8 +194,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
     -mthumb \
     -mapcs \
     -Xlinker \
@@ -225,5 +213,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     --defsym=__heap_size__=0x80000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1176xxxxx_cm7_flexspi_nor_sdram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1176xxxxx_cm7_flexspi_nor_sdram.ld\" -static \
 ")

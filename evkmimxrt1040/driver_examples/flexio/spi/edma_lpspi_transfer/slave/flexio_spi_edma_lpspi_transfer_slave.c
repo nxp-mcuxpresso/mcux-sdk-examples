@@ -154,6 +154,7 @@ int main(void)
     edma_config_t config;
 
     /*Master config*/
+    LPSPI_MasterGetDefaultConfig(&masterConfig);
     masterConfig.baudRate     = TRANSFER_BAUDRATE;
     masterConfig.bitsPerFrame = 8;
     masterConfig.cpol         = kLPSPI_ClockPolarityActiveHigh;

@@ -1,0 +1,23 @@
+        *(EXCLUDE_FILE(
+			*fsl_enet_qos.o
+			*fsl_enet.o
+			*enet_ethernetif.o
+			*enet_ethernetif_qos.o
+			*enet_ethernetif_kinetis.o
+			*ethernetif.o
+			*ethernetif_mmac.o
+			*ip4.o
+			*ip4_addr.o
+			*ip4_frag.o
+			*inet_chksum.o
+			*ip.o
+			*mem.o
+			*memp.o
+			*netif.o
+			*pbuf.o
+			*tcp.o
+			*tcp_in.o
+			*tcp_out.o
+			*timeouts.o
+			*udp.o
+        ) .text*)

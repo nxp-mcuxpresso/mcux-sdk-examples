@@ -89,16 +89,16 @@ int initNetwork(void)
         PRINTF("PHY Auto-negotiation failed. Please check the cable connection and link partner setting.\r\n");
     }
 
-    LWIP_PLATFORM_DIAG(("\r\n************************************************"));
-    LWIP_PLATFORM_DIAG((EXAMPLE_BANNER));
-    LWIP_PLATFORM_DIAG(("************************************************"));
-    LWIP_PLATFORM_DIAG((" IPv4 Address     : %u.%u.%u.%u", ((u8_t *)&netif_ipaddr)[0], ((u8_t *)&netif_ipaddr)[1],
-                        ((u8_t *)&netif_ipaddr)[2], ((u8_t *)&netif_ipaddr)[3]));
-    LWIP_PLATFORM_DIAG((" IPv4 Subnet mask : %u.%u.%u.%u", ((u8_t *)&netif_netmask)[0], ((u8_t *)&netif_netmask)[1],
-                        ((u8_t *)&netif_netmask)[2], ((u8_t *)&netif_netmask)[3]));
-    LWIP_PLATFORM_DIAG((" IPv4 Gateway     : %u.%u.%u.%u", ((u8_t *)&netif_gw)[0], ((u8_t *)&netif_gw)[1],
-                        ((u8_t *)&netif_gw)[2], ((u8_t *)&netif_gw)[3]));
-    LWIP_PLATFORM_DIAG(("************************************************"));
+    PRINTF("\r\n************************************************\r\n");
+    PRINTF(EXAMPLE_BANNER "\r\n");
+    PRINTF("************************************************\r\n");
+    PRINTF(" IPv4 Address     : %u.%u.%u.%u\r\n", ((u8_t *)&netif_ipaddr)[0], ((u8_t *)&netif_ipaddr)[1],
+           ((u8_t *)&netif_ipaddr)[2], ((u8_t *)&netif_ipaddr)[3]);
+    PRINTF(" IPv4 Subnet mask : %u.%u.%u.%u\r\n", ((u8_t *)&netif_netmask)[0], ((u8_t *)&netif_netmask)[1],
+           ((u8_t *)&netif_netmask)[2], ((u8_t *)&netif_netmask)[3]);
+    PRINTF(" IPv4 Gateway     : %u.%u.%u.%u\r\n", ((u8_t *)&netif_gw)[0], ((u8_t *)&netif_gw)[1],
+           ((u8_t *)&netif_gw)[2], ((u8_t *)&netif_gw)[3]);
+    PRINTF("************************************************\r\n");
 
     return INIT_SUCCESS;
 }

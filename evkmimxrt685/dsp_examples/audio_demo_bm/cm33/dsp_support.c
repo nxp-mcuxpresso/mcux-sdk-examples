@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NXP
+ * Copyright 2018-2023 NXP
  * All rights reserved.
  *
  *
@@ -27,14 +27,16 @@
 void BOARD_DSP_Init(void)
 {
 #if DSP_IMAGE_COPY_TO_RAM
+    dsp_copy_image_t literal_image;
     dsp_copy_image_t text_image;
     dsp_copy_image_t data_image;
 #ifdef DSP_NCACHE
     dsp_copy_image_t ncache_image;
 #endif
 
-    text_image.destAddr = DSP_BOOT_ADDRESS;
-    data_image.destAddr = DSP_SRAM_ADDRESS;
+    literal_image.destAddr = DSP_LITERAL_ADDRESS;
+    text_image.destAddr    = DSP_BOOT_ADDRESS;
+    data_image.destAddr    = DSP_SRAM_ADDRESS;
 #ifdef DSP_NCACHE
     ncache_image.destAddr = DSP_NCACHE_ADDRESS;
 #endif
@@ -42,25 +44,30 @@ void BOARD_DSP_Init(void)
 #if defined(__CC_ARM)
     size = (uint32_t)&Image$$DSP_REGION$$Length;
 #elif defined(__ICCARM__)
+#pragma section = "__dsp_literal_section"
+    literal_image.srcAddr = DSP_IMAGE_LITERAL_START;
+    literal_image.size    = DSP_IMAGE_LITERAL_SIZE;
 #pragma section = "__dsp_text_section"
-    text_image.srcAddr   = DSP_IMAGE_TEXT_START;
-    text_image.size      = DSP_IMAGE_TEXT_SIZE;
+    text_image.srcAddr    = DSP_IMAGE_TEXT_START;
+    text_image.size       = DSP_IMAGE_TEXT_SIZE;
 #pragma section = "__dsp_data_section"
-    data_image.srcAddr   = DSP_IMAGE_DATA_START;
-    data_image.size      = DSP_IMAGE_DATA_SIZE;
+    data_image.srcAddr    = DSP_IMAGE_DATA_START;
+    data_image.size       = DSP_IMAGE_DATA_SIZE;
 #ifdef DSP_NCACHE
 #pragma section = "__dsp_ncache_section"
-    ncache_image.srcAddr = DSP_IMAGE_NCACHE_START;
-    ncache_image.size    = DSP_IMAGE_NCACHE_SIZE;
+    ncache_image.srcAddr  = DSP_IMAGE_NCACHE_START;
+    ncache_image.size     = DSP_IMAGE_NCACHE_SIZE;
 #endif
 #elif defined(__GNUC__)
-    text_image.srcAddr   = DSP_IMAGE_TEXT_START;
-    text_image.size      = DSP_IMAGE_TEXT_SIZE;
-    data_image.srcAddr   = DSP_IMAGE_DATA_START;
-    data_image.size      = DSP_IMAGE_DATA_SIZE;
+    literal_image.srcAddr = DSP_IMAGE_LITERAL_START;
+    literal_image.size    = DSP_IMAGE_LITERAL_SIZE;
+    text_image.srcAddr    = DSP_IMAGE_TEXT_START;
+    text_image.size       = DSP_IMAGE_TEXT_SIZE;
+    data_image.srcAddr    = DSP_IMAGE_DATA_START;
+    data_image.size       = DSP_IMAGE_DATA_SIZE;
 #ifdef DSP_NCACHE
-    ncache_image.srcAddr = DSP_IMAGE_NCACHE_START;
-    ncache_image.size    = DSP_IMAGE_NCACHE_SIZE;
+    ncache_image.srcAddr  = DSP_IMAGE_NCACHE_START;
+    ncache_image.size     = DSP_IMAGE_NCACHE_SIZE;
 #endif
 #endif
 #endif
@@ -80,7 +87,9 @@ void BOARD_DSP_Init(void)
     DSP_Init();
 
 #if DSP_IMAGE_COPY_TO_RAM
-    /* Copy application from RAM to dsp_text */
+    /* Copy literals to DSP DTCM */
+    DSP_CopyImage(&literal_image);
+    /* Copy vectors to DSP ITCM */
     DSP_CopyImage(&text_image);
 
     /* Copy application from RAM to DSP_RAM */

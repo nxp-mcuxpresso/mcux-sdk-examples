@@ -1,0 +1,16 @@
+        *(EXCLUDE_FILE(
+            *queue.o
+            *mlan_11n_rxreorder.o
+            *lib_a-memcpy-stub.o
+            *timers.o
+            *fsl_usdhc.o
+            *port.o
+            *wifi-sdio.o
+            *startup_mimxrt1062.o
+            *fsl_sdio.o
+            *pbuf.o
+            *tasks.o
+            *lib_a-memset.o
+            *fsl_cache.o
+            *wifi.o
+        ) .text*)

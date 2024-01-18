@@ -37,7 +37,7 @@
  */
 #define NO_SYS 0
 
-//#define CONFIG_NETWORK_HIGH_PERF 1
+// #define CONFIG_NETWORK_HIGH_PERF 1
 
 #define MAX_SOCKETS_TCP           8
 #define MAX_LISTENING_SOCKETS_TCP 4
@@ -45,6 +45,22 @@
 #define TCP_SND_BUF_COUNT         2
 #define TCPIP_STACK_TX_HEAP_SIZE  0
 #define LWIP_COMPAT_SOCKETS       2
+
+/* ---------- Core locking ---------- */
+
+#define LWIP_TCPIP_CORE_LOCKING 1
+
+void sys_lock_tcpip_core(void);
+#define LOCK_TCPIP_CORE() sys_lock_tcpip_core()
+
+void sys_unlock_tcpip_core(void);
+#define UNLOCK_TCPIP_CORE() sys_unlock_tcpip_core()
+
+void sys_check_core_locking(void);
+#define LWIP_ASSERT_CORE_LOCKED() sys_check_core_locking()
+
+void sys_mark_tcpip_thread(void);
+#define LWIP_MARK_TCPIP_THREAD() sys_mark_tcpip_thread()
 
 /**
  * Loopback demo related options.
@@ -127,9 +143,9 @@
 #define SNMP_MIB_DEBUG   LWIP_DBG_OFF
 #define DNS_DEBUG        LWIP_DBG_OFF
 
-#define IP6_DEBUG        LWIP_DBG_OFF
-#define ICMP6_DEBUG      LWIP_DBG_OFF
-#define DHCP6_DEBUG      LWIP_DBG_OFF
+#define IP6_DEBUG   LWIP_DBG_OFF
+#define ICMP6_DEBUG LWIP_DBG_OFF
+#define DHCP6_DEBUG LWIP_DBG_OFF
 
 #define SYS_LIGHTWEIGHT_PROT 1
 
@@ -437,7 +453,7 @@
 #define LWIP_PROVIDE_ERRNO 1
 #define ERRNO              1
 
-//#define LWIP_SNMP 1
+// #define LWIP_SNMP 1
 
 /*
    ------------------------------------------------

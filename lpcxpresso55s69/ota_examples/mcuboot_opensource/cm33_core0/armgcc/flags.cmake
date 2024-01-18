@@ -35,8 +35,6 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
-    -fomit-frame-pointer \
-    -Wno-unused-function \
     -mcpu=cortex-m33 \
     -Wall \
     -mthumb \
@@ -49,6 +47,8 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
+    -fomit-frame-pointer \
+    -Wno-unused-function \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -60,8 +60,6 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DMFLASH_FILE_BASEADDR=458752 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
-    -fomit-frame-pointer \
-    -Wno-unused-function \
     -mcpu=cortex-m33 \
     -Wall \
     -mthumb \
@@ -74,6 +72,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
+    -fomit-frame-pointer \
+    -Wno-unused-function \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -153,7 +153,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     --defsym=__heap_size__=0x8000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/LPC55S69_cm33_core0_flash.ld -static \
+    -T\"${ProjDirPath}/LPC55S69_cm33_core0_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -183,5 +183,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     --defsym=__heap_size__=0x8000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/LPC55S69_cm33_core0_flash.ld -static \
+    -T\"${ProjDirPath}/LPC55S69_cm33_core0_flash.ld\" -static \
 ")

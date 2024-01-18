@@ -90,21 +90,21 @@ wm8960_config_t wm8960Config = {
     .slaveAddress     = WM8960_I2C_ADDR,
     .bus              = kWM8960_BusI2S,
     .format           = {.mclk_HZ    = 6144000U * 2,
-               .sampleRate = kWM8960_AudioSampleRate16KHz,
-               .bitWidth   = kWM8960_AudioBitWidth16bit},
+                         .sampleRate = kWM8960_AudioSampleRate16KHz,
+                         .bitWidth   = kWM8960_AudioBitWidth16bit},
     .master_slave     = true,
 };
 codec_config_t boardCodecConfig = {.codecDevType = kCODEC_WM8960, .codecDevConfig = &wm8960Config};
 /*
  * AUDIO PLL setting: Frequency = Fref * (DIV_SELECT + NUM / DENOM)
- *                              = 24 * (32 + 77/100)
- *                              = 786.48 MHz
+ *                              = 24 * (32 + 768/1000)
+ *                              = 786.432 MHz
  */
 const clock_audio_pll_config_t audioPllConfig = {
-    .loopDivider = 32,  /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
-    .postDivider = 1,   /* Divider after the PLL, should only be 1, 2, 4, 8, 16. */
-    .numerator   = 77,  /* 30 bit numerator of fractional loop divider. */
-    .denominator = 100, /* 30 bit denominator of fractional loop divider */
+    .loopDivider = 32,   /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
+    .postDivider = 1,    /* Divider after the PLL, should only be 1, 2, 4, 8, 16. */
+    .numerator   = 768,  /* 30 bit numerator of fractional loop divider. */
+    .denominator = 1000, /* 30 bit denominator of fractional loop divider */
 };
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t Buffer[BUFFER_NUMBER * BUFFER_SIZE], 4);
 AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t txHandle);

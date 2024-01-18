@@ -199,12 +199,14 @@ uint32_t BOARD_SwitchAudioFreq(uint32_t sampleRate)
         /* Enable MCLK output */
         IOMUXC_GPR->GPR0 |= IOMUXC_GPR_GPR0_SAI1_MCLK_DIR_MASK;
     }
-
+    wm8962Config.format.sampleRate             = sampleRate;
+    wm8962Config.format.mclk_HZ                = DEMO_SAI_CLK_FREQ;
     return DEMO_SAI_CLK_FREQ;
 }
 
 
-#if (defined(WIFI_88W8987_BOARD_MURATA_1ZM_M2) || defined(WIFI_IW416_BOARD_MURATA_1XK_M2))
+#if (defined(WIFI_88W8987_BOARD_MURATA_1ZM_M2) || defined(WIFI_IW416_BOARD_MURATA_1XK_M2) || \
+     defined(WIFI_IW612_BOARD_MURATA_2EL_M2))
 int controller_hci_uart_get_configuration(controller_hci_uart_config_t *config)
 {
     if (NULL == config)

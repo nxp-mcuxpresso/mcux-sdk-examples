@@ -75,16 +75,6 @@ int main(void)
     BOARD_BootClockRUN();
     APP_InitAppDebugConsole();
 
-    /* Define the init structure for the OSPI reset pin*/
-    gpio_pin_config_t reset_config = {
-        kGPIO_DigitalOutput,
-        1,
-    };
-
-    /* Init output OSPI reset pin. */
-    GPIO_PortInit(GPIO, BOARD_FLASH_RESET_GPIO_PORT);
-    GPIO_PinInit(GPIO, BOARD_FLASH_RESET_GPIO_PORT, BOARD_FLASH_RESET_GPIO_PIN, &reset_config);
-
     /* Make sure casper ram buffer has power up */
     POWER_DisablePD(kPDRUNCFG_PPD_CASPER_SRAM);
     POWER_ApplyPD();

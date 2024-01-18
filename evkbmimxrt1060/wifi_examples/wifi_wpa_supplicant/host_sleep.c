@@ -30,6 +30,9 @@
 
 GPIO_HANDLE_DEFINE(s_WakeupGpioHandle);
 
+static void (*wlan_host_sleep_pre_cfg)(void);
+static void (*wlan_host_sleep_post_cfg)(void);
+
 /*******************************************************************************
  * Variables
  ******************************************************************************/
@@ -220,36 +223,29 @@ static void PowerModeSwitch(lpm_power_mode_t mode)
     }
 }
 
-void lpm_SystemWait()
+void mcu_suspend()
 {
+    if (wlan_host_sleep_pre_cfg)
+    {
+        wlan_host_sleep_pre_cfg();
+    }
     PowerModeSwitch(LPM_PowerModeSysIdle);
+    if (wlan_host_sleep_post_cfg)
+    {
+        wlan_host_sleep_post_cfg();
+    }
 }
 
-void lpm_LowPwrIdle()
-{
-    PowerModeSwitch(LPM_PowerModeLPIdle);
-}
-
-void lpm_Suspend()
-{
-    PowerModeSwitch(LPM_PowerModeSuspend);
-}
-
-void lpm_Shutdown()
-{
-    PowerModeSwitch(LPM_PowerModeSNVS);
-}
-
-/*!
- * @brief main demo function.
- */
-int hostsleep_init(void)
+int hostsleep_init(void (*wlan_hs_pre_cfg)(void), void (*wlan_hs_post_cfg)(void))
 {
     if (true != LPM_Init(s_curRunMode))
     {
         PRINTF("LPM Init Failed!\r\n");
         return -1;
     }
+
+    wlan_host_sleep_pre_cfg = wlan_hs_pre_cfg;
+    wlan_host_sleep_post_cfg = wlan_hs_post_cfg;
 
     s_wakeupSig = xSemaphoreCreateBinary();
     /* Make current resource count 0 for signal purpose */

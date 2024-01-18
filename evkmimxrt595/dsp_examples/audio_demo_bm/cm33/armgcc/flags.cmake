@@ -54,6 +54,7 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DDSP_IMAGE_COPY_TO_RAM=1 \
     -DMCUXPRESSO_SDK \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
+    -DSDK_I3C_BASED_COMPONENT_USED=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8904_ENABLE \
     -DDEBUG_CONSOLE_RX_ENABLE=0 \
@@ -83,6 +84,7 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DDSP_IMAGE_COPY_TO_RAM=1 \
     -DMCUXPRESSO_SDK \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
+    -DSDK_I3C_BASED_COMPONENT_USED=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8904_ENABLE \
     -DDEBUG_CONSOLE_RX_ENABLE=0 \
@@ -112,6 +114,7 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -DDSP_IMAGE_COPY_TO_RAM=1 \
     -DMCUXPRESSO_SDK \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
+    -DSDK_I3C_BASED_COMPONENT_USED=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8904_ENABLE \
     -DDEBUG_CONSOLE_RX_ENABLE=0 \
@@ -142,6 +145,7 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -DDSP_IMAGE_COPY_TO_RAM=1 \
     -DMCUXPRESSO_SDK \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
+    -DSDK_I3C_BASED_COMPONENT_USED=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8904_ENABLE \
     -DDEBUG_CONSOLE_RX_ENABLE=0 \
@@ -277,7 +281,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT595Sxxxx_cm33_ram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT595Sxxxx_cm33_ram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -303,7 +307,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT595Sxxxx_cm33_ram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT595Sxxxx_cm33_ram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG} \
@@ -330,7 +334,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT595Sxxxx_cm33_flash.ld -static \
+    -T\"${ProjDirPath}/MIMXRT595Sxxxx_cm33_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE} \
@@ -356,5 +360,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT595Sxxxx_cm33_flash.ld -static \
+    -T\"${ProjDirPath}/MIMXRT595Sxxxx_cm33_flash.ld\" -static \
 ")

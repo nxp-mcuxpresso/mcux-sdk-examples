@@ -45,7 +45,7 @@ static void ADC_ClockPower_Configuration(void)
     POWER_DisablePD(kPDRUNCFG_PD_VREFP_SW); /* Power on the reference voltage source. */
     POWER_DisablePD(kPDRUNCFG_PD_TEMPS);    /* Power on the temperature sensor. */
 
-    CLOCK_EnableClock(kCLOCK_Adc0); /* SYSCON->AHBCLKCTRL[0] |= SYSCON_AHBCLKCTRL_ADC0_MASK; */
+    CLOCK_EnableClock(kCLOCK_Adc0);         /* SYSCON->AHBCLKCTRL[0] |= SYSCON_AHBCLKCTRL_ADC0_MASK; */
 }
 
 /*!

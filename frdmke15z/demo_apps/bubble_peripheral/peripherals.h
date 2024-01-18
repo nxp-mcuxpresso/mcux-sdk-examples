@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2019,2021 NXP
+ * Copyright 2016-2019,2021,2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -33,11 +32,9 @@ extern "C" {
 /* Definition of peripheral ID */
 #define BOARD_TIMER_PERIPHERAL FTM0
 /* Definition of the clock source frequency */
-#define BOARD_TIMER_CLOCK_SOURCE CLOCK_GetFreq(kCLOCK_BusClk)
-/* TIMER interrupt vector ID (number). */
-#define BOARD_TIMER_IRQN FTM0_IRQn
-/* TIMER interrupt handler identifier. */
-#define BOARD_TIMER_IRQHANDLER FTM0_IRQHandler
+#define BOARD_TIMER_CLOCK_SOURCE CLOCK_GetFreq(kCLOCK_CoreSysClk)
+/* Definition of the clock source frequency */
+#define BOARD_TIMER_TIMER_MODULO_VALUE (((BOARD_TIMER_CLOCK_SOURCE/ (1U << (BOARD_TIMER_PERIPHERAL->SC & FTM_SC_PS_MASK))) / 10000) - 1)
 /* BOARD_InitPeripherals defines for LPI2C0 */
 /* Definition of peripheral ID */
 #define BOARD_ACCEL_I2C_PERIPHERAL LPI2C0
@@ -45,6 +42,8 @@ extern "C" {
 #define BOARD_ACCEL_I2C_CLOCK_FREQ CLOCK_GetIpFreq(kCLOCK_Lpi2c0)
 /* Transfer buffer size */
 #define BOARD_ACCEL_I2C_MASTER_BUFFER_SIZE 1
+/* Definition of slave address */
+#define BOARD_ACCEL_I2C_MASTER_SLAVE_ADDRESS 0
 
 /***********************************************************************************************************************
  * Global variables

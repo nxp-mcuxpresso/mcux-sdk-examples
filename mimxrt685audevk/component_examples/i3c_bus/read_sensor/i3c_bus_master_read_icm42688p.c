@@ -48,7 +48,7 @@ static i3c_device_ibi_info_t dev_icm42688pIbi = {
 i3c_master_adapter_resource_t demo_masterResource = {.base      = EXAMPLE_MASTER,
                                                      .transMode = kI3C_MasterTransferInterruptMode};
 i3c_device_control_info_t i3cMasterCtlInfo        = {
-    .funcs = (i3c_device_hw_ops_t *)&master_ops, .resource = &demo_masterResource, .isSecondary = false};
+           .funcs = (i3c_device_hw_ops_t *)&master_ops, .resource = &demo_masterResource, .isSecondary = false};
 
 void icm42688p_ibi_callback(i3c_device_t *dev, const void *ibiData, uint32_t ibiLen)
 {

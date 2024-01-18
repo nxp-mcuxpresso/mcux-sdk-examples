@@ -55,14 +55,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../board.h"
 "${ProjDirPath}/../clock_config.c"
 "${ProjDirPath}/../clock_config.h"
-"${SdkRootDirPath}/examples/evkmimxrt1160/multicore_examples/erpc_common/erpc_error_handler.h"
-"${SdkRootDirPath}/examples/evkmimxrt1160/multicore_examples/erpc_common/erpc_error_handler.cpp"
-"${SdkRootDirPath}/examples/evkmimxrt1160/multicore_examples/erpc_common/erpc_two_way_rpc/service/erpc_two_way_rpc.erpc"
-"${SdkRootDirPath}/examples/evkmimxrt1160/multicore_examples/erpc_common/erpc_two_way_rpc/service/erpc_two_way_rpc_Core0Interface.h"
-"${SdkRootDirPath}/examples/evkmimxrt1160/multicore_examples/erpc_common/erpc_two_way_rpc/service/erpc_two_way_rpc_Core0Interface_client.cpp"
-"${SdkRootDirPath}/examples/evkmimxrt1160/multicore_examples/erpc_common/erpc_two_way_rpc/service/erpc_two_way_rpc_Core1Interface.h"
-"${SdkRootDirPath}/examples/evkmimxrt1160/multicore_examples/erpc_common/erpc_two_way_rpc/service/erpc_two_way_rpc_Core1Interface_server.h"
-"${SdkRootDirPath}/examples/evkmimxrt1160/multicore_examples/erpc_common/erpc_two_way_rpc/service/erpc_two_way_rpc_Core1Interface_server.cpp"
 "${ProjDirPath}/../main_core0.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
@@ -77,8 +69,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/evkmimxrt1160
-    ${SdkRootDirPath}/examples/evkmimxrt1160/multicore_examples/erpc_common
-    ${SdkRootDirPath}/examples/evkmimxrt1160/multicore_examples/erpc_common/erpc_two_way_rpc/service
     ${SdkRootDirPath}/examples/evkmimxrt1160/multicore_examples/erpc_two_way_rpc_rpmsg_rtos
 )
 

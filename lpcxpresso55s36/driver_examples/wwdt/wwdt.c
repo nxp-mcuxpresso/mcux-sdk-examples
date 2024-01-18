@@ -14,9 +14,9 @@
 #include "pin_mux.h"
 #include "board.h"
 #include "fsl_wwdt.h"
-#include "fsl_power.h"
 
 #include <stdbool.h>
+#include "fsl_power.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -26,7 +26,8 @@
 #define APP_WDT_IRQn        WDT_BOD_IRQn
 #define APP_WDT_IRQ_HANDLER WDT_BOD_IRQHandler
 
-#define WDT_CLK_FREQ CLOCK_GetWdtClkFreq()
+#define WDT_CLK_FREQ        CLOCK_GetWdtClkFreq()
+#define LPC55S36_WORKAROUND (1)
 
 /*******************************************************************************
  * Prototypes
@@ -63,6 +64,13 @@ void APP_WDT_IRQ_HANDLER(void)
          * check the period between warning interrupt and timeout.
          */
     }
+
+#if (defined(LPC55S36_WORKAROUND) && LPC55S36_WORKAROUND)
+    /* Set PMC register value that could run with GDET enable */
+    PMC->LDOPMU   = 0x0109CF18;
+    PMC->DCDC0    = 0x010A767E;
+    PMC->LDOCORE0 = 0x2801006B;
+#endif
     SDK_ISR_EXIT_BARRIER;
 }
 
@@ -105,18 +113,22 @@ int main(void)
     /* Initialize the LED port. */
     LED_RED_INIT(LOGIC_LED_OFF);
 
-    /* Set Red LED to initially be high */
-    APP_LED_INIT;
-
 #if !defined(FSL_FEATURE_WWDT_HAS_NO_PDCFG) || (!FSL_FEATURE_WWDT_HAS_NO_PDCFG)
     POWER_DisablePD(kPDRUNCFG_PD_WDT_OSC);
 #endif
+
+    /* Set Red LED to initially be high */
+    APP_LED_INIT;
 
     /* Enable the WWDT time out to reset the CPU. */
     timeOutResetEnable = true;
 
     /* Check if reset is due to Watchdog */
+#ifdef IS_WWDT_RESET
+    if (IS_WWDT_RESET)
+#else
     if (WWDT_GetStatusFlags(WWDT) & kWWDT_TimeoutFlag)
+#endif
     {
         APP_LED_ON;
         PRINTF("Watchdog reset occurred\r\n");

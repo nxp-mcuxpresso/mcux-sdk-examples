@@ -1,6 +1,5 @@
 /*
- * Copyright 2020-2021 NXP
- * All rights reserved.
+ * Copyright 2020-2021, 2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -31,6 +30,14 @@ extern "C" {
  *
  */
 void BOARD_InitBootPins(void);
+
+#define BOARD_INITPINS_IOMUXC_GPR_GPR42_GPIO_MUX3_GPIO_SEL_LOW_MASK 0x0800U /*!< GPIO3 and CM7_GPIO3 share same IO MUX function, GPIO_MUX3 selects one GPIO function: affected bits mask */
+
+/* GPIO_AD_12 (coord P17), PHY_INTR */
+/* Routed pin properties */
+#define BOARD_INITPINS_PHY_INTR_PERIPHERAL                                 GPIO3   /*!< Peripheral name */
+#define BOARD_INITPINS_PHY_INTR_SIGNAL                               gpio_mux_io   /*!< Signal name */
+#define BOARD_INITPINS_PHY_INTR_CHANNEL                                      11U   /*!< Signal channel */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

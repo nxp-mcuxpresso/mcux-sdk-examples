@@ -87,8 +87,8 @@ wm8960_config_t wm8960Config = {
     .slaveAddress     = WM8960_I2C_ADDR,
     .bus              = kWM8960_BusI2S,
     .format           = {.mclk_HZ    = 12000000U,
-               .sampleRate = kWM8960_AudioSampleRate16KHz,
-               .bitWidth   = kWM8960_AudioBitWidth16bit},
+                         .sampleRate = kWM8960_AudioSampleRate16KHz,
+                         .bitWidth   = kWM8960_AudioBitWidth16bit},
     .master_slave     = true,
     .masterClock =
         {

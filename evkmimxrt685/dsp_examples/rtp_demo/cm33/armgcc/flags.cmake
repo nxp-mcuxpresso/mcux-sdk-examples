@@ -46,6 +46,7 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8904_ENABLE \
+    -DSDK_I3C_BASED_COMPONENT_USED=1 \
     -DSDIO_ENABLED \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DSDK_OS_FREE_RTOS \
@@ -86,6 +87,7 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_WM8904_ENABLE \
+    -DSDK_I3C_BASED_COMPONENT_USED=1 \
     -DSDIO_ENABLED \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DSDK_OS_FREE_RTOS \
@@ -187,7 +189,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     --defsym=__heap_size__=0x1000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash.ld -static \
+    -T\"${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE} \
@@ -217,5 +219,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     --defsym=__heap_size__=0x1000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash.ld -static \
+    -T\"${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash.ld\" -static \
 ")

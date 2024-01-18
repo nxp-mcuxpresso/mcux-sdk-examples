@@ -55,6 +55,9 @@ extern phy_rtl8211f_resource_t g_phy_resource;
 #define EXAMPLE_CACHE_LINE_SIZE 1 /*!< No need to align cache line size */
 #endif                            /* FSL_ETH_ENABLE_CACHE_CONTROL */
 
+#ifndef PHY_LINKUP_TIMEOUT_COUNT
+#define PHY_LINKUP_TIMEOUT_COUNT (800000U)
+#endif
 #ifndef PHY_AUTONEGO_TIMEOUT_COUNT
 #define PHY_AUTONEGO_TIMEOUT_COUNT (800000U)
 #endif
@@ -245,8 +248,10 @@ int main(void)
     uint64_t second;
     uint32_t nanosecond;
     bool link              = false;
+#if !defined(EXAMPLE_PHY_LOOPBACK_ENABLE)
+    bool autonego                   = false;
+#endif
     bool tempLink          = false;
-    bool autonego          = false;
     phy_config_t phyConfig = {0};
 
     /* Hardware Initialization. */
@@ -260,12 +265,8 @@ int main(void)
     IOMUXC_GPR->GPR6 |= IOMUXC_GPR_GPR6_ENET_QOS_RGMII_EN_MASK; /* Set this bit to enable ENET_QOS RGMII TX clock output
                                                                    on TX_CLK pad. */
 
-    /* For a complete PHY reset of RTL8211FDI-CG, this pin must be asserted low for at least 10ms. And
-     * wait for a further 30ms(for internal circuits settling time) before accessing the PHY register */
-    GPIO_WritePinOutput(GPIO11, 14, 0);
-    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
-    GPIO_WritePinOutput(GPIO11, 14, 1);
-    SDK_DelayAtLeastUs(30000, CLOCK_GetFreq(kCLOCK_CpuClk));
+    /* Hardware reset PHY. */
+    BOARD_ENET_PHY1_RESET;
 
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_1_IRQn);
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_2_IRQn);
@@ -323,8 +324,39 @@ int main(void)
     phyConfig.intrType = kPHY_IntrActiveLow;
 #endif
 
-    /* Initialize PHY and wait auto-negotiation over. */
     PRINTF("Wait for PHY init...\r\n");
+#if defined(EXAMPLE_PHY_LOOPBACK_ENABLE)
+    /* Initialize PHY and enable loopback. */
+    do
+    {
+        status = PHY_Init(&phyHandle, &phyConfig);
+        if (status != kStatus_Success)
+        {
+            PRINTF("Failed to init PHY\r\n");
+            return status;
+        }
+
+        status = PHY_EnableLoopback(&phyHandle, kPHY_LocalLoop, kPHY_Speed1000M, true);
+        if (status != kStatus_Success)
+        {
+            PRINTF("Failed to enable PHY loopback\r\n");
+            return status;
+        }
+
+        /* Wait link up */
+        PRINTF("Wait for PHY link up...\r\n");
+        count = PHY_LINKUP_TIMEOUT_COUNT;
+        do
+        {
+            PHY_GetLinkStatus(&phyHandle, &link);
+            if (link)
+            {
+                break;
+            }
+        } while (--count);
+    } while (!link);
+#else
+    /* Initialize PHY and wait auto-negotiation over. */
     do
     {
         status = PHY_Init(&phyHandle, &phyConfig);
@@ -348,6 +380,7 @@ int main(void)
             }
         }
     } while (!(link && autonego));
+#endif
 
     /* Wait a moment for PHY status to be stable. */
     SDK_DelayAtLeastUs(PHY_STABILITY_DELAY_US, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);

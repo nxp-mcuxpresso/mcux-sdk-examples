@@ -37,7 +37,7 @@
  */
 #define NO_SYS 0
 
-//#define CONFIG_NETWORK_HIGH_PERF 1
+// #define CONFIG_NETWORK_HIGH_PERF 1
 
 #define MAX_SOCKETS_TCP           6
 #define MAX_LISTENING_SOCKETS_TCP 4
@@ -167,11 +167,11 @@
  * MEM_SIZE: the size of the heap memory. If the application will send
  * a lot of data that needs to be copied, this should be set high.
  */
-//#if (TCPIP_STACK_TX_HEAP_SIZE == 0)
-//#define MEM_SIZE (TCP_MEM_SIZE + UDP_MEM_SIZE)
-//#else
-//#define MEM_SIZE (TCPIP_STACK_TX_HEAP_SIZE * 1024)
-//#endif
+// #if (TCPIP_STACK_TX_HEAP_SIZE == 0)
+// #define MEM_SIZE (TCP_MEM_SIZE + UDP_MEM_SIZE)
+// #else
+// #define MEM_SIZE (TCPIP_STACK_TX_HEAP_SIZE * 1024)
+// #endif
 
 #ifdef CONFIG_NETWORK_HIGH_PERF
 #define MEM_SIZE (20 * 1024)
@@ -184,7 +184,7 @@
    ---------- Internal Memory Pool Sizes ----------
    ------------------------------------------------
 */
-//#define MEMP_USE_CUSTOM_POOLS 1
+// #define MEMP_USE_CUSTOM_POOLS 1
 
 /**
  * MEMP_NUM_PBUF: the number of memp struct pbufs (used for PBUF_ROM and PBUF_REF).
@@ -456,7 +456,7 @@
 #define LWIP_PROVIDE_ERRNO 1
 #define ERRNO              1
 
-//#define LWIP_SNMP 1
+// #define LWIP_SNMP 1
 
 /*
    ------------------------------------------------
@@ -476,4 +476,12 @@
 #define TCP_RESOURCE_FAIL_RETRY_LIMIT 50
 
 #define LWIP_COMPAT_MUTEX_ALLOWED 1
+
+#if (LWIP_DNS || LWIP_IGMP || LWIP_IPV6) && !defined(LWIP_RAND)
+/* When using IGMP or IPv6, LWIP_RAND() needs to be defined to a random-function returning an u32_t random value*/
+#include "lwip/arch.h"
+u32_t lwip_rand(void);
+#define LWIP_RAND() lwip_rand()
+#endif
+
 #endif /* __LWIPOPTS_H__ */

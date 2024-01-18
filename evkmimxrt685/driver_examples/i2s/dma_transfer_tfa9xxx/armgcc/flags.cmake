@@ -48,6 +48,7 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DCPU_MIMXRT685SFVKB_cm33 \
     -DBOOT_HEADER_ENABLE=1 \
     -DMCUXPRESSO_SDK \
+    -DSDK_I3C_BASED_COMPONENT_USED=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_TFA9XXX_ENABLE \
@@ -74,6 +75,7 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DCPU_MIMXRT685SFVKB_cm33 \
     -DBOOT_HEADER_ENABLE=1 \
     -DMCUXPRESSO_SDK \
+    -DSDK_I3C_BASED_COMPONENT_USED=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_TFA9XXX_ENABLE \
@@ -100,6 +102,7 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -DCPU_MIMXRT685SFVKB_cm33 \
     -DBOOT_HEADER_ENABLE=1 \
     -DMCUXPRESSO_SDK \
+    -DSDK_I3C_BASED_COMPONENT_USED=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_TFA9XXX_ENABLE \
@@ -127,6 +130,7 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -DCPU_MIMXRT685SFVKB_cm33 \
     -DBOOT_HEADER_ENABLE=1 \
     -DMCUXPRESSO_SDK \
+    -DSDK_I3C_BASED_COMPONENT_USED=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DBOARD_USE_CODEC=1 \
     -DCODEC_TFA9XXX_ENABLE \
@@ -267,7 +271,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     --defsym=__stack_size__=0x800 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT685Sxxxx_cm33_ram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT685Sxxxx_cm33_ram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -295,7 +299,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     --defsym=__stack_size__=0x800 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT685Sxxxx_cm33_ram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT685Sxxxx_cm33_ram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG} \
@@ -324,7 +328,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     --defsym=__stack_size__=0x800 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash.ld -static \
+    -T\"${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE} \
@@ -352,5 +356,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     --defsym=__stack_size__=0x800 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash.ld -static \
+    -T\"${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash.ld\" -static \
 ")

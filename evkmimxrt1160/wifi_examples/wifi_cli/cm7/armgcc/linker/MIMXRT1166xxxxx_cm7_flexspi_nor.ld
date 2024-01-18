@@ -111,6 +111,9 @@ SECTIONS
     *(EXCLUDE_FILE(
         *queue.c.obj
         *tcp_out.c.obj
+        *mlan_sdio.c.obj
+        *mlan_11n.c.obj
+        *mlan_11n_aggr.c.obj
         *mlan_11n_rxreorder.c.obj
         *tcp_in.c.obj
         *inet_chksum.c.obj
@@ -120,10 +123,16 @@ SECTIONS
         *wifi-sdio.c.obj
         *fsl_sdio.c.obj
         *pbuf.c.obj
+        *tcp.c.obj
+        *udp.c.obj
+        *tcpip.c.obj
+        *sockets.c.obj
         *tasks.c.obj
         *lib_a-memset.o
         *fsl_cache.c.obj
         *wifi.c.obj
+        *wifi_netif.c.obj
+        *fsl_os_abstraction_free_rtos.c.obj
         *fsl_memcpy.S.obj
       ) .text*)              /* .text* sections (code) */
     *(.rodata)               /* .rodata sections (constants, strings, etc.) */
@@ -231,7 +240,6 @@ SECTIONS
     *(m_usb_dma_init_data)
     *(.data)                 /* .data sections */
     *(.data*)                /* .data* sections */
-    *(.wlan_data .wlan_data.*)
     *(DataQuickAccess)       /* quick access data section */
     KEEP(*(.jcr*))
     . = ALIGN(4);
@@ -247,6 +255,9 @@ SECTIONS
     *(CodeQuickAccess)
     *queue.c.obj(.text*)
     *tcp_out.c.obj(.text*)
+    *mlan_sdio.c.obj(.text*)
+    *mlan_11n.c.obj(.text*)
+    *mlan_11n_aggr.c.obj(.text*)
     *mlan_11n_rxreorder.c.obj(.text*)
     *tcp_in.c.obj(.text*)
     *inet_chksum.c.obj(.text*)
@@ -256,10 +267,16 @@ SECTIONS
     *wifi-sdio.c.obj(.text*)
     *fsl_sdio.c.obj(.text*)
     *pbuf.c.obj(.text*)
+    *tcp.c.obj(.text*)
+    *udp.c.obj(.text*)
+    *tcpip.c.obj(.text*)
+    *sockets.c.obj(.text*)
     *tasks.c.obj(.text*)  
     *lib_a-memset.o(.text*)
     *fsl_cache.c.obj(.text*)
     *wifi.c.obj(.text*)
+    *wifi_netif.c.obj(.text*)
+    *fsl_os_abstraction_free_rtos.c.obj(.text*)
     *fsl_memcpy.S.obj(.text)
     . = ALIGN(128);
     __ram_function_end__ = .;
@@ -300,6 +317,12 @@ SECTIONS
     __bss_end__ = .;
     __END_BSS = .;
   } > m_data
+
+  .wlan_data :
+  {
+    . = ALIGN(4);
+    *(.wlan_data .wlan_data.*)
+  } > m_data2
 
   .heap :
   {

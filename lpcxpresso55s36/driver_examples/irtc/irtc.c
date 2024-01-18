@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2017, 2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -40,13 +40,14 @@ volatile static bool alarmHappen = false;
  */
 void RTC_IRQHandler(void)
 {
-    if (IRTC_GetStatusFlags(RTC) & kIRTC_AlarmFlag)
+    uint32_t flags = IRTC_GetStatusFlags(RTC);
+    if (0U != flags)
     {
-        alarmHappen = true;
+        alarmHappen = (0U != (flags & kIRTC_AlarmFlag));
         /* Unlock to allow register write operation */
         IRTC_SetWriteProtection(RTC, false);
-        /*Clear alarm flag */
-        IRTC_ClearStatusFlags(RTC, kIRTC_AlarmInterruptEnable);
+        /*Clear all irtc flag */
+        IRTC_ClearStatusFlags(RTC, flags);
     }
     SDK_ISR_EXIT_BARRIER;
 }
@@ -99,12 +100,15 @@ int main(void)
     {
         return 1;
     }
-
+    
+#if !defined(FSL_FEATURE_RTC_HAS_NO_GP_DATA_REG) || (!FSL_FEATURE_RTC_HAS_NO_GP_DATA_REG)
     /* Enable the RTC 32KHz oscillator at CFG0 by writing a 0 */
     IRTC_Enable32kClkDuringRegisterWrite(RTC, true);
-
+#endif
+#if !defined(FSL_FEATURE_RTC_HAS_NO_TAMPER_FEATURE) || (!FSL_FEATURE_RTC_HAS_NO_TAMPER_FEATURE)
     /* Clear all Tamper events by writing a 1 to the bits */
     IRTC_ClearTamperStatusFlag(RTC);
+#endif
 
     PRINTF("RTC Example START:\r\n");
 

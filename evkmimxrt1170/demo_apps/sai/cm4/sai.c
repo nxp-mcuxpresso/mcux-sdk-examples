@@ -86,21 +86,21 @@ wm8960_config_t wm8960Config = {
     .slaveAddress     = WM8960_I2C_ADDR,
     .bus              = kWM8960_BusI2S,
     .format           = {.mclk_HZ    = 24576000U,
-               .sampleRate = kWM8960_AudioSampleRate16KHz,
-               .bitWidth   = kWM8960_AudioBitWidth16bit},
+                         .sampleRate = kWM8960_AudioSampleRate16KHz,
+                         .bitWidth   = kWM8960_AudioBitWidth16bit},
     .master_slave     = false,
 };
 codec_config_t boardCodecConfig = {.codecDevType = kCODEC_WM8960, .codecDevConfig = &wm8960Config};
 /*
  * AUDIO PLL setting: Frequency = Fref * (DIV_SELECT + NUM / DENOM) / (2^POST)
- *                              = 24 * (32 + 77/100)  / 2
- *                              = 393.24MHZ
+ *                              = 24 * (32 + 768/1000)  / 2
+ *                              = 393.216MHZ
  */
 const clock_audio_pll_config_t audioPllConfig = {
-    .loopDivider = 32,  /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
-    .postDivider = 1,   /* Divider after the PLL, should only be 0, 1, 2, 3, 4, 5 */
-    .numerator   = 77,  /* 30 bit numerator of fractional loop divider. */
-    .denominator = 100, /* 30 bit denominator of fractional loop divider */
+    .loopDivider = 32,   /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
+    .postDivider = 1,    /* Divider after the PLL, should only be 0, 1, 2, 3, 4, 5 */
+    .numerator   = 768,  /* 30 bit numerator of fractional loop divider. */
+    .denominator = 1000, /* 30 bit denominator of fractional loop divider */
 };
 AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t txHandle);
 edma_handle_t dmaTxHandle = {0};
@@ -403,19 +403,23 @@ int main(void)
                 /* Set the audio input source to AUX */
                 DA7212_ChangeInput((da7212_handle_t *)((uint32_t)(codecHandle.codecDevHandle)), kDA7212_Input_AUX);
 #endif
+#if defined(BOARD_CONFIGCODEC_FOR_RECORD_PLAYBACK)
                 BOARD_CONFIGCODEC_FOR_RECORD_PLAYBACK();
                 if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
                 {
                     assert(false);
                 }
+#endif
                 RecordPlayback(DEMO_SAI, 30);
                 break;
             case '2':
+#if defined(BOARD_CONFIGCODEC_FOR_PLAYBACK)
                 BOARD_CONFIGCODEC_FOR_PLAYBACK();
                 if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
                 {
                     assert(false);
                 }
+#endif
                 PlaybackSine(DEMO_SAI, 250, 5);
                 break;
 #if defined DEMO_SDCARD

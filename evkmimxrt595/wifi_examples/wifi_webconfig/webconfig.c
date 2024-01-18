@@ -644,22 +644,23 @@ static uint32_t CleanUpClient()
 int main(void)
 {
     /* Initialize the hardware */
+    RESET_ClearPeripheralReset(kHSGPIO0_RST_SHIFT_RSTn);
+    RESET_ClearPeripheralReset(kHSGPIO3_RST_SHIFT_RSTn);
+    RESET_ClearPeripheralReset(kHSGPIO4_RST_SHIFT_RSTn);
+
     BOARD_InitBootPins();
+    BOARD_InitPinsM2();
 #ifndef XIP_EXTERNAL_FLASH
     BOARD_InitFlashPins();
 #endif
     BOARD_InitBootClocks();
     APP_InitAppDebugConsole();
 
-    /* Define the init structure for the OSPI reset pin*/
-    gpio_pin_config_t reset_config = {
-        kGPIO_DigitalOutput,
-        1,
-    };
-
-    /* Init output OSPI reset pin. */
-    GPIO_PortInit(GPIO, BOARD_FLASH_RESET_GPIO_PORT);
-    GPIO_PinInit(GPIO, BOARD_FLASH_RESET_GPIO_PORT, BOARD_FLASH_RESET_GPIO_PIN, &reset_config);
+    /* Configure 32K OSC clock. */
+    CLOCK_EnableOsc32K(true);               /* Enable 32KHz Oscillator clock */
+    CLOCK_EnableClock(kCLOCK_Rtc);          /* Enable the RTC peripheral clock */
+    RTC->CTRL &= ~RTC_CTRL_SWRESET_MASK;    /* Make sure the reset bit is cleared */
+    RTC->CTRL &= ~RTC_CTRL_RTC_OSC_PD_MASK; /* The RTC Oscillator is powered up */
 
     /* Create the main Task */
     if (xTaskCreate(main_task, "main_task", 2048, NULL, configMAX_PRIORITIES - 4, &g_BoardState.mainTask) != pdPASS)

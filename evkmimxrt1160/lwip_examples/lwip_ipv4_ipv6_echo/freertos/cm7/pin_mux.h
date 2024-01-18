@@ -1,6 +1,5 @@
 /*
- * Copyright 2021 NXP
- * All rights reserved.
+ * Copyright 2021, 2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -38,11 +37,44 @@ void BOARD_InitBootPins(void);
  */
 void BOARD_InitPins(void);                    /* Function assigned for the Cortex-M7F */
 
+/* GPIO_AD_12 (coord P17), PHY_INTR */
+/* Routed pin properties */
+#define BOARD_INITENETPINS_PHY_INTR_PERIPHERAL                             GPIO9   /*!< Peripheral name */
+#define BOARD_INITENETPINS_PHY_INTR_SIGNAL                               gpio_io   /*!< Signal name */
+#define BOARD_INITENETPINS_PHY_INTR_CHANNEL                                  11U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITENETPINS_PHY_INTR_GPIO                                   GPIO9   /*!< GPIO peripheral base pointer */
+#define BOARD_INITENETPINS_PHY_INTR_GPIO_PIN                                 11U   /*!< GPIO pin number */
+#define BOARD_INITENETPINS_PHY_INTR_GPIO_PIN_MASK                    (1U << 11U)   /*!< GPIO pin mask */
+
+/* GPIO_LPSR_12 (coord U5), PHY_RESET */
+/* Routed pin properties */
+#define BOARD_INITENETPINS_PHY_RESET_PERIPHERAL                           GPIO12   /*!< Peripheral name */
+#define BOARD_INITENETPINS_PHY_RESET_SIGNAL                              gpio_io   /*!< Signal name */
+#define BOARD_INITENETPINS_PHY_RESET_CHANNEL                                 12U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITENETPINS_PHY_RESET_GPIO                                 GPIO12   /*!< GPIO peripheral base pointer */
+#define BOARD_INITENETPINS_PHY_RESET_GPIO_PIN                                12U   /*!< GPIO pin number */
+#define BOARD_INITENETPINS_PHY_RESET_GPIO_PIN_MASK                   (1U << 12U)   /*!< GPIO pin mask */
+
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
  */
 void BOARD_InitEnetPins(void);                /* Function assigned for the Cortex-M7F */
+
+/* GPIO_DISP_B2_13 (coord A5), PHY_RESET */
+/* Routed pin properties */
+#define BOARD_INITENET1GPINS_PHY_RESET_PERIPHERAL                         GPIO11   /*!< Peripheral name */
+#define BOARD_INITENET1GPINS_PHY_RESET_SIGNAL                            gpio_io   /*!< Signal name */
+#define BOARD_INITENET1GPINS_PHY_RESET_CHANNEL                               14U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITENET1GPINS_PHY_RESET_GPIO                               GPIO11   /*!< GPIO peripheral base pointer */
+#define BOARD_INITENET1GPINS_PHY_RESET_GPIO_PIN                              14U   /*!< GPIO pin number */
+#define BOARD_INITENET1GPINS_PHY_RESET_GPIO_PIN_MASK                 (1U << 14U)   /*!< GPIO pin mask */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

@@ -685,7 +685,7 @@ static void DEMO_Charger(void)
 
             /* Set trigger configuration. */
             LPADC_GetDefaultConvTriggerConfig(&mLpadcTriggerConfigStruct);
-            mLpadcTriggerConfigStruct.targetCommandId       = 15U; /* CMD15 is executed. */
+            mLpadcTriggerConfigStruct.targetCommandId       = 15U;                       /* CMD15 is executed. */
             mLpadcTriggerConfigStruct.enableHardwareTrigger = false;
             LPADC_SetConvTriggerConfig(DEMO_LPADC_BASE, 0U, &mLpadcTriggerConfigStruct); /* Configurate the trigger0. */
 

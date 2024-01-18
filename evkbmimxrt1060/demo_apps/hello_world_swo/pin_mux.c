@@ -18,7 +18,7 @@ processor: MIMXRT1062xxxxB
 package_id: MIMXRT1062DVL6B
 mcu_data: ksdk2_0
 processor_version: 0.12.9
-board: MIMXRT1060-EVK
+board: MIMXRT1060-EVKB
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 

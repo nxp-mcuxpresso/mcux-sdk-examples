@@ -11,8 +11,9 @@
 #include "board.h"
 #include "erpc_arbitrated_client_setup.h"
 #include "erpc_server_setup.h"
-#include "erpc_two_way_rpc_Core1Interface.h"
-#include "erpc_two_way_rpc_Core0Interface_server.h"
+#include "erpc_two_way_rpc_Core1Interface_common.h"
+#include "c_erpc_two_way_rpc_Core0Interface_server.h"
+#include "c_erpc_two_way_rpc_Core1Interface_client.h"
 #include "erpc_error_handler.h"
 #include "FreeRTOS.h"
 #include "task.h"
@@ -110,8 +111,8 @@ static void client_task(void *param)
                                                            ERPC_TRANSPORT_RPMSG_LITE_LINK_ID, SignalReady, NULL);
 #elif defined(RPMSG_LITE_MASTER_IS_LINUX)
     transport              = erpc_transport_rpmsg_lite_tty_rtos_remote_init(101U, 1024U, (void *)RPMSG_LITE_SHMEM_BASE,
-                                                               ERPC_TRANSPORT_RPMSG_LITE_LINK_ID, NULL,
-                                                               RPMSG_LITE_NS_ANNOUNCE_STRING);
+                                                                            ERPC_TRANSPORT_RPMSG_LITE_LINK_ID, NULL,
+                                                                            RPMSG_LITE_NS_ANNOUNCE_STRING);
 #else
     transport = erpc_transport_rpmsg_lite_rtos_remote_init(101U, 100U, (void *)RPMSG_LITE_SHMEM_BASE,
                                                            ERPC_TRANSPORT_RPMSG_LITE_LINK_ID, NULL, NULL);
@@ -129,6 +130,7 @@ static void client_task(void *param)
 
     /* eRPC client side initialization */
     s_client = erpc_arbitrated_client_init(transport, message_buffer_factory, &s_transportArbitrator);
+    initCore1Interface_client(s_client);
 
     /* Set default error handler */
     erpc_arbitrated_client_set_error_handler(s_client, erpc_error_handler);

@@ -34,10 +34,6 @@ static void initMessage(srtm_message *msg);
 static shell_status_t shellEcho(shell_handle_t shellHandle, int32_t argc, char **argv);
 static shell_status_t shellUsbSpeaker(shell_handle_t shellHandle, int32_t argc, char **argv);
 static shell_status_t shellUsbMic(shell_handle_t shellHandle, int32_t argc, char **argv);
-
-#if XA_CLIENT_PROXY
-static shell_status_t shellEAPeffect(shell_handle_t shellHandle, int32_t argc, char **argv);
-#endif
 /*${prototype:end}*/
 
 /*******************************************************************************
@@ -58,29 +54,6 @@ SHELL_COMMAND_DEFINE(usb_speaker,
                      "    stop           Stop usb speaker device and playback on DSP\r\n",
                      shellUsbSpeaker,
                      1);
-
-#if XA_CLIENT_PROXY
-SHELL_COMMAND_DEFINE(eap,
-                     "\r\n\"eap\": Set EAP parameters\r\n"
-                     "  USAGE: eap [1|2|3|4|5|6|7|+|-|l|r]\r\n"
-                     "  OPTIONS:\r\n"
-                     "    1:	All effect Off \r\n"
-                     "    2:	Voice enhancer \r\n"
-                     "    3:	Music enhancer \r\n"
-                     "    4:	Auto volume leveler \r\n"
-                     "    5:	Loudness maximiser  \r\n"
-                     "    6:	3D Concert sound  \r\n"
-                     "    7:	Custom\r\n"
-                     "    8:	Tone Generator\r\n"
-                     "    9:	Crossover 2 way speaker\r\n"
-                     "   10:	Crossover for subwoofer\r\n"
-                     "    +:	Volume up\r\n"
-                     "    -:	Volume down\r\n"
-                     "    l:	Balance left\r\n"
-                     "    r:	Balance right\r\n",
-                     shellEAPeffect,
-                     1);
-#endif
 
 SHELL_COMMAND_DEFINE(usb_mic,
                      "\r\n\"usb_mic\": Record DMIC audio and playback on usb microphone audio device\r\n"
@@ -280,55 +253,6 @@ static shell_status_t shellUsbMic(shell_handle_t shellHandle, int32_t argc, char
     return kStatus_SHELL_Success;
 }
 
-#if XA_CLIENT_PROXY
-static shell_status_t shellEAPeffect(shell_handle_t shellHandle, int32_t argc, char **argv)
-{
-    srtm_message msg = {0};
-    int effectNum    = atoi(argv[1]);
-    initMessage(&msg);
-
-    msg.head.category = SRTM_MessageCategory_AUDIO;
-    msg.head.command  = SRTM_Command_FilterCfg;
-    /* Param 0 Number of EAP config*/
-
-    if (effectNum > 0 && effectNum < 11)
-    {
-        msg.param[0] = effectNum;
-        g_handleShellMessageCallback(&msg, g_handleShellMessageCallbackData);
-        return kStatus_SHELL_Success;
-    }
-    else if (strcmp(argv[1], "+") == 0)
-    {
-        msg.param[0] = 11;
-        g_handleShellMessageCallback(&msg, g_handleShellMessageCallbackData);
-        return kStatus_SHELL_Success;
-    }
-    else if (strcmp(argv[1], "-") == 0)
-    {
-        msg.param[0] = 12;
-        g_handleShellMessageCallback(&msg, g_handleShellMessageCallbackData);
-        return kStatus_SHELL_Success;
-    }
-    else if (strcmp(argv[1], "l") == 0)
-    {
-        msg.param[0] = 13;
-        g_handleShellMessageCallback(&msg, g_handleShellMessageCallbackData);
-        return kStatus_SHELL_Success;
-    }
-    else if (strcmp(argv[1], "r") == 0)
-    {
-        msg.param[0] = 14;
-        g_handleShellMessageCallback(&msg, g_handleShellMessageCallbackData);
-        return kStatus_SHELL_Success;
-    }
-    else
-    {
-        PRINTF("[CM33 CMD] Effect parameter is out of range! Please see help. \r\n");
-        return kStatus_SHELL_Error;
-    }
-}
-#endif
-
 void shellCmd(handleShellMessageCallback_t *handleShellMessageCallback, void *arg)
 {
     /* Init SHELL */
@@ -338,9 +262,6 @@ void shellCmd(handleShellMessageCallback_t *handleShellMessageCallback, void *ar
     /* Add new command to commands list */
     SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(version));
     SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(usb_speaker));
-#if XA_CLIENT_PROXY
-    SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(eap));
-#endif
     SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(usb_mic));
 
     g_handleShellMessageCallback     = handleShellMessageCallback;
@@ -390,17 +311,12 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
             break;
 
         case SRTM_MessageCategory_AUDIO:
-            if (usb_playing && (msg->head.command != SRTM_Command_FilterCfg) &&
-                (msg->head.command < SRTM_Command_UsbSpeakerStart || msg->head.command > SRTM_Command_UsbSpeakerError))
+            if (usb_playing && (msg->head.command < SRTM_Command_UsbSpeakerStart || msg->head.command > SRTM_Command_UsbSpeakerError))
             {
                 PRINTF("[CM33 CMD] This command cannot be processed at this time because USB is being played!\r\n");
                 break;
             }
-            else if (!usb_playing && msg->head.command == SRTM_Command_FilterCfg)
-            {
-                PRINTF("[CM33 CMD] Please play usb first, then apply an EAP preset.\r\n");
-                break;
-            }
+
             switch (msg->head.command)
             {
                 case SRTM_Print_String:
@@ -424,7 +340,7 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                         PRINTF("[CM33 CMD] DSP USB playback start\r\n");
                     }
 
-                    /* Release shell to be able to set different EAP presets*/
+                    /* Release shell to be able to set different commands */
                     *notify_shell = true;
                     break;
 
@@ -588,21 +504,6 @@ static void handleDSPMessageInner(app_handle_t *app, srtm_message *msg, bool *no
                     *notify_shell = true;
                     break;
 
-#if XA_CLIENT_PROXY
-                case SRTM_Command_FilterCfg:
-                {
-                    if (msg->error != SRTM_Status_Success)
-                    {
-                        PRINTF("[CM33 CMD] DSP Filter cfg failed! return error = %d\r\n", msg->error);
-                    }
-                    else
-                    {
-                        PRINTF("[CM33 CMD] DSP Filter cfg success!\r\n");
-                    }
-                    *notify_shell = true;
-                    break;
-                }
-#endif
                 default:
                     PRINTF("[CM33 CMD] Incoming unknown message category %d \r\n", msg->head.category);
                     break;

@@ -289,6 +289,14 @@ static void APP_SRTM_InitAudioDevice(bool enable)
     }
 }
 
+static void APP_SRTM_ConfAudioMclk(I2S_Type *base, sai_master_clock_t *config)
+{
+    /* For i.MX8MP, MCLK can output only when TX/RX are also enabled */
+    SAI_SetMasterClockConfig(base, config);
+    SAI_TxEnable(base, true);
+    SAI_RxEnable(base, true);
+}
+
 static void APP_SRTM_InitAudioService(void)
 {
     static srtm_sai_sdma_config_t saiTxConfig;
@@ -319,11 +327,12 @@ static void APP_SRTM_InitAudioService(void)
                                      periodDone message to A53 */
     saiTxConfig.guardTime = 2000; /* Unit:ms. This is a lower limit that M core should
                                      reserve such time data to wakeup A core. */
-    saiTxConfig.dmaChannel                = APP_SAI_TX_DMA_CHANNEL;
-    saiTxConfig.ChannelPriority           = APP_SAI_TX_DMA_CHANNEL_PRIORITY;
-    saiTxConfig.eventSource               = APP_SAI_TX_DMA_SOURCE;
-    saiTxConfig.extendConfig.audioDevConf = APP_SRTM_ConfAudioDevice;
-    saiTxConfig.extendConfig.audioDevInit = APP_SRTM_InitAudioDevice;
+    saiTxConfig.dmaChannel                 = APP_SAI_TX_DMA_CHANNEL;
+    saiTxConfig.ChannelPriority            = APP_SAI_TX_DMA_CHANNEL_PRIORITY;
+    saiTxConfig.eventSource                = APP_SAI_TX_DMA_SOURCE;
+    saiTxConfig.extendConfig.audioDevConf  = APP_SRTM_ConfAudioDevice;
+    saiTxConfig.extendConfig.audioDevInit  = APP_SRTM_InitAudioDevice;
+    saiTxConfig.extendConfig.audioMclkConf = APP_SRTM_ConfAudioMclk;
 
     /* RX Config */
     SAI_GetClassicI2SConfig(&saiRxConfig.config, kSAI_WordWidth16bits, kSAI_Stereo,
@@ -335,12 +344,13 @@ static void APP_SRTM_InitAudioService(void)
     saiRxConfig.mclkConfig.mclkHz           = saiTxConfig.mclkConfig.mclkSourceClkHz; /* Same as Tx */
     saiRxConfig.mclkConfig.mclkOutputEnable = true;                                   /* Enable the MCLK output */
 
-    saiRxConfig.stopOnSuspend             = false; /* Keep recording data on A53 suspend. */
-    saiRxConfig.dmaChannel                = APP_SAI_RX_DMA_CHANNEL;
-    saiRxConfig.ChannelPriority           = APP_SAI_RX_DMA_CHANNEL_PRIORITY;
-    saiRxConfig.eventSource               = APP_SAI_RX_DMA_SOURCE;
-    saiRxConfig.extendConfig.audioDevConf = APP_SRTM_ConfAudioDevice;
-    saiRxConfig.extendConfig.audioDevInit = APP_SRTM_InitAudioDevice;
+    saiRxConfig.stopOnSuspend              = false; /* Keep recording data on A53 suspend. */
+    saiRxConfig.dmaChannel                 = APP_SAI_RX_DMA_CHANNEL;
+    saiRxConfig.ChannelPriority            = APP_SAI_RX_DMA_CHANNEL_PRIORITY;
+    saiRxConfig.eventSource                = APP_SAI_RX_DMA_SOURCE;
+    saiRxConfig.extendConfig.audioDevConf  = APP_SRTM_ConfAudioDevice;
+    saiRxConfig.extendConfig.audioDevInit  = APP_SRTM_InitAudioDevice;
+    saiRxConfig.extendConfig.audioMclkConf = APP_SRTM_ConfAudioMclk;
 
     saiAdapter = SRTM_SaiSdmaAdapter_Create(APP_SRTM_SAI, APP_SRTM_DMA, &saiTxConfig, &saiRxConfig);
     assert(saiAdapter);

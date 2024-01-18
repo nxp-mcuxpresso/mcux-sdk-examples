@@ -66,7 +66,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../include/flash_map_backend/flash_map_backend.h"
 "${ProjDirPath}/../include/os/os_malloc.h"
 "${ProjDirPath}/../include/sysflash/sysflash.h"
-"${ProjDirPath}/../flashapi/flash_api.c"
+"${ProjDirPath}/../flash/flash_api.c"
 "${ProjDirPath}/../main.c"
 "${ProjDirPath}/../sblconfig.h"
 "${ProjDirPath}/../pin_mux.c"
@@ -87,8 +87,8 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../include
     ${ProjDirPath}/../include/mcuboot_config
     ${ProjDirPath}/../include/sysflash
-    ${ProjDirPath}/../flashapi
     ${ProjDirPath}/../keys
+    ${ProjDirPath}/../flash
     ${SdkRootDirPath}/core/boards/evkmimxrt1160
 )
 

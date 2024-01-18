@@ -52,7 +52,7 @@ include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
 "${ProjDirPath}/../streamer_pcm.c"
-"${ProjDirPath}/../streamer_pcm_app.h"
+"${ProjDirPath}/../streamer_pcm.h"
 "${ProjDirPath}/../usb_device_config.h"
 "${ProjDirPath}/../app_streamer.c"
 "${ProjDirPath}/../app_streamer.h"
@@ -64,8 +64,8 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../usb_device_descriptor.c"
 "${ProjDirPath}/../audio_microphone.h"
 "${ProjDirPath}/../audio_microphone.c"
-"${SdkRootDirPath}/examples/lpcxpresso55s69/audio_examples/maestro_usb_mic/pin_mux.c"
-"${SdkRootDirPath}/examples/lpcxpresso55s69/audio_examples/maestro_usb_mic/pin_mux.h"
+"${ProjDirPath}/../pin_mux.c"
+"${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../ffconf.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
 "${ProjDirPath}/../app_definitions.h"
@@ -87,6 +87,8 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/core/boards/lpcxpresso55s69
 )
 
+set_source_files_properties("${ProjDirPath}/../streamer_pcm.c" PROPERTIES COMPONENT_CONFIG_FILE "middleware_maestro_framework_template")
+set_source_files_properties("${ProjDirPath}/../streamer_pcm.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_maestro_framework_template")
 set_source_files_properties("${ProjDirPath}/../usb_device_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_usb_device_ip3511fs_config_header")
 set_source_files_properties("${ProjDirPath}/../ffconf.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_fatfs_template_ram")
 set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")

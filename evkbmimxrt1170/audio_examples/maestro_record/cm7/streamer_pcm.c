@@ -1,36 +1,59 @@
 /*
- * Copyright 2018-2022 NXP
+ * Copyright 2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
 #include "board.h"
-#include "streamer_pcm_app.h"
+#include "streamer_pcm.h"
 #include "fsl_codec_common.h"
 #include "fsl_wm8962.h"
 #include "app_definitions.h"
 #include "fsl_cache.h"
 #include "fsl_pdm.h"
 #include "fsl_pdm_edma.h"
+#include "fsl_os_abstraction.h"
 
-#define RECORD_BUFFER_SIZE (3840) // 16kHz * 4bytes * 2channels * 30ms
+volatile int8_t PDM_started = 0;     /* Indicates that the PDM transfer has already started. */
+volatile int8_t SAI_started = 0;     /* Indicates that the SAI transfer has already started. */
+volatile int rx_data_valid  = 0;     /* Indicates that RX data are ready for processing. */
+volatile bool rx_sem_take   = false; /* Indicates that RX semaphore has been taken */
+
+#define RECORD_BUFFER_SIZE (3840)    // 16kHz * 4bytes * 2channels * 30ms
 #define BUFFER_NUM         (3U)
 #define BUFFER_SIZE        (RECORD_BUFFER_SIZE * BUFFER_NUM)
 
 AT_NONCACHEABLE_SECTION_INIT(static pcm_rtos_t pcmHandle) = {0};
-AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t s_buffer[BUFFER_SIZE], 16);
+AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t s_buffer[BUFFER_SIZE], 32);
 extern codec_handle_t codecHandle;
+OSA_SEMAPHORE_HANDLE_DEFINE(streamer_semaphore);
+
+// Queue for storing data buffer addresses
+typedef struct
+{
+    int num_buffers; /* Number of all required buffers */
+    int head;
+    int tail;
+    int count;
+    uint8_t *buff_addr[SAI_XFER_QUEUE_SIZE + 2];
+} Streamer_buff_addr_T;
+
+static Streamer_buff_addr_T streamer_buff_addr = {
+    .num_buffers = SAI_XFER_QUEUE_SIZE + 2, // num_buffers must be one greater than AUDIO_SRC_BUFFER_NUM
+    .head        = 0,
+    .tail        = 0,
+};
 
 AT_QUICKACCESS_SECTION_DATA_ALIGN(edma_tcd_t s_edmaTcd[BUFFER_NUM], 32U);
 
 static pdm_edma_transfer_t s_receiveXfer[BUFFER_NUM];
 static volatile uint32_t s_readIndex = 0U;
 static const pdm_config_t pdmConfig  = {
-    .enableDoze        = false,
-    .fifoWatermark     = DEMO_PDM_FIFO_WATERMARK,
-    .qualityMode       = DEMO_PDM_QUALITY_MODE,
-    .cicOverSampleRate = DEMO_PDM_CIC_OVERSAMPLE_RATE,
+     .enableDoze        = false,
+     .fifoWatermark     = DEMO_PDM_FIFO_WATERMARK,
+     .qualityMode       = DEMO_PDM_QUALITY_MODE,
+     .cicOverSampleRate = DEMO_PDM_CIC_OVERSAMPLE_RATE,
 };
 
 static const pdm_channel_config_t channelConfig = {
@@ -41,6 +64,46 @@ static const pdm_channel_config_t channelConfig = {
 #endif
     .gain = kPDM_DfOutputGain5,
 };
+
+int Streamer_buff_addr_Push(uint8_t *buff_addr)
+{
+    if ((streamer_buff_addr.num_buffers <= 0) || (buff_addr == NULL))
+    {
+        return -1;
+    }
+
+    if (streamer_buff_addr.count == streamer_buff_addr.num_buffers)
+    {
+        return -1; /* Queue is full*/
+    }
+
+    if (streamer_buff_addr.count == (streamer_buff_addr.num_buffers - 1))
+    {
+        rx_sem_take = true;
+        OSA_SemaphoreWait(streamer_semaphore, osaWaitForever_c);
+    }
+
+    streamer_buff_addr.buff_addr[streamer_buff_addr.head] = buff_addr;
+    streamer_buff_addr.head = (streamer_buff_addr.head + 1) % streamer_buff_addr.num_buffers;
+    streamer_buff_addr.count++;
+
+    return 0;
+}
+
+uint8_t *Streamer_buff_addr_Pull(void)
+{
+    uint8_t *buff_addr = NULL;
+    if (0 == streamer_buff_addr.count)
+    {
+        return buff_addr; /* Queue is empty */
+    }
+
+    buff_addr               = streamer_buff_addr.buff_addr[streamer_buff_addr.tail];
+    streamer_buff_addr.tail = (streamer_buff_addr.tail + 1) % streamer_buff_addr.num_buffers;
+    streamer_buff_addr.count--;
+
+    return buff_addr;
+}
 
 /*! @brief SAI EDMA transmit callback
  *
@@ -53,17 +116,20 @@ static void saiTxCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t st
     {
         /* Handle the error. */
     }
-    pcm_rtos_t *pcm       = (pcm_rtos_t *)userData;
     BaseType_t reschedule = -1;
-    xSemaphoreGiveFromISR(pcm->semaphoreTX, &reschedule);
+    xSemaphoreGiveFromISR(pcmHandle.semaphoreTX, &reschedule);
     portYIELD_FROM_ISR(reschedule);
 }
 
 static void pdmRxCallback(PDM_Type *base, pdm_edma_handle_t *handle, status_t status, void *userData)
 {
-    pcm_rtos_t *pcm       = (pcm_rtos_t *)userData;
     BaseType_t reschedule = -1;
-    xSemaphoreGiveFromISR(pcm->semaphoreRX, &reschedule);
+    rx_data_valid++;
+    if (rx_sem_take == true)
+    {
+        rx_sem_take = false;
+        OSA_SemaphorePost(streamer_semaphore);
+    }
     portYIELD_FROM_ISR(reschedule);
 }
 
@@ -110,108 +176,130 @@ void streamer_pcm_init(void)
         s_receiveXfer[ibuf].linkTransfer = &s_receiveXfer[ibuf_next];
     }
 
-    pcmHandle.isFirstRx = 1;
-    pcmHandle.isFirstTx = 1;
+    pcmHandle.isFirstRx      = 1;
+    pcmHandle.isFirstTx      = 1;
+    PDM_started              = 0;
+    SAI_started              = 0;
+    streamer_buff_addr.count = 0;
+    streamer_buff_addr.head  = 0;
+    streamer_buff_addr.tail  = 0;
+    rx_data_valid            = 0;
+
+    PDM_TransferReceiveEDMA(DEMO_PDM, &pcmHandle.pdmRxHandle, s_receiveXfer);
+    PDM_EnableDMA(DEMO_PDM, false);
+    OSA_SemaphoreCreateBinary(streamer_semaphore);
 }
 
-pcm_rtos_t *streamer_pcm_open(uint32_t num_buffers)
+int streamer_pcm_tx_open(uint32_t num_buffers)
 {
     pcmHandle.semaphoreTX = xSemaphoreCreateBinary();
-    return &pcmHandle;
+    return 0;
 }
 
-pcm_rtos_t *streamer_pcm_rx_open(uint32_t num_buffers)
+int streamer_pcm_rx_open(uint32_t num_buffers)
 {
-    pcmHandle.semaphoreRX = xSemaphoreCreateBinary();
-    return &pcmHandle;
+    return 0;
 }
 
-void streamer_pcm_start(pcm_rtos_t *pcm)
-{
-    /* Interrupts already enabled - nothing to do.
-     * App/streamer can begin writing data to SAI. */
-}
-
-void streamer_pcm_close(pcm_rtos_t *pcm)
+void streamer_pcm_tx_close(void)
 {
     /* Stop playback.  This will flush the SAI transmit buffers. */
-    SAI_TransferTerminateSendEDMA(DEMO_SAI, &pcm->saiTxHandle);
+    SAI_TransferTerminateSendEDMA(DEMO_SAI, &(pcmHandle.saiTxHandle));
     vSemaphoreDelete(pcmHandle.semaphoreTX);
 }
 
-void streamer_pcm_rx_close(pcm_rtos_t *pcm)
+void streamer_pcm_rx_close(void)
 {
     /* Stop playback.  This will flush the SAI transmit buffers. */
-    PDM_TransferTerminateReceiveEDMA(DEMO_PDM, &pcm->pdmRxHandle);
-    vSemaphoreDelete(pcmHandle.semaphoreRX);
+    PDM_TransferTerminateReceiveEDMA(DEMO_PDM, &(pcmHandle.pdmRxHandle));
+    PDM_Deinit(DEMO_PDM);
 }
 
-int streamer_pcm_write(pcm_rtos_t *pcm, uint8_t *data, uint32_t size)
+int streamer_pcm_write(uint8_t *data, uint32_t size)
 {
+    if (pcmHandle.isFirstTx)
+    {
+        pcmHandle.isFirstTx = 0;
+        // Discard the first data buffer - due to RX-TX synchronization.
+        return 1;
+    }
+
     /* Ensure write size is a multiple of 32, otherwise EDMA will assert
      * failure.  Round down for the last chunk of a file/stream. */
-    pcm->saiTx.dataSize = size - (size % 32);
-    pcm->saiTx.data     = data;
+    pcmHandle.saiTx.dataSize = size - (size % ((pcmHandle.bit_width == 16) ? 32 : 64));
+    pcmHandle.saiTx.data     = data;
 
-    if (pcm->isFirstTx)
-    {
-        pcm->isFirstTx = 0;
-    }
-    else
-    {
-        /* Wait for the previous transfer to finish */
-        if (xSemaphoreTake(pcm->semaphoreTX, portMAX_DELAY) != pdTRUE)
-            return -1;
-    }
+    DCACHE_CleanByRange((uint32_t)(pcmHandle.saiTx.data), pcmHandle.saiTx.dataSize);
 
-    DCACHE_CleanByRange((uint32_t)pcm->saiTx.data, pcm->saiTx.dataSize);
+    if (SAI_started == 0)
+    {
+        // Start the SAI transmission
+        SAI_TransferSendEDMA(DEMO_SAI, &(pcmHandle.saiTxHandle), &(pcmHandle.saiTx));
+        SAI_started = 1;
+    }
 
     /* Start the consecutive transfer */
-    SAI_TransferSendEDMA(DEMO_SAI, &pcm->saiTxHandle, &pcm->saiTx);
-    SAI_TransferSendEDMA(DEMO_SAI, &pcm->saiTxHandle, &pcm->saiTx);
+    while (SAI_TransferSendEDMA(DEMO_SAI, &(pcmHandle.saiTxHandle), &(pcmHandle.saiTx)) == kStatus_SAI_QueueFull)
+    {
+        /* Wait for transfer to finish */
+        if (xSemaphoreTake(pcmHandle.semaphoreTX, portMAX_DELAY) != pdTRUE)
+        {
+            return -1;
+        }
+    }
 
     return 0;
 }
 
-int streamer_pcm_read(pcm_rtos_t *pcm, uint8_t *data, uint32_t size)
+int streamer_pcm_read(uint8_t *data, uint32_t size)
 {
-    if (pcm->isFirstRx)
+    int ret = 1;
+
+    if (pcmHandle.isFirstRx)
     {
-        pcm->isFirstRx = 0;
-        for (int i = 0; i < BUFFER_NUM; i++)
-        {
-            PDM_TransferReceiveEDMA(DEMO_PDM, &pcmHandle.pdmRxHandle, &s_receiveXfer[i]);
-        }
+        // Do not start PDM transmission - due to RX-TX synchronization (VIT and Voiceseeker initialization takes too
+        // long in the first cycle).
+        pcmHandle.isFirstRx = 0;
     }
     else
     {
-        /* Wait for the previous transfer to finish */
-        if (xSemaphoreTake(pcm->semaphoreRX, portMAX_DELAY) != pdTRUE)
-            return -1;
-        /* Copy data from the DMIC buffer */
-        memcpy(data, &s_buffer[s_readIndex], size);
-        s_readIndex += size;
-        if (s_readIndex >= BUFFER_SIZE)
-            s_readIndex -= BUFFER_SIZE;
+        if (PDM_started == 0)
+        {
+            PDM_EnableDMA(DEMO_PDM, true);
+            PDM_started = 1;
+        }
+        if (rx_data_valid > 0)
+        {
+            rx_data_valid--;
+            /* Copy data from the DMIC buffer */
+            memcpy(Streamer_buff_addr_Pull(), &s_buffer[s_readIndex], size);
+            s_readIndex += size;
+            if (s_readIndex >= BUFFER_SIZE)
+                s_readIndex -= BUFFER_SIZE;
+
+            /* Signal that data are already ready for processing */
+            ret = 0;
+        }
+    }
+    // Store the data buffer address in the queue
+    if (Streamer_buff_addr_Push(data) != 0)
+    {
+        return -1;
     }
 
-    return 0;
+    /* Signal that data are not already ready for processing yet */
+    return ret;
 }
 
-int streamer_pcm_setparams(pcm_rtos_t *pcm,
-                           uint32_t sample_rate,
-                           uint32_t bit_width,
-                           uint8_t num_channels,
-                           bool transfer,
-                           bool dummy_tx,
-                           int volume)
+int streamer_pcm_setparams(
+    uint32_t sample_rate, uint32_t bit_width, uint8_t num_channels, bool transfer, bool dummy_tx, int volume)
 {
     sai_transceiver_t config;
 
-    pcm->sample_rate     = sample_rate;
-    pcm->bit_width       = bit_width;
-    pcm->num_channels    = num_channels;
-    pcm->dummy_tx_enable = dummy_tx;
+    pcmHandle.sample_rate     = sample_rate;
+    pcmHandle.bit_width       = bit_width;
+    pcmHandle.num_channels    = num_channels;
+    pcmHandle.dummy_tx_enable = dummy_tx;
 
     /* I2S transfer mode configurations */
     if (transfer)
@@ -220,13 +308,13 @@ int streamer_pcm_setparams(pcm_rtos_t *pcm,
         SAI_GetClassicI2SConfig(&config, DEMO_AUDIO_BIT_WIDTH, kSAI_Stereo, kSAI_Channel0Mask);
         config.bitClock.bclkSource = (sai_bclk_source_t)DEMO_SAI_CLOCK_SOURCE;
         config.masterSlave         = DEMO_SAI_MASTER_SLAVE;
-        SAI_TransferTxSetConfigEDMA(DEMO_SAI, &pcmHandle.saiTxHandle, &config);
-
+        SAI_TransferTerminateSendEDMA(DEMO_SAI, &(pcmHandle.saiTxHandle));
+        SAI_TransferTxSetConfigEDMA(DEMO_SAI, &(pcmHandle.saiTxHandle), &config);
         /* set bit clock divider */
         SAI_TxSetBitClockRate(DEMO_SAI, DEMO_AUDIO_MASTER_CLOCK, DEMO_AUDIO_SAMPLE_RATE, DEMO_AUDIO_BIT_WIDTH,
-                              DEMO_AUDIO_DATA_CHANNEL);
+                              (pcmHandle.num_channels == 1) ? 2 : pcmHandle.num_channels);
+        /* Enable SAI transmit and FIFO error interrupts. */
         SAI_TxEnableInterrupts(DEMO_SAI, kSAI_FIFOErrorInterruptEnable);
-
         /* master clock configurations */
         BOARD_MASTER_CLOCK_CONFIG();
     }
@@ -236,21 +324,45 @@ int streamer_pcm_setparams(pcm_rtos_t *pcm,
     return 0;
 }
 
-void streamer_pcm_getparams(pcm_rtos_t *pcm, uint32_t *sample_rate, uint32_t *bit_width, uint8_t *num_channels)
+void streamer_pcm_getparams(uint32_t *sample_rate, uint32_t *bit_width, uint8_t *num_channels)
 {
-    *sample_rate  = pcm->sample_rate;
-    *bit_width    = pcm->bit_width;
-    *num_channels = pcm->num_channels;
+    *sample_rate  = pcmHandle.sample_rate;
+    *bit_width    = pcmHandle.bit_width;
+    *num_channels = pcmHandle.num_channels;
 }
 
-int streamer_pcm_mute(pcm_rtos_t *pcm, bool mute)
+int streamer_pcm_mute(bool mute)
 {
     CODEC_SetMute(&codecHandle, kCODEC_PlayChannelHeadphoneRight | kCODEC_PlayChannelHeadphoneLeft, mute);
 
     return 0;
 }
 
-int streamer_pcm_set_volume(pcm_rtos_t *pcm, int volume)
+int streamer_pcm_set_volume(int volume)
 {
+    int channel;
+
+    switch (pcmHandle.num_channels)
+    {
+        case 0:
+            return 0;
+        case 1:
+            channel = kCODEC_PlayChannelHeadphoneLeft;
+            break;
+        case 2:
+            channel = kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight;
+            break;
+        case 8:
+            /* Intentional fall */
+        default:
+            channel = ~0U;
+            break;
+    }
+
+    if (volume <= 0)
+        CODEC_SetMute(&codecHandle, ~0U, true);
+    else
+        CODEC_SetVolume(&codecHandle, channel, volume > CODEC_VOLUME_MAX_VALUE ? CODEC_VOLUME_MAX_VALUE : volume);
+
     return 0;
 }

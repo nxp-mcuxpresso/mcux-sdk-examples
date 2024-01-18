@@ -25,11 +25,13 @@
  ******************************************************************************/
 #define CORE_CLK_FREQ CLOCK_GetFreq(kCLOCK_CoreSysClk)
 /* Using PUF_ALIAS_0 in this example */
+#ifdef PUF_ALIAS_0
 #define PUF PUF_ALIAS_0
+#endif
 /* Activation Code FFR offset */
 #define APP_KEYSTORE_OFFSET (0x3e600)
 /* Offset in FFR Memory to access Key Store */
-#define FFR_KEYSTORE_OFFSET APP_KEYSTORE_OFFSET
+#define FFR_KEYSTORE_OFFSET FSL_FEATURE_PUF_ACTIVATION_CODE_ADDRESS
 /* PUF header Valid constant */
 #define PUF_FFR_HEADER_VALID 0x95959595u
 
@@ -268,7 +270,7 @@ static void TestDeriveDeviceKey(void)
     TEST_ASSERT_EQUAL(result, kStatus_Success);
 
     /* Derive second device key - need different context */
-    keyCtx.userCtx0 = 2u; /* possible values here is limited by qk_restrict_user_context_0 */
+    keyCtx.userCtx1 = 2u; /* possible values here is limited by qk_restrict_user_context_0 */
     result          = PUF_GetKey(PUF, &keyCtx, kPUF_KeyDestRegister, key2, sizeof(key2));
     TEST_ASSERT_EQUAL(result, kStatus_Success);
 

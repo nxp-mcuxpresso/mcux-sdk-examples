@@ -32,8 +32,12 @@ static void USB_HostAudioRecorderWaitCommand();
 /* should set it as 1024U, set as 256U for saving memory */
 #define MAX_ISO_PACKET_SIZE                     (256U)
 #define USB_AUDIO_RECORDER_STREAM_PRIME_COUNT   (5U)
+#ifndef USB_AUDIO_RECORDER_SDCARD_BUFFER_LENGTH
 #define USB_AUDIO_RECORDER_SDCARD_BUFFER_LENGTH (1024U * 3U)
+#endif
+#ifndef USB_AUDIO_RECORDER_SDCARD_WRITE_LENGTH
 #define USB_AUDIO_RECORDER_SDCARD_WRITE_LENGTH  (1024U)
+#endif
 #define NUMBER_OF_COMMAND_RETRY                 0x3U
 /* USB audio transfer Types string*/
 static char *strTransferType[4] = {"Control", "Isochronous", "Bulk", "Interrupt"};

@@ -14,8 +14,8 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define DRIVER_MASTER_SPI Driver_SPI5
-#define EXAMPLE_LPSPI_MASTER_DMA_BASEADDR       DMA0
+#define DRIVER_MASTER_SPI                 Driver_SPI5
+#define EXAMPLE_LPSPI_MASTER_DMA_BASEADDR DMA0
 #define TRANSFER_SIZE     64U     /* Transfer dataSize */
 #define TRANSFER_BAUDRATE 500000U /* Transfer baudrate - 500k */
 

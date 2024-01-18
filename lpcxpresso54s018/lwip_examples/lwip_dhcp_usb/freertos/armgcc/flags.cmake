@@ -163,7 +163,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     --defsym=__heap_size__=25600 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/LPC54S018_spifi_flash.ld -static \
+    -T\"${ProjDirPath}/LPC54S018_spifi_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -193,5 +193,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     --defsym=__heap_size__=25600 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/LPC54S018_spifi_flash.ld -static \
+    -T\"${ProjDirPath}/LPC54S018_spifi_flash.ld\" -static \
 ")

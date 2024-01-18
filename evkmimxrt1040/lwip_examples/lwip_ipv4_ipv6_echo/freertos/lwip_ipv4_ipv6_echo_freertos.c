@@ -120,6 +120,11 @@ phy_ksz8081_resource_t g_phy_resource;
 static phy_handle_t phyHandle;
 #if defined(BOARD_NETWORK_USE_DUAL_ENET)
 static phy_handle_t phyHandle1;
+
+#if LWIP_SINGLE_NETIF == 1
+#error \
+    "Single netif limitation in lwIP must be disabled if this example were to use both interfaces. (LWIP_SINGLE_NETIF = 0)"
+#endif // LWIP_SINGLE_NETIF == 1
 #endif
 
 /*******************************************************************************
@@ -247,11 +252,8 @@ int main(void)
 
     IOMUXC_EnableMode(IOMUXC_GPR, kIOMUXC_GPR_ENET1TxClkOutputDir, true);
 
-    /* Reset PHY */
-    GPIO_PinWrite(BOARD_INITPINS_PHY_RESET_GPIO, BOARD_INITPINS_PHY_RESET_GPIO_PIN, 0);
-    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
-    GPIO_PinWrite(BOARD_INITPINS_PHY_RESET_GPIO, BOARD_INITPINS_PHY_RESET_GPIO_PIN, 1);
-    SDK_DelayAtLeastUs(100, CLOCK_GetFreq(kCLOCK_CpuClk));
+    /* PHY hardware reset. */
+    BOARD_ENET_PHY_RESET;
 
     MDIO_Init();
     g_phy_resource.read  = MDIO_Read;

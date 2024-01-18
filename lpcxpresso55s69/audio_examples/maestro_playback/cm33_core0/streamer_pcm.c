@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 NXP
+ * Copyright 2021-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -7,10 +7,9 @@
 
 #include "app_definitions.h"
 #include "board.h"
-#include "streamer_pcm_app.h"
+#include "streamer_pcm.h"
 #include "fsl_debug_console.h"
 #include "fsl_codec_common.h"
-#include "eap_att.h"
 
 pcm_rtos_t pcmHandle = {0};
 
@@ -18,9 +17,8 @@ extern codec_handle_t codecHandle;
 
 static void TxCallback(I2S_Type *base, i2s_dma_handle_t *handle, status_t completionStatus, void *userData)
 {
-    pcm_rtos_t *pcm       = (pcm_rtos_t *)userData;
     BaseType_t reschedule = -1;
-    xSemaphoreGiveFromISR(pcm->semaphoreTX, &reschedule);
+    xSemaphoreGiveFromISR(pcmHandle.semaphoreTX, &reschedule);
     portYIELD_FROM_ISR(reschedule);
 }
 
@@ -30,45 +28,26 @@ void streamer_pcm_init(void)
 
     DMA_EnableChannel(DEMO_DMA, DEMO_I2S_TX_CHANNEL);
     DMA_SetChannelPriority(DEMO_DMA, DEMO_I2S_TX_CHANNEL, kDMA_ChannelPriority3);
-    DMA_CreateHandle(&pcmHandle.i2sTxDmaHandle, DEMO_DMA, DEMO_I2S_TX_CHANNEL);
-
-    /* Dummy I2S TX init for the  EAP */
-    I2S_TxGetDefaultConfig(&pcmHandle.tx_config);
-    I2S_TxInit(DEMO_I2S_TX, &pcmHandle.tx_config);
+    DMA_CreateHandle(&(pcmHandle.i2sTxDmaHandle), DEMO_DMA, DEMO_I2S_TX_CHANNEL);
 }
 
-pcm_rtos_t *streamer_pcm_open(uint32_t num_buffers)
+int streamer_pcm_open(uint32_t num_buffers)
 {
     pcmHandle.semaphoreTX = xSemaphoreCreateBinary();
-    return &pcmHandle;
-}
-
-pcm_rtos_t *streamer_pcm_rx_open(uint32_t num_buffers)
-{
     return 0;
 }
 
-void streamer_pcm_start(pcm_rtos_t *pcm)
-{
-    /* Interrupts already enabled - nothing to do.
-     * App/streamer can begin writing data to SAI. */
-}
-
-void streamer_pcm_close(pcm_rtos_t *pcm)
+void streamer_pcm_close(void)
 {
     /* Stop playback. This will flush the I2S transmit buffers. */
-    if (pcm->i2sTxHandle.state != 0)
+    if (pcmHandle.i2sTxHandle.state != 0)
     {
-        I2S_TransferAbortDMA(DEMO_I2S_TX, &pcm->i2sTxHandle);
+        I2S_TransferAbortDMA(DEMO_I2S_TX, &(pcmHandle.i2sTxHandle));
     }
     vSemaphoreDelete(pcmHandle.semaphoreTX);
 }
 
-void streamer_pcm_rx_close(pcm_rtos_t *pcm)
-{
-}
-
-int streamer_pcm_write(pcm_rtos_t *pcm, uint8_t *data, uint32_t size)
+int streamer_pcm_write(uint8_t *data, uint32_t size)
 {
     /* Ensure write size is a multiple of 32, otherwise EDMA will assert
      * failure.  Round down for the last chunk of a file/stream. */
@@ -80,52 +59,48 @@ int streamer_pcm_write(pcm_rtos_t *pcm, uint8_t *data, uint32_t size)
     {
         /* Make sure the data size is not larger than 2048 bytes for a oneChannel configuration, as the I2S EDMA driver
          * does not allow this yet. */
-        dataSize =
-            ((pcm->num_channels == 1) && (local_size > 2048)) ? ((local_size - 2048) > 1024 ? 2048 : 1024) : local_size;
-        pcm->i2sTxTransfer.dataSize = pcm->isFirstTx ? (dataSize / 2) : dataSize;
-        pcm->i2sTxTransfer.data     = data + offset;
+        dataSize = ((pcmHandle.num_channels == 1) && (local_size > 2048)) ? ((local_size - 2048) > 1024 ? 2048 : 1024) :
+                                                                            local_size;
+        pcmHandle.i2sTxTransfer.dataSize = pcmHandle.isFirstTx ? (dataSize / 2) : dataSize;
+        pcmHandle.i2sTxTransfer.data     = data + offset;
         local_size -= dataSize;
         offset += dataSize;
 
         /* Start the consecutive transfer */
-        while (I2S_TxTransferSendDMA(DEMO_I2S_TX, &pcm->i2sTxHandle, pcm->i2sTxTransfer) == kStatus_I2S_Busy)
+        while (I2S_TxTransferSendDMA(DEMO_I2S_TX, &(pcmHandle.i2sTxHandle), pcmHandle.i2sTxTransfer) ==
+               kStatus_I2S_Busy)
         {
             /* Wait for transfer to finish */
-            if (xSemaphoreTake(pcm->semaphoreTX, portMAX_DELAY) != pdTRUE)
+            if (xSemaphoreTake(pcmHandle.semaphoreTX, portMAX_DELAY) != pdTRUE)
             {
                 return -1;
             }
         }
 
-        if (pcm->isFirstTx)
+        if (pcmHandle.isFirstTx)
         {
-            pcm->i2sTxTransfer.data += pcm->i2sTxTransfer.dataSize;
+            pcmHandle.i2sTxTransfer.data += pcmHandle.i2sTxTransfer.dataSize;
             /* Need to queue two transmit buffers so when the first one
              * finishes transfer, the other immediatelly starts */
-            I2S_TxTransferSendDMA(DEMO_I2S_TX, &pcm->i2sTxHandle, pcm->i2sTxTransfer);
-            pcm->isFirstTx = 0;
+            I2S_TxTransferSendDMA(DEMO_I2S_TX, &(pcmHandle.i2sTxHandle), pcmHandle.i2sTxTransfer);
+            pcmHandle.isFirstTx = 0;
         }
     }
 
     return 0;
 }
 
-int streamer_pcm_read(pcm_rtos_t *pcm, uint8_t *data, uint32_t size)
-{
-    return 0;
-}
-
 int streamer_pcm_setparams(
-    pcm_rtos_t *pcm, uint32_t sample_rate, uint32_t bit_width, uint8_t num_channels, bool tx, bool dummy_tx, int volume)
+    uint32_t sample_rate, uint32_t bit_width, uint8_t num_channels, bool tx, bool dummy_tx, int volume)
 {
     int ret     = 0;
     int divider = 0;
 
-    pcm->isFirstTx    = tx ? 1U : pcm->isFirstTx;
-    pcm->sample_rate  = sample_rate;
-    pcm->bit_width    = bit_width;
-    pcm->num_channels = num_channels;
-    pcm->dummy_tx_enable |= dummy_tx;
+    pcmHandle.isFirstTx    = tx ? 1U : pcmHandle.isFirstTx;
+    pcmHandle.sample_rate  = sample_rate;
+    pcmHandle.bit_width    = bit_width;
+    pcmHandle.num_channels = num_channels;
+    pcmHandle.dummy_tx_enable |= dummy_tx;
 
     if (sample_rate % 8000 == 0 || sample_rate % 6000 == 0)
     {
@@ -172,19 +147,19 @@ int streamer_pcm_setparams(
      */
 
     /* Flush the I2S transmit buffers. */
-    if (pcm->i2sTxHandle.state != 0)
+    if (pcmHandle.i2sTxHandle.state != 0)
     {
-        I2S_TransferAbortDMA(DEMO_I2S_TX, &pcm->i2sTxHandle);
+        I2S_TransferAbortDMA(DEMO_I2S_TX, &(pcmHandle.i2sTxHandle));
     }
     I2S_TxGetDefaultConfig(&pcmHandle.tx_config);
     pcmHandle.tx_config.divider     = divider;
     pcmHandle.tx_config.masterSlave = DEMO_I2S_TX_MODE;
-    pcmHandle.tx_config.oneChannel  = (pcm->num_channels == 1);
-    I2S_TxInit(DEMO_I2S_TX, &pcmHandle.tx_config);
-    I2S_TxTransferCreateHandleDMA(DEMO_I2S_TX, &pcmHandle.i2sTxHandle, &pcmHandle.i2sTxDmaHandle, TxCallback,
+    pcmHandle.tx_config.oneChannel  = (pcmHandle.num_channels == 1);
+    I2S_TxInit(DEMO_I2S_TX, &(pcmHandle.tx_config));
+    I2S_TxTransferCreateHandleDMA(DEMO_I2S_TX, &(pcmHandle.i2sTxHandle), &(pcmHandle.i2sTxDmaHandle), TxCallback,
                                   (void *)&pcmHandle);
 
-    ret = streamer_pcm_set_volume(pcm, 0);
+    ret = streamer_pcm_set_volume(0);
     if (ret != kStatus_Success)
     {
         return 1;
@@ -196,7 +171,7 @@ int streamer_pcm_setparams(
         return 1;
     }
 
-    ret = streamer_pcm_set_volume(pcm, volume);
+    ret = streamer_pcm_set_volume(volume);
     if (ret != kStatus_Success)
     {
         return 1;
@@ -205,14 +180,14 @@ int streamer_pcm_setparams(
     return 0;
 }
 
-void streamer_pcm_getparams(pcm_rtos_t *pcm, uint32_t *sample_rate, uint32_t *bit_width, uint8_t *num_channels)
+void streamer_pcm_getparams(uint32_t *sample_rate, uint32_t *bit_width, uint8_t *num_channels)
 {
-    *sample_rate  = pcm->sample_rate;
-    *bit_width    = pcm->bit_width;
-    *num_channels = pcm->num_channels;
+    *sample_rate  = pcmHandle.sample_rate;
+    *bit_width    = pcmHandle.bit_width;
+    *num_channels = pcmHandle.num_channels;
 }
 
-int streamer_pcm_mute(pcm_rtos_t *pcm, bool mute)
+int streamer_pcm_mute(bool mute)
 {
     status_t ret;
 
@@ -225,12 +200,12 @@ int streamer_pcm_mute(pcm_rtos_t *pcm, bool mute)
     return 0;
 }
 
-int streamer_pcm_set_volume(pcm_rtos_t *pcm, int volume)
+int streamer_pcm_set_volume(int volume)
 {
     int channel;
 
-    channel = (pcm->num_channels == 1) ? kCODEC_PlayChannelHeadphoneLeft :
-                                         kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight;
+    channel = (pcmHandle.num_channels == 1) ? kCODEC_PlayChannelHeadphoneLeft :
+                                              kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight;
 
     if (volume <= 0)
         CODEC_SetMute(&codecHandle, kCODEC_PlayChannelHeadphoneRight | kCODEC_PlayChannelHeadphoneLeft, true);

@@ -53,7 +53,7 @@ include(${ProjDirPath}/config.cmake)
 add_executable(${MCUX_SDK_PROJECT_NAME} 
 "${ProjDirPath}/../opusmem2mem_file.h"
 "${ProjDirPath}/../streamer_pcm.c"
-"${ProjDirPath}/../streamer_pcm_app.h"
+"${ProjDirPath}/../streamer_pcm.h"
 "${ProjDirPath}/../startup_armgcc.c"
 "${ProjDirPath}/../app_streamer.c"
 "${ProjDirPath}/../app_streamer.h"
@@ -61,8 +61,8 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../cmd.h"
 "${ProjDirPath}/../main.c"
 "${ProjDirPath}/../main.h"
-"${SdkRootDirPath}/examples/evkbmimxrt1170/audio_examples/maestro_record/pin_mux.c"
-"${SdkRootDirPath}/examples/evkbmimxrt1170/audio_examples/maestro_record/pin_mux.h"
+"${ProjDirPath}/../pin_mux.c"
+"${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
 "${ProjDirPath}/../ffconf.h"
 "${ProjDirPath}/../sdmmc_config.c"
@@ -84,6 +84,8 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/core/boards/evkbmimxrt1170
 )
 
+set_source_files_properties("${ProjDirPath}/../streamer_pcm.c" PROPERTIES COMPONENT_CONFIG_FILE "middleware_maestro_framework_template")
+set_source_files_properties("${ProjDirPath}/../streamer_pcm.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_maestro_framework_template")
 set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")
 set_source_files_properties("${ProjDirPath}/../ffconf.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_fatfs_template_sd")
 set_source_files_properties("${ProjDirPath}/../sdmmc_config.c" PROPERTIES COMPONENT_CONFIG_FILE "middleware_sdmmc_usdhc_template")

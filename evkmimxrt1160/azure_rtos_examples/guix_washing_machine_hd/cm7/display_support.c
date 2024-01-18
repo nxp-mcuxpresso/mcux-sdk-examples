@@ -223,7 +223,7 @@ const dc_fb_elcdif_config_t s_dcFbElcdifConfig = {
 #if (!DEMO_USE_XRGB8888) && (DEMO_USE_LUT8)
     .dataBus       = kELCDIF_DataBus8Bit,
 #else
-    .dataBus       = kELCDIF_DataBus24Bit,
+    .dataBus = kELCDIF_DataBus24Bit,
 #endif
 };
 

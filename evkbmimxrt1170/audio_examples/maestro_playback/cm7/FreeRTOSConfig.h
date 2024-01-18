@@ -70,10 +70,8 @@
 /* Memory allocation related definitions. */
 #define configSUPPORT_STATIC_ALLOCATION         0
 #define configSUPPORT_DYNAMIC_ALLOCATION        1
-#if (defined(MIMXRT1051_SERIES) || defined(MIMXRT1052_SERIES) || defined(MIMXRT1041_SERIES) || defined(MIMXRT1042_SERIES) || defined(MCXN548_cm33_core0_SERIES))
-#define configTOTAL_HEAP_SIZE                   ((size_t) (255 * 1024))
-#elif (defined(LPC55S69_cm33_core0_SERIES) || defined(RW610_SERIES))
-#define configTOTAL_HEAP_SIZE                   ((size_t) (210 * 1024))
+#if defined(LPC55S69_cm33_core0_SERIES)
+#define configTOTAL_HEAP_SIZE                   ((size_t) (204 * 1024))
 #else
 #define configTOTAL_HEAP_SIZE                   ((size_t) (734 * 1024))
 #endif

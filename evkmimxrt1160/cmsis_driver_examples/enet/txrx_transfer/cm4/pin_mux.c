@@ -1,6 +1,5 @@
 /*
- * Copyright 2021 NXP
- * All rights reserved.
+ * Copyright 2021, 2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -13,16 +12,19 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v9.0
+product: Pins v12.0
 processor: MIMXRT1166xxxxx
 package_id: MIMXRT1166DVM6A
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 0.12.10
+pin_labels:
+- {pin_num: A5, pin_signal: GPIO_DISP_B2_13, label: PHY_RESET, identifier: PHY_RESET}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
 #include "fsl_common.h"
 #include "fsl_iomuxc.h"
+#include "fsl_gpio.h"
 #include "pin_mux.h"
 
 /* FUNCTION ************************************************************************************************************
@@ -92,8 +94,8 @@ ENET0_InitPins:
     open_drain: Disable}
   - {pin_num: D10, peripheral: ENET_1G, signal: 'enet_tdata, 03', pin_signal: GPIO_DISP_B1_06, software_input_on: Disable, pull_down_pull_up_config: No_Pull, pdrv_config: High_Driver,
     open_drain: Disable}
-  - {pin_num: A5, peripheral: GPIO11, signal: 'gpio_io, 14', pin_signal: GPIO_DISP_B2_13, software_input_on: Disable, pull_up_down_config: Pull_Down, pull_keeper_select: Pull,
-    open_drain: Disable, drive_strength: High, slew_rate: Slow}
+  - {pin_num: A5, peripheral: GPIO11, signal: 'gpio_io, 14', pin_signal: GPIO_DISP_B2_13, direction: OUTPUT, gpio_init_state: 'true', software_input_on: Disable,
+    pull_up_down_config: Pull_Down, pull_keeper_select: Pull, open_drain: Disable, drive_strength: High, slew_rate: Slow}
   - {pin_num: U2, peripheral: ENET_1G, signal: enet_mdc, pin_signal: GPIO_EMC_B2_19}
   - {pin_num: R3, peripheral: ENET_1G, signal: enet_mdio, pin_signal: GPIO_EMC_B2_20}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
@@ -107,6 +109,15 @@ ENET0_InitPins:
  * END ****************************************************************************************************************/
 void ENET0_InitPins(void) {
   CLOCK_EnableClock(kCLOCK_Iomuxc);           /* LPCG on: LPCG is ON. */
+
+  /* GPIO configuration of PHY_RESET on GPIO_DISP_B2_13 (pin A5) */
+  gpio_pin_config_t PHY_RESET_config = {
+      .direction = kGPIO_DigitalOutput,
+      .outputLogic = 1U,
+      .interruptMode = kGPIO_NoIntmode
+  };
+  /* Initialize GPIO functionality on GPIO_DISP_B2_13 (pin A5) */
+  GPIO_PinInit(GPIO11, 14U, &PHY_RESET_config);
 
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_DISP_B1_00_ENET_1G_RX_EN,   /* GPIO_DISP_B1_00 is configured as ENET_1G_RX_EN */

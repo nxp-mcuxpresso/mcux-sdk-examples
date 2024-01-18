@@ -63,6 +63,13 @@ void APP_WDT_IRQ_HANDLER(void)
          * check the period between warning interrupt and timeout.
          */
     }
+
+#if (defined(LPC55S36_WORKAROUND) && LPC55S36_WORKAROUND)
+    /* Set PMC register value that could run with GDET enable */
+    PMC->LDOPMU   = 0x0109CF18;
+    PMC->DCDC0    = 0x010A767E;
+    PMC->LDOCORE0 = 0x2801006B;
+#endif
     SDK_ISR_EXIT_BARRIER;
 }
 

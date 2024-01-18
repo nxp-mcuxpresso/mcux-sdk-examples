@@ -31,8 +31,8 @@
 #define LPTMR_SOURCE_CLOCK CLOCK_GetFreq(kCLOCK_LpoClk)
 /* Define LPTMR microseconds counts value */
 #define LPTMR_USEC_COUNT (230000U)
-/* Define the delta value to indicate a touch event */
-#define TOUCH_DELTA_VALUE 100U
+/* Define the delta percentage to caculate delta value */
+#define TOUCH_DELTA_PERCENT (3.5F / 100.0F)
 
 /*******************************************************************************
  * Prototypes
@@ -50,7 +50,7 @@ void TSI0_IRQHandler(void)
 {
     if (TSI_GetMeasuredChannelNumber(TSI0) == BOARD_TSI_ELECTRODE_1)
     {
-        if (TSI_GetCounter(TSI0) > (uint16_t)(buffer.calibratedData[BOARD_TSI_ELECTRODE_1] + TOUCH_DELTA_VALUE))
+        if (TSI_GetCounter(TSI0) > (uint16_t)(buffer.calibratedData[BOARD_TSI_ELECTRODE_1] * (1.0F + TOUCH_DELTA_PERCENT)))
         {
             LED_TOGGLE(); /* Toggle the touch event indicating LED */
         }

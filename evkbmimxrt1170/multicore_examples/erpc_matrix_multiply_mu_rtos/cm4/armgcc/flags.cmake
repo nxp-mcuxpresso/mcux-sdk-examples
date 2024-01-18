@@ -149,7 +149,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     --defsym=__stack_size__=0x400 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1176xxxxx_cm4_ram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1176xxxxx_cm4_ram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -177,5 +177,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     --defsym=__stack_size__=0x400 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1176xxxxx_cm4_ram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1176xxxxx_cm4_ram.ld\" -static \
 ")

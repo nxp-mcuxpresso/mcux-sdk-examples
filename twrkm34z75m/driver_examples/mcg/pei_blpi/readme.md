@@ -1,0 +1,44 @@
+Overview
+========
+The pei_bpli example shows how to use MCG driver to change from PEI mode to BLPI mode:
+
+ 1. How to use the mode functions for MCG mode switch.
+ 2. How to use the frequency functions to get current MCG frequency.
+ 3. Work flow
+    Boot to PEI mode from default reset mode
+    Change mode PEI -> FBI -> BLPI
+    Change back BLPI -> FBI -> PEI
+    Get System clock in PEI mode to blink LED
+
+In this example, because the debug console's clock frequency may change,
+so the example running information is not output from debug console. Here the
+LED blinks to show that the example finished successfully.
+
+SDK version
+===========
+- Version: 2.15.0
+
+Toolchain supported
+===================
+- GCC ARM Embedded  12.2
+- MCUXpresso  11.8.0
+
+Hardware requirements
+=====================
+- Mini USB cable
+- TWR-KM34Z75M board
+- Personal Computer
+
+Board settings
+==============
+No special settings are required.
+
+Prepare the Demo
+================
+1.  Connect a USB cable between the host PC and the OpenSDA USB port on the target board.
+2.  Download the program to the target board.
+3.  Either press the reset button on your board or launch the debugger in your IDE to begin running the example.
+
+Running the demo
+================
+When the demo runs successfully, the board's LED will blink.

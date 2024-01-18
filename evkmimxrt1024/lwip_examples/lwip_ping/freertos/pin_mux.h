@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2018-2020,2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -51,6 +51,114 @@ extern "C" {
  *
  */
 void BOARD_InitBootPins(void);
+
+/* GPIO_AD_B0_07 (number 101), UART1_RXD/J17[8] */
+#define BOARD_INITPINS_UART1_RXD_PERIPHERAL                              LPUART1   /*!< Device name: LPUART1 */
+#define BOARD_INITPINS_UART1_RXD_SIGNAL                                       RX   /*!< LPUART1 signal: RX */
+#define BOARD_INITPINS_UART1_RXD_PIN_NAME                          GPIO_AD_B0_07   /*!< Pin name */
+#define BOARD_INITPINS_UART1_RXD_LABEL                        "UART1_RXD/J17[8]"   /*!< Label */
+#define BOARD_INITPINS_UART1_RXD_NAME                                "UART1_RXD"   /*!< Identifier name */
+
+/* GPIO_AD_B0_06 (number 105), UART1_TXD/J17[12] */
+#define BOARD_INITPINS_UART1_TXD_PERIPHERAL                              LPUART1   /*!< Device name: LPUART1 */
+#define BOARD_INITPINS_UART1_TXD_SIGNAL                                       TX   /*!< LPUART1 signal: TX */
+#define BOARD_INITPINS_UART1_TXD_PIN_NAME                          GPIO_AD_B0_06   /*!< Pin name */
+#define BOARD_INITPINS_UART1_TXD_LABEL                       "UART1_TXD/J17[12]"   /*!< Label */
+#define BOARD_INITPINS_UART1_TXD_NAME                                "UART1_TXD"   /*!< Identifier name */
+
+/* GPIO_AD_B0_10 (number 98), ENET_RXD0/U11[16]/J19[12] */
+#define BOARD_INITPINS_ENET_RXD0_PERIPHERAL                                 ENET   /*!< Device name: ENET */
+#define BOARD_INITPINS_ENET_RXD0_SIGNAL                             enet_rx_data   /*!< ENET signal: enet_rx_data */
+#define BOARD_INITPINS_ENET_RXD0_CHANNEL                                      0U   /*!< ENET enet_rx_data channel: 0 */
+#define BOARD_INITPINS_ENET_RXD0_PIN_NAME                          GPIO_AD_B0_10   /*!< Pin name */
+#define BOARD_INITPINS_ENET_RXD0_LABEL               "ENET_RXD0/U11[16]/J19[12]"   /*!< Label */
+#define BOARD_INITPINS_ENET_RXD0_NAME                                "ENET_RXD0"   /*!< Identifier name */
+
+/* GPIO_AD_B0_09 (number 99), ENET_RXD1/U11[15]/J17[6] */
+#define BOARD_INITPINS_ENET_RXD1_PERIPHERAL                                 ENET   /*!< Device name: ENET */
+#define BOARD_INITPINS_ENET_RXD1_SIGNAL                             enet_rx_data   /*!< ENET signal: enet_rx_data */
+#define BOARD_INITPINS_ENET_RXD1_CHANNEL                                      1U   /*!< ENET enet_rx_data channel: 1 */
+#define BOARD_INITPINS_ENET_RXD1_PIN_NAME                          GPIO_AD_B0_09   /*!< Pin name */
+#define BOARD_INITPINS_ENET_RXD1_LABEL                "ENET_RXD1/U11[15]/J17[6]"   /*!< Label */
+#define BOARD_INITPINS_ENET_RXD1_NAME                                "ENET_RXD1"   /*!< Identifier name */
+
+/* GPIO_AD_B0_11 (number 97), ENET_CRS_DV/U11[18]/J19[6] */
+#define BOARD_INITPINS_ENET_CRS_DV_PERIPHERAL                               ENET   /*!< Device name: ENET */
+#define BOARD_INITPINS_ENET_CRS_DV_SIGNAL                             enet_rx_en   /*!< ENET signal: enet_rx_en */
+#define BOARD_INITPINS_ENET_CRS_DV_PIN_NAME                        GPIO_AD_B0_11   /*!< Pin name */
+#define BOARD_INITPINS_ENET_CRS_DV_LABEL            "ENET_CRS_DV/U11[18]/J19[6]"   /*!< Label */
+#define BOARD_INITPINS_ENET_CRS_DV_NAME                            "ENET_CRS_DV"   /*!< Identifier name */
+
+/* GPIO_AD_B0_14 (number 94), ENET_TXD0/U11[24]/J17[14] */
+#define BOARD_INITPINS_ENET_TXD0_PERIPHERAL                                 ENET   /*!< Device name: ENET */
+#define BOARD_INITPINS_ENET_TXD0_SIGNAL                             enet_tx_data   /*!< ENET signal: enet_tx_data */
+#define BOARD_INITPINS_ENET_TXD0_CHANNEL                                      0U   /*!< ENET enet_tx_data channel: 0 */
+#define BOARD_INITPINS_ENET_TXD0_PIN_NAME                          GPIO_AD_B0_14   /*!< Pin name */
+#define BOARD_INITPINS_ENET_TXD0_LABEL               "ENET_TXD0/U11[24]/J17[14]"   /*!< Label */
+#define BOARD_INITPINS_ENET_TXD0_NAME                                "ENET_TXD0"   /*!< Identifier name */
+
+/* GPIO_AD_B0_15 (number 93), ENET_TXD1/U11[25]/J19[4] */
+#define BOARD_INITPINS_ENET_TXD1_PERIPHERAL                                 ENET   /*!< Device name: ENET */
+#define BOARD_INITPINS_ENET_TXD1_SIGNAL                             enet_tx_data   /*!< ENET signal: enet_tx_data */
+#define BOARD_INITPINS_ENET_TXD1_CHANNEL                                      1U   /*!< ENET enet_tx_data channel: 1 */
+#define BOARD_INITPINS_ENET_TXD1_PIN_NAME                          GPIO_AD_B0_15   /*!< Pin name */
+#define BOARD_INITPINS_ENET_TXD1_LABEL                "ENET_TXD1/U11[25]/J19[4]"   /*!< Label */
+#define BOARD_INITPINS_ENET_TXD1_NAME                                "ENET_TXD1"   /*!< Identifier name */
+
+/* GPIO_AD_B0_13 (number 95), ENET_TXEN/U11[23]/J19[10] */
+#define BOARD_INITPINS_ENET_TXEN_PERIPHERAL                                 ENET   /*!< Device name: ENET */
+#define BOARD_INITPINS_ENET_TXEN_SIGNAL                               enet_tx_en   /*!< ENET signal: enet_tx_en */
+#define BOARD_INITPINS_ENET_TXEN_PIN_NAME                          GPIO_AD_B0_13   /*!< Pin name */
+#define BOARD_INITPINS_ENET_TXEN_LABEL               "ENET_TXEN/U11[23]/J19[10]"   /*!< Label */
+#define BOARD_INITPINS_ENET_TXEN_NAME                                "ENET_TXEN"   /*!< Identifier name */
+
+/* GPIO_AD_B0_08 (number 100), ENET_TX_REF_CLK/U11[9] */
+#define BOARD_INITPINS_ENET_TX_CLK_PERIPHERAL                               ENET   /*!< Device name: ENET */
+#define BOARD_INITPINS_ENET_TX_CLK_SIGNAL                           enet_ref_clk   /*!< ENET signal: enet_ref_clk */
+#define BOARD_INITPINS_ENET_TX_CLK_PIN_NAME                        GPIO_AD_B0_08   /*!< Pin name */
+#define BOARD_INITPINS_ENET_TX_CLK_LABEL                "ENET_TX_REF_CLK/U11[9]"   /*!< Label */
+#define BOARD_INITPINS_ENET_TX_CLK_NAME                            "ENET_TX_CLK"   /*!< Identifier name */
+#define BOARD_INITPINS_ENET_TX_CLK_DIRECTION             kPIN_MUX_DirectionInput   /*!< Direction */
+
+/* GPIO_AD_B0_12 (number 96), ENET_RXER/U11[20]/J19[8] */
+#define BOARD_INITPINS_ENET_RXER_PERIPHERAL                                 ENET   /*!< Device name: ENET */
+#define BOARD_INITPINS_ENET_RXER_SIGNAL                               enet_rx_er   /*!< ENET signal: enet_rx_er */
+#define BOARD_INITPINS_ENET_RXER_PIN_NAME                          GPIO_AD_B0_12   /*!< Pin name */
+#define BOARD_INITPINS_ENET_RXER_LABEL                "ENET_RXER/U11[20]/J19[8]"   /*!< Label */
+#define BOARD_INITPINS_ENET_RXER_NAME                                "ENET_RXER"   /*!< Identifier name */
+
+/* GPIO_EMC_40 (number 116), ENET_MDIO/U11[11] */
+#define BOARD_INITPINS_ENET_MDIO_PERIPHERAL                                 ENET   /*!< Device name: ENET */
+#define BOARD_INITPINS_ENET_MDIO_SIGNAL                                enet_mdio   /*!< ENET signal: enet_mdio */
+#define BOARD_INITPINS_ENET_MDIO_PIN_NAME                            GPIO_EMC_40   /*!< Pin name */
+#define BOARD_INITPINS_ENET_MDIO_LABEL                       "ENET_MDIO/U11[11]"   /*!< Label */
+#define BOARD_INITPINS_ENET_MDIO_NAME                                "ENET_MDIO"   /*!< Identifier name */
+
+/* GPIO_EMC_41 (number 115), ENET_MDC/U11[12] */
+#define BOARD_INITPINS_ENET_MDC_PERIPHERAL                                  ENET   /*!< Device name: ENET */
+#define BOARD_INITPINS_ENET_MDC_SIGNAL                                  enet_mdc   /*!< ENET signal: enet_mdc */
+#define BOARD_INITPINS_ENET_MDC_PIN_NAME                             GPIO_EMC_41   /*!< Pin name */
+#define BOARD_INITPINS_ENET_MDC_LABEL                         "ENET_MDC/U11[12]"   /*!< Label */
+#define BOARD_INITPINS_ENET_MDC_NAME                                  "ENET_MDC"   /*!< Identifier name */
+
+/* GPIO_AD_B0_04 (number 107), JTAG_TDO/ENET_RST/U11[32] */
+#define BOARD_INITPINS_ENET_RST_GPIO                                       GPIO1   /*!< GPIO device name: GPIO1 */
+#define BOARD_INITPINS_ENET_RST_PORT                                       GPIO1   /*!< PORT device name: GPIO1 */
+#define BOARD_INITPINS_ENET_RST_GPIO_PIN                                      4U   /*!< GPIO1 pin index: 4 */
+#define BOARD_INITPINS_ENET_RST_PIN_NAME                           GPIO_AD_B0_04   /*!< Pin name */
+#define BOARD_INITPINS_ENET_RST_LABEL                "JTAG_TDO/ENET_RST/U11[32]"   /*!< Label */
+#define BOARD_INITPINS_ENET_RST_NAME                                  "ENET_RST"   /*!< Identifier name */
+
+/* GPIO_AD_B1_06 (number 84), ENET_INT/U11[21]/J17[16] */
+#define BOARD_INITPINS_PHY_INTR_GPIO                                       GPIO1   /*!< GPIO device name: GPIO1 */
+#define BOARD_INITPINS_PHY_INTR_PERIPHERAL                                 GPIO1   /*!< GPIO device name: GPIO1 */
+#define BOARD_INITPINS_PHY_INTR_PORT                                       GPIO1   /*!< PORT device name: GPIO1 */
+#define BOARD_INITPINS_PHY_INTR_GPIO_PIN                                     22U   /*!< GPIO1 pin index: 22 */
+#define BOARD_INITPINS_PHY_INTR_CHANNEL                                      22U   /*!< GPIO1 pin index: 22 */
+#define BOARD_INITPINS_PHY_INTR_PIN_NAME                           GPIO_AD_B1_06   /*!< Pin name */
+#define BOARD_INITPINS_PHY_INTR_LABEL                 "ENET_INT/U11[21]/J17[16]"   /*!< Label */
+#define BOARD_INITPINS_PHY_INTR_NAME                                  "PHY_INTR"   /*!< Identifier name */
+#define BOARD_INITPINS_PHY_INTR_DIRECTION                kPIN_MUX_DirectionInput   /*!< Direction */
 
 
 /*!

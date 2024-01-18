@@ -233,7 +233,7 @@ uint8_t TSI_KeyDetect(uint8_t *current_key_id)
         key_value_sum_temp = 0;
     }
 
-    key_touch_threshold = key_baseline_temp + key->key_touch_delta;
+    key_touch_threshold = (uint32_t)((float)key_baseline_temp * (1.0F + key->key_touch_delta));
 
     if (key_state_temp == kKey_State_Idle)
     {

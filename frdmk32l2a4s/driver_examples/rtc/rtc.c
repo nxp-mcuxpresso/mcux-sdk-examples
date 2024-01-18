@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2019 NXP
+ * Copyright 2016-2019, 2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -133,7 +133,10 @@ int main(void)
      */
     RTC_GetDefaultConfig(&rtcConfig);
     RTC_Init(RTC, &rtcConfig);
-
+#if (defined(EXAMPLE_SEL_LPO_1KHZ_CLOCK) && EXAMPLE_SEL_LPO_1KHZ_CLOCK)
+    /* The RTC prescaler increments using the LPO 1 kHz clock intead of RTC 32.768 kHz clock.*/
+    RTC->CR |= RTC_CR_LPOS_MASK;
+#endif /* EXAMPLE_SEL_LPO_1KHZ_CLOCK  */
 #if !(defined(FSL_FEATURE_RTC_HAS_NO_CR_OSCE) && FSL_FEATURE_RTC_HAS_NO_CR_OSCE)
     /* If the oscillator has not been enabled. */
     if (0U == (RTC->CR & RTC_CR_OSCE_MASK))

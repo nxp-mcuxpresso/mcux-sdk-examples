@@ -23,11 +23,11 @@
 
 #define CPU_NAME "iMXRT1062"
 
-#define APP_WAKEUP_BUTTON_GPIO        GPIO5
-#define APP_WAKEUP_BUTTON_GPIO_PORT   5
-#define APP_WAKEUP_BUTTON_GPIO_PIN    0U
-#define APP_WAKEUP_BUTTON_IRQ         BOARD_USER_BUTTON_IRQ
-#define APP_WAKEUP_BUTTON_NAME        BOARD_USER_BUTTON_NAME
+#define APP_WAKEUP_BUTTON_GPIO           GPIO5
+#define APP_WAKEUP_BUTTON_GPIO_PORT      5
+#define APP_WAKEUP_BUTTON_GPIO_PIN       0U
+#define APP_WAKEUP_BUTTON_IRQ            BOARD_USER_BUTTON_IRQ
+#define APP_WAKEUP_BUTTON_NAME           BOARD_USER_BUTTON_NAME
 #define APP_WAKEUP_BUTTON_INTTERUPT_TYPE kHAL_GpioInterruptFallingEdge
 
 #define APP_WAKEUP_SNVS_IRQ         SNVS_HP_WRAPPER_IRQn
@@ -50,10 +50,7 @@ lpm_power_mode_t APP_GetRunMode(void);
 
 #ifdef CONFIG_HOST_SLEEP
 int hostsleep_init(void);
-void lpm_SystemWait();
-void lpm_LowPwrIdle();
-void lpm_Suspend();
-void lpm_Shutdown();
+void mcu_suspend();
 #endif
 
 #if defined(__cplusplus)

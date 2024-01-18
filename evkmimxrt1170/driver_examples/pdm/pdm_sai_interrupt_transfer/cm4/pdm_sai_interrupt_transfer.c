@@ -60,6 +60,9 @@ static volatile uint32_t s_readIndex        = 0U;
 static volatile uint32_t s_writeIndex       = 0U;
 static volatile uint32_t s_bufferValidBlock = BUFFER_NUMBER;
 static const pdm_config_t pdmConfig         = {
+#if defined(FSL_FEATURE_PDM_HAS_DECIMATION_FILTER_BYPASS) && FSL_FEATURE_PDM_HAS_DECIMATION_FILTER_BYPASS
+    .enableFilterBypass = false,
+#endif
     .enableDoze        = false,
     .fifoWatermark     = DEMO_PDM_FIFO_WATERMARK,
     .qualityMode       = DEMO_PDM_QUALITY_MODE,
@@ -99,14 +102,14 @@ codec_config_t boardCodecConfig = {.codecDevType = kCODEC_WM8960, .codecDevConfi
 
 /*
  * AUDIO PLL setting: Frequency = Fref * (DIV_SELECT + NUM / DENOM) / (2^POST)
- *                              = 24 * (32 + 77/100)  / 2
- *                              = 393.24MHZ
+ *                              = 24 * (32 + 768/1000)  / 2
+ *                              = 393.216MHZ
  */
 const clock_audio_pll_config_t audioPllConfig = {
-    .loopDivider = 32,  /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
-    .postDivider = 1,   /* Divider after the PLL, should only be 0, 1, 2, 3, 4, 5 */
-    .numerator   = 77,  /* 30 bit numerator of fractional loop divider. */
-    .denominator = 100, /* 30 bit denominator of fractional loop divider */
+    .loopDivider = 32,   /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
+    .postDivider = 1,    /* Divider after the PLL, should only be 0, 1, 2, 3, 4, 5 */
+    .numerator   = 768,  /* 30 bit numerator of fractional loop divider. */
+    .denominator = 1000, /* 30 bit denominator of fractional loop divider */
 };
 
 void BOARD_EnableSaiMclkOutput(bool enable)
@@ -216,7 +219,7 @@ int main(void)
         assert(false);
     }
     if (CODEC_SetVolume(&codecHandle, kCODEC_PlayChannelHeadphoneLeft | kCODEC_PlayChannelHeadphoneRight,
-                        DEMO_CODEC_VOLUME) != kStatus_Success)
+                              DEMO_CODEC_VOLUME) != kStatus_Success)
     {
         assert(false);
     }

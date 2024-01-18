@@ -70,6 +70,7 @@ static void PQ_MathCosFloatExample(void);
 static void PQ_MathDivFloatExample(void);
 static void PQ_MathArctanFixedExample(void);
 static void PQ_MathArctanhFixedExample(void);
+static void PQ_MathArctan2FixedExample(void);
 
 /* Vector functions. */
 static void PQ_VectorLnFloatExample(void);
@@ -322,6 +323,7 @@ int main(void)
     PQ_MathDivFloatExample();
     PQ_MathArctanFixedExample();
     PQ_MathArctanhFixedExample();
+    PQ_MathArctan2FixedExample();
 
     PQ_VectorLnFloatExample();
     PQ_VectorLnFixed32Example();
@@ -768,7 +770,27 @@ static void PQ_MathArctanFixedExample(void)
     float arctanRef    = atan(0.5); /* 0.4636476 */
 
     /* 2^27 means pi. */
+    /* Quadrant 1 */
     myres        = PQ_ArctanFixed(DEMO_POWERQUAD, 20000000, 10000000, kPQ_Iteration_24);
+    arctanResult = (float)(2 * MATH_PI * (myres) / (134217728.0 * 2));
+
+    EXAMPLE_ASSERT_TRUE(fabs((double)(arctanRef - arctanResult)) < 0.001);
+
+    /* Quadrant 3 */
+    myres        = PQ_ArctanFixed(DEMO_POWERQUAD, -20000000, -10000000, kPQ_Iteration_24);
+    arctanResult = (float)(2 * MATH_PI * (myres) / (134217728.0 * 2));
+
+    EXAMPLE_ASSERT_TRUE(fabs((double)(arctanRef - arctanResult)) < 0.001);
+
+    arctanRef = atan(-0.5);
+    /* Quadrant 2 */
+    myres        = PQ_ArctanFixed(DEMO_POWERQUAD, -20000000, 10000000, kPQ_Iteration_24);
+    arctanResult = (float)(2 * MATH_PI * (myres) / (134217728.0 * 2));
+
+    EXAMPLE_ASSERT_TRUE(fabs((double)(arctanRef - arctanResult)) < 0.001);
+
+    /* Quadrant 4 */
+    myres        = PQ_ArctanFixed(DEMO_POWERQUAD, 20000000, -10000000, kPQ_Iteration_24);
     arctanResult = (float)(2 * MATH_PI * (myres) / (134217728.0 * 2));
 
     EXAMPLE_ASSERT_TRUE(fabs((double)(arctanRef - arctanResult)) < 0.001);
@@ -782,10 +804,67 @@ static void PQ_MathArctanhFixedExample(void)
     float arctanhRef    = atanh(0.5); /* 0.549306 */
 
     /* 2^27 means pi. */
+    /* Quadrant 1 */
     myres         = PQ_ArctanhFixed(DEMO_POWERQUAD, 20000000, 10000000, kPQ_Iteration_24);
     arctanhResult = (float)(2 * (myres) / (134217728.0 * 2));
 
     EXAMPLE_ASSERT_TRUE(fabs((double)(arctanhRef - arctanhResult)) < 0.00001);
+
+    /* Quadrant 3 */
+    myres         = PQ_ArctanhFixed(DEMO_POWERQUAD, -20000000, -10000000, kPQ_Iteration_24);
+    arctanhResult = (float)(2 * (myres) / (134217728.0 * 2));
+
+    EXAMPLE_ASSERT_TRUE(fabs((double)(arctanhRef - arctanhResult)) < 0.00001);
+
+    arctanhRef = atanh(-0.5);
+    /* Quadrant 2 */
+    myres         = PQ_ArctanhFixed(DEMO_POWERQUAD, -20000000, 10000000, kPQ_Iteration_24);
+    arctanhResult = (float)(2 * (myres) / (134217728.0 * 2));
+
+    EXAMPLE_ASSERT_TRUE(fabs((double)(arctanhRef - arctanhResult)) < 0.00001);
+
+    /* Quadrant 4 */
+    myres         = PQ_ArctanhFixed(DEMO_POWERQUAD, 20000000, -10000000, kPQ_Iteration_24);
+    arctanhResult = (float)(2 * (myres) / (134217728.0 * 2));
+
+    EXAMPLE_ASSERT_TRUE(fabs((double)(arctanhRef - arctanhResult)) < 0.00001);
+}
+
+/* Fixed Trigonometric */
+static void PQ_MathArctan2FixedExample(void)
+{
+    int32_t myres      = 0;
+    float arctanResult = 0;
+    float arctanRef;
+
+    /* 2^27 means pi. */
+    /* Quadrant 1 */
+    arctanRef    = atan2(1.0, 2.0);
+    myres        = PQ_Arctan2Fixed(DEMO_POWERQUAD, 20000000, 10000000, kPQ_Iteration_24);
+    arctanResult = (float)(2 * MATH_PI * (myres) / (134217728.0 * 2));
+
+    EXAMPLE_ASSERT_TRUE(fabs((double)(arctanRef - arctanResult)) < 0.001);
+
+    /* Quadrant 3 */
+    arctanRef    = atan2(-1.0, -2.0);
+    myres        = PQ_Arctan2Fixed(DEMO_POWERQUAD, -20000000, -10000000, kPQ_Iteration_24);
+    arctanResult = (float)(2 * MATH_PI * (myres) / (134217728.0 * 2));
+
+    EXAMPLE_ASSERT_TRUE(fabs((double)(arctanRef - arctanResult)) < 0.001);
+
+    /* Quadrant 2 */
+    arctanRef    = atan2(1.0, -2.0);
+    myres        = PQ_Arctan2Fixed(DEMO_POWERQUAD, -20000000, 10000000, kPQ_Iteration_24);
+    arctanResult = (float)(2 * MATH_PI * (myres) / (134217728.0 * 2));
+
+    EXAMPLE_ASSERT_TRUE(fabs((double)(arctanRef - arctanResult)) < 0.001);
+
+    /* Quadrant 4 */
+    arctanRef    = atan2(-1.0, 2.0);
+    myres        = PQ_Arctan2Fixed(DEMO_POWERQUAD, 20000000, -10000000, kPQ_Iteration_24);
+    arctanResult = (float)(2 * MATH_PI * (myres) / (134217728.0 * 2));
+
+    EXAMPLE_ASSERT_TRUE(fabs((double)(arctanRef - arctanResult)) < 0.001);
 }
 
 static void PQ_VectorLnFloatExample(void)

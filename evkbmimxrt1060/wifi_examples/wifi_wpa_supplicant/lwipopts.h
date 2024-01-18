@@ -199,7 +199,7 @@
    ---------- Internal Memory Pool Sizes ----------
    ------------------------------------------------
 */
-#define MEMP_USE_CUSTOM_POOLS 1
+//#define MEMP_USE_CUSTOM_POOLS 1
 
 /**
  * MEMP_NUM_PBUF: the number of memp struct pbufs (used for PBUF_ROM and PBUF_REF).
@@ -383,11 +383,7 @@
  * (2 * TCP_MSS) for things to work well
  **/
 #ifdef CONFIG_NETWORK_HIGH_PERF
-#ifdef RW610
-#define TCP_WND (15 * TCP_MSS)
-#else
 #define TCP_WND (32 * TCP_MSS)
-#endif
 #else
 #define TCP_WND (10 * TCP_MSS)
 #endif

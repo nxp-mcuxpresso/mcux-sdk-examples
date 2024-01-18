@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
+ * Copyright 2023 NXP
  * All rights reserved.
- *
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -58,6 +58,12 @@
 #ifndef DEMO_CODEC_VOLUME
 #define DEMO_CODEC_VOLUME 100U
 #endif
+
+#if defined(DEMO_DMA)
+#define DEMO_PDM_DMA DEMO_DMA
+#define DEMO_SAI_DMA DEMO_DMA
+#endif
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -77,6 +83,9 @@ static volatile uint32_t s_bufferValidBlock = BUFFER_NUMBER;
 static volatile uint32_t s_readIndex        = 0U;
 static volatile uint32_t s_writeIndex       = 0U;
 static const pdm_config_t pdmConfig         = {
+#if defined(FSL_FEATURE_PDM_HAS_DECIMATION_FILTER_BYPASS) && FSL_FEATURE_PDM_HAS_DECIMATION_FILTER_BYPASS
+    .enableFilterBypass = false,
+#endif
     .enableDoze        = false,
     .fifoWatermark     = DEMO_PDM_FIFO_WATERMARK,
     .qualityMode       = DEMO_PDM_QUALITY_MODE,
@@ -117,22 +126,22 @@ wm8962_config_t wm8962Config = {
     .slaveAddress = WM8962_I2C_ADDR,
     .bus          = kWM8962_BusI2S,
     .format       = {.mclk_HZ    = 24576000U,
-               .sampleRate = kWM8962_AudioSampleRate16KHz,
-               .bitWidth   = kWM8962_AudioBitWidth16bit},
+                     .sampleRate = kWM8962_AudioSampleRate16KHz,
+                     .bitWidth   = kWM8962_AudioBitWidth16bit},
     .masterSlave  = false,
 };
 codec_config_t boardCodecConfig = {.codecDevType = kCODEC_WM8962, .codecDevConfig = &wm8962Config};
 
 /*
  * AUDIO PLL setting: Frequency = Fref * (DIV_SELECT + NUM / DENOM) / (2^POST)
- *                              = 24 * (32 + 77/100)  / 2
- *                              = 393.24MHZ
+ *                              = 24 * (32 + 768/1000)  / 2
+ *                              = 393.216MHZ
  */
 const clock_audio_pll_config_t audioPllConfig = {
-    .loopDivider = 32,  /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
-    .postDivider = 1,   /* Divider after the PLL, should only be 0, 1, 2, 3, 4, 5 */
-    .numerator   = 77,  /* 30 bit numerator of fractional loop divider. */
-    .denominator = 100, /* 30 bit denominator of fractional loop divider */
+    .loopDivider = 32,   /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
+    .postDivider = 1,    /* Divider after the PLL, should only be 0, 1, 2, 3, 4, 5 */
+    .numerator   = 768,  /* 30 bit numerator of fractional loop divider. */
+    .denominator = 1000, /* 30 bit denominator of fractional loop divider */
 };
 static uint32_t s_pdmGain           = DEMO_PDM_CHANNEL_GAIN;
 static volatile bool s_increaseGain = true;
@@ -248,12 +257,16 @@ int main(void)
      * dmaConfig.enableDebugMode = false;
      */
     EDMA_GetDefaultConfig(&dmaConfig);
-    EDMA_Init(DEMO_DMA, &dmaConfig);
-    EDMA_CreateHandle(&s_pdmDmaHandle, DEMO_DMA, DEMO_PDM_EDMA_CHANNEL);
-    EDMA_CreateHandle(&s_saiDmaHandle, DEMO_DMA, DEMO_SAI_EDMA_CHANNEL);
+    EDMA_Init(DEMO_PDM_DMA, &dmaConfig);
+    if (((void *)DEMO_PDM_DMA) != ((void *)DEMO_SAI_DMA))
+    {
+        EDMA_Init(DEMO_SAI_DMA, &dmaConfig);
+    }
+    EDMA_CreateHandle(&s_pdmDmaHandle, DEMO_PDM_DMA, DEMO_PDM_EDMA_CHANNEL);
+    EDMA_CreateHandle(&s_saiDmaHandle, DEMO_SAI_DMA, DEMO_SAI_EDMA_CHANNEL);
 #if defined(FSL_FEATURE_EDMA_HAS_CHANNEL_MUX) && FSL_FEATURE_EDMA_HAS_CHANNEL_MUX
-    EDMA_SetChannelMux(DEMO_DMA, DEMO_PDM_EDMA_CHANNEL, DEMO_PDM_EDMA_SOURCE);
-    EDMA_SetChannelMux(DEMO_DMA, DEMO_SAI_EDMA_CHANNEL, DEMO_SAI_EDMA_SOURCE);
+    EDMA_SetChannelMux(DEMO_PDM_DMA, DEMO_PDM_EDMA_CHANNEL, DEMO_PDM_EDMA_SOURCE);
+    EDMA_SetChannelMux(DEMO_SAI_DMA, DEMO_SAI_EDMA_CHANNEL, DEMO_SAI_EDMA_SOURCE);
 #endif
     /* SAI init */
     SAI_Init(DEMO_SAI);

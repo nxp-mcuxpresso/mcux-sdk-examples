@@ -21,8 +21,8 @@
 /* Available PAD names on board */
 #define PAD_TSI_MUTUAL_CAP_1_NAME "KEY1"
 
-/* Define the delta value to indicate a touch event */
-#define TOUCH_DELTA_VALUE 40U
+/* Define the delta percentage to caculate delta value */
+#define TOUCH_DELTA_PERCENT (3.5F / 100.0F)
 
 /* TSI indication led of electrode 1 */
 #define LED1_INIT()   LED_GREEN_INIT(LOGIC_LED_OFF)
@@ -59,7 +59,7 @@ void TSI0_IRQHandler(void)
 {
     if (TSI_GetRxMutualCapMeasuredChannel(APP_TSI) == (tsi_mutual_rx_channel_t)(BOARD_TSI_MUTUAL_RX_ELECTRODE_1 - 6U))
     {
-        if (TSI_GetCounter(APP_TSI) > (uint16_t)(mutualCalibratedData[0] + TOUCH_DELTA_VALUE))
+        if (TSI_GetCounter(APP_TSI) > (uint16_t)(mutualCalibratedData[0] * (1.0F + TOUCH_DELTA_PERCENT)))
         {
             LED1_TOGGLE(); /* Toggle the touch event indicating LED */
         }

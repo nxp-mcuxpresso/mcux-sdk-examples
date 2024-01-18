@@ -50,6 +50,8 @@
 
 #include "fsl_iomuxc.h"
 #include "fsl_enet.h"
+#include "lwip/dhcp.h"
+#include "lwip/prot/dhcp.h"
 #include "fsl_phyksz8081.h"
 /*******************************************************************************
  * Definitions
@@ -198,7 +200,6 @@ static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
 {
     return ENET_MDIORead(EXAMPLE_ENET, phyAddr, regAddr, pData);
 }
-
 
 static int cgi_rtc_data(HTTPSRV_CGI_REQ_STRUCT *param)
 {
@@ -687,11 +688,8 @@ int main(void)
 
     IOMUXC_EnableMode(IOMUXC_GPR, kIOMUXC_GPR_ENET1TxClkOutputDir, true);
 
-    /* Reset PHY */
-    GPIO_PinWrite(BOARD_INITPINS_PHY_RESET_GPIO, BOARD_INITPINS_PHY_RESET_GPIO_PIN, 0);
-    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
-    GPIO_PinWrite(BOARD_INITPINS_PHY_RESET_GPIO, BOARD_INITPINS_PHY_RESET_GPIO_PIN, 1);
-    SDK_DelayAtLeastUs(100, CLOCK_GetFreq(kCLOCK_CpuClk));
+    /* PHY hardware reset. */
+    BOARD_ENET_PHY_RESET;
 
     MDIO_Init();
     g_phy_resource.read  = MDIO_Read;

@@ -24,7 +24,7 @@
 /*#define WIFI_88W8987_BOARD_MURATA_1ZM_M2*/
 
 #if defined(WIFI_IW416_BOARD_MURATA_1XK_M2) || defined(WIFI_88W8987_BOARD_MURATA_1ZM_M2)
-#include "bt_module_config.h"
+#include "wifi_bt_module_config.h"
 #include "wifi_config.h"
 #else
 #error The transceiver module is unsupported
@@ -40,11 +40,11 @@
 #define CONFIG_BT_A2DP_SOURCE               0
 #define CONFIG_BT_A2DP_SINK                 0
 #define CONFIG_BT_A2DP_CP_SERVICE           1
-#define CONFIG_BT_A2DP_RECOVERY_SERVICE     1
-#define CONFIG_BT_A2DP_REPORTING_SERVICE    1
+#define CONFIG_BT_A2DP_RECOVERY_SERVICE     0
+#define CONFIG_BT_A2DP_REPORTING_SERVICE    0
 #define CONFIG_BT_A2DP_DR_SERVICE           1
-#define CONFIG_BT_A2DP_HC_SERVICE           1
-#define CONFIG_BT_A2DP_MULTIPLEXING_SERVICE 1
+#define CONFIG_BT_A2DP_HC_SERVICE           0
+#define CONFIG_BT_A2DP_MULTIPLEXING_SERVICE 0
 #define CONFIG_BT_AVRCP                     1
 #define CONFIG_BT_AVRCP_CT                  1
 #define CONFIG_BT_AVRCP_TG                  1
@@ -54,6 +54,10 @@
 #define CONFIG_BT_AVRCP_COVER_ART_RESPONDER 1
 
 #define CONFIG_BT_DEVICE_NAME_DYNAMIC   1
+#define CONFIG_BT_PHY_UPDATE            1
+#define CONFIG_BT_AUTO_PHY_UPDATE       1
+#define CONFIG_BT_DATA_LEN_UPDATE       1
+#define CONFIG_BT_AUTO_DATA_LEN_UPDATE  1
 #define CONFIG_BT_ID_MAX                4
 #define CONFIG_BT_PRIVACY               1
 #define CONFIG_BT_SETTINGS              1
@@ -89,10 +93,15 @@
 #ifdef K32W061_TRANSCEIVER
 #undef CONFIG_BT_BREDR
 #endif
-
-#include "edgefast_bluetooth_config.h"
-
 #define CONFIG_WORK_QUEUE_TASK_STACK_SIZE 4096
 
 #define SHELL_BUFFER_SIZE 512
 #define SHELL_MAX_ARGS    20
+#if (defined(CONFIG_BT_SMP) && (CONFIG_BT_SMP > 0U))
+    #define CONFIG_BT_RX_STACK_SIZE 3000
+#else
+    #define CONFIG_BT_RX_STACK_SIZE 1024
+#endif
+
+#include "edgefast_bluetooth_config.h"
+#include "edgefast_bluetooth_debug_config.h"

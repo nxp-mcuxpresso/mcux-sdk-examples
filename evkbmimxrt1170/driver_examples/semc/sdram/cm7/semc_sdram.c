@@ -118,18 +118,20 @@ status_t BOARD_InitSEMC(void)
     sdramconfig.tPrecharge2Act_Ns   = 15; /* tRP 15ns */
     sdramconfig.tAct2ReadWrite_Ns   = 15; /* tRCD 15ns */
     sdramconfig.tRefreshRecovery_Ns = 70; /* Use the maximum of the (Trfc , Txsr). */
-    sdramconfig.tWriteRecovery_Ns   = 2;  /* tWR 2ns */
+    sdramconfig.tWriteRecovery_Ns   = 10; /* tWR 10ns */
     sdramconfig.tCkeOff_Ns =
         42; /* The minimum cycle of SDRAM CLK off state. CKE is off in self refresh at a minimum period tRAS.*/
     sdramconfig.tAct2Prechage_Ns       = 40; /* tRAS 40ns */
     sdramconfig.tSelfRefRecovery_Ns    = 70;
     sdramconfig.tRefresh2Refresh_Ns    = 60;
-    sdramconfig.tAct2Act_Ns            = 2; /* tRC/tRDD 2ns */
+    sdramconfig.tAct2Act_Ns            = 10;                  /* tRDD 10ns */
     sdramconfig.tPrescalePeriod_Ns     = 160 * (1000000000 / clockFrq);
     sdramconfig.refreshPeriod_nsPerRow = 64 * 1000000 / 8192; /* 64ms/8192 */
     sdramconfig.refreshUrgThreshold    = sdramconfig.refreshPeriod_nsPerRow;
     sdramconfig.refreshBurstLen        = 1;
     sdramconfig.delayChain             = 6; /* For all tempeatures. */
+    sdramconfig.autofreshTimes = 8; /* An additional eight Auto Refresh cycles (CBR) are also required before or after
+                                       programming the Mode Register to ensure proper subsequent operation. */
 
     return SEMC_ConfigureSDRAM(SEMC, kSEMC_SDRAM_CS0, &sdramconfig, clockFrq);
 }

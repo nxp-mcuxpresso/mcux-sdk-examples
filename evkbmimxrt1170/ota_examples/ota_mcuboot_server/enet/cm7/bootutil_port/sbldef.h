@@ -8,6 +8,8 @@
 #ifndef __SBL_DEF_H__
 #define __SBL_DEF_H__
 
+#include <stdbool.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -20,7 +22,7 @@ extern "C" {
 
 /* SBL version information */
 #define MAJOR_VERSION  1 /**< major version number */
-#define MINOR_VERSION  9 /**< minor version number */
+#define MINOR_VERSION  10 /**< minor version number */
 #define REVISE_VERSION 0 /**< revise version number */
 
 /* SBL version */

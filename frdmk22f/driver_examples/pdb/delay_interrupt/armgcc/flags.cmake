@@ -143,7 +143,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MK22FN512xxx12_flash.ld -static \
+    -T\"${ProjDirPath}/MK22FN512xxx12_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -169,5 +169,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MK22FN512xxx12_flash.ld -static \
+    -T\"${ProjDirPath}/MK22FN512xxx12_flash.ld\" -static \
 ")

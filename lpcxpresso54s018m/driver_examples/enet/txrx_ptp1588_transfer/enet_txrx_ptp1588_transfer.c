@@ -1,7 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2022 NXP
- * All rights reserved.
+ * Copyright 2016-2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -11,7 +10,6 @@
 #include "fsl_silicon_id.h"
 #include "fsl_enet.h"
 #include "fsl_phy.h"
-#include "fsl_silicon_id.h"
 
 #include "fsl_phylan8720a.h"
 #include "pin_mux.h"

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -40,11 +40,12 @@
 #include "erpc_transport_setup.h"
 
 /* App 0 service code, server part */
-#include "erpc_remote_control_app_0.h"
-#include "erpc_remote_control_app_0_server.h"
+#include "erpc_remote_control_app_0_common.h"
+#include "c_erpc_remote_control_app_0_server.h"
 
 /* App 1 service code, client part */
-#include "erpc_remote_control_app_1.h"
+#include "erpc_remote_control_app_1_common.h"
+#include "c_erpc_remote_control_app_1_client.h"
 
 #include "fsl_common.h"
 #include "fsl_lpuart_cmsis.h"

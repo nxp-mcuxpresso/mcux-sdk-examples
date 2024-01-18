@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2021 NXP
+ * Copyright 2016-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -10,8 +10,8 @@
 #include "clock_config.h"
 #include "board.h"
 #include "erpc_server_setup.h"
-#include "erpc_matrix_multiply_server.h"
-#include "erpc_matrix_multiply.h"
+#include "c_erpc_matrix_multiply_server.h"
+#include "erpc_matrix_multiply_common.h"
 #include "erpc_error_handler.h"
 
 #include "fsl_device_registers.h"
@@ -23,6 +23,7 @@
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+erpc_server_t server;
 
 /*******************************************************************************
  * Prototypes
@@ -96,6 +97,9 @@ int main(void)
 #elif defined(ERPC_BOARD_DSPI_BASEADDR)
     transport = erpc_transport_dspi_slave_init((void *)(char *)ERPC_BOARD_DSPI_BASEADDR, ERPC_BOARD_DSPI_BAUDRATE,
                                                ERPC_BOARD_DSPI_CLK_FREQ);
+#elif defined(ERPC_BOARD_LPSPI_BASEADDR)
+    transport = erpc_transport_lpspi_slave_init((void *)(char *)ERPC_BOARD_LPSPI_BASEADDR, ERPC_BOARD_LPSPI_BAUDRATE,
+                                                ERPC_BOARD_LPSPI_CLK_FREQ);
 #endif
 
     /* MessageBufferFactory initialization */
@@ -103,16 +107,16 @@ int main(void)
     message_buffer_factory = erpc_mbf_dynamic_init();
 
     /* eRPC server side initialization */
-    (void)erpc_server_init(transport, message_buffer_factory);
+    server = erpc_server_init(transport, message_buffer_factory);
 
     /* adding the service to the server */
     erpc_service_t service = create_MatrixMultiplyService_service();
-    erpc_add_service_to_server(service);
+    erpc_add_service_to_server(server, service);
 
     for (;;)
     {
         /* process message */
-        erpc_status_t status = erpc_server_poll();
+        erpc_status_t status = erpc_server_poll(server);
 
         /* handle error status */
         if (status != (erpc_status_t)kErpcStatus_Success)
@@ -121,14 +125,14 @@ int main(void)
             erpc_error_handler(status, 0);
 
             /* removing the service from the server */
-            erpc_remove_service_from_server(service);
+            erpc_remove_service_from_server(server, service);
             destroy_MatrixMultiplyService_service(service);
 
             /* stop erpc server */
-            erpc_server_stop();
+            erpc_server_stop(server);
 
             /* print error description */
-            erpc_server_deinit();
+            erpc_server_deinit(server);
 
             /* exit program loop */
             break;

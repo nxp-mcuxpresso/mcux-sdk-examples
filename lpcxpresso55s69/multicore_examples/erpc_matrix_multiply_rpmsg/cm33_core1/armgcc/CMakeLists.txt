@@ -51,12 +51,6 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_error_handler.h"
-"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_error_handler.cpp"
-"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.erpc"
-"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply.h"
-"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply_server.h"
-"${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_matrix_multiply/service/erpc_matrix_multiply_server.cpp"
 "${ProjDirPath}/../main_core1.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
@@ -69,8 +63,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common
-    ${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_common/erpc_matrix_multiply/service
     ${ProjDirPath}/..
     ${SdkRootDirPath}/examples/lpcxpresso55s69/multicore_examples/erpc_matrix_multiply_rpmsg
     ${SdkRootDirPath}/core/boards/lpcxpresso55s69

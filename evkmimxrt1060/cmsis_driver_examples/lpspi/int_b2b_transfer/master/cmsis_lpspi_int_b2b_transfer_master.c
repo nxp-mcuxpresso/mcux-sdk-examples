@@ -23,7 +23,7 @@
 #define EXAMPLE_LPSPI_MASTER_IRQN (LPSPI1_IRQn)
 #define EXAMPLE_LPSPI_DEALY_COUNT 0xfffffU
 
-/* Select USB1 PLL PFD0 (720 MHz) as lpspi clock source */
+/* Select USB1 PLL PFD0 (480 MHz) as lpspi clock source */
 #define EXAMPLE_LPSPI_CLOCK_SOURCE_SELECT (1U)
 /* Clock divider for master lpspi clock source */
 #define EXAMPLE_LPSPI_CLOCK_SOURCE_DIVIDER (7U)

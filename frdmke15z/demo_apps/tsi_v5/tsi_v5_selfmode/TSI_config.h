@@ -97,7 +97,7 @@ typedef struct _key_tsi_mapping
         uint8_t TSI_channel_tx; /* TSI transmit channel for mutual mode */
     } TSI_CH;
     uint8_t TSI_channel_rx;     /* TSI receive channel for mutual mode */
-    uint16_t key_touch_delta;   /* Delta for touch sensing threshold */
+    float key_touch_delta;      /* Delta percentage for touch sensing threshold */
     uint8_t key_state;          /* Key state machine */
     uint8_t key_state_debounce; /* Debounce counter to confirm touch event */
     uint16_t key_baseline;      /* Baseline tracking record */

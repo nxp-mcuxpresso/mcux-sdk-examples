@@ -352,9 +352,15 @@ usb_status_t USB_DeviceClassEvent(usb_device_handle handle, usb_device_class_eve
                  * kStatus_USB_InvalidRequest. */
                 if (kStatus_USB_InvalidRequest == errorReturn)
                 {
+                    /* For composite device, it should return kStatus_USB_Success once a valid request has been handled
+                     */
+                    if (kStatus_USB_Success == status)
+                    {
+                        return kStatus_USB_Success;
+                    }
                     return kStatus_USB_InvalidRequest;
                 }
-                /* For composite device, it should return kStatus_USB_Success once a valid request has been handled */
+                /* For composite device, save kStatus_USB_Success status once a valid request has been handled */
                 if (kStatus_USB_Success == errorReturn)
                 {
                     status = kStatus_USB_Success;

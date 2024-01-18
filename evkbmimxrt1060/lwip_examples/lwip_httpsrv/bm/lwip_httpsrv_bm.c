@@ -145,7 +145,7 @@ static void print_ipv6_addresses(struct netif *netif)
 }
 
 static void netif_ipv6_callback(struct netif *cb_netif)
-{    
+{
     PRINTF("IPv6 address update, valid addresses:\r\n");
     print_ipv6_addresses(cb_netif);
     PRINTF("\r\n");

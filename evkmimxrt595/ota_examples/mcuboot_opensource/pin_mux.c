@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v11.0
+product: Pins v14.0
 processor: MIMXRT595S
 package_id: MIMXRT595SFFOC
 mcu_data: ksdk2_0
-processor_version: 0.12.1
+processor_version: 14.0.0
 pin_labels:
 - {pin_num: P16, pin_signal: PIO4_5/FC7_SSEL2/FC1_TXD_SCL_MISO_WS, label: RESET_OSPI_MEM, identifier: RESET_OSPI_MEM}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
@@ -26,6 +26,7 @@ pin_labels:
 /* clang-format on */
 
 #include "fsl_common.h"
+#include "fsl_gpio.h"
 #include "fsl_iopctl.h"
 #include "pin_mux.h"
 
@@ -47,7 +48,8 @@ void BOARD_InitBootPins(void)
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitPins:
 - options: {callFromInitBoot: 'true', coreID: cm33, enableClock: 'true'}
-- pin_list: []
+- pin_list:
+  - {pin_num: P16, peripheral: GPIO, signal: 'PIO4, 5', pin_signal: PIO4_5/FC7_SSEL2/FC1_TXD_SCL_MISO_WS, direction: OUTPUT, gpio_init_state: 'true'}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -61,6 +63,37 @@ BOARD_InitPins:
 /* Function assigned for the Cortex-M33 */
 void BOARD_InitPins(void)
 {
+
+    /* Enables the clock for the GPIO4 module */
+    CLOCK_EnableClock(kCLOCK_HsGpio4);
+
+    gpio_pin_config_t RESET_OSPI_MEM_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 1U
+    };
+    /* Initialize GPIO functionality on pin PIO4_5 (pin P16)  */
+    GPIO_PinInit(BOARD_INITPINS_RESET_OSPI_MEM_GPIO, BOARD_INITPINS_RESET_OSPI_MEM_PORT, BOARD_INITPINS_RESET_OSPI_MEM_PIN, &RESET_OSPI_MEM_config);
+
+    const uint32_t RESET_OSPI_MEM = (/* Pin is configured as PIO4_5 */
+                                     IOPCTL_PIO_FUNC0 |
+                                     /* Disable pull-up / pull-down function */
+                                     IOPCTL_PIO_PUPD_DI |
+                                     /* Enable pull-down function */
+                                     IOPCTL_PIO_PULLDOWN_EN |
+                                     /* Disable input buffer function */
+                                     IOPCTL_PIO_INBUF_DI |
+                                     /* Normal mode */
+                                     IOPCTL_PIO_SLEW_RATE_NORMAL |
+                                     /* Normal drive */
+                                     IOPCTL_PIO_FULLDRIVE_DI |
+                                     /* Analog mux is disabled */
+                                     IOPCTL_PIO_ANAMUX_DI |
+                                     /* Pseudo Output Drain is disabled */
+                                     IOPCTL_PIO_PSEDRAIN_DI |
+                                     /* Input function is not inverted */
+                                     IOPCTL_PIO_INV_DI);
+    /* PORT4 PIN5 (coords: P16) is configured as PIO4_5 */
+    IOPCTL_PinMuxSet(IOPCTL, BOARD_INITPINS_RESET_OSPI_MEM_PORT, BOARD_INITPINS_RESET_OSPI_MEM_PIN, RESET_OSPI_MEM);
 }
 
 /* clang-format off */

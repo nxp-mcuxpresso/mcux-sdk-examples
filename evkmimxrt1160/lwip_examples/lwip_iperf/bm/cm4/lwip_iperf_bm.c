@@ -20,6 +20,7 @@
 #include "lwip/init.h"
 #include "netif/ethernet.h"
 #include "ethernetif.h"
+#include <stdbool.h>
 
 #ifndef configMAC_ADDR
 #include "fsl_silicon_id.h"
@@ -159,7 +160,7 @@ void BOARD_InitModuleClock(void)
     clock_root_config_t rootCfg = {.mux = 4, .div = 10}; /* Generate 50M root clock. */
     CLOCK_SetRootClock(kCLOCK_Root_Enet1, &rootCfg);
 #else
-    clock_root_config_t rootCfg = {.mux = 4, .div = 4}; /* Generate 125M root clock. */
+    clock_root_config_t rootCfg = {.mux = 4, .div = 4};       /* Generate 125M root clock. */
     CLOCK_SetRootClock(kCLOCK_Root_Enet2, &rootCfg);
 #endif
 }
@@ -264,94 +265,107 @@ static void lwiperf_report(void *arg,
     PRINTF("\r\n");
 }
 
-/** Lets user select a mode to run IPERF with. */
-static void select_mode(bool *server_mode, bool *tcp, enum lwiperf_client_type *client_type)
+/** Prints available modes to start iperf in. */
+static void print_mode_menu()
 {
+    PRINTF("Please select one of the following modes to run IPERF with:\r\n\r\n");
+    PRINTF("    0: TCP server mode (RX test)\r\n");
+    PRINTF("    1: TCP client mode (TX only test)\r\n");
+    PRINTF("    2: TCP client reverse mode (RX only test)\r\n");
+    PRINTF("    3: TCP client dual mode (TX and RX in parallel)\r\n");
+    PRINTF("    4: TCP client tradeoff mode (TX and RX sequentially)\r\n");
+    PRINTF("    5: UDP server mode (RX test)\r\n");
+    PRINTF("    6: UDP client mode (TX only test)\r\n");
+    PRINTF("    7: UDP client reverse mode (RX only test)\r\n");
+    PRINTF("    8: UDP client dual mode (TX and RX in parallel)\r\n");
+    PRINTF("    9: UDP client tradeoff mode (TX and RX sequentially)\r\n\r\n");
+    PRINTF("Enter mode number: ");
+}
+
+/** Lets user select a mode to run IPERF with. */
+static bool select_mode(bool *server_mode, bool *tcp, enum lwiperf_client_type *client_type)
+{
+    status_t status;
     char option;
 
-    while (true)
+    status = DbgConsole_TryGetchar(&option);
+    if (status != kStatus_Success)
     {
-        PRINTF("Please select one of the following modes to run IPERF with:\r\n\r\n");
-        PRINTF("    0: TCP server mode (RX test)\r\n");
-        PRINTF("    1: TCP client mode (TX only test)\r\n");
-        PRINTF("    2: TCP client reverse mode (RX only test)\r\n");
-        PRINTF("    3: TCP client dual mode (TX and RX in parallel)\r\n");
-        PRINTF("    4: TCP client tradeoff mode (TX and RX sequentially)\r\n");
-        PRINTF("    5: UDP server mode (RX test)\r\n");
-        PRINTF("    6: UDP client mode (TX only test)\r\n");
-        PRINTF("    7: UDP client reverse mode (RX only test)\r\n");
-        PRINTF("    8: UDP client dual mode (TX and RX in parallel)\r\n");
-        PRINTF("    9: UDP client tradeoff mode (TX and RX sequentially)\r\n\r\n");
-        PRINTF("Enter mode number: ");
+        return false;
+    }
 
-        option = GETCHAR();
-        PUTCHAR(option);
-        PRINTF("\r\n");
+    PUTCHAR(option);
+    PRINTF("\r\n");
 
-        switch (option)
-        {
-            case '0':
-                *server_mode = true;
-                *tcp         = true;
-                *client_type = LWIPERF_CLIENT;
-                return;
-            case '1':
-                *server_mode = false;
-                *tcp         = true;
-                *client_type = LWIPERF_CLIENT;
-                return;
-            case '2':
-                *server_mode = false;
-                *tcp         = true;
-                *client_type = LWIPERF_REVERSE;
-                return;
-            case '3':
-                *server_mode = false;
-                *tcp         = true;
-                *client_type = LWIPERF_DUAL;
-                return;
-            case '4':
-                *server_mode = false;
-                *tcp         = true;
-                *client_type = LWIPERF_TRADEOFF;
-                return;
-            case '5':
-                *server_mode = true;
-                *tcp         = false;
-                *client_type = LWIPERF_CLIENT;
-                return;
-            case '6':
-                *server_mode = false;
-                *tcp         = false;
-                *client_type = LWIPERF_CLIENT;
-                return;
-            case '7':
-                *server_mode = false;
-                *tcp         = false;
-                *client_type = LWIPERF_REVERSE;
-                return;
-            case '8':
-                *server_mode = false;
-                *tcp         = false;
-                *client_type = LWIPERF_DUAL;
-                return;
-            case '9':
-                *server_mode = false;
-                *tcp         = false;
-                *client_type = LWIPERF_TRADEOFF;
-                return;
-        }
+    switch (option)
+    {
+        case '0':
+            *server_mode = true;
+            *tcp         = true;
+            *client_type = LWIPERF_CLIENT;
+            return true;
+        case '1':
+            *server_mode = false;
+            *tcp         = true;
+            *client_type = LWIPERF_CLIENT;
+            return true;
+        case '2':
+            *server_mode = false;
+            *tcp         = true;
+            *client_type = LWIPERF_REVERSE;
+            return true;
+        case '3':
+            *server_mode = false;
+            *tcp         = true;
+            *client_type = LWIPERF_DUAL;
+            return true;
+        case '4':
+            *server_mode = false;
+            *tcp         = true;
+            *client_type = LWIPERF_TRADEOFF;
+            return true;
+        case '5':
+            *server_mode = true;
+            *tcp         = false;
+            *client_type = LWIPERF_CLIENT;
+            return true;
+        case '6':
+            *server_mode = false;
+            *tcp         = false;
+            *client_type = LWIPERF_CLIENT;
+            return true;
+        case '7':
+            *server_mode = false;
+            *tcp         = false;
+            *client_type = LWIPERF_REVERSE;
+            return true;
+        case '8':
+            *server_mode = false;
+            *tcp         = false;
+            *client_type = LWIPERF_DUAL;
+            return true;
+        case '9':
+            *server_mode = false;
+            *tcp         = false;
+            *client_type = LWIPERF_TRADEOFF;
+            return true;
+        default:
+            PRINTF("Enter mode number: ");
+            return false;
     }
 }
 
-static void *start_iperf(ip4_addr_t *remote_addr)
+static void *try_start_iperf(ip4_addr_t *remote_addr)
 {
     bool server_mode;
     bool tcp;
     enum lwiperf_client_type client_type;
     void *iperf_session;
 
-    select_mode(&server_mode, &tcp, &client_type);
+    if (!select_mode(&server_mode, &tcp, &client_type))
+    {
+        return NULL;
+    }
 
     if (server_mode)
     {
@@ -410,8 +424,6 @@ int main(void)
 #endif
     };
 
-    gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
-
     BOARD_ConfigMPU();
     BOARD_InitPins();
     BOARD_BootClockRUN();
@@ -422,23 +434,10 @@ int main(void)
 
 #if BOARD_NETWORK_USE_100M_ENET_PORT
     BOARD_InitEnetPins();
-    GPIO_PinInit(GPIO9, 11, &gpio_config);
-    GPIO_PinInit(GPIO12, 12, &gpio_config);
-    /* Pull up the ENET_INT before RESET. */
-    GPIO_WritePinOutput(GPIO9, 11, 1);
-    GPIO_WritePinOutput(GPIO12, 12, 0);
-    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
-    GPIO_WritePinOutput(GPIO12, 12, 1);
-    SDK_DelayAtLeastUs(6, CLOCK_GetFreq(kCLOCK_CpuClk));
+    BOARD_ENET_PHY0_RESET;
 #else
     BOARD_InitEnet1GPins();
-    GPIO_PinInit(GPIO11, 14, &gpio_config);
-    /* For a complete PHY reset of RTL8211FDI-CG, this pin must be asserted low for at least 10ms. And
-     * wait for a further 30ms(for internal circuits settling time) before accessing the PHY register */
-    GPIO_WritePinOutput(GPIO11, 14, 0);
-    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
-    GPIO_WritePinOutput(GPIO11, 14, 1);
-    SDK_DelayAtLeastUs(30000, CLOCK_GetFreq(kCLOCK_CpuClk));
+    BOARD_ENET_PHY1_RESET;
 
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_1_IRQn);
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_2_IRQn);
@@ -456,7 +455,7 @@ int main(void)
 #endif
 
     /* Get clock after hardware init. */
-        enet_config.srcClockHz = EXAMPLE_CLOCK_FREQ;
+    enet_config.srcClockHz = EXAMPLE_CLOCK_FREQ;
 
     IP4_ADDR(&netif_ipaddr, configIP_ADDR0, configIP_ADDR1, configIP_ADDR2, configIP_ADDR3);
     IP4_ADDR(&netif_netmask, configNET_MASK0, configNET_MASK1, configNET_MASK2, configNET_MASK3);
@@ -484,11 +483,13 @@ int main(void)
            ((u8_t *)&netif_gw)[2], ((u8_t *)&netif_gw)[3]);
     PRINTF("************************************************\r\n");
 
+    print_mode_menu();
+
     while (1)
     {
         if (iperf_session == NULL)
         {
-            iperf_session = start_iperf(&netif_gw);
+            iperf_session = try_start_iperf(&netif_gw);
         }
         else
         {
@@ -497,6 +498,7 @@ int main(void)
             {
                 lwiperf_abort(iperf_session);
                 iperf_session = NULL;
+                print_mode_menu();
             }
         }
 

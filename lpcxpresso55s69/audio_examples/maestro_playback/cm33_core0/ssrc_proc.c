@@ -22,24 +22,24 @@ int SSRC_get_sample_rate_num(LVM_Fs_en sample_rate);
 LVM_Format_en SSRC_get_number_of_channels_enum(int number_of_channels);
 int SSRC_get_number_of_channels_num(LVM_Format_en number_of_channels);
 
-SSRC_Instance_t SSRC_Instance; /* Allocate memory for the SSRC instance */
-SSRC_Params_t SSRC_Params;     /* Memory for init parameters */
+SSRC_Instance_t SSRC_Instance;                  /* Allocate memory for the SSRC instance */
+SSRC_Params_t SSRC_Params;                      /* Memory for init parameters */
 
-static SSRC_Scratch_t *pScratch    = NULL; /* Pointer to scratch memory */
-static LVM_INT16 *pInputInScratch  = NULL; /* Pointer to the input in the scratch buffer */
-static LVM_INT16 *pOutputInScratch = NULL; /* Pointer to the output in the scratch buffer */
+static SSRC_Scratch_t *pScratch    = NULL;      /* Pointer to scratch memory */
+static LVM_INT16 *pInputInScratch  = NULL;      /* Pointer to the input in the scratch buffer */
+static LVM_INT16 *pOutputInScratch = NULL;      /* Pointer to the output in the scratch buffer */
 
-static int8_t *outBuff      = NULL; /* Pointer to a buffer for storing the converted audio data */
-static uint16_t outBuffSize = 0U;   /* Allocated size for the outBuffer */
+static int8_t *outBuff      = NULL;             /* Pointer to a buffer for storing the converted audio data */
+static uint16_t outBuffSize = 0U;               /* Allocated size for the outBuffer */
 
-static int8_t *resInBuff               = NULL; /* Pointer to a buffer to hold the rest of the unconverted audio data */
-static uint16_t resInBuffSize          = 0U;   /* Allocated size for the resInBuff */
-static uint16_t resInBuffDataAvailable = 0U;   /* Number of bytes available in the resInBuff */
+static int8_t *resInBuff               = NULL;  /* Pointer to a buffer to hold the rest of the unconverted audio data */
+static uint16_t resInBuffSize          = 0U;    /* Allocated size for the resInBuff */
+static uint16_t resInBuffDataAvailable = 0U;    /* Number of bytes available in the resInBuff */
 
 static int8_t *resOutBuff               = NULL; /* Pointer to a buffer to hold the rest of the converted audio data */
 static uint16_t resOutBuffDataAvailable = 0U;   /* Number of bytes available in the resOutBuff */
 
-static uint8_t OutputByteMultiple = 0U; /* Ensure output data size is a multiple of 32/64 (due to EDMA). */
+static uint8_t OutputByteMultiple = 0U;         /* Ensure output data size is a multiple of 32/64 (due to EDMA). */
 
 LVM_Fs_en SSRC_get_sample_rate_enum(int sample_rate)
 {
@@ -235,8 +235,8 @@ int SSRC_Proc_Execute(void *arg, void *inputBuffer, int size)
     int8_t num_channel             = 0;                 /* Number of channels */
     int8_t byte_width              = 0;                 /* Byte width */
     uint32_t sample_rate           = 0;
-    uint32_t dataInAvailable       = 0; /* Number of bytes available for conversion */
-    uint32_t dataOutAvailable      = 0; /* Number of bytes available in the output audio buffer */
+    uint32_t dataInAvailable       = 0;                 /* Number of bytes available for conversion */
+    uint32_t dataOutAvailable      = 0;                 /* Number of bytes available in the output audio buffer */
     uint32_t dataResCount = 0; /* Number of bytes converted that exceed integer multiples of OutputByteMultiple in the
                              output audio buffer */
     int16_t NrInBytes                 = 0;       /* The number of bytes in each input block for SSRC */
@@ -439,9 +439,9 @@ int SSRC_register_post_process(void *streamer)
 
     PRINTF("[SSRC_PROC] registering post process SSRC\r\n");
 
-    EXT_PROCESS_DESC_T ssrc_proc = {SSRC_Proc_Init, SSRC_Proc_Execute, SSRC_Proc_Deinit, &get_app_data()->eap_args};
+    EXT_PROCESS_DESC_T ssrc_proc = {SSRC_Proc_Init, SSRC_Proc_Execute, SSRC_Proc_Deinit, &get_app_data()->proc_args};
 
-    prop.prop = PROP_SRC_PROC_FUNCPTR;
+    prop.prop = PROP_SRC_FUNCPTR;
     prop.val  = (uintptr_t)&ssrc_proc;
 
     if (streamer_set_property(streamer, 0, prop, true) != 0)

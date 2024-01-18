@@ -1,6 +1,5 @@
 /*
- * Copyright 2021 NXP
- * All rights reserved.
+ * Copyright 2021-2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -12,10 +11,10 @@
  * Included files
  **********************************************************************************************************************/
 #include "fsl_common.h"
+#include "fsl_aoi.h"
 #include "fsl_cmp.h"
 #include "fsl_clock.h"
 #include "fsl_pit.h"
-#include "fsl_aoi.h"
 
 #if defined(__cplusplus)
 extern "C" {
@@ -25,6 +24,8 @@ extern "C" {
  * Definitions
  **********************************************************************************************************************/
 /* Definitions for BOARD_InitPeripherals functional group */
+/* Alias for AOI1 peripheral */
+#define DEMO_AOI_PERIPHERAL AOI1
 /* Definition of peripheral ID */
 #define DEMO_CMP_PERIPHERAL CMP1
 /* Definition of positive input source used in CMP_SetInputChannels() function */
@@ -36,22 +37,23 @@ extern "C" {
 #define DEMO_PIT_PERIPHERAL PIT
 /* Definition of clock source frequency. */
 #define DEMO_PIT_CLK_FREQ 75000000UL
-/* Definition of ticks count for channel 0. */
-#define DEMO_PIT_0_TICKS 37499999U
-/* Alias for AOI1 peripheral */
-#define DEMO_AOI_PERIPHERAL AOI1
+/* Definition of ticks count for channel 0 - deprecated. */
+#define DEMO_PIT_0_TICKS 37500000U
+/* Definition of channel number for channel 0. */
+#define DEMO_PIT_0 kPIT_Chnl_0
 
 /***********************************************************************************************************************
  * Global variables
  **********************************************************************************************************************/
+extern const aoi_event_config_t DEMO_AOI_event_config[1];
 extern const cmp_config_t DEMO_CMP_config;
 extern const cmp_dac_config_t DEMO_CMP_dac_config;
 extern const pit_config_t DEMO_PIT_config;
-extern const aoi_event_config_t DEMO_AOI_event_config[1];
 
 /***********************************************************************************************************************
  * Initialization functions
  **********************************************************************************************************************/
+
 void BOARD_InitPeripherals(void);
 
 /***********************************************************************************************************************

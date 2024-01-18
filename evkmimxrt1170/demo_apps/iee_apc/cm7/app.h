@@ -45,7 +45,7 @@
 #define FLASH_QUAD_ENABLE        0x40
 #define FLASH_BUSY_STATUS_POL    1
 #define FLASH_BUSY_STATUS_OFFSET 0
-#endif /* USE_FLASH */
+#endif                      /* USE_FLASH */
 
 #define IEE IEE__IEE_RT1170 /* IEE defines */
 /*${macro:end}*/

@@ -28,8 +28,6 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DMCUXPRESSO_SDK \
     -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
-    -fomit-frame-pointer \
-    -Wno-unused-function \
     -mcpu=cortex-m0plus \
     -Wall \
     -mthumb \
@@ -42,6 +40,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
+    -fomit-frame-pointer \
+    -Wno-unused-function \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -96,5 +96,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     --defsym=__heap_size__=0x8000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/K32L3A60xxx_cm0plus_flash.ld -static \
+    -T\"${ProjDirPath}/K32L3A60xxx_cm0plus_flash.ld\" -static \
 ")

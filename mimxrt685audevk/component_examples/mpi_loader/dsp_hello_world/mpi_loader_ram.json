@@ -1,16 +1,17 @@
 {
     "family": "rt6xx",
     "inputImageFile": "./workspace/input_images/sdk20-app.bin",
-	"multicoreImages": [
-		{"address": "0x24000000", "file": "./workspace/input_images/dsp_text_release.bin"},
-		{"address": "0x200000", "file": "./workspace/input_images/dsp_data_release.bin"}
-	],
+    "multicoreImages": [
+        {"address": "0x24000000", "file": "./workspace/input_images/dsp_literal_release.bin"},
+        {"address": "0x24020000", "file": "./workspace/input_images/dsp_text_release.bin"},
+        {"address": "0x200000", "file": "./workspace/input_images/dsp_data_release.bin"}
+    ],
     "imageLinkAddress": "0x80000",
     "outputImageExecutionTarget": "RAM",
     "outputImageAuthenticationType": "CRC",
     "enableTrustZone": false,
-	"deviceKeySource": "",
-	"outputImageEncryptionKeyFile": "",
+    "deviceKeySource": "",
+    "outputImageEncryptionKeyFile": "",
     "trustZonePresetFile": "",
     "rootCertificate0File": "",
     "rootCertificate1File": "",

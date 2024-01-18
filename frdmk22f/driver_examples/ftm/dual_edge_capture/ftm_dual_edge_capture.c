@@ -40,8 +40,10 @@
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-volatile bool ftmFirstChannelInterruptFlag  = false;
-volatile bool ftmSecondChannelInterruptFlag = false;
+volatile bool ftmFirstChannelInterruptFlag = false;
+volatile uint32_t g_pluseCount             = 0u;
+volatile uint32_t g_capture1Val            = 0u;
+volatile uint32_t g_capture2Val            = 0u;
 /* Record FTM TOF interrupt times */
 volatile uint32_t g_timerOverflowInterruptCount = 0u;
 volatile uint32_t g_firstChannelOverflowCount   = 0u;
@@ -68,12 +70,17 @@ void FTM_INPUT_CAPTURE_HANDLER(void)
     }
     else if ((FTM_GetStatusFlags(DEMO_FTM_BASEADDR) & FTM_SECOND_CHANNEL_FLAG) == FTM_SECOND_CHANNEL_FLAG)
     {
-        /* Clear second channel interrupt flag.*/
-        FTM_ClearStatusFlags(DEMO_FTM_BASEADDR, FTM_SECOND_CHANNEL_FLAG);
-        /* Disable second channel interrupt.*/
-        FTM_DisableInterrupts(DEMO_FTM_BASEADDR, FTM_SECOND_CHANNEL_INTERRUPT_ENABLE);
-        g_secondChannelOverflowCount  = g_timerOverflowInterruptCount;
-        ftmSecondChannelInterruptFlag = true;
+        /* Clear first and second channel interrupt flag.*/
+        FTM_ClearStatusFlags(DEMO_FTM_BASEADDR, FTM_FIRST_CHANNEL_FLAG | FTM_SECOND_CHANNEL_FLAG);
+        g_capture1Val =
+            FTM_GetInputCaptureValue(DEMO_FTM_BASEADDR, (ftm_chnl_t)(BOARD_FTM_INPUT_CAPTURE_CHANNEL_PAIR * 2));
+        g_capture2Val =
+            FTM_GetInputCaptureValue(DEMO_FTM_BASEADDR, (ftm_chnl_t)(BOARD_FTM_INPUT_CAPTURE_CHANNEL_PAIR * 2 + 1));
+        g_pluseCount++;
+        /* Enable first channel interrupt to start next pluse capture */
+        FTM_EnableInterrupts(DEMO_FTM_BASEADDR, FTM_FIRST_CHANNEL_INTERRUPT_ENABLE);
+        g_secondChannelOverflowCount = g_timerOverflowInterruptCount;
+        ftmFirstChannelInterruptFlag = false;
     }
     else
     {
@@ -90,6 +97,8 @@ int main(void)
     ftm_dual_edge_capture_param_t edgeParam;
     uint32_t capture1Val;
     uint32_t capture2Val;
+    uint32_t firstChannelOverflowCount;
+    uint32_t secondChannelOverflowCount;
     float pulseWidth;
 
     /* Board pin, clock, debug console init */
@@ -106,7 +115,7 @@ int main(void)
     /* Initialize FTM module */
     FTM_Init(DEMO_FTM_BASEADDR, &ftmInfo);
 
-    edgeParam.mode = kFTM_OneShot;
+    edgeParam.mode = kFTM_Continuous;
     /* Set capture edges to calculate the pulse width of input signal */
     edgeParam.currChanEdgeMode = kFTM_RisingEdge;
     edgeParam.nextChanEdgeMode = kFTM_FallingEdge;
@@ -131,25 +140,25 @@ int main(void)
 
     FTM_StartTimer(DEMO_FTM_BASEADDR, kFTM_SystemClock);
 
-    while (ftmFirstChannelInterruptFlag != true)
+    /*
+     *   If high level input is detected on the channel when FTM timer starts, FTM will 
+     *   generate a rising edge capture event incorrectly although there is no rising edge.
+     *   So this example ignore first pluse and capture second pluse.
+     */
+    while (g_pluseCount < 2)
     {
     }
 
-    while (ftmSecondChannelInterruptFlag != true)
-    {
-    }
+    /* Disable channel interrupt to prevent capture and overflow value be changed in interrupt */
+    FTM_DisableInterrupts(DEMO_FTM_BASEADDR, FTM_FIRST_CHANNEL_INTERRUPT_ENABLE | FTM_SECOND_CHANNEL_INTERRUPT_ENABLE);
 
-    /* Clear first channel interrupt flag after the second edge is detected.*/
-    FTM_ClearStatusFlags(DEMO_FTM_BASEADDR, FTM_FIRST_CHANNEL_FLAG);
+    capture1Val                = g_capture1Val;
+    capture2Val                = g_capture2Val;
+    firstChannelOverflowCount  = g_firstChannelOverflowCount;
+    secondChannelOverflowCount = g_secondChannelOverflowCount;
 
-    /* Clear overflow interrupt flag.*/
-    FTM_ClearStatusFlags(DEMO_FTM_BASEADDR, kFTM_TimeOverflowFlag);
-    /* Disable overflow interrupt.*/
-    FTM_DisableInterrupts(DEMO_FTM_BASEADDR, kFTM_TimeOverflowInterruptEnable);
+    FTM_EnableInterrupts(DEMO_FTM_BASEADDR, FTM_FIRST_CHANNEL_INTERRUPT_ENABLE | FTM_SECOND_CHANNEL_INTERRUPT_ENABLE);
 
-    capture1Val = FTM_GetInputCaptureValue(DEMO_FTM_BASEADDR, (ftm_chnl_t)(BOARD_FTM_INPUT_CAPTURE_CHANNEL_PAIR * 2));
-    capture2Val =
-        FTM_GetInputCaptureValue(DEMO_FTM_BASEADDR, (ftm_chnl_t)(BOARD_FTM_INPUT_CAPTURE_CHANNEL_PAIR * 2 + 1));
     PRINTF("\r\nCapture value C(n)V=%x\r\n", capture1Val);
     PRINTF("\r\nCapture value C(n+1)V=%x\r\n", capture2Val);
 
@@ -157,11 +166,10 @@ int main(void)
      * divided by 1000000 as the output is printed in microseconds
      */
     pulseWidth =
-        (float)(((g_secondChannelOverflowCount - g_firstChannelOverflowCount) * 65536 + capture2Val - capture1Val) +
-                1) /
+        (float)(((secondChannelOverflowCount - firstChannelOverflowCount) * 65536 + capture2Val - capture1Val) + 1) /
         ((float)FTM_SOURCE_CLOCK / 1000000);
 
-    PRINTF("\r\nInput signals pulse width = %f us\r\n", pulseWidth);
+    PRINTF("\r\nInput signals pulse width = %f us\r\n", (double)pulseWidth);
 
     while (1)
     {

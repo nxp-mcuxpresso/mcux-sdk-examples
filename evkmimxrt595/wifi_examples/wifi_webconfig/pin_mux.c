@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v10.0
+product: Pins v14.0
 processor: MIMXRT595S
 package_id: MIMXRT595SFFOC
 mcu_data: ksdk2_0
-processor_version: 10.0.0
+processor_version: 14.0.0
 pin_labels:
 - {pin_num: D6, pin_signal: PIO3_20/SD1_RESET_N/LCD_D21/CTIMER4_MAT2, label: SDIO_RST, identifier: SDIO_RST}
 - {pin_num: D12, pin_signal: PIO0_31/FC4_CTS_SDA_SSEL0/SCT0_GPI0/SCT0_OUT6/CTIMER4_MAT3/FC3_SSEL2/SEC_PIO0_31, label: WL_RST, identifier: WL_RST}
@@ -52,7 +52,7 @@ void BOARD_InitBootPins(void)
 BOARD_InitPins:
 - options: {callFromInitBoot: 'true', coreID: cm33, enableClock: 'true'}
 - pin_list:
-  - {pin_num: P16, peripheral: GPIO, signal: 'PIO4, 5', pin_signal: PIO4_5/FC7_SSEL2/FC1_TXD_SCL_MISO_WS}
+  - {pin_num: P16, peripheral: GPIO, signal: 'PIO4, 5', pin_signal: PIO4_5/FC7_SSEL2/FC1_TXD_SCL_MISO_WS, direction: OUTPUT, gpio_init_state: 'true'}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -66,6 +66,16 @@ BOARD_InitPins:
 /* Function assigned for the Cortex-M33 */
 void BOARD_InitPins(void)
 {
+
+    /* Enables the clock for the GPIO4 module */
+    CLOCK_EnableClock(kCLOCK_HsGpio4);
+
+    gpio_pin_config_t RESET_OSPI_MEM_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 1U
+    };
+    /* Initialize GPIO functionality on pin PIO4_5 (pin P16)  */
+    GPIO_PinInit(BOARD_INITPINS_RESET_OSPI_MEM_GPIO, BOARD_INITPINS_RESET_OSPI_MEM_PORT, BOARD_INITPINS_RESET_OSPI_MEM_PIN, &RESET_OSPI_MEM_config);
 
     const uint32_t RESET_OSPI_MEM = (/* Pin is configured as PIO4_5 */
                                      IOPCTL_PIO_FUNC0 |

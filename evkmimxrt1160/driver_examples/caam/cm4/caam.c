@@ -198,6 +198,63 @@ static const uint8_t s_GcmTagExpected[] = {0x5b, 0xc9, 0x4f, 0xbc, 0x32, 0x21, 0
 /*! @brief Encrypted tag from GCM method goes here. */
 static uint8_t s_GcmTag[sizeof(s_GcmTagExpected)];
 
+/*! @brief 128 byte key for HMAC consisting of a 32-byte repeating pattern. */
+static uint8_t s_HmacKey[] = {0xa3, 0x02, 0x5b, 0xd2, 0x2a, 0x7a, 0x06, 0x1d,
+                              0x4c, 0xf9, 0x0f, 0xde, 0xf6, 0x43, 0x25, 0x0f,
+                              0x6a, 0xe7, 0x0a, 0xf8, 0xc0, 0x37, 0x27, 0x68,
+                              0xc5, 0x80, 0xde, 0xd0, 0x79, 0x35, 0x93, 0x27,
+                              0xa3, 0x02, 0x5b, 0xd2, 0x2a, 0x7a, 0x06, 0x1d,
+                              0x4c, 0xf9, 0x0f, 0xde, 0xf6, 0x43, 0x25, 0x0f,
+                              0x6a, 0xe7, 0x0a, 0xf8, 0xc0, 0x37, 0x27, 0x68,
+                              0xc5, 0x80, 0xde, 0xd0, 0x79, 0x35, 0x93, 0x27,
+                              0xa3, 0x02, 0x5b, 0xd2, 0x2a, 0x7a, 0x06, 0x1d,
+                              0x4c, 0xf9, 0x0f, 0xde, 0xf6, 0x43, 0x25, 0x0f,
+                              0x6a, 0xe7, 0x0a, 0xf8, 0xc0, 0x37, 0x27, 0x68,
+                              0xc5, 0x80, 0xde, 0xd0, 0x79, 0x35, 0x93, 0x27,
+                              0xa3, 0x02, 0x5b, 0xd2, 0x2a, 0x7a, 0x06, 0x1d,
+                              0x4c, 0xf9, 0x0f, 0xde, 0xf6, 0x43, 0x25, 0x0f,
+                              0x6a, 0xe7, 0x0a, 0xf8, 0xc0, 0x37, 0x27, 0x68,
+                              0xc5, 0x80, 0xde, 0xd0, 0x79, 0x35, 0x93, 0x27};
+
+/*! @brief Plaintext for HMAC. */
+static uint8_t s_HmacPlain[] =
+    "Be that word our sign of parting, bird or fiend! I shrieked upstarting"
+    "Get thee back into the tempest and the Nights Plutonian shore!"
+    "Leave no black plume as a token of that lie thy soul hath spoken!"
+    "Leave my loneliness unbroken! quit the bust above my door!"
+    "Take thy beak from out my heart, and take thy form from off my door!"
+    "Quoth the raven, Nevermore.  ";
+
+/*! @brief Expected SHA1 HMAC. */
+static uint8_t s_HmacSha1Expected[] = {0xac, 0xd1, 0x4f, 0x92, 0x60, 0x15, 0xd1,
+                                       0x80, 0xd6, 0x4a, 0x6a, 0x99, 0xb6, 0x6e,
+                                       0xfe, 0xac, 0xc5, 0xa0, 0x4c, 0x13};
+
+/*! @brief Expected SHA224 HMAC. */
+static uint8_t s_HmacSha224Expected[] = {0xfc, 0xdc, 0xc6, 0x52, 0xbd, 0x5d, 0x5c, 0x23, 0xc6, 0x30, 0xd5,
+                                         0x0b, 0x7c, 0x68, 0x85, 0x06, 0x17, 0x6a, 0x3c, 0x5f, 0x48, 0x46,
+                                         0xdc, 0xa9, 0xb7, 0xf6, 0x79, 0xe9};
+
+/*! @brief Expected SHA256 HMAC. */
+static uint8_t s_HmacSha256Expected[] = {0x1d, 0x82, 0x8e, 0x3e, 0xc7, 0xd4, 0x61, 0x78, 0x34, 0xa3, 0x2c,
+                                         0x91, 0xad, 0x39, 0x10, 0xbc, 0xe7, 0x3c, 0xb1, 0x29, 0xad, 0xcb,
+                                         0x19, 0x24, 0x3d, 0xf4, 0xcb, 0x77, 0xb4, 0x88, 0x6b, 0x2a};
+
+/*! @brief Expected SHA384 HMAC. */
+static uint8_t s_HmacSha384Expected[] = {0x5a, 0xa0, 0xe2, 0xd7, 0x45, 0x8c, 0x04, 0xc0, 0x94, 0xd2, 0x68,
+                                         0x0a, 0x7c, 0x20, 0x95, 0x1d, 0x09, 0x3f, 0xce, 0x2a, 0xfd, 0x6a,
+                                         0x70, 0xe7, 0xab, 0xf0, 0xb7, 0x18, 0x0b, 0x30, 0x6a, 0xcf, 0x7b,
+                                         0x91, 0x8e, 0x89, 0x82, 0xc0, 0xeb, 0xa0, 0xc1, 0xb1, 0x74, 0xbd,
+                                         0xae, 0x34, 0xa0, 0x90};
+
+/*! @brief Expected SHA512 HMAC. */
+static uint8_t s_HmacSha512Expected[] = {0xf8, 0x15, 0xa9, 0xc8, 0x6f, 0x2f, 0x09, 0x67, 0x12, 0x91, 0x19,
+                                         0x45, 0xfb, 0xee, 0xf6, 0x8d, 0xce, 0xc6, 0x9e, 0x0e, 0x5a, 0x46,
+                                         0xb6, 0xd9, 0xca, 0x9f, 0x3d, 0x5e, 0x32, 0x74, 0xc9, 0x2d, 0x28,
+                                         0x83, 0xe1, 0x75, 0x4a, 0x07, 0x63, 0x66, 0xed, 0x76, 0x38, 0x05,
+                                         0x23, 0x49, 0x27, 0x28, 0x18, 0xe0, 0xba, 0x05, 0x52, 0x4d, 0xdd,
+                                         0x3e, 0x5a, 0x95, 0xfa, 0x64, 0xe7, 0xec, 0xe3, 0x4c};
+
 /*! @brief Plaintext for SHA. */
 static uint8_t s_ShaPlain[] =
     "Be that word our sign of parting, bird or fiend! I shrieked upstarting"
@@ -253,6 +310,10 @@ static void EncryptDecryptCbc(
 static void RunAesGcmExamples(CAAM_Type *base, caam_handle_t *handle);
 
 static void EncryptDecryptGcm(CAAM_Type *base, caam_handle_t *handle);
+
+static void HmacSha(CAAM_Type *base, caam_handle_t *handle, const uint8_t *key,
+                    size_t keySize, uint32_t shaBitlen, caam_hash_algo_t algo,
+                    const uint8_t *hmacExpected);
 
 /*******************************************************************************
  * Code
@@ -417,6 +478,68 @@ static void RunShaExamples(CAAM_Type *base, caam_handle_t *handle)
     if (memcmp(sha_output, s_ShaExpected, 32u) != 0)
     {
         PRINTF("- failed: unexpected Hash output!\r\n\r\n");
+        return;
+    }
+
+    PRINTF("done successfully.\r\n\r\n");
+}
+
+/*!
+ * @brief Executes examples for SHA-HMAC.
+ */
+static void RunHmacExamples(CAAM_Type *base, caam_handle_t *handle)
+{
+    const size_t keySize64  = 64u;
+    const size_t keySize128 = 128u;
+
+    // Do one with an oversized key
+    HmacSha(base, handle, s_HmacKey, keySize128, 1, kCAAM_HmacSha1, s_HmacSha1Expected);
+
+    // Some with block-sized keys
+    HmacSha(base, handle, s_HmacKey, keySize64, 224, kCAAM_HmacSha224, s_HmacSha224Expected);
+    HmacSha(base, handle, s_HmacKey, keySize64, 256, kCAAM_HmacSha256, s_HmacSha256Expected);
+
+    // Some with under-sized keys
+    HmacSha(base, handle, s_HmacKey, keySize64, 384, kCAAM_HmacSha384, s_HmacSha384Expected);
+    HmacSha(base, handle, s_HmacKey, keySize64, 512, kCAAM_HmacSha512, s_HmacSha512Expected);
+}
+
+/*!
+ * @brief Run an HMAC SHA variant.
+ */
+static void HmacSha(CAAM_Type *base, caam_handle_t *handle, const uint8_t *key,
+                    size_t keySize, uint32_t shaVariant, caam_hash_algo_t algo,
+                    const uint8_t *hmacExpected)
+{
+    caam_hash_ctx_t ctx;
+    size_t outputSize;
+    status_t status         = kStatus_Fail;
+    uint8_t hmacOutput[64]  = {0};
+    size_t plainLength      = sizeof(s_HmacPlain) - 1u;
+
+    PRINTF("HMAC-SHA%u:", shaVariant);
+
+    status = CAAM_HMAC_Init(base, handle, &ctx, algo, key, keySize);
+    if (status != kStatus_Success)
+    {
+        PRINTF("- failed to HMAC-SHA%u init!\r\n\r\n", shaVariant);
+        return;
+    }
+
+    status = CAAM_HMAC(base, handle, algo,
+                       s_HmacPlain, plainLength,
+                       key, keySize,
+                       hmacOutput, &outputSize);
+
+    if (status != kStatus_Success)
+    {
+        PRINTF("- failed to get HMAC-SHA%u!\r\n\r\n", shaVariant);
+        return;
+    }
+
+    if (memcmp(hmacOutput, hmacExpected, outputSize) != 0)
+    {
+        PRINTF("- failed: unexpected HMAC-SHA%u output!\r\n\r\n", shaVariant);
         return;
     }
 
@@ -753,6 +876,9 @@ int main(void)
 
     /* Example of SHA */
     RunShaExamples(base, &caamHandle);
+
+    /* Example of HMAC */
+    RunHmacExamples(base, &caamHandle);
 
     /* Example of AES CBC */
     RunAesCbcExamples(base, &caamHandle);

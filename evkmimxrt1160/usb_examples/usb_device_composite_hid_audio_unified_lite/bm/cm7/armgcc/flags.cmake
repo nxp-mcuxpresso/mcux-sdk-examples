@@ -71,6 +71,7 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -D_DEBUG=1 \
     -DCPU_MIMXRT1166DVM6A_cm7 \
     -DHAL_AUDIO_ISR_PRIORITY=0 \
+    -DUSB_DEVICE_AUDIO_SPEAKER_DEDICATED_INTERVAL=1 \
     -DUSB_STACK_BM \
     -DFSL_OSA_BM_TASK_ENABLE=0 \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
@@ -104,6 +105,7 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DDEBUG \
     -DCPU_MIMXRT1166DVM6A_cm7 \
     -DHAL_AUDIO_ISR_PRIORITY=0 \
+    -DUSB_DEVICE_AUDIO_SPEAKER_DEDICATED_INTERVAL=1 \
     -DUSB_STACK_BM \
     -DFSL_OSA_BM_TASK_ENABLE=0 \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
@@ -137,6 +139,7 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -DNDEBUG \
     -DCPU_MIMXRT1166DVM6A_cm7 \
     -DHAL_AUDIO_ISR_PRIORITY=0 \
+    -DUSB_DEVICE_AUDIO_SPEAKER_DEDICATED_INTERVAL=1 \
     -DUSB_STACK_BM \
     -DFSL_OSA_BM_TASK_ENABLE=0 \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
@@ -168,6 +171,7 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -D_DEBUG=0 \
     -DCPU_MIMXRT1166DVM6A_cm7 \
     -DHAL_AUDIO_ISR_PRIORITY=0 \
+    -DUSB_DEVICE_AUDIO_SPEAKER_DEDICATED_INTERVAL=1 \
     -DUSB_STACK_BM \
     -DFSL_OSA_BM_TASK_ENABLE=0 \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
@@ -199,6 +203,7 @@ SET(CMAKE_C_FLAGS_SDRAM_DEBUG " \
     -DDEBUG \
     -DCPU_MIMXRT1166DVM6A_cm7 \
     -DHAL_AUDIO_ISR_PRIORITY=0 \
+    -DUSB_DEVICE_AUDIO_SPEAKER_DEDICATED_INTERVAL=1 \
     -DUSB_STACK_BM \
     -DFSL_OSA_BM_TASK_ENABLE=0 \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
@@ -231,6 +236,7 @@ SET(CMAKE_C_FLAGS_SDRAM_RELEASE " \
     -DNDEBUG \
     -DCPU_MIMXRT1166DVM6A_cm7 \
     -DHAL_AUDIO_ISR_PRIORITY=0 \
+    -DUSB_DEVICE_AUDIO_SPEAKER_DEDICATED_INTERVAL=1 \
     -DUSB_STACK_BM \
     -DFSL_OSA_BM_TASK_ENABLE=0 \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
@@ -419,7 +425,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     --defsym=__heap_size__=0x400 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1166xxxxx_cm7_ram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1166xxxxx_cm7_ram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG} \
@@ -450,7 +456,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     --defsym=__heap_size__=0x400 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1166xxxxx_cm7_flexspi_nor.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1166xxxxx_cm7_flexspi_nor.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE} \
@@ -480,7 +486,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     --defsym=__heap_size__=0x400 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1166xxxxx_cm7_flexspi_nor.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1166xxxxx_cm7_flexspi_nor.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -510,7 +516,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     --defsym=__heap_size__=0x400 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1166xxxxx_cm7_ram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1166xxxxx_cm7_ram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_SDRAM_DEBUG} \
@@ -541,7 +547,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_DEBUG " \
     --defsym=__heap_size__=0x400 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1166xxxxx_cm7_sdram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1166xxxxx_cm7_sdram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_SDRAM_RELEASE} \
@@ -571,5 +577,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_RELEASE " \
     --defsym=__heap_size__=0x400 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1166xxxxx_cm7_sdram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1166xxxxx_cm7_sdram.ld\" -static \
 ")

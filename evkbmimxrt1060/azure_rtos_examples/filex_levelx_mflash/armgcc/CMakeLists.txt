@@ -38,7 +38,7 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(filex_levelx_mflash)
 
-set(MCUX_BUILD_TYPES debug release flexspi_nor_debug flexspi_nor_release)
+set(MCUX_BUILD_TYPES flexspi_nor_release debug release flexspi_nor_debug)
 
 set(MCUX_SDK_PROJECT_NAME filex_levelx_mflash.elf)
 

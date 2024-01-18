@@ -392,7 +392,11 @@ int main(void)
 {
     DMA_Type *dmaBases[] = DMA_BASE_PTRS;
 
-    BOARD_InitBootPins();
+	RESET_ClearPeripheralReset(kHSGPIO0_RST_SHIFT_RSTn);
+    RESET_ClearPeripheralReset(kHSGPIO3_RST_SHIFT_RSTn);
+    RESET_ClearPeripheralReset(kHSGPIO4_RST_SHIFT_RSTn);
+
+	BOARD_InitBootPins();
     BOARD_InitBootClocks();
 
     BOARD_I3C_ReleaseBus();
@@ -400,15 +404,22 @@ int main(void)
 
     APP_InitAppDebugConsole();
 
-    /* Set FlexSPI clock: source AUX0_PLL, divide by 4 */
-    BOARD_SetFlexspiClock(FLEXSPI0, 2U, 4U);
-    DMA_Init(dmaBases[EXAMPLE_DMA_INSTANCE]);
+
+#if defined(WIFI_88W8987_BOARD_MURATA_1ZM_M2)
+    CLOCK_EnableOsc32K(true);               /* Enable 32KHz Oscillator clock */
+    CLOCK_EnableClock(kCLOCK_Rtc);          /* Enable the RTC peripheral clock */
+    RTC->CTRL &= ~RTC_CTRL_SWRESET_MASK;    /* Make sure the reset bit is cleared */
+    RTC->CTRL &= ~RTC_CTRL_RTC_OSC_PD_MASK; /* The RTC Oscillator is powered up */
+#endif
+
     /* Set FlexSPI clock: source AUX0_PLL, divide by 4 */
     BOARD_SetFlexspiClock(FLEXSPI0, 2U, 4U);
 
     /* attach FRG0 clock to FLEXCOMM0*/
     CLOCK_SetFRGClock(BOARD_BT_UART_FRG_CLK);
     CLOCK_AttachClk(BOARD_BT_UART_CLK_ATTACH);
+
+    DMA_Init(dmaBases[EXAMPLE_DMA_INSTANCE]);
 
 #if (((defined(CONFIG_BT_SMP)) && (CONFIG_BT_SMP)))
     CRYPTO_InitHardware();

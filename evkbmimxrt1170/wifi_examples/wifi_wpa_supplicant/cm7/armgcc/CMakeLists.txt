@@ -51,11 +51,12 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${ProjDirPath}/../app_config.h"
+"${ProjDirPath}/../host_sleep.c"
+"${ProjDirPath}/../host_sleep.h"
+"${ProjDirPath}/../lwipopts.h"
 "${ProjDirPath}/../main.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
-"${ProjDirPath}/../lwipopts.h"
 "${ProjDirPath}/../lwippools.h"
 "${ProjDirPath}/../lwiphooks.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
@@ -64,6 +65,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../sdmmc_config.h"
 "${ProjDirPath}/../wifi_bt_config.c"
 "${ProjDirPath}/../wifi_bt_config.h"
+"${ProjDirPath}/../app_config.h"
 "${SdkRootDirPath}/core/boards/evkbmimxrt1170/board.c"
 "${SdkRootDirPath}/core/boards/evkbmimxrt1170/board.h"
 "${SdkRootDirPath}/core/boards/evkbmimxrt1170/clock_config.c"
@@ -79,7 +81,6 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/examples/evkbmimxrt1170/wifi_examples/common/cm7
 )
 
-set_source_files_properties("${ProjDirPath}/../app_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
 set_source_files_properties("${ProjDirPath}/../lwipopts.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_lwip_template")
 set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")
 set_source_files_properties("${ProjDirPath}/../wifi_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
@@ -87,6 +88,7 @@ set_source_files_properties("${ProjDirPath}/../sdmmc_config.c" PROPERTIES COMPON
 set_source_files_properties("${ProjDirPath}/../sdmmc_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_sdmmc_usdhc_template")
 set_source_files_properties("${ProjDirPath}/../wifi_bt_config.c" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
 set_source_files_properties("${ProjDirPath}/../wifi_bt_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
+set_source_files_properties("${ProjDirPath}/../app_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
 
 if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
      target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="wpa_supp_mbedtls_config.h")

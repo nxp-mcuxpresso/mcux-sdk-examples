@@ -155,8 +155,6 @@ int main(void)
     ARM_ETH_LINK_INFO linkInfo;
 
     /* Hardware Initialization. */
-    gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
-
     /* Hardware Initialization. */
     BOARD_ConfigMPU();
     BOARD_InitPins();
@@ -166,13 +164,8 @@ int main(void)
 
     IOMUXC_GPR->GPR5 |= IOMUXC_GPR_GPR5_ENET1G_RGMII_EN_MASK; /* bit1:iomuxc_gpr_enet_clk_dir
                                                                  bit0:GPR_ENET_TX_CLK_SEL(internal or OSC) */
-    GPIO_PinInit(GPIO11, 14, &gpio_config);
-    /* For a complete PHY reset of RTL8211FDI-CG, this pin must be asserted low for at least 10ms. And
-     * wait for a further 30ms(for internal circuits settling time) before accessing the PHY register */
-    GPIO_WritePinOutput(GPIO11, 14, 0);
-    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
-    GPIO_WritePinOutput(GPIO11, 14, 1);
-    SDK_DelayAtLeastUs(30000, CLOCK_GetFreq(kCLOCK_CpuClk));
+    /* Hardware reset PHY. */
+    BOARD_ENET_PHY1_RESET;
 
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_1_IRQn);
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_2_IRQn);

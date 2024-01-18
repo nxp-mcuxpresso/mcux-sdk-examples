@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2022 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -52,6 +52,7 @@ static void PWM_DRV_Init3PhPwm(void)
     pwmSignal[0].dutyCyclePercent = 50; /* 1 percent dutycycle */
     pwmSignal[0].deadtimeValue    = deadTimeVal;
     pwmSignal[0].faultState       = kPWM_PwmFaultState0;
+    pwmSignal[0].pwmchannelenable = true;
 
     pwmSignal[1].pwmChannel = kPWM_PwmB;
     pwmSignal[1].level      = kPWM_HighTrue;
@@ -59,18 +60,29 @@ static void PWM_DRV_Init3PhPwm(void)
     pwmSignal[1].dutyCyclePercent = 50;
     pwmSignal[1].deadtimeValue    = deadTimeVal;
     pwmSignal[1].faultState       = kPWM_PwmFaultState0;
+    pwmSignal[1].pwmchannelenable = true;
 
     /*********** PWMA_SM0 - phase A, configuration, setup 2 channel as an example ************/
     PWM_SetupPwm(BOARD_PWM_BASEADDR, kPWM_Module_0, pwmSignal, 2, kPWM_SignedCenterAligned, pwmFrequencyInHz,
                  pwmSourceClockInHz);
 
     /*********** PWMA_SM1 - phase B configuration, setup PWM A channel only ************/
+#ifdef DEMO_PWM_CLOCK_DEVIDER
+    PWM_SetupPwm(BOARD_PWM_BASEADDR, kPWM_Module_1, pwmSignal, 1, kPWM_SignedCenterAligned, pwmFrequencyInHz,
+                 pwmSourceClockInHz / (1 << DEMO_PWM_CLOCK_DEVIDER));
+#else
     PWM_SetupPwm(BOARD_PWM_BASEADDR, kPWM_Module_1, pwmSignal, 1, kPWM_SignedCenterAligned, pwmFrequencyInHz,
                  pwmSourceClockInHz);
+#endif
 
     /*********** PWMA_SM2 - phase C configuration, setup PWM A channel only ************/
+#ifdef DEMO_PWM_CLOCK_DEVIDER
+    PWM_SetupPwm(BOARD_PWM_BASEADDR, kPWM_Module_2, pwmSignal, 1, kPWM_SignedCenterAligned, pwmFrequencyInHz,
+                 pwmSourceClockInHz / (1 << DEMO_PWM_CLOCK_DEVIDER));
+#else
     PWM_SetupPwm(BOARD_PWM_BASEADDR, kPWM_Module_2, pwmSignal, 1, kPWM_SignedCenterAligned, pwmFrequencyInHz,
                  pwmSourceClockInHz);
+#endif
 }
 
 /*!
@@ -92,9 +104,6 @@ int main(void)
     BOARD_InitPins();
     BOARD_BootClockPLL150M();
     BOARD_InitDebugConsole();
-
-    SYSCON->PWM1SUBCTL |=
-        (SYSCON_PWM1SUBCTL_CLK0_EN_MASK | SYSCON_PWM1SUBCTL_CLK1_EN_MASK | SYSCON_PWM1SUBCTL_CLK2_EN_MASK);
 
     PRINTF("FlexPWM driver example\n");
 

@@ -51,7 +51,6 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -DMCUXPRESSO_SDK \
     -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
-    -DEIQ_GUI_PRINTF \
     -Os \
     -fno-strict-aliasing \
     -Wno-unused-function \
@@ -91,7 +90,6 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -DMCUXPRESSO_SDK \
     -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
-    -DEIQ_GUI_PRINTF \
     -g \
     -O0 \
     -fno-strict-aliasing \
@@ -121,7 +119,6 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -DPRINTF_ADVANCED_ENABLE=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DMCUXPRESSO_SDK \
-    -DEIQ_GUI_PRINTF \
     -O2 \
     -mcpu=cortex-m7 \
     -Wall \
@@ -149,7 +146,6 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -DPRINTF_ADVANCED_ENABLE=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DMCUXPRESSO_SDK \
-    -DEIQ_GUI_PRINTF \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -200,7 +196,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1166xxxxx_cm7_flexspi_nor_sdram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1166xxxxx_cm7_flexspi_nor_sdram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG} \
@@ -235,5 +231,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1166xxxxx_cm7_flexspi_nor_sdram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1166xxxxx_cm7_flexspi_nor_sdram.ld\" -static \
 ")

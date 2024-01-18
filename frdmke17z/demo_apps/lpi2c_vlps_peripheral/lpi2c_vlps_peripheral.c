@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020, 2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -29,12 +29,20 @@
 /* Accelerometer Reset PIN */
 #define ACCEL_RESET_GPIO (GPIOB)
 #define ACCEL_RESET_PIN  (9U)
+/* FXLS8974 */
+#if defined(DEMO_ACCEL_FXLS8974) && (DEMO_ACCEL_FXLS8974 != 0U)
+#define ACCEL_REG_OUT_X_MSB    0x04 /* OUT_X_LSB_REG for FXLS8974 */
+#define ACCEL_REG_WHO_AM_I     0x13
+#define ACCEL_REG_CTRL1        0x15
+#define ACCEL_REG_CTRL2        0x16
+#else
 /* FXOS8700 and MMA8451 have the same register address */
 #define ACCEL_REG_OUT_X_MSB    0x01
 #define ACCEL_REG_WHO_AM_I     0x0D
 #define ACCEL_REG_CTRL1        0x2A
 #define ACCEL_REG_CTRL2        0x2B
 #define ACCEL_REG_XYZ_DATA_CFG 0x0E
+#endif
 
 #define LPI2C_READ           1
 #define LPI2C_WRITE          0
@@ -154,10 +162,15 @@ static void DEMO_ACCEL_Init(void)
 
     /* Put ACCEL into standby mode */
     DEMO_ACCEL_WriteReg(ACCEL_REG_CTRL1, 0x0U);
+#if defined(DEMO_ACCEL_FXLS8974) && (DEMO_ACCEL_FXLS8974 != 0U)
+    /* Configure the data range, put ACCEL out of the standby, active to sampling */
+    DEMO_ACCEL_WriteReg(ACCEL_REG_CTRL1, 0x03U);
+#else
     /* Configure the data range */
     DEMO_ACCEL_WriteReg(ACCEL_REG_XYZ_DATA_CFG, 0x01U);
     /* Put ACCEL out of the standby, active to sampling, normal read mode */
     DEMO_ACCEL_WriteReg(ACCEL_REG_CTRL1, 0xDU);
+#endif
 }
 
 static void DEMO_ACCEL_ReadData(void)
@@ -294,7 +307,7 @@ int main(void)
 
     BOARD_InitBootPeripherals();
 
-    /* Init the FXOS8700 accelerometer */
+    /* Init the accelerometer */
     DEMO_ACCEL_Init();
 
     /* Enable all power mode*/
@@ -314,10 +327,17 @@ int main(void)
         }
         gDmaDone = false;
 
+#if defined(DEMO_ACCEL_FXLS8974) && (DEMO_ACCEL_FXLS8974 != 0U)
+        /* Calculate X, Y, Z value */
+        xData = ((int16_t)(((recvData[1] << 8U) | recvData[0])));
+        yData = ((int16_t)(((recvData[3] << 8U) | recvData[2])));
+        zData = ((int16_t)(((recvData[5] << 8U) | recvData[4])));
+#else
         /* Calculate X, Y, Z value */
         xData = ((int16_t)(((recvData[0] * 255U) | recvData[1]))) / 4;
         yData = ((int16_t)(((recvData[2] * 255U) | recvData[3]))) / 4;
         zData = ((int16_t)(((recvData[4] * 255U) | recvData[5]))) / 4;
+#endif
 
         /* Output data*/
         PRINTF("X:%5d,  Y:%5d,  Z:%5d\r\n", xData, yData, zData);

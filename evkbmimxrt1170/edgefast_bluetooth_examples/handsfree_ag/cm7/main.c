@@ -51,7 +51,8 @@
 #define USB_HOST_INTERRUPT_PRIORITY (3U)
 #endif
 /* M2 wifi reset pin */
-#if defined(WIFI_88W8987_BOARD_MURATA_1ZM_M2) || defined(WIFI_IW416_BOARD_MURATA_1XK_M2)
+#if (defined(WIFI_88W8987_BOARD_MURATA_1ZM_M2) || defined(WIFI_IW416_BOARD_MURATA_1XK_M2) || \
+     defined(WIFI_IW612_BOARD_MURATA_2EL_M2))
 /* Note: R404 needs to be populated on RT1160/1170 EVK. */
 /* Write GPIO pin value on GPIO_AD_31 (pin J17) -- WL_RST line */
 #define M2_WIFI_RESET_GPIO     GPIO9
@@ -331,7 +332,8 @@ uint32_t BOARD_SwitchAudioFreq(uint32_t sampleRate)
         /* Enable MCLK output */
         IOMUXC_GPR->GPR0 |= IOMUXC_GPR_GPR0_SAI1_MCLK_DIR_MASK;
     }
-
+    wm8962ScoConfig.format.sampleRate             = sampleRate;
+    wm8962ScoConfig.format.mclk_HZ                = DEMO_SAI_CLK_FREQ;
     return DEMO_SAI_CLK_FREQ;
 }
 
@@ -340,7 +342,8 @@ void BOARD_InitScoPins(void)
 }
 
 
-#if (defined(WIFI_88W8987_BOARD_MURATA_1ZM_M2) || defined(WIFI_IW416_BOARD_MURATA_1XK_M2))
+#if (defined(WIFI_88W8987_BOARD_MURATA_1ZM_M2) || defined(WIFI_IW416_BOARD_MURATA_1XK_M2) || \
+     defined(WIFI_IW612_BOARD_MURATA_2EL_M2))
 int controller_hci_uart_get_configuration(controller_hci_uart_config_t *config)
 {
     if (NULL == config)

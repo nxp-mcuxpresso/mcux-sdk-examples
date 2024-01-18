@@ -48,7 +48,6 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DCPU_MIMXRT685SFVKB_cm33 \
     -DBOOT_HEADER_ENABLE=1 \
     -DMCUXPRESSO_SDK \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DSDK_OS_FREE_RTOS \
     -g \
     -O0 \
@@ -73,7 +72,6 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DCPU_MIMXRT685SFVKB_cm33 \
     -DBOOT_HEADER_ENABLE=1 \
     -DMCUXPRESSO_SDK \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DSDK_OS_FREE_RTOS \
     -Os \
     -mcpu=cortex-m33 \
@@ -98,7 +96,6 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -DCPU_MIMXRT685SFVKB_cm33 \
     -DBOOT_HEADER_ENABLE=1 \
     -DMCUXPRESSO_SDK \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DSDK_OS_FREE_RTOS \
     -g \
     -O0 \
@@ -124,7 +121,6 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -DCPU_MIMXRT685SFVKB_cm33 \
     -DBOOT_HEADER_ENABLE=1 \
     -DMCUXPRESSO_SDK \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DSDK_OS_FREE_RTOS \
     -Os \
     -mcpu=cortex-m33 \
@@ -146,7 +142,6 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     ${CMAKE_CXX_FLAGS_DEBUG} \
     -DDEBUG \
     -DMCUXPRESSO_SDK \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m33 \
@@ -169,7 +164,6 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     ${CMAKE_CXX_FLAGS_RELEASE} \
     -DNDEBUG \
     -DMCUXPRESSO_SDK \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m33 \
     -Wall \
@@ -191,7 +185,6 @@ SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
     ${CMAKE_CXX_FLAGS_FLASH_DEBUG} \
     -DDEBUG \
     -DMCUXPRESSO_SDK \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
     -mcpu=cortex-m33 \
@@ -214,7 +207,6 @@ SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
     ${CMAKE_CXX_FLAGS_FLASH_RELEASE} \
     -DNDEBUG \
     -DMCUXPRESSO_SDK \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m33 \
     -Wall \
@@ -257,7 +249,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT685Sxxxx_cm33_ram_ns.ld -static \
+    -T\"${ProjDirPath}/MIMXRT685Sxxxx_cm33_ram_ns.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -283,7 +275,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT685Sxxxx_cm33_ram_ns.ld -static \
+    -T\"${ProjDirPath}/MIMXRT685Sxxxx_cm33_ram_ns.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG} \
@@ -310,7 +302,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash_ns.ld -static \
+    -T\"${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash_ns.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE} \
@@ -336,5 +328,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash_ns.ld -static \
+    -T\"${ProjDirPath}/MIMXRT685Sxxxx_cm33_flash_ns.ld\" -static \
 ")

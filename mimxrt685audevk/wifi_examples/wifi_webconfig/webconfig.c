@@ -622,6 +622,7 @@ int main(void)
 {
     /* Initialize the hardware */
     BOARD_InitBootPins();
+    BOARD_InitPinsM2();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 

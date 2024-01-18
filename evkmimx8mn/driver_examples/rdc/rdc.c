@@ -20,7 +20,7 @@
 #define APP_CUR_MASTER      kRDC_Master_M7
 #define APP_CUR_MASTER_DID  BOARD_DOMAIN_ID /* Current master domain ID. */
 #define APP_RDC_PERIPH      kRDC_Periph_GPIO1
-#define APP_RDC_SEMA42      RDC_SEMAPHORE1 /* Current master domain ID. */
+#define APP_RDC_SEMA42      RDC_SEMAPHORE1  /* Current master domain ID. */
 #define APP_RDC_SEMA42_GATE (((uint8_t)APP_RDC_PERIPH) & 0x3F)
 
 /* OCRAM is used for demonstration here. */

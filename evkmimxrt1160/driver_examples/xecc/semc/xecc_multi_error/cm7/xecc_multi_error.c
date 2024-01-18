@@ -65,7 +65,7 @@ status_t BOARD_InitSEMC(void)
     sdramconfig.tAct2Prechage_Ns       = 40; /* tRAS 40ns */
     sdramconfig.tSelfRefRecovery_Ns    = 70;
     sdramconfig.tRefresh2Refresh_Ns    = 60;
-    sdramconfig.tAct2Act_Ns            = 2; /* tRC/tRDD 2ns */
+    sdramconfig.tAct2Act_Ns            = 2;                   /* tRC/tRDD 2ns */
     sdramconfig.tPrescalePeriod_Ns     = 160 * (1000000000 / clockFrq);
     sdramconfig.refreshPeriod_nsPerRow = 64 * 1000000 / 8192; /* 64ms/8192 */
     sdramconfig.refreshUrgThreshold    = sdramconfig.refreshPeriod_nsPerRow;

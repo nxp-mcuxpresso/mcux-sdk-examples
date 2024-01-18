@@ -40,17 +40,17 @@ const scg_sosc_config_t app_scgSysOscConfig = {.freq        = BOARD_XTAL0_CLK_HZ
                                                .capLoad     = 0U,
                                                .workMode    = kSCG_SysOscModeOscLowPower};
 const scg_sirc_config_t app_scgSircConfig   = {.enableMode = kSCG_SircEnable | kSCG_SircEnableInLowPower,
-                                             .div1       = kSCG_AsyncClkDisable,
-                                             .div2       = kSCG_AsyncClkDisable,
-                                             .div3       = kSCG_AsyncClkDivBy2,
-                                             .range      = kSCG_SircRangeHigh};
+                                               .div1       = kSCG_AsyncClkDisable,
+                                               .div2       = kSCG_AsyncClkDisable,
+                                               .div3       = kSCG_AsyncClkDivBy2,
+                                               .range      = kSCG_SircRangeHigh};
 const scg_firc_config_t app_scgFircConfig   = {
-    .enableMode = kSCG_FircEnable | kSCG_FircEnableInStop | kSCG_FircEnableInLowPower,
-    .div3       = kSCG_AsyncClkDivBy1,
-    .div2       = kSCG_AsyncClkDisable,
-    .div1       = kSCG_AsyncClkDivBy1,
-    .range      = kSCG_FircRange48M,
-    .trimConfig = NULL};
+      .enableMode = kSCG_FircEnable | kSCG_FircEnableInStop | kSCG_FircEnableInLowPower,
+      .div3       = kSCG_AsyncClkDivBy1,
+      .div2       = kSCG_AsyncClkDisable,
+      .div1       = kSCG_AsyncClkDivBy1,
+      .range      = kSCG_FircRange48M,
+      .trimConfig = NULL};
 const scg_sys_clk_config_t app_sysClkConfigRun = {
     .divSlow = kSCG_SysClkDivBy2, .divCore = kSCG_SysClkDivBy1, .src = kSCG_SysClkSrcFirc};
 void APP_BootClockRUN(void)

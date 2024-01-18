@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -11,7 +11,8 @@
 #include "board.h"
 #include "erpc_client_setup.h"
 #include "erpc_error_handler.h"
-#include "erpc_matrix_multiply.h"
+#include "c_erpc_matrix_multiply_client.h"
+#include "erpc_matrix_multiply_common.h"
 
 #include "fsl_uart_cmsis.h"
 /*******************************************************************************
@@ -20,7 +21,7 @@
 #define BUTTON_INIT()       GPIO_PinInit(BOARD_SW2_GPIO, BOARD_SW2_GPIO_PIN, &button_config)
 #define IS_BUTTON_PRESSED() !GPIO_PinRead(BOARD_SW2_GPIO, BOARD_SW2_GPIO_PIN)
 #define ERPC_DEMO_UART      Driver_USART1
-#define MATRIX_ITEM_MAX_VALUE 50
+#define MATRIX_ITEM_MAX_VALUE (50)
 
 /*******************************************************************************
  * Variables
@@ -62,7 +63,7 @@ static void fill_matrices(Matrix matrix1_ptr, Matrix matrix2_ptr)
 /*!
  * @brief Main function
  */
-int main()
+int main(void)
 {
     Matrix matrix1 = {0}, matrix2 = {0}, result_matrix = {0};
 
@@ -91,6 +92,7 @@ int main()
     /* eRPC client side initialization */
     erpc_client_t client;
     client = erpc_client_init(transport, message_buffer_factory);
+    initMatrixMultiplyService_client(client);
 
     /* Set default error handler */
     erpc_client_set_error_handler(client, erpc_error_handler);

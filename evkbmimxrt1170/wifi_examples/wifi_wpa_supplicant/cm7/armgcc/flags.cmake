@@ -50,8 +50,8 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DLWIP_NETIF_HOSTNAME=1 \
     -DLWIP_NETIF_STATUS_CALLBACK=1 \
     -DLWIP_IGMP=1 \
-    -DCACHE_MODE_WRITE_THROUGH=1 \
     -DCRYPTO_USE_DRIVER_CAAM \
+    -DCACHE_MODE_WRITE_THROUGH=1 \
     -g \
     -O0 \
     -mcpu=cortex-m7 \
@@ -91,8 +91,8 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -DLWIP_NETIF_HOSTNAME=1 \
     -DLWIP_NETIF_STATUS_CALLBACK=1 \
     -DLWIP_IGMP=1 \
-    -DCACHE_MODE_WRITE_THROUGH=1 \
     -DCRYPTO_USE_DRIVER_CAAM \
+    -DCACHE_MODE_WRITE_THROUGH=1 \
     -Os \
     -mcpu=cortex-m7 \
     -Wall \
@@ -189,7 +189,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     --defsym=__heap_size__=0x400 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/linker/MIMXRT1176xxxxx_cm7_flexspi_nor.ld -static \
+    -T\"${ProjDirPath}/linker/MIMXRT1176xxxxx_cm7_flexspi_nor.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE} \
@@ -221,5 +221,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     --defsym=__heap_size__=0x400 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/linker/MIMXRT1176xxxxx_cm7_flexspi_nor.ld -static \
+    -T\"${ProjDirPath}/linker/MIMXRT1176xxxxx_cm7_flexspi_nor.ld\" -static \
 ")

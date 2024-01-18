@@ -24,6 +24,16 @@
 #define STATIC_I2C_ADDR            0x69U
 #define I3C_TIME_OUT_INDEX         100000000U
 #define SENSOR_MIPI_VENDOR_ID      0x235U
+
+#ifndef EXAMPLE_I2C_BAUDRATE
+#define EXAMPLE_I2C_BAUDRATE 400000
+#endif
+#ifndef EXAMPLE_I3C_OD_BAUDRATE
+#define EXAMPLE_I3C_OD_BAUDRATE 6250000
+#endif
+#ifndef EXAMPLE_I3C_PP_BAUDRATE
+#define EXAMPLE_I3C_PP_BAUDRATE 12500000
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -84,7 +94,7 @@ status_t I3C_WriteSensor(uint8_t deviceAddress, uint8_t regAddress, uint8_t *reg
         __NOP();
     }
     result = g_completionStatus;
-    if (timeout == I3C_TIME_OUT_INDEX)
+    if (timeout > I3C_TIME_OUT_INDEX)
     {
         result = kStatus_Timeout;
     }
@@ -126,7 +136,7 @@ status_t I3C_ReadSensor(uint8_t deviceAddress, uint8_t regAddress, uint8_t *regD
         __NOP();
     }
     result = g_completionStatus;
-    if (timeout == I3C_TIME_OUT_INDEX)
+    if (timeout > I3C_TIME_OUT_INDEX)
     {
         result = kStatus_Timeout;
     }
@@ -202,8 +212,8 @@ int main(void)
 
     I3C_MasterGetDefaultConfig(&masterConfig);
     masterConfig.baudRate_Hz.i2cBaud          = EXAMPLE_I2C_BAUDRATE;
-    masterConfig.baudRate_Hz.i3cPushPullBaud  = 12500000U;
-    masterConfig.baudRate_Hz.i3cOpenDrainBaud = 4000000U;
+    masterConfig.baudRate_Hz.i3cPushPullBaud  = EXAMPLE_I3C_PP_BAUDRATE;
+    masterConfig.baudRate_Hz.i3cOpenDrainBaud = EXAMPLE_I3C_OD_BAUDRATE;
     masterConfig.enableOpenDrainStop          = false;
     I3C_MasterInit(EXAMPLE_MASTER, &masterConfig, I3C_MASTER_CLOCK_FREQUENCY);
 

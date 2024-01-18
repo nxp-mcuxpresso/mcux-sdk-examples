@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2020 NXP
+ * Copyright 2018-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -30,6 +30,8 @@
  ******************************************************************************/
 #define RPMSG_LITE_LINK_ID (RL_PLATFORM_LPC55S69_M33_M33_LINK_ID)
 
+#define NON_SECURE_START 0x00010000
+
 /* Address of RAM, where the image for core1 should be copied */
 #define CORE1_BOOT_ADDRESS 0x30033000
 
@@ -51,8 +53,6 @@ extern uint32_t core1_image_size;
 #define LOCAL_EPT_ADDR                (40U)
 #define APP_RPMSG_READY_EVENT_DATA    (1U)
 #define APP_RPMSG_EP_READY_EVENT_DATA (2U)
-
-#define NON_SECURE_START 0x00010000
 
 typedef struct the_message
 {
@@ -106,7 +106,7 @@ void SystemInitHook(void)
     /* The TrustZone should be configured as early as possible after RESET.
        Therefore it is called from SystemInit() during startup. The SystemInitHook()
        weak function overloading is used for this purpose. */
-    BOARD_InitTrustZone();
+    BOARD_InitBootTEE();
 
     /* Initialize MCMGR - low level multicore management library. Call this
        function as close to the reset entry as possible to allow CoreUp event

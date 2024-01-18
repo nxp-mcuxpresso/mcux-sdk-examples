@@ -194,17 +194,23 @@ static int ssi_ota_image_info(HTTPSRV_SSI_PARAM_STRUCT *param)
 
         for (int slot = 0; slot < 2; slot++)
         {
-            int faid                = image * 2 + slot;
-            struct flash_area *fa   = &boot_flash_map[faid];
-            uint32_t slotaddr       = fa->fa_off + BOOT_FLASH_BASE;
-            struct image_header *ih = (void *)slotaddr;
+            int faid              = image * 2 + slot;
+            struct flash_area *fa = &boot_flash_map[faid];
+            static struct image_header ih;
             char versionstr[40];
+            int slotused;
 
-            int slotused = ih->ih_magic == IMAGE_MAGIC;
+            status = mflash_drv_read(fa->fa_off, (uint32_t *)&ih, sizeof(ih));
+            if (status != kStatus_Success)
+            {
+                PRINTF("Failed to read image header/n");
+                return 0;
+            }
+            slotused = ih.ih_magic == IMAGE_MAGIC;
 
             if (slotused)
             {
-                struct image_version *iv = &ih->ih_ver;
+                struct image_version *iv = &ih.ih_ver;
                 snprintf(versionstr, sizeof(versionstr), "%u.%u.%u-%lu", iv->iv_major, iv->iv_minor, iv->iv_revision,
                          iv->iv_build_num);
             }
@@ -215,7 +221,7 @@ static int ssi_ota_image_info(HTTPSRV_SSI_PARAM_STRUCT *param)
             /* slot; name; version; size */
 
             snprintf(buf, sizeof(buf), "<td>%d</td><td>%s</td><td>%s</td><td>%lu</td>", faid, fa->fa_name,
-                     slotused ? versionstr : "-", slotused ? ih->ih_img_size : 0);
+                     slotused ? versionstr : "-", slotused ? ih.ih_img_size : 0);
             HTTPSRV_ssi_write(param->ses_handle, buf, strlen(buf));
 
             /* Primary slots only */
@@ -741,7 +747,7 @@ static void http_server_socket_init(void)
     httpsrv_handle = HTTPSRV_init(&params);
     if (httpsrv_handle == 0)
     {
-        LWIP_PLATFORM_DIAG(("HTTPSRV_init() is Failed"));
+        PRINTF(("HTTPSRV_init() is Failed\n"));
     }
 }
 
@@ -789,23 +795,24 @@ static void main_thread(void *arg)
 
 int main(void)
 {
+    RESET_ClearPeripheralReset(kHSGPIO0_RST_SHIFT_RSTn);
+    RESET_ClearPeripheralReset(kHSGPIO3_RST_SHIFT_RSTn);
+    RESET_ClearPeripheralReset(kHSGPIO4_RST_SHIFT_RSTn);
+
     BOARD_InitBootPins();
+    BOARD_InitPinsM2();
     BOARD_InitBootClocks();
     APP_InitAppDebugConsole();
-
-    /* Define the init structure for the OSPI reset pin*/
-    gpio_pin_config_t reset_config = {
-        kGPIO_DigitalOutput,
-        1,
-    };
-
-    /* Init output OSPI reset pin. */
-    GPIO_PortInit(GPIO, BOARD_FLASH_RESET_GPIO_PORT);
-    GPIO_PinInit(GPIO, BOARD_FLASH_RESET_GPIO_PORT, BOARD_FLASH_RESET_GPIO_PIN, &reset_config);
 
     /* Make sure casper ram buffer has power up */
     POWER_DisablePD(kPDRUNCFG_PPD_CASPER_SRAM);
     POWER_ApplyPD();
+
+    /* Configure 32K OSC clock. */
+    CLOCK_EnableOsc32K(true);               /* Enable 32KHz Oscillator clock */
+    CLOCK_EnableClock(kCLOCK_Rtc);          /* Enable the RTC peripheral clock */
+    RTC->CTRL &= ~RTC_CTRL_SWRESET_MASK;    /* Make sure the reset bit is cleared */
+    RTC->CTRL &= ~RTC_CTRL_RTC_OSC_PD_MASK; /* The RTC Oscillator is powered up */
     CRYPTO_InitHardware();
 
     mflash_drv_init();

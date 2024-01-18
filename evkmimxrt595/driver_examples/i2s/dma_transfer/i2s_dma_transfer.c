@@ -27,6 +27,7 @@
 #include "fsl_wm8904.h"
 #include "fsl_inputmux.h"
 #include "fsl_iopctl.h"
+#include "fsl_i2s_bridge.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -166,9 +167,11 @@ int main(void)
     wm8904Config.mclk_HZ                       = CLOCK_GetMclkClkFreq();
 
     /* Set shared signal set 0: SCK, WS from Flexcomm1 */
-    SYSCTL1->SHAREDCTRLSET[0] = SYSCTL1_SHAREDCTRLSET_SHAREDSCKSEL(1) | SYSCTL1_SHAREDCTRLSET_SHAREDWSSEL(1);
+    I2S_BRIDGE_SetShareSignalSrc(kI2S_BRIDGE_ShareSet0, kI2S_BRIDGE_SignalSCK, kI2S_BRIDGE_Flexcomm1);
+    I2S_BRIDGE_SetShareSignalSrc(kI2S_BRIDGE_ShareSet0, kI2S_BRIDGE_SignalWS, kI2S_BRIDGE_Flexcomm1);
     /* Set flexcomm3 SCK, WS from shared signal set 0 */
-    SYSCTL1->FCCTRLSEL[3] = SYSCTL1_FCCTRLSEL_SCKINSEL(1) | SYSCTL1_FCCTRLSEL_WSINSEL(1);
+    I2S_BRIDGE_SetFlexcommSignalShareSet(kI2S_BRIDGE_Flexcomm3, kI2S_BRIDGE_SignalSCK, kI2S_BRIDGE_ShareSet0);
+    I2S_BRIDGE_SetFlexcommSignalShareSet(kI2S_BRIDGE_Flexcomm3, kI2S_BRIDGE_SignalWS, kI2S_BRIDGE_ShareSet0);
 
     PRINTF("Configure codec\r\n");
 

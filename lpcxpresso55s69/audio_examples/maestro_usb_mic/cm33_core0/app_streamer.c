@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -9,7 +9,7 @@
 #include "fsl_debug_console.h"
 
 #include "app_streamer.h"
-#include "streamer_pcm_app.h"
+#include "streamer_pcm.h"
 #include "maestro_logging.h"
 #include "audio_microphone.h"
 
@@ -127,14 +127,16 @@ status_t STREAMER_mic_Create(streamer_handle_t *handle)
     osa_task_def_t thread_attr;
     ELEMENT_PROPERTY_T prop;
     int ret;
+    ElementIndex element_ids[]        = {ELEMENT_MICROPHONE_INDEX, ELEMENT_USB_SINK_INDEX};
+    PipelineElements pipelineElements = {element_ids, sizeof(element_ids) / sizeof(ElementIndex)};
 
     /* Create streamer */
     strcpy(params.out_mq_name, APP_STREAMER_MSG_QUEUE);
-    params.stack_size    = STREAMER_TASK_STACK_SIZE;
-    params.pipeline_type = STREAM_PIPELINE_PCM;
-    params.task_name     = STREAMER_TASK_NAME;
-    params.in_dev_name   = "microphone";
-    params.out_dev_name  = "";
+    params.stack_size   = STREAMER_TASK_STACK_SIZE;
+    params.task_name    = STREAMER_TASK_NAME;
+    params.in_dev_name  = "microphone";
+    params.out_dev_name = "";
+    params.elements     = pipelineElements;
 
     handle->streamer = streamer_create(&params);
     if (!handle->streamer)
@@ -154,24 +156,51 @@ status_t STREAMER_mic_Create(streamer_handle_t *handle)
     }
 
     /* Set the dummy tx */
-    prop.prop = PROP_AUDIOSRC_SET_DUMMY_TX_ENABLE;
+    prop.prop = PROP_MICROPHONE_SET_DUMMY_TX_ENABLE;
     prop.val  = true;
 
     streamer_set_property(handle->streamer, 0, prop, true);
 
-    prop.prop = PROP_AUDIOSRC_SET_SAMPLE_RATE;
+    prop.prop = PROP_MICROPHONE_SET_SAMPLE_RATE;
     prop.val  = AUDIO_SAMPLING_RATE;
 
     streamer_set_property(handle->streamer, 0, prop, true);
 
-    prop.prop = PROP_AUDIOSRC_SET_NUM_CHANNELS;
+    prop.prop = PROP_MICROPHONE_SET_NUM_CHANNELS;
     prop.val  = 1;
 
     streamer_set_property(handle->streamer, 0, prop, true);
 
-    prop.prop = PROP_AUDIOSRC_SET_FRAME_MS;
+    prop.prop = PROP_MICROPHONE_SET_FRAME_MS;
     prop.val  = 1;
 
+    streamer_set_property(handle->streamer, 0, prop, true);
+
+    EXT_AUDIOELEMENT_DESC_T appFunctions = {
+        .open_func      = streamer_pcm_rx_open,
+        .close_func     = streamer_pcm_rx_close,
+        .start_func     = NULL,
+        .process_func   = streamer_pcm_read,
+        .set_param_func = streamer_pcm_setparams,
+        .get_param_func = streamer_pcm_getparams,
+        .mute_func      = streamer_pcm_mute,
+        .volume_func    = NULL,
+    };
+    prop.prop = PROP_MICROPHONE_SET_APP_FUNCTIONS;
+    prop.val  = (uintptr_t)&appFunctions;
+    streamer_set_property(handle->streamer, 0, prop, true);
+
+    appFunctions.open_func      = NULL;
+    appFunctions.close_func     = NULL;
+    appFunctions.start_func     = NULL;
+    appFunctions.process_func   = streamer_pcm_write;
+    appFunctions.set_param_func = streamer_pcm_setparams;
+    appFunctions.get_param_func = streamer_pcm_getparams;
+    appFunctions.mute_func      = streamer_pcm_mute;
+    appFunctions.volume_func    = NULL;
+
+    prop.prop = PROP_USB_SINK_SET_APP_FUNCTIONS;
+    prop.val  = (uintptr_t)&appFunctions;
     streamer_set_property(handle->streamer, 0, prop, true);
 
     return kStatus_Success;

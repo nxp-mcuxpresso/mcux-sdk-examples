@@ -51,29 +51,32 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${SdkRootDirPath}/middleware/eiq/common/demo_info.h"
-"${SdkRootDirPath}/middleware/eiq/common/model/get_top_n.cpp"
-"${SdkRootDirPath}/middleware/eiq/common/model/get_top_n.h"
-"${SdkRootDirPath}/middleware/eiq/common/model/model.h"
-"${SdkRootDirPath}/middleware/eiq/common/model/output_postproc.h"
-"${SdkRootDirPath}/middleware/eiq/common/audio/audio.h"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/audio/kws_mfcc.cpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/audio/kws_mfcc.hpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/audio/mfcc.cpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/audio/mfcc.hpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/model.cpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws/output_postproc.cpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws/audio_data.h"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws/demo_config.h"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/demo_info.cpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws/labels.h"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws/main.cpp"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws/model_data.h"
-"${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws/model_ds_cnn_ops_micro.cpp"
-"${SdkRootDirPath}/middleware/eiq/common/timer.h"
-"${SdkRootDirPath}/middleware/eiq/common/timer.c"
+"${ProjDirPath}/../source/demo_info.h"
+"${ProjDirPath}/../source/model/get_top_n.cpp"
+"${ProjDirPath}/../source/model/get_top_n.h"
+"${ProjDirPath}/../source/model/model.h"
+"${ProjDirPath}/../source/model/output_postproc.h"
+"${ProjDirPath}/../source/audio/audio.h"
+"${ProjDirPath}/../source/audio/kws_mfcc.cpp"
+"${ProjDirPath}/../source/audio/kws_mfcc.hpp"
+"${ProjDirPath}/../source/audio/mfcc.cpp"
+"${ProjDirPath}/../source/audio/mfcc.hpp"
+"${ProjDirPath}/../source/model/model.cpp"
+"${ProjDirPath}/../source/model/output_postproc.cpp"
+"${ProjDirPath}/../source/audio_data.h"
+"${ProjDirPath}/../source/demo_config.h"
+"${ProjDirPath}/../source/demo_info.cpp"
+"${ProjDirPath}/../source/labels.h"
+"${ProjDirPath}/../source/main.cpp"
+"${ProjDirPath}/../source/model/model_data.h"
+"${ProjDirPath}/../source/model/model_ds_cnn_ops_micro.cpp"
+"${ProjDirPath}/../source/timer.h"
+"${ProjDirPath}/../source/timer.c"
 "${ProjDirPath}/../clock_config.c"
 "${ProjDirPath}/../clock_config.h"
+"${ProjDirPath}/../source/audio/audio_stream.h"
+"${ProjDirPath}/../source/audio/audio_stream.c"
+"${ProjDirPath}/../source/audio/audio_capture.cpp"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../board.c"
@@ -83,11 +86,9 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/kws
-    ${SdkRootDirPath}/middleware/eiq/tensorflow-lite/examples/common/audio
-    ${SdkRootDirPath}/middleware/eiq/common/audio
-    ${SdkRootDirPath}/middleware/eiq/common/model
-    ${SdkRootDirPath}/middleware/eiq/common
+    ${ProjDirPath}/../source
+    ${ProjDirPath}/../source/audio
+    ${ProjDirPath}/../source/model
     ${ProjDirPath}/..
 )
 

@@ -263,7 +263,6 @@ void TypicalSetPointTransition(void)
                 stbyEn    = true;
             }
 
-
             if (stbyEn)
             {
                 PowerModeTransition(cpuMode, targetSp, targetSp, wakeupSel, true);
@@ -274,12 +273,12 @@ void TypicalSetPointTransition(void)
 
             GPC_CM_RequestRunModeSetPointTransition(GPC_CPU_MODE_CTRL, targetSp);
             /* Polling until success to switch into target setpoint. */
-            while(GPC_SP_GetCurrentSetPoint(GPC_SET_POINT_CTRL) != targetSp)
+            while (GPC_SP_GetCurrentSetPoint(GPC_SET_POINT_CTRL) != targetSp)
             {
                 ;
             }
 
-            if(cpuMode != kGPC_RunMode)
+            if (cpuMode != kGPC_RunMode)
             {
                 APP_SetWakeupConfig();
                 PRINTF("Target CPU mode is %s\r\n", GET_CPU_MODE_NAME(cpuMode));
@@ -301,7 +300,7 @@ void TypicalSetPointTransition(void)
                 /* Change to previous setpoint. */
                 GPC_CM_RequestRunModeSetPointTransition(GPC_CPU_MODE_CTRL, currentSp);
                 /* Polling until success to switch into target setpoint. */
-                while(GPC_SP_GetCurrentSetPoint(GPC_SET_POINT_CTRL) != currentSp)
+                while (GPC_SP_GetCurrentSetPoint(GPC_SET_POINT_CTRL) != currentSp)
                 {
                     ;
                 }

@@ -48,7 +48,7 @@ static app_wakeup_source_t s_wakeupSource; /* Wakeup source.                 */
 static lpm_power_mode_t s_targetPowerMode;
 static lpm_power_mode_t s_curRunMode = LPM_PowerModeOverRun;
 static const char *s_modeNames[]     = {"Over RUN",    "Full Run",       "Low Speed Run", "Low Power Run",
-                                    "System Idle", "Low Power Idle", "Suspend",       "SNVS"};
+                                        "System Idle", "Low Power Idle", "Suspend",       "SNVS"};
 
 /*******************************************************************************
  * Code

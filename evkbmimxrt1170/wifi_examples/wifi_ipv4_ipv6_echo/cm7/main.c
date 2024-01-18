@@ -225,6 +225,7 @@ int main(void)
 
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
+    BOARD_InitPinsM2();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 

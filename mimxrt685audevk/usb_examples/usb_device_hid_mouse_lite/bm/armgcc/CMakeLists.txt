@@ -67,15 +67,13 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../usb_device_hid.c"
 "${ProjDirPath}/../usb_device_hid.h"
 "${ProjDirPath}/../usb_device_config.h"
-"${ProjDirPath}/../usb_hsdcd.c"
-"${ProjDirPath}/../usb_hsdcd.h"
-"${ProjDirPath}/../usb_charger_detect.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
 )
 
+set_source_files_properties("${ProjDirPath}/../usb_hsdcd_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_usb_hsdcd_config_header")
 set_source_files_properties("${ProjDirPath}/../usb_device_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_usb_device_ip3511hs_config_header")
 
 include(${SdkRootDirPath}/core/devices/MIMXRT685S/all_lib_device.cmake)

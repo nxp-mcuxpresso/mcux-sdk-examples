@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
+ * Copyright 2016-2023 NXP
  * All rights reserved.
  *
  *
@@ -50,7 +51,7 @@ int main(void)
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
-    PRINTF("LPCMP polling Example.\r\n");
+    PRINTF("LPCMP Polling Example.\r\n");
 
     /*
      *   k_LpcmpConfigStruct->enableStopMode      = false;
@@ -59,6 +60,7 @@ int main(void)
      *   k_LpcmpConfigStruct->enableInvertOutput  = false;
      *   k_LpcmpConfigStruct->hysteresisMode      = kLPCMP_HysteresisLevel0;
      *   k_LpcmpConfigStruct->powerMode           = kLPCMP_LowSpeedPowerMode;
+     *   k_LpcmpConfigStruct->functionalSourceClock = kLPCMP_FunctionalClockSource0;
      */
     LPCMP_GetDefaultConfig(&mLpcmpConfigStruct);
     /* Init the LPCMP module. */

@@ -54,7 +54,7 @@ typedef enum _app_power_mode
  */
 typedef struct power_user_config
 {
-    app_power_mode_t mode; /*!< Power mode. */
+    app_power_mode_t mode;       /*!< Power mode. */
 
     bool enablePorDetectInVlls0; /*!< true - Power on reset detection circuit is enabled in Very low leakage stop 0
                                     mode, false - Power on reset detection circuit is disabled. */

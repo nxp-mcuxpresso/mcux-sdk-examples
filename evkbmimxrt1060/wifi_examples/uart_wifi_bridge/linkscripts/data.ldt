@@ -1,0 +1,21 @@
+        *(.data.$${memory.alias})
+        *(.data.$${memory.name})
+        *(.data.$${memory.alias}.*)
+        *(.data.$${memory.name}.*)
+
+        <#if memory.name=="SRAM_ITC">
+        *queue.o(.text*)
+        *mlan_11n_rxreorder.o(.text*)
+        *lib_a-memcpy-stub.o(.text*)
+        *timers.o(.text*)
+        *fsl_usdhc.o(.text*)
+        *port.o(.text*)
+        *wifi-sdio.o(.text*)
+        *startup_mimxrt1062.o(.text*)
+        *fsl_sdio.o(.text*)
+        *pbuf.o(.text*)
+        *tasks.o(.text*)
+        *lib_a-memset.o(.text*)
+        *fsl_cache.o(.text*)
+        *wifi.o(.text*)
+        </#if>

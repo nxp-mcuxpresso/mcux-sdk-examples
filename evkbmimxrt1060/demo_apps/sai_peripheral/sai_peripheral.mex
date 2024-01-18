@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding= "UTF-8" ?>
-<configuration name="MIMXRT1062xxxxB" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.8 http://mcuxpresso.nxp.com/XSD/mex_configuration_1.8.xsd" uuid="1ec34ae8-cb94-405b-91e6-bfb09ee1ea60" version="1.8" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<configuration name="MIMXRT1062xxxxB" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_14 http://mcuxpresso.nxp.com/XSD/mex_configuration_14.xsd" uuid="1ec34ae8-cb94-405b-91e6-bfb09ee1ea60" version="14" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_14" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <common>
       <processor>MIMXRT1062xxxxB</processor>
       <package>MIMXRT1062DVL6B</package>
@@ -14,16 +14,18 @@
       <validate_boot_init_only>true</validate_boot_init_only>
       <generate_extended_information>false</generate_extended_information>
       <generate_code_modified_registers_only>false</generate_code_modified_registers_only>
+      <update_include_paths>true</update_include_paths>
+      <generate_registers_defines>false</generate_registers_defines>
    </preferences>
    <tools>
-      <pins name="Pins" version="8.0" enabled="true" update_project_code="true">
+      <pins name="Pins" version="13.1" enabled="true" update_project_code="true">
          <pins_profile>
-            <processor_version>0.8.11</processor_version>
-            <power_domains/>
+            <processor_version>0.14.9</processor_version>
             <pin_labels>
                <pin_label pin_num="J11" pin_signal="GPIO_AD_B1_00" label="I2C1_SCL/CSI_I2C_SCL/J35[20]/J23[6]/U13[17]/U32[4]" identifier="I2C_SCL_FXOS8700CQ;CSI_I2C_SCL;I2C1_SCL"/>
                <pin_label pin_num="K11" pin_signal="GPIO_AD_B1_01" label="I2C1_SDA/CSI_I2C_SDA/J35[22]/J23[5]/U13[18]/U32[6]" identifier="I2C_SDA_FXOS8700CQ;CSI_I2C_SDA;I2C1_SDA"/>
             </pin_labels>
+            <power_domains/>
          </pins_profile>
          <functions_list>
             <function name="BOARD_InitPins">
@@ -317,12 +319,12 @@
             </function>
          </functions_list>
       </pins>
-      <clocks name="Clocks" version="7.0" enabled="true" update_project_code="true">
+      <clocks name="Clocks" version="11.0" enabled="true" update_project_code="true">
          <clocks_profile>
-            <processor_version>0.8.11</processor_version>
+            <processor_version>0.14.9</processor_version>
          </clocks_profile>
          <clock_configurations>
-            <clock_configuration name="BOARD_BootClockRUN">
+            <clock_configuration name="BOARD_BootClockRUN" id_prefix="" prefix_user_defined="false">
                <description></description>
                <options/>
                <dependencies>
@@ -387,9 +389,7 @@
                   <clock_output id="CLK_1M.outFreq" value="1 MHz" locked="false" accuracy=""/>
                   <clock_output id="CLK_24M.outFreq" value="24 MHz" locked="false" accuracy=""/>
                   <clock_output id="CSI_CLK_ROOT.outFreq" value="12 MHz" locked="false" accuracy=""/>
-                  <clock_output id="ENET1_TX_CLK.outFreq" value="2.4 MHz" locked="false" accuracy=""/>
                   <clock_output id="ENET2_125M_CLK.outFreq" value="1.2 MHz" locked="false" accuracy=""/>
-                  <clock_output id="ENET2_TX_CLK.outFreq" value="1.2 MHz" locked="false" accuracy=""/>
                   <clock_output id="ENET_125M_CLK.outFreq" value="2.4 MHz" locked="false" accuracy=""/>
                   <clock_output id="ENET_25M_REF_CLK.outFreq" value="1.2 MHz" locked="false" accuracy=""/>
                   <clock_output id="FLEXIO1_CLK_ROOT.outFreq" value="30 MHz" locked="false" accuracy=""/>
@@ -470,7 +470,7 @@
       </clocks>
       <dcdx name="DCDx" version="3.0" enabled="true" update_project_code="true">
          <dcdx_profile>
-            <processor_version>0.8.11</processor_version>
+            <processor_version>0.14.9</processor_version>
             <output_format>c_array</output_format>
          </dcdx_profile>
          <dcdx_configurations>
@@ -611,31 +611,36 @@
             </dcdx_configuration>
          </dcdx_configurations>
       </dcdx>
-      <periphs name="Peripherals" version="8.0" enabled="true" update_project_code="true">
+      <periphs name="Peripherals" version="12.0" enabled="true" update_project_code="true">
          <dependencies>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.sai" description="SAI Driver not found in the toolchain/IDE project. Project will not compile!" problem_level="2" source="Peripherals">
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.sai" description="SAI Driver is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
                <feature name="enabled" evaluation="equal">
                   <data type="Boolean">true</data>
                </feature>
             </dependency>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.sai" description="Unsupported version of the SAI Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. Project might not compile correctly." problem_level="1" source="Peripherals">
-               <feature name="version" evaluation="equivalent">
-                  <data type="Version">2.2.1</data>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.sai" description="An unsupported version of the SAI Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="greaterOrEqual">
+                  <data type="Version">2.3.6</data>
                </feature>
             </dependency>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.edma" description="EDMA Driver not found in the toolchain/IDE project. Project will not compile!" problem_level="2" source="Peripherals">
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.edma" description="EDMA Driver is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
                <feature name="enabled" evaluation="equal">
                   <data type="Boolean">true</data>
                </feature>
             </dependency>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.edma" description="Unsupported version of the EDMA Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. Project might not compile correctly." problem_level="1" source="Peripherals">
-               <feature name="version" evaluation="equivalent">
-                  <data type="Version">2.1.1</data>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.edma" description="An unsupported version of the EDMA Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="greaterOrEqual">
+                  <data type="Version">2.4.0</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="Tool" resourceId="Clocks" description="The Clocks tool is required by the Peripherals tool, but it is disabled." problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data>true</data>
                </feature>
             </dependency>
          </dependencies>
          <peripherals_profile>
-            <processor_version>0.8.11</processor_version>
+            <processor_version>0.14.9</processor_version>
          </peripherals_profile>
          <functional_groups>
             <functional_group name="BOARD_InitPeripherals" uuid="96c1cec6-3bd3-47a2-8301-f38e4b0dd25f" called_from_default_init="true" id_prefix="" core="core0">
@@ -662,29 +667,29 @@
                         <data type="Boolean">true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="SWComponent" resourceId="platform.drivers.sai_edma" description="The fsl_sai_edma driver is missing in the project (required for the eDMA mode)." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.sai_edma" description="The fsl_sai_edma driver is missing in the project  (required for the eDMA mode)." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="enabled" evaluation="equal">
                         <data type="Boolean">true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="SWComponent" resourceId="platform.drivers.sai_edma" description="The compatible version of the fsl_sai_edma driver is not available in the project (required for the eDMA mode)." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.sai_edma" description="The compatible version of the fsl_sai_edma driver is not available in the project  (required for the eDMA mode)." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="version" evaluation="compatible">
                         <data type="Version">2.1.5</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="SWComponent" resourceId="platform.drivers.dmamux" description="The fsl_dmamux driver is missing in the project (required for the eDMA)." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.dmamux" description="The fsl_dmamux driver is missing in the project  (required for the eDMA)." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="enabled" evaluation="equal">
                         <data type="Boolean">true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="SWComponent" resourceId="platform.drivers.dmamux" description="The compatible version of the fsl_dmamux driver is not available in the project (required for the eDMA)." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.dmamux" description="The compatible version of the fsl_dmamux driver is not available in the project  (required for the eDMA)." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="version" evaluation="compatible">
                         <data type="Version">2.0.2</data>
                      </feature>
                   </dependency>
                </dependencies>
                <instances>
-                  <instance name="DEMO_SAI" uuid="286c4547-f2b7-4dfd-9575-14e7bb343e04" type="sai" type_id="sai_930e9b093093df3f492b3fa05284d81f" mode="edma" peripheral="SAI1" enabled="true" comment="" custom_name_enabled="true">
+                  <instance name="DEMO_SAI" uuid="286c4547-f2b7-4dfd-9575-14e7bb343e04" type="sai" type_id="sai_d277a9f96e6a702cd0cbe3311dc8aff9" mode="edma" peripheral="SAI1" enabled="true" comment="" custom_name_enabled="true" editing_lock="false">
                      <config_set name="fsl_sai">
                         <setting name="usage" value="record_playback"/>
                         <array name="signal_config">
@@ -717,6 +722,7 @@
                                     <setting name="frameSyncWidthM" value="16"/>
                                     <setting name="frameSyncPolarityM" value="kSAI_PolarityActiveHigh"/>
                                     <setting name="frameSyncEarlyM" value="true"/>
+                                    <setting name="frameSyncGenerateOnDemandM" value="false"/>
                                  </struct>
                                  <setting name="sampleRate_Hz" value="kSAI_SampleRate16KHz"/>
                                  <set name="channelMask">
@@ -772,6 +778,7 @@
                                  </struct>
                                  <struct name="fifo">
                                     <setting name="fifoWatermarkM" value="16"/>
+                                    <setting name="fifoCombine" value="kSAI_FifoCombineDisabled"/>
                                     <setting name="fifoPacking" value="kSAI_FifoPackingDisabled"/>
                                     <setting name="fifoContinueOneError" value="true"/>
                                  </struct>
@@ -779,6 +786,7 @@
                               <struct name="edma_group">
                                  <setting name="enable_edma_channel" value="true"/>
                                  <struct name="edma_channel">
+                                    <setting name="uid" value="1695105285593"/>
                                     <setting name="eDMAn" value="0"/>
                                     <setting name="eDMA_source" value="kDmaRequestMuxSai1Tx"/>
                                     <setting name="enableTriggerPIT" value="false"/>
@@ -794,6 +802,11 @@
                                  <struct name="sai_edma_handle">
                                     <setting name="enable_custom_name" value="true"/>
                                     <setting name="handle_custom_name" value="txHandle"/>
+                                    <struct name="placement">
+                                       <setting name="section" value="quickAccess"/>
+                                       <setting name="zeroInitialize" value="false"/>
+                                       <setting name="align" value="32"/>
+                                    </struct>
                                     <setting name="init_callback" value="true"/>
                                     <setting name="callback_fcn" value="txCallback"/>
                                     <setting name="user_data" value=""/>
@@ -814,6 +827,7 @@
                                     <setting name="frameSyncWidthM" value="16"/>
                                     <setting name="frameSyncPolarityM" value="kSAI_PolarityActiveLow"/>
                                     <setting name="frameSyncEarlyM" value="true"/>
+                                    <setting name="frameSyncGenerateOnDemandM" value="false"/>
                                  </struct>
                                  <setting name="sampleRate_Hz" value="kSAI_SampleRate16KHz"/>
                                  <set name="channelMask">
@@ -869,6 +883,7 @@
                                  </struct>
                                  <struct name="fifo">
                                     <setting name="fifoWatermarkM" value="16"/>
+                                    <setting name="fifoCombine" value="kSAI_FifoCombineDisabled"/>
                                     <setting name="fifoPacking" value="kSAI_FifoPackingDisabled"/>
                                     <setting name="fifoContinueOneError" value="true"/>
                                  </struct>
@@ -876,6 +891,7 @@
                               <struct name="edma_group">
                                  <setting name="enable_edma_channel" value="true"/>
                                  <struct name="edma_channel">
+                                    <setting name="uid" value="1695105285637"/>
                                     <setting name="eDMAn" value="1"/>
                                     <setting name="eDMA_source" value="kDmaRequestMuxSai1Rx"/>
                                     <setting name="enableTriggerPIT" value="false"/>
@@ -891,6 +907,11 @@
                                  <struct name="sai_edma_handle">
                                     <setting name="enable_custom_name" value="true"/>
                                     <setting name="handle_custom_name" value="rxHandle"/>
+                                    <struct name="placement">
+                                       <setting name="section" value="quickAccess"/>
+                                       <setting name="zeroInitialize" value="false"/>
+                                       <setting name="align" value="32"/>
+                                    </struct>
                                     <setting name="init_callback" value="true"/>
                                     <setting name="callback_fcn" value="rxCallback"/>
                                     <setting name="user_data" value=""/>
@@ -900,12 +921,13 @@
                         </struct>
                      </config_set>
                   </instance>
-                  <instance name="DEMO_eDMA" uuid="07753ca9-285e-4589-bfc8-693605b0d805" type="edma" type_id="edma_a23fca76a894e1bcdf9d01a687505ff9" mode="basic" peripheral="DMA0" enabled="true" comment="" custom_name_enabled="true">
-                     <config_set name="fsl_edma" quick_selection="default">
+                  <instance name="DEMO_eDMA" uuid="07753ca9-285e-4589-bfc8-693605b0d805" type="edma" type_id="edma_46976c94302ab714c0d335f519487c8a" mode="basic" peripheral="DMA0" enabled="true" comment="" custom_name_enabled="true" editing_lock="false">
+                     <config_set name="fsl_edma">
                         <struct name="common_settings">
+                           <setting name="enableMinorLoopMapping" value="true"/>
                            <setting name="enableContinuousLinkMode" value="false"/>
                            <setting name="enableHaltOnError" value="true"/>
-                           <setting name="enableRoundRobinArbitration" value="false"/>
+                           <setting name="ERCA" value="fixedPriority"/>
                            <setting name="enableDebugMode" value="false"/>
                         </struct>
                         <array name="dma_table">
@@ -913,6 +935,22 @@
                            <struct name="1"/>
                         </array>
                         <array name="edma_channels"/>
+                        <struct name="errInterruptConfig">
+                           <setting name="enableErrInterrupt" value="false"/>
+                           <struct name="errorInterrupt">
+                              <setting name="IRQn" value="DMA_ERROR_IRQn"/>
+                              <setting name="enable_interrrupt" value="enabled"/>
+                              <setting name="enable_priority" value="false"/>
+                              <setting name="priority" value="0"/>
+                              <setting name="enable_custom_name" value="false"/>
+                           </struct>
+                        </struct>
+                     </config_set>
+                  </instance>
+                  <instance name="NVIC" uuid="e1e8d69b-285d-4d10-b483-58aee071a24c" type="nvic" type_id="nvic_57b5eef3774cc60acaede6f5b8bddc67" mode="general" peripheral="NVIC" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="nvic">
+                        <array name="interrupt_table"/>
+                        <array name="interrupts"/>
                      </config_set>
                   </instance>
                </instances>
@@ -920,7 +958,10 @@
          </functional_groups>
          <components>
             <component name="system" uuid="c13a287c-ca3f-464b-84a9-0127878ee31b" type_id="system_54b53072540eeeb8f8e9343e71f28176">
-               <config_set_global name="global_system_definitions"/>
+               <config_set_global name="global_system_definitions">
+                  <setting name="user_definitions" value=""/>
+                  <setting name="user_includes" value=""/>
+               </config_set_global>
             </component>
             <component name="msg" uuid="367740fe-bad3-4a82-920c-82a9ddaf17a8" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
                <config_set_global name="global_messages"/>
@@ -931,14 +972,21 @@
             <component name="generic_can" uuid="9ffce658-ba5f-450c-a600-9ce74dc40b80" type_id="generic_can_1bfdd78b1af214566c1f23cf6a582d80">
                <config_set_global name="global_can"/>
             </component>
+            <component name="uart_cmsis_common" uuid="61eeb018-8cfa-4c1b-aae7-49e245e6c85f" type_id="uart_cmsis_common_9cb8e302497aa696fdbb5a4fd622c2a8">
+               <config_set_global name="global_USART_CMSIS_common" quick_selection="default"/>
+            </component>
+            <component name="gpio_adapter_common" uuid="577a44f3-77ed-4ae2-9a31-a2c606048de2" type_id="gpio_adapter_common_57579b9ac814fe26bf95df0a384c36b6">
+               <config_set_global name="global_gpio_adapter_common" quick_selection="default"/>
+            </component>
+            <component name="generic_enet" uuid="a897a7b0-dfd0-4b41-a35f-efb43c485d05" type_id="generic_enet_74db5c914f0ddbe47d86af40cb77a619">
+               <config_set_global name="global_enet"/>
+            </component>
          </components>
       </periphs>
       <tee name="TEE" version="2.0" enabled="false" update_project_code="true">
          <tee_profile>
             <processor_version>N/A</processor_version>
          </tee_profile>
-         <global_options/>
-         <user_memory_regions/>
       </tee>
    </tools>
 </configuration>

@@ -145,7 +145,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     --defsym=__stack_size__=0x400 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/K32L3A60xxx_cm4_flash.ld -static \
+    -T\"${ProjDirPath}/K32L3A60xxx_cm4_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -173,5 +173,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     --defsym=__stack_size__=0x400 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/K32L3A60xxx_cm4_flash.ld -static \
+    -T\"${ProjDirPath}/K32L3A60xxx_cm4_flash.ld\" -static \
 ")

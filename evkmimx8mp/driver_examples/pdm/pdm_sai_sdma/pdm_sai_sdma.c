@@ -79,8 +79,8 @@ wm8960_config_t wm8960Config = {
     .slaveAddress     = WM8960_I2C_ADDR,
     .bus              = kWM8960_BusI2S,
     .format           = {.mclk_HZ    = 24576000U,
-               .sampleRate = kWM8960_AudioSampleRate48KHz,
-               .bitWidth   = kWM8960_AudioBitWidth32bit},
+                         .sampleRate = kWM8960_AudioSampleRate48KHz,
+                         .bitWidth   = kWM8960_AudioBitWidth32bit},
     .master_slave     = false,
 };
 codec_config_t boardCodecConfig = {.codecDevType = kCODEC_WM8960, .codecDevConfig = &wm8960Config};
@@ -96,6 +96,9 @@ static volatile uint32_t s_bufferValidBlock = BUFFER_NUMBER;
 static volatile uint32_t s_readIndex        = 0U;
 static volatile uint32_t s_writeIndex       = 0U;
 static const pdm_config_t pdmConfig         = {
+#if defined(FSL_FEATURE_PDM_HAS_DECIMATION_FILTER_BYPASS) && FSL_FEATURE_PDM_HAS_DECIMATION_FILTER_BYPASS
+    .enableFilterBypass = false,
+#endif
     .enableDoze        = false,
     .fifoWatermark     = DEMO_PDM_FIFO_WATERMARK,
     .qualityMode       = DEMO_PDM_QUALITY_MODE,

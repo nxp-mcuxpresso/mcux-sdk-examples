@@ -36,7 +36,7 @@
 #define UDP                 2
 #define OUTPUT_STR_MAX      (1024)
 #ifndef SENDER_PORT_NUM
-#define SENDER_PORT_NUM     5201
+#define SENDER_PORT_NUM 5201
 #endif
 
 struct iperf_ip

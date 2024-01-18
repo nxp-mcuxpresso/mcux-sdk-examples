@@ -16,15 +16,15 @@
 #define CONFIG_5GHz_SUPPORT 1
 #endif
 
-//#define CONFIG_SDIO_MULTI_PORT_RX_AGGR 1
+// #define CONFIG_SDIO_MULTI_PORT_RX_AGGR 1
 
 #if defined(SD8987)
 #define CONFIG_11AC
 #undef CONFIG_WMM
 #endif
 
-//#define CONFIG_IPV6 1
-//#define CONFIG_MAX_IPV6_ADDRESSES 3
+// #define CONFIG_IPV6 1
+// #define CONFIG_MAX_IPV6_ADDRESSES 3
 
 /* Logs */
 #define CONFIG_ENABLE_ERROR_LOGS   1

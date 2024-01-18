@@ -185,10 +185,8 @@ int main(void)
     status_t status;
 
     /* Hardware Initialization. */
-    gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
-
     BOARD_ConfigMPU();
-    BOARD_InitPins();
+    BOARD_InitBootPins();
     BOARD_BootClockRUN();
     BOARD_InitDebugConsole();
     BOARD_InitModuleClock();
@@ -196,11 +194,8 @@ int main(void)
     /* 50M ENET_REF_CLOCK output to PHY and ENET module. */
     IOMUXC_GPR->GPR4 |= IOMUXC_GPR_GPR4_ENET_REF_CLK_DIR_MASK;
 
-    GPIO_PinInit(GPIO12, 12, &gpio_config);
-    GPIO_WritePinOutput(GPIO12, 12, 0);
-    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
-    GPIO_WritePinOutput(GPIO12, 12, 1);
-    SDK_DelayAtLeastUs(6, CLOCK_GetFreq(kCLOCK_CpuClk));
+    /* Hardware reset PHY. */
+    BOARD_ENET_PHY0_RESET;
 
     MDIO_Init();
     g_phy_resource.read  = MDIO_Read;

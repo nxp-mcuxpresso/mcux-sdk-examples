@@ -20,7 +20,7 @@
  * Definitions
  ******************************************************************************/
 /* SAI */
-#define DEMO_SAI          SAI1
+#define DEMO_SAI SAI1
 
 /* IRQ */
 #define DEMO_SAI_TX_IRQ SAI1_IRQn
@@ -89,14 +89,14 @@ extern status_t BOARD_Codec_CS42888_I2C_Receive(
 
 /*
  * AUDIO PLL setting: Frequency = Fref * (DIV_SELECT + NUM / DENOM)
- *                              = 24 * (32 + 77/100)
- *                              = 786.48 MHz
+ *                              = 24 * (32 + 768/1000)
+ *                              = 786.432 MHz
  */
 const clock_audio_pll_config_t audioPllConfig = {
-    .loopDivider = 32,  /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
-    .postDivider = 1,   /* Divider after the PLL, should only be 1, 2, 4, 8, 16. */
-    .numerator   = 77,  /* 30 bit numerator of fractional loop divider. */
-    .denominator = 100, /* 30 bit denominator of fractional loop divider */
+    .loopDivider = 32,   /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
+    .postDivider = 1,    /* Divider after the PLL, should only be 1, 2, 4, 8, 16. */
+    .numerator   = 768,  /* 30 bit numerator of fractional loop divider. */
+    .denominator = 1000, /* 30 bit denominator of fractional loop divider */
 };
 
 cs42448_config_t cs42448Config = {

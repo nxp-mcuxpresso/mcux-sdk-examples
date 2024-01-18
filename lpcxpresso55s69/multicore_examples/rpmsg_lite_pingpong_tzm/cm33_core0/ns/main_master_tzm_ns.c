@@ -100,7 +100,7 @@ int main(void)
     struct rpmsg_lite_endpoint *my_ept_ns;
     struct rpmsg_lite_endpoint_callback_data_descr_ns callback_data_ns = {(void *)&has_received, (void *)&msg};
     struct rpmsg_lite_endpoint_callback_descr_ns callback_descr_ns     = {(rl_ept_rx_cb_ns_t)my_ept_read_cb_ns,
-                                                                      &callback_data_ns};
+                                                                          &callback_data_ns};
     char str[50];
 
     /* Initialize standard SDK demo application pins */

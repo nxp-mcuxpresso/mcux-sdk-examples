@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2022 NXP
+ * Copyright 2018-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -45,6 +45,10 @@ extern "C" {
 #define LITTLEFS_PROG_SIZE 256
 /* Erasable block size definition */
 #define LITTLEFS_BLOCK_SIZE 4096
+/* Block count definition */
+#define LITTLEFS_BLOCK_COUNT 1024
+/* Block cycles definition */
+#define LITTLEFS_BLOCK_CYCLES 100
 /* Minimum block cache size definition */
 #define LITTLEFS_CACHE_SIZE 256
 /* Minimum lookahead buffer size definition */

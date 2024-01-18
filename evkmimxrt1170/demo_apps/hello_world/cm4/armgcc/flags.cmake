@@ -639,7 +639,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_DEBUG " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1176xxxxx_cm4_flexspi_nor_sdram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1176xxxxx_cm4_flexspi_nor_sdram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE} \
@@ -665,7 +665,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_SDRAM_RELEASE " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1176xxxxx_cm4_flexspi_nor_sdram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1176xxxxx_cm4_flexspi_nor_sdram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_TXT_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_SDRAM_TXT_DEBUG} \
@@ -692,7 +692,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_TXT_DEBUG " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1176xxxxx_cm4_sdram_txt.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1176xxxxx_cm4_sdram_txt.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_TXT_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_SDRAM_TXT_RELEASE} \
@@ -718,7 +718,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_TXT_RELEASE " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1176xxxxx_cm4_sdram_txt.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1176xxxxx_cm4_sdram_txt.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_DEBUG} \
@@ -745,7 +745,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1176xxxxx_cm4_ram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1176xxxxx_cm4_ram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -771,7 +771,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1176xxxxx_cm4_ram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1176xxxxx_cm4_ram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_SDRAM_DEBUG} \
@@ -798,7 +798,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_DEBUG " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1176xxxxx_cm4_sdram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1176xxxxx_cm4_sdram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_SDRAM_RELEASE} \
@@ -824,7 +824,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_SDRAM_RELEASE " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1176xxxxx_cm4_sdram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1176xxxxx_cm4_sdram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG} \
@@ -851,7 +851,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1176xxxxx_cm4_flexspi_nor.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1176xxxxx_cm4_flexspi_nor.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE} \
@@ -877,5 +877,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1176xxxxx_cm4_flexspi_nor.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1176xxxxx_cm4_flexspi_nor.ld\" -static \
 ")

@@ -60,8 +60,8 @@ extern phy_rtl8211f_resource_t g_phy_resource;
 
 /* @TEST_ANCHOR */
 
-#ifndef MAC_ADDRESS
-#define MAC_ADDRESS                        \
+#ifndef MAC_ADDR
+#define MAC_ADDR                        \
     {                                      \
         0xd4, 0xbe, 0xd9, 0x45, 0x22, 0x60 \
     }
@@ -102,7 +102,7 @@ SDK_ALIGN(uint8_t g_txDataBuff2[ENET_TXBD_NUM][SDK_SIZEALIGN(ENET_TXBUFF_SIZE, A
 enet_handle_t g_handle;
 
 /* The MAC address for ENET device. */
-uint8_t g_macAddr[6] = MAC_ADDRESS;
+uint8_t g_macAddr[6] = MAC_ADDR;
 uint8_t g_frame[FSL_FEATURE_ENET_QUEUE][ENET_FRAME_LENGTH];
 uint32_t g_rxIndex       = 0;
 uint32_t g_rxIndex1      = 0;
@@ -306,7 +306,6 @@ int main(void)
 
     /* Hardware Initialization. */
     /* Hardware Initialization. */
-    gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
     BOARD_ConfigMPU();
     BOARD_InitPins();
     BOARD_BootClockRUN();
@@ -315,13 +314,8 @@ int main(void)
 
     IOMUXC_GPR->GPR5 |= IOMUXC_GPR_GPR5_ENET1G_RGMII_EN_MASK; /* bit1:iomuxc_gpr_enet_clk_dir
                                                                  bit0:GPR_ENET_TX_CLK_SEL(internal or OSC) */
-    GPIO_PinInit(GPIO11, 14, &gpio_config);
-    /* For a complete PHY reset of RTL8211FDI-CG, this pin must be asserted low for at least 10ms. And
-     * wait for a further 30ms(for internal circuits settling time) before accessing the PHY register */
-    GPIO_WritePinOutput(GPIO11, 14, 0);
-    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
-    GPIO_WritePinOutput(GPIO11, 14, 1);
-    SDK_DelayAtLeastUs(30000, CLOCK_GetFreq(kCLOCK_CpuClk));
+    /* Hardware reset PHY. */
+    BOARD_ENET_PHY1_RESET;
 
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_1_IRQn);
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_2_IRQn);

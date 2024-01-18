@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020-2023 NXP
  * All rights reserved.
  *
  *
@@ -76,14 +76,26 @@ const uint32_t customLUT[CUSTOM_LUT_LENGTH] = {
     /* Fast read mode - SDR */
     [4 * NOR_CMD_LUT_SEQ_IDX_READ_FAST] =
         FLEXSPI_LUT_SEQ(kFLEXSPI_Command_SDR, kFLEXSPI_1PAD, 0x0B, kFLEXSPI_Command_RADDR_SDR, kFLEXSPI_1PAD, 0x18),
+    /* In XIP, the speed of external flash is set to 133MHz, and the external flash require to match 8 corresponding dummy cycles. 
+     * However, other non XIP boot targets are not suitable for XIP boot flow, uses flash default configuration */
+#if defined(XIP_BOOT_HEADER_ENABLE) && XIP_BOOT_HEADER_ENABLE
     [4 * NOR_CMD_LUT_SEQ_IDX_READ_FAST + 1] = FLEXSPI_LUT_SEQ(
-        kFLEXSPI_Command_DUMMY_SDR, kFLEXSPI_1PAD, 0x08, kFLEXSPI_Command_READ_SDR, kFLEXSPI_1PAD, 0x04),
+        kFLEXSPI_Command_DUMMY_SDR, kFLEXSPI_1PAD, 0x0B, kFLEXSPI_Command_READ_SDR, kFLEXSPI_1PAD, 0x04),
+#else
+    [4 * NOR_CMD_LUT_SEQ_IDX_READ_FAST + 1] = FLEXSPI_LUT_SEQ(
+        kFLEXSPI_Command_DUMMY_SDR, kFLEXSPI_1PAD, 0x08, kFLEXSPI_Command_READ_SDR, kFLEXSPI_1PAD, 0x04),  
+#endif
 
     /* Fast read quad mode - SDR */
     [4 * NOR_CMD_LUT_SEQ_IDX_READ_FAST_QUAD] =
         FLEXSPI_LUT_SEQ(kFLEXSPI_Command_SDR, kFLEXSPI_1PAD, 0xEB, kFLEXSPI_Command_RADDR_SDR, kFLEXSPI_4PAD, 0x18),
+#if defined(XIP_BOOT_HEADER_ENABLE) && XIP_BOOT_HEADER_ENABLE
+    [4 * NOR_CMD_LUT_SEQ_IDX_READ_FAST_QUAD + 1] = FLEXSPI_LUT_SEQ(
+        kFLEXSPI_Command_DUMMY_SDR, kFLEXSPI_4PAD, 0x09, kFLEXSPI_Command_READ_SDR, kFLEXSPI_4PAD, 0x04),
+#else
     [4 * NOR_CMD_LUT_SEQ_IDX_READ_FAST_QUAD + 1] = FLEXSPI_LUT_SEQ(
         kFLEXSPI_Command_DUMMY_SDR, kFLEXSPI_4PAD, 0x06, kFLEXSPI_Command_READ_SDR, kFLEXSPI_4PAD, 0x04),
+#endif    
 
     /* Read extend parameters */
     [4 * NOR_CMD_LUT_SEQ_IDX_READSTATUS] =
@@ -194,13 +206,7 @@ int main(void)
     /* FLEXSPI init */
     flexspi_nor_flash_init(EXAMPLE_FLEXSPI);
 
-    /* Enter quad mode. */
-    status = flexspi_nor_enable_quad_mode(EXAMPLE_FLEXSPI);
-    if (status != kStatus_Success)
-    {
-        return status;
-    }
-
+#if defined(MT25Q_FLASH_QUAD_ENABLE) && MT25Q_FLASH_QUAD_ENABLE
     /* Get vendor ID. */
     status = flexspi_nor_get_vendor_id(EXAMPLE_FLEXSPI, &vendorID);
     if (status != kStatus_Success)
@@ -208,6 +214,24 @@ int main(void)
         return status;
     }
     PRINTF("Vendor ID: 0x%x\r\n", vendorID);
+#endif
+
+    /* Enter quad mode. */
+    status = flexspi_nor_enable_quad_mode(EXAMPLE_FLEXSPI);
+    if (status != kStatus_Success)
+    {
+        return status;
+    }
+
+#if defined(FLASH_QUAD_ENABLE) && FLASH_QUAD_ENABLE
+    /* Get vendor ID. */
+    status = flexspi_nor_get_vendor_id(EXAMPLE_FLEXSPI, &vendorID);
+    if (status != kStatus_Success)
+    {
+        return status;
+    }
+    PRINTF("Vendor ID: 0x%x\r\n", vendorID);
+#endif
 
     /* Erase sectors. */
     PRINTF("Erasing Serial NOR over FlexSPI...\r\n");

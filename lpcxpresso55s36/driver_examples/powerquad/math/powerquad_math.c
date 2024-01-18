@@ -71,6 +71,7 @@ static void PQ_MathCosFloatExample(void);
 static void PQ_MathDivFloatExample(void);
 static void PQ_MathArctanFixedExample(void);
 static void PQ_MathArctanhFixedExample(void);
+static void PQ_MathArctan2FixedExample(void);
 
 /* Vector functions. */
 static void PQ_VectorLnFloatExample(void);
@@ -324,6 +325,7 @@ int main(void)
     PQ_MathDivFloatExample();
     PQ_MathArctanFixedExample();
     PQ_MathArctanhFixedExample();
+    PQ_MathArctan2FixedExample();
 
     PQ_VectorLnFloatExample();
     PQ_VectorLnFixed32Example();
@@ -414,10 +416,10 @@ static void PQ_MathLnFloatExample(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input = i;
-        ref   = (float)(log(input));
+        ref   = (float)(log((double)input));
         PQ_LnF32(&input, &result);
 
-        EXAMPLE_ASSERT_TRUE(fabs(ref - result) <= 0.000001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref - result)) <= 0.000001);
     }
 }
 
@@ -464,7 +466,7 @@ static void PQ_MathInvFloatExample(void)
         ref   = 1.0f / (float)input;
         PQ_InvF32(&input, &result);
 
-        EXAMPLE_ASSERT_TRUE(fabs(ref - result) <= 0.000001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref - result)) <= 0.000001);
     }
 }
 
@@ -508,10 +510,10 @@ static void PQ_MathSqrtFloatExample(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input = i;
-        ref   = sqrt(input);
+        ref   = sqrt((double)input);
         PQ_SqrtF32(&input, &result);
 
-        EXAMPLE_ASSERT_TRUE(fabs(ref - result) <= 0.000001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref - result)) <= 0.000001);
     }
 }
 
@@ -555,10 +557,10 @@ static void PQ_MathInvSqrtFloatExample(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input = i;
-        ref   = 1.0f / sqrt(input);
+        ref   = 1.0f / sqrt((double)input);
         PQ_InvSqrtF32(&input, &result);
 
-        EXAMPLE_ASSERT_TRUE(fabs(ref - result) <= 0.000001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref - result)) <= 0.000001);
     }
 }
 
@@ -584,7 +586,7 @@ static void PQ_MathEtoxFixedExample(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input  = i;
-        ref    = (int32_t)(exp((float)input / 8.0f) * (float)(1 << 16));
+        ref    = (int32_t)(exp((double)input / 8.0) * (double)(1 << 16));
         result = PQ_EtoxFixed(input);
 
         EXAMPLE_ASSERT_TRUE(abs(ref - result) <= 1);
@@ -602,10 +604,10 @@ static void PQ_MathEtoxFloatExample(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input = i / 8.0f;
-        ref   = exp(input);
+        ref   = exp((double)input);
         PQ_EtoxF32(&input, &result);
 
-        EXAMPLE_ASSERT_TRUE(fabs(ref - result) <= 0.0001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref - result)) <= 0.0001);
     }
 }
 
@@ -631,7 +633,7 @@ static void PQ_MathEtonxFixedExample(void)
     for (i = 0; i <= MATH_EXAMPLE_LEN; i++)
     {
         input  = i;
-        ref    = (int32_t)(1.0f / exp((float)i / 8.0f) * (float)(1 << 16));
+        ref    = (int32_t)(1.0f / exp((double)i / 8.0) * (double)(1 << 16));
         result = PQ_EtonxFixed(input);
 
         EXAMPLE_ASSERT_TRUE(abs(ref - result) <= 1);
@@ -649,10 +651,10 @@ static void PQ_MathEtonxFloatExample(void)
     for (i = 0; i <= MATH_EXAMPLE_LEN; i++)
     {
         input = i / 8.0f;
-        ref   = 1.0f / exp(input);
+        ref   = 1.0f / exp((double)input);
         PQ_EtonxF32(&input, &result);
 
-        EXAMPLE_ASSERT_TRUE(fabs(ref - result) <= 0.0001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref - result)) <= 0.0001);
     }
 }
 
@@ -670,7 +672,7 @@ static void PQ_MathSinQ31Example(void)
          * The input value is in radians, input range -1 to 1 (Fixed) means -pi to pi.
          */
         input  = ((float)(i * 2) / (float)MATH_EXAMPLE_LEN) - 1.0f;
-        ref    = FLOAT_2_Q31(sin(input * MATH_PI));
+        ref    = FLOAT_2_Q31(sin((double)(input)*MATH_PI));
         result = PQ_SinQ31(FLOAT_2_Q31(input));
 
         EXAMPLE_ASSERT_TRUE(abs(ref - result) <= 400);
@@ -690,11 +692,11 @@ static void PQ_MathSinFloatExample(void)
         /*
          * The input value is in radians. This function calculates -pi to pi.
          */
-        input = (((float)(i * 2) / (float)MATH_EXAMPLE_LEN) - 1.0f) * MATH_PI;
-        ref   = sin(input);
+        input = (double)((((float)(i * 2) / (float)MATH_EXAMPLE_LEN) - 1.0f)) * MATH_PI;
+        ref   = sin((double)input);
         PQ_SinF32(&input, &result);
 
-        EXAMPLE_ASSERT_TRUE(fabs(ref - result) <= 0.000001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref - result)) <= 0.000001);
     }
 }
 
@@ -712,7 +714,7 @@ static void PQ_MathCosQ31Example(void)
          * The input value is in radians, input range -1 to 1 (Fixed) means -pi to pi.
          */
         input  = ((float)(i * 2) / (float)MATH_EXAMPLE_LEN) - 1.0f;
-        ref    = FLOAT_2_Q31(cos(input * MATH_PI));
+        ref    = FLOAT_2_Q31(cos((double)(input)*MATH_PI));
         result = PQ_CosQ31(FLOAT_2_Q31(input));
 
         EXAMPLE_ASSERT_TRUE(abs(ref - result) <= 200);
@@ -732,11 +734,11 @@ static void PQ_MathCosFloatExample(void)
         /*
          * The input value is in radians. This function calculates -pi to pi.
          */
-        input = (((float)(i * 2) / (float)MATH_EXAMPLE_LEN) - 1.0f) * MATH_PI;
-        ref   = cos(input);
+        input = (double)((((float)(i * 2) / (float)MATH_EXAMPLE_LEN) - 1.0f)) * MATH_PI;
+        ref   = cos((double)input);
         PQ_CosF32(&input, &result);
 
-        EXAMPLE_ASSERT_TRUE(fabs(ref - result) <= 0.000001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref - result)) <= 0.000001);
     }
 }
 
@@ -757,7 +759,7 @@ static void PQ_MathDivFloatExample(void)
             ref = x1 / x2;
             PQ_DivF32(&x1, &x2, &result);
 
-            EXAMPLE_ASSERT_TRUE(fabs(ref - result) <= 0.00002);
+            EXAMPLE_ASSERT_TRUE(fabs((double)(ref - result)) <= 0.00002);
         }
     }
 }
@@ -770,10 +772,30 @@ static void PQ_MathArctanFixedExample(void)
     float arctanRef    = atan(0.5); /* 0.4636476 */
 
     /* 2^27 means pi. */
+    /* Quadrant 1 */
     myres        = PQ_ArctanFixed(DEMO_POWERQUAD, 20000000, 10000000, kPQ_Iteration_24);
     arctanResult = (float)(2 * MATH_PI * (myres) / (134217728.0 * 2));
 
-    EXAMPLE_ASSERT_TRUE(fabs(arctanRef - arctanResult) < 0.001);
+    EXAMPLE_ASSERT_TRUE(fabs((double)(arctanRef - arctanResult)) < 0.001);
+
+    /* Quadrant 3 */
+    myres        = PQ_ArctanFixed(DEMO_POWERQUAD, -20000000, -10000000, kPQ_Iteration_24);
+    arctanResult = (float)(2 * MATH_PI * (myres) / (134217728.0 * 2));
+
+    EXAMPLE_ASSERT_TRUE(fabs((double)(arctanRef - arctanResult)) < 0.001);
+
+    arctanRef = atan(-0.5);
+    /* Quadrant 2 */
+    myres        = PQ_ArctanFixed(DEMO_POWERQUAD, -20000000, 10000000, kPQ_Iteration_24);
+    arctanResult = (float)(2 * MATH_PI * (myres) / (134217728.0 * 2));
+
+    EXAMPLE_ASSERT_TRUE(fabs((double)(arctanRef - arctanResult)) < 0.001);
+
+    /* Quadrant 4 */
+    myres        = PQ_ArctanFixed(DEMO_POWERQUAD, 20000000, -10000000, kPQ_Iteration_24);
+    arctanResult = (float)(2 * MATH_PI * (myres) / (134217728.0 * 2));
+
+    EXAMPLE_ASSERT_TRUE(fabs((double)(arctanRef - arctanResult)) < 0.001);
 }
 
 /* Fixed Inverse Trigonometric */
@@ -784,10 +806,67 @@ static void PQ_MathArctanhFixedExample(void)
     float arctanhRef    = atanh(0.5); /* 0.549306 */
 
     /* 2^27 means pi. */
+    /* Quadrant 1 */
     myres         = PQ_ArctanhFixed(DEMO_POWERQUAD, 20000000, 10000000, kPQ_Iteration_24);
     arctanhResult = (float)(2 * (myres) / (134217728.0 * 2));
 
-    EXAMPLE_ASSERT_TRUE(fabs(arctanhRef - arctanhResult) < 0.00001);
+    EXAMPLE_ASSERT_TRUE(fabs((double)(arctanhRef - arctanhResult)) < 0.00001);
+
+    /* Quadrant 3 */
+    myres         = PQ_ArctanhFixed(DEMO_POWERQUAD, -20000000, -10000000, kPQ_Iteration_24);
+    arctanhResult = (float)(2 * (myres) / (134217728.0 * 2));
+
+    EXAMPLE_ASSERT_TRUE(fabs((double)(arctanhRef - arctanhResult)) < 0.00001);
+
+    arctanhRef = atanh(-0.5);
+    /* Quadrant 2 */
+    myres         = PQ_ArctanhFixed(DEMO_POWERQUAD, -20000000, 10000000, kPQ_Iteration_24);
+    arctanhResult = (float)(2 * (myres) / (134217728.0 * 2));
+
+    EXAMPLE_ASSERT_TRUE(fabs((double)(arctanhRef - arctanhResult)) < 0.00001);
+
+    /* Quadrant 4 */
+    myres         = PQ_ArctanhFixed(DEMO_POWERQUAD, 20000000, -10000000, kPQ_Iteration_24);
+    arctanhResult = (float)(2 * (myres) / (134217728.0 * 2));
+
+    EXAMPLE_ASSERT_TRUE(fabs((double)(arctanhRef - arctanhResult)) < 0.00001);
+}
+
+/* Fixed Trigonometric */
+static void PQ_MathArctan2FixedExample(void)
+{
+    int32_t myres      = 0;
+    float arctanResult = 0;
+    float arctanRef;
+
+    /* 2^27 means pi. */
+    /* Quadrant 1 */
+    arctanRef    = atan2(1.0, 2.0);
+    myres        = PQ_Arctan2Fixed(DEMO_POWERQUAD, 20000000, 10000000, kPQ_Iteration_24);
+    arctanResult = (float)(2 * MATH_PI * (myres) / (134217728.0 * 2));
+
+    EXAMPLE_ASSERT_TRUE(fabs((double)(arctanRef - arctanResult)) < 0.001);
+
+    /* Quadrant 3 */
+    arctanRef    = atan2(-1.0, -2.0);
+    myres        = PQ_Arctan2Fixed(DEMO_POWERQUAD, -20000000, -10000000, kPQ_Iteration_24);
+    arctanResult = (float)(2 * MATH_PI * (myres) / (134217728.0 * 2));
+
+    EXAMPLE_ASSERT_TRUE(fabs((double)(arctanRef - arctanResult)) < 0.001);
+
+    /* Quadrant 2 */
+    arctanRef    = atan2(1.0, -2.0);
+    myres        = PQ_Arctan2Fixed(DEMO_POWERQUAD, -20000000, 10000000, kPQ_Iteration_24);
+    arctanResult = (float)(2 * MATH_PI * (myres) / (134217728.0 * 2));
+
+    EXAMPLE_ASSERT_TRUE(fabs((double)(arctanRef - arctanResult)) < 0.001);
+
+    /* Quadrant 4 */
+    arctanRef    = atan2(-1.0, 2.0);
+    myres        = PQ_Arctan2Fixed(DEMO_POWERQUAD, 20000000, -10000000, kPQ_Iteration_24);
+    arctanResult = (float)(2 * MATH_PI * (myres) / (134217728.0 * 2));
+
+    EXAMPLE_ASSERT_TRUE(fabs((double)(arctanRef - arctanResult)) < 0.001);
 }
 
 static void PQ_VectorLnFloatExample(void)
@@ -807,7 +886,7 @@ static void PQ_VectorLnFloatExample(void)
 
     for (i = 0; i < ARRAY_SIZE(result); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(ref[i] - result[i]) <= 0.000001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref[i] - result[i])) <= 0.000001);
     }
 }
 
@@ -892,7 +971,7 @@ static void PQ_VectorInvFloatExample(void)
 
     for (i = 0; i < ARRAY_SIZE(input); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(ref[i] - result[i]) <= 0.000001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref[i] - result[i])) <= 0.000001);
     }
 }
 
@@ -971,14 +1050,14 @@ static void PQ_VectorSqrtFloatExample(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input[i - 1] = i;
-        ref[i - 1]   = sqrt((float)i);
+        ref[i - 1]   = sqrt((double)i);
     }
 
     PQ_VectorSqrtF32(input, result, ARRAY_SIZE(input));
 
     for (i = 0; i < ARRAY_SIZE(input); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(ref[i] - result[i]) <= 0.000001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref[i] - result[i])) <= 0.000001);
     }
 }
 
@@ -1001,7 +1080,7 @@ static void PQ_VectorSqrtFixed32Example(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input[i - 1] = i;
-        ref[i - 1]   = (int32_t)(sqrt((float)i) * (float)(1 << 16));
+        ref[i - 1]   = (int32_t)(sqrt((double)i) * (float)(1 << 16));
     }
 
     PQ_SetCoprocessorScaler(DEMO_POWERQUAD, &prescale);
@@ -1033,7 +1112,7 @@ static void PQ_VectorSqrtFixed16Example(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input[i - 1] = i;
-        ref[i - 1]   = (int16_t)(sqrt((float)i) * (float)(1 << 8));
+        ref[i - 1]   = (int16_t)(sqrt((double)i) * (float)(1 << 8));
     }
 
     PQ_SetCoprocessorScaler(DEMO_POWERQUAD, &prescale);
@@ -1056,14 +1135,14 @@ static void PQ_VectorInvSqrtFloatExample(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input[i - 1] = i;
-        ref[i - 1]   = 1.0f / sqrt((float)i);
+        ref[i - 1]   = 1.0f / sqrt((double)i);
     }
 
     PQ_VectorInvSqrtF32(input, result, ARRAY_SIZE(input));
 
     for (i = 0; i < ARRAY_SIZE(input); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(ref[i] - result[i]) <= 0.000001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref[i] - result[i])) <= 0.000001);
     }
 }
 
@@ -1086,7 +1165,7 @@ static void PQ_VectorInvSqrtFixed32Example(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input[i - 1] = i;
-        ref[i - 1]   = (int32_t)(1.0f / sqrt((float)i) * (float)(1 << 16));
+        ref[i - 1]   = (int32_t)(1.0f / sqrt((double)i) * (float)(1 << 16));
     }
 
     PQ_SetCoprocessorScaler(DEMO_POWERQUAD, &prescale);
@@ -1118,7 +1197,7 @@ static void PQ_VectorInvSqrtFixed16Example(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input[i - 1] = i;
-        ref[i - 1]   = (int16_t)(1.0f / sqrt((float)i) * (float)(1 << 8));
+        ref[i - 1]   = (int16_t)(1.0f / sqrt((double)i) * (float)(1 << 8));
     }
 
     PQ_SetCoprocessorScaler(DEMO_POWERQUAD, &prescale);
@@ -1141,14 +1220,14 @@ static void PQ_VectorEtoxFloatExample(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input[i - 1] = i / 8.0f;
-        ref[i - 1]   = exp(i / 8.0f);
+        ref[i - 1]   = exp((double)(i) / 8.0);
     }
 
     PQ_VectorEtoxF32(input, result, ARRAY_SIZE(input));
 
     for (i = 0; i < ARRAY_SIZE(input); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(ref[i] - result[i]) <= 0.0001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref[i] - result[i])) <= 0.0001);
     }
 }
 
@@ -1171,7 +1250,7 @@ static void PQ_VectorEtoxFixed32Example(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input[i - 1] = i;
-        ref[i - 1]   = (int32_t)(exp(((float)i / 8.0f)) * (float)(1 << 16));
+        ref[i - 1]   = (int32_t)(exp(((double)i / 8.0)) * (double)(1 << 16));
     }
 
     PQ_SetCoprocessorScaler(DEMO_POWERQUAD, &prescale);
@@ -1203,7 +1282,7 @@ static void PQ_VectorEtoxFixed16Example(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input[i - 1] = i;
-        ref[i - 1]   = (int16_t)(exp((float)i / 8.0f) * (float)(1 << 8));
+        ref[i - 1]   = (int16_t)(exp((double)i / 8.0) * (double)(1 << 8));
     }
 
     PQ_SetCoprocessorScaler(DEMO_POWERQUAD, &prescale);
@@ -1226,14 +1305,14 @@ static void PQ_VectorEtonxFloatExample(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input[i - 1] = i / 8.0f;
-        ref[i - 1]   = 1.0f / exp(i / 8.0f);
+        ref[i - 1]   = 1.0f / exp((double)(i) / 8.0);
     }
 
     PQ_VectorEtonxF32(input, result, ARRAY_SIZE(input));
 
     for (i = 0; i < ARRAY_SIZE(input); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(ref[i] - result[i]) <= 0.0001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref[i] - result[i])) <= 0.0001);
     }
 }
 
@@ -1256,7 +1335,7 @@ static void PQ_VectorEtonxFixed32Example(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input[i - 1] = i;
-        ref[i - 1]   = (int32_t)(1.0f / exp((float)i / 8.0f) * (float)(1 << 16));
+        ref[i - 1]   = (int32_t)(1.0f / exp((double)i / 8.0) * (double)(1 << 16));
     }
 
     PQ_SetCoprocessorScaler(DEMO_POWERQUAD, &prescale);
@@ -1288,7 +1367,7 @@ static void PQ_VectorEtonxFixed16Example(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input[i - 1] = i;
-        ref[i - 1]   = (int16_t)(1.0f / exp((float)i / 8.0f) * (float)(1 << 8));
+        ref[i - 1]   = (int16_t)(1.0f / exp((double)i / 8.0) * (double)(1 << 8));
     }
 
     PQ_SetCoprocessorScaler(DEMO_POWERQUAD, &prescale);
@@ -1313,15 +1392,15 @@ static void PQ_VectorSinFloatExample(void)
         /*
          * The input value is in radians. This function calculates -pi to pi.
          */
-        input[i] = (((float)(i * 2) / (float)MATH_EXAMPLE_LEN) - 1.0f) * MATH_PI;
-        ref[i]   = sin(input[i]);
+        input[i] = (double)((((float)(i * 2) / (float)MATH_EXAMPLE_LEN) - 1.0f)) * MATH_PI;
+        ref[i]   = sin((double)(input[i]));
     }
 
     PQ_VectorSinF32(input, result, ARRAY_SIZE(input));
 
     for (i = 0; i < ARRAY_SIZE(input); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(ref[i] - result[i]) <= 0.000001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref[i] - result[i])) <= 0.000001);
     }
 
     for (; i < ARRAY_SIZE(input); i++)
@@ -1345,7 +1424,7 @@ static void PQ_VectorSinQ31Example(void)
          */
         inputFloat = ((float)(i * 2) / (float)MATH_EXAMPLE_LEN) - 1.0f;
         input[i]   = FLOAT_2_Q31(inputFloat);
-        ref[i]     = FLOAT_2_Q31(sin(inputFloat * MATH_PI));
+        ref[i]     = FLOAT_2_Q31(sin((double)(inputFloat)*MATH_PI));
     }
 
     PQ_VectorSinQ31(input, result, ARRAY_SIZE(input));
@@ -1371,7 +1450,7 @@ static void PQ_VectorSinQ15Example(void)
          */
         inputFloat = ((float)(i * 2) / (float)MATH_EXAMPLE_LEN) - 1.0f;
         input[i]   = FLOAT_2_Q15(inputFloat);
-        ref[i]     = FLOAT_2_Q15(sin(inputFloat * MATH_PI));
+        ref[i]     = FLOAT_2_Q15(sin((double)(inputFloat)*MATH_PI));
     }
 
     PQ_VectorSinQ15(input, result, ARRAY_SIZE(input));
@@ -1394,15 +1473,15 @@ static void PQ_VectorCosFloatExample(void)
         /*
          * The input value is in radians. This function calculates -pi to pi.
          */
-        input[i] = (((float)(i * 2) / (float)MATH_EXAMPLE_LEN) - 1.0f) * MATH_PI;
-        ref[i]   = cos(input[i]);
+        input[i] = (double)((((float)(i * 2) / (float)MATH_EXAMPLE_LEN) - 1.0f)) * MATH_PI;
+        ref[i]   = cos((double)(input[i]));
     }
 
     PQ_VectorCosF32(input, result, ARRAY_SIZE(input));
 
     for (i = 0; i < ARRAY_SIZE(input); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(ref[i] - result[i]) <= 0.000001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref[i] - result[i])) <= 0.000001);
     }
 }
 
@@ -1421,7 +1500,7 @@ static void PQ_VectorCosQ31Example(void)
          */
         inputFloat = ((float)(i * 2) / (float)MATH_EXAMPLE_LEN) - 1.0f;
         input[i]   = FLOAT_2_Q31(inputFloat);
-        ref[i]     = FLOAT_2_Q31(cos(inputFloat * MATH_PI));
+        ref[i]     = FLOAT_2_Q31(cos((double)(inputFloat)*MATH_PI));
     }
 
     PQ_VectorCosQ31(input, result, ARRAY_SIZE(input));
@@ -1447,7 +1526,7 @@ static void PQ_VectorCosQ15Example(void)
          */
         inputFloat = ((float)(i * 2) / (float)MATH_EXAMPLE_LEN) - 1.0f;
         input[i]   = FLOAT_2_Q15(inputFloat);
-        ref[i]     = FLOAT_2_Q15(cos(inputFloat * MATH_PI));
+        ref[i]     = FLOAT_2_Q15(cos((double)(inputFloat)*MATH_PI));
     }
 
     PQ_VectorCosQ15(input, result, ARRAY_SIZE(input));
@@ -1475,7 +1554,7 @@ static void PQ_VectorLnFPExample(void)
 
     for (i = 0; i < ARRAY_SIZE(result); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(ref[i] - result[i]) <= 0.000001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref[i] - result[i])) <= 0.000001);
     }
 }
 
@@ -1528,7 +1607,7 @@ static void PQ_VectorInvFPExample(void)
 
     for (i = 0; i < ARRAY_SIZE(input); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(ref[i] - result[i]) <= 0.000001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref[i] - result[i])) <= 0.000001);
     }
 }
 
@@ -1575,14 +1654,14 @@ static void PQ_VectorSqrtFPExample(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input[i - 1] = i;
-        ref[i - 1]   = sqrt((float)i);
+        ref[i - 1]   = sqrt((double)i);
     }
 
     PQ_Vector32SqrtFP(input, result);
 
     for (i = 0; i < ARRAY_SIZE(input); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(ref[i] - result[i]) <= 0.000001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref[i] - result[i])) <= 0.000001);
     }
 }
 
@@ -1605,7 +1684,7 @@ static void PQ_VectorSqrtFXExample(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input[i - 1] = i;
-        ref[i - 1]   = (int32_t)(sqrt((float)i) * (float)(1 << 16));
+        ref[i - 1]   = (int32_t)(sqrt((double)i) * (float)(1 << 16));
     }
 
     PQ_SetCoprocessorScaler(DEMO_POWERQUAD, &prescale);
@@ -1628,14 +1707,14 @@ static void PQ_VectorInvSqrtFPExample(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input[i - 1] = i;
-        ref[i - 1]   = 1.0f / sqrt((float)i);
+        ref[i - 1]   = 1.0f / sqrt((double)i);
     }
 
     PQ_Vector32InvSqrtFP(input, result);
 
     for (i = 0; i < ARRAY_SIZE(input); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(ref[i] - result[i]) <= 0.000001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref[i] - result[i])) <= 0.000001);
     }
 }
 
@@ -1658,7 +1737,7 @@ static void PQ_VectorInvSqrtFXExample(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input[i - 1] = i;
-        ref[i - 1]   = (int32_t)(1.0f / sqrt((float)i) * (float)(1 << 16));
+        ref[i - 1]   = (int32_t)(1.0f / sqrt((double)(i)) * (double)(1 << 16));
     }
 
     PQ_SetCoprocessorScaler(DEMO_POWERQUAD, &prescale);
@@ -1681,14 +1760,14 @@ static void PQ_VectorEtoxFPExample(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input[i - 1] = i / 8.0f;
-        ref[i - 1]   = exp(i / 8.0f);
+        ref[i - 1]   = exp((double)(i) / 8.0);
     }
 
     PQ_Vector32EtoxFP(input, result);
 
     for (i = 0; i < ARRAY_SIZE(input); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(ref[i] - result[i]) <= 0.0001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref[i] - result[i])) <= 0.0001);
     }
 }
 
@@ -1711,7 +1790,7 @@ static void PQ_VectorEtoxFXExample(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input[i - 1] = i;
-        ref[i - 1]   = (int32_t)(exp(((float)i / 8.0f)) * (float)(1 << 16));
+        ref[i - 1]   = (int32_t)(exp(((double)(i) / 8.0)) * (double)(1 << 16));
     }
 
     PQ_SetCoprocessorScaler(DEMO_POWERQUAD, &prescale);
@@ -1734,14 +1813,14 @@ static void PQ_VectorEtonxFPExample(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input[i - 1] = i / 8.0f;
-        ref[i - 1]   = 1.0f / exp(i / 8.0f);
+        ref[i - 1]   = 1.0f / exp((double)(i) / 8.0);
     }
 
     PQ_Vector32EtonxFP(input, result);
 
     for (i = 0; i < ARRAY_SIZE(input); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(ref[i] - result[i]) <= 0.0001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref[i] - result[i])) <= 0.0001);
     }
 }
 
@@ -1764,7 +1843,7 @@ static void PQ_VectorEtonxFXExample(void)
     for (i = 1; i <= MATH_EXAMPLE_LEN; i++)
     {
         input[i - 1] = i;
-        ref[i - 1]   = (int32_t)(1.0f / exp((float)i / 8.0f) * (float)(1 << 16));
+        ref[i - 1]   = (int32_t)(1.0f / exp((double)(i) / 8.0) * (double)(1 << 16));
     }
 
     PQ_SetCoprocessorScaler(DEMO_POWERQUAD, &prescale);
@@ -1789,15 +1868,15 @@ static void PQ_VectorSinFPExample(void)
         /*
          * The input value is in radians. This function calculates -pi to pi.
          */
-        input[i] = (((float)(i * 2) / (float)MATH_EXAMPLE_LEN) - 1.0f) * MATH_PI;
-        ref[i]   = sin(input[i]);
+        input[i] = (double)((((float)(i * 2) / (float)MATH_EXAMPLE_LEN) - 1.0f)) * MATH_PI;
+        ref[i]   = sin((double)input[i]);
     }
 
     PQ_Vector32SinFP(input, result);
 
     for (i = 0; i < ARRAY_SIZE(input); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(ref[i] - result[i]) <= 0.000001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref[i] - result[i])) <= 0.000001);
     }
 
     for (; i < ARRAY_SIZE(input); i++)
@@ -1821,7 +1900,7 @@ static void PQ_VectorSinFXExample(void)
          */
         inputFloat = ((float)((i + 1) * 2) / (float)MATH_EXAMPLE_LEN) - 1.0f;
         input[i]   = FLOAT_2_Q31(inputFloat);
-        ref[i]     = FLOAT_2_Q31(sin(inputFloat * MATH_PI));
+        ref[i]     = FLOAT_2_Q31(sin((double)(inputFloat)*MATH_PI));
     }
 
 #if defined(FSL_FEATURE_POWERQUAD_SIN_COS_FIX_ERRATA) && FSL_FEATURE_POWERQUAD_SIN_COS_FIX_ERRATA
@@ -1851,15 +1930,15 @@ static void PQ_VectorCosFPExample(void)
         /*
          * The input value is in radians. This function calculates -pi to pi.
          */
-        input[i] = (((float)(i * 2) / (float)MATH_EXAMPLE_LEN) - 1.0f) * MATH_PI;
-        ref[i]   = cos(input[i]);
+        input[i] = (double)((((float)(i * 2) / (float)MATH_EXAMPLE_LEN) - 1.0f)) * MATH_PI;
+        ref[i]   = cos((double)input[i]);
     }
 
     PQ_Vector32CosFP(input, result);
 
     for (i = 0; i < ARRAY_SIZE(input); i++)
     {
-        EXAMPLE_ASSERT_TRUE(fabs(ref[i] - result[i]) <= 0.000001);
+        EXAMPLE_ASSERT_TRUE(fabs((double)(ref[i] - result[i])) <= 0.000001);
     }
 }
 
@@ -1878,7 +1957,7 @@ static void PQ_VectorCosFXExample(void)
          */
         inputFloat = ((float)((i + 1) * 2) / (float)MATH_EXAMPLE_LEN) - 1.0f;
         input[i]   = FLOAT_2_Q31(inputFloat);
-        ref[i]     = FLOAT_2_Q31(cos(inputFloat * MATH_PI));
+        ref[i]     = FLOAT_2_Q31(cos((double)(inputFloat)*MATH_PI));
     }
 
 #if defined(FSL_FEATURE_POWERQUAD_SIN_COS_FIX_ERRATA) && FSL_FEATURE_POWERQUAD_SIN_COS_FIX_ERRATA

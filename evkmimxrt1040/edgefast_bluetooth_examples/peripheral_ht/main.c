@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 NXP
+ * Copyright 2021-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -12,7 +12,8 @@
 
 #if defined(APP_LOWPOWER_ENABLED) && (APP_LOWPOWER_ENABLED > 0)
 #include "PWR_Interface.h"
-#endif
+#include "fwk_platform_lowpower.h"
+#endif /* APP_LOWPOWER_ENABLED */
 
 #include <peripheral_ht.h>
 
@@ -44,6 +45,7 @@
  * Prototypes
  ******************************************************************************/
 extern void BOARD_InitHardware(void);
+extern void APP_InitServices(void);
 
 /*******************************************************************************
  * Variables
@@ -154,6 +156,11 @@ int main(void)
 #endif /* CONFIG_BT_SMP */
     flexspi_clock_init();
 
+#if (defined(APP_LOWPOWER_ENABLED) && (APP_LOWPOWER_ENABLED > 0))|| \
+    (defined(APP_USE_SENSORS) && (APP_USE_SENSORS > 0))
+    APP_InitServices();
+#endif
+
     if (xTaskCreate(peripheral_ht_task, "peripheral_ht_task", configMINIMAL_STACK_SIZE * 8, NULL, tskIDLE_PRIORITY + 1, NULL) != pdPASS)
     {
         PRINTF("peripheral ht task creation failed!\r\n");
@@ -173,19 +180,28 @@ void vPortSuppressTicksAndSleep(TickType_t xExpectedIdleTime)
     uint64_t expectedIdleTimeUs, actualIdleTimeUs;
     uint32_t irqMask = DisableGlobalIRQ();
 
-    /* Disable and prepare systicks for low power */
+    /* Disable and prepare systicks for low power. */
     abortIdle = PWR_SysticksPreProcess((uint32_t)xExpectedIdleTime, &expectedIdleTimeUs);
+
+#if defined(WIFI_IW416_BOARD_MURATA_1XK_M2)
+    /* Check if host is allowed to enter low power mode. */
+    if(0 == PLATFORM_AllowEnterLowPower())
+    {
+        abortIdle = true;
+        SysTick->CTRL |= (SysTick_CTRL_TICKINT_Msk | SysTick_CTRL_ENABLE_Msk);
+    }
+#endif
 
     if (abortIdle == false)
     {
-        /* Enter low power with a maximal timeout */
+        /* Enter low power with a maximal timeout. */
         actualIdleTimeUs = PWR_EnterLowPower(expectedIdleTimeUs);
 
-        /* Re enable systicks and compensate systick timebase */
+        /* Re enable systicks and compensate systick timebase. */
         PWR_SysticksPostProcess(expectedIdleTimeUs, actualIdleTimeUs);
     }
 
-    /* Exit from critical section */
+    /* Exit from critical section. */
     EnableGlobalIRQ(irqMask);
 }
 #endif /* APP_LOWPOWER_ENABLED */

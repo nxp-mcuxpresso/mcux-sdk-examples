@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2020 NXP
+ * Copyright 2016-2020,2023 NXP
  * All rights reserved.
  *
  *
@@ -19,6 +19,7 @@
 #include "lwip/ip_addr.h"
 #include "lwip/init.h"
 #include "lwip/dhcp.h"
+#include "lwip/netif.h"
 #include "lwip/prot/dhcp.h"
 #include "netif/ethernet.h"
 #include "ethernetif.h"
@@ -104,6 +105,7 @@ extern phy_ksz8081_resource_t g_phy_resource;
 phy_ksz8081_resource_t g_phy_resource;
 
 static phy_handle_t phyHandle;
+static netif_ext_callback_t linkStatusCallbackInfo;
 
 /*******************************************************************************
  * Code
@@ -134,6 +136,55 @@ static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
     return ENET_MDIORead(EXAMPLE_ENET, phyAddr, regAddr, pData);
 }
 
+
+/*!
+ * @brief Link status callback - prints link status events.
+ */
+static void linkStatusCallback(struct netif *netif_, netif_nsc_reason_t reason, const netif_ext_callback_args_t *args)
+{
+    if (reason != LWIP_NSC_LINK_CHANGED)
+        return;
+
+    PRINTF("[LINK STATE] netif=%d, state=%s", netif_->num, args->link_changed.state ? "up" : "down");
+
+    if (args->link_changed.state)
+    {
+        char *speedStr;
+        switch (ethernetif_get_link_speed(netif_))
+        {
+            case kPHY_Speed10M:
+                speedStr = "10M";
+                break;
+            case kPHY_Speed100M:
+                speedStr = "100M";
+                break;
+            case kPHY_Speed1000M:
+                speedStr = "1000M";
+                break;
+            default:
+                speedStr = "N/A";
+                break;
+        }
+
+        char *duplexStr;
+        switch (ethernetif_get_link_duplex(netif_))
+        {
+            case kPHY_HalfDuplex:
+                duplexStr = "half";
+                break;
+            case kPHY_FullDuplex:
+                duplexStr = "full";
+                break;
+            default:
+                duplexStr = "N/A";
+                break;
+        }
+
+        PRINTF(", speed=%s_%s", speedStr, duplexStr);
+    }
+
+    PRINTF("\r\n");
+}
 
 /*!
  * @brief Interrupt service for SysTick timer.
@@ -228,8 +279,6 @@ int main(void)
 #endif
     };
 
-    gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
-
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
@@ -238,13 +287,8 @@ int main(void)
 
     IOMUXC_EnableMode(IOMUXC_GPR, kIOMUXC_GPR_ENET1TxClkOutputDir, true);
 
-    GPIO_PinInit(GPIO1, 9, &gpio_config);
-    GPIO_PinInit(GPIO1, 10, &gpio_config);
-    /* Pull up the ENET_INT before RESET. */
-    GPIO_WritePinOutput(GPIO1, 10, 1);
-    GPIO_WritePinOutput(GPIO1, 9, 0);
-    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
-    GPIO_WritePinOutput(GPIO1, 9, 1);
+    /* Hardware reset PHY. */
+    BOARD_ENET_PHY_RESET;
 
     MDIO_Init();
     g_phy_resource.read  = MDIO_Read;
@@ -261,6 +305,8 @@ int main(void)
     enet_config.srcClockHz = EXAMPLE_CLOCK_FREQ;
 
     lwip_init();
+
+    netif_add_ext_callback(&linkStatusCallbackInfo, linkStatusCallback);
 
     netif_add(&netif, NULL, NULL, NULL, &enet_config, EXAMPLE_NETIF_INIT_FN, ethernet_input);
     netif_set_default(&netif);

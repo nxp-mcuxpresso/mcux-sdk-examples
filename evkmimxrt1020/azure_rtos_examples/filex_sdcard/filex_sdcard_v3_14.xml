@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="middleware.azure_rtos.fx.MIMXRT1021"/>
+    <definition extID="platform.drivers.cache_armv7_m7.MIMXRT1021"/>
+    <definition extID="platform.drivers.usdhc.MIMXRT1021"/>
+    <definition extID="middleware.sdmmc.host.usdhc.MIMXRT1021"/>
+    <definition extID="middleware.sdmmc.sd.MIMXRT1021"/>
+    <definition extID="middleware.sdmmc.host.usdhc.azurertos.MIMXRT1021"/>
+    <definition extID="component.igpio_adapter.MIMXRT1021"/>
+    <definition extID="platform.drivers.clock.MIMXRT1021"/>
+    <definition extID="platform.drivers.common.MIMXRT1021"/>
+    <definition extID="device.MIMXRT1021_CMSIS.MIMXRT1021"/>
+    <definition extID="utility.debug_console.MIMXRT1021"/>
+    <definition extID="component.lpuart_adapter.MIMXRT1021"/>
+    <definition extID="component.serial_manager_uart.MIMXRT1021"/>
+    <definition extID="component.serial_manager.MIMXRT1021"/>
+    <definition extID="platform.drivers.lpuart.MIMXRT1021"/>
+    <definition extID="component.lists.MIMXRT1021"/>
+    <definition extID="device.MIMXRT1021_startup.MIMXRT1021"/>
+    <definition extID="platform.drivers.iomuxc.MIMXRT1021"/>
+    <definition extID="platform.utilities.assert.MIMXRT1021"/>
+    <definition extID="platform.drivers.igpio.MIMXRT1021"/>
+    <definition extID="platform.drivers.xip_device.MIMXRT1021"/>
+    <definition extID="platform.drivers.xip_board.evkmimxrt1020.MIMXRT1021"/>
+    <definition extID="platform.utilities.misc_utilities.MIMXRT1021"/>
+    <definition extID="middleware.azure_rtos.fx.template.MIMXRT1021"/>
+    <definition extID="middleware.azure_rtos.tx.MIMXRT1021"/>
+    <definition extID="middleware.azure_rtos.tx.template.MIMXRT1021"/>
+    <definition extID="middleware.sdmmc.common.MIMXRT1021"/>
+    <definition extID="middleware.sdmmc.osa.azurertos.MIMXRT1021"/>
+    <definition extID="middleware.sdmmc.usdhc.template.MIMXRT1021"/>
+    <definition extID="component.osa_thread.MIMXRT1021"/>
+    <definition extID="component.osa_interface.MIMXRT1021"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT1021"/>
+    <definition extID="device.MIMXRT1021_system.MIMXRT1021"/>
+    <definition extID="armgcc"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+    <definition extID="com.crt.advproject.config.exe.debug"/>
+    <definition extID="com.crt.advproject.config.exe.release"/>
+  </externalDefinitions>
+  <example id="evkmimxrt1020_filex_sdcard" name="filex_sdcard" dependency="middleware.azure_rtos.fx.MIMXRT1021 platform.drivers.cache_armv7_m7.MIMXRT1021 platform.drivers.usdhc.MIMXRT1021 middleware.sdmmc.host.usdhc.MIMXRT1021 middleware.sdmmc.sd.MIMXRT1021 middleware.sdmmc.host.usdhc.azurertos.MIMXRT1021 component.igpio_adapter.MIMXRT1021 platform.drivers.clock.MIMXRT1021 platform.drivers.common.MIMXRT1021 device.MIMXRT1021_CMSIS.MIMXRT1021 utility.debug_console.MIMXRT1021 component.lpuart_adapter.MIMXRT1021 component.serial_manager_uart.MIMXRT1021 component.serial_manager.MIMXRT1021 platform.drivers.lpuart.MIMXRT1021 component.lists.MIMXRT1021 device.MIMXRT1021_startup.MIMXRT1021 platform.drivers.iomuxc.MIMXRT1021 platform.utilities.assert.MIMXRT1021 platform.drivers.igpio.MIMXRT1021 platform.drivers.xip_device.MIMXRT1021 platform.drivers.xip_board.evkmimxrt1020.MIMXRT1021 platform.utilities.misc_utilities.MIMXRT1021 middleware.azure_rtos.fx.template.MIMXRT1021 middleware.azure_rtos.tx.MIMXRT1021 middleware.azure_rtos.tx.template.MIMXRT1021 middleware.sdmmc.common.MIMXRT1021 middleware.sdmmc.osa.azurertos.MIMXRT1021 middleware.sdmmc.usdhc.template.MIMXRT1021 component.osa_thread.MIMXRT1021 component.osa_interface.MIMXRT1021 CMSIS_Include_core_cm.MIMXRT1021 device.MIMXRT1021_system.MIMXRT1021" category="azure_rtos_examples">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <memory>
+      <memoryBlock id="BOARD_FLASH_evkmimxrt1020" name="BOARD_FLASH" addr="60000000" size="00800000" type="ExtFlash" access="RO"/>
+      <memoryBlock id="SRAM_DTC_evkmimxrt1020" name="SRAM_DTC" addr="20000000" size="00010000" type="RAM" access="RW"/>
+      <memoryBlock id="NCACHE_REGION_evkmimxrt1020" name="NCACHE_REGION" addr="20200000" size="00020000" type="RAM" access="RW"/>
+      <memoryBlock id="SRAM_ITC_evkmimxrt1020" name="SRAM_ITC" addr="00000000" size="00010000" type="RAM" access="RW"/>
+      <memoryBlock id="BOARD_SDRAM_evkmimxrt1020" name="BOARD_SDRAM" addr="80000000" size="02000000" type="RAM" access="RW"/>
+    </memory>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>CPU_MIMXRT1021DAG5A</value>
+          <value>SDK_DEBUGCONSOLE=1</value>
+          <value>XIP_EXTERNAL_FLASH=1</value>
+          <value>XIP_BOOT_HEADER_ENABLE=1</value>
+          <value>FSL_RTOS_THREADX</value>
+          <value>SDMMC_OSA_POLLING_EVENT_BY_SEMPHORE=0</value>
+          <value>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1</value>
+          <value>SDK_DEBUGCONSOLE_UART</value>
+          <value>PRINTF_FLOAT_ENABLE=1</value>
+          <value>SCANF_FLOAT_ENABLE=1</value>
+          <value>PRINTF_ADVANCED_ENABLE=1</value>
+          <value>SCANF_ADVANCED_ENABLE=0</value>
+          <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>SAMPLE_PACKET_COUNT=20</value>
+          <value>DATA_SECTION_IS_CACHEABLE=1</value>
+          <value>MCUXPRESSO_SDK</value>
+          <value>SD_ENABLED</value>
+          <value>FX_INCLUDE_USER_DEFINE_FILE</value>
+          <value>TX_INCLUDE_USER_DEFINE_FILE</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5dp.hard</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5dp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv5dp.hard</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.sections" type="stringList">
+          <value>isd=*(NonCacheable.init);region=NCACHE_REGION;type=.data</value>
+          <value>isd=*(NonCacheable);region=NCACHE_REGION;type=.bss</value>
+          <value>isd=*(.bss*);region=NCACHE_REGION;type=.bss</value>
+        </option>
+        <option id="gnu.c.link.option.other" type="stringList">
+          <value>-no-warn-rwx-segments</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <debug_configurations>
+      <debug_configuration id_refs="com.crt.advproject.config.exe.debug com.crt.advproject.config.exe.release">
+        <drivers>
+          <driver id_refs="BOARD_FLASH_evkmimxrt1020">
+            <driverBinary path="../../../../devices/MIMXRT1021/mcuxpresso" project_relative_path="binary" type="binary">
+              <files mask="MIMXRT1020-EVK_IS25LP064.cfx"/>
+            </driverBinary>
+          </driver>
+        </drivers>
+      </debug_configuration>
+    </debug_configurations>
+    <include_paths>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="azure-rtos/config" type="c_include"/>
+      <include_path path="../../../../core/boards/evkmimxrt1020" project_relative_path="." type="c_include"/>
+    </include_paths>
+    <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_release.bat"/>
+      <files mask="build_release.sh"/>
+      <files mask="build_flexspi_nor_debug.bat"/>
+      <files mask="build_flexspi_nor_debug.sh"/>
+      <files mask="build_flexspi_nor_release.bat"/>
+      <files mask="build_flexspi_nor_release.sh"/>
+    </source>
+    <source path="../../../../core/devices/MIMXRT1021" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="all_lib_device.cmake"/>
+    </source>
+    <source path="." project_relative_path="board" type="src" config="true">
+      <files mask="sdmmc_config.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include" config="true">
+      <files mask="sdmmc_config.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+      <files mask="board_setup.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+      <files mask="board_setup.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="filex_sdcard.c"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="fx_sdcard_driver.c"/>
+    </source>
+    <source path="." project_relative_path="azure-rtos/config" type="c_include">
+      <files mask="tx_user.h"/>
+    </source>
+    <source path="." project_relative_path="azure-rtos/config" type="c_include">
+      <files mask="fx_user.h"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
+      <files mask="readme.md"/>
+    </source>
+    <source path="../../../../core/boards/evkmimxrt1020" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+      <files mask="dcd.c"/>
+    </source>
+    <source path="../../../../core/boards/evkmimxrt1020" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+      <files mask="dcd.h"/>
+    </source>
+    <source path="armgcc" project_relative_path="MIMXRT1021/gcc" type="linker" toolchain="armgcc">
+      <files mask="MIMXRT1021xxxxx_ram.ld"/>
+      <files mask="MIMXRT1021xxxxx_flexspi_nor.ld"/>
+    </source>
+    <source path="../../../../rtos/azure-rtos/filex" project_relative_path="azure-rtos/filex" type="script" toolchain="armgcc">
+      <files mask="CMakeLists.txt"/>
+    </source>
+    <source path="../../../../rtos/azure-rtos/threadx" project_relative_path="azure-rtos/threadx" type="script" toolchain="armgcc">
+      <files mask="CMakeLists.txt"/>
+    </source>
+  </example>
+</ksdk:examples>

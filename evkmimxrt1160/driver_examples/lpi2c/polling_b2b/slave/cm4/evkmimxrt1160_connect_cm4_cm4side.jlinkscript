@@ -1,9 +1,27 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
+
+void PrepareTrapCodeForCM7(void) {
+    // Prepare stack
+    JLINK_CORESIGHT_WriteAP(JLINK_CORESIGHT_AP_REG_ADDR, 0x2021ff00);
+    JLINK_CORESIGHT_WriteAP(JLINK_CORESIGHT_AP_REG_DATA, 0x20200020);
+
+    // Prepare spin code provided by ROM
+    JLINK_CORESIGHT_WriteAP(JLINK_CORESIGHT_AP_REG_ADDR, 0x2021ff04);
+    JLINK_CORESIGHT_WriteAP(JLINK_CORESIGHT_AP_REG_DATA, 0x0023f041);
+
+    // Configure LPSR_GPR26 for CM7 init vector
+    JLINK_CORESIGHT_WriteAP(JLINK_CORESIGHT_AP_REG_ADDR, 0x40C0C068);
+    JLINK_CORESIGHT_WriteAP(JLINK_CORESIGHT_AP_REG_DATA, 0x2021ff00>>7);
+
+    // Do software reset for CM7 core
+    JLINK_CORESIGHT_WriteAP(JLINK_CORESIGHT_AP_REG_ADDR, 0x40c042a4);
+    JLINK_CORESIGHT_WriteAP(JLINK_CORESIGHT_AP_REG_DATA, 0x00000001);
+}
 
 void PrepareTrapCode(void) {
     unsigned int start;
@@ -36,7 +54,10 @@ void InitTarget(void) {
     JLINK_CORESIGHT_ReadAP(JLINK_CORESIGHT_AP_REG_IDR);
     SYS_Sleep(10);
 
+    // Set Trap code for CM7 and CM4 core
+    PrepareTrapCodeForCM7();
     PrepareTrapCode();
+
     // Release CM4 from SRC
     JLINK_CORESIGHT_WriteAP(JLINK_CORESIGHT_AP_REG_ADDR, 0x40C04000);
     JLINK_CORESIGHT_WriteAP(JLINK_CORESIGHT_AP_REG_DATA, 1);

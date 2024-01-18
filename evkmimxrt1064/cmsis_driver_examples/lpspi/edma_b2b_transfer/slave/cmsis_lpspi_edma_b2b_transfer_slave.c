@@ -24,7 +24,7 @@
 #define EXAMPLE_LPSPI_SLAVE_DMA_MUX_BASEADDR DMAMUX
 #define EXAMPLE_LPSPI_SLAVE_DMA_BASEADDR     DMA0
 
-/* Select USB1 PLL PFD0 (720 MHz) as lpspi clock source */
+/* Select USB1 PLL PFD0 (480 MHz) as lpspi clock source */
 #define EXAMPLE_LPSPI_CLOCK_SOURCE_SELECT (1U)
 /* Clock divider for master lpspi clock source */
 #define EXAMPLE_LPSPI_CLOCK_SOURCE_DIVIDER (7U)
@@ -93,6 +93,9 @@ int main(void)
     /* DMA Mux init and EDMA init */
     edma_config_t edmaConfig = {0};
     EDMA_GetDefaultConfig(&edmaConfig);
+#if defined(BOARD_GetEDMAConfig)
+    BOARD_GetEDMAConfig(edmaConfig);
+#endif
     EDMA_Init(EXAMPLE_LPSPI_SLAVE_DMA_BASEADDR, &edmaConfig);
 
 #if (defined(FSL_FEATURE_SOC_DMAMUX_COUNT) && FSL_FEATURE_SOC_DMAMUX_COUNT)

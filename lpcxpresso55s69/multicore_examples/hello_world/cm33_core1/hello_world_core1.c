@@ -31,7 +31,6 @@
  * Code
  ******************************************************************************/
 
-
 /*!
  * @brief Application-specific implementation of the SystemInitHook() weak function.
  */

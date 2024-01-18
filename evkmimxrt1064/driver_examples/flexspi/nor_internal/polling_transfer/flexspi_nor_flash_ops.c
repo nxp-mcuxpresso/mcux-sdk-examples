@@ -187,7 +187,9 @@ status_t flexspi_nor_enable_quad_mode(FLEXSPI_Type *base)
 {
     flexspi_transfer_t flashXfer;
     status_t status;
+#if defined(FLASH_QUAD_ENABLE) && FLASH_QUAD_ENABLE
     uint32_t writeValue = FLASH_QUAD_ENABLE;
+#endif
 
 #if defined(CACHE_MAINTAIN) && CACHE_MAINTAIN
     flexspi_cache_status_t cacheStatus;
@@ -205,12 +207,18 @@ status_t flexspi_nor_enable_quad_mode(FLEXSPI_Type *base)
     /* Enable quad mode. */
     flashXfer.deviceAddress = 0;
     flashXfer.port          = FLASH_PORT;
+#if defined(FLASH_QUAD_ENABLE) && FLASH_QUAD_ENABLE
     flashXfer.cmdType       = kFLEXSPI_Write;
     flashXfer.SeqNumber     = 1;
     flashXfer.seqIndex      = NOR_CMD_LUT_SEQ_IDX_WRITESTATUSREG;
     flashXfer.data          = &writeValue;
     flashXfer.dataSize      = writeValue <= 0xFFU ? 1 : 2;
-
+#endif
+#if defined(MT25Q_FLASH_QUAD_ENABLE) && MT25Q_FLASH_QUAD_ENABLE
+    flashXfer.cmdType       = kFLEXSPI_Command;
+    flashXfer.SeqNumber     = 1;
+    flashXfer.seqIndex      = NOR_CMD_LUT_SEQ_IDX_ENABLEQUAD;
+#endif
     status = FLEXSPI_TransferBlocking(base, &flashXfer);
     if (status != kStatus_Success)
     {

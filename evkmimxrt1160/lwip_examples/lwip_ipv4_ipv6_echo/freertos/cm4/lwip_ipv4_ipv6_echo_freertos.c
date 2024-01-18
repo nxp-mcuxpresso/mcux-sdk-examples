@@ -148,6 +148,11 @@ phy_rtl8211f_resource_t g_phy_resource;
 static phy_handle_t phyHandle;
 #if defined(BOARD_NETWORK_USE_DUAL_ENET)
 static phy_handle_t phyHandle1;
+
+#if LWIP_SINGLE_NETIF == 1
+#error \
+    "Single netif limitation in lwIP must be disabled if this example were to use both interfaces. (LWIP_SINGLE_NETIF = 0)"
+#endif // LWIP_SINGLE_NETIF == 1
 #endif
 
 /*******************************************************************************
@@ -164,7 +169,7 @@ void BOARD_InitModuleClock(void)
     clock_root_config_t rootCfg = {.mux = 4, .div = 10}; /* Generate 50M root clock. */
     CLOCK_SetRootClock(kCLOCK_Root_Enet1, &rootCfg);
 #else
-    clock_root_config_t rootCfg = {.mux = 4, .div = 4}; /* Generate 125M root clock. */
+    clock_root_config_t rootCfg = {.mux = 4, .div = 4};       /* Generate 125M root clock. */
     CLOCK_SetRootClock(kCLOCK_Root_Enet2, &rootCfg);
 #endif
 }
@@ -295,8 +300,6 @@ static void stack_init(void *arg)
  */
 int main(void)
 {
-    gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
-
     BOARD_ConfigMPU();
     BOARD_InitPins();
     BOARD_BootClockRUN();
@@ -307,23 +310,10 @@ int main(void)
 
 #if BOARD_NETWORK_USE_100M_ENET_PORT
     BOARD_InitEnetPins();
-    GPIO_PinInit(GPIO9, 11, &gpio_config);
-    GPIO_PinInit(GPIO12, 12, &gpio_config);
-    /* Pull up the ENET_INT before RESET. */
-    GPIO_WritePinOutput(GPIO9, 11, 1);
-    GPIO_WritePinOutput(GPIO12, 12, 0);
-    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
-    GPIO_WritePinOutput(GPIO12, 12, 1);
-    SDK_DelayAtLeastUs(6, CLOCK_GetFreq(kCLOCK_CpuClk));
+    BOARD_ENET_PHY0_RESET;
 #else
     BOARD_InitEnet1GPins();
-    GPIO_PinInit(GPIO11, 14, &gpio_config);
-    /* For a complete PHY reset of RTL8211FDI-CG, this pin must be asserted low for at least 10ms. And
-     * wait for a further 30ms(for internal circuits settling time) before accessing the PHY register */
-    GPIO_WritePinOutput(GPIO11, 14, 0);
-    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
-    GPIO_WritePinOutput(GPIO11, 14, 1);
-    SDK_DelayAtLeastUs(30000, CLOCK_GetFreq(kCLOCK_CpuClk));
+    BOARD_ENET_PHY1_RESET;
 
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_1_IRQn);
     EnableIRQ(ENET_1G_MAC0_Tx_Rx_2_IRQn);

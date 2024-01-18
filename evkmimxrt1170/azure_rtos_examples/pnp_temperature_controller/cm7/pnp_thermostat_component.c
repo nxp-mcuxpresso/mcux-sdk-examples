@@ -235,6 +235,7 @@ UINT sample_pnp_thermostat_telemetry_send(SAMPLE_PNP_THERMOSTAT_COMPONENT *handl
     NX_PACKET *packet_ptr;
     az_json_writer json_writer;
     UINT buffer_length;
+    UCHAR temp_buffer[128];
 
     if (handle == NX_NULL)
     {
@@ -251,7 +252,7 @@ UINT sample_pnp_thermostat_telemetry_send(SAMPLE_PNP_THERMOSTAT_COMPONENT *handl
     }
 
     /* Build telemetry JSON payload */
-    if(!(az_result_succeeded(az_json_writer_init(&json_writer, AZ_SPAN_FROM_BUFFER(scratch_buffer), NULL)) &&
+    if(!(az_result_succeeded(az_json_writer_init(&json_writer, AZ_SPAN_FROM_BUFFER(temp_buffer), NULL)) &&
          az_result_succeeded(az_json_writer_append_begin_object(&json_writer)) &&
          az_result_succeeded(az_json_writer_append_property_name(&json_writer, telemetry_name)) &&
          az_result_succeeded(az_json_writer_append_double(&json_writer, handle -> currentTemperature, DOUBLE_DECIMAL_PLACE_DIGITS)) &&
@@ -264,7 +265,7 @@ UINT sample_pnp_thermostat_telemetry_send(SAMPLE_PNP_THERMOSTAT_COMPONENT *handl
 
     buffer_length = (UINT)az_span_size(az_json_writer_get_bytes_used_in_destination(&json_writer));
     if ((status = nx_azure_iot_hub_client_telemetry_send(iothub_client_ptr, packet_ptr,
-                                                         (UCHAR *)scratch_buffer, buffer_length, NX_WAIT_FOREVER)))
+                                                         (UCHAR *)temp_buffer, buffer_length, NX_WAIT_FOREVER)))
     {
         PRINTF("Telemetry message send failed!: error code = 0x%08x\r\n", status);
         nx_azure_iot_hub_client_telemetry_message_delete(packet_ptr);
@@ -272,7 +273,7 @@ UINT sample_pnp_thermostat_telemetry_send(SAMPLE_PNP_THERMOSTAT_COMPONENT *handl
     }
 
     PRINTF("Thermostat %.*s Telemetry message send: %.*s.\r\n", handle -> component_name_length,
-           handle -> component_name_ptr, buffer_length, scratch_buffer);
+           handle -> component_name_ptr, buffer_length, temp_buffer);
 
     return(status);
 }

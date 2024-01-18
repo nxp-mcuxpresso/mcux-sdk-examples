@@ -163,7 +163,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     --defsym=__heap_size__=0x8000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1176xxxxx_cm4_sdram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1176xxxxx_cm4_sdram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_DEBUG} \
@@ -197,5 +197,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     --defsym=__heap_size__=0x8000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/MIMXRT1176xxxxx_cm4_sdram.ld -static \
+    -T\"${ProjDirPath}/MIMXRT1176xxxxx_cm4_sdram.ld\" -static \
 ")

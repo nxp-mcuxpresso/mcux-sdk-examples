@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -11,7 +11,8 @@
 #include "board.h"
 #include "erpc_client_setup.h"
 #include "erpc_error_handler.h"
-#include "erpc_matrix_multiply.h"
+#include "c_erpc_matrix_multiply_client.h"
+#include "erpc_matrix_multiply_common.h"
 #include "fsl_debug_console.h"
 #include <stdlib.h>
 
@@ -110,6 +111,7 @@ int main()
     /* eRPC client side initialization */
     erpc_client_t client;
     client = erpc_client_init(transport, message_buffer_factory);
+    initMatrixMultiplyService_client(client);
 
     /* Set default error handler */
     erpc_client_set_error_handler(client, erpc_error_handler);

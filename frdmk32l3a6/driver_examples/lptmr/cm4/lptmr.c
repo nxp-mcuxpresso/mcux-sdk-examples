@@ -19,7 +19,7 @@
 #define DEMO_LPTMR_BASE   LPTMR0
 #define DEMO_LPTMR_IRQn   LPTMR0_IRQn
 #define LPTMR_LED_HANDLER LPTMR0_IRQHandler
-//#define LPTMR0_IRQn LPTMR0_LPTMR1_IRQn
+// #define LPTMR0_IRQn LPTMR0_LPTMR1_IRQn
 /* Get source clock for LPTMR driver */
 #define LPTMR_SOURCE_CLOCK CLOCK_GetFreq(kCLOCK_LpoClk)
 /* Define LPTMR microseconds counts value */
