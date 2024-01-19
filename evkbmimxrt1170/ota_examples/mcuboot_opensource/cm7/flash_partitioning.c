@@ -18,12 +18,12 @@ struct flash_area boot_flash_map[MCUBOOT_IMAGE_SLOT_NUMBER] = {
     {.fa_id        = 0,
      .fa_device_id = FLASH_DEVICE_ID,
      .fa_off       = BOOT_FLASH_ACT_APP - BOOT_FLASH_BASE,
-     .fa_size      = BOOT_FLASH_CAND_APP - BOOT_FLASH_ACT_APP,
+     .fa_size      = BOOT_FLASH_CAND_APP - BOOT_FLASH_ACT_APP - BOOT_FLASH_PADDING_SIZE,
      .fa_name      = "APP_PRIMARY"},
 
     /* Image 0; slot 1 - Main Application Candidate Image  */
     {.fa_id        = 1,
      .fa_device_id = FLASH_DEVICE_ID,
      .fa_off       = BOOT_FLASH_CAND_APP - BOOT_FLASH_BASE,
-     .fa_size      = BOOT_FLASH_CAND_APP - BOOT_FLASH_ACT_APP,
+     .fa_size      = BOOT_FLASH_CAND_APP - BOOT_FLASH_ACT_APP - BOOT_FLASH_PADDING_SIZE,
      .fa_name      = "APP_SECONDARY"}};
