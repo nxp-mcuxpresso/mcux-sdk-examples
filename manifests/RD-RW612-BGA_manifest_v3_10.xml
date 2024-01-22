@@ -11270,7 +11270,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_i2c.RW612" name="i2c" brief="I2C Driver" version="2.3.3" full_name="FLEXCOMM I2C Driver" devices="RW612" device_cores="cm33_RW612" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/i2c" project_base_path="drivers">
+    <component id="platform.drivers.flexcomm_i2c.RW612" name="i2c" brief="I2C Driver" version="2.3.3" full_name="FLEXCOMM I2C Driver" devices="RW612" device_cores="cm33_RW612" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.RW612"/>
@@ -11290,7 +11290,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_i2c_dma.RW612" name="i2c_dma" brief="I2C Driver" version="2.3.1" full_name="FLEXCOMM I2C DMA Driver" devices="RW612" device_cores="cm33_RW612" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/i2c" project_base_path="drivers">
+    <component id="platform.drivers.flexcomm_i2c_dma.RW612" name="i2c_dma" brief="I2C Driver" version="2.3.1" full_name="FLEXCOMM I2C DMA Driver" devices="RW612" device_cores="cm33_RW612" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.lpc_dma.RW612"/>
@@ -11312,7 +11312,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_i2c_freertos.RW612" name="i2c_freertos" brief="I2C Driver" version="2.0.8" full_name="FLEXCOMM I2C FREERTOS Driver" devices="RW612" device_cores="cm33_RW612" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/i2c" project_base_path="drivers/freertos">
+    <component id="platform.drivers.flexcomm_i2c_freertos.RW612" name="i2c_freertos" brief="I2C Driver" version="2.0.8" full_name="FLEXCOMM I2C FREERTOS Driver" devices="RW612" device_cores="cm33_RW612" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers/freertos">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.RW612"/>
@@ -11331,7 +11331,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_i2s.RW612" name="flexcomm_i2s" brief="I2S Driver" version="2.3.2" full_name="FLEXCOMM I2S Driver" devices="RW612" device_cores="cm33_RW612" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/i2s" project_base_path="drivers">
+    <component id="platform.drivers.flexcomm_i2s.RW612" name="flexcomm_i2s" brief="I2S Driver" version="2.3.2" full_name="FLEXCOMM I2S Driver" devices="RW612" device_cores="cm33_RW612" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.RW612"/>
@@ -11351,7 +11351,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_i2s_dma.RW612" name="flexcomm_i2s_dma" brief="I2S Driver" version="2.3.2" full_name="FLEXCOMM I2S DMA Driver" devices="RW612" device_cores="cm33_RW612" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/i2s" project_base_path="drivers">
+    <component id="platform.drivers.flexcomm_i2s_dma.RW612" name="flexcomm_i2s_dma" brief="I2S Driver" version="2.3.2" full_name="FLEXCOMM I2S DMA Driver" devices="RW612" device_cores="cm33_RW612" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.lpc_dma.RW612"/>
@@ -11371,7 +11371,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_spi.RW612" name="spi" brief="SPI Driver" version="2.3.1" full_name="FLEXCOMM SPI Driver" devices="RW612" device_cores="cm33_RW612" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/spi" project_base_path="drivers">
+    <component id="platform.drivers.flexcomm_spi.RW612" name="spi" brief="SPI Driver" version="2.3.1" full_name="FLEXCOMM SPI Driver" devices="RW612" device_cores="cm33_RW612" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.RW612"/>
@@ -11391,7 +11391,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_spi_dma.RW612" name="spi_dma" brief="SPI Driver" version="2.1.1" full_name="FLEXCOMM SPI DMA Driver" devices="RW612" device_cores="cm33_RW612" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/spi" project_base_path="drivers">
+    <component id="platform.drivers.flexcomm_spi_dma.RW612" name="spi_dma" brief="SPI Driver" version="2.1.1" full_name="FLEXCOMM SPI DMA Driver" devices="RW612" device_cores="cm33_RW612" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.lpc_dma.RW612"/>
@@ -11412,7 +11412,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_spi_freertos.RW612" name="spi_freertos" brief="SPI Driver" version="2.1.0" full_name="FLEXCOMM SPI FREERTOS Driver" devices="RW612" device_cores="cm33_RW612" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/spi" project_base_path="drivers/freertos">
+    <component id="platform.drivers.flexcomm_spi_freertos.RW612" name="spi_freertos" brief="SPI Driver" version="2.1.0" full_name="FLEXCOMM SPI FREERTOS Driver" devices="RW612" device_cores="cm33_RW612" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers/freertos">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.RW612"/>
@@ -11431,7 +11431,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_usart.RW612" name="usart" brief="USART Driver" version="2.8.3" full_name="FLEXCOMM USART Driver" devices="RW612" device_cores="cm33_RW612" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/usart" project_base_path="drivers">
+    <component id="platform.drivers.flexcomm_usart.RW612" name="usart" brief="USART Driver" version="2.8.3" full_name="FLEXCOMM USART Driver" devices="RW612" device_cores="cm33_RW612" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers">
       <dependencies>
         <component_dependency value="platform.drivers.flexcomm.RW612"/>
       </dependencies>
@@ -11448,7 +11448,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_usart_dma.RW612" name="usart_dma" brief="USART Driver" version="2.6.0" full_name="FLEXCOMM USART DMA Driver" devices="RW612" device_cores="cm33_RW612" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/usart" project_base_path="drivers">
+    <component id="platform.drivers.flexcomm_usart_dma.RW612" name="usart_dma" brief="USART Driver" version="2.6.0" full_name="FLEXCOMM USART DMA Driver" devices="RW612" device_cores="cm33_RW612" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.lpc_dma.RW612"/>
@@ -11469,7 +11469,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_usart_freertos.RW612" name="usart_freertos" brief="USART Driver" version="2.6.0" full_name="FLEXCOMM USART FREERTOS Driver" devices="RW612" device_cores="cm33_RW612" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/usart" project_base_path="drivers/freertos">
+    <component id="platform.drivers.flexcomm_usart_freertos.RW612" name="usart_freertos" brief="USART Driver" version="2.6.0" full_name="FLEXCOMM USART FREERTOS Driver" devices="RW612" device_cores="cm33_RW612" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers/freertos">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.RW612"/>
