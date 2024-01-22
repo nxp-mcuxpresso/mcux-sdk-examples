@@ -30,6 +30,7 @@ Hardware requirements
 Board settings
 ==============
 Connect SPI signals on client board to the SPI signals on server board. Basicaly, the connection is:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    Client      |     Server
 ---------------------------------
    SOUT(MOSI)  --    SIN(MOSI)
@@ -38,6 +39,7 @@ Connect SPI signals on client board to the SPI signals on server board. Basicaly
    PCS         --    PCS
    SLAVE_READY --    SLAVE_READY
    GND         --    GND
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 SPI signals for FRDM-K32L2B board:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

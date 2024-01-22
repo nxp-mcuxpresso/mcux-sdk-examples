@@ -214,8 +214,10 @@ ADD_CUSTOM_COMMAND(TARGET dsp_pdm_sai_fusionf1.elf POST_BUILD COMMAND ${CMAKE_OB
 --xtensa-params= -Obinary ${EXECUTABLE_OUTPUT_PATH}/dsp_pdm_sai_fusionf1.elf ${EXECUTABLE_OUTPUT_PATH}/../../../../../../../examples/evk9mimx8ulp/dsp_examples/pdm_sai/dsp/binary/dsp_data_${CMAKE_BUILD_TYPE}.bin
 --xtensa-core=fusion_nxp02_dsp_prod
 --xtensa-system=${XTENSA_SYSTEM}
+--only-section=.clib.rodata
 --only-section=.rtos.rodata
 --only-section=.rodata
+--only-section=.clib.data
 --only-section=.rtos.percpu.data
 --only-section=.data
 --only-section=.bss

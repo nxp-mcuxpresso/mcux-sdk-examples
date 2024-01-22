@@ -22,3 +22,8 @@
         *fsl_cache.o(.text*)
         *wifi.o(.text*)
         </#if>
+
+        <#if memory.name=="SRAM_DTC">
+        *(.data*)
+        *(.wlan_data*)
+        </#if>

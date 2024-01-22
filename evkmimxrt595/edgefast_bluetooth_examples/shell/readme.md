@@ -79,8 +79,10 @@ Running the demo
 ================
 The log below shows the output of the example in the terminal window. 
 
-Note: Please note that whether the commands described in the document are supported depends on the specific hardware. Please use the command "help" to view the specific commands supported by the example.
-
+Note:
+1. Please note that whether the commands described in the document are supported depends on the specific hardware. Please use the command "help" to view the specific commands supported by the example.
+2. The shell information "SHELL build: Aug 10 2021" may be different, which depends on the compile date.
+3. Please note that not all cases of shell project have been verified. Only verified cases are listed in the readme file.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 BLE shell demo start...
 
@@ -681,7 +683,5 @@ RFCOMM Client Side,
 4. After rfcomm connection is created, input "rfcomm.send <count of sending>" to send data
 5. After rfcomm connection is created, input "rfcomm.disconnect" to disconnect with peer device
 
-Note: 
-1. The shell information "SHELL build: Aug 10 2021" may be different, which depends on the compile date.
-2. Please note that not all cases of shell project have been verified. Only verified cases are listed in the readme file.
+
 

@@ -38,7 +38,7 @@
 #define NOR_CMD_LUT_SEQ_IDX_ERASECHIP          5
 
 #define CUSTOM_LUT_LENGTH        60
-#define FLASH_QUAD_ENABLE        0x40
+#define FLASH_QUAD_ENABLE        0x02
 #define FLASH_BUSY_STATUS_POL    1
 #define FLASH_BUSY_STATUS_OFFSET 0
 

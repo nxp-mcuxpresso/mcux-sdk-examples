@@ -60,6 +60,7 @@ Running the demo
 ================
 Selected UART port: COM12, 115200 bd
 FRDM-K22F
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ->Press '1' for DAC ADC conversion
 ->Press '2' for GPIO LED
 ->Press '3' for Accelerometer and Magnetometer
@@ -93,3 +94,4 @@ Read value from Magnetometer:
 ->Press '1' for DAC ADC conversion
 ->Press '2' for GPIO LED
 ->Press '3' for Accelerometer and Magnetometer
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

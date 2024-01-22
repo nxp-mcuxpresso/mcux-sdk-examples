@@ -1253,16 +1253,6 @@
             <files mask="wifi_cli_over_ble_wu_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_bt_ble_cli" name="bt_ble_cli" brief="The bt_ble_cli." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="bt_ble_examples" path="examples/evkbmimxrt1170/bt_ble_examples/bt_ble_cli/cm7">
-          <external path="bt_ble_examples/bt_ble_cli/cm7" type="xml">
-            <files mask="bt_ble_cli_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkbmimxrt1170_bt_ble_multiprofile_cli" name="bt_ble_multiprofile_cli" brief="The bt_ble_multiprofile_cli." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="bt_ble_examples" path="examples/evkbmimxrt1170/bt_ble_examples/bt_ble_multiprofile_cli/cm7">
-          <external path="bt_ble_examples/bt_ble_multiprofile_cli/cm7" type="xml">
-            <files mask="bt_ble_multiprofile_cli_v3_14.xml"/>
-          </external>
-        </example>
         <example id="evkbmimxrt1170_dev_audio_generator_bm_cm7" name="dev_audio_generator_bm_cm7" brief="The USB Audio Generator application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a recording device and users can record the sound from this device via the &quot;Sound Recorder&quot; in the Windows Accessories." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/evkbmimxrt1170/usb_examples/usb_device_audio_generator/bm/cm7">
           <external path="usb_examples/usb_device_audio_generator/bm/cm7" type="xml">
             <files mask="dev_audio_generator_bm_cm7_v3_14.xml"/>
@@ -2846,16 +2836,6 @@
         <example id="evkbmimxrt1170_wifi_ipv4_ipv6_echo_cm7" name="wifi_ipv4_ipv6_echo_cm7" brief="The wifi_ipv4_ipv6_echo demo application demonstrates a TCP or UDP echo demo on the lwIP TCP/IP stack with FreeRTOS. The demo uses the TCP or UDP protocol over both IPv4 and IPv6 and acts as an echo server. The application sends back the received TCP or UDP packets from the PC, which can be used to test whether a TCP or UDP is available." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/evkbmimxrt1170/wifi_examples/wifi_ipv4_ipv6_echo/cm7">
           <external path="wifi_examples/wifi_ipv4_ipv6_echo/cm7" type="xml">
             <files mask="wifi_ipv4_ipv6_echo_cm7_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkbmimxrt1170_coex_cli_cm7" name="coex_cli_cm7" brief="The coex_cli." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="coex_examples" path="examples/evkbmimxrt1170/coex_examples/coex_cli/cm7">
-          <external path="coex_examples/coex_cli/cm7" type="xml">
-            <files mask="coex_cli_cm7_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkbmimxrt1170_coex_wpa_supplicant_cm7" name="coex_wpa_supplicant_cm7" brief="The coex_wpa_supplicant." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="coex_examples" path="examples/evkbmimxrt1170/coex_examples/coex_wpa_supplicant/cm7">
-          <external path="coex_examples/coex_wpa_supplicant/cm7" type="xml">
-            <files mask="coex_wpa_supplicant_cm7_v3_14.xml"/>
           </external>
         </example>
         <example id="evkbmimxrt1170_puf_cm7" name="puf_cm7" brief="This driver example project demonstrates how to use driver for the PUF controller which provides a secure key storage." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/puf" path="examples/evkbmimxrt1170/driver_examples/puf/cm7">

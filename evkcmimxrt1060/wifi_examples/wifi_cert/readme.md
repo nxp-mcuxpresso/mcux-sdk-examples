@@ -50,7 +50,17 @@ RT1060-EVKC Board Rework For M2 Slot Enablement
 A) Wi-Fi Rework:
 	- Jumper Settings : Connect J109, connect J76 2-3
     - For 2DS M.2 Module: remove R2163
-B) Wi-Fi Independent Reset OOB Trigger For 1XK/1ZM/2EL:
+B) Wi-Fi Host Sleep Wakeup GPIO For 1XK/1ZM/2EL:
+    - add 0Ohm resistor at position R252
+    - 1XK:
+        - Connect Fly-Wire between J33.1 and J108.5.
+        - J108 is routed on M2.P44 which internally routed on GPIO[2] of Controller 1XK.
+    - 1ZM:
+        - Connect Fly-Wire between J33.1 and J108.2.
+        - J108 is routed on M2.P40 which internally routed on GPIO[13] of Controller 1ZM.
+    - 2EL:
+        - No fly-wire connection required.
+C) Wi-Fi Independent Reset OOB Trigger For 1XK/1ZM/2EL:
 	- Connect Fly-Wire between J16.1 and J108.4.
 	- J108 is routed on M2.P48 which internally routed on IR GPIO[15] of Controller 1XK/1ZM.
 	- For 2EL-M2, No fly-wire connection required.

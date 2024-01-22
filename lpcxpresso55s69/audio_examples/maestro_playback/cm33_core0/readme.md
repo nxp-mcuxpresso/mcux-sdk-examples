@@ -101,3 +101,4 @@ terminal as below:
 # Known issues
 1. MP3 decoder has issues with some of the files. One of the channels can be sometimes
    distorted or missing parts of the signal.
+2. When running the "file start" command during playback, the example fails. It is necessary to stop or pause the playback first.

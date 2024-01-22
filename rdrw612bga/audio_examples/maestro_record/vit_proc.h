@@ -22,33 +22,33 @@ extern VIT_Deinit_T VIT_Deinit_func;
 typedef enum
 {
 #ifdef VIT_MODEL_EN
-EN,
+    EN,
 #endif
 #ifdef VIT_MODEL_CN
-CN,
+    CN,
 #endif
 #ifdef VIT_MODEL_DE
-DE,
+    DE,
 #endif
 #ifdef VIT_MODEL_ES
-ES,
+    ES,
 #endif
 #ifdef VIT_MODEL_FR
-FR,
+    FR,
 #endif
 #ifdef VIT_MODEL_IT
-IT,
+    IT,
 #endif
 #ifdef VIT_MODEL_JA
-JA,
+    JA,
 #endif
 #ifdef VIT_MODEL_KO
-KO,
+    KO,
 #endif
 #ifdef VIT_MODEL_TR
-TR,
+    TR,
 #endif
-VIT_LANGUAGE_MAX
+    VIT_LANGUAGE_MAX
 } VIT_Language_T;
 extern VIT_Language_T Vit_Language;
 #endif

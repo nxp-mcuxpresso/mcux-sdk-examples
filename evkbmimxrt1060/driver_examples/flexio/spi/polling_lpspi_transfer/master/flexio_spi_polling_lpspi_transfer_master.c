@@ -39,7 +39,7 @@
 #define SLAVE_LPSPI_BASEADDR (LPSPI1)
 #define SLAVE_LPSPI_IRQN     (LPSPI1_IRQn)
 
-/* Select USB1 PLL PFD0 (720 MHz) as lpspi clock source */
+/* Select USB1 PLL PFD0 (480 MHz) as lpspi clock source */
 #define SLAVE_LPSPI_CLOCK_SELECT (1U)
 /* Clock divider for lpspi clock source */
 #define SLAVE_LPSPI_CLOCK_DIVIDER (7U)

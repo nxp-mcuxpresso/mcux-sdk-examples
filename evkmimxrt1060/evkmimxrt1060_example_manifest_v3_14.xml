@@ -8,11 +8,6 @@
   <boards>
     <board id="evkmimxrt1060" name="EVK-MIMXRT1060" href="https://www.nxp.com/pip/MIMXRT1060-EVK" version="1.0.0" package="MIMXRT1062DVL6A">
       <examples>
-        <example id="evkmimxrt1060_bt_ble_cli" name="bt_ble_cli" brief="The bt_ble_cli." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="bt_ble_examples" path="examples/evkmimxrt1060/bt_ble_examples/bt_ble_cli">
-          <external path="bt_ble_examples/bt_ble_cli" type="xml">
-            <files mask="bt_ble_cli_v3_14.xml"/>
-          </external>
-        </example>
         <example id="evkmimxrt1060_cmsis_lpi2c_edma_b2b_transfer_master" name="cmsis_lpi2c_edma_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_i2c_edma_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with EDMA:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/lpi2c" path="examples/evkmimxrt1060/cmsis_driver_examples/lpi2c/edma_b2b_transfer/master">
           <external path="cmsis_driver_examples/lpi2c/edma_b2b_transfer/master" type="xml">
             <files mask="cmsis_lpi2c_edma_b2b_transfer_master_v3_14.xml"/>

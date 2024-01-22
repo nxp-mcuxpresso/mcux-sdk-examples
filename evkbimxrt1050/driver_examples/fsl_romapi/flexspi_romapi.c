@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020, 2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -390,8 +390,11 @@ int main(void)
     /* Setup FLEXSPI NOR Configuration Block */
     FLEXSPI_NorFlash_GetConfig(&norConfig);
 
+    /* Disable I cache and D cache before invoking ROM APIs. */
+    flexspi_nor_handle_cache(true, cacheStatus);
     /* Initializes the FLEXSPI module for the other FLEXSPI APIs */
     status = ROM_FLEXSPI_NorFlash_Init(FlexSpiInstance, &norConfig);
+    flexspi_nor_handle_cache(false, cacheStatus);
     if (status == kStatus_Success)
     {
         PRINTF("\r\n Successfully init FLEXSPI serial NOR flash\r\n ");

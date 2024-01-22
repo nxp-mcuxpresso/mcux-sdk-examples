@@ -8,11 +8,6 @@
   <boards>
     <board id="evkbmimxrt1060" name="MIMXRT1060-EVKB" href="https://www.nxp.com/pip/MIMXRT1060-EVK" version="1.0.0" package="MIMXRT1062DVL6B">
       <examples>
-        <example id="evkbmimxrt1060_bt_ble_cli" name="bt_ble_cli" brief="The bt_ble_cli." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="bt_ble_examples" path="examples/evkbmimxrt1060/bt_ble_examples/bt_ble_cli">
-          <external path="bt_ble_examples/bt_ble_cli" type="xml">
-            <files mask="bt_ble_cli_v3_14.xml"/>
-          </external>
-        </example>
         <example id="evkbmimxrt1060_cmsis_lpi2c_edma_b2b_transfer_master" name="cmsis_lpi2c_edma_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_i2c_edma_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with EDMA:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/lpi2c" path="examples/evkbmimxrt1060/cmsis_driver_examples/lpi2c/edma_b2b_transfer/master">
           <external path="cmsis_driver_examples/lpi2c/edma_b2b_transfer/master" type="xml">
             <files mask="cmsis_lpi2c_edma_b2b_transfer_master_v3_14.xml"/>
@@ -1416,16 +1411,6 @@
         <example id="evkbmimxrt1060_wifi_ipv4_ipv6_echo" name="wifi_ipv4_ipv6_echo" brief="The wifi_ipv4_ipv6_echo demo application demonstrates a TCP or UDP echo demo on the lwIP TCP/IP stack with FreeRTOS. The demo uses the TCP or UDP protocol over both IPv4 and IPv6 and acts as an echo server. The application sends back the received TCP or UDP packets from the PC, which can be used to test whether a TCP or UDP is available." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/evkbmimxrt1060/wifi_examples/wifi_ipv4_ipv6_echo">
           <external path="wifi_examples/wifi_ipv4_ipv6_echo" type="xml">
             <files mask="wifi_ipv4_ipv6_echo_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkbmimxrt1060_coex_cli" name="coex_cli" brief="The coex_cli." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="coex_examples" path="examples/evkbmimxrt1060/coex_examples/coex_cli">
-          <external path="coex_examples/coex_cli" type="xml">
-            <files mask="coex_cli_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkbmimxrt1060_coex_wpa_supplicant" name="coex_wpa_supplicant" brief="The coex_wpa_supplicant." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="coex_examples" path="examples/evkbmimxrt1060/coex_examples/coex_wpa_supplicant">
-          <external path="coex_examples/coex_wpa_supplicant" type="xml">
-            <files mask="coex_wpa_supplicant_v3_14.xml"/>
           </external>
         </example>
         <example id="evkbmimxrt1060_ccm_clockout" name="ccm_clockout" brief="The ccm_clockout driver example shows how to output the internal clock signal. In this driver example, users can choose the clock signal to be outputted, and the divider of the output clock signal. By probing the output pin, users can observe the selected internal clock signal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ccm" path="examples/evkbmimxrt1060/driver_examples/clockout">

@@ -123,9 +123,29 @@
 
 
 #if defined(__ICCARM__)||defined(__CC_ARM)||defined(__GNUC__)
-    /* Clock manager provides in this variable system core clock frequency */
-    #include <stdint.h>
-    extern uint32_t SystemCoreClock;
+#include "fsl_device_registers.h"
+#endif
+
+
+#ifndef configENABLE_FPU
+  #define configENABLE_FPU                        1
+#endif
+#ifndef configENABLE_MPU
+  #define configENABLE_MPU                        0
+#endif
+#ifndef configENABLE_TRUSTZONE
+  #define configENABLE_TRUSTZONE                  0
+#endif
+#ifndef configRUN_FREERTOS_SECURE_ONLY
+  #define configRUN_FREERTOS_SECURE_ONLY          1
+#endif
+
+/* Redefine: Mutex is needed for SRTM communication */
+#undef configUSE_MUTEXES
+#define configUSE_MUTEXES                       1
+
+#ifndef configTOTAL_HEAP_SIZE
+#define configTOTAL_HEAP_SIZE ((size_t)(20 * 1024))
 #endif
 
 /* Interrupt nesting behaviour configuration. Cortex-M specific. */
@@ -133,8 +153,10 @@
 /* __BVIC_PRIO_BITS will be specified when CMSIS is being used. */
 #define configPRIO_BITS __NVIC_PRIO_BITS
 #else
-#define configPRIO_BITS 4 /* 15 priority levels */
+#define configPRIO_BITS 3 /* 7 priority levels */
 #endif
+
+#define configSTACK_DEPTH_TYPE uint32_t
 
 /* The lowest interrupt priority that can be used in a call to a "set priority"
 function. */
@@ -156,7 +178,7 @@ See http://www.FreeRTOS.org/RTOS-Cortex-M3-M4.html. */
 /* Definitions that map the FreeRTOS port interrupt handlers to their CMSIS
 standard names. */
 #define vPortSVCHandler SVC_Handler
-#define xPortPendSVHandler PendSV_Handler
-#define xPortSysTickHandler SysTick_Handler
+#define vPortPendSVHandler PendSV_Handler
+#define vPortSysTickHandler SysTick_Handler
 
 #endif /* FREERTOS_CONFIG_H */

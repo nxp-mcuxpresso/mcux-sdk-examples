@@ -473,19 +473,23 @@ int main(void)
                 /* Set the audio input source to AUX */
                 DA7212_ChangeInput((da7212_handle_t *)((uint32_t)(codecHandle.codecDevHandle)), kDA7212_Input_AUX);
 #endif
+#if defined(BOARD_CONFIGCODEC_FOR_RECORD_PLAYBACK)
                 BOARD_CONFIGCODEC_FOR_RECORD_PLAYBACK();
                 if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
                 {
                     assert(false);
                 }
+#endif
                 RecordPlayback(DEMO_SAI, 30);
                 break;
             case '2':
+#if defined(BOARD_CONFIGCODEC_FOR_PLAYBACK)
                 BOARD_CONFIGCODEC_FOR_PLAYBACK();
                 if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
                 {
                     assert(false);
                 }
+#endif
                 PlaybackSine(DEMO_SAI, 250, 5);
                 break;
 #if defined DEMO_SDCARD

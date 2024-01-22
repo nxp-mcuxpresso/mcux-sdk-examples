@@ -18,6 +18,7 @@
 #include "semphr.h"
 
 #include "fsl_common.h"
+#include "fsl_iomuxc.h"
 #include "fsl_debug_console.h"
 #include "lpm.h"
 #include "fsl_lpuart.h"
@@ -29,6 +30,7 @@
 #include "host_sleep.h"
 
 GPIO_HANDLE_DEFINE(s_WakeupGpioHandle);
+GPIO_HANDLE_DEFINE(h_WakeupGpioHandle);
 
 static void (*wlan_host_sleep_pre_cfg)(void);
 static void (*wlan_host_sleep_post_cfg)(void);
@@ -80,6 +82,25 @@ static void APP_SetWakeupConfig(lpm_power_mode_t targetMode)
     EnableIRQ(APP_WAKEUP_BUTTON_IRQ);
     /* Enable GPC interrupt */
     LPM_EnableWakeupSource(APP_WAKEUP_BUTTON_IRQ);
+}
+
+void APP_HOST_WAKEUP_Callback(void *param)
+{
+    LPM_DisableWakeupSource(APP_HOST_WAKEUP_IRQ);
+    xSemaphoreGiveFromISR(s_wakeupSig, NULL);
+}
+
+static void HOST_SetWakeupConfig(lpm_power_mode_t targetMode)
+{
+    GPIO_ClearPinsInterruptFlags(APP_HOST_WAKEUP_GPIO, 1U << APP_HOST_WAKEUP_GPIO_PIN);
+    /* Enable GPIO pin interrupt */
+    GPIO_EnableInterrupts(APP_HOST_WAKEUP_GPIO, 1U << APP_HOST_WAKEUP_GPIO_PIN);
+    NVIC_ClearPendingIRQ(APP_HOST_WAKEUP_IRQ);
+    NVIC_SetPriority(APP_HOST_WAKEUP_IRQ, configMAX_SYSCALL_INTERRUPT_PRIORITY + 2);
+    /* Enable the Interrupt */
+    EnableIRQ(APP_HOST_WAKEUP_IRQ);
+    /* Enable GPC interrupt */
+    LPM_EnableWakeupSource(APP_HOST_WAKEUP_IRQ);
 }
 
 lpm_power_mode_t APP_GetRunMode(void)
@@ -200,12 +221,14 @@ static void PowerModeSwitch(lpm_power_mode_t mode)
             else if (LPM_PowerModeSNVS == s_targetPowerMode)
             {
                 APP_SetWakeupConfig(s_targetPowerMode);
+                HOST_SetWakeupConfig(s_targetPowerMode);
                 APP_PowerPreSwitchHook(s_targetPowerMode);
                 LPM_EnterSNVS();
             }
             else
             {
                 APP_SetWakeupConfig(s_targetPowerMode);
+                HOST_SetWakeupConfig(s_targetPowerMode);
                 vPortPRE_SLEEP_PROCESSING(0);
                 vPortPOST_SLEEP_PROCESSING(0);
                 if (xSemaphoreTake(s_wakeupSig, portMAX_DELAY) == pdFALSE)
@@ -264,6 +287,22 @@ int hostsleep_init(void (*wlan_hs_pre_cfg)(void), void (*wlan_hs_post_cfg)(void)
     HAL_GpioInit(s_WakeupGpioHandle, &sw_config);
     HAL_GpioSetTriggerMode(s_WakeupGpioHandle, APP_WAKEUP_BUTTON_INTTERUPT_TYPE);
     HAL_GpioInstallCallback(s_WakeupGpioHandle, APP_WAKEUP_BUTTON_Callback, NULL);
+
+    hal_gpio_pin_config_t hw_config = {
+        kHAL_GpioDirectionIn,
+        0,
+        APP_HOST_WAKEUP_GPIO_PORT,
+        APP_HOST_WAKEUP_GPIO_PIN,
+    };
+
+#ifdef WIFI_IW612_BOARD_MURATA_2EL_M2
+    IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_00_GPIO1_IO00, 0U);
+#elif defined(WIFI_88W8987_BOARD_MURATA_1ZM_M2) || defined(WIFI_IW416_BOARD_MURATA_1XK_M2)
+    IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B1_10_GPIO1_IO26, 0U);
+#endif
+    HAL_GpioInit(h_WakeupGpioHandle, &hw_config);
+    HAL_GpioSetTriggerMode(h_WakeupGpioHandle, APP_HOST_WAKEUP_INTTERUPT_TYPE);
+    HAL_GpioInstallCallback(h_WakeupGpioHandle, APP_HOST_WAKEUP_Callback, NULL);
 
     return 0;
 }

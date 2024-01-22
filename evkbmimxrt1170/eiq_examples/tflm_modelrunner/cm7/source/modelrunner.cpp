@@ -26,7 +26,7 @@
 
 static char* model_buf = nullptr;
 
-char cmd[CMD_SIZE + 1];
+char cmd[CMD_SIZE + 2];
 size_t cmd_pos = 0u;
 bool echo = 1;
 

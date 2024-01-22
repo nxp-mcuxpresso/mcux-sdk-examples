@@ -1,0 +1,4 @@
+        <#if memory.name=="SRAM_DTC">
+        *(.data*)
+        *(.wlan_data*)
+        </#if>

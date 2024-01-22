@@ -59,6 +59,7 @@ For detailed instructions, see the appropriate board User's Guide.
 Running the demo
 ================
 Selected UART port: COM12, 115200 bd
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ->Press '1' for DAC ADC conversion
 ->Press '2' for GPIO LED
 ->Press '3' for Accelerometer
@@ -86,4 +87,4 @@ Read value from Accelerometer:
 ->Press '1' for DAC ADC conversion
 ->Press '2' for GPIO LED
 ->Press '3' for Accelerometer
-
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

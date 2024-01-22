@@ -13,7 +13,7 @@
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Peripherals v13.0
+product: Peripherals v14.0
 processor: MIMXRT1062xxxxB
 package_id: MIMXRT1062DVL6B
 mcu_data: ksdk2_0
@@ -104,7 +104,7 @@ instance:
       - userContext:
         - contextVar: '(void*)&LittleFS_ctx'
         - contextDef: ''
-        - contextExternalDef: ''
+        - contextExternalDef: 'struct lfs_mflash_ctx LittleFS_ctx'
       - userCallbacks:
         - read: 'lfs_mflash_read'
         - prog: 'lfs_mflash_prog'
@@ -141,8 +141,6 @@ instance:
       - mountLFS: 'disable'
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
-/* LittleFS context */
-extern struct lfs_mflash_ctx LittleFS_ctx;
 const struct lfs_config LittleFS_config = {
   .context = (void*)&LittleFS_ctx,
   .read = lfs_mflash_read,

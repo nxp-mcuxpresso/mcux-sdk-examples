@@ -8,11 +8,6 @@
   <boards>
     <board id="evkcmimxrt1060" name="MIMXRT1060-EVKC" version="1.0.0" package="MIMXRT1062DVL6B">
       <examples>
-        <example id="evkcmimxrt1060_bt_ble_cli" name="bt_ble_cli" brief="The bt_ble_cli." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="bt_ble_examples" path="examples/evkcmimxrt1060/bt_ble_examples/bt_ble_cli">
-          <external path="bt_ble_examples/bt_ble_cli" type="xml">
-            <files mask="bt_ble_cli_v3_14.xml"/>
-          </external>
-        </example>
         <example id="evkcmimxrt1060_spp" name="spp" brief="The Bluetooth BR SPP example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/spp">
           <external path="edgefast_bluetooth_examples/spp" type="xml">
             <files mask="spp_v3_14.xml"/>
@@ -1501,16 +1496,6 @@
         <example id="evkcmimxrt1060_wifi_ipv4_ipv6_echo" name="wifi_ipv4_ipv6_echo" brief="The wifi_ipv4_ipv6_echo demo application demonstrates a TCP or UDP echo demo on the lwIP TCP/IP stack with FreeRTOS. The demo uses the TCP or UDP protocol over both IPv4 and IPv6 and acts as an echo server. The application sends back the received TCP or UDP packets from the PC, which can be used to test whether a TCP or UDP is available." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/evkcmimxrt1060/wifi_examples/wifi_ipv4_ipv6_echo">
           <external path="wifi_examples/wifi_ipv4_ipv6_echo" type="xml">
             <files mask="wifi_ipv4_ipv6_echo_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkcmimxrt1060_coex_cli" name="coex_cli" brief="The coex_cli." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="coex_examples" path="examples/evkcmimxrt1060/coex_examples/coex_cli">
-          <external path="coex_examples/coex_cli" type="xml">
-            <files mask="coex_cli_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkcmimxrt1060_coex_wpa_supplicant" name="coex_wpa_supplicant" brief="The coex_wpa_supplicant." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="coex_examples" path="examples/evkcmimxrt1060/coex_examples/coex_wpa_supplicant">
-          <external path="coex_examples/coex_wpa_supplicant" type="xml">
-            <files mask="coex_wpa_supplicant_v3_14.xml"/>
           </external>
         </example>
         <example id="evkcmimxrt1060_maestro_playback" name="maestro_playback" brief="Audio maestro framework demo example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="audio_examples" path="examples/evkcmimxrt1060/audio_examples/maestro_playback">

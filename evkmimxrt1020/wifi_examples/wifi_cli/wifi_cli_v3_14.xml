@@ -179,6 +179,9 @@
     <source path="armgcc/linker" project_relative_path="linker" type="linker" toolchain="armgcc">
       <files mask="MIMXRT1021xxxxx_flexspi_nor.ld"/>
     </source>
+    <source path="linkscripts" project_relative_path="linkscripts" type="src" toolchain="mcuxpresso">
+      <files mask="data.ldt"/>
+    </source>
     <source path="." project_relative_path="source" type="c_include" config="true">
       <files mask="wifi_config.h"/>
       <files mask="lwipopts.h"/>
@@ -195,10 +198,6 @@
     </source>
     <source path="." project_relative_path="doc" type="doc" exclude="true">
       <files mask="readme_modules.txt"/>
-    </source>
-    <source path="." project_relative_path="source" type="c_include" config="true">
-      <files mask="lwipopts.h"/>
-      <files mask="wifi_config.h"/>
     </source>
     <source path="." project_relative_path="board" type="src" config="true">
       <files mask="sdmmc_config.c"/>

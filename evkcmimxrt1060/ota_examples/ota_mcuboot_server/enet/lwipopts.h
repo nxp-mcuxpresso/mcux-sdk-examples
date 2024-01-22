@@ -131,10 +131,17 @@ void sys_mark_tcpip_thread(void);
  */
 
 #ifdef CONFIG_IPV6
+<<<<<<<< HEAD:rdrw612bga/ota_examples/ota_mcuboot_server/enet/lwipopts.h
+#define LWIP_IPV6 1
+#define IP6_DEBUG        LWIP_DBG_OFF
+#define ICMP6_DEBUG      LWIP_DBG_OFF
+#define DHCP6_DEBUG      LWIP_DBG_OFF
+========
 #define LWIP_IPV6   1
 #define IP6_DEBUG   LWIP_DBG_OFF
 #define ICMP6_DEBUG LWIP_DBG_OFF
 #define DHCP6_DEBUG LWIP_DBG_OFF
+>>>>>>>> MCUX_2.15.000:evkcmimxrt1060/ota_examples/ota_mcuboot_server/enet/lwipopts.h
 #endif
 
 /* ---------- TCP options ---------- */
