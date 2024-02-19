@@ -1,0 +1,18 @@
+KEEP (*(.flexspi_fcb*))
+KEEP (*(mcxn_flexspi_nor_config.o*))
+
+<#if memory.alias=="QSPI_FCB">
+mcxn_flexspi_nor_config.o(.text*)
+</#if>
+
+<#if memory.alias=="QSPI_FLASH">
+*.o(.text*)
+</#if>
+
+*(.text_${memory.alias}*) /* for compatibility with previous releases */
+*(.text_${memory.name}*) /* for compatibility with previous releases */
+*(.text.$${memory.alias}*)
+*(.text.$${memory.name}*)
+
+
+
