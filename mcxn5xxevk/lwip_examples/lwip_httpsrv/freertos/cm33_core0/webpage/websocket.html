@@ -1,0 +1,279 @@
+<!DOCTYPE HTML SYSTEM>
+<!--  Inspired by https://www.websocket.org/echo.html 
+ * Copyright 2015 Kaazing Corporation. All rights reserved.
+ * Licensed under Apache 2.0* -->
+<html>
+<head>
+
+<title>Websocket Echo Test</title>
+
+<style type="text/css">
+    @import"httpsrv.css";
+</style>
+		
+<style type="text/css">
+
+#consoleLog {
+	border: solid 1px #999999;
+	border-top-color: #CCCCCC;
+	border-left-color: #CCCCCC;
+	padding: 5px;
+  width: 100%;
+	height: 172px;
+	overflow-y: scroll;
+}
+
+#consoleLog p {
+  font-size: 11px;
+	line-height: 150%;
+}
+</style>
+
+</head>
+
+<body>
+      <h2>WebSocket Echo Test</h2>
+      <p>
+      The HTML5 WebSocket test against the echo server. 
+      </p>
+        <h4>Instructions</h4>
+        <ol>
+          <li>
+            Press the <b>Connect</b> button.
+          </li>
+          <li>
+            Once connected, enter a message and press the <b>Send</b> button. </br>The message content will be sent to the WebSocket Echo application running on the target board and appear in the <b>Log</b> section.</br> You can change the message and send again multiple times.
+          </li>
+          <li>
+            The WebSocket Echo application running on the target board is sending back all received messages.
+          </li>
+          <li>
+            Press the <b>Disconnect</b> button to close the WebSocket connection.
+          </li>
+        </ol>
+        <b>Note:</b>
+		<ul>
+			<li>If not able to connect, try to refresh this page [F5].</li>
+			<li>In some environments the WebSocket connection may fail due to intermediary firewalls, proxies, routers, etc.</li>
+		</ul>
+
+        <br>
+
+          <div style="float: left;">
+            <strong>Target:</strong><br>
+            <input id="wsUri" size="35">
+            <br>
+            <!-- <input type="checkbox" id="secureCb" onclick="toggleTls();">
+            <span id="secureCbLabel" style="font-size: smaller; color: black;">Use secure WebSocket (TLS)</span><br> -->
+            <button id="connect">Connect</button>
+            <button id="disconnect" disabled="">Disconnect</button>
+            <br>
+            <br>
+            <strong>Text Message:</strong><br>
+            <input id="sendMessage" size="35" value="Rock it with HTML5 WebSocket" disabled="">
+            <br>
+            <button id="send" disabled="">Send</button>
+			<br>
+			<br>
+			<strong>Log:</strong>
+            <div id="consoleLog"></div>
+            <button id="clearLogBut" style="position: relative; top: 3px;">Clear log</button>
+          </div>
+
+<script type="text/javascript">
+
+  var secureCb;
+  var secureCbLabel;
+  var wsUri;
+  var consoleLog;
+  var connectBut;
+  var disconnectBut;
+  var sendMessage;
+  var sendBut;
+  var clearLogBut;
+
+  function echoHandlePageLoad()
+  {
+
+   // secureCb = document.getElementById("secureCb");
+  //  secureCb.checked = false;
+  //  secureCb.onclick = toggleTlS;
+
+    secureCbLabel = document.getElementById("secureCbLabel")
+
+    wsUri = document.getElementById("wsUri");
+    initializeLocation();
+
+    connectBut = document.getElementById("connect");
+    connectBut.onclick = doConnect;
+
+    disconnectBut = document.getElementById("disconnect");
+    disconnectBut.onclick = doDisconnect;
+
+    sendMessage = document.getElementById("sendMessage");
+
+    sendBut = document.getElementById("send");
+    sendBut.onclick = doSend;
+
+    consoleLog = document.getElementById("consoleLog");
+
+    clearLogBut = document.getElementById("clearLogBut");
+    clearLogBut.onclick = clearLog;
+
+    setGuiConnected(false);
+
+    document.getElementById("disconnect").onclick = doDisconnect;
+    document.getElementById("send").onclick = doSend;
+
+  }
+
+  function initializeLocation() {
+    var wsScheme = "ws:";
+    if (window.location.protocol.toString() == "https:") {
+      wsScheme = "wss:";
+   //   secureCb.checked = true;
+    }
+    var wsPort = (window.location.port.toString() == "" ? "" : ":"+window.location.port)
+    wsUri.value = wsScheme+"//"+window.location.host+"/echo"+wsPort
+  }
+
+ /* function toggleTlS()
+  {
+    if (secureCb.checked)
+    {
+      wsUri.value = wsUri.value.replace("ws:", "wss:");
+    }
+    else
+    {
+      wsUri.value = wsUri.value.replace ("wss:", "ws:");
+    }
+  }*/
+
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)", "i"),
+    results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+
+  function doConnect()
+  {
+    if (window.MozWebSocket)
+    {
+      logToConsole('<span style="color: red;"><strong>Info:</strong> This browser supports WebSocket using the MozWebSocket constructor</span>');
+      window.WebSocket = window.MozWebSocket;
+    }
+    else if (!window.WebSocket)
+    {
+      logToConsole('<span style="color: red;"><strong>Error:</strong> This browser does not have support for WebSocket</span>');
+      return;
+    }
+
+    // prefer text messages
+    var uri = wsUri.value;
+    if (uri.indexOf("?") == -1) {
+      uri += "?encoding=text";
+    } else {
+      uri += "&encoding=text";
+    }
+    websocket = new WebSocket(uri);
+    websocket.onopen = function(evt) { onOpen(evt) };
+    websocket.onclose = function(evt) { onClose(evt) };
+    websocket.onmessage = function(evt) { onMessage(evt) };
+    websocket.onerror = function(evt) { onError(evt) };
+  }
+
+  function doDisconnect()
+  {
+    websocket.close()
+  }
+
+  function doSend()
+  {
+    logToConsole("SENT: " + sendMessage.value);
+    websocket.send(sendMessage.value);
+  }
+
+  function logToConsole(message)
+  {
+    var pre = document.createElement("p");
+    pre.style.wordWrap = "break-word";
+    pre.innerHTML = /*getSecureTag()+*/ message;
+    consoleLog.appendChild(pre);
+
+    while (consoleLog.childNodes.length > 50)
+    {
+      consoleLog.removeChild(consoleLog.firstChild);
+    }
+
+    consoleLog.scrollTop = consoleLog.scrollHeight;
+  }
+
+  function onOpen(evt)
+  {
+    logToConsole("CONNECTED");
+    setGuiConnected(true);
+  }
+
+  function onClose(evt)
+  {
+    logToConsole("DISCONNECTED");
+    setGuiConnected(false);
+  }
+
+  function onMessage(evt)
+  {
+    logToConsole('<span style="color: blue;">RESPONSE: ' + evt.data+'</span>');
+  }
+
+  function onError(evt)
+  {
+    logToConsole('<span style="color: red;">ERROR:</span> ' + evt.data);
+  }
+
+  function setGuiConnected(isConnected)
+  {
+    wsUri.disabled = isConnected;
+    connectBut.disabled = isConnected;
+    disconnectBut.disabled = !isConnected;
+    sendMessage.disabled = !isConnected;
+    sendBut.disabled = !isConnected;
+   // secureCb.disabled = isConnected;
+    var labelColor = "black";
+    if (isConnected)
+    {
+      labelColor = "#999999";
+    }
+    secureCbLabel.style.color = labelColor;
+
+  }
+
+  function clearLog()
+  {
+    while (consoleLog.childNodes.length > 0)
+    {
+     consoleLog.removeChild(consoleLog.lastChild);
+   }
+ }
+
+/* function getSecureTag()
+ {
+  if (secureCb.checked)
+  {
+   return '<img src="img/tls-lock.png" width="6px" height="9px"> ';
+ }
+ else
+ {
+   return '';
+ }
+}*/
+
+window.addEventListener("load", echoHandlePageLoad, false);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+*(EXCLUDE_FILE(*fsl_flexspi.o *mflash_drv.o) .text*)

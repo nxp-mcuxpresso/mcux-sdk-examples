@@ -1,0 +1,4 @@
+        <#if memory.name=="Ram0">
+        *fsl_flexspi.o(.text*)
+        *mflash_drv.o(.text*)
+        </#if>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="cm33_core0_MCXN947"/>
+    <definition extID="middleware.baremetal.MCXN947"/>
+    <definition extID="middleware.usb.device.controller.driver.MCXN947"/>
+    <definition extID="middleware.usb.device_controller_ehci.MCXN947"/>
+    <definition extID="middleware.usb.device_controller_khci.MCXN947"/>
+    <definition extID="middleware.usb.phy.MCXN947"/>
+    <definition extID="platform.drivers.common.MCXN947"/>
+    <definition extID="platform.drivers.clock.MCXN947"/>
+    <definition extID="platform.drivers.reset.MCXN947"/>
+    <definition extID="platform.devices.MCXN947_CMSIS.MCXN947"/>
+    <definition extID="platform.devices.MCXN947_startup.MCXN947"/>
+    <definition extID="platform.drivers.lpflexcomm_lpuart.MCXN947"/>
+    <definition extID="platform.drivers.gpio.MCXN947"/>
+    <definition extID="platform.drivers.port.MCXN947"/>
+    <definition extID="platform.utilities.assert.MCXN947"/>
+    <definition extID="utility.debug_console.MCXN947"/>
+    <definition extID="component.lpuart_adapter.MCXN947"/>
+    <definition extID="component.serial_manager_uart.MCXN947"/>
+    <definition extID="component.serial_manager.MCXN947"/>
+    <definition extID="component.lists.MCXN947"/>
+    <definition extID="platform.utilities.misc_utilities.MCXN947"/>
+    <definition extID="component.osa.MCXN947"/>
+    <definition extID="middleware.usb.device.ehci_config_header.MCXN947"/>
+    <definition extID="middleware.usb.device.common_header.MCXN947"/>
+    <definition extID="middleware.usb.common_header.MCXN947"/>
+    <definition extID="middleware.usb.device.khci_config_header.MCXN947"/>
+    <definition extID="platform.drivers.mcx_spc.MCXN947"/>
+    <definition extID="CMSIS_Include_core_cm.MCXN947"/>
+    <definition extID="platform.devices.MCXN947_system.MCXN947"/>
+    <definition extID="platform.drivers.lpflexcomm.MCXN947"/>
+    <definition extID="armgcc"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+  </externalDefinitions>
+  <example id="frdmmcxn947_dev_audio_generator_bm" name="dev_audio_generator_bm" device_core="cm33_core0_MCXN947" dependency="middleware.baremetal.MCXN947 middleware.usb.device.controller.driver.MCXN947 middleware.usb.device_controller_ehci.MCXN947 middleware.usb.device_controller_khci.MCXN947 middleware.usb.phy.MCXN947 platform.drivers.common.MCXN947 platform.drivers.clock.MCXN947 platform.drivers.reset.MCXN947 platform.devices.MCXN947_CMSIS.MCXN947 platform.devices.MCXN947_startup.MCXN947 platform.drivers.lpflexcomm_lpuart.MCXN947 platform.drivers.gpio.MCXN947 platform.drivers.port.MCXN947 platform.utilities.assert.MCXN947 utility.debug_console.MCXN947 component.lpuart_adapter.MCXN947 component.serial_manager_uart.MCXN947 component.serial_manager.MCXN947 component.lists.MCXN947 platform.utilities.misc_utilities.MCXN947 component.osa.MCXN947 middleware.usb.device.ehci_config_header.MCXN947 middleware.usb.device.common_header.MCXN947 middleware.usb.common_header.MCXN947 middleware.usb.device.khci_config_header.MCXN947 platform.drivers.mcx_spc.MCXN947 CMSIS_Include_core_cm.MCXN947 platform.devices.MCXN947_system.MCXN947 platform.drivers.lpflexcomm.MCXN947" category="usb_examples">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>_DEBUG=1</value>
+          <value>CPU_MCXN947VDF_cm33_core0</value>
+          <value>USB_STACK_BM</value>
+          <value>FSL_OSA_BM_TASK_ENABLE=0</value>
+          <value>FSL_OSA_BM_TIMER_CONFIG=0</value>
+          <value>SDK_DEBUGCONSOLE=1</value>
+          <value>MCUXPRESSO_SDK</value>
+          <value>SDK_OS_BAREMETAL</value>
+          <value>SERIAL_PORT_TYPE_UART=1</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.heapAndStack" type="string">
+          <value>&amp;Heap:Default;Default;0x2000&amp;Stack:Default;Default;0x2000</value>
+        </option>
+        <option id="gnu.c.link.option.other" type="stringList">
+          <value>-no-warn-rwx-segments</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <include_paths>
+      <include_path path="." project_relative_path="source" type="c_include"/>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="usb/device/class/audio" type="c_include"/>
+      <include_path path="." project_relative_path="usb/device/source" type="c_include"/>
+      <include_path path="." project_relative_path="usb/device/class" type="c_include"/>
+      <include_path path="../../../.." project_relative_path="board" type="c_include"/>
+    </include_paths>
+    <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_debug.bat"/>
+      <files mask="build_debug.sh"/>
+      <files mask="build_release.bat"/>
+      <files mask="build_release.sh"/>
+    </source>
+    <source path="../../../../../../core/devices/MCXN947" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="all_lib_device.cmake"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="audio_data.c"/>
+      <files mask="audio_generator.c"/>
+      <files mask="usb_device_descriptor.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="." project_relative_path="frdmmcxn947/usb_examples/usb_device_audio_generator/bm" type="doc">
+      <files mask="readme.pdf" hidden="true"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="audio_generator.h"/>
+      <files mask="usb_device_descriptor.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include" config="true">
+      <files mask="usb_device_config.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="usb_audio_config.h"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso">
+      <files mask="readme.txt"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
+      <files mask="readme.txt"/>
+    </source>
+    <source path="." project_relative_path="usb/device/class/audio" type="src">
+      <files mask="usb_device_audio.c"/>
+    </source>
+    <source path="." project_relative_path="usb/device/class/audio" type="c_include">
+      <files mask="usb_device_audio.h"/>
+    </source>
+    <source path="." project_relative_path="usb/device/source" type="src">
+      <files mask="usb_device_ch9.c"/>
+    </source>
+    <source path="." project_relative_path="usb/device/source" type="c_include">
+      <files mask="usb_device_ch9.h"/>
+    </source>
+    <source path="." project_relative_path="usb/device/class" type="src">
+      <files mask="usb_device_class.c"/>
+    </source>
+    <source path="." project_relative_path="usb/device/class" type="c_include">
+      <files mask="usb_device_class.h"/>
+    </source>
+    <source path="../../../.." project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="../../../.." project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="armgcc" project_relative_path="MCXN947/gcc" type="linker" toolchain="armgcc">
+      <files mask="MCXN947_cm33_core0_flash.ld"/>
+    </source>
+  </example>
+</ksdk:examples>
