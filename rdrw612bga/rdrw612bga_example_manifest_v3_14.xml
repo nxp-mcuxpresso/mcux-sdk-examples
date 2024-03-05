@@ -1,0 +1,1219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_rdrw612bga_examples_manifest_v3_14" name="SDK_2.x_rdrw612bga_examples_manifest_v3_14" format_version="3.14" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.14.xsd">
+
+  <externalDefinitions>
+    <definition extID="RW612ETA2I"/>
+  </externalDefinitions>
+  <ksdk id="MCUXpressoSDK215000_rdrw612bga_examples_manifest_v3_14" name="MCUXpressoSDK215000_rdrw612bga_examples_manifest_v3_14" version="2.15.000" revision="2.15.000"/>
+  <boards>
+    <board id="rdrw612bga" name="RD-RW612-BGA" version="1.0.0" package="RW612ETA2I">
+      <examples>
+        <example id="rdrw612bga_edgefast_bluetooth_shell" name="edgefast_bluetooth_shell" brief="The Edgefast Bluetooth shell example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/shell">
+          <external path="edgefast_bluetooth_examples/shell" type="xml">
+            <files mask="edgefast_bluetooth_shell_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_central_ipsp" name="central_ipsp" brief="The Edgefast Bluetooth ipsp example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/central_ipsp">
+          <external path="edgefast_bluetooth_examples/central_ipsp" type="xml">
+            <files mask="central_ipsp_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_central_hpc" name="central_hpc" brief="The Edgefast Bluetooth hpc example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/central_hpc">
+          <external path="edgefast_bluetooth_examples/central_hpc" type="xml">
+            <files mask="central_hpc_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_peripheral_fmp" name="peripheral_fmp" brief="The Edgefast Bluetooth fmp example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/peripheral_fmp">
+          <external path="edgefast_bluetooth_examples/peripheral_fmp" type="xml">
+            <files mask="peripheral_fmp_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_pin_detect_hid_mouse_freertos" name="pin_detect_hid_mouse_freertos" brief="This pin detect HID example supports the mouse device. The application prints the operation information when the mouse device is attached or plugged in to the PC host." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_pin_detect_hid_mouse/freertos">
+          <external path="usb_examples/usb_pin_detect_hid_mouse/freertos" type="xml">
+            <files mask="pin_detect_hid_mouse_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_host_audio_speaker_freertos" name="host_audio_speaker_freertos" brief="The Host Audio example supports the audio speaker device. @n The application prints the audio speaker information when the USB speaker device is attached." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_host_audio_speaker/freertos">
+          <external path="usb_examples/usb_host_audio_speaker/freertos" type="xml">
+            <files mask="host_audio_speaker_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_host_hid_mouse_keyboard_freertos" name="host_hid_mouse_keyboard_freertos" brief="This example supports the mouse device and the keyboard device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_host_hid_mouse_keyboard/freertos">
+          <external path="usb_examples/usb_host_hid_mouse_keyboard/freertos" type="xml">
+            <files mask="host_hid_mouse_keyboard_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_host_printer_plain_text_freertos" name="host_printer_plain_text_freertos" brief="The host printer example demonstrates how to get the status of the printer deviceand how to print a certain test string.." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_host_printer_plain_text/freertos">
+          <external path="usb_examples/usb_host_printer_plain_text/freertos" type="xml">
+            <files mask="host_printer_plain_text_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_host_hid_generic_bm" name="host_hid_generic_bm" brief="This application implements a simple HID interrupt in-and-out endpoint bi-directional communication.The application sends one test string to the device. The device receives and sends back the string. The application receives the string and prints it." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_host_hid_generic/bm">
+          <external path="usb_examples/usb_host_hid_generic/bm" type="xml">
+            <files mask="host_hid_generic_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_host_msd_fatfs_bm" name="host_msd_fatfs_bm" brief="This Host FatFs example supports UFI and SCSI U-disk device. The application prints the attached device information when U-disk device is attached.The application executes some FatFs APIs to test the attached device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_host_msd_fatfs/bm">
+          <external path="usb_examples/usb_host_msd_fatfs/bm" type="xml">
+            <files mask="host_msd_fatfs_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_audio_generator_freertos" name="dev_audio_generator_freertos" brief="The USB Audio Generator application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a recording device and users can record the sound from this device via the &quot;Sound Recorder&quot; in the Windows Accessories." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_audio_generator/freertos">
+          <external path="usb_examples/usb_device_audio_generator/freertos" type="xml">
+            <files mask="dev_audio_generator_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_composite_cdc_msc_freertos" name="dev_composite_cdc_msc_freertos" brief="The Composite CDC_MSC project is a simple demonstration program based on the MCUXpresso SDK.  It is enumerated as a COM port and a RAM disk, which can be opened using terminal tools, such as TeraTerm. The demo echoes back any character it receives. The RAM disk can be formatted." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_composite_cdc_msc/freertos">
+          <external path="usb_examples/usb_device_composite_cdc_msc/freertos" type="xml">
+            <files mask="dev_composite_cdc_msc_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_dfu_freertos" name="dev_dfu_freertos" brief="The DFU project is a simple demonstration program based on the MCUXpresso SDK.  It is enumerated as a compoiste dfu device, users can download one firmware to the dfu device with the tool called &quot;dfu-util&quot;. the dfu example write the firmware content to flash and will check the CRC32 which stored in the last 4 byte of the firmware.if the CRC32 check is right, then the dfu example will run the new firmware.Generally speaking, the firmware doesn't have CRC32. sothe following content will introduce how to add CRC32 to the firmware." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_dfu/freertos">
+          <external path="usb_examples/usb_device_dfu/freertos" type="xml">
+            <files mask="dev_dfu_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_phdc_weighscale_freertos" name="dev_phdc_weighscale_freertos" brief="The USB PHDC WeighScale application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a weight scale device and the HealthLink software is used to interact with thisdevice to simulate the personal weight scale data, such as body mass and body mass index." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_phdc_weighscale/freertos">
+          <external path="usb_examples/usb_device_phdc_weighscale/freertos" type="xml">
+            <files mask="dev_phdc_weighscale_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_audio_generator_bm" name="dev_audio_generator_bm" brief="The USB Audio Generator application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a recording device and users can record the sound from this device via the &quot;Sound Recorder&quot; in the Windows Accessories." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_audio_generator/bm">
+          <external path="usb_examples/usb_device_audio_generator/bm" type="xml">
+            <files mask="dev_audio_generator_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_cdc_vcom_bm" name="dev_cdc_vcom_bm" brief="The Virtual COM project is enumerated as a COM port, which the users can open using terminal tools, such as TeraTerm. The demo echoes back any character it receives." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_cdc_vcom/bm">
+          <external path="usb_examples/usb_device_cdc_vcom/bm" type="xml">
+            <files mask="dev_cdc_vcom_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_composite_cdc_msc_bm" name="dev_composite_cdc_msc_bm" brief="The Composite CDC_MSC project is a simple demonstration program based on the MCUXpresso SDK.  It is enumerated as a COM port and a RAM disk, which can be opened using terminal tools, such as TeraTerm. The demo echoes back any character it receives. The RAM disk can be formatted.." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_composite_cdc_msc/bm">
+          <external path="usb_examples/usb_device_composite_cdc_msc/bm" type="xml">
+            <files mask="dev_composite_cdc_msc_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_composite_hid_audio_unified_bm" name="dev_composite_hid_audio_unified_bm" brief="The USB Composite device application is a simple demonstration program based on the MCUXpresso SDK. It is enumerated as a recording device. Users can record the sound from this device via the &quot;Sound Recorder&quot; in the Windows Accessories with an HID mouse device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_composite_hid_audio_unified/bm">
+          <external path="usb_examples/usb_device_composite_hid_audio_unified/bm" type="xml">
+            <files mask="dev_composite_hid_audio_unified_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_dfu_bm" name="dev_dfu_bm" brief="The DFU project is a simple demonstration program based on the MCUXpresso SDK.  It is enumerated as a compoiste dfu device, users can download one firmware to the dfu device with the tool called &quot;dfu-util&quot;. the dfu example write the firmware content to flash and will check the CRC32 which stored in the last 4 byte of the firmware.if the CRC32 check is right, then the dfu example will run the new firmware.Generally speaking, the firmware doesn't have CRC32. sothe following content will introduce how to add CRC32 to the firmware." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_dfu/bm">
+          <external path="usb_examples/usb_device_dfu/bm" type="xml">
+            <files mask="dev_dfu_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_hid_mouse_bm" name="dev_hid_mouse_bm" brief="The USB HID mouse application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a mouse. Users can see the mouse arrow moving on the PC screen according in a rectangular fashion." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_hid_mouse/bm">
+          <external path="usb_examples/usb_device_hid_mouse/bm" type="xml">
+            <files mask="dev_hid_mouse_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_phdc_weighscale_bm" name="dev_phdc_weighscale_bm" brief="The USB PHDC WeighScale application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a weight scale device and the HealthLink software is used to interact with thisdevice to simulate the personal weight scale data, such as body mass and body mass index." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_phdc_weighscale/bm">
+          <external path="usb_examples/usb_device_phdc_weighscale/bm" type="xml">
+            <files mask="dev_phdc_weighscale_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_suspend_resume_hid_mouse_bm" name="dev_suspend_resume_hid_mouse_bm" brief="the application is enumerated as a mouse. When host releases the USB Bus, the device will enter into low power mode. The device can be waked up when resume signal is detected on the bus. Or the device can remote wake-up the host by delivering the resume signal when the remote wake-up is enabled by the host." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_suspend_resume_device_hid_mouse/bm">
+          <external path="usb_examples/usb_suspend_resume_device_hid_mouse/bm" type="xml">
+            <files mask="dev_suspend_resume_hid_mouse_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_cmsis_spi_int_b2b_transfer_master" name="cmsis_spi_int_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_spi_interrupt_b2b_transfer_master example shows how to use CMSIS spi driver as master to do board to board transfer with interrupt:In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/rdrw612bga/cmsis_driver_examples/spi/int_b2b_transfer/master">
+          <external path="cmsis_driver_examples/spi/int_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_int_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_ctimer_pwm_example" name="ctimer_pwm_example" brief="The CTimer Example project is to demonstrate usage of the KSDK ctimer driver.In this example, CTimer is used to generate a PWM signal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ctimer" path="examples/rdrw612bga/driver_examples/ctimer/simple_pwm">
+          <external path="driver_examples/ctimer/simple_pwm" type="xml">
+            <files mask="ctimer_pwm_example_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_ctimer_capture" name="ctimer_capture" brief="This example shows how to use CTimer to capture the edge. In this example, CTimer timer counter uses APB clock as clock source, and CTimer monitors capture pin. When rising edge detected on the pin, CTimer saves the timer counter value to capture register." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ctimer" path="examples/rdrw612bga/driver_examples/ctimer/capture">
+          <external path="driver_examples/ctimer/capture" type="xml">
+            <files mask="ctimer_capture_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_enet_txrx_transfer" name="enet_txrx_transfer" brief="The enet_rxtx example shows the simplest way to use ENET driver for simple frame receive and transmit.1. This example shows how to initialize the ENET MAC.2. How to use ENET MAC to receive and transmit frame.The example transmits 20 number broadcast frame, print the frame length, source MAC addressand destination MAC address when receive frame.Note, The RMII mode is used for default setting to initialize the ENET interface between MAC and the external PHY. youcan change it to MII mode as you wish. Please make sure the MII Mode setting in the MAC is synchronize to the settingin TWR-SERIAL board for the external PHY." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/enet" path="examples/rdrw612bga/driver_examples/enet/txrx_transfer">
+          <external path="driver_examples/enet/txrx_transfer" type="xml">
+            <files mask="enet_txrx_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_lwip_mqtt_freertos" name="lwip_mqtt_freertos" brief="The lwip_mqtt demo application demonstrates MQTT client connecting to MQTT broker via unsecured socket. The application obtains IP and DNS addresses from DHCP and resolves broker's hostname if needed. Then it connects to the broker and subscribes to the &quot;lwip_topic/#&quot; and &quot;lwip_other/#&quot; topics. Further it publishes five messages to the &quot;lwip_topic/100&quot; which are also received back as the board is subscribed to the &quot;lwip_topic/#&quot;. Meanwhile it continues to receive messages published to the subscribed topics from other clients." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/rdrw612bga/lwip_examples/lwip_mqtt/freertos">
+          <external path="lwip_examples/lwip_mqtt/freertos" type="xml">
+            <files mask="lwip_mqtt_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_lwip_dhcp_usb_freertos" name="lwip_dhcp_usb_freertos" brief="The lwip_dhcp demo application demonstrates a DHCP demo on the lwIP TCP/IP stack.The application acts as a DHCP client and prints the status as it is progressing.Once the interface is being bound to an IP address obtained from DHCP server, address information is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/rdrw612bga/lwip_examples/lwip_dhcp_usb/freertos">
+          <external path="lwip_examples/lwip_dhcp_usb/freertos" type="xml">
+            <files mask="lwip_dhcp_usb_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_lwip_ping_bm" name="lwip_ping_bm" brief="The lwip_ping demo application demonstrates a Ping Demo on the lwIP TCP/IP stack, which uses the ICMP protocol. Theapplication periodically sends the ICMP echo request to a PC, and processes the PC reply. Type &quot;ping $board_address&quot;in the PC command window to send an ICMP echo request to the board. The lwIP stack sends the ICMP echo reply back to thePC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/rdrw612bga/lwip_examples/lwip_ping/bm">
+          <external path="lwip_examples/lwip_ping/bm" type="xml">
+            <files mask="lwip_ping_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_cmsis_i2c_int_b2b_transfer_slave" name="cmsis_i2c_int_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The i2c_interrupt_b2b_transfer_master example shows how to use CMSIS i2c driver as master to do board to board transfer with interrupt:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/rdrw612bga/cmsis_driver_examples/i2c/int_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/i2c/int_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_i2c_int_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_i2c_interrupt_b2b_transfer_slave" name="i2c_interrupt_b2b_transfer_slave" brief="The i2c_interrupt_b2b_transfer_slave example shows how to use i2c driver as slave to do board to board transfer with interrupt:In this example, one i2c instance as slave and another i2c instance on the other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/rdrw612bga/driver_examples/i2c/interrupt_b2b_transfer/slave">
+          <external path="driver_examples/i2c/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="i2c_interrupt_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_i2c_polling_b2b_slave" name="i2c_polling_b2b_slave" brief="The i2c_polling_b2b_slave example shows how to use i2c driver as slave to do board to board transfer with a polling master:In this example, one i2c instance as slave and another i2c instance on the other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/rdrw612bga/driver_examples/i2c/polling_b2b/slave">
+          <external path="driver_examples/i2c/polling_b2b/slave" type="xml">
+            <files mask="i2c_polling_b2b_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_spi_interrupt_b2b_transfer_slave" name="spi_interrupt_b2b_transfer_slave" brief="The spi_interrupt_board2board_slave example shows how to use spi driver as slave to do board to board transfer with interrupt:In this example, one spi instance as slave and another spi instance on other board as master. Master sends a piece ofdata to slave, and receive a piece of data from slave. This example checks if the data received from master is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/rdrw612bga/driver_examples/spi/interrupt_b2b_transfer/slave">
+          <external path="driver_examples/spi/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="spi_interrupt_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_spi_dma_b2b_transfer_slave" name="spi_dma_b2b_transfer_slave" brief="The spi_dma_b2b_transfer_slave example shows how to use driver API to transfer in DMA way.  In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checksif the data received from master is correct. This example needs to work with spi_dma_b2b_transfer_master example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/rdrw612bga/driver_examples/spi/dma_b2b_transfer/slave">
+          <external path="driver_examples/spi/dma_b2b_transfer/slave" type="xml">
+            <files mask="spi_dma_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dma_memory_to_memory" name="dma_memory_to_memory" brief="The DMA memory to memory example is a simple demonstration program that uses the SDK software.It executes one shot transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA and to provide a simple example fordebugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/rdrw612bga/driver_examples/dma/memory_to_memory">
+          <external path="driver_examples/dma/memory_to_memory" type="xml">
+            <files mask="dma_memory_to_memory_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_lcdic_polling" name="lcdic_polling" brief="This example shows how to use the lcdic polling APIs." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lcdic" path="examples/rdrw612bga/driver_examples/lcdic/polling">
+          <external path="driver_examples/lcdic/polling" type="xml">
+            <files mask="lcdic_polling_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_gdma_lli" name="gdma_lli" brief="This project shows how to use GDMA functional APIs to do the memory to memory data transfer with link list feature." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/gdma" path="examples/rdrw612bga/driver_examples/gdma/lli">
+          <external path="driver_examples/gdma/lli" type="xml">
+            <files mask="gdma_lli_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_gdma_transfer_wrap" name="gdma_transfer_wrap" brief="This project shows how to use GDMA transactional APIs to do the wrap transfer." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/gdma" path="examples/rdrw612bga/driver_examples/gdma/transfer_wrap">
+          <external path="driver_examples/gdma/transfer_wrap" type="xml">
+            <files mask="gdma_transfer_wrap_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_flexspi_nor_polling_transfer" name="flexspi_nor_polling_transfer" brief="The flexspi_nor_polling_transfer example shows how to use flexspi driver with polling:In this example, flexspi will send data and operate the external Nor flash connected with FLEXSPI. Some simple flash command willbe executed, such as Write Enable, Erase sector, Program page.Example will first erase the sector and program a page into the flash, at last check if the data in flash is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/flexspi" path="examples/rdrw612bga/driver_examples/flexspi/nor/polling_transfer">
+          <external path="driver_examples/flexspi/nor/polling_transfer" type="xml">
+            <files mask="flexspi_nor_polling_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_ostimer_example" name="ostimer_example" brief="The OSTIMER project is a simple demonstration program of the SDK OSTIMER driver. It sets the OSTIMER as the wakeup source from deep-sleep mode. After wakeup from deep-sleep mode, OS timer will set match value to trigger the interrupt while the timer count tick reach the match value about every 2 seconds." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ostimer" path="examples/rdrw612bga/driver_examples/ostimer">
+          <external path="driver_examples/ostimer" type="xml">
+            <files mask="ostimer_example_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_sctimer_multi_state_pwm" name="sctimer_multi_state_pwm" brief="The SCTImer multi-state project is a demonstration program of the SCTimer state machine. It shows how to set up events to be triggered in a certain stateand transitioning between states.State 0 has 2 events that generate a PWM signal, it also has an event linked to an input signal to transition to State 1.State 1 has 4 events that generate 2 PWM signals, it also has an event linked to an input signal to transition to State 0." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="examples/rdrw612bga/driver_examples/sctimer/multi_state_pwm">
+          <external path="driver_examples/sctimer/multi_state_pwm" type="xml">
+            <files mask="sctimer_multi_state_pwm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_utick" name="utick" brief="The utick project is a simple demonstration program of the SDK utick driver. It sets up the utick hardware block to trigger a periodic interrupt after every 1 second. When the utick interrupt is triggered a message is printed on the UART terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/utick" path="examples/rdrw612bga/driver_examples/utick">
+          <external path="driver_examples/utick" type="xml">
+            <files mask="utick_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_power_manager_test_bm" name="power_manager_test_bm" brief="The power manager test application demonstrates the basic usage of power manager framework without RTOS. The demo tests all features of power manager framework, including notification manager, wakeup source manager and so on." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/rdrw612bga/demo_apps/power_manager_test/bm">
+          <external path="demo_apps/power_manager_test/bm" type="xml">
+            <files mask="power_manager_test_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dac_normal" name="dac_normal" brief="The DAC normal driver example demostrates the basic useage of DAC module. In this example, users input value from the terminal, and then the related voltage will be output through DAC output pin." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dac" path="examples/rdrw612bga/driver_examples/dac/normal">
+          <external path="driver_examples/dac/normal" type="xml">
+            <files mask="dac_normal_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_cdog" name="cdog" brief="The CDOG Example project is a demonstration program that uses the KSDK software to show funcionality of Code Watchdog Timer." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/cdog" path="examples/rdrw612bga/driver_examples/cdog">
+          <external path="driver_examples/cdog" type="xml">
+            <files mask="cdog_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_romapi_flexspi" name="romapi_flexspi" brief="Rom API driver example for FlexSPI interface." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/romapi/flexspi" path="examples/rdrw612bga/driver_examples/romapi/flexspi">
+          <external path="driver_examples/romapi/flexspi" type="xml">
+            <files mask="romapi_flexspi_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_usart_interrupt" name="usart_interrupt" brief="The uart_functioncal_interrupt example shows how to use uart driver functionalAPI to receive data with interrupt method:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/rdrw612bga/driver_examples/usart/interrupt">
+          <external path="driver_examples/usart/interrupt" type="xml">
+            <files mask="usart_interrupt_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_usart_dma_double_buffer_transfer" name="usart_dma_double_buffer_transfer" brief="This example shows how to use the DMA driver to implement a double buffer receive scheme from the USARTThe example shows the double buffer constructed using two descriptors (g_pingpong_desc). These descriptors are cycled from one to the other.Things to note- The descriptors of the ping pong transfer need to be aligned to size 16- The inital transfer will perform the same job as first descriptor of ping pong, so the first linkeage is to go to g_pingpong_desc[1]- g_pingpong_desc[1] then chains the g_pingpong_desc[0] as the next descriptor- The properties are set up such that g_pingpong_desc[0] (and the initial configuration uses INTA to signal back to the callback)- g_pingpong_desc[1] uses INTB to signal to the callback- The scheduled callback uses this information to know which data was last writtenA note on PerformanceThe intent of this example is to illustrate how a double-buffer scheme can be implemented using the dma. The performance of this example will be limited to how quickly the echo printer can read-out the data from the ping pong buffer and display it. This means that the example will work well if characters are entered at a rate where the DMA callback to echo the string can keep up with the input stream. Connecting the USARTRX to a continuous fast speed will cause the DMA to fall behind. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/rdrw612bga/driver_examples/usart/dma_double_buffer_transfer">
+          <external path="driver_examples/usart/dma_double_buffer_transfer" type="xml">
+            <files mask="usart_dma_double_buffer_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_i2s_dma_record_playback" name="i2s_dma_record_playback" brief="The I2S example project uses one I2S interface to continuously record input sound to a bufferand another I2S interface to playback the buffer to output - digital loopback.It requires NXP Mic/Audio/Oled Shield with WM8904 codec.It needs to have 1-2 connected on JP3." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2s" path="examples/rdrw612bga/driver_examples/i2s/dma_record_playback">
+          <external path="driver_examples/i2s/dma_record_playback" type="xml">
+            <files mask="i2s_dma_record_playback_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_powerquad_filter" name="powerquad_filter" brief="This example shows how to use powerquad driver filter functions." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/rdrw612bga/driver_examples/powerquad/filter">
+          <external path="driver_examples/powerquad/filter" type="xml">
+            <files mask="powerquad_filter_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_powerquad_benchmark_vector" name="powerquad_benchmark_vector" brief="This example shows the PowerQuad based CMSIS DSP function performance." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/rdrw612bga/driver_examples/powerquad/benchmark_vector">
+          <external path="driver_examples/powerquad/benchmark_vector" type="xml">
+            <files mask="powerquad_benchmark_vector_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_powerquad_benchmark_fft" name="powerquad_benchmark_fft" brief="This example shows the official CMSIS DSP function performance. It could be compared with the project powerquad_benckmark_fft to show the PowerQuad performance improvement." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/rdrw612bga/driver_examples/powerquad/benchmark_fft">
+          <external path="driver_examples/powerquad/benchmark_fft" type="xml">
+            <files mask="powerquad_benchmark_fft_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_powerquad_benchmark_sw_fft" name="powerquad_benchmark_sw_fft" brief="This example shows the official CMSIS DSP function performance. It could be compared with the project powerquad_benckmark_fft to show the PowerQuad performance improvement." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/rdrw612bga/driver_examples/powerquad/benchmark_sw_fft">
+          <external path="driver_examples/powerquad/benchmark_sw_fft" type="xml">
+            <files mask="powerquad_benchmark_sw_fft_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_wifi_cert" name="wifi_cert" brief="wifi_cert" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/rdrw612bga/wifi_examples/wifi_cert">
+          <external path="wifi_examples/wifi_cert" type="xml">
+            <files mask="wifi_cert_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_wifi_webconfig" name="wifi_webconfig" brief="Simple AP to Client configuration over web." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/rdrw612bga/wifi_examples/wifi_webconfig">
+          <external path="wifi_examples/wifi_webconfig" type="xml">
+            <files mask="wifi_webconfig_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_trng_random" name="trng_random" brief="The True Random Number Generator (TRNG) is a hardware accelerator module that generates entropy for consuming module or for other post processing functions. The TRNGExample project is a demonstration program that uses the KSDK software to generate random numbersand prints them to the terminal." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/trng" path="examples/rdrw612bga/driver_examples/trng/random">
+          <external path="driver_examples/trng/random" type="xml">
+            <files mask="trng_random_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_els_pkc_asymmetric" name="els_pkc_asymmetric" brief="The ELS PKC application provides examples which demonstrate usage of asymmetric algorithms and a crypto library lightweight testing." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="els_pkc_examples" path="examples/rdrw612bga/els_pkc_examples/els_pkc_asymmetric">
+          <external path="els_pkc_examples/els_pkc_asymmetric" type="xml">
+            <files mask="els_pkc_asymmetric_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_mcuboot_opensource" name="mcuboot_opensource" brief="MCUboot bootloader" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="ota_examples" path="examples/rdrw612bga/ota_examples/mcuboot_opensource">
+          <external path="ota_examples/mcuboot_opensource" type="xml">
+            <files mask="mcuboot_opensource_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_ncp_device" name="ncp_device" brief="The ncp_device." toolchain="armgcc" compiler="compiler_gcc" category="ncp_examples" path="examples/rdrw612bga/ncp_examples/ncp_device">
+          <external path="ncp_examples/ncp_device" type="xml">
+            <files mask="ncp_device_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_freertos_mutex" name="freertos_mutex" brief="This document explains the freertos_mutex example. It shows how mutex manage access to commonresource (terminal output).The example application creates two identical instances of write_task. Each task will lock the mutexbefore printing and unlock it after printing to ensure that the outputs from tasks are not mixedtogether.The test_task accept output message during creation as function parameter. Output message have twoparts. If xMutex is unlocked, the write_task_1 acquire xMutex and print first part of message. Thenrescheduling is performed. In this moment scheduler check if some other task could run, but secondtask write_task+_2 is blocked because xMutex is already locked by first write task. The firstwrite_task_1 continue from last point by printing of second message part. Finaly the xMutex isunlocked and second instance of write_task_2 is executed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/rdrw612bga/freertos_examples/freertos_mutex">
+          <external path="freertos_examples/freertos_mutex" type="xml">
+            <files mask="freertos_mutex_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_freertos_tickless" name="freertos_tickless" brief="This document explains the freertos_tickless example. It shows the CPU enter at sleep mode and then it is waked up by expired time delay that using timer module." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/rdrw612bga/freertos_examples/freertos_tickless">
+          <external path="freertos_examples/freertos_tickless" type="xml">
+            <files mask="freertos_tickless_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_peripheral_ht" name="peripheral_ht" brief="The Edgefast Bluetooth hts example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/peripheral_ht">
+          <external path="edgefast_bluetooth_examples/peripheral_ht" type="xml">
+            <files mask="peripheral_ht_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_peripheral_pxr" name="peripheral_pxr" brief="The Edgefast Bluetooth pxr example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/peripheral_pxr">
+          <external path="edgefast_bluetooth_examples/peripheral_pxr" type="xml">
+            <files mask="peripheral_pxr_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_wireless_uart" name="wireless_uart" brief="The Edgefast Bluetooth wireless uart example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/wireless_uart">
+          <external path="edgefast_bluetooth_examples/wireless_uart" type="xml">
+            <files mask="wireless_uart_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_peripheral_tip" name="peripheral_tip" brief="The Edgefast Bluetooth tip example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/peripheral_tip">
+          <external path="edgefast_bluetooth_examples/peripheral_tip" type="xml">
+            <files mask="peripheral_tip_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_pin_detect_hid_msd_freertos" name="pin_detect_hid_msd_freertos" brief="This pin detect HID MSD example can become a HID mouse device or a MSD host that supports U-disk. The application prints the operation information when the U-disk is attached or is plugged into the PC host." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_pin_detect_hid_msd/freertos">
+          <external path="usb_examples/usb_pin_detect_hid_msd/freertos" type="xml">
+            <files mask="pin_detect_hid_msd_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_host_cdc_freertos" name="host_cdc_freertos" brief="The host CDC project is a simple demonstration program based on the MCUXpresso SDK. It enumerates a COM port and echoes back the data from the UART ." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_host_cdc/freertos">
+          <external path="usb_examples/usb_host_cdc/freertos" type="xml">
+            <files mask="host_cdc_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_host_msd_command_freertos" name="host_msd_command_freertos" brief="This Host MSD example supports the UFI and SCSI U-disk device.  The application prints the attached device information when the U-disk device is attached.The application executes UFI commands to test the attached device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_host_msd_command/freertos">
+          <external path="usb_examples/usb_host_msd_command/freertos" type="xml">
+            <files mask="host_msd_command_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_host_suspend_resume_hid_mouse_freertos" name="host_suspend_resume_hid_mouse_freertos" brief="This is one example support suspend/resume." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_suspend_resume_host_hid_mouse/freertos">
+          <external path="usb_examples/usb_suspend_resume_host_hid_mouse/freertos" type="xml">
+            <files mask="host_suspend_resume_hid_mouse_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_host_hid_mouse_bm" name="host_hid_mouse_bm" brief="The application supports the mouse device. It prints the mouse operation when the mouse device is attached." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_host_hid_mouse/bm">
+          <external path="usb_examples/usb_host_hid_mouse/bm" type="xml">
+            <files mask="host_hid_mouse_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_host_phdc_manager_bm" name="host_phdc_manager_bm" brief="The Host PHDC Manager Example is a simple demonstration program based on the MCUXpresso SDK.The application supports the USB weight scale device. It prints out the body mass and body mass index information when the USB weight scale device is attached." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_host_phdc_manager/bm">
+          <external path="usb_examples/usb_host_phdc_manager/bm" type="xml">
+            <files mask="host_phdc_manager_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_audio_speaker_freertos" name="dev_audio_speaker_freertos" brief="The USB Audio Speaker application is a simple demonstration program based on the MCUXpresso SDK. It is enumerated as a playback device and users can play music using the device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_audio_speaker/freertos">
+          <external path="usb_examples/usb_device_audio_speaker/freertos" type="xml">
+            <files mask="dev_audio_speaker_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_composite_cdc_vcom_cdc_vcom_freertos" name="dev_composite_cdc_vcom_cdc_vcom_freertos" brief="The Composite CDC_VCOM_CDC_VCOM project is a simple demonstration program based on the MCUXpresso SDK.  It is enumerated as two COM port, which can be opened using terminal tools, such as TeraTerm. The demo echoes back any character it receives." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_composite_cdc_vcom_cdc_vcom/freertos">
+          <external path="usb_examples/usb_device_composite_cdc_vcom_cdc_vcom/freertos" type="xml">
+            <files mask="dev_composite_cdc_vcom_cdc_vcom_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_hid_generic_freertos" name="dev_hid_generic_freertos" brief="The USB HID generic application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a HID-compliant device. A PC application can be used to exchange data with the device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_hid_generic/freertos">
+          <external path="usb_examples/usb_device_hid_generic/freertos" type="xml">
+            <files mask="dev_hid_generic_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_printer_virtual_plain_text_freertos" name="dev_printer_virtual_plain_text_freertos" brief="The USB virtual printer application is a simple application to demonstrate a virtual printer functionality.Because there is no printer language parsing, the received raw data is output directly in the debug console.As a result, only plain text is suitable for testing. For other printer language support, such as postscript, implement the corresponding parser." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_printer_virtual_plain_text/freertos">
+          <external path="usb_examples/usb_device_printer_virtual_plain_text/freertos" type="xml">
+            <files mask="dev_printer_virtual_plain_text_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_audio_generator_lite_bm" name="dev_audio_generator_lite_bm" brief="The USB Audio Generator application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a recording device and users can record the sound from this device via the &quot;Sound Recorder&quot; in the Windows Accessories." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_audio_generator_lite/bm">
+          <external path="usb_examples/usb_device_audio_generator_lite/bm" type="xml">
+            <files mask="dev_audio_generator_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_cdc_vcom_lite_bm" name="dev_cdc_vcom_lite_bm" brief="The Virtual COM project enumerated as a COM port, which the users can open using terminal tools, such as TeraTerm. The demo echoes back any character it receives." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_cdc_vcom_lite/bm">
+          <external path="usb_examples/usb_device_cdc_vcom_lite/bm" type="xml">
+            <files mask="dev_cdc_vcom_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_composite_cdc_msc_lite_bm" name="dev_composite_cdc_msc_lite_bm" brief="The Composite CDC_MSC project is a simple demonstration program based on the MCUXpresso SDK.  It is enumerated as a COM port and a RAM disk, which can be opened using terminal tools, such as TeraTerm. The demo echoes back any character it receives. The RAM disk can be formatted." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_composite_cdc_msc_lite/bm">
+          <external path="usb_examples/usb_device_composite_cdc_msc_lite/bm" type="xml">
+            <files mask="dev_composite_cdc_msc_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_composite_hid_audio_unified_lite_bm" name="dev_composite_hid_audio_unified_lite_bm" brief="The USB Composite HID and Audio Unified application is a simple demonstration program based on the MCUXpresso SDK. It is enumerated as a playback and recording device. Users can record the sound from this device via the &quot;Sound Recorder&quot; in the Windows Accessories and play music with the device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_composite_hid_audio_unified_lite/bm">
+          <external path="usb_examples/usb_device_composite_hid_audio_unified_lite/bm" type="xml">
+            <files mask="dev_composite_hid_audio_unified_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_dfu_lite_bm" name="dev_dfu_lite_bm" brief="The DFU project is a simple demonstration program based on the MCUXpresso SDK.  It is enumerated as a compoiste dfu device, users can download one firmware to the dfu device with the tool called &quot;dfu-util&quot;. the dfu example write the firmware content to flash and will check the CRC32 which stored in the last 4 byte of the firmware.if the CRC32 check is right, then the dfu example will run the new firmware.Generally speaking, the firmware doesn't have CRC32. sothe following content will introduce how to add CRC32 to the firmware." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_dfu_lite/bm">
+          <external path="usb_examples/usb_device_dfu_lite/bm" type="xml">
+            <files mask="dev_dfu_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_hid_mouse_lite_bm" name="dev_hid_mouse_lite_bm" brief="The USB HID mouse application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a mouse. Users can see the mouse arrow moving on the PC screen according in a rectangular fashion." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_hid_mouse_lite/bm">
+          <external path="usb_examples/usb_device_hid_mouse_lite/bm" type="xml">
+            <files mask="dev_hid_mouse_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_phdc_weighscale_lite_bm" name="dev_phdc_weighscale_lite_bm" brief="The USB PHDC WeighScale application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a weight scale device and the HealthLink software is used to interact with thisdevice to simulate the personal weight scale data, such as body mass and body mass index." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_phdc_weighscale_lite/bm">
+          <external path="usb_examples/usb_device_phdc_weighscale_lite/bm" type="xml">
+            <files mask="dev_phdc_weighscale_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_suspend_resume_hid_mouse_lite_bm" name="dev_suspend_resume_hid_mouse_lite_bm" brief="the application is enumerated as a mouse. When host releases the USB Bus, the device will enter into low power mode. The device can be waked up when resume signal is detected on the bus. Or the device can remote wake-up the host by delivering the resume signal when the remote wake-up is enabled by the host." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_suspend_resume_device_hid_mouse_lite/bm">
+          <external path="usb_examples/usb_suspend_resume_device_hid_mouse_lite/bm" type="xml">
+            <files mask="dev_suspend_resume_hid_mouse_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_cmsis_spi_int_b2b_transfer_slave" name="cmsis_spi_int_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_spi_interrupt_b2b_transfer_slave example shows how to use CMSIS spi driver as master to do board to board transfer with interrupt:In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/rdrw612bga/cmsis_driver_examples/spi/int_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/spi/int_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_int_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_ctimer_pwm_interrupt_example" name="ctimer_pwm_interrupt_example" brief="The Simple PWM Interrupt project is to demonstrate usage of the SDK CTimer driver as a PWM with interrupt callback functionsIn this example an IO pin connected to the LED is used as a PWM output line to generate a PWM signal.With an interrupt callback the PWM duty cycle is changed frequently in such a way that the LED brightness can be varied." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ctimer" path="examples/rdrw612bga/driver_examples/ctimer/simple_pwm_interrupt">
+          <external path="driver_examples/ctimer/simple_pwm_interrupt" type="xml">
+            <files mask="ctimer_pwm_interrupt_example_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dmic_dma" name="dmic_dma" brief="This example shows how to use DMA to transfer data from DMIC to memory." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dmic" path="examples/rdrw612bga/driver_examples/dmic/dmic_dma">
+          <external path="driver_examples/dmic/dmic_dma" type="xml">
+            <files mask="dmic_dma_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_enet_txrx_ptp1588_transfer" name="enet_txrx_ptp1588_transfer" brief="The enet_rxtx_ptp1588 example shows the way to use ENET driver to   receive and transmit frame in the 1588 feature required cases.1. This example shows how to initialize the ENET MAC.2. How to use ENET MAC to receive and transmit frame.3. How to add to the multicast group to receive PTP 1588 message.4. How to get the time stamp of the PTP 1588 timer.4. How to use Get the ENET transmit and receive frame time stamp.The example transmits 20 number PTP event frame, shows the timestamp of the transmitted frame.The length, source MAC address and destination MAC address of the received frame will be print. The time stamp of the received timestamp will be print when the PTP message frame is received. Note, The RMII mode is used for default setting to initialize the ENET interface between MAC and the external PHY. you can change it to MII mode as you wish. Please make sure the MII Mode setting in the MAC is synchronize to the settingin TWR-SERIAL board for the external PHY." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/enet" path="examples/rdrw612bga/driver_examples/enet/txrx_ptp1588_transfer">
+          <external path="driver_examples/enet/txrx_ptp1588_transfer" type="xml">
+            <files mask="enet_txrx_ptp1588_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_lwip_dhcp_bm" name="lwip_dhcp_bm" brief="The lwip_dhcp demo application demonstrates a DHCP demo on the lwIP TCP/IP stack.The application acts as a DHCP client and prints the status as it is progressing.Once the interface is being bound to an IP address obtained from DHCP server, address information is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/rdrw612bga/lwip_examples/lwip_dhcp/bm">
+          <external path="lwip_examples/lwip_dhcp/bm" type="xml">
+            <files mask="lwip_dhcp_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_lwip_httpsrv_bm" name="lwip_httpsrv_bm" brief="The lwip_httpsrv demo application demonstrates an HTTPServer on the lwIP TCP/IP stack with bare metal SDK or FreeRTOS.The user uses an Internet browser to send a request for connection. The board acts as an HTTP server and sends a Webpage back to the PC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/rdrw612bga/lwip_examples/lwip_httpsrv/bm">
+          <external path="lwip_examples/lwip_httpsrv/bm" type="xml">
+            <files mask="lwip_httpsrv_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_lwip_ping_freertos" name="lwip_ping_freertos" brief="The lwip_ping demo application demonstrates a Ping Demo on the lwIP TCP/IP stack which using the ICMP protocol. Theapplication periodically sends the ICMP echo request to a PC and processes the PC reply. Type the &quot;ping $board_address&quot;in the PC command window to send an ICMP echo request to the board. The lwIP stack sends the ICMP echo reply back to thePC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/rdrw612bga/lwip_examples/lwip_ping/freertos">
+          <external path="lwip_examples/lwip_ping/freertos" type="xml">
+            <files mask="lwip_ping_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_cmsis_i2c_dma_b2b_transfer_master" name="cmsis_i2c_dma_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_i2c_dma_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with DMA:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/rdrw612bga/cmsis_driver_examples/i2c/dma_b2b_transfer/master">
+          <external path="cmsis_driver_examples/i2c/dma_b2b_transfer/master" type="xml">
+            <files mask="cmsis_i2c_dma_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_i2c_dma_b2b_transfer_master" name="i2c_dma_b2b_transfer_master" brief="The i2c_dma_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with DMA:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/rdrw612bga/driver_examples/i2c/dma_b2b_transfer/master">
+          <external path="driver_examples/i2c/dma_b2b_transfer/master" type="xml">
+            <files mask="i2c_dma_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_spi_polling_b2b_transfer_master" name="spi_polling_b2b_transfer_master" brief="The spi_polling_board2board_master example shows how to use spi driver as master to do board to board transfer with polling:In this example, one spi instance as master and another spi instance on othereboard as slave. Master sends a piece ofdata to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/rdrw612bga/driver_examples/spi/polling_b2b_transfer/master">
+          <external path="driver_examples/spi/polling_b2b_transfer/master" type="xml">
+            <files mask="spi_polling_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_spi_interrupt_b2b_master" name="spi_interrupt_b2b_master" brief="The spi_interrupt_b2b_master example shows how to use spi functional API to do interrupt transfer as a master:In this example, the spi instance as master. Master sends a piece of data to slave, receive data from slave,and checkif the data master received is correct. This example needs to work with spi_interrupt_b2b_slave example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/rdrw612bga/driver_examples/spi/interrupt_b2b/master">
+          <external path="driver_examples/spi/interrupt_b2b/master" type="xml">
+            <files mask="spi_interrupt_b2b_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_maestro_record" name="maestro_record" brief="Audio maestro framework demo example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="audio_examples" path="examples/rdrw612bga/audio_examples/maestro_record">
+          <external path="audio_examples/maestro_record" type="xml">
+            <files mask="maestro_record_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dma_channel_chain" name="dma_channel_chain" brief="The DMA channel chain example is a simple demonstration program that uses the SDK software.The purpose of this example is to show how to use the DMA channel chain feature." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/rdrw612bga/driver_examples/dma/channel_chain">
+          <external path="driver_examples/dma/channel_chain" type="xml">
+            <files mask="dma_channel_chain_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_lcdic_interrupt" name="lcdic_interrupt" brief="This example shows how to use the lcdic interrupt APIs." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lcdic" path="examples/rdrw612bga/driver_examples/lcdic/interrupt">
+          <external path="driver_examples/lcdic/interrupt" type="xml">
+            <files mask="lcdic_interrupt_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_gdma_wrap" name="gdma_wrap" brief="This project shows how to use GDMA functional APIs to do the wrap transfer." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/gdma" path="examples/rdrw612bga/driver_examples/gdma/wrap">
+          <external path="driver_examples/gdma/wrap" type="xml">
+            <files mask="gdma_wrap_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_gpio_led_output" name="gpio_led_output" brief="The GPIO Example project is a demonstration program that uses the KSDK software to manipulate the general-purposeoutputs. The example use LEDs and buttons to demonstrates GPIO API for port and pin manipulation (init, set,clear, and toggle)." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/gpio" path="examples/rdrw612bga/driver_examples/gpio/led_output">
+          <external path="driver_examples/gpio/led_output" type="xml">
+            <files mask="gpio_led_output_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_flexspi_nor_dma_transfer" name="flexspi_nor_dma_transfer" brief="The flexspi_nor_dma_transfer example shows how to use flexspi driver with dma:In this example, flexspi will send data and operate the external nor flash connected with FLEXSPI. Some simple flash command will be executed, such as Write Enable, Erase sector, Program page.Example will first erase the sector and program a page into the flash, at last check if the data in flash is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/flexspi" path="examples/rdrw612bga/driver_examples/flexspi/nor/dma_transfer">
+          <external path="driver_examples/flexspi/nor/dma_transfer" type="xml">
+            <files mask="flexspi_nor_dma_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_mrt_example" name="mrt_example" brief="The MRT project is a simple demonstration program of the SDK MRT driver. It sets up the MRThardware block to trigger a periodic interrupt after every 250 milliseconds. When the PIT interrupt is triggereda message a printed on the UART terminal and an LED is toggled on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/mrt" path="examples/rdrw612bga/driver_examples/mrt">
+          <external path="driver_examples/mrt" type="xml">
+            <files mask="mrt_example_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_sctimer_16bit_counter" name="sctimer_16bit_counter" brief="The SCTimer 16-bit counter project is a demonstration program of the SDK SCTimer driver operation when using the SCTimer counteras two 16-bit counters.The example toggles an output per counter when a match occurs." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="examples/rdrw612bga/driver_examples/sctimer/16bit_counter">
+          <external path="driver_examples/sctimer/16bit_counter" type="xml">
+            <files mask="sctimer_16bit_counter_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_wwdt_example" name="wwdt_example" brief="The WDOG Example project is to demonstrate usage of the KSDK wdog driver.In this example,quick test is first implemented to test the wdog.And then after 5 times of refreshing the watchdog, a timeout reset is generated." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/wwdt" path="examples/rdrw612bga/driver_examples/wwdt">
+          <external path="driver_examples/wwdt" type="xml">
+            <files mask="wwdt_example_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_sdu_example" name="sdu_example" brief="The sdu example shows how to use sdu driver to exchange command/data with host driver." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sdu" path="examples/rdrw612bga/driver_examples/sdu">
+          <external path="driver_examples/sdu" type="xml">
+            <files mask="sdu_example_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dac_waveform_generator" name="dac_waveform_generator" brief="The DAC waveform generator driver example demonstrates how to use the DAC module to generate different types of waveforms (including triangle waveform, sawtooth waveform, sine waveform, and noise). After starting this example, user can select the waveform type based on the log, and then the selected waveform will be output from  DAC channel pin." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dac" path="examples/rdrw612bga/driver_examples/dac/waveform_generator">
+          <external path="driver_examples/dac/waveform_generator" type="xml">
+            <files mask="dac_waveform_generator_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_itrc" name="itrc" brief="The ITRC Example project is a demonstration program that uses the MCUX SDK software to show funcionality of Intrusion and Tamper Response Controller." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/itrc" path="examples/rdrw612bga/driver_examples/itrc">
+          <external path="driver_examples/itrc" type="xml">
+            <files mask="itrc_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_romapi_iap" name="romapi_iap" brief="Rom API driver example for IAP interface." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/romapi/iap" path="examples/rdrw612bga/driver_examples/romapi/iap">
+          <external path="driver_examples/romapi/iap" type="xml">
+            <files mask="romapi_iap_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_usart_interrupt_transfer" name="usart_interrupt_transfer" brief="The uart_interrupt example shows how to use uart driver in interrupt way:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/rdrw612bga/driver_examples/usart/interrupt_transfer">
+          <external path="driver_examples/usart/interrupt_transfer" type="xml">
+            <files mask="usart_interrupt_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_i2s_interrupt_transfer" name="i2s_interrupt_transfer" brief="The I2S example project uses one I2S interface to continuously record input sound to a bufferand another I2S interface to playback the buffer to output - digital loopback.It requires NXP Mic/Audio/Oled Shield with WM8904 codec.It needs to have 1-2 connected on JP3." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2s" path="examples/rdrw612bga/driver_examples/i2s/interrupt_transfer">
+          <external path="driver_examples/i2s/interrupt_transfer" type="xml">
+            <files mask="i2s_interrupt_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_fmeas" name="fmeas" brief="This example shows how to use SDK drivers to use the Frequency Measure feature of SYSCON module on LPC devices.It shows how to measure a target frequency using a (faster) reference frequency. The example uses the internal main clock as the reference frequency to measure the frequencies of the RTC, watchdog oscillator, and internal RC oscillator." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/fmeas" path="examples/rdrw612bga/driver_examples/fmeas">
+          <external path="driver_examples/fmeas" type="xml">
+            <files mask="fmeas_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_powerquad_matrix" name="powerquad_matrix" brief="This example shows how to use powerquad driver matrix functions." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/rdrw612bga/driver_examples/powerquad/matrix">
+          <external path="driver_examples/powerquad/matrix" type="xml">
+            <files mask="powerquad_matrix_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_powerquad_benchmark_matrix" name="powerquad_benchmark_matrix" brief="This example shows the PowerQuad based CMSIS DSP function performance. It could be compared with the project powerquad_benckmark_sw_matrix to show the PowerQuad performance improvement." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/rdrw612bga/driver_examples/powerquad/benchmark_matrix">
+          <external path="driver_examples/powerquad/benchmark_matrix" type="xml">
+            <files mask="powerquad_benchmark_matrix_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_powerquad_benchmark_sw_matrix" name="powerquad_benchmark_sw_matrix" brief="This example shows the official CMSIS DSP function performance. It could be compared with the project powerquad_benckmark_matrix to show the PowerQuad performance improvement." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/rdrw612bga/driver_examples/powerquad/benchmark_sw_matrix">
+          <external path="driver_examples/powerquad/benchmark_sw_matrix" type="xml">
+            <files mask="powerquad_benchmark_sw_matrix_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_cmsis_usart_interrupt_transfer" name="cmsis_usart_interrupt_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_uart_interrupt_transfer example shows how to use uart cmsis driver in interrupt way:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/usart" path="examples/rdrw612bga/cmsis_driver_examples/usart/interrupt_transfer">
+          <external path="cmsis_driver_examples/usart/interrupt_transfer" type="xml">
+            <files mask="cmsis_usart_interrupt_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_wifi_cli" name="wifi_cli" brief="wifi_cli" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/rdrw612bga/wifi_examples/wifi_cli">
+          <external path="wifi_examples/wifi_cli" type="xml">
+            <files mask="wifi_cli_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_wifi_ipv4_ipv6_echo" name="wifi_ipv4_ipv6_echo" brief="The wifi_ipv4_ipv6_echo demo application demonstrates a TCP or UDP echo demo on the lwIP TCP/IP stack with FreeRTOS. The demo uses the TCP or UDP protocol over both IPv4 and IPv6 and acts as an echo server. The application sends back the received TCP or UDP packets from the PC, which can be used to test whether a TCP or UDP is available." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/rdrw612bga/wifi_examples/wifi_ipv4_ipv6_echo">
+          <external path="wifi_examples/wifi_ipv4_ipv6_echo" type="xml">
+            <files mask="wifi_ipv4_ipv6_echo_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_els_pkc_common" name="els_pkc_common" brief="The ELS PKC application provides examples which demonstrate usage of common features including PRNG and a crypto library lightweight testing." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="els_pkc_examples" path="examples/rdrw612bga/els_pkc_examples/els_pkc_common">
+          <external path="els_pkc_examples/els_pkc_common" type="xml">
+            <files mask="els_pkc_common_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_mbedtls_selftest" name="mbedtls_selftest" brief="The mbdedTLS SelfTest program performs cryptographic algorithm testing and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="examples/rdrw612bga/mbedtls_examples/mbedtls_selftest">
+          <external path="mbedtls_examples/mbedtls_selftest" type="xml">
+            <files mask="mbedtls_selftest_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_ota_mcuboot_server_wifi" name="ota_mcuboot_server_wifi" brief="This ota_mcuboot_server application demonstrates OTA using an HTTP server based on lwIP TCP/IP and the MbedTLS stack with FreeRTOS. The user uses an Internet browser to upload new update package to reprogram application running on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="ota_examples" path="examples/rdrw612bga/ota_examples/ota_mcuboot_server/wifi">
+          <external path="ota_examples/ota_mcuboot_server/wifi" type="xml">
+            <files mask="ota_mcuboot_server_wifi_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART driver in combination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/rdrw612bga/freertos_examples/freertos_hello">
+          <external path="freertos_examples/freertos_hello" type="xml">
+            <files mask="freertos_hello_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_freertos_queue" name="freertos_queue" brief="This document explains the freertos_queue example. This example introduce simple logging mechanismbased on message passing.Example could be devided in two parts. First part is logger. It contain three tasks:log_add().....Add new message into the log. Call xQueueSend function to pass new message into              message queue.log_init()....Initialize logger (create logging task and message queue log_queue).log_task()....Task responsible for printing of log output.Second part is application of this simple logging mechanism. Each of two tasks write_task_1 andwrite_task_2 print 5 messages into log." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/rdrw612bga/freertos_examples/freertos_queue">
+          <external path="freertos_examples/freertos_queue" type="xml">
+            <files mask="freertos_queue_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_central_ht" name="central_ht" brief="The Edgefast Bluetooth hts example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/central_ht">
+          <external path="edgefast_bluetooth_examples/central_ht" type="xml">
+            <files mask="central_ht_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_central_pxm" name="central_pxm" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/central_pxm">
+          <external path="edgefast_bluetooth_examples/central_pxm" type="xml">
+            <files mask="central_pxm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_peripheral_beacon" name="peripheral_beacon" brief="The Edgefast Bluetooth beacon example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/peripheral_beacon">
+          <external path="edgefast_bluetooth_examples/peripheral_beacon" type="xml">
+            <files mask="peripheral_beacon_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_central_tip" name="central_tip" brief="The Edgefast Bluetooth tip example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/central_tip">
+          <external path="edgefast_bluetooth_examples/central_tip" type="xml">
+            <files mask="central_tip_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_pin_detect_hid_mouse_bm" name="pin_detect_hid_mouse_bm" brief="This pin detect HID example supports the mouse device. The application prints the operation information when the mouse device is attached or plugged in to the PC host." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_pin_detect_hid_mouse/bm">
+          <external path="usb_examples/usb_pin_detect_hid_mouse/bm" type="xml">
+            <files mask="pin_detect_hid_mouse_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_host_hid_generic_freertos" name="host_hid_generic_freertos" brief="This application implements a simple HID interrupt in-and-out endpoint bi-directional communication.The application sends one test string to the device. The device receives and sends back the string. The application receives the string and prints it." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_host_hid_generic/freertos">
+          <external path="usb_examples/usb_host_hid_generic/freertos" type="xml">
+            <files mask="host_hid_generic_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_host_msd_fatfs_freertos" name="host_msd_fatfs_freertos" brief="This Host FatFs example supports UFI and SCSI U-disk device. The application prints the attached device information when U-disk device is attached.The application executes some FatFs APIs to test the attached device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_host_msd_fatfs/freertos">
+          <external path="usb_examples/usb_host_msd_fatfs/freertos" type="xml">
+            <files mask="host_msd_fatfs_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_host_audio_speaker_bm" name="host_audio_speaker_bm" brief="The Host Audio example supports the audio speaker device. @n The application prints the audio speaker information when the USB speaker device is attached." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_host_audio_speaker/bm">
+          <external path="usb_examples/usb_host_audio_speaker/bm" type="xml">
+            <files mask="host_audio_speaker_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_host_hid_mouse_keyboard_bm" name="host_hid_mouse_keyboard_bm" brief="This example supports the mouse device and the keyboard device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_host_hid_mouse_keyboard/bm">
+          <external path="usb_examples/usb_host_hid_mouse_keyboard/bm" type="xml">
+            <files mask="host_hid_mouse_keyboard_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_host_printer_plain_text_bm" name="host_printer_plain_text_bm" brief="The host printer example demonstrates how to get the status of the printer deviceand how to print a certain test string." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_host_printer_plain_text/bm">
+          <external path="usb_examples/usb_host_printer_plain_text/bm" type="xml">
+            <files mask="host_printer_plain_text_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_cdc_vcom_freertos" name="dev_cdc_vcom_freertos" brief="The Virtual COM project is  enumerated as a COM port, which the users can open using terminal tools, such as TeraTerm. The demo echoes back any character it receives." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_cdc_vcom/freertos">
+          <external path="usb_examples/usb_device_cdc_vcom/freertos" type="xml">
+            <files mask="dev_cdc_vcom_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_composite_hid_audio_unified_freertos" name="dev_composite_hid_audio_unified_freertos" brief="The USB Composite device application is a simple demonstration program based on the MCUXpresso SDK. It is enumerated as a recording device. Users can record the sound from this device via the &quot;Sound Recorder&quot; in the Windows Accessories with an HID mouse device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_composite_hid_audio_unified/freertos">
+          <external path="usb_examples/usb_device_composite_hid_audio_unified/freertos" type="xml">
+            <files mask="dev_composite_hid_audio_unified_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_hid_mouse_freertos" name="dev_hid_mouse_freertos" brief="The USB HID mouse application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a mouse. Users can see the mouse arrow moving on the PC screen according in a rectangular fashion." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_hid_mouse/freertos">
+          <external path="usb_examples/usb_device_hid_mouse/freertos" type="xml">
+            <files mask="dev_hid_mouse_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_suspend_resume_hid_mouse_freertos" name="dev_suspend_resume_hid_mouse_freertos" brief="the application is enumerated as a mouse. When host releases the USB Bus, the device will enter into low power mode. The device can be waked up when resume signal is detected on the bus. Or the device can remote wake-up the host by delivering the resume signal when the remote wake-up is enabled by the host." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_suspend_resume_device_hid_mouse/freertos">
+          <external path="usb_examples/usb_suspend_resume_device_hid_mouse/freertos" type="xml">
+            <files mask="dev_suspend_resume_hid_mouse_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_audio_speaker_bm" name="dev_audio_speaker_bm" brief="The USB Audio Speaker application is a simple demonstration program based on the MCUXpresso SDK. It is enumerated as a playback device and users can play music using the device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_audio_speaker/bm">
+          <external path="usb_examples/usb_device_audio_speaker/bm" type="xml">
+            <files mask="dev_audio_speaker_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_cdc_vnic_bm" name="dev_cdc_vnic_bm" brief="The Virtual NIC project is enumerated as a network adapter. Users can access the network by properly configuring this network adapter." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_cdc_vnic/bm">
+          <external path="usb_examples/usb_device_cdc_vnic/bm" type="xml">
+            <files mask="dev_cdc_vnic_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_composite_cdc_vcom_cdc_vcom_bm" name="dev_composite_cdc_vcom_cdc_vcom_bm" brief="The Composite CDC_VCOM_CDC_VCOM project is a simple demonstration program based on the MCUXpresso SDK.  It is enumerated as two COM port, which can be opened using terminal tools, such as TeraTerm. The demo echoes back any character it receives." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_composite_cdc_vcom_cdc_vcom/bm">
+          <external path="usb_examples/usb_device_composite_cdc_vcom_cdc_vcom/bm" type="xml">
+            <files mask="dev_composite_cdc_vcom_cdc_vcom_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_composite_hid_mouse_hid_keyboard_bm" name="dev_composite_hid_mouse_hid_keyboard_bm" brief="The application is a simple demonstration program based on the MCUXpresso SDK. The application is enumerated as HID-compliant mouse and keyboard devices." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_composite_hid_mouse_hid_keyboard/bm">
+          <external path="usb_examples/usb_device_composite_hid_mouse_hid_keyboard/bm" type="xml">
+            <files mask="dev_composite_hid_mouse_hid_keyboard_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_hid_generic_bm" name="dev_hid_generic_bm" brief="The USB HID generic application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a HID-compliant device. A PC application can be used to exchange data with the device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_hid_generic/bm">
+          <external path="usb_examples/usb_device_hid_generic/bm" type="xml">
+            <files mask="dev_hid_generic_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_msc_ramdisk_bm" name="dev_msc_ramdisk_bm" brief="The USB MSC RAM disk application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a U-disk and can be read and written to as a normal U-disk ." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_msc_ramdisk/bm">
+          <external path="usb_examples/usb_device_msc_ramdisk/bm" type="xml">
+            <files mask="dev_msc_ramdisk_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_printer_virtual_plain_text_bm" name="dev_printer_virtual_plain_text_bm" brief="The USB virtual printer application is a simple application to demonstrate a virtual printer functionality.Because there is no printer language parsing, the received raw data is output directly in the debug console.As a result, only plain text is suitable for testing. For other printer language support, such as postscript, implement the corresponding parser." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_printer_virtual_plain_text/bm">
+          <external path="usb_examples/usb_device_printer_virtual_plain_text/bm" type="xml">
+            <files mask="dev_printer_virtual_plain_text_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_video_virtual_camera_bm" name="dev_video_virtual_camera_bm" brief="The USB video virtual camera application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a camera and users can see the video of the device by using a PC test tool." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_video_virtual_camera/bm">
+          <external path="usb_examples/usb_device_video_virtual_camera/bm" type="xml">
+            <files mask="dev_video_virtual_camera_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_cmsis_spi_dma_b2b_transfer_master" name="cmsis_spi_dma_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_spi_dma_b2b_transfer_master example shows how to use spi driver as master to do board to board transfer with DMA:In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/rdrw612bga/cmsis_driver_examples/spi/dma_b2b_transfer/master">
+          <external path="cmsis_driver_examples/spi/dma_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_dma_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_ctimer_match_example" name="ctimer_match_example" brief="The CTimer Example project is to demonstrate usage of the KSDK ctimer driver.In this example, the match feature of the CTimer is used to toggle the output level." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ctimer" path="examples/rdrw612bga/driver_examples/ctimer/simple_match">
+          <external path="driver_examples/ctimer/simple_match" type="xml">
+            <files mask="ctimer_match_example_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dmic_hwvad" name="dmic_hwvad" brief="~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~This demo explains how built in HWVAD( HW voice activity detector) in LPC5411x can be used towake up the device from sleep mode" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dmic" path="examples/rdrw612bga/driver_examples/dmic/dmic_hwvad">
+          <external path="driver_examples/dmic/dmic_hwvad" type="xml">
+            <files mask="dmic_hwvad_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_flexspi_psram_polling_transfer" name="flexspi_psram_polling_transfer" brief="The flexspi_psram_polling_transfer example shows how to use flexspi driver with polling: In this example, flexspi will send data and operate the external PSRAM connected with FLEXSPI. Some simple flash command will be executed, such as Read Data and Write Data.Example will write/read through the whole chip, through IP command and AHB command." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/flexspi" path="examples/rdrw612bga/driver_examples/flexspi/psram/polling_transfer">
+          <external path="driver_examples/flexspi/psram/polling_transfer" type="xml">
+            <files mask="flexspi_psram_polling_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_lwip_dhcp_freertos" name="lwip_dhcp_freertos" brief="The lwip_dhcp demo application demonstrates a DHCP demo on the lwIP TCP/IP stack.The application acts as a DHCP client and prints the status as it is progressing.Once the interface is being bound to an IP address obtained from DHCP server, address information is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/rdrw612bga/lwip_examples/lwip_dhcp/freertos">
+          <external path="lwip_examples/lwip_dhcp/freertos" type="xml">
+            <files mask="lwip_dhcp_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_lwip_httpsrv_freertos" name="lwip_httpsrv_freertos" brief="The lwip_httpsrv demo application demonstrates an HTTPServer on the lwIP TCP/IP stack with bare metal SDK or FreeRTOS.The user uses an Internet browser to send a request for connection. The board acts as an HTTP server and sends a Webpage back to the PC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/rdrw612bga/lwip_examples/lwip_httpsrv/freertos">
+          <external path="lwip_examples/lwip_httpsrv/freertos" type="xml">
+            <files mask="lwip_httpsrv_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_lwip_ipv4_ipv6_echo_freertos" name="lwip_ipv4_ipv6_echo_freertos" brief="The lwip_ipv4_ipv6_echo demo application demonstrates a TCP or UDP echo demo on the lwIP TCP/IP stack with FreeRTOS. The demo uses the TCP or UDP protocol over both IPv4 and IPv6 and acts as an echo server. The application sends back the received TCP or UDP packets from the PC, which can be used to test whether a TCP or UDP is available." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/rdrw612bga/lwip_examples/lwip_ipv4_ipv6_echo/freertos">
+          <external path="lwip_examples/lwip_ipv4_ipv6_echo/freertos" type="xml">
+            <files mask="lwip_ipv4_ipv6_echo_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_cmsis_i2c_dma_b2b_transfer_slave" name="cmsis_i2c_dma_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_i2c_dma_b2b_transfer_slave example shows how to use i2c driver as slave to do board to board transfer with a DMA master:In this example, one i2c instance as slave and another i2c instance on the other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/rdrw612bga/cmsis_driver_examples/i2c/dma_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/i2c/dma_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_i2c_dma_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_i2c_dma_b2b_transfer_slave" name="i2c_dma_b2b_transfer_slave" brief="The i2c_dma_b2b_transfer_slave example shows how to use i2c driver as slave to do board to board transfer with a DMA master:In this example, one i2c instance as slave and another i2c instance on the other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/rdrw612bga/driver_examples/i2c/dma_b2b_transfer/slave">
+          <external path="driver_examples/i2c/dma_b2b_transfer/slave" type="xml">
+            <files mask="i2c_dma_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_spi_polling_b2b_transfer_slave" name="spi_polling_b2b_transfer_slave" brief="The spi_polling_board2board_slave example shows how to use spi driver as slave to do board to board transfer withpolling:Notice: The SPI slave of this example uses interrupt mode, as there is no polling mode for SPI slave.In this example, one spi instance as slave and another spi instance on other board as master. Master sends a piece ofdata to slave, and receive a piece of data from slave. This example checks if the data received from master is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/rdrw612bga/driver_examples/spi/polling_b2b_transfer/slave">
+          <external path="driver_examples/spi/polling_b2b_transfer/slave" type="xml">
+            <files mask="spi_polling_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_spi_interrupt_b2b_slave" name="spi_interrupt_b2b_slave" brief="The spi_interrupt_b2b_slave example shows how to use spi functional API to do interrupt transfer as a slave:In this example, the spi instance as slave. Slave receives data froma master and send a peiece of data to master,and check if the data slave received is correct. This example needs to work with spi_interrupt_b2b_master example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/rdrw612bga/driver_examples/spi/interrupt_b2b/slave">
+          <external path="driver_examples/spi/interrupt_b2b/slave" type="xml">
+            <files mask="spi_interrupt_b2b_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_ota_mcuboot_server_enet" name="ota_mcuboot_server_enet" brief="This ota_mcuboot_server application demonstrates OTA update using an HTTP server based on lwIP TCP/IP and the MbedTLS stack with FreeRTOS. The user uses an Internet browser to upload new update package to reprogram application running on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="ota_examples" path="examples/rdrw612bga/ota_examples/ota_mcuboot_server/enet">
+          <external path="ota_examples/ota_mcuboot_server/enet" type="xml">
+            <files mask="ota_mcuboot_server_enet_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dma_linked_transfer" name="dma_linked_transfer" brief="The DMA linked transfer example is a simple demonstration program that uses the SDK software.It executes a linked transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA and to provide a linked trnasfer example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/rdrw612bga/driver_examples/dma/linked_transfer">
+          <external path="driver_examples/dma/linked_transfer" type="xml">
+            <files mask="dma_linked_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_lcdic_dma" name="lcdic_dma" brief="This example shows how to use the lcdic DMA APIs." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lcdic" path="examples/rdrw612bga/driver_examples/lcdic/dma">
+          <external path="driver_examples/lcdic/dma" type="xml">
+            <files mask="lcdic_dma_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_gdma_transfer_basic" name="gdma_transfer_basic" brief="This example shows how to use GDMA transactional APIs to do memory to memory data copy." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/gdma" path="examples/rdrw612bga/driver_examples/gdma/transfer_basic">
+          <external path="driver_examples/gdma/transfer_basic" type="xml">
+            <files mask="gdma_transfer_basic_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_gpio_input_interrupt" name="gpio_input_interrupt" brief="The GPIO Example project is a demonstration program that uses the KSDK software to manipulate the general-purposeoutputs.The example is supported by the set, clear registers for each GPIO pin output register. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/gpio" path="examples/rdrw612bga/driver_examples/gpio/input_interrupt">
+          <external path="driver_examples/gpio/input_interrupt" type="xml">
+            <files mask="gpio_input_interrupt_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_flash_component_nor" name="flash_component_nor" brief="nor flash demo shows the use of nor flash component to erase, program, and read an external nor flash device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples/flash_component/flexspi_nor" path="examples/rdrw612bga/component_examples/flash_component/flexspi_nor">
+          <external path="component_examples/flash_component/flexspi_nor" type="xml">
+            <files mask="flash_component_nor_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_sctimer_simple_pwm" name="sctimer_simple_pwm" brief="The SCTimer project is a simple demonstration program of the SDK SCTimer's driver capabiltiy to generate PWM signals." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="examples/rdrw612bga/driver_examples/sctimer/simple_pwm">
+          <external path="driver_examples/sctimer/simple_pwm" type="xml">
+            <files mask="sctimer_simple_pwm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_sctimer_input_capture" name="sctimer_input_capture" brief="The SCTimer project is a demonstration program of the SDK SCTimer driver's input capture feature." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="examples/rdrw612bga/driver_examples/sctimer/input_capture">
+          <external path="driver_examples/sctimer/input_capture" type="xml">
+            <files mask="sctimer_input_capture_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_hello_world_virtual_com" name="hello_world_virtual_com" brief="Hello World Virtual Com demonstrates the use of virtual com to print the &quot;Hello World&quot; string to the terminal. Different with Hello World demo (a HW UART peripheral is used to transmit data), the demo transmits data based on a serial port simulated by the USB device stack on target board side via USB peripheral. The purpose of this demo is to demonstrate how to use virtual com and provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/rdrw612bga/demo_apps/hello_world_virtual_com">
+          <external path="demo_apps/hello_world_virtual_com" type="xml">
+            <files mask="hello_world_virtual_com_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_adc_software_trigger" name="adc_software_trigger" brief="The adc_software_trigger example shows how to software trigger ADC conversion. In this example, ADC resolution is set as 16bit, the reference voltage is selected as the internal 1.8V bandgap, and input gain is set as 1. So the input voltage range is from 0 to 1.8V. Users can trigger ADC conversion by press any key in the terminal. ADC interrupt will be asserted once the conversion is completed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc" path="examples/rdrw612bga/driver_examples/adc/software_trigger">
+          <external path="driver_examples/adc/software_trigger" type="xml">
+            <files mask="adc_software_trigger_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_acomp_basic" name="acomp_basic" brief="The acomp basic driver example demostrates the basic usage of the ACOMP module. This example compares the user input analog signal with interanl reference voltage(VDDIO_3 * 0.5) and toggle the LED when the result changed. The purpose of this demo is to show how to use the ACOMP driver in SDK software." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/acomp" path="examples/rdrw612bga/driver_examples/acomp/basic">
+          <external path="driver_examples/acomp/basic" type="xml">
+            <files mask="acomp_basic_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_romapi_otp" name="romapi_otp" brief="Rom API driver example for OCOTP interface." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/romapi/otp" path="examples/rdrw612bga/driver_examples/romapi/otp">
+          <external path="driver_examples/romapi/otp" type="xml">
+            <files mask="romapi_otp_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_romapi_bootloader" name="romapi_bootloader" brief="Rom API driver example for bootloader functions." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/romapi/bootloader" path="examples/rdrw612bga/driver_examples/romapi/bootloader">
+          <external path="driver_examples/romapi/bootloader" type="xml">
+            <files mask="romapi_bootloader_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_usart_interrupt_rb_transfer" name="usart_interrupt_rb_transfer" brief="The uart_interrupt_ring_buffer example shows how to use uart driver in interrupt way withRX ring buffer enabled:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/rdrw612bga/driver_examples/usart/interrupt_rb_transfer">
+          <external path="driver_examples/usart/interrupt_rb_transfer" type="xml">
+            <files mask="usart_interrupt_rb_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_i2s_dma_transfer" name="i2s_dma_transfer" brief="The I2S example project uses one I2S interface to continuously record input sound to a bufferand another I2S interface to playback the buffer to output - digital loopback.It requires NXP Mic/Audio/Oled Shield with WM8904 codec.It needs to have 1-2 connected on JP3." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2s" path="examples/rdrw612bga/driver_examples/i2s/dma_transfer">
+          <external path="driver_examples/i2s/dma_transfer" type="xml">
+            <files mask="i2s_dma_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_powerquad_math" name="powerquad_math" brief="This example project shows how to use the powerquad driver math functions." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/rdrw612bga/driver_examples/powerquad/math">
+          <external path="driver_examples/powerquad/math" type="xml">
+            <files mask="powerquad_math_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_powerquad_transform" name="powerquad_transform" brief="This example shows how to use powerquad driver transform functions." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/rdrw612bga/driver_examples/powerquad/transform">
+          <external path="driver_examples/powerquad/transform" type="xml">
+            <files mask="powerquad_transform_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_powerquad_benchmark_math" name="powerquad_benchmark_math" brief="This example shows the PowerQuad based CMSIS DSP function performance. It could be compared with the project powerquad_benckmark_sw_math to show the PowerQuad performance improvement." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/rdrw612bga/driver_examples/powerquad/benchmark_math">
+          <external path="driver_examples/powerquad/benchmark_math" type="xml">
+            <files mask="powerquad_benchmark_math_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_powerquad_benchmark_sw_math" name="powerquad_benchmark_sw_math" brief="This example shows the official CMSIS DSP function performance. It could be compared with the project powerquad_benckmark_math to show the PowerQuad performance improvement." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/rdrw612bga/driver_examples/powerquad/benchmark_sw_math">
+          <external path="driver_examples/powerquad/benchmark_sw_math" type="xml">
+            <files mask="powerquad_benchmark_sw_math_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_cmsis_usart_dma_transfer" name="cmsis_usart_dma_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_uart_edma_transfer example shows how to use uart cmsis  driver with EDMA:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/usart" path="examples/rdrw612bga/cmsis_driver_examples/usart/dma_transfer">
+          <external path="cmsis_driver_examples/usart/dma_transfer" type="xml">
+            <files mask="cmsis_usart_dma_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_uart_wifi_bridge" name="uart_wifi_bridge" brief="uart_wifi_bridge" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/rdrw612bga/wifi_examples/uart_wifi_bridge">
+          <external path="wifi_examples/uart_wifi_bridge" type="xml">
+            <files mask="uart_wifi_bridge_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_wifi_httpsrv" name="wifi_httpsrv" brief="The wifi_httpsrv demo application demonstrates an HTTPServer on the lwIP TCP/IP stack with FreeRTOS over wi-fi. The user uses an Internet browser to send a request for connection. The board acts as an HTTP server and sends a Webpage back to the PC." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/rdrw612bga/wifi_examples/wifi_httpsrv">
+          <external path="wifi_examples/wifi_httpsrv" type="xml">
+            <files mask="wifi_httpsrv_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_els_hash" name="els_hash" brief="The ELS PKC application provides examples which demonstrate usage of hash algorithms and a crypto library lightweight testing." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="els_pkc_examples" path="examples/rdrw612bga/els_pkc_examples/els_hash">
+          <external path="els_pkc_examples/els_hash" type="xml">
+            <files mask="els_hash_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_mbedtls_selftest_thread" name="mbedtls_selftest_thread" brief="The mbedTLS SelfTest Thread program contains two threads that performs cryptographic algorithm testing and prints results to the terminal in parallel." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="examples/rdrw612bga/mbedtls_examples/mbedtls_selftest_thread">
+          <external path="mbedtls_examples/mbedtls_selftest_thread" type="xml">
+            <files mask="mbedtls_selftest_thread_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_wifi_cli_prov" name="wifi_cli_prov" brief="wifi_cli_prov" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/rdrw612bga/wifi_examples/wifi_cli_prov">
+          <external path="wifi_examples/wifi_cli_prov" type="xml">
+            <files mask="wifi_cli_prov_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_freertos_event" name="freertos_event" brief="This document explains the freertos_event example. It shows how task waits for an event (defined setof bits in event group). This event can be set by any other process or interrupt in the system.The example application creates three tasks. Two write tasks write_task_1 and write_task_2continuously setting event bit 0 and bit 1.Read_task is waiting for any event bit and printing actual state on console. Event bits areautomatically cleared after read task is entered.Three possible states can occurre:Both bits are set.zBit B0 is set.Bit B1 is set." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/rdrw612bga/freertos_examples/freertos_event">
+          <external path="freertos_examples/freertos_event" type="xml">
+            <files mask="freertos_event_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_freertos_sem" name="freertos_sem" brief="This document explains the freertos_sem example, what to expect when running it and a briefintroduction to the API. The freertos_sem example code shows how semaphores works. Two differenttasks are synchronized in bilateral rendezvous model.The example uses four tasks. One producer_task and three consumer_tasks. The producer_task starts bycreating of two semaphores (xSemaphore_producer and xSemaphore_consumer). These semaphores controlaccess to virtual item. The synchronization is based on bilateral rendezvous pattern. Both ofconsumer and producer must be prepared to enable transaction." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/rdrw612bga/freertos_examples/freertos_sem">
+          <external path="freertos_examples/freertos_sem" type="xml">
+            <files mask="freertos_sem_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_peripheral_ipsp" name="peripheral_ipsp" brief="The Edgefast Bluetooth ipsp example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/peripheral_ipsp">
+          <external path="edgefast_bluetooth_examples/peripheral_ipsp" type="xml">
+            <files mask="peripheral_ipsp_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_peripheral_hps" name="peripheral_hps" brief="The Edgefast Bluetooth hps example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/peripheral_hps">
+          <external path="edgefast_bluetooth_examples/peripheral_hps" type="xml">
+            <files mask="peripheral_hps_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_central_fmp" name="central_fmp" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/central_fmp">
+          <external path="edgefast_bluetooth_examples/central_fmp" type="xml">
+            <files mask="central_fmp_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_wifi_cli_over_ble_wu" name="wifi_cli_over_ble_wu" brief="wifi_cli_over_ble_wu" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/wifi_cli_over_ble_wu">
+          <external path="edgefast_bluetooth_examples/wifi_cli_over_ble_wu" type="xml">
+            <files mask="wifi_cli_over_ble_wu_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_pin_detect_hid_msd_bm" name="pin_detect_hid_msd_bm" brief="This pin detect HID MSD example can become a HID mouse device or a MSD host that supports U-disk. The application prints the operation information when the U-disk is attached or is plugged into the PC host." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_pin_detect_hid_msd/bm">
+          <external path="usb_examples/usb_pin_detect_hid_msd/bm" type="xml">
+            <files mask="pin_detect_hid_msd_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_host_hid_mouse_freertos" name="host_hid_mouse_freertos" brief="The application supports the mouse device. It prints the mouse operation when the mouse device is attached." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_host_hid_mouse/freertos">
+          <external path="usb_examples/usb_host_hid_mouse/freertos" type="xml">
+            <files mask="host_hid_mouse_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_host_phdc_manager_freertos" name="host_phdc_manager_freertos" brief="The Host PHDC Manager Example is a simple demonstration program based on the MCUXpresso SDK.The application supports the USB weight scale device. It prints out the body mass and body mass index information when the USB weight scale device is attached." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_host_phdc_manager/freertos">
+          <external path="usb_examples/usb_host_phdc_manager/freertos" type="xml">
+            <files mask="host_phdc_manager_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_host_cdc_bm" name="host_cdc_bm" brief="The host CDC project is a simple demonstration program based on the MCUXpresso SDK. It enumerates a COM port and echoes back the data from the UART." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_host_cdc/bm">
+          <external path="usb_examples/usb_host_cdc/bm" type="xml">
+            <files mask="host_cdc_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_host_msd_command_bm" name="host_msd_command_bm" brief="This Host MSD example supports the UFI and SCSI U-disk device. The application prints the attached device information when the U-disk device is attached.The application executes UFI commands to test the attached device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_host_msd_command/bm">
+          <external path="usb_examples/usb_host_msd_command/bm" type="xml">
+            <files mask="host_msd_command_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_host_suspend_resume_hid_mouse_bm" name="host_suspend_resume_hid_mouse_bm" brief="This is one example support suspend/resume." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_suspend_resume_host_hid_mouse/bm">
+          <external path="usb_examples/usb_suspend_resume_host_hid_mouse/bm" type="xml">
+            <files mask="host_suspend_resume_hid_mouse_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_cdc_vnic_freertos" name="dev_cdc_vnic_freertos" brief="The Virtual NIC project is a simple demonstration program based on the MCUXpresso SDK.  It is enumerated as a network adapter. Users can access the network by properly configuring this network adapter." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_cdc_vnic/freertos">
+          <external path="usb_examples/usb_device_cdc_vnic/freertos" type="xml">
+            <files mask="dev_cdc_vnic_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_composite_hid_mouse_hid_keyboard_freertos" name="dev_composite_hid_mouse_hid_keyboard_freertos" brief="The application is a simple demonstration program based on the MCUXpresso SDK. The application is enumerated as HID-compliant mouse and keyboard devices." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_composite_hid_mouse_hid_keyboard/freertos">
+          <external path="usb_examples/usb_device_composite_hid_mouse_hid_keyboard/freertos" type="xml">
+            <files mask="dev_composite_hid_mouse_hid_keyboard_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_msc_ramdisk_freertos" name="dev_msc_ramdisk_freertos" brief="The USB MSC RAM disk application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a U-disk and can be read and written to as a normal U-disk ." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_msc_ramdisk/freertos">
+          <external path="usb_examples/usb_device_msc_ramdisk/freertos" type="xml">
+            <files mask="dev_msc_ramdisk_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_video_virtual_camera_freertos" name="dev_video_virtual_camera_freertos" brief="The USB video virtual camera application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a camera and users can see the video of the device by using a PC test tool." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_video_virtual_camera/freertos">
+          <external path="usb_examples/usb_device_video_virtual_camera/freertos" type="xml">
+            <files mask="dev_video_virtual_camera_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_audio_speaker_lite_bm" name="dev_audio_speaker_lite_bm" brief="The USB Audio Speaker application is a simple demonstration program based on the MCUXpresso SDK. It is enumerated as a playback device and users can play music using the device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_audio_speaker_lite/bm">
+          <external path="usb_examples/usb_device_audio_speaker_lite/bm" type="xml">
+            <files mask="dev_audio_speaker_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_cdc_vnic_lite_bm" name="dev_cdc_vnic_lite_bm" brief="The Virtual NIC project is a simple demonstration program based on the MCUXpresso SDK.  It is enumerated as a network adapter. Users can access the network by properly configuring this network adapter." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_cdc_vnic_lite/bm">
+          <external path="usb_examples/usb_device_cdc_vnic_lite/bm" type="xml">
+            <files mask="dev_cdc_vnic_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_composite_cdc_vcom_cdc_vcom_lite_bm" name="dev_composite_cdc_vcom_cdc_vcom_lite_bm" brief="The Composite CDC_VCOM_CDC_VCOM project is a simple demonstration program based on the MCUXpresso SDK.  It is enumerated as two COM port, which can be opened using terminal tools, such as TeraTerm. The demo echoes back any character it receives." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_composite_cdc_vcom_cdc_vcom_lite/bm">
+          <external path="usb_examples/usb_device_composite_cdc_vcom_cdc_vcom_lite/bm" type="xml">
+            <files mask="dev_composite_cdc_vcom_cdc_vcom_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_composite_hid_mouse_hid_keyboard_lite_bm" name="dev_composite_hid_mouse_hid_keyboard_lite_bm" brief="The application is a simple demonstration program based on the MCUXpresso SDK. The application is enumerated as HID-compliant mouse and keyboard devices." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_composite_hid_mouse_hid_keyboard_lite/bm">
+          <external path="usb_examples/usb_device_composite_hid_mouse_hid_keyboard_lite/bm" type="xml">
+            <files mask="dev_composite_hid_mouse_hid_keyboard_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_hid_generic_lite_bm" name="dev_hid_generic_lite_bm" brief="The USB HID generic application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a HID-compliant device. A PC application can be used to exchange data with the device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_hid_generic_lite/bm">
+          <external path="usb_examples/usb_device_hid_generic_lite/bm" type="xml">
+            <files mask="dev_hid_generic_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_msc_ramdisk_lite_bm" name="dev_msc_ramdisk_lite_bm" brief="The USB MSC RAM disk application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a U-disk and can be read and written to as a normal U-disk ." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_msc_ramdisk_lite/bm">
+          <external path="usb_examples/usb_device_msc_ramdisk_lite/bm" type="xml">
+            <files mask="dev_msc_ramdisk_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_printer_virtual_plain_text_lite_bm" name="dev_printer_virtual_plain_text_lite_bm" brief="The USB virtual printer application is a simple application to demonstrate a virtual printer functionality.Because there is no printer language parsing, the received raw data is output directly in the debug console.As a result, only plain text is suitable for testing. For other printer language support, such as postscript, implement the corresponding parser." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_printer_virtual_plain_text_lite/bm">
+          <external path="usb_examples/usb_device_printer_virtual_plain_text_lite/bm" type="xml">
+            <files mask="dev_printer_virtual_plain_text_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dev_video_virtual_camera_lite_bm" name="dev_video_virtual_camera_lite_bm" brief="The USB video virtual camera application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a camera and users can see the video of the device by using a PC test tool." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/rdrw612bga/usb_examples/usb_device_video_virtual_camera_lite/bm">
+          <external path="usb_examples/usb_device_video_virtual_camera_lite/bm" type="xml">
+            <files mask="dev_video_virtual_camera_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_cmsis_spi_dma_b2b_transfer_slave" name="cmsis_spi_dma_b2b_transfer_slave" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_spi_dma_b2b_transfer_slave example shows how to use spi driver as master to do board to board transfer with DMA:In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/rdrw612bga/cmsis_driver_examples/spi/dma_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/spi/dma_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_dma_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_ctimer_match_interrupt_example" name="ctimer_match_interrupt_example" brief="The Simple Match Interrupt project is to demonstrate usage of the SDK CTimer driver with interrupt callback functionsIn this example the upon match and IO pin connected to the LED is toggled and the timer is reset, so it would generate a square wave.With an interrupt callback the match value is changed frequently in such a way that the frequency of the output square wave is increased gradually." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ctimer" path="examples/rdrw612bga/driver_examples/ctimer/simple_match_interrupt">
+          <external path="driver_examples/ctimer/simple_match_interrupt" type="xml">
+            <files mask="ctimer_match_interrupt_example_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dmic_i2s_dma" name="dmic_i2s_dma" brief="Demonstrates the DMIC working with I2S. Audio is converted to samples in the DMIC module.Then, the data is placed memory buffer. Last, it is send data to the I2S buffer and send to the CODEC, then the audio data will be output to Lineout of CODEC.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dmic" path="examples/rdrw612bga/driver_examples/dmic/dmic_i2s_dma">
+          <external path="driver_examples/dmic/dmic_i2s_dma" type="xml">
+            <files mask="dmic_i2s_dma_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_flexspi_psram_dma_transfer" name="flexspi_psram_dma_transfer" brief="The flexspi_psram_dma_transfer example shows how to use flexspi driver with dma: In this example, flexspi will send data and operate the external PSRAM connected with FLEXSPI. Some simple flash command will be executed, such as Read Data and Write Data.Example will write/read through the whole chip, through IP command and AHB command." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/flexspi" path="examples/rdrw612bga/driver_examples/flexspi/psram/dma_transfer">
+          <external path="driver_examples/flexspi/psram/dma_transfer" type="xml">
+            <files mask="flexspi_psram_dma_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_lwip_dhcp_usb_bm" name="lwip_dhcp_usb_bm" brief="The lwip_dhcp_usb demo application demonstrates a DHCP demo on the lwIP TCP/IP stack.The application acts as a DHCP client and prints the status as it is progressing.Once the interface is being bound to an IP address obtained from DHCP server, address information is printed." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/rdrw612bga/lwip_examples/lwip_dhcp_usb/bm">
+          <external path="lwip_examples/lwip_dhcp_usb/bm" type="xml">
+            <files mask="lwip_dhcp_usb_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_lwip_iperf_bm" name="lwip_iperf_bm" brief="This is the IPerf server example to check your bandwidth using the network performance measurement IPerf application on a PC as a client.It is currently a minimal implementation providing an IPv4 TCP server only.Instead of the command line IPerf application, for more convenience, it is recommended to use the JPerf2 graphical tool, which can be downloaded here: https://sourceforge.net/projects/iperf/files/jperf/jperf%202.0.0/jperf-2.0.0.zip/download" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="lwip_examples" path="examples/rdrw612bga/lwip_examples/lwip_iperf/bm">
+          <external path="lwip_examples/lwip_iperf/bm" type="xml">
+            <files mask="lwip_iperf_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_cmsis_i2c_int_b2b_transfer_master" name="cmsis_i2c_int_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The i2c_interrupt_b2b_transfer_master example shows how to use CMSIS i2c driver as master to do board to board transfer with interrupt:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/i2c" path="examples/rdrw612bga/cmsis_driver_examples/i2c/int_b2b_transfer/master">
+          <external path="cmsis_driver_examples/i2c/int_b2b_transfer/master" type="xml">
+            <files mask="cmsis_i2c_int_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_i2c_interrupt_b2b_transfer_master" name="i2c_interrupt_b2b_transfer_master" brief="The i2c_interrupt_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with interrupt:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/rdrw612bga/driver_examples/i2c/interrupt_b2b_transfer/master">
+          <external path="driver_examples/i2c/interrupt_b2b_transfer/master" type="xml">
+            <files mask="i2c_interrupt_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_i2c_polling_b2b_master" name="i2c_polling_b2b_master" brief="The i2c_polling_b2b_master example shows how to use i2c driver as master to do board to board transfer using polling method:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/rdrw612bga/driver_examples/i2c/polling_b2b/master">
+          <external path="driver_examples/i2c/polling_b2b/master" type="xml">
+            <files mask="i2c_polling_b2b_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_spi_interrupt_b2b_transfer_master" name="spi_interrupt_b2b_transfer_master" brief="The spi_interrupt_board2board_master example shows how to use spi driver as master to do board to board transfer withinterrupt:In this example, one spi instance as master and another spi instance on othereboard as slave. Master sends a piece ofdata to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/rdrw612bga/driver_examples/spi/interrupt_b2b_transfer/master">
+          <external path="driver_examples/spi/interrupt_b2b_transfer/master" type="xml">
+            <files mask="spi_interrupt_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_spi_dma_b2b_transfer_master" name="spi_dma_b2b_transfer_master" brief="The spi_dma_b2b_transfer_master example shows how to use driver API to transfer in DMA way.  In this example, one spi instance as master and another spi instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checksif the data received from slave is correct. This example needs to work with spi_dma_b2b_transfer_slave example.Note: This example will run in master mode, please prepare another board for slave, and the slave       board should be started first.Project Information1.How to set the baudrate of SPI?  The baudrate of SPI is easy to set, just make sure the source clock of SPI." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/rdrw612bga/driver_examples/spi/dma_b2b_transfer/master">
+          <external path="driver_examples/spi/dma_b2b_transfer/master" type="xml">
+            <files mask="spi_dma_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_hello_world" name="hello_world" brief="The HelloWorld demo prints the &quot;Hello World&quot; string to the terminal using the SDK UART drivers and repeat what user input. The purpose of this demo is to show how to use the UART, and to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/rdrw612bga/demo_apps/hello_world">
+          <external path="demo_apps/hello_world" type="xml">
+            <files mask="hello_world_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_dma_interleave_transfer" name="dma_interleave_transfer" brief="The DMA interleave transfer example is a simple demonstration program that uses the SDK software.It executes a linked transfer from source buffer to destination buffer using the SDK DMA drivers.The purpose of this example is to show how to use the DMA interleave feature." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/dma" path="examples/rdrw612bga/driver_examples/dma/interleave_transfer">
+          <external path="driver_examples/dma/interleave_transfer" type="xml">
+            <files mask="dma_interleave_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_gdma_basic" name="gdma_basic" brief="This example shows how to use GDMA functional APIs to do memory to memory data copy." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/gdma" path="examples/rdrw612bga/driver_examples/gdma/basic">
+          <external path="driver_examples/gdma/basic" type="xml">
+            <files mask="gdma_basic_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_gdma_transfer_lli" name="gdma_transfer_lli" brief="This project shows how to use GDMA transactional APIs to do the memory to memory data transfer with link list feature." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/gdma" path="examples/rdrw612bga/driver_examples/gdma/transfer_lli">
+          <external path="driver_examples/gdma/transfer_lli" type="xml">
+            <files mask="gdma_transfer_lli_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_pint_pin_interrupt" name="pint_pin_interrupt" brief="This example shows how to use SDK drivers to use the Pin interrupt &amp; pattern match peripheral." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/pint" path="examples/rdrw612bga/driver_examples/pint/pin_interrupt">
+          <external path="driver_examples/pint/pin_interrupt" type="xml">
+            <files mask="pint_pin_interrupt_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_rtc_example" name="rtc_example" brief="The RTC project is a simple demonstration program of the SDK RTC driver. It sets up the RTChardware block to trigger an alarm after a user specified time period. The test will set the currentdate and time to a predefined value. The alarm will be set with reference to this predefined dateand time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/rtc" path="examples/rdrw612bga/driver_examples/rtc">
+          <external path="driver_examples/rtc" type="xml">
+            <files mask="rtc_example_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_sctimer_pwm_with_dutycyle_change" name="sctimer_pwm_with_dutycyle_change" brief="This SCTIMer project is a demonstration program of the SDK SCTimer driver's PWM generation. It sets up a PWM signaland periodically updates the PWM signals dutycycle." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/sctimer" path="examples/rdrw612bga/driver_examples/sctimer/pwm_with_dutycyle_change">
+          <external path="driver_examples/sctimer/pwm_with_dutycyle_change" type="xml">
+            <files mask="sctimer_pwm_with_dutycyle_change_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_smartcard" name="smartcard" brief="This example demonstrates the SDK Peripheral drivers working with different methods.This example demonstrates use of smartcard driver API to read GSM sim card ICC-ID (Integrated circuit card identifier,which should be placed on the card). Please be aware, that this example is just simple demonstration of smartcard driver API. It may not work with all typesof GSM sim cards." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/smartcard" path="examples/rdrw612bga/driver_examples/smartcard">
+          <external path="driver_examples/smartcard" type="xml">
+            <files mask="smartcard_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_power_mode_switch" name="power_mode_switch" brief="The Power mode switch demo application demonstrates the use of power modes in the KSDK. The demo prints the power mode menuthrough the debug console, where the user can set the MCU to a specific power mode. The user can also set the wakeupsource by following the debug console prompts. The purpose of this demo is to show how to switch between different power modes, and how to configure a wakeup source and wakeup the MCU from low power modes. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - Debug pins(e.g SWD_DIO) would consume addtional power, had better to disable related pins or disconnect them. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/rdrw612bga/demo_apps/power_mode_switch">
+          <external path="demo_apps/power_mode_switch" type="xml">
+            <files mask="power_mode_switch_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_adc_temperature_measurement" name="adc_temperature_measurement" brief="The adc_temperature_measurement examples shows how to measure internal temperature sensor." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc" path="examples/rdrw612bga/driver_examples/adc/temperature_measurement">
+          <external path="driver_examples/adc/temperature_measurement" type="xml">
+            <files mask="adc_temperature_measurement_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_crc" name="crc" brief="The CRC Example project is a demonstration program that uses the KSDK software to generate checksumsfor an ASCII string. Several CRC protocols are implemented using the CRC driver API." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/crc" path="examples/rdrw612bga/driver_examples/crc">
+          <external path="driver_examples/crc" type="xml">
+            <files mask="crc_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_romapi_nboot" name="romapi_nboot" brief="Rom API driver example for NBOOT interface." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/romapi/nboot" path="examples/rdrw612bga/driver_examples/romapi/nboot">
+          <external path="driver_examples/romapi/nboot" type="xml">
+            <files mask="romapi_nboot_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_usart_polling" name="usart_polling" brief="The uart_polling example shows how to use uart driver in polling way:In this example, one uart instance connect to PC through uart, the board will send back all characters that PCsend to the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/rdrw612bga/driver_examples/usart/polling">
+          <external path="driver_examples/usart/polling" type="xml">
+            <files mask="usart_polling_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_usart_dma_transfer" name="usart_dma_transfer" brief="The usart_dma example shows how to use usart driver with DMA:In this example, one usart instance connect to PC through usart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/usart" path="examples/rdrw612bga/driver_examples/usart/dma_transfer">
+          <external path="driver_examples/usart/dma_transfer" type="xml">
+            <files mask="usart_dma_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_i2s_interrupt_record_playback" name="i2s_interrupt_record_playback" brief="The I2S example project uses one I2S interface to continuously record input sound to a bufferand another I2S interface to playback the buffer to output - digital loopback.It requires NXP Mic/Audio/Oled Shield with WM8904 codec.It needs to have 1-2 connected on JP3." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2s" path="examples/rdrw612bga/driver_examples/i2s/interrupt_record_playback">
+          <external path="driver_examples/i2s/interrupt_record_playback" type="xml">
+            <files mask="i2s_interrupt_record_playback_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_powerquad_cmsis" name="powerquad_cmsis" brief="This example shows how to use powerquad driver CMSIS DSP compatible functions." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/rdrw612bga/driver_examples/powerquad/cmsis">
+          <external path="driver_examples/powerquad/cmsis" type="xml">
+            <files mask="powerquad_cmsis_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_powerquad_fir_fast" name="powerquad_fir_fast" brief="The PowerQuad fetches data from system RAM and private RAM through different path, for the calcutations which need data from two parts of memory, such as FIR, convolve, correlate, and some matrix operations, place the input data B in private RAM improves the performance. PowerQuad private RAM starts from address 0xe0000000, the first 4KByte is used by PowerQuad driver, the RAM starts from 0xe0001000 could be used by user for optimization. In this example, the FIR taps, convolve input data B, and correlate input data B are not changed, so they are converted to float format and saved to private RAM at the beginning. If the example runs successfully, the performance using optimized method is better than the nornal method." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/rdrw612bga/driver_examples/powerquad/fir_fast">
+          <external path="driver_examples/powerquad/fir_fast" type="xml">
+            <files mask="powerquad_fir_fast_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_powerquad_benchmark_filter" name="powerquad_benchmark_filter" brief="This example shows the PowerQuad based CMSIS DSP function performance. It could be compared with the project powerquad_benckmark_sw_filter to show the PowerQuad performance improvement." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/rdrw612bga/driver_examples/powerquad/benchmark_filter">
+          <external path="driver_examples/powerquad/benchmark_filter" type="xml">
+            <files mask="powerquad_benchmark_filter_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_powerquad_benchmark_sw_filter" name="powerquad_benchmark_sw_filter" brief="This example shows the official CMSIS DSP function performance. It could be compared with the project powerquad_benckmark_filter to show the PowerQuad performance improvement." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/powerquad" path="examples/rdrw612bga/driver_examples/powerquad/benchmark_sw_filter">
+          <external path="driver_examples/powerquad/benchmark_sw_filter" type="xml">
+            <files mask="powerquad_benchmark_sw_filter_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_littlefs_shell" name="littlefs_shell" brief="Demonstrates littlefs functionality by commands executed from shell." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="littlefs_examples" path="examples/rdrw612bga/littlefs_examples/littlefs_shell">
+          <external path="littlefs_examples/littlefs_shell" type="xml">
+            <files mask="littlefs_shell_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_wifi_test_mode" name="wifi_test_mode" brief="wifi_test_mode" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/rdrw612bga/wifi_examples/wifi_test_mode">
+          <external path="wifi_examples/wifi_test_mode" type="xml">
+            <files mask="wifi_test_mode_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_wifi_mqtt" name="wifi_mqtt" brief="The wifi_mqtt demo application demonstrates an MQTT client on the lwIP TCP/IP stack with FreeRTOS over wi-fi. The board connects to the broker and sends few messages." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/rdrw612bga/wifi_examples/wifi_mqtt">
+          <external path="wifi_examples/wifi_mqtt" type="xml">
+            <files mask="wifi_mqtt_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_els_symmetric" name="els_symmetric" brief="The ELS PKC application provides examples which demonstrate usage of symmetric algorithms and a crypto library lightweight testing." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="els_pkc_examples" path="examples/rdrw612bga/els_pkc_examples/els_symmetric">
+          <external path="els_pkc_examples/els_symmetric" type="xml">
+            <files mask="els_symmetric_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_mbedtls_benchmark" name="mbedtls_benchmark" brief="The mbdedTLS Benchmark demo application performs cryptographic algorithm benchmarking and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="examples/rdrw612bga/mbedtls_examples/mbedtls_benchmark">
+          <external path="mbedtls_examples/mbedtls_benchmark" type="xml">
+            <files mask="mbedtls_benchmark_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_wifi_wpa_supplicant" name="wifi_wpa_supplicant" brief="wifi_wpa_supplicant" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/rdrw612bga/wifi_examples/wifi_wpa_supplicant">
+          <external path="wifi_examples/wifi_wpa_supplicant" type="xml">
+            <files mask="wifi_wpa_supplicant_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_freertos_generic" name="freertos_generic" brief="This document explains the freertos_generic example. It is based on code FreeRTOS documentation fromhttp://www.freertos.org/Hardware-independent-RTOS-example.html. It shows combination of severaltasks with queue, software timer, tick hook and semaphore.The example application creates three tasks. The prvQueueSendTask periodically sending data toxQueue queue. The prvQueueReceiveTask is waiting for incoming message and counting number ofreceived messages. Task prvEventSemaphoreTask is waiting for xEventSemaphore semaphore given fromvApplicationTickHook. Tick hook give semaphore every 500 ms.Other hook types used for RTOS and resource statistics are also demonstrated in example:* vApplicationIdleHook* vApplicationStackOverflowHook* vApplicationMallocFailedHook" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/rdrw612bga/freertos_examples/freertos_generic">
+          <external path="freertos_examples/freertos_generic" type="xml">
+            <files mask="freertos_generic_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="rdrw612bga_freertos_swtimer" name="freertos_swtimer" brief="This document explains the freertos_swtimer example. It shows usage of software timer and itscallback.The example application creates one software timer SwTimer. The timer's callback SwTimerCallback isperiodically executed and text &quot;Tick.&quot; is printed to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/rdrw612bga/freertos_examples/freertos_swtimer">
+          <external path="freertos_examples/freertos_swtimer" type="xml">
+            <files mask="freertos_swtimer_v3_14.xml"/>
+          </external>
+        </example>
+      </examples>
+    </board>
+  </boards>
+</ksdk:manifest>
