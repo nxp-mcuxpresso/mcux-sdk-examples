@@ -117,15 +117,16 @@ static void bt_ready(int err)
         return;
     }
 
-	if (IS_ENABLED(CONFIG_BT_SETTINGS)) 
-    {
-        settings_load();
-    }
+#if (defined(CONFIG_BT_SETTINGS) && (CONFIG_BT_SETTINGS > 0))
+    settings_load();
+#endif /* CONFIG_BT_SETTINGS */
+
     PRINTF("Bluetooth initialized\n");
 
     bt_hps_init(app_queue);
 
 	bt_conn_cb_register(&conn_callbacks);
+
 #if CONFIG_BT_SMP
     bt_conn_auth_cb_register(&auth_cb_display);
 #endif

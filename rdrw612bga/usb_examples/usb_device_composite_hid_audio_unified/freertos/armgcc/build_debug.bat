@@ -1,10 +1,6 @@
-set batch_dir=%~dp0
-if exist "../../../../../../build/dev_composite_hid_audio_unified_freertos" (
-  cd ../../../../../../build
-  RD /s /Q dev_composite_hid_audio_unified_freertos
-)
-cd %batch_dir%
-md "../../../../../../build/dev_composite_hid_audio_unified_freertos"
-cmake -DCMAKE_TOOLCHAIN_FILE="../../../../../../core/tools/cmake_toolchain_files/armgcc.cmake" -G "MinGW Makefiles" -S . -B "../../../../../../build/dev_composite_hid_audio_unified_freertos" -DCMAKE_BUILD_TYPE=debug "../../../../../../build/dev_composite_hid_audio_unified_freertos"
-cd %batch_dir%/../../../../../../build/dev_composite_hid_audio_unified_freertos
+if exist CMakeFiles (RD /s /Q CMakeFiles)
+if exist Makefile (DEL /s /Q /F Makefile)
+if exist cmake_install.cmake (DEL /s /Q /F cmake_install.cmake)
+if exist CMakeCache.txt (DEL /s /Q /F CMakeCache.txt)
+cmake -DCMAKE_TOOLCHAIN_FILE="../../../../../../core/tools/cmake_toolchain_files/armgcc.cmake" -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=debug  .
 mingw32-make -j 2> build_log.txt 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 NXP
+ * Copyright 2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -106,6 +106,21 @@ int VoiceSeeker_Initialize(void *arg)
         vsl_config.mic_xyz_mm[1][1] = 70.0f; // Y
         vsl_config.mic_xyz_mm[1][2] = 0.0f;  // Z
     }
+#elif defined(PLATFORM_RW61X)
+    // MIC0
+    if (vsl_config.num_mics > 0)
+    {
+        vsl_config.mic_xyz_mm[0][0] = 0.0f; // X
+        vsl_config.mic_xyz_mm[0][1] = 0.0f; // Y
+        vsl_config.mic_xyz_mm[0][2] = 0.0f; // Z
+    }
+    // MIC1
+    if (vsl_config.num_mics > 1)
+    {
+        vsl_config.mic_xyz_mm[1][0] = 82.0f;  // X
+        vsl_config.mic_xyz_mm[1][1] = -115.0f; // Y
+        vsl_config.mic_xyz_mm[1][2] = 0.0f;  // Z
+    }
 #endif
 
     /*
@@ -186,7 +201,9 @@ int VoiceSeeker_Execute(void *arg, void *inputOutputBuffer, int bufferSize)
     float VoiceSeekerIteration                      = (float)framesize_out / (float)framesize_in;
     float *mic_in[num_mics];
     float *vsl_out = NULL;
-
+#if DEMO_CODEC_CS42448
+    int16_t DeInterleavedBuffer[framesize_out * DEMO_CHANNEL_NUM];
+#endif
     if ((buf == NULL) || (pkt_hdr_size == NULL))
     {
         return INVALID_PARAMETERS;
@@ -218,11 +235,18 @@ int VoiceSeeker_Execute(void *arg, void *inputOutputBuffer, int bufferSize)
     }
     else
     {
+#if DEMO_CODEC_CS42448
+        DeInterleave32((int16_t *)buffer, DeInterleavedBuffer, framesize_out, DEMO_CHANNEL_NUM);
+        InputTempDataFloat_Mic = (float *)(&DeInterleavedBuffer[4 * framesize_out]);
+        InputTempDataINT16_Mic = (int16_t *)(&DeInterleavedBuffer[4 * framesize_out]);
+    }
+#else
         DeInterleave32((int16_t *)buffer, (int16_t *)TempData_Mic, framesize_out, num_mics);
     }
 
     InputTempDataFloat_Mic = (float *)TempData_Mic;
     InputTempDataINT16_Mic = (int16_t *)TempData_Mic;
+#endif
 
     // Convert  INT16 Q15 data to Float data
     for (uint16_t i = framesize_out * num_mics; i > 0; i--)

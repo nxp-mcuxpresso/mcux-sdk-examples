@@ -29,22 +29,20 @@ SET(CMAKE_ASM_FLAGS_RELEASE " \
 SET(CMAKE_C_FLAGS_DEBUG " \
     ${CMAKE_C_FLAGS_DEBUG} \
     -DDEBUG \
-    -DCPU_RW612ETA1I \
-    -DBOOT_HEADER_ENABLE=1 \
     -DSDK_DELAY_USE_DWT \
+    -DCPU_RW612ETA2I \
     -DMCUXPRESSO_SDK \
+    -DBOOT_HEADER_ENABLE=1 \
     -g \
     -O0 \
     -mcpu=cortex-m33+nodsp \
     -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
     -ffreestanding \
     -fno-builtin \
+    -mthumb \
     -mapcs \
     -std=gnu99 \
     ${FPU} \
@@ -53,21 +51,19 @@ SET(CMAKE_C_FLAGS_DEBUG " \
 SET(CMAKE_C_FLAGS_RELEASE " \
     ${CMAKE_C_FLAGS_RELEASE} \
     -DNDEBUG \
-    -DCPU_RW612ETA1I \
-    -DBOOT_HEADER_ENABLE=1 \
     -DSDK_DELAY_USE_DWT \
+    -DCPU_RW612ETA2I \
     -DMCUXPRESSO_SDK \
+    -DBOOT_HEADER_ENABLE=1 \
     -Os \
     -mcpu=cortex-m33+nodsp \
     -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
     -ffreestanding \
     -fno-builtin \
+    -mthumb \
     -mapcs \
     -std=gnu99 \
     ${FPU} \
@@ -76,21 +72,19 @@ SET(CMAKE_C_FLAGS_RELEASE " \
 SET(CMAKE_CXX_FLAGS_DEBUG " \
     ${CMAKE_CXX_FLAGS_DEBUG} \
     -DDEBUG \
-    -DCPU_RW612ETA1I \
-    -DBOOT_HEADER_ENABLE=1 \
+    -DCPU_RW612ETA2I \
     -DMCUXPRESSO_SDK \
+    -DBOOT_HEADER_ENABLE=1 \
     -g \
     -O0 \
     -mcpu=cortex-m33+nodsp \
     -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
     -ffreestanding \
     -fno-builtin \
+    -mthumb \
     -mapcs \
     -fno-rtti \
     -fno-exceptions \
@@ -100,20 +94,18 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
 SET(CMAKE_CXX_FLAGS_RELEASE " \
     ${CMAKE_CXX_FLAGS_RELEASE} \
     -DNDEBUG \
-    -DCPU_RW612ETA1I \
-    -DBOOT_HEADER_ENABLE=1 \
+    -DCPU_RW612ETA2I \
     -DMCUXPRESSO_SDK \
+    -DBOOT_HEADER_ENABLE=1 \
     -Os \
     -mcpu=cortex-m33+nodsp \
     -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
     -ffreestanding \
     -fno-builtin \
+    -mthumb \
     -mapcs \
     -fno-rtti \
     -fno-exceptions \
@@ -145,7 +137,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/RW612_ram.ld -static \
+    -T\"${ProjDirPath}/RW612_ram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -171,5 +163,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/RW612_ram.ld -static \
+    -T\"${ProjDirPath}/RW612_ram.ld\" -static \
 ")

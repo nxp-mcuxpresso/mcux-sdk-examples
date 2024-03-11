@@ -1,19 +1,8 @@
 /*
- *  Copyright 2020-2021 NXP
+ *  Copyright 2023 NXP
  *  All rights reserved.
  *
  *  SPDX-License-Identifier: BSD-3-Clause
  */
 
-#define USB_HOST_CONFIG_EHCI (1U)
-#define CONTROLLER_ID        kUSB_ControllerEhci0
-
-#define CONFIG_BT_DEVICE_NAME           "central_hpc"
-#define CONFIG_BT_SMP                   1
-#define CONFIG_BT_SETTINGS              1
-#define CONFIG_BT_HOST_CRYPTO           1
-#define CONFIG_BT_KEYS_OVERWRITE_OLDEST 1
-
-#define CONFIG_BT_RX_STACK_SIZE 2200
-
-#include "edgefast_bluetooth_config.h"
+/* This file is used to prevent the wifi template from being included */

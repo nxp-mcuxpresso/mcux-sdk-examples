@@ -101,7 +101,7 @@ typedef union StandardVersion
         uint8_t major;  //!< major version [23:16]
         char name;      //!< name [31:24]
     };
-    uint32_t version; //!< combined version numbers
+    uint32_t version;   //!< combined version numbers
 } standard_version_t;
 
 /*******************************************************************************

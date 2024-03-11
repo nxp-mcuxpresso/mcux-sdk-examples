@@ -10,10 +10,11 @@
 #include "fsl_enet.h"
 #include "fsl_phy.h"
 #include "pin_mux.h"
+#include "clock_config.h"
 #include "board.h"
 
-#include "fsl_phyksz8081.h"
 #include "fsl_reset.h"
+#include "fsl_phyksz8081.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -180,8 +181,7 @@ int main(void)
     BOARD_InitDebugConsole();
     BOARD_InitModuleClock();
 
-    RESET_PeripheralReset(kENET_IPG_RST_SHIFT_RSTn);
-    RESET_PeripheralReset(kENET_IPG_S_RST_SHIFT_RSTn);
+    ENET_ResetHareware();
 
     GPIO_PortInit(GPIO, 0U);
     GPIO_PortInit(GPIO, 1U);

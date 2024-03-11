@@ -12,7 +12,6 @@ ENDIF()
 
 SET(CMAKE_ASM_FLAGS_FLASH_DEBUG " \
     ${CMAKE_ASM_FLAGS_FLASH_DEBUG} \
-    -DDEBUG \
     -D__STARTUP_CLEAR_BSS \
     -mcpu=cortex-m33+nodsp \
     -mthumb \
@@ -20,7 +19,6 @@ SET(CMAKE_ASM_FLAGS_FLASH_DEBUG " \
 ")
 SET(CMAKE_ASM_FLAGS_FLASH_RELEASE " \
     ${CMAKE_ASM_FLAGS_FLASH_RELEASE} \
-    -DNDEBUG \
     -D__STARTUP_CLEAR_BSS \
     -mcpu=cortex-m33+nodsp \
     -mthumb \
@@ -28,11 +26,8 @@ SET(CMAKE_ASM_FLAGS_FLASH_RELEASE " \
 ")
 SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     ${CMAKE_C_FLAGS_FLASH_DEBUG} \
-    -include ${ProjDirPath}/../app_config.h \
-    -DDEBUG \
+    -include ${ProjDirPath}/../app_bluetooth_config.h \
     -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
-    -DCPU_RW612ETA1I \
-    -DBOOT_HEADER_ENABLE=1 \
     -DGATT_CLIENT \
     -DGATT_DB \
     -DFSL_DRIVER_TRANSFER_DOUBLE_WEAK_IRQ=0 \
@@ -48,43 +43,43 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -DHAL_AUDIO_DMA_INIT_ENABLE=0 \
     -DLFS_NO_INTRINSICS=1 \
     -DLFS_NO_ERROR=1 \
+    -DCONFIG_ARM=1 \
     -DBT_PLATFORM \
     -DEDGEFAST_BT_LITTLEFS_MFLASH \
+    -DCPU_RW612ETA2I \
+    -DMCUXPRESSO_SDK \
+    -DBOOT_HEADER_ENABLE=1 \
     -DLOG_ENABLE_ASYNC_MODE=1 \
     -DLOG_MAX_ARGUMENT_COUNT=10 \
     -DLOG_ENABLE_OVERWRITE=0 \
-    -DCONFIG_ARM=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DMFLASH_FILE_BASEADDR=7340032 \
     -DMBEDTLS_MCUX_ELS_PKC_API \
-    -DMCUXPRESSO_SDK \
+    -DMBEDTLS_MCUX_USE_PKC \
     -DMBEDTLS_MCUX_ELS_API \
+    -DMBEDTLS_MCUX_USE_ELS \
+    -DMCUXCL_FEATURE_CSSL_MEMORY_C_FALLBACK \
     -g \
     -O0 \
-    -fomit-frame-pointer \
-    -Wno-unused-function \
     -mcpu=cortex-m33+nodsp \
     -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
     -ffreestanding \
     -fno-builtin \
+    -mthumb \
     -mapcs \
     -std=gnu99 \
+    -fomit-frame-pointer \
+    -Wno-unused-function \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     ${CMAKE_C_FLAGS_FLASH_RELEASE} \
-    -include ${ProjDirPath}/../app_config.h \
-    -DNDEBUG \
+    -include ${ProjDirPath}/../app_bluetooth_config.h \
     -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
-    -DCPU_RW612ETA1I \
-    -DBOOT_HEADER_ENABLE=1 \
     -DGATT_CLIENT \
     -DGATT_DB \
     -DFSL_DRIVER_TRANSFER_DOUBLE_WEAK_IRQ=0 \
@@ -100,54 +95,55 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -DHAL_AUDIO_DMA_INIT_ENABLE=0 \
     -DLFS_NO_INTRINSICS=1 \
     -DLFS_NO_ERROR=1 \
+    -DCONFIG_ARM=1 \
     -DBT_PLATFORM \
     -DEDGEFAST_BT_LITTLEFS_MFLASH \
+    -DCPU_RW612ETA2I \
+    -DMCUXPRESSO_SDK \
+    -DBOOT_HEADER_ENABLE=1 \
     -DLOG_ENABLE_ASYNC_MODE=1 \
     -DLOG_MAX_ARGUMENT_COUNT=10 \
     -DLOG_ENABLE_OVERWRITE=0 \
-    -DCONFIG_ARM=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DMFLASH_FILE_BASEADDR=7340032 \
     -DMBEDTLS_MCUX_ELS_PKC_API \
-    -DMCUXPRESSO_SDK \
+    -DMBEDTLS_MCUX_USE_PKC \
     -DMBEDTLS_MCUX_ELS_API \
+    -DMBEDTLS_MCUX_USE_ELS \
+    -DMCUXCL_FEATURE_CSSL_MEMORY_C_FALLBACK \
     -Os \
-    -fomit-frame-pointer \
-    -Wno-unused-function \
     -mcpu=cortex-m33+nodsp \
     -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
     -ffreestanding \
     -fno-builtin \
+    -mthumb \
     -mapcs \
     -std=gnu99 \
+    -fomit-frame-pointer \
+    -Wno-unused-function \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
     ${CMAKE_CXX_FLAGS_FLASH_DEBUG} \
-    -DDEBUG \
-    -DCPU_RW612ETA1I \
+    -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
+    -DCPU_RW612ETA2I \
+    -DMCUXPRESSO_SDK \
     -DBOOT_HEADER_ENABLE=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
     -mcpu=cortex-m33+nodsp \
     -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
     -ffreestanding \
     -fno-builtin \
+    -mthumb \
     -mapcs \
     -fno-rtti \
     -fno-exceptions \
@@ -156,22 +152,20 @@ SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
 ")
 SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
     ${CMAKE_CXX_FLAGS_FLASH_RELEASE} \
-    -DNDEBUG \
-    -DCPU_RW612ETA1I \
+    -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
+    -DCPU_RW612ETA2I \
+    -DMCUXPRESSO_SDK \
     -DBOOT_HEADER_ENABLE=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
-    -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m33+nodsp \
     -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
     -ffreestanding \
     -fno-builtin \
+    -mthumb \
     -mapcs \
     -fno-rtti \
     -fno-exceptions \
@@ -203,7 +197,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/RW610_flash.ld -static \
+    -T\"${ProjDirPath}/RW610_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE} \
@@ -229,5 +223,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/RW610_flash.ld -static \
+    -T\"${ProjDirPath}/RW610_flash.ld\" -static \
 ")

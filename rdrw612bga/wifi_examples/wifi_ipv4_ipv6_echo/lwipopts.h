@@ -51,6 +51,10 @@
 
 #define LWIP_TCPIP_CORE_LOCKING 1
 
+/* ---------- Core locking ---------- */
+
+#define LWIP_TCPIP_CORE_LOCKING 1
+
 void sys_lock_tcpip_core(void);
 #define LOCK_TCPIP_CORE() sys_lock_tcpip_core()
 

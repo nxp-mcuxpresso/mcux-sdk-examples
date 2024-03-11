@@ -32,9 +32,11 @@
 #include "fsl_power.h"
 #include "fsl_ocotp.h"
 #endif
+#include "cli_utils.h"
 #ifdef CONFIG_HOST_SLEEP
 #include "host_sleep.h"
 #endif
+
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -81,6 +83,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
     char ip[16];
     static int auth_fail                      = 0;
     wlan_uap_client_disassoc_t *disassoc_resp = data;
+
     switch (reason)
     {
         case WLAN_REASON_INITIALIZED:
@@ -102,7 +105,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             }
             PRINTF("WLAN CLIs are initialized\r\n");
             printSeparator();
-#ifdef RW610
+
             ret = wlan_enhanced_cli_init();
             if (ret != WM_SUCCESS)
             {
@@ -111,7 +114,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             }
             PRINTF("ENHANCED WLAN CLIs are initialized\r\n");
             printSeparator();
-
+#ifdef RW610
 #ifdef CONFIG_HOST_SLEEP
             ret = host_sleep_cli_init();
             if (ret != WM_SUCCESS)
@@ -185,7 +188,8 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             {
                 if (ip6_addr_isvalid(addr.ipv6[i].addr_state))
                 {
-                    (void)PRINTF("IPv6 Address: %-13s:\t%s (%s)\r\n", ipv6_addr_type_to_desc((struct net_ipv6_config *)&addr.ipv6[i]),
+                    (void)PRINTF("IPv6 Address: %-13s:\t%s (%s)\r\n",
+                                 ipv6_addr_type_to_desc((struct net_ipv6_config *)&addr.ipv6[i]),
                                  inet6_ntoa(addr.ipv6[i].address), ipv6_addr_state_to_desc(addr.ipv6[i].addr_state));
                 }
             }
@@ -298,6 +302,11 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
         case WLAN_REASON_PRE_BEACON_LOST:
             break;
 #endif
+#ifdef CONFIG_WIFI_IND_DNLD
+        case WLAN_REASON_FW_HANG:
+        case WLAN_REASON_FW_RESET:
+            break;
+#endif
         default:
             PRINTF("app_cb: WLAN: Unknown Event: %d\r\n", reason);
     }
@@ -359,17 +368,27 @@ static void test_wlan_reset(int argc, char **argv)
     (void)wlan_driver_reset();
 }
 
-static struct cli_command wlan_reset_commands[] = {
+#ifdef CONFIG_HOST_SLEEP
+static void test_mcu_suspend(int argc, char **argv)
+{
+    (void)mcu_suspend();
+}
+#endif
+
+static struct cli_command reset_commands[] = {
     {"wlan-reset", NULL, test_wlan_reset},
+#ifdef CONFIG_HOST_SLEEP
+    {"mcu-suspend", NULL, test_mcu_suspend},
+#endif
 };
 
 int wlan_reset_cli_init(void)
 {
     unsigned int i;
 
-    for (i = 0; i < sizeof(wlan_reset_commands) / sizeof(struct cli_command); i++)
+    for (i = 0; i < sizeof(reset_commands) / sizeof(struct cli_command); i++)
     {
-        if (cli_register_command(&wlan_reset_commands[i]) != 0)
+        if (cli_register_command(&reset_commands[i]) != 0)
         {
             return -1;
         }
@@ -384,22 +403,10 @@ void task_main(void *param)
     int32_t result = 0;
     (void)result;
 
-#ifdef CONFIG_HOST_SLEEP
-    hostsleep_init();
-#endif
-
     PRINTF("Initialize CLI\r\n");
     printSeparator();
 
     result = cli_init();
-
-    assert(WM_SUCCESS == result);
-
-    PRINTF("Initialize WLAN Driver\r\n");
-    printSeparator();
-
-    /* Initialize WIFI Driver */
-    result = wlan_driver_init();
 
     assert(WM_SUCCESS == result);
 
@@ -408,6 +415,22 @@ void task_main(void *param)
 
     assert(WM_SUCCESS == result);
 #endif
+
+#ifdef CONFIG_HOST_SLEEP
+#ifndef RW610
+    hostsleep_init(wlan_hs_pre_cfg, wlan_hs_post_cfg);
+#else
+    hostsleep_init();
+#endif
+#endif
+
+    PRINTF("Initialize WLAN Driver\r\n");
+    printSeparator();
+
+    /* Initialize WIFI Driver */
+    result = wlan_driver_init();
+
+    assert(WM_SUCCESS == result);
 
     while (1)
     {
@@ -419,6 +442,7 @@ void task_main(void *param)
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
+
 int main(void)
 {
     BaseType_t result = 0;
@@ -447,7 +471,6 @@ int main(void)
     BOARD_InitSleepPinConfig();
 #ifdef RW610
     POWER_PowerOffBle();
-    //OCOTP_OtpInit();
 #endif
 
     printSeparator();

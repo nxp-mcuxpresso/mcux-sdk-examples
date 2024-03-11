@@ -28,6 +28,8 @@
 #include "iperf.h"
 #ifndef RW610
 #include "wifi_bt_config.h"
+#else
+#include "fsl_rtc.h"
 #endif
 #ifdef CONFIG_WIFI_USB_FILE_ACCESS
 #include "usb_host_config.h"
@@ -38,7 +40,28 @@
 #ifdef CONFIG_HOST_SLEEP
 #include "host_sleep.h"
 #endif
-#include "fsl_rtc.h"
+#include "wpa_cli.h"
+#if defined(MBEDTLS_NXP_SSSAPI)
+#include "sssapi_mbedtls.h"
+#elif defined(MBEDTLS_MCUX_CSS_API)
+#include "platform_hw_ip.h"
+#include "css_mbedtls.h"
+#elif defined(MBEDTLS_MCUX_CSS_PKC_API)
+#include "platform_hw_ip.h"
+#include "css_pkc_mbedtls.h"
+#elif defined(MBEDTLS_MCUX_ELS_PKC_API)
+#include "platform_hw_ip.h"
+#include "els_pkc_mbedtls.h"
+#elif defined(MBEDTLS_MCUX_ELS_API)
+#include "platform_hw_ip.h"
+#include "els_mbedtls.h"
+#elif defined(MBEDTLS_MCUX_ELE_S400_API)
+#include "ele_mbedtls.h"
+#else
+#ifdef CONFIG_KSDK_MBEDTLS
+#include "ksdk_mbedtls.h"
+#endif
+#endif
 #include "fsl_device_registers.h"
 
 #include "fsl_power.h"
@@ -55,10 +78,12 @@ int wlan_driver_init(void);
 int wlan_driver_deinit(void);
 int wlan_driver_reset(void);
 int wlan_reset_cli_init(void);
-
 #ifdef CONFIG_WIFI_USB_FILE_ACCESS
 extern usb_host_handle g_HostHandle;
 #endif /* CONFIG_WIFI_USB_FILE_ACCESS */
+
+int wlan_reset_cli_deinit(void);
+
 static int wlan_prov_cli_init(void);
 
 extern int wpa_cli_init(void);
@@ -66,6 +91,7 @@ extern int wpa_cli_init(void);
  * Code
  ******************************************************************************/
 
+#ifdef CONFIG_WIFI_USB_FILE_ACCESS
 void USBHS_IRQHandler(void)
 {
     USB_HostEhciIsrFunction(g_HostHandle);
@@ -98,9 +124,14 @@ void USB_HostTaskFn(void *param)
 {
     USB_HostEhciTaskFunction(param);
 }
+#endif
 
-const int TASK_MAIN_PRIO       = OS_PRIO_3;
+const int TASK_MAIN_PRIO = OS_PRIO_3;
+#ifdef CONFIG_WPS2
+const int TASK_MAIN_STACK_SIZE = 1500;
+#else
 const int TASK_MAIN_STACK_SIZE = 800;
+#endif
 
 portSTACK_TYPE *task_main_stack = NULL;
 TaskHandle_t task_main_task_handler;
@@ -122,11 +153,8 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
     int ret;
     struct wlan_ip_config addr;
     char ip[16];
-    static int auth_fail = 0;
-
-    printSeparator();
-    PRINTF("app_cb: WLAN: received event %d\r\n", reason);
-    printSeparator();
+    static int auth_fail                      = 0;
+    wlan_uap_client_disassoc_t *disassoc_resp = data;
 
     switch (reason)
     {
@@ -147,10 +175,9 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
                 PRINTF("Failed to initialize WLAN CLIs\r\n");
                 return 0;
             }
-
             PRINTF("WLAN CLIs are initialized\r\n");
             printSeparator();
-#ifdef RW610
+
             ret = wlan_enhanced_cli_init();
             if (ret != WM_SUCCESS)
             {
@@ -159,7 +186,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             }
             PRINTF("ENHANCED WLAN CLIs are initialized\r\n");
             printSeparator();
-			
+#ifdef RW610
 #ifdef CONFIG_HOST_SLEEP
             ret = host_sleep_cli_init();
             if (ret != WM_SUCCESS)
@@ -192,7 +219,13 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
                 return 0;
             }
 
-            ret = wlan_prov_cli_init();
+            ret = wpa_cli_init();
+            if (ret != WM_SUCCESS)
+            {
+                PRINTF("Failed to initialize WPA SUPP CLI\r\n");
+                return 0;
+            }
+			ret = wlan_prov_cli_init();
             if (ret != WM_SUCCESS)
             {
                 PRINTF("Failed to initialize PROV CLI\r\n");
@@ -240,7 +273,8 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             {
                 if (ip6_addr_isvalid(addr.ipv6[i].addr_state))
                 {
-                    (void)PRINTF("IPv6 Address: %-13s:\t%s (%s)\r\n", ipv6_addr_type_to_desc((struct net_ipv6_config *)&addr.ipv6[i]),
+                    (void)PRINTF("IPv6 Address: %-13s:\t%s (%s)\r\n",
+                                 ipv6_addr_type_to_desc((struct net_ipv6_config *)&addr.ipv6[i]),
                                  inet6_ntoa(addr.ipv6[i].address), ipv6_addr_state_to_desc(addr.ipv6[i].addr_state));
                 }
             }
@@ -307,12 +341,21 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             PRINTF("Associated with Soft AP\r\n");
             printSeparator();
             break;
-        case WLAN_REASON_UAP_CLIENT_DISSOC:
-            PRINTF("app_cb: WLAN: UAP a Client Dissociated\r\n");
+        case WLAN_REASON_UAP_CLIENT_CONN:
+            PRINTF("app_cb: WLAN: UAP a Client Connected\r\n");
             printSeparator();
             PRINTF("Client => ");
             print_mac((const char *)data);
-            PRINTF("Dis-Associated from Soft AP\r\n");
+            PRINTF("Connected with Soft AP\r\n");
+            printSeparator();
+            break;
+        case WLAN_REASON_UAP_CLIENT_DISSOC:
+            printSeparator();
+            PRINTF("app_cb: WLAN: UAP a Client Dissociated:");
+            PRINTF(" Client MAC => ");
+            print_mac((const char *)(disassoc_resp->sta_addr));
+            PRINTF(" Reason code => ");
+            PRINTF("%d\r\n", disassoc_resp->reason_code);
             printSeparator();
             break;
         case WLAN_REASON_UAP_STOPPED:
@@ -327,11 +370,28 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             printSeparator();
             break;
         case WLAN_REASON_PS_ENTER:
-            PRINTF("app_cb: WLAN: PS_ENTER\r\n");
             break;
         case WLAN_REASON_PS_EXIT:
-            PRINTF("app_cb: WLAN: PS EXIT\r\n");
             break;
+#ifdef CONFIG_SUBSCRIBE_EVENT_SUPPORT
+        case WLAN_REASON_RSSI_HIGH:
+        case WLAN_REASON_SNR_LOW:
+        case WLAN_REASON_SNR_HIGH:
+        case WLAN_REASON_MAX_FAIL:
+        case WLAN_REASON_BEACON_MISSED:
+        case WLAN_REASON_DATA_RSSI_LOW:
+        case WLAN_REASON_DATA_RSSI_HIGH:
+        case WLAN_REASON_DATA_SNR_LOW:
+        case WLAN_REASON_DATA_SNR_HIGH:
+        case WLAN_REASON_LINK_QUALITY:
+        case WLAN_REASON_PRE_BEACON_LOST:
+            break;
+#endif
+#ifdef CONFIG_WIFI_IND_DNLD
+        case WLAN_REASON_FW_HANG:
+        case WLAN_REASON_FW_RESET:
+            break;
+#endif
         default:
             PRINTF("app_cb: WLAN: Unknown Event: %d\r\n", reason);
     }
@@ -393,17 +453,42 @@ static void test_wlan_reset(int argc, char **argv)
     (void)wlan_driver_reset();
 }
 
-static struct cli_command wlan_reset_commands[] = {
+#ifdef CONFIG_HOST_SLEEP
+static void test_mcu_suspend(int argc, char **argv)
+{
+    (void)mcu_suspend();
+}
+#endif
+
+static struct cli_command reset_commands[] = {
     {"wlan-reset", NULL, test_wlan_reset},
+#ifdef CONFIG_HOST_SLEEP
+    {"mcu-suspend", NULL, test_mcu_suspend},
+#endif
 };
 
 int wlan_reset_cli_init(void)
 {
     unsigned int i;
 
-    for (i = 0; i < sizeof(wlan_reset_commands) / sizeof(struct cli_command); i++)
+    for (i = 0; i < sizeof(reset_commands) / sizeof(struct cli_command); i++)
     {
-        if (cli_register_command(&wlan_reset_commands[i]) != 0)
+        if (cli_register_command(&reset_commands[i]) != 0)
+        {
+            return -1;
+        }
+    }
+
+    return 0;
+}
+
+int wlan_reset_cli_deinit(void)
+{
+    unsigned int i;
+
+    for (i = 0; i < sizeof(reset_commands) / sizeof(struct cli_command); i++)
+    {
+        if (cli_unregister_command(&reset_commands[i]) != 0)
         {
             return -1;
         }
@@ -412,7 +497,6 @@ int wlan_reset_cli_init(void)
     return 0;
 }
 #endif
-
 #ifdef CONFIG_WIFI_USB_FILE_ACCESS
 static void dump_read_usb_file_usage(void)
 {
@@ -527,7 +611,7 @@ static void test_wlan_dump_usb_file(int argc, char **argv)
     (void)PRINTF("\r\n");
 }
 #endif /* CONFIG_WIFI_USB_FILE_ACCESS */
-
+#ifdef RW610
 static void dump_set_rtc_time_usage(void)
 {
     (void)PRINTF("Usage: wlan-set-rtc-time <year> <month> <day> <hour> <minute> <second>\r\n");
@@ -586,10 +670,13 @@ static void test_wlan_get_rtc_time(int argc, char **argv)
     (void)PRINTF("Current datetime: %04hd-%02hd-%02hd %02hd:%02hd:%02hd\r\n", date.year, date.month, date.day,
                  date.hour, date.minute, date.second);
 }
+#endif
 
 static struct cli_command wlan_prov_commands[] = {
+#ifdef RW610
     {"wlan-set-rtc-time", "<year> <month> <day> <hour> <minute> <second>", test_wlan_set_rtc_time},
     {"wlan-get-rtc-time", NULL, test_wlan_get_rtc_time},
+#endif
 #ifdef CONFIG_WIFI_USB_FILE_ACCESS
     {"wlan-read-usb-file", "<type:ca-cert/client-cert/client-key> <file name>", test_wlan_read_usb_file},
     {"wlan-dump-usb-file", "<type:ca-cert/client-cert/client-key>", test_wlan_dump_usb_file},
@@ -615,10 +702,6 @@ void task_main(void *param)
 {
     int32_t result = 0;
     (void)result;
-	
-#ifdef CONFIG_HOST_SLEEP
-    hostsleep_init();
-#endif
 
     PRINTF("Initialize CLI\r\n");
     printSeparator();
@@ -627,6 +710,20 @@ void task_main(void *param)
 
     assert(WM_SUCCESS == result);
 
+#ifndef RW610
+    result = wlan_reset_cli_init();
+
+    assert(WM_SUCCESS == result);
+#endif
+
+#ifdef CONFIG_HOST_SLEEP
+#ifndef RW610
+    hostsleep_init(wlan_hs_pre_cfg, wlan_hs_post_cfg);
+#else
+    hostsleep_init();
+#endif
+#endif
+
     PRINTF("Initialize WLAN Driver\r\n");
     printSeparator();
 
@@ -634,12 +731,6 @@ void task_main(void *param)
     result = wlan_driver_init();
 
     assert(WM_SUCCESS == result);
-
-#ifndef RW610
-    result = wlan_reset_cli_init();
-
-    assert(WM_SUCCESS == result);
-#endif
 
     while (1)
     {
@@ -678,13 +769,17 @@ int main(void)
     BOARD_InitSleepPinConfig();
 
     printSeparator();
-    PRINTF("wifi supplicant demo\r\n");
+    PRINTF("wifi wpa supplicant demo\r\n");
     printSeparator();
-
+    CRYPTO_InitHardware();
+#ifdef RW610
     RTC_Init(RTC);
+#endif
+
 #ifdef CONFIG_WIFI_USB_FILE_ACCESS
     usb_init();
 #endif
+
     sys_thread_new("main", task_main, NULL, TASK_MAIN_STACK_SIZE, TASK_MAIN_PRIO);
 
 #if 0

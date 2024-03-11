@@ -59,7 +59,8 @@
 #define configUSE_NEWLIB_REENTRANT              0
 #define configENABLE_BACKWARD_COMPATIBILITY     1
 #define configNUM_THREAD_LOCAL_STORAGE_POINTERS 5
-#define configUSE_APPLICATION_TASK_TAG          0
+#define configUSE_APPLICATION_TASK_TAG          1
+#define configUSE_POSIX_ERRNO                   1
 
 /* Used memory allocation (heap_x.c) */
 #define configFRTOS_MEMORY_SCHEME 4
@@ -69,7 +70,7 @@
 /* Memory allocation related definitions. */
 #define configSUPPORT_STATIC_ALLOCATION  0
 #define configSUPPORT_DYNAMIC_ALLOCATION 1
-#define configTOTAL_HEAP_SIZE            ((size_t)(160 * 1024))
+#define configTOTAL_HEAP_SIZE            ((size_t)(180 * 1024))
 #define configAPPLICATION_ALLOCATED_HEAP 0
 
 /* Hook function related definitions. */
@@ -90,7 +91,7 @@
  *#define configGENERATE_RUN_TIME_STATS        1
  *#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS()
  *#define portGET_RUN_TIME_COUNTER_VALUE()  xTaskGetTickCount()
-*/
+ */
 
 /* Task aware debugging. */
 #define configRECORD_STACK_HIGH_ADDRESS      1
@@ -131,6 +132,7 @@
 #define INCLUDE_xTaskGetHandle              0
 #define INCLUDE_xTaskResumeFromISR          1
 #define INCLUDE_pcTaskGetTaskName           1
+#define INCLUDE_xSemaphoreGetMutexHolder    1
 
 
 

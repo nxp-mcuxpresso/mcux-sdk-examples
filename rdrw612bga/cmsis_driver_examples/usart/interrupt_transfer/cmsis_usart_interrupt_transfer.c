@@ -7,10 +7,11 @@
  */
 
 #include "pin_mux.h"
+#include "clock_config.h"
 #include "board.h"
 
-#include "fsl_usart_cmsis.h"
 #include <stdbool.h>
+#include "fsl_usart_cmsis.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

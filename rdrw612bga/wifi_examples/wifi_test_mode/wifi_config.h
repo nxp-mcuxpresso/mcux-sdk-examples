@@ -12,7 +12,7 @@
 
 #define CONFIG_MAX_AP_ENTRIES 10
 
-#if defined(SD8978) || defined(SD8987) || defined(RW610)
+#if defined(SD8978) || defined(SD8987) || defined(RW610) || defined(SD9177)
 #define CONFIG_5GHz_SUPPORT 1
 #endif
 
@@ -20,16 +20,29 @@
 
 #if defined(RW610)
 #define CONFIG_COMPRESS_TX_PWTBL
+#define CONFIG_UNII4_BAND_SUPPORT
+#define CONFIG_FW_VDLLV2
 #endif
-
-#if defined(SD8987)
+#if defined(SD8987) || defined(SD9177)
 #define CONFIG_11AC
 #undef CONFIG_WMM
 #endif
 
-#define CONFIG_UNII4_BAND_SUPPORT
+#if defined(SD8978) || defined(SD8987)
+#define CONFIG_FW_VDLL 1
+#endif
 
 #define CONFIG_RF_TEST_MODE 1
+#if defined(SD9177)
+#ifdef CONFIG_11AC
+#define CONFIG_11AX
+#endif
+#define CONFIG_EXT_SCAN_SUPPORT 1
+#define CONFIG_OWE              1
+#define CONFIG_COMPRESS_TX_PWTBL
+#define CONFIG_COMPRESS_RU_TX_PWTBL
+#undef CONFIG_UNII4_BAND_SUPPORT
+#endif
 
 /* Logs */
 #define CONFIG_ENABLE_ERROR_LOGS   1
@@ -44,6 +57,7 @@
 #undef CONFIG_WIFI_EXTRA_DEBUG
 #undef CONFIG_WIFI_EVENTS_DEBUG
 #undef CONFIG_WIFI_CMD_RESP_DEBUG
+#undef CONFIG_WIFI_PKT_DEBUG
 #undef CONFIG_WIFI_SCAN_DEBUG
 #undef CONFIG_WIFI_IO_INFO_DUMP
 #undef CONFIG_WIFI_IO_DEBUG
@@ -53,6 +67,12 @@
 #undef CONFIG_WIFI_TIMER_DEBUG
 #undef CONFIG_WIFI_SDIO_DEBUG
 #undef CONFIG_WIFI_FW_DEBUG
+#undef CONFIG_WIFI_UAP_DEBUG
+#undef CONFIG_WPS_DEBUG
+#undef CONFIG_FW_VDLL_DEBUG
+#undef CONFIG_DHCP_SERVER_DEBUG
+#undef CONFIG_WIFI_SDIO_DEBUG
+#undef CONFIG_FWDNLD_IO_DEBUG
 
 /*
  * Heap debug options

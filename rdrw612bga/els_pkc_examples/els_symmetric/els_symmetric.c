@@ -68,7 +68,7 @@ int main(void)
     }
 
     PRINTF("CMAC AES128:");
-    if (mcuxClMacModes_cmac_oneshot_example() == true)
+    if (mcuxClMacModes_Els_Cmac_Aes128_Oneshot_example() == true)
     {
         pass++;
         PRINTF("pass \r\n");

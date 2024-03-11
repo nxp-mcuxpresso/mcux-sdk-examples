@@ -19,8 +19,8 @@
 extern bool mcuxClEls_Rng_Prng_Get_Random_example(void);
 extern bool mcuxClEls_Common_Get_Info_example(void);
 extern bool mcuxCsslFlowProtection_example(void);
-extern uint32_t data_invariant_memory_compare(void);
-extern uint32_t data_invariant_memory_copy(void);
+extern uint32_t mcuxCsslMemory_Compare_example(void);
+extern uint32_t mcuxCsslMemory_Copy_example(void);
 extern bool mcuxClKey_example(void);
 
 #endif /* _ELS_PKC_COMMON_H_ */

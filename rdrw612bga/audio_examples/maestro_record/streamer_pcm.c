@@ -16,9 +16,9 @@ volatile int8_t I2S_started  = 0;     /* Indicates that the I2S transfer has alr
 volatile int rx_data_valid   = 0;     /* Indicates that RX data are ready for processing. */
 volatile bool rx_sem_take    = false; /* Indicates that RX semaphore has been taken */
 
-#define SAMPLES_PER_FRAME    (DEMO_AUDIO_SAMPLE_RATE * DEMO_AUDIO_FRAME_MS / 1000U)
+#define SAMPLES_PER_FRAME    (DEMO_AUDIO_SAMPLE_RATE * DEMO_MIC_FRAME_SIZE / 1000U)
 #define RECORD_BUFFER_SIZE   (SAMPLES_PER_FRAME * DEMO_AUDIO_BYTE_WIDTH)
-#define PLAYBACK_BUFFER_SIZE (DEMO_DMIC_NUM * RECORD_BUFFER_SIZE)
+#define PLAYBACK_BUFFER_SIZE (DEMO_MIC_CHANNEL_NUM * RECORD_BUFFER_SIZE)
 #define BUFFER_NUM           (3U)
 #define BUFFER_SIZE          (PLAYBACK_BUFFER_SIZE * BUFFER_NUM)
 
@@ -31,7 +31,7 @@ SDK_ALIGN(dma_descriptor_t s_dmaDescriptorPingpongCh0[BUFFER_NUM], 16);
 SDK_ALIGN(dma_descriptor_t s_dmaDescriptorPingpongCh1[BUFFER_NUM], 16);
 SDK_ALIGN(static uint8_t s_buffer[BUFFER_SIZE], 16);
 
-static dmic_transfer_t s_receiveXfer[DEMO_DMIC_NUM][BUFFER_NUM];
+static dmic_transfer_t s_receiveXfer[DEMO_MIC_CHANNEL_NUM][BUFFER_NUM];
 
 // Queue for storing data buffer addresses
 typedef struct
@@ -159,7 +159,7 @@ void streamer_pcm_init(void)
     DMIC_TransferCreateHandleDMA(DMIC0, &pcmHandle.dmicDmaHandleCh1, NULL, (void *)&pcmHandle, &pcmHandle.dmicRxDmaHandleCh1);
     DMIC_InstallDMADescriptorMemory(&pcmHandle.dmicDmaHandleCh1, s_dmaDescriptorPingpongCh1, BUFFER_NUM);
 
-    for (int channel = 0; channel < DEMO_DMIC_NUM; channel++)
+    for (int channel = 0; channel < DEMO_MIC_CHANNEL_NUM; channel++)
     {
         for (int ibuf = 0; ibuf < BUFFER_NUM; ibuf++)
         {

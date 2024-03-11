@@ -16,7 +16,9 @@
 #define CONFIG_MAX_AP_ENTRIES 30
 #endif
 
-#if defined(SD8977) || defined(SD8978) || defined(SD8987) || defined(RW610)
+#define CONFIG_MAX_RESCAN_LIMIT 30
+
+#if defined(SD8978) || defined(SD8987) || defined(RW610) || defined(SD9177)
 #define CONFIG_5GHz_SUPPORT 1
 #endif
 
@@ -24,13 +26,22 @@
 #define CONFIG_SDIO_MULTI_PORT_RX_AGGR 1
 #endif
 
-#if defined(SD8987) || defined(RW610)
+#if defined(SD8987) || defined(RW610) || defined(SD9177)
 #define CONFIG_11AC
 #undef CONFIG_WMM
 #endif
 
+#if defined(SD9177)
+#define CONFIG_WMM
+#define CONFIG_SDIO_MULTI_PORT_TX_AGGR 1
+#define CONFIG_COMPRESS_TX_PWTBL
+#define CONFIG_COMPRESS_RU_TX_PWTBL
+#ifdef CONFIG_11AC
+#define CONFIG_11AX
+#endif
+#endif
+
 #if defined(RW610)
-#define PRINTF_FLOAT_ENABLE 1
 #define CONFIG_11AX
 #undef CONFIG_IMU_GDMA
 /* WMM options */
@@ -38,6 +49,7 @@
 #define CONFIG_WMM_ENH
 #undef CONFIG_WMM_CERT
 #undef AMSDU_IN_AMPDU
+#undef CONFIG_FIPS
 /* OWE mode */
 #define CONFIG_OWE
 /* WLAN SCAN OPT */
@@ -64,6 +76,7 @@
 #define CONFIG_EXT_SCAN_SUPPORT
 #define CONFIG_EVENT_MEM_ACCESS
 #define CONFIG_COMPRESS_TX_PWTBL
+#define CONFIG_COMPRESS_RU_TX_PWTBL
 #define CONFIG_RX_ABORT_CFG
 #define CONFIG_RX_ABORT_CFG_EXT
 #define CONFIG_CCK_DESENSE_CFG
@@ -74,7 +87,6 @@
 #define CONFIG_TSP
 #define CONFIG_TX_RX_HISTOGRAM
 #define CONFIG_CLOUD_KEEP_ALIVE
-#define MULTI_BSSID_SUPPORT
 #define CONFIG_TURBO_MODE
 #define CONFIG_MMSF
 #define CONFIG_COEX_DUTY_CYCLE
@@ -85,16 +97,84 @@
 #define CONFIG_MEF_CFG
 #define CONFIG_CAU_TEMPERATURE
 #define CONFIG_AUTO_NULL_TX
+#define CONFIG_SCAN_CHANNEL_GAP 1
+#define CONFIG_11K              1
+#define CONFIG_11V              1
+#define CONFIG_11R              1
+#define CONFIG_EXTERNAL_COEX_PTA
+#define CONFIG_FW_VDLLV2
 #endif
+
+#define PRINTF_FLOAT_ENABLE 1
 
 #define CONFIG_IPV6               1
 #define CONFIG_MAX_IPV6_ADDRESSES 3
 
-#define CONFIG_11K  1
-#define CONFIG_11V  1
-#define CONFIG_11R  1
+#if defined(SD8978) || defined(SD8987) || defined(SD8801) || defined(SD9177)
+#define CONFIG_WIFI_CAPA        1
+#define CONFIG_ROAMING          1
+#define CONFIG_CLOUD_KEEP_ALIVE 1
+#define CONFIG_TURBO_MODE       1
+#if defined(SD8978) || defined(SD8987)
+#define CONFIG_AUTO_RECONNECT 1
+#undef CONFIG_WIFI_IND_DNLD
+#undef CONFIG_WIFI_IND_RESET
+#endif
 
-#define CONFIG_SCAN_CHANNEL_GAP 1
+#define CONFIG_OWE 1
+
+#if !defined(SD8801)
+#define CONFIG_EXT_SCAN_SUPPORT 1
+#define CONFIG_WIFI_EU_CRYPTO   1
+#define CONFIG_11R              1
+#endif
+
+#undef CONFIG_HOST_SLEEP
+#undef CONFIG_MEF_CFG
+#undef CONFIG_FIPS
+
+#define CONFIG_11K 1
+#define CONFIG_11V 1
+
+/*
+ * Config options for wpa supplicant
+ */
+#define CONFIG_WPA_SUPP 1
+
+#ifdef CONFIG_WPA_SUPP
+#define CONFIG_WPA_SUPP_WPS  1
+#define CONFIG_WPA_SUPP_WPA3 1
+#undef CONFIG_WPA_SUPP_CRYPTO_ENTERPRISE
+
+#if defined(SD9177)
+#undef CONFIG_WPA_SUPP_DPP
+
+#ifdef CONFIG_WPA_SUPP_DPP
+#define CONFIG_WPA_SUPP_DPP2 1
+#define CONFIG_WPA_SUPP_DPP3 1
+#endif
+#endif
+
+#ifdef CONFIG_WPA_SUPP_CRYPTO_ENTERPRISE
+
+#define CONFIG_WPA_SUPP_CRYPTO_AP_ENTERPRISE 1
+
+#define CONFIG_EAP_TLS
+#define CONFIG_EAP_PEAP
+#define CONFIG_EAP_TTLS
+#define CONFIG_EAP_FAST
+#define CONFIG_EAP_SIM
+#define CONFIG_EAP_AKA
+#define CONFIG_EAP_AKA_PRIME
+
+#if defined(CONFIG_EAP_PEAP) || defined(CONFIG_EAP_TTLS) || defined(CONFIG_EAP_FAST)
+#define CONFIG_EAP_MSCHAPV2
+#define CONFIG_EAP_GTC
+#endif
+
+#endif
+#endif
+#endif
 
 /* Logs */
 #define CONFIG_ENABLE_ERROR_LOGS   1
@@ -109,6 +189,7 @@
 #undef CONFIG_WIFI_EXTRA_DEBUG
 #undef CONFIG_WIFI_EVENTS_DEBUG
 #undef CONFIG_WIFI_CMD_RESP_DEBUG
+#undef CONFIG_WIFI_PS_DEBUG
 #undef CONFIG_WIFI_PKT_DEBUG
 #undef CONFIG_WIFI_SCAN_DEBUG
 #undef CONFIG_WIFI_IO_INFO_DUMP
@@ -117,10 +198,14 @@
 #undef CONFIG_WIFI_MEM_DEBUG
 #undef CONFIG_WIFI_AMPDU_DEBUG
 #undef CONFIG_WIFI_TIMER_DEBUG
-#undef CONFIG_WIFI_SDIO_DEBUG
 #undef CONFIG_WIFI_FW_DEBUG
 #undef CONFIG_WIFI_UAP_DEBUG
-#undef CONFIG_FIPS
+#undef CONFIG_WPS_DEBUG
+#undef CONFIG_FW_VDLL_DEBUG
+#undef CONFIG_DHCP_SERVER_DEBUG
+#undef CONFIG_WIFI_SDIO_DEBUG
+#undef CONFIG_FWDNLD_IO_DEBUG
+
 /*
  * Heap debug options
  */
@@ -128,23 +213,17 @@
 #undef CONFIG_HEAP_STAT
 
 /*
- * Config options for supplicant
+ * wpa supplicant debug options
  */
-#define WIFI_ADD_ON     1
+#if defined(RW610)
 #define CONFIG_WPA_SUPP 1
 #ifdef CONFIG_WPA_SUPP
-#define CONFIG_WIFI_NXP        1
-#define CONFIG_WPA_SUPP_CRYPTO 1
-#define CONFIG_WPA_SUPP_AP     1
-#define CONFIG_HOSTAPD         1
-#define CONFIG_WPA_SUPP_WPS    1
+#define CONFIG_WPA_SUPP_WPS 1
 //#define CONFIG_WPA_SUPP_P2P 1
-#define CONFIG_WPA_SUPP_DPP    1
-#define CONFIG_WPA_SUPP_WPA3              1
-#define CONFIG_WPA_SUPP_CRYPTO_ENTERPRISE 1
+#define CONFIG_WPA_SUPP_DPP                  1
+#define CONFIG_WPA_SUPP_WPA3                 1
+#define CONFIG_WPA_SUPP_CRYPTO_ENTERPRISE    1
 #define CONFIG_WPA_SUPP_CRYPTO_AP_ENTERPRISE 1
-#define UAP_HOST_MLME                     1
-#define CONFIG_HOST_MLME                  1
 
 #if defined(CONFIG_WPA_SUPP_CRYPTO_ENTERPRISE) || defined(CONFIG_WPA_SUPP_CRYPTO_AP_ENTERPRISE)
 #define CONFIG_EAP_TLS
@@ -161,16 +240,10 @@
 #endif
 #endif
 
-#define CONFIG_WPA_SUPP_DEBUG_LEVEL 3
-#define CONFIG_LOG_BUFFER_SIZE      2048
-//#define CONFIG_NO_STDOUT_DEBUG 1
-//#define WPA_SUPPLICANT_CLEANUP_INTERVAL 120
-#define HOSTAPD_CLEANUP_INTERVAL    120
 #define CONFIG_WIFI_USB_FILE_ACCESS 1
-#define CONFIG_RX_CHAN_INFO
-#define CONFIG_TXPD_RXPD_V3
-#else
-#define CONFIG_MBO
 #endif
+#endif
+#define CONFIG_WPA_SUPP_DEBUG_LEVEL 6
+#undef CONFIG_SUPP_DEBUG
 
 #endif /* _WIFI_CONFIG_H_ */

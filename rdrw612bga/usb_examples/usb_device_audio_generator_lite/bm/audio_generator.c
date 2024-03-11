@@ -54,6 +54,8 @@ usb_status_t USB_DeviceAudioProcessTerminalRequest(uint32_t audioCommand,
 extern void USB_AudioRecorderGetBuffer(uint8_t *buffer, uint32_t size);
 #if defined(AUDIO_DATA_SOURCE_DMIC) && (AUDIO_DATA_SOURCE_DMIC > 0U)
 extern void Board_DMIC_DMA_Init(void);
+#elif defined(AUDIO_DATA_SOURCE_PDM) && (AUDIO_DATA_SOURCE_PDM > 0U)
+extern void Board_PDM_EDMA_Init(void);
 #endif
 #if defined(USB_DEVICE_AUDIO_USE_SYNC_MODE) && (USB_DEVICE_AUDIO_USE_SYNC_MODE > 0U)
 extern void SCTIMER_CaptureInit(void);
@@ -107,7 +109,8 @@ usb_audio_generator_struct_t s_audioGenerator = {
     0U,             /* curMute20 */
     1U,             /* curClockValid */
     {0x00U, 0x1FU}, /* curVolume20 */
-#if defined(AUDIO_DATA_SOURCE_DMIC) && (AUDIO_DATA_SOURCE_DMIC > 0U)
+#if (defined(AUDIO_DATA_SOURCE_DMIC) && (AUDIO_DATA_SOURCE_DMIC > 0U)) || \
+    (defined(AUDIO_DATA_SOURCE_PDM) && (AUDIO_DATA_SOURCE_PDM > 0U))
     16000U,                   /* curSampleFrequency, This should be changed to 16000 if sampling rate is 16k */
     {1U, 16000U, 16000U, 0U}, /* freqControlRange */
 #else
@@ -1656,6 +1659,8 @@ void main(void)
 
 #if defined(AUDIO_DATA_SOURCE_DMIC) && (AUDIO_DATA_SOURCE_DMIC > 0U)
     Board_DMIC_DMA_Init();
+#elif defined(AUDIO_DATA_SOURCE_PDM) && (AUDIO_DATA_SOURCE_PDM > 0U)
+    Board_PDM_EDMA_Init();
 #endif
 
     APPInit();

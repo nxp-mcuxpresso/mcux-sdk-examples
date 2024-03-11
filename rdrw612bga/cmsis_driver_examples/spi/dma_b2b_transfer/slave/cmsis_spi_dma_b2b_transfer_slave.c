@@ -10,6 +10,7 @@
 #include "fsl_debug_console.h"
 #include "fsl_spi_cmsis.h"
 #include "pin_mux.h"
+#include "clock_config.h"
 #include "board.h"
 
 /*******************************************************************************

@@ -147,7 +147,7 @@ static void CopyRamFunc(void)
     extern uint32_t __ramfunc_end__[];
 
     const uint32_t *src = __RAM_FUNCTION_FLASH_START;
-    uint32_t *dst = __ramfunc_start__;
+    uint32_t *dst       = __ramfunc_start__;
 
     /* Copy the code from flash to ram. */
     while (dst < (uint32_t *)__ramfunc_end__)

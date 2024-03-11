@@ -225,7 +225,7 @@ int VIT_Initialize(void *arg)
             break;
 #endif
         default:
-            VIT_Status = VIT_SetModel(VIT_Model_en, MODEL_LOCATION);
+            return VIT_INVALID_MODEL;
     }
     if (VIT_Status != VIT_SUCCESS)
     {

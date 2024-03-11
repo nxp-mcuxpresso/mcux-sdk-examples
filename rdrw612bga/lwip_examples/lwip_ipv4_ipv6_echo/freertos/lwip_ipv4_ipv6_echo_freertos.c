@@ -20,6 +20,7 @@
 #include "ethernetif.h"
 
 #include "pin_mux.h"
+#include "clock_config.h"
 #include "board.h"
 #if !defined(configMAC_ADDR) || !defined(configMAC_ADDR1)
 #include "fsl_silicon_id.h"
@@ -33,9 +34,9 @@
 
 #include "shell_task.h"
 
-#include "fsl_phyksz8081.h"
 #include "fsl_enet.h"
 #include "fsl_reset.h"
+#include "fsl_phyksz8081.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -126,6 +127,11 @@ phy_ksz8081_resource_t g_phy_resource;
 static phy_handle_t phyHandle;
 #if defined(BOARD_NETWORK_USE_DUAL_ENET)
 static phy_handle_t phyHandle1;
+
+#if LWIP_SINGLE_NETIF == 1
+#error \
+    "Single netif limitation in lwIP must be disabled if this example were to use both interfaces. (LWIP_SINGLE_NETIF = 0)"
+#endif // LWIP_SINGLE_NETIF == 1
 #endif
 
 /*******************************************************************************
@@ -212,9 +218,13 @@ static void stack_init(void *arg)
     netifapi_netif_add(&s_netif1, &netif1_ipaddr, &netif1_netmask, &netif1_gw, &enet1_config, EXAMPLE_NETIF1_INIT_FN,
                        tcpip_input);
     netifapi_netif_set_up(&s_netif1);
-#endif /* defined(BOARD_NETWORK_USE_DUAL_ENET) */
-
+#else
+    /*
+     * Single netif is used, set is as default to avoid
+     * the need to append zone indices to link-local IPv6 addresses.
+     */
     netifapi_netif_set_default(&s_netif0);
+#endif /* defined(BOARD_NETWORK_USE_DUAL_ENET) */
 
     LOCK_TCPIP_CORE();
     netif_create_ip6_linklocal_address(&s_netif0, 1);
@@ -251,8 +261,7 @@ int main(void)
     BOARD_InitDebugConsole();
     BOARD_InitModuleClock();
 
-    RESET_PeripheralReset(kENET_IPG_RST_SHIFT_RSTn);
-    RESET_PeripheralReset(kENET_IPG_S_RST_SHIFT_RSTn);
+    ENET_ResetHareware();
 
     GPIO_PortInit(GPIO, 0U);
     GPIO_PortInit(GPIO, 1U);

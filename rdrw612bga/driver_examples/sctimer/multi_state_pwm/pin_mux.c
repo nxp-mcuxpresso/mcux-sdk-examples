@@ -30,7 +30,7 @@ void BOARD_InitBootPins(void)
 void BOARD_InitPins(void) {                                /*!< Function assigned for the core: Cortex-M33[cm33] */
    CLOCK_EnableClock(kCLOCK_InputMux);
    /* SCT0_IN_1 is selected for SCT0 input 1 */
-   INPUTMUX_AttachSignal(INPUTMUX, 1, kINPUTMUX_Gpio4ToSct0);
+   INPUTMUX_AttachSignal(INPUTMUX, 1, kINPUTMUX_Gpio4Inp1ToSct0);
 
    IO_MUX_SetPinMux(IO_MUX_FC3_USART_DATA);
    IO_MUX_SetPinMux(IO_MUX_SCT_OUT_0);

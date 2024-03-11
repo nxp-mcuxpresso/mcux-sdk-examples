@@ -12,7 +12,6 @@ ENDIF()
 
 SET(CMAKE_ASM_FLAGS_FLASH_DEBUG " \
     ${CMAKE_ASM_FLAGS_FLASH_DEBUG} \
-    -DDEBUG \
     -D__STARTUP_CLEAR_BSS \
     -mcpu=cortex-m33+nodsp \
     -mthumb \
@@ -20,7 +19,6 @@ SET(CMAKE_ASM_FLAGS_FLASH_DEBUG " \
 ")
 SET(CMAKE_ASM_FLAGS_FLASH_RELEASE " \
     ${CMAKE_ASM_FLAGS_FLASH_RELEASE} \
-    -DNDEBUG \
     -D__STARTUP_CLEAR_BSS \
     -mcpu=cortex-m33+nodsp \
     -mthumb \
@@ -46,23 +44,20 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     ${CMAKE_C_FLAGS_FLASH_DEBUG} \
     -DENABLE_RAM_VECTOR_TABLE \
     -DCOPY_RAM_FUNC=1 \
-    -DDEBUG \
     -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
-    -DCPU_RW612ETA1I \
-    -DBOOT_HEADER_ENABLE=1 \
+    -DCPU_RW612ETA2I \
     -DMCUXPRESSO_SDK \
+    -DBOOT_HEADER_ENABLE=1 \
     -g \
     -O0 \
     -mcpu=cortex-m33+nodsp \
     -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
     -ffreestanding \
     -fno-builtin \
+    -mthumb \
     -mapcs \
     -std=gnu99 \
     ${FPU} \
@@ -72,22 +67,19 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     ${CMAKE_C_FLAGS_FLASH_RELEASE} \
     -DENABLE_RAM_VECTOR_TABLE \
     -DCOPY_RAM_FUNC=1 \
-    -DNDEBUG \
     -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
-    -DCPU_RW612ETA1I \
-    -DBOOT_HEADER_ENABLE=1 \
+    -DCPU_RW612ETA2I \
     -DMCUXPRESSO_SDK \
+    -DBOOT_HEADER_ENABLE=1 \
     -Os \
     -mcpu=cortex-m33+nodsp \
     -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
     -ffreestanding \
     -fno-builtin \
+    -mthumb \
     -mapcs \
     -std=gnu99 \
     ${FPU} \
@@ -96,21 +88,19 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
 SET(CMAKE_C_FLAGS_DEBUG " \
     ${CMAKE_C_FLAGS_DEBUG} \
     -DDEBUG \
-    -DCPU_RW612ETA1I \
-    -DBOOT_HEADER_ENABLE=1 \
+    -DCPU_RW612ETA2I \
     -DMCUXPRESSO_SDK \
+    -DBOOT_HEADER_ENABLE=1 \
     -g \
     -O0 \
     -mcpu=cortex-m33+nodsp \
     -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
     -ffreestanding \
     -fno-builtin \
+    -mthumb \
     -mapcs \
     -std=gnu99 \
     ${FPU} \
@@ -119,20 +109,18 @@ SET(CMAKE_C_FLAGS_DEBUG " \
 SET(CMAKE_C_FLAGS_RELEASE " \
     ${CMAKE_C_FLAGS_RELEASE} \
     -DNDEBUG \
-    -DCPU_RW612ETA1I \
-    -DBOOT_HEADER_ENABLE=1 \
+    -DCPU_RW612ETA2I \
     -DMCUXPRESSO_SDK \
+    -DBOOT_HEADER_ENABLE=1 \
     -Os \
     -mcpu=cortex-m33+nodsp \
     -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
     -ffreestanding \
     -fno-builtin \
+    -mthumb \
     -mapcs \
     -std=gnu99 \
     ${FPU} \
@@ -140,22 +128,20 @@ SET(CMAKE_C_FLAGS_RELEASE " \
 ")
 SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
     ${CMAKE_CXX_FLAGS_FLASH_DEBUG} \
-    -DDEBUG \
-    -DCPU_RW612ETA1I \
-    -DBOOT_HEADER_ENABLE=1 \
+    -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
+    -DCPU_RW612ETA2I \
     -DMCUXPRESSO_SDK \
+    -DBOOT_HEADER_ENABLE=1 \
     -g \
     -O0 \
     -mcpu=cortex-m33+nodsp \
     -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
     -ffreestanding \
     -fno-builtin \
+    -mthumb \
     -mapcs \
     -fno-rtti \
     -fno-exceptions \
@@ -164,21 +150,19 @@ SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
 ")
 SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
     ${CMAKE_CXX_FLAGS_FLASH_RELEASE} \
-    -DNDEBUG \
-    -DCPU_RW612ETA1I \
-    -DBOOT_HEADER_ENABLE=1 \
+    -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
+    -DCPU_RW612ETA2I \
     -DMCUXPRESSO_SDK \
+    -DBOOT_HEADER_ENABLE=1 \
     -Os \
     -mcpu=cortex-m33+nodsp \
     -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
     -ffreestanding \
     -fno-builtin \
+    -mthumb \
     -mapcs \
     -fno-rtti \
     -fno-exceptions \
@@ -188,21 +172,19 @@ SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
 SET(CMAKE_CXX_FLAGS_DEBUG " \
     ${CMAKE_CXX_FLAGS_DEBUG} \
     -DDEBUG \
-    -DCPU_RW612ETA1I \
-    -DBOOT_HEADER_ENABLE=1 \
+    -DCPU_RW612ETA2I \
     -DMCUXPRESSO_SDK \
+    -DBOOT_HEADER_ENABLE=1 \
     -g \
     -O0 \
     -mcpu=cortex-m33+nodsp \
     -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
     -ffreestanding \
     -fno-builtin \
+    -mthumb \
     -mapcs \
     -fno-rtti \
     -fno-exceptions \
@@ -212,20 +194,18 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
 SET(CMAKE_CXX_FLAGS_RELEASE " \
     ${CMAKE_CXX_FLAGS_RELEASE} \
     -DNDEBUG \
-    -DCPU_RW612ETA1I \
-    -DBOOT_HEADER_ENABLE=1 \
+    -DCPU_RW612ETA2I \
     -DMCUXPRESSO_SDK \
+    -DBOOT_HEADER_ENABLE=1 \
     -Os \
     -mcpu=cortex-m33+nodsp \
     -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
     -ffreestanding \
     -fno-builtin \
+    -mthumb \
     -mapcs \
     -fno-rtti \
     -fno-exceptions \
@@ -259,7 +239,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     --defsym=__ram_vector_table__=1 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/RW612_flash.ld -static \
+    -T\"${ProjDirPath}/RW612_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE} \
@@ -287,7 +267,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     --defsym=__ram_vector_table__=1 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/RW612_flash.ld -static \
+    -T\"${ProjDirPath}/RW612_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_DEBUG} \
@@ -314,7 +294,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/RW612_ram.ld -static \
+    -T\"${ProjDirPath}/RW612_ram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -340,5 +320,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -Wl,--print-memory-usage \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/RW612_ram.ld -static \
+    -T\"${ProjDirPath}/RW612_ram.ld\" -static \
 ")

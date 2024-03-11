@@ -86,7 +86,6 @@
 
 /* Task aware debugging. */
 #define configRECORD_STACK_HIGH_ADDRESS      1
-
 /* Co-routine related definitions. */
 #define configUSE_CO_ROUTINES           0
 #define configMAX_CO_ROUTINE_PRIORITIES 2

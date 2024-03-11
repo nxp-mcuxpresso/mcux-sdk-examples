@@ -13,6 +13,7 @@
 #include "host_mouse.h"
 #include "fsl_common.h"
 #include "pin_mux.h"
+#include "clock_config.h"
 #include "board.h"
 #if (defined(FSL_FEATURE_SOC_SYSMPU_COUNT) && (FSL_FEATURE_SOC_SYSMPU_COUNT > 0U))
 #include "fsl_sysmpu.h"

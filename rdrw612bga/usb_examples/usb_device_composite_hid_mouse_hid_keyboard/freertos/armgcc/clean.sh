@@ -1,2 +1,3 @@
 #!/bin/sh
-rm -rf debug release flash_debug flash_release ../../../../../../build/dev_composite_hid_mouse_hid_keyboard_freertos
+rm -rf debug release flash_debug flash_release CMakeFiles
+rm -rf Makefile cmake_install.cmake CMakeCache.txt

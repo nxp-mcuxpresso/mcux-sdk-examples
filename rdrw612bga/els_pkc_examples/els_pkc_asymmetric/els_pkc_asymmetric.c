@@ -104,7 +104,7 @@ int main(void)
     }
 
     PRINTF("PKC ECC Curve25519:");
-    if (mcuxClEcc_Mont_Curve25519_example() == true)
+    if (mcuxClEcc_MontDH_Curve25519_example() == true)
     {
         pass++;
         PRINTF("pass \r\n");

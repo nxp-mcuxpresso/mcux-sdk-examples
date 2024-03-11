@@ -9,21 +9,38 @@
 #include "fsl_device_registers.h"
 #include "fsl_debug_console.h"
 #include "pin_mux.h"
+#include "clock_config.h"
 #include "board.h"
 #include "fsl_dmic.h"
 #include <stdlib.h>
 #include <string.h>
 
-#include "fsl_power.h"
 #include <stdbool.h>
+#include "fsl_power.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+#define DEMO_DMIC_CHANNEL_1        kDMIC_Channel2
+#define DEMO_DMIC_CHANNEL_1_ENABLE DMIC_CHANEN_EN_CH2(1)
+
 #define BOARD_LED_GPIO_PORT BOARD_LED_BLUE_GPIO_PORT
 #define BOARD_LED_GPIO_PIN  BOARD_LED_BLUE_GPIO_PIN
 #define DisableDeepSleepIRQ POWER_DisableWakeup
 #define EnableDeepSleepIRQ  POWER_EnableWakeup
 #define FIFO_DEPTH 15U
+
+#ifndef DEMO_DMIC_CHANNEL
+#define DEMO_DMIC_CHANNEL kDMIC_Channel0
+#endif
+#ifndef DEMO_DMIC_CHANNEL_1
+#define DEMO_DMIC_CHANNEL_1 kDMIC_Channel1
+#endif
+#ifndef DEMO_DMIC_CHANNEL_ENABLE
+#define DEMO_DMIC_CHANNEL_ENABLE DMIC_CHANEN_EN_CH0(1)
+#endif
+#ifndef DEMO_DMIC_CHANNEL_1_ENABLE
+#define DEMO_DMIC_CHANNEL_1_ENABLE DMIC_CHANEN_EN_CH1(1)
+#endif
 
 /*******************************************************************************
  * Prototypes
@@ -114,17 +131,17 @@ int main(void)
     DMIC_SetIOCFG(DMIC0, kDMIC_PdmStereo);
 #endif
     DMIC_Use2fs(DMIC0, true);
-    DMIC_EnableChannelInterrupt(DMIC0, kDMIC_Channel0, true);
-    DMIC_EnableChannelInterrupt(DMIC0, kDMIC_Channel1, true);
+    DMIC_EnableChannelInterrupt(DMIC0, DEMO_DMIC_CHANNEL, true);
+    DMIC_EnableChannelInterrupt(DMIC0, DEMO_DMIC_CHANNEL_1, true);
 #if defined(BOARD_DMIC_CHANNEL_STEREO_SIDE_SWAP) && (BOARD_DMIC_CHANNEL_STEREO_SIDE_SWAP)
-    DMIC_ConfigChannel(DMIC0, kDMIC_Channel0, kDMIC_Right, &dmic_channel_cfg);
-    DMIC_ConfigChannel(DMIC0, kDMIC_Channel1, kDMIC_Left, &dmic_channel_cfg);
+    DMIC_ConfigChannel(DMIC0, DEMO_DMIC_CHANNEL, kDMIC_Right, &dmic_channel_cfg);
+    DMIC_ConfigChannel(DMIC0, DEMO_DMIC_CHANNEL_1, kDMIC_Left, &dmic_channel_cfg);
 #else
-    DMIC_ConfigChannel(DMIC0, kDMIC_Channel0, kDMIC_Left, &dmic_channel_cfg);
-    DMIC_ConfigChannel(DMIC0, kDMIC_Channel1, kDMIC_Right, &dmic_channel_cfg);
+    DMIC_ConfigChannel(DMIC0, DEMO_DMIC_CHANNEL, kDMIC_Left, &dmic_channel_cfg);
+    DMIC_ConfigChannel(DMIC0, DEMO_DMIC_CHANNEL_1, kDMIC_Right, &dmic_channel_cfg);
 #endif
-    DMIC_FifoChannel(DMIC0, kDMIC_Channel0, FIFO_DEPTH, true, true);
-    DMIC_FifoChannel(DMIC0, kDMIC_Channel1, FIFO_DEPTH, true, true);
+    DMIC_FifoChannel(DMIC0, DEMO_DMIC_CHANNEL, FIFO_DEPTH, true, true);
+    DMIC_FifoChannel(DMIC0, DEMO_DMIC_CHANNEL_1, FIFO_DEPTH, true, true);
 
     /*Gain of the noise estimator */
     DMIC_SetGainNoiseEstHwvad(DMIC0, 0x02U);
@@ -140,7 +157,7 @@ int main(void)
 
     DisableDeepSleepIRQ(HWVAD0_IRQn);
     DisableIRQ(HWVAD0_IRQn);
-    DMIC_EnableChannnel(DMIC0, (DMIC_CHANEN_EN_CH0(1) | DMIC_CHANEN_EN_CH1(1)));
+    DMIC_EnableChannnel(DMIC0, (DEMO_DMIC_CHANNEL_ENABLE | DEMO_DMIC_CHANNEL_1_ENABLE));
 
     DMIC_FilterResetHwvad(DMIC0, true);
     DMIC_FilterResetHwvad(DMIC0, false);

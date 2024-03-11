@@ -187,7 +187,7 @@ static void connected(struct bt_conn *conn, uint8_t err)
             if (bt_conn_set_security(conn, BT_SECURITY_L2))
             {
                 PRINTF("Failed to set security\n");
-            } 
+            }
         }
 #endif
     }
@@ -335,62 +335,56 @@ static int wireless_uart_data_received(struct bt_conn *conn, uint8_t* buffer, ss
     return 0;
 }
 
-static int wireless_uart_read(struct bt_conn *conn, uint8_t** buffer, ssize_t* length)
+static int wireless_uart_read(struct bt_conn *conn, bt_gatt_wu_read_response_t response, void *param)
 {
+    uint8_t * buffer;
+    ssize_t length;
     OSA_SR_ALLOC();
     uint32_t index;
+    int ret = -1;
 
-    for (index = 0;index < CONFIG_BT_MAX_CONN;index++)
+    if (NULL != response)
     {
-        if (conn == g_WirelessUartState.peerCentral[index].conn)
+        for (index = 0;index < CONFIG_BT_MAX_CONN;index++)
         {
-            if ((NULL != buffer) && (NULL != length))
+            if (conn == g_WirelessUartState.peerCentral[index].conn)
             {
-                if (g_WirelessUartState.peerCentral[index].wait4SendingLength)
+                if (g_WirelessUartState.peerCentral[index].wait4SendingLength > 0U)
                 {
                     OSA_ENTER_CRITICAL();
-                    *buffer = &g_WirelessUartState.peerCentral[index].wait4SendingBuffer[0];
-                    *length = g_WirelessUartState.peerCentral[index].wait4SendingLength;
+                    buffer = &g_WirelessUartState.peerCentral[index].wait4SendingBuffer[0];
+                    length = (ssize_t)g_WirelessUartState.peerCentral[index].wait4SendingLength;
                     g_WirelessUartState.peerCentral[index].wait4SendingLength = 0;
                     g_WirelessUartState.peerCentral[index].wait4SendingBufferIndex = 1 - g_WirelessUartState.peerCentral[index].wait4SendingBufferIndex;
                     g_WirelessUartState.peerCentral[index].wait4SendingBuffer = &g_WirelessUartState.peerCentral[index].wait4SendingBufferPool[g_WirelessUartState.peerCentral[index].wait4SendingBufferIndex][0];
                     OSA_EXIT_CRITICAL();
+
+                    ret = response(param, buffer, length);
                 }
-                else
-                {
-                    *length = 0;
-                }
-                return 0;
+                break;
             }
-            break;
         }
-    }
-    for (index = 0;index < CONFIG_BT_MAX_CONN;index++)
-    {
-        if (conn == g_WirelessUartState.peerPeripheral[index].conn)
+        for (index = 0;index < CONFIG_BT_MAX_CONN;index++)
         {
-            if ((NULL != buffer) && (NULL != length))
+            if (conn == g_WirelessUartState.peerPeripheral[index].conn)
             {
-                if (g_WirelessUartState.peerPeripheral[index].wait4SendingLength)
+                if (g_WirelessUartState.peerPeripheral[index].wait4SendingLength > 0U)
                 {
                     OSA_ENTER_CRITICAL();
-                    *buffer = &g_WirelessUartState.peerPeripheral[index].wait4SendingBuffer[0];
-                    *length = g_WirelessUartState.peerPeripheral[index].wait4SendingLength;
+                    buffer = &g_WirelessUartState.peerPeripheral[index].wait4SendingBuffer[0];
+                    length = (ssize_t)g_WirelessUartState.peerPeripheral[index].wait4SendingLength;
                     g_WirelessUartState.peerPeripheral[index].wait4SendingLength = 0;
                     g_WirelessUartState.peerPeripheral[index].wait4SendingBufferIndex = 1 - g_WirelessUartState.peerPeripheral[index].wait4SendingBufferIndex;
                     g_WirelessUartState.peerPeripheral[index].wait4SendingBuffer = &g_WirelessUartState.peerPeripheral[index].wait4SendingBufferPool[g_WirelessUartState.peerPeripheral[index].wait4SendingBufferIndex][0];
                     OSA_EXIT_CRITICAL();
+
+                    ret = response(param, buffer, length);
                 }
-                else
-                {
-                    *length = 0;
-                }
-                return 0;
+                break;
             }
-            break;
         }
     }
-    return -1;
+    return ret;
 }
 
 static bool wu_central_parse_callback(struct bt_data *data, void *user_data)
@@ -400,7 +394,7 @@ static bool wu_central_parse_callback(struct bt_data *data, void *user_data)
     int              i;
     int              error = -1;
     uint8_t          index;
-    
+
 #if 0
     PRINTF("[AD]: %u data_len %u\n", data->type, data->data_len);
 #endif
@@ -421,10 +415,10 @@ static bool wu_central_parse_callback(struct bt_data *data, void *user_data)
             if (bt_uuid_cmp((struct bt_uuid *)&uuid, WIRELESS_UART_SERIVCE)) {
                 continue;
             }
-            
+
             bt_addr_le_to_str(deviceInfo->addr, dev, sizeof(dev));
             PRINTF("[DEVICE]: %s, AD evt type %u, AD data len %u, RSSI %i\n", dev, deviceInfo->ad_type, deviceInfo->ad_len, deviceInfo->rssi);
-            
+
 
             for (index = 0;index < CONFIG_BT_MAX_CONN;index++)
             {
@@ -490,7 +484,7 @@ static void wu_central_scan_callback(const bt_addr_le_t *addr, int8_t rssi, uint
              struct net_buf_simple *ad)
 {
     scan_dev_info_t deviceInfo;
-    
+
     assert(NULL != addr);
     deviceInfo.addr    = addr;
     deviceInfo.ad_type = type;
@@ -499,7 +493,7 @@ static void wu_central_scan_callback(const bt_addr_le_t *addr, int8_t rssi, uint
 
 #if 0
     char dev[BT_ADDR_LE_STR_LEN];
-    
+
     bt_addr_le_to_str(addr, dev, sizeof(dev));
     PRINTF("[DEVICE]: %s, AD evt type %u, AD data len %u, RSSI %i\n",
            deviceInfo.dev, deviceInfo.ad_type, deviceInfo.ad_len, deviceInfo.rssi);
@@ -576,8 +570,8 @@ button_status_t wireless_uart_button_callback(void *buttonHandle, button_callbac
             }
             else
             {
-                
-            
+
+
             }
             break;
         case kBUTTON_EventDoubleClick:
@@ -619,10 +613,10 @@ static void bt_ready(int error)
         return;
     }
 
-    if (IS_ENABLED(CONFIG_BT_SETTINGS)) 
-    {
-        settings_load();
-    }
+#if (defined(CONFIG_BT_SETTINGS) && (CONFIG_BT_SETTINGS > 0))
+    settings_load();
+#endif /* CONFIG_BT_SETTINGS */
+
     PRINTF("Bluetooth initialized\n");
 
     wuConfig.data_received = wireless_uart_data_received;
@@ -630,11 +624,8 @@ static void bt_ready(int error)
 
     bt_gatt_wu_init("Wireless Uart Demo", "WU1234567890", &wuConfig);
 
-	if (IS_ENABLED(CONFIG_BT_SETTINGS)) {
-		settings_load();
-	}
-
     bt_conn_cb_register(&conn_callbacks);
+
 #if CONFIG_BT_SMP
     bt_conn_auth_cb_register(&auth_cb_display);
 #endif

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020-2024 NXP
  * All rights reserved.
  *
  *
@@ -7,6 +7,7 @@
  */
 #ifdef CONFIG_HOST_SLEEP
 #include "pin_mux.h"
+#include "clock_config.h"
 #include "board.h"
 #include "lpm.h"
 #include "host_sleep.h"
@@ -17,7 +18,6 @@
 #include "wm_os.h"
 #include "wlan.h"
 #include "cli.h"
-#include "board.h"
 
 /*******************************************************************************
  * Definitions
@@ -127,7 +127,9 @@ status_t powerManager_BoardNotify(pm_event_type_t eventType, uint8_t powerState,
         if (powerState == PM_LP_STATE_PM3)
         {
             lpm_pm3_exit_hw_reinit();
+#ifdef CONFIG_UART_INTERRUPT
             usart_suspend_flag = false;
+#endif
         }
         else
         {

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2020,2022 NXP
+ * Copyright 2016-2020,2022-2023  NXP
  * All rights reserved.
  *
  *
@@ -11,6 +11,8 @@
  * Includes
  ******************************************************************************/
 #include "lwip/opt.h"
+#include "fsl_adapter_gpio.h"
+#include "fsl_debug_console.h"
 
 #if LWIP_IPV4 && LWIP_RAW && LWIP_SOCKET
 
@@ -21,15 +23,16 @@
 #include "ethernetif.h"
 
 #include "pin_mux.h"
+#include "clock_config.h"
 #include "board.h"
 #ifndef configMAC_ADDR
 #include "fsl_silicon_id.h"
 #endif
 #include "fsl_phy.h"
 
-#include "fsl_phyksz8081.h"
 #include "fsl_enet.h"
 #include "fsl_reset.h"
+#include "fsl_phyksz8081.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -103,6 +106,35 @@ extern phy_ksz8081_resource_t g_phy_resource;
 /*! @brief Priority of the temporary lwIP initialization thread. */
 #define INIT_THREAD_PRIO DEFAULT_THREAD_PRIO
 
+/*! @brief Selection of GPIO perihperal and its pin for the reception of PHY interrupts. */
+#if ETH_LINK_POLLING_INTERVAL_MS == 0
+#ifndef EXAMPLE_PHY_INT_PORT
+#if (!defined(BOARD_NETWORK_USE_100M_ENET_PORT) || !BOARD_NETWORK_USE_100M_ENET_PORT) && \
+    defined(BOARD_INITENET1GPINS_PHY_INTR_PERIPHERAL)
+#define EXAMPLE_PHY_INT_PORT BOARD_INITENET1GPINS_PHY_INTR_PERIPHERAL
+#elif defined(BOARD_INITENETPINS_PHY_INTR_PERIPHERAL)
+#define EXAMPLE_PHY_INT_PORT BOARD_INITENETPINS_PHY_INTR_PERIPHERAL
+#elif defined(BOARD_INITPINS_PHY_INTR_PERIPHERAL)
+#define EXAMPLE_PHY_INT_PORT BOARD_INITPINS_PHY_INTR_PERIPHERAL
+#else
+#error "Interrupt-based link-state detection was enabled on an unsupported board."
+#endif
+#endif // #ifndef EXAMPLE_PHY_INT_PORT
+
+#ifndef EXAMPLE_PHY_INT_PIN
+#if (!defined(BOARD_NETWORK_USE_100M_ENET_PORT) || !BOARD_NETWORK_USE_100M_ENET_PORT) && \
+    defined(BOARD_INITENET1GPINS_PHY_INTR_CHANNEL)
+#define EXAMPLE_PHY_INT_PIN BOARD_INITENET1GPINS_PHY_INTR_CHANNEL
+#elif defined(BOARD_INITENETPINS_PHY_INTR_CHANNEL)
+#define EXAMPLE_PHY_INT_PIN BOARD_INITENETPINS_PHY_INTR_CHANNEL
+#elif defined(BOARD_INITPINS_PHY_INTR_CHANNEL)
+#define EXAMPLE_PHY_INT_PIN BOARD_INITPINS_PHY_INTR_CHANNEL
+#else
+#error "Interrupt-based link-state detection was enabled on an unsupported board."
+#endif
+#endif // #ifndef EXAMPLE_PHY_INT_PIN
+#endif // #if ETH_LINK_POLLING_INTERVAL_MS == 0
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -113,6 +145,7 @@ extern phy_ksz8081_resource_t g_phy_resource;
 phy_ksz8081_resource_t g_phy_resource;
 
 static phy_handle_t phyHandle;
+static struct netif netif;
 
 /*******************************************************************************
  * Code
@@ -149,15 +182,19 @@ static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
  */
 static void stack_init(void *arg)
 {
-    static struct netif netif;
     ip4_addr_t netif_ipaddr, netif_netmask, netif_gw;
-    ethernetif_config_t enet_config = {.phyHandle   = &phyHandle,
-                                       .phyAddr     = EXAMPLE_PHY_ADDRESS,
-                                       .phyOps      = EXAMPLE_PHY_OPS,
-                                       .phyResource = EXAMPLE_PHY_RESOURCE,
-                                       .srcClockHz  = EXAMPLE_CLOCK_FREQ,
+    ethernetif_config_t enet_config = {
+        .phyHandle   = &phyHandle,
+        .phyAddr     = EXAMPLE_PHY_ADDRESS,
+        .phyOps      = EXAMPLE_PHY_OPS,
+        .phyResource = EXAMPLE_PHY_RESOURCE,
+        .srcClockHz  = EXAMPLE_CLOCK_FREQ,
 #ifdef configMAC_ADDR
-                                       .macAddress = configMAC_ADDR
+        .macAddress = configMAC_ADDR,
+#endif
+#if ETH_LINK_POLLING_INTERVAL_MS == 0
+        .phyIntGpio    = EXAMPLE_PHY_INT_PORT,
+        .phyIntGpioPin = EXAMPLE_PHY_INT_PIN
 #endif
     };
 
@@ -173,6 +210,8 @@ static void stack_init(void *arg)
     IP4_ADDR(&netif_gw, configGW_ADDR0, configGW_ADDR1, configGW_ADDR2, configGW_ADDR3);
 
     tcpip_init(NULL, NULL);
+
+    HAL_GpioPreInit();
 
     netifapi_netif_add(&netif, &netif_ipaddr, &netif_netmask, &netif_gw, &enet_config, EXAMPLE_NETIF_INIT_FN,
                        tcpip_input);
@@ -212,8 +251,7 @@ int main(void)
     BOARD_InitDebugConsole();
     BOARD_InitModuleClock();
 
-    RESET_PeripheralReset(kENET_IPG_RST_SHIFT_RSTn);
-    RESET_PeripheralReset(kENET_IPG_S_RST_SHIFT_RSTn);
+    ENET_ResetHareware();
 
     GPIO_PortInit(GPIO, 0U);
     GPIO_PortInit(GPIO, 1U);

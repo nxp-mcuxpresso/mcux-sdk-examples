@@ -58,7 +58,7 @@
 #define TCPIP_THREAD_STACKSIZE 1024
 #define TCPIP_THREAD_PRIO      2
 #ifdef CONFIG_NETWORK_HIGH_PERF
-#define TCPIP_MBOX_SIZE 64
+#define TCPIP_MBOX_SIZE 96
 #else
 #define TCPIP_MBOX_SIZE 32
 #endif
@@ -111,9 +111,11 @@
 #define SOCKETS_DEBUG    LWIP_DBG_OFF // | LWIP_DBG_MASK_LEVEL
 
 #define IP_DEBUG         LWIP_DBG_OFF
+
 #define IP6_DEBUG        LWIP_DBG_OFF
 #define ICMP6_DEBUG      LWIP_DBG_OFF
 #define DHCP6_DEBUG      LWIP_DBG_OFF
+
 #define ETHARP_DEBUG     LWIP_DBG_OFF
 #define NETIF_DEBUG      LWIP_DBG_OFF
 #define PBUF_DEBUG       LWIP_DBG_OFF
@@ -160,7 +162,11 @@
  * CONFIG option available in the SDK
  */
 #ifdef CONFIG_NETWORK_HIGH_PERF
+#ifdef RW610
 #define TCP_SND_BUF (12 * TCP_MSS)
+#else
+#define TCP_SND_BUF (24 * TCP_MSS)
+#endif
 #else
 #define TCP_SND_BUF (TCP_SND_BUF_COUNT * TCP_MSS)
 #endif
@@ -197,7 +203,7 @@
    ---------- Internal Memory Pool Sizes ----------
    ------------------------------------------------
 */
-#define MEMP_USE_CUSTOM_POOLS 1
+//#define MEMP_USE_CUSTOM_POOLS 1
 
 /**
  * MEMP_NUM_PBUF: the number of memp struct pbufs (used for PBUF_ROM and PBUF_REF).
@@ -223,7 +229,11 @@
  * (requires the LWIP_TCP option)
  */
 #ifdef CONFIG_NETWORK_HIGH_PERF
+#ifdef RW610
 #define MEMP_NUM_TCP_SEG 48
+#else
+#define MEMP_NUM_TCP_SEG 96
+#endif
 #else
 #define MEMP_NUM_TCP_SEG 12
 #endif
@@ -243,7 +253,11 @@
    for sequential API communication and incoming packets. Used in
    src/api/tcpip.c. */
 #ifdef CONFIG_NETWORK_HIGH_PERF
+#ifdef RW610
 #define MEMP_NUM_TCPIP_MSG_API 16
+#else
+#define MEMP_NUM_TCPIP_MSG_API 32
+#endif
 #else
 #define MEMP_NUM_TCPIP_MSG_API 8
 #endif
@@ -252,7 +266,7 @@
  * MEMP_NUM_SYS_TIMEOUT: the number of simulateously active timeouts.
  * (requires NO_SYS==0)
  */
-#define MEMP_NUM_SYS_TIMEOUT 12
+#define MEMP_NUM_SYS_TIMEOUT 20
 
 /**
  * MEMP_NUM_NETBUF: the number of struct netbufs.
@@ -405,6 +419,7 @@
 #define TCP_WND (10 * TCP_MSS)
 #endif
 
+
 /**
  * Enable TCP_KEEPALIVE
  */
@@ -418,12 +433,12 @@
 /**
  * LWIP_STATS==1: Enable statistics collection in lwip_stats.
  */
-#define LWIP_STATS 0
+#define LWIP_STATS 1
 
 /**
  * LWIP_STATS_DISPLAY==1: Compile in the statistics output functions.
  */
-#define LWIP_STATS_DISPLAY 0
+#define LWIP_STATS_DISPLAY 1
 
 /*
    ----------------------------------
@@ -526,8 +541,30 @@ u32_t lwip_rand(void);
 #define LWIP_RAND() lwip_rand()
 #endif
 
-#define LWIP_NUM_NETIF_CLIENT_DATA  10
-#define LWIP_TCPIP_CORE_LOCKING     1
-#define LWIP_NETCONN_SEM_PER_THREAD 0
-#define LWIP_NETCONN_FULLDUPLEX     0
+#ifndef RW610
+#define LWIP_NETIF_TX_SINGLE_PBUF   1
+#if (LWIP_NETIF_TX_SINGLE_PBUF)
+#define PBUF_LINK_ENCAPSULATION_HLEN 26
+#endif
+#endif
+
+#define LWIP_NUM_NETIF_CLIENT_DATA  2
+
+/* ---------- Core locking ---------- */
+
+#define LWIP_TCPIP_CORE_LOCKING 1
+
+#ifdef CONFIG_CLOUD_KEEP_ALIVE
+#ifndef LWIP_HOOK_FILENAME
+#define LWIP_HOOK_FILENAME "lwiphooks.h"
+#define LWIP_HOOK_TCP_OUT_ADD_TCPOPTS(p, hdr, pcb, opts) lwip_hook_tcp_out_add_tcpopts(p, hdr, pcb, opts)
+#endif
+#endif
+
+/**
+ * Support ip fragment max size 10000 in arp queue
+ */
+#define ARP_QUEUEING 1
+#define ARP_QUEUE_LEN 8
+
 #endif /* __LWIPOPTS_H__ */

@@ -12,7 +12,6 @@ ENDIF()
 
 SET(CMAKE_ASM_FLAGS_FLASH_DEBUG " \
     ${CMAKE_ASM_FLAGS_FLASH_DEBUG} \
-    -DDEBUG \
     -D__STARTUP_CLEAR_BSS \
     -mcpu=cortex-m33+nodsp \
     -mthumb \
@@ -20,7 +19,6 @@ SET(CMAKE_ASM_FLAGS_FLASH_DEBUG " \
 ")
 SET(CMAKE_ASM_FLAGS_FLASH_RELEASE " \
     ${CMAKE_ASM_FLAGS_FLASH_RELEASE} \
-    -DNDEBUG \
     -D__STARTUP_CLEAR_BSS \
     -mcpu=cortex-m33+nodsp \
     -mthumb \
@@ -28,12 +26,8 @@ SET(CMAKE_ASM_FLAGS_FLASH_RELEASE " \
 ")
 SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     ${CMAKE_C_FLAGS_FLASH_DEBUG} \
-    -DDEBUG \
     -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
     -D_POSIX_SOURCE \
-    -DLWIP_TIMEVAL_PRIVATE=0 \
-    -DCPU_RW612ETA1I \
-    -DBOOT_HEADER_ENABLE=1 \
     -DFSL_FEATURE_PHYKSZ8081_USE_RMII50M_MODE \
     -DMCUBOOT_APPLICATION=1 \
     -DUSE_RTOS=1 \
@@ -41,42 +35,44 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -DHTTPSRV_CFG_WEBSOCKET_ENABLED=0 \
     -DHTTPSRV_CFG_MBEDTLS_ENABLE=1 \
     -DHTTPSRV_CFG_DEFAULT_SES_CNT=8 \
+    -DCPU_RW612ETA2I \
+    -DMCUXPRESSO_SDK \
+    -DBOOT_HEADER_ENABLE=1 \
     -DMFLASH_FILE_BASEADDR=7340032 \
     -DMBEDTLS_MCUX_ELS_PKC_API \
+    -DMBEDTLS_MCUX_USE_PKC \
     -DLWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS=1 \
+    -DCHECKSUM_GEN_ICMP6=1 \
+    -DCHECKSUM_CHECK_ICMP6=1 \
+    -DLWIP_TIMEVAL_PRIVATE=0 \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -DMBEDTLS_THREADING_C \
     -DMBEDTLS_THREADING_ALT \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DSDK_OS_FREE_RTOS \
     -DMBEDTLS_MCUX_ELS_API \
-    -DMCUXPRESSO_SDK \
+    -DMBEDTLS_MCUX_USE_ELS \
+    -DMCUXCL_FEATURE_CSSL_MEMORY_C_FALLBACK \
     -g \
     -O0 \
-    -fomit-frame-pointer \
-    -Wno-unused-function \
     -mcpu=cortex-m33+nodsp \
     -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
     -ffreestanding \
     -fno-builtin \
+    -mthumb \
     -mapcs \
     -std=gnu99 \
+    -fomit-frame-pointer \
+    -Wno-unused-function \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     ${CMAKE_C_FLAGS_FLASH_RELEASE} \
-    -DNDEBUG \
     -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
     -D_POSIX_SOURCE \
-    -DLWIP_TIMEVAL_PRIVATE=0 \
-    -DCPU_RW612ETA1I \
-    -DBOOT_HEADER_ENABLE=1 \
     -DFSL_FEATURE_PHYKSZ8081_USE_RMII50M_MODE \
     -DMCUBOOT_APPLICATION=1 \
     -DUSE_RTOS=1 \
@@ -84,52 +80,56 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -DHTTPSRV_CFG_WEBSOCKET_ENABLED=0 \
     -DHTTPSRV_CFG_MBEDTLS_ENABLE=1 \
     -DHTTPSRV_CFG_DEFAULT_SES_CNT=8 \
+    -DCPU_RW612ETA2I \
+    -DMCUXPRESSO_SDK \
+    -DBOOT_HEADER_ENABLE=1 \
     -DMFLASH_FILE_BASEADDR=7340032 \
     -DMBEDTLS_MCUX_ELS_PKC_API \
+    -DMBEDTLS_MCUX_USE_PKC \
     -DLWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS=1 \
+    -DCHECKSUM_GEN_ICMP6=1 \
+    -DCHECKSUM_CHECK_ICMP6=1 \
+    -DLWIP_TIMEVAL_PRIVATE=0 \
+    -DSERIAL_PORT_TYPE_UART=1 \
     -DMBEDTLS_THREADING_C \
     -DMBEDTLS_THREADING_ALT \
-    -DSERIAL_PORT_TYPE_UART=1 \
     -DSDK_OS_FREE_RTOS \
     -DMBEDTLS_MCUX_ELS_API \
-    -DMCUXPRESSO_SDK \
+    -DMBEDTLS_MCUX_USE_ELS \
+    -DMCUXCL_FEATURE_CSSL_MEMORY_C_FALLBACK \
     -Os \
-    -fomit-frame-pointer \
-    -Wno-unused-function \
     -mcpu=cortex-m33+nodsp \
     -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
     -ffreestanding \
     -fno-builtin \
+    -mthumb \
     -mapcs \
     -std=gnu99 \
+    -fomit-frame-pointer \
+    -Wno-unused-function \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
     ${CMAKE_CXX_FLAGS_FLASH_DEBUG} \
-    -DDEBUG \
-    -DCPU_RW612ETA1I \
+    -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
+    -DCPU_RW612ETA2I \
+    -DMCUXPRESSO_SDK \
     -DBOOT_HEADER_ENABLE=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
-    -DMCUXPRESSO_SDK \
     -g \
     -O0 \
     -mcpu=cortex-m33+nodsp \
     -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
     -ffreestanding \
     -fno-builtin \
+    -mthumb \
     -mapcs \
     -fno-rtti \
     -fno-exceptions \
@@ -138,22 +138,20 @@ SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
 ")
 SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
     ${CMAKE_CXX_FLAGS_FLASH_RELEASE} \
-    -DNDEBUG \
-    -DCPU_RW612ETA1I \
+    -DFSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1 \
+    -DCPU_RW612ETA2I \
+    -DMCUXPRESSO_SDK \
     -DBOOT_HEADER_ENABLE=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
-    -DMCUXPRESSO_SDK \
     -Os \
     -mcpu=cortex-m33+nodsp \
     -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
     -ffreestanding \
     -fno-builtin \
+    -mthumb \
     -mapcs \
     -fno-rtti \
     -fno-exceptions \
@@ -189,7 +187,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     --defsym=__heap_size__=100000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/RW610_flash.ld -static \
+    -T\"${ProjDirPath}/RW610_flash.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE} \
@@ -219,5 +217,5 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     --defsym=__heap_size__=100000 \
     ${FPU} \
     ${SPECS} \
-    -T${ProjDirPath}/RW610_flash.ld -static \
+    -T\"${ProjDirPath}/RW610_flash.ld\" -static \
 ")

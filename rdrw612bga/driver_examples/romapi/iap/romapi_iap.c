@@ -105,7 +105,7 @@ void test_iap_mem_operation()
 
     status = iap_mem_flush(&apiCoreCtx);
     APP_ASSERT(kStatus_Success, status, "iap_mem_flush returned with code [0x%X]\r\n", status);
-     
+
     clear_ahb_buffer();
     CACHE64_InvalidateCache(CACHE64_CTRL0);
 
@@ -121,24 +121,26 @@ void test_iap_mem_operation()
 void test_iap_mem_operation_user_managed_encrypted_flash()
 {
     PRINTF("INFO: Starting Example %s \r\n", __func__);
-    status_t status            = kStatus_Fail;
-    const uint32_t fcb_address = kOspiMem_BaseAddr + kOspiMem_ConfigBlockOffset;
-    const uint32_t address     = kOspiMem_BaseAddr + 0x10000;
-    const uint32_t data        = 0x10203040;
-    uint32_t remapped_address  = address + get_remap_offset();
-    uint32_t page_size = ((flexspi_nor_config_t*) fcb_address)->pageSize;
+    status_t status                = kStatus_Fail;
+    const uint32_t fcb_address     = kOspiMem_BaseAddr + kOspiMem_ConfigBlockOffset;
+    const uint32_t address         = kOspiMem_BaseAddr + 0x10000;
+    const uint32_t data            = 0x10203040;
+    uint32_t remapped_address      = address + get_remap_offset();
+    uint32_t page_size             = ((flexspi_nor_config_t *)fcb_address)->pageSize;
     uint32_t encrypted_region_size = remapped_address + 12 * page_size;
     api_core_context_t apiCoreCtx;
-    const uint8_t iv[8] = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, };
-    
+    const uint8_t iv[8] = {
+        0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
+    };
+
     IPED_EncryptEnable(FLEXSPI);
-    
-    // Set up an IPED region that contains the address to write to. The region size is a 
+
+    // Set up an IPED region that contains the address to write to. The region size is a
     // multiple of 4 times the Flash page size.
     status = IPED_SetRegionAddressRange(FLEXSPI, kIPED_Region11, remapped_address, encrypted_region_size);
     APP_ASSERT(status, kStatus_Success, "IPED_SetRegionAddressRange returned with code [0x%08x]\r\n");
 
-    // In a real-world scenario, the IV needs to be carefully chosen to avoid re-using it.	
+    // In a real-world scenario, the IV needs to be carefully chosen to avoid re-using it.
     IPED_SetRegionIV(FLEXSPI, kIPED_Region11, iv);
     APP_ASSERT(status, kStatus_Success, "IPED_SetRegionAddressRange returned with code [0x%08x]\r\n");
 
@@ -147,14 +149,13 @@ void test_iap_mem_operation_user_managed_encrypted_flash()
 
     clear_ahb_buffer();
     CACHE64_InvalidateCache(CACHE64_CTRL0);
-    
+
     const kp_api_init_param_t apiInitParam = {.allocStart = 0x30010000, .allocSize = 0x6000};
     status                                 = iap_api_init(&apiCoreCtx, &apiInitParam);
     APP_ASSERT(kStatus_Success, status, "iap_api_init returned with code [0x%X]\r\n", status);
 
     status = iap_mem_config(&apiCoreCtx, (uint32_t *)fcb_address, kMemoryID_FlexspiNor);
     APP_ASSERT(kStatus_Success, status, "iap_mem_config returned with code [0x%X]\r\n", status);
-    
 
     status = iap_mem_erase(&apiCoreCtx, remapped_address, sizeof(uint32_t), kMemoryID_FlexspiNor);
     APP_ASSERT(kStatus_Success, status, "iap_mem_erase returned with code [0x%X]\r\n", status);
@@ -173,21 +174,21 @@ void test_iap_mem_operation_user_managed_encrypted_flash()
                "memory content was not programmed correctly!\
                expected [0x%X], actual [0x%X]\r\n",
                data, *((uint32_t *)remapped_address));
-    
+
     status = IPED_SetRegionEnable(FLEXSPI, kIPED_Region11, false);
     APP_ASSERT(status, kStatus_Success, "IPED_SetRegionAddressRange returned with code [0x%08x]\r\n");
-    
+
     clear_ahb_buffer();
     CACHE64_InvalidateCache(CACHE64_CTRL0);
-    
+
     // When the region is disabled, the data is not readable.
     if (data == *((uint32_t *)remapped_address))
-    {                                 
+    {
         PRINTF("Example failed: ");
         PRINTF("memory content was readable after disabling encryption!");
-        while (1);                         
-    }                                 
-    
+        while (1)
+            ;
+    }
 
     PRINTF("INFO: Finished Example %s \r\n", __func__);
 }
@@ -258,7 +259,7 @@ int main()
     }
     BOARD_InitDebugConsole();
     test_version();
-    
+
     test_iap_mem_operation();
     test_iap_mem_operation_user_managed_encrypted_flash();
     test_sb_loader_examples();

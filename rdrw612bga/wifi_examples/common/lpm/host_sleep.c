@@ -65,13 +65,13 @@ extern bool wlan_is_manual;
 extern int wakeup_by;
 #ifdef CONFIG_NCP_BRIDGE
 extern power_cfg_t global_power_config;
+extern uint8_t suspend_notify_flag;
 #endif
 #ifdef CONFIG_POWER_MANAGER
 extern pm_handle_t pm_handle;
 extern pm_wakeup_source_t wlanWakeupSource;
 extern pm_wakeup_source_t rtcWakeupSource;
 extern int wlan_host_sleep_state;
-os_timer_t wake_timer;
 #ifdef CONFIG_UART_INTERRUPT
 extern bool usart_suspend_flag;
 #endif
@@ -114,14 +114,6 @@ void PIN1_INT_IRQHandler()
     wakeup_by = WAKEUP_BY_PIN1;
 }
 
-#ifdef CONFIG_POWER_MANAGER
-static void wake_timer_cb(os_timer_arg_t arg)
-{
-    if(wakelock_isheld())
-        wakelock_put();
-}
-#endif
-
 #ifdef CONFIG_NCP_BRIDGE
 void wlan_gpio_wakeup_host()
 {
@@ -130,10 +122,10 @@ void wlan_gpio_wakeup_host()
         0,
     };
     GPIO_PortInit(GPIO, 0);
-    GPIO_PinInit(GPIO, 0, 4, &gpio_out_config);
+    GPIO_PinInit(GPIO, 0, 5, &gpio_out_config);
     gpio_out_config.outputLogic = 1;
     GPIO_PortInit(GPIO, 0);
-    GPIO_PinInit(GPIO, 0, 4, &gpio_out_config);
+    GPIO_PinInit(GPIO, 0, 5, &gpio_out_config);
 }
 #endif
 
@@ -232,7 +224,12 @@ void host_sleep_pre_cfg(int mode)
     POWER_EnableWakeup(WL_MCI_WAKEUP0_IRQn);
 #ifdef CONFIG_NCP_BRIDGE
     if(global_power_config.subscribe_evt)
+    {
+        suspend_notify_flag |= APP_NOTIFY_SUSPEND_EVT;
         app_notify_event(APP_EVT_MCU_SLEEP_ENTER, APP_EVT_REASON_SUCCESS, NULL, 0);
+        while(suspend_notify_flag & APP_NOTIFY_SUSPEND_EVT)
+            os_thread_sleep(os_msec_to_ticks(1));
+    }
 #endif
     (void)PRINTF("Enter low power mode PM%d\r\n", mode);
     /* PM2, enable UART3 as wakeup source */
@@ -298,13 +295,6 @@ void host_sleep_post_cfg(int mode)
         host_sleep_post_hook(2, NULL);
 #endif
     }
-#ifdef CONFIG_POWER_MANAGER
-    if(!wlan_is_manual && wlan_host_sleep_state == HOST_SLEEP_PERIODIC)
-    {
-        wakelock_get();
-        os_timer_activate(&wake_timer);
-    }
-#endif
 #ifdef CONFIG_NCP_BRIDGE
     if(global_power_config.wakeup_host && wakeup_by == 0x1)
         wlan_gpio_wakeup_host();
@@ -317,7 +307,7 @@ void host_sleep_post_cfg(int mode)
 void host_sleep_dump_wakeup_source()
 {
     if (wakeup_by == WAKEUP_BY_WLAN)
-        wifi_print_wakeup_reason();
+        wifi_print_wakeup_reason(0);
     else if (wakeup_by == WAKEUP_BY_RTC)
         PRINTF("Woken up by RTC\r\n");
     else if (wakeup_by == WAKEUP_BY_PIN1)
@@ -355,7 +345,10 @@ int wlan_config_suspend_mode(int mode)
     if (mode >= 2)
         wlan_GetSleepConfig(&config);
 #ifdef CONFIG_NCP_BRIDGE
+    suspend_notify_flag |=  APP_NOTIFY_SUSPEND_CMDRESP;
     app_notify_event(APP_EVT_SUSPEND, APP_EVT_REASON_SUCCESS, NULL, 0);
+    while(suspend_notify_flag & APP_NOTIFY_SUSPEND_CMDRESP)
+        os_thread_sleep(os_msec_to_ticks(1));
 #endif
     host_sleep_pre_cfg(mode);
     if(mode == 3)
@@ -363,15 +356,13 @@ int wlan_config_suspend_mode(int mode)
 #ifdef CONFIG_NCP_BRIDGE
 #ifdef CONFIG_UART_BRIDGE
         usart_suspend_flag = true;
-        bridge_uart_notify();
-        taskYIELD();
         bridge_uart_deinit();
 #endif
 #endif
 #ifdef CONFIG_UART_INTERRUPT
 #ifdef CONFIG_NCP_BRIDGE
         cli_uart_notify();
-        taskYIELD();
+        os_thread_sleep(os_msec_to_ticks(1));
 #endif
         cli_uart_deinit();
 #endif
@@ -494,10 +485,6 @@ int hostsleep_init(void)
         PRINTF("LPM Init Failed!\r\n");
         return -1;
     }
-#ifdef CONFIG_POWER_MANAGER
-    os_timer_create(&wake_timer, "wake_timer", HOST_SLEEP_DEF_WAKE_TIME, &wake_timer_cb, NULL,
-                    OS_TIMER_ONE_SHOT, OS_TIMER_NO_ACTIVATE);
-#endif
     return 1;
 }
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2020-2022 NXP
+ *  Copyright 2020-2023 NXP
  *  All rights reserved.
  *
  *  SPDX-License-Identifier: BSD-3-Clause
@@ -16,7 +16,7 @@
 #define CONFIG_MAX_AP_ENTRIES 30
 #endif
 
-#if defined(SD8977) || defined(SD8978) || defined(SD8987) || defined(RW610)
+#if defined(SD8978) || defined(SD8987) || defined(RW610) || defined(SD9177)
 #define CONFIG_5GHz_SUPPORT 1
 #endif
 
@@ -24,9 +24,21 @@
 #define CONFIG_SDIO_MULTI_PORT_RX_AGGR 1
 #endif
 
-#if defined(SD8987) || defined(RW610)
+#if defined(SD8987) || defined(RW610) || defined(SD9177)
 #define CONFIG_11AC
 #undef CONFIG_WMM
+#endif
+
+#if defined(SD9177)
+#undef CONFIG_WMM
+#undef CONFIG_SDIO_MULTI_PORT_TX_AGGR
+#define CONFIG_COMPRESS_TX_PWTBL
+#define CONFIG_COMPRESS_RU_TX_PWTBL
+#undef CONFIG_WIFI_FEATURES
+#undef ENABLE_OFFLOAD
+#ifdef CONFIG_11AC
+#define CONFIG_11AX
+#endif
 #endif
 
 #if defined(RW610)
@@ -43,14 +55,19 @@
 /* WLAN SCAN OPT */
 #define CONFIG_SCAN_WITH_RSSIFILTER
 /* WLAN white/black list opt */
+#define CONFIG_UAP_STA_MAC_ADDR_FILTER
+#define CONFIG_COMBO_SCAN
 #define CONFIG_WIFI_DTIM_PERIOD
 #define CONFIG_UART_INTERRUPT
 #define CONFIG_WIFI_CAPA
+#define CONFIG_WIFI_RTS_THRESHOLD
+#define CONFIG_WIFI_FRAG_THRESHOLD
 #define CONFIG_WIFI_11D_ENABLE
 #define CONFIG_WIFI_HIDDEN_SSID
+#define CONFIG_WIFI_MAX_CLIENTS_CNT
 #define CONFIG_WMM_UAPSD
 #define CONFIG_WIFI_GET_LOG
-#define CONFIG_11K  1
+#define CONFIG_11K
 #define CONFIG_WIFI_TX_PER_TRACK
 #define CONFIG_ROAMING
 #undef CONFIG_HOST_SLEEP
@@ -63,9 +80,6 @@
 #define CONFIG_ECSA
 #define CONFIG_WIFI_EU_CRYPTO
 #define CONFIG_EXT_SCAN_SUPPORT
-#define WIFI_ADD_ON 1
-#define CONFIG_UNII4_BAND_SUPPORT
-#define CONFIG_COMPRESS_TX_PWTBL
 #endif
 
 #define CONFIG_IPV6               1

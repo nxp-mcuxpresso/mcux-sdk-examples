@@ -2,7 +2,7 @@
  *
  *  @brief main file
  *
- *  Copyright 2020-2021 NXP
+ *  Copyright 2020-2021,2023 NXP
  *  All rights reserved.
  *
  *  SPDX-License-Identifier: BSD-3-Clause
@@ -25,8 +25,9 @@
 #include "fsl_adapter_rfimu.h"
 #include "fsl_usart_freertos.h"
 #include "fsl_loader.h"
+#include "fsl_ocotp.h"
 #else
-#include "wlan_bt_fw.h"
+#include "mfg_wlan_bt_fw.h"
 #include "wlan.h"
 #include "wifi.h"
 #include "wm_net.h"
@@ -37,7 +38,9 @@
 #include "iperf.h"
 #include "wifi-internal.h"
 #include "wifi-sdio.h"
+#include "fsl_adapter_gpio.h"
 #include "fsl_lpuart_freertos.h"
+#include "fsl_lpuart.h"
 #include "fsl_sdmmc_host.h"
 #if defined(MIMXRT1176_cm7_SERIES)
 #include "fsl_lpspi.h"
@@ -62,9 +65,9 @@
 #define CHECKSUM_LEN            4
 #define CRC32_POLY              0x04c11db7
 
-#if defined(MIMXRT1176_cm7_SERIES)
 #define LABTOOL_HCI_RESP_HDR_LEN 3
 
+#if defined(MIMXRT1176_cm7_SERIES)
 /* SPI related */
 #define LPSPI_MASTER_BASEADDR         (LPSPI1)
 #define LPSPI_MASTER_IRQN             (LPSPI1_IRQn)
@@ -89,11 +92,8 @@
 #define TYPE_15_4       0x0004
 #define RET_TYPE_ZIGBEE 3
 
-#define MLAN_TYPE_CMD   1
-#define INTF_HEADER_LEN 4
 #define SDIOPKTTYPE_CMD 0x1
-#define BUF_LEN         1024
-#define SDIO_OUTBUF_LEN 2048
+#define BUF_LEN         2048
 
 #if defined(RW610_SERIES) || defined(RW612_SERIES)
 #define CONFIG_WIFI_MAX_PRIO (configMAX_PRIORITIES - 1)
@@ -151,13 +151,13 @@ enum
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-uint8_t background_buffer[UART_BUF_SIZE];
+static uint8_t background_buffer[UART_BUF_SIZE];
 #if defined(RW610_SERIES) || defined(RW612_SERIES)
 usart_rtos_handle_t handle;
 struct _usart_handle t_handle;
 TimerHandle_t g_wifi_cau_temperature_timer = NULL;
 
-struct rtos_usart_config usart_config = {
+static struct rtos_usart_config usart_config = {
     .baudrate    = 115200,
     .parity      = kUSART_ParityDisabled,
     .stopbits    = kUSART_OneStopBit,
@@ -177,21 +177,20 @@ lpuart_rtos_handle_t handle;
 struct _lpuart_handle t_handle;
 
 lpuart_rtos_config_t lpuart_config = {
-    .baudrate    = 9600,
+    .baudrate    = 115200,
     .parity      = kLPUART_ParityDisabled,
     .stopbits    = kLPUART_OneStopBit,
     .buffer      = background_buffer,
     .buffer_size = sizeof(background_buffer),
 };
 
-#if defined(MIMXRT1176_cm7_SERIES)
 uint8_t background_buffer_bt[UART_BUF_SIZE];
 
 lpuart_rtos_handle_t handle_bt;
 struct _lpuart_handle t_handle_bt;
 
 lpuart_rtos_config_t lpuart_config_bt = {
-    .baudrate    = BOARD_BT_UART_BAUDRATE,
+    .baudrate    = 115200,
     .parity      = kLPUART_ParityDisabled,
     .stopbits    = kLPUART_OneStopBit,
     .buffer      = background_buffer_bt,
@@ -199,7 +198,6 @@ lpuart_rtos_config_t lpuart_config_bt = {
     .enableRxRTS = true,
     .enableTxCTS = true,
 };
-#endif
 #endif
 
 typedef struct _uart_cb
@@ -212,7 +210,7 @@ typedef struct _uart_cb
 } uart_cb;
 
 static uart_cb uartcb;
-#if defined(MIMXRT1176_cm7_SERIES)
+#if !defined(RW610_SERIES) && !defined(RW612_SERIES)
 static uart_cb uartcb_bt;
 #endif
 
@@ -240,6 +238,10 @@ typedef struct _cmd_header
     int reserved;
 } cmd_header;
 
+#if defined(RW610_SERIES) || defined(RW612_SERIES)
+#define INTF_HEADER_LEN 4U
+#define SDIO_OUTBUF_LEN 2048U
+
 /** HostCmd_DS_COMMAND */
 typedef struct _HostCmd_DS_COMMAND
 {
@@ -254,23 +256,26 @@ typedef struct _HostCmd_DS_COMMAND
     /** Command Body */
 } HostCmd_DS_COMMAND;
 
-/** IMUPkt/SDIOPkt only name difference, same definition */
-typedef struct _SDIOPkt
+/** SDIOPkt/IMUPkt only name difference, same definition */
+typedef struct _IMUPkt
 {
     uint16_t size;
     uint16_t pkttype;
     HostCmd_DS_COMMAND hostcmd;
-} SDIOPkt;
+} IMUPkt;
 
-static uint8_t *rx_buf;
+#endif
+
+static uint8_t rx_buf[BUF_LEN];
 static cmd_header last_cmd_hdr;
-uint8_t *local_outbuf;
-static SDIOPkt *sdiopkt;
+uint8_t local_outbuf[SDIO_OUTBUF_LEN];
 
 #if defined(MIMXRT1176_cm7_SERIES)
 lpspi_master_config_t spiConfig;
 lpspi_transfer_t handle_spi;
 #endif
+uint8_t host_resp_buf[BUF_LEN];
+uint32_t resp_buf_len, reqd_resp_len;
 
 /*******************************************************************************
  * Code
@@ -285,7 +290,7 @@ const int TASK_MAIN_STACK_SIZE = 5 * 2048;
 portSTACK_TYPE *task_main_stack = NULL;
 TaskHandle_t task_main_task_handler;
 
-#define SDK_VERSION "NXPSDK_v1.3.r13.p1"
+#define SDK_VERSION "NXPSDK_2.15.0_r48.p1"
 
 static void uart_init_crc32(uart_cb *uartcb)
 {
@@ -317,26 +322,29 @@ static uint32_t uart_get_crc32(uart_cb *uart, int len, unsigned char *buf)
  2. computation of the crc of the payload
  3. sending it out to the uart
 */
-static int send_response_to_uart(uart_cb *uart, const uint8_t *resp, int type)
+static int send_response_to_uart(uart_cb *uart, uint8_t *resp, int type, uint32_t reqd_resp_len)
 {
     uint32_t bridge_chksum = 0;
     uint32_t msglen;
     int index;
     uint32_t payloadlen;
     uart_header *uart_hdr;
-    SDIOPkt *sdio = (SDIOPkt *)resp;
+	int iface_len = 0;
 
-    int iface_len;
+#if defined(RW610_SERIES) || defined(RW612_SERIES)
+    IMUPkt *imupkt = (IMUPkt *)resp;
 
     if (type == 2)
-        /* This is because, the last byte of the sdio header
+        /* This is because, the last byte of the imupkt header
          * (packet type) is also requried by the labtool, to
          * understand the type of packet and take appropriate action */
         iface_len = INTF_HEADER_LEN - 1;
     else
         iface_len = INTF_HEADER_LEN;
-
-    payloadlen = sdio->size - iface_len;
+    payloadlen = imupkt->size - iface_len;
+#else
+    payloadlen = reqd_resp_len;
+#endif
     memset(rx_buf, 0, BUF_LEN);
     memcpy(rx_buf + sizeof(uart_header) + sizeof(cmd_header), resp + iface_len, payloadlen);
 
@@ -462,7 +470,7 @@ int rpmsg_raw_packet_send(uint8_t *buf, int m_len, uint8_t t_type)
 
     return t_type;
 }
-#elif defined(MIMXRT1176_cm7_SERIES)
+#else
 int bt_raw_packet_send(uint8_t *buf, int m_len)
 {
     uint32_t payloadlen;
@@ -483,6 +491,7 @@ int bt_raw_packet_send(uint8_t *buf, int m_len)
     return RET_TYPE_BT;
 }
 
+#if defined(MIMXRT1176_cm7_SERIES)
 int zigbee_raw_packet_send(uint8_t *buf, int m_len)
 {
     uint32_t payloadlen;
@@ -509,6 +518,8 @@ int zigbee_raw_packet_send(uint8_t *buf, int m_len)
     return RET_TYPE_ZIGBEE;
 }
 #endif
+#endif
+
 /*
  process_input_cmd() sends command to the wlan
  card
@@ -523,16 +534,20 @@ int process_input_cmd(uint8_t *buf, int m_len)
     if (cmd_hd->type == TYPE_WLAN)
     {
         memset(local_outbuf, 0, BUF_LEN);
-        sdiopkt = (SDIOPkt *)local_outbuf;
 
         uarthdr = (uart_header *)buf;
+#if defined(RW610_SERIES) || defined(RW612_SERIES)
+        IMUPkt *imupkt = (IMUPkt *)local_outbuf;
+		/* imupkt = local_outbuf */
+        imupkt->pkttype = SDIOPKTTYPE_CMD;
 
-        /* sdiopkt = local_outbuf */
-        sdiopkt->pkttype = SDIOPKTTYPE_CMD;
-
-        sdiopkt->size = m_len - sizeof(cmd_header) + INTF_HEADER_LEN;
+        imupkt->size = m_len - sizeof(cmd_header) + INTF_HEADER_LEN;
         d             = (uint8_t *)local_outbuf + INTF_HEADER_LEN;
         s             = (uint8_t *)buf + sizeof(uart_header) + sizeof(cmd_header);
+#else
+        d = (uint8_t *)local_outbuf;
+        s = (uint8_t *)buf + sizeof(uart_header) + sizeof(cmd_header);
+#endif
 
         for (i = 0; i < uarthdr->length - sizeof(cmd_header); i++)
         {
@@ -544,7 +559,6 @@ int process_input_cmd(uint8_t *buf, int m_len)
                 *d++ = *s++;
             }
         }
-
         d = (uint8_t *)&last_cmd_hdr;
         s = (uint8_t *)buf + sizeof(uart_header);
 
@@ -560,8 +574,6 @@ int process_input_cmd(uint8_t *buf, int m_len)
         }
 #if defined(RW610_SERIES) || defined(RW612_SERIES)
         wifi_send_imu_raw_data(local_outbuf, (m_len - sizeof(cmd_header) + INTF_HEADER_LEN));
-#else
-        wifi_raw_packet_send(local_outbuf, BUF_LEN);
 #endif
         ret = RET_TYPE_WLAN;
     }
@@ -569,7 +581,7 @@ int process_input_cmd(uint8_t *buf, int m_len)
     {
 #if defined(RW610_SERIES) || defined(RW612_SERIES)
         ret = rpmsg_raw_packet_send(buf, m_len, RET_TYPE_BT);
-#elif defined(MIMXRT1176_cm7_SERIES)
+#else
         ret = bt_raw_packet_send(buf, m_len);
 #endif
     }
@@ -624,7 +636,7 @@ void send_rpmsg_response_to_uart(uint8_t *resp, int msg_len)
     USART_RTOS_Send(&handle, rx_buf, payloadlen + sizeof(cmd_header) + sizeof(uart_header) + 4);
     memset(rx_buf, 0, BUF_LEN);
 }
-#elif defined(MIMXRT1176_cm7_SERIES)
+#else
 void send_bt_response_to_uart(uart_cb *uart_bt, int msg_len)
 {
     uint32_t bridge_chksum = 0;
@@ -665,6 +677,7 @@ void send_bt_response_to_uart(uart_cb *uart_bt, int msg_len)
     memset(rx_buf, 0, BUF_LEN);
 }
 
+#if defined(MIMXRT1176_cm7_SERIES)
 void send_zigbee_response_to_uart(uint8_t *rxData, uint32_t payloadlen)
 {
     uint32_t bridge_chksum = 0;
@@ -702,6 +715,7 @@ void send_zigbee_response_to_uart(uint8_t *rxData, uint32_t payloadlen)
     memset(rx_buf, 0, BUF_LEN);
 }
 #endif
+#endif
 
 /*
  read_wlan_resp() handles the responses from the wlan card.
@@ -718,7 +732,7 @@ hal_rpmsg_status_t read_wlan_resp(IMU_Msg_t *pImuMsg, uint32_t len)
 
     uart_cb *uart = &uartcb;
 
-    send_response_to_uart(uart, (uint8_t *)(pImuMsg->PayloadPtr[0]), 1);
+    send_response_to_uart(uart, (uint8_t *)(pImuMsg->PayloadPtr[0]), 1, len);
 
     return kStatus_HAL_RpmsgSuccess;
 }
@@ -735,19 +749,19 @@ hal_rpmsg_return_status_t read_rpmsg_resp(void *param, uint8_t *packet, uint32_t
 #else
 void read_wlan_resp()
 {
-    uart_cb *uart = &uartcb;
-    uint8_t *packet;
-    uint32_t pkt_type;
+    // uart_cb *uart = &uartcb;
+    t_u8 *packet;
+    t_u32 pkt_type;
     int rv = wifi_raw_packet_recv(&packet, &pkt_type);
     if (rv != WM_SUCCESS)
         PRINTF("Receive response failed\r\n");
     else
     {
-        if (pkt_type == MLAN_TYPE_CMD)
-            send_response_to_uart(uart, packet, 1);
+        //        if (pkt_type == MLAN_TYPE_CMD)
+        //            send_response_to_uart(uart, packet, 1);
     }
 }
-#if defined(MIMXRT1176_cm7_SERIES)
+
 void read_bt_resp()
 {
     uart_cb *uart_bt = &uartcb_bt;
@@ -791,6 +805,7 @@ void read_bt_resp()
     memset(uart_bt->uart_buf, 0, sizeof(uart_bt->uart_buf));
 }
 
+#if defined(MIMXRT1176_cm7_SERIES)
 void read_zigbee_resp()
 {
     handle_spi.txData   = NULL;
@@ -965,7 +980,7 @@ void task_main(void *param)
 #endif
 
 #if !defined(RW610_SERIES) && !defined(RW612_SERIES)
-    result = sd_wifi_init(WLAN_TYPE_FCC_CERTIFICATION, WLAN_FW_IN_RAM, wlan_fw_bin, wlan_fw_bin_len);
+    result = wifi_init_fcc(wlan_fw_bin, wlan_fw_bin_len);
 
     if (result != 0)
     {
@@ -981,11 +996,6 @@ void task_main(void *param)
             case MLAN_STATUS_FW_NOT_DETECTED:
                 result = -WIFI_ERROR_FW_NOT_DETECTED;
                 break;
-#ifdef CONFIG_XZ_DECOMPRESSION
-            case MLAN_STATUS_FW_XZ_FAILED:
-                result = -WIFI_ERROR_FW_XZ_FAILED;
-                break;
-#endif /* CONFIG_XZ_DECOMPRESSION */
             case MLAN_STATUS_FW_NOT_READY:
                 result = -WIFI_ERROR_FW_NOT_READY;
                 break;
@@ -1007,7 +1017,11 @@ void task_main(void *param)
     }
 #else
     NVIC_SetPriority(LPUART1_IRQn, 5);
+#if defined(MIMXRT1176_cm7_SERIES)
     NVIC_SetPriority(LPUART7_IRQn, HAL_UART_ISR_PRIORITY);
+#else
+    NVIC_SetPriority(LPUART3_IRQn, HAL_UART_ISR_PRIORITY);
+#endif
 
     lpuart_config.srcclk = DEMO_LPUART_CLK_FREQ;
     lpuart_config.base   = DEMO_LPUART;
@@ -1017,25 +1031,18 @@ void task_main(void *param)
         vTaskSuspend(NULL);
     }
 
-#if defined(MIMXRT1176_cm7_SERIES)
     lpuart_config_bt.srcclk = BOARD_BT_UART_CLK_FREQ;
+#if defined(MIMXRT1176_cm7_SERIES)
     lpuart_config_bt.base   = LPUART7;
+#else
+    lpuart_config_bt.base = LPUART3;
+#endif
 
     if (kStatus_Success != LPUART_RTOS_Init(&handle_bt, &t_handle_bt, &lpuart_config_bt))
     {
         vTaskSuspend(NULL);
     }
 #endif
-#endif
-
-    local_outbuf = pvPortMalloc(SDIO_OUTBUF_LEN);
-
-    if (local_outbuf == NULL)
-    {
-        PRINTF("Failed to allocate buffer\r\n");
-        return;
-    }
-    rx_buf = pvPortMalloc(BUF_LEN);
 
 #if defined(MIMXRT1176_cm7_SERIES)
     LPSPI_MasterGetDefaultConfig(&spiConfig);
@@ -1139,19 +1146,26 @@ void task_main(void *param)
                stripping off uart header */
             int ret = process_input_cmd(uart->uart_buf, msg_len + 8);
             memset(uart->uart_buf, 0, sizeof(uart->uart_buf));
-
+            memset(host_resp_buf, 0x00, BUF_LEN);
 #if defined(RW610_SERIES) || defined(RW612_SERIES)
             UNUSED(ret);
 #else
             if (ret == RET_TYPE_WLAN)
             {
-                read_wlan_resp();
+                vTaskDelay(pdMS_TO_TICKS(60));
+                int rv = wlan_send_hostcmd(local_outbuf, BUF_LEN, host_resp_buf, BUF_LEN, &reqd_resp_len);
+                if (rv != WM_SUCCESS)
+                    PRINTF("Receive response failed\r\n");
+                else
+                {
+                    send_response_to_uart(uart, host_resp_buf, RET_TYPE_WLAN, reqd_resp_len);
+                }
             }
-#if defined(MIMXRT1176_cm7_SERIES)
             else if (ret == RET_TYPE_BT)
             {
                 read_bt_resp();
             }
+#if defined(MIMXRT1176_cm7_SERIES)
             else if (ret == RET_TYPE_ZIGBEE)
             {
                 read_zigbee_resp();
@@ -1178,8 +1192,8 @@ int main(void)
     BOARD_ConfigMPU();
     BOARD_InitPins();
     BOARD_InitBootClocks();
-    BOARD_InitDebugConsole();
     BOARD_InitBTUARTPins();
+    BOARD_InitDebugConsole();
     BOARD_InitSpiPins();
 #else
     extern void BOARD_InitHardware(void);

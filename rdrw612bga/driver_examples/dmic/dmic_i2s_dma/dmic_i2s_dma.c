@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "pin_mux.h"
+#include "clock_config.h"
 #include "board.h"
 #include "fsl_debug_console.h"
 #include "fsl_device_registers.h"
@@ -31,13 +32,13 @@
 
 #define DEMO_DMA               (DMA0)
 #define DEMO_DMIC_RX_CHANNEL   DMAREQ_DMIC0
-#define DEMO_DMIC_RX_CHANNEL_1 17
+#define DEMO_DMIC_RX_CHANNEL_1 18
 #define DEMO_I2S_TX_CHANNEL    (3)
 #define DEMO_I2S_TX_MODE       kI2S_MasterSlaveNormalMaster
 
 #define DEMO_DMIC_CHANNEL          kDMIC_Channel0
-#define DEMO_DMIC_CHANNEL_1        kDMIC_Channel1
-#define DEMO_DMIC_CHANNEL_1_ENABLE DMIC_CHANEN_EN_CH1(1)
+#define DEMO_DMIC_CHANNEL_1        kDMIC_Channel2
+#define DEMO_DMIC_CHANNEL_1_ENABLE DMIC_CHANEN_EN_CH2(1)
 #define DEMO_DMIC_CHANNEL_ENABLE   DMIC_CHANEN_EN_CH0(1)
 #define DEMO_AUDIO_BIT_WIDTH       (16)
 #define DEMO_AUDIO_SAMPLE_RATE     (48000)

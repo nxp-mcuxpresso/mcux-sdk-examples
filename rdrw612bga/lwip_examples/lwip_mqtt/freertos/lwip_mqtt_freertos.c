@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2022 NXP
+ * Copyright 2016-2023 NXP
  * All rights reserved.
  *
  *
@@ -11,6 +11,7 @@
  * Includes
  ******************************************************************************/
 #include "pin_mux.h"
+#include "clock_config.h"
 #include "board.h"
 #include "fsl_silicon_id.h"
 #include "fsl_phy.h"
@@ -22,9 +23,9 @@
 #include "lwip/netifapi.h"
 #include "ethernetif.h"
 
-#include "fsl_phyksz8081.h"
 #include "fsl_enet.h"
 #include "fsl_reset.h"
+#include "fsl_phyksz8081.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -153,14 +154,15 @@ static void stack_init(void *arg)
         .phyOps      = EXAMPLE_PHY_OPS,
         .phyResource = EXAMPLE_PHY_RESOURCE,
         .srcClockHz  = EXAMPLE_CLOCK_FREQ,
+#ifdef configMAC_ADDR
+        .macAddress = configMAC_ADDR,
+#endif
     };
 
     LWIP_UNUSED_ARG(arg);
 
     /* Set MAC address. */
-#ifdef configMAC_ADDR
-    enet_config.macAddress = configMAC_ADDR,
-#else
+#ifndef configMAC_ADDR
     (void)SILICONID_ConvertToMacAddr(&enet_config.macAddress);
 #endif
 
@@ -204,8 +206,7 @@ int main(void)
     BOARD_InitDebugConsole();
     BOARD_InitModuleClock();
 
-    RESET_PeripheralReset(kENET_IPG_RST_SHIFT_RSTn);
-    RESET_PeripheralReset(kENET_IPG_S_RST_SHIFT_RSTn);
+    ENET_ResetHareware();
 
     GPIO_PortInit(GPIO, 0U);
     GPIO_PortInit(GPIO, 1U);

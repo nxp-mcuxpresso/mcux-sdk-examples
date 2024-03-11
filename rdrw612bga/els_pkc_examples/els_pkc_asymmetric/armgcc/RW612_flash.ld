@@ -1,21 +1,19 @@
 /*
 ** ###################################################################
-**     Processors:          RW612ETA1I
-**                          RW612HNA1I
-**                          RW612UKA1I
+**     Processors:          RW612ETA2I
+**                          RW612HNA2I
+**                          RW612UKA2I
 **
 **     Compiler:            GNU C Compiler
 **     Reference manual:    RW61X User manual Rev. 0.95, June 2022
 **     Version:             rev. 1.0, 2021-03-16
-**     Build:               b221116
+**     Build:               b231201
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2022 NXP
-**     All rights reserved.
-**
+**     Copyright 2016-2023 NXP
 **     SPDX-License-Identifier: BSD-3-Clause
 **
 **     http:                 www.nxp.com
@@ -29,7 +27,7 @@
 /* Entry Point */
 ENTRY(Reset_Handler)
 
-HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x2000;
+HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x0400;
 STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x1000;
 M_VECTOR_RAM_SIZE = DEFINED(__ram_vector_table__) ? 0x00000280 : 0;
 
@@ -195,7 +193,7 @@ SECTIONS
   {
     . = ALIGN(4);
     __ram_function_start__ = .;
-    /* RAM function sections */ 
+    /* RAM function sections */
     . = ALIGN(4);
     __ram_function_end__ = .;
   } > m_data

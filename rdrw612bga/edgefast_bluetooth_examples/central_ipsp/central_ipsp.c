@@ -19,7 +19,7 @@
 #define MSG_LEN             5
 
 NET_BUF_POOL_DEFINE(buf_pool, 1, MSG_LEN, USER_DATA_MIN, NULL);
-uint8_t message[MSG_LEN] = {'h','e','l','l','o'};
+static uint8_t s_Msg[MSG_LEN] = {'h','e','l','l','o'};
 
 static void bt_ready(int err);
 static int scan_start(void);
@@ -276,19 +276,20 @@ static uint8_t discover_func(struct bt_conn *conn,
 
 static void bt_ready(int err)
 {
-	if (err) {
-		PRINTF("Bluetooth init failed (err %d)\n", err);
-		return;
-	}
-
-	if (IS_ENABLED(CONFIG_BT_SETTINGS)) 
-    {
-        settings_load();
+    if (err) {
+        PRINTF("Bluetooth init failed (err %d)\n", err);
+        return;
     }
+
+#if (defined(CONFIG_BT_SETTINGS) && (CONFIG_BT_SETTINGS > 0))
+        settings_load();
+#endif /* CONFIG_BT_SETTINGS */
+
     PRINTF("Bluetooth initialized\n");
 
     /* Register connection callbacks */
-	bt_conn_cb_register(&conn_callbacks);
+    bt_conn_cb_register(&conn_callbacks);
+
 #if CONFIG_BT_SMP
     bt_conn_auth_cb_register(&auth_cb_display);
 #endif
@@ -330,7 +331,7 @@ void central_ipsp_task(void *pvParameters)
         buf = net_buf_alloc(&buf_pool, osaWaitNone_c);
         if (NULL != buf)
         {
-            net_buf_add_mem(buf, message, MSG_LEN);
+            net_buf_add_mem(buf, s_Msg, MSG_LEN);
             err = ipsp_send(buf);
             if (err)
             {
