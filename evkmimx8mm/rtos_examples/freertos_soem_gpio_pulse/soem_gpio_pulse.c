@@ -33,6 +33,7 @@
 #include "ethercatprint.h"
 #include "enet/soem_enet.h"
 #include "soem_port.h"
+#include "enet/enet.h"
 #include "FreeRTOS.h"
 
 phy_ar8031_resource_t g_phy_resource;
@@ -236,6 +237,7 @@ struct enet_if_port if_port;
 
 int if_port_init()
 {
+	struct soem_if_port soem_port;
     memset(&if_port, 0, sizeof(if_port));
     if_port.bufferConfig = buffConfig;
     if_port.base =  OSEM_PORT;
@@ -257,7 +259,16 @@ int if_port_init()
     if_port.srcClock_Hz = ENET_CLOCK_FREQ;
     if_port.phy_autonego_timeout_count = PHY_AUTONEGO_TIMEOUT_COUNT;
     if_port.phy_stability_delay_us = PHY_STABILITY_DELAY_US;
-    return register_soem_port(OSEM_PORT_NAME, "enet", &if_port);
+
+    soem_port.port_init = enet_init;
+    soem_port.port_send = enet_send;
+    soem_port.port_recv = enet_recv;
+    soem_port.port_link_status = enet_link_status;
+    soem_port.port_close = enet_close;
+    strncpy(soem_port.ifname, OSEM_PORT_NAME, SOEM_IF_NAME_MAXLEN);
+    strncpy(soem_port.dev_name, "enet", SOEM_DEV_NAME_MAXLEN);
+    soem_port.port_pri = &if_port;
+    return register_soem_port(&soem_port);
 }
 
 unsigned int time_trans = 0;
