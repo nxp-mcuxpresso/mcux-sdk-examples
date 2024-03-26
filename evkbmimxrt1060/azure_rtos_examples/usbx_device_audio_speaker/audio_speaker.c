@@ -158,7 +158,7 @@ void audio_speaker_board_setup(void)
     audioTxConfig.instance                       = DEMO_SAI_INSTANCE_INDEX;
     audioTxConfig.srcClock_Hz                    = DEMO_SAI_CLK_FREQ;
     audioTxConfig.sampleRate_Hz                  = (uint32_t)kHAL_AudioSampleRate48KHz;
-    audioTxConfig.msaterSlave                    = kHAL_AudioMaster;
+    audioTxConfig.masterSlave                    = kHAL_AudioMaster;
     audioTxConfig.bclkPolarity                   = kHAL_AudioSampleOnRisingEdge;
     audioTxConfig.frameSyncWidth                 = kHAL_AudioFrameSyncWidthHalfFrame;
     audioTxConfig.frameSyncPolarity              = kHAL_AudioBeginAtFallingEdge;

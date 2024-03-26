@@ -181,7 +181,7 @@ hal_audio_config_t audioTxConfig = {
 //    .fifoWatermark     = FSL_FEATURE_SAI_FIFO_COUNTn(DEMO_SAI) / 2U,
     /* Here we use this config to use 4bytes align, otherwise will trigger 32bytes align assert. */
     .fifoWatermark     = FSL_FEATURE_SAI_FIFO_COUNTn(DEMO_SAI) - 2,
-    .msaterSlave       = kHAL_AudioMaster,
+    .masterSlave       = kHAL_AudioMaster,
     .bclkPolarity      = kHAL_AudioSampleOnRisingEdge,
     .frameSyncWidth    = kHAL_AudioFrameSyncWidthHalfFrame,
     .frameSyncPolarity = kHAL_AudioBeginAtRisingEdge,
