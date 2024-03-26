@@ -2924,7 +2924,7 @@ void main(void)
     audioTxConfig.instance                       = DEMO_SAI_INSTANCE_INDEX;
     audioTxConfig.srcClock_Hz                    = DEMO_AUDIO_SAI_MASTER_CLOCK;
     audioTxConfig.sampleRate_Hz                  = (uint32_t)kHAL_AudioSampleRate48KHz;
-    audioTxConfig.msaterSlave                    = kHAL_AudioMaster;
+    audioTxConfig.masterSlave                    = kHAL_AudioMaster;
     audioTxConfig.bclkPolarity                   = kHAL_AudioSampleOnRisingEdge;
     audioTxConfig.frameSyncWidth                 = kHAL_AudioFrameSyncWidthHalfFrame;
     audioTxConfig.frameSyncPolarity              = kHAL_AudioBeginAtFallingEdge;
