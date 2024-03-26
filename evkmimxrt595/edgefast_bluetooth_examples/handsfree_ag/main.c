@@ -152,7 +152,7 @@ hal_audio_config_t txSpeakerConfig = {
     .sampleRate_Hz     = (uint32_t)kHAL_AudioSampleRate8KHz,
     .frameLength       = 32,
     .fifoWatermark     = 0,
-    .msaterSlave       = kHAL_AudioSlave,
+    .masterSlave       = kHAL_AudioSlave,
     .bclkPolarity      = kHAL_AudioSampleOnRisingEdge,
     .frameSyncWidth    = kHAL_AudioFrameSyncWidthHalfFrame,
     .frameSyncPolarity = kHAL_AudioBeginAtRisingEdge,
@@ -179,7 +179,7 @@ hal_audio_config_t rxMicConfig = {
     .sampleRate_Hz     = (uint32_t)kHAL_AudioSampleRate8KHz,
     .frameLength       = 32,
     .fifoWatermark     = 0,
-    .msaterSlave       = kHAL_AudioSlave,
+    .masterSlave       = kHAL_AudioSlave,
     .bclkPolarity      = kHAL_AudioSampleOnRisingEdge,
     .frameSyncWidth    = kHAL_AudioFrameSyncWidthHalfFrame,
     .frameSyncPolarity = kHAL_AudioBeginAtRisingEdge,
@@ -211,7 +211,7 @@ hal_audio_config_t txMicConfig = {
 #else
 #endif
     .fifoWatermark     = 0,
-    .msaterSlave       = kHAL_AudioSlave,
+    .masterSlave       = kHAL_AudioSlave,
     .bclkPolarity      = kHAL_AudioSampleOnFallingEdge,
     .frameSyncWidth    = kHAL_AudioFrameSyncWidthOneBitClk,
     .frameSyncPolarity = kHAL_AudioBeginAtRisingEdge,
@@ -243,7 +243,7 @@ hal_audio_config_t rxSpeakerConfig = {
 #else
 #endif
     .fifoWatermark     = 0,
-    .msaterSlave       = kHAL_AudioSlave,
+    .masterSlave       = kHAL_AudioSlave,
     .bclkPolarity      = kHAL_AudioSampleOnFallingEdge,
     .frameSyncWidth    = kHAL_AudioFrameSyncWidthOneBitClk,
     .frameSyncPolarity = kHAL_AudioBeginAtRisingEdge,

@@ -2439,7 +2439,7 @@ void main(void)
     audioTxConfig.instance          = DEMO_I2S_TX_INSTANCE_INDEX;
     audioTxConfig.srcClock_Hz       = 24576000;
     audioTxConfig.sampleRate_Hz     = 48000;
-    audioTxConfig.msaterSlave       = kHAL_AudioMaster;
+    audioTxConfig.masterSlave       = kHAL_AudioMaster;
     audioTxConfig.bclkPolarity      = kHAL_AudioSampleOnRisingEdge;
     audioTxConfig.frameSyncPolarity = kHAL_AudioBeginAtFallingEdge;
     audioTxConfig.frameSyncWidth    = kHAL_AudioFrameSyncWidthHalfFrame;

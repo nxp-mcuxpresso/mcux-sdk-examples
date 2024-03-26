@@ -793,7 +793,7 @@ void main(void)
     audioTxConfig.instance                       = DEMO_SAI_INSTANCE_INDEX;
     audioTxConfig.srcClock_Hz                    = DEMO_SAI_CLK_FREQ;
     audioTxConfig.sampleRate_Hz                  = (uint32_t)kHAL_AudioSampleRate48KHz;
-    audioTxConfig.msaterSlave                    = kHAL_AudioMaster;
+    audioTxConfig.masterSlave                    = kHAL_AudioMaster;
     audioTxConfig.bclkPolarity                   = kHAL_AudioSampleOnRisingEdge;
     audioTxConfig.frameSyncWidth                 = kHAL_AudioFrameSyncWidthHalfFrame;
     audioTxConfig.frameSyncPolarity              = kHAL_AudioBeginAtFallingEdge;
@@ -816,7 +816,7 @@ void main(void)
     audioRxConfig.instance                       = DEMO_SAI_INSTANCE_INDEX;
     audioRxConfig.srcClock_Hz                    = DEMO_SAI_CLK_FREQ;
     audioRxConfig.sampleRate_Hz                  = (uint32_t)kHAL_AudioSampleRate48KHz;
-    audioRxConfig.msaterSlave                    = kHAL_AudioMaster;
+    audioRxConfig.masterSlave                    = kHAL_AudioMaster;
     audioRxConfig.bclkPolarity                   = kHAL_AudioSampleOnRisingEdge;
     audioRxConfig.frameSyncWidth                 = kHAL_AudioFrameSyncWidthHalfFrame;
     audioRxConfig.frameSyncPolarity              = kHAL_AudioBeginAtFallingEdge;
